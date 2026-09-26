@@ -1,0 +1,1024 @@
+{
+ "DATASET": "ENSAIO-MICRO-PROVA-LOTE1",
+ "REDE_REAL": 0,
+ "PEDIDOS_AO_SERVIDOR_LOCAL": 242,
+ "HOSTS_PEDIDOS": [
+  "consultazioni.masaf.gov.it",
+  "enteca.isprambiente.it",
+  "www.agricultura.it",
+  "www.agrifoodmonitor.it",
+  "www.agrifoodtoday.it",
+  "www.agriligurianet.it",
+  "www.agrinsieme.it",
+  "www.banchedati.ambienteinliguria.it",
+  "www.ciaabruzzo.it",
+  "www.ciamarche.org",
+  "www.ciaveneto.it",
+  "www.fieravicola.com",
+  "www.ilfattoalimentare.it",
+  "www.ilnuovoagricoltore.it",
+  "www.interpoma.it",
+  "www.italiacooperativa.it",
+  "www.mangimiealimenti.it",
+  "www.pagepressjournals.org",
+  "www.peritiagrari.it",
+  "www.pescagricia.it",
+  "www.sian.it",
+  "www.terremerse.it",
+  "www.tesaf.unipd.it",
+  "www.uiv.it",
+  "www.winemonitor.it"
+ ],
+ "APLICAR": {
+  "ENTRAM": [
+   "CAND-1042",
+   "CAND-1056",
+   "CAND-0945",
+   "CAND-0673",
+   "CAND-0857",
+   "CAND-0743",
+   "CAND-1058",
+   "CAND-1059",
+   "CAND-0051",
+   "CAND-0057",
+   "CAND-0058",
+   "CAND-0619",
+   "CAND-0586",
+   "CAND-0595",
+   "CAND-0588",
+   "CAND-0168",
+   "CAND-0151",
+   "CAND-1153",
+   "CAND-0602",
+   "CAND-0556",
+   "CAND-0176",
+   "CAND-0144"
+  ],
+  "FICAM": []
+ },
+ "QUALIFY_REABERTAS": 212,
+ "PASSOS_DO_WORKER": 89,
+ "POR_FIM": {
+  "PRONTA": 21,
+  "NAO": 4
+ },
+ "POR_DESENHO_E_FIM": {
+  "BOM -> PRONTA": 21,
+  "HTTP_403 -> NAO": 1,
+  "BOM -> NAO": 1,
+  "CASCA_JS -> NAO": 2
+ },
+ "CANDIDATAS": [
+  {
+   "CANDIDATA_ID": "CAND-1042",
+   "NOME": "Italian Journal of Food Safety — PAGEPress",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T5",
+   "SOURCE_ID": "IT-T5-191",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1056",
+   "NOME": "TESAF — Territorio e Sistemi Agro-Forestali, Univ. Padova — Eventi",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T5",
+   "SOURCE_ID": "IT-T5-192",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0010",
+   "NOME": "SIAN — Sistema Informativo Agricolo Nazionale",
+   "DESENHO": "HTTP_403",
+   "PROVA_COMPLETA": false,
+   "PEDIDOS_DA_PROVA": 2,
+   "PROVA_PAROU": "entrada nao abriu: HTTP 403",
+   "SOURCE_ID": null,
+   "ESTADO": "SEM_SOURCE_ID (QUALIFY nao passou)",
+   "NO_COLETOR": false,
+   "ENTRARIA_NA_COORTE": false,
+   "FICA_PORQUE": null,
+   "FIM": "NAO"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0945",
+   "NOME": "Agriligurianet",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T2",
+   "SOURCE_ID": "IT-T2-166",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0673",
+   "NOME": "consultazioni.masaf.gov.it",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T4",
+   "SOURCE_ID": "IT-T4-002",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0857",
+   "NOME": "Enteca",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T5",
+   "SOURCE_ID": "IT-T5-190",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0743",
+   "NOME": "Dati Ambientali",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T2",
+   "SOURCE_ID": "IT-T2-165",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1058",
+   "NOME": "Agricultura.it",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T8",
+   "SOURCE_ID": "IT-T8-074",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1059",
+   "NOME": "Il Nuovo Agricoltore",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T8",
+   "SOURCE_ID": "IT-T8-075",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0051",
+   "NOME": "Agrifoodtoday",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T8",
+   "SOURCE_ID": "IT-T8-071",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0057",
+   "NOME": "Il Fatto Alimentare",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T8",
+   "SOURCE_ID": "IT-T8-072",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0058",
+   "NOME": "Mangimi & Alimenti",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T8",
+   "SOURCE_ID": "IT-T8-073",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0619",
+   "NOME": "agrinsieme.it",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T7",
+   "SOURCE_ID": "IT-T7-259",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0586",
+   "NOME": "Abruzzo",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T7",
+   "SOURCE_ID": "IT-T7-255",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0595",
+   "NOME": "Veneto",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T7",
+   "SOURCE_ID": "IT-T7-258",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0588",
+   "NOME": "Marche",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T7",
+   "SOURCE_ID": "IT-T7-256",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0168",
+   "NOME": "Unione Italiana Vini",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T7",
+   "SOURCE_ID": "IT-T7-253",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0151",
+   "NOME": "Terremerse",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T1",
+   "SOURCE_ID": "IT-T1-026",
+   "ESTADO": "CAPABILITY_BLOCK",
+   "PORTAO": "ESTADO_NAO_READY",
+   "NO_COLETOR": false,
+   "ENTRARIA_NA_COORTE": false,
+   "FICA_PORQUE": null,
+   "FIM": "NAO"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1153",
+   "NOME": "Periti Agrari — Comunicati Stampa",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T7",
+   "SOURCE_ID": "IT-T7-260",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0487",
+   "NOME": "Agrifood Monitor",
+   "DESENHO": "CASCA_JS",
+   "PROVA_COMPLETA": false,
+   "PEDIDOS_DA_PROVA": 2,
+   "PROVA_PAROU": "prova incompleta: 1 institucional, 0 conteudo (faltam paginas distintas)",
+   "SOURCE_ID": null,
+   "ESTADO": "SEM_SOURCE_ID (QUALIFY nao passou)",
+   "NO_COLETOR": false,
+   "ENTRARIA_NA_COORTE": false,
+   "FICA_PORQUE": null,
+   "FIM": "NAO"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0486",
+   "NOME": "Wine Monitor",
+   "DESENHO": "CASCA_JS",
+   "PROVA_COMPLETA": false,
+   "PEDIDOS_DA_PROVA": 2,
+   "PROVA_PAROU": "prova incompleta: 1 institucional, 0 conteudo (faltam paginas distintas)",
+   "SOURCE_ID": null,
+   "ESTADO": "SEM_SOURCE_ID (QUALIFY nao passou)",
+   "NO_COLETOR": false,
+   "ENTRARIA_NA_COORTE": false,
+   "FICA_PORQUE": null,
+   "FIM": "NAO"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0602",
+   "NOME": "PescAgri",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T7",
+   "SOURCE_ID": "IT-T7-257",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0556",
+   "NOME": "italiacooperativa.it",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T7",
+   "SOURCE_ID": "IT-T7-254",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0176",
+   "NOME": "Interpoma",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T11",
+   "SOURCE_ID": "IT-T11-015",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0144",
+   "NOME": "Fieravicola",
+   "DESENHO": "BOM",
+   "PROVA_COMPLETA": true,
+   "PEDIDOS_DA_PROVA": 5,
+   "PROVA_PAROU": null,
+   "DECISAO_NO_CANAL": "T11",
+   "SOURCE_ID": "IT-T11-014",
+   "ESTADO": "READY_FOR_COLLECTION",
+   "PORTAO": "ELIGIBLE",
+   "ROTA_DO_COLETOR": "ROUTE_PROVEN",
+   "NO_COLETOR": true,
+   "ENTRARIA_NA_COORTE": true,
+   "FICA_PORQUE": null,
+   "FIM": "PRONTA"
+  }
+ ],
+ "PASSOS": [
+  {
+   "SOURCE_ID": "CAND-0010",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "territorio indeterminado pelo nome (SIAN — Sistema Informativo Agricolo Nazionale) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/hu"
+  },
+  {
+   "SOURCE_ID": "CAND-0051",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0051 -> IT-T8-071 (T8)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-071",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-071",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-071",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0057",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0057 -> IT-T8-072 (T8)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-072",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-072",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-072",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0144",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0144 -> IT-T11-014 (T11)"
+  },
+  {
+   "SOURCE_ID": "IT-T11-014",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T11-014",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T11-014",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0176",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0176 -> IT-T11-015 (T11)"
+  },
+  {
+   "SOURCE_ID": "IT-T11-015",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T11-015",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T11-015",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0168",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0168 -> IT-T7-253 (T7)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-253",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-253",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-253",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0487",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "territorio indeterminado pelo nome (Agrifood Monitor) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/humano) ou caracterizacao · dec"
+  },
+  {
+   "SOURCE_ID": "CAND-0486",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "territorio indeterminado pelo nome (Wine Monitor) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/humano) ou caracterizacao · decisao"
+  },
+  {
+   "SOURCE_ID": "CAND-0556",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0556 -> IT-T7-254 (T7)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-254",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-254",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-254",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0673",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0673 -> IT-T4-002 (T4)"
+  },
+  {
+   "SOURCE_ID": "IT-T4-002",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T4-002",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T4-002",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0586",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0586 -> IT-T7-255 (T7)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-255",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-255",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-255",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0743",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0743 -> IT-T2-165 (T2)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-165",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-165",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-165",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0588",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0588 -> IT-T7-256 (T7)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-256",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-256",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-256",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0602",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0602 -> IT-T7-257 (T7)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-257",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-257",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-257",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0595",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0595 -> IT-T7-258 (T7)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-258",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-258",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-258",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0619",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0619 -> IT-T7-259 (T7)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-259",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-259",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-259",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0857",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0857 -> IT-T5-190 (T5)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-190",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-190",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-190",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0058",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0058 -> IT-T8-073 (T8)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-073",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-073",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-073",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-0151",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0151 -> IT-T1-026 (T1)"
+  },
+  {
+   "SOURCE_ID": "IT-T1-026",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "exige capacidade nova (SIM — ramo de indice) — o molde generico daria EMPTY_LIST garantido; dono: SCRAP ENGINEER"
+  },
+  {
+   "SOURCE_ID": "CAND-0945",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-0945 -> IT-T2-166 (T2)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-166",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-166",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-166",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-1042",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-1042 -> IT-T5-191 (T5)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-191",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-191",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-191",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-1056",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-1056 -> IT-T5-192 (T5)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-192",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-192",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-192",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-1058",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-1058 -> IT-T8-074 (T8)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-074",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-074",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-074",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-1059",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-1059 -> IT-T8-075 (T8)"
+  },
+  {
+   "SOURCE_ID": "IT-T8-075",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-075",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-075",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "CAND-1153",
+   "TASK_TYPE": "QUALIFY",
+   "RESULTADO": "OK",
+   "PORQUE": "qualificada: CAND-1153 -> IT-T7-260 (T7)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-260",
+   "TASK_TYPE": "BUILD_CONTRACT",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-260",
+   "TASK_TYPE": "VALIDATE_ROUTE",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-260",
+   "TASK_TYPE": "CANARY",
+   "RESULTADO": "OK",
+   "PORQUE": ""
+  }
+ ]
+}
