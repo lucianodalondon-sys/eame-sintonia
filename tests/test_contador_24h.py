@@ -94,6 +94,12 @@ class ARegra(Base):
         self.assertEqual(self.res()["ESTADO"], "UNKNOWN")
         self.assertEqual(self.livro.read_text(encoding="utf-8"), "{nao e json")
 
+    def test_json_valido_sem_reservas_e_unknown(self):
+        """Um livro que e JSON mas nao tem RESERVAS[] (outro formato, ficheiro trocado) NAO e vazio."""
+        self.livro.write_text('{"PEDIDOS_POR_DOMINIO": {"cia.it": 5}}', encoding="utf-8")
+        self.assertEqual(self.res()["ESTADO"], "UNKNOWN")
+        self.assertIsNone(R.gasto_24h("cia.it"))
+
     def test_trinco_preso_e_unknown(self):
         os.mkdir(str(self.livro) + ".trinco")
         velho = R.TRINCO_ESPERA_S
