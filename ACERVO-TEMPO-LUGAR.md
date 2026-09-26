@@ -221,7 +221,34 @@ no ensaio. **A Sala real não foi tocada.** Resultado em `scripts/reproc_acervo/
 sha256 da migração `f2179e12bfcb2a65232936d3818cb801a724e5e31d6d1c406d0250a4b075d56a`; do desfazer
 `420ea02f6bdd9498222e61572904638dc4aa6ddfe189dcbd19e565f85b47290a`.
 
-## 7. Plano (se a 034 for aprovada)
+## 6.2 D79 · a 034 é a LÁPIDE, e esta passa a 035 — ensaiadas juntas
+
+Decisão do coordenador (26/09 03:45): primeiro a lápide da retenção do YouTube, como **034**; depois esta TEMPO_LUGAR, como **035**.
+
+- **A lápide.** Estava como `033_a_lapide_da_retencao.sql` em 6 ramos (canais-pessoas, pessoas-agro, reparo-fontes, retencao-youtube,
+  youtube-canario, youtube-pronto): **as seis são o MESMO ficheiro** (blob `e4358c75`, commit `c80c4229`, 23/09). Entra como
+  `034_a_lapide_da_retencao.sql` com o **corpo inalterado** (só o número e uma nota), e ganha `supabase/desfazer/034_desfazer.sql`. O
+  desfazer **recusa-se** se houver lápides: cada uma é a prova do que foi apagado.
+  ⚠️ O escritor dela (`guarda/retencao_youtube_api.py`) e os testes estão só nos ramos do YouTube, não no vivo. A tabela entraria vazia.
+- **TEMPO_LUGAR:** `035_o_acervo_guarda_tempo_e_lugar_como_derivado.sql` + `035_desfazer.sql`.
+  ⚠️ O vivo `69b0e23f` (lote 1) trouxe o ficheiro antigo `034_o_acervo_guarda_tempo_e_lugar_como_derivado.sql`. A Sala real **não o
+  aplicou** (o livro-razão vai até 033, conferido por SELECT às 05:40). Este ramo, rebaseado sobre `69b0e23f`, renomeia-o para 035. **Não
+  corram a cadeia na Sala real com o vivo de hoje antes desta junção**, senão a TEMPO_LUGAR entra como 034.
+- **Ensaio das duas juntas** (26/09 06:54, cópia só-leitura da Sala de 05:40, Postgres descartável; `provas/migracoes_034_035_ensaio_copia.py`
+  → `scripts/reproc_acervo/ENSAIO-034-035-DESCARTAVEL.json`):
+
+| passo | resultado |
+|---|---|
+| cadeia | **034 = PASS, 035 = PASS**; as 32 anteriores `HASH=MATCH` |
+| validação | a tabela da lápide com as suas 8 travas; o vocabulário com `TEMPO_LUGAR`; livro-razão `034 APLICADA / 035 APLICADA`; **RAW e derivados iguais** (md5) |
+| lápide | uma válida entra; o mesmo `storage_path`, regra inventada, motivo inventado e rota `yt-dlp:public_audio` são **recusados** |
+| TEMPO_LUGAR | um derivado entra; a mesma régua e uma espécie inventada são **recusadas** |
+| desfazer 035 com um TEMPO_LUGAR | **recusa** («desfazer apagaria evidencia») |
+| desfazer 034 com uma lápide | **recusa** («apagaria a prova do que foi apagado») |
+| sem eles, desfazer 035 e depois 034 | ok; **o esquema volta igual ao da cópia**; RAW e derivados iguais |
+| cadeia outra vez | 034 = PASS, 035 = PASS |
+
+## 7. Plano (se a 035 for aprovada)
 
 1. Coordenador: escolher o número (034 ou outro), por causa da lápide da retenção.
 2. `backup_sala.cmd` → aplicar a migração pela cadeia → os SELECTs de validação do ensaio.

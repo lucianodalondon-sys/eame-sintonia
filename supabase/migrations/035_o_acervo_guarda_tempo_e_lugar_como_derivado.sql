@@ -1,5 +1,8 @@
 -- ═══════════════════════════════════════════════════════════════════════
--- 034 · O ACERVO GUARDA O TEMPO E O LUGAR COMO DERIVADO — PROPOSTA
+-- 035 · O ACERVO GUARDA O TEMPO E O LUGAR COMO DERIVADO — PROPOSTA
+--
+-- D79 (coordenador, 26/09 03:45): nasceu 034; passa a 035 porque a 034 é a LÁPIDE da retenção do
+-- YouTube (`034_a_lapide_da_retencao.sql`). Ensaiadas as duas juntas, numa cópia da Sala.
 --
 -- ACERVO-TEMPO-LUGAR (26/09/2026). ⚠️ PROPOSTA: a decisão de aplicar é do
 -- coordenador/dono. Testada só em Postgres DESCARTÁVEL (ver o relatório).
@@ -36,6 +39,6 @@ alter table public.derived_artifact add constraint derived_artifact_kind_check
                            'THUMBNAIL', 'FRAME', 'TABLE_EXTRACTION', 'TEMPO_LUGAR']));
 
 comment on constraint derived_artifact_kind_check on public.derived_artifact is
-  'Vocabulario fechado das especies de derivado. TEMPO_LUGAR (034): JSON com os quatro '
+  'Vocabulario fechado das especies de derivado. TEMPO_LUGAR (035): JSON com os quatro '
   'campos de tempo/lugar do contrato comum, cada um com a base, filho de um RAW; nunca '
   'o altera. UNKNOWN nao funde nem vira facto: NAO SEI fica NAO SEI com o porque.';
