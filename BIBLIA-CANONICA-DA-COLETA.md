@@ -2,7 +2,7 @@
 
 ```
 BIBLE_ID          SINTONIA-COLLECTION-BIBLE
-VERSION           V1.4
+VERSION           V1.5
 STATUS            CANONICAL
 EFFECTIVE_FROM    2026-09-07
 CURRENT_PROFILE   ITALY_PROFILE_V1
@@ -22,6 +22,7 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 | **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
 | **V1.4** | 2026-09-11 | **o retorno do executor entra na lei**: `COL-LAW-505` responde a pergunta que `COL-LAW-013` fez e nunca respondeu — «`OUTPUT` = onde larguei, e **em que forma**». Medido antes de escrita: `FALSE_HARVEST_TOTAL = 253` sobre os cinco executores canónicos | **105** (+1) |
+| **V1.5** | 2026-09-26 | **o campo e quem o diz** (D85 do dono + ALINHAMENTO COLLECTION → INTELLIGENCE): a série de monitorização que a fonte declara chega como veio, nunca resumida (`COL-LAW-701`); o claim pode levar a espécie que a fonte lhe deu — observação, previsão, modelo, recomendação, cenário, hipótese, `UNKNOWN` por omissão (`COL-LAW-702`, estende a 202); e a pessoa-fonte prova-se pela lista-mestra oficial + instituição + setor, e segue-se pela porta canónica, sem login (`COL-LAW-703`). Medido antes de escrita nos PDFs T3 do acervo (Salerno 4 → 40 capturas de *Ceratitis capitata*) e na lista MUR (278 docentes) | **108** (+3) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
@@ -2922,6 +2923,201 @@ ficha de catálogo) · `COL-LAW-207` (`DISCOVER` produz índice por natureza) ·
 heurística antiga, e nenhum executor foi adaptado. Ligar o runtime é outra missão.
 
 **ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+# PARTE XXI · O QUE O CAMPO DIZ, E QUEM O DIZ
+
+> **Emenda V1.5** (2026-09-26, D85 do dono + ALINHAMENTO COLLECTION → INTELLIGENCE). Três leis,
+> e nenhuma nasceu de gosto: as três vêm de **medir o que já estava guardado**. Os boletins T3
+> do acervo trazem contagens de armadilha por fazenda, percentagens de infestação e limiares
+> escritos — e a casa não tinha lei que dissesse «isto chega como veio». Trazem também
+> previsões, conselhos e modelos misturados com observação, e a COL-LAW-202 não tinha onde
+> marcar a diferença. E o dono pôs os **pesquisadores** na primeira linha das famílias de
+> fonte (D85), e a identidade de uma PESSOA não tinha lei própria.
+>
+> O que **já** era lei não foi reescrito, e está citado: tempo e lugar (COL-LAW-031/032),
+> artefato ≠ fato (201), o modelo de claim (202), a procedência até ao valor (203), o zero com
+> semântica (214), a identidade (034). A tabela «o que já existia → o que isto acrescenta» está
+> em `LEI-PESQUISADORES.md`.
+>
+> ```
+> NENHUMA DESTAS LEIS AUTORIZA OBRA.
+> EXTRAÇÃO DE CLAIM CONTINUA TARGET (COL-LAW-202).
+> ```
+
+## COL-LAW-701 · A SÉRIE QUE A FONTE DECLARA CHEGA COMO VEIO
+
+**REGRA.** Quando a fonte publica **valores de monitorização** — capturas por armadilha, por
+estação ou por semana; ovos, larvas, adultos; início e pico de voo; geração; percentagem de
+infestação; incidência; severidade; **limiar** técnico ou económico — a Collection **DEVE**
+preservar **cada valor como a fonte o escreveu**, com o que a fonte lhe pôs ao lado:
+
+```
+VALOR (tal e qual, «n. 40 catture», «5%»)  ·  UNIDADE como escrita
+LOCAL / ESTAÇÃO / ARMADILHA / AZIENDA       ·  DATA ou PERÍODO da linha
+ORGANISMO  ·  CULTURA  ·  FASE              ·  TRECHO (a linha, e onde está no documento)
+```
+
+A Collection **NÃO DEVE**:
+
+- **resumir** — «1, 4, 11, 29» **não é** «capturas a subir»;
+- calcular média, tendência ou variação, completar a semana que falta, ou interpolar;
+- dar nome a uma coluna cujo **cabeçalho não leu** — o valor fica com a coluna `NAO SEI`;
+- converter unidade sem guardar a original (COL-LAW-203);
+- apagar o zero: «n. 0 catture» é um **valor declarado**, e não é linha em falta nem `UNKNOWN`
+  (COL-LAW-214).
+
+**O limiar é declaração da fonte, não observação.** «Soglia: 4-5% di infestazione attiva» diz
+a partir de quando a fonte manda agir; não diz que a infestação chegou lá. Chega com a espécie
+que a fonte lhe deu (COL-LAW-702).
+
+```
+A TENDÊNCIA É DA INTELLIGENCE.
+A COLLECTION ENTREGA OS PONTOS, NÃO A CURVA.
+```
+
+**POR QUÊ.** Um resumo feito na entrada é uma interpretação sem dono e sem volta: o valor
+original some, e o erro do resumo vira permanente (a mesma razão da COL-LAW-203). E é nesta
+série que mora o **sinal precoce** — ele aparece nos números antes de aparecer no alerta.
+
+**MEDIDO** (26/09/2026, PDFs T3 já guardados no acervo, sem rede):
+
+```
+IT-T3-002  Salerno   rede por AZIENDA/LOCALITÀ, ~14 dias
+           Angri · agrumi · Ceratitis capitata   02/09 «n. 4 catture»  →  16/09 «n. 40 catture»
+           Angri · agrumi · Prays citri          02/09 «n. 0 catture»  →  16/09 «n. 0 catture»
+IT-T3-010  APOL Puglia  mosca dell'olivo por COMPRENSORIO, semanal
+           «7 · 1 · 5% · STAZIONARIO · BASSO» — o cabeçalho é IMAGEM: o que cada coluna mede = NAO SEI
+IT-T3-008  ARIF Puglia  limiares escritos («10 catture per trappola a settimana»)
+```
+
+> ⚠️ A primeira leitura escreveu «Prays citri 4 → 40». **Estava errado**: o salto é da
+> *Ceratitis capitata*, e a *Prays citri* ficou em 0. A lei existe para que um erro destes
+> seja **corrigível** — só é, porque a linha original ficou guardada.
+
+**LIGA-SE A** COL-LAW-043 (`FATO` preserva o declarado — esta lei diz o mesmo **para a série**,
+onde a tentação de resumir é maior) · COL-LAW-202 (cada ponto é um claim possível) ·
+COL-LAW-203 (valor original) · COL-LAW-214 (o zero tem semântica) · COL-LAW-702 (a espécie).
+
+**NÃO IMPLEMENTADO.** Não há campo no READY para a série, e o leitor de PDF de monitorização vive
+num ramo de missão (`micro-prova-lote2b-v1`), fora do vivo.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` (D85 · ALINHAMENTO B2/B3) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-702 · A FONTE DIZ A ESPÉCIE DO QUE AFIRMA
+
+**REGRA.** Um claim **PODE** carregar a **espécie** que a própria fonte deu ao que afirma:
+
+```
+CLAIM_KIND   OBSERVACAO · PREVISAO · MODELO · RECOMENDACAO · CENARIO · HIPOTESE · UNKNOWN
+```
+
+| espécie | a fonte está a dizer | exemplo (texto de boletim) |
+|---|---|---|
+| `OBSERVACAO` | vi / medi / contei | «si segnalano catture in aumento» |
+| `PREVISAO` | vai acontecer | «le previsioni indicano…», «nei prossimi giorni» |
+| `MODELO` | o modelo X, com estas entradas, dá isto | «secondo il modello, rischio di infezione» |
+| `RECOMENDACAO` | faça / não faça, e a partir de quando | «si consiglia», «soglia di intervento» |
+| `CENARIO` | se isto, então aquilo | «in caso di piogge persistenti…» |
+| `HIPOTESE` | pode ser | «potrebbe», «si ipotizza» |
+
+**`UNKNOWN` é o valor por omissão**, e é a resposta certa sempre que a frase não marca a espécie.
+
+A espécie **DEVE** sair do **trecho** — da marca que a fonte escreveu — e **NÃO DEVE** ser
+inferida:
+
+- pelo tipo da fonte (um boletim T3 não torna observação tudo o que diz);
+- pelo `SOURCE_DECLARED_EVIDENCE_CLASS`, que é do **contrato de fonte**, em texto livre, e não
+  deste trecho (COL-LAW-043: `DECLARADO PELA FONTE ≠ MEDIDO NO DOCUMENTO`);
+- pela data (uma data futura não faz uma previsão: pode ser um evento marcado).
+
+Uma espécie **NÃO DEVE** ser promovida: `PREVISAO` não vira `OBSERVACAO` por se repetir, e
+`MODELO` não vira `OBSERVACAO` porque o modelo acertou da última vez. Uma frase com duas
+espécies dá **dois claims**, ou `UNKNOWN`.
+
+```
+A COLLECTION MARCA A ESPÉCIE QUE A FONTE DECLAROU.
+A INTELLIGENCE JULGA O QUE ELA VALE (INT-LAW-130..132).
+```
+
+**POR QUÊ.** Os boletins misturam, na mesma página, o que viram, o que preveem, o que o modelo
+calculou e o que aconselham. Se a Collection não guarda a diferença, a Intelligence recebe
+«praga X na região Y» sem saber se é uma contagem, um risco calculado ou um conselho — e a
+`INT-LAW-131` (`FORECAST ≠ FACT`) fica sem matéria para trabalhar.
+
+**NÃO DUPLICA a COL-LAW-202.** Acrescenta **um campo** ao que um claim **PODE** preservar, e
+com a mesma regra dela: é `TARGET`. Não cria extração de claim.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` (D85 · ALINHAMENTO B8) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-703 · A PESSOA-FONTE PROVA-SE PELA LISTA-MESTRA, E SEGUE-SE PELA PORTA CANÓNICA
+
+**REGRA — identidade.** A identidade de uma **pessoa-fonte** (pesquisador, docente, agrónomo,
+técnico) **DEVE** ser provada por três coisas juntas:
+
+```
+LISTA-MESTRA OFICIAL  +  INSTITUIÇÃO  +  SETOR
+```
+
+- **Lista-mestra oficial**: para a universidade italiana, o **MUR «Cerca Università»**
+  (público, sem login, exportação por GSD/SSD). Fora do MUR (CNR, CREA, FEM, …): a lista
+  oficial de cada instituição — que **ainda não foi medida**, e até lá é `UNKNOWN`.
+- **ORCID · OpenAlex · Crossref** ligam a pessoa às **obras**; **IRIS** (Cineca) dá a produção
+  de cada universidade. Servem para ligar, e **não substituem** a lista-mestra na identidade.
+
+**Nome igual não é pessoa igual.** Sem instituição e setor, o caso é `AMBIGUO`.
+**Homónimos NUNCA se fundem** (COL-LAW-034), e `UNKNOWN` não funde com nada.
+
+**REGRA — seguir.** Os canais **públicos** onde a pessoa publica no dia a dia — página pessoal
+ou do laboratório, `researcher-urls` do ORCID, **POST público** de LinkedIn, X/Bluesky,
+YouTube do laboratório, blog, podcast, newsletter, ResearchGate **só se público sem login** —
+entram **pela porta canónica** das candidatas, com os `TIPOS` que já existem e `PARA_QUE`
+explícito. **Sem taxonomia paralela.**
+
+Um canal liga-se à pessoa **por prova** — o canal aponta para a página institucional da
+pessoa, ou a página institucional aponta para o canal — e **nunca** por semelhança de nome.
+
+**NÃO DEVE** (D16–D24, e continuam a valer inteiros):
+
+- login, cookie, conta, CAPTCHA ou rota paga;
+- abrir o **perfil** de uma pessoa no LinkedIn (é muro de login) — só o endereço de um **POST
+  público**;
+- guardar contactos, seguidores, mensagens, comentários de terceiros, ou qualquer dado pessoal
+  que a pessoa não publicou **profissionalmente**;
+- passar de **5 pedidos por domínio e por rodada**.
+
+**Minimização:** só identidade + o que a pessoa publica como profissional. Apaga-se a pedido.
+
+**POR QUÊ.** O pesquisador é a fonte do **conhecimento causal** (o modelo, a relação, o limiar)
+e muitas vezes do **sinal precoce**, antes de o boletim sair (D85: «isso é ouro pro sintonia»).
+Mas uma pessoa é a entidade mais fácil de fundir mal: dois «Rossi» viram um, e as obras de um
+passam a provar o que o outro nunca disse.
+
+**MEDIDO** (26/09/2026, exportação MUR guardada fora do Git):
+
+```
+MUR · GSD 07/AGRI-05   278 docentes · 33 universidades
+  AGRI-05/A (ex AGR/11, entomologia)          129
+  AGRI-05/B (ex AGR/12, patologia vegetal)    149
+  nomes repetidos DENTRO desta lista            0
+  linhas com a coluna SSD2015 desalinhada       7   → setor antigo NAO SEI nessas 7
+T6 (obras já coletadas)   1 466 pessoas IT · ORCID provado em ~30% das obras
+```
+
+**LIGA-SE A** COL-LAW-034 (identidade) · COL-LAW-206 (três identidades, e a URL não é uma
+delas) · COL-LAW-207 (descobrir ≠ buscar) · COL-LAW-042 (a porta) · e a `INT-LAW-102`
+(afiliação ≠ local do estudo), que já impede a Intelligence de ler a universidade como o
+lugar do facto.
+
+**NÃO IMPLEMENTADO.** Nenhuma ferramenta instalada prova a identidade pela lista-mestra, e o
+seguimento de canais vive numa missão própria (`seguir-pesquisadores-v1`), fora do vivo.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` (D85) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
 
 ---
 

@@ -1461,3 +1461,44 @@ está intacta. Fecharam-se duas coisas que faltavam à prova dela:
 
     UMA SUITE QUE NÃO REPROVA UM LIMIAR ALTERADO
     NÃO ESTÁ A GUARDAR LIMIAR NENHUM.
+
+---
+
+## D-0xx · O CAMPO E QUEM O DIZ — `COL-LAW-701` · `702` · `703` (Coleta V1.5) e a Intelligence V0.4
+
+```
+LAW_ID    COL-LAW-701 (nova) · COL-LAW-702 (nova, estende a 202) · COL-LAW-703 (nova)
+          INT-LAW-310..315 (novas, Bíblia da Intelligence secção 38)
+BEFORE    nenhuma lei dizia que a SÉRIE de monitorização (capturas, %, limiar) chega
+          sem resumo; a COL-LAW-202 não tinha onde guardar a ESPÉCIE que a fonte deu
+          ao que afirma (observação · previsão · modelo · recomendação · cenário ·
+          hipótese); a identidade de uma PESSOA-FONTE não tinha lei própria. Na
+          Intelligence: sem cadeia temporal do sinal fitossanitário, sem contrato de
+          MODEL_RULE, sem regra para resistência, sem espécie de expansão/invasora no
+          CAP-FUT, e o CAP-SCI só media força de evidência.
+AFTER     três leis de Coleta (PARTE XXI) e seis de Intelligence (secção 38). Nenhuma
+          lei existente foi alterada; as que já cobriam uma parte são citadas.
+WHY       D85 do dono (26/09 ~14:35): «pesquisadores são ouro», lista-mestra oficial +
+          seguir os canais públicos, e atualizar know-how e as duas Bíblias. E o
+          ALINHAMENTO COLLECTION → INTELLIGENCE, lacunas B1–B10 medidas por busca.
+EVIDENCE  PDFs T3 já guardados: IT-T3-002 Salerno «n. 4 catture» → «n. 40 catture» de
+          Ceratitis capitata em 14 dias (a primeira leitura trocou o bicho por Prays
+          citri — corrigido, e é a prova de que a linha original tem de ficar);
+          IT-T3-010 APOL com cabeçalho em imagem (colunas NAO SEI); IT-T3-008 ARIF com
+          limiares escritos. Lista MUR 07/AGRI-05: 278 docentes, 33 universidades.
+IMPACT    nenhum runtime mudou. As três leis de Coleta nascem ABSENT no vivo. A
+          Intelligence continua com IMPLEMENTATION_AUTHORIZED igual à V0.3.
+VERSION   Coleta V1.4 -> V1.5 · Intelligence V0.3 -> V0.4
+```
+
+**O que se recusou escrever.** Uma lei de «tempo do facto nos boletins» (já é
+`COL-LAW-031`/`201`), uma de «não fundir homónimos» (já é `COL-LAW-034`), uma de
+«previsão não é facto» (já é `INT-LAW-131`) e uma de «afiliação não é local do
+estudo» (já é `INT-LAW-102`). A conta inteira, lei a lei, está em
+`LEI-PESQUISADORES.md`.
+
+**Porque 701 e não 601.** A numeração 6xx já foi usada por um ramo lateral (Card
+Contract, COL-LAW-601..617) que nunca chegou à linha. Reusar os números faria duas
+leis diferentes com o mesmo ID no dia em que alguém juntasse os ramos. Medido em
+559 pontas de ramo: 0 usam COL-LAW-7xx ou INT-LAW-31x.
+

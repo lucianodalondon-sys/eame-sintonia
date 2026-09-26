@@ -1,6 +1,6 @@
 # ITALY_COLLECTION_COMPLIANCE_MATRIX — apêndice C da Bíblia
 
-**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.4` · **Data:** 2026-09-12 · **HEAD medido:** `465e318a` · **LAW_TOTAL:** `105`
+**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.5` · **Data:** 2026-09-26 (V1.5; o resto da matriz é de 2026-09-12, **HEAD medido:** `465e318a`) · **LAW_TOTAL:** `108`
 
 > Esta matriz mede a **implementação italiana** contra as 104 leis canônicas. Ela não é a
 > lei: a lei está em [`../../BIBLIA-CANONICA-DA-COLETA.md`](../../BIBLIA-CANONICA-DA-COLETA.md).
@@ -15,14 +15,14 @@ alteradas, medidas nem portadas nesta missão.
 
 ## O PLACAR
 
-| estado | V1 | V1.1 | V1.3 | **V1.4** | |
-|---|---:|---:|---:|---:|---|
-| `IMPLEMENTED` | 21 | 24 | 37 | **37** | há código no caminho produtivo e prova executável |
-| `PARTIAL` | 23 | 42 | 47 | **48** | existe em parte, ou existe para um caminho e não para os outros |
-| `ABSENT` | 4 | 11 | 18 | **18** | é lei, e não há implementação nenhuma |
-| `NOT_APPLICABLE` | 0 | 1 | 2 | **2** | a lei não se aplica ao perfil italiano de hoje |
-| `UNKNOWN` | 0 | 0 | 0 | **0** | — |
-| **total** | 48 | 78 | 104 | **105** | |
+| estado | V1 | V1.1 | V1.3 | V1.4 | **V1.5** | |
+|---|---:|---:|---:|---:|---:|---|
+| `IMPLEMENTED` | 21 | 24 | 37 | 37 | **37** | há código no caminho produtivo e prova executável |
+| `PARTIAL` | 23 | 42 | 47 | 48 | **48** | existe em parte, ou existe para um caminho e não para os outros |
+| `ABSENT` | 4 | 11 | 18 | 18 | **21** | é lei, e não há implementação nenhuma |
+| `NOT_APPLICABLE` | 0 | 1 | 2 | 2 | **2** | a lei não se aplica ao perfil italiano de hoje |
+| `UNKNOWN` | 0 | 0 | 0 | 0 | **0** | — |
+| **total** | 48 | 78 | 104 | 105 | **108** | |
 
 > ⚠️ **ESTE PLACAR É UM EIXO SÓ, E NÃO É O QUE DECIDE O FECHO.**
 > Ele diz se a lei já funciona. Não diz se a falta dela **impede** a coleta
@@ -194,6 +194,19 @@ o lado que parece rigoroso.
 
 ---
 
+## A MATRIZ — LEIS DA EMENDA V1.5 (o campo e quem o diz)
+
+> Medidas em 2026-09-26 contra o vivo `278cd489`, sem rede. As três são `ABSENT` **no vivo**: o que
+> existe vive em ramos de missão, e ramo de missão não é implementação.
+
+| LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
+|---|---|---|---|---|---|
+| `COL-LAW-701` a série declarada chega como veio | SIM | `ABSENT` | os PDFs T3 do acervo já trazem a série (Salerno por azienda, APOL por comprensorio, limiares da ARIF); o leitor que tira as linhas **sem resumir** existe só no ramo `micro-prova-lote2b-v1` | campo no READY para a série; leitor no vivo; o cabeçalho de tabela em imagem (APOL) fica `NAO SEI` | **G-43** |
+| `COL-LAW-702` a fonte diz a espécie do que afirma | SIM | `ABSENT` | só existe `SOURCE_DECLARED_EVIDENCE_CLASS`, do contrato de fonte e em texto livre — não é a espécie do trecho | extração de claim (é `TARGET` na 202); a marca da espécie no trecho | **G-44** |
+| `COL-LAW-703` a pessoa-fonte prova-se pela lista-mestra | SIM | `ABSENT` | lista MUR 07/AGRI-05 exportada (278 docentes, 33 universidades), fora do Git; 1 466 pessoas nas obras T6 com ORCID em ~30% | prova de identidade pela lista-mestra em ferramenta instalada; listas oficiais fora do MUR (CNR, CREA, FEM) não medidas | **G-45** |
+
+---
+
 ## A MATRIZ — LEIS DA EMENDA V1.3 (a integração)
 
 > Estas quatro nasceram de medir a **primeira estrada real** contra a lei. O estado delas foi
@@ -339,6 +352,7 @@ que ele estava errado.
 
 ## OS GAPS MENORES, registrados e não priorizados
 
+`G-43` **a série de monitorização não tem campo** (COL-LAW-701) — os PDFs T3 do acervo já a trazem; falta o campo no READY e o leitor no vivo · `G-44` **a espécie do claim não tem onde viver** (COL-LAW-702) — depende da extração de claim, que é `TARGET` · `G-45` **a pessoa-fonte não tem prova de identidade instalada** (COL-LAW-703) — lista MUR medida (278), listas de CNR/CREA/FEM por medir ·
 `G-42` **`ITALY_STORAGE_METADATA_RECONCILIATION` — 195 objetos italianos no bucket `raw`
 (80,7 MB) com **0** linhas de `raw_asset` e **0** de `collection_run` a reclamá-los.** Um gap
 só, em **duas dimensões**: a **garantia forward** está em
