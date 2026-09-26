@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-26T07:05:31+00:00",
-    "HEAD": "4fc0f8d623ee22984e53c5caf88ae036ddf35659",
+    "GENERATED_AT": "2026-09-26T16:37:00+00:00",
+    "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "470edfe3fd942603c339db5ec2444190c480d2e19e90bb99a2611bf6fade5e8f",
-    "FICHEIROS_NA_IMPRESSAO": 3688,
+    "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
+    "FICHEIROS_NA_IMPRESSAO": 3777,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38158,6 +38158,10 @@
           "line": 62
         },
         {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 99
+        },
+        {
           "file": "tests/test_youtube_pelo_scrap.py",
           "line": 39
         },
@@ -38340,7 +38344,7 @@
       "usado_por": [
         {
           "file": "curadoria/canario.py",
-          "line": 57
+          "line": 58
         },
         {
           "file": "curadoria/capturador.py",
@@ -38439,35 +38443,35 @@
       ]
     },
     {
-      "endpoint": "https://a.it/news",
+      "endpoint": "https://www.cnr.it/it",
       "usado_por": [
         {
-          "file": "curadoria/test_capturador.py",
-          "line": 200
+          "file": "curadoria/descobrir.py",
+          "line": 444
         },
         {
-          "file": "curadoria/test_contrato_unico.py",
+          "file": "curadoria/test_abastecimento.py",
+          "line": 208
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 954
+        },
+        {
+          "file": "curadoria/test_sonda_um_pedido.py",
+          "line": 17
+        },
+        {
+          "file": "curadoria/test_url_com_acento.py",
+          "line": 63
+        },
+        {
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 24
+        },
+        {
+          "file": "tests/test_youtube_pelo_scrap.py",
           "line": 55
-        },
-        {
-          "file": "curadoria/test_ponte_promocao.py",
-          "line": 61
-        },
-        {
-          "file": "tests/test_k1_receitas.py",
-          "line": 16
-        },
-        {
-          "file": "tests/test_ld2_aditamento.py",
-          "line": 77
-        },
-        {
-          "file": "tests/test_medir_apos_receitas.py",
-          "line": 36
-        },
-        {
-          "file": "tests/test_onboardar_rotas_provadas.py",
-          "line": 32
         }
       ]
     },
@@ -38497,6 +38501,43 @@
         {
           "file": "tests/test_comunicacao.py",
           "line": 78
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 100
+        }
+      ]
+    },
+    {
+      "endpoint": "https://a.it/news",
+      "usado_por": [
+        {
+          "file": "curadoria/test_capturador.py",
+          "line": 200
+        },
+        {
+          "file": "curadoria/test_contrato_unico.py",
+          "line": 55
+        },
+        {
+          "file": "curadoria/test_ponte_promocao.py",
+          "line": 61
+        },
+        {
+          "file": "tests/test_k1_receitas.py",
+          "line": 16
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 77
+        },
+        {
+          "file": "tests/test_medir_apos_receitas.py",
+          "line": 36
+        },
+        {
+          "file": "tests/test_onboardar_rotas_provadas.py",
+          "line": 32
         }
       ]
     },
@@ -38547,31 +38588,6 @@
         {
           "file": "provas/testa_rota_italia.py",
           "line": 62
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.cnr.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 444
-        },
-        {
-          "file": "curadoria/test_abastecimento.py",
-          "line": 208
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 954
-        },
-        {
-          "file": "tests/test_importar_do_coletor.py",
-          "line": 24
-        },
-        {
-          "file": "tests/test_youtube_pelo_scrap.py",
-          "line": 55
         }
       ]
     },
@@ -38765,6 +38781,27 @@
         {
           "file": "scripts/regua_t2/recolher_boletins.py",
           "line": 66
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.crea.gov.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 293
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 353
+        },
+        {
+          "file": "curadoria/test_travao_sementes.py",
+          "line": 95
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 116
         }
       ]
     },
@@ -39033,28 +39070,11 @@
           "line": 41
         }
       ]
-    },
-    {
-      "endpoint": "https://www.arpalazio.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 285
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 64
-        },
-        {
-          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
-          "line": 87
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 712,
+  "ENDPOINTS_FOUND": 729,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 672,
+  "ENDPOINTS_TRUNCATED": 689,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -39072,9 +39092,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 712,
+    "endpoints": 729,
     "endpoints_published": 40,
-    "endpoints_truncated": 672,
+    "endpoints_truncated": 689,
     "candidates": 1199,
     "coletores": 54,
     "coletores_com_data": 20,

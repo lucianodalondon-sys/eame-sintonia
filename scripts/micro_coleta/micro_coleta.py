@@ -596,7 +596,10 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
             sem_bytes += 1
             continue
         julgados += 1
-        if RETRATO.retrato_do_html(f.read_bytes())["CAPA_OU_MATERIA"] == "CAPA_PROVAVEL":
+        # O mesmo veredito da admissao sem morada (a V1 pede o endereco; a V2, a lista
+        # com «leia mais», nao): um C2 que so lesse o formato nao veria a lista ENEA.
+        if RETRATO.veredito(RETRATO.retrato_do_html(f.read_bytes()), url=None, contrato=None,
+                            regua_a_mandar=False) == "CAPA_PROVAVEL":
             capas.append(o[0])
     neg = controlo_negativo_de_capa()
 
