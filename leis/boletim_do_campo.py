@@ -64,7 +64,7 @@ PROBLEMAS = (
     r"lebbra", r"monilia", r"corineo", r"bolla", r"cercospor\w*", r"septoria", r"ruggin[ei]", r"fusari\w*",
     r"alternari\w*", r"batterios[ie]", r"xylella(?:\s+fastidiosa)?", r"drosophila\s+suzukii",
     r"popillia\s+japonica", r"dorifora", r"elateridi", r"nottu[ae]", r"piralide", r"diabrotica",
-    r"escoriosi", r"black\s*rot", r"marciume\s+(?!(?:del|della|dei|delle|degli|di|da))\w+", r"virosi", r"virus", r"nematod[ie]",
+    r"escoriosi", r"black\s*rot", r"marciume\s+(?!(?:del|della|dei|delle|degli|di|da)\b)\w+", r"virosi", r"virus", r"nematod[ie]",
 )
 # Fases / estadios, como os boletins os escrevem (o vocabulario T1 da regua + os medidos nos boletins).
 FASES = (
