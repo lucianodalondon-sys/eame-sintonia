@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T16:33:00+00:00",
-  "HEAD": "0d1c63534c1f32f2f4c8e41b7fa505bf239d8177",
+  "GENERATED_AT": "2026-09-26T16:39:53+00:00",
+  "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
   "BRANCH": "integra-noite-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "85f5671b1ad167d21885a5e02684ff0f5f5df92c549fae666e0abafc568fdd22",
+  "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
   "FICHEIROS_NA_IMPRESSAO": 3777,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -4570,14 +4570,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "85f5671b1ad167d21885a5e02684ff0f5f5df92c549fae666e0abafc568fdd22",
+    "VERSAO": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "85f5671b1ad167d21885a5e02684ff0f5f5df92c549fae666e0abafc568fdd22",
+    "VERSAO": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6781,7 +6781,7 @@
    }
   ],
   "INPUTS_COUNT": 963,
-  "INPUTS_DIGEST": "cc2d6da84e9d1921f876c7c60ef851ab72809b5b2469a5f9fbd990947605790d",
+  "INPUTS_DIGEST": "65d2c557990ff4a4403b981fbdaec1019d9ac753699f00f55dc38bc630d1f6df",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6814,8 +6814,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "ea91bd271597a0f9a404eb7a96382320f686855c16d88eb188933679d8224e9e",
-  "SEMANTIC_HASH": "94d5d9f8f397117b66f8a9240cb0e44cc1e23bc93e08f409b187c84e139bf0d3"
+  "MEASUREMENT_HASH": "5ed54cdf36e4d5163f75898501a1d3667f6ec65e6bc5bd44a8f8acaef63f57b3",
+  "SEMANTIC_HASH": "4e5793643715cf7249087b2dc37882a03ae301c0e94cbf41a1b5cb743f7786fe"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -8908,28 +8908,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-ADMISSAO--READS-->C-EXECUTOR-TEXTO-HTML",
-    "FROM": "C-ADMISSAO",
-    "TO": "C-EXECUTOR-TEXTO-HTML",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "provas/c2_juiz_mutacao.py",
-      "LINHA": 24,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-EXECUTOR-TEXTO-HTML",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-ADMISSAO--READS-->C-INT-ARBITRAGEM",
     "FROM": "C-ADMISSAO",
     "TO": "C-INT-ARBITRAGEM",
@@ -9029,6 +9007,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/c2_juiz_mutacao.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "provas/medir_admission_t3_atual.py",
       "LINHA": 68,
@@ -21934,6 +21920,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-COLETA",
+    "FROM": "C-EXECUTOR-TEXTO-HTML",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/c2_juiz_mutacao.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-ROTA-DO-HTML",
     "FROM": "C-EXECUTOR-TEXTO-HTML",
     "TO": "C-PROVA-ROTA-DO-HTML",
@@ -34776,6 +34784,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-NAVEGADOR--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
+    "FROM": "C-ONDA-WEB",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/rodadas_mutacao.py",
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -49445,28 +49475,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-TESTES--READS-->C-EXECUTOR-TEXTO-HTML",
-    "FROM": "C-TESTES",
-    "TO": "C-EXECUTOR-TEXTO-HTML",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "provas/c2_juiz_mutacao.py",
-      "LINHA": 58,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-EXECUTOR-TEXTO-HTML",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-TESTES--READS-->C-FONTE-DO-ATLAS",
     "FROM": "C-TESTES",
     "TO": "C-FONTE-DO-ATLAS",
@@ -49573,28 +49581,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-TESTES--READS-->C-ONDA-WEB",
-    "FROM": "C-TESTES",
-    "TO": "C-ONDA-WEB",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "provas/rodadas_mutacao.py",
-      "LINHA": 54,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-ONDA-WEB",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-TESTES--READS-->C-PACOTE-CAMADAS",
     "FROM": "C-TESTES",
     "TO": "C-PACOTE-CAMADAS",
@@ -49681,8 +49667,24 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "provas/c2_juiz_mutacao.py",
+      "LINHA": 58,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/os_portoes_da_collection.py",
       "LINHA": 354,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/rodadas_mutacao.py",
+      "LINHA": 54,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
@@ -51855,12 +51857,12 @@
     ]
    }
   ],
-  "COUNT": 1456
+  "COUNT": 1455
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 198,
   "CARTOES_AUDITADOS": 198,
-  "ARESTAS_RELACIONADAS": 1456,
+  "ARESTAS_RELACIONADAS": 1455,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -52292,7 +52294,7 @@
    "CONTROL": 86,
    "DATA": 30,
    "PROOF": 510,
-   "READ": 330,
+   "READ": 329,
    "RULE": 247,
    "WRITE": 16
   },
@@ -52536,7 +52538,7 @@
     "preservar_coleta"
    ],
    "ENTRAM": 9,
-   "SAEM": 49,
+   "SAEM": 48,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -55275,7 +55277,14 @@
    "FICHEIROS": [
     "coleta/executor_texto_de_html.py",
     "coleta/retrato_html.mjs",
-    "provas/c2_juiz_mutacao.py",
+    "tests/dados/c2-juiz/raw-1495.html",
+    "tests/dados/c2-juiz/raw-1501.html",
+    "tests/dados/c2-juiz/raw-1502.html",
+    "tests/dados/c2-juiz/raw-1515.html",
+    "tests/dados/c2-juiz/raw-1520.html",
+    "tests/dados/c2-juiz/raw-1523.html",
+    "tests/dados/c2-juiz/raw-1533.html",
+    "tests/dados/c2-juiz/raw-1558.html",
     "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html"
    ],
    "CHAMADORES_DE_RUNTIME": [],
@@ -55299,12 +55308,11 @@
     "coleta",
     "guarda"
    ],
-   "ENTRAM": 8,
-   "SAEM": 12,
+   "ENTRAM": 6,
+   "SAEM": 13,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
-    "READ",
     "RULE",
     "WRITE"
    ],
@@ -57318,8 +57326,7 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "ferramentas/big_collection/onda_web.py",
-    "ferramentas/big_collection/rodadas.py",
-    "provas/rodadas_mutacao.py"
+    "ferramentas/big_collection/rodadas.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -57340,16 +57347,16 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 8,
-   "SAEM": 1,
+   "ENTRAM": 7,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
-    "PROOF",
     "READ",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
+    "PROOF",
     "READ"
    ],
    "PORQUE_SOZINHO": null,
@@ -58597,6 +58604,7 @@
     "provas/auditoria_live.sh",
     "provas/benchmark_tematico.py",
     "provas/bluesky_trial_ao_vivo.py",
+    "provas/c2_juiz_mutacao.py",
     "provas/candidatos_tematicos.py",
     "provas/censo_corpus_rotulado_admission.py",
     "provas/censo_executavel_da_v1.py",
@@ -58648,6 +58656,7 @@
     "provas/red_team_da_release_v1.py",
     "provas/red_team_persistencia_operacional.py",
     "provas/red_team_wiring_youtube.py",
+    "provas/rodadas_mutacao.py",
     "provas/run_duravel_no_postgres.py",
     "provas/runtime_comum_no_postgres.py",
     "provas/runtime_pago_no_postgres.py",
@@ -58837,7 +58846,7 @@
     "unnest",
     "urllib"
    ],
-   "ENTRAM": 82,
+   "ENTRAM": 84,
    "SAEM": 22,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -62390,7 +62399,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 213,
-   "SAEM": 35,
+   "SAEM": 33,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
