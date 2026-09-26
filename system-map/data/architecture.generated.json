@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "onda3-pacote-v2",
-    "HEAD": "44df17f2cbcdf01f5b92e5ab5134b81f31b32543",
-    "GENERATED_AT": "2026-09-25T19:11:26-03:00",
-    "SOURCE_TREE_FINGERPRINT": "92780f4dfc3e15b9bdb67eaaeb68d8bd052ce6b24022100979beb7754c6ff3e0"
+    "BRANCH": "prova-teto-social-v1",
+    "HEAD": "c4d0d5171c8c8d645b5907620cfe7ab4b5e1e0fe",
+    "GENERATED_AT": "2026-09-25T23:28:38-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8a60957b2b723004d65ace5f28be9c07e1389d1fd1af80c87c008bbe45900a3b"
   },
   "FILES": [
     {
@@ -1851,7 +1851,7 @@
     },
     {
       "path": "coleta/adaptador_youtube.py",
-      "sha": "9b4c020dcecf06edee961f368af8209d8b5592a0",
+      "sha": "88dcb425731f4cab3be6974eac461d2047f59dbb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2159,7 +2159,7 @@
     },
     {
       "path": "coleta/scrap_colheita.py",
-      "sha": "377dc23d9da9bef02433dd87a13237419421d880",
+      "sha": "c0f5135d9f33c62c6ac501b41ecb421bc173731d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2180,7 +2180,7 @@
     },
     {
       "path": "coleta/scrap_http.py",
-      "sha": "8135ba85982820ad6bbe16ff1e1ece89287db037",
+      "sha": "3a18c4c2b1e8b0a4c95da6176b48220e59ca43ce",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11567,7 +11567,7 @@
     },
     {
       "path": "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
-      "sha": "3f6e651e6d3f738d27f5050bb1887fd5e3846aab",
+      "sha": "21185223fecf5bccb1f0441be10c724174ebf6b7",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13513,7 +13513,7 @@
     },
     {
       "path": "ferramentas/youtube_transcrever.py",
-      "sha": "8b6340b1822c44c75a4f314e767296cf7b321afd",
+      "sha": "39ec7e637f3f0fba06030d2593c92bc552525370",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17061,6 +17061,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/_mutantes_prova_teto_social.py",
+      "sha": "eb8a665dc91db4cc81574b4b82e3862f821a1ab4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/_mutantes_soc_tempo.py",
       "sha": "67d985243409b4fca6dc32f1b9a27216347c68a1",
       "ext": ".py",
@@ -18007,7 +18014,7 @@
     },
     {
       "path": "provas/prova_teto_dominio.py",
-      "sha": "086955e53ce19524fd07733fc0eaf2c2a34aa3dd",
+      "sha": "09fd88eada5f1b7d507e29508e07edc622029019",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20912,7 +20919,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "9b6a34350d69b6fe737ec385886d32e2bd637e99",
+      "sha": "b3b12ef723bd1ce7b3fe640f051f3eeb95fa5942",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -22822,6 +22829,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_prova_teto_social.py",
+      "sha": "889b1a177f3872be1771d5584519076cbc52580a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_proveniencia.py",
       "sha": "8fbd8182bac2783d806b77607fcfa5eaf58bc51e",
       "ext": ".py",
@@ -23005,7 +23019,7 @@
     },
     {
       "path": "tests/test_scrap_rc01_release_candidate.py",
-      "sha": "fdea00286f80a726217b0187bf0d49937bb7ce62",
+      "sha": "caaf9a803246eb712f770bb42644d40b0952493f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25579,7 +25593,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 850,
+        "line": 855,
         "snippet": "import youtube_janela as jan    # noqa: PLC0415 — o dono da janela publica"
       }
     },
@@ -25634,7 +25648,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 716,
+        "line": 721,
         "snippet": "import social_matriz as mz                                       # noqa: PLC0415"
       }
     },
@@ -25645,7 +25659,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 790,
+        "line": 795,
         "snippet": "'AUTORIZACAO_DE': 'leis/social_matriz.py',"
       }
     },
@@ -27407,6 +27421,28 @@
         "file": "coleta/scrap_colheita.py",
         "line": 81,
         "snippet": "import scrap_executor as sx                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_colheita.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_colheita.py",
+        "line": 907,
+        "snippet": "import scrap_http as http                                    # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_colheita.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_colheita.py",
+        "line": 897,
+        "snippet": "LIVRO_DE_CORRIDAS = os.path.join('data', 'collection-ledger', 'italy', 'runs.ndjson')"
       }
     },
     {
@@ -39340,7 +39376,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/youtube_transcrever.py",
-        "line": 60,
+        "line": 61,
         "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
       }
     },
@@ -39351,7 +39387,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/youtube_transcrever.py",
-        "line": 65,
+        "line": 66,
         "snippet": "import fala_local as fl  # noqa: E402"
       }
     },
@@ -54030,6 +54066,61 @@
       }
     },
     {
+      "from_file": "provas/_mutantes_prova_teto_social.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_prova_teto_social.py",
+        "line": 24,
+        "snippet": "(\"M18 adaptador nao passa o yt-dlp\",\"coleta/adaptador_youtube.py\",\"        http.contar_de_fora(getattr(ytv, 'ULTIMO_TRAFEGO', None), quem='yt-dlp')\\n\",\"        "
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_prova_teto_social.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_prova_teto_social.py",
+        "line": 15,
+        "snippet": "(\"M9 sem linha no ABORTED\",\"coleta/scrap_colheita.py\",\"        escrever_linha(linha_da_corrida(run_id=run_id, fase=fase, fonte=fonte,\\n                         "
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_prova_teto_social.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_prova_teto_social.py",
+        "line": 7,
+        "snippet": "(\"M1 contador fora do abridor\",\"coleta/scrap_http.py\",\"urllib.request.install_opener(urllib.request.build_opener(_PortaoEmCadaSalto(),\\n                        "
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_prova_teto_social.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_prova_teto_social.py",
+        "line": 12,
+        "snippet": "(\"M6 CONNECT conta\",\"ferramentas/youtube_transcrever.py\",\"(GET|POST|HEAD|PUT|DELETE|PATCH|OPTIONS)\",\"(GET|POST|HEAD|PUT|DELETE|PATCH|OPTIONS|CONNECT)\"),"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_prova_teto_social.py",
+      "to_file": "provas/prova_teto_dominio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_prova_teto_social.py",
+        "line": 20,
+        "snippet": "(\"M14 D41 desligada\",\"provas/prova_teto_dominio.py\",'MESMO_ORCAMENTO = {\"googlevideo.com\": \"youtube.com\"}','MESMO_ORCAMENTO = {}'),"
+      }
+    },
+    {
       "from_file": "provas/_mutantes_soc_tempo.py",
       "to_file": "coleta/adaptador_linkedin.py",
       "type": "READS",
@@ -64024,7 +64115,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/prova_teto_dominio.py",
-        "line": 168,
+        "line": 182,
         "snippet": "ap.add_argument(\"--contratos-mjs\", default=\"regras/italy_contracts.mjs\")"
       }
     },
@@ -64035,7 +64126,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/prova_teto_dominio.py",
-        "line": 167,
+        "line": 181,
         "snippet": "ap.add_argument(\"--contratos-json\", default=\"regras/italy_contracts_onboarded.json\")"
       }
     },
@@ -87305,6 +87396,72 @@
       }
     },
     {
+      "from_file": "tests/test_prova_teto_social.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_prova_teto_social.py",
+        "line": 36,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_prova_teto_social.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_prova_teto_social.py",
+        "line": 180,
+        "snippet": "import adaptador_youtube as ay"
+      }
+    },
+    {
+      "from_file": "tests/test_prova_teto_social.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_prova_teto_social.py",
+        "line": 44,
+        "snippet": "import scrap_executor as sx  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_prova_teto_social.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_prova_teto_social.py",
+        "line": 42,
+        "snippet": "import scrap_http as http  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_prova_teto_social.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_prova_teto_social.py",
+        "line": 45,
+        "snippet": "import youtube_transcrever as ytv  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_prova_teto_social.py",
+      "to_file": "provas/prova_teto_dominio.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_prova_teto_social.py",
+        "line": 46,
+        "snippet": "import prova_teto_dominio as ptd  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_proveniencia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -89269,7 +89426,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_rc01_release_candidate.py",
-        "line": 960,
+        "line": 968,
         "snippet": "import instagram_janela as ij"
       }
     },
@@ -89346,7 +89503,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_rc01_release_candidate.py",
-        "line": 663,
+        "line": 671,
         "snippet": "import social_scrap as ss"
       }
     },
@@ -89368,7 +89525,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_rc01_release_candidate.py",
-        "line": 984,
+        "line": 992,
         "snippet": "import cdp"
       }
     },
@@ -89390,7 +89547,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_rc01_release_candidate.py",
-        "line": 992,
+        "line": 1000,
         "snippet": "import falhas"
       }
     },
@@ -91951,10 +92108,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3317,
-    "files_readable": 1418,
-    "files_code_dir": 1504,
-    "file_edges": 6193,
+    "files_tracked": 3319,
+    "files_readable": 1420,
+    "files_code_dir": 1506,
+    "file_edges": 6206,
     "escritas_em_pasta": 87,
     "declared_missing_here": 0
   },
