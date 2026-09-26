@@ -175,30 +175,59 @@ def _audio(video_id):
     global ULTIMO_TRAFEGO
     # Ate prova em contrario, os pedidos desta ida nao estao contados.
     ULTIMO_TRAFEGO = None
+    # FREIO-SOCIAL (26/09): o yt-dlp corre pelo `yt_dlp_com_freio.py`, que faz
+    # cada pedido dele reservar o lugar no livro da onda ANTES de sair (D38/D41).
+    # As recusas do filho voltam por um ficheiro e entram nas deste processo.
+    import tempfile                                                # noqa: PLC0415
+    fd, recusas_do_filho = tempfile.mkstemp(prefix='teto-recusas-', suffix='.ndjson')
+    os.close(fd)
+    env = dict(os.environ, SINTONIA_TETO_RECUSAS=recusas_do_filho)
     try:
         # `--print-traffic` (PROVA-TETO-SOCIAL): o `yt-dlp` e outro processo e
         # os pedidos dele (pagina, player, stream em `googlevideo.com`) nao
         # passam pelo portao do Scrap. Ele proprio escreve uma linha `send:`
         # por pedido, com o Host — e e dai que a contagem sai, medida.
         r = subprocess.run(
-            [sys.executable, '-m', 'yt_dlp', '-q', '--no-warnings',
+            [sys.executable, FREIO_DO_YT_DLP, '-q', '--no-warnings',
              '--print-traffic',
              '-f', 'bestaudio/best', '-x', '--audio-format', 'wav',
              '--postprocessor-args', '-ac 1 -ar 16000',
              '--write-info-json',
              '-o', os.path.join(MEDIA, '%(id)s.%(ext)s'), url],
             capture_output=True, text=True, encoding='utf-8', errors='replace',
-            timeout=600)
+            timeout=600, env=env)
     except subprocess.TimeoutExpired:
         # Saida a meio nao e contagem: fica NAO contado, e diz-se.
+        _recolher_recusas(recusas_do_filho)
         return None, 'YT_DLP_ESTOUROU_O_TEMPO'
+    recusadas = _recolher_recusas(recusas_do_filho)
     ULTIMO_TRAFEGO = trafego_do_yt_dlp(r.stdout)
+    if recusadas:
+        # O freio parou o yt-dlp: o que saiu esta contado; o que nao saiu esta escrito.
+        return None, ('TETO_DOMINIO: %d pedido(s) recusado(s) antes de sair (%s)'
+                      % (len(recusadas), recusadas[0].get('ORCAMENTO')))
     if os.path.exists(wav) and os.path.getsize(wav) > 1000:
         return wav, 'BAIXADO'
     erro = [l for l in (r.stderr or '').strip().splitlines() if l.strip()]
     erro = erro or [l for l in (r.stdout or '').strip().splitlines()
                     if l.strip() and not _LINHA_DE_TRAFEGO.match(l)]
     return None, ('YT_DLP_NAO_ENTREGOU: %s' % (erro[-1][:150] if erro else 'sem mensagem'))
+
+
+FREIO_DO_YT_DLP = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'yt_dlp_com_freio.py')
+
+
+def _recolher_recusas(f):
+    """As recusas que o yt-dlp com freio escreveu → entram no `teto_da_onda` deste processo."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'coleta'))
+    import teto_da_onda as teto                                    # noqa: PLC0415
+    lidas = teto.ler_recusas_do_filho(f)
+    teto.acrescentar_recusas(lidas)
+    try:
+        os.remove(f)
+    except OSError:
+        pass
+    return lidas
 
 
 #: Os pedidos da ultima ida do `yt-dlp`: {host: pedidos}, ou None quando nao
