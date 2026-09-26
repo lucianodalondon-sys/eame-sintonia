@@ -63,6 +63,11 @@ TERRITORIO_POR_TEMA = {
 # Uma fonte na gaveta errada nao da erro: da uma consulta a T2 que devolve
 # uma conserveira, e ninguem percebe porque o resultado esta estranho.
 _ENTIDADE = [
+    # PESQUISADORES-T6 (26/09): o registo ORCID de uma PESSOA e T6 (RESEARCHERS), a
+    # gaveta que o Atlas ja usa em IT-T6-001..036. Vem ANTES de «universit»: sem isto,
+    # «Mario Rossi — ORCID (Università di X)» caia em T5 pelo nome da instituicao, e o
+    # mesmo registo sem instituicao no nome caia em NAO SEI — nenhum caminho dava T6.
+    (re.compile(r"orcid\.org/\d{4}-\d{4}-\d{4}-\d{3}[\dX]\b", re.I), "T6"),
     (re.compile(r"\b(universit|unina|unipi|unirc|dipartiment|facolt|cnr|crea|"
                 r"istitut[oi]\b|ricerc|fondazion)", re.I), "T5"),
     (re.compile(r"\b(arpa|arpae|meteo|agrometeo|idrolog)", re.I), "T2"),
