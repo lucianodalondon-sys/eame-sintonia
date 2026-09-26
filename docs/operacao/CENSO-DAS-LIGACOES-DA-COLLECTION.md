@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  c2cd8b85164a0b14fc28390f6c2f42f71f2759d9
-BRANCH           pacote-tempo-lugar-v1
-GERADO_EM        2026-09-25T16:40:20-03:00
-CARDS            99
+HEAD_DA_MEDICAO  dba56dd063ec9af21b7b7b4109d67628880d2b6b
+BRANCH           sede-fontes-v1
+GERADO_EM        2026-09-25T18:57:36-03:00
+CARDS            100
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -982,6 +982,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
 | **prova das ligações** | CODE 2 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+
+### `C-SEDE-FONTES` · Sede das fontes (SOURCE_LOCATION) — prova guardada e proposta de regra do contrato
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/sede_fontes/COORTE-60.json`, `ferramentas/sede_fontes/NOMES-60.json`, `ferramentas/sede_fontes/PROPOSTA-SOURCE-LOCATION-RULE-V1.json`, `ferramentas/sede_fontes/RELATORIO-SEDE-FONTES.md`, `ferramentas/sede_fontes/SEDE-DAS-FONTES-V1.json` _(e mais 3)_ |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **dono** | ENGENHARIA · INTELIGENCIA |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 1 · saem 0 |
+| **arestas provadas** | entram 1 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 1 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
@@ -2264,13 +2289,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 13 · saem 24 |
-| **arestas provadas** | entram 12 · saem 19 |
+| **arestas no mapa** | entram 13 · saem 25 |
+| **arestas provadas** | entram 12 · saem 20 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 31 · NÃO SEI 6 |
+| **prova das ligações** | CODE 32 · NÃO SEI 6 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -2534,8 +2559,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 OK                 40
 UNKNOWN            30
 SYSTEM_GAP         11
-TERMINAL           10
+TERMINAL           11
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              99
+TOTAL              100
 ```

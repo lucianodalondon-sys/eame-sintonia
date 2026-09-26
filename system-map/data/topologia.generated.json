@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-25T19:43:24+00:00",
-  "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
-  "BRANCH": "pacote-tempo-lugar-v1",
+  "GENERATED_AT": "2026-09-26T10:22:53+00:00",
+  "HEAD": "dba56dd063ec9af21b7b7b4109d67628880d2b6b",
+  "BRANCH": "sede-fontes-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
-  "FICHEIROS_NA_IMPRESSAO": 3253,
+  "SOURCE_TREE_FINGERPRINT": "a68a82a04373274de8e1d3181959b813c951e7b4d1099d209a37e83b7ffd7932",
+  "FICHEIROS_NA_IMPRESSAO": 3261,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -875,6 +875,20 @@
     "PATH": "ferramentas/reel_transcricao.py",
     "PAPEL": "FONTE",
     "VERSAO": "80f7de73ecce7e34ef8bc113435fea30ca629634",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/sede_fontes/medir_sede.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c774075c3c562d6ec53b56bf05fb05040140a163",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/sede_fontes/propor_regra.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "630a5190e26a933a1a13b0f668f0b3c482687c1d",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4129,14 +4143,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
+    "VERSAO": "a68a82a04373274de8e1d3181959b813c951e7b4d1099d209a37e83b7ffd7932",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
+    "VERSAO": "a68a82a04373274de8e1d3181959b813c951e7b4d1099d209a37e83b7ffd7932",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6185,8 +6199,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 878,
-  "INPUTS_DIGEST": "c46928a236c21de4a12cb317972033dd6a157a31bd44ad345bb8e2fe964c9c48",
+  "INPUTS_COUNT": 880,
+  "INPUTS_DIGEST": "1106a4a9ee9f28abaef99f50c0468da7243096b84e0baf35c9c42ef5e384aa1f",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6212,15 +6226,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 530,
+  "DOCUMENTOS_LIDOS": 531,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "efcaf4ac0fba815b598b328bef74ace62f9d632c221ee4ef30623dadfe7fbb3f",
-  "SEMANTIC_HASH": "abf5ef61a771dbca21ae10e19501a10ccbf28a130e6816cfc5b1c1bf55e06b86"
+  "MEASUREMENT_HASH": "e7a3d7c2bd1660c936ced58c0234106ef74d7083583c86ad6bf494a8c3083508",
+  "SEMANTIC_HASH": "0a913367896a29be4c24a0b31a5fd78118d49e4ac61b9ed8048edff9e450a005"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6322,6 +6336,7 @@
    "C-SCRAP-GUARDA",
    "C-SCRAP-ROTA",
    "C-SCRAP-SOCIAL",
+   "C-SEDE-FONTES",
    "C-SENSOR-COLETA",
    "C-SINTONIA-SCRAP",
    "C-SUPABASE",
@@ -6332,7 +6347,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 100
+  "COUNT": 101
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6613,6 +6628,7 @@
    "C-SCRAP-ROTA",
    "C-SCRAP-SOCIAL",
    "C-SECURITY-CHECK",
+   "C-SEDE-FONTES",
    "C-SENSOR-COLETA",
    "C-SINTONIA-SCRAP",
    "C-SITE-INGEST",
@@ -6629,16 +6645,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 189
+  "COUNT": 190
  },
  "ARITMETICA": {
-  "COLLECTION": 100,
+  "COLLECTION": 101,
   "BOUNDARY": 89,
-  "SOMA": 189,
-  "EXPANDED": 189,
+  "SOMA": 190,
+  "EXPANDED": 190,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 189,
+  "RESUMO_CARTOES_NO_UNIVERSO": 190,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -25709,6 +25725,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-SCRAP-COLHEITA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-SEDE-FONTES",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-SEDE-FONTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/sede_fontes/propor_regra.py",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-SEDE-FONTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -48744,12 +48782,12 @@
     ]
    }
   ],
-  "COUNT": 1381
+  "COUNT": 1382
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 189,
-  "CARTOES_AUDITADOS": 189,
-  "ARESTAS_RELACIONADAS": 1381,
+  "CARTOES_NO_UNIVERSO": 190,
+  "CARTOES_AUDITADOS": 190,
+  "ARESTAS_RELACIONADAS": 1382,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -48974,6 +49012,7 @@
    "C-REPARO-MEDICAO",
    "C-ROTULOS",
    "C-SAUDE-FONTE",
+   "C-SEDE-FONTES",
    "C-SUPERFICIE-SCRAP-V1"
   ],
   "SO_CLI_DOCUMENTADO": [
@@ -49024,7 +49063,8 @@
    "C-PROVA-GATE-1D",
    "C-RECOLLECTION-CENSO",
    "C-RELATORIO-FLUXO",
-   "C-REPARO-MEDICAO"
+   "C-REPARO-MEDICAO",
+   "C-SEDE-FONTES"
   ],
   "SEM_LIGACAO": {
    "C-ARMAZEM-IT-SEM-LIVRO": "ARMAZEM",
@@ -49125,6 +49165,10 @@
    "C-SAUDE-FONTE": [
     "acervo"
    ],
+   "C-SEDE-FONTES": [
+    "diagnostic",
+    "infra"
+   ],
    "C-TELA-ARCHIVE": [
     "entrega"
    ],
@@ -49165,7 +49209,7 @@
    "DATA": 30,
    "PROOF": 498,
    "READ": 303,
-   "RULE": 233,
+   "RULE": 234,
    "WRITE": 14
   },
   "GAPS_NOMEADOS": [
@@ -53078,7 +53122,7 @@
     "pathlib"
    ],
    "ENTRAM": 13,
-   "SAEM": 24,
+   "SAEM": 25,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -57812,6 +57856,50 @@
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-SEDE-FONTES",
+   "NOME": "Sede das fontes (SOURCE_LOCATION) — prova guardada e proposta de regra do contrato",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "ferramentas/sede_fontes/COORTE-60.json",
+    "ferramentas/sede_fontes/NOMES-60.json",
+    "ferramentas/sede_fontes/PROPOSTA-SOURCE-LOCATION-RULE-V1.json",
+    "ferramentas/sede_fontes/RELATORIO-SEDE-FONTES.md",
+    "ferramentas/sede_fontes/SEDE-DAS-FONTES-V1.json",
+    "ferramentas/sede_fontes/SHA256SUMS.txt",
+    "ferramentas/sede_fontes/medir_sede.py",
+    "ferramentas/sede_fontes/propor_regra.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "collections",
+    "html",
+    "leis",
+    "pathlib",
+    "urllib"
+   ],
+   "ENTRAM": 1,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "diagnostic",
+    "infra"
+   ],
    "GAP": null
   },
   {

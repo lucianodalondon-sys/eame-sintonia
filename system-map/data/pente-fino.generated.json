@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-25T19:43:01+00:00",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
+    "GENERATED_AT": "2026-09-26T10:22:14+00:00",
+    "HEAD": "dba56dd063ec9af21b7b7b4109d67628880d2b6b",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
-    "FICHEIROS_NA_IMPRESSAO": 3253,
+    "SOURCE_TREE_FINGERPRINT": "a68a82a04373274de8e1d3181959b813c951e7b4d1099d209a37e83b7ffd7932",
+    "FICHEIROS_NA_IMPRESSAO": 3261,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -146,13 +146,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681",
+        "VERSAO": "a68a82a04373274de8e1d3181959b813c951e7b4d1099d209a37e83b7ffd7932",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 20,
-    "INPUTS_DIGEST": "1c5e6ae6bbd332832d1f98ef2904e81ee868153cdaefe008691f0f8b97eecdaf",
+    "INPUTS_DIGEST": "a35f7860fdd2554e99f5ab26938879dbbb813f511c22ba507fee5fa7fe9d1590",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -601,6 +601,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-SEDE-FONTES",
+      "nome": "Sede das fontes (SOURCE_LOCATION) — prova guardada e proposta de regra do contrato",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 3,
+      "ficheiros": 8,
+      "estado": "yellow"
+    },
+    {
       "id": "C-IT-TEXTO-DERIVADO",
       "nome": "Texto derivado, com pai",
       "zona": "A SALA DE ESPERA",
@@ -926,9 +938,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 64,
+    "pecas_da_coleta": 65,
     "respondem_as_quatro": 25,
-    "respondem_a_tres": 28,
+    "respondem_a_tres": 29,
     "respondem_a_duas": 8,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0

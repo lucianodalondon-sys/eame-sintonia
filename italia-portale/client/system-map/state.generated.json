@@ -1728,6 +1728,14 @@
       "ferramentas/ponte_onboard/WRITESET-PONTE-ONBOARD.json",
       "ferramentas/ponte_onboard/mutacao.py",
       "ferramentas/reel_transcricao.py",
+      "ferramentas/sede_fontes/COORTE-60.json",
+      "ferramentas/sede_fontes/NOMES-60.json",
+      "ferramentas/sede_fontes/PROPOSTA-SOURCE-LOCATION-RULE-V1.json",
+      "ferramentas/sede_fontes/RELATORIO-SEDE-FONTES.md",
+      "ferramentas/sede_fontes/SEDE-DAS-FONTES-V1.json",
+      "ferramentas/sede_fontes/SHA256SUMS.txt",
+      "ferramentas/sede_fontes/medir_sede.py",
+      "ferramentas/sede_fontes/propor_regra.py",
       "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "ferramentas/unificacao/aplicar_d15_politica.py",
       "ferramentas/unificacao/censo-2026-09-22.json",
@@ -3698,10 +3706,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "pacote-tempo-lugar-v1",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
-    "GENERATED_AT": "2026-09-25T16:40:20-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681"
+    "BRANCH": "sede-fontes-v1",
+    "HEAD": "dba56dd063ec9af21b7b7b4109d67628880d2b6b",
+    "GENERATED_AT": "2026-09-25T18:57:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a68a82a04373274de8e1d3181959b813c951e7b4d1099d209a37e83b7ffd7932"
   },
   "FAMILIES": [
     {
@@ -3729,7 +3737,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 99
+      "count": 100
     },
     {
       "id": "F-ESPERA",
@@ -3924,7 +3932,7 @@
       "y": 190,
       "w": 820,
       "h": 9056,
-      "count": 11
+      "count": 12
     },
     {
       "id": "Z-ACOES",
@@ -48092,6 +48100,7 @@
         "C-RECOLLECTION-CENSO",
         "C-SALA-DE-ESPERA",
         "C-SCRAP-COLHEITA",
+        "C-SEDE-FONTES",
         "C-TESTES"
       ],
       "paises": {
@@ -61074,6 +61083,102 @@
       "y": 8732
     },
     {
+      "id": "C-SEDE-FONTES",
+      "name": "Sede das fontes (SOURCE_LOCATION) — prova guardada e proposta de regra do contrato",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "engine",
+      "what": "Para as 60 fontes da coorte da 3.a onda: a sede provavel de cada instituicao tirada de moradas nas paginas JA guardadas (armazem e indices D40), sem rede: 14 pela propria pagina, 9 pelo mesmo site, 37 NAO SEI. A proposta de SOURCE_LOCATION_RULE por fonte, conferida com o mesmo leitor do contrato (contratos_de_fonte + gazetteer). Nada escrito nos contratos.",
+      "why_here": "A MICRO-VERIFICACAO mediu que nenhuma fonte da coorte declara a sede: source_location sai NAO SEI em todos. O REGION do Atlas nao e sede (D61).",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "acervo",
+        "audit",
+        "diagnostic",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/sede_fontes/COORTE-60.json",
+        "ferramentas/sede_fontes/NOMES-60.json",
+        "ferramentas/sede_fontes/PROPOSTA-SOURCE-LOCATION-RULE-V1.json",
+        "ferramentas/sede_fontes/RELATORIO-SEDE-FONTES.md",
+        "ferramentas/sede_fontes/SEDE-DAS-FONTES-V1.json",
+        "ferramentas/sede_fontes/SHA256SUMS.txt",
+        "ferramentas/sede_fontes/medir_sede.py",
+        "ferramentas/sede_fontes/propor_regra.py"
+      ],
+      "file_count": 8,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-CONTRATOS"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "PARAGEM",
+          "PROVINCIA_DA_SIGLA"
+        ],
+        "palavras": 38,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 38,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "ferramentas/sede_fontes/propor_regra.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6000,
+      "y": 1970
+    },
+    {
       "id": "C-SENSOR-COLETA",
       "name": "Coletor dos sensores tecnicos · canal, video e fala",
       "territory": "Z-REGRAS",
@@ -64974,7 +65079,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1970
     },
     {
@@ -101584,6 +101689,41 @@
             "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-SCRAP-COLHEITA",
             "FROM": "C-IT-CONTRATOS",
             "TO": "C-SCRAP-COLHEITA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-SEDE-FONTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Sede das fontes (SOURCE_LOCATION) — prova guardada e proposta de regra do contrato. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/sede_fontes/propor_regra.py",
+          "line": 20,
+          "snippet": "import contratos_de_fonte as C  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-SEDE-FONTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-SEDE-FONTES",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -141901,7 +142041,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 223,
+      "PECAS_EM_DESACORDO": 224,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -141913,23 +142053,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 249
+      "TOTAL_DE_PECAS": 250
     }
   ],
   "COUNTS": {
-    "components": 249,
+    "components": 250,
     "components_proven": 32,
-    "components_pending": 209,
+    "components_pending": 210,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1447,
-    "edges_proven": 1382,
+    "edges": 1448,
+    "edges_proven": 1383,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3105,
-    "files_covered": 1379,
+    "files_tracked": 3113,
+    "files_covered": 1387,
     "files_code_unclaimed": 0,
-    "roles_proven": 170,
+    "roles_proven": 171,
     "roles_declared_only": 8,
     "roles_unknown": 71,
     "roles_conflict": 38,

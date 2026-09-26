@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "pacote-tempo-lugar-v1",
-    "HEAD": "c2cd8b85164a0b14fc28390f6c2f42f71f2759d9",
-    "GENERATED_AT": "2026-09-25T16:40:20-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fdc583ae4ccc15df32dc04cd78cf79fe1189c79f1b925d9467a0639809528681"
+    "BRANCH": "sede-fontes-v1",
+    "HEAD": "dba56dd063ec9af21b7b7b4109d67628880d2b6b",
+    "GENERATED_AT": "2026-09-25T18:57:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a68a82a04373274de8e1d3181959b813c951e7b4d1099d209a37e83b7ffd7932"
   },
   "FILES": [
     {
@@ -11895,6 +11895,62 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/sede_fontes/COORTE-60.json",
+      "sha": "1004a46442a6b5c4da999ae73fe4da0f6e3cecfa",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/sede_fontes/NOMES-60.json",
+      "sha": "8d4f8637a431dcabb4db1dc3ad4892043513f1e5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/sede_fontes/PROPOSTA-SOURCE-LOCATION-RULE-V1.json",
+      "sha": "367890d1cb2a7d2ebf5522c40fe91f6e03c3f2a1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/sede_fontes/RELATORIO-SEDE-FONTES.md",
+      "sha": "4a1ed6c2675f259129e54e8208a962298ca5862a",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/sede_fontes/SEDE-DAS-FONTES-V1.json",
+      "sha": "3c91436c1205969e592f48c86986daebb6399911",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/sede_fontes/SHA256SUMS.txt",
+      "sha": "05bd95ff7007b81305adf60af6ed25c1d0f672db",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/sede_fontes/medir_sede.py",
+      "sha": "c774075c3c562d6ec53b56bf05fb05040140a163",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/sede_fontes/propor_regra.py",
+      "sha": "630a5190e26a933a1a13b0f668f0b3c482687c1d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/unificacao/aplicar_d13_capacidade.py",
       "sha": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
       "ext": ".py",
@@ -19463,7 +19519,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ae92cb01c557a4ddd426f45c74d951f01632ed47",
+      "sha": "fb0a6c95f132eed57e79e774bdfd48e2f26e0d55",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -36043,6 +36099,17 @@
         "file": "ferramentas/reel_transcricao.py",
         "line": 93,
         "snippet": "import social_matriz as mz      # noqa: E402 — a política de rota, dono único"
+      }
+    },
+    {
+      "from_file": "ferramentas/sede_fontes/propor_regra.py",
+      "to_file": "regras/contratos_de_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/sede_fontes/propor_regra.py",
+        "line": 20,
+        "snippet": "import contratos_de_fonte as C  # noqa: E402"
       }
     },
     {
@@ -89004,10 +89071,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3105,
-    "files_readable": 1390,
-    "files_code_dir": 1316,
-    "file_edges": 6060,
+    "files_tracked": 3113,
+    "files_readable": 1392,
+    "files_code_dir": 1324,
+    "file_edges": 6061,
     "escritas_em_pasta": 87,
     "declared_missing_here": 0
   },
