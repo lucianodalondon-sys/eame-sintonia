@@ -857,6 +857,19 @@
       "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
       "data/derivados/O-CENSO-DO-ACERVO.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+      "data/derivados/QUATRO-CHAVES-NA-SALA/mutacao-RESULTADO.txt",
+      "data/derivados/QUATRO-CHAVES-NA-SALA/mutacao.py.txt",
+      "data/derivados/QUATRO-CHAVES-NA-SALA/testes-BANCO-DESCARTAVEL.txt",
+      "data/derivados/QUATRO-CHAVES-NA-SALA/testes-COMPARACAO.txt",
+      "data/derivados/QUATRO-CHAVES-V2/ENSAIO-BACKUP.json",
+      "data/derivados/QUATRO-CHAVES-V2/ensaio_backup.py.txt",
+      "data/derivados/QUATRO-CHAVES-V2/mutacao-RESULTADO.txt",
+      "data/derivados/QUATRO-CHAVES-V2/mutacao.py.txt",
+      "data/derivados/QUATRO-CHAVES-V2/testes-COM-BANCO.txt",
+      "data/derivados/QUATRO-CHAVES-V2/testes-nuvem-sem-banco.txt",
+      "data/derivados/QUATRO-CHAVES-V2/testes-por-nome-ANTES.txt",
+      "data/derivados/QUATRO-CHAVES-V2/testes-por-nome-DEPOIS.txt",
+      "data/derivados/QUATRO-CHAVES-V2/testes-sem-banco-DEPOIS.txt",
       "data/derivados/RECEITA-T8-V1/animal-22-leitura.txt",
       "data/derivados/RECEITA-T8-V1/livros-vivos-copiados.sha256",
       "data/derivados/RECEITA-T8-V1/mutacao-RESULTADO.txt",
@@ -1557,6 +1570,7 @@
       "docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
+      "docs/operacao/QUATRO-CHAVES-V2.md",
       "docs/operacao/READY-LINEAGE-BEFORE-SCALE-V1.md",
       "docs/operacao/RECEITA-T8-V1.md",
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
@@ -3338,6 +3352,8 @@
       "tests/test_psql_argv.py",
       "tests/test_qualidade_t3.py",
       "tests/test_quarentena_naosei.py",
+      "tests/test_quatro_chaves.py",
+      "tests/test_quatro_chaves_na_sala.py",
       "tests/test_radar_futuro.py",
       "tests/test_rastro_pg.py",
       "tests/test_raw_observation_id_volta.py",
@@ -3358,6 +3374,7 @@
       "tests/test_runtime_so_deixa_passar_colheita.py",
       "tests/test_sala_duravel.py",
       "tests/test_sala_idempotente_por_documento.py",
+      "tests/test_sala_por_nome.py",
       "tests/test_scrap_convergencia.py",
       "tests/test_scrap_flow01_caminho_canonico.py",
       "tests/test_scrap_rc01_release_candidate.py",
@@ -3910,10 +3927,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "onda3-pacote-v2",
-    "HEAD": "44df17f2cbcdf01f5b92e5ab5134b81f31b32543",
-    "GENERATED_AT": "2026-09-25T19:11:26-03:00",
-    "SOURCE_TREE_FINGERPRINT": "92780f4dfc3e15b9bdb67eaaeb68d8bd052ce6b24022100979beb7754c6ff3e0"
+    "BRANCH": "quatro-chaves-v2",
+    "HEAD": "16db9afc9754391a2d3bce39bda9a5f1ed5971c7",
+    "GENERATED_AT": "2026-09-26T00:01:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "18e20a5f4df552afd67fb9f11ddf13823596b4d6454fe0944b72965a00cec33f"
   },
   "FAMILIES": [
     {
@@ -4941,7 +4958,9 @@
         "listas": [
           "ANCORAS",
           "COMPLETUDE_NAO_MEDIDA",
+          "EXPRESSOES_DE_TEMPO_RELATIVO",
           "FUNCAO",
+          "JANELA_NAO_MEDIDA",
           "JA_TEM_CAMPO_PROPRIO_NO_READY",
           "NAO_E_ITEM",
           "PERGUNTAS_DO_UNIVERSO",
@@ -4949,12 +4968,12 @@
           "QUATRO_DO_TEMPO_E_LUGAR",
           "TEMPO_LUGAR_EVIDENCIA_NAO_MEDIDA"
         ],
-        "palavras": 378,
+        "palavras": 431,
         "por_lingua": {
           "IT": 31,
           "PT": 21
         },
-        "sem_marca_de_lingua": 326,
+        "sem_marca_de_lingua": 379,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -60788,11 +60807,15 @@
           "CAMPOS_READY",
           "CAMPOS_REVISIVEIS",
           "CODIGO_DA_VERSAO",
+          "COLUNAS_ESCRITAS",
+          "COLUNAS_LIDAS",
+          "COLUNA_E_CAMPO",
+          "COLUNA_E_CAMPO_JSON",
           "REVISTOS"
         ],
-        "palavras": 56,
+        "palavras": 147,
         "por_lingua": {},
-        "sem_marca_de_lingua": 56,
+        "sem_marca_de_lingua": 147,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -64620,6 +64643,8 @@
         "tests/test_psql_argv.py",
         "tests/test_qualidade_t3.py",
         "tests/test_quarentena_naosei.py",
+        "tests/test_quatro_chaves.py",
+        "tests/test_quatro_chaves_na_sala.py",
         "tests/test_radar_futuro.py",
         "tests/test_rastro_pg.py",
         "tests/test_raw_observation_id_volta.py",
@@ -64640,6 +64665,7 @@
         "tests/test_runtime_so_deixa_passar_colheita.py",
         "tests/test_sala_duravel.py",
         "tests/test_sala_idempotente_por_documento.py",
+        "tests/test_sala_por_nome.py",
         "tests/test_scrap_convergencia.py",
         "tests/test_scrap_flow01_caminho_canonico.py",
         "tests/test_scrap_rc01_release_candidate.py",
@@ -64674,7 +64700,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 258,
+      "file_count": 261,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -64913,6 +64939,7 @@
           "CAMPOS_DA_REGRA",
           "CAMPOS_DOC_DA_REGRA",
           "CAMPOS_DO_FATO",
+          "CAMPO_DA_COLUNA",
           "CANARIO_INSTAGRAM",
           "CANONICAS",
           "CANONICA_DE_PE",
@@ -64957,6 +64984,7 @@
           "IMPLEMENTACOES",
           "INSTALADORES",
           "ITEM",
+          "JSONS",
           "LINHA_BOA",
           "MINIMOS",
           "ONDE",
@@ -64978,6 +65006,7 @@
           "RECUSA",
           "ROTA_M2",
           "ROTULO_ITALIA",
+          "RUNS",
           "SEIS",
           "SEM_BYTES",
           "SEM_DSN",
@@ -64999,13 +65028,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1548,
+        "palavras": 1599,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1536,
+        "sem_marca_de_lingua": 1587,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -65523,6 +65552,7 @@
         "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
         "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
         "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
+        "supabase/migrations/033_a_sala_guarda_a_base_as_chaves_e_as_revisoes.sql",
         "supabase/tests/regressoes_calendario.sql",
         "superficie/rede.py",
         "system-map/app/map.js",
@@ -70446,7 +70476,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1886,
+          "line": 2065,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -70833,7 +70863,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 42 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 44 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -71044,7 +71074,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -71080,7 +71110,7 @@
         },
         {
           "file": "tests/test_a_linhagem_do_ready.py",
-          "line": 95,
+          "line": 99,
           "snippet": "\"admissao.py\")))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
@@ -71146,6 +71176,22 @@
           "file": "tests/test_politica_nao_sei.py",
           "line": 52,
           "snippet": "self.assertEqual(chamadores, [\"admissao/admissao.py\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_quatro_chaves_na_sala.py",
+          "line": 262,
+          "snippet": "fonte = (RAIZ / \"admissao\" / \"admissao.py\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
             "FROM": "C-ADMISSAO",
@@ -76938,7 +76984,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Cadeia canonica V2.1 alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_migracao_033_sala.py",
@@ -76960,6 +77006,22 @@
           "file": "tests/test_porta_de_producao.py",
           "line": 149,
           "snippet": "if \"cadeia_canonica.sh\" in linha and linha.rstrip().endswith(\"\\\\\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CADEIA-V21--READS-->C-TESTES",
+            "FROM": "C-CADEIA-V21",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_quatro_chaves_na_sala.py",
+          "line": 127,
+          "snippet": "r = subprocess.run([shutil.which(\"bash\") or \"bash\", \"motor/cadeia_canonica.sh\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CADEIA-V21--READS-->C-TESTES",
             "FROM": "C-CADEIA-V21",
@@ -97471,7 +97533,7 @@
         },
         {
           "file": "tests/test_a_linhagem_do_ready.py",
-          "line": 172,
+          "line": 176,
           "snippet": "fonte = _fonte(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
@@ -112231,7 +112293,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 143 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 144 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -113280,7 +113342,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_bc4_armazem_e_pais.py",
@@ -113365,6 +113427,22 @@
         {
           "file": "tests/test_migracao_033_sala.py",
           "line": 32,
+          "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_quatro_chaves_na_sala.py",
+          "line": 57,
           "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
@@ -129910,7 +129988,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -130041,6 +130119,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_quatro_chaves_na_sala.py",
+          "line": 54,
+          "snippet": "import sala_de_espera as espera          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_sala_duravel.py",
           "line": 31,
           "snippet": "import sala_de_espera as espera                            # noqa: E402",
@@ -130071,6 +130165,22 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_sala_por_nome.py",
+          "line": 22,
+          "snippet": "import sala_de_espera as S  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -130089,7 +130199,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_migracao_033.py",
@@ -130191,6 +130301,22 @@
           "file": "tests/test_psql_argv.py",
           "line": 249,
           "snippet": "\"admissao/sala_de_espera.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_quatro_chaves_na_sala.py",
+          "line": 275,
+          "snippet": "for rel in (\"admissao/admissao.py\", \"admissao/sala_de_espera.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
             "FROM": "C-SALA-DE-ESPERA",
@@ -138594,7 +138720,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 29 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 30 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -143894,7 +144020,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1906,
+  "UNCLAIMED_FILES_COUNT": 1920,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -144160,8 +144286,8 @@
     "edges_proven": 1404,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3317,
-    "files_covered": 1411,
+    "files_tracked": 3334,
+    "files_covered": 1414,
     "files_code_unclaimed": 0,
     "roles_proven": 174,
     "roles_declared_only": 8,
