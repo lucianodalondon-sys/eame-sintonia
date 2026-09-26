@@ -1497,6 +1497,10 @@ VERSION   Coleta V1.4 -> V1.5 · Intelligence V0.3 -> V0.4
 estudo» (já é `INT-LAW-102`). A conta inteira, lei a lei, está em
 `LEI-PESQUISADORES.md`.
 
+**D87 (acréscimo do mesmo dia).** A descoberta de perfis é do bot de fontes, guiado pela Intelligence; o Scrap
+captura. Entrou como parágrafo da `COL-LAW-703`, não como lei: `COL-LAW-207`, `011`, `208` e `INT-LAW-020`,
+`151`, `290` já o diziam.
+
 **Porque 701 e não 601.** A numeração 6xx já foi usada por um ramo lateral (Card
 Contract, COL-LAW-601..617) que nunca chegou à linha. Reusar os números faria duas
 leis diferentes com o mesmo ID no dia em que alguém juntasse os ramos. Medido em

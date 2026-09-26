@@ -22575,6 +22575,15 @@ pesquisadores e achar as redes sociais, por onde eles publicam no dia a dia, iss
 | B10 | fontes científicas além do artigo | `INT-LAW-315` |
 | B11 | lista de núcleos italianos (UCSC Piacenza, FEM, UniCT, UniTO, CREA, AIE) | **aqui, não na lei**: é registo operacional e muda |
 
+**DE QUEM É A DESCOBERTA (D87, acréscimo da coordenação 18:25).** Descobrir QUE perfis, contas e canais seguir é do
+**bot de fontes (Source Curator)**, guiado pelo retorno da **Intelligence** (o que rendeu; que cultura, praga, região
+ou pessoa falta). O **Scrap captura**, não escolhe — `instagram.profile.discovery` PARTIAL no Scrap não é limite da
+coleta. Ciclo: Intelligence diz o que falta → Fontes descobrem e qualificam (porta canónica, prova de identidade, sem
+login) → Scrap captura → Sala → Intelligence mede o rendimento → volta. Escrito na `COL-LAW-703` como **aplicação**,
+não como lei nova: já o diziam a `COL-LAW-207` (descobrir ≠ buscar), a `COL-LAW-011` (o Scrap não é segundo cérebro),
+a `COL-LAW-208` (registo de fontes = memória), a `INT-LAW-020`/`151` (a Intelligence pede pela Collection, não escolhe
+rota) e a `INT-LAW-290` (a performance recomenda, a Collection decide).
+
 **ARMADILHAS.**
 - **Número de lei não se reusa.** A faixa `COL-LAW-6xx` já foi usada por um ramo lateral (Card Contract,
   601..617) que nunca chegou à linha. As leis novas são **701..703**; medido em 559 pontas de ramo: 0 usam 7xx.

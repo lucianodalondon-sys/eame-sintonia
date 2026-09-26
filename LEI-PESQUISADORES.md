@@ -82,6 +82,10 @@ mexida fora da secção 38, e está declarada no veredito.
 **Recusadas por já terem dono (7):** «previsão não é facto» (`INT-LAW-131`), «correlação não é causalidade» (`095`),
 «hipótese não vira facto por repetição» (`035`), «afiliação não é local do estudo» (`102`), «identidade não se fabrica
 na Intelligence» (`083`), «tempo do facto nos boletins» (`COL-LAW-031`/`201`), «não fundir homónimos» (`COL-LAW-034`).
+**D87 (acréscimo 18:25) — de quem é a descoberta de perfis:** do bot de fontes (Source Curator), guiado pelo retorno da
+Intelligence; o Scrap captura e não escolhe. Escrito **dentro da `COL-LAW-703`** e na §222 como aplicação de leis que já
+existiam — `COL-LAW-207`, `011`, `208`, `INT-LAW-020`, `151`, `290` (objeto `SOURCE_COLLECTION_ADVICE`) — **sem lei nova**.
+
 A B11 (lista de núcleos italianos) ficou **no know-how**, não na lei: é registo operacional, e muda.
 
 ## 5. Provas

@@ -3093,6 +3093,26 @@ pessoa, ou a página institucional aponta para o canal — e **nunca** por semel
 
 **Minimização:** só identidade + o que a pessoa publica como profissional. Apaga-se a pedido.
 
+**DE QUEM É A DESCOBERTA (D87 do dono, 26/09 ~18:25: «descobrir perfis é um trabalho das
+fontes com inteligência»).** Descobrir **quais** perfis, contas e canais seguir — Instagram,
+LinkedIn, YouTube, X, páginas de pesquisadores — é do **bot de fontes (Source Curator)**,
+guiado pelo **retorno da Intelligence**: o que rendeu, e que cultura, praga, região ou pessoa
+falta. O **Scrap captura** o que as fontes decidiram seguir; **não escolhe** o que seguir, e a
+falta de uma capacidade de descoberta no Scrap não é limite da coleta.
+
+```
+INTELLIGENCE diz o que falta  →  FONTES descobrem e qualificam (porta canónica, prova de
+identidade, sem login)  →  SCRAP captura  →  SALA  →  INTELLIGENCE mede o rendimento  →  volta
+```
+
+Isto **não é lei nova**: é a aplicação, à pessoa-fonte, do que já estava escrito —
+`COL-LAW-207` (`DISCOVER` é capacidade própria, e não se confunde com `FETCH`), `COL-LAW-011`
+(o Scrap **NÃO DEVE** competir como segundo cérebro), `COL-LAW-208` (o registo de fontes é a
+memória da coleta), e, do lado da Intelligence, `INT-LAW-020` (o gap volta pela Collection
+canónica), `INT-LAW-151` (a Intelligence pede prova, não escolhe rota) e `INT-LAW-290`
+(`SOURCE PERFORMANCE RECOMMENDS · COLLECTION DECIDES`), com o objeto de passagem
+`SOURCE_COLLECTION_ADVICE` (Bíblia da Intelligence, 36.4).
+
 **POR QUÊ.** O pesquisador é a fonte do **conhecimento causal** (o modelo, a relação, o limiar)
 e muitas vezes do **sinal precoce**, antes de o boletim sair (D85: «isso é ouro pro sintonia»).
 Mas uma pessoa é a entidade mais fácil de fundir mal: dois «Rossi» viram um, e as obras de um
