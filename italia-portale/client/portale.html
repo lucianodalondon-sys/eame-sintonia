@@ -69,6 +69,10 @@
 <script src="italy-casa.js"></script>
 <script src="vendor/jspdf-2.5.2.umd.min.js"></script>
 <script src="italy-pdf.js"></script>
+<!-- CASCO-LEITURA (D78): o CARREGADOR da vista so de leitura da Sala (sem dados). Os dados vivem em
+     italy-sala-leitura.local.js, GERADO por audit/casco/sala-leitura.mjs, com texto da Sala: fora do Git e do
+     deploy, e so pedidos com ?sala=local. Sem eles, a vista #sala diz que o export nao foi carregado. -->
+<script src="italy-sala-leitura.js"></script>
 <style>
   html, body { margin:0; padding:0; background:#110E0D; }
   a { color:#009845; text-decoration:none; }
@@ -3568,6 +3572,37 @@
     </div>
     </sc-if>
 
+    <!-- ================= SALA · SOLA LETTURA (CASCO-LEITURA, D78) ================= -->
+    <sc-if value="{{ isSala }}" hint-placeholder-val="{{ false }}">
+    <div data-view="sala" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ sala.L.title }}</h1><sc-if value="{{ salaHas }}" hint-placeholder-val="{{ true }}"><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ sala.total }} {{ sala.L.sub }} · export {{ sala.generated }} UTC</div></sc-if></div>
+      <sc-if value="{{ salaMissing }}" hint-placeholder-val="{{ false }}"><div style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ sala.L.noExport }}</div></sc-if>
+      <sc-if value="{{ salaHas }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px">
+        <sc-for list="{{ sala.kpis }}" as="k" hint-placeholder-count="6"><div style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:9px 12px;display:flex;flex-direction:column;gap:2px"><div style="font-size:18px;font-weight:700;line-height:1;color:#fff">{{ k.count }}<span style="font-size:11px;color:#8F8886"> / {{ k.of }}</span></div><div style="font-size:10px;color:#C9C3C1">{{ k.label }}</div><div style="font-size:10px;color:#F5B317">{{ k.note }}</div></div></sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ sala.itens }}" as="i" hint-placeholder-count="6">
+          <div data-sala-item="1" style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:center;gap:10px;font-size:10.5px;color:#8F8886"><span style="color:#B1A9A7;font-weight:600;font-variant-numeric:tabular-nums">{{ i.when }}</span><span style="color:#fff;font-weight:700">{{ i.source }}</span><span>{{ i.univ }} · {{ i.estagio }}</span></div>
+            <div style="font-size:12px;line-height:1.5;color:#EDEAE9"><span style="font-size:9.5px;letter-spacing:0.10em;color:#8F8886">{{ i.excerptLabel }} · </span>{{ i.excerpt }}</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+              <sc-for list="{{ i.fields }}" as="f" hint-placeholder-count="4"><div style="border-radius:10px;border:1px solid {{ f.border }};padding:8px 10px;display:flex;flex-direction:column;gap:3px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#8F8886">{{ f.label }}</div><div style="font-size:12.5px;font-weight:700;color:{{ f.color }};word-break:break-word">{{ f.value }}</div><div style="font-size:10px;color:#C9C3C1">{{ f.meta }}</div><div style="font-size:9.5px;line-height:1.4;color:#8F8886;word-break:break-word">{{ f.base }}</div></div></sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:10.5px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px">
+              <span style="font-weight:700;color:#8F8886;letter-spacing:0.08em">{{ sala.L.proof }}</span>
+              <sc-if value="{{ i.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ i.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;max-width:420px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ i.urlLabel }} {{ i.url }}</a></sc-if>
+              <sc-if value="{{ i.rawOk }}" hint-placeholder-val="{{ true }}"><a href="{{ i.rawHref }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none">{{ i.rawLabel }}</a></sc-if>
+              <sc-if value="{{ i.rawMissing }}" hint-placeholder-val="{{ false }}"><span style="color:#F5B317">{{ i.rawLabel }}</span></sc-if>
+              <span style="margin-left:auto;color:#F5B317"><b style="color:#8F8886">{{ sala.L.intel }}:</b> {{ i.intel }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
     <!-- ================= SOURCES ================= -->
     <sc-if value="{{ isSources }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
@@ -3728,7 +3763,7 @@ class Component extends DCLogic {
   /* UN SOLO MAPPA VISTA -> CAPACITA. Lo leggeva la barra per accendere la voce
      attiva; adesso lo legge anche l'indirizzo, per non finire con due verita su
      dove il lettore si trova. */
-  static CAPABILITY_OF = { radarfuturo: 'radarfuturo', radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', etichette: 'etichette', etichetta: 'etichette', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
+  static CAPABILITY_OF = { radarfuturo: 'radarfuturo', radar: 'radar', case: 'radar', brief: 'radar', meeting: 'meeting', mcase: 'meeting', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', etichette: 'etichette', etichetta: 'etichette', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', sala: 'sala', search: '' };
 
   static VIEW_FROM_HASH() {
     /* «Field Sales» NON E TRA LE VISTE RAGGIUNGIBILI.
@@ -3749,7 +3784,7 @@ class Component extends DCLogic {
        nao mais uma pagina a parte: quem recarrega em #radarfuturo tem de voltar
        aos 44, e nao ao radar. */
     const AMMESSE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors',
-      'science', 'portfolio', 'archive', 'sources', 'radarfuturo', 'etichette'];
+      'science', 'portfolio', 'archive', 'sources', 'radarfuturo', 'etichette', 'sala'];
     try {
       const h = String((typeof window !== 'undefined' && window.location && window.location.hash) || '').replace(/^#/, '');
       return AMMESSE.includes(h) ? h : 'meeting';
@@ -5710,7 +5745,11 @@ class Component extends DCLogic {
       ['science', T.navScience, navN('scienceRecords')],
       ['portfolio', T.navPortfolio, navN('products')],
       ['archive', T.navArchive, navN('archive')],
-      ['sources', T.navSources, navN('sources')]
+      ['sources', T.navSources, navN('sources')],
+      /* CASCO-LEITURA (D78) · a Sala, so de leitura. O contador vem do proprietario do dado (o export
+         gerado) e cala-se se ele faltar, como as outras voces. */
+      ['sala', s.lang === 'en' ? 'Waiting room · read-only' : "Sala d'attesa · sola lettura",
+        (window.ITALY_SALA_LEITURA && window.ITALY_SALA_LEITURA.total) || '']
     ];
     const navIntegrations = [['field', T.navField, allMessages.length]];
     const activeOf = Component.CAPABILITY_OF;
@@ -5798,6 +5837,47 @@ class Component extends DCLogic {
        prova niente, e un contatore scritto a mano sarebbe una seconda verita. */
     const navEvidence = (navRadarFuturo.count !== '' ? [navRadarFuturo] : [])
       .concat(navDef.filter(n => !STRUMENTI.includes(n[0])).map(navRow));
+    /* ══ CASCO-LEITURA (D78) · A SALA, SO DE LEITURA ══════════════════════════
+       O que aconteceu, quando, onde, fonte/prova e o que a Intelligence concluiu —
+       inclusive NAO SEI. Os quatro campos ficam SEPARADOS, cada um com valor, base e
+       precisao; um NAO SEI mostra o PORQUE (a base) em vez de se esconder. Nenhuma
+       pontuacao, nenhuma ordem de relevancia: a ordem e a do pouso na Sala.
+       A coluna Intelligence diz NAO_EXECUTADA: a Intelligence ainda nao tem saida, e o
+       portal nao a reconstroi (INT-LAW-023). O dado vem de window.ITALY_SALA_LEITURA,
+       gerado fora do Git; sem ele a vista diz que o export nao foi carregado. */
+    const SALA = window.ITALY_SALA_LEITURA || null;
+    const salaVM = (() => {
+      const en = s.lang === 'en';
+      const L = en
+        ? { title: 'Waiting room · read-only', ft: 'FACT TIME', pt: 'PUBLICATION TIME', sl: 'SOURCE LOCATION', fl: 'FACT LOCATION', prec: 'precision', base: 'basis',
+            proof: 'Proof', url: 'seen at', raw: 'raw file', rawOk: 'raw file · sha256 checked', rawMissing: 'raw file NOT FOUND on this machine · stored sha256',
+            intel: 'Intelligence', intelNo: 'NOT_EXECUTED — the Intelligence has no output yet (INT-LAW-023)', excerpt: 'document excerpt',
+            sub: 'items in the waiting room · read-only export, no score, newest first', noExport: 'The read-only export of the waiting room was not loaded. It is generated outside Git (italy-sala-leitura.local.js) and only requested with ?sala=local in the address.' }
+        : { title: "Sala d'attesa · sola lettura", ft: 'DATA DEL FATTO', pt: 'DATA DI PUBBLICAZIONE', sl: 'LUOGO DELLA FONTE', fl: 'LUOGO DEL FATTO', prec: 'precisione', base: 'base',
+            proof: 'Prova', url: 'visto su', raw: 'file grezzo', rawOk: 'file grezzo · sha256 verificato', rawMissing: 'file grezzo NON TROVATO su questa macchina · sha256 registrato',
+            intel: 'Intelligence', intelNo: 'NON_ESEGUITA — la Intelligence non ha ancora un risultato (INT-LAW-023)', excerpt: 'estratto del documento',
+            sub: "elementi nella sala d'attesa · export in sola lettura, nessun punteggio, i piu recenti prima", noExport: "L'export in sola lettura della sala d'attesa non e stato caricato. E generato fuori da Git (italy-sala-leitura.local.js) e si chiede solo con ?sala=local nell'indirizzo." };
+      if (!SALA) return { has: false, L, itens: [], kpis: [], total: 0 };
+      const NS = 'NAO SEI';
+      const cut = (x, n) => { const t = String(x || ''); return t.length > n ? t.slice(0, n - 1) + '…' : t; };
+      const campos = [['FACT_TIME', L.ft], ['PUBLICATION_TIME', L.pt], ['SOURCE_LOCATION', L.sl], ['FACT_LOCATION', L.fl]];
+      const kpis = campos.map(([k, l]) => ({ label: l, count: SALA.contagem[k].comValor, of: SALA.total,
+        note: `${SALA.total - SALA.contagem[k].comValor} ${NS}` }));
+      kpis.push({ label: L.rawOk, count: (SALA.contagem.RAW || {}).CONFERIDO || 0, of: SALA.total, note: `${(SALA.contagem.RAW || {}).NAO_ENCONTRADO || 0} NAO_ENCONTRADO` });
+      kpis.push({ label: L.intel, count: 0, of: SALA.total, note: `${SALA.total} NAO_EXECUTADA` });
+      const itens = SALA.itens.map((i) => ({
+        when: String(i.pousadoEm || '').slice(0, 10), source: i.sourceId, univ: i.universo, estagio: i.estagio,
+        excerpt: i.trecho || NS, excerptLabel: L.excerpt,
+        fields: campos.map(([k, l]) => { const c = i.campos[k]; const ns = c.valor === NS; return {
+          label: l, value: c.valor, color: ns ? '#F5B317' : '#FFFFFF', border: ns ? 'rgba(245,179,23,0.35)' : 'rgba(0,152,69,0.40)',
+          meta: `${L.prec}: ${c.precisao}${c.tipo ? ' · ' + c.tipo : ''}`, base: `${L.base}: ${cut(c.base, 260)}` }; }),
+        hasUrl: !!(i.prova && i.prova.url), url: (i.prova && i.prova.url) || '', urlLabel: L.url,
+        rawOk: i.prova.raw.estado === 'CONFERIDO', rawMissing: i.prova.raw.estado !== 'CONFERIDO', rawHref: i.prova.raw.href || '',
+        rawLabel: i.prova.raw.estado === 'CONFERIDO' ? L.rawOk : `${L.rawMissing} ${String(i.prova.raw.sha256 || '').slice(0, 16)}…`,
+        intel: L.intelNo,
+      }));
+      return { has: true, L, itens, kpis, total: SALA.total, generated: String(SALA.gerado || '').slice(0, 16).replace('T', ' ') };
+    })();
     const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     // ---- case · opportunity detail
     /* §2 · The detail must open the SAME entity the card opened. The 29 legacy
@@ -12188,6 +12268,7 @@ class Component extends DCLogic {
       isEtichette: s.view === 'etichette', isEtichetta: s.view === 'etichetta',
       li: li || {}, hasLi: !!li,
       isVoices: s.view === 'voices', voices: voices || {}, hasVoices: !!voices,
+      isSala: s.view === 'sala', sala: salaVM, salaHas: salaVM.has, salaMissing: !salaVM.has,
       navIntegrations,
       navIntegrationItems,
       /* §14 · Inbound only. The control simulates RECEIPT, never a send. */
