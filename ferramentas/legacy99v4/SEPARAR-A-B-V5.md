@@ -68,7 +68,15 @@ C e D **não têm commit na v5**: o vivo já os tem, iguais aos da v4.
   41, `CANARY_PENDING` 41, régua sem canário do Scrap = `LEGACY` 41. 0 READY.
   ⚠️ O bot estava a correr quando se copiaram os livros: a cópia é uma fotografia de
   ficheiros lidos um a um, não um instante único.
-- **Regressão por nome** e **mapa**: ver o fim deste documento.
+- **Regressão por nome** (49 módulos que importam as peças mexidas, rede fechada, livros
+  conferidos a cada módulo; `REGRESSAO-V5.json` vs `REGRESSAO-VIVO-83de0ccd.json`):
+  v5 **679** testes, vivo **668**; as **mesmas 3** falhas herdadas nos dois
+  (`test_collection_gate` caminho declarado, `test_reconciliar_livros` censo dos livros
+  reais, `test_zz_guarda_isolamento` por `test_soc_onda2_social.py`); **0 novas**;
+  0 escritas em livro. `test_importar_do_coletor` passa de 23 a 15: saem os 8 testes do
+  B antigo (2 deles já estavam `skip` no vivo). Novos: `test_rota_video_d53` (8),
+  `test_youtube_pelo_scrap` (10); `test_onda3_b_inerte` 4 → 5.
+- **Mapa**: regerado e validado pela cadeia depois deste commit (carimbo no relatório).
 
 ## Plano de instalação (o coordenador instala; um escritor; nada de rede)
 
