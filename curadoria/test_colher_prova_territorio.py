@@ -18,12 +18,24 @@ CASA = ('<html><title>Dipartimento di Scienze Agrarie</title><a href="/chi-siamo
         '<a href="/notizie/2026/seminario-sulla-difesa-della-vite">x</a>'
         '<a href="/notizie/2026/bando-borse-di-studio-agronomia">y</a>'
         '<a href="/privacy">p</a><a href="/notizie/2026/terzo-articolo-sulle-colture-ortive">z</a></html>').encode()
+HOJE = "2026-09-26"
+
+
+def noticia(titulo, data="12 marzo 2026", corpo=None):
+    """Uma pagina de conteudo PUBLICADO: HTML, data de publicacao, texto a serio (> 600 letras)."""
+    corpo = corpo or ("La difesa della vite nella campagna in corso richiede attenzione alla peronospora. " * 10)
+    return ("<html><head><title>%s</title></head><body><nav>menu menu</nav><article><h1>%s</h1>"
+            "<p class='data'>%s</p><p>%s</p></article></body></html>" % (titulo, titulo, data, corpo)).encode()
+
+
+CHI = ("<html><title>Chi siamo</title><body><p>" + "Il Dipartimento di Scienze Agrarie studia le colture. " * 8
+       + "</p></body></html>").encode()
 PAG = {B + "/robots.txt": (200, b"User-agent: *\nDisallow: /riservato/\n", ""),
        B + "/": (200, CASA, ""),
-       B + "/chi-siamo": (200, b"<title>Chi siamo</title><p>Il Dipartimento...</p>", ""),
-       B + "/notizie/2026/seminario-sulla-difesa-della-vite": (200, b"<title>Seminario</title><p>uno</p>", ""),
-       B + "/notizie/2026/bando-borse-di-studio-agronomia": (200, b"<title>Bando</title><p>due</p>", ""),
-       B + "/notizie/2026/terzo-articolo-sulle-colture-ortive": (200, b"<title>Terzo</title><p>tre</p>", "")}
+       B + "/chi-siamo": (200, CHI, ""),
+       B + "/notizie/2026/seminario-sulla-difesa-della-vite": (200, noticia("Seminario"), ""),
+       B + "/notizie/2026/bando-borse-di-studio-agronomia": (200, noticia("Bando", "03/04/2026"), ""),
+       B + "/notizie/2026/terzo-articolo-sulle-colture-ortive": (200, noticia("Terzo", "2026-05-01"), "")}
 
 
 class Colher(unittest.TestCase):
@@ -38,7 +50,7 @@ class Colher(unittest.TestCase):
         return f
 
     def test_prova_completa_em_5_pedidos_no_maximo(self):
-        r = C.colher(FICHA, self.buscar(PAG), lambda: {"EGRESS_GATE": "PASS"}, self.tmp, dormir=lambda s: None)
+        r = C.colher(FICHA, self.buscar(PAG), lambda: {"EGRESS_GATE": "PASS"}, self.tmp, dormir=lambda s: None, hoje=HOJE)
         self.assertTrue(r["PROVA_COMPLETA"], r.get("PORQUE_PAROU"))
         self.assertLessEqual(len(self.pedidos), C.TETO_D38)
         self.assertEqual(["INSTITUCIONAL", "CONTEUDO", "CONTEUDO"], [p["PAPEL"] for p in r["PROVAS"]])
@@ -74,7 +86,79 @@ class Colher(unittest.TestCase):
                 pag[k] = casca
         r = C.colher(FICHA, self.buscar(pag), lambda: {"EGRESS_GATE": "PASS"}, self.tmp, dormir=lambda s: None)
         self.assertFalse(r["PROVA_COMPLETA"])
+        self.assertEqual(0, sum(1 for p in r["PROVAS"] if p["PAPEL"] == "CONTEUDO"))
+        self.assertEqual(1, len(r["REJEITADAS"]), "a casca repetida nao se guarda duas vezes")
+
+
+class ConteudoPublicado(Colher):
+    """LOTE 1 real (26/09): 7 das 9 «completas» tinham como CONTEUDO o favicon, a ajuda, «Qualita», «Sedi»,
+    regras de revista... PROVA_COMPLETA passa a exigir conteudo PUBLICADO: HTML, texto a serio e data."""
+
+    def colher(self, pag, casa=None):
+        pag = dict(pag)
+        if casa is not None:
+            pag[B + "/"] = (200, casa, "")
+        return C.colher(FICHA, self.buscar(pag), lambda: {"EGRESS_GATE": "PASS"}, self.tmp,
+                        dormir=lambda s: None, hoje=HOJE)
+
+    def test_favicon_na_pasta_com_ano_nao_e_conteudo(self):
+        self.assertFalse(C._parece_conteudo(B + "/sites/all/themes/unipd_2017/favicon.ico", B + "/"))
+        j = C.juizo_de_conteudo(bytes([0, 0, 1, 0]) + b"\x10" * 400, B + "/x/favicon.ico", HOJE)
+        self.assertFalse(j["SERVE"])
+        self.assertIn("binario", j["PORQUE"])
+
+    def test_paginas_de_servico_nao_sao_candidatas(self):
+        for cam in ("/it/impresa/2013-04-04-08-54-42/help.html", "/vp-1219-assicurazione-della-qualita.html",
+                    "/vp-150-struttura-e-sedi.html", "/index.php/ijfs/it/Open-Access-Publishing-Fee",
+                    "/it/dipartimento/piano-strategico-di-dipartimento-e-piano-di-sviluppo",
+                    "/content/dipartimento/direttore-e-organi-collegiali", "/it/didattica/summer-e-winter-school"):
+            with self.subTest(cam=cam):
+                self.assertFalse(C._parece_conteudo(B + cam, B + "/"))
+        self.assertTrue(C._parece_conteudo(B + "/campagne-passate/comunicato-10-03-2025/", B + "/"))
+
+    def test_pagina_sem_data_e_rejeitada_e_nao_conta(self):
+        pag = dict(PAG)
+        pag[B + "/notizie/2026/bando-borse-di-studio-agronomia"] = (200, noticia("Bando", data="Ufficio bandi"), "")
+        pag[B + "/notizie/2026/terzo-articolo-sulle-colture-ortive"] = (200, noticia("Terzo", data="sempre aperto"), "")
+        r = self.colher(pag)
+        self.assertFalse(r["PROVA_COMPLETA"])
         self.assertEqual(1, sum(1 for p in r["PROVAS"] if p["PAPEL"] == "CONTEUDO"))
+        self.assertEqual(1, len(r["REJEITADAS"]))
+        self.assertIn("sem data", r["REJEITADAS"][0]["JUIZO"]["PORQUE"])
+        self.assertIn("sem data", r["PORQUE_PAROU"])
+        self.assertTrue(Path(r["REJEITADAS"][0]["BYTES_EM"]).exists(), "a rejeitada fica guardada para auditoria")
+
+    def test_a_data_de_hoje_e_o_aviso_do_dia_nao_publicacao(self):
+        j = C.juizo_de_conteudo(noticia("Previsione", data="Sabato 26 Settembre 2026"), B + "/meteo/le-tappe", HOJE)
+        self.assertFalse(j["SERVE"])
+        j = C.juizo_de_conteudo(noticia("Previsione", data="Venerdi 25 Settembre 2026"), B + "/meteo/le-tappe", HOJE)
+        self.assertTrue(j["SERVE"])
+        self.assertEqual("2026-09-25", j["DATA_PUBLICADA"])
+
+    def test_texto_curto_nao_e_conteudo(self):
+        j = C.juizo_de_conteudo(noticia("Segnalazioni", corpo="Invia una segnalazione."), B + "/node/1942", HOJE)
+        self.assertFalse(j["SERVE"])
+        self.assertIn("texto curto", j["PORQUE"])
+
+    def test_menu_e_rodape_nao_contam_como_texto(self):
+        pag = ("<html><title>x</title><nav>" + "Notizie Eventi Didattica " * 60 + "</nav><p>12/03/2026 ok</p>"
+               "<footer>" + "Via Brecce Bianche 10 Ancona " * 40 + "</footer></html>").encode()
+        self.assertFalse(C.juizo_de_conteudo(pag, B + "/n/2026/x", HOJE)["SERVE"])
+
+    def test_institucional_vazia_nao_completa(self):
+        pag = dict(PAG)
+        pag[B + "/chi-siamo"] = (200, b"<html><title>Organizzazione</title><p>Organizzazione</p></html>", "")
+        r = self.colher(pag)
+        self.assertFalse(r["PROVA_COMPLETA"])
+        self.assertIn("institucional quase vazia", r["PORQUE_PAROU"])
+
+    def test_primeiro_o_que_tem_data_no_endereco(self):
+        casa = ('<html><a href="/chi-siamo">c</a><a href="/progetti-di-ricerca-sulla-vite-e-olivo">p</a>'
+                '<a href="/notizie/2026/seminario-sulla-difesa-della-vite">n1</a>'
+                '<a href="/notizie/2026/bando-borse-di-studio-agronomia">n2</a></html>').encode()
+        r = self.colher(PAG, casa)
+        self.assertTrue(r["PROVA_COMPLETA"], r.get("PORQUE_PAROU"))
+        self.assertNotIn(B + "/progetti-di-ricerca-sulla-vite-e-olivo", self.pedidos)
 
 
 class Aplicar(unittest.TestCase):
