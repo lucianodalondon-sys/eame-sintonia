@@ -120,22 +120,24 @@ re-extração → 1 falha. **3/3 mortos.** Decisor: **11/11 OK**.
 Mutantes do pousar: M1 sem a pergunta pelo documento · M2 sem a pergunta dentro da mesma corrida · M3 sem a
 exigência `FORWARD_IDENTIFIED` · M4 sem comparar a fonte.
 
-### 4.1 · Resultados
+### 4.1 · Resultados — PROVADO em Postgres descartável (26/09 10:14–10:50, sob LOCK-PESADO)
 
-**NÃO PROVADO ainda.** Estado honesto em 26/09 ~01:00:
+| o quê | resultado |
+|---|---|
+| `tests/test_sala_dedup_por_document_key.py` (dedup A/B/C/C2/U1/U3/L/R/Z + versões V1–V7) | **16/16 OK** |
+| `tests/test_versao_do_documento.py` (decisor, sem banco) | **11/11 OK** |
+| regressão `tests/test_sala_idempotente_por_documento.py` | **5/5 OK** |
+| regressão `tests/test_migracao_033_sala.py` | **15/15 OK** |
+| mutantes do pousar | **4/5 mortos**: M1 (4 falhas), M2 (1), M4 (1), M8 sem escrita de versões (3). **M3 sobrevive — previsto** (acima: nulo nunca é igual a nulo; legado com chave não se fabrica) |
+| mutantes do decisor | **3/3 mortos** (V-M5, V-M6, V-M7) |
 
-- 1.ª corrida (00:12, sob LOCK-PESADO): **9 de 10 com erro**, 1 ok. A causa estava no **teste**, não
-  na regra. O teste criava brutos com `preserved = true` sem cópia, e a 025 recusa isso
-  (`preservado_aponta_para_a_copia`). Também não se pode criar legado num banco novo (corte da 026).
-  O teste foi corrigido em `3b1ca724` (brutos `preserved = false` com motivo; sai o caso do legado).
-- A mesma corrida passou a **regressão** `tests/test_sala_idempotente_por_documento.py`: **5/5 OK com
-  a regra nova**.
-- ⚠️ Essa corrida começou às 00:12, depois do aviso `LOCK-PRIORIDADE.txt` (00:08) a favor da C9. Eu
-  não tinha conferido esse ficheiro. Parei, soltei a trava e desliguei o Postgres de teste.
-- **Testes corrigidos e mutação M1–M4: NÃO corridos.** A prioridade da C9 continuava às 00:56.
-  Comando para quando a trava estiver livre (sem prioridade, ≥ 5 GB):
-  `PYTHONUTF8=1 py tests/test_sala_dedup_por_document_key.py`. Previsão: M1, M2 e M4 morrem; M3
-  sobrevive (explicado acima).
+A 1.ª corrida desta vaga deu 14/16: **dois defeitos do teste, não da regra**, corrigidos em `61e91ff8`:
+V1 criava um 2.º derivado do mesmo bruto com a mesma receita, e a 022 proíbe isso
+(`derivacao_e_unica_por_regua`) — agora usa outra receita; Z contava brutos e derivados juntos.
+
+Histórico: a 1.ª tentativa (25/09 00:12) começou depois do aviso de prioridade da C9 e foi parada;
+os seus erros eram do teste (`preserved = true` sem cópia). **Mapa: não regerado** — fica para a
+INTEGRA-NOITE (dica da coordenação, 03:21).
 
 ## 6 · Versões (D79) — migração 036
 
