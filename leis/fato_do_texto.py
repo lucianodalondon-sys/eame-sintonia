@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """O LUGAR E O TEMPO DO FACTO, TIRADOS DO TEXTO — os quatro campos da Sala, com a prova e o TIPO.
 
-    campos_do_fato(texto, publication_time=None, publication_time_basis=None) -> dict
+    campos_do_fato(texto, publication_time=None, publication_time_basis=None, *, titulo=None, descricao=None) -> dict
 
 Funcao PURA (sem rede, sem banco, sem ficheiros): recebe o texto de UM documento e devolve
 
@@ -82,16 +82,71 @@ RODAPE = re.compile(
     re.I)
 
 
+def _palavras(l: str) -> int:
+    return len(re.findall(r"[A-Za-zÀ-ÿ']+", l))
+
+
+# ── o TITULO e a DESCRICAO (EXTRATOR-LUGAR-V2 + EXTRATOR-EVENTO-V2, 26/09; juntos em EXTRATORES-V2-JUNTOS) ──
+# Medido pela RENDIMENTO-POR-FONTE: num video o texto guardado e SO o titulo (60-100 letras), e `corpo()`
+# deitava-o fora por ter < 8 palavras («Potatura dell'olivo: a Macerata la 9a selezione studenti», IT-T12-008).
+# O titulo e a 1.a linha do texto extraido (o <title> da pagina). O ULTIMO pedaco depois de « - », « — », « – »
+# ou « | » e o NOME DO SITE (quem publica) e sai: a sede de quem publica nunca e lugar do facto — mas FICA se
+# tiver algarismos («Evento RetePAC … - 26 Maggio 2026»: a data e do facto, nao o nome do site). Fica se sobrarem
+# >= 3 palavras e nao for rodape. Nao ha regra nova de lugar: o titulo passa pela mesma ancora de acontecimento.
+# Um texto em que NENHUMA linha e frase longa e lido como titulo: no maximo 2 linhas curtas, pela mesma regra.
+PALAVRAS_MINIMAS_DO_TITULO = PALAVRAS_DO_TITULO = 3
+LINHAS_DO_TITULO = 2
+_RE_SEPARADOR_DO_SITE = re.compile(r"\s+[-—–|]\s+(?!.*\s[-—–|]\s)")
+
+
+def titulo_limpo(t: str) -> str:
+    """Uma linha de titulo sem o nome do site no fim (a regra de cima); a linha inteira se sobrar pouco."""
+    l = re.sub(r"\s+", " ", str(t or "")).strip()
+    m = _RE_SEPARADOR_DO_SITE.search(l)
+    if m and not re.search(r"\d", l[m.end():]) and _palavras(l[:m.start()]) >= PALAVRAS_DO_TITULO:
+        return l[:m.start()].strip()
+    return l
+
+
+def _linhas_curtas(texto: str) -> list:
+    return [titulo_limpo(l) for l in str(texto or "").splitlines()
+            if l.strip() and not RODAPE.search(l) and _palavras(titulo_limpo(l)) >= PALAVRAS_DO_TITULO]
+
+
+def titulo(texto: str) -> str:
+    """A 1.a linha do texto sem o nome do site; '' se nao servir."""
+    linhas = [l.strip() for l in str(texto or "").splitlines() if l.strip()]
+    if not linhas:
+        return ""
+    m = _RE_SEPARADOR_DO_SITE.search(linhas[0])
+    t = linhas[0]
+    if m and not re.search(r"\d", t[m.end():]):
+        t = t[:m.start()].strip()
+    if _palavras(t) < PALAVRAS_MINIMAS_DO_TITULO or RODAPE.search(t):
+        return ""
+    return t
+
+
 def corpo(texto: str) -> str:
-    """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora."""
+    """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora.
+    O titulo curto (1.a linha, sem o nome do site) entra a frente, como frase propria; um texto sem NENHUMA
+    frase longa e lido como titulo (no maximo LINHAS_DO_TITULO linhas curtas)."""
     fica = []
+    t = titulo(texto)
+    if t:
+        fica.append(t)
+    primeira = next((l.strip() for l in str(texto or "").splitlines() if l.strip()), None)
     for linha in str(texto or "").splitlines():
+        if t and linha.strip() == primeira:
+            continue           # a 1.a linha ja entrou, SEM o nome do site (nunca a sede de quem publica)
         l = linha.strip()
-        if len(re.findall(r"[A-Za-zÀ-ÿ']+", l)) < PALAVRAS_MINIMAS:
+        if _palavras(l) < PALAVRAS_MINIMAS:
             continue
         if RODAPE.search(l):
             continue
         fica.append(l)
+    if not fica:
+        fica = _linhas_curtas(texto)[:LINHAS_DO_TITULO]
     return "\n".join(fica)
 
 
@@ -279,6 +334,101 @@ _RE_INSTITUCIONAL = re.compile(
     r"sessione\s+di\s+laurea|colloqui[oa]?)(?![0-9a-zà-ÿ])", re.I)
 
 
+# ── o que AINDA NAO ACONTECEU nao e facto ocorrido (EXTRATOR-EVENTO-V2, 26/09) ──
+# Com o tempo e o fogo na lista das ancoras, uma frase de ALERTA passa a ter ancora e data: «Allerta meteo:
+# previste per il 28 settembre raffiche di vento». Isso e previsao, nao acontecimento. Duas guardas:
+#   1. ha marca de previsao/futuro/possibilidade PERTO da data (ate JANELA_ANTES letras antes, JANELA_DEPOIS depois);
+#   2. a data resolve para DEPOIS da publicacao PROVADA — o texto nao pode contar o que ainda nao aconteceu.
+# PERTO, e nao na frase inteira — medido nos 1.252 (IT-T10-018): «La raccolta 2026 … è appena iniziata e, le
+# previsioni Usda sono di una produzione…» e facto; a marca da frase inteira apagava-o e deixava passar
+# «… potrebbero mantenere l'offerta ridotta fino all'arrivo del raccolto 2027».
+_RE_FUTURO = re.compile(
+    r"(?<![0-9a-zà-ÿ])(?:allert[ae]|allarm[ei]\s+meteo|previst[oaie]|prevision[ei]|si\s+prevede|sono\s+attes[ie]|"
+    r"(?:è|e['’])\s+attes[oa]|attes[oaie]\s+(?:per|nel|nella|tra)|domani|dopodomani|"
+    r"nei\s+prossimi\s+giorni|nelle\s+prossime\s+(?:ore|settimane)|prossim[oaie]\s+(?:giorn|settiman|ore)|"
+    r"possibil[ei]|potrebber?o|potr[àa]|rischio\s+di|fino\s+all['’]arrivo)(?![0-9a-zà-ÿ])",
+    re.I)
+# medido: «possibili gelate tardive, soprattutto ad aprile» (marca 41 letras ANTES) e futuro;
+# «La raccolta 2026 … è appena iniziata e, le previsioni» (marca 44 letras DEPOIS) e facto.
+JANELA_ANTES, JANELA_DEPOIS = 60, 30
+
+
+def _futuro_perto(frase: str, valor: str) -> bool:
+    b, v = FL._baixo(frase), FL._baixo(valor)
+    i = b.find(v)
+    if i < 0:
+        return bool(_RE_FUTURO.search(frase))
+    return bool(_RE_FUTURO.search(b[max(0, i - JANELA_ANTES):i + len(v) + JANELA_DEPOIS]))
+
+
+# ── a data PRESA ao acontecimento do tempo e do fogo ─────────────────────────
+# As ancoras novas (`FL.ANCORAS_DE_ACONTECIMENTO_DO_TEMPO`) sao nomes de acontecimento: a data so e dele se
+# estiver PERTO. Medido nos 1.252 (IT-T2-051): «Il 18 settembre effettuato un nuovo intervento sui dati, a
+# seguito degli eventi meteorologici registrati» — a data e da atualizacao, a 60+ letras do temporal. Com uma
+# ancora ANTIGA na frase (observado, rilevato, colpito…) vale a regra de sempre (a frase inteira).
+DISTANCIA_DO_ACONTECIMENTO = 50
+_RE_ANCORAS_ANTIGAS = re.compile(r"(?<![0-9a-z])(?:%s)" % "|".join(
+    a for a in FL.ANCORAS_DE_TEMPO_DO_FATO if a not in FL.ANCORAS_DE_ACONTECIMENTO_DO_TEMPO))
+_RE_ACONTECIMENTO_DO_TEMPO = re.compile(r"(?<![0-9a-z])(?:%s)" % "|".join(FL.ANCORAS_DE_ACONTECIMENTO_DO_TEMPO))
+
+
+def _longe_do_acontecimento(frase: str, valor: str) -> bool:
+    b, v = FL._baixo(frase), FL._baixo(valor)
+    if _RE_ANCORAS_ANTIGAS.search(b):
+        return False
+    i = b.find(v)
+    if i < 0:
+        return False
+    fim = i + len(v)
+    ms = list(_RE_ACONTECIMENTO_DO_TEMPO.finditer(b))
+    return bool(ms) and all(max(m.start() - fim, i - m.end(), 0) > DISTANCIA_DO_ACONTECIMENTO for m in ms)
+
+
+def _depois_da_publicacao(valor: str, pub: date | None) -> bool:
+    if not pub:
+        return False
+    d = FL._resolve_dia(valor, pub.year)
+    return bool(d) and date(*d) > pub
+
+
+# ── a data do ATO nao e a data do facto (EXTRATOR-EVENTO-V2, 26/09) ────────
+# As declaracoes de calamidade (RENDIMENTO-POR-FONTE, IT-T12-024) trazem na MESMA frase a data do decreto,
+# a da Gazzetta e a do acontecimento: «Con decreto del 30 luglio 2026 … l'evento atmosferico Venti forti
+# dell'11 maggio 2026». Com o tempo na lista das ancoras, a frase fica presa ao facto e o leitor escolhia a
+# primeira data — a do decreto. Uma data logo a seguir a um ATO (decreto, delibera, determina, ordinanza,
+# Gazzetta/Bollettino ufficiale, «pubblicato/approvato/firmato il») e a data desse ato: tapa-se e pergunta-se
+# de novo.
+_RE_ATO_ANTES_DA_DATA = re.compile(
+    r"(?<![a-z0-9])(?:decret[oi]|delibera(?:zione)?|determina(?:zione)?|ordinanza|circolare|gazzetta\s+ufficiale|"
+    r"bollettino\s+ufficiale|b\.?u\.?r\.?[a-z]*|g\.?u\.?|d\.?g\.?r\.?|d\.?m\.?|legge|"
+    r"(?:pubblicat|approvat|firmat|emanat|adottat)[oaie])"
+    r"(?:\s+(?:regionale|ministeriale|dirigenziale|n\.?\s*[\w/.-]+))?\s*(?:del(?:l['’])?|in\s+data|il|n\.?\s*[\w/.-]+\s+del)?\s*$",
+    re.I)
+
+
+# ── o ANO DE COMPARACAO nao e a data do facto (EXTRATOR-EVENTO-V2, D84) ──────
+# Mapa do casco (POLSO DI MERCATO): «anos de comparacao foram confundidos com data do fato». «Prezzi in calo
+# rispetto al 2025», «il confronto con il 2024», «stesso periodo del 2025»: o ano e a REFERENCIA da comparacao,
+# nao quando o facto aconteceu. Uma data logo a seguir a uma marca de comparacao tapa-se e pergunta-se de novo.
+_RE_COMPARACAO_ANTES_DA_DATA = re.compile(
+    r"(?<![a-z])(?:rispetto\s+(?:a|al|allo|alla|ai|agli|all['’])?|(?:in\s+)?confronto\s+(?:con|a)\s*(?:il|lo|la|l['’])?|"
+    r"paragonat[oaie]\s+(?:a|al|con)\s*(?:il)?|stess[oa]\s+(?:periodo|mese|settimana)\s+(?:del(?:l['’])?|di)|"
+    r"contro\s+(?:il|i|l['’])|sul(?:l['’])?|vs\.?|versus|sopra\s+(?:il|al)|sotto\s+(?:il|al)|"
+    r"(?:superiore|inferiore|pari)\s+(?:a|al|allo|alla)|dalla\s+campagna|dall['’]annata)\s*(?:del\s+|dell['’]\s*)?$",
+    re.I)
+
+
+def _ano_de_comparacao(ev: str, valor: str) -> bool:
+    b, v = FL._baixo(ev), FL._baixo(valor)
+    i = b.find(v)
+    return i >= 0 and bool(_RE_COMPARACAO_ANTES_DA_DATA.search(b[max(0, i - 40):i]))
+
+
+def _data_de_ato(ev: str, valor: str) -> bool:
+    i = FL._baixo(ev).find(FL._baixo(valor))
+    return i >= 0 and bool(_RE_ATO_ANTES_DA_DATA.search(FL._baixo(ev)[max(0, i - 60):i]))
+
+
 def _tempo_de_campo(t: str, pub: date | None, tapados: list, janelas: list | None = None) -> dict:
     """Pergunta ao leitor; se a data que ele escolhe vem de uma frase institucional, de um CONSELHO, ou de
     uma ancora que so existia DENTRO de outra palavra, tapa-a nessa frase e pergunta de novo."""
@@ -294,6 +444,10 @@ def _tempo_de_campo(t: str, pub: date | None, tapados: list, janelas: list | Non
             conselhos.append(pedaco)
         motivo = ("INSTITUCIONAL_NAO_FATO" if _RE_INSTITUCIONAL.search(ev)
                   else "RECOMENDACAO_NAO_FATO" if e_conselho
+                  else "PREVISAO_NAO_E_FATO" if _futuro_perto(ev, v) or _depois_da_publicacao(v, pub)
+                  else "DATA_DE_ATO_NAO_E_FATO" if _data_de_ato(ev, v)
+                  else "COMPARACAO_NAO_E_FATO" if _ano_de_comparacao(ev, v)
+                  else "DATA_LONGE_DO_ACONTECIMENTO" if _longe_do_acontecimento(ev, v)
                   else None if _presa_ao_campo(ev) else "ANCORA_DENTRO_DE_OUTRA_PALAVRA")
         if not motivo:
             return r
@@ -409,6 +563,16 @@ ANCORAS_DE_PRODUCAO = (
 DISTANCIA_MAXIMA_DA_PRODUCAO = 60      # letras entre a palavra de producao e o lugar
 _RE_PRODUCAO = re.compile(r"(?<![0-9a-zà-ÿ])(?:%s)(?![0-9a-zà-ÿ])" % "|".join(ANCORAS_DE_PRODUCAO), re.I)
 RECUSA_QUE_PODE_SER_PRODUCAO = ("área econômica", "topônimo sem relação semântica com o acontecimento")
+# EXTRATOR-LUGAR-V2 (26/09) · a palavra de producao DENTRO DO NOME DE UM ORGAO nao e acontecimento. Lido a mao na
+# medida (IT-T5-010, Sala): «nel 1895 viene fondato a Scafati, in provincia di Salerno, l'Istituto Sperimentale e
+# di Tirocinio per la Coltivazione dei Tabacchi» dava Salerno como CAMPO pela ancora «Coltivazione».
+_RE_ORGAO_ANTES_DA_ANCORA = re.compile(
+    r"(?<![0-9a-zà-ÿ])(?:istitut[oi]|ent[ei]|centr[oi]|consorzi[oi]|associazion[ei]|stazion[ei]|scuol[ae]|"
+    r"osservatori[oi]|accademi[ae]|fondazion[ei])(?![0-9a-zà-ÿ])[^.;:]{0,80}$", re.I)
+
+
+def _ancora_dentro_de_orgao(frase: str, m) -> bool:
+    return bool(_RE_ORGAO_ANTES_DA_ANCORA.search(frase[:m.start()]))
 
 # data explicita de evento: «12 e 13 novembre 2026», «dal 6 all'8 ottobre 2026», «16-24 maggio 2026», «8 ottobre»
 _RE_DATA_EVENTO = re.compile(
@@ -490,6 +654,33 @@ def _datas_de_evento(frase: str) -> list:
     return fora
 
 
+# ── 4c · o lugar que e PEDACO DE UM NOME nao e lugar do facto (PERIODO-E-CHAVES, 26/09) ──
+# Lidos a mao na QUATRO-CHAVES-MEDIR (12 regioes, 3 erradas): «oltre che Bologna Fiere, socio di
+# FederBio» (Bologna e o nome de uma EMPRESA) e «ARPA Lazio – Seminario» (Lazio e o nome do ORGAO que
+# publica). O lugar colado a um nome de orgao/empresa e o nome, nao o sitio do acontecimento — SALVO
+# se uma preposicao de lugar vem antes do nome: «a Fiera Bolzano», «presso ARPA Lazio» sao o LOCAL.
+# (O terceiro erro, a pagina com dois eventos, ja e do CONSERTO-REGUA: datas de evento diferentes.)
+_ORGAO_ANTES = re.compile(r"(?<![0-9a-zà-ÿ])(?:arpa[a-z]{0,3}|appa|agenzia\s+regionale(?:\s+[a-zà-ÿ]+){0,4})\s+$", re.I)
+_EMPRESA_DEPOIS = re.compile(r"^\s+(?:fiere|s\.?p\.?a\.?|s\.?r\.?l\.?|group|holding)(?![0-9a-zà-ÿ])", re.I)
+_PREPOSICAO_DE_LUGAR = re.compile(r"(?<![0-9a-zà-ÿ])(?:a|ad|in|presso|alla|al|nella|nel|dalla|dal)\s+$", re.I)
+
+
+def _e_pedaco_de_nome(frase: str, pos: int, lugar: str) -> str | None:
+    """O nome de orgao/empresa de que o lugar e pedaco, ou None. So le a frase."""
+    antes, depois = frase[:pos], frase[pos + len(lugar):]
+    m = _ORGAO_ANTES.search(antes)
+    if m:
+        inicio = m.start()
+    elif _EMPRESA_DEPOIS.match(depois):
+        inicio = pos
+    else:
+        return None
+    if _PREPOSICAO_DE_LUGAR.search(frase[:inicio]):
+        return None
+    fim = pos + len(lugar) + (len(_EMPRESA_DEPOIS.match(depois).group(0)) if _EMPRESA_DEPOIS.match(depois) else 0)
+    return frase[inicio:fim].strip()
+
+
 def _lugares(c: str) -> tuple[list, list]:
     aceitas, recusadas = FL.localizacoes_do_fato(c, origem="TEXTO_DO_CORPO")
     lugares, vistos = [], set()
@@ -515,6 +706,9 @@ def _lugares(c: str) -> tuple[list, list]:
         # producao nao diz nada. E um nome maior que contem uma provincia nao e a provincia.
         if r["PRECISION"] == "COUNTRY" or (pos is not None and _NOME_MAIOR.search(r["EVIDENCE"][max(0, pos - 12):pos + len(r["PLACE"]) + 12])):
             pos = None
+        if pos is not None and _e_pedaco_de_nome(r["EVIDENCE"], pos, r["PLACE"]):
+            r = dict(r, WHY_NOME=_e_pedaco_de_nome(r["EVIDENCE"], pos, r["PLACE"]))
+            pos = None
         if r["STATE"] != FL.TERRITORIAL_LIST and pos is not None:
             # a ancora MAIS PERTO do lugar decide, antes ou depois dele («del mercato In Sardegna si producono»)
             cands = []
@@ -522,6 +716,7 @@ def _lugares(c: str) -> tuple[list, list]:
                 cands += [(m, EVENTO, None) for m in _RE_EVENTO.finditer(r["EVIDENCE"])]
             if r["WHY"] in RECUSA_QUE_PODE_SER_PRODUCAO:
                 cands += [(m, CAMPO, "PRODUCAO") for m in _RE_PRODUCAO.finditer(r["EVIDENCE"])
+                          if not _ancora_dentro_de_orgao(r["EVIDENCE"], m)
                           if _distancia(m, pos, len(r["PLACE"])) <= DISTANCIA_MAXIMA_DA_PRODUCAO]
             if r["WHY"] in RECUSA_QUE_E_MERCADO:
                 cands += [(m, MERCADO, None) for m in _RE_MERCADO.finditer(r["EVIDENCE"])]
@@ -550,9 +745,63 @@ _PRECISAO_ORDEM = ("MUNICIPALITY", "PROVINCE", "REGION", "COUNTRY")
 _NOME_MAIOR = re.compile(r"America\s+Latina|Latinoamerica", re.I)
 
 
-def campos_do_fato(texto: str, publication_time: str | None = None,
-                   publication_time_basis: str | None = None) -> dict:
+# ── o PERIODO DO BOLETIM, escrito no cabecalho (EXTRATOR-EVENTO-V2, D84) ──────
+# «Settimanale N. 37 Anno XL / 09 - 15 settembre 2026» (IT-T3-008, ARIF Puglia): o boletim diz de que semana
+# fala, numa linha que e SO o periodo, no topo. A regra das 8 palavras deitava-a fora e o boletim ficava sem
+# data. Le-se so ali: nas primeiras LINHAS_DO_CABECALHO linhas, num texto que se declara boletim, e a linha
+# inteira tem de ser o periodo. «N° 27 del 16/09/2026» NAO e periodo: e a publicacao, e fica de fora.
+# Entra DEPOIS da data de campo presa a um acontecimento (mais precisa) e do «ieri» contado; um periodo que
+# comeca depois da publicacao provada e futuro.
+LINHAS_DO_CABECALHO = 12
+_RE_E_BOLETIM = re.compile(r"bollettin|settimanal|notiziari|decadal|mensile\s+n|numero\s+\d|n[°º.]\s*\d", re.I)
+_MES = "|".join(FL.MESES)
+_RE_PERIODO_DO_CABECALHO = re.compile(
+    r"^\s*(?:dal\s+)?(\d{1,2})\s*(?:[-–]|al)\s*(\d{1,2})\s+(%s)\s+(\d{4})\s*$" % _MES, re.I)
+
+
+def _periodo_do_cabecalho(texto: str, pub: date | None, tapados: list) -> dict | None:
+    linhas = [l.strip() for l in str(texto or "").splitlines() if l.strip()][:LINHAS_DO_CABECALHO]
+    if not any(_RE_E_BOLETIM.search(l) for l in linhas):
+        return None
+    for l in linhas:
+        m = _RE_PERIODO_DO_CABECALHO.match(FL._baixo(l))
+        if not m:
+            continue
+        a, b, mes, ano = int(m.group(1)), int(m.group(2)), m.group(3), int(m.group(4))
+        valor = "%02d - %02d %s %d" % (a, b, mes, ano)
+        try:
+            ini, fim = date(ano, FL.MES_NUM[mes], a), date(ano, FL.MES_NUM[mes], b)
+        except ValueError:
+            return None
+        if fim < ini:
+            return None
+        if pub and ini > pub:
+            tapados.append("PREVISAO_NAO_E_FATO «%s» (o periodo do boletim comeca depois da publicacao)" % valor)
+            return None
+        return {"VALOR": valor, "KIND": CAMPO, "ORIGEM": "CABECALHO_DO_BOLETIM",
+                "RESOLUCAO": "WEEK" if (fim - ini).days <= 6 else "APPROXIMATE",
+                "TRECHO": "%s (= %s)" % (l, valor) if FL._baixo(l).strip() != valor else l}
+    return None
+
+
+def corpo_com_titulo_e_descricao(texto: str, titulo: str | None = None, descricao: str | None = None) -> str:
+    """O corpo, com o TITULO (uma frase, mesmo curta) e a DESCRICAO do video (as linhas dela que tenham
+    PALAVRAS_DO_TITULO palavras; sem rodape) a frente. Nada disto e a data de publicacao: e texto do autor."""
+    partes = []
+    t = titulo_limpo(titulo) if titulo else ""
+    if t and _palavras(t) >= PALAVRAS_DO_TITULO:
+        partes.append(t)
+    if descricao:
+        partes += [l for l in _linhas_curtas(descricao) if l not in partes]
     c = corpo(texto)
+    partes += [l for l in c.splitlines() if l and l not in partes]
+    return "\n".join(partes)
+
+
+def campos_do_fato(texto: str, publication_time: str | None = None,
+                   publication_time_basis: str | None = None, *,
+                   titulo: str | None = None, descricao: str | None = None) -> dict:
+    c = corpo_com_titulo_e_descricao(texto, titulo, descricao)
     pub = publicacao_provada(publication_time, publication_time_basis)
 
     # ── lugar (os candidatos; a montagem vem depois do tempo — ver «lista de eventos»)
@@ -568,6 +817,15 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
         else:
             x["KIND"] = CAMPO if _relativa_presa_ao_campo(frase) else EVENTO if _RE_EVENTO.search(frase) else None
             x["PORQUE"] = None if x["KIND"] else "a frase não fala de um acontecimento nem de um evento técnico"
+            if x["KIND"] == CAMPO and ((_regra(x["EXPRESSAO"])[1] or 0) > 0 or _futuro_perto(frase, x["EXPRESSAO"])):
+                # EXTRATOR-EVENTO-V2: «domani», «la prossima settimana», e qualquer relativa numa frase de
+                # previsao falam do que AINDA NAO aconteceu no campo — evidencia, nunca data do facto.
+                # O EVENTO tecnico anunciado continua EVENTO (D62), tambem quando fala de um acontecimento:
+                # «il convegno sulla grandine si terrà domani» e o convegno, nao a grandine.
+                if _RE_EVENTO.search(frase):
+                    x["KIND"] = EVENTO
+                else:
+                    x["KIND"], x["PORQUE"] = None, "futuro / previsão: o que ainda não aconteceu no campo não é facto ocorrido"
         cr, porque = verificar_relativa(x["EXPRESSAO"], x["TRECHO"], pub)
         if porque:
             x["PORQUE"] = porque
@@ -600,6 +858,7 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
                  "RESOLUCAO": RESOLUCAO.get(r.get("FACT_TIME_PRECISION"), "APPROXIMATE"),
                  "TRECHO": _trecho(r.get("FACT_TIME_EVIDENCE"))}
     tempo = tempo or _rel_de(CAMPO)
+    tempo = tempo or _periodo_do_cabecalho(texto, pub, tapados)
     if not tempo and eventos:
         e = eventos[0]
         tempo = {"VALOR": e["VALOR"], "KIND": EVENTO, "ORIGEM": "ESCRITO_NO_TEXTO", "RESOLUCAO": e["RESOLUCAO"],

@@ -77,6 +77,9 @@ evidência própria.
     GEOTAG ≠ FACT_LOCATION
 """
 import re
+import csv
+import hashlib
+import os
 import unicodedata
 
 # ---------------------------------------------------------------- espécies
@@ -163,6 +166,121 @@ GAZETTEER = tuple([(n, REGION) for n in REGIOES] +
                   [(n, PROVINCE) for n in PROVINCIAS] +
                   [('Italia', COUNTRY), ('Italy', COUNTRY)])
 
+# ------------------------------------------------ EXTRATOR-LUGAR-V2 (26/09/2026)
+# Três coisas que a RENDIMENTO-POR-FONTE mediu e que o gazetteer acima não vê. Nenhuma é
+# prova por si: o que sai daqui são MENÇÕES; quem as promove a lugar do facto continua a ser
+# a âncora de acontecimento (`localizacoes_do_fato`).
+#
+#   1. COMUNE — só pela LISTA OFICIAL DO ISTAT, lida de um ficheiro DECLARADO
+#      (`leis/dados/Elenco-comuni-italiani.csv`, o CSV do ISTAT, «;» e latin-1), com o sha256 dito
+#      em `cobertura()`. Sem o ficheiro, nada muda: a cobertura continua declarada, não presumida,
+#      e não se escrevem comuni à mão (a lei desta lista, acima). O comune sai com a SUA província
+#      e região; homónimo (mesmo nome em duas províncias) só se resolve com a sigla «(PC)» logo a
+#      seguir — sem ela, fica de fora.
+#   2. «provincia di X» / «in provincia di X» — X da lista é PROVINCE, não o comune homónimo.
+#   3. «nel veronese» / «del modenese» — o adjectivo em -ese DERIVADO só dos nomes da lista
+#      (nome sem a vogal final + «ese»); nada de adjectivos escritos à mão.
+COMUNI_ISTAT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dados', 'Elenco-comuni-italiani.csv')
+_COMUNI = {}          # caminho -> {nome_baixo: [(nome, sigla, provincia, regiao)]}
+
+
+def comuni(caminho=None):
+    """{nome sem acento em minúsculas: [(nome, sigla, província, região), ...]}; {} sem o ficheiro."""
+    caminho = caminho or COMUNI_ISTAT
+    if caminho in _COMUNI:
+        return _COMUNI[caminho]
+    fora = {}
+    if os.path.isfile(caminho):
+        with open(caminho, encoding='latin-1', newline='') as fh:
+            linhas = list(csv.reader(fh, delimiter=';'))
+        cab = [' '.join(c.split()) for c in linhas[0]]
+        def col(pedaco):
+            return next(i for i, c in enumerate(cab) if pedaco.lower() in c.lower())
+        i_nome, i_sigla = col('Denominazione in italiano'), col('Sigla automobilistica')
+        i_prov, i_reg = col("Denominazione dell'Unità territoriale sovracomunale"), col('Denominazione Regione')
+        for l in linhas[1:]:
+            if len(l) > max(i_nome, i_sigla, i_prov, i_reg) and l[i_nome].strip():
+                fora.setdefault(_baixo(l[i_nome].strip()), []).append(
+                    (l[i_nome].strip(), l[i_sigla].strip(), l[i_prov].strip(), l[i_reg].strip()))
+    _COMUNI[caminho] = fora
+    return fora
+
+
+def _sha_do_ficheiro(caminho):
+    if not os.path.isfile(caminho):
+        return None
+    with open(caminho, 'rb') as fh:
+        return hashlib.sha256(fh.read()).hexdigest()
+
+
+def _adjectivos():
+    """{adjectivo em -ese: nome da lista}, só para nomes de uma palavra terminados em vogal."""
+    fora = {}
+    for nome, prec in GAZETTEER:
+        b = _baixo(nome)
+        if prec in (PROVINCE, REGION) and re.fullmatch(r'[a-z]+[aeiou]', b):
+            fora[b[:-1] + 'ese'] = (nome, prec)
+    return fora
+
+
+_RE_PROVINCIA_DI = re.compile(r"(?<![0-9a-z])(?:(?:in|nella|della|dalla|sulla)\s+)?provincia\s+di\s+", re.I)
+_RE_ADJ = re.compile(r"(?<![0-9a-z])(?:nel|del|dal|sul|nell'area\s+del|nella\s+zona\s+del)\s+([a-z]+ese)(?![0-9a-z])")
+_RE_SIGLA_DEPOIS = re.compile(r"^\s*\(\s*([A-Z]{2})\s*\)")
+_RE_TOKEN_MAIUSCULO = re.compile(r"[A-ZÀ-Ý][A-Za-zÀ-ÿ'’]*")
+
+
+def _mencoes_v2(frase, ocupado, caminho_comuni=None):
+    """As menções novas (província por «provincia di», adjectivo, comune ISTAT), sem sobrepor as de `ocupado`."""
+    low = _baixo(frase)
+    fora = []
+    provincias = {_baixo(n): n for n, p in GAZETTEER if p == PROVINCE}
+    tabela = comuni(caminho_comuni)
+    for (_n, _s, prov, _r) in (x for v in tabela.values() for x in v):
+        provincias.setdefault(_baixo(prov), prov)
+    # 2 · «provincia di X»
+    for m in _RE_PROVINCIA_DI.finditer(low):
+        resto = low[m.end():]
+        for alvo, nome in sorted(provincias.items(), key=lambda kv: -len(kv[0])):
+            if re.match(r'%s(?![0-9a-z])' % re.escape(alvo), resto):
+                fora.append({'PLACE': nome, 'PRECISION': PROVINCE, 'POS': m.end(), 'VIA': 'provincia di',
+                             'COMPRIMENTO': len(alvo)})
+                break
+    # 3 · «nel veronese»
+    adj = _adjectivos()
+    for m in _RE_ADJ.finditer(low):
+        if m.group(1) in adj:
+            nome, prec = adj[m.group(1)]
+            fora.append({'PLACE': nome, 'PRECISION': prec, 'POS': m.start(1), 'VIA': 'aggettivo -ese',
+                         'COMPRIMENTO': len(m.group(1))})
+    # 1 · comune ISTAT (só com o ficheiro), escrito com maiúscula no texto
+    if tabela:
+        tokens = list(_RE_TOKEN_MAIUSCULO.finditer(frase))
+        for i, t in enumerate(tokens):
+            for j in range(min(len(tokens), i + 5), i, -1):
+                trecho = frase[t.start():tokens[j - 1].end()]
+                chave = _baixo(trecho)
+                if len(chave) < 4 or chave not in tabela or chave in provincias:
+                    continue
+                cands = tabela[chave]
+                sig = _RE_SIGLA_DEPOIS.match(frase[tokens[j - 1].end():])
+                if sig:
+                    cands = [c for c in cands if c[1] == sig.group(1)] or cands
+                if len({c[2] for c in cands}) != 1:
+                    break          # homónimo sem sigla que o desfaça: fica de fora
+                nome, sigla, prov, reg = cands[0]
+                fora.append({'PLACE': nome, 'PRECISION': MUNICIPALITY, 'POS': t.start(), 'VIA': 'comune ISTAT',
+                             'COMPRIMENTO': len(trecho), 'PROVINCE': prov, 'REGION': reg, 'SIGLA': sigla})
+                break
+    limpo = []
+    for m in fora:
+        fim = m['POS'] + m.pop('COMPRIMENTO')
+        if any(m['POS'] < f and i < fim for i, f in ocupado):
+            continue
+        ocupado.append((m['POS'], fim))
+        limpo.append(m)
+    return limpo
+
+
 # ------------------------------------------------------------------ âncoras
 # Linguagem que liga ACONTECIMENTO a LUGAR. Cada uma diz também QUE espécie de
 # evidência é — porque "constatata" e "campioni ricevuti" não medem a mesma coisa.
@@ -230,7 +348,11 @@ ANCORAS_NEGATIVAS = (
     # O contrato de fonte diz o mesmo por outras palavras: a regra dele é «a
     # PROVINCIA do proprio arquivo» — uma regra que manda PROCURAR o facto
     # dentro, não uma que o declare.
-    (r'provinci[ae]\s+d[iell]+\s*', 'âmbito declarado do documento'),
+    # EXTRATOR-LUGAR-V2 (26/09): «IN / NELLA provincia di X» e o LUGAR de um acontecimento («Venti forti
+    # ... in provincia di Verona», IT-T12-024), nao o ambito do documento — deixa de ser negativa e quem
+    # decide e a ancora de acontecimento, como para qualquer outro lugar. «DELLA provincia di Salerno»
+    # (o titulo do boletim) continua a ser ambito.
+    (r'(?<!in )(?<!nella )provinci[ae]\s+d[iell]+\s*', 'âmbito declarado do documento'),
     (r'\bcomprensorio\b', 'âmbito declarado do documento'),
     (r'\bpresso\b', 'afiliação institucional'),
     (r'laurea\s+(?:a|presso)', 'formação'),
@@ -246,7 +368,9 @@ def cobertura():
     saem idênticos do outro lado.
     """
     return {'REGIONS': len(REGIOES), 'PROVINCES': len(PROVINCIAS),
-            'COUNTRY_FORMS': 2, 'MUNICIPALITIES': 0,
+            'COUNTRY_FORMS': 2, 'MUNICIPALITIES': sum(len(v) for v in comuni().values()),
+            'MUNICIPALITIES_SOURCE': ({'FICHEIRO': COMUNI_ISTAT, 'SHA256': _sha_do_ficheiro(COMUNI_ISTAT)}
+                                      if comuni() else 'AUSENTE — sem a lista oficial do ISTAT, nenhum comune'),
             'LIMIT': ('só regiões, províncias e o país. Município que não seja '
                       'capoluogo de província é NOT_IN_GAZETTEER — invisível, '
                       'não recusado'),
@@ -284,15 +408,21 @@ def mencoes(frase):
         alvo = _baixo(nome)
         for m in re.finditer(r'(?<![0-9a-z])%s(?![0-9a-z])' % re.escape(alvo), low):
             fora.append({'PLACE': nome, 'PRECISION': precisao, 'POS': m.start()})
+    # EXTRATOR-LUGAR-V2: «provincia di X» e «nel X-ese» dizem PROVINCE e ganham ao nome solto no
+    # mesmo ponto; o comune ISTAT só entra onde nada da lista caiu.
+    v2 = _mencoes_v2(frase, [])
+    for n in v2:
+        fora = [m for m in fora if not (m['PLACE'] == n['PLACE'] and n['POS'] <= m['POS'] < n['POS'] + len(n['PLACE']) + 1)]
     # Topônimo mais longo vence no mesmo ponto: "Emilia-Romagna" antes de "Romagna".
     fora.sort(key=lambda x: (x['POS'], -len(x['PLACE'])))
     limpo, ocupado = [], []
-    for m in fora:
+    for m in [x for x in v2 if x.get('VIA') != 'comune ISTAT'] + fora + [x for x in v2 if x.get('VIA') == 'comune ISTAT']:
         fim = m['POS'] + len(m['PLACE'])
         if any(m['POS'] < f and i < fim for i, f in ocupado):
             continue
         ocupado.append((m['POS'], fim))
         limpo.append(m)
+    limpo.sort(key=lambda x: x['POS'])
     return limpo
 
 
@@ -379,7 +509,9 @@ def localizacoes_do_fato(texto, *, origem='POST_TEXT'):
             if chave in vistos:
                 continue
             vistos.add(chave)
+            extra = {k: m[k] for k in ('VIA', 'PROVINCE', 'REGION', 'SIGLA') if k in m}
             aceitas.append({
+                **{'FACT_LOCATION_' + k: v for k, v in extra.items()},
                 'FACT_LOCATION': m['PLACE'],
                 'FACT_LOCATION_PRECISION': m['PRECISION'],
                 'FACT_LOCATION_EVIDENCE': frase[:300],
@@ -448,6 +580,24 @@ ANCORAS_DE_TEMPO_DO_FATO = (
     r'riscontrat[oaie]', r'colpit[oaie]', r'contaminaz', r'superament',
     r'infezion', r'attacch[io]', r'sintomi', r'annata', r'coltura',
 )
+
+ANCORAS_DE_ACONTECIMENTO_DO_TEMPO = (
+    # EXTRATOR-EVENTO-V2 (26/09): o ACONTECIMENTO do tempo e do fogo tambem e facto do campo.
+    # Medido na RENDIMENTO-POR-FONTE (30 lidos a mao): «Venti forti dell'11 maggio 2026 in provincia di
+    # Verona» (IT-T12-024) e «Incendio … nella prima mattinata del 7 settembre 2026» (IT-T2-051) tinham a
+    # data e ficavam NAO SEI — nenhuma palavra desta lista estava na frase. O texto chega aqui sem acentos
+    # (`_baixo`): «siccità» -> «siccita». As raizes evitam os falsos amigos medidos no italiano:
+    # «gelato» (sorvete) nao e «gelata»; «vento» sozinho nao e acontecimento (so forte / raffiche).
+    r'incendi', r'grandin', r'gelat[ae]\b', r'brinat[ae]\b', r'alluvion', r'esondazion', r'nubifragi',
+    r'siccit', r'vent[oi]\s+(?:fort|intens|impetuos|di\s+burrasca)', r'raffich', r'tromb[ae]\s+d.aria',
+    r'mareggiat', r'maltempo', r'frane?\b', r'ondat[ae]\s+di\s+calore', r'calamit',
+    r'event[oi]\s+(?:atmosferic|meteorologic|meteo\b|estrem|calamitos|alluvional|avvers)',
+)
+# Estas ancoras sao PALAVRAS DE ACONTECIMENTO, nao verbos de observacao: «gli eventi meteorologici
+# registrati» numa frase sobre uma ATUALIZACAO de dados («Il 18 settembre effettuato un nuovo intervento sui
+# dati, a seguito degli eventi meteorologici», IT-T2-051) punha a data da atualizacao como data do temporal.
+# Por isso `leis/fato_do_texto.py` so as aceita com a data PERTO delas (ver DISTANCIA_DO_ACONTECIMENTO).
+ANCORAS_DE_TEMPO_DO_FATO = ANCORAS_DE_TEMPO_DO_FATO + ANCORAS_DE_ACONTECIMENTO_DO_TEMPO
 
 
 def _e_campanha(valor):

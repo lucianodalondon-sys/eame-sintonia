@@ -163,7 +163,8 @@ class OContratoLevaAsQuatroChaves(unittest.TestCase):
         item, d = _decidido(fact_location="Valpolicella",
                             fact_location_basis="declarado no boletim")
         j = A.pronto_para_inteligencia(item, d)["JANELA_DECLARADA"]
-        self.assertEqual(set(j), set(A.QUATRO_CHAVES) | {"PRECISAO", "TEMPO_RELATIVO", "ORIGEM"})
+        # EXTRATOR-EVENTO-V2 (D84): + PROBLEMA (a praga/doenca dos boletins), fora da contagem das quatro
+        self.assertEqual(set(j), set(A.QUATRO_CHAVES) | {"PROBLEMA", "PRECISAO", "TEMPO_RELATIVO", "ORIGEM"})
         for c in A.QUATRO_CHAVES:
             self.assertTrue({"VALOR", "VEIO_DE", "BASE"} <= set(j[c]), c)
         self.assertIn("vite", j["CULTURA"]["VALOR"])

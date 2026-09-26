@@ -1,0 +1,121 @@
+# -*- coding: utf-8 -*-
+# EXTRATORES-V2-JUNTOS · mutacao (a da EXTRATOR-EVENTO-V2 + os mutantes da juncao e do MESMO_PROBLEMA). Cada mutante e confirmado por `git diff` e reposto no fim. Registo do ensaio (.txt).
+#   PYTHONUTF8=1 py data/derivados/EXTRATORES-V2-JUNTOS/mutacao.py.txt
+import io
+import os
+import subprocess
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+TESTES = ["tests.test_extrator_evento_v2", "tests.test_fato_do_texto", "tests.test_boletim_do_campo",
+          "tests.test_extrator_lugar_v2"]
+FL, FT = "leis/fato_local.py", "leis/fato_do_texto.py"
+M = [
+    ("M1 incendio fora das ancoras", FL, "    r'incendi', r'grandin',", "    r'grandin',"),
+    ("M2 grandine fora das ancoras", FL, "    r'incendi', r'grandin',", "    r'incendi',"),
+    ("M3 vento sozinho vira acontecimento", FL, r"r'vent[oi]\s+(?:fort|intens|impetuos|di\s+burrasca)'", "r'vent'"),
+    ("M4 gelato vira gelata", FL, r"r'gelat[ae]\b'", "r'gelat'"),
+    ("M5 evento atmosferico fora", FL, r"    r'event[oi]\s+(?:atmosferic|meteorologic|meteo\b|estrem|calamitos|alluvional|avvers)',", ""),
+    ("M6 previsao na frase ignorada", FT, 'else "PREVISAO_NAO_E_FATO" if _futuro_perto(ev, v) or _depois_da_publicacao(v, pub)',
+     'else "PREVISAO_NAO_E_FATO" if _depois_da_publicacao(v, pub)'),
+    ("M7 data depois da publicacao aceite", FT, 'else "PREVISAO_NAO_E_FATO" if _futuro_perto(ev, v) or _depois_da_publicacao(v, pub)',
+     'else "PREVISAO_NAO_E_FATO" if _futuro_perto(ev, v)'),
+    ("M8 relativa futura de campo aceite", FT, '            if x["KIND"] == CAMPO and ((_regra(x["EXPRESSAO"])[1] or 0) > 0 or _futuro_perto(frase, x["EXPRESSAO"])):',
+     '            if False:'),
+    ("M9 evento anunciado perde o tipo", FT, '                if _RE_EVENTO.search(frase):\n                    x["KIND"] = EVENTO',
+     '                if False:\n                    x["KIND"] = EVENTO'),
+    ("M10 data do ato aceite", FT, '                  else "DATA_DE_ATO_NAO_E_FATO" if _data_de_ato(ev, v)\n', ""),
+    ("M11 so-titulo deitado fora", FT, "    if not fica:\n        fica = _linhas_curtas(texto)[:LINHAS_DO_TITULO]\n", ""),
+    ("M12 a 1.a linha (titulo) nao entra", FT, "    if t:\n        fica.append(t)\n", ""),
+    ("M13 nome do sitio fica (titulo do video)", FT, "        return l[:m.start()].strip()\n    return l", "        return l\n    return l"),
+    ("M14 descricao ignorada", FT, "    if descricao:\n        partes += [l for l in _linhas_curtas(descricao) if l not in partes]\n", ""),
+    ("M15 menu entra como titulo", FT, "PALAVRAS_DO_TITULO = 3", "PALAVRAS_DO_TITULO = 1"),
+    ("M16 orquestrador nao leva a descricao", "orquestrador/orquestrador.py",
+     'descricao=estruturado.get("DESCRICAO")', "descricao=None"),
+    ("M17 reprocesso nao pergunta", "admissao/reprocessar_tempo_lugar.py", "    est.update(titulo_e_descricao(dados))\n", ""),
+    ("M18 youtube sem descricao", "coleta/youtube_janela.py", "        fora['DESCRICAO'] = det['shortDescription'].strip()", "        pass"),
+    ("M19 frase do youtube como descricao", "coleta/youtube_janela.py",
+     "    if str(det.get('shortDescription') or '').strip():", "    if True:"),
+    ("M21 data longe do acontecimento aceite", FT,
+     '                  else "DATA_LONGE_DO_ACONTECIMENTO" if _longe_do_acontecimento(ev, v)\n', ""),
+    ("M22 marca de futuro na frase inteira", FT,
+     "    return bool(_RE_FUTURO.search(b[max(0, i - JANELA_ANTES):i + len(v) + JANELA_DEPOIS]))",
+     "    return bool(_RE_FUTURO.search(b))"),
+    ("M23 possibilidade nao e futuro", FT, r"    r" + '"' + r"possibil[ei]|potrebber?o|potr[àa]|rischio\s+di|fino\s+all['’]arrivo)(?![0-9a-zà-ÿ])" + '",',
+     r"    r" + '"' + r"potrebber?o|potr[àa]|rischio\s+di|fino\s+all['’]arrivo)(?![0-9a-zà-ÿ])" + '",'),
+    # ── D84 · os boletins ──
+    ("M24 non presente vira presente", "leis/boletim_do_campo.py",
+     '            estado = ("AUSENTE" if _AUSENTE.search(depois.split(".")[0][:JANELA_DO_ESTADO])',
+     '            estado = ("AUSENTE" if False'),
+    ("M25 citada vira presente", "leis/boletim_do_campo.py",
+     '                      else "PRESENTE" if _PRESENTE.search(d) else "CITADA")', '                      else "PRESENTE")'),
+    ("M26 cabecalho longo abre secao", "leis/boletim_do_campo.py",
+     "    if not palavras or len(palavras) > PALAVRAS_DO_CABECALHO:", "    if not palavras:"),
+    ("M27 cultura repetida abre outra secao", "leis/boletim_do_campo.py",
+     "            if secoes[-1][\"CULTURA\"] == c:\n                continue", "            if False:\n                continue"),
+    ("M28 cabecalho do boletim ignorado", FT, "    tempo = tempo or _periodo_do_cabecalho(texto, pub, tapados)\n", ""),
+    ("M29 qualquer texto e boletim", FT, "    if not any(_RE_E_BOLETIM.search(l) for l in linhas):", "    if False:"),
+    ("M30 periodo futuro aceite", FT, "        if pub and ini > pub:", "        if False:"),
+    ("M31 ano de comparacao aceite", FT, '                  else "COMPARACAO_NAO_E_FATO" if _ano_de_comparacao(ev, v)\n', ""),
+    ("M32 a porta nao le boletins", "admissao/admissao.py",
+     "    boletim = _boletim_de(item) if decisao.universo in UNIVERSOS_DE_BOLETIM else None",
+     "    boletim = None"),
+    ("M33 boletim fora de T2/T3", "admissao/admissao.py", 'UNIVERSOS_DE_BOLETIM = ("T2", "T3")',
+     'UNIVERSOS_DE_BOLETIM = ("T2", "T3", "T10")'),
+    ("M34 PROBLEMA nao viaja", "admissao/admissao.py", '    r["PROBLEMA"] = j["PROBLEMA"]', '    pass'),
+    ("M35 ausente vira valor", "admissao/admissao.py",
+     '    return {"VALOR": boletim["PROBLEMAS_NAO_AUSENTES"] or AUSENCIA,',
+     '    return {"VALOR": boletim["PROBLEMAS"] or AUSENCIA,'),
+    ("M36 a praga nao segue a cultura do nome", "leis/boletim_do_campo.py",
+     "            if mc and _forma(mc.group(1)) != s[\"CULTURA\"]:", "            if False:"),
+    ("M37 so a praga com o nome segue (a linha nao)", "leis/boletim_do_campo.py",
+     "            mc = next((_RE_CULTURA.search(re.sub(r\"\\s+\", \" \", x.group(0))) for x in _RE_PROBLEMA.finditer(d)\n"
+     "                       if _RE_CULTURA.search(x.group(0))), None)",
+     "            mc = _RE_CULTURA.search(nome)"),
+    ("M38 non si riscontrano nao e ausente", "leis/boletim_do_campo.py",
+     r"non\s+(?:si\s+)?riscontra\w*|non\s+riscontrat\w*|", ""),
+    # ── EXTRATORES-V2-JUNTOS ──
+    ("M39 MESMO_PROBLEMA desligado", "leis/boletim_do_campo.py", "            nome = nome_do_problema(forma)", "            nome = forma"),
+    ("M40 afide e afidi contam dois", "leis/boletim_do_campo.py", '(r"afid[ei]", "afide"), ', ""),
+    ("M41 nome cientifico conta outra vez", "leis/boletim_do_campo.py", '    (r"halyomorpha halys", "cimice asiatica"),\n', ""),
+    ("M42 ceratitis conta outra vez", "leis/boletim_do_campo.py", '(r"ceratitis capitata|mosca mediterranea", "mosca della frutta")',
+     '(r"mosca mediterranea", "mosca della frutta")'),
+    ("M43 praga com a cultura vira cabecalho", "leis/boletim_do_campo.py",
+     "    if any(p.start() <= m.start() and m.end() <= p.end() for p in _RE_PROBLEMA.finditer(d)):", "    if False:"),
+    ("M44 mosca delle olive nao e praga", "leis/boletim_do_campo.py", ' r"mosca\s+delle\s+olive",', ""),
+    ("M45 a forma do texto perde-se", "leis/boletim_do_campo.py", '"FORMA": forma, ', '"FORMA": nome, '),
+    ("M46 o titulo do video corta a data", FT, "    if m and not re.search(r\"\d\", l[m.end():]) and ", "    if m and "),
+    ("M47 a porta perde a FORMA", "admissao/admissao.py", '"FORMA": p.get("FORMA", p["NOME"]), ', ""),
+    ("M48 cocciniglie (plural) nao e praga", "leis/boletim_do_campo.py", 'r"coccinigli[ae]", r"afid', 'r"cocciniglia", r"afid'),
+    ("M49 cercospora e cercosporiosi contam dois", "leis/boletim_do_campo.py", '    (r"cercospor\w*", "cercosporiosi"),', ""),
+    ("M20 o carimbo da publicacao aceite", FL, "                if precisao == DAY and pub and _resolve_dia(valor, ano_pub) == pub:",
+     "                if False:"),
+]
+
+
+def main():
+    env = dict(os.environ, PYTHONUTF8="1", HTTP_PROXY="http://127.0.0.1:9", HTTPS_PROXY="http://127.0.0.1:9")
+    mortos = 0
+    for nome, f, a, b in M:
+        p = os.path.join(RAIZ, f)
+        orig = io.open(p, encoding="utf-8", newline="").read()
+        nl = "\r\n" if "\r\n" in orig else "\n"
+        s = orig.replace("\r\n", "\n")
+        if s.count(a) != 1:
+            print(nome, "NAO_APLICOU", s.count(a))
+            continue
+        try:
+            io.open(p, "w", encoding="utf-8", newline="").write(s.replace(a, b).replace("\n", nl))
+            d = subprocess.run(["git", "diff", "--quiet", "--", f], cwd=RAIZ).returncode
+            r = subprocess.run([sys.executable, "-m", "unittest", *TESTES], cwd=RAIZ, capture_output=True,
+                               text=True, env=env, timeout=600)
+            morto = r.returncode != 0
+            mortos += morto
+            print(nome, "MORTO" if morto else "SOBREVIVEU", "(diff ok)" if d == 1 else "(SEM DIFF!)")
+        finally:
+            io.open(p, "w", encoding="utf-8", newline="").write(orig)
+    print("MUTACAO %d/%d" % (mortos, len(M)))
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,86 @@
+Versoes medidas (mesma copia da Sala, mesmo livro, mesmo armazem; so muda o codigo):
+  91ab4eb3 = base comum (antes dos dois extratores)  (gerado 2026-09-26T13:49:45)
+  6971ddb1 = so o EXTRATOR-EVENTO-V2  (gerado 2026-09-26T13:50:32)
+  3b7c86da = so o EXTRATOR-LUGAR-V2  (gerado 2026-09-26T13:51:35)
+  80ce1a3f = JUNTOS (este ramo)  (gerado 2026-09-26T13:56:09)
+
+O QUE A SALA GUARDA HOJE (a vista sala_de_espera_atual da copia, o que a Intelligence le), 94 itens:
+  FACT_TIME         22
+  FACT_LOCATION     19
+  CULTURA            0
+  REGIAO_DO_FATO     0
+  FASE               0
+  JANELA             0
+  PROBLEMA           0
+
+== SALA · os 94 itens | itens 94
+                                91ab4eb3  6971ddb1  3b7c86da  80ce1a3f
+   FACT_TIME                          21        23        21        23
+   FACT_LOCATION                      18        18        18        18
+   CULTURA                            14        19        14        19
+   PRAGA                               0         5         0         5
+   FASE                                0         6         0         6
+   REGIAO_DO_FATO                     18        18        18        18
+   JANELA                             18        20        18        20
+   AS_4_CHAVES_JUNTAS                  0         1         0         1
+   CULTURA+PRAGA+TEMPO+LUGAR           0         1         0         1
+
+== SALA · boletins T2/T3 | itens 6
+                                91ab4eb3  6971ddb1  3b7c86da  80ce1a3f
+   FACT_TIME                           1         3         1         3
+   FACT_LOCATION                       1         1         1         1
+   CULTURA                             1         6         1         6
+   PRAGA                               0         5         0         5
+   FASE                                0         6         0         6
+   REGIAO_DO_FATO                      1         1         1         1
+   JANELA                              0         2         0         2
+   AS_4_CHAVES_JUNTAS                  0         1         0         1
+   CULTURA+PRAGA+TEMPO+LUGAR           0         1         0         1
+
+== ACERVO · boletins T2/T3 com texto | itens 124
+                                91ab4eb3  6971ddb1  3b7c86da  80ce1a3f
+   FACT_TIME                          14        27        14        27
+   FACT_LOCATION                      10        18        10        18
+   CULTURA                             0         1         0         1
+   PRAGA                               0         3         0         3
+   FASE                                0         8         0         8
+   REGIAO_DO_FATO                     10        18        10        18
+   JANELA                              8        20         8        20
+   AS_4_CHAVES_JUNTAS                  0         0         0         0
+   CULTURA+PRAGA+TEMPO+LUGAR           0         0         0         0
+
+== TUDO · 94 + acervo | itens 1252
+                                91ab4eb3  6971ddb1  3b7c86da  80ce1a3f
+   FACT_TIME                          57       106        61       106
+   FACT_LOCATION                      62        90        62        91
+   CULTURA                            70        76        70        77
+   PRAGA                               0         8         0         8
+   FASE                                0        14         0        14
+   REGIAO_DO_FATO                     62        90        62        91
+   JANELA                             36        79        39        79
+   AS_4_CHAVES_JUNTAS                  0         1         0         1
+   CULTURA+PRAGA+TEMPO+LUGAR           0         1         0         1
+
+== PARES que a Intelligence conseguiria cruzar (mesma cultura + mesma regiao + periodo sobreposto)
+                                                 91ab4eb3  6971ddb1  3b7c86da  80ce1a3f
+   DOCUMENTOS_COM_AS_TRES_CHAVES_DO_CRUZAMENTO          6         7         6         7
+   PARES_PERIODO_SOBREPOSTO                             2         2         2         2
+   PARES_PERIODO_IGUAL                                  2         2         2         2
+   DOS_QUAIS_ENTRE_FONTES_DIFERENTES                    0         0         0         0
+   DOS_QUAIS_COM_A_MESMA_PRAGA                          0         0         0         0
+   DOS_QUAIS_ENTRE_FONTES_DIFERENTES_E_A_MESMA_         0         0         0         0
+   80ce1a3f: IT-T1-021 75a6073b x IT-T1-021 99ad45fc | ['grano', 'patate'] | ['Basilicata'] | praga []
+   80ce1a3f: IT-T9-009 ae58a29f x IT-T9-009 b505d24e | ['pomodoro'] | ['Piacenza'] | praga []
+
+== base 91ab4eb3 -> JUNTOS, item a item (1252 itens)
+   FACT_TIME      ganhou  49 · perdeu   0 · mudou de valor   0
+   FACT_LOCATION  ganhou  30 · perdeu   1 · mudou de valor   3
+      perdeu: IT-T8-005 a21446bf Bari
+
+== PRAGA por boletim da Sala (nomes distintos): EVENTO-V2 6971ddb1 -> JUNTOS
+   IT-T3-010 2ba23d22    6 ->   6   ['cercosporiosi', 'cocciniglia', 'lebbra', "mosca dell'olivo", 'occhio di pavone', 'xylella']
+   IT-T3-002 c5ae3bfe   25 ->  22   ['afide', 'batteriosi', 'cimice', 'cimice asiatica', 'cocciniglia', 'cydia pomonella', 'escoriosi', 'flavescenza dorata', 'fusarium', 'mal secco', 'marciume radicale', 'monilia', "mosca dell'olivo", 'mosca della frutta', 'nottua', 'oidio', 'peronospora', 'psilla', 'tignola', 'tignoletta della vite', 'tripide', 'virus']
+   IT-T3-008 a8d9c53a   25 ->  18   ['afide', 'botrite', 'cercosporiosi', 'cocciniglia', 'elateridi', 'marciume apicale', "mosca dell'olivo", 'mosca della frutta', 'nottua', 'occhio di pavone', 'oidio', 'peronospora', 'ragnetto rosso', 'tignola', 'tignoletta', 'tignoletta della vite', 'virosi', 'xylella']
+   IT-T3-002 c5ae3bfe   25 ->  22   ['afide', 'batteriosi', 'cimice', 'cimice asiatica', 'cocciniglia', 'cydia pomonella', 'escoriosi', 'flavescenza dorata', 'fusarium', 'mal secco', 'marciume radicale', 'monilia', "mosca dell'olivo", 'mosca della frutta', 'nottua', 'oidio', 'peronospora', 'psilla', 'tignola', 'tignoletta della vite', 'tripide', 'virus']
+   IT-T3-008 85cb86eb   24 ->  17   ['afide', 'botrite', 'cercosporiosi', 'cocciniglia', 'elateridi', 'marciume apicale', "mosca dell'olivo", 'mosca della frutta', 'nottua', 'occhio di pavone', 'oidio', 'peronospora', 'ragnetto rosso', 'tignola', 'tignoletta', 'tignoletta della vite', 'xylella']
+   IT-T2-034 e36b0247    0 ->   0   NAO SEI

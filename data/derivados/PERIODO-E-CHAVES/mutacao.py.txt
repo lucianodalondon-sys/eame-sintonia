@@ -1,0 +1,98 @@
+# -*- coding: utf-8 -*-
+# PERIODO-E-CHAVES · mutacao: cada mutante desliga UMA peca do conserto; os testes tem de reprovar.
+# Registo do ensaio (.txt). So corre depois de o codigo estar commitado (a reposicao e por bytes + sha).
+#   PYTHONDONTWRITEBYTECODE=1 PYTHONUTF8=1 py data/derivados/PERIODO-E-CHAVES/mutacao.py.txt
+import hashlib
+import os
+import subprocess
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+TESTES = ["tests.test_periodo_e_chaves", "tests.test_quatro_chaves"]
+ADM, FT, RPT = "admissao/admissao.py", "leis/fato_do_texto.py", "admissao/reprocessar_tempo_lugar.py"
+
+MUTANTES = [
+    ("P1 periodo: sem ano, o ano vem da publicacao", ADM,
+     '    if not valor:\n        return dict(nada, EXPRESSAO=str(bruto),',
+     '    if not valor and item.get("published_at"):\n        valor, precisao = str(item["published_at"])[:4], "ANO"\n'
+     '    if not valor:\n        return dict(nada, EXPRESSAO=str(bruto),'),
+    ("P2 periodo: a calculada perde a marca", ADM,
+     '"PRECISAO": precisao + ("+CALCULADA" if calculada else ""),',
+     '"PRECISAO": precisao,'),
+    ("P3 periodo: intervalo ao contrario aceite", ADM,
+     '            if a > b:\n                valor = None',
+     '            pass'),
+    ("P4 janela: ignora o periodo", ADM,
+     '    if periodo["VALOR"] != AUSENCIA:\n        janela = {',
+     '    if False:\n        janela = {'),
+    ("R1 regiao: orgao antes do lugar nao conta", FT,
+     '    m = _ORGAO_ANTES.search(antes)',
+     '    m = None'),
+    ("R2 regiao: empresa depois do lugar nao conta", FT,
+     '    elif _EMPRESA_DEPOIS.match(depois):\n        inicio = pos',
+     '    elif False:\n        inicio = pos'),
+    ("R3 regiao: a preposicao de lugar e ignorada", FT,
+     '    if _PREPOSICAO_DE_LUGAR.search(frase[:inicio]):\n        return None',
+     '    if False:\n        return None'),
+    ("R4 regiao: o conserto nao e chamado", FT,
+     '        if pos is not None and _e_pedaco_de_nome(r["EVIDENCE"], pos, r["PLACE"]):',
+     '        if False:'),
+    ("C1 cultura: fora de T1 desligada", ADM,
+     '    if not da_regua:\n        fora_da_regua, de_onde = _cultura_fora_da_regua(item)',
+     '    if False:\n        fora_da_regua, de_onde = _cultura_fora_da_regua(item)'),
+    ("C2 cultura: le o corpo inteiro (barra lateral)", ADM,
+     '    titulo = next((l for l in texto.splitlines() if l.strip()), "")',
+     '    titulo = texto'),
+    ("C3 cultura: mora de pagamento vira fruta", ADM,
+     '        dobrado = re.sub(_MORA_QUE_NAO_E_FRUTA, " ", _dobrar(trecho))',
+     '        dobrado = _dobrar(trecho)'),
+    ("C4 cultura: a evidencia de outra regua conta", ADM,
+     '    if da_regua and ev.get("cultura"):',
+     '    if ev.get("cultura"):'),
+    ("C5 cultura: o vocabulario da chave encolhe", ADM,
+     'CULTURA_SO_DA_CHAVE = "mela|mirtillo|mirtilli|lampone|lamponi|mora"',
+     'CULTURA_SO_DA_CHAVE = "lampone"'),
+    ("K1 caderno: a janela nao entra nas revisoes", RPT,
+     '    fora.append({"CAMPO": "janela_declarada",',
+     '    (lambda x: None)({"CAMPO": "janela_declarada",'),
+    ("K2 caderno: a evidencia de hoje nao passa", RPT,
+     '                    evidencia=dict(hoje.evidencia or {}), versao=hoje.versao)',
+     '                    versao=hoje.versao)'),
+    ("K3 caderno: o JSON da janela sem ordem", RPT,
+     '"VALOR": json.dumps(ready["JANELA_DECLARADA"], ensure_ascii=False, sort_keys=True),',
+     '"VALOR": json.dumps(ready["JANELA_DECLARADA"], ensure_ascii=False),'),
+]
+
+
+def sha(p):
+    with open(p, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+mortos = 0
+for nome, rel, de, para in MUTANTES:
+    caminho = os.path.join(RAIZ, rel)
+    with open(caminho, "rb") as f:
+        original = f.read()
+    antes = sha(caminho)
+    texto = original.decode("utf-8").replace("\r\n", "\n")
+    assert texto.count(de) == 1, "%s: o alvo da troca nao e unico (%d)" % (nome, texto.count(de))
+    try:
+        with open(caminho, "wb") as f:
+            f.write(texto.replace(de, para).encode("utf-8"))
+        r = subprocess.run([sys.executable, "-m", "unittest", *TESTES], cwd=RAIZ, capture_output=True,
+                           text=True, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1",
+                                               HTTP_PROXY="http://127.0.0.1:9", HTTPS_PROXY="http://127.0.0.1:9"))
+        morto = r.returncode != 0
+    finally:
+        with open(caminho, "wb") as f:
+            f.write(original)
+    reposto = sha(caminho) == antes
+    mortos += morto
+    print("%-50s %s · reposto=%s" % (nome, "MORTO (o teste apanhou)" if morto
+                                     else "SOBREVIVEU  <-- o teste nao morde",
+                                     "SIM" if reposto else "NAO <-- GRAVE"))
+    if not reposto:
+        sys.exit(2)
+print("MUTANTES %d · MORTOS %d" % (len(MUTANTES), mortos))
+sys.exit(0 if mortos == len(MUTANTES) else 1)

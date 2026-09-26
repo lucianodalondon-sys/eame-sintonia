@@ -1953,6 +1953,149 @@ EXPRESSOES_DE_TEMPO_RELATIVO = "|".join((
 ))
 
 
+#: PERIODO-E-CHAVES (26/09): a precisao do PERIODO, da mais fina para a mais larga.
+PRECISOES_DO_PERIODO = ("DIA", "INTERVALO", "MES", "ANO")
+#: As palavras de uma estacao/safra com ano («campagna 2010», «raccolta 2026»): o ano e o periodo.
+_SAFRA_COM_ANO = "campagna|stagione|raccolta|annata|vendemmia"
+
+
+def periodo_do_fato(item: dict) -> dict:
+    """PERIODO-E-CHAVES: o periodo do FACTO, tirado SO de `fact_time` — nunca de `published_at`.
+
+    `fact_time` chega como o extractor do facto (LUGAR-FATO, DA-6) o escreveu: texto livre em
+    italiano («12-13 novembre 2026», «maggio», «campagna 2010») ou ISO («2026-09-23»,
+    «2026-09-07/2026-09-13»). Aqui so se LE essa escrita e se diz o intervalo que ela cobre:
+
+        VALOR    ISO 8601: «2026» · «2026-11» · «2026-11-12» · «2026-11-12/2026-11-13»
+        PRECISAO ANO · MES · DIA · INTERVALO
+
+    ⚠️ SEM ANO ESCRITO, NAO HA PERIODO. «28 settembre» fica NAO SEI: completar o ano com a data
+    da publicacao seria fazer do PUBLISHED_AT o tempo do facto (FACT_TIME != PUBLISHED_AT).
+    ⚠️ Uma data que o extractor CALCULOU a partir da publicacao (D63, «ieri» + data provada) e
+    FACT_TIME do dono dele: passa, mas marcada `CALCULADA`, para quem cruza saber.
+    """
+    import datetime as _dt
+    import re
+    from leis import fato_local as _FL
+    bruto = item.get("fact_time")
+    nada = {"VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA, "PRECISAO": AUSENCIA}
+    if bruto is None or str(bruto).strip() in ("", AUSENCIA, NAO_SEI, AUSENCIA_NAO_SE_APLICA):
+        return dict(nada, PORQUE="FACT_TIME NAO SEI: sem tempo do facto nao ha periodo")
+    t = _dobrar(str(bruto)).strip()
+    mes = "|".join(_FL.MESES)
+    num = {m: i + 1 for i, m in enumerate(_FL.MESES)}
+
+    def dia(a, m, d):
+        return _dt.date(int(a), int(m), int(d)).isoformat()
+
+    valor, precisao = None, None
+    try:
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}/\d{4}-\d{2}-\d{2}", t):
+            a, b = t.split("/")
+            valor = "%s/%s" % (dia(*a.split("-")), dia(*b.split("-")))
+            precisao = "DIA" if a == b else "INTERVALO"
+            if a > b:
+                valor = None
+        elif re.fullmatch(r"\d{4}-\d{2}-\d{2}", t):
+            valor, precisao = dia(*t.split("-")), "DIA"
+        elif re.fullmatch(r"\d{4}-\d{2}", t):
+            a, m = t.split("-")
+            valor, precisao = ("%s-%s" % (a, m) if 1 <= int(m) <= 12 else None), "MES"
+        elif re.fullmatch(r"(?:(?:%s)\s+)?((?:19|20)\d{2})" % _SAFRA_COM_ANO, t):
+            valor, precisao = re.search(r"(?:19|20)\d{2}", t).group(0), "ANO"
+        else:
+            m1 = re.fullmatch(r"(\d{1,2})\s*(?:-|–|al|e)\s*(\d{1,2})\s+(%s)\s+((?:19|20)\d{2})" % mes, t)
+            m2 = re.fullmatch(r"(\d{1,2})\s+(%s)\s*(?:-|–|al)\s*(\d{1,2})\s+(%s)\s+((?:19|20)\d{2})" % (mes, mes), t)
+            m3 = re.fullmatch(r"(\d{1,2})\s+(%s)\s+((?:19|20)\d{2})" % mes, t)
+            m4 = re.fullmatch(r"(%s)\s+((?:19|20)\d{2})" % mes, t)
+            if m1:
+                ini = dia(m1.group(4), num[m1.group(3)], m1.group(1))
+                fim = dia(m1.group(4), num[m1.group(3)], m1.group(2))
+                valor, precisao = ("%s/%s" % (ini, fim) if ini < fim else None), "INTERVALO"
+            elif m2:
+                ini = dia(m2.group(5), num[m2.group(2)], m2.group(1))
+                fim = dia(m2.group(5), num[m2.group(4)], m2.group(3))
+                valor, precisao = ("%s/%s" % (ini, fim) if ini < fim else None), "INTERVALO"
+            elif m3:
+                valor, precisao = dia(m3.group(3), num[m3.group(2)], m3.group(1)), "DIA"
+            elif m4:
+                valor, precisao = "%s-%02d" % (m4.group(2), num[m4.group(1)]), "MES"
+    except ValueError:          # «31 febbraio 2026»: data que nao existe nao e periodo
+        valor = None
+    if not valor:
+        return dict(nada, EXPRESSAO=str(bruto),
+                    PORQUE=("o FACT_TIME nao diz o ano, ou nao e uma data que se leia; o ano NAO se "
+                            "completa com a publicacao"))
+    base = item.get("fact_time_basis")
+    base = AUSENCIA if base is None or str(base).strip() in ("", AUSENCIA, NAO_SEI) else str(base)
+    calculada = str(base).startswith(BASES_CALCULADAS)
+    return {"VALOR": valor, "PRECISAO": precisao + ("+CALCULADA" if calculada else ""),
+            "VEIO_DE": "item.fact_time (lido por admissao.periodo_do_fato)",
+            "BASE": base if base != AUSENCIA else "item.fact_time sem base declarada",
+            "EXPRESSAO": str(bruto),
+            "LEI": "so de FACT_TIME; nunca de PUBLISHED_AT nem de CAPTURED_AT"}
+
+
+#: PERIODO-E-CHAVES (26/09): culturas que o texto nomeia e o vocabulario da regua T1 nao tinha,
+#: tiradas dos 4 casos lidos a mao (QUATRO-CHAVES-MEDIR): «mela» (so «mele/melo» estavam),
+#: «mirtilli», «mora». SO para a CHAVE — a regua T1 (a porta) nao muda: nao se relaxa gate nenhum.
+CULTURA_SO_DA_CHAVE = "mela|mirtillo|mirtilli|lampone|lamponi|mora"
+#: «mora» tambem e atraso de pagamento («in mora», «interessi di mora»): nesses fica de fora.
+_MORA_QUE_NAO_E_FRUTA = r"(?:in|di|della|la)\s+mora\b"
+
+
+def _cultura_fora_da_regua(item: dict) -> tuple:
+    """Fora de T1: a cultura que o TITULO ou a FRASE QUE PROVA O LUGAR nomeiam.
+
+    ⚠️ So esses dois sitios. O corpo inteiro traz a barra lateral: numa pagina da myfruit os
+    titulos de outras noticias («a Firenze prezzo mirtilli») repetem-se em dezenas de paginas.
+    Devolve (culturas, de_onde) — de_onde diz qual dos dois sitios casou.
+    """
+    import re
+    texto = str(item.get("texto") or "")
+    titulo = next((l for l in texto.splitlines() if l.strip()), "")
+    prova = " ".join(re.findall(r"«([^»]*)»", str(item.get("fact_location_basis") or "")))
+    vocab = CULTURA_OBRIGATORIA["T1"] + "|" + CULTURA_SO_DA_CHAVE
+    achadas, de_onde = [], []
+    for nome, trecho in (("titulo", titulo), ("prova_do_lugar", prova)):
+        dobrado = re.sub(_MORA_QUE_NAO_E_FRUTA, " ", _dobrar(trecho))
+        novas = [f for f in _formas_que_casam(vocab, dobrado) if f not in achadas]
+        if novas:
+            achadas += novas
+            de_onde.append(nome)
+    return achadas, de_onde
+
+
+# ── EXTRATOR-EVENTO-V2 (D84) · os boletins T2/T3 ─────────────────────────────
+UNIVERSOS_DE_BOLETIM = ("T2", "T3")
+
+
+def _boletim_de(item: dict) -> dict:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leis"))
+    import boletim_do_campo as BC                                  # noqa: PLC0415
+    return BC.ler_boletim(item.get("texto") or "")
+
+
+def _problema_do_boletim(boletim, universo) -> dict:
+    """A praga/doenca que o boletim NAO marca como ausente — com as ausentes a parte e as secoes (cultura →
+    pragas com estado → fases), que e o par que a FINESTRE COLTURALI cruza. «Non presente» nunca e valor."""
+    if not boletim or not (boletim["PROBLEMAS"] or boletim["FASES"]):
+        return {"VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA}
+    ausentes = sorted({p["NOME"] for s in boletim["SECOES"] for p in s["PROBLEMAS"] if p["ESTADO"] == "AUSENTE"}
+                      - set(boletim["PROBLEMAS_NAO_AUSENTES"]))
+    return {"VALOR": boletim["PROBLEMAS_NAO_AUSENTES"] or AUSENCIA,
+            "VEIO_DE": "item.texto: as secoes do boletim (leis/boletim_do_campo.py)",
+            "BASE": "boletim %s: nome da praga/doenca na secao da cultura; ESTADO PRESENTE (presente/rilevato/"
+                    "catture/sintomi…) ou CITADA (o boletim fala dela sem dizer que a viu)" % universo,
+            "AUSENTES": ausentes,
+            "SECOES": [{"CULTURA": s["CULTURA"] or AUSENCIA,
+                        "PROBLEMAS": [{"NOME": p["NOME"], "FORMA": p.get("FORMA", p["NOME"]), "ESTADO": p["ESTADO"], "TRECHO": p["TRECHO"][:160]}
+                                      for p in s["PROBLEMAS"]],
+                        "FASES": [f["NOME"] for f in s["FASES"]]} for s in boletim["SECOES"]],
+            "FORMA": "o nome como o boletim o escreve; nao e EPPO",
+            "LEI": boletim["LEI"]}
+
+
 def janela_declarada(item: dict, decisao: Decisao) -> dict:
     """QUATRO-CHAVES (D29): o que a porta JA SABE sobre a janela, com a lei.
 
@@ -1964,7 +2107,10 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
 
       · CULTURA e FASE vêm da evidencia da regua T1 (a porta ja as leu);
       · REGIAO DO FATO vem de `fact_location` e NUNCA de `source_location`;
-      · a JANELA (intervalo + safra) a regua nao extrai — NAO SEI;
+      · a JANELA e o PERIODO do facto, lido SO de `fact_time` (`periodo_do_fato`,
+        PERIODO-E-CHAVES); sem ano escrito, NAO SEI; nunca de `published_at`;
+      · fora de T1 (sem regua de cultura) a CULTURA le-se so no titulo e na frase
+        que prova o lugar (`_cultura_fora_da_regua`);
       · FACT_TIME != PUBLISHED_AT != CAPTURED_AT, cada um no seu campo;
       · ausencia = `AUSENCIA` («NAO SEI»), nunca vazio nem None.
 
@@ -1997,30 +2143,73 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
     if da_regua:
         # no SIM a regua guarda ate 8 momentos (`palavras[:8]`); e o que ela sabe
         momentos = list(ev.get("palavras") or [])
+    # PERIODO-E-CHAVES: fora de T1 nao ha regua de cultura; a chave le o TITULO e a FRASE QUE PROVA
+    # O LUGAR (nunca a evidencia de outra regua — `evidencia.cultura` de um T2 nao conta).
+    fora_da_regua, de_onde = ([], [])
+    if not da_regua:
+        fora_da_regua, de_onde = _cultura_fora_da_regua(item)
+    # EXTRATOR-EVENTO-V2 (D84): nos BOLETINS (T3 fitossanitario, T2 agrometeo) a cultura, a praga e a fase
+    # estao no corpo, por secao de cultura — `leis/boletim_do_campo.py` le-as com o trecho. So entram onde a
+    # regua e o titulo/lugar nao disseram nada; nunca por cima deles.
+    boletim = _boletim_de(item) if decisao.universo in UNIVERSOS_DE_BOLETIM else None
+    periodo = periodo_do_fato(item)
     # ⚠️ SO `fact_location`. `source_location` e o lugar de quem PUBLICA, e um
     # boletim da ARPAV (Veneto) pode falar de um fato em Trentino (INT-LAW-101;
     # AGENTS.md: «fonte/location do documento nao vira local do fato»).
     regiao = _valor(item.get("fact_location"))
+    if culturas:
+        cultura = {"VALOR": culturas,
+                   "VEIO_DE": ("item.%s relido pela regra da regua; a regua viu "
+                               "cultura (decisao.evidencia.cultura)" % "|".join(campos_do_texto)),
+                   "BASE": base}
+    elif fora_da_regua:
+        cultura = {"VALOR": fora_da_regua,
+                   "VEIO_DE": "item.%s (palavra inteira; sem regua de cultura no universo %s)"
+                              % (" + ".join("texto: titulo" if o == "titulo" else
+                                            "fact_location_basis: frase que prova o lugar"
+                                            for o in de_onde), decisao.universo),
+                   "BASE": ("vocabulario da regua T1 + CULTURA_SO_DA_CHAVE (admissao.py), lido so no "
+                            "titulo e na prova do lugar; leitura para a chave, nao decisao da porta")}
+    elif boletim and boletim["CULTURAS"]:
+        cultura = {"VALOR": boletim["CULTURAS"],
+                   "VEIO_DE": "item.texto: as secoes do boletim (leis/boletim_do_campo.py)",
+                   "BASE": ("boletim %s: a linha curta que NOMEIA a cultura abre a secao dela (palavra inteira); "
+                            "trechos: %s" % (decisao.universo, " ; ".join(
+                                "«%s»" % s["TRECHO_DA_CULTURA"] for s in boletim["SECOES"] if s["CULTURA"])[:600]))}
+    else:
+        cultura = {"VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA}
+    cultura["FORMA"] = "a do vocabulario da regua, sem normalizar (nao e EPPO)"
+    fases_do_boletim = (boletim or {}).get("FASES") or []
+    if not momentos and fases_do_boletim:
+        fase = {"VALOR": fases_do_boletim, "VEIO_DE": "item.texto: as secoes do boletim (leis/boletim_do_campo.py)",
+                "BASE": "boletim %s: fase/estadio escrito na secao da cultura; trechos: %s" % (
+                    decisao.universo, " ; ".join("«%s»" % f["TRECHO"] for s in boletim["SECOES"]
+                                                 for f in s["FASES"])[:600]),
+                "FORMA": "a fase como o boletim a escreve; nao e BBCH normalizado"}
+    else:
+        fase = {"VALOR": momentos or AUSENCIA,
+                "VEIO_DE": "decisao.evidencia.palavras" if momentos else AUSENCIA,
+                "BASE": base if momentos else AUSENCIA,
+                "FORMA": "sinais de momento que a regua achou; nao e estadio normalizado"}
+    problema = _problema_do_boletim(boletim, decisao.universo)
+    if periodo["VALOR"] != AUSENCIA:
+        janela = {"VALOR": periodo["VALOR"], "VEIO_DE": periodo["VEIO_DE"], "BASE": periodo["BASE"],
+                  "PRECISAO": periodo["PRECISAO"], "EXPRESSAO": periodo["EXPRESSAO"],
+                  "FORMA": "periodo do FACTO (ISO 8601); nao e janela agronomica (CAP-WIN)",
+                  "LEI": periodo["LEI"]}
+    else:
+        janela = {"VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA,
+                  "PRECISAO": AUSENCIA, "PORQUE": periodo["PORQUE"]}
     return {
-        "CULTURA": {"VALOR": culturas or AUSENCIA,
-                    "VEIO_DE": ("item.%s relido pela regra da regua; a regua viu "
-                                "cultura (decisao.evidencia.cultura)"
-                                % "|".join(campos_do_texto)) if culturas else AUSENCIA,
-                    "BASE": base if culturas else AUSENCIA,
-                    "FORMA": "a do vocabulario da regua, sem normalizar (nao e EPPO)"},
+        "CULTURA": cultura,
         "REGIAO_DO_FATO": {"VALOR": regiao,
                            "VEIO_DE": "item.fact_location" if regiao != AUSENCIA else AUSENCIA,
                            "BASE": _valor(item.get("fact_location_basis"))
                            if regiao != AUSENCIA else AUSENCIA,
                            "LEI": "nunca herdada de source_location (INT-LAW-101)"},
-        "FASE": {"VALOR": momentos or AUSENCIA,
-                 "VEIO_DE": "decisao.evidencia.palavras" if momentos else AUSENCIA,
-                 "BASE": base if momentos else AUSENCIA,
-                 "FORMA": "sinais de momento que a regua achou; nao e estadio normalizado"},
-        "JANELA": {"VALOR": AUSENCIA,
-                   "VEIO_DE": AUSENCIA,
-                   "BASE": AUSENCIA,
-                   "PORQUE": "a regua nao extrai intervalo nem safra; a janela e da CAP-WIN"},
+        "FASE": fase,
+        "PROBLEMA": problema,
+        "JANELA": janela,
         "TEMPOS": {"FACT_TIME": _valor(item.get("fact_time")),
                    "PUBLISHED_AT": _valor(item.get("published_at")),
                    "CAPTURED_AT": _valor(item.get("captured_at"))},
@@ -2051,6 +2240,7 @@ def janela_para_o_ready(item: dict, decisao: Decisao) -> dict:
     """
     j = janela_declarada(item, decisao)
     r = {k: j[k] for k in QUATRO_CHAVES}
+    r["PROBLEMA"] = j["PROBLEMA"]            # EXTRATOR-EVENTO-V2: a 5.a informacao, fora da contagem das 4
     tempos = j["TEMPOS"]
     r["PRECISAO"] = {
         "CHAVES_COM_VALOR": sum(1 for c in QUATRO_CHAVES if r[c]["VALOR"] != AUSENCIA),

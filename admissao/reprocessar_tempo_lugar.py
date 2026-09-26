@@ -110,6 +110,17 @@ def bytes_guardados(linha, raizes):
     return None
 
 
+def titulo_e_descricao(dados) -> dict:
+    """EXTRATOR-EVENTO-V2: o titulo e a descricao de uma pagina de VIDEO guardada ({} se nao for uma).
+
+    Quem le a pagina do YouTube e `coleta/youtube_janela.py` (o mesmo `_json_embutido`); aqui so se
+    pergunta, e so a bytes que tem o player dentro. Zero rede."""
+    if not dados or b"ytInitialPlayerResponse" not in dados[:3_000_000]:
+        return {}
+    import youtube_janela as yj                               # noqa: PLC0415
+    return yj.titulo_e_descricao_do_video(dados)
+
+
 def ready_de(linha, obs, dados=None):
     """O READY que a estrada de hoje daria a esta linha — sem rede e sem banco."""
     tl = ex.tempo_e_lugar(obs or {"SOURCE_ID": linha["SOURCE_ID"]}, dados)
@@ -119,11 +130,20 @@ def ready_de(linha, obs, dados=None):
            "RAW_ASSET_ID": linha["RAW_OBSERVATION_ID"],
            "PARENT_SHA256": linha["SHA256"] or None,
            "CAPTURED_AT": linha["CAPTURED_AT"], "TEMPO_E_LUGAR": tl}
+    est.update(titulo_e_descricao(dados))
     item = ORQ.item_documental_para_a_porta(est, source_id=linha["SOURCE_ID"])
-    # a linha JA foi admitida: a decisao nao se refaz, so os campos
+    # a linha JA foi admitida: a decisao nao se refaz, so os campos.
+    # ⚠️ PERIODO-E-CHAVES: mas o dono das QUATRO CHAVES le a cultura e a fase na EVIDENCIA da regua
+    # (`admissao.janela_declarada`). Sem ela, cultura e fase dariam sempre NAO SEI. A regua corre de
+    # novo SO para se ler a evidencia de hoje; o resultado da linha continua SIM (quem entrou, entrou),
+    # e o resultado de hoje fica escrito na BASE da revisao da janela (`revisoes_de`).
+    hoje = adm.decidir(item, linha["UNIVERSO"], corrida="reprocessamento tempo-lugar")
     d = adm.Decisao(item=item_id, universo=linha["UNIVERSO"], resultado=adm.SIM,
-                    regra="reprocessamento tempo-lugar", motivo=MOTIVO)
-    return adm.pronto_para_inteligencia(item, d)
+                    regra="reprocessamento tempo-lugar", motivo=MOTIVO,
+                    evidencia=dict(hoje.evidencia or {}), versao=hoje.versao)
+    ready = adm.pronto_para_inteligencia(item, d)
+    ready["_RESULTADO_DA_REGUA_HOJE"] = hoje.resultado
+    return ready
 
 
 def revisoes_de(ready):
@@ -136,6 +156,14 @@ def revisoes_de(ready):
                  "VALOR": json.dumps(ready["TEMPO_LUGAR_EVIDENCIA"],
                                      ensure_ascii=False, sort_keys=True),
                  "BASE": "leis/fato_do_texto.campos_do_fato (DA-7)"})
+    # PERIODO-E-CHAVES: as QUATRO CHAVES tambem se reveem (033: `janela_declarada` e revisivel).
+    # JSON com as chaves ORDENADAS, como `pousar` grava: o mesmo codigo duas vezes = o mesmo texto.
+    fora.append({"CAMPO": "janela_declarada",
+                 "VALOR": json.dumps(ready["JANELA_DECLARADA"], ensure_ascii=False, sort_keys=True),
+                 "BASE": ("admissao.janela_para_o_ready sobre a linha revista; evidencia da regua %s "
+                          "relida hoje (resultado de hoje: %s; a admissao da linha nao muda)"
+                          % (ready["JANELA_DECLARADA"]["ORIGEM"]["UNIVERSO"],
+                             ready.get("_RESULTADO_DA_REGUA_HOJE", adm.AUSENCIA)))})
     return fora
 
 

@@ -519,7 +519,7 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
             "DONO": "guarda/preservar_documento.py"}
 
 
-def _fato_do_texto(texto, bruto, publicacao=None):
+def _fato_do_texto(texto, bruto, publicacao=None, *, titulo=None, descricao=None):
     """FACT_TIME / FACT_LOCATION lidos do TEXTO, com a base — so o que falta.
 
     O extractor e da bancada LUGAR-FATO (`leis/fato_do_texto.py`), e ele NAO
@@ -536,7 +536,10 @@ def _fato_do_texto(texto, bruto, publicacao=None):
     # «ieri» a partir dela: o leitor recebe-a SEM base, e a relativa fica NAO SEI.
     base_pub = (None if publicacao.get("PUBLISHED_AT_CONFLITO")
                 else bruto.get("PUBLISHED_AT_BASIS"))
-    r = FT.campos_do_fato(texto, bruto.get("PUBLISHED_AT"), base_pub)
+    # EXTRATOR-EVENTO-V2: o titulo e a descricao do video, quando a estrada os traz, entram na leitura
+    # (sao texto do autor, nunca a data de publicacao).
+    r = FT.campos_do_fato(texto, bruto.get("PUBLISHED_AT"), base_pub,
+                          titulo=titulo, descricao=descricao)
     fora = {}
     veio_de = {}
     for valor, base, v, b in (("FACT_TIME", "FACT_TIME_BASIS",
@@ -662,7 +665,8 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     publicacao = {k: bruto.pop(k) for k in ing.TEMPO_E_LUGAR_PARA_A_EVIDENCIA
                   if k in bruto}
     bruto.update(_fato_do_texto(estruturado.get("TEXTO") or "", bruto,
-                                publicacao))
+                                publicacao, titulo=estruturado.get("TITULO"),
+                                descricao=estruturado.get("DESCRICAO")))
     item = ing.para_a_porta(bruto)
     item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
                  "raw_asset_id": estruturado.get("RAW_ASSET_ID")})

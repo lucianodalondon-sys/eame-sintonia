@@ -1,0 +1,74 @@
+# -*- coding: utf-8 -*-
+# EXTRATORES-V2-JUNTOS · a tabela antes/depois a partir das MEDIDA-<versao>.json. Registo do ensaio (.txt).
+#   PYTHONUTF8=1 python comparar.py.txt > ANTES-DEPOIS.txt
+import json
+import os
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+VERSOES = [("91ab4eb3", "base comum (antes dos dois extratores)"), ("6971ddb1", "so o EXTRATOR-EVENTO-V2"),
+           ("3b7c86da", "so o EXTRATOR-LUGAR-V2"), ("80ce1a3f", "JUNTOS (este ramo)")]
+AUS = "NAO SEI"
+TEM = {
+    "FACT_TIME": lambda i: i.get("FACT_TIME") == "SIM",
+    "FACT_LOCATION": lambda i: i.get("FACT_LOCATION") == "SIM",
+    "CULTURA": lambda i: i["CULTURA"]["PROVADA"],
+    "PRAGA": lambda i: (i.get("PROBLEMA") or {}).get("PROVADA", False),
+    "FASE": lambda i: i["FASE"]["PROVADA"],
+    "REGIAO_DO_FATO": lambda i: i["REGIAO_DO_FATO"]["PROVADA"],
+    "JANELA": lambda i: i["JANELA"]["PROVADA"],
+    "AS_4_CHAVES_JUNTAS": lambda i: all(i[c]["PROVADA"] for c in ("CULTURA", "REGIAO_DO_FATO", "FASE", "JANELA")),
+    "CULTURA+PRAGA+TEMPO+LUGAR": lambda i: (i["CULTURA"]["PROVADA"] and (i.get("PROBLEMA") or {}).get("PROVADA", False)
+                                            and i.get("FACT_TIME") == "SIM" and i.get("FACT_LOCATION") == "SIM"),
+}
+GRUPOS = [("SALA · os 94 itens", lambda i: i["GRUPO"] == "SALA"),
+          ("SALA · boletins T2/T3", lambda i: i["GRUPO"] == "SALA" and i["UNIVERSO"] in ("T2", "T3")),
+          ("ACERVO · boletins T2/T3 com texto", lambda i: i["GRUPO"] == "ACERVO" and i["UNIVERSO"] in ("T2", "T3") and i["TEM_TEXTO"]),
+          ("TUDO · 94 + acervo", lambda i: True)]
+
+M = {v: json.load(open(os.path.join(AQUI, "MEDIDA-%s.json" % v), encoding="utf-8")) for v, _ in VERSOES}
+print("Versoes medidas (mesma copia da Sala, mesmo livro, mesmo armazem; so muda o codigo):")
+for v, n in VERSOES:
+    print("  %s = %s  (gerado %s)" % (v, n, M[v]["GERADO"][:19]))
+sala = [i for i in M["80ce1a3f"]["ITENS"] if i["GRUPO"] == "SALA"]
+print("\nO QUE A SALA GUARDA HOJE (a vista sala_de_espera_atual da copia, o que a Intelligence le), 94 itens:")
+for c in ("FACT_TIME", "FACT_LOCATION", "CULTURA", "REGIAO_DO_FATO", "FASE", "JANELA", "PROBLEMA"):
+    print("  %-16s %3d" % (c, sum(i["GUARDADO"][c] for i in sala)))
+for g, f in GRUPOS:
+    n = len([i for i in M["80ce1a3f"]["ITENS"] if f(i)])
+    print("\n== %s | itens %d" % (g, n))
+    print("   %-27s" % "" + "".join("%10s" % v for v, _ in VERSOES))
+    for c, t in TEM.items():
+        print("   %-27s" % c + "".join("%10d" % sum(t(i) for i in M[v]["ITENS"] if f(i)) for v, _ in VERSOES))
+print("\n== PARES que a Intelligence conseguiria cruzar (mesma cultura + mesma regiao + periodo sobreposto)")
+print("   %-44s" % "" + "".join("%10s" % v for v, _ in VERSOES))
+for k in ("DOCUMENTOS_COM_AS_TRES_CHAVES_DO_CRUZAMENTO", "PARES_PERIODO_SOBREPOSTO", "PARES_PERIODO_IGUAL",
+          "DOS_QUAIS_ENTRE_FONTES_DIFERENTES", "DOS_QUAIS_COM_A_MESMA_PRAGA",
+          "DOS_QUAIS_ENTRE_FONTES_DIFERENTES_E_A_MESMA_PRAGA"):
+    print("   %-44s" % k[:44] + "".join("%10s" % M[v]["CRUZAMENTOS_POSSIVEIS_NAO_EXECUTADOS"].get(k, "-") for v, _ in VERSOES))
+for v, _ in VERSOES[-1:]:
+    for p in M[v]["CRUZAMENTOS_POSSIVEIS_NAO_EXECUTADOS"]["PARES"]:
+        print("   %s: %s %s x %s %s | %s | %s | praga %s" % (v, p["A"]["SOURCE_ID"], p["A"]["SHA256"][:8], p["B"]["SOURCE_ID"],
+                                                        p["B"]["SHA256"][:8], p["CULTURA"], p["REGIAO"], p.get("PROBLEMA")))
+
+# ganhos e perdas por item, base -> juntos
+def chave(i):
+    return (i["GRUPO"], i["SHA256"], i.get("RUN_ID"), i.get("ORDEM"))
+a = {chave(i): i for i in M["91ab4eb3"]["ITENS"]}
+b = {chave(i): i for i in M["80ce1a3f"]["ITENS"]}
+print("\n== base 91ab4eb3 -> JUNTOS, item a item (%d itens)" % len(b))
+for c in ("FACT_TIME", "FACT_LOCATION"):
+    ganhou = sum(1 for k in b if TEM[c](b[k]) and not TEM[c](a[k]))
+    perdeu = [k for k in b if TEM[c](a[k]) and not TEM[c](b[k])]
+    mudou = sum(1 for k in b if TEM[c](a[k]) and TEM[c](b[k])
+                and a[k].get(c + "_VALOR") != b[k].get(c + "_VALOR"))
+    print("   %-14s ganhou %3d · perdeu %3d · mudou de valor %3d" % (c, ganhou, len(perdeu), mudou))
+    for k in perdeu[:8]:
+        print("      perdeu: %s %s %s" % (b[k]["SOURCE_ID"], k[1][:8], a[k].get(c + "_VALOR")))
+# a praga contada em dobro: o boletim de Salerno (IT-T3-002) e os outros T3
+print("\n== PRAGA por boletim da Sala (nomes distintos): EVENTO-V2 6971ddb1 -> JUNTOS")
+e = {chave(i): i for i in M["6971ddb1"]["ITENS"]}
+for k, i in b.items():
+    if i["GRUPO"] == "SALA" and i["UNIVERSO"] in ("T2", "T3"):
+        va, vb = e[k]["PROBLEMA"]["VALOR"], i["PROBLEMA"]["VALOR"]
+        print("   %s %s  %3s -> %3s   %s" % (i["SOURCE_ID"], k[1][:8], len(va) if isinstance(va, list) else 0,
+                                          len(vb) if isinstance(vb, list) else 0, vb if isinstance(vb, list) else vb))
