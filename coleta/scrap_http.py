@@ -35,10 +35,24 @@ aprovasse, nao seria portao.
 
 O QUE ESTE FICHEIRO NAO FAZ
 ----------------------------
-Nao faz login, nao manda cookie, nao resolve CAPTCHA, nao troca de IP para
-escapar de bloqueio, nao finge ser navegador de gente. Quando a plataforma diz
-nao, a resposta e `ROUTE_NOT_ALLOWED` ou `BLOCKED` no artefato — nunca uma
-tentativa mais esperta.
+Nao faz login, nao manda cookie de sessao, nao paga nada (CAPTCHA por servico
+pago, proxy pago), nao passa conta paga nem paywall, nao troca de IP. Quando a
+plataforma diz nao, a resposta e `ROUTE_NOT_ALLOWED` ou `BLOCKED` no artefato.
+
+⚠️ A LEI MUDOU E ESTE CODIGO AINDA NAO (D88 do dono, 26/09/2026 ~19:20;
+`BIBLIA-CANONICA-DA-COLETA.md` COL-LAW-220, proposta a espera do dono). Ate aqui este bloco dizia tambem
+«nao finge ser navegador de gente» e «nunca uma tentativa mais esperta». Para
+material PUBLICO isso deixou de ser lei: passar protecao anti-robo, pedir com a
+impressao digital de um navegador real, usar navegador com JavaScript ou outra
+rota tecnica e PERMITIDO. Continua proibido: conta paga, paywall, material nao
+publico. Continua com o dono: login com conta, cookie de sessao, CAPTCHA pago,
+proxy pago — e trocar a SAIDA (IP): bloqueio por ORIGEM (IP) nao e bloqueio por
+PROGRAMA (UA/JS/fingerprint), e so o segundo a D88 abriu.
+
+O COMPORTAMENTO DESTE FICHEIRO NAO MUDOU NESTA REESCRITA: o `AGENTE` e o mesmo,
+o robots e lido na hora como antes (a D88 nao fala do robots.txt), e a rota com
+impressao digital de navegador e uma peca por construir, atras deste mesmo
+portao (teto por dominio, VPN IT provada, e a rota usada escrita no RAW).
 """
 import contextlib
 import threading
@@ -48,10 +62,28 @@ import urllib.parse
 import urllib.request
 import urllib.robotparser
 
-# O agente se identifica. Nao ha ganho em mentir e ha perda: um host que quer
-# nos barrar tem direito de nos reconhecer, e um host que nos permite precisa
-# conseguir nos medir.
+# O agente que ESTE portao usa hoje se identifica. Era lei («nao ha ganho em
+# mentir»); desde a D88 (COL-LAW-220) e so o comportamento de hoje: para
+# material PUBLICO, uma rota com identidade de navegador e permitida. O valor
+# NAO mudou nesta reescrita — mudar a rota e outra peca, e a rota que ela usar
+# fica escrita no RAW (COL-LAW-220: a captura contornada nunca parece direta).
 AGENTE = 'SintoniaScrap/1.0 (+EAME; social capability census; contato via repositorio)'
+
+# A POLITICA DE ACESSO em vigor (D88 · COL-LAW-220). Declarada, ainda NAO lida
+# por nenhum codigo: e a lei escrita onde o codigo a vai procurar.
+POLITICA_DE_ACESSO = {
+    'LEI': 'COL-LAW-220 (D88 do dono, 2026-09-26; lei PROPOSTA, em vigor so com o dono)',
+    'PERMITIDO_EM_MATERIAL_PUBLICO': ('passar protecao anti-robo', 'impressao digital de navegador',
+                                      'navegador real com JavaScript', 'navegador furtivo',
+                                      'outro agente', 'outra rota tecnica'),
+    'PROIBIDO': ('conta paga', 'paywall', 'assinatura', 'material nao publico'),
+    'SO_COM_O_DONO': ('login com conta', 'cookie de sessao', 'CAPTCHA por servico pago',
+                      'proxy pago', 'outra saida (IP)'),
+    'CONTINUA': ('uso interno', 'minimizacao de dado pessoal', 'teto por dominio', 'VPN IT provada',
+                 'rota usada escrita no RAW', 'nada pago sem aprovacao'),
+    'ROBOTS_TXT': 'a D88 nao fala dele: a regra de robots em vigor nao mudou',
+    'LIGADA_AO_COMPORTAMENTO': False,
+}
 
 TIMEOUT = 25
 PAUSA_ENTRE_CHAMADAS = 1.0   # cortesia; nenhum host desta missao pede menos

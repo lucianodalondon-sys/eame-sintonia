@@ -240,8 +240,9 @@ LIMITES = ('PUBLIC_AUDIO_ONLY',
            #
            # O QUE ELE NAO PERMITE, e a lista e fechada de proposito:
            #   conteudo de PERFIL DE PESSOA · autenticacao, conta, cookie de
-           #   sessao · contornar login wall, CAPTCHA ou bloqueio · texto de
-           #   comentarios · lista de quem reagiu · rota paga · escrita,
+           #   sessao · contornar login wall ou CAPTCHA pago (a D88/COL-LAW-220
+           #   permite anti-robo em material PUBLICO; esta rota ainda nao o usa) ·
+           #   texto de comentarios · lista de quem reagiu · rota paga · escrita,
            #   publicacao ou interacao de qualquer especie.
            #
            # E NAO SE HERDA: `fetch_post` (post publico fora de pagina de
@@ -276,8 +277,9 @@ LIMITES = ('PUBLIC_AUDIO_ONLY',
            # O QUE ELE NAO PERMITE, e a lista e fechada de proposito:
            #   CONTATOS · SEGUIDORES · MENSAGENS (DM) · COMENTARIOS DE
            #   TERCEIROS · lista de quem reagiu · perfil privado · conteudo de
-           #   perfil que exija autenticacao · contornar login wall, CAPTCHA ou
-           #   bloqueio · rota paga · pontuar, ranquear ou classificar a pessoa
+           #   perfil que exija autenticacao · contornar login wall ou CAPTCHA
+           #   pago (anti-robo em material PUBLICO: permitido pela D88/COL-LAW-220,
+           #   ainda nao usado aqui) · rota paga · pontuar, ranquear ou classificar a pessoa
            #   (`PERSONAL_SCORING`) · escrita, publicacao ou interacao.
            #
            # E O QUE ELE NAO REABRE, dito com o nome de quem decide:

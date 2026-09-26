@@ -10,11 +10,10 @@ PROMOTED = 2026-09-14
 IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_GATES_UPSTREAM
 ```
 
-> **V0.4 (2026-09-26) também não reabre nada.** Acrescenta a secção 38 — o sinal
-> fitossanitário, o modelo e quem sabe (D85 do dono) — com seis leis novas
-> (`INT-LAW-310..315`), e não toca em nenhuma lei de 000 a 302. Duas linhas foram
-> acrescentadas aos contratos de `CAP-FUT` e `CAP-SCI`, a apontar para a lei nova.
-> A fronteira de implementação é a mesma letra.
+> **V0.4 (2026-09-26) é PROPOSTA, e também não reabre nada.** Acrescenta uma lei —
+> `INT-LAW-137`, na secção 13, com o texto mínimo do bot Luciano — e não toca em nenhuma
+> outra. Entra em vigor só com a aprovação do dono. A fronteira de implementação é a mesma
+> letra.
 
 > **V0.3 não reabre a promoção.** Ela acrescenta quatro secções — 34, 35, 36 e
 > 37 — e não toca em nenhuma lei de 000 a 260. A fronteira de implementação é a
@@ -746,6 +745,35 @@ No mínimo:
 ## INT-LAW-136 — História não prova repetição
 
 Pattern histórico informa hipótese, não determina futuro.
+
+## INT-LAW-137 — Regra de modelo e condição de risco não provam ocorrência
+
+> **PROPOSTA (V0.4, 2026-09-26)** — texto mínimo do bot Luciano; lei só depois da aprovação do
+> dono; `IMPLEMENTATION_STATUS = ABSENT`. Origem: D85 e o ALINHAMENTO COLLECTION →
+> INTELLIGENCE (lacunas B1, B4, B5, B7 — **parciais**, não ausentes: causalidade, `CAP-SCI`,
+> `CAP-WIN`, `CAP-FUT`, crossing e forecast ≠ fact já existiam).
+
+**REGRA.** `MODEL_RULE` declara entradas, saída, cultura/organismo/geografia de validade,
+horizonte, método, desempenho, limitações e incerteza. Seu crossing com clima, fenologia, tempo e
+lugar pode produzir «condição compatível com risco», com lineage completo. Sinal precoce,
+confirmação, alerta, recomendação e intervenção permanecem papéis distintos.
+
+**NÃO DEVE:**
+
+- chamar condição de risco de ocorrência;
+- transformar associação em causalidade;
+- chamar expansão adequada de infestação;
+- generalizar estudo pequeno de resistência para perda geral de eficácia;
+- transformar recomendação da fonte em ação do SINTONIA.
+
+Os cinco papéis **não são uma escada obrigatória**: nem todo caso passa pelos cinco, e nenhum
+deles é um objeto novo (`INT-LAW-030`, `INT-LAW-272`). O boletim fitossanitário não é o primeiro
+sinal — a contagem da armadilha pode chegar antes (medido: Salerno, *Ceratitis capitata*
+4 → 40 capturas em 14 dias, `COL-LAW-219`).
+
+**LIGA-SE A** `INT-LAW-095` (correlação ≠ causalidade — esta dá o contrato «mais forte» que ela
+pedia) · `INT-LAW-131` (forecast ≠ fact) · `INT-LAW-035` (hipótese não vira facto por repetição) ·
+`INT-LAW-102` (afiliação ≠ local do estudo) · `INT-LAW-024` (recommendation ≠ action).
 
 ---
 
@@ -1619,25 +1647,22 @@ BIBLE_STATUS = CANONICAL
 BIBLE_VERSION_BEFORE = V0.3
 BIBLE_VERSION_AFTER  = V0.4
 IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_GATES_UPSTREAM
-SECOES_ACRESCENTADAS = 38
-LEIS_ACRESCENTADAS = 6    (310..315)
-LEIS_TOTAL = 179          (era 173)
-LEIS_ALTERADAS = 0        (000..302 intactas)
-CONTRATOS_DE_CAPACIDADE_ESTENDIDOS = 2   (CAP-FUT, CAP-SCI: uma linha cada, a apontar para 314 e 315)
+EMENDA = PROPOSTA_A_ESPERA_DA_APROVACAO_DO_DONO
+LEIS_ACRESCENTADAS = 1    (137, secção 13)
+LEIS_TOTAL = 174          (era 173)
+LEIS_ALTERADAS = 0
 LEIS_COM_ID_DUPLICADO = 0
-LEIS_RECUSADAS_POR_JA_TEREM_DONO = 7   (ver 38.1)
-ORIGEM = D85 do dono (2026-09-26) · ALINHAMENTO COLLECTION -> INTELLIGENCE B1 B4 B5 B6 B7 B9 B10
-PAR_NA_COLETA = BIBLIA-CANONICA-DA-COLETA V1.5 · COL-LAW-701 702 703
+TEXTO_DA_LEI_NOVA = bot Luciano, ESTUDO-ORQUESTRACAO-24H §8-R5
+PAR_NA_COLETA = BIBLIA-CANONICA-DA-COLETA V1.5 (proposta) · COL-LAW-219 · COL-LAW-220
 INTELLIGENCE_RUNTIME_IMPLEMENTED = NO
 COLLECTION_CHANGED = NO
 PORTAL_CHANGED = NO
 MIGRATION_CREATED = NO
 ```
 
-A V0.4 escreve o que a Intelligence **não pode afirmar** quando chegar a matéria do campo:
-que o boletim seja o primeiro sinal, que um modelo sem contrato seja regra, que uma condição
-de risco seja uma ocorrência, que um estudo pequeno prove perda de eficácia. Não constrói
-nada que o afirme.
+A V0.4 escreve o que a Intelligence **não pode afirmar** quando chegar a matéria do campo — que
+uma condição de risco seja uma ocorrência, que um estudo pequeno prove perda de eficácia, que a
+recomendação da fonte seja uma ação nossa. Não constrói nada que o afirme.
 
 ---
 
@@ -1791,8 +1816,6 @@ CAN_FEED           CAP-OPP (como hipotese, nunca como facto)
 MUST_NOT_DO        misturar FACTO PRESENTE SOBRE O FUTURO (caducidade datada de
                    registo) com SINAL FRACO. Sao duas especies, e hoje o card
                    `future` mistura-as — medido, e por corrigir
-ESPECIES (V0.4)    EXPANSAO_GEOGRAFICA (deteccao != estabelecimento != expansao)
-                   — INT-LAW-314
 ```
 
 > Os **indicadores que enfraquecem** são obrigatórios e não decorativos: um radar
@@ -1955,8 +1978,6 @@ LINEAGE            COMPLETE; sem DOI/trial_id a atravessar a fronteira, o
                    lineage e PARTIAL e diz-se
 CAN_FEED           CAP-OPP · CAP-FUT · CAP-LABEL
 MUST_NOT_DO        contar tres papers do mesmo ensaio como tres evidencias
-RECEBE (V0.4)      a CADEIA B — relacao causal, MODEL_RULE, limiar, resistencia —
-                   alem da forca de evidencia (INT-LAW-315, 311, 313)
 ```
 
 > ⚠️ **Bloqueio medido:** sem `DOI`/`trial_id`/afiliação a atravessar a fronteira
@@ -2494,178 +2515,6 @@ escrevê-las outra vez criaria o segundo dono que a `INT-LAW-000` proíbe.
 
 ---
 
-# 38. O SINAL FITOSSANITÁRIO, O MODELO E QUEM SABE
-
-> **V0.4** (2026-09-26 · D85 do dono · ALINHAMENTO COLLECTION → INTELLIGENCE, lacunas B1, B4–B7,
-> B9, B10). Seis leis. Nenhuma lei de 000 a 302 foi mexida; dois **contratos de capacidade**
-> da secção 34.1 (`CAP-FUT` e `CAP-SCI`) ganharam uma linha cada, que aponta para a lei nova —
-> e isso está dito aqui, não escondido.
->
-> A pergunta que faltava responder era **de onde vem o aviso**. O boletim fitossanitário não é
-> o primeiro sinal: antes dele há a armadilha, a contagem, o voo, o modelo que diz que o clima
-> favorece a doença — e, antes de tudo isso, o pesquisador que escreveu o modelo. A
-> Intelligence lia o boletim como se fosse o começo da história.
->
-> A Collection que alimenta esta secção é a da PARTE XXI da Bíblia da Coleta (V1.5):
-> `COL-LAW-701` (a série chega como veio), `COL-LAW-702` (a espécie que a fonte deu ao que
-> afirma) e `COL-LAW-703` (a pessoa-fonte provada pela lista-mestra).
-
-## INT-LAW-310 — O boletim não é o primeiro sinal: a cadeia temporal do sinal fitossanitário
-
-```text
-SINAL PRECOCE  →  CONFIRMAÇÃO  →  ALERTA  →  RECOMENDAÇÃO  →  INTERVENÇÃO
-```
-
-| degrau | o que é | exemplo medido |
-|---|---|---|
-| `SINAL PRECOCE` | a primeira medida de que algo começou: 1.ª captura, início de voo, subida de contagem, condição de modelo compatível | Salerno, agrumi: *Ceratitis capitata* «n. 4» → «n. 40» capturas em 14 dias |
-| `CONFIRMAÇÃO` | a observação no campo de que o organismo está lá e ativo | ARIF: «aumento del numero di punture di ovodeposizione» |
-| `ALERTA` | a fonte declara que o risco é real para uma cultura, região e janela | aviso do serviço fitossanitário |
-| `RECOMENDAÇÃO` | a fonte diz o que fazer e a partir de quando (limiar) | ARIF: «4-5% di infestazione attiva» |
-| `INTERVENÇÃO` | alguém agiu | fora do baseline (`ACTION`, `INT-LAW-030`) |
-
-Os degraus **não são objetos novos** (`INT-LAW-272`: nenhuma capacidade inventa objeto). São a
-**posição temporal** de um `COLLECTION_FACT` ou de um `ANALYTIC_SIGNAL` na cadeia, e cada um
-guarda o seu próprio tempo (`INT-LAW-100`).
-
-- Um degrau **NÃO É** o seguinte: uma captura não é uma confirmação, e um alerta não é uma
-  intervenção.
-- Ler só o boletim é ler a cadeia **pelo meio**. Uma capacidade que só consome `ALERTA` e
-  `RECOMENDAÇÃO` declara isso, e não pode dizer que viu o sinal precoce.
-- Um degrau em falta é `UNKNOWN` e é um `COLLECTION_GAP` (`INT-LAW-150`) — nunca «não houve».
-- A distância entre degraus é informação: se o sinal precoce chega **antes** do alerta, é aí
-  que mora a antecipação. Mede-se sempre com os tempos de cada degrau, nunca com a data de
-  publicação do boletim.
-
-## INT-LAW-311 — MODEL_RULE: um modelo só entra com o contrato mínimo
-
-Um modelo agronómico (risco de doença, voo de praga, graus-dia) é **conhecimento causal**: diz
-«com estas entradas, espera-se isto». Chega à Intelligence como `COLLECTION_FACT` da espécie
-`MODELO` (`COL-LAW-702`) e só pode ser usado com o contrato inteiro:
-
-```text
-MODEL_RULE_ID
-ORIGEM               estudo / DSS / serviço — com DOI, TRIAL_ID ou documento
-VARIAVEIS_DE_ENTRADA temperatura, humidade, molhamento, graus-dia, capturas…
-LIMIARES             os números que mudam o resultado, com unidade
-FASE                 da cultura e/ou do organismo em que vale
-VALIDADE             cultura · organismo · região · período em que foi validado
-HORIZONTE            quanto tempo à frente diz alguma coisa
-DESEMPENHO           como foi medido, contra quê, com que resultado
-LIMITES              onde não vale, o que não mede, o que o autor ressalva
-```
-
-Campo em falta = `UNKNOWN`, e o modelo **desce**: sem `VALIDADE` ou sem `LIMIARES` ele é
-`ANALYTIC_HYPOTHESIS`, nunca regra (`INT-LAW-034`, premissa explícita).
-
-- Um modelo validado numa região **NÃO DEVE** ser aplicado a outra como se valesse lá — isso
-  é premissa, e fica escrita (`INT-LAW-034`).
-- `INT-LAW-095` pedia «contrato mais forte» para a causalidade e não dizia qual. **É este.**
-
-## INT-LAW-312 — CONDIÇÃO COMPATÍVEL COM RISCO ≠ OCORRÊNCIA
-
-```text
-MODEL_RULE  ×  CLIMA (observado ou previsto)  ×  FASE  ×  LUGAR
-        =  CONDIÇÃO COMPATÍVEL COM RISCO
-        ≠  A DOENÇA ACONTECEU
-```
-
-O cruzamento de uma regra com o clima dá, no máximo, um `ANALYTIC_SIGNAL` de risco. **Não
-dá** facto de ocorrência, e **não dá** confirmação.
-
-- Clima **previsto** faz uma condição **prevista** (`INT-LAW-131`); clima observado faz uma
-  condição observada. Os dois nunca se somam.
-- Só a observação no campo — contagem, sintoma, confirmação de um serviço — faz passar de
-  risco a ocorrência, e cada uma chega com a sua espécie (`COL-LAW-702`).
-- O texto, o card e o resumo **NÃO DEVEM** dizer «há peronospora em X» quando o que existe é
-  «as condições em X são compatíveis com peronospora».
-
-## INT-LAW-313 — Resistência exige o estudo inteiro, e um estudo pequeno nunca vira «não funciona»
-
-Uma afirmação de **resistência** ou **perda de eficácia** só entra com:
-
-```text
-ESPÉCIE · POPULAÇÃO (de onde vêm os indivíduos) · LOCAL · PERÍODO
-N (quantos) · MOLÉCULA / MODO DE AÇÃO · MÉTODO (bioensaio, dose, protocolo)
-RESULTADO (com o número) · LIMITES que o próprio autor declara
-```
-
-- Um resultado vale **para a população testada**, no lugar e no período testados. Não se
-  estende à espécie, à região nem ao produto (`INT-LAW-102`: afiliação ≠ local do estudo).
-- **NÃO DEVE** virar «o produto não funciona», «a molécula falhou em Itália», nem entrar numa
-  Opportunity como facto de mercado. É evidência científica com força medida (`CAP-SCI`), e
-  um estudo **não replicado** diz isso (`INT-LAW-035`: repetição não é prova).
-- Campo em falta = `UNKNOWN`, e a afirmação fica como `ANALYTIC_HYPOTHESIS`.
-
-**Porquê esta lei tem dentes.** É a afirmação com mais risco comercial que a Intelligence pode
-fazer sobre um produto, e hoje nada impedia um artigo com poucos indivíduos de uma estufa de
-aparecer como «perda de eficácia» genérica.
-
-## INT-LAW-314 — Expansão geográfica e invasora é uma espécie do Radar Futuro
-
-A chegada, o estabelecimento ou a expansão de um organismo numa região nova (*Popillia
-japonica*, *Xylella fastidiosa*, *Aleurocanthus spiniferus*…) é um `FUTURE_SIGNAL` de espécie
-própria em `CAP-FUT`:
-
-```text
-ESPECIE_DO_SINAL   EXPANSAO_GEOGRAFICA
-PRESERVA           organismo · região nova · 1.º registo (data e fonte) · estado
-                   (DETETADO · ESTABELECIDO · EM EXPANSÃO · ERRADICADO) · via provável ·
-                   culturas hospedeiras · indicadores que REFORÇAM · que ENFRAQUECEM
-```
-
-- Uma deteção **NÃO É** estabelecimento, e um estabelecimento **NÃO É** expansão. Cada estado
-  tem a sua prova, e o estado mais alto não se conclui do mais baixo.
-- Um mapa de presença/ausência de um serviço é fonte de estado, e **não** de quantidade.
-- Continua sob `INT-LAW-130..136`: o sinal de expansão é hipótese sobre o futuro, não facto
-  sobre ele.
-
-## INT-LAW-315 — O CAP-SCI recebe a CADEIA B: conhecimento causal, e não só força de evidência
-
-A secção 34.1 fez do `CAP-SCI` uma capacidade que **mede força de evidência** (quantas provas,
-de quem, replicadas por quem). Falta a outra metade, que é a razão de o pesquisador valer
-«ouro» (D85):
-
-```text
-CADEIA A   o que aconteceu, onde e quando        (boletins, campo, mercado)
-CADEIA B   porque acontece, e o que o prevê       (estudo → relação causal → MODEL_RULE)
-```
-
-O `CAP-SCI` **passa a receber** a Cadeia B: relações causais, `MODEL_RULE` (`INT-LAW-311`),
-limiares, e os resultados de resistência (`INT-LAW-313`) — cada um com a força de evidência
-que já media.
-
-- Fontes da Cadeia B **além do artigo**: tese, dataset, código, modelo/DSS, *proceedings*,
-  seminário técnico — todas com `STUDY_LOCATION` e `STUDY_PERIOD` quando existirem, e
-  `UNKNOWN` quando não (`INT-LAW-102`).
-- A **pessoa** que produz a Cadeia B entra pela identidade que a Collection provou
-  (`COL-LAW-703`): a Intelligence **NÃO DEVE** fundir dois autores por nome
-  (`INT-LAW-083`), e a expertise de uma pessoa não se conclui da identidade dela
-  (`INT-LAW-065`).
-- O que um pesquisador publica num canal público é **voz**, com a espécie que tiver
-  (`COL-LAW-702`), e não prova de incidência (`CAP-FIELD`: voz ≠ incidência).
-
-## 38.1 · O QUE JÁ ERA LEI, E NÃO FOI REESCRITO
-
-| o pedido pedia | já era | o que a secção 38 acrescenta |
-|---|---|---|
-| previsão ≠ facto · cenário ≠ previsão | `INT-LAW-130..133` | a condição de modelo × clima como caso concreto (`312`) |
-| correlação ≠ causalidade | `INT-LAW-095` | o contrato «mais forte» que ela pedia e não dava (`311`) |
-| hipótese não vira facto por repetição | `INT-LAW-035` | aplicada à resistência, com os campos obrigatórios (`313`) |
-| afiliação ≠ local do estudo | `INT-LAW-102` | `STUDY_LOCATION`/`STUDY_PERIOD` pedidos à Cadeia B (`315`) |
-| horizonte e incerteza do sinal futuro | `INT-LAW-135` | a espécie EXPANSÃO com os seus estados (`314`) |
-| identidade não se fabrica na Intelligence | `INT-LAW-083` · `INT-LAW-065` | a pessoa-fonte vem provada da Collection (`315` → `COL-LAW-703`) |
-| o boletim como fonte de facto | `INT-LAW-100` (tempo) | a posição do boletim numa cadeia de cinco degraus (`310`) |
-
-```text
-ACRESCENTAR LEI != AUTORIZAR OBRA
-```
-
-Nenhuma destas leis cria motor de risco, leitor de modelos, extração de claim ou ferramenta.
-Dizem o que a Intelligence **não pode** afirmar quando a matéria chegar.
-
----
-
 ## HARD STOP
 
 **Esta Bíblia autoriza exatamente uma obra: a primeira missão da secção 32 — um
@@ -2688,7 +2537,7 @@ Fora dessa missão, nada: sem Intelligence Tools, sem Portal, sem UI, sem
 Opportunity, sem França, sem Espanha, sem controlador EAME. Esses continuam a
 precisar dos gates da secção 26, e nenhum deles foi aberto.
 
-**E nem a V0.3 nem a V0.4 abriram nenhum.** A V0.4 (secção 38) diz o que a
+**E nem a V0.3 nem a V0.4 abriram nenhum.** A V0.4 (`INT-LAW-137`, proposta) diz o que a
 Intelligence não pode afirmar sobre o sinal do campo; também não constrói nada.
 
 **A V0.3 não abriu nenhum.** As secções 34, 35, 36 e 37 descrevem contratos —

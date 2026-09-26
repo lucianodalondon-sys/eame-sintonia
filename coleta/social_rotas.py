@@ -34,10 +34,17 @@ Cinco donos de cinco coisas. Nao cinco donos da mesma.
 
 O QUE ESTE ARQUIVO NAO FAZ
 ----------------------------
-Nao faz login, nao manda cookie, nao resolve CAPTCHA, nao troca de IP para
-escapar de bloqueio, nao finge ser navegador de gente. Quando a plataforma diz
-nao, a resposta e `ROUTE_NOT_ALLOWED` ou `BLOCKED` no artefato — nunca uma
-tentativa mais esperta.
+Nao faz login, nao manda cookie de sessao, nao paga nada, nao passa conta paga
+nem paywall, nao troca de IP. Quando a plataforma diz nao, a resposta e
+`ROUTE_NOT_ALLOWED` ou `BLOCKED` no artefato.
+
+⚠️ D88 (26/09/2026, COL-LAW-220): este bloco dizia tambem «nao finge ser
+navegador de gente» e «nunca uma tentativa mais esperta». Para material PUBLICO
+isso deixou de ser lei — anti-robo, impressao digital de navegador, JavaScript e
+outra rota tecnica sao permitidos; conta paga e paywall nunca; login, cookie de
+sessao, CAPTCHA pago, proxy pago e outra saida (IP) so com o dono. A politica
+declarada vive em `scrap_http.POLITICA_DE_ACESSO`. O despacho NAO mudou nesta
+reescrita.
 
 E nao julga conteudo. Ele traz o objeto e preserva o bruto. Se e relevante
 para a ADAMA, se e ameaca, se e oportunidade — isso e decisao de outra camada,

@@ -1,130 +1,110 @@
-# LEI-PESQUISADORES — os pesquisadores e o sinal precoce entram na lei
+# LEI-PESQUISADORES — pesquisadores, sinal precoce e acesso: o que virou lei proposta, e o que é operação
 
-Missão LEI-PESQUISADORES-E-SINAL-PRECOCE (coordenação 26/09, 14:40; ordem escrita do dono **D85**). Ramo
-`lei-pesquisadores-v1`, a partir do vivo `278cd489`. **Só lei e know-how, sem código de produção.** Sem rede; nada
-coletado; nada instalado.
+Missão LEI-PESQUISADORES-E-SINAL-PRECOCE (coordenação 26/09, 14:40) e os acréscimos D87 (18:25), D88 (19:25), código
+com a lei antiga (19:45) e texto do bot Luciano (19:50). Ordens escritas do dono: **D85**, **D87**, **D88**. Ramo
+`lei-pesquisadores-v1`, sobre o vivo **`dc0de726`**. Só lei, know-how e texto de código (docstrings e uma constante
+declarada, sem mudar comportamento). Sem rede; nada coletado; nada instalado.
 
-Fontes lidas: D85 em `auditoria-madrugada/DECISOES-DONO-2026-09-23.md` · `ALINHAMENTO-DONO-COLLECTION-INTELLIGENCE.txt`
-· `ALINHAMENTO-COLLECTION-INTELLIGENCE-MATRIZ.md` (secções A–E) · `RESULTADO-MONITORIZACAO.md` e `SINAL-PRECOCE-PDF.md`
-(as medidas de hoje do sinal precoce) · a exportação MUR `MUR-07-AGRI-05-DOCENTES.json`.
+Fontes: `DECISOES-DONO-2026-09-23.md` (D85, D87, D88) · `ALINHAMENTO-COLLECTION-INTELLIGENCE-MATRIZ.md` (A–F) ·
+`ESTUDO-ORQUESTRACAO-24H-LUCIANO.md` (§6, §7, §8-R5) · `ESTUDO-SCRAPLING-DEEPSEEK.md` (rec. 1) ·
+`RESULTADO-MONITORIZACAO.md`, `SINAL-PRECOCE-PDF.md`, `SINAL-PRECOCE-SERIES.md` · a exportação MUR.
 
-> ⚠️ **Uma correção ao pedido.** O pedido trazia «Salerno *Prays citri* 4 → 40». O relatório de origem já se tinha
-> corrigido: o 4 → 40 é da ***Ceratitis capitata*** (mosca-do-mediterrâneo) nos citrinos de Angri, e a *Prays citri*
-> ficou em **0**. Escrevi a versão corrigida em todo o lado.
+> ⚠️ **Correção ao pedido:** «Salerno *Prays citri* 4 → 40» está errado na origem. O 4 → 40 é da ***Ceratitis
+> capitata***; a *Prays citri* ficou em **0**. Escrito certo em todo o lado.
 
 ## 1. O que entrou
 
-| onde | o quê | IDs |
+| onde | o quê | estado |
 |---|---|---|
-| **Bíblia da Coleta V1.4 → V1.5** | PARTE XXI «O que o campo diz, e quem o diz» — 4 leis (a 704 veio da D88, acréscimo das 19:25) | `COL-LAW-701` · `702` · `703` · `704` |
-| **Bíblia da Intelligence V0.3 → V0.4** | secção 38 «O sinal fitossanitário, o modelo e quem sabe» — 6 leis; uma linha nova em `CAP-FUT` e em `CAP-SCI` | `INT-LAW-310..315` |
-| **Know-how** | §222 depois da §221; linha nova no topo («Última atualização material») | §222 |
-| registos da lei | matriz de conformidade (3 linhas, placar V1.5, G-43..45), `docs/biblia/leis.json` regerado, diário de decisões, cartão da Bíblia da Intelligence no registo (V0.4), teste de integração da Bíblia (bloco 7xx) | — |
+| **Bíblia da Coleta V1.4 → V1.5** | PARTE XXI: `COL-LAW-219` medição declarada não vira resumo · `COL-LAW-220` material público e fronteira de acesso (D88) | **PROPOSTA** — `LAW_STATUS CANONICAL` só depois da aprovação do dono · `IT ABSENT` |
+| **Bíblia da Intelligence V0.3 → V0.4** | `INT-LAW-137` regra de modelo e condição de risco não provam ocorrência (secção 13, a seguir à 136) | **PROPOSTA** · `IMPLEMENTATION ABSENT` |
+| **Código** | `coleta/scrap_http.py`, `coleta/social_rotas.py`, `leis/social_matriz.py`: a lei antiga («não finge ser navegador de gente») reescrita a citar a D88/`COL-LAW-220`; `scrap_http.POLITICA_DE_ACESSO` declarada e **não lida** (`LIGADA_AO_COMPORTAMENTO = False`) | comportamento **igual** (secção 6) |
+| **Know-how** | §222 (a seguir à §221) + linha no topo | operação: MUR, ORCID, prioridade, D87, sinal precoce |
+| registos | matriz de conformidade (2 linhas, placar V1.5, G-43/G-44), `docs/biblia/leis.json` regerado, diário de decisões, cartão da Bíblia da Intelligence (V0.4), teste de integração da Bíblia (bloco 2xx: 18 → 20) | — |
 
-## 2. Bíblia da Coleta — o diff conceitual
+**Os textos das três leis são os do bot Luciano**, palavra por palavra nas partes REGRA / PODE / NÃO DEVE / PROVA.
+Acrescentei só o que a casa exige de cada lei: POR QUÊ, MEDIDO, LIGA-SE A, ORIGEM, e na 220 a tabela «antes → com
+esta lei» e a distinção origem ≠ programa. **IDs medidos livres** em 559 pontas de ramo: 0 usam `COL-LAW-219`,
+`COL-LAW-220` ou `INT-LAW-137`.
 
-**`COL-LAW-701` · A série que a fonte declara chega como veio.** Capturas, ovos/larvas/adultos, voo, geração,
-% de infestação, incidência, severidade e limiar chegam **valor a valor, como escritos**, com local/armadilha, data,
-organismo, cultura, fase e trecho. **Proibido**: resumir («1,4,11,29» ≠ «a subir»), média, tendência, completar
-semana em falta, dar nome a coluna de cabeçalho não lido (fica NAO SEI), converter unidade sem guardar a original,
-apagar o zero declarado. O limiar é declaração da fonte, não observação. *A tendência é da Intelligence.*
-`IT = ABSENT` (sem campo no READY; o leitor de PDF vive num ramo de missão).
+**Uma primeira redação desta missão tinha nove leis** (COL-LAW-701..704, INT-LAW-310..315). Foi **substituída** pelas
+três do bot, que são mais curtas e já trazem as correções da secção F. Nada dela ficou nas Bíblias.
 
-**`COL-LAW-702` · A fonte diz a espécie do que afirma.** O claim **pode** levar `CLAIM_KIND` = OBSERVACAO · PREVISAO ·
-MODELO · RECOMENDACAO · CENARIO · HIPOTESE · **UNKNOWN por omissão**, tirado da **marca no trecho** — nunca do tipo da
-fonte, do `SOURCE_DECLARED_EVIDENCE_CLASS` (é do contrato) nem da data. Espécie não se promove. Frase com duas
-espécies = dois claims ou UNKNOWN. **Estende a 202 (um campo a mais no que o claim pode preservar); continua
-`TARGET`.** `IT = ABSENT`.
+## 2. As correções da matriz (secção F), aplicadas
 
-**`COL-LAW-703` · A pessoa-fonte prova-se pela lista-mestra, e segue-se pela porta canónica.** Identidade =
-**lista-mestra oficial (MUR «Cerca Università»; fora do MUR a lista de cada instituição) + instituição + setor**.
-ORCID/OpenAlex/Crossref/IRIS ligam obras, não provam identidade sozinhos. Nome igual sem instituição+setor =
-AMBIGUO; homónimos nunca se fundem. Canais públicos entram pelas candidatas com os TIPOS existentes e PARA_QUE;
-ligam-se à pessoa **por prova**. Limites D16–D24 inteiros (sem login/cookie/conta/CAPTCHA/rota paga; LinkedIn só
-POST público; minimização; apagar a pedido; 5 pedidos/domínio/rodada). `IT = ABSENT`.
-
-**`COL-LAW-704` · O que é público pode ser alcançado por outra rota técnica; o que é pago não (D88, acréscimo 19:25).**
-**Permitido** para material público: passar anti-robô (Cloudflare/Turnstile), navegador real com JavaScript, navegador
-furtivo, outro agente, outra rota. **Nunca**: conta paga, paywall, assinatura, material não público. **Só com o dono**:
-login com conta (mesmo gratuita), cookie de sessão, CAPTCHA por serviço pago, proxy pago. **Continua**: uso interno,
-dado pessoal, teto por domínio (a D88 escreve ≤ 5 em 24 h), VPN IT provada, **a rota usada escrita no RAW**, nada pago
-sem aprovação, `PLATFORM_POLICY_STATUS` medido ao lado de `OWNER_AUTHORIZED`. A lei tem a tabela «antes → agora»:
-D16 (contorno de login/robots), D23/D24 (login wall/CAPTCHA/bloqueio) e a própria `COL-LAW-703`, cuja lista «NÃO DEVE»
-foi alinhada. `robots.txt`: a D88 não fala dele — **não foi tocado**. `IT = PARTIAL` (teto, egresso e proveniência
-existem; a permissão não está ligada na matriz do Scrap — G-46).
-
-**Números novos:** 701..704, porque a faixa 6xx já foi usada por um ramo lateral (Card Contract, 601..617).
-Medido em **559 pontas de ramo**: 0 usam `COL-LAW-7xx` ou `INT-LAW-31x`.
-
-## 3. Bíblia da Intelligence — o diff conceitual
-
-| lei | diz |
+| correção | como ficou |
 |---|---|
-| `INT-LAW-310` | **SINAL PRECOCE → CONFIRMAÇÃO → ALERTA → RECOMENDAÇÃO → INTERVENÇÃO.** O boletim não é o 1.º sinal. Os degraus são posição temporal de objetos que já existem (não objetos novos, `INT-LAW-272`); cada um guarda o seu tempo; degrau em falta = UNKNOWN e COLLECTION_GAP. |
-| `INT-LAW-311` | Contrato mínimo de **MODEL_RULE**: origem, variáveis de entrada, limiares, fase, validade (cultura·organismo·região·período), horizonte, desempenho, limites. Sem validade ou limiares = hipótese, nunca regra. É o «contrato mais forte» que a `INT-LAW-095` pedia e não dizia qual. |
-| `INT-LAW-312` | **Condição compatível com risco ≠ ocorrência.** Regra × clima × fase × lugar dá, no máximo, sinal de risco. Clima previsto dá condição prevista. Só observação no campo faz passar a ocorrência. |
-| `INT-LAW-313` | **Resistência** exige espécie, população, local, período, n, molécula/modo de ação, método, resultado e limites; vale para a população testada; **nunca** vira «o produto não funciona». |
-| `INT-LAW-314` | **Expansão geográfica/invasora** é espécie do `CAP-FUT`: deteção ≠ estabelecimento ≠ expansão. |
-| `INT-LAW-315` | O **`CAP-SCI` recebe a Cadeia B** (relação causal, MODEL_RULE, limiar, resistência) além da força de evidência; fontes além do artigo (tese, dataset, código, DSS, *proceedings*, seminário); a pessoa vem provada da Collection (`COL-LAW-703`). |
+| B4–B7 são **parciais**, não ausentes | a `INT-LAW-137` cita o que já existia (`095`, `131`, `035`, `102`, `024`, CAP-SCI/WIN/FUT) e acrescenta só o que faltava: contrato de `MODEL_RULE`, «condição compatível com risco», guarda contra extrapolar resistência. B6 fica no `CAP-FUT` como está — **nenhuma linha acrescentada** aos contratos de capacidade |
+| B8: espécie da afirmação **por claim** | na `COL-LAW-219`; nunca o `SOURCE_DECLARED_EVIDENCE_CLASS` |
+| B9: `STUDY_LOCATION/PERIOD` começam no claim/`FATO` | nenhuma coluna nova proposta |
+| B10/B11 são operação/aquisição | só no know-how; nem Bíblia nem whitelist |
+| «0 séries» superado | as leis citam 69 séries, 66 numéricas, 16 documentos |
+| D85 não é verdade universal | «prioridade desta fase» no know-how; nada na Bíblia diz que pesquisador é a melhor fonte |
+| D88 exige emenda fechada | `COL-LAW-220` |
 
-Cabeçalho `VERSION = V0.4`, `REVISED = 2026-09-26`; o veredito da V0.3 passou a `HISTORICO` (não se apagou) e há um
-`33.4 VEREDITO CORRENTE — V0.4`. `IMPLEMENTATION_AUTHORIZED` é a **mesma cadeia de caracteres**. Leis: 173 → 179;
-**alteradas: 0**. Os contratos `CAP-FUT` e `CAP-SCI` ganharam **uma linha cada**, que aponta para a lei nova — é a única
-mexida fora da secção 38, e está declarada no veredito.
+## 3. O que já existia → o que as leis propostas acrescentam (nada duplicado)
 
-## 4. O que já existia → o que esta lei acrescenta (nada foi duplicado)
+| já era lei | o que acrescenta, e onde |
+|---|---|
+| `COL-LAW-043` (`FATO` preserva o declarado) · `202` (claim, `TARGET`) · `203` (valor original) · `214` (zero) | a proibição **explícita** de resumir a série, e a espécie da afirmação por claim (`219`) |
+| `COL-LAW-019` (rota paga) · `026` (proteção da fonte) · `033` (procedência) · `205` (endpoint substituível) | a fronteira público/autorizado e a prova de cada captura contornada (`220`) |
+| `INT-LAW-095` (correlação ≠ causalidade, «contrato mais forte») | o contrato de `MODEL_RULE` (`137`) |
+| `INT-LAW-131` (forecast ≠ fact) · `035` · `102` · `024` | «condição compatível com risco ≠ ocorrência»; resistência não generaliza; recomendação da fonte ≠ ação (`137`) |
+| `COL-LAW-009` · `034` · `205` · `042` · `INT-LAW-065` | **nada novo**: pessoa, instituição, estudo, modelo e canal já são identidades distintas; identidade ≠ expertise. Citado na abertura da PARTE XXI |
+| `COL-LAW-207` · `208` · `011` · `INT-LAW-020` · `151` · `290` | **nada novo**: é a D87 (descoberta de perfis = bot de fontes + Intelligence; o Scrap captura). Citado na PARTE XXI e na §222 |
 
-| já era lei | o que diz | o que acrescentei, e onde |
-|---|---|---|
-| `COL-LAW-031` / `032` | tempo e lugar têm vários sentidos | nada novo; os pontos da série levam o tempo e o lugar **da linha** (`701`) |
-| `COL-LAW-201` | artefato ≠ fato; de quem é cada campo | nada novo; citado |
-| `COL-LAW-202` | o claim pode preservar sujeito·predicado·objeto·tempo·lugar; `TARGET` | **+ `CLAIM_KIND`** declarado pela fonte (`702`), com a mesma regra de `TARGET` |
-| `COL-LAW-203` | normalização não destrói o valor original | aplicado à série: unidade e valor originais (`701`) |
-| `COL-LAW-214` | o zero tem semântica | aplicado à série: «n. 0 catture» é valor (`701`) |
-| `COL-LAW-034` | identidade | aplicada à **pessoa**, com a prova em três partes (`703`) |
-| `COL-LAW-043` (`FATO`) | preservar o declarado, não adivinhar | dito **para a série**, onde a tentação de resumir é maior (`701`) |
-| `INT-LAW-030` / `035` / `036` | os objetos distintos; hipótese não vira facto; sinal ≠ achado | citados; os degraus da `310` não são objetos novos |
-| `INT-LAW-095` | correlação ≠ causalidade, «contrato mais forte» | **o contrato** (`311`) |
-| `INT-LAW-100..105` | tempo e geografia herdados | cada degrau da cadeia guarda o seu tempo (`310`); `STUDY_LOCATION/PERIOD` pedidos à Cadeia B (`315`) |
-| `INT-LAW-130..136` | sinal fraco ≠ previsão ≠ facto; horizonte e incerteza | risco de modelo × clima (`312`); espécie EXPANSÃO (`314`) |
-| `INT-LAW-065` / `083` | identidade ≠ expertise; a Intelligence não fabrica identidade | a pessoa da Cadeia B vem da Collection (`315` → `703`) |
+## 4. Provas das Bíblias
+- `py provas/valida_biblia.py`: **11/11 PASS** — **107 leis** · IMPLEMENTED 37 · PARTIAL 48 · **ABSENT 20** ·
+  NOT_APPLICABLE 2; `leis.json` regerado (`--build`).
+- `tests/test_biblia.py` + `tests/test_integracao_biblia.py`: **87 passam**.
+- Portão de contradição da Intelligence: **[]** (um veredito CORRENTE — o 33.4 da V0.4 —, e o fecho nomeia a secção 32).
+- Intelligence: **174 leis** (era 173), 0 alteradas.
+- Testes da Intelligence com o **texto final**, base `dc0de726` × ramo, cada um numa cópia própria (`test_biblia`,
+  `test_integracao_biblia`, `test_os_consertos_da_intelligence`, `test_o_mapa_da_intelligence_nao_mente`,
+  `test_atomicidade_da_intelligence`, `test_o_controle_separa_lei_de_mencao`): base **104 falham · 249 passam**; ramo
+  **105 falham · 248 passam**. As 104 são as mesmas, pelo nome (antigas, do espelho do mapa em `test_atomicidade`).
+  A **1 nova é a esperada**: `test_M5_o_ponto_fixo…` — o carimbo do mapa ainda é o das Bíblias antigas; fecha quando o
+  mapa for regerado (secção 7).
 
-**Recusadas por já terem dono (7):** «previsão não é facto» (`INT-LAW-131`), «correlação não é causalidade» (`095`),
-«hipótese não vira facto por repetição» (`035`), «afiliação não é local do estudo» (`102`), «identidade não se fabrica
-na Intelligence» (`083`), «tempo do facto nos boletins» (`COL-LAW-031`/`201`), «não fundir homónimos» (`COL-LAW-034`).
-**D87 (acréscimo 18:25) — de quem é a descoberta de perfis:** do bot de fontes (Source Curator), guiado pelo retorno da
-Intelligence; o Scrap captura e não escolhe. Escrito **dentro da `COL-LAW-703`** e na §222 como aplicação de leis que já
-existiam — `COL-LAW-207`, `011`, `208`, `INT-LAW-020`, `151`, `290` (objeto `SOURCE_COLLECTION_ADVICE`) — **sem lei nova**.
+## 5. A lei que estava escrita no código (D88 · estudo Scrapling, rec. 1) — sítios medidos
 
-A B11 (lista de núcleos italianos) ficou **no know-how**, não na lei: é registo operacional, e muda.
+`git grep` em `*.py *.mjs *.js *.md` (fora de testes, dados, gerados, portal, handoff), por «finge ser navegador»,
+«navegador de gente», «não resolve CAPTCHA», «troca de IP», «agente se identifica», «contornar …», «sem contorno»,
+«anti-robô», «WAF_CHALLENGE», «User-Agent real»: **156 linhas**; 84 são o Atlas de fontes (estado medido de cada
+fonte, p. ex. `WAF_CHALLENGE`), não lei. O resto, classificado:
 
-## 5. Provas
-- `py provas/valida_biblia.py`: **11/11 PASS** — 109 leis · IMPLEMENTED 37 · **PARTIAL 49** · **ABSENT 21** ·
-  NOT_APPLICABLE 2; `leis.json` regerado pelo `--build`.
-- `tests/test_biblia.py` + `tests/test_integracao_biblia.py`: **87 passam** (o teste de integração passou a contar o
-  bloco 7xx com 4 leis e a nomear 701..704 entre as que nunca podem desaparecer).
-- Portão de contradição da Intelligence (`controle/portao_do_controle.contradicoes_da_lei`): **[]** — um só veredito
-  CORRENTE, e o fecho continua a nomear a secção 32.
-- Testes da Intelligence, **cada versão numa cópia própria**, base `278cd489` × ramo, um ficheiro de cada vez (a
-  primeira tentativa, tudo de uma vez, foi interrompida pela máquina por falta de memória):
+| sítio | diz | o que é | feito |
+|---|---|---|---|
+| `coleta/scrap_http.py:38-39` | «não resolve CAPTCHA, não troca de IP…, **não finge ser navegador de gente** … nunca uma tentativa mais esperta» | **lei** que contradiz a D88 | **reescrito** a citar D88/`COL-LAW-220`; login, cookie, pago e IP continuam fora |
+| `coleta/scrap_http.py:51` (`AGENTE`) | «o agente se identifica. **Não há ganho em mentir**» | **lei** que contradiz a D88 | comentário reescrito; **o valor do `AGENTE` não mudou** |
+| `coleta/scrap_http.py` (novo) | — | política declarada | `POLITICA_DE_ACESSO` (não lida por nenhum código) |
+| `coleta/social_rotas.py:37-38` | o mesmo bloco do `scrap_http` | **lei** que contradiz a D88 | **reescrito** |
+| `leis/social_matriz.py:243, 279` | comentários: «contornar login wall, CAPTCHA **ou bloqueio**» | política que contradiz a D88 na parte «bloqueio» | reescritos: login wall e CAPTCHA pago continuam fora; anti-robô de público permitido, **ainda não usado** nestas rotas |
+| `leis/social_matriz.py:439, 705` | valores da matriz: «sem contornar bloqueio», «contornar login wall/CAPTCHA/bloqueio» (fechado) | **dado** da rota: descreve o que aquela rota faz hoje | **não mexido** (mudar dado muda comportamento; é do engenheiro do Scrap) |
+| `leis/social_matriz.py:851` | «medido … sem contornar muro» | registo de uma medição | não mexido (é história) |
+| `guarda/social_sessao.py:76` | «não troca fingerprint, não esconde que é automação» | a guarda da **sessão com login** | não mexido: login continua com o dono |
+| `ferramentas/cdp.py:27`, `ferramentas/navegador.py:8`, `coleta/instagram_janela.py:58` | «não resolve CAPTCHA» | descrição do que o código faz | não mexido: compatível (solver pago continua fora) |
+| `coleta/adaptador_linkedin.py:1346-1410`, `coleta/adaptador_youtube.py:641, 852`, `coleta/scrap_capacidades.py:315` | «não contorna controlo de acesso / login / paywall» | login e paywall | compatível — não mexido |
+| `curadoria/capturador.py:675`, `amostrar.py:10`, `caracterizador.py:138`, `atlas_social.py:70`, `escrever_no_atlas.py:111`, `RELATORIO-MISSAO-03.md:178` | «não contorna muro» (consentimento/login) | descrição de ferramentas | compatível — não mexido |
+| `candidatas/*.mjs`, `guarda/italy_preserve.mjs:107`, `candidatas/ITALY-SOURCE-MASTER-V1.md:299`, `docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md` | «não se tentou contornar autenticação»; `WAF_CHALLENGE` como estado | registo de medições antigas | não mexido (história); `WAF_CHALLENGE` passa a ser **re-tentável** pela 220 |
+| `docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md:91`, `D24-VIDEO-DE-PESSOA.md:130, 276`, `C13-YOUTUBE-PUBLIC-AUDIO.md:159`, `provas/canario_d23_*.py:29`, `provas/canario_d24_*.py:27, 309` | «sem contornar login wall, CAPTCHA ou **bloqueio**» | registo das decisões D23/D24 e dos canários | não mexido (história); a `COL-LAW-220` diz o que mudou |
+| `docs/decisoes/ADR-TAXONOMIA-DE-FALHAS-E-POLITICA.md:101`, `docs/arquitetura/SINTONIA-SCRAP-TARGET.md:90` | robots lido «com o User-agent real» | robots | compatível: a D88 não fala de robots, e a 220 diz «nunca ignorar robots» |
 
-  | ficheiro | base | ramo |
-  |---|---|---|
-  | `test_biblia` · `test_integracao_biblia` | 73 · 14 passam | 73 · 14 passam |
-  | `test_os_consertos_da_intelligence` (o carimbo da versão no motor) | 32 passam | 32 passam |
-  | `test_o_mapa_da_intelligence_nao_mente` | 36 passam | 36 passam |
-  | `test_atomicidade_da_intelligence` | **104 falham** | **as mesmas 104**, pelo nome (espelho do mapa — antigas) |
-  | `test_o_controle_separa_lei_de_mencao` | 60 passam | 59 + **1 falha: `test_M5_o_ponto_fixo…`** — o carimbo do mapa ainda é o das Bíblias antigas; é exatamente o que o passo do mapa (secção 6) fecha |
+## 6. Testes do Scrap, base `dc0de726` × ramo (o texto não mudou comportamento)
+Os 45 ficheiros de teste que importam `scrap_http`, `social_rotas` ou `social_matriz`, cada versão numa cópia própria,
+rede fechada: base **1 225 passam · 30 falham** · ramo **1 225 passam · 30 falham** — **as mesmas 30, pelo nome; zero
+diferenças.** A reescrita é só de texto.
 
-## 6. O mapa
+## 7. O mapa
 MAPA_AQUI
 
-## 7. Limites declarados
-- **Nenhuma lei nova tem implementação.** As três da Coleta nascem `ABSENT`; as seis da Intelligence dizem o que não se
-  pode afirmar, não constroem nada.
-- As listas oficiais fora do MUR (CNR, CREA, FEM) **não foram medidas**.
-- O significado das colunas da tabela APOL continua **NAO SEI** (cabeçalho em imagem).
-- O bot Luciano está fora (429): a reavaliação dele fica para quando voltar. A instalação é do coordenador.
+## 8. Limites declarados
+- **As três leis são propostas.** Não estão em vigor até o dono aprovar; e mesmo em vigor, a implementação é `ABSENT`.
+- **A permissão da D88 não está ligada.** A matriz do Scrap e o `AGENTE` fazem o mesmo que antes; ligar uma rota com
+  impressão digital de navegador é do engenheiro do Scrap, com rota nomeada, canário, teto e proveniência.
+- **Listas oficiais fora do MUR** (CNR, CREA, FEM): não medidas.
+- **O que as colunas da tabela APOL medem**: NAO SEI (cabeçalho em imagem).
+- A reavaliação do bot Luciano sobre esta redação fica para quando ele voltar.
 
 ## EM PALAVRAS SIMPLES
 SIMPLES_AQUI

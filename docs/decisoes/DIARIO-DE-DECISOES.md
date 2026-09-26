@@ -1464,64 +1464,36 @@ está intacta. Fecharam-se duas coisas que faltavam à prova dela:
 
 ---
 
-## D-0xx · O CAMPO E QUEM O DIZ — `COL-LAW-701` · `702` · `703` (Coleta V1.5) e a Intelligence V0.4
+## D-0xx · O QUE O CAMPO MEDE, E ATÉ ONDE SE VAI BUSCÁ-LO — `COL-LAW-219` · `220` · `INT-LAW-137` (PROPOSTA)
 
 ```
-LAW_ID    COL-LAW-701 (nova) · COL-LAW-702 (nova, estende a 202) · COL-LAW-703 (nova)
-          INT-LAW-310..315 (novas, Bíblia da Intelligence secção 38)
-BEFORE    nenhuma lei dizia que a SÉRIE de monitorização (capturas, %, limiar) chega
-          sem resumo; a COL-LAW-202 não tinha onde guardar a ESPÉCIE que a fonte deu
-          ao que afirma (observação · previsão · modelo · recomendação · cenário ·
-          hipótese); a identidade de uma PESSOA-FONTE não tinha lei própria. Na
-          Intelligence: sem cadeia temporal do sinal fitossanitário, sem contrato de
-          MODEL_RULE, sem regra para resistência, sem espécie de expansão/invasora no
-          CAP-FUT, e o CAP-SCI só media força de evidência.
-AFTER     três leis de Coleta (PARTE XXI) e seis de Intelligence (secção 38). Nenhuma
-          lei existente foi alterada; as que já cobriam uma parte são citadas.
-WHY       D85 do dono (26/09 ~14:35): «pesquisadores são ouro», lista-mestra oficial +
-          seguir os canais públicos, e atualizar know-how e as duas Bíblias. E o
-          ALINHAMENTO COLLECTION → INTELLIGENCE, lacunas B1–B10 medidas por busca.
-EVIDENCE  PDFs T3 já guardados: IT-T3-002 Salerno «n. 4 catture» → «n. 40 catture» de
-          Ceratitis capitata em 14 dias (a primeira leitura trocou o bicho por Prays
-          citri — corrigido, e é a prova de que a linha original tem de ficar);
-          IT-T3-010 APOL com cabeçalho em imagem (colunas NAO SEI); IT-T3-008 ARIF com
-          limiares escritos. Lista MUR 07/AGRI-05: 278 docentes, 33 universidades.
-IMPACT    nenhum runtime mudou. As três leis de Coleta nascem ABSENT no vivo. A
-          Intelligence continua com IMPLEMENTATION_AUTHORIZED igual à V0.3.
-VERSION   Coleta V1.4 -> V1.5 · Intelligence V0.3 -> V0.4
+LAW_ID    COL-LAW-219 (nova) · COL-LAW-220 (nova) · INT-LAW-137 (nova)
+ESTADO    PROPOSTA — o texto mínimo é do bot Luciano (ESTUDO-ORQUESTRACAO-24H §6, §8-R5);
+          LAW_STATUS CANONICAL só depois da aprovação do dono; IMPLEMENTATION ABSENT
+BEFORE    nenhuma lei proibia resumir a série que a fonte declara, nem guardava a espécie da
+          afirmação por claim; a proibição de «contorno de acesso» vivia nas decisões
+          D16–D24 e no código («não finge ser navegador de gente»); a Intelligence não
+          tinha contrato de MODEL_RULE nem saída nomeada «condição compatível com risco».
+AFTER     COL-LAW-219 (medição declarada não vira resumo) · COL-LAW-220 (material público
+          e fronteira de acesso, D88) · INT-LAW-137 (regra de modelo e condição de risco
+          não provam ocorrência). Nenhuma lei existente alterada.
+WHY       D85 e D88 do dono (26/09); ALINHAMENTO COLLECTION → INTELLIGENCE com as correções
+          da matriz, secção F.
+EVIDENCE  69 séries (66 numéricas) em 16 documentos do acervo; Salerno «n. 4 catture» →
+          «n. 40 catture» de Ceratitis capitata (a 1.ª leitura trocou por Prays citri —
+          corrigido); Piemonte 52 bytes sem agente de navegador vs 6 110 108 com ele.
+IMPACT    nenhum runtime mudou. O código com a lei antiga (scrap_http, social_rotas) foi
+          reescrito no texto, sem mudar comportamento.
+VERSION   Coleta V1.4 -> V1.5 (proposta) · Intelligence V0.3 -> V0.4 (proposta)
 ```
 
-**O que se recusou escrever.** Uma lei de «tempo do facto nos boletins» (já é
-`COL-LAW-031`/`201`), uma de «não fundir homónimos» (já é `COL-LAW-034`), uma de
-«previsão não é facto» (já é `INT-LAW-131`) e uma de «afiliação não é local do
-estudo» (já é `INT-LAW-102`). A conta inteira, lei a lei, está em
-`LEI-PESQUISADORES.md`.
+**O que se recusou escrever como lei.** A lista-mestra MUR, IRIS/ORCID/OpenAlex e a
+prioridade dos pesquisadores (D85) são operação — vivem no know-how. A D87 (descobrir perfis é
+do bot de fontes guiado pela Intelligence) é aplicação de `COL-LAW-207`, `208`, `011` e
+`INT-LAW-020`, `151`, `290`. Fontes científicas além do artigo e a lista de núcleos italianos
+(B10, B11) são aquisição e registo operacional. Uma primeira redação desta missão tinha nove
+leis (COL-LAW-701..704, INT-LAW-310..315); foi substituída pelas três do bot, mais curtas e
+alinhadas com as correções da secção F.
 
-**D87 (acréscimo do mesmo dia).** A descoberta de perfis é do bot de fontes, guiado pela Intelligence; o Scrap
-captura. Entrou como parágrafo da `COL-LAW-703`, não como lei: `COL-LAW-207`, `011`, `208` e `INT-LAW-020`,
-`151`, `290` já o diziam.
-
-**D88 (acréscimo do mesmo dia) — `COL-LAW-704` (nova).**
-
-```
-LAW_ID    COL-LAW-704 (nova)
-BEFORE    D16 não autorizava «contorno de login/robots»; D23/D24: «NÃO contornar login wall /
-          CAPTCHA / bloqueio»; COL-LAW-703 (V1.5): «NÃO DEVE login, cookie, conta, CAPTCHA
-          ou rota paga». A Bíblia não tinha lei própria de acesso.
-AFTER     material PÚBLICO pode ser alcançado por outra rota técnica (anti-robô, navegador
-          real/furtivo, outro agente); conta paga/paywall/não-público: nunca; login com conta,
-          CAPTCHA pago e proxy pago: só com o dono. Continuam: uso interno, dado pessoal,
-          teto por domínio, VPN IT, proveniência da rota, sem gasto sem aprovação.
-WHY       D88 do dono (26/09 ~19:20).
-EVIDENCE  a decisão escrita; nenhuma medida nova — é permissão, não observação.
-IMPACT    nenhum runtime mudou; a matriz do Scrap ainda recusa pelas regras antigas (G-46).
-VERSION   V1.5 (a mesma emenda do dia)
-```
-
-robots.txt: a D88 não fala dele, e a lei não o tocou.
-
-**Porque 701 e não 601.** A numeração 6xx já foi usada por um ramo lateral (Card
-Contract, COL-LAW-601..617) que nunca chegou à linha. Reusar os números faria duas
-leis diferentes com o mesmo ID no dia em que alguém juntasse os ramos. Medido em
-559 pontas de ramo: 0 usam COL-LAW-7xx ou INT-LAW-31x.
-
+**Porque 219, 220 e 137.** São os números que o bot propôs; medidos livres em 559 pontas de
+ramo. (A faixa COL-LAW-6xx já foi usada por um ramo lateral, Card Contract, 601..617.)

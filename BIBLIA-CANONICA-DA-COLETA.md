@@ -22,7 +22,7 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 | **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
 | **V1.4** | 2026-09-11 | **o retorno do executor entra na lei**: `COL-LAW-505` responde a pergunta que `COL-LAW-013` fez e nunca respondeu — «`OUTPUT` = onde larguei, e **em que forma**». Medido antes de escrita: `FALSE_HARVEST_TOTAL = 253` sobre os cinco executores canónicos | **105** (+1) |
-| **V1.5** | 2026-09-26 | **o campo e quem o diz** (D85 do dono + ALINHAMENTO COLLECTION → INTELLIGENCE): a série de monitorização que a fonte declara chega como veio, nunca resumida (`COL-LAW-701`); o claim pode levar a espécie que a fonte lhe deu — observação, previsão, modelo, recomendação, cenário, hipótese, `UNKNOWN` por omissão (`COL-LAW-702`, estende a 202); e a pessoa-fonte prova-se pela lista-mestra oficial + instituição + setor, e segue-se pela porta canónica (`COL-LAW-703`); e, pela D88 do mesmo dia, o material **público** pode ser alcançado por outra rota técnica (anti-robô, navegador real ou furtivo), e o **pago** nunca (`COL-LAW-704`). Medido antes de escrita nos PDFs T3 do acervo (Salerno 4 → 40 capturas de *Ceratitis capitata*) e na lista MUR (278 docentes) | **109** (+4) |
+| **V1.5** | 2026-09-26 | **PROPOSTA — só entra em vigor com a aprovação do dono.** O que o campo mede, e até onde se pode ir buscá-lo (D85 · D88 · ALINHAMENTO COLLECTION → INTELLIGENCE), com o texto mínimo do bot Luciano: a medição que a fonte declara chega como veio, com a espécie da afirmação e nunca resumida (`COL-LAW-219`); e o material público pode ser alcançado por navegador real, JavaScript ou outra rota técnica, inclusive anti-automação, sem atravessar conta, paywall nem login (`COL-LAW-220`). Medido antes de escrita: 69 séries (66 numéricas) no acervo; Salerno 4 → 40 capturas de *Ceratitis capitata* | **107** (+2) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
@@ -2926,293 +2926,149 @@ heurística antiga, e nenhum executor foi adaptado. Ligar o runtime é outra mis
 
 ---
 
-# PARTE XXI · O QUE O CAMPO DIZ, E QUEM O DIZ
+# PARTE XXI · O QUE O CAMPO MEDE, E ATÉ ONDE SE PODE IR BUSCÁ-LO
 
-> **Emenda V1.5** (2026-09-26, D85 do dono + ALINHAMENTO COLLECTION → INTELLIGENCE). Três leis,
-> e nenhuma nasceu de gosto: as três vêm de **medir o que já estava guardado**. Os boletins T3
-> do acervo trazem contagens de armadilha por fazenda, percentagens de infestação e limiares
-> escritos — e a casa não tinha lei que dissesse «isto chega como veio». Trazem também
-> previsões, conselhos e modelos misturados com observação, e a COL-LAW-202 não tinha onde
-> marcar a diferença. E o dono pôs os **pesquisadores** na primeira linha das famílias de
-> fonte (D85), e a identidade de uma PESSOA não tinha lei própria.
+> **Emenda V1.5 — PROPOSTA** (2026-09-26). Duas leis, com o **texto mínimo redigido pelo bot
+> Luciano** (ESTUDO-ORQUESTRACAO-24H-LUCIANO, §6 e §8-R5 — documento de trabalho da coordenação, fora do Git) e a prova medida
+> nesta casa. **Não é lei em vigor enquanto o dono não a aprovar**: o `LAW_STATUS` abaixo é o que
+> ela terá **depois** da aprovação, e o coordenador só a instala com ela. A implementação é
+> `ABSENT` nas duas.
 >
-> O que **já** era lei não foi reescrito, e está citado: tempo e lugar (COL-LAW-031/032),
-> artefato ≠ fato (201), o modelo de claim (202), a procedência até ao valor (203), o zero com
-> semântica (214), a identidade (034). A tabela «o que já existia → o que isto acrescenta» está
-> em `LEI-PESQUISADORES.md`.
+> Nasceram de duas decisões do dono — **D85** (pesquisadores e sinal precoce) e **D88** (contorno
+> técnico de acesso a material público) — e do ALINHAMENTO COLLECTION → INTELLIGENCE, com as
+> correções que o bot fez à matriz de lacunas (secção F): a espécie da afirmação é **por claim**;
+> `STUDY_LOCATION`/`STUDY_PERIOD` começam no claim/`FATO`, não em colunas novas; fontes
+> científicas além do artigo e a lista de núcleos italianos são **operação**, não lei; e a D85 é
+> prioridade operacional mais uma clarificação, **não uma verdade universal sobre pesquisadores**.
+>
+> **O QUE NÃO VIROU LEI, E PORQUÊ.** A lista-mestra MUR, IRIS/Cineca, ORCID/OpenAlex/Crossref e a
+> prioridade dos pesquisadores são **ferramentas e prioridades de agora** — vivem no know-how
+> (§222). O que a D85 tem de duradouro já está na casa: pessoa, instituição, estudo, modelo e
+> canal são identidades distintas (`COL-LAW-009`, `COL-LAW-034`); identidade não é expertise nem
+> local do estudo (`INT-LAW-065`, `INT-LAW-102`); o canal público de um pesquisador entra como
+> endpoint/fonte pela porta canónica (`COL-LAW-205`, `COL-LAW-042`). E a **D87** — descobrir
+> perfis é do bot de fontes guiado pela Intelligence, e o Scrap captura — é aplicação de
+> `COL-LAW-207`, `COL-LAW-208`, `COL-LAW-011`, `INT-LAW-020`, `INT-LAW-151` e `INT-LAW-290`.
 >
 > ```
-> NENHUMA DESTAS LEIS AUTORIZA OBRA.
-> EXTRAÇÃO DE CLAIM CONTINUA TARGET (COL-LAW-202).
+> PROPOR UMA LEI NÃO É PÔ-LA EM VIGOR.
+> E PÔ-LA EM VIGOR NÃO É IMPLEMENTÁ-LA.
 > ```
 
-## COL-LAW-701 · A SÉRIE QUE A FONTE DECLARA CHEGA COMO VEIO
+## COL-LAW-219 · MEDIÇÃO DECLARADA NÃO VIRA RESUMO
 
-**REGRA.** Quando a fonte publica **valores de monitorização** — capturas por armadilha, por
-estação ou por semana; ovos, larvas, adultos; início e pico de voo; geração; percentagem de
-infestação; incidência; severidade; **limiar** técnico ou económico — a Collection **DEVE**
-preservar **cada valor como a fonte o escreveu**, com o que a fonte lhe pôs ao lado:
+**REGRA** (texto do bot Luciano). Um claim quantitativo deve preservar os valores e a sequência
+declarada, unidade, denominador, método/amostragem, população observada, tempo, lugar, espécie
+da afirmação da fonte e proveniência até o trecho.
 
-```
-VALOR (tal e qual, «n. 40 catture», «5%»)  ·  UNIDADE como escrita
-LOCAL / ESTAÇÃO / ARMADILHA / AZIENDA       ·  DATA ou PERÍODO da linha
-ORGANISMO  ·  CULTURA  ·  FASE              ·  TRECHO (a linha, e onde está no documento)
-```
+**NÃO DEVE** (texto do bot Luciano):
 
-A Collection **NÃO DEVE**:
+- substituir 1,4,11,29 por «crescendo»;
+- promover previsão, recomendação, modelo ou cenário da fonte a observação;
+- preencher valor ausente;
+- confundir espécie do claim com classe geral da fonte.
 
-- **resumir** — «1, 4, 11, 29» **não é** «capturas a subir»;
-- calcular média, tendência ou variação, completar a semana que falta, ou interpolar;
-- dar nome a uma coluna cujo **cabeçalho não leu** — o valor fica com a coluna `NAO SEI`;
-- converter unidade sem guardar a original (COL-LAW-203);
-- apagar o zero: «n. 0 catture» é um **valor declarado**, e não é linha em falta nem `UNKNOWN`
-  (COL-LAW-214).
+**A ESPÉCIE DA AFIRMAÇÃO** é do **trecho**, e sai da marca que a fonte escreveu:
+`OBSERVACAO` («si segnalano catture») · `PREVISAO` («le previsioni indicano») · `MODELO`
+(«secondo il modello») · `RECOMENDACAO` («si consiglia», «soglia di intervento») · `CENARIO` ·
+`HIPOTESE` · e `UNKNOWN` quando a frase não marca. **NÃO É** o `SOURCE_DECLARED_EVIDENCE_CLASS`,
+que é do contrato de fonte, em texto livre (`COL-LAW-043`: `DECLARADO PELA FONTE ≠ MEDIDO NO
+DOCUMENTO`). E um cabeçalho de tabela que não se leu deixa a coluna `NAO SEI` — não se adivinha o
+que ela mede.
 
-**O limiar é declaração da fonte, não observação.** «Soglia: 4-5% di infestazione attiva» diz
-a partir de quando a fonte manda agir; não diz que a infestação chegou lá. Chega com a espécie
-que a fonte lhe deu (COL-LAW-702).
+**POR QUÊ.** Um resumo feito na entrada é uma interpretação sem dono e sem volta: o valor original
+some, e o erro do resumo fica permanente (a mesma razão da `COL-LAW-203`). E é nesta série que mora
+o **sinal precoce** — aparece nos números antes de aparecer no alerta.
 
-```
-A TENDÊNCIA É DA INTELLIGENCE.
-A COLLECTION ENTREGA OS PONTOS, NÃO A CURVA.
-```
-
-**POR QUÊ.** Um resumo feito na entrada é uma interpretação sem dono e sem volta: o valor
-original some, e o erro do resumo vira permanente (a mesma razão da COL-LAW-203). E é nesta
-série que mora o **sinal precoce** — ele aparece nos números antes de aparecer no alerta.
-
-**MEDIDO** (26/09/2026, PDFs T3 já guardados no acervo, sem rede):
+**MEDIDO** (26/09/2026, sem rede, no que já estava guardado):
 
 ```
-IT-T3-002  Salerno   rede por AZIENDA/LOCALITÀ, ~14 dias
-           Angri · agrumi · Ceratitis capitata   02/09 «n. 4 catture»  →  16/09 «n. 40 catture»
-           Angri · agrumi · Prays citri          02/09 «n. 0 catture»  →  16/09 «n. 0 catture»
-IT-T3-010  APOL Puglia  mosca dell'olivo por COMPRENSORIO, semanal
-           «7 · 1 · 5% · STAZIONARIO · BASSO» — o cabeçalho é IMAGEM: o que cada coluna mede = NAO SEI
-IT-T3-008  ARIF Puglia  limiares escritos («10 catture per trappola a settimana»)
+ACERVO    16 documentos com monitorização · 250 linhas extraídas
+          69 séries, 66 com número                    (SINAL-PRECOCE-SERIES.md)
+IT-T3-002 Salerno   por AZIENDA/LOCALITÀ, ~14 dias
+          Angri · agrumi · Ceratitis capitata   «n. 4 catture» → «n. 40 catture»
+          Angri · agrumi · Prays citri          «n. 0 catture» → «n. 0 catture»
+IT-T3-010 APOL Puglia  por COMPRENSORIO, semanal — o cabeçalho é IMAGEM: colunas NAO SEI
+IT-T3-005 Terre dell'Etruria  «Infestazione attiva» (%) por ponto e data — público;
+          «Catture adulti: dato per utenti registrati» — atrás de login, fora
 ```
 
-> ⚠️ A primeira leitura escreveu «Prays citri 4 → 40». **Estava errado**: o salto é da
-> *Ceratitis capitata*, e a *Prays citri* ficou em 0. A lei existe para que um erro destes
-> seja **corrigível** — só é, porque a linha original ficou guardada.
+> ⚠️ A primeira leitura escreveu «*Prays citri* 4 → 40». **Estava errada**: o salto é da
+> *Ceratitis capitata*, e a *Prays citri* ficou em 0. Só foi corrigível porque a linha original
+> estava guardada — que é o que esta lei exige.
 
-**LIGA-SE A** COL-LAW-043 (`FATO` preserva o declarado — esta lei diz o mesmo **para a série**,
-onde a tentação de resumir é maior) · COL-LAW-202 (cada ponto é um claim possível) ·
-COL-LAW-203 (valor original) · COL-LAW-214 (o zero tem semântica) · COL-LAW-702 (a espécie).
+**LIGA-SE A** `COL-LAW-043` (`FATO` preserva o declarado) · `COL-LAW-202` (o claim; `TARGET`) ·
+`COL-LAW-203` (valor original) · `COL-LAW-214` (o zero declarado é valor).
 
-**NÃO IMPLEMENTADO.** Não há campo no READY para a série, e o leitor de PDF de monitorização vive
-num ramo de missão (`micro-prova-lote2b-v1`), fora do vivo.
-
-**ORIGEM.** `ARCHITECTURAL_DECISION` (D85 · ALINHAMENTO B2/B3) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+**ORIGEM.** `ARCHITECTURAL_DECISION` (D85 · ALINHAMENTO B2/B3/B8 · texto do bot Luciano) · **LAW_STATUS** `CANONICAL` — **só depois da aprovação do dono** · **IT** `ABSENT`
 
 ---
 
-## COL-LAW-702 · A FONTE DIZ A ESPÉCIE DO QUE AFIRMA
+## COL-LAW-220 · MATERIAL PÚBLICO E FRONTEIRA DE ACESSO
 
-**REGRA.** Um claim **PODE** carregar a **espécie** que a própria fonte deu ao que afirma:
+**REGRA** (texto do bot Luciano). Material público é o conteúdo substancialmente idêntico que uma
+pessoa não identificada e não autenticada recebe, sem conta, assinatura, pagamento ou direito
+individualizado. Para esse material, a rota pode usar navegador real, JavaScript, compatibilidade
+de headers/fingerprint e fallback técnico, inclusive proteção anti-automação, desde que não
+atravesse fronteira de autorização.
 
-```
-CLAIM_KIND   OBSERVACAO · PREVISAO · MODELO · RECOMENDACAO · CENARIO · HIPOTESE · UNKNOWN
-```
+**PODE** (texto do bot Luciano):
 
-| espécie | a fonte está a dizer | exemplo (texto de boletim) |
-|---|---|---|
-| `OBSERVACAO` | vi / medi / contei | «si segnalano catture in aumento» |
-| `PREVISAO` | vai acontecer | «le previsioni indicano…», «nei prossimi giorni» |
-| `MODELO` | o modelo X, com estas entradas, dá isto | «secondo il modello, rischio di infezione» |
-| `RECOMENDACAO` | faça / não faça, e a partir de quando | «si consiglia», «soglia di intervento» |
-| `CENARIO` | se isto, então aquilo | «in caso di piogge persistenti…» |
-| `HIPOTESE` | pode ser | «potrebbe», «si ipotizza» |
+- navegador real/headless e JavaScript;
+- rota técnica alternativa que entregue o mesmo conteúdo público;
+- ajuste de identidade técnica do navegador;
+- tratamento de Cloudflare/Turnstile sem conta, credencial ou serviço pago;
+- retry dentro do teto e do circuit breaker.
 
-**`UNKNOWN` é o valor por omissão**, e é a resposta certa sempre que a frase não marca a espécie.
+**NÃO DEVE** (texto do bot Luciano):
 
-A espécie **DEVE** sair do **trecho** — da marca que a fonte escreveu — e **NÃO DEVE** ser
-inferida:
+- atravessar paywall, assinatura ou conta paga;
+- usar login, conta gratuita ou cookie de sessão sem nova decisão do dono;
+- usar token/credencial de terceiro;
+- usar solver humano/pago de CAPTCHA;
+- usar proxy residencial pago sem aprovação;
+- ignorar robots, teto, VPN, ritmo ou minimização de dado pessoal;
+- chamar de público conteúdo que só aparece a usuário autenticado, em cache, snippet ou para
+  terceiro autorizado.
 
-- pelo tipo da fonte (um boletim T3 não torna observação tudo o que diz);
-- pelo `SOURCE_DECLARED_EVIDENCE_CLASS`, que é do **contrato de fonte**, em texto livre, e não
-  deste trecho (COL-LAW-043: `DECLARADO PELA FONTE ≠ MEDIDO NO DOCUMENTO`);
-- pela data (uma data futura não faz uma previsão: pode ser um evento marcado).
+**PROVA** (texto do bot Luciano): URL, instante, estado anônimo, rota técnica, desafio encontrado,
+robots/política, custo, teto do domínio, RAW e lineage.
 
-Uma espécie **NÃO DEVE** ser promovida: `PREVISAO` não vira `OBSERVACAO` por se repetir, e
-`MODELO` não vira `OBSERVACAO` porque o modelo acertou da última vez. Uma frase com duas
-espécies dá **dois claims**, ou `UNKNOWN`.
+**O QUE MUDA, E O QUE NÃO.** A D88 do dono (26/09 ~19:20) substitui a proibição de «contorno de
+acesso» que vivia nas decisões D16–D24:
 
-```
-A COLLECTION MARCA A ESPÉCIE QUE A FONTE DECLAROU.
-A INTELLIGENCE JULGA O QUE ELA VALE (INT-LAW-130..132).
-```
-
-**POR QUÊ.** Os boletins misturam, na mesma página, o que viram, o que preveem, o que o modelo
-calculou e o que aconselham. Se a Collection não guarda a diferença, a Intelligence recebe
-«praga X na região Y» sem saber se é uma contagem, um risco calculado ou um conselho — e a
-`INT-LAW-131` (`FORECAST ≠ FACT`) fica sem matéria para trabalhar.
-
-**NÃO DUPLICA a COL-LAW-202.** Acrescenta **um campo** ao que um claim **PODE** preservar, e
-com a mesma regra dela: é `TARGET`. Não cria extração de claim.
-
-**ORIGEM.** `ARCHITECTURAL_DECISION` (D85 · ALINHAMENTO B8) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
-
----
-
-## COL-LAW-703 · A PESSOA-FONTE PROVA-SE PELA LISTA-MESTRA, E SEGUE-SE PELA PORTA CANÓNICA
-
-**REGRA — identidade.** A identidade de uma **pessoa-fonte** (pesquisador, docente, agrónomo,
-técnico) **DEVE** ser provada por três coisas juntas:
-
-```
-LISTA-MESTRA OFICIAL  +  INSTITUIÇÃO  +  SETOR
-```
-
-- **Lista-mestra oficial**: para a universidade italiana, o **MUR «Cerca Università»**
-  (público, sem login, exportação por GSD/SSD). Fora do MUR (CNR, CREA, FEM, …): a lista
-  oficial de cada instituição — que **ainda não foi medida**, e até lá é `UNKNOWN`.
-- **ORCID · OpenAlex · Crossref** ligam a pessoa às **obras**; **IRIS** (Cineca) dá a produção
-  de cada universidade. Servem para ligar, e **não substituem** a lista-mestra na identidade.
-
-**Nome igual não é pessoa igual.** Sem instituição e setor, o caso é `AMBIGUO`.
-**Homónimos NUNCA se fundem** (COL-LAW-034), e `UNKNOWN` não funde com nada.
-
-**REGRA — seguir.** Os canais **públicos** onde a pessoa publica no dia a dia — página pessoal
-ou do laboratório, `researcher-urls` do ORCID, **POST público** de LinkedIn, X/Bluesky,
-YouTube do laboratório, blog, podcast, newsletter, ResearchGate **só se público sem login** —
-entram **pela porta canónica** das candidatas, com os `TIPOS` que já existem e `PARA_QUE`
-explícito. **Sem taxonomia paralela.**
-
-Um canal liga-se à pessoa **por prova** — o canal aponta para a página institucional da
-pessoa, ou a página institucional aponta para o canal — e **nunca** por semelhança de nome.
-
-**NÃO DEVE** (D16–D24, com a emenda da D88 — `COL-LAW-704`):
-
-- login, cookie de sessão, conta, CAPTCHA por serviço pago, proxy pago ou rota paga, sem ordem
-  do dono (passar proteção anti-robô de material **público** é permitido, `COL-LAW-704`);
-- abrir o **perfil** de uma pessoa no LinkedIn (é muro de login) — só o endereço de um **POST
-  público**;
-- guardar contactos, seguidores, mensagens, comentários de terceiros, ou qualquer dado pessoal
-  que a pessoa não publicou **profissionalmente**;
-- passar de **5 pedidos por domínio e por rodada**.
-
-**Minimização:** só identidade + o que a pessoa publica como profissional. Apaga-se a pedido.
-
-**DE QUEM É A DESCOBERTA (D87 do dono, 26/09 ~18:25: «descobrir perfis é um trabalho das
-fontes com inteligência»).** Descobrir **quais** perfis, contas e canais seguir — Instagram,
-LinkedIn, YouTube, X, páginas de pesquisadores — é do **bot de fontes (Source Curator)**,
-guiado pelo **retorno da Intelligence**: o que rendeu, e que cultura, praga, região ou pessoa
-falta. O **Scrap captura** o que as fontes decidiram seguir; **não escolhe** o que seguir, e a
-falta de uma capacidade de descoberta no Scrap não é limite da coleta.
-
-```
-INTELLIGENCE diz o que falta  →  FONTES descobrem e qualificam (porta canónica, prova de
-identidade, sem login)  →  SCRAP captura  →  SALA  →  INTELLIGENCE mede o rendimento  →  volta
-```
-
-Isto **não é lei nova**: é a aplicação, à pessoa-fonte, do que já estava escrito —
-`COL-LAW-207` (`DISCOVER` é capacidade própria, e não se confunde com `FETCH`), `COL-LAW-011`
-(o Scrap **NÃO DEVE** competir como segundo cérebro), `COL-LAW-208` (o registo de fontes é a
-memória da coleta), e, do lado da Intelligence, `INT-LAW-020` (o gap volta pela Collection
-canónica), `INT-LAW-151` (a Intelligence pede prova, não escolhe rota) e `INT-LAW-290`
-(`SOURCE PERFORMANCE RECOMMENDS · COLLECTION DECIDES`), com o objeto de passagem
-`SOURCE_COLLECTION_ADVICE` (Bíblia da Intelligence, 36.4).
-
-**POR QUÊ.** O pesquisador é a fonte do **conhecimento causal** (o modelo, a relação, o limiar)
-e muitas vezes do **sinal precoce**, antes de o boletim sair (D85: «isso é ouro pro sintonia»).
-Mas uma pessoa é a entidade mais fácil de fundir mal: dois «Rossi» viram um, e as obras de um
-passam a provar o que o outro nunca disse.
-
-**MEDIDO** (26/09/2026, exportação MUR guardada fora do Git):
-
-```
-MUR · GSD 07/AGRI-05   278 docentes · 33 universidades
-  AGRI-05/A (ex AGR/11, entomologia)          129
-  AGRI-05/B (ex AGR/12, patologia vegetal)    149
-  nomes repetidos DENTRO desta lista            0
-  linhas com a coluna SSD2015 desalinhada       7   → setor antigo NAO SEI nessas 7
-T6 (obras já coletadas)   1 466 pessoas IT · ORCID provado em ~30% das obras
-```
-
-**LIGA-SE A** COL-LAW-034 (identidade) · COL-LAW-206 (três identidades, e a URL não é uma
-delas) · COL-LAW-207 (descobrir ≠ buscar) · COL-LAW-042 (a porta) · e a `INT-LAW-102`
-(afiliação ≠ local do estudo), que já impede a Intelligence de ler a universidade como o
-lugar do facto.
-
-**NÃO IMPLEMENTADO.** Nenhuma ferramenta instalada prova a identidade pela lista-mestra, e o
-seguimento de canais vive numa missão própria (`seguir-pesquisadores-v1`), fora do vivo.
-
-**ORIGEM.** `ARCHITECTURAL_DECISION` (D85) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
-
----
-
-## COL-LAW-704 · O QUE É PÚBLICO PODE SER ALCANÇADO POR OUTRA ROTA TÉCNICA; O QUE É PAGO NÃO
-
-> **D88 do dono** (26/09 ~19:20): «nós não temos problema em burlar qualquer coisa de acesso
-> desde que o sistema capte o que precisa, nossos materiais são pra uso interno, inteligência
-> interna, qualquer pessoa poderia ir lá e ver o material, não é material pra burlar conta
-> paga». Substitui a proibição de «contorno de acesso» que vivia nas decisões D16–D24 (e na
-> `COL-LAW-703` da mesma emenda), para material **público**.
-
-**REGRA — PERMITIDO**, para material **público** (o que qualquer pessoa vê num navegador, sem
-pagar e sem conta):
-
-```
-passar proteção anti-robô (Cloudflare / Turnstile e semelhantes)
-navegador real com JavaScript · navegador «furtivo» / impressão digital de navegador
-trocar agente ou identidade técnica · repetir por outra rota técnica
-```
-
-**NÃO DEVE** — e isto a D88 não mudou, disse-o por escrito:
-
-- burlar **conta paga, paywall ou assinatura**;
-- alcançar material que **não é público**.
-
-**CONTINUA A VALER, INTEIRO** (a D88 não tocou; muda só com ordem nova do dono):
-
-- **uso interno**: o material serve a inteligência interna, não se republica;
-- **minimização de dado pessoal** (`COL-LAW-703`; comentários de pessoas físicas continuam no
-  portão de dado pessoal);
-- **o teto por domínio e o respiro** — a D88 escreve «≤ 5 por domínio em 24 h». Protegem a
-  nossa saída pela VPN de ser bloqueada, e a fonte (`COL-LAW-026`);
-- **VPN italiana provada** antes da rede;
-- **proveniência da rota**: o RAW **DEVE** registar **qual rota técnica** o trouxe — navegador
-  real, furtivo, outro agente, outra rota. Uma captura por rota contornada **NÃO DEVE** parecer
-  uma captura direta (`COL-LAW-033`, `COL-LAW-205`: a rota é do endpoint, e troca-se; a fonte fica);
-- **nenhuma rota que custe dinheiro** sem aprovação (`COL-LAW-019`: a rota paga é escalada, e
-  explica-se);
-- o eixo `PLATFORM_POLICY_STATUS` continua **medido e escrito** ao lado de `OWNER_AUTHORIZED`:
-  autorização do dono não apaga o que os termos da plataforma dizem.
-
-**PRECISA DO DONO** (até lá, **não se faz** — `NAO SEI` não é «sim»):
-
-```
-LOGIN com conta própria, mesmo gratuita · COOKIE DE SESSÃO
-CAPTCHA resolvido por SERVIÇO PAGO
-PROXY residencial PAGO
-```
-
-**O QUE MUDA, E O QUE NÃO.**
-
-| antes (lei ou decisão) | agora (D88) |
+| antes | com esta lei |
 |---|---|
-| D16: não autoriza «contorno de login/robots» | anti-robô de material público **permitido**; **login** continua a precisar do dono |
-| D23 · D24: «NÃO contornar login wall / CAPTCHA / bloqueio» | **bloqueio anti-robô** e desafio que um navegador real passa sozinho: **permitidos**; **login wall** (precisa de conta) e **CAPTCHA pago**: continuam a precisar do dono |
-| `COL-LAW-703` (V1.5, mesma emenda): «NÃO DEVE login, cookie, conta, CAPTCHA ou rota paga» | redação alinhada: login, cookie de sessão, conta, CAPTCHA por serviço pago, proxy pago e rota paga — só com ordem do dono |
-| D17.3 · D24: nenhuma conta **pessoal** | **igual** |
-| perfil de pessoa no LinkedIn = muro de login | **igual**: é login, não anti-robô |
-| `robots.txt` | a D88 **não fala** dele: a regra de robots em vigor **não foi tocada** por esta lei |
+| D16: não autoriza «contorno de login/robots» | anti-automação de material público: **pode**; login e robots: **não** |
+| D23 · D24: «NÃO contornar login wall / CAPTCHA / bloqueio» | bloqueio **anti-automação**: pode; **login wall** e **solver de CAPTCHA pago**: não |
+| código (`coleta/scrap_http.py`, `coleta/social_rotas.py`): «não finge ser navegador de gente», «nunca uma tentativa mais esperta» | reescrito para citar esta lei; o **comportamento não mudou** (ver abaixo) |
+| D17.3 · D24: nenhuma conta pessoal | **igual** |
 
-**POR QUÊ.** A pergunta do dono é o que o sistema precisa de ver, e o critério é **público ≠
-pago**: o que qualquer pessoa vê no navegador pode ser alcançado por outra rota técnica; o que
-exige pagar ou ter conta, não. O que se conserva é o que protege a casa — a saída pela VPN, a
-prova de onde veio cada byte, e o dado pessoal.
+**ORIGEM ≠ PROGRAMA.** A D88 abre o bloqueio pelo **programa** — o que o servidor vê de quem pede:
+agente, cabeçalhos, impressão digital, JavaScript. **Não** abre o bloqueio pela **origem** — o IP.
 
-**LIGA-SE A** `COL-LAW-019` (rota paga) · `COL-LAW-020` (rota bem-sucedida tem memória) ·
-`COL-LAW-026` (proteção da fonte) · `COL-LAW-033` (procedência) · `COL-LAW-205` (endpoint
-substituível) · `COL-LAW-703` (pessoa-fonte e dado pessoal).
+```
+BLOQUEIO POR ORIGEM (IP)   ≠   BLOQUEIO POR PROGRAMA (UA · JS · fingerprint)
+```
 
-**NÃO IMPLEMENTADO NESTA MISSÃO.** O teto por domínio, o portão de egresso e a proveniência
-existem no código; a **permissão** nova não está ligada — a matriz do Scrap ainda recusa pelas
-regras antigas, e mudá-la é do engenheiro do Scrap.
+Medido pela casa (estudo Scrapling, 26/09): o Piemonte devolve **52 bytes** («Non è possibile
+accedere a questo sito direttamente») a um pedido sem agente de navegador e **6 110 108 bytes** com
+agente de Chrome, `Accept-Language: it-IT` e Referer — bloqueio por programa. A Coldiretti recusa a
+saída da VPN — bloqueio por origem, que esta lei não resolve.
 
-**ORIGEM.** `ARCHITECTURAL_DECISION` (D88) · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+**A LEI QUE ESTAVA ESCRITA NO CÓDIGO.** Os sítios medidos (grep) e o que se fez em cada um estão em
+`LEI-PESQUISADORES.md` §8. Os dois que **eram lei** — `coleta/scrap_http.py` e
+`coleta/social_rotas.py` — foram reescritos a citar esta lei, e ganharam a política declarada
+(`scrap_http.POLITICA_DE_ACESSO`, `LIGADA_AO_COMPORTAMENTO = False`). O agente é o mesmo e o robots
+continua lido na hora.
+
+> Nas próximas 24 h, esta lei **não** autoriza pôr stealth/Turnstile direto no serviço contínuo sem
+> rota nomeada, canário, teto e proveniência (bot Luciano, §6).
+
+**LIGA-SE A** `COL-LAW-019` (rota paga) · `COL-LAW-026` (proteção da fonte) · `COL-LAW-033`
+(procedência) · `COL-LAW-205` (o endpoint é substituível, a fonte fica).
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` (D88 · texto do bot Luciano) · **LAW_STATUS** `CANONICAL` — **só depois da aprovação do dono** · **IT** `ABSENT`
 
 ---
 
