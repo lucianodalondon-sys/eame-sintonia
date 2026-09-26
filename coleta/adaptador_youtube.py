@@ -183,6 +183,13 @@ def youtube_uploads(*, channel_id, run_id, country_scope, limit=25, conhecidos=(
 def youtube_metadata(*, video_ids, run_id, country_scope, sessao=None,
                      medida=None, **_):
     import youtube_oficial as yt
+    # ⚠️ PELO WORKFLOW A LISTA CHEGA COMO TEXTO («--filtro videos='a,b,c'», e o
+    # `scrap_colheita` passa o valor tal como veio). `videos.list` iterava o
+    # TEXTO: medido a seco (PEDIDO-API-125, 26/09), cada canal pedia ~60 «IDs»
+    # de UMA letra e voltava com 0 videos, a gastar quota. Traduzir a forma e
+    # trabalho do adaptador: aqui um texto vira a lista, separada por virgulas.
+    if isinstance(video_ids, str):
+        video_ids = [v.strip() for v in video_ids.split(',') if v.strip()]
     antes, s = _antes(sessao), sessao
     try:
         objs, s, _rel = yt.metadata(video_ids=video_ids, run_id=run_id,
