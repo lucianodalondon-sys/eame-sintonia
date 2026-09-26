@@ -2078,7 +2078,7 @@ def _problema_do_boletim(boletim, universo) -> dict:
                     "catture/sintomi…) ou CITADA (o boletim fala dela sem dizer que a viu)" % universo,
             "AUSENTES": ausentes,
             "SECOES": [{"CULTURA": s["CULTURA"] or AUSENCIA,
-                        "PROBLEMAS": [{"NOME": p["NOME"], "ESTADO": p["ESTADO"], "TRECHO": p["TRECHO"][:160]}
+                        "PROBLEMAS": [{"NOME": p["NOME"], "FORMA": p.get("FORMA", p["NOME"]), "ESTADO": p["ESTADO"], "TRECHO": p["TRECHO"][:160]}
                                       for p in s["PROBLEMAS"]],
                         "FASES": [f["NOME"] for f in s["FASES"]]} for s in boletim["SECOES"]],
             "FORMA": "o nome como o boletim o escreve; nao e EPPO",

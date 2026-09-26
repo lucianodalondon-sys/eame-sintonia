@@ -171,7 +171,9 @@ class OTituloEADescricao(unittest.TestCase):
         self.assertEqual("", FT.corpo("Home\nNotizie\nPrivacy e cookie policy del sito web"))
 
     def test_texto_com_frase_longa_nao_leva_as_linhas_curtas(self):
-        c = FT.corpo("Menu principale del sito\nLa grandinata ha colpito i vigneti della zona collinare della provincia.")
+        # EXTRATORES-V2-JUNTOS: a 1.a linha e o <title> e entra sempre (lei da EXTRATOR-LUGAR-V2); as linhas
+        # curtas DEPOIS dela continuam fora quando ha frase longa
+        c = FT.corpo("Home\nMenu principale del sito\nLa grandinata ha colpito i vigneti della zona collinare della provincia.")
         self.assertEqual("La grandinata ha colpito i vigneti della zona collinare della provincia.", c)
 
     def test_descricao_do_video_da_a_data(self):

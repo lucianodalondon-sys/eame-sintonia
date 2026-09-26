@@ -86,7 +86,8 @@ class OBoletimPorSecaoDeCultura(unittest.TestCase):
              "Tignoletta della vite (Lobesia botrana): non si riscontrano catture, si e in attesa della quarta generazione.\n")
         r = BC.ler_boletim(t)
         sec = {s["CULTURA"]: [(p["NOME"], p["ESTADO"]) for p in s["PROBLEMAS"]] for s in r["SECOES"]}
-        self.assertEqual([("tignoletta della vite", "AUSENTE"), ("lobesia botrana", "AUSENTE")], sec["vite"])
+        # EXTRATORES-V2-JUNTOS: o nome cientifico entre parenteses e a mesma praga — conta uma vez
+        self.assertEqual([("tignoletta della vite", "AUSENTE")], sec["vite"])
         self.assertNotIn("lobesia botrana", [n for n, _ in sec["olivo"]])
         self.assertEqual([], r["PROBLEMAS_NAO_AUSENTES"])
 
@@ -143,6 +144,42 @@ class OAnoDeComparacao(unittest.TestCase):
         r = FT.campos_do_fato(t)
         self.assertEqual(FT.NAO_SEI, r["fact_time"])
         self.assertIn("COMPARACAO_NAO_E_FATO", r["fact_time_basis"])
+
+
+class OMesmoProblemaContaUmaVez(unittest.TestCase):
+    """EXTRATORES-V2-JUNTOS: medido na D84 — no boletim de Salerno (IT-T3-002, Sala) a chave PROBLEMA tinha
+    «afide» e «afidi», «cimice» e «cimici», «tripidi», «nottue», «bactrocera oleae» e «ceratitis capitata»
+    ao lado do nome comum: 25 nomes para menos problemas."""
+
+    def test_afide_e_afidi_sao_um(self):
+        b = BC.ler_boletim("PESCO\nAfidi: presenti colonie sui germogli.\nAfide verde: nessuna segnalazione.")
+        self.assertEqual(["afide"], b["PROBLEMAS"])
+        formas = [p["FORMA"] for s in b["SECOES"] for p in s["PROBLEMAS"]]
+        self.assertEqual(["afidi", "afide"], formas)            # a forma do texto fica guardada
+
+    def test_real_salerno_nome_cientifico_entre_parenteses_e_o_mesmo(self):
+        b = BC.ler_boletim(SALERNO)
+        self.assertIn("cimice asiatica", b["PROBLEMAS"])
+        self.assertNotIn("halyomorpha halys", b["PROBLEMAS"])
+        self.assertIn("mosca della frutta", b["PROBLEMAS"])
+        self.assertNotIn("ceratitis capitata", b["PROBLEMAS"])
+        self.assertEqual(["mosca della frutta"], b["PROBLEMAS_NAO_AUSENTES"])
+
+    def test_real_arif_mosca_e_bactrocera_sao_uma(self):
+        b = BC.ler_boletim(ARIF)
+        self.assertEqual(["mosca dell'olivo"], b["PROBLEMAS"])
+
+    def test_real_it_t3_010_mosca_delle_olive_e_praga_nao_cabecalho(self):
+        b = BC.ler_boletim("MOSCA DELLE OLIVE\nSi registrano catture in aumento nelle trappole.")
+        self.assertEqual(["mosca dell'olivo"], b["PROBLEMAS"])
+        self.assertEqual(["olivo"], b["CULTURAS"])              # a cultura vem do nome da praga
+
+    def test_o_que_nao_esta_na_lista_fica_como_o_texto_escreve(self):
+        self.assertEqual("cocciniglia", BC.nome_do_problema("cocciniglia"))
+        self.assertEqual("cimice", BC.nome_do_problema("cimici"))
+        self.assertEqual("cimice asiatica", BC.nome_do_problema("cimice asiatica"))   # nao vira «cimice»
+        self.assertEqual("tignola", BC.nome_do_problema("tignole"))
+        self.assertEqual("tignoletta della vite", BC.nome_do_problema("lobesia botrana"))
 
 
 class APortaLevaAsChavesDoBoletim(unittest.TestCase):

@@ -86,22 +86,26 @@ def _palavras(l: str) -> int:
     return len(re.findall(r"[A-Za-zÀ-ÿ']+", l))
 
 
-# ── o TITULO e a DESCRICAO (EXTRATOR-EVENTO-V2, 26/09) ──────────────────────
-# Medido na RENDIMENTO-POR-FONTE: o texto guardado de um video e SO o titulo (60-100 letras), e a regra das 8
-# palavras deitava-o fora inteiro — «Potatura dell'olivo: a Macerata la 9a selezione studenti - YouTube»
-# nunca chegava ao leitor. Um texto em que NENHUMA linha e frase longa nao e um menu com uma noticia no
-# meio: e um titulo. Lido como titulo: no maximo 2 linhas de >= PALAVRAS_DO_TITULO palavras, sem o nome do
-# sitio no fim («… - YouTube», «… — Arpae Emilia-Romagna»: e quem publica, nao onde o facto foi).
-PALAVRAS_DO_TITULO = 3
+# ── o TITULO e a DESCRICAO (EXTRATOR-LUGAR-V2 + EXTRATOR-EVENTO-V2, 26/09; juntos em EXTRATORES-V2-JUNTOS) ──
+# Medido pela RENDIMENTO-POR-FONTE: num video o texto guardado e SO o titulo (60-100 letras), e `corpo()`
+# deitava-o fora por ter < 8 palavras («Potatura dell'olivo: a Macerata la 9a selezione studenti», IT-T12-008).
+# O titulo e a 1.a linha do texto extraido (o <title> da pagina). O ULTIMO pedaco depois de « - », « — », « – »
+# ou « | » e o NOME DO SITE (quem publica) e sai: a sede de quem publica nunca e lugar do facto — mas FICA se
+# tiver algarismos («Evento RetePAC … - 26 Maggio 2026»: a data e do facto, nao o nome do site). Fica se sobrarem
+# >= 3 palavras e nao for rodape. Nao ha regra nova de lugar: o titulo passa pela mesma ancora de acontecimento.
+# Um texto em que NENHUMA linha e frase longa e lido como titulo: no maximo 2 linhas curtas, pela mesma regra.
+PALAVRAS_MINIMAS_DO_TITULO = PALAVRAS_DO_TITULO = 3
 LINHAS_DO_TITULO = 2
-# o separador e um traço ou barra ENTRE espaços; o nome do sitio pode ter hifen («Emilia-Romagna»)
-_RE_SUFIXO_DO_SITIO = re.compile(r"\s+[-–—|]\s+(?:(?!\s[-–—|]\s).){2,60}$")
+_RE_SEPARADOR_DO_SITE = re.compile(r"\s+[-—–|]\s+(?!.*\s[-—–|]\s)")
 
 
 def titulo_limpo(t: str) -> str:
+    """Uma linha de titulo sem o nome do site no fim (a regra de cima); a linha inteira se sobrar pouco."""
     l = re.sub(r"\s+", " ", str(t or "")).strip()
-    s = _RE_SUFIXO_DO_SITIO.sub("", l)
-    return s if _palavras(s) >= PALAVRAS_DO_TITULO else l
+    m = _RE_SEPARADOR_DO_SITE.search(l)
+    if m and not re.search(r"\d", l[m.end():]) and _palavras(l[:m.start()]) >= PALAVRAS_DO_TITULO:
+        return l[:m.start()].strip()
+    return l
 
 
 def _linhas_curtas(texto: str) -> list:
@@ -109,17 +113,32 @@ def _linhas_curtas(texto: str) -> list:
             if l.strip() and not RODAPE.search(l) and _palavras(titulo_limpo(l)) >= PALAVRAS_DO_TITULO]
 
 
-TAMANHO_DO_TITULO = 200
+def titulo(texto: str) -> str:
+    """A 1.a linha do texto sem o nome do site; '' se nao servir."""
+    linhas = [l.strip() for l in str(texto or "").splitlines() if l.strip()]
+    if not linhas:
+        return ""
+    m = _RE_SEPARADOR_DO_SITE.search(linhas[0])
+    t = linhas[0]
+    if m and not re.search(r"\d", t[m.end():]):
+        t = t[:m.start()].strip()
+    if _palavras(t) < PALAVRAS_MINIMAS_DO_TITULO or RODAPE.search(t):
+        return ""
+    return t
 
 
 def corpo(texto: str) -> str:
     """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora.
-    Um texto sem NENHUMA frase longa, ou de UMA linha curta, e lido como titulo (ver acima)."""
-    linhas = [l.strip() for l in str(texto or "").splitlines() if l.strip()]
-    if len(linhas) == 1 and len(linhas[0]) <= TAMANHO_DO_TITULO:
-        return "\n".join(_linhas_curtas(linhas[0]))
+    O titulo curto (1.a linha, sem o nome do site) entra a frente, como frase propria; um texto sem NENHUMA
+    frase longa e lido como titulo (no maximo LINHAS_DO_TITULO linhas curtas)."""
     fica = []
+    t = titulo(texto)
+    if t:
+        fica.append(t)
+    primeira = next((l.strip() for l in str(texto or "").splitlines() if l.strip()), None)
     for linha in str(texto or "").splitlines():
+        if t and linha.strip() == primeira:
+            continue           # a 1.a linha ja entrou, SEM o nome do site (nunca a sede de quem publica)
         l = linha.strip()
         if _palavras(l) < PALAVRAS_MINIMAS:
             continue
@@ -544,6 +563,16 @@ ANCORAS_DE_PRODUCAO = (
 DISTANCIA_MAXIMA_DA_PRODUCAO = 60      # letras entre a palavra de producao e o lugar
 _RE_PRODUCAO = re.compile(r"(?<![0-9a-zà-ÿ])(?:%s)(?![0-9a-zà-ÿ])" % "|".join(ANCORAS_DE_PRODUCAO), re.I)
 RECUSA_QUE_PODE_SER_PRODUCAO = ("área econômica", "topônimo sem relação semântica com o acontecimento")
+# EXTRATOR-LUGAR-V2 (26/09) · a palavra de producao DENTRO DO NOME DE UM ORGAO nao e acontecimento. Lido a mao na
+# medida (IT-T5-010, Sala): «nel 1895 viene fondato a Scafati, in provincia di Salerno, l'Istituto Sperimentale e
+# di Tirocinio per la Coltivazione dei Tabacchi» dava Salerno como CAMPO pela ancora «Coltivazione».
+_RE_ORGAO_ANTES_DA_ANCORA = re.compile(
+    r"(?<![0-9a-zà-ÿ])(?:istitut[oi]|ent[ei]|centr[oi]|consorzi[oi]|associazion[ei]|stazion[ei]|scuol[ae]|"
+    r"osservatori[oi]|accademi[ae]|fondazion[ei])(?![0-9a-zà-ÿ])[^.;:]{0,80}$", re.I)
+
+
+def _ancora_dentro_de_orgao(frase: str, m) -> bool:
+    return bool(_RE_ORGAO_ANTES_DA_ANCORA.search(frase[:m.start()]))
 
 # data explicita de evento: «12 e 13 novembre 2026», «dal 6 all'8 ottobre 2026», «16-24 maggio 2026», «8 ottobre»
 _RE_DATA_EVENTO = re.compile(
@@ -687,6 +716,7 @@ def _lugares(c: str) -> tuple[list, list]:
                 cands += [(m, EVENTO, None) for m in _RE_EVENTO.finditer(r["EVIDENCE"])]
             if r["WHY"] in RECUSA_QUE_PODE_SER_PRODUCAO:
                 cands += [(m, CAMPO, "PRODUCAO") for m in _RE_PRODUCAO.finditer(r["EVIDENCE"])
+                          if not _ancora_dentro_de_orgao(r["EVIDENCE"], m)
                           if _distancia(m, pos, len(r["PLACE"])) <= DISTANCIA_MAXIMA_DA_PRODUCAO]
             if r["WHY"] in RECUSA_QUE_E_MERCADO:
                 cands += [(m, MERCADO, None) for m in _RE_MERCADO.finditer(r["EVIDENCE"])]

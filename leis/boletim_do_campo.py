@@ -20,7 +20,8 @@ O QUE ELE FAZ, E O QUE NAO FAZ
     «non rilevat…» junto ao nome: ESTADO = AUSENTE. Sem marca: ESTADO = CITADA (o boletim fala dela; a
     frase nao diz se foi observada). So «presente», «rilevat…», «catture», «infestazion…», «sintomi» dao
     ESTADO = PRESENTE.
-  · Nao normaliza (nao e EPPO nem BBCH): a FORMA e a do texto, em minusculas.
+  · Nao normaliza (nao e EPPO nem BBCH): a FORMA e a do texto, em minusculas. So as formas da lista
+    declarada MESMO_PROBLEMA (plural, nome cientifico entre parenteses) contam com um nome so.
   · Nao le datas: o periodo do boletim e do leitor do facto (`leis/fato_do_texto.py`, DA-6).
 Funcao PURA: sem rede, sem banco, sem ficheiros.
 """
@@ -56,7 +57,7 @@ FORMAS = {"viti": "vite", "vigneti": "vigneto", "olive": "olivo", "ulivo": "oliv
 # ticchiolatura) + os nomes comuns que os boletins medidos escrevem. Raizes, palavra inteira a esquerda.
 PROBLEMAS = (
     r"peronospor[ae]", r"oidio", r"mal\s+bianco", r"botrite", r"muffa\s+grigia", r"ticchiolatura",
-    r"cimice\s+asiatica", r"cimic[ei]", r"halyomorpha\s+halys", r"mosca\s+dell['’\s]*oliv[ao]",
+    r"cimice\s+asiatica", r"cimic[ei]", r"halyomorpha\s+halys", r"mosca\s+dell['’\s]*oliv[ao]", r"mosca\s+delle\s+olive",
     r"mosca\s+della\s+frutta", r"mosca\s+mediterranea", r"ceratitis\s+capitata", r"bactrocera\s+oleae",
     r"tignol[ae](?:tta)?(?:\s+(?:della\s+vite|dell['’\s]*olivo|orientale))?", r"lobesia(?:\s+botrana)?",
     r"carpocapsa", r"cydia(?:\s+\w+)?", r"cocciniglia", r"afid[ei]", r"pidocch\w*", r"ragnetto\s+rosso",
@@ -77,6 +78,32 @@ FASES = (
     r"caduta\s+(?:delle\s+)?foglie", r"semina", r"emergenza", r"levata", r"spigatura", r"trapianto",
     r"bbch\s*\d{1,2}(?:\s*[-–]\s*\d{1,2})?",
 )
+# O MESMO PROBLEMA ESCRITO DE DUAS MANEIRAS conta UMA vez (EXTRATORES-V2-JUNTOS, 26/09). Medido na D84:
+# «afide» e «afidi» no mesmo boletim contavam como dois problemas, e «CIMICE ASIATICA (Halyomorpha halys)»
+# tambem. Juntam-se SO as formas desta lista declarada — singular/plural da mesma raiz e o nome cientifico que
+# os boletins poem entre parenteses a seguir ao comum (e os dois nomes comuns italianos da mesma doenca). Nao e
+# EPPO: o que nao esta aqui fica como o texto o escreve. A forma do texto continua guardada em FORMA.
+MESMO_PROBLEMA = (
+    (r"afid[ei]", "afide"), (r"cimic[ei]", "cimice"), (r"tripid[ei]", "tripide"), (r"psill[ae]", "psilla"),
+    (r"ruggin[ei]", "ruggine"), (r"peronospor[ae]", "peronospora"), (r"nottu[ae]", "nottua"),
+    (r"nematod[ie]", "nematode"), (r"batterios[ie]", "batteriosi"), (r"pidocch[io]o?", "pidocchio"),
+    (r"tignol[ae]", "tignola"), (r"tignolett[ae]", "tignoletta"),
+    (r"mosca dell['’ ]*oliv[ao]|mosca delle olive|bactrocera oleae", "mosca dell'olivo"),
+    (r"halyomorpha halys", "cimice asiatica"),
+    (r"lobesia botrana|lobesia|tignoletta della vite", "tignoletta della vite"),
+    (r"ceratitis capitata|mosca mediterranea", "mosca della frutta"),
+    (r"mal bianco", "oidio"), (r"muffa grigia", "botrite"),
+    (r"xylella fastidiosa", "xylella"),
+)
+_RE_MESMO = [(re.compile(r"^(?:%s)$" % r), n) for r, n in MESMO_PROBLEMA]
+
+
+def nome_do_problema(forma: str) -> str:
+    """O nome com que o problema conta (a forma do texto, ou a da lista MESMO_PROBLEMA)."""
+    f = re.sub(r"\s+", " ", str(forma or "").strip().lower())
+    return next((n for r, n in _RE_MESMO if r.match(f)), f)
+
+
 _AUSENTE = re.compile(r"(?:non\s+presente|non\s+present[ei]|assent[ei]|nessun[ao]?\s+segnalazion[ei]|"
                       r"non\s+rilevat[oaie]|non\s+segnalat[oaie]|non\s+(?:si\s+)?riscontra\w*|non\s+riscontrat\w*|assenza|nulla|nessun[ao]?\s+(?:cattur[ae]|sintom[oi]))",
                       re.I)
@@ -116,6 +143,10 @@ def _cabecalho_de_cultura(linha: str) -> str | None:
     m = _RE_CULTURA.search(d)
     if not m:
         return None
+    # «MOSCA DELLE OLIVE» (IT-T3-010) e o nome de uma praga, nao o cabecalho do olivo: a praga le-se, e a
+    # regra da praga com a cultura no nome manda-a para a secao do olivo
+    if any(p.start() <= m.start() and m.end() <= p.end() for p in _RE_PROBLEMA.finditer(d)):
+        return None
     # «COLTURA … ACTINIDIA», «OLIVO», «Vite da vino», «Pomodoro in serra»: a cultura e o essencial da linha
     return _forma(m.group(1))
 
@@ -134,7 +165,8 @@ def ler_boletim(texto: str) -> dict:
         d = _dobrar(linha)
         s = secoes[-1]
         for m in _RE_PROBLEMA.finditer(d):
-            nome = re.sub(r"\s+", " ", m.group(0))
+            forma = re.sub(r"\s+", " ", m.group(0))
+            nome = nome_do_problema(forma)
             depois = d[m.end():m.end() + JANELA_DO_ESTADO] + " " + " ".join(
                 _dobrar(x) for x in linhas[n + 1:n + 3])[:JANELA_DO_ESTADO]
             estado = ("AUSENTE" if _AUSENTE.search(depois.split(".")[0][:JANELA_DO_ESTADO])
@@ -155,7 +187,7 @@ def ler_boletim(texto: str) -> dict:
                             "PROBLEMAS": [], "FASES": [], "SO_PELO_NOME_DA_PRAGA": True}
                     secoes.insert(len(secoes) - 1, alvo)
             if not any(p["NOME"] == nome and p["ESTADO"] == estado for p in alvo["PROBLEMAS"]):
-                alvo["PROBLEMAS"].append({"NOME": nome, "ESTADO": estado,
+                alvo["PROBLEMAS"].append({"NOME": nome, "FORMA": forma, "ESTADO": estado,
                                           "TRECHO": _trecho(linha, m.start(), m.end())})
         for m in _RE_FASE.finditer(d):
             nome = re.sub(r"\s+", " ", m.group(0))
