@@ -1,0 +1,34 @@
+# PAGINA-DO-DOCENTE · a corrida de mutacao (registo): corre numa COPIA em tmp-pd/mut, nunca na worktree.
+import subprocess, sys, shutil
+from pathlib import Path
+R = Path("C:/Users/London1/tmp-pd/mut")
+L = R/"ferramentas/pagina_docente/leitor.py"; RD = R/"ferramentas/pagina_docente/rodadas.py"; U = R/"ferramentas/pagina_docente/universidades.py"
+M = [
+ ("M1 sem corte do bloco", L, 'return html[i.start(): i.start() + f.start() if f else None], "BLOCO_MEDIDO"', 'return html, "BLOCO_MEDIDO"'),
+ ("M2 so o sobrenome acha", L, 'if all(" %s " % s in alvo for s in sob) and " %s " % primeiro in alvo:', 'if all(" %s " % s in alvo for s in sob):'),
+ ("M3 nome sempre confere", L, '    return all(" %s " % x in t for x in sob) and " %s " % dados[0] in t', '    return True'),
+ ("M4 sem filtro de conta da instituicao", L, 'if e_conta_social(href, plat) and bloco != "BLOCO_MEDIDO" and INSTITUCIONAL.search(href):', 'if False:'),
+ ("M5 texto do link sem limpeza", L, '    txt = re.sub(r"[\w.+-]+(@|\(at\)|\[at\])[\w-]+\.[\w.]+", "[e-mail omitido]", txt)', '    return txt'),
+ ("M6 cartao ignorado (Udine)", L, 'if u.get("NOME_NO_CARTAO") else', 'if False else'),
+ ("M7 FALHA vira final", RD, 'FINAIS = {"LIDA", "LIDA_OFFLINE", "NAO_ACHEI", "AMBIGUO", "NOME_NAO_CONFERE", "ROBOTS_OU_NAO_LIDO"}', 'FINAIS = {"LIDA", "LIDA_OFFLINE", "NAO_ACHEI", "AMBIGUO", "NOME_NAO_CONFERE", "ROBOTS_OU_NAO_LIDO", "FALHA"}'),
+ ("M8 canal repetido entre rodadas", RD, '            if k in ja_vistos or any(', '            if any('),
+ ("M9 curso conta como pagina propria", L, 'if campo or (U.PISTA_PAGINA_PROPRIA.search(txt) and not NAO_E_PAGINA_PROPRIA.search(href)):', 'if campo or U.PISTA_PAGINA_PROPRIA.search(txt):'),
+ ("M10 link de outro dominio serve", L, '        if not mesmo_dominio(href, u["DOMINIO"]):\n            continue\n        if u["PADRAO_PESSOA"]', '        if u["PADRAO_PESSOA"]'),
+ ("M11 pendente pelo teto nao volta", RD, '            return (0 if e in FINAIS else 1 if e in ("PENDENTE", "FALHA") else 2, p.get("ORDEM", 0))\n        out[uni] = sorted(ps, key=ordem)[:POR_RODADA[U.UNIVERSIDADES[uni]["FORMA"]]]', '            return (0 if e in FINAIS else 1 if e in ("PENDENTE", "FALHA") else 2, p.get("ORDEM", 0))\n        out[uni] = [p for p in sorted(ps, key=ordem) if st.get(p["NOME"], {}).get("ESTADO") != "PENDENTE"][:POR_RODADA[U.UNIVERSIDADES[uni]["FORMA"]]]'),
+ ("M12 regra construida em Pisa", U, '"PADRAO_PESSOA": None, "BLOCO": None, "CAMPOS": {}, "FORMA": "CASA_DO_SITE",\n    },\n    "TORINO"', '"PADRAO_PESSOA": None, "BLOCO": None, "CAMPOS": {}, "FORMA": "CASA_DO_SITE", "CONSTRUIR": ("https://www.agr.unipi.it/{primeiro}-{sobrenome}", "x"),\n    },\n    "TORINO"'),
+]
+mortos = 0
+for nome, f, a, b in M:
+    orig = f.read_text(encoding="utf-8")
+    assert orig.count(a) == 1, (nome, orig.count(a))
+    f.write_text(orig.replace(a, b), encoding="utf-8", newline="\n")
+    for pc in (R/"ferramentas").rglob("__pycache__"): shutil.rmtree(pc)
+    r = subprocess.run([sys.executable, "-m", "unittest", "tests.test_pagina_docente"], cwd=R, capture_output=True, text=True, timeout=300)
+    f.write_text(orig, encoding="utf-8", newline="\n")
+    morto = r.returncode != 0
+    mortos += morto
+    print("%-40s %s" % (nome, "MORTO" if morto else "SOBREVIVEU"))
+print("mutacao: %d/%d" % (mortos, len(M)))
+for pc in (R/"ferramentas").rglob("__pycache__"): shutil.rmtree(pc)
+r = subprocess.run([sys.executable, "-m", "unittest", "tests.test_pagina_docente"], cwd=R, capture_output=True, text=True)
+print("sem mutacao:", "VERDE" if r.returncode == 0 else "VERMELHO")

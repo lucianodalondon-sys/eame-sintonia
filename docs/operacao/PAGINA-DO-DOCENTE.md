@@ -140,7 +140,7 @@ py $B/ferramentas/seguir_pesquisadores/seguir.py --candidatar --saida=$S --fila=
   | e-mail e telefone | nunca na saída |
 - **Testes:** `tests/test_pagina_docente.py`, **16**, e `tests/test_seguir_pesquisadores.py`, 9. Todos passam
   (25).
-- **Mutação:** ver §6.
+- **Mutação:** 12 de 12 (§6).
 
 ## 5 · O que isto não prova
 
@@ -154,4 +154,20 @@ py $B/ferramentas/seguir_pesquisadores/seguir.py --candidatar --saida=$S --fila=
 
 ## 6 · Mutação
 
-(preenchida depois da corrida — ver o commit seguinte)
+**12 de 12** estragos feitos de propósito foram pegos pelos testes. A corrida foi numa **cópia** das pastas, fora
+da worktree (`ferramentas/pagina_docente/mutar.py.txt`), e a cópia sem estrago voltou verde.
+
+| Estrago | Pego? |
+|---|---|
+| M1 · sem o corte do pedaço da pessoa | sim |
+| M2 · achar só pelo sobrenome | sim |
+| M3 · o nome «confere» sempre | sim |
+| M4 · sem o filtro das contas da universidade | sim |
+| M5 · e-mail no texto do link não é limpo | sim |
+| M6 · o cartão de Údine é ignorado | sim |
+| M7 · FALHA de rede vira final | sim |
+| M8 · um canal repete-se entre rodadas | sim |
+| M9 · um curso «Laboratorio di…» conta como página própria | sim |
+| M10 · um link de outro domínio serve como página do docente | sim |
+| M11 · o PENDENTE pelo teto não volta | sim |
+| M12 · uma regra de endereço inventada para Pisa | sim |
