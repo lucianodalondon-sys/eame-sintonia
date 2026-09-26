@@ -5075,15 +5075,18 @@
    "views": [
     "infra"
    ],
-   "what": "revalidar_em_rondas.py: revalida READY_LEGACY numa COPIA pelo caminho canonico (ready_split.remedir -> worker), em rodadas de 1 fonte por dominio, com urlopen embrulhado (rede fechada por omissao, D41.3; teto 5 por dominio contado, D38) e o portao de consenso antes de cada rodada. video_com_o_guardado.py: as fontes YouTube pela regua VIDEO/v1 (D53) sobre as paginas /watch ja guardadas na Sala (so leitura, sha256 conferido), sem rede. mutacao*.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro. [onda3-pacote-v2: so A+C+D da v2; B inerte (DA-15/D67); sem a rota VIDEO]",
-   "why_here": "LEGACY-99 v1-v3 (25/09/2026): 99 READY_LEGACY promovidas pela regua antiga nunca voltavam (o re-check so olhava ELIGIBLE); em copia: 1/26 HTML (v1), 11/21 importadas do coletor (v2), 41 YouTube pela rota VIDEO (v3: 39 pelo guardado + 2 canais reais).",
+   "what": "revalidar_em_rondas.py: revalida READY_LEGACY numa COPIA pelo caminho canonico (ready_split.remedir -> worker), em rodadas de 1 fonte por dominio, com urlopen embrulhado (rede fechada por omissao, D41.3; teto 5 por dominio contado, D38) e o portao de consenso antes de cada rodada. video_com_o_guardado.py: as fontes YouTube pela regua VIDEO/v1 (D53) sobre as paginas /watch ja guardadas na Sala (so leitura, sha256 conferido), sem rede. mutacao*.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro. [onda3-pacote-v2: so A+C+D da v2; B inerte (DA-15/D67); sem a rota VIDEO] ensaio_na_copia.py: numa COPIA dos livros do vivo (recusa a arvore do bot), aplica o A (importar_do_coletor, HTML) e o B (pelo_scrap: o canal YouTube vai para a fase canal-youtube do Scrap pelo bloco 4 do desbloqueio) e conta os estados; nada promove. d53_nos_recibos_reais.py: passa os itens de recibos reais do Scrap ja guardados pela prova da D53 (regua_social.provas_do_video), so leitura. mutacao.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro.",
+   "why_here": "LEGACY-99 v1-v3 (25/09/2026): 99 READY_LEGACY promovidas pela regua antiga nunca voltavam (o re-check so olhava ELIGIBLE); em copia: 1/26 HTML (v1), 11/21 importadas do coletor (v2), 41 YouTube pela rota VIDEO (v3: 39 pelo guardado + 2 canais reais). LEGACY-99 v4 / SEPARAR-A-B (25/09/2026): A (HTML importado do coletor) e B (canal YouTube) em commits separados, com a rota YouTube num so dono (o Scrap nomeado por rota_do_scrap_youtube, julgado por regua_social com a D53); em copia do vivo e5cd691f: 21 HTML e 41 YouTube a CANARY_PENDING, 0 READY.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
     "ferramentas/legacy99/revalidar_em_rondas.py",
     "ferramentas/legacy99v2/mutacao.py",
-    "ferramentas/legacy99v2/mutacao_ab.py"
+    "ferramentas/legacy99v2/mutacao_ab.py",
+    "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+    "ferramentas/legacy99v4/ensaio_na_copia.py",
+    "ferramentas/legacy99v4/mutacao.py"
    ]
   },
   {

@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""ONDA3-REBASE (DA-15/D67): o bloco B da LEGACY-99 entra INERTE; o A valida pela producao.
+"""ONDA3-REBASE (DA-15/D67): o bloco B da LEGACY-99 entrou INERTE; o A valida pela producao.
 
     (1) nenhum passo importa ou valida canais YouTube pela rota do B;
     (2) as paginas web do bloco A validam pelo VALIDATE_ROUTE da producao.
+
+SEPARAR-A-B v5 (26/09): o B antigo (canario_youtube_canal, url_da_rota) SAIU do codigo —
+a rota YouTube tem um so dono, o Scrap. Os testes deixam de o mandar ficar calado e
+passam a provar que ele ja nao existe.
 
 Sem rede, sem livros: o robots e substituido, as fontes sao as dos testes da LEGACY-99.
 """
@@ -29,7 +33,7 @@ LOTES = RAIZ / "ferramentas" / "onda3_pacote" / "LOTES-A-HTML.json"
 def _validar(contrato, perguntas):
     with mock.patch.object(W.GATE, "robots_de", return_value=(object(), "lido")), \
          mock.patch.object(W.GATE, "permitido", side_effect=lambda u, rp: perguntas.append(u) or True), \
-         mock.patch.object(CAN, "url_da_rota", side_effect=AssertionError("rota do B usada")):
+         mock.patch.object(CAN, "buscar", side_effect=AssertionError("o VALIDATE_ROUTE nao busca paginas")):
         return W.etapa_validate_route(contrato.get("SOURCE_ID", "IT-X"), contrato)
 
 
@@ -37,7 +41,7 @@ class BInerte(unittest.TestCase):
     def test_1_molde_novo_de_youtube_nasce_na_rota_da_producao(self):
         c = EC.contrato_youtube({"SOURCE_ID": "IT-T10-017", "NOME": "Canale", "TERRITORY": "T10",
                                  "URL": "https://www.youtube.com/@x"}, {}, CID)
-        self.assertNotEqual(CAN.YOUTUBE_CANAL, c["ACQUISITION"].get("ADAPTER_ID"))
+        self.assertNotEqual("CANAL_PUBLICO_YOUTUBE_V1", c["ACQUISITION"].get("ADAPTER_ID"))
         self.assertNotEqual("CUSTOM_ADAPTER", c["ACQUISITION"].get("STRATEGY"))
 
     def test_1_validate_route_nunca_usa_a_rota_do_b(self):
@@ -53,6 +57,13 @@ class BInerte(unittest.TestCase):
         self.assertEqual(21, len(ids))
         self.assertEqual(len(ids), len(set(ids)))
         self.assertNotIn("YOUTUBE", json.dumps(d["LOTES"]))
+
+    def test_1_o_b_antigo_ja_nao_existe_no_codigo(self):
+        for nome in ("YOUTUBE_CANAL", "url_do_canal", "url_da_rota", "canario_youtube_canal"):
+            self.assertFalse(hasattr(CAN, nome), nome)
+        self.assertNotIn("LOTE-YOUTUBE-CANAL", CAN.CONTROLO)
+        fonte = (RAIZ / "curadoria" / "worker.py").read_text(encoding="utf-8")
+        self.assertNotIn("canario_youtube_canal", fonte)
 
     def test_2_pagina_web_do_bloco_a_valida_pela_producao(self):
         perguntas = []

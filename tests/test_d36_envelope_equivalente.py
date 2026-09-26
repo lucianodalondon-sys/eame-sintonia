@@ -35,6 +35,8 @@ def item(**mudar) -> dict:
     """Um item com tudo o que o bloco A passou a registar — medido ao vivo em 25/09."""
     ob = {
         "NATIVE_ID": "ehjdygGJJqQ",
+        # a pagina do video: o adaptador de audio escreve-a em SOURCE_URL (D53 exige-a)
+        "SOURCE_URL": "https://www.youtube.com/watch?v=ehjdygGJJqQ",
         "TITLE": "Come si pota il limone",
         "PUBLISHED_AT": "2026-02-11T15:02:31Z",
         "PUBLISHED_AT_PRECISION": "SECOND",
