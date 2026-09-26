@@ -140,3 +140,53 @@ O que acontece depois, no robô de fontes (vivo de hoje):
 
 - Nenhum canal real foi visto: sem rede. Os números da §5 vêm de um piloto pequeno (13 pessoas).
 - A ligação MUR↔T6 é por nome + inicial + universidade: evita o homónimo óbvio, não o impossível.
+
+## 8 · REFEITO pela D90 §3.4 (26/09 19:50): ORCID em lote, ≤ 5 pedidos a `orcid.org` por 24 h
+
+As 16 rodadas × 5 pedidos da §3 **não cabem em 24 h**. `seguir.py --rodada` passou a **recusar**
+(«SUBSTITUIDO»). Agora:
+
+- `contador.py`: **um** contador de pedidos por domínio numa janela de 24 h, partilhado por
+  `seguir.py`, `orcid_lote.py` e `listas_oficiais.py`.
+  - Guarda em `C:/Users/London1/sintonia-sala-italia/seguir-pesquisadores/CONTADOR-24H.json`.
+  - Cada pedido é escrito **antes** de sair. O que não cabe recebe `ADIADO_ATE` e **não** pede.
+  - O `robots.txt` de cada host fica guardado 24 h, para não gastar um dos 5 pedidos.
+  - ⚠️ É um ficheiro, não o contador atómico da D90 §2: vale porque corre **uma linha de rede de
+    cada vez**.
+- `orcid_lote.py`:
+  1. **`--canario`** (1 dia, ≤ 5 pedidos, contando o robots) prova o formato real de três pedidos:
+     - a) `researcher-urls` de 1 pessoa;
+     - b) `expanded-search` de 20 pessoas (a busca em lote da `coleta/lista_mestra_mur.py`);
+     - c) `csv-search` de 20 pessoas com a coluna `researcher-urls` (⚠️ NÃO SEI se o ORCID aceita
+       essa coluna).
+
+     Resultado: **MODO** = `LOTE_COM_LINKS` (c traz os links: 20 pessoas por pedido) ou
+     `POR_PESSOA` (1 pessoa por pedido; o lote b serve para achar o ORCID de quem não o tem), ou
+     `PARADO`.
+  2. **`--dia`** (uma vez por dia; recusa sem canário): identidade em lote → links → páginas
+     declaradas (5 por domínio por 24 h, espalhadas pelos dias).
+     - Pendentes ficam pendentes, com `PROXIMO_DIA_A_PARTIR_DE`.
+     - Ambíguo não funde. Nome sem a mesma universidade ou casa não liga.
+
+**Plano real** (sem rede; `ORCID-LOTE/ESTADO-ORCID.json`): **217 pessoas**, isto é, 61 do MUR +
+156 da FEM/CREA/CNR (`--so-casco`).
+- **184** já têm um ORCID, **32** precisam de o achar, **1** é ambígua.
+- Em modo `LOTE_COM_LINKS`: 13 pedidos → **4 dias** (1 de canário + 3).
+- Em modo `POR_PESSOA`: 218 pedidos → **45 dias**.
+
+### ⚠️ BLOQUEIO: o robots.txt de `pub.orcid.org` proíbe tudo
+
+Em 26/09 às 22:58Z, **um teste de mutação meu saiu à rede por acidente**. Foram **1 pedido real** ao
+`https://pub.orcid.org/robots.txt` e 2 portões IT (ambos PASS). O mutante desligava a recusa da
+`--rodada`, e os testes ainda não tinham guarda de rede; agora têm.
+- A resposta foi **`User-agent: *` / `Disallow: /`**.
+- A prova está em `ACIDENTE-MUTANTE-2026-09-26T22-58Z/` (bytes com sha256 `efdb5938…`), fora do Git.
+- O pedido está no contador real: conta contra o teto de hoje.
+
+Consequência: com o robots respeitado (D34/D39), **nenhum** pedido à API pública do ORCID sai. O
+canário fica `PARADO` com o motivo `ROBOTS` (testado).
+- Isto vale para o plano antigo e para o novo.
+- A D88 (contorno técnico permitido) fala de barreiras de acesso. Se o robots.txt de uma API pública
+  documentada conta como barreira ou como regra a respeitar é **decisão do coordenador/dono**, não
+  desta ferramenta.
+- A outra via documentada do ORCID pede credenciais de cliente, ou seja uma conta: precisa do dono.

@@ -76,7 +76,8 @@ telefone e contactos nunca.**
 ## 3 · A ferramenta (`listas_oficiais.py`)
 
 - Usa o mesmo transporte da `seguir.py`:
-  - **5 pedidos por domínio por rodada**, contando o `robots.txt`;
+  - **5 pedidos por domínio por rodada E por 24 h** (D90: o `contador.py` partilhado com o ORCID), contando o
+    `robots.txt` (guardado 24 h: o 2.º dia não o relê);
   - robots respeitado; se não se consegue ler, não se pede;
   - 3 s entre pedidos;
   - bytes guardados com sha256 fora do Git;
@@ -91,12 +92,14 @@ telefone e contactos nunca.**
   possíveis = não se abre.
 - Ordem: listas primeiro; depois os pedidos pelo nome; depois quem tem mais obra recente do casco.
 - `--so-casco`: só quem tem obra **recente** com par do casco, mais os pedidos pelo nome. Dá **FEM 63,
-  CREA 64, CNR 41** perfis, no máximo ~16, ~16 e ~11 rodadas de perfis (4 páginas por rodada).
+  CREA 64, CNR 41** perfis, no máximo ~16, ~16 e ~11 rodadas de perfis. Com o teto de 24 h (D90), **uma rodada por
+  casa por dia**: ~16–18 dias para a FEM e para o CREA (que correm no mesmo dia, domínios diferentes) e
+  ~11+ para o CNR (todos os institutos em `cnr.it`).
   - Sem esta opção: 115, 103 e 134 perfis.
 - Candidatas: `--candidatar` numa **cópia** da fila, pela porta canónica (`candidatas/fonte_nova.py`),
   com `PAIS=IT` provado pela instituição da pessoa e a página oficial como prova na `NOTA`.
 
-## 4 · Os comandos (o coordenador; VPN IT; uma rodada de cada vez)
+## 4 · Os comandos (o coordenador; VPN IT; uma rodada de cada vez; **uma por casa por dia** — o contador recusa a 2.ª no mesmo dia)
 
 ```bash
 A=C:/Users/London1/sintonia-sala-italia/seguir-pesquisadores
