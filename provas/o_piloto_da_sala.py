@@ -113,7 +113,9 @@ LIMIAR_FRACO = 5
 # Reprocessar com a mesma versão é ruído. Mudar a régua, o limiar ou o gate
 # muda a resposta — e aí reprocessar deixa de ser ruído e passa a ser dever.
 # Quem mexer em LIMIAR_AGRO, TERMOS_AGRO ou `cruzar()` tem de subir isto.
-PIPELINE_VERSION = "2"
+#: ⚠️ v3 (D13, 1.a rodada real EXPD78): `cruzar()` deixa de declarar CROP, REGION e
+#: FACT_TIME em falta ESCRITOS FIXOS — mede cada chave no CAMPO do item.
+PIPELINE_VERSION = "3"
 
 # As famílias que se ESPERA que tragam cultura. Um edital de universidade não
 # tem cultura e isso não é defeito — por isso ele não entra no denominador.
@@ -182,7 +184,7 @@ select coalesce(json_agg(t order by t.source_id, t.ordem), '[]'::json) from (
          source_location, fact_location, fact_time, fact_time_basis,
          fact_location_basis, published_at, observed_at, captured_at,
          source_declared_evidence_class, admitido_por, estado_da_fila,
-         estagio, texto
+         estagio, texto, janela_declarada
   from public.sala_de_espera %s) t;
 """ % filtro
     return json.loads(_psql(dsn, sql).strip() or "[]")
@@ -260,6 +262,43 @@ def ler_referencia_adama():
     return substancia_para_registos, usos, vivos
 
 
+_IGNORANCIA = ("NAO SEI", "NÃO SEI", "UNKNOWN", "NOT_KNOWN", "NAO_SEI")
+
+
+def _ignora(v):
+    return v is None or not str(v).strip() or str(v).strip().upper().startswith(_IGNORANCIA)
+
+
+def _base_ignora(b):
+    return _ignora(b) or bool(re.search(r"\b(UNKNOWN|NOT_KNOWN|NAO SEI)\b", str(b).upper()))
+
+
+def chaves_do_item(item):
+    u"""D13 · QUAIS CHAVES DE JOIN O ITEM TRAZ — medidas no CAMPO, uma a uma.
+
+    A v2 escrevia `JOIN_KEYS_MISSING = [CROP, REGION, FACT_TIME]` para todos,
+    e na 1.a rodada real declarou UNKNOWN o que era conhecido: o boletim ARIF
+    (IT-T3-008) traz FACT_TIME 2026-09-07/13 e FACT_LOCATION Puglia, com base.
+
+    Cada chave so conta com VALOR e BASE (INT-LAW-091); nunca do texto:
+        FACT_TIME  <- fact_time + fact_time_basis
+        REGION     <- fact_location + fact_location_basis  (NUNCA source_location)
+        CROP       <- janela_declarada.CULTURA.VALOR (migration 033), se existir
+    Achar «MELO» no corpo NAO e CROP — seria fabricar a chave (INT-LAW-037).
+    """
+    presentes = []
+    if not _ignora(item.get("fact_time")) and not _base_ignora(item.get("fact_time_basis")):
+        presentes.append("FACT_TIME")
+    if not _ignora(item.get("fact_location")) and not _base_ignora(item.get("fact_location_basis")):
+        presentes.append("REGION")
+    jd = item.get("janela_declarada")
+    cultura = (jd or {}).get("CULTURA") if isinstance(jd, dict) else None
+    valor = cultura.get("VALOR") if isinstance(cultura, dict) else cultura
+    if not _ignora(valor):
+        presentes.append("CROP")
+    return presentes
+
+
 def cruzar(itens, substancias, usos, vivos):
     u"""O CRUZAMENTO, e o gate que o mata quando ele não se sustenta.
 
@@ -299,6 +338,14 @@ def cruzar(itens, substancias, usos, vivos):
             culturas_no_rotulo = sorted({
                 u["CROP_ON_LABEL"] for u in usos
                 if u["REGISTRATION_NUMBER"] in registos})
+            exigidas = ["ACTIVE_INGREDIENT", "CROP", "REGION", "FACT_TIME"]
+            presentes = ["ACTIVE_INGREDIENT"] + chaves_do_item(item)
+            faltam = [k for k in exigidas if k not in presentes]
+            # O ESTADO NAO MUDA DE DONO: sem CROP continua NOT_POSSIBLE. Com CROP e
+            # sem as outras, PARTIAL. Com todas, e so CANDIDATE — decidir se a
+            # cultura do boletim casa a do rotulo e o gate por construir.
+            estado = ("NOT_POSSIBLE" if "CROP" in faltam
+                      else "PARTIAL" if faltam else "CANDIDATE_ALL_KEYS_PRESENT")
             achados.append({
                 "CROSSING_ID": "XC-%s-%s-%s" % (
                     item["source_id"], item["ordem"], substancia[:12]),
@@ -315,15 +362,17 @@ def cruzar(itens, substancias, usos, vivos):
                 "ADAMA_PRODUCTS": sorted(
                     {reg_para_nome.get(r, "?") for r in registos}),
                 "ADAMA_CROPS_ON_LABEL": culturas_no_rotulo,
-                "JOIN_KEYS_REQUIRED": ["ACTIVE_INGREDIENT", "CROP", "REGION",
-                                       "FACT_TIME"],
-                "JOIN_KEYS_PRESENT": ["ACTIVE_INGREDIENT"],
-                "JOIN_KEYS_MISSING": ["CROP", "REGION", "FACT_TIME"],
-                "CROSSING_STATE": "NOT_POSSIBLE",
-                "WHY": ("a Sala não carrega CROP, FACT_LOCATION nem FACT_TIME "
-                        "para este item; sem a cultura do lado do boletim a "
+                "JOIN_KEYS_REQUIRED": exigidas,
+                "JOIN_KEYS_PRESENT": presentes,
+                "JOIN_KEYS_MISSING": faltam,
+                "CROSSING_STATE": estado,
+                "WHY": ("a Sala não carrega %s para este item (medido campo a "
+                        "campo, com base); sem a cultura do lado do boletim a "
                         "pergunta não fecha. Casar por substância apenas seria "
-                        "crossing por semelhança (INT-LAW-037)."),
+                        "crossing por semelhança (INT-LAW-037)."
+                        % ", ".join(faltam)) if faltam else (
+                        "todas as chaves presentes; o casamento cultura-boletim x "
+                        "cultura-rotulo ainda NAO e decidido aqui"),
                 "STATUS": "EVIDENCE_LINKED_OBSERVATION",
             })
     return achados
