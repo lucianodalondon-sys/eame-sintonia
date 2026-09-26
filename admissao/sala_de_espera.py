@@ -87,6 +87,7 @@ import telemetria as tel                           # noqa: E402
 # Escrever aqui outra palavra para «esta corrida ja contou outra historia»
 # daria duas palavras para o mesmo facto.
 from preservar_coleta import RUN_ID_CONFLICT     # noqa: E402
+import versao_do_documento as vdoc               # noqa: E402
 # ⚠️ QUAL `psql` ESTE PROCESSO USA TEM UM DONO, e ele e `guarda/cliente_postgres.py`.
 # O replay canario 3 (run GitHub 35232024024, know-how §135) caiu na primeira
 # chamada `["psql", ...]` do runtime com FileNotFoundError — e ESTE portao
@@ -380,7 +381,7 @@ class _Ficheiro(object):
         with io.open(caminho, encoding="utf-8") as f:
             return json.load(f)
 
-    def pousar(self, run_id, unidades):
+    def pousar(self, run_id, unidades, armazem=None, extratores=None):
         caminho = caminho_da_corrida(run_id)
         corpo = _corpo(run_id, unidades)
         with _Trava(caminho):
@@ -672,7 +673,7 @@ class _Postgres(object):
         return {"RUN_ID": run_id, "ITENS": itens}
 
     # ── pousar ──────────────────────────────────────────────────────────
-    def pousar(self, run_id, unidades):
+    def pousar(self, run_id, unidades, armazem=None, extratores=None):
         """Decide e escreve DENTRO DA MESMA TRANSAÇÃO.
 
         ⚠️ LER PRIMEIRO E ESCREVER DEPOIS, EM DUAS VIAGENS, É UMA CORRIDA.
@@ -682,6 +683,8 @@ class _Postgres(object):
         a transação**: um processo que caia a meio não deixa a corrida presa.
         """
         impressao = impressao_da_corrida(run_id, unidades)
+        versoes_sql, self.ultimas_versoes = self._planear_versoes(
+            run_id, unidades, armazem, extratores)
         valores = []
         for i, u in enumerate(unidades):
             obs = u["RAW_OBSERVATION_ID"]
@@ -821,6 +824,7 @@ begin
     else
       insert into _recibo values ('{ja_estava}:0:' || total);
     end if;
+{versoes}
   elsif ja = {sha} then
     insert into _recibo values ('{ja_estava}:0:-1');
   else
@@ -833,7 +837,7 @@ $sala$;
 select resultado from _recibo;
 """.format(run=_lit(run_id), valores=", ".join(valores),
            sha=_lit(impressao), pousou=POUSOU, ja_estava=JA_ESTAVA,
-           conflito=RUN_ID_CONFLICT)
+           conflito=RUN_ID_CONFLICT, versoes=versoes_sql)
         codigo, saida, erro = self._executar(script)
         if codigo != 0:
             if RUN_ID_CONFLICT in erro:
@@ -851,6 +855,69 @@ select resultado from _recibo;
                               "JA_NA_SALA_POR_OUTRA_CORRIDA": (None if partes[2] == "-1"
                                                                else int(partes[2]))}
         return estado
+
+    # ── 036 · D79: o mesmo documento com conteudo NOVO e uma VERSAO ──────
+    def _planear_versoes(self, run_id, unidades, armazem, extratores):
+        """(sql, relato). Para cada unidade cujo DOCUMENTO ja esta na Sala por
+        outra corrida (mesma regra do dedup: source_id + document_key,
+        FORWARD_IDENTIFIED, mesmo universo), pergunta a `versao_do_documento`
+        se o conteudo mudou DE VERDADE. So MUDOU vira SQL; NAO_SEI fica no relato.
+
+        ⚠️ SE A 036 NAO ESTA APLICADA, NAO HA VERSOES — e o relato di-lo. O
+        pousar continua a pousar como antes: a falta de um caderno novo nao
+        pode parar a escrita que ja existia.
+        """
+        relato = []
+        if self._consultar("select to_regclass('public.sala_de_espera_versao') is not null") != ["t"]:
+            return "", [{"ESTADO": vdoc.NAO_SEI, "MOTIVO": "036 nao aplicada: sem caderno de versoes"}]
+        sql = []
+        for u in unidades:
+            obs = u["RAW_OBSERVATION_ID"]
+            if obs is None or str(obs).strip().upper() in ("NAO SEI", "NÃO SEI", ""):
+                continue                         # sem RAW nao ha documento: nao funde
+            doc = self._consultar(
+                "select s.run_id, s.ordem, s.item_id, "
+                "coalesce((select v.item_id from public.sala_de_espera_versao v "
+                "          where v.run_id = s.run_id and v.ordem = s.ordem "
+                "          order by v.versao desc limit 1), s.item_id), "
+                "exists (select 1 from public.sala_de_espera_versao v "
+                "        where v.run_id = s.run_id and v.ordem = s.ordem and v.item_id = %(item)s) "
+                "  or s.item_id = %(item)s "
+                "from public.raw_asset re "
+                "join public.raw_asset rs on rs.identity_state = 'FORWARD_IDENTIFIED' "
+                " and rs.source_id = re.source_id and rs.document_key = re.document_key "
+                "join public.sala_de_espera s on s.raw_observation_id = rs.id "
+                "where re.id = %(obs)d and re.identity_state = 'FORWARD_IDENTIFIED' "
+                "  and s.universo = %(uni)s and s.run_id <> %(run)s "
+                "order by s.pousado_em, s.run_id, s.ordem limit 1"
+                % {"item": _lit(u["ITEM_ID"]), "obs": int(obs),
+                   "uni": _lit(u["UNIVERSO"]), "run": _lit(run_id)})
+            if not doc:
+                continue                         # documento novo: e linha, nao versao
+            d_run, d_ordem, d_item, ultimo, ja_conhecido = doc[0].split(self.SEP)
+            if ja_conhecido == "t":
+                continue                         # este derivado ja e a linha ou uma versao
+            ids = [vdoc._derivado_id(ultimo), vdoc._derivado_id(u["ITEM_ID"])]
+            derivs = vdoc.ler_derivados(self._consultar, self.SEP, ids)
+            r = vdoc.decidir(derivs.get(ids[0]), derivs.get(ids[1]),
+                             armazem=armazem, extratores=extratores)
+            relato.append(dict(r, DOCUMENTO="%s#%s" % (d_run, d_ordem),
+                               ITEM_ID=u["ITEM_ID"], ANTERIOR=ultimo))
+            if r["ESTADO"] != vdoc.MUDOU:
+                continue
+            sql.append(
+                "    insert into public.sala_de_espera_versao "
+                "(run_id, ordem, versao, veio_da_corrida, item_id, raw_observation_id, texto, "
+                "derivado_anterior, como_se_comparou) "
+                "select %(r)s, %(o)d, coalesce((select max(versao) from public.sala_de_espera_versao "
+                "where run_id = %(r)s and ordem = %(o)d), 1) + 1, %(run)s, %(item)s, %(obs)d, %(txt)s, "
+                "%(ant)s, %(como)s "
+                "where not exists (select 1 from public.sala_de_espera_versao "
+                "where run_id = %(r)s and ordem = %(o)d and item_id = %(item)s);"
+                % {"r": _lit(d_run), "o": int(d_ordem), "run": _lit(run_id),
+                   "item": _lit(u["ITEM_ID"]), "obs": int(obs), "txt": _lit(u["TEXTO"]),
+                   "ant": _lit(ultimo), "como": _lit(r["COMO"])})
+        return "\n".join(sql), relato
 
     # ── 033 · corrigir sem apagar: as revisoes ────────────────────────
     def rever(self, run_id, ordem, revisoes, extrator, versao, motivo):
@@ -1128,7 +1195,7 @@ def ler(run_id: str):
     return backend().ler(run_id)
 
 
-def pousar(run_id: str, unidades: list) -> dict:
+def pousar(run_id: str, unidades: list, *, armazem=None, extratores=None) -> dict:
     """A unidade pronta pousa na espera. Devolve o que ACONTECEU, não o pedido.
 
         POUSOU     escreveu-se agora
@@ -1149,7 +1216,8 @@ def pousar(run_id: str, unidades: list) -> dict:
                 "PORQUE": "nenhuma unidade admitida: nao ha o que pousar"}
     _conferir_unidades(unidades)
     b.ultimo_recibo = None
-    estado = b.pousar(run_id, unidades)
+    b.ultimas_versoes = []
+    estado = b.pousar(run_id, unidades, armazem=armazem, extratores=extratores)
     morada = b.morada(run_id)
     # So o Postgres (canonico) sabe dizer quantas ja estavam por outra corrida;
     # o ficheiro (prova offline) guarda a corrida inteira e diz NAO SEI.
@@ -1168,6 +1236,9 @@ def pousar(run_id: str, unidades: list) -> dict:
             "UNIDADES": len(unidades),
             "INSERIDAS": recibo.get("INSERIDAS", "NAO SEI"),
             "JA_NA_SALA_POR_OUTRA_CORRIDA": ("NAO SEI" if ja_na_sala is None else ja_na_sala),
+            # D79: o que se decidiu sobre versoes (MUDOU entrou no caderno 036;
+            # IGUAL nao entrou; NAO_SEI nao entrou e fica aqui declarado).
+            "VERSOES": list(getattr(b, "ultimas_versoes", None) or []),
             "BACKEND": b.NOME, "CANONICO": b.CANONICO,
             "PORQUE": porque}
 

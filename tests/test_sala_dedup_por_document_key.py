@@ -41,7 +41,7 @@ _spec.loader.exec_module(E)
 
 TEM_PG = (E.PG_BIN / ("initdb.exe" if os.name == "nt" else "initdb")).exists() and shutil.which("bash")
 
-CORRIDAS = ["D%02d" % i for i in range(1, 17)]
+CORRIDAS = ["D%02d" % i for i in range(1, 41)]
 
 
 @unittest.skipUnless(TEM_PG, "sem Postgres portatil (~/orca/pgtmp) ou sem bash: a prova nao correu")
@@ -179,6 +179,133 @@ class ASalaNaoRepeteODocumentoPelaChave(unittest.TestCase):
         r1 = self.bruto("D16", "IT-T5-030", "IT-T5-030:URL:news/b", sha="f")
         b = espera.pousar("D16", [self.unidade("derived:901", r1, "IT-T5-030", universo="T7")])
         self.assertEqual(b["INSERIDAS"], 1)
+
+    # ══ D79 · VERSÕES (036) ══════════════════════════════════════════════
+    RECEITA = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    OUTRA = "477d63427363" + "0" * 52
+
+    def derivado(self, raw_id, raw_sha, texto_sha, producer="texto-de-html", versao="1",
+                 receita=None):
+        """Uma linha em derived_artifact. Devolve `derived:<id>`."""
+        ASalaNaoRepeteODocumentoPelaChave._n += 1
+        n = ASalaNaoRepeteODocumentoPelaChave._n
+        return "derived:" + self.sql(
+            "insert into derived_artifact (raw_asset_id, parent_sha256, kind, producer, "
+            "producer_version, parameters_hash, sha256, bytes, media_type, storage_path, "
+            "derived_at) values (%d, '%s', 'TEXT_EXTRACTION', '%s', '%s', '%s', '%s', 1, "
+            "'text/plain', 'der/%d', now()) returning id"
+            % (raw_id, raw_sha, producer, versao, receita or self.RECEITA, texto_sha, n)
+        ).splitlines()[0]
+
+    def par(self, run, fonte, chave, bruto_sha, texto_sha, **kw):
+        """Um bruto + o derivado dele. Devolve (raw_id, item_id)."""
+        r = self.bruto(run, fonte, chave, sha=bruto_sha)
+        return r, self.derivado(r, (bruto_sha * 64)[:64], (texto_sha * 64)[:64], **kw)
+
+    def versoes(self, fonte):
+        return self.sql("select string_agg(v.versao || '=' || v.item_id || '/' || v.como_se_comparou, ' ' "
+                        "order by v.versao) from sala_de_espera_versao v join sala_de_espera s "
+                        "on s.run_id = v.run_id and s.ordem = v.ordem where s.source_id = '%s'" % fonte)
+
+    def test_V1_bytes_iguais_nao_criam_versao(self):
+        r1, d1 = self.par("D20", "IT-V-001", "IT-V-001:URL:a", "1", "a")
+        r2 = self.bruto("D21", "IT-V-001", "IT-V-001:URL:a", sha="1")
+        d2 = self.derivado(r2, "1" * 64, "b" * 64)          # outro derivado, mesmos bytes do RAW
+        espera.pousar("D20", [self.unidade(d1, r1, "IT-V-001")])
+        b = espera.pousar("D21", [self.unidade(d2, r2, "IT-V-001")])
+        self.assertEqual(b["INSERIDAS"], 0)
+        self.assertEqual(self.versoes("IT-V-001"), "")
+        self.assertEqual([v["ESTADO"] for v in b["VERSOES"]], ["IGUAL"])
+
+    def test_V2_conteudo_mudado_com_o_mesmo_extrator_e_uma_versao_e_a_linha_nao_muda(self):
+        r1, d1 = self.par("D22", "IT-V-002", "IT-V-002:URL:a", "2", "a")
+        r2, d2 = self.par("D23", "IT-V-002", "IT-V-002:URL:a", "3", "b")
+        espera.pousar("D22", [self.unidade(d1, r1, "IT-V-002")])
+        antes = self.sql("select item_id, texto, corrida_sha256 from sala_de_espera "
+                         "where source_id = 'IT-V-002'")
+        b = espera.pousar("D23", [self.unidade(d2, r2, "IT-V-002")])
+        self.assertEqual(b["INSERIDAS"], 0)                 # continua UM documento logico
+        self.assertEqual(self.versoes("IT-V-002"), "2=%s/MESMO_EXTRATOR" % d2)
+        self.assertEqual(self.sql("select item_id, texto, corrida_sha256 from sala_de_espera "
+                                  "where source_id = 'IT-V-002'"), antes)
+        # o retry da mesma corrida nao duplica a versao
+        espera.pousar("D23", [self.unidade(d2, r2, "IT-V-002")])
+        self.assertEqual(self.versoes("IT-V-002"), "2=%s/MESMO_EXTRATOR" % d2)
+        # uma 3.a observacao, conteudo novo outra vez → versao 3, comparada com a 2
+        r3, d3 = self.par("D24", "IT-V-002", "IT-V-002:URL:a", "4", "c")
+        espera.pousar("D24", [self.unidade(d3, r3, "IT-V-002")])
+        self.assertEqual(self.versoes("IT-V-002"),
+                         "2=%s/MESMO_EXTRATOR 3=%s/MESMO_EXTRATOR" % (d2, d3))
+
+    def test_V3_bytes_novos_texto_igual_com_o_mesmo_extrator_nao_e_versao(self):
+        r1, d1 = self.par("D25", "IT-V-003", "IT-V-003:URL:a", "5", "a")
+        r2, d2 = self.par("D26", "IT-V-003", "IT-V-003:URL:a", "6", "a")
+        espera.pousar("D25", [self.unidade(d1, r1, "IT-V-003")])
+        b = espera.pousar("D26", [self.unidade(d2, r2, "IT-V-003")])
+        self.assertEqual(self.versoes("IT-V-003"), "")
+        self.assertEqual([v["ESTADO"] for v in b["VERSOES"]], ["IGUAL"])
+
+    def test_V4_extrator_mudou_e_nao_ha_como_reextrair_e_NAO_SEI(self):
+        r1, d1 = self.par("D27", "IT-V-004", "IT-V-004:URL:a", "7", "a")
+        r2, d2 = self.par("D28", "IT-V-004", "IT-V-004:URL:a", "8", "b", receita=self.OUTRA)
+        espera.pousar("D27", [self.unidade(d1, r1, "IT-V-004")])
+        b = espera.pousar("D28", [self.unidade(d2, r2, "IT-V-004")])
+        self.assertEqual(self.versoes("IT-V-004"), "")
+        self.assertEqual([v["ESTADO"] for v in b["VERSOES"]], ["NAO_SEI"])
+
+    def _reextrair(self, texto_devolvido):
+        """Armazem e extrator falsos: devolvem o texto pedido com a receita OUTRA."""
+        class Armazem(object):
+            def ler(self, caminho):
+                return b"<html>bytes do RAW anterior</html>"
+        import hashlib
+        alvo = {"texto": texto_devolvido}
+        extratores = {"texto-de-html": lambda dados, mt: (alvo["texto"], "1", self.OUTRA)}
+        return Armazem(), extratores, hashlib
+
+    def test_V5_extrator_mudou_reextrai_do_raw_igual_nao_e_versao_diferente_e(self):
+        armazem, extratores, hashlib = self._reextrair("texto velho")
+        sha_velho = hashlib.sha256("texto velho".encode("utf-8")).hexdigest()
+        # igual: o derivado novo tem o sha do texto re-extraido
+        r1, d1 = self.par("D29", "IT-V-005", "IT-V-005:URL:a", "9", "a")
+        r2 = self.bruto("D30", "IT-V-005", "IT-V-005:URL:a", sha="a")
+        d2 = self.derivado(r2, "a" * 64, sha_velho, receita=self.OUTRA)
+        espera.pousar("D29", [self.unidade(d1, r1, "IT-V-005")])
+        b = espera.pousar("D30", [self.unidade(d2, r2, "IT-V-005")],
+                          armazem=armazem, extratores=extratores)
+        self.assertEqual(self.versoes("IT-V-005"), "")
+        self.assertEqual([(v["ESTADO"], v["COMO"]) for v in b["VERSOES"]],
+                         [("IGUAL", "REEXTRAIDO_DO_RAW")])
+        # diferente: o derivado novo tem outro sha → versao, re-extraida
+        r3 = self.bruto("D31", "IT-V-005", "IT-V-005:URL:a", sha="b")
+        d3 = self.derivado(r3, "b" * 64, "c" * 64, receita=self.OUTRA)
+        espera.pousar("D31", [self.unidade(d3, r3, "IT-V-005")],
+                      armazem=armazem, extratores=extratores)
+        self.assertEqual(self.versoes("IT-V-005"), "2=%s/REEXTRAIDO_DO_RAW" % d3)
+
+    def test_V6_identidade_nao_provada_nao_funde_nem_vira_versao(self):
+        r1 = self.bruto("D32", "IT-V-006", None, estado="FORWARD_IDENTITY_UNPROVEN", sha="c")
+        r2 = self.bruto("D33", "IT-V-006", None, estado="FORWARD_IDENTITY_UNPROVEN", sha="d")
+        d1 = self.derivado(r1, "c" * 64, "a" * 64)
+        d2 = self.derivado(r2, "d" * 64, "b" * 64)
+        espera.pousar("D32", [self.unidade(d1, r1, "IT-V-006")])
+        b = espera.pousar("D33", [self.unidade(d2, r2, "IT-V-006")])
+        self.assertEqual(b["INSERIDAS"], 1)
+        self.assertEqual(self.versoes("IT-V-006"), "")
+        self.assertEqual(b["VERSOES"], [])
+
+    def test_V7_o_caderno_de_versoes_so_acrescenta(self):
+        r1, d1 = self.par("D34", "IT-V-007", "IT-V-007:URL:a", "e", "a")
+        r2, d2 = self.par("D35", "IT-V-007", "IT-V-007:URL:a", "f", "b")
+        espera.pousar("D34", [self.unidade(d1, r1, "IT-V-007")])
+        espera.pousar("D35", [self.unidade(d2, r2, "IT-V-007")])
+        for comando in ("update sala_de_espera_versao set texto = 'x'",
+                        "delete from sala_de_espera_versao",
+                        "truncate sala_de_espera_versao"):
+            r = subprocess.run([self.base.exe("psql"), "-X", "-At", "-v", "ON_ERROR_STOP=1",
+                                "-c", comando, self.base.url], capture_output=True, text=True)
+            self.assertNotEqual(r.returncode, 0, comando)
+            self.assertIn("SALA_VERSAO_SO_ACRESCENTA", r.stderr, comando)
 
     # ── nada é apagado nem alterado ──────────────────────────────────────
     def test_Z_o_bruto_e_a_sala_so_crescem(self):
