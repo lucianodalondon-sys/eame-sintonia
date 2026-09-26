@@ -86,6 +86,14 @@ class OExecutor(unittest.TestCase):
         self.assertEqual(site.pedidos, [])
         self.assertEqual({x["ID"] for x in r["RECUSADAS"]}, {"V21", "V10", "V20", "V29"})
 
+    def test_cnr_e_coldiretti_recusados_mesmo_fora_da_onda4(self):
+        """A regra da coordenacao (10:13) vale sozinha: nao depende de o dominio estar na lista da 4.a onda."""
+        site = Site()
+        fichas = [ficha("V21", "https://www.isafom.cnr.it/x"), ficha("VX", "https://www.coldiretti.it/y")]
+        r = C.correr({"FICHAS": fichas}, "1", site, PASS, self.tmp, {"koppert.it"}, 12, dormir=lambda s: None)
+        self.assertEqual(site.pedidos, [])
+        self.assertTrue(all("coordenacao" in x["PORQUE"] for x in r["RECUSADAS"]))
+
     def test_amap_nao_colide_com_arpa_marche(self):
         self.assertFalse(C.mesmo_site("amap.marche.it", "arpa.marche.it"))
         self.assertTrue(C.mesmo_site("terraevita.edagricole.it", "edagricole.it"))
