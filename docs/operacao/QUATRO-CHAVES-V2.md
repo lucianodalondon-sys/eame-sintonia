@@ -104,4 +104,7 @@ prova que o código novo as lê sem torcer; não prova nada sobre extração de 
 4. **Linhas antigas da Sala** ficam com a janela no default «não medido» (é o que o ensaio mede
    acima) — ninguém as reescreve; UNKNOWN não vira fato.
 5. **Desfazer:** reverter o merge. O banco não muda, portanto não há desfazer de banco.
-6. Mapa do System Map regerado pela cadeia neste ramo (ver o commit `mapa:` a seguir a este).
+6. **Mapa: NÃO regerado depois da junção com `83de0ccd`** (PRONTO-SEM-MAPA, pela LOCK-PRIORIDADE da
+   INTEGRA-NOITE de 26/09 03:21). O último mapa regerado deste ramo é o do commit `619950cc` (sobre
+   `ce28040c`, portões pós-commit não corridos); na junção os ficheiros gerados ficaram com a versão
+   do vivo. A INTEGRA regera tudo junto.
