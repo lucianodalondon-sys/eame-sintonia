@@ -842,13 +842,18 @@ def validar_voce(v: dict, doc: dict) -> list:
 
 
 # ── adaptadores dos transcritos que estao no repositorio ────────────────────────────────
+def _ler(caminho: str):
+    with open(caminho, encoding='utf-8') as fh:
+        return json.load(fh)
+
+
 def documentos_do_repo(raiz: str = RAIZ) -> list:
     """Os transcritos versionados (fixtures), cada um com o seu envelope. So leitura."""
     import glob
     docs = []
     es = os.path.join(raiz, 'data', 'samples', 'ES-T8-001-transcricoes.json')
     if os.path.exists(es):
-        d = json.load(open(es, encoding='utf-8'))
+        d = _ler(es)
         for t in d['TRANSCRIPTS']:
             docs.append(documento(t.get('TRANSCRIPT_ORIGINAL'), source_id=d.get('SOURCE_ID'),
                                   external_id=t.get('EXTERNAL_ID'), url=t.get('URL'), platform=t.get('PLATFORM'),
@@ -857,10 +862,10 @@ def documentos_do_repo(raiz: str = RAIZ) -> list:
                                   origem_do_texto=ORIG_DATASET if t.get('TRANSLATION') is None else None))
     meta = {}
     for f in sorted(glob.glob(os.path.join(raiz, 'data', 'samples', 'SENSOR-PILOT', 'VIDEOS-*.json'))):
-        for it in json.load(open(f, encoding='utf-8')).get('ITEMS', []):
+        for it in _ler(f).get('ITEMS', []):
             meta.setdefault(it.get('EXTERNAL_ID'), it)
     for f in sorted(glob.glob(os.path.join(raiz, 'data', 'samples', 'SENSOR-PILOT', 'TRANSCRICOES-*.json'))):
-        d = json.load(open(f, encoding='utf-8'))
+        d = _ler(f)
         for it in d.get('ITEMS', []):
             if not isinstance(it.get('TRANSCRIPT'), str):
                 continue
@@ -871,7 +876,7 @@ def documentos_do_repo(raiz: str = RAIZ) -> list:
                                   title=m.get('TITLE'), published_at=(m.get('PUBLISHED_AT') or '')[:10] or None))
     reel = os.path.join(raiz, 'data', 'samples', 'REEL-TRANSCRICOES', 'TRANSCRICOES-REEL.json')
     if os.path.exists(reel):
-        d = json.load(open(reel, encoding='utf-8'))
+        d = _ler(reel)
         for it in d.get('ITEMS', []):
             r = it.get('REEL') or {}
             if not it.get('TRANSCRIPT_TEXT'):
