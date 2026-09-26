@@ -1,6 +1,6 @@
 # VOCI-DAL-CAMPO — o extrator de voz (ferramenta n.º 3 do casco)
 
-Ramo `nuvem-voci-campo-v1`, começado sobre `69b0e23f` e **rebaseado sobre o vivo `278cd489`** (lote 2, ordem da coordenação 14:00; o rebase entrou sem conflito). Testes antes/depois refeitos sobre `278cd489`. Sem rede externa, sem Sala, sem login, sem perfil.
+Ramo `nuvem-voci-campo-v1`, começado sobre `69b0e23f` e **rebaseado sobre o vivo `278cd489`** (14:00) **e depois sobre `dc0de726`** (17:35); os dois rebases entraram sem conflito. Testes antes/depois refeitos sobre `278cd489`; de `278cd489` a `dc0de726` só entrou `tests/test_rodadas.py` e 3 linhas do `architecture.declared.json` (nada em motor/, leis/, regras/ nem nos 13 módulos comparados), e a suíte do extrator (47) passa sobre `dc0de726`. Sem rede externa, sem Sala, sem login, sem perfil.
 Dados: só fixtures do repositório (47 transcritos) e casos sintéticos marcados `SOURCE_ID = 'SINTETICO'`.
 
 ## O que fiz
