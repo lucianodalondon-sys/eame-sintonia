@@ -213,6 +213,22 @@ def lote_1_instalado(raiz: Path = RAIZ) -> list[str]:
     return falta
 
 
+def yt_dlp_abre() -> tuple[bool, str]:
+    """O audio corre `sys.executable -m yt_dlp` (ferramentas/youtube_transcrever.py::_audio).
+
+    ⚠️ MEDIDO NO ENSAIO A SECO (26/09): `shutil.which('yt-dlp')` acha um executavel de OUTRO
+    projeto, a sonda do adaptador diz «pronto», e o `py` nao tem o modulo: AUDIO_NAO_OBTIDO
+    com zero pedidos. Pergunta-se ao mesmo interpretador que o audio vai usar. Sem rede."""
+    try:
+        r = subprocess.run([sys.executable, "-m", "yt_dlp", "--version"], capture_output=True,
+                           text=True, encoding="utf-8", errors="replace", timeout=120)
+    except Exception as e:                                          # noqa: BLE001
+        return False, "%s: %s" % (type(e).__name__, e)
+    if r.returncode != 0:
+        return False, ((r.stderr or r.stdout).strip().splitlines() or ["sem mensagem"])[-1][:200]
+    return True, r.stdout.strip()
+
+
 def precondicoes_da_sala(ambiente=None) -> list[str]:
     import micro_coleta as MC  # noqa: PLC0415
     return MC.precondicoes(ambiente)
@@ -235,7 +251,7 @@ def prova_teto(run_ids: list[str], pasta: Path, livro: Path | None = None) -> di
 # ── RODADA (a unica porta para a rede) ──────────────────────────────────────
 def rodada(lote: dict, n: int, estado_p: Path, *, autorizado=False, gate=gate_canonico,
            parado=robo_parado, egresso=egresso_it, sala=precondicoes_da_sala,
-           lancar=None, teto=prova_teto, instalado=lote_1_instalado) -> dict:
+           lancar=None, teto=prova_teto, instalado=lote_1_instalado, yt_dlp=yt_dlp_abre) -> dict:
     estado_p = Path(estado_p)
     pasta = estado_p.parent
     flag = pasta / FLAG_DE_PARADA
@@ -256,6 +272,10 @@ def rodada(lote: dict, n: int, estado_p: Path, *, autorizado=False, gate=gate_ca
     rodadas = [r for r in lote.get("RODADAS", []) if r.get("N") == n]
     if not rodadas:
         return {"CORREU": False, "PORQUE": "rodada %s nao esta no lote" % n}
+    if any(it.get("FASE") == "audio-youtube" for it in rodadas[0].get("ITENS", [])):
+        ok_yt, porque_yt = yt_dlp()
+        if not ok_yt:
+            return {"CORREU": False, "PORQUE": "YT_DLP_NAO_ABRE no interpretador do audio: " + porque_yt}
     antes = egresso()
     if antes.get("GATE") != "PASS":
         return {"CORREU": False, "PORQUE": "EGRESSO_NAO_IT", "EGRESSO_ANTES": antes}

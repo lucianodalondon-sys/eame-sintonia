@@ -43,7 +43,7 @@ class _Base(unittest.TestCase):
 
     def correr(self, n=1, **kw):
         base = dict(autorizado=True, gate=ELEGIVEL, parado=lambda: (True, "ok"), egresso=PASS,
-                    instalado=lambda: [],
+                    instalado=lambda: [], yt_dlp=lambda: (True, "2026.8.19"),
                     sala=lambda: [], lancar=self.lancar,
                     teto=lambda ids, pasta: {"ESTADO": "PASS", "PEDIDOS_NA_ONDA": len(ids)})
         base.update(kw)
@@ -72,6 +72,14 @@ class ARodadaRecusaAntesDaRede(_Base):
     def test_egresso_nao_it(self):
         self.assertNaoLancou(self.correr(egresso=lambda: {"PAIS": "UNKNOWN", "GATE": "BLOCKED"}),
                              "EGRESSO_NAO_IT")
+
+    def test_yt_dlp_que_nao_abre_trava_a_rodada_do_youtube(self):
+        self.assertNaoLancou(self.correr(n=2, yt_dlp=lambda: (False, "No module named yt_dlp")),
+                             "YT_DLP_NAO_ABRE")
+
+    def test_rodada_sem_youtube_nao_pergunta_pelo_yt_dlp(self):
+        r = self.correr(n=1, yt_dlp=lambda: (False, "nao devia ser chamado"))
+        self.assertTrue(r["CORREU"])
 
     def test_rodada_fora_do_lote(self):
         self.assertNaoLancou(self.correr(n=9), "nao esta no lote")
