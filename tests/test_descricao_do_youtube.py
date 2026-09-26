@@ -105,7 +105,7 @@ class AReceitaSoMudaOndeOTextoMudou(unittest.TestCase):
 
     def test_pagina_de_video_declara_o_dono_da_descricao(self):
         r = ex.receita(_amostra())
-        self.assertEqual("coleta/texto_fonte.py::descricao_do_youtube", r["VIDEO_DESCRIPTION_OWNER"])
+        self.assertEqual("coleta/texto_fonte.py::descricao_do_youtube", r.get("VIDEO_DESCRIPTION_OWNER"))
 
 
 if __name__ == "__main__":
