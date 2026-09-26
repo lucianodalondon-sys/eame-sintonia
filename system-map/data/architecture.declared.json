@@ -5167,6 +5167,30 @@
    ]
   },
   {
+   "id": "C-MICRO-PROVA-LOTE2",
+   "name": "MICRO-PROVA LOTE 2 + roteiro da sessao (lote 1 + sonda) sem colidir com a onda",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "micro_prova_colisao.py: nenhum dominio da micro-prova/sonda na RODADA 1 da onda nem colhido nas ultimas 24 h (pelas observacoes do coletor). Sessao do lote 1 (18) + sonda (6); lote 2 (24, 0 colisoes); ensaio a seco do lote 2 (21/25 PRONTA; Terremerse bloqueada por capacidade real).",
+   "why_here": "Coletar o maximo sem ser bloqueado pelos sites da onda (missao MICRO-PROVA-LOTE2, 26/09).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "curadoria/micro_prova_colisao.py",
+    "curadoria/MICRO-PROVA-LOTE1-SESSAO.json",
+    "curadoria/MICRO-PROVA-LOTE2.json",
+    "curadoria/ENSAIO-MICRO-PROVA-LOTE2.json",
+    "MICRO-PROVA-ROTEIRO.md"
+   ]
+  },
+  {
    "id": "C-PROVA-JANELA-FORMAS",
    "name": "As formas das janelas (D42): receita PDF, a pagina e o boletim, estudo JS",
    "territory": "Z-PROVA",
