@@ -115,6 +115,7 @@ class PortaDaSala(unittest.TestCase):
     def test_contrato_sem_sede_nao_escreve_nada(self):
         with _contrato("NAO SEI"):
             self.assertEqual([], P.revisoes_da_linha(_linha())[0])
+            self.assertEqual([], P.revisoes_da_linha(_linha(loc=""))[0])      # vazio na Sala: NAO SEI nao entra
 
     def test_nunca_pisa_uma_sede_que_a_sala_ja_tem(self):
         with _contrato("Roma"):
