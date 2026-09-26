@@ -1,8 +1,14 @@
 # REPROC-SALA-PLANO · reprocessar o tempo e o lugar da Sala depois dos lotes 1 e 2
 
 Ramo `reproc-sala-plano-v1`, a partir do vivo `83de0ccd`, juntado depois ao vivo `69b0e23f` (lote 1 da
-INTEGRA-NOITE), com os três ramos juntos (sem conflito): `conserto-regua-v1` (`a139caad`) · `leitor-data-yt-v1` (`4dd00308`) ·
-`dedup-doc-v1` (`79091f73`). **Nada instalado. A Sala real só foi lida.** O ensaio correu em
+INTEGRA-NOITE) e ao vivo **`278cd489`** (lote 2, instalado 13:55), com os três ramos juntos: `conserto-regua-v1` (`a139caad`) · `leitor-data-yt-v1` (`4dd00308`) ·
+`dedup-doc-v1` (`79091f73`).
+
+⚠️ **O lote 2 instalado (`278cd489`) tem o `conserto-regua-v1` (`a139caad`) e o `leitor-data-yt-v1`, mas NÃO o
+`dedup-doc-v1`.** Para o reprocesso isto não muda nada: o dedup só decide se uma coleta NOVA ganha linha na Sala
+(`pousar`); o reprocesso só acrescenta revisões às linhas que já existem (`rever`), e `admissao/sala_de_espera.py`
+não entra na versão do extrator. Por isso o ensaio corre com o **código exato do vivo** (`278cd489`), não com este
+ramo. **Nada instalado. A Sala real só foi lida.** O ensaio correu em
 Postgres **descartável**, desligado no fim.
 
 **Nenhuma migração nova.** Os três ramos não trazem SQL: o caderno de revisões é o da 033, já
@@ -13,6 +19,11 @@ sha256 certo).
 <!-- ENSAIO -->
 
 ## PARTE B · LOTE 1 já instalado (vivo `69b0e23f`) · passo (d): reprocessar o TEMPO/LUGAR da Sala com o leitor-data-yt
+
+⚠️ **Desde as 13:55 o vivo é `278cd489` (lote 2).** Se a Parte B **não** correu na Sala, **não a corras agora**:
+o ROTEIRO abaixo, uma vez, com o vivo `278cd489`, faz as duas coisas (leitor-data-yt e régua) numa só versão.
+Se a Parte B **já** correu, o ROTEIRO abaixo corre por cima, sem problema (as revisões só se acrescentam). O ensaio
+mede os dois caminhos.
 
 O lote 1 (INTEGRA-NOITE) já pôs no vivo o `leitor-data-yt-v1` (`4dd00308`): a data de publicação lê
 `<meta itemprop="datePublished">` (as páginas do YouTube) e a versão que carimba cada revisão passou a
@@ -67,7 +78,7 @@ bases junto com as mudanças da régua, carimbadas com a versão do lote 2.
 
 ## ROTEIRO para a Sala real (para o coordenador)
 
-Em Git Bash. O **código que reprocessa** é o do vivo **depois** do lote 2 (`CODIGO=$VIVA`); o **roteiro** vem
+Em Git Bash. O **código que reprocessa** é o do vivo **depois** do lote 2 — hoje `278cd489` — (`CODIGO=$VIVA`); o **roteiro** vem
 desta pasta (`$R`), porque o vivo pode não o ter. Nada disto corre sem o LOCK-PESADO livre e ≥5 GB de memória.
 
 ```bash
@@ -85,7 +96,7 @@ O=$S/reproc-lotes-1-2-$(date +%Y%m%d-%H%M%S)
 **0 · o código certo.** Os lotes 1 e 2 têm de estar instalados, e o roteiro tem de existir lá:
 ```bash
 cd $VIVA && git log --oneline -1
-for c in 4dd00308 a139caad 79091f73; do git merge-base --is-ancestor $c HEAD && echo "$c OK" || echo "$c FALTA"; done
+for c in 4dd00308 a139caad; do git merge-base --is-ancestor $c HEAD && echo "$c OK" || echo "$c FALTA"; done   # o dedup-doc (79091f73) NÃO é preciso
 ls $R/scripts/reproc_sala/reprocessar_sala.sh
 ```
 Se a INTEGRA juntou os ramos por outra via (commits reescritos), conferir pelo conteúdo — os três
@@ -96,7 +107,7 @@ grep -c TIPOS_QUE_PUBLICAM coleta/executor_texto_de_html.py   # lote 2 · conser
 grep -c 'itemprop' coleta/executor_texto_de_html.py           # lote 1 · leitor-data-yt
 grep -c executor_texto_de_html admissao/reprocessar_tempo_lugar.py   # a versão carimba o leitor
 ```
-Três `OK` (ou os greps ≥1) e o ficheiro existe. Um `FALTA` → **PARAR**: reprocessar com o código de antes grava
+Dois `OK` (ou os greps ≥1) e o ficheiro existe. Um `FALTA` → **PARAR**: reprocessar com o código de antes grava
 revisões com a versão antiga (e a próxima passada, com o código novo, grava outra vez).
 
 **1 · preflight.** `cmd //c "$(cygpath -w $S/preflight_sala.cmd)"` → `PREFLIGHT=PASS`. Outra → PARAR.
