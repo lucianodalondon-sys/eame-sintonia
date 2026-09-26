@@ -162,6 +162,17 @@ def correr(alvos: list[dict], buscar, portao, pasta: Path, dormir=time.sleep, pa
     return res
 
 
+def da_ronda(pdfs: list[dict], ronda: str | None) -> list[dict]:
+    """--ronda=N: so os PDFs dessa ronda (LOTE-PDF-SERIES: 4 por dominio + robots = teto 5 por ronda).
+    Um lote com RONDA e sem --ronda recusa-se: correr tudo de uma vez passaria o teto por dominio."""
+    tem = any("RONDA" in p for p in pdfs)
+    if ronda is None:
+        if tem:
+            raise SystemExit("o lote tem RONDA: diz qual (--ronda=N) — tudo de uma vez passava o teto D38")
+        return pdfs
+    return [p for p in pdfs if str(p.get("RONDA")) == str(ronda)]
+
+
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     a = dict(x[2:].split("=", 1) for x in argv if x.startswith("--") and "=" in x)
@@ -171,7 +182,8 @@ def main(argv=None) -> int:
     import canario as CAN      # noqa: E402
     import rede                # noqa: E402
     lote = json.loads(Path(a["lote"]).read_text(encoding="utf-8"))
-    res = correr(lote["PDFS"], CAN.buscar, lambda: rede.portao_de_egresso("IT"), Path(a["bytes"]))
+    res = correr(da_ronda(lote["PDFS"], a.get("ronda")), CAN.buscar, lambda: rede.portao_de_egresso("IT"),
+                 Path(a["bytes"]))
     out = {"DATASET": "LINHAS-DE-MONITORIZACAO", "GERADO_EM": datetime.now(timezone.utc).isoformat(),
            "PEDIDOS_PDF": sum(1 for r in res if r.get("HTTP") is not None),
            "POR_ESTADO": {e: sum(1 for r in res if r.get("ESTADO") == e) for e in sorted({r.get("ESTADO") for r in res})},

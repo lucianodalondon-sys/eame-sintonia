@@ -101,6 +101,21 @@ class Correr(unittest.TestCase):
         self.assertEqual(TEXTO, Path(r["TEXTO_INTEGRAL_EM"]).read_text(encoding="utf-8"))
         self.assertGreaterEqual(r["POR_TIPO"]["TABELA"], 2)
 
+    def test_ronda_filtra_e_lote_com_ronda_exige_ronda(self):
+        pdfs = [{"ID": "a", "URL": "u", "RONDA": 1}, {"ID": "b", "URL": "v", "RONDA": 2}]
+        self.assertEqual(["b"], [p["ID"] for p in L.da_ronda(pdfs, "2")])
+        with self.assertRaises(SystemExit):
+            L.da_ronda(pdfs, None)
+        self.assertEqual(1, len(L.da_ronda([{"ID": "x", "URL": "u"}], None)))
+
+    def test_o_lote_de_series_respeita_o_teto_por_ronda(self):
+        import json
+        from collections import Counter
+        from urllib.parse import urlparse
+        lote = json.loads((AQUI / "LOTE-PDF-SERIES.json").read_text(encoding="utf-8"))
+        c = Counter((p["RONDA"], urlparse(p["URL"]).netloc.lower().removeprefix("www.")) for p in lote["PDFS"])
+        self.assertLessEqual(max(c.values()), L.TETO - 1, c.most_common(3))
+
     @unittest.skipUnless(shutil.which("pdftotext"), "pdftotext ausente")
     def test_pdftotext_real_falha_alto_com_lixo(self):
         p = self.tmp / "lixo.pdf"
