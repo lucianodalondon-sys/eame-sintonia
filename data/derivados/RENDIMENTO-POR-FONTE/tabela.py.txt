@@ -1,0 +1,85 @@
+# -*- coding: utf-8 -*-
+# RENDIMENTO-POR-FONTE · a tabela por fonte e por classe, SO LEITURA, sem rede. Registo do ensaio (.txt).
+#   PYTHONUTF8=1 py data/derivados/RENDIMENTO-POR-FONTE/tabela.py.txt
+# Entrada: a MEDIDA da PERIODO-E-CHAVES (ramo periodo-chaves-v1 @ 71d40788, ficheiro
+# data/derivados/PERIODO-E-CHAVES/MEDIDA.json): 1.252 documentos (94 linhas da Sala + 1.158 brutos
+# fora dela), cada um pela estrada do reprocesso com o extractor mais novo (periodo, regiao sem nome,
+# cultura fora de T1). Lida pelo git (`git show`), para o numero ter um SHA.
+# Coortes: 64 = auditoria-madrugada/C2-ONDA4/rodadas.txt; 18 = SOCIAL-QUALIFICAR.md no vivo 69b0e23f;
+# 41 = curadoria/DESBLOQUEIO-LEDGER-V1.jsonl no vivo (fase canal-youtube). So leitura dos tres.
+import collections
+import json
+import os
+import re
+import subprocess
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+W = "C:/Users/London1/orca/workspaces/eame-sintonia"
+MEDIDA_SHA = "71d40788"
+MEDIDA = json.loads(subprocess.run(
+    ["git", "-C", W + "/periodo-chaves-v1", "show", MEDIDA_SHA + ":data/derivados/PERIODO-E-CHAVES/MEDIDA.json"],
+    capture_output=True, check=True).stdout.decode("utf-8"))
+
+RODADAS = open("C:/Users/London1/auditoria-madrugada/C2-ONDA4/rodadas.txt", encoding="utf-8").read()
+C64 = sorted(set(re.findall(r"IT-T\d+-\d+", RODADAS)))
+SQ = subprocess.run(["git", "-C", W + "/periodo-chaves-v1", "show", "69b0e23f:SOCIAL-QUALIFICAR.md"],
+                    capture_output=True, check=True).stdout.decode("utf-8")
+C18 = []
+for l in SQ.splitlines():
+    m = re.match(r"\| CAND-\d+ \|[^|]*\| (IT-T\d+-\d+) \|", l)
+    if m and m.group(1) not in C18:
+        C18.append(m.group(1))
+C41 = sorted({json.loads(l)["SOURCE_ID"] for l in open(W + "/source-curator-service-v1/curadoria/DESBLOQUEIO-LEDGER-V1.jsonl",
+                                                        encoding="utf-8") if "canal-youtube" in l})
+assert len(C64) == 64 and len(C18) == 18 and len(C41) == 41, (len(C64), len(C18), len(C41))
+
+K = ("JANELA", "REGIAO_DO_FATO", "CULTURA")
+
+
+def conta(itens):
+    n = len(itens)
+    t = sum(i["TEM_TEXTO"] for i in itens)
+    c = {k: sum(i[k]["PROVADA"] for i in itens) for k in K}
+    tres = sum(all(i[k]["PROVADA"] for k in K) for i in itens)
+    duas = sum(sum(i[k]["PROVADA"] for k in K) >= 2 for i in itens)
+    alguma = sum(any(i[k]["PROVADA"] for k in K) for i in itens)
+    pct = lambda x: round(100.0 * x / n, 1) if n else None
+    return {"ITENS": n, "COM_TEXTO": t, "FACT_TIME_COM_ANO": c["JANELA"], "REGIAO": c["REGIAO_DO_FATO"],
+            "CULTURA": c["CULTURA"], "AS_3": tres, "PELO_MENOS_2": duas, "ALGUMA": alguma,
+            "PCT_FACT_TIME_COM_ANO": pct(c["JANELA"]), "PCT_REGIAO": pct(c["REGIAO_DO_FATO"]),
+            "PCT_CULTURA": pct(c["CULTURA"]), "PCT_AS_3": pct(tres)}
+
+
+# um documento conta uma vez (o sha256 do bruto): a Sala tem 6 brutos em 2 linhas
+docs = collections.OrderedDict()
+for i in MEDIDA["ITENS"]:
+    docs.setdefault(i["SHA256"], i)
+itens = list(docs.values())
+por_fonte = collections.defaultdict(list)
+for i in itens:
+    por_fonte[i["SOURCE_ID"]].append(i)
+
+fora = {"MEDIDA": "periodo-chaves-v1@%s:data/derivados/PERIODO-E-CHAVES/MEDIDA.json" % MEDIDA_SHA,
+        "DOCUMENTOS": len(itens), "COORTES": {"C64": C64, "C18": C18, "C41": C41}, "POR_FONTE": {}, "POR_CLASSE": {},
+        "POR_COORTE": {}}
+todas = sorted(set(por_fonte) | set(C64) | set(C18) | set(C41),
+               key=lambda s: (int(re.search(r"T(\d+)", s).group(1)) if re.search(r"T(\d+)", s) else 99, s))
+for s in todas:
+    r = conta(por_fonte.get(s, []))
+    r["COORTE"] = "+".join(n for n, c in (("C64", C64), ("C18", C18), ("C41", C41)) if s in c) or "FORA"
+    fora["POR_FONTE"][s] = r
+por_classe = collections.defaultdict(list)
+for i in itens:
+    por_classe[i["UNIVERSO"]].append(i)
+for u in sorted(por_classe, key=lambda u: int(u[1:]) if u[1:].isdigit() else 99):
+    fora["POR_CLASSE"][u] = conta(por_classe[u])
+for nome, c in (("C64", C64), ("C18", C18), ("C41", C41)):
+    sel = [i for i in itens if i["SOURCE_ID"] in c]
+    r = conta(sel)
+    r["FONTES"] = len(c)
+    r["FONTES_COM_BRUTO"] = sum(1 for s in c if por_fonte.get(s))
+    r["FONTES_COM_ALGUM_ITEM_COM_AS_3"] = sum(1 for s in c if any(all(i[k]["PROVADA"] for k in K) for i in por_fonte.get(s, [])))
+    fora["POR_COORTE"][nome] = r
+fora["TUDO"] = conta(itens)
+json.dump(fora, open(os.path.join(AQUI, "TABELA.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
+print(json.dumps({k: fora[k] for k in ("DOCUMENTOS", "POR_COORTE", "TUDO")}, ensure_ascii=False, indent=1))

@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+# RENDIMENTO-POR-FONTE · rendimento em chaves de cada rodada da 4.a onda (C2-ONDA4/rodadas.txt), SO LEITURA.
+#   PYTHONUTF8=1 py data/derivados/RENDIMENTO-POR-FONTE/rodadas.py.txt
+# Nao muda o teto nem a janela: as rodadas sao as do plano, com as mesmas fontes; so se ORDENAM.
+import json
+import os
+import re
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+T = json.load(open(os.path.join(AQUI, "TABELA.json"), encoding="utf-8"))["POR_FONTE"]
+txt = open("C:/Users/London1/auditoria-madrugada/C2-ONDA4/rodadas.txt", encoding="utf-8").read()
+rodadas = []
+for bloco in re.split(r"\n(?=RODADA \d+)", txt)[1:]:
+    n = int(re.match(r"RODADA (\d+)", bloco).group(1))
+    fontes = sorted(set(re.findall(r"IT-T\d+-\d+", bloco)))
+    ped = int(re.search(r"(\d+) pedidos", bloco).group(1))
+    r = {"RODADA": n, "FONTES": fontes, "PEDIDOS_PREVISTOS": ped}
+    medidas = [s for s in fontes if T[s]["ITENS"]]
+    r["FONTES_COM_BRUTO"] = len(medidas)
+    r["FONTES_SEM_MEDIDA"] = [s for s in fontes if not T[s]["ITENS"]]
+    for k in ("ITENS", "AS_3", "PELO_MENOS_2", "ALGUMA", "FACT_TIME_COM_ANO", "REGIAO", "CULTURA"):
+        r[k] = sum(T[s][k] for s in medidas)
+    r["AS_3_POR_100_ITENS"] = round(100.0 * r["AS_3"] / r["ITENS"], 2) if r["ITENS"] else None
+    r["PELO_MENOS_2_POR_100_ITENS"] = round(100.0 * r["PELO_MENOS_2"] / r["ITENS"], 2) if r["ITENS"] else None
+    r["FONTES_QUE_RENDEM"] = [s for s in medidas if T[s]["PELO_MENOS_2"]]
+    rodadas.append(r)
+# ordem proposta: primeiro quem ja deu itens com as 3; depois >=2; depois alguma; as sem medida no fim
+ordem = sorted(rodadas, key=lambda r: (-(r["AS_3"]), -(r["PELO_MENOS_2"]), -(r["ALGUMA"]),
+                                       len(r["FONTES_SEM_MEDIDA"]) == len(r["FONTES"]), r["RODADA"]))
+json.dump({"RODADAS": rodadas, "ORDEM_PROPOSTA": [r["RODADA"] for r in ordem]},
+          open(os.path.join(AQUI, "RODADAS.json"), "w", encoding="utf-8", newline="\n"), ensure_ascii=False, indent=1)
+for r in rodadas:
+    print("R%-2d fontes=%2d bruto=%2d sem_medida=%2d itens=%3d as3=%d >=2=%2d alguma=%2d ped=%3d rendem=%s" % (
+        r["RODADA"], len(r["FONTES"]), r["FONTES_COM_BRUTO"], len(r["FONTES_SEM_MEDIDA"]), r["ITENS"], r["AS_3"],
+        r["PELO_MENOS_2"], r["ALGUMA"], r["PEDIDOS_PREVISTOS"], r["FONTES_QUE_RENDEM"]))
+print("ORDEM:", [r["RODADA"] for r in ordem])

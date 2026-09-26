@@ -1,0 +1,87 @@
+# -*- coding: utf-8 -*-
+# RENDIMENTO-POR-FONTE · 30 itens SEM FACT_TIME, para ler a mao. SO LEITURA, sem rede. Registo (.txt).
+#   PYTHONUTF8=1 py data/derivados/RENDIMENTO-POR-FONTE/amostra30.py.txt
+# Escolha: documentos COM texto e sem FACT_TIME, semente 20260926, estratificada — 18 das fontes da
+# coorte 64 (quem a 4.a onda vai visitar), 8 dos 41 canais, 4 das restantes. Para cada um mostra:
+# o titulo, o porque do extractor (campos_do_fato do codigo de periodo-chaves-v1 @ 71d40788),
+# os trechos com cara de data e os lugares do gazetteer no corpo — para a leitura humana decidir.
+import collections
+import importlib.machinery
+import json
+import os
+import random
+import re
+import subprocess
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+W = "C:/Users/London1/orca/workspaces/eame-sintonia"
+COD = W + "/periodo-chaves-v1"          # o extractor mais novo (71d40788); so importado, nada escrito
+sys.path[:0] = [COD]
+from leis import fato_do_texto as F  # noqa: E402
+from leis import fato_local as FL  # noqa: E402
+
+LS = importlib.machinery.SourceFileLoader(
+    "ler_sala", COD + "/data/derivados/PERIODO-E-CHAVES/ler_sala.py.txt").load_module()
+ARMAZEM = os.path.expanduser("~/sintonia-sala-italia/armazem")
+T = json.load(open(os.path.join(AQUI, "TABELA.json"), encoding="utf-8"))
+MEDIDA = json.loads(subprocess.run(["git", "-C", COD, "show", "71d40788:data/derivados/PERIODO-E-CHAVES/MEDIDA.json"],
+                                   capture_output=True, check=True).stdout.decode("utf-8"))
+C64, C41 = set(T["COORTES"]["C64"]), set(T["COORTES"]["C41"])
+
+docs = collections.OrderedDict()
+for i in MEDIDA["ITENS"]:
+    docs.setdefault(i["SHA256"], i)
+sem = [i for i in docs.values() if i["TEM_TEXTO"] and i["FACT_TIME"] != "SIM"]
+rnd = random.Random(20260926)
+grupos = (([i for i in sem if i["SOURCE_ID"] in C64], 18), ([i for i in sem if i["SOURCE_ID"] in C41], 8),
+          ([i for i in sem if i["SOURCE_ID"] not in C64 | C41], 4))
+escolha = []
+for g, n in grupos:
+    # no maximo 2 por fonte, para a amostra nao ser uma fonte so
+    por = collections.Counter()
+    for i in rnd.sample(g, len(g)):
+        if por[i["SOURCE_ID"]] < 2 and len([x for x in escolha if x in g]) < n:
+            escolha.append(i)
+            por[i["SOURCE_ID"]] += 1
+
+RE_DATA = re.compile(r"(?<![0-9])(?:\d{1,2}(?:\s*[-–/]\s*\d{1,2})?\s+(?:%s)(?:\s+(?:19|20)\d{2})?|(?:%s)\s+(?:19|20)\d{2}|"
+                     r"\d{1,2}/\d{1,2}/(?:19|20)?\d{2}|(?:19|20)\d{2})(?![0-9])" % ("|".join(FL.MESES), "|".join(FL.MESES)), re.I)
+
+
+def texto(i):
+    if i["GRUPO"] == "SALA":
+        return json.loads(LS.consultar("select to_json(texto)::text from public.sala_de_espera_atual "
+                                       "where run_id = '%s' and ordem = %d" % (i["RUN_ID"], i["ORDEM"]))[0])
+    sp = LS.consultar("select storage_path from public.derived_artifact where parent_sha256 = '%s' "
+                      "and kind in ('TEXT_EXTRACTION','TRANSCRIPTION') order by id limit 1" % i["SHA256"])[0]
+    return open(os.path.join(ARMAZEM, sp), encoding="utf-8").read()
+
+
+fora = []
+for n, i in enumerate(escolha):
+    t = texto(i)
+    c = F.corpo(t)
+    r = F.campos_do_fato(t)
+    datas = []
+    for m in RE_DATA.finditer(c):
+        datas.append(re.sub(r"\s+", " ", c[max(0, m.start() - 70):m.end() + 50]))
+        if len(datas) >= 4:
+            break
+    lugares = sorted({m["PLACE"] for m in FL.mencoes(c)})[:8]
+    fora.append({"N": n + 1, "SOURCE_ID": i["SOURCE_ID"], "UNIVERSO": i["UNIVERSO"], "SHA256": i["SHA256"][:16],
+                 "GRUPO": i["GRUPO"], "COORTE": T["POR_FONTE"][i["SOURCE_ID"]]["COORTE"],
+                 "TITULO": next((l for l in t.splitlines() if l.strip()), "")[:160],
+                 "LETRAS_DO_CORPO": len(c), "FACT_TIME_PORQUE": str(r.get("fact_time_basis"))[:220],
+                 "REGIAO": r.get("fact_location"), "REGIAO_PORQUE": str(r.get("fact_location_basis"))[:220],
+                 "TRECHOS_COM_DATA": datas, "LUGARES_NO_CORPO": lugares})
+json.dump(fora, open(os.path.join(AQUI, "AMOSTRA-30.json"), "w", encoding="utf-8", newline="\n"),
+          ensure_ascii=False, indent=1)
+for a in fora:
+    print("#%(N)d %(SOURCE_ID)s %(COORTE)s %(SHA256).8s corpo=%(LETRAS_DO_CORPO)d REG=%(REGIAO)s" % a)
+    print("   T:", a["TITULO"][:130])
+    print("   FT:", a["FACT_TIME_PORQUE"][:150])
+    print("   RG:", a["REGIAO_PORQUE"][:150])
+    for d in a["TRECHOS_COM_DATA"]:
+        print("   D:", d[:170])
+    print("   L:", a["LUGARES_NO_CORPO"])
