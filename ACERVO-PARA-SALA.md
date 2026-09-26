@@ -1,6 +1,6 @@
 # ACERVO-PARA-SALA · porque 1.158 documentos guardados não estão na Sala, e quantos podem entrar sem ir à internet
 
-Ramo `acervo-para-sala-v1`, a partir do vivo `83de0ccd`. **Só leitura e sem rede**:
+Ramo `acervo-para-sala-v1`, a partir do vivo `83de0ccd` e rebaseado sobre o vivo `69b0e23f` (lote 1 da INTEGRA). **Só leitura e sem rede**:
 - a Sala real foi lida por `SELECT` com `default_transaction_read_only=on`;
 - o livro de decisões e os livros do coletor foram lidos, não escritos;
 - RAW, derivados, Sala e armazém **não foram tocados**;
@@ -108,45 +108,112 @@ A maior parte é de **20/09**, antes de existir a ponte do DERIVADO até à port
 - os 612 do YouTube só com decisão;
 - 166 + 23 não entram sem conserto ou coleta.
 
-**Quantos DESSES a porta aceita de verdade** só o ensaio diz (secção 4).
+**Quantos DESSES a porta aceita de verdade:** o ensaio mediu **4** (secção 4).
 
 ## 4. O ensaio (Postgres descartável)
 
-ENSAIO_AQUI
+Feito em 26/09 às 06:00–06:45, sob a LOCK-PESADO. Resultado em `scripts/acervo_para_sala/ENSAIO-REPROCESSO-V2.json`, e as decisões
+que a porta escreveu **no livro da cópia** em `DECISOES-DO-ENSAIO-V2.json`.
 
-## 5. Roteiro de reprocesso para o coordenador
+**A montagem (tudo cópia; nada do vivo nem da Sala foi escrito):**
+- **o código:** o vivo `69b0e23f` (que já traz o leitor-data-yt `4dd00308`) + `conserto-regua-v1 a139caad`, numa pasta local;
+- **a Sala:** uma cópia só-leitura tirada às 05:40 (`pg_dump -Fc`, sha256 `687a135e…`), restaurada num Postgres descartável.
+  Usei esta e não o backup de 19:33, que é anterior à 3.ª onda: com ele, o que a onda pôs pareceria entrar pelo reprocesso;
+- **o livro reunido:** o livro do vivo + 1.146 linhas das mesmas corridas que só existem em livros de outras pastas;
+- **os bytes:** no depósito do coletor dentro da árvore (1.136 ficheiros; 118 não existem em lado nenhum) e no armazém (2.260), todos com o
+  sha256 conferido.
 
-Pré-requisito: a decisão sobre o livro (secção 3). Sem ela, só os 260 do livro vivo.
+**As corridas:** as do banco e as do livro onde a impressão digital de cada documento aparece. O mesmo conteúdo foi muitas vezes colhido de
+novo por uma corrida mais recente, e é essa que o livro conhece. Total: **341 corridas**, cada uma pela porta canónica, sem rede.
 
-1. **Preflight e backup.**
-   - `preflight_sala.cmd` → PASS;
-   - `backup_sala.cmd` → um `.dump` novo, com o sha256 anotado.
-2. **Robô parado.** Criar `PARAR.flag` no vivo e confirmar que o supervisor e o observador pararam: 0 processos
-   do coletor.
-3. **Rede fechada**, como no ensaio (`HTTP(S)_PROXY=http://127.0.0.1:9`). Reprocessar não é colher.
-4. **Por corrida**, na árvore do vivo (`source-curator-service-v1`), com `SINTONIA_SALA_BACKEND=POSTGRES`,
-   `SINTONIA_SALA_DSN` e `SINTONIA_COLLECTION_DSN` da Sala real, e `SINTONIA_ARMAZEM_RAIZ` do armazém real:
+| o que aconteceu | corridas | porquê |
+|---|---|---|
+| **passaram pela porta** | **66** | a Admissão julgou os documentos |
+| envelope recusado: «unidade colhida sem SOURCE_ID» | 178 | o livro antigo (20/09) tem unidades sem a fonte; a porta recusa o envelope inteiro («não se inventa uma fonte») |
+| sem executor: «NAO SEI COMO» | 50 | T1 (cultura) e T11 (eventos) não têm executor declarado; a estrada não abre |
+| balcão vazio | 47 | a corrida do banco não tem linha em livro nenhum |
 
+**O que a porta respondeu, com as réguas de hoje, aos 260 «julgáveis já»:** **SIM 3** · NAO 117 · NAO_SEI 94 · NAO_SE_APLICA 46.
+
+**O que entrou na Sala do ensaio: 4 linhas** (88 → 92 documentos; 94 → 98 linhas):
+
+| item | fonte | o que é | publicação | data do facto | lugar do facto |
+|---|---|---|---|---|---|
+| derived:791 | IT-T10-022 | FEFAC e Sindirações assinam um MoU da indústria de ração | 2026-08-09 (JSON-LD) | NAO SEI | NAO SEI |
+| derived:793 | IT-T10-022 | A Indonésia olha a China e o Médio Oriente para exportar frango | 2026-07-22 (JSON-LD) | NAO SEI | NAO SEI |
+| derived:787 | IT-T10-022 | A produção de aves da UE sobe e o preço do frango desce | 2026-08-18 (JSON-LD) | NAO SEI | NAO SEI |
+| (derivado novo) | IT-T10-022 | um 4.º texto extraído de novo no reprocesso | 2026-07-25 (JSON-LD) | NAO SEI | NAO SEI |
+
+Li os três primeiros à mão (o texto guardado): são **matérias de verdade** da revista Zootecnica International (aves e ração), julgadas
+SIM em T10 (mercado).
+
+- ⚠️ **Foco:** a decisão de 23/09 tirou veterinária e saúde animal do foco. Aves e ração não são saúde animal, mas também não são lavoura.
+  A porta aceita; se é foco, decide o dono. Não se afrouxa nem se aperta a porta aqui.
+- ⚠️ **Data e lugar do facto NAO SEI, por defeito MEU (LUGAR-FATO):** o texto destas páginas vem numa linha só, e essa linha tem a
+  palavra «Newsletter». O leitor do facto trata a linha inteira como rodapé e diz «o texto não tem corpo». É um conserto no meu
+  `leis/fato_do_texto.corpo()`, para depois (não mexi hoje).
+
+**Idempotência:** as 5 primeiras corridas outra vez → Sala **+0** (98 → 98).
+
+**Um defeito real, achado pelo caminho** (`coleta/ingresso.py:913`): quando o ficheiro de uma observação não está onde o livro diz, o
+ingresso monta a ficha com `CONTENT_TYPE="application/json"` **e** com o `CONTENT_TYPE` que a observação declarou. Resultado:
+`TypeError … got multiple values for keyword argument 'CONTENT_TYPE'`, e a corrida quebra em vez de dizer «ficheiro ausente». No primeiro
+ensaio isto partiu 57 corridas. A culpa foi da minha montagem (os bytes estavam fora da árvore), mas no vivo acontece a qualquer corrida
+cujo ficheiro falte. Por isso uma corrida ficou fora do lote (abaixo).
+
+## 5. Roteiro EXECUTÁVEL para o vivo — o LOTE dos «julgáveis já» (D82)
+
+**O que entra (medido no ensaio): 4 documentos na Sala, todos T10, todos com data de publicação, 0 com data do facto, 0 com lugar do
+facto.** Nenhum portão é afrouxado: é a mesma porta.
+
+As **64 corridas** do lote estão em `scripts/acervo_para_sala/LOTE-260-CORRIDAS.json`. São as 66 que passaram pela porta no ensaio,
+**todas com as observações no livro do próprio vivo** (324 ficheiros conferidos pelo sha256 na árvore do vivo), menos duas:
+- `XX-T3-2026-09-18-171838…` (ARPAV): faltam-lhe 4 ficheiros no depósito do vivo, e cairia no defeito do `CONTENT_TYPE`;
+- `OPS_forward-only-live_…`: o RUN_ID não traz classe T.
+
+Nenhuma das duas traz nenhum dos 4.
+
+Os 97 «nunca perguntados» ficam para depois: dependem de juntar os livros e de consertar o livro antigo (secção 3).
+
+**Passos (na máquina do vivo, janela `cmd`):**
+
+1. **Preflight e backup**
    ```
-   py -B -c "from coleta import italy_executor as ix; ix.colher('<RUN_ID>')"
-   py -B orquestrador/orquestrador.py <apelido do universo> --so-a-porta --colheita-da-corrida=<RUN_ID> ^
-       --filtro fonte=<SOURCE_ID> --filtro universo=<Tn>
+   %USERPROFILE%\sintonia-sala-italia\preflight_sala.cmd
+   %USERPROFILE%\sintonia-sala-italia\backup_sala.cmd
    ```
-
-   - A lista de `<RUN_ID>, <SOURCE_ID>, <Tn>` é a do ensaio (`PASSAGENS`).
-   - O apelido é: T1 cultura · T2 clima · T3 praga · T5 ciencia · T7 cooperativa · T8 agricultor ·
-     T9 concorrente · T10 mercado · T11 evento · T12 politica.
-5. **Validação** (SELECT, só leitura):
-   - `select count(*) from sala_de_espera` = antes + as novas do ensaio;
-   - as linhas antigas iguais byte a byte (md5, como na verificação da 033);
-   - `etapa_da_corrida` com ADMISSION nas corridas reprocessadas;
-   - cada linha nova com SIM no livro de decisões (0 bypass).
-6. **Outra vez as 5 primeiras corridas** → Sala +0 (idempotência).
-7. **Religar**: tirar `PARAR.flag`.
-8. **Desfazer**: restaurar o `.dump` do passo 1 (`pg_restore` sobre uma base recriada, com o serviço parado,
-   como em `ensaio_offline.Base.restaurar`). A Sala só acrescenta, e as linhas novas são a única diferença.
+   Anotar o nome do `.dump` novo e o sha256 dele.
+2. **Robô parado:** criar `PARAR.flag` na raiz do vivo (`…\source-curator-service-v1\PARAR.flag`) e confirmar que o supervisor e o
+   coletor pararam (0 processos do coletor).
+3. **Conferir sem correr** (não escreve nada):
+   ```
+   cd %USERPROFILE%\orca\workspaces\eame-sintonia\source-curator-service-v1
+   py -B <ramo acervo-para-sala-v1>\scripts\acervo_para_sala\reprocessar_lote.py --arvore . --lista <ramo>\scripts\acervo_para_sala\LOTE-260-CORRIDAS.json
+   ```
+   Tem de dizer 64 corridas e **nenhum** «NAO PRONTO». Conferido por mim às 06:50 contra o vivo real: só faltava o `PARAR.flag`.
+4. **Correr:** o mesmo comando com `--aplicar --saida RECIBO-LOTE-ACERVO.json`.
+   - O script fecha a rede no processo filho, usa `SINTONIA_SALA_BACKEND=POSTGRES`, a DSN de `SALA_DSN.txt` e o armazém de
+     `~/sintonia-sala-italia/armazem`.
+   - Para cada corrida chama `italy_executor.colher` + `orquestrador --so-a-porta`.
+   - No ensaio levou cerca de 35 minutos (as 341 corridas); o lote de 64 deve levar menos.
+5. **Validação** (só leitura):
+   ```
+   select count(*) from sala_de_espera;          -- antes + 4
+   select item_id, source_id, published_at, fact_time, fact_location
+     from sala_de_espera_atual where source_id = 'IT-T10-022' order by pousado_em desc limit 6;
+   ```
+   Conferir também:
+   - no `RECIBO-LOTE-ACERVO.json`, nenhuma corrida com `EXIT` ≠ 0;
+   - no `data/samples/LIVRO-DE-DECISOES.json`, as decisões novas com SIM = as linhas novas da Sala (0 desvios);
+   - as linhas antigas da Sala iguais (md5, como na verificação da 033).
+6. **Outra vez as 5 primeiras corridas** (a mesma lista cortada) → Sala **+0**.
+7. **Religar:** apagar `PARAR.flag`.
+8. **Desfazer, se preciso:** restaurar o `.dump` do passo 1 com o serviço parado (dropdb/createdb/pg_restore, como em
+   `scripts/micro_coleta/ensaio_offline.py::Base.restaurar`). A Sala só acrescenta; as 4 linhas e as decisões novas são a única diferença.
+   O `LIVRO-DE-DECISOES.json` e o `RUN-MANIFEST.json` do vivo ganham linhas novas: guardar uma cópia dos dois antes do passo 4.
 
 ## 6. Evidência
 
 - `scripts/acervo_para_sala/classificar_fora_da_sala.py` · `MOTIVOS-FORA-DA-SALA-V1.json` · `ENTRADAS.sha256`.
-- `provas/acervo_para_sala_ensaio.py`: o ensaio (secção 4).
+- `provas/acervo_para_sala_ensaio.py` · `ENSAIO-REPROCESSO-V2.json` · `DECISOES-DO-ENSAIO-V2.json`: o ensaio (secção 4).
+- `scripts/acervo_para_sala/reprocessar_lote.py` · `LOTE-260-CORRIDAS.json`: o roteiro executável (secção 5).
