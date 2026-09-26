@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-26T05:29:20+00:00",
-    "HEAD": "3214a83e2d41206cea34e5f90a2bbecdc667d74c",
+    "GENERATED_AT": "2026-09-26T07:05:31+00:00",
+    "HEAD": "4fc0f8d623ee22984e53c5caf88ae036ddf35659",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "acceca7d77d0f540d38d78775ab1ef062097e174448ffbf9139a91a61b699c1e",
-    "FICHEIROS_NA_IMPRESSAO": 3617,
+    "SOURCE_TREE_FINGERPRINT": "470edfe3fd942603c339db5ec2444190c480d2e19e90bb99a2611bf6fade5e8f",
+    "FICHEIROS_NA_IMPRESSAO": 3688,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -37959,6 +37959,10 @@
           "line": 266
         },
         {
+          "file": "provas/social-micro-prep/sala_social.py",
+          "line": 35
+        },
+        {
           "file": "regras/comunicacao_identidade.py",
           "line": 383
         },
@@ -37977,6 +37981,10 @@
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 305
+        },
+        {
+          "file": "tests/test_semear_so_as_candidatas.py",
+          "line": 20
         }
       ]
     },
@@ -38049,7 +38057,7 @@
         },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 802
+          "line": 810
         }
       ]
     },
@@ -38115,15 +38123,11 @@
       "usado_por": [
         {
           "file": "coleta/adaptador_youtube.py",
-          "line": 819
+          "line": 824
         },
         {
           "file": "coleta/youtube_oficial.py",
           "line": 450
-        },
-        {
-          "file": "curadoria/canario.py",
-          "line": 60
         },
         {
           "file": "curadoria/test_d21_heranca.py",
@@ -38143,15 +38147,19 @@
         },
         {
           "file": "tests/test_d36_envelope_equivalente.py",
-          "line": 46
-        },
-        {
-          "file": "tests/test_importar_do_coletor.py",
-          "line": 179
+          "line": 48
         },
         {
           "file": "tests/test_onda3_b_inerte.py",
-          "line": 48
+          "line": 52
+        },
+        {
+          "file": "tests/test_rota_video_d53.py",
+          "line": 62
+        },
+        {
+          "file": "tests/test_youtube_pelo_scrap.py",
+          "line": 39
         },
         {
           "file": "tests/test_yt_metadados_do_audio.py",
@@ -38328,6 +38336,43 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/feeds",
+      "usado_por": [
+        {
+          "file": "curadoria/canario.py",
+          "line": 57
+        },
+        {
+          "file": "curadoria/capturador.py",
+          "line": 585
+        },
+        {
+          "file": "curadoria/escrever_contratos.py",
+          "line": 121
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 63
+        },
+        {
+          "file": "curadoria/validar_contratos.py",
+          "line": 219
+        },
+        {
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 38
+        },
+        {
+          "file": "tests/test_legacy_recheck.py",
+          "line": 35
+        },
+        {
+          "file": "tests/test_youtube_pelo_scrap.py",
+          "line": 43
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/watch?v=%s'",
       "usado_por": [
         {
@@ -38357,39 +38402,6 @@
         {
           "file": "tests/test_ponte_audio_publico.py",
           "line": 82
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/feeds",
-      "usado_por": [
-        {
-          "file": "curadoria/canario.py",
-          "line": 57
-        },
-        {
-          "file": "curadoria/capturador.py",
-          "line": 585
-        },
-        {
-          "file": "curadoria/escrever_contratos.py",
-          "line": 121
-        },
-        {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 63
-        },
-        {
-          "file": "curadoria/validar_contratos.py",
-          "line": 219
-        },
-        {
-          "file": "tests/test_importar_do_coletor.py",
-          "line": 40
-        },
-        {
-          "file": "tests/test_legacy_recheck.py",
-          "line": 35
         }
       ]
     },
@@ -38539,6 +38551,31 @@
       ]
     },
     {
+      "endpoint": "https://www.cnr.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 444
+        },
+        {
+          "file": "curadoria/test_abastecimento.py",
+          "line": 208
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 954
+        },
+        {
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 24
+        },
+        {
+          "file": "tests/test_youtube_pelo_scrap.py",
+          "line": 55
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.cia.it',timeout=5)",
       "usado_por": [
         {
@@ -38618,7 +38655,7 @@
         },
         {
           "file": "ferramentas/youtube_transcrever.py",
-          "line": 173
+          "line": 174
         },
         {
           "file": "tests/test_c13_executor_wiring.py",
@@ -38732,27 +38769,6 @@
       ]
     },
     {
-      "endpoint": "https://www.cnr.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 444
-        },
-        {
-          "file": "curadoria/test_abastecimento.py",
-          "line": 208
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 954
-        },
-        {
-          "file": "tests/test_importar_do_coletor.py",
-          "line": 26
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.cia.it/",
       "usado_por": [
         {
@@ -38833,27 +38849,6 @@
         {
           "file": "tests/test_porta_de_candidatas.py",
           "line": 233
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/@x",
-      "usado_por": [
-        {
-          "file": "curadoria/test_capturador.py",
-          "line": 68
-        },
-        {
-          "file": "curadoria/test_soc4_handles.py",
-          "line": 81
-        },
-        {
-          "file": "tests/test_importar_do_coletor.py",
-          "line": 225
-        },
-        {
-          "file": "tests/test_onda3_b_inerte.py",
-          "line": 39
         }
       ]
     },
@@ -39038,11 +39033,28 @@
           "line": 41
         }
       ]
+    },
+    {
+      "endpoint": "https://www.arpalazio.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 285
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 64
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 87
+        }
+      ]
     }
   ],
-  "ENDPOINTS_FOUND": 705,
+  "ENDPOINTS_FOUND": 712,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 665,
+  "ENDPOINTS_TRUNCATED": 672,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -39060,9 +39072,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 705,
+    "endpoints": 712,
     "endpoints_published": 40,
-    "endpoints_truncated": 665,
+    "endpoints_truncated": 672,
     "candidates": 1199,
     "coletores": 54,
     "coletores_com_data": 20,
