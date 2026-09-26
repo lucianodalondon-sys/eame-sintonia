@@ -980,7 +980,8 @@
     "scripts/reproc_acervo/prever_acervo.py",
     "scripts/reproc_acervo/ACERVO-TEMPO-LUGAR-V1.json",
     "ACERVO-TEMPO-LUGAR.md",
-    "scripts/reproc_acervo/ENSAIO-034-DESCARTAVEL.json"
+    "scripts/reproc_acervo/ENSAIO-034-DESCARTAVEL.json",
+    "leis/boletim_do_campo.py"
    ]
   },
   {
@@ -1205,7 +1206,8 @@
     "ferramentas/fala_local.py",
     "ferramentas/instagram_transcrever.py",
     "ferramentas/reel_transcricao.py",
-    "ferramentas/youtube_transcrever.py"
+    "ferramentas/youtube_transcrever.py",
+    "ferramentas/yt_dlp_com_freio.py"
    ]
   },
   {
@@ -2452,7 +2454,9 @@
     "provas/testa_golden_path_pdf.py",
     "provas/trava_de_drift_de_migration.sh",
     "provas/ui_revisao_t3_ptbr.py",
-    "provas/migracao_034_ensaio_copia.py"
+    "provas/migracao_034_ensaio_copia.py",
+    "provas/migracao_037_ensaio_descartavel.py",
+    "provas/migracao_036_ensaio_copia.py"
    ],
    "views": [
     "audit"
@@ -2793,7 +2797,8 @@
     "coleta/social_persistencia.py",
     "coleta/social_rotas.py",
     "coleta/social_scrap.py",
-    "coleta/youtube_oficial.py"
+    "coleta/youtube_oficial.py",
+    "coleta/teto_da_onda.py"
    ]
   },
   {
@@ -2880,7 +2885,9 @@
     "provas/social-micro-prep/sala_sm.sh",
     "provas/social-micro-prep/sala_diag.sh",
     "provas/social-qualificar/medir_yt_dlp_offline.py",
-    "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json"
+    "docs/sintonia-scrap/SOC1-PRONTIDAO-SOCIAL-V1.json",
+    "provas/_mutantes_freio_social.py",
+    "provas/_mutantes_maestro_social.py"
    ],
    "views": [
     "acervo",
@@ -3419,7 +3426,9 @@
    ],
    "files": [
     "admissao/reprocessar_tempo_lugar.py",
-    "admissao/sala_de_espera.py"
+    "admissao/sala_de_espera.py",
+    "admissao/video_na_sala.py",
+    "admissao/versao_do_documento.py"
    ],
    "views": [
     "audit",
@@ -4093,7 +4102,9 @@
    ],
    "files": [
     "leis/fonte_do_atlas.py",
-    "leis/lugar_da_organizacao.py"
+    "leis/lugar_da_organizacao.py",
+    "leis/identidade_do_video.py",
+    "leis/prova_de_post_de_pessoa.py"
    ],
    "views": [
     "acervo",
@@ -4619,7 +4630,8 @@
     "coleta/executor_texto_de_html.py",
     "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
     "coleta/retrato_html.mjs",
-    "tests/dados/c2-juiz/*.html"
+    "tests/dados/c2-juiz/*.html",
+    "coleta/extratores_de_texto.py"
    ],
    "views": [
     "audit",
@@ -4973,7 +4985,8 @@
    ],
    "files": [
     "ferramentas/big_collection/onda_web.py",
-    "ferramentas/big_collection/rodadas.py"
+    "ferramentas/big_collection/rodadas.py",
+    "ferramentas/maestro_social/maestro_social.py"
    ]
   },
   {
@@ -5316,6 +5329,99 @@
     "provas/integra_noite/lote1-vivo.json",
     "provas/integra_noite/writeset-lote1.txt",
     "provas/integra_noite/16-livros-l1.txt"
+   ]
+  },
+  {
+   "id": "C-BLOQUEADAS-268",
+   "name": "BLOQUEADAS-268 — as tarefas BLOCKED/FAILED da fila por motivo, e o que as destrava",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Le (so leitura) a fila, as fichas, o livro de contratos, o ledger e DECISOES-SEMANTICAS do vivo e classifica cada tarefa BLOCKED/FAILED: motivo, classe T, dominio, accao, quem destrava, se precisa de rede, e uma PROPOSTA (nunca decisao). Medido sobre ce28040c: 280 tarefas, 279 fontes.",
+   "why_here": "Coletar o maximo: saber que fontes se destravam com menos esforco (missao BLOQUEADAS-268, 25/09).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "curadoria/bloqueadas_268.py",
+    "curadoria/BLOQUEADAS-268-V1.json",
+    "PLANO-INSTALACAO-BLOQUEADAS.md"
+   ]
+  },
+  {
+   "id": "C-BLOQUEADAS-DESTRAVAR",
+   "name": "BLOQUEADAS-DESTRAVAR — sonda de 1 pedido por fonte, plano da MICRO-PROVA de territorio, canais para o CANAIS-41",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "sonda_um_pedido.py: 1 pedido ao robots.txt por fonte parada por ligacao, 1 por organizacao por ronda, portao IT antes de cada ronda (o coordenador corre com VPN). micro_prova_plano.py: plano sem rede das rondas de prova de territorio (1 institucional + 2 conteudos, teto D38) para as 89 candidatas. Lista dos 22 canais YouTube candidatos para o CANAIS-41.",
+   "why_here": "Coletar o maximo: destravar as fontes paradas (missao BLOQUEADAS-DESTRAVAR, 26/09).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "curadoria/sonda_um_pedido.py",
+    "curadoria/micro_prova_plano.py",
+    "curadoria/MICRO-PROVA-PLANO-V1.json",
+    "curadoria/CANAIS-YOUTUBE-22-PARA-CANAIS-41.json",
+    "BLOQUEADAS-DESTRAVAR.md"
+   ]
+  },
+  {
+   "id": "C-MICRO-PROVA-LOTE1",
+   "name": "MICRO-PROVA LOTE 1 — leitor de prova de territorio e ensaio a seco do circuito ate PRONTA",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "colher_prova_territorio.py: 3 paginas por candidata (<=5 pedidos, robots, portao IT) em PROPOSTAS no formato DECISOES-SEMANTICAS; --aplicar pelo validador do canal. ensaio_micro_prova_lote1.py: copia do vivo + servidor local, circuito QUALIFY->contrato->canario->READY->portao->rota do coletor->onboarding. 17/20 PRONTA no ensaio (3 falhas desenhadas).",
+   "why_here": "Coletar o maximo: fontes novas prontas pelo caminho canonico (missao MICRO-PROVA-LOTE1, 26/09).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "curadoria/colher_prova_territorio.py",
+    "curadoria/ensaio_micro_prova_lote1.py",
+    "curadoria/ensaio_reabertas_sem_rede.py",
+    "curadoria/MICRO-PROVA-LOTE1.json",
+    "curadoria/ENSAIO-MICRO-PROVA-LOTE1.json",
+    "curadoria/ENSAIO-MICRO-PROVA-LOTE1-CORRIDA1-DESENHO-ERRADO.json",
+    "curadoria/ENSAIO-REABERTAS-SEM-REDE.json",
+    "MICRO-PROVA-LOTE1.md"
+   ]
+  },
+  {
+   "id": "C-CANAIS-41",
+   "name": "CANAIS-41: o roteiro do teste dos 41 canais YouTube pelo Scrap",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "ensaio_a_seco.py: corre a fase canal-youtube do Scrap numa COPIA com chave falsa so no processo, transporte da API trocado por literais e proxy fechado, conta os pedidos por host e passa o envelope pela regua social (D53). montar_corridas.py: monta o --corridas da regua a partir de SOURCE_ID/RUN_ID, contando RAW so leitura (DSN de ficheiro, nunca impresso). para_aplicar.py: separa o que a regua pode escrever no livro (READY, FALHA da fonte) do defeito nosso (chave, teto, RAW, envelope, Atlas, marcas em falta).",
+   "why_here": "CANAIS-41-RUNBOOK (26/09/2026): o teste de qualificacao dos 41 canais antigos pela rota do Scrap; o ensaio a seco mostrou 2 pedidos/canal a googleapis.com e que os itens da API nao trazem OWNER_AUTHORIZED/PLATFORM_POLICY_STATUS (a regua reprovaria todos).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/canais41/ensaio_a_seco.py",
+    "ferramentas/canais41/montar_corridas.py",
+    "ferramentas/canais41/para_aplicar.py"
    ]
   }
  ],
