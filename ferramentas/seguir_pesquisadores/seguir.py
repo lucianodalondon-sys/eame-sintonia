@@ -62,6 +62,20 @@ PLATAFORMAS = [
     (r"(instagram\.com)", "INSTAGRAM", "INSTAGRAM", True),
 ]
 SUFIXOS_DOIS_NIVEIS = {"co.uk", "ac.uk", "com.br", "gov.it", "edu.it"}
+# o que o robo de fontes do vivo (278cd489) sabe fazer com cada tipo — escrito na NOTA da candidata
+ROTA_HOJE = {
+    "YOUTUBE": "rota do Scrap (canal-youtube, SOC2): flui ate ao canario do Scrap",
+    "LINKEDIN_POST": "SEM ROTA: o QUALIFY so aceita /company/; espera a fase video-post-linkedin (D80)",
+    "LINKEDIN_PAGINA": "rota do Scrap (video-linkedin, D23)",
+    "PAGINA_INSTITUCIONAL_OU_PESSOAL": "pagina HTML: contrato de site e canario HTML",
+    "BLOG_NEWSLETTER": "pagina HTML: contrato de site e canario HTML",
+    "X": "SEM ROTA PROPRIA: o QUALIFY trata-a como site; o canario deve reprovar (pede login)",
+    "BLUESKY": "SEM ROTA PROPRIA para a conta: vai como site; o canario deve reprovar",
+    "MASTODON": "SEM ROTA PROPRIA para a conta: vai como site; o canario deve reprovar",
+    "PODCAST": "SEM ROTA: o audio de podcast nao se baixa; vai como site",
+    "FACEBOOK": "rota da familia FACEBOOK (NAO SEI se aceita pessoa)",
+    "INSTAGRAM": "rota da familia INSTAGRAM (NAO SEI se aceita pessoa)",
+}
 
 
 def dominio(url: str) -> str:
@@ -258,7 +272,8 @@ def candidatar(pastas: list, fila: Path) -> dict:
                         "para Intelligence Scientifica e Voci dal Campo" % (p["NOME"], p.get("UNIVERSIDADE"), p.get("SSD"),
                                                                           c["PLATAFORMA"]))
                 nota = ("PESSOA=%s; IDENTIDADE=MUR; ORCID=%s; PROVA=%s; VISTO_EM=%s; PAIS_PROVA=universidade italiana "
-                        "(MUR) da pessoa, nao o lugar do facto" % (p["NOME"], ",".join(p["ORCID"]), c["PROVA"], c["VISTO_EM"]))
+                        "(MUR) da pessoa, nao o lugar do facto; ROTA_HOJE=%s" % (
+                            p["NOME"], ",".join(p["ORCID"]), c["PROVA"], c["VISTO_EM"], ROTA_HOJE.get(c["PLATAFORMA"], "NAO SEI")))
                 linha = FN.registar(c["TIPO"], "IT", "%s — %s" % (p["NOME"], c["PLATAFORMA"]), c["URL"], para,
                                     "SEGUIR-PESQUISADORES (ferramentas/seguir_pesquisadores/seguir.py)", c["VISTO_EM"], nota)
                 feitas.append({"CANDIDATA_ID": linha["CANDIDATA_ID"], "TIPO": linha["TIPO"], "URL": linha["URL"]})

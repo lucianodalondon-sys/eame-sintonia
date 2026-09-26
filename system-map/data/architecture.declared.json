@@ -5292,6 +5292,25 @@
     "provas/integra_noite/writeset-lote1.txt",
     "provas/integra_noite/16-livros-l1.txt"
    ]
+  },
+  {
+   "id": "C-SEGUIR-PESQUISADORES",
+   "name": "SEGUIR-PESQUISADORES (D85): quem seguir e os canais publicos onde os pesquisadores publicam",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "pessoas.py: liga a lista-mestra MUR (nome, universidade, setor) aos autores da T6 por sobrenome + inicial + mesma universidade (ambiguo nao funde) e ordena pela obra recente com par do casco no texto. seguir.py: por pessoa, ORCID researcher-urls (so os links declarados) e a pagina declarada, com teto 5/dominio/rodada contando o robots, robots respeitado, 3 s, portao IT antes/depois, bytes fora do Git com sha256; LinkedIn perfil fora, so posts; candidatas pela porta canonica candidatas/fonte_nova.py numa fila dada.",
+   "why_here": "D85 (26/09/2026, dono): pesquisadores sao fonte de 1.a linha; seguir os canais onde publicam no dia a dia.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/seguir_pesquisadores/pessoas.py",
+    "ferramentas/seguir_pesquisadores/seguir.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

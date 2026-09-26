@@ -107,6 +107,10 @@ class Ensaio(unittest.TestCase):
             self.assertIn("LINKEDIN_POST", [c["PLATAFORMA"] for c in por["ROSSI Mario"]["CANAIS"]])
             self.assertEqual([], por["NERI Paolo"]["CANAIS"])            # sem ORCID
             self.assertEqual([], por["GIALLI Sara"]["CANAIS"])           # dois ORCID
+            # ambiguo nao se segue: nem um pedido aos dois ORCID dela
+            self.assertIn("AMBIGUO", " ".join(por["GIALLI Sara"]["PASSOS"]))
+            self.assertFalse(any("0000-0000-0000-0004" in x["URL"] or "0000-0000-0000-0005" in x["URL"]
+                                 for x in doc["PEDIDOS"]))
             self.assertEqual("TETO_DO_DOMINIO", por["ROSA Enzo"].get("PENDENTE"))
             fila = Path(d) / "FILA.json"
             fila.write_text(json.dumps({"CANDIDATAS": []}), encoding="utf-8")
