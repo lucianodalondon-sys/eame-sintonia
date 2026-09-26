@@ -2028,10 +2028,18 @@ def periodo_do_fato(item: dict) -> dict:
                             "completa com a publicacao"))
     base = item.get("fact_time_basis")
     base = AUSENCIA if base is None or str(base).strip() in ("", AUSENCIA, NAO_SEI) else str(base)
+    # ⚠️ DA-20 (coordenação 26/09 16:40): SEM PROVA, NAO HA PERIODO. Um FACT_TIME sem base
+    # (ou com uma base que diz que nao sabe — «UNKNOWN», «NAO SEI», como a Sala real escreve)
+    # nao e tempo provado do facto: ausencia de prova = NAO SEI. O mesmo criterio do G0/v2
+    # da Intelligence (`corrida_da_inteligencia.base_ignorante`), para os dois lados nao
+    # discordarem sobre o que e uma data provada.
+    if base == AUSENCIA or re.search(r"\b(UNKNOWN|NOT_KNOWN|NAO SEI|NAO_SEI)\b", _dobrar(base).upper()):
+        return dict(nada, EXPRESSAO=str(bruto),
+                    PORQUE="o FACT_TIME nao tem base provada: sem prova nao ha periodo (DA-20)")
     calculada = str(base).startswith(BASES_CALCULADAS)
     return {"VALOR": valor, "PRECISAO": precisao + ("+CALCULADA" if calculada else ""),
             "VEIO_DE": "item.fact_time (lido por admissao.periodo_do_fato)",
-            "BASE": base if base != AUSENCIA else "item.fact_time sem base declarada",
+            "BASE": base,
             "EXPRESSAO": str(bruto),
             "LEI": "so de FACT_TIME; nunca de PUBLISHED_AT nem de CAPTURED_AT"}
 

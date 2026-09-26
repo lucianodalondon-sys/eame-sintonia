@@ -78,6 +78,32 @@ class OPeriodoVemSoDoFactTime(unittest.TestCase):
         self.assertEqual(j["PRECISAO"]["CHAVES_COM_VALOR"], 1)
 
 
+class DA20_SemProvaNaoHaPeriodo(unittest.TestCase):
+    """DA-20 (coordenação 26/09 16:40): o período só sai de um FACT_TIME COM prova; sem prova = NAO SEI.
+    Nasceu da INTEGRA-NOITE lote 3: com o PERIODO-E-CHAVES, um item «sem chaves» do quatro-chaves
+    (`fact_time` 2026-05-02 sem `fact_time_basis`) ganhava período — e a Intelligence (G0/v2) bloqueia
+    esse mesmo FACT_TIME por não ter base. Sintético."""
+
+    def test_sem_base_nao_ha_periodo(self):
+        for sem in ({}, {"fact_time_basis": None}, {"fact_time_basis": ""}, {"fact_time_basis": NAO_SEI}):
+            with self.subTest(base=sem):
+                p = A.periodo_do_fato(dict({"fact_time": "2026-05-02"}, **sem))
+                self.assertEqual((p["VALOR"], p["PRECISAO"], p["BASE"]), (NAO_SEI, NAO_SEI, NAO_SEI))
+                self.assertEqual(p["EXPRESSAO"], "2026-05-02")      # o que estava escrito nao se perde
+                self.assertIn("DA-20", p["PORQUE"])
+
+    def test_base_que_diz_que_nao_sabe_nao_e_prova(self):
+        # as formas como a Sala real escreve a ignorancia (medido pelo INT-CONSERTOS, D1)
+        for base in ("UNKNOWN", "EVENTO · UNKNOWN", "NAO SEI — o documento nao foi lido", "NOT_KNOWN", "nao sei"):
+            with self.subTest(base=base):
+                self.assertEqual(_periodo("12-13 novembre 2026", base=base)["VALOR"], NAO_SEI)
+
+    def test_contraprova_com_base_provada_o_periodo_sai(self):
+        p = _periodo("2026-05-02", base="EVENTO · ESCRITO_NO_TEXTO · DATE_EXACT · ancora «il 2 maggio»")
+        self.assertEqual((p["VALOR"], p["PRECISAO"]), ("2026-05-02", "DIA"))
+        self.assertTrue(p["BASE"].startswith("EVENTO"))
+
+
 class ARegiaoNaoEPedacoDeNome(unittest.TestCase):
 
     def test_bologna_fiere_e_empresa(self):

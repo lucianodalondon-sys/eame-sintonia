@@ -107,6 +107,10 @@ class AEscritaEPeloNome(unittest.TestCase):
             visto["s"] = script
             return 0, "%s:1:0" % S.POUSOU, ""
         b._executar = executar
+        # DEDUP-DOC (036): o `pousar` pergunta primeiro ao banco se o caderno de versoes existe.
+        # Aqui nao ha banco: responde-se «036 nao aplicada» (DA-20, 2 — o lote 3 funciona sem a 036).
+        # O que este teste mede — cada valor na SUA coluna, as 3 listas iguais — nao muda.
+        b._consultar = lambda sql: ["f"]
         b.pousar("RUN-Y", [self._unidade()])
         return visto["s"]
 
@@ -136,6 +140,42 @@ class AEscritaEPeloNome(unittest.TestCase):
         self.assertLessEqual(set(S.COLUNAS_LIDAS) - {"ordem"}, set(S.COLUNAS_ESCRITAS))
         self.assertIn("janela_declarada", S.COLUNAS_LIDAS)
         self.assertIn("janela_declarada", S.COLUNAS_ESCRITAS)
+
+
+class SemA036OPousarContinuaAPousar(unittest.TestCase):
+    """DA-20 (3): a 036 nao entra no lote 3 (vai pela MIGRACOES-EM-SERIE, DA-19) — o lote 3 tem de
+    funcionar com ela AUSENTE. Sem o caderno de versoes o `pousar` escreve como antes, nao fala da
+    tabela que nao existe, e diz no relato porque nao ha versoes."""
+
+    def _pousar(self, tem_036):
+        b = _pg()
+        visto = {"perguntas": []}
+
+        def consultar(sql):
+            visto["perguntas"].append(sql)
+            return ["t" if tem_036 else "f"] if "to_regclass" in sql else []
+
+        def executar(script):
+            visto["s"] = script
+            return 0, "%s:1:0" % S.POUSOU, ""
+        b._consultar, b._executar = consultar, executar
+        u = AEscritaEPeloNome._unidade(AEscritaEPeloNome())
+        visto["estado"] = b.pousar("RUN-SEM-036", [u])
+        visto["relato"] = b.ultimas_versoes
+        return visto
+
+    def test_sem_a_036_pousa_e_nao_toca_na_tabela_que_nao_existe(self):
+        v = self._pousar(tem_036=False)
+        self.assertEqual(v["estado"], S.POUSOU)
+        self.assertIn("insert into public.sala_de_espera", v["s"])
+        self.assertNotIn("sala_de_espera_versao", v["s"])
+        self.assertEqual(len(v["perguntas"]), 1)                 # so a pergunta «a 036 existe?»
+        self.assertIn("036 nao aplicada", v["relato"][0]["MOTIVO"])
+
+    def test_contraprova_com_a_036_o_pousar_procura_o_documento(self):
+        v = self._pousar(tem_036=True)
+        self.assertEqual(v["estado"], S.POUSOU)
+        self.assertGreater(len(v["perguntas"]), 1)              # pergunta pelo documento, unidade a unidade
 
 
 class OsPendentesSaoPeloNome(unittest.TestCase):
