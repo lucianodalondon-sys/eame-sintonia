@@ -112,6 +112,22 @@ def nao_serve_de_semente(cand_id: str, caminho: Path | None = None) -> str | Non
     return None
 
 
+# D80(iii): um NAO SEI registado que duvida da IDENTIDADE (nao e fonte, e pagina
+# de outra, talvez seja a mesma que outra...) nao se resolve por heranca do site:
+# quem leu disse que a duvida e sobre QUEM e, nao sobre a gaveta. PROVA_INSUFICIENTE
+# e JANELA_DO_ROBOTS nao entram — falta de prova nao e duvida de identidade.
+DUVIDA_DE_IDENTIDADE = NAO_SEMEIAM | {"IDENTIDADE_DUPLICADA_POSSIVEL", "FORA_DO_AGRO_APARENTE"}
+
+
+def duvida_de_identidade(cand_id: str, caminho: Path | None = None) -> str | None:
+    """A categoria do NAO SEI registado que impede a heranca da pagina, ou None."""
+    for d in _ler(caminho):
+        if (d.get("CANDIDATA_ID") == cand_id and d.get("TERRITORIO") == "NAO SEI"
+                and d.get("CATEGORIA") in DUVIDA_DE_IDENTIDADE):
+            return d["CATEGORIA"]
+    return None
+
+
 def decisao_para(cand_id: str, ficha: dict,
                  caminho: Path | None = None) -> tuple[dict | None, str]:
     """(decisao valida, porque). Sem decisao valida: (None, motivo)."""

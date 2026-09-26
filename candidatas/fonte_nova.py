@@ -192,11 +192,18 @@ def registar(tipo: str, pais: str, nome: str, url: str, para_que: str,
     return linha
 
 
-def recusar(url: str, motivo: str):
+def recusar(url: str, motivo: str, duplicada_de: str | None = None,
+            decisao: str | None = None):
     """Marca uma candidata existente como RECUSADA.
 
     Devolve a linha marcada, ou None se a URL nao existe na fila.
     NAO apaga a linha — preservar historico e lei da casa.
+
+    D80 (26/09): a recusa e REVERSIVEL. O estado e o motivo de antes ficam em
+    RECUSA_ANTERIOR, e `reverter_recusa` repoe-nos. Uma duplicada diz de QUEM e
+    duplicada (DUPLICADA_DE = SOURCE_ID ou CANDIDATA_ID da fonte canonica) —
+    recusa por duplicacao sem a canonica escrita e uma fonte que some sem rasto.
+    As chamadas antigas (so url + motivo) gravam o mesmo que gravavam.
     """
     if not (motivo or "").strip():
         raise ValueError("motivo_da_recusa e obrigatorio")
@@ -205,9 +212,43 @@ def recusar(url: str, motivo: str):
     for c in d["CANDIDATAS"]:
         if normalizar(c["URL"]) == chave:
             if c["ESTADO"] != "RECUSADA":
+                if decisao:
+                    c["RECUSA_ANTERIOR"] = {"ESTADO": c["ESTADO"],
+                                            "MOTIVO_DA_RECUSA": c.get("MOTIVO_DA_RECUSA")}
+                    c["RECUSADA_POR"] = decisao
+                    c["RECUSADA_EM"] = date.today().isoformat()
+                if duplicada_de:
+                    c["DUPLICADA_DE"] = duplicada_de
                 c["ESTADO"] = "RECUSADA"
                 c["MOTIVO_DA_RECUSA"] = motivo.strip()
                 gravar(d)
+            return c
+    return None
+
+
+def reverter_recusa(url: str, decisao: str):
+    """Desfaz uma recusa feita com `decisao` (D80). Devolve a linha reposta.
+
+    So desfaz o que a mesma decisao recusou: uma recusa antiga (sem
+    RECUSA_ANTERIOR) nao tem estado de antes guardado, e reverte-la seria
+    inventar um. Nesse caso devolve None e nao grava nada.
+    """
+    d = carregar()
+    chave = normalizar(url)
+    for c in d["CANDIDATAS"]:
+        if normalizar(c["URL"]) == chave:
+            ant = c.get("RECUSA_ANTERIOR")
+            if c["ESTADO"] != "RECUSADA" or not ant or c.get("RECUSADA_POR") != decisao:
+                return None
+            c.setdefault("RECUSAS_REVERTIDAS", []).append({
+                "DECISAO": decisao, "MOTIVO_DA_RECUSA": c["MOTIVO_DA_RECUSA"],
+                "DUPLICADA_DE": c.get("DUPLICADA_DE"), "RECUSADA_EM": c.get("RECUSADA_EM"),
+                "REVERTIDA_EM": date.today().isoformat()})
+            c["ESTADO"] = ant["ESTADO"]
+            c["MOTIVO_DA_RECUSA"] = ant["MOTIVO_DA_RECUSA"]
+            for k in ("RECUSA_ANTERIOR", "RECUSADA_POR", "RECUSADA_EM", "DUPLICADA_DE"):
+                c.pop(k, None)
+            gravar(d)
             return c
     return None
 

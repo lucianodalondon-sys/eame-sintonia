@@ -246,6 +246,44 @@ def heranca_do_site(ficha: dict, *, tabela=None, livro=None, atlas_texto=None) -
                             "SOURCE_IDS_DO_SITE": sorted(por_sid), "TERRITORIO": territorios[0]}
 
 
+# ── D80(iii) · A PÁGINA HERDA A CLASSE DO MESMO SITE CANÓNICO ────────────────
+# Dono (26/09, bot Luciano): uma página herda a classe SÓ do mesmo site canónico,
+# com classe única e ligação oficial provada; site misto não herda. A ligação
+# oficial de uma PÁGINA é o próprio endereço: servida no MESMO host de uma fonte
+# que a casa já tem (host exacto — subdomínio é outro site, não herda). A raiz do
+# site não é página: é a organização, que já é a fonte — herdar daria um segundo
+# número à mesma casa. Fica NAO SEI.
+RAIZES_DE_SITE = {"", "it", "en", "home", "index.html", "index.htm", "index.php", "it/home"}
+
+
+def heranca_da_pagina(ficha: dict, *, tabela=None, livro=None, atlas_texto=None) -> tuple[str | None, dict]:
+    """→ (território, prova) ou (None, {PORQUE}). Nunca adivinha."""
+    import linkedin_pelo_site as LPS
+    from urllib.parse import urlparse
+    url = (ficha.get("URL") or "").strip()
+    host = LPS.host(url)
+    if not host:
+        return None, {"PORQUE": "D80(iii): endereco sem host — NAO SEI"}
+    u = urlparse(url if "://" in url else "https://" + url)
+    if u.path.strip("/").lower() in RAIZES_DE_SITE and not u.query:
+        return None, {"PORQUE": "D80(iii): %s e a raiz do site, nao uma pagina — a organizacao "
+                                "ja e a fonte; NAO SEI" % host}
+    tabela = _ler(TABELA) if tabela is None else tabela
+    livro = _ler(LIVRO) if livro is None else livro
+    if atlas_texto is None:
+        atlas_texto = ATLAS.read_text(encoding="utf-8") if ATLAS.exists() else ""
+    por_sid = _territorios_do_host(host, tabela, livro, atlas_texto)
+    if not por_sid:
+        return None, {"PORQUE": "D80(iii): o site %s nao tem SOURCE_ID na casa — NAO SEI" % host}
+    territorios = sorted({t for ts in por_sid.values() for t in ts})
+    if len(territorios) != 1:
+        return None, {"PORQUE": "D80(iii): site misto — %s aparece em %s — NAO SEI"
+                                % (host, ", ".join(territorios))}
+    return territorios[0], {"REGRA": "D80(iii)", "PAGINA": url, "HOST": host,
+                            "LIGACAO": "pagina servida no host oficial %s das fontes da casa" % host,
+                            "SOURCE_IDS_DO_SITE": sorted(por_sid), "TERRITORIO": territorios[0]}
+
+
 # ── SOC4 · O channel_id QUE A API DEVOLVEU PARA UM @handle ──────────────────
 # `curadoria/resolver_handles_youtube.py` pede ao Scrap (`youtube.channel.resolve`,
 # API oficial) o channel_id das candidatas cujo endereço não o traz, e guarda o

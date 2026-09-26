@@ -465,6 +465,89 @@ def _alocar_source_id(cand_id: str, territorio: str, familia: str,
     return sid, True
 
 
+# D80(ii): onde a casa ja escreveu numeros de fora de IT. None = o Atlas + os
+# livros JSON de curadoria/ e regras/ (os testes trocam por ficheiros seus).
+FONTES_DE_NUMEROS: list | None = None
+
+
+def _fontes_de_numeros() -> list:
+    if FONTES_DE_NUMEROS is not None:
+        return list(FONTES_DE_NUMEROS)
+    return ([RSY.ATLAS] + sorted((RAIZ / "curadoria").glob("*.json"))
+            + sorted((RAIZ / "regras").glob("*.json")))
+
+
+def _max_fora_de_it(prefixo: str, territorio: str, alloc: dict) -> int:
+    """O maior <prefixo>-<territorio>-<nnn> ja escrito em qualquer livro da casa
+    ou ja cunhado aqui. NUNCA recicla: um numero visto em qualquer sitio conta."""
+    rx = re.compile(r"(?<![A-Z])%s-%s-(\d{3})\b" % (re.escape(prefixo), re.escape(territorio)))
+    maior = 0
+    for p in _fontes_de_numeros():
+        p = Path(p)
+        if p.exists():
+            for m in rx.finditer(p.read_text(encoding="utf-8", errors="replace")):
+                maior = max(maior, int(m.group(1)))
+    for n in alloc.get("NOVAS_FORA_DE_IT", []):
+        m = rx.fullmatch(str(n.get("SOURCE_ID", "")))
+        if m:
+            maior = max(maior, int(m.group(1)))
+    return maior
+
+
+def _qualificar_fora_de_it(cand_id: str, ficha: dict, familia: str,
+                           decisao: dict) -> tuple[str, dict]:
+    """D80(ii). Cunha o numero no prefixo da prova e PARA (CAPABILITY_BLOCK).
+
+    Os numeros vivem em NOVAS_FORA_DE_IT, nao em NOVAS: quem le NOVAS (ponte,
+    contratos, coletor) le numeros italianos, e um EU- ali entrava na estrada
+    italiana pela porta das traseiras."""
+    pais, territorio = decisao["PAIS"], decisao["TERRITORIO"]
+    if familia != "HTML_SITE":
+        return "BLOCK", {"CLASSE": "SEMANTIC", "SEMANTIC_PENDING": True,
+                         "PORQUE": ("territorio decidido fora de IT: %s, PAIS=%s — D80(ii) "
+                                    "cobre sites; %s de fora de IT fica NAO SEI"
+                                    % (territorio, pais, familia))}
+    import linkedin_pelo_site as LPS
+    host = LPS.host(ficha.get("URL", ""))
+    livro = json.loads(CONTRATOS.read_text(encoding="utf-8")) if CONTRATOS.exists() else {}
+    tabela = json.loads(RSY.TABELA.read_text(encoding="utf-8")) if RSY.TABELA.exists() else {}
+    atlas = RSY.ATLAS.read_text(encoding="utf-8") if RSY.ATLAS.exists() else ""
+    ja = sorted(RSY._territorios_do_host(host, tabela, livro, atlas))
+    alloc = _ler_alloc()
+    minhas = [n for n in alloc.get("NOVAS_FORA_DE_IT", []) if n.get("CANDIDATE_ID") == cand_id]
+    outras = [n["SOURCE_ID"] for n in alloc.get("NOVAS_FORA_DE_IT", [])
+              if n.get("CANDIDATE_ID") != cand_id and LPS.host(n.get("URL", "")) == host]
+    if not minhas and (ja or outras):
+        return "BLOCK", {"CLASSE": "SEMANTIC", "SEMANTIC_PENDING": True,
+                         "PORQUE": ("territorio decidido fora de IT (%s, PAIS=%s), mas o site %s "
+                                    "ja tem numero na casa (%s): um site, um numero — "
+                                    "decisao humana" % (territorio, pais, host,
+                                                        ", ".join(ja + outras)))}
+    if minhas:
+        sid, novo = minhas[0]["SOURCE_ID"], False
+    else:
+        sid = "%s-%s-%03d" % (pais, territorio, _max_fora_de_it(pais, territorio, alloc) + 1)
+        novo = True
+        alloc.setdefault("NOVAS_FORA_DE_IT", []).append({
+            "CANDIDATE_ID": cand_id, "SOURCE_ID": sid, "TERRITORY": territorio,
+            "PAIS": pais, "NOME": ficha.get("NOME", ""), "URL": ficha.get("URL", ""),
+            "FAMILY": familia,
+            "TERRITORY_REASON": "decisao semantica de %s: %s" % (
+                decisao.get("DECIDIDO_POR"), (decisao.get("PORQUE") or "")[:200]),
+            "PROVAS": ["%s %s sha256=%s" % (p.get("PAPEL"), p.get("URL"), p.get("SHA256"))
+                       for p in decisao.get("PROVAS", [])],
+            "ALLOCATED_BY": ("SOURCE-CURATOR-WORKER/QUALIFY — D80(ii): prefixo canonico "
+                             "<PAIS>-T<territorio>-<seq>, max+1 sobre o Atlas e os livros, "
+                             "nunca recicla"),
+            "ALLOCATED_AT": agora()})
+        _gravar_alloc(alloc)
+    return "BLOCK", {"CLASSE": "CAPABILITY", "SOURCE_ID_REAL": sid, "SOURCE_ID_NOVO": novo,
+                     "TERRITORY": territorio, "PAIS": pais,
+                     "PORQUE": ("D80(ii): %s -> %s (%s, PAIS=%s pela prova); PARA aqui — a "
+                                "estrada de coleta so aceita IT-, sem contrato nem READY "
+                                "automatico" % (cand_id, sid, territorio, pais))}
+
+
 def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
     """O primeiro degrau. `source_id` e o CANDIDATA_ID (a fila nao tem outro).
 
@@ -481,6 +564,15 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
 
     tipo = (ficha.get("TIPO") or "").upper()
     pais = ficha.get("PAIS") or "NAO SEI"
+
+    # D80(i): uma candidata RECUSADA pela porta nao se qualifica. A recusa e
+    # reversivel pela porta (`fonte_nova.reverter_recusa`), nunca por aqui.
+    if ficha.get("ESTADO") == "RECUSADA":
+        return "BLOCK", {"CLASSE": "POLICY", "RECUSADA": True,
+                         "PORQUE": ("RECUSADA pela porta de entrada: %s%s"
+                                    % ((ficha.get("MOTIVO_DA_RECUSA") or "")[:100],
+                                       " · duplicada de %s" % ficha["DUPLICADA_DE"]
+                                       if ficha.get("DUPLICADA_DE") else ""))}
 
     # ⚠️ A PORTA DAS TRASEIRAS NAO EXISTE. Social barrado por politica/capacidade
     # nao entra por QUALIFY — insistir no que a policy barra e contorno.
@@ -613,16 +705,15 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
     decisao, porque_ds = (None, "")
     if territorio == "NAO SEI":
         decisao, porque_ds = DS.decisao_para(cand_id, ficha)
-        # ⚠️ ESTE REGISTO SO CUNHA NUMEROS «IT-». Uma fonte europeia ou
-        # internacional com territorio decidido nao recebe um numero italiano
-        # por omissao: fica a espera da numeracao do Atlas (EU-...), do dono.
+        # ⚠️ UMA FONTE DE FORA DE IT NAO RECEBE NUMERO ITALIANO. D80(ii) (26/09,
+        # dono via bot Luciano): territorio e identidade provados no canal ->
+        # prefixo canonico do Atlas (EU-, INT-, FR-...), max+1 por prefixo e
+        # territorio, nunca recicla. E PARA AI: a estrada de coleta e italiana —
+        # `validar_contratos` so aceita IT-T<n>-<nnn> e o coletor
+        # (`regras/italy_contracts.mjs`) rebenta com outro prefixo na tabela.
+        # Sem contrato, sem canario, nunca READY automatico: CAPABILITY_BLOCK.
         if decisao and decisao.get("PAIS") != "IT":
-            return "BLOCK", {"CLASSE": "SEMANTIC", "SEMANTIC_PENDING": True,
-                             "PORQUE": ("territorio decidido fora de IT: %s, PAIS=%s pela "
-                                        "prova — o QUALIFY so cunha numeros IT; a numeracao "
-                                        "%s do Atlas e decisao do dono, sem fabricar"
-                                        % (decisao["TERRITORIO"], decisao.get("PAIS"),
-                                           decisao.get("PAIS")))}
+            return _qualificar_fora_de_it(cand_id, ficha, familia, decisao)
         if decisao:
             territorio = decisao["TERRITORIO"]
             porque = "decisao semantica de %s: %s · provas: %s" % (
@@ -630,6 +721,23 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
                 "; ".join("%s %s sha256=%s" % (p.get("PAPEL"), p.get("URL"),
                                                (p.get("SHA256") or "")[:16])
                           for p in decisao.get("PROVAS", [])))
+
+    # D80(iii): a PAGINA herda a classe do MESMO site canonico — so com classe
+    # unica, host exacto, e nunca a raiz do site (`RSY.heranca_da_pagina`). A
+    # decisao com prova, quando existe, ja decidiu acima e vale primeiro.
+    duvida = DS.duvida_de_identidade(cand_id) if territorio == "NAO SEI" else None
+    if duvida:
+        porque_ds = "%s · D80(iii): nao herda — NAO SEI registado por duvida de identidade (%s)" % (
+            porque_ds, duvida)
+    elif territorio == "NAO SEI" and familia == "HTML_SITE":
+        herdado, prova_d80 = RSY.heranca_da_pagina(ficha)
+        if herdado:
+            territorio, heranca = herdado, prova_d80
+            porque = ("D80(iii): a pagina herda %s do site %s (%s; fontes do site: %s)"
+                      % (herdado, prova_d80["HOST"], prova_d80["LIGACAO"],
+                         ", ".join(prova_d80["SOURCE_IDS_DO_SITE"][:5])))
+        else:
+            porque_ds = ("%s · %s" % (porque_ds, prova_d80.get("PORQUE", ""))).strip(" ·")
 
     # ⚠️ SEM SINAL, SEM NUMERO — E SEM FABRICAR. Territorio indeterminado pelo
     # nome/URL e identidade que so raciocinio semantico (Opus/humano) resolve.
