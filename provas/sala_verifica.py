@@ -154,6 +154,14 @@ def verificar_publicacao(item, b, obs, contratos):
         meu = MEDIR.publicacao_html(b)          # o medidor do ponto 1, independente
         if v == NS:
             ok = not (meu and meu.get("ISO"))
+            if not ok and meu["BASE"].startswith("JSONLD"):
+                # CONSERTO-REGUA: um no JSON-LD com tipo DECLARADO de pagina (WebPage, WebSite…) nao
+                # publica conteudo. Confere-se o TIPO aqui, com parse proprio, e nao pela nuvem.
+                tipos = _tipos_json_ld_da_data(b, meu.get("TODAS") or [])
+                ok = bool(tipos) and all(t and not (t & _TIPOS_ARTIGO) for t in tipos)
+                return {"OK": ok, "COMO": ("o JSON-LD so tem a data num no de tipo %s (pagina, nao artigo)"
+                                           % sorted(set().union(*tipos))) if ok
+                        else "JSON-LD com data de artigo: %s" % meu}
             return {"OK": ok, "COMO": "HTML sem data legivel pelo medidor independente"
                     if ok else "o medidor independente ACHA data: %s" % meu}
         if not meu or not meu.get("TODAS"):
@@ -161,11 +169,24 @@ def verificar_publicacao(item, b, obs, contratos):
         alvo = _instante(v)
         iguais = [x for x in (meu.get("TODAS") or []) if _instante(x) == alvo
                   or str(x)[:10] == str(v)[:10]]
-        familia = {"JSON-LD": "JSONLD", "meta": "META", "<time": "TIME"}
-        base_ok = any(k in base and familia[k] in meu["BASE"] for k in familia)
-        return {"OK": bool(iguais) and base_ok,
-                "COMO": "medidor independente: %s %s; base da Sala «%s»"
-                        % (meu["BASE"], meu.get("TODAS"), base[:60])}
+        # a BASE declarada confere-se NO BRUTO, pela familia dela (parse proprio do verificador):
+        # uma meta tag com este instante, um <time> com este dia, ou um no JSON-LD de ARTIGO
+        s = b.decode("utf-8", "replace")
+        if "meta" in base:
+            base_ok = any(_instante(x) == alvo for x in re.findall(
+                r"<meta[^>]+(?:property|name)=[\"']article:published_time[\"'][^>]*content=[\"']([^\"']+)", s, re.I)
+                + re.findall(r"<meta[^>]+content=[\"']([^\"']+)[\"'][^>]*(?:property|name)=[\"']article:published_time", s, re.I))
+        elif "<time" in base:
+            base_ok = str(v)[:10] in re.findall(r"<time[^>]+datetime=[\"'](\d{4}-\d{2}-\d{2})", s, re.I)
+        elif "JSON-LD" in base:
+            # basta UM no de artigo (ou sem tipo) com a data; um WebPage com a mesma data nao estraga
+            tipos = _tipos_json_ld_da_data(b, meu.get("TODAS") or [])
+            base_ok = bool(iguais) and any((not t) or (t & _TIPOS_ARTIGO) for t in tipos)
+        else:
+            base_ok = False
+        return {"OK": (bool(iguais) or base_ok) and base_ok,
+                "COMO": "base «%s» conferida no bruto: %s · medidor independente: %s %s"
+                        % (base[:40], base_ok, meu["BASE"], meu.get("TODAS"))}
     # PDF: a data da edicao vem do livro + contrato
     especie = (contratos.get(sid) or {}).get("DOCUMENT_DATE_KIND") or NS
     if v == NS:
@@ -178,6 +199,32 @@ def verificar_publicacao(item, b, obs, contratos):
     return {"OK": livro == v and especie.upper().startswith("EDICAO") and "SOURCE_DATE_ISO" in base
                   and no_nome,
             "COMO": "livro %s · contrato «%s» · data no nome do bruto: %s" % (livro, especie[:30], no_nome)}
+
+
+_TIPOS_ARTIGO = {"article", "newsarticle", "blogposting", "report", "scholarlyarticle", "techarticle",
+                 "liveblogposting", "socialmediaposting"}
+
+
+def _tipos_json_ld_da_data(b, datas):
+    """Para cada datePublished achado, o @type do no onde ele esta (parse proprio do verificador)."""
+    fora = []
+    for bloco in re.findall(rb"<script[^>]+ld\+json[^>]*>(.*?)</script>", b, re.S | re.I):
+        try:
+            raiz = json.loads(bloco.decode("utf-8", "replace").strip())
+        except ValueError:
+            continue
+        pilha = [(raiz, set())]
+        while pilha:
+            no, herd = pilha.pop()
+            if isinstance(no, dict):
+                t = no.get("@type")
+                t = {str(x).lower() for x in (t if isinstance(t, list) else [t]) if x} or herd
+                if isinstance(no.get("datePublished"), str) and no["datePublished"] in datas:
+                    fora.append(t)
+                pilha += [(v, t) for v in no.values()]
+            elif isinstance(no, list):
+                pilha += [(v, herd) for v in no]
+    return fora
 
 
 def verificar_sede(item, contratos):
@@ -269,6 +316,9 @@ def linhas_originais(dump):
     return {"COLUNAS_DO_DUMP_IGUAIS_AS_24": cols_dump == [c.strip() for c in COLUNAS_032.split(",")],
             "LINHAS_ANTES": len(linhas_antes), "LINHAS_AGORA": len(linhas_agora),
             "IGUAIS_BYTE_A_BYTE": sorted(linhas_antes) == sorted(linhas_agora),
+            # a Sala CRESCE (linhas novas pousadas depois do dump): o que se exige e que TODA linha do
+            # dump continue igual; as novas contam-se em SO_AGORA e nao sao diferenca
+            "TODAS_AS_DO_DUMP_IGUAIS": not (set(linhas_antes) - set(linhas_agora)),
             "SO_ANTES": len(set(linhas_antes) - set(linhas_agora)),
             "SO_AGORA": len(set(linhas_agora) - set(linhas_antes)),
             "SHA256_ANTES": hashlib.sha256(b"\n".join(sorted(linhas_antes))).hexdigest(),
@@ -301,17 +351,40 @@ def gatilhos():
 
 def main():
     ap = argparse.ArgumentParser()
-    for a in ("--dump", "--livros", "--raizes", "--saida"):
+    for a in ("--livros", "--raizes", "--saida"):
         ap.add_argument(a, required=True)
+    ap.add_argument("--dump")
+    # CONSERTO-REGUA: conferir valores RECALCULADOS (sem banco) em vez da vista
+    ap.add_argument("--vista-json")
+    ap.add_argument("--itens", default="quinze", choices=("quinze", "todos"))
     a = ap.parse_args()
-    assert sql("show default_transaction_read_only") == "on", "a sessao NAO e so-leitura"
+    if a.vista_json:
+        vista_lista = json.load(open(a.vista_json, encoding="utf-8"))
+        fora = {"FONTE_DOS_VALORES": a.vista_json}
+    else:
+        assert a.dump, "--dump e obrigatorio sem --vista-json"
+        assert sql("show default_transaction_read_only") == "on", "a sessao NAO e so-leitura"
+        fora = {"SESSAO_SO_LEITURA": True,
+                "MIGRATION_033": sql("select resultado || ' ' || sha256 from schema_migracao "
+                                     "where versao = '033'"),
+                "MIGRATION_033_FICHEIRO": hashlib.sha256(open(glob.glob(os.path.join(
+                    RAIZ, "supabase", "migrations", "033_*.sql"))[0], "rb").read()).hexdigest()}
+        vista_lista = _vista_da_sala()
+    fora["ITENS"] = verificar_itens(vista_lista, a)
+    fora["RESUMO_MECANICO"] = {c: "%d/%d" % (sum(1 for x in fora["ITENS"] if x[c]["OK"]),
+                                             len(fora["ITENS"]))
+                               for c in ("PUBLICACAO", "LOCAL_DA_FONTE", "DATA_DO_FATO",
+                                         "LOCAL_DO_FATO")}
+    if a.vista_json:
+        with open(a.saida, "w", encoding="utf-8", newline="\n") as fh:
+            json.dump(fora, fh, ensure_ascii=False, indent=1)
+        print(json.dumps(fora["RESUMO_MECANICO"], ensure_ascii=False, indent=1))
+        return
+    _resto_do_banco(fora, a)
 
-    fora = {"SESSAO_SO_LEITURA": True,
-            "MIGRATION_033": sql("select resultado || ' ' || sha256 from schema_migracao "
-                                 "where versao = '033'"),
-            "MIGRATION_033_FICHEIRO": hashlib.sha256(open(glob.glob(os.path.join(
-                RAIZ, "supabase", "migrations", "033_*.sql"))[0], "rb").read()).hexdigest()}
-    vista = {x["obs"]: x for x in json.loads(sql(
+
+def _vista_da_sala():
+    return json.loads(sql(
         "select json_agg(json_build_object('run_id',a.run_id,'ordem',a.ordem,'obs',a.raw_observation_id,"
         "'source_id',a.source_id,'published_at',a.published_at,'published_at_basis',a.published_at_basis,"
         "'source_location',a.source_location,'source_location_basis',a.source_location_basis,"
@@ -319,7 +392,10 @@ def main():
         "'fact_location_basis',a.fact_location_basis,'evidencia',a.tempo_lugar_evidencia,"
         "'revisoes',a.revisoes,'sha256',r.sha256,'storage_path',r.storage_path,'media_type',r.media_type)"
         " order by a.raw_observation_id, a.run_id) from sala_de_espera_atual a "
-        "left join raw_asset r on r.id = a.raw_observation_id"))}
+        "left join raw_asset r on r.id = a.raw_observation_id"))
+
+
+def verificar_itens(vista_lista, a):
     livros = {}
     for padrao in a.livros.split(";"):
         for f in glob.glob(padrao):
@@ -334,8 +410,12 @@ def main():
     raizes = [x for x in a.raizes.split(";") if x]
 
     itens = []
-    for obs_id in QUINZE:
-        it = vista[obs_id]
+    if a.itens == "quinze":
+        escolhidos = [next(x for x in vista_lista if x["obs"] == o) for o in QUINZE]
+    else:
+        escolhidos = [x for x in vista_lista if (x.get("sha256") or "").strip()]
+    for it in escolhidos:
+        obs_id = it["obs"]
         it["sha256"] = it["sha256"].strip()
         caminho, b = bytes_do_bruto(it["storage_path"], it["sha256"], raizes)
         texto = _norm(texto_do_bruto(b, it["media_type"])) if b is not None else ""
@@ -351,10 +431,10 @@ def main():
              "DATA_DO_FATO": verificar_tempo(it, texto, ev),
              "LOCAL_DO_FATO": verificar_lugar(it, texto)}
         itens.append(r)
-    fora["ITENS"] = itens
-    fora["RESUMO_MECANICO"] = {c: "%d/%d" % (sum(1 for x in itens if x[c]["OK"]), len(itens))
-                               for c in ("PUBLICACAO", "LOCAL_DA_FONTE", "DATA_DO_FATO",
-                                         "LOCAL_DO_FATO")}
+    return itens
+
+
+def _resto_do_banco(fora, a):
     fora["LINHAS_ORIGINAIS"] = linhas_originais(a.dump)
     fora["GATILHOS"] = gatilhos()
     fora["VISTA_LE_A_ULTIMA"] = sql(
