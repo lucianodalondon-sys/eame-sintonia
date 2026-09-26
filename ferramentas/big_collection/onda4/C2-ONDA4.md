@@ -1,6 +1,6 @@
 # C2-ONDA4 — o C2 da 3.ª onda (causa, conserto, teste) e o plano da 4.ª onda
 
-Missão C2-E-ONDA4-PREP (coordenador, 25/09 23:50). Ramo `c2-juiz-v1`, nascido do vivo `ce28040c`.
+Missão C2-E-ONDA4-PREP (coordenador, 25/09 23:50). Ramo `c2-juiz-v1`, nascido do vivo `ce28040c` e já junto com o vivo novo `83de0ccd` (C9 instalado, 26/09 02:08): conflito só no `.gitattributes` (as duas linhas ficam). Na base nova: teste C2 14/14, C9 9/9, mutação 9/9; `test_micro_coleta_instrumento` (2) e `test_gate_de_aceitacao_tematica` (1) falham igual em `83de0ccd` puro.
 Sem rede, sem coleta, sem escrita na Sala nem no vivo, nada instalado. Sala lida com
 `default_transaction_read_only=on`. Medido em 26/09/2026, 00:00–01:30 (-03).
 
@@ -125,7 +125,7 @@ decisão do dono; o código de hoje não o impõe (o livro do teto é por onda, 
 
 ### O que precisa estar instalado antes
 
-1. **`c9-idioma-v1`** (C1/C3 passam a ler as corridas do `ONDA-WEB-ESTADO.json`): exigência do bot Luciano.
+1. ~~`c9-idioma-v1`~~ **já instalado** (vivo `83de0ccd`, 26/09 02:08): o relatório de onda pede-se com `--estado=<ONDA-WEB-ESTADO.json>`.
 2. **`c2-juiz-v1`** (este ramo), se o coordenador aceitar a V2 e decidir a versão da Admissão (ponto 1 acima).
 3. **Coorte congelada** no ramo do vivo (`--congelar --instalacao=<commit> --demotion=<B5>`); hoje é provisória.
 4. Um disparador de rodadas: hoje o `onda_web` corre uma onda por vez. As 15 rodadas são 15
