@@ -4950,6 +4950,32 @@
    ]
   },
   {
+   "id": "C-MICRO-SOCIAL",
+   "name": "Condutor da MICRO SOCIAL (LinkedIn + YouTube) — rodadas com travas, previsao do teto antes e prova-teto da noite depois",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "Corre uma noite social por rodadas pela porta canonica (orquestrador -> scrap-colheita), com o Pedido montado em processo. Recusa antes da rede: sem autorizacao, lote 1 (PROVA-TETO-SOCIAL) por instalar, parada automatica anterior, robo a correr, Sala operacional por declarar, previsao do teto acima de 5 por dominio (gasto medido da noite + previsto), py sem yt_dlp numa rodada de YouTube, egresso != IT pelo portao de consenso. Por item pergunta ao portao de coleta no instante. Depois de cada rodada: egresso e PROVA-TETO sobre a noite inteira; != PASS escreve PARAR-MICRO-SOCIAL.flag. Le a Sala (so SELECT) com data e lugar, base e precisao, e chama o relatorio da micro web com --estado=.",
+   "why_here": "RUNBOOK-MICRO-SOCIAL (26/09): nao havia condutor de onda social (onda_web so serve a web) e o Pedido a mao nao pergunta ao portao de coleta — medido no ensaio a seco: CORRIDA SUCCESS numa fonte WEB pedida como LinkedIn. Duas contas LinkedIn na mesma noite dao licdn.com = 6 (robots relido por processo), por isso a previsao corre ANTES.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/micro_social/micro_social.py",
+    "ferramentas/micro_social/_mutantes_micro_social.py",
+    "ferramentas/micro_social/RUNBOOK-MICRO-SOCIAL.md",
+    "ferramentas/micro_social/ensaio/LOTE-DO-ENSAIO.json",
+    "ferramentas/micro_social/ensaio/saida-1.txt",
+    "ferramentas/micro_social/ensaio/saida-2.txt",
+    "ferramentas/micro_social/ensaio/saida-3.txt",
+    "ferramentas/micro_social/ensaio/saida-4.txt",
+    "ferramentas/micro_social/ensaio/SHA256SUMS.txt"
+   ]
+  },
+  {
    "id": "C-INTEGRA-ONDA2",
    "name": "INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO",
    "territory": "Z-FERRAMENTAS",

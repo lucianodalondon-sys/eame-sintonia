@@ -1,0 +1,15 @@
+== E5 rodada com o robo dado por parado: a Sala operacional nao esta declarada ==
+{"CORREU": false, "PORQUE": "precondicoes da Sala", "FALTA": ["SINTONIA_COLLECTION_DSN", "SINTONIA_SALA_DSN", "SINTONIA_SALA_BACKEND", "SINTONIA_PSQL_EXE", "SINTONIA_ARMAZEM_RAIZ"]}
+== E6 idem, com as variaveis da Sala postas (falsas, nunca usadas): o egresso real recusa ==
+False EGRESSO_NAO_IT UNKNOWN
+== E7 o pedido do orquestrador (LinkedIn), rede fechada, sem Sala ==
+Could not find platform independent libraries <prefix>
+rc 0
+CORRIDA SUCCESS · IT-T7-2026-09-26-063241-b6081c959aa2ebb6
+== E8 o pedido do orquestrador (YouTube audio), rede fechada, sem Sala ==
+Could not find platform independent libraries <prefix>
+rc 0
+CORRIDA SUCCESS · IT-T8-2026-09-26-063251-41679fad623a1908
+== E9 livro de corridas desta copia de ensaio ==
+{"RUN_ID": "IT-T7-2026-09-26-063241-b6081c959aa2ebb6", "EXECUTOR_ID": "scrap-colheita", "FASE": "video-linkedin", "SOURCE_ID": "IT-T7-171", "STARTED_AT": "2026-09-26T06:32:43.615171Z", "FINISHED_AT": "2026-09-26T06:32:46.357462Z", "CORTESIA": {"PEDIDOS_POR_HOST": {"linkedin.com": 1}, "CONTADO_POR": "scrap_http._ContaCadaPedido + yt-dlp --print-traffic"}}
+{"RUN_ID": "IT-T8-2026-09-26-063251-41679fad623a1908", "EXECUTOR_ID": "scrap-colheita", "FASE": "audio-youtube", "SOURCE_ID": "IT-T8-006", "STARTED_AT": "2026-09-26T06:32:53.607986Z", "FINISHED_AT": "2026-09-26T06:32:54.307817Z", "CORTESIA": {"PEDIDOS_POR_HOST": {}, "CONTADO_POR": "scrap_http._ContaCadaPedido + yt-dlp --print-traffic"}}

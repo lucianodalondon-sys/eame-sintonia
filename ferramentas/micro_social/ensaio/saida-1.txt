@@ -1,0 +1,30 @@
+== E1 portao de egresso (rede fechada) ==
+ "EGRESS_COUNTRY_CODE": "UNKNOWN",
+ "EGRESS_GATE": "BLOCKED",
+ "EGRESS_VERDICT": "UNKNOWN",
+rc=1
+== E2 plano (sem rede; portao de coleta no livro DESTA copia) ==
+   "SOURCE_ID": "IT-T7-171",
+   "ESTADO": "BLOQUEADA",
+    "portao de coleta: ESTADO_NAO_READY — o estado no livro e AUSENTE_DO_LIVRO; so entra quem esta em READY_FOR_COLLECTION"
+   "SOURCE_ID": "IT-T5-160",
+   "ESTADO": "BLOQUEADA",
+    "portao de coleta: ESTADO_NAO_READY — o estado no livro e AUSENTE_DO_LIVRO; so entra quem esta em READY_FOR_COLLECTION"
+   "SOURCE_ID": "IT-T8-006",
+   "ESTADO": "BLOQUEADA",
+    "portao de coleta: READY_LEGACY — promovida pela regua antiga (LEGACY); a regua de hoje e DETAIL/v1 — item aberto, retratado e com corpo util"
+ "PRONTAS": 0,
+ "DE": 3
+rc=1
+== E3 rodada sem --autorizado-pelo-dono ==
+{
+ "CORREU": false,
+ "PORQUE": "falta --autorizado-pelo-dono"
+}
+rc=2
+== E4 rodada autorizada, robo nao parado nesta copia ==
+{
+ "CORREU": false,
+ "PORQUE": "ROBO_NAO_PARADO: curadoria/PARAR.flag nao existe: o robo nao foi mandado parar"
+}
+rc=2
