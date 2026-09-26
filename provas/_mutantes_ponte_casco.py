@@ -21,7 +21,8 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
 ALVO = "pacote/ponte_intelligence_casco.py"
-COPIAR = ("_gavetas.py", ALVO, "motor/corrida_da_inteligencia.py",
+ALVO_ESQ = "pacote/esqueleto_scientifica.py"
+COPIAR = ("_gavetas.py", ALVO, ALVO_ESQ, "tests/test_esqueleto_scientifica.py", "motor/corrida_da_inteligencia.py",
           "provas/espinha_da_intelligence.py", "admissao/sala_de_espera.py",
           "research/intelligence/COORTE-DA-SALA-2026-09-14.json",
           "tests/test_ponte_intelligence_casco.py",
@@ -95,19 +96,48 @@ M = [
     ("M22 ambiguidade resolvida a favor do PASSOU",
      '        if "PASSOU" in g0:\n            return ("PROVA_AMBIGUA"',
      '        if "PASSOU" in g0:\n            continue\n            return ("PROVA_AMBIGUA"'),
+    # O esqueleto de Intelligence Scientifica (ordem da coordenacao 26/09 17:35)
+    ("E1 tema tirado da cultura",
+     '        pares = u.get("NA_CONSULTA_E_NO_TEXTO") or []\n',
+     '        pares = u.get("NA_CONSULTA_E_NO_TEXTO") or _valores(u.get("CULTURA"))\n', ALVO_ESQ),
+    ("E2 SO_NOME passa a ligar",
+     'LIGADOS = ("MUR_E_OBRAS", "VARIOS_IDS")',
+     'LIGADOS = ("MUR_E_OBRAS", "VARIOS_IDS", "SO_NOME")', ALVO_ESQ),
+    ("E3 tema sem a marca",
+     '            "MARCA": MARCA, "NAO_PARA_CLIENTE": True, "TEMA": t,\n',
+     '            "NAO_PARA_CLIENTE": True, "TEMA": t,\n', ALVO_ESQ),
+    ("E4 NAO SEI vira vazio",
+     '    return NAO_SEI if e_ignorancia(x) else x\n',
+     '    return "" if e_ignorancia(x) else x\n', ALVO_ESQ),
+    ("E5 publicacao vira periodo do estudo",
+     '        "PERIODO_DO_ESTUDO": _valores(u.get("PERIODO_DO_ESTUDO")) or NAO_SEI,\n',
+     '        "PERIODO_DO_ESTUDO": _valores(u.get("PERIODO_DO_ESTUDO")) or _v(u.get("PUBLICADO_EM")),\n', ALVO_ESQ),
+    ("E6 independencia sem a base",
+     '(dict(pm, BASE=(origens or {}).get("PRE_MEDICAO_BASE", NAO_SEI))',
+     '(dict(pm)', ALVO_ESQ),
+    ("E7 pagina do esqueleto sem a faixa",
+     "         f'<div class=\"faixa\" data-marca=\"1\">{E(MARCA)} — PRE_SALA, non è Intelligence · anteprima locale, non pubblicata</div>',\n",
+     "", ALVO_ESQ),
+    ("E8 conferencia aceita pessoa nao ligada",
+     '            if p.get("ESTADO_NA_LISTA_MESTRA") not in LIGADOS:\n',
+     '            if False:\n', ALVO_ESQ),
+    ("E9 VARIOS_IDS perde o segundo id",
+     '            ids = set(p.get("OPENALEX_IDS") or [])\n',
+     '            ids = set((p.get("OPENALEX_IDS") or [])[:1])\n', ALVO_ESQ),
 ]
 
 
 def correr(pasta: Path) -> subprocess.CompletedProcess:
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1",
                HTTP_PROXY="http://127.0.0.1:9", HTTPS_PROXY="http://127.0.0.1:9")
-    return subprocess.run([sys.executable, "-m", "unittest", "tests.test_ponte_intelligence_casco"],
+    return subprocess.run([sys.executable, "-m", "unittest", "tests.test_ponte_intelligence_casco",
+                           "tests.test_esqueleto_scientifica"],
                           cwd=pasta, capture_output=True, text=True, encoding="utf-8",
                           errors="replace", env=env, timeout=300)
 
 
 def main() -> int:
-    original = (RAIZ / ALVO).read_text(encoding="utf-8")
+    originais = {a: (RAIZ / a).read_text(encoding="utf-8") for a in (ALVO, ALVO_ESQ)}
     vivos, nao_aplicou = [], []
     with tempfile.TemporaryDirectory() as d:
         pasta = Path(d)
@@ -125,19 +155,21 @@ def main() -> int:
             print("BASE VERMELHA na copia — a prova nao vale:\n" + base.stderr[-2000:])
             return 2
         print("base: verde na copia")
-        for nome, a, b in M:
+        for nome, a, b, *alvo in M:
+            alvo = alvo[0] if alvo else ALVO
+            original = originais[alvo]
             if original.count(a) != 1:
                 print(f"{nome}: NAO_APLICOU ({original.count(a)} ocorrencias)")
                 nao_aplicou.append(nome)
                 continue
-            (pasta / ALVO).write_text(original.replace(a, b), encoding="utf-8")
+            (pasta / alvo).write_text(original.replace(a, b), encoding="utf-8")
             r = correr(pasta)
             caidos = sorted(set(re.findall(r"^(?:FAIL|ERROR): (\S+) \(", r.stderr, re.M)))
             estado = "MORTO" if r.returncode != 0 else "VIVO"
             if estado == "VIVO":
                 vivos.append(nome)
             print(f"{nome}: {estado} · {len(caidos)} testes caem · {', '.join(caidos[:4])}")
-        (pasta / ALVO).write_text(original, encoding="utf-8")
+            (pasta / alvo).write_text(original, encoding="utf-8")
     mortos = len(M) - len(vivos) - len(nao_aplicou)
     print(f"\nMUTACAO: {mortos}/{len(M)} mortos · vivos {vivos or 0} · nao aplicados {nao_aplicou or 0}")
     return 0 if not vivos and not nao_aplicou else 1

@@ -76,7 +76,7 @@ Corredor `provas/boletins_data_local/testes_por_nome.py`, mesmo corredor nas dua
 passou a abrir 14 vistas (lote 2); `sala` e `painel` estão nomeadas no módulo, e uma vista nova sem declaração
 volta a reprovar.
 
-## 4 · Mutação — 22/22 mortos
+## 4 · Mutação — 22/22 mortos na ponte (31/31 com o esqueleto, §8)
 
 Planta cada defeito numa cópia em pasta temporária (o repositório não é tocado) e corre os 35 testes.
 Mortos: sinal sem prova atravessa · **cartão sem a marca** · conferência cega à marca · `NAO SEI` vira vazio ·
@@ -111,6 +111,36 @@ P1 de volta · P4 de volta · `CORRIDA_UPSTREAM` ignorada · ambiguidade resolvi
 
 Regerado e validado pela cadeia **depois** deste relatório (o relatório entra na impressão da árvore, por isso
 tem de existir antes). O veredito está no commit `mapa: regerado pela cadeia (…ponte…)` e no fecho da missão.
+
+## 8 · Adenda (ordem da coordenação 17:35) — esqueleto de «Intelligence Scientifica»
+
+`pacote/esqueleto_scientifica.py` · testes `tests/test_esqueleto_scientifica.py` (11) · mutação +9 (E1–E9) →
+**31/31** no total (o E4 sobreviveu na 1.ª volta — os campos IRIS e TRIAL_ID não eram olhados; teste A4b acrescentado).
+
+**Natureza: PRE_SALA.** Material fora da Sala → **não é Intelligence** (INT-LAW-010), não passa pela ponte (não há
+LINEAGE com G0) e diz isso na faixa da página.
+
+| entrada (fora do Git) | sha256 (16) |
+|---|---|
+| `CRUZAMENTO-MUR-AGRI05.json` (ramo `lista-mestra-v1` @ `d225efa2`, lido por `git show`) | `afa712f6195f25da` |
+| `pesquisadores-t6/foto-final/UNIDADES-T6.json` — **589** obras (= `FOTO-FINAL.sha256`) | `25cbc1e7dd3a263e` |
+| `T6-PRE-MEDICAO/PRE-MEDICAO-CAP-SCI.json` — mediu **432** obras (versão ANTERIOR, sha `3279488a…`) | verificado pelo SHA256SUMS da pasta |
+
+Regras: **tema** = par que está na consulta **e** no texto (nunca só pela cultura) · **pesquisador** = identidade do
+MUR, ligado ao estudo **só** pelo OPENALEX_ID que a lista mestra provou · `SO_NOME` (4) fora, com o motivo ·
+`VARIOS_IDS` sem fundir · publicação ≠ período do estudo · afiliação ≠ local do estudo · **independência não se
+calcula**: aparece a da pré-medição, com a base escrita («432, não as 589»).
+
+Resultado (página local `C:/tmp/ponte/esqueleto-scientifica.html`, `47d7da1ef9f72d06…`):
+12 temas · 119 pesquisadores MUR distintos · 55 obras sem tema do casco no texto. Pesquisadores por tema **iguais**
+à tabela da `LISTA-MESTRA-PESQUISADORES.md` (vite×peronospora 49 · pomodoro×botrite 44 · vite×scafoideo 34 ·
+vite×botrite 31 · vite×oidio 24 · vite×tignoletta 15 · pomodoro×peronospora 12 · mais×piralide 9 · mais×diabrotica 5 ·
+melo×carpocapsa 2 · pomodoro×oidio 1 · melo×oidio 1). BOSCO Domenico (Ordinario, Torino): 14 estudos em vite×scafoideo.
+
+⚠️ Em pomodoro×botrite a pré-medição contou 3 obras; a foto tem 74. A independência dessa linha é de outra base, e a
+página diz qual. Refazer a pré-medição sobre as 589 é do dono dela, não desta missão.
+
+**A atualizar depois da rodada desta noite:** a página experimental da ponte (§2) com a nova saída da Intelligence.
 
 ## EM PALAVRAS SIMPLES
 
