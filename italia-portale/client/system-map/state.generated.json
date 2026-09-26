@@ -18,6 +18,7 @@
       "BIG-COLLECTION-GATES.md",
       "BIG-COLLECTION-RUNBOOK.md",
       "CASCO-CLIENT-DEMO.md",
+      "CASCO-LEITURA.md",
       "CLAUDE.md",
       "CUTOVER-CHECKLIST.md",
       "CUTOVER-RUNBOOK.md",
@@ -2174,6 +2175,7 @@
       "italia-portale/audit/casco/quarantatre.mjs",
       "italia-portale/audit/casco/release-gate.mjs",
       "italia-portale/audit/casco/ricchezza.mjs",
+      "italia-portale/audit/casco/sala-leitura.mjs",
       "italia-portale/audit/casco/sinale.mjs",
       "italia-portale/audit/casco/sperimentali.mjs",
       "italia-portale/audit/checks.mjs",
@@ -2268,6 +2270,7 @@
       "italia-portale/client/italy-market-pulse.js",
       "italia-portale/client/italy-pdf.js",
       "italia-portale/client/italy-real-intelligence.js",
+      "italia-portale/client/italy-sala-leitura.js",
       "italia-portale/client/italy-science-business.js",
       "italia-portale/client/italy-v21.js",
       "italia-portale/client/meeting-intelligence-snapshot.js",
@@ -3425,8 +3428,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 922 ficheiros (91%) · ESPANHA 76 ficheiros (8%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 922 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 924 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 924 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -3938,10 +3941,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "c9-sobre-ce28-v1",
-    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-    "GENERATED_AT": "2026-09-26T01:07:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a"
+    "BRANCH": "casco-leitura-v1",
+    "HEAD": "b83b930f8f1a7b6918b1a8d96d054562730ef51f",
+    "GENERATED_AT": "2026-09-26T02:04:17-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6aaff2a4fea9019bf6a3da6707367068c50293b938534c4d8241e25b0948ea90"
   },
   "FAMILIES": [
     {
@@ -38118,10 +38121,11 @@
         "italia-portale/audit/casco/quarantatre.mjs",
         "italia-portale/audit/casco/release-gate.mjs",
         "italia-portale/audit/casco/ricchezza.mjs",
+        "italia-portale/audit/casco/sala-leitura.mjs",
         "italia-portale/audit/casco/sinale.mjs",
         "italia-portale/audit/casco/sperimentali.mjs"
       ],
-      "file_count": 16,
+      "file_count": 17,
       "status": "PENDING",
       "status_reason": "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada.",
       "changed_since_declared": [
@@ -53154,7 +53158,7 @@
         "PLANO": null,
         "PROVA": [
           "italia-portale/audit/casa-gate.mjs:582",
-          "italia-portale/client/portale.html:263"
+          "italia-portale/client/portale.html:267"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -53369,10 +53373,11 @@
         "italia-portale/client/italy-app-model.js",
         "italia-portale/client/italy-casa.js",
         "italia-portale/client/italy-i18n.js",
+        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-v21.js",
         "italia-portale/client/support.js"
       ],
-      "file_count": 5,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -63110,6 +63115,7 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
+        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
@@ -63231,6 +63237,7 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
+        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
@@ -63347,6 +63354,7 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
+        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
@@ -64115,6 +64123,7 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
+        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
@@ -64226,6 +64235,7 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
+        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
@@ -118887,7 +118897,7 @@
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
-          "line": 263,
+          "line": 267,
           "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-CASCO--READS-->C-TELA-FIELD",
@@ -120251,7 +120261,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 4 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -120305,6 +120315,22 @@
           "file": "italia-portale/client/portale.html",
           "line": 69,
           "snippet": "<script src=\"italy-casa.js\"></script>",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TELA-FIELD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 75,
+          "snippet": "<script src=\"italy-sala-leitura.js\"></script>",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
             "FROM": "C-PORTAL-MODELO",
@@ -144200,8 +144226,16 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1924,
-  "OWNERSHIP_CONFLICTS": [],
+  "UNCLAIMED_FILES_COUNT": 1925,
+  "OWNERSHIP_CONFLICTS": [
+    {
+      "file": "italia-portale/client/italy-sala-leitura.js",
+      "claimed_by": [
+        "C-PORTAL-MODELO",
+        "C-PORTAL-DADOS"
+      ]
+    }
+  ],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
       "file": "admissao/admissao.py",
@@ -144466,8 +144500,8 @@
     "edges_proven": 1406,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3345,
-    "files_covered": 1421,
+    "files_tracked": 3348,
+    "files_covered": 1423,
     "files_code_unclaimed": 0,
     "roles_proven": 175,
     "roles_declared_only": 8,

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T04:10:46+00:00",
-  "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-  "BRANCH": "c9-sobre-ce28-v1",
+  "GENERATED_AT": "2026-09-26T10:09:59+00:00",
+  "HEAD": "b83b930f8f1a7b6918b1a8d96d054562730ef51f",
+  "BRANCH": "casco-leitura-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
-  "FICHEIROS_NA_IMPRESSAO": 3493,
+  "SOURCE_TREE_FINGERPRINT": "6aaff2a4fea9019bf6a3da6707367068c50293b938534c4d8241e25b0948ea90",
+  "FICHEIROS_NA_IMPRESSAO": 3496,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1666,6 +1666,13 @@
     "PATH": "italia-portale/client/italy-i18n.js",
     "PAPEL": "FONTE",
     "VERSAO": "f107ec78f9ac730ce3bc361e4e90a41802f5f5a8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "italia-portale/client/italy-sala-leitura.js",
+    "PAPEL": "FONTE",
+    "VERSAO": "5f7e896f322ea89e8691a929811cf6a04a6c5e2e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4234,14 +4241,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
+    "VERSAO": "6aaff2a4fea9019bf6a3da6707367068c50293b938534c4d8241e25b0948ea90",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a",
+    "VERSAO": "6aaff2a4fea9019bf6a3da6707367068c50293b938534c4d8241e25b0948ea90",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6332,8 +6339,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 899,
-  "INPUTS_DIGEST": "392b5de90bb2be7c9a28a1fb17b65a69ec97af3ad535fee4411d8d4c0963e690",
+  "INPUTS_COUNT": 900,
+  "INPUTS_DIGEST": "a7668941b2861ede385f75f5203eb13c5af8a3e04617c82d70e8be6d6a5744b2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6359,15 +6366,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 546,
+  "DOCUMENTOS_LIDOS": 547,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0503341c6ba67cd7dae57d67353eaa808bc78194b8ab4ba7bee1934583cb0968",
-  "SEMANTIC_HASH": "476a02cd688d3bb1fe9035d58ee640c8544f72013e76d4d889178dd2001f95f7"
+  "MEASUREMENT_HASH": "e1045e98b32b48bb9339590ce041aada10bf301714788bae2ffe03bdb64bc37d",
+  "SEMANTIC_HASH": "39523f37d0fa9fb1adf2b752a9f7762ae658baa5899de9a8f53bd23cc9799deb"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -36366,6 +36373,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "italia-portale/client/portale.html",
+      "LINHA": 75,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -50841,6 +50856,7 @@
     "tests/test_adama_referencia.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
+    "CASCO-LEITURA.md",
     "docs/design/REGUA-DO-SINAL-FUTURO.md",
     "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md",
     "italia-portale/CHECKPOINT-SUPERFICIE-VISIVEL.md"
@@ -55757,6 +55773,7 @@
     "italia-portale/client/italy-app-model.js",
     "italia-portale/client/italy-casa.js",
     "italia-portale/client/italy-i18n.js",
+    "italia-portale/client/italy-sala-leitura.js",
     "italia-portale/client/italy-v21.js",
     "italia-portale/client/support.js"
    ],

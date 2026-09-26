@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.casco/1",
   "PROVENANCE": {
-    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
+    "HEAD": "b83b930f8f1a7b6918b1a8d96d054562730ef51f",
     "BLOCOS": "italia-portale/audit/blocks",
     "CLIENTE": "italia-portale/client"
   },
@@ -12,7 +12,7 @@
       "chave_do_rotulo": "navMeeting",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5676,
+        "line": 5711,
         "snippet": "['meeting', mtL('navMeeting'), relev ? relev.OPPORTUNITA : meetingCount],"
       },
       "blocos": [
@@ -109,7 +109,7 @@
       "chave_do_rotulo": "navFuture",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5678,
+        "line": 5713,
         "snippet": "Qui stava `['future', T.navFuture, navN('futureSignals')]`. Tre voci"
       },
       "blocos": [],
@@ -135,7 +135,7 @@
       "chave_do_rotulo": "navLabels",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5704,
+        "line": 5739,
         "snippet": "['etichette', T.navLabels,"
       },
       "blocos": [],
@@ -157,7 +157,7 @@
       "chave_do_rotulo": "navWindows",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5706,
+        "line": 5741,
         "snippet": "['windows', T.navWindows, navN('windows')],"
       },
       "blocos": [
@@ -245,7 +245,7 @@
       "chave_do_rotulo": "navMarket",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5707,
+        "line": 5742,
         "snippet": "['market', T.navMarket, navN('marketObservations')],"
       },
       "blocos": [
@@ -306,7 +306,7 @@
       "chave_do_rotulo": "navVoices",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5708,
+        "line": 5743,
         "snippet": "['voices', T.navVoices, navN('voices')],"
       },
       "blocos": [],
@@ -331,7 +331,7 @@
       "chave_do_rotulo": "navCompetitors",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5709,
+        "line": 5744,
         "snippet": "['competitors', T.navCompetitors, navN('competitorActivities')],"
       },
       "blocos": [
@@ -398,7 +398,7 @@
       "chave_do_rotulo": "navScience",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5710,
+        "line": 5745,
         "snippet": "['science', T.navScience, navN('scienceRecords')],"
       },
       "blocos": [
@@ -486,7 +486,7 @@
       "chave_do_rotulo": "navPortfolio",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5711,
+        "line": 5746,
         "snippet": "['portfolio', T.navPortfolio, navN('products')],"
       },
       "blocos": [
@@ -580,7 +580,7 @@
       "chave_do_rotulo": "navArchive",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5712,
+        "line": 5747,
         "snippet": "['archive', T.navArchive, navN('archive')],"
       },
       "blocos": [
@@ -665,8 +665,8 @@
       "chave_do_rotulo": "navSources",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5713,
-        "snippet": "['sources', T.navSources, navN('sources')]"
+        "line": 5748,
+        "snippet": "['sources', T.navSources, navN('sources')],"
       },
       "blocos": [],
       "o_que_alimenta": "",
@@ -687,7 +687,7 @@
       "chave_do_rotulo": "navField",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 5715,
+        "line": 5754,
         "snippet": "const navIntegrations = [['field', T.navField, allMessages.length]];"
       },
       "blocos": [],
@@ -747,6 +747,10 @@
     "ITALY_REAL": [
       "italia-portale/client/italy-real-intelligence.js"
     ],
+    "ITALY_SALA_LEITURA": [
+      "italia-portale/client/italy-sala-leitura.js",
+      "italia-portale/client/italy-sala-leitura.local.js"
+    ],
     "ITALY_SCIENCE": [
       "italia-portale/client/italy-science-business.js"
     ],
@@ -767,6 +771,6 @@
       "NAO SEI": 5,
       "REAL": 1
     },
-    "camadas_publicadas": 17
+    "camadas_publicadas": 18
   }
 }

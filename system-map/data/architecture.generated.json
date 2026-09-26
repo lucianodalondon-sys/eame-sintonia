@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "c9-sobre-ce28-v1",
-    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-    "GENERATED_AT": "2026-09-26T01:07:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a"
+    "BRANCH": "casco-leitura-v1",
+    "HEAD": "b83b930f8f1a7b6918b1a8d96d054562730ef51f",
+    "GENERATED_AT": "2026-09-26T02:04:17-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6aaff2a4fea9019bf6a3da6707367068c50293b938534c4d8241e25b0948ea90"
   },
   "FILES": [
     {
@@ -228,6 +228,13 @@
     {
       "path": "CASCO-CLIENT-DEMO.md",
       "sha": "1bd04ffdccc3155f15501c08523a675877eac5b6",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "CASCO-LEITURA.md",
+      "sha": "c9e0aada7e9164c2909f9e6027b400be9863e198",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -14961,6 +14968,13 @@
       "code_dir": true
     },
     {
+      "path": "italia-portale/audit/casco/sala-leitura.mjs",
+      "sha": "759e6ce7dfe4c466501cf8aa4cbfe4754472b9d0",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "italia-portale/audit/casco/sinale.mjs",
       "sha": "d2099713fe77511d5a3c305e540ef3400816ec1e",
       "ext": ".mjs",
@@ -15396,14 +15410,14 @@
     },
     {
       "path": "italia-portale/client/.gitignore",
-      "sha": "245259b697909ccc71cbb4e129e836576ef5505b",
+      "sha": "02158461b6a808eb5ac20f3f1862c0612f0bc045",
       "ext": "",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "italia-portale/client/.vercelignore",
-      "sha": "2351ef951ecd2248d7987073fcec79d8714b93e8",
+      "sha": "ea05b01c03e35ba404cff9a5738d89598310d8df",
       "ext": "",
       "readable": false,
       "code_dir": true
@@ -15619,6 +15633,13 @@
       "code_dir": true
     },
     {
+      "path": "italia-portale/client/italy-sala-leitura.js",
+      "sha": "5f7e896f322ea89e8691a929811cf6a04a6c5e2e",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "italia-portale/client/italy-science-business.js",
       "sha": "94f897e77d635161cc0060712dba81375d7ffd4c",
       "ext": ".js",
@@ -15662,7 +15683,7 @@
     },
     {
       "path": "italia-portale/client/portale.html",
-      "sha": "90e8a28b2eaadc72e969b57f45a50d2853c85578",
+      "sha": "9a05055b53eb997bd62933e74b47debd1bd5ed69",
       "ext": ".html",
       "readable": true,
       "code_dir": true
@@ -21087,7 +21108,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "2e70e218f30997daa2ca76c530473209422b8d19",
+      "sha": "b07076e8d281b78d23034a09f1fac272cd3ce157",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -45454,7 +45475,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "italia-portale/client/portale.html",
-        "line": 263,
+        "line": 267,
         "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)"
       }
     },
@@ -45632,6 +45653,17 @@
         "file": "italia-portale/client/portale.html",
         "line": 33,
         "snippet": "<script src=\"italy-real-intelligence.js\"></script>"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/portale.html",
+      "to_file": "italia-portale/client/italy-sala-leitura.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/portale.html",
+        "line": 75,
+        "snippet": "<script src=\"italy-sala-leitura.js\"></script>"
       }
     },
     {
@@ -92341,10 +92373,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3345,
-    "files_readable": 1422,
-    "files_code_dir": 1531,
-    "file_edges": 6210,
+    "files_tracked": 3348,
+    "files_readable": 1424,
+    "files_code_dir": 1533,
+    "file_edges": 6211,
     "escritas_em_pasta": 88,
     "declared_missing_here": 0
   },
