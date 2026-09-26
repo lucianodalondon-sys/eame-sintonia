@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b1f6c0e4150e7c8ba07535336bf7386bf7ac9b25
+HEAD_DA_MEDICAO  d0269baf8d2f155c7d2861df2f7f1fdb5ddcfb56
 BRANCH           nuvem-polso-mercato-v1
-GERADO_EM        2026-09-26T16:46:10-03:00
+GERADO_EM        2026-09-26T16:50:48-03:00
 CARDS            105
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
