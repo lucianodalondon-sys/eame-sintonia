@@ -458,7 +458,8 @@ ATLAS = os.path.join(RAIZ, 'docs', 'fontes', 'ATLAS-DE-FONTES-EAME.md')
 def orcids_do_atlas():
     """ORCID → SOURCE_ID das fontes que o Atlas ja tem (IT-T6-001..036 hoje)."""
     try:
-        a = open(ATLAS, encoding='utf-8').read()
+        with open(ATLAS, encoding='utf-8') as h:
+            a = h.read()
     except OSError:
         return {}
     out = {}
