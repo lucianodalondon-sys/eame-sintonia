@@ -53,6 +53,10 @@ Com esta regra, uma versão nova **do mesmo documento** (conteúdo mudou de verd
 2.ª linha. Foi a decisão do bot Luciano (dedupe por `document_key`). Se o dono quiser versões na Sala, o
 caminho é o caderno de revisões da 033, não uma linha nova. **Decisão do dono, não minha.**
 
+**PERGUNTA AO DONO — VERSÕES** (um documento que muda de verdade, depois de já estar na Sala):
+- **Opção A · guardar no caderno de revisões da 033:** a linha antiga fica, e a mudança entra como revisão (só acrescenta, com a data da mudança). Precisa de código novo; a Intelligence vê que o documento mudou.
+- **Opção B · ignorar:** a Sala guarda só a 1.ª versão; a nova fica no bruto e no derivado, fora da fila. É o que a regra faz hoje, sem código novo.
+
 O backend FICHEIRO **não mudou** (não tem `raw_asset`). Declarado.
 
 ## 3 · Os afetados na Sala real (só leitura, 26/09 ~00:10)
