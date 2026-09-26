@@ -1,5 +1,13 @@
 # LOTE3-SOCIAL — pacote único (freio + maestro + canais-41) e o roteiro de instalação (26/09)
 
+> **v3 (26/09 ~17:45):** o vivo passou a **`dc0de726`** (`rodada1-comando-v1`, ff de 278cd489). Refeito no ramo
+> **`lote3-social-v3`**: os mesmos commits da v2 por cherry-pick; o único cruzamento com a rodada 1 foi o
+> `architecture.declared.json` (resolvido partindo do vivo e reaplicando só as declarações deste pacote; cada ficheiro
+> novo numa só peça). **ff-only sobre `dc0de726` = SIM**; nenhum dos livros que o robô escreve. Os passos do §3 valem
+> com **`dc0de726`** no lugar de 278cd489/69b0e23f (`git merge --ff-only origin/lote3-social-v3`; desfazer
+> `git reset --keep dc0de726`). Medido no vivo dc0de726: os 9 canais presos continuam `RETRY_AFTER` no feed (passo 2
+> por aplicar); 50 canais YouTube na rota do Scrap, todos `CANARY_PENDING`. Baterias da v3: §2 (v3).
+>
 > **v2 (26/09 ~14:30):** o vivo passou a **`278cd489`** (LOTE 2 instalado às 13:55). O pacote foi refeito por cima
 > dele no ramo **`lote3-social-v2`** — os mesmos commits por cherry-pick; o do `canais-pesquisa` foi **pulado** porque o
 > LOTE 2 já o trouxe (494b7b36 está no vivo). Um conflito, só no `architecture.declared.json` (resolvido: o do vivo +
@@ -40,6 +48,11 @@ escrever (medido às ~10:55). **Nenhuma migração** entra (a 037 está em `supa
   `cuda_disponivel()` = 1 placa, e o modelo `small` carrega do disco em 16,7 s com `HF_HUB_OFFLINE=1`. (Em 24/09 falhava
   pelas bibliotecas cp311; alguém as trocou para cp312.)
 
+### §2 (v3) · repetido sobre o vivo `dc0de726`
+- Testes das partes juntas: **112 OK** · mutação freio **14/14** · maestro **13/13** · aviso real intacto (sha256).
+- Regressão (44 suítes): vivo `dc0de726` 880 testes · pacote 933 — **as mesmas 14 falhas e 2 erros** que o vivo já
+  tem, linha a linha.
+
 ### §2 (v2) · repetido sobre o vivo `278cd489`
 - Testes das partes juntas: **112 OK** · mutação freio **14/14** · maestro **13/13** · aviso real intacto (sha256).
 - Regressão (44 suítes): vivo `278cd489` 880 testes · pacote 933 — **as mesmas 14 falhas e 2 erros** que o vivo já
@@ -51,7 +64,7 @@ escrever (medido às ~10:55). **Nenhuma migração** entra (a 037 está em `supa
 **0 · Parar e guardar**
 ```
 touch curadoria/PARAR.flag            # e esperar a volta do bot acabar
-git rev-parse HEAD                    # tem de ser 278cd489 (v2) — se andou, PARAR e pedir rebase
+git rev-parse HEAD                    # tem de ser dc0de726 (v3) — se andou, PARAR e pedir rebase
 ```
 Cópia com sha256, antes de tudo, de: `curadoria/italy_contracts_curator.json`, `regras/italy_contracts_onboarded.json`,
 `curadoria/LIFECYCLE-*.json`, `curadoria/DESBLOQUEIO-LEDGER-V1.jsonl`, `curadoria/SOURCE-ID-ALLOCATION-V1.json`,
@@ -59,7 +72,7 @@ Cópia com sha256, antes de tudo, de: `curadoria/italy_contracts_curator.json`, 
 
 **1 · Código — ff-only**
 ```
-git fetch origin && git merge --ff-only origin/lote3-social-v2
+git fetch origin && git merge --ff-only origin/lote3-social-v3
 ```
 Reiniciar o supervisor. Sozinho, isto não muda livro nenhum.
 
@@ -73,7 +86,7 @@ cópia: 9/9). Não vai à rede.
 
 **3 · Tirar o `PARAR.flag`.** O bot faz os 9 `VALIDATE_ROUTE` e pára em `CANARY_PENDING` (sem rede).
 
-**Desfazer:** livros da cópia do passo 0; código `git reset --keep 278cd489` e reiniciar o supervisor.
+**Desfazer:** livros da cópia do passo 0; código `git reset --keep dc0de726` e reiniciar o supervisor.
 
 ## 4 · A 1.ª COLETA SOCIAL REAL (depois de instalar; missão própria, VPN IT, rede autorizada)
 
