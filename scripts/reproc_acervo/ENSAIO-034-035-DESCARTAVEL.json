@@ -1,0 +1,114 @@
+{
+ "DUMP_SHA256": "687a135e7ddbd3de05e29d0835262d2b291441250e07cf0a2311a18cfe1e1d5d",
+ "MIGRACOES": {
+  "034": {
+   "FICHEIRO": "034_a_lapide_da_retencao.sql",
+   "SHA256": "8d0a2775a677c7138aab28a5d67689d0fd62d316cb7774bbd5a68bb36584920b",
+   "DESFAZER_SHA256": "b461265f0dea39bf2cb03994bec874c88a03b9703cde523b6e66d2723c420d82"
+  },
+  "035": {
+   "FICHEIRO": "035_o_acervo_guarda_tempo_e_lugar_como_derivado.sql",
+   "SHA256": "083f16cce1c04d0baa6fe56ee740296f1ad728217f0b5274180eae4132354829",
+   "DESFAZER_SHA256": "d85f635f9cb26d8862d5956149a0e16f791124896d6ecc526f763de62debf6ad"
+  }
+ },
+ "PASSOS": {
+  "1_RESTAURO": {
+   "CODIGO": 0,
+   "ERRO": "",
+   "RAW": "1562",
+   "DERIVADOS": "1063",
+   "SALA": "94",
+   "ULTIMA_MIGRACAO": "033"
+  },
+  "2_UP": {
+   "CODIGO": 0,
+   "MATCH": 32,
+   "034_035": [
+    "MIGRATION_034=PASS",
+    "MIGRATION_035=PASS"
+   ],
+   "OUTRAS_QUE_NAO_SKIP": [],
+   "ERRO": "psql:<stdin>:5: NOTA:  relação \"schema_migracao\" já existe, ignorando\n"
+  },
+  "3_VALIDACAO": {
+   "LAPIDE_EXISTE": "t",
+   "LAPIDE_TRAVAS": "lapide_de_retencao_derived_artifact_id_fkey,lapide_de_retencao_pkey,lapide_de_retencao_raw_asset_id_fkey,lapide_de_retencao_storage_path_key,lapide_motivo_conhecido,lapide_regra_conhecida,lapide_sha256_hex,lapide_so_da_api",
+   "VOCABULARIO": "CHECK ((kind = ANY (ARRAY['TEXT_EXTRACTION'::text, 'OCR'::text, 'TRANSCRIPTION'::text, 'TRANSLATION'::text, 'THUMBNAIL'::text, 'FRAME'::text, 'TABLE_EXTRACTION'::text, 'TEMPO_LUGAR'::text])))",
+   "LIVRO": "034 APLICADA | 035 APLICADA",
+   "RAW_E_DERIVADOS_IGUAIS": {
+    "DERIVADOS": true,
+    "RAW": true
+   }
+  },
+  "4_LAPIDE": {
+   "VALIDA_ENTRA": [
+    0,
+    ""
+   ],
+   "MESMO_STORAGE_PATH_RECUSADO": [
+    1,
+    "ERRO:  duplicar valor da chave viola a restrição de unicidade \"lapide_de_retencao_storage_path_key\"\nDETALHE:  Chave (storage_path)=(ENSAIO/034/a) já existe."
+   ],
+   "REGRA_INVENTADA_RECUSADA": [
+    1,
+    "\nDETALHE:  Registro que falhou contém (3, 1, null, ENSAIO/034/b, 2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a, 1, OUTRA_REGRA, PRAZO_VENCIDO, youtube-data-api-v3:videos, 2026-09-26 09:54:00.677521+00, 2026-09-26 09:54:00.677521+00, ensaio)."
+   ],
+   "MOTIVO_INVENTADO_RECUSADO": [
+    1,
+    "  Registro que falhou contém (4, 1, null, ENSAIO/034/c, 2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a, 1, YOUTUBE_API_III_E_4_30D, PORQUE_SIM, youtube-data-api-v3:videos, 2026-09-26 09:54:00.915344+00, 2026-09-26 09:54:00.915344+00, ensaio)."
+   ],
+   "ROTA_QUE_NAO_E_DA_API_RECUSADA": [
+    1,
+    "LHE:  Registro que falhou contém (5, 1, null, ENSAIO/034/d, 2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a, 1, YOUTUBE_API_III_E_4_30D, PRAZO_VENCIDO, yt-dlp:public_audio, 2026-09-26 09:54:01.187658+00, 2026-09-26 09:54:01.187658+00, ensaio)."
+   ]
+  },
+  "5_TEMPO_LUGAR": {
+   "ENTRA": [
+    0,
+    ""
+   ],
+   "MESMA_REGUA_RECUSADA": [
+    1,
+    "(parent_sha256, kind, producer, producer_version, parameters_hash, serie_posicao)=(2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a, TEMPO_LUGAR, ensaio-035, v0, 0000000000000000000000000000000000000000000000000000000000000000, null) já existe."
+   ],
+   "ESPECIE_INVENTADA_RECUSADA": [
+    1,
+    ", ensaio, {}, 0000000000000000000000000000000000000000000000000000000000000000, null, 6933ca31da0a3cb6e7ec7b4581cf5a0afb5789f87b35ad237a6883efc7bf3b4d, 2, application/json, ENSAIO/035/b.json, 2026-09-26 09:54:02.224553+00, 2026-09-26 09:54:02.224553+00, null)."
+   ]
+  },
+  "6_DESFAZER": {
+   "035_COM_TEMPO_LUGAR_RECUSA": {
+    "CODIGO": 3,
+    "ERRO": "psql:C:/capa-v1/supabase/desfazer/035_desfazer.sql:22: ERRO:  DESFAZER_035_RECUSADO: 1 derivado(s) TEMPO_LUGAR existem; desfazer apagaria evidencia. Restaure o backup.\nCONTEXTO:  função PL/pgSQL inline_code_block linha 6 em RAISE"
+   },
+   "035_SEM_TEMPO_LUGAR": {
+    "CODIGO": 0,
+    "ERRO": ""
+   },
+   "034_COM_LAPIDE_RECUSA": {
+    "CODIGO": 3,
+    "ERRO": "psql:C:/capa-v1/supabase/desfazer/034_desfazer.sql:25: ERRO:  DESFAZER_034_RECUSADO: 1 lapide(s) de retencao existem; desfazer apagaria a prova do que foi apagado. Restaure o backup.\nCONTEXTO:  função PL/pgSQL inline_code_block linha 7 em RAISE"
+   },
+   "034_SEM_LAPIDE": {
+    "CODIGO": 0,
+    "ERRO": ""
+   },
+   "ESQUEMA_IGUAL_AO_DA_COPIA": true,
+   "RAW_E_DERIVADOS_IGUAIS": {
+    "DERIVADOS": true,
+    "RAW": true
+   }
+  },
+  "7_UP_DE_NOVO": {
+   "CODIGO": 0,
+   "MATCH": 32,
+   "034_035": [
+    "MIGRATION_034=PASS",
+    "MIGRATION_035=PASS"
+   ],
+   "OUTRAS_QUE_NAO_SKIP": [],
+   "ERRO": "psql:<stdin>:5: NOTA:  relação \"schema_migracao\" já existe, ignorando\n"
+  }
+ }
+}
