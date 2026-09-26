@@ -10,6 +10,16 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "ferramentas" / "seguir_pesquisadores"))
 import listas_oficiais as L   # noqa: E402
 import fora_do_mur as FM      # noqa: E402
+import seguir as S            # noqa: E402
+
+# NENHUM teste sai a rede: um mutante que desligue uma guarda chega aqui e para (26/09: um mutante da
+# rodada antiga chegou a pedir o robots.txt real de pub.orcid.org antes desta guarda existir)
+def _sem_rede(*a, **k):
+    raise RuntimeError("rede pedida dentro de um teste")
+
+
+S.Transporte._urllib = staticmethod(_sem_rede)
+S.portao = lambda *a, **k: False
 
 FX = RAIZ / "ferramentas" / "seguir_pesquisadores" / "fixtures"
 ALVOS = FX / "ALVOS-LISTAS.json"

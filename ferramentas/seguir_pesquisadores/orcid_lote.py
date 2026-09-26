@@ -237,6 +237,15 @@ def canario(estado: dict, t: "S.Transporte") -> dict:
     cs = ler_csv(b) if (b and st == 200) else None
     traz = cs is not None and len(cs) > 0
     c["C_LOTE_CSV"] = {"HTTP": st, "TRAZ_LINKS": "SIM" if traz else ("NAO" if st in (200, 400) else "NAO_SEI")}
+    proibidos = [x for x in t.registo if x["RESULTADO"] == "ROBOTS_OU_NAO_LIDO" and "orcid.org" in x["URL"]]
+    if len(proibidos) == 3:
+        rb = t.contador.robots_de("https://pub.orcid.org") if t.contador is not None else None
+        c["MODO"] = "PARADO"
+        c["PORQUE"] = ("ROBOTS: o robots.txt de pub.orcid.org nao deixa pedir nenhum dos 3 enderecos (%s). A regra da casa "
+                       "(D34/D39) respeita o robots; seguir sem ele e decisao do coordenador/dono, nao desta ferramenta"
+                       % (repr(rb[1]) if rb else "robots nao lido"))
+        c["PEDIDOS_ORCID"] = t.conta.get("orcid.org", 0)
+        return c
     if traz:
         c["MODO"] = "LOTE_COM_LINKS"
     elif c["A_POR_PESSOA"]["FORMATO_OK"]:

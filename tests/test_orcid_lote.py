@@ -15,6 +15,15 @@ import listas_oficiais as L  # noqa: E402
 import orcid_lote as O       # noqa: E402
 import seguir as S           # noqa: E402
 
+# NENHUM teste sai a rede: um mutante que desligue uma guarda chega aqui e para (26/09: um mutante da
+# rodada antiga chegou a pedir o robots.txt real de pub.orcid.org antes desta guarda existir)
+def _sem_rede(*a, **k):
+    raise RuntimeError("rede pedida dentro de um teste")
+
+
+S.Transporte._urllib = staticmethod(_sem_rede)
+S.portao = lambda *a, **k: False
+
 FX = RAIZ / "ferramentas" / "seguir_pesquisadores" / "fixtures"
 T0 = datetime.fromisoformat("2026-09-27T08:00:00+00:00")
 
@@ -69,6 +78,8 @@ class Contador(unittest.TestCase):
             t = S.Transporte(Path(d), buscar=lambda u: (200, b""), pausa=0, contador=c)
             self.assertEqual((None, None), t.get("https://www.uni.it/p", "t"))
             self.assertEqual(("https://www.uni.it/p", "TETO_24H"), (t.registo[-1]["URL"], t.registo[-1]["RESULTADO"]))
+            t.get("https://www.uni.it/q", "t")          # o host nao fica marcado como proibido
+            self.assertEqual("TETO_24H", t.registo[-1]["RESULTADO"])
 
 
 class Canario(unittest.TestCase):
@@ -79,6 +90,20 @@ class Canario(unittest.TestCase):
             self.assertEqual("POR_PESSOA", e["CANARIO"]["MODO"])          # o csv respondeu 400
             self.assertTrue(e["CANARIO"]["B_LOTE_BUSCA"]["FORMATO_OK"])
             self.assertEqual(4, e["CANARIO"]["PEDIDOS_ORCID"])             # robots + a + b + c
+
+    def test_robots_do_orcid_que_proibe_para_tudo(self):
+        # o robots.txt REAL de pub.orcid.org (lido por acidente em 26/09 22:58Z) e «User-agent: * / Disallow: /»
+        with tempfile.TemporaryDirectory() as d:
+            fx = Path(d) / "fx"
+            shutil.copytree(FX, fx)
+            r = json.loads((fx / "RESPOSTAS-ORCID.json").read_text(encoding="utf-8"))
+            r["https://pub.orcid.org/robots.txt"] = {"TEXTO": "User-agent: *\nDisallow: /"}
+            (fx / "RESPOSTAS-ORCID.json").write_text(json.dumps(r), encoding="utf-8")
+            rcs, e = correr(Path(d) / "s", ("--canario", 0), ("--dia", 1), fx=fx)
+            self.assertEqual([0, 2], rcs)
+            self.assertEqual("PARADO", e["CANARIO"]["MODO"])
+            self.assertIn("ROBOTS", e["CANARIO"]["PORQUE"])
+            self.assertEqual(1, e["CANARIO"]["PEDIDOS_ORCID"])          # so o robots
 
     def test_csv_com_links_da_o_modo_em_lote(self):
         with tempfile.TemporaryDirectory() as d:
@@ -116,6 +141,9 @@ class Dias(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             _, e = correr(d, ("--canario", 0), ("--dia", 1), ("--dia", 2))
             self.assertEqual(0, e["DIAS"][-1]["PEDIDOS_POR_DOMINIO"].get("orcid.org", 0))
+            # nao se pede o que se sabe que nao cabe: nem uma linha TETO_24H para orcid.org
+            ped = json.loads((Path(d) / e["DIAS"][-1]["PASTA"] / "PEDIDOS.json").read_text(encoding="utf-8"))["PEDIDOS"]
+            self.assertFalse([x for x in ped if "orcid.org" in x["URL"]])
             self.assertLessEqual(orcid_em_24h(d), 5)
 
     def test_candidatas_numa_copia(self):
@@ -132,7 +160,10 @@ class Dias(unittest.TestCase):
 
 class Antigo(unittest.TestCase):
     def test_rodadas_antigas_recusadas(self):
-        self.assertEqual(2, S.main(["x", "--rodada=1", "--autorizado", "--pessoas=%s" % (FX / "PESSOAS.json"), "--saida=x"]))
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(2, S.main(["x", "--rodada=1", "--autorizado", "--pessoas=%s" % (FX / "PESSOAS.json"),
+                                        "--saida=%s" % d]))
+            self.assertEqual([], list(Path(d).iterdir()))
 
     def test_listas_oficiais_respeitam_o_contador_partilhado(self):
         with tempfile.TemporaryDirectory() as d:
