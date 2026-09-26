@@ -1,6 +1,6 @@
 # QUATRO-CHAVES-V2 — as quatro chaves sobre o vivo, lidas e escritas PELO NOME
 
-> Ramo `quatro-chaves-v2`, a partir do vivo `ce28040c`. **NÃO instalado.** Só o coordenador instala.
+> Ramo `quatro-chaves-v2`, nascido do vivo `ce28040c` e depois juntado com o vivo novo `83de0ccd` (C9). **NÃO instalado.** Só o coordenador instala.
 > Missão: `auditoria-madrugada/missao-quatro-chaves.txt` · origem do pedido:
 > `auditoria-madrugada/AVISO-INSTALACAO-2-QUATRO-CHAVES.txt`.
 
@@ -58,6 +58,7 @@ Acrescentar uma coluna futura = uma linha na tabela. Não há número de posiç�
 | Sem banco: `test_sala_por_nome` + `test_quatro_chaves` + `test_quatro_chaves_na_sala` (parte sem banco) + `test_a_linhagem_do_ready` | 43/43 OK | `…/testes-sem-banco-DEPOIS.txt` |
 | Mutação da leitura/escrita pelo nome (M1 coluna vizinha na tabela · M2 sem conferir contagem · M3 JSON gravam todos o FATO · M4 JSON leem todos o fato · M5 lista escrita à mão de volta) | 5 mutantes, 5 mortos, ficheiro reposto (sha256) nos 5 | `…/mutacao.py.txt`, `…/mutacao-RESULTADO.txt` |
 | Bateria da nuvem COM banco (`QUATRO_CHAVES_EXIGIR_BANCO=1`, Postgres descartável próprio) | 22/22 OK (203,8 s) | `…/testes-COM-BANCO.txt` |
+| Depois de juntar o vivo `83de0ccd`: as 4 baterias juntas (a da nuvem achou o Postgres sozinha e subiu o seu banco descartável — ⚠️ sem LOCK-PESADO, erro meu; desligado e apagado, 0 processos sobrantes) | 52/52 OK (216,5 s) | corrida de 26/09, commit a seguir à junção |
 
 ## 4. Ensaio no Postgres DESCARTÁVEL restaurado do último backup
 
@@ -90,8 +91,10 @@ prova que o código novo as lê sem torcer; não prova nada sobre extração de 
 1. **Banco: nada.** A 033 única já está na Sala real. Não correr migração nenhuma. Conferir antes,
    só leitura: `select column_name from information_schema.columns where table_name='sala_de_espera'
    and column_name='janela_declarada'` → 1 linha.
-2. **Código:** juntar `quatro-chaves-v2` no vivo (`merge --no-ff`). O ramo parte de `ce28040c`
-   (o vivo atual); se o vivo andar entretanto, os pontos de atrito prováveis são
+2. **Código:** juntar `quatro-chaves-v2` no vivo. O ramo já contém o vivo `83de0ccd` (merge
+   `--no-ff`; o C9 não toca em `admissao/`, `supabase/` nem nos testes das chaves — só os mapas
+   gerados colidiram, e ficaram com a versão do vivo antes de regerar). Com o vivo em `83de0ccd`
+   a junção é fast-forward. Se o vivo andar entretanto, os pontos de atrito prováveis são
    `admissao/admissao.py` e `admissao/sala_de_espera.py` — nesse caso **não** renumerar nada:
    qualquer coluna nova do outro lado entra como uma linha em `COLUNAS_LIDAS` / `COLUNAS_ESCRITAS`
    / `COLUNA_E_CAMPO`.
