@@ -159,7 +159,9 @@ def medir(alvo: dict, buscar, portao, pasta: Path, dormir=time.sleep, pausa: flo
     if st != 200 or not entrada:
         return {**out, "VEREDITO": "NAO_SEI", "PORQUE": "entrada nao abriu: %s" % (err or st)}
     guardar(url, st, entrada)
-    links = [(u, a) for u, a in links_com_ancora(entrada, url) if rp.can_fetch("*", u)]
+    # lm-1310: a FEM linkava a propria entrada (com/sem barra final) e a sonda gastou um pedido a le-la outra vez
+    igual = lambda x: x.split("#")[0].rstrip("/").lower()   # noqa: E731
+    links = [(u, a) for u, a in links_com_ancora(entrada, url) if rp.can_fetch("*", u) and igual(u) != igual(url)]
     for u, a in links:
         if EXT_DADOS.search(u) and (FORTE.search(u + " " + a) or PRAGAS.search(u + " " + a)):
             out["LINKS_DE_DADOS"].append({"URL": u, "ANCORA": a, "EXT": EXT_DADOS.search(u).group(1).lower()})

@@ -112,6 +112,13 @@ class Medir(unittest.TestCase):
         self.medir(pag)
         self.assertEqual(MC.TETO, len(self.pedidos))
 
+    def test_nao_rele_a_propria_entrada(self):
+        pag = dict(PAG)
+        pag[B + "/"] = (200, ('<html><a href="/">Monitoraggio catture</a><a href="' + B + '">Catture trappole</a>'
+                              '<a href="/monitoraggio-catture-cimice-asiatica">Monitoraggio catture</a></html>').encode(), "")
+        self.medir(pag)
+        self.assertEqual(1, self.pedidos.count(B + "/"))
+
     def test_frequencia_pela_mediana(self):
         self.assertIn("~7 dias", MC.frequencia(["2026-08-29", "2026-09-05", "2026-09-12", "2026-09-19"]))
         self.assertIn("~7 dias", MC.frequencia(["2026-08-26", "2026-08-29", "2026-09-05", "2026-09-12"]))
