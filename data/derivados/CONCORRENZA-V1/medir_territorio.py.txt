@@ -1,0 +1,15 @@
+# Mede a regra do NOME (curadoria/atribuir_source_id.territorio_de) sobre as
+# alocacoes ja feitas. So LE o livro; nao escreve em nenhum livro vivo.
+#     py data/derivados/CONCORRENZA-V1/medir_territorio.py.txt SAIDA.json
+import json, sys
+sys.path.insert(0, "curadoria")
+import atribuir_source_id as ASI
+d = json.load(open("curadoria/SOURCE-ID-ALLOCATION-V1.json", encoding="utf-8"))
+L = d if isinstance(d, list) else next(v for v in d.values() if isinstance(v, list))
+fora = []
+for a in L:
+    t, porque = ASI.territorio_de({"NOME": a.get("NOME", ""), "URL": a.get("URL", "")})
+    fora.append({"SOURCE_ID": a["SOURCE_ID"], "NO_LIVRO": a.get("TERRITORY"),
+                 "REGRA_DO_NOME": t, "PORQUE": porque, "NOME": a.get("NOME"), "URL": a.get("URL")})
+json.dump(fora, open(sys.argv[1], "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+print(len(fora), "alocacoes lidas")
