@@ -1,0 +1,316 @@
+{
+ "DATASET": "MICRO-SEDE-PLANO-V1",
+ "TETO_POR_DOMINIO_POR_CORRIDA": 5,
+ "FONTES_QUE_PRECISAM": 31,
+ "COM_PAGINA_DE_SEDE": 15,
+ "SEM_PAGINA_DE_SEDE_NAO_SEI": [
+  "IT-T2-034",
+  "IT-T3-002",
+  "IT-T3-008",
+  "IT-T3-010",
+  "IT-T5-009",
+  "IT-T5-010",
+  "IT-T5-011",
+  "IT-T5-012",
+  "IT-T5-014",
+  "IT-T5-017",
+  "IT-T5-018",
+  "IT-T5-020",
+  "IT-T5-022",
+  "IT-T5-026",
+  "IT-T5-029",
+  "IT-T7-013"
+ ],
+ "DOMINIOS": 12,
+ "PAGINAS_DISTINTAS": 12,
+ "PEDIDOS_PREVISTOS_TOTAL": 24,
+ "MAXIMO_POR_DOMINIO_POR_CORRIDA": 2,
+ "RONDAS": {
+  "1": [
+   {
+    "DOMINIO": "bonificaromagna.it",
+    "URLS": [
+     "https://www.bonificaromagna.it/contatti"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "chianticlassico.com",
+    "URLS": [
+     "https://www.chianticlassico.com/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "cifo.it",
+    "URLS": [
+     "https://www.cifo.it/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "cnr.it",
+    "URLS": [
+     "https://ibba.cnr.it/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "georgofili.it",
+    "URLS": [
+     "https://georgofili.it/contenuti/contattaci/1"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "indire.it",
+    "URLS": [
+     "https://fieradidacta.indire.it/it/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "istat.it",
+    "URLS": [
+     "https://www.istat.it/contatti/"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "koppert.it",
+    "URLS": [
+     "https://www.koppert.it/contatti"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "unibo.it",
+    "URLS": [
+     "https://distal.unibo.it/it/dipartimento/contatti"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "unimi.it",
+    "URLS": [
+     "https://disaa.unimi.it/it/dipartimento/contatti/persone"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "unina.it",
+    "URLS": [
+     "https://www.agraria.unina.it/contatti"
+    ],
+    "PEDIDOS": 2
+   },
+   {
+    "DOMINIO": "unipd.it",
+    "URLS": [
+     "https://www.dafnae.unipd.it/dipartimento/sedi-e-strutture"
+    ],
+    "PEDIDOS": 2
+   }
+  ]
+ },
+ "POR_DOMINIO": {
+  "bonificaromagna.it": {
+   "FONTES": [
+    "IT-T7-041"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.bonificaromagna.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.bonificaromagna.it/contatti": [
+     "IT-T7-041"
+    ]
+   }
+  },
+  "chianticlassico.com": {
+   "FONTES": [
+    "IT-T7-033"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.chianticlassico.com"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.chianticlassico.com/contatti/": [
+     "IT-T7-033"
+    ]
+   }
+  },
+  "cifo.it": {
+   "FONTES": [
+    "IT-T9-009"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.cifo.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.cifo.it/contatti/": [
+     "IT-T9-009"
+    ]
+   }
+  },
+  "cnr.it": {
+   "FONTES": [
+    "IT-T5-015"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "ibba.cnr.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://ibba.cnr.it/contatti/": [
+     "IT-T5-015"
+    ]
+   }
+  },
+  "georgofili.it": {
+   "FONTES": [
+    "IT-T5-034",
+    "IT-T5-035",
+    "IT-T5-036"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "georgofili.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://georgofili.it/contenuti/contattaci/1": [
+     "IT-T5-034",
+     "IT-T5-035",
+     "IT-T5-036"
+    ]
+   }
+  },
+  "indire.it": {
+   "FONTES": [
+    "IT-T9-021"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "fieradidacta.indire.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://fieradidacta.indire.it/it/contatti/": [
+     "IT-T9-021"
+    ]
+   }
+  },
+  "istat.it": {
+   "FONTES": [
+    "IT-T5-090"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.istat.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.istat.it/contatti/": [
+     "IT-T5-090"
+    ]
+   }
+  },
+  "koppert.it": {
+   "FONTES": [
+    "IT-T9-011"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.koppert.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.koppert.it/contatti": [
+     "IT-T9-011"
+    ]
+   }
+  },
+  "unibo.it": {
+   "FONTES": [
+    "IT-T5-033"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "distal.unibo.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://distal.unibo.it/it/dipartimento/contatti": [
+     "IT-T5-033"
+    ]
+   }
+  },
+  "unimi.it": {
+   "FONTES": [
+    "IT-T5-016",
+    "IT-T5-024"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "disaa.unimi.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://disaa.unimi.it/it/dipartimento/contatti/persone": [
+     "IT-T5-016",
+     "IT-T5-024"
+    ]
+   }
+  },
+  "unina.it": {
+   "FONTES": [
+    "IT-T5-039"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.agraria.unina.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.agraria.unina.it/contatti": [
+     "IT-T5-039"
+    ]
+   }
+  },
+  "unipd.it": {
+   "FONTES": [
+    "IT-T5-019"
+   ],
+   "PAGINAS_DISTINTAS": 1,
+   "ANFITRIOES": [
+    "www.dafnae.unipd.it"
+   ],
+   "PEDIDOS_PREVISTOS": 2,
+   "RONDAS": 1,
+   "URLS": {
+    "https://www.dafnae.unipd.it/dipartimento/sedi-e-strutture": [
+     "IT-T5-019"
+    ]
+   }
+  }
+ }
+}
