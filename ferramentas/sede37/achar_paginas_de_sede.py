@@ -37,6 +37,8 @@ sys.path.insert(0, os.path.join(RAIZ, "provas"))
 import prova_teto_dominio as T  # noqa: E402  (dominio_registavel: o mesmo do teto D38)
 sys.path.insert(0, os.path.join(RAIZ, "curadoria"))
 import sede_da_fonte as S  # noqa: E402  (a regra da sede, dona unica)
+sys.path.insert(0, os.path.join(RAIZ, "leis"))
+import lugar_da_organizacao as LO  # noqa: E402  (TRAVA-SEDE-V2: a lista de plataformas tem um dono so)
 
 VIVO = "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1"
 ACERVO = "C:/Users/London1/reproc-acervo"
@@ -173,7 +175,10 @@ def main():
         idx = ((tabela.get(sid) or {}).get("ACQUISITION") or {}).get("INDEX_URL") or (c.get("ACQUISITION") or {}).get("INDEX_URL") \
             or c.get("CANONICAL_ENTRY_URL") or ""
         dominio = T.dominio_registavel(urlparse(idx).hostname or "")
-        pags = paginas_da_fonte(sid, raws_por_fonte, raizes, c) + micro.get(sid, [])
+        # TRAVA-SEDE-V2: conta de plataforma (YouTube, Instagram...) nao herda o «contatti» do host — sede NAO SEI,
+        # so pelo site oficial que aponta a conta
+        plataforma = LO.e_plataforma(LO.host(idx))
+        pags = [] if plataforma else paginas_da_fonte(sid, raws_por_fonte, raizes, c) + micro.get(sid, [])
         vistos = collections.defaultdict(list)
         classe_de = {}
         for origem, caminho, sha, url, b in pags:
@@ -183,7 +188,7 @@ def main():
         cands = sorted(vistos, key=lambda u: (ordem[classe_de[u]], -len(vistos[u]), len(u)))
         sede_off = S.sede_das_paginas([(p[3] or p[1], p[2], p[4]) for p in pags])
         linhas.append({
-            "SOURCE_ID": sid, "NA_COORTE": sid in coorte, "NAS_61_PRONTAS": sid in p61,
+            "SOURCE_ID": sid, "NA_COORTE": sid in coorte, "NAS_61_PRONTAS": sid in p61, "PLATAFORMA": plataforma,
             "NOME": c.get("NAME"), "INDEX_URL": idx, "DOMINIO": dominio,
             "SEDE_HOJE": estado, "SEDE_SEDE_FONTES": (s or {}).get("SEDE_PROVAVEL"), "VIA_SEDE_FONTES": (s or {}).get("VIA") or "NAO SEI",
             "SEDE_NO_CONTRATO": c.get("SOURCE_LOCATION") or "AUSENTE",
