@@ -895,6 +895,31 @@
    ]
   },
   {
+   "id": "C-D80-RECUSA-PREFIXO-HERANCA",
+   "name": "D80 — retirar nao-fontes pela porta, prefixo canonico fora de IT, pagina herda classe do mesmo site",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "aplicar_d80.py: (i) recusa pela porta fonte_nova.recusar (decisao D80(i), motivo por fonte, DUPLICADA_DE da mae, reversivel por --reverter) as 113 da BLOQUEADAS-268 congeladas em D80-LISTA-V1.json (102 recusar, 11 NAO SEI) e reabre as QUALIFY; (ii)/(iii) vivem no QUALIFY (worker.py): numero <PAIS>-T<n>-<seq> em NOVAS_FORA_DE_IT que para em CAPABILITY_BLOCK; pagina herda a classe unica do mesmo host. ensaio_d80.py: copia do vivo, rede fechada, aplicar -> QUALIFY -> BUILD_CONTRACT -> reverter (ENSAIO-D80-V1.json).",
+   "why_here": "D80 (26/09, bot Luciano por delegacao do dono): destravar as bloqueadas sem apagar nada.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "curadoria/aplicar_d80.py",
+    "curadoria/ensaio_d80.py",
+    "curadoria/D80-LISTA-V1.json",
+    "curadoria/ENSAIO-D80-V1.json",
+    "curadoria/test_d80.py",
+    "PLANO-D80.md"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",

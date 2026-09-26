@@ -46,8 +46,10 @@ REABRIR = ["territorio decidido fora de IT", "territorio indeterminado pelo nome
 REABRIR_AO_REVERTER = ["RECUSADA pela porta de entrada"]
 
 # Leitura a mao de 25/09 (BLOQUEADAS-268, `MAO_MESMO_SITE`): a casa do site ja e esta fonte.
+# CAND-1050 (casa da SOI) fica de fora: a leitura nomeou DUAS maes (IT-T8-064/066) — escolher
+# uma seria adivinhar, e o site tem 3 fontes sem nenhuma na raiz: NAO SEI.
 MAE_LIDA_A_MAO = {"CAND-0720": "IT-T8-033", "CAND-0942": "IT-T2-149", "CAND-1023": "IT-T8-061",
-                  "CAND-1025": "IT-T8-062", "CAND-1047": "IT-T8-065", "CAND-1050": "IT-T8-064",
+                  "CAND-1025": "IT-T8-062", "CAND-1047": "IT-T8-065",
                   "CAND-1052": "IT-T8-067", "CAND-1060": "IT-T1-022"}
 DUVIDA = {"IDENTIDADE_DUPLICADA_POSSIVEL"}
 RE_ID = re.compile(r"\b(?:[A-Z]{2,3}-T\d+-\d{3}|CAND-\d{4})\b")
