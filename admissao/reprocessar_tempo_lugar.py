@@ -110,6 +110,17 @@ def bytes_guardados(linha, raizes):
     return None
 
 
+def titulo_e_descricao(dados) -> dict:
+    """EXTRATOR-EVENTO-V2: o titulo e a descricao de uma pagina de VIDEO guardada ({} se nao for uma).
+
+    Quem le a pagina do YouTube e `coleta/youtube_janela.py` (o mesmo `_json_embutido`); aqui so se
+    pergunta, e so a bytes que tem o player dentro. Zero rede."""
+    if not dados or b"ytInitialPlayerResponse" not in dados[:3_000_000]:
+        return {}
+    import youtube_janela as yj                               # noqa: PLC0415
+    return yj.titulo_e_descricao_do_video(dados)
+
+
 def ready_de(linha, obs, dados=None):
     """O READY que a estrada de hoje daria a esta linha — sem rede e sem banco."""
     tl = ex.tempo_e_lugar(obs or {"SOURCE_ID": linha["SOURCE_ID"]}, dados)
@@ -119,6 +130,7 @@ def ready_de(linha, obs, dados=None):
            "RAW_ASSET_ID": linha["RAW_OBSERVATION_ID"],
            "PARENT_SHA256": linha["SHA256"] or None,
            "CAPTURED_AT": linha["CAPTURED_AT"], "TEMPO_E_LUGAR": tl}
+    est.update(titulo_e_descricao(dados))
     item = ORQ.item_documental_para_a_porta(est, source_id=linha["SOURCE_ID"])
     # a linha JA foi admitida: a decisao nao se refaz, so os campos.
     # ⚠️ PERIODO-E-CHAVES: mas o dono das QUATRO CHAVES le a cultura e a fase na EVIDENCIA da regua

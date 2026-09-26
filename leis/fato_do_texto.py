@@ -82,16 +82,45 @@ RODAPE = re.compile(
     re.I)
 
 
+def _palavras(l: str) -> int:
+    return len(re.findall(r"[A-Za-zÀ-ÿ']+", l))
+
+
+# ── o TITULO e a DESCRICAO (EXTRATOR-EVENTO-V2, 26/09) ──────────────────────
+# Medido na RENDIMENTO-POR-FONTE: o texto guardado de um video e SO o titulo (60-100 letras), e a regra das 8
+# palavras deitava-o fora inteiro — «Potatura dell'olivo: a Macerata la 9a selezione studenti - YouTube»
+# nunca chegava ao leitor. Um texto em que NENHUMA linha e frase longa nao e um menu com uma noticia no
+# meio: e um titulo. Lido como titulo: no maximo 2 linhas de >= PALAVRAS_DO_TITULO palavras, sem o nome do
+# sitio no fim («… - YouTube», «… — Arpae Emilia-Romagna»: e quem publica, nao onde o facto foi).
+PALAVRAS_DO_TITULO = 3
+LINHAS_DO_TITULO = 2
+_RE_SUFIXO_DO_SITIO = re.compile(r"\s+(?:[-–—|])\s+[^-–—|]{2,60}$")
+
+
+def titulo_limpo(t: str) -> str:
+    l = re.sub(r"\s+", " ", str(t or "")).strip()
+    s = _RE_SUFIXO_DO_SITIO.sub("", l)
+    return s if _palavras(s) >= PALAVRAS_DO_TITULO else l
+
+
+def _linhas_curtas(texto: str) -> list:
+    return [titulo_limpo(l) for l in str(texto or "").splitlines()
+            if l.strip() and not RODAPE.search(l) and _palavras(titulo_limpo(l)) >= PALAVRAS_DO_TITULO]
+
+
 def corpo(texto: str) -> str:
-    """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora."""
+    """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora.
+    Um texto sem NENHUMA frase longa e lido como titulo (ver acima)."""
     fica = []
     for linha in str(texto or "").splitlines():
         l = linha.strip()
-        if len(re.findall(r"[A-Za-zÀ-ÿ']+", l)) < PALAVRAS_MINIMAS:
+        if _palavras(l) < PALAVRAS_MINIMAS:
             continue
         if RODAPE.search(l):
             continue
         fica.append(l)
+    if not fica:
+        fica = _linhas_curtas(texto)[:LINHAS_DO_TITULO]
     return "\n".join(fica)
 
 
@@ -279,6 +308,25 @@ _RE_INSTITUCIONAL = re.compile(
     r"sessione\s+di\s+laurea|colloqui[oa]?)(?![0-9a-zà-ÿ])", re.I)
 
 
+# ── o que AINDA NAO ACONTECEU nao e facto ocorrido (EXTRATOR-EVENTO-V2, 26/09) ──
+# Com o tempo e o fogo na lista das ancoras, uma frase de ALERTA passa a ter ancora e data: «Allerta meteo:
+# previste per il 28 settembre raffiche di vento». Isso e previsao, nao acontecimento. Duas guardas:
+#   1. a frase tem marca de previsao/futuro;
+#   2. a data resolve para DEPOIS da publicacao PROVADA — o texto nao pode contar o que ainda nao aconteceu.
+_RE_FUTURO = re.compile(
+    r"(?<![0-9a-zà-ÿ])(?:allert[ae]|allarm[ei]\s+meteo|previst[oaie]|prevision[ei]|si\s+prevede|sono\s+attes[ie]|"
+    r"(?:è|e['’])\s+attes[oa]|attes[oaie]\s+(?:per|nel|nella|tra)|domani|dopodomani|"
+    r"nei\s+prossimi\s+giorni|nelle\s+prossime\s+(?:ore|settimane)|prossim[oaie]\s+(?:giorn|settiman|ore))(?![0-9a-zà-ÿ])",
+    re.I)
+
+
+def _depois_da_publicacao(valor: str, pub: date | None) -> bool:
+    if not pub:
+        return False
+    d = FL._resolve_dia(valor, pub.year)
+    return bool(d) and date(*d) > pub
+
+
 def _tempo_de_campo(t: str, pub: date | None, tapados: list, janelas: list | None = None) -> dict:
     """Pergunta ao leitor; se a data que ele escolhe vem de uma frase institucional, de um CONSELHO, ou de
     uma ancora que so existia DENTRO de outra palavra, tapa-a nessa frase e pergunta de novo."""
@@ -294,6 +342,7 @@ def _tempo_de_campo(t: str, pub: date | None, tapados: list, janelas: list | Non
             conselhos.append(pedaco)
         motivo = ("INSTITUCIONAL_NAO_FATO" if _RE_INSTITUCIONAL.search(ev)
                   else "RECOMENDACAO_NAO_FATO" if e_conselho
+                  else "PREVISAO_NAO_E_FATO" if _RE_FUTURO.search(ev) or _depois_da_publicacao(v, pub)
                   else None if _presa_ao_campo(ev) else "ANCORA_DENTRO_DE_OUTRA_PALAVRA")
         if not motivo:
             return r
@@ -580,9 +629,24 @@ _PRECISAO_ORDEM = ("MUNICIPALITY", "PROVINCE", "REGION", "COUNTRY")
 _NOME_MAIOR = re.compile(r"America\s+Latina|Latinoamerica", re.I)
 
 
-def campos_do_fato(texto: str, publication_time: str | None = None,
-                   publication_time_basis: str | None = None) -> dict:
+def corpo_com_titulo_e_descricao(texto: str, titulo: str | None = None, descricao: str | None = None) -> str:
+    """O corpo, com o TITULO (uma frase, mesmo curta) e a DESCRICAO do video (as linhas dela que tenham
+    PALAVRAS_DO_TITULO palavras; sem rodape) a frente. Nada disto e a data de publicacao: e texto do autor."""
+    partes = []
+    t = titulo_limpo(titulo) if titulo else ""
+    if t and _palavras(t) >= PALAVRAS_DO_TITULO:
+        partes.append(t)
+    if descricao:
+        partes += [l for l in _linhas_curtas(descricao) if l not in partes]
     c = corpo(texto)
+    partes += [l for l in c.splitlines() if l and l not in partes]
+    return "\n".join(partes)
+
+
+def campos_do_fato(texto: str, publication_time: str | None = None,
+                   publication_time_basis: str | None = None, *,
+                   titulo: str | None = None, descricao: str | None = None) -> dict:
+    c = corpo_com_titulo_e_descricao(texto, titulo, descricao)
     pub = publicacao_provada(publication_time, publication_time_basis)
 
     # ── lugar (os candidatos; a montagem vem depois do tempo — ver «lista de eventos»)
@@ -595,6 +659,10 @@ def campos_do_fato(texto: str, publication_time: str | None = None,
             x["KIND"], x["PORQUE"] = None, "frase institucional (exame, aula, curso…): não é facto do agro"
         elif _RE_RECOMENDACAO.search(frase):
             x["KIND"], x["PORQUE"] = None, "conselho / recomendação: não é facto acontecido"
+        elif (_regra(x["EXPRESSAO"])[1] or 0) > 0 or _RE_FUTURO.search(frase):
+            # EXTRATOR-EVENTO-V2: «domani», «la prossima settimana», e qualquer relativa numa frase de
+            # previsao falam do que AINDA NAO aconteceu — evidencia, nunca data do facto
+            x["KIND"], x["PORQUE"] = None, "futuro / previsão: o que ainda não aconteceu não é facto ocorrido"
         else:
             x["KIND"] = CAMPO if _relativa_presa_ao_campo(frase) else EVENTO if _RE_EVENTO.search(frase) else None
             x["PORQUE"] = None if x["KIND"] else "a frase não fala de um acontecimento nem de um evento técnico"

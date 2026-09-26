@@ -447,6 +447,16 @@ ANCORAS_DE_TEMPO_DO_FATO = (
     r'raccolt[oa]', r'osservat[oaie]', r'rilevat[oaie]', r'constatat[oaie]',
     r'riscontrat[oaie]', r'colpit[oaie]', r'contaminaz', r'superament',
     r'infezion', r'attacch[io]', r'sintomi', r'annata', r'coltura',
+    # EXTRATOR-EVENTO-V2 (26/09): o ACONTECIMENTO do tempo e do fogo tambem e facto do campo.
+    # Medido na RENDIMENTO-POR-FONTE (30 lidos a mao): «Venti forti dell'11 maggio 2026 in provincia di
+    # Verona» (IT-T12-024) e «Incendio … nella prima mattinata del 7 settembre 2026» (IT-T2-051) tinham a
+    # data e ficavam NAO SEI — nenhuma palavra desta lista estava na frase. O texto chega aqui sem acentos
+    # (`_baixo`): «siccità» -> «siccita». As raizes evitam os falsos amigos medidos no italiano:
+    # «gelato» (sorvete) nao e «gelata»; «vento» sozinho nao e acontecimento (so forte / raffiche).
+    r'incendi', r'grandin', r'gelat[ae]\b', r'brinat[ae]\b', r'alluvion', r'esondazion', r'nubifragi',
+    r'siccit', r'vent[oi]\s+(?:fort|intens|impetuos|di\s+burrasca)', r'raffich', r'tromb[ae]\s+d.aria',
+    r'mareggiat', r'maltempo', r'frane?\b', r'ondat[ae]\s+di\s+calore', r'calamit',
+    r'event[oi]\s+(?:atmosferic|meteorologic|meteo\b|estrem|calamitos|alluvional|avvers)',
 )
 
 
