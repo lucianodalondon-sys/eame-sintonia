@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-noite-v1",
-    "HEAD": "4fc0f8d623ee22984e53c5caf88ae036ddf35659",
-    "GENERATED_AT": "2026-09-26T04:04:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "470edfe3fd942603c339db5ec2444190c480d2e19e90bb99a2611bf6fade5e8f"
+    "BRANCH": "canais-41-runbook-v1",
+    "HEAD": "c1d7a82d58f4aed5a77573fd25fe7947da70d275",
+    "GENERATED_AT": "2026-09-26T06:05:15-03:00",
+    "SOURCE_TREE_FINGERPRINT": "804bc989960811ea8a03d54968c11b4baf44a43b02e24bb8acfcc6ebf3c0d112"
   },
   "FILES": [
     {
@@ -11944,6 +11944,97 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/canais41/CANAIS-41-RUNBOOK.md",
+      "sha": "559093b57821eda6026aade1bf7a6c71dfa20eb9",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/ENSAIO-A-SECO-SIMULADO.json",
+      "sha": "1d4dabf3575acf470c4b7155459aada6f624bdd1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/ENSAIO-A-SECO.json",
+      "sha": "18d56de619b31498f8fe9f6e104034a6ef5cf142",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/ENSAIO-INTEGRA-NOITE-HOJE.json",
+      "sha": "b04b6afded83c5e67da440ea8cabda111c151a5c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/ENSAIO-INTEGRA-NOITE-SIMULADO.json",
+      "sha": "aada9cf7b26d8f8ff993f32d3c854604c61bc6ab",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/ENSAIO-INTEGRA-NOITE-copia-livros.sha256",
+      "sha": "9342af5eecf9716aad0897e0e1b2ee5698b7e87b",
+      "ext": ".sha256",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/QUALIFY-22-ENSAIO.txt",
+      "sha": "c41fd882791e59cec4f2a0f8c5252d0b5b365c2b",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/QUALIFY-YT-ENSAIO-82.txt",
+      "sha": "823fcbab3f50a7aadfad98285a466a5b404fc527",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/RESOLUCAO-WORKER-INTEGRA-NOITE-mais-v5.diff",
+      "sha": "da1423589c63f6f61a243878275441c8211de99e",
+      "ext": ".diff",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/RODADAS-41.tsv",
+      "sha": "cecfb9fe1bc4b1248cd615f44a86919b8f7861a8",
+      "ext": ".tsv",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/ensaio_a_seco.py",
+      "sha": "d5db26a371a4a937bc989a2e55815f9f3756ff0d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/montar_corridas.py",
+      "sha": "1cdd64ab4c75816040c180af3dcc8f6d96a78fe2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/canais41/para_aplicar.py",
+      "sha": "bce41e5be3d4008ea2b4bf1ad300261e54fb27e4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/cdp.py",
       "sha": "f3472d8b63a9d6f8ea82c8eafe76945d0a2d8ee1",
       "ext": ".py",
@@ -22389,7 +22480,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6166cde29a5fb1c83e4cbb0281dfb89b2b67c33a",
+      "sha": "9212f6fcb70c6e4e0eff3f5a41d67e17bacd43ec",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -23510,6 +23601,13 @@
     {
       "path": "tests/test_calendario_temporal.py",
       "sha": "7f05aa45f2ae319f5eefebbf7654a09ed05b2d40",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_canais41_ferramentas.py",
+      "sha": "a6750c5d6c07d75244e4b3c1cef90114ad90d7be",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -39341,6 +39439,39 @@
         "file": "ferramentas/c9/ensaio_c9.sh",
         "line": 32,
         "snippet": "py -B scripts/micro_coleta/micro_coleta.py relatorio $IDS --saida=$OUT/antes > $OUT/antes.json 2> $OUT/antes.err"
+      }
+    },
+    {
+      "from_file": "ferramentas/canais41/ensaio_a_seco.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/canais41/ensaio_a_seco.py",
+        "line": 41,
+        "snippet": "import scrap_colheita as sc      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/canais41/ensaio_a_seco.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/canais41/ensaio_a_seco.py",
+        "line": 40,
+        "snippet": "import youtube_oficial as yt     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/canais41/ensaio_a_seco.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/canais41/ensaio_a_seco.py",
+        "line": 85,
+        "snippet": "(RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
       }
     },
     {
@@ -95539,10 +95670,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3540,
-    "files_readable": 1483,
-    "files_code_dir": 1712,
-    "file_edges": 6376,
+    "files_tracked": 3554,
+    "files_readable": 1487,
+    "files_code_dir": 1726,
+    "file_edges": 6379,
     "escritas_em_pasta": 89,
     "declared_missing_here": 0
   },

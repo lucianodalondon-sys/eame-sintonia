@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T07:09:24+00:00",
-  "HEAD": "4fc0f8d623ee22984e53c5caf88ae036ddf35659",
-  "BRANCH": "integra-noite-v1",
+  "GENERATED_AT": "2026-09-26T10:01:30+00:00",
+  "HEAD": "c1d7a82d58f4aed5a77573fd25fe7947da70d275",
+  "BRANCH": "canais-41-runbook-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "470edfe3fd942603c339db5ec2444190c480d2e19e90bb99a2611bf6fade5e8f",
-  "FICHEIROS_NA_IMPRESSAO": 3688,
+  "SOURCE_TREE_FINGERPRINT": "804bc989960811ea8a03d54968c11b4baf44a43b02e24bb8acfcc6ebf3c0d112",
+  "FICHEIROS_NA_IMPRESSAO": 3702,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -777,6 +777,27 @@
     "PATH": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
     "PAPEL": "FONTE",
     "VERSAO": "00f2632379959e774dd61d24d87c874ab51dfd11",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/canais41/ensaio_a_seco.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d5db26a371a4a937bc989a2e55815f9f3756ff0d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/canais41/montar_corridas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "1cdd64ab4c75816040c180af3dcc8f6d96a78fe2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/canais41/para_aplicar.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "bce41e5be3d4008ea2b4bf1ad300261e54fb27e4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4521,14 +4542,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "470edfe3fd942603c339db5ec2444190c480d2e19e90bb99a2611bf6fade5e8f",
+    "VERSAO": "804bc989960811ea8a03d54968c11b4baf44a43b02e24bb8acfcc6ebf3c0d112",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "470edfe3fd942603c339db5ec2444190c480d2e19e90bb99a2611bf6fade5e8f",
+    "VERSAO": "804bc989960811ea8a03d54968c11b4baf44a43b02e24bb8acfcc6ebf3c0d112",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5397,6 +5418,13 @@
     "PATH": "tests/test_calendario_temporal.py",
     "PAPEL": "FONTE",
     "VERSAO": "7f05aa45f2ae319f5eefebbf7654a09ed05b2d40",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_canais41_ferramentas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a6750c5d6c07d75244e4b3c1cef90114ad90d7be",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6668,8 +6696,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 947,
-  "INPUTS_DIGEST": "5de3dccc065fe7f4217c66d547fe78a2d1bd05c8a81c433376d409052e4e531d",
+  "INPUTS_COUNT": 951,
+  "INPUTS_DIGEST": "1e7d56f9c8813e05bbfdc686beb266797dc641320f4d47866307c366d8b52f2d",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6695,15 +6723,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 559,
+  "DOCUMENTOS_LIDOS": 560,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "df4a6b015fff447b6bd32c8f9e140420a896574836db4d99d613adba16b9ed44",
-  "SEMANTIC_HASH": "53b68f18e8c1e47b52bf9b36b6bee436be0af3ec142f9e0bf2632ac269bb000c"
+  "MEASUREMENT_HASH": "4c1ec72bac19e0dbe8d2a273c96c29803c5764f794003159b48b6ef6bcbbb5ec",
+  "SEMANTIC_HASH": "b9bb4e1750c0118bb4099475dddd4c5950804866ab71ba99f54798de2f3ff9fb"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6725,6 +6753,7 @@
    "C-BIBLIA",
    "C-BIG-COLLECTION-CONDUTOR-BC5",
    "C-C9-INSTALAR",
+   "C-CANAIS-41",
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CAPA-MATERIA",
    "C-CENSO-EXECUTORES",
@@ -6821,7 +6850,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 106
+  "COUNT": 107
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -6947,6 +6976,7 @@
    "C-BIG-COLLECTION-CONDUTOR-BC5",
    "C-C9-INSTALAR",
    "C-CADEIA-V21",
+   "C-CANAIS-41",
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CAPA-MATERIA",
    "C-CENSO-ARMAZEM-IT",
@@ -7130,16 +7160,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 198
+  "COUNT": 199
  },
  "ARITMETICA": {
-  "COLLECTION": 106,
+  "COLLECTION": 107,
   "BOUNDARY": 92,
-  "SOMA": 198,
-  "EXPANDED": 198,
+  "SOMA": 199,
+  "EXPANDED": 199,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 198,
+  "RESUMO_CARTOES_NO_UNIVERSO": 199,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -13497,6 +13527,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-TOPOLOGIA--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-CANAIS-41",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-CANAIS-41",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/canais41/ensaio_a_seco.py",
+      "LINHA": 85,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-CANAIS-41",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -43671,6 +43723,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-CANAIS-41",
+    "FROM": "C-SCRAP-COLHEITA",
+    "TO": "C-CANAIS-41",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/canais41/ensaio_a_seco.py",
+      "LINHA": 41,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-CANAIS-41",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-CANARIO-D23-LINKEDIN",
     "FROM": "C-SCRAP-COLHEITA",
     "TO": "C-PROVA-CANARIO-D23-LINKEDIN",
@@ -45839,6 +45913,28 @@
       "EVIDENCE_TYPE": "OBSERVED_RUN",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--ALIMENTA-->C-ADMISSAO",
       "ASSERTION_PLANE": "OBSERVED"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-CANAIS-41",
+    "FROM": "C-SCRAP-SOCIAL",
+    "TO": "C-CANAIS-41",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/canais41/ensaio_a_seco.py",
+      "LINHA": 40,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-CANAIS-41",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -51333,12 +51429,12 @@
     ]
    }
   ],
-  "COUNT": 1445
+  "COUNT": 1448
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 198,
-  "CARTOES_AUDITADOS": 198,
-  "ARESTAS_RELACIONADAS": 1445,
+  "CARTOES_NO_UNIVERSO": 199,
+  "CARTOES_AUDITADOS": 199,
+  "ARESTAS_RELACIONADAS": 1448,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -51477,6 +51573,7 @@
    "C-AUDIT-GERAL",
    "C-BIG-COLLECTION-CONDUTOR-BC5",
    "C-C9-INSTALAR",
+   "C-CANAIS-41",
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CAPA-MATERIA",
    "C-CENSO-ARMAZEM-IT",
@@ -51576,6 +51673,7 @@
   ],
   "SO_CLI_DOCUMENTADO": [
    "C-AUDIT-GERAL",
+   "C-CANAIS-41",
    "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-CORPUS-IT",
    "C-CENSO-UNIFICACAO",
@@ -51766,11 +51864,11 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 236,
+   "CODE": 238,
    "CONTROL": 86,
    "DATA": 30,
    "PROOF": 506,
-   "READ": 326,
+   "READ": 327,
    "RULE": 245,
    "WRITE": 16
   },
@@ -52246,6 +52344,7 @@
     "BIG-COLLECTION-RUNBOOK.md",
     "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
     "RELATORIO-EGR-CONSENSO.md",
+    "ferramentas/canais41/CANAIS-41-RUNBOOK.md",
     "ferramentas/integra_onda2/PLANO-INSTALACAO-INTEGRA-ONDA2.md"
    ],
    "E_ENTRYPOINT": true,
@@ -52656,6 +52755,43 @@
     "PROOF",
     "READ"
    ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-CANAIS-41",
+   "NOME": "CANAIS-41: o roteiro do teste dos 41 canais YouTube pelo Scrap",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-FERRAMENTAS",
+   "KIND": "library",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "ferramentas/canais41/ensaio_a_seco.py",
+    "ferramentas/canais41/montar_corridas.py",
+    "ferramentas/canais41/para_aplicar.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "ferramentas/canais41/CANAIS-41-RUNBOOK.md"
+   ],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "collections",
+    "pathlib",
+    "raw_asset"
+   ],
+   "ENTRAM": 3,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
@@ -53186,7 +53322,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 9,
-   "SAEM": 17,
+   "SAEM": 18,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -60571,7 +60707,7 @@
     "__future__"
    ],
    "ENTRAM": 7,
-   "SAEM": 18,
+   "SAEM": 19,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -60907,7 +61043,7 @@
     "the"
    ],
    "ENTRAM": 27,
-   "SAEM": 26,
+   "SAEM": 27,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -61487,6 +61623,7 @@
     "tests/test_c9_idioma.py",
     "tests/test_cadeia_do_audio_offline.py",
     "tests/test_calendario_temporal.py",
+    "tests/test_canais41_ferramentas.py",
     "tests/test_canario_rotas_contrato_certo.py",
     "tests/test_candidatos_tematicos.py",
     "tests/test_canonico.py",

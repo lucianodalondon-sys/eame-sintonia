@@ -1735,6 +1735,19 @@
       "ferramentas/c9/ensaio/depois/RELATORIO-PASSAGEM.json",
       "ferramentas/c9/ensaio/depois/RELATORIO-PASSAGEM.md",
       "ferramentas/c9/ensaio_c9.sh",
+      "ferramentas/canais41/CANAIS-41-RUNBOOK.md",
+      "ferramentas/canais41/ENSAIO-A-SECO-SIMULADO.json",
+      "ferramentas/canais41/ENSAIO-A-SECO.json",
+      "ferramentas/canais41/ENSAIO-INTEGRA-NOITE-HOJE.json",
+      "ferramentas/canais41/ENSAIO-INTEGRA-NOITE-SIMULADO.json",
+      "ferramentas/canais41/ENSAIO-INTEGRA-NOITE-copia-livros.sha256",
+      "ferramentas/canais41/QUALIFY-22-ENSAIO.txt",
+      "ferramentas/canais41/QUALIFY-YT-ENSAIO-82.txt",
+      "ferramentas/canais41/RESOLUCAO-WORKER-INTEGRA-NOITE-mais-v5.diff",
+      "ferramentas/canais41/RODADAS-41.tsv",
+      "ferramentas/canais41/ensaio_a_seco.py",
+      "ferramentas/canais41/montar_corridas.py",
+      "ferramentas/canais41/para_aplicar.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato44/CAPAS-4-PROVAS.json",
       "ferramentas/contrato44/CIA-CLUSTER.json",
@@ -3433,6 +3446,7 @@
       "tests/test_c9_idioma.py",
       "tests/test_cadeia_do_audio_offline.py",
       "tests/test_calendario_temporal.py",
+      "tests/test_canais41_ferramentas.py",
       "tests/test_canario_rotas_contrato_certo.py",
       "tests/test_candidatos_tematicos.py",
       "tests/test_canonico.py",
@@ -4133,10 +4147,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-noite-v1",
-    "HEAD": "4fc0f8d623ee22984e53c5caf88ae036ddf35659",
-    "GENERATED_AT": "2026-09-26T04:04:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "470edfe3fd942603c339db5ec2444190c480d2e19e90bb99a2611bf6fade5e8f"
+    "BRANCH": "canais-41-runbook-v1",
+    "HEAD": "c1d7a82d58f4aed5a77573fd25fe7947da70d275",
+    "GENERATED_AT": "2026-09-26T06:05:15-03:00",
+    "SOURCE_TREE_FINGERPRINT": "804bc989960811ea8a03d54968c11b4baf44a43b02e24bb8acfcc6ebf3c0d112"
   },
   "FAMILIES": [
     {
@@ -4164,7 +4178,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 105
+      "count": 106
     },
     {
       "id": "F-ESPERA",
@@ -4359,7 +4373,7 @@
       "y": 190,
       "w": 1235,
       "h": 9378,
-      "count": 16
+      "count": 17
     },
     {
       "id": "Z-ACOES",
@@ -39329,6 +39343,100 @@
       "y": 360
     },
     {
+      "id": "C-CANAIS-41",
+      "name": "CANAIS-41: o roteiro do teste dos 41 canais YouTube pelo Scrap",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "ensaio_a_seco.py: corre a fase canal-youtube do Scrap numa COPIA com chave falsa so no processo, transporte da API trocado por literais e proxy fechado, conta os pedidos por host e passa o envelope pela regua social (D53). montar_corridas.py: monta o --corridas da regua a partir de SOURCE_ID/RUN_ID, contando RAW so leitura (DSN de ficheiro, nunca impresso). para_aplicar.py: separa o que a regua pode escrever no livro (READY, FALHA da fonte) do defeito nosso (chave, teto, RAW, envelope, Atlas, marcas em falta).",
+      "why_here": "CANAIS-41-RUNBOOK (26/09/2026): o teste de qualificacao dos 41 canais antigos pela rota do Scrap; o ensaio a seco mostrou 2 pedidos/canal a googleapis.com e que os itens da API nao trazem OWNER_AUTHORIZED/PLATFORM_POLICY_STATUS (a regua reprovaria todos).",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/canais41/ensaio_a_seco.py",
+        "ferramentas/canais41/montar_corridas.py",
+        "ferramentas/canais41/para_aplicar.py"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CENSO-UNIFICACAO",
+        "C-SCRAP-COLHEITA",
+        "C-SCRAP-SOCIAL"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "NAO SEI",
+      "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "NOSSO",
+          "PSQL"
+        ],
+        "palavras": 18,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 18,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "ferramentas/canais41/ensaio_a_seco.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/italy_contracts_curator.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6000,
+      "y": 682
+    },
+    {
       "id": "C-CANARIO-ROTAS-ELEGIVEIS",
       "name": "O canario das rotas das fontes aprovadas",
       "territory": "Z-MEDIDAS",
@@ -41125,6 +41233,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-CANAIS-41",
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-COORTE-BIG-COLLECTION",
         "C-COORTE-MICRO-FUNIL",
@@ -41219,7 +41328,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve curadoria/LIFECYCLE-QUEUE-V1.json, e C-CANARIO-ROTAS-ELEGIVEIS le isso: entrega trabalho a peca seguinte",
+      "ROLE_EVIDENCE": "escreve curadoria/LIFECYCLE-QUEUE-V1.json, e C-CANAIS-41 le isso: entrega trabalho a peca seguinte",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -41292,12 +41401,12 @@
         "PROVA": [
           "curadoria/retirar_por_decisao.py:40",
           "ferramentas/big_collection/coorte_unica.py:42",
-          "ferramentas/hr6/ronda_a_reparo_infere.py:8",
-          "ferramentas/legacy99v2/mutacao.py:18"
+          "ferramentas/canais41/ensaio_a_seco.py:85",
+          "ferramentas/hr6/ronda_a_reparo_infere.py:8"
         ],
-        "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO · C-FONTE-DO-ATLAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CANAIS-41 · C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL · C-DETECTOR-CAPA-GABARITO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 682
     },
     {
@@ -42812,7 +42921,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 682
     },
     {
@@ -44031,7 +44140,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "STAMPS",
-      "rule_role_evidence": "escreve curadoria/LIFECYCLE-EVIDENCE-V1.json, e C-CENSO-UNIFICACAO — peca da esteira — le isso",
+      "rule_role_evidence": "escreve curadoria/LIFECYCLE-EVIDENCE-V1.json, e C-CANAIS-41 — peca da esteira — le isso",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M3_REGUA_QUE_CARIMBA",
@@ -44039,7 +44148,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/LIFECYCLE-EVIDENCE-V1.json, e C-CENSO-UNIFICACAO — peca da esteira — le isso",
+      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/LIFECYCLE-EVIDENCE-V1.json, e C-CANAIS-41 — peca da esteira — le isso",
       "OWNER": "ENGENHARIA · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -46425,8 +46534,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6830,
-      "y": 682
+      "x": 6000,
+      "y": 1004
     },
     {
       "id": "C-IDENTIDADE",
@@ -48313,7 +48422,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO · C-PACOTE-ONDA3 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1004
     },
     {
@@ -49882,7 +49991,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1004
     },
     {
@@ -50109,8 +50218,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6830,
-      "y": 1004
+      "x": 6000,
+      "y": 1326
     },
     {
       "id": "C-LEITORES",
@@ -50200,7 +50309,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1326
     },
     {
@@ -51905,7 +52014,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1326
     },
     {
@@ -51998,8 +52107,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6830,
-      "y": 1326
+      "x": 6000,
+      "y": 1648
     },
     {
       "id": "C-ORDENS-63",
@@ -52685,7 +52794,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1648
     },
     {
@@ -53329,7 +53438,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1648
     },
     {
@@ -60294,8 +60403,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6830,
-      "y": 1648
+      "x": 6000,
+      "y": 1970
     },
     {
       "id": "C-RECORRENCIA",
@@ -62035,6 +62144,7 @@
         "C-SCRAP-SOCIAL"
       ],
       "outbound": [
+        "C-CANAIS-41",
         "C-MAPA-TESTES",
         "C-PROVA-CANARIO-D23-LINKEDIN",
         "C-PROVA-CANARIO-D24-PESSOA",
@@ -62596,6 +62706,7 @@
       ],
       "outbound": [
         "C-ADMISSAO",
+        "C-CANAIS-41",
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
         "C-CORRIDA-CANONICA",
@@ -65584,6 +65695,7 @@
         "tests/test_c9_idioma.py",
         "tests/test_cadeia_do_audio_offline.py",
         "tests/test_calendario_temporal.py",
+        "tests/test_canais41_ferramentas.py",
         "tests/test_canario_rotas_contrato_certo.py",
         "tests/test_candidatos_tematicos.py",
         "tests/test_canonico.py",
@@ -65766,7 +65878,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 266,
+      "file_count": 267,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -66810,7 +66922,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1970
     },
     {
@@ -80574,6 +80686,41 @@
             "EDGE_ID": "C-CENSO-TOPOLOGIA--READS-->C-RECONCILIACAO-UNIVERSO",
             "FROM": "C-CENSO-TOPOLOGIA",
             "TO": "C-RECONCILIACAO-UNIVERSO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-CANAIS-41",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta CANAIS-41: o roteiro do teste dos 41 canais YouTube pelo Scrap. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/canais41/ensaio_a_seco.py",
+          "line": 85,
+          "snippet": "(RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-CANAIS-41",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-CANAIS-41",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -133182,6 +133329,41 @@
     },
     {
       "from": "C-SCRAP-COLHEITA",
+      "to": "C-CANAIS-41",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por CANAIS-41: o roteiro do teste dos 41 canais YouTube pelo Scrap. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/canais41/ensaio_a_seco.py",
+          "line": 41,
+          "snippet": "import scrap_colheita as sc      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-CANAIS-41",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-CANAIS-41",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-COLHEITA",
       "to": "C-MAPA-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -136973,6 +137155,41 @@
       },
       "PROVEN": "YES",
       "PROVEN_PLANE": "OBSERVED",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-CANAIS-41",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por CANAIS-41: o roteiro do teste dos 41 canais YouTube pelo Scrap. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/canais41/ensaio_a_seco.py",
+          "line": 40,
+          "snippet": "import youtube_oficial as yt     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-CANAIS-41",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-CANAIS-41",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -147079,7 +147296,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1971,
+  "UNCLAIMED_FILES_COUNT": 1981,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -147320,7 +147537,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 232,
+      "PECAS_EM_DESACORDO": 233,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -147332,23 +147549,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 258
+      "TOTAL_DE_PECAS": 259
     }
   ],
   "COUNTS": {
-    "components": 258,
+    "components": 259,
     "components_proven": 32,
-    "components_pending": 218,
+    "components_pending": 219,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1511,
-    "edges_proven": 1444,
+    "edges": 1514,
+    "edges_proven": 1447,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3540,
-    "files_covered": 1569,
+    "files_tracked": 3554,
+    "files_covered": 1573,
     "files_code_unclaimed": 0,
-    "roles_proven": 177,
+    "roles_proven": 178,
     "roles_declared_only": 10,
     "roles_unknown": 71,
     "roles_conflict": 39,

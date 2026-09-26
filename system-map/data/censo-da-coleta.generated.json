@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-26T07:05:49+00:00",
-    "HEAD": "4fc0f8d623ee22984e53c5caf88ae036ddf35659",
+    "GENERATED_AT": "2026-09-26T09:58:37+00:00",
+    "HEAD": "c1d7a82d58f4aed5a77573fd25fe7947da70d275",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "470edfe3fd942603c339db5ec2444190c480d2e19e90bb99a2611bf6fade5e8f",
-    "FICHEIROS_NA_IMPRESSAO": 3688,
+    "SOURCE_TREE_FINGERPRINT": "804bc989960811ea8a03d54968c11b4baf44a43b02e24bb8acfcc6ebf3c0d112",
+    "FICHEIROS_NA_IMPRESSAO": 3702,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -623,6 +623,27 @@
         "PATH": "ferramentas/c9/ensaio_c9.sh",
         "PAPEL": "FONTE",
         "VERSAO": "97b9b17ca9a364cd9c69f0b0c3de419d86fbd1a3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/canais41/ensaio_a_seco.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "d5db26a371a4a937bc989a2e55815f9f3756ff0d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/canais41/montar_corridas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "1cdd64ab4c75816040c180af3dcc8f6d96a78fe2",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/canais41/para_aplicar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "bce41e5be3d4008ea2b4bf1ad300261e54fb27e4",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1348,8 +1369,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 191,
-    "INPUTS_DIGEST": "8a6eaed4a5fabd785540e34d67d2af9bf320f0c3988fefecae047cffc1d0b108",
+    "INPUTS_COUNT": 194,
+    "INPUTS_DIGEST": "d24e4ae1906e0fb28b52b9b7c82cc4ed3cf401cc7ff9985eaaa04b31de9fd968",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1910,6 +1931,58 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/canais41/ensaio_a_seco.py",
+      "gaveta": "ferramentas",
+      "linhas": 133,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/canais41/montar_corridas.py",
+      "gaveta": "ferramentas",
+      "linhas": 73,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/canais41/para_aplicar.py",
+      "gaveta": "ferramentas",
+      "linhas": 60,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
       "chamado_por": [],
       "no_ci": false
     },
@@ -3921,6 +3994,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "ferramentas/canais41/ensaio_a_seco.py",
         "pedido/receitas.py",
         "regras/contratos_de_fonte.py"
       ],
@@ -4321,7 +4395,8 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/adaptador_youtube.py",
-        "coleta/social_scrap.py"
+        "coleta/social_scrap.py",
+        "ferramentas/canais41/ensaio_a_seco.py"
       ],
       "no_ci": true
     },
@@ -5237,12 +5312,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 191,
-    "pontos_de_entrada": 136,
+    "ficheiros_de_codigo": 194,
+    "pontos_de_entrada": 139,
     "executores_que_saem_para_fora": 28,
-    "sem_chamador_e_fora_do_ci": 89,
+    "sem_chamador_e_fora_do_ci": 92,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 108,
+    "escrevem_ficheiro": 111,
     "deitam_fora_alguma_coisa": 47,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
@@ -5271,6 +5346,9 @@
       "ferramentas/big_collection/coorte_unica.py",
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "ferramentas/canais41/ensaio_a_seco.py",
+      "ferramentas/canais41/montar_corridas.py",
+      "ferramentas/canais41/para_aplicar.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/cutover/congelar_extras.py",
@@ -5435,6 +5513,9 @@
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/c9/c9-testes.sh",
       "ferramentas/c9/ensaio_c9.sh",
+      "ferramentas/canais41/ensaio_a_seco.py",
+      "ferramentas/canais41/montar_corridas.py",
+      "ferramentas/canais41/para_aplicar.py",
       "ferramentas/cutover/congelar_extras.py",
       "ferramentas/cutover/observador_ensaio.py",
       "ferramentas/cutover/passos_do_cutover.py",
