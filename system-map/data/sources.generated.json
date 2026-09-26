@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-25T22:11:59+00:00",
-    "HEAD": "44df17f2cbcdf01f5b92e5ab5134b81f31b32543",
+    "GENERATED_AT": "2026-09-26T05:00:02+00:00",
+    "HEAD": "78e2cc3e46eacb6843418381b2499ada76f566c1",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "92780f4dfc3e15b9bdb67eaaeb68d8bd052ce6b24022100979beb7754c6ff3e0",
-    "FICHEIROS_NA_IMPRESSAO": 3465,
+    "SOURCE_TREE_FINGERPRINT": "05dcd24e964e0d547fa785c37486b9ba13ec7707bbef572dd46be2de7ff44d5b",
+    "FICHEIROS_NA_IMPRESSAO": 3582,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38054,6 +38054,63 @@
       ]
     },
     {
+      "endpoint": "https://www.arpae.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 177
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 827
+        },
+        {
+          "file": "curadoria/test_travao_sementes.py",
+          "line": 22
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 54
+        },
+        {
+          "file": "provas/boletins_data_local/canario_d61.py",
+          "line": 155
+        },
+        {
+          "file": "provas/janela_formas/buscar_paginas_boletim.py",
+          "line": 31
+        },
+        {
+          "file": "provas/medir_validadores_coorte.py",
+          "line": 41
+        },
+        {
+          "file": "provas/t2_boletins/canario_arpae.py",
+          "line": 47
+        },
+        {
+          "file": "provas/t2_boletins/fase1_onde_esta.py",
+          "line": 44
+        },
+        {
+          "file": "scripts/receitas/provar_indices.py",
+          "line": 24
+        },
+        {
+          "file": "scripts/regua_t1/recolher_cega_positivos.py",
+          "line": 53
+        },
+        {
+          "file": "scripts/regua_t2/recolher_boletins.py",
+          "line": 50
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 58
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/channel",
       "usado_por": [
         {
@@ -38103,6 +38160,51 @@
       ]
     },
     {
+      "endpoint": "https://%s/robots.txt",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 859
+        },
+        {
+          "file": "curadoria/gate_de_rota.py",
+          "line": 80
+        },
+        {
+          "file": "curadoria/medir_fila_do_bot.py",
+          "line": 82
+        },
+        {
+          "file": "medidas/micro_colheita.py",
+          "line": 137
+        },
+        {
+          "file": "provas/boletins_data_local/fase1_listas.py",
+          "line": 73
+        },
+        {
+          "file": "provas/boletins_data_local/fase1b_arsacweb.py",
+          "line": 70
+        },
+        {
+          "file": "provas/boletins_data_local/fase2_um_item.py",
+          "line": 76
+        },
+        {
+          "file": "provas/janela_formas/buscar_paginas_boletim.py",
+          "line": 62
+        },
+        {
+          "file": "provas/janela_formas/cjs/provas_d46.py",
+          "line": 70
+        },
+        {
+          "file": "provas/t2_boletins/fase1_onde_esta.py",
+          "line": 75
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -38144,47 +38246,6 @@
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.arpae.it/it",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 177
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 827
-        },
-        {
-          "file": "curadoria/test_travao_sementes.py",
-          "line": 22
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 54
-        },
-        {
-          "file": "provas/medir_validadores_coorte.py",
-          "line": 41
-        },
-        {
-          "file": "scripts/receitas/provar_indices.py",
-          "line": 24
-        },
-        {
-          "file": "scripts/regua_t1/recolher_cega_positivos.py",
-          "line": 53
-        },
-        {
-          "file": "scripts/regua_t2/recolher_boletins.py",
-          "line": 50
-        },
-        {
-          "file": "tests/test_ld2_aditamento.py",
-          "line": 58
         }
       ]
     },
@@ -38320,7 +38381,7 @@
         },
         {
           "file": "curadoria/validar_contratos.py",
-          "line": 187
+          "line": 219
         },
         {
           "file": "tests/test_importar_do_coletor.py",
@@ -38453,6 +38514,31 @@
       ]
     },
     {
+      "endpoint": "https://www.regione.veneto.it/web",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 143
+        },
+        {
+          "file": "curadoria/test_pais_das_candidatas.py",
+          "line": 28
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 84
+        },
+        {
+          "file": "provas/boletins_data_local/fase1_listas.py",
+          "line": 43
+        },
+        {
+          "file": "provas/testa_rota_italia.py",
+          "line": 62
+        }
+      ]
+    },
+    {
       "endpoint": "https://bsky.app/profile",
       "usado_por": [
         {
@@ -38579,23 +38665,23 @@
       ]
     },
     {
-      "endpoint": "https://www.regione.veneto.it/web",
+      "endpoint": "https://www.arsacweb.it/",
       "usado_por": [
         {
           "file": "curadoria/descobrir.py",
-          "line": 143
+          "line": 191
         },
         {
-          "file": "curadoria/test_pais_das_candidatas.py",
-          "line": 28
+          "file": "curadoria/test_discovery.py",
+          "line": 932
         },
         {
           "file": "medidas/gabarito_t2_t12.py",
-          "line": 84
+          "line": 92
         },
         {
-          "file": "provas/testa_rota_italia.py",
-          "line": 62
+          "file": "provas/boletins_data_local/fase1b_arsacweb.py",
+          "line": 40
         }
       ]
     },
@@ -38684,23 +38770,23 @@
       ]
     },
     {
-      "endpoint": "https://%s/robots.txt",
+      "endpoint": "https://www.protezionedellepiante.it/category",
       "usado_por": [
         {
-          "file": "curadoria/descobrir.py",
-          "line": 859
+          "file": "curadoria/test_canario_pdf.py",
+          "line": 16
         },
         {
-          "file": "curadoria/gate_de_rota.py",
-          "line": 80
+          "file": "provas/boletins_data_local/canario_d61.py",
+          "line": 183
         },
         {
-          "file": "curadoria/medir_fila_do_bot.py",
-          "line": 82
+          "file": "provas/boletins_data_local/fase1d_rotas_a.py",
+          "line": 40
         },
         {
-          "file": "medidas/micro_colheita.py",
-          "line": 137
+          "file": "provas/janela_formas/canario_receita_pdf.py",
+          "line": 34
         }
       ]
     },
@@ -38899,23 +38985,6 @@
       ]
     },
     {
-      "endpoint": "https://www.arsacweb.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 191
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 932
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 92
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.regione.calabria.it/",
       "usado_por": [
         {
@@ -38950,43 +39019,26 @@
       ]
     },
     {
-      "endpoint": "https://www.arpalazio.it/",
+      "endpoint": "https://www.arpa.marche.it/",
       "usado_por": [
         {
           "file": "curadoria/descobrir.py",
-          "line": 285
+          "line": 278
         },
         {
           "file": "medidas/gabarito_t2_t12.py",
-          "line": 64
+          "line": 67
         },
         {
-          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
-          "line": 87
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.crea.gov.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 293
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 353
-        },
-        {
-          "file": "curadoria/test_travao_sementes.py",
-          "line": 95
+          "file": "provas/t2_boletins/fase1_onde_esta.py",
+          "line": 41
         }
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 667,
+  "ENDPOINTS_FOUND": 702,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 627,
+  "ENDPOINTS_TRUNCATED": 662,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -39004,9 +39056,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 667,
+    "endpoints": 702,
     "endpoints_published": 40,
-    "endpoints_truncated": 627,
+    "endpoints_truncated": 662,
     "candidates": 1199,
     "coletores": 54,
     "coletores_com_data": 20,
