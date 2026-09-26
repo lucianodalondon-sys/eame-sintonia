@@ -179,29 +179,43 @@ def _tipo(dados):
 
 
 def _pdf_para_texto(dados):
-    """pdftotext -layout primeiro (guarda as colunas); pypdf se ele faltar.
+    """pypdf primeiro; `pdftotext` (sem -layout) se ele faltar ou falhar.
 
-    Se as duas faltarem, o estado é ERRO com o nome da dependência — não se
+    Porque NÃO o -layout, medido nos 163 rótulos reais em 26/09: no -layout a
+    célula centrada na vertical põe o alvo UMA LINHA ACIMA da cultura, e a regra
+    «a linha começa na cultura» (rotulos_ler.py, afinada no texto do pypdf) cola o
+    alvo à cultura de cima. Ler colunas pede geometria (-bbox-layout), não isto.
+
+    Se os dois faltarem, o estado é ERRO com o nome da dependência — não se
     contorna com outra leitura inventada.
     """
+    motivos = []
+    try:
+        import io
+        import pypdf
+        leitor = pypdf.PdfReader(io.BytesIO(dados))
+        texto = '\n'.join((pg.extract_text() or '') for pg in leitor.pages)
+        if texto.strip():
+            return texto, 'pypdf'
+        motivos.append('pypdf: sem texto')
+    except ImportError:
+        motivos.append('pypdf: DEPENDENCIA_EM_FALTA')
+    except Exception as e:  # PDF que o pypdf não abre: tenta o poppler antes de ERRO
+        motivos.append('pypdf: %s' % type(e).__name__)
     with tempfile.TemporaryDirectory() as d:
         p = os.path.join(d, 'r.pdf')
         with open(p, 'wb') as f:
             f.write(dados)
         try:
-            out = subprocess.run(['pdftotext', '-layout', '-enc', 'UTF-8', p, '-'],
+            out = subprocess.run(['pdftotext', '-enc', 'UTF-8', p, '-'],
                                  capture_output=True, timeout=120)
             if out.returncode == 0 and out.stdout.strip():
-                return out.stdout.decode('utf-8', 'replace'), 'pdftotext -layout'
-        except (OSError, subprocess.TimeoutExpired):
-            pass
-    try:
-        import io
-        import pypdf
-    except ImportError:
-        raise RuntimeError('DEPENDENCIA_EM_FALTA: pdftotext (poppler) e pypdf')
-    leitor = pypdf.PdfReader(io.BytesIO(dados))
-    return '\n'.join((pg.extract_text() or '') for pg in leitor.pages), 'pypdf'
+                return out.stdout.decode('utf-8', 'replace'), 'pdftotext'
+            motivos.append('pdftotext: rc=%d' % out.returncode)
+        except (OSError, subprocess.TimeoutExpired) as e:
+            motivos.append('pdftotext: DEPENDENCIA_EM_FALTA' if isinstance(e, OSError)
+                           else 'pdftotext: timeout')
+    raise RuntimeError('; '.join(motivos))
 
 
 class _SoTexto(__import__('html.parser').parser.HTMLParser):
@@ -270,8 +284,14 @@ MESES = {'gennaio': 1, 'febbraio': 2, 'marzo': 3, 'aprile': 4, 'maggio': 5,
          'novembre': 11, 'dicembre': 12}
 _DATA = r'(\d{1,2}[./-]\d{1,2}[./-]\d{4}|\d{1,2}\s+(?:%s)\s+\d{4})' % '|'.join(MESES)
 
+# Medido nos 163 rótulos: o número vem como «Registrazione Ministero della Salute
+# n.», «Autorizzazione (del) Ministero della Salute n.», «Registrazione n° … del
+# Ministero» e «Ministero della Sanità» nos antigos. Número solto («n. 1234 del»)
+# sem a palavra do Ministero NÃO conta: pode ser o número de outro decreto.
+_N = r'(?:n\.?|n°|nr\.?|numero)\s*(\d[\d.]{2,8})'
 RX_REG_ROTULO = re.compile(
-    r'registrazione\s+(?:del\s+)?ministero\s+della\s+salute\s*(?:n\.?|n°|nr\.?)\s*([\d.]{3,9})', re.I)
+    r'(?:registrazione|autorizzazione)\s+(?:del\s+)?ministero\s+della\s+(?:salute|sanit[aà])\s*' + _N +
+    r'|(?:registrazione|autorizzazione)\s+' + _N + r'[^\n]{0,40}?ministero', re.I)
 RX_DECRETO = re.compile(r'etichetta\s+autorizzata\s+con\s+decreto\s+dirigenziale\s+del\s+' + _DATA, re.I)
 RX_VALIDA = re.compile(r'valid(?:a|ità|ita)\s+(?:a\s+partire\s+)?da(?:l)?\s+' + _DATA +
                        r'(?:\s+al\s+' + _DATA + r')?', re.I)
@@ -296,7 +316,7 @@ def cabecalho_do_rotulo(texto):
     f = 'rotulo'
     out = {}
     m = RX_REG_ROTULO.search(plano)
-    out['NUMERO_REGISTO_NO_ROTULO'] = (campo(_num_registo(m.group(1)), ENCONTRADO, f, m.group(0))
+    out['NUMERO_REGISTO_NO_ROTULO'] = (campo(_num_registo(m.group(1) or m.group(2)), ENCONTRADO, f, m.group(0))
                                        if m else campo(None, NAO_CONHECIDO, f))
     m = RX_DECRETO.search(plano)
     out['DATA_DO_DECRETO'] = (campo(_data_iso(m.group(1)), ENCONTRADO, f, m.group(0))
@@ -471,13 +491,45 @@ def _linhas_de_uso_cruas(texto):
     for bloco in RL.regiao_de_impiego(texto):
         for cult, lit, canon, cit in RL.pares_do_bloco_de_cultura(bloco):
             saida.append((cult, lit, canon, cit, 'BLOCO_DA_CULTURA', []))
+    if saida:
+        return saida
+    # a terceira porta: o bloco de cultura sem título de secção no texto extraído
+    # (os rótulos de tau-fluvalinate que nomeiam o vetor da flavescência dourada)
+    for bl in blocos_sem_cabecalho_cortados(texto):
+        for lit, canon in RL.alvos_da_linha(bl['TEXTO']):
+            saida.append((bl['CULTURA_CANONICA'], lit, canon, bl['TEXTO'], 'BLOCO_SEM_CABECALHO', []))
+    return saida
+
+
+def blocos_sem_cabecalho_cortados(texto):
+    """`rotulos_ler.blocos_sem_cabecalho`, com o corpo cortado onde nasce o bloco seguinte.
+
+    O corpo de lá são 8 linhas a partir do título da cultura. Medido nos 163
+    rótulos reais em 26/09: em 38 de 102 blocos essas 8 linhas entram no bloco
+    da cultura seguinte — a VITE do 007555 herdava «dorifora (Leptinotarsa)» e a
+    dose da PATATA. Isso cria autorização que o rótulo não dá. Aqui o bloco
+    acaba onde o próximo começa.
+
+    Limite declarado: só corta no próximo bloco QUE FOI RECONHECIDO. Uma cultura
+    seguinte sem «Contro…» logo abaixo não é bloco, e não serve de corte.
+    """
+    bls = RL.blocos_sem_cabecalho(texto)
+    saida = []
+    for i, bl in enumerate(bls):
+        corpo = bl['TEXTO']
+        if i + 1 < len(bls):
+            j = corpo.find(bls[i + 1]['TEXTO'][:40], 5)
+            if j > 0:
+                corpo = corpo[:j].rstrip()
+        saida.append({'CULTURA_CANONICA': bl['CULTURA_CANONICA'], 'TEXTO': corpo})
     return saida
 
 
 def _mesmo_titular(a, b):
+    """O nome curto (sem S.r.l./S.p.A./Ltd) de um está contido no outro."""
     corta = lambda s: re.sub(r'\b(s\.?\s*r\.?\s*l|s\.?\s*p\.?\s*a|ltd|gmbh|srl|spa|s\.?a)\b\.?', '', _n(s))
     a, b = re.sub(r'[^a-z0-9]', '', corta(a)), re.sub(r'[^a-z0-9]', '', corta(b))
-    return bool(a and b and (a in b or b in a))
+    return bool(len(a) >= 4 and len(b) >= 4 and (a in b or b in a))
 
 
 def ler_rotulo(dados, ficha, product_id=None, url=None, capturado_em=None):
@@ -521,6 +573,12 @@ def ler_rotulo(dados, ficha, product_id=None, url=None, capturado_em=None):
         conf['TITULAR'] = (campo(tit_reg, VERIFICADO, 'registo oficial = rotulo')
                            if _mesmo_titular(tit_rot, tit_reg)
                            else campo({'REGISTO': tit_reg, 'ROTULO': tit_rot}, ERRO, 'registo oficial != rotulo'))
+    elif tit_reg and _mesmo_titular(tit_reg, texto[:4000]):
+        # medido: 0 de 60 rótulos escrevem «Titolare»; o nome da empresa vem no
+        # topo. O nome do registo escrito no documento é a segunda fonte.
+        conf['TITULAR'] = campo(tit_reg, VERIFICADO, 'nome do titular do registo escrito no rotulo')
+    elif tit_reg:
+        conf['TITULAR'] = campo(tit_reg, ENCONTRADO, 'registo oficial; o rotulo nao escreve o titular')
     res['CONFERENCIA'] = conf
 
     documento_deste_registo = conf['REGISTO']['ESTADO'] == VERIFICADO

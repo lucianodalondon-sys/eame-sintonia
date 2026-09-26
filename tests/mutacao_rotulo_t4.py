@@ -74,6 +74,18 @@ MUTANTES = [
     ('M18 documento vazio nao e erro',
      "        doc.update(ESTADO=ERRO, MOTIVO='documento vazio (0 bytes)')\n        return '', doc",
      "        pass"),
+    ('M19 bloco sem cabecalho invade a cultura seguinte',
+     "            if j > 0:\n                corpo = corpo[:j].rstrip()",
+     "            if False:\n                corpo = corpo[:j].rstrip()"),
+    ('M20 terceira porta desligada',
+     "    for bl in blocos_sem_cabecalho_cortados(texto):",
+     "    for bl in []:"),
+    ('M21 titular escrito no topo nao confere',
+     "    elif tit_reg and _mesmo_titular(tit_reg, texto[:4000]):",
+     "    elif False:"),
+    ('M22 numero solto sem Ministero aceite como registo',
+     "+ _N + r'[^\\n]{0,40}?ministero'",
+     "+ _N"),
 ]
 
 

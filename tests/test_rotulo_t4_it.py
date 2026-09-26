@@ -176,6 +176,18 @@ class OCabecalhoComFrasesReais(unittest.TestCase):
             self.assertEqual(v['ESTADO'], R.ENCONTRADO, c[:160])
             self.assertRegex(v['VALOR'], r'^20\d\d-\d\d-\d\d$')
 
+    def test_as_formas_do_numero_medidas_nos_163(self):
+        formas = {'Autorizzazione Ministero della Salute n. 15253 del 12.03.2012': '015253',
+                  'Autorizzazione del Ministero della Salute n. 8259': '008259',
+                  'Registrazione n° 4701 del 17/03/1982 del Ministero della Salute': '004701',
+                  'Registrazione Ministero della Sanità n. 2732 del 16/01/1978': '002732'}
+        for txt, esperado in formas.items():
+            self.assertEqual(R.cabecalho_do_rotulo(txt)['NUMERO_REGISTO_NO_ROTULO']['VALOR'], esperado, txt)
+
+    def test_numero_solto_sem_ministero_nao_e_registo(self):
+        c = R.cabecalho_do_rotulo('Decreto n. 1234 del 12.03.2012 e partita n. 5678')
+        self.assertEqual(c['NUMERO_REGISTO_NO_ROTULO']['ESTADO'], R.NAO_CONHECIDO)
+
     def test_decreto_com_mes_por_extenso(self):
         c = [c for _, c in self.pares if 'Decreto Dirigenziale del 22 luglio 2024' in c][0]
         cab = R.cabecalho_do_rotulo(c)
@@ -312,6 +324,15 @@ class ORotuloInteiroSintetico(unittest.TestCase):
         self.assertEqual(r['CONFERENCIA']['TITULAR']['ESTADO'], R.ERRO)
         self.assertEqual(r['PRODUTO']['TITULAR']['ESTADO'], R.ERRO)
 
+    def test_titular_escrito_no_topo_sem_a_palavra_titolare(self):
+        # medido: 0 de 60 rótulos reais escrevem «Titolare»; o nome vem no topo
+        txt = SINTETICO.replace("Titolare dell'autorizzazione: ADAMA Italia S.r.l.", 'ADAMA Italia S.r.l.')
+        r = self.ler(texto=txt)
+        self.assertEqual(r['CABECALHO']['TITULAR_NO_ROTULO']['ESTADO'], R.NAO_CONHECIDO)
+        self.assertEqual(r['CONFERENCIA']['TITULAR']['ESTADO'], R.VERIFICADO)
+        sem = self.ler(texto=txt.replace('ADAMA Italia S.r.l.', 'Ditta X'))
+        self.assertEqual(sem['CONFERENCIA']['TITULAR']['ESTADO'], R.ENCONTRADO)
+
     def test_produto_fora_do_registo_nunca_e_verificado(self):
         r = self.ler(reg='999999')
         self.assertEqual(r['CONFERENCIA']['REGISTO']['ESTADO'], R.NAO_CONHECIDO)
@@ -339,6 +360,29 @@ class ORotuloInteiroSintetico(unittest.TestCase):
             self.assertEqual(l['LIGACAO_NIVEL'], 'BLOCO_DA_CULTURA')
             self.assertEqual(l['ALVO']['ESTADO'], R.ENCONTRADO)
             self.assertEqual([(d['MIN'], d['MAX'], d['UNIDADE']) for d in l['DOSE']['VALOR']], [(30.0, 50.0, 'ml/hl')])
+
+    def test_bloco_sem_cabecalho_nao_invade_a_cultura_seguinte(self):
+        # Texto do KLARTAN 20 EW (reg. 007555, PDF sha256 no _MANIFESTO), como o
+        # pypdf o extrai. O PDF não está no Git; a frase está copiada aqui.
+        txt = ("Registrazione Ministero della Salute n. 7555\n"
+               "Vite (da vino e da tavola)\n"
+               "Contro cicaline ( Empoasca vitis, Scaphoideus titanus ) e tripidi\n"
+               "(Frankliniella occidentalis, Drepanothrips reuteri) impiegare a 30-300 ml/hl\n"
+               "senza superare 0,3 l/ha in 100-1000 litri di acqua/ha\n"
+               "Patata\n"
+               "Contro dorifora (Leptinotarsa decemlineata) e afidi (Myzus persicae,\n"
+               "Macrosiphum euphorbia ) impiegare a 0,3 l/ ha in 500 -1000 litri di acqua/ha\n")
+        r = self.ler(texto=txt, reg='007555', pid=None)
+        vite = {l['ALVO']['VALOR']['LITERAL'] for l in r['LINHAS_DE_USO'] if l['CULTURA']['VALOR']['CANONICA'] == 'VITE'}
+        pata = {l['ALVO']['VALOR']['LITERAL'] for l in r['LINHAS_DE_USO'] if l['CULTURA']['VALOR']['CANONICA'] == 'PATATA'}
+        self.assertIn('Scaphoideus titanus', vite)
+        self.assertNotIn('Leptinotarsa decemlineata', vite)
+        self.assertIn('Leptinotarsa decemlineata', pata)
+        for l in r['LINHAS_DE_USO']:
+            self.assertEqual(l['LIGACAO_NIVEL'], 'BLOCO_SEM_CABECALHO')
+            self.assertEqual(l['ALVO']['ESTADO'], R.ENCONTRADO)
+            if l['CULTURA']['VALOR']['CANONICA'] == 'VITE':
+                self.assertNotIn('Patata', l['CITACAO_DA_LINHA'])
 
     def test_versao_muda_quando_o_documento_muda(self):
         a = self.ler()['DOCUMENTO']['SHA256']
