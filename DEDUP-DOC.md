@@ -1,6 +1,6 @@
 # DEDUP-DOC — a Sala deixa de repetir o mesmo documento
 
-Missão DEDUP-DOC (coleta) · 26/09/2026 · ramo `dedup-doc-v1`, nascido de `ce28040c` e refeito (rebase) sobre `83de0ccd` (o vivo desde 02:08, C9 instalada).
+Missão DEDUP-DOC (coleta) · 26/09/2026 · ramo `dedup-doc-v1`, nascido de `ce28040c` e refeito (rebase) sobre `69b0e23f` (o vivo às 05:45).
 **NÃO instalado.** Vivo não tocado. Sala real só lida (`default_transaction_read_only = on`, conferido na
 saída). Sem rede e sem coleta. O bruto (RAW) não foi alterado; na Sala nada foi apagado.
 
@@ -142,7 +142,7 @@ exigência `FORWARD_IDENTIFIED` · M4 sem comparar a fonte.
 **Onde:** tabela nova `sala_de_espera_versao` (`supabase/migrations/036_a_sala_guarda_as_versoes_do_documento.sql`),
 só `CREATE`, com gatilhos que recusam `UPDATE`/`DELETE`/`TRUNCATE` — o mesmo desenho do caderno da 033.
 O caderno da 033 não serve: só aceita 8 campos (`revisao_so_de_campo_revisivel`). Número 036 porque a
-D79 reservou 034 (lápide) e 035 (TEMPO_LUGAR). Desfazer: `supabase/desfazer/036_desfazer.sql`.
+D79 reservou 034 e 035 (no vivo `69b0e23f` a 034 já existe: `034_o_acervo_guarda_tempo_e_lugar_como_derivado`, não a lápide). Desfazer: `supabase/desfazer/036_desfazer.sql`.
 **NÃO aplicada na Sala real.** Sem a 036, o `pousar` continua como antes e diz no recibo
 «036 não aplicada».
 
@@ -183,7 +183,7 @@ ramos entrarem.
 
 1. LOCK-PESADO + ≥ 5 GB. Robô parado (`curadoria/PARAR.flag`), supervisor e observador parados.
 2. Backup da Sala (`pg_dump`, como em D68/D74) e do código (`/c/inst/<data>-dedup-doc`).
-3. No vivo `source-curator-service-v1` (em `83de0ccd`): `git merge --ff-only origin/dedup-doc-v1`.
+3. No vivo `source-curator-service-v1` (em `69b0e23f`): `git merge --ff-only origin/dedup-doc-v1`.
    Código: `admissao/sala_de_espera.py` + `admissao/versao_do_documento.py` (novo); 2 testes; este relatório.
    **Migração 036** (tabela nova): aplicar pela cadeia canónica **com backup antes**; ensaiada só em
    descartável. Sem ela, o dedup funciona e as versões ficam desligadas (declarado no recibo).
