@@ -92,8 +92,29 @@ class Medir(unittest.TestCase):
         r = MC.medir(ALVO, lambda u: self.fail("pediu"), lambda: {"EGRESS_GATE": "BLOCKED"}, self.tmp)
         self.assertEqual(0, r["PEDIDOS"])
 
+    def test_nao_segue_link_sem_cara_de_monitorizacao(self):
+        self.medir(PAG)
+        self.assertNotIn(B + "/chi-siamo", self.pedidos)
+        self.assertNotIn(B + "/privacy", self.pedidos)
+
+    def test_ordem_pela_forca_nao_pela_posicao(self):
+        pag = dict(PAG)
+        pag[B + "/"] = (200, ('<html><a href="/trappole-info">Trappole</a>'
+                              '<a href="/monitoraggio-catture-cimice-asiatica">Monitoraggio catture cimice asiatica</a>'
+                              '</html>').encode(), "")
+        self.medir(pag)
+        self.assertEqual(B + "/monitoraggio-catture-cimice-asiatica", self.pedidos[2])
+
+    def test_teto_de_5_com_muitos_links(self):
+        casa = "".join('<a href="/monitoraggio-catture-%d">Monitoraggio catture %d</a>' % (i, i) for i in range(8))
+        pag = dict(PAG)
+        pag[B + "/"] = (200, ("<html>" + casa + "</html>").encode(), "")
+        self.medir(pag)
+        self.assertEqual(MC.TETO, len(self.pedidos))
+
     def test_frequencia_pela_mediana(self):
         self.assertIn("~7 dias", MC.frequencia(["2026-08-29", "2026-09-05", "2026-09-12", "2026-09-19"]))
+        self.assertIn("~7 dias", MC.frequencia(["2026-08-26", "2026-08-29", "2026-09-05", "2026-09-12"]))
         self.assertIn("NAO SEI", MC.frequencia(["2026-09-12"]))
 
     def test_percentagem_depois_da_palavra_e_login_do_menu(self):
