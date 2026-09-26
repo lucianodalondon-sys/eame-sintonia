@@ -4369,11 +4369,26 @@
    "what": "Antes de qualquer contagem de varios sinais, separa tres camadas: SINAL (cada entrada), EVIDENCIA (o mesmo documento — mesmo SHA, DOCUMENT_ID ou endereco — conta uma vez) e FONTE (o mesmo originador — dominio, pagina da plataforma, SOURCE_ID ou republicacao declarada — conta uma vez). Devolve fontes independentes, percentual da fonte dominante e CONVERGE so com duas fontes independentes PROVADAS sobre o mesmo fato. Rotulo, registo e catalogo contam a parte, como validacao estrutural. Usado pela corrida da Intelligence e pelo motor de oportunidades V2.1.",
    "why_here": "INDEPENDENCIA-V1, defeitos D12 (o mesmo documento lido duas vezes contava como duas evidencias) e D16 (6 de 9 sinais da 1.a rodada real vinham de myfruit.it e o motor nao sabia). INT-LAW-070..077 e INT-LAW-092. No pacote V2.1 real: 10 de 43 oportunidades tinham MULTI_SOURCE=2 sustentado por UMA fonte (7 pelo mesmo documento europeu da EUR-Lex, 3 por anuncios de uma so pagina). Nao deteta sindicacao por semelhanca de texto (INT-LAW-081).",
    "files": [
-    "motor/grafo_de_dependencia.py",
+    "motor/grafo_de_dependencia.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-INDEPENDENCIA",
+   "name": "As provas do grafo de dependência — testes por nome, mutação e o V2.1 antes/depois",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Tres provas da missao INDEPENDENCIA-V1: corre os modulos de teste da Intelligence por NOME em duas arvores (rede fechada); planta um defeito de cada vez no grafo, na corrida e no motor V2.1 e confere que o teste o apanha; e corre o motor de oportunidades V2.1 antes e depois sobre o MESMO pacote real (so leitura).",
+   "why_here": "A prova vive fora da peca que prova. Resultado: 0 falhas novas por nome; 22 de 22 mutantes mortos; 10 de 43 oportunidades reais tinham MULTI_SOURCE=2 com uma so fonte.",
+   "files": [
     "provas/independencia/testes_por_nome.py",
     "provas/independencia/mutantes.py",
-    "provas/independencia/antes_e_depois_v21.py",
-    "tests/test_independencia_de_fontes.py"
+    "provas/independencia/antes_e_depois_v21.py"
    ]
   },
   {
