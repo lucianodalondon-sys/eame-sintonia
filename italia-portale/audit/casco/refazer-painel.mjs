@@ -115,14 +115,30 @@ passo('gerar: sala-leitura.mjs');
 const intel = OPT.intel || path.join(HERE, 'INTELLIGENCE-EXPERIMENTAL-EXEMPLO-VAZIO.json');
 const r1 = execFileSync(process.execPath, [path.join(HERE, 'sala-leitura.mjs'), EXPORT, ARMAZEM, path.join(CASCO, 'italy-sala-leitura.local.js'),
   `--achados=${LEITURA}`, `--intel=${intel}`], { encoding: 'utf8' });
+// CASCO-RENDIMENTO: o rendimento por fonte e a pagina «O que a Intelligence precisa» leem ramos do Git
+// (a TABELA do RENDIMENTO-POR-FONTE, a MEDIDA do PERIODO-E-CHAVES, os ramos dos extractores). Sem rede por
+// omissao: le as refs tal como estao nesta maquina e o recibo diz qual commit leu. So com --buscar faz
+// `git fetch origin` antes (rede — so quando quem corre o permitir).
+const REPO = path.resolve(HERE, '..', '..', '..');
+if ('buscar' in OPT || process.argv.includes('--buscar')) {
+  passo('git fetch origin (pedido com --buscar)');
+  execFileSync('git', ['-C', REPO, 'fetch', '-q', 'origin'], { encoding: 'utf8' });
+}
+const RENDIMENTO_REF = OPT['rendimento-ref'] || 'origin/rendimento-fonte-v1';
+const MEDIDA_REF = OPT['medida-ref'] || 'origin/periodo-chaves-v1';
+const GAPS = OPT.gaps || `${U}/auditoria-madrugada/missao-gaps-candidatas.txt`;
+const refs = Object.fromEntries([RENDIMENTO_REF, MEDIDA_REF].map((r) => {
+  try { return [r, execFileSync('git', ['-C', REPO, 'rev-parse', '--short', r], { encoding: 'utf8' }).trim()]; } catch { return [r, 'NAO SEI (ref inexistente)']; }
+}));
 passo('gerar: painel-operacao.mjs');
 const fecho = OPT['fecho-onda3'] || path.join(ONDAS, 'ONDA3-WEB-20260925-1934', 'FECHO-ONDA3.md');
 const r2 = execFileSync(process.execPath, [path.join(HERE, 'painel-operacao.mjs'), `--vivo=${VIVO}`, `--ondas=${ONDAS}`, `--sala=${LEITURA}`,
   `--export=${EXPORT}`, `--supervisor=${path.join(P, 'SUPERVISOR-ESTADO.json')}`, `--fecho-onda3=${fecho}`, `--decisoes=${DECISOES}`,
+  `--rendimento-ref=${RENDIMENTO_REF}`, `--medida-ref=${MEDIDA_REF}`, `--gaps=${GAPS}`,
   `--copia=${path.join(P, 'italy-painel.local.js')}`], { encoding: 'utf8' });
 
 const recibo = { feito_em: new Date().toISOString(), sala_so_leitura: [agg.ro, exp.ro], sala_total: agg.json.TOTAL,
-  fora_do_caminho_da_sala: falta.length, achados_noutro_caminho: Object.keys(achados).length,
+  fora_do_caminho_da_sala: falta.length, achados_noutro_caminho: Object.keys(achados).length, refs_lidas: refs,
   ficheiros: Object.fromEntries([EXPORT, LEITURA, path.join(P, 'SUPERVISOR-ESTADO.json'), path.join(CASCO, 'italy-sala-leitura.local.js'),
     path.join(P, 'italy-painel.local.js')].map((f) => [f.replace(/\\/g, '/'), sha(fs.readFileSync(f))])) };
 fs.writeFileSync(path.join(P, 'RECIBO-REFAZER.json'), JSON.stringify(recibo, null, 1));

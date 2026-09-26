@@ -3,6 +3,8 @@
 //     node italia-portale/audit/casco/painel-operacao.mjs --vivo=<arvore do vivo> --ondas=<pasta das ondas>
 //          --sala=<LEITURA-SALA-PAINEL.json> --supervisor=<SUPERVISOR-ESTADO.json> --fecho-onda3=<FECHO-ONDA3.md>
 //          --decisoes=<pergunta-emenda-exp-d78.txt> [--copia=<ficheiro.js>]
+//          [--rendimento-ref=origin/rendimento-fonte-v1] [--medida-ref=origin/periodo-chaves-v1]
+//          [--gaps=<missao-gaps-candidatas.txt>] [--missoes=<pasta das missoes>]
 //
 // Cada numero vem de um ARTEFACTO MEDIDO e leva ao lado a fonte e a data da medicao. Nada e escrito a
 // mao: o que nao tem artefacto fica NAO SEI / NAO MEDIDO. O estado dos consertos e das instalacoes vem do
@@ -209,8 +211,77 @@ for (const s of naSalaForaDaLista) {
     porqueFora: 'nao esta na coorte congelada atual nem nas prontas que ficaram fora (deu itens em ondas/corridas anteriores)' }));
 }
 
+// ── F · RENDIMENTO POR FONTE e O QUE A INTELLIGENCE PRECISA (CASCO-RENDIMENTO) ─────────────
+// Lido do Git (git show <ref>:<caminho>), nunca copiado a mao: a TABELA do RENDIMENTO-POR-FONTE e a
+// MEDIDA do PERIODO-E-CHAVES. Cada bloco leva o ramo, o commit que por ultimo mexeu no ficheiro, a data
+// e o sha256. Sem o ramo, o bloco fica NAO SEI. Sem nota e sem ordem de cliente.
+const RENDIMENTO_REF = OPT['rendimento-ref'] || 'origin/rendimento-fonte-v1';
+const MEDIDA_REF = OPT['medida-ref'] || 'origin/periodo-chaves-v1';
+function doGit(ref, caminho) {
+  const txt = git('show', `${ref}:${caminho}`);
+  if (txt == null) return null;
+  const log = (git('log', '-1', '--format=%h\t%cI', ref, '--', caminho) || '').split('\t');
+  return { json: JSON.parse(txt), prova: { git: `${ref}:${caminho}`, commit: log[0] || NS, data: log[1] || NS,
+    sha256: crypto.createHash('sha256').update(txt).digest('hex').slice(0, 16) } };
+}
+const tabela = doGit(RENDIMENTO_REF, 'data/derivados/RENDIMENTO-POR-FONTE/TABELA.json');
+const medida = doGit(MEDIDA_REF, 'data/derivados/PERIODO-E-CHAVES/MEDIDA.json');
+const naoSei = (x) => !x || x === NS;
+for (const f of fontes) {
+  const t = tabela ? tabela.json.POR_FONTE[f.sourceId] : null;
+  const itens = salaPorFonte[f.sourceId] || [];
+  f.rendimento = {
+    // documentos guardados desta fonte lidos pelo extractor mais novo (nao instalado) — a TABELA
+    acervo: t ? { documentos: t.ITENS, comTexto: t.COM_TEXTO, dataDoFato: t.FACT_TIME_COM_ANO, regiao: t.REGIAO, cultura: t.CULTURA,
+      as3: t.AS_3, coorte: t.COORTE || NS } : null,
+    // os itens na Sala real, pelas colunas que a Sala guarda (a Sala nao guarda cultura)
+    sala: itens.length ? { itens: itens.length, dataDoFato: itens.filter((i) => !naoSei(i.fact_time)).length,
+      lugarDoFato: itens.filter((i) => !naoSei(i.fact_location)).length } : null,
+  };
+}
+const extratoresDef = [
+  // [ramo, missao que o pediu (quando ainda nao ha ramo)]
+  ['tempo-lugar-v1'], ['lugar-fato-v1'], ['leitor-data-yt-v1'], ['conserto-regua-v1'], ['acervo-tempo-lugar-v1'], ['periodo-chaves-v1'],
+  ['extrator-evento-v2', 'missao-extrator-evento-v2.txt'], ['extrator-lugar-v2', 'missao-extrator-lugar-v2.txt'],
+  ['gaps-candidatas-v1', 'missao-gaps-candidatas.txt'],
+];
+const MISSOES = OPT.missoes || path.dirname(OPT.decisoes);
+const extratores = extratoresDef.map(([r, missao]) => {
+  const x = ramo(r);
+  const mf = missao ? path.join(MISSOES, missao) : null;
+  const m = mf && fs.existsSync(mf) ? { missao: missao, pedidaEm: mtime(mf), titulo: fs.readFileSync(mf, 'utf8').split('\n')[0].trim() } : {};
+  // um ramo cuja ponta E o vivo foi criado mas ainda nao tem commit proprio
+  const estado = !x.existe ? (m.missao ? 'SO MISSAO · sem ramo' : 'SEM RAMO')
+    : x.head === vivoHead ? 'RAMO CRIADO · sem commit proprio'
+    : x.noVivo ? 'NO VIVO' : 'NO RAMO · NAO INSTALADO';
+  return Object.assign({ estado }, x, m);
+});
+const gapsF = OPT.gaps || path.join(MISSOES, 'missao-gaps-candidatas.txt');
+const gapsTxt = fs.existsSync(gapsF) ? fs.readFileSync(gapsF, 'utf8') : '';
+const gapsM = /tipos de fonte que faltam:\s*([^\n]*?)\.\s*\n/.exec(gapsTxt);
+const cz = medida ? medida.json.CRUZAMENTOS_POSSIVEIS_NAO_EXECUTADOS : null;
+const precisa = {
+  cruzamentos: cz ? {
+    entreFontesDiferentes: cz.DOS_QUAIS_ENTRE_FONTES_DIFERENTES, documentosComAs3: cz.DOCUMENTOS_COM_AS_TRES_CHAVES_DO_CRUZAMENTO,
+    paresPeriodoIgual: cz.PARES_PERIODO_IGUAL, paresPeriodoSobreposto: cz.PARES_PERIODO_SOBREPOSTO,
+    pares: (cz.PARES || []).map((p) => ({ a: `${p.A.SOURCE_ID} ${p.A.SHA256}`, b: `${p.B.SOURCE_ID} ${p.B.SHA256}`, cultura: p.CULTURA, regiao: p.REGIAO,
+      janela: p.A.JANELA, mesmaFonte: !!p.MESMA_FONTE })),
+    documentos: (cz.DOCUMENTOS || []).map((d) => ({ fonte: d.SOURCE_ID, sha: d.SHA256, grupo: d.GRUPO, cultura: d.CULTURA, regiao: d.REGIAO, janela: d.JANELA })),
+    sala: medida.json.CONTAS && medida.json.CONTAS.SALA ? { itens: medida.json.CONTAS.SALA.ITENS, chaves: medida.json.CONTAS.SALA.CHAVES,
+      fatoNoItem: medida.json.CONTAS.SALA.FACT_TIME_NO_ITEM } : null,
+    gerado: medida.json.GERADO || NS, prova: medida.prova,
+  } : null,
+  acervo: tabela ? Object.assign({ documentos: tabela.json.DOCUMENTOS, medida: tabela.json.MEDIDA, prova: tabela.prova }, (() => {
+    const t = tabela.json.TUDO; return { comTexto: t.COM_TEXTO, dataDoFato: t.FACT_TIME_COM_ANO, regiao: t.REGIAO, cultura: t.CULTURA, as3: t.AS_3 };
+  })()) : null,
+  tiposEmFalta: gapsM ? gapsM[1].split(';').map((s) => s.trim()).filter(Boolean) : [],
+  tiposProva: fs.existsSync(gapsF) ? prova(gapsF) : NS,
+  tiposDetalhe: `${RENDIMENTO_REF}:docs/operacao/RENDIMENTO-POR-FONTE.md §4`,
+  extratores,
+};
+
 const pacote = {
-  gerado: new Date().toISOString(), vivo: vivoHead, vivoLocal,
+  gerado: new Date().toISOString(), vivo: vivoHead, vivoLocal, precisa,
   instalacoes: reflog, fontes, naSalaForaDaLista,
   fontesProvas: { coorte: prova(coorteF), runs: fs.existsSync(runsF) ? prova(runsF) : NS, decisoes: fs.existsSync(decisoesF) ? prova(decisoesF) : NS,
     export: OPT.export && fs.existsSync(OPT.export) ? prova(OPT.export) : NS },
@@ -238,4 +309,8 @@ fs.writeFileSync(path.join(CLIENTE, 'italy-painel.local.js'), js);
 if (OPT.copia) fs.writeFileSync(OPT.copia, js);
 console.log(JSON.stringify({ vivo: vivoHead, vivoLocal, instalacoes: reflog.length, fontes: fontes.length, naSalaForaDaLista, ondas: ondas.map((o) => [o.nome, o.data, o.fontes, o.correram, o.pedidos, o.maxPorDominio, `${o.salaAntes}->${o.salaDepois}`]),
   coorte: pacote.coleta.coorte.dentro + '/' + pacote.coleta.coorte.fora, defeitos: DEFEITOS.map((d) => d.defeito + ':' + d.estado),
-  emenda: emenda.head, falta: falta.map((f) => f.condicao + ' => ' + f.estado) }, null, 1));
+  emenda: emenda.head, falta: falta.map((f) => f.condicao + ' => ' + f.estado),
+  rendimento: { tabela: tabela ? tabela.prova : NS, medida: medida ? medida.prova : NS,
+    fontesComAcervo: fontes.filter((f) => f.rendimento.acervo).length, fontesComSala: fontes.filter((f) => f.rendimento.sala).length },
+  precisa: { cruzamentosEntreFontes: cz ? cz.DOS_QUAIS_ENTRE_FONTES_DIFERENTES : NS, tiposEmFalta: precisa.tiposEmFalta.length,
+    extratores: extratores.map((e) => `${e.ramo}:${e.estado}`) } }, null, 1));
