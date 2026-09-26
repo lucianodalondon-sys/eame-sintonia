@@ -36,6 +36,7 @@ import ssl
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from urllib.parse import urlparse
 from datetime import datetime, timezone
@@ -60,8 +61,23 @@ CONTROLO = {
 }
 
 
+# BLOQUEADAS-268 (25/09): IT-T7-252 (peritiagrari.it) chegou ao teto de 5 com
+# «UnicodeEncodeError: 'ascii' codec can't encode character 'à'» — o link do item tem
+# «à» e o urllib nao codifica um endereco com letras fora do ASCII: rebentava ANTES do pedido.
+#
+#     UM ACENTO NO ENDERECO NAO E UMA FONTE INACESSIVEL.
+#
+# Codifica-se so o que nao e ASCII (e o espaco); o que ja vem em %XX fica como esta.
+_SEGUROS_NO_URL = "%/:=&?~#+!$,;'@()*[]"
+
+
+def url_segura(url: str) -> str:
+    """O mesmo endereco, com os caracteres fora do ASCII (e o espaco) em %XX. Idempotente."""
+    return urllib.parse.quote(url, safe=_SEGUROS_NO_URL)
+
+
 def buscar(url: str) -> tuple[int, bytes, str]:
-    req = urllib.request.Request(url, headers={
+    req = urllib.request.Request(url_segura(url), headers={
         "User-Agent": CAP.UA, "Accept": "*/*", "Accept-Language": "it-IT,it;q=0.9"})
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT, context=CTX) as r:

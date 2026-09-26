@@ -94,6 +94,29 @@ class OLugarDeQuemPublica(unittest.TestCase):
             self.assertEqual(r["SOURCE_LOCATION"], "NAO SEI")
             self.assertTrue(r["SOURCE_LOCATION_BASIS"].startswith("NAO SEI:"))
 
+    def test_conta_de_plataforma_nao_herda_a_sede_do_vizinho(self):
+        # DA-16: no Atlas real, youtube.com e instagram.com davam ITALY (pais de OUTRAS fontes).
+        for s in ("https://www.youtube.com/channel/UCMfZsQVzUE4oF00c_0nzFVw",
+                  "https://www.instagram.com/qualquer_conta/", "https://it.linkedin.com/company/x",
+                  "https://open.spotify.com/show/x", "https://www.spreaker.com/show/5506797/episodes/feed",
+                  "https://anchor.fm/s/724a46c0/podcast/rss", "https://youtu.be/e0RWUj904Hk"):
+            r = LO.lugar_da_organizacao(s)
+            self.assertEqual((r["SOURCE_LOCATION"], r["SOURCE_LOCATION_PRECISION"]),
+                             ("NAO SEI", "NAO DECLARADA"), s)
+            self.assertIn("plataforma", r["SOURCE_LOCATION_BASIS"], s)
+
+    def test_nem_atlas_nem_cadastro_emprestam_morada_a_plataforma(self):
+        atlas = "#### IT-T8-999\nCOUNTRY: ITALY\nURL: https://www.youtube.com/@vizinho\n"
+        owners = [{"OWNER_ID": "IT-OWN-X", "WEBSITE": "https://www.youtube.com/@vizinho",
+                   "PROVINCE": "Roma"}]
+        r = LO.lugar_da_organizacao("https://www.youtube.com/@outro", owners=owners, atlas_texto=atlas)
+        self.assertEqual(r["SOURCE_LOCATION"], "NAO SEI")
+
+    def test_o_site_oficial_continua_a_dar_a_sede(self):
+        r = LO.lugar_da_organizacao("https://www.crea.gov.it/")
+        self.assertEqual((r["SOURCE_LOCATION"], r["SOURCE_LOCATION_PRECISION"]), ("Roma", "PROVINCE"))
+        self.assertFalse(LO.e_plataforma("youtube-agro.it"), "sufixo parecido nao e plataforma")
+
 
 class OScrapLeOLugarDoContrato(unittest.TestCase):
     def setUp(self):

@@ -1884,7 +1884,8 @@
     "italia-portale/client/italy-casa.js",
     "italia-portale/client/italy-i18n.js",
     "italia-portale/client/italy-v21.js",
-    "italia-portale/client/support.js"
+    "italia-portale/client/support.js",
+    "italia-portale/client/italy-sala-leitura.js"
    ],
    "views": [],
    "icon": "▣"
@@ -1915,7 +1916,8 @@
     "italia-portale/client/italy-handoff-v21.js",
     "italia-portale/client/italy-i18n.js",
     "italia-portale/client/italy-ingested.js",
-    "italia-portale/client/italy-v21.js"
+    "italia-portale/client/italy-v21.js",
+    "italia-portale/client/italy-sala-leitura.js"
    ],
    "views": [
     "meeting"
@@ -1989,7 +1991,9 @@
     "ENGENHARIA"
    ],
    "files": [
-    "italia-portale/audit/casco/*.mjs"
+    "italia-portale/audit/casco/*.mjs",
+    "italia-portale/audit/casco/INTELLIGENCE-EXPERIMENTAL-CONTRATO.json",
+    "italia-portale/audit/casco/INTELLIGENCE-EXPERIMENTAL-EXEMPLO-VAZIO.json"
    ],
    "exclude": [
     "italia-portale/audit/casco/brandwell-parita.mjs"
@@ -2438,6 +2442,10 @@
     "provas/so_a_colheita_atravessa.py",
     "provas/social_persistencia_no_postgres.py",
     "provas/migracao_033_ensaio_copia.py",
+    "provas/conserto_regua_recalcular.py",
+    "provas/sala_verifica.py",
+    "provas/c2_juiz_mutacao.py",
+    "provas/rodadas_mutacao.py",
     "provas/tempo_e_lugar_acervo.py",
     "provas/tempo_e_lugar_medir.py",
     "provas/tempo_e_lugar_replay.py",
@@ -4446,7 +4454,8 @@
     "provas/espinha_da_intelligence.py",
     "research/intelligence/INTELLIGENCE-SPINE-CONTRACT-V1.md",
     "research/intelligence/RED-TEAM-INTELLIGENCE-SPINE-V1.md",
-    "research/intelligence/INTELLIGENCE-SPINE-ARBITRATION-V1.json"
+    "research/intelligence/INTELLIGENCE-SPINE-ARBITRATION-V1.json",
+    "provas/integra_noite/mutacao_d9.py"
    ]
   },
   {
@@ -4617,7 +4626,8 @@
    "files": [
     "coleta/executor_texto_de_html.py",
     "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
-    "coleta/retrato_html.mjs"
+    "coleta/retrato_html.mjs",
+    "tests/dados/c2-juiz/*.html"
    ],
    "views": [
     "audit",
@@ -4971,6 +4981,7 @@
    ],
    "files": [
     "ferramentas/big_collection/onda_web.py",
+    "ferramentas/big_collection/rodadas.py",
     "ferramentas/maestro_social/maestro_social.py"
    ]
   },

@@ -1,0 +1,74 @@
+Could not find platform independent libraries <prefix>
+test_as_colunas_lidas_existem_nas_escritas_ou_sao_da_sala (tests.test_sala_por_nome.AEscritaEPeloNome.test_as_colunas_lidas_existem_nas_escritas_ou_sao_da_sala) ... ERROR
+test_as_tres_listas_de_colunas_sao_a_mesma (tests.test_sala_por_nome.AEscritaEPeloNome.test_as_tres_listas_de_colunas_sao_a_mesma) ... ERROR
+test_cada_valor_vai_para_a_sua_coluna (tests.test_sala_por_nome.AEscritaEPeloNome.test_cada_valor_vai_para_a_sua_coluna) ... ERROR
+test_cada_campo_volta_da_sua_coluna (tests.test_sala_por_nome.ALeituraEPeloNome.test_cada_campo_volta_da_sua_coluna) ... ERROR
+test_nenhuma_leitura_posicional_em_ler (tests.test_sala_por_nome.ALeituraEPeloNome.test_nenhuma_leitura_posicional_em_ler) ... ok
+test_numero_de_valores_errado_rebenta (tests.test_sala_por_nome.ALeituraEPeloNome.test_numero_de_valores_errado_rebenta) ... ERROR
+
+======================================================================
+ERROR: test_as_colunas_lidas_existem_nas_escritas_ou_sao_da_sala (tests.test_sala_por_nome.AEscritaEPeloNome.test_as_colunas_lidas_existem_nas_escritas_ou_sao_da_sala)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 136, in test_as_colunas_lidas_existem_nas_escritas_ou_sao_da_sala
+    self.assertLessEqual(set(S.COLUNAS_LIDAS) - {"ordem"}, set(S.COLUNAS_ESCRITAS))
+                             ^^^^^^^^^^^^^^^
+AttributeError: module 'sala_de_espera' has no attribute 'COLUNAS_LIDAS'
+
+======================================================================
+ERROR: test_as_tres_listas_de_colunas_sao_a_mesma (tests.test_sala_por_nome.AEscritaEPeloNome.test_as_tres_listas_de_colunas_sao_a_mesma)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 132, in test_as_tres_listas_de_colunas_sao_a_mesma
+    lista = ", ".join(S.COLUNAS_ESCRITAS)
+                      ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'sala_de_espera' has no attribute 'COLUNAS_ESCRITAS'
+
+======================================================================
+ERROR: test_cada_valor_vai_para_a_sua_coluna (tests.test_sala_por_nome.AEscritaEPeloNome.test_cada_valor_vai_para_a_sua_coluna)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 119, in test_cada_valor_vai_para_a_sua_coluna
+    self.assertEqual(nomes, list(S.COLUNAS_ESCRITAS))
+                                 ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'sala_de_espera' has no attribute 'COLUNAS_ESCRITAS'
+
+======================================================================
+ERROR: test_cada_campo_volta_da_sua_coluna (tests.test_sala_por_nome.ALeituraEPeloNome.test_cada_campo_volta_da_sua_coluna)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 70, in test_cada_campo_volta_da_sua_coluna
+    item = b.ler("RUN-X")["ITENS"][0]
+           ^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\admissao\sala_de_espera.py", line 623, in ler
+    linhas = self._consultar(
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 68, in consultar
+    return [b.SEP.join(self._linha())]
+                       ^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 51, in _linha
+    for c in S.COLUNAS_LIDAS:
+             ^^^^^^^^^^^^^^^
+AttributeError: module 'sala_de_espera' has no attribute 'COLUNAS_LIDAS'
+
+======================================================================
+ERROR: test_numero_de_valores_errado_rebenta (tests.test_sala_por_nome.ALeituraEPeloNome.test_numero_de_valores_errado_rebenta)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 84, in test_numero_de_valores_errado_rebenta
+    b.ler("RUN-X")
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\admissao\sala_de_espera.py", line 623, in ler
+    linhas = self._consultar(
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 82, in <lambda>
+    b._consultar = lambda sql: [b.SEP.join(self._linha()[:-1])]
+                                           ^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\quatro-chaves-v2\tests\test_sala_por_nome.py", line 51, in _linha
+    for c in S.COLUNAS_LIDAS:
+             ^^^^^^^^^^^^^^^
+AttributeError: module 'sala_de_espera' has no attribute 'COLUNAS_LIDAS'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.021s
+
+FAILED (errors=5)

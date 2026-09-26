@@ -1,0 +1,16 @@
+CONTROLO (sem defeito): rc=0  Ran 33 tests in 4.308s · OK  -> VERDE
+M1 regiao do fato herda a regiao da fonte: MORTO  (rc=1; Ran 33 tests in 4.594s · FAILED (failures=3))
+M2 o default da 033 inventa cultura para os antigos: MORTO  (rc=1; Ran 33 tests in 4.375s · FAILED (failures=2))
+M5 ler() ignora a coluna: MORTO  (rc=1; Ran 33 tests in 4.910s · FAILED (failures=2))
+M6 pousar() nao escreve o que recebeu: MORTO  (rc=1; Ran 33 tests in 4.642s · FAILED (failures=3))
+M7 a trava de forma deixa passar tudo: MORTO  (rc=1; Ran 33 tests in 4.510s · FAILED (failures=1))
+M8 idempotencia por documento cai (mesmo item 2x = 2 registos): MORTO  (rc=1; Ran 33 tests in 3.775s · FAILED (failures=1))
+M9 ausencia vira vazio (cultura []): MORTO  (rc=1; Ran 33 tests in 3.776s · FAILED (failures=3, errors=1))
+M10 ausencia vira o resultado da porta (NAO_SEI): MORTO  (rc=1; Ran 33 tests in 3.835s · FAILED (failures=10))
+M12 os tempos viajam duas vezes: MORTO  (rc=1; Ran 33 tests in 4.167s · FAILED (failures=2))
+M13 o READY deixa de levar as chaves: MORTO  (rc=1; Ran 33 tests in 4.020s · FAILED (failures=1, errors=14))
+M14 D62: a precisao conta NAO SEI como valor: MORTO  (rc=1; Ran 33 tests in 4.087s · FAILED (failures=1))
+M16 D62: a expressao relativa deita-se fora: MORTO  (rc=1; Ran 33 tests in 4.286s · FAILED (failures=2))
+M17 DA-6: a porta volta a copiar a publicacao para FACT_TIME: MORTO  (rc=1; Ran 33 tests in 4.237s · FAILED (failures=3))
+M18 DA-6: a porta volta a por uma data no FACT_TIME a partir do texto: MORTO  (rc=1; Ran 33 tests in 4.276s · FAILED (failures=3))
+MORTOS 14 / 14

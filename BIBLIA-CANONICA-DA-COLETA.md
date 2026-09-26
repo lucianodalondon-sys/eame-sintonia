@@ -1106,9 +1106,17 @@ ESTADO · ITEM_ID · RAW_OBSERVATION_ID · UNIVERSO · ESTAGIO · TEXTO · SOURC
 SOURCE_LOCATION · FACT_LOCATION · FACT_TIME
 FACT_TIME_BASIS · FACT_LOCATION_BASIS · PUBLISHED_AT · OBSERVED_AT
 PUBLISHED_AT_BASIS · SOURCE_LOCATION_BASIS · COMPLETUDE_TEMPO_LUGAR · TEMPO_LUGAR_EVIDENCIA
-SOURCE_DECLARED_EVIDENCE_CLASS · FATO
+SOURCE_DECLARED_EVIDENCE_CLASS · FATO · JANELA_DECLARADA
 CAPTURED_AT · CORRIDA · ADMITIDO_POR
 ```
+
+> **`JANELA_DECLARADA` (D58, QUATRO-CHAVES-NA-SALA).** `CULTURA × REGIÃO DO FATO × FASE ×
+> JANELA` (D29), cada uma com `VALOR`, `VEIO_DE` e `BASE`; dono `admissao.janela_declarada()`;
+> coluna `janela_declarada` da 033 única. Cultura e fase vêm da régua T1; `REGIAO_DO_FATO` **NÃO
+> DEVE** vir de `source_location`; a janela, que ninguém extrai, é `NAO SEI`. `PRECISAO` conta o
+> que há (nada é obrigatório, D62). A expressão relativa («ieri») fica só como evidência em
+> `TEMPO_RELATIVO` — `FACT_TIME`/`FACT_LOCATION` a partir do texto são do extrator `lugar-fato`
+> (DA-6), e este campo **não** os escreve.
 
 > **033 (MIGRACAO-SALA, 25/09 — D61/D62/DA-7/DA-9).** Os quatro da linha do meio
 > passaram a viajar porque o VALOR de `PUBLISHED_AT` e de `SOURCE_LOCATION`
