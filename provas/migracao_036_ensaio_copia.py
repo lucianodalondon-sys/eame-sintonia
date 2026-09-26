@@ -69,11 +69,25 @@ def main():
             raise SystemExit("psql: %s" % r.stderr)
         return r.stdout.strip() if not r.returncode else ("RECUSADO: " + r.stderr.strip()[:160])
 
-    def esquema():
+    def esquema(sem_036=False):
+        """sha256 do esquema. `sem_036`: sem os blocos que falam da tabela de versões.
+
+        ⚠️ A Sala real está na 033 e o vivo já traz a 034: a cadeia aplica AS DUAS.
+        O desfazer da 036 não desfaz a 034 (nem deve), por isso o esquema depois do
+        desfazer compara-se com o de DEPOIS DO UP menos os objetos da 036.
+        """
         r = subprocess.run([base.exe("pg_dump"), "-s", "--no-owner", "--no-privileges",
                             base.url], capture_output=True, text=True, encoding="utf-8",
                            env=env, check=True)
-        return hashlib.sha256(r.stdout.encode()).hexdigest()
+        texto = r.stdout
+        if sem_036:
+            texto = "
+
+".join(b for b in texto.split("
+
+")
+                                if "sala_de_espera_versao" not in b)
+        return hashlib.sha256(texto.encode()).hexdigest()
 
     def conteudo():
         return {k: psql(v) for k, v in IMPRESSAO.items()}
@@ -112,6 +126,7 @@ def main():
         esquema_antes = esquema()
         # 2 · UP
         fora["PASSOS"]["2_UP"] = cadeia()
+        esquema_depois_do_up_sem_036 = esquema(sem_036=True)
         # 3 · validação
         fora["PASSOS"]["3_VALIDACAO"] = {
             "TABELA": psql("select to_regclass('public.sala_de_espera_versao') is not null"),
@@ -142,6 +157,12 @@ def main():
         fora["PASSOS"]["7_DESFAZER"] = {
             "CODIGO": r.returncode, "ERRO": r.stderr[-300:],
             "ESQUEMA_IGUAL_AO_DA_COPIA": esquema() == esquema_antes,
+            "PORQUE_PODE_DIFERIR_DA_COPIA": "a cadeia aplicou tambem: %s" % (
+                fora["PASSOS"]["2_UP"]["OUTRAS_QUE_NAO_SKIP"] or "nada"),
+            "ESQUEMA_IGUAL_AO_DEPOIS_DO_UP_SEM_036": esquema(sem_036=True) == esquema_depois_do_up_sem_036,
+            "OBJETOS_036_QUE_SOBRARAM": psql(
+                "select count(*) from pg_class where relname = 'sala_de_espera_versao'") + "/" + psql(
+                "select count(*) from pg_proc where proname = 'sala_de_espera_versao_so_acrescenta'"),
             "CONTEUDO_IGUAL": conteudo() == antes}
         # 8 · UP outra vez
         fora["PASSOS"]["8_UP_DE_NOVO"] = cadeia()
