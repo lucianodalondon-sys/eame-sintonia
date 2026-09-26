@@ -6,7 +6,11 @@ Restaura um backup da Sala real (`pg_dump -Fc`, o de `backup_sala.cmd`) num Post
 novo e corre contra ele, sem mudar uma linha, o MESMO roteiro que o coordenador corre na Sala:
 `scripts/reproc_sala/reprocessar_sala.sh`. Desliga o Postgres e apaga a pasta no fim.
 
-    py provas/reproc_sala_ensaio.py --dump <sala.dump> --saida <pasta>
+`--codigo` pode vir várias vezes: as etapas correm POR ORDEM sobre a MESMA cópia, como na Sala
+(ex.: 1.º o código do vivo — a Parte B do lote 1 —, depois o lote 2 por cima). Sem `--codigo`,
+uma etapa só, com esta árvore.
+
+    py provas/reproc_sala_ensaio.py --dump <sala.dump> --saida <pasta> [--codigo <arvore>]...
 """
 import argparse
 import hashlib
@@ -29,6 +33,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dump", required=True)
     ap.add_argument("--saida", required=True)
+    ap.add_argument("--codigo", action="append", default=[])
     a = ap.parse_args()
     saida = Path(a.saida)
     saida.mkdir(parents=True, exist_ok=True)
@@ -57,10 +62,16 @@ def main():
                             "-d", base.url, a.dump], capture_output=True, text=True,
                            encoding="utf-8", errors="replace")
         print("RESTAURO codigo=%d %s" % (r.returncode, r.stderr[-300:].strip()), flush=True)
-        r = subprocess.run([shutil.which("bash") or "bash", "scripts/reproc_sala/reprocessar_sala.sh",
-                            str(saida)], cwd=str(RAIZ), env=env, text=True, encoding="utf-8",
-                           errors="replace")
-        codigo = r.returncode
+        codigo = 0
+        for n, arvore in enumerate(a.codigo or [str(RAIZ)], 1):
+            print("=== ETAPA %d · codigo %s" % (n, arvore), flush=True)
+            r = subprocess.run([shutil.which("bash") or "bash", "scripts/reproc_sala/reprocessar_sala.sh",
+                                str(saida / ("etapa-%d" % n))], cwd=str(RAIZ),
+                               env={**env, "CODIGO": arvore}, text=True, encoding="utf-8",
+                               errors="replace")
+            codigo = codigo or r.returncode
+            if r.returncode:
+                break
     finally:
         base.descer()
         shutil.rmtree(pasta, ignore_errors=True)

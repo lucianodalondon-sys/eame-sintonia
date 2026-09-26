@@ -1,7 +1,7 @@
 # REPROC-SALA-PLANO · reprocessar o tempo e o lugar da Sala depois dos lotes 1 e 2
 
-Ramo `reproc-sala-plano-v1`, a partir do vivo `83de0ccd`, com os três ramos juntos
-(sem conflito): `conserto-regua-v1` (`a139caad`) · `leitor-data-yt-v1` (`4dd00308`) ·
+Ramo `reproc-sala-plano-v1`, a partir do vivo `83de0ccd`, juntado depois ao vivo `69b0e23f` (lote 1 da
+INTEGRA-NOITE), com os três ramos juntos (sem conflito): `conserto-regua-v1` (`a139caad`) · `leitor-data-yt-v1` (`4dd00308`) ·
 `dedup-doc-v1` (`79091f73`). **Nada instalado. A Sala real só foi lida.** O ensaio correu em
 Postgres **descartável**, desligado no fim.
 
@@ -12,15 +12,68 @@ sha256 certo).
 
 <!-- ENSAIO -->
 
-## ROTEIRO para a Sala real (para o coordenador)
+## PARTE B · LOTE 1 já instalado (vivo `69b0e23f`) · passo (d): reprocessar o TEMPO/LUGAR da Sala com o leitor-data-yt
 
-Em Git Bash, a partir de uma cópia **do código instalado** (vivo depois dos lotes 1 e 2), chamada
-`$M`. Nada disto corre sem o LOCK-PESADO livre e ≥5 GB de memória.
+O lote 1 (INTEGRA-NOITE) já pôs no vivo o `leitor-data-yt-v1` (`4dd00308`): a data de publicação lê
+`<meta itemprop="datePublished">` (as páginas do YouTube) e a versão que carimba cada revisão passou a
+incluir `coleta/executor_texto_de_html.py`. Do lote 1, só três ficheiros da versão mudaram:
+`admissao/reprocessar_tempo_lugar.py`, `coleta/executor_texto_de_html.py` e `orquestrador/orquestrador.py`
+(este na rota do bruto, que o reprocesso não usa). Os consertos da régua (lote 2) **não** estão no vivo.
+
+O vivo não tem o roteiro. Corre-se o roteiro **deste ramo** com o **código do vivo** (`CODIGO=`): cada revisão
+fica carimbada com a versão do que está instalado, e não com a deste ramo.
 
 ```bash
-M=/c/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1   # o vivo, JÁ com os lotes 1 e 2
+# as mesmas variáveis do ROTEIRO abaixo (S, VIVA, PATH, PGPASSFILE, SINTONIA_SALA_*), e ainda:
+R=/c/Users/London1/orca/workspaces/eame-sintonia/tempo-lugar-v1       # esta pasta, com reproc-sala-plano-v1
+git -C $R fetch -q origin reproc-sala-plano-v1 && git -C $R status --short   # vazio
+git -C $R log --oneline -1                                            # o SHA do PRONTO desta missão
+git -C $VIVA log --oneline -1                                         # 69b0e23f (ou depois, sem o lote 2)
+O=$S/reproc-lote1-$(date +%Y%m%d-%H%M%S)
+```
+
+**d.1 · preflight** e **d.2 · backup** — os passos 1 e 2 do ROTEIRO (`PREFLIGHT=PASS`, `BACKUP=PASS`, anotar `B=` e o sha256).
+
+**d.3 · robô parado** — o passo 3 do ROTEIRO (`PARAR.flag` no vivo).
+
+**d.4 · o roteiro, com o código do vivo:**
+```bash
+cd $R && CODIGO=$VIVA bash scripts/reproc_sala/reprocessar_sala.sh "$O" --sala-real 2>&1 | tee "$O.log"
+```
+A primeira linha tem de dizer `codigo que reprocessa: …source-curator-service-v1 @ 69b0e23f`. Última linha:
+`REPROC_SALA=PASS`. Os mesmos oito passos (0–7) e as mesmas paragens da tabela do ROTEIRO.
+
+**d.5 · religar** — o passo 5 do ROTEIRO.
+
+**O que muda na vista** (previsão do `LEITOR-DATA-YOUTUBE.md` §4, 94 linhas; ensaio abaixo):
+- **nenhum valor** dos quatro campos muda: publicação 44 → 44, lugar da fonte 4 → 4, data do facto 20 → 20,
+  lugar do facto 18 → 18. O leitor novo só acha data em páginas do YouTube, e as da Sala já tinham data pelo
+  contrato ou pela página;
+- muda **só o texto da base** (o porquê) onde a publicação continua `NAO SEI`: passa a dizer também
+  `meta itemprop datePublished: ausente` — previsão de ~30 linhas. Em `comparacao.json` aparecem como
+  `SO_A_BASE` no campo `published_at`;
+- a evidência (`tempo_lugar_evidencia`) dessas linhas também ganha uma revisão, pelo mesmo texto.
+
+<!-- ENSAIO-PARTE-B -->
+
+**Desfazer (Parte B).** Não há valor para desfazer: os quatro valores ficam iguais. As revisões de base não se
+apagam (o banco recusa). Para voltar a ler a base antiga, reprocessar com o código de antes (`CODIGO=` uma árvore
+em `83de0ccd`) grava uma revisão nova com o texto antigo. Tudo de uma vez: **R2** (o backup do passo d.2),
+em § DESFAZER abaixo.
+
+**Decisão do coordenador** (vinha em `LEITOR-DATA-YOUTUBE.md` passo 12): aplicar agora grava ~30 revisões que
+só mudam o porquê. Não aplicar também é seguro: quando o lote 2 for instalado, o ROTEIRO grava essas mesmas
+bases junto com as mudanças da régua, carimbadas com a versão do lote 2.
+
+## ROTEIRO para a Sala real (para o coordenador)
+
+Em Git Bash. O **código que reprocessa** é o do vivo **depois** do lote 2 (`CODIGO=$VIVA`); o **roteiro** vem
+desta pasta (`$R`), porque o vivo pode não o ter. Nada disto corre sem o LOCK-PESADO livre e ≥5 GB de memória.
+
+```bash
 S=$HOME/sintonia-sala-italia
-VIVA=$M
+VIVA=$HOME/orca/workspaces/eame-sintonia/source-curator-service-v1   # o vivo, JÁ com os lotes 1 e 2
+R=/c/Users/London1/orca/workspaces/eame-sintonia/tempo-lugar-v1        # esta pasta (reproc-sala-plano-v1)
 export PATH="$HOME/orca/pgtmp/pgsql/bin:$PATH"
 export PGPASSFILE="$S/pgpass.conf"
 export SINTONIA_SALA_DSN="$(tr -d '\r\n' < $S/SALA_DSN.txt)"
@@ -31,9 +84,9 @@ O=$S/reproc-lotes-1-2-$(date +%Y%m%d-%H%M%S)
 
 **0 · o código certo.** Os lotes 1 e 2 têm de estar instalados, e o roteiro tem de existir lá:
 ```bash
-cd $M && git log --oneline -1
+cd $VIVA && git log --oneline -1
 for c in 4dd00308 a139caad 79091f73; do git merge-base --is-ancestor $c HEAD && echo "$c OK" || echo "$c FALTA"; done
-ls scripts/reproc_sala/reprocessar_sala.sh
+ls $R/scripts/reproc_sala/reprocessar_sala.sh
 ```
 Se a INTEGRA juntou os ramos por outra via (commits reescritos), conferir pelo conteúdo — os três
 têm de dar ≥1:
@@ -57,7 +110,7 @@ recusa-se a correr na Sala real sem este ficheiro.
 
 **4 · o roteiro inteiro, num comando.**
 ```bash
-cd $M && bash scripts/reproc_sala/reprocessar_sala.sh "$O" --sala-real 2>&1 | tee "$O.log"
+cd $R && CODIGO=$VIVA bash scripts/reproc_sala/reprocessar_sala.sh "$O" --sala-real 2>&1 | tee "$O.log"
 ```
 O que ele faz, e onde PARA sozinho:
 
