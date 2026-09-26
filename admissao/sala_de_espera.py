@@ -736,6 +736,20 @@ class _Postgres(object):
         # se perde: fica em raw_asset e na participação na derivação — só não
         # volta à fila da Inteligência. Uma segunda trava, GLOBAL e sempre
         # depois da da corrida, serializa a pergunta «já está?» entre corridas.
+        #
+        # ⚠️ DEDUP-DOC (25/09): O DERIVADO NÃO É O DOCUMENTO. Medido na Sala real:
+        # 4 páginas com o MESMO endereço e o MESMO texto ganharam 2.ª linha porque
+        # o bruto mudou uns bytes (sha novo → derivado novo → item_id novo). E a
+        # IT-T9-011 ganhou 3.ª linha a 25/09 só porque o extrator passou a ler o
+        # menu. Por isso a pergunta «já está?» também se faz pelo DOCUMENTO:
+        # (source_id, document_key) do bruto, no mesmo universo.
+        #
+        #     SÓ FUNDE QUEM TEM IDENTIDADE PROVADA (FORWARD_IDENTIFIED).
+        #     «NÃO SEI QUAL DOCUMENTO» NUNCA FUNDE COM NADA.
+        #
+        # Consequência declarada: uma versão nova do MESMO documento (conteúdo
+        # mudou de verdade) também não ganha 2.ª linha. A observação nova não se
+        # perde — fica em raw_asset e no derivado. Nada na Sala é apagado.
         script = """
 create temporary table _recibo (resultado text) on commit drop;
 create temporary table _entrada (like public.sala_de_espera including defaults) on commit drop;
@@ -778,7 +792,29 @@ begin
       from _entrada e
      where not exists (select 1 from public.sala_de_espera s
                         where s.item_id = e.item_id and s.universo = e.universo
-                          and s.run_id <> e.run_id);
+                          and s.run_id <> e.run_id)
+       and not exists (select 1
+                         from public.raw_asset re
+                         join public.raw_asset rs
+                           on rs.identity_state = 'FORWARD_IDENTIFIED'
+                          and rs.source_id = re.source_id
+                          and rs.document_key = re.document_key
+                         join public.sala_de_espera s
+                           on s.raw_observation_id = rs.id
+                        where re.id = e.raw_observation_id
+                          and re.identity_state = 'FORWARD_IDENTIFIED'
+                          and s.universo = e.universo
+                          and s.run_id <> e.run_id)
+       and not exists (select 1
+                         from _entrada e2
+                         join public.raw_asset r2 on r2.id = e2.raw_observation_id
+                         join public.raw_asset re on re.id = e.raw_observation_id
+                        where e2.ordem < e.ordem
+                          and e2.universo = e.universo
+                          and re.identity_state = 'FORWARD_IDENTIFIED'
+                          and r2.identity_state = 'FORWARD_IDENTIFIED'
+                          and r2.source_id = re.source_id
+                          and r2.document_key = re.document_key);
     get diagnostics n = row_count;
     if n > 0 then
       insert into _recibo values ('{pousou}:' || n || ':' || (total - n));
