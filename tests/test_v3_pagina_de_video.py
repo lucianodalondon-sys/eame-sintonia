@@ -98,10 +98,11 @@ class APortaDaSala(unittest.TestCase):
     def _materia(self, url):
         # outro teste pode ja ter importado `admissao/admissao.py` como modulo de topo `admissao`
         # (com `admissao/` no caminho): entao e ele; senao, o pacote. O mesmo ficheiro nos dois casos.
-        adm = sys.modules.get("admissao")
+        import importlib  # noqa: PLC0415
+        sys.path.insert(0, RAIZ)
+        adm = importlib.import_module("admissao")
         if not hasattr(adm, "_e_materia"):
-            sys.path.insert(0, RAIZ)
-            from admissao import admissao as adm
+            adm = importlib.import_module("admissao.admissao")
         return adm._e_materia({"retrato_do_detector": dict(CAPA), "source_id": "IT-T10-017",
                                "url_da_pagina": url, "parent_sha256": "0" * 64})
 
