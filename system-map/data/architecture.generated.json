@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "rodada1-comando-v1",
-    "HEAD": "65f1179c984dcaf8ea1a0e73781a3dac1692a177",
-    "GENERATED_AT": "2026-09-26T17:04:27-03:00",
-    "SOURCE_TREE_FINGERPRINT": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374"
+    "BRANCH": "nuvem-independencia-v1",
+    "HEAD": "ec92e689acf7a04769dd7040ef759ef23b288bcc",
+    "GENERATED_AT": "2026-09-26T17:55:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c28086f9ba4250b766f80ab6bb78c5f5805f88bf3cac3741476413216d8c7b2d"
   },
   "FILES": [
     {
@@ -606,6 +606,13 @@
     {
       "path": "RELATORIO-FRENTE2-PONTE-AUTONOMA.md",
       "sha": "15640486df1d4aca855d367d4e4cb70084caf643",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-INDEPENDENCIA-FONTES.md",
+      "sha": "bfcde2a1122e14ad60bc3c17a73d0c2cf6c0087d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -17314,7 +17321,14 @@
     },
     {
       "path": "motor/corrida_da_inteligencia.py",
-      "sha": "2f525d86d7a4ccbdb7b85f9a4520453eaa5c1a20",
+      "sha": "43d8c388e3f6fdfb7e652ada5112f68e6fe73110",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/grafo_de_dependencia.py",
+      "sha": "34183b2fc4cad6820c72865b450ec5afb0b6b94f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17482,7 +17496,7 @@
     },
     {
       "path": "motor/v21_oportunidades.py",
-      "sha": "edb67ee2aadf91a8fc58fba8538028e093c8cbbb",
+      "sha": "8309ab4a5ff173a1b4bf1f9860c94b8639007098",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18848,6 +18862,62 @@
     {
       "path": "provas/implementacoes_candidatas.py",
       "sha": "a2f5a7419752751aca3ec1124b46c12aa1f359b5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/independencia/MUTANTES.json",
+      "sha": "d546300382c87649b5eef5e518e310a90a8b02d0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/independencia/V21-ANTES-E-DEPOIS.json",
+      "sha": "eaee56e5f19ea170846118aeacea47bb4e39c0ef",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/independencia/antes_e_depois_v21.py",
+      "sha": "466d6aa8557bcf8682e0330a8aa4deb773f46ebb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/independencia/base-278cd489.json",
+      "sha": "b1127c7aa7f5a30e1a682978807536c2660e4b7b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/independencia/base-69b0e23f.json",
+      "sha": "1a9b6ae1abd86149c0aa051d6adfa7e53c3a6a59",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/independencia/depois.json",
+      "sha": "6c53d6e1612a030d3f68c16d63d754939fd5e80a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/independencia/mutantes.py",
+      "sha": "e48995a21836e988a0bb638522bf9f828c94bef4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/independencia/testes_por_nome.py",
+      "sha": "efd72b4a55d1250db16a02d3aaa9ff7c07a41954",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22914,7 +22984,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f4158be27380913fe1a498c0025424639ffb5c52",
+      "sha": "89245931ea932a57c62637a5b2afc7e536d07287",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -24476,6 +24546,13 @@
     {
       "path": "tests/test_importar_do_coletor.py",
       "sha": "0c39e37d520dc77c3012533912d6271868244b1f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_independencia_de_fontes.py",
+      "sha": "8c915af776f87be71f085eebd55e84904b57fc27",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -41298,17 +41375,6 @@
     },
     {
       "from_file": "ferramentas/leitor_data_yt/comparar.py",
-      "to_file": "ferramentas/c9/ensaio/depois.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "ferramentas/leitor_data_yt/comparar.py",
-        "line": 11,
-        "snippet": "D = json.load(open(o + \"/depois.json\", encoding=\"utf-8\"))"
-      }
-    },
-    {
-      "from_file": "ferramentas/leitor_data_yt/comparar.py",
       "to_file": "ferramentas/leitor_data_yt/medida/COMPARACAO.json",
       "type": "WRITES",
       "payload": "artefacto",
@@ -41327,17 +41393,6 @@
         "file": "ferramentas/leitor_data_yt/ler_20.py",
         "line": 37,
         "snippet": "i for i in json.load(open(o + \"/antes.json\", encoding=\"utf-8\"))[\"ITENS\"] if i[\"SHA256\"] == x[\"SHA256\"])[\"PREVISTO\"][\"DATA_DO_FATO\"]})"
-      }
-    },
-    {
-      "from_file": "ferramentas/leitor_data_yt/ler_20.py",
-      "to_file": "ferramentas/c9/ensaio/depois.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "ferramentas/leitor_data_yt/ler_20.py",
-        "line": 10,
-        "snippet": "D = json.load(open(o + \"/depois.json\", encoding=\"utf-8\"))"
       }
     },
     {
@@ -52017,7 +52072,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/corrida_da_inteligencia.py",
-        "line": 75,
+        "line": 78,
         "snippet": "BIBLIA = RAIZ / \"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\""
       }
     },
@@ -52028,7 +52083,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/corrida_da_inteligencia.py",
-        "line": 76,
+        "line": 79,
         "snippet": "REGISTO_DAS_AUTORIDADES = RAIZ / \"controle\" / \"AUTORIDADES-CANONICAS.json\""
       }
     },
@@ -52041,6 +52096,17 @@
         "file": "motor/corrida_da_inteligencia.py",
         "line": 66,
         "snippet": "from fato_local import MES_NUM                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/corrida_da_inteligencia.py",
+      "to_file": "motor/grafo_de_dependencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/corrida_da_inteligencia.py",
+        "line": 69,
+        "snippet": "import grafo_de_dependencia as GD               # noqa: E402"
       }
     },
     {
@@ -53658,6 +53724,17 @@
         "file": "motor/v21_oportunidades.py",
         "line": 44,
         "snippet": "import v21_datas as DT  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/v21_oportunidades.py",
+      "to_file": "motor/grafo_de_dependencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/v21_oportunidades.py",
+        "line": 47,
+        "snippet": "import grafo_de_dependencia as GD  # noqa: E402 — D12 · D16 (INDEPENDENCIA-V1)"
       }
     },
     {
@@ -63734,6 +63811,50 @@
         "file": "provas/implementacoes_candidatas.py",
         "line": 27,
         "snippet": "DICIONARIO_EPPO = \"data/samples/ES-T4-001/eppo-dictionary.json\""
+      }
+    },
+    {
+      "from_file": "provas/independencia/antes_e_depois_v21.py",
+      "to_file": "motor/v21_oportunidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/independencia/antes_e_depois_v21.py",
+        "line": 22,
+        "snippet": "m.__file__ = os.path.join(RAIZ, \"motor\", \"v21_oportunidades.py\")"
+      }
+    },
+    {
+      "from_file": "provas/independencia/mutantes.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/independencia/mutantes.py",
+        "line": 10,
+        "snippet": "G, C, V = \"motor/grafo_de_dependencia.py\", \"motor/corrida_da_inteligencia.py\", \"motor/v21_oportunidades.py\""
+      }
+    },
+    {
+      "from_file": "provas/independencia/mutantes.py",
+      "to_file": "motor/grafo_de_dependencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/independencia/mutantes.py",
+        "line": 10,
+        "snippet": "G, C, V = \"motor/grafo_de_dependencia.py\", \"motor/corrida_da_inteligencia.py\", \"motor/v21_oportunidades.py\""
+      }
+    },
+    {
+      "from_file": "provas/independencia/mutantes.py",
+      "to_file": "motor/v21_oportunidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/independencia/mutantes.py",
+        "line": 10,
+        "snippet": "G, C, V = \"motor/grafo_de_dependencia.py\", \"motor/corrida_da_inteligencia.py\", \"motor/v21_oportunidades.py\""
       }
     },
     {
@@ -87739,6 +87860,61 @@
       }
     },
     {
+      "from_file": "tests/test_independencia_de_fontes.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_independencia_de_fontes.py",
+        "line": 28,
+        "snippet": "import corrida_da_inteligencia as CI                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_independencia_de_fontes.py",
+      "to_file": "motor/grafo_de_dependencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_independencia_de_fontes.py",
+        "line": 27,
+        "snippet": "import grafo_de_dependencia as GD                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_independencia_de_fontes.py",
+      "to_file": "motor/v21_oportunidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_independencia_de_fontes.py",
+        "line": 350,
+        "snippet": "import v21_oportunidades as M"
+      }
+    },
+    {
+      "from_file": "tests/test_independencia_de_fontes.py",
+      "to_file": "research/intelligence/COORTE-DA-SALA-2026-09-14.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_independencia_de_fontes.py",
+        "line": 93,
+        "snippet": "/ \"COORTE-DA-SALA-2026-09-14.json\").read_text(encoding=\"utf-8\"))[\"ITENS\"]"
+      }
+    },
+    {
+      "from_file": "tests/test_independencia_de_fontes.py",
+      "to_file": "tests/test_completude_oportunidade.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_independencia_de_fontes.py",
+        "line": 345,
+        "snippet": "from tests.test_completude_oportunidade import _prepara_ingest, ING"
+      }
+    },
+    {
       "from_file": "tests/test_integracao_04a_curator.py",
       "to_file": "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
       "type": "READS",
@@ -88176,28 +88352,6 @@
         "file": "tests/test_k1_receitas.py",
         "line": 75,
         "snippet": "(pos / \"italy_contracts_curator.json\").write_text(json.dumps({\"FONTES\": ["
-      }
-    },
-    {
-      "from_file": "tests/test_k1_receitas.py",
-      "to_file": "ferramentas/c9/ensaio/depois.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_k1_receitas.py",
-        "line": 80,
-        "snippet": "antes, depois, _ = K.bem_configuradas(pos, d / \"depois.json\", d / \"can.json\")"
-      }
-    },
-    {
-      "from_file": "tests/test_k1_receitas.py",
-      "to_file": "ferramentas/c9/ensaio/depois.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_k1_receitas.py",
-        "line": 77,
-        "snippet": "(d / \"depois.json\").write_text(json.dumps({\"FONTES\": ["
       }
     },
     {
@@ -89243,28 +89397,6 @@
         "file": "tests/test_medir_apos_receitas.py",
         "line": 46,
         "snippet": "(t / \"antes.json\").write_text(json.dumps(_livro(ANTES)), encoding=\"utf-8\")"
-      }
-    },
-    {
-      "from_file": "tests/test_medir_apos_receitas.py",
-      "to_file": "ferramentas/c9/ensaio/depois.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_medir_apos_receitas.py",
-        "line": 60,
-        "snippet": "self.r = MR.medir(t / \"antes.json\", t / \"depois.json\", t, gabarito=t / \"gab.json\")"
-      }
-    },
-    {
-      "from_file": "tests/test_medir_apos_receitas.py",
-      "to_file": "ferramentas/c9/ensaio/depois.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_medir_apos_receitas.py",
-        "line": 47,
-        "snippet": "(t / \"depois.json\").write_text(json.dumps(_livro(DEPOIS)), encoding=\"utf-8\")"
       }
     },
     {
@@ -97305,10 +97437,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3632,
-    "files_readable": 1519,
-    "files_code_dir": 1755,
-    "file_edges": 6478,
+    "files_tracked": 3643,
+    "files_readable": 1524,
+    "files_code_dir": 1765,
+    "file_edges": 6483,
     "escritas_em_pasta": 89,
     "declared_missing_here": 0
   },

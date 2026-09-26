@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  65f1179c984dcaf8ea1a0e73781a3dac1692a177
-BRANCH           rodada1-comando-v1
-GERADO_EM        2026-09-26T17:04:27-03:00
+HEAD_DA_MEDICAO  ec92e689acf7a04769dd7040ef759ef23b288bcc
+BRANCH           nuvem-independencia-v1
+GERADO_EM        2026-09-26T17:55:07-03:00
 CARDS            105
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -947,7 +947,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `coleta/executor_texto_de_html.py`, `ferramentas/c9/ensaio/antes.json`, `ferramentas/c9/ensaio/depois.json` |
+| **o que entra · ficheiros** | `coleta/executor_texto_de_html.py`, `ferramentas/c9/ensaio/antes.json`, `ferramentas/leitor_data_yt/medida/COMPARACAO.json` |
 | **o que sai · dado** | C-EXECUTOR-TEXTO-HTML |
 | **o que sai · ficheiros** | `ferramentas/leitor_data_yt/medida/COMPARACAO.json`, `ferramentas/leitor_data_yt/medida/LIDOS-A-MAO-20.json` |
 | **arestas no mapa** | entram 6 · saem 1 |

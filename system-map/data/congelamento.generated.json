@@ -1,19 +1,19 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "65f1179c984dcaf8ea1a0e73781a3dac1692a177",
+  "FROZEN_AT_HEAD": "ec92e689acf7a04769dd7040ef759ef23b288bcc",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 278,
+  "ARTEFATOS": 282,
   "POR_ESPECIE": {
     "CONTRACT": 3,
-    "DATA_SAMPLE": 99,
+    "DATA_SAMPLE": 100,
     "DOCUMENTATION": 5,
     "GENERATED_OUTPUT": 26,
-    "IMPLEMENTATION": 10,
+    "IMPLEMENTATION": 11,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 46,
+    "MENCAO_FRACA_APENAS": 47,
     "PORTAL_UI": 65,
-    "TEST": 18
+    "TEST": 19
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -440,7 +440,7 @@
     {
       "PATH": "motor/v21_oportunidades.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "edb67ee2aadf91a8fc58fba8538028e093c8cbbb",
+      "GIT_BLOB_SHA": "8309ab4a5ff173a1b4bf1f9860c94b8639007098",
       "MARCAS_FORTES": [
         "OPPORTUNITY_SCORE"
       ]
@@ -523,6 +523,14 @@
       ]
     },
     {
+      "PATH": "provas/independencia/antes_e_depois_v21.py",
+      "SPECIES": "IMPLEMENTATION",
+      "GIT_BLOB_SHA": "466d6aa8557bcf8682e0330a8aa4deb773f46ebb",
+      "MARCAS_FORTES": [
+        "OPPORTUNITY_SCORE"
+      ]
+    },
+    {
       "PATH": "regras/italy_contracts.mjs",
       "SPECIES": "IMPLEMENTATION",
       "GIT_BLOB_SHA": "0399e3175fd7dcde6fd030ffafb1b5b9fb511ef3",
@@ -563,7 +571,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "f4158be27380913fe1a498c0025424639ffb5c52",
+      "GIT_BLOB_SHA": "89245931ea932a57c62637a5b2afc7e536d07287",
       "MARCAS_FORTES": []
     }
   ],
@@ -1121,6 +1129,10 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "motor/grafo_de_dependencia.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "motor/matriz_recorte.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
@@ -1187,6 +1199,10 @@
     {
       "PATH": "provas/espinha_da_intelligence.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "provas/independencia/V21-ANTES-E-DEPOIS.json",
+      "SPECIES": "DATA_SAMPLE"
     },
     {
       "PATH": "provas/modelo_de_objetos_da_intelligence.py",
@@ -1338,6 +1354,10 @@
     },
     {
       "PATH": "tests/test_hero_cases_v1.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_independencia_de_fontes.py",
       "SPECIES": "TEST"
     },
     {
