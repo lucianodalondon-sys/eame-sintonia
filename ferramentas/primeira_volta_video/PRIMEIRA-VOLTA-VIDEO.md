@@ -14,9 +14,13 @@ e Sala real só lidos (Sala com `default_transaction_read_only=on`, DSN nunca im
 - Escolhi **10 canais**, um vídeo cada, lendo o que cada vídeo declara (título e descrição) e os
   números: quantos falam de **cultura + praga/doença**, quantos têm **pessoa com papel técnico**,
   quantos são **recentes** e **curtos**, e se há **legenda em italiano**.
-- ⚠️ É um **indício**, não uma prova: a prova é a transcrição, depois da volta. Só **1 canal**
-  (L'Informatore Agrario) é forte de verdade: 6 de 15 vídeos com cultura + praga + pessoa com
-  nome e papel. Os outros 9 têm 0 a 2 vídeos assim.
+- ⚠️ É um **indício**, não uma prova: a prova é a transcrição, depois da volta.
+- ⚠️ **CORRIGIDO na VIDEO-SEGUNDA-LISTA (26/09):** eu tinha escrito «L'Informatore Agrario: 6 de 15
+  vídeos com cultura + praga + pessoa». Estava errado: 5 desses vídeos partilham a descrição do evento
+  («falou-se também da peronospora»; o tema é a poda), o 6.º (Pachioli) não tem descrição e o
+  «problema» era a palavra «Fitopatologo», e a lista de palavras tinha falsos positivos. Com as
+  correções, **nenhum canal passa de 2 vídeos úteis** e o L'Informatore Agrario tem **0**. A escolha
+  dos 10 mantém-se (os números corrigidos estão no `VOLTA-1.tsv`); ver `SEGUNDA-LISTA-VIDEO.md`.
 - A 1.ª volta são **10 ondas**, uma por canal, **4 pedidos** cada ao YouTube (3 a `youtube.com` +
   1 a `googlevideo.com`, que contam juntos): **dentro do teto de 5**. **0** à API do Google: vai
   pelo **áudio público** (`audio-youtube`), que não precisa da chave nem do conserto P1.
@@ -51,7 +55,7 @@ de cada um está escrito.
 
 | # | Fonte | Para | Vídeo da 1.ª volta | s | Porquê |
 |---|---|---|---|---|---|
-| 1 | IT-T8-006 L'Informatore Agrario | Voci | `CJkSwEuSP-o` Oliveto Smart — Intervista a Silverio Pachioli, agronomo fitopatologo (30/06/26) | 198 | 6/15 úteis, todos recentes e curtos; entrevistas com nome e papel |
+| 1 | IT-T8-006 L'Informatore Agrario | Voci | `CJkSwEuSP-o` Oliveto Smart — Intervista a Silverio Pachioli, agronomo fitopatologo (30/06/26) | 198 | entrevistas com nome e papel (agrónomo fitopatólogo); ⚠️ o problema não está no texto (ver a correção acima) |
 | 2 | IT-T12-008 ASSAM Marche | Voci | `-37WbH5uyY8` AMAP a convegno: la difesa della mosca delle olive (15/07/26) | 191 | serviço regional; entrevistas com nome |
 | 3 | IT-T5-040 CRPV | Scientifica | `kwdnOzbJV8Y` Approcci innovativi per la difesa delle piante ortofrutticole (04/12/25) | 326 | centro de pesquisa; webinars técnicos (os melhores são longos) |
 | 4 | IT-T7-026 CONAF | Voci | `5tysjcD2H3M` Conoscere le minacce… strategia di difesa (21/05/25) | **805** | ordem dos agrónomos. ⚠️ passa de 540 s: ver §5 |

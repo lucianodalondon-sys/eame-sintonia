@@ -36,6 +36,24 @@ class Pontuar(unittest.TestCase):
         s = P.sinais(v("x", dur=540, pub="2025-09-20"))
         self.assertEqual((True, True, True), (s["CURTO"], s["RECENTE"], s["LEGENDA_IT"]))
 
+    def test_falsos_positivos_medidos_na_segunda_lista(self):
+        # «pero» casava «peronospora»/«però», «riso» casava «risorse», «vite» casava «vitello»
+        self.assertFalse(P.sinais(v("Si è parlato della peronospora"))["CULTURA"])
+        self.assertFalse(P.sinais(v("Nuove risorse per il vitello"))["CULTURA"])
+        self.assertTrue(P.sinais(v("Cimice asiatica nei pereti"))["CULTURA"])
+        # o papel da pessoa nao e o problema de que ela fala
+        self.assertFalse(P.sinais(v("Intervista a X – Agronomo Fitopatologo, oliveto"))["PROBLEMA"])
+
+    def test_descricao_do_evento_repetida_nao_conta(self):
+        ev = "Vite in Campo: potatura invernale; si è parlato anche della peronospora."
+        vids = [dict(v("Vite in Campo - Intervista a %s" % n, desc=ev), SOURCE_ID="IT-X", ESTADO="LIDO")
+                for n in ("A", "B", "C")]
+        part = P.partilhadas_por_canal(vids)
+        self.assertEqual(1, len(part))
+        s = P.sinais(vids[0], descricao_partilhada=True)
+        self.assertFalse(s["PROBLEMA"])
+        self.assertTrue(P.sinais(vids[0])["PROBLEMA"])      # sem a regra, a peronospora do evento contava
+
     def test_duracao_desconhecida_nao_e_curta(self):
         self.assertFalse(P.sinais(v("x", dur=None))["CURTO"])
 

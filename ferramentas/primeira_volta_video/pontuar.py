@@ -25,15 +25,18 @@ import unicodedata
 from collections import defaultdict
 from pathlib import Path
 
-CULTURAS = r"""vite|vigneto|vigneti|viticol|uva|olivo|olivi|oliveto|olivicol|melo|meleto|mele|pero|pomacee|pesco|drupacee|
+# ⚠️ «pero», «melo», «riso», «vite», «pesco» so como palavra inteira: sem o \b do fim casavam
+# «peronospora»/«però», «melone», «risorse», «vitello» (medido na 2.a lista, 26/09).
+CULTURAS = r"""vite\b|viti\b|vigneto|vigneti|viticol|uva\b|olivo|olivi|oliveto|olivicol|melo\b|meli\b|meleto|meleti|mele\b|
+pero\b|peri\b|pereto|pereti|pericol|pomacee|pesco\b|pesche\b|pescheto|drupacee|
 ciliegi|albicocc|susin|actinidia|kiwi|agrumi|limone|arancio|nocciol|noce|castagn|mandorl|frument|grano|cereal|orzo|oliv|
-mais|riso|risaia|soia|girasole|colza|barbabietol|pomodor|patat|orticol|ortaggi|ortofrutt|frutticol|insalat|lattuga|carciof|zucchin|melanzan|peperon|
+mais\b|riso\b|risi\b|risaia|risicol|soia|girasole|colza|barbabietol|pomodor|patat|orticol|ortaggi|ortofrutt|frutticol|insalat|lattuga|carciof|zucchin|melanzan|peperon|
 fragol|piccoli frutti|mirtill|lampone|melone|cocomero|cavol|cipoll|aglio|legumi|foraggi|erba medica|prato|luppolo|tabacco|canapa|zafferano"""
 PROBLEMAS = r"""peronospora|oidio|botrite|muffa grigia|flavescenza|legno nero|fitoplasm|mal dell.esca|esca della vite|cimice|
 popillia|xylella|mosca dell|mosca olearia|bactrocera|ticchiolatura|carpocapsa|tignola|tignoletta|drosophila|suzukii|
 afid|pidocch|cocciniglia|ragnetto|acar|tripid|nematod|elateridi|diabrotica|piralide|fusari|septoria|ruggine|brusone|
 alternaria|marciume|batteriosi|virosi|virus|maculatura|cancro|colpo di fuoco|erwinia|psilla|fillossera|infestant|malerbe|
-patogen|parassit|insett[io] dannos|difesa|fitosanitar|fitopatolog|entomolog|lotta integrata|difesa integrata|lotta biologica|
+patogen|parassit|insett[io] dannos|difesa|fitosanitar|lotta integrata|difesa integrata|lotta biologica|
 biocontroll|insetti utili|antagonist"""
 REGIONI = r"""piemonte|valle d.aosta|lombardia|trentino|alto adige|sudtirol|veneto|friuli|liguria|emilia|romagna|toscana|umbria|
 marche|lazio|abruzzo|molise|campania|puglia|basilicata|calabria|sicilia|sardegna|franciacorta|langhe|roero|monferrato|
@@ -58,9 +61,14 @@ def _txt(v):
     return unicodedata.normalize("NFC", t)
 
 
-def sinais(v: dict) -> dict:
-    t = _txt(v)
+def sinais(v: dict, descricao_partilhada: bool = False) -> dict:
+    """`descricao_partilhada`: a mesma descricao aparece em >= 3 videos do canal (a do EVENTO).
+    Ai o que ela diz nao e desta pessoa: conta so o titulo (medido: as 5 entrevistas «Vite in
+    Campo» partilham «si e parlato anche della peronospora» e sao sobre poda)."""
+    t = (v.get("TITULO") or "") if descricao_partilhada else _txt(v)
+    t = unicodedata.normalize("NFC", t)
     s = {k: bool(rx.search(t)) for k, rx in RX.items()}
+    s["DESCRICAO_PARTILHADA"] = descricao_partilhada
     s["TERMOS"] = {k: sorted({m.group(0).lower() for m in rx.finditer(t)})[:6] for k, rx in RX.items()}
     d = v.get("DURACAO_S")
     s["CURTO"] = d is not None and int(d) <= DURACAO_MAX_S
@@ -70,14 +78,27 @@ def sinais(v: dict) -> dict:
     return s
 
 
+def _chave_desc(v: dict) -> str:
+    return " ".join((v.get("DESCRICAO") or "").split())[:400]
+
+
+def partilhadas_por_canal(vids: list, minimo: int = 3) -> set:
+    """{(SOURCE_ID, descricao)} das descricoes (nao vazias) repetidas em >= `minimo` videos do canal."""
+    from collections import Counter
+    c = Counter((v["SOURCE_ID"], _chave_desc(v)) for v in vids if v.get("ESTADO") == "LIDO" and _chave_desc(v))
+    return {k for k, n in c.items() if n >= minimo}
+
+
 def main(argv) -> int:
     arg = dict(a[2:].split("=", 1) for a in argv[1:] if a.startswith("--") and "=" in a)
     u = json.loads(Path(arg["universo"]).read_text(encoding="utf-8"))["FONTES"]
     vids = json.loads(Path(arg["videos"]).read_text(encoding="utf-8"))["VIDEOS"]
     por = defaultdict(list)
+    partilhadas = partilhadas_por_canal(vids)
     for v in vids:
         if v.get("ESTADO") == "LIDO":
-            por[v["SOURCE_ID"]].append(dict(v, SINAIS=sinais(v)))
+            p = (v["SOURCE_ID"], _chave_desc(v)) in partilhadas
+            por[v["SOURCE_ID"]].append(dict(v, SINAIS=sinais(v, descricao_partilhada=p)))
     linhas = []
     for f in u:
         vs = por.get(f["SOURCE_ID"], [])
