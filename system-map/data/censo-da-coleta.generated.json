@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-26T16:37:12+00:00",
-    "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
+    "GENERATED_AT": "2026-09-26T20:05:14+00:00",
+    "HEAD": "65f1179c984dcaf8ea1a0e73781a3dac1692a177",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
-    "FICHEIROS_NA_IMPRESSAO": 3777,
+    "SOURCE_TREE_FINGERPRINT": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374",
+    "FICHEIROS_NA_IMPRESSAO": 3780,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -599,6 +599,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/big_collection/ensaio_rodada.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6e739e0a710e83dff5348d287f1128d4e6514791",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/big_collection/onda_web.py",
         "PAPEL": "FONTE",
         "VERSAO": "f9f580ba7a840e9755e3eed9cf0ad21d0061ca49",
@@ -615,7 +622,7 @@
       {
         "PATH": "ferramentas/big_collection/rodadas.py",
         "PAPEL": "FONTE",
-        "VERSAO": "fde65df47acf4889d5b9974440a68b3864ec52e0",
+        "VERSAO": "d41158d85f1ca08313cce4f34df52046e5b373da",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1355,8 +1362,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 192,
-    "INPUTS_DIGEST": "022f613ff423721e7beaaca780f3aef07a561615d73665405f025b746b8d85d2",
+    "INPUTS_COUNT": 193,
+    "INPUTS_DIGEST": "0045b8b8471d1e4749a96a69dc7bd2ce48848f40e94440325dfed30b09b3cdd6",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1849,6 +1856,22 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/big_collection/ensaio_rodada.py",
+      "gaveta": "ferramentas",
+      "linhas": 348,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/big_collection/onda_web.py",
       "gaveta": "ferramentas",
       "linhas": 381,
@@ -1890,7 +1913,7 @@
     {
       "ficheiro": "ferramentas/big_collection/rodadas.py",
       "gaveta": "ferramentas",
-      "linhas": 380,
+      "linhas": 527,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1900,7 +1923,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "ferramentas/big_collection/ensaio_rodada.py"
+      ],
       "no_ci": false
     },
     {
@@ -5261,13 +5286,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 192,
-    "pontos_de_entrada": 137,
+    "ficheiros_de_codigo": 193,
+    "pontos_de_entrada": 138,
     "executores_que_saem_para_fora": 28,
     "sem_chamador_e_fora_do_ci": 90,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 109,
-    "deitam_fora_alguma_coisa": 47,
+    "escrevem_ficheiro": 110,
+    "deitam_fora_alguma_coisa": 48,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
     "decisoes_escondidas_ao_todo": 4
@@ -5293,6 +5318,7 @@
       "ferramentas/apify_pool.py",
       "ferramentas/big_collection/bc5_big_collection.py",
       "ferramentas/big_collection/coorte_unica.py",
+      "ferramentas/big_collection/ensaio_rodada.py",
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/big_collection/rodadas.py",
@@ -5457,8 +5483,8 @@
       "fontes/adama_it_labels.py",
       "fontes/adama_it_qa.py",
       "ferramentas/big_collection/bc5_big_collection.py",
+      "ferramentas/big_collection/ensaio_rodada.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
-      "ferramentas/big_collection/rodadas.py",
       "ferramentas/c9/c9-testes.sh",
       "ferramentas/c9/ensaio_c9.sh",
       "ferramentas/cutover/congelar_extras.py",

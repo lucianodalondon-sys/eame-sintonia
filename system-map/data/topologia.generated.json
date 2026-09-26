@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-26T16:39:53+00:00",
-  "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
-  "BRANCH": "integra-noite-v2",
+  "GENERATED_AT": "2026-09-26T20:07:14+00:00",
+  "HEAD": "65f1179c984dcaf8ea1a0e73781a3dac1692a177",
+  "BRANCH": "rodada1-comando-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
-  "FICHEIROS_NA_IMPRESSAO": 3777,
+  "SOURCE_TREE_FINGERPRINT": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374",
+  "FICHEIROS_NA_IMPRESSAO": 3780,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -767,6 +767,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "ferramentas/big_collection/ensaio_rodada.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "6e739e0a710e83dff5348d287f1128d4e6514791",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "ferramentas/big_collection/onda_web.py",
     "PAPEL": "FONTE",
     "VERSAO": "f9f580ba7a840e9755e3eed9cf0ad21d0061ca49",
@@ -783,7 +790,7 @@
    {
     "PATH": "ferramentas/big_collection/rodadas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "fde65df47acf4889d5b9974440a68b3864ec52e0",
+    "VERSAO": "d41158d85f1ca08313cce4f34df52046e5b373da",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3737,7 +3744,7 @@
    {
     "PATH": "provas/rodadas_mutacao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "8a0a3a4c743526374d72dd8369be8c5300507181",
+    "VERSAO": "9aa298b85de8dbb9f8fcb54468dcbb549e8c3d03",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -4570,14 +4577,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
+    "VERSAO": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "91711ff00e93afa92aafdae440c7cc390c1f44f5c169be56354056e6649cb344",
+    "VERSAO": "08d8e846b7161df765643d246348ba543659bb62fbc1ac23e119c498f6ccd374",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6474,7 +6481,7 @@
    {
     "PATH": "tests/test_rodadas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "cd1f9d6f6faa451dd04cc5bf61bf7fbabf19492a",
+    "VERSAO": "e34010460bcfe278380106e623985961a5d3f0dc",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6780,8 +6787,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 963,
-  "INPUTS_DIGEST": "65d2c557990ff4a4403b981fbdaec1019d9ac753699f00f55dc38bc630d1f6df",
+  "INPUTS_COUNT": 964,
+  "INPUTS_DIGEST": "45fbd8e5c5e2cd33cf8ad21fe58cd69402f3a77ecf63be7ec23bf3693e0f8ec2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6807,15 +6814,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 573,
+  "DOCUMENTOS_LIDOS": 575,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "5ed54cdf36e4d5163f75898501a1d3667f6ec65e6bc5bd44a8f8acaef63f57b3",
-  "SEMANTIC_HASH": "4e5793643715cf7249087b2dc37882a03ae301c0e94cbf41a1b5cb743f7786fe"
+  "MEASUREMENT_HASH": "e206f62414644ae3ed50edc2aa149e45fb6357bc3ef429af6ef43d551e05b253",
+  "SEMANTIC_HASH": "0475855a2420d8d41d615a1a3bef7a3d2f6479dd025cdfcb95e30b973bc5252c"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10336,6 +10343,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-ONDA-WEB",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-ONDA-WEB",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/big_collection/ensaio_rodada.py",
+      "LINHA": 96,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-ORDENS-63",
     "FROM": "C-ASK-SINTONIA",
     "TO": "C-ORDENS-63",
@@ -10705,7 +10734,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/rodadas.py",
-      "LINHA": 176,
+      "LINHA": 305,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--READS-->C-ONDA-WEB",
@@ -13845,23 +13874,7 @@
      },
      {
       "FICHEIRO": "ferramentas/legacy99v2/mutacao.py",
-      "LINHA": 53,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "ferramentas/legacy99v2/mutacao.py",
       "LINHA": 54,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "ferramentas/legacy99v2/mutacao_ab.py",
-      "LINHA": 61,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
@@ -13878,14 +13891,6 @@
      {
       "FICHEIRO": "ferramentas/legacy99v4/mutacao.py",
       "LINHA": 23,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "ferramentas/legacy99v4/mutacao.py",
-      "LINHA": 103,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
@@ -13960,14 +13965,6 @@
      {
       "FICHEIRO": "curadoria/retirar_por_decisao.py",
       "LINHA": 40,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "scripts/ordens_63/ensaio_d52.py",
-      "LINHA": 29,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
@@ -14080,28 +14077,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
-    "FROM": "C-CENSO-UNIFICACAO",
-    "TO": "C-REPARO-MEDICAO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "scripts/reparo/juntar_bancas.py",
-      "LINHA": 71,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-REPARO-MEDICAO",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-SUPERFICIE-SCRAP-V1",
     "FROM": "C-CENSO-UNIFICACAO",
     "TO": "C-SUPERFICIE-SCRAP-V1",
@@ -14173,6 +14148,44 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--WRITES-->C-ONDA-WEB",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-ONDA-WEB",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "WRITE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/unificacao/ensaio_unificacao.py",
+      "LINHA": 75,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--WRITES-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/medir_suite.py",
+      "LINHA": 67,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--WRITES-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/provar_em_copia.py",
+      "LINHA": 84,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--WRITES-->C-ONDA-WEB",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -29362,6 +29375,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "ferramentas/big_collection/ensaio_rodada.py",
+      "LINHA": 277,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "ferramentas/big_collection/onda_web.py",
       "LINHA": 46,
       "SUPPORTS": "YES",
@@ -29371,7 +29392,7 @@
      },
      {
       "FICHEIRO": "ferramentas/big_collection/rodadas.py",
-      "LINHA": 204,
+      "LINHA": 333,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-ONDA-WEB",
@@ -34380,7 +34401,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/rodadas.py",
-      "LINHA": 197,
+      "LINHA": 326,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -34789,6 +34810,136 @@
     ]
    },
    {
+    "EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+    "FROM": "C-ONDA-WEB",
+    "TO": "C-CENSO-UNIFICACAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/test_supervisor.py",
+      "LINHA": 58,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/cutover/medir_cutover.py",
+      "LINHA": 118,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/cutover/passos_do_cutover.py",
+      "LINHA": 104,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "LINHA": 26,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/ensaio_unificacao.py",
+      "LINHA": 74,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/medir_suite.py",
+      "LINHA": 65,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/unir_livros_do_servico.py",
+      "LINHA": 120,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ONDA-WEB--READS-->C-LEGACY-99",
+    "FROM": "C-ONDA-WEB",
+    "TO": "C-LEGACY-99",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "ferramentas/legacy99v2/mutacao.py",
+      "LINHA": 53,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-LEGACY-99",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/legacy99v2/mutacao_ab.py",
+      "LINHA": 61,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-LEGACY-99",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/legacy99v4/mutacao.py",
+      "LINHA": 103,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-LEGACY-99",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ONDA-WEB--READS-->C-ORDENS-63",
+    "FROM": "C-ONDA-WEB",
+    "TO": "C-ORDENS-63",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/ordens_63/ensaio_d52.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-ORDENS-63",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
     "FROM": "C-ONDA-WEB",
     "TO": "C-PROVA-COLETA",
@@ -34828,6 +34979,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-CORTESIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ONDA-WEB--READS-->C-REPARO-MEDICAO",
+    "FROM": "C-ONDA-WEB",
+    "TO": "C-REPARO-MEDICAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/reparo/juntar_bancas.py",
+      "LINHA": 71,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-REPARO-MEDICAO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -40836,8 +41009,16 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "ferramentas/big_collection/ensaio_rodada.py",
+      "LINHA": 222,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-ONDA-WEB",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "ferramentas/big_collection/rodadas.py",
-      "LINHA": 48,
+      "LINHA": 49,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-ONDA-WEB",
@@ -49684,7 +49865,7 @@
      },
      {
       "FICHEIRO": "provas/rodadas_mutacao.py",
-      "LINHA": 54,
+      "LINHA": 66,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
@@ -49985,14 +50166,6 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
       "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_medir_cutover.py",
-      "LINHA": 129,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CENSO-UNIFICACAO",
-      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -50126,6 +50299,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--WRITES-->C-ONDA-WEB",
+    "FROM": "C-TESTES",
+    "TO": "C-ONDA-WEB",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_medir_cutover.py",
+      "LINHA": 129,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-ONDA-WEB",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -51857,12 +52052,12 @@
     ]
    }
   ],
-  "COUNT": 1455
+  "COUNT": 1461
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 198,
   "CARTOES_AUDITADOS": 198,
-  "ARESTAS_RELACIONADAS": 1455,
+  "ARESTAS_RELACIONADAS": 1461,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -52290,13 +52485,13 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 237,
+   "CODE": 238,
    "CONTROL": 86,
    "DATA": 30,
-   "PROOF": 510,
-   "READ": 329,
+   "PROOF": 511,
+   "READ": 332,
    "RULE": 247,
-   "WRITE": 16
+   "WRITE": 17
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
@@ -52785,7 +52980,7 @@
     "concurrent"
    ],
    "ENTRAM": 2,
-   "SAEM": 28,
+   "SAEM": 29,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
@@ -53716,7 +53911,7 @@
     "telemetria",
     "telemetria_do_curador"
    ],
-   "ENTRAM": 9,
+   "ENTRAM": 10,
    "SAEM": 17,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -53727,7 +53922,8 @@
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
-    "READ"
+    "READ",
+    "WRITE"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
@@ -56751,7 +56947,7 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 4,
+   "ENTRAM": 5,
    "SAEM": 0,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ",
@@ -57325,6 +57521,7 @@
    "KIND": "library",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "ferramentas/big_collection/ensaio_rodada.py",
     "ferramentas/big_collection/onda_web.py",
     "ferramentas/big_collection/rodadas.py"
    ],
@@ -57335,7 +57532,8 @@
     "tests/test_rodadas.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md"
+    "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md",
+    "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -57343,17 +57541,23 @@
    "ESCREVE_EM": [],
    "LE_DE": [
     "__future__",
+    "collection_run",
+    "collections",
     "datetime",
     "pathlib",
+    "raw_asset",
+    "sala_de_espera",
     "urllib"
    ],
-   "ENTRAM": 7,
-   "SAEM": 2,
+   "ENTRAM": 10,
+   "SAEM": 6,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
+    "PROOF",
     "READ",
-    "RULE"
+    "RULE",
+    "WRITE"
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
@@ -57402,7 +57606,7 @@
     "unittest",
     "urllib"
    ],
-   "ENTRAM": 3,
+   "ENTRAM": 4,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -62399,7 +62603,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 213,
-   "SAEM": 33,
+   "SAEM": 34,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
