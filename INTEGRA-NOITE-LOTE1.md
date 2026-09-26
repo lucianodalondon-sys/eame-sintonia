@@ -34,6 +34,7 @@ mesmos dados nos dois lados, somem. O **red team da ponte não foi corrido no vi
 | 16 livros vivos (os `M` da pasta viva) | **nenhum** nos 240 ficheiros do writeset; o writeset não toca `data/` |
 | migração 034 | o ficheiro entra (`supabase/migrations/034_…sql` + `supabase/desfazer/034_desfazer.sql`), **NÃO se aplica** |
 | mapa | UM só, pela cadeia (REGERAR · commit · VALIDAR · carimbo IGUAL) — ver o commit do mapa |
+| dono duplo no mapa (P8) | `provas/_mutantes_prova_teto_social.py` vinha declarado em `C-SUPERFICIE-SCRAP-V1` (social-micro/qualificar) **e** em `C-PROVA-TETO-DOMINIO` (prova-teto-social). Decisão minha, só na ficha do mapa (não é código): fica em `C-PROVA-TETO-DOMINIO` (é a mutação da prova do teto); sai da peça do Scrap. Reversível numa linha do `architecture.declared.json` |
 
 ## Plano único de instalação (o coordenador instala; um escritor; sem rede)
 
