@@ -17,7 +17,6 @@ contexto e esconde a frase que decide. Este arquivo devolve só o texto.
 """
 import html
 import io
-import json
 import re
 import sys
 import urllib.request
@@ -62,10 +61,6 @@ def _pdf(dados):
     return re.sub(r'\s+', ' ', txt).strip() or '[PDF sem texto extraível — pode ser imagem]'
 
 
-#: Onde a pagina de video do YouTube escreve a descricao que o autor publicou.
-DESCRICAO_DO_VIDEO = '"videoDetails":'
-
-
 def descricao_do_youtube(dados) -> str:
     """A descricao que o AUTOR do video publicou, lida da pagina guardada. '' se nao houver.
 
@@ -74,21 +69,16 @@ def descricao_do_youtube(dados) -> str:
     descricao vive dentro de um `<script>` (`ytInitialPlayerResponse.videoDetails`) e
     `limpar()` apaga todos os scripts. 495 das 612 traziam descricao com 40+ caracteres.
 
-    Le-se SO o objecto `videoDetails`, com o descodificador de JSON (nada de regex a
-    adivinhar aspas), e so o campo `shortDescription`: e o texto que o autor escreveu,
-    o mesmo que a pagina mostra por baixo do video. Nao e transcricao, nao e legenda,
-    nao e comentario — e nao se diz que e.
+    ⚠️ NAO SE LE AQUI. Quem le a pagina do YouTube e `coleta/youtube_janela.py`
+    (`titulo_e_descricao_do_video`, a mesma funcao do EXTRATOR-EVENTO-V2): aqui so se
+    pergunta, e so a bytes que tem o player dentro. So o `shortDescription` — o texto que o
+    autor escreveu. Nao e transcricao, nao e legenda, nao e comentario.
     """
-    t = dados.decode('utf-8', errors='replace') if isinstance(dados, bytes) else str(dados)
-    i = t.find(DESCRICAO_DO_VIDEO)
-    if i < 0:
+    b = dados if isinstance(dados, (bytes, bytearray)) else str(dados).encode('utf-8')
+    if b'ytInitialPlayerResponse' not in b:
         return ''
-    try:
-        det, _ = json.JSONDecoder().raw_decode(t, i + len(DESCRICAO_DO_VIDEO))
-    except ValueError:
-        return ''
-    d = det.get('shortDescription') if isinstance(det, dict) else None
-    return d.strip() if isinstance(d, str) else ''
+    from coleta import youtube_janela as yj  # noqa: PLC0415
+    return yj.titulo_e_descricao_do_video(bytes(b)).get('DESCRICAO', '')
 
 
 def limpar(dados, ctype=''):
