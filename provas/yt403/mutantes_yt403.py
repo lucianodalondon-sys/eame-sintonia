@@ -66,6 +66,9 @@ def main(saida=None):
         p = os.path.join(RAIZ, rel)
         orig = open(p, "rb").read()
         texto = orig.decode("utf-8")
+        if "\r\n" in texto and "\n" in antes and "\r\n" not in antes:
+            # a copia de trabalho pode estar em CRLF (autocrlf) e o Git em LF: a ancora segue o ficheiro
+            antes, depois = antes.replace("\n", "\r\n"), depois.replace("\n", "\r\n")
         n = texto.count(antes)
         if n != 1:
             res.append({"MUTANTE": nome, "ESTADO": "ANCORA_PARTIDA", "OCORRENCIAS": n})
