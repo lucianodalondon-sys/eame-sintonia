@@ -17,6 +17,10 @@ M = [
  ("M9 consultas regionais primeiro", CQ, '        return (0 if q["REGIAO"] is None and q["ORIGEM"].startswith("CASCO") else', '        return (3 if q["REGIAO"] is None and q["ORIGEM"].startswith("CASCO") else'),
  ("M10 DDG sem desembrulhar o uddg", MO, '        if "uddg=" in h:', '        if False:'),
  ("M11 resultado do proprio motor passa", MO, '        if not h or ENGINES_PROPRIOS.search(h):', '        if not h:'),
+ ("M13 perfil social vira pagina comum", LB, '    if PLATAFORMAS.search(host_de(url)):', '    if False:'),
+ ("M14 post social colhido como pagina", LB, '    if POSTS.search(url):', '    if False:'),
+ ("M15 muro de login entra", LB, '    if pagina_de_login((meta or {}).get("URL_FINAL") or url, dados):', '    if False:'),
+ ("M16 o mesmo endereco pedido duas vezes", LB, '        if chave in vistos:', '        if False:'),
  ("M12 livro de outra arvore por omissao", LB, '    if not livro.exists():\n        return cand, est', '    if not livro.exists():\n        livro = RAIZ / "curadoria" / "LIFECYCLE-LEDGER-V1.json"'),
 ]
 mortos = 0
