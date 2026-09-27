@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/lote6-integra-671dm9",
-    "HEAD": "00ca07c1e5e81f120f509b26f127631ee6adbdd6",
-    "GENERATED_AT": "2026-09-27T19:22:01+00:00",
-    "SOURCE_TREE_FINGERPRINT": "88adfad78127c9892d29e37b0c9d74b9cfb789b3e8c14d3e75e657268c66be4a"
+    "HEAD": "987b5b5f279ac69594297e540f09e23568dbf48b",
+    "GENERATED_AT": "2026-09-27T19:40:07+00:00",
+    "SOURCE_TREE_FINGERPRINT": "56322093317b2e4d07ef3708020cd8818840c111ca3b961e0feda692c5f0f21a"
   },
   "FILES": [
     {
@@ -213,7 +213,7 @@
     },
     {
       "path": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
-      "sha": "1340f52126f381c8e4c026c5bc06743a134781e6",
+      "sha": "db1111efb31fb1c2f31dd419c1a0353ca1464bf9",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -452,6 +452,13 @@
     {
       "path": "LOTE4-VERIFICAR.md",
       "sha": "30c5bfde69595a47e8bcd1b5e1caeb5f7a8a41fb",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "LOTE6-INTEGRA.md",
+      "sha": "fde767a8c116f7b5b62c4d527065c5538096a4b5",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -20918,6 +20925,34 @@
       "code_dir": true
     },
     {
+      "path": "provas/lote6_integra/BATERIA-BASE-18461b92.json",
+      "sha": "1493b97dd35a756b333feae2f87ebad378636d67",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote6_integra/BATERIA-RAMO.json",
+      "sha": "5b543dc849215e7625bdcb84a5bdf2d8471aea5c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote6_integra/MUTACAO-JUNCAO.json",
+      "sha": "a56c71a44bfa9268215964cc3e42a8e92661fee6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote6_integra/mutacao_juncao.py",
+      "sha": "89eb51454544672007aad65a0b02f021b0f39707",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/maestro-social/ENSAIO-037.json",
       "sha": "77d688a2b6aad593979365138d17cf8f1aca4de6",
       "ext": ".json",
@@ -24965,7 +25000,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "66b087e90e5ca6faa40c157b58770fb9452d03d3",
+      "sha": "4c0f6403fdeca977c654c970538ea78aa8215fca",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26869,7 +26904,7 @@
     },
     {
       "path": "tests/test_integracao_biblia.py",
-      "sha": "bc0c573aabcd1feaf33d52506cddd858461a2887",
+      "sha": "1966f555030ac1e7f1891dc22422d52c260e5d53",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27352,7 +27387,7 @@
     },
     {
       "path": "tests/test_portoes_da_collection.py",
-      "sha": "220caa983a6e518c9f147ed3b307049cf1714c89",
+      "sha": "594a7662b274c7fe8d1070c32fde60ced5dadb4f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -69057,6 +69092,83 @@
       }
     },
     {
+      "from_file": "provas/lote6_integra/mutacao_juncao.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote6_integra/mutacao_juncao.py",
+        "line": 24,
+        "snippet": "BC, EC, MO, GP = (\"leis/boletim_do_campo.py\", \"leis/estudo_chaves.py\", \"motor/motor_das_capacidades.py\","
+      }
+    },
+    {
+      "from_file": "provas/lote6_integra/mutacao_juncao.py",
+      "to_file": "leis/estudo_chaves.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote6_integra/mutacao_juncao.py",
+        "line": 24,
+        "snippet": "BC, EC, MO, GP = (\"leis/boletim_do_campo.py\", \"leis/estudo_chaves.py\", \"motor/motor_das_capacidades.py\","
+      }
+    },
+    {
+      "from_file": "provas/lote6_integra/mutacao_juncao.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote6_integra/mutacao_juncao.py",
+        "line": 24,
+        "snippet": "BC, EC, MO, GP = (\"leis/boletim_do_campo.py\", \"leis/estudo_chaves.py\", \"motor/motor_das_capacidades.py\","
+      }
+    },
+    {
+      "from_file": "provas/lote6_integra/mutacao_juncao.py",
+      "to_file": "provas/lote6_integra/MUTACAO-JUNCAO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote6_integra/mutacao_juncao.py",
+        "line": 107,
+        "snippet": "out = Path(__file__).with_name(\"MUTACAO-JUNCAO.json\")"
+      }
+    },
+    {
+      "from_file": "provas/lote6_integra/mutacao_juncao.py",
+      "to_file": "provas/lote6_integra/MUTACAO-JUNCAO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote6_integra/mutacao_juncao.py",
+        "line": 108,
+        "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "provas/lote6_integra/mutacao_juncao.py",
+      "to_file": "scripts/lugar_fato/gold_puglia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote6_integra/mutacao_juncao.py",
+        "line": 25,
+        "snippet": "\"scripts/lugar_fato/gold_puglia.py\")"
+      }
+    },
+    {
+      "from_file": "provas/lote6_integra/mutacao_juncao.py",
+      "to_file": "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote6_integra/mutacao_juncao.py",
+        "line": 39,
+        "snippet": "[('GOLD = RAIZ / \"tests\" / \"fixtures\" / \"puglia\" / \"GOLD-FIXTURE-PUGLIA-V1.json\"',"
+      }
+    },
+    {
       "from_file": "provas/medir_admission_t3_atual.py",
       "to_file": "AGENTS.md",
       "type": "READS",
@@ -99280,7 +99392,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_portoes_da_collection.py",
-        "line": 327,
+        "line": 330,
         "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
       }
     },
@@ -99291,7 +99403,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_portoes_da_collection.py",
-        "line": 307,
+        "line": 310,
         "snippet": "\"COLLECTION-V1-CLOSE-GATES.md\"),"
       }
     },
@@ -105211,10 +105323,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3996,
-    "files_readable": 1667,
-    "files_code_dir": 2013,
-    "file_edges": 6964,
+    "files_tracked": 4001,
+    "files_readable": 1668,
+    "files_code_dir": 2017,
+    "file_edges": 6971,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },

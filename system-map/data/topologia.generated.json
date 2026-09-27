@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T19:23:35+00:00",
-  "HEAD": "00ca07c1e5e81f120f509b26f127631ee6adbdd6",
+  "GENERATED_AT": "2026-09-27T19:41:40+00:00",
+  "HEAD": "987b5b5f279ac69594297e540f09e23568dbf48b",
   "BRANCH": "claude/lote6-integra-671dm9",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "88adfad78127c9892d29e37b0c9d74b9cfb789b3e8c14d3e75e657268c66be4a",
-  "FICHEIROS_NA_IMPRESSAO": 4144,
+  "SOURCE_TREE_FINGERPRINT": "56322093317b2e4d07ef3708020cd8818840c111ca3b961e0feda692c5f0f21a",
+  "FICHEIROS_NA_IMPRESSAO": 4149,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3707,6 +3707,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/lote6_integra/mutacao_juncao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "89eb51454544672007aad65a0b02f021b0f39707",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/medir_admission_t3_atual.py",
     "PAPEL": "FONTE",
     "VERSAO": "0ea6ece3117343bb7b38f8f3f56253729e016ba8",
@@ -5186,14 +5193,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "88adfad78127c9892d29e37b0c9d74b9cfb789b3e8c14d3e75e657268c66be4a",
+    "VERSAO": "56322093317b2e4d07ef3708020cd8818840c111ca3b961e0feda692c5f0f21a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "88adfad78127c9892d29e37b0c9d74b9cfb789b3e8c14d3e75e657268c66be4a",
+    "VERSAO": "56322093317b2e4d07ef3708020cd8818840c111ca3b961e0feda692c5f0f21a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6621,7 +6628,7 @@
    {
     "PATH": "tests/test_integracao_biblia.py",
     "PAPEL": "FONTE",
-    "VERSAO": "bc0c573aabcd1feaf33d52506cddd858461a2887",
+    "VERSAO": "1966f555030ac1e7f1891dc22422d52c260e5d53",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7104,7 +7111,7 @@
    {
     "PATH": "tests/test_portoes_da_collection.py",
     "PAPEL": "FONTE",
-    "VERSAO": "220caa983a6e518c9f147ed3b307049cf1714c89",
+    "VERSAO": "594a7662b274c7fe8d1070c32fde60ced5dadb4f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7718,8 +7725,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1097,
-  "INPUTS_DIGEST": "da32e3bcd05891d820a988ac8f0899bb6c2377599da3379c1fda17156603b7aa",
+  "INPUTS_COUNT": 1098,
+  "INPUTS_DIGEST": "8a359bc4a1d153d41ca09e926577979255298bafef0eb01d6690d4e8a32adbff",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7745,15 +7752,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 616,
+  "DOCUMENTOS_LIDOS": 617,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "d575496ab7d6a8f8b1559703d601a9790da076f8898558a3433b5056ec63ef98",
-  "SEMANTIC_HASH": "8f11f569e97dcd786b412d8de88a99a74a21609ab1adadb35dfa027492e17dca"
+  "MEASUREMENT_HASH": "b95575a6437dda1634fdb3f211b35ce124c31fdf215d1a75281c0f9d2972e274",
+  "SEMANTIC_HASH": "56fe0476e954588fbc611639a88dfcfc75587881e22a9e4ec989439fc85c87b2"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10483,6 +10490,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/lote6_integra/mutacao_juncao.py",
+      "LINHA": 39,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "provas/mutacao_metodo_puglia.py",
       "LINHA": 28,
@@ -27991,6 +28006,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-COLETA",
+    "FROM": "C-INT-MOTOR-CAPACIDADES",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/lote6_integra/mutacao_juncao.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-INT-R7",
     "FROM": "C-INT-MOTOR-CAPACIDADES",
     "TO": "C-PROVA-INT-R7",
@@ -33495,6 +33532,30 @@
      {
       "FICHEIRO": "provas/estudos_chaves/mutacao_estudos_chaves.py",
       "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/lote6_integra/mutacao_juncao.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/lote6_integra/mutacao_juncao.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/lote6_integra/mutacao_juncao.py",
+      "LINHA": 25,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
@@ -57859,12 +57920,12 @@
     ]
    }
   ],
-  "COUNT": 1635
+  "COUNT": 1636
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 218,
   "CARTOES_AUDITADOS": 218,
-  "ARESTAS_RELACIONADAS": 1635,
+  "ARESTAS_RELACIONADAS": 1636,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -58335,7 +58396,7 @@
    "CODE": 280,
    "CONTROL": 87,
    "DATA": 31,
-   "PROOF": 575,
+   "PROOF": 576,
    "READ": 370,
    "RULE": 272,
    "WRITE": 20
@@ -63252,6 +63313,7 @@
     "provas/a_collection_preserva_o_fato.py",
     "provas/estudos_chaves/mutacao_estudos_chaves.py",
     "provas/int_r7/bateria_por_nome.py",
+    "provas/lote6_integra/mutacao_juncao.py",
     "provas/mutacao_metodo_puglia.py",
     "system-map/scripts/generate_system_map.py",
     "tests/mutacao_conserto_regua.py",
@@ -65284,6 +65346,7 @@
    "KIND": "test",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "LOTE6-INTEGRA.md",
     "provas/_c106b_filho.py",
     "provas/_c106c_filho.py",
     "provas/_flow01_janela_falsa.py",
@@ -65324,6 +65387,10 @@
     "provas/integra_noite/mutacao_da21.py",
     "provas/integra_noite/mutacao_lote4_final.py",
     "provas/linkedin_local_first.py",
+    "provas/lote6_integra/BATERIA-BASE-18461b92.json",
+    "provas/lote6_integra/BATERIA-RAMO.json",
+    "provas/lote6_integra/MUTACAO-JUNCAO.json",
+    "provas/lote6_integra/mutacao_juncao.py",
     "provas/medir_admission_t3_atual.py",
     "provas/medir_source_id_wiring_gap.py",
     "provas/migracao_033_ensaio_copia.py",
@@ -65416,6 +65483,7 @@
     "provas/fechar_ground_truth_t3.py",
     "provas/fluxo_no_seco.py",
     "provas/integra_noite/mutacao_lote4_final.py",
+    "provas/lote6_integra/mutacao_juncao.py",
     "provas/medir_source_id_wiring_gap.py",
     "provas/migracao_034_ensaio_copia.py",
     "provas/mutacao_da_linhagem_do_ready.py",
@@ -65566,7 +65634,7 @@
     "unnest",
     "urllib"
    ],
-   "ENTRAM": 91,
+   "ENTRAM": 92,
    "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
