@@ -23,6 +23,17 @@
    rota de legado alcancavel com o pote, porque isso E uma violacao da D97 —
    dizer PASS por omissao seria o verde falso que esta casa nao pode dar.
 
+   AJUSTE DECLARADO (missao CASCO-HOJE-MINIMO-HONESTO, item 9: «0 objetos fora
+   do pote e 0 cruzamentos sem prova NA TELA»). A medida 2 contava os 86 da
+   ANALISE-R7 como «desenhados» porque a tela os desenhava todos. Agora mede o
+   que a tela PRINCIPAL do Portafoglio desenha (potePub.cruz.principais, do
+   proprio casco montado); os 84 da aba «rifiutati» continuam contados e
+   listados, a parte, com o motivo — nao sumiram, so deixaram de ser resultado.
+   A medida 3 passa a reconhecer as duas leituras que NAO sao legado: a busca
+   nos objetos do pote (buscaNoPote) e a Label Intelligence como PRODUTO DE
+   FERRAMENTA registado pelo publicador (temLabelFerramenta). A medida 4 e nova:
+   pote esperado e ausente -> nenhuma rota desenha legado nem demo.
+
        node italia-portale/audit/casco/d97-auditoria.mjs [--json]            */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -57,11 +68,13 @@ export function objetos(pote, texto) {
       if (porque.length) out.push({ COMPARTIMENTO: k, OBJETO_ID: o.OBJETO_ID, ONDE: `${POTE_F}:${linhaDe(texto, `"OBJETO_ID": "${o.OBJETO_ID}"`)}`, PORQUE: [...new Set(porque)] });
     }
   }
-  return { TOTAL: n, FORA_DA_INTELLIGENCE_OU_SEM_PROVA: out };
+  /* n conta gavetas; o mesmo objeto em duas gavetas e UM objeto (a tela conta os distintos). */
+  const distintos = new Set(Object.values(pote.COMPARTIMENTOS || {}).flatMap((e) => (e.OBJETOS || []).map((o) => o.OBJETO_ID))).size;
+  return { TOTAL: n, DISTINTOS: distintos, FORA_DA_INTELLIGENCE_OU_SEM_PROVA: out };
 }
 
 /* ── 2 · cruzamentos ─────────────────────────────────────────────────── */
-export function cruzamentos(pote, analise, texto) {
+export function cruzamentos(pote, analise, texto, naTela) {
   const noPote = new Set(((pote.COMPARTIMENTOS.portfolio || {}).OBJETOS || []).map((o) => o.OBJETO_ID));
   const rec = new Map((pote.RECUSADOS || []).filter((r) => r.COMPARTIMENTO === 'portfolio').map((r) => [r.OBJETO_ID, r]));
   const linhas = (analise.CROSSINGS || []).map((c) => {
@@ -72,27 +85,46 @@ export function cruzamentos(pote, analise, texto) {
       URL: c.URL || null, SALA_CHAVE: c.SALA_CHAVE || null };
   });
   const conta = (f) => linhas.reduce((o, x) => { o[f(x)] = (o[f(x)] || 0) + 1; return o; }, {});
-  return { DESENHADOS: linhas.length, POR_DESTINO: conta((x) => x.DESTINO_NO_POTE),
+  const tela = new Set(naTela || []);
+  const naTelaPrincipal = linhas.filter((x) => tela.has(x.OBJETO_ID));
+  return { DA_ANALISE: linhas.length, DESENHADOS: naTelaPrincipal.length, POR_DESTINO: conta((x) => x.DESTINO_NO_POTE),
     POR_MOTIVO: conta((x) => x.MOTIVO || x.DESTINO_NO_POTE),
-    SEM_A_PROVA_QUE_O_POTE_EXIGE: linhas.filter((x) => x.DESTINO_NO_POTE !== 'OBJETO_DO_POTE') };
+    NA_ABA_RIFIUTATI: linhas.filter((x) => !tela.has(x.OBJETO_ID)).length,
+    SEM_A_PROVA_QUE_O_POTE_EXIGE: naTelaPrincipal.filter((x) => x.DESTINO_NO_POTE !== 'OBJETO_DO_POTE'),
+    /* um id na tela que a analise nem conhece tambem e cruzamento sem prova */
+    NA_TELA_FORA_DA_ANALISE: [...tela].filter((id) => !linhas.some((x) => x.OBJETO_ID === id)) };
 }
 
 /* ── 3 · rotas ───────────────────────────────────────────────────────── */
 const VISTAS = ['meeting', 'radar', 'msignals', 'mradar', 'mcase', 'radarfuturo', 'future', 'windows', 'window', 'market',
   'voices', 'competitors', 'company', 'cproduct', 'event', 'science', 'theme', 'person', 'portfolio', 'product', 'etichette',
   'etichetta', 'archive', 'sources', 'source', 'signal', 'case', 'brief', 'field', 'search'];
-export function rotas() {
+function montar() {
   const M = mount({});
   M.ctx.location = { search: '', hash: '' };
   for (const f of ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js']) {
     vm.runInContext(fs.readFileSync(path.join(CLIENT, f), 'utf8'), M.ctx, { filename: f });
   }
+  return M;
+}
+/* O que a tela principal do Portafoglio desenha, lido do casco montado. */
+export function cruzamentosNaTela() {
+  const M = montar();
+  const x = M.vals({ view: 'portfolio', lang: 'it' });
+  return ((x.potePub || {}).cruz || {}).principais ? x.potePub.cruz.principais.map((c) => c.id) : [];
+}
+export function rotas() {
+  const M = montar();
   const html = ler(PORTAL_F);
   const legado = [], pote = [];
   for (const v of VISTAS) {
     const x = M.vals({ view: v, lang: 'it', committedQuery: 'vite', query: 'vite' });
-    const flags = Object.keys(x).filter((k) => /^is[A-Z]/.test(k) && x[k] === true && k !== 'isOrgs');
-    if (x.poteVista || x.potePubVista) { pote.push(v); continue; }
+    /* O que e do pote nao conta como legado: a busca nos objetos do pote e a Label Intelligence registada
+       como produto de ferramenta. Qualquer OUTRA bandeira acesa numa rota do pote e legado ao lado dele. */
+    const permitido = (k) => k === 'isOrgs' || (k === 'isSearch' && x.buscaNoPote) ||
+      ((k === 'isEtichette' || k === 'isEtichetta') && x.temLabelFerramenta);
+    const flags = Object.keys(x).filter((k) => /^is[A-Z]/.test(k) && x[k] === true && !permitido(k));
+    if ((x.poteVista || x.potePubVista || x.temLabelFerramenta || x.buscaNoPote) && !flags.length) { pote.push(v); continue; }
     if (!flags.length) continue; /* nada desenhado para este estado (ex.: brief sem caso) */
     const r = { ROTA: v, BANDEIRAS_DE_LEGADO_ACESAS: flags };
     if (v === 'search') {
@@ -106,24 +138,46 @@ export function rotas() {
     COMO_SE_CHEGA: 'a barra de busca esta sempre visivel; cada linha do resultado abre a vista de detalhe do registo legado' };
 }
 
+/* ── 4 · pote esperado e ausente ──────────────────────────────────────── */
+export function semPote() {
+  const M = mount({});
+  M.ctx.location = { search: '', hash: '' };
+  /* a pagina pede o pote (a tag esta no documento), e ele nao chegou */
+  M.ctx.document.querySelector = (q) => (/sintonia-pote-publicado\.js/.test(String(q)) ? {} : null);
+  for (const f of ['sintonia-pote-casco.js', 'sintonia-pote-publicacao.js']) {
+    vm.runInContext(fs.readFileSync(path.join(CLIENT, f), 'utf8'), M.ctx, { filename: f });
+  }
+  const legado = [];
+  for (const v of VISTAS) {
+    const x = M.vals({ view: v, lang: 'it', committedQuery: 'vite', query: 'vite' });
+    const flags = Object.keys(x).filter((k) => /^is[A-Z]/.test(k) && x[k] === true && k !== 'isOrgs');
+    if (flags.length) legado.push({ ROTA: v, BANDEIRAS_DE_LEGADO_ACESAS: flags });
+  }
+  return { ROTAS_DE_LEGADO_SEM_POTE: legado };
+}
+
 export function auditar() {
   const tp = ler(POTE_F), ta = ler(ANALISE_F);
   const pote = JSON.parse(tp), analise = JSON.parse(ta);
   return { SCHEMA: 'AUDITORIA_D97/v1', POTE: POTE_F, CORRIDA: pote.INTELLIGENCE_RUN_ID,
-    OBJETOS: objetos(pote, tp), CRUZAMENTOS: cruzamentos(pote, analise, ta), ROTAS: rotas() };
+    OBJETOS: objetos(pote, tp), CRUZAMENTOS: cruzamentos(pote, analise, ta, cruzamentosNaTela()), ROTAS: rotas(), SEM_POTE: semPote() };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)) {
   const A = auditar();
   if (process.argv.includes('--json')) { process.stdout.write(JSON.stringify(A, null, 1) + '\n'); }
   else {
-    console.log(`  1 · objetos do pote ${A.CORRIDA}: ${A.OBJETOS.TOTAL}; fora da Intelligence ou sem prova: ${A.OBJETOS.FORA_DA_INTELLIGENCE_OU_SEM_PROVA.length}`);
+    console.log(`  1 · objetos do pote ${A.CORRIDA}: ${A.OBJETOS.DISTINTOS} distintos (${A.OBJETOS.TOTAL} lugares em gavetas); fora da Intelligence ou sem prova: ${A.OBJETOS.FORA_DA_INTELLIGENCE_OU_SEM_PROVA.length}`);
     for (const o of A.OBJETOS.FORA_DA_INTELLIGENCE_OU_SEM_PROVA) console.log(`      ${o.ONDE} ${o.OBJETO_ID} · ${o.PORQUE.join(', ')}`);
-    console.log(`  2 · cruzamentos desenhados: ${A.CRUZAMENTOS.DESENHADOS} · ${JSON.stringify(A.CRUZAMENTOS.POR_DESTINO)}`);
+    console.log(`  2 · cruzamentos na tela principal: ${A.CRUZAMENTOS.DESENHADOS}; sem a prova que o pote exige: ${A.CRUZAMENTOS.SEM_A_PROVA_QUE_O_POTE_EXIGE.length + A.CRUZAMENTOS.NA_TELA_FORA_DA_ANALISE.length} · na aba rifiutati: ${A.CRUZAMENTOS.NA_ABA_RIFIUTATI} de ${A.CRUZAMENTOS.DA_ANALISE} da analise · ${JSON.stringify(A.CRUZAMENTOS.POR_DESTINO)}`);
     for (const [k, v] of Object.entries(A.CRUZAMENTOS.POR_MOTIVO)) console.log(`      ${v} · ${k}`);
     console.log(`  3 · rotas que desenham o pote: ${A.ROTAS.ROTAS_DO_POTE.length}; rotas de LEGADO com o pote carregado: ${A.ROTAS.ROTAS_DE_LEGADO_COM_O_POTE.length}`);
     for (const r of A.ROTAS.ROTAS_DE_LEGADO_COM_O_POTE) console.log(`      ${r.ROTA} (${r.BANDEIRAS_DE_LEGADO_ACESAS.join(',')})${r.EXEMPLO ? ' · ' + r.EXEMPLO : ''}`);
-    console.log(`      porque: ${A.ROTAS.PORQUE}`);
+    if (A.ROTAS.ROTAS_DE_LEGADO_COM_O_POTE.length) console.log(`      porque: ${A.ROTAS.PORQUE}`);
+    console.log(`  4 · pote esperado e ausente: rotas que desenham legado ou demo: ${A.SEM_POTE.ROTAS_DE_LEGADO_SEM_POTE.length}`);
+    for (const r of A.SEM_POTE.ROTAS_DE_LEGADO_SEM_POTE) console.log(`      ${r.ROTA} (${r.BANDEIRAS_DE_LEGADO_ACESAS.join(',')})`);
   }
-  process.exit(A.ROTAS.ROTAS_DE_LEGADO_COM_O_POTE.length || A.OBJETOS.FORA_DA_INTELLIGENCE_OU_SEM_PROVA.length ? 1 : 0);
+  process.exit(A.ROTAS.ROTAS_DE_LEGADO_COM_O_POTE.length || A.OBJETOS.FORA_DA_INTELLIGENCE_OU_SEM_PROVA.length ||
+    A.CRUZAMENTOS.SEM_A_PROVA_QUE_O_POTE_EXIGE.length || A.CRUZAMENTOS.NA_TELA_FORA_DA_ANALISE.length ||
+    A.SEM_POTE.ROTAS_DE_LEGADO_SEM_POTE.length ? 1 : 0);
 }

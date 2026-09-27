@@ -13,7 +13,13 @@
      · a 390 px, nenhuma rota rola na horizontal;
      · nenhum erro de pagina, nenhum pedido falhado (404 incluido).
 
-       O QUE VAI AO AR MEDE-SE COMO VAI AO AR.                                  */
+       O QUE VAI AO AR MEDE-SE COMO VAI AO AR.
+
+   AJUSTE DECLARADO (missao CASCO-HOJE-MINIMO-HONESTO, itens 1, 2 e 8; D97): a tela
+   principal do Portafoglio desenha so os 2 cruzamentos que SAO objeto do pote; os
+   outros 84 abrem por clique na aba «rifiutati» — as provas dos 86, dos 5 A
+   CONFIRMAR e dos 47 candidatos correm la, sem uma a menos. #etichette e a Label
+   Intelligence como PRODUTO DE FERRAMENTA: prova propria, sem o pote.        */
 import { serve, open, CLIENT } from '../lib/drive.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -35,20 +41,33 @@ const semPote = [], semFaixa = [], vazou = [];
 for (const r of ROTAS) {
   await ir('#' + r);
   const t = await pg.evaluate(() => document.body.innerText);
+  if (r === 'etichette') {
+    if (!(await pg.locator('[data-label-ferramenta="PRODUTO_DE_FERRAMENTA"]').count()) || !/PRODOTTO DI STRUMENTO/.test(t)) semPote.push(r);
+    if (/\{\{|undefined/.test(t)) vazou.push(r);
+    continue;
+  }
   if (!(await pg.locator('[data-view="pote"]').count())) semPote.push(r);
   if (!/D114/.test(t) || !/EXPERIMENTAL/.test(t)) semFaixa.push(r);
   if (/\{\{|undefined/.test(t)) vazou.push(r);
 }
-ok('as 12 rotas de ferramenta desenham o pote', semPote.length === 0, semPote.join(',') || '12/12');
-ok('faixa D114 e marca EXPERIMENTAL em toda rota', semFaixa.length === 0, semFaixa.join(',') || '12/12');
+ok('11 rotas desenham o pote; #etichette o produto de ferramenta', semPote.length === 0, semPote.join(',') || '12/12');
+ok('faixa D114 e marca EXPERIMENTAL em toda rota do pote', semFaixa.length === 0, semFaixa.join(',') || '11/11');
 ok('nenhuma rota deixa escapar {{ ou undefined', vazou.length === 0, vazou.join(',') || '0');
 
 await ir('#portfolio');
-const cruz = await pg.locator('[data-cruzamento]').count();
+const principal = await pg.locator('[data-cruzamento]').count();
+const principalNoPote = await pg.locator('[data-cruzamento][data-cruz-no-pote="true"]').count();
+ok('a tela principal do Portafoglio so desenha os 2 cruzamentos que sao objeto do pote', principal === 2 && principalNoPote === 2, principal);
+const prov = await pg.locator('[data-cruzamento] [data-provisorio="1"]').count();
+const carimbo = (await pg.locator('[data-carimbo-referencia]').allInnerTexts()).join(' ');
+ok('o carimbo da referencia diz registro, ultima verifica e o frescor', /registro del \d{2}\/\d{2}/.test(carimbo) && /ultima verifica \d{2}\/\d{2}/.test(carimbo) && /PODE_ESTAR_DESATUALIZADO/.test(carimbo), carimbo.slice(0, 90));
+await pg.locator('[data-aba="recusados"]').click();
+await pg.waitForTimeout(500);
+const cruz = principal + await pg.locator('[data-cruzamento]').count();
 const sim = await pg.locator('[data-cruzamento][data-cruz-estado="POSSIBLE_ANSWER_YES_A_CONFIRMAR"]').count();
 const marcas = await pg.locator('[data-cruzamento] [data-marca="1"]').allInnerTexts();
 const cand = await pg.locator('[data-cruzamento] [data-via="EXTENSAO_DECLARADA"]').count();
-ok('o Portafoglio desenha os 86 cruzamentos da analise', cruz === ANALISE.CROSSINGS.length && cruz === 86, cruz);
+ok('pote (2) + aba rifiutati (84) = os 86 cruzamentos da analise, cada um com PROVVISORIO', cruz === ANALISE.CROSSINGS.length && cruz === 86 && prov === 2 && (await pg.locator('[data-cruzamento] [data-provisorio="1"]').count()) === 84, cruz);
 ok('so os 5 «sim» levam A CONFIRMAR', sim === 5 && marcas.length === 5 && marcas.every((m) => m.trim() === 'A CONFIRMAR'), sim + ' / ' + marcas.length);
 ok('os 47 da extensao declarada dizem FONTE CANDIDATA', cand === 47, cand);
 const relogio = await pg.evaluate(() => document.querySelector('.sn-aside').innerText);

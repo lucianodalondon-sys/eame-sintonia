@@ -8,6 +8,9 @@
     le     docs/casco/r7/POTE-R7.json        (POTE_INTELLIGENCE_CASCO/v2, gerador ce775ff5)
            docs/casco/r7/ANALISE-R7.json     (os 86 cruzamentos da MESMA corrida, com o estado)
            docs/casco/r7/MANIFESTO-R7.json   (o que o gerador disse que enviou)
+           motor/porta_da_referencia.py (o CARIMBO da referencia ADAMA: edicao, ultima checagem, frescor)
+           docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json (o PRODUTO DE FERRAMENTA da
+           Label Intelligence; so o cabecalho, conferido contra o payload selado)
     grava  italia-portale/client/sintonia-pote-publicado.js
 
 PORQUE EXISTE
@@ -44,7 +47,22 @@ A conferencia aceita, por isso, DUAS formas e so duas, e diz qual:
     IGUAL_APOS_FIM_DE_LINHA_CRLF   o ficheiro nao tem CR nenhum, e
                                    sha(bytes com LF -> CRLF) == sha do manifesto
 
-Qualquer outro byte mudado da DIFERENTE, e a tela di-lo. Nao e uma
+Qualquer outro byte mudado da DIFERENTE, e a tela di-lo.
+
+O CARIMBO DA REFERENCIA E O PRODUTO DE FERRAMENTA (missao CASCO-HOJE-MINIMO-HONESTO)
+------------------------------------------------------------------------------------
+A tela diz «registro de 31/08, ultima checagem 07/09, PODE ESTAR DESATUALIZADO» ao
+lado de tudo o que fala de rotulo. Essas datas NAO se escrevem aqui nem na tela:
+vem da porta unica (motor/porta_da_referencia.py), com o HOJE declarado = a data
+da decisao que abre esta porta. Porta que nao le -> o carimbo sai NAO SEI, e a
+tela diz NAO SEI.
+
+A Label Intelligence entra como PRODUTO DE FERRAMENTA, nunca como corrida da
+Intelligence: o publicador so a REGISTA (quem a produziu, que snapshot, quantos
+registos, o selo) depois de provar que o pote da ferramenta commitado e
+exatamente o que o payload selado produz (`pote_ferramenta_label --conferir`).
+Os registos continuam a ser lidos do payload selado que ja esta no portal —
+6 MB copiados para dentro deste ficheiro seriam uma segunda copia do mesmo dado. Nao e uma
 normalizacao solta (nada de espacos, indentacao ou reserializar JSON): e a
 unica troca que o proprio sistema de ficheiros do gerador faz. `.gitattributes`
 fixa `docs/casco/** -text` para que um checkout em Windows nao volte a trocar
@@ -56,10 +74,15 @@ import hashlib
 import json
 import os
 import sys
+from datetime import date
 from pathlib import Path
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAIZ = Path(os.path.dirname(HERE))
+sys.path.insert(0, os.path.dirname(HERE))   # a raiz
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+import porta_da_referencia as porta  # noqa: E402 — a UNICA porta da referencia ADAMA (D116)
+import pote_ferramenta_label as ferramenta_label  # noqa: E402
 
 DECISAO = {
     "ID": "D114",
@@ -74,6 +97,7 @@ MANIFESTO = RAIZ / "docs/casco/r7/MANIFESTO-R7.json"
 ORIGEM_DA_ANALISE = ("ramo nuvem-cruzamentos-max-v1 @ a09d383d, docs/intelligence/r7/ANALISE-R7.json "
                      "(blob 80001e9d), trazido so este ficheiro")
 DESTINO = RAIZ / "italia-portale/client/sintonia-pote-publicado.js"
+POTE_FERRAMENTA_LABEL = ferramenta_label.DESTINO
 
 CONTRATO = "POTE_INTELLIGENCE_CASCO/v2"
 MARCA = "EXPERIMENTAL · NAO_PARA_CLIENTE"
@@ -161,6 +185,49 @@ def conferir(pote: dict, analise: dict, manifesto: dict) -> list:
     return v
 
 
+def carimbo_da_referencia() -> dict:
+    """O carimbo da porta, com HOJE declarado = a data da decisao. Nunca levanta: a porta devolve
+    NAO SEI com o porque, e isso e o que vai ao ar. O mapa de sha por livro fica de fora (a
+    IMPRESSAO_DOS_LIVROS ja o sela); o resto e copiado como a porta o escreveu."""
+    hoje = date.fromisoformat(DECISAO["DATA"])
+    c = porta.carimbo(porta.abrir(hoje=hoje))
+    c = {k: v for k, v in c.items() if k != "SHA256"}
+    c["HOJE_E"] = "a data da decisao " + DECISAO["ID"] + " (o frescor e medido nesse dia, nao no do visitante)"
+    return c
+
+
+def label_intelligence(carimbo: dict) -> dict:
+    """O REGISTO do produto de ferramenta. Recusa se o pote da ferramenta nao for o do payload selado."""
+    esperado = ferramenta_label.texto()
+    atual = POTE_FERRAMENTA_LABEL.read_text(encoding="utf-8") if POTE_FERRAMENTA_LABEL.exists() else ""
+    if atual != esperado:
+        raise Recusado(f"{_rel(POTE_FERRAMENTA_LABEL)} nao e o que o payload selado produz "
+                       "(pacote/pote_ferramenta_label.py --conferir)")
+    f = json.loads(atual)
+    pp, snap = f["PRODUZIDO_POR"], f["SNAPSHOT"]
+    if pp.get("CONTENT_SHA256_DECLARADO") != pp.get("CONTENT_SHA256_RECALCULADO"):
+        raise Recusado("o selo da Label Intelligence nao confere")
+    mesma = carimbo.get("EDICAO_REGISTRO") == snap.get("DATA_SNAPSHOT_ID")
+    return {
+        "ESPECIE": "PRODUTO_DE_FERRAMENTA",
+        "NAO_E": pp.get("NAO_E"),
+        "POTE_DA_FERRAMENTA": _rel(POTE_FERRAMENTA_LABEL),
+        "POTE_DA_FERRAMENTA_SHA256": _sha(POTE_FERRAMENTA_LABEL),
+        "INTELLIGENCE_RUN_ID": f["INTELLIGENCE_RUN_ID"],
+        "FERRAMENTA": pp.get("FERRAMENTA"), "NOME": pp.get("NOME"), "RUN": pp.get("RUN"),
+        "CONTENT_SHA256": pp.get("CONTENT_SHA256_DECLARADO"),
+        "PAYLOAD_FICHEIRO": f["ORIGEM"]["FICHEIRO"], "PAYLOAD_FICHEIRO_SHA256": f["ORIGEM"]["FICHEIRO_SHA256"],
+        "SNAPSHOT": snap,
+        "CONTAGENS": f["CONTAGENS"],
+        # O frescor da ferramenta e o da MESMA edicao do registo que a porta carimba; edicao diferente
+        # nao herda o carimbo de outra.
+        "EDICAO_E_A_DA_PORTA": mesma,
+        "ESTADO_FRESCOR": carimbo.get("ESTADO_FRESCOR") if mesma else porta.NAO_SEI,
+        "ULTIMA_CHECAGEM_OK": carimbo.get("ULTIMA_CHECAGEM_OK") if mesma else porta.NAO_SEI,
+        "LEI": f["LEI"],
+    }
+
+
 def publicado() -> str:
     pote = json.loads(POTE.read_text(encoding="utf-8"))
     analise = json.loads(ANALISE.read_text(encoding="utf-8"))
@@ -171,6 +238,8 @@ def publicado() -> str:
     sha_manifesto = (manifesto.get("SHA256") or {}).get("POTE-R7.json")
     conf = conferir_sha_do_manifesto(POTE.read_bytes(), sha_manifesto)
     sha_pote = conf["SHA256_BYTES"]
+    ref = carimbo_da_referencia()
+    li = label_intelligence(ref)
     meta = {
         "SCHEMA": "POTE_PUBLICADO/v1",
         "DECISAO": DECISAO,
@@ -190,7 +259,9 @@ def publicado() -> str:
         "ANALISE_FICHEIRO": _rel(ANALISE),
         "ANALISE_SHA256": _sha(ANALISE),
         "ANALISE_ORIGEM": ORIGEM_DA_ANALISE,
-        "O_QUE_NAO_ATRAVESSA": "o gerador, a entrada do pote, as pastas PARA-O-CASCO e sintonia-pote.js continuam fora do Git e do deploy",
+        "O_QUE_NAO_ATRAVESSA": "o gerador, a entrada do pote, as pastas PARA-O-CASCO e sintonia-pote.js continuam fora do deploy",
+        "REFERENCIA_ADAMA": ref,
+        "LABEL_INTELLIGENCE": li,
     }
     corpo = dict(meta, POTE=pote, ANALISE=analise)
     return ("/* GERADO por pacote/publicar_pote_aprovado.py — nao editar a mao.\n"

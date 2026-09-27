@@ -16,9 +16,39 @@
    O QUE ESTA LEITURA NAO FAZ (INT-LAW-023 / INT-LAW-280): nao cruza, nao muda estado, nao ordena por
    relevancia (dentro de cada estado a ordem e a da analise), nao completa NAO SEI, nao decide o que e
    fonte candidata (le a VIA que a Intelligence escreveu). Se o pote carregado e de OUTRA corrida
-   (?pote=local), nada disto se aplica: devolve null. */
+   (?pote=local), nada disto se aplica: devolve null.
+
+   CASCO-HOJE-MINIMO-HONESTO (D97: o casco so mostra o que o pote aprovou)
+     · Portafoglio: na tela principal so os cruzamentos que SAO objeto do pote; os outros vao para a aba
+       «rifiutati», cada um com o motivo que o pote escreveu. O id de cruzamento leva PROVVISORIO (D119).
+     · o carimbo da referencia ADAMA vem da porta (publicado.REFERENCIA_ADAMA): nenhuma data escrita aqui.
+     · a Label Intelligence e PRODUTO DE FERRAMENTA (publicado.LABEL_INTELLIGENCE), com a data do snapshot.
+     · Radar: «0 opportunita difendibili» conta as OPORTUNIDADE do pote; o exemplo e a sonda da analise.
+     · Radar Futuro: so fato sobre o futuro com >= 1 chave de dominio provada; o resto e Agenda.
+     · contagens por OBJETO DISTINTO (o mesmo objeto em duas gavetas conta uma vez).
+     · BANDEIRAS: o legado (V2.1 + demo + snapshot 07/09, e os 44 ITFC) so volta se o dono as ligar. */
 window.SINTONIA_POTE_PUBLICACAO = (function () {
   var NAO_SEI = 'NAO SEI';
+
+  /* BANDEIRAS DO DONO · desligadas por omissao. Ligar uma e decisao do dono, e o legado volta SELADO
+     («LEGADO 07/09 · sem janela provada»), nunca como se fosse desta corrida. So `true` liga. Um portao
+     de browser que mede a interface do legado liga-as pela pagina (window.SINTONIA_BANDEIRAS), nunca
+     pelo endereco: um visitante nao chega ao legado por um link. */
+  var BANDEIRAS = { LEGADO_V21_VISIVEL: false, ITFC_LEGADO_VISIVEL: false };
+  function bandeira(nome) {
+    var W = (typeof window !== 'undefined' && window.SINTONIA_BANDEIRAS) || {};
+    return (Object.prototype.hasOwnProperty.call(W, nome) ? W[nome] : BANDEIRAS[nome]) === true;
+  }
+
+  /* As chaves que fazem de um fato sobre o futuro um fato de DOMINIO: cultura, praga, substancia,
+     produto ou registo. Data e lugar sozinhos fazem Agenda, nao Radar. */
+  var DOMINIO = ['CROP_ID', 'ISSUE_ID', 'TARGET_ID', 'ACTIVE_INGREDIENT_ID', 'MOLECULE', 'PRODUCT_ID',
+    'ADAMA_PRODUCT_ID', 'REGISTRATION_VERSION', 'T4_REGISTRATION_EVIDENCE_ID', 'AUTHORIZATION_EVIDENCE_ID'];
+  function provado(v) { return v !== null && v !== undefined && v !== '' && !/^N[AÃ]O[ _]SEI/.test(String(v)); }
+  function chavesDeDominio(o) {
+    var C = (o && o.CHAVES) || {};
+    return DOMINIO.filter(function (k) { return provado(C[k]); });
+  }
   var AMBAR = '#F5B317', BRANCO = '#FFFFFF', CINZA = '#C9C3C1', APAGADO = '#8F8886';
 
   var L = {
@@ -38,7 +68,23 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
       lacT: 'LACUNE DELLA CORSA', lacLeg: 'requisiti che bloccano una domanda: il dato manca, non è zero',
       novasT: 'COSA HANNO AGGIUNTO LE 38 NUOVE', sinais: 'segnali datati delle 38 nuove', idade: 'età minima (giorni)',
       d112T: 'LUOGO SOLO DAL TESTO SCRITTO (D112)', campoT: 'Rete Commerciale di Campo · SIMULATO — la simulazione non è mostrata',
-      campoTx: 'Questa vista reggeva su persone e messaggi SIMULATI. Con il pote pubblicato, mostra ciò che il pote scrive:'
+      campoTx: 'Questa vista reggeva su persone e messaggi SIMULATI. Con il pote pubblicato, mostra ciò che il pote scrive:',
+      prov: 'ID PROVVISORIO (D119: identità stabile ancora in ricerca)',
+      cruzPoteT: 'INCROCI CHE SONO OGGETTO DEL POTE · {N} di {T}', cruzPoteLeg: 'Solo questi hanno la prova che il pote esige. Gli altri restano nella scheda «rifiutati», con il motivo.',
+      abaPote: 'NEL POTE', abaRec: 'RIFIUTATI', recCruzT: 'INCROCI RIFIUTATI DAL POTE O ASSENTI · {N}', recCruzLeg: 'Non sono oggetti del pote: non si leggono come risultato. Il motivo è quello che il pote ha scritto.',
+      refT: 'referenza ADAMA', refReg: 'registro del', refChk: 'ultima verifica', refNs: 'NON SO — la porta della referenza non ha letto',
+      frescor: { FRESCA: 'aggiornata', PODE_ESTAR_DESATUALIZADO: 'PUÒ ESSERE NON AGGIORNATO', AUTORIZACAO_A_CONFIRMAR: 'AUTORIZZAZIONE DA CONFERMARE' },
+      refDecl: 'uso dichiarato a livello di prodotto (spettro · DECLARACAO_DE_PRODUTO): da confermare, mai «autorizzato»',
+      liT: 'PRODOTTO DI STRUMENTO · {NOME} — non è una corsa della Intelligence',
+      liSnap: 'istantanea del registro', liRun: 'esecuzione dello strumento', liSelo: 'sigillo', liN: 'registri',
+      liNs: 'NON SO — il prodotto dello strumento non corrisponde al registro pubblicato: le etichette non sono mostrate',
+      radarT: '{N} OPPORTUNITÀ DIFENDIBILI IN QUESTA CORSA', radarEx: 'ESEMPIO · perché zero non è un difetto', radarVer: 'la sonda completa è nelle Finestre Colturali',
+      agT: 'AGENDA · EVENTI DATATI — non è il Radar Futuro', agLeg: 'Fatti sul futuro senza chiave di dominio provata (coltura, avversità, sostanza, prodotto, registro): solo data e luogo.',
+      futT: 'FATTI PRESENTI SUL FUTURO CON CHIAVE DI DOMINIO PROVATA · {N}', futVazio: 'Nessun fatto sul futuro di questa corsa porta una chiave di dominio provata: zero qui non prova assenza nel mondo.',
+      selo: 'LEGADO 07/09 · SENZA FINESTRA PROVATA — acceso dal proprietario ({B}); non è di questa corsa',
+      fechado: 'NON SO · questa scheda legge il modello precedente (V2.1 + demo), che con il pote pubblicato resta spento ({B} = false). Il pote non ha un oggetto per questa scheda.',
+      semPote: 'NON SO · il pote pubblicato non è arrivato (o è stato rifiutato): niente demo e niente istantanea al suo posto.',
+      buscaT: 'oggetti del pote'
     },
     en: {
       faixa: 'PUBLISHED BY OWNER DECISION {D} · {DATA} — Intelligence run {R}. The data stay EXPERIMENTAL: read them as an experiment, not as a recommendation.',
@@ -56,7 +102,23 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
       lacT: 'GAPS OF THE RUN', lacLeg: 'requirements that block a question: the datum is missing, not zero',
       novasT: 'WHAT THE 38 NEW ITEMS ADDED', sinais: 'dated signals of the 38 new items', idade: 'minimum age (days)',
       d112T: 'PLACE ONLY FROM THE WRITTEN TEXT (D112)', campoT: 'Field Sales Network · SIMULATED — the simulation is not shown',
-      campoTx: 'This view stood on SIMULATED people and messages. With the published pot, it shows what the pot writes:'
+      campoTx: 'This view stood on SIMULATED people and messages. With the published pot, it shows what the pot writes:',
+      prov: 'PROVISIONAL ID (D119: stable identity still under research)',
+      cruzPoteT: 'CROSSINGS THAT ARE POT OBJECTS · {N} of {T}', cruzPoteLeg: 'Only these carry the proof the pot requires. The others stay in the «refused» tab, with the reason.',
+      abaPote: 'IN THE POT', abaRec: 'REFUSED', recCruzT: 'CROSSINGS REFUSED BY THE POT OR ABSENT · {N}', recCruzLeg: 'They are not pot objects: do not read them as a result. The reason is the one the pot wrote.',
+      refT: 'ADAMA reference', refReg: 'register of', refChk: 'last check', refNs: 'DO NOT KNOW — the reference gateway did not read',
+      frescor: { FRESCA: 'fresh', PODE_ESTAR_DESATUALIZADO: 'MAY BE OUT OF DATE', AUTORIZACAO_A_CONFIRMAR: 'AUTHORISATION TO BE CONFIRMED' },
+      refDecl: 'use declared at product level (spectrum · DECLARACAO_DE_PRODUTO): to be confirmed, never «authorised»',
+      liT: 'TOOL PRODUCT · {NOME} — not an Intelligence run',
+      liSnap: 'register snapshot', liRun: 'tool run', liSelo: 'seal', liN: 'records',
+      liNs: 'DO NOT KNOW — the tool product does not match the published record: labels are not shown',
+      radarT: '{N} DEFENSIBLE OPPORTUNITIES IN THIS RUN', radarEx: 'EXAMPLE · why zero is not a defect', radarVer: 'the full probe is in Crop Windows',
+      agT: 'AGENDA · DATED EVENTS — not the Future Radar', agLeg: 'Facts about the future with no proven domain key (crop, pest, substance, product, registration): only date and place.',
+      futT: 'PRESENT FACTS ABOUT THE FUTURE WITH A PROVEN DOMAIN KEY · {N}', futVazio: 'No fact about the future in this run carries a proven domain key: zero here does not prove absence in the world.',
+      selo: 'LEGACY 07/09 · NO WINDOW PROVEN — switched on by the owner ({B}); not from this run',
+      fechado: 'DO NOT KNOW · this page reads the previous model (V2.1 + demo), which stays off with the published pot ({B} = false). The pot has no object for this page.',
+      semPote: 'DO NOT KNOW · the published pot did not arrive (or was refused): no demo and no snapshot in its place.',
+      buscaT: 'pot objects'
     }
   };
 
@@ -186,39 +248,115 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     ((pote.COMPARTIMENTOS.portfolio || {}).OBJETOS || []).forEach(function (o) { noPote[o.OBJETO_ID] = true; });
     (pote.RECUSADOS || []).forEach(function (r) { if (r.COMPARTIMENTO === 'portfolio') recusa[r.OBJETO_ID] = r; });
     var R = A.CROSSINGS_RESUMO || {};
+    var porEstado = {};
+    ESTADOS.forEach(function (E) { porEstado[E.k] = E; });
+    function linha(c) {
+      var E = porEstado[c.ESTADO_R7] || { k: c.ESTADO_R7, marca: '', it: txt(c.ESTADO_R7), en: txt(c.ESTADO_R7), color: AMBAR, traco: 'dashed' };
+      var F = c.FONTE || {}, I = c.INTERPRETACAO || {}, LO = F.LOCAL || {};
+      var r = recusa[c.OBJETO_ID];
+      var candidata = c.VIA === 'EXTENSAO_DECLARADA';
+      var dentro = !!noPote[c.OBJETO_ID];
+      return {
+        /* O estado vai LITERAL ao lado do nome: e o codigo que a Intelligence escreveu. */
+        id: txt(c.OBJETO_ID), prov: T.prov, estado: E.k, estadoNome: E[lang] + ' · ' + txt(c.ESTADO_R7), color: E.color, traco: E.traco,
+        marca: E.marca, temMarca: !!E.marca, noPote: dentro,
+        via: candidata ? T.viaC : T.viaP, viaCodigo: txt(c.VIA), candidata: candidata,
+        viaColor: candidata ? AMBAR : CINZA,
+        pote: dentro ? T.nel : (r ? T.rif + ' · ' + txt(r.MOTIVO) + ': ' + txt(r.DETALHE) : T.fuori),
+        motivo: dentro ? '' : (r ? txt(r.MOTIVO) : 'AUSENTE_DO_POTE'),
+        poteColor: dentro ? BRANCO : AMBAR,
+        chaves: [par(T.sost, c.SUBSTANCIA), par(rotulo('SOURCE_ID', lang), c.SOURCE_ID), par(T.colDoc, F.CULTURA_NO_READY),
+          par(T.ent, I.ENTITY_SOURCE_DA_CULTURA || F.ENTITY_SOURCE_DA_CULTURA),
+          par(T.luogo, txt(LO.FACT_LOCATION) + ' · ' + txt(LO.ESTADO)), par(T.colEt, c.CULTURAS_NO_ROTULO)],
+        produtos: T.prod + ': ' + txt(c.PRODUTOS_ADAMA),
+        interp: T.interp + ': X2 ' + txt(I.X2_CULTURAS_QUE_CASAM) + ' · X3 ' + txt(I.X3_NOMEADA_NO_TROCO_E_A_400) +
+          ' · X3w ' + txt(I.X3W_A_400_CARACTERES) + ' · X3h ' + txt(I.X3H_CABECALHO) + ' → ' + txt(I.ESTADO) +
+          ' · ' + (lang === 'en' ? 'before' : 'prima') + ' ' + txt(c.ANTES),
+        trechos: (F.TROCO_COM_A_SUBSTANCIA || []).map(function (t) { return { t: '«' + txt(t) + '»' }; }),
+        prova: prova(c.URL, c.PUBLISHED_AT, T),
+        sala: T.sala + ' ' + txt(c.SALA_CHAVE) + ' · RAW_OBSERVATION_ID ' + txt(c.RAW_OBSERVATION_ID),
+        naoE: T.naoE + ': ' + txt(c.NAO_E)
+      };
+    }
+    /* A TELA PRINCIPAL: so o que e objeto do pote (D97). A ordem e a da analise. */
+    var principais = C.filter(function (c) { return noPote[c.OBJETO_ID]; }).map(linha);
+    /* A ABA «RIFIUTATI»: o resto, agrupado pelo estado que a Intelligence lhe deu, cada um com o motivo. */
+    var fora = C.filter(function (c) { return !noPote[c.OBJETO_ID]; });
     var grupos = ESTADOS.map(function (E) {
-      var linhas = C.filter(function (c) { return c.ESTADO_R7 === E.k; }).map(function (c) {
-        var F = c.FONTE || {}, I = c.INTERPRETACAO || {}, LO = F.LOCAL || {};
-        var r = recusa[c.OBJETO_ID];
-        var candidata = c.VIA === 'EXTENSAO_DECLARADA';
-        return {
-          id: txt(c.OBJETO_ID), estado: E.k, estadoNome: E[lang], color: E.color, traco: E.traco,
-          marca: E.marca, temMarca: !!E.marca,
-          via: candidata ? T.viaC : T.viaP, viaCodigo: txt(c.VIA), candidata: candidata,
-          viaColor: candidata ? AMBAR : CINZA,
-          pote: noPote[c.OBJETO_ID] ? T.nel : (r ? T.rif + ' · ' + txt(r.MOTIVO) + ': ' + txt(r.DETALHE) : T.fuori),
-          poteColor: noPote[c.OBJETO_ID] ? BRANCO : AMBAR,
-          chaves: [par(T.sost, c.SUBSTANCIA), par(rotulo('SOURCE_ID', lang), c.SOURCE_ID), par(T.colDoc, F.CULTURA_NO_READY),
-            par(T.ent, I.ENTITY_SOURCE_DA_CULTURA || F.ENTITY_SOURCE_DA_CULTURA),
-            par(T.luogo, txt(LO.FACT_LOCATION) + ' · ' + txt(LO.ESTADO)), par(T.colEt, c.CULTURAS_NO_ROTULO)],
-          produtos: T.prod + ': ' + txt(c.PRODUTOS_ADAMA),
-          interp: T.interp + ': X2 ' + txt(I.X2_CULTURAS_QUE_CASAM) + ' · X3 ' + txt(I.X3_NOMEADA_NO_TROCO_E_A_400) +
-            ' · X3w ' + txt(I.X3W_A_400_CARACTERES) + ' · X3h ' + txt(I.X3H_CABECALHO) + ' → ' + txt(I.ESTADO) +
-            ' · ' + (lang === 'en' ? 'before' : 'prima') + ' ' + txt(c.ANTES),
-          trechos: (F.TROCO_COM_A_SUBSTANCIA || []).map(function (t) { return { t: '«' + txt(t) + '»' }; }),
-          prova: prova(c.URL, c.PUBLISHED_AT, T),
-          sala: T.sala + ' ' + txt(c.SALA_CHAVE) + ' · RAW_OBSERVATION_ID ' + txt(c.RAW_OBSERVATION_ID),
-          naoE: T.naoE + ': ' + txt(c.NAO_E)
-        };
-      });
-      return { k: E.k, titulo: E[lang] + ' · ' + linhas.length, color: E.color, linhas: linhas, tem: linhas.length > 0 };
+      var linhas = fora.filter(function (c) { return c.ESTADO_R7 === E.k; }).map(linha);
+      return { k: E.k, titulo: E[lang] + ' · ' + E.k + ' · ' + linhas.length, color: E.color, linhas: linhas, tem: linhas.length > 0 };
     });
+    var porMotivo = {};
+    fora.forEach(function (c) { var r = recusa[c.OBJETO_ID]; var k = r ? txt(r.MOTIVO) : 'AUSENTE_DO_POTE'; porMotivo[k] = (porMotivo[k] || 0) + 1; });
     var porVia = R.POR_VIA || {};
     return {
-      titulo: T.cruzT.replace('{N}', txt(R.TOTAL)), pergunta: T.cruzQ, legenda: T.cruzLeg,
+      titulo: T.cruzPoteT.replace('{N}', String(principais.length)).replace('{T}', txt(R.TOTAL)),
+      pergunta: T.cruzQ, legenda: T.cruzLeg, legendaPote: T.cruzPoteLeg,
+      principais: principais, temPrincipais: principais.length > 0, nPrincipais: principais.length,
+      abaPote: T.abaPote + ' · ' + principais.length, abaRec: T.abaRec + ' · ' + fora.length,
+      recTitulo: T.recCruzT.replace('{N}', String(fora.length)), recLegenda: T.recCruzLeg, nRecusados: fora.length,
+      recMotivos: Object.keys(porMotivo).map(function (k) { return par(k, porMotivo[k]); }),
       resumo: ESTADOS.map(function (E) { return { k: E.k, n: txt((R.POR_ESTADO || {})[E.k]), nome: E[lang], color: E.color }; }),
       vias: [par(T.viaP, porVia.PILOTO), par(T.viaC, porVia.EXTENSAO_DECLARADA)],
       grupos: grupos
+    };
+  }
+
+  /* O CARIMBO DA REFERENCIA · as datas sao as da porta (publicado.REFERENCIA_ADAMA); esta funcao so as
+     escreve em dd/mm. Porta que nao leu = NAO SEI em ambar, nunca uma data. */
+  function ddmm(v) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(txt(v)); return m ? m[3] + '/' + m[2] : NAO_SEI; }
+  function carimboRef(pub, T) {
+    var R = (pub && pub.REFERENCIA_ADAMA) || {};
+    if (R.ESTADO !== 'LIDA') return { lida: false, texto: T.refT + ': ' + T.refNs + (R.PORQUE ? ' (' + txt(R.PORQUE) + ')' : ''), color: AMBAR, decl: T.refDecl, frescor: NAO_SEI };
+    var f = txt(R.ESTADO_FRESCOR);
+    return {
+      lida: true, frescor: f,
+      texto: T.refT + ': ' + T.refReg + ' ' + ddmm(R.DATA_DA_EDICAO_REGISTRO) + ', ' + T.refChk + ' ' + ddmm(R.ULTIMA_CHECAGEM_OK) +
+        ', ' + ((T.frescor || {})[f] || f) + ' · ' + f + ' · ' + txt(R.EDICAO_REGISTRO),
+      color: f === 'FRESCA' ? BRANCO : AMBAR, decl: T.refDecl
+    };
+  }
+
+  /* A LABEL INTELLIGENCE COMO PRODUTO DE FERRAMENTA · registada pelo publicador. So se desenha se o
+     payload carregado for o do registo (o mesmo selo); senao NAO SEI. */
+  function labelFerramenta(pub, T) {
+    var LI = pub && pub.LABEL_INTELLIGENCE;
+    if (!LI) return null;
+    var W = (typeof window !== 'undefined') ? window : {};
+    var carregado = ((W.ITALY_LABEL_INTELLIGENCE || {}).PRODUCED_BY || {}).CONTENT_SHA256;
+    var confere = !!carregado && carregado === LI.CONTENT_SHA256;
+    var S = LI.SNAPSHOT || {}, N = LI.CONTAGENS || {};
+    var dd = /^(\d{4})(\d{2})(\d{2})$/.exec(txt(S.DATA_DATE));
+    var R = (pub.REFERENCIA_ADAMA) || {};
+    var f = txt(LI.ESTADO_FRESCOR);
+    return {
+      confere: confere, naoConfere: !confere, ns: T.liNs,
+      titulo: T.liT.replace('{NOME}', txt(LI.NOME)),
+      meta: [par(T.liSnap, (dd ? dd[3] + '/' + dd[2] : NAO_SEI) + ' · ' + txt(S.DATA_SNAPSHOT_ID)),
+        par(T.refChk, LI.EDICAO_E_A_DA_PORTA ? ddmm(LI.ULTIMA_CHECAGEM_OK) : NAO_SEI),
+        { k: 'ESTADO_FRESCOR', v: ((T.frescor || {})[f] || f) + ' · ' + f, color: f === 'FRESCA' ? BRANCO : AMBAR },
+        par(T.liRun, txt(LI.FERRAMENTA) + ' · ' + txt(LI.RUN)),
+        par(T.liSelo, txt(LI.CONTENT_SHA256).slice(0, 16) + '…'),
+        par(T.liN, N)],
+      decl: T.refDecl, lei: txt(LI.LEI), nProdutos: typeof N.products === 'number' ? N.products : NAO_SEI,
+      mesmaEdicao: R.EDICAO_REGISTRO === S.DATA_SNAPSHOT_ID
+    };
+  }
+
+  /* O RADAR · «0» e contado: as OPORTUNIDADE do compartimento meeting do pote. O exemplo e a sonda da
+     analise tal como a Intelligence a julgou (RESULTADO, WINDOW_OPEN_NOW, ACT_NOW). */
+  function radar(pub, pote, T) {
+    var e = pote.COMPARTIMENTOS.meeting || {};
+    var n = (e.OBJETOS || []).filter(function (o) { return o.ESPECIE === 'OPORTUNIDADE'; }).length;
+    var J = (((pub.ANALISE || {}).CORTE_VERTICAL) || {}).JULGAMENTO_DA_SONDA || {};
+    return {
+      n: n, titulo: T.radarT.replace('{N}', String(n)),
+      porque: txt(e.PORQUE_VAZIO) + ' — ' + txt(e.PORQUE_TEXTO), temPorque: !!e.PORQUE_VAZIO,
+      exTitulo: T.radarEx, pergunta: txt(J.PERGUNTA), temExemplo: !!J.RESULTADO,
+      resultado: rotulo('RESULTADO', T.lg) + ': ' + valor(J.RESULTADO),
+      juizo: [par(rotulo('WINDOW_OPEN_NOW', T.lg), J.WINDOW_OPEN_NOW), par(rotulo('ACT_NOW', T.lg), J.ACT_NOW),
+        par(T.itens, J.ITENS_COM_O_PAR), par(T.apoios, J.APOIOS_VALIDOS), par(T.fora, J.PORQUE_FICARAM_FORA)],
+      ver: T.radarVer
     };
   }
 
@@ -266,10 +404,13 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
   }
 
   var VAZIOS = {
-    cruz: { titulo: '', pergunta: '', legenda: '', resumo: [], vias: [], grupos: [] },
+    cruz: { titulo: '', pergunta: '', legenda: '', legendaPote: '', principais: [], temPrincipais: false, nPrincipais: 0,
+      abaPote: '', abaRec: '', recTitulo: '', recLegenda: '', nRecusados: 0, recMotivos: [], resumo: [], vias: [], grupos: [] },
     sonda: { titulo: '', pergunta: '', execucao: '', juizo: [], itens: [] },
     fontes: { lacTitulo: '', lacLegenda: '', lacPorFalta: [], lacExemplo: '', novasTitulo: '', novas: [],
-      sinaisTitulo: '', sinais: [], d112Titulo: '', d112: [] }
+      sinaisTitulo: '', sinais: [], d112Titulo: '', d112: [] },
+    radar: { n: 0, titulo: '', porque: '', temPorque: false, exTitulo: '', pergunta: '', temExemplo: false, resultado: '', juizo: [], ver: '' },
+    ref: { lida: false, texto: '', color: BRANCO, decl: '', frescor: '' }
   };
 
   /* A vista da publicacao para UMA rota. `null` = nada a acrescentar (sem publicacao, pote de outra corrida,
@@ -291,10 +432,47 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     v.temCruz = comp === 'portfolio'; v.cruz = v.temCruz ? cruzamentos(pub, pote, T, lg) : VAZIOS.cruz;
     v.temSonda = comp === 'windows'; v.sonda = v.temSonda ? sonda(pub, T) : VAZIOS.sonda;
     v.temFontes = comp === 'sources'; v.fontes = v.temFontes ? fontes(pub, pote, T) : VAZIOS.fontes;
+    v.temRadar = comp === 'meeting'; v.radar = v.temRadar ? radar(pub, pote, T) : VAZIOS.radar;
+    v.temRef = comp === 'portfolio'; v.ref = v.temRef ? carimboRef(pub, T) : VAZIOS.ref;
     v.temCampo = comp === 'field';
     v.campo = { titulo: T.campoT, texto: T.campoTx, estado: txt(e.ESTADO) + ' · ' + txt(e.PORQUE_VAZIO), porque: txt(e.PORQUE_TEXTO) };
     return v;
   }
 
-  return { vm: vm, ESTADOS: ESTADOS, rotulo: rotulo, valor: function (v, lang) { LG = lang === 'en' ? 'en' : 'it'; return valor(v); } };
+  /* OBJETOS DISTINTOS · o mesmo objeto em duas gavetas (ex.: um fato sobre o futuro que tambem esta no
+     Archivio) e UM objeto. Soma de gavetas nunca e contagem. */
+  function distintos(pote) {
+    var vistos = {};
+    Object.keys((pote && pote.COMPARTIMENTOS) || {}).forEach(function (k) {
+      (pote.COMPARTIMENTOS[k].OBJETOS || []).forEach(function (o) { vistos[o.OBJETO_ID] = true; });
+    });
+    return Object.keys(vistos).length;
+  }
+
+  /* A BUSCA COM O POTE · procura so nos objetos do pote (um resultado por objeto distinto), no que o pote
+     escreve: id, especie, chaves, porque, e a prova (fonte, documento, URL). Devolve a gaveta onde o objeto
+     aparece primeiro, na ordem dos doze compartimentos. */
+  function busca(pote, q) {
+    var dobrar = function (x) { return String(x == null ? '' : x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); };
+    var Q = dobrar(q).trim();
+    if (Q.length < 2 || !pote || !pote.COMPARTIMENTOS) return [];
+    var vistos = {}, out = [];
+    Object.keys(pote.COMPARTIMENTOS).forEach(function (k) {
+      (pote.COMPARTIMENTOS[k].OBJETOS || []).forEach(function (o) {
+        if (vistos[o.OBJETO_ID]) return;
+        var prov = (o.PROVA || []).map(function (p) { return [p.SOURCE_ID, p.DOCUMENT_ID, p.URL, p.FACT_TIME].join(' '); }).join(' ');
+        var palheiro = dobrar([o.OBJETO_ID, o.ESPECIE, JSON.stringify(o.CHAVES || {}), JSON.stringify(o.FORA_DO_CONTRATO || {}), o.PORQUE, prov].join(' '));
+        if (palheiro.indexOf(Q) < 0) return;
+        vistos[o.OBJETO_ID] = true;
+        out.push({ compartimento: k, objeto: o });
+      });
+    });
+    return out;
+  }
+
+  return { vm: vm, ESTADOS: ESTADOS, rotulo: rotulo, valor: function (v, lang) { LG = lang === 'en' ? 'en' : 'it'; return valor(v); },
+    BANDEIRAS: BANDEIRAS, bandeira: bandeira, DOMINIO: DOMINIO, chavesDeDominio: chavesDeDominio,
+    distintos: distintos, busca: busca, carimboRef: function (pub, lang) { return carimboRef(pub, L[lang === 'en' ? 'en' : 'it']); },
+    labelFerramenta: function (pub, lang) { var lg = lang === 'en' ? 'en' : 'it'; return labelFerramenta(pub, Object.assign({ lg: lg }, L[lg])); },
+    textos: function (lang) { return L[lang === 'en' ? 'en' : 'it']; } };
 })();

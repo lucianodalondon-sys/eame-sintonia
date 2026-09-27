@@ -63,6 +63,10 @@ function montar(search = '', mexer = null) {
 
 const ROTAS = ['meeting', 'radarfuturo', 'future', 'archive', 'windows', 'market', 'voices', 'competitors',
   'science', 'portfolio', 'etichette', 'sources'];
+/* AJUSTE DECLARADO (missao CASCO-HOJE-MINIMO-HONESTO, item 2): #etichette e a Label Intelligence como PRODUTO
+   DE FERRAMENTA (registada pelo publicador, com a data do snapshot), nao o compartimento portfolio do pote. As
+   provas que exigem o pote numa rota passam a correr nas outras onze; #etichette tem prova propria abaixo. */
+const ROTAS_POTE = ROTAS.filter((r) => r !== 'etichette');
 
 /* ── Q1 · o publicado e o dos insumos ────────────────────────────────────── */
 {
@@ -89,9 +93,18 @@ const ROTAS = ['meeting', 'radarfuturo', 'future', 'archive', 'windows', 'market
   prova('Q2 o publicado NAO esta em nenhuma tranca (e ele que vai ao ar)',
     ![gi, vi, cvi].some((l) => l.some((x) => /sintonia-pote-publica/.test(x))));
   const rastreados = spawnSync('git', ['ls-files'], { cwd: RAIZ, encoding: 'utf8' }).stdout.split('\n');
-  prova('Q2 o gerador do pote e as pastas PARA-O-CASCO nao entram no ramo',
-    !rastreados.includes('pacote/pote_intelligence_casco.py') && !rastreados.some((f) => /PARA-O-CASCO/.test(f)) &&
-    !rastreados.includes('italia-portale/client/sintonia-pote.js'));
+  /* AJUSTE DECLARADO (missao CASCO-HOJE-MINIMO-HONESTO): a missao manda trazer por merge a linha de servico
+     (claude/single-reference-gateway-hhhj7t), e o gerador do pote vive nela — `pacote/pote_intelligence_casco.py`
+     passou a estar no ramo por ordem do dono, e a missao autoriza mexer nele. A lei que esta prova guarda e
+     «so ESTE pote vai AO AR»: continua medida, agora no sitio certo — o gerador nao e servido (vive fora de
+     italia-portale/client, que e o unico diretorio publicado) e o pote local e as PARA-O-CASCO continuam fora
+     do ramo. */
+  const VJ = JSON.parse(ler('vercel.json'));
+  prova('Q2 o gerador do pote nao e servido; as pastas PARA-O-CASCO e o pote local nao entram no ramo',
+    !rastreados.some((f) => f.startsWith('italia-portale/client/') && /pote_intelligence_casco/.test(f)) &&
+    String(VJ.outputDirectory || '').replace(/\/$/, '') === 'italia-portale/client' &&
+    !rastreados.some((f) => /PARA-O-CASCO/.test(f)) && !rastreados.includes('italia-portale/client/sintonia-pote.js'),
+    'outputDirectory=' + VJ.outputDirectory);
   const semCom = HTML.replace(/<!--[\s\S]*?-->/g, '');
   const i = (f) => semCom.indexOf(`<script src="${f}"></script>`);
   prova('Q2 portale.html carrega publicado -> leitor -> publicacao, nessa ordem',
@@ -107,23 +120,39 @@ const V = (view, lang = 'it') => M.vals({ view, lang });
 
 /* ── Q3 · toda ferramenta desenha o pote, com a faixa ───────────────────── */
 for (const lang of ['it', 'en']) {
-  const x = ROTAS.map((r) => [r, V(r, lang)]);
-  prova(`Q3 [${lang}] as 12 rotas de ferramenta leem o pote e a publicacao`,
+  const x = ROTAS_POTE.map((r) => [r, V(r, lang)]);
+  prova(`Q3 [${lang}] as 11 rotas de ferramenta (fora #etichette) leem o pote e a publicacao`,
     x.every(([, v]) => v.poteVista === true && v.potePubVista === true), x.filter(([, v]) => !v.potePubVista).map(([r]) => r).join(','));
   prova(`Q3 [${lang}] faixa D114 + EXPERIMENTAL em toda vista`,
     x.every(([, v]) => /D114/.test(v.potePub.faixa) && /EXPERIMENTAL/.test(v.potePub.faixa) && /EXPERIMENTAL/.test(v.pote.faixa)));
 }
+{
+  const e = V('etichette');
+  prova('Q3 #etichette desenha a Label Intelligence como PRODUTO DE FERRAMENTA, nao o pote',
+    e.temLabelFerramenta === true && e.poteVista === false && e.isEtichette === true && /PRODOTTO DI STRUMENTO/.test(e.labelFerramenta.titulo));
+}
 for (const r of ['sala', 'painel', 'search']) prova(`Q3 #${r} nao e ferramenta: a publicacao nao a toma`, V(r).potePubVista === false);
 
-/* ── Q4 · os 86 cruzamentos ──────────────────────────────────────────────── */
+/* ── Q4 · os 86 cruzamentos ──────────────────────────────────────────────
+   AJUSTE DECLARADO (missao CASCO-HOJE-MINIMO-HONESTO, item 1; D97): a tela PRINCIPAL do Portafoglio desenha
+   so os cruzamentos que SAO objeto do pote (2); os outros 84 vao para a aba «rifiutati», com o motivo. Nenhuma
+   prova de conteudo afrouxa: as mesmas asserções correm sobre a uniao das duas abas (86, cada um uma vez), e
+   ha provas novas sobre a separacao. */
 {
   const C = V('portfolio').potePub.cruz;
-  const todas = C.grupos.flatMap((g) => g.linhas);
-  prova('Q4 os 86 cruzamentos estao na tela', todas.length === 86 && ANALISE.CROSSINGS.length === 86);
+  const principais = C.principais;
+  const aba = C.grupos.flatMap((g) => g.linhas);
+  const todas = principais.concat(aba);
+  const noPote = new Set(POTE.COMPARTIMENTOS.portfolio.OBJETOS.map((o) => o.OBJETO_ID));
+  const recusa = new Set(POTE.RECUSADOS.filter((r) => r.COMPARTIMENTO === 'portfolio').map((r) => r.OBJETO_ID));
+  prova('Q4 a tela principal so tem os cruzamentos que sao objeto do pote (2)',
+    principais.length === 2 && principais.every((l) => noPote.has(l.id) && l.noPote === true) && noPote.size === 2);
+  prova('Q4 a aba «rifiutati» tem os outros 84, nenhum objeto do pote', aba.length === 84 && aba.every((l) => !noPote.has(l.id) && l.noPote === false));
+  prova('Q4 os 86 cruzamentos estao nas duas abas', todas.length === 86 && ANALISE.CROSSINGS.length === 86);
   prova('Q4 cada cruzamento aparece uma vez', new Set(todas.map((l) => l.id)).size === 86);
   const porId = Object.fromEntries(ANALISE.CROSSINGS.map((c) => [c.OBJETO_ID, c]));
-  prova('Q4 o estado desenhado e o ESTADO_R7 da Intelligence (nenhum recalculo)',
-    todas.every((l) => porId[l.id] && porId[l.id].ESTADO_R7 === l.estado));
+  prova('Q4 o estado desenhado e o ESTADO_R7 da Intelligence (nenhum recalculo), escrito LITERAL',
+    todas.every((l) => porId[l.id] && porId[l.id].ESTADO_R7 === l.estado && l.estadoNome.endsWith(l.estado)));
   const cont = {}; todas.forEach((l) => { cont[l.estado] = (cont[l.estado] || 0) + 1; });
   prova('Q4 contagem por estado = resumo da analise (5 / 29 / 48 / 4)',
     igual(Object.keys(cont).sort().map((k) => [k, cont[k]]), Object.keys(ANALISE.CROSSINGS_RESUMO.POR_ESTADO).sort().map((k) => [k, ANALISE.CROSSINGS_RESUMO.POR_ESTADO[k]])) &&
@@ -131,20 +160,20 @@ for (const r of ['sala', 'painel', 'search']) prova(`Q3 #${r} nao e ferramenta: 
   const sim = todas.filter((l) => l.temMarca);
   prova('Q4 so os 5 «sim a confirmar» levam a marca A CONFIRMAR',
     sim.length === 5 && sim.every((l) => l.marca === 'A CONFIRMAR' && l.estado === 'POSSIBLE_ANSWER_YES_A_CONFIRMAR'));
-  prova('Q4 os 5 «sim» sao os do relatorio (1209, 1221, 1223, 1228, 1229)',
-    igual(sim.map((l) => l.id.split('-')[2]).sort(), ['1209', '1221', '1223', '1228', '1229']));
+  prova('Q4 os 5 «sim» sao os do relatorio (1209, 1221, 1223, 1228, 1229) — e estao na aba rifiutati',
+    igual(sim.map((l) => l.id.split('-')[2]).sort(), ['1209', '1221', '1223', '1228', '1229']) && sim.every((l) => !noPote.has(l.id)));
   prova('Q4 o «sim» nunca tem a forma da oportunidade (verde): amarelo tracejado',
     sim.every((l) => l.traco === 'dashed' && l.color === '#F5B317'));
   prova('Q4 fonte candidata marcada como candidata (VIA = EXTENSAO_DECLARADA), e so ela',
     todas.every((l) => (porId[l.id].VIA === 'EXTENSAO_DECLARADA') === /CANDIDATA/.test(l.via)) &&
     todas.filter((l) => /CANDIDATA/.test(l.via)).length === 47);
-  const noPote = new Set(POTE.COMPARTIMENTOS.portfolio.OBJETOS.map((o) => o.OBJETO_ID));
-  const recusa = new Set(POTE.RECUSADOS.filter((r) => r.COMPARTIMENTO === 'portfolio').map((r) => r.OBJETO_ID));
   prova('Q4 cada cruzamento diz o que o pote fez com ele (2 objetos, 80 recusados, 4 ausentes)',
     todas.filter((l) => noPote.has(l.id)).every((l) => /NEL POTE/.test(l.pote)) &&
     todas.filter((l) => recusa.has(l.id)).every((l) => /RIFIUTATO/.test(l.pote) && /DOCUMENT_ID|G0/.test(l.pote)) &&
     todas.filter((l) => !noPote.has(l.id) && !recusa.has(l.id)).length === 4 &&
     todas.filter((l) => !noPote.has(l.id) && !recusa.has(l.id)).every((l) => /ASSENTE/.test(l.pote)));
+  prova('Q4 a aba rifiutati conta os motivos que o pote escreveu (79 PROVA_INCOMPLETA · 1 G0 · 4 ausentes)',
+    igual(Object.fromEntries(C.recMotivos.map((m) => [m.k, Number(m.v)])), { ITEM_BLOQUEADO_EM_G0: 1, PROVA_INCOMPLETA: 79, AUSENTE_DO_POTE: 4 }));
   prova('Q4 a prova de cada cruzamento: URL http(s) como link e data de publicacao (NAO SEI em destaque)',
     todas.every((l) => l.prova.temUrl && l.prova.url === porId[l.id].URL) &&
     todas.every((l) => (porId[l.id].PUBLISHED_AT === 'NAO SEI') === (l.prova.pubColor === '#F5B317')) &&
@@ -152,18 +181,22 @@ for (const r of ['sala', 'painel', 'search']) prova(`Q3 #${r} nao e ferramenta: 
   prova('Q4 NAO SEI do lugar continua NAO SEI, em destaque',
     todas.every((l) => { const c = l.chaves.find((k) => k.k === 'luogo'); return !/NAO SEI/.test(c.v) || c.color === '#F5B317'; }));
   prova('Q4 cada cruzamento diz o que NAO e (OPPORTUNITY · RECOMENDACAO)', todas.every((l) => /OPPORTUNITY/.test(l.naoE)));
+  prova('Q4 cada id de cruzamento leva a marca PROVVISORIO (D119)', todas.every((l) => /PROVVISORIO/.test(l.prov) && /D119/.test(l.prov)));
   prova('Q4 dentro de cada estado a ordem e a da analise',
-    C.grupos.every((g) => igual(g.linhas.map((l) => l.id), ANALISE.CROSSINGS.filter((c) => c.ESTADO_R7 === g.k).map((c) => c.OBJETO_ID))));
+    C.grupos.every((g) => igual(g.linhas.map((l) => l.id), ANALISE.CROSSINGS.filter((c) => c.ESTADO_R7 === g.k && !noPote.has(c.OBJETO_ID)).map((c) => c.OBJETO_ID))) &&
+    igual(principais.map((l) => l.id), ANALISE.CROSSINGS.filter((c) => noPote.has(c.OBJETO_ID)).map((c) => c.OBJETO_ID)));
   prova('Q4 a leitura da publicacao nao ordena, nao pontua (sem sort/score/rank no codigo)',
     !/\.sort\(|score|rank|relevan/i.test(FONTE['sintonia-pote-publicacao.js'].replace(/\/\*[\s\S]*?\*\//g, '')));
-  prova('Q4 a Label Intelligence (etichette) le os mesmos 86', V('etichette').potePub.cruz.grupos.flatMap((g) => g.linhas).length === 86);
+  const x = V('portfolio');
+  prova('Q4 por omissao a aba aberta e a do pote; «rifiutati» so por clique', x.cruzAbaPote === true && x.cruzAbaRec === false);
+  prova('Q4 a Label Intelligence (etichette) nao rele os 86: e produto de ferramenta', V('etichette').potePubVista === false);
 }
 
 /* ── Q5 · recusados visiveis ─────────────────────────────────────────────── */
 {
   let soma = 0, ok = true, det = '';
   const vistos = new Set();
-  for (const r of ROTAS) {
+  for (const r of ROTAS_POTE) {
     const x = V(r); const comp = x.pote.comp.codigo;
     const esperado = POTE.RECUSADOS.filter((q) => q.COMPARTIMENTO === comp);
     if (x.potePub.rec.linhas.length !== esperado.length) { ok = false; det = `${r}: ${x.potePub.rec.linhas.length} != ${esperado.length}`; }
@@ -192,13 +225,24 @@ for (const r of ['sala', 'painel', 'search']) prova(`Q3 #${r} nao e ferramenta: 
   const x = V('meeting');
   prova('Q7 o relogio diz a data da copia da Sala (27 SET 2026 18:30 UTC), nao um «oggi»',
     x.sideClock === 'DATI AL · 27 SET 2026 18:30 UTC' && !/OGGI|TODAY/.test(x.sideClock));
-  const conta = (route) => { const k = M.ctx.SINTONIA_POTE_CASCO.compartimentoDaVista(POTE, route); return k ? POTE.COMPARTIMENTOS[k].OBJETOS.length : ''; };
+  /* AJUSTE DECLARADO (missao CASCO-HOJE-MINIMO-HONESTO, itens 2, 5 e 6): #etichette conta os produtos da
+     ferramenta registada (166, o payload selado); #radarfuturo conta so os fatos com chave de dominio provada
+     (a Agenda nao e radar); a barra lateral conta OBJETOS DISTINTOS (25, nunca a soma de 47 das gavetas) e
+     os cruzamentos que SAO objeto do pote (2, nunca os 86 da analise). */
+  const Qp = M.ctx.SINTONIA_POTE_PUBLICACAO;
+  const conta = (route) => {
+    if (route === 'etichette') return M.ctx.SINTONIA_POTE_PUBLICADO.LABEL_INTELLIGENCE.CONTAGENS.products;
+    const k = M.ctx.SINTONIA_POTE_CASCO.compartimentoDaVista(POTE, route);
+    if (!k) return '';
+    if (route === 'radarfuturo') return POTE.COMPARTIMENTOS[k].OBJETOS.filter((o) => Qp.chavesDeDominio(o).length > 0).length;
+    return POTE.COMPARTIMENTOS[k].OBJETOS.length;
+  };
   const itens = [].concat(x.nav, x.navEvidence, x.navIntegrationItems).filter((n) => n.route);
   prova('Q7 o menu conta os objetos do compartimento de cada rota',
     itens.length >= 10 && itens.every((n) => n.count === conta(n.route)), itens.map((n) => n.route + '=' + n.count).join(' '));
   prova('Q7 o Radar delle Opportunita conta 0, como o pote', x.nav.find((n) => n.route === 'meeting').count === 0);
-  prova('Q7 a barra lateral conta 47 objetos, 86 cruzamentos e 245 recusados',
-    igual(x.sideRows.slice(1).map((r) => r.v), [47, 86, 245]));
+  prova('Q7 a barra lateral conta 25 objetos distintos, 2 cruzamentos no pote e 245 recusados',
+    igual(x.sideRows.slice(1).map((r) => r.v), [25, 2, 245]), JSON.stringify(x.sideRows.slice(1).map((r) => r.v)));
 }
 
 /* ── Q8 · o SHA do pote contra o manifesto ───────────────────────────────
@@ -233,14 +277,20 @@ for (const r of ['sala', 'painel', 'search']) prova(`Q3 #${r} nao e ferramenta: 
     Object.values(p.COMPARTIMENTOS).forEach((e) => (e.OBJETOS || []).forEach((o) => (o.PROVA || []).forEach((q) => { q.INTELLIGENCE_RUN_ID = 'IR-outra-corrida'; })));
     ctx.SINTONIA_POTE = p; });
   const x = O.vals({ view: 'portfolio', lang: 'it' });
+  /* AJUSTE DECLARADO (missao CASCO-HOJE-MINIMO-HONESTO, item 6): a linha «incroci» deixou de ser o TOTAL da
+     analise R7 (que era NAO SEI para outra corrida) e passou a contar os cruzamentos que sao objeto do pote
+     CARREGADO. A lei desta prova continua: nada da analise R7 e herdado — o numero vem do pote da outra corrida. */
+  const outro = O.ctx.SINTONIA_POTE;
+  const cruzDoOutro = new Set(Object.values(outro.COMPARTIMENTOS).flatMap((e) => (e.OBJETOS || []).filter((o) => o.ESPECIE === 'CROSSING').map((o) => o.OBJETO_ID))).size;
   prova('Q9 pote de outra corrida: o leitor desenha-o, a publicacao R7 cala-se',
-    x.poteVista === true && x.potePubVista === false && x.sideRows[2].v === 'NAO SEI');
+    x.poteVista === true && x.potePubVista === false && x.sideRows[2].v === cruzDoOutro &&
+    x.sideRows[2].v !== ANALISE.CROSSINGS_RESUMO.TOTAL);
 }
 
 /* ── Q11 · codigo ao lado de um nome, titulo sem maiusculas (ADAMA) ─────── */
 {
   const semNome = [], caps = [];
-  for (const lang of ['it', 'en']) for (const r of ROTAS.concat(['field'])) {
+  for (const lang of ['it', 'en']) for (const r of ROTAS_POTE.concat(['field'])) {
     const x = V(r, lang);
     const t = r === 'field' ? x.potePub.campo.titulo : x.pote.titulo;
     if (!t || t === t.toUpperCase()) caps.push(lang + ':' + r + '=' + t);
@@ -280,11 +330,11 @@ for (const r of ['sala', 'painel', 'search']) prova(`Q3 #${r} nao e ferramenta: 
   const d = HTML.indexOf('<!-- ================= FIM DO POTE PUBLICADO', c);
   const bloco = HTML.slice(a, b) + HTML.slice(c, d);
   const soltas = new Set();
-  for (const view of ['portfolio', 'windows', 'sources', 'field', 'archive']) {
+  for (const view of ['portfolio', 'windows', 'sources', 'field', 'archive', 'meeting']) {
     const x = V(view); const P = x.potePub;
-    const gr = P.cruz.grupos[0] || {}; const lx = (gr.linhas || [])[0] || {};
+    const gr = P.cruz.grupos[0] || {}; const lx = (gr.linhas || [])[0] || P.cruz.principais[0] || {};
     const si = P.sonda.itens[0] || {}; const fi = P.fontes.sinais[0] || {};
-    const alias = { m: P.meta[0], e: P.cruz.resumo[0], gr, x: lx, c: (lx.chaves || [])[0] || P.sonda.juizo[0] || P.fontes.novas[0],
+    const alias = { m: P.meta[0], e: P.cruz.resumo[0], gr, x: lx, c: (lx.chaves || [])[0] || P.sonda.juizo[0] || P.fontes.novas[0] || P.radar.juizo[0],
       tr: (lx.trechos || [])[0] || { t: '' }, i: si, sn: fi, r: P.rec.linhas[0] || { id: '', motivo: '', detalhe: '' } };
     for (const mm of bloco.matchAll(/\{\{\s*([^}]+?)\s*\}\}/g)) {
       const expr = mm[1];

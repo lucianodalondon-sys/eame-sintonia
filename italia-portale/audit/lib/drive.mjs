@@ -62,9 +62,17 @@ const TEMPLATE_ATTR = /attribute (d|cx|cy|x|y|r|points|width|height|transform|vi
    respondido VAZIO, e o casco fica como estava antes de D114. Nao e um 404 — um
    404 seria contado como falha do site. O que vai ao ar por omissao e medido por
    quem NAO passa esta bandeira (audit/casco/pote-publicado-browser.mjs, PP1). */
-export async function open({ port = 8899, width = 1440, height = 1000, page: url = '/portale.html', semPotePublicado = false } = {}) {
+/* CASCO-HOJE-MINIMO-HONESTO · AJUSTE DECLARADO. Desde esta missao, pote esperado e ausente nao volta
+   para a demo: o casco diz NAO SEI (item 7 da missao). O legado so reaparece com as BANDEIRAS DO DONO
+   (sintonia-pote-publicacao.js), e selado. Os portoes que pedem `semPotePublicado` medem o legado — por
+   isso a mesma bandeira passa a ligar as duas, pela PAGINA (window.SINTONIA_BANDEIRAS antes de qualquer
+   script), nunca pelo endereco. Nenhuma assercao desses portoes muda. `bandeiras` deixa um portao pedir
+   um estado explicito (ex.: pote ausente COM as bandeiras desligadas, que e o que vai ao ar). */
+export async function open({ port = 8899, width = 1440, height = 1000, page: url = '/portale.html', semPotePublicado = false, bandeiras = null } = {}) {
   const browser = await chromium.launch({ executablePath: EXEC, args: ['--no-sandbox'] });
   const ctx = await browser.newContext({ viewport: { width, height }, acceptDownloads: true });
+  const B = bandeiras || (semPotePublicado ? { LEGADO_V21_VISIVEL: true, ITFC_LEGADO_VISIVEL: true } : null);
+  if (B) await ctx.addInitScript((b) => { window.SINTONIA_BANDEIRAS = b; }, B);
   if (semPotePublicado) {
     await ctx.route('**/sintonia-pote-publicado.js', (r) => r.fulfill({ status: 200,
       contentType: 'text/javascript; charset=utf-8', body: '/* sem pote publicado: o casco antes de D114 */\n' }));
