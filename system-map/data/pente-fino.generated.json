@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T12:02:53+00:00",
-    "HEAD": "554c1ec1bb232b8a3298e3cfb330c8de86413134",
+    "GENERATED_AT": "2026-09-27T15:58:56+00:00",
+    "HEAD": "8b8b6844257095830924937b296c5d908507fee2",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d11201a2f2f0d319001a5084d05ca4a4dbd3cf3e149fea2298ed0cce0cc997ab",
-    "FICHEIROS_NA_IMPRESSAO": 3922,
+    "SOURCE_TREE_FINGERPRINT": "8118caf3dd2f9f4f97063cebc6582fbb4258d11591d7036171474e710d0e5f43",
+    "FICHEIROS_NA_IMPRESSAO": 3937,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -104,7 +104,7 @@
       {
         "PATH": ".github/workflows/sintonia-scrap.yml",
         "PAPEL": "FONTE",
-        "VERSAO": "46871d88288b1d6c196858e66a58665092390333",
+        "VERSAO": "3ac3dc632cb0b58561c05d31808eb07e28928e43",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "workflows() · read_text"
       },
@@ -146,13 +146,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "d11201a2f2f0d319001a5084d05ca4a4dbd3cf3e149fea2298ed0cce0cc997ab",
+        "VERSAO": "8118caf3dd2f9f4f97063cebc6582fbb4258d11591d7036171474e710d0e5f43",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 20,
-    "INPUTS_DIGEST": "7177773f806586fc3cbb9e4f330b5d27c87565b78741b6616392d5ac15165791",
+    "INPUTS_DIGEST": "7eafb1c7e80757917832455c9b1cbf24238938c7cb3aa510211d0c9b5b3f1bcc",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -394,6 +394,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 3,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-ELEGIBILIDADE-COMENTARIO",
+      "nome": "A regua do comentario: este pai merece?",
+      "zona": "· PEDIDO — o contrato",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
       "estado": "yellow"
     },
     {
@@ -1010,9 +1022,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 71,
+    "pecas_da_coleta": 72,
     "respondem_as_quatro": 25,
-    "respondem_a_tres": 33,
+    "respondem_a_tres": 34,
     "respondem_a_duas": 10,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0

@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 24565,
-    "h": 9868
+    "h": 10190
   },
   "INVENTORY": {
     ".claude": [
@@ -69,6 +69,7 @@
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-CANONICAL-MICRO.md",
       "RELATORIO-CAPA-MATERIA.md",
+      "RELATORIO-COMENTARIOS-V1.md",
       "RELATORIO-CONTRATOS-AJUSTE.md",
       "RELATORIO-COORTE-MICRO.md",
       "RELATORIO-CUTOVER-ENSAIO.md",
@@ -2678,6 +2679,7 @@
       "pacote/v21_handoff_json.py"
     ],
     "pedido": [
+      "pedido/elegibilidade_comentario.py",
       "pedido/pedido.py",
       "pedido/receitas.py"
     ],
@@ -2827,6 +2829,18 @@
       "provas/censo_corpus_rotulado_admission.py",
       "provas/censo_executavel_da_v1.py",
       "provas/chain.py",
+      "provas/comentarios_bateria/MUTACAO-REGRAS-NO-8274af3.json",
+      "provas/comentarios_bateria/MUTACAO-REGRAS.json",
+      "provas/comentarios_bateria/MUTACAO-V1-REPETIDA.json",
+      "provas/comentarios_bateria/bateria-base-2ef6fef8.json",
+      "provas/comentarios_bateria/bateria-ramo-8274af3.json",
+      "provas/comentarios_bateria/bateria-ramo-corrigido.json",
+      "provas/comentarios_bateria/mutar_regras.py",
+      "provas/comentarios_v1/MUTACAO.json",
+      "provas/comentarios_v1/esperar_bateria.sh",
+      "provas/comentarios_v1/medir_comentarios_linkedin.py",
+      "provas/comentarios_v1/mutar.py",
+      "provas/comentarios_v1/testes_por_nome.py",
       "provas/conserto_regua_recalcular.py",
       "provas/consumo_da_referencia_adama.py",
       "provas/corrida_abortada_local.mjs",
@@ -3265,10 +3279,14 @@
       "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
       "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
       "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+      "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+      "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
       "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
       "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
       "scripts/lugar_fato/bateria_por_nome.py",
       "scripts/lugar_fato/medir_78.py",
+      "scripts/lugar_fato/medir_moldura_html.py",
+      "scripts/lugar_fato/mutar_data_do_fato.py",
       "scripts/lugar_fato/mutar_fato_do_texto.py",
       "scripts/lugar_fato/mutar_lei_do_tempo.py",
       "scripts/micro_coleta/COORTE-PROPOSTA.json",
@@ -3536,6 +3554,7 @@
       "tests/dados/c2-juiz/raw-1558.html",
       "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
       "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+      "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json",
       "tests/dados/item-social-ispra-porta.json",
       "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
       "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
@@ -3654,6 +3673,7 @@
       "tests/test_col_e7_contrato_do_texto.py",
       "tests/test_coleta_externa.py",
       "tests/test_coleta_resiliente.py",
+      "tests/test_comentarios_v1.py",
       "tests/test_competitor_layer.py",
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
@@ -3666,6 +3686,7 @@
       "tests/test_d24_video_de_pessoa.py",
       "tests/test_d36_envelope_equivalente.py",
       "tests/test_d37_campos_de_politica.py",
+      "tests/test_data_do_fato.py",
       "tests/test_dedup_video_social.py",
       "tests/test_egresso_consenso.py",
       "tests/test_ensaio_offline_micro.py",
@@ -3901,7 +3922,7 @@
     {
       "id": "coleta-sem-data-nem-lugar",
       "titulo": "21 coletores gravam registo sem data nem lugar.",
-      "texto": "18 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · extratores_de_texto.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · teto_da_onda.py · texto_fonte.py",
+      "texto": "19 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · extratores_de_texto.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · teto_da_onda.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/adaptador_linkedin.py",
@@ -4361,10 +4382,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/fix-fact-time-extraction-ylh1oj",
-    "HEAD": "554c1ec1bb232b8a3298e3cfb330c8de86413134",
-    "GENERATED_AT": "2026-09-26T20:15:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d11201a2f2f0d319001a5084d05ca4a4dbd3cf3e149fea2298ed0cce0cc997ab"
+    "BRANCH": "claude/comments-battery-tests-pt0d99",
+    "HEAD": "8b8b6844257095830924937b296c5d908507fee2",
+    "GENERATED_AT": "2026-09-27T15:54:39+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8118caf3dd2f9f4f97063cebc6582fbb4258d11591d7036171474e710d0e5f43"
   },
   "FAMILIES": [
     {
@@ -4374,7 +4395,7 @@
       "x": 260,
       "y": 60,
       "w": 23340,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -4392,7 +4413,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 110
+      "count": 111
     },
     {
       "id": "F-ESPERA",
@@ -4401,7 +4422,7 @@
       "x": 13865,
       "y": 60,
       "w": 485,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-ESPERA"
       ],
@@ -4414,7 +4435,7 @@
       "x": 14570,
       "y": 60,
       "w": 9735,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE",
@@ -4430,12 +4451,12 @@
       "x": 20045,
       "y": 60,
       "w": 2850,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 105
+      "count": 106
     },
     {
       "id": "F-ENTREGA",
@@ -4444,7 +4465,7 @@
       "x": 16395,
       "y": 60,
       "w": 3430,
-      "h": 9548,
+      "h": 9870,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -4466,7 +4487,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 1
     },
     {
@@ -4480,7 +4501,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 1
     },
     {
@@ -4495,8 +4516,8 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 9378,
-      "count": 2
+      "h": 9700,
+      "count": 3
     },
     {
       "id": "Z-ORQUESTRADOR",
@@ -4510,7 +4531,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 2
     },
     {
@@ -4525,7 +4546,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 3
     },
     {
@@ -4540,7 +4561,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 2
     },
     {
@@ -4555,7 +4576,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 3
     },
     {
@@ -4570,7 +4591,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 5
     },
     {
@@ -4586,7 +4607,7 @@
       "x": 5940,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 18
     },
     {
@@ -4602,7 +4623,7 @@
       "x": 7475,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 18
     },
     {
@@ -4618,7 +4639,7 @@
       "x": 9010,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 14
     },
     {
@@ -4634,7 +4655,7 @@
       "x": 10545,
       "y": 190,
       "w": 820,
-      "h": 9378,
+      "h": 9700,
       "count": 7
     },
     {
@@ -4649,7 +4670,7 @@
       "x": 11665,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 31
     },
     {
@@ -4664,7 +4685,7 @@
       "x": 13200,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 2
     },
     {
@@ -4679,7 +4700,7 @@
       "x": 13905,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 1
     },
     {
@@ -4695,7 +4716,7 @@
       "x": 14610,
       "y": 190,
       "w": 820,
-      "h": 9378,
+      "h": 9700,
       "count": 12
     },
     {
@@ -4711,7 +4732,7 @@
       "x": 15730,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 4
     },
     {
@@ -4727,7 +4748,7 @@
       "x": 16435,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 3
     },
     {
@@ -4743,7 +4764,7 @@
       "x": 17140,
       "y": 190,
       "w": 820,
-      "h": 9378,
+      "h": 9700,
       "count": 7
     },
     {
@@ -4759,7 +4780,7 @@
       "x": 18260,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 5
     },
     {
@@ -4774,7 +4795,7 @@
       "x": 18965,
       "y": 190,
       "w": 820,
-      "h": 9378,
+      "h": 9700,
       "count": 12
     },
     {
@@ -4790,7 +4811,7 @@
       "x": 20085,
       "y": 190,
       "w": 1235,
-      "h": 9378,
+      "h": 9700,
       "count": 18
     },
     {
@@ -4806,8 +4827,8 @@
       "x": 21620,
       "y": 190,
       "w": 1235,
-      "h": 9378,
-      "count": 87
+      "h": 9700,
+      "count": 88
     },
     {
       "id": "Z-REFERENCIA",
@@ -4822,7 +4843,7 @@
       "x": 23155,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 1
     },
     {
@@ -4837,7 +4858,7 @@
       "x": 23860,
       "y": 190,
       "w": 405,
-      "h": 9378,
+      "h": 9700,
       "count": 4
     }
   ],
@@ -5350,6 +5371,7 @@
         "C-DETECTOR-CAPA-GABARITO",
         "C-DIAGNOSTICO-SALA",
         "C-DUAS-PORTAS-MEDIDORES",
+        "C-ELEGIBILIDADE-COMENTARIO",
         "C-ESTRADA-PDF",
         "C-INT-ARBITRAGEM",
         "C-LASTMILE-MEDIDORES",
@@ -5877,8 +5899,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 731",
-        "desses, mostrados aqui: 40 (ficam de fora 691)"
+        "enderecos que o codigo realmente chama: 732",
+        "desses, mostrados aqui: 40 (ficam de fora 692)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -13151,9 +13173,10 @@
           "carimba_data": [],
           "carimba_lugar": [
             "COUNTRY",
+            "FACT_LOCATION",
             "SOURCE_LOCATION"
           ],
-          "separa_fonte_do_fato": false,
+          "separa_fonte_do_fato": true,
           "leis_que_obedece": [
             "proveniencia"
           ],
@@ -38319,6 +38342,7 @@
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
         "C-PROVA-CANARIO-REEL",
         "C-PROVA-COLETA",
+        "C-PROVA-COMENTARIOS",
         "C-PROVA-JANELA-FORMAS",
         "C-PROVA-PARIDADE",
         "C-PROVA-ROTAS-REAIS",
@@ -42544,10 +42568,11 @@
       ],
       "file_count": 4,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "coleta/instagram_coleta.py",
-        "coleta/instagram_janela.py"
+        "coleta/instagram_janela.py",
+        "coleta/instagram_pessoal.py"
       ],
       "produces": [],
       "inbound": [
@@ -42564,6 +42589,7 @@
       ],
       "outbound": [
         "C-PROVA-COLETA",
+        "C-PROVA-COMENTARIOS",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
@@ -45410,6 +45436,115 @@
       "y": 1648
     },
     {
+      "id": "C-ELEGIBILIDADE-COMENTARIO",
+      "name": "A regua do comentario: este pai merece?",
+      "territory": "Z-PEDIDO",
+      "kind": "engine",
+      "what": "COMMENT_COLLECTION_ELIGIBILITY (D106): julga o PAI antes do despacho (HIGH/MEDIUM/LOW/NO, e NAO_SEI quando falta vocabulario) com a regua do universo da Admissao e as entidades do matriz_recorte; so HIGH/MEDIUM com comentarios declarados colhem. Depois marca a amostra diversa com CONTROLE cru e os sinais da D107 — marca, nunca apaga.",
+      "why_here": "E o pedido que sabe o assunto e o recorte. O Scrap colhe o video que lhe nomeiam; sem esta regua, colher comentario seria colher tudo de todo pai.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◈",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "pedido/elegibilidade_comentario.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-LUGAR-COLETA",
+        "C-MAPA-TESTES",
+        "C-SCRAP-SOCIAL",
+        "C-V21-CRUZAMENTO"
+      ],
+      "outbound": [
+        "C-PROVA-COMENTARIOS",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "papel": "NAO SEI",
+      "papel_texto": "nao encaixa em nenhum papel conhecido do plano de controlo — e isso e uma resposta, nao um erro",
+      "papel_medido": {
+        "chama_subprocesso": false,
+        "assina_recibo": false,
+        "acessa_rede": false,
+        "grava": false,
+        "decide": false,
+        "valida": false,
+        "e_workflow": false,
+        "executa": false,
+        "executores_que_chama": 0
+      },
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "BALDES",
+          "PILOTO"
+        ],
+        "palavras": 26,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 26,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-COMENTARIOS",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/comentarios_bateria/mutar_regras.py:17",
+          "tests/test_comentarios_v1.py:22"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 1770,
+      "y": 360
+    },
+    {
       "id": "C-ESPECIE-DO-TEXTO",
       "name": "A auditoria da especie do texto — o que se suspeita, ao lado do que se sabe",
       "territory": "Z-PROVA",
@@ -46527,6 +46662,7 @@
         "C-EXECUTOR-TEXTO-HTML",
         "C-IMPORTAR",
         "C-LASTMILE-MEDIDORES",
+        "C-LUGAR-COLETA",
         "C-PROVA-ROTAS-REAIS",
         "C-RECEITAS",
         "C-RECORRENCIA",
@@ -50838,19 +50974,24 @@
         "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
         "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
         "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+        "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+        "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
         "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
         "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
         "scripts/lugar_fato/bateria_por_nome.py",
         "scripts/lugar_fato/medir_78.py",
+        "scripts/lugar_fato/medir_moldura_html.py",
+        "scripts/lugar_fato/mutar_data_do_fato.py",
         "scripts/lugar_fato/mutar_fato_do_texto.py",
         "scripts/lugar_fato/mutar_lei_do_tempo.py",
         "scripts/reproc_acervo/ACERVO-TEMPO-LUGAR-V1.json",
         "scripts/reproc_acervo/ENSAIO-034-DESCARTAVEL.json",
-        "scripts/reproc_acervo/prever_acervo.py"
+        "scripts/reproc_acervo/prever_acervo.py",
+        "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json"
       ],
-      "file_count": 19,
+      "file_count": 24,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-ADMISSAO, C-CONTRATO-ARTEFATO, C-INT-CORRIDA, C-LUGAR-V2.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-ADMISSAO, C-CONTRATO-ARTEFATO, C-ELEGIBILIDADE-COMENTARIO, C-INT-CORRIDA.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "leis/fato_local.py",
         "leis/lugar_do_fato.py"
@@ -50858,6 +50999,7 @@
       "produces": [],
       "inbound": [
         "C-CONTRATO-ARTEFATO",
+        "C-FONTES-EU",
         "C-INGRESSO",
         "C-IT-COLETA",
         "C-MAPA-TESTES",
@@ -50867,6 +51009,7 @@
       "outbound": [
         "C-ADMISSAO",
         "C-CONTRATO-ARTEFATO",
+        "C-ELEGIBILIDADE-COMENTARIO",
         "C-INT-CORRIDA",
         "C-LUGAR-V2",
         "C-ORQUESTRADOR",
@@ -50910,12 +51053,12 @@
           "TIPOS_DE_EVIDENCIA",
           "_DIAS_RAIZ"
         ],
-        "palavras": 711,
+        "palavras": 726,
         "por_lingua": {
           "IT": 17,
           "PT": 1
         },
-        "sem_marca_de_lingua": 693,
+        "sem_marca_de_lingua": 708,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -50925,6 +51068,18 @@
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
@@ -50940,7 +51095,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json e este mapa nao viu ninguem ler",
+      "rule_role_evidence": "escreve scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json e este mapa nao viu ninguem ler",
       "ROLE_MEASURED": "UNKNOWN",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "SEM_REGRA",
@@ -50957,6 +51112,8 @@
         "leis/artefato.py",
         "leis/fato_do_texto.py",
         "provas/testa_golden_path_pdf.py",
+        "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+        "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
         "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
         "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json"
       ],
@@ -50978,7 +51135,7 @@
           "ferramentas/lugar_v2/estimar_comuni.py:10",
           "ferramentas/lugar_v2/mutar_lugar_v2.py:10"
         ],
-        "PORQUE": "estas pecas importam-na — C-ADMISSAO · C-CONTRATO-ARTEFATO · C-INT-CORRIDA · C-LUGAR-V2 · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ADMISSAO · C-CONTRATO-ARTEFATO · C-ELEGIBILIDADE-COMENTARIO · C-INT-CORRIDA · C-LUGAR-V2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 20560,
       "y": 1326
@@ -51827,6 +51984,7 @@
         "C-DIAGNOSTICO",
         "C-DONO-DO-DOCUMENTO",
         "C-DUAS-PORTAS-MEDIDORES",
+        "C-ELEGIBILIDADE-COMENTARIO",
         "C-ESPECIE-DO-TEXTO",
         "C-ESTRADA-PDF",
         "C-ESTRADAS-IT",
@@ -51867,6 +52025,7 @@
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
         "C-PROVA-CANARIO-REEL",
         "C-PROVA-COLETA",
+        "C-PROVA-COMENTARIOS",
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-EXECUTOR-CONTA",
         "C-PROVA-FALA-QUALIDADE",
@@ -53168,7 +53327,7 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           ".github/workflows/comunicacao-publica.yml:139",
-          ".github/workflows/sintonia-scrap.yml:613",
+          ".github/workflows/sintonia-scrap.yml:618",
           "system-map/data/pedido-t4.observado.json:1"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
@@ -53964,7 +54123,7 @@
         "PORQUE": "estas pecas importam-na — C-MICRO-COLETA-INSTRUMENTO · C-ONDA-WEB · C-ORQUESTRADOR · C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 1770,
-      "y": 360
+      "y": 682
     },
     {
       "id": "C-PERSISTENCIA-DA-PORTA-CLI",
@@ -56085,7 +56244,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "provas/canario_d24_video_youtube_de_pessoa.py:72",
-          "tests/test_d24_video_de_pessoa.py:371"
+          "tests/test_d24_video_de_pessoa.py:379"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -56872,6 +57031,152 @@
       "y": 5190
     },
     {
+      "id": "C-PROVA-COMENTARIOS",
+      "name": "Provas do comentario (COMENTARIOS-V1 e BATERIA)",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "A bateria por NOME contra a base, a mutacao (as 14 da V1 e as 23 por regra: PUBLIC_ASSERTION, lugar do pai, sem lugar do comentarista, elegibilidade, controlo, sem rota paga) e a medicao de 1 pedido do JSON-LD do post publico do LinkedIn, que fica para a coordenacao.",
+      "why_here": "Uma regra do comentario que nenhum defeito plantado consegue quebrar sem um teste gritar e uma regra provada; as outras sao so escritas.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/comentarios_bateria/mutar_regras.py",
+        "provas/comentarios_v1/esperar_bateria.sh",
+        "provas/comentarios_v1/medir_comentarios_linkedin.py",
+        "provas/comentarios_v1/mutar.py",
+        "provas/comentarios_v1/testes_por_nome.py"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "teste que nao toca em nada do repositorio.",
+      "changed_since_declared": [],
+      "produces": [
+        "provas/comentarios_bateria/MUTACAO-REGRAS.json",
+        "provas/comentarios_v1/MUTACAO.json"
+      ],
+      "inbound": [
+        "C-ASK-SINTONIA",
+        "C-COLETA-INSTAGRAM",
+        "C-ELEGIBILIDADE-COMENTARIO",
+        "C-MAPA-TESTES",
+        "C-SCRAP-LEIS",
+        "C-SCRAP-SOCIAL",
+        "C-SINTONIA-SCRAP",
+        "C-TESTES"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ENV",
+          "MUTANTES",
+          "PY_TESTS"
+        ],
+        "palavras": 122,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 122,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "provas/comentarios_bateria",
+          "prova": {
+            "file": "provas/comentarios_bateria/mutar_regras.py",
+            "line": 150,
+            "snippet": "escreve em SAIDA"
+          }
+        },
+        {
+          "pasta": "provas/comentarios_v1",
+          "prova": {
+            "file": "provas/comentarios_v1/mutar.py",
+            "line": 121,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/comentarios_bateria/MUTACAO-REGRAS.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/comentarios_v1/MUTACAO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M6_ESCREVE_NUMA_PASTA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "escreve na pasta provas/comentarios_bateria (provas/comentarios_bateria/mutar_regras.py:150): produz dado",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: test` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve na pasta provas/comentarios_bateria (provas/comentarios_bateria/mutar_regras.py:150): produz dado) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        ".github/workflows/sintonia-scrap.yml",
+        "coleta/adaptador_linkedin.py",
+        "coleta/instagram_pessoal.py",
+        "coleta/social_envelope.py",
+        "coleta/youtube_oficial.py",
+        "ferramentas/c9/ensaio/antes.json",
+        "ferramentas/c9/ensaio/depois.json",
+        "leis/social_matriz.py",
+        "pedido/elegibilidade_comentario.py",
+        "superficie/rede.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 22510,
+      "y": 5190
+    },
+    {
       "id": "C-PROVA-CORTESIA",
       "name": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl",
       "territory": "Z-PROVA",
@@ -56983,8 +57288,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 5190
+      "x": 21680,
+      "y": 5512
     },
     {
       "id": "C-PROVA-CUTOVER",
@@ -57100,7 +57405,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 5512
     },
     {
@@ -57190,7 +57495,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 5512
     },
     {
@@ -57282,8 +57587,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 5512
+      "x": 21680,
+      "y": 5834
     },
     {
       "id": "C-PROVA-EXECUTOR-CONTA",
@@ -57362,7 +57667,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 5834
     },
     {
@@ -57481,7 +57786,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 5834
     },
     {
@@ -57576,8 +57881,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 5834
+      "x": 21680,
+      "y": 6156
     },
     {
       "id": "C-PROVA-FRONTEIRA",
@@ -57675,7 +57980,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 6156
     },
     {
@@ -57763,7 +58068,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 6156
     },
     {
@@ -57932,8 +58237,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
-      "y": 6156
+      "x": 21680,
+      "y": 6478
     },
     {
       "id": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
@@ -58023,7 +58328,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 6478
     },
     {
@@ -58136,7 +58441,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 6478
     },
     {
@@ -58273,8 +58578,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 6478
+      "x": 21680,
+      "y": 6800
     },
     {
       "id": "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -58387,7 +58692,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 6800
     },
     {
@@ -58475,7 +58780,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 6800
     },
     {
@@ -58625,8 +58930,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22510,
-      "y": 6800
+      "x": 21680,
+      "y": 7122
     },
     {
       "id": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -58741,7 +59046,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 7122
     },
     {
@@ -58841,7 +59146,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 7122
     },
     {
@@ -58937,8 +59242,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
-      "y": 7122
+      "x": 21680,
+      "y": 7444
     },
     {
       "id": "C-PROVA-RETRY-DO-SCRAP",
@@ -59026,7 +59331,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 7444
     },
     {
@@ -59148,7 +59453,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 7444
     },
     {
@@ -59251,8 +59556,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 7444
+      "x": 21680,
+      "y": 7766
     },
     {
       "id": "C-PROVA-ROTAS-REAIS",
@@ -59402,7 +59707,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 7766
     },
     {
@@ -59500,7 +59805,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 7766
     },
     {
@@ -59613,8 +59918,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
-      "y": 7766
+      "x": 21680,
+      "y": 8088
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -59724,7 +60029,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8088
     },
     {
@@ -59882,7 +60187,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 8088
     },
     {
@@ -60004,8 +60309,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 8088
+      "x": 21680,
+      "y": 8410
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -60092,7 +60397,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8410
     },
     {
@@ -60176,7 +60481,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 8410
     },
     {
@@ -60273,8 +60578,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
-      "y": 8410
+      "x": 21680,
+      "y": 8732
     },
     {
       "id": "C-PROVENIENCIA",
@@ -60656,7 +60961,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 8732
     },
     {
@@ -60807,7 +61112,7 @@
         "PORQUE": "estas pecas importam-na — C-MICRO-COLETA-INSTRUMENTO · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 1770,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-RECEITAS-PROPOSTA",
@@ -61159,7 +61464,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 8732
     },
     {
@@ -61334,8 +61639,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
-      "y": 8732
+      "x": 21680,
+      "y": 9054
     },
     {
       "id": "C-REGRA-COLETA",
@@ -61560,7 +61865,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 9054
     },
     {
@@ -62423,7 +62728,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 9054
     },
     {
@@ -63306,6 +63611,7 @@
         "C-PROVA-CANARIO-D24-REEL-PESSOA",
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
         "C-PROVA-COLETA",
+        "C-PROVA-COMENTARIOS",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTAS-REAIS",
         "C-RASTRO",
@@ -63335,9 +63641,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 588,
+        "palavras": 598,
         "por_lingua": {},
-        "sem_marca_de_lingua": 588,
+        "sem_marca_de_lingua": 598,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -63555,6 +63861,7 @@
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
         "C-CORRIDA-CANONICA",
+        "C-ELEGIBILIDADE-COMENTARIO",
         "C-FONTE-DO-ATLAS",
         "C-MAPA-TESTES",
         "C-PROVA-CANARIO-D23-LINKEDIN",
@@ -63562,6 +63869,7 @@
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
         "C-PROVA-CANARIO-REEL",
         "C-PROVA-COLETA",
+        "C-PROVA-COMENTARIOS",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -63813,8 +64121,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22510,
-      "y": 9054
+      "x": 21680,
+      "y": 9376
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -63973,7 +64281,8 @@
       ],
       "produces": [],
       "inbound": [
-        "C-IDENTIDADE"
+        "C-IDENTIDADE",
+        "C-TESTES"
       ],
       "outbound": [
         "C-APIFY-POOL",
@@ -63985,6 +64294,7 @@
         "C-NAVEGADOR",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-COMENTARIOS",
         "C-SALA-DE-ESPERA",
         "C-SCRAP-SOCIAL",
         "C-TESTES",
@@ -64288,7 +64598,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
+      "x": 22095,
       "y": 9376
     },
     {
@@ -64634,7 +64944,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 9376
     },
     {
@@ -66584,6 +66894,7 @@
         "tests/test_col_e7_contrato_do_texto.py",
         "tests/test_coleta_externa.py",
         "tests/test_coleta_resiliente.py",
+        "tests/test_comentarios_v1.py",
         "tests/test_competitor_layer.py",
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
@@ -66596,6 +66907,7 @@
         "tests/test_d24_video_de_pessoa.py",
         "tests/test_d36_envelope_equivalente.py",
         "tests/test_d37_campos_de_politica.py",
+        "tests/test_data_do_fato.py",
         "tests/test_dedup_video_social.py",
         "tests/test_egresso_consenso.py",
         "tests/test_ensaio_offline_micro.py",
@@ -66773,7 +67085,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 291,
+      "file_count": 293,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -66850,6 +67162,7 @@
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
+        "C-ELEGIBILIDADE-COMENTARIO",
         "C-ESPECIE-DO-TEXTO",
         "C-ESTRADA-PDF",
         "C-ESTRADAS-IT",
@@ -66983,13 +67296,15 @@
         "C-PORTAL-DADOS",
         "C-PROVA-ADAMA-REFERENCE",
         "C-PROVA-COLETA",
+        "C-PROVA-COMENTARIOS",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-ROTAS-REAIS",
         "C-REGRESSAO-NAVEGADOR",
         "C-SALA-DE-ESPERA",
         "C-SCRAP-GUARDA",
         "C-SCRAP-ROTA",
-        "C-SECURITY-CHECK"
+        "C-SECURITY-CHECK",
+        "C-SINTONIA-SCRAP"
       ],
       "paises": {
         "ESPANHA": 2
@@ -67117,13 +67432,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1728,
+        "palavras": 1738,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1716,
+        "sem_marca_de_lingua": 1726,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -67181,13 +67496,13 @@
         },
         {
           "onde": "GIT",
-          "file": "admissao/admissao.py",
+          "file": ".github/workflows/sintonia-scrap.yml",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
         {
           "onde": "GIT",
-          "file": "admissao/sala_de_espera.py",
+          "file": "admissao/admissao.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -67671,6 +67986,7 @@
         "system-map/scripts/validate_system_map.py",
         "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
         "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+        "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json",
         "tests/dados/item-social-ispra-porta.json",
         "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
         "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
@@ -67716,8 +68032,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 9376
+      "x": 21680,
+      "y": 9698
     },
     {
       "id": "C-TRANSCRICAO",
@@ -68394,6 +68710,7 @@
         "C-V21-FONTES"
       ],
       "outbound": [
+        "C-ELEGIBILIDADE-COMENTARIO",
         "C-INT-ARBITRAGEM"
       ],
       "paises": {},
@@ -71321,6 +71638,41 @@
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-DUAS-PORTAS-MEDIDORES",
             "FROM": "C-ADMISSAO",
             "TO": "C-DUAS-PORTAS-MEDIDORES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-ELEGIBILIDADE-COMENTARIO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A regua do comentario: este pai merece?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/elegibilidade_comentario.py",
+          "line": 76,
+          "snippet": "import admissao as adm  # noqa: E402  dona da régua do universo",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-ELEGIBILIDADE-COMENTARIO",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-ELEGIBILIDADE-COMENTARIO",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -76252,6 +76604,41 @@
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-COLETA",
             "FROM": "C-ASK-SINTONIA",
             "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-PROVA-COMENTARIOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta Provas do comentario (COMENTARIOS-V1 e BATERIA). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/comentarios_v1/medir_comentarios_linkedin.py",
+          "line": 30,
+          "snippet": "r = subprocess.run([sys.executable, os.path.join(RAIZ, 'superficie', 'rede.py'), '--portao-de-egresso', 'IT'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-COMENTARIOS",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -86902,6 +87289,41 @@
     },
     {
       "from": "C-COLETA-INSTAGRAM",
+      "to": "C-PROVA-COMENTARIOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o Instagram alimenta Provas do comentario (COMENTARIOS-V1 e BATERIA). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 16,
+          "snippet": "F_LI, F_IG, F_MZ, F_WF = ('coleta/adaptador_linkedin.py', 'coleta/instagram_pessoal.py', 'leis/social_matriz.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-COLETA-INSTAGRAM",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
       "to": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
       "type": "READS",
       "payload": "artefacto",
@@ -86982,7 +87404,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 713,
+          "line": 725,
           "snippet": "'scripts/instagram_janela.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-SCRAP-LEIS",
@@ -87013,12 +87435,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
+      "reason": "Colher o Instagram tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
           "line": 378,
           "snippet": "import instagram_janela as ij",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-INSTAGRAM--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-COLETA-INSTAGRAM",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 1606,
+          "snippet": "import instagram_pessoal as ip                                   # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--IMPORTS-->C-SCRAP-SOCIAL",
             "FROM": "C-COLETA-INSTAGRAM",
@@ -87099,7 +87537,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Colher o Instagram tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autorizacao_de_gasto.py",
@@ -87121,6 +87559,22 @@
           "file": "tests/test_c10_4c_janela_preservada.py",
           "line": 43,
           "snippet": "import instagram_janela as jn   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-INSTAGRAM--IMPORTS-->C-TESTES",
+            "FROM": "C-COLETA-INSTAGRAM",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_comentarios_v1.py",
+          "line": 25,
+          "snippet": "import instagram_pessoal as ip  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--IMPORTS-->C-TESTES",
             "FROM": "C-COLETA-INSTAGRAM",
@@ -95236,6 +95690,92 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-ELEGIBILIDADE-COMENTARIO",
+      "to": "C-PROVA-COMENTARIOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A regua do comentario: este pai merece? alimenta Provas do comentario (COMENTARIOS-V1 e BATERIA). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/comentarios_bateria/mutar_regras.py",
+          "line": 17,
+          "snippet": "F_ENV, F_EL, F_LI = 'coleta/social_envelope.py', 'pedido/elegibilidade_comentario.py', 'coleta/adaptador_linkedin.py'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ELEGIBILIDADE-COMENTARIO--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-ELEGIBILIDADE-COMENTARIO",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 15,
+          "snippet": "F_ENV, F_YT, F_EL = 'coleta/social_envelope.py', 'coleta/youtube_oficial.py', 'pedido/elegibilidade_comentario.py'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ELEGIBILIDADE-COMENTARIO--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-ELEGIBILIDADE-COMENTARIO",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ELEGIBILIDADE-COMENTARIO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A regua do comentario: este pai merece? tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_comentarios_v1.py",
+          "line": 22,
+          "snippet": "import elegibilidade_comentario as el  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ELEGIBILIDADE-COMENTARIO--IMPORTS-->C-TESTES",
+            "FROM": "C-ELEGIBILIDADE-COMENTARIO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-ESPECIE-DO-TEXTO",
       "to": "C-TESTES",
       "type": "READS",
@@ -98459,6 +98999,41 @@
             "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-LASTMILE-MEDIDORES",
             "FROM": "C-FONTES-EU",
             "TO": "C-LASTMILE-MEDIDORES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "C-LUGAR-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ler as bases oficiais da Europa tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/lugar_fato/medir_moldura_html.py",
+          "line": 23,
+          "snippet": "from coleta.texto_fonte import limpar  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-LUGAR-COLETA",
+            "FROM": "C-FONTES-EU",
+            "TO": "C-LUGAR-COLETA",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -111056,6 +111631,41 @@
     },
     {
       "from": "C-LUGAR-COLETA",
+      "to": "C-ELEGIBILIDADE-COMENTARIO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por A regua do comentario: este pai merece?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/elegibilidade_comentario.py",
+          "line": 78,
+          "snippet": "import fato_local as FL  # noqa: E402  dono do gazetteer italiano",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-ELEGIBILIDADE-COMENTARIO",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-ELEGIBILIDADE-COMENTARIO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LUGAR-COLETA",
       "to": "C-INT-CORRIDA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -111371,7 +111981,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_artefato_tempo_do_fato.py",
@@ -111425,6 +112035,22 @@
           "file": "tests/test_conserto_regua.py",
           "line": 24,
           "snippet": "import fato_do_texto as FT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_data_do_fato.py",
+          "line": 18,
+          "snippet": "import fato_do_texto as FT   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -111550,7 +112176,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_conserto_regua.py",
@@ -111572,6 +112198,22 @@
           "file": "tests/test_c7_lugar_do_fato.py",
           "line": 225,
           "snippet": "dele = _fonte('leis/fato_local.py')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_data_do_fato.py",
+          "line": 20,
+          "snippet": "CASOS = json.loads((RAIZ / \"tests\" / \"dados\" / \"data-do-fato\" / \"CASOS-DATA-DO-FATO-V1.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -113775,6 +114417,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-ELEGIBILIDADE-COMENTARIO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por A regua do comentario: este pai merece?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/elegibilidade_comentario.py",
+          "line": 75,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho de importacao",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ELEGIBILIDADE-COMENTARIO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-ELEGIBILIDADE-COMENTARIO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-ESPECIE-DO-TEXTO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -114287,8 +114964,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "scripts/lugar_fato/medir_moldura_html.py",
+          "line": 22,
+          "snippet": "import _gavetas  # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-LUGAR-COLETA",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-LUGAR-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "scripts/reproc_acervo/prever_acervo.py",
           "line": 32,
@@ -115599,6 +116292,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-PROVA-COMENTARIOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por Provas do comentario (COMENTARIOS-V1 e BATERIA). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/comentarios_v1/medir_comentarios_linkedin.py",
+          "line": 24,
+          "snippet": "import _gavetas  # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -117381,7 +118109,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 158 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 159 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -118141,7 +118869,7 @@
       "evidence": [
         {
           "file": "coleta/instagram_coleta.py",
-          "line": 561,
+          "line": 562,
           "snippet": "import corrigir_custo as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MEDICAO--IMPORTS-->C-COLETA-INSTAGRAM",
@@ -123595,7 +124323,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -123633,6 +124361,22 @@
           "file": "tests/test_bc4_armazem_e_pais.py",
           "line": 109,
           "snippet": "from pedido import de_uma_frase",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+            "FROM": "C-PEDIDO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_comentarios_v1.py",
+          "line": 26,
+          "snippet": "import pedido as pd  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
             "FROM": "C-PEDIDO",
@@ -123760,22 +124504,6 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 25,
-          "snippet": "import pedido as pd                                               # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
-            "FROM": "C-PEDIDO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 35,
           "snippet": "import pedido as pd                                               # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -127927,7 +128655,7 @@
       "evidence": [
         {
           "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 371,
+          "line": 379,
           "snippet": "p = os.path.join(RAIZ, 'provas', 'canario_d24_reel_de_pessoa.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-CANARIO-D24-REEL-PESSOA--READS-->C-TESTES",
@@ -139206,6 +139934,41 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-PROVA-COMENTARIOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Provas do comentario (COMENTARIOS-V1 e BATERIA). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 16,
+          "snippet": "F_LI, F_IG, F_MZ, F_WF = ('coleta/adaptador_linkedin.py', 'coleta/instagram_pessoal.py', 'leis/social_matriz.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-PROVA-FORWARD-CONTA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -139455,7 +140218,7 @@
         },
         {
           "file": "coleta/adaptador_linkedin.py",
-          "line": 570,
+          "line": 576,
           "snippet": "import social_matriz as mz",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-SCRAP-SOCIAL",
@@ -139764,7 +140527,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 59 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 60 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -140734,6 +141497,41 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-ELEGIBILIDADE-COMENTARIO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por A regua do comentario: este pai merece?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/elegibilidade_comentario.py",
+          "line": 79,
+          "snippet": "import social_envelope as env  # noqa: E402  dono do envelope do comentário",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-ELEGIBILIDADE-COMENTARIO",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-ELEGIBILIDADE-COMENTARIO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-FONTE-DO-ATLAS",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -141513,6 +142311,156 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-COMENTARIOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas do comentario (COMENTARIOS-V1 e BATERIA). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/comentarios_v1/medir_comentarios_linkedin.py",
+          "line": 25,
+          "snippet": "import adaptador_linkedin as al  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/comentarios_v1/medir_comentarios_linkedin.py",
+          "line": 26,
+          "snippet": "import scrap_http as http  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-COMENTARIOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas do comentario (COMENTARIOS-V1 e BATERIA). Provado por 5 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/comentarios_bateria/mutar_regras.py",
+          "line": 17,
+          "snippet": "F_ENV, F_EL, F_LI = 'coleta/social_envelope.py', 'pedido/elegibilidade_comentario.py', 'coleta/adaptador_linkedin.py'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/comentarios_bateria/mutar_regras.py",
+          "line": 17,
+          "snippet": "F_ENV, F_EL, F_LI = 'coleta/social_envelope.py', 'pedido/elegibilidade_comentario.py', 'coleta/adaptador_linkedin.py'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 15,
+          "snippet": "F_ENV, F_YT, F_EL = 'coleta/social_envelope.py', 'coleta/youtube_oficial.py', 'pedido/elegibilidade_comentario.py'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 15,
+          "snippet": "F_ENV, F_YT, F_EL = 'coleta/social_envelope.py', 'coleta/youtube_oficial.py', 'pedido/elegibilidade_comentario.py'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 16,
+          "snippet": "F_LI, F_IG, F_MZ, F_WF = ('coleta/adaptador_linkedin.py', 'coleta/instagram_pessoal.py', 'leis/social_matriz.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
       "type": "READS",
       "payload": "artefacto",
@@ -142211,7 +143159,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 166 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 169 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -143584,7 +144532,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 613,
+          "line": 618,
           "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-ORQUESTRADOR",
@@ -143689,6 +144637,41 @@
             "EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-PROVA-COLETA",
             "FROM": "C-SINTONIA-SCRAP",
             "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SINTONIA-SCRAP",
+      "to": "C-PROVA-COMENTARIOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Provas do comentario (COMENTARIOS-V1 e BATERIA). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 17,
+          "snippet": "'.github/workflows/sintonia-scrap.yml')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-SINTONIA-SCRAP",
+            "TO": "C-PROVA-COMENTARIOS",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -147621,6 +148604,57 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-PROVA-COMENTARIOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Provas do comentario (COMENTARIOS-V1 e BATERIA). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/comentarios_v1/esperar_bateria.sh",
+          "line": 27,
+          "snippet": "a = json.load(open('provas/comentarios_v1/antes.json', encoding='utf-8'))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/comentarios_v1/esperar_bateria.sh",
+          "line": 28,
+          "snippet": "b = json.load(open('provas/comentarios_v1/depois.json', encoding='utf-8'))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-COMENTARIOS",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-COMENTARIOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-PROVA-FRONTEIRA",
       "type": "WRITES",
       "payload": "artefacto",
@@ -147852,6 +148886,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-SINTONIA-SCRAP",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em SCRAP aquisicao · o despachador (Instagram, YouTube). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_comentarios_v1.py",
+          "line": 232,
+          "snippet": "with open(os.path.join(RAIZ, '.github', 'workflows', 'sintonia-scrap.yml'), encoding='utf-8') as fh:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-SINTONIA-SCRAP",
+            "FROM": "C-TESTES",
+            "TO": "C-SINTONIA-SCRAP",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -149615,6 +150684,41 @@
     },
     {
       "from": "C-V21-CRUZAMENTO",
+      "to": "C-ELEGIBILIDADE-COMENTARIO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cruzamento — a coincidência estrutural provada tem o seu codigo importado por A regua do comentario: este pai merece?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/elegibilidade_comentario.py",
+          "line": 77,
+          "snippet": "import matriz_recorte as MR  # noqa: E402  dona do vocabulário de cultura e problema",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-CRUZAMENTO--IMPORTS-->C-ELEGIBILIDADE-COMENTARIO",
+            "FROM": "C-V21-CRUZAMENTO",
+            "TO": "C-ELEGIBILIDADE-COMENTARIO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-CRUZAMENTO",
       "to": "C-INT-ARBITRAGEM",
       "type": "READS",
       "payload": "artefacto",
@@ -151168,7 +152272,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2110,
+  "UNCLAIMED_FILES_COUNT": 2116,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -151410,7 +152514,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 238,
+      "PECAS_EM_DESACORDO": 240,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -151422,26 +152526,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 263
+      "TOTAL_DE_PECAS": 265
     }
   ],
   "COUNTS": {
-    "components": 263,
+    "components": 265,
     "components_proven": 31,
-    "components_pending": 224,
+    "components_pending": 226,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1565,
-    "edges_proven": 1498,
+    "edges": 1582,
+    "edges_proven": 1515,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3768,
-    "files_covered": 1658,
+    "files_tracked": 3789,
+    "files_covered": 1673,
     "files_code_unclaimed": 0,
     "roles_proven": 182,
     "roles_declared_only": 9,
-    "roles_unknown": 72,
-    "roles_conflict": 40,
+    "roles_unknown": 74,
+    "roles_conflict": 41,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
     "concept_owner_single": 2,

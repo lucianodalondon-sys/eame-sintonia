@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T12:02:04+00:00",
-    "HEAD": "554c1ec1bb232b8a3298e3cfb330c8de86413134",
+    "GENERATED_AT": "2026-09-27T15:58:07+00:00",
+    "HEAD": "8b8b6844257095830924937b296c5d908507fee2",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d11201a2f2f0d319001a5084d05ca4a4dbd3cf3e149fea2298ed0cce0cc997ab",
-    "FICHEIROS_NA_IMPRESSAO": 3922,
+    "SOURCE_TREE_FINGERPRINT": "8118caf3dd2f9f4f97063cebc6582fbb4258d11591d7036171474e710d0e5f43",
+    "FICHEIROS_NA_IMPRESSAO": 3937,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -146,7 +146,7 @@
       {
         "PATH": "coleta/adaptador_linkedin.py",
         "PAPEL": "FONTE",
-        "VERSAO": "2eda34b44aa89bdd532d38babfcda5e0f37da108",
+        "VERSAO": "0c3882395d8aa15ed287ad2ebc5bf9e39a291cb2",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -335,7 +335,7 @@
       {
         "PATH": "coleta/instagram_coleta.py",
         "PAPEL": "FONTE",
-        "VERSAO": "95009e6f87f65fb5758394d7188bb481b8ae95fd",
+        "VERSAO": "28f1f6e25724667d349240a984c0cb635f046427",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -356,7 +356,7 @@
       {
         "PATH": "coleta/instagram_pessoal.py",
         "PAPEL": "FONTE",
-        "VERSAO": "957774eff46891cbf73b0f57bc3ea0273f074370",
+        "VERSAO": "4bfde775567308dac7c61c7c581315a5afc83ca3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -517,7 +517,7 @@
       {
         "PATH": "coleta/social_envelope.py",
         "PAPEL": "FONTE",
-        "VERSAO": "d6110a48e52bb4db3903c9eef63da1ebcb124efa",
+        "VERSAO": "a47bb9ab467da66b72c8033bae094318371a356a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -594,7 +594,7 @@
       {
         "PATH": "coleta/youtube_oficial.py",
         "PAPEL": "FONTE",
-        "VERSAO": "9f33ca9b8cf4213f1b20ca133275d043faa938f6",
+        "VERSAO": "21e5d6136163698f0e028b63388e12a786f6cb33",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1306,6 +1306,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "pedido/elegibilidade_comentario.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "43e3b0926590a9f00d554c440186ce46714c9a35",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "pedido/pedido.py",
         "PAPEL": "FONTE",
         "VERSAO": "1483e06c221c5ae7ca9c5d5dcf5e224d06d27e3b",
@@ -1474,8 +1481,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 209,
-    "INPUTS_DIGEST": "9cb3c5624f591d44bcc988d3fce86147dd8f77d053e9ac29a3faca49ed481f23",
+    "INPUTS_COUNT": 210,
+    "INPUTS_DIGEST": "9910e8e502e76c4051bcfd9b36f4bbbdac61ab5ffdaa50aa4a4246c09decd6cf",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1489,6 +1496,24 @@
     ]
   },
   "FICHEIROS": [
+    {
+      "ficheiro": "pedido/elegibilidade_comentario.py",
+      "gaveta": "pedido",
+      "linhas": 267,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
     {
       "ficheiro": "pedido/pedido.py",
       "gaveta": "pedido",
@@ -3293,10 +3318,11 @@
     {
       "ficheiro": "coleta/adaptador_linkedin.py",
       "gaveta": "coleta",
-      "linhas": 1943,
+      "linhas": 2030,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
+        "INSTAGRAM",
         "LINKEDIN",
         "YOUTUBE"
       ],
@@ -3892,7 +3918,7 @@
     {
       "ficheiro": "coleta/instagram_coleta.py",
       "gaveta": "coleta",
-      "linhas": 680,
+      "linhas": 681,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3907,7 +3933,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/social_envelope.py"
+      ],
       "no_ci": true
     },
     {
@@ -3961,21 +3989,25 @@
     {
       "ficheiro": "coleta/instagram_pessoal.py",
       "gaveta": "coleta",
-      "linhas": 261,
+      "linhas": 273,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
         "INSTAGRAM"
       ],
-      "ferramentas": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_linkedin.py",
         "coleta/instagram_coleta.py",
         "coleta/instagram_diario.py",
+        "coleta/social_envelope.py",
         "coleta/social_persistencia.py"
       ],
       "no_ci": true
@@ -4467,10 +4499,11 @@
     {
       "ficheiro": "coleta/social_envelope.py",
       "gaveta": "coleta",
-      "linhas": 465,
+      "linhas": 548,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
+        "INSTAGRAM",
         "LINKEDIN",
         "YOUTUBE"
       ],
@@ -4492,6 +4525,7 @@
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py",
         "ferramentas/reel_transcricao.py",
+        "pedido/elegibilidade_comentario.py",
         "regras/proveniencia.py"
       ],
       "no_ci": true
@@ -4728,7 +4762,7 @@
     {
       "ficheiro": "coleta/youtube_oficial.py",
       "gaveta": "coleta",
-      "linhas": 1018,
+      "linhas": 1022,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -5208,6 +5242,7 @@
       "chamado_por": [
         "coleta/adaptador_youtube.py",
         "coleta/coletor.py",
+        "coleta/social_envelope.py",
         "coleta/social_scrap.py"
       ],
       "no_ci": true
@@ -5261,7 +5296,8 @@
         "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py",
         "coleta/rota_forward_documento.py",
-        "ferramentas/reel_transcricao.py"
+        "ferramentas/reel_transcricao.py",
+        "pedido/elegibilidade_comentario.py"
       ],
       "no_ci": true
     },
@@ -5701,19 +5737,20 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 209,
-    "pontos_de_entrada": 149,
+    "ficheiros_de_codigo": 210,
+    "pontos_de_entrada": 150,
     "executores_que_saem_para_fora": 29,
-    "sem_chamador_e_fora_do_ci": 102,
+    "sem_chamador_e_fora_do_ci": 103,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 121,
-    "deitam_fora_alguma_coisa": 49,
+    "deitam_fora_alguma_coisa": 50,
     "deitam_fora_SEM_escrever_o_motivo": 5,
     "ficheiros_com_decisao_escondida": 4,
     "decisoes_escondidas_ao_todo": 4
   },
   "LISTAS": {
     "pontos_de_entrada": [
+      "pedido/elegibilidade_comentario.py",
       "pedido/pedido.py",
       "pedido/receitas.py",
       "candidatas/decidir_fila_italia.py",
@@ -5896,6 +5933,7 @@
       "guarda/portas_live.py"
     ],
     "orfaos": [
+      "pedido/elegibilidade_comentario.py",
       "candidatas/decidir_fila_italia.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",

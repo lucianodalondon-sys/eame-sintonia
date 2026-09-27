@@ -2304,6 +2304,24 @@
    ]
   },
   {
+   "id": "C-ELEGIBILIDADE-COMENTARIO",
+   "name": "A regua do comentario: este pai merece?",
+   "territory": "Z-PEDIDO",
+   "kind": "engine",
+   "icon": "◈",
+   "what": "COMMENT_COLLECTION_ELIGIBILITY (D106): julga o PAI antes do despacho (HIGH/MEDIUM/LOW/NO, e NAO_SEI quando falta vocabulario) com a regua do universo da Admissao e as entidades do matriz_recorte; so HIGH/MEDIUM com comentarios declarados colhem. Depois marca a amostra diversa com CONTROLE cru e os sinais da D107 — marca, nunca apaga.",
+   "why_here": "E o pedido que sabe o assunto e o recorte. O Scrap colhe o video que lhe nomeiam; sem esta regua, colher comentario seria colher tudo de todo pai.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "pedido/elegibilidade_comentario.py"
+   ],
+   "views": [
+    "acervo"
+   ]
+  },
+  {
    "id": "C-ORQUESTRADOR",
    "name": "O orquestrador",
    "territory": "Z-ORQUESTRADOR",
@@ -2467,6 +2485,26 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-PROVA-COMENTARIOS",
+   "name": "Provas do comentario (COMENTARIOS-V1 e BATERIA)",
+   "territory": "Z-PROVA",
+   "kind": "test",
+   "icon": "✓",
+   "what": "A bateria por NOME contra a base, a mutacao (as 14 da V1 e as 23 por regra: PUBLIC_ASSERTION, lugar do pai, sem lugar do comentarista, elegibilidade, controlo, sem rota paga) e a medicao de 1 pedido do JSON-LD do post publico do LinkedIn, que fica para a coordenacao.",
+   "why_here": "Uma regra do comentario que nenhum defeito plantado consegue quebrar sem um teste gritar e uma regra provada; as outras sao so escritas.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/comentarios_bateria/mutar_regras.py",
+    "provas/comentarios_v1/esperar_bateria.sh",
+    "provas/comentarios_v1/medir_comentarios_linkedin.py",
+    "provas/comentarios_v1/mutar.py",
+    "provas/comentarios_v1/testes_por_nome.py"
+   ],
+   "views": []
   },
   {
    "id": "C-CENSO-COLETA",
