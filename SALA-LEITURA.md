@@ -120,9 +120,33 @@ um `git merge` do segundo sobre o primeiro basta.
 - **Junção:** `git merge origin/sala-leitura-v1` sobre `69b0e23f`: **sem conflito**. O LOTE 1 não mexeu em `admissao/sala_de_espera.py` (`git diff 83de0ccd 69b0e23f -- admissao/sala_de_espera.py` vazio).
 - **Sem banco, no vivo 69b0e23f** (corrido): `D9SemBanco` + `D10SemBanco` (7) + `test_psql_argv` (6) + `test_a_sala_de_espera_nao_tem_morada` (14) = 27 testes; **2 falhas, as mesmas com o `sala_de_espera.py` de `69b0e23f`** (medido: trocando o ficheiro pelo da base, as mesmas 2) → herdadas.
 - **Mutação:** novo `provas/_mutantes_sala_leitura.py` com os mutantes S1–S4 descritos no § 3 e um S5 (leitura com `begin;` em vez de `begin read only;` → a conferência do `on` tem de o apanhar). Lê e grava em **bytes** (o fim de linha não muda).
-- ⚠️ **COM BANCO: NÃO CORRIDO.** O vigia esperou a LOCK-PESADO (ocupada por RUNBOOK-MICRO-SOCIAL e depois ACERVO-PARA-SALA) com a memória entre 4,0 e 6,3 GB, e foi **parado pelo sistema por memória baixa** antes de pegar a chave. Nada correu: N1–N3, P1–P2, D10a–d, as regressões `test_migracao_033_sala` + `test_sala_idempotente_por_documento` (antes/depois por nome) e a mutação S1–S5 continuam **PENDENTES**. Resultado **NÃO SEI** — não é PASS.
-- **Para correr** (LOCK-PESADO livre, sem LOCK-PRIORIDADE, ≥ 5 GB):
-  `py -B -m unittest -v tests.test_sala_leitura_d9_d10 tests.test_migracao_033_sala tests.test_sala_idempotente_por_documento` e `py -B provas/_mutantes_sala_leitura.py` (esperado: `MUTANTES 5/5 mortos`, sem «testes de banco saltados»).
+- (Com banco: ver § 8. Na altura desta secção ainda não tinha corrido.)
+
+## 8 · Provas COM BANCO (26/09) — e o que elas mudaram
+
+### 8.1 · 1.ª rodada (10:05, sobre 69b0e23f): um DEFEITO REAL no D9
+- **P1 ERROR:** em modo leitura, `ler`/`ler_atual` **nunca devolviam dados**. O `show transaction_read_only` é outro resultado, e o `psql` separa-o da pergunta por **mudança de linha**, não por `SEP_LINHA`: vinha `"on\n<1.a linha>"` num registo só, e `linhas[0] != "on"` levantava sempre. Os testes sem banco não viram porque o *mock* usava a forma errada (`"on" + SEP_LINHA + ...`).
+  **Conserto** (c035495f): a prova é a linha antes do primeiro `\n` (`bruto.partition("\n")`), tem de ser exactamente `on`; mocks passam à forma real; teste novo `test_a_prova_on_vem_numa_linha_propria_e_os_dados_depois`; mutante novo **S6** (volta a não separar).
+- **N1/N2 FAIL = defeito do TESTE, não do código:** o banco **recusou** a escrita, mas em português (`não é possível executar create table em uma transação de leitura-apenas`); o teste procurava `read-only`. Agora aceita `read-only|leitura-apenas|sola lettura|solo lectura`.
+
+### 8.2 · Junção com o lote 2 (278cd489): D10 passa a usar a tabela do DONO
+A QUATRO-CHAVES-V2 trouxe `COLUNA_E_CAMPO`/`COLUNAS_LIDAS` (coluna↔campo, um sítio só). Conflito em `sala_de_espera.py`. Resolução (1262c73f): versão do vivo + D9 reaplicado + `ler_atual` pela MESMA `_ready_da_linha()` de `ler`, sobre a tabela do dono; a tabela própria da v1 (`_COLUNA_DO_CAMPO`, `_para_ready`) **saiu**. Teste novo `test_nao_ha_segunda_tabela_de_campos`. Juntados depois `dc0de726` e **`554c1ec1`** (lote 3, com DEDUP-DOC), sem conflito → `f0876259`.
+⚠️ Com a DEDUP-DOC, `pousar` passa a **ler** a Sala antes de escrever (`_planear_versoes`). Em modo leitura essas leituras passam pela prova `on`; a escrita continua recusada (N2 abaixo).
+
+### 8.3 · Rodada final (22:47–23:07, 6.ª da FILA-PESADO, sobre 554c1ec1)
+| o quê | resultado |
+|---|---|
+| `tests.test_sala_leitura_d9_d10` | **17/18**. N1, N2, N3 (o **banco recusa**), P1, P2 (a escrita da Admission continua), D10a/b/c, todos os sem-banco: ok. **1 ERROR: D10d** (abaixo) |
+| 17 ficheiros de testes que usam a Sala (437 testes; 415 emparelhados por nome), **antes** (sala_de_espera.py de 554c1ec1) e **depois** | **0 mudaram de resultado**. 14 falhas, **as mesmas nos dois lados** → herdadas |
+| mutação S1–S6 | **NÃO CORRIDA**: o script só corre com os testes da missão verdes, e o D10d está vermelho. Resultado **NÃO SEI** |
+| Postgres | 0 meus a sobrar; LOCK-PESADO solta 23:07, vez passada à INTEGRA-LOTE2 |
+| ficheiro reescrito por um teste | `data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json` → `stash «sala-leitura-v2-reescritos-pelos-testes»`, fora do commit |
+
+### 8.4 · ⚠️ D10d vermelho = DEFEITO DO VIVO, não desta missão
+`pousar("L1", ler("L1")["ITENS"])` dá **`RUN_ID_CONFLICT`** (impressão diferente) em vez de `JA_ESTAVA`. **O mesmo defeito já existe no vivo 554c1ec1 sem esta mudança:** `tests.test_migracao_033_sala.A033NoBancoDescartavel.test_3_repousar_o_mesmo_e_retry_e_nao_conflito` falha com o mesmo `RUN_ID_CONFLICT` no lado «antes». Ou seja: **hoje, no vivo, repousar exactamente o que se leu da Sala é acusado de «outra história»**. Em 69b0e23f o D10d passava; a causa entrou entre `69b0e23f` e `554c1ec1` (lote 2/3 — **não medido** qual commit). O D10d fica vermelho de propósito: não se desliga um teste que acusa um defeito real.
+
+### 8.5 · Para fechar a mutação
+Depois de o dono do `pousar` consertar o retry (ou por decisão do coordenador de medir sem o D10d): LOCK-PESADO + ≥ 5 GB, `py -B provas/_mutantes_sala_leitura.py` (esperado `MUTANTES 6/6 mortos`).
 
 ## 7 · Nota para o bot Intelligence — como chamar o modo leitura
 
@@ -131,8 +155,8 @@ A prova `PROVA-CONJUNTA-EXP-D78/prova_conjunta_exp_d78.py` já usa a forma certa
 ```python
 import sala_de_espera as espera
 leitor = espera._Postgres(dsn, so_leitura=True)   # explícito, só este objeto
-atual = leitor.ler_atual(run_id)                  # 23 campos do READY + ORDEM, JANELA_DECLARADA,
-                                                  # REVISOES, HISTORICO_DE_REVISOES
+atual = leitor.ler_atual(run_id)                  # os 24 campos de CAMPOS_READY (com JANELA_DECLARADA)
+                                                  # + ORDEM, REVISOES, HISTORICO_DE_REVISOES
 ```
 ou, para as funções do módulo: `SINTONIA_SALA_SO_LEITURA=1` no ambiente, e aí `espera.ler_atual(run_id)`.
 
