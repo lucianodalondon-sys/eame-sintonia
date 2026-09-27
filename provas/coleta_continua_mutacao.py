@@ -1,0 +1,117 @@
+"""COLETA-CONTINUA · o ataque: cada guarda do agendador por fonte desligada, uma de cada vez, numa COPIA.
+
+    py provas/coleta_continua_mutacao.py [--ref=HEAD]
+
+O metodo e o de `provas/rodadas_mutacao.py`: a copia sai de `git archive <ref>` (o repositorio nao e tocado);
+cada mutante troca UM trecho exacto de `ferramentas/big_collection/coleta_continua.py`; um trecho que nao
+exista uma vez so falha alto. MORTO = `tests/test_coleta_continua.py` reprova ou sai com codigo != 0.
+Resultado em `provas/COLETA-CONTINUA-MUTACAO.json`.
+"""
+import io
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tarfile
+import tempfile
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ALVO = "ferramentas/big_collection/coleta_continua.py"
+TESTE = "tests/test_coleta_continua.py"
+MUTANTES = [
+    # os cinco pedidos da missao
+    ("M01_DOMINIO_BLOQUEADO_PASSA", ALVO, "if v and agora_utc < v + timedelta(hours=janela_h):", "if False:"),
+    ("M02_TETO_6_NO_CICLO", ALVO, "if orcamento.get(dd, 0) + p > teto:", "if orcamento.get(dd, 0) + p > teto + 1:"),
+    ("M03_PORTAO_IT_PULADO", ALVO, 'if not reg["EGRESSO_ANTES"].get("PASSA"):', "if False:"),
+    ("M04_DUAS_LINHAS_SEM_ORCAMENTO_PARTILHADO", ALVO, "orcamento=orcamento, max_fontes=max_fontes)",
+     "orcamento={}, max_fontes=max_fontes)"),
+    ("M05_ROBO_DEIXADO_PARADO", ALVO, "                robo.lancar()\n", ""),
+    # o resto das guardas
+    ("M06_ROBO_PARADO_QUANDO_O_CICLO_PARA", ALVO, "    finally:\n        if parei:", "    finally:\n        if parei and para is None:"),
+    ("M07_FLAG_DE_OUTRO_TIRADA", ALVO, 'if not r0["FLAG"]:\n        robo.parar()', "if True:\n        robo.parar()"),
+    ("M08_ROBO_QUE_NAO_PARA_IGNORADO", ALVO, 'if r0["VIVO"] and not robo.esperar(False):', "if False:"),
+    ("M09_ROBO_TOCADO_SEM_FONTES", ALVO, "if a_seco or not correm:", "if a_seco:"),
+    ("M10_PORTAO_DEPOIS_PULADO", ALVO, 'if not reg["EGRESSO_DEPOIS"].get("PASSA"):', "if False:"),
+    ("M11_PROVA_TETO_IGNORADA", ALVO, 'if p["ESTADO"] != "PASS":', "if False:"),
+    ("M12_PROVA_TETO_NAO_SEI_FECHA", ALVO, 'if p["ESTADO"] != "PASS":', 'if p["ESTADO"] == "FAIL":'),
+    ("M13_PROVA_24H_IGNORADA", ALVO, 'if p24["ESTADO"] != "PASS":', "if False:"),
+    ("M14_RAM_IGNORADA", ALVO, "if ram < RAM_MINIMA_GB:", "if False:"),
+    ("M15_RAM_NAO_SEI_PASSA", ALVO, 'if ram is None:\n        return fim("RAM_NAO_SEI")', "if ram is None:\n        ram = 99.0"),
+    ("M16_BACKUP_IGNORADO", ALVO, 'if not reg["BACKUP"].get("PROVA_VALE"):', "if False:"),
+    ("M17_TETO_24H_IGNORADO", ALVO, "if g + p > teto:", "if False:"),
+    ("M18_LIVRO_24H_ILEGIVEL_VIRA_VAZIO", ALVO, '        return fim("LIVRO_24H_NAO_SEI", ERRO=str(ex)[:300])', "        reservas = []"),
+    ("M19_PARADO_NAO_FICA_PARADO", ALVO, 'if estado.get("PAROU") and not a_seco:', "if False:"),
+    ("M20_LINHA_NAO_LIGADA_CORRE", ALVO, 'if not lig["LIGADA"]:', "if False:"),
+    ("M21_CODIGO_DA_ONDA_IGNORADO", ALVO, 'if codigos[n] != 0 or e.get("PAROU"):', 'if e.get("PAROU"):'),
+    ("M22_RECONCILIACAO_IGNORADA", ALVO, 'if rec.get("ESTADO") != "PASS":', "if False:"),
+    ("M23_SO_O_DOMINIO_DO_PLANO", ALVO, 'for d in c["DOMINIOS"]:\n            v = ultima.get(d)',
+     'for d in [c["DOMINIO"]]:\n            v = ultima.get(d)'),
+    ("M24_FEITAS_REPETEM", ALVO, 'if c["SOURCE_ID"] in feitas:\n            continue', 'if c["SOURCE_ID"] in feitas:\n            pass'),
+    ("M25_RODIZIO_PARADO", ALVO, "k = n_ciclo % len(nomes)", "k = 0"),
+    ("M26_ONDA_SEM_O_LIVRO_24H", ALVO, 'os.environ["SINTONIA_TETO_24H"] = str(livro_24h)', "pass"),
+    ("M27_LIGACAO_PELO_NOME", ALVO, 'if linha["CHAMADA"] not in f.read_text(encoding="utf-8", errors="replace"):',
+     'if "reserva" not in f.read_text(encoding="utf-8", errors="replace"):'),
+    ("M28_ERRO_NAO_PARA", ALVO, 'para = "ERRO_NO_CICLO: %r" % (ex,)', "para = None"),
+    ("M29_INTERRUPTOR_IGNORADO", ALVO, "if (base / DESLIGAR_F).exists():", "if False:"),
+]
+
+
+def copia(ref, destino):
+    tar = subprocess.run(["git", "-C", RAIZ, "archive", "--format=tar", ref], capture_output=True, check=True).stdout
+    with tarfile.open(fileobj=io.BytesIO(tar)) as t:
+        t.extractall(destino)
+
+
+def correr(pasta):
+    env = dict(os.environ, PYTHONUTF8="1", PYTHONDONTWRITEBYTECODE="1", NODE_DISABLE_COMPILE_CACHE="1",
+               HTTPS_PROXY="http://127.0.0.1:9", HTTP_PROXY="http://127.0.0.1:9")
+    r = subprocess.run([sys.executable, TESTE], cwd=pasta, env=env, capture_output=True,
+                       text=True, encoding="utf-8", errors="replace", timeout=600)
+    m = re.search(r"Ran (\d+) test", r.stderr)
+    return r.returncode, int(m.group(1)) if m else None, r.stderr[-600:]
+
+
+def main():
+    ref = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--ref=")), "HEAD")
+    base = tempfile.mkdtemp(prefix="coleta-continua-mutacao-")
+    out = {"REF": subprocess.run(["git", "-C", RAIZ, "rev-parse", "--short", ref], capture_output=True,
+                                 text=True).stdout.strip(), "MUTANTES": []}
+    try:
+        limpa = os.path.join(base, "limpa")
+        copia(ref, limpa)
+        cod, n, cauda = correr(limpa)
+        out["SEM_MUTANTE"] = {"CODIGO": cod, "TESTES": n}
+        if cod != 0:
+            raise SystemExit("a copia limpa nao passa — o ataque nao tem base:\n" + cauda)
+        for nome, alvo, de, para in MUTANTES:
+            pasta = os.path.join(base, nome)
+            shutil.copytree(limpa, pasta)
+            f = os.path.join(pasta, alvo)
+            with open(f, encoding="utf-8", newline="") as h:
+                s = h.read()
+            s2 = s.replace("\r\n", "\n")
+            if s2.count(de) != 1:
+                raise SystemExit("MUTANTE_SEM_ALVO %s: o trecho aparece %d vezes em %s" % (nome, s2.count(de), alvo))
+            s2 = s2.replace(de, para)
+            with open(f, "w", encoding="utf-8", newline="") as h:
+                h.write(s2.replace("\n", "\r\n") if "\r\n" in s else s2)
+            cod, n, cauda = correr(pasta)
+            morto = cod != 0
+            out["MUTANTES"].append({"MUTANTE": nome, "ALVO": alvo, "MORTO": morto, "CODIGO": cod,
+                                    "CAUDA": None if morto else cauda})
+            print(nome, "MORTO" if morto else "SOBREVIVEU", flush=True)
+            shutil.rmtree(pasta, ignore_errors=True)
+    finally:
+        shutil.rmtree(base, ignore_errors=True)
+    out["MORTOS"] = sum(1 for m in out["MUTANTES"] if m["MORTO"])
+    out["TOTAL"] = len(out["MUTANTES"])
+    with open(os.path.join(RAIZ, "provas", "COLETA-CONTINUA-MUTACAO.json"), "w", encoding="utf-8") as h:
+        json.dump(out, h, ensure_ascii=False, indent=1)
+    print("COLETA_CONTINUA_MUTACAO · mortos=%d de %d" % (out["MORTOS"], out["TOTAL"]))
+    return 0 if out["MORTOS"] == out["TOTAL"] else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
