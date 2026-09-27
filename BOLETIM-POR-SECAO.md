@@ -58,10 +58,29 @@ intertítulo da própria notícia — essa fica, e a proveniência (SPAN/PARAGRA
 
 ## Testes
 
-`tests/test_boletim_por_secao.py` — 36 testes (gold, A.P.OL. n.9 real, SINTÉTICAS incl. Xylella).
+`tests/test_boletim_por_secao.py` — 36 testes, todos verdes (gold, A.P.OL. n.9 real, SINTÉTICAS incl. Xylella).
 
-Bateria inteira por nome (`provas/integra_noite/bateria_inteira_por_nome.py`), base × ramo:
-_(preenchido abaixo)_
+Bateria inteira por nome (`provas/integra_noite/bateria_inteira_por_nome.py`), base `8a0727e` × ramo `6b0a7c0`
+(cada uma num clone limpo; nome das provas do system-map comparado sem os números):
+
+| | base 8a0727e | ramo 6b0a7c0 |
+|---|---|---|
+| ficheiros de teste | 393 | 394 (+ `tests/test_boletim_por_secao.py`) |
+| testes corridos | 7.373 | 7.409 |
+| ficheiros vermelhos | 77 | 77 |
+| falhas por nome | 341 | 339 |
+
+**Falhas novas pelo nome: 0.** Saíram do vermelho 2 nomes (`test_topologia_persistida::o_artefato_diz_quantos_documentos_leu`,
+`test_o_controle_separa_lei_de_mencao::test_M5_o_ponto_fixo…`) — são do mapa regerado, não deste código.
+
+⚠️ **Declarado, não escondido:** `system-map/tests/test_cadeia_declara_io.py::toda_leitura_real_e_explicada_por_uma_entrada_declarada`
+**já era vermelho na base** e continua vermelho com o mesmo nome, mas a lista de órfãs **cresceu 2**:
+o passo `CENSO_DAS_ESTRADAS_IT` corre a porta, a porta importa `leis/boletim_do_campo.py` (órfã já na base) e
+este passou a importar `leis/fato_do_texto.py` → `leis/fato_local.py` (para `sem_vizinhos`, o dono do D19, e
+o `RODAPE`). Tentei declarar as três como `TRACKED_SOURCE_FILE` no `CADEIA-DO-MAPA.json`: isso fez nascer uma
+falha NOVA (`a_AST_confirma_todo_caminho_declarado` — a prova exige o caminho literal no código do passo, e a
+leitura é por import indireto). Revertido. Como declarar leituras por import indireto é decisão do dono do
+mapa; **NÃO SEI** a forma certa, e não foi inventada aqui.
 
 ## Mutação
 
