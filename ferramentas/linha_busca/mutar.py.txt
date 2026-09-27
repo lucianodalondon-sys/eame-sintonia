@@ -4,7 +4,7 @@ import subprocess, sys
 from pathlib import Path
 R = Path("C:/Users/London1/tmp-pd/mut-lb")
 CG = R / "curadoria/collection_gate.py"; LB = R / "coleta/linha_busca.py"; CQ = R / "ferramentas/linha_busca/consultas.py"
-MO = R / "ferramentas/linha_busca/motores.py"
+MO = R / "ferramentas/linha_busca/motores.py"; LR = R / "coleta/linha_busca_raw.py"
 M = [
  ("M1 portao aceita sem proveniencia", CG, '    if prov.get("ESPECIE") != "ACHADO_POR_BUSCA" or faltam:', '    if False:'),
  ("M2 portao aceita fonte recusada", CG, '    if (estado_da_fonte or "").upper() in ESTADOS_QUE_NAO_ENTRAM_PELA_BUSCA:', '    if False:'),
@@ -21,6 +21,11 @@ M = [
  ("M14 post social colhido como pagina", LB, '    if POSTS.search(url):', '    if False:'),
  ("M15 muro de login entra", LB, '    if pagina_de_login((meta or {}).get("URL_FINAL") or url, dados):', '    if False:'),
  ("M16 o mesmo endereco pedido duas vezes", LB, '        if chave in vistos:', '        if False:'),
+ ("M17 pousa sem RAW_OBSERVATION_ID", LR, '        if rid is None:\n            linha["ESTADO"] = "SEM_RAW_CANONICO"', '        if False:\n            linha["ESTADO"] = "SEM_RAW_CANONICO"'),
+ ("M18 pousa noutra corrida", LR, '        pousado = pousar_fn(corrida, prontos)', '        pousado = pousar_fn(corrida + "-X", prontos)'),
+ ("M19 byte adulterado entra", LR, '            if hashlib.sha256(dados).hexdigest() != sha:', '            if False:'),
+ ("M20 sem memoria nao recusa", LR, '    if persistencia.memoria is None:', '    if False:'),
+ ("M21 identidade documental inventada", LR, '        "DOCUMENT_ID": None,', '        "DOCUMENT_ID": raw["SHA256"],'),
  ("M12 livro de outra arvore por omissao", LB, '    if not livro.exists():\n        return cand, est', '    if not livro.exists():\n        livro = RAIZ / "curadoria" / "LIFECYCLE-LEDGER-V1.json"'),
 ]
 mortos = 0
