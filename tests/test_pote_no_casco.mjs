@@ -14,7 +14,12 @@
      P4  nenhuma regra de cruzamento: todo valor desenhado e o do pote ou NAO SEI, na ordem do pote;
      P5  pote que reprova nao desenha nada, e o legado nao volta como se fosse atual;
      P6  URL que nao e http(s) nao vira link; o pote fica fora do Git e do deploy;
-     P7  toda ligacao {{ }} do bloco do pote resolve contra os valores reais. */
+     P7  toda ligacao {{ }} do bloco do pote resolve contra os valores reais;
+   POTE-V2-UNICO (tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json, tambem SINTETICO):
+     P8  no Polso, sinal solto nunca e «variazione»; so SERIE medida (>= 2 pontos, mesma unidade);
+     P9  pote pedido (?pote=local) e ausente: cada ferramenta diz NAO SEI, e o legado nao volta;
+     P10 o leitor recusa o que o contrato unico proibe (run id fora do topo, prova sem URL/PUBLISHED_AT, ...);
+     P11 uso sem tempo dito, a Sala so como prova, URL NAO SEI com a base, D112 com o nome. */
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -193,6 +198,79 @@ for (const [nome, mexer] of [
   prova('P7 toda ligacao do bloco do pote resolve', a > 0 && soltas.length === 0, soltas.join(', '));
   prova('P7 marca no bloco e em cada objeto', (bloco.match(/data-marca="1"/g) || []).length >= 2);
 }
+
+/* ── POTE-V2-UNICO · P8/P9/P10/P11 — o contrato unico no casco ─────────────────────────────────
+   Pote SINTETICO: tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json (gerado de CORRIDA-SINTETICA-V2-UNICO). */
+const POTE2 = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json'), 'utf8'));
+{
+  const M2 = montar(clone(POTE2));
+  const mk = M2.vals({ view: 'market', lang: 'it' }).pote.objetos;
+  const por = (id) => mk.find((o) => o.id === id);
+  prova('P8 preco solto: «SEGNALE ISOLATO — NON e una variazione di mercato»',
+    por('SINT-MK-SOLTO').temMercado && !por('SINT-MK-SOLTO').eSerie && /SEGNALE ISOLATO — NON/.test(por('SINT-MK-SOLTO').mercado));
+  prova('P8 unidades diferentes: sinal solto, nunca serie',
+    !por('SINT-MK-UNID').eSerie && /NON/.test(por('SINT-MK-UNID').mercado));
+  prova('P8 serie medida: os pontos do pote, na ordem do pote, sem variacao calculada',
+    por('SINT-MK-SERIE').eSerie && /SERIE MISURATA · 2 punti · stessa unità EUR\/t · 2026-W36 SINT-205 \| 2026-W37 SINT-210$/.test(por('SINT-MK-SERIE').mercado) &&
+    !/%|\+|variazione di \d/.test(por('SINT-MK-SERIE').mercado));
+  prova('P8 fora do Polso nao ha leitura de mercado',
+    M2.vals({ view: 'windows', lang: 'it' }).pote.objetos.every((o) => !o.temMercado));
+
+  const pt = M2.vals({ view: 'portfolio', lang: 'it' }).pote.objetos.find((o) => o.id === 'SINT-CR-NAO');
+  prova('P11 o «nao» sem tempo ancorado aparece, e diz que o uso nao pede tempo',
+    pt && pt.semTempo === true && /NON ancorato/.test(pt.avisoTempo) && pt.resultado.v === 'NAO');
+  prova('P11 a Sala aparece so como prova: de onde veio, G0 e como foi admitida',
+    /Sala d'attesa, solo come prova.*ITEM_ID SINT-V-2 · G0 BLOQUEADO_EM_G0 · ammessa per USO_SEM_TEMPO/.test(pt.provas[0].origem));
+  const nd = M2.vals({ view: 'meeting', lang: 'it' }).pote.objetos.find((o) => o.id === 'SINT-ND-1');
+  prova('P11 URL NAO SEI mostra a base (porque nao ha URL)',
+    nd && /^URL NAO SEI · NAO_VEIO/.test(nd.provas[0].urlTexto) && /pubblicato NAO SEI \(NAO_VEIO/.test(nd.provas[0].datas));
+  const w = M2.vals({ view: 'windows', lang: 'it' }).pote.objetos.find((o) => o.id === 'SINT-W-LUGAR');
+  prova('P11 D112: ENTITY_SOURCE e LOCATION_SOURCE desenhados com o nome deles',
+    w && w.origens.map((c) => c.k).join() === 'ENTITY_SOURCE,LOCATION_SOURCE' && w.origens[1].v === 'TEXTO_DO_BOLETIM');
+  prova('P11 compartimento vazio diz NAO SEI e o porque',
+    /^NAO SEI · VUOTO · SEM_OBJETOS_NESTA_CORRIDA/.test(M2.vals({ view: 'voices', lang: 'it' }).pote.vazioTitulo));
+}
+{ /* P9 · pedido e nao chegou: NAO SEI em cada ferramenta, e o legado NAO volta */
+  const R = montar();
+  R.ctx.SINTONIA_POTE_PEDIDO = true;
+  let ok = true, det = '';
+  for (const [v, [flag]] of Object.entries(ROTAS)) {
+    const x = R.vals({ view: v, lang: 'it' });
+    if (!(x.poteVista === true && x[flag] === false && x.pote.vazio === true && /^NAO SEI · POTE NON CARICATO/.test(x.pote.vazioTitulo) &&
+      x.pote.objetos.length === 0)) { ok = false; det = v; }
+  }
+  prova('P9 pote pedido e ausente: cada ferramenta diz NAO SEI, sem snapshot nem demo', ok, det);
+  prova('P9 pote pedido e ausente: sala/painel/detalhes nao sao tomados', ['sala', 'painel', 'mcase'].every((v) => R.vals({ view: v, lang: 'it' }).poteVista === false));
+  const x = R.vals({ view: 'meeting', lang: 'it' });
+  prova('P9 a corrida ausente mostra-se NAO SEI', x.pote.run[0].v === 'NAO SEI');
+  const pedidos = [];
+  const sb = vm.createContext({ document: { write: (s) => pedidos.push(s) } });
+  sb.window = sb; sb.window.location = { search: '?pote=local' };
+  vm.runInContext(LEITOR, sb);
+  prova('P9 o carregador marca o pedido so com ?pote=local', sb.SINTONIA_POTE_PEDIDO === true);
+  const sb2 = vm.createContext({ document: { write: () => {} } });
+  sb2.window = sb2; sb2.window.location = { search: '' };
+  vm.runInContext(LEITOR, sb2);
+  prova('P9 sem ?pote=local nada e marcado', sb2.SINTONIA_POTE_PEDIDO === false);
+}
+/* P10 · o leitor recusa o que o contrato unico proibe */
+for (const [nome, mexer] of [
+  ['sinal solto dito SERIE_MEDIDA', (p) => { p.COMPARTIMENTOS.market.OBJETOS[0].MERCADO.LEITURA = 'SERIE_MEDIDA'; }],
+  ['Polso sem leitura de mercado', (p) => { delete p.COMPARTIMENTOS.market.OBJETOS[0].MERCADO; }],
+  ['prova sem URL', (p) => { delete p.COMPARTIMENTOS.market.OBJETOS[0].PROVA[0].URL; }],
+  ['prova sem PUBLISHED_AT', (p) => { delete p.COMPARTIMENTOS.market.OBJETOS[0].PROVA[0].PUBLISHED_AT; }],
+  ['URL NAO SEI sem base', (p) => { const q = p.COMPARTIMENTOS.meeting.OBJETOS[0].PROVA[0]; q.URL = 'NAO SEI'; q.URL_BASE = 'NAO SEI'; }],
+  ['item sem tempo num uso que exige tempo', (p) => { p.COMPARTIMENTOS.portfolio.OBJETOS[0].USO_EXIGE_TEMPO = true; }],
+  ['uso sem tempo sem resultado honesto', (p) => { p.COMPARTIMENTOS.portfolio.OBJETOS[0].RESULTADO = 'NAO SEI'; }],
+  ['lugar da fonte como lugar do facto', (p) => { p.COMPARTIMENTOS.windows.OBJETOS[0].LOCATION_SOURCE = 'SOURCE_LOCATION'; }],
+  ['sem run id no topo', (p) => { p.CABECALHO = { INTELLIGENCE_RUN_ID: p.INTELLIGENCE_RUN_ID }; delete p.INTELLIGENCE_RUN_ID; }],
+]) {
+  const pote = clone(POTE2); mexer(pote);
+  const x = montar(pote).vals({ view: 'market', lang: 'it' });
+  prova(`P10 pote com ${nome}: recusado, nada desenhado`, x.pote.recusado === true && x.pote.objetos.length === 0 && x.isMarket === false);
+}
+prova('P10 o pote v2 unico sintetico passa no leitor',
+  montar(clone(POTE2)).vals({ view: 'market', lang: 'it' }).pote.recusado === false);
 
 console.log(`\nPOTE NO CASCO: ${provas - falhas}/${provas} provas`);
 process.exit(falhas ? 1 : 0);

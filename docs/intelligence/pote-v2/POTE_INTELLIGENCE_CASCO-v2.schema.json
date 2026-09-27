@@ -1,0 +1,71 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "POTE_INTELLIGENCE_CASCO/v2",
+ "title": "O pote v2 unico — uma corrida da Intelligence, um compartimento por ferramenta",
+ "description": "FORMA do contrato. A LEI inteira (NAO SEI com base, uso que exige tempo, serie medida, lugar da fonte) e de conferir_pote em pacote/pote_intelligence_casco.py; tests/test_pote_v2_unico.py reprova se este schema e o codigo divergirem. Documento: docs/intelligence/pote-v2/CONTRATO-POTE-V2.md.",
+ "type": "object",
+ "required": ["SCHEMA", "MARCA", "NAO_PARA_CLIENTE", "INTELLIGENCE_RUN_ID", "SOURCE_HEAD", "CORTE", "RESULT_STATE",
+              "RUN_SCHEMA", "CORRIDA_SINTETICA", "ENTRADA", "LEITURA_DE_COMPATIBILIDADE", "LEI", "COMPARTIMENTOS",
+              "LACUNAS_SEM_COMPARTIMENTO", "RECUSADOS"],
+ "properties": {
+  "SCHEMA": {"const": "POTE_INTELLIGENCE_CASCO/v2"},
+  "MARCA": {"const": "EXPERIMENTAL · NAO_PARA_CLIENTE"},
+  "NAO_PARA_CLIENTE": {"const": true},
+  "INTELLIGENCE_RUN_ID": {"type": "string", "minLength": 1, "not": {"const": "NAO SEI"}},
+  "ENTRADA": {"enum": ["CORRIDA", "PAYLOAD_V1"]},
+  "LEITURA_DE_COMPATIBILIDADE": {"type": "array", "items": {"type": "string"}},
+  "COMPARTIMENTOS": {
+   "type": "object",
+   "required": ["meeting", "future", "windows", "market", "voices", "competitors", "science", "portfolio",
+                "archive", "sources", "field", "casa"],
+   "additionalProperties": {"$ref": "#/$defs/compartimento"}
+  },
+  "RECUSADOS": {"type": "array", "items": {"type": "object", "required": ["COMPARTIMENTO", "OBJETO_ID", "MOTIVO"]}}
+ },
+ "$defs": {
+  "compartimento": {
+   "type": "object",
+   "required": ["MARCA", "NAO_PARA_CLIENTE", "COMPARTIMENTO", "NOME_IT", "VISTAS_DO_CASCO", "ESPECIES_ADMITIDAS",
+                "CONTRATO_CHAVES", "OBJETOS", "LACUNAS", "UNIVERSO", "ESTADO", "PORQUE_VAZIO", "PORQUE_TEXTO",
+                "RECUSADOS_AQUI"],
+   "properties": {
+    "ESTADO": {"enum": ["COM_OBJETOS", "VAZIO"]},
+    "OBJETOS": {"type": "array", "items": {"$ref": "#/$defs/objeto"}}
+   }
+  },
+  "objeto": {
+   "type": "object",
+   "required": ["MARCA", "NAO_PARA_CLIENTE", "COMPARTIMENTO", "OBJETO_ID", "ESPECIE", "ESPECIE_DITA_POR", "ESTADO",
+                "CHAVES", "CHAVES_NAO_SEI", "FORA_DO_CONTRATO", "PORQUE", "CONTRADIZ", "INCERTEZA", "RESULTADO",
+                "USO_EXIGE_TEMPO", "PROVA", "CORRIDA_SINTETICA"],
+   "properties": {
+    "ESPECIE": {"enum": ["SINAL", "FATO_PRESENTE_SOBRE_O_FUTURO", "CROSSING", "FINDING", "OPORTUNIDADE",
+                         "RENDIMENTO_DE_FONTE"]},
+    "ESPECIE_DITA_POR": {"enum": ["INTELLIGENCE", "CONTRATO_V1"]},
+    "ESTADO": {"const": "EXPERIMENTAL_CANDIDATE"},
+    "RESULTADO": {"enum": ["NAO", "NAO_TRATAR_AGORA", "NO_DEFENSIBLE_ACTION_YET", "NAO SEI"]},
+    "USO_EXIGE_TEMPO": {"type": "boolean"},
+    "ENTITY_SOURCE": {"type": "string"},
+    "LOCATION_SOURCE": {"type": "string"},
+    "PROVA": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/prova"}},
+    "MERCADO": {
+     "type": "object",
+     "required": ["LEITURA", "PORQUE", "PONTOS", "UNIDADE", "SERIE"],
+     "properties": {
+      "LEITURA": {"enum": ["SERIE_MEDIDA", "SINAL_SOLTO"]},
+      "SERIE": {"type": "array", "items": {"type": "object", "required": ["PERIOD", "PRICE", "UNIT"]}}
+     }
+    }
+   }
+  },
+  "prova": {
+   "type": "object",
+   "required": ["ITEM_ID", "RAW_OBSERVATION_ID", "SOURCE_ID", "DOCUMENT_ID", "CORRIDA_UPSTREAM", "URL", "URL_BASE",
+                "PUBLISHED_AT", "PUBLISHED_AT_BASE", "COLHIDO_EM", "FACT_TIME", "G0", "ADMITIDA_POR",
+                "INTELLIGENCE_RUN_ID"],
+   "properties": {
+    "ADMITIDA_POR": {"enum": ["G0_PASSOU", "FUTURO_POR_DESENHO", "USO_SEM_TEMPO", "PONTE_V1"]}
+   }
+  }
+ }
+}
