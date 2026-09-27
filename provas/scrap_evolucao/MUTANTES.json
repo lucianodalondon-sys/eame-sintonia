@@ -1,6 +1,6 @@
 {
- "MUTANTES": 26,
- "MORTOS": 26,
+ "MUTANTES": 33,
+ "MORTOS": 33,
  "RESULTADOS": [
   {
    "MUTANTE": "FEED: sem o limite D40 de 3 alvos",
@@ -125,6 +125,41 @@
   {
    "MUTANTE": "P6: validador aceita pagina desenhada sem rotulo",
    "FICHEIRO": "coleta/scrap_capacidades.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D91 CANARIO: o item nao pede licenca ao robots",
+   "FICHEIRO": "curadoria/canario.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D91 CANARIO: robots ilegivel vira licenca",
+   "FICHEIRO": "curadoria/canario.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D91 XHR: o navegador pede sem perguntar ao robots",
+   "FICHEIRO": "ferramentas/captura_xhr.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D91 XHR: ler o robots de uma origem nova nao conta no teto",
+   "FICHEIRO": "ferramentas/captura_xhr.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D91 COLETOR: o feed e os itens sem licenca do robots",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "FEED-MEDIR: janela ignora os livros",
+   "FICHEIRO": "provas/scrap_evolucao/feeds_janela.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "FEED-MEDIR: --so ignorado",
+   "FICHEIRO": "provas/scrap_evolucao/medir_feeds_com_rede.py",
    "ESTADO": "MORTO"
   },
   {
