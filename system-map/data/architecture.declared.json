@@ -368,7 +368,7 @@
    "views": [
     "acervo"
    ],
-   "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte. Desde a FECHAR-ONDA2-B (25/09) o nome FISICO da pasta de cada documento vem de `nome_da_pasta.mjs`: igual ao de sempre quando serve; com `* ? \" < > |` ou mais de 255 bytes, percent-encoding reversivel + 12 hex do sha256 do DOCUMENT_ID — o DOCUMENT_ID no livro nao muda (na 2.a onda o `?redirect=%2F` da IT-T2-050 dava mkdir ENOENT). E o RETORNO.json do executor so diz SUCCESS quando o coletor nao falhou: com falha e FAILED (nada chegou) ou PARTIAL (algo chegou).",
+   "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte. Desde a FECHAR-ONDA2-B (25/09) o nome FISICO da pasta de cada documento vem de `nome_da_pasta.mjs`: igual ao de sempre quando serve; com `* ? \" < > |` ou mais de 255 bytes, percent-encoding reversivel + 12 hex do sha256 do DOCUMENT_ID — o DOCUMENT_ID no livro nao muda (na 2.a onda o `?redirect=%2F` da IT-T2-050 dava mkdir ENOENT). E o RETORNO.json do executor so diz SUCCESS quando o coletor nao falhou: com falha e FAILED (nada chegou) ou PARTIAL (algo chegou). Desde a REFERENCIA-MANUTENCAO (27/09) o corredor agendado aplica a CADENCIA do contrato (regras/cadencia_da_referencia.mjs) DEPOIS do portao de admissao, perguntando a ultima checagem ok a leis/frescor_da_referencia.py; quem nao declara cadencia continua a ser colhida todo dia.",
    "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
    "departments": [
     "INTELIGENCIA",
@@ -467,7 +467,7 @@
     "acervo",
     "audit"
    ],
-   "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA.",
+   "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA. Desde a REFERENCIA-MANUTENCAO (D116/D117, 27/09) IT-T4-001 declara CADENCIA (semanal na terca, retenta quarta e quinta) e ENDPOINTS_DE_REFERENCIA.ETICHETTE (bulas, rotacao ate 3/dia no teto do dominio); IT-T9-008 declara ENDPOINTS_DE_REFERENCIA.CATALOGO (portfolio, mensal + extraordinaria). Os executores das bulas e do catalogo ficam declarados como NAO LIGADOS.",
    "why_here": "Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.",
    "departments": [
     "ENGENHARIA",
@@ -6230,6 +6230,85 @@
     "provas/busca_no_actions/mutantes_busca_actions.py",
     "provas/linha_busca_raw_na_copia_da_sala.py",
     "provas/linha_busca_raw_no_postgres_descartavel.py"
+   ]
+  },
+  {
+   "id": "C-REFERENCIA-CADENCIA",
+   "name": "A cadencia da referencia — quando se volta a fonte",
+   "territory": "Z-REGRAS",
+   "kind": "engine",
+   "icon": "⟲",
+   "views": [
+    "collection-strategy",
+    "audit"
+   ],
+   "what": "Le o bloco CADENCIA do contrato da fonte (D117, dono, 27/09) e responde «e devida HOJE?»: SEMANAL (IT-T4-001 na terca, retenta quarta e quinta, o alerta continua ate haver checagem ok), MENSAL com EXTRAORDINARIA (catalogo ADAMA, disparada pelo diff do registro) e ROTACAO_DIARIA (bulas: disparadas pelo diff primeiro, depois a checagem mais antiga, ate 3 por dia e nunca acima do que sobra do teto de 5 por dominio em 24 h). O corredor agendado aplica-a DEPOIS do portao de admissao: tira do dia quem nao e devida, com o porque, e nunca acrescenta ninguem.",
+   "why_here": "RECOLLECTION != CADENCIA. O contrato de IT-T4-001 dizia se se revisita um detalhe e nada dizia sobre QUANDO voltar a fonte; nenhuma edicao do registro foi colhida depois de 14/09. CADENCIA NAO E ADMISSAO: quem diz se uma fonte pode ser colhida continua a ser curadoria/collection_gate.py. A ultima checagem ok vem de leis/frescor_da_referencia.py — um dono so para essa leitura.",
+   "departments": [
+    "ENGENHARIA",
+    "REGULATORIO_PORTFOLIO"
+   ],
+   "files": [
+    "regras/cadencia_da_referencia.mjs",
+    "regras/cadencia_da_referencia_test.mjs"
+   ]
+  },
+  {
+   "id": "C-REFERENCIA-FRESCOR",
+   "name": "O frescor da referencia — 14 e 30 dias desde a ultima checagem",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "⌛",
+   "views": [
+    "audit"
+   ],
+   "what": "Funcao pura estado_frescor(EDICAO_DATA, ULTIMA_CHECAGEM_OK, hoje): menos de 14 dias EM_DIA; 14 ou mais PODE_ESTAR_DESATUALIZADO; 30 ou mais as autorizacoes passam a A_CONFIRMAR (D117.4). Conta desde a ultima CHECAGEM bem-sucedida (HEALTHY, inclui SEEN_AGAIN), nunca desde a edicao; sem checagem e NAO_SEI. A CLI --json le o livro de observacoes e e o que a Intelligence/Label Intelligence consulta (D117.6) e o que o corredor agendado pergunta para a cadencia.",
+   "why_here": "EDICAO VELHA != DADO DESATUALIZADO; CHECAGEM VELHA = NAO SABEMOS SE MUDOU. A idade do documento nao diz se o sabemos atual — a idade do olhar diz.",
+   "departments": [
+    "INTELIGENCIA",
+    "REGULATORIO_PORTFOLIO"
+   ],
+   "files": [
+    "leis/frescor_da_referencia.py"
+   ]
+  },
+  {
+   "id": "C-IT-EDICOES-DO-REGISTRO",
+   "name": "As edicoes do registro — o diff produto a produto e o EVENTO_REGULATORIO",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "Δ",
+   "views": [
+    "audit",
+    "acervo"
+   ],
+   "what": "Compara duas edicoes do CSV do Ministero (IT-T4-001, PROD_FTS_6_AAAAMMDD) produto a produto e devolve cada mudanca com NUMERO_REGISTRAZIONE, CAMPO, ANTES, DEPOIS e EDICAO, no vocabulario da REGUA-DE-CHANGE-EVENT-EAME (NEW_REGISTRATION, REGISTRATION_LEFT_THE_LIST, STATUS_CHANGE com SUBTIPO REVOGACAO, HOLDER_CHANGE, COMPOSITION_CHANGE, DATE_CHANGE, UNKNOWN_CHANGE), atras do portao de versao de medidas/source_health.py. Cada mudanca que emite vira um item FATO que passa pela porta canonica (admissao.decidir T4 -> pronto_para_inteligencia -> sala_de_espera.pousar). A biblioteca das edicoes le-se do livro canonico; o diff de um par guarda-se em criacao exclusiva.",
+   "why_here": "CW-01: nenhum derivador abria CSV. Sair do ficheiro nao e revogacao (o ficheiro lista os revogados); a data do fato e a que a linha escreve (registrazione, decreto de revoga), nunca a da edicao; cultura x alvo NAO estao no CSV e nunca se inferem do nome (D116) — medido: com o nome na 1.a linha do texto, a porta lia cultura «vite» de RAME VITE.",
+   "departments": [
+    "REGULATORIO_PORTFOLIO",
+    "INTELIGENCIA",
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/it/edicoes_do_registro.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-REFERENCIA-MANUTENCAO",
+   "name": "A mutacao da referencia-manutencao",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit"
+   ],
+   "what": "Planta 16 defeitos (sobrescrever edicao antiga, inventar cultura, pular revogacao, frescor contado da edicao, alerta que morre, rotacao acima do teto, corredor que ignora a cadencia) e exige que o teste nomeado fique vermelho; restaura e confere o sha256.",
+   "why_here": "Teste que nunca viu vermelho nao e teste. O mutante K5 (o corredor calcula a cadencia e deita o resultado fora) sobreviveu na primeira volta e obrigou uma guarda nova.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/mutacao_referencia_manutencao.py"
    ]
   }
  ],

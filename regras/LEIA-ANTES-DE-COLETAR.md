@@ -62,7 +62,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 ### O contrato de cada fonte italiana
 
-13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA.
+13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA. Desde a REFERENCIA-MANUTENCAO (D116/D117, 27/09) IT-T4-001 declara CADENCIA (semanal na terca, retenta quarta e quinta) e ENDPOINTS_DE_REFERENCIA.ETICHETTE (bulas, rotacao ate 3/dia no teto do dominio); IT-T9-008 declara ENDPOINTS_DE_REFERENCIA.CATALOGO (portfolio, mensal + extraordinaria). Os executores das bulas e do catalogo ficam declarados como NAO LIGADOS.
 
 *Por que existe:* Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.
 
