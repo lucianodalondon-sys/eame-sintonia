@@ -1,0 +1,107 @@
+{
+ "DATASET": "POLSO-DOMINIO-LIVRE-24H-V1",
+ "RAIZ": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\source-curator-service-v1",
+ "DESDE": "2026-09-26T13:40:30.253630+00:00",
+ "MEDIDO_EM": "2026-09-27T13:44:45.550645+00:00",
+ "FICHEIROS_LIDOS": 1612,
+ "DOMINIOS": {
+  "ismeamercati.it": {
+   "OCUPADO_POR": [],
+   "SEM_CARIMBO": 360,
+   "REGISTOS_ANTIGOS": 1,
+   "VEREDITO": "LIVRE_NOS_LIVROS",
+   "DATADOS_24H": 0
+  },
+  "bmti.it": {
+   "OCUPADO_POR": [],
+   "SEM_CARIMBO": 97,
+   "REGISTOS_ANTIGOS": 13,
+   "VEREDITO": "LIVRE_NOS_LIVROS",
+   "DATADOS_24H": 0
+  },
+  "granariamilano.it": {
+   "OCUPADO_POR": [
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-LEDGER-V1.json",
+     "QUANDO": "2026-09-26T22:29:39.324475+00:00",
+     "TRECHO": "{\"SOURCE_ID\": \"IT-T10-030\", \"PREVIOUS_STATE\": \"REPAIRING\", \"NEW_STATE\": \"CONTRACTED_CANARY_FAILED\", \"REASON\": \"REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.granariamilano.it/newsletter/febbraio-2026/ -> MIXED/NAO_SEI, 172 em paragrafos (< 800 ou nao e materia)\", \"EVIDENCE_REF\": \"EV-IT-T10-030-R"
+    },
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-QUEUE-V1.json",
+     "QUANDO": "2026-09-26T22:29:39.147272+00:00",
+     "TRECHO": "{\"TASK_ID\": \"T04703\", \"SOURCE_ID\": \"IT-T10-030\", \"TASK_TYPE\": \"REPAIR_CONTRACT\", \"PRIORITY\": 50, \"STATUS\": \"DONE\", \"ATTEMPTS\": 0, \"NEXT_ATTEMPT_AT\": null, \"LAST_ERROR\": null, \"MOTIVO\": \"canario reprovou\", \"CREATED_AT\": \"2026-09-26T22:29:11.581507+00:00\", \"UPDATED_AT\": \"2026-09-26T22:29:39.147272+00:"
+    },
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+     "QUANDO": "2026-09-26T22:29:38.896765+00:00",
+     "TRECHO": "{\"EVIDENCE_REF\": \"EV-IT-T10-030-REPAIR_CONTRACT-5389\", \"SOURCE_ID\": \"IT-T10-030\", \"ETAPA\": \"REPAIR_CONTRACT\", \"OBSERVED_AT\": \"2026-09-26T22:29:38.896765+00:00\"}"
+    },
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-LEDGER-V1.json",
+     "QUANDO": "2026-09-26T22:29:28.995775+00:00",
+     "TRECHO": "{\"SOURCE_ID\": \"IT-T10-030\", \"PREVIOUS_STATE\": \"CONTRACTED_CANARY_FAILED\", \"NEW_STATE\": \"REPAIRING\", \"REASON\": \"reparo do contrato: ler a entrada e inferir o padrao dos itens (REPARO-DE-CONTRATO/v1)\", \"EVIDENCE_REF\": null, \"OBSERVED_AT\": \"2026-09-26T22:29:28.995775+00:00\", \"OWNER\": \"SOURCE_CURATOR\", "
+    },
+    {
+     "FICHEIRO": "curadoria/SOURCE-CURATOR-RUN-LOG.ndjson",
+     "QUANDO": "2026-09-26T22:29:12.871788+00:00",
+     "TRECHO": "{\"EVENTO\": \"REALIMENTACAO\", \"ACCOES\": [\"REPARAR\", \"FEEDER\"], \"QUEUE_ELIGIBLE\": 0, \"REPARAR\": {\"CANDIDATAS\": 7, \"ENFILEIRADAS\": [{\"SOURCE_ID\": \"IT-T10-030\", \"TASK_TYPE\": \"REPAIR_CONTRACT\"}, {\"SOURCE_ID\": \"IT-T12-089\", \"TASK_TYPE\": \"REPAIR_CONTRACT\"}, {\"SOURCE_ID\": \"IT-T2-113\", \"TASK_TYPE\": \"REPAIR_CO"
+    },
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-LEDGER-V1.json",
+     "QUANDO": "2026-09-26T22:26:25.353665+00:00",
+     "TRECHO": "{\"SOURCE_ID\": \"IT-T10-030\", \"PREVIOUS_STATE\": \"CANARY_PENDING\", \"NEW_STATE\": \"CONTRACTED_CANARY_FAILED\", \"REASON\": \"canario resolveu, mas a regua dos quatro passos nao promove: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL\", \"EVIDENCE_REF\": \"E"
+    },
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-QUEUE-V1.json",
+     "QUANDO": "2026-09-26T22:26:25.155848+00:00",
+     "TRECHO": "{\"TASK_ID\": \"T04696\", \"SOURCE_ID\": \"IT-T10-030\", \"TASK_TYPE\": \"CANARY\", \"PRIORITY\": 60, \"STATUS\": \"DONE\", \"ATTEMPTS\": 0, \"NEXT_ATTEMPT_AT\": null, \"LAST_ERROR\": null, \"MOTIVO\": \"CANARY OK\", \"CREATED_AT\": \"2026-09-26T22:26:18.037919+00:00\", \"UPDATED_AT\": \"2026-09-26T22:26:25.155848+00:00\"}"
+    },
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+     "QUANDO": "2026-09-26T22:26:24.862876+00:00",
+     "TRECHO": "{\"EVIDENCE_REF\": \"EV-IT-T10-030-CANARY-5374\", \"SOURCE_ID\": \"IT-T10-030\", \"ETAPA\": \"CANARY\", \"OBSERVED_AT\": \"2026-09-26T22:26:24.862876+00:00\"}"
+    },
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-QUEUE-V1.json",
+     "QUANDO": "2026-09-26T22:26:17.838235+00:00",
+     "TRECHO": "{\"TASK_ID\": \"T04686\", \"SOURCE_ID\": \"IT-T10-030\", \"TASK_TYPE\": \"VALIDATE_ROUTE\", \"PRIORITY\": 55, \"STATUS\": \"DONE\", \"ATTEMPTS\": 0, \"NEXT_ATTEMPT_AT\": null, \"LAST_ERROR\": null, \"MOTIVO\": \"VALIDATE_ROUTE OK\", \"CREATED_AT\": \"2026-09-26T22:25:36.930406+00:00\", \"UPDATED_AT\": \"2026-09-26T22:26:17.838235+00:"
+    },
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+     "QUANDO": "2026-09-26T22:26:17.596449+00:00",
+     "TRECHO": "{\"EVIDENCE_REF\": \"EV-IT-T10-030-VALIDATE_ROUTE-5373\", \"SOURCE_ID\": \"IT-T10-030\", \"ETAPA\": \"VALIDATE_ROUTE\", \"OBSERVED_AT\": \"2026-09-26T22:26:17.596449+00:00\"}"
+    },
+    {
+     "FICHEIRO": "curadoria/SOURCE-CURATOR-RUN-LOG.ndjson",
+     "QUANDO": "2026-09-26T22:25:39.896050+00:00",
+     "TRECHO": "{\"EVENTO\": \"REVALIDAR_LEGACY\", \"ACCAO\": \"LEGACY_REMEDIDAS\", \"LOTE\": [\"IT-T12-089\", \"IT-T10-030\", \"IT-T7-051\", \"IT-T2-113\", \"IT-T5-089\", \"IT-T7-130\", \"IT-T7-137\", \"IT-T7-142\", \"IT-T8-023\"], \"FEITAS\": 9, \"AT\": \"2026-09-26T22:25:39.896050+00:00\", \"ORIGEM\": \"SUPERVISOR\"}"
+    },
+    {
+     "FICHEIRO": "curadoria/LIFECYCLE-LEDGER-V1.json",
+     "QUANDO": "2026-09-26T22:25:36.741216+00:00",
+     "TRECHO": "{\"SOURCE_ID\": \"IT-T10-030\", \"PREVIOUS_STATE\": \"READY_FOR_COLLECTION\", \"NEW_STATE\": \"CANARY_PENDING\", \"REASON\": \"re-medir READY_LEGACY pela regua de hoje (gatilho, LEGACY-99 C: lote de 10/24h)\", \"EVIDENCE_REF\": \"CONTRATO:ROUTE_PROVENANCE\", \"OBSERVED_AT\": \"2026-09-26T22:25:36.741216+00:00\", \"OWNER\": \""
+    }
+   ],
+   "SEM_CARIMBO": 264,
+   "REGISTOS_ANTIGOS": 349,
+   "VEREDITO": "OCUPADO",
+   "ULTIMO_REGISTO": "2026-09-26T22:29:39.324475+00:00",
+   "LIVRE_A_PARTIR_DE": "2026-09-27T22:29:39.324475+00:00",
+   "DATADOS_24H": 12
+  },
+  "italmercati.it": {
+   "OCUPADO_POR": [],
+   "SEM_CARIMBO": 0,
+   "REGISTOS_ANTIGOS": 0,
+   "VEREDITO": "LIVRE_NOS_LIVROS",
+   "DATADOS_24H": 0
+  },
+  "clal.it": {
+   "OCUPADO_POR": [],
+   "SEM_CARIMBO": 0,
+   "REGISTOS_ANTIGOS": 0,
+   "VEREDITO": "LIVRE_NOS_LIVROS",
+   "DATADOS_24H": 0
+  }
+ }
+}

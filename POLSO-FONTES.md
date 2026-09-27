@@ -82,35 +82,57 @@ mostra hoje, e **não é fonte registada da Collection** (não está em T10 nem 
 existe `coleta/agrifood_ue.py`). Atenção à independência (INT-LAW-071): os preços italianos que ela publica
 vêm das mesmas borse merci (Bologna, Verona, Milano) — não conta como segunda origem delas.
 
-## Comandos — 1 pedido por fonte, para correr com a VPN IT
+## Comandos — 1 pedido por fonte, só quando o domínio está livre há 24 h
 
-Um `curl` por fonte, só leitura, sem login, com os bytes guardados e o sha256 ao lado. Depois, o leitor lê o
-ficheiro **sem rede**. Pasta sugerida: `C:/Users/London1/auditoria-madrugada/polso-fontes/`.
+Pedido da coordenação (26/09 22:05). **Um comando só**, que confere e depois pede:
 
 ```bash
-OUT=C:/Users/London1/auditoria-madrugada/polso-fontes; mkdir -p $OUT
-UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"
-pede() { curl -sS -L -A "$UA" --max-time 60 -o "$OUT/$1" -w "$1 HTTP=%{http_code} BYTES=%{size_download} URL=%{url_effective}\n" "$2"; sha256sum "$OUT/$1"; }
-
-# 1 · ISMEA — preços de cereais (frumento tenero + mais), médias e praças      [precisa VPN IT]
-pede ismea-853.html "https://www.ismeamercati.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/853"
-# 2 · BMTI — a última análise de cereais pela API aberta (categoria 30)          [sem VPN]
-pede bmti-cereali.json "https://www.bmti.it/wp-json/wp/v2/posts?categories=30&per_page=1"
-# 3 · Borsa Merci di Milano — índice dos listini (endereço NAO VERIFICADO; o crawl viu /listino/<nome>-<data>/)
-pede granaria-listino.html "https://www.granariamilano.it/listino/"
-# 4 · Italmercati — página inicial, para achar o listino (NAO VERIFICADO)
-pede italmercati.html "https://www.italmercati.it/"
-# 5 · Clal — página inicial, para ver o que é aberto (NAO VERIFICADO)
-pede clal.html "https://www.clal.it/"
-
-# depois, SEM rede: o leitor de preço sobre cada ficheiro
-for f in ismea-853.html bmti-cereali.json granaria-listino.html italmercati.html clal.html; do
-  echo "== $f"; PYTHONIOENCODING=utf-8 py leis/preco_de_mercado.py "$OUT/$f" | py -c "import json,sys; r=json.load(sys.stdin); print(len(r['OBSERVACOES']),'observacoes'); [print(' ',o['COMMODITY'],'|',o['PRACA'],'|',o['PERIODO'],'|',o['PRECO_TEXTO'],'|',o['ESTAGIO']) for o in r['OBSERVACOES'][:5]]"
-done
+bash scripts/polso_mercato/um_pedido_por_fonte.sh               # confere os livros vivos e pede SÓ aos livres
+bash scripts/polso_mercato/um_pedido_por_fonte.sh --so-conferir # só a conferência, sem rede
 ```
 
-São **5 pedidos, 1 por domínio** (teto D38: 5/domínio/rodada). Nenhum destes domínios está na lista proibida
-(CNR, Coldiretti, ANGA, Unaprol).
+O que ele faz, por ordem:
+
+1. **Confere os livros vivos** (só leitura) com `scripts/polso_mercato/dominio_livre_24h.py`: a árvore do
+   robô (`source-curator-service-v1`) e a da ponte (`ponte-viva`). Procura o domínio escrito **e** os IDs que
+   o representam (o coletor escreve o ID, não o URL — a Granaria tem 11 SOURCE_ID na alocação viva:
+   IT-T10-023/025–030/034–036/044 e IT-T7-079). Um registo só conta se tiver carimbo ISO nas últimas 24 h.
+2. **Pede uma vez a cada domínio LIVRE nos dois livros** (curl GET, sem login, 60 s), guarda os bytes e o
+   sha256 em `C:/Users/London1/auditoria-madrugada/polso-fontes/<data-hora>/`. Domínio ocupado é saltado com
+   a hora em que fica livre.
+3. **Lê sem rede** cada ficheiro com o leitor de preço.
+
+**Falha fechada**: se a conferência do robô não produzir resultado, **nenhum** pedido é feito; um domínio
+que a conferência não conhece também não é pedido. Os três defeitos que o teste sem rede apanhou e que
+estão consertados: o caminho `/c/...` que o Python do Windows não lê; a conferência que morria e deixava o
+resto seguir (tudo contaria como livre); e o leitor a reler os próprios `.precos.json`.
+
+### A conferência de hoje (27/09, 10:44 de Brasília — janela desde 26/09 10:40)
+
+| domínio | robô | ponte | pode pedir? |
+|---|---|---|---|
+| ismeamercati.it | livre | livre | **sim** — precisa VPN IT |
+| bmti.it | livre | livre | **sim** |
+| granariamilano.it | **OCUPADO** — 12 registos, o último 26/09 22:29:39Z (`LIFECYCLE-LEDGER-V1`: reparo do IT-T10-030, `…/newsletter/febbraio-2026/`) | livre | **só depois de 27/09 22:29:39Z = 19:29:39 de Brasília** |
+| italmercati.it | livre | livre | **sim** (URL NAO VERIFICADO) |
+| clal.it | livre | livre | **sim** (URL NAO VERIFICADO) |
+
+Provas: `scripts/polso_mercato/DOMINIO-LIVRE-24H-ROBO-20260927.json` e `…-PONTE-20260927.json`
+(1.612 ficheiros lidos na árvore do robô).
+
+**O que esta conferência NÃO vê:** pedidos feitos fora destes livros (outra sessão, `curl` à mão, o coletor
+de outra worktree) — «LIVRE» quer dizer «os livros lidos não registam», não «ninguém pediu». E a hora
+de hoje fica velha: o comando **refaz a conferência na hora em que corre**; esta tabela é só a foto de hoje.
+
+Os URL, um por domínio (estão no script):
+
+| domínio | URL | o que se espera |
+|---|---|---|
+| ismeamercati.it | `https://www.ismeamercati.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/853` | preços de cereais (frumento tenero, mais) |
+| bmti.it | `https://www.bmti.it/wp-json/wp/v2/posts?categories=30&per_page=1` | a última análise de cereais (JSON) |
+| granariamilano.it | `https://www.granariamilano.it/listino/` | índice dos listini — NAO VERIFICADO |
+| italmercati.it | `https://www.italmercati.it/` | página inicial — NAO VERIFICADO |
+| clal.it | `https://www.clal.it/` | página inicial — NAO VERIFICADO |
 
 ## O que o leitor ainda não lê (medido nas fixtures reais)
 
@@ -140,5 +162,6 @@ As fontes que dizem o mercado já são conhecidas, e duas já estão cadastradas
   de preços.
 - **Atacados de fruta e Clal**: o repositório não sabe nada deles. Deixei um comando de 1 pedido para cada.
 
-Deixei os 5 comandos prontos (um por site). Você roda com a VPN e depois o meu leitor lê os arquivos sem
-internet.
+Deixei um comando só. Antes de pedir, ele olha nos livros do robô se alguém visitou o site nas últimas 24
+horas; se visitou, não pede e diz a hora em que fica livre. Hoje, 4 dos 5 sites estão livres; a Bolsa de
+Milão só fica livre às 19:29 (Brasília), porque o robô passou lá ontem às 19:29.
