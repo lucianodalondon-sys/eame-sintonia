@@ -1008,7 +1008,8 @@
     "scripts/polso_mercato/MUTACAO-PRECO-DE-MERCADO-V1.json",
     "scripts/polso_mercato/BATERIA-LEVE-ANTES.json",
     "scripts/polso_mercato/BATERIA-LEVE-DEPOIS.json",
-    "POLSO-DI-MERCATO.md"
+    "POLSO-DI-MERCATO.md",
+    "scripts/polso_mercato/medir_fixtures.py"
    ]
   },
   {
@@ -2199,7 +2200,8 @@
    ],
    "files": [
     "tests/*.py",
-    "tests/es/*.py"
+    "tests/es/*.py",
+    "tests/fixtures/pesquisadores_t6/montar.py"
    ],
    "views": [
     "audit"
@@ -5558,7 +5560,124 @@
     "ferramentas/seguir_pesquisadores/fora_do_mur.py",
     "ferramentas/seguir_pesquisadores/orcid_lote.py",
     "ferramentas/seguir_pesquisadores/listas_oficiais.py",
-    "ferramentas/seguir_pesquisadores/seguir.py"
+    "ferramentas/seguir_pesquisadores/seguir.py",
+    "ferramentas/seguir_pesquisadores/fixtures/pagina-rossi.html"
+   ]
+  },
+  {
+   "id": "C-PESQUISADORES-T6",
+   "name": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "◉",
+   "views": [
+    "acervo"
+   ],
+   "what": "pesquisadores_t6.py: consultas ao OpenAlex por par cultura + problema (a pessoa nasce do trabalho), com --plano, --ensaio sem rede sobre respostas gravadas, --rede por rodadas e --ler/--medir/--ordenar sem rede; reaproveita o transporte e os lexicos de coleta/corpus_pesquisador.py. pesquisadores_t6_executor.py: NAO vai a rede — declara a porta canonica (COL-LAW-505) os trabalhos ja guardados pelas rodadas, fonte unica EU-T5-001 (OpenAlex), uma unidade = um trabalho (DOI), os pesquisadores viajam dentro da unidade (campo T6).",
+   "why_here": "PESQUISADORES-T6 e T6-PARA-SALA (lote 4 da INTEGRA-NOITE): e uma acao da coleta — colhe e entrega pela porta canonica. Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa.",
+   "departments": [
+    "INTELIGENCIA",
+    "TECNICO_CIENCIA"
+   ],
+   "files": [
+    "coleta/pesquisadores_t6.py",
+    "coleta/pesquisadores_t6_executor.py"
+   ]
+  },
+  {
+   "id": "C-LISTA-MESTRA-MUR",
+   "name": "LISTA MESTRA — o MUR como identidade oficial dos pesquisadores",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "◉",
+   "views": [
+    "acervo"
+   ],
+   "what": "lista_mestra_mur.py: le o cadastro publico do MUR (nome, universidade, departamento, cargo, SSD) e cruza-o com as obras T6 por NOME + UNIVERSIDADE, nunca so o nome; --plano, --rede por rodadas, --ler e --cruzar. MUR diz quem e; OpenAlex o que publicou; ORCID o que a pessoa declarou.",
+   "why_here": "LISTA-MESTRA (lote 4 da INTEGRA-NOITE): acao da coleta que vai buscar e guarda a lista oficial. Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa.",
+   "departments": [
+    "INTELIGENCIA",
+    "TECNICO_CIENCIA"
+   ],
+   "files": [
+    "coleta/lista_mestra_mur.py"
+   ]
+  },
+  {
+   "id": "C-CONTADOR-24H",
+   "name": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir",
+   "territory": "Z-ACOES",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "reserva_24h.py: reservar(dominio, qtd, run_id, linha) -> RESERVADO | ADIADO_ATE | FAIL | UNKNOWN, numa janela movel de 24 h no livro SINTONIA_TETO_24H, sob o mesmo trinco (directorio <livro>.trinco) do transporte Node; sem livro devolve FAIL e nao se pede.",
+   "why_here": "CONTADOR-24H (D90, lote 4 da INTEGRA-NOITE): a pergunta e a escrita do teto passam a ser um passo so, partilhado por todas as linhas de rede. Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/reserva_24h.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-CONTADOR-24H",
+   "name": "A prova adversarial do contador de 24 h",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊢",
+   "views": [
+    "audit"
+   ],
+   "what": "contador_24h_local.mjs: servidor local que conta os pedidos, executores concorrentes (contador_24h_executor.mjs, Node; e um Python com reserva_24h.py) a partilhar so o livro de 24 h, rede externa fechada. contador_24h_mutacao.py: desliga cada peca do contador numa copia (git archive) e exige que tests/test_contador_24h.py reprove.",
+   "why_here": "CONTADOR-24H (D90, lote 4). Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/contador_24h_executor.mjs",
+    "provas/contador_24h_local.mjs",
+    "provas/contador_24h_mutacao.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-T6-ATRAVESSA",
+   "name": "A prova de ate onde um pedido T6 atravessa (e o ensaio numa copia da Sala)",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊢",
+   "views": [
+    "audit",
+    "trace"
+   ],
+   "what": "o_pedido_t6_atravessa.py: aperta orquestrador.correr() com Pedido(alvo=T6, universo declarado), sem rede, e conta o que sai em cada etapa (executor -> ingresso/RAW -> derivacao -> admissao -> sala). ensaio_t6_na_copia_da_sala.py: PESADO — pg_dump da Sala real so leitura para um Postgres descartavel, corre o botao duas vezes e conta por SQL; a Sala real nunca e o alvo.",
+   "why_here": "T6-PARA-SALA (WIP) — entrou no lote 4 dentro do lista-mestra-v1 (3f7b43ef contem ff9ba9f2). Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/ensaio_t6_na_copia_da_sala.py",
+    "provas/o_pedido_t6_atravessa.py"
+   ]
+  },
+  {
+   "id": "C-T6-PARA-SALA-MEDIDAS",
+   "name": "T6-PARA-SALA — medir os extratores e os modelos nos trabalhos guardados",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "antes_depois_extratores.py: os extratores T6 (local, periodo, molecula) de um commit antigo contra os da arvore, sobre as mesmas rodadas, sem rede, com amostra fixa para ler a mao. medir_modelos_resistencia.py: so mede (sem campo novo no contrato) DSS/modelo, condicao->risco e resistencia pelo termo escrito no titulo+resumo.",
+   "why_here": "T6-PARA-SALA (WIP) — entrou no lote 4 dentro do lista-mestra-v1 (3f7b43ef contem ff9ba9f2). Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/t6_para_sala/antes_depois_extratores.py",
+    "ferramentas/t6_para_sala/medir_modelos_resistencia.py"
    ]
   }
  ],

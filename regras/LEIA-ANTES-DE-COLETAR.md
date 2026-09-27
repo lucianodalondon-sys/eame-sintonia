@@ -70,8 +70,10 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 |---|---|
 | estado | PENDING — o sistema importa esta lei em runtime para decidir: C-CAPA-MATERIA, C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md` |
+| onde vive | `regras/ROTA-NAVEGADOR.json` |
 | onde vive | `regras/boletim_data_local_test.mjs` |
 | onde vive | `regras/contratos_de_fonte.py` |
+| onde vive | `regras/feed_discovery_test.mjs` |
 | onde vive | `regras/identidade_do_motor_cli.mjs` |
 | onde vive | `regras/italy_contract_test.mjs` |
 | onde vive | `regras/italy_contracts.mjs` |
@@ -117,6 +119,8 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
 - **PACOTE-ONDA3 — o ensaio integrado da 3.a onda** — ensaio_onda3.sh: ensaio integrado numa worktree destacada no HEAD do vivo + os ficheiros sujos do vivo lidos na hora (para se o pacote tocar um livro no Git); D49/D51, D52, provas de rota ja feitas, onboarding, o que o robo vai medir, plano, coorte PROVISORIA da 3.a onda, onda_web --so-plano, prova do teto, desfazer a partir da foto. Sem rede.
 - **Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)** — Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.
+- **SEGUIR-PESQUISADORES (D85): quem seguir e os canais publicos onde os pesquisadores publicam** — pessoas.py: liga a lista-mestra MUR (nome, universidade, setor) aos autores da T6 por sobrenome + inicial + mesma universidade (ambiguo nao funde) e ordena pela obra recente com par do casco no texto. seguir.py: por pessoa, ORCID researcher-urls (so os links declarados) e a pagina declarada, com teto 5/dominio/rodada contando o robots, robots respeitado, 3 s, portao IT antes/depois, bytes fora do Git com sha256; LinkedIn perfil fora, so posts; candidatas pela porta canonica candidatas/fonte_nova.py numa fila dada. fora_do_mur.py + listas_oficiais.py (PESQ-FORA-DO-MUR): quem da T6 e da FEM, do CREA ou do CNR pela instituicao que a OBRA declara, e as listas oficiais de pessoal de cada casa lidas por rodadas (so o perfil de quem esta no cruzamento; CNR so com liberacao). contador.py + orcid_lote.py (D90 3.4): um contador de pedidos por dominio em 24 h partilhado pelas tres; ORCID por canario e depois em lote, <=5 pedidos a orcid.org por 24 h, pendentes ficam.
+- **T6-PARA-SALA — medir os extratores e os modelos nos trabalhos guardados** — antes_depois_extratores.py: os extratores T6 (local, periodo, molecula) de um commit antigo contra os da arvore, sobre as mesmas rodadas, sem rede, com amostra fixa para ler a mao. medir_modelos_resistencia.py: so mede (sem campo novo no contrato) DSS/modelo, condicao->risco e resistencia pelo termo escrito no titulo+resumo.
 
 ---
 
@@ -162,4 +166,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 18 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 20 ferramentas e 2 peças de fonte declaradas no mapa.

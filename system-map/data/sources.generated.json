@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-26T23:13:07+00:00",
-    "HEAD": "638f98e96f852c3fafe7416f7e30034d352d43ad",
+    "GENERATED_AT": "2026-09-27T12:00:39+00:00",
+    "HEAD": "abe77c39714d01cd8c5c6c4ce8f8dcff39faa498",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "b4795ab6e4c27635bb2745d9c4c0f699ccf837ed94c4b6c5583815d3beba2913",
-    "FICHEIROS_NA_IMPRESSAO": 3916,
+    "SOURCE_TREE_FINGERPRINT": "8e3ffb8fa551fdf1e1909cb54d01010b87b94e9af2aa97062c449dd916cdb06d",
+    "FICHEIROS_NA_IMPRESSAO": 4038,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -35755,6 +35755,17 @@
       ]
     },
     {
+      "ficheiro": "coleta/comunicacao_concorrenza.py",
+      "como_se_chama": "coleta/comunicacao_concorrenza.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
       "ficheiro": "coleta/comunicacao_medir.py",
       "como_se_chama": "coleta/comunicacao_medir.py",
       "carimba_data": [],
@@ -36027,6 +36038,15 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/lista_mestra_mur.py",
+      "como_se_chama": "coleta/lista_mestra_mur.py --cruzar --mur",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
       "ficheiro": "coleta/mapa_regfi.py",
       "como_se_chama": "coleta/mapa_regfi.py producto ES-01717",
       "carimba_data": [],
@@ -36040,6 +36060,30 @@
       "como_se_chama": "coleta/pdf_text.py arquivo.pdf",
       "carimba_data": [],
       "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/pesquisadores_t6.py",
+      "como_se_chama": "coleta/pesquisadores_t6.py --plano",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "FACT_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [
+        "fato_local"
+      ],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/pesquisadores_t6_executor.py",
+      "como_se_chama": "coleta/pesquisadores_t6_executor.py --run-id",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "FACT_LOCATION"
+      ],
       "separa_fonte_do_fato": false,
       "leis_que_obedece": [],
       "regista_descarte": []
@@ -36067,10 +36111,30 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/reserva_24h.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
       "ficheiro": "coleta/ropf_pre_requisito.py",
       "como_se_chama": "coleta/ropf_pre_requisito.py",
       "carimba_data": [],
       "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/rota_navegador.py",
+      "como_se_chama": "coleta/rota_navegador.py --medir",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
       "separa_fonte_do_fato": false,
       "leis_que_obedece": [],
       "regista_descarte": []
@@ -38337,6 +38401,43 @@
       ]
     },
     {
+      "endpoint": "https://pub.orcid.org/v3.0",
+      "usado_por": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 103
+        },
+        {
+          "file": "coleta/lista_mestra_mur.py",
+          "line": 44
+        },
+        {
+          "file": "coleta/pesquisadores_t6.py",
+          "line": 58
+        },
+        {
+          "file": "coleta/speaker_identidade.py",
+          "line": 78
+        },
+        {
+          "file": "ferramentas/seguir_pesquisadores/orcid_lote.py",
+          "line": 42
+        },
+        {
+          "file": "ferramentas/seguir_pesquisadores/seguir.py",
+          "line": 45
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 77
+        },
+        {
+          "file": "tests/test_seguir_pesquisadores.py",
+          "line": 68
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
@@ -38378,7 +38479,7 @@
       "usado_por": [
         {
           "file": "curadoria/canario.py",
-          "line": 58
+          "line": 62
         },
         {
           "file": "curadoria/capturador.py",
@@ -38580,6 +38681,35 @@
       ]
     },
     {
+      "endpoint": "https://bsky.app/profile",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 113
+        },
+        {
+          "file": "provas/ensaio_do_texto_na_collection.py",
+          "line": 113
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 202
+        },
+        {
+          "file": "tests/test_orcid_lote.py",
+          "line": 117
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 276
+        },
+        {
+          "file": "tests/test_seguir_pesquisadores.py",
+          "line": 63
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.linkedin.com/posts",
       "usado_por": [
         {
@@ -38601,6 +38731,39 @@
         {
           "file": "tests/test_prova_de_post_de_pessoa.py",
           "line": 14
+        },
+        {
+          "file": "tests/test_seguir_pesquisadores.py",
+          "line": 60
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.linkedin.com/in",
+      "usado_por": [
+        {
+          "file": "curadoria/test_soc_onda2_social.py",
+          "line": 94
+        },
+        {
+          "file": "leis/social_matriz.py",
+          "line": 924
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 58
+        },
+        {
+          "file": "tests/test_d24_video_de_pessoa.py",
+          "line": 119
+        },
+        {
+          "file": "tests/test_prova_de_post_de_pessoa.py",
+          "line": 58
+        },
+        {
+          "file": "tests/test_seguir_pesquisadores.py",
+          "line": 59
         }
       ]
     },
@@ -38630,6 +38793,31 @@
       ]
     },
     {
+      "endpoint": "https://api.openalex.org/works'",
+      "usado_por": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 102
+        },
+        {
+          "file": "coleta/es/corpus_es.py",
+          "line": 34
+        },
+        {
+          "file": "coleta/pesquisadores_t6.py",
+          "line": 56
+        },
+        {
+          "file": "coleta/speaker_universo.py",
+          "line": 67
+        },
+        {
+          "file": "coleta/universo_ciencia_it.py",
+          "line": 51
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.regione.veneto.it/web",
       "usado_por": [
         {
@@ -38655,31 +38843,6 @@
       ]
     },
     {
-      "endpoint": "https://www.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "curadoria/test_soc_onda2_social.py",
-          "line": 94
-        },
-        {
-          "file": "leis/social_matriz.py",
-          "line": 924
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 58
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 119
-        },
-        {
-          "file": "tests/test_prova_de_post_de_pessoa.py",
-          "line": 58
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.cia.it',timeout=5)",
       "usado_por": [
         {
@@ -38701,27 +38864,6 @@
         {
           "file": "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
           "line": 35
-        }
-      ]
-    },
-    {
-      "endpoint": "https://bsky.app/profile",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 113
-        },
-        {
-          "file": "provas/ensaio_do_texto_na_collection.py",
-          "line": 113
-        },
-        {
-          "file": "provas/red_team_da_release_v1.py",
-          "line": 202
-        },
-        {
-          "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 276
         }
       ]
     },
@@ -38764,27 +38906,6 @@
         {
           "file": "superficie/rede.py",
           "line": 83
-        }
-      ]
-    },
-    {
-      "endpoint": "https://api.openalex.org/works'",
-      "usado_por": [
-        {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 102
-        },
-        {
-          "file": "coleta/es/corpus_es.py",
-          "line": 34
-        },
-        {
-          "file": "coleta/speaker_universo.py",
-          "line": 67
-        },
-        {
-          "file": "coleta/universo_ciencia_it.py",
-          "line": 51
         }
       ]
     },
@@ -38978,6 +39099,27 @@
       ]
     },
     {
+      "endpoint": "https://www.adama.com/italia",
+      "usado_por": [
+        {
+          "file": "fontes/adama_catalogo_snapshot.py",
+          "line": 99
+        },
+        {
+          "file": "motor/v21_ingest.py",
+          "line": 281
+        },
+        {
+          "file": "pacote/pacote_camadas3.py",
+          "line": 44
+        },
+        {
+          "file": "tests/test_comunicacao_concorrenza.py",
+          "line": 63
+        }
+      ]
+    },
+    {
       "endpoint": "https://youtu.be/X'",
       "usado_por": [
         {
@@ -39037,23 +39179,6 @@
       ]
     },
     {
-      "endpoint": "https://pub.orcid.org/v3.0",
-      "usado_por": [
-        {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 103
-        },
-        {
-          "file": "coleta/speaker_identidade.py",
-          "line": 78
-        },
-        {
-          "file": "superficie/rede.py",
-          "line": 77
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.googleapis.com/youtube",
       "usado_por": [
         {
@@ -39103,28 +39228,11 @@
           "line": 24
         }
       ]
-    },
-    {
-      "endpoint": "https://www.arpal.liguria.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 257
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 72
-        },
-        {
-          "file": "tests/test_prova_teto_dominio.py",
-          "line": 134
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 731,
+  "ENDPOINTS_FOUND": 852,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 691,
+  "ENDPOINTS_TRUNCATED": 812,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -39142,13 +39250,13 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 731,
+    "endpoints": 852,
     "endpoints_published": 40,
-    "endpoints_truncated": 691,
+    "endpoints_truncated": 812,
     "candidates": 1199,
-    "coletores": 56,
+    "coletores": 62,
     "coletores_com_data": 20,
-    "coletores_com_lugar": 36,
+    "coletores_com_lugar": 40,
     "coletores_que_separam_fonte_do_fato": 24,
     "coletores_que_registam_descarte": 20,
     "corridas_registadas": 108,
