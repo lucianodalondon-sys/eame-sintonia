@@ -1,0 +1,269 @@
+{
+ "SCHEMA": "MUTACAO_CASCO_HOJE/v1",
+ "ONDE": "worktree descartavel no commit be8656e4+86bf292c (o repo nao foi tocado)",
+ "TESTES": [
+  "node tests/test_casco_hoje.mjs",
+  "node tests/test_pote_publicado.mjs",
+  "node italia-portale/audit/casco/d97-auditoria.mjs"
+ ],
+ "REGRA": "morto = algum dos tres sai != 0 com o defeito plantado; cada defeito e UMA troca de texto, desfeita antes do seguinte",
+ "MORTOS": 22,
+ "TOTAL": 22,
+ "MUTANTES": [
+  {
+   "ID": "M01",
+   "DEFEITO": "religar o legado V2.1 por omissao",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "var BANDEIRAS = { LEGADO_V21_VISIVEL: false,",
+   "TROCA_PARA": "var BANDEIRAS = { LEGADO_V21_VISIVEL: true,",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H2 selo que nao confere -> o detalhe da etiqueta tambem nao abre ; FAIL: H3 nenhuma das vistas de detalhe do modelo antigo abre com o pote — mcase,window,",
+    "d97-auditoria.mjs exit 1"
+   ]
+  },
+  {
+   "ID": "M02",
+   "DEFEITO": "religar os 44 ITFC por omissao",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "ITFC_LEGADO_VISIVEL: false };",
+   "TROCA_PARA": "ITFC_LEGADO_VISIVEL: true };",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H3 as bandeiras do dono estao desligadas por omissao ; FAIL: H5 os 44 ITFC do legado nao aparecem",
+    "d97-auditoria.mjs exit 1"
+   ]
+  },
+  {
+   "ID": "M03",
+   "DEFEITO": "somar gavetas em vez de objetos distintos",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "(pote.COMPARTIMENTOS[k].OBJETOS || []).forEach(function (o) { vistos[o.OBJETO_ID] = true; });",
+   "TROCA_PARA": "(pote.COMPARTIMENTOS[k].OBJETOS || []).forEach(function (o, i) { vistos[k + i] = true; });",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H6 a barra lateral conta 25 objetos distintos, nao a soma de 47 das gavetas",
+    "test_pote_publicado.mjs FAIL: Q7 a barra lateral conta 25 objetos distintos, 2 cruzamentos no pote e 245 recusados — [47,2,245]"
+   ]
+  },
+  {
+   "ID": "M04",
+   "DEFEITO": "mostrar recusado na tela principal",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "var principais = C.filter(function (c) { return noPote[c.OBJETO_ID]; }).map(linha);",
+   "TROCA_PARA": "var principais = C.map(linha);",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H9 D97: 0 cruzamentos sem prova na tela (2 na tela, 84 na aba rifiutati) ; FAIL: H9 D97 sai 0 — 1",
+    "test_pote_publicado.mjs FAIL: Q4 a tela principal so tem os cruzamentos que sao objeto do pote (2) ; FAIL: Q4 os 86 cruzamentos estao nas duas abas",
+    "d97-auditoria.mjs exit 1"
+   ]
+  },
+  {
+   "ID": "M05",
+   "DEFEITO": "aba rifiutati aberta por omissao",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "const aba = this.state.cruzAba === 'recusados' ? 'recusados' : 'pote';",
+   "TROCA_PARA": "const aba = this.state.cruzAba === 'pote' ? 'pote' : 'recusados';",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_publicado.mjs FAIL: Q4 por omissao a aba aberta e a do pote; «rifiutati» so por clique"
+   ]
+  },
+  {
+   "ID": "M06",
+   "DEFEITO": "data do carimbo escrita a mao",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "', ' + T.refChk + ' ' + ddmm(R.ULTIMA_CHECAGEM_OK) +",
+   "TROCA_PARA": "', ' + T.refChk + ' 07/09' +",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H1 nenhuma data do carimbo esta escrita a mao no casco (31/08, 07/09)"
+   ]
+  },
+  {
+   "ID": "M07",
+   "DEFEITO": "carimbo sem o frescor",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "', ' + ((T.frescor || {})[f] || f) + ' · ' + f + ' · ' + txt(R.EDICAO_REGISTRO),",
+   "TROCA_PARA": "', ' + txt(R.EDICAO_REGISTRO),",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H1 o frescor vai literal e por extenso (PODE_ESTAR_DESATUALIZADO · PUÒ ESSERE NON AGGIORNATO), em ambar"
+   ]
+  },
+  {
+   "ID": "M08",
+   "DEFEITO": "id de cruzamento sem PROVVISORIO",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "id: txt(c.OBJETO_ID), prov: T.prov,",
+   "TROCA_PARA": "id: txt(c.OBJETO_ID), prov: '',",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_publicado.mjs FAIL: Q4 cada id de cruzamento leva a marca PROVVISORIO (D119)"
+   ]
+  },
+  {
+   "ID": "M09",
+   "DEFEITO": "busca volta ao modelo antigo com o pote",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "if (view === 'search' && Q) this._buscaNoPote(v, Q, pote, lg);",
+   "TROCA_PARA": "/* busca: legado */",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H3 a busca com o pote procura so nos objetos do pote — DALLA SCIENZA AL CAMPO | Tignoletta della vite · Umbria | Oidio · Friuli-Venezia Giulia | Tignolett",
+    "d97-auditoria.mjs exit 1"
+   ]
+  },
+  {
+   "ID": "M10",
+   "DEFEITO": "vistas de detalhe abrem com o pote",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "        for (const k of Component.DETALHES_DO_LEGADO) v[k] = false;\n        if (view === 'etichetta'",
+   "TROCA_PARA": "        if (view === 'etichetta'",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H3 nenhuma das vistas de detalhe do modelo antigo abre com o pote — mcase,window,company,cproduct,event,theme,person,product,source,signal,case ; FAIL: H3",
+    "d97-auditoria.mjs exit 1"
+   ]
+  },
+  {
+   "ID": "M11",
+   "DEFEITO": "pote ausente cai na demo",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "if (!W.SINTONIA_POTE && this._poteEsperado()) {",
+   "TROCA_PARA": "if (false) {",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H7 pote esperado e ausente: nenhuma rota desenha legado, demo ou Rete Commerciale; todas dizem NON SO — meeting:isMeeting radarfuturo:isRadarFuturo future",
+    "d97-auditoria.mjs exit 1"
+   ]
+  },
+  {
+   "ID": "M12",
+   "DEFEITO": "radar sem o exemplo da sonda",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "exTitulo: T.radarEx, pergunta: txt(J.PERGUNTA), temExemplo: !!J.RESULTADO,",
+   "TROCA_PARA": "exTitulo: T.radarEx, pergunta: '', temExemplo: false,",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H4 o exemplo e a sonda olivo x mosca, NO_DEFENSIBLE_ACTION_YET, janela NO, agir NAO"
+   ]
+  },
+  {
+   "ID": "M13",
+   "DEFEITO": "Radar Futuro sem a separacao da Agenda",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "pv.objetos = todos.filter((o) => dom[o.id]);",
+   "TROCA_PARA": "pv.objetos = todos;",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H5 o radar so tem os fatos com >= 1 chave de dominio provada ; FAIL: H5 radar vazio diz porque (zero nao prova ausencia)"
+   ]
+  },
+  {
+   "ID": "M14",
+   "DEFEITO": "Label Intelligence aceita selo que nao confere",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "var confere = !!carregado && carregado === LI.CONTENT_SHA256;",
+   "TROCA_PARA": "var confere = !!carregado;",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H2 selo que nao confere -> NON SO, sem etiquetas e sem legado ; FAIL: H2 selo que nao confere -> o detalhe da etiqueta tambem nao abre"
+   ]
+  },
+  {
+   "ID": "M15",
+   "DEFEITO": "uso declarado pelo produto dito «autorizzato»",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-publicacao.js",
+   "TROCA_DE": "refDecl: 'uso dichiarato a livello di prodotto (spettro · DECLARACAO_DE_PRODUTO): da confermare, mai «autorizzato»',",
+   "TROCA_PARA": "refDecl: 'uso dichiarato a livello di prodotto (spettro · DECLARACAO_DE_PRODUTO): autorizzato',",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H1 uso declarado pelo produto (DECLARACAO_DE_PRODUTO) diz «da confermare», nunca «autorizzato»"
+   ]
+  },
+  {
+   "ID": "M16",
+   "DEFEITO": "barra lateral volta a contar os 86 da analise",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "{ k: lang === 'en' ? 'crossings in the pot' : 'incroci nel pote', v: Object.keys(",
+   "TROCA_PARA": "{ k: lang === 'en' ? 'crossings in the pot' : 'incroci nel pote', v: 86 || Object.keys(",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_publicado.mjs FAIL: Q7 a barra lateral conta 25 objetos distintos, 2 cruzamentos no pote e 245 recusados — [25,86,245] ; FAIL: Q9 pote de outra corrida: o leitor desenha-o, a"
+   ]
+  },
+  {
+   "ID": "M17",
+   "DEFEITO": "lista de sinais do radar V2.1 fora da precedencia",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "    'isSignalsView'];",
+   "TROCA_PARA": "    ];",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H4 o radar V2.1 (e a lista de sinais por baixo dele) nao desenha ; FAIL: H9 D97: 0 rotas de legado com o pote, 0 sem o pote",
+    "d97-auditoria.mjs exit 1"
+   ]
+  },
+  {
+   "ID": "M18",
+   "DEFEITO": "carimbo pelo relogio em vez do HOJE declarado",
+   "FICHEIRO": "pacote/publicar_pote_aprovado.py",
+   "TROCA_DE": "c = porta.carimbo(porta.abrir(hoje=hoje))",
+   "TROCA_PARA": "c = porta.carimbo(porta.abrir())",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_publicado.mjs FAIL: Q1 o ficheiro publicado e o que o publicador produz dos insumos (--conferir = IGUAL) — DIFERENTE: italia-portale/client/sintonia-pote-publicado.js nao e o"
+   ]
+  },
+  {
+   "ID": "M19",
+   "DEFEITO": "Radar Futuro conta a Agenda no menu",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "if (route === 'radarfuturo' && Qd) return (C[k].OBJETOS || []).filter((o) => Qd.chavesDeDominio(o).length > 0).length;",
+   "TROCA_PARA": "if (route === 'radarfuturo' && Qd) return (C[k].OBJETOS || []).length;",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H5 o menu do Radar Futuro conta o radar (0), nao a Agenda",
+    "test_pote_publicado.mjs FAIL: Q7 o menu conta os objetos do compartimento de cada rota — meeting=0 portfolio=2 radarfuturo=10 etichette=166 windows=2 market=6 voices=0 competitors=0 sc"
+   ]
+  },
+  {
+   "ID": "M20",
+   "DEFEITO": "etichette volta a desenhar os cruzamentos por cima da ferramenta",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "const pb = (ok && Q && !ferramenta) ?",
+   "TROCA_PARA": "const pb = (ok && Q) ?",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H2 #etichette nao desenha o pote nem os cruzamentos por cima",
+    "test_pote_publicado.mjs FAIL: Q4 a Label Intelligence (etichette) nao rele os 86: e produto de ferramenta"
+   ]
+  },
+  {
+   "ID": "M21",
+   "DEFEITO": "o radar V2.1 volta com o pote sem bandeira",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "if (pv && V21 && (view === 'meeting'",
+   "TROCA_PARA": "if (pv && (view === 'meeting'",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H4 o radar V2.1 (e a lista de sinais por baixo dele) nao desenha ; FAIL: H9 D97: 0 rotas de legado com o pote, 0 sem o pote",
+    "d97-auditoria.mjs exit 1"
+   ]
+  },
+  {
+   "ID": "M22",
+   "DEFEITO": "ITFC volta com o pote sem bandeira",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "TROCA_DE": "if (pv && ITFC && view === 'radarfuturo')",
+   "TROCA_PARA": "if (pv && view === 'radarfuturo')",
+   "RESULTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_casco_hoje.mjs FAIL: H5 os 44 ITFC do legado nao aparecem ; FAIL: H9 D97: 0 rotas de legado com o pote, 0 sem o pote",
+    "d97-auditoria.mjs exit 1"
+   ]
+  }
+ ]
+}
