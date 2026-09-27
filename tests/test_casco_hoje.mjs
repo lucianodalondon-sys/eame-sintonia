@@ -69,7 +69,7 @@ const ddmm = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso)); 
   const R = PUB.REFERENCIA_ADAMA;
   prova('H1 a porta corre e le a referencia (motor/porta_da_referencia.py)', !!porta && porta.ESTADO === 'LIDA', (r.stderr || '').slice(0, 200));
   prova('H1 o carimbo publicado e o da porta, campo a campo (edicao, data, checagem, frescor, impressao)',
-    !!porta && ['EDICAO_REGISTRO', 'DATA_DA_EDICAO_REGISTRO', 'ULTIMA_CHECAGEM_OK', 'DIAS_SEM_CHECAGEM', 'ESTADO_FRESCOR',
+    !!porta && ['HOJE', 'HOJE_VEIO_DE', 'EDICAO_REGISTRO', 'DATA_DA_EDICAO_REGISTRO', 'ULTIMA_CHECAGEM_OK', 'DIAS_SEM_CHECAGEM', 'ESTADO_FRESCOR',
       'EDICAO_CATALOGO', 'IMPRESSAO_DOS_LIVROS'].every((k) => porta[k] === R[k]));
   const ref = V('portfolio').potePub.ref;
   prova('H1 a tela diz «registro del DD/MM, ultima verifica DD/MM» com as datas DA PORTA',
