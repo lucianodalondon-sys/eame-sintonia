@@ -69,7 +69,11 @@ de saída. Sob a LOCK-PESADO (12:42, prioridade da coordenação).
   ainda por regerar (a mesma da nuvem); confere-se depois do mapa (§7);
 - `test_fundacao_da_coleta::test_nenhum_ficheiro_de_inteligencia_foi_tocado` — **⛔ decisão, §4.3**.
 
-**Corrida final** (o `-v4b` com o mapa): §7.
+**Corrida final — o `-v4b` com o mapa** (`13a12a70`; `provas/integra_noite/lote4-inteira-ramo-v2.json` × o vivo
+`…-vivo-v1.json`): ramo **389** ficheiros · vivo **374**; **152 herdadas**, iguais nome a nome; **0 consertadas**;
+nenhum ficheiro novo vermelho; nenhum vermelho só pelo código de saída; **1 nova**:
+`test_fundacao_da_coleta::test_nenhum_ficheiro_de_inteligencia_foi_tocado` — **⛔ §4.3** (a M5 do mapa atrasado
+passou com o mapa regerado, como a nuvem mediu).
 
 ## 4 · Decisões abertas
 
@@ -129,4 +133,10 @@ supervisor.
 
 ## 7 · Mapa e conferências
 
-(por correr, sob a LOCK-PESADO)
+- **Mapa:** UM, pela cadeia, sob a LOCK-PESADO (12:42, prioridade da coordenação): `REGERAR` → commit `13a12a70` →
+  `VALIDAR` **`SYSTEM_MAP_CHECK=PASS`** → `PORTOES_POS_COMMIT` **`IMPRESSAO_DO_CARIMBO=IGUAL`**; os gerados que o
+  validador reescreve repostos pelo nome. Este relatório é fonte rastreada: a cadeia corre outra vez depois dele (o
+  commit do mapa final é o SHA do PRONTO).
+- **ff-only sobre `2ef6fef8`: SIM.** Writeset (`2ef6fef8`..ramo): **169** ficheiros.
+- **Vivo (só leitura, 27/09 ~14:20):** `2ef6fef8`; **17** livros `M`; **nenhum** ficheiro do writeset está `M` ou
+  solto no vivo; em `data/` só entram **10 ficheiros NOVOS** (nenhum mudado nem apagado); `supabase/`: **0**.
