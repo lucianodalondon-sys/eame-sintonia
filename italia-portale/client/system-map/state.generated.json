@@ -2961,9 +2961,11 @@
       "provas/integra_noite/mutacao-d9-RESULTADO.txt",
       "provas/integra_noite/mutacao-da20-RESULTADO.txt",
       "provas/integra_noite/mutacao-da21-RESULTADO.txt",
+      "provas/integra_noite/mutacao-lote4-final-RESULTADO.txt",
       "provas/integra_noite/mutacao_d9.py",
       "provas/integra_noite/mutacao_da20.py",
       "provas/integra_noite/mutacao_da21.py",
+      "provas/integra_noite/mutacao_lote4_final.py",
       "provas/integra_noite/writeset-lote1.txt",
       "provas/integra_noite/writeset-lote2.txt",
       "provas/inventario_esperado.py",
@@ -4527,9 +4529,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "1c7b154f310c83ca4b9459789ed2a883f4edddbb",
-    "GENERATED_AT": "2026-09-27T11:00:11-03:00",
-    "SOURCE_TREE_FINGERPRINT": "508ca8a32a3a05efa188c46aeffed9253b3548a3510d8fac1163fa7405363a4c"
+    "HEAD": "495c577b4ca97a3f7dcaf272584580fe7a0880d3",
+    "GENERATED_AT": "2026-09-27T15:54:49+00:00",
+    "SOURCE_TREE_FINGERPRINT": "89c25c190fefc198965049be299de1ab23739b90d5197568d90c915126bed51b"
   },
   "FAMILIES": [
     {
@@ -57777,6 +57779,7 @@
         "provas/implementacoes_candidatas.py",
         "provas/integra_noite/mutacao_da20.py",
         "provas/integra_noite/mutacao_da21.py",
+        "provas/integra_noite/mutacao_lote4_final.py",
         "provas/linkedin_local_first.py",
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
@@ -57835,7 +57838,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 92,
+      "file_count": 93,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -57892,6 +57895,7 @@
         "C-PEDIDO",
         "C-PERSISTENCIA-DA-PORTA-CLI",
         "C-PROCEDENCIA",
+        "C-PROVA-CONTADOR-24H",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -58019,12 +58023,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1606,
+        "palavras": 1611,
         "por_lingua": {
           "IT": 2,
           "PT": 1
         },
-        "sem_marca_de_lingua": 1603,
+        "sem_marca_de_lingua": 1608,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -58128,6 +58132,7 @@
         "coleta/comunicacao_coleta.py",
         "coleta/comunicacao_concorrenza.py",
         "coleta/derivacao_forward.py",
+        "coleta/espera_por_dominio.py",
         "coleta/eu_regulatorio_executor.py",
         "coleta/executor_texto_de_pdf.py",
         "coleta/golden_path_pdf.py",
@@ -58140,6 +58145,7 @@
         "coleta/reserva_24h.py",
         "coleta/retrato_html.mjs",
         "coleta/rota_forward_documento.py",
+        "coleta/rota_navegador.py",
         "coleta/scrap_capacidades.py",
         "coleta/scrap_colheita.py",
         "coleta/scrap_executor.py",
@@ -58263,6 +58269,7 @@
         "provas/amostragem_neutra_t3.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
+        "provas/contador_24h_local.mjs",
         "provas/gate_de_aceitacao_tematica.py",
         "provas/implementacoes_candidatas.py",
         "provas/o_canario_da_collection.py",
@@ -58361,6 +58368,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -58421,10 +58429,12 @@
       "ATIVACAO": {
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
+          "C-PROVA-COLETA",
           "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
+          "provas/integra_noite/mutacao_lote4_final.py:17",
           "tests/test_contador_24h.py:159"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
@@ -91121,11 +91131,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/integra_noite/mutacao_da21.py",
           "line": 12,
+          "snippet": "RES = R / \"coleta\" / \"reserva_24h.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--READS-->C-PROVA-COLETA",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/integra_noite/mutacao_lote4_final.py",
+          "line": 14,
           "snippet": "RES = R / \"coleta\" / \"reserva_24h.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTADOR-24H--READS-->C-PROVA-COLETA",
@@ -135637,6 +135663,41 @@
     },
     {
       "from": "C-PROVA-CONTADOR-24H",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova adversarial do contador de 24 h alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/integra_noite/mutacao_lote4_final.py",
+          "line": 17,
+          "snippet": "MJS = R / \"provas\" / \"contador_24h_local.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-CONTADOR-24H--READS-->C-PROVA-COLETA",
+            "FROM": "C-PROVA-CONTADOR-24H",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-CONTADOR-24H",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -148262,7 +148323,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 21 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 23 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_linhagem_do_ready.py",
@@ -148316,6 +148377,38 @@
           "file": "provas/ensaio_canonico_de_capacidade.py",
           "line": 252,
           "snippet": "arv = ast.parse(io.open(os.path.join(RAIZ, 'coleta', 'scrap_executor.py'),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/integra_noite/mutacao_lote4_final.py",
+          "line": 15,
+          "snippet": "ROTA = R / \"coleta\" / \"rota_navegador.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/integra_noite/mutacao_lote4_final.py",
+          "line": 16,
+          "snippet": "ESPERA = R / \"coleta\" / \"espera_por_dominio.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
             "FROM": "C-SCRAP-SOCIAL",
@@ -148412,38 +148505,6 @@
           "file": "provas/mutacao_da_release_v1.py",
           "line": 114,
           "snippet": "'        \"roda\": [\"coleta/social_scrap.py\", \"coletar\"],',",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/mutacao_da_release_v1.py",
-          "line": 194,
-          "snippet": "'coleta/social_envelope.py',",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/mutacao_da_release_v1.py",
-          "line": 271,
-          "snippet": "'coleta/scrap_capacidades.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
             "FROM": "C-SCRAP-SOCIAL",
@@ -158713,7 +158774,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2180,
+  "UNCLAIMED_FILES_COUNT": 2181,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -158984,12 +159045,12 @@
     "components_pending": 241,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1685,
-    "edges_proven": 1618,
+    "edges": 1686,
+    "edges_proven": 1619,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3933,
-    "files_covered": 1753,
+    "files_tracked": 3935,
+    "files_covered": 1754,
     "files_code_unclaimed": 0,
     "roles_proven": 193,
     "roles_declared_only": 9,

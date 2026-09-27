@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T15:51:59+00:00",
-  "HEAD": "1c7b154f310c83ca4b9459789ed2a883f4edddbb",
+  "GENERATED_AT": "2026-09-27T16:34:39+00:00",
+  "HEAD": "495c577b4ca97a3f7dcaf272584580fe7a0880d3",
   "BRANCH": "claude/lote4-final-integration-l02r5q",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "508ca8a32a3a05efa188c46aeffed9253b3548a3510d8fac1163fa7405363a4c",
-  "FICHEIROS_NA_IMPRESSAO": 4081,
+  "SOURCE_TREE_FINGERPRINT": "89c25c190fefc198965049be299de1ab23739b90d5197568d90c915126bed51b",
+  "FICHEIROS_NA_IMPRESSAO": 4083,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3553,6 +3553,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/integra_noite/mutacao_lote4_final.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "507b1d588a3912c5584c37fc02203cabc0dca2b5",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/inventario_esperado.py",
     "PAPEL": "FONTE",
     "VERSAO": "7d07107a62d3c545d7566923b085b44b0ea18c1c",
@@ -5095,14 +5102,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "508ca8a32a3a05efa188c46aeffed9253b3548a3510d8fac1163fa7405363a4c",
+    "VERSAO": "89c25c190fefc198965049be299de1ab23739b90d5197568d90c915126bed51b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "508ca8a32a3a05efa188c46aeffed9253b3548a3510d8fac1163fa7405363a4c",
+    "VERSAO": "89c25c190fefc198965049be299de1ab23739b90d5197568d90c915126bed51b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7564,8 +7571,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1075,
-  "INPUTS_DIGEST": "5f7eca41e03491b98223f40e0792d4d50928e7e7d07cf07a41ec423792faf245",
+  "INPUTS_COUNT": 1076,
+  "INPUTS_DIGEST": "82376fce0d915d8911d5409e5246a46878727a6468065d61653efed2e786cf12",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7598,8 +7605,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "c13422d9488f6ab924841c0ba5c0408ea7d5fa7a23d14585bc3ebff7ab2113e1",
-  "SEMANTIC_HASH": "f30e5e9410e9c51e5f25d6120ab2fb00ff3b323f7d500e87435726b7a691f631"
+  "MEASUREMENT_HASH": "89c080eda9815cb0a885adefc5e5900ab5dd7fe972db9458622c14bb8616c2bd",
+  "SEMANTIC_HASH": "51c4b8a67dd03ba167316b9f7beddf68abf5411ed88b8ca5ecfc136fc2ab6c97"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -18472,6 +18479,14 @@
      {
       "FICHEIRO": "provas/integra_noite/mutacao_da21.py",
       "LINHA": 12,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CONTADOR-24H--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/integra_noite/mutacao_lote4_final.py",
+      "LINHA": 14,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CONTADOR-24H--READS-->C-PROVA-COLETA",
@@ -43808,6 +43823,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PROVA-CONTADOR-24H--READS-->C-PROVA-COLETA",
+    "FROM": "C-PROVA-CONTADOR-24H",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/integra_noite/mutacao_lote4_final.py",
+      "LINHA": 17,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-CONTADOR-24H--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROVA-CONTADOR-24H--READS-->C-TESTES",
     "FROM": "C-PROVA-CONTADOR-24H",
     "TO": "C-TESTES",
@@ -51513,6 +51550,22 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/integra_noite/mutacao_lote4_final.py",
+      "LINHA": 15,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/integra_noite/mutacao_lote4_final.py",
+      "LINHA": 16,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/mutacao_da_autorizacao.py",
       "LINHA": 150,
       "SUPPORTS": "YES",
@@ -51555,22 +51608,6 @@
      {
       "FICHEIRO": "provas/mutacao_da_release_v1.py",
       "LINHA": 114,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "provas/mutacao_da_release_v1.py",
-      "LINHA": 194,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "provas/mutacao_da_release_v1.py",
-      "LINHA": 271,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
@@ -56747,12 +56784,12 @@
     ]
    }
   ],
-  "COUNT": 1605
+  "COUNT": 1606
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 217,
   "CARTOES_AUDITADOS": 217,
-  "ARESTAS_RELACIONADAS": 1605,
+  "ARESTAS_RELACIONADAS": 1606,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -57217,7 +57254,7 @@
    "CODE": 275,
    "CONTROL": 87,
    "DATA": 31,
-   "PROOF": 561,
+   "PROOF": 562,
    "READ": 363,
    "RULE": 268,
    "WRITE": 20
@@ -59291,6 +59328,7 @@
     "provas/contador_24h_local.mjs",
     "provas/contador_24h_mutacao.py",
     "provas/integra_noite/mutacao_da21.py",
+    "provas/integra_noite/mutacao_lote4_final.py",
     "provas/prova_teto_dominio.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -62722,6 +62760,7 @@
     ".github/workflows/sintonia-scrap.yml"
    ],
    "SO_MEDEM_ESTE": [
+    "provas/integra_noite/mutacao_lote4_final.py",
     "provas/mutacao_da_release_v1.py",
     "provas/scrap_evolucao/medir_ram_navegador.py",
     "provas/scrap_evolucao/mutantes_scrap_evolucao.py"
@@ -64177,6 +64216,7 @@
     "provas/implementacoes_candidatas.py",
     "provas/integra_noite/mutacao_da20.py",
     "provas/integra_noite/mutacao_da21.py",
+    "provas/integra_noite/mutacao_lote4_final.py",
     "provas/linkedin_local_first.py",
     "provas/medir_admission_t3_atual.py",
     "provas/medir_source_id_wiring_gap.py",
@@ -64267,6 +64307,7 @@
     "provas/derived_artifact_no_postgres.py",
     "provas/fechar_ground_truth_t3.py",
     "provas/fluxo_no_seco.py",
+    "provas/integra_noite/mutacao_lote4_final.py",
     "provas/medir_source_id_wiring_gap.py",
     "provas/migracao_034_ensaio_copia.py",
     "provas/mutacao_da_linhagem_do_ready.py",
@@ -64416,7 +64457,7 @@
     "unnest",
     "urllib"
    ],
-   "ENTRAM": 87,
+   "ENTRAM": 88,
    "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -64443,6 +64484,7 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/contador_24h_local.mjs",
+    "provas/integra_noite/mutacao_lote4_final.py",
     "tests/test_contador_24h.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -64454,7 +64496,7 @@
     "coleta"
    ],
    "ENTRAM": 4,
-   "SAEM": 1,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
     "READ",
@@ -67136,6 +67178,7 @@
     "provas/bluesky_trial_ao_vivo.py",
     "provas/ensaio_canonico_de_capacidade.py",
     "provas/entradas_do_scrap_v1.py",
+    "provas/integra_noite/mutacao_lote4_final.py",
     "provas/mutacao_da_autorizacao.py",
     "provas/mutacao_da_release_v1.py",
     "provas/mutacao_do_fluxo_canonico.py",

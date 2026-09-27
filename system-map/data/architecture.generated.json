@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "1c7b154f310c83ca4b9459789ed2a883f4edddbb",
-    "GENERATED_AT": "2026-09-27T11:00:11-03:00",
-    "SOURCE_TREE_FINGERPRINT": "508ca8a32a3a05efa188c46aeffed9253b3548a3510d8fac1163fa7405363a4c"
+    "HEAD": "495c577b4ca97a3f7dcaf272584580fe7a0880d3",
+    "GENERATED_AT": "2026-09-27T15:54:49+00:00",
+    "SOURCE_TREE_FINGERPRINT": "89c25c190fefc198965049be299de1ab23739b90d5197568d90c915126bed51b"
   },
   "FILES": [
     {
@@ -20337,6 +20337,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/integra_noite/mutacao-lote4-final-RESULTADO.txt",
+      "sha": "cad101df027745e7d67155e232763429e6177daa",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/integra_noite/mutacao_d9.py",
       "sha": "48236104eabf1b4360d5bb5eb52b1c01d27c7cda",
       "ext": ".py",
@@ -20353,6 +20360,13 @@
     {
       "path": "provas/integra_noite/mutacao_da21.py",
       "sha": "e0983bf2c9e5507f19c8571575b43d5f93b88f2d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/integra_noite/mutacao_lote4_final.py",
+      "sha": "507b1d588a3912c5584c37fc02203cabc0dca2b5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24622,7 +24636,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "36553051ca1348e4c764664b77278ec21403459f",
+      "sha": "302418750f4091d12fed2e54424e42cc7e093f78",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -67703,6 +67717,61 @@
       }
     },
     {
+      "from_file": "provas/integra_noite/mutacao_lote4_final.py",
+      "to_file": "coleta/espera_por_dominio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/integra_noite/mutacao_lote4_final.py",
+        "line": 16,
+        "snippet": "ESPERA = R / \"coleta\" / \"espera_por_dominio.py\""
+      }
+    },
+    {
+      "from_file": "provas/integra_noite/mutacao_lote4_final.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/integra_noite/mutacao_lote4_final.py",
+        "line": 14,
+        "snippet": "RES = R / \"coleta\" / \"reserva_24h.py\""
+      }
+    },
+    {
+      "from_file": "provas/integra_noite/mutacao_lote4_final.py",
+      "to_file": "coleta/rota_navegador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/integra_noite/mutacao_lote4_final.py",
+        "line": 15,
+        "snippet": "ROTA = R / \"coleta\" / \"rota_navegador.py\""
+      }
+    },
+    {
+      "from_file": "provas/integra_noite/mutacao_lote4_final.py",
+      "to_file": "curadoria/atribuir_source_id.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/integra_noite/mutacao_lote4_final.py",
+        "line": 13,
+        "snippet": "ASI = R / \"curadoria\" / \"atribuir_source_id.py\""
+      }
+    },
+    {
+      "from_file": "provas/integra_noite/mutacao_lote4_final.py",
+      "to_file": "provas/contador_24h_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/integra_noite/mutacao_lote4_final.py",
+        "line": 17,
+        "snippet": "MJS = R / \"provas\" / \"contador_24h_local.mjs\""
+      }
+    },
+    {
       "from_file": "provas/italy_accounting.mjs",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -103362,10 +103431,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3933,
-    "files_readable": 1639,
-    "files_code_dir": 1966,
-    "file_edges": 6836,
+    "files_tracked": 3935,
+    "files_readable": 1640,
+    "files_code_dir": 1968,
+    "file_edges": 6841,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },
