@@ -1,6 +1,6 @@
 # LUGAR-DO-PUBLICADOR — onde fica quem publica, do contrato até a Sala — 26/09/2026
 
-Ramo `lugar-do-publicador-v1`, a partir do vivo **`554c1ec1`** + `sede-37-v1` (`9fdcc799`, juntada aqui).
+Ramo `lugar-do-publicador-v1`, a partir do vivo **`2ef6fef8`** (antes 554c1ec1; ff, só o mapa declarado mudou) + `sede-37-v1` (`9fdcc799`, juntada aqui).
 **NÃO instalado. Rede: 0. Mapa: não regerado** (peça `C-LUGAR-PUBLICADOR` declarada). Sala real e vivo **só
 lidos**; a escrita foi ensaiada em **cópias** (livros do vivo copiados + Sala copiada para um Postgres descartável,
 depois apagado), sob a LOCK-PESADO (22:39–22:43, FILA-PESADO 5.º; passada à SALA-LEITURA-D9-D10).
@@ -96,7 +96,7 @@ página escolhida é a do IBBA, **outro instituto**) · IT-T5-016 AIR UNIMI e IT
 
 ## 7 · Plano de instalação (coordenador; um escritor; robô parado nos passos 4–5)
 
-1. `git -C $VIVO rev-parse --short HEAD` = **554c1ec1**; backup dos livros sujos (sha256) + `HEAD-ANTES`.
+1. `git -C $VIVO rev-parse --short HEAD` = **2ef6fef8**; backup dos livros sujos (sha256) + `HEAD-ANTES`.
 2. `git diff --name-only HEAD <SHA> -- $LIVROS | wc -l` → 0; `git merge --ff-only <SHA>`; livros iguais.
 3. Testes do §4.
 4. **Livros (robô parado):** `escrever_sede.py --paginas ferramentas/sede37/PAGINAS-DE-SEDE.json --contratos
@@ -108,6 +108,10 @@ página escolhida é a do IBBA, **outro instituto**) · IT-T5-016 AIR UNIMI e IT
    py ferramentas/lugar_publicador/preencher_sede_na_sala.py` (mostrar: **GANHAM 55**) → `--aplicar` → 2.ª
    passagem 0.
 7. Mapa pela INTEGRA (lote).
+
+⚠️ O ensaio foi feito sobre a Sala de 26/09 22:42 (104 linhas). O coordenador reprocessou a Sala a 27/09 (~11:00):
+o passo 6 mostra primeiro, e os números podem mudar (linhas novas; e se o reprocesso já tiver escrito a sede, a porta
+diz JA_TINHAM e não repete).
 
 **DESFAZER:** livros — repor do backup; Sala — as revisões são append-only e identificadas por
 `extrator = ferramentas/lugar_publicador/preencher_sede_na_sala.py …` (não se apagam; uma revisão nova volta a
