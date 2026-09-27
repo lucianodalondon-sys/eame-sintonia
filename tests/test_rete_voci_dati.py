@@ -348,6 +348,17 @@ class E_PortaoDeSaidaEJunta(unittest.TestCase):
         with self.assertRaises(R.LeiViolada):
             R.juntar(corrida, ruim)
 
+    def test_E5_juntar_recusa_linhagem_repetida_mesmo_com_objetos_novos(self):
+        corrida = json.loads(CORRIDA_SINTETICA.read_text(encoding="utf-8"))
+        e = extra()
+        j = R.juntar(corrida, e)
+        outra = copy.deepcopy(e)
+        for c in R.COMPARTIMENTOS:
+            for o in objs(outra, c):
+                o["OBJETO_ID"] = "DE-NOVO-" + o["OBJETO_ID"]
+        with self.assertRaisesRegex(R.LeiViolada, "LINEAGE ja estao na corrida"):
+            R.juntar(j, outra)
+
     def test_E4_o_script_unico_escreve_e_recusa_o_portal(self):
         with tempfile.TemporaryDirectory() as d:
             saida, pote = Path(d) / "EXTRA.json", Path(d) / "pote.json"
