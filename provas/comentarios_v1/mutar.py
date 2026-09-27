@@ -86,8 +86,10 @@ for _, f, _, _ in MUTANTES:
             originais[f] = fh.read()
 sha0 = {f: hashlib.sha256(b).hexdigest() for f, b in originais.items()}
 rc0, f0 = correr()
-assert rc0 == 0, 'verde ANTES de mutar: %s' % f0
-res = {'TESTES': TESTES, 'SHA256_ANTES': sha0, 'MUTANTES': []}
+# HERDADAS: `test_c13_route_gate` ja falha na base 2ef6fef8 (YOUTUBE/INCREMENTAL, 2 testes), igual.
+# Um mutante so conta como MORTO se fizer aparecer falha NOVA alem destas.
+HERDADAS = set(f0)
+res = {'TESTES': TESTES, 'SHA256_ANTES': sha0, 'FALHAS_HERDADAS_ANTES': sorted(HERDADAS), 'MUTANTES': []}
 try:
     for nome, f, velho, novo in MUTANTES:
         texto = originais[f].decode('utf-8')
@@ -101,9 +103,10 @@ try:
         rc, falhas = correr()
         with open(os.path.join(RAIZ, f), 'wb') as fh:
             fh.write(originais[f])
-        res['MUTANTES'].append({'MUTANTE': nome, 'FICHEIRO': f, 'ESTADO': 'MORTO' if rc else 'SOBREVIVEU',
-                                'TESTES_QUE_APANHARAM': falhas})
-        print('%-50s %s %s' % (nome, 'MORTO' if rc else 'SOBREVIVEU', falhas[:2]), flush=True)
+        novas = sorted(set(falhas) - HERDADAS)
+        res['MUTANTES'].append({'MUTANTE': nome, 'FICHEIRO': f, 'ESTADO': 'MORTO' if novas else 'SOBREVIVEU',
+                                'TESTES_QUE_APANHARAM': novas})
+        print('%-50s %s %s' % (nome, 'MORTO' if novas else 'SOBREVIVEU', novas[:2]), flush=True)
 finally:
     for f, b in originais.items():
         with open(os.path.join(RAIZ, f), 'wb') as fh:
