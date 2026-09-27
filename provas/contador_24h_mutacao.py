@@ -39,6 +39,10 @@ MUTANTES = [
      "  if (!d || !Array.isArray(d.RESERVAS)) throw new Error(`TETO_24H_ILEGIVEL: ${f}: sem RESERVAS[]`);",
      "  if (!d || !Array.isArray(d.RESERVAS)) return [];"),
     ("N4_NODE_TETO_FOLGADO", JS, "    if (g + qtd > teto) {", "    if (g + qtd > teto + 1) {"),
+    ("S1_SOCIAL_NAO_RESERVA", "coleta/teto_da_onda.py", '    if os.environ.get("SINTONIA_TETO_24H"):',
+     "    if False:"),
+    ("S2_SOCIAL_IGNORA_ADIADO", "coleta/teto_da_onda.py", '        if r24["ESTADO"] != "RESERVADO":',
+     '        if r24["ESTADO"] == "FAIL":'),
 ]
 
 

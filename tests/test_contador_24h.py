@@ -154,6 +154,41 @@ class OGemeoNode(Base):
         self.assertEqual(e, "RESERVADO,RESERVADO,RESERVADO,RESERVADO,RESERVADO,ADIADO_ATE,RESERVADO,ADIADO_ATE")
 
 
+class OFreioSocialUsaOMesmoContador(Base):
+    """A linha social (coleta/teto_da_onda.py, no vivo desde o LOTE 3) reserva no livro de 24 h."""
+
+    def setUp(self):
+        super().setUp()
+        sys.path.insert(0, str(RAIZ / "coleta"))
+        import teto_da_onda as TD                                  # noqa: E402
+        self.TD = TD
+        TD.zerar()
+        os.environ.pop("SINTONIA_TETO_ONDA", None)
+
+    def test_social_para_no_6o_e_regista_teto_24h(self):
+        for k in range(5):
+            self.TD.reservar("www.youtube.com", quem="t")
+        with self.assertRaises(self.TD.TetoDaOnda):
+            self.TD.reservar("r3---sn.googlevideo.com", quem="t")    # D41: o mesmo orcamento
+        self.assertEqual(self.TD.recusas()[-1]["MOTIVO"], "TETO_24H")
+        r = json.loads(self.livro.read_text(encoding="utf-8"))["RESERVAS"]
+        self.assertEqual((len(r), {x["LINHA"] for x in r}), (5, {"SOCIAL"}))
+
+    def test_web_e_social_somam_no_mesmo_livro(self):
+        js = ("import('./coleta/italy_pilot_collect.mjs').then(m=>{const o=[];for(let i=0;i<3;i++)"
+              "o.push(m.reservar24h('youtube.com',1,{runId:'W'+i}).ESTADO);console.log(o.join(','))})")
+        p = subprocess.run(["node", "-e", js], cwd=RAIZ, env=dict(os.environ), capture_output=True, text=True, timeout=120)
+        self.assertEqual(p.stdout.strip().splitlines()[-1], "RESERVADO,RESERVADO,RESERVADO")
+        self.TD.reservar("www.youtube.com", quem="t")
+        self.TD.reservar("youtube.com", quem="t")
+        with self.assertRaises(self.TD.TetoDaOnda):
+            self.TD.reservar("youtube.com", quem="t")
+
+    def test_sem_livro_24h_o_freio_e_o_de_antes(self):
+        os.environ.pop("SINTONIA_TETO_24H")
+        self.assertIsNone(self.TD.reservar("youtube.com", quem="t"))   # sem livro nenhum: nao trava
+
+
 class OTransporteContraOServidor(unittest.TestCase):
     def test_prova_adversarial_A1_a_A4(self):
         r = subprocess.run(["node", "provas/contador_24h_local.mjs"], cwd=RAIZ, capture_output=True, text=True,

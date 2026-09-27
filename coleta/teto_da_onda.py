@@ -137,7 +137,27 @@ def reservar(host, *, url=None, quem="scrap_http"):
 
     Sem livro nomeado: devolve None e nao trava (ver o cabecalho). Com livro: se o
     orcamento ja chegou ao teto, regista a recusa e levanta `TetoDaOnda` — o pedido
-    nao sai. O lugar gasto nao se devolve se o pedido falhar: saiu, bateu a porta."""
+    nao sai. O lugar gasto nao se devolve se o pedido falhar: saiu, bateu a porta.
+
+    D90 (26/09): com o contador multicanal de 24 h (`SINTONIA_TETO_24H`), reserva-se PRIMEIRO la,
+    no livro partilhado com o transporte web e as outras linhas (`coleta/reserva_24h.py`). Nao
+    reservado (ADIADO_ATE / FAIL / UNKNOWN) = recusa `TETO_24H` e o pedido nao sai."""
+    if os.environ.get("SINTONIA_TETO_24H"):
+        import importlib.util as _u                                # um so contador, pelo caminho do ficheiro
+        _s = _u.spec_from_file_location("reserva_24h", os.path.join(os.path.dirname(os.path.abspath(__file__)), "reserva_24h.py"))
+        _R24 = _u.module_from_spec(_s)
+        _s.loader.exec_module(_R24)
+        r24 = _R24.reservar(host, 1, run_id=os.environ.get("SINTONIA_RUN_ID") or "%s-%d" % (quem, os.getpid()),
+                            linha=os.environ.get("SINTONIA_LINHA") or "SOCIAL")
+        if r24["ESTADO"] != "RESERVADO":
+            r = {"URL": url, "HOST": _site(host), "ORCAMENTO": r24.get("DOMINIO"), "MOTIVO": "TETO_24H",
+                 "QUEM": quem, "ESTADO_24H": r24["ESTADO"], "ATE": r24.get("ATE"),
+                 "PORQUE": r24.get("PORQUE") or "teto de %d pedidos ao dominio %s nas ultimas 24 h" % (
+                     teto(), r24.get("DOMINIO"))}
+            with _LOCK:
+                _RECUSAS.append(r)
+            _escrever_recusa_para_o_pai(r)
+            raise TetoDaOnda("TETO_24H: %s" % r["PORQUE"])
     f = livro()
     if not f:
         return None
