@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  74f9953050033dfc530be1a2f75e164ea1847092
+HEAD_DA_MEDICAO  7774fd77fc794374099bc1453352f05f913809c6
 BRANCH           claude/extract-study-metadata-x1m3tv
-GERADO_EM        2026-09-27T18:33:29+00:00
+GERADO_EM        2026-09-27T19:24:35+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
