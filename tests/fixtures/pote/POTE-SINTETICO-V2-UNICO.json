@@ -1,0 +1,847 @@
+{
+ "SCHEMA": "POTE_INTELLIGENCE_CASCO/v2",
+ "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+ "NAO_PARA_CLIENTE": true,
+ "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+ "SOURCE_HEAD": "SINT-1111111111111111111111111111111111111111",
+ "CORTE": "2026-09-27T00:00:00+00:00",
+ "RESULT_STATE": "DONE",
+ "RUN_SCHEMA": "CORRIDA_DA_INTELLIGENCE/v2-SINTETICA",
+ "CORRIDA_SINTETICA": true,
+ "ENTRADA": "CORRIDA",
+ "LEITURA_DE_COMPATIBILIDADE": [],
+ "LEI": "o casco desenha isto; nao refaz crossing, nao completa NAO SEI, nao promove, nao muda especie (INT-LAW-023 · INT-LAW-280)",
+ "COMPARTIMENTOS": {
+  "meeting": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "meeting",
+   "NOME_IT": "Radar delle Opportunità",
+   "VISTAS_DO_CASCO": [
+    "meeting"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "OPORTUNIDADE",
+    "CROSSING",
+    "FINDING",
+    "SINAL"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "ISSUE_ID",
+    "REGION_ID",
+    "TIME_WINDOW",
+    "ADAMA_PRODUCT_ID",
+    "AUTHORIZATION_EVIDENCE_ID"
+   ],
+   "OBJETOS": [
+    {
+     "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+     "NAO_PARA_CLIENTE": true,
+     "COMPARTIMENTO": "meeting",
+     "OBJETO_ID": "SINT-ND-1",
+     "ESPECIE": "FINDING",
+     "ESPECIE_DITA_POR": "INTELLIGENCE",
+     "ESTADO": "EXPERIMENTAL_CANDIDATE",
+     "CHAVES": {
+      "CROP_ID": "SINT-vite",
+      "ISSUE_ID": "NAO SEI",
+      "REGION_ID": "NAO SEI",
+      "TIME_WINDOW": "NAO SEI",
+      "ADAMA_PRODUCT_ID": "NAO SEI",
+      "AUTHORIZATION_EVIDENCE_ID": "NAO SEI"
+     },
+     "CHAVES_NAO_SEI": [
+      "ISSUE_ID",
+      "REGION_ID",
+      "TIME_WINDOW",
+      "ADAMA_PRODUCT_ID",
+      "AUTHORIZATION_EVIDENCE_ID"
+     ],
+     "FORA_DO_CONTRATO": {},
+     "PORQUE": "NAO SEI",
+     "CONTRADIZ": "NAO SEI",
+     "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NO_DEFENSIBLE_ACTION_YET",
+     "USO_EXIGE_TEMPO": false,
+     "PROVA": [
+      {
+       "ITEM_ID": "SINT-V-3",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V3",
+       "SOURCE_ID": "SINT-SRC-C",
+       "DOCUMENT_ID": "SINT-DOC-V3",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
+       "COLHIDO_EM": "NAO SEI",
+       "FACT_TIME": "NAO SEI",
+       "G0": "BLOQUEADO_EM_G0",
+       "ADMITIDA_POR": "USO_SEM_TEMPO",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      }
+     ],
+     "CORRIDA_SINTETICA": true
+    }
+   ],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 1
+   },
+   "ESTADO": "COM_OBJETOS",
+   "PORQUE_VAZIO": null,
+   "PORQUE_TEXTO": null,
+   "RECUSADOS_AQUI": 2
+  },
+  "future": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "future",
+   "NOME_IT": "Radar Futuro",
+   "VISTAS_DO_CASCO": [
+    "radarfuturo"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "FATO_PRESENTE_SOBRE_O_FUTURO"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "ISSUE_ID",
+    "REGION_ID",
+    "FACT_LOCATION",
+    "FACT_TIME",
+    "FACT_TIME_BASIS"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "windows": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "windows",
+   "NOME_IT": "Finestre Colturali",
+   "VISTAS_DO_CASCO": [
+    "windows"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "REGION_ID",
+    "ISSUE_ID",
+    "DATE_OR_STAGE"
+   ],
+   "OBJETOS": [
+    {
+     "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+     "NAO_PARA_CLIENTE": true,
+     "COMPARTIMENTO": "windows",
+     "OBJETO_ID": "SINT-W-LUGAR",
+     "ESPECIE": "SINAL",
+     "ESPECIE_DITA_POR": "INTELLIGENCE",
+     "ESTADO": "EXPERIMENTAL_CANDIDATE",
+     "CHAVES": {
+      "CROP_ID": "SINT-agrumi",
+      "REGION_ID": "NAO SEI",
+      "ISSUE_ID": "NAO SEI",
+      "DATE_OR_STAGE": "NAO SEI"
+     },
+     "CHAVES_NAO_SEI": [
+      "REGION_ID",
+      "ISSUE_ID",
+      "DATE_OR_STAGE"
+     ],
+     "FORA_DO_CONTRATO": {
+      "FACT_LOCATION": "SINT-Sicilia"
+     },
+     "PORQUE": "NAO SEI",
+     "CONTRADIZ": "NAO SEI",
+     "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
+     "PROVA": [
+      {
+       "ITEM_ID": "SINT-V-1",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V1",
+       "SOURCE_ID": "SINT-SRC-A",
+       "DOCUMENT_ID": "SINT-DOC-V1",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "https://sint.example/listino-1",
+       "URL_BASE": "LINEAGE.URL",
+       "PUBLISHED_AT": "2026-09-18",
+       "PUBLISHED_AT_BASE": "LINEAGE.PUBLICATION_TIME",
+       "COLHIDO_EM": "2026-09-19",
+       "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      }
+     ],
+     "CORRIDA_SINTETICA": true,
+     "ENTITY_SOURCE": "SINT: registro nacional das culturas",
+     "LOCATION_SOURCE": "TEXTO_DO_BOLETIM"
+    }
+   ],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 1
+   },
+   "ESTADO": "COM_OBJETOS",
+   "PORQUE_VAZIO": null,
+   "PORQUE_TEXTO": null,
+   "RECUSADOS_AQUI": 1
+  },
+  "market": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "market",
+   "NOME_IT": "Polso di Mercato",
+   "VISTAS_DO_CASCO": [
+    "market"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "MARKET_PLACE_ID",
+    "PERIOD",
+    "PRICE",
+    "UNIT",
+    "MARKET_STAGE"
+   ],
+   "OBJETOS": [
+    {
+     "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+     "NAO_PARA_CLIENTE": true,
+     "COMPARTIMENTO": "market",
+     "OBJETO_ID": "SINT-MK-SOLTO",
+     "ESPECIE": "SINAL",
+     "ESPECIE_DITA_POR": "INTELLIGENCE",
+     "ESTADO": "EXPERIMENTAL_CANDIDATE",
+     "CHAVES": {
+      "CROP_ID": "SINT-grano",
+      "MARKET_PLACE_ID": "NAO SEI",
+      "PERIOD": "2026-W37",
+      "PRICE": "SINT-210",
+      "UNIT": "EUR/t",
+      "MARKET_STAGE": "NAO SEI"
+     },
+     "CHAVES_NAO_SEI": [
+      "MARKET_PLACE_ID",
+      "MARKET_STAGE"
+     ],
+     "FORA_DO_CONTRATO": {},
+     "PORQUE": "NAO SEI",
+     "CONTRADIZ": "NAO SEI",
+     "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
+     "PROVA": [
+      {
+       "ITEM_ID": "SINT-V-1",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V1",
+       "SOURCE_ID": "SINT-SRC-A",
+       "DOCUMENT_ID": "SINT-DOC-V1",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "https://sint.example/listino-1",
+       "URL_BASE": "LINEAGE.URL",
+       "PUBLISHED_AT": "2026-09-18",
+       "PUBLISHED_AT_BASE": "LINEAGE.PUBLICATION_TIME",
+       "COLHIDO_EM": "2026-09-19",
+       "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      }
+     ],
+     "CORRIDA_SINTETICA": true,
+     "MERCADO": {
+      "LEITURA": "SINAL_SOLTO",
+      "PORQUE": "um ponto so: sem SERIE nao ha mudanca de mercado",
+      "PONTOS": 0,
+      "UNIDADE": "NAO SEI",
+      "SERIE": []
+     }
+    },
+    {
+     "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+     "NAO_PARA_CLIENTE": true,
+     "COMPARTIMENTO": "market",
+     "OBJETO_ID": "SINT-MK-SERIE",
+     "ESPECIE": "SINAL",
+     "ESPECIE_DITA_POR": "INTELLIGENCE",
+     "ESTADO": "EXPERIMENTAL_CANDIDATE",
+     "CHAVES": {
+      "CROP_ID": "SINT-grano",
+      "MARKET_PLACE_ID": "NAO SEI",
+      "PERIOD": "NAO SEI",
+      "PRICE": "NAO SEI",
+      "UNIT": "EUR/t",
+      "MARKET_STAGE": "NAO SEI"
+     },
+     "CHAVES_NAO_SEI": [
+      "MARKET_PLACE_ID",
+      "PERIOD",
+      "PRICE",
+      "MARKET_STAGE"
+     ],
+     "FORA_DO_CONTRATO": {},
+     "PORQUE": "NAO SEI",
+     "CONTRADIZ": "NAO SEI",
+     "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
+     "PROVA": [
+      {
+       "ITEM_ID": "SINT-V-5",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V5",
+       "SOURCE_ID": "SINT-SRC-E",
+       "DOCUMENT_ID": "SINT-DOC-V5",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
+       "COLHIDO_EM": "NAO SEI",
+       "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      },
+      {
+       "ITEM_ID": "SINT-V-6",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V6",
+       "SOURCE_ID": "SINT-SRC-E",
+       "DOCUMENT_ID": "SINT-DOC-V6",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
+       "COLHIDO_EM": "NAO SEI",
+       "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      }
+     ],
+     "CORRIDA_SINTETICA": true,
+     "MERCADO": {
+      "LEITURA": "SERIE_MEDIDA",
+      "PORQUE": "2 pontos medidos na mesma unidade",
+      "PONTOS": 2,
+      "UNIDADE": "EUR/t",
+      "SERIE": [
+       {
+        "PERIOD": "2026-W36",
+        "PRICE": "SINT-205",
+        "UNIT": "EUR/t",
+        "ITEM_ID": "SINT-V-5"
+       },
+       {
+        "PERIOD": "2026-W37",
+        "PRICE": "SINT-210",
+        "UNIT": "EUR/t",
+        "ITEM_ID": "SINT-V-6"
+       }
+      ]
+     }
+    },
+    {
+     "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+     "NAO_PARA_CLIENTE": true,
+     "COMPARTIMENTO": "market",
+     "OBJETO_ID": "SINT-MK-UNID",
+     "ESPECIE": "SINAL",
+     "ESPECIE_DITA_POR": "INTELLIGENCE",
+     "ESTADO": "EXPERIMENTAL_CANDIDATE",
+     "CHAVES": {
+      "CROP_ID": "SINT-grano",
+      "MARKET_PLACE_ID": "NAO SEI",
+      "PERIOD": "NAO SEI",
+      "PRICE": "NAO SEI",
+      "UNIT": "NAO SEI",
+      "MARKET_STAGE": "NAO SEI"
+     },
+     "CHAVES_NAO_SEI": [
+      "MARKET_PLACE_ID",
+      "PERIOD",
+      "PRICE",
+      "UNIT",
+      "MARKET_STAGE"
+     ],
+     "FORA_DO_CONTRATO": {},
+     "PORQUE": "NAO SEI",
+     "CONTRADIZ": "NAO SEI",
+     "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
+     "PROVA": [
+      {
+       "ITEM_ID": "SINT-V-5",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V5",
+       "SOURCE_ID": "SINT-SRC-E",
+       "DOCUMENT_ID": "SINT-DOC-V5",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
+       "COLHIDO_EM": "NAO SEI",
+       "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      },
+      {
+       "ITEM_ID": "SINT-V-6",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V6",
+       "SOURCE_ID": "SINT-SRC-E",
+       "DOCUMENT_ID": "SINT-DOC-V6",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
+       "COLHIDO_EM": "NAO SEI",
+       "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      }
+     ],
+     "CORRIDA_SINTETICA": true,
+     "MERCADO": {
+      "LEITURA": "SINAL_SOLTO",
+      "PORQUE": "SERIE com unidades diferentes (EUR/q | EUR/t): nao se comparam",
+      "PONTOS": 2,
+      "UNIDADE": "NAO SEI",
+      "SERIE": []
+     }
+    }
+   ],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 3
+   },
+   "ESTADO": "COM_OBJETOS",
+   "PORQUE_VAZIO": null,
+   "PORQUE_TEXTO": null,
+   "RECUSADOS_AQUI": 1
+  },
+  "voices": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "voices",
+   "NOME_IT": "Voci dal Campo",
+   "VISTAS_DO_CASCO": [
+    "voices"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "SPEAKER_ID",
+    "SPEAKER_ROLE",
+    "QUOTE_OR_TRANSCRIPT",
+    "CROP_ID",
+    "ISSUE_ID",
+    "FACT_LOCATION",
+    "FACT_TIME"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "competitors": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "competitors",
+   "NOME_IT": "Concorrenza",
+   "VISTAS_DO_CASCO": [
+    "competitors"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "COMPANY_ID",
+    "PRODUCT_ID",
+    "CROP_ID",
+    "FACT_LOCATION",
+    "FACT_TIME",
+    "T4_REGISTRATION_EVIDENCE_ID"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "science": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "science",
+   "NOME_IT": "Intelligence Scientifica",
+   "VISTAS_DO_CASCO": [
+    "science"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "DOI",
+    "TRIAL_ID",
+    "RESEARCHER_ORCID",
+    "INSTITUTION_ID",
+    "MOLECULE",
+    "CROP_ID",
+    "ISSUE_ID",
+    "STUDY_LOCATION",
+    "STUDY_PERIOD"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "portfolio": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "portfolio",
+   "NOME_IT": "Portafoglio / Etichette",
+   "VISTAS_DO_CASCO": [
+    "portfolio",
+    "etichette"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "PRODUCT_ID",
+    "CROP_ID",
+    "TARGET_ID",
+    "ACTIVE_INGREDIENT_ID",
+    "REGISTRATION_VERSION"
+   ],
+   "OBJETOS": [
+    {
+     "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+     "NAO_PARA_CLIENTE": true,
+     "COMPARTIMENTO": "portfolio",
+     "OBJETO_ID": "SINT-CR-NAO",
+     "ESPECIE": "CROSSING",
+     "ESPECIE_DITA_POR": "INTELLIGENCE",
+     "ESTADO": "EXPERIMENTAL_CANDIDATE",
+     "CHAVES": {
+      "PRODUCT_ID": "SINT-PROD-9",
+      "CROP_ID": "SINT-pero",
+      "TARGET_ID": "NAO SEI",
+      "ACTIVE_INGREDIENT_ID": "NAO SEI",
+      "REGISTRATION_VERSION": "NAO SEI"
+     },
+     "CHAVES_NAO_SEI": [
+      "TARGET_ID",
+      "ACTIVE_INGREDIENT_ID",
+      "REGISTRATION_VERSION"
+     ],
+     "FORA_DO_CONTRATO": {
+      "CROSSING_STATE": "não"
+     },
+     "PORQUE": "SINT: o rotulo nao cobre a cultura",
+     "CONTRADIZ": "NAO SEI",
+     "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO",
+     "USO_EXIGE_TEMPO": false,
+     "PROVA": [
+      {
+       "ITEM_ID": "SINT-V-2",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V2",
+       "SOURCE_ID": "SINT-SRC-A",
+       "DOCUMENT_ID": "SINT-DOC-V2",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "https://sint.example/etichetta-9",
+       "URL_BASE": "PROVA.URL",
+       "PUBLISHED_AT": "2026-09-01",
+       "PUBLISHED_AT_BASE": "PROVA.PUBLISHED_AT",
+       "COLHIDO_EM": "NAO SEI",
+       "FACT_TIME": "NAO SEI",
+       "G0": "BLOQUEADO_EM_G0",
+       "ADMITIDA_POR": "USO_SEM_TEMPO",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      }
+     ],
+     "CORRIDA_SINTETICA": true
+    }
+   ],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 1
+   },
+   "ESTADO": "COM_OBJETOS",
+   "PORQUE_VAZIO": null,
+   "PORQUE_TEXTO": null,
+   "RECUSADOS_AQUI": 1
+  },
+  "archive": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "archive",
+   "NOME_IT": "Archivio",
+   "VISTAS_DO_CASCO": [
+    "archive",
+    "future"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING",
+    "OPORTUNIDADE",
+    "FATO_PRESENTE_SOBRE_O_FUTURO"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "ISSUE_ID",
+    "REGION_ID",
+    "FACT_LOCATION",
+    "FACT_TIME"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 1
+  },
+  "sources": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "sources",
+   "NOME_IT": "Registro delle fonti",
+   "VISTAS_DO_CASCO": [
+    "sources"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "RENDIMENTO_DE_FONTE"
+   ],
+   "CONTRATO_CHAVES": [
+    "SOURCE_ID",
+    "ITENS_LIDOS",
+    "ITENS_QUE_PASSARAM_G0",
+    "OBJETOS_PRODUZIDOS"
+   ],
+   "OBJETOS": [
+    {
+     "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+     "NAO_PARA_CLIENTE": true,
+     "COMPARTIMENTO": "sources",
+     "OBJETO_ID": "SINT-REND-A",
+     "ESPECIE": "RENDIMENTO_DE_FONTE",
+     "ESPECIE_DITA_POR": "INTELLIGENCE",
+     "ESTADO": "EXPERIMENTAL_CANDIDATE",
+     "CHAVES": {
+      "SOURCE_ID": "SINT-SRC-A",
+      "ITENS_LIDOS": 2,
+      "ITENS_QUE_PASSARAM_G0": 1,
+      "OBJETOS_PRODUZIDOS": 1
+     },
+     "CHAVES_NAO_SEI": [],
+     "FORA_DO_CONTRATO": {},
+     "PORQUE": "NAO SEI",
+     "CONTRADIZ": "NAO SEI",
+     "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": false,
+     "PROVA": [
+      {
+       "ITEM_ID": "SINT-V-1",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V1",
+       "SOURCE_ID": "SINT-SRC-A",
+       "DOCUMENT_ID": "SINT-DOC-V1",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "https://sint.example/listino-1",
+       "URL_BASE": "LINEAGE.URL",
+       "PUBLISHED_AT": "2026-09-18",
+       "PUBLISHED_AT_BASE": "LINEAGE.PUBLICATION_TIME",
+       "COLHIDO_EM": "2026-09-19",
+       "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      },
+      {
+       "ITEM_ID": "SINT-V-2",
+       "RAW_OBSERVATION_ID": "SINT-RAW-V2",
+       "SOURCE_ID": "SINT-SRC-A",
+       "DOCUMENT_ID": "SINT-DOC-V2",
+       "CORRIDA_UPSTREAM": "SINT-UP-V",
+       "URL": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
+       "COLHIDO_EM": "NAO SEI",
+       "FACT_TIME": "NAO SEI",
+       "G0": "BLOQUEADO_EM_G0",
+       "ADMITIDA_POR": "USO_SEM_TEMPO",
+       "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001"
+      }
+     ],
+     "CORRIDA_SINTETICA": true
+    }
+   ],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 1
+   },
+   "ESTADO": "COM_OBJETOS",
+   "PORQUE_VAZIO": null,
+   "PORQUE_TEXTO": null,
+   "RECUSADOS_AQUI": 1
+  },
+  "field": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "field",
+   "NOME_IT": "Field",
+   "VISTAS_DO_CASCO": [],
+   "ESPECIES_ADMITIDAS": [],
+   "CONTRATO_CHAVES": "NAO SEI",
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "CASCO_SEM_CONTRATO_DE_INTELLIGENCE",
+   "PORQUE_TEXTO": "o casco nao tem contrato de Intelligence para esta ferramenta; nenhum objeto a pode preencher",
+   "RECUSADOS_AQUI": 0
+  },
+  "casa": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "casa",
+   "NOME_IT": "Casa",
+   "VISTAS_DO_CASCO": [],
+   "ESPECIES_ADMITIDAS": [],
+   "CONTRATO_CHAVES": "NAO SEI",
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "CASCO_SEM_CONTRATO_DE_INTELLIGENCE",
+   "PORQUE_TEXTO": "o casco nao tem contrato de Intelligence para esta ferramenta; nenhum objeto a pode preencher",
+   "RECUSADOS_AQUI": 0
+  }
+ },
+ "LACUNAS_SEM_COMPARTIMENTO": [],
+ "RECUSADOS": [
+  {
+   "COMPARTIMENTO": "meeting",
+   "OBJETO_ID": "SINT-OP-NAO",
+   "MOTIVO": "ITEM_BLOQUEADO_EM_G0",
+   "DETALHE": "ITEM_ID SINT-V-3 tem G0 = ['BLOQUEADO_EM_G0']"
+  },
+  {
+   "COMPARTIMENTO": "meeting",
+   "OBJETO_ID": "SINT-CR-TRATAR",
+   "MOTIVO": "ITEM_BLOQUEADO_EM_G0",
+   "DETALHE": "ITEM_ID SINT-V-4 tem G0 = ['BLOQUEADO_EM_G0']"
+  },
+  {
+   "COMPARTIMENTO": "windows",
+   "OBJETO_ID": "SINT-W-SEDE",
+   "MOTIVO": "LUGAR_DA_FONTE_NAO_E_LUGAR_DO_FACTO",
+   "DETALHE": "LOCATION_SOURCE = SOURCE_LOCATION: o lugar do documento nao vira o lugar do facto"
+  },
+  {
+   "COMPARTIMENTO": "market",
+   "OBJETO_ID": "SINT-MK-AFIRMA",
+   "MOTIVO": "SINAL_SOLTO_NAO_E_MUDANCA_DE_MERCADO",
+   "DETALHE": "afirma MUDANCA_DE_MERCADO sem serie medida: um ponto so: sem SERIE nao ha mudanca de mercado"
+  },
+  {
+   "COMPARTIMENTO": "portfolio",
+   "OBJETO_ID": "SINT-CR-SIM",
+   "MOTIVO": "ITEM_BLOQUEADO_EM_G0",
+   "DETALHE": "ITEM_ID SINT-V-2 tem G0 = ['BLOQUEADO_EM_G0']"
+  },
+  {
+   "COMPARTIMENTO": "archive",
+   "OBJETO_ID": "SINT-SG-TEMPO",
+   "MOTIVO": "ITEM_BLOQUEADO_EM_G0",
+   "DETALHE": "ITEM_ID SINT-V-2 tem G0 = ['BLOQUEADO_EM_G0']"
+  },
+  {
+   "COMPARTIMENTO": "sources",
+   "OBJETO_ID": "SINT-REND-D",
+   "MOTIVO": "ITEM_BLOQUEADO_EM_G0",
+   "DETALHE": "ITEM_ID SINT-V-4 tem G0 = ['BLOQUEADO_EM_G0']"
+  }
+ ]
+}

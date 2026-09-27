@@ -3656,6 +3656,10 @@
               <span style="font-size:10px;color:#8F8886">especie dita por {{ o.especieDe }}</span>
             </div>
             <sc-if value="{{ o.eFuturo }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:#FFFFFF">{{ o.aviso }}</div></sc-if>
+            <!-- POTE-V2-UNICO · P8: no Polso, serie medida ou sinal solto — um ponto nunca e «variazione». P7: uso sem tempo dito. -->
+            <sc-if value="{{ o.temMercado }}" hint-placeholder-val="{{ false }}"><div data-pote-mercado="{{ o.eSerie }}" style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:#F5B317;word-break:break-word">{{ o.mercado }}</div></sc-if>
+            <sc-if value="{{ o.semTempo }}" hint-placeholder-val="{{ false }}"><div data-pote-sem-tempo="1" style="font-size:11px;color:#F5B317">{{ o.avisoTempo }} · {{ o.resultado.k }} <b style="color:{{ o.resultado.color }}">{{ o.resultado.v }}</b></div></sc-if>
+            <sc-for list="{{ o.origens }}" as="c" hint-placeholder-count="0"><div style="font-size:11px;color:#C9C3C1">{{ c.k }} <b style="color:{{ c.color }}">{{ c.v }}</b></div></sc-for>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px">
               <sc-for list="{{ o.chaves }}" as="c" hint-placeholder-count="4"><div style="border-radius:10px;border:1px solid rgba(203,197,195,0.10);padding:7px 10px;display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#8F8886">{{ c.k }}</div><div style="font-size:12px;font-weight:700;color:{{ c.color }};word-break:break-word">{{ c.v }}</div></div></sc-for>
             </div>
@@ -3663,7 +3667,7 @@
             <div style="font-size:11px;line-height:1.5;color:#C9C3C1">{{ o.porque.k }} <b style="color:{{ o.porque.color }}">{{ o.porque.v }}</b> · {{ o.contradiz.k }} <b style="color:{{ o.contradiz.color }}">{{ o.contradiz.v }}</b> · {{ o.incerteza.k }} <b style="color:{{ o.incerteza.color }}">{{ o.incerteza.v }}</b></div>
             <div style="display:flex;flex-direction:column;gap:5px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px">
               <span style="font-size:10px;font-weight:700;color:#8F8886;letter-spacing:0.08em">{{ pote.L.prova }}</span>
-              <sc-for list="{{ o.provas }}" as="p" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:2px;font-size:10.5px;color:#EDEAE9"><span style="word-break:break-word">{{ p.cadeia }}</span><span style="color:#8F8886">{{ p.upstream }}</span><sc-if value="{{ p.temUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ p.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;word-break:break-all">{{ p.urlTexto }}</a></sc-if><sc-if value="{{ p.semUrl }}" hint-placeholder-val="{{ false }}"><span style="color:{{ p.urlColor }};word-break:break-all">{{ p.urlTexto }}</span></sc-if><span style="color:#8F8886">{{ p.datas }}</span></div></sc-for>
+              <sc-for list="{{ o.provas }}" as="p" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:2px;font-size:10.5px;color:#EDEAE9"><span style="word-break:break-word">{{ p.cadeia }}</span><span style="color:#8F8886">{{ p.upstream }}</span><sc-if value="{{ p.temUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ p.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;word-break:break-all">{{ p.urlTexto }}</a></sc-if><sc-if value="{{ p.semUrl }}" hint-placeholder-val="{{ false }}"><span style="color:{{ p.urlColor }};word-break:break-all">{{ p.urlTexto }}</span></sc-if><span style="color:#8F8886">{{ p.datas }}</span><span style="color:#8F8886">{{ p.origem }}</span></div></sc-for>
             </div>
           </div>
         </sc-for>
@@ -4058,7 +4062,8 @@ class Component extends DCLogic {
   _poteTemPrecedencia(v) {
     const W = (typeof window !== 'undefined') ? window : {};
     const P = W.SINTONIA_POTE_CASCO || null;
-    const pv = (P && W.SINTONIA_POTE) ? P.vm(W.SINTONIA_POTE, this.state.view, this.state.lang) : null;
+    // POTE-V2-UNICO (D97): o leitor decide tambem o caso «pedido e nao chegou» (NAO SEI, sem legado).
+    const pv = P ? P.vm(W.SINTONIA_POTE || null, this.state.view, this.state.lang) : null;
     v.poteVista = !!pv;
     v.pote = pv || {};
     if (pv) for (const k of Component.FLAGS_DO_LEGADO) v[k] = false;

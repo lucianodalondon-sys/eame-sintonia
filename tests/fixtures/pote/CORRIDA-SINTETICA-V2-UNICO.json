@@ -1,0 +1,388 @@
+{
+ "_AVISO": "DADO SINTETICO DECLARADO — inventado para os testes do POTE-V2-UNICO (P7, P8, D112, compatibilidade). Todo id comeca por SINT-, SINTETICA = true; nenhum valor daqui e real, nem entra no portal nem em livro nenhum.",
+ "SCHEMA": "CORRIDA_DA_INTELLIGENCE/v2-SINTETICA",
+ "SINTETICA": true,
+ "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+ "SOURCE_HEAD": "SINT-1111111111111111111111111111111111111111",
+ "CORTE": "2026-09-27T00:00:00+00:00",
+ "RESULT_STATE": "DONE",
+ "LINEAGE": [
+  {
+   "ITEM_ID": "SINT-V-1",
+   "CORRIDA_UPSTREAM": "SINT-UP-V",
+   "RAW_OBSERVATION_ID": "SINT-RAW-V1",
+   "SOURCE_ID": "SINT-SRC-A",
+   "G0": "PASSOU",
+   "G0_FALTA": [],
+   "URL": "https://sint.example/listino-1",
+   "PUBLICATION_TIME": "2026-09-18",
+   "COLHIDO_EM": "2026-09-19"
+  },
+  {
+   "ITEM_ID": "SINT-V-2",
+   "CORRIDA_UPSTREAM": "SINT-UP-V",
+   "RAW_OBSERVATION_ID": "SINT-RAW-V2",
+   "SOURCE_ID": "SINT-SRC-A",
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "FACT_TIME:SEM_BASE"
+   ]
+  },
+  {
+   "ITEM_ID": "SINT-V-3",
+   "CORRIDA_UPSTREAM": "SINT-UP-V",
+   "RAW_OBSERVATION_ID": "SINT-RAW-V3",
+   "SOURCE_ID": "SINT-SRC-C",
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "FACT_TIME"
+   ]
+  },
+  {
+   "ITEM_ID": "SINT-V-4",
+   "CORRIDA_UPSTREAM": "SINT-UP-V",
+   "RAW_OBSERVATION_ID": "SINT-RAW-V4",
+   "SOURCE_ID": "SINT-SRC-D",
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "FACT_TIME:SEM_BASE",
+    "SOURCE_ID"
+   ]
+  },
+  {
+   "ITEM_ID": "SINT-V-5",
+   "CORRIDA_UPSTREAM": "SINT-UP-V",
+   "RAW_OBSERVATION_ID": "SINT-RAW-V5",
+   "SOURCE_ID": "SINT-SRC-E",
+   "G0": "PASSOU",
+   "G0_FALTA": []
+  },
+  {
+   "ITEM_ID": "SINT-V-6",
+   "CORRIDA_UPSTREAM": "SINT-UP-V",
+   "RAW_OBSERVATION_ID": "SINT-RAW-V6",
+   "SOURCE_ID": "SINT-SRC-E",
+   "G0": "PASSOU",
+   "G0_FALTA": []
+  }
+ ],
+ "SIGNALS": [],
+ "REQUIREMENTS": [],
+ "GAPS": [],
+ "ITENS_POR_FERRAMENTA": {
+  "portfolio": [
+   {
+    "OBJETO_ID": "SINT-CR-NAO",
+    "ESPECIE": "CROSSING",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "PRODUCT_ID": "SINT-PROD-9",
+     "CROP_ID": "SINT-pero",
+     "CROSSING_STATE": "não"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-2",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V2",
+      "SOURCE_ID": "SINT-SRC-A",
+      "DOCUMENT_ID": "SINT-DOC-V2",
+      "URL": "https://sint.example/etichetta-9",
+      "PUBLISHED_AT": "2026-09-01"
+     }
+    ],
+    "PORQUE": "SINT: o rotulo nao cobre a cultura"
+   },
+   {
+    "OBJETO_ID": "SINT-CR-SIM",
+    "ESPECIE": "CROSSING",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "PRODUCT_ID": "SINT-PROD-9",
+     "CROSSING_STATE": "CASA"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-2",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V2",
+      "SOURCE_ID": "SINT-SRC-A",
+      "DOCUMENT_ID": "SINT-DOC-V2"
+     }
+    ]
+   }
+  ],
+  "meeting": [
+   {
+    "OBJETO_ID": "SINT-ND-1",
+    "ESPECIE": "FINDING",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "RESULTADO": "NO_DEFENSIBLE_ACTION_YET",
+    "CHAVES": {
+     "CROP_ID": "SINT-vite"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-3",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V3",
+      "SOURCE_ID": "SINT-SRC-C",
+      "DOCUMENT_ID": "SINT-DOC-V3"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-OP-NAO",
+    "ESPECIE": "OPORTUNIDADE",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "RESULTADO": "NAO",
+    "CHAVES": {},
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-3",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V3",
+      "SOURCE_ID": "SINT-SRC-C",
+      "DOCUMENT_ID": "SINT-DOC-V3"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-CR-TRATAR",
+    "ESPECIE": "CROSSING",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "RESULTADO": "nao tratar agora",
+    "CHAVES": {},
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-4",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V4",
+      "SOURCE_ID": "SINT-SRC-D",
+      "DOCUMENT_ID": "SINT-DOC-V4"
+     }
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "OBJETO_ID": "SINT-REND-A",
+    "ESPECIE": "RENDIMENTO_DE_FONTE",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "SOURCE_ID": "SINT-SRC-A",
+     "ITENS_LIDOS": 2,
+     "ITENS_QUE_PASSARAM_G0": 1,
+     "OBJETOS_PRODUZIDOS": 1
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-1",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V1",
+      "SOURCE_ID": "SINT-SRC-A",
+      "DOCUMENT_ID": "SINT-DOC-V1"
+     },
+     {
+      "ITEM_ID": "SINT-V-2",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V2",
+      "SOURCE_ID": "SINT-SRC-A",
+      "DOCUMENT_ID": "SINT-DOC-V2"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-REND-D",
+    "ESPECIE": "RENDIMENTO_DE_FONTE",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "SOURCE_ID": "SINT-SRC-D"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-4",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V4",
+      "SOURCE_ID": "SINT-SRC-D",
+      "DOCUMENT_ID": "SINT-DOC-V4"
+     }
+    ]
+   }
+  ],
+  "market": [
+   {
+    "OBJETO_ID": "SINT-MK-SOLTO",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "CROP_ID": "SINT-grano",
+     "PERIOD": "2026-W37",
+     "PRICE": "SINT-210",
+     "UNIT": "EUR/t"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-1",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V1",
+      "SOURCE_ID": "SINT-SRC-A",
+      "DOCUMENT_ID": "SINT-DOC-V1"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-MK-SERIE",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "CROP_ID": "SINT-grano",
+     "UNIT": "EUR/t"
+    },
+    "SERIE": [
+     {
+      "PERIOD": "2026-W36",
+      "PRICE": "SINT-205",
+      "UNIT": "EUR/t",
+      "ITEM_ID": "SINT-V-5"
+     },
+     {
+      "PERIOD": "2026-W37",
+      "PRICE": "SINT-210",
+      "UNIT": "EUR/t",
+      "ITEM_ID": "SINT-V-6"
+     }
+    ],
+    "MUDANCA_DE_MERCADO": true,
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-5",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V5",
+      "SOURCE_ID": "SINT-SRC-E",
+      "DOCUMENT_ID": "SINT-DOC-V5"
+     },
+     {
+      "ITEM_ID": "SINT-V-6",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V6",
+      "SOURCE_ID": "SINT-SRC-E",
+      "DOCUMENT_ID": "SINT-DOC-V6"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-MK-UNID",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "CROP_ID": "SINT-grano"
+    },
+    "SERIE": [
+     {
+      "PERIOD": "2026-W36",
+      "PRICE": "SINT-20",
+      "UNIT": "EUR/q"
+     },
+     {
+      "PERIOD": "2026-W37",
+      "PRICE": "SINT-210",
+      "UNIT": "EUR/t"
+     }
+    ],
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-5",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V5",
+      "SOURCE_ID": "SINT-SRC-E",
+      "DOCUMENT_ID": "SINT-DOC-V5"
+     },
+     {
+      "ITEM_ID": "SINT-V-6",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V6",
+      "SOURCE_ID": "SINT-SRC-E",
+      "DOCUMENT_ID": "SINT-DOC-V6"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-MK-AFIRMA",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "PRICE": "SINT-210",
+     "UNIT": "EUR/t",
+     "MUDANCA_DE_MERCADO": "sim"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-1",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V1",
+      "SOURCE_ID": "SINT-SRC-A",
+      "DOCUMENT_ID": "SINT-DOC-V1"
+     }
+    ]
+   }
+  ],
+  "windows": [
+   {
+    "OBJETO_ID": "SINT-W-LUGAR",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "ENTITY_SOURCE": "SINT: registro nacional das culturas",
+    "LOCATION_SOURCE": "TEXTO_DO_BOLETIM",
+    "CHAVES": {
+     "CROP_ID": "SINT-agrumi",
+     "FACT_LOCATION": "SINT-Sicilia"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-1",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V1",
+      "SOURCE_ID": "SINT-SRC-A",
+      "DOCUMENT_ID": "SINT-DOC-V1"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-W-SEDE",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "LOCATION_SOURCE": "SOURCE_LOCATION",
+    "CHAVES": {
+     "FACT_LOCATION": "SINT-Roma"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-1",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V1",
+      "SOURCE_ID": "SINT-SRC-A",
+      "DOCUMENT_ID": "SINT-DOC-V1"
+     }
+    ]
+   }
+  ],
+  "archive": [
+   {
+    "OBJETO_ID": "SINT-SG-TEMPO",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {},
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-V-2",
+      "CORRIDA_UPSTREAM": "SINT-UP-V",
+      "RAW_OBSERVATION_ID": "SINT-RAW-V2",
+      "SOURCE_ID": "SINT-SRC-A",
+      "DOCUMENT_ID": "SINT-DOC-V2"
+     }
+    ]
+   }
+  ]
+ }
+}
