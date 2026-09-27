@@ -346,4 +346,4 @@ class D15_OSinalDizAIdade(unittest.TestCase):
 
 class RegraSobe(unittest.TestCase):
     def test_a_regra_subiu_para_v3(self):
-        self.assertEqual(CI.RULESET_VERSION, "G0/v3")
+        self.assertIn(CI.RULESET_VERSION, ("G0/v3", "G0/v4"))  # v4 sobe por D100; o nome da v4 e provado em test_todo_ready_atravessa_o_intake

@@ -74,7 +74,15 @@ CONTRATO = "CORRIDA_DA_INTELLIGENCE/v1"
 #: que sai dele: o sinal leva a ESPECIE e a PRECISAO da data (D11) e a IDADE na
 #: captura (D15), e o evento futuro deixa de ser pedido a Coleta (D14). Mudou o
 #: livro -> sobe a versao, para nenhuma corrida v2 ser REUSED como se fosse v3.
-RULESET_VERSION = "G0/v3"
+#: ⚠️ G0/v4 (D100 · D100-b/L6 · D62-D64 · INT-LAW-091/100). O portao G0 NAO mudou:
+#: continua a ser o que um item precisa para virar SINAL temporal. Mudou o ALCANCE
+#: dele. A v3 era usada como porta UNIVERSAL — quem a chamava tirava da corrida,
+#: antes dela, todo item sem FACT_TIME (R4: 180 de 204 nunca chegaram ao livro).
+#: Agora TODO item READY atravessa o intake e fica no livro com o seu ESTADO
+#: TEMPORAL; a falta de tempo bloqueia SO os usos que exigem tempo
+#: (USOS_QUE_EXIGEM_TEMPO) e deixa os outros disponiveis. E a corrida declara o
+#: UNIVERSO: se receber menos itens do que o corte tem, recusa-se (pre-filtro).
+RULESET_VERSION = "G0/v4"
 
 BIBLIA = RAIZ / "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md"
 REGISTO_DAS_AUTORIDADES = RAIZ / "controle" / "AUTORIDADES-CANONICAS.json"
@@ -141,6 +149,61 @@ INTAKE_OK = "INTAKE_OK"
 SEM_SAIDA_ANALITICA = "NO_ANALYTIC_OUTPUT_YET"
 BLOQUEADO_EM_G0 = "BLOQUEADO_EM_G0"
 
+#: ⚠️ G0/v4 · O QUE A FALTA DE TEMPO BLOQUEIA — e so isto (INT-LAW-091: a chave
+#: ausente bloqueia o crossing QUE DEPENDE DELA; D62: nunca se descarta um facto
+#: por faltar data). Cada uso nomeia a pergunta que precisa de FACT_TIME.
+USOS_QUE_EXIGEM_TEMPO = (
+    "SINAL_TEMPORAL",             # G0: sinal ancorado no tempo do facto
+    "CROSSING_COM_CHAVE_TIME",    # INT-LAW-091: sem a chave, NOT_POSSIBLE
+    "ACT_NOW",                    # INT-LAW-104: exige janela compativel
+    "CAP-WIN",                    # a janela e tempo (Biblia CAP-WIN)
+    "CAP-FUT",                    # horizonte exige tempo
+    "CAP-OPP",                    # oportunidade exige janela
+)
+#: O que um item com proveniencia continua a poder servir SEM tempo. Nenhum
+#: destes usos e conclusao: e o direito de ser lido, citado e cruzado por chaves
+#: que nao sao tempo — sempre com FACT_TIME = NAO SEI visivel.
+USOS_SEM_TEMPO = (
+    "EVIDENCIA_NAVEGAVEL",        # Evidence View: o item existe e prova-se ate ao RAW
+    "CROSSING_SEM_CHAVE_TIME",    # ex.: substancia x rotulo (cultura, alvo, pais)
+    "LEITURA_ATEMPORAL_DE_CAPACIDADE",  # ex.: CAP-SCI le o estudo; CAP-LABEL le o uso
+)
+PROVENIENCIA = ("ITEM_ID", "SOURCE_ID", "RAW_OBSERVATION_ID")
+
+
+def estado_temporal(item: dict, falta: list) -> dict:
+    """G0/v4 · o que a corrida SABE do tempo deste item, e o que isso bloqueia.
+
+    Nunca completa: FACT_TIME fica como a Collection o entregou, ou NAO SEI.
+    PUBLICATION_TIME vai AO LADO, com o nome dele, e nunca no lugar (INT-LAW-100).
+    Sem proveniencia (ITEM/SOURCE/RAW_OBSERVATION), nenhum uso fica disponivel:
+    um item que nao se prova ate ao RAW nao e evidencia, e so um pedido a Coleta.
+    """
+    t_falta = sorted(m for m in falta if m.startswith("FACT_TIME"))
+    if not t_falta:
+        estado = "ANCORADO"
+    elif "FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA" in t_falta:
+        estado = "FUTURO_EM_RELACAO_A_CAPTURA"
+    else:
+        estado = "UNKNOWN_WINDOW"
+    prov_falta = [c for c in PROVENIENCIA if c in falta]
+    ft = item.get("FACT_TIME")
+    return {
+        "INTAKE": "ADMITIDO_NA_CORRIDA",
+        "FACT_TIME": NAO_SEI if e_ignorancia(ft) else ft,
+        "TEMPORAL_STATE": estado,
+        "PORQUE_TEMPO": t_falta,
+        "PUBLICATION_TIME": _campo_ou_nao_sei(item, "PUBLISHED_AT"),
+        "PUBLICATION_TIME_NAO_E_FACT_TIME": True,
+        "PROVENIENCIA": "COMPLETA" if not prov_falta else "PARCIAL: falta " + ",".join(prov_falta),
+        "USOS_BLOQUEADOS": ({u: "SEM_PROVENIENCIA" for u in USOS_QUE_EXIGEM_TEMPO + USOS_SEM_TEMPO}
+                            if prov_falta else
+                            {} if estado == "ANCORADO" else
+                            {u: "FACT_TIME:" + estado for u in USOS_QUE_EXIGEM_TEMPO}),
+        "USOS_DISPONIVEIS": ([] if prov_falta else
+                             list(USOS_SEM_TEMPO) + (list(USOS_QUE_EXIGEM_TEMPO) if estado == "ANCORADO" else [])),
+    }
+
 
 class LeiViolada(Exception):
     """A corrida recusou-se, e diz porque. Nao e defeito: e o portao."""
@@ -158,7 +221,7 @@ def versao_do_codigo() -> str:
     return hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16]
 
 
-def identidade_da_corrida(request_id: str, itens: list) -> str:
+def identidade_da_corrida(request_id: str, itens: list, universo: dict | None = None) -> str:
     """`RUN_ID` derivado do pedido e das ENTRADAS, nunca do relogio.
 
     Com o relogio dentro, duas corridas da mesma pergunta sobre o mesmo item
@@ -174,6 +237,10 @@ def identidade_da_corrida(request_id: str, itens: list) -> str:
                         # A lei efetiva faz parte da configuracao: mudar a Biblia
                         # e mudar a pergunta, e o reuso deixa de ser provavel.
                         "BIBLE": carimbo_da_biblia()["BIBLE_FILE_SHA256"],
+                        # ⚠️ G0/v4 · o CORTE entra na identidade. Na R4, 24 itens
+                        # iguais aos da R3 davam o mesmo IR sobre um corte com +100
+                        # (INT-LAW-041/054: reuso so com o MESMO universo).
+                        "UNIVERSE": universo,
                         "INPUTS": [referencia_do_item(i) for i in itens]},
                        ensure_ascii=False, sort_keys=True)
     return "IR-" + hashlib.sha256(corpo.encode("utf-8")).hexdigest()[:20]
@@ -403,8 +470,12 @@ def requisito(item: dict, falta: list, run_id: str) -> dict:
         "REQUIREMENT_ID": "REQ-" + hashlib.sha256(
             (run_id + "|" + str(item.get("ITEM_ID", ""))
              + "|" + ",".join(sorted(falta))).encode("utf-8")).hexdigest()[:16],
-        "QUESTION_BLOCKED": "o item nao pode virar SINAL: G0 nao consegue "
-                            "ancorar sobre quem, de onde e quando.",
+        "QUESTION_BLOCKED": (
+            "o item nao pode virar SINAL temporal nem entrar em pergunta que exija "
+            "tempo (crossing com chave TIME, ACT_NOW, janela); CONTINUA na corrida "
+            "com FACT_TIME = NAO SEI e o motivo" if all(m.startswith("FACT_TIME") for m in falta)
+            else "o item nao se prova ate a observacao original: nenhum uso fica "
+                 "disponivel ate a proveniencia chegar"),
         "MISSING_FACT_OR_KEY": sorted(falta),
         "WHY_EXISTING_MATERIAL_IS_INSUFFICIENT":
             "o item existe e foi admitido, mas os campos acima chegaram como "
@@ -426,7 +497,7 @@ def requisito(item: dict, falta: list, run_id: str) -> dict:
 
 
 def correr(pergunta: str, itens: list, request_id: str = "",
-           ja_corridas: dict | None = None) -> dict:
+           ja_corridas: dict | None = None, universo: dict | None = None) -> dict:
     """Abre uma corrida, consome os itens, e devolve o LIVRO dela.
 
     `ja_corridas` e o que torna `REUSED` provavel em vez de declarado: se a
@@ -437,7 +508,7 @@ def correr(pergunta: str, itens: list, request_id: str = "",
         raise LeiViolada("uma corrida sem pergunta nao e uma corrida")
     request_id = request_id or ("IQ-" + hashlib.sha256(
         pergunta.encode("utf-8")).hexdigest()[:16])
-    run_id = identidade_da_corrida(request_id, itens)
+    run_id = identidade_da_corrida(request_id, itens, universo)
 
     anterior = (ja_corridas or {}).get(run_id)
     if anterior is not None:
@@ -464,6 +535,10 @@ def correr(pergunta: str, itens: list, request_id: str = "",
         "CODE_VERSION": versao_do_codigo(),
         "MODEL_VERSION": "NENHUM — esta corrida nao usa modelo",
         "INPUT_REFERENCES": [referencia_do_item(i) for i in itens],
+        "UNIVERSE": dict(universo or {}, ITENS_NA_CORRIDA=len(itens),
+                         ESTADO=("DECLARADO" if universo else
+                                 "NAO_DECLARADO — a corrida nao prova que viu o corte inteiro")),
+        "INTAKE": {"RECEBIDOS": len(itens), "DESCARTADOS_ANTES_DO_LIVRO": 0},
         "RESULT_STATE": "RUNNING",
         "ANALYTIC_OUTPUT": None,
         "SIGNALS": [],
@@ -474,6 +549,15 @@ def correr(pergunta: str, itens: list, request_id: str = "",
         "COLLECTOR_CALLS": 0,
     }
     try:
+        if universo is not None:
+            n = universo.get("ITENS_NO_CORTE")
+            if not isinstance(n, int) or n != len(itens):
+                # ⚠️ G0/v4 · O PRE-FILTRO MORRE AQUI. Quem chama declara quantos
+                # READY o corte tem; se a corrida receber menos, algum item foi
+                # tirado antes do livro — e o que sai do livro nao tem lineage.
+                raise LeiViolada(
+                    "PRE_FILTRO: o corte declara %r READY e a corrida recebeu %d; "
+                    "todo READY atravessa o intake (D100/L6)" % (n, len(itens)))
         if not itens:
             livro["RESULT_STATE"] = "EMPTY_RESULT"
             livro["ANALYTIC_OUTPUT"] = SEM_SAIDA_ANALITICA
@@ -496,6 +580,9 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                     sorted(c for c in CAMPOS_DO_READY if c not in item),
                 "G0": "PASSOU" if passou else BLOQUEADO_EM_G0,
                 "G0_FALTA": sorted(falta),
+                # G0/v4 · bloqueado no G0 != fora da Intelligence: diz o que o
+                # item ainda pode servir e o que so a falta de tempo lhe tira.
+                **estado_temporal(item, falta),
             })
             if passou:
                 tempo = intervalo_do_tempo(item.get("FACT_TIME"))
@@ -563,6 +650,13 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                     livro["REQUIREMENTS"].append(requisito(item, coletavel, run_id))
 
         livro["RESULT_STATE"] = "DONE"
+        livro["INTAKE"].update({
+            "NO_LIVRO": len(livro["LINEAGE"]),
+            "POR_TEMPORAL_STATE": _contar(l["TEMPORAL_STATE"] for l in livro["LINEAGE"]),
+            "SEM_PROVENIENCIA": sum(1 for l in livro["LINEAGE"] if l["PROVENIENCIA"] != "COMPLETA"),
+            "COM_USO_SEM_TEMPO": sum(1 for l in livro["LINEAGE"]
+                                     if "EVIDENCIA_NAVEGAVEL" in l["USOS_DISPONIVEIS"]),
+        })
         livro["ANALYTIC_OUTPUT"] = INTAKE_OK if livro["SIGNALS"] else SEM_SAIDA_ANALITICA
         # ⚠️ NENHUM FINDING. Nao e omissao: a §32 da Biblia autoriza a admissao
         # analitica e para ai. Produzir um achado aqui era fabricar julgamento
@@ -577,6 +671,13 @@ def correr(pergunta: str, itens: list, request_id: str = "",
         livro["ERRORS"].append({"TIPO": type(erro).__name__, "PORQUE": str(erro)})
     livro["END"] = _agora()
     return livro
+
+
+def _contar(xs) -> dict:
+    out: dict = {}
+    for x in xs:
+        out[x] = out.get(x, 0) + 1
+    return dict(sorted(out.items()))
 
 
 def gravar(livro: dict, pasta: Path) -> Path:
