@@ -112,7 +112,7 @@ def main(argv) -> int:
                 linha = MC.sql(
                     "select row_to_json(s)::text from public.sala_de_espera s where source_id = 'EU-T5-001' "
                     "order by 1 limit 1")
-                res["UMA_LINHA_NOVA"] = linha[0][0][:3000] if linha else "NENHUMA
+                res["UMA_LINHA_NOVA"] = linha[0][0][:3000] if linha else "NENHUMA"
     finally:
         os.environ.pop("SINTONIA_SALA_DSN", None)
         base.descer()
