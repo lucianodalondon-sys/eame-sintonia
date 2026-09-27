@@ -30,8 +30,11 @@ MUTANTES = [
        "    valor, porque = lugar[\"VALOR\"], \"\"")]),
     ("J02_TRAVA_DA_ENTIDADE_DESLIGADA", "a COL-LAW-221 deixa de decidir a procedencia do extrator", BC,
      [("    if ok:\n        return r\n", "    if True:\n        return r\n")]),
+    # medido: `tuple(AF.ENTITY_SOURCES)` sobreviveu — era EQUIVALENTE (tuple() de uma tupla devolve o
+    # mesmo objeto). O defeito real e a copia escrita a mao, que e o que o ramo tinha antes da juncao.
     ("J03_VOCABULARIO_COPIADO", "o extrator volta a ter vocabulario proprio (dois donos)", BC,
-     [("ENTITY_SOURCES = AF.ENTITY_SOURCES\n", "ENTITY_SOURCES = tuple(AF.ENTITY_SOURCES)\n")]),
+     [("ENTITY_SOURCES = AF.ENTITY_SOURCES\n",
+       'ENTITY_SOURCES = ("SPAN", "PARAGRAPH_CONTEXT", "SECTION_TITLE", "DOCUMENT_TITLE", "UNKNOWN")\n')]),
     ("J04_GOLD_GEMEO", "o harness volta a ler a copia gemea em docs/iab", GP,
      [('GOLD = RAIZ / "tests" / "fixtures" / "puglia" / "GOLD-FIXTURE-PUGLIA-V1.json"',
        'GOLD = RAIZ / "docs" / "iab" / "puglia" / "GOLD-FIXTURE-PUGLIA-V1.json"')]),

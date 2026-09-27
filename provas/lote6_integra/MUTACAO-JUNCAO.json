@@ -1,0 +1,126 @@
+{
+ "DATASET": "MUTACAO-JUNCAO-LOTE6",
+ "TESTES": [
+  "tests.test_lote6_integra",
+  "tests.test_metodo_puglia",
+  "tests.test_boletim_por_secao",
+  "tests.test_estudo_chaves",
+  "tests.test_motor_das_capacidades"
+ ],
+ "MUTANTES": [
+  {
+   "MUTANTE": "J01_TRAVA_DO_LUGAR_DESLIGADA",
+   "REGRA": "a COL-LAW-032 deixa de decidir o lugar do extrator",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J02_TRAVA_DA_ENTIDADE_DESLIGADA",
+   "REGRA": "a COL-LAW-221 deixa de decidir a procedencia do extrator",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J03_VOCABULARIO_COPIADO",
+   "REGRA": "o extrator volta a ter vocabulario proprio (dois donos)",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J04_GOLD_GEMEO",
+   "REGRA": "o harness volta a ler a copia gemea em docs/iab",
+   "ALVO": "scripts/lugar_fato/gold_puglia.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2, errors=1, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J05_ESTUDO_GRAVA_NAO_SEI_NA_PROCEDENCIA",
+   "REGRA": "ENTITY_SOURCE sem trecho volta a ser «NAO SEI» (fora da lei)",
+   "ALVO": "leis/estudo_chaves.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J06_JANELA_AO_LADO_DO_READY",
+   "REGRA": "o motor volta a levar a janela fora do READY (duas copias)",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J07_COPIA_DAS_CAPACIDADES_SEM_D112A",
+   "REGRA": "as capacidades recebem a janela crua, sem a D112a",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J08_078_ENTRE_CASAS",
+   "REGRA": "mesma redacao em casas diferentes vira INT-LAW-078",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J09_DIVERGENT_NA_MESMA_CASA",
+   "REGRA": "limites diferentes da mesma casa viram DIVERGENT_RECOMMENDATIONS",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J10_TEMPORAL_PROVA_O_CAMPO",
+   "REGRA": "mudanca de recomendacao no tempo passa a provar o campo",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J11_RELACAO_FORA_DA_LEI",
+   "REGRA": "a relacao temporal volta a falar a palavra do motor",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2, skipped=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "J12_078_COM_CONTRADICAO",
+   "REGRA": "a mesma afirmacao numa casa passa a ter contradicao aberta",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1, skipped=2)",
+   "RESULTADO": "MORTO"
+  }
+ ],
+ "SEM_MUTANTE": {
+  "RC": 0,
+  "SAIDA": "OK (skipped=2)"
+ },
+ "MORTOS": 12,
+ "TOTAL": 12
+}
