@@ -5767,6 +5767,43 @@
    ]
   },
   {
+   "id": "C-RETE-VOCI-DATI",
+   "name": "Rete voci dati: o dado ja coletado no contrato do pote",
+   "territory": "Z-PACOTE",
+   "kind": "engine",
+   "icon": "⇢",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Contrato ENTRADA_EXTRA_POTE/v1. Le ficheiros JA COLETADOS e rastreados (vozes publicas IT, precos ISMEA e Agri-food, 414 anuncios Meta observados em 31/08/2026 + snapshot S1, sinais publicos e videos da concorrencia, trabalhos T6, contagens por pesquisador, corpus de pesquisador, lista do MUR) e devolve UMA entrada extra no formato do livro de corrida (LINEAGE + ITENS_POR_FERRAMENTA + GAPS) para as gavetas voices, competitors, market, science, sources e archive do pote v2. Cada item passa pelo portao_g0 do motor; bloqueado vira lacuna contada. Cada objeto leva TIPO_DO_DADO (FATO/SINAL/SERIE/CONTAGEM), prova ate ao registo (<ficheiro>#<registo>, blob do Git) com URL, PUBLICADO_EM e COLHIDO_EM, e NAO SEI por extenso. SOURCE_ID so do Atlas/contratos/registo-mestre; serie so com >=2 pontos e mesma unidade; Meta 'observado em 31/08', nunca 'hoje'; sem contacto, sem pessoa privada, sem resumo de artigo. `juntar` acrescenta a extra a corrida da rodada sem mexer no cabecalho; o pote sai pelo gerador de sempre.",
+   "why_here": "RETE-VOCI-DATI (D114, 2026-09-27): o raio-X do casco mostrou gavetas com PORQUE_VAZIO enquanto o lote 4 ja tinha o dado no repositorio. Adaptador de entrega (Z-PACOTE): nao colhe, nao cruza, nao promove. 30 testes (tests/test_rete_voci_dati.py), contagem commitada em data/derivados/RETE-VOCI-DATI/CONTAGEM.json.",
+   "files": [
+    "pacote/rete_voci_dati.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-RETE-VOCI-DATI",
+   "name": "Mutacao da rete voci dati",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Planta 24 defeitos no adaptador numa copia minima em pasta temporaria (o repo nao e tocado): G0 ignorado, Meta diz hoje, pagina fora do agro entra, serie de um ponto ou de unidades misturadas, publicacao vira tempo do facto, data de leitura vira publicacao, SOURCE_ID da plataforma, pessoa da voz viaja, resumo do artigo viaja, archive muda especie, NAO SEI vira vazio, juntar deixa a extra mandar no cabecalho, relogio na identidade, entre outros. Corre tests/test_rete_voci_dati.py. Sai 1 se algum sobreviver.",
+   "why_here": "Prova que os testes da rete voci dati apanham o que ela jura nao fazer.",
+   "files": [
+    "provas/_mutantes_rete_voci_dati.py"
+   ]
+  },
+  {
    "id": "C-META-BIBLIOTECA",
    "name": "A porta da Biblioteca de Anuncios da Meta",
    "territory": "Z-FERRAMENTAS",
