@@ -41,6 +41,16 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[2]
 TETO, PAUSA_S, TIMEOUT_S = 5, 3.0, 30
 TETOS = ("TETO_DO_DOMINIO", "TETO_24H")      # nao coube: fica PENDENTE (nao e falha)
+# D91 (26/09 22:32): o robots.txt so e dispensado numa API PUBLICA OFICIAL documentada, feita para robos —
+# segue os termos/limites da API (sem login, teto 5/24 h, RAW e proveniencia). Lista FECHADA: esquema https,
+# host exato e o caminho a comecar pelo prefixo. Paginas comuns (universidades, FEM, CREA...) respeitam o robots.
+APIS_OFICIAIS = (("pub.orcid.org", "/v3.0/"), ("api.openalex.org", "/"), ("api.crossref.org", "/"))
+
+
+def api_oficial(url: str) -> bool:
+    p = urllib.parse.urlparse(url)
+    return p.scheme == "https" and not p.port and not p.username and any(
+        (p.hostname or "") == h and p.path.startswith(c) for h, c in APIS_OFICIAIS)
 UA = "SintoniaEAME-SeguirPesquisadores/1 (+publico, sem login; D85)"
 ORCID_URLS = "https://pub.orcid.org/v3.0/%s/researcher-urls"
 PESSOAS_POR_RODADA = 4          # orcid.org: robots + 4 = 5 (o teto)
@@ -157,10 +167,13 @@ class Transporte:
             (self.pasta / "bytes").mkdir(parents=True, exist_ok=True)
             (self.pasta / "bytes" / sha).write_bytes(b)
         self.registo.append({"URL": url, "RESULTADO": "OK", "HTTP": st, "SHA256": sha, "BYTES": len(b or b""),
+                             "REGRA": "API_PUBLICA_OFICIAL_D91 (robots dispensado)" if api_oficial(url) else "ROBOTS_RESPEITADO",
                              "DOMINIO": d, "PORQUE": porque, "EM": datetime.now(timezone.utc).isoformat()})
         return st, b
 
     def pode(self, url) -> bool:
+        if api_oficial(url):
+            return True                 # D91: sem robots; a proveniencia fica no registo do pedido
         p = urllib.parse.urlparse(url)
         host = "%s://%s" % (p.scheme, p.netloc)
         guardado = self.contador.robots_de(host) if self.contador is not None and host not in self.robots else None

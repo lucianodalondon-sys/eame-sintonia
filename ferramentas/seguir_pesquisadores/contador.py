@@ -72,6 +72,16 @@ class Contador24h:
         self._gravar()
         return True, None
 
+    def marcar_gasto(self, dominio: str, ate: datetime, porque: str) -> int:
+        """Pedidos feitos FORA deste contador (outra linha, outro dia): enche o teto ate `ate`, para que nada
+        daqui peca antes disso. Devolve quantas linhas escreveu."""
+        n = self.livres(dominio)
+        for _ in range(n):
+            self.pedidos.append({"DOMINIO": dominio, "URL": "EXTERNO", "EM": _iso(ate - JANELA), "PORQUE": porque})
+        if n:
+            self._gravar()
+        return n
+
     def robots_de(self, host: str):
         """O robots guardado ha menos de 24 h: (http, texto) ou None."""
         r = self.robots.get(host)
@@ -82,3 +92,13 @@ class Contador24h:
     def guardar_robots(self, host: str, http, texto):
         self.robots[host] = {"HTTP": http, "TEXTO": texto, "EM": _iso(self._agora())}
         self._gravar()
+
+
+if __name__ == "__main__":
+    import sys
+    a = dict(x[2:].split("=", 1) for x in sys.argv[1:] if x.startswith("--") and "=" in x)
+    if "--marcar-gasto" in sys.argv:
+        c = Contador24h(Path(a.get("contador") or CONTADOR_PADRAO))
+        n = c.marcar_gasto(a["dominio"], datetime.fromisoformat(a["ate"]), a.get("porque", "externo"))
+        print("linhas EXTERNO escritas:", n, "| livres agora em", a["dominio"], "=", c.livres(a["dominio"]),
+              "| proximo livre:", c.proximo_livre(a["dominio"]))

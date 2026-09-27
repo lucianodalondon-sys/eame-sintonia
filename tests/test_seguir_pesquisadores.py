@@ -120,7 +120,10 @@ class Ensaio(unittest.TestCase):
             self.assertIn("AMBIGUO", " ".join(por["GIALLI Sara"]["PASSOS"]))
             self.assertFalse(any("0000-0000-0000-0004" in x["URL"] or "0000-0000-0000-0005" in x["URL"]
                                  for x in doc["PEDIDOS"]))
-            self.assertEqual("TETO_DO_DOMINIO", por["ROSA Enzo"].get("PENDENTE"))
+            # D91: o ORCID (API oficial) nao le robots -> os 5 ORCID cabem na rodada, e nenhum pedido ao robots de orcid.org
+            self.assertIsNone(por["ROSA Enzo"].get("PENDENTE"))
+            self.assertEqual(5, doc["PEDIDOS_POR_DOMINIO"]["orcid.org"])
+            self.assertFalse([x for x in doc["PEDIDOS"] if x["URL"] == "https://pub.orcid.org/robots.txt"])
             fila = Path(d) / "FILA.json"
             fila.write_text(json.dumps({"CANDIDATAS": []}), encoding="utf-8")
             r = S.candidatar([saida], fila)

@@ -82,6 +82,43 @@ class Contador(unittest.TestCase):
             self.assertEqual("TETO_24H", t.registo[-1]["RESULTADO"])
 
 
+class D91(unittest.TestCase):
+    def test_lista_fechada_das_apis_oficiais(self):
+        sim = ["https://pub.orcid.org/v3.0/0000-0000-0000-0001/researcher-urls", "https://pub.orcid.org/v3.0/expanded-search/?q=x",
+               "https://api.openalex.org/authors?filter=orcid:x", "https://api.crossref.org/works?query=x"]
+        nao = ["https://pub.orcid.org/v2.0/x", "http://pub.orcid.org/v3.0/x", "https://pub.orcid.org.evil.it/v3.0/x",
+               "https://orcid.org/0000-0000-0000-0001", "https://pub.orcid.org:8443/v3.0/x", "https://www.fmach.it/persone",
+               "https://www.crea.gov.it/web/difesa-e-certificazione", "https://openalex.org/works", "https://x.api.crossref.org/"]
+        self.assertEqual([True] * len(sim), [S.api_oficial(u) for u in sim])
+        self.assertEqual([False] * len(nao), [S.api_oficial(u) for u in nao])
+
+    def test_pagina_comum_continua_a_respeitar_o_robots(self):
+        with tempfile.TemporaryDirectory() as d:
+            pedidos = []
+            proibe = b"User-agent: *\nDisallow: /\n"
+
+            def falso(url):
+                pedidos.append(url)
+                return 200, proibe if url.endswith("robots.txt") else b"{}"
+            t = S.Transporte(Path(d), buscar=falso, pausa=0)
+            self.assertEqual((None, None), t.get("https://www.unipd.it/persone/rossi", "t"))
+            self.assertEqual(200, t.get("https://pub.orcid.org/v3.0/0000-0000-0000-0001/researcher-urls", "t")[0])
+            self.assertEqual((None, None), t.get("https://pub.orcid.org/outra-coisa", "t"))   # fora da /v3.0/: robots
+            self.assertEqual(["https://www.unipd.it/robots.txt", "https://pub.orcid.org/v3.0/0000-0000-0000-0001/researcher-urls",
+                              "https://pub.orcid.org/robots.txt"], pedidos)
+
+    def test_marcar_gasto_externo(self):
+        with tempfile.TemporaryDirectory() as d:
+            c = CT.Contador24h(Path(d) / "C.json", agora=lambda: T0)
+            c.reservar("orcid.org", "u")
+            self.assertEqual(4, c.marcar_gasto("orcid.org", T0 + timedelta(hours=12), "coordenacao"))
+            self.assertEqual(0, c.livres("orcid.org"))
+            antes = CT.Contador24h(Path(d) / "C.json", agora=lambda: T0 + timedelta(hours=11))
+            self.assertEqual((False, (T0 + timedelta(hours=12)).isoformat()), antes.reservar("orcid.org", "v"))
+            depois = CT.Contador24h(Path(d) / "C.json", agora=lambda: T0 + timedelta(hours=12, seconds=1))
+            self.assertEqual(4, depois.livres("orcid.org"))          # o «u» das T0 ainda conta ate T0+24 h
+
+
 class Canario(unittest.TestCase):
     def test_sem_canario_nao_ha_dia_e_canario_so_uma_vez(self):
         with tempfile.TemporaryDirectory() as d:
@@ -89,21 +126,23 @@ class Canario(unittest.TestCase):
             self.assertEqual([2, 0, 2], rcs)
             self.assertEqual("POR_PESSOA", e["CANARIO"]["MODO"])          # o csv respondeu 400
             self.assertTrue(e["CANARIO"]["B_LOTE_BUSCA"]["FORMATO_OK"])
-            self.assertEqual(4, e["CANARIO"]["PEDIDOS_ORCID"])             # robots + a + b + c
+            self.assertEqual(3, e["CANARIO"]["PEDIDOS_ORCID"])             # a + b + c (D91: API sem robots)
 
-    def test_robots_do_orcid_que_proibe_para_tudo(self):
-        # o robots.txt REAL de pub.orcid.org (lido por acidente em 26/09 22:58Z) e «User-agent: * / Disallow: /»
+    def test_d91_api_oficial_nao_le_robots_mesmo_que_proiba(self):
+        # o robots.txt REAL de pub.orcid.org (lido por acidente em 26/09) e «User-agent: * / Disallow: /»;
+        # pela D91 a API publica oficial segue os termos da API, nao o robots do host
         with tempfile.TemporaryDirectory() as d:
             fx = Path(d) / "fx"
             shutil.copytree(FX, fx)
             r = json.loads((fx / "RESPOSTAS-ORCID.json").read_text(encoding="utf-8"))
             r["https://pub.orcid.org/robots.txt"] = {"TEXTO": "User-agent: *\nDisallow: /"}
             (fx / "RESPOSTAS-ORCID.json").write_text(json.dumps(r), encoding="utf-8")
-            rcs, e = correr(Path(d) / "s", ("--canario", 0), ("--dia", 1), fx=fx)
-            self.assertEqual([0, 2], rcs)
-            self.assertEqual("PARADO", e["CANARIO"]["MODO"])
-            self.assertIn("ROBOTS", e["CANARIO"]["PORQUE"])
-            self.assertEqual(1, e["CANARIO"]["PEDIDOS_ORCID"])          # so o robots
+            rcs, e = correr(Path(d) / "s", ("--canario", 0), fx=fx)
+            self.assertEqual("POR_PESSOA", e["CANARIO"]["MODO"])
+            self.assertEqual(3, e["CANARIO"]["PEDIDOS_ORCID"])          # a + b + c, sem robots
+            ped = json.loads((Path(d) / "s" / "CANARIO-01" / "PEDIDOS.json").read_text(encoding="utf-8"))["PEDIDOS"]
+            self.assertFalse([x for x in ped if x["URL"].endswith("robots.txt")])
+            self.assertTrue(all(x.get("REGRA", "").startswith("API_PUBLICA_OFICIAL_D91") for x in ped if x["RESULTADO"] == "OK"))
 
     def test_csv_com_links_da_o_modo_em_lote(self):
         with tempfile.TemporaryDirectory() as d:
@@ -126,7 +165,8 @@ class Dias(unittest.TestCase):
             rcs, e = correr(d, ("--canario", 0), ("--dia", 1), ("--dia", 25), ("--dia", 49))
             self.assertEqual([0, 0, 0, 0], rcs)
             self.assertLessEqual(orcid_em_24h(d), 5)
-            self.assertEqual([1, 5, 3], [x["PEDIDOS_POR_DOMINIO"].get("orcid.org", 0) for x in e["DIAS"]])
+            # D91: a API nao gasta pedido no robots -> canario 3, e o resto do 1.o dia sao 2 (identidade + 1 pessoa)
+            self.assertEqual([2, 5, 0], [x["PEDIDOS_POR_DOMINIO"].get("orcid.org", 0) for x in e["DIAS"]])
             self.assertEqual("2026-09-28T08:00:00+00:00", e["DIAS"][0]["PROXIMO_DIA_A_PARTIR_DE"])
             por = {p["NOME"]: p for p in e["PESSOAS"]}
             self.assertEqual(["0000-0000-0000-0201"], por["Lorenzo Tonina"]["ORCID"])     # achado em lote, nome + casa
