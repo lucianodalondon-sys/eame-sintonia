@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  638f98e96f852c3fafe7416f7e30034d352d43ad
-BRANCH           integra-noite-v3
-GERADO_EM        2026-09-26T20:11:28-03:00
+HEAD_DA_MEDICAO  554c1ec1bb232b8a3298e3cfb330c8de86413134
+BRANCH           claude/fix-fact-time-extraction-ylh1oj
+GERADO_EM        2026-09-26T20:15:56-03:00
 CARDS            110
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
