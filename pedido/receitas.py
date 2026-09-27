@@ -624,6 +624,34 @@ EXECUTORES = {
 # Escrever aqui que o plano ficaria vazio seria mais bonito e seria falso.
 EXECUTORES["T8"] = [e for e in EXECUTORES["T9"] if e.get("id") == "scrap-colheita"]
 
+# ── T9 · A LINHA RECORRENTE DA BIBLIOTECA DE ANUNCIOS DA META ──────────────
+# A captura de 31/08 (414 cartoes que alcancaram a Italia, ramo
+# `claude/eame-meta-competitor`) foi uma fotografia feita a mao e nunca entrou
+# na producao. Esta entrada e a mesma medida como LINHA: a lista de paginas com
+# PAGE_ID provado pela Meta, uma visita por pagina por rodada, snapshot datado,
+# comparacao com o anterior, e COLHEITA pelo envelope da COL-LAW-505.
+#
+# SO SERVE A SUA FASE. Um pedido T9 sem fase continua a abrir exactamente o que
+# abria; `fase=meta-anuncios` e o que a promove (o resolvedor ordena por
+# `serve_fases`). A rota e Chrome COM JANELA e saida pela Italia: a nuvem nao
+# colhe — sem Chrome, cada visita sai `SLICE_FAILED`/`BROWSER_NOT_REACHED`.
+EXECUTORES["T9"].append({
+    "id": "concorrencia-meta",
+    "roda": ["coleta/concorrencia_meta.py"],
+    "recebe_run_id": True,
+    # `pais` e o recorte (anuncios que ALCANCARAM o pais); `teto` corta a lista
+    # para um canario. Nomeados, nunca posicionais.
+    "filtros_nomeados": ["pais", "teto"],
+    "serve_fases": ["meta-anuncios"],
+    "retorno": {"ENVELOPE": "data/colheita/meta/ENVELOPE.json"},
+    "larga_em": ["data/colheita/meta/"],
+    "rotas": ["Meta Ads Library (Chrome com janela, sem login)"],
+    "o_que_traz": "os cartoes de anuncio pago que cada pagina de concorrente "
+                  "(e da ADAMA) mostrou a quem estava na Italia, com o snapshot "
+                  "datado, o RAW da pagina e a comparacao com a rodada anterior",
+    "custo": "gratuito (tempo de maquina e VPN italiana)",
+})
+
 # ── T8 · T9 · T12 GANHAM O COLETOR DE SITES (D48, 25/09/2026) ──────────────
 # Medido a 25/09 (FUNIL-RESTO): 22 fontes elegiveis de T8/T9/T12 sao PAGINAS
 # WEB (revistas Edagricole, regioes, PSRN, Didacta) e ficavam

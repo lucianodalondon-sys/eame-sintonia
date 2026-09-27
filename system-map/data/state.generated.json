@@ -315,6 +315,7 @@
       "coleta/comunicacao_classificar.py",
       "coleta/comunicacao_coleta.py",
       "coleta/comunicacao_medir.py",
+      "coleta/concorrencia_meta.py",
       "coleta/corpus_pesquisador.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/denominaciones.py",
@@ -342,6 +343,7 @@
       "coleta/italy_probe.mjs",
       "coleta/italy_recurrent_collect.mjs",
       "coleta/mapa_regfi.py",
+      "coleta/meta_anunciante.py",
       "coleta/nome_da_pasta.mjs",
       "coleta/pdf_text.py",
       "coleta/preservar_pdf.py",
@@ -1084,6 +1086,8 @@
       "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json",
       "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
       "data/samples/COMPETITOR-azoxy-prothio-italy.json",
+      "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json",
+      "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
       "data/samples/CROSS-MARKET-prothioconazole-cereal.json",
       "data/samples/DATA-CLOCK-manifest.json",
       "data/samples/DESIGN-DATA-CONTRACT-V1.json",
@@ -2009,6 +2013,7 @@
       "ferramentas/lugar_v2/mutar_lugar_v2.py",
       "ferramentas/lugar_v2/prever_acervo.py",
       "ferramentas/maestro_social/maestro_social.py",
+      "ferramentas/meta_biblioteca.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/onda3_pacote/LOTES-A-HTML.json",
@@ -2569,6 +2574,7 @@
       "medidas/canario_receitas_k1.py",
       "medidas/canario_rotas_elegiveis.py",
       "medidas/cicatrizes_brasil.py",
+      "medidas/concorrencia_frentes.py",
       "medidas/coorte_da_micro_collection.py",
       "medidas/corrida_canonica.py",
       "medidas/corrida_instrumentada.py",
@@ -2827,6 +2833,7 @@
       "provas/censo_corpus_rotulado_admission.py",
       "provas/censo_executavel_da_v1.py",
       "provas/chain.py",
+      "provas/concorrencia_meta/MUTACAO-V1.json",
       "provas/conserto_regua_recalcular.py",
       "provas/consumo_da_referencia_adama.py",
       "provas/corrida_abortada_local.mjs",
@@ -3094,6 +3101,7 @@
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
       "regras/italy_source_health.mjs",
+      "regras/meta_identidade.py",
       "regras/motor_de_rota.mjs",
       "regras/motor_de_rota_test.mjs",
       "regras/normalizacao_de_conteudo.mjs",
@@ -3536,6 +3544,9 @@
       "tests/dados/c2-juiz/raw-1558.html",
       "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
       "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+      "tests/dados/concorrencia_meta/COMPARACAO-ESPERADA-IT-31-08.json",
+      "tests/dados/concorrencia_meta/SNAPSHOT-S1-IT-31-08.json",
+      "tests/dados/concorrencia_meta/SNAPSHOT-S2-IT-31-08.json",
       "tests/dados/item-social-ispra-porta.json",
       "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
       "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
@@ -3554,6 +3565,7 @@
       "tests/fixtures/ponte_onboard_17_contratos.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/medir_multilingue.py",
+      "tests/mutacao_concorrencia_meta.py",
       "tests/mutacao_conserto_regua.py",
       "tests/mutacao_do_scrap_portas.py",
       "tests/mutacao_migracao_033.py",
@@ -3658,6 +3670,7 @@
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
       "tests/test_comunicacao_universo_falha_fechado.py",
+      "tests/test_concorrencia_meta.py",
       "tests/test_conserto_regua.py",
       "tests/test_consumo_da_referencia_adama.py",
       "tests/test_corrida_abortada.py",
@@ -3848,8 +3861,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 933 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 933 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 938 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 938 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -3900,16 +3913,16 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "21 coletores gravam registo sem data nem lugar.",
-      "texto": "18 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · extratores_de_texto.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · teto_da_onda.py · texto_fonte.py",
+      "titulo": "23 coletores gravam registo sem data nem lugar.",
+      "texto": "18 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_linkedin.py · coletor.py · concorrencia_meta.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · extratores_de_texto.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · meta_anunciante.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · teto_da_onda.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/adaptador_linkedin.py",
         "coleta/coletor.py",
+        "coleta/concorrencia_meta.py",
         "coleta/cruzar_regua_rotulo.py",
         "coleta/denominaciones.py",
-        "coleta/eppo_gd.py",
-        "coleta/eu_regulatorio_executor.py"
+        "coleta/eppo_gd.py"
       ]
     }
   ],
@@ -4361,10 +4374,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-noite-v3",
-    "HEAD": "638f98e96f852c3fafe7416f7e30034d352d43ad",
-    "GENERATED_AT": "2026-09-26T20:11:28-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b4795ab6e4c27635bb2745d9c4c0f699ccf837ed94c4b6c5583815d3beba2913"
+    "BRANCH": "claude/concurrency-meta-collection-qp35vu",
+    "HEAD": "554c1ec1bb232b8a3298e3cfb330c8de86413134",
+    "GENERATED_AT": "2026-09-26T20:15:56-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cf44fbc918d5ddc51785447ddb91788525da57464e500c0ad934cca5319c7b70"
   },
   "FAMILIES": [
     {
@@ -4392,7 +4405,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 110
+      "count": 114
     },
     {
       "id": "F-ESPERA",
@@ -4587,7 +4600,7 @@
       "y": 190,
       "w": 1235,
       "h": 9378,
-      "count": 18
+      "count": 19
     },
     {
       "id": "Z-ACOES",
@@ -4603,7 +4616,7 @@
       "y": 190,
       "w": 1235,
       "h": 9378,
-      "count": 18
+      "count": 19
     },
     {
       "id": "Z-GUARDA",
@@ -4635,7 +4648,7 @@
       "y": 190,
       "w": 820,
       "h": 9378,
-      "count": 7
+      "count": 8
     },
     {
       "id": "Z-MEDIDAS",
@@ -4650,7 +4663,7 @@
       "y": 190,
       "w": 1235,
       "h": 9378,
-      "count": 31
+      "count": 32
     },
     {
       "id": "Z-ADMISSAO",
@@ -5877,8 +5890,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 731",
-        "desses, mostrados aqui: 40 (ficam de fora 691)"
+        "enderecos que o codigo realmente chama: 732",
+        "desses, mostrados aqui: 40 (ficam de fora 692)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -5896,6 +5909,7 @@
         "C-COLETA-PUBLICA",
         "C-DECISAO-DA-FILA",
         "C-FONTE-DO-ATLAS",
+        "C-FRENTES-CONCORRENCIA",
         "C-IDENTIDADE",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
@@ -12781,6 +12795,19 @@
           ]
         },
         {
+          "ficheiro": "coleta/concorrencia_meta.py",
+          "como_se_chama": "coleta/concorrencia_meta.py --run-id",
+          "carimba_data": [],
+          "carimba_lugar": [
+            "COUNTRY"
+          ],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [
+            "proveniencia"
+          ],
+          "regista_descarte": []
+        },
+        {
           "ficheiro": "coleta/corpus_pesquisador.py",
           "como_se_chama": "coleta/corpus_pesquisador.py coletar",
           "carimba_data": [],
@@ -13040,6 +13067,15 @@
         {
           "ficheiro": "coleta/mapa_regfi.py",
           "como_se_chama": "coleta/mapa_regfi.py producto ES-01717",
+          "carimba_data": [],
+          "carimba_lugar": [],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/meta_anunciante.py",
+          "como_se_chama": "coleta/meta_anunciante.py Sipcam Gowan Ascenza",
           "carimba_data": [],
           "carimba_lugar": [],
           "separa_fonte_do_fato": false,
@@ -41703,6 +41739,7 @@
         "C-COORTE-MICRO-FUNIL",
         "C-DETECTOR-CAPA-GABARITO",
         "C-FONTE-DO-ATLAS",
+        "C-FRENTES-CONCORRENCIA",
         "C-HR6",
         "C-LEGACY-99",
         "C-MICRO-COLETA-INSTRUMENTO",
@@ -42633,6 +42670,109 @@
       "y": 360
     },
     {
+      "id": "C-COLETA-META",
+      "name": "Colher os anuncios pagos do concorrente na Meta",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "A linha recorrente T9 da Biblioteca de Anuncios: uma visita por pagina por rodada no recorte IT, snapshot datado com o RAW da pagina e o sha256, comparacao por recorte com a ultima leitura boa (novo so conta onde a leitura anterior foi pelo menos tao funda; terminado so com as duas leituras fechadas pela fonte), e os cartoes vistos pela primeira vez saem como COLHEITA no envelope da COL-LAW-505 para o ingresso e a Admissao T9. A descoberta (meta_anunciante) so PROPOE paginas novas; entrar na lista e gesto de gente.",
+      "why_here": "A captura de 31/08 (414 cartoes = 601 anuncios que alcancaram a Italia) foi uma fotografia a mao e nunca entrou na producao. E nela 587 «novos» eram so a leitura nova a ir mais fundo: LI_MAIS_FUNDO != APARECERAM_MAIS_ANUNCIOS. A nuvem nao colhe: a rota exige Chrome com janela e saida pela Italia.",
+      "departments": [
+        "DESENVOLVIMENTO_MERCADO",
+        "MARKETING",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "collection-strategy",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/concorrencia_meta.py",
+        "coleta/meta_anunciante.py"
+      ],
+      "file_count": 2,
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-MAPA-TESTES",
+        "C-META-BIBLIOTECA",
+        "C-META-IDENTIDADE",
+        "C-NAVEGADOR",
+        "C-PROCEDENCIA"
+      ],
+      "outbound": [
+        "C-RECEITAS",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CONSULTAS"
+        ],
+        "palavras": 39,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 39,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "coleta/concorrencia_meta.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "OWNER": "DESENVOLVIMENTO_MERCADO · MARKETING · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
+        "ferramentas/meta_biblioteca.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "pedido/receitas.py:640",
+          "tests/mutacao_concorrencia_meta.py:23",
+          "tests/test_concorrencia_meta.py:26"
+        ],
+        "PORQUE": "estas pecas importam-na — C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 8365,
+      "y": 360
+    },
+    {
       "id": "C-COLETA-PUBLICA",
       "name": "Colher o que o concorrente publica",
       "territory": "Z-ACOES",
@@ -42774,8 +42914,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 8365,
-      "y": 360
+      "x": 7535,
+      "y": 682
     },
     {
       "id": "C-COLETA-YOUTUBE",
@@ -42879,7 +43019,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7535,
+      "x": 7950,
       "y": 682
     },
     {
@@ -43678,7 +43818,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7950,
+      "x": 8365,
       "y": 682
     },
     {
@@ -44251,8 +44391,8 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 8365,
-      "y": 682
+      "x": 7535,
+      "y": 1004
     },
     {
       "id": "C-DERIVED-ARTIFACT",
@@ -45596,7 +45736,7 @@
         ],
         "PORQUE": "a cadeia declara esta peca como PRODUTOR EXTERNO: o mapa consome o que ela deixa e nao a corre. Quem a corre e gente."
       },
-      "x": 7535,
+      "x": 7950,
       "y": 1004
     },
     {
@@ -45807,7 +45947,7 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 7950,
+      "x": 8365,
       "y": 1004
     },
     {
@@ -46025,8 +46165,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DETECTOR-CAPA-GABARITO · C-IT-COLETA · C-IT-CONTRATOS · C-LEITOR-DATA-YT · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 8365,
-      "y": 1004
+      "x": 7535,
+      "y": 1326
     },
     {
       "id": "C-EXECUTOR-TEXTO-PDF",
@@ -46170,7 +46310,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 7535,
+      "x": 7950,
       "y": 1326
     },
     {
@@ -46271,7 +46411,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 7950,
+      "x": 8365,
       "y": 1326
     },
     {
@@ -46632,8 +46772,119 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 8365,
-      "y": 1326
+      "x": 7535,
+      "y": 1648
+    },
+    {
+      "id": "C-FRENTES-CONCORRENCIA",
+      "name": "As frentes publicas da concorrencia — o que esta na fila e o que falta",
+      "territory": "Z-MEDIDAS",
+      "kind": "scanner",
+      "what": "Le, so leitura, a fila de fontes, o livro de contratos do curador, as contas provadas da comunicacao publica e a lista da linha Meta, e escreve o quadro 12 empresas x 5 frentes (Meta, LinkedIn de empresa, YouTube, Instagram, site/novidades) com o degrau de cada celula e o executor que ja sabe colhe-la. --conferir reprova se o quadro versionado nao for o que os livros produzem.",
+      "why_here": "O mesmo desenho da linha Meta vale para as outras frentes, e antes de colher e preciso saber que conta provada existe. FALTA_NOS_LIVROS != A_CONTA_NAO_EXISTE.",
+      "departments": [
+        "DESENVOLVIMENTO_MERCADO",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⌕",
+      "views": [
+        "audit",
+        "collection-strategy"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json",
+        "medidas/concorrencia_frentes.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-AS-FONTES",
+        "C-CENSO-UNIFICACAO",
+        "C-MAPA-TESTES",
+        "C-META-IDENTIDADE",
+        "C-PORTA-FONTE"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {
+        "ITALIA": 1
+      },
+      "paises_dado": {
+        "ITALIA": 3
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "APELIDOS",
+          "EMPRESAS",
+          "FRENTES",
+          "LIVROS"
+        ],
+        "palavras": 75,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 75,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: le artefato e nao escreve nenhum: olha e da nota",
+      "OWNER": "DESENVOLVIMENTO_MERCADO · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "candidatas/FONTES-CANDIDATAS.json",
+        "curadoria/italy_contracts_curator.json",
+        "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+        "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json",
+        "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/mutacao_concorrencia_meta.py:63",
+          "tests/test_concorrencia_meta.py:27"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 11725,
+      "y": 1970
     },
     {
       "id": "C-FRONTEIRA-TELEMETRIA",
@@ -46721,7 +46972,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 1970
     },
     {
@@ -47506,7 +47757,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-DETECTOR-CAPA-GABARITO · C-ESTRADA-PDF · C-LEITOR-DATA-YT · C-LUGAR-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 7535,
+      "x": 7950,
       "y": 1648
     },
     {
@@ -49191,7 +49442,7 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 7950,
+      "x": 8365,
       "y": 1648
     },
     {
@@ -50391,7 +50642,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 1970
     },
     {
@@ -51819,6 +52070,7 @@
         "C-CENSO-TOPOLOGIA",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-COLETA-META",
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
         "C-CONTRATO-TELEMETRIA",
@@ -51836,6 +52088,7 @@
         "C-EXECUTOR-TRANSCRICAO-MIDIA",
         "C-FLUXO-NO-SECO",
         "C-FONTES-EU",
+        "C-FRENTES-CONCORRENCIA",
         "C-FRONTEIRA-TELEMETRIA",
         "C-INGRESSO",
         "C-IT-COLETA",
@@ -51847,6 +52100,7 @@
         "C-MAPA-DEPLOY",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
+        "C-META-BIBLIOTECA",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-NAVEGADOR",
         "C-ONDA-WEB",
@@ -52278,6 +52532,184 @@
       "y": 3902
     },
     {
+      "id": "C-META-BIBLIOTECA",
+      "name": "A porta da Biblioteca de Anuncios da Meta",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "Monta o endereco publico da Biblioteca de Anuncios (locale=en_US, country= e o pais ALCANCADO), le pelo Chrome com janela (ferramentas/cdp.py) o cabecalho e os cartoes que a pagina mostra sem login, rola ate a lista parar de crescer, e diz se a leitura bate com o numero que a PROPRIA FONTE declara (~N results). Cartao nao e anuncio: o cartao que diz «N ads use this creative and text» vale N.",
+      "why_here": "Medido a 30/08/2026: curl leva 403, a API pede token, so o Chrome com janela le. E a primeira regra de completude («parou de crescer») leu 29 cartoes numa pagina de 230 e chamou-lhe completa — teria produzido 160 «parou de veicular» falsos. PAROU_DE_CRESCER != CHEGOU_AO_FIM.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "◎",
+      "views": [
+        "acervo",
+        "infra",
+        "scrap"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "ferramentas/meta_biblioteca.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "outras pecas importam ou carregam isto.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-MAPA-TESTES",
+        "C-NAVEGADOR"
+      ],
+      "outbound": [
+        "C-COLETA-META",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "ROTA",
+      "momento_texto": "antes da coleta, para chegar ao canal",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "_MES"
+        ],
+        "palavras": 12,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 12,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "ferramentas/meta_biblioteca.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/concorrencia_meta.py:68",
+          "coleta/concorrencia_meta.py:434",
+          "tests/mutacao_concorrencia_meta.py:47",
+          "tests/test_concorrencia_meta.py:28"
+        ],
+        "PORQUE": "estas pecas importam-na — C-COLETA-META — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 6000,
+      "y": 1648
+    },
+    {
+      "id": "C-META-IDENTIDADE",
+      "name": "Quem e o anunciante na Meta",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "what": "Carimba cada pagina da lista da linha Meta antes da visita: PAGE_ID so com prova da propria Meta (detalhe do anuncio ou painel de irmas) e o token da empresa tem de ABRIR o nome da pagina. Escopo de pais da pagina so com rotulo da Meta; entrega nao prova nacionalidade. A lista versionada (PAGINAS-META-IT-V1.json) diz, pagina a pagina, a prova e o motivo de quem fica fora.",
+      "why_here": "O Instytut Adama Mickiewicza (instituto cultural polaco) entrou como ADAMA por token no meio do nome: 33 de 40 cartoes do acervo proprio eram ele. TOKEN_NO_MEIO_DO_NOME != MESMA_EMPRESA, e ANUNCIOS_ENTREGUES_NA_IT != PAGINA_E_ITALIANA.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "⛨",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
+        "regras/meta_identidade.py"
+      ],
+      "file_count": 2,
+      "status": "PROVEN",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-META, C-FRENTES-CONCORRENCIA.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-COLETA-META",
+        "C-FRENTES-CONCORRENCIA",
+        "C-TESTES"
+      ],
+      "paises": {
+        "ITALIA": 1
+      },
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "ROLE_MEASURED": "CONTRACT_OR_RULE",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_ENUNCIA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "CONTRACT_OR_RULE",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
+      "x": 10605,
+      "y": 1004
+    },
+    {
       "id": "C-MICRO-COLETA-INSTRUMENTO",
       "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
       "territory": "Z-MEDIDAS",
@@ -52458,8 +52890,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 12555,
-      "y": 1970
+      "x": 11725,
+      "y": 2292
     },
     {
       "id": "C-MICRO-COLHEITA",
@@ -52546,7 +52978,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2292
     },
     {
@@ -52658,7 +53090,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 2292
     },
     {
@@ -52698,7 +53130,9 @@
       ],
       "outbound": [
         "C-COLETA-INSTAGRAM",
+        "C-COLETA-META",
         "C-COLETA-YOUTUBE",
+        "C-META-BIBLIOTECA",
         "C-PROVA-COLETA",
         "C-SCRAP-GUARDA",
         "C-TESTES",
@@ -52762,7 +53196,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1648
     },
     {
@@ -52900,7 +53334,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1648
     },
     {
@@ -53039,8 +53473,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-ONDA3 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12555,
-      "y": 2292
+      "x": 11725,
+      "y": 2614
     },
     {
       "id": "C-ORQUESTRADOR",
@@ -53590,8 +54024,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6830,
-      "y": 1648
+      "x": 6000,
+      "y": 1970
     },
     {
       "id": "C-PADRAO-COLETA",
@@ -53704,7 +54138,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2614
     },
     {
@@ -53859,7 +54293,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COLETA-YOUTUBE · C-INT-CONVERGENCIA · C-RELEVANCIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 10605,
+      "x": 11020,
       "y": 1004
     },
     {
@@ -54239,7 +54673,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-MICRO-PROVA-LOTE1 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6000,
+      "x": 6415,
       "y": 1970
     },
     {
@@ -54287,6 +54721,7 @@
         "C-BLOQUEADAS-268",
         "C-CENSO-UNIFICACAO",
         "C-DECISAO-DA-FILA",
+        "C-FRENTES-CONCORRENCIA",
         "C-MAPA-SCAN",
         "C-MICRO-PROVA-LOTE1",
         "C-TESTES"
@@ -54355,7 +54790,7 @@
           "curadoria/colher_prova_territorio.py:37",
           "curadoria/test_discovery.py:59"
         ],
-        "PORQUE": "estas pecas importam-na — C-BLOQUEADAS-268 · C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA · C-MICRO-PROVA-LOTE1 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-BLOQUEADAS-268 · C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA · C-FRENTES-CONCORRENCIA · C-MICRO-PROVA-LOTE1 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 3180,
       "y": 1004
@@ -54920,7 +55355,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-HTML.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-COLETA-META, C-ESTRADA-PDF.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "regras/proveniencia.py"
       ],
@@ -54933,6 +55368,7 @@
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-COLETA-META",
         "C-DATA-CLOCK",
         "C-ESPECIE-DO-TEXTO",
         "C-ESTRADA-PDF",
@@ -55041,13 +55477,13 @@
         "PROVA": [
           "coleta/adaptador_linkedin.py:117",
           "coleta/coletor.py:76",
-          "coleta/executor_texto_de_html.py:82",
-          "coleta/executor_transcricao_midia.py:72"
+          "coleta/concorrencia_meta.py:70",
+          "coleta/executor_texto_de_html.py:82"
         ],
-        "PORQUE": "estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-DATA-CLOCK · C-ESTRADA-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-COLETA-META · C-DATA-CLOCK — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11020,
-      "y": 1004
+      "x": 10605,
+      "y": 1326
     },
     {
       "id": "C-PROVA-ADAMA-REFERENCE",
@@ -60492,7 +60928,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 2614
     },
     {
@@ -60689,6 +61125,7 @@
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
+        "C-COLETA-META",
         "C-COLETA-PUBLICA",
         "C-CORPUS",
         "C-DATA-CLOCK",
@@ -60733,7 +61170,7 @@
         "valida": false,
         "e_workflow": false,
         "executa": false,
-        "executores_que_chama": 13
+        "executores_que_chama": 14
       },
       "vocabulario": {
         "papel": "NAO SEI",
@@ -60760,13 +61197,14 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 19 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 20 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
         "coleta/comunicacao_coleta.py",
+        "coleta/concorrencia_meta.py",
         "coleta/corpus_pesquisador.py",
         "coleta/eppo_gd.py",
         "coleta/eu_regulatorio_executor.py",
@@ -60941,8 +61379,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12555,
-      "y": 2614
+      "x": 11725,
+      "y": 2936
     },
     {
       "id": "C-RECOLLECTION-CENSO",
@@ -61043,7 +61481,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2936
     },
     {
@@ -61234,7 +61672,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 6415,
+      "x": 6830,
       "y": 1970
     },
     {
@@ -61482,7 +61920,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 2936
     },
     {
@@ -61728,8 +62166,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12555,
-      "y": 2936
+      "x": 11725,
+      "y": 3258
     },
     {
       "id": "C-REGUA-T2-JANELA",
@@ -61922,7 +62360,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 3258
     },
     {
@@ -62009,7 +62447,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 3258
     },
     {
@@ -62333,8 +62771,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12555,
-      "y": 3258
+      "x": 11725,
+      "y": 3580
     },
     {
       "id": "C-REVISAO-DA-EVIDENCIA",
@@ -62544,8 +62982,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 8365,
-      "y": 1648
+      "x": 7535,
+      "y": 1970
     },
     {
       "id": "C-ROTULOS",
@@ -62720,7 +63158,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7535,
+      "x": 7950,
       "y": 1970
     },
     {
@@ -62947,7 +63385,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 3580
     },
     {
@@ -63062,7 +63500,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7950,
+      "x": 8365,
       "y": 1970
     },
     {
@@ -63688,8 +64126,8 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 8365,
-      "y": 1970
+      "x": 7535,
+      "y": 2292
     },
     {
       "id": "C-SECURITY-CHECK",
@@ -63938,7 +64376,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 10605,
+      "x": 11020,
       "y": 1326
     },
     {
@@ -66484,6 +66922,7 @@
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
         "tests/medir_multilingue.py",
+        "tests/mutacao_concorrencia_meta.py",
         "tests/mutacao_conserto_regua.py",
         "tests/mutacao_do_scrap_portas.py",
         "tests/mutacao_migracao_033.py",
@@ -66588,6 +67027,7 @@
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
         "tests/test_comunicacao_universo_falha_fechado.py",
+        "tests/test_concorrencia_meta.py",
         "tests/test_conserto_regua.py",
         "tests/test_consumo_da_referencia_adama.py",
         "tests/test_corrida_abortada.py",
@@ -66773,7 +67213,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 291,
+      "file_count": 293,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -66834,6 +67274,7 @@
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-COLETA-META",
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
         "C-CONTRATO-ARTEFATO",
@@ -66861,6 +67302,7 @@
         "C-FLUXO-NO-SECO",
         "C-FONTE-DO-ATLAS",
         "C-FONTES-EU",
+        "C-FRENTES-CONCORRENCIA",
         "C-FRONTEIRA-TELEMETRIA",
         "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
@@ -66892,6 +67334,8 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
         "C-MEDICAO",
+        "C-META-BIBLIOTECA",
+        "C-META-IDENTIDADE",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
         "C-NAVEGADOR",
@@ -66995,7 +67439,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 63,
+        "ITALIA": 66,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -67117,13 +67561,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1728,
+        "palavras": 1761,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1716,
+        "sem_marca_de_lingua": 1749,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -67247,6 +67691,7 @@
         "coleta/comunicacao_classificar.py",
         "coleta/comunicacao_coleta.py",
         "coleta/comunicacao_medir.py",
+        "coleta/concorrencia_meta.py",
         "coleta/derivacao_forward.py",
         "coleta/eu_regulatorio_executor.py",
         "coleta/executor_texto_de_html.py",
@@ -67260,6 +67705,7 @@
         "coleta/italy_executor.py",
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_recurrent_collect.mjs",
+        "coleta/meta_anunciante.py",
         "coleta/retrato_html.mjs",
         "coleta/rota_forward_documento.py",
         "coleta/scrap_capacidades.py",
@@ -67469,6 +67915,7 @@
         "ferramentas/cutover/passos_do_cutover.py",
         "ferramentas/fala_local.py",
         "ferramentas/instagram_transcrever.py",
+        "ferramentas/meta_biblioteca.py",
         "ferramentas/onda3_pacote/LOTES-A-HTML.json",
         "ferramentas/reel_transcricao.py",
         "ferramentas/youtube_transcrever.py",
@@ -67505,6 +67952,7 @@
         "medidas/D1-VALIDACAO-CEGA-V1.json",
         "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
         "medidas/canario_rotas_elegiveis.py",
+        "medidas/concorrencia_frentes.py",
         "medidas/corrida_instrumentada.py",
         "medidas/ensaio_quarentena_naosei.py",
         "medidas/micro_colheita.py",
@@ -67593,6 +68041,7 @@
         "regras/contratos_de_fonte.py",
         "regras/italy_contracts.mjs",
         "regras/italy_contracts_onboarded.json",
+        "regras/meta_identidade.py",
         "regras/motor_de_rota.mjs",
         "regras/proveniencia.py",
         "regras/sensor_coleta.py",
@@ -67671,6 +68120,9 @@
         "system-map/scripts/validate_system_map.py",
         "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
         "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+        "tests/dados/concorrencia_meta/COMPARACAO-ESPERADA-IT-31-08.json",
+        "tests/dados/concorrencia_meta/SNAPSHOT-S1-IT-31-08.json",
+        "tests/dados/concorrencia_meta/SNAPSHOT-S2-IT-31-08.json",
         "tests/dados/item-social-ispra-porta.json",
         "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
         "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
@@ -67841,8 +68293,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6830,
-      "y": 1970
+      "x": 6000,
+      "y": 2292
     },
     {
       "id": "C-V2-LEGADO",
@@ -73040,7 +73492,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 50 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 51 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -74614,6 +75066,41 @@
             "EDGE_ID": "C-AS-FONTES--READS-->C-FONTE-DO-ATLAS",
             "FROM": "C-AS-FONTES",
             "TO": "C-FONTE-DO-ATLAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-FRENTES-CONCORRENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta As frentes publicas da concorrencia — o que esta na fila e o que falta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/concorrencia_frentes.py",
+          "line": 79,
+          "snippet": "'CONTAS': 'data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AS-FONTES--READS-->C-FRENTES-CONCORRENCIA",
+            "FROM": "C-AS-FONTES",
+            "TO": "C-FRENTES-CONCORRENCIA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -82239,6 +82726,41 @@
     },
     {
       "from": "C-CENSO-UNIFICACAO",
+      "to": "C-FRENTES-CONCORRENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta As frentes publicas da concorrencia — o que esta na fila e o que falta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/concorrencia_frentes.py",
+          "line": 78,
+          "snippet": "'CURADOR': 'curadoria/italy_contracts_curator.json',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-FRENTES-CONCORRENCIA",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-FRENTES-CONCORRENCIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
       "to": "C-HR6",
       "type": "READS",
       "payload": "artefacto",
@@ -83862,7 +84384,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -84012,6 +84534,22 @@
           "file": ".github/workflows/system-map.yml",
           "line": 618,
           "snippet": "run: python3 tests/test_porta_de_producao.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 683,
+          "snippet": "run: python3 tests/test_concorrencia_meta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
             "FROM": "C-CI-MAPA",
@@ -87287,6 +87825,159 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-TESTES",
             "FROM": "C-COLETA-INSTAGRAM",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-COLETA-META",
+      "to": "C-RECEITAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher os anuncios pagos do concorrente na Meta alimenta A receita da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 640,
+          "snippet": "\"roda\": [\"coleta/concorrencia_meta.py\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-META--READS-->C-RECEITAS",
+            "FROM": "C-COLETA-META",
+            "TO": "C-RECEITAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-COLETA-META",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher os anuncios pagos do concorrente na Meta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 26,
+          "snippet": "import concorrencia_meta as cm  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-META--IMPORTS-->C-TESTES",
+            "FROM": "C-COLETA-META",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 30,
+          "snippet": "import meta_anunciante as anun  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-META--IMPORTS-->C-TESTES",
+            "FROM": "C-COLETA-META",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-COLETA-META",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher os anuncios pagos do concorrente na Meta alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/mutacao_concorrencia_meta.py",
+          "line": 23,
+          "snippet": "(\"coleta/concorrencia_meta.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-META--READS-->C-TESTES",
+            "FROM": "C-COLETA-META",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/mutacao_concorrencia_meta.py",
+          "line": 67,
+          "snippet": "(\"coleta/meta_anunciante.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-META--READS-->C-TESTES",
+            "FROM": "C-COLETA-META",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 275,
+          "snippet": "'ACTOR': 'coleta/concorrencia_meta.py', 'ACTOR_VERSION': '1',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-META--READS-->C-TESTES",
+            "FROM": "C-COLETA-META",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -90600,7 +91291,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 683,
+          "line": 711,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -98722,6 +99413,76 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-FRENTES-CONCORRENCIA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As frentes publicas da concorrencia — o que esta na fila e o que falta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 27,
+          "snippet": "import concorrencia_frentes as fr  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FRENTES-CONCORRENCIA--IMPORTS-->C-TESTES",
+            "FROM": "C-FRENTES-CONCORRENCIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-FRENTES-CONCORRENCIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As frentes publicas da concorrencia — o que esta na fila e o que falta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/mutacao_concorrencia_meta.py",
+          "line": 63,
+          "snippet": "(\"medidas/concorrencia_frentes.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FRENTES-CONCORRENCIA--READS-->C-TESTES",
+            "FROM": "C-FRENTES-CONCORRENCIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-FRONTEIRA-TELEMETRIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
@@ -100968,7 +101729,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
@@ -101083,6 +101844,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 285,
+          "snippet": "import ingresso as ing",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
+            "FROM": "C-INGRESSO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
           "line": 48,
           "snippet": "import ingresso as ing  # noqa: E402",
@@ -101134,22 +101911,6 @@
           "file": "tests/test_ponte_audio_publico.py",
           "line": 37,
           "snippet": "import ingresso                      # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
-            "FROM": "C-INGRESSO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_raw_observation_id_volta.py",
-          "line": 43,
-          "snippet": "import ingresso as ing                                       # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
             "FROM": "C-INGRESSO",
@@ -111289,7 +112050,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 685,
+          "line": 713,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -113463,6 +114224,57 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-COLETA-META",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por Colher os anuncios pagos do concorrente na Meta. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/concorrencia_meta.py",
+          "line": 67,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-COLETA-META",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/meta_anunciante.py",
+          "line": 43,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-COLETA-META",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-COLETA-PUBLICA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -114106,6 +114918,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-FRENTES-CONCORRENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por As frentes publicas da concorrencia — o que esta na fila e o que falta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/concorrencia_frentes.py",
+          "line": 41,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-FRENTES-CONCORRENCIA",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-FRENTES-CONCORRENCIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-FRONTEIRA-TELEMETRIA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -114477,6 +115324,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-META-BIBLIOTECA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por A porta da Biblioteca de Anuncios da Meta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/meta_biblioteca.py",
+          "line": 55,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-META-BIBLIOTECA",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-META-BIBLIOTECA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -117381,7 +118263,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 158 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 159 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -118337,6 +119219,388 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-META-BIBLIOTECA",
+      "to": "C-COLETA-META",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta da Biblioteca de Anuncios da Meta tem o seu codigo importado por Colher os anuncios pagos do concorrente na Meta. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/concorrencia_meta.py",
+          "line": 68,
+          "snippet": "import meta_biblioteca as bib  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-BIBLIOTECA--IMPORTS-->C-COLETA-META",
+            "FROM": "C-META-BIBLIOTECA",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/meta_anunciante.py",
+          "line": 44,
+          "snippet": "import meta_biblioteca as bib  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-BIBLIOTECA--IMPORTS-->C-COLETA-META",
+            "FROM": "C-META-BIBLIOTECA",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-META-BIBLIOTECA",
+      "to": "C-COLETA-META",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta da Biblioteca de Anuncios da Meta alimenta Colher os anuncios pagos do concorrente na Meta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/concorrencia_meta.py",
+          "line": 434,
+          "snippet": "tool='ferramentas/meta_biblioteca.py')]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-BIBLIOTECA--READS-->C-COLETA-META",
+            "FROM": "C-META-BIBLIOTECA",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-META-BIBLIOTECA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta da Biblioteca de Anuncios da Meta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 28,
+          "snippet": "import meta_biblioteca as bib  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-BIBLIOTECA--IMPORTS-->C-TESTES",
+            "FROM": "C-META-BIBLIOTECA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-META-BIBLIOTECA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta da Biblioteca de Anuncios da Meta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/mutacao_concorrencia_meta.py",
+          "line": 47,
+          "snippet": "(\"ferramentas/meta_biblioteca.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-BIBLIOTECA--READS-->C-TESTES",
+            "FROM": "C-META-BIBLIOTECA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-META-IDENTIDADE",
+      "to": "C-COLETA-META",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem e o anunciante na Meta tem o seu codigo importado por Colher os anuncios pagos do concorrente na Meta. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/concorrencia_meta.py",
+          "line": 69,
+          "snippet": "import meta_identidade as ident  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-IDENTIDADE--IMPORTS-->C-COLETA-META",
+            "FROM": "C-META-IDENTIDADE",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/meta_anunciante.py",
+          "line": 45,
+          "snippet": "import meta_identidade as ident  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-IDENTIDADE--IMPORTS-->C-COLETA-META",
+            "FROM": "C-META-IDENTIDADE",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-META-IDENTIDADE",
+      "to": "C-COLETA-META",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem e o anunciante na Meta alimenta Colher os anuncios pagos do concorrente na Meta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/concorrencia_meta.py",
+          "line": 83,
+          "snippet": "'PAGINAS-META-IT-V1.json')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-IDENTIDADE--READS-->C-COLETA-META",
+            "FROM": "C-META-IDENTIDADE",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-META-IDENTIDADE",
+      "to": "C-FRENTES-CONCORRENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem e o anunciante na Meta tem o seu codigo importado por As frentes publicas da concorrencia — o que esta na fila e o que falta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/concorrencia_frentes.py",
+          "line": 42,
+          "snippet": "import meta_identidade as ident  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-IDENTIDADE--IMPORTS-->C-FRENTES-CONCORRENCIA",
+            "FROM": "C-META-IDENTIDADE",
+            "TO": "C-FRENTES-CONCORRENCIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-META-IDENTIDADE",
+      "to": "C-FRENTES-CONCORRENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem e o anunciante na Meta alimenta As frentes publicas da concorrencia — o que esta na fila e o que falta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/concorrencia_frentes.py",
+          "line": 80,
+          "snippet": "'META': 'data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-IDENTIDADE--READS-->C-FRENTES-CONCORRENCIA",
+            "FROM": "C-META-IDENTIDADE",
+            "TO": "C-FRENTES-CONCORRENCIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-META-IDENTIDADE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem e o anunciante na Meta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 29,
+          "snippet": "import meta_identidade as ident  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-IDENTIDADE--IMPORTS-->C-TESTES",
+            "FROM": "C-META-IDENTIDADE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-META-IDENTIDADE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem e o anunciante na Meta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/mutacao_concorrencia_meta.py",
+          "line": 31,
+          "snippet": "(\"regras/meta_identidade.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-META-IDENTIDADE--READS-->C-TESTES",
+            "FROM": "C-META-IDENTIDADE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-MICRO-COLETA-INSTRUMENTO",
       "to": "C-CAPA-MATERIA",
       "type": "WRITES",
@@ -118788,6 +120052,41 @@
     },
     {
       "from": "C-NAVEGADOR",
+      "to": "C-COLETA-META",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O navegador — a rota gratis tem o seu codigo importado por Colher os anuncios pagos do concorrente na Meta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/meta_anunciante.py",
+          "line": 109,
+          "snippet": "import cdp  # noqa: E402 — ferramentas/cdp.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-NAVEGADOR--IMPORTS-->C-COLETA-META",
+            "FROM": "C-NAVEGADOR",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-NAVEGADOR",
       "to": "C-COLETA-YOUTUBE",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -118804,6 +120103,41 @@
             "EDGE_ID": "C-NAVEGADOR--IMPORTS-->C-COLETA-YOUTUBE",
             "FROM": "C-NAVEGADOR",
             "TO": "C-COLETA-YOUTUBE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-NAVEGADOR",
+      "to": "C-META-BIBLIOTECA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O navegador — a rota gratis tem o seu codigo importado por A porta da Biblioteca de Anuncios da Meta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/meta_biblioteca.py",
+          "line": 259,
+          "snippet": "import cdp as _cdp  # noqa: E402 — ferramentas/cdp.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-NAVEGADOR--IMPORTS-->C-META-BIBLIOTECA",
+            "FROM": "C-NAVEGADOR",
+            "TO": "C-META-BIBLIOTECA",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -123595,7 +124929,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -123633,6 +124967,22 @@
           "file": "tests/test_bc4_armazem_e_pais.py",
           "line": 109,
           "snippet": "from pedido import de_uma_frase",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+            "FROM": "C-PEDIDO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 302,
+          "snippet": "from pedido import Pedido",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
             "FROM": "C-PEDIDO",
@@ -123760,22 +125110,6 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 25,
-          "snippet": "import pedido as pd                                               # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
-            "FROM": "C-PEDIDO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 35,
           "snippet": "import pedido as pd                                               # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -124324,6 +125658,41 @@
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-FRENTES-CONCORRENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta As frentes publicas da concorrencia — o que esta na fila e o que falta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/concorrencia_frentes.py",
+          "line": 77,
+          "snippet": "'CANDIDATAS': 'candidatas/FONTES-CANDIDATAS.json',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTE--READS-->C-FRENTES-CONCORRENCIA",
+            "FROM": "C-PORTA-FONTE",
+            "TO": "C-FRENTES-CONCORRENCIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -126375,6 +127744,41 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-COLETA-META",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Colher os anuncios pagos do concorrente na Meta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/concorrencia_meta.py",
+          "line": 70,
+          "snippet": "import proveniencia as pv  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-COLETA-META",
+            "FROM": "C-PROCEDENCIA",
+            "TO": "C-COLETA-META",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-DATA-CLOCK",
       "type": "READS",
       "payload": "artefacto",
@@ -127047,7 +128451,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 681,
+          "line": 709,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -127063,7 +128467,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 687,
+          "line": 715,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -132248,7 +133652,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -132270,6 +133674,22 @@
           "file": "tests/test_audio_youtube_wiring.py",
           "line": 32,
           "snippet": "import receitas                                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
+            "FROM": "C-RECEITAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 301,
+          "snippet": "import receitas",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
             "FROM": "C-RECEITAS",
@@ -151168,7 +152588,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2110,
+  "UNCLAIMED_FILES_COUNT": 2114,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -151410,7 +152830,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 238,
+      "PECAS_EM_DESACORDO": 239,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -151422,23 +152842,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 263
+      "TOTAL_DE_PECAS": 267
     }
   ],
   "COUNTS": {
-    "components": 263,
-    "components_proven": 31,
-    "components_pending": 224,
+    "components": 267,
+    "components_proven": 34,
+    "components_pending": 225,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1565,
-    "edges_proven": 1498,
+    "edges": 1589,
+    "edges_proven": 1522,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3768,
-    "files_covered": 1658,
+    "files_tracked": 3781,
+    "files_covered": 1667,
     "files_code_unclaimed": 0,
-    "roles_proven": 182,
+    "roles_proven": 186,
     "roles_declared_only": 9,
     "roles_unknown": 72,
     "roles_conflict": 40,

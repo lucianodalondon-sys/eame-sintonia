@@ -5425,6 +5425,90 @@
     "ferramentas/canais41/montar_corridas.py",
     "ferramentas/canais41/para_aplicar.py"
    ]
+  },
+  {
+   "id": "C-META-BIBLIOTECA",
+   "name": "A porta da Biblioteca de Anuncios da Meta",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "◎",
+   "views": [
+    "infra",
+    "scrap"
+   ],
+   "what": "Monta o endereco publico da Biblioteca de Anuncios (locale=en_US, country= e o pais ALCANCADO), le pelo Chrome com janela (ferramentas/cdp.py) o cabecalho e os cartoes que a pagina mostra sem login, rola ate a lista parar de crescer, e diz se a leitura bate com o numero que a PROPRIA FONTE declara (~N results). Cartao nao e anuncio: o cartao que diz «N ads use this creative and text» vale N.",
+   "why_here": "Medido a 30/08/2026: curl leva 403, a API pede token, so o Chrome com janela le. E a primeira regra de completude («parou de crescer») leu 29 cartoes numa pagina de 230 e chamou-lhe completa — teria produzido 160 «parou de veicular» falsos. PAROU_DE_CRESCER != CHEGOU_AO_FIM.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "ferramentas/meta_biblioteca.py"
+   ]
+  },
+  {
+   "id": "C-META-IDENTIDADE",
+   "name": "Quem e o anunciante na Meta",
+   "territory": "Z-REGRAS",
+   "kind": "contract",
+   "icon": "⛨",
+   "views": [
+    "acervo",
+    "audit"
+   ],
+   "what": "Carimba cada pagina da lista da linha Meta antes da visita: PAGE_ID so com prova da propria Meta (detalhe do anuncio ou painel de irmas) e o token da empresa tem de ABRIR o nome da pagina. Escopo de pais da pagina so com rotulo da Meta; entrega nao prova nacionalidade. A lista versionada (PAGINAS-META-IT-V1.json) diz, pagina a pagina, a prova e o motivo de quem fica fora.",
+   "why_here": "O Instytut Adama Mickiewicza (instituto cultural polaco) entrou como ADAMA por token no meio do nome: 33 de 40 cartoes do acervo proprio eram ele. TOKEN_NO_MEIO_DO_NOME != MESMA_EMPRESA, e ANUNCIOS_ENTREGUES_NA_IT != PAGINA_E_ITALIANA.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
+    "regras/meta_identidade.py"
+   ]
+  },
+  {
+   "id": "C-COLETA-META",
+   "name": "Colher os anuncios pagos do concorrente na Meta",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "⚙",
+   "views": [
+    "acervo",
+    "collection-strategy"
+   ],
+   "what": "A linha recorrente T9 da Biblioteca de Anuncios: uma visita por pagina por rodada no recorte IT, snapshot datado com o RAW da pagina e o sha256, comparacao por recorte com a ultima leitura boa (novo so conta onde a leitura anterior foi pelo menos tao funda; terminado so com as duas leituras fechadas pela fonte), e os cartoes vistos pela primeira vez saem como COLHEITA no envelope da COL-LAW-505 para o ingresso e a Admissao T9. A descoberta (meta_anunciante) so PROPOE paginas novas; entrar na lista e gesto de gente.",
+   "why_here": "A captura de 31/08 (414 cartoes = 601 anuncios que alcancaram a Italia) foi uma fotografia a mao e nunca entrou na producao. E nela 587 «novos» eram so a leitura nova a ir mais fundo: LI_MAIS_FUNDO != APARECERAM_MAIS_ANUNCIOS. A nuvem nao colhe: a rota exige Chrome com janela e saida pela Italia.",
+   "departments": [
+    "DESENVOLVIMENTO_MERCADO",
+    "MARKETING",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "coleta/concorrencia_meta.py",
+    "coleta/meta_anunciante.py"
+   ]
+  },
+  {
+   "id": "C-FRENTES-CONCORRENCIA",
+   "name": "As frentes publicas da concorrencia — o que esta na fila e o que falta",
+   "territory": "Z-MEDIDAS",
+   "kind": "scanner",
+   "icon": "⌕",
+   "views": [
+    "collection-strategy",
+    "audit"
+   ],
+   "what": "Le, so leitura, a fila de fontes, o livro de contratos do curador, as contas provadas da comunicacao publica e a lista da linha Meta, e escreve o quadro 12 empresas x 5 frentes (Meta, LinkedIn de empresa, YouTube, Instagram, site/novidades) com o degrau de cada celula e o executor que ja sabe colhe-la. --conferir reprova se o quadro versionado nao for o que os livros produzem.",
+   "why_here": "O mesmo desenho da linha Meta vale para as outras frentes, e antes de colher e preciso saber que conta provada existe. FALTA_NOS_LIVROS != A_CONTA_NAO_EXISTE.",
+   "departments": [
+    "DESENVOLVIMENTO_MERCADO",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json",
+    "medidas/concorrencia_frentes.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
@@ -5543,6 +5627,7 @@
   "coleta/comunicacao_classificar.py": "3c1d6af0ab7aca36b38615b64c7eb1ee32457559",
   "coleta/comunicacao_coleta.py": "e13c01805ce58ae4f5cb2dd69f48a9dac27e5526",
   "coleta/comunicacao_medir.py": "eda976cee16adac1dd8485837df599671c1248c0",
+  "coleta/concorrencia_meta.py": "5e7cdab091ac44ef10ad4c02e3713ccca616e198",
   "coleta/corpus_pesquisador.py": "782195bb69f038c09746f9d93538ac56df553347",
   "coleta/cruzar_regua_rotulo.py": "353de8af0005e8dc180c0131a79ab6cb4cd56727",
   "coleta/denominaciones.py": "4d16c905bf5e083c7c1a664c6b7b31b59ee1e51e",
@@ -5563,6 +5648,7 @@
   "coleta/italy_probe.mjs": "e86f2017f2a8d87168d3c3ffdbde559ab6d7d074",
   "coleta/italy_recurrent_collect.mjs": "af33d941dac1a9efc3b687a106450c50c70b3642",
   "coleta/mapa_regfi.py": "700246eeb5f5705e8a7456893fa22bac1416d2c5",
+  "coleta/meta_anunciante.py": "e7edb5a85b4135694156596b77eaeb42757c38d0",
   "coleta/pdf_text.py": "88b6b6d24e4f58a1948a390a0d72d4a21efa495c",
   "coleta/preservar_pdf.py": "af5efc50628d60d4958c57220d34e03408d67553",
   "coleta/regulatorio_importar.py": "0b3ef5130d3bd3355c208eb7d0572022414535a1",
@@ -5579,6 +5665,8 @@
   "data/collection-ledger/italy/observations.ndjson": "c6750b2d1039a302cb88cf5ab4aa47ce2550d794",
   "data/collection-ledger/italy/runs.ndjson": "8ef7ad2f772c2baa8c78b7e1a3c116bca19e45fb",
   "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "b47bf9831be360ffe664e51b825b48a1d434f64a",
+  "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json": "5aa54d36b2a459717eed7ca1e918a52c65e76c04",
+  "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json": "6fb886667fdfa1ae89980964adab7b73f2dc9f96",
   "data/samples/IT-ARPAV-VENETO/boll.txt": "bb373ceee382d79a9d4d8eb9357f6a8ea1c3e657",
   "data/samples/IT-ARPAV-VENETO/fe.txt": "fd59072b2229133728c063f2c1402b43da8b65d7",
   "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.txt": "45164a42b07d539363c9732c0ddc5d975d0acdf8",
@@ -5617,6 +5705,7 @@
   "ferramentas/instagram_transcrever.py": "108f8d14a52324e395a47fc9d094bd8cd33f9af3",
   "ferramentas/italy-forward-only-live.cmd": "e64b11653b1662df091dfec638c98121dd36424e",
   "ferramentas/italy_extract_fields.mjs": "00faf5a979beb1d74960d3dbb2111aebf537245a",
+  "ferramentas/meta_biblioteca.py": "64e8e7e3049337c2ec155071c9c9b31ca5549ea6",
   "ferramentas/navegador.py": "3db1f62a4e99cef50c8fd1e7ba15e1e7722224d2",
   "ferramentas/ods_peek.mjs": "c9ae639b7bb399e36adc8dbf7a599ee56bf5b833",
   "ferramentas/pdf_peek.mjs": "8bf939a51b4307b39bf0af5296b0a51e339e9164",
@@ -5806,6 +5895,7 @@
   "medidas/PORTOES-DE-COLETA-10B.md": "9642888d903cbea0fb2aa5eb5ea351977d9bb42f",
   "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md": "ce98fc51bb7d81d551803c10edb0a14430ea6ea3",
   "medidas/cicatrizes_brasil.py": "34c9f52b6bee0946cc79261037a1a1272c2950ea",
+  "medidas/concorrencia_frentes.py": "ec0a312aacb5baa8b0ebe57c720a228053df0179",
   "medidas/padrao_da_coleta.py": "e6a12f1f6065e35e0043a01243f456f0388684bb",
   "medidas/portao.py": "3f640ba91536830c750d90cba26531a9877b3f91",
   "medidas/portoes_eame.py": "19d35c34a97651fa85a941d88b3890978c910cef",
@@ -5897,6 +5987,7 @@
   "regras/italy_pilot_guards.mjs": "b1a1e27587938b7c23b24f0a90bd4846b2b17afe",
   "regras/italy_scheduling_guards.mjs": "8cea2854f0470892f5b08051a76303a5336fc548",
   "regras/italy_source_health.mjs": "c3ecad25f05f09c596c54c6eb0d9a0445bfa5618",
+  "regras/meta_identidade.py": "6334e2e2da1e351c272caaf4b958b404c5f31592",
   "regras/proveniencia.py": "ed6c8a44342a5ef59dcb73023296d5bca9e3754a",
   "regras/rotulos_censo.py": "f5caa7816711270b5813e9b1a23ee87920e20825",
   "regras/sensor_coleta.py": "6267585dda56bda9ff2c8b4e443e0d2386b82ccc",

@@ -1,15 +1,15 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "638f98e96f852c3fafe7416f7e30034d352d43ad",
+  "HEAD": "554c1ec1bb232b8a3298e3cfb330c8de86413134",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 84,
- "TOTAL_CAMINHOS_RELEVANTES": 69,
+ "TOTAL_FICHEIROS": 87,
+ "TOTAL_CAMINHOS_RELEVANTES": 72,
  "POR_ESTADO": {
   "NOT_APPLICABLE": 15,
-  "NOT_INSTRUMENTED": 64,
+  "NOT_INSTRUMENTED": 67,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
  },
@@ -23,72 +23,72 @@
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 67,
+   "NOT_INSTRUMENTED": 70,
    "NOT_APPLICABLE": 0
   }
  },
@@ -206,16 +206,16 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 84,
-  "TOTAL_RELEVANT_PATHS": 69,
+  "TOTAL_FILES_SCANNED": 87,
+  "TOTAL_RELEVANT_PATHS": 72,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
   "TOTAL_ORCHESTRATORS": 6,
-  "TOTAL_ADAPTERS": 9,
+  "TOTAL_ADAPTERS": 10,
   "TOTAL_PRESERVATION_OWNERS": 4,
   "TOTAL_CHECKPOINT_OWNERS": 4,
   "TOTAL_TELEMETRY_EMITTERS": 4,
-  "TOTAL_UNKNOWN": 38,
+  "TOTAL_UNKNOWN": 40,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
  "PORQUE_ESSE": "corre sem rede, sem API paga e sem producao, e ja fala a lingua das falhas — instrumenta-lo custa o writer, e nao um ambiente.",
@@ -511,6 +511,32 @@
    "ETAPAS_NOMEADAS": [
     "DERIVED",
     "READY"
+   ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/concorrencia_meta.py",
+   "GAVETA": "coleta",
+   "LINHAS": 537,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [
+    "RAW"
    ],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
@@ -1048,6 +1074,30 @@
    "EXECUTOR_ID": "coleta/mapa_regfi.py",
    "GAVETA": "coleta",
    "LINHAS": 165,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/meta_anunciante.py",
+   "GAVETA": "coleta",
+   "LINHAS": 197,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -2184,6 +2234,30 @@
    "PAID": false,
    "PRODUCTION_REQUIRED": false,
    "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "ferramentas/meta_biblioteca.py",
+   "GAVETA": "ferramentas",
+   "LINHAS": 296,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
    "USA_TELEMETRIA": false,
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,

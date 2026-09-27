@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-noite-v3",
-    "HEAD": "638f98e96f852c3fafe7416f7e30034d352d43ad",
-    "GENERATED_AT": "2026-09-26T20:11:28-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b4795ab6e4c27635bb2745d9c4c0f699ccf837ed94c4b6c5583815d3beba2913"
+    "BRANCH": "claude/concurrency-meta-collection-qp35vu",
+    "HEAD": "554c1ec1bb232b8a3298e3cfb330c8de86413134",
+    "GENERATED_AT": "2026-09-26T20:15:56-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cf44fbc918d5ddc51785447ddb91788525da57464e500c0ad934cca5319c7b70"
   },
   "FILES": [
     {
@@ -171,7 +171,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "fc1e13d30bc1ebe53595e257e67ac630b4c57634",
+      "sha": "bb7bda8b89735b334dda09f00ec6b75e87702545",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -2074,6 +2074,13 @@
       "code_dir": true
     },
     {
+      "path": "coleta/concorrencia_meta.py",
+      "sha": "5e7cdab091ac44ef10ad4c02e3713ccca616e198",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/corpus_pesquisador.py",
       "sha": "782195bb69f038c09746f9d93538ac56df553347",
       "ext": ".py",
@@ -2258,6 +2265,13 @@
     {
       "path": "coleta/mapa_regfi.py",
       "sha": "700246eeb5f5705e8a7456893fa22bac1416d2c5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/meta_anunciante.py",
+      "sha": "e7edb5a85b4135694156596b77eaeb42757c38d0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7410,6 +7424,20 @@
     {
       "path": "data/samples/COMPETITOR-azoxy-prothio-italy.json",
       "sha": "56d1337aacaead7ca73567d5dc7c8c25b4989a64",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json",
+      "sha": "5aa54d36b2a459717eed7ca1e918a52c65e76c04",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
+      "sha": "6fb886667fdfa1ae89980964adab7b73f2dc9f96",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -13862,6 +13890,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/meta_biblioteca.py",
+      "sha": "64e8e7e3049337c2ec155071c9c9b31ca5549ea6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/navegador.py",
       "sha": "3db1f62a4e99cef50c8fd1e7ba15e1e7722224d2",
       "ext": ".py",
@@ -17684,6 +17719,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/concorrencia_frentes.py",
+      "sha": "ec0a312aacb5baa8b0ebe57c720a228053df0179",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "medidas/coorte_da_micro_collection.py",
       "sha": "7049986fbe1e4e3a9f470e0e190c9332afe94282",
       "ext": ".py",
@@ -18406,7 +18448,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "5ed63226eb43ceb3856d197278e3f1587ebf7f68",
+      "sha": "6a8a081eabb23bd84fd371022996975ace6d6bdf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19396,6 +19438,13 @@
       "sha": "d5c07eec3c026b3e2fad7b2013db9da49a3fba90",
       "ext": ".py",
       "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/concorrencia_meta/MUTACAO-V1.json",
+      "sha": "30bfb8df4219b8d232510792451859b8ec7b0191",
+      "ext": ".json",
+      "readable": false,
       "code_dir": true
     },
     {
@@ -21236,6 +21285,13 @@
       "path": "regras/italy_source_health.mjs",
       "sha": "c3ecad25f05f09c596c54c6eb0d9a0445bfa5618",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/meta_identidade.py",
+      "sha": "6334e2e2da1e351c272caaf4b958b404c5f31592",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -23740,7 +23796,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "268902739edfe0b7e8f125bd43b25fbeef7019ae",
+      "sha": "beabcf4c23c3f3458a1ed6791474127d29957197",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -24236,6 +24292,27 @@
       "code_dir": true
     },
     {
+      "path": "tests/dados/concorrencia_meta/COMPARACAO-ESPERADA-IT-31-08.json",
+      "sha": "acf4e7d2604e8de8076be585961329b04ccf5391",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/dados/concorrencia_meta/SNAPSHOT-S1-IT-31-08.json",
+      "sha": "8ba933ac3f4930b30e5929921efb5d2a0af76814",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/dados/concorrencia_meta/SNAPSHOT-S2-IT-31-08.json",
+      "sha": "51a9126875668fb4f77b416715be7746c735a11b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "tests/dados/item-social-ispra-porta.json",
       "sha": "281a17df9cb836b808bdcc5f6ccae97e782d1c89",
       "ext": ".json",
@@ -24357,6 +24434,13 @@
     {
       "path": "tests/medir_multilingue.py",
       "sha": "a9e68e1154be3c890cd147edab09f082ae874bc8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/mutacao_concorrencia_meta.py",
+      "sha": "480d5aeadf2268e583af66682933d3cf72875dec",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25085,6 +25169,13 @@
     {
       "path": "tests/test_comunicacao_universo_falha_fechado.py",
       "sha": "45d0caa39e48c209b4710c565efdb2748c55742a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_concorrencia_meta.py",
+      "sha": "e255a71a6c4086b385ceb26a8f35ae1f8ee74e18",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27763,6 +27854,17 @@
     },
     {
       "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_concorrencia_meta.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 683,
+        "snippet": "run: python3 tests/test_concorrencia_meta.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
       "to_file": "tests/test_identidade_do_artefato.py",
       "type": "RUNS",
       "payload": "execucao",
@@ -29104,6 +29206,72 @@
       }
     },
     {
+      "from_file": "coleta/concorrencia_meta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/concorrencia_meta.py",
+        "line": 67,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "coleta/concorrencia_meta.py",
+      "to_file": "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/concorrencia_meta.py",
+        "line": 83,
+        "snippet": "'PAGINAS-META-IT-V1.json')"
+      }
+    },
+    {
+      "from_file": "coleta/concorrencia_meta.py",
+      "to_file": "ferramentas/meta_biblioteca.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/concorrencia_meta.py",
+        "line": 68,
+        "snippet": "import meta_biblioteca as bib  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/concorrencia_meta.py",
+      "to_file": "ferramentas/meta_biblioteca.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/concorrencia_meta.py",
+        "line": 434,
+        "snippet": "tool='ferramentas/meta_biblioteca.py')]"
+      }
+    },
+    {
+      "from_file": "coleta/concorrencia_meta.py",
+      "to_file": "regras/meta_identidade.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/concorrencia_meta.py",
+        "line": 69,
+        "snippet": "import meta_identidade as ident  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/concorrencia_meta.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/concorrencia_meta.py",
+        "line": 70,
+        "snippet": "import proveniencia as pv  # noqa: E402"
+      }
+    },
+    {
       "from_file": "coleta/corpus_pesquisador.py",
       "to_file": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
       "type": "READS",
@@ -30289,6 +30457,50 @@
         "file": "coleta/italy_recurrent_collect.mjs",
         "line": 81,
         "snippet": "try { ({ stdout } = await run(PY, [join(RAIZ, \"superficie\", \"rede.py\"), \"--portao-de-egresso\", \"IT\"], { encoding: \"utf8\", timeout: 90000 })); }"
+      }
+    },
+    {
+      "from_file": "coleta/meta_anunciante.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/meta_anunciante.py",
+        "line": 43,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "coleta/meta_anunciante.py",
+      "to_file": "ferramentas/cdp.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/meta_anunciante.py",
+        "line": 109,
+        "snippet": "import cdp  # noqa: E402 — ferramentas/cdp.py"
+      }
+    },
+    {
+      "from_file": "coleta/meta_anunciante.py",
+      "to_file": "ferramentas/meta_biblioteca.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/meta_anunciante.py",
+        "line": 44,
+        "snippet": "import meta_biblioteca as bib  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/meta_anunciante.py",
+      "to_file": "regras/meta_identidade.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/meta_anunciante.py",
+        "line": 45,
+        "snippet": "import meta_identidade as ident  # noqa: E402"
       }
     },
     {
@@ -42755,6 +42967,28 @@
       }
     },
     {
+      "from_file": "ferramentas/meta_biblioteca.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/meta_biblioteca.py",
+        "line": 55,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "ferramentas/meta_biblioteca.py",
+      "to_file": "ferramentas/cdp.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/meta_biblioteca.py",
+        "line": 259,
+        "snippet": "import cdp as _cdp  # noqa: E402 — ferramentas/cdp.py"
+      }
+    },
+    {
       "from_file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
       "to_file": "curadoria/DECISAO-D52-RETIRAR-V1.json",
       "type": "READS",
@@ -51203,6 +51437,83 @@
       }
     },
     {
+      "from_file": "medidas/concorrencia_frentes.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/concorrencia_frentes.py",
+        "line": 41,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "medidas/concorrencia_frentes.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/concorrencia_frentes.py",
+        "line": 77,
+        "snippet": "'CANDIDATAS': 'candidatas/FONTES-CANDIDATAS.json',"
+      }
+    },
+    {
+      "from_file": "medidas/concorrencia_frentes.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/concorrencia_frentes.py",
+        "line": 78,
+        "snippet": "'CURADOR': 'curadoria/italy_contracts_curator.json',"
+      }
+    },
+    {
+      "from_file": "medidas/concorrencia_frentes.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/concorrencia_frentes.py",
+        "line": 79,
+        "snippet": "'CONTAS': 'data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json',"
+      }
+    },
+    {
+      "from_file": "medidas/concorrencia_frentes.py",
+      "to_file": "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/concorrencia_frentes.py",
+        "line": 82,
+        "snippet": "SAIDA = 'data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json'"
+      }
+    },
+    {
+      "from_file": "medidas/concorrencia_frentes.py",
+      "to_file": "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/concorrencia_frentes.py",
+        "line": 80,
+        "snippet": "'META': 'data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json',"
+      }
+    },
+    {
+      "from_file": "medidas/concorrencia_frentes.py",
+      "to_file": "regras/meta_identidade.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/concorrencia_frentes.py",
+        "line": 42,
+        "snippet": "import meta_identidade as ident  # noqa: E402"
+      }
+    },
+    {
       "from_file": "medidas/coorte_da_micro_collection.py",
       "to_file": "data/collection-ledger/italy/observations.ndjson",
       "type": "READS",
@@ -58167,6 +58478,17 @@
     },
     {
       "from_file": "pedido/receitas.py",
+      "to_file": "coleta/concorrencia_meta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 640,
+        "snippet": "\"roda\": [\"coleta/concorrencia_meta.py\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
       "to_file": "coleta/corpus_pesquisador.py",
       "type": "READS",
       "payload": "artefacto",
@@ -58326,7 +58648,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 687,
+        "line": 715,
         "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
       }
     },
@@ -58337,7 +58659,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 683,
+        "line": 711,
         "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
       }
     },
@@ -58348,7 +58670,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 685,
+        "line": 713,
         "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
       }
     },
@@ -58370,7 +58692,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 681,
+        "line": 709,
         "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
       }
     },
@@ -79187,6 +79509,61 @@
       }
     },
     {
+      "from_file": "tests/mutacao_concorrencia_meta.py",
+      "to_file": "coleta/concorrencia_meta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_concorrencia_meta.py",
+        "line": 23,
+        "snippet": "(\"coleta/concorrencia_meta.py\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_concorrencia_meta.py",
+      "to_file": "coleta/meta_anunciante.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_concorrencia_meta.py",
+        "line": 67,
+        "snippet": "(\"coleta/meta_anunciante.py\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_concorrencia_meta.py",
+      "to_file": "ferramentas/meta_biblioteca.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_concorrencia_meta.py",
+        "line": 47,
+        "snippet": "(\"ferramentas/meta_biblioteca.py\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_concorrencia_meta.py",
+      "to_file": "medidas/concorrencia_frentes.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_concorrencia_meta.py",
+        "line": 63,
+        "snippet": "(\"medidas/concorrencia_frentes.py\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_concorrencia_meta.py",
+      "to_file": "regras/meta_identidade.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_concorrencia_meta.py",
+        "line": 31,
+        "snippet": "(\"regras/meta_identidade.py\","
+      }
+    },
+    {
       "from_file": "tests/mutacao_conserto_regua.py",
       "to_file": "coleta/executor_texto_de_html.py",
       "type": "READS",
@@ -87775,6 +88152,160 @@
         "file": "tests/test_comunicacao_universo_falha_fechado.py",
         "line": 271,
         "snippet": "with io.open(os.path.join(HERE, 'test_comunicacao.py'), encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 25,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 284,
+        "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "coleta/concorrencia_meta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 26,
+        "snippet": "import concorrencia_meta as cm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "coleta/concorrencia_meta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 275,
+        "snippet": "'ACTOR': 'coleta/concorrencia_meta.py', 'ACTOR_VERSION': '1',"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 285,
+        "snippet": "import ingresso as ing"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "coleta/meta_anunciante.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 30,
+        "snippet": "import meta_anunciante as anun  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "ferramentas/meta_biblioteca.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 28,
+        "snippet": "import meta_biblioteca as bib  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "medidas/concorrencia_frentes.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 27,
+        "snippet": "import concorrencia_frentes as fr  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 302,
+        "snippet": "from pedido import Pedido"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 301,
+        "snippet": "import receitas"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "regras/meta_identidade.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 29,
+        "snippet": "import meta_identidade as ident  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "tests/dados/concorrencia_meta/COMPARACAO-ESPERADA-IT-31-08.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 43,
+        "snippet": "ESPERADA = _fixture('COMPARACAO-ESPERADA-IT-31-08.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "tests/dados/concorrencia_meta/SNAPSHOT-S1-IT-31-08.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 41,
+        "snippet": "S1 = _fixture('SNAPSHOT-S1-IT-31-08.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_concorrencia_meta.py",
+      "to_file": "tests/dados/concorrencia_meta/SNAPSHOT-S2-IT-31-08.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_concorrencia_meta.py",
+        "line": 42,
+        "snippet": "S2 = _fixture('SNAPSHOT-S2-IT-31-08.json')"
       }
     },
     {
@@ -99511,10 +100042,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3768,
-    "files_readable": 1559,
-    "files_code_dir": 1829,
-    "file_edges": 6592,
+    "files_tracked": 3781,
+    "files_readable": 1566,
+    "files_code_dir": 1840,
+    "file_edges": 6632,
     "escritas_em_pasta": 89,
     "declared_missing_here": 0
   },

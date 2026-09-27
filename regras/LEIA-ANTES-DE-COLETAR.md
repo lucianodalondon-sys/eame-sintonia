@@ -57,7 +57,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-HTML.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-COLETA-META, C-ESTRADA-PDF.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `regras/proveniencia.py` |
 
 ### O contrato de cada fonte italiana
@@ -81,6 +81,18 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 | onde vive | `regras/motor_de_rota.mjs` |
 | onde vive | `regras/motor_de_rota_test.mjs` |
 
+### Quem e o anunciante na Meta
+
+Carimba cada pagina da lista da linha Meta antes da visita: PAGE_ID so com prova da propria Meta (detalhe do anuncio ou painel de irmas) e o token da empresa tem de ABRIR o nome da pagina. Escopo de pais da pagina so com rotulo da Meta; entrega nao prova nacionalidade. A lista versionada (PAGINAS-META-IT-V1.json) diz, pagina a pagina, a prova e o motivo de quem fica fora.
+
+*Por que existe:* O Instytut Adama Mickiewicza (instituto cultural polaco) entrou como ADAMA por token no meio do nome: 33 de 40 cartoes do acervo proprio eram ele. TOKEN_NO_MEIO_DO_NOME != MESMA_EMPRESA, e ANUNCIOS_ENTREGUES_NA_IT != PAGINA_E_ITALIANA.
+
+| | |
+|---|---|
+| estado | PROVEN — o sistema importa esta lei em runtime para decidir: C-COLETA-META, C-FRENTES-CONCORRENCIA. |
+| onde vive | `data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json` |
+| onde vive | `regras/meta_identidade.py` |
+
 ### Quem esta autorizado a ser coletado
 
 A regua que decide se uma conta publica entra na coleta: identidade provada e conta local do pais.
@@ -102,6 +114,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **A coorte unica da Big Collection (D25)** — Le o plano do runbook (micro_coleta.py plano), o portao, as provas do canario e o dono dos contratos do coletor, e escreve COORTE-BIG-COLLECTION-V1.json: as PRONTAS com contrato executavel + regua DETAIL/v1 + canario com prova <= 7 dias, fonte a fonte, com o sha256 dos livros lidos. Nao decide nada novo.
 - **A fala vira texto, sem fatura** — Transcreve o audio dos videos na propria maquina, com whisper local. `fala_local.py` e o DONO UNICO do reconhecimento; `reel_transcricao.py` e a cadeia que liga um Reel publico ao texto falado, com RAW e DERIVED separados; os dois programas de lote chamam o mesmo dono.
 - **A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD)** — sha256 canonico de SOURCE_ID + OUTPUT_TYPE + ACQUISITION — exactamente o que onboardar_rotas_provadas escreve na tabela do coletor. O canario de rotas grava-o na prova (CONTRATO_SHA256, PROVADO_EM); o onboarding so escreve a linha se a impressao provada for igual a do contrato de agora e a prova tiver <= 7 dias. O supervisor chama o onboarding a cada volta (onboardar_se_mudou: so quando a prova muda ou de 10 em 10 min). mutacao.py desliga cada guarda e exige que um teste caia.
+- **A porta da Biblioteca de Anuncios da Meta** — Monta o endereco publico da Biblioteca de Anuncios (locale=en_US, country= e o pais ALCANCADO), le pelo Chrome com janela (ferramentas/cdp.py) o cabecalho e os cartoes que a pagina mostra sem login, rola ate a lista parar de crescer, e diz se a leitura bate com o numero que a PROPRIA FONTE declara (~N results). Cartao nao e anuncio: o cartao que diz «N ads use this creative and text» vale N.
 - **Abrir PDF, ODS e HTML** — Tira o texto de dentro de um PDF, de uma planilha ODS ou de uma pagina.
 - **Apify — a rota paga** — Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.
 - **C9-INSTALAR-PREP — o ensaio do C9-IDIOMA sobre o vivo (relatorio da 3.a onda, antes e depois)** — ensaio_c9.sh: copia fiel do vivo (worktree no HEAD + os livros do disco), relatorio da micro-coleta com os RUN_IDs da 3.a onda ANTES (codigo da producao) e DEPOIS (C9, --estado=ONDA-WEB-ESTADO.json), Sala so lida (default_transaction_read_only), sem rede HTTP; merge --ff-only e desfazer por reset --keep.
@@ -162,4 +175,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 18 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 5 réguas, 19 ferramentas e 2 peças de fonte declaradas no mapa.

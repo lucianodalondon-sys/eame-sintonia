@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-26T23:15:02+00:00",
-    "HEAD": "638f98e96f852c3fafe7416f7e30034d352d43ad",
+    "GENERATED_AT": "2026-09-27T12:39:10+00:00",
+    "HEAD": "554c1ec1bb232b8a3298e3cfb330c8de86413134",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "b4795ab6e4c27635bb2745d9c4c0f699ccf837ed94c4b6c5583815d3beba2913",
-    "FICHEIROS_NA_IMPRESSAO": 3916,
+    "SOURCE_TREE_FINGERPRINT": "cf44fbc918d5ddc51785447ddb91788525da57464e500c0ad934cca5319c7b70",
+    "FICHEIROS_NA_IMPRESSAO": 3929,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -139,20 +139,20 @@
       {
         "PATH": ".github/workflows/system-map.yml",
         "PAPEL": "FONTE",
-        "VERSAO": "fc1e13d30bc1ebe53595e257e67ac630b4c57634",
+        "VERSAO": "bb7bda8b89735b334dda09f00ec6b75e87702545",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "workflows() · read_text"
       },
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "b4795ab6e4c27635bb2745d9c4c0f699ccf837ed94c4b6c5583815d3beba2913",
+        "VERSAO": "cf44fbc918d5ddc51785447ddb91788525da57464e500c0ad934cca5319c7b70",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 20,
-    "INPUTS_DIGEST": "56827337143318db85c8dfae9771fcccf9d387e27a8c22926da47091f42b3f88",
+    "INPUTS_DIGEST": "ecf081cfa64c0b1975de4d6aecc111cea40d3c18229ac35d567ad881d3ec8b64",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -301,6 +301,18 @@
       "estado": "green"
     },
     {
+      "id": "C-META-IDENTIDADE",
+      "nome": "Quem e o anunciante na Meta",
+      "zona": "· as reguas que carimbam",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 2,
+      "estado": "green"
+    },
+    {
       "id": "C-RECONCILIAR-BYTES-BC4",
       "nome": "Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)",
       "zona": "· as ferramentas da execucao",
@@ -347,6 +359,18 @@
       "respostas": 3,
       "ficheiros": 2,
       "estado": "yellow"
+    },
+    {
+      "id": "C-META-BIBLIOTECA",
+      "nome": "A porta da Biblioteca de Anuncios da Meta",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "green"
     },
     {
       "id": "C-PORTA-FONTE",
@@ -467,6 +491,18 @@
       "respostas": 3,
       "ficheiros": 1,
       "estado": "yellow"
+    },
+    {
+      "id": "C-COLETA-META",
+      "nome": "Colher os anuncios pagos do concorrente na Meta",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 2,
+      "estado": "green"
     },
     {
       "id": "C-ONDA-WEB",
@@ -1010,10 +1046,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 71,
+    "pecas_da_coleta": 74,
     "respondem_as_quatro": 25,
-    "respondem_a_tres": 33,
-    "respondem_a_duas": 10,
+    "respondem_a_tres": 35,
+    "respondem_a_duas": 11,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

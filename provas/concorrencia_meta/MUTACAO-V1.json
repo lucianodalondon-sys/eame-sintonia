@@ -1,0 +1,105 @@
+{
+ "DATASET": "CONCORRENCIA-META-MUTACAO",
+ "MODULO": "tests.test_concorrencia_meta",
+ "VERDE_SEM_MUTANTE": true,
+ "CASOS": [
+  {
+   "MUTANTE": "M1 · ler mais fundo volta a contar como anuncio novo (a regra de 31/08 cai)",
+   "FICHEIRO": "coleta/concorrencia_meta.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=3)"
+   ]
+  },
+  {
+   "MUTANTE": "M2 · sumir de lista incompleta vira terminado",
+   "FICHEIRO": "coleta/concorrencia_meta.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=1)"
+   ]
+  },
+  {
+   "MUTANTE": "M3 · token no meio do nome volta a valer (o instituto polaco entra como ADAMA)",
+   "FICHEIRO": "regras/meta_identidade.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=6)"
+   ]
+  },
+  {
+   "MUTANTE": "M4 · PAGE_ID sem prova da Meta entra na linha",
+   "FICHEIRO": "regras/meta_identidade.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=1)"
+   ]
+  },
+  {
+   "MUTANTE": "M5 · pagina lida com sessao entra na linha (D88)",
+   "FICHEIRO": "coleta/concorrencia_meta.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=1)"
+   ]
+  },
+  {
+   "MUTANTE": "M6 · o mesmo anuncio volta a Sala em cada rodada",
+   "FICHEIRO": "coleta/concorrencia_meta.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=1)"
+   ]
+  },
+  {
+   "MUTANTE": "M7 · parou de crescer volta a ser completa (29 de 230)",
+   "FICHEIRO": "ferramentas/meta_biblioteca.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=2)"
+   ]
+  },
+  {
+   "MUTANTE": "M8 · rodada que caiu vira linha de base da seguinte",
+   "FICHEIRO": "coleta/concorrencia_meta.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (errors=1)"
+   ]
+  },
+  {
+   "MUTANTE": "M9 · a mesma pagina e visitada duas vezes na rodada",
+   "FICHEIRO": "coleta/concorrencia_meta.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=1)"
+   ]
+  },
+  {
+   "MUTANTE": "M10 · pais alcancado vira pais alvo",
+   "FICHEIRO": "coleta/concorrencia_meta.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=1)"
+   ]
+  },
+  {
+   "MUTANTE": "M11 · o quadro das frentes conta pagina recusada como na linha",
+   "FICHEIRO": "medidas/concorrencia_frentes.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=2)"
+   ]
+  },
+  {
+   "MUTANTE": "M12 · a descoberta propoe o homonimo sem passar pela guarda",
+   "FICHEIRO": "coleta/meta_anunciante.py",
+   "ESTADO": "MORDEU",
+   "CAUDA": [
+    "FAILED (failures=1)"
+   ]
+  }
+ ],
+ "MORDERAM": "12/12",
+ "VERDE_DEPOIS_DE_RESTAURAR": true
+}
