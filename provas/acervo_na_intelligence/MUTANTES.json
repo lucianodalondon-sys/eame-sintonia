@@ -1,0 +1,167 @@
+{
+ "TESTE": "tests.test_acervo_na_intelligence",
+ "MUTANTES": [
+  {
+   "MUTANTE": "O1 anuncio vira OPORTUNIDADE",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "setUpClass",
+    "test_C9_o_conferir_apanha_as_tres_mentiras"
+   ]
+  },
+  {
+   "MUTANTE": "O2 anuncio entra no Radar delle Opportunita",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "setUpClass",
+    "test_C9_o_conferir_apanha_as_tres_mentiras"
+   ]
+  },
+  {
+   "MUTANTE": "O3 a cultura do anuncio e afirmada (CROP_TERMS)",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "setUpClass",
+    "test_C9_o_conferir_apanha_as_tres_mentiras"
+   ]
+  },
+  {
+   "MUTANTE": "O4 o concorrente liga-se a ADAMA pelo ALVO e nao pela substancia",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A5_o_pote_commitado_e_o_que_a_arvore_regera",
+    "test_B2_concorrente_so_por_substancia_e_so_pela_porta"
+   ]
+  },
+  {
+   "MUTANTE": "O5 anuncio sem tempo passa sem G0",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A5_o_pote_commitado_e_o_que_a_arvore_regera"
+   ]
+  },
+  {
+   "MUTANTE": "P1 o preco anterior da fonte vira ponto da serie",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B3_preco_isolado_nao_e_mudanca_de_mercado",
+    "test_C8_a_serie_so_com_pontos_admitidos_da_mesma_chave"
+   ]
+  },
+  {
+   "MUTANTE": "P2 a variacao da fonte vira MUDANCA_DE_MERCADO",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "setUpClass",
+    "test_C9_o_conferir_apanha_as_tres_mentiras"
+   ]
+  },
+  {
+   "MUTANTE": "P3 serie mistura unidades (a chave perde a unidade)",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C8_a_serie_so_com_pontos_admitidos_da_mesma_chave"
+   ]
+  },
+  {
+   "MUTANTE": "L1 o pais da fonte vira o lugar do facto",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B4_o_lugar_da_fonte_nao_e_o_lugar_do_facto",
+    "test_B5_a_fonte_tem_lugar_e_ele_fica_no_campo_dela",
+    "test_C6_o_ready_nao_tem_lugar_do_facto"
+   ]
+  },
+  {
+   "MUTANTE": "L2 o alcance do anuncio (REGION_IDS) vira o lugar do facto",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A5_o_pote_commitado_e_o_que_a_arvore_regera",
+    "test_B4_o_lugar_da_fonte_nao_e_o_lugar_do_facto"
+   ]
+  },
+  {
+   "MUTANTE": "T1 a publicacao da ciencia vira tempo do facto",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A5_o_pote_commitado_e_o_que_a_arvore_regera",
+    "test_B6_publicacao_nao_e_tempo_do_facto_fora_da_atividade_do_concorrente",
+    "test_C2_ciencia_noticia_transcricao_nao_tem_tempo_de_facto"
+   ]
+  },
+  {
+   "MUTANTE": "T2 a data do pacote vira limite superior da captura",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A5_o_pote_commitado_e_o_que_a_arvore_regera",
+    "test_C5_captura_limites_provados"
+   ]
+  },
+  {
+   "MUTANTE": "T3 o inicio do facto vira limite inferior para todo tipo",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A5_o_pote_commitado_e_o_que_a_arvore_regera",
+    "test_C5_captura_limites_provados"
+   ]
+  },
+  {
+   "MUTANTE": "T4 URL ambigua: escolhe a primeira",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C7_url_ambigua_nao_se_escolhe"
+   ]
+  },
+  {
+   "MUTANTE": "I1 o ID deixa de ser PROVISORIO",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "setUpClass",
+    "test_C9_o_conferir_apanha_as_tres_mentiras"
+   ]
+  },
+  {
+   "MUTANTE": "I2 o mapa ENTITY_SOURCE do motor vai cru ao pote",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "setUpClass",
+    "test_C9_o_conferir_apanha_as_tres_mentiras"
+   ]
+  },
+  {
+   "MUTANTE": "I3 quem fica fora da corrida some em silencio",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A4_quem_fica_fora_da_corrida_e_contado_com_o_motivo"
+   ]
+  },
+  {
+   "MUTANTE": "I4 o Archivio guarda tambem o que o pote recusou",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A5_o_pote_commitado_e_o_que_a_arvore_regera",
+    "test_A9_o_archivio_so_guarda_o_que_atravessou"
+   ]
+  }
+ ],
+ "MORTOS": 18,
+ "TOTAL": 18
+}
