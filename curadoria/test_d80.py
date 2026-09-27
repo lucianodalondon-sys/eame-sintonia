@@ -310,5 +310,44 @@ class PaginaHerda(_Base):
         self.assertEqual(self.alloc()["NOVAS"], [])
         self.assertNotIn("D80(iii)", self.evidencia())
 
+
+# ── DESTRAVAR-FONTES (26/09): a 2.a lista, pela mesma porta e a mesma regra ──
+class SegundaLista(_Base):
+    URL = "https://www.qzxv-solta.example/contatti"
+
+    def _lista(self, nome, linhas):
+        p = self.tmp / nome
+        p.write_text(json.dumps({"DATASET": nome, "LINHAS": linhas}), encoding="utf-8")
+        return p
+
+    def setUp(self):
+        super().setUp()
+        import aplicar_d80 as A
+        self.A = A
+        self.addCleanup(setattr, A, "LISTA", A.LISTA)
+        A.LISTA = self._lista("vazia.json", [])
+        self.ficha(self.URL)
+        self.l2 = self._lista("lista2.json", [{
+            "CANDIDATA_ID": CAND, "NOME": NOME, "URL": self.URL, "ESTADO_NA_MONTAGEM": "EM_ANALISE",
+            "ACAO": "RECUSAR", "DUPLICADA_DE": None, "MOTIVO": "D80(i) NAO_E_FONTE: pagina solta"}])
+
+    def _estado(self):
+        return next(c for c in FN.carregar()["CANDIDATAS"] if c["CANDIDATA_ID"] == CAND)
+
+    def test_sem_lista_le_a_de_sempre(self):
+        self.A.main(["--aplicar", "--recibo=%s" % (self.tmp / "r.json")])
+        self.assertEqual(self._estado()["ESTADO"], "EM_ANALISE")
+
+    def test_lista_dada_e_lida_e_reverte_so_ela(self):
+        self.A.main(["--aplicar", "--lista=%s" % self.l2, "--recibo=%s" % (self.tmp / "r.json")])
+        c = self._estado()
+        self.assertEqual((c["ESTADO"], c.get("RECUSADA_POR")), ("RECUSADA", "D80(i)"))
+        self.assertEqual(json.loads((self.tmp / "r.json").read_text(encoding="utf-8"))["LISTA"], "lista2.json")
+        self.A.main(["--reverter", "--recibo=%s" % (self.tmp / "r2.json")])       # a lista de sempre
+        self.assertEqual(self._estado()["ESTADO"], "RECUSADA")                     # nao e dela: fica
+        self.A.main(["--reverter", "--lista=%s" % self.l2, "--recibo=%s" % (self.tmp / "r3.json")])
+        self.assertEqual(self._estado()["ESTADO"], "EM_ANALISE")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
