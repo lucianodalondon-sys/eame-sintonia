@@ -5,6 +5,7 @@
     py ferramentas/big_collection/rodadas.py --correr --sha256=<da coorte congelada> --base=<pasta>
           [--historico=...] [--rodada=N] [--teto-dia=N] [--livros-do-dia=<pasta das ondas>] [--sem-janela-24h]
           [--rendimento=<R1-X-R2-E-FONTES.json>] [--recibos=<pasta,pasta>] [--inicio=<AAAA-MM-DDTHH:MM-03:00>]
+          [--teto-24h=<TETO-24H.json>]   (D90: o contador multicanal atomico, partilhado por todas as linhas)
 
 Porque existe (C2-ONDA4, 26/09/2026): na 3.a onda 26 de 64 fontes ficaram de fora por
 TETO_DOMINIO — edagricole.it sozinho tem 15 fontes, e o teto (D38) e 5 pedidos por dominio POR
@@ -38,6 +39,7 @@ com as guardas que a mao esquecia:
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, date, timedelta, timezone
@@ -499,6 +501,10 @@ def main(argv=None) -> int:
                 (r.get("JANELA_24H") or {}).get("ABRE_EM", "-")))
         return 0
     if "--correr" in argv:
+        # D90: o contador multicanal de 24 h. O transporte (e qualquer linha) reserva ANTES de cada pedido
+        # neste livro; herdado por onda_web -> orquestrador -> executor -> node, como SINTONIA_TETO_ONDA.
+        if arg.get("teto-24h"):
+            os.environ["SINTONIA_TETO_24H"] = arg["teto-24h"]
         if not arg.get("sha256"):
             raise SystemExit("--correr exige --sha256=<da coorte congelada>")
         base.mkdir(parents=True, exist_ok=True)

@@ -424,7 +424,73 @@ function gastarNaOnda(dominio, f = livroDaOnda()) {
     renameSync(`${f}.tmp`, f);
   } finally { rmdirSync(trinco); }
 }
-export const motivoDoTeto = () => (livroDaOnda() ? "TETO_DOMINIO" : "TETO_POR_HOST");
+// ── O CONTADOR MULTICANAL ATOMICO DE 24 H (D90, 26/09/2026) ────────────────────
+// Gemeo de `coleta/reserva_24h.py`: o MESMO livro (`SINTONIA_TETO_24H`,
+// {"RESERVAS": [{DOMINIO, QTD, EM, RUN_ID, LINHA}]}), o MESMO trinco (`<livro>.trinco`,
+// um directorio) e a MESMA regra (<= TETO por dominio registavel nas ultimas 24 h;
+// googlevideo.com gasta de youtube.com, D41). Python e Node excluem-se pelo trinco.
+// O teto antigo (`tetoAtingido` le, `gastarNaOnda` escreve) NAO era atomico entre
+// processos: dois executores no mesmo dominio liam ambos 4 e ambos pediam (D90 §2.2).
+// Aqui a pergunta e a escrita sao um passo so. Livro ilegivel = UNKNOWN, nunca vazio.
+export const MESMO_ORCAMENTO_24H = Object.freeze({ "googlevideo.com": "youtube.com", "ytimg.com": "youtube.com" });
+const JANELA_24H_S = 24 * 3600;
+const livro24h = () => process.env.SINTONIA_TETO_24H || null;
+let RUN_ATUAL = null;
+export const dominio24h = host => { const d = dominioRegistavel(host); return MESMO_ORCAMENTO_24H[d] || d; };
+function lerReservas24h(f) {
+  let d;
+  try { d = JSON.parse(readFileSync(f, "utf8")); }
+  catch (e) {
+    if (e.code === "ENOENT") return [];
+    throw new Error(`TETO_24H_ILEGIVEL: ${f}: ${e.message}`);
+  }
+  if (!d || !Array.isArray(d.RESERVAS)) throw new Error(`TETO_24H_ILEGIVEL: ${f}: sem RESERVAS[]`);
+  return d.RESERVAS;
+}
+const gasto24h = (res, dom, agora) =>
+  res.filter(r => r.DOMINIO === dom && Number(r.EM) > agora - JANELA_24H_S).reduce((a, r) => a + Number(r.QTD), 0);
+export function reservar24h(host, qtd = 1, { runId = RUN_ATUAL || `node-${process.pid}`, linha = process.env.SINTONIA_LINHA || "SITES", agora = null } = {}) {
+  const f = livro24h();
+  const teto = CORTESIA.cfg.TETO_POR_HOST;
+  const base = { DOMINIO: null, QTD: qtd, RUN_ID: runId, LINHA: linha };
+  if (!f) return { ...base, ESTADO: "FAIL", PORQUE: "SINTONIA_TETO_24H vazio" };
+  const dom = dominio24h(host);
+  base.DOMINIO = dom;
+  if (!Number.isInteger(qtd) || qtd < 1 || qtd > teto) return { ...base, ESTADO: "FAIL", PORQUE: "qtd invalida" };
+  const trinco = `${f}.trinco`;
+  for (let i = 0; ; i++) {
+    try { mkdirSync(trinco); break; }
+    catch (e) {
+      if (e.code !== "EEXIST") return { ...base, ESTADO: "UNKNOWN", PORQUE: `trinco: ${e.code}` };
+      if (i >= 400) return { ...base, ESTADO: "UNKNOWN", PORQUE: `TETO_24H_TRINCO: ${trinco} ocupado ha mais de 10 s` };
+      esperarMs(25);
+    }
+  }
+  try {
+    let res;
+    try { res = lerReservas24h(f); } catch (e) { return { ...base, ESTADO: "UNKNOWN", PORQUE: e.message }; }
+    const t = agora ?? Date.now() / 1000;
+    const g = gasto24h(res, dom, t);
+    if (g + qtd > teto) {
+      const vivas = res.filter(r => r.DOMINIO === dom && Number(r.EM) > t - JANELA_24H_S)
+        .map(r => [Number(r.EM), Number(r.QTD)]).sort((a, b) => a[0] - b[0]);
+      let usado = g, ate = t;
+      for (const [em, q] of vivas) { usado -= q; if (usado + qtd <= teto) { ate = em + JANELA_24H_S; break; } }
+      return { ...base, ESTADO: "ADIADO_ATE", ATE: ate, GASTO_24H: g };
+    }
+    const novas = res.concat([{ DOMINIO: dom, QTD: qtd, EM: t, RUN_ID: runId, LINHA: linha }])
+      .filter(r => Number(r.EM) > t - 2 * JANELA_24H_S);
+    writeFileSync(`${f}.tmp`, JSON.stringify({ RESERVAS: novas }));
+    renameSync(`${f}.tmp`, f);
+    return { ...base, ESTADO: "RESERVADO", GASTO_24H: g + qtd, EM: t };
+  } finally { rmdirSync(trinco); }
+}
+const esgotado24h = host => {
+  const f = livro24h();
+  if (!f) return false;
+  return gasto24h(lerReservas24h(f), dominio24h(host), Date.now() / 1000) >= CORTESIA.cfg.TETO_POR_HOST;
+};
+export const motivoDoTeto = () => (livro24h() ? "TETO_24H" : livroDaOnda() ? "TETO_DOMINIO" : "TETO_POR_HOST");
 async function umaIda(url, host, tipo, crawlDelay) {
   const minimo = Math.max(CORTESIA.cfg.PAUSA_S, crawlDelay || 0) * 1000;
   host = siteDe(host);
@@ -432,6 +498,13 @@ async function umaIda(url, host, tipo, crawlDelay) {
   if (ultimo !== undefined) {
     const falta = ultimo + minimo - Date.now();
     if (falta > 0) await dormir(falta);
+  }
+  // D90: com contador de 24 h, o pedido so sai com a RESERVA escrita (antes de contar o que for).
+  if (livro24h()) {
+    const r = reservar24h(host, 1);
+    if (r.ESTADO !== "RESERVADO")
+      throw Object.assign(new Error(`TETO_24H ${r.ESTADO}: ${r.DOMINIO} ${r.PORQUE || (r.ATE ? "ate " + new Date(r.ATE * 1000).toISOString() : "")}`),
+                          { code: "TETO_24H", reserva: r });
   }
   CORTESIA.porHost.set(host, (CORTESIA.porHost.get(host) || 0) + 1);
   const dominio = orcamentoDe(host);
@@ -487,7 +560,7 @@ async function umaIda(url, host, tipo, crawlDelay) {
 const tetoAtingido = host => {
   const d = orcamentoDe(host);
   const gasto = Math.max(CORTESIA.porDominio.get(d) || 0, lerLivroDaOnda()[d] || 0);
-  return gasto >= CORTESIA.cfg.TETO_POR_HOST;
+  return gasto >= CORTESIA.cfg.TETO_POR_HOST || esgotado24h(host);
 };
 
 async function robotsDaOrigem(origem) {
@@ -499,6 +572,7 @@ async function robotsDaOrigem(origem) {
       if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado antes de ler o robots.txt` };
       try { r = await umaIda(alvo, host, "ROBOTS", 0); }
       catch (e) {
+        if (e.code === "TETO_24H") return { recusado: "TETO_24H", porque: e.message };
         const cod = e.code ?? 0;
         if (!TRANSITORIOS.includes(cod) || i === 2)
           return { estado: "INDISPONIVEL", porque: `o transporte caiu antes da resposta (curl ${cod}) — nao e uma recusa do host` };
@@ -569,6 +643,8 @@ async function baixar(url, tentativas = 2) {
         r = await umaIda(atual, lic.host, "FONTE", lic.crawlDelay);
         r.tentativas = i;
       } catch (e) {
+        if (e.code === "TETO_24H")
+          return { erro: `CORTESIA TETO_24H: ${e.message}`, status: 0, tentativas: i, recusado: "TETO_24H", foiARede, retry_permitido: false };
         const cod = e.code ?? 0;
         const transitorio = TRANSITORIOS.includes(cod);
         // retry SO para falha de transporte. Nunca para schema, MIME, login ou WAF.
@@ -820,6 +896,7 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     throw new Error("RUN_ID_AUSENTE: executarRodada() exige runId de quem coordena. "
                     + "Este coletor NAO cunha corrida.");
   }
+  RUN_ATUAL = runId;                        // D90: a reserva de 24 h diz QUE corrida gastou o orcamento
   globalThis.__ARPAV_TODAS = arpavZonas === "TODAS";
   // ⚠️ ZERA-SE AQUI porque o contador e do modulo, e um teste que corra duas
   // rodadas no mesmo processo somaria a rede da primeira a segunda — e o
