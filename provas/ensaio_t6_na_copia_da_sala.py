@@ -70,15 +70,19 @@ def main(argv) -> int:
         os.environ["SINTONIA_SALA_DSN"] = base.url            # daqui para baixo: SO a copia
         res["COPIA_IGUAL_A_REAL"] = E.fotografia() == real_antes
         res["ANTES"] = contar()
+        os.environ.pop("BANCO_DESCARTAVEL_URL", None)       # dois modos declarados = falha fechada
         env = dict(os.environ, SINTONIA_SALA_BACKEND="POSTGRES", SINTONIA_SALA_DSN=base.url,
                    SINTONIA_COLLECTION_DSN=base.url, SINTONIA_PSQL_EXE=MC._psql(),
+                   # os bytes do bruto do ENSAIO ficam na pasta do ensaio, nunca no armazem real
+                   SINTONIA_ARMAZEM_RAIZ=str(saida / "armazem"),
                    PYTHONUTF8="1", PYTHONDONTWRITEBYTECODE="1",
                    HTTP_PROXY="http://127.0.0.1:9", HTTPS_PROXY="http://127.0.0.1:9")
         for n in (1, 2):
             sala_f = saida / ("sala-ficheiro-%d" % n)
             sala_f.mkdir(exist_ok=True)
-            p = subprocess.run([sys.executable, "provas/o_pedido_t6_atravessa.py", "--universo=" + universo,
-                                "--sala=" + str(sala_f), "--banco=" + base.url],
+            # O MESMO programa que se corre na Sala real (so o ambiente muda)
+            p = subprocess.run([sys.executable, "ferramentas/t6_para_sala/pousar_na_sala.py", "--confirmo",
+                                "--universo=" + universo],
                                cwd=str(RAIZ), env=env, capture_output=True, text=True,
                                encoding="utf-8", errors="replace", timeout=3600)
             (saida / ("PASSAGEM-%d.txt" % n)).write_text(p.stdout + "\n--- stderr ---\n" + p.stderr[-4000:],
@@ -88,8 +92,9 @@ def main(argv) -> int:
             except ValueError:
                 recibo = {"ERRO_A_LER_A_SAIDA": p.stdout[-800:], "STDERR": p.stderr[-800:]}
             res["PASSAGEM_%d" % n] = {"CODIGO": p.returncode, "ADMISSAO": recibo.get("ADMISSAO"),
-                                      "COLHEITA": recibo.get("COLHEITA_ENCONTRADA"),
-                                      "PORTA": recibo.get("PORTA"), "INGRESSO": recibo.get("INGRESSO"),
+                                      "COLHEITA": recibo.get("COLHEITA"), "PRONTOS": recibo.get("PRONTOS"),
+                                      "ESPERA": recibo.get("ESPERA"), "RECIBO_DA_SALA": recibo.get("RECIBO_DA_SALA"),
+                                      "PERSISTENCIA": recibo.get("PERSISTENCIA"), "INGRESSO": recibo.get("INGRESSO"),
                                       "ERRO": recibo.get("ERRO") or recibo.get("ERRO_A_LER_A_SAIDA")}
             res["DEPOIS_%d" % n] = contar()
             if n == 1:
@@ -104,9 +109,10 @@ def main(argv) -> int:
                         "select count(*) from public.sala_de_espera where source_id = 'EU-T5-001' "
                         "and %s is not null and %s::text not in ('NAO SEI', '\"NAO SEI\"', '')" % (c, c))[0][0])
                 res["CAMPOS_PREENCHIDOS_NAS_LINHAS_NOVAS"] = campos
-                res["UMA_LINHA_NOVA"] = MC.sql(
+                linha = MC.sql(
                     "select row_to_json(s)::text from public.sala_de_espera s where source_id = 'EU-T5-001' "
-                    "order by 1 limit 1")[0][0][:3000]
+                    "order by 1 limit 1")
+                res["UMA_LINHA_NOVA"] = linha[0][0][:3000] if linha else "NENHUMA
     finally:
         os.environ.pop("SINTONIA_SALA_DSN", None)
         base.descer()
