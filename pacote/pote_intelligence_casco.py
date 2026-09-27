@@ -163,7 +163,122 @@ DA_V1 = {"future": "archive", "radarfuturo": "future", "etichette": "portfolio"}
 
 #: Campos da PROVA que a v2 acrescenta a v1. Nao sao obrigatorios para
 #: atravessar (a v1 nao os pedia), mas nunca viajam em branco: sem valor, NAO SEI.
-CAMPOS_DA_PROVA_V2 = ("URL", "PUBLICADO_EM", "COLHIDO_EM", "FACT_TIME")
+#: POTE-V2-UNICO: a publicacao chama-se PUBLISHED_AT no contrato (o nome que a
+#: missao escreveu); PUBLICADO_EM e PUBLICATION_TIME so se LEEM na entrada.
+CAMPOS_DA_PROVA_V2 = ("URL", "PUBLISHED_AT", "COLHIDO_EM", "FACT_TIME")
+#: URL e PUBLISHED_AT levam sempre a BASE: de onde veio o valor, ou — quando o
+#: valor e NAO SEI — porque nao ha valor. NAO SEI sem base e um buraco, nao uma
+#: resposta.
+CAMPOS_COM_BASE = ("URL", "PUBLISHED_AT")
+#: Nomes que a ENTRADA pode usar para o mesmo campo (leitura, nunca escrita).
+LER_NA_ENTRADA = {"URL": ("URL", "SOURCE_URL"),
+                  "PUBLISHED_AT": ("PUBLISHED_AT", "PUBLICADO_EM", "PUBLICATION_TIME"),
+                  "COLHIDO_EM": ("COLHIDO_EM",), "FACT_TIME": ("FACT_TIME",)}
+
+# ── P7 · O QUE EXIGE TEMPO, E O QUE NAO ──────────────────────────────────────
+#: Um resultado honesto nao afirma nada no tempo: diz que nao, ou que ainda nao
+#: ha acao defensavel. Por isso nao depende de FACT_TIME. Lido (normalizado) de
+#: RESULTADO ou de CHAVES.RESULTADO / CHAVES.CROSSING_STATE.
+RESULTADOS_HONESTOS = ("NAO", "NAO_TRATAR_AGORA", "NO_DEFENSIBLE_ACTION_YET")
+#: Especies que podem trazer um resultado honesto. OPORTUNIDADE e o facto
+#: futuro afirmam por natureza, e nunca sao «nao».
+_PODEM_SER_HONESTAS = (SINAL, CROSSING, FINDING)
+#: Como uma prova foi admitida. So USO_SEM_TEMPO admite um item que G0 bloqueou
+#: pelo tempo — e so para um uso que nao exige tempo.
+ADMITIDA = ("G0_PASSOU", "FUTURO_POR_DESENHO", "USO_SEM_TEMPO", "PONTE_V1")
+
+# ── D112 · DE ONDE VEM A ENTIDADE E O LUGAR ──────────────────────────────────
+#: D112 nao esta escrita no repositorio: segue o resumo no pedido da missao
+#: POTE-V2-UNICO. Quando a Intelligence os diz, viajam com o objeto, com o nome
+#: deles, e nunca como chave da vista.
+CAMPOS_DE_ORIGEM = ("ENTITY_SOURCE", "LOCATION_SOURCE")
+#: O lugar da FONTE (sede, editora, dominio) nao e o lugar do FACTO (AGENTS.md:
+#: «fonte/location do documento nao vira local do fato»; INT-LAW-101).
+LOCATION_SOURCE_PROIBIDA = ("SOURCE_LOCATION", "DOCUMENT_LOCATION", "PUBLISHER_LOCATION",
+                            "LOCAL_DA_FONTE", "LOCAL_DO_DOCUMENTO", "SEDE_DA_FONTE")
+
+# ── P8 · O POLSO SO LE MUDANCA NUMA SERIE ────────────────────────────────────
+#: Um preco solto e um ponto. Mudanca de mercado so se le numa SERIE medida:
+#: pelo menos dois pontos, cada um com periodo, preco e unidade, todos na MESMA
+#: unidade e em periodos diferentes. O pote CONFERE a serie; nao calcula a
+#: variacao (INT-LAW-023: quem calcula e a Intelligence).
+SERIE_MEDIDA = "SERIE_MEDIDA"
+SINAL_SOLTO = "SINAL_SOLTO"
+CAMPOS_DO_PONTO = ("PERIOD", "PRICE", "UNIT")
+#: Campos do objeto que o pote le com significado proprio, e por isso nunca
+#: caem em FORA_DO_CONTRATO como se fossem uma chave qualquer.
+_CAMPOS_LIDOS = CAMPOS_DE_ORIGEM + ("SERIE", "MUDANCA_DE_MERCADO", "RESULTADO")
+
+
+def normal(v) -> str:
+    """'não tratar agora' -> 'NAO_TRATAR_AGORA'. So para comparar vocabulario."""
+    import unicodedata
+    s = unicodedata.normalize("NFKD", str(v)).encode("ascii", "ignore").decode("ascii")
+    return "_".join(s.upper().replace("-", " ").split())
+
+
+def _dadas(o: dict) -> dict:
+    return o.get("CHAVES") if isinstance(o.get("CHAVES"), dict) else {}
+
+
+def _lido(o: dict, campo):
+    """O campo com significado proprio: no objeto, ou (so se la nao estiver) em CHAVES."""
+    v = o.get(campo)
+    return _dadas(o).get(campo) if v is None else v
+
+
+def resultado_honesto(o: dict):
+    """O resultado honesto que o objeto traz, normalizado — ou None."""
+    for v in (o.get("RESULTADO"), _dadas(o).get("RESULTADO"), _dadas(o).get("CROSSING_STATE")):
+        if not e_ignorancia(v) and normal(v) in RESULTADOS_HONESTOS:
+            return normal(v)
+    return None
+
+
+def uso_exige_tempo(especie, o: dict) -> bool:
+    """P7. So um uso que afirma alguma coisa NO TEMPO depende de FACT_TIME.
+
+    Nao dependem: o rendimento de uma fonte (Registro delle fonti: quantos itens
+    leu, quantos passaram) e um resultado honesto «nao» / «nao tratar agora» /
+    NO_DEFENSIBLE_ACTION_YET. Tudo o resto — sinal, oportunidade, janela,
+    crossing afirmativo — exige tempo ancorado.
+    """
+    if especie == RENDIMENTO:
+        return False
+    if especie in _PODEM_SER_HONESTAS and resultado_honesto(o):
+        return False
+    return True
+
+
+def so_tempo(falta) -> bool:
+    """Os motivos de G0 sao TODOS do tempo do facto (e ha pelo menos um)."""
+    falta = [str(f) for f in (falta or [])]
+    return bool(falta) and all(f == "FACT_TIME" or f.startswith("FACT_TIME:") for f in falta)
+
+
+def ler_serie(o: dict):
+    """P8. `(leitura, porque, pontos, unidade)` de um objeto do Polso."""
+    serie = _lido(o, "SERIE")
+    if not isinstance(serie, list) or not serie:
+        return SINAL_SOLTO, "um ponto so: sem SERIE nao ha mudanca de mercado", [], NAO_SEI
+    pontos = [p for p in serie if isinstance(p, dict)]
+    if len(pontos) != len(serie) or len(pontos) < 2:
+        return SINAL_SOLTO, f"SERIE com {len(pontos)} ponto(s) medido(s): mudanca exige pelo menos 2", pontos, NAO_SEI
+    for p in pontos:
+        falta = [c for c in CAMPOS_DO_PONTO if e_ignorancia(p.get(c))]
+        if falta:
+            return SINAL_SOLTO, f"ponto da SERIE sem {', '.join(falta)}: nao e medido", pontos, NAO_SEI
+    unidades = sorted({str(p["UNIT"]) for p in pontos})
+    if len(unidades) != 1:
+        return SINAL_SOLTO, f"SERIE com unidades diferentes ({' | '.join(unidades)}): nao se comparam", pontos, NAO_SEI
+    if len({str(p["PERIOD"]) for p in pontos}) != len(pontos):
+        return SINAL_SOLTO, "SERIE com o mesmo periodo repetido: nao e serie no tempo", pontos, NAO_SEI
+    return SERIE_MEDIDA, f"{len(pontos)} pontos medidos na mesma unidade", pontos, unidades[0]
+
+
+def _afirma_mudanca(o: dict) -> bool:
+    v = _lido(o, "MUDANCA_DE_MERCADO")
+    return v is True or (isinstance(v, str) and not e_ignorancia(v) and normal(v) in ("SIM", "YES", "TRUE"))
 
 
 def _valor(v):
@@ -195,26 +310,43 @@ def _especie(objeto: dict):
     return e, "INTELLIGENCE"
 
 
-def _admite_para(especie):
-    """Que entrada da LINEAGE prova um objeto desta especie."""
-    if especie != FUTURO:
-        return V1.g0_passou
+def _admite_para(especie, o=None):
+    """Que entrada da LINEAGE prova um objeto desta especie, NESTE uso."""
+    if especie == FUTURO:
+        def admite(e):
+            # P2/P5 · o facto sobre o futuro prova-se por uma entrada que passou G0
+            # ou que G0 bloqueou SO porque a data do facto e depois da captura.
+            if e.get("G0") == "PASSOU":
+                return True
+            return e.get("G0") == "BLOQUEADO_EM_G0" and list(e.get("G0_FALTA") or []) == [G0_FUTURO_POR_DESENHO]
+        return admite
+    if not uso_exige_tempo(especie, o or {}):
+        def admite(e):
+            # P7 · um uso que nao exige tempo prova-se por uma entrada cuja
+            # PROVENIENCIA esta inteira (ITEM_ID, SOURCE_ID, RAW) — o tempo do
+            # facto pode faltar, porque este uso nao o usa. Faltar a fonte ou o
+            # RAW continua a bloquear.
+            if e.get("G0") == "PASSOU":
+                return True
+            return e.get("G0") == "BLOQUEADO_EM_G0" and so_tempo(e.get("G0_FALTA"))
+        return admite
+    return V1.g0_passou
 
-    def admite(e):
-        # P2/P5 · o facto sobre o futuro prova-se por uma entrada que passou G0
-        # ou que G0 bloqueou SO porque a data do facto e depois da captura.
-        if e.get("G0") == "PASSOU":
-            return True
-        return e.get("G0") == "BLOQUEADO_EM_G0" and list(e.get("G0_FALTA") or []) == [G0_FUTURO_POR_DESENHO]
-    return admite
+
+def _da_entrada(p: dict, campo):
+    for nome in LER_NA_ENTRADA[campo]:
+        if not e_ignorancia(p.get(nome)):
+            return p.get(nome), nome
+    return None, None
 
 
-def _prova_v2(p: dict, linhagem: dict, run_id) -> dict:
+def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
     """O elemento de prova como viaja: os campos da v1, os da v2, e a corrida.
 
     URL e datas vem da propria prova; se a prova nao os disser, da entrada da
     LINEAGE que a confirmou — so quando essa entrada e unica e os diz. Nunca de
-    outro campo: PUBLICADO_EM nao vira FACT_TIME, e vice-versa.
+    outro campo: a publicacao nao vira FACT_TIME, e vice-versa. URL e
+    PUBLISHED_AT levam a BASE (de onde veio, ou porque e NAO SEI).
     """
     up = p.get("CORRIDA_UPSTREAM")
     if e_ignorancia(up):
@@ -227,10 +359,27 @@ def _prova_v2(p: dict, linhagem: dict, run_id) -> dict:
     out = {c: p[c] for c in CAMPOS_DA_PROVA}
     out["CORRIDA_UPSTREAM"] = _valor(up)
     for c in CAMPOS_DA_PROVA_V2:
-        v = p.get(c)
-        if e_ignorancia(v) and len(batem) == 1:
-            v = batem[0].get(c)
+        v, nome = _da_entrada(p, c)
+        base = f"PROVA.{nome}" if nome else None
+        if v is None and len(batem) == 1:
+            v, nome = _da_entrada(batem[0], c)
+            base = f"LINEAGE.{nome}" if nome else None
         out[c] = _valor(v)
+        if c in CAMPOS_COM_BASE:
+            dita = p.get(c + "_BASE")
+            out[c + "_BASE"] = base or (dita if not e_ignorancia(dita) else
+                                        f"NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem {c}")
+    # De onde veio, e como foi admitida: a Sala aparece so aqui, como prova.
+    g0 = sorted({str(e.get("G0")) for e in batem})
+    out["G0"] = "|".join(g0) if g0 else NAO_SEI
+    if g0 == ["PASSOU"]:
+        out["ADMITIDA_POR"] = "G0_PASSOU"
+    elif not g0:
+        out["ADMITIDA_POR"] = NAO_SEI
+    elif especie == FUTURO:
+        out["ADMITIDA_POR"] = "FUTURO_POR_DESENHO"
+    else:
+        out["ADMITIDA_POR"] = "USO_SEM_TEMPO"
     out["INTELLIGENCE_RUN_ID"] = run_id
     return out
 
@@ -238,9 +387,9 @@ def _prova_v2(p: dict, linhagem: dict, run_id) -> dict:
 def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica) -> dict:
     """RENDER + EXPLAIN. Os valores sao os do objeto, ou NAO SEI."""
     contrato = COMPARTIMENTOS[comp]["CHAVES"]
-    dadas = o.get("CHAVES") if isinstance(o.get("CHAVES"), dict) else {}
+    dadas = _dadas(o)
     chaves = {k: _valor(dadas.get(k)) for k in contrato}
-    return {
+    out = {
         "MARCA": MARCA, "NAO_PARA_CLIENTE": True,
         "COMPARTIMENTO": comp,
         "OBJETO_ID": _id_do_objeto(o),
@@ -251,13 +400,32 @@ def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica
         # P4 · chave que veio e o contrato nao pede viaja com o NOME e o VALOR
         # que a corrida lhe deu: FACT_LOCATION continua FACT_LOCATION e nunca
         # vira REGION_ID.
-        "FORA_DO_CONTRATO": {k: _valor(dadas[k]) for k in sorted(dadas) if k not in contrato},
+        "FORA_DO_CONTRATO": {k: _valor(dadas[k]) for k in sorted(dadas)
+                             if k not in contrato and k not in _CAMPOS_LIDOS},
         "PORQUE": _valor(o.get("PORQUE")),
         "CONTRADIZ": _valor(o.get("CONTRADIZ")),
         "INCERTEZA": _valor(o.get("INCERTEZA")),
-        "PROVA": [_prova_v2(p, linhagem, run_id) for p in o["PROVA"]],
+        # P7 · o uso diz se o tempo e preciso; o resultado honesto viaja dito.
+        "RESULTADO": resultado_honesto(o) or NAO_SEI,
+        "USO_EXIGE_TEMPO": uso_exige_tempo(especie, o),
+        "PROVA": [_prova_v2(p, linhagem, run_id, especie) for p in o["PROVA"]],
         "CORRIDA_SINTETICA": sintetica,
     }
+    # D112 · a origem da entidade e do lugar, quando a Intelligence as diz. Se
+    # ha lugar do facto e ninguem disse de onde ele veio, isso fica a vista.
+    for c in CAMPOS_DE_ORIGEM:
+        v = _lido(o, c)
+        if v is not None:
+            out[c] = _valor(v)
+    lugar = dadas.get("FACT_LOCATION")
+    if not e_ignorancia(lugar) and "LOCATION_SOURCE" not in out:
+        out["LOCATION_SOURCE"] = NAO_SEI
+    # P8 · no Polso, cada objeto diz se e serie medida ou sinal solto.
+    if comp == "market":
+        leitura, porque, pontos, unidade = ler_serie(o)
+        out["MERCADO"] = {"LEITURA": leitura, "PORQUE": porque, "PONTOS": len(pontos),
+                          "UNIDADE": unidade, "SERIE": pontos if leitura == SERIE_MEDIDA else []}
+    return out
 
 
 def _conferir_objeto(comp, o, linhagem, vistos):
@@ -276,9 +444,18 @@ def _conferir_objeto(comp, o, linhagem, vistos):
     if especie not in admitidas:
         return ("ESPECIE_FORA_DO_COMPARTIMENTO",
                 f"{especie} nao cabe em {comp} (admite {', '.join(admitidas)}); o pote nao muda especie")
-    falha = V1.conferir_prova(o, linhagem, admite=_admite_para(especie))
+    falha = V1.conferir_prova(o, linhagem, admite=_admite_para(especie, o))
     if falha:
         return falha
+    # P8 · afirmar mudanca de mercado sem SERIE medida e promover um ponto.
+    if _afirma_mudanca(o) and ler_serie(o)[0] != SERIE_MEDIDA:
+        return ("SINAL_SOLTO_NAO_E_MUDANCA_DE_MERCADO",
+                f"afirma MUDANCA_DE_MERCADO sem serie medida: {ler_serie(o)[1]}")
+    # D112 · o lugar da fonte nao e o lugar do facto.
+    ls = _lido(o, "LOCATION_SOURCE")
+    if not e_ignorancia(ls) and normal(ls) in LOCATION_SOURCE_PROIBIDA:
+        return ("LUGAR_DA_FONTE_NAO_E_LUGAR_DO_FACTO",
+                f"LOCATION_SOURCE = {ls}: o lugar do documento nao vira o lugar do facto")
     if especie == RENDIMENTO:
         fonte = (o.get("CHAVES") or {}).get("SOURCE_ID") if isinstance(o.get("CHAVES"), dict) else None
         if e_ignorancia(fonte):
@@ -296,7 +473,34 @@ def _porque(codigo, estado=None):
     return {"PORQUE_VAZIO": codigo, "PORQUE_TEXTO": texto}
 
 
-def _cabecalho(run_id, fonte, estado, origem, sintetica) -> dict:
+#: Campos do topo que uma entrada antiga (o formato R5 do bot da Intelligence)
+#: trazia dentro de CABECALHO. Lidos de la SO se o topo nao os tiver, e a
+#: leitura fica escrita no pote (LEITURA_DE_COMPATIBILIDADE). O pote que sai
+#: tem-nos SEMPRE no topo: o contrato e um so.
+LIDOS_DO_CABECALHO = ("INTELLIGENCE_RUN_ID", "SOURCE_HEAD", "CORTE", "RESULT_STATE")
+
+
+def ler_topo(corrida: dict):
+    """`(topo, leituras)`: os campos do topo, com a compatibilidade DECLARADA.
+
+    Se o topo e o CABECALHO disserem coisas diferentes, sao duas corridas num
+    ficheiro so — e isso nao se adapta.
+    """
+    cab = corrida.get("CABECALHO") if isinstance(corrida.get("CABECALHO"), dict) else {}
+    topo, leituras = {}, []
+    for c in LIDOS_DO_CABECALHO:
+        v, w = corrida.get(c), cab.get(c)
+        if not e_ignorancia(v) and not e_ignorancia(w) and v != w:
+            raise LeiViolada(f"{c} no topo ({v}) e em CABECALHO ({w}) divergem: um pote e de UMA corrida")
+        if e_ignorancia(v) and not e_ignorancia(w):
+            v = w
+            leituras.append(f"{c} lido de CABECALHO (formato antigo R5 do bot da Intelligence): "
+                            "leitura de compatibilidade declarada; no pote ele vai no topo")
+        topo[c] = v
+    return topo, leituras
+
+
+def _cabecalho(run_id, fonte, estado, origem, sintetica, leituras=()) -> dict:
     return {
         "SCHEMA": CONTRATO, "MARCA": MARCA, "NAO_PARA_CLIENTE": True,
         # UM POTE POR CORRIDA: estes tres dizem QUE corrida, sobre QUE arvore,
@@ -308,6 +512,7 @@ def _cabecalho(run_id, fonte, estado, origem, sintetica) -> dict:
         "RUN_SCHEMA": fonte.get("SCHEMA", NAO_SEI),
         "CORRIDA_SINTETICA": sintetica,
         "ENTRADA": origem,
+        "LEITURA_DE_COMPATIBILIDADE": list(leituras),
         "LEI": "o casco desenha isto; nao refaz crossing, nao completa NAO SEI, nao promove, "
                "nao muda especie (INT-LAW-023 · INT-LAW-280)",
     }
@@ -354,10 +559,14 @@ def adaptar(corrida: dict) -> dict:
     """O livro de uma corrida -> o pote v2, conferido antes de sair."""
     if not isinstance(corrida, dict):
         raise LeiViolada("uma corrida que nao e objeto nao se adapta")
-    run_id = corrida.get("INTELLIGENCE_RUN_ID")
+    if "COMPARTIMENTOS" in corrida and "ITENS_POR_FERRAMENTA" not in corrida:
+        raise LeiViolada("isto ja e um pote (de outro formato), nao o livro de uma corrida: "
+                         "regenere-o a partir da saida do motor (ENTRADA-DA-PONTE / livro da corrida)")
+    topo, leituras = ler_topo(corrida)
+    run_id = topo["INTELLIGENCE_RUN_ID"]
     if e_ignorancia(run_id):
         raise LeiViolada("corrida sem INTELLIGENCE_RUN_ID: um pote e de UMA corrida")
-    estado = corrida.get("RESULT_STATE") or NAO_SEI
+    estado = topo["RESULT_STATE"] or NAO_SEI
     linhagem = V1._linhagem_da_corrida(corrida)
     lacunas = V1._lacunas(corrida)
     sintetica = _sintetica(corrida)
@@ -400,7 +609,7 @@ def adaptar(corrida: dict) -> dict:
         saida[comp] = entrada
     _fechar(saida, recusados)
 
-    pote = _cabecalho(run_id, corrida, estado, "CORRIDA", sintetica)
+    pote = _cabecalho(run_id, dict(corrida, **topo), estado, "CORRIDA", sintetica, leituras)
     pote.update({
         "COMPARTIMENTOS": saida,
         "LACUNAS_SEM_COMPARTIMENTO": [g for g in lacunas
@@ -463,6 +672,11 @@ def pote_de_payload_v1(payload: dict) -> dict:
                  "INCERTEZA": c.get("INCERTEZA")}
             obj = _objeto(comp, o, SINAL, "CONTRATO_V1", {}, run_id, sintetica)
             obj["PROVA_CONFERIDA_POR"] = V1.CONTRATO
+            for pr in obj["PROVA"]:
+                pr["ADMITIDA_POR"] = "PONTE_V1"
+                for c in CAMPOS_COM_BASE:
+                    if pr[c] == NAO_SEI:
+                        pr[c + "_BASE"] = f"PAYLOAD_V1: o contrato {V1.CONTRATO} nao transportava {c}"
             entrada["OBJETOS"].append(obj)
         if not entrada["OBJETOS"] and meta["CHAVES"] is not None and not any(
                 V1.FERRAMENTAS.get(f, {}).get("CHAVES") for f in payload["FERRAMENTAS"]
@@ -508,7 +722,11 @@ def conferir_pote(pote: dict) -> list:
         if k not in pote or (e_ignorancia(pote.get(k)) and pote.get(k) != NAO_SEI):
             v.append(f"cabecalho sem {k} (ou NAO SEI escondido)")
     if e_ignorancia(pote.get("INTELLIGENCE_RUN_ID")):
-        v.append("um pote e de UMA corrida: INTELLIGENCE_RUN_ID obrigatorio")
+        v.append("um pote e de UMA corrida: INTELLIGENCE_RUN_ID obrigatorio NO TOPO"
+                 + (" (esta so em CABECALHO: a compatibilidade e so de leitura da ENTRADA)"
+                    if isinstance(pote.get("CABECALHO"), dict) else ""))
+    if not isinstance(pote.get("LEITURA_DE_COMPATIBILIDADE"), list):
+        v.append("cabecalho sem LEITURA_DE_COMPATIBILIDADE (lista; vazia = nenhuma)")
     comps = pote.get("COMPARTIMENTOS")
     if not isinstance(comps, dict) or set(comps) != set(COMPARTIMENTOS):
         return v + ["o pote nao traz os doze compartimentos"]
@@ -547,6 +765,45 @@ def conferir_pote(pote: dict) -> list:
                     for k in CAMPOS_DA_PROVA_V2 + ("CORRIDA_UPSTREAM",):
                         if k not in p or (e_ignorancia(p.get(k)) and p.get(k) != NAO_SEI):
                             v.append(f"{comp}/{oid}: prova esconde {k}")
+                    for k in CAMPOS_COM_BASE:
+                        if p.get(k) == NAO_SEI and e_ignorancia(p.get(k + "_BASE")):
+                            v.append(f"{comp}/{oid}: prova com {k} NAO SEI sem a base (porque nao ha {k})")
+                    adm = p.get("ADMITIDA_POR")
+                    if adm not in ADMITIDA:
+                        v.append(f"{comp}/{oid}: prova sem ADMITIDA_POR valido ({adm!r})")
+                    elif adm == "USO_SEM_TEMPO" and uso_exige_tempo(o.get("ESPECIE"), o):
+                        v.append(f"{comp}/{oid}: item sem tempo ancorado prova um uso que EXIGE tempo")
+                    elif adm == "FUTURO_POR_DESENHO" and o.get("ESPECIE") != FUTURO:
+                        v.append(f"{comp}/{oid}: bloqueio por futuro prova o que nao e facto futuro")
+                    elif adm == "PONTE_V1" and pote.get("ENTRADA") != "PAYLOAD_V1":
+                        v.append(f"{comp}/{oid}: prova dita conferida pela v1 num pote que nao veio da v1")
+            if o.get("ESPECIE_DITA_POR") not in ("INTELLIGENCE", "CONTRATO_V1"):
+                v.append(f"{comp}/{oid}: ESPECIE sem quem a disse")
+            if not isinstance(o.get("USO_EXIGE_TEMPO"), bool):
+                v.append(f"{comp}/{oid}: sem USO_EXIGE_TEMPO")
+            elif o["USO_EXIGE_TEMPO"] != uso_exige_tempo(o.get("ESPECIE"), o):
+                v.append(f"{comp}/{oid}: USO_EXIGE_TEMPO nao bate com a especie e o RESULTADO")
+            ls = o.get("LOCATION_SOURCE")
+            if not e_ignorancia(ls) and normal(ls) in LOCATION_SOURCE_PROIBIDA:
+                v.append(f"{comp}/{oid}: LOCATION_SOURCE = {ls} (o lugar da fonte nao e o lugar do facto)")
+            for c in CAMPOS_DE_ORIGEM:
+                if c in o and e_ignorancia(o[c]) and o[c] != NAO_SEI:
+                    v.append(f"{comp}/{oid}: {c} esconde a ignorancia")
+            lugar = (o.get("CHAVES") or {}).get("FACT_LOCATION") if isinstance(o.get("CHAVES"), dict) else None
+            if e_ignorancia(lugar):
+                lugar = (o.get("FORA_DO_CONTRATO") or {}).get("FACT_LOCATION")
+            if not e_ignorancia(lugar) and "LOCATION_SOURCE" not in o:
+                v.append(f"{comp}/{oid}: lugar do facto sem LOCATION_SOURCE (nem NAO SEI)")
+            if "MUDANCA_DE_MERCADO" in o or "MUDANCA_DE_MERCADO" in (o.get("FORA_DO_CONTRATO") or {}):
+                v.append(f"{comp}/{oid}: MUDANCA_DE_MERCADO nao e campo do pote (so MERCADO.LEITURA)")
+            if comp == "market":
+                m = o.get("MERCADO")
+                if not isinstance(m, dict) or m.get("LEITURA") not in (SERIE_MEDIDA, SINAL_SOLTO):
+                    v.append(f"{comp}/{oid}: objeto do Polso sem MERCADO.LEITURA")
+                elif m["LEITURA"] == SERIE_MEDIDA and ler_serie({"SERIE": m.get("SERIE")})[0] != SERIE_MEDIDA:
+                    v.append(f"{comp}/{oid}: sinal solto apresentado como SERIE_MEDIDA (mudanca de mercado)")
+            elif "MERCADO" in o:
+                v.append(f"{comp}/{oid}: leitura de mercado fora do Polso")
             chaves = o.get("CHAVES")
             if not isinstance(chaves, dict) or set(chaves) != set(meta["CHAVES"]):
                 v.append(f"{comp}/{oid}: chaves nao batem com o contrato do compartimento")

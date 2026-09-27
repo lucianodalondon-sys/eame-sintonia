@@ -9,6 +9,7 @@
  "RUN_SCHEMA": "CORRIDA_DA_INTELLIGENCE/v2-SINTETICA",
  "CORRIDA_SINTETICA": true,
  "ENTRADA": "CORRIDA",
+ "LEITURA_DE_COMPATIBILIDADE": [],
  "LEI": "o casco desenha isto; nao refaz crossing, nao completa NAO SEI, nao promove, nao muda especie (INT-LAW-023 · INT-LAW-280)",
  "COMPARTIMENTOS": {
   "meeting": {
@@ -60,6 +61,8 @@
      "PORQUE": "SINT: <script>alert('porque')</script> boletim cita pressao",
      "CONTRADIZ": "NAO SEI",
      "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
      "PROVA": [
       {
        "ITEM_ID": "SINT-ITEM-1",
@@ -68,9 +71,13 @@
        "DOCUMENT_ID": "SINT-DOC-1",
        "CORRIDA_UPSTREAM": "SINT-UP-A",
        "URL": "https://sint.example/boletim-1",
-       "PUBLICADO_EM": "2026-09-20",
+       "URL_BASE": "LINEAGE.URL",
+       "PUBLISHED_AT": "2026-09-20",
+       "PUBLISHED_AT_BASE": "LINEAGE.PUBLICADO_EM",
        "COLHIDO_EM": "2026-09-21",
        "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
        "INTELLIGENCE_RUN_ID": "SINT-IR-POTE-0001"
       }
      ],
@@ -103,6 +110,8 @@
      "PORQUE": "NAO SEI",
      "CONTRADIZ": "NAO SEI",
      "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
      "PROVA": [
       {
        "ITEM_ID": "SINT-ITEM-2",
@@ -111,9 +120,13 @@
        "DOCUMENT_ID": "SINT-DOC-2",
        "CORRIDA_UPSTREAM": "SINT-UP-A",
        "URL": "NAO SEI",
-       "PUBLICADO_EM": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
        "COLHIDO_EM": "NAO SEI",
        "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
        "INTELLIGENCE_RUN_ID": "SINT-IR-POTE-0001"
       }
      ],
@@ -175,6 +188,8 @@
      "PORQUE": "SINT: decreto publicado hoje fixa uma data de 2027",
      "CONTRADIZ": "NAO SEI",
      "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
      "PROVA": [
       {
        "ITEM_ID": "SINT-ITEM-5",
@@ -183,13 +198,18 @@
        "DOCUMENT_ID": "SINT-DOC-5",
        "CORRIDA_UPSTREAM": "SINT-UP-A",
        "URL": "https://sint.example/decreto-2027",
-       "PUBLICADO_EM": "2026-09-15",
+       "URL_BASE": "LINEAGE.URL",
+       "PUBLISHED_AT": "2026-09-15",
+       "PUBLISHED_AT_BASE": "LINEAGE.PUBLICADO_EM",
        "COLHIDO_EM": "2026-09-16",
        "FACT_TIME": "NAO SEI",
+       "G0": "BLOQUEADO_EM_G0",
+       "ADMITIDA_POR": "FUTURO_POR_DESENHO",
        "INTELLIGENCE_RUN_ID": "SINT-IR-POTE-0001"
       }
      ],
-     "CORRIDA_SINTETICA": true
+     "CORRIDA_SINTETICA": true,
+     "LOCATION_SOURCE": "NAO SEI"
     }
    ],
    "LACUNAS": [],
@@ -248,6 +268,8 @@
      "PORQUE": "NAO SEI",
      "CONTRADIZ": "NAO SEI",
      "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
      "PROVA": [
       {
        "ITEM_ID": "SINT-ITEM-3",
@@ -256,13 +278,18 @@
        "DOCUMENT_ID": "SINT-DOC-3",
        "CORRIDA_UPSTREAM": "SINT-UP-A",
        "URL": "NAO SEI",
-       "PUBLICADO_EM": "2026-09-10",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "2026-09-10",
+       "PUBLISHED_AT_BASE": "PROVA.PUBLICADO_EM",
        "COLHIDO_EM": "NAO SEI",
        "FACT_TIME": "2026-09-07/2026-09-13",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
        "INTELLIGENCE_RUN_ID": "SINT-IR-POTE-0001"
       }
      ],
-     "CORRIDA_SINTETICA": true
+     "CORRIDA_SINTETICA": true,
+     "LOCATION_SOURCE": "NAO SEI"
     }
    ],
    "LACUNAS": [],
@@ -500,6 +527,8 @@
      "PORQUE": "NAO SEI",
      "CONTRADIZ": "NAO SEI",
      "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
      "PROVA": [
       {
        "ITEM_ID": "SINT-ITEM-2",
@@ -508,9 +537,13 @@
        "DOCUMENT_ID": "SINT-DOC-2",
        "CORRIDA_UPSTREAM": "SINT-UP-A",
        "URL": "NAO SEI",
-       "PUBLICADO_EM": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
        "COLHIDO_EM": "NAO SEI",
        "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
        "INTELLIGENCE_RUN_ID": "SINT-IR-POTE-0001"
       }
      ],
@@ -542,6 +575,8 @@
      "PORQUE": "NAO SEI",
      "CONTRADIZ": "NAO SEI",
      "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": true,
      "PROVA": [
       {
        "ITEM_ID": "SINT-ITEM-8",
@@ -550,9 +585,13 @@
        "DOCUMENT_ID": "SINT-DOC-8",
        "CORRIDA_UPSTREAM": "SINT-UP-A",
        "URL": "javascript:alert(1)",
-       "PUBLICADO_EM": "NAO SEI",
+       "URL_BASE": "LINEAGE.URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
        "COLHIDO_EM": "NAO SEI",
        "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
        "INTELLIGENCE_RUN_ID": "SINT-IR-POTE-0001"
       }
      ],
@@ -607,6 +646,8 @@
      "PORQUE": "NAO SEI",
      "CONTRADIZ": "NAO SEI",
      "INCERTEZA": "NAO SEI",
+     "RESULTADO": "NAO SEI",
+     "USO_EXIGE_TEMPO": false,
      "PROVA": [
       {
        "ITEM_ID": "SINT-ITEM-3",
@@ -615,9 +656,13 @@
        "DOCUMENT_ID": "SINT-DOC-3",
        "CORRIDA_UPSTREAM": "SINT-UP-A",
        "URL": "NAO SEI",
-       "PUBLICADO_EM": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
        "COLHIDO_EM": "NAO SEI",
        "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
        "INTELLIGENCE_RUN_ID": "SINT-IR-POTE-0001"
       },
       {
@@ -627,9 +672,13 @@
        "DOCUMENT_ID": "SINT-DOC-4",
        "CORRIDA_UPSTREAM": "SINT-UP-A",
        "URL": "NAO SEI",
-       "PUBLICADO_EM": "NAO SEI",
+       "URL_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem URL",
+       "PUBLISHED_AT": "NAO SEI",
+       "PUBLISHED_AT_BASE": "NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem PUBLISHED_AT",
        "COLHIDO_EM": "NAO SEI",
        "FACT_TIME": "NAO SEI",
+       "G0": "PASSOU",
+       "ADMITIDA_POR": "G0_PASSOU",
        "INTELLIGENCE_RUN_ID": "SINT-IR-POTE-0001"
       }
      ],

@@ -111,31 +111,37 @@ class B_EspecieEProvaAteAoRaw(unittest.TestCase):
         self.assertEqual((op["ESPECIE"], op["ESPECIE_DITA_POR"]), ("OPORTUNIDADE", "INTELLIGENCE"))
 
     def test_B2_prova_ate_ao_raw_com_url_e_datas_nunca_em_branco(self):
+        # AJUSTE DECLARADO (POTE-V2-UNICO, 27/09): a publicacao chama-se PUBLISHED_AT no contrato
+        # v2 unico (pedido da missao); PUBLICADO_EM so se le na entrada. Mesma prova, outro nome.
         for e in self.pote["COMPARTIMENTOS"].values():
             for o in e["OBJETOS"]:
                 for p in o["PROVA"]:
                     for k in ("ITEM_ID", "RAW_OBSERVATION_ID", "SOURCE_ID", "DOCUMENT_ID"):
                         self.assertTrue(str(p[k]).startswith("SINT-"), (o["OBJETO_ID"], k))
-                    for k in ("URL", "PUBLICADO_EM", "COLHIDO_EM", "FACT_TIME", "CORRIDA_UPSTREAM"):
+                    for k in ("URL", "PUBLISHED_AT", "COLHIDO_EM", "FACT_TIME", "CORRIDA_UPSTREAM"):
                         self.assertIn(k, p)
                         self.assertNotIn(p[k], ("", None))
                     self.assertEqual(p["INTELLIGENCE_RUN_ID"], "SINT-IR-POTE-0001")
 
     def test_B3_url_e_datas_vem_da_prova_ou_da_linhagem_que_a_confirmou(self):
+        # AJUSTE DECLARADO (POTE-V2-UNICO, 27/09): a publicacao chama-se PUBLISHED_AT no contrato
+        # v2 unico (pedido da missao); PUBLICADO_EM so se le na entrada. Mesma prova, outro nome.
         p = objs(self.pote, "meeting")[0]["PROVA"][0]        # a prova nao diz; a LINEAGE diz
-        self.assertEqual((p["URL"], p["PUBLICADO_EM"], p["COLHIDO_EM"]),
+        self.assertEqual((p["URL"], p["PUBLISHED_AT"], p["COLHIDO_EM"]),
                          ("https://sint.example/boletim-1", "2026-09-20", "2026-09-21"))
         p = objs(self.pote, "meeting")[1]["PROVA"][0]        # ninguem diz
-        self.assertEqual((p["URL"], p["PUBLICADO_EM"], p["FACT_TIME"]), (NAO_SEI, NAO_SEI, NAO_SEI))
+        self.assertEqual((p["URL"], p["PUBLISHED_AT"], p["FACT_TIME"]), (NAO_SEI, NAO_SEI, NAO_SEI))
 
     def test_B4_publicacao_nao_vira_tempo_do_facto(self):
+        # AJUSTE DECLARADO (POTE-V2-UNICO, 27/09): a publicacao chama-se PUBLISHED_AT no contrato
+        # v2 unico (pedido da missao); PUBLICADO_EM so se le na entrada. Mesma prova, outro nome.
         p = objs(self.pote, "windows")[0]["PROVA"][0]
-        self.assertEqual(p["PUBLICADO_EM"], "2026-09-10")
+        self.assertEqual(p["PUBLISHED_AT"], "2026-09-10")
         self.assertEqual(p["FACT_TIME"], "2026-09-07/2026-09-13")
         c = corrida()
         del c["ITENS_POR_FERRAMENTA"]["windows"][0]["PROVA"][0]["FACT_TIME"]
         p = objs(P.adaptar(c), "windows")[0]["PROVA"][0]
-        self.assertEqual((p["PUBLICADO_EM"], p["FACT_TIME"]), ("2026-09-10", NAO_SEI))
+        self.assertEqual((p["PUBLISHED_AT"], p["FACT_TIME"]), ("2026-09-10", NAO_SEI))
 
 
 class C_VazioComOPorque(unittest.TestCase):
@@ -373,10 +379,12 @@ class I_AConferenciaReprova(unittest.TestCase):
         self._reprova(lambda p: p["COMPARTIMENTOS"]["future"]["OBJETOS"][0].__setitem__("ESPECIE", "OPORTUNIDADE"))
 
     def test_I4_prova_sem_raw_ou_url_escondida_ou_de_outra_corrida(self):
+        # AJUSTE DECLARADO (POTE-V2-UNICO, 27/09): a publicacao chama-se PUBLISHED_AT no contrato
+        # v2 unico (pedido da missao); PUBLICADO_EM so se le na entrada. Mesma prova, outro nome.
         pr = lambda p: p["COMPARTIMENTOS"]["meeting"]["OBJETOS"][1]["PROVA"][0]  # noqa: E731
         self._reprova(lambda p: pr(p).__setitem__("RAW_OBSERVATION_ID", ""))
         self._reprova(lambda p: pr(p).__setitem__("URL", ""))
-        self._reprova(lambda p: pr(p).pop("PUBLICADO_EM"))
+        self._reprova(lambda p: pr(p).pop("PUBLISHED_AT"))
         self._reprova(lambda p: pr(p).__setitem__("INTELLIGENCE_RUN_ID", "SINT-IR-OUTRA"))
 
     def test_I5_cabecalho(self):
