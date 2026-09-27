@@ -5457,6 +5457,27 @@
     "tests/dados/sede37/chianti-evento.html",
     "tests/dados/sede37/ORIGEM.json"
    ]
+  },
+  {
+   "id": "C-LUGAR-PUBLICADOR",
+   "name": "LUGAR-DO-PUBLICADOR — a sede de quem publica, do contrato para a Sala (D83)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra"
+   ],
+   "what": "preencher_sede_na_sala.py: a porta que leva SOURCE_LOCATION do contrato (regras/contratos_de_fonte.lugar_da_fonte, a mesma da producao) para a Sala como revisao append-only; so a sede e a completude; nunca pisa; NAO SEI nao entra. ler_provas.py: o trecho de cada sede provada para ler a mao. ensaio_sede_na_sala.sh: livros do vivo copiados + copia da Sala em Postgres descartavel, mostrar/aplicar/2.a passagem. mutar_lugar_publicador.py: 9 mutantes.",
+   "why_here": "LUGAR-DO-PUBLICADOR (26/09/2026): SOURCE_LOCATION em 5 de 104 linhas da Sala; com a sede provada sem rede (SEDE-37 + D83) sobe para 60 de 104 (16 fontes), no ensaio.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/lugar_publicador/preencher_sede_na_sala.py",
+    "ferramentas/lugar_publicador/ler_provas.py",
+    "ferramentas/lugar_publicador/ensaio_sede_na_sala.sh",
+    "ferramentas/lugar_publicador/mutar_lugar_publicador.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
