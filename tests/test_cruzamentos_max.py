@@ -403,9 +403,12 @@ class X_Real(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.out = XM.correr()
+        # AJUSTE DECLARADO (PORTA-UNICA-REFERENCIA, D116/D117): a referencia vem da porta, e o
+        # frescor dela depende do «hoje». Recorre-se com o HOJE que o JSON commitado declara —
+        # sem isso o teste mudaria de veredito sozinho com o calendario.
         with open(XM.SAIDA, encoding="utf-8") as f:
             cls.commitado = json.load(f)
+        cls.out = XM.correr(hoje=date.fromisoformat(cls.commitado["REFERENCIA_ADAMA"]["HOJE"]))
 
     def test_X1_contagens_commitadas_batem(self):
         self.assertEqual(self.out["CONTAGENS"], self.commitado["CONTAGENS"])

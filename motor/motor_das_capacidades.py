@@ -76,6 +76,7 @@ for _g in ("motor", "leis"):
 import corrida_da_inteligencia as CI            # noqa: E402
 import cap_win as WIN                            # noqa: E402
 import capacidade_cientifica as SCI              # noqa: E402
+import porta_da_referencia as PORTA              # noqa: E402  (D116: uma edicao para as duas)
 # A LEI DO LUGAR tem dono (leis/lugar_do_fato.py): quem pode virar lugar do
 # fato e porque nao. D112(a) chama-a — nao a reescreve.
 import lugar_do_fato as LUGAR                    # noqa: E402
@@ -773,8 +774,11 @@ def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None =
     itens_win = [dict(rc, JANELA_DECLARADA=janelas[str(rc["ITEM_ID"])],
                       URL=(entrada["RAW"].get(str(rc.get("RAW_OBSERVATION_ID"))) or {}).get("URL", NAO_SEI))
                  for rc in ready_cap]
-    win = WIN.julgar(livro, itens_win, hoje, fora=para_win)
-    sci = SCI.julgar(livro, ready_cap, referencia, triados_fora=para_sci)
+    # UMA abertura da porta, e a MESMA referencia para as duas capacidades: a janela e a
+    # ciencia nunca respondem sobre produto com edicoes diferentes (D116).
+    ref = referencia if referencia is not None else PORTA.abrir(hoje=hoje)
+    win = WIN.julgar(livro, itens_win, hoje, fora=para_win, referencia=ref)
+    sci = SCI.julgar(livro, ready_cap, ref, triados_fora=para_sci)
 
     ctx = {"RUN_ID": run_id, "RAW": entrada["RAW"], "D112": d112, "JANELA": janelas,
            "READY": {str(p["ITEM_ID"]): p for p in prontos},
@@ -815,6 +819,7 @@ def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None =
         "RESULT_STATE": livro["RESULT_STATE"],
         "SINTETICA": entrada.get("SINTETICA") is True,
         "HOJE": hoje.isoformat(),
+        "REFERENCIA_ADAMA": PORTA.carimbo(ref) if PORTA.lida(ref) else ref.get("CARIMBO", PORTA.carimbo(ref)),
         "LINEAGE": livro["LINEAGE"],
         # Os SINAIS da corrida ficam no livro (CORRIDA.SIGNALS): o pote recusaria
         # sinal sem ferramenta, e o motor nao escolhe ferramenta por eles.

@@ -54,6 +54,9 @@ if str(RAIZ / "motor") not in sys.path:
 # que o le do dono da Sala): importar a espinha daqui seria mais um modulo de
 # runtime a importar `provas/` por nome nu (test_a_porta_cli_liga_o_banco).
 import corrida_da_inteligencia as CORRIDA                          # noqa: E402
+# A referencia ADAMA entra por UMA porta (PORTA-UNICA-REFERENCIA, D116): a mesma
+# edicao para toda capacidade, com o frescor ao lado (D117).
+import porta_da_referencia as PORTA                                 # noqa: E402
 
 CAMPOS_DO_READY = CORRIDA.CAMPOS_DO_READY
 NAO_SEI = CORRIDA.NAO_SEI
@@ -66,7 +69,7 @@ PERGUNTA = ("que conhecimento cientifico novo pode alterar uma decisao "
 PRONTO = "PRONTO_PARA_INTELIGENCIA"
 #: O uso que o livro da corrida G0/v4 tem de deixar disponivel ao item.
 USO_EXIGIDO = "LEITURA_ATEMPORAL_DE_CAPACIDADE"
-REFERENCIA_ADAMA = RAIZ / "referencia" / "adama"
+REFERENCIA_ADAMA = PORTA.CASA
 
 
 class LeiViolada(Exception):
@@ -596,27 +599,30 @@ def _mol_ref(m: str) -> str:
     return ALIAS_DE_MOLECULA.get(m, m)
 
 
-def _sha(p: Path) -> str:
-    return hashlib.sha256(p.read_bytes()).hexdigest()
+#: Os quatro livros do REGISTRO que a CAP-SCI cruza. Vem da porta, nunca do disco.
+LIVROS_DA_CAP_SCI = ("ACTIVE-INGREDIENTS", "PRODUCT-ACTIVE-INGREDIENTS",
+                     "AUTHORIZED-USES", "REGISTRATIONS")
 
 
-def carregar_referencia(pasta: Path = REFERENCIA_ADAMA) -> dict:
-    """A referencia ADAMA (ENTRADA B, so leitura). Quatro livros, com a impressao.
+def da_porta(ref: dict) -> dict:
+    """A referencia aberta pela porta -> a forma que a CAP-SCI le (quatro livros + carimbo).
 
-    Nao e identidade do estudo: e o outro lado do cruzamento. Se faltar um livro
-    a referencia sai NAO SEI inteira — ligar com meia referencia daria «a ADAMA
-    nao tem» onde a verdade e «nao li».
+    Se a porta nao abriu, a referencia sai NAO SEI inteira — ligar com meia referencia
+    daria «a ADAMA nao tem» onde a verdade e «nao li».
     """
-    livros = ("ACTIVE-INGREDIENTS", "PRODUCT-ACTIVE-INGREDIENTS",
-              "AUTHORIZED-USES", "REGISTRATIONS")
-    try:
-        dados = {n: json.loads((pasta / (n + ".json")).read_text(encoding="utf-8"))["RECORDS"]
-                 for n in livros}
-        impressao = {n: _sha(pasta / (n + ".json")) for n in livros}
-    except (OSError, ValueError, KeyError) as erro:
-        return {"ESTADO": NAO_SEI, "PORQUE": "referencia ilegivel: %r" % erro}
-    return {"ESTADO": "LIDA", "PASTA": str(pasta.relative_to(RAIZ)) if pasta.is_relative_to(RAIZ) else str(pasta),
-            "SHA256": impressao, **dados}
+    if not isinstance(ref, dict) or ref.get("ESTADO") != "LIDA":
+        return {"ESTADO": NAO_SEI, "PORQUE": (ref or {}).get("PORQUE", NAO_SEI),
+                "CARIMBO": PORTA.carimbo(ref)}
+    return {"ESTADO": "LIDA", "PASTA": ref["PASTA"],
+            "SHA256": {n: ref["REGISTRO"]["SHA256"][n] for n in LIVROS_DA_CAP_SCI},
+            "CARIMBO": ref["CARIMBO"],
+            **{n: PORTA.livro(ref, n) for n in LIVROS_DA_CAP_SCI}}
+
+
+def carregar_referencia(pasta: Path | None = None, hoje=None) -> dict:
+    """A referencia ADAMA (ENTRADA B, so leitura), PELA PORTA: quatro livros, a impressao
+    e o carimbo da edicao. Nao e identidade do estudo: e o outro lado do cruzamento."""
+    return da_porta(PORTA.abrir(pasta, hoje))
 
 
 def ligar_ao_produto(e: dict, ref: dict) -> dict:
@@ -671,9 +677,12 @@ def ligar_ao_produto(e: dict, ref: dict) -> dict:
             continue
         completo = (e["LOCAL_DO_ESTUDO"]["ESTADO"] == "PROVADO"
                     and e["PERIODO_DO_ESTUDO"]["ESTADO"] == "PROVADO")
+        a_confirmar = (ref.get("CARIMBO") or {}).get("ESTADO_FRESCOR") == PORTA.AUTORIZACAO_A_CONFIRMAR
         por_mol.append({
             "MOLECULA": m, "MOLECULA_NA_REFERENCIA": mref,
             "ESTADO": "CANDIDATE" if completo else "PARTIAL",
+            # D117: edicao sem checagem ha >= 30 dias -> a autorizacao da bula fica a confirmar
+            "AUTORIZACAO": PORTA.A_CONFIRMAR if a_confirmar else PORTA.AUTORIZADO_NA_BULA_LIDA,
             "FALTA": [k for k in ("LOCAL", "PERIODO")
                       if not e["APLICABILIDADE"]["PROVADO"][k]],
             "PRODUTOS": [{"ADAMA_PRODUCT_ID": p, "NOME_NO_ROTULO": nome,
@@ -717,7 +726,9 @@ def julgar(livro: dict, itens: list, referencia: dict | None = None,
     if sorted(ids) != sorted(refs):
         raise LeiViolada("os itens nao sao os que a corrida %s consumiu"
                          % livro.get("INTELLIGENCE_RUN_ID"))
-    ref = referencia if referencia is not None else carregar_referencia()
+    ref = (referencia if referencia is not None else carregar_referencia())
+    if ref.get("CONTRATO") == PORTA.CONTRATO or ("REGISTRO" in ref and "CATALOGO" in ref):
+        ref = da_porta(ref)
 
     estudos, fora = [], []
     for it in itens:
@@ -742,7 +753,7 @@ def julgar(livro: dict, itens: list, referencia: dict | None = None,
         "INTELLIGENCE_RUN_ID": livro.get("INTELLIGENCE_RUN_ID"),
         "RULESET_DA_CORRIDA": livro.get("RULESET_VERSION"),
         "CODE_VERSION": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16],
-        "REFERENCIA": {k: ref.get(k, NAO_SEI) for k in ("ESTADO", "PASTA", "SHA256", "PORQUE")
+        "REFERENCIA": {k: ref.get(k, NAO_SEI) for k in ("ESTADO", "PASTA", "SHA256", "PORQUE", "CARIMBO")
                        if k in ref},
         "UNIVERSO": {"ITENS": len(itens), "JULGADOS": len(estudos), "FORA": len(fora)},
         "ESTUDOS": estudos,

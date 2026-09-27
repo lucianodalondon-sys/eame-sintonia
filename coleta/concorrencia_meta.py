@@ -4,6 +4,7 @@ A LINHA RECORRENTE DA META — o que o concorrente paga para mostrar na Itália.
 
     python3 coleta/concorrencia_meta.py --run-id=<RUN_ID> [--pais=IT] [--teto=N]
     python3 coleta/concorrencia_meta.py --comparar ANTERIOR.json ATUAL.json
+    python3 coleta/concorrencia_meta.py --adama ENVELOPE.json   # substancia/alvo x referencia ADAMA
 
 AÇÃO (AGENTS.md: quem VAI BUSCAR e GUARDA). A ferramenta é
 `ferramentas/meta_biblioteca.py`; a régua que carimba a página é
@@ -68,6 +69,7 @@ import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import meta_biblioteca as bib  # noqa: E402
 import meta_identidade as ident  # noqa: E402
 import proveniencia as pv  # noqa: E402
+import porta_da_referencia as porta  # noqa: E402 — D116: a referencia ADAMA so pela porta
 from leis import retorno_da_coleta as rc  # noqa: E402
 
 EXECUTOR_ID = 'concorrencia-meta'
@@ -512,8 +514,60 @@ def correr(run_id, *, pais='IT', teto=None, lista=None, estado=ESTADO, ler=None,
     return env, comp, destino
 
 
+# ── 6. o anúncio do concorrente contra a referência ADAMA (PORTA-UNICA-REFERENCIA) ──
+def _formas(nome):
+    return porta.dobrar(nome).replace('_', ' ').lower()
+
+
+def _no_texto(forma, texto):
+    return re.search(r'(?<![a-z0-9])%s(?![a-z0-9])' % re.escape(forma), texto) is not None
+
+
+def adama_no_anuncio(colheita, referencia=None, hoje=None):
+    """Cada cartão colhido -> substância/alvo que o criativo NOMEIA -> há registo ADAMA com o mesmo?
+
+    SÓ a partir da referência, pela porta (a mesma edição das outras capacidades), e SÓ pelo
+    vocabulário dela: substância = nome de `ACTIVE-INGREDIENTS`; alvo = `TARGET_ON_LABEL` das
+    bulas lidas. O concorrente compara-se por SUBSTÂNCIA — o cadastro não dá cultura, e a
+    cultura do anúncio não se afirma. Nome que a referência não escreve não é detetado (NÃO SEI,
+    não «não tem»). Isto LÊ o que já foi colhido: não colhe, não escreve no envelope.
+    """
+    ref = referencia if referencia is not None else porta.abrir(hoje=hoje)
+    if not porta.lida(ref):
+        return {'REFERENCIA_ADAMA': porta.carimbo(ref), 'ESTADO': porta.NAO_SEI, 'ANUNCIOS': []}
+    subs = {_formas(n): n for n in porta.ativos_conhecidos(ref)}
+    alvos = {_formas(n): n for n in porta.alvos_conhecidos(ref)}
+    out = []
+    for u in colheita or []:
+        obs = u.get('OBSERVACAO') or {}
+        texto = _formas(obs.get('CREATIVE_TEXT') or '')
+        achou_s = sorted({n for f, n in subs.items() if len(f) >= 4 and _no_texto(f, texto)})
+        achou_a = sorted({n for f, n in alvos.items() if len(f) >= 4 and _no_texto(f, texto)})
+        linha = {'META_AD_LIBRARY_ID': obs.get('META_AD_LIBRARY_ID'), 'COMPANY': obs.get('COMPANY'),
+                 'SUBSTANCIAS_NO_CRIATIVO': [], 'ALVOS_NO_CRIATIVO': [],
+                 'CULTURA_DO_ANUNCIO': porta.NAO_SEI}
+        for n in achou_s:
+            r = porta.por_substancia(ref, n)
+            r.pop('CARIMBO', None)
+            linha['SUBSTANCIAS_NO_CRIATIVO'].append({'SUBSTANCIA': n, 'ADAMA': r})
+        for n in achou_a:
+            r = porta.por_alvo(ref, n)
+            r.pop('CARIMBO', None)
+            linha['ALVOS_NO_CRIATIVO'].append({'ALVO': n, 'ADAMA': r})
+        if not (achou_s or achou_a):
+            linha['PORQUE'] = ('o criativo nao nomeia substancia nem alvo no vocabulario da referencia: '
+                               'NAO SEI, nunca «a ADAMA nao tem»')
+        out.append(linha)
+    return {'REFERENCIA_ADAMA': porta.carimbo(ref), 'ESTADO': 'LIDA', 'ANUNCIOS': out,
+            'GRAO': 'SUBSTANCIA (e alvo, em qualquer cultura) — a cultura do anuncio NAO SEI'}
+
+
 def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
+    if argv[:1] == ['--adama']:
+        env = _ler(argv[1], {})
+        print(json.dumps(adama_no_anuncio(env.get('COLHEITA', [])), ensure_ascii=False, indent=1))
+        return 0
     if argv[:1] == ['--comparar']:
         print(json.dumps(comparar(_ler(argv[1]), _ler(argv[2])),
                          ensure_ascii=False, indent=1))

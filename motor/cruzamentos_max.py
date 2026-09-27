@@ -42,7 +42,6 @@ produto». Cultura que o leitor de rotulos nao conhece (mirtillo, nocciolo, carc
 """
 from __future__ import annotations
 
-import csv
 import hashlib
 import json
 import os
@@ -60,6 +59,10 @@ import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 from boletim_do_campo import CULTURAS as CULTURAS_BOLETIM     # noqa: E402  (leis/)
 from boletim_do_campo import FORMAS, nome_do_problema         # noqa: E402
 from ponte_intelligence_casco import NAO_SEI, MARCA, ESTADO_TRANSPORTAVEL   # noqa: E402  (pacote/)
+# PORTA-UNICA-REFERENCIA (D116): bulas, registos e pares entram pela porta, na edicao da
+# referencia. Este motor lia IT-ROTULOS-PARES.json e o CSV PROD_FTS_6_20260907 (OUTRA edicao)
+# direto; deixou de ler. O que a edicao nao tem fica LACUNA declarada (ver LACUNAS abaixo).
+import porta_da_referencia as PORTA                           # noqa: E402  (motor/)
 
 # ── O VOCABULARIO DO LEITOR DE ROTULOS — COPIA GUARDADA POR TESTE ────────────
 # O motor NAO importa codigo da coleta (system-map/tests/test_system_map.py:
@@ -167,13 +170,22 @@ ADMIN_ATIVO = ('Autorizzato', 'Ri-registrato', 'Rinnovato')
 
 ROOT = os.path.dirname(HERE)
 R7 = os.path.join(ROOT, "docs", "intelligence", "r7", "ANALISE-R7.json")
-PARES = os.path.join(ROOT, "data", "samples", "IT-ROTULOS", "IT-ROTULOS-PARES.json")
-MANIFESTO = os.path.join(ROOT, "data", "raw", "IT-ROTULOS", "_MANIFESTO.json")
-CADASTRO = os.path.join(ROOT, "data", "collection-store", "italy", "IT-T4-001", "MINSALUTE_FTS6_20260907",
-                        "v1_9cd4d156369f", "PROD_FTS_6_20260907.csv")
-#: a data do cadastro e a do nome do ficheiro oficial (PROD_FTS_6_20260907); o estado so vale nessa data
-CADASTRO_DATA = date(2026, 9, 7)
-CADASTRO_ID = "IT-T4-001:MINSALUTE_FTS6_20260907"
+#: O que a referencia (edicao corrente, pela porta) NAO tem e este motor precisava. Declarado,
+#: nunca contornado: o que dependia disto fica A CONFIRMAR / NAO SEI com o motivo.
+LACUNAS = {
+    "LACUNA-1_PARES_COM_CITACAO": "FECHADA nesta missao: AUTHORIZED-USES ganhou LINK_LEVEL, LINE_QUOTE e "
+                                  "CROPS_QUOTE, e nasceu LABEL-READINGS — no CONSTRUTOR "
+                                  "(fontes/adama_referencia.py), nao aqui.",
+    "LACUNA-2_DATA_DE_REGISTO_E_REVOGA": "ABERTA: a edicao corrente do registo (a de 31/08, via o pacote DEEP) "
+                                         "nao traz data_registrazione nem data_decorrenza_revoca. Sem elas a "
+                                         "validade NA DATA DO BOLETIM nao se prova: o sim fica A CONFIRMAR. "
+                                         "Traze-las e derivar uma edicao nova: missao nuvem-referencia-"
+                                         "manutencao-v1.",
+    "LACUNA-3_MERCADO_CONCORRENTE": "ABERTA: a referencia e da ADAMA; os registos das outras empresas nao "
+                                    "estao nela. COMPETITIVE_SET = NAO SEI ate a referencia os ganhar numa "
+                                    "edicao (mesma missao de manutencao). Ler o CSV direto seria uma segunda "
+                                    "tabela-mestra, de outra edicao — proibido pela D116.",
+}
 SAIDA = os.path.join(ROOT, "docs", "intelligence", "r7", "CRUZAMENTOS-MAX.json")
 SAIDA_ITENS = os.path.join(ROOT, "docs", "intelligence", "r7", "CRUZAMENTOS-MAX-ITENS-DO-POTE.json")
 SCHEMA = "CRUZAMENTOS_MAX/v1"
@@ -307,11 +319,6 @@ def _data(v):
 
 
 # ── insumos ──────────────────────────────────────────────────────────────────
-def ler_cadastro(caminho=CADASTRO) -> list:
-    with open(caminho, encoding="utf-8", errors="replace", newline="") as f:
-        return list(csv.DictReader(f, delimiter=";"))
-
-
 def _sha256(caminho) -> str:
     h = hashlib.sha256()
     with open(caminho, "rb") as f:
@@ -324,11 +331,16 @@ class Referencia:
     """Os rotulos lidos + o cadastro, indexados. Nada aqui vem da rede."""
 
     def __init__(self, pares: dict, cadastro: list, manifesto: dict | None = None,
-                 data_do_cadastro: date = CADASTRO_DATA):
+                 data_do_cadastro: date | None = None, cadastro_id: str = NAO_SEI,
+                 tem_mercado: bool = True, carimbo: dict | None = None):
+        self.cadastro_id = cadastro_id
+        #: o cadastro tem os registos das OUTRAS empresas? (a referencia ADAMA nao tem: LACUNA-3)
+        self.tem_mercado = tem_mercado
+        self.carimbo = carimbo or {"ESTADO": NAO_SEI, "PORQUE": "referencia montada fora da porta (teste)"}
         self.pares = [p for p in pares.get("PARES") or [] if isinstance(p, dict)]
         self.por_produto = {p["PRODUCT"]: p for p in pares.get("POR_PRODUTO") or []}
         self.cobertura = pares.get("COBERTURA", NAO_SEI)
-        self.data_do_cadastro = data_do_cadastro
+        self.data_do_cadastro = data_do_cadastro or date(2026, 9, 7)
         self.cadastro = {r.get("num_registrazione"): r for r in cadastro}
         self.linhas = cadastro
         self.product_id = {}
@@ -342,6 +354,54 @@ class Referencia:
         self.grao_do_reg = {}
         for g in self.grao:
             self.grao_do_reg.setdefault(g["REGISTRATION_ID"], []).append(g)
+
+    @classmethod
+    def da_porta(cls, ref: dict) -> "Referencia":
+        """A referencia aberta pela porta -> os indices deste motor. So a edicao corrente.
+
+        Pares = AUTHORIZED-USES (com a citacao que o construtor passou a guardar); leitura por
+        bula = LABEL-READINGS; «cadastro» = REGISTRATIONS da ADAMA nesta edicao, com as
+        substancias de PRODUCT-ACTIVE-INGREDIENTS. Datas de registo e revoga: NAO SEI (LACUNA-2).
+        """
+        PORTA.exigir(ref)
+        usos = PORTA.livro(ref, "AUTHORIZED-USES")
+        pares = [{"REGISTRATION_ID": u["REGISTRATION_NUMBER"], "PRODUCT": u["OBSERVED_PRODUCT_NAME"],
+                  "PRODUCT_ID": u["ADAMA_PRODUCT_ID"], "USE_ID": u["USE_ID"],
+                  "CULTURA_CANONICA": u["CROP_ON_LABEL"], "ALVO_CANONICO": u["TARGET_ON_LABEL"],
+                  "ALVO_LITERAL": u["TARGET_AS_WRITTEN"], "LIGACAO_NIVEL": u.get("LINK_LEVEL", NAO_SEI),
+                  "CITACAO_DA_LINHA": u.get("LINE_QUOTE", ""), "CITACAO_DAS_CULTURAS": u.get("CROPS_QUOTE", "")}
+                 for u in usos]
+        leituras = PORTA.livro(ref, "LABEL-READINGS")
+        por_produto = [{"REGISTRATION_ID": x["REGISTRATION_NUMBER"], "PRODUCT": x["OBSERVED_PRODUCT_NAME"],
+                        "ESTADO_DA_LEITURA": x["READING_STATE"]} for x in leituras]
+        lidas = sum(1 for x in leituras if x["PAIRS"])
+        subs = {}
+        for rel in PORTA.livro(ref, "PRODUCT-ACTIVE-INGREDIENTS"):
+            subs.setdefault(rel["REGISTRATION_NUMBER"], []).append(rel["ACTIVE_INGREDIENT"])
+        ed = ref["REGISTRO"]
+        cadastro, pid = [], {}
+        for r in PORTA.livro(ref, "REGISTRATIONS"):
+            n = r["REGISTRATION_NUMBER"]
+            cadastro.append({"num_registrazione": n, "denominazione_prodotto": r.get("REGISTERED_NAME"),
+                             "ragione_sociale": r.get("HOLDER"), "stato_amministrativo": r.get("ADMIN_STATUS"),
+                             "data_scadenza_autorizzazione": r.get("EXPIRY_DATE"),
+                             "data_registrazione": None, "data_decorrenza_revoca": None,
+                             "sostanze_attive": "|".join(sorted(subs.get(n, []))),
+                             "importazione_parallela": NAO_SEI, "_EDICAO": ed["EDICAO"]})
+            p = r.get("ADAMA_PRODUCT_ID")
+            pid[n] = p if str(p).startswith("ADAMA-P-") else NAO_SEI
+        self = cls({"PARES": pares, "POR_PRODUTO": por_produto,
+                    "COBERTURA": "%d/%d bulas com par lido (LABEL-READINGS, edicao %s)"
+                                 % (lidas, len(leituras), ed["EDICAO"])},
+                   cadastro, None, date.fromisoformat(ed["DATA_DA_EDICAO"]),
+                   cadastro_id="IT-T4-001:" + ed["EDICAO"], tem_mercado=False, carimbo=PORTA.carimbo(ref))
+        self.product_id = pid
+        return self
+
+    @property
+    def autorizacao_a_confirmar(self) -> bool:
+        """D117: edicao sem checagem ha >= 30 dias -> nenhum sim sai como afirmado."""
+        return self.carimbo.get("ESTADO_FRESCOR") == PORTA.AUTORIZACAO_A_CONFIRMAR
 
     def zona(self, par) -> str:
         """`zona_da_cultura`, calculada uma vez por par."""
@@ -391,7 +451,7 @@ def tabela_de_grao(pares) -> list:
                 out.append({"REGISTRATION_ID": p["REGISTRATION_ID"], "PRODUCT": p.get("PRODUCT"),
                             "GRUPO": grupo, "MEMBROS": membros,
                             "CITACAO": texto[m.start():m.end()][:240],
-                            "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/" + campo})
+                            "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/" + campo})
     return out
 
 
@@ -495,7 +555,8 @@ def tem_substancia(linha, substancia) -> bool:
                                             str(linha.get("sostanze_attive") or "").split("|")}
 
 
-def validade(linha, d: date | None, data_do_cadastro: date = CADASTRO_DATA) -> dict:
+def validade(linha, d: date | None, data_do_cadastro: date = date(2026, 9, 7),
+             cadastro_id: str = NAO_SEI) -> dict:
     """O registo valia na data `d`? SIM / NAO / NAO SEI, com o que o cadastro diz.
 
     O cadastro e UMA fotografia (a sua data); nao traz historico intermedio. «SIM» quer dizer: registado
@@ -510,12 +571,15 @@ def validade(linha, d: date | None, data_do_cadastro: date = CADASTRO_DATA) -> d
             "DATA_REGISTRAZIONE": linha.get("data_registrazione"),
             "DATA_SCADENZA": linha.get("data_scadenza_autorizzazione"),
             "DECORRENZA_REVOCA": linha.get("data_decorrenza_revoca"),
-            "CADASTRO": CADASTRO_ID, "CADASTRO_DATA": data_do_cadastro.isoformat(),
+            "CADASTRO": cadastro_id, "CADASTRO_DATA": data_do_cadastro.isoformat(),
             "ATIVO_NO_CADASTRO": str(estado).startswith(ADMIN_ATIVO)}
     if d is None:
         return dict(base, VALIDO=NAO_SEI, MOTIVO="data de referencia NAO SEI")
     base["DATA_DE_REFERENCIA"] = d.isoformat()
     if reg is None:
+        if linha.get("_EDICAO"):
+            return dict(base, VALIDO=NAO_SEI, MOTIVO="A CONFIRMAR: a edicao %s da referencia nao traz data "
+                                                     "de registo nem de revoga (LACUNA-2)" % linha["_EDICAO"])
         return dict(base, VALIDO=NAO_SEI, MOTIVO="data de registo ausente no cadastro")
     if reg > d:
         return dict(base, VALIDO="NAO", MOTIVO="registado depois da data de referencia")
@@ -693,7 +757,7 @@ def confirmar(r: dict, c: dict, ref: Referencia) -> dict:
         linha = ref.cadastro.get(reg)
         cob = cobertura_da_cultura(cultura, [reg], ref) if (reg and cultura) else {"PROVAS": [], "MOTIVOS": {}}
         textos = [p["_PAR"].get("CITACAO_DA_LINHA") for p in cob["PROVAS"]]
-        val = validade(linha, d, ref.data_do_cadastro)
+        val = validade(linha, d, ref.data_do_cadastro, ref.cadastro_id)
         cheques = {
             "REGISTO_NO_CADASTRO": linha is not None,
             "EMPRESA_ADAMA": bool(linha) and e_adama(linha),
@@ -719,6 +783,9 @@ def confirmar(r: dict, c: dict, ref: Referencia) -> dict:
         })
     confirmados = [p for p in produtos if p["CONFIRMA"]]
     lidos_sem = [p for p in produtos if p["CHEQUES"]["CULTURA_NO_ROTULO"] == "NAO_NA_LEITURA"]
+    a_confirmar = [p for p in produtos if not p["CONFIRMA"] and p["VALIDADE"]["VALIDO"] == NAO_SEI
+                   and p["CHEQUES"]["REGISTO_NO_CADASTRO"] and p["CHEQUES"]["EMPRESA_ADAMA"]
+                   and p["CHEQUES"]["SUBSTANCIA_NA_COMPOSICAO"] and p["CHEQUES"]["CULTURA_NO_ROTULO"] == "SIM"]
     if not cultura:
         estado, motivo = UNRESOLVED, "sem cultura de cabecalho"
     elif not cabecalho:
@@ -727,9 +794,16 @@ def confirmar(r: dict, c: dict, ref: Referencia) -> dict:
     elif d is None:
         estado, motivo = UNRESOLVED, ("data do boletim NAO SEI: a validade do registo NA DATA DO BOLETIM nao "
                                       "se prova (o pedido de data a Coleta ja existe)")
+    elif confirmados and ref.autorizacao_a_confirmar:
+        estado, motivo = YES_A_CONFIRMAR, ("D117: a edicao da referencia nao e conferida ha >= 30 dias — "
+                                           "o sim fica a confirmar (%s)" % ref.carimbo.get("EDICAO_REGISTRO"))
     elif confirmados:
         estado, motivo = CONFIRMED_YES, (f"{len(confirmados)} produto(s) ADAMA com registo valido em "
                                          f"{d.isoformat()}, a substancia na composicao e {cultura} no rotulo lido")
+    elif a_confirmar:
+        estado, motivo = YES_A_CONFIRMAR, (f"{len(a_confirmar)} produto(s) ADAMA passam empresa, substancia e "
+                                           f"{cultura} no rotulo lido, mas a validade na data do boletim nao "
+                                           f"se prova: {a_confirmar[0]['VALIDADE']['MOTIVO']}")
     elif lidos_sem and len(lidos_sem) == len(produtos):
         estado, motivo = NO, f"nenhum rotulo lido destes produtos tem {cultura} (ausencia NA NOSSA LEITURA)"
     else:
@@ -738,6 +812,7 @@ def confirmar(r: dict, c: dict, ref: Referencia) -> dict:
             "DATA_DO_BOLETIM": d.isoformat() if d else NAO_SEI,
             "ESTADO": estado, "MOTIVO": motivo, "PRODUTOS": produtos,
             "PRODUTOS_QUE_CONFIRMAM": [p["PRODUCT"] for p in confirmados],
+            "PRODUTOS_A_CONFIRMAR": [p["PRODUCT"] for p in a_confirmar],
             "REGRA_DE_ENTRADA": "X3h (R7): boletim de uma cultura nomeada no cabecalho — regra ainda sem "
                                 "regressao; o CONFIRMED_YES herda essa condicao",
             "NAO_PROVA": ["uso", "recomendacao de produto ADAMA", "lugar", "momento", "eficacia"]}
@@ -843,7 +918,7 @@ def portfolio_match(par_b: dict, ref: Referencia, adama_regs) -> dict:
         out = []
         for reg, ps in sorted(por.items()):
             linha = ref.cadastro.get(reg)
-            val = validade(linha, ref_data, ref.data_do_cadastro)
+            val = validade(linha, ref_data, ref.data_do_cadastro, ref.cadastro_id)
             out.append({"REGISTRATION_ID": reg, "PRODUCT": ps[0]["PRODUCT"],
                         "PRODUCT_ID": ref.product_id.get(reg, NAO_SEI),
                         "EMPRESA": (linha or {}).get("ragione_sociale", NAO_SEI),
@@ -854,11 +929,14 @@ def portfolio_match(par_b: dict, ref: Referencia, adama_regs) -> dict:
         return out
     fortes_p, fracos_p = produtos(fortes["PROVAS"]), produtos(fracos["PROVAS"])
     validos = [p for p in fortes_p if p["REGISTO_VALIDO"] == "SIM"]
-    if validos:
+    if validos and ref.autorizacao_a_confirmar:
+        estado, motivo = PM_NAO_SEI, "D117: a edicao da referencia nao e conferida ha >= 30 dias — a confirmar"
+    elif validos:
         estado = PM_MATCH
         motivo = f"{len(validos)} produto(s) ADAMA com {k or cultura} x {a} na mesma linha/bloco do rotulo lido e registo valido"
     elif fortes_p:
-        estado, motivo = PM_NAO_SEI, "ha par no rotulo, mas o registo nao se prova valido na data"
+        estado, motivo = PM_NAO_SEI, ("A CONFIRMAR: ha par no rotulo, mas o registo nao se prova valido na "
+                                      "data — " + fortes_p[0]["VALIDADE"]["MOTIVO"])
     elif fracos_p:
         estado, motivo = PM_ESPECTRO, ("so ha DECLARACAO_DE_PRODUTO (cultura e alvo em listas separadas do "
                                        "rotulo): espectro de produto nao e espectro na cultura")
@@ -873,6 +951,11 @@ def portfolio_match(par_b: dict, ref: Referencia, adama_regs) -> dict:
 def competitive_set(substancias, d: date, ref: Referencia) -> dict:
     """Produtos de OUTRAS empresas no cadastro, com a substancia, validos na data `d`. So contagem e nomes."""
     subs = sorted({chave_substancia(s) for s in substancias if s})
+    if not ref.tem_mercado:
+        return {"SUBSTANCIAS": subs, "DATA_DE_REFERENCIA": d.isoformat() if d else NAO_SEI,
+                "ESTADO": NAO_SEI, "LACUNA": LACUNAS["LACUNA-3_MERCADO_CONCORRENTE"],
+                "GRAO": "SUBSTANCIA", "CULTURA_X_ALVO_DO_CONCORRENTE": NAO_SEI,
+                "CONTAGEM": NAO_SEI, "CONTAGEM_ESTRITA": NAO_SEI, "EMPRESAS": [], "PRODUTOS": []}
     por = {}
     for linha in ref.linhas:
         if e_adama(linha):
@@ -880,7 +963,7 @@ def competitive_set(substancias, d: date, ref: Referencia) -> dict:
         comuns = [s for s in subs if tem_substancia(linha, s)]
         if not comuns:
             continue
-        val = validade(linha, d, ref.data_do_cadastro)
+        val = validade(linha, d, ref.data_do_cadastro, ref.cadastro_id)
         if val["VALIDO"] != "SIM":
             continue
         por[linha["num_registrazione"]] = {
@@ -888,10 +971,10 @@ def competitive_set(substancias, d: date, ref: Referencia) -> dict:
             "EMPRESA": linha.get("ragione_sociale"), "STATO": linha.get("stato_amministrativo"),
             "SOSTANZE_ATTIVE": linha.get("sostanze_attive"), "SUBSTANCIA_EM_COMUM": comuns,
             "IMPORTAZIONE_PARALLELA": linha.get("importazione_parallela"),
-            "T4_REGISTRATION_EVIDENCE_ID": f"{CADASTRO_ID}:{linha['num_registrazione']}",
+            "T4_REGISTRATION_EVIDENCE_ID": f"{ref.cadastro_id}:{linha['num_registrazione']}",
             "ESTRITO": "AUTORIZZATO" in str(linha.get("stato_amministrativo") or "").upper()}
     produtos = sorted(por.values(), key=lambda x: (x["EMPRESA"] or "", x["PRODOTTO"] or ""))
-    return {"SUBSTANCIAS": subs, "DATA_DE_REFERENCIA": d.isoformat(),
+    return {"SUBSTANCIAS": subs, "DATA_DE_REFERENCIA": d.isoformat(), "ESTADO": "MEDIDO",
             "GRAO": "SUBSTANCIA (o cadastro FTS6 nao tem cultura nem alvo; rotulos de concorrentes nao lidos)",
             "CULTURA_X_ALVO_DO_CONCORRENTE": NAO_SEI,
             "CONTAGEM": len(produtos), "CONTAGEM_ESTRITA": sum(1 for p in produtos if p["ESTRITO"]),
@@ -922,7 +1005,7 @@ def analisar(analise: dict, ref: Referencia, livro=None) -> dict:
         d = _data(pm["PAR_DO_BOLETIM"].get("PUBLISHED_AT")) or ref.data_do_cadastro
         pm["COMPETITIVE_SET"] = competitive_set(subs, d, ref) if subs else None
     for r in refeitos:
-        if r["FINAL"] == CONFIRMED_YES:
+        if r["FINAL"] == CONFIRMED_YES or (r["FINAL"] == YES_A_CONFIRMAR and r.get("CONFIRMACAO")):
             d = _data(r["CONFIRMACAO"]["DATA_DO_BOLETIM"])
             r["COMPETITIVE_SET"] = competitive_set([r["SUBSTANCIA"]], d, ref)
     return {"REFEITOS": refeitos, "PORTFOLIO": pms, "CONTAGENS": contar(refeitos, pms)}
@@ -943,8 +1026,10 @@ def contar(refeitos, pms) -> dict:
         "NOT_POSSIBLE": mudancas(NOT_POSSIBLE),
         "PORTFOLIO_PARES": len(pms),
         "PORTFOLIO_POR_ESTADO": dict(Counter(p["ESTADO"] for p in pms)),
-        "COMPETITIVE_SETS": sum(1 for p in pms if p.get("COMPETITIVE_SET"))
-        + sum(1 for r in refeitos if r.get("COMPETITIVE_SET")),
+        "COMPETITIVE_SETS": sum(1 for p in pms if (p.get("COMPETITIVE_SET") or {}).get("ESTADO") == "MEDIDO")
+        + sum(1 for r in refeitos if (r.get("COMPETITIVE_SET") or {}).get("ESTADO") == "MEDIDO"),
+        "COMPETITIVE_SETS_NAO_SEI_LACUNA_3": sum(1 for p in pms if (p.get("COMPETITIVE_SET") or {}).get("ESTADO") == NAO_SEI)
+        + sum(1 for r in refeitos if (r.get("COMPETITIVE_SET") or {}).get("ESTADO") == NAO_SEI),
     }
 
 
@@ -986,7 +1071,7 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
                     "ESTADO": ESTADO_TRANSPORTAVEL,
                     "CHAVES": dict(base_chaves, PRODUCT_ID=p["PRODUCT_ID"],
                                    CROP_ID=canon_cultura(conf["CULTURA"]) or NAO_SEI,
-                                   REGISTRATION_VERSION=f"{CADASTRO_ID}:{p['REGISTRATION_ID']}",
+                                   REGISTRATION_VERSION=f"{ref.cadastro_id}:{p['REGISTRATION_ID']}",
                                    PRODUCT=p["PRODUCT"], VALIDO_EM=conf["DATA_DO_BOLETIM"]),
                     "PROVA": [_prova(r)],
                     "PORQUE": f"{r['FINAL']}: {conf['MOTIVO']}. Rotulo: "
@@ -1004,7 +1089,7 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
                 "CONTRADIZ": NAO_SEI})
         cs = r.get("COMPETITIVE_SET")
         if cs:
-            competitors += _objetos_cs(cs, r, canon_cultura(conf.get("CULTURA")) or NAO_SEI)
+            competitors += _objetos_cs(cs, r, canon_cultura(conf.get("CULTURA")) or NAO_SEI, ref)
     for pm in res["PORTFOLIO"]:
         pb = pm["PAR_DO_BOLETIM"]
         prova = [_prova(dict(pb, RAW_OBSERVATION_ID=_raw(res, pb)))]
@@ -1016,7 +1101,7 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
                 "CHAVES": {"PRODUCT_ID": p["PRODUCT_ID"] if p else NAO_SEI, "CROP_ID": pm["CROP_ID"],
                            "TARGET_ID": pm["TARGET_ID"],
                            "ACTIVE_INGREDIENT_ID": p["SOSTANZE_ATTIVE"] if p else NAO_SEI,
-                           "REGISTRATION_VERSION": f"{CADASTRO_ID}:{p['REGISTRATION_ID']}" if p else NAO_SEI,
+                           "REGISTRATION_VERSION": f"{ref.cadastro_id}:{p['REGISTRATION_ID']}" if p else NAO_SEI,
                            "CROSSING_STATE": pm["ESTADO"], "CRUZAMENTO": "PORTFOLIO_MATCH",
                            "PRODUCT": p["PRODUCT"] if p else NAO_SEI,
                            "PAR_DO_BOLETIM": f"{pb['CULTURA']} x {pb['PRAGA']}"},
@@ -1026,7 +1111,7 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
         if pm.get("COMPETITIVE_SET"):
             competitors += _objetos_cs(pm["COMPETITIVE_SET"], dict(pb, OBJETO_ID=pb["SALA_CHAVE"],
                                                                     RAW_OBSERVATION_ID=_raw(res, pb)),
-                                       pm["CROP_ID"])
+                                       pm["CROP_ID"], ref)
     return {"portfolio": portfolio, "competitors": competitors}
 
 
@@ -1035,13 +1120,13 @@ def _raw(res, pb):
     return pb.get("RAW_OBSERVATION_ID", NAO_SEI)
 
 
-def _objetos_cs(cs, origem, crop_cs):
+def _objetos_cs(cs, origem, crop_cs, ref):
     out = []
     for p in cs["PRODUTOS"]:
         out.append({
             "OBJETO_ID": _oid("CS", origem.get("OBJETO_ID") or origem.get("SALA_CHAVE"), p["NUM_REGISTRAZIONE"]),
             "ESPECIE": "CROSSING", "ESTADO": ESTADO_TRANSPORTAVEL,
-            "CHAVES": {"COMPANY_ID": p["EMPRESA"], "PRODUCT_ID": f"{CADASTRO_ID}:{p['NUM_REGISTRAZIONE']}",
+            "CHAVES": {"COMPANY_ID": p["EMPRESA"], "PRODUCT_ID": f"{ref.cadastro_id}:{p['NUM_REGISTRAZIONE']}",
                        "CROP_ID": NAO_SEI, "FACT_LOCATION": "ITALIA (registo nacional do Ministero)",
                        "FACT_TIME": cs["DATA_DE_REFERENCIA"],
                        "T4_REGISTRATION_EVIDENCE_ID": p["T4_REGISTRATION_EVIDENCE_ID"],
@@ -1065,18 +1150,21 @@ def _head() -> str:
         return NAO_SEI
 
 
-def correr(livro=None, caminhos=None) -> dict:
-    cam = dict(R7=R7, PARES=PARES, MANIFESTO=MANIFESTO, CADASTRO=CADASTRO, **(caminhos or {}))
+def correr(livro=None, caminhos=None, hoje: date | None = None, referencia: dict | None = None) -> dict:
+    """A analise inteira. A referencia vem da PORTA (uma edicao); `hoje` decide o frescor (D117)."""
+    cam = dict(R7=R7, **(caminhos or {}))
     analise = json.load(open(cam["R7"], encoding="utf-8"))
-    ref = Referencia(json.load(open(cam["PARES"], encoding="utf-8")), ler_cadastro(cam["CADASTRO"]),
-                     json.load(open(cam["MANIFESTO"], encoding="utf-8")))
+    ref = Referencia.da_porta(referencia if referencia is not None else PORTA.abrir(hoje=hoje))
     res = analisar(analise, ref, livro)
     itens = itens_do_pote(res, ref)
+    carimbo = dict(ref.carimbo)
     return {
         "SCHEMA": SCHEMA, "MARCA": MARCA, "NAO_PARA_CLIENTE": True,
         "CORRIDA_DE_ORIGEM": analise.get("INTELLIGENCE_RUN_ID", NAO_SEI),
         "LIDO_SOBRE_A_ARVORE": _head(),
         "INSUMOS": {k: {"CAMINHO": os.path.relpath(v, ROOT), "SHA256": _sha256(v)} for k, v in cam.items()},
+        "REFERENCIA_ADAMA": carimbo,
+        "LACUNAS_DA_REFERENCIA": LACUNAS,
         "LIVRO_DAS_SECOES": "ENTREGUE PELO COORDENADOR" if livro else "NAO (so os pares que o repo guarda)",
         "COBERTURA_DOS_ROTULOS": ref.cobertura,
         "TABELA_DE_GRAO": ref.grao,
@@ -1094,7 +1182,7 @@ def main(argv=None) -> int:
     livro = None
     if argv and argv[0] in ("-h", "--help"):
         print(__doc__.strip().split("\n\n")[0])
-        print("\n  uso: python3 motor/cruzamentos_max.py [--livro LIVRO-COM-SECOES.json] [--saida X.json]")
+        print("\n  uso: python3 motor/cruzamentos_max.py [--hoje AAAA-MM-DD] [--livro LIVRO-COM-SECOES.json] [--saida X.json]")
         return 0
     saida, saida_itens = SAIDA, SAIDA_ITENS
     if "--livro" in argv:
@@ -1103,7 +1191,8 @@ def main(argv=None) -> int:
     if "--saida" in argv:
         saida = argv[argv.index("--saida") + 1]
         saida_itens = os.path.splitext(saida)[0] + "-ITENS-DO-POTE.json"
-    out = correr(livro)
+    hoje = date.fromisoformat(argv[argv.index("--hoje") + 1]) if "--hoje" in argv else None
+    out = correr(livro, hoje=hoje)
     itens = out.pop("_ITENS")
     with open(saida, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)

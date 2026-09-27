@@ -26,8 +26,11 @@ POTE = "pacote/pote_cruzamentos_max.py"
 COPIAR = ("tests/test_cruzamentos_max.py",
           "docs/intelligence/r7/ANALISE-R7.json", "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
           "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
-          "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json", "data/raw/IT-ROTULOS/_MANIFESTO.json",
-          "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv")
+          # PORTA-UNICA-REFERENCIA: o motor le a referencia pela porta, e nao os pares nem o CSV.
+          *("referencia/adama/%s.json" % n for n in (
+              "SNAPSHOTS", "REGISTRATIONS", "AUTHORIZED-USES", "LABEL-READINGS",
+              "PRODUCT-ACTIVE-INGREDIENTS", "ACTIVE-INGREDIENTS", "DOSES", "LABEL-DOCUMENTS",
+              "CATALOG-SNAPSHOTS", "PRODUCT-MASTER", "PORTFOLIO", "PORTFOLIO-OBSERVATIONS")))
 
 M = [
     # ── o grao ──────────────────────────────────────────────────────────────

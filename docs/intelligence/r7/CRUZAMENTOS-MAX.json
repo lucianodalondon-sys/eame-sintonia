@@ -3,27 +3,49 @@
  "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
  "NAO_PARA_CLIENTE": true,
  "CORRIDA_DE_ORIGEM": "IR-e09acab6365032523d6e",
- "LIDO_SOBRE_A_ARVORE": "bfe613fce3634ad94e9d4f721b082b1e3814707e",
+ "LIDO_SOBRE_A_ARVORE": "dbe0cd3e2f2ba5654e0c42c4eb0ed774e2a840c9",
  "INSUMOS": {
   "R7": {
    "CAMINHO": "docs/intelligence/r7/ANALISE-R7.json",
    "SHA256": "2ecdabd4249b6aeb703f4a1ac6d0edd60ece36869bcfbf2c758d720a480c3ef0"
-  },
-  "PARES": {
-   "CAMINHO": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
-   "SHA256": "3649ed51f8e46b5fbd96da28568a65312cd53500d8df70a76f0a17f905a45ca0"
-  },
-  "MANIFESTO": {
-   "CAMINHO": "data/raw/IT-ROTULOS/_MANIFESTO.json",
-   "SHA256": "c71063d1972a3844d3cbeb9e3b29a91ae682aab93b172c6d10cec968ce0d9c58"
-  },
-  "CADASTRO": {
-   "CAMINHO": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
-   "SHA256": "9cd4d156369facf186b40727d96ef5253b3aef93e9e08deae8ac8082c1de5a48"
   }
  },
+ "REFERENCIA_ADAMA": {
+  "PORTA": "motor/porta_da_referencia.py",
+  "ESTADO": "LIDA",
+  "HOJE": "2026-09-27",
+  "HOJE_VEIO_DE": "DECLARADO",
+  "EDICAO_REGISTRO": "PROD_FTS_6_20260831",
+  "DATA_DA_EDICAO_REGISTRO": "2026-08-31",
+  "ULTIMA_CHECAGEM_OK": "2026-09-07",
+  "DIAS_SEM_CHECAGEM": 20,
+  "ESTADO_FRESCOR": "PODE_ESTAR_DESATUALIZADO",
+  "EDICAO_CATALOGO": "CAT_ADAMA_IT_20260915",
+  "DATA_DA_EDICAO_CATALOGO": "2026-09-15",
+  "ESTADO_FRESCOR_CATALOGO": "FRESCA",
+  "IMPRESSAO_DOS_LIVROS": "e244d38edd6f87afcaf0da3db7aeb2e79818f783802f0f97b2fd9b105f648749",
+  "SHA256": {
+   "SNAPSHOTS": "f61a76215f36d8080b825b2196a40f5dbed24bcad86e94964714a69364ea25e7",
+   "REGISTRATIONS": "5aa72cfef7c6fa00a9fa76d80829777abe66ce1d7057c9d12ae0e7d625c41d2f",
+   "AUTHORIZED-USES": "8c86a91502e4b34a84bda72985fc1d0d7a0ab022cd07270079ec11764642edd6",
+   "LABEL-READINGS": "3229c76df8b2e8fbd323b5ed528c4d81893485d742cb84b33a88581f4c987b37",
+   "PRODUCT-ACTIVE-INGREDIENTS": "f5ff2faf5d83e78e6d3b20093f77458e79524be4167763a21b6823b550311d3f",
+   "ACTIVE-INGREDIENTS": "5c9d25359093ed1d6b5da78b41df1618248a060b43f7c6a33beb0c5d5382586d",
+   "DOSES": "2d29f3f85c09c1d0e91ed3e111de7ffc702df0dc30a9cfd2c96d3ac9e7ea2990",
+   "LABEL-DOCUMENTS": "6090d6248a5f73bc85287fdd3dc0d24dce497d3accaac0be8df3c861cb54e70d",
+   "CATALOG-SNAPSHOTS": "6bf1b24bc80d715f2c73b7628ca3457e1bbf9636b3b779d115ef368fbe48c0d3",
+   "PRODUCT-MASTER": "2635922c1149e65429119c5c863f063ed589fa5cfcc5b71b313dccfd2d3abe59",
+   "PORTFOLIO": "3b622ead6a999d3fe07a1f42f3c76554b343b3d1ce5c2cc1d01b8e425c7de82b",
+   "PORTFOLIO-OBSERVATIONS": "df8ad354af946dc5f8ebf298cd008ae2edb857976aba6f8b7712e29526f9adc0"
+  }
+ },
+ "LACUNAS_DA_REFERENCIA": {
+  "LACUNA-1_PARES_COM_CITACAO": "FECHADA nesta missao: AUTHORIZED-USES ganhou LINK_LEVEL, LINE_QUOTE e CROPS_QUOTE, e nasceu LABEL-READINGS — no CONSTRUTOR (fontes/adama_referencia.py), nao aqui.",
+  "LACUNA-2_DATA_DE_REGISTO_E_REVOGA": "ABERTA: a edicao corrente do registo (a de 31/08, via o pacote DEEP) nao traz data_registrazione nem data_decorrenza_revoca. Sem elas a validade NA DATA DO BOLETIM nao se prova: o sim fica A CONFIRMAR. Traze-las e derivar uma edicao nova: missao nuvem-referencia-manutencao-v1.",
+  "LACUNA-3_MERCADO_CONCORRENTE": "ABERTA: a referencia e da ADAMA; os registos das outras empresas nao estao nela. COMPETITIVE_SET = NAO SEI ate a referencia os ganhar numa edicao (mesma missao de manutencao). Ler o CSV direto seria uma segunda tabela-mestra, de outra edicao — proibido pela D116."
+ },
  "LIVRO_DAS_SECOES": "NAO (so os pares que o repo guarda)",
- "COBERTURA_DOS_ROTULOS": "102/163 (62.6%)",
+ "COBERTURA_DOS_ROTULOS": "102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)",
  "TABELA_DE_GRAO": [
   {
    "REGISTRATION_ID": "007555",
@@ -35,7 +57,7 @@
     "melocotogno"
    ],
    "CITACAO": "Pomacee (melo, pero, melo cotogno e nespolo)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "007555",
@@ -47,7 +69,7 @@
     "cavolettodibruxelles"
    ],
    "CITACAO": "Cavoli (cavolfiore, cavolo cappuccio, cavoletto di Bruxelles)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "007555",
@@ -61,7 +83,7 @@
     "triticale"
    ],
    "CITACAO": "Cereali (orzo, avena, frumento, segale, triticale)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "007864",
@@ -73,7 +95,7 @@
     "melocotogno"
    ],
    "CITACAO": "Pomacee (melo, pero, melo cotogno e nespolo)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "007864",
@@ -85,7 +107,7 @@
     "cavolettodibruxelles"
    ],
    "CITACAO": "Cavoli (cavolfiore, cavolo cappuccio, cavoletto di Bruxelles)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "007864",
@@ -99,7 +121,7 @@
     "triticale"
    ],
    "CITACAO": "Cereali (orzo, avena, frumento, segale, triticale)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "008259",
@@ -109,7 +131,7 @@
     "lampone"
    ],
    "CITACAO": "Fruttiferi minori (ribes nero, uva spina, lampone)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "009800",
@@ -121,7 +143,7 @@
     "melocotogno"
    ],
    "CITACAO": "Pomacee (melo, pero, melo cotogno e nespolo)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "009800",
@@ -133,7 +155,7 @@
     "cavolettodibruxelles"
    ],
    "CITACAO": "Cavoli (cavolfiore, cavolo cappuccio, cavoletto di Bruxelles)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "009800",
@@ -147,7 +169,7 @@
     "triticale"
    ],
    "CITACAO": "Cereali (orzo, avena, frumento, segale, triticale)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "012023",
@@ -159,7 +181,7 @@
     "melocotogno"
    ],
    "CITACAO": "Pomacee (melo, pero, melo cotogno e nespolo)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "012023",
@@ -171,7 +193,7 @@
     "cavolettodibruxelles"
    ],
    "CITACAO": "Cavoli (cavolfiore, cavolo cappuccio, cavoletto di Bruxelles)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "012023",
@@ -185,7 +207,7 @@
     "triticale"
    ],
    "CITACAO": "Cereali (orzo, avena, frumento, segale, triticale)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "012573",
@@ -196,7 +218,7 @@
     "pero"
    ],
    "CITACAO": "POMACEE (Melo, Pero e Cotogno)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "012573",
@@ -210,7 +232,7 @@
     "nettarina"
    ],
    "CITACAO": "DRUPACEE (a lbicocco, pesco, ciliegio, sus ino, nettar ina)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "013560",
@@ -220,7 +242,7 @@
     "lampone"
    ],
    "CITACAO": "Fruttiferi minori (ribes nero, uva spina, lampone)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "013590",
@@ -230,7 +252,7 @@
     "lampone"
    ],
    "CITACAO": "Fruttiferi minori (ribes nero, uva spina, lampone)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "014190",
@@ -242,7 +264,7 @@
     "melocotogno"
    ],
    "CITACAO": "Pomacee (melo, pero, melo cotogno e nespolo)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "014190",
@@ -254,7 +276,7 @@
     "cavolettodibruxelles"
    ],
    "CITACAO": "Cavoli (cavolfiore, cavolo cappuccio, cavoletto di Bruxelles)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "014190",
@@ -268,7 +290,7 @@
     "triticale"
    ],
    "CITACAO": "Cereali (orzo, avena, frumento, segale, triticale)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "014210",
@@ -280,7 +302,7 @@
     "melocotogno"
    ],
    "CITACAO": "Pomacee (melo, pero, melo cotogno e nespolo)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "014210",
@@ -292,7 +314,7 @@
     "cavolettodibruxelles"
    ],
    "CITACAO": "Cavoli (cavolfiore, cavolo cappuccio, cavoletto di Bruxelles)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "014210",
@@ -306,7 +328,7 @@
     "triticale"
    ],
    "CITACAO": "Cereali (orzo, avena, frumento, segale, triticale)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "015275",
@@ -316,7 +338,7 @@
     "lampone"
    ],
    "CITACAO": "Fruttiferi minori (ribes nero, uva spina, lampone)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "016312",
@@ -328,7 +350,7 @@
     "noce"
    ],
    "CITACAO": "Fruttiferi a guscio (nocciolo, mandorlo, noce)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "017687",
@@ -338,7 +360,7 @@
     "lampone"
    ],
    "CITACAO": "Fruttiferi minori (ribes nero, uva spina, lampone)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "017968",
@@ -350,7 +372,7 @@
     "melocotogno"
    ],
    "CITACAO": "Pomacee (melo, pero, melo cotogno e nespolo)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   },
   {
    "REGISTRATION_ID": "017968",
@@ -361,7 +383,7 @@
     "frumento"
    ],
    "CITACAO": "Cereali (orzo, frumento)",
-   "FONTE": "rotulo autorizado (PDF do Ministero), IT-ROTULOS-PARES.json/CITACAO_DA_LINHA"
+   "FONTE": "rotulo autorizado (PDF do Ministero), AUTHORIZED-USES pela porta/CITACAO_DA_LINHA"
   }
  ],
  "GRUPOS_DO_LEITOR": [
@@ -391,7 +413,7 @@
    "PARTIAL_GRAO_INCOMPATIVEL": 48,
    "POSSIBLE_ANSWER_NO": 7,
    "UNRESOLVED": 24,
-   "CONFIRMED_YES": 3,
+   "POSSIBLE_ANSWER_YES_A_CONFIRMAR": 3,
    "NOT_POSSIBLE": 4
   },
   "OS_48_PARTIAL": {
@@ -405,7 +427,7 @@
   "OS_5_YES_A_CONFIRMAR": {
    "TOTAL": 5,
    "DEPOIS": {
-    "CONFIRMED_YES": 3,
+    "POSSIBLE_ANSWER_YES_A_CONFIRMAR": 3,
     "UNRESOLVED": 2
    },
    "GANHARAM_CULTURA_PELO_GRAO": 0,
@@ -433,7 +455,8 @@
    "SEM_PAR_LIDO": 13,
    "NAO_SEI": 1
   },
-  "COMPETITIVE_SETS": 3
+  "COMPETITIVE_SETS": 0,
+  "COMPETITIVE_SETS_NAO_SEI_LACUNA_3": 3
  },
  "REFEITOS": [
   {
@@ -5952,13 +5975,13 @@
     "CULTURA": "vite",
     "CABECALHO_NO_TROCO_GUARDADO": true,
     "DATA_DO_BOLETIM": "2026-06-30",
-    "ESTADO": "CONFIRMED_YES",
-    "MOTIVO": "2 produto(s) ADAMA com registo valido em 2026-06-30, a substancia na composicao e vite no rotulo lido",
+    "ESTADO": "POSSIBLE_ANSWER_YES_A_CONFIRMAR",
+    "MOTIVO": "2 produto(s) ADAMA passam empresa, substancia e vite no rotulo lido, mas a validade na data do boletim nao se prova: A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)",
     "PRODUTOS": [
      {
       "PRODUCT": "BLAISE ULTRA",
       "REGISTRATION_ID": "017358",
-      "PRODUCT_ID": "IT-PRD-112",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "AZOXYSTROBIN|TEBUCONAZOLE",
       "LEITURA_DO_ROTULO": "LIDO",
@@ -5966,24 +5989,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO_NA_LEITURA"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "017358",
        "STATO_NO_CADASTRO": "Autorizzato",
-       "DATA_REGISTRAZIONE": "19/02/2019",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "15/08/2026",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-06-30",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": [
-        "validade ja terminada na data do cadastro, com estado ativo: o cadastro nao diz porque"
-       ]
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -5995,7 +6015,7 @@
      {
       "PRODUCT": "CUSTODIA ULTRA",
       "REGISTRATION_ID": "015232",
-      "PRODUCT_ID": "IT-PRD-071",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "AZOXYSTROBIN|TEBUCONAZOLE",
       "LEITURA_DO_ROTULO": "LIDO",
@@ -6003,24 +6023,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "015232",
        "STATO_NO_CADASTRO": "Autorizzato",
-       "DATA_REGISTRAZIONE": "22/02/2013",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "15/08/2026",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-06-30",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": [
-        "validade ja terminada na data do cadastro, com estado ativo: o cadastro nao diz porque"
-       ]
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -6055,12 +6072,12 @@
       "DOSE_E_VOLUME_LITERAIS": "NAO SEI",
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      },
      {
       "PRODUCT": "KOJAMI",
       "REGISTRATION_ID": "019095",
-      "PRODUCT_ID": "IT-PRD-163",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "AZOXYSTROBIN|PROTHIOCONAZOLE",
       "LEITURA_DO_ROTULO": "LIDO",
@@ -6068,22 +6085,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO_NA_LEITURA"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "019095",
        "STATO_NO_CADASTRO": "Autorizzato Art. 10 D.P.R. 290/2001",
-       "DATA_REGISTRAZIONE": "29/09/2025",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/05/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-06-30",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -6095,7 +6111,7 @@
      {
       "PRODUCT": "MAXENTIS",
       "REGISTRATION_ID": "018067",
-      "PRODUCT_ID": "IT-PRD-142",
+      "PRODUCT_ID": "ADAMA-P-0043",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "AZOXYSTROBIN|PROTHIOCONAZOLE",
       "LEITURA_DO_ROTULO": "LIDO",
@@ -6103,22 +6119,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO_NA_LEITURA"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "018067",
        "STATO_NO_CADASTRO": "Autorizzato con procedura zonale",
-       "DATA_REGISTRAZIONE": "14/06/2024",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/05/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-06-30",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -6130,7 +6145,7 @@
      {
       "PRODUCT": "MIRADOR TURBO",
       "REGISTRATION_ID": "017824",
-      "PRODUCT_ID": "IT-PRD-132",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "AZOXYSTROBIN|TEBUCONAZOLE",
       "LEITURA_DO_ROTULO": "LIDO",
@@ -6138,22 +6153,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "017824",
        "STATO_NO_CADASTRO": "Autorizzato",
-       "DATA_REGISTRAZIONE": "01/04/2021",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/05/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-06-30",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -6188,10 +6202,11 @@
       "DOSE_E_VOLUME_LITERAIS": "NAO SEI",
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      }
     ],
-    "PRODUTOS_QUE_CONFIRMAM": [
+    "PRODUTOS_QUE_CONFIRMAM": [],
+    "PRODUTOS_A_CONFIRMAR": [
      "CUSTODIA ULTRA",
      "MIRADOR TURBO"
     ],
@@ -6204,888 +6219,20 @@
      "eficacia"
     ]
    },
-   "FINAL": "CONFIRMED_YES",
+   "FINAL": "POSSIBLE_ANSWER_YES_A_CONFIRMAR",
    "COMPETITIVE_SET": {
     "SUBSTANCIAS": [
      "AZOXYSTROBIN"
     ],
     "DATA_DE_REFERENCIA": "2026-06-30",
-    "GRAO": "SUBSTANCIA (o cadastro FTS6 nao tem cultura nem alvo; rotulos de concorrentes nao lidos)",
+    "ESTADO": "NAO SEI",
+    "LACUNA": "ABERTA: a referencia e da ADAMA; os registos das outras empresas nao estao nela. COMPETITIVE_SET = NAO SEI ate a referencia os ganhar numa edicao (mesma missao de manutencao). Ler o CSV direto seria uma segunda tabela-mestra, de outra edicao — proibido pela D116.",
+    "GRAO": "SUBSTANCIA",
     "CULTURA_X_ALVO_DO_CONCORRENTE": "NAO SEI",
-    "CONTAGEM": 65,
-    "CONTAGEM_ESTRITA": 56,
-    "CRITERIO": "estado ativo (Autorizzato*/Ri-registrato/Rinnovato, fontes/adama_it_intelligence.py) e valido na data; ESTRITA = so «Autorizzato*» (provas/chain.py: Ri-registrato e ambiguo)",
-    "EMPRESAS": [
-     "AAKO B.V.",
-     "ALBAUGH TKI D.O.O",
-     "ARYSTA LIFESCIENCE BENELUX SPRL",
-     "ASCENZA AGRO S.A.",
-     "ASCENZA ITALIA S.R.L.",
-     "CAC CHEMICAL GMBH",
-     "CLAYTON PLANT PROTECTION LTD",
-     "FINCHIMICA S.P.A.",
-     "FMC AGRO ITALIA S.R.L.",
-     "GALENIKA-FITOFARMACIJA D.O.O.",
-     "ITACA S.R.L.",
-     "LAINCO S.A.",
-     "LIFE SCIENTIFIC LTD",
-     "NUFARM ITALIA S.R.L.",
-     "ONE AGRICULTURE AG",
-     "RAINBOW AGROSCIENCES EUROPE S.A.U.",
-     "SHANDONG WEIFANG RAINBOW CHEMICAL CO. LTD",
-     "SHARDA CROPCHEM ESPANA S.L.",
-     "SINON EU GMBH",
-     "SYNGENTA CROP PROTECTION AG",
-     "SYNGENTA ITALIA S.P.A.",
-     "UPL HOLDINGS COÃPERATIEF U.A."
-    ],
-    "PRODUTOS": [
-     {
-      "NUM_REGISTRAZIONE": "016398",
-      "PRODOTTO": "ZEBRA 320 SC",
-      "EMPRESA": "AAKO B.V.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN|TEBUCONAZOLE",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016398",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017293",
-      "PRODOTTO": "DIAGONAL",
-      "EMPRESA": "ALBAUGH TKI D.O.O",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017293",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "015876",
-      "PRODOTTO": "LEGADO",
-      "EMPRESA": "ALBAUGH TKI D.O.O",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015876",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017149",
-      "PRODOTTO": "AZ 250 SC",
-      "EMPRESA": "ARYSTA LIFESCIENCE BENELUX SPRL",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017149",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017020",
-      "PRODOTTO": "NORIOS",
-      "EMPRESA": "ARYSTA LIFESCIENCE BENELUX SPRL",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017020",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016314",
-      "PRODOTTO": "ZOXIS 250 SC",
-      "EMPRESA": "ARYSTA LIFESCIENCE BENELUX SPRL",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016314",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "015888",
-      "PRODOTTO": "AZOX 25 SC",
-      "EMPRESA": "ASCENZA AGRO S.A.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015888",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "015887",
-      "PRODOTTO": "STORIK 25 SC",
-      "EMPRESA": "ASCENZA AGRO S.A.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015887",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016871",
-      "PRODOTTO": "BRANCO",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "FOLPET|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016871",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "019194",
-      "PRODOTTO": "AMISTAR ERA 240 EC",
-      "EMPRESA": "CAC CHEMICAL GMBH",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN|PROTHIOCONAZOLE",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:019194",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018135",
-      "PRODOTTO": "PATRAS",
-      "EMPRESA": "CAC CHEMICAL GMBH",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN|TEBUCONAZOLE",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018135",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "019093",
-      "PRODOTTO": "PROMINO XTRA",
-      "EMPRESA": "CAC CHEMICAL GMBH",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN|PROTHIOCONAZOLE",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:019093",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018878",
-      "PRODOTTO": "CLAYTON AUGUSTA",
-      "EMPRESA": "CLAYTON PLANT PROTECTION LTD",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018878",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018483",
-      "PRODOTTO": "AZOFIN",
-      "EMPRESA": "FINCHIMICA S.P.A.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018483",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "015856",
-      "PRODOTTO": "AZAKA",
-      "EMPRESA": "FMC AGRO ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015856",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018884",
-      "PRODOTTO": "PROMESA",
-      "EMPRESA": "GALENIKA-FITOFARMACIJA D.O.O.",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018884",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016529",
-      "PRODOTTO": "ZERMAT SC",
-      "EMPRESA": "ITACA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016529",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018769",
-      "PRODOTTO": "DIRUNE",
-      "EMPRESA": "LAINCO S.A.",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN|POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018769",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "015874",
-      "PRODOTTO": "LAIZOX",
-      "EMPRESA": "LAINCO S.A.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015874",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018693",
-      "PRODOTTO": "SIVAR GOLD",
-      "EMPRESA": "LAINCO S.A.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN|POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018693",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017917",
-      "PRODOTTO": "ZORIONA",
-      "EMPRESA": "LAINCO S.A.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017917",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018996",
-      "PRODOTTO": "LS AZOXY 250",
-      "EMPRESA": "LIFE SCIENTIFIC LTD",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018996",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018995",
-      "PRODOTTO": "LS AZOXYSTROBIN",
-      "EMPRESA": "LIFE SCIENTIFIC LTD",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018995",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "015198",
-      "PRODOTTO": "AZBANY",
-      "EMPRESA": "NUFARM ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015198",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "019038",
-      "PRODOTTO": "AZONIR",
-      "EMPRESA": "NUFARM ITALIA S.R.L.",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:019038",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018317",
-      "PRODOTTO": "PLAZMA",
-      "EMPRESA": "NUFARM ITALIA S.R.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018317",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018133",
-      "PRODOTTO": "TACOS",
-      "EMPRESA": "NUFARM ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018133",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017307",
-      "PRODOTTO": "TAZER",
-      "EMPRESA": "NUFARM ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017307",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "019030",
-      "PRODOTTO": "NEOLA",
-      "EMPRESA": "ONE AGRICULTURE AG",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:019030",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "019023",
-      "PRODOTTO": "NEORT",
-      "EMPRESA": "ONE AGRICULTURE AG",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:019023",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018895",
-      "PRODOTTO": "ASTER 325 SC",
-      "EMPRESA": "RAINBOW AGROSCIENCES EUROPE S.A.U.",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018895",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018532",
-      "PRODOTTO": "ROMBLE",
-      "EMPRESA": "SHANDONG WEIFANG RAINBOW CHEMICAL CO. LTD",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018532",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018872",
-      "PRODOTTO": "SARPLON IT",
-      "EMPRESA": "SHANDONG WEIFANG RAINBOW CHEMICAL CO. LTD",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018872",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018509",
-      "PRODOTTO": "AXODIFE ULTRA",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018509",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018554",
-      "PRODOTTO": "AZBANY DUO",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018554",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018991",
-      "PRODOTTO": "AZOSHY",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018991",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018430",
-      "PRODOTTO": "DIFAZ",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018430",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018449",
-      "PRODOTTO": "DIXY",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018449",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018122",
-      "PRODOTTO": "DYNASTY",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018122",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018417",
-      "PRODOTTO": "NIMBUS COMBI",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018417",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018448",
-      "PRODOTTO": "VELA TOP",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018448",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018047",
-      "PRODOTTO": "CALIZI",
-      "EMPRESA": "SINON EU GMBH",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018047",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018046",
-      "PRODOTTO": "SINPRO",
-      "EMPRESA": "SINON EU GMBH",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018046",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016054",
-      "PRODOTTO": "SINSTAR",
-      "EMPRESA": "SINON EU GMBH",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016054",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "015113",
-      "PRODOTTO": "GLOBAZTAR AZT 250 SC",
-      "EMPRESA": "SYNGENTA CROP PROTECTION AG",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015113",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "015111",
-      "PRODOTTO": "MIRADOR SC",
-      "EMPRESA": "SYNGENTA CROP PROTECTION AG",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015111",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "017099",
-      "PRODOTTO": "ZAKEO 250 SC",
-      "EMPRESA": "SYNGENTA CROP PROTECTION AG",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017099",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "016476",
-      "PRODOTTO": "ALIBI FLORA",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016476",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "010118",
-      "PRODOTTO": "AMISTAR",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:010118",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "016252",
-      "PRODOTTO": "AMISTAR GOLD",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016252",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018586",
-      "PRODOTTO": "AMISTAR MAX",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "FOLPET|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018586",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "015010",
-      "PRODOTTO": "AMISTAR PLUS",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Ri-registrato (Air 1 Fase 1)",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN|TEBUCONAZOLE",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015010",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "015790",
-      "PRODOTTO": "AMISTAR TOP",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015790",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017144",
-      "PRODOTTO": "CELEST QUATTRO",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "THIABENDAZOLE|AZOXYSTROBIN|FLUDIOXONIL|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017144",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "019066",
-      "PRODOTTO": "HAMBRA",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:019066",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018618",
-      "PRODOTTO": "HAMBRA TOP",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018618",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017957",
-      "PRODOTTO": "HERITAGE",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017957",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "010161",
-      "PRODOTTO": "ORTIVA",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:010161",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "013378",
-      "PRODOTTO": "ORTIVA TOP",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:013378",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016369",
-      "PRODOTTO": "ORTIVA TOP SC",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016369",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "009210",
-      "PRODOTTO": "QUADRIS",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:009210",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "015112",
-      "PRODOTTO": "SIMPLIA",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015112",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "012879",
-      "PRODOTTO": "UNIVERSALIS",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Ri-registrato (Air 1 Fase 1)",
-      "SOSTANZE_ATTIVE": "FOLPET|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:012879",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "017255",
-      "PRODOTTO": "CHAMANE",
-      "EMPRESA": "UPL HOLDINGS COÃPERATIEF U.A.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017255",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018469",
-      "PRODOTTO": "ZOXIS TOP",
-      "EMPRESA": "UPL HOLDINGS COÃPERATIEF U.A.",
-      "STATO": "Autorizzato Art. 34 Reg. 1107/2009",
-      "SOSTANZE_ATTIVE": "DIFENOCONAZOLE|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "AZOXYSTROBIN"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018469",
-      "ESTRITO": true
-     }
-    ]
+    "CONTAGEM": "NAO SEI",
+    "CONTAGEM_ESTRITA": "NAO SEI",
+    "EMPRESAS": [],
+    "PRODUTOS": []
    }
   },
   {
@@ -7287,7 +6434,7 @@
      {
       "PRODUCT": "FINESSOX",
       "REGISTRATION_ID": "008401",
-      "PRODUCT_ID": "IT-PRD-011",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7301,11 +6448,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "008401",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "07/08/1993",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7320,7 +6467,7 @@
      {
       "PRODUCT": "FLOVINE",
       "REGISTRATION_ID": "017111",
-      "PRODUCT_ID": "IT-PRD-099",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7334,11 +6481,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "017111",
        "STATO_NO_CADASTRO": "Autorizzato",
-       "DATA_REGISTRAZIONE": "22/01/2018",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7353,7 +6500,7 @@
      {
       "PRODUCT": "FOLPAN 80 WDG",
       "REGISTRATION_ID": "008601",
-      "PRODUCT_ID": "IT-PRD-013",
+      "PRODUCT_ID": "ADAMA-P-0011",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7367,11 +6514,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "008601",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "03/12/1994",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7386,7 +6533,7 @@
      {
       "PRODUCT": "FOLPAN ENERGY",
       "REGISTRATION_ID": "016749",
-      "PRODUCT_ID": "IT-PRD-096",
+      "PRODUCT_ID": "ADAMA-P-0037",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET|POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7400,11 +6547,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "016749",
        "STATO_NO_CADASTRO": "Autorizzato con procedura zonale",
-       "DATA_REGISTRAZIONE": "02/12/2022",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7419,7 +6566,7 @@
      {
       "PRODUCT": "FOLPAN GOLD",
       "REGISTRATION_ID": "012878",
-      "PRODUCT_ID": "IT-PRD-037",
+      "PRODUCT_ID": "ADAMA-P-0010",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
       "LEITURA_DO_ROTULO": "LIDO",
@@ -7433,11 +6580,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "012878",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "03/01/2006",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7467,7 +6614,7 @@
      {
       "PRODUCT": "FOLPAN SC",
       "REGISTRATION_ID": "010587",
-      "PRODUCT_ID": "IT-PRD-023",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7481,11 +6628,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "010587",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "06/09/2000",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7500,7 +6647,7 @@
      {
       "PRODUCT": "FOLVIT 80 WDG",
       "REGISTRATION_ID": "013012",
-      "PRODUCT_ID": "IT-PRD-038",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7514,11 +6661,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "013012",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "01/03/2006",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7533,7 +6680,7 @@
      {
       "PRODUCT": "PARIFOL",
       "REGISTRATION_ID": "011501",
-      "PRODUCT_ID": "IT-PRD-026",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7547,11 +6694,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "011501",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "08/11/2002",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7566,7 +6713,7 @@
      {
       "PRODUCT": "SESTO GOLD",
       "REGISTRATION_ID": "015317",
-      "PRODUCT_ID": "IT-PRD-077",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
       "LEITURA_DO_ROTULO": "LIDO",
@@ -7580,11 +6727,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "015317",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "23/01/2012",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7627,7 +6774,7 @@
      {
       "PRODUCT": "SOLOFOL",
       "REGISTRATION_ID": "013585",
-      "PRODUCT_ID": "IT-PRD-045",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7641,11 +6788,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "013585",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "07/02/2007",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7660,7 +6807,7 @@
      {
       "PRODUCT": "SOLOFOL AP",
       "REGISTRATION_ID": "014862",
-      "PRODUCT_ID": "IT-PRD-066",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7674,11 +6821,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "014862",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "08/01/2010",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7693,7 +6840,7 @@
      {
       "PRODUCT": "STAVENTO",
       "REGISTRATION_ID": "017752",
-      "PRODUCT_ID": "IT-PRD-131",
+      "PRODUCT_ID": "ADAMA-P-0034",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7707,11 +6854,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "017752",
        "STATO_NO_CADASTRO": "Autorizzato in regime di Riconoscimento Reciproco",
-       "DATA_REGISTRAZIONE": "21/12/2021",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7726,7 +6873,7 @@
      {
       "PRODUCT": "VINIFOL WDG",
       "REGISTRATION_ID": "017311",
-      "PRODUCT_ID": "IT-PRD-105",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -7740,11 +6887,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "017311",
        "STATO_NO_CADASTRO": "Autorizzato",
-       "DATA_REGISTRAZIONE": "22/10/2018",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7758,6 +6905,10 @@
      }
     ],
     "PRODUTOS_QUE_CONFIRMAM": [],
+    "PRODUTOS_A_CONFIRMAR": [
+     "FOLPAN GOLD",
+     "SESTO GOLD"
+    ],
     "REGRA_DE_ENTRADA": "X3h (R7): boletim de uma cultura nomeada no cabecalho — regra ainda sem regressao; o CONFIRMED_YES herda essa condicao",
     "NAO_PROVA": [
      "uso",
@@ -7868,7 +7019,7 @@
      {
       "PRODUCT": "CAPTHENE 80 WDG",
       "REGISTRATION_ID": "011500",
-      "PRODUCT_ID": "IT-PRD-025",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "CAPTAN",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
@@ -7882,11 +7033,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "011500",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "08/11/2002",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -7934,7 +7085,7 @@
      {
       "PRODUCT": "MAKE UP 80 WDG",
       "REGISTRATION_ID": "012156",
-      "PRODUCT_ID": "IT-PRD-034",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "CAPTAN",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
@@ -7948,11 +7099,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "012156",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "21/10/2004",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -8000,7 +7151,7 @@
      {
       "PRODUCT": "MERPAN 80 WDG",
       "REGISTRATION_ID": "008102",
-      "PRODUCT_ID": "IT-PRD-008",
+      "PRODUCT_ID": "ADAMA-P-0008",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "CAPTAN",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
@@ -8014,11 +7165,11 @@
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "008102",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "09/11/1992",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "VALIDO": "NAO SEI",
        "MOTIVO": "data de referencia NAO SEI"
@@ -8065,6 +7216,11 @@
      }
     ],
     "PRODUTOS_QUE_CONFIRMAM": [],
+    "PRODUTOS_A_CONFIRMAR": [
+     "CAPTHENE 80 WDG",
+     "MAKE UP 80 WDG",
+     "MERPAN 80 WDG"
+    ],
     "REGRA_DE_ENTRADA": "X3h (R7): boletim de uma cultura nomeada no cabecalho — regra ainda sem regressao; o CONFIRMED_YES herda essa condicao",
     "NAO_PROVA": [
      "uso",
@@ -16482,13 +15638,13 @@
     "CULTURA": "vite",
     "CABECALHO_NO_TROCO_GUARDADO": true,
     "DATA_DO_BOLETIM": "2026-05-12",
-    "ESTADO": "CONFIRMED_YES",
-    "MOTIVO": "2 produto(s) ADAMA com registo valido em 2026-05-12, a substancia na composicao e vite no rotulo lido",
+    "ESTADO": "POSSIBLE_ANSWER_YES_A_CONFIRMAR",
+    "MOTIVO": "2 produto(s) ADAMA passam empresa, substancia e vite no rotulo lido, mas a validade na data do boletim nao se prova: A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)",
     "PRODUTOS": [
      {
       "PRODUCT": "FINESSOX",
       "REGISTRATION_ID": "008401",
-      "PRODUCT_ID": "IT-PRD-011",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16496,22 +15652,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "008401",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "07/08/1993",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16523,7 +15678,7 @@
      {
       "PRODUCT": "FLOVINE",
       "REGISTRATION_ID": "017111",
-      "PRODUCT_ID": "IT-PRD-099",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16531,22 +15686,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "017111",
        "STATO_NO_CADASTRO": "Autorizzato",
-       "DATA_REGISTRAZIONE": "22/01/2018",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16558,7 +15712,7 @@
      {
       "PRODUCT": "FOLPAN 80 WDG",
       "REGISTRATION_ID": "008601",
-      "PRODUCT_ID": "IT-PRD-013",
+      "PRODUCT_ID": "ADAMA-P-0011",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16566,22 +15720,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "008601",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "03/12/1994",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16593,7 +15746,7 @@
      {
       "PRODUCT": "FOLPAN ENERGY",
       "REGISTRATION_ID": "016749",
-      "PRODUCT_ID": "IT-PRD-096",
+      "PRODUCT_ID": "ADAMA-P-0037",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET|POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16601,22 +15754,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "016749",
        "STATO_NO_CADASTRO": "Autorizzato con procedura zonale",
-       "DATA_REGISTRAZIONE": "02/12/2022",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16628,7 +15780,7 @@
      {
       "PRODUCT": "FOLPAN GOLD",
       "REGISTRATION_ID": "012878",
-      "PRODUCT_ID": "IT-PRD-037",
+      "PRODUCT_ID": "ADAMA-P-0010",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
       "LEITURA_DO_ROTULO": "LIDO",
@@ -16636,22 +15788,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "012878",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "03/01/2006",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -16673,12 +15824,12 @@
       "DOSE_E_VOLUME_LITERAIS": "NAO SEI",
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      },
      {
       "PRODUCT": "FOLPAN SC",
       "REGISTRATION_ID": "010587",
-      "PRODUCT_ID": "IT-PRD-023",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16686,22 +15837,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "010587",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "06/09/2000",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16713,7 +15863,7 @@
      {
       "PRODUCT": "FOLVIT 80 WDG",
       "REGISTRATION_ID": "013012",
-      "PRODUCT_ID": "IT-PRD-038",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16721,22 +15871,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "013012",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "01/03/2006",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16748,7 +15897,7 @@
      {
       "PRODUCT": "PARIFOL",
       "REGISTRATION_ID": "011501",
-      "PRODUCT_ID": "IT-PRD-026",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16756,22 +15905,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "011501",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "08/11/2002",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16783,7 +15931,7 @@
      {
       "PRODUCT": "SESTO GOLD",
       "REGISTRATION_ID": "015317",
-      "PRODUCT_ID": "IT-PRD-077",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
       "LEITURA_DO_ROTULO": "LIDO",
@@ -16791,22 +15939,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "015317",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "23/01/2012",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -16841,12 +15988,12 @@
       "DOSE_E_VOLUME_LITERAIS": "NAO SEI",
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      },
      {
       "PRODUCT": "SOLOFOL",
       "REGISTRATION_ID": "013585",
-      "PRODUCT_ID": "IT-PRD-045",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16854,22 +16001,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "013585",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "07/02/2007",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16881,7 +16027,7 @@
      {
       "PRODUCT": "SOLOFOL AP",
       "REGISTRATION_ID": "014862",
-      "PRODUCT_ID": "IT-PRD-066",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16889,22 +16035,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "014862",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "08/01/2010",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16916,7 +16061,7 @@
      {
       "PRODUCT": "STAVENTO",
       "REGISTRATION_ID": "017752",
-      "PRODUCT_ID": "IT-PRD-131",
+      "PRODUCT_ID": "ADAMA-P-0034",
       "EMPRESA": "ADAMA MAKHTESHIM LTD",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16924,22 +16069,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "017752",
        "STATO_NO_CADASTRO": "Autorizzato in regime di Riconoscimento Reciproco",
-       "DATA_REGISTRAZIONE": "21/12/2021",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16951,7 +16095,7 @@
      {
       "PRODUCT": "VINIFOL WDG",
       "REGISTRATION_ID": "017311",
-      "PRODUCT_ID": "IT-PRD-105",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "FOLPET",
       "LEITURA_DO_ROTULO": "TABELA_NAO_LOCALIZADA",
@@ -16959,22 +16103,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO SEI"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "017311",
        "STATO_NO_CADASTRO": "Autorizzato",
-       "DATA_REGISTRAZIONE": "22/10/2018",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/10/2040",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-12",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -16984,7 +16127,8 @@
       "CONFIRMA": false
      }
     ],
-    "PRODUTOS_QUE_CONFIRMAM": [
+    "PRODUTOS_QUE_CONFIRMAM": [],
+    "PRODUTOS_A_CONFIRMAR": [
      "FOLPAN GOLD",
      "SESTO GOLD"
     ],
@@ -16997,815 +16141,20 @@
      "eficacia"
     ]
    },
-   "FINAL": "CONFIRMED_YES",
+   "FINAL": "POSSIBLE_ANSWER_YES_A_CONFIRMAR",
    "COMPETITIVE_SET": {
     "SUBSTANCIAS": [
      "FOLPET"
     ],
     "DATA_DE_REFERENCIA": "2026-05-12",
-    "GRAO": "SUBSTANCIA (o cadastro FTS6 nao tem cultura nem alvo; rotulos de concorrentes nao lidos)",
+    "ESTADO": "NAO SEI",
+    "LACUNA": "ABERTA: a referencia e da ADAMA; os registos das outras empresas nao estao nela. COMPETITIVE_SET = NAO SEI ate a referencia os ganhar numa edicao (mesma missao de manutencao). Ler o CSV direto seria uma segunda tabela-mestra, de outra edicao — proibido pela D116.",
+    "GRAO": "SUBSTANCIA",
     "CULTURA_X_ALVO_DO_CONCORRENTE": "NAO SEI",
-    "CONTAGEM": 60,
-    "CONTAGEM_ESTRITA": 39,
-    "CRITERIO": "estado ativo (Autorizzato*/Ri-registrato/Rinnovato, fontes/adama_it_intelligence.py) e valido na data; ESTRITA = so «Autorizzato*» (provas/chain.py: Ri-registrato e ambiguo)",
-    "EMPRESAS": [
-     "ARYSTA LIFESCIENCE BENELUX SPRL",
-     "ASCENZA AGRO S.A.",
-     "ASCENZA ITALIA S.R.L.",
-     "BAYER CROPSCIENCE S.R.L.",
-     "CERTIS BELCHIM B.V.",
-     "CORTEVA AGRISCIENCE ITALIA S.R.L.",
-     "DIACHEM S.P.A.",
-     "GOWAN ITALIA S.R.L.",
-     "INDUSTRIAS AFRASA S.A",
-     "IQV INDUSTRIAS QUIMICAS DEL VALLES S.A.",
-     "IQV ITALIA S.R.L.",
-     "ISK BIOSCIENCES EUROPE N.V.",
-     "SHARDA CROPCHEM ESPANA S.L.",
-     "SYNGENTA ITALIA S.P.A."
-    ],
-    "PRODUTOS": [
-     {
-      "NUM_REGISTRAZIONE": "018735",
-      "PRODOTTO": "BISBITA",
-      "EMPRESA": "ARYSTA LIFESCIENCE BENELUX SPRL",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018735",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016068",
-      "PRODOTTO": "FOLDER 80 WG",
-      "EMPRESA": "ARYSTA LIFESCIENCE BENELUX SPRL",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016068",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018159",
-      "PRODOTTO": "RENACER",
-      "EMPRESA": "ARYSTA LIFESCIENCE BENELUX SPRL",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018159",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016178",
-      "PRODOTTO": "FOLIANE 80 WG",
-      "EMPRESA": "ASCENZA AGRO S.A.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016178",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "008581",
-      "PRODOTTO": "FOLIANE SC",
-      "EMPRESA": "ASCENZA AGRO S.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:008581",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "013714",
-      "PRODOTTO": "FOLPEC 50 SC",
-      "EMPRESA": "ASCENZA AGRO S.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:013714",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "013485",
-      "PRODOTTO": "FOLPEC 80 WG ADVANCE",
-      "EMPRESA": "ASCENZA AGRO S.A.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:013485",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016960",
-      "PRODOTTO": "ACTLET EVO",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016960",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016663",
-      "PRODOTTO": "ACTLET F",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016663",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017614",
-      "PRODOTTO": "BOLTEX EVO",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017614",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017573",
-      "PRODOTTO": "BOLTEX F",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017573",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016871",
-      "PRODOTTO": "BRANCO",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "FOLPET|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016871",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016923",
-      "PRODOTTO": "CAELUM",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET|FOSETYL-ALUMINIUM",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016923",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018393",
-      "PRODOTTO": "CURZATE EFFE",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018393",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018394",
-      "PRODOTTO": "FALTEX 50 SC",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018394",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018209",
-      "PRODOTTO": "FOLPEC CEREAL",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018209",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018290",
-      "PRODOTTO": "FOLPETIS 50 SC",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018290",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017621",
-      "PRODOTTO": "FOLPETIS 80 WG",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017621",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018395",
-      "PRODOTTO": "FOLTAN 50 SC",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018395",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016775",
-      "PRODOTTO": "KATANGA TRIPLO",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET|FOSETYL-ALUMINIUM",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016775",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016621",
-      "PRODOTTO": "MEDEIRO F WG",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "FOLPET|FOSETYL-ALUMINIUM",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016621",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018909",
-      "PRODOTTO": "MELVAR START",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "FOLPET|PROTHIOCONAZOLE",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018909",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017435",
-      "PRODOTTO": "RIDOMIL GOLD COMBI WG",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017435",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017940",
-      "PRODOTTO": "VITIPEC F WG",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017940",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017615",
-      "PRODOTTO": "WARDEN EVO",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017615",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017436",
-      "PRODOTTO": "WARDEN F",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017436",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018911",
-      "PRODOTTO": "ZELORA START",
-      "EMPRESA": "ASCENZA ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "FOLPET|PROTHIOCONAZOLE",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018911",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "011402",
-      "PRODOTTO": "MELODY COMBI",
-      "EMPRESA": "BAYER CROPSCIENCE S.R.L.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|IPROVALICARB",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:011402",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "018293",
-      "PRODOTTO": "MELODY FLEX",
-      "EMPRESA": "BAYER CROPSCIENCE S.R.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "FOLPET|IPROVALICARB",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018293",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "017113",
-      "PRODOTTO": "MIKAL F",
-      "EMPRESA": "BAYER CROPSCIENCE S.R.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "FOLPET|FOSETYL-ALUMINIUM",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017113",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018121",
-      "PRODOTTO": "MIKAL PREMIUM",
-      "EMPRESA": "BAYER CROPSCIENCE S.R.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "FOLPET|FOSETYL-ALUMINIUM|IPROVALICARB",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018121",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016820",
-      "PRODOTTO": "VALIANT FLASH",
-      "EMPRESA": "BAYER CROPSCIENCE S.R.L.",
-      "STATO": "Autorizzato in regime di Riconoscimento Reciproco",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET|FOSETYL-ALUMINIUM",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016820",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "014517",
-      "PRODOTTO": "EMENDO F",
-      "EMPRESA": "CERTIS BELCHIM B.V.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|VALIFENALATE",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:014517",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "014516",
-      "PRODOTTO": "JAVA F",
-      "EMPRESA": "CERTIS BELCHIM B.V.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|VALIFENALATE",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:014516",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "013127",
-      "PRODOTTO": "VALIS F",
-      "EMPRESA": "CERTIS BELCHIM B.V.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|VALIFENALATE",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:013127",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "016957",
-      "PRODOTTO": "ZORVEC VINABRIA",
-      "EMPRESA": "CORTEVA AGRISCIENCE ITALIA S.R.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "FOLPET|OXATHIAPIPROLIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016957",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "011857",
-      "PRODOTTO": "MIDAURIL COMBI",
-      "EMPRESA": "DIACHEM S.P.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:011857",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "010106",
-      "PRODOTTO": "RIDOMIL GOLD COMBI WP",
-      "EMPRESA": "DIACHEM S.P.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:010106",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "016227",
-      "PRODOTTO": "TANGO F PLUS",
-      "EMPRESA": "DIACHEM S.P.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016227",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "006834",
-      "PRODOTTO": "TEPETA COMBI FLOW",
-      "EMPRESA": "DIACHEM S.P.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|TRIBASIC COPPER SULFATE",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:006834",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "013888",
-      "PRODOTTO": "FANTIC F NC WG",
-      "EMPRESA": "GOWAN ITALIA S.R.L.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|BENALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:013888",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "012873",
-      "PRODOTTO": "FANTIC F WG",
-      "EMPRESA": "GOWAN ITALIA S.R.L.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|BENALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:012873",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "013895",
-      "PRODOTTO": "SAVIRAN STAR",
-      "EMPRESA": "GOWAN ITALIA S.R.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET|BENALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:013895",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "013891",
-      "PRODOTTO": "SIDECAR F WG",
-      "EMPRESA": "GOWAN ITALIA S.R.L.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|BENALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:013891",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "013893",
-      "PRODOTTO": "SIDECAR F WG BLU",
-      "EMPRESA": "GOWAN ITALIA S.R.L.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|BENALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:013893",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "014019",
-      "PRODOTTO": "STADIO F",
-      "EMPRESA": "GOWAN ITALIA S.R.L.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|BENALAXYL-M",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:014019",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "018521",
-      "PRODOTTO": "DINAPIC TRIPLE",
-      "EMPRESA": "INDUSTRIAS AFRASA S.A",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET|FOSETYL-ALUMINIUM",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018521",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "015369",
-      "PRODOTTO": "MAGMA TRIPLE",
-      "EMPRESA": "INDUSTRIAS AFRASA S.A",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "CYMOXANIL|FOLPET|FOSETYL-ALUMINIUM",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015369",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "012373",
-      "PRODOTTO": "ARMETIL COMBI",
-      "EMPRESA": "IQV INDUSTRIAS QUIMICAS DEL VALLES S.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:012373",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "017994",
-      "PRODOTTO": "SPORAMIL COMBI WP",
-      "EMPRESA": "IQV INDUSTRIAS QUIMICAS DEL VALLES S.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:017994",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "011041",
-      "PRODOTTO": "METIX COMBI",
-      "EMPRESA": "IQV ITALIA S.R.L.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:011041",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "011138",
-      "PRODOTTO": "MEVAXIL COMBI",
-      "EMPRESA": "IQV ITALIA S.R.L.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|METALAXYL",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:011138",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "015715",
-      "PRODOTTO": "VIDERYO F",
-      "EMPRESA": "ISK BIOSCIENCES EUROPE N.V.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "FOLPET|CYAZOFAMID",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:015715",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016330",
-      "PRODOTTO": "FOLLET 80 WG",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016330",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016179",
-      "PRODOTTO": "FOLLOW 80 WG",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato con procedura zonale",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016179",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016329",
-      "PRODOTTO": "FOLWIN",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016329",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "016361",
-      "PRODOTTO": "FULL 80 WG",
-      "EMPRESA": "SHARDA CROPCHEM ESPANA S.L.",
-      "STATO": "Autorizzato",
-      "SOSTANZE_ATTIVE": "FOLPET",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:016361",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "018586",
-      "PRODOTTO": "AMISTAR MAX",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Autorizzato Art. 10 D.P.R. 290/2001",
-      "SOSTANZE_ATTIVE": "FOLPET|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:018586",
-      "ESTRITO": true
-     },
-     {
-      "NUM_REGISTRAZIONE": "013637",
-      "PRODOTTO": "PERGADO F",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Ri-registrato",
-      "SOSTANZE_ATTIVE": "FOLPET|MANDIPROPAMID",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:013637",
-      "ESTRITO": false
-     },
-     {
-      "NUM_REGISTRAZIONE": "012879",
-      "PRODOTTO": "UNIVERSALIS",
-      "EMPRESA": "SYNGENTA ITALIA S.P.A.",
-      "STATO": "Ri-registrato (Air 1 Fase 1)",
-      "SOSTANZE_ATTIVE": "FOLPET|AZOXYSTROBIN",
-      "SUBSTANCIA_EM_COMUM": [
-       "FOLPET"
-      ],
-      "IMPORTAZIONE_PARALLELA": "NO",
-      "T4_REGISTRATION_EVIDENCE_ID": "IT-T4-001:MINSALUTE_FTS6_20260907:012879",
-      "ESTRITO": false
-     }
-    ]
+    "CONTAGEM": "NAO SEI",
+    "CONTAGEM_ESTRITA": "NAO SEI",
+    "EMPRESAS": [],
+    "PRODUTOS": []
    }
   },
   {
@@ -17909,13 +16258,13 @@
     "CULTURA": "vite",
     "CABECALHO_NO_TROCO_GUARDADO": true,
     "DATA_DO_BOLETIM": "2026-05-27",
-    "ESTADO": "CONFIRMED_YES",
-    "MOTIVO": "6 produto(s) ADAMA com registo valido em 2026-05-27, a substancia na composicao e vite no rotulo lido",
+    "ESTADO": "POSSIBLE_ANSWER_YES_A_CONFIRMAR",
+    "MOTIVO": "6 produto(s) ADAMA passam empresa, substancia e vite no rotulo lido, mas a validade na data do boletim nao se prova: A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)",
     "PRODUTOS": [
      {
       "PRODUCT": "EVURE PRO",
       "REGISTRATION_ID": "014210",
-      "PRODUCT_ID": "IT-PRD-058",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "TAU-FLUVALINATE",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
@@ -17923,22 +16272,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "014210",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "06/06/2008",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/01/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-27",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -17980,12 +16328,12 @@
       ],
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      },
      {
       "PRODUCT": "KLARTAN 20 EW",
       "REGISTRATION_ID": "007555",
-      "PRODUCT_ID": "IT-PRD-004",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "TAU-FLUVALINATE",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
@@ -17993,22 +16341,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "007555",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "25/10/1988",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/01/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-27",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -18050,12 +16397,12 @@
       ],
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      },
      {
       "PRODUCT": "KLARTAN SMART",
       "REGISTRATION_ID": "012023",
-      "PRODUCT_ID": "IT-PRD-032",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "TAU-FLUVALINATE",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
@@ -18063,22 +16410,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "012023",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "23/03/2004",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/01/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-27",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -18120,12 +16466,12 @@
       ],
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      },
      {
       "PRODUCT": "MAVRIK EW",
       "REGISTRATION_ID": "014190",
-      "PRODUCT_ID": "IT-PRD-057",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "TAU-FLUVALINATE",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
@@ -18133,22 +16479,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "014190",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "11/04/2008",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/01/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-27",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -18189,35 +16534,34 @@
       ],
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      },
      {
       "PRODUCT": "MAVRIK JET",
       "REGISTRATION_ID": "017968",
-      "PRODUCT_ID": "IT-PRD-139",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
-      "SOSTANZE_ATTIVE": "TAU-FLUVALINATE|PIRIMICARB",
+      "SOSTANZE_ATTIVE": "PIRIMICARB|TAU-FLUVALINATE",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
       "CHEQUES": {
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "NAO_NA_LEITURA"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "017968",
        "STATO_NO_CADASTRO": "Autorizzato in regime di Riconoscimento Reciproco",
-       "DATA_REGISTRAZIONE": "13/10/2022",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/01/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-27",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [],
       "ALVOS_DO_ROTULO_NESSA_CULTURA": [],
@@ -18229,7 +16573,7 @@
      {
       "PRODUCT": "MAVRIK SMART",
       "REGISTRATION_ID": "009800",
-      "PRODUCT_ID": "IT-PRD-019",
+      "PRODUCT_ID": "ADAMA-P-0002",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "TAU-FLUVALINATE",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
@@ -18237,22 +16581,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "009800",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "02/11/1998",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/01/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-27",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -18294,12 +16637,12 @@
       ],
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      },
      {
       "PRODUCT": "TAU AL 240 EW",
       "REGISTRATION_ID": "007864",
-      "PRODUCT_ID": "IT-PRD-006",
+      "PRODUCT_ID": "NAO SEI",
       "EMPRESA": "ADAMA ITALIA S.R.L.",
       "SOSTANZE_ATTIVE": "TAU-FLUVALINATE",
       "LEITURA_DO_ROTULO": "LIDO_POR_BLOCO",
@@ -18307,22 +16650,21 @@
        "REGISTO_NO_CADASTRO": true,
        "EMPRESA_ADAMA": true,
        "SUBSTANCIA_NA_COMPOSICAO": true,
-       "VALIDO_NA_DATA_DO_BOLETIM": "SIM",
+       "VALIDO_NA_DATA_DO_BOLETIM": "NAO SEI",
        "CULTURA_NO_ROTULO": "SIM"
       },
       "VALIDADE": {
        "NUM_REGISTRAZIONE": "007864",
        "STATO_NO_CADASTRO": "Ri-registrato",
-       "DATA_REGISTRAZIONE": "27/06/1989",
+       "DATA_REGISTRAZIONE": null,
        "DATA_SCADENZA": "31/01/2027",
-       "DECORRENZA_REVOCA": "-",
-       "CADASTRO": "IT-T4-001:MINSALUTE_FTS6_20260907",
-       "CADASTRO_DATA": "2026-09-07",
+       "DECORRENZA_REVOCA": null,
+       "CADASTRO": "IT-T4-001:PROD_FTS_6_20260831",
+       "CADASTRO_DATA": "2026-08-31",
        "ATIVO_NO_CADASTRO": true,
        "DATA_DE_REFERENCIA": "2026-05-27",
-       "VALIDO": "SIM",
-       "MOTIVO": "registado antes, validade depois, sem revoga antes",
-       "NOTA": null
+       "VALIDO": "NAO SEI",
+       "MOTIVO": "A CONFIRMAR: a edicao PROD_FTS_6_20260831 da referencia nao traz data de registo nem de revoga (LACUNA-2)"
       },
       "CULTURA_NO_ROTULO_PROVA": [
        {
@@ -18363,10 +16705,11 @@
       ],
       "INTERVALO_LITERAL": "NAO SEI",
       "ETICHETTA_LITERAL": "NAO SEI",
-      "CONFIRMA": true
+      "CONFIRMA": false
      }
     ],
-    "PRODUTOS_QUE_CONFIRMAM": [
+    "PRODUTOS_QUE_CONFIRMAM": [],
+    "PRODUTOS_A_CONFIRMAR": [
      "EVURE PRO",
      "KLARTAN 20 EW",
      "KLARTAN SMART",
@@ -18383,17 +16726,18 @@
      "eficacia"
     ]
    },
-   "FINAL": "CONFIRMED_YES",
+   "FINAL": "POSSIBLE_ANSWER_YES_A_CONFIRMAR",
    "COMPETITIVE_SET": {
     "SUBSTANCIAS": [
      "TAUFLUVALINATE"
     ],
     "DATA_DE_REFERENCIA": "2026-05-27",
-    "GRAO": "SUBSTANCIA (o cadastro FTS6 nao tem cultura nem alvo; rotulos de concorrentes nao lidos)",
+    "ESTADO": "NAO SEI",
+    "LACUNA": "ABERTA: a referencia e da ADAMA; os registos das outras empresas nao estao nela. COMPETITIVE_SET = NAO SEI ate a referencia os ganhar numa edicao (mesma missao de manutencao). Ler o CSV direto seria uma segunda tabela-mestra, de outra edicao — proibido pela D116.",
+    "GRAO": "SUBSTANCIA",
     "CULTURA_X_ALVO_DO_CONCORRENTE": "NAO SEI",
-    "CONTAGEM": 0,
-    "CONTAGEM_ESTRITA": 0,
-    "CRITERIO": "estado ativo (Autorizzato*/Ri-registrato/Rinnovato, fontes/adama_it_intelligence.py) e valido na data; ESTRITA = so «Autorizzato*» (provas/chain.py: Ri-registrato e ambiguo)",
+    "CONTAGEM": "NAO SEI",
+    "CONTAGEM_ESTRITA": "NAO SEI",
     "EMPRESAS": [],
     "PRODUTOS": []
    }
@@ -18578,10 +16922,10 @@
    },
    "CROP_ID": "OLIVO",
    "TARGET_ID": "MOSCA_OLIVO",
-   "VALIDADE_REFERIDA_A": "CADASTRO 2026-09-07 (data do boletim NAO SEI)",
+   "VALIDADE_REFERIDA_A": "CADASTRO 2026-08-31 (data do boletim NAO SEI)",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18603,7 +16947,7 @@
    "VALIDADE_REFERIDA_A": "2026-09-16",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18625,7 +16969,7 @@
    "VALIDADE_REFERIDA_A": "2026-09-09",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18647,7 +16991,7 @@
    "VALIDADE_REFERIDA_A": "2026-09-16",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18669,7 +17013,7 @@
    "VALIDADE_REFERIDA_A": "2026-09-16",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18691,7 +17035,7 @@
    "VALIDADE_REFERIDA_A": "2026-07-24",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18710,10 +17054,10 @@
    },
    "CROP_ID": "OLIVO",
    "TARGET_ID": "MOSCA_OLIVO",
-   "VALIDADE_REFERIDA_A": "CADASTRO 2026-09-07 (data do boletim NAO SEI)",
+   "VALIDADE_REFERIDA_A": "CADASTRO 2026-08-31 (data do boletim NAO SEI)",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18732,10 +17076,10 @@
    },
    "CROP_ID": "OLIVO",
    "TARGET_ID": "MOSCA_OLIVO",
-   "VALIDADE_REFERIDA_A": "CADASTRO 2026-09-07 (data do boletim NAO SEI)",
+   "VALIDADE_REFERIDA_A": "CADASTRO 2026-08-31 (data do boletim NAO SEI)",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18754,10 +17098,10 @@
    },
    "CROP_ID": "OLIVO",
    "TARGET_ID": "MOSCA_OLIVO",
-   "VALIDADE_REFERIDA_A": "CADASTRO 2026-09-07 (data do boletim NAO SEI)",
+   "VALIDADE_REFERIDA_A": "CADASTRO 2026-08-31 (data do boletim NAO SEI)",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18776,10 +17120,10 @@
    },
    "CROP_ID": "OLIVO",
    "TARGET_ID": "MOSCA_OLIVO",
-   "VALIDADE_REFERIDA_A": "CADASTRO 2026-09-07 (data do boletim NAO SEI)",
+   "VALIDADE_REFERIDA_A": "CADASTRO 2026-08-31 (data do boletim NAO SEI)",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18798,10 +17142,10 @@
    },
    "CROP_ID": "OLIVO",
    "TARGET_ID": "MOSCA_OLIVO",
-   "VALIDADE_REFERIDA_A": "CADASTRO 2026-09-07 (data do boletim NAO SEI)",
+   "VALIDADE_REFERIDA_A": "CADASTRO 2026-08-31 (data do boletim NAO SEI)",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18823,7 +17167,7 @@
    "VALIDADE_REFERIDA_A": "2026-09-24",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18845,7 +17189,7 @@
    "VALIDADE_REFERIDA_A": "2026-02-27",
    "NAO_E": "o boletim recomendou — e o rotulo a cobrir o par que o boletim citou",
    "ESTADO": "SEM_PAR_LIDO",
-   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 (62.6%)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
+   "MOTIVO": "nenhum par OLIVO x MOSCA_OLIVO nos rotulos lidos (cobertura 102/163 bulas com par lido (LABEL-READINGS, edicao PROD_FTS_6_20260831)); ausencia NA NOSSA LEITURA, nunca «a ADAMA nao tem»",
    "PRODUTOS": [],
    "ESPECTRO": [],
    "COMPETITIVE_SET": null
@@ -18874,7 +17218,7 @@
   }
  ],
  "ITENS_POR_FERRAMENTA": {
-  "portfolio": 103,
-  "competitors": 125
+  "portfolio": 96,
+  "competitors": 0
  }
 }

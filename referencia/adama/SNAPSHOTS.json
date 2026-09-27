@@ -36,7 +36,22 @@
    "REGISTRATIONS_ADAMA": 602,
    "PROVING_ARTIFACT": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv",
    "STATE": "RAW_PRESENT_NOT_DERIVED",
-   "WHY_NOT_CURRENT": "e o bruto integral (17695 linhas), ainda nao derivado para esta casa. Usado aqui so para CONFERIR a foto de 31/08: 602 de 602, zero entradas e zero saidas. Deriva-lo e missao propria, nao esta."
+   "WHY_NOT_CURRENT": "e o bruto integral (17695 linhas), ainda nao derivado para esta casa. Usado aqui so para CONFERIR a foto de 31/08: 602 de 602, zero entradas e zero saidas. Deriva-lo e missao propria, nao esta.",
+   "CHECK": {
+    "CHECKED_AT": "2026-09-07",
+    "CHECKED_AGAINST": "PROD_FTS_6_20260907",
+    "EDITION_CHECKED": "PROD_FTS_6_20260831",
+    "RESULT": "CONFIRMA_A_EDICAO",
+    "ADAMA_IN_RAW": 602,
+    "ADAMA_IN_EDITION": 602,
+    "ENTRIES": [],
+    "EXITS": [],
+    "ADMIN_STATUS_CHANGED": [],
+    "WHAT_IT_CHECKS": "numero de registo e stato_amministrativo das autorizacoes ADAMA. NAO confere usos, doses nem datas de registo — essas nao estao na edicao."
+   }
   }
- ]
+ ],
+ "CURRENT_EDITION_OBSERVED_AT": "2026-08-31",
+ "LAST_CHECK_OK": "2026-09-07",
+ "LAST_CHECK_OK_LAW": "a data mais recente em que a edicao atual foi observada ou conferida contra um bruto do Ministero SEM divergencia. E dela que a porta conta o frescor (D117: 14 dias -> PODE_ESTAR_DESATUALIZADO; 30 -> autorizacao A CONFIRMAR)."
 }

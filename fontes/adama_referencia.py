@@ -96,6 +96,12 @@ FONTES = {
     # reconstruir a partir deste commit.
     "DOSES": os.path.join(RAIZ, "data", "samples", "IT-DOSE-ROTULO",
                           "IT-DOSES-2026-09-06.json"),
+    # PORTA-UNICA-REFERENCIA (D116): a CITACAO de cada par e o estado da leitura
+    # de cada bula. Sao os MESMOS 2030 pares que o V2.1 deu a AUTHORIZED-USES
+    # (conferido linha a linha em `_citacoes_dos_pares`), lidos dos mesmos PDFs
+    # baixados a 02/09. Sem isto a Intelligence tinha de abrir o ficheiro do
+    # leitor de rotulos por fora da porta — e abria (motor/cruzamentos_max.py).
+    "PARES": os.path.join(RAIZ, "data", "samples", "IT-ROTULOS", "IT-ROTULOS-PARES.json"),
 }
 V21_BASE = "ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/"
 
@@ -306,6 +312,87 @@ SNAPSHOTS = [
                         "Deriva-lo e missao propria, nao esta."},
 ]
 SNAPSHOT_ATUAL = "PROD_FTS_6_20260831"
+
+#: A foto bruta que CONFERE a edicao atual sem a substituir. Conferir nao e
+#: derivar: a edicao continua a de 31/08 (derivar a de 07/09 ou a de 14/09 e a
+#: missao nuvem-referencia-manutencao-v1). O que se ganha e a DATA DA ULTIMA
+#: CHECAGEM QUE DEU CERTO — e ela passa a ser medida aqui, e nao escrita a mao.
+SNAPSHOT_QUE_CONFERE = "PROD_FTS_6_20260907"
+
+
+def conferir_contra_o_bruto(registos, caminho=None):
+    """Os registos ADAMA da edicao atual contra um bruto do Ministero -> CHECK.
+
+    Mede tres coisas, e so tres: entradas (registo ADAMA no bruto e nao na
+    edicao), saidas (na edicao e nao no bruto) e estado administrativo
+    diferente. `CONFIRMA_A_EDICAO` so com as tres a zero. Bruto ausente =
+    `NAO_CONFERIDO` — nunca «confirma».
+    """
+    caminho = caminho or FONTES["RAW_0907"]
+    if not os.path.isfile(caminho):
+        return {"RESULT": "NAO_CONFERIDO", "WHY": "bruto ausente: %s" % caminho}
+    with io.open(caminho, encoding="utf-8", errors="replace", newline="") as fh:
+        linhas = list(csv.DictReader(fh, delimiter=";"))
+    bruto = {str(l.get("num_registrazione") or "").strip(): l for l in linhas
+             if "ADAMA" in str(l.get("ragione_sociale") or "").upper()}
+    edicao = {r["REGISTRATION_NUMBER"]: r for r in registos}
+    entradas = sorted(set(bruto) - set(edicao))
+    saidas = sorted(set(edicao) - set(bruto))
+    estado = sorted(n for n in set(bruto) & set(edicao)
+                    if (bruto[n].get("stato_amministrativo") or "") != edicao[n]["ADMIN_STATUS"])
+    ok = not (entradas or saidas or estado)
+    return {"CHECKED_AT": _observado(SNAPSHOT_QUE_CONFERE),
+            "CHECKED_AGAINST": SNAPSHOT_QUE_CONFERE,
+            "EDITION_CHECKED": SNAPSHOT_ATUAL,
+            "RESULT": "CONFIRMA_A_EDICAO" if ok else "DIVERGE_DA_EDICAO",
+            "ADAMA_IN_RAW": len(bruto), "ADAMA_IN_EDITION": len(edicao),
+            "ENTRIES": entradas, "EXITS": saidas, "ADMIN_STATUS_CHANGED": estado,
+            "WHAT_IT_CHECKS": "numero de registo e stato_amministrativo das "
+                              "autorizacoes ADAMA. NAO confere usos, doses nem "
+                              "datas de registo — essas nao estao na edicao."}
+
+
+def _citacoes_dos_pares(usos):
+    """-> (usos com a citacao do par, leituras por registo). Levanta se desalinhar.
+
+    O V2.1 e o leitor de rotulos deram os MESMOS 2030 pares, na mesma ordem.
+    Isto e conferido par a par (registo, cultura, alvo, alvo escrito): um par
+    que nao bata e uma segunda verdade, e o construtor recusa-se a montar em
+    vez de colar a citacao de um par no outro.
+    """
+    if not os.path.isfile(FONTES["PARES"]):
+        return usos, []
+    pares = _ler(FONTES["PARES"])
+    lista = pares.get("PARES") or []
+    if len(lista) != len(usos):
+        raise SystemExit("IT-ROTULOS-PARES tem %d pares e AUTHORIZED-USES %d: "
+                         "nao se colam citacoes a pares diferentes" % (len(lista), len(usos)))
+    for u, p in zip(usos, lista):
+        chave_u = (u["REGISTRATION_NUMBER"], u["CROP_ON_LABEL"], u["TARGET_ON_LABEL"],
+                   u["TARGET_AS_WRITTEN"])
+        chave_p = (p.get("REGISTRATION_ID"), p.get("CULTURA_CANONICA"),
+                   p.get("ALVO_CANONICO") or NAO_SEI, p.get("ALVO_LITERAL") or NAO_SEI)
+        if chave_u != chave_p:
+            raise SystemExit("par desalinhado em %s: %r != %r" % (u["USE_ID"], chave_u, chave_p))
+        u.update({
+            "LINK_LEVEL": p.get("LIGACAO_NIVEL") or NAO_SEI,
+            "TARGET_GROUP": p.get("ALVO_GRUPO") or NAO_SEI,
+            "LINE_QUOTE": p.get("CITACAO_DA_LINHA") or "",
+            "CROPS_QUOTE": p.get("CITACAO_DAS_CULTURAS") or "",
+            "QUOTE_SOURCE": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json "
+                            "(coleta/rotulos_ler.py sobre os PDFs de 02/09)",
+        })
+    leituras = [{
+        "REGISTRATION_NUMBER": str(x.get("REGISTRATION_ID") or "").strip() or UNKNOWN,
+        "OBSERVED_PRODUCT_NAME": x.get("PRODUCT"),
+        "READING_STATE": x.get("ESTADO_DA_LEITURA") or NAO_SEI,
+        "LABEL_WAS_READ": str(x.get("ESTADO_DA_LEITURA") or "").startswith("LIDO"),
+        "PAIRS": x.get("PARES", 0),
+        "CROPS_FOUND": x.get("CULTURAS") or [],
+        "PROVENANCE": _proveniencia(["IT-T4-001"], [], "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+                                    "PROD_FTS_6_20260824"),
+    } for x in pares.get("POR_PRODUTO") or []]
+    return usos, leituras
 
 
 def carregar_master():
@@ -527,6 +614,8 @@ def montar(escrever=True):
                                       "dose, NAO diz que o produto esta a venda hoje.",
         })
 
+    usos, leituras = _citacoes_dos_pares(usos)
+
     # ── ACTIVE INGREDIENTS ────────────────────────────────────────────────
     # Entidade própria, nunca texto dentro do produto. A camada europeia
     # (Reg. 540/2011) é transversal EAME e não se torna italiana aqui.
@@ -623,8 +712,7 @@ def montar(escrever=True):
 
     saida = {
         "PRODUCT-MASTER.json": master,
-        "SNAPSHOTS.json": _env("ADAMA-SNAPSHOTS", SNAPSHOTS,
-                               "Nenhuma foto vira lixo. A actual e a de %s." % SNAPSHOT_ATUAL),
+        "SNAPSHOTS.json": _snapshots(registos),
         "PORTFOLIO.json": _env("ADAMA-PORTFOLIO", portfolio,
                                "O que o catalogo publico da ADAMA Italia mostra. "
                                "CATALOG_PRODUCT != REGULATORY_PRODUCT."),
@@ -636,6 +724,10 @@ def montar(escrever=True):
         "AUTHORIZED-USES.json": _env("ADAMA-AUTHORIZED-USES", usos,
                                      "Pares cultura x alvo lidos do rotulo. Nao recolhidos "
                                      "aqui: lidos do V2.1 e ligados ao produto."),
+        "LABEL-READINGS.json": _env("ADAMA-LABEL-READINGS", leituras,
+                                    "Uma linha por bula que o leitor de rotulos tentou ler. "
+                                    "LABEL_WAS_READ=false e «nao lemos», NUNCA «nao autoriza»: "
+                                    "quem pergunta por um uso desta bula recebe A CONFIRMAR."),
         "DOSES.json": _env("ADAMA-DOSES", doses,
                            "Dose lida do rotulo oficial, com citacao e pagina. Os 142 "
                            "rotulos sem tabela lida ficam na lista com PARSE_STATE: "
@@ -670,6 +762,28 @@ FONTES_REL = {
     "V21_USOS": "build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip → DESIGN-INGEST/PRODUCT-RELATIONSHIPS.json",
     "V21_PAI": "build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip → DESIGN-INGEST/PRODUCT-ACTIVE-INGREDIENTS.json",
 }
+
+
+def _snapshots(registos):
+    """SNAPSHOTS.json com a checagem MEDIDA e a data da ultima que deu certo."""
+    fotos = [dict(f) for f in SNAPSHOTS]
+    cheque = conferir_contra_o_bruto(registos)
+    for f in fotos:
+        if f["SNAPSHOT_ID"] == SNAPSHOT_QUE_CONFERE:
+            f["CHECK"] = cheque
+    env = _env("ADAMA-SNAPSHOTS", fotos,
+               "Nenhuma foto vira lixo. A actual e a de %s." % SNAPSHOT_ATUAL)
+    ok = [f["CHECK"]["CHECKED_AT"] for f in fotos
+          if (f.get("CHECK") or {}).get("RESULT") == "CONFIRMA_A_EDICAO"]
+    # A edicao foi observada no seu dia: isso tambem e uma checagem que deu certo.
+    env["CURRENT_EDITION_OBSERVED_AT"] = _observado(SNAPSHOT_ATUAL)
+    env["LAST_CHECK_OK"] = max(ok + [_observado(SNAPSHOT_ATUAL)])
+    env["LAST_CHECK_OK_LAW"] = ("a data mais recente em que a edicao atual foi "
+                                "observada ou conferida contra um bruto do Ministero "
+                                "SEM divergencia. E dela que a porta conta o frescor "
+                                "(D117: 14 dias -> PODE_ESTAR_DESATUALIZADO; 30 -> "
+                                "autorizacao A CONFIRMAR).")
+    return env
 
 
 def _observado(snapshot_id):

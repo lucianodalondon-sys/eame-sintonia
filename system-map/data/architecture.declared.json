@@ -958,7 +958,7 @@
    "views": [
     "audit"
    ],
-   "what": "Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe o candidato lendo o texto na lingua do pais. ESTUDOS-CHAVES (27/09): leis/estudo_chaves.py le no titulo+resumo de um estudo T5 a CULTURA, o PROBLEMA e o LUGAR DO ESTUDO, compondo os vocabularios que ja existem (lexico T6, pragas do boletim, regua T1, gazetteer), com o trecho literal (D112, ENTITY_SOURCE=SPAN); ambiguo = NAO SEI; afiliacao nunca vira lugar (INT-LAW-102); o lugar so conta com verbo/nome de experimento na frase; CAP-SCI: a praga e NOMEADA pelo estudo, nunca incidencia de campo. E aplicado quando o dado entra: admissao.janela_declarada chama-o no universo T5.",
+   "what": "Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe o candidato lendo o texto na lingua do pais. ESTUDOS-CHAVES (27/09): leis/estudo_chaves.py le no titulo+resumo de um estudo T5 a CULTURA, o PROBLEMA e o LUGAR DO ESTUDO, compondo os vocabularios que ja existem (lexico T6, pragas do boletim, regua T1, gazetteer), com o trecho literal (D112, ENTITY_SOURCE=SPAN); ambiguo = NAO SEI; afiliacao nunca vira lugar (INT-LAW-102); o lugar so conta com verbo/nome de experimento na frase; CAP-SCI: a praga e NOMEADA pelo estudo, nunca incidencia de campo. E aplicado quando o dado entra: admissao.janela_declarada chama-o no universo T5. leis/boletim_do_campo.produtos_adama_do_boletim: praga x cultura da MESMA secao -> produtos ADAMA autorizados, pela porta; ler_boletim continua pura.",
    "why_here": "Uma fonte italiana a falar de Espanha nao torna o fato italiano. Esta e das licoes que o Brasil ensinou a esta casa, e — como o proprio texto anterior dizia — SO VALE SE FOR APLICADA QUANDO O DADO ENTRA. ⚠️ NAO ESTA. Medido: `grep -rn 'import lugar_do_fato'` e `'import fato_local'` em toda a arvore devolvem UMA linha cada, e as duas estao em `tests/test_lugar_do_fato.py`. Nenhum workflow corre estes ficheiros. O cartao dizia «o motor importa esta lei para decidir», e isso era falso. A lei continua valida e por isso NAO foi apagada — mudou de sitio: sai de Z-MEDIDAS (esteira da coleta) para Z-REGUAS, em F-GOVERNANCA, onde vivem as leis. E fica classificada como DECLARED_RULE_NOT_ENFORCED em vez de fingir que o motor a consulta. Nenhuma aresta foi criada para a fazer parecer usada. Aplica-la quando o dado entra e decisao de arquitetura, e continua por tomar.",
    "departments": [
     "INTELIGENCIA",
@@ -1544,7 +1544,7 @@
    "name": "O que a ADAMA sabe de si",
    "territory": "Z-FONTES",
    "kind": "contract",
-   "what": "O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna.",
+   "what": "O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna. O construtor da referencia (fontes/adama_referencia.py) confere a edicao corrente contra o bruto do Ministero e escreve a data da ultima checagem que deu certo; cola a citacao dos pares do leitor de rotulos aos usos autorizados so depois de conferir par a par que sao os mesmos 2030.",
    "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel. Nada aqui sai para buscar: o catalogo veio de paginas salvas a mao, e o portfolio e reaproveitado como entrada. E o inventario que se consulta ANTES de coletar.",
    "departments": [
     "REGULATORIO_PORTFOLIO",
@@ -4144,7 +4144,7 @@
    "name": "A referencia da ADAMA, com um dono so",
    "territory": "Z-REFERENCIA",
    "kind": "contract",
-   "what": "Product master, portfolio, registos, documentos de rotulo, usos autorizados, doses e substancias activas da ADAMA Italia — ligados por um identificador interno (ADAMA_PRODUCT_ID) que nao vem do numero do Ministero nem carrega o pais dentro. Guarda tambem as FOTOS DATADAS do catalogo comercial, quem foi visto em cada uma, e o diff entre elas.",
+   "what": "Product master, portfolio, registos, documentos de rotulo, usos autorizados, doses e substancias activas da ADAMA Italia — ligados por um identificador interno (ADAMA_PRODUCT_ID) que nao vem do numero do Ministero nem carrega o pais dentro. Guarda tambem as FOTOS DATADAS do catalogo comercial, quem foi visto em cada uma, e o diff entre elas. Desde a PORTA-UNICA-REFERENCIA (D116) ganhou LABEL-READINGS (o estado da leitura de cada uma das 163 bulas), a citacao e o nivel de ligacao de cada um dos 2030 usos, e SNAPSHOTS.LAST_CHECK_OK medida (o bruto de 07/09 confirma a edicao de 31/08: 602/602). E lida por UMA porta: motor/porta_da_referencia.py.",
    "why_here": "A casa tinha DUAS referencias da ADAMA construidas no mesmo dia que nao se conheciam: uma com 602 autorizacoes e zero usos de rotulo, outra com 163 autorizacoes e 2030 usos. Onde as duas opinavam nunca se contradiziam — eram duas fotografias parciais, e o consumidor escolhia entre elas sozinho. Aqui ha um dono por conceito, escrito em CONTRATO-ADAMA-REFERENCE.md, e os pacotes de origem continuam intactos, citados linha a linha em PROVENANCE. A partir de 15/09/2026 a casa responde tambem a «o que mudou?»: o catalogo passou a ter snapshot proprio, porque o PORTFOLIO nascera do catalogo observado a 30/08 mas datava-se pela foto do Ministero de 31/08 — outra fonte, outro dia. Ausencia numa foto e membership, nunca apagamento: o produto sai da foto e fica inteiro no Product Master.",
    "departments": [
     "REGULATORIO_PORTFOLIO",
@@ -4157,6 +4157,7 @@
     "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
     "referencia/adama/DOSES.json",
     "referencia/adama/LABEL-DOCUMENTS.json",
+    "referencia/adama/LABEL-READINGS.json",
     "referencia/adama/PORTFOLIO-DRIFT.json",
     "referencia/adama/PORTFOLIO-OBSERVATIONS.json",
     "referencia/adama/PORTFOLIO.json",
@@ -4515,7 +4516,7 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Le o livro de uma corrida G0/v4 e os itens READY, e julga por CULTURA x PROBLEMA x REGIAO (com fase/BBCH, subarea e periodo) duas perguntas separadas: WINDOW_DEFINED (que condicao define o momento de agir: os 8 tipos da regra do V21) e WINDOW_OPEN_NOW (a fonte declara a condicao satisfeita, e o facto tem tempo e e CURRENT?). Conta apoios pelo grafo de dependencia (observacao por originador e rede declarada; a regra partilhada conta uma vez), marca SUPPORT/CONTRADICTS entre observacoes da mesma semana e subarea, e devolve um ANALYTIC_JUDGMENT CROP_WINDOW com ACT_NOW so com YES, CURRENT, 2 independentes provados e 0 contradicoes — senao NO_DEFENSIBLE_ACTION_YET com o porque. Sem par em campo: NOT_POSSIBLE e o requisito CROP_ISSUE_EM_CAMPO. Nao produz oportunidade. Aceita a triagem do motor das capacidades (fora={ITEM_ID: motivo}): o estudo sai em FORA com o motivo e nao gera requisito de par.",
+   "what": "Le o livro de uma corrida G0/v4 e os itens READY, e julga por CULTURA x PROBLEMA x REGIAO (com fase/BBCH, subarea e periodo) duas perguntas separadas: WINDOW_DEFINED (que condicao define o momento de agir: os 8 tipos da regra do V21) e WINDOW_OPEN_NOW (a fonte declara a condicao satisfeita, e o facto tem tempo e e CURRENT?). Conta apoios pelo grafo de dependencia (observacao por originador e rede declarada; a regra partilhada conta uma vez), marca SUPPORT/CONTRADICTS entre observacoes da mesma semana e subarea, e devolve um ANALYTIC_JUDGMENT CROP_WINDOW com ACT_NOW so com YES, CURRENT, 2 independentes provados e 0 contradicoes — senao NO_DEFENSIBLE_ACTION_YET com o porque. Sem par em campo: NOT_POSSIBLE e o requisito CROP_ISSUE_EM_CAMPO. Nao produz oportunidade. Aceita a triagem do motor das capacidades (fora={ITEM_ID: motivo}): o estudo sai em FORA com o motivo e nao gera requisito de par. Cada janela diz que produtos ADAMA a bula lida autoriza para a cultura x problema (PRODUTOS_ADAMA, pela porta; bula nao lida = A_CONFIRMAR), sem mexer no RESULT da janela. PORTA-UNICA-REFERENCIA (D116): a referencia ADAMA entra so por motor/porta_da_referencia.py, na mesma edicao das outras capacidades, e a edicao usada fica carimbada no resultado.",
    "why_here": "Missao CAP-WIN (D100-b/L6: a CAP-WIN vem primeiro na espinha G0-G6), desenho docs/intelligence/CAP-WIN-DESENHO-R5.md W0-W8. Porta a REGRA de scripts/v21_janelas.py @ 85df96f7 sem portar o ficheiro (o legado le DESIGN-INGEST e atribui par por texto, INT-LAW-084). Dois acrescimos declarados, os dois medidos no corte ARIF x APOL: soglia nao atingida escrita por extenso -> NO com a razao certa, e o plural «soglie». O tempo so bloqueia o uso que exige tempo: a regra de um READY sem FACT_TIME continua lida, o «agora» nao. EXPERIMENTAL / NAO_PARA_CLIENTE.",
    "files": [
     "motor/cap_win.py"
@@ -4570,7 +4571,7 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Le o livro de uma corrida G0/v4 fechada e, so para os itens READY com o uso LEITURA_ATEMPORAL_DE_CAPACIDADE, julga cada estudo: FORCA decomposta (desenho, n, estudo pequeno = INDICATIVA), APLICABILIDADE (cultura x problema x molecula, local e periodo do estudo so quando provados por FACT_LOCATION/FACT_TIME com base), ESPECIE declarada pelo estudo (SCIENTIFIC_RESULT, MODEL_RULE e RESISTANCE separadas), INDEPENDENCIA por ensaio, dataset, autor e instituicao (teto, nunca prova), replicacao e contradicao declaradas, e a ligacao TEMATICA a rotulo ADAMA ativo so com cultura+alvo+molecula provados (referencia/adama, so leitura). Nao produz FINDING, OPPORTUNITY nem score unico. Aceita a triagem do motor das capacidades (triados_fora): o boletim sem identidade de estudo sai em FORA e nao e julgado como estudo.",
+   "what": "Le o livro de uma corrida G0/v4 fechada e, so para os itens READY com o uso LEITURA_ATEMPORAL_DE_CAPACIDADE, julga cada estudo: FORCA decomposta (desenho, n, estudo pequeno = INDICATIVA), APLICABILIDADE (cultura x problema x molecula, local e periodo do estudo so quando provados por FACT_LOCATION/FACT_TIME com base), ESPECIE declarada pelo estudo (SCIENTIFIC_RESULT, MODEL_RULE e RESISTANCE separadas), INDEPENDENCIA por ensaio, dataset, autor e instituicao (teto, nunca prova), replicacao e contradicao declaradas, e a ligacao TEMATICA a rotulo ADAMA ativo so com cultura+alvo+molecula provados (a referencia ADAMA pela porta, so leitura; D117: edicao sem checagem ha 30 dias -> AUTORIZACAO A_CONFIRMAR). Nao produz FINDING, OPPORTUNITY nem score unico. Aceita a triagem do motor das capacidades (triados_fora): o boletim sem identidade de estudo sai em FORA e nao e julgado como estudo.",
    "why_here": "Biblia §34 CAP-SCI e mapa do dono §35: nao e biblioteca de papers, e que conhecimento cientifico novo pode alterar uma decisao. Nunca le identidade de fora do READY (campo a mais e recusado), nunca le o TEXTO, afiliacao nao vira local (INT-LAW-102), publicacao nao vira periodo (INT-LAW-100), tres papers do mesmo ensaio nao sao tres evidencias (INT-LAW-072/073), e nenhum estudo vira «o produto nao funciona» — essa leitura nao existe no vocabulario e uma trava rebenta se aparecer. Provado so com fixture SINTETICA; o registo T6 real nao esta nesta arvore.",
    "files": [
     "motor/capacidade_cientifica.py"
@@ -4589,7 +4590,7 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio.",
+   "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida.",
    "why_here": "Missao INT-R7-CAPS: juntar CAP-WIN e CAP-SCI no motor sem duplicar leis nem contadores (uma corrida, um RUN_ID) e preparar a rodada 7 (RUNBOOK-R7.md). Conflitos resolvidos pelo significado: URL/DOCUMENT_ID nao sao READY (vem do RAW); JANELA_DECLARADA nao esta em CAMPOS_READY (viaja ao lado, so a CAP-WIN a le); boletim nao e estudo e estudo nao e janela. Nao abre a Sala, nao cunha identidade, nao produz OPORTUNIDADE. EXPERIMENTAL / NAO_PARA_CLIENTE.",
    "files": [
     "motor/motor_das_capacidades.py",
@@ -5922,6 +5923,43 @@
    ]
   },
   {
+   "id": "C-INT-PORTA-REFERENCIA",
+   "name": "A porta unica da referencia ADAMA — bulas e portfolio, uma edicao",
+   "icon": "⛩",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Le a casa da referencia ADAMA e devolve duas metades que nunca se somam: REGISTRO (autorizacao do Ministero: registos, usos autorizados, leitura de cada bula, substancias, doses, documentos) e CATALOGO (vitrine da ADAMA Italia). Cada metade com EDICAO, DATA_DA_EDICAO, ULTIMA_CHECAGEM_OK, ESTADO_FRESCOR (D117: 14 dias -> PODE_ESTAR_DESATUALIZADO; 30 -> AUTORIZACAO_A_CONFIRMAR) e o sha256 de cada livro. Edicao misturada = NAO SEI inteira. Responde autorizados(cultura, alvo), por_substancia, por_alvo so do REGISTRO; bula nao lida = A_CONFIRMAR, nunca «nao autoriza». Nao escreve, nao copia a tabela, nao cunha id.",
+   "why_here": "D116 do dono: bulas e portfolio sao UMA biblioteca de referencia versionada, e toda capacidade que fala de produto consulta a MESMA edicao. Medido antes: a CAP-SCI lia a casa direto, o cruzamentos-max lia outra copia (os pares do leitor e o CSV de 07/09, outra edicao), e cap_win, concorrencia_meta e boletim nao liam nada. Vive em motor/ porque LER e trabalho da inteligencia; o construtor (fontes/adama_referencia.py) continua o unico que escreve. tests/test_porta_unica_referencia.py reprova quem ler por fora.",
+   "files": [
+    "motor/porta_da_referencia.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-PORTA-REFERENCIA",
+   "name": "Mutacao da porta unica da referencia",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Planta 20 defeitos numa copia da arvore em pasta temporaria (o repo nao e tocado): leitura direta da referencia em cap_win, cruzamentos_max, concorrencia_meta e boletim; edicao misturada aceite; o motor a abrir a porta duas vezes; catalogo tratado como autorizacao; frescor ignorado (14, 30, sem data, contado do ficheiro, na CAP-SCI e no cruzamentos-max); bula nao lida a virar «nao»; checagem que confirma sempre; carimbo sem o sha do livro. Corre tests/test_porta_unica_referencia.py e sai 1 se algum sobreviver.",
+   "why_here": "Prova que o contrato da porta morde. 20/20 mortos a 2026-09-27 (provas/porta_unica_referencia/MUTANTES.json).",
+   "files": [
+    "provas/porta_unica_referencia/mutantes.py"
+   ]
+  },
+  {
    "id": "C-CRUZAMENTOS-MAX",
    "name": "Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia",
    "territory": "Z-MOTOR",
@@ -5934,8 +5972,8 @@
     "INTELIGENCIA",
     "ENGENHARIA"
    ],
-   "what": "Le docs/intelligence/r7/ANALISE-R7.json (86 cruzamentos), os pares dos rotulos ADAMA lidos (data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json) e o cadastro oficial do Ministero (IT-T4-001, PROD_FTS_6_20260907.csv). (1) Refaz os cruzamentos com uma TABELA DE GRAO que so aceita o que o MESMO rotulo declara («Pomacee (melo, pero, ...)») ou nomeia na zona da cultura do par; grupo do leitor sem nome = GRAO_NAO_PROVADO; cultura de rotacao e subtipo nao contam. (2) Confere os POSSIBLE_ANSWER_YES_A_CONFIRMAR contra o cadastro (registo ADAMA, substancia na composicao, validade NA DATA DO BOLETIM, cultura no rotulo, dose/intervalo transcritos) -> CONFIRMED_YES / NO / UNRESOLVED. (3) PORTFOLIO_MATCH: para pares cultura x praga da mesma secao do boletim, os produtos ADAMA com essa cultura x alvo no rotulo (linha/bloco) e registo valido. (4) COMPETITIVE_SET: produtos de outras empresas no cadastro com a mesma substancia (grao = SUBSTANCIA; cultura x alvo do concorrente = NAO SEI). (5) Escreve CRUZAMENTOS-MAX.json e os objetos no contrato de entrada do pote v2 (ESPECIE CROSSING).",
-   "why_here": "CRUZAMENTOS-MAX (D114 do dono, 2026-09-27: o maximo de cruzamentos, cada um com prova). Mede sobre o repo, sem rede: 48 PARTIAL continuam 48 (a substancia nao esta ligada a cultura no troco guardado; o texto integral nao esta versionado), 5 YES -> 3 CONFIRMED_YES + 2 UNRESOLVED, 22 dos 29 NO eram NO sem rotulo lido -> UNRESOLVED. Ausencia e ausencia NA NOSSA LEITURA (102/163 rotulos). Testes: tests/test_cruzamentos_max.py (sinteticos SINT- + drift do JSON commitado).",
+   "what": "Le docs/intelligence/r7/ANALISE-R7.json (86 cruzamentos), e a referencia ADAMA PELA PORTA (motor/porta_da_referencia.py, edicao corrente): os usos autorizados com a citacao do par, a leitura de cada bula e os registos ADAMA. Ja nao le os pares do leitor de rotulos nem o CSV de 07/09 (outra edicao). (1) Refaz os cruzamentos com uma TABELA DE GRAO que so aceita o que o MESMO rotulo declara («Pomacee (melo, pero, ...)») ou nomeia na zona da cultura do par; grupo do leitor sem nome = GRAO_NAO_PROVADO; cultura de rotacao e subtipo nao contam. (2) Confere os POSSIBLE_ANSWER_YES_A_CONFIRMAR contra os registos ADAMA da edicao corrente (registo ADAMA, substancia na composicao, validade NA DATA DO BOLETIM, cultura no rotulo, dose/intervalo transcritos) -> CONFIRMED_YES / NO / UNRESOLVED. (3) PORTFOLIO_MATCH: para pares cultura x praga da mesma secao do boletim, os produtos ADAMA com essa cultura x alvo no rotulo (linha/bloco) e registo valido. (4) COMPETITIVE_SET: produtos de outras empresas com a mesma substancia — NAO SEI enquanto a referencia nao tiver o mercado (LACUNA-3, declarada). (5) Escreve CRUZAMENTOS-MAX.json e os objetos no contrato de entrada do pote v2 (ESPECIE CROSSING).",
+   "why_here": "CRUZAMENTOS-MAX (D114 do dono, 2026-09-27: o maximo de cruzamentos, cada um com prova). Mede sobre o repo, sem rede: 48 PARTIAL continuam 48 (a substancia nao esta ligada a cultura no troco guardado; o texto integral nao esta versionado), 5 YES -> 3 CONFIRMED_YES + 2 UNRESOLVED, 22 dos 29 NO eram NO sem rotulo lido -> UNRESOLVED. Ausencia e ausencia NA NOSSA LEITURA (102/163 rotulos). Testes: tests/test_cruzamentos_max.py (sinteticos SINT- + drift do JSON commitado). PORTA-UNICA-REFERENCIA (D116): pela porta o grao ficou identico (86/86), e os 3 CONFIRMED_YES voltam a POSSIBLE_ANSWER_YES_A_CONFIRMAR — a edicao corrente nao traz data de registo/revoga (LACUNA-2); o competitive set fica NAO SEI (LACUNA-3).",
    "files": [
     "motor/cruzamentos_max.py"
    ]
@@ -5971,7 +6009,7 @@
    "departments": [
     "ENGENHARIA"
    ],
-   "what": "Planta 31 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): grao de outro rotulo, chave de grupo como prova, rotacao como uso, subtipo como generico, zona da cultura inteira, PARTIAL->YES sem ligacao, rotulo nao lido como NO, validade sem scadenza/revoga/registo, declaracao de produto como par forte, ADAMA no competitive set, METALAXYL = METALAXYL-M, DOCUMENT_ID fabricado, LINEAGE ambigua ligada, id da R7 reusado, entre outros. Corre tests/test_cruzamentos_max.py. Sai 1 se algum sobreviver.",
+   "what": "Planta 31 defeitos numa copia minima (com a referencia ADAMA, que o motor le pela porta) em pasta temporaria (o repo nao e tocado): grao de outro rotulo, chave de grupo como prova, rotacao como uso, subtipo como generico, zona da cultura inteira, PARTIAL->YES sem ligacao, rotulo nao lido como NO, validade sem scadenza/revoga/registo, declaracao de produto como par forte, ADAMA no competitive set, METALAXYL = METALAXYL-M, DOCUMENT_ID fabricado, LINEAGE ambigua ligada, id da R7 reusado, entre outros. Corre tests/test_cruzamentos_max.py. Sai 1 se algum sobreviver.",
    "why_here": "Prova que os testes apanham o que o motor e o pote juram nao fazer. 31/31 mortos a 2026-09-27.",
    "files": [
     "provas/_mutantes_cruzamentos_max.py"
@@ -6028,7 +6066,7 @@
     "acervo",
     "collection-strategy"
    ],
-   "what": "A linha recorrente T9 da Biblioteca de Anuncios: uma visita por pagina por rodada no recorte IT, snapshot datado com o RAW da pagina e o sha256, comparacao por recorte com a ultima leitura boa (novo so conta onde a leitura anterior foi pelo menos tao funda; terminado so com as duas leituras fechadas pela fonte), e os cartoes vistos pela primeira vez saem como COLHEITA no envelope da COL-LAW-505 para o ingresso e a Admissao T9. A descoberta (meta_anunciante) so PROPOE paginas novas; entrar na lista e gesto de gente.",
+   "what": "A linha recorrente T9 da Biblioteca de Anuncios: uma visita por pagina por rodada no recorte IT, snapshot datado com o RAW da pagina e o sha256, comparacao por recorte com a ultima leitura boa (novo so conta onde a leitura anterior foi pelo menos tao funda; terminado so com as duas leituras fechadas pela fonte), e os cartoes vistos pela primeira vez saem como COLHEITA no envelope da COL-LAW-505 para o ingresso e a Admissao T9. A descoberta (meta_anunciante) so PROPOE paginas novas; entrar na lista e gesto de gente. Depois de colher, adama_no_anuncio le o criativo contra a referencia ADAMA pela porta: substancia/alvo que o criativo nomeia -> ha registo ADAMA ativo com a mesma substancia (ou bula com o mesmo alvo)? Grao = substancia; a cultura do anuncio e NAO SEI. Nao escreve no envelope.",
    "why_here": "A captura de 31/08 (414 cartoes = 601 anuncios que alcancaram a Italia) foi uma fotografia a mao e nunca entrou na producao. E nela 587 «novos» eram so a leitura nova a ir mais fundo: LI_MAIS_FUNDO != APARECERAM_MAIS_ANUNCIOS. A nuvem nao colhe: a rota exige Chrome com janela e saida pela Italia.",
    "departments": [
     "DESENVOLVIMENTO_MERCADO",

@@ -81,6 +81,9 @@ if str(RAIZ / "motor") not in sys.path:
 
 import corrida_da_inteligencia as CI            # noqa: E402
 import grafo_de_dependencia as GD               # noqa: E402
+# PORTA-UNICA-REFERENCIA (D116): «que produto ADAMA a bula autoriza para esta
+# cultura x problema?» e perguntado a porta, na MESMA edicao das outras capacidades.
+import porta_da_referencia as PORTA             # noqa: E402
 
 # ⚠️ O vocabulario vem da CORRIDA, que ja o le da espinha. Importar a espinha
 # daqui era runtime a importar `provas/` por nome nu — e
@@ -746,8 +749,21 @@ def _julgar_par(chave: tuple, evs: list, textos: dict, run_id: str) -> dict:
     }
 
 
+def produtos_adama(ref: dict, crop: str, issue: str) -> dict:
+    """A janela -> os produtos ADAMA que a bula lida autoriza para a cultura x problema.
+
+    PELA PORTA, e so do REGISTRO: catalogo nao e autorizacao. Nao mexe no RESULT da janela
+    (produto autorizado nao abre janela nenhuma), e bula nao lida fica A_CONFIRMAR.
+    """
+    r = PORTA.autorizados(ref, crop, issue)
+    r.pop("CARIMBO", None)
+    r["EDICAO_REGISTRO"] = (ref.get("REGISTRO") or {}).get("EDICAO", NAO_SEI) \
+        if isinstance(ref, dict) else NAO_SEI
+    return r
+
+
 def julgar(livro: dict, itens: list, hoje: date, n_dias: int = N_DIAS_CURRENT,
-           fora: dict | None = None) -> dict:
+           fora: dict | None = None, referencia: dict | None = None) -> dict:
     """A CAP-WIN sobre UMA corrida G0/v4. `hoje` e obrigatorio: quem pergunta
     «agora» diz que dia e agora — nunca o relogio escondido.
 
@@ -793,10 +809,14 @@ def julgar(livro: dict, itens: list, hoje: date, n_dias: int = N_DIAS_CURRENT,
         pares.setdefault(chave, []).extend(
             _evidencias_do_item(item, linha, par, hoje, n_dias))
     janelas = [_julgar_par(k, v, textos, run_id) for k, v in sorted(pares.items())]
+    ref = referencia if referencia is not None else PORTA.abrir(hoje=hoje)
+    for j in janelas:
+        j["PRODUTOS_ADAMA"] = produtos_adama(ref, j["CROP_ID"], j["ISSUE_ID"])
     return {
         "SCHEMA": VERSAO, "CAPABILITY": CAPACIDADE,
         "INTELLIGENCE_RUN_ID": run_id, "RULESET_VERSION": livro.get("RULESET_VERSION"),
         "HOJE": hoje.isoformat(),
+        "REFERENCIA_ADAMA": PORTA.carimbo(ref),
         "N_DIAS_CURRENT": n_dias, "N_DIAS_CURRENT_ESTADO": N_DIAS_CURRENT_ESTADO,
         "REGRA_PORTADA_DE": REGRA_PORTADA_DE,
         "CAPACIDADES_EXECUTADAS": {CAPACIDADE: {"VERSION": VERSAO, "RUN": run_id}},

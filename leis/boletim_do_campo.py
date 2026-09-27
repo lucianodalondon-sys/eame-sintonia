@@ -620,3 +620,43 @@ def aplicacoes_territoriais(texto: str, trecho: str, *, publicador: str | None =
     return {"OCORRENCIAS": len(lidas), "APLICACOES_TERRITORIAIS": len(territorios), "TERRITORIOS": territorios,
             "INSTITUICOES_INDEPENDENTES": 1 if lidas else 0, "PUBLICADOR": publicador or UNKNOWN,
             "LEI": "mesma afirmacao, mesmo documento: N aplicacoes territoriais, UMA instituicao (nao N fontes)"}
+
+
+# ── PORTA-UNICA-REFERENCIA (D116): o SINAL praga x cultura -> produtos ADAMA autorizados ─────────────────
+# `ler_boletim` continua PURA. Esta funcao e a unica deste ficheiro que le a referencia, e le PELA PORTA
+# (`motor/porta_da_referencia.py`), na mesma edicao que as outras capacidades: nunca abre bula, registo nem
+# catalogo por conta propria. Praga AUSENTE nao pergunta nada (praga marcada ausente nao e ocorrencia).
+# Bula nao lida -> A_CONFIRMAR; cultura/alvo que nenhuma bula escreve nesta forma -> NAO SEI.
+def _porta():
+    import os
+    import sys
+    motor = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "motor")
+    if motor not in sys.path:
+        sys.path.insert(0, motor)
+    import porta_da_referencia as PORTA   # noqa: PLC0415
+    return PORTA
+
+
+def produtos_adama_do_boletim(leitura: dict, referencia: dict | None = None, hoje=None) -> dict:
+    """Cada par cultura x praga ESCRITO NA MESMA SECAO -> o que a bula ADAMA autoriza, pela porta."""
+    PORTA = _porta()
+    ref = referencia if referencia is not None else PORTA.abrir(hoje=hoje)
+    pares, vistos = [], set()
+    for s in (leitura or {}).get("SECOES") or []:
+        cultura = s.get("CULTURA")
+        if not cultura:
+            continue                     # praga sem cultura na secao nao ganha cultura emprestada
+        cultura = MESMA_CULTURA.get(cultura, cultura)
+        for p in s.get("PROBLEMAS") or []:
+            if p.get("ESTADO") == "AUSENTE":
+                continue
+            chave = (cultura, p.get("NOME"))
+            if chave in vistos:
+                continue
+            vistos.add(chave)
+            r = PORTA.autorizados(ref, cultura, p.get("NOME"))
+            r.pop("CARIMBO", None)
+            pares.append({"CULTURA": cultura, "PRAGA": p.get("NOME"), "ESTADO_NO_BOLETIM": p.get("ESTADO"),
+                          "PRODUTOS_ADAMA": r})
+    return {"REFERENCIA_ADAMA": PORTA.carimbo(ref), "PARES": pares,
+            "NAO_E": "o boletim nao recomendou produto: e a bula a cobrir o par que o boletim escreveu"}

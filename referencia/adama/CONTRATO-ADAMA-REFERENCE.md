@@ -21,7 +21,8 @@ NASCEU EM   2026-09-15 · FASE 1C-2
 | **PORTFOLIO** | `PORTFOLIO.json` | 51 | `ADAMA_PRODUCT_ID` | `…-deep/PRODUCTS-COMMERCIAL.json` |
 | **REGISTRATIONS** | `REGISTRATIONS.json` | 602 | `REGISTRATION_NUMBER` | `…-deep/PRODUCTS-REGULATORY.json` |
 | **LABEL DOCUMENTS** | `LABEL-DOCUMENTS.json` | 141 | `DOCUMENT_ID` (sha256) | `…-deep/LABEL-MANIFEST.json` |
-| **AUTHORIZED USES** | `AUTHORIZED-USES.json` | 2.030 | `USE_ID` | V2.1 `PRODUCT-RELATIONSHIPS.json` |
+| **AUTHORIZED USES** | `AUTHORIZED-USES.json` | 2.030 | `USE_ID` | V2.1 `PRODUCT-RELATIONSHIPS.json` + citação e nível de ligação de `data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json` (os mesmos 2.030 pares, conferidos par a par) |
+| **LEITURA DE CADA BULA** | `LABEL-READINGS.json` | 163 | `REGISTRATION_NUMBER` | `IT-ROTULOS-PARES.json` → `POR_PRODUTO` (102 lidas com par) |
 | **DOSES** | `DOSES.json` | 163 rótulos · 839 linhas | `REGISTRATION_NUMBER` | `data/samples/IT-DOSE-ROTULO/` |
 | **ACTIVE INGREDIENTS** | `ACTIVE-INGREDIENTS.json` | 122 | `ACTIVE_INGREDIENT_ID` | `…-deep/ACTIVE-INGREDIENTS.json` |
 | **PRODUTO × SUBSTÂNCIA** | `PRODUCT-ACTIVE-INGREDIENTS.json` | 203 | `RELATION_ID` | V2.1 `PRODUCT-ACTIVE-INGREDIENTS.json` |
@@ -368,8 +369,28 @@ estados administrativos vivem nos dados, não no contrato.
 
 ---
 
+## A PORTA — UMA SÓ (PORTA-UNICA-REFERENCIA, D116/D117)
+
+Esta casa é **lida por uma porta só**: [`motor/porta_da_referencia.py`](../../motor/porta_da_referencia.py).
+Ela devolve duas metades que nunca se somam — **REGISTRO** (autorização, Ministero) e **CATÁLOGO**
+(vitrine, ADAMA Italia) —, cada uma com `EDICAO`, `DATA_DA_EDICAO`, `ULTIMA_CHECAGEM_OK`,
+`ESTADO_FRESCOR` e o sha256 de cada livro. Todo livro do REGISTRO tem de declarar a mesma
+`CURRENT_SNAPSHOT`: edição misturada é `NÃO SEI` inteira.
+
+`SNAPSHOTS.LAST_CHECK_OK` é **medida** pelo construtor (`conferir_contra_o_bruto`): o bruto de 07/09
+confirma a edição de 31/08 — 602 de 602, 0 entradas, 0 saídas, 0 estados diferentes. O frescor conta-se
+dessa data: 14 dias → `PODE_ESTAR_DESATUALIZADO`; 30 → a autorização sai `A_CONFIRMAR`.
+
+`tests/test_porta_unica_referencia.py` reprova qualquer módulo de `motor/`, `leis/` ou `coleta/` que
+abra estes livros (ou `IT-ROTULOS*`, `PROD_FTS*`, `COMMERCIAL-CATALOG`) por fora da porta — salvo as
+exceções declaradas lá, uma a uma, que só podem encolher.
+
 ## CONSUMIDORES
 
-Nenhum foi alterado nesta missão. O Portal continua a ler o `DESIGN-INGEST` do
+Pela porta (PORTA-UNICA-REFERENCIA): `motor/capacidade_cientifica.py`, `motor/motor_das_capacidades.py`,
+`motor/cap_win.py`, `motor/cruzamentos_max.py`, `coleta/concorrencia_meta.py`,
+`leis/boletim_do_campo.py`. Cada um carimba no resultado a edição que usou.
+
+Nota da missão anterior: nenhum consumidor tinha sido alterado. O Portal continua a ler o `DESIGN-INGEST` do
 zip e a fazer o seu próprio reparo de nomes. Registado, não consertado —
 `italia-portale/` é casa estacionada, e mexer nela era fora de escopo.
