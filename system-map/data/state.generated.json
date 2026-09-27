@@ -4543,9 +4543,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/cruzamentos-max-sguy1x",
-    "HEAD": "a09d383d133acfa781fc02dad8848a565ec63005",
-    "GENERATED_AT": "2026-09-27T16:08:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "044df6a1f8f475373a021edb7eb1da95934494210c73e7300917da367f21d651"
+    "HEAD": "bfe613fce3634ad94e9d4f721b082b1e3814707e",
+    "GENERATED_AT": "2026-09-27T19:48:18+00:00",
+    "SOURCE_TREE_FINGERPRINT": "516bf6df3ea7274d498781547402964c32a4ccc76e9f0e087bf0839287ef5c7e"
   },
   "FAMILIES": [
     {
@@ -5212,7 +5212,7 @@
       ],
       "file_count": 11,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-PUBLICA, C-CRUZAMENTOS-MAX.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-PUBLICA.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json",
@@ -5224,7 +5224,6 @@
       ],
       "outbound": [
         "C-COLETA-PUBLICA",
-        "C-CRUZAMENTOS-MAX",
         "C-INT-CONSUMO-ADAMA",
         "C-LASTMILE",
         "C-TESTES",
@@ -5376,11 +5375,11 @@
         "PLANO": null,
         "PROVA": [
           "coleta/comunicacao_concorrenza.py:73",
-          "motor/cruzamentos_max.py:65",
           "motor/v21_ingest.py:266",
-          "pacote/lastmile_entregar.py:65"
+          "pacote/lastmile_entregar.py:65",
+          "provas/consumo_da_referencia_adama.py:60"
         ],
-        "PORQUE": "estas pecas importam-na — C-COLETA-PUBLICA · C-CRUZAMENTOS-MAX · C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-COLETA-PUBLICA · C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 3885,
       "y": 360
@@ -44297,7 +44296,6 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-ADAMA-IT",
         "C-LUGAR-COLETA",
         "C-MAPA-TESTES",
         "C-PONTE-INT-CASCO",
@@ -44316,16 +44314,18 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ALVOS_CANON",
           "CADASTRO",
+          "CULTURAS_ROTULO",
           "FORMAS_DA_SUBSTANCIA",
           "GRUPOS_DO_LEITOR",
           "PALAVRAS_DE_GRUPO"
         ],
-        "palavras": 68,
+        "palavras": 228,
         "por_lingua": {
-          "IT": 2
+          "IT": 12
         },
-        "sem_marca_de_lingua": 66,
+        "sem_marca_de_lingua": 216,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -55491,7 +55491,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/cruzamentos_max.py:66",
+          "motor/cruzamentos_max.py:62",
           "pacote/pote_cruzamentos_max.py:51",
           "pacote/pote_intelligence_casco.py:68",
           "provas/_mutantes_ponte_casco.py:23"
@@ -58812,8 +58812,8 @@
       "name": "Mutacao dos cruzamentos-max",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Planta 30 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): grao de outro rotulo, chave de grupo como prova, rotacao como uso, subtipo como generico, zona da cultura inteira, PARTIAL->YES sem ligacao, rotulo nao lido como NO, validade sem scadenza/revoga/registo, declaracao de produto como par forte, ADAMA no competitive set, METALAXYL = METALAXYL-M, DOCUMENT_ID fabricado, LINEAGE ambigua ligada, id da R7 reusado, entre outros. Corre tests/test_cruzamentos_max.py. Sai 1 se algum sobreviver.",
-      "why_here": "Prova que os testes apanham o que o motor e o pote juram nao fazer. 30/30 mortos a 2026-09-27.",
+      "what": "Planta 31 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): grao de outro rotulo, chave de grupo como prova, rotacao como uso, subtipo como generico, zona da cultura inteira, PARTIAL->YES sem ligacao, rotulo nao lido como NO, validade sem scadenza/revoga/registo, declaracao de produto como par forte, ADAMA no competitive set, METALAXYL = METALAXYL-M, DOCUMENT_ID fabricado, LINEAGE ambigua ligada, id da R7 reusado, entre outros. Corre tests/test_cruzamentos_max.py. Sai 1 se algum sobreviver.",
+      "why_here": "Prova que os testes apanham o que o motor e o pote juram nao fazer. 31/31 mortos a 2026-09-27.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -72940,41 +72940,6 @@
     },
     {
       "from": "C-ADAMA-IT",
-      "to": "C-CRUZAMENTOS-MAX",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que a ADAMA sabe de si tem o seu codigo importado por Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/cruzamentos_max.py",
-          "line": 65,
-          "snippet": "from adama_it_intelligence import ADMIN_ATIVO                 # noqa: E402  (fontes/)",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-CRUZAMENTOS-MAX",
-            "FROM": "C-ADAMA-IT",
-            "TO": "C-CRUZAMENTOS-MAX",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-ADAMA-IT",
       "to": "C-INT-CONSUMO-ADAMA",
       "type": "READS",
       "payload": "artefacto",
@@ -73067,7 +73032,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que a ADAMA sabe de si tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O que a ADAMA sabe de si tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_adama_catalogo_drift.py",
@@ -73105,6 +73070,22 @@
           "file": "tests/test_adama_referencia.py",
           "line": 56,
           "snippet": "import adama_referencia as A",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
+            "FROM": "C-ADAMA-IT",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_cruzamentos_max.py",
+          "line": 395,
+          "snippet": "import adama_it_intelligence",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
             "FROM": "C-ADAMA-IT",
@@ -115873,7 +115854,7 @@
       "evidence": [
         {
           "file": "motor/cruzamentos_max.py",
-          "line": 63,
+          "line": 60,
           "snippet": "from boletim_do_campo import CULTURAS as CULTURAS_BOLETIM     # noqa: E402  (leis/)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-CRUZAMENTOS-MAX",
@@ -130481,7 +130462,7 @@
       "evidence": [
         {
           "file": "motor/cruzamentos_max.py",
-          "line": 66,
+          "line": 62,
           "snippet": "from ponte_intelligence_casco import NAO_SEI, MARCA, ESTADO_TRANSPORTAVEL   # noqa: E402  (pacote/)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-CRUZAMENTOS-MAX",
@@ -142522,41 +142503,6 @@
     {
       "from": "C-ROTULOS",
       "to": "C-CRUZAMENTOS-MAX",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Baixar e ler os rotulos oficiais tem o seu codigo importado por Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/cruzamentos_max.py",
-          "line": 62,
-          "snippet": "from rotulos_ler import CULTURAS_ROTULO, ALVOS_CANON          # noqa: E402  (coleta/)",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ROTULOS--IMPORTS-->C-CRUZAMENTOS-MAX",
-            "FROM": "C-ROTULOS",
-            "TO": "C-CRUZAMENTOS-MAX",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-ROTULOS",
-      "to": "C-CRUZAMENTOS-MAX",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -142566,7 +142512,7 @@
       "evidence": [
         {
           "file": "motor/cruzamentos_max.py",
-          "line": 70,
+          "line": 170,
           "snippet": "PARES = os.path.join(ROOT, \"data\", \"samples\", \"IT-ROTULOS\", \"IT-ROTULOS-PARES.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTULOS--READS-->C-CRUZAMENTOS-MAX",
@@ -142582,7 +142528,7 @@
         },
         {
           "file": "motor/cruzamentos_max.py",
-          "line": 71,
+          "line": 171,
           "snippet": "MANIFESTO = os.path.join(ROOT, \"data\", \"raw\", \"IT-ROTULOS\", \"_MANIFESTO.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTULOS--READS-->C-CRUZAMENTOS-MAX",
@@ -142957,8 +142903,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Baixar e ler os rotulos oficiais tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Baixar e ler os rotulos oficiais tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_cruzamentos_max.py",
+          "line": 394,
+          "snippet": "import rotulos_ler",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTULOS--IMPORTS-->C-TESTES",
+            "FROM": "C-ROTULOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_operacao.py",
           "line": 26,
@@ -159993,8 +159955,8 @@
     "components_pending": 244,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1702,
-    "edges_proven": 1635,
+    "edges": 1700,
+    "edges_proven": 1633,
     "edges_unknown": 67,
     "business_edges": 4,
     "files_tracked": 3949,

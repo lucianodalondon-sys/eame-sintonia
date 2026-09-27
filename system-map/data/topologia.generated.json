@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T19:47:08+00:00",
-  "HEAD": "a09d383d133acfa781fc02dad8848a565ec63005",
+  "GENERATED_AT": "2026-09-27T20:33:59+00:00",
+  "HEAD": "bfe613fce3634ad94e9d4f721b082b1e3814707e",
   "BRANCH": "claude/cruzamentos-max-sguy1x",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "044df6a1f8f475373a021edb7eb1da95934494210c73e7300917da367f21d651",
+  "SOURCE_TREE_FINGERPRINT": "516bf6df3ea7274d498781547402964c32a4ccc76e9f0e087bf0839287ef5c7e",
   "FICHEIROS_NA_IMPRESSAO": 4097,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2547,7 +2547,7 @@
    {
     "PATH": "motor/cruzamentos_max.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6cbdbe6d672fe566818f3bfe4089b4c6284dfbad",
+    "VERSAO": "6707e8efa39c96346c83dd1e247927d6c0dccb4e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -2848,7 +2848,7 @@
    {
     "PATH": "provas/_mutantes_cruzamentos_max.py",
     "PAPEL": "FONTE",
-    "VERSAO": "126d12d19055665dd6578c6da1ad321224d73cb2",
+    "VERSAO": "8b412f685851fe7f3bfd553af12b541b90249157",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -5123,14 +5123,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "044df6a1f8f475373a021edb7eb1da95934494210c73e7300917da367f21d651",
+    "VERSAO": "516bf6df3ea7274d498781547402964c32a4ccc76e9f0e087bf0839287ef5c7e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "044df6a1f8f475373a021edb7eb1da95934494210c73e7300917da367f21d651",
+    "VERSAO": "516bf6df3ea7274d498781547402964c32a4ccc76e9f0e087bf0839287ef5c7e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6229,7 +6229,7 @@
    {
     "PATH": "tests/test_cruzamentos_max.py",
     "PAPEL": "FONTE",
-    "VERSAO": "878acb6b44a9b6587930a4bd82ee882727aff2ab",
+    "VERSAO": "ac409294bb5c7b6cfedbb0c61fa26e99c30a5a85",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7600,7 +7600,7 @@
    }
   ],
   "INPUTS_COUNT": 1080,
-  "INPUTS_DIGEST": "d5127bb911ec14a5b1d4e1d1355627a638191e75f02abf34e64f83a893f4eebe",
+  "INPUTS_DIGEST": "8fae61ad54b463755bc02edb0fed479c0344c4a3cd323fc832241ca4ff3bd30d",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7633,8 +7633,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "bf41e52b48abbe4b9b73db3f66b163bb6078eab2b5897a6bae073f54a8a9a5fb",
-  "SEMANTIC_HASH": "546c4c65cb76c7eece05d4238bcac3917f8cbbbc8051feaad0d6696a2327ad9f"
+  "MEASUREMENT_HASH": "c6931b8e0919f69f65a506befed5540b2e6c6c298c00abe4316fab7a0b7bf886",
+  "SEMANTIC_HASH": "8630858a87e1a9e3dfff9cad1dbfaae7ba4c60f2bbcb47769a9273f52b64907f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -8187,28 +8187,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-CRUZAMENTOS-MAX",
-    "FROM": "C-ADAMA-IT",
-    "TO": "C-CRUZAMENTOS-MAX",
-    "RELATION_TYPE": "IMPORTS",
-    "CATEGORIA": "CODE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "motor/cruzamentos_max.py",
-      "LINHA": 65,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-CRUZAMENTOS-MAX",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
     "FROM": "C-ADAMA-IT",
     "TO": "C-TESTES",
@@ -8239,6 +8217,14 @@
      {
       "FICHEIRO": "tests/test_adama_referencia.py",
       "LINHA": 56,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_cruzamentos_max.py",
+      "LINHA": 395,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
@@ -32641,7 +32627,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "motor/cruzamentos_max.py",
-      "LINHA": 63,
+      "LINHA": 60,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-CRUZAMENTOS-MAX",
@@ -41132,7 +41118,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "motor/cruzamentos_max.py",
-      "LINHA": 66,
+      "LINHA": 62,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-CRUZAMENTOS-MAX",
@@ -47537,28 +47523,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-ROTULOS--IMPORTS-->C-CRUZAMENTOS-MAX",
-    "FROM": "C-ROTULOS",
-    "TO": "C-CRUZAMENTOS-MAX",
-    "RELATION_TYPE": "IMPORTS",
-    "CATEGORIA": "CODE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "motor/cruzamentos_max.py",
-      "LINHA": 62,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ROTULOS--IMPORTS-->C-CRUZAMENTOS-MAX",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-ROTULOS--IMPORTS-->C-FONTES-EU",
     "FROM": "C-ROTULOS",
     "TO": "C-FONTES-EU",
@@ -47614,6 +47578,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_cruzamentos_max.py",
+      "LINHA": 394,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_operacao.py",
       "LINHA": 26,
@@ -47682,7 +47654,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "motor/cruzamentos_max.py",
-      "LINHA": 70,
+      "LINHA": 170,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-CRUZAMENTOS-MAX",
@@ -47690,7 +47662,7 @@
      },
      {
       "FICHEIRO": "motor/cruzamentos_max.py",
-      "LINHA": 71,
+      "LINHA": 171,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-CRUZAMENTOS-MAX",
@@ -57156,12 +57128,12 @@
     ]
    }
   ],
-  "COUNT": 1620
+  "COUNT": 1618
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 219,
   "CARTOES_AUDITADOS": 219,
-  "ARESTAS_RELACIONADAS": 1620,
+  "ARESTAS_RELACIONADAS": 1618,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -57624,7 +57596,7 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 279,
+   "CODE": 277,
    "CONTROL": 87,
    "DATA": 31,
    "PROOF": 567,
@@ -57635,12 +57607,12 @@
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
   ],
-  "TRAVESSIAS_COLETA_PARA_INTELIGENCIA": 14,
+  "TRAVESSIAS_COLETA_PARA_INTELIGENCIA": 12,
   "TRAVESSIAS_POR_ZONA_DE_DESTINO": {
-   "Z-MOTOR": 14
+   "Z-MOTOR": 12
   },
   "TRAVESSIAS_POR_CATEGORIA": {
-   "CODE": 3,
+   "CODE": 1,
    "CONTROL": 2,
    "READ": 6,
    "RULE": 3
@@ -57737,7 +57709,7 @@
     "pdfminer"
    ],
    "ENTRAM": 1,
-   "SAEM": 6,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ"
    ],
@@ -60086,14 +60058,12 @@
    "ESCREVE_EM": [],
    "LE_DE": [
     "__future__",
-    "adama_it_intelligence",
     "boletim_do_campo",
     "collections",
     "datetime",
-    "ponte_intelligence_casco",
-    "rotulos_ler"
+    "ponte_intelligence_casco"
    ],
-   "ENTRAM": 6,
+   "ENTRAM": 4,
    "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -62820,7 +62790,8 @@
     "system-map/tests/verificar_a_tela.mjs"
    ],
    "CHAMADORES_DE_RUNTIME": [
-    ".github/workflows/system-map.yml"
+    ".github/workflows/system-map.yml",
+    "motor/cruzamentos_max.py"
    ],
    "SO_MEDEM_ESTE": [
     "system-map/scripts/cadeia_do_mapa.py",
@@ -67173,7 +67144,7 @@
     "collections"
    ],
    "ENTRAM": 5,
-   "SAEM": 14,
+   "SAEM": 13,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "DATA",
@@ -68613,6 +68584,7 @@
     ".github/workflows/auditoria-live.yml",
     ".github/workflows/comunicacao-publica.yml",
     ".github/workflows/system-map.yml",
+    "motor/cruzamentos_max.py",
     "motor/v21_completude_oportunidade.py"
    ],
    "SO_MEDEM_ESTE": [

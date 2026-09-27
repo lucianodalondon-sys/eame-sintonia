@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/cruzamentos-max-sguy1x",
-    "HEAD": "a09d383d133acfa781fc02dad8848a565ec63005",
-    "GENERATED_AT": "2026-09-27T16:08:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "044df6a1f8f475373a021edb7eb1da95934494210c73e7300917da367f21d651"
+    "HEAD": "bfe613fce3634ad94e9d4f721b082b1e3814707e",
+    "GENERATED_AT": "2026-09-27T19:48:18+00:00",
+    "SOURCE_TREE_FINGERPRINT": "516bf6df3ea7274d498781547402964c32a4ccc76e9f0e087bf0839287ef5c7e"
   },
   "FILES": [
     {
@@ -290,7 +290,7 @@
     },
     {
       "path": "CRUZAMENTOS-MAX.md",
-      "sha": "92c6d97d454850c55cd1f8b0c6589f2cde5fd169",
+      "sha": "cc2173e760523d443240d90beca9017ffb25acb3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -11441,7 +11441,7 @@
     },
     {
       "path": "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
-      "sha": "6306af101e798e851a26e495fa3f9d1a3f940441",
+      "sha": "9acbf4f8cef24cf1896e6ca062b0267f8a06b386",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -18476,7 +18476,7 @@
     },
     {
       "path": "motor/cruzamentos_max.py",
-      "sha": "6cbdbe6d672fe566818f3bfe4089b4c6284dfbad",
+      "sha": "6707e8efa39c96346c83dd1e247927d6c0dccb4e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19141,7 +19141,7 @@
     },
     {
       "path": "provas/_mutantes_cruzamentos_max.py",
-      "sha": "126d12d19055665dd6578c6da1ad321224d73cb2",
+      "sha": "8b412f685851fe7f3bfd553af12b541b90249157",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24727,7 +24727,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "be6bbd342261c52c83c3f6d835232e4eceaf4cda",
+      "sha": "9e9e890143bdd7a6d5bfd242d38f539e361e0c27",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26267,7 +26267,7 @@
     },
     {
       "path": "tests/test_cruzamentos_max.py",
-      "sha": "878acb6b44a9b6587930a4bd82ee882727aff2ab",
+      "sha": "ac409294bb5c7b6cfedbb0c61fa26e99c30a5a85",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -55320,23 +55320,12 @@
     },
     {
       "from_file": "motor/cruzamentos_max.py",
-      "to_file": "coleta/rotulos_ler.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/cruzamentos_max.py",
-        "line": 62,
-        "snippet": "from rotulos_ler import CULTURAS_ROTULO, ALVOS_CANON          # noqa: E402  (coleta/)"
-      }
-    },
-    {
-      "from_file": "motor/cruzamentos_max.py",
       "to_file": "data/raw/IT-ROTULOS/_MANIFESTO.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cruzamentos_max.py",
-        "line": 71,
+        "line": 171,
         "snippet": "MANIFESTO = os.path.join(ROOT, \"data\", \"raw\", \"IT-ROTULOS\", \"_MANIFESTO.json\")"
       }
     },
@@ -55347,7 +55336,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cruzamentos_max.py",
-        "line": 70,
+        "line": 170,
         "snippet": "PARES = os.path.join(ROOT, \"data\", \"samples\", \"IT-ROTULOS\", \"IT-ROTULOS-PARES.json\")"
       }
     },
@@ -55358,7 +55347,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cruzamentos_max.py",
-        "line": 69,
+        "line": 169,
         "snippet": "R7 = os.path.join(ROOT, \"docs\", \"intelligence\", \"r7\", \"ANALISE-R7.json\")"
       }
     },
@@ -55369,7 +55358,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cruzamentos_max.py",
-        "line": 78,
+        "line": 178,
         "snippet": "SAIDA_ITENS = os.path.join(ROOT, \"docs\", \"intelligence\", \"r7\", \"CRUZAMENTOS-MAX-ITENS-DO-POTE.json\")"
       }
     },
@@ -55380,19 +55369,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cruzamentos_max.py",
-        "line": 77,
+        "line": 177,
         "snippet": "SAIDA = os.path.join(ROOT, \"docs\", \"intelligence\", \"r7\", \"CRUZAMENTOS-MAX.json\")"
-      }
-    },
-    {
-      "from_file": "motor/cruzamentos_max.py",
-      "to_file": "fontes/adama_it_intelligence.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/cruzamentos_max.py",
-        "line": 65,
-        "snippet": "from adama_it_intelligence import ADMIN_ATIVO                 # noqa: E402  (fontes/)"
       }
     },
     {
@@ -55402,7 +55380,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "motor/cruzamentos_max.py",
-        "line": 63,
+        "line": 60,
         "snippet": "from boletim_do_campo import CULTURAS as CULTURAS_BOLETIM     # noqa: E402  (leis/)"
       }
     },
@@ -55413,7 +55391,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "motor/cruzamentos_max.py",
-        "line": 66,
+        "line": 62,
         "snippet": "from ponte_intelligence_casco import NAO_SEI, MARCA, ESTADO_TRANSPORTAVEL   # noqa: E402  (pacote/)"
       }
     },
@@ -91660,6 +91638,28 @@
         "file": "tests/test_cruzamentos_max.py",
         "line": 19,
         "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "coleta/rotulos_ler.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 394,
+        "snippet": "import rotulos_ler"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "fontes/adama_it_intelligence.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 395,
+        "snippet": "import adama_it_intelligence"
       }
     },
     {

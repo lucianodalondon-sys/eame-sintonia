@@ -389,6 +389,15 @@ class H_Pote(unittest.TestCase):
             self.assertEqual({o["ESPECIE"] for o in objs}, {"CROSSING"})
 
 
+class Z_Vocabulario(unittest.TestCase):
+    def test_Z1_vocabulario_igual_ao_do_leitor(self):
+        import rotulos_ler
+        import adama_it_intelligence
+        self.assertEqual(list(XM.CULTURAS_ROTULO), list(rotulos_ler.CULTURAS_ROTULO))
+        self.assertEqual(list(XM.ALVOS_CANON), list(rotulos_ler.ALVOS_CANON))
+        self.assertEqual(tuple(XM.ADMIN_ATIVO), tuple(adama_it_intelligence.ADMIN_ATIVO))
+
+
 class X_Real(unittest.TestCase):
     """Os insumos reais do repo: o JSON commitado tem de ser o que o codigo produz agora."""
 

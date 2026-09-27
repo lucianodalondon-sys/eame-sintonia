@@ -57,13 +57,113 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 
-# Os vocabularios vem de quem os tem. Dois vocabularios de cultura divergem, e no dia em que divergissem
-# este motor ligava o boletim a um par que o leitor de rotulos nunca produziu.
-from rotulos_ler import CULTURAS_ROTULO, ALVOS_CANON          # noqa: E402  (coleta/)
 from boletim_do_campo import CULTURAS as CULTURAS_BOLETIM     # noqa: E402  (leis/)
 from boletim_do_campo import FORMAS, nome_do_problema         # noqa: E402
-from adama_it_intelligence import ADMIN_ATIVO                 # noqa: E402  (fontes/)
 from ponte_intelligence_casco import NAO_SEI, MARCA, ESTADO_TRANSPORTAVEL   # noqa: E402  (pacote/)
+
+# ── O VOCABULARIO DO LEITOR DE ROTULOS — COPIA GUARDADA POR TESTE ────────────
+# O motor NAO importa codigo da coleta (system-map/tests/test_system_map.py:
+# `a_coleta_nao_conversa_com_o_motor_as_centenas`, teto medido de 12 travessias). Mas a chave de
+# cultura e de alvo tem de ser a MESMA que o leitor deu aos pares, senao este motor ligava o boletim a
+# um par que o leitor nunca produziu. Por isso: copia literal de coleta/rotulos_ler.py:CULTURAS_ROTULO
+# e :ALVOS_CANON, e de fontes/adama_it_intelligence.py:ADMIN_ATIVO — e o teste
+# `test_Z1_vocabulario_igual_ao_do_leitor` (tests/test_cruzamentos_max.py) REPROVA se divergirem.
+# Uma copia que um teste obriga a ser igual e uma verdade so; uma copia sem teste seriam duas.
+CULTURAS_ROTULO = [
+    ('BARBABIETOLA', 'barbabietola(\\s+da\\s+zucchero)?|bietola\\s+da\\s+(zucchero|coste)'),
+    ('MAIS_DOLCE', 'mais\\s+dolce|granoturco\\s+dolce'),
+    ('MAIS', '\\bmais\\b|granoturco|granturco'),
+    ('FRUMENTO', 'frumento(\\s+(tenero|duro))?|grano\\s+(tenero|duro)'),
+    ('ORZO', '\\borzo\\b'),
+    ('AVENA', '\\bavena\\b'),
+    ('SEGALE', '\\bsegale\\b'),
+    ('TRITICALE', 'triticale'),
+    ('RISO', '\\briso\\b|risaia'),
+    ('SORGO', '\\bsorgo\\b'),
+    ('SOIA', '\\bsoia\\b'),
+    ('GIRASOLE', 'girasole'),
+    ('COLZA', '\\bcolza\\b'),
+    ('ERBA_MEDICA', 'erba\\s+medica'),
+    ('VITE', '\\bvite\\b|vigneto|uva\\s+da\\s+(tavola|vino)'),
+    ('MELO', '\\bmelo\\b|\\bmeli\\b|pomacee'),
+    ('PERO', '\\bpero\\b|\\bperi\\b'),
+    ('PESCO', '\\bpesco\\b|\\bpeschi\\b|nettarine'),
+    ('ALBICOCCO', 'albicocc'),
+    ('SUSINO', 'susin|\\bprugn'),
+    ('CILIEGIO', 'ciliegi'),
+    ('ACTINIDIA', 'actinidia|\\bkiwi\\b'),
+    ('OLIVO', '\\bolivo\\b|\\bolivi\\b|oliveto'),
+    ('AGRUMI', 'agrumi|arancio|limone|mandarino|clementin'),
+    ('POMODORO', 'pomodoro'),
+    ('PATATA', '\\bpatata\\b|\\bpatate\\b'),
+    ('FRAGOLA', 'fragola|fragole'),
+    ('CUCURBITACEE', 'cucurbitac|zucchin|melone|cocomer|cetriolo'),
+    ('BRASSICACEE', 'brassicac|\\bcavol'),
+    ('LATTUGA', 'lattuga|insalat|radicchio'),
+    ('CIPOLLA', 'cipolla|aglio|porro|scalogno'),
+    ('CAROTA', '\\bcarota\\b|\\bcarote\\b'),
+    ('LEGUMINOSE', '\\bpisello|\\bfagiol|\\bcece\\b|\\bceci\\b|\\bfava\\b|\\blentic'),
+    ('TABACCO', 'tabacco'),
+    ('OLEAGINOSE', 'oleaginose'),
+    ('ORTAGGI', '\\bortagg|orticol'),
+    ('FLOREALI', 'floreal|ornamental'),
+    ('TAPPETI_ERB', 'tappeti\\s+erbosi|\\btappeto\\s+erboso'),
+]
+ALVOS_CANON = [
+    ('PERONOSPORA', 'peronospora|plasmopara|bremia|phytophthora\\s+infestans'),
+    ('OIDIO', 'oidio|erysiphe|uncinula|podosphaera|leveillula|sphaerotheca'),
+    ('BOTRITE', 'botrite|botrytis'),
+    ('SEPTORIOSI', 'septorio|zymoseptoria|septoria'),
+    ('FUSARIOSI', 'fusario|fusarium|gibberella'),
+    ('TICCHIOLATURA', 'ticchiolatura|venturia'),
+    ('RUGGINE', 'ruggine|puccinia|uromyces'),
+    ('CERCOSPORA', 'cercospor'),
+    ('RINCOSPORIOSI', 'rhyncosporium|rhynchosporium|rincosporios'),
+    ('RAMULARIA', 'ramulari'),
+    ('ANTRACNOSE', 'antracnos|colletotrichum|gloeosporium'),
+    ('MAL_DEL_PIEDE', 'gaeumannomyces|mal\\s+del\\s+piede|oculimacula'),
+    ('CARIE', '\\bcarie\\b|tilletia|ustilago|carbone'),
+    ('BATTERIOSI', 'batterios|pseudomonas|xanthomonas|erwinia'),
+    ('BRUSONE', 'brusone|pyricularia|magnaporthe'),
+    ('ELMINTOSPORIOSI', 'elmintosporio|helminthosporium|drechslera|pyrenophora'),
+    ('ALTERNARIA', 'alternari'),
+    ('SCLEROTINIA', 'sclerotini'),
+    ('MAL_BIANCO', 'mal\\s+bianco'),
+    ('MONILIA', 'monili'),
+    ('BOLLA', '\\bbolla\\b|taphrina'),
+    ('SCAFOIDEO', 'scaphoideus|scafoideo'),
+    ('CICALINE', 'cicalin|empoasca|zygina'),
+    ('PIRALIDE', 'piralide|ostrinia'),
+    ('DIABROTICA', 'diabrotica'),
+    ('AFIDI', '\\bafid|aphis|myzus|rhopalosiphum|sitobion|metopolophium|brachycaudus|dysaphis|eriosoma|toxoptera|nasonovia|macrosiphum|aulacorthum|hyalopterus|schizaphis|phorodon|cavariella|hyadaphis'),
+    ('ELATERIDI', 'elaterid|agriotes|ferretti'),
+    ('ALTICHE', 'chaetocnema|psylliodes|phyllotreta|altic'),
+    ('ATOMARIA', 'atomaria'),
+    ('MAGGIOLINO', 'melolontha|maggiolino'),
+    ('MILLEPIEDI', 'blaniulus|scutigerella|millepiedi'),
+    ('DOROIFORA', 'leptinotarsa|dorifora'),
+    ('PUNTERUOLO', 'ceutorhynchus|curculio|otiorhynchus|punteruolo'),
+    ('CECIDOMIA', 'cecidomi|contarinia|sitodiplosis'),
+    ('LEMA', '\\blema\\b|oulema'),
+    ('NOTTUE', 'nottu|agrotis|spodoptera|helicoverpa|autographa|mamestra'),
+    ('CIMICE', 'cimice|halyomorpha|nezara'),
+    ('CARPOCAPSA', 'carpocapsa|cydia'),
+    ('TIGNOLE', 'tignol|lobesia|eupoecilia|prays'),
+    ('MOSCA_OLIVO', 'bactrocera\\s+oleae|mosca\\s+dell.oliv'),
+    ('MOSCA_FRUTTA', 'ceratitis|mosca\\s+della\\s+frutta'),
+    ('RAGNETTO', 'ragnetto|tetranychus|panonychus'),
+    ('ACARI', '\\bacar|eriophy|aculus'),
+    ('TRIPIDI', 'tripid|thrips|frankliniella'),
+    ('ALEURODIDI', 'aleurodid|bemisia|trialeurodes|mosca\\s+bianca'),
+    ('COCCINIGLIE', 'cocciniglia|cocciniglie|planococcus|saissetia|quadraspidiotus'),
+    ('MINATRICI', 'minatric|liriomyza|leucoptera'),
+    ('LIMACCE', 'limacc|lumac|helix|deroceras'),
+    ('NEMATODI', 'nematod|meloidogyne|globodera|heterodera|pratylenchus'),
+    ('DICOTILEDONI', 'dicotiledoni|infestanti\\s+a\\s+foglia\\s+larga'),
+    ('GRAMINACEE', 'graminacee|infestanti\\s+graminacee'),
+    ('INFESTANTI', 'infestant|malerb'),
+]
+ADMIN_ATIVO = ('Autorizzato', 'Ri-registrato', 'Rinnovato')
 
 ROOT = os.path.dirname(HERE)
 R7 = os.path.join(ROOT, "docs", "intelligence", "r7", "ANALISE-R7.json")

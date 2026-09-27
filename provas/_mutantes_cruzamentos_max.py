@@ -92,6 +92,9 @@ M = [
      '            "DOCUMENT_ID": x.get("DOCUMENT_ID") or NAO_SEI,\n',
      '            "DOCUMENT_ID": x.get("DOCUMENT_ID") or str(x.get("SALA_CHAVE")),\n'),
     ("O3 CROSSING_STATE some", '"CROSSING_STATE": r["FINAL"], ', ""),
+    ("Z1 a copia do vocabulario diverge do leitor (Revocato conta como ativo)",
+     "ADMIN_ATIVO = ('Autorizzato', 'Ri-registrato', 'Rinnovato')\n",
+     "ADMIN_ATIVO = ('Autorizzato', 'Ri-registrato', 'Rinnovato', 'Revocato')\n"),
     # ── o pote do coordenador ───────────────────────────────────────────────
     ("K1 LINEAGE ambigua e ligada a primeira",
      '            return (achadas[0], "+".join(campos)) if len(ids) == 1 else (None, "AMBIGUA:" + "+".join(campos))\n',

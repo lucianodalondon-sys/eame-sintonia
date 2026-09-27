@@ -124,9 +124,9 @@ python3 pacote/pote_cruzamentos_max.py --entrada PARA-O-CASCO-R7/ENTRADA-DO-POTE
 
 ## 6 · Testes, mutação, bateria, mapa
 
-- `tests/test_cruzamentos_max.py`: **54 testes, OK** (sintéticos `SINT-`; `X_Real` prova que o JSON commitado
+- `tests/test_cruzamentos_max.py`: **55 testes, OK** (sintéticos `SINT-`; `X_Real` prova que o JSON commitado
   é o que o código produz agora).
-- Mutação `provas/_mutantes_cruzamentos_max.py`: **30/30 mortos** (grão de outro rótulo, chave de grupo como
+- Mutação `provas/_mutantes_cruzamentos_max.py`: **31/31 mortos** (grão de outro rótulo, chave de grupo como
   prova, rotação como uso, subtipo, zona inteira, PARTIAL→YES sem ligação, rótulo não lido como NO,
   validade sem scadenza/revoga/registo, declaração de produto como par forte, ADAMA no CS, METALAXYL =
   METALAXYL-M, DOCUMENT_ID fabricado, LINEAGE ambígua ligada, id da R7 reusado…). Na 1.ª passagem ficou
@@ -148,7 +148,32 @@ Nenhum ficheiro de UI/casco foi tocado: a lei do ADAMA Design System não se apl
 
 ## 8 · Bateria inteira por nome e System Map
 
-(preenchido depois da medição do ramo — ver abaixo)
+Executor: `provas/integra_noite/bateria_inteira_por_nome.py`, cada árvore numa worktree própria (o repo não é tocado).
+
+| | base `a09d383` | ramo `bfe613f` (1.º commit) |
+|---|---|---|
+| ficheiros de teste | 393 | 394 (+ `tests/test_cruzamentos_max.py`: 54/54 OK) |
+| falhas por nome | 340 | 339 |
+| ficheiros vermelhos | 77 | 77 (nenhum vermelho novo, nenhum curado) |
+
+Comparação **por nome**: 337 herdadas · 2 «novas» · 3 «sumidas».
+- `test_cadeia_declara_io::o_MEDIDO_VARRE_declarado_bate_com_a_corrida` aparece nas duas colunas: é a **mesma
+  falha herdada**, com a contagem de ficheiros dentro do nome (3937 → 3944, os ficheiros novos).
+- **`test_system_map::a_coleta_nao_conversa_com_o_motor_as_centenas` — FALHA NOVA, MINHA.** O motor importava
+  código da coleta (`coleta/rotulos_ler.py`, `fontes/adama_it_intelligence.py`): COLETA → INTELIGÊNCIA foi de
+  12 para 14 (teto 12). **Consertado no código, não na régua**: o motor deixou de importar a coleta e leva
+  uma cópia literal do vocabulário do leitor (`motor/cruzamentos_max.py:72`), guardada pelo teste
+  `test_Z1_vocabulario_igual_ao_do_leitor`, que reprova se a cópia divergir (e o mutante Z1 prova que ele
+  apanha). A leitura do ficheiro de pares continua (é dado, como em `motor/pacote_convergencia.py`).
+  Reconferido na árvore final: a prova volta a PASSAR (COLETA → INTELIGÊNCIA = 12).
+- As 2 outras «sumidas» (`test_topologia_persistida::o_artefato_diz_quantos_documentos_leu`,
+  `test_o_controle_separa_lei_de_mencao::test_M5_…ponto_fixo…`) não tocam nada deste ramo: não as reclamo
+  como conserto (NÃO SEI a causa; provável estado da worktree da base).
+
+**System Map:** `correr_a_cadeia.py REGERAR` → `VALIDAR` = **SYSTEM_MAP_CHECK=PASS** · `impressao_da_arvore.py
+--conferir-carimbo` = **IGUAL** (em cada commit). Três peças novas declaradas (C-CRUZAMENTOS-MAX em Z-MOTOR,
+C-POTE-CRUZAMENTOS-MAX em Z-PACOTE, C-PROVA-CRUZAMENTOS-MAX em Z-PROVA), todas 🟡 PENDING: sem carimbo humano
+(`--stamp` recarimbaria a árvore inteira; não o corri), como o precedente do pote v2.
 
 ## EM PALAVRAS SIMPLES
 
