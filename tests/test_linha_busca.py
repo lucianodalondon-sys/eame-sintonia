@@ -111,7 +111,9 @@ class Colher(unittest.TestCase):
             return (FX / p["FICHEIRO"]).read_bytes(), {"CONTENT_TYPE": p["CONTENT_TYPE"]}
         cls.res = json.loads((FX / "RESULTADOS.json").read_text(encoding="utf-8"))
         cls.doc = LB.colher(cls.res, cls.fila, cls.d / "saida", falso, corrida="TESTE-LINHA-BUSCA")
-        cls.por = {x["URL"]: x for x in cls.doc["ITENS"]}
+        cls.por = {}
+        for x in cls.doc["ITENS"]:                     # a 1.a vez que cada endereco apareceu (o duplicado vem depois)
+            cls.por.setdefault(x["URL"], x)
 
     @classmethod
     def tearDownClass(cls):
@@ -169,6 +171,31 @@ class Colher(unittest.TestCase):
         depois = (self.d / "saida" / "LIVRO-LINHA-BUSCA.jsonl").read_text(encoding="utf-8")
         self.assertTrue(depois.startswith(antes))     # so acrescenta
         self.assertEqual([], LB.marcar(self.d / "saida", f2))   # nao marca duas vezes
+
+
+    # ── D94-b (08:58) ──────────────────────────────────────────────────────
+    def test_perfil_nao_e_item_e_nao_vira_candidata(self):
+        for u in ("https://www.linkedin.com/in/silvia-toffolatti", "https://x.com/SLToffolatti"):
+            self.assertEqual("PERFIL_NAO_E_ITEM", self.por[u]["ESTADO"])
+            self.assertNotIn("CANDIDATA_ID", self.por[u])
+        urls = [c["URL"] for c in json.loads(self.fila.read_text(encoding="utf-8"))["CANDIDATAS"]]
+        self.assertFalse([u for u in urls if "linkedin.com" in u or "x.com" in u])
+        pistas = (self.d / "saida" / "PISTAS-DE-CONTA.jsonl").read_text(encoding="utf-8")
+        self.assertIn("silvia-toffolatti", pistas)
+
+    def test_post_de_linkedin_vai_para_o_scrap(self):
+        u = [x for x in self.por if "/posts/" in x][0]
+        self.assertEqual("POST_SOCIAL_PARA_O_SCRAP", self.por[u]["ESTADO"])
+        self.assertIn("/posts/", (self.d / "saida" / "POSTS-PARA-O-SCRAP.jsonl").read_text(encoding="utf-8"))
+
+    def test_muro_de_login_nao_se_guarda_nem_conta(self):
+        self.assertEqual("PAGINA_DE_LOGIN", self.por["https://www.login.example.it/pagina"]["ESTADO"])
+
+    def test_so_conta_itens_unicos(self):
+        # o mesmo boletim achado por 2 resultados: um pedido, um item
+        self.assertEqual(1, self.doc["ADMITIDAS"])
+        self.assertEqual(1, self.doc["ITENS_UNICOS_ADMITIDOS"])
+        self.assertEqual(1, self.doc["ESTADOS"]["DUPLICADO_NA_CORRIDA"])
 
 
 class Rede(unittest.TestCase):

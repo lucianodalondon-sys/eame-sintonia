@@ -164,6 +164,35 @@ def admitir(dados: bytes, media_type: str, url: str, fonte: dict, r: dict, sha: 
 
 
 # ---------------------------------------------------------------- uma pagina, da busca a Sala
+# ---------------------------------------------------------------- D94-b: o que NAO e pagina comum
+# NAME != PROFILE != PERSON (COL-LAW-034). Um PERFIL social achado por busca nao e item (nao se colhe, nao se
+# conta) e so vira candidata com prova (nome + instituicao + tema, ou a pagina oficial que aponta para a conta):
+# vai para PISTAS-DE-CONTA. Um POST/video social e item, mas quem o colhe e o Scrap (a porta social canonica,
+# D94.1-b; o LinkedIn so por URL de POST publico, medido 08:40): vai para POSTS-PARA-O-SCRAP. Nenhum dos dois
+# faz da PLATAFORMA (linkedin.com, x.com...) uma candidata.
+import re as _re                                                      # noqa: E402
+
+POSTS = _re.compile(r"(linkedin\.com/(posts|feed/update|pulse)/|(//|\.)(x|twitter)\.com/[^/]+/status/\d+|"
+                    r"instagram\.com/(p|reel|reels|tv)/|facebook\.com/.+/(posts|videos)/|fb\.watch/|"
+                    r"youtube\.com/(watch|shorts/)|youtu\.be/|tiktok\.com/@[^/]+/video/)", _re.I)
+PLATAFORMAS = _re.compile(r"(^|\.)(linkedin\.com|x\.com|twitter\.com|instagram\.com|facebook\.com|fb\.watch|"
+                          r"youtube\.com|youtu\.be|tiktok\.com|threads\.net|bsky\.app)$", _re.I)
+LOGIN = _re.compile(r"(authwall|/login|/signin|/signup|/accedi|/uas/login|checkpoint/lg)", _re.I)
+TITULO_DE_LOGIN = _re.compile(r"<title>[^<]*(sign ?up|log ?in|accedi|iscriviti|registrati|sign in)[^<]*</title>", _re.I)
+
+
+def especie_do_resultado(url: str) -> str:
+    if POSTS.search(url):
+        return "POST_SOCIAL"
+    if PLATAFORMAS.search(host_de(url)):
+        return "PERFIL_SOCIAL"
+    return "PAGINA"
+
+
+def pagina_de_login(url_final: str, dados: bytes) -> bool:
+    return bool(LOGIN.search(url_final or "") or TITULO_DE_LOGIN.search(dados[:20000].decode("utf-8", "replace")))
+
+
 def colher_um(r: dict, fila: Path, saida: Path, buscar, ledger: tuple, corrida: str) -> dict:
     import collection_gate as CG
     url = r["URL"]
@@ -172,6 +201,17 @@ def colher_um(r: dict, fila: Path, saida: Path, buscar, ledger: tuple, corrida: 
                                         "ROTA_DO_MOTOR": r.get("ROTA_DO_MOTOR"), "POSICAO": r["POSICAO"],
                                         "INSTANTE": r["INSTANTE"]},
            "UNIVERSO": r.get("UNIVERSO"), "FERRAMENTA": r.get("FERRAMENTA"), "CORRIDA": corrida}
+    especie = especie_do_resultado(url)
+    if especie != "PAGINA":
+        perfil = especie == "PERFIL_SOCIAL"
+        reg["ESTADO"] = "PERFIL_NAO_E_ITEM" if perfil else "POST_SOCIAL_PARA_O_SCRAP"
+        reg["PORQUE"] = ("NAME != PROFILE != PERSON: a conta so vira candidata com prova (nome + instituicao + tema, "
+                         "ou pagina oficial que aponta para ela); nao e item e nao se conta" if perfil else
+                         "post/video de rede: quem o colhe e o Scrap (porta social canonica, D94); o snippet nao e o item")
+        with open(saida / ("PISTAS-DE-CONTA.jsonl" if perfil else "POSTS-PARA-O-SCRAP.jsonl"), "a", encoding="utf-8") as fh:
+            fh.write(json.dumps({"URL": url, "PROVENIENCIA": reg["PROVENIENCIA"], "UNIVERSO": r.get("UNIVERSO"),
+                                 "CORRIDA": corrida}, ensure_ascii=False) + "\n")
+        return reg
     fonte = fonte_do_publicador(url, r, fila, ledger)
     reg.update(fonte)
     reg["PROVENIENCIA"]["FONTE_ESTADO_NO_MOMENTO"] = fonte["FONTE_ESTADO_NO_MOMENTO"]
@@ -189,6 +229,10 @@ def colher_um(r: dict, fila: Path, saida: Path, buscar, ledger: tuple, corrida: 
         reg["ERRO"] = "%s: %s" % (nome, str(e)[:200])
         return reg
     sha = hashlib.sha256(dados).hexdigest()
+    if pagina_de_login((meta or {}).get("URL_FINAL") or url, dados):
+        reg["ESTADO"] = "PAGINA_DE_LOGIN"
+        reg["PORQUE"] = "muro de login/cadastro: nao e o conteudo (sem login, D88.2); nao se guarda nem se conta"
+        return reg
     capturado = agora()
     pasta = saida / "armazem" / sha[:2]
     pasta.mkdir(parents=True, exist_ok=True)
@@ -213,9 +257,17 @@ def colher(resultados: list, fila: Path, saida: Path, buscar, *, pousar=False, c
     saida.mkdir(parents=True, exist_ok=True)
     cand_sid, est_sid = _ledger(fila, livro)
     ledger = (cand_sid, est_sid, fontes_por_host(fila, cand_sid))
-    feitos = []
+    feitos, vistos = [], set()
     for r in resultados:
-        reg = colher_um(r, fila, saida, buscar, ledger, corrida)
+        chave = r["URL"].split("#")[0].rstrip("/").lower()
+        if chave in vistos:
+            # D94-b: o mesmo endereco achado por outra consulta/posicao nao e outro item, e nao se pede outra vez
+            reg = {"URL": r["URL"], "ESTADO": "DUPLICADO_NA_CORRIDA", "CORRIDA": corrida,
+                   "PROVENIENCIA": {"ESPECIE": "ACHADO_POR_BUSCA", "CONSULTA": r["CONSULTA"], "MOTOR": r["MOTOR"],
+                                    "POSICAO": r["POSICAO"], "INSTANTE": r["INSTANTE"]}}
+        else:
+            vistos.add(chave)
+            reg = colher_um(r, fila, saida, buscar, ledger, corrida)
         feitos.append(reg)
         with open(saida / "LIVRO-LINHA-BUSCA.jsonl", "a", encoding="utf-8") as fh:
             fh.write(json.dumps({k: v for k, v in reg.items() if k != "READY"}, ensure_ascii=False) + "\n")
@@ -227,8 +279,10 @@ def colher(resultados: list, fila: Path, saida: Path, buscar, *, pousar=False, c
         recibo = SE.pousar(corrida, prontos)
     (saida / ("READY-%s.json" % corrida)).write_text(json.dumps(prontos, ensure_ascii=False, indent=1) + "\n",
                                                     encoding="utf-8")
+    # D94-b: so conta item UNICO, ADMITIDO e com identidade provada (nunca perfil, snippet, duplicado ou login)
+    unicos = {p["ITEM_ID"] for p in prontos if p.get("ITEM_ID") not in (None, "", "NAO SEI")}
     return {"CORRIDA": corrida, "RESULTADOS": len(resultados), "ESTADOS": dict(Counter(x["ESTADO"] for x in feitos)),
-            "ADMITIDAS": len(prontos), "POUSADAS": recibo, "ITENS": feitos}
+            "ADMITIDAS": len(prontos), "ITENS_UNICOS_ADMITIDOS": len(unicos), "POUSADAS": recibo, "ITENS": feitos}
 
 
 # ---------------------------------------------------------------- D93.4: recusada depois -> marcada, nada se apaga
@@ -331,7 +385,7 @@ def main(argv) -> int:
             return (pags / p["FICHEIRO"]).read_bytes(), {"CONTENT_TYPE": p.get("CONTENT_TYPE", "text/html")}
         res = json.loads(Path(arg["resultados"]).read_text(encoding="utf-8"))
         doc = colher(res, Path(arg["fila"]), saida, falso, corrida="ENSAIO-" + LINHA, livro=arg.get("livro"))
-        print(json.dumps({k: doc[k] for k in ("RESULTADOS", "ESTADOS", "ADMITIDAS")}, ensure_ascii=False))
+        print(json.dumps({k: doc[k] for k in ("RESULTADOS", "ESTADOS", "ADMITIDAS", "ITENS_UNICOS_ADMITIDOS")}, ensure_ascii=False))
         return 0
     if "--autorizado" not in argv:
         print("RECUSADO: este passo sai a rede; so com --autorizado (quem corre e o coordenador)")
@@ -359,7 +413,7 @@ def main(argv) -> int:
         res = [x for x in json.loads(Path(arg["resultados"]).read_text(encoding="utf-8")) if x.get("URL")]
         res = res[: int(arg["max"])] if arg.get("max") else res
         doc = colher(res, Path(arg["fila"]), saida, buscar, pousar="--pousar" in argv, livro=arg.get("livro"))
-        print(json.dumps({k: doc[k] for k in ("CORRIDA", "RESULTADOS", "ESTADOS", "ADMITIDAS", "POUSADAS")},
+        print(json.dumps({k: doc[k] for k in ("CORRIDA", "RESULTADOS", "ESTADOS", "ADMITIDAS", "ITENS_UNICOS_ADMITIDOS", "POUSADAS")},
                          ensure_ascii=False, default=str))
     ok = portao_it(saida, "DEPOIS")
     print("portao IT depois:", "PASS" if ok else "NAO E IT")

@@ -26,7 +26,7 @@ import urllib.parse
 from html import unescape
 
 ENGINES_PROPRIOS = re.compile(r"(^|\.)(duckduckgo\.com|bing\.com|microsoft\.com|google\.[a-z.]+|googleusercontent\.com|"
-                              r"gstatic\.com|youtube\.com/results|brave\.com)$", re.I)
+                              r"gstatic\.com|brave\.com)$", re.I)
 
 
 def _host(u: str) -> str:
