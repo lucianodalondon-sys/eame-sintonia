@@ -21,6 +21,9 @@ import { spawn } from "node:child_process";
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const RAIZ = join(AQUI, "..");
+// DA-21 (lote 4): o Python do AMBIENTE, nao `py` fixo — `py` so existe no Windows (na nuvem: spawn py ENOENT).
+// A mesma regra de `provas/corrida_abortada_local.mjs`: SINTONIA_PY, senao `py` no Windows e `python3` fora.
+const PY = process.env.SINTONIA_PY || (process.platform === "win32" ? "py" : "python3");
 const TMP = mkdtempSync(join(tmpdir(), "contador24h-"));
 const enchimento = "<p>" + "Testo dell'articolo. ".repeat(80) + "</p>";
 const PEDIDOS = [];
@@ -72,7 +75,7 @@ for i in range(${n}):
     feitos += 1
 print(json.dumps({'RUN_ID': '${runId}', 'FEITOS': feitos, 'ADIADOS': adiados}))`;
   return new Promise(ok => {
-    const p = spawn("py", ["-c", src], { cwd: RAIZ, env: { ...ENV, SINTONIA_TETO_24H: livro } });
+    const p = spawn(PY, ["-c", src], { cwd: RAIZ, env: { ...ENV, SINTONIA_TETO_24H: livro } });
     let out = "", err = "";
     p.stdout.on("data", d => out += d); p.stderr.on("data", d => err += d);
     p.on("close", c => { const l = out.trim().split("\n").pop(); try { ok({ codigo: c, ...JSON.parse(l) }); } catch { ok({ codigo: c, ERRO: (out + err).slice(-400) }); } });
