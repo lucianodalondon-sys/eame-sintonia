@@ -2,13 +2,15 @@
  "TESTES": [
   "tests.test_comentarios_v1",
   "tests.test_d24_video_de_pessoa",
-  "tests.test_c13_route_gate"
+  "tests.test_c13_route_gate",
+  "tests.test_linkedin_build_01_local_first",
+  "tests.test_c14c_permissao_instagram"
  ],
  "SHA256_ANTES": {
   "coleta/social_envelope.py": "ce15a63a1c97790eaff5506da55f812e3f5ccad705116cd2a235e28ac18067b7",
   "coleta/youtube_oficial.py": "66361f13b86c087484ee8f8e2fcfaad24fc5f0c2066182096c6aca2a1240b131",
   "pedido/elegibilidade_comentario.py": "dc1c1dde6e5e4d611471b1c9a28fba5ed5306bd96be4a7480a450f6bb10344a2",
-  "coleta/adaptador_linkedin.py": "a1e26c8086af28b2b92f08598cb56d061fd4e0d40656a7667b392048adc44ad1",
+  "coleta/adaptador_linkedin.py": "eb214ca3edfade06dd8036879527c48a451ed95024625778b083e0eac4fa7e91",
   "coleta/instagram_pessoal.py": "9f2900e84170d9396ffdabfcf8de8ac49a6329f1060167f806c7dac562351c5a",
   "leis/social_matriz.py": "a32898be246ee1bcb10153dacc15521d606a290ffc5e4255ca41ef29761fac63",
   ".github/workflows/sintonia-scrap.yml": "d4a227bea39546d573a4911c5b185ba6aadbcb6347df7b1f310bed5fb7d1fd1f"
@@ -142,17 +144,27 @@
    "TESTES_QUE_APANHARAM": [
     "test_workflow_apelida_t5_e_t7_com_os_apelidos_do_dono"
    ]
+  },
+  {
+   "MUTANTE": "M15 plano volta a mandar pagar o texto do comentario",
+   "FICHEIRO": "coleta/adaptador_linkedin.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_21_provider_pago_nao_muda_politica",
+    "test_M12_policy_ignored",
+    "test_o_plano_aponta_a_rota_gratuita_e_nunca_a_paga"
+   ]
   }
  ],
  "SHA256_DEPOIS": {
   "coleta/social_envelope.py": "ce15a63a1c97790eaff5506da55f812e3f5ccad705116cd2a235e28ac18067b7",
   "coleta/youtube_oficial.py": "66361f13b86c087484ee8f8e2fcfaad24fc5f0c2066182096c6aca2a1240b131",
   "pedido/elegibilidade_comentario.py": "dc1c1dde6e5e4d611471b1c9a28fba5ed5306bd96be4a7480a450f6bb10344a2",
-  "coleta/adaptador_linkedin.py": "a1e26c8086af28b2b92f08598cb56d061fd4e0d40656a7667b392048adc44ad1",
+  "coleta/adaptador_linkedin.py": "eb214ca3edfade06dd8036879527c48a451ed95024625778b083e0eac4fa7e91",
   "coleta/instagram_pessoal.py": "9f2900e84170d9396ffdabfcf8de8ac49a6329f1060167f806c7dac562351c5a",
   "leis/social_matriz.py": "a32898be246ee1bcb10153dacc15521d606a290ffc5e4255ca41ef29761fac63",
   ".github/workflows/sintonia-scrap.yml": "d4a227bea39546d573a4911c5b185ba6aadbcb6347df7b1f310bed5fb7d1fd1f"
  },
  "REPOSTO_IGUAL": true,
- "PLACAR": "14/14 mortos"
+ "PLACAR": "15/15 mortos"
 }

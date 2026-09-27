@@ -51,12 +51,20 @@ metadados no acervo. **Alargar o vocabulário é do dono dele**, não desta miss
   - `tests/test_c14c_permissao_instagram.py::test_3`: o sexto limite registado com a decisão que o criou.
 - **Falhas herdadas, medidas na base `2ef6fef8`:** `test_c13_route_gate` já falha em 2 (YOUTUBE/INCREMENTAL), e 6 noutros
   módulos vizinhos (C2/C6/prontidão). Iguais antes e depois.
-- **Bateria por nome, 48 módulos, base × ramo, com rede fechada:** ver a secção «Bateria» no fim. Ela corre com a LOCK-PESADO, que à hora
-  da escrita estava com a prioridade do coordenador.
+- **Bateria por nome, 48 módulos, base `2ef6fef8` × ramo, com rede fechada** (`provas/comentarios_v1/antes.json` e `depois.json`; corrida
+  com a LOCK-PESADO às 15:20–15:37 de 27/09, com a prioridade passada pela coordenação):
+  - testes corridos: **1.331 → 1.357**;
+  - falhas **NOVAS: 0**;
+  - **herdadas: 37**, iguais nome a nome nas duas árvores.
+- ⚠️ **A bateria apanhou um defeito meu, e ele foi consertado.** Na 1.ª corrida houve **2 falhas novas** em
+  `test_linkedin_build_01_local_first` (`test_21`, `test_M12`). A causa: `ONDE_SE_OBTEM['COMMENTS_TEXT']` estava como
+  **PAID** («texto é evento cobrado à parte»). Com a matriz passando a ALLOWED, o planeador passou a **recomendar a rota
+  paga**, que a D106-3 proíbe sem OK. Passou a **FREE** (a rota da página pública), com teste próprio e mutante M15
+  (`coleta/adaptador_linkedin.py`, `ONDE_SE_OBTEM`). A 2.ª corrida deu 0 novas.
 
 ## Mutação — `provas/comentarios_v1/MUTACAO.json`
 
-**14 de 14 mortos**, e os 6 ficheiros foram repostos iguais (sha256). O mutante só conta se fizer aparecer falha **nova**, além
+**15 de 15 mortos**, e os 6 ficheiros foram repostos iguais (sha256). O mutante só conta se fizer aparecer falha **nova**, além
 das 2 herdadas. Os 14:
 - o comentário vira FACT;
 - o comentário sem pai passa;
@@ -71,7 +79,8 @@ das 2 herdadas. Os 14:
 - a listagem deixa de ser recusada;
 - **o Instagram abre o gasto por omissão**;
 - o LinkedIn é declarado PROVED sem prova;
-- o apelido T7 some.
+- o apelido T7 some;
+- **o plano volta a mandar pagar o texto do comentário** (M15).
 
 ## O que NÃO está provado, e o que fica para decisão
 
@@ -107,6 +116,7 @@ próprio SHA). **O mapa NÃO foi regerado (PRONTO-SEM-MAPA):** fica para a insta
   num bloco da página), mas **ainda precisa de 1 teste com a internet**. Deixei o comando pronto.
 - **Instagram:** comentário escrito só sai pela rota **paga**. A D106 liberou o dado pessoal, mas não liberou gastar dinheiro.
   Por isso continua fechado até alguém dizer «pode gastar».
-- **Estraguei o código de propósito 14 vezes, e os testes apanharam as 14.**
+- **Estraguei o código de propósito 15 vezes, e os testes apanharam as 15.** A bateria completa (1.357 testes) não mostrou
+  nenhuma falha nova — e na 1.ª passada apanhou um erro meu: o LinkedIn passava a sugerir pagar pelo comentário. Consertado.
 
 HARD STOP.
