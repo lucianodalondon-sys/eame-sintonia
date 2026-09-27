@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  9719efc681053311052f3b0038e6f2b091db459a
+HEAD_DA_MEDICAO  125fc1d7597245b30455d0308572ded26c9b8b0d
 BRANCH           claude/pote-v2-unico-contract-y8o1pi
-GERADO_EM        2026-09-27T19:08:55+00:00
+GERADO_EM        2026-09-27T19:49:48+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

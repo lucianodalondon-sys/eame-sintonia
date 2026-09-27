@@ -66,6 +66,7 @@
       "POLSO-FONTES.md",
       "PORTAL-CAPABILITY-INVENTORY.md",
       "POTE-UNICO.md",
+      "POTE-V2-UNICO.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
       "RELATORIO-ALVOS-NOVOS.md",
@@ -3068,6 +3069,8 @@
       "provas/paridade_duas_rodadas.mjs",
       "provas/paridade_red_team.mjs",
       "provas/portas_canonicas_no_postgres.py",
+      "provas/pote_v2/bateria-base-f357712.json",
+      "provas/pote_v2/bateria-ramo-9719efc.json",
       "provas/pote_v2/medir_recusas_r6.py",
       "provas/pote_v2/mutantes_pote_v2_unico.py",
       "provas/preflight_022_live.sh",
@@ -4544,9 +4547,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/pote-v2-unico-contract-y8o1pi",
-    "HEAD": "9719efc681053311052f3b0038e6f2b091db459a",
-    "GENERATED_AT": "2026-09-27T19:08:55+00:00",
-    "SOURCE_TREE_FINGERPRINT": "cb3425def936230e92d68fe5796e94d4122c28e4e556b0674ff1bc2c3011dbb9"
+    "HEAD": "125fc1d7597245b30455d0308572ded26c9b8b0d",
+    "GENERATED_AT": "2026-09-27T19:49:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ce2f6d2b6574eb844006a4eee5d39513ff56f9237295833463e6a025b1ad181b"
   },
   "FAMILIES": [
     {
@@ -60700,11 +60703,13 @@
       "family": "F-GOVERNANCA",
       "files": [
         "provas/_mutantes_pote_casco.py",
+        "provas/pote_v2/bateria-base-f357712.json",
+        "provas/pote_v2/bateria-ramo-9719efc.json",
         "provas/pote_v2/medir_recusas_r6.py",
         "provas/pote_v2/mutantes_pote_v2_unico.py",
         "tests/test_pote_no_casco.mjs"
       ],
-      "file_count": 4,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -159117,7 +159122,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2190,
+  "UNCLAIMED_FILES_COUNT": 2191,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -159392,8 +159397,8 @@
     "edges_proven": 1620,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3950,
-    "files_covered": 1760,
+    "files_tracked": 3953,
+    "files_covered": 1762,
     "files_code_unclaimed": 0,
     "roles_proven": 194,
     "roles_declared_only": 9,
