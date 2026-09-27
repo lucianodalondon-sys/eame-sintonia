@@ -5996,7 +5996,7 @@
     "ENGENHARIA"
    ],
    "what": "Planta 29 defeitos numa copia da arvore em pasta temporaria (o repo nao e tocado): leitura direta da referencia em cap_win, cruzamentos_max, concorrencia_meta e boletim; edicao misturada aceite; o motor a abrir a porta duas vezes; catalogo tratado como autorizacao; frescor ignorado (14, 30, sem data, contado do ficheiro, na CAP-SCI e no cruzamentos-max); bula nao lida a virar «nao»; checagem que confirma sempre; carimbo sem o sha do livro; e 9 do GRAO (LOTE7-INTEGRA): declaracao de produto a autorizar, nivel ignorado ou ausente a autorizar, qualquer uso vira SIM, por_alvo sem grao, CAP-SCI com SIM proprio, cruzamentos-max com lista propria. Corre tests/test_porta_unica_referencia.py e sai 1 se algum sobreviver. provas/lote7_integra/medir_grao_na_porta.py mede quantos SIM caem para A_CONFIRMAR (porta antiga lida do git x porta nova).",
-   "why_here": "Prova que o contrato da porta morde. 20/20 mortos a 2026-09-27 (provas/porta_unica_referencia/MUTANTES.json).",
+   "why_here": "Prova que o contrato da porta morde. 20/20 mortos a 2026-09-27; 29/29 com os 9 do grao no LOTE7-INTEGRA (provas/porta_unica_referencia/MUTANTES.json).",
    "files": [
     "provas/porta_unica_referencia/mutantes.py",
     "provas/lote7_integra/*"

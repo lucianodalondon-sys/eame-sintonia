@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5a35c401ed006b5e033668f1aba0eb5d0f618ec0
+HEAD_DA_MEDICAO  d0e09017266a4c7ff29aa8ee1c2f7013c198d217
 BRANCH           claude/lote7-integra-grain-rule-37g8vv
-GERADO_EM        2026-09-27T22:58:04+00:00
+GERADO_EM        2026-09-27T23:28:34+00:00
 CARDS            125
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

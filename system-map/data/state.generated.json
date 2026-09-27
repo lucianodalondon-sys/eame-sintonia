@@ -3135,7 +3135,11 @@
       "provas/lote6_integra/BATERIA-RAMO.json",
       "provas/lote6_integra/MUTACAO-JUNCAO.json",
       "provas/lote6_integra/mutacao_juncao.py",
+      "provas/lote7_integra/BATERIA-BASE-c551062.json",
+      "provas/lote7_integra/BATERIA-DEPOIS-d0e0901.json",
       "provas/lote7_integra/MEDIDA-GRAO-NA-PORTA.json",
+      "provas/lote7_integra/MUTACAO-JUNCOES-LOTE5-d0e0901.txt",
+      "provas/lote7_integra/MUTACAO-LOTE7.txt",
       "provas/lote7_integra/medir_grao_na_porta.py",
       "provas/maestro-social/ENSAIO-037.json",
       "provas/medir_admission_t3_atual.py",
@@ -4708,9 +4712,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/lote7-integra-grain-rule-37g8vv",
-    "HEAD": "5a35c401ed006b5e033668f1aba0eb5d0f618ec0",
-    "GENERATED_AT": "2026-09-27T22:58:04+00:00",
-    "SOURCE_TREE_FINGERPRINT": "158869efc6cb5f97553d806a3fd0753d8b2f179f50fff36dd16aa3b21d6e323f"
+    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217",
+    "GENERATED_AT": "2026-09-27T23:28:34+00:00",
+    "SOURCE_TREE_FINGERPRINT": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5"
   },
   "FAMILIES": [
     {
@@ -62934,7 +62938,7 @@
       "territory": "Z-PROVA",
       "kind": "proof",
       "what": "Planta 29 defeitos numa copia da arvore em pasta temporaria (o repo nao e tocado): leitura direta da referencia em cap_win, cruzamentos_max, concorrencia_meta e boletim; edicao misturada aceite; o motor a abrir a porta duas vezes; catalogo tratado como autorizacao; frescor ignorado (14, 30, sem data, contado do ficheiro, na CAP-SCI e no cruzamentos-max); bula nao lida a virar «nao»; checagem que confirma sempre; carimbo sem o sha do livro; e 9 do GRAO (LOTE7-INTEGRA): declaracao de produto a autorizar, nivel ignorado ou ausente a autorizar, qualquer uso vira SIM, por_alvo sem grao, CAP-SCI com SIM proprio, cruzamentos-max com lista propria. Corre tests/test_porta_unica_referencia.py e sai 1 se algum sobreviver. provas/lote7_integra/medir_grao_na_porta.py mede quantos SIM caem para A_CONFIRMAR (porta antiga lida do git x porta nova).",
-      "why_here": "Prova que o contrato da porta morde. 20/20 mortos a 2026-09-27 (provas/porta_unica_referencia/MUTANTES.json).",
+      "why_here": "Prova que o contrato da porta morde. 20/20 mortos a 2026-09-27; 29/29 com os 9 do grao no LOTE7-INTEGRA (provas/porta_unica_referencia/MUTANTES.json).",
       "departments": [
         "ENGENHARIA"
       ],
@@ -62948,11 +62952,15 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/lote7_integra/BATERIA-BASE-c551062.json",
+        "provas/lote7_integra/BATERIA-DEPOIS-d0e0901.json",
         "provas/lote7_integra/MEDIDA-GRAO-NA-PORTA.json",
+        "provas/lote7_integra/MUTACAO-JUNCOES-LOTE5-d0e0901.txt",
+        "provas/lote7_integra/MUTACAO-LOTE7.txt",
         "provas/lote7_integra/medir_grao_na_porta.py",
         "provas/porta_unica_referencia/mutantes.py"
       ],
-      "file_count": 3,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -168840,8 +168848,8 @@
     "edges_proven": 1766,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4114,
-    "files_covered": 1863,
+    "files_tracked": 4118,
+    "files_covered": 1867,
     "files_code_unclaimed": 0,
     "roles_proven": 203,
     "roles_declared_only": 9,

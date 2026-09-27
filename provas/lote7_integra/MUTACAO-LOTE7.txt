@@ -1,0 +1,242 @@
+LOTE7-INTEGRA · mutacao das pecas integradas (arvore de codigo d0e0901 salvo onde dito)
+
+===== mut_porta
+base: verde na copia
+L1 cap_win abre o PORTFOLIO por fora: MORTO  <- test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas, test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora
+L2 cruzamentos_max volta a ler os pares do leitor: MORTO  <- test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas, test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora
+L3 concorrencia_meta le o CSV do Ministero: MORTO  <- test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas, test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora
+L4 boletim le o COMMERCIAL-CATALOG: MORTO  <- test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas, test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora, test_B5_boletim, test_I4_os_consumidores_herdam_da_porta
+E1 a porta aceita livros de edicoes diferentes: MORTO  <- test_C1_um_livro_de_outra_edicao_derruba_a_referencia_inteira, test_C2_duas_fotos_correntes
+E2 a porta aceita o catalogo misturado: MORTO  <- test_C3_catalogo_misturado
+E3 o motor abre a porta duas vezes (WIN numa edicao, SCI noutra): MORTO  <- test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades
+K1 registo na vitrine conta como autorizado: MORTO  <- test_D1_na_vitrine_com_registo_inativo_nao_e_autorizado
+K2 os livros do catalogo entram na metade do registo: MORTO  <- test_D3_as_metades_nao_se_misturam
+F1 os 30 dias nao existem: MORTO  <- test_E1_os_tres_degraus_do_d117, test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_E5_cap_sci_marca_a_ligacao_a_confirmar, test_E6_cruzamentos_nao_confirma_com_referencia_velha
+F2 os 14 dias nao existem: MORTO  <- test_E1_os_tres_degraus_do_d117, test_E4_aos_14_a_resposta_sai_com_aviso
+F3 a resposta ignora o frescor: MORTO  <- test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada
+F4 frescor contado da data do ficheiro, e nao da checagem: MORTO  <- test_E1_os_tres_degraus_do_d117, test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_E4_aos_14_a_resposta_sai_com_aviso, test_E5_cap_sci_marca_a_ligacao_a_confirmar
+F5 cap_sci ignora o frescor: MORTO  <- test_E5_cap_sci_marca_a_ligacao_a_confirmar
+F6 cruzamentos confirma com referencia velha: MORTO  <- test_E6_cruzamentos_nao_confirma_com_referencia_velha
+F7 sem data de checagem = fresca: MORTO  <- test_E2_sem_data_de_checagem_e_a_confirmar
+B1 bula nao lida some (vira «nao»): MORTO  <- test_G1_sem_uso_lido_e_com_bula_ativa_nao_lida_e_a_confirmar
+C1 a checagem confirma sempre: MORTO  <- test_F3_bruto_divergente_nao_confirma
+C2 o carimbo nao e o sha do livro: MORTO  <- test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades, test_H1_o_carimbo_e_o_sha_do_ficheiro, test_H2_mexer_num_livro_muda_a_impressao
+C3 cap_win nao carimba a edicao: MORTO  <- test_B2_cap_win_carimba_e_responde_produtos, test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades
+G1 a declaracao de produto entra nos niveis que autorizam: MORTO  <- test_I1_a_regra_unica, test_I2_nenhum_autorizado_da_porta_vem_de_declaracao, test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque, test_I4_os_consumidores_herdam_da_porta
+G2 a regra ignora o nivel de ligacao: MORTO  <- test_I1_a_regra_unica, test_I2_nenhum_autorizado_da_porta_vem_de_declaracao, test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque, test_I4_os_consumidores_herdam_da_porta
+G3 nivel ausente autoriza: MORTO  <- test_I1_a_regra_unica
+G4 autorizados: qualquer uso lido vira SIM: MORTO  <- test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_I2_nenhum_autorizado_da_porta_vem_de_declaracao, test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque, test_I4_os_consumidores_herdam_da_porta
+G5 por_alvo: registo nasce autorizado: MORTO  <- test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_I4_os_consumidores_herdam_da_porta, test_I5_por_alvo_so_diz_cultura_na_bula_quando_o_grao_une
+G6 por_alvo: cultura so declarada conta como cultura na bula: MORTO  <- test_I5_por_alvo_so_diz_cultura_na_bula_quando_o_grao_une
+G7 a regra ignora o frescor (D117): MORTO  <- test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_E5_cap_sci_marca_a_ligacao_a_confirmar, test_I1_a_regra_unica
+G8 cap_sci faz o seu proprio SIM (qualquer uso): MORTO  <- test_E5_cap_sci_marca_a_ligacao_a_confirmar, test_I4_os_consumidores_herdam_da_porta
+G9 cruzamentos_max reescreve os niveis com a declaracao: MORTO  <- test_I6_a_regra_mora_so_na_porta
+
+MUTACAO: 29/29 mortos · vivos 0 · nao aplicados 0
+
+===== mut_pote2
+base: verde na copia
+V1 sem run id no topo: o validador aceita: MORTO · 1 testes caem · test_R5_pote_com_run_id_so_em_cabecalho_reprova_no_validador
+V2 run id lido de CABECALHO sem declarar a leitura: MORTO · 1 testes caem · test_R2_run_id_em_cabecalho_e_lido_e_a_leitura_fica_escrita
+V3 topo e CABECALHO divergentes viram uma corrida so: MORTO · 1 testes caem · test_R4_topo_e_cabecalho_que_divergem_sao_duas_corridas
+V4 prova sem URL / NAO SEI sem base passa no validador: MORTO · 1 testes caem · test_U3_o_validador_reprova_prova_sem_url_ou_sem_base
+V5 NAO SEI sem porque: a base some: MORTO · 68 testes caem · test_A1_cabecalho_da_corrida, test_A2_sem_source_head_ou_corte_fica_nao_sei_a_vista_e_sem_run_id_recusa, test_A3_os_doze_compartimentos_do_dono, test_A4_as_vistas_do_casco_existem_e_nenhuma_tem_dois_donos
+V6 publicacao vira tempo do facto: MORTO · 4 testes caem · test_B4_publicacao_nao_vira_tempo_do_facto, test_K2_o_pote_do_casco_e_gerado_desta_corrida, test_K2_o_pote_do_teste_do_casco_e_o_desta_corrida, test_U2_a_base_diz_de_onde_veio
+V7 o schema deixa de pedir a base da URL: MORTO · 2 testes caem · test_S1_schema_e_codigo_dizem_o_mesmo, test_S3_a_forma_reprova_sem_passar_pela_lei
+V8 sinal solto como mudanca: um ponto basta: MORTO · 1 testes caem · test_M5_regras_da_serie
+V9 unidades diferentes comparadas: MORTO · 2 testes caem · test_K2_o_pote_do_casco_e_gerado_desta_corrida, test_M3_unidades_diferentes_nao_sao_serie
+V10 afirmar mudanca sem serie: aceite: MORTO · 2 testes caem · test_K2_o_pote_do_casco_e_gerado_desta_corrida, test_M4_afirmar_mudanca_com_um_ponto_e_recusado
+V11 validador aceita sinal solto dito SERIE_MEDIDA: MORTO · 1 testes caem · test_M6_o_validador_reprova_sinal_solto_como_serie
+V12 recusa por falta de tempo em uso que nao exige tempo: MORTO · 9 testes caem · test_E1_toda_especie_e_dita_e_valida, test_K2_o_pote_do_casco_e_gerado_desta_corrida, test_T1_o_nao_do_cruzamento_atravessa_sem_tempo_ancorado, test_T2_no_defensible_action_yet_atravessa
+V13 o Registro volta a depender do tempo: MORTO · 5 testes caem · test_K2_o_pote_do_casco_e_gerado_desta_corrida, test_K2_o_pote_do_teste_do_casco_e_o_desta_corrida, test_S2_as_duas_fixtures_e_o_payload_v1_passam, test_T3_a_fonte_do_registro_nao_depende_do_tempo
+V14 todo uso dispensa o tempo: MORTO · 7 testes caem · test_D4_o_bloqueio_por_desenho_nao_prova_um_sinal, test_K2_o_pote_do_casco_e_gerado_desta_corrida, test_K2_o_pote_do_teste_do_casco_e_o_desta_corrida, test_S2_as_duas_fixtures_e_o_payload_v1_passam
+V15 proveniencia dispensada (so_tempo aceita tudo): MORTO · 2 testes caem · test_K2_o_pote_do_casco_e_gerado_desta_corrida, test_T5_sem_proveniencia_continua_bloqueado_mesmo_sem_exigir_tempo
+V16 oportunidade pode ser «nao»: MORTO · 2 testes caem · test_K2_o_pote_do_casco_e_gerado_desta_corrida, test_T4_os_usos_que_exigem_tempo_continuam_a_exigir
+V17 validador aceita item sem tempo num uso temporal: MORTO · 1 testes caem · test_T7_o_validador_reprova_uso_temporal_provado_sem_tempo
+V18 lugar da fonte vira lugar do facto: MORTO · 33 testes caem · test_E1_toda_especie_e_dita_e_valida, test_E2_entity_e_location_source_viajam_com_o_nome_deles, test_E3_lugar_do_facto_sem_origem_fica_nao_sei_a_vista, test_E4_o_lugar_da_fonte_nao_vira_lugar_do_facto
+V19 lugar do facto sem LOCATION_SOURCE a vista: MORTO · 36 testes caem · test_A1_cabecalho_da_corrida, test_A2_sem_source_head_ou_corte_fica_nao_sei_a_vista_e_sem_run_id_recusa, test_A3_os_doze_compartimentos_do_dono, test_A4_as_vistas_do_casco_existem_e_nenhuma_tem_dois_donos
+K1 leitor: sinal solto chamado variazione: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+K2 leitor aceita um ponto como serie: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+K3 pote pedido e ausente: o legado volta: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+K4 leitor aceita URL NAO SEI sem base: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+K5 leitor aceita item sem tempo num uso temporal: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+K6 portal: o leitor so e chamado com pote (o «pedido e ausente» cai no legado): MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+
+MUTACAO: 25/25 mortos · vivos 0 · nao aplicados 0
+RC=0
+
+===== mut_casco
+base: verde na copia
+Q1 oportunidade entra no Radar Futuro (especie nao conferida): MORTO · 35 testes caem · test_A1_cabecalho_da_corrida, test_A2_sem_source_head_ou_corte_fica_nao_sei_a_vista_e_sem_run_id_recusa, test_A3_os_doze_compartimentos_do_dono, test_A4_as_vistas_do_casco_existem_e_nenhuma_tem_dois_donos
+Q2 qualquer bloqueio de G0 passa por 'futuro por desenho': MORTO · 4 testes caem · test_D1_facto_futuro_bloqueado_por_desenho_vai_ao_radar_futuro_como_especie_propria, test_D3_so_o_bloqueio_por_desenho_e_nenhum_outro, test_D5_radarfuturo_e_sinonimo_de_nome_nao_de_especie, test_K2_o_pote_do_teste_do_casco_e_o_desta_corrida
+Q3 P2/P5 de volta: o futuro bloqueado por desenho nao tem vaga: MORTO · 5 testes caem · test_C1_cada_vazio_diz_porque, test_D1_facto_futuro_bloqueado_por_desenho_vai_ao_radar_futuro_como_especie_propria, test_D5_radarfuturo_e_sinonimo_de_nome_nao_de_especie, test_I3_oportunidade_no_radar_futuro
+Q4 conferencia aceita vazio sem porque: MORTO · 1 testes caem · test_I2_vazio_sem_porque
+Q5 rendimento provado por outra fonte aceite: MORTO · 3 testes caem · test_E1_rendimento_de_fonte_no_registro, test_E2_rendimento_provado_por_outra_fonte_e_recusado, test_K2_o_pote_do_teste_do_casco_e_o_desta_corrida
+Q6 P4 de volta: o valor fora do contrato some: MORTO · 4 testes caem · test_F1_fact_location_viaja_como_fact_location, test_F2_valor_inventado_viaja_a_parte_e_nunca_nas_chaves, test_H1_payload_v1_vira_pote_com_o_que_a_v1_nao_levava_em_nao_sei, test_K2_o_pote_do_teste_do_casco_e_o_desta_corrida
+Q7 FACT_LOCATION vira REGION_ID: MORTO · 3 testes caem · test_F1_fact_location_viaja_como_fact_location, test_F3_o_pote_nao_cria_valor, test_K2_o_pote_do_teste_do_casco_e_o_desta_corrida
+Q8 publicacao vira tempo do facto: MORTO · 1 testes caem · test_B4_publicacao_nao_vira_tempo_do_facto
+Q9 objeto sem especie vira OPORTUNIDADE (promocao): MORTO · 5 testes caem · test_B1_todo_objeto_tem_especie_e_quem_a_disse, test_B4_publicacao_nao_vira_tempo_do_facto, test_C1_cada_vazio_diz_porque, test_F1_fact_location_viaja_como_fact_location
+Q10 SOURCE_HEAD inventado quando falta: MORTO · 2 testes caem · test_A2_sem_source_head_ou_corte_fica_nao_sei_a_vista_e_sem_run_id_recusa, test_H1_payload_v1_vira_pote_com_o_que_a_v1_nao_levava_em_nao_sei
+Q11 escreve em qualquer sitio do portal: MORTO · 1 testes caem · test_J1_so_um_destino_dentro_do_portal
+Q12 payload v1 adulterado entra sem conferencia: MORTO · 1 testes caem · test_H3_payload_v1_adulterado_nao_vira_pote
+Q13 o future da v1 cai no Radar Futuro: MORTO · 1 testes caem · test_H4_o_future_da_v1_era_o_archivio_segnali
+Q14 duplicado conta duas vezes: MORTO · 1 testes caem · test_E6_o_mesmo_objeto_conta_uma_vez_no_compartimento
+Q15 lacunas da corrida somem: MORTO · 2 testes caem · test_C4_lacunas_verbatim_no_compartimento_certo, test_K2_o_pote_do_teste_do_casco_e_o_desta_corrida
+Q16 compartimento sem contrato desenha: MORTO · 2 testes caem · test_C2_compartimento_sem_contrato_recusa_objeto_em_vez_de_o_desenhar, test_K2_o_pote_do_teste_do_casco_e_o_desta_corrida
+Q17 o pote nao traz o CORTE: MORTO · 39 testes caem · test_A1_cabecalho_da_corrida, test_A2_sem_source_head_ou_corte_fica_nao_sei_a_vista_e_sem_run_id_recusa, test_A3_os_doze_compartimentos_do_dono, test_A4_as_vistas_do_casco_existem_e_nenhuma_tem_dois_donos
+J1 futuro com a forma da oportunidade: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+J2 o leitor reordena: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+J3 NAO SEI sem destaque: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+J4 pote recusado desenha na mesma: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+J5 o leitor nao olha a marca: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+J6 URL javascript: vira link: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+J7 o casco escolhe o compartimento pelo nome da vista: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+J8 o carregador pede o pote sem ?pote=local: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+J9 o leitor esconde o compartimento vazio: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+H1 sem precedencia: legado e pote na mesma vista: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+H2 o Radar Futuro esquecido na precedencia: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+H3 o bloco do pote sem a faixa EXPERIMENTAL: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+
+MUTACAO: 29/29 mortos · vivos 0 · nao aplicados 0
+
+===== mut_ref
+✓ MORTO  S1 sobrescrever: o diff guardado passa a ser reescrito  (tests/test_edicoes_do_registro.py)
+✓ MORTO  S2 sobrescrever: a biblioteca guarda uma edicao por FONTE (a nova apaga a antiga)  (tests/test_edicoes_do_registro.py)
+✓ MORTO  C1 inventar cultura: o nome do produto volta a 1.a linha do texto  (tests/test_edicoes_do_registro.py)
+✓ MORTO  C2 inventar cultura: CULTURA_ALVO lida do nome do produto  (tests/test_edicoes_do_registro.py)
+✓ MORTO  R1 pular a revogacao: stato_amministrativo deixa de ser comparado  (tests/test_edicoes_do_registro.py)
+✓ MORTO  R2 revogacao datada pela EDICAO e nao pelo decreto  (tests/test_edicoes_do_registro.py)
+✓ MORTO  R3 sair do ficheiro vira revogacao  (tests/test_edicoes_do_registro.py)
+✓ MORTO  F1 frescor contado desde a EDICAO  (tests/test_frescor_da_referencia.py)
+✓ MORTO  F2 limiar de 14 dias vira «mais de 14»  (tests/test_frescor_da_referencia.py)
+✓ MORTO  F3 FAILED conta como checagem  (tests/test_frescor_da_referencia.py)
+✓ MORTO  F4 sem checagem vira EM_DIA  (tests/test_frescor_da_referencia.py)
+✓ MORTO  K1 sem retentativa na quarta/quinta  (regras/cadencia_da_referencia_test.mjs)
+✓ MORTO  K2 o alerta morre fora da janela  (regras/cadencia_da_referencia_test.mjs)
+✓ MORTO  K3 a rotacao ignora o teto do dominio  (regras/cadencia_da_referencia_test.mjs)
+✓ MORTO  K4 sem leitura de checagem, a cadencia adivinha e colhe  (regras/cadencia_da_referencia_test.mjs)
+✓ MORTO  K5 o corredor deixa de aplicar a cadencia  (regras/cadencia_da_referencia_test.mjs)
+
+MUTANTES 16 · MORTOS 16 · VIVOS 0
+RC=0
+
+===== mut_xm2
+base: verde na copia
+G1 declaracao de grupo de OUTRO rotulo serve: MORTO  <- test_A2_declaracao_de_outro_rotulo_nao_serve
+G2 chave de grupo do leitor prova a cultura sozinha: MORTO  <- test_A3_chave_do_grupo_sem_nome_nao_prova, test_A4_cultura_fora_da_zona_nao_prova, test_A6_subtipo_nao_cobre_o_generico, test_X1_contagens_commitadas_batem
+G3 cultura de rotacao vira uso: MORTO  <- test_A5_rotacao_nao_e_uso, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+G4 subtipo cobre o generico («cavolo» por «cavolo cappuccio»): MORTO  <- test_A6_subtipo_nao_cobre_o_generico, test_X4_itens_commitados_batem
+G5 a zona da cultura e a citacao inteira: MORTO  <- test_A4_cultura_fora_da_zona_nao_prova, test_X4_itens_commitados_batem
+G6 grupo declarado prova num par de outra cultura: MORTO  <- test_A10_grupo_declarado_nao_prova_num_par_de_outra_cultura
+R1 PARTIAL vira YES sem ligacao no texto: MORTO  <- test_B1_partial_continua_partial_sem_ligacao_no_texto, test_B9_substancia_longe_da_cultura_nao_liga, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+R2 rotulo nao lido vira NO: MORTO  <- test_B4_rotulo_nao_lido_nunca_e_no, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+R3 cultura fora do vocabulario vira NO: MORTO  <- test_B5_cultura_fora_do_vocabulario_nunca_e_no, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+R4 X3w sem janela (qualquer cultura do troco liga): MORTO  <- test_B9_substancia_longe_da_cultura_nao_liga
+C1 data do boletim NAO SEI confirma: MORTO  <- test_C2_data_do_boletim_nao_sei_nao_confirma, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+C2 cabecalho nao conferido: MORTO  <- test_C3_cabecalho_fora_do_troco_nao_confirma, test_X4_itens_commitados_batem
+C3 empresa nao conferida: MORTO  <- test_C5_empresa_que_nao_e_adama
+V1 validade ignora a scadenza: MORTO  <- test_C8_validade_terminada_antes, test_F1_so_outras_empresas_validas, test_H2_competitors_com_grao_substancia
+V2 validade ignora a revoga: MORTO  <- test_C7_revogado_antes_do_boletim, test_D3_revogado_depois_valia_antes, test_F1_so_outras_empresas_validas, test_H2_competitors_com_grao_substancia
+V3 validade ignora o registo posterior: MORTO  <- test_C4_registo_depois_do_boletim, test_E6_registo_invalido_na_data_nao_e_match
+V4 sem data vira SIM: MORTO  <- test_D1_sem_data, test_X4_itens_commitados_batem
+P1 declaracao de produto conta como par forte: MORTO  <- test_E2_so_espectro_de_produto_nao_soma
+P2 praga sem alvo ligada ao primeiro alvo: MORTO  <- test_E4_praga_sem_alvo_no_vocabulario_e_nao_sei, test_X4_itens_commitados_batem
+P3 registo invalido conta como match: MORTO  <- test_E6_registo_invalido_na_data_nao_e_match
+S1 ADAMA entra no competitive set: MORTO  <- test_F1_so_outras_empresas_validas, test_H2_competitors_com_grao_substancia
+S2 substancia por pedaco (METALAXYL = METALAXYL-M): MORTO  <- test_F2_metalaxyl_nao_e_metalaxyl_m
+S3 CS com cultura inventada: MORTO  <- test_F1_so_outras_empresas_validas
+S4 secao sem cultura herda a do boletim: MORTO  <- test_G1_so_pares_da_mesma_secao
+O1 objeto confirmado vira OPORTUNIDADE: MORTO  <- test_H1_confirmado_atravessa_com_estado_visivel, test_H8_nada_de_oportunidade_nem_sinal
+O2 DOCUMENT_ID fabricado da chave da Sala: MORTO  <- test_H1_confirmado_atravessa_com_estado_visivel, test_H3_sem_document_id_e_recusado_a_vista, test_H5_lineage_ambigua_nao_e_ligada, test_X4_itens_commitados_batem
+O3 CROSSING_STATE some: MORTO  <- test_H1_confirmado_atravessa_com_estado_visivel, test_X4_itens_commitados_batem
+Z1 a copia do vocabulario diverge do leitor (Revocato conta como ativo): MORTO  <- test_Z1_vocabulario_igual_ao_do_leitor
+K1 LINEAGE ambigua e ligada a primeira: MORTO  <- test_H5_lineage_ambigua_nao_e_ligada
+K2 a corrida nova usa o id da R7: MORTO  <- test_H6_corrida_nova_nao_e_a_r7
+K3 --so-cruzamentos leva os objetos da R7: MORTO  <- test_H7_objetos_da_r7_mantidos_salvo_so_cruzamentos
+
+MUTACAO: 31/31 mortos · vivos 0 · nao aplicados 0
+
+===== mut_busca
+MORTO       a tesoura nao corta pelo valor
+MORTO       a tesoura nao corta key=
+MORTO       API desligada nao e reconhecida
+MORTO       chave restrita nao e reconhecida
+MORTO       chave invalida vira falta de CX
+MORTO       sem CX nao se mede obrigatorio
+MORTO       o diagnostico manda sempre cx
+MORTO       sem chave o diagnostico chama na mesma
+MORTO       --sem-portao-it serve paginas
+MORTO       a API sai pelo transporte das paginas
+MORTO       a quota nao se cobra
+MORTO       nome de secret livre
+MORTO       GITHUB_* aceite
+MORTO       N sem limite
+MORTO       artifact so quando tudo corre bem
+MORTO       o push dispara no ramo de codigo
+MORTO       input direto num run
+MORTOS 17/17
+RC=0
+
+===== mut_com_v1
+M01 comentario vira FACT                           MORTO ['test_comentario_nasce_assercao_publica_nunca_facto', 'test_leitor_do_jsonld_minimiza_e_nomeia_o_pai']
+M02 comentario sem pai passa                       MORTO ['test_comentario_sem_pai_nao_se_monta']
+M03 COMMENT deixa de ganhar a assercao             MORTO ['test_comentario_nasce_assercao_publica_nunca_facto', 'test_comentario_sem_pai_nao_se_monta']
+M04 YouTube deixa de nomear o pai                  MORTO ['test_comentario_nasce_assercao_publica_nunca_facto', 'test_controlo_existe_sem_relevantes_e_nao_tem_corte']
+M05 lugar do pai vira o de quem fala (IAB §5)      MORTO ['test_regiao_so_quando_a_fala_a_diz']
+M06 controlo deixa de existir                      MORTO ['test_controlo_existe_sem_relevantes_e_nao_tem_corte', 'test_ha_controlo_cru_escolhido_sem_olhar_o_texto']
+M07 amostra apaga o que fica fora                  MORTO ['test_nada_e_apagado']
+M08 lacuna de vocabulario volta a ser NO           MORTO ['test_lacuna_de_vocabulario_e_nao_sei_e_nao_no']
+M09 zero declarado passa a colher                  MORTO ['test_zero_declarado_nao_colhe_e_diz_porque']
+M10 leitor do LinkedIn guarda o nome do autor      MORTO ['test_leitor_do_jsonld_minimiza_e_nomeia_o_pai']
+M11 listagem de comentarios deixa de ser recusada  MORTO ['test_8_contatos_seguidores_mensagens_e_comentarios_ficam_fora', 'test_listagem_de_comentarios_e_porta_trocada']
+M12 Instagram abre o gasto por omissao             MORTO ['test_portao_do_instagram_fecha_pelo_gasto_e_nao_pelo_juridico']
+M13 LinkedIn declarado PROVED sem prova            MORTO ['test_linkedin_tem_rota_gratuita_candidata_nao_provada']
+M14 apelido T7 some do workflow                    MORTO ['test_workflow_apelida_t5_e_t7_com_os_apelidos_do_dono']
+14/14 mortos reposto igual: True
+RC=0
+
+===== mut_com_reg
+N01 evidencia vira problema confirmado                  MORTO ['test_comentario_nasce_assercao_publica_nunca_facto']
+N02 origem vira verificada                              MORTO ['test_comentario_nasce_assercao_publica_nunca_facto']
+N03 comentario do LinkedIn nasce POST (sem assercao)    MORTO ['test_leitor_do_jsonld_minimiza_e_nomeia_o_pai']
+N04 lugar provado do pai deixa de ser herdado           MORTO ['test_envelope_leva_o_lugar_provado_do_pai', 'test_lugar_herdado_so_quando_o_pai_o_prova']
+N05 lugar sem prova passa como herdado                  MORTO ['test_o_pai_e_nomeado_e_o_lugar_nao_se_inventa', 'test_quem_nao_diz_o_lugar_nao_ganha_regiao_e_a_fala_nao_e_fonte_de_lugar']
+N06 envelope perde o lugar do pai no caminho            MORTO ['test_envelope_leva_o_lugar_provado_do_pai']
+N07 LinkedIn nomeia o pai pelo url e nao pela activity  MORTO ['test_leitor_do_jsonld_minimiza_e_nomeia_o_pai']
+N08 localizacao do autor passa a coletar-se             MORTO ['test_envelope_leva_o_lugar_provado_do_pai', 'test_o_pai_e_nomeado_e_o_lugar_nao_se_inventa']
+N09 REGION_IF_PROVEN herda o lugar do pai               MORTO ['test_quem_nao_diz_o_lugar_nao_ganha_regiao_e_a_fala_nao_e_fonte_de_lugar']
+N10 EXPLICIT sem a fala dizer o lugar                   MORTO ['test_quem_nao_diz_o_lugar_nao_ganha_regiao_e_a_fala_nao_e_fonte_de_lugar']
+N11 lugar dito na fala vira FACT_LOCATION               MORTO ['test_quem_nao_diz_o_lugar_nao_ganha_regiao_e_a_fala_nao_e_fonte_de_lugar']
+N12 HIGH sem fonte registada                            MORTO ['test_high_exige_fonte_registada']
+N13 LOW passa a colher                                  MORTO ['test_o_piloto_da_fase1_so_colhe_o_elegivel', 'test_so_indicio_de_tema_e_low_e_nao_colhe']
+N14 NAO_SEI passa a colher                              MORTO ['test_lacuna_de_vocabulario_e_nao_sei_e_nao_no', 'test_o_piloto_da_fase1_so_colhe_o_elegivel']
+N15 so indicio sobe a MEDIUM                            MORTO ['test_so_indicio_de_tema_e_low_e_nao_colhe']
+N16 universo NAO deixa de ser NO                        MORTO ['test_universo_que_diz_nao_com_prova_e_no']
+N17 comentarios desligados deixam de ser NO             MORTO ['test_comentarios_desligados_e_no']
+N18 MEDIUM sem entidade nomeada                         MORTO ['test_so_indicio_de_tema_e_low_e_nao_colhe', 'test_zero_declarado_nao_colhe_e_diz_porque']
+N19 controlo passa a olhar o texto                      MORTO ['test_controlo_existe_sem_relevantes_e_nao_tem_corte', 'test_ha_controlo_cru_escolhido_sem_olhar_o_texto']
+N20 controlo so entre os relevantes                     MORTO ['test_controlo_existe_sem_relevantes_e_nao_tem_corte']
+N21 controlo cortado a um                               MORTO ['test_controlo_existe_sem_relevantes_e_nao_tem_corte']
+N22 controlo tirado dos mais curtidos                   MORTO ['test_controlo_existe_sem_relevantes_e_nao_tem_corte', 'test_ha_controlo_cru_escolhido_sem_olhar_o_texto']
+N23 comentario do LinkedIn volta a pedir rota paga      MORTO ['test_21_provider_pago_nao_muda_politica', 'test_M12_policy_ignored']
+23/23 mortos {'PUBLIC_ASSERTION': '3/3 mortos', 'LUGAR_DO_PAI': '4/4 mortos', 'SEM_LUGAR_DO_COMENTARISTA': '4/4 mortos', 'ELEGIBILIDADE': '7/7 mortos', 'CONTROLE': '4/4 mortos', 'SEM_ROTA_PAGA': '1/1 mortos'} reposto igual: True
+RC=0
+
+===== mut_lote5
+MUTACAO LOTE5-INTEGRA sobre d0e0901
+LIMPO rc=0 /usr/local/bin/python3 tests/test_linha_busca.py :: OK
+LIMPO rc=0 -c /usr/local/bin/python3 system-map/scripts/generate_system_map.py >/dev/null && /usr/local/bin/python3 system-map/scripts/validate_system_map.py :: SYSTEM_MAP_CHECK=PASS · o mapa corresponde ao repositorio
+LIMPO rc=0 provas/linha_busca_raw_no_postgres_descartavel.py /tmp/lote5-mutacao-pg :: }
+LIMPO rc=0 /usr/local/bin/python3 tests/test_busca_no_actions.py :: OK
+LIMPO rc=0 /usr/local/bin/python3 system-map/scripts/validate_system_map.py :: SYSTEM_MAP_CHECK=PASS · o mapa corresponde ao repositorio
+MORTO J1-a   coleta/linha_busca.py | colher --pousar volta a pousar direto na Sala (sem collection_run/raw_asset) | rc=1 :: FAILED (failures=1)
+MORTO J1-b   coleta/linha_busca.py | --sem-portao-it deixa de se restringir a API oficial | rc=1 :: FAILED (failures=1)
+MORTO J1-c   coleta/linha_busca.py | a tesoura da chave sai do erro da busca | rc=1 :: FAILED (failures=1)
+MORTO J1-d   coleta/linha_busca.py | --buscar com motor API volta ao transporte de paginas | rc=1 :: FAILED (failures=3)
+MORTO J1-e   coleta/linha_busca.py | admitir ignora o raw_asset_id real (READY sem linhagem) | rc=1 :: FAILED (failures=1)
+MORTO J3-a   coleta/linha_busca_raw.py | pousa noutra corrida (a que nao nasceu em collection_run) | rc=1 :: }
+MORTO J3-b   coleta/linha_busca_raw.py | salta o dono do RAW e inventa o id (o defeito original: run_id_fkey) | rc=1 :: }
+MORTO J2-a   system-map/data/architecture.declared.json | a peca C-PROVA-COMENTARIOS some do mapa | rc=1 :: Leia AGENTS.md antes de mexer.
+MORTO J2-b   system-map/data/architecture.declared.json | a peca C-LINHA-BUSCA some do mapa | rc=1 :: Leia AGENTS.md antes de mexer.
+MORTO J4-a   system-map/data/state.generated.json | gerado velho (o da base 18461b92) fica no lugar | rc=1 :: Leia AGENTS.md antes de mexer.
+RESULTADO 10/10 mortos
