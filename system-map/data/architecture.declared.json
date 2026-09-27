@@ -2591,6 +2591,7 @@
     "provas/lote6_integra/BATERIA-BASE-18461b92.json",
     "provas/lote6_integra/BATERIA-RAMO.json",
     "LOTE6-INTEGRA.md",
+    "LOTE7-INTEGRA.md",
     "provas/integra_noite/mutacao_lote5_integra.py"
    ],
    "views": [
@@ -5976,7 +5977,7 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Le a casa da referencia ADAMA e devolve duas metades que nunca se somam: REGISTRO (autorizacao do Ministero: registos, usos autorizados, leitura de cada bula, substancias, doses, documentos) e CATALOGO (vitrine da ADAMA Italia). Cada metade com EDICAO, DATA_DA_EDICAO, ULTIMA_CHECAGEM_OK, ESTADO_FRESCOR (D117: 14 dias -> PODE_ESTAR_DESATUALIZADO; 30 -> AUTORIZACAO_A_CONFIRMAR) e o sha256 de cada livro. Edicao misturada = NAO SEI inteira. Responde autorizados(cultura, alvo), por_substancia, por_alvo so do REGISTRO; bula nao lida = A_CONFIRMAR, nunca «nao autoriza». Nao escreve, nao copia a tabela, nao cunha id.",
+   "what": "Le a casa da referencia ADAMA e devolve duas metades que nunca se somam: REGISTRO (autorizacao do Ministero: registos, usos autorizados, leitura de cada bula, substancias, doses, documentos) e CATALOGO (vitrine da ADAMA Italia). Cada metade com EDICAO, DATA_DA_EDICAO, ULTIMA_CHECAGEM_OK, ESTADO_FRESCOR (D117: 14 dias -> PODE_ESTAR_DESATUALIZADO; 30 -> AUTORIZACAO_A_CONFIRMAR) e o sha256 de cada livro. Edicao misturada = NAO SEI inteira. Responde autorizados(cultura, alvo), por_substancia, por_alvo so do REGISTRO; bula nao lida = A_CONFIRMAR, nunca «nao autoriza». GRAO DO USO (LOTE7-INTEGRA, LAB PESQUISA-CRUZAMENTOS F.2-1): autorizacao_do_uso e a regra unica — so LINK_LEVEL LINHA_DA_TABELA ou BLOCO_DA_CULTURA sai AUTORIZADO; DECLARACAO_DE_PRODUTO (cultura e alvo em listas separadas do rotulo) e nivel ausente = A_CONFIRMAR; a CAP-SCI e o cruzamentos-max herdam-na daqui (NIVEIS_QUE_AUTORIZAM). Nao escreve, nao copia a tabela, nao cunha id.",
    "why_here": "D116 do dono: bulas e portfolio sao UMA biblioteca de referencia versionada, e toda capacidade que fala de produto consulta a MESMA edicao. Medido antes: a CAP-SCI lia a casa direto, o cruzamentos-max lia outra copia (os pares do leitor e o CSV de 07/09, outra edicao), e cap_win, concorrencia_meta e boletim nao liam nada. Vive em motor/ porque LER e trabalho da inteligencia; o construtor (fontes/adama_referencia.py) continua o unico que escreve. tests/test_porta_unica_referencia.py reprova quem ler por fora.",
    "files": [
     "motor/porta_da_referencia.py"
@@ -5994,10 +5995,11 @@
    "departments": [
     "ENGENHARIA"
    ],
-   "what": "Planta 20 defeitos numa copia da arvore em pasta temporaria (o repo nao e tocado): leitura direta da referencia em cap_win, cruzamentos_max, concorrencia_meta e boletim; edicao misturada aceite; o motor a abrir a porta duas vezes; catalogo tratado como autorizacao; frescor ignorado (14, 30, sem data, contado do ficheiro, na CAP-SCI e no cruzamentos-max); bula nao lida a virar «nao»; checagem que confirma sempre; carimbo sem o sha do livro. Corre tests/test_porta_unica_referencia.py e sai 1 se algum sobreviver.",
+   "what": "Planta 29 defeitos numa copia da arvore em pasta temporaria (o repo nao e tocado): leitura direta da referencia em cap_win, cruzamentos_max, concorrencia_meta e boletim; edicao misturada aceite; o motor a abrir a porta duas vezes; catalogo tratado como autorizacao; frescor ignorado (14, 30, sem data, contado do ficheiro, na CAP-SCI e no cruzamentos-max); bula nao lida a virar «nao»; checagem que confirma sempre; carimbo sem o sha do livro; e 9 do GRAO (LOTE7-INTEGRA): declaracao de produto a autorizar, nivel ignorado ou ausente a autorizar, qualquer uso vira SIM, por_alvo sem grao, CAP-SCI com SIM proprio, cruzamentos-max com lista propria. Corre tests/test_porta_unica_referencia.py e sai 1 se algum sobreviver. provas/lote7_integra/medir_grao_na_porta.py mede quantos SIM caem para A_CONFIRMAR (porta antiga lida do git x porta nova).",
    "why_here": "Prova que o contrato da porta morde. 20/20 mortos a 2026-09-27 (provas/porta_unica_referencia/MUTANTES.json).",
    "files": [
-    "provas/porta_unica_referencia/mutantes.py"
+    "provas/porta_unica_referencia/mutantes.py",
+    "provas/lote7_integra/*"
    ]
   },
   {

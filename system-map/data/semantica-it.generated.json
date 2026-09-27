@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107"
+    "HEAD": "5a35c401ed006b5e033668f1aba0eb5d0f618ec0"
   },
   "VOCABULARIOS": [
     {
@@ -27,6 +27,7 @@
         ".github/workflows/apify-sensores.yml",
         "coleta/adaptador_youtube.py",
         "coleta/coletor.py",
+        "coleta/social_envelope.py",
         "coleta/social_scrap.py",
         "leis/autorizacao_de_gasto.py",
         "leis/social_matriz.py",
@@ -1267,6 +1268,8 @@
         "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py",
+        "coleta/it/edicoes_do_registro.py",
+        "coleta/linha_busca.py",
         "coleta/rota_forward_documento.py",
         "controle/censo_do_controle.py",
         "controle/red_team_do_controle.py",
@@ -1281,6 +1284,7 @@
         "medidas/porque_a_sala_nao_recebeu.py",
         "medidas/relevancia_antes_da_coleta.py",
         "orquestrador/orquestrador.py",
+        "pedido/elegibilidade_comentario.py",
         "provas/a_collection_preserva_o_fato.py",
         "provas/a_fonte_atravessa_ate_a_porta.py",
         "provas/a_fonte_t4_italiana_atravessa.py",

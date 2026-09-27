@@ -35,7 +35,8 @@
    "APANHADO_POR": [
     "test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas",
     "test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora",
-    "test_B5_boletim"
+    "test_B5_boletim",
+    "test_I4_os_consumidores_herdam_da_porta"
    ]
   },
   {
@@ -176,8 +177,96 @@
     "test_B2_cap_win_carimba_e_responde_produtos",
     "test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades"
    ]
+  },
+  {
+   "MUTANTE": "G1 a declaracao de produto entra nos niveis que autorizam",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_I1_a_regra_unica",
+    "test_I2_nenhum_autorizado_da_porta_vem_de_declaracao",
+    "test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque",
+    "test_I4_os_consumidores_herdam_da_porta",
+    "test_I5_por_alvo_so_diz_cultura_na_bula_quando_o_grao_une"
+   ]
+  },
+  {
+   "MUTANTE": "G2 a regra ignora o nivel de ligacao",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_I1_a_regra_unica",
+    "test_I2_nenhum_autorizado_da_porta_vem_de_declaracao",
+    "test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque",
+    "test_I4_os_consumidores_herdam_da_porta",
+    "test_I5_por_alvo_so_diz_cultura_na_bula_quando_o_grao_une"
+   ]
+  },
+  {
+   "MUTANTE": "G3 nivel ausente autoriza",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_I1_a_regra_unica"
+   ]
+  },
+  {
+   "MUTANTE": "G4 autorizados: qualquer uso lido vira SIM",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada",
+    "test_I2_nenhum_autorizado_da_porta_vem_de_declaracao",
+    "test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque",
+    "test_I4_os_consumidores_herdam_da_porta"
+   ]
+  },
+  {
+   "MUTANTE": "G5 por_alvo: registo nasce autorizado",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada",
+    "test_I4_os_consumidores_herdam_da_porta",
+    "test_I5_por_alvo_so_diz_cultura_na_bula_quando_o_grao_une"
+   ]
+  },
+  {
+   "MUTANTE": "G6 por_alvo: cultura so declarada conta como cultura na bula",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_I5_por_alvo_so_diz_cultura_na_bula_quando_o_grao_une"
+   ]
+  },
+  {
+   "MUTANTE": "G7 a regra ignora o frescor (D117)",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada",
+    "test_E5_cap_sci_marca_a_ligacao_a_confirmar",
+    "test_I1_a_regra_unica"
+   ]
+  },
+  {
+   "MUTANTE": "G8 cap_sci faz o seu proprio SIM (qualquer uso)",
+   "ALVO": "motor/capacidade_cientifica.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E5_cap_sci_marca_a_ligacao_a_confirmar",
+    "test_I4_os_consumidores_herdam_da_porta"
+   ]
+  },
+  {
+   "MUTANTE": "G9 cruzamentos_max reescreve os niveis com a declaracao",
+   "ALVO": "motor/cruzamentos_max.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_I6_a_regra_mora_so_na_porta"
+   ]
   }
  ],
- "MORTOS": 20,
- "TOTAL": 20
+ "MORTOS": 29,
+ "TOTAL": 29
 }

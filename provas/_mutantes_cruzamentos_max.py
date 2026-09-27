@@ -67,9 +67,11 @@ M = [
      '        return dict(base, VALIDO=NAO_SEI, MOTIVO="data de referencia NAO SEI")\n',
      '        return dict(base, VALIDO="SIM", MOTIVO="data de referencia NAO SEI")\n'),
     # ── portfolio / competitive ─────────────────────────────────────────────
+    # REANCORADO, DECLARADO (LOTE7-INTEGRA): a lista mora na PORTA e o motor herda-a; o defeito
+    # plantado e o mesmo — a declaracao de produto passa a contar como par forte neste motor.
     ("P1 declaracao de produto conta como par forte",
-     'NIVEIS_FORTES = ("LINHA_DA_TABELA", "BLOCO_DA_CULTURA")\n',
-     'NIVEIS_FORTES = ("LINHA_DA_TABELA", "BLOCO_DA_CULTURA", "DECLARACAO_DE_PRODUTO")\n'),
+     'NIVEIS_FORTES = PORTA.NIVEIS_QUE_AUTORIZAM\n',
+     'NIVEIS_FORTES = PORTA.NIVEIS_QUE_AUTORIZAM + (PORTA.DECLARACAO_DE_PRODUTO,)\n'),
     ("P2 praga sem alvo ligada ao primeiro alvo",
      "    return next((k for k, rx in _RX_ALVO if rx.search(t)), None)\n",
      '    return next((k for k, rx in _RX_ALVO if rx.search(t)), "PERONOSPORA")\n'),

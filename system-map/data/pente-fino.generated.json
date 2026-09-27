@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T21:42:24+00:00",
-    "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
+    "GENERATED_AT": "2026-09-27T23:27:17+00:00",
+    "HEAD": "5a35c401ed006b5e033668f1aba0eb5d0f618ec0",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9",
-    "FICHEIROS_NA_IMPRESSAO": 4167,
+    "SOURCE_TREE_FINGERPRINT": "158869efc6cb5f97553d806a3fd0753d8b2f179f50fff36dd16aa3b21d6e323f",
+    "FICHEIROS_NA_IMPRESSAO": 4262,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -67,6 +67,13 @@
         "LIDO_POR": "workflows() · read_text"
       },
       {
+        "PATH": ".github/workflows/linha-busca-google.yml",
+        "PAPEL": "FONTE",
+        "VERSAO": "38d958f42b3747cd806ba8ba0e4b953e523a80bc",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "workflows() · read_text"
+      },
+      {
         "PATH": ".github/workflows/regressao-de-navegador.yml",
         "PAPEL": "FONTE",
         "VERSAO": "bf5bf5ba1eed78c792809a288c3211505386eeb2",
@@ -104,7 +111,7 @@
       {
         "PATH": ".github/workflows/sintonia-scrap.yml",
         "PAPEL": "FONTE",
-        "VERSAO": "46871d88288b1d6c196858e66a58665092390333",
+        "VERSAO": "3ac3dc632cb0b58561c05d31808eb07e28928e43",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "workflows() · read_text"
       },
@@ -146,13 +153,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9",
+        "VERSAO": "158869efc6cb5f97553d806a3fd0753d8b2f179f50fff36dd16aa3b21d6e323f",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
-    "INPUTS_COUNT": 20,
-    "INPUTS_DIGEST": "dab695dab5256c128c6de2223e1027b57645f571db0eb84dbe87446147638145",
+    "INPUTS_COUNT": 21,
+    "INPUTS_DIGEST": "78257c4b06fda8914faed56083abf8cd0fe3c8c4f5d7a2fbe794d433c408c14c",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -361,6 +368,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-REFERENCIA-CADENCIA",
+      "nome": "A cadencia da referencia — quando se volta a fonte",
+      "zona": "· as reguas que carimbam",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
       "id": "C-DECISAO-DA-FILA",
       "nome": "A decisao da fila de fontes",
       "zona": "· de onde vem uma fonte",
@@ -457,6 +476,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-ELEGIBILIDADE-COMENTARIO",
+      "nome": "A regua do comentario: este pai merece?",
+      "zona": "· PEDIDO — o contrato",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
       "id": "C-AS-FONTES",
       "nome": "AS FONTES",
       "zona": "· as fontes",
@@ -466,6 +497,18 @@
       "alguem_corre": true,
       "respostas": 3,
       "ficheiros": 3,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-IT-EDICOES-DO-REGISTRO",
+      "nome": "As edicoes do registro — o diff produto a produto e o EVENTO_REGULATORIO",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
       "estado": "yellow"
     },
     {
@@ -985,6 +1028,30 @@
       "estado": "yellow"
     },
     {
+      "id": "C-LINHA-BUSCA-FERRAMENTAS",
+      "nome": "Ferramentas da LINHA-BUSCA (consultas, motores, API oficial)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 24,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-LINHA-BUSCA",
+      "nome": "LINHA-BUSCA · coleta assunto-primeiro (D93)",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
       "id": "C-IMPORTAR",
       "nome": "Levar o dado para o banco",
       "zona": "A SALA DE ESPERA",
@@ -1106,9 +1173,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 79,
-    "respondem_as_quatro": 24,
-    "respondem_a_tres": 38,
+    "pecas_da_coleta": 84,
+    "respondem_as_quatro": 26,
+    "respondem_a_tres": 41,
     "respondem_a_duas": 14,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
