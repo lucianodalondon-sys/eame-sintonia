@@ -657,6 +657,11 @@ def produtos_adama_do_boletim(leitura: dict, referencia: dict | None = None, hoj
             r = PORTA.autorizados(ref, cultura, p.get("NOME"))
             r.pop("CARIMBO", None)
             pares.append({"CULTURA": cultura, "PRAGA": p.get("NOME"), "ESTADO_NO_BOLETIM": p.get("ESTADO"),
-                          "PRODUTOS_ADAMA": r})
+                          "PRODUTOS_ADAMA": r,
+                          # LIGACAO-ADAMA (D123): o par da MESMA secao, ligado pela porta
+                          "LIGACAO_ADAMA": PORTA.ligacao_adama(ref, {
+                              "CULTURA": cultura, "PROBLEMA": p.get("NOME"),
+                              "VEM_DE": {"CULTURA": "BOLETIM.SECOES.CULTURA (ler_boletim)",
+                                         "PROBLEMA": "BOLETIM.SECOES.PROBLEMAS (ler_boletim)"}})})
     return {"REFERENCIA_ADAMA": PORTA.carimbo(ref), "PARES": pares,
             "NAO_E": "o boletim nao recomendou produto: e a bula a cobrir o par que o boletim escreveu"}

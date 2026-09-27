@@ -70,7 +70,14 @@ from ponte_intelligence_casco import (                 # noqa: E402
     NAO_SEI, MARCA, ESTADO_TRANSPORTAVEL, CAMPOS_DA_PROVA, CORRIDA_SEM_SAIDA,
     CORRIDA_VAZIA, LeiViolada, e_ignorancia)
 
+# D123 (LIGACAO-ADAMA): a ligacao a bula e ao portfolio e calculada SO pela porta; o pote
+# confere o SELO dela e recusa objeto sem ligacao. Nunca a calcula para um objeto da corrida.
+import porta_da_referencia as PORTA                    # noqa: E402  (motor/)
+
 CONTRATO = "POTE_INTELLIGENCE_CASCO/v2"
+#: Revisao anotada do contrato (mudanca minima): o nome continua v2 — o casco le-o assim —,
+#: e todo objeto passa a levar LIGACAO_ADAMA (D123, 27/09/2026).
+REVISAO_DO_CONTRATO = "v2 + " + PORTA.CONTRATO_LIGACAO + " (D123, 2026-09-27)"
 NOME_DO_GLOBAL = "SINTONIA_POTE"
 #: O unico sitio dentro do portal onde o pote pode ser escrito: fora do Git
 #: (italia-portale/client/.gitignore) e fora do deploy (.vercelignore), como os
@@ -410,6 +417,8 @@ def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica
         "USO_EXIGE_TEMPO": uso_exige_tempo(especie, o),
         "PROVA": [_prova_v2(p, linhagem, run_id, especie) for p in o["PROVA"]],
         "CORRIDA_SINTETICA": sintetica,
+        # D123 · transportada como a porta a selou; o pote nao a recalcula
+        "LIGACAO_ADAMA": o.get("LIGACAO_ADAMA"),
     }
     # D112 · a origem da entidade e do lugar, quando a Intelligence as diz. Se
     # ha lugar do facto e ninguem disse de onde ele veio, isso fica a vista.
@@ -463,6 +472,16 @@ def _conferir_objeto(comp, o, linhagem, vistos):
         outras = sorted({str(p["SOURCE_ID"]) for p in o["PROVA"] if str(p["SOURCE_ID"]) != str(fonte)})
         if outras:
             return "PROVA_DE_OUTRA_FONTE", f"a prova do rendimento de {fonte} traz {', '.join(outras)}"
+    # D123 · a ligacao ADAMA: obrigatoria, da porta (selo), e nunca como fonte independente.
+    if "LIGACAO_ADAMA" not in o:
+        return ("SEM_LIGACAO_ADAMA", "D123: todo objeto da Intelligence carrega LIGACAO_ADAMA, "
+                "calculada pela porta (motor/porta_da_referencia.py)")
+    falhas = PORTA.conferir_ligacao(o["LIGACAO_ADAMA"])
+    if falhas:
+        return "LIGACAO_ADAMA_FORA_DA_PORTA", "; ".join(falhas)
+    if any(PORTA.e_prova_da_referencia(p) for p in o["PROVA"]):
+        return ("REFERENCIA_NAO_E_FONTE_INDEPENDENTE",
+                "INT-LAW-076: bula/registo/catalogo contextualizam o objeto (LIGACAO_ADAMA); nao sao prova dele")
     if _id_do_objeto(o) in vistos:
         return "DUPLICADO_NO_COMPARTIMENTO", ""
     return None
@@ -513,6 +532,7 @@ def _cabecalho(run_id, fonte, estado, origem, sintetica, leituras=()) -> dict:
         "CORRIDA_SINTETICA": sintetica,
         "ENTRADA": origem,
         "LEITURA_DE_COMPATIBILIDADE": list(leituras),
+        "REVISAO_DO_CONTRATO": REVISAO_DO_CONTRATO,
         "LEI": "o casco desenha isto; nao refaz crossing, nao completa NAO SEI, nao promove, "
                "nao muda especie (INT-LAW-023 · INT-LAW-280)",
     }
@@ -670,6 +690,12 @@ def pote_de_payload_v1(payload: dict) -> dict:
             o = {"SIGNAL_ID": sid, "CHAVES": dadas, "PROVA": c["PROVA"],
                  "PORQUE": c.get("PORQUE"), "CONTRADIZ": c.get("CONTRADIZ"),
                  "INCERTEZA": c.get("INCERTEZA")}
+            # D123 · a v1 nao transportava a ligacao nem a referencia: a PORTA diz NAO_SEI
+            # (FALTA=REFERENCIA), com as chaves que a v1 trazia — o pote nao a calcula.
+            ch = o.get("CHAVES") if isinstance(o.get("CHAVES"), dict) else {}
+            o["LIGACAO_ADAMA"] = PORTA.ligacao_adama(None, {
+                "CULTURA": ch.get("CROP_ID"), "PROBLEMA": ch.get("ISSUE_ID"),
+                "VEM_DE": {"CULTURA": "PAYLOAD_V1.CHAVES.CROP_ID", "PROBLEMA": "PAYLOAD_V1.CHAVES.ISSUE_ID"}})
             obj = _objeto(comp, o, SINAL, "CONTRATO_V1", {}, run_id, sintetica)
             obj["PROVA_CONFERIDA_POR"] = V1.CONTRATO
             for pr in obj["PROVA"]:
@@ -727,9 +753,12 @@ def conferir_pote(pote: dict) -> list:
                     if isinstance(pote.get("CABECALHO"), dict) else ""))
     if not isinstance(pote.get("LEITURA_DE_COMPATIBILIDADE"), list):
         v.append("cabecalho sem LEITURA_DE_COMPATIBILIDADE (lista; vazia = nenhuma)")
+    if pote.get("REVISAO_DO_CONTRATO") != REVISAO_DO_CONTRATO:
+        v.append(f"cabecalho sem REVISAO_DO_CONTRATO = {REVISAO_DO_CONTRATO}")
     comps = pote.get("COMPARTIMENTOS")
     if not isinstance(comps, dict) or set(comps) != set(COMPARTIMENTOS):
         return v + ["o pote nao traz os doze compartimentos"]
+    impressoes = set()
     for comp, e in comps.items():
         meta = COMPARTIMENTOS[comp]
         if e.get("MARCA") != MARCA or e.get("NAO_PARA_CLIENTE") is not True:
@@ -777,6 +806,13 @@ def conferir_pote(pote: dict) -> list:
                         v.append(f"{comp}/{oid}: bloqueio por futuro prova o que nao e facto futuro")
                     elif adm == "PONTE_V1" and pote.get("ENTRADA") != "PAYLOAD_V1":
                         v.append(f"{comp}/{oid}: prova dita conferida pela v1 num pote que nao veio da v1")
+            for x in PORTA.conferir_ligacao(o.get("LIGACAO_ADAMA")):
+                v.append(f"{comp}/{oid}: D123 {x}")
+            imp = ((o.get("LIGACAO_ADAMA") or {}).get("CARIMBO") or {}).get("IMPRESSAO_DOS_LIVROS")
+            if imp and imp != NAO_SEI:
+                impressoes.add(imp)
+            if any(PORTA.e_prova_da_referencia(p) for p in (o.get("PROVA") or [])):
+                v.append(f"{comp}/{oid}: a referencia nao e fonte independente do objeto (INT-LAW-076)")
             if o.get("ESPECIE_DITA_POR") not in ("INTELLIGENCE", "CONTRATO_V1"):
                 v.append(f"{comp}/{oid}: ESPECIE sem quem a disse")
             if not isinstance(o.get("USO_EXIGE_TEMPO"), bool):
@@ -811,6 +847,8 @@ def conferir_pote(pote: dict) -> list:
                 for k, val in chaves.items():
                     if e_ignorancia(val) and val != NAO_SEI:
                         v.append(f"{comp}/{oid}: {k} esconde a ignorancia ({val!r} em vez de NAO SEI)")
+    if len(impressoes) > 1:
+        v.append(f"D116/D123: ligacoes de {len(impressoes)} edicoes diferentes da referencia num pote so")
     return v
 
 

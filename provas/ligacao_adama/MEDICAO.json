@@ -1,0 +1,141 @@
+{
+ "SCHEMA": "MEDICAO_LIGACAO_ADAMA/v1",
+ "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+ "HOJE": "2026-09-27",
+ "CARIMBO": {
+  "PORTA": "motor/porta_da_referencia.py",
+  "ESTADO": "LIDA",
+  "HOJE": "2026-09-27",
+  "HOJE_VEIO_DE": "DECLARADO",
+  "EDICAO_REGISTRO": "PROD_FTS_6_20260831",
+  "DATA_DA_EDICAO_REGISTRO": "2026-08-31",
+  "ULTIMA_CHECAGEM_OK": "2026-09-07",
+  "DIAS_SEM_CHECAGEM": 20,
+  "ESTADO_FRESCOR": "PODE_ESTAR_DESATUALIZADO",
+  "EDICAO_CATALOGO": "CAT_ADAMA_IT_20260915",
+  "DATA_DA_EDICAO_CATALOGO": "2026-09-15",
+  "ESTADO_FRESCOR_CATALOGO": "FRESCA",
+  "IMPRESSAO_DOS_LIVROS": "e244d38edd6f87afcaf0da3db7aeb2e79818f783802f0f97b2fd9b105f648749"
+ },
+ "INSUMOS": {
+  "ANALISE_R7": {
+   "CAMINHO": "docs/intelligence/r7/ANALISE-R7.json",
+   "SHA256": "2ecdabd4249b6aeb703f4a1ac6d0edd60ece36869bcfbf2c758d720a480c3ef0"
+  },
+  "ACERVO": {
+   "ESTADO": "LIDO",
+   "GIT": "origin/claude/organize-collection-system-japwor:docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+   "SHA256": "a756e9615a72288845bba4c234f9f639ecc219dbbf4412ae9f796e16523c1e7f",
+   "ITENS": 2080,
+   "COMBINACOES_DE_CHAVES": 67
+  }
+ },
+ "CHAVES_USADAS": {
+  "CRUZAMENTOS_R7": "SUBSTANCIA (a citada no troco). A cultura do boletim e lista do DOCUMENTO (ENTITY_SOURCE = DOCUMENT, D112) e nao entra como chave",
+  "PARES_POR_SECAO": "CULTURA x PRAGA da mesma seccao (Collection)",
+  "SINAIS_R7": "nenhuma: o insumo offline so traz SOURCE_ID, FACT_TIME, KIND, LOCAL, URL",
+  "ACERVO": "CROP_IDS x ISSUE_IDS (Collection)"
+ },
+ "TABELAS": {
+  "CRUZAMENTOS_R7": {
+   "FATOS": 86,
+   "POR_ESTADO": {
+    "AUTORIZADO_BULA_LIDA": 0,
+    "A_CONFIRMAR": 0,
+    "SO_CULTURA": 0,
+    "ADAMA_SEM_PRODUTO": 0,
+    "NAO_SEI": 86
+   },
+   "NAO_SEI_MOTIVO_PRINCIPAL": {
+    "CULTURA": 86
+   },
+   "NAO_SEI_TODAS_AS_FALTAS": {
+    "CULTURA": 86,
+    "PROBLEMA": 86
+   },
+   "MOTIVO_DOMINANTE_DE_NAO_SEI": "CULTURA",
+   "COM_PRODUTO_ADAMA_LISTADO": 86,
+   "PEDEM_BULAS": 41
+  },
+  "PARES_POR_SECAO_R7": {
+   "FATOS": 14,
+   "POR_ESTADO": {
+    "AUTORIZADO_BULA_LIDA": 0,
+    "A_CONFIRMAR": 14,
+    "SO_CULTURA": 0,
+    "ADAMA_SEM_PRODUTO": 0,
+    "NAO_SEI": 0
+   },
+   "NAO_SEI_MOTIVO_PRINCIPAL": {},
+   "NAO_SEI_TODAS_AS_FALTAS": {},
+   "MOTIVO_DOMINANTE_DE_NAO_SEI": null,
+   "COM_PRODUTO_ADAMA_LISTADO": 0,
+   "PEDEM_BULAS": 14
+  },
+  "SINAIS_R7_OFFLINE": {
+   "FATOS": 9,
+   "POR_ESTADO": {
+    "AUTORIZADO_BULA_LIDA": 0,
+    "A_CONFIRMAR": 0,
+    "SO_CULTURA": 0,
+    "ADAMA_SEM_PRODUTO": 0,
+    "NAO_SEI": 9
+   },
+   "NAO_SEI_MOTIVO_PRINCIPAL": {
+    "CULTURA": 9
+   },
+   "NAO_SEI_TODAS_AS_FALTAS": {
+    "CULTURA": 9,
+    "PROBLEMA": 9,
+    "SUBSTANCIA": 9
+   },
+   "MOTIVO_DOMINANTE_DE_NAO_SEI": "CULTURA",
+   "COM_PRODUTO_ADAMA_LISTADO": 0,
+   "PEDEM_BULAS": 0,
+   "NOTA": "9 de 19: os 10 sinais da R6 nao estao em ficheiro deste repo (NAO MEDIDOS)"
+  },
+  "ACERVO": {
+   "FATOS": 2080,
+   "POR_ESTADO": {
+    "AUTORIZADO_BULA_LIDA": 31,
+    "A_CONFIRMAR": 125,
+    "SO_CULTURA": 349,
+    "ADAMA_SEM_PRODUTO": 0,
+    "NAO_SEI": 1575
+   },
+   "NAO_SEI_MOTIVO_PRINCIPAL": {
+    "CULTURA": 1575
+   },
+   "NAO_SEI_TODAS_AS_FALTAS": {
+    "CULTURA": 1575,
+    "SUBSTANCIA": 1575,
+    "PROBLEMA": 1556
+   },
+   "MOTIVO_DOMINANTE_DE_NAO_SEI": "CULTURA",
+   "COM_PRODUTO_ADAMA_LISTADO": 393,
+   "PEDEM_BULAS": 505
+  },
+  "TUDO": {
+   "FATOS": 2189,
+   "POR_ESTADO": {
+    "AUTORIZADO_BULA_LIDA": 31,
+    "A_CONFIRMAR": 139,
+    "SO_CULTURA": 349,
+    "ADAMA_SEM_PRODUTO": 0,
+    "NAO_SEI": 1670
+   },
+   "NAO_SEI_MOTIVO_PRINCIPAL": {
+    "CULTURA": 1670
+   },
+   "NAO_SEI_TODAS_AS_FALTAS": {
+    "CULTURA": 1670,
+    "PROBLEMA": 1651,
+    "SUBSTANCIA": 1584
+   },
+   "MOTIVO_DOMINANTE_DE_NAO_SEI": "CULTURA",
+   "COM_PRODUTO_ADAMA_LISTADO": 479,
+   "PEDEM_BULAS": 560
+  }
+ },
+ "NAO_PROVA": "a ligacao nao prova pressao de campo nem demanda (INT-LAW-145) e nao e fonte (INT-LAW-076)"
+}

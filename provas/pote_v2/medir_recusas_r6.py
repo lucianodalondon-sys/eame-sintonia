@@ -27,6 +27,8 @@ from collections import Counter
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(RAIZ / "provas" / "ligacao_adama"))
+import ligar_fixtures as LIGAR  # noqa: E402  (D123: a ligacao sintetica, pela porta)
 FIXTURE = RAIZ / "tests" / "fixtures" / "pote" / "CORRIDA-SINTETICA-R6-EQUIVALENTE.json"
 BASE_PADRAO = "f357712"   # lote 4 final + merge da ponte (antes do POTE-V2-UNICO)
 C = "EXPERIMENTAL_CANDIDATE"
@@ -51,8 +53,10 @@ def fixture() -> dict:
         return prova
 
     tempo = ("FACT_TIME:SEM_BASE",)
+    # LIGACAO-ADAMA (D123, ajuste declarado): o pote recusa objeto sem ligacao; a corrida sintetica
+    # nao tem referencia, e a porta diz NAO_SEI · FALTA=REFERENCIA (provas/ligacao_adama/ligar_fixtures.py).
     obj = lambda oid, esp, provas, **kw: dict({"OBJETO_ID": oid, "ESPECIE": esp, "ESTADO": C, "CHAVES": {},  # noqa: E731
-                                               "PROVA": provas}, **kw)
+                                               "PROVA": provas, "LIGACAO_ADAMA": LIGAR.ligacao_sintetica()}, **kw)
     itens["archive"] = [obj(f"SINT-R6-ARQ-{i:02d}", "SINAL", [novo("SINT-R6-SRC-00")]) for i in range(22)]
     # CONTROLO: um sinal com o tempo por ancorar. Sinal EXIGE tempo; continua recusado.
     itens["archive"].append(obj("SINT-R6-ARQ-TEMPO", "SINAL", [novo("SINT-R6-SRC-00", "BLOQUEADO_EM_G0", tempo)]))

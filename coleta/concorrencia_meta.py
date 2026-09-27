@@ -554,6 +554,12 @@ def adama_no_anuncio(colheita, referencia=None, hoje=None):
             r = porta.por_alvo(ref, n)
             r.pop('CARIMBO', None)
             linha['ALVOS_NO_CRIATIVO'].append({'ALVO': n, 'ADAMA': r})
+        # LIGACAO-ADAMA (D123): pela porta, por substancia (o cadastro nao da cultura do anuncio).
+        # A substancia vem do CRIATIVO lido por este ficheiro (vocabulario da referencia): divida
+        # declarada — nao e chave da Collection.
+        linha['LIGACAO_ADAMA'] = porta.ligacao_adama(ref, {
+            'SUBSTANCIA': achou_s,
+            'VEM_DE': {'SUBSTANCIA': 'CRIATIVO.CREATIVE_TEXT (adama_no_anuncio, vocabulario da referencia)'}})
         if not (achou_s or achou_a):
             linha['PORQUE'] = ('o criativo nao nomeia substancia nem alvo no vocabulario da referencia: '
                                'NAO SEI, nunca «a ADAMA nao tem»')

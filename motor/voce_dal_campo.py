@@ -84,6 +84,7 @@ for _p in (RAIZ, os.path.join(RAIZ, 'motor'), os.path.join(RAIZ, 'leis'), os.pat
 import matriz_recorte as MR  # noqa: E402  dono do vocabulario de cultura e problema
 import proveniencia as PV    # noqa: E402  dono da especie do texto (original / traduzido / ASR local)
 import fato_local as FL      # noqa: E402  dono do leitor italiano de lugar e tempo
+import porta_da_referencia as PORTA  # noqa: E402  D123: a ligacao ADAMA so sai da porta
 
 NAO_SEI = 'NAO SEI'
 REGRA = 'voce-v1'
@@ -682,7 +683,9 @@ def tipo_do_publisher(nome: str, texto: str) -> tuple:
     return NAO_SEI, 'o nome do canal nao diz que casa e, e o texto nao pede inscricao'
 
 
-def extrair(doc: dict) -> dict:
+def extrair(doc: dict, referencia: dict | None = None) -> dict:
+    """`referencia` = a porta ja aberta (PORTA.abrir) por quem chama. Sem ela, cada voz leva a
+    ligacao ADAMA NAO_SEI com FALTA=REFERENCIA — a porta nao e aberta as escondidas aqui."""
     texto, lang = doc['TEXT'], doc['TEXT_LANGUAGE']
     fm = frases_marcadas(texto)
     fs = [(a, b) for a, b, _ in fm]
@@ -793,6 +796,12 @@ def extrair(doc: dict) -> dict:
                                          'INCIDENCIA); expertise do falante no tema'
                                          + ('' if expertise == 'PROVADA_NA_DECLARACAO' else ' (nao declarada)')
                                          + '; lugar do facto a partir do lugar da pessoa')
+        # LIGACAO-ADAMA (D123): pela porta, com a cultura/problema que ESTA voz ja leu
+        # (vocabulario de matriz_recorte na frase da citacao) — a porta nao le texto.
+        voz['LIGACAO_ADAMA'] = PORTA.ligacao_adama(referencia, {
+            'CULTURA': voz['CROP'], 'PROBLEMA': voz['ISSUE'],
+            'VEM_DE': {'CULTURA': 'VOZ.CROP (voce_dal_campo, matriz_recorte na frase citada)',
+                       'PROBLEMA': 'VOZ.ISSUE (voce_dal_campo, matriz_recorte na frase citada)'}})
         vozes.append(voz)
     return {'DOCUMENTO': {k: v for k, v in doc.items() if k not in ('TEXT', 'SEGMENTS')},
             'FALANTES': list(fal.values()), 'VOZES': vozes, 'RECUSAS': recusas}
