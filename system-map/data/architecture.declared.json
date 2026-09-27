@@ -2552,7 +2552,8 @@
     "provas/integra_noite/mutacao_da20.py",
     "provas/integra_noite/mutacao_da21.py",
     "provas/integra_noite/mutacao_lote4_final.py",
-    "provas/integra_noite/bateria_inteira_por_nome.py"
+    "provas/integra_noite/bateria_inteira_por_nome.py",
+    "provas/integra_noite/mutacao_lote5_integra.py"
    ],
    "views": [
     "audit"
@@ -5886,6 +5887,98 @@
    "files": [
     "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json",
     "medidas/concorrencia_frentes.py"
+   ]
+  },
+  {
+   "id": "C-LINHA-BUSCA",
+   "name": "LINHA-BUSCA · coleta assunto-primeiro (D93)",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "⌕",
+   "views": [
+    "acervo"
+   ],
+   "what": "Coleta assunto-primeiro dentro da Collection canonica: consultas cultura x praga x regiao x mes, motores (HTML e APIs oficiais), UMA pagina por resultado pelo transporte canonico, candidata pela porta canonica, portao collection_gate.avaliar_achado_por_busca e Admission normal. `linha_busca_raw.py` registra collection_run + raw_asset pelo dono do RAW (guarda/preservar_coleta) ANTES de pousar na Sala, na mesma corrida, com o RAW_OBSERVATION_ID real (fecha a sala_de_espera_run_id_fkey).",
+   "why_here": "A coleta recorrente pergunta a fonte e espera o assunto; esta linha pergunta o assunto. Sem o RAW canonico antes, a Sala recusava a corrida que nunca tinha nascido em collection_run.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/linha_busca.py",
+    "coleta/linha_busca_raw.py"
+   ]
+  },
+  {
+   "id": "C-LINHA-BUSCA-FERRAMENTAS",
+   "name": "Ferramentas da LINHA-BUSCA (consultas, motores, API oficial)",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "⚙",
+   "views": [],
+   "what": "Gerador de consultas, tabela de motores, cliente da API oficial (quota declarada, tesoura da chave), pedido do Actions e as fixtures SINTETICAS das paginas e SERPs usadas pelos testes.",
+   "why_here": "O que a linha usa mas nao decide: mora em ferramentas/ para que o executor da linha nao carregue listas nem clientes.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "ferramentas/linha_busca/api_oficial.py",
+    "ferramentas/linha_busca/consultas.py",
+    "ferramentas/linha_busca/fazer_fixture_lote0.py",
+    "ferramentas/linha_busca/motores.py",
+    "ferramentas/linha_busca/pedido_actions.py",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p01.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p02.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p03.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p04.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p05.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p06.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p07.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p08.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p09.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p10.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p11.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p12.html",
+    "ferramentas/linha_busca/fixtures/busca-lote-0/p13.html",
+    "ferramentas/linha_busca/fixtures/teste/boletim-vite.html",
+    "ferramentas/linha_busca/fixtures/teste/capa-indice.html",
+    "ferramentas/linha_busca/fixtures/teste/login.html",
+    "ferramentas/linha_busca/fixtures/teste/serp-bing-SINTETICA.html",
+    "ferramentas/linha_busca/fixtures/teste/serp-ddg-SINTETICA.html",
+    "ferramentas/linha_busca/fixtures/teste/serp-google-SINTETICA.html"
+   ]
+  },
+  {
+   "id": "C-CI-LINHA-BUSCA",
+   "name": "Busca por API oficial no GitHub Actions",
+   "territory": "Z-ENTRADA",
+   "kind": "workflow",
+   "icon": "▶",
+   "views": [],
+   "what": "Workflow linha-busca-google: dispatch ou push SO no ramo disparo-linha-busca-google; diagnostico da Custom Search JSON API (1 chamada, chave nunca impressa) e busca --sem-portao-it so para API oficial com quota. Paginas nao se colhem aqui.",
+   "why_here": "A API nao precisa de saida italiana; a colheita de paginas continua presa ao portao IT na maquina do coordenador.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    ".github/workflows/linha-busca-google.yml"
+   ]
+  },
+  {
+   "id": "C-PROVA-LINHA-BUSCA",
+   "name": "Provas da LINHA-BUSCA e da busca no Actions",
+   "territory": "Z-PROVA",
+   "kind": "test",
+   "icon": "✓",
+   "views": [],
+   "what": "Mutantes da busca no Actions, o ensaio do repouso numa copia da Sala (maquina do coordenador) e a prova num Postgres descartavel criado do zero pelas migrations do repo com dados SINTETICOS: corrida nasce, raw_asset nasce, item pousa ligado ao raw, 2a passada insere 0.",
+   "why_here": "O defeito da FK so aparece num banco de verdade; teste com falsos nao o ve.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/busca_no_actions/mutantes_busca_actions.py",
+    "provas/linha_busca_raw_na_copia_da_sala.py",
+    "provas/linha_busca_raw_no_postgres_descartavel.py"
    ]
   }
  ],

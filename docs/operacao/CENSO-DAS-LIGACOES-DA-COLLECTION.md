@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  75c7f80fedc483f4dfca8e9258ca69a9e60e62f0
-BRANCH           claude/lote4-final-integration-l02r5q
-GERADO_EM        2026-09-27T17:37:48+00:00
-CARDS            119
+HEAD_DA_MEDICAO  98756872ab91500ca44c03d6e22f316dddfadaf6
+BRANCH           claude/lote5-integra-merge-3320ja
+GERADO_EM        2026-09-27T18:19:09+00:00
+CARDS            123
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -55,7 +55,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `coleta/instagram_coleta.py`, `coleta/instagram_diario.py`, `coleta/instagram_janela.py`, `coleta/instagram_pessoal.py` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | INTELIGENCIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
+| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
 | **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:291; .github/workflows/sintonia-scrap.yml:291 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -63,13 +63,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json`, `superficie/rede.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 10 · saem 8 |
-| **arestas provadas** | entram 9 · saem 8 |
+| **arestas no mapa** | entram 10 · saem 9 |
+| **arestas provadas** | entram 9 · saem 9 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 17 · NÃO SEI 1 |
+| **prova das ligações** | CODE 18 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -282,19 +282,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | admissao/reprocessar_tempo_lugar.py:59; coleta/italy_executor.py:243; coleta/rota_forward_documento.py:506 |
-| **porquê** | estas pecas importam-na — C-DETECTOR-CAPA-GABARITO · C-IT-COLETA · C-IT-CONTRATOS · C-LEITOR-DATA-YT · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | admissao/reprocessar_tempo_lugar.py:59; coleta/italy_executor.py:243; coleta/linha_busca.py:131 |
+| **porquê** | estas pecas importam-na — C-DETECTOR-CAPA-GABARITO · C-IT-COLETA · C-IT-CONTRATOS · C-LEITOR-DATA-YT · C-LINHA-BUSCA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/retrato_html.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 6 · saem 15 |
-| **arestas provadas** | entram 6 · saem 13 |
+| **arestas no mapa** | entram 6 · saem 17 |
+| **arestas provadas** | entram 6 · saem 15 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 19 · NÃO SEI 2 |
+| **prova das ligações** | CODE 21 · NÃO SEI 2 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -413,15 +413,40 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 16 · saem 32 |
-| **arestas provadas** | entram 12 · saem 31 |
+| **arestas no mapa** | entram 16 · saem 33 |
+| **arestas provadas** | entram 12 · saem 32 |
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 42 · NÃO SEI 5 · OBSERVED 1 |
+| **prova das ligações** | CODE 43 · NÃO SEI 5 · OBSERVED 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
+
+### `C-LINHA-BUSCA` · LINHA-BUSCA · coleta assunto-primeiro (D93)
+
+| | |
+|---|---|
+| **peça real** | `coleta/linha_busca.py`, `coleta/linha_busca_raw.py` |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **PECA_INTERNA** — C-CI-LINHA-BUSCA |
+| **prova de quem ativa** | .github/workflows/linha-busca-google.yml:107 _(plano CODE)_ |
+| **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `coleta/linha_busca.py`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `superficie/rede.py` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | `data/derivados/LINHA-BUSCA/CONSULTAS.json` |
+| **arestas no mapa** | entram 11 · saem 6 |
+| **arestas provadas** | entram 11 · saem 6 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 1 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 17 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
+| **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-LISTA-MESTRA-MUR` · LISTA MESTRA — o MUR como identidade oficial dos pesquisadores
 
@@ -563,13 +588,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/espera_por_dominio.py` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 31 · saem 33 |
-| **arestas provadas** | entram 28 · saem 33 |
+| **arestas no mapa** | entram 31 · saem 37 |
+| **arestas provadas** | entram 28 · saem 37 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 58 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 62 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -590,13 +615,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/idioma.py`, `curadoria/politica_nao_sei.py`, `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 10 · saem 49 |
-| **arestas provadas** | entram 8 · saem 48 |
+| **arestas no mapa** | entram 10 · saem 51 |
+| **arestas provadas** | entram 8 · saem 50 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 54 · NÃO SEI 3 · OBSERVED 2 |
+| **prova das ligações** | CODE 56 · NÃO SEI 3 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -615,13 +640,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/executor_texto_de_html.py`, `coleta/ingresso.py` |
 | **o que sai · dado** | C-INT-ESPINHA |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 16 · saem 25 |
-| **arestas provadas** | entram 16 · saem 24 |
+| **arestas no mapa** | entram 16 · saem 26 |
+| **arestas provadas** | entram 16 · saem 25 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 40 · NÃO SEI 1 |
+| **prova das ligações** | CODE 41 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -713,19 +738,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | candidatas/decidir_fila_italia.py:100; curadoria/bloqueadas_268.py:119; curadoria/colher_prova_territorio.py:41 |
-| **porquê** | estas pecas importam-na — C-BLOQUEADAS-268 · C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA · C-FRENTES-CONCORRENCIA · C-MICRO-PROVA-LOTE1 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | candidatas/decidir_fila_italia.py:100; coleta/linha_busca.py:101; curadoria/bloqueadas_268.py:119 |
+| **porquê** | estas pecas importam-na — C-BLOQUEADAS-268 · C-CENSO-UNIFICACAO · C-DECISAO-DA-FILA · C-FRENTES-CONCORRENCIA · C-LINHA-BUSCA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `candidatas/PROVA-TERMOS-REDES-SOCIAIS-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 9 |
-| **arestas provadas** | entram 1 · saem 9 |
+| **arestas no mapa** | entram 1 · saem 10 |
+| **arestas provadas** | entram 1 · saem 10 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 10 |
+| **prova das ligações** | CODE 11 |
 | **lei da Bíblia** | COL-LAW-053 · a fonte tem cadastro unico e reconciliado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -753,6 +778,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
 | **prova das ligações** | CODE 8 |
+| **lei da Bíblia** | COL-LAW-010 · um pedido nao conhece implementacao |
+| **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
+
+### `C-CI-LINHA-BUSCA` · Busca por API oficial no GitHub Actions
+
+| | |
+|---|---|
+| **peça real** | `.github/workflows/linha-busca-google.yml` |
+| **papel** | DISPATCH_ENTRYPOINT · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **EXTERNO_EVENTO** — EXTERNO |
+| **prova de quem ativa** | .github/workflows/linha-busca-google.yml · on: push, workflow_dispatch _(plano CODE)_ |
+| **porquê** | um acontecimento do repositorio acorda este botao. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `data/derivados/LINHA-BUSCA/CONSULTAS.json` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 1 · saem 5 |
+| **arestas provadas** | entram 1 · saem 5 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 3 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 6 |
 | **lei da Bíblia** | COL-LAW-010 · um pedido nao conhece implementacao |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
@@ -823,13 +873,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 13 |
-| **arestas provadas** | entram 1 · saem 13 |
+| **arestas no mapa** | entram 2 · saem 14 |
+| **arestas provadas** | entram 2 · saem 14 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 11 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 14 |
+| **prova das ligações** | CODE 16 |
 | **lei da Bíblia** | COL-LAW-013/014 · contrato comum do executor e capacidades declaradas |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
@@ -1110,6 +1160,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
+### `C-LINHA-BUSCA-FERRAMENTAS` · Ferramentas da LINHA-BUSCA (consultas, motores, API oficial)
+
+| | |
+|---|---|
+| **peça real** | `ferramentas/linha_busca/api_oficial.py`, `ferramentas/linha_busca/consultas.py`, `ferramentas/linha_busca/fazer_fixture_lote0.py`, `ferramentas/linha_busca/fixtures/busca-lote-0/p01.html`, `ferramentas/linha_busca/fixtures/busca-lote-0/p02.html` _(e mais 19)_ |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 24 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **PECA_INTERNA** — C-CI-LINHA-BUSCA |
+| **prova de quem ativa** | .github/workflows/linha-busca-google.yml:98 _(plano CODE)_ |
+| **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 2 · saem 2 |
+| **arestas provadas** | entram 2 · saem 2 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 1 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 4 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
+| **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
+
 ### `C-LUGAR-V2` · EXTRATOR-LUGAR-V2 — medida antes/depois do lugar do facto e mutacao
 
 | | |
@@ -1200,13 +1275,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/italy_pilot_collect.mjs`, `curadoria/LIFECYCLE-QUEUE-V1.json`, `data/collection-ledger/italy/runs.ndjson` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json` |
-| **arestas no mapa** | entram 12 · saem 9 |
-| **arestas provadas** | entram 12 · saem 9 |
+| **arestas no mapa** | entram 12 · saem 10 |
+| **arestas provadas** | entram 12 · saem 10 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 21 |
+| **prova das ligações** | CODE 22 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -1722,20 +1797,20 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — esta no caminho: alguem o chama antes de publicar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **PECA_INTERNA** — C-SCRAP-ROTA, C-SECURITY-CHECK |
-| **prova de quem ativa** | .github/workflows/curator-youtube-handles.yml:64; .github/workflows/curator-youtube-soc-onda2.yml:45; .github/workflows/security-check.yml:58 _(plano CODE)_ |
+| **QUEM ATIVA** | **PECA_INTERNA** — C-CI-LINHA-BUSCA, C-SCRAP-ROTA, C-SECURITY-CHECK |
+| **prova de quem ativa** | .github/workflows/curator-youtube-handles.yml:64; .github/workflows/curator-youtube-soc-onda2.yml:45; .github/workflows/linha-busca-google.yml:88 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `coleta/instagram_janela.py`, `docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md`, `guarda/social_sessao.py` |
+| **o que entra · ficheiros** | `DEDUP-INSTALAR.md`, `coleta/instagram_janela.py`, `data/derivados/PERIODO-E-CHAVES/testes-ANTES.txt` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 6 |
-| **arestas provadas** | entram 7 · saem 6 |
+| **arestas no mapa** | entram 12 · saem 6 |
+| **arestas provadas** | entram 12 · saem 6 |
 | **OBSERVADAS** | 0 |
-| **control plane** | entram 2 · saem 0 |
+| **control plane** | entram 3 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 13 |
+| **prova das ligações** | CODE 18 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -2075,19 +2150,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 17 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | curadoria/bloqueadas_268.py:122; curadoria/test_supervisor.py:59; ferramentas/big_collection/coorte_unica.py:41 |
+| **prova de quem ativa** | coleta/linha_busca.py:72; curadoria/bloqueadas_268.py:122; curadoria/test_supervisor.py:59 |
 | **porquê** | estas pecas importam-na — C-BLOQUEADAS-268 · C-CANARIO-ROTAS-ELEGIVEIS · C-CENSO-UNIFICACAO · C-COORTE-BIG-COLLECTION · C-COORTE-MICRO-FUNIL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/retrato_html.mjs` |
 | **o que sai · dado** | C-CENSO-UNIFICACAO |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-EVIDENCE-V1.json`, `curadoria/LIFECYCLE-LEDGER-V1.json` |
-| **arestas no mapa** | entram 12 · saem 13 |
-| **arestas provadas** | entram 12 · saem 13 |
+| **arestas no mapa** | entram 12 · saem 14 |
+| **arestas provadas** | entram 12 · saem 14 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 25 |
+| **prova das ligações** | CODE 26 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2475,19 +2550,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe teste que exercita isto.  Mas ha 30 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | scripts/regua_t1/medir_aperto_site.py:20; tests/test_a_regra_de_t2.py:128 |
-| **porquê** | estas pecas importam-na — C-REGUA-T1-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | guarda/social_guarda.py:255; scripts/regua_t1/medir_aperto_site.py:20; tests/test_a_regra_de_t2.py:128 |
+| **porquê** | estas pecas importam-na — C-REGUA-T1-JANELA · C-SCRAP-GUARDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `admissao/admissao.py`, `admissao/idioma.py`, `curadoria/CATALOGO-PROVA-V1.json` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 4 |
-| **arestas provadas** | entram 7 · saem 4 |
+| **arestas no mapa** | entram 7 · saem 5 |
+| **arestas provadas** | entram 7 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 11 |
+| **prova das ligações** | CODE 12 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2577,19 +2652,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-COLETA, C-PEDIDO, C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/comunicacao-publica.yml:139; .github/workflows/sintonia-scrap.yml:613; system-map/data/pedido-t4.observado.json:1 _(plano OBSERVED)_ |
+| **prova de quem ativa** | .github/workflows/comunicacao-publica.yml:139; .github/workflows/sintonia-scrap.yml:618; system-map/data/pedido-t4.observado.json:1 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `coleta/executor_texto_de_pdf.py`, `guarda/preservar_documento.py` |
 | **o que sai · dado** | C-SCRAP-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 19 · saem 42 |
-| **arestas provadas** | entram 19 · saem 41 |
+| **arestas no mapa** | entram 19 · saem 43 |
+| **arestas provadas** | entram 19 · saem 42 |
 | **OBSERVADAS** | 3 — corrida `?` |
 | **control plane** | entram 3 · saem 8 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 57 · OBSERVED 3 · NÃO SEI 1 |
+| **prova das ligações** | CODE 58 · OBSERVED 3 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-011/012 · um dono da orquestracao; ele controla e nao transporta dado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -2619,6 +2694,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ## Z-PEDIDO · PEDIDO — o contrato
+
+### `C-ELEGIBILIDADE-COMENTARIO` · A regua do comentario: este pai merece?
+
+| | |
+|---|---|
+| **peça real** | `pedido/elegibilidade_comentario.py` |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-COMENTARIOS, C-TESTES |
+| **prova de quem ativa** | provas/comentarios_bateria/mutar_regras.py:17; tests/test_comentarios_v1.py:22 _(plano CODE)_ |
+| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 5 · saem 2 |
+| **arestas provadas** | entram 5 · saem 2 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 7 |
+| **lei da Bíblia** | COL-LAW-010 · um pedido nao conhece implementacao |
+| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-PEDIDO` · O pedido de coleta
 
@@ -3031,11 +3131,11 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ## O PLACAR
 
 ```
-OK                 43
+OK                 45
 UNKNOWN            38
-SYSTEM_GAP         15
+SYSTEM_GAP         16
 TERMINAL           15
-EXTERNAL_ENTRY     6
+EXTERNAL_ENTRY     7
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              119
+TOTAL              123
 ```

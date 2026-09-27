@@ -1,19 +1,19 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
+  "FROZEN_AT_HEAD": "98756872ab91500ca44c03d6e22f316dddfadaf6",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 291,
+  "ARTEFATOS": 295,
   "POR_ESPECIE": {
     "CONTRACT": 3,
     "DATA_SAMPLE": 101,
     "DOCUMENTATION": 5,
     "GENERATED_OUTPUT": 26,
-    "IMPLEMENTATION": 11,
+    "IMPLEMENTATION": 13,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 49,
+    "MENCAO_FRACA_APENAS": 50,
     "PORTAL_UI": 67,
-    "TEST": 23
+    "TEST": 24
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -25,7 +25,7 @@
     {
       "PATH": "coleta/instagram_coleta.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "95009e6f87f65fb5758394d7188bb481b8ae95fd",
+      "GIT_BLOB_SHA": "28f1f6e25724667d349240a984c0cb635f046427",
       "MARCAS_FORTES": [
         "FIELD_VOICE"
       ]
@@ -41,7 +41,15 @@
     {
       "PATH": "coleta/instagram_pessoal.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "957774eff46891cbf73b0f57bc3ea0273f074370",
+      "GIT_BLOB_SHA": "4bfde775567308dac7c61c7c581315a5afc83ca3",
+      "MARCAS_FORTES": [
+        "FIELD_VOICE"
+      ]
+    },
+    {
+      "PATH": "coleta/social_envelope.py",
+      "SPECIES": "IMPLEMENTATION",
+      "GIT_BLOB_SHA": "a47bb9ab467da66b72c8033bae094318371a356a",
       "MARCAS_FORTES": [
         "FIELD_VOICE"
       ]
@@ -535,6 +543,14 @@
       ]
     },
     {
+      "PATH": "provas/comentarios_bateria/mutar_regras.py",
+      "SPECIES": "IMPLEMENTATION",
+      "GIT_BLOB_SHA": "725462aad6fefccc648a792408a07957f9eeb2aa",
+      "MARCAS_FORTES": [
+        "FIELD_VOICE"
+      ]
+    },
+    {
       "PATH": "provas/independencia/antes_e_depois_v21.py",
       "SPECIES": "IMPLEMENTATION",
       "GIT_BLOB_SHA": "466d6aa8557bcf8682e0330a8aa4deb773f46ebb",
@@ -583,7 +599,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "e63baf949631281955e19224243f29533f74a425",
+      "GIT_BLOB_SHA": "19a26aa38482c7145d60530672617010840660d1",
       "MARCAS_FORTES": []
     }
   ],
@@ -1209,6 +1225,10 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "pedido/elegibilidade_comentario.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "provas/_mutantes_ponte_casco.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
@@ -1362,6 +1382,10 @@
     },
     {
       "PATH": "tests/test_coleta_externa.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_comentarios_v1.py",
       "SPECIES": "TEST"
     },
     {

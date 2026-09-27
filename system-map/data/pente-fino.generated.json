@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T17:42:22+00:00",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
+    "GENERATED_AT": "2026-09-27T18:25:51+00:00",
+    "HEAD": "98756872ab91500ca44c03d6e22f316dddfadaf6",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
-    "FICHEIROS_NA_IMPRESSAO": 4087,
+    "SOURCE_TREE_FINGERPRINT": "7003ecfc40f9044a148b13451864bc01eb1fb759d0b73ef3cfb91335ad5d4d54",
+    "FICHEIROS_NA_IMPRESSAO": 4148,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -67,6 +67,13 @@
         "LIDO_POR": "workflows() · read_text"
       },
       {
+        "PATH": ".github/workflows/linha-busca-google.yml",
+        "PAPEL": "FONTE",
+        "VERSAO": "38d958f42b3747cd806ba8ba0e4b953e523a80bc",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "workflows() · read_text"
+      },
+      {
         "PATH": ".github/workflows/regressao-de-navegador.yml",
         "PAPEL": "FONTE",
         "VERSAO": "bf5bf5ba1eed78c792809a288c3211505386eeb2",
@@ -104,7 +111,7 @@
       {
         "PATH": ".github/workflows/sintonia-scrap.yml",
         "PAPEL": "FONTE",
-        "VERSAO": "46871d88288b1d6c196858e66a58665092390333",
+        "VERSAO": "3ac3dc632cb0b58561c05d31808eb07e28928e43",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "workflows() · read_text"
       },
@@ -146,13 +153,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
+        "VERSAO": "7003ecfc40f9044a148b13451864bc01eb1fb759d0b73ef3cfb91335ad5d4d54",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
-    "INPUTS_COUNT": 20,
-    "INPUTS_DIGEST": "cdf4fad62855a3f2555d10bc5183e6b20eed49ae0c7ed0cc79b79adadb7b1d1f",
+    "INPUTS_COUNT": 21,
+    "INPUTS_DIGEST": "484246f7fd8a4a54611ea401f8a033a4dea3f14f516c88a79e284e15eb8b0126",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -454,6 +461,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 3,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-ELEGIBILIDADE-COMENTARIO",
+      "nome": "A regua do comentario: este pai merece?",
+      "zona": "· PEDIDO — o contrato",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
       "estado": "yellow"
     },
     {
@@ -985,6 +1004,30 @@
       "estado": "yellow"
     },
     {
+      "id": "C-LINHA-BUSCA-FERRAMENTAS",
+      "nome": "Ferramentas da LINHA-BUSCA (consultas, motores, API oficial)",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 24,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-LINHA-BUSCA",
+      "nome": "LINHA-BUSCA · coleta assunto-primeiro (D93)",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
       "id": "C-IMPORTAR",
       "nome": "Levar o dado para o banco",
       "zona": "A SALA DE ESPERA",
@@ -1106,9 +1149,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 79,
-    "respondem_as_quatro": 24,
-    "respondem_a_tres": 38,
+    "pecas_da_coleta": 82,
+    "respondem_as_quatro": 26,
+    "respondem_a_tres": 39,
     "respondem_a_duas": 14,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0

@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T17:41:29+00:00",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
+    "GENERATED_AT": "2026-09-27T18:25:14+00:00",
+    "HEAD": "98756872ab91500ca44c03d6e22f316dddfadaf6",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
-    "FICHEIROS_NA_IMPRESSAO": 4087,
+    "SOURCE_TREE_FINGERPRINT": "7003ecfc40f9044a148b13451864bc01eb1fb759d0b73ef3cfb91335ad5d4d54",
+    "FICHEIROS_NA_IMPRESSAO": 4148,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -146,7 +146,7 @@
       {
         "PATH": "coleta/adaptador_linkedin.py",
         "PAPEL": "FONTE",
-        "VERSAO": "2eda34b44aa89bdd532d38babfcda5e0f37da108",
+        "VERSAO": "0c3882395d8aa15ed287ad2ebc5bf9e39a291cb2",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -363,7 +363,7 @@
       {
         "PATH": "coleta/instagram_coleta.py",
         "PAPEL": "FONTE",
-        "VERSAO": "95009e6f87f65fb5758394d7188bb481b8ae95fd",
+        "VERSAO": "28f1f6e25724667d349240a984c0cb635f046427",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -384,7 +384,7 @@
       {
         "PATH": "coleta/instagram_pessoal.py",
         "PAPEL": "FONTE",
-        "VERSAO": "957774eff46891cbf73b0f57bc3ea0273f074370",
+        "VERSAO": "4bfde775567308dac7c61c7c581315a5afc83ca3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -420,6 +420,20 @@
         "PATH": "coleta/italy_recurrent_collect.mjs",
         "PAPEL": "FONTE",
         "VERSAO": "d3258293157e31c49cdbff253e9dd005482d295a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/linha_busca.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e48bd6a4450aa4ac0fab391ca36f5f4eeda354e7",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/linha_busca_raw.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "69be80fd6453c876f4d10ab3c2000fa5471b140d",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -587,7 +601,7 @@
       {
         "PATH": "coleta/social_envelope.py",
         "PAPEL": "FONTE",
-        "VERSAO": "d6110a48e52bb4db3903c9eef63da1ebcb124efa",
+        "VERSAO": "a47bb9ab467da66b72c8033bae094318371a356a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -664,7 +678,7 @@
       {
         "PATH": "coleta/youtube_oficial.py",
         "PAPEL": "FONTE",
-        "VERSAO": "9f33ca9b8cf4213f1b20ca133275d043faa938f6",
+        "VERSAO": "21e5d6136163698f0e028b63388e12a786f6cb33",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -980,6 +994,41 @@
         "PATH": "ferramentas/leitor_data_yt/prever_acervo.py",
         "PAPEL": "FONTE",
         "VERSAO": "441469182d811a774ea467e4cb5faba0dc9d4184",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/linha_busca/api_oficial.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6ae19eb96a4d28f9ba877b97ecc71ef756b6b2f9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/linha_busca/consultas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "4475c247099cd52f0e51228e82fc789848cc8494",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/linha_busca/fazer_fixture_lote0.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e0ba3f1d7a03e3bcb588a4bb08252f86018abbf0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/linha_busca/motores.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "085470630b86b54766ad9fa1833c14ae1b78da8a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/linha_busca/pedido_actions.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e2b3f2b99f5fe18592bb8d6738b43c9912b9b0fc",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1427,7 +1476,7 @@
       {
         "PATH": "guarda/social_guarda.py",
         "PAPEL": "FONTE",
-        "VERSAO": "431b97fb8264db0e1cf65ec1c5207eb405c68fab",
+        "VERSAO": "c548af56a5ecea63ab4180eab4f4aee09be0e509",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1442,6 +1491,13 @@
         "PATH": "guarda/sql_conferir.py",
         "PAPEL": "FONTE",
         "VERSAO": "4e8fcc8432225e17a461f0de03f427f6ec1145d0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "pedido/elegibilidade_comentario.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "43e3b0926590a9f00d554c440186ce46714c9a35",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1628,8 +1684,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 231,
-    "INPUTS_DIGEST": "971df8d0f1230e59fb6e9b7937307b07f1fbe72f36a0d6e39f418f2a163f60c4",
+    "INPUTS_COUNT": 239,
+    "INPUTS_DIGEST": "66e1e5e617e7ff87ec97a8ee2ccba5aede6b49776e8f2a4e57ba4a255998b869",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1643,6 +1699,24 @@
     ]
   },
   "FICHEIROS": [
+    {
+      "ficheiro": "pedido/elegibilidade_comentario.py",
+      "gaveta": "pedido",
+      "linhas": 267,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
     {
       "ficheiro": "pedido/pedido.py",
       "gaveta": "pedido",
@@ -1729,6 +1803,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "candidatas/decidir_fila_italia.py",
+        "coleta/linha_busca.py",
         "ferramentas/seguir_pesquisadores/listas_oficiais.py",
         "ferramentas/seguir_pesquisadores/orcid_lote.py",
         "ferramentas/seguir_pesquisadores/seguir.py",
@@ -2162,7 +2237,8 @@
         "ferramentas/maestro_social/maestro_social.py",
         "ferramentas/onda3_pacote/ensaio_onda3.sh",
         "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
-        "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh"
+        "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
+        "guarda/social_guarda.py"
       ],
       "no_ci": false
     },
@@ -2885,6 +2961,96 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/linha_busca/api_oficial.py",
+      "gaveta": "ferramentas",
+      "linhas": 184,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/linha_busca.py",
+        "ferramentas/linha_busca/pedido_actions.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/linha_busca/consultas.py",
+      "gaveta": "ferramentas",
+      "linhas": 110,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/linha_busca.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/linha_busca/fazer_fixture_lote0.py",
+      "gaveta": "ferramentas",
+      "linhas": 63,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/linha_busca/motores.py",
+      "gaveta": "ferramentas",
+      "linhas": 148,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/linha_busca.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/linha_busca/pedido_actions.py",
+      "gaveta": "ferramentas",
+      "linhas": 100,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
       "ficheiro": "ferramentas/lugar_v2/classificar.py",
       "gaveta": "ferramentas",
       "linhas": 40,
@@ -3020,7 +3186,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "guarda/social_guarda.py"
+      ],
       "no_ci": false
     },
     {
@@ -3642,10 +3810,11 @@
     {
       "ficheiro": "coleta/adaptador_linkedin.py",
       "gaveta": "coleta",
-      "linhas": 1943,
+      "linhas": 2030,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
+        "INSTAGRAM",
         "LINKEDIN",
         "YOUTUBE"
       ],
@@ -4155,6 +4324,7 @@
       "chamado_por": [
         "admissao/reprocessar_tempo_lugar.py",
         "coleta/italy_executor.py",
+        "coleta/linha_busca.py",
         "coleta/retrato_html.mjs"
       ],
       "no_ci": false
@@ -4223,6 +4393,7 @@
       "chamado_por": [
         "coleta/executor_texto_de_html.py",
         "coleta/executor_texto_de_pdf.py",
+        "coleta/linha_busca.py",
         "coleta/rota_forward_documento.py"
       ],
       "no_ci": false
@@ -4327,7 +4498,7 @@
     {
       "ficheiro": "coleta/instagram_coleta.py",
       "gaveta": "coleta",
-      "linhas": 680,
+      "linhas": 681,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -4342,7 +4513,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/social_envelope.py"
+      ],
       "no_ci": true
     },
     {
@@ -4396,21 +4569,25 @@
     {
       "ficheiro": "coleta/instagram_pessoal.py",
       "gaveta": "coleta",
-      "linhas": 261,
+      "linhas": 273,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
         "INSTAGRAM"
       ],
-      "ferramentas": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_linkedin.py",
         "coleta/instagram_coleta.py",
         "coleta/instagram_diario.py",
+        "coleta/social_envelope.py",
         "coleta/social_persistencia.py"
       ],
       "no_ci": true
@@ -4431,6 +4608,7 @@
       "chamado_por": [
         "admissao/reprocessar_tempo_lugar.py",
         "coleta/italy_pilot_collect.mjs",
+        "coleta/linha_busca.py",
         "coleta/scrap_colheita.py",
         "ferramentas/leitor_data_yt/prever_acervo.py",
         "ferramentas/lugar_v2/prever_acervo.py",
@@ -4520,6 +4698,47 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "regras/italy_scheduling_guards.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/linha_busca.py",
+      "gaveta": "coleta",
+      "linhas": 456,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/linha_busca_raw.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/linha_busca_raw.py",
+      "gaveta": "coleta",
+      "linhas": 195,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/linha_busca.py"
       ],
       "no_ci": false
     },
@@ -4964,6 +5183,7 @@
         "coleta/adaptador_youtube.py",
         "coleta/coletor.py",
         "coleta/italy_pilot_collect.mjs",
+        "coleta/linha_busca.py",
         "coleta/rota_navegador.py",
         "coleta/scrap_colheita.py",
         "coleta/scrap_executor.py",
@@ -5026,10 +5246,11 @@
     {
       "ficheiro": "coleta/social_envelope.py",
       "gaveta": "coleta",
-      "linhas": 465,
+      "linhas": 548,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
+        "INSTAGRAM",
         "LINKEDIN",
         "YOUTUBE"
       ],
@@ -5051,6 +5272,7 @@
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py",
         "ferramentas/reel_transcricao.py",
+        "pedido/elegibilidade_comentario.py",
         "regras/proveniencia.py"
       ],
       "no_ci": true
@@ -5287,7 +5509,7 @@
     {
       "ficheiro": "coleta/youtube_oficial.py",
       "gaveta": "coleta",
-      "linhas": 1018,
+      "linhas": 1022,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -5803,6 +6025,7 @@
       "chamado_por": [
         "coleta/adaptador_youtube.py",
         "coleta/coletor.py",
+        "coleta/social_envelope.py",
         "coleta/social_scrap.py"
       ],
       "no_ci": true
@@ -5855,8 +6078,10 @@
         "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py",
+        "coleta/linha_busca.py",
         "coleta/rota_forward_documento.py",
-        "ferramentas/reel_transcricao.py"
+        "ferramentas/reel_transcricao.py",
+        "pedido/elegibilidade_comentario.py"
       ],
       "no_ci": true
     },
@@ -5914,6 +6139,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "admissao/reprocessar_tempo_lugar.py",
+        "coleta/linha_busca_raw.py",
         "coleta/rota_forward_documento.py",
         "ferramentas/reel_transcricao.py"
       ],
@@ -6230,7 +6456,7 @@
     {
       "ficheiro": "guarda/social_guarda.py",
       "gaveta": "guarda",
-      "linhas": 301,
+      "linhas": 349,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -6296,19 +6522,20 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 231,
-    "pontos_de_entrada": 166,
-    "executores_que_saem_para_fora": 31,
-    "sem_chamador_e_fora_do_ci": 111,
+    "ficheiros_de_codigo": 239,
+    "pontos_de_entrada": 171,
+    "executores_que_saem_para_fora": 32,
+    "sem_chamador_e_fora_do_ci": 112,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 137,
-    "deitam_fora_alguma_coisa": 52,
+    "escrevem_ficheiro": 140,
+    "deitam_fora_alguma_coisa": 54,
     "deitam_fora_SEM_escrever_o_motivo": 5,
     "ficheiros_com_decisao_escondida": 5,
     "decisoes_escondidas_ao_todo": 5
   },
   "LISTAS": {
     "pontos_de_entrada": [
+      "pedido/elegibilidade_comentario.py",
       "pedido/pedido.py",
       "pedido/receitas.py",
       "candidatas/decidir_fila_italia.py",
@@ -6363,6 +6590,8 @@
       "ferramentas/leitor_data_yt/ler_20.py",
       "ferramentas/leitor_data_yt/mutar_leitor.py",
       "ferramentas/leitor_data_yt/prever_acervo.py",
+      "ferramentas/linha_busca/fazer_fixture_lote0.py",
+      "ferramentas/linha_busca/pedido_actions.py",
       "ferramentas/lugar_v2/classificar.py",
       "ferramentas/lugar_v2/comparar.py",
       "ferramentas/lugar_v2/estimar_comuni.py",
@@ -6428,6 +6657,8 @@
       "coleta/italy_pilot_collect.mjs",
       "coleta/italy_probe.mjs",
       "coleta/italy_recurrent_collect.mjs",
+      "coleta/linha_busca.py",
+      "coleta/linha_busca_raw.py",
       "coleta/lista_mestra_mur.py",
       "coleta/mapa_regfi.py",
       "coleta/meta_anunciante.py",
@@ -6482,6 +6713,7 @@
       "ferramentas/contrato_ator.py",
       "ferramentas/integra_onda2/final/ensaio_integra.sh",
       "ferramentas/legacy99/revalidar_em_rondas.py",
+      "ferramentas/linha_busca/api_oficial.py",
       "ferramentas/onda3_pacote/ensaio_onda3.sh",
       "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
       "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
@@ -6510,6 +6742,7 @@
       "guarda/portas_live.py"
     ],
     "orfaos": [
+      "pedido/elegibilidade_comentario.py",
       "candidatas/decidir_fila_italia.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
@@ -6555,13 +6788,13 @@
       "ferramentas/leitor_data_yt/ler_20.py",
       "ferramentas/leitor_data_yt/medir_antes_depois.sh",
       "ferramentas/leitor_data_yt/mutar_leitor.py",
+      "ferramentas/linha_busca/fazer_fixture_lote0.py",
       "ferramentas/lugar_v2/classificar.py",
       "ferramentas/lugar_v2/comparar.py",
       "ferramentas/lugar_v2/estimar_comuni.py",
       "ferramentas/lugar_v2/ler_20.py",
       "ferramentas/lugar_v2/medir_antes_depois.sh",
       "ferramentas/lugar_v2/mutar_lugar_v2.py",
-      "ferramentas/maestro_social/maestro_social.py",
       "ferramentas/onda3_pacote/ensaio_onda3.sh",
       "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
       "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
