@@ -1,0 +1,196 @@
+[
+ {
+  "MUTANTE": "M01 sha nao conta como documento",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_d12_na_corrida_o_mesmo_ficheiro_em_dois_enderecos",
+   "test_duas_capturas_do_mesmo_endereco_sao_um_documento_marcado",
+   "test_o_mesmo_sha_lido_duas_vezes_e_uma_evidencia",
+   "test_os_mesmos_bytes_em_dois_dominios_sao_uma_fonte"
+  ]
+ },
+ {
+  "MUTANTE": "M02 endereco nao conta como documento",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_duas_capturas_do_mesmo_endereco_sao_um_documento_marcado",
+   "test_na_corrida_o_endereco_declarado_do_documento_conta"
+  ]
+ },
+ {
+  "MUTANTE": "M03 documento_id ignorado",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_o_mesmo_document_id_sem_sha_e_uma_evidencia"
+  ]
+ },
+ {
+  "MUTANTE": "M04 mesmo documento nao une a fonte",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_d12_na_corrida_o_mesmo_ficheiro_em_dois_enderecos",
+   "test_os_mesmos_bytes_em_dois_dominios_sao_uma_fonte"
+  ]
+ },
+ {
+  "MUTANTE": "M05 SOURCE_ID nao une",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_o_mesmo_sha_lido_duas_vezes_e_uma_evidencia",
+   "test_o_mesmo_source_id_une_dominios",
+   "test_seis_de_nove_de_myfruit_da_quatro_fontes_e_66_7_por_cento"
+  ]
+ },
+ {
+  "MUTANTE": "M06 dominio vira host inteiro (subdominio = fonte nova)",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_a_coorte_real_sao_seis_documentos_de_tres_originadores",
+   "test_d16_na_corrida_a_fonte_dominante_aparece",
+   "test_seis_de_nove_de_myfruit_da_quatro_fontes_e_66_7_por_cento",
+   "test_seis_paginas_do_mesmo_site_nao_convergem"
+  ]
+ },
+ {
+  "MUTANTE": "M07 convergencia pelo maximo (sem originador conta)",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_a_biblioteca_de_anuncios_sem_pagina_nao_e_um_anunciante",
+   "test_doi_org_nao_e_quem_escreve",
+   "test_dois_canais_do_youtube_sao_duas_fontes_e_watch_nao_diz_quem",
+   "test_sem_originador_e_nao_sei_com_minimo_e_maximo"
+  ]
+ },
+ {
+  "MUTANTE": "M08 estrutural conta como fonte",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_validacao_estrutural_nao_e_fonte"
+  ]
+ },
+ {
+  "MUTANTE": "M09 fato desconhecido converge",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_a_coorte_real_sao_seis_documentos_de_tres_originadores",
+   "test_por_fato_fontes_distintas_em_fatos_distintos_nao_convergem"
+  ]
+ },
+ {
+  "MUTANTE": "M10 fonte dominante pela menor",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_d16_na_corrida_a_fonte_dominante_aparece",
+   "test_seis_de_nove_de_myfruit_da_quatro_fontes_e_66_7_por_cento"
+  ]
+ },
+ {
+  "MUTANTE": "M11 republicacao declarada ignorada",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_na_corrida_a_republicacao_declarada_conta",
+   "test_republicacao_declarada_e_do_originador"
+  ]
+ },
+ {
+  "MUTANTE": "M12 SOURCE_ID de plataforma volta a unir anunciantes",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_anuncios_de_paginas_diferentes_sao_anunciantes_diferentes",
+   "test_na_corrida_a_pagina_do_anunciante_conta"
+  ]
+ },
+ {
+  "MUTANTE": "M12b doi.org volta a ser fonte",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_doi_org_nao_e_quem_escreve"
+  ]
+ },
+ {
+  "MUTANTE": "M12c instituicao ignorada no resolvedor",
+  "FICHEIRO": "motor/grafo_de_dependencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_doi_org_nao_e_quem_escreve"
+  ]
+ },
+ {
+  "MUTANTE": "M13 corrida nao marca a duplicata",
+  "FICHEIRO": "motor/corrida_da_inteligencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_d12_na_corrida_o_mesmo_documento_e_uma_evidencia"
+  ]
+ },
+ {
+  "MUTANTE": "M14 corrida ignora o sha do item",
+  "FICHEIRO": "motor/corrida_da_inteligencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_d12_na_corrida_o_mesmo_ficheiro_em_dois_enderecos"
+  ]
+ },
+ {
+  "MUTANTE": "M14b corrida ignora os campos de endereco do item",
+  "FICHEIRO": "motor/corrida_da_inteligencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_na_corrida_o_endereco_declarado_do_documento_conta"
+  ]
+ },
+ {
+  "MUTANTE": "M14c corrida ignora o originador declarado",
+  "FICHEIRO": "motor/corrida_da_inteligencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_na_corrida_a_republicacao_declarada_conta"
+  ]
+ },
+ {
+  "MUTANTE": "M14d corrida ignora a pagina do anunciante",
+  "FICHEIRO": "motor/corrida_da_inteligencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_na_corrida_a_pagina_do_anunciante_conta"
+  ]
+ },
+ {
+  "MUTANTE": "M15 corrida ignora o fato",
+  "FICHEIRO": "motor/corrida_da_inteligencia.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_por_fato_na_corrida"
+  ]
+ },
+ {
+  "MUTANTE": "M16 V2.1 MULTI_SOURCE sem teto",
+  "FICHEIRO": "motor/v21_oportunidades.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_multi_source_nunca_passa_das_fontes_independentes",
+   "test_o_valor_declarado_fica_ao_lado"
+  ]
+ },
+ {
+  "MUTANTE": "M17 V2.1 rotulo vira fonte",
+  "FICHEIRO": "motor/v21_oportunidades.py",
+  "ESTADO": "MORTO",
+  "TESTES_QUE_APANHARAM": [
+   "test_rotulo_nao_conta_como_fonte"
+  ]
+ }
+]
