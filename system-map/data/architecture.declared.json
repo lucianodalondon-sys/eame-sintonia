@@ -5922,6 +5922,62 @@
    ]
   },
   {
+   "id": "C-CRUZAMENTOS-MAX",
+   "name": "Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "icon": "⚙",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "INTELIGENCIA",
+    "ENGENHARIA"
+   ],
+   "what": "Le docs/intelligence/r7/ANALISE-R7.json (86 cruzamentos), os pares dos rotulos ADAMA lidos (data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json) e o cadastro oficial do Ministero (IT-T4-001, PROD_FTS_6_20260907.csv). (1) Refaz os cruzamentos com uma TABELA DE GRAO que so aceita o que o MESMO rotulo declara («Pomacee (melo, pero, ...)») ou nomeia na zona da cultura do par; grupo do leitor sem nome = GRAO_NAO_PROVADO; cultura de rotacao e subtipo nao contam. (2) Confere os POSSIBLE_ANSWER_YES_A_CONFIRMAR contra o cadastro (registo ADAMA, substancia na composicao, validade NA DATA DO BOLETIM, cultura no rotulo, dose/intervalo transcritos) -> CONFIRMED_YES / NO / UNRESOLVED. (3) PORTFOLIO_MATCH: para pares cultura x praga da mesma secao do boletim, os produtos ADAMA com essa cultura x alvo no rotulo (linha/bloco) e registo valido. (4) COMPETITIVE_SET: produtos de outras empresas no cadastro com a mesma substancia (grao = SUBSTANCIA; cultura x alvo do concorrente = NAO SEI). (5) Escreve CRUZAMENTOS-MAX.json e os objetos no contrato de entrada do pote v2 (ESPECIE CROSSING).",
+   "why_here": "CRUZAMENTOS-MAX (D114 do dono, 2026-09-27: o maximo de cruzamentos, cada um com prova). Mede sobre o repo, sem rede: 48 PARTIAL continuam 48 (a substancia nao esta ligada a cultura no troco guardado; o texto integral nao esta versionado), 5 YES -> 3 CONFIRMED_YES + 2 UNRESOLVED, 22 dos 29 NO eram NO sem rotulo lido -> UNRESOLVED. Ausencia e ausencia NA NOSSA LEITURA (102/163 rotulos). Testes: tests/test_cruzamentos_max.py (sinteticos SINT- + drift do JSON commitado).",
+   "files": [
+    "motor/cruzamentos_max.py"
+   ]
+  },
+  {
+   "id": "C-POTE-CRUZAMENTOS-MAX",
+   "name": "O pote dos cruzamentos-max (o coordenador roda localmente)",
+   "territory": "Z-PACOTE",
+   "kind": "engine",
+   "icon": "⇢",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Corre motor/cruzamentos_max.py (com o livro das secoes, se o coordenador o der), monta UMA corrida nova (IR-XMAX-..., CORRIDA_BASE = a R7) com a LINEAGE da R7 verbatim, os objetos da R7 (salvo --so-cruzamentos) e os objetos CRUZAMENTOS-MAX em portfolio e competitors, e entrega-a a pacote/pote_intelligence_casco.py (contrato v2), que confere e recusa a vista. Liga a prova a LINEAGE so por identidade exata e unica (SOURCE_ID+RAW_OBSERVATION_ID, ou ITEM_ID); ambigua ou ausente fica como veio. DOCUMENT_ID que a LINEAGE nao tem continua NAO SEI. Escreve so fora do portal ou em italia-portale/client/sintonia-pote.js (regra do pote).",
+   "why_here": "A LINEAGE da R7 e o livro das secoes vivem fora do repo; sem eles nenhum objeto atravessa o pote, e assim deve ser. O coordenador corre isto na maquina dele.",
+   "files": [
+    "pacote/pote_cruzamentos_max.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-CRUZAMENTOS-MAX",
+   "name": "Mutacao dos cruzamentos-max",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Planta 31 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): grao de outro rotulo, chave de grupo como prova, rotacao como uso, subtipo como generico, zona da cultura inteira, PARTIAL->YES sem ligacao, rotulo nao lido como NO, validade sem scadenza/revoga/registo, declaracao de produto como par forte, ADAMA no competitive set, METALAXYL = METALAXYL-M, DOCUMENT_ID fabricado, LINEAGE ambigua ligada, id da R7 reusado, entre outros. Corre tests/test_cruzamentos_max.py. Sai 1 se algum sobreviver.",
+   "why_here": "Prova que os testes apanham o que o motor e o pote juram nao fazer. 31/31 mortos a 2026-09-27.",
+   "files": [
+    "provas/_mutantes_cruzamentos_max.py"
+   ]
+  },
+  {
    "id": "C-META-BIBLIOTECA",
    "name": "A porta da Biblioteca de Anuncios da Meta",
    "territory": "Z-FERRAMENTAS",
