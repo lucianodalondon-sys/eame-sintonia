@@ -162,7 +162,7 @@ py coleta/linha_busca.py --marcar --saida=$S/B1 --fila=$V/candidatas/FONTES-CAND
   - Resultado: 13 de 13 passam o portão; 13 de 13 ficam em quarentena na pergunta «matéria», por causa do HTML
     sintético.
   - A fila do vivo ficou igual (`FILA-VIVO-ANTES/DEPOIS.txt`).
-- **`tests/test_linha_busca.py`: 14 testes, todos passam.** Cobrem:
+- **`tests/test_linha_busca.py`: 18 testes, todos passam** (14 + os 4 da D94-b, §6). Cobrem:
   - o portão D93: proveniência incompleta, fonte recusada, e a regra da coleta recorrente sem mudança;
   - as consultas: nacional primeiro, sem repetir, famílias da R3;
   - os 3 leitores de resultados;
@@ -176,7 +176,7 @@ py coleta/linha_busca.py --marcar --saida=$S/B1 --fila=$V/candidatas/FONTES-CAND
   - sem `--autorizado`, nada sai à rede.
 - **`curadoria/test_collection_gate.py`:** 22 de 23 passam. A que falha é de **base**. Ela lista 4 ficheiros que
   não são desta missão: `nome_da_pasta.mjs`, `teto_da_onda.py`, `onda_web.py` e `buscar_indices_d40.py`.
-- **Mutação:** 12 de 12 (§5).
+- **Mutação:** 16 de 16 (§5 e §6).
 
 ## 5 · Mutação
 
@@ -195,3 +195,19 @@ Os mutantes foram:
 - o DuckDuckGo não desembrulha o link;
 - passa um resultado do próprio motor;
 - usa-se o livro de outra árvore por omissão.
+
+## 6 · As regras da D94-b (coordenação 08:58), já no código
+
+| Regra | O que a linha faz | Teste |
+|---|---|---|
+| Snippet é só descoberta | nunca se guarda o resumo do motor: abre-se a página e guarda-se o RAW (sha256 + proveniência) | `test_o_raw_leva_a_proveniencia_inteira` |
+| NAME ≠ PROFILE ≠ PERSON | um **perfil** social achado por busca (`linkedin.com/in/…`, `x.com/<conta>`, `instagram.com/<conta>`) **não é item** e **não vira candidata**. Vai para `PISTAS-DE-CONTA.jsonl`, e só vira candidata com prova: nome + instituição + tema, ou a página oficial a apontar para a conta. A **plataforma** (linkedin.com, x.com…) nunca vira candidata | `test_perfil_nao_e_item_e_nao_vira_candidata` |
+| LinkedIn só por post público (medido 08:40) | `linkedin.com/posts/…`, `/feed/update/…`, `x.com/<conta>/status/…`, reels, vídeos: vão para `POSTS-PARA-O-SCRAP.jsonl` com a proveniência. Quem os colhe é o **Scrap**, a porta social canónica, e não esta linha | `test_post_de_linkedin_vai_para_o_scrap` |
+| Contar só item único, admitido, com identidade | a saída traz `ITENS_UNICOS_ADMITIDOS`, contados por `ITEM_ID`. O mesmo endereço achado por outra consulta **não é pedido outra vez** (`DUPLICADO_NA_CORRIDA`). Um muro de login/cadastro **não se guarda nem se conta** (`PAGINA_DE_LOGIN`) | `test_so_conta_itens_unicos` · `test_muro_de_login_nao_se_guarda_nem_conta` |
+
+⚠️ A D94-b pede «RAW provado». Nesta v1, o RAW é o ficheiro com sha256 mais a proveniência na pasta da linha, e
+**ainda não** a linha em `raw_asset`: é a dívida da §«O que falta». O item de busca na Sala fica com
+`RAW_OBSERVATION_ID = NAO SEI`, e a ligação faz-se pelo `ITEM_ID` (`derived:busca-<sha256>`).
+
+**Testes:** 18, todos passam. **Mutação:** 16 de 16. Os 4 mutantes novos: o perfil vira página comum, o post é
+colhido como página, o muro de login entra, e o mesmo endereço é pedido duas vezes.
