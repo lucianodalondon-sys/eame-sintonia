@@ -106,6 +106,9 @@ class B_ODiagnostico(unittest.TestCase):
         self.assertEqual((d["BUSCA_POSSIVEL"], d["CX"], d["RESULTADOS"]), ("SIM", "VALIDO", 2))
         self.assertEqual(d["DOMINIOS_DOS_RESULTADOS"], ["www.agrometeo.it", "www.regione.veneto.it"])
         self.assertEqual(API.o_que_o_dono_faz(d), ["Nada: a busca pode correr."])
+        self.assertTrue(d["ESCOPO_INDICIO"].startswith("POUCOS_SITES: 2 dominio(s)"))
+        muitos = json.dumps({"items": [{"link": "https://s%d.it/x" % i} for i in range(7)]}).encode()
+        self.assertTrue(API.ler_diagnostico(200, muitos, "", com_cx=True)["ESCOPO_INDICIO"].startswith("MUITOS_SITES: 7"))
 
     def test_sem_rede_nada_se_prova(self):
         d = API.ler_diagnostico(0, b"", "URLError: timed out", com_cx=True)
@@ -128,14 +131,14 @@ class C_UmaChamadaSo(unittest.TestCase):
         d = API.diagnosticar_cse(pedir, env={API.ENV_CHAVE: CHAVE})
         self.assertEqual(len(pedidos), 1)
         self.assertNotIn("cx=", pedidos[0])
-        self.assertIn("num=1", pedidos[0])
+        self.assertIn("num=10", pedidos[0])
         self.assertNotIn(CHAVE, json.dumps(d))
 
     def test_com_cx_e_uma_busca_de_um_resultado(self):
         pedidos = []
         API.diagnosticar_cse(lambda u, c=None: pedidos.append(u) or OK, env={API.ENV_CHAVE: CHAVE, API.ENV_CX: CX})
         self.assertEqual(len(pedidos), 1)
-        self.assertIn("num=1", pedidos[0])
+        self.assertIn("num=10", pedidos[0])
         self.assertIn("cx=", pedidos[0])
 
     def test_o_transporte_levanta_sem_a_chave_na_mensagem(self):

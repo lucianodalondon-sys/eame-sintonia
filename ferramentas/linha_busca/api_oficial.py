@@ -78,7 +78,13 @@ def ler_diagnostico(http: int, corpo: bytes, erro: str, *, com_cx: bool) -> dict
         d.update(API_ATIVA="SIM", CHAVE_PODE_USAR_A_API="SIM", CX="VALIDO", BUSCA_POSSIVEL="SIM",
                  RESULTADOS=len(itens), DOMINIOS_DOS_RESULTADOS=dominios,
                  TOTAL_ESTIMADO=(j.get("searchInformation") or {}).get("totalResults"),
-                 PORQUE="a API respondeu 200 com o CX dado")
+                 PORQUE="a API respondeu 200 com o CX dado",
+                 # INDICIO, nao prova: um mecanismo limitado a uma lista de sites so devolve esses sites. A
+                 # pergunta «pesquisa a web inteira?» responde-se no painel do mecanismo, nao aqui.
+                 ESCOPO_INDICIO=("MUITOS_SITES: %d dominios em %d resultados — parece a web inteira ou uma lista "
+                                 "grande (NAO e prova)" % (len(dominios), len(itens)) if len(dominios) >= 5 else
+                                 "POUCOS_SITES: %d dominio(s) em %d resultados — o mecanismo parece limitado a uma "
+                                 "lista de sites (NAO e prova)" % (len(dominios), len(itens))))
         return d
     if http == 0:
         d["PORQUE"] = "a chamada nao chegou ao Google (%s) — nada se prova" % redigir(erro)
@@ -119,7 +125,7 @@ def ler_diagnostico(http: int, corpo: bytes, erro: str, *, com_cx: bool) -> dict
 
 
 def diagnosticar_cse(pedir_=None, env=None) -> dict:
-    """UMA chamada. Com CX: uma busca de 1 resultado (1 das 100 do dia). Sem CX: o pedido sem ele — mede se o CX
+    """UMA chamada. Com CX: uma busca de 10 resultados (1 das 100 consultas do dia). Sem CX: o pedido sem ele — mede se o CX
     e obrigatorio e, de caminho, se a API esta ligada e se a chave pode."""
     env = os.environ if env is None else env
     chave, cx = env.get(ENV_CHAVE), env.get(ENV_CX)
@@ -129,7 +135,8 @@ def diagnosticar_cse(pedir_=None, env=None) -> dict:
                 "PORQUE": "o segredo da chave nao chegou ao ambiente (%s vazio) — nenhuma chamada saiu" % ENV_CHAVE,
                 "O_QUE_O_DONO_FAZ": ["Conferir no GitHub (Settings > Secrets and variables > Actions) se o secret com o "
                                      "nome pedido existe — o workflow nao recebeu nenhuma chave."]}
-    q = {"key": chave, "q": "agricoltura", "num": 1}
+    # 10 resultados custam o MESMO que 1 (a quota conta consultas): os 10 dizem de quantos sites vem a busca
+    q = {"key": chave, "q": "agricoltura", "num": 10}
     if cx:
         q["cx"] = cx
     http, corpo, erro = (pedir_ or pedir)(ENDERECO_CSE + "?" + urllib.parse.urlencode(q))

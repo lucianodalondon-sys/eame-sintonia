@@ -67,7 +67,8 @@ def resumo(pasta: Path) -> str:
     linhas += ["| pergunta | resposta |", "|---|---|"]
     for k, nome in (("API_ATIVA", "a Custom Search JSON API esta ativa no projeto?"),
                     ("CHAVE_PODE_USAR_A_API", "a chave pode usa-la?"), ("CX", "o CX"),
-                    ("BUSCA_POSSIVEL", "a busca pode correr?"), ("HTTP", "resposta do Google (HTTP)")):
+                    ("BUSCA_POSSIVEL", "a busca pode correr?"), ("HTTP", "resposta do Google (HTTP)"),
+                    ("ESCOPO_INDICIO", "a web inteira ou so alguns sites? (indicio)")):
         linhas.append("| %s | %s |" % (nome, API.redigir(x.get(k))))
     linhas += ["", "**Porque:** %s" % API.redigir(x.get("PORQUE")), "", "**O que o dono tem de fazer:**"]
     linhas += ["%d. %s" % (i, API.redigir(p)) for i, p in enumerate(x.get("O_QUE_O_DONO_FAZ") or [], 1)]
