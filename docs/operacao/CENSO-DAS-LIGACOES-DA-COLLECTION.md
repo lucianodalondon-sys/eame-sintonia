@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  abe77c39714d01cd8c5c6c4ce8f8dcff39faa498
+HEAD_DA_MEDICAO  7bdc8c9bcf404dfc72c4da678cbccb3bb7ddeb78
 BRANCH           claude/lote4-verificar-ekdj83
-GERADO_EM        2026-09-26T22:35:38-03:00
+GERADO_EM        2026-09-27T12:01:13+00:00
 CARDS            115
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
