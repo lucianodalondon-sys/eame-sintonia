@@ -16,9 +16,9 @@
 - A casa é **fonte primeiro**: um site sobe seis degraus antes de a primeira página dele ser colhida.
 - O Google é **assunto primeiro**: pergunta-se «peronospora vite setembro», e vêm as páginas, de qualquer site.
 - Das 13 páginas de ouro do BUSCA-LOTE-0, **hoje entrariam 0**. Isto vale tanto antes como depois da Admission.
-  - **11** vêm de sites que **nunca estiveram na fila**.
+  - **12** vêm de **11 sites** que **nunca estiveram na fila**. O Veneto já tem outras fontes registadas no mesmo
+    portal, mas nenhuma pronta.
   - **1** vem de um site cuja fonte está em `CONTRACTED_CANARY_FAILED`: a ARSAC, IT-T12-018.
-  - **1** vem de um portal de região com várias fontes, nenhuma pronta: o Veneto.
   - A página nem chega a ser pedida.
 
 **Que lei impede o item de uma fonte CANDIDATA de entrar na Sala.** Levei isto ao dono; a D93 resolveu.
