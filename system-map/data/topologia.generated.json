@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T17:42:50+00:00",
-  "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-  "BRANCH": "claude/lote4-final-integration-l02r5q",
+  "GENERATED_AT": "2026-09-27T19:47:08+00:00",
+  "HEAD": "a09d383d133acfa781fc02dad8848a565ec63005",
+  "BRANCH": "claude/cruzamentos-max-sguy1x",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
-  "FICHEIROS_NA_IMPRESSAO": 4087,
+  "SOURCE_TREE_FINGERPRINT": "044df6a1f8f475373a021edb7eb1da95934494210c73e7300917da367f21d651",
+  "FICHEIROS_NA_IMPRESSAO": 4097,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2545,6 +2545,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "motor/cruzamentos_max.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "6cbdbe6d672fe566818f3bfe4089b4c6284dfbad",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "motor/normalize_agro.py",
     "PAPEL": "FONTE",
     "VERSAO": "af356084e633c1e6f857d712dd0947f58deaf2ed",
@@ -2835,6 +2842,13 @@
     "PATH": "provas/_mutantes_c13_d23.py",
     "PAPEL": "FONTE",
     "VERSAO": "9c3f8b959dcce9b859833d91f7f12a0da8ed060e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/_mutantes_cruzamentos_max.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "126d12d19055665dd6578c6da1ad321224d73cb2",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -5109,14 +5123,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
+    "VERSAO": "044df6a1f8f475373a021edb7eb1da95934494210c73e7300917da367f21d651",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
+    "VERSAO": "044df6a1f8f475373a021edb7eb1da95934494210c73e7300917da367f21d651",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6209,6 +6223,13 @@
     "PATH": "tests/test_cortesia_no_transporte.py",
     "PAPEL": "FONTE",
     "VERSAO": "d21d07d0869e9a40b06f000084e7959487e1bc1e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_cruzamentos_max.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "878acb6b44a9b6587930a4bd82ee882727aff2ab",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7578,8 +7599,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1077,
-  "INPUTS_DIGEST": "68a2e799cd43672b60733a8ef42a5dffc247835d068670c53f27eba7a8f3461d",
+  "INPUTS_COUNT": 1080,
+  "INPUTS_DIGEST": "d5127bb911ec14a5b1d4e1d1355627a638191e75f02abf34e64f83a893f4eebe",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7605,15 +7626,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 605,
+  "DOCUMENTOS_LIDOS": 607,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "31d408822eda3515a09c99449db780842b25b230ce7c2a42c8652d6e88eef9eb",
-  "SEMANTIC_HASH": "a36729b51950f0c9c17c69e035e530cef2675a0c023d7566915662a113ff981c"
+  "MEASUREMENT_HASH": "bf41e52b48abbe4b9b73db3f66b163bb6078eab2b5897a6bae073f54a8a9a5fb",
+  "SEMANTIC_HASH": "546c4c65cb76c7eece05d4238bcac3917f8cbbbc8051feaad0d6696a2327ad9f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7773,6 +7794,7 @@
    "C-CONTRATO-ARTEFATO",
    "C-CONTRATO-DE-RETORNO",
    "C-CONTRATO-TELEMETRIA",
+   "C-CRUZAMENTOS-MAX",
    "C-DATA-CLOCK",
    "C-DIAGNOSTICO",
    "C-ESPECIE-DO-TEXTO",
@@ -7810,6 +7832,7 @@
    "C-PROVA-COLETA",
    "C-PROVA-CONTADOR-24H",
    "C-PROVA-CORTESIA",
+   "C-PROVA-CRUZAMENTOS-MAX",
    "C-PROVA-CUTOVER",
    "C-PROVA-DEDUPE",
    "C-PROVA-ENCANAMENTO",
@@ -7853,7 +7876,7 @@
    "C-V21-INGEST",
    "C-VOCI-DAL-CAMPO"
   ],
-  "COUNT": 97
+  "COUNT": 99
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -7911,6 +7934,7 @@
    "C-COORTE-MICRO-FUNIL",
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
+   "C-CRUZAMENTOS-MAX",
    "C-DATA-CLOCK",
    "C-DECISAO-DA-FILA",
    "C-DERIVACAO-FORWARD",
@@ -8004,6 +8028,7 @@
    "C-PROVA-COLETA",
    "C-PROVA-CONTADOR-24H",
    "C-PROVA-CORTESIA",
+   "C-PROVA-CRUZAMENTOS-MAX",
    "C-PROVA-CUTOVER",
    "C-PROVA-DEDUPE",
    "C-PROVA-ENCANAMENTO",
@@ -8078,16 +8103,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 217
+  "COUNT": 219
  },
  "ARITMETICA": {
   "COLLECTION": 120,
-  "BOUNDARY": 97,
-  "SOMA": 217,
-  "EXPANDED": 217,
+  "BOUNDARY": 99,
+  "SOMA": 219,
+  "EXPANDED": 219,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 217,
+  "RESUMO_CARTOES_NO_UNIVERSO": 219,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -8157,6 +8182,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-COLETA-PUBLICA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-CRUZAMENTOS-MAX",
+    "FROM": "C-ADAMA-IT",
+    "TO": "C-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/cruzamentos_max.py",
+      "LINHA": 65,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-CRUZAMENTOS-MAX",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -20171,6 +20218,72 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CORPUS--READS-->C-SENSOR-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-POTE-CRUZAMENTOS-MAX",
+    "FROM": "C-CRUZAMENTOS-MAX",
+    "TO": "C-POTE-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/pote_cruzamentos_max.py",
+      "LINHA": 49,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-POTE-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-TESTES",
+    "FROM": "C-CRUZAMENTOS-MAX",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_cruzamentos_max.py",
+      "LINHA": 21,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CRUZAMENTOS-MAX--READS-->C-PROVA-CRUZAMENTOS-MAX",
+    "FROM": "C-CRUZAMENTOS-MAX",
+    "TO": "C-PROVA-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_cruzamentos_max.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CRUZAMENTOS-MAX--READS-->C-PROVA-CRUZAMENTOS-MAX",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -32515,6 +32628,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-CRUZAMENTOS-MAX",
+    "FROM": "C-LUGAR-COLETA",
+    "TO": "C-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/cruzamentos_max.py",
+      "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-INT-CORRIDA",
     "FROM": "C-LUGAR-COLETA",
     "TO": "C-INT-CORRIDA",
@@ -33953,6 +34088,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-CRUZAMENTOS-MAX",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/cruzamentos_max.py",
+      "LINHA": 58,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-DERIVACAO-FORWARD",
     "FROM": "C-MAPA-TESTES",
     "TO": "C-DERIVACAO-FORWARD",
@@ -34834,6 +34991,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PORTAL-DADOS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-CRUZAMENTOS-MAX",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-POTE-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/pote_cruzamentos_max.py",
+      "LINHA": 47,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-CRUZAMENTOS-MAX",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -40940,6 +41119,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-CRUZAMENTOS-MAX",
+    "FROM": "C-PONTE-INT-CASCO",
+    "TO": "C-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/cruzamentos_max.py",
+      "LINHA": 66,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-TESTES",
     "FROM": "C-PONTE-INT-CASCO",
     "TO": "C-TESTES",
@@ -40951,6 +41152,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_cruzamentos_max.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_esqueleto_scientifica.py",
       "LINHA": 21,
@@ -41910,6 +42119,50 @@
     ]
    },
    {
+    "EDGE_ID": "C-POTE-CRUZAMENTOS-MAX--IMPORTS-->C-TESTES",
+    "FROM": "C-POTE-CRUZAMENTOS-MAX",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_cruzamentos_max.py",
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-CRUZAMENTOS-MAX--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-POTE-CRUZAMENTOS-MAX--READS-->C-PROVA-CRUZAMENTOS-MAX",
+    "FROM": "C-POTE-CRUZAMENTOS-MAX",
+    "TO": "C-PROVA-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_cruzamentos_max.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-CRUZAMENTOS-MAX--READS-->C-PROVA-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
     "FROM": "C-POTE-INT-CASCO",
     "TO": "C-TESTES",
@@ -41921,6 +42174,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_cruzamentos_max.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_pote_intelligence_casco.py",
       "LINHA": 29,
@@ -47276,6 +47537,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-ROTULOS--IMPORTS-->C-CRUZAMENTOS-MAX",
+    "FROM": "C-ROTULOS",
+    "TO": "C-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/cruzamentos_max.py",
+      "LINHA": 62,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--IMPORTS-->C-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ROTULOS--IMPORTS-->C-FONTES-EU",
     "FROM": "C-ROTULOS",
     "TO": "C-FONTES-EU",
@@ -47386,6 +47669,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-ROTULOS--READS-->C-CRUZAMENTOS-MAX",
+    "FROM": "C-ROTULOS",
+    "TO": "C-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/cruzamentos_max.py",
+      "LINHA": 70,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "motor/cruzamentos_max.py",
+      "LINHA": 71,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ROTULOS--READS-->C-INT-CONVERGENCIA",
     "FROM": "C-ROTULOS",
     "TO": "C-INT-CONVERGENCIA",
@@ -47441,6 +47754,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-PALAVRAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ROTULOS--READS-->C-PROVA-CRUZAMENTOS-MAX",
+    "FROM": "C-ROTULOS",
+    "TO": "C-PROVA-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_cruzamentos_max.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-PROVA-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/_mutantes_cruzamentos_max.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTULOS--READS-->C-PROVA-CRUZAMENTOS-MAX",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -54309,6 +54652,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--READS-->C-PROVA-CRUZAMENTOS-MAX",
+    "FROM": "C-TESTES",
+    "TO": "C-PROVA-CRUZAMENTOS-MAX",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_cruzamentos_max.py",
+      "LINHA": 26,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-CRUZAMENTOS-MAX",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--READS-->C-PROVA-PONTE-CASCO",
     "FROM": "C-TESTES",
     "TO": "C-PROVA-PONTE-CASCO",
@@ -56791,12 +57156,12 @@
     ]
    }
   ],
-  "COUNT": 1606
+  "COUNT": 1620
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 217,
-  "CARTOES_AUDITADOS": 217,
-  "ARESTAS_RELACIONADAS": 1606,
+  "CARTOES_NO_UNIVERSO": 219,
+  "CARTOES_AUDITADOS": 219,
+  "ARESTAS_RELACIONADAS": 1620,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -56962,6 +57327,7 @@
    "C-COORTE-MICRO-FUNIL",
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
+   "C-CRUZAMENTOS-MAX",
    "C-DECISAO-DA-FILA",
    "C-DESBLOQUEIO-PACOTE",
    "C-DETECTOR-CAPA-GABARITO",
@@ -57016,6 +57382,7 @@
    "C-PROVA-CANARIO-REEL",
    "C-PROVA-CONTADOR-24H",
    "C-PROVA-CORTESIA",
+   "C-PROVA-CRUZAMENTOS-MAX",
    "C-PROVA-CUTOVER",
    "C-PROVA-GATE-1D",
    "C-PROVA-JANELA-FORMAS",
@@ -57038,12 +57405,10 @@
    "C-RECEITAS-PROPOSTA",
    "C-RECOLLECTION-CENSO",
    "C-RECONCILIAR-BYTES-BC4",
-   "C-RECORRENCIA",
    "C-REGUA-T1-JANELA",
    "C-REGUA-T2-JANELA",
    "C-RELATORIO-FLUXO",
    "C-REPARO-MEDICAO",
-   "C-ROTULOS",
    "C-SAUDE-FONTE",
    "C-SEGUIR-PESQUISADORES",
    "C-SUPERFICIE-SCRAP-V1",
@@ -57111,6 +57476,7 @@
    "C-PROVA-CANARIO-D23-LINKEDIN",
    "C-PROVA-CANARIO-D24-PESSOA",
    "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
+   "C-PROVA-CRUZAMENTOS-MAX",
    "C-PROVA-GATE-1D",
    "C-PROVA-PONTE-CASCO",
    "C-RECOLLECTION-CENSO",
@@ -57258,25 +57624,25 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 275,
+   "CODE": 279,
    "CONTROL": 87,
    "DATA": 31,
-   "PROOF": 562,
-   "READ": 363,
-   "RULE": 268,
+   "PROOF": 567,
+   "READ": 367,
+   "RULE": 269,
    "WRITE": 20
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
   ],
-  "TRAVESSIAS_COLETA_PARA_INTELIGENCIA": 11,
+  "TRAVESSIAS_COLETA_PARA_INTELIGENCIA": 14,
   "TRAVESSIAS_POR_ZONA_DE_DESTINO": {
-   "Z-MOTOR": 11
+   "Z-MOTOR": 14
   },
   "TRAVESSIAS_POR_CATEGORIA": {
-   "CODE": 1,
+   "CODE": 3,
    "CONTROL": 2,
-   "READ": 5,
+   "READ": 6,
    "RULE": 3
   },
   "TRAVESSIAS_QUE_LEVAM_DADO": 0
@@ -57348,6 +57714,7 @@
     "fontes/adama_referencia.py"
    ],
    "CHAMADORES_DE_RUNTIME": [
+    "motor/cruzamentos_max.py",
     "motor/v21_completude_oportunidade.py"
    ],
    "SO_MEDEM_ESTE": [
@@ -57370,7 +57737,7 @@
     "pdfminer"
    ],
    "ENTRAM": 1,
-   "SAEM": 5,
+   "SAEM": 6,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ"
    ],
@@ -59695,6 +60062,52 @@
    "ORFAO_FALSO_NAS_VISTAS": [
     "coverage"
    ],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-CRUZAMENTOS-MAX",
+   "NOME": "Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia",
+   "FAMILIA": "F-INTELIGENCIA",
+   "TERRITORIO": "Z-MOTOR",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "motor/cruzamentos_max.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/_mutantes_cruzamentos_max.py",
+    "tests/test_cruzamentos_max.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "adama_it_intelligence",
+    "boletim_do_campo",
+    "collections",
+    "datetime",
+    "ponte_intelligence_casco",
+    "rotulos_ler"
+   ],
+   "ENTRAM": 6,
+   "SAEM": 3,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "PROOF",
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "CODE",
+    "PROOF",
+    "READ"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -62160,6 +62573,7 @@
     "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json"
    ],
    "CHAMADORES_DE_RUNTIME": [
+    "motor/cruzamentos_max.py",
     "motor/voce_dal_campo.py"
    ],
    "SO_MEDEM_ESTE": [
@@ -62184,7 +62598,7 @@
     "pathlib"
    ],
    "ENTRAM": 7,
-   "SAEM": 13,
+   "SAEM": 14,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -62441,7 +62855,7 @@
     "pente_fino_da_coleta"
    ],
    "ENTRAM": 29,
-   "SAEM": 115,
+   "SAEM": 117,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -64586,6 +65000,37 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-PROVA-CRUZAMENTOS-MAX",
+   "NOME": "Mutacao dos cruzamentos-max",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/_mutantes_cruzamentos_max.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "pathlib"
+   ],
+   "ENTRAM": 4,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF",
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-PROVA-CUTOVER",
    "NOME": "As provas do cutover da Collection",
    "FAMILIA": "F-GOVERNANCA",
@@ -66253,14 +66698,16 @@
    "FICHEIROS": [
     "provas/chain.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    "motor/cruzamentos_max.py"
+   ],
    "SO_MEDEM_ESTE": [
     "tests/test_operacao.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
+   "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
     "coverage",
@@ -66706,7 +67153,9 @@
     "coleta/rotulos_baixar.py",
     "coleta/rotulos_ler.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    "motor/cruzamentos_max.py"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_corrida_existe_em_cada_rota.py",
     "provas/os_portoes_da_collection.py",
@@ -66715,7 +67164,7 @@
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
+   "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [
     "collection_run",
     "registro_regulatorio"
@@ -66724,7 +67173,7 @@
     "collections"
    ],
    "ENTRAM": 5,
-   "SAEM": 11,
+   "SAEM": 14,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "DATA",
@@ -67963,6 +68412,7 @@
     "tests/test_contador_24h.py",
     "tests/test_corrida_abortada.py",
     "tests/test_cortesia_no_transporte.py",
+    "tests/test_cruzamentos_max.py",
     "tests/test_d1_detector_d14.py",
     "tests/test_d24_video_de_pessoa.py",
     "tests/test_d36_envelope_equivalente.py",
@@ -68166,6 +68616,7 @@
     "motor/v21_completude_oportunidade.py"
    ],
    "SO_MEDEM_ESTE": [
+    "provas/_mutantes_cruzamentos_max.py",
     "provas/_mutantes_d36_equivalencia.py",
     "provas/_mutantes_ponte_casco.py",
     "provas/_mutantes_pote_casco.py",
@@ -68286,6 +68737,7 @@
     "pedido",
     "pessoa",
     "pg_constraint",
+    "ponte_intelligence_casco",
     "preservar_coleta",
     "provas",
     "raw_asset_velha",
@@ -68304,8 +68756,8 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 238,
-   "SAEM": 41,
+   "ENTRAM": 240,
+   "SAEM": 42,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

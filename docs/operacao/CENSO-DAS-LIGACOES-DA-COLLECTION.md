@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  75c7f80fedc483f4dfca8e9258ca69a9e60e62f0
-BRANCH           claude/lote4-final-integration-l02r5q
-GERADO_EM        2026-09-27T17:37:48+00:00
+HEAD_DA_MEDICAO  a09d383d133acfa781fc02dad8848a565ec63005
+BRANCH           claude/cruzamentos-max-sguy1x
+GERADO_EM        2026-09-27T16:08:36-03:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -513,13 +513,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json` |
 | **o que sai · dado** | C-SUPABASE |
 | **o que sai · ficheiros** | `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json`, `data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json` |
-| **arestas no mapa** | entram 5 · saem 11 |
-| **arestas provadas** | entram 4 · saem 11 |
+| **arestas no mapa** | entram 5 · saem 14 |
+| **arestas provadas** | entram 4 · saem 14 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 15 · NÃO SEI 1 |
+| **prova das ligações** | CODE 18 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -1369,21 +1369,21 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `fontes/adama_catalogo_ler.py`, `fontes/adama_catalogo_montar.py`, `fontes/adama_catalogo_snapshot.py`, `fontes/adama_it_eu.py`, `fontes/adama_it_frac.py` _(e mais 6)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
-| **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-COLETA-PUBLICA.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-COLETA-PUBLICA, C-CRUZAMENTOS-MAX.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/comunicacao_concorrenza.py:73; motor/v21_ingest.py:266; pacote/lastmile_entregar.py:65 |
-| **porquê** | estas pecas importam-na — C-COLETA-PUBLICA · C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | coleta/comunicacao_concorrenza.py:73; motor/cruzamentos_max.py:65; motor/v21_ingest.py:266 |
+| **porquê** | estas pecas importam-na — C-COLETA-PUBLICA · C-CRUZAMENTOS-MAX · C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json`, `data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json`, `research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json`, `research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json` |
-| **arestas no mapa** | entram 1 · saem 5 |
-| **arestas provadas** | entram 1 · saem 5 |
+| **arestas no mapa** | entram 1 · saem 6 |
+| **arestas provadas** | entram 1 · saem 6 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 6 |
+| **prova das ligações** | CODE 7 |
 | **lei da Bíblia** | COL-LAW-009 · fonte, endpoint, rota, executor, item e artefato sao seis coisas |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 

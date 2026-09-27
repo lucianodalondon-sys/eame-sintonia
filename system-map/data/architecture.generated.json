@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/cruzamentos-max-sguy1x",
+    "HEAD": "a09d383d133acfa781fc02dad8848a565ec63005",
+    "GENERATED_AT": "2026-09-27T16:08:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "044df6a1f8f475373a021edb7eb1da95934494210c73e7300917da367f21d651"
   },
   "FILES": [
     {
@@ -284,6 +284,13 @@
     {
       "path": "CONSERTO-REGUA.md",
       "sha": "90a447767ed4cdea922d01d8730282e45f71d286",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "CRUZAMENTOS-MAX.md",
+      "sha": "92c6d97d454850c55cd1f8b0c6589f2cde5fd169",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -11419,6 +11426,41 @@
       "code_dir": false
     },
     {
+      "path": "docs/intelligence/r7/ANALISE-R7.json",
+      "sha": "80001e9d5175c4c53db7f8b3b793afcf5c5e6116",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
+      "sha": "5a5887e4172398f100c12db7d6f65831495c9b04",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
+      "sha": "6306af101e798e851a26e495fa3f9d1a3f940441",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/intelligence/r7/RELATORIO-RODADA-7.md",
+      "sha": "928a2a607c85aa7ba3a6bc08bcfc66f2f10738b7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/nuvem/nuvem-cruzamentos-max-v1-MERGES.txt",
+      "sha": "f1ee486b6686800e3e542b533afa1c9bba0d69ad",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/A-CASA-DO-DERIVADO.md",
       "sha": "d14e23acf96ffa6ddc3757bed7318f39060ca119",
       "ext": ".md",
@@ -18433,6 +18475,13 @@
       "code_dir": true
     },
     {
+      "path": "motor/cruzamentos_max.py",
+      "sha": "6cbdbe6d672fe566818f3bfe4089b4c6284dfbad",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "motor/grafo_de_dependencia.py",
       "sha": "34183b2fc4cad6820c72865b450ec5afb0b6b94f",
       "ext": ".py",
@@ -18846,6 +18895,13 @@
       "code_dir": true
     },
     {
+      "path": "pacote/pote_cruzamentos_max.py",
+      "sha": "199a84e54c3924af1b13ae6971ad6f70a1ca788a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "pacote/pote_intelligence_casco.py",
       "sha": "074d70c72afcac00eb95ebeed10c3a5dbea3d253",
       "ext": ".py",
@@ -19079,6 +19135,13 @@
     {
       "path": "provas/_mutantes_c13_d23.py",
       "sha": "9c3f8b959dcce9b859833d91f7f12a0da8ed060e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_mutantes_cruzamentos_max.py",
+      "sha": "126d12d19055665dd6578c6da1ad321224d73cb2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24664,7 +24727,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e63baf949631281955e19224243f29533f74a425",
+      "sha": "be6bbd342261c52c83c3f6d835232e4eceaf4cda",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26198,6 +26261,13 @@
     {
       "path": "tests/test_cortesia_no_transporte.py",
       "sha": "d21d07d0869e9a40b06f000084e7959487e1bc1e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_cruzamentos_max.py",
+      "sha": "878acb6b44a9b6587930a4bd82ee882727aff2ab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -55238,6 +55308,116 @@
       }
     },
     {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 58,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "coleta/rotulos_ler.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 62,
+        "snippet": "from rotulos_ler import CULTURAS_ROTULO, ALVOS_CANON          # noqa: E402  (coleta/)"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 71,
+        "snippet": "MANIFESTO = os.path.join(ROOT, \"data\", \"raw\", \"IT-ROTULOS\", \"_MANIFESTO.json\")"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 70,
+        "snippet": "PARES = os.path.join(ROOT, \"data\", \"samples\", \"IT-ROTULOS\", \"IT-ROTULOS-PARES.json\")"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/ANALISE-R7.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 69,
+        "snippet": "R7 = os.path.join(ROOT, \"docs\", \"intelligence\", \"r7\", \"ANALISE-R7.json\")"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 78,
+        "snippet": "SAIDA_ITENS = os.path.join(ROOT, \"docs\", \"intelligence\", \"r7\", \"CRUZAMENTOS-MAX-ITENS-DO-POTE.json\")"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 77,
+        "snippet": "SAIDA = os.path.join(ROOT, \"docs\", \"intelligence\", \"r7\", \"CRUZAMENTOS-MAX.json\")"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "fontes/adama_it_intelligence.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 65,
+        "snippet": "from adama_it_intelligence import ADMIN_ATIVO                 # noqa: E402  (fontes/)"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 63,
+        "snippet": "from boletim_do_campo import CULTURAS as CULTURAS_BOLETIM     # noqa: E402  (leis/)"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 66,
+        "snippet": "from ponte_intelligence_casco import NAO_SEI, MARCA, ESTADO_TRANSPORTAVEL   # noqa: E402  (pacote/)"
+      }
+    },
+    {
       "from_file": "motor/matriz_recorte.py",
       "to_file": "data/samples/PILOT-SCOPE-MATRIX-V1.json",
       "type": "READS",
@@ -59990,6 +60170,50 @@
       }
     },
     {
+      "from_file": "pacote/pote_cruzamentos_max.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_cruzamentos_max.py",
+        "line": 47,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "pacote/pote_cruzamentos_max.py",
+      "to_file": "motor/cruzamentos_max.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_cruzamentos_max.py",
+        "line": 49,
+        "snippet": "import cruzamentos_max as XM                       # noqa: E402  (motor/)"
+      }
+    },
+    {
+      "from_file": "pacote/pote_cruzamentos_max.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_cruzamentos_max.py",
+        "line": 51,
+        "snippet": "from ponte_intelligence_casco import NAO_SEI, LeiViolada, e_ignorancia   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/pote_cruzamentos_max.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_cruzamentos_max.py",
+        "line": 50,
+        "snippet": "import pote_intelligence_casco as POTE             # noqa: E402"
+      }
+    },
+    {
       "from_file": "pacote/pote_intelligence_casco.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -60977,6 +61201,105 @@
         "file": "provas/_mutantes_c13_d23.py",
         "line": 23,
         "snippet": "import social_matriz as mz"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 30,
+        "snippet": "\"data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv\")"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 29,
+        "snippet": "\"data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json\", \"data/raw/IT-ROTULOS/_MANIFESTO.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 29,
+        "snippet": "\"data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json\", \"data/raw/IT-ROTULOS/_MANIFESTO.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/ANALISE-R7.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 27,
+        "snippet": "\"docs/intelligence/r7/ANALISE-R7.json\", \"docs/intelligence/r7/CRUZAMENTOS-MAX.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 28,
+        "snippet": "\"docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 27,
+        "snippet": "\"docs/intelligence/r7/ANALISE-R7.json\", \"docs/intelligence/r7/CRUZAMENTOS-MAX.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "motor/cruzamentos_max.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 24,
+        "snippet": "MOTOR = \"motor/cruzamentos_max.py\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "pacote/pote_cruzamentos_max.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 25,
+        "snippet": "POTE = \"pacote/pote_cruzamentos_max.py\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "tests/test_cruzamentos_max.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 26,
+        "snippet": "COPIAR = (\"tests/test_cruzamentos_max.py\","
       }
     },
     {
@@ -91329,6 +91652,61 @@
       }
     },
     {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 19,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "motor/cruzamentos_max.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 21,
+        "snippet": "import cruzamentos_max as XM                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 24,
+        "snippet": "from ponte_intelligence_casco import NAO_SEI  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "pacote/pote_cruzamentos_max.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 22,
+        "snippet": "import pote_cruzamentos_max as PX            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 23,
+        "snippet": "import pote_intelligence_casco as POTE       # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_d1_detector_d14.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -103459,10 +103837,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3939,
-    "files_readable": 1641,
-    "files_code_dir": 1971,
-    "file_edges": 6841,
+    "files_tracked": 3949,
+    "files_readable": 1645,
+    "files_code_dir": 1975,
+    "file_edges": 6869,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },
