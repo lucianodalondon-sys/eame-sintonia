@@ -14058,6 +14058,7 @@
         "italia-portale/client/italy-label-verdicts.js",
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
+        "italia-portale/client/italy-pote.js",
         "italia-portale/client/italy-real-intelligence.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
@@ -14066,7 +14067,7 @@
         "superficie/es/proto_es.py",
         "superficie/it_casa_dados.py"
       ],
-      "file_count": 17,
+      "file_count": 18,
       "status": "PENDING",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -14219,11 +14220,10 @@
         "italia-portale/client/italy-app-model.js",
         "italia-portale/client/italy-casa.js",
         "italia-portale/client/italy-i18n.js",
-        "italia-portale/client/italy-pote.js",
         "italia-portale/client/italy-v21.js",
         "italia-portale/client/support.js"
       ],
-      "file_count": 6,
+      "file_count": 5,
       "status": "PENDING",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -39996,7 +39996,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 16 linhas de codigo.",
+      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -40666,7 +40666,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 5 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -40720,22 +40720,6 @@
           "file": "italia-portale/client/portale.html",
           "line": 69,
           "snippet": "<script src=\"italy-casa.js\"></script>",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
-            "FROM": "C-PORTAL-MODELO",
-            "TO": "C-TELA-FIELD",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "italia-portale/client/portale.html",
-          "line": 75,
-          "snippet": "<script src=\"italy-pote.js\"></script>",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
             "FROM": "C-PORTAL-MODELO",
