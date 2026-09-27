@@ -1,7 +1,7 @@
 # RELATÓRIO — PONTE INTELLIGENCE → CASCO (`nuvem-int-casco-ponte-v1`)
 
 > **EXPERIMENTAL · NAO_PARA_CLIENTE.** Nada disto foi publicado. Nenhum deploy. Nenhum ficheiro do
-> portal (`italia-portale/`) foi alterado. Base final = vivo **`278cd489`** (lote 2), por rebase limpo.
+> portal (`italia-portale/`) foi alterado. Base final = vivo **`554c1ec1`** (lote 3), por reaplicação limpa. PRONTO-SEM-MAPA.
 
 ## 1 · O que foi feito
 
@@ -109,8 +109,20 @@ P1 de volta · P4 de volta · `CORRIDA_UPSTREAM` ignorada · ambiguidade resolvi
 
 ## 7 · Mapa
 
-Regerado e validado pela cadeia **depois** deste relatório (o relatório entra na impressão da árvore, por isso
-tem de existir antes). O veredito está no commit `mapa: regerado pela cadeia (…ponte…)` e no fecho da missão.
+**Estado final: PRONTO-SEM-MAPA sobre o vivo `554c1ec1` (lote 3).**
+
+- Sobre `278cd489` o mapa foi regerado e validado duas vezes: `SYSTEM_MAP_CHECK=PASS` e carimbo `IGUAL`
+  (commits `4ebc6f06` e `780fa38a`, guardados no ramo local `backup/int-casco-ponte-780fa38a`).
+- O vivo avançou para `554c1ec1` às 22:25. Os 7 commits de código foram reaplicados sobre ele **sem conflito**; os
+  dois commits de mapa ficaram de fora, porque eram mapa de outra árvore.
+- A regra nova da coordenação (`FILA-PESADO.md`, 22:05) diz que **o mapa não entra na fila** e que a INTEGRA o
+  regenera uma vez por lote. Por isso **não corri a cadeia sobre `554c1ec1`**. As duas peças novas estão declaradas
+  em `architecture.declared.json` (`C-PONTE-INT-CASCO`, `C-PROVA-PONTE-CASCO`) e entraram sem conflito.
+- **Testes sobre `554c1ec1`:** leves, sim — ponte + esqueleto + espinha + modelo de objetos + primeira corrida =
+  **171/171**; mutação **31/31**. A bateria pesada por nome (848 testes) **não** foi repetida sobre `554c1ec1`: a
+  missão não está na fila do pesado. A última medida (sobre `278cd489`) deu 0 falhas novas. Os commits só
+  **acrescentam** ficheiros que nenhum teste dessa bateria carrega; mesmo assim, para `554c1ec1` isso é **NÃO
+  MEDIDO**.
 
 ## 8 · Adenda (ordem da coordenação 17:35) — esqueleto de «Intelligence Scientifica»
 
