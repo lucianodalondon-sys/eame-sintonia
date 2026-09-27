@@ -1,0 +1,773 @@
+{
+ "DATASET": "MEDIDA-GOLD-PUGLIA-V1",
+ "GOLD_SET": "PUGLIA-HUMANA-V1",
+ "VERSAO_DO_GOLD": "0aee57f6fe33c2da",
+ "BASE": "8a0727e107c92fd89d5d040c9d8eed51a6bfe42c",
+ "ANTES": {
+  "LEITURA": "por DOCUMENTO (ler_boletim + campos_do_fato da base)",
+  "PLACAR": {
+   "CASOS_PASS": 0,
+   "CASOS_FAIL": 9,
+   "CASOS_NAO_MEDIDOS": 1,
+   "CHAVES_PASS": 10,
+   "CHAVES_FAIL": 24,
+   "CHAVES_NAO_MEDIDAS": 2,
+   "CHAVES_FORA_DESTE_EXTRATOR": 20
+  },
+  "CASOS": {
+   "C01": "FAIL",
+   "C02": "FAIL",
+   "C03": "FAIL",
+   "C04": "FAIL",
+   "C05": "FAIL",
+   "C06": "FAIL",
+   "C07": "FAIL",
+   "C08": "FAIL",
+   "C09": "FAIL",
+   "C10": "NAO_MEDIDO"
+  }
+ },
+ "DEPOIS": {
+  "LEITURA": "por AFIRMACAO (boletim_do_campo.ler_afirmacao)",
+  "PLACAR": {
+   "CASOS_PASS": 9,
+   "CASOS_FAIL": 0,
+   "CASOS_NAO_MEDIDOS": 1,
+   "CHAVES_PASS": 34,
+   "CHAVES_FAIL": 0,
+   "CHAVES_NAO_MEDIDAS": 2,
+   "CHAVES_FORA_DESTE_EXTRATOR": 20
+  },
+  "CASOS": {
+   "C01": "PASS",
+   "C02": "PASS",
+   "C03": "PASS",
+   "C04": "PASS",
+   "C05": "PASS",
+   "C06": "PASS",
+   "C07": "PASS",
+   "C08": "PASS",
+   "C09": "PASS",
+   "C10": "NAO_MEDIDO"
+  }
+ },
+ "DETALHE_ANTES": [
+  {
+   "CASO": "C01",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "UNRESOLVED",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "VISUAL_HEADER_CANDIDATE",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "PEST": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "Bactrocera oleae",
+     "SAIU": [
+      "mosca dell'olivo"
+     ]
+    },
+    "PEST_ENTITY_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "SPAN",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "CROP": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "oliveira",
+     "SAIU": [
+      "olivo"
+     ]
+    },
+    "CROP_ENTITY_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "SPAN (pelo nome «mosca dell'olivo»)",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "FACT_TIME": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "FAIL",
+   "ORIGEM_DO_TEXTO": {
+    "SA-01": "RECONSTRUIDO_DO_GOLD"
+   }
+  },
+  {
+   "CASO": "C02",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "Collina Litoranea (BR)",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "SECTION_HEADER",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "PEST": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "Bactrocera oleae",
+     "SAIU": [
+      "mosca dell'olivo"
+     ]
+    },
+    "PEST_ENTITY_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "DOCUMENT_TITLE",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "CROP": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "oliveira",
+     "SAIU": [
+      "olivo"
+     ]
+    },
+    "CROP_ENTITY_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "DOCUMENT_TITLE",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "PUBLISHED_AT": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "FACT_TIME": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "FAIL",
+   "ORIGEM_DO_TEXTO": {
+    "SA-18": "RECONSTRUIDO_DO_GOLD + cabecalho citado «COMPRENSORIO - BR - COLLINA LITORANEA»"
+   }
+  },
+  {
+   "CASO": "C03",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "Collina Litoranea (BR)",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "SECTION_HEADER",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "PEST": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "Bactrocera oleae",
+     "SAIU": [
+      "cercosporiosi",
+      "cocciniglia",
+      "lebbra",
+      "mosca dell'olivo",
+      "occhio di pavone",
+      "xylella"
+     ]
+    },
+    "PEST_ENTITY_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "SPAN",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "USAVEL_COMO_FATO_OBSERVADO": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "NOTA": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "FAIL",
+   "ORIGEM_DO_TEXTO": {
+    "SA-25": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-59da05274359eff6.txt"
+   }
+  },
+  {
+   "CASO": "C04",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "zona costiera del Gargano",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "TEXT",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "PEST": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "UNKNOWN",
+     "SAIU": [
+      "mosca dell'olivo",
+      "tignola"
+     ]
+    },
+    "CROP": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "oliveira",
+     "SAIU": [
+      "olivo"
+     ]
+    },
+    "CROP_ENTITY_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "SPAN/PARAGRAPH_CONTEXT",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "NOTA": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "FAIL",
+   "ORIGEM_DO_TEXTO": {
+    "SA-06": "RECONSTRUIDO_DO_GOLD"
+   }
+  },
+  {
+   "CASO": "C05",
+   "CHAVES": {
+    "FICHA_FIEL": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "ERRO": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "PESTS": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": [
+      "Bactrocera oleae",
+      "margaronia"
+     ],
+     "SAIU": [
+      "mosca dell'olivo"
+     ]
+    },
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "UNRESOLVED",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "VISUAL_HEADER_CANDIDATE (+ «TERRITORIO ESCLUSO GARGANO» no texto nao resolve provincia)",
+     "SAIU": "NAO_PRODUZIDO"
+    }
+   },
+   "VEREDITO": "FAIL",
+   "ORIGEM_DO_TEXTO": {
+    "SA-12": "RECONSTRUIDO_DO_GOLD"
+   }
+  },
+  {
+   "CASO": "C06",
+   "CHAVES": {
+    "FICHA_FIEL": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "ERRO": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "UNRESOLVED",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "VISUAL_HEADER_CANDIDATE",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "FAIL",
+   "ORIGEM_DO_TEXTO": {
+    "SA-14": "RECONSTRUIDO_DO_GOLD"
+   }
+  },
+  {
+   "CASO": "C07",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "Pianura Salentina Nord (LE)",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "SECTION_HEADER",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "APLICACOES_TERRITORIAIS": {
+     "VEREDITO": "NAO_MEDIDO",
+     "PORQUE": "o documento da ficha nao esta no repo; so o contexto de 400 letras (ver o teste do boletim real A.P.OL. n.9, mesmo paragrafo em 3 secoes)"
+    },
+    "INSTITUICOES_INDEPENDENTES": {
+     "VEREDITO": "NAO_MEDIDO",
+     "PORQUE": "o documento da ficha nao esta no repo; so o contexto de 400 letras (ver o teste do boletim real A.P.OL. n.9, mesmo paragrafo em 3 secoes)"
+    }
+   },
+   "VEREDITO": "FAIL",
+   "ORIGEM_DO_TEXTO": {
+    "SA-19": "RECONSTRUIDO_DO_GOLD + cabecalho citado «COMPRENSORIO - LE - PIANURA SALENTINA NORD»"
+   }
+  },
+  {
+   "CASO": "C08",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "UNRESOLVED",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "TEXT",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "LOCATION_EXPRESSION_RAW": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "zone irrigue costiere di tutti comprensori",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "PONTO_NO_MAPA": {
+     "VEREDITO": "PASS",
+     "ESPERADO": false,
+     "SAIU": false
+    },
+    "PEST_ENTITY_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": "DOCUMENT_TITLE",
+     "SAIU": "NAO_PRODUZIDO"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "FAIL",
+   "ORIGEM_DO_TEXTO": {
+    "SA-24": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-59da05274359eff6.txt"
+   }
+  },
+  {
+   "CASO": "C09",
+   "CHAVES": {
+    "RELATION": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "CONTRADICTION_STATUS": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "ENTITY_SOURCE": {
+     "VEREDITO": "FAIL",
+     "ESPERADO": {
+      "SA-03": "PARAGRAPH_CONTEXT",
+      "SA-32": "SECTION_TITLE"
+     },
+     "SAIU": {
+      "SA-03": "NAO_PRODUZIDO",
+      "SA-32": "NAO_PRODUZIDO"
+     }
+    }
+   },
+   "VEREDITO": "FAIL",
+   "ORIGEM_DO_TEXTO": {
+    "SA-03": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-e612807928b5ada9.txt",
+    "SA-32": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-0c2723e66201f966.txt"
+   }
+  },
+  {
+   "CASO": "C10",
+   "CHAVES": {
+    "RELATION": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "CONTRADICTION": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "CONCLUIR_MUDANCA_DO_CAMPO": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "NAO_MEDIDO",
+   "ORIGEM_DO_TEXTO": {
+    "SA-28": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-3e941738599367d7.txt",
+    "SA-18": "RECONSTRUIDO_DO_GOLD + cabecalho citado «COMPRENSORIO - BR - COLLINA LITORANEA»"
+   }
+  }
+ ],
+ "DETALHE_DEPOIS": [
+  {
+   "CASO": "C01",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "UNRESOLVED",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "VISUAL_HEADER_CANDIDATE",
+     "SAIU": "VISUAL_HEADER_CANDIDATE"
+    },
+    "PEST": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "Bactrocera oleae",
+     "SAIU": [
+      "mosca dell'olivo"
+     ]
+    },
+    "PEST_ENTITY_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "SPAN",
+     "SAIU": "SPAN"
+    },
+    "CROP": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "oliveira",
+     "SAIU": [
+      "olivo"
+     ]
+    },
+    "CROP_ENTITY_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "SPAN (pelo nome «mosca dell'olivo»)",
+     "SAIU": "SPAN"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "FACT_TIME": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "PASS",
+   "ORIGEM_DO_TEXTO": {
+    "SA-01": "RECONSTRUIDO_DO_GOLD"
+   }
+  },
+  {
+   "CASO": "C02",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "Collina Litoranea (BR)",
+     "SAIU": "Collina Litoranea (BR)"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "SECTION_HEADER",
+     "SAIU": "SECTION_HEADER"
+    },
+    "PEST": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "Bactrocera oleae",
+     "SAIU": [
+      "mosca dell'olivo"
+     ]
+    },
+    "PEST_ENTITY_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "DOCUMENT_TITLE",
+     "SAIU": "DOCUMENT_TITLE"
+    },
+    "CROP": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "oliveira",
+     "SAIU": [
+      "olivo"
+     ]
+    },
+    "CROP_ENTITY_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "DOCUMENT_TITLE",
+     "SAIU": "DOCUMENT_TITLE"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "PUBLISHED_AT": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "FACT_TIME": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "PASS",
+   "ORIGEM_DO_TEXTO": {
+    "SA-18": "RECONSTRUIDO_DO_GOLD + cabecalho citado «COMPRENSORIO - BR - COLLINA LITORANEA»"
+   }
+  },
+  {
+   "CASO": "C03",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "Collina Litoranea (BR)",
+     "SAIU": "Collina Litoranea (BR)"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "SECTION_HEADER",
+     "SAIU": "SECTION_HEADER"
+    },
+    "PEST": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "Bactrocera oleae",
+     "SAIU": [
+      "mosca dell'olivo"
+     ]
+    },
+    "PEST_ENTITY_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "SPAN",
+     "SAIU": "SPAN"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "USAVEL_COMO_FATO_OBSERVADO": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "NOTA": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "PASS",
+   "ORIGEM_DO_TEXTO": {
+    "SA-25": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-59da05274359eff6.txt"
+   }
+  },
+  {
+   "CASO": "C04",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "zona costiera del Gargano",
+     "SAIU": "zona costiera del Gargano"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "TEXT",
+     "SAIU": "TEXT"
+    },
+    "PEST": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "UNKNOWN",
+     "SAIU": "UNKNOWN"
+    },
+    "CROP": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "oliveira",
+     "SAIU": [
+      "olivo"
+     ]
+    },
+    "CROP_ENTITY_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "SPAN/PARAGRAPH_CONTEXT",
+     "SAIU": "SPAN"
+    },
+    "NOTA": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "PASS",
+   "ORIGEM_DO_TEXTO": {
+    "SA-06": "RECONSTRUIDO_DO_GOLD"
+   }
+  },
+  {
+   "CASO": "C05",
+   "CHAVES": {
+    "FICHA_FIEL": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "ERRO": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "PESTS": {
+     "VEREDITO": "PASS",
+     "ESPERADO": [
+      "Bactrocera oleae",
+      "margaronia"
+     ],
+     "SAIU": [
+      "mosca dell'olivo",
+      "margaronia"
+     ]
+    },
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "UNRESOLVED",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "VISUAL_HEADER_CANDIDATE (+ «TERRITORIO ESCLUSO GARGANO» no texto nao resolve provincia)",
+     "SAIU": "VISUAL_HEADER_CANDIDATE"
+    }
+   },
+   "VEREDITO": "PASS",
+   "ORIGEM_DO_TEXTO": {
+    "SA-12": "RECONSTRUIDO_DO_GOLD"
+   }
+  },
+  {
+   "CASO": "C06",
+   "CHAVES": {
+    "FICHA_FIEL": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "ERRO": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "UNRESOLVED",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "VISUAL_HEADER_CANDIDATE",
+     "SAIU": "VISUAL_HEADER_CANDIDATE"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "PASS",
+   "ORIGEM_DO_TEXTO": {
+    "SA-14": "RECONSTRUIDO_DO_GOLD"
+   }
+  },
+  {
+   "CASO": "C07",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "Pianura Salentina Nord (LE)",
+     "SAIU": "Pianura Salentina Nord (LE)"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "SECTION_HEADER",
+     "SAIU": "SECTION_HEADER"
+    },
+    "APLICACOES_TERRITORIAIS": {
+     "VEREDITO": "NAO_MEDIDO",
+     "PORQUE": "o documento da ficha nao esta no repo; so o contexto de 400 letras (ver o teste do boletim real A.P.OL. n.9, mesmo paragrafo em 3 secoes)"
+    },
+    "INSTITUICOES_INDEPENDENTES": {
+     "VEREDITO": "NAO_MEDIDO",
+     "PORQUE": "o documento da ficha nao esta no repo; so o contexto de 400 letras (ver o teste do boletim real A.P.OL. n.9, mesmo paragrafo em 3 secoes)"
+    }
+   },
+   "VEREDITO": "PASS",
+   "ORIGEM_DO_TEXTO": {
+    "SA-19": "RECONSTRUIDO_DO_GOLD + cabecalho citado «COMPRENSORIO - LE - PIANURA SALENTINA NORD»"
+   }
+  },
+  {
+   "CASO": "C08",
+   "CHAVES": {
+    "FACT_LOCATION": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "UNRESOLVED",
+     "SAIU": "UNRESOLVED"
+    },
+    "LOCATION_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "TEXT",
+     "SAIU": "TEXT"
+    },
+    "LOCATION_EXPRESSION_RAW": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "zone irrigue costiere di tutti comprensori",
+     "SAIU": "zone irrigue costiere di tutti comprensori"
+    },
+    "PONTO_NO_MAPA": {
+     "VEREDITO": "PASS",
+     "ESPERADO": false,
+     "SAIU": false
+    },
+    "PEST_ENTITY_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": "DOCUMENT_TITLE",
+     "SAIU": "DOCUMENT_TITLE"
+    },
+    "CLASSE": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "PASS",
+   "ORIGEM_DO_TEXTO": {
+    "SA-24": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-59da05274359eff6.txt"
+   }
+  },
+  {
+   "CASO": "C09",
+   "CHAVES": {
+    "RELATION": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "CONTRADICTION_STATUS": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "ENTITY_SOURCE": {
+     "VEREDITO": "PASS",
+     "ESPERADO": {
+      "SA-03": "PARAGRAPH_CONTEXT",
+      "SA-32": "SECTION_TITLE"
+     },
+     "SAIU": {
+      "SA-03": "PARAGRAPH_CONTEXT",
+      "SA-32": "SECTION_TITLE"
+     }
+    }
+   },
+   "VEREDITO": "PASS",
+   "ORIGEM_DO_TEXTO": {
+    "SA-03": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-e612807928b5ada9.txt",
+    "SA-32": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-0c2723e66201f966.txt"
+   }
+  },
+  {
+   "CASO": "C10",
+   "CHAVES": {
+    "RELATION": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "CONTRADICTION": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    },
+    "CONCLUIR_MUDANCA_DO_CAMPO": {
+     "VEREDITO": "FORA_DESTE_EXTRATOR"
+    }
+   },
+   "VEREDITO": "NAO_MEDIDO",
+   "ORIGEM_DO_TEXTO": {
+    "SA-28": "TEXTO_DERIVADO_REAL data/derivados/texto/RAW-3e941738599367d7.txt",
+    "SA-18": "RECONSTRUIDO_DO_GOLD + cabecalho citado «COMPRENSORIO - BR - COLLINA LITORANEA»"
+   }
+  }
+ ]
+}

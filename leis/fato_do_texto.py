@@ -86,6 +86,70 @@ def _palavras(l: str) -> int:
     return len(re.findall(r"[A-Za-zÀ-ÿ']+", l))
 
 
+# ── 1b · D19 (BOLETIM-POR-SECAO, 27/09) · o que esta AO LADO da noticia sai ANTES de extrair ──────────
+# Medido pela Intelligence R6: uma noticia sobre Xylella em AMENDOEIRA em MATERA saiu «nocciolo / Basilicata»
+# — a cultura e a regiao vieram da MANCHETE VIZINHA (barra lateral «Ultime notizie»), nao do texto da noticia.
+# Quando a pagina guardada comeca pela barra lateral, a «1.a linha» (o titulo) e a manchete de OUTRA noticia,
+# e uma manchete com 8+ palavras passava por frase do corpo.
+# Sai (trocada por espacos: o texto guarda o COMPRIMENTO, para as posicoes dos trechos continuarem certas):
+#   · a linha de MENU: 3+ separadores « | », « · », « » » (breadcrumb e navegacao);
+#   · o BLOCO VIZINHO: a linha que so tem o rotulo («Leggi anche», «Articoli correlati», «Ultime notizie»,
+#     «I piu letti»…) e as manchetes que a seguem — linhas sem ponto final e com ate PALAVRAS_DA_MANCHETE
+#     palavras, ate MANCHETES_NO_BLOCO; para na 1.a frase de corpo (termina em ponto) ou linha longa;
+#   · o rotulo EM LINHA: «Leggi anche: <manchete>» — a linha inteira.
+# ⚠️ LIMITE DECLARADO: manchete vizinha SEM rotulo nem menu nao se distingue, so pelo texto, de um intertitulo
+# da propria noticia. Essa fica — e o que a prova dela nao for do trecho continua a ser dito pela proveniencia
+# (ENTITY_SOURCE / LOCATION_SOURCE em `leis/boletim_do_campo.py`), nunca promovido em silencio.
+PALAVRAS_DA_MANCHETE = 25
+MANCHETES_NO_BLOCO = 15
+_ROTULOS_VIZINHOS = (
+    r"leggi\s+anche", r"leggi\s+(?:pure|altro)", r"vedi\s+anche", r"potrebbe(?:ro)?\s+interessarti",
+    r"ti\s+potrebbe(?:ro)?\s+interessare", r"articoli\s+correlati", r"notizie\s+correlate", r"news\s+correlate",
+    r"correlati", r"ultime\s+notizie", r"ultime\s+news", r"ultimi\s+articoli", r"articoli\s+recenti",
+    r"altre\s+notizie", r"altri\s+articoli", r"(?:i\s+)?pi[uù]\s+lett[ie]", r"(?:le\s+)?pi[uù]\s+lette",
+    r"dalla\s+stessa\s+(?:categoria|sezione)", r"top\s+news", r"tags?", r"argomenti", r"menu",
+)
+_RE_ROTULO_VIZINHO = re.compile(r"^\s*(?:%s)\s*:?\s*$" % "|".join(_ROTULOS_VIZINHOS), re.I)
+_RE_ROTULO_EM_LINHA = re.compile(r"^\s*(?:%s)\s*:\s*\S" % "|".join(_ROTULOS_VIZINHOS), re.I)
+_RE_SEPARADOR_DE_MENU = re.compile(r"\s[|·»]\s")
+
+
+def vizinhos(texto: str) -> list:
+    """As linhas que NAO sao da noticia (menu, barra lateral, manchetes vizinhas): [(inicio, fim, motivo)]."""
+    fora, pos, bloco = [], 0, 0
+    for linha in str(texto or "").splitlines(keepends=True):
+        l = linha.strip()
+        ini, fim = pos, pos + len(linha.rstrip("\r\n"))
+        pos += len(linha)
+        if not l:
+            continue
+        if _RE_ROTULO_VIZINHO.match(l):
+            fora.append((ini, fim, "rotulo de bloco vizinho «%s»" % l))
+            bloco = MANCHETES_NO_BLOCO
+            continue
+        if _RE_ROTULO_EM_LINHA.match(l):
+            fora.append((ini, fim, "manchete vizinha em linha «%s»" % l[:80]))
+            continue
+        if len(_RE_SEPARADOR_DE_MENU.findall(" %s " % l)) >= 3:
+            fora.append((ini, fim, "linha de menu"))
+            continue
+        if bloco:
+            if l.endswith((".", "!")) or _palavras(l) > PALAVRAS_DA_MANCHETE:
+                bloco = 0                     # a 1.a frase de corpo fecha o bloco vizinho
+                continue
+            fora.append((ini, fim, "manchete do bloco vizinho «%s»" % l[:80]))
+            bloco -= 1
+    return fora
+
+
+def sem_vizinhos(texto: str) -> str:
+    """O texto com menu, barra lateral e manchetes vizinhas trocados por espacos (mesmo comprimento)."""
+    t = str(texto or "")
+    for ini, fim, _ in vizinhos(t):
+        t = t[:ini] + " " * (fim - ini) + t[fim:]
+    return t
+
+
 # ── o TITULO e a DESCRICAO (EXTRATOR-LUGAR-V2 + EXTRATOR-EVENTO-V2, 26/09; juntos em EXTRATORES-V2-JUNTOS) ──
 # Medido pela RENDIMENTO-POR-FONTE: num video o texto guardado e SO o titulo (60-100 letras), e `corpo()`
 # deitava-o fora por ter < 8 palavras («Potatura dell'olivo: a Macerata la 9a selezione studenti», IT-T12-008).
@@ -114,8 +178,8 @@ def _linhas_curtas(texto: str) -> list:
 
 
 def titulo(texto: str) -> str:
-    """A 1.a linha do texto sem o nome do site; '' se nao servir."""
-    linhas = [l.strip() for l in str(texto or "").splitlines() if l.strip()]
+    """A 1.a linha do texto sem o nome do site; '' se nao servir. D19: a barra lateral sai antes."""
+    linhas = [l.strip() for l in sem_vizinhos(texto).splitlines() if l.strip()]
     if not linhas:
         return ""
     m = _RE_SEPARADOR_DO_SITE.search(linhas[0])
@@ -130,7 +194,9 @@ def titulo(texto: str) -> str:
 def corpo(texto: str) -> str:
     """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora.
     O titulo curto (1.a linha, sem o nome do site) entra a frente, como frase propria; um texto sem NENHUMA
-    frase longa e lido como titulo (no maximo LINHAS_DO_TITULO linhas curtas)."""
+    frase longa e lido como titulo (no maximo LINHAS_DO_TITULO linhas curtas).
+    D19: menu, barra lateral e manchetes vizinhas saem ANTES (`sem_vizinhos`)."""
+    texto = sem_vizinhos(texto)
     fica = []
     t = titulo(texto)
     if t:

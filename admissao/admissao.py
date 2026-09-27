@@ -2059,9 +2059,16 @@ def _cultura_fora_da_regua(item: dict) -> tuple:
     ⚠️ So esses dois sitios. O corpo inteiro traz a barra lateral: numa pagina da myfruit os
     titulos de outras noticias («a Firenze prezzo mirtilli») repetem-se em dezenas de paginas.
     Devolve (culturas, de_onde) — de_onde diz qual dos dois sitios casou.
+
+    ⚠️ D19 (BOLETIM-POR-SECAO): a «1.a linha» so e o titulo DEPOIS de sair a barra lateral. Uma pagina
+    guardada que comeca por «Ultime notizie» tinha como 1.a linha a manchete de OUTRA noticia («… nocciolo
+    in Basilicata») e a cultura dela entrava na chave. Menu e bloco vizinho saem por `fato_do_texto.sem_vizinhos`
+    — o mesmo dono do «corpo, nao a pagina»; nao ha segunda regra aqui.
     """
     import re
-    texto = str(item.get("texto") or "")
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leis"))
+    import fato_do_texto as FT                                     # noqa: PLC0415
+    texto = FT.sem_vizinhos(str(item.get("texto") or ""))
     titulo = next((l for l in texto.splitlines() if l.strip()), "")
     prova = " ".join(re.findall(r"«([^»]*)»", str(item.get("fact_location_basis") or "")))
     vocab = CULTURA_OBRIGATORIA["T1"] + "|" + CULTURA_SO_DA_CHAVE
