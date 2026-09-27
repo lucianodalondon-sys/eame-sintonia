@@ -1,8 +1,12 @@
 # POLSO-FONTES — as fontes públicas de preço que faltam
 
-Missão da coordenação, 17:35. Ramo `nuvem-polso-mercato-v1`, sobre `940b6d359` (POLSO-DI-MERCATO).
-**PRONTO-SEM-MAPA**: há um script novo (`scripts/polso_mercato/medir_fixtures.py`) sem peça no mapa (P9
-pendente; é da peça `C-PRECO-DE-MERCADO`). Sem rede: tudo o que segue foi lido **no repo**. Onde o repo não
+Missões da coordenação de 26/09 17:35 e 22:05. Ramo `nuvem-polso-mercato-v1`, **rebaseado sobre
+`554c1ec1`** (base do LOTE 4, aviso das 22:25). No rebase, os commits «mapa: regerado» do POLSO-DI-MERCATO
+saíram (conflito só nos gerados; a base ganhou) — o mapa deste ramo **não** está regerado sobre `554c1ec1`.
+Depois do rebase: `tests.test_preco_de_mercado` OK e mutação 20/20 de novo.
+**PRONTO-SEM-MAPA**: ficam sem peça no mapa (P9 pendente; são da peça `C-PRECO-DE-MERCADO`)
+`scripts/polso_mercato/medir_fixtures.py`, `dominio_livre_24h.py`, `um_pedido_por_fonte.sh` e as provas JSON
+deste relatório. Sem rede: tudo o que segue foi lido **no repo**. Onde o repo não
 sabe, está escrito NAO SEI ou NAO VERIFICADO.
 
 ## Por que faltam fontes — medido no acervo
