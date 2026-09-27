@@ -69,10 +69,11 @@
 <script src="italy-casa.js"></script>
 <script src="vendor/jspdf-2.5.2.umd.min.js"></script>
 <script src="italy-pdf.js"></script>
-<!-- CASCO-POTE (D97): o CARREGADOR do pote da Intelligence (sem dados). Os dados vivem em italy-pote.local.js,
-     GERADO por audit/casco/pote-casco.mjs a partir do POTE_INTELLIGENCE_CASCO/v1: fora do Git e do deploy
-     (EXPERIMENTAL · NAO_PARA_CLIENTE), e so pedidos com ?pote=local. -->
-<script src="italy-pote.js"></script>
+<!-- POTE-UNICO (D95/D96): o CARREGADOR e a LEITURA do pote da Intelligence (POTE_INTELLIGENCE_CASCO/v2), sem
+     dados. O pote vive em sintonia-pote.js, GERADO por pacote/pote_intelligence_casco.py a partir de UMA corrida:
+     fora do Git e do deploy, e so pedido com ?pote=local. Com ele, cada ferramenta desenha o seu compartimento
+     COM PRECEDENCIA sobre o snapshot e a demo; sem ele, nada muda. -->
+<script src="sintonia-pote-casco.js"></script>
 <style>
   html, body { margin:0; padding:0; background:#110E0D; }
   a { color:#009845; text-decoration:none; }
@@ -291,67 +292,6 @@
     </div>
     </sc-if>
 
-    <!-- ================= CASCO-POTE · L'INTELLIGENCE DELLA CORSA CORRENTE (D97: SALA -> INTELLIGENCE -> POTE -> CASCO) =================
-         Si disegna solo se il pote e stato caricato (?pote=local). Gli OGGETTI sono la risposta dello strumento; cio che
-         «esiste» si mostra solo come spiegazione, con la differenza accanto. Nessuna conversione di specie, nessun incrocio. -->
-    <sc-if value="{{ ptShow }}" hint-placeholder-val="{{ false }}">
-    <div data-casco="pote" style="margin:10px 22px 0;border-radius:14px;border:1px solid rgba(245,179,23,0.45);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:10px">
-      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px">
-        <span style="padding:3px 9px;border-radius:9999px;background:#F5B317;color:#110E0D;font-size:10px;font-weight:700;letter-spacing:0.12em">{{ pt.marca }}</span>
-        <span style="font-size:12.5px;font-weight:700;color:#fff">{{ pt.L.title }}</span>
-        <span style="font-size:10.5px;color:#C9C3C1">{{ pt.meta }}</span>
-      </div>
-      <div style="font-size:10px;color:#8F8886;line-height:1.5">{{ pt.meta2 }}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div style="display:flex;flex-direction:column;gap:3px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.12em;color:#8F8886">{{ pt.L.question }} · {{ pt.c.secao }}</span><span style="font-size:12px;color:#EDEAE9">{{ pt.c.pergunta }}</span></div>
-        <div style="display:flex;flex-direction:column;gap:3px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.12em;color:#8F8886">{{ pt.L.expected }}</span><span style="font-size:11px;color:#C9C3C1">{{ pt.c.entradaEsperada }}</span></div>
-      </div>
-
-      <sc-if value="{{ pt.hasObj }}" hint-placeholder-val="{{ true }}">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ pt.L.answer }} · {{ pt.objCount }}</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:8px">
-        <sc-for list="{{ pt.objs }}" as="o" hint-placeholder-count="2">
-          <div style="border-radius:11px;border:1px solid rgba(0,152,69,0.35);background:#161312;padding:9px 11px;display:flex;flex-direction:column;gap:5px;min-width:0">
-            <div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="padding:1px 7px;border-radius:9999px;border:1px solid rgba(0,177,82,0.5);color:#7BE0A6;font-size:9.5px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ o.especie }}</span><span style="font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ o.titulo }}">{{ o.titulo }}</span></div>
-            <sc-for list="{{ o.campos }}" as="f" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:120px 1fr;gap:8px;font-size:10.5px;line-height:1.4"><span style="color:#8F8886;font-weight:700;letter-spacing:0.04em">{{ f.k }}</span><span style="color:{{ f.color }};word-break:break-word">{{ f.v }}</span></div></sc-for>
-            <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,0.06);padding-top:5px;font-size:9.5px;color:#8F8886;word-break:break-all">
-              <span><b style="color:#B1A9A7">{{ pt.L.proof }}</b> {{ o.prova.cadeia }}</span>
-              <span>{{ pt.L.source }} {{ o.prova.fonte }} · {{ pt.L.published }} {{ o.prova.publicado }}</span>
-              <sc-if value="{{ o.hasUrl }}" hint-placeholder-val="{{ false }}"><a href="{{ o.prova.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ pt.L.open }} {{ o.prova.url }}</a></sc-if>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-      </sc-if>
-
-      <sc-if value="{{ pt.isEmpty }}" hint-placeholder-val="{{ false }}">
-      <div style="border-radius:11px;border:1px solid rgba(245,179,23,0.40);background:#161312;padding:10px 12px;display:flex;flex-direction:column;gap:5px">
-        <span style="font-size:12px;font-weight:700;color:#F5B317;letter-spacing:0.04em">{{ pt.c.classificacao }}</span>
-        <span style="font-size:11px;color:#EDEAE9;line-height:1.5"><b style="color:#8F8886">{{ pt.L.diff }}</b> {{ pt.c.diferenca }}</span>
-        <span style="font-size:11px;color:#C9C3C1"><b style="color:#8F8886">{{ pt.L.owner }}</b> {{ pt.c.responsavel }} · <b style="color:#8F8886">{{ pt.L.missing }}</b> {{ pt.c.contratoQueFalta }}</span>
-      </div>
-      </sc-if>
-      <sc-if value="{{ pt.hasMissing }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#C9C3C1"><b style="color:#8F8886">{{ pt.L.missing }}</b> {{ pt.c.contratoQueFalta }}</div></sc-if>
-
-      <sc-if value="{{ pt.hasExiste }}" hint-placeholder-val="{{ false }}">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:#F5B317">{{ pt.L.exists }} · {{ pt.existeCount }}</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:8px;opacity:0.85">
-        <sc-for list="{{ pt.existe }}" as="o" hint-placeholder-count="2">
-          <div style="border-radius:11px;border:1px dashed rgba(245,179,23,0.35);background:#161312;padding:9px 11px;display:flex;flex-direction:column;gap:5px;min-width:0">
-            <div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="padding:1px 7px;border-radius:9999px;border:1px solid rgba(245,179,23,0.5);color:#F5B317;font-size:9.5px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ o.especie }}</span><span style="font-size:11.5px;font-weight:700;color:#EDEAE9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ o.titulo }}">{{ o.titulo }}</span></div>
-            <sc-for list="{{ o.campos }}" as="f" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:120px 1fr;gap:8px;font-size:10.5px;line-height:1.4"><span style="color:#8F8886;font-weight:700;letter-spacing:0.04em">{{ f.k }}</span><span style="color:{{ f.color }};word-break:break-word">{{ f.v }}</span></div></sc-for>
-            <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,0.06);padding-top:5px;font-size:9.5px;color:#8F8886;word-break:break-all">
-              <span><b style="color:#B1A9A7">{{ pt.L.proof }}</b> {{ o.prova.cadeia }}</span>
-              <span>{{ pt.L.source }} {{ o.prova.fonte }} · {{ pt.L.published }} {{ o.prova.publicado }}</span>
-              <sc-if value="{{ o.hasUrl }}" hint-placeholder-val="{{ false }}"><a href="{{ o.prova.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ pt.L.open }} {{ o.prova.url }}</a></sc-if>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-      </sc-if>
-      <div style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ pt.L.law }}</div>
-    </div>
-    </sc-if>
 
     <!-- ================= OPPORTUNITY RADAR ================= -->
     <sc-if value="{{ isRadar }}" hint-placeholder-val="{{ true }}">
@@ -3643,6 +3583,45 @@
     </div>
     </sc-if>
 
+    <!-- ================= POTE-UNICO · IL COMPARTIMENTO DELLA CORSA (D95/D96) =================
+         Una sola forma per tutte le viste: e la STESSA rotta della ferramenta, che con il pote disegna il suo
+         compartimento invece del legado. Non e una schermata nuova. La specie ha colore proprio: il futuro
+         (tratteggiato, blu secondario) non si confonde con l'opportunita (verde). NON SO resta scritto. -->
+    <sc-if value="{{ poteVista }}" hint-placeholder-val="{{ false }}">
+    <div data-view="pote" data-pote-compartimento="{{ pote.comp.codigo }}" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
+      <div data-marca="1" style="border-radius:10px;background:#000;color:#fff;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:0.08em">{{ pote.faixa }}</div>
+      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ pageTitle }}</h1>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:var(--font-secondary);font-size:12px;color:#C9C3C1"><sc-for list="{{ pote.run }}" as="r" hint-placeholder-count="5"><span>{{ r.k }} <b style="color:{{ r.color }}">{{ r.v }}</b></span></sc-for></div></div>
+      <sc-if value="{{ pote.recusado }}" hint-placeholder-val="{{ false }}"><div data-pote-recusado="1" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ pote.recusa }}</div></sc-if>
+      <sc-if value="{{ pote.temComp }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;color:#EDEAE9"><b>{{ pote.comp.nome }}</b> · {{ pote.comp.estado }} · <b style="color:#fff;font-variant-numeric:tabular-nums">{{ pote.comp.n }}</b> {{ pote.comp.leitura }} · {{ pote.comp.recusados }} · {{ pote.comp.especies }}</div></sc-if>
+      <sc-if value="{{ pote.vazio }}" hint-placeholder-val="{{ false }}"><div data-pote-vazio="{{ pote.vazioTitulo }}" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><div style="font-size:12px;font-weight:700;color:#F5B317">{{ pote.vazioTitulo }}</div><div style="font-size:12px;color:#EDEAE9">{{ pote.vazioTexto }}</div></div></sc-if>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ pote.objetos }}" as="o" hint-placeholder-count="3">
+          <div data-pote-objeto="{{ o.id }}" data-especie="{{ o.especie }}" style="border-radius:14px;border:1px {{ o.traco }} {{ o.edge }};background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.11em;background:{{ o.badgeBg }};border:1px solid {{ o.edge }};color:{{ o.badgeInk }}">{{ o.especie }}</span>
+              <span data-marca="1" style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;background:#000;color:#fff;padding:2px 8px">{{ o.marca }}</span>
+              <span style="font-size:11px;color:#fff;font-weight:700">{{ o.id }}</span>
+              <span style="font-size:10px;color:#8F8886">especie dita por {{ o.especieDe }}</span>
+            </div>
+            <sc-if value="{{ o.eFuturo }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:#FFFFFF">{{ o.aviso }}</div></sc-if>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px">
+              <sc-for list="{{ o.chaves }}" as="c" hint-placeholder-count="4"><div style="border-radius:10px;border:1px solid rgba(203,197,195,0.10);padding:7px 10px;display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#8F8886">{{ c.k }}</div><div style="font-size:12px;font-weight:700;color:{{ c.color }};word-break:break-word">{{ c.v }}</div></div></sc-for>
+            </div>
+            <sc-if value="{{ o.temFora }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:3px"><div style="font-size:9.5px;letter-spacing:0.08em;color:#8F8886">{{ pote.L.fuori }}</div><sc-for list="{{ o.fora }}" as="c" hint-placeholder-count="1"><div style="font-size:11px;color:#C9C3C1">{{ c.k }} <b style="color:{{ c.color }}">{{ c.v }}</b></div></sc-for></div></sc-if>
+            <div style="font-size:11px;line-height:1.5;color:#C9C3C1">{{ o.porque.k }} <b style="color:{{ o.porque.color }}">{{ o.porque.v }}</b> · {{ o.contradiz.k }} <b style="color:{{ o.contradiz.color }}">{{ o.contradiz.v }}</b> · {{ o.incerteza.k }} <b style="color:{{ o.incerteza.color }}">{{ o.incerteza.v }}</b></div>
+            <div style="display:flex;flex-direction:column;gap:5px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px">
+              <span style="font-size:10px;font-weight:700;color:#8F8886;letter-spacing:0.08em">{{ pote.L.prova }}</span>
+              <sc-for list="{{ o.provas }}" as="p" hint-placeholder-count="1"><div style="display:flex;flex-direction:column;gap:2px;font-size:10.5px;color:#EDEAE9"><span style="word-break:break-word">{{ p.cadeia }}</span><span style="color:#8F8886">{{ p.upstream }}</span><sc-if value="{{ p.temUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ p.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;word-break:break-all">{{ p.urlTexto }}</a></sc-if><sc-if value="{{ p.semUrl }}" hint-placeholder-val="{{ false }}"><span style="color:{{ p.urlColor }};word-break:break-all">{{ p.urlTexto }}</span></sc-if><span style="color:#8F8886">{{ p.datas }}</span></div></sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ pote.temLacunas }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:3px"><div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ pote.L.lacune }}</div><sc-for list="{{ pote.lacunas }}" as="g" hint-placeholder-count="1"><div style="font-size:10.5px;color:#C9C3C1;word-break:break-word">{{ g.t }}</div></sc-for></div></sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ================= SALA · (vista de operacao do vivo, ausente neste ramo; marca o fim do bloco do pote) ================= -->
     <!-- ================= SOURCES ================= -->
     <sc-if value="{{ isSources }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
@@ -3979,6 +3958,33 @@ class Component extends DCLogic {
      lowest-precedence input to that model, not the source the UI starts from. */
   D() { return window.ITALY_DEMO; }
   M() { return window.ITALY_APP_MODEL || null; }
+
+  /* ══ POTE-UNICO · O POTE DA CORRIDA TEM PRECEDENCIA ══════════════════════
+     Com `window.SINTONIA_POTE` carregado (?pote=local), a rota de uma
+     ferramenta desenha o compartimento do pote e SO ele: as bandeiras da vista
+     de legado desligam-se, e o snapshot de 07/09 e a demo deixam de aparecer
+     ali. Uma vista que mostrasse os dois poria uma corrida de hoje ao lado de
+     uma inteligencia congelada, sem dizer qual e qual.
+
+         SNAPSHOT AO LADO DO POTE E DUAS VERDADES NA MESMA TELA.
+
+     A leitura e de `SINTONIA_POTE_CASCO.vm` (sintonia-pote-casco.js): nao
+     cruza, nao ordena, nao completa. Sem pote, ou numa rota que nenhum
+     compartimento reclama (sala, painel, detalhes), devolve null — e o casco
+     fica exatamente como estava. */
+  static FLAGS_DO_LEGADO = ['isMeeting', 'isRadarFuturo', 'isFuture', 'isArchive', 'isWindows', 'isMarket',
+    'isVoices', 'isCompetitors', 'isScience', 'isPortfolio', 'isEtichette', 'isSources'];
+  _poteTemPrecedencia(v) {
+    const W = (typeof window !== 'undefined') ? window : {};
+    const P = W.SINTONIA_POTE_CASCO || null;
+    const pv = (P && W.SINTONIA_POTE) ? P.vm(W.SINTONIA_POTE, this.state.view, this.state.lang) : null;
+    v.poteVista = !!pv;
+    v.pote = pv || {};
+    if (pv) for (const k of Component.FLAGS_DO_LEGADO) v[k] = false;
+    /* CASCO-REAL: a faixa «QUESTA SCHERMATA LEGGE» descreve o legado; com o pote, quem fala e o pote. */
+    if (pv) v.pvShow = false;
+    return v;
+  }
 
   /* §6 · A product is an entity, not a radar filter. The model owns the key, so a
      name typed in any case opens the same entity the registry knows. */
@@ -12110,41 +12116,15 @@ class Component extends DCLogic {
     const envNote = cwEN
       ? 'Intelligence from Italian and European public sources. Data as of ' + cwSpan + ' (each tool states its own). Demonstration only: Field Sales Network and the switched-off scenarios.'
       : 'Intelligence da fonti pubbliche italiane ed europee. Dati al ' + cwSpan + ' (ogni strumento dichiara i suoi). Dimostrativi solo: Rete Commerciale di Campo e gli scenari spenti.';
-    /* ══ CASCO-POTE (D97) · il compartimento del pote per questo strumento ══════
-       window.SINTONIA_POTE esiste solo con ?pote=local (EXPERIMENTAL · NON PER IL CLIENTE).
-       Il casco disegna OGGETTI come risposta; ENTRADA_QUE_EXISTE solo come spiegazione;
-       il vuoto con la classificazione §45 e la differenza. Nulla viene convertito. */
-    const cwPOTE = window.SINTONIA_POTE || null;
-    const cwPC = cwPOTE && cwPOTE.compartimentos ? cwPOTE.compartimentos[cwCap] : null;
-    const cwNS = /^N[AÃ]O SEI|NAO_SEI|NOT_MEASURED|NAO MEDID/;
-    const cwObj = (o) => Object.assign({}, o, { hasUrl: !!(o.prova && o.prova.url),
-      campos: (o.campos || []).map(([k, v]) => ({ k, v, color: cwNS.test(String(v)) ? '#F5B317' : '#EDEAE9' })) });
-    const ptShow = !!cwPC;
-    const pt = cwPC ? {
-      marca: cwPOTE.marca, c: cwPC,
-      L: cwEN
-        ? { title: 'Intelligence of the current run', question: 'QUESTION', expected: 'EXPECTED INPUT', answer: 'ANSWER OF THIS TOOL', exists: 'WHAT EXISTS AND WHY IT DOES NOT ANSWER YET · explanation only', diff: 'Difference:', owner: 'Responsible Intelligence:', missing: 'Missing contract:', proof: 'PROOF', source: 'source', published: 'published', open: 'open the document →',
-            law: 'The portal draws this pote and does nothing else: no crossing, no filled-in NOT KNOWN, no promotion of a signal to a finding or an opportunity (SOUL §44 · INT-LAW-023/280). Zero here does not prove absence in the world: it is this run and this cut.' }
-        : { title: "Intelligence della corsa corrente", question: 'DOMANDA', expected: 'INGRESSO ATTESO', answer: 'RISPOSTA DI QUESTO STRUMENTO', exists: "CIO CHE ESISTE E PERCHE NON RISPONDE ANCORA · solo spiegazione", diff: 'Differenza:', owner: 'Intelligence responsabile:', missing: 'Contratto mancante:', proof: 'PROVA', source: 'fonte', published: 'pubblicato', open: 'apri il documento →',
-            law: "Il portale disegna questo pote e nient'altro: nessun incrocio, nessun NON SO riempito, nessuna promozione di un segnale a scoperta o opportunita (SOUL §44 · INT-LAW-023/280). Zero qui non prova l'assenza nel mondo: e questa corsa e questo taglio." },
-      meta: `pote ${cwPOTE.rodada} · ${cwPOTE.chave} · ${cwEN ? 'Sala cut' : 'taglio della Sala'} ${String(cwPOTE.corte || '').slice(0, 16).replace('T', ' ')} UTC`,
-      meta2: `${cwPOTE.contrato} · ${cwEN ? 'engine' : 'motore'} ${cwPOTE.motor} · ponte ${cwPOTE.ponte} · ${cwPOTE.ruleset} · Sala ${cwPOTE.salaLinhas} ${cwEN ? 'rows, read-only' : 'righe, sola lettura'} = ${cwPOTE.soLeitura} · ${cwPOTE.estadoAnalitico} · ${cwEN ? 'check' : 'conferenza'} ${cwPOTE.conferencia} · ${cwPOTE.gate} · ${cwPOTE.ficheiro} sha256 ${String(cwPOTE.sha256 || '').slice(0, 16)}…`,
-      objs: (cwPC.objetos || []).map(cwObj), existe: (cwPC.existe || []).map(cwObj),
-      objCount: Object.entries(cwPC.objetosPorEspecie || {}).map(([k, n]) => n + ' ' + k).join(' · '),
-      existeCount: Object.entries(cwPC.existePorEspecie || {}).map(([k, n]) => n + ' ' + k).join(' · '),
-      hasObj: (cwPC.objetos || []).length > 0, isEmpty: (cwPC.objetos || []).length === 0,
-      hasExiste: (cwPC.existe || []).length > 0,
-      hasMissing: (cwPC.objetos || []).length > 0 && !!cwPC.contratoQueFalta,
-    } : { L: {}, c: {}, objs: [], existe: [] };
 
-    return {
+    return this._poteTemPrecedencia({
       nav, navEvidence,
       /* La stessa voce del menu, letta dalla schermata dei segnali: un solo
          oggetto, un solo contatore, un solo proprietario. */
       frRadar: { has: navRadarFuturo.count !== '', label: navRadarFuturo.label,
         count: navRadarFuturo.count, go: navRadarFuturo.go },
       kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
-      clockLabel, clockBack, envLabel, envNote, envDot, pv, pvShow, pt, ptShow,
+      clockLabel, clockBack, envLabel, envNote, envDot, pv, pvShow,
 
       /* ══ SUPERFICIE CANONICA DELLA RIUNIONE ═══════════════════════════════
          Ogni valore qui sotto e gia stato deciso dal motore e copiato
@@ -12501,7 +12481,7 @@ class Component extends DCLogic {
       // search
       envBadge: String(s.lang || 'it').toUpperCase(),
       searchGroups, searchTotal: sHits.length
-    };
+    });
   }
 }
 </script>

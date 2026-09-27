@@ -74,6 +74,11 @@
 
 /italia-portale/BASELINE
 
+# POTE-UNICO: o pote de UMA corrida da Intelligence (pacote/pote_intelligence_casco.py)
+# tem dado real e vive so no disco de quem o gerou. Ja esta no .gitignore do
+# cliente; esta e a segunda tranca, para um deploy feito a partir do disco.
+/italia-portale/client/sintonia-pote.js
+
 # Documentacao. Nada no portal liga a um .md; servi-los so alarga o publico.
 *.md
 **/*.md
