@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T12:48:53+00:00",
-    "HEAD": "368b0b4f89b659bda4e16f6cb8956924df868fa7",
+    "GENERATED_AT": "2026-09-27T16:31:27+00:00",
+    "HEAD": "683198a004e7f25d96b5e43a369a92d52b8cc074",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c229ce432afbfa98f443b39df67aa0ffc352f778f059bb23875a31668ec5f622",
-    "FICHEIROS_NA_IMPRESSAO": 4041,
+    "SOURCE_TREE_FINGERPRINT": "1a8bda5524e1e499ddfa2a7c55839c5ec43552d833b7d4b4a6b4953ba493726b",
+    "FICHEIROS_NA_IMPRESSAO": 4054,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -249,6 +249,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "coleta/dominio_registavel.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6faa69c083441a42d974591eac5ef172b5d4cd02",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "coleta/ephy.sh",
         "PAPEL": "FONTE",
         "VERSAO": "7f226e19c715e62bdbec3058c39356649afc7dc5",
@@ -272,7 +279,7 @@
       {
         "PATH": "coleta/espera_por_dominio.py",
         "PAPEL": "FONTE",
-        "VERSAO": "2d5ac8aec8d8763c187daa09fe9d931a04b02297",
+        "VERSAO": "36efae771edf4c32cf5d067736d4d4ad5dcb796e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -468,7 +475,7 @@
       {
         "PATH": "coleta/reserva_24h.py",
         "PAPEL": "FONTE",
-        "VERSAO": "65fd6ecf43c98a89fc2606c80ce3fceb39163937",
+        "VERSAO": "b52272857eb450f5385891e8aad0081190043fba",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -496,7 +503,7 @@
       {
         "PATH": "coleta/rota_navegador.py",
         "PAPEL": "FONTE",
-        "VERSAO": "507eed160bd3aee11a87d538de4aaf25a31481e0",
+        "VERSAO": "9668505962258defba4a79389914654d5e0c0a25",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1593,8 +1600,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 226,
-    "INPUTS_DIGEST": "3d57108b14c441ef71f4a2bef510688c8b4a1d016500ef9d56317d6935c35c3b",
+    "INPUTS_COUNT": 227,
+    "INPUTS_DIGEST": "d073fff35a8c603d6a3d70d5e8b2ac9ccb101d257f5ab3f703e6fc055cce11ee",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -3924,6 +3931,28 @@
       "no_ci": true
     },
     {
+      "ficheiro": "coleta/dominio_registavel.py",
+      "gaveta": "coleta",
+      "linhas": 62,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/espera_por_dominio.py",
+        "coleta/reserva_24h.py",
+        "coleta/rota_navegador.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/ephy.sh",
       "gaveta": "coleta",
       "linhas": 47,
@@ -3991,6 +4020,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/dominio_registavel.py",
         "coleta/scrap_http.py"
       ],
       "no_ci": false
@@ -4581,6 +4611,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/dominio_registavel.py",
         "coleta/italy_pilot_collect.mjs"
       ],
       "no_ci": false
@@ -4645,7 +4676,7 @@
     {
       "ficheiro": "coleta/rota_navegador.py",
       "gaveta": "coleta",
-      "linhas": 188,
+      "linhas": 190,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -4658,6 +4689,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/dominio_registavel.py",
         "coleta/italy_pilot_collect.mjs",
         "coleta/scrap_http.py",
         "ferramentas/captura_xhr.py"
@@ -6154,7 +6186,7 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 226,
+    "ficheiros_de_codigo": 227,
     "pontos_de_entrada": 163,
     "executores_que_saem_para_fora": 31,
     "sem_chamador_e_fora_do_ci": 110,

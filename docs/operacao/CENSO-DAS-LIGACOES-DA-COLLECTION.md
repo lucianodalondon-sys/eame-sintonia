@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  368b0b4f89b659bda4e16f6cb8956924df868fa7
-BRANCH           claude/lote4-verificar-ekdj83
-GERADO_EM        2026-09-27T12:29:07+00:00
+HEAD_DA_MEDICAO  683198a004e7f25d96b5e43a369a92d52b8cc074
+BRANCH           integra-noite-v4b
+GERADO_EM        2026-09-27T13:29:20-03:00
 CARDS            115
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -127,26 +127,26 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/reserva_24h.py` |
+| **peça real** | `coleta/dominio_registavel.py`, `coleta/reserva_24h.py` |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-CONTADOR-24H |
-| **prova de quem ativa** | provas/contador_24h_mutacao.py:22 _(plano CODE)_ |
-| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | coleta/espera_por_dominio.py:44; provas/_mutantes_prova_teto_social.py:20; provas/contador_24h_mutacao.py:22 |
+| **porquê** | estas pecas importam-na — C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 1 |
-| **arestas provadas** | entram 1 · saem 1 |
+| **arestas no mapa** | entram 0 · saem 5 |
+| **arestas provadas** | entram 0 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 2 |
+| **prova das ligações** | CODE 5 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
-| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-CORPUS` · Montar o corpus de fala e de ciencia
 
@@ -338,13 +338,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json`, `data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json`, `supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql` |
 | **o que sai · dado** | C-SUPABASE |
 | **o que sai · ficheiros** | `data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json` |
-| **arestas no mapa** | entram 5 · saem 11 |
-| **arestas provadas** | entram 4 · saem 11 |
+| **arestas no mapa** | entram 5 · saem 12 |
+| **arestas provadas** | entram 4 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 15 · NÃO SEI 1 |
+| **prova das ligações** | CODE 16 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -2932,9 +2932,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 42
-UNKNOWN            35
-SYSTEM_GAP         15
+UNKNOWN            36
 TERMINAL           15
+SYSTEM_GAP         14
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
 TOTAL              115

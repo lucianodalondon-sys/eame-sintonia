@@ -1,14 +1,14 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "368b0b4f89b659bda4e16f6cb8956924df868fa7",
+  "HEAD": "683198a004e7f25d96b5e43a369a92d52b8cc074",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 92,
+ "TOTAL_FICHEIROS": 93,
  "TOTAL_CAMINHOS_RELEVANTES": 76,
  "POR_ESTADO": {
-  "NOT_APPLICABLE": 16,
+  "NOT_APPLICABLE": 17,
   "NOT_INSTRUMENTED": 71,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
@@ -206,7 +206,7 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 92,
+  "TOTAL_FILES_SCANNED": 93,
   "TOTAL_RELEVANT_PATHS": 76,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
@@ -658,6 +658,30 @@
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
    "STATE": "PARTIAL"
+  },
+  {
+   "EXECUTOR_ID": "coleta/dominio_registavel.py",
+   "GAVETA": "coleta",
+   "LINHAS": 62,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
   },
   {
    "EXECUTOR_ID": "coleta/eppo_gd.py",
@@ -1342,7 +1366,7 @@
   {
    "EXECUTOR_ID": "coleta/rota_navegador.py",
    "GAVETA": "coleta",
-   "LINHAS": 188,
+   "LINHAS": 190,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,

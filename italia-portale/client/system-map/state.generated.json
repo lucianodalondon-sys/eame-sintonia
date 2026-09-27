@@ -331,6 +331,7 @@
       "coleta/cruzar_regua_rotulo.py",
       "coleta/denominaciones.py",
       "coleta/derivacao_forward.py",
+      "coleta/dominio_registavel.py",
       "coleta/ephy.sh",
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
@@ -2934,14 +2935,20 @@
       "provas/integra_noite/lote3-vivo-v1.json",
       "provas/integra_noite/lote3-vivo-v2.json",
       "provas/integra_noite/lote3-vivo-v3.json",
+      "provas/integra_noite/lote4-inteira-ramo-v1.json",
+      "provas/integra_noite/lote4-inteira-vivo-v1.json",
+      "provas/integra_noite/lote4-mutacao-contador-24h.txt",
+      "provas/integra_noite/lote4-mutantes-prova-teto-social.txt",
       "provas/integra_noite/lote4-ramo-v1.json",
       "provas/integra_noite/lote4-verificar-base-554c1ec1.json",
       "provas/integra_noite/lote4-verificar-ramo-abe77c39.json",
       "provas/integra_noite/lote4-vivo-v1.json",
       "provas/integra_noite/mutacao-d9-RESULTADO.txt",
       "provas/integra_noite/mutacao-da20-RESULTADO.txt",
+      "provas/integra_noite/mutacao-da21-RESULTADO.txt",
       "provas/integra_noite/mutacao_d9.py",
       "provas/integra_noite/mutacao_da20.py",
+      "provas/integra_noite/mutacao_da21.py",
       "provas/integra_noite/writeset-lote1.txt",
       "provas/integra_noite/writeset-lote2.txt",
       "provas/inventario_esperado.py",
@@ -3357,10 +3364,14 @@
       "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
       "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
       "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+      "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+      "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
       "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
       "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
       "scripts/lugar_fato/bateria_por_nome.py",
       "scripts/lugar_fato/medir_78.py",
+      "scripts/lugar_fato/medir_moldura_html.py",
+      "scripts/lugar_fato/mutar_data_do_fato.py",
       "scripts/lugar_fato/mutar_fato_do_texto.py",
       "scripts/lugar_fato/mutar_lei_do_tempo.py",
       "scripts/micro_coleta/COORTE-PROPOSTA.json",
@@ -3635,6 +3646,7 @@
       "tests/dados/c2-juiz/raw-1558.html",
       "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
       "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+      "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json",
       "tests/dados/item-social-ispra-porta.json",
       "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
       "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
@@ -3780,6 +3792,7 @@
       "tests/test_d24_video_de_pessoa.py",
       "tests/test_d36_envelope_equivalente.py",
       "tests/test_d37_campos_de_politica.py",
+      "tests/test_data_do_fato.py",
       "tests/test_dedup_video_social.py",
       "tests/test_egresso_consenso.py",
       "tests/test_ensaio_offline_micro.py",
@@ -4486,10 +4499,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-verificar-ekdj83",
-    "HEAD": "368b0b4f89b659bda4e16f6cb8956924df868fa7",
-    "GENERATED_AT": "2026-09-27T12:29:07+00:00",
-    "SOURCE_TREE_FINGERPRINT": "c229ce432afbfa98f443b39df67aa0ffc352f778f059bb23875a31668ec5f622"
+    "BRANCH": "integra-noite-v4b",
+    "HEAD": "683198a004e7f25d96b5e43a369a92d52b8cc074",
+    "GENERATED_AT": "2026-09-27T13:29:20-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1a8bda5524e1e499ddfa2a7c55839c5ec43552d833b7d4b4a6b4953ba493726b"
   },
   "FAMILIES": [
     {
@@ -43111,18 +43124,20 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "coleta/dominio_registavel.py",
         "coleta/reserva_24h.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
-        "C-PROVA-TETO-DOMINIO"
-      ],
+      "inbound": [],
       "outbound": [
-        "C-PROVA-CONTADOR-24H"
+        "C-PROVA-COLETA",
+        "C-PROVA-CONTADOR-24H",
+        "C-PROVA-TETO-DOMINIO",
+        "C-SCRAP-SOCIAL"
       ],
       "paises": {},
       "paises_dado": {},
@@ -43156,15 +43171,16 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
-        "QUEM": [
-          "C-PROVA-CONTADOR-24H"
-        ],
-        "PLANO": "CODE",
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
         "PROVA": [
-          "provas/contador_24h_mutacao.py:22"
+          "coleta/espera_por_dominio.py:44",
+          "provas/_mutantes_prova_teto_social.py:20",
+          "provas/contador_24h_mutacao.py:22",
+          "provas/integra_noite/mutacao_da21.py:12"
         ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+        "PORQUE": "estas pecas importam-na — C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 7950,
       "y": 682
@@ -46817,6 +46833,7 @@
         "C-EXECUTOR-TEXTO-HTML",
         "C-IMPORTAR",
         "C-LASTMILE-MEDIDORES",
+        "C-LUGAR-COLETA",
         "C-PROVA-ROTAS-REAIS",
         "C-RECEITAS",
         "C-RECORRENCIA",
@@ -51326,17 +51343,22 @@
         "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
         "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
         "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+        "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+        "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
         "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
         "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
         "scripts/lugar_fato/bateria_por_nome.py",
         "scripts/lugar_fato/medir_78.py",
+        "scripts/lugar_fato/medir_moldura_html.py",
+        "scripts/lugar_fato/mutar_data_do_fato.py",
         "scripts/lugar_fato/mutar_fato_do_texto.py",
         "scripts/lugar_fato/mutar_lei_do_tempo.py",
         "scripts/reproc_acervo/ACERVO-TEMPO-LUGAR-V1.json",
         "scripts/reproc_acervo/ENSAIO-034-DESCARTAVEL.json",
-        "scripts/reproc_acervo/prever_acervo.py"
+        "scripts/reproc_acervo/prever_acervo.py",
+        "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json"
       ],
-      "file_count": 19,
+      "file_count": 24,
       "status": "PENDING",
       "status_reason": "o sistema importa esta lei em runtime para decidir: C-ADMISSAO, C-CONTRATO-ARTEFATO, C-INT-CORRIDA, C-LUGAR-V2.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -51346,6 +51368,7 @@
       "produces": [],
       "inbound": [
         "C-CONTRATO-ARTEFATO",
+        "C-FONTES-EU",
         "C-INGRESSO",
         "C-IT-COLETA",
         "C-MAPA-TESTES",
@@ -51400,12 +51423,12 @@
           "TIPOS_DE_EVIDENCIA",
           "_DIAS_RAIZ"
         ],
-        "palavras": 710,
+        "palavras": 726,
         "por_lingua": {
           "IT": 17,
           "PT": 1
         },
-        "sem_marca_de_lingua": 692,
+        "sem_marca_de_lingua": 708,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -51415,6 +51438,18 @@
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
@@ -51430,7 +51465,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json e este mapa nao viu ninguem ler",
+      "rule_role_evidence": "escreve scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json e este mapa nao viu ninguem ler",
       "ROLE_MEASURED": "UNKNOWN",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "SEM_REGRA",
@@ -51447,6 +51482,8 @@
         "leis/artefato.py",
         "leis/fato_do_texto.py",
         "provas/testa_golden_path_pdf.py",
+        "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+        "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
         "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
         "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json"
       ],
@@ -57089,6 +57126,7 @@
         "provas/gate_de_aceitacao_tematica.py",
         "provas/implementacoes_candidatas.py",
         "provas/integra_noite/mutacao_da20.py",
+        "provas/integra_noite/mutacao_da21.py",
         "provas/linkedin_local_first.py",
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
@@ -57147,7 +57185,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 91,
+      "file_count": 92,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -57177,6 +57215,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
+        "C-CONTADOR-24H",
         "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-DE-RETORNO",
         "C-CONTRATO-TELEMETRIA",
@@ -57448,6 +57487,7 @@
         "coleta/instagram_janela.py",
         "coleta/italy_executor.py",
         "coleta/italy_pilot_collect.mjs",
+        "coleta/reserva_24h.py",
         "coleta/retrato_html.mjs",
         "coleta/rota_forward_documento.py",
         "coleta/scrap_capacidades.py",
@@ -61020,6 +61060,7 @@
       "produces": [],
       "inbound": [
         "C-CAPA-MATERIA",
+        "C-CONTADOR-24H",
         "C-INTEGRA-ONDA2",
         "C-IT-COLETA",
         "C-IT-CONTRATOS",
@@ -61030,11 +61071,9 @@
         "C-TRANSCRICAO"
       ],
       "outbound": [
-        "C-CONTADOR-24H",
         "C-INTEGRA-ONDA2",
         "C-NAVEGADOR",
         "C-ONDA-WEB",
-        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -61066,18 +61105,19 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 10 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED_WHY": "le 11 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 10 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 11 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
         "coleta/adaptador_youtube.py",
+        "coleta/dominio_registavel.py",
         "coleta/italy_pilot_collect.mjs",
         "coleta/scrap_colheita.py",
         "coleta/scrap_http.py",
@@ -64780,13 +64820,13 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
+        "C-CONTADOR-24H",
         "C-CONTRATO-ARTEFATO",
         "C-DERIVACAO-FORWARD",
         "C-IT-CONTRATOS",
         "C-MAPA-TESTES",
         "C-ONDA-WEB",
         "C-PROCEDENCIA",
-        "C-PROVA-TETO-DOMINIO",
         "C-ROTA-M2",
         "C-SCRAP-EVIDENCIA",
         "C-SCRAP-GUARDA",
@@ -68059,6 +68099,7 @@
         "tests/test_d24_video_de_pessoa.py",
         "tests/test_d36_envelope_equivalente.py",
         "tests/test_d37_campos_de_politica.py",
+        "tests/test_data_do_fato.py",
         "tests/test_dedup_video_social.py",
         "tests/test_egresso_consenso.py",
         "tests/test_ensaio_offline_micro.py",
@@ -68247,7 +68288,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 306,
+      "file_count": 307,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -68608,13 +68649,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1865,
+        "palavras": 1870,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1853,
+        "sem_marca_de_lingua": 1858,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -69171,6 +69212,7 @@
         "system-map/scripts/validate_system_map.py",
         "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
         "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+        "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json",
         "tests/dados/item-social-ispra-porta.json",
         "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
         "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
@@ -82518,7 +82560,7 @@
       "evidence": [
         {
           "file": "provas/prova_teto_dominio.py",
-          "line": 181,
+          "line": 143,
           "snippet": "ap.add_argument(\"--contratos-json\", default=\"regras/italy_contracts_onboarded.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CAPA-MATERIA--READS-->C-PROVA-TETO-DOMINIO",
@@ -89848,6 +89890,41 @@
     },
     {
       "from": "C-CONTADOR-24H",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/integra_noite/mutacao_da21.py",
+          "line": 12,
+          "snippet": "RES = R / \"coleta\" / \"reserva_24h.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--READS-->C-PROVA-COLETA",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
       "to": "C-PROVA-CONTADOR-24H",
       "type": "READS",
       "payload": "artefacto",
@@ -89874,6 +89951,127 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
+      "to": "C-PROVA-TETO-DOMINIO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir tem o seu codigo importado por A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/prova_teto_dominio.py",
+          "line": 37,
+          "snippet": "from dominio_registavel import (TETO_D38, SUFIXOS_DOIS_NIVEIS, MESMO_ORCAMENTO,  # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-PROVA-TETO-DOMINIO",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-PROVA-TETO-DOMINIO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
+      "to": "C-PROVA-TETO-DOMINIO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir alimenta A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_prova_teto_social.py",
+          "line": 20,
+          "snippet": "(\"M14 D41 desligada\",\"coleta/dominio_registavel.py\",'MESMO_ORCAMENTO = {\"googlevideo.com\": \"youtube.com\"}','MESMO_ORCAMENTO = {}'),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--READS-->C-PROVA-TETO-DOMINIO",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-PROVA-TETO-DOMINIO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/espera_por_dominio.py",
+          "line": 44,
+          "snippet": "import dominio_registavel as DR                                     # noqa: PLC0415  (DA-21: runtime, nao provas/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/rota_navegador.py",
+          "line": 143,
+          "snippet": "import dominio_registavel as DR                                     # noqa: PLC0415  (DA-21: runtime, nao provas/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -100518,6 +100716,41 @@
     },
     {
       "from": "C-FONTES-EU",
+      "to": "C-LUGAR-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ler as bases oficiais da Europa tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/lugar_fato/medir_moldura_html.py",
+          "line": 23,
+          "snippet": "from coleta.texto_fonte import limpar  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-LUGAR-COLETA",
+            "FROM": "C-FONTES-EU",
+            "TO": "C-LUGAR-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-FONTES-EU",
       "to": "C-PROVA-ROTAS-REAIS",
       "type": "READS",
       "payload": "artefacto",
@@ -109542,7 +109775,7 @@
         },
         {
           "file": "provas/prova_teto_dominio.py",
-          "line": 182,
+          "line": 144,
           "snippet": "ap.add_argument(\"--contratos-mjs\", default=\"regras/italy_contracts.mjs\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-TETO-DOMINIO",
@@ -113969,7 +114202,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_artefato_tempo_do_fato.py",
@@ -114023,6 +114256,22 @@
           "file": "tests/test_conserto_regua.py",
           "line": 24,
           "snippet": "import fato_do_texto as FT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_data_do_fato.py",
+          "line": 18,
+          "snippet": "import fato_do_texto as FT   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -114148,7 +114397,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_conserto_regua.py",
@@ -114170,6 +114419,22 @@
           "file": "tests/test_c7_lugar_do_fato.py",
           "line": 225,
           "snippet": "dele = _fonte('leis/fato_local.py')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_data_do_fato.py",
+          "line": 20,
+          "snippet": "CASOS = json.loads((RAIZ / \"tests\" / \"dados\" / \"data-do-fato\" / \"CASOS-DATA-DO-FATO-V1.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -116936,8 +117201,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "scripts/lugar_fato/medir_moldura_html.py",
+          "line": 22,
+          "snippet": "import _gavetas  # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-LUGAR-COLETA",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-LUGAR-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "scripts/reproc_acervo/prever_acervo.py",
           "line": 32,
@@ -134460,41 +134741,6 @@
     },
     {
       "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-CONTADOR-24H",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira tem o seu codigo importado por O contador multicanal atomico de 24 h (D90) — reservar antes de pedir. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/reserva_24h.py",
-          "line": 37,
-          "snippet": "import prova_teto_dominio as _PT                                   # noqa: E402 — um so dono da regra",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-CONTADOR-24H",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-CONTADOR-24H",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TETO-DOMINIO",
       "to": "C-INTEGRA-ONDA2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -134613,57 +134859,6 @@
             "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-ONDA-WEB",
             "FROM": "C-PROVA-TETO-DOMINIO",
             "TO": "C-ONDA-WEB",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TETO-DOMINIO",
-      "to": "C-SCRAP-SOCIAL",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/espera_por_dominio.py",
-          "line": 44,
-          "snippet": "import prova_teto_dominio as PT                                     # noqa: PLC0415",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-SCRAP-SOCIAL",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-SCRAP-SOCIAL",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "coleta/rota_navegador.py",
-          "line": 143,
-          "snippet": "import prova_teto_dominio as PT                                     # noqa: PLC0415",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-SCRAP-SOCIAL",
-            "FROM": "C-PROVA-TETO-DOMINIO",
-            "TO": "C-SCRAP-SOCIAL",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -155666,7 +155861,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2167,
+  "UNCLAIMED_FILES_COUNT": 2172,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -155937,12 +156132,12 @@
     "components_pending": 236,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1634,
-    "edges_proven": 1567,
+    "edges": 1637,
+    "edges_proven": 1570,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3893,
-    "files_covered": 1726,
+    "files_tracked": 3906,
+    "files_covered": 1734,
     "files_code_unclaimed": 0,
     "roles_proven": 189,
     "roles_declared_only": 9,
