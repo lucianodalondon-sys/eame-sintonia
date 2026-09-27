@@ -1,19 +1,19 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "368b0b4f89b659bda4e16f6cb8956924df868fa7",
+  "FROZEN_AT_HEAD": "1c7b154f310c83ca4b9459789ed2a883f4edddbb",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 284,
+  "ARTEFATOS": 291,
   "POR_ESPECIE": {
     "CONTRACT": 3,
-    "DATA_SAMPLE": 100,
+    "DATA_SAMPLE": 101,
     "DOCUMENTATION": 5,
     "GENERATED_OUTPUT": 26,
     "IMPLEMENTATION": 11,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 48,
-    "PORTAL_UI": 65,
-    "TEST": 20
+    "MENCAO_FRACA_APENAS": 49,
+    "PORTAL_UI": 67,
+    "TEST": 23
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -514,6 +514,18 @@
       ]
     },
     {
+      "PATH": "pacote/ponte_intelligence_casco.py",
+      "SPECIES": "PORTAL_UI",
+      "GIT_BLOB_SHA": "b5aa20dbf6fea4c2657ba197ac21e25aa303d339",
+      "MARCAS_FORTES": []
+    },
+    {
+      "PATH": "pacote/pote_intelligence_casco.py",
+      "SPECIES": "PORTAL_UI",
+      "GIT_BLOB_SHA": "074d70c72afcac00eb95ebeed10c3a5dbea3d253",
+      "MARCAS_FORTES": []
+    },
+    {
       "PATH": "portoes/site_v21_ingest.py",
       "SPECIES": "IMPLEMENTATION",
       "GIT_BLOB_SHA": "1e64382050462c6a5307f36c40aced83ac3527c2",
@@ -571,7 +583,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "597cf19bce5e194ae0102f957c0634b8131a26cc",
+      "GIT_BLOB_SHA": "36553051ca1348e4c764664b77278ec21403459f",
       "MARCAS_FORTES": []
     }
   ],
@@ -786,6 +798,10 @@
     },
     {
       "PATH": "data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
       "SPECIES": "DATA_SAMPLE"
     },
     {
@@ -1193,6 +1209,10 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "provas/_mutantes_ponte_casco.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "provas/arbitragem_da_intelligence.py",
       "SPECIES": "INSTRUMENT"
     },
@@ -1313,6 +1333,10 @@
       "SPECIES": "INSTRUMENT"
     },
     {
+      "PATH": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_a_collection_preserva_o_fato.py",
       "SPECIES": "TEST"
     },
@@ -1374,6 +1398,14 @@
     },
     {
       "PATH": "tests/test_os_consertos_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_ponte_intelligence_casco.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_pote_intelligence_casco.py",
       "SPECIES": "TEST"
     },
     {
