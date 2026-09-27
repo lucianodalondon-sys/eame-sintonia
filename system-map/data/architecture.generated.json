@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/cap-win-intelligence-tn7qfi",
-    "HEAD": "08ecbd59ae0c4257909be26efe442c7500c36507",
-    "GENERATED_AT": "2026-09-27T16:00:05+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4cce00518239f984272529bab5adb21cbac3456d1381d68912a4e2bb92a1f13d"
+    "HEAD": "a7537ecab62c880452827a343508d73e9848cdb1",
+    "GENERATED_AT": "2026-09-27T16:07:59+00:00",
+    "SOURCE_TREE_FINGERPRINT": "0119047a0e6eb94804328b4d884f8acea3721f026a432435b5554d4e0583a9e6"
   },
   "FILES": [
     {
@@ -221,6 +221,13 @@
     {
       "path": "BIG-COLLECTION-RUNBOOK.md",
       "sha": "b6f90e71d687e6e1cbda4bbd05f310c01ae11546",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "CAP-WIN.md",
+      "sha": "90d5302a4adf0ba4dd0c413b17ff8d7d24eebe82",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -16607,7 +16614,7 @@
     },
     {
       "path": "motor/cap_win.py",
-      "sha": "1f6fb89f4ac89106b7f4ba46ccab083d2d10d5db",
+      "sha": "c5fe92c57c400bdfe94371174da9e2d529fad3b9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17607,8 +17614,22 @@
       "code_dir": true
     },
     {
+      "path": "provas/cap_win/BATERIA-BASE-5683d8a.json",
+      "sha": "0347423e6ff3415c96f8432ea328bcbc6712899e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/cap_win/BATERIA-DEPOIS-a7537ec.json",
+      "sha": "ae1dd796ef326400f5c99713db256a2cc0579b5d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/cap_win/MUTANTES.json",
-      "sha": "7cd6667b475564be31b185a5a954c04921070785",
+      "sha": "146de0d7b4ea2ce67157cb0731e09462f443d5e1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -48710,7 +48731,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "motor/cap_win.py",
-        "line": 83,
+        "line": 82,
         "snippet": "import corrida_da_inteligencia as CI            # noqa: E402"
       }
     },
@@ -48721,19 +48742,8 @@
       "payload": "codigo",
       "evidence": {
         "file": "motor/cap_win.py",
-        "line": 84,
+        "line": 83,
         "snippet": "import grafo_de_dependencia as GD               # noqa: E402"
-      }
-    },
-    {
-      "from_file": "motor/cap_win.py",
-      "to_file": "provas/espinha_da_intelligence.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/cap_win.py",
-        "line": 85,
-        "snippet": "from espinha_da_intelligence import (           # noqa: E402"
       }
     },
     {
@@ -92704,10 +92714,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3356,
+    "files_tracked": 3359,
     "files_readable": 1429,
-    "files_code_dir": 1540,
-    "file_edges": 6236,
+    "files_code_dir": 1542,
+    "file_edges": 6235,
     "escritas_em_pasta": 88,
     "declared_missing_here": 0
   },

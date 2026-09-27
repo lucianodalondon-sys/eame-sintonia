@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  08ecbd59ae0c4257909be26efe442c7500c36507
+HEAD_DA_MEDICAO  a7537ecab62c880452827a343508d73e9848cdb1
 BRANCH           claude/cap-win-intelligence-tn7qfi
-GERADO_EM        2026-09-27T16:00:05+00:00
+GERADO_EM        2026-09-27T16:07:59+00:00
 CARDS            104
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

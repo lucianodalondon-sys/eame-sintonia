@@ -17,6 +17,7 @@
       "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
       "BIG-COLLECTION-GATES.md",
       "BIG-COLLECTION-RUNBOOK.md",
+      "CAP-WIN.md",
       "CASCO-CLIENT-DEMO.md",
       "CLAUDE.md",
       "CUTOVER-CHECKLIST.md",
@@ -2571,6 +2572,8 @@
       "provas/canario_reels_instagram.py",
       "provas/canario_social_onda2.py",
       "provas/candidatos_tematicos.py",
+      "provas/cap_win/BATERIA-BASE-5683d8a.json",
+      "provas/cap_win/BATERIA-DEPOIS-a7537ec.json",
       "provas/cap_win/MUTANTES.json",
       "provas/cap_win/mutantes.py",
       "provas/censo_corpus_rotulado_admission.py",
@@ -3950,9 +3953,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/cap-win-intelligence-tn7qfi",
-    "HEAD": "08ecbd59ae0c4257909be26efe442c7500c36507",
-    "GENERATED_AT": "2026-09-27T16:00:05+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4cce00518239f984272529bab5adb21cbac3456d1381d68912a4e2bb92a1f13d"
+    "HEAD": "a7537ecab62c880452827a343508d73e9848cdb1",
+    "GENERATED_AT": "2026-09-27T16:07:59+00:00",
+    "SOURCE_TREE_FINGERPRINT": "0119047a0e6eb94804328b4d884f8acea3721f026a432435b5554d4e0583a9e6"
   },
   "FAMILIES": [
     {
@@ -47088,7 +47091,6 @@
       "produces": [],
       "inbound": [
         "C-INT-CORRIDA",
-        "C-INT-ESPINHA",
         "C-INT-GRAFO-DEPENDENCIA",
         "C-PROVA-CAP-WIN"
       ],
@@ -47456,7 +47458,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/cap_win.py:83",
+          "motor/cap_win.py:82",
           "provas/arbitragem_da_intelligence.py:101",
           "provas/consumo_da_referencia_adama.py:93",
           "tests/test_a_porta_cli_liga_o_banco.py:275"
@@ -47770,7 +47772,6 @@
       ],
       "outbound": [
         "C-INT-ARBITRAGEM",
-        "C-INT-CAP-WIN",
         "C-INT-CONSUMO-ADAMA",
         "C-INT-CORRIDA",
         "C-TESTES"
@@ -47838,12 +47839,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/cap_win.py:85",
           "motor/corrida_da_inteligencia.py:61",
           "provas/arbitragem_da_intelligence.py:63",
-          "provas/consumo_da_referencia_adama.py:98"
+          "provas/consumo_da_referencia_adama.py:98",
+          "tests/test_atomicidade_da_intelligence.py:227"
         ],
-        "PORQUE": "estas pecas importam-na — C-INT-CAP-WIN · C-INT-CORRIDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-INT-CORRIDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 22925,
       "y": 2614
@@ -47930,7 +47931,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/cap_win.py:84",
+          "motor/cap_win.py:83",
           "tests/test_grafo_de_dependencia.py:26"
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CAP-WIN — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -98842,7 +98843,7 @@
       "evidence": [
         {
           "file": "motor/cap_win.py",
-          "line": 83,
+          "line": 82,
           "snippet": "import corrida_da_inteligencia as CI            # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-INT-CAP-WIN",
@@ -99431,41 +99432,6 @@
     },
     {
       "from": "C-INT-ESPINHA",
-      "to": "C-INT-CAP-WIN",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A espinha comum da Intelligence — a maquina de estados, em descartavel tem o seu codigo importado por CAP-WIN — a janela de cultura (definida ≠ aberta agora). Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/cap_win.py",
-          "line": 85,
-          "snippet": "from espinha_da_intelligence import (           # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-INT-CAP-WIN",
-            "FROM": "C-INT-ESPINHA",
-            "TO": "C-INT-CAP-WIN",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-INT-ESPINHA",
       "to": "C-INT-CONSUMO-ADAMA",
       "type": "READS",
       "payload": "artefacto",
@@ -99712,7 +99678,7 @@
       "evidence": [
         {
           "file": "motor/cap_win.py",
-          "line": 84,
+          "line": 83,
           "snippet": "import grafo_de_dependencia as GD               # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-GRAFO-DEPENDENCIA--IMPORTS-->C-INT-CAP-WIN",
@@ -145058,7 +145024,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1927,
+  "UNCLAIMED_FILES_COUNT": 1930,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -145320,11 +145286,11 @@
     "components_pending": 217,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1482,
-    "edges_proven": 1417,
+    "edges": 1481,
+    "edges_proven": 1416,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3356,
+    "files_tracked": 3359,
     "files_covered": 1429,
     "files_code_unclaimed": 0,
     "roles_proven": 177,

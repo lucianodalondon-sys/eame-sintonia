@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T16:02:08+00:00",
-  "HEAD": "08ecbd59ae0c4257909be26efe442c7500c36507",
+  "GENERATED_AT": "2026-09-27T16:14:51+00:00",
+  "HEAD": "a7537ecab62c880452827a343508d73e9848cdb1",
   "BRANCH": "claude/cap-win-intelligence-tn7qfi",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "4cce00518239f984272529bab5adb21cbac3456d1381d68912a4e2bb92a1f13d",
-  "FICHEIROS_NA_IMPRESSAO": 3504,
+  "SOURCE_TREE_FINGERPRINT": "0119047a0e6eb94804328b4d884f8acea3721f026a432435b5554d4e0583a9e6",
+  "FICHEIROS_NA_IMPRESSAO": 3507,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -4234,14 +4234,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4cce00518239f984272529bab5adb21cbac3456d1381d68912a4e2bb92a1f13d",
+    "VERSAO": "0119047a0e6eb94804328b4d884f8acea3721f026a432435b5554d4e0583a9e6",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4cce00518239f984272529bab5adb21cbac3456d1381d68912a4e2bb92a1f13d",
+    "VERSAO": "0119047a0e6eb94804328b4d884f8acea3721f026a432435b5554d4e0583a9e6",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6361,7 +6361,7 @@
    }
   ],
   "INPUTS_COUNT": 903,
-  "INPUTS_DIGEST": "23adb1a19d1b4b476efd0714c4732dce63319f716beaa169fd24414a9015cf8b",
+  "INPUTS_DIGEST": "5d987b8c36783e2cb1730e2b761f68e193b5e4d79991c155cd6f1370f282fa4b",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -6387,15 +6387,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 548,
+  "DOCUMENTOS_LIDOS": 549,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "7d0f6d950f06cecdcd626e5ec68489a26c9ff022d4b9daad646542bf08aba803",
-  "SEMANTIC_HASH": "c100b35aceff4173fbeb6fbd2006fc84094978571d684fac8347b9ce9e1e7761"
+  "MEASUREMENT_HASH": "ca59e19b3e12ed79feb0ef56512827a621a593297d9f40478a1af962a5cc9117",
+  "SEMANTIC_HASH": "4576da1a8b6b087f3faf9642d3780666f7e00472de0e0e18d1c8cbb27594dd39"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -24341,28 +24341,6 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "UNKNOWN",
     "EVIDENCE_BINDING": []
-   },
-   {
-    "EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-INT-CAP-WIN",
-    "FROM": "C-INT-ESPINHA",
-    "TO": "C-INT-CAP-WIN",
-    "RELATION_TYPE": "IMPORTS",
-    "CATEGORIA": "CODE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "motor/cap_win.py",
-      "LINHA": 85,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-INT-CAP-WIN",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
    },
    {
     "EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-INT-CORRIDA",
@@ -50077,12 +50055,12 @@
     ]
    }
   ],
-  "COUNT": 1411
+  "COUNT": 1410
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 194,
   "CARTOES_AUDITADOS": 194,
-  "ARESTAS_RELACIONADAS": 1411,
+  "ARESTAS_RELACIONADAS": 1410,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -50501,7 +50479,7 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 228,
+   "CODE": 227,
    "CONTROL": 86,
    "DATA": 30,
    "PROOF": 503,
@@ -54200,7 +54178,7 @@
     "typing"
    ],
    "ENTRAM": 2,
-   "SAEM": 7,
+   "SAEM": 6,
    "CATEGORIAS_QUE_ENTRAM": [
     "DATA",
     "READ"
