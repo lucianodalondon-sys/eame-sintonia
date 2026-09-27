@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0"
+    "HEAD": "3fd81e16e86e144aed5ab83cfcfc45cbc61c8a3a"
   },
   "VOCABULARIOS": [
     {
@@ -1262,6 +1262,7 @@
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
         ".github/workflows/banco-descartavel.yml",
+        "admissao/reprocessar_estudos_chaves.py",
         "admissao/reprocessar_tempo_lugar.py",
         "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
@@ -1271,6 +1272,7 @@
         "controle/red_team_do_controle.py",
         "ferramentas/reel_transcricao.py",
         "leis/artefato.py",
+        "leis/estudo_chaves.py",
         "leis/relevancia_da_fonte.py",
         "medidas/medir_v1a.py",
         "medidas/micro_colheita.py",
@@ -1308,6 +1310,7 @@
         "provas/ensaio_do_texto_na_collection.py",
         "provas/ensaio_scrap_para_a_collection.py",
         "provas/espinha_da_intelligence.py",
+        "provas/estudos_chaves/mutacao_estudos_chaves.py",
         "provas/implementacoes_candidatas.py",
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
@@ -1372,6 +1375,7 @@
         "tests/test_d1_detector_d14.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
+        "tests/test_estudo_chaves.py",
         "tests/test_fonte_atravessa.py",
         "tests/test_fronteira_mede_producao.py",
         "tests/test_gate_de_aceitacao_tematica.py",

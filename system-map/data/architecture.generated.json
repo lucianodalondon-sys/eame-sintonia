@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/extract-study-metadata-x1m3tv",
+    "HEAD": "3fd81e16e86e144aed5ab83cfcfc45cbc61c8a3a",
+    "GENERATED_AT": "2026-09-27T18:30:00+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3906ffbf142ad78c0fc164ab185e154f3a3e1569823789f88f832acd37e2aaee"
   },
   "FILES": [
     {
@@ -319,6 +319,13 @@
     {
       "path": "DEPOIS-DO-PORTAL.md",
       "sha": "bdf3477ab8fe95b282e877dacec54fc0a3f19e42",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "ESTUDOS-CHAVES.md",
+      "sha": "8be8ab9eba6d226f0297ce81f7a811f30f04a622",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1088,7 +1095,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "5fdc36812772fbfafbc1fb66b74a298f0bc7c570",
+      "sha": "8faa519f1d031660e02f4d9371016de6f4540b79",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1096,6 +1103,13 @@
     {
       "path": "admissao/idioma.py",
       "sha": "ee745685d7b75cc45399578660ab1db60a15c707",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "admissao/reprocessar_estudos_chaves.py",
+      "sha": "a14737a255303597b0a30c81f173979717950eb9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2425,7 +2439,7 @@
     },
     {
       "path": "coleta/pesquisadores_t6.py",
-      "sha": "c999ddbf63a33afa62142a1c373730ec3dc61af1",
+      "sha": "1a121d6738f0b8f7f0585d5ee109ecc02b08906a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11419,6 +11433,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/nuvem/nuvem-estudos-chaves-v1-MERGES.txt",
+      "sha": "1d9c09395bc69e60f30aacb43999e0efe1647068",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/A-CASA-DO-DERIVADO.md",
       "sha": "d14e23acf96ffa6ddc3757bed7318f39060ca119",
       "ext": ".md",
@@ -17754,6 +17775,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/estudo_chaves.py",
+      "sha": "c5ede3100dba265d3428a204f0d19e2f6f510fd5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/evolucao.py",
       "sha": "76b8f7c6d469ca19d2c9b768b68088c479df640c",
       "ext": ".py",
@@ -20031,6 +20059,20 @@
     {
       "path": "provas/espinha_da_intelligence.py",
       "sha": "099220f89370179c93dd6c905c6760e1d0b5e3de",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/estudos_chaves/MUTACAO-ESTUDOS-CHAVES.json",
+      "sha": "356d9ccb5b781f604c4593b21eeb7d5f9707d8e0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+      "sha": "0bf2400ea727e39a87f6b6854ba24dccb5f17bdf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24664,7 +24706,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e63baf949631281955e19224243f29533f74a425",
+      "sha": "25d0ffc7daf8290dc056b18c603c45d584ab727c",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -25288,6 +25330,13 @@
     {
       "path": "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "sha": "c979c2ae47b027c1095585a28c09d49e07e3670f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json",
+      "sha": "00845ad9c564cd26cdb09bded1aa1daabb109573",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26282,6 +26331,13 @@
     {
       "path": "tests/test_estradas_it.py",
       "sha": "859a13c008f5205073104df205856c84bdd1f8e5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_estudo_chaves.py",
+      "sha": "d743886514cf0d8581223c179a0ae7c329d9a4d5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29124,6 +29180,94 @@
       }
     },
     {
+      "from_file": "admissao/admissao.py",
+      "to_file": "leis/estudo_chaves.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/admissao.py",
+        "line": 2118,
+        "snippet": "import estudo_chaves as EC                                     # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_estudos_chaves.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_estudos_chaves.py",
+        "line": 39,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_estudos_chaves.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_estudos_chaves.py",
+        "line": 41,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_estudos_chaves.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_estudos_chaves.py",
+        "line": 51,
+        "snippet": "CODIGO_DA_VERSAO = (\"admissao/reprocessar_estudos_chaves.py\", \"admissao/admissao.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_estudos_chaves.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_estudos_chaves.py",
+        "line": 53,
+        "snippet": "\"coleta/pesquisadores_t6.py\")"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_estudos_chaves.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_estudos_chaves.py",
+        "line": 52,
+        "snippet": "\"leis/estudo_chaves.py\", \"leis/boletim_do_campo.py\", \"leis/fato_local.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_estudos_chaves.py",
+      "to_file": "leis/estudo_chaves.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_estudos_chaves.py",
+        "line": 52,
+        "snippet": "\"leis/estudo_chaves.py\", \"leis/boletim_do_campo.py\", \"leis/fato_local.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_estudos_chaves.py",
+      "to_file": "leis/fato_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_estudos_chaves.py",
+        "line": 52,
+        "snippet": "\"leis/estudo_chaves.py\", \"leis/boletim_do_campo.py\", \"leis/fato_local.py\","
+      }
+    },
+    {
       "from_file": "admissao/reprocessar_tempo_lugar.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -31704,7 +31848,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/pesquisadores_t6.py",
-        "line": 601,
+        "line": 609,
         "snippet": "with open(ATLAS, encoding='utf-8') as h:"
       }
     },
@@ -31715,7 +31859,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/pesquisadores_t6.py",
-        "line": 265,
+        "line": 273,
         "snippet": "import fato_local as FL                      # o gazetteer italiano (outro dono): so se LE"
       }
     },
@@ -52455,6 +52599,50 @@
       }
     },
     {
+      "from_file": "leis/estudo_chaves.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/estudo_chaves.py",
+        "line": 161,
+        "snippet": "import admissao as ADM                           # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "leis/estudo_chaves.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/estudo_chaves.py",
+        "line": 148,
+        "snippet": "import pesquisadores_t6 as T6                    # noqa: PLC0415 — o lexico T6 (ingles/cientifico)"
+      }
+    },
+    {
+      "from_file": "leis/estudo_chaves.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/estudo_chaves.py",
+        "line": 154,
+        "snippet": "import boletim_do_campo as BC                    # noqa: PLC0415 — o vocabulario de pragas"
+      }
+    },
+    {
+      "from_file": "leis/estudo_chaves.py",
+      "to_file": "leis/fato_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/estudo_chaves.py",
+        "line": 208,
+        "snippet": "import fato_local as FL                      # noqa: PLC0415 — o gazetteer (so se LE)"
+      }
+    },
+    {
       "from_file": "leis/fato_do_texto.py",
       "to_file": "leis/fato_local.py",
       "type": "IMPORTS",
@@ -67357,6 +67545,72 @@
         "file": "provas/espinha_da_intelligence.py",
         "line": 93,
         "snippet": "DONO_DOS_CAMPOS = Path(__file__).resolve().parents[1] / \"admissao\" / \"sala_de_espera.py\""
+      }
+    },
+    {
+      "from_file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+        "line": 37,
+        "snippet": "(\"M08\", \"admissao/admissao.py\", \"    if estudo and regiao == AUSENCIA:\", \"    if estudo:\","
+      }
+    },
+    {
+      "from_file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+      "to_file": "admissao/reprocessar_estudos_chaves.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+        "line": 43,
+        "snippet": "(\"M11\", \"admissao/reprocessar_estudos_chaves.py\", 'if e.get(\"janela_declarada\") is not None and',"
+      }
+    },
+    {
+      "from_file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+        "line": 45,
+        "snippet": "(\"M12\", \"coleta/pesquisadores_t6.py\", \"'olivo': ('olea europaea', \", \"'olivo': (\","
+      }
+    },
+    {
+      "from_file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+      "to_file": "leis/estudo_chaves.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+        "line": 23,
+        "snippet": "(\"M01\", \"leis/estudo_chaves.py\", \"if _INSTITUCIONAL.search(antes):\", \"if False and _INSTITUCIONAL.search(antes):\","
+      }
+    },
+    {
+      "from_file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+      "to_file": "provas/estudos_chaves/MUTACAO-ESTUDOS-CHAVES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+        "line": 20,
+        "snippet": "SAIDA = os.path.join(RAIZ, \"provas\", \"estudos_chaves\", \"MUTACAO-ESTUDOS-CHAVES.json\")"
+      }
+    },
+    {
+      "from_file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+      "to_file": "tests/test_estudo_chaves.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+        "line": 19,
+        "snippet": "TESTE = \"tests/test_estudo_chaves.py\""
       }
     },
     {
@@ -91868,6 +92122,127 @@
       }
     },
     {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 20,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 21,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "admissao/reprocessar_estudos_chaves.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 25,
+        "snippet": "import reprocessar_estudos_chaves as RE  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "admissao/reprocessar_estudos_chaves.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 280,
+        "snippet": "r = subprocess.run([sys.executable, os.path.join(RAIZ, \"admissao\", \"reprocessar_estudos_chaves.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "admissao/reprocessar_estudos_chaves.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 268,
+        "snippet": "with open(os.path.join(RAIZ, \"admissao\", \"reprocessar_estudos_chaves.py\"), encoding=\"utf-8\") as h:"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 24,
+        "snippet": "import pesquisadores_t6 as T6  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 22,
+        "snippet": "import boletim_do_campo as BC  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "leis/estudo_chaves.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 23,
+        "snippet": "import estudo_chaves as EC  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "leis/estudo_chaves.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 212,
+        "snippet": "with open(os.path.join(RAIZ, \"leis\", \"estudo_chaves.py\"), encoding=\"utf-8\") as h:"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "leis/fato_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 204,
+        "snippet": "import fato_local as FL"
+      }
+    },
+    {
+      "from_file": "tests/test_estudo_chaves.py",
+      "to_file": "tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_estudo_chaves.py",
+        "line": 28,
+        "snippet": "with open(FIXTURE, encoding=\"utf-8\") as _h:"
+      }
+    },
+    {
       "from_file": "tests/test_evidence.py",
       "to_file": "data/samples/EU-T4-001/evidence-32026R1696.json",
       "type": "READS",
@@ -103459,10 +103834,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3939,
-    "files_readable": 1641,
-    "files_code_dir": 1971,
-    "file_edges": 6841,
+    "files_tracked": 3947,
+    "files_readable": 1645,
+    "files_code_dir": 1977,
+    "file_edges": 6870,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },
