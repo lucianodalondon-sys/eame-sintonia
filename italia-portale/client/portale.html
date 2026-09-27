@@ -12080,9 +12080,9 @@ class Component extends DCLogic {
     const cwRel = (d) => (cwEN ? 'states and day counts are computed at ' : 'stati e conteggi di giorni calcolati al ') + d + (cwEN ? ', not today' : ', non a oggi');
     const cwBY = {
       meeting: [['SNAP'], cwREAL, cwRel(cwPOTS.SNAP.date)],
-      portfolio: [['V21', 'REG'], cwREAL, ''],
+      portfolio: [['V21', 'REG'], cwREAL, cwRel(cwPOTS.V21.date)],
       radarfuturo: [['CASA'], cwREAL, ''],
-      etichette: [['LABEL'], cwREAL, ''],
+      etichette: [['LABEL'], cwREAL, (cwEN ? 'days to expiry counted at the payload build ' : 'giorni alla scadenza contati alla costruzione del payload ') + cwD(cwLI.BUILT_AT)],
       windows: [['CANON'], cwNORM, cwRel(cwPOTS.CANON.date)],
       market: [['V21'], cwREAL, ''],
       voices: [['V21'], cwREAL, cwEN ? 'the source gives no calendar date for the voices' : 'la fonte non dà una data di calendario per le voci'],
