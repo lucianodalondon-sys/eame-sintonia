@@ -33,7 +33,12 @@ const ler = (p) => fs.readFileSync(path.join(RAIZ, p), 'utf8');
 const POTE = JSON.parse(ler('docs/casco/r7/POTE-R7.json'));
 const ANALISE = JSON.parse(ler('docs/casco/r7/ANALISE-R7.json'));
 const HTML = fs.readFileSync(path.join(CLIENT, 'portale.html'), 'utf8');
-const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];
+/* Um ficheiro por linha: cada linha e a prova de UMA leitura no mapa, nunca de duas. */
+const FICHEIROS = [
+  'sintonia-pote-publicado.js',
+  'sintonia-pote-casco.js',
+  'sintonia-pote-publicacao.js',
+];
 const FONTE = Object.fromEntries(FICHEIROS.map((f) => [f, fs.readFileSync(path.join(CLIENT, f), 'utf8')]));
 
 let falhas = 0, provas = 0;

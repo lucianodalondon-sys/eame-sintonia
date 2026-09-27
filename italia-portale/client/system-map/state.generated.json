@@ -1843,9 +1843,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/casco-r7-publication-yb7nsg",
-    "HEAD": "05d398bf6f2cdbb94eda1c7a631d440b090c9346",
-    "GENERATED_AT": "2026-09-27T16:08:24-03:00",
-    "SOURCE_TREE_FINGERPRINT": "dc4d16d52d306987f34063f882d5b57ea69503f48b14f78477654245021bc869"
+    "HEAD": "1b2f0cda1e52283500122de168601bdf712ff781",
+    "GENERATED_AT": "2026-09-27T19:34:32+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e25129067bbd6ace3857adefc10e716c4e9b545c32ea4adc51cb01cf66113bd9"
   },
   "FAMILIES": [
     {
@@ -36133,7 +36133,7 @@
       "evidence": [
         {
           "file": "tests/test_pote_publicado.mjs",
-          "line": 63,
+          "line": 68,
           "snippet": "const r = spawnSync('python3', ['pacote/publicar_pote_aprovado.py', '--conferir'], { cwd: RAIZ, encoding: 'utf8' });",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LASTMILE--READS-->C-AUDIT-CASCO",
@@ -39512,8 +39512,8 @@
       "evidence": [
         {
           "file": "tests/test_pote_publicado.mjs",
-          "line": 36,
-          "snippet": "const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];",
+          "line": 38,
+          "snippet": "'sintonia-pote-publicado.js',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-DADOS--READS-->C-AUDIT-CASCO",
             "FROM": "C-PORTAL-DADOS",
@@ -40588,8 +40588,8 @@
         },
         {
           "file": "tests/test_pote_publicado.mjs",
-          "line": 36,
-          "snippet": "const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];",
+          "line": 39,
+          "snippet": "'sintonia-pote-casco.js',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
             "FROM": "C-PORTAL-MODELO",
@@ -40604,8 +40604,8 @@
         },
         {
           "file": "tests/test_pote_publicado.mjs",
-          "line": 36,
-          "snippet": "const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];",
+          "line": 40,
+          "snippet": "'sintonia-pote-publicacao.js',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
             "FROM": "C-PORTAL-MODELO",
