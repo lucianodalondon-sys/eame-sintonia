@@ -69,6 +69,10 @@
 <script src="italy-casa.js"></script>
 <script src="vendor/jspdf-2.5.2.umd.min.js"></script>
 <script src="italy-pdf.js"></script>
+<!-- CASCO-POTE (D97): o CARREGADOR do pote da Intelligence (sem dados). Os dados vivem em italy-pote.local.js,
+     GERADO por audit/casco/pote-casco.mjs a partir do POTE_INTELLIGENCE_CASCO/v1: fora do Git e do deploy
+     (EXPERIMENTAL · NAO_PARA_CLIENTE), e so pedidos com ?pote=local. -->
+<script src="italy-pote.js"></script>
 <style>
   html, body { margin:0; padding:0; background:#110E0D; }
   a { color:#009845; text-decoration:none; }
@@ -200,7 +204,7 @@
       </sc-for>
     </div>
     <div style="display:flex;flex-direction:column;gap:8px;padding:10px 10px;border-radius:10px;background:rgba(0,152,69,0.08);border:1px solid rgba(0,152,69,0.25)">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ t.lblToday }} · {{ todayLabel }}</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ clockLabel }} · {{ todayLabel }}</div>
       <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ t.kpiOpenShort }}</span><span style="font-weight:700;color:#00B152">{{ kpi.windowOpen }}</span></div>
       <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ t.kpiWindowsShort }}</span><span style="font-weight:700;color:#fff">{{ kpi.windows }}</span></div>
       <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ t.kpiMovementsShort }}</span><span style="font-weight:700;color:#fff">{{ kpi.movements }}</span></div>
@@ -208,7 +212,7 @@
     <div style="margin-top:auto;display:flex;flex-direction:column;gap:7px;padding:0 8px">
       <img src="assets/Adama_H_white.png" alt="ADAMA" style="width:92px;height:auto;display:block;opacity:0.9">
       <div style="font-size:10px;letter-spacing:0.12em;color:#8F8886">Listen &gt; Learn &gt; Deliver</div>
-      <div style="font-size:10px;line-height:1.4;color:#8F8886;padding-top:4px;border-top:1px solid rgba(255,255,255,0.06)">{{ t.lblDemoNote }}</div>
+      <div style="font-size:10px;line-height:1.4;color:#8F8886;padding-top:4px;border-top:1px solid rgba(255,255,255,0.06)">{{ envNote }}</div>
     </div>
   </aside>
 
@@ -225,7 +229,7 @@
         <span style="font-size:10px;color:#8F8886;letter-spacing:0.08em">{{ t.enter }}</span>
       </div>
       <span style="position:relative;flex:0 0 auto">
-        <span onClick="{{ toggleDataState }}" style="display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:9999px;border:1px solid rgba(151,139,135,0.32);color:#A79F9C;font-size:10px;font-weight:700;letter-spacing:0.12em;white-space:nowrap;cursor:pointer" style-hover="border-color:rgba(203,197,195,0.6);color:#EDEAE9"><span style="width:5px;height:5px;border-radius:50%;background:#F5B317"></span>{{ t.demoEnv }}</span>
+        <span onClick="{{ toggleDataState }}" style="display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:9999px;border:1px solid rgba(151,139,135,0.32);color:#A79F9C;font-size:10px;font-weight:700;letter-spacing:0.12em;white-space:nowrap;cursor:pointer" style-hover="border-color:rgba(203,197,195,0.6);color:#EDEAE9"><span style="width:5px;height:5px;border-radius:50%;background:{{ envDot }}"></span>{{ envLabel }}</span>
         <sc-if value="{{ showDataState }}" hint-placeholder-val="{{ false }}">
           <span style="position:absolute;right:0;top:30px;width:360px;border-radius:14px;border:1px solid rgba(203,197,195,0.18);background:#1C1817;box-shadow:0 18px 40px rgba(0,0,0,0.55);padding:13px 15px;display:flex;flex-direction:column;gap:9px;z-index:40;cursor:default">
             <span style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
@@ -277,6 +281,77 @@
       <span onClick="{{ toggleDataState }}" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.14);cursor:pointer;font-size:12px;font-weight:700;color:#C9C3C1" title="{{ t.lblHelpTitle }}" style-hover="background:rgba(255,255,255,0.10)">?</span>
       <span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#00783F;font-size:11px;font-weight:700;color:#fff;cursor:default" title="{{ t.lblEnvTitle }}">{{ envBadge }}</span>
     </header>
+    <!-- ================= CASCO-REAL · PROVENIENZA DI QUESTA SCHERMATA (verita visiva, SOUL §6-7) ================= -->
+    <sc-if value="{{ pvShow }}" hint-placeholder-val="{{ true }}">
+    <div data-casco="provenienza" style="margin:12px 22px 0;padding:8px 12px;border-radius:10px;background:#161312;border:1px solid rgba(203,197,195,0.12);display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:10.5px;color:#C9C3C1">
+      <span style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:#8F8886">{{ pv.L.head }}</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border-radius:9999px;border:1px solid {{ pv.kindBorder }};color:{{ pv.kindColor }};font-size:10px;font-weight:700;letter-spacing:0.10em">{{ pv.kind }}</span>
+      <sc-for list="{{ pv.pots }}" as="p" hint-placeholder-count="1"><span><b style="color:#fff">{{ p.label }}</b> · {{ pv.L.asOf }} <b style="color:#fff">{{ p.date }}</b> · <span style="color:#8F8886">{{ p.origin }}</span></span></sc-for>
+      <sc-if value="{{ pv.hasNote }}" hint-placeholder-val="{{ false }}"><span style="color:#F5B317">{{ pv.note }}</span></sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ================= CASCO-POTE · L'INTELLIGENCE DELLA CORSA CORRENTE (D97: SALA -> INTELLIGENCE -> POTE -> CASCO) =================
+         Si disegna solo se il pote e stato caricato (?pote=local). Gli OGGETTI sono la risposta dello strumento; cio che
+         «esiste» si mostra solo come spiegazione, con la differenza accanto. Nessuna conversione di specie, nessun incrocio. -->
+    <sc-if value="{{ ptShow }}" hint-placeholder-val="{{ false }}">
+    <div data-casco="pote" style="margin:10px 22px 0;border-radius:14px;border:1px solid rgba(245,179,23,0.45);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px">
+        <span style="padding:3px 9px;border-radius:9999px;background:#F5B317;color:#110E0D;font-size:10px;font-weight:700;letter-spacing:0.12em">{{ pt.marca }}</span>
+        <span style="font-size:12.5px;font-weight:700;color:#fff">{{ pt.L.title }}</span>
+        <span style="font-size:10.5px;color:#C9C3C1">{{ pt.meta }}</span>
+      </div>
+      <div style="font-size:10px;color:#8F8886;line-height:1.5">{{ pt.meta2 }}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="display:flex;flex-direction:column;gap:3px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.12em;color:#8F8886">{{ pt.L.question }} · {{ pt.c.secao }}</span><span style="font-size:12px;color:#EDEAE9">{{ pt.c.pergunta }}</span></div>
+        <div style="display:flex;flex-direction:column;gap:3px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.12em;color:#8F8886">{{ pt.L.expected }}</span><span style="font-size:11px;color:#C9C3C1">{{ pt.c.entradaEsperada }}</span></div>
+      </div>
+
+      <sc-if value="{{ pt.hasObj }}" hint-placeholder-val="{{ true }}">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ pt.L.answer }} · {{ pt.objCount }}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:8px">
+        <sc-for list="{{ pt.objs }}" as="o" hint-placeholder-count="2">
+          <div style="border-radius:11px;border:1px solid rgba(0,152,69,0.35);background:#161312;padding:9px 11px;display:flex;flex-direction:column;gap:5px;min-width:0">
+            <div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="padding:1px 7px;border-radius:9999px;border:1px solid rgba(0,177,82,0.5);color:#7BE0A6;font-size:9.5px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ o.especie }}</span><span style="font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ o.titulo }}">{{ o.titulo }}</span></div>
+            <sc-for list="{{ o.campos }}" as="f" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:120px 1fr;gap:8px;font-size:10.5px;line-height:1.4"><span style="color:#8F8886;font-weight:700;letter-spacing:0.04em">{{ f.k }}</span><span style="color:{{ f.color }};word-break:break-word">{{ f.v }}</span></div></sc-for>
+            <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,0.06);padding-top:5px;font-size:9.5px;color:#8F8886;word-break:break-all">
+              <span><b style="color:#B1A9A7">{{ pt.L.proof }}</b> {{ o.prova.cadeia }}</span>
+              <span>{{ pt.L.source }} {{ o.prova.fonte }} · {{ pt.L.published }} {{ o.prova.publicado }}</span>
+              <sc-if value="{{ o.hasUrl }}" hint-placeholder-val="{{ false }}"><a href="{{ o.prova.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ pt.L.open }} {{ o.prova.url }}</a></sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ pt.isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="border-radius:11px;border:1px solid rgba(245,179,23,0.40);background:#161312;padding:10px 12px;display:flex;flex-direction:column;gap:5px">
+        <span style="font-size:12px;font-weight:700;color:#F5B317;letter-spacing:0.04em">{{ pt.c.classificacao }}</span>
+        <span style="font-size:11px;color:#EDEAE9;line-height:1.5"><b style="color:#8F8886">{{ pt.L.diff }}</b> {{ pt.c.diferenca }}</span>
+        <span style="font-size:11px;color:#C9C3C1"><b style="color:#8F8886">{{ pt.L.owner }}</b> {{ pt.c.responsavel }} · <b style="color:#8F8886">{{ pt.L.missing }}</b> {{ pt.c.contratoQueFalta }}</span>
+      </div>
+      </sc-if>
+      <sc-if value="{{ pt.hasMissing }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#C9C3C1"><b style="color:#8F8886">{{ pt.L.missing }}</b> {{ pt.c.contratoQueFalta }}</div></sc-if>
+
+      <sc-if value="{{ pt.hasExiste }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:#F5B317">{{ pt.L.exists }} · {{ pt.existeCount }}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:8px;opacity:0.85">
+        <sc-for list="{{ pt.existe }}" as="o" hint-placeholder-count="2">
+          <div style="border-radius:11px;border:1px dashed rgba(245,179,23,0.35);background:#161312;padding:9px 11px;display:flex;flex-direction:column;gap:5px;min-width:0">
+            <div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="padding:1px 7px;border-radius:9999px;border:1px solid rgba(245,179,23,0.5);color:#F5B317;font-size:9.5px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ o.especie }}</span><span style="font-size:11.5px;font-weight:700;color:#EDEAE9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ o.titulo }}">{{ o.titulo }}</span></div>
+            <sc-for list="{{ o.campos }}" as="f" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:120px 1fr;gap:8px;font-size:10.5px;line-height:1.4"><span style="color:#8F8886;font-weight:700;letter-spacing:0.04em">{{ f.k }}</span><span style="color:{{ f.color }};word-break:break-word">{{ f.v }}</span></div></sc-for>
+            <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,0.06);padding-top:5px;font-size:9.5px;color:#8F8886;word-break:break-all">
+              <span><b style="color:#B1A9A7">{{ pt.L.proof }}</b> {{ o.prova.cadeia }}</span>
+              <span>{{ pt.L.source }} {{ o.prova.fonte }} · {{ pt.L.published }} {{ o.prova.publicado }}</span>
+              <sc-if value="{{ o.hasUrl }}" hint-placeholder-val="{{ false }}"><a href="{{ o.prova.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ pt.L.open }} {{ o.prova.url }}</a></sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+      <div style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ pt.L.law }}</div>
+    </div>
+    </sc-if>
 
     <!-- ================= OPPORTUNITY RADAR ================= -->
     <sc-if value="{{ isRadar }}" hint-placeholder-val="{{ true }}">
@@ -1635,8 +1710,8 @@
       <span style="font-size:10px;color:#8F8886;margin-top:-8px">{{ t.cwIconNote }}</span>
 
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 12px;border-radius:11px;background:#161312;border:1px solid rgba(203,197,195,0.10)">
-        <span style="display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:0.08em;color:#00B152;white-space:nowrap"><span style="width:2px;height:14px;background:#00B152"></span>{{ t.lblToday }} · {{ todayLabel }} 2026</span>
-        <span onClick="{{ calNav.today }}" style="cursor:pointer;padding:5px 11px;border-radius:9999px;background:#00783F;border:1px solid #00B152;color:#fff;font-size:10px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ t.cwBackToday }}</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:0.08em;color:#00B152;white-space:nowrap"><span style="width:2px;height:14px;background:#00B152"></span>{{ clockLabel }} · {{ todayLabel }} 2026</span>
+        <span onClick="{{ calNav.today }}" style="cursor:pointer;padding:5px 11px;border-radius:9999px;background:#00783F;border:1px solid #00B152;color:#fff;font-size:10px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ clockBack }}</span>
         <span style="width:1px;height:18px;background:rgba(151,139,135,0.3)"></span>
         <span onClick="{{ calNav.back }}" style="cursor:pointer;width:26px;height:26px;border-radius:50%;border:1px solid rgba(203,197,195,0.2);display:inline-flex;align-items:center;justify-content:center;color:#C9C3C1;font-size:12px">‹</span>
         <span style="font-size:10.5px;font-weight:700;letter-spacing:0.06em;color:#EDEAE9;white-space:nowrap;min-width:150px;text-align:center">{{ calRangeLabel }}</span>
@@ -1746,7 +1821,7 @@
             </div>
           </sc-for>
 
-          <div style="position:relative;height:20px"><sc-if value="{{ todayInView }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;left:150px;right:182px;top:0;bottom:0"><span style="position:absolute;left:{{ todayLeft }};top:2px;transform:translateX(-50%);white-space:nowrap;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152">{{ t.lblToday }} · {{ todayLabel }} 2026</span></span></sc-if></div>
+          <div style="position:relative;height:20px"><sc-if value="{{ todayInView }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;left:150px;right:182px;top:0;bottom:0"><span style="position:absolute;left:{{ todayLeft }};top:2px;transform:translateX(-50%);white-space:nowrap;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:#00B152">{{ clockLabel }} · {{ todayLabel }} 2026</span></span></sc-if></div>
         </div>
       </div>
       </sc-if>
@@ -4806,7 +4881,7 @@ class Component extends DCLogic {
         const d = AM && AM.daysFrom ? AM.daysFrom(c.signalDate) : null;
         if (d === null || d === undefined || !c.signalDate) return { has: false, label: '' };
         const n = Math.abs(d);
-        return { has: true, label: (T.lblUpdated || '') + ' ' + (n === 0 ? (T.lblToday || 'oggi') : (n + (s.lang === 'en' ? 'd ago' : 'g fa'))) };
+        return { has: true, label: (s.lang === 'en' ? 'signal of ' : 'segnale del ') + String(c.signalDate).slice(0, 10).split('-').reverse().join('/') };
       })(),
       /* O PORTFOLIO NA CAIXA PRETA · o nome, quantos mais, e o principio activo.
          Onde o motor nao confirma correspondencia, di-lo com as suas palavras —
@@ -6630,7 +6705,7 @@ class Component extends DCLogic {
       const d = (AM && AM.daysFrom && mcCase) ? AM.daysFrom(mcCase.signalDate) : null;
       if (d === null || d === undefined || !mcCase || !mcCase.signalDate) return { has: false, label: '' };
       const n = Math.abs(d);
-      return { has: true, label: (T.lblUpdated || '') + ' ' + (n === 0 ? (T.lblToday || '') : (n + (s.lang === 'en' ? 'd ago' : 'g fa'))) };
+      return { has: true, label: (s.lang === 'en' ? 'signal of ' : 'segnale del ') + String(mcCase.signalDate).slice(0, 10).split('-').reverse().join('/') };
     })();
     /* LE QUATTRO CASSE. La quarta non c'e se non c'e: una cassa vuota disegnata
        per fare simmetria dice «qui non c'e niente» con la stessa forza con cui
@@ -11975,6 +12050,92 @@ class Component extends DCLogic {
     const REFP = String((AM && AM.referenceDate) || '2026-09-02').split('-');
     const REF_MON = T.months || ['GEN', 'FEB', 'MAR', 'APR', 'MAG', 'GIU', 'LUG', 'AGO', 'SET', 'OTT', 'NOV', 'DIC'];
     const todayLabel = (REFP[2] + ' ' + (REF_MON[Number(REFP[1]) - 1] || '')).trim().toUpperCase();
+    /* ══ CASCO-REAL · VERITA VISIVA (SOUL §6-7) ═══════════════════════════════
+       Il portale NON sa che giorno e oggi: sa la data dei dati che legge. Il vecchio
+       «OGGI · 02 SET» presentava la data di riferimento del pacchetto come se fosse
+       oggi, e tutti gli stati relativi («finestra aperta», «13 g rimanenti», «5g fa»)
+       sembravano di oggi. Adesso il relogio dice «DATI AL» e ogni strumento dichiara
+       da quale pote legge, di quando e da quale motore. Solo METADATI dei poti: nessun
+       record viene ricontato, nessun incrocio viene fatto qui (§44). */
+    const cwEN = s.lang === 'en';
+    const cwD = (v) => { const t = String(v || '').replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3').slice(0, 10); return /^\d{4}-\d{2}-\d{2}$/.test(t) ? t.split('-').reverse().join('/') : (t || '—'); };
+    const cwMI = window.MEETING_INTELLIGENCE || {};
+    const cwH = window.ITALY_HANDOFF_V21 || {};
+    const cwCASA = window.ITALY_CASA || {};
+    const cwLI = window.ITALY_LABEL_INTELLIGENCE || {};
+    const cwCAN = window.ITALY_CANONICAL || {};
+    const cwCasaHead = ((JSON.stringify(cwCASA).match(/"SOURCE_HEAD":"(\w+)"/) || [])[1]) || '';
+    const cwPOTS = {
+      SNAP: { label: cwEN ? 'V21 engine snapshot' : 'istantanea del motore V21', date: cwD(cwMI.MEETING_CUTOFF), origin: (cwEN ? 'engine V21 · head ' : 'motore V21 · origine ') + (cwMI.SOURCE_HEAD || '—') + ' · build ' + (cwMI.BUILD_ID || '—') },
+      V21: { label: cwEN ? 'V2.1 package' : 'pacchetto V2.1', date: cwD(cwH.referenceDate), origin: 'portoes/site_v21_ingest.py · build ' + (cwH.buildId || '—') },
+      REG: { label: cwEN ? 'Ministry register' : 'registro del Ministero', date: cwD((cwCASA.AUTORIZACOES || {}).DATA_DO_SNAPSHOT), origin: cwEN ? 'national register snapshot' : 'istantanea del registro nazionale' },
+      CASA: { label: cwEN ? 'Future Radar package' : 'pacchetto Radar Futuro', date: cwD(cwCASA.DATA_DE_REFERENCIA), origin: 'superficie/it_casa_dados.py' + (cwCasaHead ? (cwEN ? ' · head ' : ' · origine ') + cwCasaHead : '') },
+      LABEL: { label: cwEN ? 'sealed label payload' : 'etichette · payload sigillato', date: cwD(cwLI.DATA_DATE), origin: 'pilot-label-intelligence · ' + (cwEN ? 'seal ' : 'sigillo ') + String(((cwLI.PRODUCED_BY || {}).CONTENT_SHA256) || '—').slice(0, 16) },
+      CANON: { label: cwEN ? 'canonical crop windows' : 'finestre colturali canoniche', date: cwD(cwCAN.referenceDate), origin: cwEN ? 'expected agronomic norm · no source per window' : 'norma agronomica attesa · nessuna fonte per finestra' },
+      DEMO: { label: cwEN ? 'demonstration fixture' : 'fixture dimostrativa', date: '—', origin: 'italy-demo-data.js' },
+    };
+    const cwREAL = { kind: cwEN ? 'REAL · PUBLIC SOURCES' : 'REALE · FONTI PUBBLICHE', kindColor: '#7BE0A6', kindBorder: 'rgba(0,177,82,0.5)' };
+    const cwNORM = { kind: cwEN ? 'EXPECTED NORM · NOT AN OBSERVATION' : 'NORMA ATTESA · NON OSSERVAZIONE', kindColor: '#F5B317', kindBorder: 'rgba(245,179,23,0.5)' };
+    const cwDEMO = { kind: cwEN ? 'DEMONSTRATION · SIMULATED' : 'DIMOSTRATIVO · SIMULATO', kindColor: '#F89E18', kindBorder: 'rgba(248,158,24,0.6)' };
+    const cwRel = (d) => (cwEN ? 'states and day counts are computed at ' : 'stati e conteggi di giorni calcolati al ') + d + (cwEN ? ', not today' : ', non a oggi');
+    const cwBY = {
+      meeting: [['SNAP'], cwREAL, cwRel(cwPOTS.SNAP.date)],
+      portfolio: [['V21', 'REG'], cwREAL, ''],
+      radarfuturo: [['CASA'], cwREAL, ''],
+      etichette: [['LABEL'], cwREAL, ''],
+      windows: [['CANON'], cwNORM, cwRel(cwPOTS.CANON.date)],
+      market: [['V21'], cwREAL, ''],
+      voices: [['V21'], cwREAL, cwEN ? 'the source gives no calendar date for the voices' : 'la fonte non dà una data di calendario per le voci'],
+      competitors: [['V21'], cwREAL, cwRel(cwPOTS.V21.date)],
+      science: [['V21'], cwREAL, ''],
+      future: [['V21'], cwREAL, ''],
+      archive: [['V21'], cwREAL, cwEN ? 'index of the documents collected in the package — not intelligence produced (§37)' : 'indice dei documenti raccolti nel pacchetto — non intelligence prodotta (§37)'],
+      sources: [['V21'], cwREAL, cwEN ? 'the package source register — not the contribution measured by the current run' : 'registro fonti del pacchetto — non il contributo misurato dalla corsa corrente'],
+      field: [['DEMO'], cwDEMO, cwEN ? 'people and messages are simulated · no real ADAMA employee' : 'persone e messaggi simulati · nessun dipendente ADAMA reale'],
+    };
+    const cwCap = Component.CAPABILITY_OF[s.view] || s.view;
+    const cwRow = cwBY[cwCap] || null;
+    const pvShow = !!cwRow;
+    const pv = cwRow ? Object.assign({
+      L: { head: cwEN ? 'THIS SCREEN READS' : 'QUESTA SCHERMATA LEGGE', asOf: cwEN ? 'data as of' : 'dati al' },
+      pots: cwRow[0].map((k) => cwPOTS[k]), note: cwRow[2], hasNote: !!cwRow[2],
+    }, cwRow[1]) : { L: {}, pots: [], note: '', hasNote: false };
+    const clockLabel = cwEN ? 'DATA AS OF' : 'DATI AL';
+    const clockBack = '← ' + todayLabel;
+    const cwDates = Object.keys(cwPOTS).map((k) => cwPOTS[k].date).filter((d) => /\d{2}\/\d{2}\/\d{4}/.test(d))
+      .map((d) => d.split('/').reverse().join('-')).sort();
+    const cwSpan = cwDates.length ? cwD(cwDates[0]) + ' – ' + cwD(cwDates[cwDates.length - 1]) : '—';
+    const envLabel = cwEN ? 'DATA STATUS' : 'STATO DEI DATI';
+    const envDot = '#00B152';
+    const envNote = cwEN
+      ? 'Intelligence from Italian and European public sources. Data as of ' + cwSpan + ' (each tool states its own). Demonstration only: Field Sales Network and the switched-off scenarios.'
+      : 'Intelligence da fonti pubbliche italiane ed europee. Dati al ' + cwSpan + ' (ogni strumento dichiara i suoi). Dimostrativi solo: Rete Commerciale di Campo e gli scenari spenti.';
+    /* ══ CASCO-POTE (D97) · il compartimento del pote per questo strumento ══════
+       window.SINTONIA_POTE esiste solo con ?pote=local (EXPERIMENTAL · NON PER IL CLIENTE).
+       Il casco disegna OGGETTI come risposta; ENTRADA_QUE_EXISTE solo come spiegazione;
+       il vuoto con la classificazione §45 e la differenza. Nulla viene convertito. */
+    const cwPOTE = window.SINTONIA_POTE || null;
+    const cwPC = cwPOTE && cwPOTE.compartimentos ? cwPOTE.compartimentos[cwCap] : null;
+    const cwNS = /^N[AÃ]O SEI|NAO_SEI|NOT_MEASURED|NAO MEDID/;
+    const cwObj = (o) => Object.assign({}, o, { hasUrl: !!(o.prova && o.prova.url),
+      campos: (o.campos || []).map(([k, v]) => ({ k, v, color: cwNS.test(String(v)) ? '#F5B317' : '#EDEAE9' })) });
+    const ptShow = !!cwPC;
+    const pt = cwPC ? {
+      marca: cwPOTE.marca, c: cwPC,
+      L: cwEN
+        ? { title: 'Intelligence of the current run', question: 'QUESTION', expected: 'EXPECTED INPUT', answer: 'ANSWER OF THIS TOOL', exists: 'WHAT EXISTS AND WHY IT DOES NOT ANSWER YET · explanation only', diff: 'Difference:', owner: 'Responsible Intelligence:', missing: 'Missing contract:', proof: 'PROOF', source: 'source', published: 'published', open: 'open the document →',
+            law: 'The portal draws this pote and does nothing else: no crossing, no filled-in NOT KNOWN, no promotion of a signal to a finding or an opportunity (SOUL §44 · INT-LAW-023/280). Zero here does not prove absence in the world: it is this run and this cut.' }
+        : { title: "Intelligence della corsa corrente", question: 'DOMANDA', expected: 'INGRESSO ATTESO', answer: 'RISPOSTA DI QUESTO STRUMENTO', exists: "CIO CHE ESISTE E PERCHE NON RISPONDE ANCORA · solo spiegazione", diff: 'Differenza:', owner: 'Intelligence responsabile:', missing: 'Contratto mancante:', proof: 'PROVA', source: 'fonte', published: 'pubblicato', open: 'apri il documento →',
+            law: "Il portale disegna questo pote e nient'altro: nessun incrocio, nessun NON SO riempito, nessuna promozione di un segnale a scoperta o opportunita (SOUL §44 · INT-LAW-023/280). Zero qui non prova l'assenza nel mondo: e questa corsa e questo taglio." },
+      meta: `pote ${cwPOTE.rodada} · ${cwPOTE.chave} · ${cwEN ? 'Sala cut' : 'taglio della Sala'} ${String(cwPOTE.corte || '').slice(0, 16).replace('T', ' ')} UTC`,
+      meta2: `${cwPOTE.contrato} · ${cwEN ? 'engine' : 'motore'} ${cwPOTE.motor} · ponte ${cwPOTE.ponte} · ${cwPOTE.ruleset} · Sala ${cwPOTE.salaLinhas} ${cwEN ? 'rows, read-only' : 'righe, sola lettura'} = ${cwPOTE.soLeitura} · ${cwPOTE.estadoAnalitico} · ${cwEN ? 'check' : 'conferenza'} ${cwPOTE.conferencia} · ${cwPOTE.gate} · ${cwPOTE.ficheiro} sha256 ${String(cwPOTE.sha256 || '').slice(0, 16)}…`,
+      objs: (cwPC.objetos || []).map(cwObj), existe: (cwPC.existe || []).map(cwObj),
+      objCount: Object.entries(cwPC.objetosPorEspecie || {}).map(([k, n]) => n + ' ' + k).join(' · '),
+      existeCount: Object.entries(cwPC.existePorEspecie || {}).map(([k, n]) => n + ' ' + k).join(' · '),
+      hasObj: (cwPC.objetos || []).length > 0, isEmpty: (cwPC.objetos || []).length === 0,
+      hasExiste: (cwPC.existe || []).length > 0,
+      hasMissing: (cwPC.objetos || []).length > 0 && !!cwPC.contratoQueFalta,
+    } : { L: {}, c: {}, objs: [], existe: [] };
 
     return {
       nav, navEvidence,
@@ -11983,6 +12144,7 @@ class Component extends DCLogic {
       frRadar: { has: navRadarFuturo.count !== '', label: navRadarFuturo.label,
         count: navRadarFuturo.count, go: navRadarFuturo.go },
       kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
+      clockLabel, clockBack, envLabel, envNote, envDot, pv, pvShow, pt, ptShow,
 
       /* ══ SUPERFICIE CANONICA DELLA RIUNIONE ═══════════════════════════════
          Ogni valore qui sotto e gia stato deciso dal motore e copiato
