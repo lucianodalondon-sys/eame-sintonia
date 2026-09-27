@@ -138,7 +138,7 @@ def texto_de(dados: bytes, media_type: str) -> tuple:
 
 
 def admitir(dados: bytes, media_type: str, url: str, fonte: dict, r: dict, sha: str, capturado: str,
-            corrida: str) -> dict:
+            corrida: str, raw_asset_id: int = None) -> dict:
     import admissao as adm
     import executor_texto_de_html as H
     import italy_executor as ex
@@ -149,7 +149,7 @@ def admitir(dados: bytes, media_type: str, url: str, fonte: dict, r: dict, sha: 
     obs = {"SOURCE_ID": fonte["SOURCE_ID"], "SOURCE_URL": url, "CAPTURED_AT": capturado}
     tl = ex.tempo_e_lugar(obs, dados)
     est = {"SOURCE_ID": fonte["SOURCE_ID"], "TEXTO": texto, "DERIVED_ARTIFACT_ID": "busca-%s" % sha[:16],
-           "RAW_ASSET_ID": None, "PARENT_SHA256": sha, "CAPTURED_AT": capturado, "TEMPO_E_LUGAR": tl,
+           "RAW_ASSET_ID": raw_asset_id, "PARENT_SHA256": sha, "CAPTURED_AT": capturado, "TEMPO_E_LUGAR": tl,
            "SOURCE_URL": url}
     if especie == "text/html":
         est["RETRATO_DO_DETECTOR"] = H._retrato(dados)
@@ -277,9 +277,11 @@ def colher(resultados: list, fila: Path, saida: Path, buscar, *, pousar=False, c
     prontos = [x["READY"] for x in feitos if x.get("READY")]
     recibo = None
     if pousar and prontos:
-        import sala_de_espera as SE
-        SE.exigir_canonica()                       # nunca cai para ficheiro: Sala canonica ou nada
-        recibo = SE.pousar(corrida, prontos)
+        # A SALA SO RECEBE O QUE TEM RAW CANONICO: collection_run + raw_asset pela porta do dono
+        # (`guarda/preservar_coleta`), e o READY refeito com o RAW_OBSERVATION_ID real. E o mesmo caminho
+        # do `--repousar` (coleta/linha_busca_raw.py), sobre a pasta desta corrida.
+        import linha_busca_raw as LR
+        recibo = LR.repousar([saida], corrida=corrida, pousar=True)
     (saida / ("READY-%s.json" % corrida)).write_text(json.dumps(prontos, ensure_ascii=False, indent=1) + "\n",
                                                     encoding="utf-8")
     # D94-b: so conta item UNICO, ADMITIDO e com identidade provada (nunca perfil, snippet, duplicado ou login)
