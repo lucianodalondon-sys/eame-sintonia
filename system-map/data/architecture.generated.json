@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/extract-study-metadata-x1m3tv",
-    "HEAD": "3fd81e16e86e144aed5ab83cfcfc45cbc61c8a3a",
-    "GENERATED_AT": "2026-09-27T18:30:00+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3906ffbf142ad78c0fc164ab185e154f3a3e1569823789f88f832acd37e2aaee"
+    "HEAD": "74f9953050033dfc530be1a2f75e164ea1847092",
+    "GENERATED_AT": "2026-09-27T18:33:29+00:00",
+    "SOURCE_TREE_FINGERPRINT": "51fd0cd0bdb7abafdc1ea2dc5d84c19186d27978c760993fbde173dfc0ba5879"
   },
   "FILES": [
     {
@@ -325,7 +325,7 @@
     },
     {
       "path": "ESTUDOS-CHAVES.md",
-      "sha": "8be8ab9eba6d226f0297ce81f7a811f30f04a622",
+      "sha": "e687f2d50d606d883fd2feff4b93277575964c9b",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -17776,7 +17776,7 @@
     },
     {
       "path": "leis/estudo_chaves.py",
-      "sha": "c5ede3100dba265d3428a204f0d19e2f6f510fd5",
+      "sha": "c8b6dc3ef410b6b02026b7fdd2eaf7a9452f28c5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20065,14 +20065,14 @@
     },
     {
       "path": "provas/estudos_chaves/MUTACAO-ESTUDOS-CHAVES.json",
-      "sha": "356d9ccb5b781f604c4593b21eeb7d5f9707d8e0",
+      "sha": "bf325c39f617d199563d231fb01963bab263e0f2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/estudos_chaves/mutacao_estudos_chaves.py",
-      "sha": "0bf2400ea727e39a87f6b6854ba24dccb5f17bdf",
+      "sha": "f65efbb0342279fb7915e7a6b1fb44dff1db496c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25336,7 +25336,7 @@
     },
     {
       "path": "tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json",
-      "sha": "00845ad9c564cd26cdb09bded1aa1daabb109573",
+      "sha": "aedd9b58d1b2eef2590dd514dc3f3d17afe2095b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26337,7 +26337,7 @@
     },
     {
       "path": "tests/test_estudo_chaves.py",
-      "sha": "d743886514cf0d8581223c179a0ae7c329d9a4d5",
+      "sha": "954063639e1a9e4282aec9ef320f9eb7fdffcb41",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -52605,7 +52605,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/estudo_chaves.py",
-        "line": 161,
+        "line": 163,
         "snippet": "import admissao as ADM                           # noqa: PLC0415"
       }
     },
@@ -52616,7 +52616,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/estudo_chaves.py",
-        "line": 148,
+        "line": 150,
         "snippet": "import pesquisadores_t6 as T6                    # noqa: PLC0415 — o lexico T6 (ingles/cientifico)"
       }
     },
@@ -52627,7 +52627,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/estudo_chaves.py",
-        "line": 154,
+        "line": 156,
         "snippet": "import boletim_do_campo as BC                    # noqa: PLC0415 — o vocabulario de pragas"
       }
     },
@@ -52638,7 +52638,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/estudo_chaves.py",
-        "line": 208,
+        "line": 210,
         "snippet": "import fato_local as FL                      # noqa: PLC0415 — o gazetteer (so se LE)"
       }
     },
@@ -92161,7 +92161,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 280,
+        "line": 287,
         "snippet": "r = subprocess.run([sys.executable, os.path.join(RAIZ, \"admissao\", \"reprocessar_estudos_chaves.py\"),"
       }
     },
@@ -92172,7 +92172,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 268,
+        "line": 275,
         "snippet": "with open(os.path.join(RAIZ, \"admissao\", \"reprocessar_estudos_chaves.py\"), encoding=\"utf-8\") as h:"
       }
     },
@@ -92216,7 +92216,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 212,
+        "line": 219,
         "snippet": "with open(os.path.join(RAIZ, \"leis\", \"estudo_chaves.py\"), encoding=\"utf-8\") as h:"
       }
     },
@@ -92227,7 +92227,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 204,
+        "line": 211,
         "snippet": "import fato_local as FL"
       }
     },
