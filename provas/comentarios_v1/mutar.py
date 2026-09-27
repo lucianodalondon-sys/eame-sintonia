@@ -93,6 +93,9 @@ res = {'TESTES': TESTES, 'SHA256_ANTES': sha0, 'FALHAS_HERDADAS_ANTES': sorted(H
 try:
     for nome, f, velho, novo in MUTANTES:
         texto = originais[f].decode('utf-8')
+        if texto.count(velho) == 0 and '\n' in velho and '\r\n' in texto:
+            # o checkout do Windows traz CRLF (core.autocrlf): o mesmo defeito, no fim de linha do ficheiro
+            velho, novo = velho.replace('\n', '\r\n'), novo.replace('\n', '\r\n')
         n = texto.count(velho)
         if n != 1:
             res['MUTANTES'].append({'MUTANTE': nome, 'ESTADO': 'NAO_APLICADO', 'OCORRENCIAS': n})
