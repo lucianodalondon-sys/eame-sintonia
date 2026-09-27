@@ -8,6 +8,7 @@ tarefas que (ii) e (iii) precisam de volta na fila. Com o ROBO PARADO: um so esc
     py curadoria/aplicar_d80.py --aplicar  --recibo=<fora do Git>    # (i) + reabre as QUALIFY
     py curadoria/aplicar_d80.py --reverter --recibo=<fora do Git>    # desfaz (i) + reabre as QUALIFY
     ... [--mae=<host>=<SOURCE_ID>]   # a mae de um site com varias fontes, se o dono a disser
+    ... [--lista=<outra lista no mesmo formato>]   # DESTRAVAR-FONTES: 2.a lista, mesma regra D80(i)
 
 (i)   As 113 da BLOQUEADAS-268 que a leitura propos retirar. Cada uma recusada pela
       PORTA (`fonte_nova.recusar`, decisao «D80(i)»), com motivo proprio, a duplicada
@@ -219,9 +220,12 @@ def main(argv=None) -> int:
             print("RECUSADO: --mae=%s — %s nao e fonte do site %s" % (m, sid, host), file=sys.stderr)
             return 2
         maes[host] = sid
-    linhas = conferir(_ler(LISTA), maes)
+    # DESTRAVAR-FONTES (26/09): uma 2.a lista, no MESMO formato e pela MESMA regra D80(i).
+    # O --reverter com a mesma --lista so toca nas linhas dela.
+    lista_usada = Path(a["lista"][0]) if a.get("lista") else LISTA
+    linhas = conferir(_ler(lista_usada), maes)
     recibo = {"DECISAO": DECISAO, "QUANDO": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-              "RAIZ": str(RAIZ), "MAES_DO_DONO": maes}
+              "RAIZ": str(RAIZ), "MAES_DO_DONO": maes, "LISTA": lista_usada.name}
     if "reverter" in a:
         feitas = []
         for l in linhas:

@@ -60,6 +60,14 @@ def main(argv=None) -> int:
     A.main(["--recibo=%s" % (recibos / "D80-RECIBO-A-SECO.json")])
     A.main(["--aplicar", "--recibo=%s" % (recibos / "D80-RECIBO-APLICAR.json")])
     aplicado = json.loads((recibos / "D80-RECIBO-APLICAR.json").read_text(encoding="utf-8"))
+    # DESTRAVAR-FONTES: a 2.a lista (mesma regra), aplicada ANTES de o robo correr as QUALIFY
+    if a.get("lista2"):
+        A.main(["--lista=%s" % a["lista2"], "--recibo=%s" % (recibos / "D80-LISTA2-RECIBO-A-SECO.json")])
+        A.main(["--aplicar", "--lista=%s" % a["lista2"], "--recibo=%s" % (recibos / "D80-LISTA2-RECIBO-APLICAR.json")])
+        ap2 = json.loads((recibos / "D80-LISTA2-RECIBO-APLICAR.json").read_text(encoding="utf-8"))
+        aplicado["LINHAS"] = aplicado["LINHAS"] + ap2["LINHAS"]
+        aplicado["RECUSADAS"] = aplicado["RECUSADAS"] + ap2["RECUSADAS"]
+        aplicado["A_RECUSAR"] = aplicado["A_RECUSAR"] + ap2["A_RECUSAR"]
 
     # O robô: so as QUALIFY reabertas agora, e o que elas enfileirarem (BUILD_CONTRACT).
     reabertas = [t["TASK_ID"] for t in F._ler()["TAREFAS"]
@@ -119,6 +127,8 @@ def main(argv=None) -> int:
 
     # REVERTER e conferir contra a referencia (a copia intocada do vivo)
     A.main(["--reverter", "--recibo=%s" % (recibos / "D80-RECIBO-REVERTER.json")])
+    if a.get("lista2"):
+        A.main(["--reverter", "--lista=%s" % a["lista2"], "--recibo=%s" % (recibos / "D80-LISTA2-RECIBO-REVERTER.json")])
     conf = None
     if a.get("referencia"):
         ref = {c["CANDIDATA_ID"]: c for c in json.loads(
