@@ -31,3 +31,20 @@ ERROR: test_lista_enea_e_nao_pela_v2
 FAIL: test_NAO_SEI_nao_produz_ready
 FAIL: test_nenhum_leitor_de_robots_novo_em_curadoria
 FAIL: test_todo_caminho_ate_ao_coletor_esta_declarado
+
+== mutar4.py (sobre 554c1ec1: descricao + versao 3) ==
+M1 sem o acrescento -> MORTO | FAILED (failures=2)
+M2 descricao antes do texto -> MORTO | FAILED (failures=1)
+M3 receita sem o dono da descricao -> MORTO | FAILED (failures=2)
+M4 versao 3 volta a 2 -> MORTO | FAILED (failures=2)
+M5 T1/T11 fora -> MORTO | FAILED (failures=1, errors=4)
+M6 titulo no lugar da descricao -> MORTO | FAILED (failures=3)
+status depois: ' M ACERVO-PARA-SALA-3.md\n'
+== regressao 65 ficheiros, vivo 554c1ec1 x ramo ==
+vivo Ran 1316 tests in 1157.624s
+vivo FAILED (failures=121, errors=21, skipped=38, expected failures=1)
+ramo Ran 1335 tests in 962.971s
+ramo FAILED (failures=122, errors=21, skipped=38, expected failures=1)
+diferenca pelo nome:
+26a27
+> FAIL: test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore

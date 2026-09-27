@@ -1,0 +1,27 @@
+import subprocess, os
+R = r'C:/capa-v1'
+CR = chr(13) + chr(10)
+MUT = [
+    ('M1 sem o acrescento', 'coleta/texto_fonte.py', "        t = t + '\\n' + descricao", "        pass"),
+    ('M2 descricao antes do texto', 'coleta/texto_fonte.py', "        t = t + '\\n' + descricao", "        t = descricao + '\\n' + t"),
+    ('M3 receita sem o dono da descricao', 'coleta/executor_texto_de_html.py',
+     '        "VIDEO_DESCRIPTION_OWNER": "coleta/texto_fonte.py::descricao_do_youtube",' + CR, ''),
+    ('M4 versao 3 volta a 2', 'coleta/executor_texto_de_html.py', 'EXECUTOR_VERSION = "3"', 'EXECUTOR_VERSION = "2"'),
+    ('M5 T1/T11 fora', 'pedido/receitas.py', 'for _u in ("T1", "T8", "T9", "T11", "T12"):', 'for _u in ("T8", "T9", "T12"):'),
+    ('M6 titulo no lugar da descricao', 'coleta/texto_fonte.py', ".get('DESCRICAO', '')", ".get('TITULO', '')"),
+]
+TESTES = ['tests.test_descricao_do_youtube', 'tests.test_receita_web_t8_t9_t12', 'tests.test_a_receita_tem_versao']
+env = {**os.environ, 'PYTHONUTF8': '1'}
+for nome, f, a, b in MUT:
+    p = os.path.join(R, f)
+    s = open(p, encoding='utf-8', newline='').read()
+    if s.count(a) != 1:
+        print(nome, 'ALVO NAO ACHADO', s.count(a)); continue
+    open(p, 'w', encoding='utf-8', newline='').write(s.replace(a, b))
+    try:
+        r = subprocess.run(['py', '-B', '-m', 'unittest'] + TESTES, cwd=R, capture_output=True, text=True, env=env)
+        fim = r.stderr.strip().splitlines()[-1]
+        print(nome, '->', 'MORTO' if 'failures=' in fim else 'VIVO', '|', fim)
+    finally:
+        open(p, 'w', encoding='utf-8', newline='').write(s)
+print('status depois:', repr(subprocess.run(['git', 'status', '--short'], cwd=R, capture_output=True, text=True).stdout))

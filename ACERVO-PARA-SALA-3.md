@@ -1,5 +1,33 @@
 # ACERVO-PARA-SALA-3 — a página de vídeo é matéria (opção B) + o livro das corridas fora do vivo
 
+## ⚠️ ATUALIZAÇÃO 26/09 23:00 — rebase sobre o vivo `554c1ec1` (lote 3). O ENSAIO ABAIXO NÃO VALE PARA ESTA ENTREGA
+
+**Em palavras simples:** o lote 3 instalou uma lei nova: **receita nova = versão nova** (D79). A minha leitura
+da descrição do vídeo mudava o texto das páginas de vídeo **sem** mudar a versão do leitor. Consertei do jeito
+da lei:
+- o leitor de página (`texto-de-html`) sobe para a **versão "3"**;
+- a receita dele passa a dizer, sempre, que lê a descrição do vídeo;
+- o hash novo (`cd0f79b7f3c2`) fica registado no teste que cobra a lei.
+
+**O efeito:**
+- no reprocesso, **toda página HTML** ganha um texto novo com a versão "3" (o conteúdo só muda nos vídeos);
+- quem decide se isso vira item novo na Sala é o controle de documento repetido que o lote 3 trouxe (dedup-doc);
+- **por isso o ensaio de baixo (+17, segunda vez +0), feito sobre `dc0de726`, precisa ser refeito antes de
+  aplicar.** A Sala real também mudou: de 94 para 104 linhas (98 itens).
+
+**Não refiz o ensaio:** há uma FILA-PESADO do coordenador e eu não estou nela. Pedi um lugar em
+`auditoria-madrugada/NOTA-FILA-ACERVO-PARA-SALA-3.txt`. **Até lá, NÃO aplicar a secção 3.**
+
+| desde `7ff555be` | resultado |
+|---|---|
+| rebase sobre `554c1ec1` | conflitos: listas do `architecture.declared.json` (unidas, os dois lados) e `executor_texto_de_html.receita` (ficou a do vivo + versão "3") |
+| `coleta/youtube_janela.py` | igual ao do vivo (a função da descrição já veio no D84): 0 linhas de diferença |
+| mutação da descrição / versão "3" (`medidas-3/mutar4`) | **6/6** (sem acrescento · descrição antes · receita sem o dono · versão volta a "2" · T1/T11 fora · título no lugar) |
+| mutação da V3 | **11/11** |
+| regressão: 65 ficheiros (retrato/capa/porta/texto/receitas/extratores/versão do documento/Sala), vivo `554c1ec1` × ramo | 1.316 × 1.335; vermelhos iguais pelo nome **menos um**: `test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore` — compara o carimbo do MAPA com as fontes; uma entrega PRONTO-SEM-MAPA que muda fontes reprova-o até a INTEGRA regenerar o mapa |
+
+---
+
 Ramo `acervo-para-sala-3-v1`, **rebaseado sobre o vivo `dc0de726`** (fast-forward). **NÃO instalado.** Sem rede;
 Sala real e RAW **não tocados** (Sala só lida: `pg_dump` só-leitura às 14:20; a Sala real continuava igual às
 17:40: 94 linhas, 88 itens). Ensaios com o `LOCK-PESADO` (15:55–16:14 e 18:31–19:43), Postgres descartável
