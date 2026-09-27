@@ -75,7 +75,8 @@ class Contador24h:
     def marcar_gasto(self, dominio: str, ate: datetime, porque: str) -> int:
         """Pedidos feitos FORA deste contador (outra linha, outro dia): enche o teto ate `ate`, para que nada
         daqui peca antes disso. Devolve quantas linhas escreveu."""
-        n = self.livres(dominio)
+        # so conta o que ainda estara na janela em `ate`: um pedido que sai antes nao pode abrir vaga mais cedo
+        n = max(0, self.teto(dominio) - sum(1 for u in self.na_janela(dominio) if u >= ate - JANELA))
         for _ in range(n):
             self.pedidos.append({"DOMINIO": dominio, "URL": "EXTERNO", "EM": _iso(ate - JANELA), "PORQUE": porque})
         if n:

@@ -118,6 +118,18 @@ class D91(unittest.TestCase):
             depois = CT.Contador24h(Path(d) / "C.json", agora=lambda: T0 + timedelta(hours=12, seconds=1))
             self.assertEqual(4, depois.livres("orcid.org"))          # o «u» das T0 ainda conta ate T0+24 h
 
+    def test_marcar_gasto_nao_abre_vaga_antes_da_hora(self):
+        # um pedido antigo que sai da janela ANTES de `ate` nao pode abrir vaga mais cedo (26/09: o robots das
+        # 22:58Z abriria uma vaga as 19:58 de 27/09, antes das 20:20 da coordenacao)
+        with tempfile.TemporaryDirectory() as d:
+            CT.Contador24h(Path(d) / "C.json", agora=lambda: T0).reservar("orcid.org", "cedo")      # sai as T0+24h
+            ate = T0 + timedelta(hours=24, minutes=22)
+            c = CT.Contador24h(Path(d) / "C.json", agora=lambda: T0 + timedelta(hours=3))
+            self.assertEqual(5, c.marcar_gasto("orcid.org", ate, "coordenacao"))
+            quase = CT.Contador24h(Path(d) / "C.json", agora=lambda: T0 + timedelta(hours=24, minutes=10))
+            self.assertEqual(0, quase.livres("orcid.org"))           # o «cedo» ja saiu, mas os 5 EXTERNO nao
+            self.assertEqual(ate, datetime.fromisoformat(quase.proximo_livre("orcid.org")))
+
 
 class Canario(unittest.TestCase):
     def test_sem_canario_nao_ha_dia_e_canario_so_uma_vez(self):

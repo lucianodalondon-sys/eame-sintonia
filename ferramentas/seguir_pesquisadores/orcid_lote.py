@@ -21,7 +21,10 @@ As 16 rodadas x 5 pedidos da 1.a versao (seguir.py --rodada) nao cabem num dia. 
     py ferramentas/seguir_pesquisadores/orcid_lote.py --candidatar --saida=<pasta> --fila=<COPIA da fila>
     (--seco --fixtures=<pasta> [--agora=ISO] faz o canario/dia com respostas inventadas, sem rede)
 
-Os mesmos limites da seguir.py (robots, 3 s, portao IT antes/depois, bytes com sha256 fora do Git,
+D91 (26/09 22:32): os pedidos a pub.orcid.org/v3.0 sao API PUBLICA OFICIAL: seguem os termos e limites da
+API (sem login, teto 5/24 h, RAW e proveniencia) e NAO o robots.txt do host (que e «Disallow: /»); as
+paginas declaradas (universidades, FEM, CREA...) continuam a respeitar o robots.
+Os mesmos limites da seguir.py (robots nas paginas comuns, 3 s, portao IT antes/depois, bytes com sha256 fora do Git,
 LinkedIn /in/ fora, nunca e-mail/contactos) e o contador de 24 h partilhado (contador.py).
 """
 import csv
@@ -237,15 +240,6 @@ def canario(estado: dict, t: "S.Transporte") -> dict:
     cs = ler_csv(b) if (b and st == 200) else None
     traz = cs is not None and len(cs) > 0
     c["C_LOTE_CSV"] = {"HTTP": st, "TRAZ_LINKS": "SIM" if traz else ("NAO" if st in (200, 400) else "NAO_SEI")}
-    proibidos = [x for x in t.registo if x["RESULTADO"] == "ROBOTS_OU_NAO_LIDO" and "orcid.org" in x["URL"]]
-    if len(proibidos) == 3:
-        rb = t.contador.robots_de("https://pub.orcid.org") if t.contador is not None else None
-        c["MODO"] = "PARADO"
-        c["PORQUE"] = ("ROBOTS: o robots.txt de pub.orcid.org nao deixa pedir nenhum dos 3 enderecos (%s). A regra da casa "
-                       "(D34/D39) respeita o robots; seguir sem ele e decisao do coordenador/dono, nao desta ferramenta"
-                       % (repr(rb[1]) if rb else "robots nao lido"))
-        c["PEDIDOS_ORCID"] = t.conta.get("orcid.org", 0)
-        return c
     if traz:
         c["MODO"] = "LOTE_COM_LINKS"
     elif c["A_POR_PESSOA"]["FORMATO_OK"]:
