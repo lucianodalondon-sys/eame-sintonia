@@ -166,6 +166,26 @@ if (!only) {
   if (!r.pass && r.detail) for (const line of r.detail) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
 }
 
+/* ══ PP1 · O POTE PUBLICADO, COMO VAI AO AR (D114) ═════════════════════════
+   BB1 e ET1 medem o legado no estado sem pote (ajuste declarado, D114). Este
+   mede o que a Vercel serve por omissao: o pote da rodada 7, rota a rota, no
+   browser. Sem ele, o corredor mediria so o casco de antes. */
+if (!only) {
+  const pp = spawnSync(process.execPath, [fileURLToPath(new URL('./casco/pote-publicado-browser.mjs', import.meta.url))],
+    { encoding: 'utf8' });
+  const passou = pp.status === 0;
+  const linha = String(pp.stdout || '').split('\n').find((l) => /passing/.test(l)) || '';
+  results.push({
+    id: 'PP1', title: 'The published pot (D114) is what every tool route draws',
+    pass: passou, expected: '0 failing',
+    measured: linha.replace(/\x1b\[[0-9;]*m/g, '').trim() || (passou ? 'ok' : 'ver casco/pote-publicado-browser.mjs'),
+    detail: passou ? undefined : String(pp.stdout || pp.stderr || '').split('\n').slice(-16),
+  });
+  const r = results[results.length - 1];
+  console.log(`  ${r.pass ? `${G}PASS${X}` : `${R}FAIL${X}`}  ${pad(r.id, 5)} ${pad(r.title, 58)} ${DIM}exp${X} ${pad(r.expected, 12)} ${DIM}got${X} ${r.measured}`);
+  if (!r.pass && r.detail) for (const line of r.detail) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
+}
+
 const nonMisurati = results.filter((r) => r.notTestable);
 const misurabili = results.filter((r) => !r.notTestable);
 const ok = misurabili.filter((r) => r.pass).length;

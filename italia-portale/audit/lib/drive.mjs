@@ -55,9 +55,20 @@ const EXEC = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
    numero muda, alguem acrescentou um marcador dentro de um atributo. */
 const TEMPLATE_ATTR = /attribute (d|cx|cy|x|y|r|points|width|height|transform|viewBox):.*\{\{/;
 
-export async function open({ port = 8899, width = 1440, height = 1000, page: url = '/portale.html' } = {}) {
+/* `semPotePublicado`: desde D114 o portal carrega por omissao o pote da rodada 7
+   (sintonia-pote-publicado.js), e com ele cada rota de ferramenta desenha o pote em
+   vez do legado. Um portao que mede o LEGADO (as barras de busca do radar, os
+   cartoes da Label Intelligence) pede este estado de proposito: o ficheiro e
+   respondido VAZIO, e o casco fica como estava antes de D114. Nao e um 404 — um
+   404 seria contado como falha do site. O que vai ao ar por omissao e medido por
+   quem NAO passa esta bandeira (audit/casco/pote-publicado-browser.mjs, PP1). */
+export async function open({ port = 8899, width = 1440, height = 1000, page: url = '/portale.html', semPotePublicado = false } = {}) {
   const browser = await chromium.launch({ executablePath: EXEC, args: ['--no-sandbox'] });
   const ctx = await browser.newContext({ viewport: { width, height }, acceptDownloads: true });
+  if (semPotePublicado) {
+    await ctx.route('**/sintonia-pote-publicado.js', (r) => r.fulfill({ status: 200,
+      contentType: 'text/javascript; charset=utf-8', body: '/* sem pote publicado: o casco antes de D114 */\n' }));
+  }
   const page = await ctx.newPage();
   const errors = [], noise = [], failed = [], logs = [];
   page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));

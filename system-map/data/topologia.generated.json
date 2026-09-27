@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-14T05:41:50+00:00",
-  "HEAD": "3ec314ec00d236b05eefafe3c12423ebdbf1786f",
-  "BRANCH": "claude/system-map-handoff-sm-p3",
+  "GENERATED_AT": "2026-09-27T19:33:15+00:00",
+  "HEAD": "05d398bf6f2cdbb94eda1c7a631d440b090c9346",
+  "BRANCH": "claude/casco-r7-publication-yb7nsg",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "e0320656e322a2502c333f94c2abb1cba3e944b07c9654a0de780cfcde80ebc7",
-  "FICHEIROS_NA_IMPRESSAO": 1520,
+  "SOURCE_TREE_FINGERPRINT": "dc4d16d52d306987f34063f882d5b57ea69503f48b14f78477654245021bc869",
+  "FICHEIROS_NA_IMPRESSAO": 1534,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -769,7 +769,7 @@
    {
     "PATH": "italia-portale/audit/barras-de-busca.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "876dece964e74817130f628c19a7e1beb5667326",
+    "VERSAO": "112c96a08984055b4f284b5a09a4303de8c78095",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -874,7 +874,7 @@
    {
     "PATH": "italia-portale/audit/etichette-gate.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "e98514a62199e0a70fa7945ffc727c73864904fd",
+    "VERSAO": "41bf4a40f144a60ecd45f6c10360817c5ab47150",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1112,7 +1112,7 @@
    {
     "PATH": "italia-portale/audit/run.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "26af9054f23e2af83e8fc1194fda080a2a5e29ea",
+    "VERSAO": "8bd8804a2ffe6602050a32890c1c53d6485591ca",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1642,6 +1642,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "pacote/publicar_pote_aprovado.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ddc7232b61b2bea46e1cf21f5a30e3cb084f7984",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "pacote/v21_handoff_json.py",
     "PAPEL": "FONTE",
     "VERSAO": "94aadd8693d949bef7a77d109872e1e372d9f8d0",
@@ -1938,14 +1945,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e0320656e322a2502c333f94c2abb1cba3e944b07c9654a0de780cfcde80ebc7",
+    "VERSAO": "dc4d16d52d306987f34063f882d5b57ea69503f48b14f78477654245021bc869",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e0320656e322a2502c333f94c2abb1cba3e944b07c9654a0de780cfcde80ebc7",
+    "VERSAO": "dc4d16d52d306987f34063f882d5b57ea69503f48b14f78477654245021bc869",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -2685,8 +2692,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 378,
-  "INPUTS_DIGEST": "bd0128f0604bef81c7de741ec5cbd096005ed309f1ceec8b113e95ab7c55f889",
+  "INPUTS_COUNT": 379,
+  "INPUTS_DIGEST": "ea5d2a7921b4b8c0d3665f1ceef828bc6e7255563330b254658dd54d887342dd",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -2712,15 +2719,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 248,
+  "DOCUMENTOS_LIDOS": 251,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "905b26278b93504dd735893a232ca1dae3a6e11e5bb2e3727872d6ce06a02eee",
-  "SEMANTIC_HASH": "cdf8d1da289b02fd8e8c3ee33b189a03d5b818118d232847dd0f1981e33cd3c4"
+  "MEASUREMENT_HASH": "c2ce1f3e0cf9d1f102e7568a79eddb8b26a351f2ab8ca2d68866e8ac5abbc830",
+  "SEMANTIC_HASH": "8cc99e3df3f5b75e9f219b46644a9783dff843dc83877a8959d3b24bd0f5a386"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4245,6 +4252,28 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
       "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AUDIT-CASCO--READS-->C-AUDIT-GERAL",
+    "FROM": "C-AUDIT-CASCO",
+    "TO": "C-AUDIT-GERAL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "italia-portale/audit/run.mjs",
+      "LINHA": 174,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AUDIT-CASCO--READS-->C-AUDIT-GERAL",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -10641,6 +10670,28 @@
     "EVIDENCE_BINDING": []
    },
    {
+    "EDGE_ID": "C-LASTMILE--READS-->C-AUDIT-CASCO",
+    "FROM": "C-LASTMILE",
+    "TO": "C-AUDIT-CASCO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_pote_publicado.mjs",
+      "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE--READS-->C-AUDIT-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-LASTMILE--READS-->C-AUDIT-GERAL",
     "FROM": "C-LASTMILE",
     "TO": "C-AUDIT-GERAL",
@@ -10833,6 +10884,14 @@
      {
       "FICHEIRO": "pacote/meeting_snapshot.py",
       "LINHA": 188,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE--WRITES-->C-PORTAL-DADOS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/publicar_pote_aprovado.py",
+      "LINHA": 193,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE--WRITES-->C-PORTAL-DADOS",
@@ -12553,6 +12612,14 @@
      {
       "FICHEIRO": "pacote/meeting_snapshot.py",
       "LINHA": 187,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/publicar_pote_aprovado.py",
+      "LINHA": 63,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
@@ -17613,12 +17680,12 @@
     ]
    }
   ],
-  "COUNT": 520
+  "COUNT": 522
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 107,
   "CARTOES_AUDITADOS": 107,
-  "ARESTAS_RELACIONADAS": 520,
+  "ARESTAS_RELACIONADAS": 522,
   "ENTRYPOINTS": [
    "C-APIFY-POOL",
    "C-AUDIT-GERAL",
@@ -17876,7 +17943,7 @@
    "CONTROL": 34,
    "DATA": 23,
    "PROOF": 173,
-   "READ": 134,
+   "READ": 136,
    "RULE": 81,
    "WRITE": 9
   },
@@ -18267,7 +18334,7 @@
     "the",
     "unrendered"
    ],
-   "ENTRAM": 15,
+   "ENTRAM": 16,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -20217,10 +20284,13 @@
     "pacote/lastmile_para_supabase.py",
     "pacote/lastmile_relatorio.py",
     "pacote/ler_saida_leque.py",
-    "pacote/meeting_snapshot.py"
+    "pacote/meeting_snapshot.py",
+    "pacote/publicar_pote_aprovado.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
-   "SO_MEDEM_ESTE": [],
+   "SO_MEDEM_ESTE": [
+    "tests/test_pote_publicado.mjs"
+   ],
    "DOCUMENTADO_COMO_CLI": [
     "HANDOFF-BUILD-DA-REUNIAO.md",
     "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md"
@@ -20240,12 +20310,14 @@
     "sinal_regulatorio_futuro"
    ],
    "LE_DE": [
+    "__future__",
     "collections",
     "datetime",
-    "historical"
+    "historical",
+    "pathlib"
    ],
    "ENTRAM": 2,
-   "SAEM": 8,
+   "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ"
    ],

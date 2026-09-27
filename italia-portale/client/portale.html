@@ -73,7 +73,12 @@
      dados. O pote vive em sintonia-pote.js, GERADO por pacote/pote_intelligence_casco.py a partir de UMA corrida:
      fora do Git e do deploy, e so pedido com ?pote=local. Com ele, cada ferramenta desenha o seu compartimento
      COM PRECEDENCIA sobre o snapshot e a demo; sem ele, nada muda. -->
+<!-- POTE PUBLICADO (D114): o UNICO pote que vai ao ar, aprovado pelo dono — o da rodada 7. GERADO por
+     pacote/publicar_pote_aprovado.py a partir de docs/casco/r7/ (pote + analise da MESMA corrida). Carrega ANTES
+     do leitor e poe-se em window.SINTONIA_POTE; com ?pote=local cala-se e o pote local manda. -->
+<script src="sintonia-pote-publicado.js"></script>
 <script src="sintonia-pote-casco.js"></script>
+<script src="sintonia-pote-publicacao.js"></script>
 <style>
   html, body { margin:0; padding:0; background:#110E0D; }
   a { color:#009845; text-decoration:none; }
@@ -205,10 +210,8 @@
       </sc-for>
     </div>
     <div style="display:flex;flex-direction:column;gap:8px;padding:10px 10px;border-radius:10px;background:rgba(0,152,69,0.08);border:1px solid rgba(0,152,69,0.25)">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ clockLabel }} · {{ todayLabel }}</div>
-      <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ t.kpiOpenShort }}</span><span style="font-weight:700;color:#00B152">{{ kpi.windowOpen }}</span></div>
-      <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ t.kpiWindowsShort }}</span><span style="font-weight:700;color:#fff">{{ kpi.windows }}</span></div>
-      <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ t.kpiMovementsShort }}</span><span style="font-weight:700;color:#fff">{{ kpi.movements }}</span></div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ sideClock }}</div>
+      <sc-for list="{{ sideRows }}" as="r" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#C9C3C1;white-space:nowrap"><span>{{ r.k }}</span><span style="font-weight:700;color:{{ r.color }}">{{ r.v }}</span></div></sc-for>
     </div>
     <div style="margin-top:auto;display:flex;flex-direction:column;gap:7px;padding:0 8px">
       <img src="assets/Adama_H_white.png" alt="ADAMA" style="width:92px;height:auto;display:block;opacity:0.9">
@@ -3583,6 +3586,17 @@
     </div>
     </sc-if>
 
+    <!-- ================= POTE PUBLICADO (D114) · LA FASCIA DELLA DECISIONE =================
+         Sopra il compartimento: chi ha approvato la pubblicazione, quando, di quale corsa, e cio che NON
+         corrisponde (lo SHA del manifesto). Gli oggetti restano EXPERIMENTAL: la fascia non li promuove. -->
+    <sc-if value="{{ potePubVista }}" hint-placeholder-val="{{ false }}">
+    <div data-pote-publicado="{{ potePub.comp }}" style="padding:16px 22px 0;display:flex;flex-direction:column;gap:8px">
+      <div data-marca="1" style="border-radius:10px;background:#F5B317;color:#110E0D;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:0.06em;line-height:1.45">{{ potePub.faixa }}</div>
+      <div style="font-size:11px;color:#C9C3C1;font-style:italic">{{ potePub.decisao }}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--font-secondary);font-size:11px;color:#8F8886"><sc-for list="{{ potePub.meta }}" as="m" hint-placeholder-count="6"><span>{{ m.k }} <b style="color:{{ m.color }};word-break:break-all">{{ m.v }}</b></span></sc-for></div>
+    </div>
+    </sc-if>
+
     <!-- ================= POTE-UNICO · IL COMPARTIMENTO DELLA CORSA (D95/D96) =================
          Una sola forma per tutte le viste: e la STESSA rotta della ferramenta, che con il pote disegna il suo
          compartimento invece del legado. Non e una schermata nuova. La specie ha colore proprio: il futuro
@@ -3591,7 +3605,7 @@
     <div data-view="pote" data-pote-compartimento="{{ pote.comp.codigo }}" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
       <div data-marca="1" style="border-radius:10px;background:#000;color:#fff;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:0.08em">{{ pote.faixa }}</div>
       <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ pageTitle }}</h1>
-        <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:var(--font-secondary);font-size:12px;color:#C9C3C1"><sc-for list="{{ pote.run }}" as="r" hint-placeholder-count="5"><span>{{ r.k }} <b style="color:{{ r.color }}">{{ r.v }}</b></span></sc-for></div></div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:var(--font-secondary);font-size:12px;color:#C9C3C1"><sc-for list="{{ pote.run }}" as="r" hint-placeholder-count="5"><span style="min-width:0;word-break:break-all">{{ r.k }} <b style="color:{{ r.color }}">{{ r.v }}</b></span></sc-for></div></div>
       <sc-if value="{{ pote.recusado }}" hint-placeholder-val="{{ false }}"><div data-pote-recusado="1" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ pote.recusa }}</div></sc-if>
       <sc-if value="{{ pote.temComp }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;color:#EDEAE9"><b>{{ pote.comp.nome }}</b> · {{ pote.comp.estado }} · <b style="color:#fff;font-variant-numeric:tabular-nums">{{ pote.comp.n }}</b> {{ pote.comp.leitura }} · {{ pote.comp.recusados }} · {{ pote.comp.especies }}</div></sc-if>
       <sc-if value="{{ pote.vazio }}" hint-placeholder-val="{{ false }}"><div data-pote-vazio="{{ pote.vazioTitulo }}" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><div style="font-size:12px;font-weight:700;color:#F5B317">{{ pote.vazioTitulo }}</div><div style="font-size:12px;color:#EDEAE9">{{ pote.vazioTexto }}</div></div></sc-if>
@@ -3622,6 +3636,116 @@
     </sc-if>
 
     <!-- ================= SALA · (vista de operacao do vivo, ausente neste ramo; marca o fim do bloco do pote) ================= -->
+    <!-- ================= POTE PUBLICADO (D114) · CIO CHE LA PUBBLICAZIONE AGGIUNGE =================
+         Tutto qui e gia scritto dalla Intelligence: i rifiutati del pote (visibili, mai oggetti), gli 86 incroci
+         della analise della STESSA corsa raggruppati per lo stato che la Intelligence ha dato, la sonda olivo x
+         mosca, le lacune della corsa. Nessun incrocio rifatto, nessun NAO SEI riempito. -->
+    <sc-if value="{{ potePubVista }}" hint-placeholder-val="{{ false }}">
+    <div data-view="pote-publicado" style="padding:0 22px 40px;display:flex;flex-direction:column;gap:14px">
+
+      <sc-if value="{{ potePub.temCampo }}" hint-placeholder-val="{{ false }}">
+      <div data-pote-campo="1" style="display:flex;flex-direction:column;gap:8px;padding-top:12px">
+        <h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff">{{ potePub.campo.titulo }}</h1>
+        <div style="font-size:12px;color:#EDEAE9">{{ potePub.campo.texto }}</div>
+        <div data-pote-vazio="{{ potePub.campo.estado }}" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><div style="font-size:12px;font-weight:700;color:#F5B317">{{ potePub.campo.estado }}</div><div style="font-size:12px;color:#EDEAE9">{{ potePub.campo.porque }}</div></div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ potePub.temCruz }}" hint-placeholder-val="{{ false }}">
+      <div data-pote-cruzamentos="1" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.08em;color:#fff">{{ potePub.cruz.titulo }}</div>
+        <div style="font-size:11.5px;color:#EDEAE9">{{ potePub.cruz.pergunta }}</div>
+        <div style="font-size:11px;color:#C9C3C1">{{ potePub.cruz.legenda }}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ potePub.cruz.resumo }}" as="e" hint-placeholder-count="4"><span data-cruz-estado="{{ e.k }}" style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;border:1px solid {{ e.color }};font-size:10.5px;font-weight:700;color:{{ e.color }}"><b style="font-size:13px;color:#fff;font-variant-numeric:tabular-nums">{{ e.n }}</b>{{ e.nome }}</span></sc-for></div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:#8F8886"><sc-for list="{{ potePub.cruz.vias }}" as="m" hint-placeholder-count="2"><span>{{ m.k }} <b style="color:{{ m.color }}">{{ m.v }}</b></span></sc-for></div>
+        <sc-for list="{{ potePub.cruz.grupos }}" as="gr" hint-placeholder-count="4">
+          <sc-if value="{{ gr.tem }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;color:{{ gr.color }};padding-top:6px">{{ gr.titulo }}</div>
+            <sc-for list="{{ gr.linhas }}" as="x" hint-placeholder-count="2">
+              <div data-cruzamento="{{ x.id }}" data-cruz-estado="{{ x.estado }}" style="border-radius:12px;border:1px {{ x.traco }} {{ x.color }};background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:7px">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <sc-if value="{{ x.temMarca }}" hint-placeholder-val="{{ false }}"><span data-marca="1" style="font-size:10px;font-weight:700;letter-spacing:0.10em;background:#F5B317;color:#110E0D;padding:2px 9px;border-radius:9999px">{{ x.marca }}</span></sc-if>
+                  <span style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:{{ x.color }}">{{ x.estadoNome }}</span>
+                  <span data-via="{{ x.viaCodigo }}" style="font-size:9.5px;font-weight:700;letter-spacing:0.06em;padding:1px 8px;border-radius:9999px;border:1px solid {{ x.viaColor }};color:{{ x.viaColor }}">{{ x.via }}</span>
+                  <span style="font-size:10px;color:#8F8886;word-break:break-all">{{ x.id }}</span>
+                </div>
+                <div style="font-size:10.5px;font-weight:700;color:{{ x.poteColor }}">{{ x.pote }}</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px">
+                  <sc-for list="{{ x.chaves }}" as="c" hint-placeholder-count="4"><div style="border-radius:9px;border:1px solid rgba(203,197,195,0.10);padding:6px 9px;display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ c.k }}</div><div style="font-size:11.5px;font-weight:700;color:{{ c.color }};word-break:break-word">{{ c.v }}</div></div></sc-for>
+                </div>
+                <div style="font-size:10.5px;color:#C9C3C1;word-break:break-word">{{ x.produtos }}</div>
+                <div style="font-size:10.5px;color:#C9C3C1;word-break:break-word">{{ x.interp }}</div>
+                <sc-for list="{{ x.trechos }}" as="tr" hint-placeholder-count="1"><div style="font-size:10.5px;color:#EDEAE9;font-style:italic;line-height:1.45;word-break:break-word">{{ tr.t }}</div></sc-for>
+                <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px;font-size:10.5px">
+                  <sc-if value="{{ x.prova.temUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ x.prova.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;word-break:break-all">{{ x.prova.urlTexto }}</a></sc-if>
+                  <sc-if value="{{ x.prova.semUrl }}" hint-placeholder-val="{{ false }}"><span style="color:#F5B317;word-break:break-all">{{ x.prova.urlTexto }}</span></sc-if>
+                  <span style="color:{{ x.prova.pubColor }}">{{ x.prova.pub }}</span>
+                  <span style="color:#8F8886;word-break:break-all">{{ x.sala }} · {{ x.naoE }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          </sc-if>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ potePub.temSonda }}" hint-placeholder-val="{{ false }}">
+      <div data-pote-sonda="1" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span data-marca="1" style="font-size:10px;font-weight:700;letter-spacing:0.10em;background:#000;color:#fff;padding:2px 9px">EXPERIMENTAL</span><span style="font-size:13px;font-weight:700;letter-spacing:0.06em;color:#fff">{{ potePub.sonda.titulo }}</span></div>
+        <div style="font-size:11.5px;color:#EDEAE9">{{ potePub.sonda.pergunta }}</div>
+        <div style="font-size:11px;color:#8F8886">{{ potePub.sonda.execucao }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px"><sc-for list="{{ potePub.sonda.juizo }}" as="c" hint-placeholder-count="4"><div style="border-radius:9px;border:1px solid rgba(203,197,195,0.10);padding:6px 9px;display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ c.k }}</div><div style="font-size:11.5px;font-weight:700;color:{{ c.color }};word-break:break-word">{{ c.v }}</div></div></sc-for></div>
+        <sc-for list="{{ potePub.sonda.itens }}" as="i" hint-placeholder-count="2">
+          <div style="border-radius:12px;border:1px solid rgba(203,197,195,0.16);background:#1C1817;padding:10px 12px;display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:11px;font-weight:700;color:#fff;word-break:break-word">{{ i.cab }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px 14px;font-size:10.5px;color:#8F8886"><sc-for list="{{ i.chaves }}" as="c" hint-placeholder-count="3"><span>{{ c.k }} <b style="color:{{ c.color }};word-break:break-word">{{ c.v }}</b></span></sc-for></div>
+            <sc-for list="{{ i.trechos }}" as="tr" hint-placeholder-count="1"><div style="font-size:10.5px;color:#EDEAE9;font-style:italic;word-break:break-word">{{ tr.t }}</div></sc-for>
+            <sc-if value="{{ i.temLei }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#F5B317">{{ i.lei }}</div></sc-if>
+            <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px;font-size:10.5px">
+              <sc-if value="{{ i.prova.temUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ i.prova.url }}" target="_blank" rel="noopener noreferrer" style="color:#00B152;text-decoration:none;word-break:break-all">{{ i.prova.urlTexto }}</a></sc-if>
+              <sc-if value="{{ i.prova.semUrl }}" hint-placeholder-val="{{ false }}"><span style="color:#F5B317;word-break:break-all">{{ i.prova.urlTexto }}</span></sc-if>
+              <span style="color:{{ i.prova.pubColor }}">{{ i.prova.pub }}</span><span style="color:#8F8886;word-break:break-all">{{ i.sala }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ potePub.temFontes }}" hint-placeholder-val="{{ false }}">
+      <div data-pote-fontes="1" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:0.06em;color:#fff">{{ potePub.fontes.novasTitulo }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px"><sc-for list="{{ potePub.fontes.novas }}" as="c" hint-placeholder-count="4"><div style="border-radius:9px;border:1px solid rgba(203,197,195,0.10);padding:6px 9px;display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ c.k }}</div><div style="font-size:11.5px;font-weight:700;color:{{ c.color }};word-break:break-word">{{ c.v }}</div></div></sc-for></div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ potePub.fontes.sinaisTitulo }}</div>
+        <sc-for list="{{ potePub.fontes.sinais }}" as="sn" hint-placeholder-count="2">
+          <div style="border-radius:10px;border:1px solid rgba(203,197,195,0.14);background:#1C1817;padding:8px 11px;display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:11px;font-weight:700;color:#fff">{{ sn.cab }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px 14px;font-size:10.5px;color:#8F8886"><sc-for list="{{ sn.chaves }}" as="c" hint-placeholder-count="3"><span>{{ c.k }} <b style="color:{{ c.color }}">{{ c.v }}</b></span></sc-for></div>
+            <sc-if value="{{ sn.prova.temUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ sn.prova.url }}" target="_blank" rel="noopener noreferrer" style="font-size:10.5px;color:#00B152;text-decoration:none;word-break:break-all">{{ sn.prova.urlTexto }}</a></sc-if>
+            <sc-if value="{{ sn.prova.semUrl }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px;color:#F5B317;word-break:break-all">{{ sn.prova.urlTexto }}</span></sc-if>
+            <span style="font-size:10.5px;color:{{ sn.prova.pubColor }}">{{ sn.prova.pub }}</span>
+          </div>
+        </sc-for>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ potePub.fontes.d112Titulo }}</div>
+        <div style="display:flex;flex-direction:column;gap:3px"><sc-for list="{{ potePub.fontes.d112 }}" as="c" hint-placeholder-count="3"><div style="font-size:10.5px;color:#8F8886;word-break:break-word">{{ c.k }} <b style="color:{{ c.color }}">{{ c.v }}</b></div></sc-for></div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:#F5B317">{{ potePub.fontes.lacTitulo }}</div>
+        <div style="font-size:11px;color:#C9C3C1">{{ potePub.fontes.lacLegenda }}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11px;color:#8F8886"><sc-for list="{{ potePub.fontes.lacPorFalta }}" as="c" hint-placeholder-count="2"><span>{{ c.k }} <b style="color:{{ c.color }}">{{ c.v }}</b></span></sc-for></div>
+        <div style="font-size:10.5px;color:#C9C3C1;word-break:break-word">{{ potePub.fontes.lacExemplo }}</div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ potePub.rec.tem }}" hint-placeholder-val="{{ false }}">
+      <div data-pote-recusados="{{ potePub.comp }}" style="display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;color:#F5B317">{{ potePub.rec.titulo }}</div>
+        <div style="font-size:11px;color:#C9C3C1">{{ potePub.rec.legenda }}</div>
+        <div style="display:flex;flex-direction:column;gap:2px"><sc-for list="{{ potePub.rec.linhas }}" as="r" hint-placeholder-count="3"><div style="font-size:10.5px;color:#8F8886;word-break:break-all"><b style="color:#EDEAE9">{{ r.id }}</b> · {{ r.motivo }} · {{ r.detalhe }}</div></sc-for></div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+    <!-- ================= FIM DO POTE PUBLICADO ================= -->
     <!-- ================= SOURCES ================= -->
     <sc-if value="{{ isSources }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
@@ -3983,6 +4107,60 @@ class Component extends DCLogic {
     if (pv) for (const k of Component.FLAGS_DO_LEGADO) v[k] = false;
     /* CASCO-REAL: a faixa «QUESTA SCHERMATA LEGGE» descreve o legado; com o pote, quem fala e o pote. */
     if (pv) v.pvShow = false;
+    return this._potePublicado(v, W, P);
+  }
+
+  /* ══ POTE PUBLICADO (D114) · o que a publicacao acrescenta, e o que ela cala ══
+     `sintonia-pote-publicado.js` traz o pote da rodada 7 aprovado pelo dono e a
+     analise da MESMA corrida. A leitura e de `SINTONIA_POTE_PUBLICACAO.vm`
+     (sintonia-pote-publicacao.js): faixa da decisao, recusados visiveis, os 86
+     cruzamentos no Portafoglio, a sonda nas Finestre, as lacunas nas Fontes.
+
+     Com QUALQUER pote aceite carregado, a barra lateral deixa de contar o legado:
+     um menu que dissesse «Radar 13» sobre uma vista que o pote deixa vazia seria
+     duas verdades outra vez. O numero ao lado de cada voz passa a ser o dos
+     objetos do compartimento que aquela rota le, e o relogio diz a data da copia
+     da Sala — nunca um «oggi» que o portal nao conhece.
+
+     A rota «field» (Rete Commerciale di Campo) so vive de pessoas e mensagens
+     SIMULADAS; com o pote publicado ela desenha o vazio que o pote escreve para
+     `field`, com o PORQUE, e a simulacao nao volta. */
+  _potePublicado(v, W, P) {
+    const pote = W.SINTONIA_POTE || null;
+    const ok = !!(P && pote && P.conferir(pote).length === 0);
+    const lang = this.state.lang;
+    if (ok) {
+      const C = pote.COMPARTIMENTOS;
+      const n = (route) => { const k = P.compartimentoDaVista(pote, route); return k ? (C[k].OBJETOS || []).length : ''; };
+      for (const lista of ['nav', 'navEvidence', 'navIntegrationItems']) {
+        v[lista] = (v[lista] || []).map((x) => (x.route ? Object.assign({}, x, { count: n(x.route) }) : x));
+      }
+      const corte = String((pote.CORTE || {}).COPIA_DA_SALA_EM || '');
+      const m = /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2}))?/.exec(corte);
+      const MES = lang === 'en' ? ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+        : ['GEN', 'FEB', 'MAR', 'APR', 'MAG', 'GIU', 'LUG', 'AGO', 'SET', 'OTT', 'NOV', 'DIC'];
+      v.sideClock = (lang === 'en' ? 'DATA AS OF · ' : 'DATI AL · ') +
+        (m ? m[3] + ' ' + MES[Number(m[2]) - 1] + ' ' + m[1] + (m[4] ? ' ' + m[4] + ':' + m[5] + ' UTC' : '') : 'NAO SEI');
+      const objs = Object.keys(C).reduce((a, k) => a + (C[k].OBJETOS || []).length, 0);
+      const pub = W.SINTONIA_POTE_PUBLICADO || null;
+      const mesma = !!(pub && pub.INTELLIGENCE_RUN_ID === pote.INTELLIGENCE_RUN_ID);
+      v.sideRows = [
+        { k: lang === 'en' ? 'run' : 'corsa', v: (mesma ? pub.RODADA + ' · ' : '') + String(pote.INTELLIGENCE_RUN_ID).slice(0, 11), color: '#fff' },
+        { k: lang === 'en' ? 'objects' : 'oggetti', v: objs, color: '#00B152' },
+        { k: lang === 'en' ? 'crossings' : 'incroci', v: mesma ? (((pub.ANALISE || {}).CROSSINGS_RESUMO || {}).TOTAL) : 'NAO SEI', color: mesma ? '#fff' : '#F5B317' },
+        { k: lang === 'en' ? 'refused (visible)' : 'rifiutati (visibili)', v: (pote.RECUSADOS || []).length, color: '#fff' },
+      ];
+      /* A nota de ambiente contava as datas dos potes do legado; com o pote, conta a do pote. */
+      v.envNote = lang === 'en'
+        ? 'Intelligence run ' + (mesma ? pub.RODADA + ' ' : '') + pote.INTELLIGENCE_RUN_ID + ' · EXPERIMENTAL · ' + v.sideClock + ' (Sala copy). Field Sales Network: SIMULATED, not shown.'
+        : 'Corsa della Intelligence ' + (mesma ? pub.RODADA + ' ' : '') + pote.INTELLIGENCE_RUN_ID + ' · EXPERIMENTAL · ' + v.sideClock + ' (copia della Sala). Rete Commerciale di Campo: SIMULATO, non mostrata.';
+    }
+    const Q = W.SINTONIA_POTE_PUBLICACAO || null;
+    const pb = (ok && Q) ? Q.vm(W.SINTONIA_POTE_PUBLICADO, pote, this.state.view, lang) : null;
+    v.potePubVista = !!pb;
+    v.potePub = pb || { meta: [], rec: { linhas: [] }, cruz: { resumo: [], vias: [], grupos: [] },
+      sonda: { juizo: [], itens: [] }, fontes: { lacPorFalta: [], novas: [], sinais: [], d112: [] }, campo: {} };
+    if (pb && pb.temCampo) { v.isField = false; v.pvShow = false; }
     return v;
   }
 
@@ -5845,7 +6023,7 @@ class Component extends DCLogic {
          Os 44 passam a desenhar-se AQUI, com os componentes deste guscio e com
          os mesmos codigos do mesmo dicionario. O dado nao muda de dono:
          continua a vir de `window.ITALY_CASA`, que este ficheiro ja carrega. */
-      go: () => this.go({ view: 'radarfuturo' }),
+      route: 'radarfuturo', go: () => this.go({ view: 'radarfuturo' }),
       /* Agora que e uma vista, acende como as outras: uma voz que leva a algum
          sitio e nunca se acende faz o leitor duvidar de que chegou la. */
       bg: activeOf[s.view] === 'radarfuturo' ? 'rgba(0,152,69,0.13)' : 'transparent',
@@ -5870,7 +6048,7 @@ class Component extends DCLogic {
        dalla barra perche la casa e adesso la PRIMA PAGINA — ripeterla qui era
        stampare due volte lo stesso numero. */
     const STRUMENTI = ['meeting', 'portfolio'];
-    const navRow = (n) => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; };
+    const navRow = (n) => { const on = activeOf[s.view] === n[0]; return { route: n[0], label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; };
     const nav = navDef.filter(n => STRUMENTI.includes(n[0])).map(navRow);
     /* Il Radar Futuro e EVIDENZA, non uno strumento, e adesso APRE l'evidenza:
        e la popolazione che regge le opportunita di domani, e l'unica porta
@@ -5879,7 +6057,7 @@ class Component extends DCLogic {
        prova niente, e un contatore scritto a mano sarebbe una seconda verita. */
     const navEvidence = (navRadarFuturo.count !== '' ? [navRadarFuturo] : [])
       .concat(navDef.filter(n => !STRUMENTI.includes(n[0])).map(navRow));
-    const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
+    const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { route: n[0], label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     // ---- case · opportunity detail
     /* §2 · The detail must open the SAME entity the card opened. The 29 legacy
        presentation cases are a DEMO_SCENARIO collection and they REUSE the real
@@ -12125,6 +12303,9 @@ class Component extends DCLogic {
         count: navRadarFuturo.count, go: navRadarFuturo.go },
       kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
       clockLabel, clockBack, envLabel, envNote, envDot, pv, pvShow,
+      /* A barra lateral: sem pote, o relogio e os tres numeros de sempre; com pote, _potePublicado troca-os. */
+      sideClock: clockLabel + ' · ' + todayLabel,
+      sideRows: [{ k: T.kpiOpenShort, v: K.windowOpen, color: '#00B152' }, { k: T.kpiWindowsShort, v: K.windows, color: '#fff' }, { k: T.kpiMovementsShort, v: K.movements, color: '#fff' }],
 
       /* ══ SUPERFICIE CANONICA DELLA RIUNIONE ═══════════════════════════════
          Ogni valore qui sotto e gia stato deciso dal motore e copiato

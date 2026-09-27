@@ -31,7 +31,13 @@ const ok = (t, cond, medido) => { linhas.push({ t, cond: !!cond, medido }); };
    `lib/drive.mjs` serve a pasta como a Vercel a serve; e a mesma porta que os
    outros portoes usam. */
 const server = await serve(8921);
-const { browser, page: pg } = await open({ port: 8921, width: 1500, height: 1000 });
+/* D114 · AJUSTE DECLARADO. Desde a decisao D114 o portal abre por omissao com o pote
+   publicado da rodada 7, e a precedencia do pote (D95/D96) tira desta rota o radar
+   do legado — e com ele a barra que este portao digita. A barra NAO foi apagada:
+   continua a ser o que o casco desenha sem pote. Este portao passa a medi-la nesse
+   estado (`semPotePublicado`), sem uma asserção a menos. O que vai ao ar por omissao
+   e medido por audit/casco/pote-publicado-browser.mjs (PP1). */
+const { browser, page: pg } = await open({ port: 8921, width: 1500, height: 1000, semPotePublicado: true });
 await pg.waitForSelector('[data-meeting-case]', { timeout: 45000 });
 
 /* ── 1 · O RADAR ─────────────────────────────────────────────────────────── */

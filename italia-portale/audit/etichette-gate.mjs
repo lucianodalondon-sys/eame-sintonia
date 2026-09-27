@@ -179,7 +179,13 @@ ok('ESTADOS · a soma dos quatro e o total de usos',
 
 /* ── 5 · A TELA ────────────────────────────────────────────────────────────── */
 const server = await serve(8961);
-const { browser, page: pg, errors } = await open({ port: 8961, page: '/portale.html#etichette' });
+/* D114 · AJUSTE DECLARADO. Com o pote publicado da rodada 7 (decisao D114), a rota
+   #etichette desenha o compartimento `portfolio` do pote (VISTAS_DO_CASCO do proprio
+   pote) e os cartoes da Label Intelligence saem dela por precedencia (D95/D96). A lei
+   que este portao guarda e a do acoplamento, e o acoplamento continua no casco: ele
+   mede-o no estado sem pote (`semPotePublicado`), sem uma asserção a menos. O que vai
+   ao ar por omissao e medido por audit/casco/pote-publicado-browser.mjs (PP1). */
+const { browser, page: pg, errors } = await open({ port: 8961, page: '/portale.html#etichette', semPotePublicado: true });
 await pg.waitForSelector('[data-li-card]', { timeout: 45000 });
 
 ok('TELA · abre sem erro de pagina', errors.length === 0, errors.length + ' erros', errors.slice(0, 4));
