@@ -4435,10 +4435,11 @@
    "departments": [
     "ENGENHARIA"
    ],
-   "what": "Planta 29 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): 17 no pote (oportunidade no Radar Futuro, qualquer bloqueio de G0 aceite como futuro, P2/P4 de volta, FACT_LOCATION vira REGION_ID, publicacao vira tempo do facto, promocao por especie ausente, SOURCE_HEAD inventado, ...), 9 no leitor do casco (futuro com a forma da oportunidade, reordenar, NAO SEI sem destaque, pote recusado desenha, link javascript:, pedir o pote sem ?pote=local, ...) e 3 na precedencia do portale.html. Corre tests/test_pote_intelligence_casco.py (que corre tests/test_pote_no_casco.mjs). Sai 1 se algum sobreviver.",
+   "what": "Planta 29 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): 17 no pote (oportunidade no Radar Futuro, qualquer bloqueio de G0 aceite como futuro, P2/P4 de volta, FACT_LOCATION vira REGION_ID, publicacao vira tempo do facto, promocao por especie ausente, SOURCE_HEAD inventado, ...), 9 no leitor do casco (futuro com a forma da oportunidade, reordenar, NAO SEI sem destaque, pote recusado desenha, link javascript:, pedir o pote sem ?pote=local, ...) e 3 na precedencia do portale.html. Corre tests/test_pote_intelligence_casco.py (que corre tests/test_pote_no_casco.mjs, as provas do casco em JavaScript, que moram nesta peca). Sai 1 se algum sobreviver.",
    "why_here": "Prova que os testes do pote apanham o que ele jura nao fazer. 29/29 mortos a 2026-09-27.",
    "files": [
-    "provas/_mutantes_pote_casco.py"
+    "provas/_mutantes_pote_casco.py",
+    "tests/test_pote_no_casco.mjs"
    ]
   },
   {

@@ -1,9 +1,9 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "638f98e96f852c3fafe7416f7e30034d352d43ad",
+  "FROZEN_AT_HEAD": "d82798123f4deff1a44201e3c6eff23280fb2af8",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 278,
+  "ARTEFATOS": 284,
   "POR_ESPECIE": {
     "CONTRACT": 3,
     "DATA_SAMPLE": 99,
@@ -11,9 +11,9 @@
     "GENERATED_OUTPUT": 26,
     "IMPLEMENTATION": 10,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 46,
-    "PORTAL_UI": 65,
-    "TEST": 18
+    "MENCAO_FRACA_APENAS": 47,
+    "PORTAL_UI": 67,
+    "TEST": 21
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -514,6 +514,18 @@
       ]
     },
     {
+      "PATH": "pacote/ponte_intelligence_casco.py",
+      "SPECIES": "PORTAL_UI",
+      "GIT_BLOB_SHA": "b5aa20dbf6fea4c2657ba197ac21e25aa303d339",
+      "MARCAS_FORTES": []
+    },
+    {
+      "PATH": "pacote/pote_intelligence_casco.py",
+      "SPECIES": "PORTAL_UI",
+      "GIT_BLOB_SHA": "074d70c72afcac00eb95ebeed10c3a5dbea3d253",
+      "MARCAS_FORTES": []
+    },
+    {
       "PATH": "portoes/site_v21_ingest.py",
       "SPECIES": "IMPLEMENTATION",
       "GIT_BLOB_SHA": "1e64382050462c6a5307f36c40aced83ac3527c2",
@@ -563,7 +575,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "268902739edfe0b7e8f125bd43b25fbeef7019ae",
+      "GIT_BLOB_SHA": "939aec0a6adf3631c640ac5de0d1cc1e7f944ec0",
       "MARCAS_FORTES": []
     }
   ],
@@ -1177,6 +1189,10 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "provas/_mutantes_ponte_casco.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "provas/arbitragem_da_intelligence.py",
       "SPECIES": "INSTRUMENT"
     },
@@ -1293,6 +1309,10 @@
       "SPECIES": "INSTRUMENT"
     },
     {
+      "PATH": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_a_collection_preserva_o_fato.py",
       "SPECIES": "TEST"
     },
@@ -1350,6 +1370,14 @@
     },
     {
       "PATH": "tests/test_os_consertos_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_ponte_intelligence_casco.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_pote_intelligence_casco.py",
       "SPECIES": "TEST"
     },
     {

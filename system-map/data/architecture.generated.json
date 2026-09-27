@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "integra-noite-v3",
-    "HEAD": "638f98e96f852c3fafe7416f7e30034d352d43ad",
-    "GENERATED_AT": "2026-09-26T20:11:28-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b4795ab6e4c27635bb2745d9c4c0f699ccf837ed94c4b6c5583815d3beba2913"
+    "BRANCH": "claude/intelligence-bridge-v2-7mngha",
+    "HEAD": "d82798123f4deff1a44201e3c6eff23280fb2af8",
+    "GENERATED_AT": "2026-09-27T12:15:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "dd6abd3aecd9b70888c7e50f2fbb1f997a46460d0260b5bef80438659da9333f"
   },
   "FILES": [
     {
@@ -185,7 +185,7 @@
     },
     {
       "path": ".vercelignore",
-      "sha": "36828989b7aedbd5d89a6b9b9429092395141ba6",
+      "sha": "404137096242c402d37f86b6cf4eaaf11c6d768d",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -506,6 +506,13 @@
       "code_dir": false
     },
     {
+      "path": "POTE-UNICO.md",
+      "sha": "f709782aa4f8bf44f8e08de35de3ab97d9ffecb0",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "sha": "42d1c565e91d0fd128c88a850eef040119f7219f",
       "ext": ".md",
@@ -662,6 +669,13 @@
     {
       "path": "RELATORIO-FRENTE2-PONTE-AUTONOMA.md",
       "sha": "15640486df1d4aca855d367d4e4cb70084caf643",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-INT-CASCO-PONTE.md",
+      "sha": "f043b904dcc21a8b7f91df60fc8ceec99c4b707e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -16768,14 +16782,14 @@
     },
     {
       "path": "italia-portale/client/.gitignore",
-      "sha": "3110c877a04718b22710b81819f74d5831f0b994",
+      "sha": "225d4484a902de21b5f06e9a3dc7d3c148a3332c",
       "ext": "",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "italia-portale/client/.vercelignore",
-      "sha": "2d2f440fdf9649c02f478016b47e368eb88bd800",
+      "sha": "98d77fafdfc8d8714108d4c7b18f83487e1841f2",
       "ext": "",
       "readable": false,
       "code_dir": true
@@ -17041,8 +17055,15 @@
     },
     {
       "path": "italia-portale/client/portale.html",
-      "sha": "d9c90a6fb73b1fddd2eafc03d4334f59a0c375ec",
+      "sha": "488ad3b5739fad6ade9db2c66cc9a11965fbc4b8",
       "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "italia-portale/client/sintonia-pote-casco.js",
+      "sha": "786d76dc9fd165fc4bfad6f8ac1120ae7d659bf5",
+      "ext": ".js",
       "readable": true,
       "code_dir": true
     },
@@ -18279,6 +18300,13 @@
       "code_dir": false
     },
     {
+      "path": "pacote/esqueleto_scientifica.py",
+      "sha": "c6e8f41be2ebb5d8fbae0542386df4ab14e2d00b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "pacote/lastmile_entregar.py",
       "sha": "349ca4149746f9458b75585a41a90904e41ec45b",
       "ext": ".py",
@@ -18386,6 +18414,20 @@
     {
       "path": "pacote/pacote_relacoes_convergencia.py",
       "sha": "31ef6178bce498b40cb9a87174b6cb214b82e687",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "pacote/ponte_intelligence_casco.py",
+      "sha": "b5aa20dbf6fea4c2657ba197ac21e25aa303d339",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "pacote/pote_intelligence_casco.py",
+      "sha": "074d70c72afcac00eb95ebeed10c3a5dbea3d253",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18645,6 +18687,20 @@
     {
       "path": "provas/_mutantes_maestro_social.py",
       "sha": "763eeaf531c06c31c6acda515f9a9fa1230e26b3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_mutantes_ponte_casco.py",
+      "sha": "5280dbace06ef62870b5f4ebc6be9b44c6ff647b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_mutantes_pote_casco.py",
+      "sha": "2d80e68fea3874b2a67adb28fd2486b398034c0c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23740,7 +23796,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "268902739edfe0b7e8f125bd43b25fbeef7019ae",
+      "sha": "939aec0a6adf3631c640ac5de0d1cc1e7f944ec0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -24343,6 +24399,20 @@
     {
       "path": "tests/fixtures/ponte_onboard_17_contratos.json",
       "sha": "99ad47bec0257784fe5d02e1b8c0fa048480ca79",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "sha": "ec4bd23a65346d48e7dd964da7bc74dcd6d6ba6f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/pote/POTE-SINTETICO.json",
+      "sha": "8f001347414a0db4801102e8c668896c2d55083e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -25174,6 +25244,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_esqueleto_scientifica.py",
+      "sha": "314211ab052ba63ba754d7f2db91287b1f51a0a3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_estagio_atravessa_a_fronteira.py",
       "sha": "c7c9b2bacd3f760f6689bb4f939557104bc44758",
       "ext": ".py",
@@ -25790,6 +25867,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_ponte_intelligence_casco.py",
+      "sha": "166e1e2ef2e7c0d82e143d08bb6f6085fda10880",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_porta_de_candidatas.py",
       "sha": "ab42bf6e71a64391f3a64430fda867a6ce92bd77",
       "ext": ".py",
@@ -25821,6 +25905,20 @@
       "path": "tests/test_portoes_eame.py",
       "sha": "c23138e145a3bf309b893da5f1311b33adc89e7f",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_pote_intelligence_casco.py",
+      "sha": "7e7736df695cf463cb9bbbc2715fa36af3923dfd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_pote_no_casco.mjs",
+      "sha": "63763dd5e8e874e640fbec36c112ead0fd51a8e2",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -50131,7 +50229,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "italia-portale/client/portale.html",
-        "line": 267,
+        "line": 272,
         "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)"
       }
     },
@@ -50364,6 +50462,17 @@
         "file": "italia-portale/client/portale.html",
         "line": 60,
         "snippet": "<script src=\"meeting-surface.js\"></script>"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/portale.html",
+      "to_file": "italia-portale/client/sintonia-pote-casco.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/portale.html",
+        "line": 80,
+        "snippet": "<script src=\"sintonia-pote-casco.js\"></script>"
       }
     },
     {
@@ -56098,6 +56207,28 @@
       }
     },
     {
+      "from_file": "pacote/esqueleto_scientifica.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/esqueleto_scientifica.py",
+        "line": 45,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "pacote/esqueleto_scientifica.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/esqueleto_scientifica.py",
+        "line": 48,
+        "snippet": "from ponte_intelligence_casco import (                          # noqa: E402"
+      }
+    },
+    {
       "from_file": "pacote/lastmile_entregar.py",
       "to_file": "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json",
       "type": "READS",
@@ -58012,6 +58143,61 @@
       }
     },
     {
+      "from_file": "pacote/ponte_intelligence_casco.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/ponte_intelligence_casco.py",
+        "line": 66,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "pacote/ponte_intelligence_casco.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/ponte_intelligence_casco.py",
+        "line": 72,
+        "snippet": "from corrida_da_inteligencia import e_ignorancia       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/ponte_intelligence_casco.py",
+      "to_file": "provas/espinha_da_intelligence.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/ponte_intelligence_casco.py",
+        "line": 71,
+        "snippet": "from espinha_da_intelligence import NAO_SEI            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/pote_intelligence_casco.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_intelligence_casco.py",
+        "line": 63,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "pacote/pote_intelligence_casco.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_intelligence_casco.py",
+        "line": 68,
+        "snippet": "import ponte_intelligence_casco as V1                  # noqa: E402"
+      }
+    },
+    {
       "from_file": "pacote/v21_handoff_json.py",
       "to_file": "HANDOFF-V2-PAUSE.json",
       "type": "READS",
@@ -59153,6 +59339,237 @@
         "file": "provas/_mutantes_maestro_social.py",
         "line": 37,
         "snippet": "(\"D80: a busca publica prova\", \"leis/prova_de_post_de_pessoa.py\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "_gavetas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 25,
+        "snippet": "COPIAR = (\"_gavetas.py\", ALVO, ALVO_ESQ, \"tests/test_esqueleto_scientifica.py\", \"motor/corrida_da_inteligencia.py\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 26,
+        "snippet": "\"provas/espinha_da_intelligence.py\", \"admissao/sala_de_espera.py\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "italia-portale/client/_ds/adama-brandwell/styles.css",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 29,
+        "snippet": "\"italia-portale/client/_ds/adama-brandwell/styles.css\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "italia-portale/client/portale.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 30,
+        "snippet": "\"italia-portale/client/portale.html\")"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 25,
+        "snippet": "COPIAR = (\"_gavetas.py\", ALVO, ALVO_ESQ, \"tests/test_esqueleto_scientifica.py\", \"motor/corrida_da_inteligencia.py\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "pacote/esqueleto_scientifica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 24,
+        "snippet": "ALVO_ESQ = \"pacote/esqueleto_scientifica.py\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 23,
+        "snippet": "ALVO = \"pacote/ponte_intelligence_casco.py\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "provas/espinha_da_intelligence.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 26,
+        "snippet": "\"provas/espinha_da_intelligence.py\", \"admissao/sala_de_espera.py\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "research/intelligence/COORTE-DA-SALA-2026-09-14.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 27,
+        "snippet": "\"research/intelligence/COORTE-DA-SALA-2026-09-14.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "tests/test_esqueleto_scientifica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 25,
+        "snippet": "COPIAR = (\"_gavetas.py\", ALVO, ALVO_ESQ, \"tests/test_esqueleto_scientifica.py\", \"motor/corrida_da_inteligencia.py\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_ponte_casco.py",
+      "to_file": "tests/test_ponte_intelligence_casco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_ponte_casco.py",
+        "line": 28,
+        "snippet": "\"tests/test_ponte_intelligence_casco.py\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 30,
+        "snippet": "\"italia-portale/audit/lib/harness.mjs\", \"italia-portale/client/.gitignore\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "italia-portale/client/_ds/adama-brandwell/styles.css",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 32,
+        "snippet": "\"italia-portale/client/_ds/adama-brandwell/styles.css\")"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "italia-portale/client/portale.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 26,
+        "snippet": "PORTAL = \"italia-portale/client/portale.html\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "italia-portale/client/sintonia-pote-casco.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 25,
+        "snippet": "LEITOR = \"italia-portale/client/sintonia-pote-casco.js\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 24,
+        "snippet": "POTE = \"pacote/pote_intelligence_casco.py\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 29,
+        "snippet": "\"tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json\", \"tests/fixtures/pote/POTE-SINTETICO.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "tests/fixtures/pote/POTE-SINTETICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 29,
+        "snippet": "\"tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json\", \"tests/fixtures/pote/POTE-SINTETICO.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "tests/test_ponte_intelligence_casco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 28,
+        "snippet": "\"tests/test_ponte_intelligence_casco.py\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "tests/test_pote_intelligence_casco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 27,
+        "snippet": "COPIAR = (\"tests/test_pote_intelligence_casco.py\", \"tests/test_pote_no_casco.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_pote_casco.py",
+      "to_file": "tests/test_pote_no_casco.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_pote_casco.py",
+        "line": 27,
+        "snippet": "COPIAR = (\"tests/test_pote_intelligence_casco.py\", \"tests/test_pote_no_casco.mjs\","
       }
     },
     {
@@ -88240,6 +88657,17 @@
       }
     },
     {
+      "from_file": "tests/test_esqueleto_scientifica.py",
+      "to_file": "pacote/esqueleto_scientifica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_esqueleto_scientifica.py",
+        "line": 21,
+        "snippet": "import esqueleto_scientifica as S                               # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_estagio_atravessa_a_fronteira.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -93630,6 +94058,39 @@
       }
     },
     {
+      "from_file": "tests/test_ponte_intelligence_casco.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ponte_intelligence_casco.py",
+        "line": 28,
+        "snippet": "import corrida_da_inteligencia as CI                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_ponte_intelligence_casco.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ponte_intelligence_casco.py",
+        "line": 27,
+        "snippet": "import ponte_intelligence_casco as P                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_ponte_intelligence_casco.py",
+      "to_file": "research/intelligence/COORTE-DA-SALA-2026-09-14.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ponte_intelligence_casco.py",
+        "line": 301,
+        "snippet": "/ \"COORTE-DA-SALA-2026-09-14.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
       "from_file": "tests/test_porta_de_candidatas.py",
       "to_file": "AGENTS.md",
       "type": "READS",
@@ -94023,6 +94484,127 @@
         "file": "tests/test_portoes_eame.py",
         "line": 20,
         "snippet": "import portoes_eame as P                                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_pote_intelligence_casco.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_pote_intelligence_casco.py",
+        "line": 30,
+        "snippet": "import ponte_intelligence_casco as V1                         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_pote_intelligence_casco.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_pote_intelligence_casco.py",
+        "line": 29,
+        "snippet": "import pote_intelligence_casco as P                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_pote_intelligence_casco.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_pote_intelligence_casco.py",
+        "line": 299,
+        "snippet": "src = (RAIZ / \"pacote\" / \"pote_intelligence_casco.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_pote_intelligence_casco.py",
+      "to_file": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_pote_intelligence_casco.py",
+        "line": 33,
+        "snippet": "FIXTURE = RAIZ / \"tests\" / \"fixtures\" / \"pote\" / \"CORRIDA-SINTETICA-POTE.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_pote_intelligence_casco.py",
+      "to_file": "tests/fixtures/pote/POTE-SINTETICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_pote_intelligence_casco.py",
+        "line": 34,
+        "snippet": "POTE_FIXTURE = RAIZ / \"tests\" / \"fixtures\" / \"pote\" / \"POTE-SINTETICO.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_pote_intelligence_casco.py",
+      "to_file": "tests/test_ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_pote_intelligence_casco.py",
+        "line": 307,
+        "snippet": "import test_ponte_intelligence_casco as T1"
+      }
+    },
+    {
+      "from_file": "tests/test_pote_intelligence_casco.py",
+      "to_file": "tests/test_pote_no_casco.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_pote_intelligence_casco.py",
+        "line": 446,
+        "snippet": "r = subprocess.run([node, str(RAIZ / \"tests\" / \"test_pote_no_casco.mjs\")], cwd=RAIZ,"
+      }
+    },
+    {
+      "from_file": "tests/test_pote_no_casco.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_pote_no_casco.mjs",
+        "line": 22,
+        "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';"
+      }
+    },
+    {
+      "from_file": "tests/test_pote_no_casco.mjs",
+      "to_file": "italia-portale/audit/lib/harness.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_pote_no_casco.mjs",
+        "line": 22,
+        "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';"
+      }
+    },
+    {
+      "from_file": "tests/test_pote_no_casco.mjs",
+      "to_file": "italia-portale/client/sintonia-pote-casco.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_pote_no_casco.mjs",
+        "line": 26,
+        "snippet": "const LEITOR = fs.readFileSync(path.join(CLIENT, 'sintonia-pote-casco.js'), 'utf8');"
+      }
+    },
+    {
+      "from_file": "tests/test_pote_no_casco.mjs",
+      "to_file": "tests/fixtures/pote/POTE-SINTETICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_pote_no_casco.mjs",
+        "line": 25,
+        "snippet": "const POTE = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/POTE-SINTETICO.json'), 'utf8'));"
       }
     },
     {
@@ -99511,10 +100093,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3768,
-    "files_readable": 1559,
-    "files_code_dir": 1829,
-    "file_edges": 6592,
+    "files_tracked": 3782,
+    "files_readable": 1569,
+    "files_code_dir": 1841,
+    "file_edges": 6636,
     "escritas_em_pasta": 89,
     "declared_missing_here": 0
   },
