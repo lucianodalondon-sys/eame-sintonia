@@ -11,7 +11,8 @@ import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SAIDA = sys.argv[1] if len(sys.argv) > 1 else os.path.join(RAIZ, 'provas', 'comentarios_v1', 'MUTACAO.json')
-TESTES = ['tests.test_comentarios_v1', 'tests.test_d24_video_de_pessoa', 'tests.test_c13_route_gate']
+TESTES = ['tests.test_comentarios_v1', 'tests.test_d24_video_de_pessoa', 'tests.test_c13_route_gate',
+          'tests.test_linkedin_build_01_local_first', 'tests.test_c14c_permissao_instagram']
 F_ENV, F_YT, F_EL = 'coleta/social_envelope.py', 'coleta/youtube_oficial.py', 'pedido/elegibilidade_comentario.py'
 F_LI, F_IG, F_MZ, F_WF = ('coleta/adaptador_linkedin.py', 'coleta/instagram_pessoal.py', 'leis/social_matriz.py',
                           '.github/workflows/sintonia-scrap.yml')
@@ -55,6 +56,9 @@ MUTANTES = [
      "            r('linkedin:post-publico:jsonld-comment', 'DIRECT_HTTP', 'SIM',\n              'PROVED', 'zero',"),
     ('M14 apelido T7 some do workflow', F_WF,
      "              IT-T7-*) echo 'colete agronomos' ;;\n", ""),
+    ('M15 plano volta a mandar pagar o texto do comentario', F_LI,
+     "    'COMMENTS_TEXT': {'NIVEL': FREE, 'MATRIZ': 'FETCH_COMMENTS',",
+     "    'COMMENTS_TEXT': {'NIVEL': PAID, 'MATRIZ': 'FETCH_COMMENTS',"),
 ]
 
 ENV = dict(os.environ, PYTHONDONTWRITEBYTECODE='1',

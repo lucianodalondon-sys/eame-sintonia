@@ -211,6 +211,15 @@ class MatrizELinkedin(unittest.TestCase):
             al.comentarios_do_jsonld('<html></html>', post_url='https://www.linkedin.com/in/pessoa/',
                                      run_id='SINT', pseudonimo=lambda k: 'x')
 
+    def test_o_plano_aponta_a_rota_gratuita_e_nunca_a_paga(self):
+        """MEDIDO pela bateria desta missao: com a D106 a matriz passou a ALLOWED e o plano, que
+        ainda tinha COMMENTS_TEXT como PAID, passou a RECOMENDAR a rota paga (D106-3 proibe)."""
+        e = {'RAW': {}}
+        p = al.plano_de_aquisicao(e, {'WANT_COMMENTS': True})
+        passo = [x for x in p['PLAN'] if x['NEED'] == 'COMMENTS_TEXT'][0]
+        self.assertEqual((passo['TIER'], passo['POLICY']), ('FREE', 'ALLOWED'))
+        self.assertEqual(p['PAID_NEEDED_FOR'], [])
+
     def test_listagem_de_comentarios_e_porta_trocada(self):
         with self.assertRaises(ValueError) as c:
             al._alvo_e_post_publico('https://www.linkedin.com/feed/update/urn:li:activity:1234567890123456/comments/')
