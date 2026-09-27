@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  93d5a2cc44022bc361d67abf05fd55933931c107
-BRANCH           claude/single-reference-gateway-hhhj7t
-GERADO_EM        2026-09-27T21:40:15+00:00
+HEAD_DA_MEDICAO  be8656e4362e5079cd1eb6f0e157e4d1450d8902
+BRANCH           claude/casco-publication-minimum-5q7kbw
+GERADO_EM        2026-09-27T23:06:09+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -505,7 +505,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `coleta/cruzar_regua_rotulo.py`, `coleta/mapa_regfi.py`, `coleta/pdf_text.py`, `coleta/preservar_pdf.py`, `coleta/ropf_pre_requisito.py` _(e mais 2)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
-| **status operacional** | green — outra peca do sistema importa isto para funcionar. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
 | **prova de quem ativa** | pedido/receitas.py:175; orquestrador/orquestrador.py:1033 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -1604,13 +1604,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/ADAMA-ES-CONFIRMACAO-REGULATORIA-DO-PAR.json`, `data/samples/ADAMA-ES-PRESERVACAO-PLANO.json`, `data/samples/ADAMA-ES-PRESERVACAO-RELATORIO.json` |
 | **o que sai · dado** | C-SUPABASE |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 3 · saem 4 |
-| **arestas provadas** | entram 3 · saem 4 |
+| **arestas no mapa** | entram 3 · saem 5 |
+| **arestas provadas** | entram 3 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 7 |
+| **prova das ligações** | CODE 8 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 

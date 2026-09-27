@@ -164,6 +164,7 @@
       ".github/workflows/comunicacao-publica.yml",
       ".github/workflows/curator-youtube-handles.yml",
       ".github/workflows/curator-youtube-soc-onda2.yml",
+      ".github/workflows/portao-do-release.yml",
       ".github/workflows/regressao-de-navegador.yml",
       ".github/workflows/rls-censo-metadados.yml",
       ".github/workflows/scrap-evidencia.yml",
@@ -1599,6 +1600,10 @@
       "data/samples/X-007-canonical-agro-dictionary.json"
     ],
     "docs": [
+      "docs/acervo/ACERVO-ORGANIZADO.md",
+      "docs/acervo/AUDITORIA-D97-R7.json",
+      "docs/acervo/INVENTARIO-ACERVO.json",
+      "docs/acervo/INVENTARIO-ACERVO.md",
       "docs/adama/AVALIACAO-IT-T4-001-CONTRA-V2.1.md",
       "docs/adama/FECHAMENTO-HANDOFF-ADAMA-ES.md",
       "docs/adama/GATE-HANDOFF-ADAMA-ES.md",
@@ -1623,6 +1628,12 @@
       "docs/biblia/leis.json",
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
       "docs/capacidades/SINTONIA-SCRAP-SOCIAL.md",
+      "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
+      "docs/casco/r7/ANALISE-R7.json",
+      "docs/casco/r7/CASCO-AO-AR-R7.md",
+      "docs/casco/r7/MANIFESTO-R7.json",
+      "docs/casco/r7/POTE-R7.json",
+      "docs/casco/r7/RELATORIO-RODADA-7.md",
       "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
       "docs/decisoes/ADR-CONTRATO-DO-TEXTO-NA-COLLECTION.md",
       "docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md",
@@ -1673,11 +1684,15 @@
       "docs/intelligence/README.md",
       "docs/intelligence/RED-TEAM-INTELLIGENCE-ARBITRATION-V1.md",
       "docs/intelligence/RELATORIO-T6-CAP-SCI.md",
+      "docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+      "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.json",
+      "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.md",
       "docs/intelligence/r7/ANALISE-R7.json",
       "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
       "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
       "docs/intelligence/r7/RELATORIO-RODADA-7.md",
       "docs/nuvem/nuvem-boletim-por-secao-v1-MERGES.txt",
+      "docs/nuvem/nuvem-casco-ao-ar-r7-v1-MERGES.txt",
       "docs/nuvem/nuvem-cruzamentos-max-v1-MERGES.txt",
       "docs/nuvem/nuvem-estudos-chaves-v1-MERGES.txt",
       "docs/nuvem/nuvem-int-r7-caps-v1-MERGES.txt",
@@ -2301,6 +2316,7 @@
       "handoff/KNOW-HOW-DELTA-AGRO-INTELLIGENCE.md",
       "handoff/KNOW-HOW-DELTA-ARBITRAGEM-DA-INTELLIGENCE.md",
       "handoff/KNOW-HOW-DELTA-D24-INSTAGRAM.md",
+      "handoff/KNOW-HOW-DELTA-ENDERECO-OFICIAL.md",
       "handoff/KNOW-HOW-DELTA-INTELLIGENCE-SPINE.md",
       "handoff/KNOW-HOW-DELTA-O-BACKEND-APOSENTADO.md",
       "handoff/KNOW-HOW-DELTA-O-CAMPO-QUE-NAO-ATRAVESSA.md",
@@ -2311,6 +2327,8 @@
       "handoff/SYSTEM-MAP-FRESHNESS-V1.md",
       "handoff/SYSTEM-MAP-SM-P1.md",
       "handoff/SYSTEM-MAP-SM-P1R.md",
+      "handoff/SYSTEM-MAP-SM-P2.md",
+      "handoff/SYSTEM-MAP-SM-P3.md",
       "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
       "handoff/paused-v2/MANIFEST.md",
       "handoff/paused-v2/MANIFESTO.json",
@@ -2438,6 +2456,7 @@
       "italia-portale/audit/casco/brandwell-parita.mjs",
       "italia-portale/audit/casco/censo-demo.mjs",
       "italia-portale/audit/casco/censo-precedenza.mjs",
+      "italia-portale/audit/casco/d97-auditoria.mjs",
       "italia-portale/audit/casco/demo-visibile.mjs",
       "italia-portale/audit/casco/due-mappe.mjs",
       "italia-portale/audit/casco/falso-zero.mjs",
@@ -2448,6 +2467,7 @@
       "italia-portale/audit/casco/mappa-azioni.mjs",
       "italia-portale/audit/casco/painel-operacao.mjs",
       "italia-portale/audit/casco/parita-visiva.mjs",
+      "italia-portale/audit/casco/pote-publicado-browser.mjs",
       "italia-portale/audit/casco/quarantatre.mjs",
       "italia-portale/audit/casco/release-gate.mjs",
       "italia-portale/audit/casco/ricchezza.mjs",
@@ -2555,6 +2575,8 @@
       "italia-portale/client/meeting-surface.js",
       "italia-portale/client/portale.html",
       "italia-portale/client/sintonia-pote-casco.js",
+      "italia-portale/client/sintonia-pote-publicacao.js",
+      "italia-portale/client/sintonia-pote-publicado.js",
       "italia-portale/client/support.js",
       "italia-portale/client/upstream/IT-FUTURO-HANDOFF-LINHA-B-V1.json",
       "italia-portale/client/upstream/IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json",
@@ -2754,6 +2776,7 @@
       "orquestrador/persistencia.py"
     ],
     "pacote": [
+      "pacote/acervo_inventario.mjs",
       "pacote/esqueleto_scientifica.py",
       "pacote/lastmile_entregar.py",
       "pacote/lastmile_inventario.py",
@@ -2773,7 +2796,9 @@
       "pacote/pacote_relacoes_convergencia.py",
       "pacote/ponte_intelligence_casco.py",
       "pacote/pote_cruzamentos_max.py",
+      "pacote/pote_ferramenta_label.py",
       "pacote/pote_intelligence_casco.py",
+      "pacote/publicar_pote_aprovado.py",
       "pacote/v21_handoff_json.py"
     ],
     "pedido": [
@@ -3795,6 +3820,7 @@
       "tests/test_a_rota_do_html.py",
       "tests/test_a_sala_de_espera_nao_tem_morada.py",
       "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "tests/test_acervo_organizado.py",
       "tests/test_adama_catalogo_drift.py",
       "tests/test_adama_referencia.py",
       "tests/test_adama_relevance.py",
@@ -3870,6 +3896,7 @@
       "tests/test_cap_win.py",
       "tests/test_capacidade_cientifica.py",
       "tests/test_captura_xhr.py",
+      "tests/test_casco_hoje.mjs",
       "tests/test_censo_cards_sensores.py",
       "tests/test_censo_corpus_rotulado_admission.py",
       "tests/test_censo_dos_donos.py",
@@ -4008,6 +4035,7 @@
       "tests/test_portoes_eame.py",
       "tests/test_pote_intelligence_casco.py",
       "tests/test_pote_no_casco.mjs",
+      "tests/test_pote_publicado.mjs",
       "tests/test_preco_de_mercado.py",
       "tests/test_preflight_de_egresso.py",
       "tests/test_preservar_coleta.py",
@@ -4099,8 +4127,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 939 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 939 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 943 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 943 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -4612,10 +4640,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/single-reference-gateway-hhhj7t",
-    "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
-    "GENERATED_AT": "2026-09-27T21:40:15+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9"
+    "BRANCH": "claude/casco-publication-minimum-5q7kbw",
+    "HEAD": "be8656e4362e5079cd1eb6f0e157e4d1450d8902",
+    "GENERATED_AT": "2026-09-27T23:06:09+00:00",
+    "SOURCE_TREE_FINGERPRINT": "01c7bc867074b7c57150240c7e19967f96c2cc58ce8204419274b1634aeebaab"
   },
   "FAMILIES": [
     {
@@ -4686,7 +4714,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 118
+      "count": 119
     },
     {
       "id": "F-ENTREGA",
@@ -5058,7 +5086,7 @@
       "y": 190,
       "w": 1235,
       "h": 10666,
-      "count": 98
+      "count": 99
     },
     {
       "id": "Z-REFERENCIA",
@@ -5452,7 +5480,7 @@
           "coleta/comunicacao_concorrenza.py:73",
           "motor/porta_da_referencia.py:65",
           "motor/v21_ingest.py:266",
-          "pacote/lastmile_entregar.py:65"
+          "pacote/acervo_inventario.mjs:107"
         ],
         "PORQUE": "estas pecas importam-na — C-COLETA-PUBLICA · C-INT-PORTA-REFERENCIA · C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -6156,6 +6184,7 @@
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS",
         "C-AUDIT-MARCA",
+        "C-LASTMILE",
         "C-PORTAO-BUILD",
         "C-SITE-INGEST",
         "C-TELA-FIELD",
@@ -6203,7 +6232,7 @@
           "italia-portale/audit/deploy-surface.mjs:53",
           "italia-portale/audit/lib/harness.mjs:38"
         ],
-        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAO-BUILD · C-SITE-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-LASTMILE · C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 16910,
       "y": 360
@@ -39001,6 +39030,7 @@
         "italia-portale/audit/casco/INTELLIGENCE-EXPERIMENTAL-EXEMPLO-VAZIO.json",
         "italia-portale/audit/casco/censo-demo.mjs",
         "italia-portale/audit/casco/censo-precedenza.mjs",
+        "italia-portale/audit/casco/d97-auditoria.mjs",
         "italia-portale/audit/casco/demo-visibile.mjs",
         "italia-portale/audit/casco/due-mappe.mjs",
         "italia-portale/audit/casco/falso-zero.mjs",
@@ -39011,25 +39041,37 @@
         "italia-portale/audit/casco/mappa-azioni.mjs",
         "italia-portale/audit/casco/painel-operacao.mjs",
         "italia-portale/audit/casco/parita-visiva.mjs",
+        "italia-portale/audit/casco/pote-publicado-browser.mjs",
         "italia-portale/audit/casco/quarantatre.mjs",
         "italia-portale/audit/casco/release-gate.mjs",
         "italia-portale/audit/casco/ricchezza.mjs",
         "italia-portale/audit/casco/sala-leitura.mjs",
         "italia-portale/audit/casco/sinale.mjs",
-        "italia-portale/audit/casco/sperimentali.mjs"
+        "italia-portale/audit/casco/sperimentali.mjs",
+        "tests/test_casco_hoje.mjs",
+        "tests/test_pote_publicado.mjs"
       ],
-      "file_count": 20,
+      "file_count": 24,
       "status": "PENDING",
       "status_reason": "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada.",
       "changed_since_declared": [
+        "italia-portale/audit/casco/quarantatre.mjs",
         "italia-portale/audit/casco/release-gate.mjs"
       ],
       "produces": [],
       "inbound": [
         "C-AUDIT-HARNESS",
-        "C-TELA-FIELD"
+        "C-INT-PORTA-REFERENCIA",
+        "C-LASTMILE",
+        "C-PORTAL-DADOS",
+        "C-PORTAL-MODELO",
+        "C-TELA-FIELD",
+        "C-TESTES"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-AUDIT-GERAL",
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -39045,18 +39087,28 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 16 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "docs/casco/r7/ANALISE-R7.json",
+        "docs/casco/r7/POTE-R7.json",
         "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
         "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+        "italia-portale/audit/casco/d97-auditoria.mjs",
         "italia-portale/audit/lib/drive.mjs",
         "italia-portale/audit/lib/harness.mjs",
-        "italia-portale/client/portale.html"
+        "italia-portale/client/portale.html",
+        "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicacao.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
+        "motor/porta_da_referencia.py",
+        "pacote/pote_ferramenta_label.py",
+        "pacote/publicar_pote_aprovado.py",
+        "vercel.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -39070,8 +39122,11 @@
         "CLASSE": "NAO_SEI",
         "QUEM": [],
         "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "PROVA": [
+          "italia-portale/audit/run.mjs:174",
+          "tests/test_acervo_organizado.py:279"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 18445,
       "y": 360
@@ -39160,11 +39215,14 @@
       ],
       "file_count": 61,
       "status": "PENDING",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 7 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "italia-portale/audit/checks.mjs",
         "italia-portale/audit/cta-navigation.mjs",
+        "italia-portale/audit/meeting-browser.mjs",
         "italia-portale/audit/meeting-gate.mjs",
+        "italia-portale/audit/mobile.mjs",
+        "italia-portale/audit/opportunity-hub.mjs",
         "italia-portale/audit/run.mjs"
       ],
       "produces": [],
@@ -39172,6 +39230,7 @@
         "C-ADAMA-REFERENCE",
         "C-ARTEFACTO-V21",
         "C-AUDIT-BLOCOS",
+        "C-AUDIT-CASCO",
         "C-AUDIT-HARNESS",
         "C-CADEIA-V21",
         "C-LASTMILE",
@@ -39184,6 +39243,7 @@
         "C-V21-FONTES"
       ],
       "outbound": [
+        "C-LASTMILE",
         "C-PORTAO-BUILD"
       ],
       "paises": {},
@@ -39203,7 +39263,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 57 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 58 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -39228,6 +39288,7 @@
         "italia-portale/audit/blocks.mjs",
         "italia-portale/audit/build-gate.mjs",
         "italia-portale/audit/casa-gate.mjs",
+        "italia-portale/audit/casco/pote-publicado-browser.mjs",
         "italia-portale/audit/checks.mjs",
         "italia-portale/audit/contract-numbers.mjs",
         "italia-portale/audit/do-not-show.mjs",
@@ -39280,9 +39341,10 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "italia-portale/audit/casa-gate.mjs:32"
+          "italia-portale/audit/casa-gate.mjs:32",
+          "pacote/acervo_inventario.mjs:113"
         ],
-        "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-LASTMILE · C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 18030,
       "y": 682
@@ -39315,8 +39377,9 @@
       ],
       "file_count": 5,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
+        "italia-portale/audit/lib/drive.mjs",
         "italia-portale/audit/lib/harness.mjs"
       ],
       "produces": [],
@@ -42711,6 +42774,80 @@
       "y": 1648
     },
     {
+      "id": "C-CI-RELEASE",
+      "name": "O portao do release",
+      "territory": "Z-PROVA",
+      "kind": "workflow",
+      "what": "Antes de um merge entrar em release/canonical — a branch de producao — corre tres provas separadas: a proveniencia do artefacto servido, o System Map contra esta arvore, e os 73 portoes do portal.",
+      "why_here": "O que entra em release/canonical vai ao ar sozinho, e o projecto serve o portal inteiro e nao so /system-map/. Enquanto publicar era um clique, uma pessoa olhava; automatizar sem estes portoes seria trocar essa pessoa por nada. Corre antes do merge porque depois do push ja esta no ar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▶",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        ".github/workflows/portao-do-release.yml"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-LEITOR-DA-CADEIA"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "DISPATCH_ENTRYPOINT",
+      "ROLE_DECLARED": "DISPATCH_ENTRYPOINT",
+      "ROLE_RULE": "M1_SO_WORKFLOW",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "DISPATCH_ENTRYPOINT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "1 ficheiro(s), todos manifestos de workflow: quem os corre e o GitHub Actions, e nada na arvore os importa",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_EVENTO",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/portao-do-release.yml · on: pull_request, push, workflow_dispatch"
+        ],
+        "PORQUE": "um acontecimento do repositorio acorda este botao."
+      },
+      "x": 23340,
+      "y": 1648
+    },
+    {
       "id": "C-CICATRIZES-BR",
       "name": "Cicatrizes do Brasil (lei portada)",
       "territory": "Z-MEDIDAS",
@@ -44515,13 +44652,12 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 3 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 2 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "INTELIGENCIA · ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
-        "docs/intelligence/r7/ANALISE-R7.json",
         "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
         "docs/intelligence/r7/CRUZAMENTOS-MAX.json"
       ],
@@ -44901,8 +45037,8 @@
         ],
         "PORQUE": "ha relogio declarado no `on:`."
       },
-      "x": 23340,
-      "y": 1648
+      "x": 22510,
+      "y": 1970
     },
     {
       "id": "C-DERIVACAO-FORWARD",
@@ -46266,7 +46402,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 1970
     },
     {
@@ -46485,7 +46621,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 1970
     },
     {
@@ -47125,8 +47261,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 1970
+      "x": 22510,
+      "y": 2292
     },
     {
       "id": "C-FONTE-DO-ATLAS",
@@ -47793,7 +47929,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 2292
     },
     {
@@ -48076,6 +48212,7 @@
       ],
       "outbound": [
         "C-CENSO-ARMAZEM-IT",
+        "C-LASTMILE",
         "C-PROVA-ROTAS-REAIS",
         "C-SUPABASE",
         "C-TESTES"
@@ -48256,7 +48393,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 2292
     },
     {
@@ -48653,8 +48790,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 2292
+      "x": 22510,
+      "y": 2614
     },
     {
       "id": "C-INT-BIBLIA",
@@ -49050,7 +49187,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 2614
     },
     {
@@ -49351,7 +49488,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 2614
     },
     {
@@ -49637,8 +49774,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CORRIDA · C-PONTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 23340,
-      "y": 2614
+      "x": 22510,
+      "y": 2936
     },
     {
       "id": "C-INT-GRAFO-DEPENDENCIA",
@@ -49907,7 +50044,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 2936
     },
     {
@@ -50120,12 +50257,15 @@
         "C-ADAMA-IT"
       ],
       "outbound": [
+        "C-AUDIT-CASCO",
         "C-COLETA-META",
         "C-CRUZAMENTOS-MAX",
         "C-INT-CAP-SCI",
         "C-INT-CAP-WIN",
         "C-INT-MOTOR-CAPACIDADES",
+        "C-LASTMILE",
         "C-LUGAR-COLETA",
+        "C-PORTAL-DADOS",
         "C-PROVA-PORTA-REFERENCIA",
         "C-TESTES"
       ],
@@ -50177,11 +50317,11 @@
         "PLANO": null,
         "PROVA": [
           "coleta/concorrencia_meta.py:72",
+          "italia-portale/client/sintonia-pote-publicado.js:31",
           "leis/boletim_do_campo.py:636",
-          "motor/cap_win.py:86",
-          "motor/capacidade_cientifica.py:59"
+          "motor/cap_win.py:86"
         ],
-        "PORQUE": "estas pecas importam-na — C-COLETA-META · C-CRUZAMENTOS-MAX · C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-AUDIT-CASCO · C-COLETA-META · C-CRUZAMENTOS-MAX · C-INT-CAP-SCI · C-INT-CAP-WIN — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 15085,
       "y": 1326
@@ -50683,7 +50823,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 2936
     },
     {
@@ -51475,27 +51615,41 @@
       "lane": "official",
       "family": "F-ENTREGA",
       "files": [
+        "pacote/acervo_inventario.mjs",
         "pacote/lastmile_entregar.py",
         "pacote/lastmile_inventario.py",
         "pacote/lastmile_para_supabase.py",
         "pacote/lastmile_relatorio.py",
         "pacote/ler_saida_leque.py",
-        "pacote/meeting_snapshot.py"
+        "pacote/meeting_snapshot.py",
+        "pacote/pote_ferramenta_label.py",
+        "pacote/publicar_pote_aprovado.py"
       ],
-      "file_count": 6,
+      "file_count": 9,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/IT-LASTMILE/IT-LASTMILE-INVENTARIO.json",
+        "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
         "italia-portale/client/meeting-intelligence-snapshot.json",
         "research/italy-lastmile/LAST-MILE-REALITY-GAPS.md"
       ],
       "inbound": [
         "C-ADAMA-IT",
-        "C-PORTAL-DADOS"
+        "C-ARTEFACTO-V21",
+        "C-AUDIT-GERAL",
+        "C-IMPORTAR",
+        "C-INT-PORTA-REFERENCIA",
+        "C-MAPA-TESTES",
+        "C-PORTAL-DADOS",
+        "C-PORTAL-MODELO",
+        "C-V21-COMERCIAL",
+        "C-V21-CRUZAMENTO",
+        "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
+        "C-AUDIT-CASCO",
         "C-AUDIT-GERAL",
         "C-AUDIT-MARCA",
         "C-PORTAL-DADOS",
@@ -51506,24 +51660,27 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 31
+        "ITALIA": 33
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CABECALHO",
           "CAMPOS",
           "CULTURAS_PILOTO",
           "CULTURA_PALAVRAS",
+          "DECISAO",
+          "DOZE",
           "NATUREZA",
           "REGIOES_IT",
           "SO_COM_ROTA_ITALIANA"
         ],
-        "palavras": 185,
+        "palavras": 221,
         "por_lingua": {
           "IT": 27
         },
-        "sem_marca_de_lingua": 158,
+        "sem_marca_de_lingua": 194,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -51558,6 +51715,12 @@
         },
         {
           "onde": "GIT",
+          "file": "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
           "file": "italia-portale/client/meeting-intelligence-snapshot.js",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
@@ -51565,12 +51728,6 @@
         {
           "onde": "GIT",
           "file": "italia-portale/client/meeting-intelligence-snapshot.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "research/italy-lastmile/LAST-MILE-REALITY-GAPS.md",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -51589,6 +51746,7 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "build/ITALY-REALITY-HANDOFF-V2/CROP-ECONOMIC-WEIGHT.json",
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json",
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/COMPETITOR-WATCH/competitor-activities.json",
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/current-phenology.json",
@@ -51605,8 +51763,34 @@
         "data/samples/IT-LASTMILE/IT-LASTMILE-INVENTARIO.json",
         "data/samples/IT-LASTMILE/IT-ROTA-COM_VPN_IT.json",
         "data/samples/IT-LASTMILE/IT-ROTA-SEM_VPN.json",
+        "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv",
+        "docs/acervo/INVENTARIO-ACERVO.json",
+        "docs/acervo/INVENTARIO-ACERVO.md",
+        "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
+        "docs/casco/r7/ANALISE-R7.json",
+        "docs/casco/r7/MANIFESTO-R7.json",
+        "docs/casco/r7/POTE-R7.json",
+        "docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+        "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.json",
+        "fontes/adama_it_intelligence.py",
+        "guarda/importar_italia.py",
+        "italia-portale/audit/etichette-gate.mjs",
+        "italia-portale/client/adama-relevance.js",
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-casa.js",
+        "italia-portale/client/italy-handoff-v21.js",
+        "italia-portale/client/italy-label-intelligence.js",
+        "italia-portale/client/italy-v21.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-intelligence-snapshot.json",
+        "italia-portale/client/sintonia-pote-publicado.js",
+        "motor/v21_adama_registro_validar.py",
+        "motor/v21_comercial.py",
+        "motor/v21_crossings.py",
+        "motor/v21_oportunidades.py",
+        "pacote/pote_ferramenta_label.py",
+        "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json",
+        "research/adama-italy-product-intelligence-deep/PRODUCTS-REGULATORY.json",
         "research/italy-lastmile/LAST-MILE-REALITY-GAPS.json",
         "research/italy-lastmile/LAST-MILE-REALITY-GAPS.md",
         "research/italy-lastmile/NEW-REAL-DATA.json",
@@ -51630,7 +51814,7 @@
           "italia-portale/audit/client-boundary.mjs:26",
           "italia-portale/client/italy-casa.js:113"
         ],
-        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-MARCA · C-PORTAL-DADOS · C-PORTAL-MODELO · C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-AUDIT-CASCO · C-AUDIT-GERAL · C-AUDIT-MARCA · C-PORTAL-DADOS · C-PORTAL-MODELO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 17325,
       "y": 360
@@ -51930,6 +52114,7 @@
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
+        "C-CI-RELEASE",
         "C-MAPA-DEPLOY",
         "C-PROVA-VOCI-DAL-CAMPO"
       ],
@@ -51983,17 +52168,19 @@
         "CLASSE": "PECA_INTERNA",
         "QUEM": [
           "C-CI-MAPA",
+          "C-CI-RELEASE",
           "C-PROVA-VOCI-DAL-CAMPO"
         ],
         "PLANO": "CODE",
         "PROVA": [
+          ".github/workflows/portao-do-release.yml:98",
           ".github/workflows/system-map.yml:137",
           "provas/voci_dal_campo/esperar_e_regerar.sh:25"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 2936
+      "x": 22510,
+      "y": 3258
     },
     {
       "id": "C-LEITOR-DATA-YT",
@@ -52839,7 +53026,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 3258
     },
     {
@@ -52943,7 +53130,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 3258
     },
     {
@@ -53119,8 +53306,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 3258
+      "x": 22510,
+      "y": 3580
     },
     {
       "id": "C-MAPA-SCAN",
@@ -53261,7 +53448,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 3580
     },
     {
@@ -53376,6 +53563,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-INGRESSO",
         "C-IT-COLETA",
+        "C-LASTMILE",
         "C-LASTMILE-MEDIDORES",
         "C-LEITOR-DATA-YT",
         "C-LUGAR-COLETA",
@@ -53612,7 +53800,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 3580
     },
     {
@@ -53710,8 +53898,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 3580
+      "x": 22510,
+      "y": 3902
     },
     {
       "id": "C-MEDICAO",
@@ -53820,7 +54008,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 3902
     },
     {
@@ -56434,7 +56622,7 @@
         "PLANO": null,
         "PROVA": [
           "italia-portale/audit/casa-gate.mjs:582",
-          "italia-portale/client/portale.html:272"
+          "italia-portale/client/portale.html:271"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -56479,10 +56667,11 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "superficie/es/proto_es.py",
         "superficie/it_casa_dados.py"
       ],
-      "file_count": 17,
+      "file_count": 18,
       "status": "PENDING",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -56495,6 +56684,7 @@
         "build/sintonia-es.html"
       ],
       "inbound": [
+        "C-INT-PORTA-REFERENCIA",
         "C-LASTMILE",
         "C-MAPA-TESTES",
         "C-PORTAL-MODELO",
@@ -56502,6 +56692,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-AUDIT-CASCO",
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS",
         "C-AUDIT-MARCA",
@@ -56517,7 +56708,8 @@
         "C-TELA-MEETING",
         "C-TELA-PORTFOLIO",
         "C-TELA-SCIENCE",
-        "C-TELA-WINDOWS"
+        "C-TELA-WINDOWS",
+        "C-TESTES"
       ],
       "paises": {
         "ESPANHA": 1
@@ -56589,8 +56781,13 @@
         "data/samples/ES-ACTION-MAP-V2.json",
         "data/samples/SPAIN-DEMO-CONTENT-V1.json",
         "data/samples/SPAIN-HERO-CASES-V1.json",
+        "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
+        "docs/casco/r7/ANALISE-R7.json",
+        "docs/casco/r7/MANIFESTO-R7.json",
+        "docs/casco/r7/POTE-R7.json",
         "italia-portale/client/adama-relevance.js",
         "italia-portale/client/italy-casa.js",
+        "italia-portale/client/italy-label-intelligence.js",
         "italia-portale/client/meeting-intelligence-snapshot.json",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
@@ -56600,7 +56797,8 @@
         "italia-portale/client/upstream/IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json",
         "italia-portale/client/upstream/IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json",
         "italia-portale/client/upstream/IT-TOP3-SENSORES-V1.json",
-        "leis/adama_relevance.py"
+        "leis/adama_relevance.py",
+        "motor/porta_da_referencia.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -56618,9 +56816,9 @@
           "italia-portale/audit/adama-relevance-gate.mjs:39",
           "italia-portale/audit/browser-deep.mjs:248",
           "italia-portale/audit/casa-gate.mjs:527",
-          "italia-portale/audit/lib/harness.mjs:44"
+          "italia-portale/audit/casco/d97-auditoria.mjs:105"
         ],
-        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-LASTMILE · C-PORTAL-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-AUDIT-CASCO · C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-LASTMILE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 19150,
       "y": 1326
@@ -56652,9 +56850,10 @@
         "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-v21.js",
         "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicacao.js",
         "italia-portale/client/support.js"
       ],
-      "file_count": 7,
+      "file_count": 8,
       "status": "PENDING",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -56670,10 +56869,12 @@
         "C-V21-FONTES"
       ],
       "outbound": [
+        "C-AUDIT-CASCO",
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS",
         "C-AUDIT-MARCA",
         "C-INT-DEMANDA-IT",
+        "C-LASTMILE",
         "C-MAPA-SCAN",
         "C-PORTAL-CASCO",
         "C-PORTAL-DADOS",
@@ -56763,9 +56964,9 @@
           "italia-portale/audit/adama-relevance-gate.mjs:40",
           "italia-portale/audit/build-v21.mjs:38",
           "italia-portale/audit/casa-gate.mjs:428",
-          "italia-portale/audit/lib/harness.mjs:72"
+          "italia-portale/audit/casco/d97-auditoria.mjs:105"
         ],
-        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAL-CASCO · C-PORTAL-DADOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-AUDIT-CASCO · C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-LASTMILE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 19150,
       "y": 1648
@@ -57434,7 +57635,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 3902
     },
     {
@@ -57527,8 +57728,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 3902
+      "x": 22510,
+      "y": 4224
     },
     {
       "id": "C-PROVA-ASR-LOCAL",
@@ -57608,7 +57809,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 4224
     },
     {
@@ -57679,7 +57880,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 4224
     },
     {
@@ -57770,8 +57971,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 4224
+      "x": 22510,
+      "y": 4546
     },
     {
       "id": "C-PROVA-BIBLIA",
@@ -57887,7 +58088,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 4546
     },
     {
@@ -58086,7 +58287,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 4546
     },
     {
@@ -58178,8 +58379,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 4546
+      "x": 22510,
+      "y": 4868
     },
     {
       "id": "C-PROVA-CANARIO-D24-PESSOA",
@@ -58274,7 +58475,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 4868
     },
     {
@@ -58373,7 +58574,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 4868
     },
     {
@@ -58465,8 +58666,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 4868
+      "x": 22510,
+      "y": 5190
     },
     {
       "id": "C-PROVA-CANARIO-REEL",
@@ -58556,7 +58757,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5190
     },
     {
@@ -58657,7 +58858,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 5190
     },
     {
@@ -58758,8 +58959,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 5190
+      "x": 22510,
+      "y": 5512
     },
     {
       "id": "C-PROVA-COLETA",
@@ -59398,7 +59599,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5512
     },
     {
@@ -59508,7 +59709,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 5512
     },
     {
@@ -59660,8 +59861,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 5512
+      "x": 22510,
+      "y": 5834
     },
     {
       "id": "C-PROVA-CRUZAMENTOS-MAX",
@@ -59757,7 +59958,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5834
     },
     {
@@ -59874,7 +60075,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 5834
     },
     {
@@ -59964,8 +60165,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 5834
+      "x": 22510,
+      "y": 6156
     },
     {
       "id": "C-PROVA-ENCANAMENTO",
@@ -60056,7 +60257,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6156
     },
     {
@@ -60136,7 +60337,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6156
     },
     {
@@ -60255,8 +60456,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 6156
+      "x": 22510,
+      "y": 6478
     },
     {
       "id": "C-PROVA-FORWARD-CONTA",
@@ -60350,7 +60551,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6478
     },
     {
@@ -60449,7 +60650,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6478
     },
     {
@@ -60537,8 +60738,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 6478
+      "x": 22510,
+      "y": 6800
     },
     {
       "id": "C-PROVA-INDEPENDENCIA",
@@ -60633,7 +60834,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6800
     },
     {
@@ -60748,7 +60949,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6800
     },
     {
@@ -60917,8 +61118,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 6800
+      "x": 22510,
+      "y": 7122
     },
     {
       "id": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
@@ -61008,7 +61209,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7122
     },
     {
@@ -61121,7 +61322,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7122
     },
     {
@@ -61258,8 +61459,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 7122
+      "x": 22510,
+      "y": 7444
     },
     {
       "id": "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -61372,7 +61573,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7444
     },
     {
@@ -61460,7 +61661,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7444
     },
     {
@@ -61610,8 +61811,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 23340,
-      "y": 7444
+      "x": 22510,
+      "y": 7766
     },
     {
       "id": "C-PROVA-PONTE-CASCO",
@@ -61717,7 +61918,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7766
     },
     {
@@ -61833,7 +62034,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7766
     },
     {
@@ -61933,8 +62134,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 7766
+      "x": 22510,
+      "y": 8088
     },
     {
       "id": "C-PROVA-PORTA-REFERENCIA",
@@ -62042,7 +62243,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8088
     },
     {
@@ -62153,7 +62354,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8088
     },
     {
@@ -62249,8 +62450,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 8088
+      "x": 22510,
+      "y": 8410
     },
     {
       "id": "C-PROVA-RETRY-DO-SCRAP",
@@ -62338,7 +62539,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8410
     },
     {
@@ -62460,7 +62661,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8410
     },
     {
@@ -62563,8 +62764,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 8410
+      "x": 22510,
+      "y": 8732
     },
     {
       "id": "C-PROVA-ROTAS-REAIS",
@@ -62714,7 +62915,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8732
     },
     {
@@ -62812,7 +63013,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8732
     },
     {
@@ -62925,8 +63126,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 8732
+      "x": 22510,
+      "y": 9054
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -63036,7 +63237,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9054
     },
     {
@@ -63194,7 +63395,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9054
     },
     {
@@ -63293,8 +63494,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9054
+      "x": 22510,
+      "y": 9376
     },
     {
       "id": "C-PROVA-TETO-DOMINIO",
@@ -63418,7 +63619,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9376
     },
     {
@@ -63506,7 +63707,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9376
     },
     {
@@ -63590,8 +63791,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 9376
+      "x": 22510,
+      "y": 9698
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -63687,7 +63888,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9698
     },
     {
@@ -63821,7 +64022,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9698
     },
     {
@@ -64204,8 +64405,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9698
+      "x": 22510,
+      "y": 10020
     },
     {
       "id": "C-RECEITAS",
@@ -64711,7 +64912,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10020
     },
     {
@@ -64886,7 +65087,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10020
     },
     {
@@ -65112,8 +65313,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 23340,
-      "y": 10020
+      "x": 22510,
+      "y": 10342
     },
     {
       "id": "C-REGUA-T1-JANELA",
@@ -65976,7 +66177,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10342
     },
     {
@@ -66112,7 +66313,7 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -66130,9 +66331,11 @@
         "coleta/rotulos_ler.py"
       ],
       "file_count": 7,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/rotulos_ler.py"
+      ],
       "produces": [
         "data/raw/IT-ROTULOS/_MANIFESTO.json",
         "data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json",
@@ -67390,7 +67593,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10342
     },
     {
@@ -67761,7 +67964,9 @@
       "file_count": 2,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "portoes/site_v21_ingest.py"
+      ],
       "produces": [],
       "inbound": [
         "C-ADAMA-REFERENCE",
@@ -67791,12 +67996,12 @@
           "HTML",
           "LITERAIS"
         ],
-        "palavras": 763,
+        "palavras": 768,
         "por_lingua": {
           "PT": 2,
           "ES": 1
         },
-        "sem_marca_de_lingua": 760,
+        "sem_marca_de_lingua": 765,
         "de_outro_pais": 1,
         "de_outro_pais_quais": {
           "ES": 1
@@ -67971,8 +68176,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 10342
+      "x": 22510,
+      "y": 10664
     },
     {
       "id": "C-SUPABASE",
@@ -68317,7 +68522,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10664
     },
     {
@@ -68819,13 +69024,15 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
-        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/sintonia-pote-publicacao.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -68944,13 +69151,15 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
-        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/sintonia-pote-publicacao.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -68965,7 +69174,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "italia-portale/audit/casco/demo-visibile.mjs:77",
+          "italia-portale/audit/casco/d97-auditoria.mjs:46",
           "italia-portale/client/accesso.html:315",
           "provas/_mutantes_ponte_casco.py:30",
           "provas/_mutantes_pote_casco.py:26"
@@ -69063,13 +69272,15 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
-        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/sintonia-pote-publicacao.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -69833,13 +70044,15 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
-        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/sintonia-pote-publicacao.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -69946,13 +70159,15 @@
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
         "italia-portale/client/italy-real-intelligence.js",
-        "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/sintonia-pote-publicacao.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -70293,6 +70508,7 @@
         "tests/test_a_rota_do_html.py",
         "tests/test_a_sala_de_espera_nao_tem_morada.py",
         "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "tests/test_acervo_organizado.py",
         "tests/test_adama_catalogo_drift.py",
         "tests/test_adama_referencia.py",
         "tests/test_adama_relevance.py",
@@ -70591,7 +70807,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 323,
+      "file_count": 324,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -70630,6 +70846,7 @@
         "C-APRENDER-COM-A-FONTE",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
+        "C-AUDIT-CASCO",
         "C-AUTORIZACAO-DE-GASTO",
         "C-BANCO-NO-SECO",
         "C-BIBLIA",
@@ -70737,6 +70954,7 @@
         "C-POLITICA-COLETA",
         "C-PONTE-INT-CASCO",
         "C-PORTA-FONTE",
+        "C-PORTAL-DADOS",
         "C-PORTAL-MODELO",
         "C-POTE-CRUZAMENTOS-MAX",
         "C-POTE-INT-CASCO",
@@ -70803,6 +71021,7 @@
         "C-ADMISSAO",
         "C-APIFY-POOL",
         "C-ASK-SINTONIA",
+        "C-AUDIT-CASCO",
         "C-AUDIT-GERAL",
         "C-AUTORIZACAO-DE-GASTO",
         "C-CANARIO-ROTAS-ELEGIVEIS",
@@ -71275,6 +71494,8 @@
         "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
         "data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json",
         "data/samples/X-006-eu-cas-to-ephy.json",
+        "docs/acervo/AUDITORIA-D97-R7.json",
+        "docs/acervo/INVENTARIO-ACERVO.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
         "docs/apresentacao/CONTRATO-DE-PROVA-DA-APRESENTACAO.md",
         "docs/apresentacao/MATRIZ-DE-PROVA-EAME.md",
@@ -71285,6 +71506,9 @@
         "docs/biblia/EMENDA-V1-2.md",
         "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
         "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
+        "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
+        "docs/casco/r7/MANIFESTO-R7.json",
+        "docs/casco/r7/POTE-R7.json",
         "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
         "docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md",
         "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
@@ -71300,6 +71524,8 @@
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
         "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
+        "docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+        "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.json",
         "docs/operacao/A-CASA-DO-DERIVADO.md",
         "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
         "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
@@ -71361,9 +71587,12 @@
         "guarda/social_guarda.py",
         "guarda/social_sessao.py",
         "handoff/S2A-R-RECONCILIACAO.md",
+        "italia-portale/audit/casco/d97-auditoria.mjs",
         "italia-portale/client/italy-app-model.js",
         "italia-portale/client/italy-v21.js",
         "italia-portale/client/meeting-intelligence-snapshot.json",
+        "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "know-how/daily/2026-09-10.md",
         "leis/adama_relevance.py",
         "leis/afirmacao_da_fonte.py",
@@ -71411,8 +71640,11 @@
         "orquestrador/orquestrador.py",
         "orquestrador/persistencia.py",
         "package.json",
+        "pacote/acervo_inventario.mjs",
         "pacote/pacote_camadas.py",
+        "pacote/pote_ferramenta_label.py",
         "pacote/pote_intelligence_casco.py",
+        "pacote/publicar_pote_aprovado.py",
         "pedido/receitas.py",
         "provas/_c108a_ultima_corrida.json",
         "provas/a_collection_preserva_o_fato.py",
@@ -71632,7 +71864,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10664
     },
     {
@@ -71999,6 +72231,7 @@
       ],
       "outbound": [
         "C-INT-ARBITRAGEM",
+        "C-LASTMILE",
         "C-PACOTE-CAMADAS",
         "C-TESTES",
         "C-V21-CONTRATO",
@@ -72161,9 +72394,9 @@
           "motor/v21_aceitacao.py:39",
           "motor/v21_oportunidades.py:45",
           "motor/v21_traducao_trava.py:351",
-          "pacote/v21_handoff_json.py:9"
+          "pacote/acervo_inventario.mjs:65"
         ],
-        "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-LASTMILE · C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 14670,
       "y": 1648
@@ -72315,6 +72548,7 @@
       ],
       "outbound": [
         "C-INT-ARBITRAGEM",
+        "C-LASTMILE",
         "C-TESTES",
         "C-VOCI-DAL-CAMPO"
       ],
@@ -72789,6 +73023,7 @@
       ],
       "outbound": [
         "C-INT-ARBITRAGEM",
+        "C-LASTMILE",
         "C-PROVA-INDEPENDENCIA",
         "C-TESTES",
         "C-V21-COMERCIAL"
@@ -74150,8 +74385,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que a ADAMA sabe de si alimenta Ultima milha da entrega. Provado por 2 linhas de codigo.",
+      "reason": "O que a ADAMA sabe de si alimenta Ultima milha da entrega. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 107,
+          "snippet": "LEITORES: [['fontes/adama_it_intelligence.py', 'PROD_FTS_6_']] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-IT--READS-->C-LASTMILE",
+            "FROM": "C-ADAMA-IT",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "pacote/lastmile_entregar.py",
           "line": 65,
@@ -74987,7 +75238,7 @@
       "evidence": [
         {
           "file": "portoes/site_v21_ingest.py",
-          "line": 114,
+          "line": 124,
           "snippet": "'productActiveIngredients': ('PRODUCT-ACTIVE-INGREDIENTS.json', (",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-SITE-INGEST",
@@ -78808,6 +79059,41 @@
     },
     {
       "from": "C-ARTEFACTO-V21",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Artefacto embarcado (italy-handoff-v21.js) alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 125,
+          "snippet": "['italy-handoff-v21.js', 'ITALY_HANDOFF_V21'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-LASTMILE",
+            "FROM": "C-ARTEFACTO-V21",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ARTEFACTO-V21",
       "to": "C-PORTAO-BUILD",
       "type": "READS",
       "payload": "artefacto",
@@ -81552,6 +81838,111 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-AUDIT-CASCO",
+      "to": "C-AUDIT-GERAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria do casco alimenta Demais auditorias do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/run.mjs",
+          "line": 174,
+          "snippet": "const pp = spawnSync(process.execPath, [fileURLToPath(new URL('./casco/pote-publicado-browser.mjs', import.meta.url))],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-CASCO--READS-->C-AUDIT-GERAL",
+            "FROM": "C-AUDIT-CASCO",
+            "TO": "C-AUDIT-GERAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AUDIT-CASCO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria do casco alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 279,
+          "snippet": "r = _node(['italia-portale/audit/casco/d97-auditoria.mjs', '--json'])",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-CASCO--READS-->C-TESTES",
+            "FROM": "C-AUDIT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 113,
+          "snippet": "LEITORES: [['italia-portale/audit/etichette-gate.mjs', 'ITALY_LABEL_INTELLIGENCE'], ['pacote/pote_ferramenta_label.py', 'ITALY_LABEL_INTELLIGENCE']] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-GERAL--READS-->C-LASTMILE",
+            "FROM": "C-AUDIT-GERAL",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-AUDIT-GERAL",
       "to": "C-PORTAO-BUILD",
       "type": "IMPORTS",
@@ -81713,7 +82104,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Harness de auditoria tem o seu codigo importado por Auditoria do casco. Provado por 17 linhas de codigo.",
+      "reason": "Harness de auditoria tem o seu codigo importado por Auditoria do casco. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/casco/censo-demo.mjs",
@@ -81735,6 +82126,22 @@
           "file": "italia-portale/audit/casco/censo-precedenza.mjs",
           "line": 1,
           "snippet": "import { loadData } from '../lib/harness.mjs';",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
+            "FROM": "C-AUDIT-HARNESS",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 41,
+          "snippet": "import { mount, CLIENT } from '../lib/harness.mjs';",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
             "FROM": "C-AUDIT-HARNESS",
@@ -81876,25 +82283,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "italia-portale/audit/casco/quarantatre.mjs",
-          "line": 8,
-          "snippet": "import { serve, open, screenText, C, line } from '../lib/drive.mjs';",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
-            "FROM": "C-AUDIT-HARNESS",
-            "TO": "C-AUDIT-CASCO",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "italia-portale/audit/casco/quarantatre.mjs",
-          "line": 11,
-          "snippet": "import { loadData } from '../lib/harness.mjs';",
+          "file": "italia-portale/audit/casco/pote-publicado-browser.mjs",
+          "line": 23,
+          "snippet": "import { serve, open, CLIENT } from '../lib/drive.mjs';",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
             "FROM": "C-AUDIT-HARNESS",
@@ -81924,7 +82315,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "UNKNOWN",
-      "reason": "Harness de auditoria alimenta Auditoria do casco. Provado por 17 linhas de codigo.",
+      "reason": "Harness de auditoria alimenta Auditoria do casco. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/casco/censo-demo.mjs",
@@ -81940,6 +82331,16 @@
           "file": "italia-portale/audit/casco/censo-precedenza.mjs",
           "line": 1,
           "snippet": "import { loadData } from '../lib/harness.mjs';",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 41,
+          "snippet": "import { mount, CLIENT } from '../lib/harness.mjs';",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
           "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
@@ -82027,19 +82428,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "italia-portale/audit/casco/quarantatre.mjs",
-          "line": 8,
-          "snippet": "import { serve, open, screenText, C, line } from '../lib/drive.mjs';",
-          "ASSERTION_SUPPORTED": null,
-          "SUPPORTS": "AMBIGUOUS",
-          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "italia-portale/audit/casco/quarantatre.mjs",
-          "line": 11,
-          "snippet": "import { loadData } from '../lib/harness.mjs';",
+          "file": "italia-portale/audit/casco/pote-publicado-browser.mjs",
+          "line": 23,
+          "snippet": "import { serve, open, CLIENT } from '../lib/drive.mjs';",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
           "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
@@ -89933,6 +90324,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CI-RELEASE",
+      "to": "C-LEITOR-DA-CADEIA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao do release manda rodar Leitor da cadeia do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/portao-do-release.yml",
+          "line": 98,
+          "snippet": "python3 system-map/scripts/correr_a_cadeia.py REGERAR",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-RELEASE--RUNS-->C-LEITOR-DA-CADEIA",
+            "FROM": "C-CI-RELEASE",
+            "TO": "C-LEITOR-DA-CADEIA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CONTROL",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -105464,6 +105890,41 @@
     },
     {
       "from": "C-IMPORTAR",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Levar o dado para o banco alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 90,
+          "snippet": "LEITORES: [['motor/v21_crossings.py', \"le('RESISTANCE.json')\"], ['guarda/importar_italia.py', 'insert into public.resistencia_confirmada']] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IMPORTAR--READS-->C-LASTMILE",
+            "FROM": "C-IMPORTAR",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IMPORTAR",
       "to": "C-PROVA-ROTAS-REAIS",
       "type": "READS",
       "payload": "artefacto",
@@ -110278,6 +110739,41 @@
     },
     {
       "from": "C-INT-PORTA-REFERENCIA",
+      "to": "C-AUDIT-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta unica da referencia ADAMA — bulas e portfolio, uma edicao alimenta Auditoria do casco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_casco_hoje.mjs",
+          "line": 66,
+          "snippet": "const r = spawnSync('python3', ['motor/porta_da_referencia.py', '--hoje', PUB.DECISAO.DATA], { cwd: RAIZ, encoding: 'utf8' });",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-PORTA-REFERENCIA--READS-->C-AUDIT-CASCO",
+            "FROM": "C-INT-PORTA-REFERENCIA",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-PORTA-REFERENCIA",
       "to": "C-COLETA-META",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -110453,6 +110949,41 @@
     },
     {
       "from": "C-INT-PORTA-REFERENCIA",
+      "to": "C-LASTMILE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta unica da referencia ADAMA — bulas e portfolio, uma edicao tem o seu codigo importado por Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/publicar_pote_aprovado.py",
+          "line": 84,
+          "snippet": "import porta_da_referencia as porta  # noqa: E402 — a UNICA porta da referencia ADAMA (D116)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-LASTMILE",
+            "FROM": "C-INT-PORTA-REFERENCIA",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-PORTA-REFERENCIA",
       "to": "C-LUGAR-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -110479,6 +111010,41 @@
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-PORTA-REFERENCIA",
+      "to": "C-PORTAL-DADOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta unica da referencia ADAMA — bulas e portfolio, uma edicao alimenta Camadas de dado do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/sintonia-pote-publicado.js",
+          "line": 31,
+          "snippet": "\"PORTA\": \"motor/porta_da_referencia.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-PORTA-REFERENCIA--READS-->C-PORTAL-DADOS",
+            "FROM": "C-INT-PORTA-REFERENCIA",
+            "TO": "C-PORTAL-DADOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -118202,6 +118768,57 @@
     },
     {
       "from": "C-LASTMILE",
+      "to": "C-AUDIT-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ultima milha da entrega alimenta Auditoria do casco. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_casco_hoje.mjs",
+          "line": 98,
+          "snippet": "const r = spawnSync('python3', ['pacote/pote_ferramenta_label.py', '--conferir'], { cwd: RAIZ, encoding: 'utf8' });",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-AUDIT-CASCO",
+            "FROM": "C-LASTMILE",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_publicado.mjs",
+          "line": 73,
+          "snippet": "const r = spawnSync('python3', ['pacote/publicar_pote_aprovado.py', '--conferir'], { cwd: RAIZ, encoding: 'utf8' });",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-AUDIT-CASCO",
+            "FROM": "C-LASTMILE",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LASTMILE",
       "to": "C-AUDIT-GERAL",
       "type": "READS",
       "payload": "artefacto",
@@ -118326,8 +118943,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ultima milha da entrega alimenta Camadas de dado do portal. Provado por 1 linha de codigo.",
+      "reason": "Ultima milha da entrega alimenta Camadas de dado do portal. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "italia-portale/client/sintonia-pote-publicado.js",
+          "line": 49,
+          "snippet": "\"POTE_DA_FERRAMENTA\": \"docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-PORTAL-DADOS",
+            "FROM": "C-LASTMILE",
+            "TO": "C-PORTAL-DADOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "superficie/it_casa_dados.py",
           "line": 85,
@@ -118361,12 +118994,28 @@
       "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ultima milha da entrega escreve em Camadas de dado do portal. Provado por 1 linha de codigo.",
+      "reason": "Ultima milha da entrega escreve em Camadas de dado do portal. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "pacote/meeting_snapshot.py",
           "line": 188,
           "snippet": "with open(pjs, 'w', encoding='utf-8') as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--WRITES-->C-PORTAL-DADOS",
+            "FROM": "C-LASTMILE",
+            "TO": "C-PORTAL-DADOS",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/publicar_pote_aprovado.py",
+          "line": 293,
+          "snippet": "DESTINO.write_text(texto, encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LASTMILE--WRITES-->C-PORTAL-DADOS",
             "FROM": "C-LASTMILE",
@@ -118461,13 +119110,128 @@
     {
       "from": "C-LASTMILE",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ultima milha da entrega tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 30,
+          "snippet": "import publicar_pote_aprovado as PUB  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--IMPORTS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 31,
+          "snippet": "import pote_ferramenta_label as LI  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--IMPORTS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LASTMILE",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ultima milha da entrega alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Ultima milha da entrega alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 89,
+          "snippet": "r = subprocess.run([sys.executable, 'pacote/publicar_pote_aprovado.py', '--conferir'], cwd=ROOT,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 106,
+          "snippet": "cls.pote = _j('docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 163,
+          "snippet": "r = subprocess.run([sys.executable, 'pacote/pote_ferramenta_label.py', '--conferir'], cwd=ROOT,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 203,
+          "snippet": "r = _node(['pacote/acervo_inventario.mjs', '--conferir'])",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_adama_relevance.py",
           "line": 27,
@@ -122791,6 +123555,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-LASTMILE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/publicar_pote_aprovado.py",
+          "line": 83,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-LASTMILE",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-LASTMILE-MEDIDORES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -126359,7 +127158,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 167 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 168 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -135092,12 +135891,79 @@
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
-          "line": 272,
+          "line": 271,
           "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-CASCO--READS-->C-TELA-FIELD",
             "FROM": "C-PORTAL-CASCO",
             "TO": "C-TELA-FIELD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAL-DADOS",
+      "to": "C-AUDIT-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Camadas de dado do portal alimenta Auditoria do casco. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 105,
+          "snippet": "for (const f of ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js']) {",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_casco_hoje.mjs",
+          "line": 35,
+          "snippet": "const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_publicado.mjs",
+          "line": 39,
+          "snippet": "'sintonia-pote-publicado.js',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-AUDIT-CASCO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -135468,12 +136334,92 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "reason": "Camadas de dado do portal alimenta Ultima milha da entrega. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 108,
+          "snippet": "{ ID: 'label-intelligence-usos', FICHEIRO: 'italia-portale/client/italy-label-intelligence.js',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 131,
+          "snippet": "['meeting-intelligence-snapshot.js', 'MEETING_INTELLIGENCE'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 134,
+          "snippet": "['adama-relevance.js', 'ADAMA_RELEVANCE'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "pacote/meeting_snapshot.py",
           "line": 187,
           "snippet": "pjs = os.path.join(OUT, 'meeting-intelligence-snapshot.js')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/pote_ferramenta_label.py",
+          "line": 58,
+          "snippet": "FONTE = RAIZ / \"italia-portale/client/italy-label-intelligence.js\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/publicar_pote_aprovado.py",
+          "line": 99,
+          "snippet": "DESTINO = RAIZ / \"italia-portale/client/sintonia-pote-publicado.js\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
             "FROM": "C-PORTAL-DADOS",
@@ -135751,7 +136697,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 15 linhas de codigo.",
+      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -136125,6 +137071,156 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-PORTAL-DADOS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Camadas de dado do portal alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 259,
+          "snippet": "pub = _ler(os.path.join(ROOT, 'italia-portale/client/sintonia-pote-publicado.js'))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-TESTES",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAL-MODELO",
+      "to": "C-AUDIT-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta Auditoria do casco. Provado por 6 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 105,
+          "snippet": "for (const f of ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js']) {",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 105,
+          "snippet": "for (const f of ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js']) {",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_casco_hoje.mjs",
+          "line": 35,
+          "snippet": "const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_casco_hoje.mjs",
+          "line": 35,
+          "snippet": "const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_publicado.mjs",
+          "line": 40,
+          "snippet": "'sintonia-pote-casco.js',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_publicado.mjs",
+          "line": 41,
+          "snippet": "'sintonia-pote-publicacao.js',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-PORTAL-MODELO",
       "to": "C-AUDIT-GERAL",
       "type": "READS",
@@ -136263,6 +137359,73 @@
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-INT-DEMANDA-IT",
             "FROM": "C-PORTAL-MODELO",
             "TO": "C-INT-DEMANDA-IT",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAL-MODELO",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta Ultima milha da entrega. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 61,
+          "snippet": "['italia-portale/client/italy-app-model.js', 'RAW.HANDOFF_V21.productRelationships']] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 126,
+          "snippet": "['italy-v21.js', 'ITALY_HANDOFF_V21'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 132,
+          "snippet": "['italy-casa.js', 'ITALY_CASA'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-LASTMILE",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -136575,8 +137738,8 @@
         },
         {
           "file": "italia-portale/client/portale.html",
-          "line": 75,
-          "snippet": "<script src=\"italy-sala-leitura.js\"></script>",
+          "line": 80,
+          "snippet": "<script src=\"sintonia-pote-casco.js\"></script>",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
             "FROM": "C-PORTAL-MODELO",
@@ -136591,8 +137754,8 @@
         },
         {
           "file": "italia-portale/client/portale.html",
-          "line": 80,
-          "snippet": "<script src=\"sintonia-pote-casco.js\"></script>",
+          "line": 81,
+          "snippet": "<script src=\"sintonia-pote-publicacao.js\"></script>",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
             "FROM": "C-PORTAL-MODELO",
@@ -136622,12 +137785,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_demanda_de_dados_da_italia.py",
           "line": 303,
           "snippet": "self.assertIn(\"italy-v21.js\", fonte)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 183,
+          "snippet": "\"vm.createContext(c);vm.runInContext(fs.readFileSync('italia-portale/client/sintonia-pote-casco.js','utf8'),c);\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
             "FROM": "C-PORTAL-MODELO",
@@ -156194,7 +157373,7 @@
       "evidence": [
         {
           "file": "portoes/site_v21_ingest.py",
-          "line": 472,
+          "line": 482,
           "snippet": "src = io.open(os.path.join(ROOT, 'italia-portale', 'audit', 'lang.mjs'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SITE-INGEST--WRITES-->C-AUDIT-GERAL",
@@ -157939,8 +159118,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Rete Commerciale di Campo alimenta Auditoria do casco. Provado por 3 linhas de codigo.",
+      "reason": "Rete Commerciale di Campo alimenta Auditoria do casco. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 46,
+          "snippet": "const PORTAL_F = 'italia-portale/client/portale.html';",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TELA-FIELD--READS-->C-AUDIT-CASCO",
+            "FROM": "C-TELA-FIELD",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "italia-portale/audit/casco/demo-visibile.mjs",
           "line": 77,
@@ -158543,6 +159738,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-AUDIT-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Auditoria do casco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_pote_publicado.mjs",
+          "line": 102,
+          "snippet": "const VJ = JSON.parse(ler('vercel.json'));",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-AUDIT-CASCO",
+            "FROM": "C-TESTES",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -161666,6 +162896,57 @@
     },
     {
       "from": "C-V21-COMERCIAL",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Leitura comercial e completude alimenta Ultima milha da entrega. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 65,
+          "snippet": "LEITORES: [['motor/v21_adama_registro_validar.py', 'PRODUCTS-REGULATORY.json'], ['motor/v21_oportunidades.py', \"cs['PRODUCTS-REGULATORY']\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-COMERCIAL--READS-->C-LASTMILE",
+            "FROM": "C-V21-COMERCIAL",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 82,
+          "snippet": "LEITORES: [['motor/v21_crossings.py', 'PRODUCTS-COMMERCIAL.json'], ['motor/v21_comercial.py', \"p.get('MATCHED_REGULATORY_ID')\"]] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-COMERCIAL--READS-->C-LASTMILE",
+            "FROM": "C-V21-COMERCIAL",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-COMERCIAL",
       "to": "C-PACOTE-CAMADAS",
       "type": "READS",
       "payload": "artefacto",
@@ -162096,6 +163377,41 @@
     },
     {
       "from": "C-V21-CRUZAMENTO",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cruzamento — a coincidência estrutural provada alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 60,
+          "snippet": "LEITORES: [['motor/v21_crossings.py', \"PRODUCT-RELATIONSHIPS.json\"], ['motor/v21_oportunidades.py', \"cs['PRODUCT-RELATIONSHIPS'], 'CROP_IDS'\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-CRUZAMENTO--READS-->C-LASTMILE",
+            "FROM": "C-V21-CRUZAMENTO",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-CRUZAMENTO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -162380,7 +163696,7 @@
       "evidence": [
         {
           "file": "portoes/site_v21_ingest.py",
-          "line": 219,
+          "line": 229,
           "snippet": "'publicVoices': ('PUBLIC-VOICES.json', (",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-V21-FONTES--READS-->C-SITE-INGEST",
@@ -162396,7 +163712,7 @@
         },
         {
           "file": "portoes/site_v21_ingest.py",
-          "line": 234,
+          "line": 244,
           "snippet": "'sources': ('SOURCES.json', (",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-V21-FONTES--READS-->C-SITE-INGEST",
@@ -163132,6 +164448,41 @@
             "EDGE_ID": "C-V21-OPORTUNIDADE--READS-->C-INT-ARBITRAGEM",
             "FROM": "C-V21-OPORTUNIDADE",
             "TO": "C-INT-ARBITRAGEM",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor de Oportunidade alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 60,
+          "snippet": "LEITORES: [['motor/v21_crossings.py', \"PRODUCT-RELATIONSHIPS.json\"], ['motor/v21_oportunidades.py', \"cs['PRODUCT-RELATIONSHIPS'], 'CROP_IDS'\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-OPORTUNIDADE--READS-->C-LASTMILE",
+            "FROM": "C-V21-OPORTUNIDADE",
+            "TO": "C-LASTMILE",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -163888,7 +165239,7 @@
       "evidence": [
         {
           "file": "portoes/site_v21_ingest.py",
-          "line": 714,
+          "line": 724,
           "snippet": "'CANONICAL-PACKAGE-CONTRACT.json')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "lineage_stale--READS-->C-SITE-INGEST",
@@ -163951,7 +165302,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2216,
+  "UNCLAIMED_FILES_COUNT": 2232,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -164201,7 +165552,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 268,
+      "PECAS_EM_DESACORDO": 270,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -164213,23 +165564,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 295
+      "TOTAL_DE_PECAS": 296
     }
   ],
   "COUNTS": {
-    "components": 295,
-    "components_proven": 33,
-    "components_pending": 254,
+    "components": 296,
+    "components_proven": 32,
+    "components_pending": 256,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1763,
-    "edges_proven": 1696,
+    "edges": 1783,
+    "edges_proven": 1716,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 4019,
-    "files_covered": 1803,
+    "files_tracked": 4047,
+    "files_covered": 1815,
     "files_code_unclaimed": 0,
-    "roles_proven": 196,
+    "roles_proven": 197,
     "roles_declared_only": 9,
     "roles_unknown": 90,
     "roles_conflict": 51,

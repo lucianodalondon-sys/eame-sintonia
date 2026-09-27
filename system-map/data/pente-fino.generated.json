@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T21:42:24+00:00",
-    "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
+    "GENERATED_AT": "2026-09-27T23:09:39+00:00",
+    "HEAD": "be8656e4362e5079cd1eb6f0e157e4d1450d8902",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9",
-    "FICHEIROS_NA_IMPRESSAO": 4167,
+    "SOURCE_TREE_FINGERPRINT": "01c7bc867074b7c57150240c7e19967f96c2cc58ce8204419274b1634aeebaab",
+    "FICHEIROS_NA_IMPRESSAO": 4195,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -63,6 +63,13 @@
         "PATH": ".github/workflows/curator-youtube-soc-onda2.yml",
         "PAPEL": "FONTE",
         "VERSAO": "da8cf27113cfc660de12202d0e8200b15664e366",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "workflows() · read_text"
+      },
+      {
+        "PATH": ".github/workflows/portao-do-release.yml",
+        "PAPEL": "FONTE",
+        "VERSAO": "a2615cd62c0c8adbb9f718f570b87302260b97da",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "workflows() · read_text"
       },
@@ -146,13 +153,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9",
+        "VERSAO": "01c7bc867074b7c57150240c7e19967f96c2cc58ce8204419274b1634aeebaab",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
-    "INPUTS_COUNT": 20,
-    "INPUTS_DIGEST": "dab695dab5256c128c6de2223e1027b57645f571db0eb84dbe87446147638145",
+    "INPUTS_COUNT": 21,
+    "INPUTS_DIGEST": "157111352eaa53f1f65aff83c0aa2be5984a3a7047748e31948970096a3b22e3",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -490,7 +497,7 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 7,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-CENSO-UNIFICACAO",
