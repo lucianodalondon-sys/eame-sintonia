@@ -118,7 +118,10 @@ const server = await serve(8899, SERVE_DIR);
 let consoleErrors = [], failedReqs = [], deadControls = [];
 
 for (const width of [1440, 390]) {
-  const { browser, page, errors, failed } = await open({ port: 8899, width, height: width === 390 ? 844 : 1000 });
+  /* D114 · AJUSTE DECLARADO: este portao mede o radar da reuniao do LEGADO, que a precedencia do pote (D95/D96)
+     tira da rota por omissao desde a publicacao do pote R7. Mede-o no estado sem pote
+     (`semPotePublicado`), sem uma asserção a menos; o que vai ao ar por omissao e medido por PP1. */
+  const { browser, page, errors, failed } = await open({ port: 8899, width, height: width === 390 ? 844 : 1000, semPotePublicado: true });
 
   for (const lang of ['it', 'en']) {
     if (lang === 'en' && !(await setLang(page, 'en'))) { fail('LANG', `${width}px · could not switch to EN`); continue; }

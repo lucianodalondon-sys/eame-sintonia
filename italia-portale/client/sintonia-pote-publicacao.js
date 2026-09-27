@@ -37,7 +37,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
       apoios: 'appoggi validi', fora: 'rimasti fuori', aberta: 'aperta ora', metodo: 'metodo',
       lacT: 'LACUNE DELLA CORSA', lacLeg: 'requisiti che bloccano una domanda: il dato manca, non è zero',
       novasT: 'COSA HANNO AGGIUNTO LE 38 NUOVE', sinais: 'segnali datati delle 38 nuove', idade: 'età minima (giorni)',
-      d112T: 'LUOGO SOLO DAL TESTO SCRITTO (D112)', campoT: 'RETE COMMERCIALE DI CAMPO · SIMULATO — la simulazione non è mostrata',
+      d112T: 'LUOGO SOLO DAL TESTO SCRITTO (D112)', campoT: 'Rete Commerciale di Campo · SIMULATO — la simulazione non è mostrata',
       campoTx: 'Questa vista reggeva su persone e messaggi SIMULATI. Con il pote pubblicato, mostra ciò che il pote scrive:'
     },
     en: {
@@ -55,7 +55,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
       apoios: 'valid supports', fora: 'left out', aberta: 'open now', metodo: 'method',
       lacT: 'GAPS OF THE RUN', lacLeg: 'requirements that block a question: the datum is missing, not zero',
       novasT: 'WHAT THE 38 NEW ITEMS ADDED', sinais: 'dated signals of the 38 new items', idade: 'minimum age (days)',
-      d112T: 'PLACE ONLY FROM THE WRITTEN TEXT (D112)', campoT: 'FIELD SALES NETWORK · SIMULATED — the simulation is not shown',
+      d112T: 'PLACE ONLY FROM THE WRITTEN TEXT (D112)', campoT: 'Field Sales Network · SIMULATED — the simulation is not shown',
       campoTx: 'This view stood on SIMULATED people and messages. With the published pot, it shows what the pot writes:'
     }
   };
@@ -68,6 +68,54 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     { k: 'PARTIAL_GRAO_INCOMPATIVEL', marca: '', it: 'GRANA INCOMPATIBILE · il pezzo non nomina la coltura', en: 'INCOMPATIBLE GRAIN · the passage does not name the crop', color: '#B1A9A7', traco: 'solid' },
     { k: 'NOT_POSSIBLE', marca: '', it: 'NON POSSIBILE · senza coltura', en: 'NOT POSSIBLE · no crop', color: APAGADO, traco: 'solid' }
   ];
+
+
+  /* ROTULOS · o nome humano de cada CODIGO que a tela mostra como rotulo. O codigo NAO some: vai ao lado
+     («tempo del fatto · FACT_TIME»), porque e ele que se procura no pote. Codigo sem entrada aqui passa
+     como esta — um rotulo inventado seria pior do que o codigo. */
+  var ROTULOS = {
+    ACTIVE_INGREDIENT_ID: ['sostanza attiva', 'active ingredient'], ADAMA_PRODUCT_ID: ['prodotto ADAMA', 'ADAMA product'],
+    AUTHORIZATION_EVIDENCE_ID: ['prova di autorizzazione', 'authorisation evidence'], COMPANY_ID: ['azienda', 'company'],
+    CROP_ID: ['coltura', 'crop'], DATE_OR_STAGE: ['data o fase', 'date or stage'], DOI: ['DOI', 'DOI'],
+    FACT_LOCATION: ['luogo del fatto', 'place of the fact'], FACT_TIME: ['tempo del fatto', 'fact time'],
+    FACT_TIME_BASIS: ['base del tempo del fatto', 'basis of the fact time'], INSTITUTION_ID: ['istituzione', 'institution'],
+    ISSUE_ID: ['avversità', 'issue'], ITENS_LIDOS: ['elementi letti', 'items read'],
+    ITENS_QUE_PASSARAM_G0: ['elementi passati da G0', 'items that passed G0'], MARKET_PLACE_ID: ['piazza di mercato', 'market place'],
+    MARKET_STAGE: ['fase di mercato', 'market stage'], MOLECULE: ['molecola', 'molecule'],
+    OBJETOS_PRODUZIDOS: ['oggetti prodotti', 'objects produced'], PERIOD: ['periodo', 'period'], PRICE: ['prezzo', 'price'],
+    PRODUCT_ID: ['prodotto', 'product'], QUOTE_OR_TRANSCRIPT: ['citazione o trascrizione', 'quote or transcript'],
+    REGION_ID: ['regione', 'region'], REGISTRATION_VERSION: ['versione della registrazione', 'registration version'],
+    RESEARCHER_ORCID: ['ricercatore (ORCID)', 'researcher (ORCID)'], SOURCE_ID: ['fonte', 'source'],
+    SPEAKER_ID: ['chi parla', 'speaker'], SPEAKER_ROLE: ['ruolo di chi parla', 'speaker role'],
+    STUDY_LOCATION: ['luogo dello studio', 'study location'], STUDY_PERIOD: ['periodo dello studio', 'study period'],
+    T4_REGISTRATION_EVIDENCE_ID: ['prova di registrazione', 'registration evidence'], TARGET_ID: ['bersaglio', 'target'],
+    TIME_WINDOW: ['finestra temporale', 'time window'], TRIAL_ID: ['prova sperimentale', 'trial'], UNIT: ['unità', 'unit'],
+    CROSSING_STATE: ['stato dell\'incrocio', 'crossing state'], CULTURAS_DO_DOCUMENTO_FONTE: ['colture nel documento', 'crops in the document'],
+    CULTURAS_QUE_CASAM_COM_O_ROTULO: ['colture che combaciano con l\'etichetta', 'crops matching the label'],
+    ENTITY_SOURCE_DO_CROP_ID: ['origine della coltura', 'origin of the crop'], LOCAL_D112: ['luogo (D112)', 'place (D112)'],
+    NIVEL: ['livello', 'level'], PILOTO_CROSSING_ID: ['incrocio del pilota', 'pilot crossing'],
+    PRODUTOS_ADAMA_COM_A_SUBSTANCIA: ['prodotti ADAMA con la sostanza', 'ADAMA products with the substance'], VIA: ['via', 'route'],
+    CROSSING: ['incrocio', 'crossing'], FATO_PRESENTE_SOBRE_O_FUTURO: ['fatto presente sul futuro', 'present fact about the future'],
+    RENDIMENTO_DE_FONTE: ['resa della fonte', 'source yield'], SINAL: ['segnale', 'signal'],
+    OPORTUNIDADE: ['opportunità', 'opportunity'], FINDING: ['scoperta', 'finding'],
+    SOURCE_HEAD: ['origine della corsa', 'run origin'], RESULT_STATE: ['stato della corsa', 'run state'],
+    RESULTADO: ['esito', 'outcome'], WINDOW_OPEN_NOW: ['finestra aperta ora', 'window open now'], ACT_NOW: ['agire ora', 'act now'],
+    POR_REGIAO_SUSTENTADA: ['per regione sostenuta', 'by supported region'], TEMPORAL_STATE: ['stato temporale', 'temporal state'],
+    PAR: ['coppia', 'pair'], ENTITY_SOURCE_NO_READY: ['origine dell\'entità nel READY', 'entity source in READY'],
+    LOCATION_SOURCE_NO_READY: ['origine del luogo nel READY', 'location source in READY'],
+    LOCAL_POR_ESTADO: ['luogo per stato', 'place by state'], LOCAL_POR_ESTADO_SO_NOVAS: ['luogo per stato (solo le nuove)', 'place by state (new only)'],
+    LOCAL_NAO_SUSTENTADO: ['luogo non sostenuto', 'unsupported place'], ITENS_COM_PARES_POR_SECAO: ['elementi con coppie per sezione', 'items with pairs by section'],
+    PARES_POR_SECAO: ['coppie per sezione', 'pairs by section'], ITENS: ['elementi', 'items'], FONTES: ['fonti', 'sources'],
+    FONTES_CANDIDATAS: ['fonti candidate', 'candidate sources'], UNIVERSO: ['universo', 'universe'],
+    COM_CULTURA: ['con coltura', 'with crop'], COM_PRAGA: ['con avversità', 'with pest'],
+    COM_PARES_POR_SECAO: ['con coppie per sezione', 'with pairs by section'], COM_PUBLISHED_AT: ['con data di pubblicazione', 'with publication date'],
+    PUBLICADAS_ANTES_DE_2026: ['pubblicate prima del 2026', 'published before 2026'], FORA_DE_ITALIA: ['fuori dall\'Italia', 'outside Italy'],
+    CROSSINGS: ['incroci', 'crossings']
+  };
+  function rotulo(k, lang) {
+    var r = ROTULOS[k];
+    return r ? r[lang === 'en' ? 1 : 0] + ' · ' + k : k;
+  }
 
   function txt(v) {
     if (v === null || v === undefined || v === '') return NAO_SEI;
@@ -130,7 +178,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
           viaColor: candidata ? AMBAR : CINZA,
           pote: noPote[c.OBJETO_ID] ? T.nel : (r ? T.rif + ' · ' + txt(r.MOTIVO) + ': ' + txt(r.DETALHE) : T.fuori),
           poteColor: noPote[c.OBJETO_ID] ? BRANCO : AMBAR,
-          chaves: [par(T.sost, c.SUBSTANCIA), par('SOURCE_ID', c.SOURCE_ID), par(T.colDoc, F.CULTURA_NO_READY),
+          chaves: [par(T.sost, c.SUBSTANCIA), par(rotulo('SOURCE_ID', lang), c.SOURCE_ID), par(T.colDoc, F.CULTURA_NO_READY),
             par(T.ent, I.ENTITY_SOURCE_DA_CULTURA || F.ENTITY_SOURCE_DA_CULTURA),
             par(T.luogo, txt(LO.FACT_LOCATION) + ' · ' + txt(LO.ESTADO)), par(T.colEt, c.CULTURAS_NO_ROTULO)],
           produtos: T.prod + ': ' + txt(c.PRODUTOS_ADAMA),
@@ -158,16 +206,16 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     var S = ((pub.ANALISE || {}).CORTE_VERTICAL) || {}, J = S.JULGAMENTO_DA_SONDA || {}, F = J.PORQUE_FICARAM_FORA || {};
     return {
       titulo: T.sondaT, pergunta: txt(J.PERGUNTA), execucao: txt(J.ESTADO_DA_EXECUCAO),
-      juizo: [par('RESULTADO', J.RESULTADO), par('WINDOW_OPEN_NOW', J.WINDOW_OPEN_NOW), par('ACT_NOW', J.ACT_NOW),
-        par(T.itens, J.ITENS_COM_O_PAR), par(T.apoios, J.APOIOS_VALIDOS), par('POR_REGIAO_SUSTENTADA', J.POR_REGIAO_SUSTENTADA),
+      juizo: [par(rotulo('RESULTADO', T.lg), J.RESULTADO), par(rotulo('WINDOW_OPEN_NOW', T.lg), J.WINDOW_OPEN_NOW), par(rotulo('ACT_NOW', T.lg), J.ACT_NOW),
+        par(T.itens, J.ITENS_COM_O_PAR), par(T.apoios, J.APOIOS_VALIDOS), par(rotulo('POR_REGIAO_SUSTENTADA', T.lg), J.POR_REGIAO_SUSTENTADA),
         par(T.fora, Object.keys(F).map(function (k) { return k + ' ' + F[k]; }).join(' · '))],
       itens: (S.ITENS || []).map(function (i) {
         var TE = i.TEMPO || {}, LO = i.LOCAL || {};
         var tr = [].concat(i.TRECHO_NEG || [], i.TRECHO_POS || [], i.TRECHO_CONDICIONAL || []);
         return {
           cab: txt(i.SOURCE_ID) + ' · ' + T.aberta + ' ' + txt(i.ABERTA_AGORA) + ' · ' + T.metodo + ' ' + txt(i.METODO),
-          chaves: [par('FACT_TIME', TE.FACT_TIME), par('TEMPORAL_STATE', TE.TEMPORAL_STATE), par(T.luogo, txt(LO.FACT_LOCATION) + ' · ' + txt(LO.ESTADO)),
-            par('PAR', txt(i.PAR) + ' · «' + txt(i.PAR_TRECHO) + '»')],
+          chaves: [par(rotulo('FACT_TIME', T.lg), TE.FACT_TIME), par(rotulo('TEMPORAL_STATE', T.lg), TE.TEMPORAL_STATE), par(T.luogo, txt(LO.FACT_LOCATION) + ' · ' + txt(LO.ESTADO)),
+            par(rotulo('PAR', T.lg), txt(i.PAR) + ' · «' + txt(i.PAR_TRECHO) + '»')],
           trechos: tr.map(function (t) { return { t: '«' + txt(t) + '»' }; }),
           lei: txt(i.LEI_W || ''), temLei: !!i.LEI_W,
           prova: prova(i.URL, i.PUBLISHED_AT, T), sala: T.sala + ' ' + txt(i.SALA_CHAVE)
@@ -183,17 +231,17 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     lac.forEach(function (g) { var k = txt(g.MISSING_FACT_OR_KEY); porFalta[k] = (porFalta[k] || 0) + 1; });
     return {
       lacTitulo: T.lacT + ' · ' + lac.length, lacLegenda: T.lacLeg,
-      lacPorFalta: Object.keys(porFalta).map(function (k) { return par(k, porFalta[k]); }),
+      lacPorFalta: Object.keys(porFalta).map(function (k) { return par(k.split(' · ').map(function (x) { return rotulo(x.split(':')[0], T.lg) + (x.indexOf(':') > 0 ? ':' + x.split(':')[1] : ''); }).join(' + '), porFalta[k]); }),
       lacExemplo: lac.length ? txt(lac[0].QUESTION_BLOCKED) + ' — ' + txt(lac[0].WHY_EXISTING_MATERIAL_IS_INSUFFICIENT) : '',
       novasTitulo: T.novasT,
-      novas: Object.keys(N).filter(function (k) { return k !== 'SINAIS'; }).map(function (k) { return par(k, N[k]); }),
+      novas: Object.keys(N).filter(function (k) { return k !== 'SINAIS'; }).map(function (k) { return par(rotulo(k, T.lg), N[k]); }),
       sinaisTitulo: T.sinais + ' · ' + (N.SINAIS || []).length,
       sinais: (N.SINAIS || []).map(function (s) {
-        return { cab: txt(s.SOURCE_ID) + ' · ' + txt(s.KIND), chaves: [par('FACT_TIME', s.FACT_TIME), par(T.idade, s.IDADE_MIN_DIAS), par(T.luogo, s.LOCAL)],
+        return { cab: txt(s.SOURCE_ID) + ' · ' + txt(s.KIND), chaves: [par(rotulo('FACT_TIME', T.lg), s.FACT_TIME), par(T.idade, s.IDADE_MIN_DIAS), par(T.luogo, s.LOCAL)],
           prova: prova(s.URL, s.PUBLISHED_AT, T) };
       }),
       d112Titulo: T.d112T,
-      d112: Object.keys(D).map(function (k) { return par(k, D[k]); })
+      d112: Object.keys(D).map(function (k) { return par(rotulo(k, T.lg), D[k]); })
     };
   }
 
@@ -209,7 +257,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
   function vm(pub, pote, view, lang) {
     if (!pub || !pote || !pote.COMPARTIMENTOS) return null;
     if (pub.INTELLIGENCE_RUN_ID !== pote.INTELLIGENCE_RUN_ID) return null;
-    var lg = lang === 'en' ? 'en' : 'it', T = L[lg];
+    var lg = lang === 'en' ? 'en' : 'it', T = Object.assign({ lg: lg }, L[lg]);
     var LEITOR = (typeof window !== 'undefined' && window.SINTONIA_POTE_CASCO) || null;
     var comp = view === 'field' ? 'field' : (LEITOR ? LEITOR.compartimentoDaVista(pote, view) : null);
     if (!comp) return null;
@@ -227,5 +275,5 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     return v;
   }
 
-  return { vm: vm, ESTADOS: ESTADOS };
+  return { vm: vm, ESTADOS: ESTADOS, rotulo: rotulo };
 })();

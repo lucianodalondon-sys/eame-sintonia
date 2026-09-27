@@ -3604,8 +3604,8 @@
     <sc-if value="{{ poteVista }}" hint-placeholder-val="{{ false }}">
     <div data-view="pote" data-pote-compartimento="{{ pote.comp.codigo }}" style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
       <div data-marca="1" style="border-radius:10px;background:#000;color:#fff;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:0.08em">{{ pote.faixa }}</div>
-      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ pageTitle }}</h1>
-        <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:var(--font-secondary);font-size:12px;color:#C9C3C1"><sc-for list="{{ pote.run }}" as="r" hint-placeholder-count="5"><span style="min-width:0;word-break:break-all">{{ r.k }} <b style="color:{{ r.color }}">{{ r.v }}</b></span></sc-for></div></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:normal">{{ pote.titulo }}</h1>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:var(--font-secondary);font-size:12px;color:#C9C3C1"><sc-for list="{{ pote.run }}" as="r" hint-placeholder-count="5"><span style="min-width:0;word-break:break-all">{{ r.rotulo }} <b style="color:{{ r.color }}">{{ r.v }}</b></span></sc-for></div></div>
       <sc-if value="{{ pote.recusado }}" hint-placeholder-val="{{ false }}"><div data-pote-recusado="1" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ pote.recusa }}</div></sc-if>
       <sc-if value="{{ pote.temComp }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;color:#EDEAE9"><b>{{ pote.comp.nome }}</b> · {{ pote.comp.estado }} · <b style="color:#fff;font-variant-numeric:tabular-nums">{{ pote.comp.n }}</b> {{ pote.comp.leitura }} · {{ pote.comp.recusados }} · {{ pote.comp.especies }}</div></sc-if>
       <sc-if value="{{ pote.vazio }}" hint-placeholder-val="{{ false }}"><div data-pote-vazio="{{ pote.vazioTitulo }}" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><div style="font-size:12px;font-weight:700;color:#F5B317">{{ pote.vazioTitulo }}</div><div style="font-size:12px;color:#EDEAE9">{{ pote.vazioTexto }}</div></div></sc-if>
@@ -3613,16 +3613,16 @@
         <sc-for list="{{ pote.objetos }}" as="o" hint-placeholder-count="3">
           <div data-pote-objeto="{{ o.id }}" data-especie="{{ o.especie }}" style="border-radius:14px;border:1px {{ o.traco }} {{ o.edge }};background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:9px">
             <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-              <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.11em;background:{{ o.badgeBg }};border:1px solid {{ o.edge }};color:{{ o.badgeInk }}">{{ o.especie }}</span>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 11px;border-radius:9999px;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.11em;background:{{ o.badgeBg }};border:1px solid {{ o.edge }};color:{{ o.badgeInk }}">{{ o.especieRotulo }}</span>
               <span data-marca="1" style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;background:#000;color:#fff;padding:2px 8px">{{ o.marca }}</span>
               <span style="font-size:11px;color:#fff;font-weight:700">{{ o.id }}</span>
               <span style="font-size:10px;color:#8F8886">especie dita por {{ o.especieDe }}</span>
             </div>
             <sc-if value="{{ o.eFuturo }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:#FFFFFF">{{ o.aviso }}</div></sc-if>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px">
-              <sc-for list="{{ o.chaves }}" as="c" hint-placeholder-count="4"><div style="border-radius:10px;border:1px solid rgba(203,197,195,0.10);padding:7px 10px;display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#8F8886">{{ c.k }}</div><div style="font-size:12px;font-weight:700;color:{{ c.color }};word-break:break-word">{{ c.v }}</div></div></sc-for>
+              <sc-for list="{{ o.chaves }}" as="c" hint-placeholder-count="4"><div style="border-radius:10px;border:1px solid rgba(203,197,195,0.10);padding:7px 10px;display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#8F8886">{{ c.rotulo }}</div><div style="font-size:12px;font-weight:700;color:{{ c.color }};word-break:break-word">{{ c.v }}</div></div></sc-for>
             </div>
-            <sc-if value="{{ o.temFora }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:3px"><div style="font-size:9.5px;letter-spacing:0.08em;color:#8F8886">{{ pote.L.fuori }}</div><sc-for list="{{ o.fora }}" as="c" hint-placeholder-count="1"><div style="font-size:11px;color:#C9C3C1">{{ c.k }} <b style="color:{{ c.color }}">{{ c.v }}</b></div></sc-for></div></sc-if>
+            <sc-if value="{{ o.temFora }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:3px"><div style="font-size:9.5px;letter-spacing:0.08em;color:#8F8886">{{ pote.L.fuori }}</div><sc-for list="{{ o.fora }}" as="c" hint-placeholder-count="1"><div style="font-size:11px;color:#C9C3C1">{{ c.rotulo }} <b style="color:{{ c.color }}">{{ c.v }}</b></div></sc-for></div></sc-if>
             <div style="font-size:11px;line-height:1.5;color:#C9C3C1">{{ o.porque.k }} <b style="color:{{ o.porque.color }}">{{ o.porque.v }}</b> · {{ o.contradiz.k }} <b style="color:{{ o.contradiz.color }}">{{ o.contradiz.v }}</b> · {{ o.incerteza.k }} <b style="color:{{ o.incerteza.color }}">{{ o.incerteza.v }}</b></div>
             <div style="display:flex;flex-direction:column;gap:5px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px">
               <span style="font-size:10px;font-weight:700;color:#8F8886;letter-spacing:0.08em">{{ pote.L.prova }}</span>
@@ -4102,6 +4102,19 @@ class Component extends DCLogic {
     const W = (typeof window !== 'undefined') ? window : {};
     const P = W.SINTONIA_POTE_CASCO || null;
     const pv = (P && W.SINTONIA_POTE) ? P.vm(W.SINTONIA_POTE, this.state.view, this.state.lang) : null;
+    /* Rotulo humano ao lado de cada codigo (o codigo fica: e ele que se procura no pote), e o titulo da vista
+       na caixa do menu — o ADAMA nao tem titulos em maiusculas. So apresentacao: `k`, `v` e `especie` ficam
+       como o leitor os devolveu. */
+    if (pv && !pv.recusado) {
+      const lg = this.state.lang;
+      const R = (W.SINTONIA_POTE_PUBLICACAO && W.SINTONIA_POTE_PUBLICACAO.rotulo) || ((k) => k);
+      const rot = (c) => Object.assign({}, c, { rotulo: R(c.k, lg) });
+      pv.run = (pv.run || []).map(rot);
+      pv.objetos = (pv.objetos || []).map((o) => Object.assign({}, o, { especieRotulo: R(o.especie, lg),
+        chaves: (o.chaves || []).map(rot), fora: (o.fora || []).map(rot) }));
+      const item = [].concat(v.nav || [], v.navEvidence || [], v.navIntegrationItems || []).find((x) => x.route === this.state.view);
+      pv.titulo = (item && item.label) || (pv.comp && pv.comp.nome) || '';
+    } else if (pv) { pv.titulo = ''; }
     v.poteVista = !!pv;
     v.pote = pv || {};
     if (pv) for (const k of Component.FLAGS_DO_LEGADO) v[k] = false;

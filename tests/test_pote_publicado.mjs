@@ -217,6 +217,27 @@ for (const r of ['sala', 'painel', 'search']) prova(`Q3 #${r} nao e ferramenta: 
     x.poteVista === true && x.potePubVista === false && x.sideRows[2].v === 'NAO SEI');
 }
 
+/* ── Q11 · codigo ao lado de um nome, titulo sem maiusculas (ADAMA) ─────── */
+{
+  const semNome = [], caps = [];
+  for (const lang of ['it', 'en']) for (const r of ROTAS.concat(['field'])) {
+    const x = V(r, lang);
+    const t = r === 'field' ? x.potePub.campo.titulo : x.pote.titulo;
+    if (!t || t === t.toUpperCase()) caps.push(lang + ':' + r + '=' + t);
+    for (const o of x.pote.objetos || []) {
+      if (!/ · /.test(o.especieRotulo) || !o.especieRotulo.endsWith(o.especie)) semNome.push(o.especie);
+      for (const c of [].concat(o.chaves, o.fora)) if (/^[A-Z0-9_]+$/.test(c.k) && c.rotulo === c.k) semNome.push(c.k);
+    }
+  }
+  prova('Q11 o titulo de cada vista do pote nao esta em MAIUSCULAS', caps.length === 0, caps.slice(0, 4).join(' | '));
+  prova('Q11 todo codigo do contrato usado como rotulo leva o nome humano ao lado (e o codigo fica)',
+    semNome.length === 0, [...new Set(semNome)].slice(0, 6).join(','));
+  const x = V('portfolio');
+  prova('Q11 o rotulo nao muda o dado: k, v e especie continuam os do leitor',
+    x.pote.objetos.every((o, i) => o.especie === POTE.COMPARTIMENTOS.portfolio.OBJETOS[i].ESPECIE &&
+      o.chaves.every((c) => c.k in POTE.COMPARTIMENTOS.portfolio.OBJETOS[i].CHAVES)));
+}
+
 /* ── Q10 · os blocos da publicacao ligam so ao que existe ───────────────── */
 {
   const a = HTML.indexOf('<!-- ================= POTE PUBLICADO (D114) · LA FASCIA');

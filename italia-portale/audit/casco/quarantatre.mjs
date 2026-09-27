@@ -19,7 +19,10 @@ for (const k of Object.keys(B)) if (Array.isArray(B[k])) for (const c of B[k]) i
 const CASI = [...new Set(ids)];
 
 const server = await serve(8971);
-const { browser, page, errors, failed } = await open({ port: 8971, width: 1440, height: 1000 });
+/* D114 · AJUSTE DECLARADO: este portao mede os cartoes do radar do LEGADO, que a precedencia do pote (D95/D96)
+   tira da rota por omissao desde a publicacao do pote R7. Mede-o no estado sem pote
+   (`semPotePublicado`), sem uma asserção a menos; o que vai ao ar por omissao e medido por PP1. */
+const { browser, page, errors, failed } = await open({ port: 8971, width: 1440, height: 1000, semPotePublicado: true });
 
 /* SI CLICCA, NON SI DIGITA.
    L'indirizzo del portale accetta solo le viste di primo livello: una scheda

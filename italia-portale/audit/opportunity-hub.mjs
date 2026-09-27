@@ -27,7 +27,10 @@ const WIN = AM.collections.cropWindows.records;
 const winIds = new Set(WIN.map((w) => w.windowId));
 
 const server = await serve(PORT);
-const { browser, page, errors, failed } = await open({ port: PORT });
+/* D114 · AJUSTE DECLARADO: este portao mede o detalhe das oportunidades do LEGADO, que a precedencia do pote (D95/D96)
+   tira da rota por omissao desde a publicacao do pote R7. Mede-o no estado sem pote
+   (`semPotePublicado`), sem uma asserção a menos; o que vai ao ar por omissao e medido por PP1. */
+const { browser, page, errors, failed } = await open({ port: PORT, semPotePublicado: true });
 
 const ids = await caseIds(page);
 /* Escolhe uma amostra que cobre os estados, nao os doze primeiros da lista:

@@ -297,7 +297,10 @@ for (const W of WIDTHS) {
 const journey = [];
 const step = (id, name, ok, got) => { journey.push({ id, name, ok: !!ok, got }); return ok; };
 
-const J = await open({ port: PORT, width: 390, height: 844 });
+/* D114 · AJUSTE DECLARADO: este portao mede a viagem pelo radar (as larguras continuam medidas no que vai ao ar) do LEGADO, que a precedencia do pote (D95/D96)
+   tira da rota por omissao desde a publicacao do pote R7. Mede-o no estado sem pote
+   (`semPotePublicado`), sem uma asserção a menos; o que vai ao ar por omissao e medido por PP1. */
+const J = await open({ port: PORT, width: 390, height: 844, semPotePublicado: true });
 const jp = J.page;
 const fp = () => jp.evaluate(() => {
   const m = document.querySelector('main.sn-main') || document.body;
