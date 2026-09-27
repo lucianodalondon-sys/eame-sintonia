@@ -426,11 +426,32 @@ def zerar_contagem():
         _CONTAGEM['NAO_CONTADOS'].clear()
 
 
+class TetoDoDominio(RotaNaoPermitida):
+    """O pedido NAO saiu: o orcamento do dominio nesta onda ja estava gasto (D38/D41).
+
+    E uma recusa da NOSSA politica, como as outras `RotaNaoPermitida` — nunca
+    `RotaBloqueada`, que quer dizer que a plataforma nos barrou."""
+
+
 class _ContaCadaPedido(urllib.request.BaseHandler):
-    """Pre-processador: corre uma vez por pedido que sai, saltos incluidos."""
+    """Pre-processador: corre uma vez por pedido que sai, saltos incluidos.
+
+    ⚠️ FREIO-SOCIAL (26/09): ANTES de contar, RESERVA o lugar no livro da onda
+    (`teto_da_onda.reservar`). Se o orcamento do dominio ja esta gasto, levanta
+    aqui — dentro do `urlopen`, antes de abrir a ligacao — e o pedido nao sai.
+    Por isso o contador continua a contar SO o que saiu.
+
+        CONTAR DEPOIS E SABER QUE SE PARTIU O VIDRO. O FREIO E ANTES.
+    """
 
     def http_request(self, req):
-        contar_pedido(urllib.parse.urlsplit(req.full_url).hostname)
+        import teto_da_onda as teto                                # noqa: PLC0415
+        host = urllib.parse.urlsplit(req.full_url).hostname
+        try:
+            teto.reservar(host, url=req.full_url, quem='scrap_http')
+        except teto.TetoDaOnda as e:
+            raise TetoDoDominio('%s · %s' % (e, req.full_url)) from e
+        contar_pedido(host)
         return req
 
     https_request = http_request
