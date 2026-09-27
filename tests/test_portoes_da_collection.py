@@ -62,9 +62,12 @@ class ONumeroDeLeisVemDoDono(unittest.TestCase):
                                "os_portoes_da_collection.py"),
                   encoding="utf-8") as f:
             fonte = f.read()
-        self.assertNotIn("LAW_TOTAL = 105", fonte)
-        self.assertNotIn("return 105", fonte)
-        self.assertEqual(_art()["LAW_TOTAL"], 105,
+        # LOTE6-INTEGRA (ajuste DECLARADO): 105 -> 108 pela emenda V1.5 (D112) registada; o numero
+        # foi REMEDIDO (o artefato diz 108), nao escrito. Nenhum dos dois pode estar a mao no gerador.
+        for n in (105, 108):
+            self.assertNotIn("LAW_TOTAL = %d" % n, fonte)
+            self.assertNotIn("return %d" % n, fonte)
+        self.assertEqual(_art()["LAW_TOTAL"], 108,
                          "o registo deixou de ter 105 leis — remedir, nao "
                          "reescrever o numero")
 
@@ -326,10 +329,13 @@ class ODocumentoNaoEDonoDosNumeros(unittest.TestCase):
         with open(os.path.join(RAIZ, "docs", "biblia",
                                "CONFORMIDADE-ITALIA.md"), encoding="utf-8") as f:
             m = f.read()
-        self.assertIn("**Bíblia:** `V1.4`", m)
-        self.assertIn("**LAW_TOTAL:** `105`", m)
-        self.assertNotIn("**Bíblia:** `V1.3`", m,
-                         "a matriz ainda anuncia a versao antiga")
+        # LOTE6-INTEGRA (ajuste DECLARADO): a emenda V1.5 (D112, METODO-PUGLIA) esta registada no
+        # historico constitucional da Biblia e no DIARIO-DE-DECISOES (COL-LAW-069); +3 leis, 105 -> 108.
+        self.assertIn("**Bíblia:** `V1.5`", m)
+        self.assertIn("**LAW_TOTAL:** `108`", m)
+        for velha in ("V1.3", "V1.4"):
+            self.assertNotIn("**Bíblia:** `%s`" % velha, m,
+                             "a matriz ainda anuncia a versao antiga")
 
 
 class AFraseDeFechoNaoSeArredonda(unittest.TestCase):
