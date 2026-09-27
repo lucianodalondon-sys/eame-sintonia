@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  75c7f80fedc483f4dfca8e9258ca69a9e60e62f0
-BRANCH           claude/lote4-final-integration-l02r5q
-GERADO_EM        2026-09-27T17:37:48+00:00
+HEAD_DA_MEDICAO  389a8a09844ea20f3707250e292b9b38f60b821e
+BRANCH           claude/coleta-continua-servico-dm3efk
+GERADO_EM        2026-09-27T23:37:16+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -157,19 +157,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/espera_por_dominio.py:44; provas/_mutantes_prova_teto_social.py:20; provas/contador_24h_mutacao.py:22 |
-| **porquê** | estas pecas importam-na — C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | coleta/espera_por_dominio.py:44; ferramentas/big_collection/coleta_continua.py:69; provas/_mutantes_prova_teto_social.py:20 |
+| **porquê** | estas pecas importam-na — C-ONDA-WEB · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 5 |
-| **arestas provadas** | entram 0 · saem 5 |
+| **arestas no mapa** | entram 0 · saem 6 |
+| **arestas provadas** | entram 0 · saem 6 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 5 |
+| **prova das ligações** | CODE 6 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -463,13 +463,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 6 · saem 6 |
-| **arestas provadas** | entram 6 · saem 6 |
+| **arestas no mapa** | entram 6 · saem 7 |
+| **arestas provadas** | entram 6 · saem 7 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 12 |
+| **prova das ligações** | CODE 13 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -563,13 +563,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/espera_por_dominio.py` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 31 · saem 33 |
-| **arestas provadas** | entram 28 · saem 33 |
+| **arestas no mapa** | entram 31 · saem 34 |
+| **arestas provadas** | entram 28 · saem 34 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 58 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 59 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -950,13 +950,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json`, `curadoria/BRIDGE-LEDGER-V1.json`, `curadoria/DISCOVERY-VISITED.json` |
 | **o que sai · dado** | C-ONDA-WEB |
 | **o que sai · ficheiros** | `curadoria/RED-TEAM-TELEMETRIA-V1.json`, `curadoria/italy_contracts_curator.json`, `curadoria/red_team_telemetria.py` |
-| **arestas no mapa** | entram 10 · saem 21 |
-| **arestas provadas** | entram 10 · saem 21 |
+| **arestas no mapa** | entram 10 · saem 22 |
+| **arestas provadas** | entram 10 · saem 22 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 31 |
+| **prova das ligações** | CODE 32 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1189,24 +1189,24 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/big_collection/ensaio_rodada.py`, `ferramentas/big_collection/onda_web.py`, `ferramentas/big_collection/rodadas.py`, `ferramentas/maestro_social/maestro_social.py` |
+| **peça real** | `ferramentas/big_collection/coleta_continua.py`, `ferramentas/big_collection/ensaio_coleta_continua.py`, `ferramentas/big_collection/ensaio_rodada.py`, `ferramentas/big_collection/onda_web.py`, `ferramentas/big_collection/rodadas.py` _(e mais 1)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-INTEGRA-ONDA2, C-PACOTE-ONDA3 |
 | **prova de quem ativa** | ferramentas/integra_onda2/final/ensaio_integra.sh:43; ferramentas/onda3_pacote/ensaio_onda3.sh:114; ferramentas/onda3_pacote/ensaio_onda3_v2.sh:158 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `coleta/italy_pilot_collect.mjs`, `curadoria/LIFECYCLE-QUEUE-V1.json`, `data/collection-ledger/italy/runs.ndjson` |
+| **o que entra · ficheiros** | `coleta/italy_pilot_collect.mjs`, `coleta/pesquisadores_t6.py`, `coleta/teto_da_onda.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json` |
-| **arestas no mapa** | entram 12 · saem 9 |
-| **arestas provadas** | entram 12 · saem 9 |
+| **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json` |
+| **arestas no mapa** | entram 17 · saem 10 |
+| **arestas provadas** | entram 17 · saem 10 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 21 |
+| **prova das ligações** | CODE 27 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -1294,21 +1294,21 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | — NÃO SEI |
-| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **prova de quem ativa** | ferramentas/big_collection/coleta_continua.py:92 |
+| **porquê** | estas pecas importam-na — C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `ferramentas/seguir_pesquisadores/fixtures/PESSOAS.json`, `ferramentas/seguir_pesquisadores/fixtures/RESPOSTAS-LISTAS.json`, `ferramentas/seguir_pesquisadores/fixtures/RESPOSTAS-ORCID.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 3 · saem 0 |
-| **arestas provadas** | entram 3 · saem 0 |
+| **arestas no mapa** | entram 3 · saem 1 |
+| **arestas provadas** | entram 3 · saem 1 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 3 |
+| **prova das ligações** | CODE 4 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
-| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-T6-PARA-SALA-MEDIDAS` · T6-PARA-SALA — medir os extratores e os modelos nos trabalhos guardados
 
@@ -3032,9 +3032,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 43
-UNKNOWN            38
+UNKNOWN            39
 SYSTEM_GAP         15
-TERMINAL           15
+TERMINAL           14
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
 TOTAL              119

@@ -2521,6 +2521,7 @@
     "provas/sala_verifica.py",
     "provas/c2_juiz_mutacao.py",
     "provas/rodadas_mutacao.py",
+    "provas/coleta_continua_mutacao.py",
     "provas/tempo_e_lugar_acervo.py",
     "provas/tempo_e_lugar_medir.py",
     "provas/tempo_e_lugar_replay.py",
@@ -5102,7 +5103,7 @@
    "views": [
     "infra"
    ],
-   "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos.",
+   "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos. rodadas.py corre a onda em rodadas fixas (janela 24 h por dominio, D79); coleta_continua.py (D86) e o servico que agenda por FONTE sobre o mesmo plano: a cada ciclo corre as fontes cujos dominios estao livres (janela 24 h, livro multicanal de 24 h D90, 5 por dominio somando as linhas), pelo mesmo onda_web, portao IT antes/depois, PROVA-TETO do ciclo e das 24 h e reconciliacao da Sala; para o robo so quando grava e religa-o; PARA sozinho (RAM < 5 GB, portao, backup sem PROVA_VALE, prova-teto FAIL/NAO_SEI) ate --rearmar.",
    "why_here": "ONDA2-PLANO mediu cia.it com 16 pedidos numa onda (5 fontes, teto por corrida) e o disparador da BC5 a ler a coorte de C:\bc fora do Git. D38: 5 por dominio na onda inteira.",
    "departments": [
     "ENGENHARIA"
@@ -5111,7 +5112,9 @@
     "ferramentas/big_collection/onda_web.py",
     "ferramentas/big_collection/rodadas.py",
     "ferramentas/maestro_social/maestro_social.py",
-    "ferramentas/big_collection/ensaio_rodada.py"
+    "ferramentas/big_collection/ensaio_rodada.py",
+    "ferramentas/big_collection/coleta_continua.py",
+    "ferramentas/big_collection/ensaio_coleta_continua.py"
    ]
   },
   {

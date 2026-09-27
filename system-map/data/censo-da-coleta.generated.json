@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T17:41:29+00:00",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
+    "GENERATED_AT": "2026-09-27T23:40:44+00:00",
+    "HEAD": "389a8a09844ea20f3707250e292b9b38f60b821e",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
-    "FICHEIROS_NA_IMPRESSAO": 4087,
+    "SOURCE_TREE_FINGERPRINT": "d1a10cd15e23b95d6c1ab56d4bfce8fca43bef6ee59fd2eef06e0eb6616eb3a6",
+    "FICHEIROS_NA_IMPRESSAO": 4094,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -690,9 +690,23 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/big_collection/coleta_continua.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "b7eea9329ee759c2baf39fa135d5f9a957de958f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/big_collection/coorte_unica.py",
         "PAPEL": "FONTE",
         "VERSAO": "ae6e99ada092ba8943b4419679295af05f0a78b5",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/ensaio_coleta_continua.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "66e11ac05db731f0dd91082d5debe7a052969a85",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1628,8 +1642,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 231,
-    "INPUTS_DIGEST": "971df8d0f1230e59fb6e9b7937307b07f1fbe72f36a0d6e39f418f2a163f60c4",
+    "INPUTS_COUNT": 233,
+    "INPUTS_DIGEST": "54348385ace4ba1a16ae46d97a8962e593a75230a86783fde230f673b82cd543",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2106,6 +2120,26 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/big_collection/coleta_continua.py",
+      "gaveta": "ferramentas",
+      "linhas": 625,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/big_collection/ensaio_coleta_continua.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/big_collection/coorte_unica.py",
       "gaveta": "ferramentas",
       "linhas": 137,
@@ -2124,6 +2158,22 @@
         "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
         "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh"
       ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/ensaio_coleta_continua.py",
+      "gaveta": "ferramentas",
+      "linhas": 172,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
       "no_ci": false
     },
     {
@@ -2196,6 +2246,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "ferramentas/big_collection/coleta_continua.py",
+        "ferramentas/big_collection/ensaio_coleta_continua.py",
         "ferramentas/big_collection/ensaio_rodada.py"
       ],
       "no_ci": false
@@ -4477,6 +4529,7 @@
         "coleta/reserva_24h.py",
         "coleta/retrato_html.mjs",
         "coleta/teto_da_onda.py",
+        "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/big_collection/onda_web.py",
         "pedido/receitas.py",
         "regras/contratos_de_fonte.py",
@@ -4629,6 +4682,7 @@
       "chamado_por": [
         "coleta/lista_mestra_mur.py",
         "coleta/pesquisadores_t6_executor.py",
+        "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/t6_para_sala/antes_depois_extratores.py",
         "ferramentas/t6_para_sala/medir_modelos_resistencia.py",
         "pedido/receitas.py"
@@ -4702,7 +4756,8 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/dominio_registavel.py",
-        "coleta/italy_pilot_collect.mjs"
+        "coleta/italy_pilot_collect.mjs",
+        "ferramentas/big_collection/coleta_continua.py"
       ],
       "no_ci": false
     },
@@ -5192,6 +5247,7 @@
         "coleta/italy_pilot_collect.mjs",
         "coleta/scrap_colheita.py",
         "coleta/scrap_http.py",
+        "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/maestro_social/maestro_social.py",
         "ferramentas/youtube_transcrever.py",
         "ferramentas/yt_dlp_com_freio.py"
@@ -6296,12 +6352,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 231,
-    "pontos_de_entrada": 166,
+    "ficheiros_de_codigo": 233,
+    "pontos_de_entrada": 168,
     "executores_que_saem_para_fora": 31,
-    "sem_chamador_e_fora_do_ci": 111,
+    "sem_chamador_e_fora_do_ci": 112,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 137,
+    "escrevem_ficheiro": 139,
     "deitam_fora_alguma_coisa": 52,
     "deitam_fora_SEM_escrever_o_motivo": 5,
     "ficheiros_com_decisao_escondida": 5,
@@ -6327,7 +6383,9 @@
       "fontes/adama_referencia.py",
       "ferramentas/apify_pool.py",
       "ferramentas/big_collection/bc5_big_collection.py",
+      "ferramentas/big_collection/coleta_continua.py",
       "ferramentas/big_collection/coorte_unica.py",
+      "ferramentas/big_collection/ensaio_coleta_continua.py",
       "ferramentas/big_collection/ensaio_rodada.py",
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
@@ -6524,6 +6582,7 @@
       "fontes/adama_it_labels.py",
       "fontes/adama_it_qa.py",
       "ferramentas/big_collection/bc5_big_collection.py",
+      "ferramentas/big_collection/ensaio_coleta_continua.py",
       "ferramentas/big_collection/ensaio_rodada.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/c9/c9-testes.sh",

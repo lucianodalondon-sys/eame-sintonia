@@ -1846,6 +1846,7 @@
       "ferramentas/big_collection/BC5-SUITE-dfec8873.json",
       "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
       "ferramentas/big_collection/bc5_big_collection.py",
+      "ferramentas/big_collection/coleta_continua.py",
       "ferramentas/big_collection/contratos12/CONTRATOS-12.md",
       "ferramentas/big_collection/contratos12/COORTE-29-CONGELADA-SO-NA-COPIA.json",
       "ferramentas/big_collection/contratos12/DOZE-WEB-SEM-CONTRATO.json",
@@ -1855,6 +1856,7 @@
       "ferramentas/big_collection/contratos12/PLANO-COM-AS-11.json",
       "ferramentas/big_collection/contratos12/TABELA-DO-COLETOR-NA-COPIA.sha256",
       "ferramentas/big_collection/coorte_unica.py",
+      "ferramentas/big_collection/ensaio_coleta_continua.py",
       "ferramentas/big_collection/ensaio_rodada.py",
       "ferramentas/big_collection/onda2/ENSAIO-G3-COORTE-CONGELADA-NA-COPIA.json",
       "ferramentas/big_collection/onda2/ENSAIO-G3-FOTO-DOS-LIVROS.txt",
@@ -1862,8 +1864,10 @@
       "ferramentas/big_collection/onda2/ENSAIO-G3-PLANO-MICRO-COLETA.json",
       "ferramentas/big_collection/onda2/ONDA2-G3.md",
       "ferramentas/big_collection/onda4/C2-ONDA4.md",
+      "ferramentas/big_collection/onda4/COLETA-CONTINUA.md",
       "ferramentas/big_collection/onda4/CONTADOR-24H.md",
       "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md",
+      "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
       "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md",
       "ferramentas/big_collection/onda4/RODADA1-ROTEIRO.md",
       "ferramentas/big_collection/onda_web.py",
@@ -2759,6 +2763,7 @@
     "provas": [
       "provas/A-MUDANCA-E-NOSSA-PEGADA-V1.json",
       "provas/C2-JUIZ-MUTACAO.json",
+      "provas/COLETA-CONTINUA-MUTACAO.json",
       "provas/CONTADOR-24H-MUTACAO.json",
       "provas/CORTESIA-RED-TEAM-V1.json",
       "provas/O-CUTOVER-NAO-VAZA-V1.json",
@@ -2896,6 +2901,7 @@
       "provas/censo_corpus_rotulado_admission.py",
       "provas/censo_executavel_da_v1.py",
       "provas/chain.py",
+      "provas/coleta_continua_mutacao.py",
       "provas/concorrencia_meta/BATERIA-COMPARACAO.json",
       "provas/concorrencia_meta/MUTACAO-V1.json",
       "provas/conserto_regua_recalcular.py",
@@ -3804,6 +3810,7 @@
       "tests/test_cicatrizes_brasil.py",
       "tests/test_cliente_postgres.py",
       "tests/test_col_e7_contrato_do_texto.py",
+      "tests/test_coleta_continua.py",
       "tests/test_coleta_externa.py",
       "tests/test_coleta_resiliente.py",
       "tests/test_competitor_layer.py",
@@ -4532,10 +4539,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/coleta-continua-servico-dm3efk",
+    "HEAD": "389a8a09844ea20f3707250e292b9b38f60b821e",
+    "GENERATED_AT": "2026-09-27T23:37:16+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d1a10cd15e23b95d6c1ab56d4bfce8fca43bef6ee59fd2eef06e0eb6616eb3a6"
   },
   "FAMILIES": [
     {
@@ -42122,7 +42129,7 @@
           "curadoria/bloqueadas_268.py:120",
           "curadoria/retirar_por_decisao.py:40",
           "curadoria/sonda_um_pedido.py:38",
-          "ferramentas/big_collection/coorte_unica.py:42"
+          "ferramentas/big_collection/coleta_continua.py:269"
         ],
         "PORQUE": "estas pecas importam-na — C-BLOQUEADAS-268 · C-BLOQUEADAS-DESTRAVAR · C-CANAIS-41 · C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -43295,6 +43302,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-ONDA-WEB",
         "C-PROVA-COLETA",
         "C-PROVA-CONTADOR-24H",
         "C-PROVA-TETO-DOMINIO",
@@ -43337,11 +43345,11 @@
         "PLANO": null,
         "PROVA": [
           "coleta/espera_por_dominio.py:44",
+          "ferramentas/big_collection/coleta_continua.py:69",
           "provas/_mutantes_prova_teto_social.py:20",
-          "provas/contador_24h_mutacao.py:22",
-          "provas/integra_noite/mutacao_da21.py:12"
+          "provas/contador_24h_mutacao.py:22"
         ],
-        "PORQUE": "estas pecas importam-na — C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ONDA-WEB · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 8365,
       "y": 682
@@ -50564,7 +50572,7 @@
           "coleta/italy_executor.py:88",
           "coleta/scrap_colheita.py:905",
           "ferramentas/big_collection/bc5_big_collection.py:39",
-          "ferramentas/big_collection/ensaio_rodada.py:277"
+          "ferramentas/big_collection/ensaio_coleta_continua.py:95"
         ],
         "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-INTEGRA-ONDA2 · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -53780,7 +53788,7 @@
       "name": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos.",
+      "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos. rodadas.py corre a onda em rodadas fixas (janela 24 h por dominio, D79); coleta_continua.py (D86) e o servico que agenda por FONTE sobre o mesmo plano: a cada ciclo corre as fontes cujos dominios estao livres (janela 24 h, livro multicanal de 24 h D90, 5 por dominio somando as linhas), pelo mesmo onda_web, portao IT antes/depois, PROVA-TETO do ciclo e das 24 h e reconciliacao da Sala; para o robo so quando grava e religa-o; PARA sozinho (RAM < 5 GB, portao, backup sem PROVA_VALE, prova-teto FAIL/NAO_SEI) ate --rearmar.",
       "why_here": "ONDA2-PLANO mediu cia.it com 16 pedidos numa onda (5 fontes, teto por corrida) e o disparador da BC5 a ler a coorte de C:\bc fora do Git. D38: 5 por dominio na onda inteira.",
       "departments": [
         "ENGENHARIA"
@@ -53795,21 +53803,25 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "ferramentas/big_collection/coleta_continua.py",
+        "ferramentas/big_collection/ensaio_coleta_continua.py",
         "ferramentas/big_collection/ensaio_rodada.py",
         "ferramentas/big_collection/onda_web.py",
         "ferramentas/big_collection/rodadas.py",
         "ferramentas/maestro_social/maestro_social.py"
       ],
-      "file_count": 4,
+      "file_count": 6,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
-        "curadoria/LIFECYCLE-QUEUE-V1.json"
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json"
       ],
       "inbound": [
         "C-ASK-SINTONIA",
         "C-CENSO-UNIFICACAO",
+        "C-CONTADOR-24H",
         "C-INTEGRA-ONDA2",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
@@ -53817,7 +53829,10 @@
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-PACOTE-ONDA3",
         "C-PEDIDO",
+        "C-PESQUISADORES-T6",
         "C-PROVA-TETO-DOMINIO",
+        "C-SCRAP-SOCIAL",
+        "C-SEGUIR-PESQUISADORES",
         "C-TESTES"
       ],
       "outbound": [
@@ -53829,19 +53844,33 @@
         "C-PROVA-CORTESIA",
         "C-REPARO-MEDICAO",
         "C-SCRAP-SOCIAL",
-        "C-SUPERFICIE-SCRAP-V1"
+        "C-SUPERFICIE-SCRAP-V1",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
+      "entregue_a_inteligencia": [
+        "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json"
+      ],
       "parado_na_coleta": [
         "curadoria/LIFECYCLE-QUEUE-V1.json"
       ],
       "momento": "NAO SEI",
       "momento_texto": "NAO SEI quando esta ferramenta serve: nao usa rota conhecida nem trata o que voltou.",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "LINHAS"
+        ],
+        "palavras": 37,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 37,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [
@@ -53851,6 +53880,12 @@
         {
           "onde": "GIT",
           "file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -53880,13 +53915,20 @@
       ],
       "consumes": [
         "coleta/italy_pilot_collect.mjs",
+        "coleta/pesquisadores_t6.py",
+        "coleta/teto_da_onda.py",
         "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/supervisor.py",
         "data/collection-ledger/italy/runs.ndjson",
         "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+        "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
+        "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md",
         "ferramentas/big_collection/onda_web.py",
         "ferramentas/big_collection/rodadas.py",
+        "ferramentas/seguir_pesquisadores/seguir.py",
         "scripts/micro_coleta/micro_coleta.py",
+        "scripts/micro_coleta/provar_backup_da_sala.py",
         "superficie/rede.py"
       ],
       "consumes_plane": "CODE",
@@ -55104,6 +55146,7 @@
       ],
       "outbound": [
         "C-LISTA-MESTRA-MUR",
+        "C-ONDA-WEB",
         "C-RECEITAS",
         "C-T6-PARA-SALA-MEDIDAS",
         "C-TESTES"
@@ -57773,6 +57816,7 @@
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/censo_executavel_da_v1.py",
+        "provas/coleta_continua_mutacao.py",
         "provas/conserto_regua_recalcular.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/ensaio_canonico_de_capacidade.py",
@@ -57843,7 +57887,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 94,
+      "file_count": 95,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -58028,12 +58072,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1611,
+        "palavras": 1681,
         "por_lingua": {
           "IT": 2,
           "PT": 1
         },
-        "sem_marca_de_lingua": 1608,
+        "sem_marca_de_lingua": 1678,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -58245,6 +58289,7 @@
         "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
         "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
         "docs/operacao/T3-REVIEW-PACKET-V1.md",
+        "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/big_collection/rodadas.py",
         "ferramentas/cdp.py",
         "ferramentas/instagram_transcrever.py",
@@ -58260,6 +58305,7 @@
         "orquestrador/orquestrador.py",
         "pedido/receitas.py",
         "provas/C2-JUIZ-MUTACAO.json",
+        "provas/COLETA-CONTINUA-MUTACAO.json",
         "provas/RODADAS-MUTACAO.json",
         "provas/_c106b_filho.py",
         "provas/_c106c_filho.py",
@@ -58308,6 +58354,7 @@
         "system-map/scripts/censo_cards_sensores.py",
         "system-map/scripts/censo_da_observabilidade.py",
         "tests/test_c2_juiz.py",
+        "tests/test_coleta_continua.py",
         "tests/test_m2_rota_forward.py",
         "tests/test_rodadas.py"
       ],
@@ -65735,6 +65782,7 @@
         "C-MAPA-TESTES",
         "C-MICRO-PROVA-LOTE1",
         "C-NAVEGADOR",
+        "C-ONDA-WEB",
         "C-PROVA-CANARIO-D23-LINKEDIN",
         "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
@@ -66038,7 +66086,9 @@
         "C-PORTA-FONTE",
         "C-TESTES"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-ONDA-WEB"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -66100,8 +66150,10 @@
         "CLASSE": "NAO_SEI",
         "QUEM": [],
         "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "PROVA": [
+          "ferramentas/big_collection/coleta_continua.py:92"
+        ],
+        "PORQUE": "estas pecas importam-na — C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 6000,
       "y": 2292
@@ -68978,6 +69030,7 @@
         "tests/test_cicatrizes_brasil.py",
         "tests/test_cliente_postgres.py",
         "tests/test_col_e7_contrato_do_texto.py",
+        "tests/test_coleta_continua.py",
         "tests/test_coleta_externa.py",
         "tests/test_coleta_resiliente.py",
         "tests/test_competitor_layer.py",
@@ -69187,7 +69240,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 312,
+      "file_count": 313,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -69316,6 +69369,7 @@
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-MICRO-COLHEITA",
         "C-NAVEGADOR",
+        "C-ONDA-WEB",
         "C-ORQUESTRADOR",
         "C-PACOTE-CAMADAS",
         "C-PACOTE-ONDA3",
@@ -69558,13 +69612,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1908,
+        "palavras": 1934,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1896,
+        "sem_marca_de_lingua": 1922,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -69909,6 +69963,7 @@
         "ferramentas/big_collection/BC5-1A-ONDA-LIVRO-DE-CORRIDAS.ndjson",
         "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json",
         "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json",
+        "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
         "ferramentas/cutover/medir_cutover.py",
         "ferramentas/cutover/passos_do_cutover.py",
         "ferramentas/fala_local.py",
@@ -85358,6 +85413,41 @@
     {
       "from": "C-CENSO-UNIFICACAO",
       "to": "C-ONDA-WEB",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 269,
+          "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
+      "to": "C-ONDA-WEB",
       "type": "WRITES",
       "payload": "artefacto",
       "raw_type": "WRITES",
@@ -91121,6 +91211,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
+      "to": "C-ONDA-WEB",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 69,
+          "snippet": "import reserva_24h as R24                                          # noqa: E402 — o contador multicanal (D90)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-ONDA-WEB",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -108514,8 +108639,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "Colher as fontes italianas alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 84,
+          "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"CHAMADA\": \"reservar24h(host, 1)\"},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-ONDA-WEB",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "ferramentas/big_collection/onda_web.py",
           "line": 61,
@@ -113591,8 +113732,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 4 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+          "line": 95,
+          "snippet": "relatorio=lambda *a: 0, ledger=b / \"runs.ndjson\", rodada=r[\"RODADA\"], janela_h=24,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-ONDA-WEB",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "ferramentas/big_collection/ensaio_rodada.py",
           "line": 277,
@@ -114401,12 +114558,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
           "line": 55,
           "snippet": "\"observations.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_coleta_continua.py",
+          "line": 191,
+          "snippet": "self.ledger = self.tmp / \"runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
             "FROM": "C-IT-PRESERVAR",
@@ -123555,8 +123728,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 231,
+          "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "ferramentas/big_collection/rodadas.py",
           "line": 328,
@@ -124721,8 +124910,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/coleta_continua_mutacao.py",
+          "line": 21,
+          "snippet": "ALVO = \"ferramentas/big_collection/coleta_continua.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/rodadas_mutacao.py",
           "line": 22,
@@ -124871,6 +125076,41 @@
             "EDGE_ID": "C-ONDA-WEB--READS-->C-SUPERFICIE-SCRAP-V1",
             "FROM": "C-ONDA-WEB",
             "TO": "C-SUPERFICIE-SCRAP-V1",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ONDA-WEB",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_coleta_continua.py",
+          "line": 621,
+          "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -129522,6 +129762,41 @@
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PESQUISADORES-T6",
+      "to": "C-ONDA-WEB",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 88,
+          "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-ONDA-WEB",
+            "FROM": "C-PESQUISADORES-T6",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -147875,6 +148150,41 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-ONDA-WEB",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 90,
+          "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-ONDA-WEB",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-PROVA-CANARIO-D23-LINKEDIN",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -149909,6 +150219,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SEGUIR-PESQUISADORES",
+      "to": "C-ONDA-WEB",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SEGUIR-PESQUISADORES (D85): quem seguir e os canais publicos onde os pesquisadores publicam alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/big_collection/coleta_continua.py",
+          "line": 92,
+          "snippet": "\"TRANSPORTE\": \"coleta/seguir.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-ONDA-WEB",
+            "FROM": "C-SEGUIR-PESQUISADORES",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -154624,12 +154969,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "Suite de testes alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/c2_juiz_mutacao.py",
           "line": 58,
           "snippet": "r = subprocess.run([sys.executable, \"tests/test_c2_juiz.py\"], cwd=pasta, env=env, capture_output=True,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/coleta_continua_mutacao.py",
+          "line": 22,
+          "snippet": "TESTE = \"tests/test_coleta_continua.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
             "FROM": "C-TESTES",
@@ -158779,7 +159140,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2184,
+  "UNCLAIMED_FILES_COUNT": 2186,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -159050,12 +159411,12 @@
     "components_pending": 241,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1686,
-    "edges_proven": 1619,
+    "edges": 1692,
+    "edges_proven": 1625,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3939,
-    "files_covered": 1755,
+    "files_tracked": 3946,
+    "files_covered": 1760,
     "files_code_unclaimed": 0,
     "roles_proven": 193,
     "roles_declared_only": 9,

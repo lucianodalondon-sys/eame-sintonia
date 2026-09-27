@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/coleta-continua-servico-dm3efk",
+    "HEAD": "389a8a09844ea20f3707250e292b9b38f60b821e",
+    "GENERATED_AT": "2026-09-27T23:37:16+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d1a10cd15e23b95d6c1ab56d4bfce8fca43bef6ee59fd2eef06e0eb6616eb3a6"
   },
   "FILES": [
     {
@@ -12721,6 +12721,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/big_collection/coleta_continua.py",
+      "sha": "b7eea9329ee759c2baf39fa135d5f9a957de958f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/big_collection/contratos12/CONTRATOS-12.md",
       "sha": "66be00d6f8bb0444513b0db395bfdc9162b22d1b",
       "ext": ".md",
@@ -12784,6 +12791,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/big_collection/ensaio_coleta_continua.py",
+      "sha": "66e11ac05db731f0dd91082d5debe7a052969a85",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/big_collection/ensaio_rodada.py",
       "sha": "6e739e0a710e83dff5348d287f1128d4e6514791",
       "ext": ".py",
@@ -12833,6 +12847,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/big_collection/onda4/COLETA-CONTINUA.md",
+      "sha": "edbb953ead4142e25778f6c95535de02b9a74d67",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/big_collection/onda4/CONTADOR-24H.md",
       "sha": "d0fca240098507535f97c514a55dc8074f3894cf",
       "ext": ".md",
@@ -12843,6 +12864,13 @@
       "path": "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md",
       "sha": "ea068966e1345a92788881260ac08368492d3687",
       "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
+      "sha": "741ac0a815f2a9e2218631f564c8fbd2d1e4e535",
+      "ext": ".json",
       "readable": false,
       "code_dir": true
     },
@@ -18923,6 +18951,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/COLETA-CONTINUA-MUTACAO.json",
+      "sha": "72f20a55e7ebea268322d09c9ed30084d814a6a2",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/CONTADOR-24H-MUTACAO.json",
       "sha": "26a5e14515623785f88f1d864090f3d2e4464816",
       "ext": ".json",
@@ -19877,6 +19912,13 @@
     {
       "path": "provas/chain.py",
       "sha": "d5c07eec3c026b3e2fad7b2013db9da49a3fba90",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/coleta_continua_mutacao.py",
+      "sha": "0e9cb348da5083309c7570ba5bfba9a3b6b3d683",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24664,7 +24706,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e63baf949631281955e19224243f29533f74a425",
+      "sha": "dd6f83b6182b3f78f8943cd53a35e0e213e67535",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26107,6 +26149,13 @@
     {
       "path": "tests/test_col_e7_contrato_do_texto.py",
       "sha": "194d25242393691ff3331a22e4d3d7777da0cd02",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_coleta_continua.py",
+      "sha": "a7d96e59ec159cf04959b683be66cd927658ed30",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -42874,6 +42923,94 @@
       }
     },
     {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 84,
+        "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"CHAMADA\": \"reservar24h(host, 1)\"},"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 88,
+        "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 69,
+        "snippet": "import reserva_24h as R24                                          # noqa: E402 — o contador multicanal (D90)"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "coleta/teto_da_onda.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 90,
+        "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 269,
+        "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "ferramentas/big_collection/rodadas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 68,
+        "snippet": "import rodadas as R                                                # noqa: E402 — plano, janela, portao, onda, prova"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "ferramentas/seguir_pesquisadores/seguir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 92,
+        "snippet": "\"TRANSPORTE\": \"coleta/seguir.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "scripts/micro_coleta/provar_backup_da_sala.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 231,
+        "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),"
+      }
+    },
+    {
       "from_file": "ferramentas/big_collection/coorte_unica.py",
       "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
       "type": "READS",
@@ -42926,6 +43063,72 @@
         "file": "ferramentas/big_collection/coorte_unica.py",
         "line": 42,
         "snippet": "\"curadoria/italy_contracts_curator.json\", \"regras/italy_contracts_onboarded.json\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+        "line": 95,
+        "snippet": "relatorio=lambda *a: 0, ledger=b / \"runs.ndjson\", rodada=r[\"RODADA\"], janela_h=24,"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+      "to_file": "ferramentas/big_collection/coleta_continua.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+        "line": 37,
+        "snippet": "import coleta_continua as C                                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+      "to_file": "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+        "line": 41,
+        "snippet": "SAIDA = AQUI / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\""
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+      "to_file": "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+        "line": 163,
+        "snippet": "saida.write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+      "to_file": "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+        "line": 40,
+        "snippet": "DOC = AQUI / \"onda4\" / \"ORDEM-RENDIMENTO-ONDA4.md\""
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+      "to_file": "ferramentas/big_collection/rodadas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/ensaio_coleta_continua.py",
+        "line": 38,
+        "snippet": "import rodadas as R                                                # noqa: E402"
       }
     },
     {
@@ -66389,6 +66592,39 @@
         "file": "provas/chain.py",
         "line": 42,
         "snippet": "from coverage import Coverage                                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/coleta_continua_mutacao.py",
+      "to_file": "ferramentas/big_collection/coleta_continua.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/coleta_continua_mutacao.py",
+        "line": 21,
+        "snippet": "ALVO = \"ferramentas/big_collection/coleta_continua.py\""
+      }
+    },
+    {
+      "from_file": "provas/coleta_continua_mutacao.py",
+      "to_file": "provas/COLETA-CONTINUA-MUTACAO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/coleta_continua_mutacao.py",
+        "line": 110,
+        "snippet": "with open(os.path.join(RAIZ, \"provas\", \"COLETA-CONTINUA-MUTACAO.json\"), \"w\", encoding=\"utf-8\") as h:"
+      }
+    },
+    {
+      "from_file": "provas/coleta_continua_mutacao.py",
+      "to_file": "tests/test_coleta_continua.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/coleta_continua_mutacao.py",
+        "line": 22,
+        "snippet": "TESTE = \"tests/test_coleta_continua.py\""
       }
     },
     {
@@ -90438,6 +90674,28 @@
       }
     },
     {
+      "from_file": "tests/test_coleta_continua.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_coleta_continua.py",
+        "line": 191,
+        "snippet": "self.ledger = self.tmp / \"runs.ndjson\""
+      }
+    },
+    {
+      "from_file": "tests/test_coleta_continua.py",
+      "to_file": "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_coleta_continua.py",
+        "line": 621,
+        "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\""
+      }
+    },
+    {
       "from_file": "tests/test_coleta_externa.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -103459,10 +103717,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3939,
-    "files_readable": 1641,
-    "files_code_dir": 1971,
-    "file_edges": 6841,
+    "files_tracked": 3946,
+    "files_readable": 1645,
+    "files_code_dir": 1978,
+    "file_edges": 6860,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },
