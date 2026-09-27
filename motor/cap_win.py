@@ -746,9 +746,17 @@ def _julgar_par(chave: tuple, evs: list, textos: dict, run_id: str) -> dict:
     }
 
 
-def julgar(livro: dict, itens: list, hoje: date, n_dias: int = N_DIAS_CURRENT) -> dict:
+def julgar(livro: dict, itens: list, hoje: date, n_dias: int = N_DIAS_CURRENT,
+           fora: dict | None = None) -> dict:
     """A CAP-WIN sobre UMA corrida G0/v4. `hoje` e obrigatorio: quem pergunta
-    «agora» diz que dia e agora — nunca o relogio escondido."""
+    «agora» diz que dia e agora — nunca o relogio escondido.
+
+    `fora` (INT-R7-CAPS) = {ITEM_ID: motivo} dos itens que o motor das
+    capacidades triou para OUTRA capacidade (ex.: um estudo declarado no FATO
+    vai para a CAP-SCI: estudo nunca vira observacao de janela). Esses itens
+    continuam no livro e na contagem, saem em `FORA` com o motivo, e nao geram
+    requisito de par em campo — pedir CROP_ISSUE_EM_CAMPO a um estudo seria a
+    Intelligence a fabricar necessidade (INT-LAW-014)."""
     if not isinstance(hoje, date):
         raise LeiViolada("sem HOJE declarado nao ha «agora»: a janela nao se julga")
     if livro.get("RULESET_VERSION") != CI.RULESET_VERSION or livro.get("RESULT_STATE") not in ("DONE", "REUSED"):
@@ -758,10 +766,15 @@ def julgar(livro: dict, itens: list, hoje: date, n_dias: int = N_DIAS_CURRENT) -
         raise LeiViolada("PRE_FILTRO: o livro tem %d linhas e chegaram %d itens"
                          % (len(linhas), len(itens)))
     run_id = livro["INTELLIGENCE_RUN_ID"]
-    pares, nao_possivel, requisitos, textos = {}, [], [], {}
+    pares, nao_possivel, requisitos, textos, fora_daqui = {}, [], [], {}, []
+    fora = fora or {}
     for item, linha in zip(itens, linhas):
         if item.get("ITEM_ID", NAO_SEI) != linha.get("ITEM_ID"):
             raise LeiViolada("o livro e os itens nao estao na mesma ordem")
+        if linha.get("ITEM_ID") in fora:
+            fora_daqui.append({"ITEM_ID": linha.get("ITEM_ID"),
+                               "PORQUE": fora[linha.get("ITEM_ID")]})
+            continue
         if linha.get("PROVENIENCIA") != "COMPLETA":
             nao_possivel.append({"ITEM_ID": linha.get("ITEM_ID"), "ESTADO": NOT_POSSIBLE,
                                  "PORQUE": "SEM_PROVENIENCIA: " + str(linha.get("PROVENIENCIA"))})
@@ -791,6 +804,7 @@ def julgar(livro: dict, itens: list, hoje: date, n_dias: int = N_DIAS_CURRENT) -
                             else NO_DEFENSIBLE_ACTION_YET if janelas else NOT_POSSIBLE),
         "CROP_WINDOWS": janelas,
         "NOT_POSSIBLE": nao_possivel,
+        "FORA": fora_daqui,
         "REQUIREMENTS": requisitos,
         "OPPORTUNITIES": [],
         "ESTADO": "EXPERIMENTAL / NAO_PARA_CLIENTE",

@@ -693,12 +693,19 @@ def ligar_ao_produto(e: dict, ref: dict) -> dict:
 # ═════════════════════════════════════════════════════════════════════════
 # A CAPACIDADE — sobre o livro da corrida
 # ═════════════════════════════════════════════════════════════════════════
-def julgar(livro: dict, itens: list, referencia: dict | None = None) -> dict:
+def julgar(livro: dict, itens: list, referencia: dict | None = None,
+           triados_fora: dict | None = None) -> dict:
     """Le os itens que a corrida G0/v4 admitiu e devolve o livro da CAP-SCI.
 
     O livro da corrida manda: so e julgado o item que esta na LINEAGE dele com
     o uso `LEITURA_ATEMPORAL_DE_CAPACIDADE` disponivel. Item sem proveniencia
     fica FORA com o motivo — e nao sai da contagem.
+
+    `triados_fora` (INT-R7-CAPS) = {ITEM_ID: motivo} dos itens que o motor
+    das capacidades triou para outra capacidade (um boletim sem identidade de
+    estudo no FATO nao e estudo). Ficam em FORA com o motivo, e nao sao
+    julgados: um boletim julgado como estudo sairia «TEMA_NAO_PROVADO» e
+    enchia a contagem de estudos com o que nao e estudo.
     """
     if not isinstance(livro, dict) or livro.get("RESULT_STATE") not in ("DONE", "REUSED"):
         raise LeiViolada("a CAP-SCI so le uma corrida fechada (DONE/REUSED)")
@@ -715,6 +722,9 @@ def julgar(livro: dict, itens: list, referencia: dict | None = None) -> dict:
     estudos, fora = [], []
     for it in itens:
         l = linhas.get(str(it["ITEM_ID"]))
+        if it["ITEM_ID"] in (triados_fora or {}):
+            fora.append({"ITEM_ID": it["ITEM_ID"], "PORQUE": triados_fora[it["ITEM_ID"]]})
+            continue
         if l is None or USO_EXIGIDO not in l.get("USOS_DISPONIVEIS", []):
             fora.append({"ITEM_ID": it["ITEM_ID"],
                          "PORQUE": (l or {}).get("USOS_BLOQUEADOS", {}).get(

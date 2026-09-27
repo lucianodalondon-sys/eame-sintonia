@@ -4363,7 +4363,7 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Le o livro de uma corrida G0/v4 e os itens READY, e julga por CULTURA x PROBLEMA x REGIAO (com fase/BBCH, subarea e periodo) duas perguntas separadas: WINDOW_DEFINED (que condicao define o momento de agir: os 8 tipos da regra do V21) e WINDOW_OPEN_NOW (a fonte declara a condicao satisfeita, e o facto tem tempo e e CURRENT?). Conta apoios pelo grafo de dependencia (observacao por originador e rede declarada; a regra partilhada conta uma vez), marca SUPPORT/CONTRADICTS entre observacoes da mesma semana e subarea, e devolve um ANALYTIC_JUDGMENT CROP_WINDOW com ACT_NOW so com YES, CURRENT, 2 independentes provados e 0 contradicoes — senao NO_DEFENSIBLE_ACTION_YET com o porque. Sem par em campo: NOT_POSSIBLE e o requisito CROP_ISSUE_EM_CAMPO. Nao produz oportunidade.",
+   "what": "Le o livro de uma corrida G0/v4 e os itens READY, e julga por CULTURA x PROBLEMA x REGIAO (com fase/BBCH, subarea e periodo) duas perguntas separadas: WINDOW_DEFINED (que condicao define o momento de agir: os 8 tipos da regra do V21) e WINDOW_OPEN_NOW (a fonte declara a condicao satisfeita, e o facto tem tempo e e CURRENT?). Conta apoios pelo grafo de dependencia (observacao por originador e rede declarada; a regra partilhada conta uma vez), marca SUPPORT/CONTRADICTS entre observacoes da mesma semana e subarea, e devolve um ANALYTIC_JUDGMENT CROP_WINDOW com ACT_NOW so com YES, CURRENT, 2 independentes provados e 0 contradicoes — senao NO_DEFENSIBLE_ACTION_YET com o porque. Sem par em campo: NOT_POSSIBLE e o requisito CROP_ISSUE_EM_CAMPO. Nao produz oportunidade. Aceita a triagem do motor das capacidades (fora={ITEM_ID: motivo}): o estudo sai em FORA com o motivo e nao gera requisito de par.",
    "why_here": "Missao CAP-WIN (D100-b/L6: a CAP-WIN vem primeiro na espinha G0-G6), desenho docs/intelligence/CAP-WIN-DESENHO-R5.md W0-W8. Porta a REGRA de scripts/v21_janelas.py @ 85df96f7 sem portar o ficheiro (o legado le DESIGN-INGEST e atribui par por texto, INT-LAW-084). Dois acrescimos declarados, os dois medidos no corte ARIF x APOL: soglia nao atingida escrita por extenso -> NO com a razao certa, e o plural «soglie». O tempo so bloqueia o uso que exige tempo: a regra de um READY sem FACT_TIME continua lida, o «agora» nao. EXPERIMENTAL / NAO_PARA_CLIENTE.",
    "files": [
     "motor/cap_win.py"
@@ -4418,10 +4418,52 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Le o livro de uma corrida G0/v4 fechada e, so para os itens READY com o uso LEITURA_ATEMPORAL_DE_CAPACIDADE, julga cada estudo: FORCA decomposta (desenho, n, estudo pequeno = INDICATIVA), APLICABILIDADE (cultura x problema x molecula, local e periodo do estudo so quando provados por FACT_LOCATION/FACT_TIME com base), ESPECIE declarada pelo estudo (SCIENTIFIC_RESULT, MODEL_RULE e RESISTANCE separadas), INDEPENDENCIA por ensaio, dataset, autor e instituicao (teto, nunca prova), replicacao e contradicao declaradas, e a ligacao TEMATICA a rotulo ADAMA ativo so com cultura+alvo+molecula provados (referencia/adama, so leitura). Nao produz FINDING, OPPORTUNITY nem score unico.",
+   "what": "Le o livro de uma corrida G0/v4 fechada e, so para os itens READY com o uso LEITURA_ATEMPORAL_DE_CAPACIDADE, julga cada estudo: FORCA decomposta (desenho, n, estudo pequeno = INDICATIVA), APLICABILIDADE (cultura x problema x molecula, local e periodo do estudo so quando provados por FACT_LOCATION/FACT_TIME com base), ESPECIE declarada pelo estudo (SCIENTIFIC_RESULT, MODEL_RULE e RESISTANCE separadas), INDEPENDENCIA por ensaio, dataset, autor e instituicao (teto, nunca prova), replicacao e contradicao declaradas, e a ligacao TEMATICA a rotulo ADAMA ativo so com cultura+alvo+molecula provados (referencia/adama, so leitura). Nao produz FINDING, OPPORTUNITY nem score unico. Aceita a triagem do motor das capacidades (triados_fora): o boletim sem identidade de estudo sai em FORA e nao e julgado como estudo.",
    "why_here": "Biblia §34 CAP-SCI e mapa do dono §35: nao e biblioteca de papers, e que conhecimento cientifico novo pode alterar uma decisao. Nunca le identidade de fora do READY (campo a mais e recusado), nunca le o TEXTO, afiliacao nao vira local (INT-LAW-102), publicacao nao vira periodo (INT-LAW-100), tres papers do mesmo ensaio nao sao tres evidencias (INT-LAW-072/073), e nenhum estudo vira «o produto nao funciona» — essa leitura nao existe no vocabulario e uma trava rebenta se aparecer. Provado so com fixture SINTETICA; o registo T6 real nao esta nesta arvore.",
    "files": [
     "motor/capacidade_cientifica.py"
+   ]
+  },
+  {
+   "id": "C-INT-MOTOR-CAPACIDADES",
+   "name": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "icon": "⚙",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio.",
+   "why_here": "Missao INT-R7-CAPS: juntar CAP-WIN e CAP-SCI no motor sem duplicar leis nem contadores (uma corrida, um RUN_ID) e preparar a rodada 7 (RUNBOOK-R7.md). Conflitos resolvidos pelo significado: URL/DOCUMENT_ID nao sao READY (vem do RAW); JANELA_DECLARADA nao esta em CAMPOS_READY (viaja ao lado, so a CAP-WIN a le); boletim nao e estudo e estudo nao e janela. Nao abre a Sala, nao cunha identidade, nao produz OPORTUNIDADE. EXPERIMENTAL / NAO_PARA_CLIENTE.",
+   "files": [
+    "motor/motor_das_capacidades.py",
+    "motor/r7_export_da_copia.sql"
+   ]
+  },
+  {
+   "id": "C-PROVA-INT-R7",
+   "name": "As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "🧬",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "aceite_pelo_gerador.py corre o gerador do pote v2 tirado do objeto git ce775ff5 (sem copia) sobre a saida do motor; export_numa_copia_descartavel.py sobe um Postgres descartavel com as migrations 001..033, semeia a fixture SINTETICA pelos donos da Sala (pousar/rever), corre o export em transacao read only e prova que a mesma sessao recusa escrever; mutantes.py planta 32 defeitos no motor e nos ganchos de triagem; bateria_por_nome.py corre cada modulo de tests/ com a rede fechada e compara falhas pelo NOME.",
+   "why_here": "A prova vive fora da peca que prova. 32/32 mutantes mortos (tres testes nasceram de mutantes que sobreviviam: M19, M20, M30). Sem Postgres ou sem o commit do gerador, as provas dizem NAO SEI e nunca PASS.",
+   "files": [
+    "provas/int_r7/aceite_pelo_gerador.py",
+    "provas/int_r7/export_numa_copia_descartavel.py",
+    "provas/int_r7/mutantes.py",
+    "provas/int_r7/bateria_por_nome.py"
    ]
   },
   {
