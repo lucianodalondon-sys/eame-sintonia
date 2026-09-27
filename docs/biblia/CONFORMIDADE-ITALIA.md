@@ -214,11 +214,13 @@ o lado que parece rigoroso.
 ## A MATRIZ — LEIS DA EMENDA V1.5 (D112 · a afirmação da fonte)
 
 > Medidas contra o gold humano da Puglia (`tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json`),
-> não contra opinião. O vocabulário e as travas existem; **nenhum extrator as aplica**.
+> não contra opinião. O vocabulário e as travas existem. **LOTE6-INTEGRA:** o extrator por secção
+> dos boletins (`leis/boletim_do_campo.ler_afirmacao`) lê o vocabulário daqui e passa pelas travas
+> `procedencia_da_entidade` e `fact_location` antes de devolver — o gold passa 9/9 casos medidos.
 
 | LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
 |---|---|---|---|---|---|
-| `COL-LAW-221` procedência da entidade | SIM | `PARTIAL` | `ENTITY_SOURCE` e `procedencia_da_entidade()` em `leis/afirmacao_da_fonte.py`; as 9 procedências do gold obedecem à trava | nenhum código de extração emite `ENTITY_SOURCE` (falha conhecida declarada) | METODO-PUGLIA |
+| `COL-LAW-221` procedência da entidade | SIM | `PARTIAL` | `ENTITY_SOURCE` e `procedencia_da_entidade()` em `leis/afirmacao_da_fonte.py`; as 9 procedências do gold obedecem à trava; `leis/boletim_do_campo.ler_afirmacao` emite `ENTITY_SOURCE` (praga e cultura) e as 9 batem com o dono (`tests/test_metodo_puglia.py` T7) | só os boletins (T3) passam pelo extrator por secção; as outras fichas (T5, social, notícia) não emitem `ENTITY_SOURCE` | LOTE6-INTEGRA → estender |
 | `COL-LAW-222` fidelidade da afirmação | SIM | `PARTIAL` | lint `fidelidade()` reprova C05 e C06, aprova C02 · C08 · C10, e concorda com a resposta Q1 do dono em 9 de 9 fichas | o lint não está ligado a nenhuma produção de ficha | METODO-PUGLIA |
 | `COL-LAW-223` espécie da afirmação | SIM | `PARTIAL` | `leis/fato_do_texto.py` já separa previsão e recomendação para o TEMPO; `usavel_como_fato_observado()` | a ficha não tem campo de espécie com este vocabulário em código | METODO-PUGLIA |
 

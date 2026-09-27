@@ -25,9 +25,13 @@ MUTANTES = [
     ("M01_SECAO_DO_DOCUMENTO", "D18: a afirmacao herda a 1.a secao do documento, nao a sua", BC,
      'secao = next((s for s in reversed(todas) if s["INICIO"] <= inicio < s["FIM"]), None)',
      'secao = todas[0] if todas else None'),
-    ("M02_CABECALHO_VISUAL_VIRA_FATO", "o cabecalho so na imagem vira FACT_LOCATION", BC,
-     '        lugar = {"VALOR": UNRESOLVED, "LOCATION_SOURCE": VISUAL_HEADER_CANDIDATE,',
-     '        lugar = {"VALOR": candidato["ROTULO_NA_IMAGEM"], "LOCATION_SOURCE": VISUAL_HEADER_CANDIDATE,'),
+    # LOTE6-INTEGRA (declarado): desde que o lugar passa pela trava da lei (`_trava_do_lugar`, COL-LAW-032), so
+    # promover o cabecalho visual no extrator ficou mutante EQUIVALENTE (a lei devolve UNRESOLVED; medido: M02
+    # sobreviveu com o teste OK). O defeito real do extrator e os DOIS juntos — promover E desligar a trava.
+    ("M02_CABECALHO_VISUAL_VIRA_FATO", "o cabecalho so na imagem vira FACT_LOCATION (com a trava da lei desligada)",
+     BC, [('        lugar = {"VALOR": UNRESOLVED, "LOCATION_SOURCE": VISUAL_HEADER_CANDIDATE,',
+           '        lugar = {"VALOR": candidato["ROTULO_NA_IMAGEM"], "LOCATION_SOURCE": VISUAL_HEADER_CANDIDATE,'),
+          ("    lugar = _trava_do_lugar(lugar)\n", "")], None),
     ("M03_SEM_CORTE_DE_SECAO", "o paragrafo atravessa rotulo/troca de secao", BC,
      "    for rx in (_RE_CORTE_DE_PARAGRAFO, _RE_ROTULO):", "    for rx in ():"),
     ("M04_SEM_ENTIDADE_CONCORRENTE", "titulo diz A, paragrafo diz B, e fica A", BC,
@@ -93,9 +97,10 @@ def main():
         originais = {f: (tmp / f).read_text(encoding="utf-8") for f in (BC, FT, AD)}
         for nome, regra, alvo, a, b in MUTANTES:
             s = originais[alvo]
-            if s.count(a) != 1:
-                raise SystemExit("mutante %s: trecho aparece %d vezes: %r" % (nome, s.count(a), a[:70]))
-            s = s.replace(a, b)
+            for a1, b1 in (a if isinstance(a, list) else [(a, b)]):
+                if s.count(a1) != 1:
+                    raise SystemExit("mutante %s: trecho aparece %d vezes: %r" % (nome, s.count(a1), a1[:70]))
+                s = s.replace(a1, b1)
             (tmp / alvo).write_text(s, encoding="utf-8")
             try:
                 ast.parse(s)

@@ -4,7 +4,8 @@
 
     py scripts/lugar_fato/gold_puglia.py            # imprime o placar por caso e por chave
 
-O gold (docs/iab/puglia/GOLD-FIXTURE-PUGLIA-V1.json) traz, por ficha, o TRECHO com 400 letras de contexto e o
+O gold (tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json — a copia SELADA por tests/test_metodo_puglia.py;
+LOTE6-INTEGRA: a copia gemea em docs/iab/puglia saiu, uma verdade so) traz, por ficha, o TRECHO com 400 letras de contexto e o
 ESPERADO do dono. Nada aqui altera o gold nem o ESPERADO: onde o extrator falha, conserta-se o CODIGO.
 
 DE ONDE VEM O TEXTO DE CADA FICHA (declarado, nao escolhido caso a caso):
@@ -38,7 +39,7 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
-GOLD = RAIZ / "docs" / "iab" / "puglia" / "GOLD-FIXTURE-PUGLIA-V1.json"
+GOLD = RAIZ / "tests" / "fixtures" / "puglia" / "GOLD-FIXTURE-PUGLIA-V1.json"
 PASTAS_DE_TEXTO = ("data/derivados/texto", "data/samples")
 
 TITULO_POR_PUBLICADOR = (

@@ -256,12 +256,32 @@ def ler_boletim(texto: str) -> dict:
 #                              nao nomeia o lugar: fica como expressao, UNRESOLVED
 #     UNRESOLVED               nada disto
 #   O MESMO trecho repetido em N secoes do MESMO documento = N APLICACOES territoriais, 1 instituicao (C07).
+#   O VOCABULARIO NAO MORA AQUI (LOTE6-INTEGRA): ENTITY_SOURCES e dono `leis/afirmacao_da_fonte.py` (COL-LAW-221)
+#   e LOCATION_SOURCES e dono `leis/lugar_do_fato.py` (COL-LAW-032). Este extrator le-os de la e, se usar uma
+#   palavra que a lei nao tem, nem carrega. E cada leitura passa pelas TRAVAS da lei antes de sair
+#   (`_trava_da_entidade`, `_trava_do_lugar`): o extrator propoe, a lei decide.
+def _leis():
+    import os
+    import sys
+    aqui = os.path.dirname(os.path.abspath(__file__))
+    if aqui not in sys.path:
+        sys.path.insert(0, aqui)
+    import afirmacao_da_fonte as AF     # noqa: PLC0415
+    import lugar_do_fato as LF          # noqa: PLC0415
+    return AF, LF
+
+
+AF, LF = _leis()
+ENTITY_SOURCES = AF.ENTITY_SOURCES
+LOCATION_SOURCES = LF.LOCATION_SOURCES
 SPAN, PARAGRAPH_CONTEXT, SECTION_TITLE, DOCUMENT_TITLE, UNKNOWN = (
     "SPAN", "PARAGRAPH_CONTEXT", "SECTION_TITLE", "DOCUMENT_TITLE", "UNKNOWN")
-ENTITY_SOURCES = (SPAN, PARAGRAPH_CONTEXT, SECTION_TITLE, DOCUMENT_TITLE, UNKNOWN)
 TEXT, SECTION_HEADER, VISUAL_HEADER_CANDIDATE, UNRESOLVED = (
-    "TEXT", "SECTION_HEADER", "VISUAL_HEADER_CANDIDATE", "UNRESOLVED")
-LOCATION_SOURCES = (TEXT, SECTION_HEADER, VISUAL_HEADER_CANDIDATE, UNRESOLVED)
+    "TEXT", "SECTION_HEADER", "VISUAL_HEADER_CANDIDATE", LF.UNRESOLVED)
+if {SPAN, PARAGRAPH_CONTEXT, SECTION_TITLE, DOCUMENT_TITLE, UNKNOWN} != set(ENTITY_SOURCES):
+    raise ImportError("boletim_do_campo usa ENTITY_SOURCE fora da COL-LAW-221: %s" % (ENTITY_SOURCES,))
+if {TEXT, SECTION_HEADER, VISUAL_HEADER_CANDIDATE, UNRESOLVED} != set(LOCATION_SOURCES):
+    raise ImportError("boletim_do_campo usa LOCATION_SOURCE fora da COL-LAW-032: %s" % (LOCATION_SOURCES,))
 
 # o cabecalho TERRITORIAL escrito no texto: linha curta, em MAIUSCULAS, que comeca pela palavra de territorio
 PALAVRAS_DO_CABECALHO_TERRITORIAL = 8
@@ -497,6 +517,26 @@ def _lugar_no_trecho(trecho: str):
     return None
 
 
+def _trava_da_entidade(r: dict, nome_no_trecho: bool) -> dict:
+    """COL-LAW-221 (`afirmacao_da_fonte.procedencia_da_entidade`): a lei decide se a procedencia se sustenta.
+    Reprovada -> UNKNOWN, com o motivo da lei. Nunca o contrario (a trava nao promove nada)."""
+    ok, porque = AF.procedencia_da_entidade(r["ENTITY_SOURCE"], nome_no_trecho=nome_no_trecho)
+    if ok:
+        return r
+    return {"VALOR": UNKNOWN, "ENTITY_SOURCE": UNKNOWN, "MOTIVO": "COL-LAW-221 reprovou %s: %s"
+            % (r["ENTITY_SOURCE"], porque)}
+
+
+def _trava_do_lugar(lugar: dict) -> dict:
+    """COL-LAW-032 (`lugar_do_fato.fact_location`): so TEXT e SECTION_HEADER com lugar resolvido sustentam
+    FACT_LOCATION. O resto fica UNRESOLVED, sem ponto — o extrator nao consegue passar por cima da lei."""
+    proposto = lugar["VALOR"] if lugar["VALOR"] != UNRESOLVED else None
+    valor, porque = LF.fact_location(lugar["LOCATION_SOURCE"], proposto)
+    if valor != lugar["VALOR"]:
+        lugar = dict(lugar, VALOR=valor, PORQUE="COL-LAW-032: %s" % porque)
+    return lugar
+
+
 def ler_afirmacao(texto: str, inicio: int, fim: int, *, titulo: str | None = None,
                   cabecalhos_visuais=()) -> dict:
     """UMA afirmacao do boletim (o trecho texto[inicio:fim]): praga, cultura e lugar, cada um com a fonte.
@@ -515,10 +555,12 @@ def ler_afirmacao(texto: str, inicio: int, fim: int, *, titulo: str | None = Non
     corte_txt = re.sub(r"\s+", " ", t[max(0, corte - 30):corte]).strip() if corte else ""
     tit_secao = _titulo_da_secao(t, ini_secao, inicio)
     tit_doc = _titulo_do_documento(t, titulo)
-    pragas = _resolver(_pragas_em(trecho), tit_secao, tit_doc, no_paragrafo,
-                       _pragas_em(do_outro), corte_txt, _pragas_em)
-    cultura = _resolver(_culturas_em(trecho), tit_secao, tit_doc, no_paragrafo,
-                        _culturas_em(do_outro), corte_txt, _culturas_em)
+    pragas = _trava_da_entidade(_resolver(_pragas_em(trecho), tit_secao, tit_doc, no_paragrafo,
+                                          _pragas_em(do_outro), corte_txt, _pragas_em),
+                                bool(_pragas_em(trecho)))
+    cultura = _trava_da_entidade(_resolver(_culturas_em(trecho), tit_secao, tit_doc, no_paragrafo,
+                                           _culturas_em(do_outro), corte_txt, _culturas_em),
+                                 bool(_culturas_em(trecho)))
     # ── o lugar ──
     visuais = [dict(v) for v in (cabecalhos_visuais or ())
                if v.get("INICIO") is None or v["INICIO"] <= inicio < v.get("FIM", len(t))]
@@ -545,6 +587,7 @@ def ler_afirmacao(texto: str, inicio: int, fim: int, *, titulo: str | None = Non
     else:
         lugar = {"VALOR": UNRESOLVED, "LOCATION_SOURCE": UNRESOLVED,
                  "PORQUE": "nem o trecho nem a secao escrevem o lugar"}
+    lugar = _trava_do_lugar(lugar)
     lugar["CANDIDATO_VISUAL"] = candidato
     lugar["PONTO_NO_MAPA"] = lugar["VALOR"] != UNRESOLVED
     return {"TRECHO": trecho, "INICIO": inicio, "FIM": fim,

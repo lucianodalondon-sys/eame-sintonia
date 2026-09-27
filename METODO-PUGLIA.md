@@ -41,20 +41,28 @@ Por isso a fidelidade virou lei nova (222), e o `220` ficou livre para não coli
 
 | | caso | resultado |
 |---|---|---|
-| ✅ CUMPRE | C01 · C05 · C06 · C08 | `fato_local` e `fato_do_texto` não inventam lugar onde o dono pediu `UNRESOLVED` |
-| ❌ NÃO | C04 | «zona costiera del Gargano» está na frase; o código dá `NAO SEI` |
-| ❌ NÃO | C02 · C03 · C07 | não há conceito de `SECTION_HEADER`; os três dão `NAO SEI` |
-| ❌ NÃO | todos | a saída dos extratores não tem `LOCATION_SOURCE` |
-| ❌ NÃO | C08 | ninguém guarda `LOCATION_EXPRESSION_RAW` |
-| ❌ NÃO | todos | nenhum código de extração emite `ENTITY_SOURCE` |
+**LOTE6-INTEGRA.** Com o merge de BOLETIM-POR-SECAO (D18/D19) o extrator por secção
+`leis/boletim_do_campo.ler_afirmacao` passou a cumprir as cinco linhas que eram ❌, e a
+marca `expectedFailure` saiu, como este teste manda. O esperado do dono **não** foi tocado
+(selo `GOLD_SHA256` igual). O extrator lê o vocabulário das leis (`afirmacao_da_fonte`,
+`lugar_do_fato`) e passa pelas travas delas antes de devolver.
 
-As cinco linhas ❌ são `expectedFailure` **declarados** em
-`tests/test_metodo_puglia.py:356-382`. O esperado do dono não foi tocado. Se alguém
-consertar, o teste reprova como «unexpected success» até a marca ser tirada.
+| | caso | resultado |
+|---|---|---|
+| ✅ CUMPRE | C01 · C05 · C06 · C08 | nenhum leitor (`fato_local`, `fato_do_texto`, `ler_afirmacao`) inventa lugar onde o dono pediu `UNRESOLVED` |
+| ✅ CUMPRE | C04 | «zona costiera del Gargano» está na frase → `TEXT` |
+| ✅ CUMPRE | C02 · C03 · C07 | o cabeçalho territorial escrito no texto → `SECTION_HEADER` |
+| ✅ CUMPRE | os 8 com lugar | `LOCATION_SOURCE` sai igual ao do dono |
+| ✅ CUMPRE | C08 | `LOCATION_EXPRESSION_RAW` guardado, sem ponto no mapa |
+| ✅ CUMPRE | as 9 procedências | `ENTITY_SOURCE` sai igual ao do dono e a trava da lei aprova-a |
+
+Medido em `tests/test_metodo_puglia.py` (T7). Os leitores por documento (`fato_local`,
+`fato_do_texto`) continuam sem secção — quem lê boletim é o extrator por secção.
 
 ⚠️ Parte do C02 · C03 · C07 é também do fixture: o cabeçalho `COMPRENSORIO …` não está no
-`CONTEXTO_ANTES` gravado, então o extrator nunca o vê. O backlog é duplo: a coleta tem de
-preservar a secção, e o extrator tem de a ler.
+`CONTEXTO_ANTES` gravado. O harness (`scripts/lugar_fato/gold_puglia.montar`) usa o boletim
+real do repo quando existe (C03) e, senão, põe antes do contexto o cabeçalho que a **própria
+ficha gravada cita** — declarado lá. A coleta continua a ter de preservar a secção.
 
 ## 4 · Mutação
 

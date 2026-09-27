@@ -19,9 +19,12 @@ O QUE ISTO É, E O QUE NÃO É
 ---------------------------
 É o VOCABULÁRIO e as TRAVAS dessas leis, mais um lint determinístico que
 reprova uma ficha infiel. NÃO é um extrator: nada aqui lê um boletim e propõe
-entidade, lugar ou espécie. Quem extrai ainda não existe — e isso está medido
-em `tests/test_metodo_puglia.py`, como falha conhecida DECLARADA, não
-escondido.
+entidade, lugar ou espécie. Quem extrai, para os boletins, é
+`leis/boletim_do_campo.ler_afirmacao` (BOLETIM-POR-SECAO): desde o
+LOTE6-INTEGRA ele lê `ENTITY_SOURCES` daqui e passa cada procedência por
+`procedencia_da_entidade` antes de a devolver — medido contra o gold em
+`tests/test_metodo_puglia.py` (T7). O lint e a espécie ainda não estão
+ligados a nenhuma produção de ficha.
 
     python3 leis/afirmacao_da_fonte.py     # imprime o contrato
 """

@@ -317,12 +317,28 @@ class T6_AsRelacoes(unittest.TestCase):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# (iv) O CÓDIGO DE HOJE contra o gold. Os extratores de lugar que existem são
-# `leis/fato_local.py` (leitor italiano) e `leis/fato_do_texto.py` (tempo e
-# lugar do texto). Extrator de ENTIDADE: não existe.
+# (iv) O CÓDIGO DE HOJE contra o gold.
+#
+# LOTE6-INTEGRA (ajuste DECLARADO deste bloco, e só dele). Até ao merge com
+# BOLETIM-POR-SECAO (D18/D19) as cinco linhas do backlog eram `expectedFailure`
+# contra `leis/fato_local.py` e `leis/fato_do_texto.py`, que leem o documento
+# inteiro. O extrator por secção (`leis/boletim_do_campo.ler_afirmacao`, lido
+# pela porta em `admissao.janela_declarada`) passou a cumprir — e o próprio
+# topo deste ficheiro manda: quem consertou tira a marca. A marca saiu; o
+# ESPERADO do dono não mudou (o selo GOLD_SHA256 é o mesmo). Os leitores por
+# documento continuam medidos no que já cumpriam: não inventam lugar.
+#
+# O texto de cada ficha vem do harness `scripts/lugar_fato/gold_puglia.montar`
+# (derivado real do repo quando existe; senão reconstruído do próprio gold, com
+# o cabeçalho que a ficha gravada cita) — o mesmo que mede o placar do gold.
+
+sys.path.insert(0, os.path.join(RAIZ, 'scripts', 'lugar_fato'))
+import boletim_do_campo as BC                                      # noqa: E402
+import gold_puglia as G                                            # noqa: E402
+
 
 def lugar_do_codigo(f):
-    """O FACT_LOCATION que o código atual dá ao trecho com o contexto que o gold traz."""
+    """O FACT_LOCATION que os leitores POR DOCUMENTO dão ao trecho com o contexto do gold."""
     texto = f['CONTEXTO_ANTES'] + f['TRECHO'] + f['CONTEXTO_DEPOIS']
     aceitas, _ = IT.localizacoes_do_fato(texto)
     ft = FT.campos_do_fato(texto)
@@ -330,66 +346,90 @@ def lugar_do_codigo(f):
             'FATO_DO_TEXTO': ft.get('fact_location'), 'CAMPOS': ft}
 
 
-def codigo_resolve(f, esperado):
-    alvo = ' '.join(esperado.lower().split()[:2])
-    r = lugar_do_codigo(f)
-    achados = r['FATO_LOCAL'] + [r['FATO_DO_TEXTO'] or '']
-    return any(alvo in (x or '').lower() for x in achados)
-
-
 def codigo_nao_resolve_nada(f):
     r = lugar_do_codigo(f)
     return not r['FATO_LOCAL'] and str(r['FATO_DO_TEXTO']).startswith('NAO SEI')
 
 
+def lido(cid, i=0):
+    """A afirmação da ficha lida pelo extrator POR SECÇÃO."""
+    d = G.montar(CASOS[cid]['FICHAS'][i], BC)
+    return BC.ler_afirmacao(d['TEXTO'], d['INICIO'], d['FIM'], titulo=d['TITULO'],
+                            cabecalhos_visuais=d['VISUAIS'])
+
+
 class T7_OCodigoAtualContraOGold(unittest.TestCase):
 
     def test_iv_o_codigo_nao_promove_lugar_nao_resolvido(self):
-        """CUMPRE: nos 4 casos UNRESOLVED o código de hoje não inventa lugar."""
+        """CUMPRE: nos 4 casos UNRESOLVED nenhum leitor inventa lugar nem ponto."""
         for cid in ('C01', 'C05', 'C06', 'C08'):
             self.assertEqual('UNRESOLVED', CASOS[cid]['ESPERADO']['FACT_LOCATION'])
             self.assertTrue(codigo_nao_resolve_nada(CASOS[cid]['FICHAS'][0]), cid)
+            lug = lido(cid)['FACT_LOCATION']
+            self.assertEqual(L.UNRESOLVED, lug['VALOR'], cid)
+            self.assertFalse(lug['PONTO_NO_MAPA'], cid)
 
-    # ── BACKLOG MEDIDO — falhas conhecidas DECLARADAS (não alterar o esperado) ──
+    def test_iv_c04_lugar_escrito_no_texto(self):
+        """CUMPRE: «zona costiera del Gargano» está na frase — TEXT, e é o lugar do fato."""
+        lug = lido('C04')['FACT_LOCATION']
+        self.assertEqual(CASOS['C04']['ESPERADO']['FACT_LOCATION'], lug['VALOR'])
+        self.assertEqual('TEXT', lug['LOCATION_SOURCE'])
 
-    @unittest.expectedFailure
-    def test_iv_backlog_c04_lugar_escrito_no_texto(self):
-        """NÃO CUMPRE: «zona costiera del Gargano» está na frase; o código dá NAO SEI."""
-        c = CASOS['C04']
-        self.assertTrue(codigo_resolve(c['FICHAS'][0], c['ESPERADO']['FACT_LOCATION']))
-
-    @unittest.expectedFailure
-    def test_iv_backlog_c02_c03_c07_cabecalho_de_seccao(self):
-        """NÃO CUMPRE: não há conceito de SECTION_HEADER no código; os três dão NAO SEI."""
+    def test_iv_c02_c03_c07_cabecalho_de_seccao(self):
+        """CUMPRE: o cabeçalho territorial escrito no texto governa a secção."""
         for cid in ('C02', 'C03', 'C07'):
-            c = CASOS[cid]
-            self.assertTrue(codigo_resolve(c['FICHAS'][0], c['ESPERADO']['FACT_LOCATION']), cid)
+            e = CASOS[cid]['ESPERADO']
+            lug = lido(cid)['FACT_LOCATION']
+            self.assertEqual(e['FACT_LOCATION'], lug['VALOR'], cid)
+            self.assertEqual('SECTION_HEADER', fonte_do_lugar(e['LOCATION_SOURCE']), cid)
+            self.assertEqual('SECTION_HEADER', lug['LOCATION_SOURCE'], cid)
 
-    @unittest.expectedFailure
-    def test_iv_backlog_location_source_na_saida(self):
-        """NÃO CUMPRE: a saída dos extratores não tem LOCATION_SOURCE."""
-        r = lugar_do_codigo(CASOS['C04']['FICHAS'][0])
-        self.assertTrue(any('location_source' in k.lower() for k in r['CAMPOS']))
+    def test_iv_location_source_na_saida(self):
+        """CUMPRE: todo caso com LOCATION_SOURCE esperado sai com a MESMA fonte, do vocabulário da lei."""
+        n = 0
+        for cid, c in CASOS.items():
+            if 'LOCATION_SOURCE' not in c['ESPERADO']:
+                continue
+            n += 1
+            lug = lido(cid)['FACT_LOCATION']
+            self.assertIn(lug['LOCATION_SOURCE'], L.LOCATION_SOURCES, cid)
+            self.assertEqual(fonte_do_lugar(c['ESPERADO']['LOCATION_SOURCE']), lug['LOCATION_SOURCE'], cid)
+            self.assertEqual(c['ESPERADO']['FACT_LOCATION'], lug['VALOR'], cid)
+        self.assertEqual(8, n)
 
-    @unittest.expectedFailure
-    def test_iv_backlog_c08_expressao_bruta_preservada(self):
-        """NÃO CUMPRE: nenhum extrator guarda LOCATION_EXPRESSION_RAW."""
-        c = CASOS['C08']
-        r = lugar_do_codigo(c['FICHAS'][0])
-        self.assertIn(c['ESPERADO']['LOCATION_EXPRESSION_RAW'], json.dumps(r['CAMPOS'], ensure_ascii=False))
+    def test_iv_c08_expressao_bruta_preservada(self):
+        """CUMPRE: a expressão sem lugar resolvido fica guardada em bruto, sem ponto."""
+        e = CASOS['C08']['ESPERADO']
+        lug = lido('C08')['FACT_LOCATION']
+        self.assertEqual(e['LOCATION_EXPRESSION_RAW'], lug['LOCATION_EXPRESSION_RAW'])
+        self.assertEqual(e['PONTO_NO_MAPA'], lug['PONTO_NO_MAPA'])
 
-    @unittest.expectedFailure
-    def test_iv_backlog_extrator_de_entidade_com_entity_source(self):
-        """NÃO CUMPRE: nenhum código de extração emite ENTITY_SOURCE."""
-        achados = []
-        for gaveta in ('leis', 'motor', 'coleta', 'regras', 'admissao', 'guarda'):
-            pasta = os.path.join(RAIZ, gaveta)
-            for raiz, _, nomes in os.walk(pasta):
-                for n in nomes:
-                    p = os.path.join(raiz, n)
-                    if n.endswith('.py') and p != A.__file__ and 'ENTITY_SOURCE' in _ler(p):
-                        achados.append(os.path.relpath(p, RAIZ))
-        self.assertTrue(achados, 'nenhum extrator de entidade com ENTITY_SOURCE')
+    def test_iv_extrator_de_entidade_com_entity_source(self):
+        """CUMPRE: cada procedência de entidade do gold sai do extrator, e a trava da lei aprova-a."""
+        n = 0
+        for cid, f, especie, fonte in T3_AProcedenciaDaEntidade()._pares():
+            i = [x['ASSERTION_ID'] for x in CASOS[cid]['FICHAS']].index(f['ASSERTION_ID'])
+            r = lido(cid, i)['PRAGAS' if especie == 'PEST' else 'CULTURA']
+            n += 1
+            esperado = CASOS[cid]['ESPERADO'].get(especie + '_ENTITY_SOURCE', fonte)
+            aceites = [fonte_da_entidade(x) for x in str(esperado).split('/')]
+            self.assertIn(r['ENTITY_SOURCE'], aceites, '%s %s %s' % (cid, f['ASSERTION_ID'], especie))
+            no_trecho = r['ENTITY_SOURCE'] == 'SPAN'
+            self.assertTrue(A.procedencia_da_entidade(r['ENTITY_SOURCE'], nome_no_trecho=no_trecho)[0],
+                            '%s: a lei reprova a procedência que o extrator deu' % cid)
+        self.assertEqual(9, n)
+
+    def test_iv_o_extrator_fala_o_vocabulario_da_lei(self):
+        """Um dono só: o extrator não tem vocabulário próprio, lê o da lei."""
+        self.assertIs(A.ENTITY_SOURCES, BC.ENTITY_SOURCES)
+        self.assertIs(L.LOCATION_SOURCES, BC.LOCATION_SOURCES)
+
+    def test_iv_o_gold_inteiro_passa_no_extrator_por_seccao(self):
+        """O placar do harness: 9 casos PASS, 0 FAIL; C10 (só relação entre fichas) NÃO MEDIDO."""
+        self.assertEqual(G.GOLD, __import__('pathlib').Path(GOLD))
+        pl = G.correr(BC)['PLACAR']
+        self.assertEqual((9, 0, 1, 0), (pl['CASOS_PASS'], pl['CASOS_FAIL'],
+                                        pl['CASOS_NAO_MEDIDOS'], pl['CHAVES_FAIL']), pl)
 
 
 if __name__ == '__main__':
