@@ -22,7 +22,7 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 | **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
 | **V1.4** | 2026-09-11 | **o retorno do executor entra na lei**: `COL-LAW-505` responde a pergunta que `COL-LAW-013` fez e nunca respondeu — «`OUTPUT` = onde larguei, e **em que forma**». Medido antes de escrita: `FALSE_HARVEST_TOTAL = 253` sobre os cinco executores canónicos | **105** (+1) |
-| **V1.5** | 2026-09-26 | **PROPOSTA — só entra em vigor com a aprovação do dono.** O que o campo mede, e até onde se pode ir buscá-lo (D85 · D88 · ALINHAMENTO COLLECTION → INTELLIGENCE), com o texto mínimo do bot Luciano: a medição que a fonte declara chega como veio, com a espécie da afirmação e nunca resumida (`COL-LAW-219`); e o material público pode ser alcançado por navegador real, JavaScript ou outra rota técnica, inclusive anti-automação, sem atravessar conta, paywall nem login (`COL-LAW-220`). E a **COL-LAW-042 ganha uma emenda** (D94-b, texto do bot): `SOURCE_READY_FOR_RECURRENCE ≠ ITEM_READY_FOR_ADMISSION` — item achado por assunto ou pessoa passa à Admissão com a fonte ainda CANDIDATA, se tudo o resto estiver provado; não promove a fonte. Medido antes de escrita: 69 séries (66 numéricas) no acervo; Salerno 4 → 40 capturas de *Ceratitis capitata* | **107** (+2; 042 emendada) |
+| **V1.5** | 2026-09-26 | **PROPOSTA — só entra em vigor com a aprovação do dono.** Texto mínimo do bot Luciano: a medição que a fonte declara chega como veio, com a espécie da afirmação, nunca resumida (`COL-LAW-219`); o material público pode ser alcançado por outra rota técnica, sem atravessar conta, paywall nem login (`COL-LAW-220`); e a `COL-LAW-042` ganha a emenda `SOURCE_READY_FOR_RECURRENCE ≠ ITEM_READY_FOR_ADMISSION`. Razões e evidência no diário | **107** (+2; 042 emendada) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
@@ -1100,11 +1100,10 @@ Item achado por assunto ou pessoa pode passar pela Admission com `SOURCE_STATE=C
 recorrente.
 
 **O QUE ISTO MUDA.** A escada de degraus da fonte (candidata → registada → contratada → automática) passa a ser a
-prova para **coleta recorrente**, e deixa de ser pré-condição para **o primeiro item** entrar (D94: três portas —
-busca por assunto, busca por pessoa, fontes aprovadas em rodízio). A pergunta da Admissão continua a mesma — a
-decisão por par (item, universo), auditável —; muda só quem pode chegar a ela.
+prova para **coleta recorrente**, e deixa de ser pré-condição para **o primeiro item** entrar. A pergunta da Admissão
+continua a mesma — a decisão por par (item, universo), auditável —; muda só quem pode chegar a ela.
 
-**RISCOS, e a regra de cada um** (bot Luciano, D94-b):
+**RISCOS, e a regra de cada um:**
 
 - o **snippet** de uma busca é só descoberta: busca-se o conteúdo real e guarda-se o RAW antes da Admissão;
 - `NAME ≠ PROFILE ≠ PERSON` (`COL-LAW-034`): um perfil com o nome do pesquisador não prova que é ele;
@@ -2950,93 +2949,49 @@ heurística antiga, e nenhum executor foi adaptado. Ligar o runtime é outra mis
 
 ---
 
-# PARTE XXI · O QUE O CAMPO MEDE, E ATÉ ONDE SE PODE IR BUSCÁ-LO
+# PARTE XXI · O QUE A FONTE MEDE, E ATÉ ONDE SE PODE IR BUSCÁ-LO
 
-> **Emenda V1.5 — PROPOSTA** (2026-09-26). Duas leis, com o **texto mínimo redigido pelo bot
-> Luciano** (ESTUDO-ORQUESTRACAO-24H-LUCIANO, §6 e §8-R5 — documento de trabalho da coordenação, fora do Git) e a prova medida
-> nesta casa. **Não é lei em vigor enquanto o dono não a aprovar**: o `LAW_STATUS` abaixo é o que
-> ela terá **depois** da aprovação, e o coordenador só a instala com ela. A implementação é
-> `ABSENT` nas duas.
+> **Emenda V1.5 — PROPOSTA.** Em vigor só com a aprovação do dono. Texto mínimo das regras: bot Luciano.
+> Origem: decisões do dono D85 e D88 (o registo está no `docs/decisoes/DIARIO-DE-DECISOES.md`; o aprendizado de
+> engenharia no know-how). Esta parte guarda só a **regra**; nenhum dado de campo, nenhuma medição do dia.
 >
-> Nasceram de duas decisões do dono — **D85** (pesquisadores e sinal precoce) e **D88** (contorno
-> técnico de acesso a material público) — e do ALINHAMENTO COLLECTION → INTELLIGENCE, com as
-> correções que o bot fez à matriz de lacunas (secção F): a espécie da afirmação é **por claim**;
-> `STUDY_LOCATION`/`STUDY_PERIOD` começam no claim/`FATO`, não em colunas novas; fontes
-> científicas além do artigo e a lista de núcleos italianos são **operação**, não lei; e a D85 é
-> prioridade operacional mais uma clarificação, **não uma verdade universal sobre pesquisadores**.
->
-> **O QUE NÃO VIROU LEI, E PORQUÊ.** A lista-mestra MUR, IRIS/Cineca, ORCID/OpenAlex/Crossref e a
-> prioridade dos pesquisadores são **ferramentas e prioridades de agora** — vivem no know-how
-> (§222). O que a D85 tem de duradouro já está na casa: pessoa, instituição, estudo, modelo e
-> canal são identidades distintas (`COL-LAW-009`, `COL-LAW-034`); identidade não é expertise nem
-> local do estudo (`INT-LAW-065`, `INT-LAW-102`); o canal público de um pesquisador entra como
-> endpoint/fonte pela porta canónica (`COL-LAW-205`, `COL-LAW-042`). E a **D87** — descobrir
-> perfis é do bot de fontes guiado pela Intelligence, e o Scrap captura — é aplicação de
-> `COL-LAW-207`, `COL-LAW-208`, `COL-LAW-011`, `INT-LAW-020`, `INT-LAW-151` e `INT-LAW-290`.
->
-> ```
-> PROPOR UMA LEI NÃO É PÔ-LA EM VIGOR.
-> E PÔ-LA EM VIGOR NÃO É IMPLEMENTÁ-LA.
-> ```
+> **Aplicação de leis que já existem, sem lei nova:** pessoa, instituição, estudo, modelo e canal são identidades
+> distintas (`COL-LAW-009`, `COL-LAW-034`); o canal público de uma pessoa entra como endpoint pela porta canónica
+> (`COL-LAW-205`, `COL-LAW-042`); descobrir que perfis e canais seguir é do registo de fontes, guiado pelo retorno
+> da Intelligence, e o executor captura sem escolher (`COL-LAW-207`, `COL-LAW-208`, `COL-LAW-011`; do lado da
+> Intelligence, `INT-LAW-020`, `INT-LAW-151`, `INT-LAW-290`).
 
 ## COL-LAW-219 · MEDIÇÃO DECLARADA NÃO VIRA RESUMO
 
-**REGRA** (texto do bot Luciano). Um claim quantitativo deve preservar os valores e a sequência
-declarada, unidade, denominador, método/amostragem, população observada, tempo, lugar, espécie
-da afirmação da fonte e proveniência até o trecho.
+**REGRA.** Um claim quantitativo deve preservar os valores e a sequência declarada, unidade, denominador,
+método/amostragem, população observada, tempo, lugar, espécie da afirmação da fonte e proveniência até o trecho.
 
-**NÃO DEVE** (texto do bot Luciano):
+**NÃO DEVE:**
 
 - substituir 1,4,11,29 por «crescendo»;
 - promover previsão, recomendação, modelo ou cenário da fonte a observação;
 - preencher valor ausente;
 - confundir espécie do claim com classe geral da fonte.
 
-**A ESPÉCIE DA AFIRMAÇÃO** é do **trecho**, e sai da marca que a fonte escreveu:
-`OBSERVACAO` («si segnalano catture») · `PREVISAO` («le previsioni indicano») · `MODELO`
-(«secondo il modello») · `RECOMENDACAO` («si consiglia», «soglia di intervento») · `CENARIO` ·
-`HIPOTESE` · e `UNKNOWN` quando a frase não marca. **NÃO É** o `SOURCE_DECLARED_EVIDENCE_CLASS`,
-que é do contrato de fonte, em texto livre (`COL-LAW-043`: `DECLARADO PELA FONTE ≠ MEDIDO NO
-DOCUMENTO`). E um cabeçalho de tabela que não se leu deixa a coluna `NAO SEI` — não se adivinha o
-que ela mede.
+**A ESPÉCIE DA AFIRMAÇÃO** é do trecho: `OBSERVACAO` · `PREVISAO` · `MODELO` · `RECOMENDACAO` · `CENARIO` ·
+`HIPOTESE` · `UNKNOWN` quando a frase não marca. **NÃO É** o `SOURCE_DECLARED_EVIDENCE_CLASS`, que é do contrato
+de fonte (`COL-LAW-043`). Uma coluna cujo cabeçalho não se leu fica `NAO SEI`. O zero declarado é valor
+(`COL-LAW-214`). A tendência é da Intelligence: a Collection entrega os pontos, não a curva.
 
-**POR QUÊ.** Um resumo feito na entrada é uma interpretação sem dono e sem volta: o valor original
-some, e o erro do resumo fica permanente (a mesma razão da `COL-LAW-203`). E é nesta série que mora
-o **sinal precoce** — aparece nos números antes de aparecer no alerta.
+**LIGA-SE A** `COL-LAW-043` · `COL-LAW-202` · `COL-LAW-203` · `COL-LAW-214`.
 
-**MEDIDO** (26/09/2026, sem rede, no que já estava guardado):
-
-```
-ACERVO    16 documentos com monitorização · 250 linhas extraídas
-          69 séries, 66 com número                    (SINAL-PRECOCE-SERIES.md)
-IT-T3-002 Salerno   por AZIENDA/LOCALITÀ, ~14 dias
-          Angri · agrumi · Ceratitis capitata   «n. 4 catture» → «n. 40 catture»
-          Angri · agrumi · Prays citri          «n. 0 catture» → «n. 0 catture»
-IT-T3-010 APOL Puglia  por COMPRENSORIO, semanal — o cabeçalho é IMAGEM: colunas NAO SEI
-IT-T3-005 Terre dell'Etruria  «Infestazione attiva» (%) por ponto e data — público;
-          «Catture adulti: dato per utenti registrati» — atrás de login, fora
-```
-
-> ⚠️ A primeira leitura escreveu «*Prays citri* 4 → 40». **Estava errada**: o salto é da
-> *Ceratitis capitata*, e a *Prays citri* ficou em 0. Só foi corrigível porque a linha original
-> estava guardada — que é o que esta lei exige.
-
-**LIGA-SE A** `COL-LAW-043` (`FATO` preserva o declarado) · `COL-LAW-202` (o claim; `TARGET`) ·
-`COL-LAW-203` (valor original) · `COL-LAW-214` (o zero declarado é valor).
-
-**ORIGEM.** `ARCHITECTURAL_DECISION` (D85 · ALINHAMENTO B2/B3/B8 · texto do bot Luciano) · **LAW_STATUS** `CANONICAL` — **só depois da aprovação do dono** · **IT** `ABSENT`
+**ORIGEM.** `ARCHITECTURAL_DECISION` (D85) · **LAW_STATUS** `CANONICAL` — **só depois da aprovação do dono** · **IT** `ABSENT`
 
 ---
 
 ## COL-LAW-220 · MATERIAL PÚBLICO E FRONTEIRA DE ACESSO
 
-**REGRA** (texto do bot Luciano). Material público é o conteúdo substancialmente idêntico que uma
-pessoa não identificada e não autenticada recebe, sem conta, assinatura, pagamento ou direito
-individualizado. Para esse material, a rota pode usar navegador real, JavaScript, compatibilidade
-de headers/fingerprint e fallback técnico, inclusive proteção anti-automação, desde que não
-atravesse fronteira de autorização.
+**REGRA.** Material público é o conteúdo substancialmente idêntico que uma pessoa não identificada e não
+autenticada recebe, sem conta, assinatura, pagamento ou direito individualizado. Para esse material, a rota pode
+usar navegador real, JavaScript, compatibilidade de headers/fingerprint e fallback técnico, inclusive proteção
+anti-automação, desde que não atravesse fronteira de autorização.
 
-**PODE** (texto do bot Luciano):
+**PODE:**
 
 - navegador real/headless e JavaScript;
 - rota técnica alternativa que entregue o mesmo conteúdo público;
@@ -3044,7 +2999,7 @@ atravesse fronteira de autorização.
 - tratamento de Cloudflare/Turnstile sem conta, credencial ou serviço pago;
 - retry dentro do teto e do circuit breaker.
 
-**NÃO DEVE** (texto do bot Luciano):
+**NÃO DEVE:**
 
 - atravessar paywall, assinatura ou conta paga;
 - usar login, conta gratuita ou cookie de sessão sem nova decisão do dono;
@@ -3052,54 +3007,27 @@ atravesse fronteira de autorização.
 - usar solver humano/pago de CAPTCHA;
 - usar proxy residencial pago sem aprovação;
 - ignorar teto, VPN, ritmo ou minimização de dado pessoal;
-- chamar de público conteúdo que só aparece a usuário autenticado, em cache, snippet ou para
-  terceiro autorizado.
+- chamar de público conteúdo que só aparece a usuário autenticado, em cache, snippet ou para terceiro autorizado.
 
-**ROBOTS** (texto do bot Luciano, **D91**, 26/09 22:30 — substitui «não ignorar robots»): **respeitar robots no
-crawling comum; API pública oficial pode operar com contrato documentado, sem login/paywall, respeitando termos, teto,
-RAW e proveniência.** O `robots.txt` **não é** barreira técnica da D88: em páginas comuns continua regra obrigatória. A
-exceção é só a API pública **oficial**, feita para comunicação automática (ex.: ORCID `/v3.0/expanded-search`,
-OpenAlex, Crossref), onde vale o contrato, os termos e os limites **da API** e não o robots genérico do host. **Não vale
-para qualquer site.**
+**ROBOTS.** Respeitar robots no crawling comum; API pública oficial pode operar com contrato documentado, sem
+login/paywall, respeitando termos, teto, RAW e proveniência. Não vale para qualquer site.
 
-**PROVA** (texto do bot Luciano): URL, instante, estado anônimo, rota técnica, desafio encontrado,
-robots/política, custo, teto do domínio, RAW e lineage.
-
-**O QUE MUDA, E O QUE NÃO.** A D88 do dono (26/09 ~19:20) substitui a proibição de «contorno de
-acesso» que vivia nas decisões D16–D24:
-
-| antes | com esta lei |
-|---|---|
-| D16: não autoriza «contorno de login/robots» | anti-automação de material público: **pode**; login: **não**; robots: respeitado no crawling comum — só a API pública oficial, com contrato documentado, segue os termos dela (D91) |
-| D23 · D24: «NÃO contornar login wall / CAPTCHA / bloqueio» | bloqueio **anti-automação**: pode; **login wall** e **solver de CAPTCHA pago**: não |
-| código (`coleta/scrap_http.py`, `coleta/social_rotas.py`): «não finge ser navegador de gente», «nunca uma tentativa mais esperta» | reescrito para citar esta lei; o **comportamento não mudou** (ver abaixo) |
-| D17.3 · D24: nenhuma conta pessoal | **igual** |
-
-**ORIGEM ≠ PROGRAMA.** A D88 abre o bloqueio pelo **programa** — o que o servidor vê de quem pede:
-agente, cabeçalhos, impressão digital, JavaScript. **Não** abre o bloqueio pela **origem** — o IP.
+**ORIGEM ≠ PROGRAMA.** Esta lei abre o bloqueio pelo **programa** (agente, cabeçalhos, impressão digital,
+JavaScript); **não** abre o bloqueio pela **origem** (o IP de saída), que continua com o dono.
 
 ```
 BLOQUEIO POR ORIGEM (IP)   ≠   BLOQUEIO POR PROGRAMA (UA · JS · fingerprint)
 ```
 
-Medido pela casa (estudo Scrapling, 26/09): o Piemonte devolve **52 bytes** («Non è possibile
-accedere a questo sito direttamente») a um pedido sem agente de navegador e **6 110 108 bytes** com
-agente de Chrome, `Accept-Language: it-IT` e Referer — bloqueio por programa. A Coldiretti recusa a
-saída da VPN — bloqueio por origem, que esta lei não resolve.
+**PROVA** de cada captura: URL, instante, estado anônimo, rota técnica, desafio encontrado, robots/política,
+custo, teto do domínio, RAW e lineage. Uma captura por rota contornada **NÃO DEVE** parecer uma captura direta.
 
-**A LEI QUE ESTAVA ESCRITA NO CÓDIGO.** Os sítios medidos (grep) e o que se fez em cada um estão em
-`LEI-PESQUISADORES.md` §8. Os dois que **eram lei** — `coleta/scrap_http.py` e
-`coleta/social_rotas.py` — foram reescritos a citar esta lei, e ganharam a política declarada
-(`scrap_http.POLITICA_DE_ACESSO`, `LIGADA_AO_COMPORTAMENTO = False`). O agente é o mesmo e o robots
-continua lido na hora.
+**SUBSTITUI**, para material público, a proibição de «contorno de acesso» das decisões D16–D24 (registo no
+diário). Continuam: nenhuma conta pessoal; login só com o dono.
 
-> Nas próximas 24 h, esta lei **não** autoriza pôr stealth/Turnstile direto no serviço contínuo sem
-> rota nomeada, canário, teto e proveniência (bot Luciano, §6).
+**LIGA-SE A** `COL-LAW-019` · `COL-LAW-026` · `COL-LAW-033` · `COL-LAW-205`.
 
-**LIGA-SE A** `COL-LAW-019` (rota paga) · `COL-LAW-026` (proteção da fonte) · `COL-LAW-033`
-(procedência) · `COL-LAW-205` (o endpoint é substituível, a fonte fica).
-
-**ORIGEM.** `ARCHITECTURAL_DECISION` (D88 · texto do bot Luciano) · **LAW_STATUS** `CANONICAL` — **só depois da aprovação do dono** · **IT** `ABSENT`
+**ORIGEM.** `ARCHITECTURAL_DECISION` (D88 · D91) · **LAW_STATUS** `CANONICAL` — **só depois da aprovação do dono** · **IT** `ABSENT`
 
 ---
 

@@ -116,6 +116,35 @@ Os `.md` de lei e as docstrings mudadas são fonte rastreada pelo mapa: até ele
   Collections, contar só itens únicos e admitidos). Registada no diário (lei existente alterada, COL-LAW-069) e na §222.
 - A reavaliação do bot Luciano sobre esta redação fica para quando ele voltar.
 
+## 9. D109 — cada trecho na sua casa (27/09, 12:58)
+
+```
+CONTENT_CLASSIFICATION (esta missão)
+KNOW_HOW            = YES   §222 reescrita: só o aprendizado de engenharia
+ITALIAN_AGRO_BRAIN  = YES   séries de monitorização, limiares, organismos, lista de docentes — NÃO escritos
+                            nas Bíblias nem no know-how; ficam neste relatório e nos estudos até haver Brain
+BIBLE_CHANGE        = YES   COL-LAW-219 · COL-LAW-220 · emenda COL-LAW-042 · INT-LAW-137 (propostas)
+HANDOFF_ONLY        = YES   este relatório (estado, testes, comando, limites)
+```
+
+| trecho que eu tinha escrito | onde estava | casa correta | feito |
+|---|---|---|---|
+| texto das regras 219, 220, 042-emenda, 137 | Bíblias | BÍBLIA | **fica** (só a regra) |
+| bloco MEDIDO da 219 (Salerno *Ceratitis* 4 → 40, APOL, Terre dell'Etruria, 69 séries) | Bíblia da Coleta | BRAIN (dado de campo) + KNOW-HOW (a lição «PDF, não só HTML») | **tirado** da Bíblia |
+| a nota «a primeira leitura trocou *Prays citri*» | Bíblia da Coleta | KNOW-HOW (lição: conferir correção) | **tirado**; a lição está na §222 sem o organismo |
+| Piemonte 52 bytes × 6 110 108; Coldiretti recusa a VPN | Bíblia (220) | KNOW-HOW (medição de engenharia) | **tirado**; a regra «origem ≠ programa» fica |
+| tabela «antes → com esta lei» (D16/D23/D24) | Bíblia (220) | DIÁRIO de decisões | **encurtada** a uma linha «SUBSTITUI…» |
+| «a lei que estava escrita no código» e «nas próximas 24 h…» | Bíblia (220) | KNOW-HOW / HANDOFF | **tirado** |
+| abertura da PARTE XXI: MUR, IRIS, ORCID, «prioridade desta fase» | Bíblia | KNOW-HOW (ferramentas) / BRAIN (quem são os pesquisadores) | **tirado**; ficam só as leis citadas |
+| «medido: Salerno…» dentro da INT-LAW-137 | Bíblia da Intelligence | BRAIN | **tirado** |
+| histórico V1.5 com contagens e organismos | Bíblia (tabela de versões) | DIÁRIO | **encurtado** |
+| §222: Salerno, APOL, ARIF, Terre dell'Etruria, 278 docentes, 33 universidades, núcleos (UCSC, FEM…) | know-how | BRAIN / HANDOFF | **tirado**; ficam as lições |
+| relatório com números e fontes | `LEI-PESQUISADORES.md` | HANDOFF | fica (não é nenhuma das três casas) |
+
+Verificações depois da limpeza: `valida_biblia` **PASS** (107 leis), portão de contradição da Intelligence **[]**,
+87 testes das Bíblias passam; nas duas Bíblias e na §222, **0** ocorrências de Salerno, *Ceratitis*, *Prays*, APOL,
+Etruria, Coldiretti, MUR ou «278».
+
 ## EM PALAVRAS SIMPLES
 - **O que eu fiz:** escrevi na "constituição" da coleta e na da inteligência três regras novas, com o texto que o bot
   Luciano redigiu. Elas ainda **não valem**: só entram quando o dono aprovar.

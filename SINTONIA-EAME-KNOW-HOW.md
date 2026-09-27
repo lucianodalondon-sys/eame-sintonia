@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-26 — **§222** (LEI-PESQUISADORES, D85 · D87 · D88, `lei-pesquisadores-v1` sobre o vivo `dc0de726`): o pesquisador é **prioridade desta fase** (MUR «Cerca Università» = lista-mestra universitária; medido 278 docentes de 07/AGRI-05); a descoberta de perfis é do bot de fontes guiado pela Intelligence, e o Scrap captura; o **sinal precoce já estava no acervo** (69 séries, 66 numéricas; Salerno *Ceratitis capitata* 4 → 40 capturas — não *Prays citri*); e o material **público** pode ser alcançado por outra rota técnica, o pago e o autenticado nunca. Leis **propostas** (texto do bot Luciano, em vigor só com o dono): `COL-LAW-219` medição não vira resumo · `COL-LAW-220` material público e fronteira de acesso · `INT-LAW-137` modelo e condição de risco não provam ocorrência.
+**Última atualização material:** 2026-09-27 — **§222** (LEI-PESQUISADORES, D85 · D87 · D88 · D91 · D94, com a separação da D109): olhar só o HTML escondia o sinal precoce que está nos PDFs; resumir uma série na entrada destrói a antecipação; a lista-mestra oficial prova a pessoa; a lei antiga vivia também nas docstrings do Scrap; bloqueio por origem ≠ por programa; o item não espera pela escada da fonte. Regras **propostas**: `COL-LAW-219`, `COL-LAW-220`, emenda à `COL-LAW-042`, `INT-LAW-137`.
 **Última atualização material:** 2026-09-23 — **§198** (REELS-FUNCIONANDO, bloco 7, `scrap-portas-v1`): a medição também é uma peça — base de comparação sem `.git` dá verde falso (`git ls-files` responde zero); uma corrida de teste reescreveu um artefacto rastreado (`RUN-MANIFEST.json`) e isso apareceu como 23 falhas novas; a gaveta não rastreada `data/raw/REEL-MIDIA` faz a prova correr em vez de saltar (900 s vs 11 s); e depois da D22 a prova que não mede a plataforma não pode pagar pela rede — os metadados declaram-se no fixture. `NEW_FAILURES_BY_NAME = 0` medido por nome contra `6ea92f6a`. **Antes, §197:** a D22 autorizou a coleta de REELS do Instagram por URL directa, sem login, sem conta e sem rota paga; a matriz passou a `OWNER_AUTHORIZED=SIM` com `PLATFORM_POLICY_STATUS=DISALLOWED` e a rota ganhou o limite `PUBLIC_REEL_BY_URL_ONLY`; canário real 3/3 ponta a ponta, US$ 0. **Antes, §196:** as duas portas do Scrap.
 **Última atualização material:** 2026-09-23 — **§198** (LINKEDIN-VIDEOS · D24: o VÍDEO de uma PESSOA do agro passou a ser adquirido pelo Scrap com autorização ESCRITA do dono, e a medição mostrou que a porta da pessoa é DUAS — o perfil responde 999/authwall e não se contorna, e a página do POST público responde 200 e é por ali que o vídeo se lê; 1 MP4 e 1 legenda reais, US$ 0, dois egressos concordando, e o que fica declarado: a metade italiana não foi encontrada na amostra, a fase nas DUAS portas ainda não existe, e a tela de pessoas nomeadas continua do dono dela, a revisão jurídica). **Antes, §196** (SCRAP-PORTAS-V1, `origin/unificacao-v1` @ `77077dee` → branch `scrap-portas-v1` @ `f5c49473`): as DUAS PORTAS do SCRAP passaram a ter prova uma contra a outra (`tests/test_as_duas_portas_do_scrap.py`, 25 provas) e as duas passaram a consultar a MESMA lei (`leis/social_matriz.py::decisao`). Fechado o `CHECK` que não perguntava à lei (SOC1: `CAN_COLLECT_NOW` no Instagram enquanto a matriz dizia `ROUTE_NOT_ALLOWED`), a recusa datada de `yt-alvos|yt-transcrever` («a matriz nao declara capacidade de BYTES para YOUTUBE» — falso desde 2026-09-19) e as oito fases que existiam no PEDIDO sem porta operacional. O `DOCUMENT_ID` que o contrato declara passou a ser materializado pelo dono do contrato (`IT-T8-001` → `AGRONOTIZIE:YT:{VIDEO_ID}`), fail-closed em quatro casos. A cadeia do som está provada offline ponta a ponta — YouTube audio → RAW → DERIVED (texto pelo dono único do ASR) → ingresso → Admissão com a régua multilingue — em `tests/test_cadeia_do_audio_offline.py` (11 provas, `NETWORK_CALLS = 0`, `ASR_REAL = NOT_RUN`). Decisões do dono aplicadas: **D19** (Instagram `POLICY_BLOCK`; as três fases do Reel CONSTRUÍDAS e RECUSADAS pela matriz) e **D20** (metadados da Data API com prazo de 30 dias, `RENEW_OR_DELETE`). **Antes, §140**, que fecha os dois blockers deixados pelo §139: `import fcntl` no topo de `ferramentas/reel_transcricao.py` (10 módulos de tests/ não carregavam em Windows) e `tests/test_comunicacao.py` a rebentar no import porque `comunicacao_universo.montar()` devolvia um universo VAZIO sem `data/samples/COMPETITOR-CROSSWALK.json` (ficheiro que nunca esteve no Git) — e a linha de comando ESCREVIA esse vazio por cima do universo versionado. Cura A: o cadeado do lote passou a ser o mesmo da admissão (flock em POSIX, msvcrt LK_NBLCK sem teto em Windows), BLOQUEANTE e entre processos, provado com processos filhos. Cura B: sem crosswalk (ou ilegível, ou todo a zero) `CrosswalkIndisponivel`, exit 2, ZERO mutação em disco; o teste passa uma fixture sintética por `montar(caminho=...)`. Resultado medido em processos novos (py 3.12 + PyYAML por PYTHONPATH, Windows): `TestLoader.errors = []`, `TEST_COUNT_CURRENT` = `4.759` DERIVADO, `--sync` reescreveu 8 documentos, dois `--check` com `DRIFT = 0`; sem PyYAML continua NOT_MEASURABLE (falha fechada). Suíte inteira comparada pelo nome: NEW_FAILURES = 0 · NEW_ERRORS = 0 · 20 nomes saíram do vermelho. Red team 0 blockers. `MANUAL_METRIC_STAMP_BLOCKER = CLOSED` · `METRIC_STABILITY_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO` (trunk 9d6dcbbd intocado) · `BIG_COLLECTION = NÃO AUTORIZADA`. O PROMPT continua a dizer «721 testes» (decisão do dono; test_handoff segue vermelho por isso). **Antes, §139** (ver o aviso no fim desta linha). **§138**: o primeiro `COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK` deu **FAIL** (candidato `d37cb192`, trunk `9d6dcbbd` **intocado**) por DOIS blockers que não são do fluxo: um carimbo `<!--M:TEST_COUNT_CURRENT-->` digitado à mão fora do dono (`4414`, commit `8cf2a272`) e um teste que ainda exigia o contrato antigo `psql -c` quando o runtime manda o SQL por stdin com `-f -`. Fecho cirúrgico nesta secção: o dono corrido (8 documentos → `4.478`, drift zero) e o teste alinhado ao contrato real (red team 20 mutantes / 20 mortos; independente do psql da máquina). `INTEGRATION_BLOCKERS_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO`. Achado novo, NÃO corrigido, entregue à coordenação: `test_canonico` e `test_handoff` exigem o número SEM ponto de milhar e o dono escreve COM ponto — é esse conflito que levou alguém a digitar `4414`. `BIG_COLLECTION = NÃO AUTORIZADA`. **⚠️ CORRIGIDO PELO §139 (2026-09-17, mesmo dia):** a verificação independente derrubou o `INTEGRATION_BLOCKERS_FIX = PASS` — o «drift zero» do §138 era de UM ambiente; noutro processo o dono media `4.521` e o drift eram 9 ficheiros. A causa está provada (dois módulos com `import yaml`, 45 casos − 2 fantasmas = 43) e o dono passou a falhar fechado: qualquer módulo de `tests/` que não carregue ⇒ `TEST_COUNT_CURRENT = NOT_MEASURABLE` e `--sync` recusa. Nesta máquina a suíte NUNCA carrega inteira (10 módulos por `fcntl`, 1 por amostra que nunca esteve no Git) — logo `INTEGRATION_BLOCKERS_FIX = FAIL` até um ambiente completo medir e sincronizar. **⚠️ FECHADO PELO §140 (2026-09-17, mesmo dia):** as duas curas foram feitas, a suíte carrega inteira com PyYAML e a contagem foi medida, sincronizada e conferida em processos novos.
 **§134 (2026-09-17):** o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
@@ -22490,97 +22490,50 @@ volta, 1 reparo por fonte, e não faz discovery enquanto houver reparo pendente.
 
     UMA REGRA QUE REABRE O QUE O WORKER FECHA SÓ VALE COM O WORKER QUE A ESCREVEU.
 
-# §222 · O PESQUISADOR É PRIORIDADE DE AGORA, O BOLETIM NÃO É O PRIMEIRO SINAL, E O PÚBLICO NÃO É O PAGO
+# §222 · O QUE APRENDEMOS A ESCREVER LEI PARA O SINAL DO CAMPO, PARA A PESSOA-FONTE E PARA O ACESSO
 
-> LEI-PESQUISADORES-E-SINAL-PRECOCE (lei-pesquisadores-v1, 26/09/2026, sobre o vivo `dc0de726`). Ordens do dono:
-> **D85** (pesquisadores), **D87** (quem descobre perfis), **D88** (contorno técnico de acesso). Texto mínimo das leis:
-> bot Luciano (ESTUDO-ORQUESTRACAO-24H §6 e §8-R5), com as correções da matriz de lacunas (secção F). Relatório:
-> `LEI-PESQUISADORES.md`. **Leis PROPOSTAS** (em vigor só com a aprovação do dono): `COL-LAW-219`, `COL-LAW-220`
-> (Bíblia da Coleta V1.5) e `INT-LAW-137` (Bíblia da Intelligence V0.4). Implementação: `ABSENT` nas três.
+> LEI-PESQUISADORES (lei-pesquisadores-v1, 26–27/09/2026). Decisões do dono: D85, D87, D88, D91, D94. Regras
+> **propostas** nas Bíblias (em vigor só com o dono): `COL-LAW-219`, `COL-LAW-220`, emenda à `COL-LAW-042`,
+> `INT-LAW-137`. Relatório e evidência: `LEI-PESQUISADORES.md`. **Esta secção guarda só o aprendizado de
+> engenharia** (D109): os dados de campo que motivaram as regras são do Italian Agro Brain, e o estado do dia é handoff.
 
-**O PEDIDO, NAS PALAVRAS DO DONO.** «Na Itália não tem uma coisa estilo Lattes? … precisamos também seguir esses
-pesquisadores e achar as redes sociais, por onde eles publicam no dia a dia, isso é ouro pro Sintonia.»
+**CONTENT_CLASSIFICATION desta missão:** KNOW_HOW = YES (esta secção) · BIBLE_CHANGE = YES (as regras propostas) ·
+ITALIAN_AGRO_BRAIN = YES (as séries de monitorização, os limiares e a lista de docentes — **não escritos aqui**) ·
+HANDOFF_ONLY = YES (o relatório da missão).
 
-**O QUE É OPERAÇÃO (e por isso vive aqui, e não na Bíblia).**
-- **Pesquisador é prioridade desta fase**, não verdade universal: é a fonte do porquê (estudo → relação causal →
-  modelo com limiares) e muitas vezes do sinal precoce — mas não é «sempre a melhor fonte».
-- **O «Lattes italiano» é o MUR «Cerca Università»** (`cercauniversita.mur.gov.it`, público, sem login, exporta
-  por GSD/SSD) — só para universidade. Produção: **IRIS** (Cineca). Pessoa ↔ obras: **ORCID · OpenAlex · Crossref**.
-  Fora do MUR (CNR, CREA, FEM) cada instituição tem a sua lista — **não medida**.
-- **Medido:** MUR, GSD **07/AGRI-05** = **278 docentes, 33 universidades** — 129 de AGRI-05/A (entomologia, ex
-  AGR/11) e 149 de AGRI-05/B (patologia vegetal, ex AGR/12); 0 nomes repetidos dentro da lista; **7 linhas com a
-  coluna SSD2015 desalinhada** (setor antigo NAO SEI). Nas obras T6 já coletadas: **1 466 pessoas**, ORCID em ~30%.
-- Identidade de pessoa = lista-mestra + instituição + setor; nome igual sem os outros dois = AMBIGUO; homónimos
-  nunca se fundem (`COL-LAW-034`). O canal público de um pesquisador entra como endpoint/fonte **pela porta
-  canónica** (`COL-LAW-205`, `COL-LAW-042`), com minimização de dado pessoal.
-- **B10** (fontes científicas além do artigo: tese, dataset, código, DSS, *proceedings*) e **B11** (núcleos
-  italianos: UCSC Piacenza, FEM, UniCT, UniTO, CREA, AIE) são **aquisição e registo operacional** — nunca Bíblia,
-  nunca whitelist.
-
-**DE QUEM É A DESCOBERTA (D87).** Descobrir QUE perfis, contas e canais seguir é do **bot de fontes (Source
-Curator)**, guiado pelo retorno da **Intelligence** (o que rendeu; que cultura, praga, região ou pessoa falta). O
-**Scrap captura**, não escolhe — `instagram.profile.discovery` PARTIAL no Scrap não é limite da coleta. Ciclo:
-Intelligence diz o que falta → Fontes descobrem e qualificam (porta canónica, prova de identidade) → Scrap captura
-→ Sala → Intelligence mede o rendimento → volta. **Não é lei nova**: já o dizem `COL-LAW-207` (descobrir ≠ buscar),
-`COL-LAW-011` (o Scrap não é segundo cérebro), `COL-LAW-208` (registo de fontes = memória), `INT-LAW-020`/`151` (a
-Intelligence pede pela Collection, não escolhe rota) e `INT-LAW-290` (a performance recomenda, a Collection decide).
-
-**O SINAL PRECOCE JÁ ESTAVA NO ACERVO (medido sem rede).**
-- A primeira medida olhou só o HTML e concluiu «zero séries». **Superada**: nos PDFs e no HTML de monitorização há
-  **69 séries, 66 com número, em 16 documentos** (`SINAL-PRECOCE-SERIES.md`, fora do Git).
-- **IT-T3-002 Salerno** — por azienda e località, a cada ~14 dias: ***Ceratitis capitata*** «n. 4 catture» → «n. 40
-  catture» (agrumi, Angri); *Prays citri* 0 → 0. ⚠️ O relatório de origem escreveu primeiro «*Prays citri* 4 → 40»,
-  e o pedido desta missão ainda trazia essa versão: **o bicho estava trocado, os números não**. Conferir a correção
-  antes de repetir um número.
-- **IT-T3-010 APOL Puglia** — mosca da azeitona por comprensorio, toda semana; o cabeçalho da tabela é **imagem**, e o
-  que cada coluna mede é **NAO SEI** (não se adivinha).
-- **IT-T3-008 ARIF Puglia** — observação escrita e limiares («4-5% di infestazione attiva»).
-- **IT-T3-005 Terre dell'Etruria** — «Infestazione attiva» (%) por ponto e data é **pública**; as capturas de adultos
-  são «dato per utenti registrati» → **atrás de login, fora** (a D88 não abre login).
-- **ERSA FVG** (IT-T3-027) e **Umbria** (IT-T3-053) — boletins em PDF por cultura e semanais; conteúdo NAO SEI até
-  se lerem.
-
-**O ACESSO (D88) — `COL-LAW-220`, proposta.** O critério passou a ser **público ≠ autorizado**: material que uma
-pessoa não identificada e não autenticada recebe pode ser alcançado por navegador real, JavaScript, fingerprint de
-navegador ou outra rota técnica, inclusive anti-automação (Cloudflare/Turnstile); **nunca** paywall, conta paga,
-login, cookie de sessão, credencial de terceiro, solver de CAPTCHA pago ou proxy pago sem o dono; **nunca** ignorar
-teto, VPN, ritmo ou minimização. **Robots (D91):** respeitado no crawling comum; só a API pública
-**oficial** (ORCID `/v3.0/expanded-search`, OpenAlex, Crossref), com contrato documentado, segue os termos e limites dela
-em vez do robots genérico do host — sem login/paywall, com teto, RAW e proveniência. Não vale para qualquer site. Prova de cada captura: URL, instante, estado anónimo, rota técnica, desafio
-encontrado, custo, teto, RAW e lineage. **Bloqueio por origem (IP) ≠ bloqueio por programa (UA/JS/fingerprint)**: a
-D88 só abre o segundo (Piemonte: 52 bytes sem agente de navegador, 6 110 108 com ele; Coldiretti recusa a saída da
-VPN). A lei antiga que estava **escrita no código** (`coleta/scrap_http.py`, `coleta/social_rotas.py`: «não finge
-ser navegador de gente») foi reescrita no texto, **sem mudar o comportamento**. Nas próximas 24 h não se liga
-stealth no serviço contínuo sem rota nomeada, canário, teto e proveniência.
-
-**AS LEIS PROPOSTAS, E O QUE JÁ ERA LEI.**
-- `COL-LAW-219` · medição declarada não vira resumo — valores, sequência, unidade, denominador, método, população,
-  tempo, lugar, **espécie da afirmação** (por claim; nunca o `SOURCE_DECLARED_EVIDENCE_CLASS`, que é da fonte).
-- `COL-LAW-220` · material público e fronteira de acesso (D88).
-- `INT-LAW-137` · regra de modelo e condição de risco não provam ocorrência; sinal precoce, confirmação, alerta,
-  recomendação e intervenção são papéis distintos (não uma escada obrigatória); estudo pequeno de resistência não
-  vira perda geral de eficácia; recomendação da fonte não é ação do SINTONIA.
-- **Já eram lei, e ficaram citadas:** `COL-LAW-043`/`202`/`203`/`214`/`034`/`205`/`207`/`208`/`011`/`019`/`026`/
-  `033` e `INT-LAW-020`/`024`/`030`/`035`/`065`/`095`/`102`/`131`/`151`/`272`/`290`.
-- As lacunas B4–B7 eram **parciais**, não ausentes; B6 cabe no `CAP-FUT` como está; B9 (`STUDY_LOCATION`/`PERIOD`)
-  começa no claim/`FATO`, não em colunas novas.
-
-**O ITEM NÃO ESPERA PELA FONTE (D94 · D94-b, 27/09) — emenda proposta à `COL-LAW-042`.** O dono viu o sistema
-«travado»: nenhum post, reel ou vídeo de pesquisador na Sala. A escada da fonte (candidata → … → automática) passa a
-provar só a **coleta recorrente**; o **primeiro item** achado por assunto ou por pessoa entra na Admissão com a fonte
-ainda CANDIDATA, desde que `SOURCE_ID`, `ITEM_ID`, RAW, rota, corrida e proveniência estejam provados — e isso **não
-promove** a fonte. Riscos que a emenda nomeia: snippet é só descoberta (guardar o conteúdo real); nome ≠ perfil ≠ pessoa;
-três portas ≠ três Collections; contar só itens únicos, admitidos e com identidade provada. Medida de sucesso (D94):
-itens de redes de pesquisadores **na Sala por dia**.
+**O QUE APRENDEMOS SOBRE O SISTEMA.**
+- **Olhar só o HTML esconde o sinal precoce.** A primeira medida do acervo, só sobre páginas HTML, deu «zero séries»;
+  lendo os PDFs apareceram séries numéricas. Medir uma família de fonte exige ler a **forma** em que ela publica
+  (D42), não só a que o leitor abre por omissão.
+- **Um cabeçalho de tabela que é imagem não se adivinha.** O texto do PDF traz os números sem o nome da coluna: o
+  valor fica, a coluna fica `NAO SEI`. Guardar a linha original é o que torna um erro de leitura corrigível — e houve
+  um (o nome do organismo trocado na primeira leitura; os números estavam certos). **Conferir a correção de um
+  relatório antes de repetir um número dele.**
+- **Resumir na entrada destrói o que se queria ver.** Uma série «1, 4, 11, 29» resumida em «a subir» perde a
+  magnitude e a data de cada ponto — e é aí que está a antecipação. Daí a `COL-LAW-219`.
+- **A lista-mestra oficial é a prova de identidade de pessoa, e tem defeitos de exportação.** A exportação por setor
+  trouxe linhas com uma coluna desalinhada; o setor antigo dessas linhas fica NAO SEI em vez de se corrigir à mão.
+  Ferramentas de obras (ORCID, OpenAlex) ligam pessoa a obra; não provam sozinhas quem é quem.
+- **Descobrir perfis é do registo de fontes, não do executor** (D87): aplicação de leis que já existiam
+  (`COL-LAW-207`, `208`, `011`; `INT-LAW-020`, `151`, `290`) — não precisou de lei nova.
+- **A lei antiga também vive no código.** A proibição de «fingir ser navegador» estava escrita na docstring de
+  `coleta/scrap_http.py` e `coleta/social_rotas.py`. Mudar a regra (D88) exigiu reescrever esse texto — sem mudar o
+  comportamento, provado com os testes do Scrap iguais na base e no ramo.
+- **Bloqueio por origem (IP) ≠ bloqueio por programa (UA/JS/fingerprint).** Tratar os dois como «BLOCKED» esconde
+  que um se resolve com a rota certa e o outro não (estudo Scrapling). A D88 só abre o segundo.
+- **O item não precisa de esperar pela fonte** (D94): a escada da fonte prova a coleta recorrente, não o primeiro
+  item. Tratar as duas coisas como uma só travou a entrada de material de pessoas.
 
 **ARMADILHAS.**
-- **Uma primeira redação tinha nove leis** (COL-LAW-701..704, INT-LAW-310..315). Foi substituída pelas três do bot:
-  mais curtas, e alinhadas com as correções. **Escrever mais lei não é escrever melhor lei** — e o que é ferramenta
-  de hoje (MUR, ORCID) envelhece dentro de uma constituição.
+- **Escrever mais lei não é escrever melhor lei.** Uma primeira redação tinha nove leis (COL-LAW-701..704,
+  INT-LAW-310..315); foi substituída pelas três do bot, mais curtas. Ferramenta de hoje dentro de uma constituição
+  envelhece.
+- **Bíblia não guarda o diário (D109).** A primeira versão das regras trazia medições, nomes de fontes e contagens do
+  dia; saíram para o diário, o know-how e o Brain. Na Bíblia fica a regra final.
 - **Proposta não é lei.** O verificador da Bíblia da Coleta só conhece `LAW_STATUS CANONICAL`; a condição «só depois
   da aprovação do dono» vai escrita ao lado, e a instalação é que a respeita.
-- **Número de lei não se reusa.** A faixa `COL-LAW-6xx` já foi usada por um ramo lateral (Card Contract, 601..617).
-  219, 220 e 137 foram medidos livres em 559 pontas de ramo.
+- **Número de lei não se reusa.** A faixa `COL-LAW-6xx` já foi usada por um ramo lateral; 219, 220 e 137 foram
+  medidos livres em 559 pontas de ramo.
 - **Subir a versão da Bíblia da Intelligence mexe no registo** (`controle/AUTORIDADES-CANONICAS.json`): cabeçalho e
-  cartão têm de dizer a mesma versão, senão o motor carimba NAO SEI; e só pode haver **um** veredito CORRENTE.
-- **Mudar texto no código também move o carimbo do mapa**: os `.md` de lei e as docstrings são fonte rastreada.
+  cartão têm de dizer a mesma versão, e só pode haver **um** veredito CORRENTE.
+- **Texto no código e `.md` de lei são fonte rastreada pelo mapa**: mudar-lhes uma frase move o carimbo.

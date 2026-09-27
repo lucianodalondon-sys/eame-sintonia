@@ -748,10 +748,8 @@ Pattern histórico informa hipótese, não determina futuro.
 
 ## INT-LAW-137 — Regra de modelo e condição de risco não provam ocorrência
 
-> **PROPOSTA (V0.4, 2026-09-26)** — texto mínimo do bot Luciano; lei só depois da aprovação do
-> dono; `IMPLEMENTATION_STATUS = ABSENT`. Origem: D85 e o ALINHAMENTO COLLECTION →
-> INTELLIGENCE (lacunas B1, B4, B5, B7 — **parciais**, não ausentes: causalidade, `CAP-SCI`,
-> `CAP-WIN`, `CAP-FUT`, crossing e forecast ≠ fact já existiam).
+> **PROPOSTA (V0.4)** — texto mínimo do bot Luciano; lei só depois da aprovação do dono;
+> `IMPLEMENTATION_STATUS = ABSENT`. Origem: D85 (registo no diário de decisões).
 
 **REGRA.** `MODEL_RULE` declara entradas, saída, cultura/organismo/geografia de validade,
 horizonte, método, desempenho, limitações e incerteza. Seu crossing com clima, fenologia, tempo e
@@ -767,9 +765,8 @@ confirmação, alerta, recomendação e intervenção permanecem papéis distint
 - transformar recomendação da fonte em ação do SINTONIA.
 
 Os cinco papéis **não são uma escada obrigatória**: nem todo caso passa pelos cinco, e nenhum
-deles é um objeto novo (`INT-LAW-030`, `INT-LAW-272`). O boletim fitossanitário não é o primeiro
-sinal — a contagem da armadilha pode chegar antes (medido: Salerno, *Ceratitis capitata*
-4 → 40 capturas em 14 dias, `COL-LAW-219`).
+deles é um objeto novo (`INT-LAW-030`, `INT-LAW-272`). O boletim fitossanitário não é por força o
+primeiro sinal: a contagem de monitorização pode chegar antes (`COL-LAW-219`).
 
 **LIGA-SE A** `INT-LAW-095` (correlação ≠ causalidade — esta dá o contrato «mais forte» que ela
 pedia) · `INT-LAW-131` (forecast ≠ fact) · `INT-LAW-035` (hipótese não vira facto por repetição) ·
