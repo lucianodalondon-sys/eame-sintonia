@@ -149,6 +149,24 @@ class C_UmaChamadaSo(unittest.TestCase):
         self.assertNotIn(CHAVE, str(e.exception))
         self.assertIn("API_KEY_SERVICE_BLOCKED", str(e.exception))
 
+    def test_juncao_lote5_o_erro_da_busca_sai_sem_a_chave(self):
+        # LOTE5-INTEGRA (mutante J1-c): a tesoura mora em linha_busca.buscar_consultas, no ponto onde
+        # busca-no-actions encontra a linha-busca. Um transporte que levanta com o endereco (e a chave) na
+        # mensagem nao pode deixar a chave no RESULTADOS.json.
+        def cai(u, c=None):
+            raise RuntimeError("falhou GET %s" % u)
+        d = Path(tempfile.mkdtemp())
+        try:
+            with mock.patch.dict(os.environ, {API.ENV_CHAVE: CHAVE, API.ENV_CX: CX}):
+                rs = LB.buscar_consultas("GOOGLE_CSE", [{"CONSULTA_ID": "Q1", "CONSULTA": "vite peronospora"}],
+                                         cai, d)
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
+        self.assertEqual(1, len(rs))
+        self.assertIn("RuntimeError", rs[0]["ERRO"])
+        self.assertNotIn(CHAVE, json.dumps(rs))
+        self.assertNotIn(CX, json.dumps(rs))
+
 
 class D_OComandoDaLinha(unittest.TestCase):
     def setUp(self):

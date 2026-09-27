@@ -278,6 +278,36 @@ class RawCanonico(unittest.TestCase):
         self.assertNotIn("POUSAR", visto)
         self.assertEqual("SEM_RAW_CANONICO", doc["PAGINAS"][0]["ESTADO"])
 
+    def test_juncao_lote5_colher_pousar_passa_pelo_raw_canonico(self):
+        # LOTE5-INTEGRA (mutante J1-a): `colher --pousar` tem de ir pelo MESMO caminho do `--repousar`
+        # (collection_run + raw_asset antes da Sala), sobre a pasta e a corrida desta colheita. Pousar direto
+        # na Sala era o defeito da sala_de_espera_run_id_fkey.
+        import sala_de_espera as SE
+        chamado = {}
+
+        def repousar(pastas, *, corrida=None, pousar=False, **k):
+            chamado["ARGS"] = (list(pastas), corrida, pousar)
+            return {"POUSADO": {"INSERIDAS": 0}}
+
+        def proibido(*a, **k):
+            raise AssertionError("colher --pousar foi direto a Sala, sem RAW canonico")
+        fila = self.d / "fila-pousar.json"
+        fila.write_text(json.dumps({"DATASET": "t", "LEI": "t", "ESTADOS": {}, "CANDIDATAS": []}), encoding="utf-8")
+        idx = json.loads((FX / "PAGINAS.json").read_text(encoding="utf-8"))
+
+        def falso(url, cab=None):
+            p = idx[url]
+            if p.get("ERRO"):
+                raise type(p["ERRO"], (Exception,), {})(p["PORQUE"])
+            return (FX / p["FICHEIRO"]).read_bytes(), {"CONTENT_TYPE": p["CONTENT_TYPE"]}
+        saida = self.d / "LOTE-POUSAR"
+        res = json.loads((FX / "RESULTADOS.json").read_text(encoding="utf-8"))
+        from unittest import mock
+        with mock.patch.object(self.LR, "repousar", repousar), mock.patch.object(SE, "pousar", proibido), \
+                mock.patch.object(SE, "exigir_canonica", proibido):
+            LB.colher(res, fila, saida, falso, pousar=True, corrida="TESTE-POUSAR")
+        self.assertEqual(([saida], "TESTE-POUSAR", True), chamado["ARGS"])
+
     def test_byte_adulterado_nao_entra(self):
         raw = json.loads((self.saida / "RAW-LINHA-BUSCA.jsonl").read_text(encoding="utf-8").splitlines()[0])
         copia = self.d / "LOTE-ADULTERADO"

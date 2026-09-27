@@ -4594,9 +4594,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/lote5-integra-merge-3320ja",
-    "HEAD": "98756872ab91500ca44c03d6e22f316dddfadaf6",
-    "GENERATED_AT": "2026-09-27T18:19:09+00:00",
-    "SOURCE_TREE_FINGERPRINT": "7003ecfc40f9044a148b13451864bc01eb1fb759d0b73ef3cfb91335ad5d4d54"
+    "HEAD": "62c793c8d1c0664217eaa3935694816f8e99ddd8",
+    "GENERATED_AT": "2026-09-27T18:26:20+00:00",
+    "SOURCE_TREE_FINGERPRINT": "9161599ea5b02661a63ef68d5eb186208cba5e0363f8394cfcf23123b0da3e4f"
   },
   "FAMILIES": [
     {
@@ -117101,7 +117101,7 @@
       "evidence": [
         {
           "file": "tests/test_busca_no_actions.py",
-          "line": 168,
+          "line": 186,
           "snippet": "rc = LB.main([\"linha_busca.py\", *args, \"--saida=%s\" % self.tmp])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
@@ -117117,7 +117117,7 @@
         },
         {
           "file": "tests/test_busca_no_actions.py",
-          "line": 179,
+          "line": 197,
           "snippet": "\"--consultas=%s\" % (RAIZ / \"data\" / \"derivados\" / \"LINHA-BUSCA\" / \"CONSULTAS.json\"), \"--n=3\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
