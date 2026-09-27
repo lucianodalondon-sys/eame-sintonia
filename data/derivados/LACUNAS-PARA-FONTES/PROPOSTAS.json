@@ -1,0 +1,2954 @@
+{
+ "DATASET": "LACUNAS-PARA-FONTES-V1",
+ "REDE": 0,
+ "FILA_LIDA": "..\\source-curator-service-v1\\candidatas\\FONTES-CANDIDATAS.json",
+ "FILA_SHA256": "772b55647a02dc0d2c1026c9ef83e71ccfb41e91c440e345c9bf6daa45300605",
+ "FILA_TAMANHO": 1204,
+ "LACUNAS": {
+  "L1-CULTURA-PRAGA": {
+   "LACUNA": "cultura e praga como CAMPO nos boletins T3",
+   "FERRAMENTAS": [
+    "Finestre Colturali",
+    "Radar delle Opportunita",
+    "Label Intelligence"
+   ],
+   "PROVA": [
+    {
+     "FICHEIRO": "R1 MEDICAO.json",
+     "CAMPO": "PILOTO_CROP.LOST_IN_DERIVATION",
+     "ESPERADO": 5,
+     "MEDIDO": 5,
+     "CONFERE": true
+    },
+    {
+     "FICHEIRO": "R1 MEDICAO.json",
+     "CAMPO": "CROSSINGS_TENTADOS",
+     "ESPERADO": 3,
+     "MEDIDO": 3,
+     "CONFERE": true
+    },
+    {
+     "FICHEIRO": "R1 MEDICAO.json",
+     "CAMPO": "CROSSINGS_POSSIVEIS",
+     "ESPERADO": 0,
+     "MEDIDO": 0,
+     "CONFERE": true
+    }
+   ],
+   "O_QUE_A_FONTE_TEM_DE_TRAZER": "aviso de defesa com cultura + praga/doenca + zona + data no mesmo documento"
+  },
+  "L2-REGIAO": {
+   "LACUNA": "regiao do facto: so 3 fontes T3 na Sala; lugar do facto em 19 de 94 itens",
+   "FERRAMENTAS": [
+    "Finestre Colturali",
+    "Radar delle Opportunita"
+   ],
+   "PROVA": [
+    {
+     "FICHEIRO": "R2 R1-X-R2-E-FONTES.json",
+     "CAMPO": "CLASSES_POR_T.T3.FONTES",
+     "ESPERADO": 3,
+     "MEDIDO": 3,
+     "CONFERE": true
+    }
+   ],
+   "O_QUE_A_FONTE_TEM_DE_TRAZER": "servico/consorcio de uma regiao ou provincia nomeada, com avisos dessa zona"
+  },
+  "L3-PERIODO": {
+   "LACUNA": "periodo/fase: 0 fontes T1 (fenologia) e 1 so T2 (e sem ano)",
+   "FERRAMENTAS": [
+    "Finestre Colturali",
+    "Radar Futuro"
+   ],
+   "PROVA": [
+    {
+     "FICHEIRO": "R2 R1-X-R2-E-FONTES.json",
+     "CAMPO": "NEVER_SAMPLED contem T1",
+     "ESPERADO": true,
+     "MEDIDO": true,
+     "CONFERE": true
+    },
+    {
+     "FICHEIRO": "R2 LIVRO-IR-7e570c9eff94e402c720.json",
+     "CAMPO": "REQUIREMENTS FACT_TIME:SEM_ANO",
+     "ESPERADO": 3,
+     "MEDIDO": 3,
+     "CONFERE": true
+    }
+   ],
+   "O_QUE_A_FONTE_TEM_DE_TRAZER": "boletim datado (com ano) com estadio da cultura ou calendario por zona"
+  },
+  "L4-PESSOA-CIENCIA": {
+   "LACUNA": "pesquisador identificado: 0 fontes T6; 25 das 31 fontes T5 deram zero",
+   "FERRAMENTAS": [
+    "Intelligence Scientifica"
+   ],
+   "PROVA": [
+    {
+     "FICHEIRO": "R2 R1-X-R2-E-FONTES.json",
+     "CAMPO": "NEVER_SAMPLED contem T6",
+     "ESPERADO": true,
+     "MEDIDO": true,
+     "CONFERE": true
+    },
+    {
+     "FICHEIRO": "R2 R1-X-R2-E-FONTES.json",
+     "CAMPO": "CLASSES_POR_T.T5.FONTES",
+     "ESPERADO": 31,
+     "MEDIDO": 31,
+     "CONFERE": true
+    }
+   ],
+   "O_QUE_A_FONTE_TEM_DE_TRAZER": "pesquisador com nome e instituicao a falar de cultura/praga (podcast, video, pagina do grupo)"
+  },
+  "L5-PESSOA-CAMPO": {
+   "LACUNA": "voz de campo (agronomo/tecnico/produtor): 0 fontes T8; as 4 T7 deram zero (paginas institucionais)",
+   "FERRAMENTAS": [
+    "Voci dal Campo",
+    "Radar Futuro"
+   ],
+   "PROVA": [
+    {
+     "FICHEIRO": "R2 R1-X-R2-E-FONTES.json",
+     "CAMPO": "NEVER_SAMPLED contem T8",
+     "ESPERADO": true,
+     "MEDIDO": true,
+     "CONFERE": true
+    },
+    {
+     "FICHEIRO": "R2 R1-X-R2-E-FONTES.json",
+     "CAMPO": "CLASSES_POR_T.T7.FONTES",
+     "ESPERADO": 4,
+     "MEDIDO": 4,
+     "CONFERE": true
+    }
+   ],
+   "O_QUE_A_FONTE_TEM_DE_TRAZER": "video/webinar/post de tecnico com nome, cargo, cultura, lugar e data"
+  },
+  "L6-SERIE-PRECO": {
+   "LACUNA": "serie de preco independente: todo o mercado vem de 1 fonte (myfruit.it: 6 dos 9 sinais)",
+   "FERRAMENTAS": [
+    "Polso di Mercato"
+   ],
+   "PROVA": [
+    {
+     "FICHEIRO": "R2 R1-X-R2-E-FONTES.json",
+     "CAMPO": "CLASSES_POR_T.T10.FONTES",
+     "ESPERADO": 1,
+     "MEDIDO": 1,
+     "CONFERE": true
+    }
+   ],
+   "O_QUE_A_FONTE_TEM_DE_TRAZER": "cotacao com praca, unidade, periodo e produto (listino, boletim de precos)"
+  },
+  "_FICHEIROS": {
+   "R1 MEDICAO.json": "8eac8dab87e1dea34ac874587034f87ca0a4ce471e1da798373e29e0f3569d23",
+   "R2 R1-X-R2-E-FONTES.json": "7be1c4c3eaa91c5d678eb60cbb5d8dc6d11d183f2607100b8364b4dcfcc9c0da",
+   "R2 LIVRO-IR-7e570c9eff94e402c720.json": "6c7b95ded039aff9f3edefdef4582da3683f7531812abda3de28881fe75ab010",
+   "FERRAMENTAS-DO-CASCO.md": "a9f4d7920114aa68128975266dcfe44a488347110b8336bf7ec0af6b69e57b8f"
+  }
+ },
+ "PROPOSTAS": [
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese — perfil Instagram",
+   "URL": "https://www.instagram.com/arsacweb",
+   "PROVA_IDENTIDADE": "https://arsac.calabria.it/arsac-chi-siamo/",
+   "PROVA_SHA256": "0ce7e01d16cc63468ca1ef0e7fcf5a39f2ed8aa0f4c91fb04f506dae6fc950a5",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-006 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://arsac.calabria.it/arsac-chi-siamo/ (a pagina oficial da fonte IT-T1-006 liga este perfil; sha256 0ce7e01d16cc6346 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-006 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-006",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-006/OBSERVATION/0ce7e01d16cc6346-u2a95c73a085974a1-arsac-chi-siamo.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UCEg22ii3Awy6eyRybNqO-8Q",
+   "PROVA_IDENTIDADE": "https://arsac.calabria.it/arsac-chi-siamo/",
+   "PROVA_SHA256": "0ce7e01d16cc63468ca1ef0e7fcf5a39f2ed8aa0f4c91fb04f506dae6fc950a5",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-006 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://arsac.calabria.it/arsac-chi-siamo/ (a pagina oficial da fonte IT-T1-006 liga este perfil; sha256 0ce7e01d16cc6346 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-006 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-006",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-006/OBSERVATION/0ce7e01d16cc6346-u2a95c73a085974a1-arsac-chi-siamo.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0184",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura Lazio — perfil Instagram",
+   "URL": "https://www.instagram.com/arsial.lazio",
+   "PROVA_IDENTIDADE": "https://www.arsial.it/pubblicazioni-e-ricerche",
+   "PROVA_SHA256": "e4aa69c8ee805aa9469bf314fde61bb3f9bf0e3a74938bc8ca5a0bb4504d3434",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-007 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.arsial.it/pubblicazioni-e-ricerche (a pagina oficial da fonte IT-T1-007 liga este perfil; sha256 e4aa69c8ee805aa9 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-007 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-007",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-007/OBSERVATION/e4aa69c8ee805aa9-u3ec15a9f2e3a81ca-pubblicazioni-e-ricerche.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0073",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura Lazio — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/company/arsial-agenzia-regionale-per-lo-sviluppo-e-l-innovazione-dell-agricoltura-del-lazio",
+   "PROVA_IDENTIDADE": "https://www.arsial.it/pubblicazioni-e-ricerche",
+   "PROVA_SHA256": "e4aa69c8ee805aa9469bf314fde61bb3f9bf0e3a74938bc8ca5a0bb4504d3434",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-007 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.arsial.it/pubblicazioni-e-ricerche (a pagina oficial da fonte IT-T1-007 liga este perfil; sha256 e4aa69c8ee805aa9 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-007 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-007",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-007/OBSERVATION/e4aa69c8ee805aa9-u3ec15a9f2e3a81ca-pubblicazioni-e-ricerche.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "Assosementi — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/company/assosementi",
+   "PROVA_IDENTIDADE": "https://www.sementi.it/le-aziende-associate/",
+   "PROVA_SHA256": "4e0480c7de9ccf1cb0ad4b972d352ee44785cf78c43f7ba3b2e011eae46a51fe",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-013 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.sementi.it/le-aziende-associate/ (a pagina oficial da fonte IT-T1-013 liga este perfil; sha256 4e0480c7de9ccf1c dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-013 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-013",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-013/OBSERVATION/4e0480c7de9ccf1c-u0f804d3c98c66130-le-aziende-associate.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0111",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Assosementi — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UCdJ3sb6r1X0pjU6XR9OMdGw",
+   "PROVA_IDENTIDADE": "https://www.sementi.it/le-aziende-associate/",
+   "PROVA_SHA256": "4e0480c7de9ccf1cb0ad4b972d352ee44785cf78c43f7ba3b2e011eae46a51fe",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-013 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.sementi.it/le-aziende-associate/ (a pagina oficial da fonte IT-T1-013 liga este perfil; sha256 4e0480c7de9ccf1c dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-013 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-013",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-013/OBSERVATION/4e0480c7de9ccf1c-u0f804d3c98c66130-le-aziende-associate.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0208",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "Italia Olivicola — pagina Facebook",
+   "URL": "https://www.facebook.com/italiaolivicolacn",
+   "PROVA_IDENTIDADE": "https://www.italiaolivicola.it/consiglio-di-amministrazione/",
+   "PROVA_SHA256": "2483b872cdcbe31fb22f2a8f059af278e985c7483256d7bb4dda249d586d49d4",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-016 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.italiaolivicola.it/consiglio-di-amministrazione/ (a pagina oficial da fonte IT-T1-016 liga este perfil; sha256 2483b872cdcbe31f dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-016 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-016",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-016/OBSERVATION/2483b872cdcbe31f-u5f5a7a15a3cbc6e1-consiglio-di-amministrazione.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "Rivista di Agraria — perfil Instagram",
+   "URL": "http://www.instagram.com/agrariaorg",
+   "PROVA_IDENTIDADE": "https://www.rivistadiagraria.org/sezioni/animali-da-compagnia/",
+   "PROVA_SHA256": "c10ff98d48b1701fc086e2ed000d5fa0b92387beaeb05e32448d91e1d1f92990",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-018 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.rivistadiagraria.org/sezioni/animali-da-compagnia/ (a pagina oficial da fonte IT-T1-018 liga este perfil; sha256 c10ff98d48b1701f dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-018 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-018",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-018/OBSERVATION/c10ff98d48b1701f-ufa12d68f9706b598-animali-da-compagnia.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Rivista di Agraria — canal YouTube",
+   "URL": "https://www.youtube.com/user/AgrariaOrg",
+   "PROVA_IDENTIDADE": "https://www.rivistadiagraria.org/sezioni/animali-da-compagnia/",
+   "PROVA_SHA256": "c10ff98d48b1701fc086e2ed000d5fa0b92387beaeb05e32448d91e1d1f92990",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-018 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.rivistadiagraria.org/sezioni/animali-da-compagnia/ (a pagina oficial da fonte IT-T1-018 liga este perfil; sha256 c10ff98d48b1701f dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-018 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-018",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-018/OBSERVATION/c10ff98d48b1701f-ufa12d68f9706b598-animali-da-compagnia.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "AgroNotizie — Image Line — pagina Facebook",
+   "URL": "https://www.facebook.com/agronotizie",
+   "PROVA_IDENTIDADE": "https://agronotizie.imagelinenetwork.com/notizie-agricoltura-attualita/",
+   "PROVA_SHA256": "75a6073b37f114b215582c152c6b6babec6df3bf20bbadf28f82504ae73eb397",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-021 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://agronotizie.imagelinenetwork.com/notizie-agricoltura-attualita/ (a pagina oficial da fonte IT-T1-021 liga este perfil; sha256 75a6073b37f114b2 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-021 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-021",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-021/OBSERVATION/75a6073b37f114b2-ud88011ef63848b60-notizie-agricoltura-attualita.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "AgroNotizie — Image Line — perfil Instagram",
+   "URL": "https://www.instagram.com/agronotizie",
+   "PROVA_IDENTIDADE": "https://agronotizie.imagelinenetwork.com/notizie-agricoltura-attualita/",
+   "PROVA_SHA256": "75a6073b37f114b215582c152c6b6babec6df3bf20bbadf28f82504ae73eb397",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-021 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://agronotizie.imagelinenetwork.com/notizie-agricoltura-attualita/ (a pagina oficial da fonte IT-T1-021 liga este perfil; sha256 75a6073b37f114b2 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-021 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-021",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-021/OBSERVATION/75a6073b37f114b2-ud88011ef63848b60-notizie-agricoltura-attualita.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L3-PERIODO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "AgroNotizie — Image Line — canal YouTube",
+   "URL": "https://www.youtube.com/user/agronotizietv",
+   "PROVA_IDENTIDADE": "https://agronotizie.imagelinenetwork.com/notizie-agricoltura-attualita/",
+   "PROVA_SHA256": "75a6073b37f114b215582c152c6b6babec6df3bf20bbadf28f82504ae73eb397",
+   "PARA_QUE": "Finestre Colturali/Radar Futuro: publicacoes da agencia agricola regional com estadio/calendario das culturas. Dono = fonte registada IT-T1-021 (T1)",
+   "NOTA": "PROVA_IDENTIDADE=https://agronotizie.imagelinenetwork.com/notizie-agricoltura-attualita/ (a pagina oficial da fonte IT-T1-021 liga este perfil; sha256 75a6073b37f114b2 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T1-021 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T1-021",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t1-021/OBSERVATION/75a6073b37f114b2-ud88011ef63848b60-notizie-agricoltura-attualita.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare — pagina LinkedIn",
+   "URL": "https://it.linkedin.com/company/ismeaofficial",
+   "PROVA_IDENTIDADE": "https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare",
+   "PROVA_SHA256": "2acfda24643036ffb7b018ef11370eeb47f7f5d0beb61e7b622cec37c97fd297",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-007 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare (a pagina oficial da fonte IT-T10-007 liga este perfil; sha256 2acfda24643036ff dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-007 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-007",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-007/OBSERVATION/2acfda24643036ff-u3a86c72e4f1122ff-istituto-di-servizi-per-il-mercato-agricolo-alimentare.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare — pagina Facebook",
+   "URL": "https://www.facebook.com/IsmeaOfficial",
+   "PROVA_IDENTIDADE": "https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare",
+   "PROVA_SHA256": "2acfda24643036ffb7b018ef11370eeb47f7f5d0beb61e7b622cec37c97fd297",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-007 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare (a pagina oficial da fonte IT-T10-007 liga este perfil; sha256 2acfda24643036ff dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-007 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-007",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-007/OBSERVATION/2acfda24643036ff-u3a86c72e4f1122ff-istituto-di-servizi-per-il-mercato-agricolo-alimentare.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare — perfil Instagram",
+   "URL": "https://www.instagram.com/ismeaofficial",
+   "PROVA_IDENTIDADE": "https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare",
+   "PROVA_SHA256": "2acfda24643036ffb7b018ef11370eeb47f7f5d0beb61e7b622cec37c97fd297",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-007 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare (a pagina oficial da fonte IT-T10-007 liga este perfil; sha256 2acfda24643036ff dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-007 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-007",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-007/OBSERVATION/2acfda24643036ff-u3a86c72e4f1122ff-istituto-di-servizi-per-il-mercato-agricolo-alimentare.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare — canal YouTube",
+   "URL": "https://www.youtube.com/user/IsmeaServizi",
+   "PROVA_IDENTIDADE": "https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare",
+   "PROVA_SHA256": "2acfda24643036ffb7b018ef11370eeb47f7f5d0beb61e7b622cec37c97fd297",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-007 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare (a pagina oficial da fonte IT-T10-007 liga este perfil; sha256 2acfda24643036ff dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-007 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-007",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-007/OBSERVATION/2acfda24643036ff-u3a86c72e4f1122ff-istituto-di-servizi-per-il-mercato-agricolo-alimentare.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "Borsa Merci Bologna — Camera di Commercio — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/company/camera-di-commercio-di-bologna",
+   "PROVA_IDENTIDADE": "https://www.bo.camcom.gov.it/it/blog/un-milione-di-euro-trattenere-i-giovani-bologna-domande-entro-il-1610",
+   "PROVA_SHA256": "07b97f7f5f40a91c52583eee585414bf25f551828c3b0c71c8dfe2d74f9b9400",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-009 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.bo.camcom.gov.it/it/blog/un-milione-di-euro-trattenere-i-giovani-bologna-domande-entro-il-1610 (a pagina oficial da fonte IT-T10-009 liga este perfil; sha256 07b97f7f5f40a91c dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-009 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-009",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-009/OBSERVATION/07b97f7f5f40a91c-u8d5270868a2def2e-e-di-euro-trattenere-i-giovani-bologna-domande-entro-il-1610.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Borsa Merci Bologna — Camera di Commercio — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UCjet0E9KAYODh3PKT9TV29w",
+   "PROVA_IDENTIDADE": "https://www.bo.camcom.gov.it/it/blog/un-milione-di-euro-trattenere-i-giovani-bologna-domande-entro-il-1610",
+   "PROVA_SHA256": "07b97f7f5f40a91c52583eee585414bf25f551828c3b0c71c8dfe2d74f9b9400",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-009 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.bo.camcom.gov.it/it/blog/un-milione-di-euro-trattenere-i-giovani-bologna-domande-entro-il-1610 (a pagina oficial da fonte IT-T10-009 liga este perfil; sha256 07b97f7f5f40a91c dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-009 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-009",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-009/OBSERVATION/07b97f7f5f40a91c-u8d5270868a2def2e-e-di-euro-trattenere-i-giovani-bologna-domande-entro-il-1610.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "Consorzio di Tutela Arancia Rossa di Sicilia IGP — perfil Instagram",
+   "URL": "http://instagram.com/aranciarossaigp",
+   "PROVA_IDENTIDADE": "https://www.tutelaaranciarossa.it/la-storia-arancia/",
+   "PROVA_SHA256": "a0458ef9bf574ca34c5ab829520969e705658e0c526a7287fdc993a3fbd6a7fd",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-013 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.tutelaaranciarossa.it/la-storia-arancia/ (a pagina oficial da fonte IT-T10-013 liga este perfil; sha256 a0458ef9bf574ca3 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-013 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-013",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-013/OBSERVATION/a0458ef9bf574ca3-u7c041d09662c1a93-la-storia-arancia.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0084",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "Consorzio di Tutela Arancia Rossa di Sicilia IGP — pagina Facebook",
+   "URL": "https://www.facebook.com/aranciarossadisiciliaigp",
+   "PROVA_IDENTIDADE": "https://www.tutelaaranciarossa.it/la-storia-arancia/",
+   "PROVA_SHA256": "a0458ef9bf574ca34c5ab829520969e705658e0c526a7287fdc993a3fbd6a7fd",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-013 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.tutelaaranciarossa.it/la-storia-arancia/ (a pagina oficial da fonte IT-T10-013 liga este perfil; sha256 a0458ef9bf574ca3 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-013 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-013",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-013/OBSERVATION/a0458ef9bf574ca3-u7c041d09662c1a93-la-storia-arancia.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "Myfruit.it — pagina Facebook",
+   "URL": "https://www.facebook.com/myfruit.webmagazine",
+   "PROVA_IDENTIDADE": "https://www.myfruit.it/news/aldi-in-uk-il-super-hub-dellortofrutta",
+   "PROVA_SHA256": "a2fb09ab323efb7f16fca197d2d065a8dc73c5807c0d3facac45d1511c93dcd6",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-018 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.myfruit.it/news/aldi-in-uk-il-super-hub-dellortofrutta (a pagina oficial da fonte IT-T10-018 liga este perfil; sha256 a2fb09ab323efb7f dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-018 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-018",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-018/OBSERVATION/a2fb09ab323efb7f-u2c21b25333c28a04-aldi-in-uk-il-super-hub-dellortofrutta.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "Myfruit.it — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/company/698415",
+   "PROVA_IDENTIDADE": "https://www.myfruit.it/news/aldi-in-uk-il-super-hub-dellortofrutta",
+   "PROVA_SHA256": "a2fb09ab323efb7f16fca197d2d065a8dc73c5807c0d3facac45d1511c93dcd6",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-018 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.myfruit.it/news/aldi-in-uk-il-super-hub-dellortofrutta (a pagina oficial da fonte IT-T10-018 liga este perfil; sha256 a2fb09ab323efb7f dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-018 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-018",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-018/OBSERVATION/a2fb09ab323efb7f-u2c21b25333c28a04-aldi-in-uk-il-super-hub-dellortofrutta.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0121",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "MESMA_CONTA_ESCRITA_ASSIM": "https://www.linkedin.com/company/698415/admin/feed/posts"
+   },
+   "ACAO": "JA_NA_FILA_OUTRA_FORMA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Myfruit.it — canal YouTube",
+   "URL": "https://www.youtube.com/@myfruitvideo",
+   "PROVA_IDENTIDADE": "https://www.myfruit.it/news/aldi-in-uk-il-super-hub-dellortofrutta",
+   "PROVA_SHA256": "a2fb09ab323efb7f16fca197d2d065a8dc73c5807c0d3facac45d1511c93dcd6",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-018 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.myfruit.it/news/aldi-in-uk-il-super-hub-dellortofrutta (a pagina oficial da fonte IT-T10-018 liga este perfil; sha256 a2fb09ab323efb7f dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-018 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-018",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-018/OBSERVATION/a2fb09ab323efb7f-u2c21b25333c28a04-aldi-in-uk-il-super-hub-dellortofrutta.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0217",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "MESMA_CONTA_ESCRITA_ASSIM": "https://www.youtube.com/user/myfruitvideo"
+   },
+   "ACAO": "JA_NA_FILA_OUTRA_FORMA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Myfruit.it — canal YouTube",
+   "URL": "https://www.youtube.com/user/myfruitvideo",
+   "PROVA_IDENTIDADE": "https://www.myfruit.it/news/aldi-in-uk-il-super-hub-dellortofrutta",
+   "PROVA_SHA256": "a2fb09ab323efb7f16fca197d2d065a8dc73c5807c0d3facac45d1511c93dcd6",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-018 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.myfruit.it/news/aldi-in-uk-il-super-hub-dellortofrutta (a pagina oficial da fonte IT-T10-018 liga este perfil; sha256 a2fb09ab323efb7f dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-018 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-018",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-018/OBSERVATION/a2fb09ab323efb7f-u2c21b25333c28a04-aldi-in-uk-il-super-hub-dellortofrutta.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0217",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "WineNews — pagina Facebook",
+   "URL": "https://www.facebook.com/winenewsit",
+   "PROVA_IDENTIDADE": "https://winenews.it/it/rassegna-stampa/dicono-di-noi/",
+   "PROVA_SHA256": "75891c27a738ac87eda9e426b80f67d30e863f5e455258364f7dd407a161b6e4",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-020 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://winenews.it/it/rassegna-stampa/dicono-di-noi/ (a pagina oficial da fonte IT-T10-020 liga este perfil; sha256 75891c27a738ac87 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-020 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-020",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-020/OBSERVATION/75891c27a738ac87-ubab9f6fb1f6c3ff8-dicono-di-noi.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "WineNews — perfil Instagram",
+   "URL": "https://www.instagram.com/winenewsit",
+   "PROVA_IDENTIDADE": "https://winenews.it/it/rassegna-stampa/dicono-di-noi/",
+   "PROVA_SHA256": "75891c27a738ac87eda9e426b80f67d30e863f5e455258364f7dd407a161b6e4",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-020 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://winenews.it/it/rassegna-stampa/dicono-di-noi/ (a pagina oficial da fonte IT-T10-020 liga este perfil; sha256 75891c27a738ac87 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-020 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-020",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-020/OBSERVATION/75891c27a738ac87-ubab9f6fb1f6c3ff8-dicono-di-noi.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "WineNews — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/company/winenewsit",
+   "PROVA_IDENTIDADE": "https://winenews.it/it/rassegna-stampa/dicono-di-noi/",
+   "PROVA_SHA256": "75891c27a738ac87eda9e426b80f67d30e863f5e455258364f7dd407a161b6e4",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-020 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://winenews.it/it/rassegna-stampa/dicono-di-noi/ (a pagina oficial da fonte IT-T10-020 liga este perfil; sha256 75891c27a738ac87 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-020 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-020",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-020/OBSERVATION/75891c27a738ac87-ubab9f6fb1f6c3ff8-dicono-di-noi.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0129",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "WineNews — canal YouTube",
+   "URL": "https://www.youtube.com/user/winetv",
+   "PROVA_IDENTIDADE": "https://winenews.it/it/rassegna-stampa/dicono-di-noi/",
+   "PROVA_SHA256": "75891c27a738ac87eda9e426b80f67d30e863f5e455258364f7dd407a161b6e4",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-020 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://winenews.it/it/rassegna-stampa/dicono-di-noi/ (a pagina oficial da fonte IT-T10-020 liga este perfil; sha256 75891c27a738ac87 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-020 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-020",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-020/OBSERVATION/75891c27a738ac87-ubab9f6fb1f6c3ff8-dicono-di-noi.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0232",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L6-SERIE-PRECO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Plantgest — banca dati varieta — canal YouTube",
+   "URL": "http://www.youtube.com/channel/UCXvOIVSOJkpAR4OadfgDlBw",
+   "PROVA_IDENTIDADE": "https://plantgest.imagelinenetwork.com/it/eventi/giornate-tecniche-sul-noce-da-frutto/63565",
+   "PROVA_SHA256": "7775b48cb14605c443fff35ab7ef1c65658371221dd23355845061b4fd82a923",
+   "PARA_QUE": "Polso di Mercato: precos e comentarios de mercado com praca e produto. Dono = fonte registada IT-T10-021 (T10)",
+   "NOTA": "PROVA_IDENTIDADE=https://plantgest.imagelinenetwork.com/it/eventi/giornate-tecniche-sul-noce-da-frutto/63565 (a pagina oficial da fonte IT-T10-021 liga este perfil; sha256 7775b48cb14605c4 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T10-021 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T10-021",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t10-021/OBSERVATION/7775b48cb14605c4-u0ef44c73439bd406-63565.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Emilia-Romagna — Servizio Fitosanitario — canal YouTube",
+   "URL": "https://www.youtube.com/user/Ermesagricoltura",
+   "PROVA_IDENTIDADE": "https://agricoltura.regione.emilia-romagna.it/piani-programmi-progetti",
+   "PROVA_SHA256": "18ffea3450bd915a05a7f55f101a91f4cdfc4803949ada8162d02d915f35cae5",
+   "PARA_QUE": "Finestre Colturali/Radar delle Opportunita: posts/videos do servico com avisos de defesa (cultura + praga + zona + data). Dono = fonte registada IT-T3-013 (T3)",
+   "NOTA": "PROVA_IDENTIDADE=https://agricoltura.regione.emilia-romagna.it/piani-programmi-progetti (a pagina oficial da fonte IT-T3-013 liga este perfil; sha256 18ffea3450bd915a dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T3-013 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T3-013",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t3-013/OBSERVATION/18ffea3450bd915a-uf5d568b91d155bc7-piani-programmi-progetti.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "CNR ISPA — Istituto di Scienze delle Produzioni Alimentari — pagina Facebook",
+   "URL": "https://www.facebook.com/Ispacnr",
+   "PROVA_IDENTIDADE": "https://www.ispa.cnr.it/sede-ispa-di-bari",
+   "PROVA_SHA256": "5a0b12f272ffd6d11830ebd46dee7ba669e7f6310c6b2881e1bfb0627f08ffb0",
+   "PARA_QUE": "Finestre Colturali/Radar delle Opportunita: posts/videos do servico com avisos de defesa (cultura + praga + zona + data). Dono = fonte registada IT-T3-018 (T3)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.ispa.cnr.it/sede-ispa-di-bari (a pagina oficial da fonte IT-T3-018 liga este perfil; sha256 5a0b12f272ffd6d1 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T3-018 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T3-018",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t3-018/OBSERVATION/5a0b12f272ffd6d1-u22076b604d46f480-sede-ispa-di-bari.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "terraevita.edagricole.it (IT-T3-023) — pagina Facebook",
+   "URL": "https://www.facebook.com/terraevita.magazine",
+   "PROVA_IDENTIDADE": "https://terraevita.edagricole.it/agrofarmaci-difesa/pero-e-tornata-la-fillossera/",
+   "PROVA_SHA256": "5775d72e81b034414a92ee933da81ad40c758cce51a4264a5406d29ad7507fdf",
+   "PARA_QUE": "Finestre Colturali/Radar delle Opportunita: posts/videos do servico com avisos de defesa (cultura + praga + zona + data). Dono = fonte registada IT-T3-023 (T3)",
+   "NOTA": "PROVA_IDENTIDADE=https://terraevita.edagricole.it/agrofarmaci-difesa/pero-e-tornata-la-fillossera/ (a pagina oficial da fonte IT-T3-023 liga este perfil; sha256 5775d72e81b03441 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T3-023 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T3-023",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t3-023/OBSERVATION/5775d72e81b03441-ua13b36c23b558b08-pero-e-tornata-la-fillossera.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "terraevita.edagricole.it (IT-T3-023) — perfil Instagram",
+   "URL": "https://www.instagram.com/edagricole_official",
+   "PROVA_IDENTIDADE": "https://terraevita.edagricole.it/agrofarmaci-difesa/pero-e-tornata-la-fillossera/",
+   "PROVA_SHA256": "5775d72e81b034414a92ee933da81ad40c758cce51a4264a5406d29ad7507fdf",
+   "PARA_QUE": "Finestre Colturali/Radar delle Opportunita: posts/videos do servico com avisos de defesa (cultura + praga + zona + data). Dono = fonte registada IT-T3-023 (T3)",
+   "NOTA": "PROVA_IDENTIDADE=https://terraevita.edagricole.it/agrofarmaci-difesa/pero-e-tornata-la-fillossera/ (a pagina oficial da fonte IT-T3-023 liga este perfil; sha256 5775d72e81b03441 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T3-023 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T3-023",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t3-023/OBSERVATION/5775d72e81b03441-ua13b36c23b558b08-pero-e-tornata-la-fillossera.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "terraevita.edagricole.it (IT-T3-023) — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/showcase/edagricole",
+   "PROVA_IDENTIDADE": "https://terraevita.edagricole.it/agrofarmaci-difesa/pero-e-tornata-la-fillossera/",
+   "PROVA_SHA256": "5775d72e81b034414a92ee933da81ad40c758cce51a4264a5406d29ad7507fdf",
+   "PARA_QUE": "Finestre Colturali/Radar delle Opportunita: posts/videos do servico com avisos de defesa (cultura + praga + zona + data). Dono = fonte registada IT-T3-023 (T3)",
+   "NOTA": "PROVA_IDENTIDADE=https://terraevita.edagricole.it/agrofarmaci-difesa/pero-e-tornata-la-fillossera/ (a pagina oficial da fonte IT-T3-023 liga este perfil; sha256 5775d72e81b03441 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T3-023 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T3-023",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t3-023/OBSERVATION/5775d72e81b03441-ua13b36c23b558b08-pero-e-tornata-la-fillossera.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0099",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "terraevita.edagricole.it (IT-T3-023) — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UCrCabYjtyqdzu1zXo95o7Jw",
+   "PROVA_IDENTIDADE": "https://terraevita.edagricole.it/agrofarmaci-difesa/pero-e-tornata-la-fillossera/",
+   "PROVA_SHA256": "5775d72e81b034414a92ee933da81ad40c758cce51a4264a5406d29ad7507fdf",
+   "PARA_QUE": "Finestre Colturali/Radar delle Opportunita: posts/videos do servico com avisos de defesa (cultura + praga + zona + data). Dono = fonte registada IT-T3-023 (T3)",
+   "NOTA": "PROVA_IDENTIDADE=https://terraevita.edagricole.it/agrofarmaci-difesa/pero-e-tornata-la-fillossera/ (a pagina oficial da fonte IT-T3-023 liga este perfil; sha256 5775d72e81b03441 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T3-023 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T3-023",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t3-023/OBSERVATION/5775d72e81b03441-ua13b36c23b558b08-pero-e-tornata-la-fillossera.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0195",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Forestali — pagina Facebook",
+   "URL": "https://www.facebook.com/agronomiforestali",
+   "PROVA_IDENTIDADE": "https://www.conaf.it/consiglio-dellordine-nazionale/",
+   "PROVA_SHA256": "05342a7aa1d7dea3c3006f7014cd95687a82771ca9b8fdc65c4d52fa9f9711bd",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-013 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.conaf.it/consiglio-dellordine-nazionale/ (a pagina oficial da fonte IT-T7-013 liga este perfil; sha256 05342a7aa1d7dea3 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-013 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-013",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-013/OBSERVATION/05342a7aa1d7dea3-uaf0a61d3c526dc33-consiglio-dellordine-nazionale.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Forestali — perfil Instagram",
+   "URL": "https://www.instagram.com/ordine_agronomi_e_forestali",
+   "PROVA_IDENTIDADE": "https://www.conaf.it/consiglio-dellordine-nazionale/",
+   "PROVA_SHA256": "05342a7aa1d7dea3c3006f7014cd95687a82771ca9b8fdc65c4d52fa9f9711bd",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-013 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.conaf.it/consiglio-dellordine-nazionale/ (a pagina oficial da fonte IT-T7-013 liga este perfil; sha256 05342a7aa1d7dea3 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-013 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-013",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-013/OBSERVATION/05342a7aa1d7dea3-uaf0a61d3c526dc33-consiglio-dellordine-nazionale.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Forestali — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UC4LCuwIcRPhrE2mFJ8ZXtLg",
+   "PROVA_IDENTIDADE": "https://www.conaf.it/consiglio-dellordine-nazionale/",
+   "PROVA_SHA256": "05342a7aa1d7dea3c3006f7014cd95687a82771ca9b8fdc65c4d52fa9f9711bd",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-013 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.conaf.it/consiglio-dellordine-nazionale/ (a pagina oficial da fonte IT-T7-013 liga este perfil; sha256 05342a7aa1d7dea3 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-013 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-013",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-013/OBSERVATION/05342a7aa1d7dea3-uaf0a61d3c526dc33-consiglio-dellordine-nazionale.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0210",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Cantina Sociale Cooperativa Riunite e CIV — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UCHm8wgnyeNFP2luUq_lMPMg",
+   "PROVA_IDENTIDADE": "https://www.riuniteciv.com/news-e-eventi/albinea-canali-protagonista-di-degu-stazioni-2026-a-milano/",
+   "PROVA_SHA256": "9bc9d3c5c0e63da15dce0be8f79fb6e63dd932a21a7c160006bb10b506d85569",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-017 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.riuniteciv.com/news-e-eventi/albinea-canali-protagonista-di-degu-stazioni-2026-a-milano/ (a pagina oficial da fonte IT-T7-017 liga este perfil; sha256 9bc9d3c5c0e63da1 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-017 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-017",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-017/OBSERVATION/9bc9d3c5c0e63da1-u1b4b1846d56ca9cd-albinea-canali-protagonista-di-degu-stazioni-2026-a-milano.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0189",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "Confagricoltura Lombardia — pagina Facebook",
+   "URL": "https://www.facebook.com/lombardiaconfagricoltura",
+   "PROVA_IDENTIDADE": "https://lombardia.confagricoltura.it/news/home/103558/aiuti-contro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html",
+   "PROVA_SHA256": "b7b24a7dab7939370659e81aa1843f0c5288778cc03ddecea80244fe882d1352",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-019 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://lombardia.confagricoltura.it/news/home/103558/aiuti-contro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html (a pagina oficial da fonte IT-T7-019 liga este perfil; sha256 b7b24a7dab793937 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-019 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-019",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-019/OBSERVATION/b7b24a7dab793937-u3e26fab747e430b7-tro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0038",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "Confagricoltura Lombardia — perfil Instagram",
+   "URL": "https://www.instagram.com/confagricoltura_lombardia",
+   "PROVA_IDENTIDADE": "https://lombardia.confagricoltura.it/news/home/103558/aiuti-contro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html",
+   "PROVA_SHA256": "b7b24a7dab7939370659e81aa1843f0c5288778cc03ddecea80244fe882d1352",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-019 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://lombardia.confagricoltura.it/news/home/103558/aiuti-contro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html (a pagina oficial da fonte IT-T7-019 liga este perfil; sha256 b7b24a7dab793937 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-019 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-019",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-019/OBSERVATION/b7b24a7dab793937-u3e26fab747e430b7-tro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0076",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Confagricoltura Lombardia — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UCfqqPifpfaZUI30hxiygmJw",
+   "PROVA_IDENTIDADE": "https://lombardia.confagricoltura.it/news/home/103558/aiuti-contro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html",
+   "PROVA_SHA256": "b7b24a7dab7939370659e81aa1843f0c5288778cc03ddecea80244fe882d1352",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-019 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://lombardia.confagricoltura.it/news/home/103558/aiuti-contro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html (a pagina oficial da fonte IT-T7-019 liga este perfil; sha256 b7b24a7dab793937 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-019 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-019",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-019/OBSERVATION/b7b24a7dab793937-u3e26fab747e430b7-tro-il-caro-fertilizzanti-stanziati-136-milioni-di-euro.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0200",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "Consorzio di Bonifica Est Ticino Villoresi — perfil Instagram",
+   "URL": "https://www.instagram.com/etvilloresi",
+   "PROVA_IDENTIDADE": "https://etvilloresi.it/news/imprese/la-carovana-del-po-un-viaggio-per-raccontare-il-grande-fiume/",
+   "PROVA_SHA256": "9c3525e43eea68c426e8852c8dff9a9e963bc008c4dc45ec2fd6dff430b7b039",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-021 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://etvilloresi.it/news/imprese/la-carovana-del-po-un-viaggio-per-raccontare-il-grande-fiume/ (a pagina oficial da fonte IT-T7-021 liga este perfil; sha256 9c3525e43eea68c4 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-021 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-021",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-021/OBSERVATION/9c3525e43eea68c4-u653f6a0f4b7f41b5-la-carovana-del-po-un-viaggio-per-raccontare-il-grande-fiume.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0077",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "Consorzio di Bonifica Est Ticino Villoresi — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/company/est-ticino-villoresi",
+   "PROVA_IDENTIDADE": "https://etvilloresi.it/news/imprese/la-carovana-del-po-un-viaggio-per-raccontare-il-grande-fiume/",
+   "PROVA_SHA256": "9c3525e43eea68c426e8852c8dff9a9e963bc008c4dc45ec2fd6dff430b7b039",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-021 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://etvilloresi.it/news/imprese/la-carovana-del-po-un-viaggio-per-raccontare-il-grande-fiume/ (a pagina oficial da fonte IT-T7-021 liga este perfil; sha256 9c3525e43eea68c4 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-021 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-021",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-021/OBSERVATION/9c3525e43eea68c4-u653f6a0f4b7f41b5-la-carovana-del-po-un-viaggio-per-raccontare-il-grande-fiume.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Consorzio di Bonifica Est Ticino Villoresi — canal YouTube",
+   "URL": "https://www.youtube.com/@consorziodibonificaesttici5074",
+   "PROVA_IDENTIDADE": "https://etvilloresi.it/news/imprese/la-carovana-del-po-un-viaggio-per-raccontare-il-grande-fiume/",
+   "PROVA_SHA256": "9c3525e43eea68c426e8852c8dff9a9e963bc008c4dc45ec2fd6dff430b7b039",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-021 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://etvilloresi.it/news/imprese/la-carovana-del-po-un-viaggio-per-raccontare-il-grande-fiume/ (a pagina oficial da fonte IT-T7-021 liga este perfil; sha256 9c3525e43eea68c4 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-021 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-021",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-021/OBSERVATION/9c3525e43eea68c4-u653f6a0f4b7f41b5-la-carovana-del-po-un-viaggio-per-raccontare-il-grande-fiume.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0201",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "FederBio — canal YouTube",
+   "URL": "http://www.youtube.com/user/FederBioItalia",
+   "PROVA_IDENTIDADE": "https://feder.bio/progetti/being-organic-eu-choose-the-european-organic-leaf-for-better-world/",
+   "PROVA_SHA256": "394a362f7d3a63489e266d75ed31056a34a05b3525655fc943a3a1638dc25d2a",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-031 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://feder.bio/progetti/being-organic-eu-choose-the-european-organic-leaf-for-better-world/ (a pagina oficial da fonte IT-T7-031 liga este perfil; sha256 394a362f7d3a6348 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-031 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [
+    "IT-T7-031"
+   ],
+   "FONTE_DONA": "IT-T7-031",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-031/OBSERVATION/394a362f7d3a6348-ue66dd9ada2c8b8d2-organic-eu-choose-the-european-organic-leaf-for-better-world.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0214",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "FederBio — pagina Facebook",
+   "URL": "https://www.facebook.com/FederBioItalia",
+   "PROVA_IDENTIDADE": "https://feder.bio/progetti/being-organic-eu-choose-the-european-organic-leaf-for-better-world/",
+   "PROVA_SHA256": "394a362f7d3a63489e266d75ed31056a34a05b3525655fc943a3a1638dc25d2a",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-031 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://feder.bio/progetti/being-organic-eu-choose-the-european-organic-leaf-for-better-world/ (a pagina oficial da fonte IT-T7-031 liga este perfil; sha256 394a362f7d3a6348 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-031 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-031",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-031/OBSERVATION/394a362f7d3a6348-ue66dd9ada2c8b8d2-organic-eu-choose-the-european-organic-leaf-for-better-world.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "FederBio — perfil Instagram",
+   "URL": "https://www.instagram.com/federbioitalia",
+   "PROVA_IDENTIDADE": "https://feder.bio/progetti/being-organic-eu-choose-the-european-organic-leaf-for-better-world/",
+   "PROVA_SHA256": "394a362f7d3a63489e266d75ed31056a34a05b3525655fc943a3a1638dc25d2a",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-031 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://feder.bio/progetti/being-organic-eu-choose-the-european-organic-leaf-for-better-world/ (a pagina oficial da fonte IT-T7-031 liga este perfil; sha256 394a362f7d3a6348 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-031 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-031",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-031/OBSERVATION/394a362f7d3a6348-ue66dd9ada2c8b8d2-organic-eu-choose-the-european-organic-leaf-for-better-world.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "Consorzio Vino Chianti Classico — pagina Facebook",
+   "URL": "https://www.facebook.com/chianticlassico.it",
+   "PROVA_IDENTIDADE": "https://www.chianticlassico.com/news/e-learning-vuoi-diventare-un-esperto-di-chianti-classico/",
+   "PROVA_SHA256": "cf6ac17d07adbe5428226593b79cd2057a02f10a9cde7463e504bc6edbf2b27d",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-033 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.chianticlassico.com/news/e-learning-vuoi-diventare-un-esperto-di-chianti-classico/ (a pagina oficial da fonte IT-T7-033 liga este perfil; sha256 cf6ac17d07adbe54 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-033 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-033",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-033/OBSERVATION/cf6ac17d07adbe54-uf26f936e356eca85-e-learning-vuoi-diventare-un-esperto-di-chianti-classico.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0043",
+    "ESTADO_NA_FILA": "CAPABILITY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "Consorzio Vino Chianti Classico — perfil Instagram",
+   "URL": "https://www.instagram.com/chianticlassico",
+   "PROVA_IDENTIDADE": "https://www.chianticlassico.com/news/e-learning-vuoi-diventare-un-esperto-di-chianti-classico/",
+   "PROVA_SHA256": "cf6ac17d07adbe5428226593b79cd2057a02f10a9cde7463e504bc6edbf2b27d",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-033 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.chianticlassico.com/news/e-learning-vuoi-diventare-un-esperto-di-chianti-classico/ (a pagina oficial da fonte IT-T7-033 liga este perfil; sha256 cf6ac17d07adbe54 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-033 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-033",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-033/OBSERVATION/cf6ac17d07adbe54-uf26f936e356eca85-e-learning-vuoi-diventare-un-esperto-di-chianti-classico.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0085",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Consorzio Vino Chianti Classico — canal YouTube",
+   "URL": "https://www.youtube.com/user/vinochianticlassico",
+   "PROVA_IDENTIDADE": "https://www.chianticlassico.com/news/e-learning-vuoi-diventare-un-esperto-di-chianti-classico/",
+   "PROVA_SHA256": "cf6ac17d07adbe5428226593b79cd2057a02f10a9cde7463e504bc6edbf2b27d",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-033 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.chianticlassico.com/news/e-learning-vuoi-diventare-un-esperto-di-chianti-classico/ (a pagina oficial da fonte IT-T7-033 liga este perfil; sha256 cf6ac17d07adbe54 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-033 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-033",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-033/OBSERVATION/cf6ac17d07adbe54-uf26f936e356eca85-e-learning-vuoi-diventare-un-esperto-di-chianti-classico.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0228",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "Consorzio di Bonifica della Romagna — pagina Facebook",
+   "URL": "https://www.facebook.com/bonificadellaromagna",
+   "PROVA_IDENTIDADE": "https://www.bonificaromagna.it/news/settimana-nazionale-della-bonifica-e-della-irrigazione-16-24-maggio-2026",
+   "PROVA_SHA256": "948516bf570d84c2ce3caaefa4b8a76928fd2d038fe529bc6e1188c3b60994ed",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-041 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.bonificaromagna.it/news/settimana-nazionale-della-bonifica-e-della-irrigazione-16-24-maggio-2026 (a pagina oficial da fonte IT-T7-041 liga este perfil; sha256 948516bf570d84c2 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-041 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-041",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-041/OBSERVATION/948516bf570d84c2-uf8cfafe983d51313-zionale-della-bonifica-e-della-irrigazione-16-24-maggio-2026.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "Consorzio di Bonifica della Romagna — perfil Instagram",
+   "URL": "https://www.instagram.com/bonificadellaromagna",
+   "PROVA_IDENTIDADE": "https://www.bonificaromagna.it/news/settimana-nazionale-della-bonifica-e-della-irrigazione-16-24-maggio-2026",
+   "PROVA_SHA256": "948516bf570d84c2ce3caaefa4b8a76928fd2d038fe529bc6e1188c3b60994ed",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-041 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.bonificaromagna.it/news/settimana-nazionale-della-bonifica-e-della-irrigazione-16-24-maggio-2026 (a pagina oficial da fonte IT-T7-041 liga este perfil; sha256 948516bf570d84c2 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-041 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-041",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-041/OBSERVATION/948516bf570d84c2-uf8cfafe983d51313-zionale-della-bonifica-e-della-irrigazione-16-24-maggio-2026.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "Consorzio di Bonifica della Romagna — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/company/consorzio-di-bonifica-della-romagna",
+   "PROVA_IDENTIDADE": "https://www.bonificaromagna.it/news/settimana-nazionale-della-bonifica-e-della-irrigazione-16-24-maggio-2026",
+   "PROVA_SHA256": "948516bf570d84c2ce3caaefa4b8a76928fd2d038fe529bc6e1188c3b60994ed",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-041 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.bonificaromagna.it/news/settimana-nazionale-della-bonifica-e-della-irrigazione-16-24-maggio-2026 (a pagina oficial da fonte IT-T7-041 liga este perfil; sha256 948516bf570d84c2 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-041 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-041",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-041/OBSERVATION/948516bf570d84c2-uf8cfafe983d51313-zionale-della-bonifica-e-della-irrigazione-16-24-maggio-2026.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "Agrofarma — Federchimica — pagina Facebook",
+   "URL": "https://www.facebook.com/Agrofarma.agricolturamodomio",
+   "PROVA_IDENTIDADE": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+   "PROVA_SHA256": "fc5e1b5efe41b76587b27b751a1dc2c80e6abc90a27d6206988c4561f4844a69",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-043 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo (a pagina oficial da fonte IT-T7-043 liga este perfil; sha256 fc5e1b5efe41b765 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-043 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-043",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-043/OBSERVATION/fc5e1b5efe41b765-ubfe05b294fc68746-rofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "Agrofarma — Federchimica — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/showcase/agrofarma",
+   "PROVA_IDENTIDADE": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+   "PROVA_SHA256": "fc5e1b5efe41b76587b27b751a1dc2c80e6abc90a27d6206988c4561f4844a69",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-043 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo (a pagina oficial da fonte IT-T7-043 liga este perfil; sha256 fc5e1b5efe41b765 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-043 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-043",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-043/OBSERVATION/fc5e1b5efe41b765-ubfe05b294fc68746-rofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo.html",
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0109",
+    "ESTADO_NA_FILA": "POLICY_BLOCK",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "copagri.org (IT-T7-049) — pagina Facebook",
+   "URL": "https://www.facebook.com/CopagriAgricoltura",
+   "PROVA_IDENTIDADE": "https://copagri.org/2026/09/11/cordoglio-bonino/",
+   "PROVA_SHA256": "4dfe79a1e85aaa89594514d2ad229d3db9248c0799b75f7953302b7a8a1066b7",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-049 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://copagri.org/2026/09/11/cordoglio-bonino/ (a pagina oficial da fonte IT-T7-049 liga este perfil; sha256 4dfe79a1e85aaa89 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-049 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-049",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-049/OBSERVATION/4dfe79a1e85aaa89-u99816196eadecd58-cordoglio-bonino.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "copagri.org (IT-T7-049) — perfil Instagram",
+   "URL": "https://www.instagram.com/copagri_agricoltura",
+   "PROVA_IDENTIDADE": "https://copagri.org/2026/09/11/cordoglio-bonino/",
+   "PROVA_SHA256": "4dfe79a1e85aaa89594514d2ad229d3db9248c0799b75f7953302b7a8a1066b7",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-049 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://copagri.org/2026/09/11/cordoglio-bonino/ (a pagina oficial da fonte IT-T7-049 liga este perfil; sha256 4dfe79a1e85aaa89 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-049 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-049",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-049/OBSERVATION/4dfe79a1e85aaa89-u99816196eadecd58-cordoglio-bonino.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "copagri.org (IT-T7-049) — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/company/7091586",
+   "PROVA_IDENTIDADE": "https://copagri.org/2026/09/11/cordoglio-bonino/",
+   "PROVA_SHA256": "4dfe79a1e85aaa89594514d2ad229d3db9248c0799b75f7953302b7a8a1066b7",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-049 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://copagri.org/2026/09/11/cordoglio-bonino/ (a pagina oficial da fonte IT-T7-049 liga este perfil; sha256 4dfe79a1e85aaa89 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-049 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-049",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-049/OBSERVATION/4dfe79a1e85aaa89-u99816196eadecd58-cordoglio-bonino.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "confcooperative.it (IT-T7-103) — pagina Facebook",
+   "URL": "https://www.facebook.com/confcooperative",
+   "PROVA_IDENTIDADE": "https://www.confcooperative.it/LInformazione/Le-notizie/appalti-pubblici-confcooperative-meglio-la-direttiva-del-regolamento",
+   "PROVA_SHA256": "19f116ad5cb8c501713eeb7c29bad3fa6bab8bb95aaadad7fa0a986ba97a1ea7",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-103 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.confcooperative.it/LInformazione/Le-notizie/appalti-pubblici-confcooperative-meglio-la-direttiva-del-regolamento (a pagina oficial da fonte IT-T7-103 liga este perfil; sha256 19f116ad5cb8c501 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-103 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-103",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-103/OBSERVATION/19f116ad5cb8c501-ud8bae31c7f09e7fd-pubblici-confcooperative-meglio-la-direttiva-del-regolamento.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "confcooperative.it (IT-T7-103) — perfil Instagram",
+   "URL": "https://www.instagram.com/confcooperative_nazionale",
+   "PROVA_IDENTIDADE": "https://www.confcooperative.it/LInformazione/Le-notizie/appalti-pubblici-confcooperative-meglio-la-direttiva-del-regolamento",
+   "PROVA_SHA256": "19f116ad5cb8c501713eeb7c29bad3fa6bab8bb95aaadad7fa0a986ba97a1ea7",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-103 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.confcooperative.it/LInformazione/Le-notizie/appalti-pubblici-confcooperative-meglio-la-direttiva-del-regolamento (a pagina oficial da fonte IT-T7-103 liga este perfil; sha256 19f116ad5cb8c501 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-103 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-103",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-103/OBSERVATION/19f116ad5cb8c501-ud8bae31c7f09e7fd-pubblici-confcooperative-meglio-la-direttiva-del-regolamento.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "confcooperative.it (IT-T7-103) — pagina LinkedIn",
+   "URL": "https://www.linkedin.com/company/confcooperative-nazionale",
+   "PROVA_IDENTIDADE": "https://www.confcooperative.it/LInformazione/Le-notizie/appalti-pubblici-confcooperative-meglio-la-direttiva-del-regolamento",
+   "PROVA_SHA256": "19f116ad5cb8c501713eeb7c29bad3fa6bab8bb95aaadad7fa0a986ba97a1ea7",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-103 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.confcooperative.it/LInformazione/Le-notizie/appalti-pubblici-confcooperative-meglio-la-direttiva-del-regolamento (a pagina oficial da fonte IT-T7-103 liga este perfil; sha256 19f116ad5cb8c501 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-103 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-103",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-103/OBSERVATION/19f116ad5cb8c501-ud8bae31c7f09e7fd-pubblici-confcooperative-meglio-la-direttiva-del-regolamento.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "confcooperative.it (IT-T7-103) — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UCa-kAP4a07ZVO2z1im4JCEw",
+   "PROVA_IDENTIDADE": "https://www.confcooperative.it/LInformazione/Le-notizie/appalti-pubblici-confcooperative-meglio-la-direttiva-del-regolamento",
+   "PROVA_SHA256": "19f116ad5cb8c501713eeb7c29bad3fa6bab8bb95aaadad7fa0a986ba97a1ea7",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-103 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.confcooperative.it/LInformazione/Le-notizie/appalti-pubblici-confcooperative-meglio-la-direttiva-del-regolamento (a pagina oficial da fonte IT-T7-103 liga este perfil; sha256 19f116ad5cb8c501 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-103 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-103",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-103/OBSERVATION/19f116ad5cb8c501-ud8bae31c7f09e7fd-pubblici-confcooperative-meglio-la-direttiva-del-regolamento.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "cia.it (IT-T7-112) — pagina Facebook",
+   "URL": "https://www.facebook.com/CiaLaspesaincampagna",
+   "PROVA_IDENTIDADE": "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/",
+   "PROVA_SHA256": "e422fb03a61eac90beea779dafd35e0aab3b5d9a91d49326e9ca22ec8d3d412b",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-112 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/ (a pagina oficial da fonte IT-T7-112 liga este perfil; sha256 e422fb03a61eac90 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-112 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [
+    "IT-T7-118",
+    "IT-T7-121",
+    "IT-T7-135"
+   ],
+   "FONTE_DONA": "IT-T7-112",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-112/OBSERVATION/e422fb03a61eac90-u38eaa4f4db189593-ediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "cia-puglia.it (IT-T7-125) — pagina Facebook",
+   "URL": "https://www.facebook.com/ciaagricoltoripuglia",
+   "PROVA_IDENTIDADE": "https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/",
+   "PROVA_SHA256": "dd396f1bec2530530a11a63ff2427c159f3ccdb3694837e2de7f97c72ca747fa",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-125 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/ (a pagina oficial da fonte IT-T7-125 liga este perfil; sha256 dd396f1bec253053 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-125 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-125",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-125/OBSERVATION/dd396f1bec253053-u6943a6b35b85eb8b--cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "cia-puglia.it (IT-T7-125) — perfil Instagram",
+   "URL": "https://www.instagram.com/ciapuglia",
+   "PROVA_IDENTIDADE": "https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/",
+   "PROVA_SHA256": "dd396f1bec2530530a11a63ff2427c159f3ccdb3694837e2de7f97c72ca747fa",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-125 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/ (a pagina oficial da fonte IT-T7-125 liga este perfil; sha256 dd396f1bec253053 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-125 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-125",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-125/OBSERVATION/dd396f1bec253053-u6943a6b35b85eb8b--cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "cia-puglia.it (IT-T7-125) — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UCM8JcsONXN0CtvzVlg5gu_Q",
+   "PROVA_IDENTIDADE": "https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/",
+   "PROVA_SHA256": "dd396f1bec2530530a11a63ff2427c159f3ccdb3694837e2de7f97c72ca747fa",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-125 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://cia-puglia.it/2023/02/25/emergenza-cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia/ (a pagina oficial da fonte IT-T7-125 liga este perfil; sha256 dd396f1bec253053 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-125 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-125",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-125/OBSERVATION/dd396f1bec253053-u6943a6b35b85eb8b--cinghiali-focus-di-cia-due-mari-con-lassessore-pentassuglia.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "florovivaistiitaliani.it (IT-T7-139) — pagina Facebook",
+   "URL": "https://www.facebook.com/florovivaistiitaliani",
+   "PROVA_IDENTIDADE": "https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/",
+   "PROVA_SHA256": "71b79fd8d4a2a6e5588d7064c89171e7f5aa9a5526eb184c01fe7b80e16b7b47",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-139 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/ (a pagina oficial da fonte IT-T7-139 liga este perfil; sha256 71b79fd8d4a2a6e5 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-139 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-139",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-139/OBSERVATION/71b79fd8d4a2a6e5-u4f0c8d76ee76550f-etrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "INSTAGRAM",
+   "PAIS": "IT",
+   "NOME": "florovivaistiitaliani.it (IT-T7-139) — perfil Instagram",
+   "URL": "https://www.instagram.com/florovivaisti.italiani",
+   "PROVA_IDENTIDADE": "https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/",
+   "PROVA_SHA256": "71b79fd8d4a2a6e5588d7064c89171e7f5aa9a5526eb184c01fe7b80e16b7b47",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-139 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.florovivaistiitaliani.it/inevidenza/buone-notizie-detrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche/ (a pagina oficial da fonte IT-T7-139 liga este perfil; sha256 71b79fd8d4a2a6e5 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-139 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-139",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-139/OBSERVATION/71b79fd8d4a2a6e5-u4f0c8d76ee76550f-etrazione-per-il-gasolio-anche-per-le-serre-florovivaistiche.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "LINKEDIN",
+   "PAIS": "IT",
+   "NOME": "casalasco.com (IT-T7-163) — pagina LinkedIn",
+   "URL": "https://it.linkedin.com/company/gruppo-casalasco",
+   "PROVA_IDENTIDADE": "https://www.casalasco.com/it/news/a-tuttofood-2026-con-filiera-integrata-e-nuove-referenze",
+   "PROVA_SHA256": "c4bf3d292ea9490223bc4a65fc9c6a5cee4f2a7b3849c6719560d1dd9d79fc8f",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: tecnicos da organizacao a falar de campo (quem fala, cultura, lugar, data). Dono = fonte registada IT-T7-163 (T7)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.casalasco.com/it/news/a-tuttofood-2026-con-filiera-integrata-e-nuove-referenze (a pagina oficial da fonte IT-T7-163 liga este perfil; sha256 c4bf3d292ea94902 dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T7-163 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T7-163",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t7-163/OBSERVATION/c4bf3d292ea94902-u2decec95e7442fa4-a-tuttofood-2026-con-filiera-integrata-e-nuove-referenze.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "FACEBOOK",
+   "PAIS": "IT",
+   "NOME": "Agroalimentare News — pagina Facebook",
+   "URL": "https://www.facebook.com/redazione.agroalimentarenews",
+   "PROVA_IDENTIDADE": "https://www.agroalimentarenews.com/notizie/agroalimentarenews/gli-imprenditori-del-gusto/",
+   "PROVA_SHA256": "72b70fdf42da145c3a3b7b5e2cd165dc3d6fd9f1c9c5620c5dce0ef6f88e0bf6",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: videos/posts de imprensa tecnica com agronomos e produtores identificados. Dono = fonte registada IT-T8-008 (T8)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.agroalimentarenews.com/notizie/agroalimentarenews/gli-imprenditori-del-gusto/ (a pagina oficial da fonte IT-T8-008 liga este perfil; sha256 72b70fdf42da145c dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T8-008 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T8-008",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t8-008/OBSERVATION/72b70fdf42da145c-u4eb0aca8bbae55fb-gli-imprenditori-del-gusto.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "SOCIAIS-NO-ARMAZEM",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Agroalimentare News — canal YouTube",
+   "URL": "https://www.youtube.com/@AgroalimentareNews-i2o",
+   "PROVA_IDENTIDADE": "https://www.agroalimentarenews.com/notizie/agroalimentarenews/gli-imprenditori-del-gusto/",
+   "PROVA_SHA256": "72b70fdf42da145c3a3b7b5e2cd165dc3d6fd9f1c9c5620c5dce0ef6f88e0bf6",
+   "PARA_QUE": "Voci dal Campo/Radar Futuro: videos/posts de imprensa tecnica com agronomos e produtores identificados. Dono = fonte registada IT-T8-008 (T8)",
+   "NOTA": "PROVA_IDENTIDADE=https://www.agroalimentarenews.com/notizie/agroalimentarenews/gli-imprenditori-del-gusto/ (a pagina oficial da fonte IT-T8-008 liga este perfil; sha256 72b70fdf42da145c dos bytes guardados no armazem). PAIS_PROVA=fonte italiana IT-T8-008 registada no atlas.",
+   "TAMBEM_LIGADO_POR": [],
+   "FONTE_DONA": "IT-T8-008",
+   "PROVA_CONFERIDA": true,
+   "PROVA_FICHEIRO": "XX/it-t8-008/OBSERVATION/72b70fdf42da145c-u4eb0aca8bbae55fb-gli-imprenditori-del-gusto.html",
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Foggia",
+   "URL": "http://www.condifesafoggia.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Puglia) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_AUSENTE, login na pagina=False, data mais recente legivel na pagina=2026-09-24, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "CODIPACAL — Consorzio di difesa Calabria",
+   "URL": "https://codipacal.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Calabria) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2026-09-18, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Modena",
+   "URL": "https://www.condifesamodena.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Emilia-Romagna) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2026-09-17, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Vercelli Biella",
+   "URL": "https://www.condifesa-vcbi.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Piemonte) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2026-09-16, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Brescia",
+   "URL": "https://www.condifesabrescia.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Lombardia) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_AUSENTE, login na pagina=False, data mais recente legivel na pagina=2026-08-12, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa FVG",
+   "URL": "https://www.condifesafvg.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Friuli Venezia Giulia) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2026-07-31, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "CODIMA Mantova",
+   "URL": "https://www.codima.info/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Lombardia) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo; se o login esconde os boletins",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=True, data mais recente legivel na pagina=2026-06-30, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "CODIPRA Trento",
+   "URL": "https://www.codipratn.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Trentino-Alto Adige) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2026-06-30, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Cuneo",
+   "URL": "https://www.condifesacuneo.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Piemonte) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo; se o login esconde os boletins",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=True, data mais recente legivel na pagina=2026-06-30, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Emilia",
+   "URL": "https://condifesa-emilia.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Emilia-Romagna) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo; se o login esconde os boletins",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=True, data mais recente legivel na pagina=2026-06-18, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Agridifesa del Mediterraneo",
+   "URL": "https://agridifesadelmediterraneo.eu/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Puglia) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo; se o login esconde os boletins",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=True, data mais recente legivel na pagina=2026-05-15, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Umbria",
+   "URL": "https://www.condifesaumbria.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Umbria) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo; se o login esconde os boletins",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=True, data mais recente legivel na pagina=2026-05-15, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "COSMAN Piemonte",
+   "URL": "https://www.cosmanpiemonte.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Piemonte) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2026-05-15, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Hagelschutzkonsortium (Alto Adige)",
+   "URL": "https://www.hagelschutzkonsortium.com/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Trentino-Alto Adige) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2026-04-24, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "COPROVI",
+   "URL": "https://www.coprovi.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Lombardia) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2026-04-03, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "CODIVE",
+   "URL": "https://www.codive.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Veneto) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2026-04-02, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Lombardia (federazione)",
+   "URL": "https://www.condifesalombardia.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Lombardia) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=2025-11-16, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "CODIPE — Consorzio di difesa (Abruzzo)",
+   "URL": "https://www.codipe.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Abruzzo) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_AUSENTE, login na pagina=False, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "CODIPRA Toscano",
+   "URL": "https://www.codipratoscano.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Toscana) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Basilicata",
+   "URL": "https://www.condifesa-basilicata.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Basilicata) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo; se o login esconde os boletins",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=True, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Milano Lodi",
+   "URL": "https://www.condifesa-mi-lo.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Lombardia) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Sassari",
+   "URL": "http://www.condifesa.sassari.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Sardegna) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_AUSENTE, login na pagina=False, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Catania",
+   "URL": "https://www.condifesacatania.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Sicilia) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Novara",
+   "URL": "https://www.condifesanovara.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Piemonte) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_200, login na pagina=False, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Oristano",
+   "URL": "https://www.condifesaor.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Sardegna) — cultura + praga + zona + data. FALTA_PROVAR: se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP 200, ROBOTS_AUSENTE, login na pagina=False, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa (condifesa.it)",
+   "URL": "https://www.condifesa.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Emilia-Romagna) — cultura + praga + zona + data. FALTA_PROVAR: robots.txt legivel ANTES de tudo (a P1g nao o leu: ROBOTS_ILEGIVEL_URLError); se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP None, ROBOTS_ILEGIVEL_URLError, login na pagina=None, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Ancona Macerata",
+   "URL": "https://www.condifesaanmc.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Marche) — cultura + praga + zona + data. FALTA_PROVAR: robots.txt legivel ANTES de tudo (a P1g nao o leu: ROBOTS_ILEGIVEL_500); se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP None, ROBOTS_ILEGIVEL_500, login na pagina=None, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Cagliari",
+   "URL": "https://www.condifesaca.it/home.html",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Sardegna) — cultura + praga + zona + data. FALTA_PROVAR: robots.txt legivel ANTES de tudo (a P1g nao o leu: ROBOTS_ILEGIVEL_URLError); se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP None, ROBOTS_ILEGIVEL_URLError, login na pagina=None, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Piemonte",
+   "URL": "https://www.condifesapiemonte.com/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Piemonte) — cultura + praga + zona + data. FALTA_PROVAR: robots.txt legivel ANTES de tudo (a P1g nao o leu: ROBOTS_ILEGIVEL_URLError); se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP None, ROBOTS_ILEGIVEL_URLError, login na pagina=None, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "LACUNAS": [
+    "L1-CULTURA-PRAGA",
+    "L2-REGIAO",
+    "L3-PERIODO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "Condifesa Veneto Est",
+   "URL": "https://condifesavenetoest.it/",
+   "PROVA_IDENTIDADE": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE2-CONSORZI.json",
+   "PARA_QUE": "Finestre Colturali/Radar: avisos de defesa datados do consorcio (Veneto) — cultura + praga + zona + data. FALTA_PROVAR: robots.txt legivel ANTES de tudo (a P1g nao o leu: ROBOTS_ILEGIVEL_403); se ha AVISOS/BOLETINS de DEFESA datados (cultura + zona + data) ou so seguro/granizo",
+   "NOTA": "PAIS_PROVA=consorzio di difesa italiano na lista oficial da Asnacodi (asnacodi.it/le-sedi-condifesa/). PROVA=P1g 24/09: HTTP None, ROBOTS_ILEGIVEL_403, login na pagina=None, data mais recente legivel na pagina=nenhuma, visto em https://www.asnacodi.it/le-sedi-condifesa/. Medido pela P1g (JANELAS-REGIOES-V1) e fichado no lote 2 da GAPS-CANDIDATAS; nunca registado no vivo.",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Agroter / Italiafruit News — canal YouTube",
+   "URL": "https://www.youtube.com/user/AgroterVideo",
+   "PROVA_IDENTIDADE": "https://www.italiafruit.net/",
+   "PROVA_SHA256": "61b4bd233e91e5b703fa60b74d51c56b8178477c55f7b2fe7ce9f9e5121fdd3d",
+   "PARA_QUE": "Voci dal Campo: videos de Italiafruit News (MEDIA_AGRO) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.italiafruit.net/ (pagina oficial do dono liga o canal; sha256 61b4bd233e91e5b7; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "OUTRO",
+   "PAIS": "IT",
+   "NOME": "Sherwood — Foreste ed Alberi Oggi — podcast (Spotify)",
+   "URL": "https://open.spotify.com/show/0cqa1I9ccmuQ9Db5P3TJ4v",
+   "PROVA_IDENTIDADE": "https://www.sherwood.it/",
+   "PROVA_SHA256": "c009b35204b192794e642e676309590f18bf8163791d1e0bc106e73f12a84560",
+   "PARA_QUE": "Voci dal Campo: PODCAST de Sherwood — Foreste ed Alberi Oggi (MEDIA_AGRO (florestal)) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.sherwood.it/ (pagina oficial do dono liga o canal; sha256 c009b35204b19279; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "FORA_DO_FOCO"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Sherwood — Foreste ed Alberi Oggi — canal YouTube",
+   "URL": "https://www.youtube.com/user/sherwoodweb",
+   "PROVA_IDENTIDADE": "https://www.sherwood.it/",
+   "PROVA_SHA256": "c009b35204b192794e642e676309590f18bf8163791d1e0bc106e73f12a84560",
+   "PARA_QUE": "Voci dal Campo: videos de Sherwood — Foreste ed Alberi Oggi (MEDIA_AGRO (florestal)) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.sherwood.it/ (pagina oficial do dono liga o canal; sha256 c009b35204b19279; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0769",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "FORA_DO_FOCO"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "PSR Calabria — canal YouTube do Programa de Desenvolvimento Rural",
+   "URL": "https://www.youtube.com/channel/UCE3BgIE0ztA9PXEv6oxI-LQ",
+   "PROVA_IDENTIDADE": "http://www.calabriapsr.it/",
+   "PROVA_SHA256": "ff0a94a0b7c490bbd94989214fc276d3e752abd397021b0633adc55f7575520c",
+   "PARA_QUE": "Voci dal Campo: videos de Adozione versione 2.0 di giugno 2026 del Prezzario dei costi Massimi di riferimento per macchine ed attrezzature agricole, (INSTITUCIONAL_AGRO) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=http://www.calabriapsr.it/ (pagina oficial do dono liga o canal; sha256 ff0a94a0b7c490bb; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Biolchim — canal YouTube",
+   "URL": "https://www.youtube.com/@BiolchimSpA",
+   "PROVA_IDENTIDADE": "https://www.biolchim.com/",
+   "PROVA_SHA256": "f923d593ec419265f009dda48d03fcebfa6812ba162a1d8082c12ff65a6fdebe",
+   "PARA_QUE": "Voci dal Campo: videos de Biolchim (EMPRESA_INSUMOS) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.biolchim.com/ (pagina oficial do dono liga o canal; sha256 f923d593ec419265; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Consorzio del Parmigiano Reggiano — canal YouTube",
+   "URL": "https://www.youtube.com/user/ParmigianoReggianoIT",
+   "PROVA_IDENTIDADE": "https://www.parmigianoreggiano.com/it",
+   "PROVA_SHA256": "528f4413b77fc147b39901c422e01af548025c8fc8ae51ab59af01f615165b14",
+   "PARA_QUE": "Voci dal Campo: videos de Consorzio del Parmigiano Reggiano (CONSORCIO_AGRO) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.parmigianoreggiano.com/it (pagina oficial do dono liga o canal; sha256 528f4413b77fc147; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "FORA_DO_FOCO"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Diachem — canal YouTube",
+   "URL": "https://www.youtube.com/@diachem",
+   "PROVA_IDENTIDADE": "https://www.diachem.it/",
+   "PROVA_SHA256": "4f7e72b1cbe81ea82ba9a1dfbdb3dfc7638274ec27678d701a535b4fde6c4a18",
+   "PARA_QUE": "Voci dal Campo: videos de Diachem (EMPRESA_DEFENSIVOS) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.diachem.it/ (pagina oficial do dono liga o canal; sha256 4f7e72b1cbe81ea8; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "FederUnacoma — canal YouTube",
+   "URL": "https://www.youtube.com/user/federunacoma",
+   "PROVA_IDENTIDADE": "https://www.federunacoma.it/it/index.php",
+   "PROVA_SHA256": "f45ac656ce6d0b001adfbd5ebf86f540d31a1b4925e2349849617764b569232e",
+   "PARA_QUE": "Voci dal Campo: videos de FederUnacoma — Federazione Nazionale Costruttori Macchine per l'Agricoltura (ASSOCIACAO_AGRO (maquinas)) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.federunacoma.it/it/index.php (pagina oficial do dono liga o canal; sha256 f45ac656ce6d0b00; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0561",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Nomisma — canal YouTube",
+   "URL": "https://www.youtube.com/@nomisma8372",
+   "PROVA_IDENTIDADE": "https://www.nomisma.it/",
+   "PROVA_SHA256": "ec3ea545e0892c8d721808181eb8b0417d9b61c53ca36f8db19c2a4b3c4cafa5",
+   "PARA_QUE": "Voci dal Campo: videos de Nomisma (INVESTIGACAO_ECONOMICA_AGRO) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.nomisma.it/ (pagina oficial do dono liga o canal; sha256 ec3ea545e0892c8d; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0488",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "JA_NA_FILA"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Sipcam Italia — canal YouTube",
+   "URL": "https://www.youtube.com/channel/UC8Uto03To7JFiY6HM1PAb7Q",
+   "PROVA_IDENTIDADE": "https://www.sipcam.com/it/it/",
+   "PROVA_SHA256": "db7699e96c9999ee95d2785bafad98c6a9b28856249ddbf3ffea225092fe6108",
+   "PARA_QUE": "Voci dal Campo: videos de Sipcam Italia (EMPRESA_DEFENSIVOS) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.sipcam.com/it/it/ (pagina oficial do dono liga o canal; sha256 db7699e96c9999ee; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "Terremerse — canal YouTube",
+   "URL": "https://www.youtube.com/user/TerremerseCoop",
+   "PROVA_IDENTIDADE": "https://terremerse.it/",
+   "PROVA_SHA256": "e2d87a055577c2bb5eb72a5ea3b7d22d521ade88c3bc31137ace787f3c2fbcaa",
+   "PARA_QUE": "Voci dal Campo: videos de Terremerse (COOPERATIVA_AGRO) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://terremerse.it/ (pagina oficial do dono liga o canal; sha256 e2d87a055577c2bb; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/canais-pessoas-v1:scripts/canais_pessoas/DECISOES-YT3-V1.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "UNAITALIA — canal YouTube",
+   "URL": "https://www.youtube.com/@unaitalia-unionenazionalef9849",
+   "PROVA_IDENTIDADE": "https://www.unaitalia.com/",
+   "PROVA_SHA256": "3dd6fda247662326084c2ba3cf1cea9531b55f5b095a2833e6c6edcc548b0d25",
+   "PARA_QUE": "Voci dal Campo: videos de UNAITALIA — Unione Nazionale Filiere Agroalimentari Carni (ASSOCIACAO_AGRO (filieras avicolas)) com tecnicos e produtores; frequencia NAO_MEDIDA",
+   "NOTA": "PROVA_IDENTIDADE=https://www.unaitalia.com/ (pagina oficial do dono liga o canal; sha256 3dd6fda247662326; YT3 23/09). PAIS_PROVA=organizacao italiana (semente IT da fila). Decisao YT3: pagina oficial da propria organizacao liga ao canal (identidade); dono agricola",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": {
+    "CANDIDATA_ID": "CAND-0792",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "ACAO": "FORA_DO_FOCO"
+  },
+  {
+   "ORIGEM": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "LACUNAS": [
+    "L4-PESSOA-CIENCIA"
+   ],
+   "TIPO": "CIENCIA",
+   "PAIS": "IT",
+   "NOME": "CREA - podcast «TEA alle 5» (serie di 5 episodi sulle Tecniche di Evoluzione Assistita)",
+   "URL": "https://www.crea.gov.it/-/il-podcast-del-crea-tea-alle-5-un-format-originale-realizzato-in-occasione-della-biotech-week",
+   "PROVA_IDENTIDADE": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "PARA_QUE": "Intelligence Scientifica: FORMATO=PODCAST (serie). Ricercatori CREA spiegano TEA/miglioramento genetico delle colture: materia prima scientifica su varietà e difesa per SINTONIA (T5 ciencia).",
+   "NOTA": "PAIS_PROVA=CREA ente pubblico, sede Roma (rodape da pagina). EXEMPLO_DATADO=pagina oficial 08/10/2025: serie in 5 episodi, Biotech Week 2025, con Senato e RENISA. ORG_JA_NA_FILA=crea.gov.it (varias). CAPACIDADE=podcast/audio sem rota no contrato (OUTPUTS HTML/PDF/VIDEO_METADATA) -> NOT_IMPLEMENTED. PROVA=research/media-sources-v1/PEDIDOS.jsonl | ONDE_VIU=pagina oficial crea.gov.it (08 ott 2025), sha256 28aa0c1e62f1a9e2… | ROTA_HOJE: podcast/audio sem rota (NOT_IMPLEMENTED, research-media-sources-v1)",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "LACUNAS": [
+    "L4-PESSOA-CIENCIA"
+   ],
+   "TIPO": "CIENCIA",
+   "PAIS": "IT",
+   "NOME": "CREA Politiche e Bioeconomia - podcast «Agrifuturo» (Life ADA, adattamento dell'agricoltura al clima)",
+   "URL": "https://www.crea.gov.it/en/web/politiche-e-bioeconomia/-/clima-e-impatto-sull-agricoltura-il-terzo-episodio-del-podcast-agrifuturo-1",
+   "PROVA_IDENTIDADE": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "PARA_QUE": "Intelligence Scientifica: FORMATO=PODCAST (serie). Clima, siccità, fenologia (schiusura gemme/fioritura) e adattamento: sustenta JANELAS DE CULTURA (D29) e T2 clima.",
+   "NOTA": "PAIS_PROVA=CREA ente pubblico IT. EXEMPLO_DATADO=18/04/2023 terzo episodio «Clima e impatto sull'agricoltura» (estate 2022). ATENCAO=serie de 2023, atividade atual NAO SEI. CAPACIDADE=podcast NOT_IMPLEMENTED. PROVA=research/media-sources-v1/PEDIDOS.jsonl | ONDE_VIU=pagina oficial crea.gov.it (18 apr 2023), sha256 83498c279a60414c… | ROTA_HOJE: podcast/audio sem rota (NOT_IMPLEMENTED, research-media-sources-v1)",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "LACUNAS": [
+    "L4-PESSOA-CIENCIA"
+   ],
+   "TIPO": "CIENCIA",
+   "PAIS": "IT",
+   "NOME": "Rete Rurale Nazionale / Rete PAC - I podcast della Rete Rurale Nazionale",
+   "URL": "https://www.reterurale.it/podcast",
+   "PROVA_IDENTIDADE": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "PARA_QUE": "Intelligence Scientifica: FORMATO=PODCAST (4 serie: Rete PAC talk, RRN, Rural On AIR, OLEARIO). Ricercatori CREA/RRN su PSP PAC, AKIS, innovazione: politica agricola T12 e conoscenza agronomica.",
+   "NOTA": "PAIS_PROVA=programma Rete PAC 2025-2027 FEASR (rodape oficial). EXEMPLO_DATADO=Spreaker 2024-09-20 5a puntata PSP/AKIS con Anna Vagnozzi e Francesca Giarè (ricercatrici CREA), modera Giampiero Mazzocchi. ORG_JA_NA_FILA=CAND-0009 (reterurale.it) e CAND-0220 (YouTube reterurale); esta linha e o FORMATO podcast, nao a org. D24: pessoas so como publicadoras. PROVA=research/media-sources-v1/PEDIDOS.jsonl | ONDE_VIU=pagina oficial reterurale.it/podcast (ultima modifica 27/05/26) + show Spreaker 5506797 ligado pela propria pagina | ROTA_HOJE: podcast/audio sem rota (NOT_IMPLEMENTED, research-media-sources-v1)",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "LACUNAS": [
+    "L4-PESSOA-CIENCIA"
+   ],
+   "TIPO": "IMPRENSA",
+   "PAIS": "IT",
+   "NOME": "Radio 24 / Il Sole 24 Ore - «Madre Terra, l'agricoltura in podcast»",
+   "URL": "https://podcast.ilsole24ore.com/serie/madre-terra--l-agricoltura-podcast-AFkCnd1",
+   "PROVA_IDENTIDADE": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "PARA_QUE": "Intelligence Scientifica: FORMATO=PODCAST settimanale con esperti e ricercatori (es. CREA): innovazione, clima, mercati agricoli.",
+   "NOTA": "PAIS_PROVA=Il Sole 24 Ore/Radio 24, editore italiano. EXEMPLO_DATADO=2 dicembre 2024 «Speciale innovazione: stalle sostenibili, la ricerca chiude il cerchio» (Guido Bezzi, agronomia CIB, Biogas 4.0; PSR Lombardia). ATENCAO=pagina lista 1 episodio visivel; o resto NAO SEI. Episodio e zootecnia/ambiente, NAO saude animal. ORG_JA_NA_FILA=CAND-0052 (ilsole24ore.com). CAPACIDADE=podcast NOT_IMPLEMENTED. PROVA=research/media-sources-v1/PEDIDOS.jsonl | ONDE_VIU=pagina oficial podcast.ilsole24ore.com, sha256 d623182d180ef3dc… | ROTA_HOJE: podcast/audio sem rota (NOT_IMPLEMENTED, research-media-sources-v1)",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "LACUNAS": [
+    "L4-PESSOA-CIENCIA"
+   ],
+   "TIPO": "YOUTUBE",
+   "PAIS": "IT",
+   "NOME": "agrifake - agricoltura, piante e ambiente (canale YouTube di divulgazione agronomica)",
+   "URL": "https://www.youtube.com/channel/UCMfZsQVzUE4oF00c_0nzFVw",
+   "PROVA_IDENTIDADE": "origin/research-media-sources-v1:research/media-sources-v1/ACHADOS.json",
+   "PARA_QUE": "Intelligence Scientifica: FORMATO=VIDEO+PODCAST (dal 2025 solo YouTube). Contro le fake news agroalimentari, con docenti (Prof. Roberto Pilu UNIMI, Prof. Luigi Mariani UNIBS): genetica vegetale, agrometeo.",
+   "NOTA": "PAIS_PROVA=descricao do canal: libro «Agrifake» 2021 con Prof. Pilu (Facoltà di Agraria UNIMI); italiano. EXEMPLO_DATADO=video e0RWUj904Hk uploadDate 2025-05-14 «TrattoristA vs trattoristO». D24 PESSOA-CREATOR: minimizacao, so identidade publica do canal como publicador, sem contatos/seguidores. D26: a serie de 2025 sobre peste suina africana e saude animal -> fora de foco; so conteudo agronomico. ROTA=YouTube existe (D53 VIDEO); feeds RSS com Disallow (LEGACY-99). PROVA=research/media-sources-v1/PEDIDOS.jsonl | ONDE_VIU=canal oficial youtube.com/channel/UCMfZsQVzUE4oF00c_0nzFVw (descricao) + video e0RWUj904Hk | ROTA_HOJE: podcast/audio sem rota (NOT_IMPLEMENTED, research-media-sources-v1)",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/vozes-agronomos-v1:data/derivados/VOZES-AGRONOMOS/PLANO-PROGRAMAS.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "CRPV — eventi e webinar",
+   "URL": "https://www.crpv.it/it/eventi/",
+   "PROVA_IDENTIDADE": "origin/vozes-agronomos-v1:data/derivados/VOZES-AGRONOMOS/PLANO-PROGRAMAS.json",
+   "PARA_QUE": "Voci dal Campo: programas com relatores nomeados — NAO SEI (relatores dos webinars CRPV: Emepaclima/elateridi, Innova Drupe/albicocco, DATI.METEO4.0/gelate)",
+   "NOTA": "PAIS_PROVA=organizacao italiana (CAND-0022 (crpv.it) ja na fila). Pagina de eventos, link na pagina colhida V23 (crpv.it, ronda 1). A leitura automatica da NAO SEI a series sem nome (VOZES-LEITURA-HUMANA).",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  },
+  {
+   "ORIGEM": "origin/vozes-agronomos-v1:data/derivados/VOZES-AGRONOMOS/PLANO-PROGRAMAS.json",
+   "LACUNAS": [
+    "L5-PESSOA-CAMPO"
+   ],
+   "TIPO": "ORGANIZACAO",
+   "PAIS": "IT",
+   "NOME": "ANBI — eventi",
+   "URL": "https://www.anbi.it/p/eventi",
+   "PROVA_IDENTIDADE": "origin/vozes-agronomos-v1:data/derivados/VOZES-AGRONOMOS/PLANO-PROGRAMAS.json",
+   "PARA_QUE": "Voci dal Campo: programas com relatores nomeados — NAO SEI (relatores ANBI no Macfrut 2025: agronomia moderna, difesa attiva stress climatici)",
+   "NOTA": "PAIS_PROVA=organizacao italiana (CAND-0266 (anbi.it) ja na fila). Pagina de eventos, link na pagina colhida V30 (anbi.it, ronda 1). A leitura automatica da NAO SEI a series sem nome (VOZES-LEITURA-HUMANA).",
+   "PROVA_CONFERIDA": true,
+   "NO_VIVO": null,
+   "ACAO": "REGISTAR"
+  }
+ ],
+ "SOCIAIS_DESCARTADOS": {
+  "SEM_ROTA (X/Telegram/TikTok)": 27,
+  "CONTA_GERAL (regiao/provincia/CNR/universidade)": 19,
+  "RUIDO (botao/pagina generica)": 46,
+  "FORA_DO_FOCO (animal/laticinio/vinagre)": 17,
+  "A_PAGINA_E_O_PROPRIO_CANAL (ja e fonte)": 41,
+  "FAMILIA_FORA_DAS_LACUNAS (T11)": 3,
+  "FAMILIA_FORA_DAS_LACUNAS (T12)": 22,
+  "FAMILIA_FORA_DAS_LACUNAS (T2)": 50,
+  "FAMILIA_FORA_DAS_LACUNAS (T5)": 62,
+  "FAMILIA_FORA_DAS_LACUNAS (T9)": 16
+ },
+ "PONTEIROS": {
+  "ESTADOS_POR_T": {
+   "T1": {
+    "CONTRACT_PENDING": 1,
+    "CONTRACTED_CANARY_FAILED": 8,
+    "DEGRADED": 7,
+    "READY_FOR_COLLECTION": 7,
+    "UNKNOWN": 2
+   },
+   "T2": {
+    "CANARY_PENDING": 7,
+    "CAPABILITY_BLOCK": 1,
+    "CONTRACTED_CANARY_FAILED": 129,
+    "READY_FOR_COLLECTION": 18,
+    "UNKNOWN": 6,
+    "DEGRADED": 3,
+    "RETRY_AFTER": 1
+   },
+   "T3": {
+    "READY_FOR_COLLECTION": 7,
+    "SEMANTIC_REVIEW": 1,
+    "CONTRACTED_CANARY_FAILED": 46,
+    "DEGRADED": 2,
+    "UNKNOWN": 1,
+    "RETRY_AFTER": 1
+   },
+   "T4": {
+    "READY_FOR_COLLECTION": 1
+   },
+   "T5": {
+    "CANARY_PENDING": 7,
+    "CONTRACTED_CANARY_FAILED": 134,
+    "RETRY_AFTER": 8,
+    "CAPABILITY_BLOCK": 4,
+    "READY_FOR_COLLECTION": 15,
+    "UNKNOWN": 16,
+    "DEGRADED": 1,
+    "CONTRACT_READY_ROUTE_BLOCKED": 2,
+    "SEMANTIC_REVIEW": 1
+   },
+   "T7": {
+    "CANARY_PENDING": 21,
+    "RETRY_AFTER": 6,
+    "READY_FOR_COLLECTION": 30,
+    "CAPABILITY_BLOCK": 3,
+    "CONTRACTED_CANARY_FAILED": 184,
+    "CONTRACT_PENDING": 1,
+    "CONTRACT_READY_ROUTE_BLOCKED": 1
+   },
+   "T8": {
+    "CANARY_PENDING": 3,
+    "CAPABILITY_BLOCK": 1,
+    "CONTRACTED_CANARY_FAILED": 41,
+    "CONTRACT_PENDING": 1,
+    "CONTRACT_READY_ROUTE_BLOCKED": 1,
+    "READY_FOR_COLLECTION": 19,
+    "AUTH_BLOCK": 2
+   },
+   "T9": {
+    "CANARY_PENDING": 6,
+    "CAPABILITY_BLOCK": 2,
+    "CONTRACTED_CANARY_FAILED": 5,
+    "CONTRACT_PENDING": 1,
+    "READY_FOR_COLLECTION": 3,
+    "UNKNOWN": 3
+   },
+   "T10": {
+    "CANARY_PENDING": 2,
+    "READY_FOR_COLLECTION": 5,
+    "CONTRACTED_CANARY_FAILED": 25,
+    "DEGRADED": 5,
+    "UNKNOWN": 2,
+    "CONTRACT_PENDING": 1
+   },
+   "T11": {
+    "CANARY_PENDING": 3,
+    "READY_FOR_COLLECTION": 1,
+    "CONTRACT_READY_ROUTE_BLOCKED": 1,
+    "CONTRACTED_CANARY_FAILED": 5
+   },
+   "T12": {
+    "CANARY_PENDING": 10,
+    "CONTRACTED_CANARY_FAILED": 107,
+    "CAPABILITY_BLOCK": 1,
+    "UNKNOWN": 3,
+    "CONTRACT_READY_ROUTE_BLOCKED": 11,
+    "READY_FOR_COLLECTION": 12,
+    "AUTH_BLOCK": 5,
+    "RETRY_AFTER": 1,
+    "SEMANTIC_REVIEW": 1
+   }
+  },
+  "READY_POR_T": {
+   "T10": [
+    "IT-T10-018 Myfruit.it",
+    "IT-T10-021 Plantgest — banca dati varieta",
+    "IT-T10-022 Zootecnica International",
+    "IT-T10-010 CSO Italy — Centro Servizi Ortofrutticoli",
+    "IT-T10-035 "
+   ],
+   "T1": [
+    "IT-T1-005 Umbria — Agricoltura e foreste",
+    "IT-T1-007 ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura ",
+    "IT-T1-009 Lazio — Agricoltura Regione Lazio",
+    "IT-T1-010 Regione Abruzzo — Agricoltura",
+    "IT-T1-016 Italia Olivicola",
+    "IT-T1-018 Rivista di Agraria",
+    "IT-T1-022 OlivoNews — giornale di olivicoltura"
+   ],
+   "T3": [
+    "IT-T3-002 Campania — Bollettini fitosanitari regionali",
+    "IT-T3-008 ARIF Puglia / Agrometeo Puglia — rete fitosanitaria",
+    "IT-T3-010 APOL Lecce — monitoraggio olivicolo",
+    "IT-T3-011 AGRIOS — direttive, aggiornamenti e deroghe per la produzion",
+    "IT-T3-023 ",
+    "IT-T3-045 ",
+    "IT-T3-053 "
+   ],
+   "T8": [
+    "IT-T8-021 ",
+    "IT-T8-022 ",
+    "IT-T8-024 ",
+    "IT-T8-028 ",
+    "IT-T8-029 ",
+    "IT-T8-030 ",
+    "IT-T8-032 ",
+    "IT-T8-034 ",
+    "IT-T8-037 ",
+    "IT-T8-039 ",
+    "IT-T8-040 ",
+    "IT-T8-041 ",
+    "IT-T8-042 ",
+    "IT-T8-048 ",
+    "IT-T8-050 ",
+    "IT-T8-051 ",
+    "IT-T8-062 ",
+    "IT-T8-064 ",
+    "IT-T8-068 "
+   ]
+  },
+  "LOTE1_FITO_AGROMETEO_JA_NO_ROBO": {
+   "REF": "origin/gaps-candidatas-v1:data/derivados/GAPS-CANDIDATAS/MICRO-PROVA-GAPS-LOTE1.json",
+   "FICHAS": [
+    {
+     "CANDIDATA": "CAND-0941",
+     "SOURCE_ID": "IT-T2-148",
+     "NOME": "ARSAC Calabria — Bollettino agrometeorologico e fitosanitario (agrumi, olivo, vite)",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arsacweb.it/news/10/ -> MIXED/NAO_SEI, 112 em paragrafos (< 800 ou nao e materia)"
+    },
+    {
+     "CANDIDATA": "CAND-0948",
+     "SOURCE_ID": "IT-T3-025",
+     "NOME": "Campania — Bollettini fitosanitari 2026",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto"
+    },
+    {
+     "CANDIDATA": "CAND-0952",
+     "SOURCE_ID": "IT-T3-028",
+     "NOME": "Emilia-Romagna — Bollettini territoriali di produzione integrata e biologica",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://agricoltura.regione.emilia-romagna.it/fitosanitario/vivaismo-e -> FAMILIA_E_MENU: 5 dos 5 enderecos da familia rep"
+    },
+    {
+     "CANDIDATA": "CAND-0951",
+     "SOURCE_ID": "IT-T3-027",
+     "NOME": "ERSA FVG — Bollettini di difesa integrata e biologica",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto"
+    },
+    {
+     "CANDIDATA": "CAND-0972",
+     "SOURCE_ID": "IT-T3-041",
+     "NOME": "Servizio Fitosanitario Regionale — lazio",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REVISAO_R1: ALVO_ERRADO: Serviço Fitossanitário do Lazio; o padrão aponta para «qualità produzioni» (produtos certificados), não para avisos fitossanitários"
+    },
+    {
+     "CANDIDATA": "CAND-0959",
+     "SOURCE_ID": "IT-T3-032",
+     "NOME": "Molise — Bollettini e comunicati fitosanitari",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto"
+    },
+    {
+     "CANDIDATA": "CAND-0961",
+     "SOURCE_ID": "IT-T3-033",
+     "NOME": "Piemonte — Bacheca dei bollettini fitosanitari",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: ENTRADA_NAO_E_HTML — a entrada abriu e nao e HTML"
+    },
+    {
+     "CANDIDATA": "CAND-0979",
+     "SOURCE_ID": "IT-T3-048",
+     "NOME": "Servizio Fitosanitario Regionale — sardegna",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto"
+    },
+    {
+     "CANDIDATA": "CAND-0985",
+     "SOURCE_ID": "IT-T5-159",
+     "NOME": "Sicilia — Difesa fitosanitaria",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.regione.sicilia.it/istituzioni/regione/assemblea-regionale -> FAMILIA_E_MENU: 5 dos 5 enderecos da familia rep"
+    },
+    {
+     "CANDIDATA": "CAND-0981",
+     "SOURCE_ID": "IT-T3-049",
+     "NOME": "Servizio Fitosanitario Regionale — toscana",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: o item é «Accessibilità e uso del sito» da Região Toscana, não o fitossanitário"
+    },
+    {
+     "CANDIDATA": "CAND-0968",
+     "SOURCE_ID": "IT-T3-038",
+     "NOME": "Servizio Fitosanitario Regionale — bolzano",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto"
+    },
+    {
+     "CANDIDATA": "CAND-0988",
+     "SOURCE_ID": "IT-T3-056",
+     "NOME": "Valle d'Aosta — Avvisi fitosanitari per viticoltori",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.regione.vda.it/allegato.aspx?pk=126256 -> MIXED/NAO_SEI, 0 em paragrafos (< 800 ou nao e materia)"
+    },
+    {
+     "CANDIDATA": "CAND-0989",
+     "SOURCE_ID": "IT-T3-058",
+     "NOME": "Veneto — Bollettini fitosanitari 2026",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: ENTRADA_E_MATERIA — a entrada e UMA noticia (item no fim do caminho, 2965 caracteres em paragrafos): nao e uma fonte, e os links dela sao de ou"
+    },
+    {
+     "CANDIDATA": "CAND-0967",
+     "SOURCE_ID": "IT-T3-037",
+     "NOME": "Servizio Fitosanitario Regionale — basilicata",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: FAMILIA_ESTATICA — so ha familias de paginas fixas (https://www.regione.basilicata.it/direzioni/ambiente-territorio/...): nenhuma tem cara de f"
+    },
+    {
+     "CANDIDATA": "CAND-1160",
+     "SOURCE_ID": "IT-T2-136",
+     "NOME": "ARPA Lombardia — Bollettino agrometeo",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arpalombardia.it/temi-ambientali/campi-elettromagnetici/ -> FAMILIA_E_MENU: 8 dos 8 enderecos da familia repet"
+    },
+    {
+     "CANDIDATA": "CAND-0935",
+     "SOURCE_ID": "IT-T2-141",
+     "NOME": "ARPAS Sardegna — Bollettino fenologico",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto"
+    },
+    {
+     "CANDIDATA": "CAND-1170",
+     "SOURCE_ID": "IT-T2-159",
+     "NOME": "SIARL — Agrometeorologia Lazio (ARSIAL)",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REVISAO_R1: SERVICO_OU_INSTITUCIONAL: «Le attività» do SIARL: página fixa a descrever o serviço, não boletim nem notícia"
+    },
+    {
+     "CANDIDATA": "CAND-0947",
+     "SOURCE_ID": "IT-T2-151",
+     "NOME": "Agrometeo Puglia — Bollettini",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.agrometeopuglia.it/osservazioni/mappa-dati-rilevati -> MIXED/NAO_SEI, 93 em paragrafos (< 800 ou nao e materia"
+    },
+    {
+     "CANDIDATA": "CAND-0943",
+     "SOURCE_ID": "IT-T2-149",
+     "NOME": "ARSARP Molise — Agrometeorologia",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: ITEM_NAO_E_MATERIA — https://www.arsarp.it/?p=1454 -> item nao abriu: HTTP 404"
+    },
+    {
+     "CANDIDATA": "CAND-1161",
+     "SOURCE_ID": "IT-T2-138",
+     "NOME": "ARPAE — Mappe agrometeo settimanali",
+     "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED",
+     "PORQUE": "REPARO_RECUSADO: SEM_FAMILIA_DE_ITENS — nem a entrada lista 2+ itens com o mesmo esqueleto"
+    }
+   ]
+  },
+  "T10_JA_REGISTADAS": {
+   "IT-T10-001": {
+    "NOME": null,
+    "ESTADO_NO_CURATOR": null
+   },
+   "IT-T10-002": {
+    "NOME": "BMTI — analisi di mercato cereali",
+    "ESTADO_NO_CURATOR": "DEGRADED"
+   },
+   "IT-T10-009": {
+    "NOME": "Borsa Merci Bologna — Camera di Commercio",
+    "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED"
+   },
+   "IT-T10-010": {
+    "NOME": "CSO Italy — Centro Servizi Ortofrutticoli",
+    "ESTADO_NO_CURATOR": "READY_FOR_COLLECTION"
+   }
+  },
+  "GRANARIA_NA_FILA": {
+   "CAND-0157": {
+    "CANDIDATA_ID": "CAND-0157",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": "IT-T10-044",
+    "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED"
+   },
+   "CAND-0499": {
+    "CANDIDATA_ID": "CAND-0499",
+    "ESTADO_NA_FILA": "EM_ANALISE",
+    "SOURCE_ID": "IT-T10-028",
+    "ESTADO_NO_CURATOR": "CONTRACTED_CANARY_FAILED"
+   }
+  }
+ },
+ "CONTAGEM": {
+  "POR_ACAO": {
+   "REGISTAR": 91,
+   "JA_NA_FILA": 24,
+   "JA_NA_FILA_OUTRA_FORMA": 2,
+   "FORA_DO_FOCO": 4
+  },
+  "REGISTAR_POR_LACUNA": {
+   "L3-PERIODO": 38,
+   "L6-SERIE-PRECO": 11,
+   "L1-CULTURA-PRAGA": 34,
+   "L2-REGIAO": 34,
+   "L5-PESSOA-CAMPO": 33,
+   "L4-PESSOA-CIENCIA": 5
+  },
+  "REGISTAR_POR_TIPO": {
+   "INSTAGRAM": 13,
+   "LINKEDIN": 8,
+   "FACEBOOK": 18,
+   "YOUTUBE": 16,
+   "ORGANIZACAO": 32,
+   "CIENCIA": 3,
+   "IMPRENSA": 1
+  }
+ }
+}
