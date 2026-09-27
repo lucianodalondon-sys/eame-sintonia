@@ -1,5 +1,9 @@
 # ACERVO-PARA-SALA-3 — a página de vídeo é matéria (opção B) + o livro das corridas fora do vivo
 
+## ⚠️ ATUALIZAÇÃO 27/09 11:00 — rebase sobre o vivo `2ef6fef8` (DATA-DO-FATO), ramo `acervo-para-sala-3c-v1`
+
+Rebase limpo (0 conflitos; o vivo novo não mexe em nenhum ficheiro deste ramo). Testes do ramo OK; mutação 6/6 e 11/11 outra vez. **O ensaio do comando continua por refazer** (a Sala real e o livro do vivo mudaram; a versão "3" muda todas as derivações HTML): NÃO aplicar a secção 3 sem ele. Continuo fora da FILA-PESADO; o pedido está em `auditoria-madrugada/NOTA-FILA-ACERVO-PARA-SALA-3.txt`.
+
 ## ⚠️ ATUALIZAÇÃO 26/09 23:00 — rebase sobre o vivo `554c1ec1` (lote 3). O ENSAIO ABAIXO NÃO VALE PARA ESTA ENTREGA
 
 **Em palavras simples:** o lote 3 instalou uma lei nova: **receita nova = versão nova** (D79). A minha leitura
