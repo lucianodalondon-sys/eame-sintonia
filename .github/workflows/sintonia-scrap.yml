@@ -536,7 +536,12 @@ jobs:
             echo "$1"
           }
           assunto_do_alvo_da_fonte() {
+            # COMENTARIOS-V1 (D106): IT-T5 e IT-T7 deixam de sair com FONTE_SEM_APELIDO.
+            # Os apelidos NAO sao novos: sao os do dono, `leis/territorios.py::APELIDOS`
+            # («ciencia» -> T5, «agronomos» -> T7), e `pedido.alvo_de` traduz-os sozinho.
             case "$1" in
+              IT-T5-*) echo 'colete ciencia' ;;
+              IT-T7-*) echo 'colete agronomos' ;;
               IT-T8-*) echo 'colete agricultores' ;;
               IT-T9-*) echo 'colete concorrentes' ;;
               *) return 1 ;;
@@ -748,7 +753,7 @@ jobs:
             busca-youtube)
               FONTE_YT="$(fonte_do_pedido '${{ inputs.fonte }}')"
               ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_YT")" || {
-                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T5-*, IT-T7-*, IT-T8-* e IT-T9-*."
                 exit 2
               }
               PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
@@ -757,7 +762,7 @@ jobs:
             canal-youtube)
               FONTE_YT="$(fonte_do_pedido '${{ inputs.fonte }}')"
               ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_YT")" || {
-                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T5-*, IT-T7-*, IT-T8-* e IT-T9-*."
                 exit 2
               }
               PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
@@ -766,7 +771,7 @@ jobs:
             video-youtube)
               FONTE_YT="$(fonte_do_pedido '${{ inputs.fonte }}')"
               ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_YT")" || {
-                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T5-*, IT-T7-*, IT-T8-* e IT-T9-*."
                 exit 2
               }
               PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
@@ -775,7 +780,7 @@ jobs:
             comentarios-youtube)
               FONTE_YT="$(fonte_do_pedido '${{ inputs.fonte }}')"
               ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_YT")" || {
-                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T5-*, IT-T7-*, IT-T8-* e IT-T9-*."
                 exit 2
               }
               PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
@@ -784,7 +789,7 @@ jobs:
             audio-youtube)
               FONTE_YT="$(fonte_do_pedido '${{ inputs.fonte }}')"
               ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_YT")" || {
-                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                echo "FONTE_SEM_APELIDO: $FONTE_YT — esta porta so sabe apelidar IT-T5-*, IT-T7-*, IT-T8-* e IT-T9-*."
                 exit 2
               }
               PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
@@ -805,7 +810,7 @@ jobs:
             canal-telegram)
               FONTE_AB="$(fonte_do_pedido '${{ inputs.fonte }}')"
               ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_AB")" || {
-                echo "FONTE_SEM_APELIDO: $FONTE_AB — esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                echo "FONTE_SEM_APELIDO: $FONTE_AB — esta porta so sabe apelidar IT-T5-*, IT-T7-*, IT-T8-* e IT-T9-*."
                 exit 2
               }
               PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
@@ -814,7 +819,7 @@ jobs:
             tag-mastodon)
               FONTE_AB="$(fonte_do_pedido '${{ inputs.fonte }}')"
               ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_AB")" || {
-                echo "FONTE_SEM_APELIDO: $FONTE_AB — esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                echo "FONTE_SEM_APELIDO: $FONTE_AB — esta porta so sabe apelidar IT-T5-*, IT-T7-*, IT-T8-* e IT-T9-*."
                 exit 2
               }
               # DOIS enderecos porque sao duas perguntas: a INSTANCIA diz em que
@@ -826,7 +831,7 @@ jobs:
             contas-bluesky)
               FONTE_AB="$(fonte_do_pedido '${{ inputs.fonte }}')"
               ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_AB")" || {
-                echo "FONTE_SEM_APELIDO: $FONTE_AB — esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                echo "FONTE_SEM_APELIDO: $FONTE_AB — esta porta so sabe apelidar IT-T5-*, IT-T7-*, IT-T8-* e IT-T9-*."
                 exit 2
               }
               PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \
@@ -881,7 +886,7 @@ jobs:
                 exit 2
               fi
               ASSUNTO="$(assunto_do_alvo_da_fonte "$FONTE_IG")" || {
-                echo "FONTE_SEM_APELIDO: $FONTE_IG — o pedido nomeia a INTENCAO pela fonte, e esta porta so sabe apelidar IT-T8-* e IT-T9-*."
+                echo "FONTE_SEM_APELIDO: $FONTE_IG — o pedido nomeia a INTENCAO pela fonte, e esta porta so sabe apelidar IT-T5-*, IT-T7-*, IT-T8-* e IT-T9-*."
                 exit 2
               }
               PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "$ASSUNTO" \

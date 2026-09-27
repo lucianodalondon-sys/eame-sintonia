@@ -109,20 +109,32 @@ def pseudonimo(handle):
     return 'IGP-' + d[:12]
 
 
+#: D106 (dono, 2026-09-27): o portão de dado pessoal deixa de ESPERAR a revisão
+#: jurídica da ADAMA. O que continua fechado por omissão é o GASTO: a única rota de
+#: texto de comentário do Instagram é paga (Apify; a grátis dá só o NÚMERO — medido
+#: em `leis/social_matriz.py`), e a D106-3 não autoriza pago sem OK explícito.
+DECISAO_DADO_PESSOAL = 'D106'
+
+
 def pode_coletar(env=None):
-    """→ (pode, motivo). O padrão é NÃO, e isso é a trava — não um aviso."""
+    """→ (pode, motivo). O padrão é NÃO — e desde a D106 o NÃO é do GASTO, não do jurídico.
+
+    Separar as duas perguntas é o que impede a D106 de virar autorização de gasto por
+    acidente: o dado pessoal está liberado (minimizado: pseudónimo, sem perfil/avatar);
+    o dinheiro não. `IG_COMENTARIOS_AUTORIZADO=1` passa a ser o OK explícito de GASTO.
+    """
     amb = env if env is not None else os.environ
     v = (amb.get(AUTORIZADO) or '').strip().lower()
     if v in ('1', 'sim', 'yes', 'true'):
-        return True, ('autorizado à mão por %s=%s. A autorização é de OPERAÇÃO, e não '
-                      'substitui a revisão jurídica: o artefato continua nascendo '
-                      'LEGAL_REVIEW=PENDING.' % (AUTORIZADO, v))
+        return True, ('OK de GASTO dado à mão por %s=%s (rota paga Apify). O dado pessoal está '
+                      'liberado pela %s, sem esperar o jurídico; a minimização continua '
+                      '(pseudónimo, sem perfil/avatar).' % (AUTORIZADO, v, DECISAO_DADO_PESSOAL))
     return False, (
-        'PORTÃO FECHADO. Comentário é dado pessoal de pessoa física na UE e esta casa já '
-        'declarou PERSONAL_SCORING = PROHIBITED_FOR_CURRENT_PILOT (pendência P-008). '
-        'Para coletar assim mesmo, quem tem autoridade liga %s=1 — e assume a decisão. '
-        'Post corporativo NÃO passa por este portão: ele é comunicação de empresa.'
-        % AUTORIZADO)
+        'PORTÃO FECHADO PELO GASTO. O dado pessoal está liberado pela %s (não espera mais o '
+        'jurídico da ADAMA), mas o texto de comentário do Instagram só tem rota PAGA — a grátis '
+        'dá o NÚMERO, nunca o TEXTO — e a D106 não autoriza pago sem OK explícito. Quem '
+        'autoriza o gasto liga %s=1. Post corporativo NÃO passa por este portão.'
+        % (DECISAO_DADO_PESSOAL, AUTORIZADO))
 
 
 def normalizar_comentario(bruto, *, objeto, run_id):

@@ -128,20 +128,28 @@ class ATravaSemRede(unittest.TestCase):
         Cada um deles tem de morrer na trava ANTES da rede — e o teste mede a
         categoria, e nao so a excecao.
         """
+        # ⚠️ AJUSTE DECLARADO (COMENTARIOS-V1, D106 de 2026-09-27): o dono derrubou a
+        # trava da D24 sobre «comentarios de terceiros». A listagem de comentarios
+        # continua a morrer ANTES da rede nesta rota de VIDEO — mas agora como PORTA
+        # TROCADA (o comentario le-se na pagina publica do post), e nao como conteudo
+        # proibido. Os outros tres continuam exactamente como a D24 os escreveu.
         alvos = {
             'contato': 'https://www.linkedin.com/in/alberto-grimelli-85a72856/detail/contact-info/',
             'contato (overlay)': 'https://www.linkedin.com/overlay/contact-info/',
             'seguidores': 'https://www.linkedin.com/in/alberto-grimelli-85a72856/followers/',
             'conexoes': 'https://www.linkedin.com/in/alberto-grimelli-85a72856/connections/',
             'mensagens': 'https://www.linkedin.com/messaging/thread/1234/',
-            'comentarios de terceiros': ('https://www.linkedin.com/feed/update/'
-                                         'urn:li:activity:7428520945017012224/comments/'),
         }
         for nome, alvo in alvos.items():
             with self.assertRaises(Exception) as c:
                 al._alvo_e_post_publico(alvo)
             self.assertIn('conteudo PESSOAL', str(c.exception),
                           'a recusa de %s tem de nomear a categoria' % nome)
+        with self.assertRaises(ValueError) as c:
+            al._alvo_e_post_publico('https://www.linkedin.com/feed/update/'
+                                    'urn:li:activity:7428520945017012224/comments/')
+        self.assertIn('ALVO_TROCADO_DE_PORTA', str(c.exception))
+        self.assertIn('D106', str(c.exception))
 
     def test_9_o_ecra_de_login_para_e_registra(self):
         with self.assertRaises(Exception) as c:
