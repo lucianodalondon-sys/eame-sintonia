@@ -1,0 +1,158 @@
+{
+ "TESTES": [
+  "tests.test_comentarios_v1",
+  "tests.test_d24_video_de_pessoa",
+  "tests.test_c13_route_gate"
+ ],
+ "SHA256_ANTES": {
+  "coleta/social_envelope.py": "ce15a63a1c97790eaff5506da55f812e3f5ccad705116cd2a235e28ac18067b7",
+  "coleta/youtube_oficial.py": "66361f13b86c087484ee8f8e2fcfaad24fc5f0c2066182096c6aca2a1240b131",
+  "pedido/elegibilidade_comentario.py": "dc1c1dde6e5e4d611471b1c9a28fba5ed5306bd96be4a7480a450f6bb10344a2",
+  "coleta/adaptador_linkedin.py": "a1e26c8086af28b2b92f08598cb56d061fd4e0d40656a7667b392048adc44ad1",
+  "coleta/instagram_pessoal.py": "9f2900e84170d9396ffdabfcf8de8ac49a6329f1060167f806c7dac562351c5a",
+  "leis/social_matriz.py": "a32898be246ee1bcb10153dacc15521d606a290ffc5e4255ca41ef29761fac63",
+  ".github/workflows/sintonia-scrap.yml": "d4a227bea39546d573a4911c5b185ba6aadbcb6347df7b1f310bed5fb7d1fd1f"
+ },
+ "FALHAS_HERDADAS_ANTES": [
+  "test_13_as_32_decisoes_antigas_estao_intactas",
+  "test_H_mexer_na_rota_nova_nao_mexe_nas_antigas"
+ ],
+ "MUTANTES": [
+  {
+   "MUTANTE": "M01 comentario vira FACT",
+   "FICHEIRO": "coleta/social_envelope.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_comentario_nasce_assercao_publica_nunca_facto",
+    "test_leitor_do_jsonld_minimiza_e_nomeia_o_pai"
+   ]
+  },
+  {
+   "MUTANTE": "M02 comentario sem pai passa",
+   "FICHEIRO": "coleta/social_envelope.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_comentario_sem_pai_nao_se_monta"
+   ]
+  },
+  {
+   "MUTANTE": "M03 COMMENT deixa de ganhar a assercao",
+   "FICHEIRO": "coleta/social_envelope.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_comentario_nasce_assercao_publica_nunca_facto",
+    "test_comentario_sem_pai_nao_se_monta",
+    "test_d107_nasce_nao_avaliado_e_sem_regiao_de_quem_fala",
+    "test_leitor_do_jsonld_minimiza_e_nomeia_o_pai",
+    "test_o_pai_e_nomeado_e_o_lugar_nao_se_inventa"
+   ]
+  },
+  {
+   "MUTANTE": "M04 YouTube deixa de nomear o pai",
+   "FICHEIRO": "coleta/youtube_oficial.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_comentario_nasce_assercao_publica_nunca_facto",
+    "test_d107_nasce_nao_avaliado_e_sem_regiao_de_quem_fala",
+    "test_ha_controlo_cru_escolhido_sem_olhar_o_texto",
+    "test_nada_e_apagado",
+    "test_o_pai_e_nomeado_e_o_lugar_nao_se_inventa",
+    "test_os_cinco_baldes_existem",
+    "test_regiao_so_quando_a_fala_a_diz",
+    "test_sinais_d107"
+   ]
+  },
+  {
+   "MUTANTE": "M05 lugar do pai vira o de quem fala (IAB §5)",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_regiao_so_quando_a_fala_a_diz"
+   ]
+  },
+  {
+   "MUTANTE": "M06 controlo deixa de existir",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_ha_controlo_cru_escolhido_sem_olhar_o_texto"
+   ]
+  },
+  {
+   "MUTANTE": "M07 amostra apaga o que fica fora",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_nada_e_apagado"
+   ]
+  },
+  {
+   "MUTANTE": "M08 lacuna de vocabulario volta a ser NO",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_lacuna_de_vocabulario_e_nao_sei_e_nao_no"
+   ]
+  },
+  {
+   "MUTANTE": "M09 zero declarado passa a colher",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_zero_declarado_nao_colhe_e_diz_porque"
+   ]
+  },
+  {
+   "MUTANTE": "M10 leitor do LinkedIn guarda o nome do autor",
+   "FICHEIRO": "coleta/adaptador_linkedin.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_leitor_do_jsonld_minimiza_e_nomeia_o_pai"
+   ]
+  },
+  {
+   "MUTANTE": "M11 listagem de comentarios deixa de ser recusada",
+   "FICHEIRO": "coleta/adaptador_linkedin.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_8_contatos_seguidores_mensagens_e_comentarios_ficam_fora",
+    "test_listagem_de_comentarios_e_porta_trocada"
+   ]
+  },
+  {
+   "MUTANTE": "M12 Instagram abre o gasto por omissao",
+   "FICHEIRO": "coleta/instagram_pessoal.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_portao_do_instagram_fecha_pelo_gasto_e_nao_pelo_juridico"
+   ]
+  },
+  {
+   "MUTANTE": "M13 LinkedIn declarado PROVED sem prova",
+   "FICHEIRO": "leis/social_matriz.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_linkedin_tem_rota_gratuita_candidata_nao_provada"
+   ]
+  },
+  {
+   "MUTANTE": "M14 apelido T7 some do workflow",
+   "FICHEIRO": ".github/workflows/sintonia-scrap.yml",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_workflow_apelida_t5_e_t7_com_os_apelidos_do_dono"
+   ]
+  }
+ ],
+ "SHA256_DEPOIS": {
+  "coleta/social_envelope.py": "ce15a63a1c97790eaff5506da55f812e3f5ccad705116cd2a235e28ac18067b7",
+  "coleta/youtube_oficial.py": "66361f13b86c087484ee8f8e2fcfaad24fc5f0c2066182096c6aca2a1240b131",
+  "pedido/elegibilidade_comentario.py": "dc1c1dde6e5e4d611471b1c9a28fba5ed5306bd96be4a7480a450f6bb10344a2",
+  "coleta/adaptador_linkedin.py": "a1e26c8086af28b2b92f08598cb56d061fd4e0d40656a7667b392048adc44ad1",
+  "coleta/instagram_pessoal.py": "9f2900e84170d9396ffdabfcf8de8ac49a6329f1060167f806c7dac562351c5a",
+  "leis/social_matriz.py": "a32898be246ee1bcb10153dacc15521d606a290ffc5e4255ca41ef29761fac63",
+  ".github/workflows/sintonia-scrap.yml": "d4a227bea39546d573a4911c5b185ba6aadbcb6347df7b1f310bed5fb7d1fd1f"
+ },
+ "REPOSTO_IGUAL": true,
+ "PLACAR": "14/14 mortos"
+}

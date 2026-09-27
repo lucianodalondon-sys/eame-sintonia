@@ -1,0 +1,359 @@
+{
+ "tests/test_comentarios_v1": {
+  "EXISTE": false
+ },
+ "tests/test_mapa_nao_mente": {
+  "EXISTE": true,
+  "CORRIDOS": 13,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_o_mapa_da_intelligence_nao_mente": {
+  "EXISTE": true,
+  "CORRIDOS": 36,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_as_duas_portas_do_scrap": {
+  "EXISTE": true,
+  "CORRIDOS": 26,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_4_route_gate": {
+  "EXISTE": true,
+  "CORRIDOS": 27,
+  "FALHAS": [
+   "test_depois_do_portao_o_pedido_continua_a_ser_so_de_som (tests.test_c10_4_route_gate.RotaPermitidaChegaAoAdaptador.test_depois_do_portao_o_pedido_continua_a_ser_so_de_som)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c10_4b_um_caminho_so": {
+  "EXISTE": true,
+  "CORRIDOS": 13,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_4c_rota_aposentada": {
+  "EXISTE": true,
+  "CORRIDOS": 21,
+  "FALHAS": [
+   "test_14_o_censo_nao_declara_a_aposentada_a_chamar_ninguem (tests.test_c10_4c_rota_aposentada.OMapaNaoDeclaraUmaArestaQueNaoExiste.test_14_o_censo_nao_declara_a_aposentada_a_chamar_ninguem)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c10_5_collection_flow": {
+  "EXISTE": true,
+  "CORRIDOS": 13,
+  "FALHAS": [
+   "test_so_um_ficheiro_le_o_robots (tests.test_c10_5_collection_flow.OPortaoDeTransporteTemUmDonoSo.test_so_um_ficheiro_le_o_robots)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c10_5d_decisao_instagram": {
+  "EXISTE": true,
+  "CORRIDOS": 17,
+  "FALHAS": [
+   "test_T11_nenhuma_identidade_e_fabricada (tests.test_c10_5d_decisao_instagram.ADecisaoNaoTrouxeNadaAtrasDela.test_T11_nenhuma_identidade_e_fabricada)",
+   "test_T1_o_portao_decide_nos_dois_sentidos (tests.test_c10_5d_decisao_instagram.ADecisaoEstaTomadaEValeNoSocket.test_T1_o_portao_decide_nos_dois_sentidos)",
+   "test_T4_bytes_entregues_chegam_ao_reconhecedor (tests.test_c10_5d_decisao_instagram.ReusarNaoEAdquirir.test_T4_bytes_entregues_chegam_ao_reconhecedor)",
+   "test_T5_reusar_nao_adquire_midia_nem_com_a_rota_aberta (tests.test_c10_5d_decisao_instagram.ReusarNaoEAdquirir.test_T5_reusar_nao_adquire_midia_nem_com_a_rota_aberta)",
+   "test_T5b_sem_endereco_para_consultar_nada_sai (tests.test_c10_5d_decisao_instagram.ReusarNaoEAdquirir.test_T5b_sem_endereco_para_consultar_nada_sai)",
+   "test_a_decisao_sobe_no_trace_mesmo_quando_deixou_passar (tests.test_c10_5d_decisao_instagram.ReusarNaoEAdquirir.test_a_decisao_sobe_no_trace_mesmo_quando_deixou_passar)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c10_6_crash_retry": {
+  "EXISTE": true,
+  "CORRIDOS": 18,
+  "FALHAS": [
+   "test_P10_a_identidade_nao_e_fabricada_e_nao_muda_no_retry (tests.test_c10_6_crash_retry.RepetirNaoDuplicaNemFabrica.test_P10_a_identidade_nao_e_fabricada_e_nao_muda_no_retry)",
+   "test_P1_o_processo_morre_mesmo (tests.test_c10_6_crash_retry.OCrashERealEOutroProcessoResponde.test_P1_o_processo_morre_mesmo)",
+   "test_P2_o_que_foi_preservado_antes_do_crash_sobrevive (tests.test_c10_6_crash_retry.OCrashERealEOutroProcessoResponde.test_P2_o_que_foi_preservado_antes_do_crash_sobrevive)",
+   "test_P3_o_processo_novo_retoma_sem_voltar_a_adquirir (tests.test_c10_6_crash_retry.OCrashERealEOutroProcessoResponde.test_P3_o_processo_novo_retoma_sem_voltar_a_adquirir)",
+   "test_P4_transcript_parcial_nunca_vira_completo (tests.test_c10_6_crash_retry.OCrashERealEOutroProcessoResponde.test_P4_transcript_parcial_nunca_vira_completo)",
+   "test_a_mesma_corrida_repetida_nao_infla_a_contagem (tests.test_c10_6_crash_retry.RepetirNaoDuplicaNemFabrica.test_a_mesma_corrida_repetida_nao_infla_a_contagem)",
+   "test_repetir_nao_cria_um_segundo_registo_duravel (tests.test_c10_6_crash_retry.RepetirNaoDuplicaNemFabrica.test_repetir_nao_cria_um_segundo_registo_duravel)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c10_6d_portas_canonicas": {
+  "EXISTE": true,
+  "CORRIDOS": 26,
+  "FALHAS": [
+   "test_8_a_rota_da_janela_e_a_que_a_matriz_nomeia (tests.test_c10_6d_portas_canonicas.APoliticaContinuaDona.test_8_a_rota_da_janela_e_a_que_a_matriz_nomeia)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c10_6e_runtime_pago": {
+  "EXISTE": true,
+  "CORRIDOS": 21,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_7_ensaio_canonico": {
+  "EXISTE": true,
+  "CORRIDOS": 20,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_8a_bluesky_ao_vivo": {
+  "EXISTE": true,
+  "CORRIDOS": 22,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_8af_orcamento_financeiro": {
+  "EXISTE": true,
+  "CORRIDOS": 40,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_8ar_orcamento_de_rede": {
+  "EXISTE": true,
+  "CORRIDOS": 26,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_8b_live_disparador": {
+  "EXISTE": true,
+  "CORRIDOS": 26,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_8b_r_raw_entre_jobs": {
+  "EXISTE": true,
+  "CORRIDOS": 40,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_8b_rota_paga_canonica": {
+  "EXISTE": true,
+  "CORRIDOS": 45,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c10_audio_only": {
+  "EXISTE": true,
+  "CORRIDOS": 13,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c12_x_censo": {
+  "EXISTE": true,
+  "CORRIDOS": 9,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c13_executor_wiring": {
+  "EXISTE": true,
+  "CORRIDOS": 22,
+  "FALHAS": [
+   "test_16_falha_de_aquisicao_nao_vira_ZERO_RESULTS (tests.test_c13_executor_wiring.AFalhaTemNome.test_16_falha_de_aquisicao_nao_vira_ZERO_RESULTS)",
+   "test_17_ferramenta_partida_nao_e_video_inexistente (tests.test_c13_executor_wiring.AFalhaTemNome.test_17_ferramenta_partida_nao_e_video_inexistente)",
+   "test_18_sem_video_id_a_rota_recusa_em_vez_de_inventar (tests.test_c13_executor_wiring.AFalhaTemNome.test_18_sem_video_id_a_rota_recusa_em_vez_de_inventar)",
+   "test_1_CHECK_nao_dispara_a_aquisicao (tests.test_c13_executor_wiring.ASondaNaoColeta.test_1_CHECK_nao_dispara_a_aquisicao)",
+   "test_20_um_ficheiro_com_imagem_nao_e_rebatizado_de_audio (tests.test_c13_executor_wiring.AFalhaTemNome.test_20_um_ficheiro_com_imagem_nao_e_rebatizado_de_audio)",
+   "test_2_CHECK_nao_abre_socket (tests.test_c13_executor_wiring.ASondaNaoColeta.test_2_CHECK_nao_abre_socket)",
+   "test_5_o_COLLECT_chega_ao_adaptador_e_a_aquisicao_uma_vez (tests.test_c13_executor_wiring.ODespachoCanonico.test_5_o_COLLECT_chega_ao_adaptador_e_a_aquisicao_uma_vez)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c13_route_gate": {
+  "EXISTE": true,
+  "CORRIDOS": 25,
+  "FALHAS": [
+   "test_13_as_32_decisoes_antigas_estao_intactas (tests.test_c13_route_gate.NenhumaRotaAntigaMuda.test_13_as_32_decisoes_antigas_estao_intactas)",
+   "test_H_mexer_na_rota_nova_nao_mexe_nas_antigas (tests.test_c13_route_gate.RedTeamDaRota.test_H_mexer_na_rota_nova_nao_mexe_nas_antigas)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c13_youtube_public_audio": {
+  "EXISTE": true,
+  "CORRIDOS": 14,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c14c_permissao_instagram": {
+  "EXISTE": true,
+  "CORRIDOS": 27,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_c2_youtube_oficial": {
+  "EXISTE": true,
+  "CORRIDOS": 43,
+  "FALHAS": [
+   "test_a_matriz_nao_poe_apify_como_padrao_em_nenhuma_das_quatro (tests.test_c2_youtube_oficial.T7SemApify.test_a_matriz_nao_poe_apify_como_padrao_em_nenhuma_das_quatro)",
+   "test_a_rota_escolhida_e_o_metodo_certo_de_cada_uma (tests.test_c2_youtube_oficial.T3a6PelaApiOficial.test_a_rota_escolhida_e_o_metodo_certo_de_cada_uma)",
+   "test_as_quatro_declaram_a_api_oficial_como_fornecedor (tests.test_c2_youtube_oficial.T3a6PelaApiOficial.test_as_quatro_declaram_a_api_oficial_como_fornecedor)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c3_youtube_cutover": {
+  "EXISTE": true,
+  "CORRIDOS": 46,
+  "FALHAS": [
+   "test_gravar_raw_respeita_o_redirecionamento (tests.test_c3_youtube_cutover.T18RawDeTesteNuncaNoAcervo.test_gravar_raw_respeita_o_redirecionamento)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c5_transcript_gate": {
+  "EXISTE": true,
+  "CORRIDOS": 31,
+  "FALHAS": [
+   "test_c3_as_quatro_capacidades_continuam_oficiais (tests.test_c5_transcript_gate.T10AsMissoesAnterioresNaoRegrediram.test_c3_as_quatro_capacidades_continuam_oficiais)"
+  ],
+  "RC": 1
+ },
+ "tests/test_c6_especie_do_texto": {
+  "EXISTE": true,
+  "CORRIDOS": 37,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_cadeia_do_audio_offline": {
+  "EXISTE": true,
+  "CORRIDOS": 11,
+  "FALHAS": [
+   "test_04_a_derivacao_produz_TEXTO_pelo_dono_do_ASR (tests.test_cadeia_do_audio_offline.ACadeiaDoAudioOffline.test_04_a_derivacao_produz_TEXTO_pelo_dono_do_ASR)",
+   "test_05_a_admissao_le_o_texto_e_a_regua_multilingue_decide (tests.test_cadeia_do_audio_offline.ACadeiaDoAudioOffline.test_05_a_admissao_le_o_texto_e_a_regua_multilingue_decide)",
+   "test_10_a_url_atravessa_a_cadeia_e_o_ASR_e_o_dono_do_texto (tests.test_cadeia_do_audio_offline.ACadeiaDoReelOffline.test_10_a_url_atravessa_a_cadeia_e_o_ASR_e_o_dono_do_texto)",
+   "test_12_o_reel_chega_ao_DERIVED_como_qualquer_midia (tests.test_cadeia_do_audio_offline.ACadeiaDoReelOffline.test_12_o_reel_chega_ao_DERIVED_como_qualquer_midia)",
+   "test_13_o_reel_NAO_foi_baixado_e_a_rota_esta_AUTORIZADA (tests.test_cadeia_do_audio_offline.ACadeiaDoReelOffline.test_13_o_reel_NAO_foi_baixado_e_a_rota_esta_AUTORIZADA)"
+  ],
+  "RC": 1
+ },
+ "tests/test_col_e7_contrato_do_texto": {
+  "EXISTE": true,
+  "CORRIDOS": 65,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_d24_video_de_pessoa": {
+  "EXISTE": true,
+  "CORRIDOS": 22,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_d36_envelope_equivalente": {
+  "EXISTE": true,
+  "CORRIDOS": 16,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_d37_campos_de_politica": {
+  "EXISTE": true,
+  "CORRIDOS": 7,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_falhas": {
+  "EXISTE": true,
+  "CORRIDOS": 39,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_linkedin_build_01_local_first": {
+  "EXISTE": true,
+  "CORRIDOS": 54,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_linkedin_op_01_operacional": {
+  "EXISTE": true,
+  "CORRIDOS": 29,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_politica_da_coleta": {
+  "EXISTE": true,
+  "CORRIDOS": 26,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_prontidao_social_v1": {
+  "EXISTE": true,
+  "CORRIDOS": 18,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_receita_web_t8_t9_t12": {
+  "EXISTE": true,
+  "CORRIDOS": 10,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_rota_video_d53": {
+  "EXISTE": true,
+  "CORRIDOS": 8,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_scrap_convergencia": {
+  "EXISTE": true,
+  "CORRIDOS": 49,
+  "FALHAS": [
+   "test_zero_colisoes_de_nome_curto (tests.test_scrap_convergencia.T11ImportDeterministico.test_zero_colisoes_de_nome_curto)"
+  ],
+  "RC": 1
+ },
+ "tests/test_scrap_flow01_caminho_canonico": {
+  "EXISTE": true,
+  "CORRIDOS": 36,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_scrap_rc01_release_candidate": {
+  "EXISTE": true,
+  "CORRIDOS": 77,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_social_sessao": {
+  "EXISTE": true,
+  "CORRIDOS": 31,
+  "FALHAS": [
+   "test_o_repositorio_esta_limpo_agora (tests.test_social_sessao.TestGuardaDeCredencial.test_o_repositorio_esta_limpo_agora)"
+  ],
+  "RC": 1
+ },
+ "tests/test_thread_parcial": {
+  "EXISTE": true,
+  "CORRIDOS": 15,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_youtube_antidrift": {
+  "EXISTE": true,
+  "CORRIDOS": 36,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_youtube_checkpoint_pg": {
+  "EXISTE": true,
+  "CORRIDOS": 11,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_youtube_oficial": {
+  "EXISTE": true,
+  "CORRIDOS": 45,
+  "FALHAS": [
+   "test_13_apify_nao_e_chamada_quando_a_oficial_esta_sa (tests.test_youtube_oficial.TestCapacidadeEPolitica.test_13_apify_nao_e_chamada_quando_a_oficial_esta_sa)"
+  ],
+  "RC": 1
+ },
+ "tests/test_youtube_piloto": {
+  "EXISTE": true,
+  "CORRIDOS": 33,
+  "FALHAS": [],
+  "RC": 0
+ },
+ "tests/test_yt_metadados_do_audio": {
+  "EXISTE": true,
+  "CORRIDOS": 17,
+  "FALHAS": [],
+  "RC": 0
+ }
+}

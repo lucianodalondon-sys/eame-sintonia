@@ -783,6 +783,10 @@ def _comentario(c, *, video_id, parent_id, run_id, country_scope, raw_ref, canal
         text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
         text_relation=pv.ORIGINAL, text_derivation=pv.LIDO_DO_CAMPO,
         cost_usd=COST_USD, raw_reference=raw_ref,
+        # O PAI é o vídeo (no formato `CONTENT_ID` do contrato de voz,
+        # `YOUTUBE:<id>`). O lugar do facto não se traz: a API não o dá e o
+        # comentário não o é — resolve-se por junção na Sala (D106).
+        parent_content_id='YOUTUBE:%s' % video_id,
         raw={
             'COMMENT_ID': cid,
             'PARENT_ID': parent_id,                 # None = comentário de topo

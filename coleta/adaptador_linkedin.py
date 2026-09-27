@@ -541,8 +541,14 @@ def filtrar_janela(itens, *, since=None, posted_limit_date=None,
 #: em `ROTA` significa que a politica canonica nao declara rota nenhuma — e
 #: nesse caso o nivel e `BLOCKED`, que nao e o mesmo que caro.
 ONDE_SE_OBTEM = {
-    'COMMENTS_TEXT': {'NIVEL': PAID, 'MATRIZ': 'FETCH_COMMENTS',
-                      'PORQUE': 'medido: 0 de 472 na listagem; texto e evento cobrado a parte'},
+    # D106 (COMENTARIOS-BATERIA): a matriz passou a declarar FETCH_COMMENTS com a
+    # rota GRATUITA do post publico (JSON-LD, custo zero) e SEM rota paga (D106-3).
+    # Com PAID aqui, o plano pedia dinheiro por um campo cuja unica rota permitida
+    # e gratuita. A rota continua POSSIBLE_NOT_PROVED na matriz, que e a dona.
+    'COMMENTS_TEXT': {'NIVEL': FREE, 'MATRIZ': 'FETCH_COMMENTS',
+                      'PORQUE': 'medido: 0 de 472 na listagem. D106: a pagina PUBLICA do post '
+                                'serve o texto no JSON-LD, sem custo (candidata, nao provada); '
+                                'a rota paga nao entra (D106-3)'},
     'REACTION_PEOPLE': {'NIVEL': PAID, 'MATRIZ': 'FETCH_METRICS',
                         'PORQUE': 'dado pessoal; a CONTAGEM e o AGREGADO ja vem de graca na listagem'},
     'VIDEO_BYTES': {'NIVEL': FREE, 'MATRIZ': 'FETCH_VIDEO_BYTES',
@@ -1006,17 +1012,22 @@ DECISAO_DA_PESSOA = {
     'DECISAO_DO_ROBOTS': 'D41',
 }
 
-#: As portas que NAO se abrem, com o nome de cada uma. A lista e a mesma que o
-#: dono escreveu no D24: o que ele autorizou foi o VIDEO, e nao a pessoa.
+#: As portas que NAO se abrem, com o nome de cada uma. A lista e a do D24 MENOS
+#: os comentarios de terceiros, que a D106 (2026-09-27) liberou.
 _CONTEUDO_PESSOAL = re.compile(
     r'linkedin\.com/(?:'
     r'(?:in|pub)/[^/?#]+/(?:detail/)?(?:contact-info|followers|following|connections|people)'
     r'|overlay/(?:contact-info|followers|following)'
     r'|messaging'
-    r'|feed/update/[^/?#]+/comments'
-    r'|comments?(?:[/?#]|$)'
     r'|search/results/(?:people|connections)'
     r')', re.I)
+
+#: D106: a LISTAGEM de comentarios deixou de ser porta proibida — mas continua a
+#: nao ser o alvo desta rota de VIDEO (e pede login). O comentario le-se na
+#: pagina PUBLICA do post, pelo `comentarios_do_jsonld`. Porta trocada, nao
+#: conteudo proibido.
+_LISTAGEM_DE_COMENTARIOS = re.compile(
+    r'linkedin\.com/(?:feed/update/[^/?#]+/comments|comments?(?:[/?#]|$))', re.I)
 
 #: A forma CANONICA do post publico — e ela carrega o activity id, que e a
 #: identidade real da publicacao.
@@ -1381,9 +1392,11 @@ def _alvo_e_post_publico(post_url):
                                  `linkedin.com/in/<slug>/` responde HTTP 999
                                  com `authwall`, com a UA desta casa e com UA
                                  de navegador. Nao se contorna.
-        CONTEUDO PESSOAL         contatos, seguidores, mensagens e comentarios
-                                 de terceiros ficam fora — o D24 nomeia-os um
-                                 a um na lista do que NAO autoriza.
+        CONTEUDO PESSOAL         contatos, seguidores e mensagens ficam fora — o
+                                 D24 nomeia-os um a um. Os COMENTARIOS de
+                                 terceiros sairam desta lista pela D106: a URL
+                                 de listagem e agora PORTA TROCADA (le-se na
+                                 pagina do post, `comentarios_do_jsonld`).
         ECRA DE LOGIN            contornar controlo de acesso continua fora.
 
     Uma recusa que nao diz QUAL coisa recusou nao serve para decidir nada.
@@ -1395,10 +1408,14 @@ def _alvo_e_post_publico(post_url):
             'de acesso — nem login wall, nem CAPTCHA, nem bloqueio. · %s' % alvo)
     if _CONTEUDO_PESSOAL.search(alvo):
         raise http.RotaNaoPermitida(
-            'ALVO_RECUSADO: conteudo PESSOAL (contato, seguidor, mensagem ou '
-            'comentario de terceiro). A D24 autoriza o VIDEO publico da pessoa e '
-            'nomeia o resto como fora: contatos, seguidores, mensagens e '
-            'comentarios de terceiros. · %s' % alvo)
+            'ALVO_RECUSADO: conteudo PESSOAL (contato, seguidor ou mensagem). A D24 '
+            'autoriza o VIDEO publico da pessoa e nomeia o resto como fora: contatos, '
+            'seguidores e mensagens. · %s' % alvo)
+    if _LISTAGEM_DE_COMENTARIOS.search(alvo):
+        raise ValueError(
+            'ALVO_TROCADO_DE_PORTA: listagem de comentarios. A D106 liberou o '
+            'comentario de terceiro, mas ele le-se na pagina PUBLICA do post '
+            '(`comentarios_do_jsonld`), e nao nesta listagem, que pede login. · %s' % alvo)
     m = _POST_PUBLICO.match(alvo)
     if m:
         return alvo, m.group(1)
@@ -1575,6 +1592,76 @@ def video_da_pagina_publica(*, pagina_url, run_id, country_scope='IT', teto=3,
                        'DECISAO_DO_DONO': DECISAO_DO_DONO,
                        'PEDIDOS': pedidos})
     return envelopes
+
+
+ROTA_COMENTARIOS_JSONLD = 'linkedin:post-publico:jsonld-comment'
+_RE_JSONLD = re.compile(r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+                        re.I | re.S)
+
+
+def _pseudonimo_linkedin(chave):
+    """`LIP-<12 hex>`: HMAC do identificador do autor com o MESMO sal fora do Git do
+    pseudonimo do Instagram (`instagram_pessoal._sal`) — um so segredo, dois prefixos."""
+    import hmac                                                      # noqa: PLC0415
+    import instagram_pessoal as ip                                   # noqa: PLC0415
+    if not chave:
+        return 'LIP-SEM-AUTOR'
+    return 'LIP-' + hmac.new(ip._sal(), str(chave).strip().lower().encode('utf-8'),
+                             hashlib.sha256).hexdigest()[:12]
+
+
+def comentarios_do_jsonld(corpo, *, post_url, run_id, country_scope='IT', pseudonimo=None,
+                          raw_reference=None):
+    """Os comentarios de terceiros que a pagina PUBLICA do post serve deslogada (D106).
+
+    ZERO rede: recebe o corpo JA obtido pela porta do post publico. Le so os blocos
+    `application/ld+json`; de cada `comment[]` guarda o TEXTO, a data e um PSEUDONIMO
+    estavel do autor — nunca o nome, o url do perfil, o avatar ou a midia (D106 /
+    minimizacao). Cada objeto nasce `COMMENT`, e por isso nasce PUBLIC_ASSERTION com o
+    PAI nomeado (`social_envelope.assercao_do_comentario`). Sem bloco ou sem `comment`,
+    devolve [] — e isso diz «a pagina nao serviu comentario», nao «nao ha comentario».
+    """
+    url, activity = _alvo_e_post_publico(post_url)
+    pseud = pseudonimo or _pseudonimo_linkedin
+    texto = corpo.decode('utf-8', 'replace') if isinstance(corpo, (bytes, bytearray)) else str(corpo or '')
+    blocos = []
+    for m in _RE_JSONLD.finditer(texto):
+        try:
+            d = json.loads(m.group(1).strip())
+        except ValueError:
+            continue
+        if isinstance(d, list):
+            blocos.extend(d)
+        elif isinstance(d, dict):
+            blocos.extend(d.get('@graph') or [d])
+    fora, vistos = [], set()
+    for b in blocos:
+        for c in (b.get('comment') or []) if isinstance(b, dict) else []:
+            if not isinstance(c, dict) or not (c.get('text') or '').strip():
+                continue
+            autor = c.get('author') or {}
+            chave_autor = (autor.get('url') or autor.get('name')) if isinstance(autor, dict) else autor
+            nid = c.get('@id') or c.get('url') or hashlib.sha1(
+                ('%s|%s|%s' % (activity, c.get('datePublished'), c.get('text'))).encode('utf-8')).hexdigest()[:16]
+            if nid in vistos:
+                continue
+            vistos.add(nid)
+            fora.append(env.envelope(
+                platform=PLATAFORMA, native_id=nid, url=url, content_type='COMMENT',
+                route=ROTA_COMENTARIOS_JSONLD, executor='adaptador_linkedin.comentarios_do_jsonld',
+                run_id=run_id, country_scope=country_scope, source_account=pseud(chave_autor),
+                published_at=c.get('datePublished'), text=c.get('text'),
+                text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+                text_relation=pv.ORIGINAL, text_derivation=pv.LIDO_DO_CAMPO,
+                raw_reference=raw_reference, parent_content_id='LINKEDIN:%s' % activity,
+                raw={'COMMENT_ID': nid, 'POST_ACTIVITY_ID': activity,
+                     'AUTHOR_PSEUDONYM': pseud(chave_autor),
+                     'AUTHOR_NAME': 'REDACTED_BY_POLICY', 'AUTHOR_PROFILE_URL': 'REDACTED_BY_POLICY',
+                     'AUTHOR_AVATAR_URL': 'REDACTED_BY_POLICY',
+                     'OWNER_AUTHORIZED': 'SIM (D106)', 'PLATFORM_POLICY_STATUS': 'DISALLOWED',
+                     'ROBOTS_STATUS': ROBOTS_STATUS, 'LIMITE': 'PUBLIC_POST_COMMENTS_MINIMIZED',
+                     'AUTHOR_LOCATION': env.DESCONHECIDO}))
+    return fora
 
 
 def video_de_post_publico(*, post_url, run_id, country_scope='IT', transporte=None,

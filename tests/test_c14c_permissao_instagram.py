@@ -133,10 +133,15 @@ class OVocabularioGanhouUmLimite(unittest.TestCase):
         # E o QUINTO, pelo mesmo dono e no mesmo dia: `PUBLIC_REEL_BY_URL_ONLY`
         # (D22) — o Reel publico por URL directa. As tres decisoes (D22, D23,
         # D24) convivem na linha unificada (UNIFICACAO-V1-F).
+        # E o SEXTO, DECLARADO: `PUBLIC_POST_COMMENTS_MINIMIZED` nasceu da D106
+        # (dono, 2026-09-27, COMENTARIOS-V1): cai a trava da D24 sobre comentarios de
+        # terceiros; so o texto que a pagina publica do post serve, com pseudonimo e o
+        # pai nomeado — sem perfil, avatar ou lugar de quem comentou, e sem rota paga.
         self.assertEqual({'PUBLIC_AUDIO_ONLY', 'PUBLIC_REEL_BY_URL_ONLY',
                           'PUBLIC_PROFILE_DISCOVERY_ONLY',
                           'PUBLIC_ORG_VIDEO_ONLY',
-                          'PUBLIC_PERSON_VIDEO_ONLY'}, set(mz.LIMITES))
+                          'PUBLIC_PERSON_VIDEO_ONLY',
+                          'PUBLIC_POST_COMMENTS_MINIMIZED'}, set(mz.LIMITES))
         # Nenhum limite é vocabulário decorativo: cada um é DECLARADO por pelo
         # menos uma rota da matriz. Um limite que ninguém usa promete travar o
         # que já ninguém faz.
