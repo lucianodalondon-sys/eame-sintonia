@@ -44,8 +44,8 @@ a volta dele:
      «ieri» = um dia; «la settimana scorsa» = o INTERVALO segunda–domingo da semana anterior, nunca um dia
      inventado. Sem publicacao provada = NAO SEI (a expressao fica na EVIDENCIA). A data de COLETA nunca
      serve de ancora: a funcao nem a recebe. A publicacao continua a parte, em EVIDENCIA.
-  4. O que nao e tempo do facto e tapado antes de perguntar ao leitor: serie de anos, carimbo de lista
-     no inicio da linha, fim de prazo.
+  4. O que nao e tempo do facto e tapado antes de perguntar ao leitor: inicio de atividade ou serie
+     («avviata nel 2013», «dal 2024»), serie de anos, carimbo de lista no inicio da linha, fim de prazo.
 
 Nada disto descarta o item: sem lugar e sem data, a funcao devolve NAO SEI com o porque (D62: nada e
 obrigatorio; quanto mais dados, mais precisao).
@@ -476,7 +476,28 @@ RESOLUCAO = {"DAY": "DATE_EXACT", "WEEK": "WEEK", "MONTH": "MONTH", "SEASON": "S
 #   · SERIE DE ANOS    «le settimane 35-39 del 2024, 2025 e 2026» -> nao e o ano do facto
 #   · CARIMBO DE LISTA «1 Settembre 2026 Risultati ...» no inicio da linha -> data do item da lista
 #   · FIM DE PRAZO     «fino a novembre», «entro il 30 settembre» -> limite, nao a data do facto
+#   · INICIO DE ATIVIDADE / SERIE  «avviata nel 2013», «dal 2024» -> quando algo COMECOU, nao o acontecimento
+# INTELLIGENCE R3 · DATA_DO_FACTO_ERRADA (27/09). Medido na Sala: «Xylella multiplex Matera» (Terra e Vita,
+# publicado 2026-09-13) saiu fact_time = 2013, com 4.652 dias de idade. O trecho: «La positività della pianta
+# di mandorlo è stata individuata grazie all'attività di monitoraggio dell'Ufficio fitosanitario regionale,
+# avviata nel 2013 e intensificata dal 2024». O leitor viu «nel 2013» na frase da ancora «monitoraggio» e deu-o
+# como ano do facto — mas 2013 e o ano em que o MONITORAMENTO comecou; a planta positiva nao tem data no texto.
+# O ANO (ou mes+ano) que vem logo depois de um verbo de INICIO («avviat-», «iniziat-», «partit-», «cominciat-»,
+# «attivat-», «istituit-», «intrapres-», «lanciat-») ou de «dal / a partire dal / sin dal / fin dal» data o
+# INICIO de uma atividade ou serie, e tapa-se (o mes vai junto: «avviato a settembre 2013» dava fact_time =
+# «settembre»). So com ANO: «osservati dal 12 settembre» (um dia) nao se tapa; «avviato a settembre» sem ano
+# tambem nao (fora do caso medido). «da anni» nao tem ano e nunca vira data. Sem outra data propria do
+# acontecimento: NAO SEI (nunca a publicacao). «iniziata nel 2025» tapa-se mesmo quando o sujeito e a doenca:
+# o inicio de um surto nao e o acontecimento relatado — declarado no relatorio da missao.
+_ANO_OU_SAFRA = r"(?:19|20)\d{2}(?:[/-]\d{2,4})?"
+_RE_INICIO_DE_ATIVIDADE = re.compile(
+    r"(?<![0-9a-zà-ÿ])(?:"
+    r"(?:avviat|iniziat|partit|cominciat|attivat|istituit|intrapres|lanciat)[oaie]\s+(?:già\s+|gia\s+)?"
+    r"(?:nel(?:l['’]anno)?|dal(?:l['’]anno)?|a\s+partire\s+dal|in|a|ad)\s+(?:(?:%s)\s+(?:del\s+)?)?%s"
+    r"|(?:a\s+partire\s+dal|sin\s+dal|fin\s+dal|dal(?:l['’]anno)?)\s+%s"
+    r")(?![0-9])" % (_MES, _ANO_OU_SAFRA, _ANO_OU_SAFRA), re.I)
 NAO_E_TEMPO_DO_FACTO = (
+    ("INICIO_DE_ATIVIDADE_OU_SERIE", _RE_INICIO_DE_ATIVIDADE),
     ("SERIE_DE_ANOS", re.compile(r"\b(?:19|20)\d{2}(?:\s*(?:,|\be\b|\bed\b)\s*(?:19|20)\d{2})+\b", re.I)),
     ("CARIMBO_DE_LISTA", re.compile(r"^\s*\d{1,2}\s+(?:%s)\s+\d{4}\b" % _MES, re.I | re.M)),
     ("FIM_DE_PRAZO", re.compile(r"\b(?:fino\s+a(?:l(?:la)?)?|entro(?:\s+il)?)\s+(?:\d{1,2}\s+)?(?:%s)(?:\s+\d{4})?\b" % _MES, re.I)),
