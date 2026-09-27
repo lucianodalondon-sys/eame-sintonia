@@ -1,0 +1,213 @@
+{
+ "TESTES": [
+  "tests.test_comentarios_v1",
+  "tests.test_d24_video_de_pessoa",
+  "tests.test_c13_route_gate"
+ ],
+ "SHA256_ANTES": {
+  "coleta/social_envelope.py": "457c4ce044675373c711c7c50f80f94ebf4065a5fbef1982e544200e88ecc14c",
+  "coleta/adaptador_linkedin.py": "a1e26c8086af28b2b92f08598cb56d061fd4e0d40656a7667b392048adc44ad1",
+  "pedido/elegibilidade_comentario.py": "dc1c1dde6e5e4d611471b1c9a28fba5ed5306bd96be4a7480a450f6bb10344a2"
+ },
+ "FALHAS_HERDADAS_ANTES": [
+  "test_13_as_32_decisoes_antigas_estao_intactas",
+  "test_H_mexer_na_rota_nova_nao_mexe_nas_antigas"
+ ],
+ "MUTANTES": [
+  {
+   "REGRA": "PUBLIC_ASSERTION",
+   "MUTANTE": "N01 evidencia vira problema confirmado",
+   "FICHEIRO": "coleta/social_envelope.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_comentario_nasce_assercao_publica_nunca_facto"
+   ]
+  },
+  {
+   "REGRA": "PUBLIC_ASSERTION",
+   "MUTANTE": "N02 origem vira verificada",
+   "FICHEIRO": "coleta/social_envelope.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_comentario_nasce_assercao_publica_nunca_facto"
+   ]
+  },
+  {
+   "REGRA": "PUBLIC_ASSERTION",
+   "MUTANTE": "N03 comentario do LinkedIn nasce POST (sem assercao)",
+   "FICHEIRO": "coleta/adaptador_linkedin.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_leitor_do_jsonld_minimiza_e_nomeia_o_pai"
+   ]
+  },
+  {
+   "REGRA": "LUGAR_DO_PAI",
+   "MUTANTE": "N04 lugar provado do pai deixa de ser herdado",
+   "FICHEIRO": "coleta/social_envelope.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_lugar_herdado_so_quando_o_pai_o_prova"
+   ]
+  },
+  {
+   "REGRA": "LUGAR_DO_PAI",
+   "MUTANTE": "N05 lugar sem prova passa como herdado",
+   "FICHEIRO": "coleta/social_envelope.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_o_pai_e_nomeado_e_o_lugar_nao_se_inventa"
+   ]
+  },
+  {
+   "REGRA": "LUGAR_DO_PAI",
+   "MUTANTE": "N06 envelope perde o lugar do pai no caminho",
+   "FICHEIRO": "coleta/social_envelope.py",
+   "ESTADO": "SOBREVIVEU",
+   "TESTES_QUE_APANHARAM": []
+  },
+  {
+   "REGRA": "LUGAR_DO_PAI",
+   "MUTANTE": "N07 LinkedIn nomeia o pai pelo url e nao pela activity",
+   "FICHEIRO": "coleta/adaptador_linkedin.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_leitor_do_jsonld_minimiza_e_nomeia_o_pai"
+   ]
+  },
+  {
+   "REGRA": "SEM_LUGAR_DO_COMENTARISTA",
+   "MUTANTE": "N08 localizacao do autor passa a coletar-se",
+   "FICHEIRO": "coleta/social_envelope.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_o_pai_e_nomeado_e_o_lugar_nao_se_inventa"
+   ]
+  },
+  {
+   "REGRA": "SEM_LUGAR_DO_COMENTARISTA",
+   "MUTANTE": "N09 REGION_IF_PROVEN herda o lugar do pai",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "SOBREVIVEU",
+   "TESTES_QUE_APANHARAM": []
+  },
+  {
+   "REGRA": "SEM_LUGAR_DO_COMENTARISTA",
+   "MUTANTE": "N10 EXPLICIT sem a fala dizer o lugar",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "SOBREVIVEU",
+   "TESTES_QUE_APANHARAM": []
+  },
+  {
+   "REGRA": "SEM_LUGAR_DO_COMENTARISTA",
+   "MUTANTE": "N11 lugar dito na fala vira FACT_LOCATION",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "SOBREVIVEU",
+   "TESTES_QUE_APANHARAM": []
+  },
+  {
+   "REGRA": "ELEGIBILIDADE",
+   "MUTANTE": "N12 HIGH sem fonte registada",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "SOBREVIVEU",
+   "TESTES_QUE_APANHARAM": []
+  },
+  {
+   "REGRA": "ELEGIBILIDADE",
+   "MUTANTE": "N13 LOW passa a colher",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_o_piloto_da_fase1_so_colhe_o_elegivel"
+   ]
+  },
+  {
+   "REGRA": "ELEGIBILIDADE",
+   "MUTANTE": "N14 NAO_SEI passa a colher",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_lacuna_de_vocabulario_e_nao_sei_e_nao_no",
+    "test_o_piloto_da_fase1_so_colhe_o_elegivel"
+   ]
+  },
+  {
+   "REGRA": "ELEGIBILIDADE",
+   "MUTANTE": "N15 so indicio sobe a MEDIUM",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "SOBREVIVEU",
+   "TESTES_QUE_APANHARAM": []
+  },
+  {
+   "REGRA": "ELEGIBILIDADE",
+   "MUTANTE": "N16 universo NAO deixa de ser NO",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "SOBREVIVEU",
+   "TESTES_QUE_APANHARAM": []
+  },
+  {
+   "REGRA": "ELEGIBILIDADE",
+   "MUTANTE": "N17 comentarios desligados deixam de ser NO",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_comentarios_desligados_e_no"
+   ]
+  },
+  {
+   "REGRA": "ELEGIBILIDADE",
+   "MUTANTE": "N18 MEDIUM sem entidade nomeada",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_zero_declarado_nao_colhe_e_diz_porque"
+   ]
+  },
+  {
+   "REGRA": "CONTROLE",
+   "MUTANTE": "N19 controlo passa a olhar o texto",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_ha_controlo_cru_escolhido_sem_olhar_o_texto"
+   ]
+  },
+  {
+   "REGRA": "CONTROLE",
+   "MUTANTE": "N20 controlo so entre os relevantes",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "SOBREVIVEU",
+   "TESTES_QUE_APANHARAM": []
+  },
+  {
+   "REGRA": "CONTROLE",
+   "MUTANTE": "N21 controlo cortado a um",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "SOBREVIVEU",
+   "TESTES_QUE_APANHARAM": []
+  },
+  {
+   "REGRA": "CONTROLE",
+   "MUTANTE": "N22 controlo tirado dos mais curtidos",
+   "FICHEIRO": "pedido/elegibilidade_comentario.py",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_ha_controlo_cru_escolhido_sem_olhar_o_texto"
+   ]
+  }
+ ],
+ "SHA256_DEPOIS": {
+  "coleta/social_envelope.py": "457c4ce044675373c711c7c50f80f94ebf4065a5fbef1982e544200e88ecc14c",
+  "coleta/adaptador_linkedin.py": "a1e26c8086af28b2b92f08598cb56d061fd4e0d40656a7667b392048adc44ad1",
+  "pedido/elegibilidade_comentario.py": "dc1c1dde6e5e4d611471b1c9a28fba5ed5306bd96be4a7480a450f6bb10344a2"
+ },
+ "REPOSTO_IGUAL": true,
+ "PLACAR_POR_REGRA": {
+  "PUBLIC_ASSERTION": "3/3 mortos",
+  "LUGAR_DO_PAI": "3/4 mortos",
+  "SEM_LUGAR_DO_COMENTARISTA": "1/4 mortos",
+  "ELEGIBILIDADE": "4/7 mortos",
+  "CONTROLE": "2/4 mortos"
+ },
+ "PLACAR": "13/22 mortos"
+}

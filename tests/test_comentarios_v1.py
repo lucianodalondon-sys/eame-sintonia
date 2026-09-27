@@ -240,5 +240,61 @@ class InstagramEWorkflow(unittest.TestCase):
             self.assertEqual(pd.alvo_de(frase), prefixo.split('-')[1])
 
 
+class BateriaDasRegras(unittest.TestCase):
+    """COMENTARIOS-BATERIA: os defeitos plantados que os testes acima deixavam passar
+    (`provas/comentarios_bateria/MUTACAO-REGRAS.json`). Cada teste nomeia o mutante que mata."""
+
+    def test_envelope_leva_o_lugar_provado_do_pai(self):                      # N06
+        o = env.envelope(platform='YOUTUBE', native_id='c', url='u', content_type='COMMENT', route='r',
+                         executor='e', run_id='SINT', country_scope='IT', text='t',
+                         parent_content_id='YOUTUBE:v', parent_fact_location='Ravenna',
+                         parent_fact_location_basis='leis/fato_local ancora riscontrati')
+        self.assertEqual(o['FACT_LOCATION'], 'Ravenna')
+        self.assertTrue(o['FACT_LOCATION_BASIS'].startswith('HERDADO_DO_PAI YOUTUBE:v'))
+        self.assertEqual(o['COMMENT_AUTHOR_LOCATION'], 'NAO_SE_COLETA')
+
+    def test_quem_nao_diz_o_lugar_nao_ganha_regiao_e_a_fala_nao_e_fonte_de_lugar(self):  # N09 N10 N11
+        textos = ['la peronospora sulla vite e arrivata presto quest anno davvero',
+                  'qui in Puglia la mosca delle olive ha fatto danni enormi quest anno']
+        objs = [comentario_yt(texto=t, cid='Ug-REG-%d' % i) for i, t in enumerate(textos)]
+        el.marcar(objs, pai={'TITLE': 'Difesa della vite dalla peronospora', 'FACT_LOCATION': 'Veneto'})
+        mudo, pug = objs
+        self.assertEqual((mudo['REGIONAL_LANGUAGE_EVIDENCE'], mudo['REGION_IF_PROVEN']), ('UNKNOWN', 'UNKNOWN'))
+        self.assertEqual((pug['REGIONAL_LANGUAGE_EVIDENCE'], pug['REGION_IF_PROVEN']), ('EXPLICIT', 'Puglia'))
+        for o in objs:                        # o lugar do FACTO continua o do pai (aqui nao provado), nunca a fala
+            self.assertEqual(o['FACT_LOCATION'], 'UNKNOWN')
+
+    def test_high_exige_fonte_registada(self):                                  # N12
+        pai = el._pais_do_acervo()['w87w51fSWAw']      # o mesmo pai REAL que da HIGH com a fonte registada
+        e = el.elegibilidade(pai, 'T8', fonte_registada=False, comentarios_declarados=1)
+        self.assertEqual(e['COMMENT_COLLECTION_ELIGIBILITY'], 'MEDIUM')
+
+    def test_so_indicio_de_tema_e_low_e_nao_colhe(self):                        # N13 N15
+        e = el.elegibilidade({'TITLE': 'SINTETICO: previsioni meteo, pioggia e temperature in calo'}, 'T8',
+                             fonte_registada=True, comentarios_declarados=3)
+        self.assertEqual((e['COMMENT_COLLECTION_ELIGIBILITY'], e['TEMAS_INDICIO']), ('LOW', ['T2']))
+        self.assertFalse(e['VAI_COLHER'])
+
+    def test_universo_que_diz_nao_com_prova_e_no(self):                         # N16
+        e = el.elegibilidade({'TITLE': 'SINTETICO: nuovo prodotto alla fiera, il lancio della campagna'}, 'T4',
+                             fonte_registada=True, comentarios_declarados=3)
+        self.assertEqual(e['REGUA_DO_UNIVERSO']['VEREDITO'], 'NAO')
+        self.assertEqual(e['COMMENT_COLLECTION_ELIGIBILITY'], 'NO')
+        self.assertFalse(e['VAI_COLHER'])
+
+    def test_controlo_existe_sem_relevantes_e_nao_tem_corte(self):              # N20 N21
+        objs = [comentario_yt(texto='grazie mille per il video molto utile e chiaro davvero', likes=i,
+                              cid='Ug-NEUTRO-%03d' % i) for i in range(40)]
+        el.marcar(objs, pai={'TITLE': 'Difesa della vite dalla peronospora'})
+        esperado = [o for o in objs if el._estavel(o['NATIVE_ID']) % el.FRACAO_CONTROLE == 0]
+        self.assertGreater(len(esperado), el.N_POR_BALDE)       # a fatia crua nao obedece ao N dos baldes
+        self.assertEqual([o for o in objs if 'CONTROLE' in o['SAMPLE_BUCKETS']], esperado)
+
+    def test_linkedin_comentario_nao_pede_rota_paga(self):                     # N23 (D106-3)
+        p = al.plano_de_aquisicao({'RAW': {}}, {'WANT_COMMENTS': True})
+        self.assertEqual(p['PAID_NEEDED_FOR'], [])
+        self.assertIn('COMMENTS_TEXT', p['FREE_FOR'])
+
+
 if __name__ == '__main__':
     unittest.main()

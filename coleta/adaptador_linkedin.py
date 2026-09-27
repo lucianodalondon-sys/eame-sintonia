@@ -541,8 +541,14 @@ def filtrar_janela(itens, *, since=None, posted_limit_date=None,
 #: em `ROTA` significa que a politica canonica nao declara rota nenhuma — e
 #: nesse caso o nivel e `BLOCKED`, que nao e o mesmo que caro.
 ONDE_SE_OBTEM = {
-    'COMMENTS_TEXT': {'NIVEL': PAID, 'MATRIZ': 'FETCH_COMMENTS',
-                      'PORQUE': 'medido: 0 de 472 na listagem; texto e evento cobrado a parte'},
+    # D106 (COMENTARIOS-BATERIA): a matriz passou a declarar FETCH_COMMENTS com a
+    # rota GRATUITA do post publico (JSON-LD, custo zero) e SEM rota paga (D106-3).
+    # Com PAID aqui, o plano pedia dinheiro por um campo cuja unica rota permitida
+    # e gratuita. A rota continua POSSIBLE_NOT_PROVED na matriz, que e a dona.
+    'COMMENTS_TEXT': {'NIVEL': FREE, 'MATRIZ': 'FETCH_COMMENTS',
+                      'PORQUE': 'medido: 0 de 472 na listagem. D106: a pagina PUBLICA do post '
+                                'serve o texto no JSON-LD, sem custo (candidata, nao provada); '
+                                'a rota paga nao entra (D106-3)'},
     'REACTION_PEOPLE': {'NIVEL': PAID, 'MATRIZ': 'FETCH_METRICS',
                         'PORQUE': 'dado pessoal; a CONTAGEM e o AGREGADO ja vem de graca na listagem'},
     'VIDEO_BYTES': {'NIVEL': FREE, 'MATRIZ': 'FETCH_VIDEO_BYTES',
