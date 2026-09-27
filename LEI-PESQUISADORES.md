@@ -96,7 +96,9 @@ rede fechada: base **1 225 passam · 30 falham** · ramo **1 225 passam · 30 fa
 diferenças.** A reescrita é só de texto.
 
 ## 7. O mapa
-MAPA_AQUI
+**Não regerado — PRONTO-SEM-MAPA**, por ordem da coordenação (22:05): o mapa do lote 4 é feito uma vez só pela INTEGRA.
+Os `.md` de lei e as docstrings mudadas são fonte rastreada pelo mapa: até ele ser regerado, `test_M5_o_ponto_fixo…`
+(`test_o_controle_separa_lei_de_mencao`) fica vermelho, e é essa a única falha nova medida (secção 4).
 
 ## 8. Limites declarados
 - **As três leis são propostas.** Não estão em vigor até o dono aprovar; e mesmo em vigor, a implementação é `ABSENT`.
@@ -107,4 +109,22 @@ MAPA_AQUI
 - A reavaliação do bot Luciano sobre esta redação fica para quando ele voltar.
 
 ## EM PALAVRAS SIMPLES
-SIMPLES_AQUI
+- **O que eu fiz:** escrevi na "constituição" da coleta e na da inteligência três regras novas, com o texto que o bot
+  Luciano redigiu. Elas ainda **não valem**: só entram quando o dono aprovar.
+  - **Números não se resumem.** Se o boletim diz "1, 4, 11, 29 insetos na armadilha", guardamos os quatro números,
+    e não só "está subindo". É assim que se vê o aviso cedo — em Salerno, a mosca-do-mediterrâneo foi de 4 para 40
+    capturas em duas semanas, antes de qualquer alerta.
+  - **O que é público pode ser buscado por outro caminho técnico** (um navegador de verdade, passar a barreira
+    anti-robô). O que é pago, precisa de senha ou é privado, **nunca**.
+  - **"O clima favorece a doença" não é "a doença apareceu".** E um estudo pequeno sobre resistência não prova que
+    um produto deixou de funcionar.
+- **O que é operação ficou no caderno de know-how, e não na constituição:** a lista oficial de professores da Itália
+  (MUR, 278 especialistas em pragas e doenças em 33 universidades), seguir as redes deles, e quem descobre perfis
+  (o robô de fontes, guiado pela inteligência; o sistema de captura só captura).
+- **No código:** apaguei a frase "não finge ser navegador de gente", que contrariava a decisão do dono. **O programa
+  faz exatamente o mesmo que antes** — conferi com 1 225 testes nas duas versões, zero diferenças.
+- **Perdeu-se alguma coisa?** Não. A primeira versão que escrevi (nove regras) foi trocada pelas três do bot, mais
+  curtas; está no histórico.
+- **Pode quebrar?** Nada funciona diferente. Só um teste, que confere o "mapa" do sistema, fica vermelho até alguém
+  redesenhar o mapa — a coordenação vai fazer isso no lote 4.
+- **O que muda para você:** decidir se aprova as três regras. Até lá, são proposta.
