@@ -175,6 +175,12 @@ def main(argv=None):
                     help="onde estao os bytes guardados (armazem), separados por ;"
                          " — para o leitor da pagina (DA-9); sem isto, so o contrato")
     ap.add_argument("--aplicar", action="store_true")
+    # ⚠️ REPROC-SALA-PLANO (27/09): a Sala real tinha 100 linhas T6 (EU-T5-001, OpenAlex) pousadas por
+    # `pousar_na_sala.py`, sem livro do coletor. Revistas daqui, perdiam a data de publicacao (o contrato
+    # nao a sabe; quem a sabia era o registo do OpenAlex). Uma linha que esta porta nao sabe reler fica
+    # como esta: SALTADA, contada, e nenhuma revisao escrita.
+    ap.add_argument("--so-com-livro", action="store_true",
+                    help="nao rever as linhas sem livro do coletor (ficam como estao, contadas)")
     ap.add_argument("--saida")
     a = ap.parse_args(argv)
     espera.exigir_canonica()
@@ -183,13 +189,21 @@ def main(argv=None):
     linhas = espera.linhas_para_revisao()
     raizes = [x for x in a.raizes.split(";") if x]
     conta = {"LINHAS": len(linhas), "SEM_LIVRO": 0, "COM_PAGINA": 0,
-             "INSERIDAS": 0, "JA_ERAM_ASSIM": 0}
+             "INSERIDAS": 0, "JA_ERAM_ASSIM": 0, "SALTADAS_SEM_LIVRO": 0,
+             "REVISTAS_SEM_LIVRO": 0}
     por_campo = {c: 0 for c, _, _ in REVISTOS}
     itens = []
     for linha in linhas:
         obs = livros.get(linha["SHA256"])
         if obs is None:
             conta["SEM_LIVRO"] += 1
+            if a.so_com_livro:
+                conta["SALTADAS_SEM_LIVRO"] += 1
+                itens.append({"RUN_ID": linha["RUN_ID"], "ORDEM": linha["ORDEM"],
+                              "SOURCE_ID": linha["SOURCE_ID"], "LIVRO": False,
+                              "SALTADA": "SEM_LIVRO", "REVISOES": [], "RECIBO": None})
+                continue
+            conta["REVISTAS_SEM_LIVRO"] += 1
         dados = bytes_guardados(linha, raizes) if raizes else None
         conta["COM_PAGINA"] += dados is not None
         ready = ready_de(linha, obs, dados)

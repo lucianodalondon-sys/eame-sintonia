@@ -47,6 +47,32 @@ dá `PERDAS=38` e teria parado antes de escrever.
 **Falta:** um 2.º turno de ~15 min na FILA-PESADO para o ensaio com os caminhos consertados — os números da vista
 antes → depois saem daí.
 
+## A corrida do coordenador na Sala REAL (27/09 10:35, vivo `2ef6fef8`) — o travão parou antes de escrever
+
+`REPROC_SALA=FAIL` no passo 3: **204 linhas · 100 sem livro · 86 com página** · revisões 478 → **478** (nada escrito).
+As 100 são **todas** `IT-T6-2026-09-27-…` da fonte `EU-T5-001` (os estudos do OpenAlex pousados hoje por
+`pousar_na_sala.py`, T6-PARA-SALA): não passaram pelo coletor, e o livro deles não é o do coletor.
+
+Contado sobre o `plano.json` dele (sem escrever; `perdas_do_plano.py`, saída em
+`C:/Users/London1/auditoria-madrugada/tempo-lugar/perdas-coordenador-1035.json`): **PERDAS = 107**.
+- **100 = a data de publicação das 100 T6** (a do OpenAlex, que o contrato não sabe). **Não subir
+  `SEM_LIVRO_ACEITE` para 100** — seria apagar da vista as 100 datas.
+- **7 nas 104 do coletor**, cada uma com a base nova na lista:
+  - 5 × publicação de páginas só-WebPage (IT-T7-013 ×2 «2009-12-18», IT-T5-160 ×3 «2020-02-20») → `NAO SEI`:
+    **o conserto da régua a fazer o que devia** (CONSERTO-REGUA, erro 4, lidos à mão);
+  - IT-T5-186 lugar do facto «Brindisi ; Roma» → `NAO SEI` («só mencionados»: extratores v2 do lote 3);
+  - IT-T3-023 data do facto «2013» → `NAO SEI` (o ano de início de uma atividade não é o tempo do facto:
+    DATA-DO-FATO, `2ef6fef8`). **Estas duas são de outros donos: ler antes de aceitar.**
+
+**Conserto neste ramo:** `admissao/reprocessar_tempo_lugar.py --so-com-livro` — uma linha sem livro do coletor
+**fica como está** (nenhuma revisão, contada em `SALTADAS_SEM_LIVRO`); sem a opção, tudo como antes.
+`tests/test_reproc_sala_so_com_livro.py` 2/2 (e vermelho com o salto desligado). O roteiro usa a opção **sozinho**
+quando o código que reprocessa a tem, e o travão passa a contar só as linhas **revistas** sem livro.
+
+**Para correr na Sala real:** instalar este ficheiro (a versão do extrator muda, porque o ficheiro faz parte dela), e
+depois o ROTEIRO com `PERDAS_ACEITES=7`, **só** depois de lidas as 2 de outros donos. Esperado pelo plano de 10:35:
+100 saltadas, 0 revistas sem livro, perdas 7.
+
 <!-- ENSAIO -->
 
 ## PARTE B · LOTE 1 já instalado (vivo `69b0e23f`) · passo (d): reprocessar o TEMPO/LUGAR da Sala com o leitor-data-yt

@@ -92,14 +92,21 @@ echo "2 · antes: linhas+md5 das originais «$ORIG_ANTES» · revisoes $REVS_ANT
 # ── 3 · plano SEM escrever ────────────────────────────────────────────────────
 cd "$CODIGO" || falha "codigo"
 [ -f admissao/reprocessar_tempo_lugar.py ] || falha "$CODIGO nao tem admissao/reprocessar_tempo_lugar.py"
-$PY -B admissao/reprocessar_tempo_lugar.py --livros "$LIV" --raizes "$RZ" --saida "$OUT/plano.json" > "$OUT/plano.log" 2>&1 \
+# linhas sem livro do coletor (ex.: as T6 do OpenAlex) ficam como estao, se o codigo souber salta-las
+SALTAR=""
+grep -q -- "--so-com-livro" admissao/reprocessar_tempo_lugar.py && SALTAR="--so-com-livro"
+echo "3 · linhas sem livro: ${SALTAR:-o codigo que reprocessa NAO as sabe saltar (sem --so-com-livro)}"
+$PY -B admissao/reprocessar_tempo_lugar.py --livros "$LIV" --raizes "$RZ" $SALTAR --saida "$OUT/plano.json" > "$OUT/plano.log" 2>&1 \
   || { tail -5 "$OUT/plano.log"; falha "reprocesso sem escrever"; }
 [ "$(q "$REVS")" = "$REVS_ANTES" ] || falha "o reprocesso SEM --aplicar escreveu"
 conta() { $PY -B -c "import json,sys; d=json.load(open(sys.argv[1],encoding='utf-8')); print(d['CONTA']['$2'])" "$1" 2>/dev/null | tail -1; }
 echo "3 · versao do extrator: $($PY -B -c "import json,sys; print(json.load(open(sys.argv[1],encoding='utf-8'))['VERSAO_DO_EXTRATOR'])" "$OUT/plano.json" 2>/dev/null | tail -1)"
 SEM=$(conta "$OUT/plano.json" SEM_LIVRO)
-echo "3 · plano: linhas $(conta "$OUT/plano.json" LINHAS) · sem livro $SEM · com pagina $(conta "$OUT/plano.json" COM_PAGINA)"
-[ "${SEM:-x}" -le "$SEM_LIVRO_ACEITE" ] 2>/dev/null || falha "$SEM linhas sem livro do coletor (aceites: $SEM_LIVRO_ACEITE) — os livros estao em LIV=$LIV?"
+[ -n "$SEM" ] || falha "o plano nao diz SEM_LIVRO"
+SALTADAS=$(conta "$OUT/plano.json" SALTADAS_SEM_LIVRO)
+echo "3 · plano: linhas $(conta "$OUT/plano.json" LINHAS) · sem livro $SEM (saltadas, ficam como estao: ${SALTADAS:-0}) · com pagina $(conta "$OUT/plano.json" COM_PAGINA)"
+REVISTAS_SEM=$(( ${SEM:-0} - ${SALTADAS:-0} ))
+[ "$REVISTAS_SEM" -le "$SEM_LIVRO_ACEITE" ] 2>/dev/null || falha "$REVISTAS_SEM linhas seriam revistas SEM livro do coletor (aceites: $SEM_LIVRO_ACEITE) — os livros estao em LIV=$LIV?"
 PERDAS=$($PY -B "$RAIZ/scripts/reproc_sala/perdas_do_plano.py" "$OUT/vista-antes.json" "$OUT/plano.json" "$OUT/perdas.json" 2>/dev/null | tee /dev/stderr | sed -n 's/^PERDAS=//p')
 [ -n "$PERDAS" ] || falha "contar as perdas do plano"
 [ "$PERDAS" -le "$PERDAS_ACEITES" ] || falha "o plano poe $PERDAS valores conhecidos em NAO SEI (aceites: $PERDAS_ACEITES; lista em perdas.json)"
@@ -109,7 +116,7 @@ N=0; INS=x
 while [ "$INS" != "0" ]; do
   N=$((N + 1))
   [ $N -gt $PASSADAS_MAX ] && falha "$PASSADAS_MAX passadas e ainda insere (o reprocesso nao converge)"
-  $PY -B admissao/reprocessar_tempo_lugar.py --livros "$LIV" --raizes "$RZ" --aplicar \
+  $PY -B admissao/reprocessar_tempo_lugar.py --livros "$LIV" --raizes "$RZ" $SALTAR --aplicar \
       --saida "$OUT/passada-$N.json" > "$OUT/passada-$N.log" 2>&1 || { tail -5 "$OUT/passada-$N.log"; falha "passada $N"; }
   INS=$(conta "$OUT/passada-$N.json" INSERIDAS)
   echo "4 · passada $N: INSERIDAS $INS · JA_ERAM_ASSIM $(conta "$OUT/passada-$N.json" JA_ERAM_ASSIM)"
