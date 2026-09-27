@@ -35,7 +35,7 @@ Contra o vivo `554c1ec1`, mesmos dados, rede fechada, pastas com o nome do vivo;
   inteiro e no pacote sozinho passa (medido). Na próxima corrida a cópia leva `build/`.
 - `test_pesquisadores_t6` (2) — **choque entre pacotes**, §3.3.
 
-## 3 · ⛔ Duas decisões
+## 3 · ⛔ Três decisões
 
 **3.1 · micro-prova-lote2b × scrap-evolucao — `curadoria/colher_prova_territorio.py` (3 blocos).**
 O scrap-evolucao pôs a rota de navegador (`rota_navegador`, `ROTA_HTTP` em cada prova); o micro-prova pôs
