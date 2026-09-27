@@ -38,6 +38,25 @@ class Porteiro(unittest.TestCase):
         self.assertEqual(p.gastos, {"a.it": 3})
         self.assertTrue(p.decidir("https://b.it/", "Script")[0])          # outro dominio, outro orcamento
 
+    def test_d91_cada_pedido_pede_licenca_ao_robots(self):
+        vistos = []
+
+        def robots(u):
+            vistos.append(u)
+            return ("/privado/" not in u), "robots de teste"
+        p = X.Porteiro(teto=5, gastos={"a.it": 1}, robots=robots, robots_lidos={"https://www.a.it"})
+        self.assertTrue(p.decidir("https://www.a.it/api/news.json", "XHR")[0])
+        self.assertFalse(p.decidir("https://www.a.it/privado/dati.json", "XHR")[0])
+        self.assertEqual(vistos, ["https://www.a.it/api/news.json", "https://www.a.it/privado/dati.json"])
+        self.assertEqual(p.gastos, {"a.it": 2})                   # o proibido nao gastou teto
+
+    def test_d91_origem_nova_le_o_robots_dela_e_isso_conta_no_teto_dela(self):
+        p = X.Porteiro(teto=2, gastos={"a.it": 1}, robots=lambda u: (True, "ok"), robots_lidos={"https://www.a.it"})
+        self.assertTrue(p.decidir("https://cdn.b.it/app.js", "Script")[0])
+        self.assertEqual(p.gastos["b.it"], 2)                     # robots de cdn.b.it + o script
+        self.assertFalse(p.decidir("https://api.b.it/x.json", "XHR")[0])   # origem nova, sem teto para o robots
+        self.assertIn("antes de ler o robots", p.recusados[-1][2])
+
     def test_data_e_blob_nao_sao_rede(self):
         p = X.Porteiro(teto=0)
         self.assertTrue(p.decidir("data:image/png;base64,xx", "Image")[0])
@@ -187,6 +206,18 @@ class ChromeDeVerdade(unittest.TestCase):
         recusas = {d["URL"].rsplit("/", 1)[-1] for d in r["DECISOES"] if not d["SAIU"]}
         self.assertTrue({"tema.css", "logo.png", "secondo.json"} <= recusas, recusas)
         self.assertTrue(any("esterno.example.it" in d["URL"] for d in r["DECISOES"]))
+
+    def test_d91_o_json_proibido_pelo_robots_nao_chega_ao_servidor(self):
+        import urllib.robotparser
+        rp = urllib.robotparser.RobotFileParser()
+        rp.parse(["User-agent: *", "Disallow: /api/"])
+        url = "http://127.0.0.1:%d/" % self.srv.server_address[1]
+        porteiro = X.Porteiro(teto=5, gastos={"127.0.0.1": 1}, robots=lambda u: (rp.can_fetch("*", u), "teste"),
+                              robots_lidos={url.rstrip("/")})
+        r = X.capturar(self.aba, url, porteiro, segundos=8)
+        self.assertEqual(self.pedidos, ["/"])
+        self.assertEqual([c for c in r["CANDIDATOS"] if c["HTTP"] == 200], [])
+        self.assertTrue(any(d["URL"].endswith("/api/notizie.json") and "ROBOTS" in d["PORQUE"] for d in r["DECISOES"]))
 
 
 if __name__ == "__main__":

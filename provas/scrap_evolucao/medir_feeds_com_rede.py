@@ -1,6 +1,10 @@
 """SCRAP-EVOLUCAO · o feed de cada fonte que o anuncia, pedido UMA vez com rede (o coordenador corre).
 
     py provas/scrap_evolucao/medir_feeds_com_rede.py --livros=<pasta das ondas> [--recibos=<pasta>] --saida=<pasta>
+        [--so=IT-T5-090,IT-T5-186]
+
+--so limita as fontes (as LIVRE_AGORA de `feeds_janela.py`). Sem --so, as fechadas param sozinhas no portao
+(JANELA_24H, 0 pedidos) — mas gastam uma prova de egresso e uma linha no recibo.
 
 As 14 fontes vem de FEEDS-NO-ACERVO.json (o que os proprios sites escrevem no <head> das paginas guardadas).
 Por fonte, pelo portao de `coleta/rota_navegador.medir`: janela de 24 h do dominio → robots vivo → 1 pedido ao
@@ -42,10 +46,14 @@ def feeds(caminho=os.path.join(AQUI, "FEEDS-NO-ACERVO.json")) -> dict:
     return {sid: min((f for f in fs if "/comments/feed" not in f) or fs, key=len) for sid, fs in d.items()}
 
 
-def main(livros, recibos, saida, *, egresso=None, **injectar):
+def main(livros, recibos, saida, *, so=None, egresso=None, **injectar):
+    alvo = {s: u for s, u in sorted(feeds().items()) if not so or s in so}
+    desconhecidas = sorted(set(so or ()) - set(feeds()))
+    if desconhecidas:
+        raise SystemExit("--so com fontes que nao tem feed: %s" % ",".join(desconhecidas))
     g = (egresso or RN._egresso_do_dono)()
     res = {}
-    for sid, url in sorted(feeds().items()):
+    for sid, url in alvo.items():
         r = RN.medir(url, livros=livros, recibos=recibos, saida=os.path.join(saida, sid), egresso=lambda: g, **injectar)
         linha = {k: r.get(k) for k in ("URL", "HTTP", "BYTES", "PAROU", "PEDIDOS_POR_DOMINIO", "ROTA_HTTP")}
         if r.get("HTTP") == 200:
@@ -63,4 +71,4 @@ if __name__ == "__main__":
     if "livros" not in a or "saida" not in a:
         print(__doc__)
         raise SystemExit(2)
-    main(a["livros"], a.get("recibos"), a["saida"])
+    main(a["livros"], a.get("recibos"), a["saida"], so=[x for x in a.get("so", "").split(",") if x] or None)

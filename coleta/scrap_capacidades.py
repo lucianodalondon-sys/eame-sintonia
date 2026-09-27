@@ -378,6 +378,8 @@ DECLARADAS = {
 #: COL-LAW-220 (material publico e fronteira de acesso, D88) existe hoje so como TEXTO PROPOSTO
 #: (auditoria-madrugada/ESTUDO-ORQUESTRACAO-24H-LUCIANO.md, «aprovadas para PROPOR»). Ligar = acrescentar
 #: o id a EMENDAS_EM_VIGOR no mesmo commit que a traz para a Biblia.
+#: E, ligada, cada pagina do navegador pede licenca ao robots (D91 — a D88 nao o dispensa), com o porteiro
+#: de `ferramentas/captura_xhr.py`.
 ESPERAM_EMENDA = {'web.page.browser_rendered': 'COL-LAW-220'}
 EMENDAS_EM_VIGOR = frozenset()
 

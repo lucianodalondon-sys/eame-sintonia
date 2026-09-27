@@ -55,3 +55,7 @@ página real custa mais. A soma inclui o processo `node` do patchright. Um naveg
    `auditoria-madrugada/ESTUDO-ORQUESTRACAO-24H-LUCIANO.md`) e o id entrar em `EMENDAS_EM_VIGOR` no mesmo commit.
 2. A dependência patchright + chromium entrar no repositório (decisão do dono: a fase atual é zero dependência).
 3. O adaptador que corre a página atrás do portão, grava o corpo com o rótulo e conta o teto.
+4. **D91 (26/09 22:32): o robots.txt é obrigatório em cada página comum** — a D88 não o dispensa. O adaptador
+   pede licença ao robots de cada pedido que o navegador faz (a página, scripts, dados), com o mesmo porteiro
+   de `ferramentas/captura_xhr.py` (`Porteiro(robots=…)`): origem nova lê o robots dela, e isso conta no teto dela.
+   O canário do coordenador (`canario_stealth.py`, fora do repositório) **não** lia robots — era medição de 1 pedido.

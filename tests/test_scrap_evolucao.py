@@ -88,18 +88,25 @@ class B2_Canario(unittest.TestCase):
         self.CAN = CAN
         self.pedidos = []
 
+        self.robots_txt = b"User-agent: *\nDisallow:\n"
+        self.robots_pedidos = []
+
         def urlopen(req, **k):
-            self.pedidos.append(dict(req.header_items()))
+            if req.full_url.endswith("/robots.txt"):
+                self.robots_pedidos.append(req.full_url)
+                return _Resp(self.robots_txt)
+            self.pedidos.append(dict(req.header_items(), URL=req.full_url))
             return _Resp(b'<html><body><a href="/news/mosca-dell-olivo-in-aumento/">m</a>' + b"x" * 500
                          + b"</body></html>")
         self.enterContext(mock.patch.object(CAN.urllib.request, "urlopen", urlopen))
 
     def _contrato(self, rota=None):
         aq = {"STRATEGY": "HTML_LINK_DISCOVERY", "INDEX_URL": "https://www.fonte.it/news/",
-              "LINK_PATTERN": r"/news/[a-z-]+/$"}
+              "LINK_PATTERN": r".*/news/[a-z-]+/$"}
         if rota:
             aq["ROTA_HTTP"] = rota
-        return {"SOURCE_ID": "IT-T0-999", "OUTPUT_TYPE": "HTML", "ACQUISITION": aq}
+        return {"SOURCE_ID": "IT-T0-999", "OUTPUT_TYPE": "HTML", "ACQUISITION": aq,
+                "IDENTITY": {"STRATEGY": "CONTENT_CAPTURE", "DOCUMENT_ID": "IT-T0-999:URL:{doc.1}"}}
 
     def test_contrato_com_rota_navegador_pede_com_a_ficha_e_diz_por_onde_veio(self):
         r = self.CAN.canario_html(self._contrato("NAVEGADOR"))
@@ -114,6 +121,23 @@ class B2_Canario(unittest.TestCase):
         r = self.CAN.canario_html(self._contrato())
         self.assertTrue(all(p.get("User-agent") == CAP.UA for p in self.pedidos), self.pedidos)
         self.assertEqual(r["ROTA_HTTP"], "DECLARADA")
+
+    def test_d91_o_canario_pede_licenca_ao_robots_e_o_item_proibido_nao_sai(self):
+        self.robots_txt = b"User-agent: *\nDisallow: /news/mosca\n"
+        r = self.CAN.canario_html(self._contrato("NAVEGADOR"))
+        self.assertEqual(self.robots_pedidos, ["https://www.fonte.it/robots.txt"])      # uma vez por host
+        self.assertEqual([p["URL"] for p in self.pedidos], ["https://www.fonte.it/news/"])
+        self.assertFalse(r["PASS"])
+        self.assertIn("ROBOTS_PROIBE", r["PORQUE"])
+
+    def test_d91_robots_ilegivel_nada_sai(self):
+        def urlopen(req, **k):
+            raise OSError("rede em baixo")
+        with mock.patch.object(self.CAN.urllib.request, "urlopen", urlopen), \
+             mock.patch.object(self.CAN.GATE.time, "sleep", lambda s: None):
+            r = self.CAN.canario_html(self._contrato())
+        self.assertEqual(self.pedidos, [])
+        self.assertIn("ROBOTS_ILEGIVEL", r["PORQUE"])
 
     def test_a_rota_nao_vaza_para_o_canario_seguinte(self):
         import capturador as CAP
@@ -408,3 +432,53 @@ class A_MedirFeedsComRede(unittest.TestCase):
         self.assertTrue(all(sum(x["PEDIDOS_POR_DOMINIO"].values()) == 2 for x in r.values()))   # robots + feed
         self.assertTrue(all(x["COM_DATA_DE_PUBLICACAO"] == 1 and x["ITENS_DO_SITE"] == 1 for x in r.values()), r)
         self.assertFalse(any("/comments/feed" in u for u in pedidos))
+
+
+class FeedMedir_Janela(unittest.TestCase):
+    """FEED-MEDIR: quais das 14 estao livres, pela regra das rodadas, e o comando so pede as livres."""
+
+    def _livro(self, raiz, nome, pedidos, quando):
+        d = raiz / nome
+        d.mkdir(parents=True)
+        (d / "TETO-ONDA.json").write_text(json.dumps({"PEDIDOS_POR_DOMINIO": pedidos}), encoding="utf-8")
+        os.utime(d / "TETO-ONDA.json", (quando.timestamp(), quando.timestamp()))
+
+    def test_livre_fechado_abre_em_e_quem_fechou(self):
+        sys.path.insert(0, str(RAIZ / "provas" / "scrap_evolucao"))
+        import feeds_janela as J
+        tmp = Path(self.enterContext(tempfile.TemporaryDirectory(prefix="feeds-janela-")))
+        agora = datetime(2026, 9, 27, 1, 30, tzinfo=timezone.utc)
+        self._livro(tmp, "ONDA-VELHA", {"istat.it": 3}, agora - timedelta(hours=30))
+        self._livro(tmp, "ONDA-HOJE", {"www.cifo.it": 5, "sostenibilita.enea.it": 0}, agora - timedelta(hours=2))
+        r = J.janela(tmp, (), agora)
+        self.assertEqual(len(r), 14)
+        self.assertEqual(r["IT-T5-090"]["ESTADO"], "LIVRE_AGORA")               # pedido ha 30 h
+        self.assertEqual(r["IT-T5-186"]["ESTADO"], "LIVRE_AGORA")               # 0 pedidos nao fecha
+        self.assertEqual(r["IT-T9-009"]["ESTADO"], "FECHADO")
+        self.assertEqual(r["IT-T9-009"]["QUEM_PEDIU"], str(Path("ONDA-HOJE") / "TETO-ONDA.json"))
+        self.assertEqual(r["IT-T9-009"]["ABRE_EM"], "2026-09-27T20:30-03:00")
+        self.assertIsNone(r["IT-T7-033"]["ULTIMA_VISITA"])
+
+    def test_so_pede_so_as_fontes_escolhidas_e_recusa_as_que_nao_tem_feed(self):
+        sys.path.insert(0, str(RAIZ / "provas" / "scrap_evolucao"))
+        import medir_feeds_com_rede as M
+        tmp = Path(self.enterContext(tempfile.TemporaryDirectory(prefix="feeds-so-")))
+        pedidos = []
+        r = M.main(str(tmp), None, str(tmp / "s"), so=["IT-T5-090", "IT-T5-186"],
+                   egresso=lambda: {"EGRESS_COUNTRY_CODE": "IT"}, janela=lambda *a: None,
+                   robots=lambda u: (True, "ok"), pedido=lambda u: pedidos.append(u) or (404, b"", "HTTP 404", u, None))
+        self.assertEqual(sorted(r), ["IT-T5-090", "IT-T5-186"])
+        self.assertEqual(len(pedidos), 2)
+        with self.assertRaises(SystemExit):
+            M.main(str(tmp), None, str(tmp / "s2"), so=["IT-T9-008"], egresso=lambda: {"EGRESS_COUNTRY_CODE": "IT"})
+
+
+class B2b_CanarioAbreOItem(B2_Canario):
+    """O canario que PASSA o indice abre mesmo o item — pela mesma rota e com licenca do robots."""
+
+    def test_o_item_e_aberto_pela_rota_da_fonte(self):
+        self.CAN.canario_html(self._contrato("NAVEGADOR"))
+        self.assertEqual([p["URL"] for p in self.pedidos],
+                         ["https://www.fonte.it/news/", "https://www.fonte.it/news/mosca-dell-olivo-in-aumento/"])
+        self.assertTrue(all(p.get("User-agent") == FICHA["UA"] for p in self.pedidos))
+        self.assertEqual(self.robots_pedidos, ["https://www.fonte.it/robots.txt"])

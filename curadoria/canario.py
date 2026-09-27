@@ -50,6 +50,7 @@ import capturador as CAP  # noqa: E402  (UA ja medido: sem `Safari/`)
 import retrato_html as RH  # noqa: E402  (o gate CAPA != MATERIA, mesmos limiares do coletor)
 sys.path.insert(0, str(RAIZ / "coleta"))
 import rota_navegador as RN  # noqa: E402  (a rota HTTP da fonte, COL-LAW-704)
+import gate_de_rota as GATE  # noqa: E402  (o robots vivo, D91)
 
 TIMEOUT = 25
 CTX = ssl.create_default_context()
@@ -87,7 +88,33 @@ _ROTA = contextvars.ContextVar("rota_http", default=RN.ROTA_DECLARADA)
 _CABECALHOS_DO_LEITOR = {"User-Agent": CAP.UA, "Accept": "*/*", "Accept-Language": "it-IT,it;q=0.9"}
 
 
+# D91 (26/09 22:32): o robots.txt continua OBRIGATORIO nas paginas comuns — a D88 nao o dispensa. O worker
+# ja lia o robots da ENTRADA do contrato (`etapa_rota`); o canario abria depois o ITEM sem perguntar. Agora,
+# dentro de um canario web, CADA endereco pede licenca ao robots vivo do seu host (lido uma vez por host e por
+# canario, `gate_de_rota.robots_de`). Proibido = o pedido nao sai. Ilegivel/inacessivel = nao sai tambem:
+# NAO SEI nao e licenca. Fora de um canario (o controlo positivo do `main`), nada muda.
+_ROBOTS = contextvars.ContextVar("robots_do_canario", default=None)
+
+
+def _recusa_do_robots(url: str) -> str | None:
+    cache = _ROBOTS.get()
+    if cache is None:
+        return None
+    host = urlparse(url).hostname or ""
+    if host not in cache:
+        cache[host] = GATE.robots_de(host)
+    rp, origem = cache[host]
+    if "inacessivel" in origem:
+        return "ROBOTS_ILEGIVEL: %s — nao se pede %s" % (origem[:90], url)
+    if not GATE.permitido(url, rp):
+        return "ROBOTS_PROIBE: o robots.txt de %s proibe %s" % (host, url)
+    return None
+
+
 def buscar(url: str, rota: str | None = None) -> tuple[int, bytes, str]:
+    recusa = _recusa_do_robots(url)
+    if recusa:
+        return 0, b"", recusa
     rota = rota or _ROTA.get()
     req = urllib.request.Request(url_segura(url), headers=RN.cabecalhos(rota, do_leitor=_CABECALHOS_DO_LEITOR))
     try:
@@ -99,15 +126,21 @@ def buscar(url: str, rota: str | None = None) -> tuple[int, bytes, str]:
         return 0, b"", "%s: %s" % (type(e).__name__, str(e)[:90])
 
 
-def _com_a_rota_da_fonte(fn):
-    """O canario corre com a rota que o contrato pede, e o resultado diz qual foi (proveniencia)."""
+def _com_a_rota_da_fonte(fn=None, *, robots=True):
+    """O canario corre com a rota que o contrato pede, e o resultado diz qual foi (proveniencia).
+    `robots=True`: cada endereco do canario pede licenca ao robots do seu host (D91)."""
+    if fn is None:
+        return lambda f: _com_a_rota_da_fonte(f, robots=robots)
+
     @functools.wraps(fn)
     def envolto(c, *a, **k):
         rota = RN.rota_da_fonte(c)
         marca = _ROTA.set(rota)
+        marca_r = _ROBOTS.set({} if robots else None)
         try:
             r = fn(c, *a, **k)
         finally:
+            _ROBOTS.reset(marca_r)
             _ROTA.reset(marca)
         if isinstance(r, dict):
             r.update(RN.proveniencia(rota))
@@ -115,7 +148,9 @@ def _com_a_rota_da_fonte(fn):
     return envolto
 
 
-@_com_a_rota_da_fonte
+# O feed do YouTube: o worker manda a rota do Scrap a matriz dele (SOC2), nao ao robots — e continua assim
+# ate decisao (D91: API publica oficial documentada segue os proprios termos; se o feed RSS o e, NAO SEI).
+@_com_a_rota_da_fonte(robots=False)
 def canario_youtube(c: dict) -> dict:
     """Resolve o feed e prova que dele sai um ITEM com identidade."""
     aq = c["ACQUISITION"]

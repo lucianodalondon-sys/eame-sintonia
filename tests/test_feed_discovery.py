@@ -37,6 +37,14 @@ class TestFeedDiscovery(unittest.TestCase):
         self.assertGreaterEqual(int(m.group(1)), 4)
         self.assertEqual(r.returncode, 0)
 
+    def test_d91_o_robots_manda_no_feed_e_em_cada_item(self):
+        r = _node("provas/feed_robots_local.mjs")
+        m = re.search(r"FEED_ROBOTS_LOCAL · passou=(\d+) FALHAS=(\d+)", r.stdout)
+        self.assertIsNotNone(m, r.stdout[-2000:] + r.stderr[-2000:])
+        self.assertEqual(m.group(2), "0", r.stdout[-3000:])
+        self.assertGreaterEqual(int(m.group(1)), 2)
+        self.assertEqual(r.returncode, 0)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

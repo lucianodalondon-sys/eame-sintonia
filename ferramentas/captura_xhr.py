@@ -13,10 +13,11 @@ dai a coleta e HTTP normal, com os bytes do servidor — o RAW continua honesto 
 
 O TETO MANDA NO NAVEGADOR TAMBEM. Um navegador pede dezenas de coisas por pagina. Aqui cada pedido passa
 pelo dominio Fetch do Chrome ANTES de sair (`Fetch.requestPaused`) e o `Porteiro` decide:
-  · imagem, fonte, folha de estilo, media: nunca saem (nao servem para achar o JSON);
+  · imagem, fonte, folha de estilo, media e o favicon (o Chrome pede-o sozinho): nunca saem;
   · o resto conta no orcamento do dominio (a regra da prova-teto, D38/D41) e, esgotado, e recusado
     (`Fetch.failRequest`, BlockedByClient) — o pedido nao sai da maquina.
-O robots.txt lido antes conta 1 no mesmo orcamento. O recibo (RECIBO-CAPTURA-XHR.json) leva
+O robots.txt lido antes conta 1 no mesmo orcamento, e CADA pedido do navegador pede licenca ao robots
+do seu host (D91): origem nova = o robots dela e lido (1 pedido no teto dela) antes de o pedido sair. O recibo (RECIBO-CAPTURA-XHR.json) leva
 PEDIDOS_POR_DOMINIO + GERADO_EM, e as rodadas leem-no para a janela de 24 h (D79).
 
 O QUE NAO FAZ: nao faz login, nao le nem escreve cookie (perfil novo e vazio a cada corrida), nao resolve
@@ -51,20 +52,42 @@ def parece_json(mime: str, url: str) -> bool:
 
 
 class Porteiro:
-    """Decide cada pedido do navegador ANTES de sair. `gastos` ja traz o que se gastou (o robots)."""
+    """Decide cada pedido do navegador ANTES de sair. `gastos` ja traz o que se gastou (o robots).
 
-    def __init__(self, teto: int = 5, gastos: dict | None = None, dominio_de=PT.orcamento_de):
-        self.teto, self.dominio_de = teto, dominio_de
+    D91 (26/09 22:32): o robots.txt e OBRIGATORIO em cada pagina comum. Com `robots` (url -> (ok, motivo)),
+    CADA pedido do navegador — a pagina, os scripts, o JSON — pede licenca ao robots do seu host. A primeira
+    vez que aparece uma origem nova, ler o robots dela e um pedido e conta no teto do dominio dela; sem teto
+    para o ler, o pedido nao sai. `robots_lidos` traz as origens cujo robots ja foi lido (a da pagina)."""
+
+    def __init__(self, teto: int = 5, gastos: dict | None = None, dominio_de=PT.orcamento_de,
+                 robots=None, robots_lidos=()):
+        self.teto, self.dominio_de, self.robots = teto, dominio_de, robots
         self.gastos = dict(gastos or {})
+        self.robots_lidos = set(robots_lidos)
         self.recusados = []
+
+    def _recusar(self, url, tipo, porque):
+        self.recusados.append((url, tipo, porque))
+        return False, porque
 
     def decidir(self, url: str, tipo: str) -> tuple[bool, str]:
         if not url.startswith(("http://", "https://")):
             return True, "nao e rede (data:/blob:)"
-        if tipo in TIPOS_QUE_NUNCA_SAEM:
+        if tipo in TIPOS_QUE_NUNCA_SAEM or urlsplit(url).path.endswith("/favicon.ico"):
             self.recusados.append((url, tipo, "tipo que nao serve para achar o JSON"))
             return False, "tipo %s nunca sai" % tipo
-        d = self.dominio_de(urlsplit(url).hostname or "")
+        p = urlsplit(url)
+        d = self.dominio_de(p.hostname or "")
+        if self.robots is not None:
+            origem = "%s://%s" % (p.scheme, p.netloc)
+            if origem not in self.robots_lidos:
+                if self.gastos.get(d, 0) >= self.teto:
+                    return self._recusar(url, tipo, "teto do dominio %s antes de ler o robots de %s" % (d, origem))
+                self.gastos[d] = self.gastos.get(d, 0) + 1          # ler o robots desta origem e um pedido
+                self.robots_lidos.add(origem)
+            ok, motivo = self.robots(url)
+            if not ok:
+                return self._recusar(url, tipo, "ROBOTS: %s" % motivo)
         if self.gastos.get(d, 0) >= self.teto:
             self.recusados.append((url, tipo, "teto %d do dominio %s" % (self.teto, d)))
             return False, "teto do dominio %s" % d
@@ -201,7 +224,9 @@ def correr(url, source_id, *, livros, recibos, saida, porta=9335, segundos=20.0,
     out["PEDIDOS_POR_DOMINIO"][dom] = 1
     if not ok:
         return fim("ROBOTS: %s" % motivo)
-    porteiro = Porteiro(teto=teto, gastos={dom: 1})
+    p = urlsplit(url)
+    porteiro = Porteiro(teto=teto, gastos={dom: 1}, robots=robots or RN._robots_vivo,
+                        robots_lidos={"%s://%s" % (p.scheme, p.netloc)})
     aba, fechar = (abrir_aba or _abrir_aba)(porta)
     try:
         r = capturar(aba, url, porteiro, segundos=segundos)
