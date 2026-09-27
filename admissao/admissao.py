@@ -2112,6 +2112,20 @@ def _problema_do_boletim(boletim, universo) -> dict:
             "LEI": boletim["LEI"]}
 
 
+# ── ESTUDOS-CHAVES (27/09) · os estudos T5 ────────────────────────────────────
+#: Medido na Sala real: os 100 estudos T5 (EU-T5-001) com CULTURA, PROBLEMA e REGIAO_DO_FATO NAO SEI
+#: em 100/100. O titulo+resumo de um estudo e lido por `leis/estudo_chaves.py`, que COMPOE os
+#: vocabularios que ja existem (lexico T6, pragas do boletim, regua T1, gazetteer) e devolve o trecho
+#: literal (D112, ENTITY_SOURCE = SPAN). CAP-SCI: o que sai daqui nunca e incidencia de campo.
+UNIVERSOS_DE_ESTUDO = ("T5",)
+
+
+def _estudo_de(item: dict) -> dict:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leis"))
+    import estudo_chaves as EC                                     # noqa: PLC0415
+    return EC.chaves_do_estudo(item.get("texto") or "")
+
+
 def janela_declarada(item: dict, decisao: Decisao) -> dict:
     """QUATRO-CHAVES (D29): o que a porta JA SABE sobre a janela, com a lei.
 
@@ -2127,6 +2141,9 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
         PERIODO-E-CHAVES); sem ano escrito, NAO SEI; nunca de `published_at`;
       · fora de T1 (sem regua de cultura) a CULTURA le-se so no titulo e na frase
         que prova o lugar (`_cultura_fora_da_regua`);
+      · num ESTUDO (T5, ESTUDOS-CHAVES) cultura, problema e o LUGAR DO ESTUDO vem de
+        `leis/estudo_chaves.py`, com o trecho literal (D112); o problema e NOMEADO, nunca
+        PRESENTE, e o lugar e LOCAL_DO_ESTUDO, nunca incidencia (CAP-SCI);
       · FACT_TIME != PUBLISHED_AT != CAPTURED_AT, cada um no seu campo;
       · ausencia = `AUSENCIA` («NAO SEI»), nunca vazio nem None.
 
@@ -2162,7 +2179,11 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
     # PERIODO-E-CHAVES: fora de T1 nao ha regua de cultura; a chave le o TITULO e a FRASE QUE PROVA
     # O LUGAR (nunca a evidencia de outra regua — `evidencia.cultura` de um T2 nao conta).
     fora_da_regua, de_onde = ([], [])
-    if not da_regua:
+    # ESTUDOS-CHAVES: num estudo T5 o dono da cultura, da praga e do lugar do ESTUDO e `leis/estudo_chaves`,
+    # e ele SUBSTITUI a leitura do titulo (que nao conhece as formas ambiguas: «salvare vite» dava vite).
+    # Nunca passa por cima de `fact_location`.
+    estudo = _estudo_de(item) if decisao.universo in UNIVERSOS_DE_ESTUDO else None
+    if not da_regua and not estudo:
         fora_da_regua, de_onde = _cultura_fora_da_regua(item)
     # EXTRATOR-EVENTO-V2 (D84): nos BOLETINS (T3 fitossanitario, T2 agrometeo) a cultura, a praga e a fase
     # estao no corpo, por secao de cultura — `leis/boletim_do_campo.py` le-as com o trecho. So entram onde a
@@ -2178,6 +2199,8 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
                    "VEIO_DE": ("item.%s relido pela regra da regua; a regua viu "
                                "cultura (decisao.evidencia.cultura)" % "|".join(campos_do_texto)),
                    "BASE": base}
+    elif estudo and estudo["CULTURA"]["VALOR"] != AUSENCIA:
+        cultura = dict(estudo["CULTURA"])
     elif fora_da_regua:
         cultura = {"VALOR": fora_da_regua,
                    "VEIO_DE": "item.%s (palavra inteira; sem regua de cultura no universo %s)"
@@ -2192,9 +2215,11 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
                    "BASE": ("boletim %s: a linha curta que NOMEIA a cultura abre a secao dela (palavra inteira); "
                             "trechos: %s" % (decisao.universo, " ; ".join(
                                 "«%s»" % s["TRECHO_DA_CULTURA"] for s in boletim["SECOES"] if s["CULTURA"])[:600]))}
+    elif estudo:
+        cultura = dict(estudo["CULTURA"])      # NAO SEI, com o PORQUE e as formas AMBIGUAS a vista
     else:
         cultura = {"VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA}
-    cultura["FORMA"] = "a do vocabulario da regua, sem normalizar (nao e EPPO)"
+    cultura.setdefault("FORMA", "a do vocabulario da regua, sem normalizar (nao e EPPO)")
     fases_do_boletim = (boletim or {}).get("FASES") or []
     if not momentos and fases_do_boletim:
         fase = {"VALOR": fases_do_boletim, "VEIO_DE": "item.texto: as secoes do boletim (leis/boletim_do_campo.py)",
@@ -2207,7 +2232,8 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
                 "VEIO_DE": "decisao.evidencia.palavras" if momentos else AUSENCIA,
                 "BASE": base if momentos else AUSENCIA,
                 "FORMA": "sinais de momento que a regua achou; nao e estadio normalizado"}
-    problema = _problema_do_boletim(boletim, decisao.universo)
+    # CAP-SCI: a praga de um estudo e NOMEADA pelo estudo (ESTADO = NOMEADO_NO_ESTUDO), nunca PRESENTE
+    problema = dict(estudo["PROBLEMA"]) if estudo else _problema_do_boletim(boletim, decisao.universo)
     if periodo["VALOR"] != AUSENCIA:
         janela = {"VALOR": periodo["VALOR"], "VEIO_DE": periodo["VEIO_DE"], "BASE": periodo["BASE"],
                   "PRECISAO": periodo["PRECISAO"], "EXPRESSAO": periodo["EXPRESSAO"],
@@ -2216,21 +2242,29 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
     else:
         janela = {"VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA,
                   "PRECISAO": AUSENCIA, "PORQUE": periodo["PORQUE"]}
+    regiao_do_fato = {"VALOR": regiao,
+                      "VEIO_DE": "item.fact_location" if regiao != AUSENCIA else AUSENCIA,
+                      "BASE": _valor(item.get("fact_location_basis"))
+                      if regiao != AUSENCIA else AUSENCIA,
+                      "LEI": "nunca herdada de source_location (INT-LAW-101)"}
+    if estudo and regiao == AUSENCIA:
+        # ESTUDOS-CHAVES: so o lugar onde o TEXTO diz que o estudo foi feito (KIND = LOCAL_DO_ESTUDO);
+        # a afiliacao do autor nunca (INT-LAW-102). `fact_location`, quando existe, continua a mandar.
+        regiao_do_fato = dict(estudo["REGIAO_DO_FATO"])
     return {
         "CULTURA": cultura,
-        "REGIAO_DO_FATO": {"VALOR": regiao,
-                           "VEIO_DE": "item.fact_location" if regiao != AUSENCIA else AUSENCIA,
-                           "BASE": _valor(item.get("fact_location_basis"))
-                           if regiao != AUSENCIA else AUSENCIA,
-                           "LEI": "nunca herdada de source_location (INT-LAW-101)"},
+        "REGIAO_DO_FATO": regiao_do_fato,
         "FASE": fase,
         "PROBLEMA": problema,
         "JANELA": janela,
         "TEMPOS": {"FACT_TIME": _valor(item.get("fact_time")),
                    "PUBLISHED_AT": _valor(item.get("published_at")),
                    "CAPTURED_AT": _valor(item.get("captured_at"))},
-        "ORIGEM": {"REGRA": decisao.regra, "VERSAO": decisao.versao,
-                   "RESULTADO": decisao.resultado, "UNIVERSO": decisao.universo},
+        "ORIGEM": dict({"REGRA": decisao.regra, "VERSAO": decisao.versao,
+                        "RESULTADO": decisao.resultado, "UNIVERSO": decisao.universo},
+                       # CAP-SCI viaja com o registo: quem cruza sabe que isto e um ESTUDO, nao campo
+                       **({"CAP_SCI": estudo["CAP_SCI"], "EXTRATOR_DO_ESTUDO": estudo["EXTRATOR"]}
+                          if estudo else {})),
     }
 
 

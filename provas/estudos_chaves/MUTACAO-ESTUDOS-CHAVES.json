@@ -1,0 +1,166 @@
+{
+ "TESTE": "tests/test_estudo_chaves.py",
+ "LIMPA": "OK",
+ "MUTANTES": [
+  {
+   "ID": "M01",
+   "FICHEIRO": "leis/estudo_chaves.py",
+   "DEFEITO": "a afiliacao do autor volta a poder virar lugar do estudo (INT-LAW-102)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_conta_diz_quantos_saem_de_nao_sei",
+    "test_afiliacao_nunca_vira_regiao_mesmo_com_verbo_de_experimento",
+    "test_cada_fixture_da_o_esperado",
+    "test_revisoes_no_formato_de_rever"
+   ],
+   "FIM": "FAILED (failures=4)"
+  },
+  {
+   "ID": "M02",
+   "FICHEIRO": "leis/estudo_chaves.py",
+   "DEFEITO": "a forma ambigua («vite» = vidas) passa a dar cultura",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_conta_diz_quantos_saem_de_nao_sei",
+    "test_cada_fixture_da_o_esperado",
+    "test_forma_ambigua_sozinha_nao_da_cultura",
+    "test_revisoes_no_formato_de_rever"
+   ],
+   "FIM": "FAILED (failures=4)"
+  },
+  {
+   "ID": "M03",
+   "FICHEIRO": "leis/estudo_chaves.py",
+   "DEFEITO": "o trecho deixa de ser literal (D112)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_afiliacao_nunca_vira_regiao_mesmo_com_verbo_de_experimento",
+    "test_nomear_um_lugar_nao_e_dizer_onde_o_estudo_foi_feito",
+    "test_o_trecho_guarda_maiusculas_e_acentos_da_fonte",
+    "test_todo_valor_tem_span_literal_do_texto"
+   ],
+   "FIM": "FAILED (failures=4)"
+  },
+  {
+   "ID": "M04",
+   "FICHEIRO": "leis/estudo_chaves.py",
+   "DEFEITO": "o lugar conta sem verbo/nome de experimento na frase (PLACE_MENTION vira lugar do estudo)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_conta_diz_quantos_saem_de_nao_sei",
+    "test_afiliacao_nunca_vira_regiao_mesmo_com_verbo_de_experimento",
+    "test_cada_fixture_da_o_esperado",
+    "test_linguagem_de_incidencia_nao_e_lugar_do_estudo",
+    "test_linha_de_comando",
+    "test_mesmo_codigo_duas_vezes_nao_repete",
+    "test_nomear_um_lugar_nao_e_dizer_onde_o_estudo_foi_feito",
+    "test_problema_e_nomeado_nunca_presente",
+    "test_revisoes_no_formato_de_rever",
+    "test_todo_valor_tem_span_literal_do_texto"
+   ],
+   "FIM": "FAILED (failures=1, errors=9)"
+  },
+  {
+   "ID": "M05",
+   "FICHEIRO": "leis/estudo_chaves.py",
+   "DEFEITO": "CAP-SCI: a praga do estudo passa a PRESENTE (incidencia de campo)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_janela_t5_carrega_cap_sci_e_nao_toca_no_facto",
+    "test_problema_e_nomeado_nunca_presente"
+   ],
+   "FIM": "FAILED (failures=2)"
+  },
+  {
+   "ID": "M06",
+   "FICHEIRO": "leis/estudo_chaves.py",
+   "DEFEITO": "o lugar homonimo de palavra comum («Potenza») conta sem «provincia di»",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_conta_diz_quantos_saem_de_nao_sei",
+    "test_cada_fixture_da_o_esperado",
+    "test_lugar_homonimo_so_depois_de_provincia_di",
+    "test_revisoes_no_formato_de_rever"
+   ],
+   "FIM": "FAILED (failures=4)"
+  },
+  {
+   "ID": "M07",
+   "FICHEIRO": "leis/estudo_chaves.py",
+   "DEFEITO": "dois vocabularios no mesmo trecho dao duas entidades",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_fixture_da_o_esperado",
+    "test_nomes_cientificos_comuns_ingles_e_italiano",
+    "test_revisoes_no_formato_de_rever",
+    "test_um_trecho_uma_entidade"
+   ],
+   "FIM": "FAILED (failures=4)"
+  },
+  {
+   "ID": "M08",
+   "FICHEIRO": "admissao/admissao.py",
+   "DEFEITO": "o lugar do estudo passa por cima de fact_location declarado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_fact_location_declarado_continua_a_mandar"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M09",
+   "FICHEIRO": "admissao/admissao.py",
+   "DEFEITO": "o extrator de estudo passa a ler universos que nao sao estudo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_fora_de_t5_a_janela_nao_usa_o_extrator_de_estudo"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M10",
+   "FICHEIRO": "admissao/admissao.py",
+   "DEFEITO": "em T5 a leitura antiga do titulo volta (sem ambiguidade: «salvare vite» da vite)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_conta_diz_quantos_saem_de_nao_sei",
+    "test_revisoes_no_formato_de_rever"
+   ],
+   "FIM": "FAILED (failures=2)"
+  },
+  {
+   "ID": "M11",
+   "FICHEIRO": "admissao/reprocessar_estudos_chaves.py",
+   "DEFEITO": "o reprocesso repete a revisao com o mesmo codigo (deixa de ser idempotente)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_mesmo_codigo_duas_vezes_nao_repete"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M12",
+   "FICHEIRO": "coleta/pesquisadores_t6.py",
+   "DEFEITO": "o nome cientifico do olivo sai do lexico T6",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_nomes_cientificos_comuns_ingles_e_italiano"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M13",
+   "FICHEIRO": "leis/estudo_chaves.py",
+   "DEFEITO": "«established/located» voltam a ser pista de ensaio (incidencia vira lugar do estudo)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_conta_diz_quantos_saem_de_nao_sei",
+    "test_cada_fixture_da_o_esperado",
+    "test_linguagem_de_incidencia_nao_e_lugar_do_estudo",
+    "test_revisoes_no_formato_de_rever"
+   ],
+   "FIM": "FAILED (failures=4)"
+  }
+ ],
+ "RESUMO": "13/13 MORTOS"
+}

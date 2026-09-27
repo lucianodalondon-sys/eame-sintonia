@@ -74,6 +74,10 @@ CULTURAS = {
     # frances — o corpus_pesquisador ja mediu esse ruido e tirou-os pelo mesmo motivo
     'mais': ('maize', 'corn', 'zea mays', 'granoturco'),
     'pomodoro': ('tomato', 'tomatoes', 'solanum lycopersicum', 'pomodoro'),
+    # ESTUDOS-CHAVES (27/09): o olivo entra AQUI, no mesmo lexico, e nao num segundo vocabulario
+    # (`leis/estudo_chaves.py` le este). Nao ha par de consulta do olivo: PARES nao muda.
+    'olivo': ('olea europaea', 'olive tree', 'olive trees', 'olive grove', 'olive groves', 'olive orchard',
+              'olive orchards', 'olive', 'olives', 'olivo', 'ulivo', 'oliveto', 'oliveti', 'olivicoltura'),
 }
 PROBLEMAS = {
     'peronospora': ('plasmopara viticola', 'downy mildew', 'peronospora', 'phytophthora infestans',
@@ -88,6 +92,10 @@ PROBLEMAS = {
     'piralide': ('ostrinia nubilalis', 'european corn borer', 'corn borer', 'piralide'),
     'diabrotica': ('diabrotica virgifera', 'western corn rootworm', 'rootworm', 'diabrotica'),
     'carpocapsa': ('cydia pomonella', 'codling moth', 'carpocapsa'),
+    # ESTUDOS-CHAVES (27/09): as duas pragas do olivo, com o NOME CANONICO do vocabulario de pragas
+    # (`leis/boletim_do_campo.py::MESMO_PROBLEMA`), para as duas leituras darem o mesmo nome.
+    "mosca dell'olivo": ('bactrocera oleae', 'olive fruit fly', 'olive fly', "mosca dell'olivo"),
+    'xylella': ('xylella fastidiosa', 'olive quick decline syndrome', 'xylella'),
 }
 # O par so existe onde o problema ataca a cultura. Doze pares, uma consulta cada.
 PARES = [
