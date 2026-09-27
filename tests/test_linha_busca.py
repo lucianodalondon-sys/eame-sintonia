@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """LINHA-BUSCA (D93) · assunto-primeiro sem rede: consultas, motores, portao D93, candidata, Admission normal."""
+import hashlib
 import json
 import shutil
 import sys
@@ -196,6 +197,93 @@ class Colher(unittest.TestCase):
         self.assertEqual(1, self.doc["ADMITIDAS"])
         self.assertEqual(1, self.doc["ITENS_UNICOS_ADMITIDOS"])
         self.assertEqual(1, self.doc["ESTADOS"]["DUPLICADO_NA_CORRIDA"])
+
+
+class RawCanonico(unittest.TestCase):
+    """11:20: a Sala recusou (run_id_fkey). O repouso preserva pelo dono do RAW e so pousa com o id real."""
+
+    @classmethod
+    def setUpClass(cls):
+        import linha_busca_raw as LR
+        cls.LR = LR
+        cls.d = Path(tempfile.mkdtemp())
+        fila = cls.d / "fila.json"
+        fila.write_text(json.dumps({"DATASET": "t", "LEI": "t", "ESTADOS": {}, "CANDIDATAS": []}), encoding="utf-8")
+        idx = json.loads((FX / "PAGINAS.json").read_text(encoding="utf-8"))
+
+        def falso(url, cab=None):
+            p = idx[url]
+            if p.get("ERRO"):
+                raise type(p["ERRO"], (Exception,), {})(p["PORQUE"])
+            return (FX / p["FICHEIRO"]).read_bytes(), {"CONTENT_TYPE": p["CONTENT_TYPE"]}
+        res = json.loads((FX / "RESULTADOS.json").read_text(encoding="utf-8"))
+        cls.saida = cls.d / "LOTE-T"
+        LB.colher(res, fila, cls.saida, falso, corrida="TESTE-COLHER")
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.d, ignore_errors=True)
+
+    def _fakes(self, confirmar=True):
+        visto = {}
+
+        class P:
+            memoria = object()
+            ESTADO = "DESCARTAVEL"
+
+        def preservar(run, artefatos, bytes_de):
+            visto["RUN"], visto["ARTEFATOS"] = run, artefatos
+            for a in artefatos:
+                self.assertEqual(a["SHA256"], hashlib.sha256(bytes_de(a)).hexdigest())
+            obs = [{"RUN_ID": run["RUN_ID"], "SHA256": a["SHA256"], "RAW_OBSERVATION_ID": 900 + i}
+                   for i, a in enumerate(artefatos)] if confirmar else []
+            return {"RUN_STATE": "COMPLETE" if confirmar else "PARTIAL", "RAW_OBSERVATIONS": obs,
+                    "MEMORIA": {"APLICADA": confirmar}, "FECHO_NO_BANCO": {"STATUS_NO_BANCO": "concluida"}}
+
+        def pousar_fn(corrida, prontos):
+            visto["POUSAR"] = (corrida, prontos)
+            return {"POUSADAS": len(prontos)}
+        return P(), preservar, pousar_fn, visto
+
+    def test_sem_memoria_recusa(self):
+        class Sem:
+            memoria = None
+            ESTADO = "AUSENTE"
+        with self.assertRaises(SystemExit):
+            self.LR.repousar([self.saida], persistencia=Sem(), preservar=lambda *a: {}, pousar=True)
+
+    def test_preserva_e_pousa_com_o_id_real_na_mesma_corrida(self):
+        P, pres, pou, visto = self._fakes()
+        doc = self.LR.repousar([self.saida], corrida="LB-RAW-T", pousar=True, persistencia=P,
+                               preservar=pres, pousar_fn=pou)
+        self.assertEqual(1, doc["PAGINAS_ADMITIDAS_LIDAS"])          # so a pagina ADMITIDA, uma vez
+        self.assertEqual(1, doc["PRONTOS_COM_RAW"])
+        run = visto["RUN"]
+        self.assertEqual("coleta/linha_busca.py", run["ACTOR"])
+        self.assertEqual("LB-RAW-T", run["RUN_ID"])
+        a = visto["ARTEFATOS"][0]
+        self.assertTrue(a["SOURCE_ID"].startswith("CAND-"))
+        self.assertIsNone(a["DOCUMENT_ID"])                         # nao se inventa identidade documental
+        corrida, prontos = visto["POUSAR"]
+        self.assertEqual("LB-RAW-T", corrida)                       # a corrida que nasceu em collection_run
+        self.assertEqual(900, prontos[0]["RAW_OBSERVATION_ID"])
+        import sala_de_espera as SE
+        SE._conferir_unidades(prontos)
+
+    def test_sem_observacao_confirmada_nao_pousa(self):
+        P, pres, pou, visto = self._fakes(confirmar=False)
+        doc = self.LR.repousar([self.saida], corrida="LB-RAW-T2", pousar=True, persistencia=P,
+                               preservar=pres, pousar_fn=pou)
+        self.assertEqual(0, doc["PRONTOS_COM_RAW"])
+        self.assertNotIn("POUSAR", visto)
+        self.assertEqual("SEM_RAW_CANONICO", doc["PAGINAS"][0]["ESTADO"])
+
+    def test_byte_adulterado_nao_entra(self):
+        raw = json.loads((self.saida / "RAW-LINHA-BUSCA.jsonl").read_text(encoding="utf-8").splitlines()[0])
+        copia = self.d / "LOTE-ADULTERADO"
+        shutil.copytree(self.saida, copia)
+        (copia / raw["STORAGE_PATH"]).write_bytes(b"outro conteudo")
+        self.assertEqual([], [p for p in self.LR.paginas_admitidas([copia]) if p["RAW"]["SHA256"] == raw["SHA256"]])
 
 
 class Rede(unittest.TestCase):
