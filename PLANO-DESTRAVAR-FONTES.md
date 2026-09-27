@@ -1,8 +1,9 @@
 # PLANO DESTRAVAR-FONTES — o que destrava o robô de fontes hoje, e o que não destrava
 
-Ramo **`destravar-fontes-v1`**, a partir do vivo **`554c1ec1`**. Feito a 26/09 (22:30–23:55 -03), **sem rede**.
+Ramo **`destravar-fontes-v1`**, feito sobre o vivo `554c1ec1` e **reaplicado sobre o vivo `2ef6fef8`** (27/09 10:52; rebase limpo,
+nenhum ficheiro em comum além da declaração do mapa). Feito a 26/09 (22:30–23:55 -03), **sem rede**.
 Nada foi escrito no vivo: só li `status_live.py`, o livro, a fila e as fichas (sha256 dos 18 livros
-conferidos na cópia). Instalar = `git merge --ff-only` (o ramo desce de `554c1ec1`). **PRONTO-SEM-MAPA.**
+conferidos na cópia). Instalar = `git merge --ff-only` (o ramo desce de `2ef6fef8`). **PRONTO-SEM-MAPA.**
 
 ## 0 · O diagnóstico, em números medidos no vivo (01:27Z)
 
@@ -79,7 +80,7 @@ Se o dono disser a mãe do MASAF, acrescentar `--mae=masaf.gov.it=<SOURCE_ID>` n
 
 **Desfazer** (robô parado): `py curadoria/aplicar_d80.py --reverter --lista=curadoria/DESTRAVAR-LISTA-V1.json --recibo=$R/B-REVERTER.json`
 e depois `py curadoria/aplicar_d80.py --reverter --recibo=$R/A-REVERTER.json`. Números já cunhados **não se apagam**
-(nunca reciclar); o código volta com `git -C $V reset --keep 554c1ec1` (depois de guardar status/diff).
+(nunca reciclar); o código volta com `git -C $V reset --keep 2ef6fef8` (depois de guardar status/diff).
 
 ## 4 · As 59 CANARY_PENDING — o comando que já existe no vivo (precisa de ordem do dono)
 
@@ -112,9 +113,11 @@ Liguria bollettini), depois 19 de ciência, 11 da rede técnica, 61 outras.
 ## 6 · Provas
 
 - **Testes pelo nome** (33 ficheiros que importam as peças mudadas, em cópias limpas, rede fechada):
-  antes (554c1ec1) 538 testes, 1 falha · depois 562 testes (+24 do `test_d80`), **a mesma 1 falha**
+  antes (554c1ec1) 538 testes, 1 falha · depois 562 testes (+24 do `test_d80`), **a mesma 1 falha**.
+  De novo sobre `2ef6fef8`: antes 538, depois 586 (o `test_d80` entrou 2× na lista: +48 = 2×24), **a mesma 1 falha**
   (`test_zz_guarda_isolamento … test_1_estatico_todo_o_teste_que_toca_estado_redireciona`, texto idêntico).
   **0 falhas novas.**
 - `test_d80`: 24/24 (22 da D80 + 2 da 2.ª lista), livros da cópia intactos (sha256 100/100).
-- **Mutação** da opção nova: 2/2 colhidos (`--lista` ignorada; recibo sem o nome da lista). A D80 trazia 15/15.
-- O vivo: HEAD `554c1ec1` antes e depois; nada escrito.
+- **Mutação** da opção nova: 2/2 colhidos (de novo sobre 2ef6fef8) (`--lista` ignorada; recibo sem o nome da lista). A D80 trazia 15/15.
+- O vivo: nada escrito (lido em `554c1ec1`). O ensaio da secção 2 é sobre os livros de 27/09 ~01:30Z; o a seco
+  do passo 3 é que confere contra as fichas do momento da aplicação.
