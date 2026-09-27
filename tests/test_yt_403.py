@@ -45,6 +45,8 @@ class A_ONomeDaFalha(unittest.TestCase):
         self.assertEqual(AY._classificar_falha(m), 'BLOCKED')
         self.assertEqual(AY._classificar_falha('YT_DLP_NAO_ENTREGOU: ERROR: [youtube] X: Video unavailable'),
                          'SOURCE_GONE')
+        m = 'YT_DLP_NAO_ENTREGOU: ERROR: HTTP Error 500 | WARNING: [youtube] some formats are unavailable'
+        self.assertEqual(AY._classificar_falha(m), 'SOURCE_UNAVAILABLE')
 
     def test_a_rota_levanta_blocked_com_a_frase_inteira(self):
         with mock.patch.object(ytv, '_audio', return_value=(None, 'YT_DLP_NAO_ENTREGOU: %s | %s' % (ERRO_403, AVISO_JS))), \
