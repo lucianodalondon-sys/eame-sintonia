@@ -238,6 +238,20 @@ for (const r of ['sala', 'painel', 'search']) prova(`Q3 #${r} nao e ferramenta: 
       o.chaves.every((c) => c.k in POTE.COMPARTIMENTOS.portfolio.OBJETOS[i].CHAVES)));
 }
 
+/* ── Q12 · a sonda olivo x mosca, nas Finestre, com o juizo da Intelligence ── */
+{
+  const P = V('windows').potePub;
+  const J = ANALISE.CORTE_VERTICAL.JULGAMENTO_DA_SONDA;
+  const val = (code) => (P.sonda.juizo.find((c) => c.k.endsWith(code)) || {}).v || '';
+  prova('Q12 as Finestre desenham a sonda com os 13 itens do corte vertical',
+    P.temSonda === true && P.sonda.itens.length === ANALISE.CORTE_VERTICAL.ITENS.length && P.sonda.itens.length === 13);
+  prova('Q12 o juizo e o da Intelligence (NO_DEFENSIBLE_ACTION_YET · janela NO · agir NAO)',
+    val('RESULTADO').endsWith(J.RESULTADO) && val('WINDOW_OPEN_NOW') === 'NO' && val('ACT_NOW') === 'NAO' &&
+    J.RESULTADO === 'NO_DEFENSIBLE_ACTION_YET');
+  prova('Q12 a sonda diz que nao e janela instalada', /NON è una finestra installata/.test(P.sonda.titulo) && /nao e CAP-WIN/.test(P.sonda.execucao));
+  prova('Q12 a sonda so aparece nas Finestre', ROTAS.filter((r) => r !== 'windows').every((r) => V(r).potePub.temSonda === false));
+}
+
 /* ── Q10 · os blocos da publicacao ligam so ao que existe ───────────────── */
 {
   const a = HTML.indexOf('<!-- ================= POTE PUBLICADO (D114) · LA FASCIA');

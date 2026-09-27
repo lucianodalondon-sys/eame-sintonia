@@ -20,7 +20,7 @@ CONTRATO  nuvem-pote-v2-unico-v1 NAO esta PRONTO (cabeca 77da2476 = «insumos da
 | o dado publicado | `italia-portale/client/sintonia-pote-publicado.js` (GERADO) | `window.SINTONIA_POTE_PUBLICADO` (decisao, SHA, origem) + o pote como `window.SINTONIA_POTE`; com `?pote=local` cala-se |
 | a leitura | `italia-portale/client/sintonia-pote-publicacao.js` | faixa D114, recusados visiveis, os 86 cruzamentos, a sonda, as lacunas, o vazio do «field»; rotulo humano ao lado de cada codigo. Nao cruza, nao ordena, nao muda estado |
 | a tela | `italia-portale/client/portale.html` | carrega publicado → leitor → publicacao; `_potePublicado`: menu conta o pote, relogio diz a copia da Sala, Rete Commerciale nao desenha; faixa D114 no topo, bloco de extras em baixo |
-| as provas | `tests/test_pote_publicado.mjs` (54) · `italia-portale/audit/casco/pote-publicado-browser.mjs` (PP1, 11, no corredor `run.mjs`) | ver §5 |
+| as provas | `tests/test_pote_publicado.mjs` (58) · `italia-portale/audit/casco/pote-publicado-browser.mjs` (PP1, 11, no corredor `run.mjs`) | ver §5 |
 
 As trancas continuam: `sintonia-pote.js`, o gerador `pote_intelligence_casco.py` e as pastas PARA-O-CASCO **nao** entram no ramo
 nem no deploy (Q2 prova). So o pote aprovado em D114 atravessa, por uma porta com nome.
@@ -80,7 +80,40 @@ tirar a bandeira.
 
 ## 5 · Testes, antes × depois (por nome)
 
-RESULTADOS_AQUI
+Base = `cb734f38`+insumos (`05d398bf`), num worktree limpo; depois = este ramo. Mesma maquina, mesmo Chromium local
+(`/opt/pw-browsers`, playwright-core 1.56 ja instalado — nada baixado).
+
+| bateria | base | depois |
+|---|---|---|
+| `npm run build` (como a Vercel) | OK · SYSTEM_MAP_CHECK=PASS | OK · SYSTEM_MAP_CHECK=PASS |
+| `node italia-portale/audit/run.mjs` (corredor do CI) | 73/73 + 2 N/M (W2, O1) | **74/74** + as mesmas 2 N/M (+PP1) |
+| `tests/test_pote_no_casco.mjs` | 93/93 | 93/93 |
+| `tests/test_pote_publicado.mjs` (novo) | — | **58/58** |
+| `audit/casco/pote-publicado-browser.mjs` PP1 (novo) | — | **11/11** |
+| 17 portoes `audit/casco/*.mjs` + 15 portoes de browser avulsos (nenhum workflow os chama) | 14 com saida ≠ 0 | **13** — os mesmos por nome menos `brandwell` (passou a 0); nenhum passou de 0 para ≠ 0 |
+| system-map/tests (11) + 3 testes Python que leem o cliente | falhas: test_system_map (4), test_adama_relevance (2), test_fundacao_da_coleta (1) | as mesmas por nome (test_system_map: 3, subconjunto das 4) |
+
+Comparacao sub-prova a sub-prova (base PASS → depois nao PASS), depois dos consertos:
+
+| sub-prova | porque | estado |
+|---|---|---|
+| internal-token **IT3** (18) | o cartao mostra `SOURCE_ID` (ex. `IT-T3-008`) sem o nome da fonte: o pote nao o traz, e junta-lo ao registo de fontes seria a tela a cruzar (INT-LAW-023) | **NAO SEI declarado** — pedido ao dono do pote: nome da fonte na prova |
+| mobile **MB5** | «nome do produto no cartao nao cortado»: `NO SLOTS` — o radar servido nao tem cartao de produto; o portao nao tem o que medir | por construcao (o portao ja saia 1 na base) |
+
+Consertados no caminho, apanhados pela comparacao: BW3 (titulo do pote em MAIUSCULAS, ADAMA), IT1 (32 na base → 8),
+rolagem horizontal a 390 px (1025 px → 390), aresta com evidencia emprestada (QUATRO_PLANOS). Passaram a passar sobre a
+base: brandwell BW1 e BW3, action-map AC1–AC4.
+
+**Mutacao** (worktree descartavel; 18 defeitos plantados um a um; morto = algum teste reprova): **18/18 mortos** —
+«NO» com A CONFIRMAR, ordem trocada, candidata trocada, estado recalculado, recusados de outro compartimento, pote de outra
+corrida, NAO SEI sem destaque, SHA dito conferido, menu a contar o legado, relogio de 02/09, Rete Commerciale de volta, marca
+sem `data-marca`, linha da corrida sem quebra a 390 px, `?pote=local` ignorado, estado mudado a mao no publicado, insumo que
+contradiz o manifesto, `sintonia-pote.js` fora do `.gitignore`, sonda ausente.
+
+**Mapa**: cadeia `correr_a_cadeia.py REGERAR` → commit → `VALIDAR` = SYSTEM_MAP_CHECK=PASS → `impressao_da_arvore.py
+--conferir-carimbo` = IGUAL (ver o SHA final no fim da missao). Ficheiros novos declarados: C-LASTMILE (publicador),
+C-PORTAL-DADOS (publicado), C-PORTAL-MODELO (leitura), C-AUDIT-CASCO (teste + PP1). Nao corri `--stamp` (carimba o repo
+inteiro); as pecas que mexi ficam 🟡 ate uma leitura humana.
 
 ## 6 · Publicacao — para o coordenador (eu NAO fiz push em release/canonical)
 
