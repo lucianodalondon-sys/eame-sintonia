@@ -101,6 +101,7 @@
       "RELATORIO-UNIFICACAO.md",
       "RELATORIO-V1A-V1-LIGADA.md",
       "RELATORIO-YT1-CANARIO.md",
+      "RUNBOOK-R7.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
       "TEMPO-E-LUGAR.md",
@@ -1490,6 +1491,7 @@
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
       "docs/intelligence/BACKLOG-OBRIGATORIO.md",
+      "docs/intelligence/CAP-SCI.md",
       "docs/intelligence/CAP-WIN-DESENHO-R5.md",
       "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
       "docs/intelligence/INTELLIGENCE-CANONICAL-TOPOLOGY-V1.md",
@@ -1503,6 +1505,8 @@
       "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
       "docs/intelligence/README.md",
       "docs/intelligence/RED-TEAM-INTELLIGENCE-ARBITRATION-V1.md",
+      "docs/intelligence/RELATORIO-T6-CAP-SCI.md",
+      "docs/nuvem/nuvem-int-r7-caps-v1-MERGES.txt",
       "docs/operacao/A-CASA-DO-DERIVADO.md",
       "docs/operacao/ACHADO-RELEVANCIA-E-O-SNAPSHOT-NOVO.md",
       "docs/operacao/ALLOWED-STRUCTURED-TARGETS-POR-FONTE.md",
@@ -2419,14 +2423,17 @@
     "motor": [
       "motor/cadeia_canonica.sh",
       "motor/cap_win.py",
+      "motor/capacidade_cientifica.py",
       "motor/consolidar_leque.py",
       "motor/corrida_da_inteligencia.py",
       "motor/grafo_de_dependencia.py",
       "motor/matriz_recorte.py",
+      "motor/motor_das_capacidades.py",
       "motor/normalize_agro.py",
       "motor/normalize_substance.py",
       "motor/pacote_convergencia.py",
       "motor/pacote_normalizar.py",
+      "motor/r7_export_da_copia.sql",
       "motor/v21_aceitacao.py",
       "motor/v21_adama_registro_validar.py",
       "motor/v21_antes_e_depois.py",
@@ -2518,6 +2525,7 @@
       "provas/_e2e02_janela_dois_posts.py",
       "provas/_flow01_janela_falsa.py",
       "provas/_mutantes_c13_d23.py",
+      "provas/_mutantes_cap_sci.py",
       "provas/_mutantes_d24.py",
       "provas/_mutantes_d36_equivalencia.py",
       "provas/_mutantes_d37.py",
@@ -2601,6 +2609,12 @@
       "provas/hardware_local.py",
       "provas/implementacoes_candidatas.py",
       "provas/instagram_audio_only.py",
+      "provas/int_r7/E2E-COPIA-DESCARTAVEL.json",
+      "provas/int_r7/MUTANTES.json",
+      "provas/int_r7/aceite_pelo_gerador.py",
+      "provas/int_r7/bateria_por_nome.py",
+      "provas/int_r7/export_numa_copia_descartavel.py",
+      "provas/int_r7/mutantes.py",
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
@@ -3158,7 +3172,9 @@
       "tests/.gitkeep",
       "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
       "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+      "tests/dados/cap-sci/SINTETICO-ESTUDOS-CAP-SCI.json",
       "tests/dados/cap-win/arif-apol-mosca-sintetico.json",
+      "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
       "tests/es/test_adama_es_gate.py",
       "tests/es/test_adama_es_import_rules.py",
       "tests/fixtures/ARESTAS/README.md",
@@ -3259,6 +3275,7 @@
       "tests/test_candidatos_tematicos.py",
       "tests/test_canonico.py",
       "tests/test_cap_win.py",
+      "tests/test_capacidade_cientifica.py",
       "tests/test_censo_cards_sensores.py",
       "tests/test_censo_corpus_rotulado_admission.py",
       "tests/test_censo_dos_donos.py",
@@ -3336,6 +3353,7 @@
       "tests/test_migracao_033_sala.py",
       "tests/test_migrations.py",
       "tests/test_modelo_de_objetos_da_intelligence.py",
+      "tests/test_motor_das_capacidades.py",
       "tests/test_navegador.py",
       "tests/test_nome_da_pasta_windows.py",
       "tests/test_o10r_a_verdade_dos_nomes.py",
@@ -3952,10 +3970,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/cap-win-intelligence-tn7qfi",
-    "HEAD": "a7537ecab62c880452827a343508d73e9848cdb1",
-    "GENERATED_AT": "2026-09-27T16:07:59+00:00",
-    "SOURCE_TREE_FINGERPRINT": "0119047a0e6eb94804328b4d884f8acea3721f026a432435b5554d4e0583a9e6"
+    "BRANCH": "claude/int-r7-caps-motor-5rwp2n",
+    "HEAD": "4a0b77a4d0fdfee1398af4e022bca8a085b92e48",
+    "GENERATED_AT": "2026-09-27T18:39:44+00:00",
+    "SOURCE_TREE_FINGERPRINT": "c597dbc9d1c8a517597f9f9094c70523c29a76c2341c875ab110654ca867a0f9"
   },
   "FAMILIES": [
     {
@@ -4011,7 +4029,7 @@
         "Z-LINEAGE",
         "Z-INT-LEI"
       ],
-      "count": 22
+      "count": 24
     },
     {
       "id": "F-GOVERNANCA",
@@ -4026,7 +4044,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 103
+      "count": 105
     },
     {
       "id": "F-ENTREGA",
@@ -4287,7 +4305,7 @@
       "y": 190,
       "w": 1235,
       "h": 9378,
-      "count": 14
+      "count": 16
     },
     {
       "id": "Z-LINEAGE",
@@ -4398,7 +4416,7 @@
       "y": 190,
       "w": 1235,
       "h": 9378,
-      "count": 85
+      "count": 87
     },
     {
       "id": "Z-REFERENCIA",
@@ -5464,8 +5482,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 690",
-        "desses, mostrados aqui: 40 (ficam de fora 650)"
+        "enderecos que o codigo realmente chama: 691",
+        "desses, mostrados aqui: 40 (ficam de fora 651)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -47061,11 +47079,113 @@
       "y": 360
     },
     {
+      "id": "C-INT-CAP-SCI",
+      "name": "CAP-SCI — forca e aplicabilidade da evidencia cientifica",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Le o livro de uma corrida G0/v4 fechada e, so para os itens READY com o uso LEITURA_ATEMPORAL_DE_CAPACIDADE, julga cada estudo: FORCA decomposta (desenho, n, estudo pequeno = INDICATIVA), APLICABILIDADE (cultura x problema x molecula, local e periodo do estudo so quando provados por FACT_LOCATION/FACT_TIME com base), ESPECIE declarada pelo estudo (SCIENTIFIC_RESULT, MODEL_RULE e RESISTANCE separadas), INDEPENDENCIA por ensaio, dataset, autor e instituicao (teto, nunca prova), replicacao e contradicao declaradas, e a ligacao TEMATICA a rotulo ADAMA ativo so com cultura+alvo+molecula provados (referencia/adama, so leitura). Nao produz FINDING, OPPORTUNITY nem score unico. Aceita a triagem do motor das capacidades (triados_fora): o boletim sem identidade de estudo sai em FORA e nao e julgado como estudo.",
+      "why_here": "Biblia §34 CAP-SCI e mapa do dono §35: nao e biblioteca de papers, e que conhecimento cientifico novo pode alterar uma decisao. Nunca le identidade de fora do READY (campo a mais e recusado), nunca le o TEXTO, afiliacao nao vira local (INT-LAW-102), publicacao nao vira periodo (INT-LAW-100), tres papers do mesmo ensaio nao sao tres evidencias (INT-LAW-072/073), e nenhum estudo vira «o produto nao funciona» — essa leitura nao existe no vocabulario e uma trava rebenta se aparecer. Provado so com fixture SINTETICA; o registo T6 real nao esta nesta arvore.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚗",
+      "views": [
+        "audit",
+        "generator",
+        "opportunity"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "motor/capacidade_cientifica.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-INT-CORRIDA",
+        "C-PROVA-CAP-SCI-MUTACAO"
+      ],
+      "outbound": [
+        "C-INT-MOTOR-CAPACIDADES",
+        "C-PROVA-CAP-SCI-MUTACAO",
+        "C-PROVA-INT-R7",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ALIAS_DE_MOLECULA",
+          "CHAVES_DO_FATO",
+          "LEITURAS",
+          "LEITURAS_PROIBIDAS",
+          "METODOS",
+          "NAO_SAO_LOCAL_DO_ESTUDO",
+          "RESULTADOS",
+          "_ESPECIE_ALIAS",
+          "_METODO_ALIAS"
+        ],
+        "palavras": 136,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 136,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "motor/motor_das_capacidades.py:78",
+          "provas/_mutantes_cap_sci.py:18",
+          "provas/int_r7/mutantes.py:22",
+          "tests/test_capacidade_cientifica.py:27"
+        ],
+        "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 15500,
+      "y": 360
+    },
+    {
       "id": "C-INT-CAP-WIN",
       "name": "CAP-WIN — a janela de cultura (definida ≠ aberta agora)",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Le o livro de uma corrida G0/v4 e os itens READY, e julga por CULTURA x PROBLEMA x REGIAO (com fase/BBCH, subarea e periodo) duas perguntas separadas: WINDOW_DEFINED (que condicao define o momento de agir: os 8 tipos da regra do V21) e WINDOW_OPEN_NOW (a fonte declara a condicao satisfeita, e o facto tem tempo e e CURRENT?). Conta apoios pelo grafo de dependencia (observacao por originador e rede declarada; a regra partilhada conta uma vez), marca SUPPORT/CONTRADICTS entre observacoes da mesma semana e subarea, e devolve um ANALYTIC_JUDGMENT CROP_WINDOW com ACT_NOW so com YES, CURRENT, 2 independentes provados e 0 contradicoes — senao NO_DEFENSIBLE_ACTION_YET com o porque. Sem par em campo: NOT_POSSIBLE e o requisito CROP_ISSUE_EM_CAMPO. Nao produz oportunidade.",
+      "what": "Le o livro de uma corrida G0/v4 e os itens READY, e julga por CULTURA x PROBLEMA x REGIAO (com fase/BBCH, subarea e periodo) duas perguntas separadas: WINDOW_DEFINED (que condicao define o momento de agir: os 8 tipos da regra do V21) e WINDOW_OPEN_NOW (a fonte declara a condicao satisfeita, e o facto tem tempo e e CURRENT?). Conta apoios pelo grafo de dependencia (observacao por originador e rede declarada; a regra partilhada conta uma vez), marca SUPPORT/CONTRADICTS entre observacoes da mesma semana e subarea, e devolve um ANALYTIC_JUDGMENT CROP_WINDOW com ACT_NOW so com YES, CURRENT, 2 independentes provados e 0 contradicoes — senao NO_DEFENSIBLE_ACTION_YET com o porque. Sem par em campo: NOT_POSSIBLE e o requisito CROP_ISSUE_EM_CAMPO. Nao produz oportunidade. Aceita a triagem do motor das capacidades (fora={ITEM_ID: motivo}): o estudo sai em FORA com o motivo e nao gera requisito de par.",
       "why_here": "Missao CAP-WIN (D100-b/L6: a CAP-WIN vem primeiro na espinha G0-G6), desenho docs/intelligence/CAP-WIN-DESENHO-R5.md W0-W8. Porta a REGRA de scripts/v21_janelas.py @ 85df96f7 sem portar o ficheiro (o legado le DESIGN-INGEST e atribui par por texto, INT-LAW-084). Dois acrescimos declarados, os dois medidos no corte ARIF x APOL: soglia nao atingida escrita por extenso -> NO com a razao certa, e o plural «soglie». O tempo so bloqueia o uso que exige tempo: a regra de um READY sem FACT_TIME continua lida, o «agora» nao. EXPERIMENTAL / NAO_PARA_CLIENTE.",
       "departments": [
         "ENGENHARIA",
@@ -47095,7 +47215,9 @@
         "C-PROVA-CAP-WIN"
       ],
       "outbound": [
+        "C-INT-MOTOR-CAPACIDADES",
         "C-PROVA-CAP-WIN",
+        "C-PROVA-INT-R7",
         "C-TESTES"
       ],
       "paises": {},
@@ -47141,20 +47263,19 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
-        "QUEM": [
-          "C-PROVA-CAP-WIN",
-          "C-TESTES"
-        ],
-        "PLANO": "CODE",
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
         "PROVA": [
+          "motor/motor_das_capacidades.py:77",
           "provas/cap_win/mutantes.py:18",
+          "provas/int_r7/mutantes.py:21",
           "tests/test_cap_win.py:28"
         ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+        "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
-      "y": 360
+      "x": 14670,
+      "y": 682
     },
     {
       "id": "C-INT-CONSUMO-ADAMA",
@@ -47366,7 +47487,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 682
     },
     {
@@ -47405,8 +47526,10 @@
       ],
       "outbound": [
         "C-INT-ARBITRAGEM",
+        "C-INT-CAP-SCI",
         "C-INT-CAP-WIN",
         "C-INT-CONSUMO-ADAMA",
+        "C-INT-MOTOR-CAPACIDADES",
         "C-TESTES"
       ],
       "paises": {},
@@ -47459,13 +47582,13 @@
         "PLANO": null,
         "PROVA": [
           "motor/cap_win.py:82",
-          "provas/arbitragem_da_intelligence.py:101",
-          "provas/consumo_da_referencia_adama.py:93",
-          "tests/test_a_porta_cli_liga_o_banco.py:275"
+          "motor/capacidade_cientifica.py:56",
+          "motor/motor_das_capacidades.py:76",
+          "provas/arbitragem_da_intelligence.py:101"
         ],
-        "PORQUE": "estas pecas importam-na — C-INT-CAP-WIN — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 682
     },
     {
@@ -47658,8 +47781,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
-      "y": 682
+      "x": 14670,
+      "y": 1004
     },
     {
       "id": "C-INT-DONOS",
@@ -47936,7 +48059,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CAP-WIN — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 1004
     },
     {
@@ -48113,6 +48236,106 @@
       },
       "x": 22095,
       "y": 2936
+    },
+    {
+      "id": "C-INT-MOTOR-CAPACIDADES",
+      "name": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio.",
+      "why_here": "Missao INT-R7-CAPS: juntar CAP-WIN e CAP-SCI no motor sem duplicar leis nem contadores (uma corrida, um RUN_ID) e preparar a rodada 7 (RUNBOOK-R7.md). Conflitos resolvidos pelo significado: URL/DOCUMENT_ID nao sao READY (vem do RAW); JANELA_DECLARADA nao esta em CAMPOS_READY (viaja ao lado, so a CAP-WIN a le); boletim nao e estudo e estudo nao e janela. Nao abre a Sala, nao cunha identidade, nao produz OPORTUNIDADE. EXPERIMENTAL / NAO_PARA_CLIENTE.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "generator",
+        "opportunity"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "motor/motor_das_capacidades.py",
+        "motor/r7_export_da_copia.sql"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-INT-CAP-SCI",
+        "C-INT-CAP-WIN",
+        "C-INT-CORRIDA",
+        "C-LUGAR-COLETA"
+      ],
+      "outbound": [
+        "C-PROVA-INT-R7",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CHAVES_DO_POTE",
+          "COLUNAS_DO_RAW",
+          "_CAMPO_DA_JANELA"
+        ],
+        "palavras": 41,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 41,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-INT-R7",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/int_r7/export_numa_copia_descartavel.py:37",
+          "provas/int_r7/export_numa_copia_descartavel.py:47",
+          "tests/test_motor_das_capacidades.py:25",
+          "tests/test_motor_das_capacidades.py:578"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 15500,
+      "y": 1004
     },
     {
       "id": "C-INT-MOTOR-V2-REQ",
@@ -50084,7 +50307,7 @@
       ],
       "file_count": 14,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CONTRATO-ARTEFATO, C-INT-CORRIDA, C-ORQUESTRADOR.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CONTRATO-ARTEFATO, C-INT-CORRIDA, C-INT-MOTOR-CAPACIDADES, C-ORQUESTRADOR.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "leis/fato_local.py",
         "leis/lugar_do_fato.py"
@@ -50097,6 +50320,7 @@
       "outbound": [
         "C-CONTRATO-ARTEFATO",
         "C-INT-CORRIDA",
+        "C-INT-MOTOR-CAPACIDADES",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-RECEITAS",
@@ -50193,9 +50417,9 @@
           "admissao/reprocessar_tempo_lugar.py:57",
           "leis/artefato.py:437",
           "motor/corrida_da_inteligencia.py:66",
-          "orquestrador/orquestrador.py:533"
+          "motor/motor_das_capacidades.py:81"
         ],
-        "PORQUE": "estas pecas importam-na — C-CONTRATO-ARTEFATO · C-INT-CORRIDA · C-ORQUESTRADOR · C-RECEITAS · C-SALA-DE-ESPERA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CONTRATO-ARTEFATO · C-INT-CORRIDA · C-INT-MOTOR-CAPACIDADES · C-ORQUESTRADOR · C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 20975,
       "y": 1326
@@ -50957,6 +51181,7 @@
         "C-PROVA-FALA-QUALIDADE",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-INT-R7",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -51425,6 +51650,7 @@
       "outbound": [
         "C-CAPA-MATERIA",
         "C-PROVA-COLETA",
+        "C-PROVA-INT-R7",
         "C-TESTES"
       ],
       "paises": {},
@@ -54990,6 +55216,107 @@
       "y": 4868
     },
     {
+      "id": "C-PROVA-CAP-SCI-MUTACAO",
+      "name": "A CAP-SCI sob mutacao — cada regra tem um teste que a apanha",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Planta 22 defeitos, um de cada vez, em motor/capacidade_cientifica.py (campo de fora do READY ignorado, afiliacao virando local, publicacao virando periodo, estudo pequeno sem rebaixar, mesmo ensaio contado duas vezes, estudo sem chave contado como independente, rotulo revogado ligando, METALAXYL virando METALAXYL-M, regra de modelo ligando a produto, trava de leitura proibida desligada...) e exige que tests.test_capacidade_cientifica reprove em cada um. Restaura o original sempre.",
+      "why_here": "Um teste que continua verde com a regra partida nao prova a regra. Na primeira passagem 3 dos 22 mutantes viveram (sem chave virando grupo, ligacao sem molecula, regra de modelo com molecula) e os testes foram reforcados ate 22/22.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "🧬",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/_mutantes_cap_sci.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-INT-CAP-SCI"
+      ],
+      "outbound": [
+        "C-INT-CAP-SCI"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "M"
+        ],
+        "palavras": 43,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 43,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "motor/capacidade_cientifica.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "escreve motor/capacidade_cientifica.py, e C-PROVA-INT-R7 le isso: entrega trabalho a peca seguinte",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve motor/capacidade_cientifica.py, e C-PROVA-INT-R7 le isso: entrega trabalho a peca seguinte) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "motor/capacidade_cientifica.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 22095,
+      "y": 5190
+    },
+    {
       "id": "C-PROVA-CAP-WIN",
       "name": "As provas da CAP-WIN — mutação",
       "territory": "Z-PROVA",
@@ -55015,9 +55342,7 @@
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
-      "produces": [
-        "provas/cap_win/MUTANTES.json"
-      ],
+      "produces": [],
       "inbound": [
         "C-INT-CAP-WIN"
       ],
@@ -55049,23 +55374,23 @@
           "file": "motor/cap_win.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "provas/cap_win/MUTANTES.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "PROOF",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
-      "ROLE_CONFLICT": null,
-      "ROLE": "PROOF",
-      "ROLE_PLANE": "DECLARED",
-      "ROLE_EVIDENCE": "declarado `kind: proof` em architecture.declared.json — nenhum ficheiro medido sustenta ou contradiz isto",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "escreve motor/cap_win.py, e C-PROVA-INT-R7 le isso: entrega trabalho a peca seguinte",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve motor/cap_win.py, e C-PROVA-INT-R7 le isso: entrega trabalho a peca seguinte) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -55089,7 +55414,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 5190
     },
     {
@@ -55659,7 +55984,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5190
     },
     {
@@ -55774,8 +56099,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
-      "y": 5190
+      "x": 22095,
+      "y": 5512
     },
     {
       "id": "C-PROVA-CUTOVER",
@@ -55891,7 +56216,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 5512
     },
     {
@@ -55981,7 +56306,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5512
     },
     {
@@ -56073,8 +56398,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
-      "y": 5512
+      "x": 22095,
+      "y": 5834
     },
     {
       "id": "C-PROVA-EXECUTOR-CONTA",
@@ -56153,7 +56478,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 5834
     },
     {
@@ -56272,7 +56597,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5834
     },
     {
@@ -56367,8 +56692,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
-      "y": 5834
+      "x": 22095,
+      "y": 6156
     },
     {
       "id": "C-PROVA-FRONTEIRA",
@@ -56466,7 +56791,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 6156
     },
     {
@@ -56554,8 +56879,119 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6156
+    },
+    {
+      "id": "C-PROVA-INT-R7",
+      "name": "As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "aceite_pelo_gerador.py corre o gerador do pote v2 tirado do objeto git ce775ff5 (sem copia) sobre a saida do motor; export_numa_copia_descartavel.py sobe um Postgres descartavel com as migrations 001..033, semeia a fixture SINTETICA pelos donos da Sala (pousar/rever), corre o export em transacao read only e prova que a mesma sessao recusa escrever; mutantes.py planta 32 defeitos no motor e nos ganchos de triagem; bateria_por_nome.py corre cada modulo de tests/ com a rede fechada e compara falhas pelo NOME.",
+      "why_here": "A prova vive fora da peca que prova. 32/32 mutantes mortos (tres testes nasceram de mutantes que sobreviviam: M19, M20, M30). Sem Postgres ou sem o commit do gerador, as provas dizem NAO SEI e nunca PASS.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "🧬",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/int_r7/aceite_pelo_gerador.py",
+        "provas/int_r7/bateria_por_nome.py",
+        "provas/int_r7/export_numa_copia_descartavel.py",
+        "provas/int_r7/mutantes.py"
+      ],
+      "file_count": 4,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-INT-CAP-SCI",
+        "C-INT-CAP-WIN",
+        "C-INT-MOTOR-CAPACIDADES",
+        "C-MAPA-TESTES",
+        "C-MICRO-COLETA-INSTRUMENTO",
+        "C-SALA-DE-ESPERA"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MUTANTES"
+        ],
+        "palavras": 53,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 53,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "MEASUREMENT_INSTRUMENT",
+        "MEASURED_WHY": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 8 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "_gavetas.py",
+        "motor/cap_win.py",
+        "motor/capacidade_cientifica.py",
+        "motor/motor_das_capacidades.py",
+        "motor/r7_export_da_copia.sql",
+        "provas/int_r7/MUTANTES.json",
+        "scripts/micro_coleta/ensaio_offline.py",
+        "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_motor_das_capacidades.py:579"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 22095,
+      "y": 6478
     },
     {
       "id": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
@@ -56645,8 +57081,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
-      "y": 6156
+      "x": 22510,
+      "y": 6478
     },
     {
       "id": "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -56758,7 +57194,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 6478
     },
     {
@@ -56895,8 +57331,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 6478
+      "x": 22095,
+      "y": 6800
     },
     {
       "id": "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -57009,8 +57445,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
-      "y": 6478
+      "x": 22510,
+      "y": 6800
     },
     {
       "id": "C-PROVA-O-RAW-FALA",
@@ -57097,7 +57533,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 6800
     },
     {
@@ -57247,8 +57683,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22510,
-      "y": 6800
+      "x": 22095,
+      "y": 7122
     },
     {
       "id": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -57361,8 +57797,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22925,
-      "y": 6800
+      "x": 22510,
+      "y": 7122
     },
     {
       "id": "C-PROVA-PORTA-ITALIANA",
@@ -57461,7 +57897,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 7122
     },
     {
@@ -57557,8 +57993,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
-      "y": 7122
+      "x": 22095,
+      "y": 7444
     },
     {
       "id": "C-PROVA-RETRY-DO-SCRAP",
@@ -57646,8 +58082,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
-      "y": 7122
+      "x": 22510,
+      "y": 7444
     },
     {
       "id": "C-PROVA-ROTA-DO-HTML",
@@ -57768,7 +58204,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 7444
     },
     {
@@ -57871,8 +58307,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 7444
+      "x": 22095,
+      "y": 7766
     },
     {
       "id": "C-PROVA-ROTAS-REAIS",
@@ -58022,8 +58458,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
-      "y": 7444
+      "x": 22510,
+      "y": 7766
     },
     {
       "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
@@ -58120,7 +58556,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 7766
     },
     {
@@ -58233,8 +58669,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
-      "y": 7766
+      "x": 22095,
+      "y": 8088
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -58344,8 +58780,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
-      "y": 7766
+      "x": 22510,
+      "y": 8088
     },
     {
       "id": "C-PROVA-TETO-DOMINIO",
@@ -58446,7 +58882,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 8088
     },
     {
@@ -58534,8 +58970,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
-      "y": 8088
+      "x": 22095,
+      "y": 8410
     },
     {
       "id": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -58618,8 +59054,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
-      "y": 8088
+      "x": 22510,
+      "y": 8410
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -58715,7 +59151,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 8410
     },
     {
@@ -59098,8 +59534,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
-      "y": 8410
+      "x": 22095,
+      "y": 8732
     },
     {
       "id": "C-RECEITAS",
@@ -59601,8 +60037,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
-      "y": 8410
+      "x": 22510,
+      "y": 8732
     },
     {
       "id": "C-RECONCILIAR-BYTES-BC4",
@@ -59776,7 +60212,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 8732
     },
     {
@@ -60002,8 +60438,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22510,
-      "y": 8732
+      "x": 22095,
+      "y": 9054
     },
     {
       "id": "C-REGUA-T1-JANELA",
@@ -60865,8 +61301,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
-      "y": 8732
+      "x": 22510,
+      "y": 9054
     },
     {
       "id": "C-ROTA-M2",
@@ -61213,6 +61649,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-GATE-1D",
+        "C-PROVA-INT-R7",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -62232,7 +62669,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 9054
     },
     {
@@ -62707,8 +63144,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
-      "y": 9054
+      "x": 22095,
+      "y": 9376
     },
     {
       "id": "C-SUPABASE",
@@ -63022,8 +63459,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
-      "y": 9054
+      "x": 22510,
+      "y": 9376
     },
     {
       "id": "C-TELA-ARCHIVE",
@@ -64953,6 +65390,7 @@
         "tests/test_candidatos_tematicos.py",
         "tests/test_canonico.py",
         "tests/test_cap_win.py",
+        "tests/test_capacidade_cientifica.py",
         "tests/test_censo_cards_sensores.py",
         "tests/test_censo_corpus_rotulado_admission.py",
         "tests/test_censo_dos_donos.py",
@@ -65030,6 +65468,7 @@
         "tests/test_migracao_033_sala.py",
         "tests/test_migrations.py",
         "tests/test_modelo_de_objetos_da_intelligence.py",
+        "tests/test_motor_das_capacidades.py",
         "tests/test_navegador.py",
         "tests/test_nome_da_pasta_windows.py",
         "tests/test_o10r_a_verdade_dos_nomes.py",
@@ -65128,7 +65567,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 263,
+      "file_count": 265,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -65224,6 +65663,7 @@
         "C-INGRESSO",
         "C-INT-ARBITRAGEM",
         "C-INT-BIBLIA",
+        "C-INT-CAP-SCI",
         "C-INT-CAP-WIN",
         "C-INT-CONSUMO-ADAMA",
         "C-INT-CORRIDA",
@@ -65233,6 +65673,7 @@
         "C-INT-GRAFO-DEPENDENCIA",
         "C-INT-MODELO",
         "C-INT-MODELO-OBJETOS",
+        "C-INT-MOTOR-CAPACIDADES",
         "C-INTEGRA-ONDA2",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
@@ -65269,6 +65710,7 @@
         "C-PROVA-CORTESIA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-INT-R7",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -65574,6 +66016,7 @@
         "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
         "README.md",
         "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
+        "RUNBOOK-R7.md",
         "SINTONIA-EAME-KNOW-HOW.md",
         "admissao/admissao.py",
         "admissao/sala_de_espera.py",
@@ -65854,6 +66297,8 @@
         "medidas/rastro_da_coleta.py",
         "motor/cadeia_canonica.sh",
         "motor/corrida_da_inteligencia.py",
+        "motor/motor_das_capacidades.py",
+        "motor/r7_export_da_copia.sql",
         "motor/v21_tm_colher.py",
         "motor/v21_traducao_trava.py",
         "orquestrador/orquestrador.py",
@@ -65889,6 +66334,7 @@
         "provas/gpu_asr_smoke.py",
         "provas/hardware_local.py",
         "provas/implementacoes_candidatas.py",
+        "provas/int_r7/aceite_pelo_gerador.py",
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
         "provas/modelo_de_objetos_da_intelligence.py",
@@ -66009,7 +66455,9 @@
         "system-map/scripts/validate_system_map.py",
         "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
         "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+        "tests/dados/cap-sci/SINTETICO-ESTUDOS-CAP-SCI.json",
         "tests/dados/cap-win/arif-apol-mosca-sintetico.json",
+        "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
         "tests/fixtures/ARESTAS/codigo_real.py",
         "tests/fixtures/ARESTAS/owner_indireto.py",
         "tests/fixtures/ARESTAS/so_comentario.py",
@@ -66051,7 +66499,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22925,
       "y": 9376
     },
     {
@@ -66350,8 +66798,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-ACHADO · C-V21-FONTES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
-      "y": 1004
+      "x": 14670,
+      "y": 1326
     },
     {
       "id": "C-V21-COMERCIAL",
@@ -66575,8 +67023,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
-      "y": 1004
+      "x": 15085,
+      "y": 1326
     },
     {
       "id": "C-V21-CONTRATO",
@@ -66683,7 +67131,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 14670,
+      "x": 15500,
       "y": 1326
     },
     {
@@ -66836,8 +67284,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15085,
-      "y": 1326
+      "x": 14670,
+      "y": 1648
     },
     {
       "id": "C-V21-FONTES",
@@ -66951,8 +67399,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
-      "y": 1326
+      "x": 15085,
+      "y": 1648
     },
     {
       "id": "C-V21-INGEST",
@@ -67154,7 +67602,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 14670,
+      "x": 15500,
       "y": 1648
     },
     {
@@ -67255,8 +67703,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15085,
-      "y": 1648
+      "x": 14670,
+      "y": 1970
     },
     {
       "id": "V-FACEBOOK",
@@ -98622,6 +99070,181 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-INT-CAP-SCI",
+      "to": "C-INT-MOTOR-CAPACIDADES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "CAP-SCI — forca e aplicabilidade da evidencia cientifica tem o seu codigo importado por Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/motor_das_capacidades.py",
+          "line": 78,
+          "snippet": "import capacidade_cientifica as SCI              # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-SCI--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
+            "FROM": "C-INT-CAP-SCI",
+            "TO": "C-INT-MOTOR-CAPACIDADES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CAP-SCI",
+      "to": "C-PROVA-CAP-SCI-MUTACAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "CAP-SCI — forca e aplicabilidade da evidencia cientifica alimenta A CAP-SCI sob mutacao — cada regra tem um teste que a apanha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_cap_sci.py",
+          "line": 18,
+          "snippet": "P = RAIZ / \"motor\" / \"capacidade_cientifica.py\"; ORIG = P.read_text()",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-SCI--READS-->C-PROVA-CAP-SCI-MUTACAO",
+            "FROM": "C-INT-CAP-SCI",
+            "TO": "C-PROVA-CAP-SCI-MUTACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CAP-SCI",
+      "to": "C-PROVA-INT-R7",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "CAP-SCI — forca e aplicabilidade da evidencia cientifica alimenta As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/int_r7/mutantes.py",
+          "line": 22,
+          "snippet": "SCI = \"motor/capacidade_cientifica.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-SCI--READS-->C-PROVA-INT-R7",
+            "FROM": "C-INT-CAP-SCI",
+            "TO": "C-PROVA-INT-R7",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CAP-SCI",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "CAP-SCI — forca e aplicabilidade da evidencia cientifica tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_capacidade_cientifica.py",
+          "line": 27,
+          "snippet": "import capacidade_cientifica as SCI            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-SCI--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-CAP-SCI",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CAP-WIN",
+      "to": "C-INT-MOTOR-CAPACIDADES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "CAP-WIN — a janela de cultura (definida ≠ aberta agora) tem o seu codigo importado por Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/motor_das_capacidades.py",
+          "line": 77,
+          "snippet": "import cap_win as WIN                            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-WIN--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
+            "FROM": "C-INT-CAP-WIN",
+            "TO": "C-INT-MOTOR-CAPACIDADES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-INT-CAP-WIN",
       "to": "C-PROVA-CAP-WIN",
       "type": "READS",
@@ -98658,18 +99281,69 @@
     },
     {
       "from": "C-INT-CAP-WIN",
+      "to": "C-PROVA-INT-R7",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "CAP-WIN — a janela de cultura (definida ≠ aberta agora) alimenta As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/int_r7/mutantes.py",
+          "line": 21,
+          "snippet": "WIN = \"motor/cap_win.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-WIN--READS-->C-PROVA-INT-R7",
+            "FROM": "C-INT-CAP-WIN",
+            "TO": "C-PROVA-INT-R7",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CAP-WIN",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "CAP-WIN — a janela de cultura (definida ≠ aberta agora) tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "CAP-WIN — a janela de cultura (definida ≠ aberta agora) tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_cap_win.py",
           "line": 28,
           "snippet": "import cap_win as W                                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-WIN--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-CAP-WIN",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_motor_das_capacidades.py",
+          "line": 26,
+          "snippet": "import cap_win as WIN                         # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CAP-WIN--IMPORTS-->C-TESTES",
             "FROM": "C-INT-CAP-WIN",
@@ -98833,6 +99507,41 @@
     },
     {
       "from": "C-INT-CORRIDA",
+      "to": "C-INT-CAP-SCI",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por CAP-SCI — forca e aplicabilidade da evidencia cientifica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/capacidade_cientifica.py",
+          "line": 56,
+          "snippet": "import corrida_da_inteligencia as CORRIDA                          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-INT-CAP-SCI",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-INT-CAP-SCI",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CORRIDA",
       "to": "C-INT-CAP-WIN",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -98903,13 +99612,48 @@
     },
     {
       "from": "C-INT-CORRIDA",
+      "to": "C-INT-MOTOR-CAPACIDADES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/motor_das_capacidades.py",
+          "line": 76,
+          "snippet": "import corrida_da_inteligencia as CI            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-INT-MOTOR-CAPACIDADES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CORRIDA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_primeira_corrida_da_inteligencia.py",
@@ -98931,6 +99675,22 @@
           "file": "tests/test_cap_win.py",
           "line": 29,
           "snippet": "import corrida_da_inteligencia as CI                   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_capacidade_cientifica.py",
+          "line": 28,
+          "snippet": "import corrida_da_inteligencia as CI           # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
             "FROM": "C-INT-CORRIDA",
@@ -99893,6 +100653,178 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MODELO-OBJETOS--READS-->C-TESTES",
             "FROM": "C-INT-MODELO-OBJETOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-MOTOR-CAPACIDADES",
+      "to": "C-PROVA-INT-R7",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/int_r7/export_numa_copia_descartavel.py",
+          "line": 37,
+          "snippet": "import motor_das_capacidades as M          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-PROVA-INT-R7",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-PROVA-INT-R7",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-MOTOR-CAPACIDADES",
+      "to": "C-PROVA-INT-R7",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 alimenta As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/int_r7/export_numa_copia_descartavel.py",
+          "line": 47,
+          "snippet": "SQL = RAIZ / \"motor\" / \"r7_export_da_copia.sql\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-INT-R7",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-PROVA-INT-R7",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/int_r7/mutantes.py",
+          "line": 20,
+          "snippet": "MOTOR = \"motor/motor_das_capacidades.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-INT-R7",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-PROVA-INT-R7",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-MOTOR-CAPACIDADES",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_motor_das_capacidades.py",
+          "line": 25,
+          "snippet": "import motor_das_capacidades as M            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-MOTOR-CAPACIDADES",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_motor_das_capacidades.py",
+          "line": 578,
+          "snippet": "self.assertIn(\"motor_das_capacidades.py\", rb)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_motor_das_capacidades.py",
+          "line": 580,
+          "snippet": "self.assertIn(\"r7_export_da_copia.sql\", rb)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -107326,6 +108258,41 @@
     },
     {
       "from": "C-LUGAR-COLETA",
+      "to": "C-INT-MOTOR-CAPACIDADES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/motor_das_capacidades.py",
+          "line": 81,
+          "snippet": "import lugar_do_fato as LUGAR                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-INT-MOTOR-CAPACIDADES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LUGAR-COLETA",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -111618,6 +112585,76 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-PROVA-INT-R7",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/int_r7/export_numa_copia_descartavel.py",
+          "line": 35,
+          "snippet": "import _gavetas                            # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-INT-R7",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PROVA-INT-R7",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-PROVA-INT-R7",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map alimenta As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/int_r7/aceite_pelo_gerador.py",
+          "line": 58,
+          "snippet": "shutil.copy(os.path.join(RAIZ, \"_gavetas.py\"), pasta)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--READS-->C-PROVA-INT-R7",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PROVA-INT-R7",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -114210,6 +115247,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MICRO-COLETA-INSTRUMENTO",
+      "to": "C-PROVA-INT-R7",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/int_r7/export_numa_copia_descartavel.py",
+          "line": 40,
+          "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-INT-R7",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-PROVA-INT-R7",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -122962,6 +124034,41 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-PROVA-CAP-SCI-MUTACAO",
+      "to": "C-INT-CAP-SCI",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A CAP-SCI sob mutacao — cada regra tem um teste que a apanha escreve em CAP-SCI — forca e aplicabilidade da evidencia cientifica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_cap_sci.py",
+          "line": 47,
+          "snippet": "P.write_text(ORIG.replace(a, b))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-CAP-SCI-MUTACAO--WRITES-->C-INT-CAP-SCI",
+            "FROM": "C-PROVA-CAP-SCI-MUTACAO",
+            "TO": "C-INT-CAP-SCI",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "WRITE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-PROVA-CAP-WIN",
       "to": "C-INT-CAP-WIN",
       "type": "WRITES",
@@ -124572,6 +125679,41 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-FRONTEIRA--READS-->C-TESTES",
             "FROM": "C-PROVA-FRONTEIRA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-INT-R7",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_motor_das_capacidades.py",
+          "line": 579,
+          "snippet": "self.assertIn(\"aceite_pelo_gerador.py\", rb)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-INT-R7--READS-->C-TESTES",
+            "FROM": "C-PROVA-INT-R7",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -130531,6 +131673,41 @@
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-GATE-1D",
             "FROM": "C-SALA-DE-ESPERA",
             "TO": "C-PROVA-GATE-1D",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-INT-R7",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/int_r7/export_numa_copia_descartavel.py",
+          "line": 36,
+          "snippet": "import sala_de_espera as espera            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-INT-R7",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-INT-R7",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -145024,7 +146201,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1930,
+  "UNCLAIMED_FILES_COUNT": 1939,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -145265,7 +146442,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 231,
+      "PECAS_EM_DESACORDO": 235,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -145277,26 +146454,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 257
+      "TOTAL_DE_PECAS": 261
     }
   ],
   "COUNTS": {
-    "components": 257,
+    "components": 261,
     "components_proven": 32,
-    "components_pending": 217,
+    "components_pending": 221,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1481,
-    "edges_proven": 1416,
+    "edges": 1500,
+    "edges_proven": 1435,
     "edges_unknown": 65,
     "business_edges": 4,
-    "files_tracked": 3359,
-    "files_covered": 1429,
+    "files_tracked": 3377,
+    "files_covered": 1438,
     "files_code_unclaimed": 0,
     "roles_proven": 177,
-    "roles_declared_only": 8,
-    "roles_unknown": 72,
-    "roles_conflict": 39,
+    "roles_declared_only": 7,
+    "roles_unknown": 77,
+    "roles_conflict": 42,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
     "concept_owner_single": 2,

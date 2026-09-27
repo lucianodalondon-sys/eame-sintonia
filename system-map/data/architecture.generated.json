@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/cap-win-intelligence-tn7qfi",
-    "HEAD": "a7537ecab62c880452827a343508d73e9848cdb1",
-    "GENERATED_AT": "2026-09-27T16:07:59+00:00",
-    "SOURCE_TREE_FINGERPRINT": "0119047a0e6eb94804328b4d884f8acea3721f026a432435b5554d4e0583a9e6"
+    "BRANCH": "claude/int-r7-caps-motor-5rwp2n",
+    "HEAD": "4a0b77a4d0fdfee1398af4e022bca8a085b92e48",
+    "GENERATED_AT": "2026-09-27T18:39:44+00:00",
+    "SOURCE_TREE_FINGERPRINT": "c597dbc9d1c8a517597f9f9094c70523c29a76c2341c875ab110654ca867a0f9"
   },
   "FILES": [
     {
@@ -809,6 +809,13 @@
     {
       "path": "RELATORIO-YT1-CANARIO.md",
       "sha": "a5ee9f7f0fd8a0b99aab98f55f9c05ae7f5d2aea",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RUNBOOK-R7.md",
+      "sha": "0304389a6469dc8220c6060c1b857e23bbfa5f4c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10243,6 +10250,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/intelligence/CAP-SCI.md",
+      "sha": "d2564ba9178f2c24683269a8810b51f5c286d730",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/intelligence/CAP-WIN-DESENHO-R5.md",
       "sha": "2725941844f760aad06411550963fd926a28205f",
       "ext": ".md",
@@ -10330,6 +10344,20 @@
       "path": "docs/intelligence/RED-TEAM-INTELLIGENCE-ARBITRATION-V1.md",
       "sha": "b8215eb06a5e8d412e13a74954898ebfb2c7d011",
       "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/intelligence/RELATORIO-T6-CAP-SCI.md",
+      "sha": "d73d02fd5476662359efbde81247a19a89f0ba42",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/nuvem/nuvem-int-r7-caps-v1-MERGES.txt",
+      "sha": "dd2a46f405165a2e001aae5fcf00d3e584fe2609",
+      "ext": ".txt",
       "readable": false,
       "code_dir": false
     },
@@ -16614,7 +16642,14 @@
     },
     {
       "path": "motor/cap_win.py",
-      "sha": "c5fe92c57c400bdfe94371174da9e2d529fad3b9",
+      "sha": "045e1564b43a4704c9cded128d1b5b63c9df2056",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/capacidade_cientifica.py",
+      "sha": "2489be6a8360637ff1e8b62f4af280847fc567cb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16648,6 +16683,13 @@
       "code_dir": true
     },
     {
+      "path": "motor/motor_das_capacidades.py",
+      "sha": "c597534e1488924d589b8c813adfb7efece13f88",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "motor/normalize_agro.py",
       "sha": "af356084e633c1e6f857d712dd0947f58deaf2ed",
       "ext": ".py",
@@ -16673,6 +16715,13 @@
       "sha": "c2d08c2031610aa7b11e20c59ce4728610eb66d8",
       "ext": ".py",
       "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/r7_export_da_copia.sql",
+      "sha": "278bf0c3df2497348eddf66c8241c24aa86c8113",
+      "ext": ".sql",
+      "readable": false,
       "code_dir": true
     },
     {
@@ -17236,6 +17285,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/_mutantes_cap_sci.py",
+      "sha": "c3ee86e8fbb7332d3171999666c5a933818db66c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/_mutantes_d24.py",
       "sha": "01643a8abee4fe5eb8ee97fcfd761f1345ff4aaa",
       "ext": ".py",
@@ -17629,7 +17685,7 @@
     },
     {
       "path": "provas/cap_win/MUTANTES.json",
-      "sha": "146de0d7b4ea2ce67157cb0731e09462f443d5e1",
+      "sha": "51735efc754f3a32f961eb70c430be60e82587ab",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17812,6 +17868,48 @@
     {
       "path": "provas/instagram_audio_only.py",
       "sha": "61ee6a89288408ab154f001e029f5c18c944ee16",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/int_r7/E2E-COPIA-DESCARTAVEL.json",
+      "sha": "f2e1473f31171e6682e91d4efce4af142b71b238",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/int_r7/MUTANTES.json",
+      "sha": "4223f70583dd7f7a7e1d4a195f3b7ea7f5046c11",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/int_r7/aceite_pelo_gerador.py",
+      "sha": "069d80e2124f728b1d51d85938b4c05378688eb4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/int_r7/bateria_por_nome.py",
+      "sha": "6c9d9a3882d9e5bb2d71265f60f43b351ad058a3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/int_r7/export_numa_copia_descartavel.py",
+      "sha": "ae4fad02db64fc266cb17e51031bb6d74e169c70",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/int_r7/mutantes.py",
+      "sha": "6240112772ca817c4e2e24a84f2a118da5a4d2cb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21150,7 +21248,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "1a2d509a54c79d5833924d7808ee3926286cb972",
+      "sha": "a33c63157f97e0bf72ae17de75f971c7b97c14d3",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -21590,8 +21688,22 @@
       "code_dir": true
     },
     {
+      "path": "tests/dados/cap-sci/SINTETICO-ESTUDOS-CAP-SCI.json",
+      "sha": "67893887e71cc9b2527ef79eb06ed98b18855029",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "tests/dados/cap-win/arif-apol-mosca-sintetico.json",
       "sha": "126e2f39e11c93c4c368ce6c43026fe32d872908",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
+      "sha": "0ac3c282881f1a1c47f41b66ed6dad28d61c171b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -22297,6 +22409,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_capacidade_cientifica.py",
+      "sha": "dc681ac029435ad56d1f35ce1c03858cee217d57",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_censo_cards_sensores.py",
       "sha": "c8a11bbf11d3dc6c7a6b54d5e6ee2381d584d95d",
       "ext": ".py",
@@ -22831,6 +22950,13 @@
     {
       "path": "tests/test_modelo_de_objetos_da_intelligence.py",
       "sha": "3a34e219441b2eedcb091c942f4000d2cc0c9092",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_motor_das_capacidades.py",
+      "sha": "fe2be15285d8d62ef3556ff2d9f2b06202d761cd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -48747,6 +48873,17 @@
       }
     },
     {
+      "from_file": "motor/capacidade_cientifica.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/capacidade_cientifica.py",
+        "line": 56,
+        "snippet": "import corrida_da_inteligencia as CORRIDA                          # noqa: E402"
+      }
+    },
+    {
       "from_file": "motor/consolidar_leque.py",
       "to_file": "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json",
       "type": "READS",
@@ -48832,6 +48969,50 @@
         "file": "motor/matriz_recorte.py",
         "line": 382,
         "snippet": "with open(DEST, 'w', encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "motor/motor_das_capacidades.py",
+      "to_file": "leis/lugar_do_fato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/motor_das_capacidades.py",
+        "line": 81,
+        "snippet": "import lugar_do_fato as LUGAR                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/motor_das_capacidades.py",
+      "to_file": "motor/cap_win.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/motor_das_capacidades.py",
+        "line": 77,
+        "snippet": "import cap_win as WIN                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/motor_das_capacidades.py",
+      "to_file": "motor/capacidade_cientifica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/motor_das_capacidades.py",
+        "line": 78,
+        "snippet": "import capacidade_cientifica as SCI              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/motor_das_capacidades.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/motor_das_capacidades.py",
+        "line": 76,
+        "snippet": "import corrida_da_inteligencia as CI            # noqa: E402"
       }
     },
     {
@@ -54368,6 +54549,28 @@
       }
     },
     {
+      "from_file": "provas/_mutantes_cap_sci.py",
+      "to_file": "motor/capacidade_cientifica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cap_sci.py",
+        "line": 18,
+        "snippet": "P = RAIZ / \"motor\" / \"capacidade_cientifica.py\"; ORIG = P.read_text()"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cap_sci.py",
+      "to_file": "motor/capacidade_cientifica.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cap_sci.py",
+        "line": 47,
+        "snippet": "P.write_text(ORIG.replace(a, b))"
+      }
+    },
+    {
       "from_file": "provas/_mutantes_d24.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -58779,17 +58982,6 @@
       }
     },
     {
-      "from_file": "provas/cap_win/mutantes.py",
-      "to_file": "provas/cap_win/MUTANTES.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/cap_win/mutantes.py",
-        "line": 102,
-        "snippet": "SAIDA.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
-      }
-    },
-    {
       "from_file": "provas/censo_corpus_rotulado_admission.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -60074,6 +60266,138 @@
         "file": "provas/instagram_audio_only.py",
         "line": 52,
         "snippet": "import reel_transcricao as rt    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/int_r7/aceite_pelo_gerador.py",
+      "to_file": "_gavetas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/int_r7/aceite_pelo_gerador.py",
+        "line": 58,
+        "snippet": "shutil.copy(os.path.join(RAIZ, \"_gavetas.py\"), pasta)"
+      }
+    },
+    {
+      "from_file": "provas/int_r7/export_numa_copia_descartavel.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/int_r7/export_numa_copia_descartavel.py",
+        "line": 35,
+        "snippet": "import _gavetas                            # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/int_r7/export_numa_copia_descartavel.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/int_r7/export_numa_copia_descartavel.py",
+        "line": 36,
+        "snippet": "import sala_de_espera as espera            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/int_r7/export_numa_copia_descartavel.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/int_r7/export_numa_copia_descartavel.py",
+        "line": 37,
+        "snippet": "import motor_das_capacidades as M          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/int_r7/export_numa_copia_descartavel.py",
+      "to_file": "motor/r7_export_da_copia.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/int_r7/export_numa_copia_descartavel.py",
+        "line": 47,
+        "snippet": "SQL = RAIZ / \"motor\" / \"r7_export_da_copia.sql\""
+      }
+    },
+    {
+      "from_file": "provas/int_r7/export_numa_copia_descartavel.py",
+      "to_file": "provas/int_r7/aceite_pelo_gerador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/int_r7/export_numa_copia_descartavel.py",
+        "line": 160,
+        "snippet": "import aceite_pelo_gerador as G"
+      }
+    },
+    {
+      "from_file": "provas/int_r7/export_numa_copia_descartavel.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/int_r7/export_numa_copia_descartavel.py",
+        "line": 40,
+        "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")"
+      }
+    },
+    {
+      "from_file": "provas/int_r7/export_numa_copia_descartavel.py",
+      "to_file": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/int_r7/export_numa_copia_descartavel.py",
+        "line": 46,
+        "snippet": "FIXTURE = RAIZ / \"tests\" / \"dados\" / \"int-r7\" / \"SINTETICO-R7-SALA-EXPORT.json\""
+      }
+    },
+    {
+      "from_file": "provas/int_r7/mutantes.py",
+      "to_file": "motor/cap_win.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/int_r7/mutantes.py",
+        "line": 21,
+        "snippet": "WIN = \"motor/cap_win.py\""
+      }
+    },
+    {
+      "from_file": "provas/int_r7/mutantes.py",
+      "to_file": "motor/capacidade_cientifica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/int_r7/mutantes.py",
+        "line": 22,
+        "snippet": "SCI = \"motor/capacidade_cientifica.py\""
+      }
+    },
+    {
+      "from_file": "provas/int_r7/mutantes.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/int_r7/mutantes.py",
+        "line": 20,
+        "snippet": "MOTOR = \"motor/motor_das_capacidades.py\""
+      }
+    },
+    {
+      "from_file": "provas/int_r7/mutantes.py",
+      "to_file": "provas/int_r7/MUTANTES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/int_r7/mutantes.py",
+        "line": 23,
+        "snippet": "SAIDA = Path(__file__).resolve().parent / \"MUTANTES.json\""
       }
     },
     {
@@ -80900,6 +81224,39 @@
       }
     },
     {
+      "from_file": "tests/test_capacidade_cientifica.py",
+      "to_file": "motor/capacidade_cientifica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_capacidade_cientifica.py",
+        "line": 27,
+        "snippet": "import capacidade_cientifica as SCI            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_capacidade_cientifica.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_capacidade_cientifica.py",
+        "line": 28,
+        "snippet": "import corrida_da_inteligencia as CI           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_capacidade_cientifica.py",
+      "to_file": "tests/dados/cap-sci/SINTETICO-ESTUDOS-CAP-SCI.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_capacidade_cientifica.py",
+        "line": 30,
+        "snippet": "FIXTURE = RAIZ / \"tests\" / \"dados\" / \"cap-sci\" / \"SINTETICO-ESTUDOS-CAP-SCI.json\""
+      }
+    },
+    {
       "from_file": "tests/test_censo_cards_sensores.py",
       "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "type": "READS",
@@ -85561,6 +85918,83 @@
         "file": "tests/test_modelo_de_objetos_da_intelligence.py",
         "line": 326,
         "snippet": "fonte = (RAIZ / \"provas\" / \"modelo_de_objetos_da_intelligence.py\").read_text("
+      }
+    },
+    {
+      "from_file": "tests/test_motor_das_capacidades.py",
+      "to_file": "RUNBOOK-R7.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_motor_das_capacidades.py",
+        "line": 575,
+        "snippet": "rb = (RAIZ / \"RUNBOOK-R7.md\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_motor_das_capacidades.py",
+      "to_file": "motor/cap_win.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_motor_das_capacidades.py",
+        "line": 26,
+        "snippet": "import cap_win as WIN                         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_motor_das_capacidades.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_motor_das_capacidades.py",
+        "line": 25,
+        "snippet": "import motor_das_capacidades as M            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_motor_das_capacidades.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_motor_das_capacidades.py",
+        "line": 578,
+        "snippet": "self.assertIn(\"motor_das_capacidades.py\", rb)"
+      }
+    },
+    {
+      "from_file": "tests/test_motor_das_capacidades.py",
+      "to_file": "motor/r7_export_da_copia.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_motor_das_capacidades.py",
+        "line": 580,
+        "snippet": "self.assertIn(\"r7_export_da_copia.sql\", rb)"
+      }
+    },
+    {
+      "from_file": "tests/test_motor_das_capacidades.py",
+      "to_file": "provas/int_r7/aceite_pelo_gerador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_motor_das_capacidades.py",
+        "line": 579,
+        "snippet": "self.assertIn(\"aceite_pelo_gerador.py\", rb)"
+      }
+    },
+    {
+      "from_file": "tests/test_motor_das_capacidades.py",
+      "to_file": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_motor_das_capacidades.py",
+        "line": 29,
+        "snippet": "EXPORT = RAIZ / \"tests\" / \"dados\" / \"int-r7\" / \"SINTETICO-R7-SALA-EXPORT.json\""
       }
     },
     {
@@ -92714,10 +93148,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3359,
-    "files_readable": 1429,
-    "files_code_dir": 1542,
-    "file_edges": 6235,
+    "files_tracked": 3377,
+    "files_readable": 1438,
+    "files_code_dir": 1556,
+    "file_edges": 6263,
     "escritas_em_pasta": 88,
     "declared_missing_here": 0
   },

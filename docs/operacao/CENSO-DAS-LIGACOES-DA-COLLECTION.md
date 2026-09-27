@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a7537ecab62c880452827a343508d73e9848cdb1
-BRANCH           claude/cap-win-intelligence-tn7qfi
-GERADO_EM        2026-09-27T16:07:59+00:00
+HEAD_DA_MEDICAO  4a0b77a4d0fdfee1398af4e022bca8a085b92e48
+BRANCH           claude/int-r7-caps-motor-5rwp2n
+GERADO_EM        2026-09-27T18:39:44+00:00
 CARDS            104
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -515,13 +515,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/italy_executor.py` |
 | **o que sai · dado** | C-INT-ESPINHA |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 14 · saem 22 |
-| **arestas provadas** | entram 14 · saem 21 |
+| **arestas no mapa** | entram 14 · saem 23 |
+| **arestas provadas** | entram 14 · saem 22 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 35 · NÃO SEI 1 |
+| **prova das ligações** | CODE 36 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -1906,13 +1906,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `RELATORIO-RELEVANCIA-ELEGIVEIS.md`, `admissao/admissao.py`, `coleta/italy_executor.py` |
 | **o que sai · dado** | C-CAPA-MATERIA |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 19 · saem 3 |
-| **arestas provadas** | entram 19 · saem 3 |
+| **arestas no mapa** | entram 19 · saem 4 |
+| **arestas provadas** | entram 19 · saem 4 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 22 |
+| **prova das ligações** | CODE 23 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
