@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "casco-real-v1",
-    "HEAD": "27b9e674f1b576f15523ad97f0e5de4d9ea8f46d",
-    "GENERATED_AT": "2026-09-14T02:47:31-03:00",
+    "HEAD": "182b3f50de62dbfbdda483f6682b882b935bb060",
+    "GENERATED_AT": "2026-09-27T09:54:22-03:00",
     "SOURCE_TREE_FINGERPRINT": "c30c0fd212d87c47209f53e4da40461b5542b037f585e75df4073cde31b20d8a"
   },
   "FILES": [
@@ -6064,6 +6064,13 @@
       "code_dir": true
     },
     {
+      "path": "italia-portale/audit/casco/pote-casco.mjs",
+      "sha": "76cda7fe6a60ae7527033f7fac2984146d45fcdc",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "italia-portale/audit/casco/quarantatre.mjs",
       "sha": "9834f2f3598b0669b8e6bba381ae2241065b95fa",
       "ext": ".mjs",
@@ -6731,6 +6738,13 @@
     {
       "path": "italia-portale/client/italy-pdf.js",
       "sha": "dbd891879039ec4f07698d2d9a27dbeebb553ab8",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "italia-portale/client/italy-pote.js",
+      "sha": "867659df4681d6bcdedc57b8d0a804a7ea6e3c21",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -18060,6 +18074,17 @@
         "file": "italia-portale/client/portale.html",
         "line": 71,
         "snippet": "<script src=\"italy-pdf.js\"></script>"
+      }
+    },
+    {
+      "from_file": "italia-portale/client/portale.html",
+      "to_file": "italia-portale/client/italy-pote.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "italia-portale/client/portale.html",
+        "line": 75,
+        "snippet": "<script src=\"italy-pote.js\"></script>"
       }
     },
     {
@@ -34089,10 +34114,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1383,
-    "files_readable": 526,
-    "files_code_dir": 582,
-    "file_edges": 2175,
+    "files_tracked": 1385,
+    "files_readable": 528,
+    "files_code_dir": 584,
+    "file_edges": 2176,
     "escritas_em_pasta": 69,
     "declared_missing_here": 47
   },
