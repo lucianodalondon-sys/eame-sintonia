@@ -1,0 +1,77 @@
+{
+ "SCHEMA": "POTE_DELTA/v0-PROPOSTA-LAB (NAO e contrato; exemplo sobre dados SINTETICOS marcados)",
+ "ANTERIOR": {
+  "INTELLIGENCE_RUN_ID": "IR-e09acab6365032523d6e",
+  "POTE_SHA256": "0189967826ea79e05fa93b144144ddcedd151370ba56d11a56d5066946d2b930 (POTE-R7 publicado, docs/casco/r7)"
+ },
+ "ATUAL": {
+  "INTELLIGENCE_RUN_ID": "IR-R8-SINTETICO",
+  "CORRIDA_SINTETICA": true
+ },
+ "REGRA_DE_IDENTIDADE": "IDENT-v0-LAB-POC",
+ "VOCABULARIO": "VOCAB-v0-LAB-POC",
+ "CONTAGEM": {
+  "MUDOU_ESTADO": 1,
+  "MAIS_EVIDENCIA_MESMA_ORIGEM": 1,
+  "FORTALECEU": 1
+ },
+ "MUDANCAS": [
+  {
+   "CROSSING_ID": "XQ-9d5093a503343fa1",
+   "CROSSING_KEY": "F4_JANELA_CULTURA_PRAGA/v1|CROP=CROP:OLIVO|TARGET=PEST:EPPO:DACUOL|LUGAR=IT-PROV:LE|CAMPANHA=2026",
+   "MUDANCA": "MUDOU_ESTADO",
+   "ESTADO_DE": "NO",
+   "ESTADO_PARA": "CONFLITANTE",
+   "EVIDENCIAS_DE": 1,
+   "EVIDENCIAS_PARA": 2,
+   "SOURCE_ID_DE": 1,
+   "SOURCE_ID_PARA": 1,
+   "EVIDENCIAS_NOVAS": [
+    "SINT:IT-T3-008:Notiziario_N39_23-09-2026"
+   ],
+   "CAUSA": "NOVA_EVIDENCIA",
+   "RELACAO": "TEMPORAL_CHANGE (mesma origem, semana seguinte; INT-LAW-079) — nao e contradicao"
+  },
+  {
+   "CROSSING_ID": "XQ-c8565a8d6faabd2e",
+   "CROSSING_KEY": "F2_PORTFOLIO_MATCH/v1|JURISDICAO=IT|CROP=CROP:OLIVO|TARGET=PEST:EPPO:DACUOL",
+   "MUDANCA": "MAIS_EVIDENCIA_MESMA_ORIGEM",
+   "ESTADO_DE": "SEM_PAR_LIDO",
+   "ESTADO_PARA": "SEM_PAR_LIDO",
+   "EVIDENCIAS_DE": 13,
+   "EVIDENCIAS_PARA": 14,
+   "SOURCE_ID_DE": 10,
+   "SOURCE_ID_PARA": 10,
+   "EVIDENCIAS_NOVAS": [
+    "SINT:IT-T3-008:Notiziario_N39_23-09-2026"
+   ],
+   "CAUSA": "NOVA_EVIDENCIA",
+   "RELACAO": null
+  },
+  {
+   "CROSSING_ID": "XQ-fbaa85b4116142c5",
+   "CROSSING_KEY": "F1_ROTULO_X_SUBSTANCIA_CITADA/v1|JURISDICAO=IT|AI=AI:FOLPET|CROP=CROP:VITE",
+   "MUDANCA": "FORTALECEU",
+   "ESTADO_DE": "CONFIRMED_YES",
+   "ESTADO_PARA": "CONFIRMED_YES",
+   "EVIDENCIAS_DE": 2,
+   "EVIDENCIAS_PARA": 3,
+   "SOURCE_ID_DE": 2,
+   "SOURCE_ID_PARA": 3,
+   "EVIDENCIAS_NOVAS": [
+    "SINT:CAND-9001:bollettino-vite-22-09-2026"
+   ],
+   "CAUSA": "NOVA_EVIDENCIA",
+   "RELACAO": null
+  }
+ ],
+ "SEM_MUDANCA": 222,
+ "O_QUE_O_ESQUEMA_ATUAL_FARIA": {
+  "SINAIS": "todos os SG e FUT ganham ID novo (run_id no hash): 0 continuidade (medido R6->R7: 0/10 sinais, 0/47 objetos)",
+  "F1_FOLPET_X_VITE": "+1 cartao XC novo (o 3.o sobre a mesma pergunta; hoje ja sao 2)",
+  "F2_OLIVO_X_MOSCA": "+1 cartao PM novo (o 14.o sobre a mesma pergunta; hoje ja sao 13)",
+  "F3_CONCORRENTES_FOLPET": "+60 objetos CS repetidos (a lista de concorrentes do folpet e recriada por gatilho)",
+  "F4_JANELA_LECCE": "sem objeto de janela no pote (a sonda R7 so vive na ANALISE); o casco nao sabe dizer que mudou",
+  "REPETICAO_CAMPANIA": "o item repetido vira mais 1 PM (e ja conta 2x hoje)"
+ }
+}

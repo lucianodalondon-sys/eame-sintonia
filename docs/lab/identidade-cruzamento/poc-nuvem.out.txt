@@ -1,0 +1,16 @@
+F1 antigos=86 links=86 perguntas=85 (com chave=4, cobrindo 5 links; sem chave=81)
+   2+: {'CROSSING_KEY': 'F1_ROTULO_X_SUBSTANCIA_CITADA/v1|JURISDICAO=IT|AI=AI:FOLPET|CROP=CROP:VITE', 'N_LINKS': 2, 'N_EVIDENCIAS_DOCUMENTO': 2, 'N_SOURCE_ID': 2, 'ESTADO': 'CONFIRMED_YES', 'ESTADOS_DOS_LINKS': {'UNRESOLVED': 1, 'CONFIRMED_YES': 1}}
+F2 antigos=14 links=14 perguntas=2 (com chave=2, cobrindo 14 links; sem chave=0)
+   2+: {'CROSSING_KEY': 'F2_PORTFOLIO_MATCH/v1|JURISDICAO=IT|CROP=CROP:OLIVO|TARGET=PEST:EPPO:DACUOL', 'N_LINKS': 13, 'N_EVIDENCIAS_DOCUMENTO': 13, 'N_SOURCE_ID': 10, 'ESTADO': 'SEM_PAR_LIDO', 'ESTADOS_DOS_LINKS': {'SEM_PAR_LIDO': 13}}
+F3 antigos=125 links=125 perguntas=125 (com chave=125, cobrindo 125 links; sem chave=0)
+F4 antigos=13 links=13 perguntas=13 (com chave=1, cobrindo 1 links; sem chave=12)
+F3 por gatilho: {'LINHA-BUSCA-RAW-20260927T152708#4': 65, 'LINHA-BUSCA-RAW-20260927T152708#22': 60} edicao no PRODUCT_ID: 125
+F1 contra-prova ingenua: 1388 grupos, 1190 com 2+
+ROTACAO: {'NUVEM': 'NAO RE-MEDIDO: LIVRO R6/R7 e POTE-R6 ausentes nesta maquina'}
+DOCS REPETIDOS: {'ITENS_NA_SALA': 0, 'DOCUMENTOS_DISTINTOS': 0, 'NUVEM': 'Sala ausente: NAO RE-MEDIDO', 'DOCUMENTOS_COM_2+_ITENS': 0, 'EXEMPLO': []}
+DELTA: {'MUDOU_ESTADO': 1, 'MAIS_EVIDENCIA_MESMA_ORIGEM': 1, 'FORTALECEU': 1} sem mudanca: 222
+    MUDOU_ESTADO F4_JANELA_CULTURA_PRAGA/v1|CROP=CROP:OLIVO|TARGET=PEST:EPPO:DACUOL|LUGAR=IT-PROV:LE|CAMPANHA=2026 NO -> CONFLITANTE evid 1 -> 2 | TEMPORAL_CHANGE (mesma origem, semana seguinte; INT-LAW-079) — nao e contradicao
+    MAIS_EVIDENCIA_MESMA_ORIGEM F2_PORTFOLIO_MATCH/v1|JURISDICAO=IT|CROP=CROP:OLIVO|TARGET=PEST:EPPO:DACUOL SEM_PAR_LIDO -> SEM_PAR_LIDO evid 13 -> 14 | 
+    FORTALECEU F1_ROTULO_X_SUBSTANCIA_CITADA/v1|JURISDICAO=IT|AI=AI:FOLPET|CROP=CROP:VITE CONFIRMED_YES -> CONFIRMED_YES evid 2 -> 3 | 
+ATUAL FARIA: {'SINAIS': 'todos os SG e FUT ganham ID novo (run_id no hash): 0 continuidade (medido R6->R7: 0/10 sinais, 0/47 objetos)', 'F1_FOLPET_X_VITE': '+1 cartao XC novo (o 3.o sobre a mesma pergunta; hoje ja sao 2)', 'F2_OLIVO_X_MOSCA': '+1 cartao PM novo (o 14.o sobre a mesma pergunta; hoje ja sao 13)', 'F3_CONCORRENTES_FOLPET': '+60 objetos CS repetidos (a lista de concorrentes do folpet e recriada por gatilho)', 'F4_JANELA_LECCE': 'sem objeto de janela no pote (a sonda R7 so vive na ANALISE); o casco nao sabe dizer que mudou', 'REPETICAO_CAMPANIA': 'o item repetido vira mais 1 PM (e ja conta 2x hoje)'}
+mapa de migracao: 211 linhas
