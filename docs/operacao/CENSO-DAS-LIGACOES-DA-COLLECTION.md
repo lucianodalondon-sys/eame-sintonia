@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  fcecea8b3310749645e7b399697f6a491506a8a2
+HEAD_DA_MEDICAO  29a427ab6e842ed1921fc81fc6a4722df101dfb5
 BRANCH           claude/concurrency-meta-collection-qp35vu
-GERADO_EM        2026-09-27T12:40:34+00:00
+GERADO_EM        2026-09-27T12:55:10+00:00
 CARDS            114
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

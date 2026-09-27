@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T12:54:25+00:00",
-  "HEAD": "fcecea8b3310749645e7b399697f6a491506a8a2",
+  "GENERATED_AT": "2026-09-27T13:11:09+00:00",
+  "HEAD": "29a427ab6e842ed1921fc81fc6a4722df101dfb5",
   "BRANCH": "claude/concurrency-meta-collection-qp35vu",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "f1462434c387f4e743b9243f4101d9860c0eac0ff111a037eab12c06dba1eebf",
-  "FICHEIROS_NA_IMPRESSAO": 3929,
+  "SOURCE_TREE_FINGERPRINT": "1148a2d5dc481970c399999437f0c3429ee9ea89499a4b8093affab358e53618",
+  "FICHEIROS_NA_IMPRESSAO": 3931,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -4815,14 +4815,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f1462434c387f4e743b9243f4101d9860c0eac0ff111a037eab12c06dba1eebf",
+    "VERSAO": "1148a2d5dc481970c399999437f0c3429ee9ea89499a4b8093affab358e53618",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f1462434c387f4e743b9243f4101d9860c0eac0ff111a037eab12c06dba1eebf",
+    "VERSAO": "1148a2d5dc481970c399999437f0c3429ee9ea89499a4b8093affab358e53618",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7152,7 +7152,7 @@
    }
   ],
   "INPUTS_COUNT": 1016,
-  "INPUTS_DIGEST": "6c4dc3dd12abc7d29e032a5bf9bdbe2ec21cb9ebc01e9d5c7ea09c2baa31ba00",
+  "INPUTS_DIGEST": "c8b186dc0cb8d24b35572ff4ffb1299d8b44c9ab69bdba1ccfde512a4a902848",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7178,15 +7178,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 586,
+  "DOCUMENTOS_LIDOS": 587,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "3694ac193179bb1d47fe9106fd358806c8241b01183a5ae11c0b2f866d19bdad",
-  "SEMANTIC_HASH": "4745329e58d9e563bf09850bb49358ffd04788db211d9cfad7d5db1c248d2d4c"
+  "MEASUREMENT_HASH": "ff3f2f83ee91efe0a3b5485483339483f3dcc9c4a4a0341dcb910ad464189aeb",
+  "SEMANTIC_HASH": "ee1df43dd17c21d3dcaaba876f65bd5e62f16024f8ac8b7d14c5643925ca987d"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -56560,7 +56560,9 @@
     "tests/mutacao_concorrencia_meta.py",
     "tests/test_concorrencia_meta.py"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "CONCORRENCIA-META.md"
+   ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": true,
    "RUNTIME_OBSERVADO": true,
@@ -59777,7 +59779,9 @@
    "SO_MEDEM_ESTE": [
     "tests/mutacao_concorrencia_meta.py"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "CONCORRENCIA-META.md"
+   ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": true,
    "RUNTIME_OBSERVADO": true,
@@ -60222,6 +60226,7 @@
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
+    "CONCORRENCIA-META.md",
     "RELATORIO-MICRO-PREP.md",
     "SINTONIA-EAME-KNOW-HOW.md",
     "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
