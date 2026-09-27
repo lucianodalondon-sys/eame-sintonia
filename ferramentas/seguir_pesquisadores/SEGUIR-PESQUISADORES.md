@@ -174,7 +174,7 @@ As 16 rodadas × 5 pedidos da §3 **não cabem em 24 h**. `seguir.py --rodada` p
 - Em modo `LOTE_COM_LINKS`: 13 pedidos → **4 dias** (1 de canário + 3).
 - Em modo `POR_PESSOA`: 218 pedidos → **45 dias**.
 
-### ⚠️ BLOQUEIO: o robots.txt de `pub.orcid.org` proíbe tudo
+### ⚠️ BLOQUEIO: o robots.txt de `pub.orcid.org` proíbe tudo (RESOLVIDO pela D91, abaixo)
 
 Em 26/09 às 22:58Z, **um teste de mutação meu saiu à rede por acidente**. Foram **1 pedido real** ao
 `https://pub.orcid.org/robots.txt` e 2 portões IT (ambos PASS). O mutante desligava a recusa da
@@ -190,3 +190,36 @@ canário fica `PARADO` com o motivo `ROBOTS` (testado).
   documentada conta como barreira ou como regra a respeitar é **decisão do coordenador/dono**, não
   desta ferramenta.
 - A outra via documentada do ORCID pede credenciais de cliente, ou seja uma conta: precisa do dono.
+
+### D91 (26/09 22:32): o bloqueio resolvido — robots dispensado SÓ nas APIs públicas oficiais
+
+`ROBOTS_E_BARREIRA_D88 = SO_API_PUBLICA_OFICIAL`.
+- `seguir.api_oficial()` é uma **lista fechada**, verificada pelo esquema `https`, o host **exato**,
+  sem porta e com o caminho a começar pelo prefixo:
+  - `pub.orcid.org/v3.0/`
+  - `api.openalex.org/`
+  - `api.crossref.org/`
+- Só nestes endereços o transporte **não lê nem obedece** ao `robots.txt`. Seguem os termos e limites
+  da API: sem login, 5 pedidos por 24 h no contador, bytes com sha256 (RAW).
+- Cada pedido fica com `REGRA = API_PUBLICA_OFICIAL_D91 (robots dispensado)` ou `ROBOTS_RESPEITADO`
+  no registo, como proveniência.
+- **Continuam a respeitar o robots:** `pub.orcid.org` fora de `/v3.0/`, `http://`, hosts parecidos
+  (`pub.orcid.org.evil.it`, `x.api.crossref.org`), `orcid.org` e todas as páginas comuns
+  (universidades, FEM, CREA, CNR). Tudo isto está testado.
+- **Efeito:** o canário gasta **3** pedidos (a, b, c), sem o robots. O ramo «PARADO por ROBOTS» deixou
+  de poder acontecer no ORCID e foi retirado.
+- **Teto do ORCID:** a coordenação diz que está gasto até **~20:20 de 27/09**. Ficou marcado no
+  contador real, com `contador.py --marcar-gasto` (5 linhas `EXTERNO` com o motivo).
+  - Próximo pedido livre a `orcid.org`: **2026-09-27T23:20Z (20:20 em Brasília)**.
+  - O `--marcar-gasto` não deixa um pedido antigo, que sai mais cedo da janela, abrir vaga antes da hora.
+- Testes: **33** verdes; mutação **19/19** (lista fechada, esquema, host exato, caminho, a API sem
+  robots, o gasto externo, e os anteriores).
+
+Comando do canário, quando o contador deixar (sem `--seco`, com VPN IT):
+
+```bash
+A=C:/Users/London1/sintonia-sala-italia/seguir-pesquisadores
+py ferramentas/seguir_pesquisadores/orcid_lote.py --canario --autorizado --saida=$A/ORCID-LOTE
+# e depois, 1 vez por dia:
+py ferramentas/seguir_pesquisadores/orcid_lote.py --dia --autorizado --saida=$A/ORCID-LOTE
+```
