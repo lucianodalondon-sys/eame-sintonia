@@ -14,11 +14,32 @@ import sys
 NAO_SEI = "NAO SEI"
 CAMPOS = (("published_at", "published_at_basis"), ("source_location", "source_location_basis"),
           ("fact_time", "fact_time_basis"), ("fact_location", "fact_location_basis"))
+#: as QUATRO CHAVES (+ o problema) vivem dentro de `janela_declarada` (JSON): CHAVE -> {"VALOR": ...}.
+#: A JANELA e o PERIODO. Uma linha sem janela declarada conta como NAO SEI nas cinco.
+CHAVES = (("cultura", "CULTURA"), ("regiao_do_fato", "REGIAO_DO_FATO"), ("fase", "FASE"),
+          ("periodo", "JANELA"), ("problema", "PROBLEMA"))
+
+
+def _com_chaves(linha):
+    j = linha.get("janela_declarada")
+    if isinstance(j, str):
+        try:
+            j = json.loads(j)
+        except ValueError:
+            j = None
+    for nome, chave in CHAVES:
+        v = (j or {}).get(chave) if isinstance(j, dict) else None
+        v = v.get("VALOR") if isinstance(v, dict) else v
+        linha[nome] = NAO_SEI if v in (None, "", NAO_SEI) else (
+            v if isinstance(v, str) else json.dumps(v, ensure_ascii=False, sort_keys=True))
+        linha[nome + "_basis"] = ""
+    return linha
 
 
 def _ler(p):
     with open(p, encoding="utf-8") as fh:
-        return {(l["run_id"], l["ordem"]): l for l in (json.loads(fh.read().strip() or "null") or [])}
+        return {(l["run_id"], l["ordem"]): _com_chaves(l)
+                for l in (json.loads(fh.read().strip() or "null") or [])}
 
 
 def main(antes_p, depois_p, saida_p):
@@ -27,7 +48,7 @@ def main(antes_p, depois_p, saida_p):
             "SO_ANTES": sorted(map(list, set(antes) - set(depois))),
             "SO_DEPOIS": sorted(map(list, set(depois) - set(antes))),
             "CAMPOS": {}, "MUDANCAS": []}
-    for campo, base in CAMPOS:
+    for campo, base in CAMPOS + tuple((n, n + "_basis") for n, _ in CHAVES):
         c = {"SABE_ANTES": 0, "SABE_DEPOIS": 0, "NAO_SEI_PARA_VALOR": 0, "VALOR_PARA_NAO_SEI": 0,
              "VALOR_PARA_OUTRO": 0, "SO_A_BASE": 0}
         for k in sorted(set(antes) & set(depois)):

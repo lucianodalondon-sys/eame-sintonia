@@ -84,7 +84,7 @@ VISTA="select json_agg(json_build_object('run_id', run_id, 'ordem', ordem, 'sour
          'source_location', source_location, 'source_location_basis', source_location_basis,
          'fact_time', fact_time, 'fact_time_basis', fact_time_basis,
          'fact_location', fact_location, 'fact_location_basis', fact_location_basis,
-         'revisoes', revisoes) order by run_id, ordem) from public.sala_de_espera_atual"
+         'janela_declarada', janela_declarada, 'revisoes', revisoes) order by run_id, ordem) from public.sala_de_espera_atual"
 ORIG_ANTES=$(q "$ORIGINAIS"); REVS_ANTES=$(q "$REVS")
 q "$VISTA" > "$OUT/vista-antes.json" || falha "vista antes"
 echo "2 · antes: linhas+md5 das originais «$ORIG_ANTES» · revisoes $REVS_ANTES"
@@ -107,7 +107,9 @@ SALTADAS=$(conta "$OUT/plano.json" SALTADAS_SEM_LIVRO)
 echo "3 · plano: linhas $(conta "$OUT/plano.json" LINHAS) · sem livro $SEM (saltadas, ficam como estao: ${SALTADAS:-0}) · com pagina $(conta "$OUT/plano.json" COM_PAGINA)"
 REVISTAS_SEM=$(( ${SEM:-0} - ${SALTADAS:-0} ))
 [ "$REVISTAS_SEM" -le "$SEM_LIVRO_ACEITE" ] 2>/dev/null || falha "$REVISTAS_SEM linhas seriam revistas SEM livro do coletor (aceites: $SEM_LIVRO_ACEITE) — os livros estao em LIV=$LIV?"
-PERDAS=$($PY -B "$RAIZ/scripts/reproc_sala/perdas_do_plano.py" "$OUT/vista-antes.json" "$OUT/plano.json" "$OUT/perdas.json" 2>/dev/null | tee /dev/stderr | sed -n 's/^PERDAS=//p')
+SAIDA_PERDAS=$($PY -B "$RAIZ/scripts/reproc_sala/perdas_do_plano.py" "$OUT/vista-antes.json" "$OUT/plano.json" "$OUT/perdas.json" 2>/dev/null)
+echo "$SAIDA_PERDAS"
+PERDAS=$(echo "$SAIDA_PERDAS" | sed -n 's/^PERDAS=//p')
 [ -n "$PERDAS" ] || falha "contar as perdas do plano"
 [ "$PERDAS" -le "$PERDAS_ACEITES" ] || falha "o plano poe $PERDAS valores conhecidos em NAO SEI (aceites: $PERDAS_ACEITES; lista em perdas.json)"
 

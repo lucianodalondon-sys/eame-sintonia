@@ -20,6 +20,81 @@ aplicada na Sala (`APLICADA b980c76e…`). O reprocesso só **acrescenta** revis
 original da Sala não muda; o RAW não é aberto para escrita (só se leem os bytes, e só com o
 sha256 certo).
 
+## ENSAIO FINAL (27/09 10:45, LOCK-PESADO) — cópia da Sala REAL de agora, código deste ramo: `REPROC_SALA=PASS`
+
+Cópia só-leitura (`pg_dump`, `default_transaction_read_only`) `sala-real-2709.dump` sha256 `547945cb…6697`
+(204 linhas, 478 revisões) restaurada num Postgres descartável; código = este ramo (vivo `2ef6fef8` + `--so-com-livro`),
+versão do extrator `tempo-lugar@5057eeb11713487a`; `PERDAS_ACEITES=7`.
+
+| passo | resultado |
+|---|---|
+| 033 | 5 colunas · revisão/gaveta/vista · 2 gatilhos pela definição · `APLICADA b980c76e6b164d93` |
+| plano | 204 linhas · 100 sem livro → **100 saltadas (as T6 do OpenAlex ficam como estão)** · 86 com página · **perdas 7** |
+| passadas | 1.ª **252** inseridas · 2.ª **0** (728 já eram assim) |
+| revisões | 478 → **730** |
+| originais | `204 84ef318750bceb8b79266204032306a5` antes = depois |
+| UPDATE / DELETE numa revisão | **recusados** (`SALA_REVISAO_SO_ACRESCENTA`) |
+| mudanças nas 100 linhas T6 | **0** |
+
+**A vista antes → depois** (204 linhas; «sabe» = valor ≠ NAO SEI):
+
+| campo | sabe antes → depois | NAO SEI→valor | valor→NAO SEI | valor→outro | só a base |
+|---|---|---|---|---|---|
+| data de publicação | 153 → **148** | 0 | 5 | 0 | 37 |
+| lugar da fonte | 5 → 5 | 0 | 0 | 0 | 0 |
+| data do facto (`fact_time`) | 24 → 24 | 1 | 1 | 1 | 18 |
+| lugar do facto | 21 → 20 | 0 | 1 | 5 | 17 |
+| **cultura** | 1 → **22** | 21 | 0 | 0 | — |
+| **região do facto** | 2 → **20** | 18 | 0 | 0 | — |
+| **fase** | 0 → **6** | 6 | 0 | 0 | — |
+| **período** (`JANELA`) | 0 → **20** | 20 | 0 | 0 | — |
+| problema | 0 → 6 | 6 | 0 | 0 | — |
+
+40 linhas ganham pelo menos uma das chaves. As **7 perdas**, uma a uma (`perdas.json`):
+- 5 × publicação de páginas só-WebPage → NAO SEI (IT-T7-013 ×2 «2009-12-18», IT-T5-160 ×3 «2020-02-20»):
+  conserto da régua, erro 4, lidos à mão na CONSERTO-REGUA;
+- **IT-T3-023 (Xylella) data do facto «2013» → NAO SEI** — DATA-DO-FATO (`2ef6fef8`), como pedido;
+- IT-T5-186 lugar do facto «Brindisi ; Roma» → NAO SEI («só mencionados», extratores v2 do lote 3) — **ler**.
+
+Data do facto que mudou: IT-T10-018 «2025» → «2026» (o ano de comparação, erro 1 da régua) e IT-T3-008 NAO SEI →
+«09 - 15 settembre 2026». Lugar do facto: IT-T5-090 5 cidades → «Roma» (Popdays, erro 3); IT-T10-018 «Rimini ;
+Piemonte» → «Rimini»; três ganham um lugar mais fino (Lecce, Ragusa, Milano/Asti).
+
+⚠️ **Limite:** os números são da cópia das 10:45. Se o robô pousou linhas depois disso, os números da Sala sobem; os
+travões continuam de pé (uma linha nova sem livro fica como está; uma perda a mais PARA antes de escrever).
+
+Provas (fora do Git, `C:/Users/London1/auditoria-madrugada/tempo-lugar/reproc/ensaio-real-2709/etapa-1/`):
+```
+a46a955ad1572ac03c78c7f607c410262986d9fd5513ecb60f241ec7f4137212  plano.json
+7ce3176e22e0fb1a7c8de3b3445a80dd3b5e5140dd57f9460e6fe94d24414035  passada-1.json
+cb4c94522b9dfc0916fafda7d9bb73e9a66a03c4194d6fd85b2624464e76c9b8  passada-2.json
+ff39919220df2429b3b496245b9eb89df43c3156e561bd7572db79c0a48b17b3  vista-antes.json
+e53ff71ab5ee1220b6bae296d2e7ff91212ad1fa2b48c01aa8bf06db44a717f9  vista-depois.json
+6157928eb6803e16cf8f9536ec88002704cbad19533935ba6fa8b8ea4d07e458  comparacao.json
+b29e83f127e53823b8acb7077fac84d85df98c6ae42d6860363d75b6715a31c2  perdas.json
+547945cb1cf5169e5d7d55cf510c46159f201dea0623400a79d8937fd6ca6697  ../sala-real-2709.dump
+```
+
+### O COMANDO para a Sala real (o mesmo código do ensaio)
+
+O vivo `2ef6fef8` **não** tem `--so-com-livro`: corre-se com o código **deste ramo** (`CODIGO` por omissão = esta pasta),
+que é o vivo + este ficheiro. Robô parado e backup feito (passos 1–3 do ROTEIRO), e então:
+```bash
+cd /c/Users/London1/orca/workspaces/eame-sintonia/tempo-lugar-v1
+git status --short                     # vazio
+git log --oneline -1                   # o SHA do PRONTO
+S=$HOME/sintonia-sala-italia
+export PATH="$HOME/orca/pgtmp/pgsql/bin:$PATH" PGPASSFILE="$S/pgpass.conf"
+export SINTONIA_SALA_DSN="$(tr -d '\r\n' < $S/SALA_DSN.txt)" SINTONIA_SALA_BACKEND=POSTGRES
+export SINTONIA_PSQL_EXE="$HOME/orca/pgtmp/pgsql/bin/psql.exe"
+O=$S/reproc-2709-$(date +%H%M%S)
+PERDAS_ACEITES=7 bash scripts/reproc_sala/reprocessar_sala.sh "$O" --sala-real 2>&1 | tee "$O.log"
+```
+Esperado (se a Sala ainda tiver as 204): `sem livro 100 (saltadas … 100)` · `PERDAS=7` · passada 1 **252**, passada 2
+**0** · revisões 478 → **730** · originais iguais · `REPROC_SALA=PASS`. Qualquer `PARAR:` = nada escrito nesse passo; ler.
+Instalar `admissao/reprocessar_tempo_lugar.py` no vivo é **outro passo** (a versão das revisões fica a deste ramo,
+`tempo-lugar@5057eeb11713487a`, até lá).
+
 ## ENSAIO 1 (26/09 22:25–22:31, 3.º da FILA-PESADO) — o ensaio travou o roteiro, e ainda bem
 
 Backup `sala_italia-20260925-193339.dump` (sha256 `a05beb22…`, **80 linhas**, 478 revisões), Postgres descartável,
