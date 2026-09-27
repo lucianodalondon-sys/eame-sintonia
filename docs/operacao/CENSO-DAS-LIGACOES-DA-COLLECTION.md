@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  6ccf70c8d37cda6325909d941b16b3f1d4050500
+HEAD_DA_MEDICAO  6afdddf20f78fd4b31fe3e81614a4a05ccb7a31b
 BRANCH           claude/rete-voci-dati-adapters-sit3hj
-GERADO_EM        2026-09-27T19:39:10+00:00
+GERADO_EM        2026-09-27T20:27:00+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
