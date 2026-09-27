@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+# FONTES-NOVAS-AGRO · sem rede: le os bytes ja guardados e tira as ancoras que o site oficial declara
+# (boletim, precos, modelos) e as redes sociais que ele aponta. Registo do ensaio (.txt).
+import html, json, os, re, urllib.parse
+AQUI = os.path.dirname(os.path.abspath(__file__))
+BYTES = "C:/Users/London1/sintonia-sala-italia/fontes-novas-agro/bytes"
+PAL = re.compile(r"bollettin|avvis|difesa|notiziario|prezz|listin|quotazion|mercuriale|borsa merci|modell|\bdss\b|monitoraggio|allerta|previsioni", re.I)
+fora = []
+for nome in ("pistas", "pistas2"):
+    for r in json.load(open(os.path.join(AQUI, "PROVA-%s.json" % nome), encoding="utf-8"))["PISTAS"]:
+        if r.get("VEREDITO") != "ABRIU":
+            continue
+        t = open(os.path.join(BYTES, r["SHA256"][:16] + ".html"), "rb").read().decode("utf-8", "replace")
+        anc = []
+        for href, txt in re.findall(r'<a[^>]+href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', t, re.S | re.I):
+            txt = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", txt))).strip()
+            if PAL.search(txt) or PAL.search(href):
+                u = urllib.parse.urljoin(r["URL"], href)
+                if (u, txt[:80]) not in anc:
+                    anc.append((u, txt[:80]))
+        r["ANCORAS"] = anc[:15]
+        fora.append(r)
+json.dump(fora, open(os.path.join(AQUI, "ANCORAS.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+for r in fora:
+    print("==", r["DOMINIO"], "|", r["TITULO"][:50], "|", r.get("MORADA", [])[:1], r.get("PIVA"))
+    for u, x in r["ANCORAS"][:6]:
+        print("    ", x[:50], "->", u[:100])
+    print("    SOCIAIS:", r.get("SOCIAIS"))

@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+# FONTES-NOVAS-AGRO · regista a SELECAO.json numa fila de candidatas, pela porta canonica (candidatas/fonte_nova.py).
+#   PYTHONUTF8=1 python aplicar.py.txt <pasta candidatas/ onde vivem fonte_nova.py e FONTES-CANDIDATAS.json>
+# Nesta missao correu SO numa COPIA da fila. No vivo, quem aplica e o coordenador, com o mesmo comando.
+# A chave e o URL normalizado (fonte_nova.normalizar): a mesma fonte duas vezes nao cria duas linhas.
+import importlib.util
+import json
+import os
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+PASTA = os.path.abspath(sys.argv[1])
+spec = importlib.util.spec_from_file_location("fonte_nova", os.path.join(PASTA, "fonte_nova.py"))
+FN = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(FN)
+
+antes = {FN.normalizar(c["URL"]) for c in FN.carregar()["CANDIDATAS"]}
+res = []
+for s in json.load(open(os.path.join(AQUI, "SELECAO.json"), encoding="utf-8")):
+    ja = FN.normalizar(s["URL"]) in antes
+    linha = FN.registar(tipo=s["TIPO"], pais=s["PAIS"], nome=s["NOME"], url=s["URL"], para_que=s["PARA_QUE"],
+                        quem_viu="FONTES-NOVAS-AGRO (fontes-novas-agro-v1)", onde_viu=s["ONDE_VIU"], nota=s["NOTA"])
+    res.append({"URL": s["URL"], "GRUPO": s["GRUPO"], "TIPO": s["TIPO"], "RESULTADO": "JA_EXISTIA" if ja else "NOVA",
+                "CANDIDATA_ID": linha["CANDIDATA_ID"], "ESTADO": linha["ESTADO"]})
+    print("%-10s %-10s %-9s %s" % (res[-1]["RESULTADO"], linha["CANDIDATA_ID"], s["TIPO"], s["URL"][:80]))
+json.dump(res, open(os.path.join(AQUI, "APLICADO-NA-COPIA.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+print("NOVAS", sum(r["RESULTADO"] == "NOVA" for r in res), "· JA_EXISTIAM", sum(r["RESULTADO"] == "JA_EXISTIA" for r in res))

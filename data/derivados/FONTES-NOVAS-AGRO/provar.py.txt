@@ -1,0 +1,103 @@
+# -*- coding: utf-8 -*-
+# FONTES-NOVAS-AGRO · prova de identidade/territorio/conteudo de cada pista. Registo do ensaio (.txt).
+#   PYTHONUTF8=1 python provar.py.txt            (VPN IT com o portao PASS antes; <= 2 pedidos por dominio)
+# Le o vivo so para saber o que JA e conhecido (fila, contratos, onboarded, descoberta, livro); nao escreve nele.
+# Rede SO pelo portao da casa (coleta/scrap_http.py: robots vivo, AGENTE declarado, pausa). Os bytes ficam FORA
+# do Git (sintonia-sala-italia/fontes-novas-agro/bytes/), com sha256.
+import hashlib
+import html
+import json
+import os
+import re
+import sys
+import urllib.parse
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(AQUI)))
+sys.path[:0] = [os.path.join(RAIZ, "coleta"), RAIZ]
+import scrap_http as http  # noqa: E402
+
+VIVO = "C:/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1"
+BYTES = "C:/Users/London1/sintonia-sala-italia/fontes-novas-agro/bytes"
+LIVROS = ["candidatas/FONTES-CANDIDATAS.json", "curadoria/italy_contracts_curator.json",
+          "regras/italy_contracts_onboarded.json", "curadoria/DISCOVERY-VISITED.json",
+          "curadoria/LIFECYCLE-LEDGER-V1.json", "curadoria/FILA-UNICA-CORRESPONDENCIA-V1.json",
+          "docs/fontes/ATLAS-DE-FONTES-EAME.md"]
+SOCIAL = re.compile(r"https?://(?:www\.|it\.)?(youtube\.com/(?:@[\w.-]+|c/[\w.-]+|channel/[\w-]+|user/[\w.-]+)|"
+                    r"linkedin\.com/(?:company|school|in)/[\w%.-]+|instagram\.com/[\w.]+|facebook\.com/[\w.-]+|"
+                    r"(?:twitter|x)\.com/[\w]+|t\.me/[\w]+)", re.I)
+CONTEUDO = {
+    "BOLETIM": r"bollettin|avvis[io] (?:di difesa|fitosanitari)|notiziario|difesa integrata",
+    "PRECO": r"prezz|listin|quotazion|borsa merci|mercuriale",
+    "MODELO": r"\bmodell[io]\b|\bdss\b|decision support|supporto alle decisioni|previsione (?:del )?rischio",
+    "MONITORAGGIO": r"monitoraggio|trappol|cattur|infestazion",
+}
+
+
+def dominio(u):
+    h = urllib.parse.urlsplit(u if "//" in u else "http://" + u).netloc.lower()
+    h = h.split(":")[0]
+    return h[4:] if h.startswith("www.") else h
+
+
+def conhecidos():
+    doms = {}
+    for rel in LIVROS:
+        p = os.path.join(VIVO, rel)
+        if not os.path.exists(p):
+            continue
+        txt = open(p, encoding="utf-8", errors="replace").read()
+        for u in re.findall(r"https?://[^\s\"'<>)\]|,]+", txt):
+            doms.setdefault(dominio(u), set()).add(rel)
+    return doms
+
+
+def limpar(t):
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", t))).strip()
+
+
+def main():
+    nome = sys.argv[1] if len(sys.argv) > 1 else "pistas"
+    pistas = json.load(open(os.path.join(AQUI, nome + ".json"), encoding="utf-8"))["PISTAS"]
+    doms = conhecidos()
+    os.makedirs(BYTES, exist_ok=True)
+    fora = []
+    for p in pistas:
+        d = dominio(p["URL"])
+        r = dict(p, DOMINIO=d)
+        ja = sorted(doms.get(d, []))
+        if ja:
+            r.update(VEREDITO="JA_CONHECIDA", ONDE=ja)
+            fora.append(r)
+            print("JA   ", d, ja[:2])
+            continue
+        try:
+            corpo, meta = http.buscar_bytes(p["URL"], aceitar="text/html,*/*;q=0.8")
+        except Exception as e:  # noqa: BLE001 — a recusa sai com o nome dela
+            r.update(VEREDITO="NAO_ABRIU", PORQUE="%s: %s" % (type(e).__name__, str(e)[:200]))
+            fora.append(r)
+            print("FALHA", d, r["PORQUE"][:90])
+            continue
+        sha = hashlib.sha256(corpo).hexdigest()
+        open(os.path.join(BYTES, sha[:16] + ".html"), "wb").write(corpo)
+        t = corpo.decode("utf-8", "replace")
+        titulo = limpar((re.search(r"<title[^>]*>(.*?)</title>", t, re.S | re.I) or [None, ""])[1])[:200]
+        desc = re.search(r'<meta[^>]+name=["\']description["\'][^>]+content=["\']([^"\']*)', t, re.I)
+        texto = limpar(re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", t, flags=re.S | re.I))
+        piva = re.findall(r"(?:P\.?\s?IVA|partita iva|C\.F\.)[^0-9]{0,20}(\d{11})", texto, re.I)
+        morada = re.findall(r"(?:Via|Viale|Piazza|Corso|Loc\.|Localit[aà])\s[^,;|]{2,60},?\s*\d{0,5}\s*\d{5}\s+[A-Z][\w' ]{2,40}(?:\s*\([A-Z]{2}\))?", texto)
+        sociais = sorted({m.group(0).rstrip("/") for m in SOCIAL.finditer(t)
+                          if not re.search(r"/(sharer|share|intent|plugins|dialog)", m.group(0), re.I)})
+        conteudo = {k: len(re.findall(v, texto, re.I)) for k, v in CONTEUDO.items()}
+        r.update(VEREDITO="ABRIU", STATUS=meta.get("STATUS"), SHA256=sha, BYTES=len(corpo),
+                 TITULO=titulo, DESCRICAO=(desc.group(1)[:240] if desc else None),
+                 PIVA=sorted(set(piva))[:3], MORADA=[limpar(x)[:120] for x in morada[:3]],
+                 SOCIAIS=sociais[:12], CONTEUDO=conteudo)
+        fora.append(r)
+        print("OK   ", d, meta.get("STATUS"), titulo[:60], conteudo, len(sociais), "sociais")
+    json.dump({"PISTAS": fora, "CONHECIDOS_DOMINIOS": len(doms)}, open(os.path.join(AQUI, "PROVA-%s.json" % nome), "w",
+              encoding="utf-8"), ensure_ascii=False, indent=1)
+
+
+if __name__ == "__main__":
+    main()
