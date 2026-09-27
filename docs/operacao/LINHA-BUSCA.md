@@ -211,3 +211,45 @@ Os mutantes foram:
 
 **Testes:** 18, todos passam. **Mutação:** 16 de 16. Os 4 mutantes novos: o perfil vira página comum, o post é
 colhido como página, o muro de login entra, e o mesmo endereço é pedido duas vezes.
+
+## 7 · A dívida fechada: RAW canónico antes da Sala (coordenação 11:20)
+
+**O que o coordenador mediu com rede:**
+
+- lote 0: **8 de 13** admitidas;
+- lote 1: **30** admitidas (20 buscas do Hermes, 91 URLs, 72 domínios).
+
+Mas o `pousar` falhou com `sala_de_espera_run_id_fkey`: a corrida da linha nunca tinha nascido em `collection_run`.
+A transação desfez-se, e a Sala ficou em 204.
+
+**O conserto passa pela porta do dono do RAW.** Está em `coleta/linha_busca_raw.py`:
+
+1. **Lê as páginas ADMITIDAS** das pastas da linha (`LIVRO-LINHA-BUSCA.jsonl` + `RAW-LINHA-BUSCA.jsonl`), uma
+   por sha256, e **confere os bytes**: o que não bate não entra. Não há pedido novo à rede.
+2. **Preserva pelo dono do RAW**, `guarda/preservar_coleta.preservar()`, numa **corrida própria**:
+   - a `collection_run` leva `ACTOR = coleta/linha_busca.py`, `PLATFORM = HTTP direto` e a missão com as
+     corridas e o motor de origem;
+   - cada página vira uma linha em `storage_object` + `raw_asset`, com o `SOURCE_ID` da candidata e o
+     `CAPTURED_AT` da colheita original;
+   - o `DOCUMENT_ID` **não se inventa**: fica `FORWARD_IDENTITY_UNPROVEN`, que é a verdade.
+   - A memória vem de `orquestrador/persistencia.dependencias_do_runtime()`: `SINTONIA_COLLECTION_DSN` no modo
+     operacional, ou `BANCO_DESCARTAVEL_URL` no ensaio. Sem memória, **recusa**; nunca cai para ficheiro.
+3. **Refaz o READY** pela Admission normal, agora com o **`RAW_OBSERVATION_ID` real** que o banco devolveu.
+4. **Só com `--pousar`:** chama `exigir_canonica()` e `pousar(<a mesma corrida>, prontos)`.
+   - A chave estrangeira fica satisfeita por construção: a corrida acabou de nascer.
+   - Uma página sem observação confirmada **não é pousada** (`SEM_RAW_CANONICO`).
+
+**`colher --pousar`** passou a usar o mesmo caminho, sobre a pasta da própria corrida.
+
+**Ensaio sem banco sobre os 38 reais:** 38 de 38 lidas, com os bytes conferidos, e **38 de 38** refeitas `PRONTO`
+pela Admission de hoje, com o vivo `2ef6fef8`.
+
+**Testes:** 22, todos passam. Os 4 novos:
+
+- sem memória recusa;
+- preserva e pousa com o id real na **mesma** corrida, e o `READY` cumpre o contrato da Sala;
+- sem observação confirmada não pousa;
+- byte adulterado não entra.
+
+**Mutação: 21 de 21.** Os 5 mutantes novos: pousa sem `RAW_OBSERVATION_ID`, pousa noutra corrida, byte
+adulterado entra, sem memória não recusa, identidade documental inventada.
