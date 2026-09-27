@@ -93,7 +93,10 @@ EXECUTOR_ID = "texto-de-html"
 # voltar a mudar a receita sem subir isto.
 #
 #     RECEITA NOVA = VERSAO NOVA.
-EXECUTOR_VERSION = "2"
+#: "3" (ACERVO-PARA-SALA-3, 26/09): o texto de uma pagina `watch?v=` passou a levar a descricao
+#: que o autor escreveu (`texto_fonte.descricao_do_youtube`). Receita nova = versao nova (D79):
+#: a receita declara-o SEMPRE (`VIDEO_DESCRIPTION_OWNER`), e nas paginas sem video o texto e igual ao da "2".
+EXECUTOR_VERSION = "3"
 PIPELINE_VERSION = "1"
 
 #: As espécies exactas que esta ponte abre.
@@ -722,6 +725,8 @@ def receita():
         "TEXT_BASIS": TEXT_BASIS,
         "DERIVATION_METHOD": METODO,
         "TEXT_OWNER": CAPACIDADE["TEXT_OWNER"],
+        # a "3": o texto leva a descricao do video quando a pagina a traz (so `videoDetails`)
+        "VIDEO_DESCRIPTION_OWNER": "coleta/texto_fonte.py::descricao_do_youtube",
     }
 
 

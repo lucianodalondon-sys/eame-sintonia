@@ -35,6 +35,7 @@ RECEITAS_POR_VERSAO = {
     # é o defeito que este teste passa a impedir. Fica registada a primeira.
     ("texto-de-html", "1"): VAZIA,
     ("texto-de-html", "2"): "477d63427363",       # prefixo: medido no derivado 1060
+    ("texto-de-html", "3"): "cd0f79b7f3c2",            # ACERVO-PARA-SALA-3: + VIDEO_DESCRIPTION_OWNER
     ("texto-de-pdf", "1"): VAZIA,
 }
 
