@@ -110,8 +110,24 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     COM_CULTURA: ['con coltura', 'with crop'], COM_PRAGA: ['con avversità', 'with pest'],
     COM_PARES_POR_SECAO: ['con coppie per sezione', 'with pairs by section'], COM_PUBLISHED_AT: ['con data di pubblicazione', 'with publication date'],
     PUBLICADAS_ANTES_DE_2026: ['pubblicate prima del 2026', 'published before 2026'], FORA_DE_ITALIA: ['fuori dall\'Italia', 'outside Italy'],
-    CROSSINGS: ['incroci', 'crossings']
+    CROSSINGS: ['incroci', 'crossings'],
+    PARTIAL_GRAO_INCOMPATIVEL: ['grana incompatibile', 'incompatible grain'], POSSIBLE_ANSWER_NO: ['no, non è nell\'etichetta letta', 'no, not in the label read'],
+    POSSIBLE_ANSWER_YES_A_CONFIRMAR: ['sì, da confermare', 'yes, to be confirmed'], NOT_POSSIBLE: ['non possibile', 'not possible'],
+    NO_DEFENSIBLE_ACTION_YET: ['nessuna azione difendibile ancora', 'no defensible action yet'],
+    PAR_SO_DOCUMENTO: ['coppia solo nel documento', 'pair only in the document'], TEMPO_NAO_CURRENT: ['tempo non attuale', 'time not current'],
+    SEM_MEDICAO: ['senza misura dichiarata', 'no declared measurement'], UNKNOWN_WINDOW: ['finestra sconosciuta', 'unknown window'],
+    ANCORADO: ['ancorato (data del fatto provata)', 'anchored (fact date proven)']
   };
+  var LG = 'it';
+  /* O VALOR que e um codigo leva o nome ao lado; um objeto de contagens vira «nome · CODIGO n». O valor original
+     nao muda — so a maneira de o ler. */
+  function valor(v) {
+    if (typeof v === 'string' && ROTULOS[v]) return rotulo(v, LG);
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      return Object.keys(v).map(function (k) { return rotulo(k, LG) + ' ' + txt(v[k]); }).join(' · ');
+    }
+    return txt(v);
+  }
   function rotulo(k, lang) {
     var r = ROTULOS[k];
     return r ? r[lang === 'en' ? 1 : 0] + ' · ' + k : k;
@@ -123,7 +139,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     return typeof v === 'string' ? v : (typeof v === 'number' || typeof v === 'boolean') ? String(v) : JSON.stringify(v);
   }
   function ns(v) { return /^N[AÃ]O[ _]SEI/.test(txt(v)); }
-  function par(k, v) { return { k: k, v: txt(v), color: ns(v) ? AMBAR : BRANCO }; }
+  function par(k, v) { return { k: k, v: valor(v), color: ns(v) ? AMBAR : BRANCO }; }
   function linkSeguro(u) { return typeof u === 'string' && /^https?:\/\//i.test(u); }
   function prova(url, pub, T) {
     return {
@@ -208,7 +224,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
       titulo: T.sondaT, pergunta: txt(J.PERGUNTA), execucao: txt(J.ESTADO_DA_EXECUCAO),
       juizo: [par(rotulo('RESULTADO', T.lg), J.RESULTADO), par(rotulo('WINDOW_OPEN_NOW', T.lg), J.WINDOW_OPEN_NOW), par(rotulo('ACT_NOW', T.lg), J.ACT_NOW),
         par(T.itens, J.ITENS_COM_O_PAR), par(T.apoios, J.APOIOS_VALIDOS), par(rotulo('POR_REGIAO_SUSTENTADA', T.lg), J.POR_REGIAO_SUSTENTADA),
-        par(T.fora, Object.keys(F).map(function (k) { return k + ' ' + F[k]; }).join(' · '))],
+        par(T.fora, F)],
       itens: (S.ITENS || []).map(function (i) {
         var TE = i.TEMPO || {}, LO = i.LOCAL || {};
         var tr = [].concat(i.TRECHO_NEG || [], i.TRECHO_POS || [], i.TRECHO_CONDICIONAL || []);
@@ -258,6 +274,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     if (!pub || !pote || !pote.COMPARTIMENTOS) return null;
     if (pub.INTELLIGENCE_RUN_ID !== pote.INTELLIGENCE_RUN_ID) return null;
     var lg = lang === 'en' ? 'en' : 'it', T = Object.assign({ lg: lg }, L[lg]);
+    LG = lg;
     var LEITOR = (typeof window !== 'undefined' && window.SINTONIA_POTE_CASCO) || null;
     var comp = view === 'field' ? 'field' : (LEITOR ? LEITOR.compartimentoDaVista(pote, view) : null);
     if (!comp) return null;
@@ -275,5 +292,5 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
     return v;
   }
 
-  return { vm: vm, ESTADOS: ESTADOS, rotulo: rotulo };
+  return { vm: vm, ESTADOS: ESTADOS, rotulo: rotulo, valor: function (v, lang) { LG = lang === 'en' ? 'en' : 'it'; return valor(v); } };
 })();

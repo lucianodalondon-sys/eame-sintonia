@@ -3620,9 +3620,9 @@
             </div>
             <sc-if value="{{ o.eFuturo }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:#FFFFFF">{{ o.aviso }}</div></sc-if>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px">
-              <sc-for list="{{ o.chaves }}" as="c" hint-placeholder-count="4"><div style="border-radius:10px;border:1px solid rgba(203,197,195,0.10);padding:7px 10px;display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#8F8886">{{ c.rotulo }}</div><div style="font-size:12px;font-weight:700;color:{{ c.color }};word-break:break-word">{{ c.v }}</div></div></sc-for>
+              <sc-for list="{{ o.chaves }}" as="c" hint-placeholder-count="4"><div style="border-radius:10px;border:1px solid rgba(203,197,195,0.10);padding:7px 10px;display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#8F8886">{{ c.rotulo }}</div><div style="font-size:12px;font-weight:700;color:{{ c.color }};word-break:break-word">{{ c.vTexto }}</div></div></sc-for>
             </div>
-            <sc-if value="{{ o.temFora }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:3px"><div style="font-size:9.5px;letter-spacing:0.08em;color:#8F8886">{{ pote.L.fuori }}</div><sc-for list="{{ o.fora }}" as="c" hint-placeholder-count="1"><div style="font-size:11px;color:#C9C3C1">{{ c.rotulo }} <b style="color:{{ c.color }}">{{ c.v }}</b></div></sc-for></div></sc-if>
+            <sc-if value="{{ o.temFora }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:3px"><div style="font-size:9.5px;letter-spacing:0.08em;color:#8F8886">{{ pote.L.fuori }}</div><sc-for list="{{ o.fora }}" as="c" hint-placeholder-count="1"><div style="font-size:11px;color:#C9C3C1">{{ c.rotulo }} <b style="color:{{ c.color }}">{{ c.vTexto }}</b></div></sc-for></div></sc-if>
             <div style="font-size:11px;line-height:1.5;color:#C9C3C1">{{ o.porque.k }} <b style="color:{{ o.porque.color }}">{{ o.porque.v }}</b> · {{ o.contradiz.k }} <b style="color:{{ o.contradiz.color }}">{{ o.contradiz.v }}</b> · {{ o.incerteza.k }} <b style="color:{{ o.incerteza.color }}">{{ o.incerteza.v }}</b></div>
             <div style="display:flex;flex-direction:column;gap:5px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px">
               <span style="font-size:10px;font-weight:700;color:#8F8886;letter-spacing:0.08em">{{ pote.L.prova }}</span>
@@ -4108,7 +4108,8 @@ class Component extends DCLogic {
     if (pv && !pv.recusado) {
       const lg = this.state.lang;
       const R = (W.SINTONIA_POTE_PUBLICACAO && W.SINTONIA_POTE_PUBLICACAO.rotulo) || ((k) => k);
-      const rot = (c) => Object.assign({}, c, { rotulo: R(c.k, lg) });
+      const VAL = (W.SINTONIA_POTE_PUBLICACAO && W.SINTONIA_POTE_PUBLICACAO.valor) || ((x) => x);
+      const rot = (c) => Object.assign({}, c, { rotulo: R(c.k, lg), vTexto: VAL(c.v, lg) });
       pv.run = (pv.run || []).map(rot);
       pv.objetos = (pv.objetos || []).map((o) => Object.assign({}, o, { especieRotulo: R(o.especie, lg),
         chaves: (o.chaves || []).map(rot), fora: (o.fora || []).map(rot) }));
