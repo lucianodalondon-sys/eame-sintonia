@@ -1,0 +1,28 @@
+# LACUNAS-PARA-FONTES · corrida de mutacao (registo). Corre numa worktree DESTACADA em tmp-pd/mut-lac, nunca na do ramo.
+import subprocess, sys
+from pathlib import Path
+R = Path("C:/Users/London1/tmp-pd/mut-lac")
+P = R / "ferramentas/lacunas/lacunas_para_fontes.py"
+M = [
+ ("M1 prova sempre verdadeira", 'def prova_contem(url: str, texto: str) -> bool:\n', 'def prova_contem(url: str, texto: str) -> bool:\n    return True\n'),
+ ("M2 fora do foco entra", 'if FORA_DO_FOCO.search(p["NOME"] + " " + p["URL"]):', 'if False:'),
+ ("M3 outra grafia da mesma conta duplica", 'outra = None if v else ix["HANDLES"].get(h) if h else None', 'outra = None'),
+ ("M4 LinkedIn/Instagram de org abertos", 'ids = {x["CANDIDATA_ID"] for x in feitas if x["TIPO"] in ("LINKEDIN", "INSTAGRAM")}', 'ids = set()'),
+ ("M5 regista na fila de uma arvore", 'if fila.name == "FONTES-CANDIDATAS.json" and fila.resolve().parent.name == "candidatas":', 'if False:'),
+ ("M6 canais do YouTube todos iguais", '(?:user/|c/|channel/|@|company/|showcase/|school/)?', '(?:user/|c/|@|company/|showcase/|school/)?'),
+ ("M7 perfil do armazem sem reabrir os bytes", '                                else None)       # None', '                                else True)       # None'),
+ ("M8 o mesmo endereco duas vezes", '        if k in vistas:\n            continue\n        vistas.add(k)\n        texto', '        texto'),
+ ("M9 o que ja esta na fila entra outra vez", '        v = no_vivo(p["URL"], ix)\n        p["NO_VIVO"] = v', '        v = None\n        p["NO_VIVO"] = v'),
+ ("M10 botao de partilha vira perfil", '|\.com/(intent|share)$)', ')'),
+]
+mortos = 0
+for nome, a, b in M:
+    o = P.read_text(encoding="utf-8")
+    assert o.count(a) == 1, (nome, o.count(a))
+    P.write_text(o.replace(a, b), encoding="utf-8", newline="\n")
+    r = subprocess.run([sys.executable, "-B", "-m", "unittest", "tests.test_lacunas_para_fontes"], cwd=R, capture_output=True, text=True, timeout=900)
+    P.write_text(o, encoding="utf-8", newline="\n")
+    mortos += r.returncode != 0
+    print("%-45s %s" % (nome, "MORTO" if r.returncode else "SOBREVIVEU"))
+r = subprocess.run([sys.executable, "-B", "-m", "unittest", "tests.test_lacunas_para_fontes"], cwd=R, capture_output=True, text=True)
+print("mutacao %d/%d; sem mutacao: %s" % (mortos, len(M), "VERDE" if r.returncode == 0 else "VERMELHO"))
