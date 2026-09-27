@@ -20,7 +20,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 JANELA = timedelta(hours=24)
-TETO_24H = {"orcid.org": 5}
+# None = sem teto de 24 h (so o da rodada, 5): a D90 so pos o ORCID em 24 h; OpenAlex e Crossref sao APIs
+# oficiais que correram hoje em 5 rodadas de <= 5 (livros de 26/09) — os pedidos ficam escritos na mesma
+TETO_24H = {"orcid.org": 5, "openalex.org": None, "crossref.org": None}
 TETO_24H_PADRAO = 5
 CONTADOR_PADRAO = Path("C:/Users/London1/sintonia-sala-italia/seguir-pesquisadores/CONTADOR-24H.json")
 
@@ -45,7 +47,7 @@ class Contador24h:
                                         "PEDIDOS": self.pedidos, "ROBOTS": self.robots},
                                        ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
-    def teto(self, dominio: str) -> int:
+    def teto(self, dominio: str):
         return TETO_24H.get(dominio, TETO_24H_PADRAO)
 
     def na_janela(self, dominio: str) -> list:
@@ -54,19 +56,21 @@ class Contador24h:
                       if p["DOMINIO"] == dominio and datetime.fromisoformat(p["EM"]) > desde)
 
     def livres(self, dominio: str) -> int:
+        if self.teto(dominio) is None:
+            return 10 ** 6
         return max(0, self.teto(dominio) - len(self.na_janela(dominio)))
 
     def proximo_livre(self, dominio: str):
         """Quando volta a haver um pedido livre (ISO), ou None se ja ha."""
         usados = self.na_janela(dominio)
-        if len(usados) < self.teto(dominio):
+        if self.teto(dominio) is None or len(usados) < self.teto(dominio):
             return None
         return _iso(usados[len(usados) - self.teto(dominio)] + JANELA)
 
     def reservar(self, dominio: str, url: str):
         """(True, None) e o pedido fica escrito; ou (False, ADIADO_ATE) e nao se pede."""
         usados = self.na_janela(dominio)
-        if len(usados) >= self.teto(dominio):
+        if self.teto(dominio) is not None and len(usados) >= self.teto(dominio):
             return False, self.proximo_livre(dominio)
         self.pedidos.append({"DOMINIO": dominio, "URL": url, "EM": _iso(self._agora())})
         self._gravar()
@@ -75,6 +79,8 @@ class Contador24h:
     def marcar_gasto(self, dominio: str, ate: datetime, porque: str) -> int:
         """Pedidos feitos FORA deste contador (outra linha, outro dia): enche o teto ate `ate`, para que nada
         daqui peca antes disso. Devolve quantas linhas escreveu."""
+        if self.teto(dominio) is None:
+            return 0                            # dominio sem teto de 24 h: nada a encher
         # so conta o que ainda estara na janela em `ate`: um pedido que sai antes nao pode abrir vaga mais cedo
         n = max(0, self.teto(dominio) - sum(1 for u in self.na_janela(dominio) if u >= ate - JANELA))
         for _ in range(n):
