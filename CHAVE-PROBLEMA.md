@@ -113,8 +113,12 @@ item antigo — é a verdade da Sala); `sala_de_espera` com o mesmo md5 antes/de
 
 ## System Map
 
-`REGERAR` pela cadeia e commit dos gerados; `VALIDAR` e `--conferir-carimbo` conferidos DEPOIS do último commit
-(resultado no relatório final da sessão, com o SHA). Peças tocadas, frase reescrita à mão: `C-AFIRMACAO-DA-FONTE`,
+`REGERAR` pela cadeia e commit dos gerados · `VALIDAR` = **SYSTEM_MAP_CHECK=PASS** · `--conferir-carimbo` =
+**IGUAL** (conferido depois do último commit; o SHA final vai no relatório da sessão — o commit não conhece o próprio
+SHA). `VALIDAR` regera no lugar e só muda `PROVENANCE.HEAD`/`GENERATED_AT`: reposto, não commitado.
+`test_system_map.py`: as mesmas 10 reprovações da base (a base mediu 11; a 11.ª, `scanner_e_deterministico`, foi
+efeito do censo regravado na árvore-base); `a_coleta_nao_conversa_com_o_motor_as_centenas` passa. `test_M5` (o carimbo)
+passa depois do REGERAR. Peças tocadas, frase reescrita à mão: `C-AFIRMACAO-DA-FONTE`,
 `C-LUGAR-COLETA`, `C-ADMISSAO`, `C-INT-CAP-WIN`, `C-INT-MOTOR-CAPACIDADES`, `C-SALA-DE-ESPERA` (+
 `admissao/reprocessar_problema.py`), `C-PROVA-COLETA` (+ `provas/chave_problema/*`, este relatório). Não usei
 `--stamp`: as peças tocadas ficam 🟡 «mudou depois da declaração», que é a verdade.
