@@ -1,0 +1,205 @@
+{
+ "ALVO": "motor/cap_win.py",
+ "ALVO_SHA256": "bbb44f434567a5e9ab9ad91f3e77b07bc8e111c95656e5328e2dc6e5ac7b5af1",
+ "TESTE": "tests.test_cap_win",
+ "PLANTADOS": 22,
+ "MORTOS": 22,
+ "MUTANTES": [
+  {
+   "ID": "M1",
+   "FINGE": "a soglia nao atingida deixa de ser NO (volta o defeito do V21)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_YES_contra_NO_na_mesma_semana_e_CONFLICTING",
+    "test_a_APOL_por_extenso_e_NO_com_a_razao_certa",
+    "test_a_APOL_sem_tempo_declara_NO_mas_nao_responde_agora",
+    "test_as_arestas_sao_de_apoio",
+    "test_definida_THRESHOLD_e_aberta_NO",
+    "test_duas_semanas_do_ARIF_sao_um_apoio"
+   ]
+  },
+  {
+   "ID": "M2",
+   "FINGE": "a negacao deixa de desarmar o positivo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_YES_contra_NO_na_mesma_semana_e_CONFLICTING",
+    "test_o_porque_nomeia_a_contradicao",
+    "test_subareas_diferentes_nao_se_contradizem"
+   ]
+  },
+  {
+   "ID": "M3",
+   "FINGE": "o par passa a sair mesmo sem base (fabrica CROP_ID)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_valor_sem_base_nao_e_par"
+   ]
+  },
+  {
+   "ID": "M4",
+   "FINGE": "sem par em campo, o item entra na mesma (sem NOT_POSSIBLE)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_nenhuma_janela_e_tudo_NOT_POSSIBLE",
+    "test_nenhuma_oportunidade",
+    "test_o_requisito_nao_nomeia_palavra_da_collection",
+    "test_o_requisito_nomeia_o_par_e_a_regiao_e_a_sonda_nao_vira_par",
+    "test_todo_ready_atravessou_o_intake",
+    "test_valor_sem_base_nao_e_par"
+   ]
+  },
+  {
+   "ID": "M5",
+   "FINGE": "observacao sem tempo passa a responder «agora»",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_capacidade_obedece_aos_usos_do_livro"
+   ]
+  },
+  {
+   "ID": "M6",
+   "FINGE": "STALE passa a ser CURRENT (janela de outro ano vale como desta)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_janela_de_outro_ano_e_STALE_e_nao_e_agora"
+   ]
+  },
+  {
+   "ID": "M7",
+   "FINGE": "ACT_NOW deixa de exigir 2 independentes provados",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_as_quatro_dao_ACT_NOW"
+   ]
+  },
+  {
+   "ID": "M8",
+   "FINGE": "ACT_NOW deixa de exigir 0 contradicoes",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_porque_nomeia_a_contradicao"
+   ]
+  },
+  {
+   "ID": "M9",
+   "FINGE": "a contradicao deixa de ser detetada",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_YES_contra_NO_na_mesma_semana_e_CONFLICTING",
+    "test_o_porque_nomeia_a_contradicao"
+   ]
+  },
+  {
+   "ID": "M10",
+   "FINGE": "subareas diferentes passam a contradizer-se",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_subareas_diferentes_nao_se_contradizem"
+   ]
+  },
+  {
+   "ID": "M11",
+   "FINGE": "semanas que nao se tocam passam a comparar-se",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_semanas_que_nao_se_tocam_nao_se_contradizem"
+   ]
+  },
+  {
+   "ID": "M12",
+   "FINGE": "redes nao declaradas passam a contar como independentes",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_redes_nao_declaradas_independencia_NAO_SEI_provavel_2",
+    "test_sem_rede_declarada_nao_ha_ACT_NOW"
+   ]
+  },
+  {
+   "ID": "M13",
+   "FINGE": "a regra partilhada volta a contar uma vez por originador",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_regra_do_disciplinare_conta_uma_vez"
+   ]
+  },
+  {
+   "ID": "M14",
+   "FINGE": "o ato administrativo vira janela agronomica",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_T39_ato_administrativo_nunca_e_janela_agronomica",
+    "test_so_ato_administrativo_nao_define_janela"
+   ]
+  },
+  {
+   "ID": "M15",
+   "FINGE": "o plural «soglie» deixa de definir janela",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_regra_do_disciplinare_conta_uma_vez",
+    "test_as_arestas_sao_de_apoio",
+    "test_duas_semanas_do_ARIF_sao_um_apoio",
+    "test_o_requisito_nomeia_o_par_e_a_regiao_e_a_sonda_nao_vira_par",
+    "test_redes_nao_declaradas_independencia_NAO_SEI_provavel_2",
+    "test_so_o_ARIF_38_responde_e_e_uma_fonte_so"
+   ]
+  },
+  {
+   "ID": "M16",
+   "FINGE": "sem HOJE declarado, usa-se o relogio",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sem_hoje_nao_ha_agora"
+   ]
+  },
+  {
+   "ID": "M17",
+   "FINGE": "o pre-filtro deixa de ser recusado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pre_filtro_recusado"
+   ]
+  },
+  {
+   "ID": "M18",
+   "FINGE": "a oracao que manda parar deixa de fechar a janela",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_oracao_que_manda_parar_fecha_a_janela"
+   ]
+  },
+  {
+   "ID": "M19",
+   "FINGE": "o requisito deixa de nomear a regiao",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_requisito_nomeia_o_par_e_a_regiao_e_a_sonda_nao_vira_par"
+   ]
+  },
+  {
+   "ID": "M20",
+   "FINGE": "o qualitativo passa a responder a limiar",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_red_team_frase_qualitativa_nao_responde_limiar"
+   ]
+  },
+  {
+   "ID": "M21",
+   "FINGE": "a leitura perde o «nao tratar» do documento",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_resultado_NO_DEFENSIBLE_ACTION_YET_com_o_porque"
+   ]
+  },
+  {
+   "ID": "M22",
+   "FINGE": "o livro de outra versao do G0 passa a ser lido",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_resultado_NO_DEFENSIBLE_ACTION_YET_com_o_porque"
+   ]
+  }
+ ]
+}

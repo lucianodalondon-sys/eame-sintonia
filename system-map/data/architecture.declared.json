@@ -4332,6 +4332,61 @@
    ]
   },
   {
+   "id": "C-INT-GRAFO-DEPENDENCIA",
+   "name": "Grafo de dependência — quantas fontes independentes, de verdade",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "icon": "⋈",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Antes de qualquer contagem de varios sinais, separa tres camadas: SINAL (cada entrada), EVIDENCIA (o mesmo documento — mesmo SHA, DOCUMENT_ID ou endereco — conta uma vez) e FONTE (o mesmo originador — dominio, pagina da plataforma, SOURCE_ID ou republicacao declarada — conta uma vez). Devolve fontes independentes, percentual da fonte dominante e CONVERGE so com duas fontes independentes PROVADAS sobre o mesmo fato. Rotulo, registo e catalogo contam a parte, como validacao estrutural. Neste ramo e usado pela CAP-WIN para contar originadores das observacoes de janela.",
+   "why_here": "Trazido byte a byte de nuvem-independencia-v1 @ eb3a7b1d (INDEPENDENCIA-V1, D12/D16; INT-LAW-070..077 e INT-LAW-092) porque a CAP-WIN precisa de contar originadores: duas semanas do mesmo boletim sao um apoio. A integracao do grafo na corrida G0 e no motor V2.1 NAO veio (aquele ramo parte de 60faa7cb e perderia D11/D14/D15). Nao deteta sindicacao por semelhanca de texto (INT-LAW-081).",
+   "files": [
+    "motor/grafo_de_dependencia.py"
+   ]
+  },
+  {
+   "id": "C-INT-CAP-WIN",
+   "name": "CAP-WIN — a janela de cultura (definida ≠ aberta agora)",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "icon": "◷",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Le o livro de uma corrida G0/v4 e os itens READY, e julga por CULTURA x PROBLEMA x REGIAO (com fase/BBCH, subarea e periodo) duas perguntas separadas: WINDOW_DEFINED (que condicao define o momento de agir: os 8 tipos da regra do V21) e WINDOW_OPEN_NOW (a fonte declara a condicao satisfeita, e o facto tem tempo e e CURRENT?). Conta apoios pelo grafo de dependencia (observacao por originador e rede declarada; a regra partilhada conta uma vez), marca SUPPORT/CONTRADICTS entre observacoes da mesma semana e subarea, e devolve um ANALYTIC_JUDGMENT CROP_WINDOW com ACT_NOW so com YES, CURRENT, 2 independentes provados e 0 contradicoes — senao NO_DEFENSIBLE_ACTION_YET com o porque. Sem par em campo: NOT_POSSIBLE e o requisito CROP_ISSUE_EM_CAMPO. Nao produz oportunidade.",
+   "why_here": "Missao CAP-WIN (D100-b/L6: a CAP-WIN vem primeiro na espinha G0-G6), desenho docs/intelligence/CAP-WIN-DESENHO-R5.md W0-W8. Porta a REGRA de scripts/v21_janelas.py @ 85df96f7 sem portar o ficheiro (o legado le DESIGN-INGEST e atribui par por texto, INT-LAW-084). Dois acrescimos declarados, os dois medidos no corte ARIF x APOL: soglia nao atingida escrita por extenso -> NO com a razao certa, e o plural «soglie». O tempo so bloqueia o uso que exige tempo: a regra de um READY sem FACT_TIME continua lida, o «agora» nao. EXPERIMENTAL / NAO_PARA_CLIENTE.",
+   "files": [
+    "motor/cap_win.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-CAP-WIN",
+   "name": "As provas da CAP-WIN — mutação",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Planta um defeito de cada vez em motor/cap_win.py (soglia, negacao, par sem base, tempo, STALE, ACT_NOW, contradicao, subarea, redes, regra partilhada, ato administrativo, pre-filtro...), corre tests.test_cap_win e exige que ele reprove; restaura os bytes e confere o SHA.",
+   "why_here": "A prova vive fora da peca que prova. 22 de 22 mutantes mortos; tres testes nasceram de mutantes que sobreviviam (M5, M8, M18).",
+   "files": [
+    "provas/cap_win/mutantes.py"
+   ]
+  },
+  {
    "id": "C-INT-ACHADO",
    "name": "Achado — o julgamento analítico que se fecha",
    "kind": "engine",
