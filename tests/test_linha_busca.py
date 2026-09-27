@@ -14,6 +14,16 @@ import linha_busca as LB            # noqa: E402
 import collection_gate as CG        # noqa: E402
 
 CQ, MO = LB.CQ, LB.MO
+
+
+def _sem_rede(*a, **k):
+    raise AssertionError("o teste tentou sair a rede")
+
+
+# GUARDA DE REDE (memoria: um mutante que desliga a recusa sai a rede de verdade). Nada neste modulo
+# chega ao portao IT nem ao transporte real.
+LB.portao_it = _sem_rede
+LB.transporte_real = _sem_rede
 FX = RAIZ / "ferramentas" / "linha_busca" / "fixtures" / "teste"
 PROV = {"ESPECIE": "ACHADO_POR_BUSCA", "CONSULTA": "bollettino vite peronospora", "MOTOR": "DDG_HTML",
         "POSICAO": 1, "INSTANTE": "2026-09-27T09:00:00+00:00"}
