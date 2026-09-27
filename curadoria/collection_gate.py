@@ -182,6 +182,55 @@ def eligible_for_collection(source_id: str, *, livro: dict | None = None,
                    contratos=contratos)["COLLECTION_ELIGIBLE"]
 
 
+# ---------------------------------------------------------------------------
+# D93 (dono real, 27/09 ~08:30) — A PAGINA ACHADA POR BUSCA ENTRA COM A FONTE AINDA CANDIDATA.
+#
+# `avaliar()` acima e o ponto exato que exigia fonte aprovada: «so entra quem esta em
+# READY_FOR_COLLECTION». Para a coleta RECORRENTE de uma fonte continua a ser a regra.
+# A LINHA-BUSCA (assunto-primeiro, `coleta/linha_busca.py`) nao coleta uma FONTE: colhe
+# UMA pagina que uma consulta achou. Para essa pagina o dono decidiu (D93):
+#   1. entra com a fonte CANDIDATA, desde que passe a Admission normal — este portao NAO
+#      julga a pagina (isso e da `admissao.decidir`), so deixa-a ser colhida;
+#   2. a proveniencia e OBRIGATORIA: ACHADO_POR_BUSCA com consulta, motor, posicao e
+#      instante, e o estado da fonte no momento — sem ela nao ha excecao nenhuma;
+#   3. robots, teto por dominio, VPN IT continuam (quem os cobra e o transporte,
+#      `coleta/scrap_http.buscar_bytes` + `coleta/teto_da_onda`, nao este portao);
+#   4. fonte ja RECUSADA / POLICY_BLOCK nao entra por aqui (a D93 fala de fonte «ainda
+#      a ser aprovada»); se for recusada DEPOIS, os itens ficam marcados e nada se apaga.
+# ---------------------------------------------------------------------------
+ACHADO_POR_BUSCA_D93 = "ACHADO_POR_BUSCA_D93"
+PROVENIENCIA_INCOMPLETA = "PROVENIENCIA_INCOMPLETA"
+FONTE_RECUSADA = "FONTE_RECUSADA"
+CAMPOS_DA_PROVENIENCIA = ("CONSULTA", "MOTOR", "POSICAO", "INSTANTE")
+ESTADOS_QUE_NAO_ENTRAM_PELA_BUSCA = ("RECUSADA", "POLICY_BLOCK")
+
+
+def avaliar_achado_por_busca(proveniencia: dict, estado_da_fonte: str) -> dict:
+    """O portao da LINHA-BUSCA (D93). Nunca substitui `avaliar()`: e outra pergunta."""
+    prov = proveniencia or {}
+    linha = {"ESPECIE": "ACHADO_POR_BUSCA", "FONTE_ESTADO_NO_MOMENTO": estado_da_fonte or "NAO SEI",
+             "COLLECTION_ELIGIBLE": False, "MOTIVO": "", "PORQUE": ""}
+    faltam = [c for c in CAMPOS_DA_PROVENIENCIA
+              if prov.get(c) is None or str(prov.get(c)).strip() in ("", "NAO SEI")]
+    if prov.get("ESPECIE") != "ACHADO_POR_BUSCA" or faltam:
+        linha["MOTIVO"] = PROVENIENCIA_INCOMPLETA
+        linha["PORQUE"] = ("D93 so vale com a proveniencia ACHADO_POR_BUSCA inteira; falta: %s"
+                           % (", ".join(faltam) or "ESPECIE=ACHADO_POR_BUSCA"))
+        return linha
+    if (estado_da_fonte or "").upper() in ESTADOS_QUE_NAO_ENTRAM_PELA_BUSCA:
+        linha["MOTIVO"] = FONTE_RECUSADA
+        linha["PORQUE"] = ("a fonte ja esta %s: a D93 abre a porta a fonte AINDA a ser aprovada, "
+                           "nao a fonte recusada" % estado_da_fonte)
+        return linha
+    linha["COLLECTION_ELIGIBLE"] = True
+    linha["MOTIVO"] = ACHADO_POR_BUSCA_D93
+    linha["PORQUE"] = ("pagina achada pela consulta «%s» (%s, posicao %s, %s); fonte %s no momento — "
+                       "colhe-se UMA pagina e ela vai a Admission normal (D93)"
+                       % (prov["CONSULTA"], prov["MOTOR"], prov["POSICAO"], prov["INSTANTE"],
+                          linha["FONTE_ESTADO_NO_MOMENTO"]))
+    return linha
+
+
 def porque_nao(source_id: str, **kw) -> str:
     v = avaliar(source_id, **kw)
     return "" if v["COLLECTION_ELIGIBLE"] else "%s: %s" % (v["MOTIVO"], v["PORQUE"])
