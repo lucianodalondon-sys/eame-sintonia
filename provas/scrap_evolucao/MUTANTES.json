@@ -1,0 +1,136 @@
+{
+ "MUTANTES": 26,
+ "MORTOS": 26,
+ "RESULTADOS": [
+  {
+   "MUTANTE": "FEED: sem o limite D40 de 3 alvos",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "FEED: <updated> passa a contar como publicacao",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "FEED: itens de outro site entram",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "COLETOR: item sem data no feed vira null em vez de NAO SEI",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "ROTA: Referer do Google ligado",
+   "FICHEIRO": "coleta/rota_navegador.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "ROTA: medir nao conta o robots no teto",
+   "FICHEIRO": "coleta/rota_navegador.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "ROTA: medir ignora o egresso",
+   "FICHEIRO": "coleta/rota_navegador.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "CANARIO: a rota vaza para o canario seguinte",
+   "FICHEIRO": "curadoria/canario.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "CANARIO: resultado sem a rota na proveniencia",
+   "FICHEIRO": "curadoria/canario.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "PROVA: a ficha pede NAVEGADOR e o leitor ignora",
+   "FICHEIRO": "curadoria/colher_prova_territorio.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "PROVA: 429 nao castiga",
+   "FICHEIRO": "curadoria/colher_prova_territorio.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "LIGACOES: <link> volta a contar como pagina",
+   "FICHEIRO": "curadoria/colher_prova_territorio.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "LIGACOES: parametros sem ordem canonica",
+   "FICHEIRO": "curadoria/colher_prova_territorio.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "LIGACOES: &amp; nao desfeito",
+   "FICHEIRO": "curadoria/colher_prova_territorio.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "ESPERA: bloqueio nao dobra",
+   "FICHEIRO": "coleta/espera_por_dominio.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "ESPERA: Retry-After ignorado",
+   "FICHEIRO": "coleta/espera_por_dominio.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "ESPERA: resposta boa desce abaixo da base",
+   "FICHEIRO": "coleta/espera_por_dominio.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "SCRAP_HTTP: pausa fixa de novo",
+   "FICHEIRO": "coleta/scrap_http.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "XHR: o porteiro nao cobra o teto",
+   "FICHEIRO": "ferramentas/captura_xhr.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "XHR: folha de estilo e imagem saem",
+   "FICHEIRO": "ferramentas/captura_xhr.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "XHR: POST vira proposta",
+   "FICHEIRO": "ferramentas/captura_xhr.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "XHR: robots nao conta",
+   "FICHEIRO": "ferramentas/captura_xhr.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P6: a emenda dada como em vigor",
+   "FICHEIRO": "coleta/scrap_capacidades.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P6: promessa sem perguntar se esta ligada",
+   "FICHEIRO": "coleta/scrap_capacidades.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P6: validador aceita pagina desenhada sem rotulo",
+   "FICHEIRO": "coleta/scrap_capacidades.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "P6: qualquer fonte pode pedir",
+   "FICHEIRO": "coleta/scrap_capacidades.py",
+   "ESTADO": "MORTO"
+  }
+ ]
+}

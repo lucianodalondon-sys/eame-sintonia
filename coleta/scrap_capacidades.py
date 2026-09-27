@@ -137,6 +137,10 @@ _LB = 'docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md'
 #: com bytes, sha, legenda e a decisao do dono (D23) escrita ao lado.
 _D23 = 'docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md'
 _C11 = 'docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md'
+#: SCRAP-EVOLUCAO-V1, peca 6 (26/09): o navegador real (patchright + chromium, sem janela) medido pelo
+#: coordenador com rede e VPN IT contra a classe Akamai/WAF — 3/3 HTTP 200 com titulos reais onde o curl
+#: leva 403. Prova e custo de memoria no mesmo documento.
+_P6 = 'docs/sintonia-scrap/SCRAP-EVOLUCAO-P6-NAVEGADOR-REAL.md'
 
 DECLARADAS = {
     # ── INSTAGRAM ─────────────────────────────────────────────────────────
@@ -358,7 +362,53 @@ DECLARADAS = {
                                    'docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md',
                                    'INCREMENTAL'),
     'telegram.channel.incremental': ('TELEGRAM', PROVEN, ONLINE, None, _MZ, 'INCREMENTAL'),
+
+    # ── WEB (paginas publicas das fontes) ─────────────────────────────────
+    # PARTIAL e nao PROVEN: UMA corrida, 3 paginas de UMA classe (Akamai/WAF), sem coleta de ponta a ponta.
+    # E mesmo medida, NAO ESTA LIGADA: espera a emenda COL-LAW-220 (ver ESPERAM_EMENDA abaixo).
+    'web.page.browser_rendered': ('WEB', PARTIAL, LOCAL, BROWSER_REAL_REQUIRED, _P6, None),
 }
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O QUE SO LIGA DEPOIS DE UMA LEI, E O QUE O CORPO E
+# ══════════════════════════════════════════════════════════════════════════
+#: Capacidade medida que so pode correr depois de uma emenda da Biblia da Coleta. Enquanto a emenda nao
+#: estiver em EMENDAS_EM_VIGOR, `promete_resultado` responde NAO — medir nao e autorizar.
+#: COL-LAW-220 (material publico e fronteira de acesso, D88) existe hoje so como TEXTO PROPOSTO
+#: (auditoria-madrugada/ESTUDO-ORQUESTRACAO-24H-LUCIANO.md, «aprovadas para PROPOR»). Ligar = acrescentar
+#: o id a EMENDAS_EM_VIGOR no mesmo commit que a traz para a Biblia.
+ESPERAM_EMENDA = {'web.page.browser_rendered': 'COL-LAW-220'}
+EMENDAS_EM_VIGOR = frozenset()
+
+#: O corpo que a capacidade devolve NAO e o RAW do servidor: e o DOM que o navegador desenhou depois de
+#: correr o JavaScript (COL-LAW-007: RAW nao e derivado). Rotula-se assim em todo o lado por onde passa.
+BROWSER_RENDERED_EXTRACT = 'BROWSER_RENDERED_EXTRACT'
+ROTULOS_DO_CORPO = (BROWSER_RENDERED_EXTRACT,)
+ROTULO_DO_CORPO = {'web.page.browser_rendered': BROWSER_RENDERED_EXTRACT}
+
+#: Por fonte: so as fontes (ou classes) nomeadas aqui podem pedir a capacidade — nunca «todas as que falham».
+#: A classe e a que o coordenador mediu (Akamai/WAF: curl 403, navegador 200).
+FONTES_DA_CAPACIDADE = {'web.page.browser_rendered': ('IT-T9-002', 'IT-T9-003', 'IT-T9-008')}
+
+
+def ativa(nome):
+    """A capacidade pode correr hoje? Nao declarada = nao; a espera de emenda fora de vigor = nao."""
+    if nome not in DECLARADAS:
+        return False
+    lei = ESPERAM_EMENDA.get(nome)
+    return lei is None or lei in EMENDAS_EM_VIGOR
+
+
+def rotulo_do_corpo(nome):
+    """O que e o corpo que esta capacidade devolve. None = bytes do servidor (RAW)."""
+    return ROTULO_DO_CORPO.get(nome)
+
+
+def serve_a_fonte(nome, source_id):
+    """A capacidade foi declarada para ESTA fonte? Capacidade sem lista de fontes vale para a plataforma."""
+    lista = FONTES_DA_CAPACIDADE.get(nome)
+    return lista is None or source_id in lista
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -462,7 +512,7 @@ def promete_resultado(nome):
     e NOT_EXECUTED respondem NAO — e a resposta nao muda porque foi escrito
     codigo para ela.
     """
-    return estado(nome) not in SEM_PROMESSA
+    return estado(nome) not in SEM_PROMESSA and ativa(nome)
 
 
 def da_plataforma(plat):
@@ -515,6 +565,16 @@ def conferir(nome=None):
         if grosso is not None and not str(grosso).isupper():
             raise CapacidadeInvalida(
                 '%s: o nome da matriz e MAIUSCULO por convencao dela: %r' % (n, grosso))
+    for n, lei in ESPERAM_EMENDA.items():
+        if n not in DECLARADAS:
+            raise CapacidadeInvalida('%s: espera a emenda %s mas nao esta declarada' % (n, lei))
+    for n, r in ROTULO_DO_CORPO.items():
+        if n not in DECLARADAS or r not in ROTULOS_DO_CORPO:
+            raise CapacidadeInvalida('%s: rotulo do corpo %r sem capacidade ou fora do vocabulario' % (n, r))
+    for n, r in DECLARADAS.items():
+        if r[3] == BROWSER_REAL_REQUIRED and n.startswith('web.') and ROTULO_DO_CORPO.get(n) != BROWSER_RENDERED_EXTRACT:
+            raise CapacidadeInvalida('%s: pagina desenhada pelo navegador sem o rotulo %s (COL-LAW-007)'
+                                     % (n, BROWSER_RENDERED_EXTRACT))
     return True
 
 

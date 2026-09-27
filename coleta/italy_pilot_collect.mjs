@@ -75,7 +75,11 @@ import { pastaDoDocumento } from "./nome_da_pasta.mjs";
 const ADAPTERS = Object.freeze({});
 
 const run = promisify(execFile);
-const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
+// A cara do pedido tem UM dono (SCRAP-EVOLUCAO-V1, 26/09): regras/ROTA-NAVEGADOR.json, lida tambem pelos
+// leitores Python (coleta/rota_navegador.py -> canario, prova de territorio). Antes, o canario pedia com
+// Chrome/125 sem Safari e o coletor com Chrome/140: uma fonte podia abrir a um e fechar ao outro.
+const ROTA_NAVEGADOR = JSON.parse(readFileSync(new URL("../regras/ROTA-NAVEGADOR.json", import.meta.url), "utf8"));
+const UA = ROTA_NAVEGADOR.UA;
 const RAIZ = process.env.ITALY_OPS_ROOT || ".";
 const LEDGER_DIR = `${RAIZ}/data/collection-ledger/italy`;
 const STORE = `${RAIZ}/data/collection-store/italy`;
@@ -539,7 +543,7 @@ async function umaIda(url, host, tipo, crawlDelay) {
     // ⚠️ `-L` SAIU DE PROPOSITO (ver o bloco da cortesia): quem segue o salto e
     // `baixar()`, que pede licenca ao robots do destino antes de ir.
     const { stdout } = await run("curl", ["-sS", "--max-time", "90", "-A", UA,
-      "-H", "Accept-Language: it-IT,it;q=0.9", "-o", "-",
+      "-H", `Accept-Language: ${ROTA_NAVEGADOR.ACCEPT_LANGUAGE}`, "-o", "-",
       "-w", "\\n__S__%{http_code}\\t%{content_type}\\t%{redirect_url}", url],
       { maxBuffer: 128e6, encoding: "buffer" });
     const s = stdout.toString("latin1");
@@ -1363,6 +1367,13 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
           FACT_LOCATION: ident.FACT_LOCATION, FACT_LOCATION_BASIS: ident.FACT_LOCATION_BASIS,
           // D69: a validade/cobertura do boletim, como EVIDENCIA (nao e FACT_TIME sem ligacao no texto)
           BULLETIN_PERIOD: ident.BULLETIN_PERIOD, BULLETIN_PERIOD_BASIS: ident.BULLETIN_PERIOD_BASIS,
+        } : {}),
+        // SCRAP-EVOLUCAO-V1 (FEED_DISCOVERY): a data que o FEED da fonte declara para este item, nivel
+        // indice — SO quando o contrato nao declara a publicacao por outra via (a do boletim vence), e
+        // SO a data de publicacao: nunca FACT_TIME. Item do feed sem data = NAO SEI com o porque.
+        ...(!ident.PUBLISHED_AT_BASIS && alvo.publicadoNoIndice ? {
+          PUBLISHED_AT: alvo.publicadoNoIndice.VALOR ?? "NAO SEI",
+          PUBLISHED_AT_BASIS: alvo.publicadoNoIndice.BASE,
         } : {}),
         // D42 (2): a impressao do conteudo recortado (so com CONTENT_SCOPE) — a chave de dedupe
         ...(ident.CONTENT_SHA256 ? { CONTENT_SHA256: ident.CONTENT_SHA256 } : {}),

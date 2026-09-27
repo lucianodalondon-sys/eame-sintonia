@@ -483,6 +483,8 @@
     "regras/italy_source_health.mjs",
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs",
+    "regras/feed_discovery_test.mjs",
+    "regras/ROTA-NAVEGADOR.json",
     "regras/identidade_do_motor_cli.mjs",
     "regras/boletim_data_local_test.mjs"
    ]
@@ -1184,6 +1186,7 @@
    ],
    "files": [
     "ferramentas/cdp.py",
+    "ferramentas/captura_xhr.py",
     "ferramentas/navegador.py"
    ]
   },
@@ -2793,6 +2796,8 @@
     "coleta/scrap_executor.py",
     "coleta/scrap_fornecedores.py",
     "coleta/scrap_http.py",
+    "coleta/rota_navegador.py",
+    "coleta/espera_por_dominio.py",
     "coleta/scrap_registo.py",
     "coleta/social_envelope.py",
     "coleta/social_persistencia.py",
@@ -4889,6 +4894,12 @@
     "provas/cortesia_red_team.mjs",
     "provas/CORTESIA-RED-TEAM-V1.json",
     "provas/teto_dominio_local.mjs",
+    "provas/feed_local.mjs",
+    "provas/scrap_evolucao/medir_feeds_no_acervo.py",
+    "provas/scrap_evolucao/comparar_links_no_acervo.py",
+    "provas/scrap_evolucao/mutantes_scrap_evolucao.py",
+    "provas/scrap_evolucao/medir_ram_navegador.py",
+    "provas/scrap_evolucao/medir_feeds_com_rede.py",
     "provas/teto_dominio_mutacao.py",
     "provas/TETO-DOMINIO-MUTACAO.json",
     "provas/onda_web_mutacao.py",

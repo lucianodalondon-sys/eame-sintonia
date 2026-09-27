@@ -50,7 +50,11 @@ export const ESTRATEGIAS = Object.freeze([
   // A porta de saída honesta: quando a fonte exige lógica que o vocabulário
   // finito não descreve, o contrato NOMEIA um adapter registado. Ele não
   // carrega o código — carrega o nome.
-  "CUSTOM_ADAPTER",
+  "CUSTOM_ADAPTER",  // SCRAP-EVOLUCAO-V1 (26/09, D89 + ESTUDO-SCRAPLING-UNIAO, prioridade 1): o índice é o FEED RSS/Atom
+  // que a PRÓPRIA fonte anuncia no <head>. Medido no acervo (sem rede): 14 das 44 fontes com HTML
+  // guardado anunciam feed (`provas/scrap_evolucao/medir_feeds_no_acervo.py`). É o quinto nome porque
+  // agora há caso medido: um pedido ao feed dá os últimos itens JÁ COM DATA, sem paginar.
+  "FEED_DISCOVERY",
 ]);
 
 // Como uma variável de molde recebe valor. Também derivado do que existe.
@@ -359,7 +363,66 @@ export function conferirAquisicao(sourceId, aq) {
   if (e === "CUSTOM_ADAPTER") {
     if (!ehTexto(aq.ADAPTER_ID)) throw new ContratoInvalido(`${sourceId}: CUSTOM_ADAPTER sem ADAPTER_ID`);
   }
+  if (e === "FEED_DISCOVERY") {
+    if (!ehTexto(aq.FEED_URL)) throw new ContratoInvalido(`${sourceId}: FEED_DISCOVERY sem FEED_URL`);
+    if (aq.LINK_PATTERN !== undefined) {
+      try { new RegExp(aq.LINK_PATTERN, "i"); }
+      catch (err) { throw new ContratoInvalido(`${sourceId}: LINK_PATTERN não compila: ${err.message}`); }
+    }
+    if (aq.SAME_HOST !== undefined && typeof aq.SAME_HOST !== "boolean") {
+      throw new ContratoInvalido(`${sourceId}: SAME_HOST tem de ser true/false`);
+    }
+  }
   return true;
+}
+
+// ── O FEED DA FONTE (FEED_DISCOVERY) ───────────────────────────────────────
+// Lido com expressões, sem biblioteca (a casa não tem leitor de XML no Node e não ganha dependência
+// para isto): RSS 2.0 (<item>: <link>, <pubDate>/<dc:date>) e Atom (<entry>: <link href>, <published>).
+//
+// ⚠️ A DATA DO FEED É A DATA DE PUBLICAÇÃO, NÍVEL ÍNDICE — NUNCA FACT_TIME. É o que a fonte diz
+// sobre QUANDO publicou (D61), não sobre quando a coisa aconteceu no campo. E `<updated>` do Atom NÃO
+// é publicação (é a última edição): um item só com `updated` fica sem data — NAO SEI, não palpite.
+const RE_ITEM_DO_FEED = /<(item|entry)\b[^>]*>([\s\S]*?)<\/\1>/gi;
+function limparTextoDoFeed(t) {
+  return String(t).replace(/^\s*<!\[CDATA\[([\s\S]*?)\]\]>\s*$/, "$1")
+    .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))).replace(/&amp;/g, "&").trim();
+}
+function dentroDoItem(bloco, tag) {
+  const t = tag.replace(":", "\\:");
+  const m = bloco.match(new RegExp(`<${t}\\b[^>]*>([\\s\\S]*?)<\\/${t}>`, "i"));
+  return m ? limparTextoDoFeed(m[1]) : "";
+}
+function isoOuNada(texto) {
+  if (!texto) return null;
+  const t = Date.parse(texto);
+  return Number.isFinite(t) ? new Date(t).toISOString() : null;
+}
+export const CAMPOS_DE_DATA_DO_FEED = Object.freeze(["pubDate", "dc:date", "published"]);
+export function itensDoFeed(xml, base) {
+  const out = [];
+  for (const m of String(xml).matchAll(RE_ITEM_DO_FEED)) {
+    const bloco = m[2];
+    let href = "";
+    if (m[1].toLowerCase() === "item") {
+      href = dentroDoItem(bloco, "link");
+    } else {
+      const ls = [...bloco.matchAll(/<link\b([^>]*)\/?>/gi)].map((x) => x[1]);
+      const alt = ls.find((a) => !/\brel\s*=/i.test(a) || /\brel\s*=\s*["']alternate["']/i.test(a)) || "";
+      href = limparTextoDoFeed((alt.match(/href\s*=\s*["']([^"']+)["']/i) || [])[1] || "");
+    }
+    if (!href) continue;
+    let campo = null, texto = "";
+    for (const c of CAMPOS_DE_DATA_DO_FEED) {
+      const v = dentroDoItem(bloco, c);
+      if (v) { campo = c; texto = v; break; }
+    }
+    let url;
+    try { url = new URL(href, base).href; } catch { continue; }
+    out.push({ url, titulo: dentroDoItem(bloco, "title"), campoData: campo, dataTexto: texto, publicado: isoOuNada(texto) });
+  }
+  return out;
 }
 
 function valoresDe(spec) {
@@ -620,6 +683,51 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
     }
     return urls.slice(0, Number.isFinite(limite) ? limite : urls.length)
                .map((url) => ({ url, nome: url.split("/").pop() }));
+  }
+
+  if (aq.STRATEGY === "FEED_DISCOVERY") {
+    if (typeof buscar !== "function") {
+      throw new ContratoInvalido(`${sourceId}: FEED_DISCOVERY precisa de um leitor`);
+    }
+    const f = await buscar(aq.FEED_URL);
+    if (f.erro || f.status !== 200) {
+      return { erro: `feed inacessivel: ${f.erro || f.status}` };
+    }
+    const hostDe = (u) => new URL(u).hostname.replace(/^www\./, "").toLowerCase();
+    const re = aq.LINK_PATTERN ? new RegExp(aq.LINK_PATTERN, "i") : null;
+    const vistos = new Set();
+    const itens = [];
+    for (const it of itensDoFeed(f.buf.toString("utf8"), aq.FEED_URL)) {
+      if (!/^https?:/i.test(it.url) || vistos.has(it.url)) continue;
+      if (aq.SAME_HOST !== false && hostDe(it.url) !== hostDe(aq.FEED_URL)) continue;
+      if (ATIVOS_ESTATICOS.test(it.url) || PAGINACAO.test(it.url) || FEED.test(it.url)) continue;
+      if (re && !re.test(it.url)) continue;
+      vistos.add(it.url);
+      itens.push(it);
+    }
+    if (itens.length === 0) {
+      return { erro: "EMPTY_LIST — o feed nao anuncia nenhum item do proprio site" };
+    }
+    const porUrl = new Map(itens.map((it) => [it.url, it]));
+    // O que o feed diz de cada item viaja no alvo: o titulo (LINK_TEXT, como o DA-13) e a data de
+    // publicacao NIVEL INDICE — que o coletor so escreve se o contrato nao a declarar por outra via.
+    const comFeed = (as) => {
+      if (Array.isArray(as)) for (const a of as) {
+        const it = porUrl.get(a.url);
+        if (!it) continue;
+        a.textoDaLigacao = it.titulo;
+        a.publicadoNoIndice = it.publicado ? {
+          VALOR: it.publicado, TEXTO: it.dataTexto, CAMPO: it.campoData,
+          BASE: `FEED ${it.campoData} em ${aq.FEED_URL} — data de publicacao declarada pela fonte, nivel indice; nunca FACT_TIME`,
+        } : { VALOR: null, BASE: `NAO SEI: o item do feed ${aq.FEED_URL} nao declara ${CAMPOS_DE_DATA_DO_FEED.join("/")}` };
+      }
+      return as;
+    };
+    const urls = itens.map((it) => it.url);
+    const nomeDe = (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE);
+    if (typeof classificar === "function") return comFeed(escolherAlvosD40(urls, classificar, nomeDe));
+    const limite = Number.isInteger(aq.MAX_TARGETS) ? aq.MAX_TARGETS : ALVOS_POR_FONTE_D40;
+    return comFeed(urls.slice(0, limite).map((url) => ({ url, nome: nomeDe(url) })));
   }
 
   // CUSTOM_ADAPTER — o contrato NOMEIA; o registry resolve. O despachador

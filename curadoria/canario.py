@@ -38,6 +38,8 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import contextvars
+import functools
 from urllib.parse import urlparse
 from datetime import datetime, timezone
 from pathlib import Path
@@ -46,6 +48,8 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 import capturador as CAP  # noqa: E402  (UA ja medido: sem `Safari/`)
 import retrato_html as RH  # noqa: E402  (o gate CAPA != MATERIA, mesmos limiares do coletor)
+sys.path.insert(0, str(RAIZ / "coleta"))
+import rota_navegador as RN  # noqa: E402  (a rota HTTP da fonte, COL-LAW-704)
 
 TIMEOUT = 25
 CTX = ssl.create_default_context()
@@ -76,9 +80,16 @@ def url_segura(url: str) -> str:
     return urllib.parse.quote(url, safe=_SEGUROS_NO_URL)
 
 
-def buscar(url: str) -> tuple[int, bytes, str]:
-    req = urllib.request.Request(url_segura(url), headers={
-        "User-Agent": CAP.UA, "Accept": "*/*", "Accept-Language": "it-IT,it;q=0.9"})
+# SCRAP-EVOLUCAO-V1 (26/09): a ROTA HTTP e da FONTE (ACQUISITION.ROTA_HTTP; omissao DECLARADA). Os
+# canarios publicos correm com a rota do contrato e o resultado diz por onde veio (COL-LAW-704). A cara
+# de navegador tem UM dono, `regras/ROTA-NAVEGADOR.json` — o mesmo UA do coletor web.
+_ROTA = contextvars.ContextVar("rota_http", default=RN.ROTA_DECLARADA)
+_CABECALHOS_DO_LEITOR = {"User-Agent": CAP.UA, "Accept": "*/*", "Accept-Language": "it-IT,it;q=0.9"}
+
+
+def buscar(url: str, rota: str | None = None) -> tuple[int, bytes, str]:
+    rota = rota or _ROTA.get()
+    req = urllib.request.Request(url_segura(url), headers=RN.cabecalhos(rota, do_leitor=_CABECALHOS_DO_LEITOR))
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT, context=CTX) as r:
             return r.status, r.read(4_000_000), ""
@@ -88,6 +99,23 @@ def buscar(url: str) -> tuple[int, bytes, str]:
         return 0, b"", "%s: %s" % (type(e).__name__, str(e)[:90])
 
 
+def _com_a_rota_da_fonte(fn):
+    """O canario corre com a rota que o contrato pede, e o resultado diz qual foi (proveniencia)."""
+    @functools.wraps(fn)
+    def envolto(c, *a, **k):
+        rota = RN.rota_da_fonte(c)
+        marca = _ROTA.set(rota)
+        try:
+            r = fn(c, *a, **k)
+        finally:
+            _ROTA.reset(marca)
+        if isinstance(r, dict):
+            r.update(RN.proveniencia(rota))
+        return r
+    return envolto
+
+
+@_com_a_rota_da_fonte
 def canario_youtube(c: dict) -> dict:
     """Resolve o feed e prova que dele sai um ITEM com identidade."""
     aq = c["ACQUISITION"]
@@ -335,6 +363,7 @@ def identidade_pelo_motor(c: dict, url: str, b: bytes, texto_da_ligacao: str = "
         return {"ERRO": "o motor nao respondeu JSON: %s" % (r.stderr or linha)[-200:]}
 
 
+@_com_a_rota_da_fonte
 def canario_pagina_boletim(c: dict) -> dict:
     """D42 (2): A PAGINA E O BOLETIM. A URL fixa nao identifica a edicao: quem a identifica e a data
     comprovada (+ a impressao do conteudo recortado, para deduplicar). O canario abre a pagina uma
@@ -396,6 +425,7 @@ def escolher_alvo(alvos: list[str], index_url: str = "") -> str:
     return alvos[0]
 
 
+@_com_a_rota_da_fonte
 def canario_html(c: dict) -> dict:
     """Abre a entrada, aplica o LINK_PATTERN e prova que sai um ITEM (nao o indice)."""
     aq = c["ACQUISITION"]
