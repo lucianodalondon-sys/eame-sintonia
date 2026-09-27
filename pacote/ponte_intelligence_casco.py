@@ -152,31 +152,46 @@ def _recusa(ferramenta, sinal, motivo, detalhe=""):
             "MOTIVO": motivo, "DETALHE": detalhe}
 
 
-def _linhagem_da_corrida(corrida: dict) -> dict:
-    """ITEM_ID -> TODAS as entradas da LINEAGE com esse ITEM_ID. Nada se completa.
+def _chave_upstream(v) -> str:
+    """A corrida upstream como parte da chave. Ausente e dita como NAO SEI."""
+    return NAO_SEI if e_ignorancia(v) else str(v)
 
-    ⚠️ UMA LISTA, E NAO UMA ENTRADA. Na Sala real o mesmo ITEM_ID aparece em
-    corridas upstream diferentes (medido na R2: 22 entradas, 20 ITEM_ID). Um
-    dicionario de um-para-um guardava a ULTIMA, e o veredito dependia da ordem
-    da lista — defeito P1, achado pelo bot da Intelligence a 2026-09-26.
+
+def _linhagem_da_corrida(corrida: dict) -> dict:
+    """(CORRIDA_UPSTREAM, ITEM_ID) -> as entradas da LINEAGE com essa chave.
+
+    ⚠️ DEFEITO P1, FECHADO PELA CHAVE E NAO SO PELA LISTA. Na Sala real o mesmo
+    ITEM_ID aparece em corridas upstream diferentes (medido na R2: 22 entradas,
+    20 ITEM_ID). A v1 indexava so por ITEM_ID — primeiro guardando a ultima
+    entrada (o veredito dependia da ordem), depois guardando a lista. Um
+    ITEM_ID nao e uma observacao: e um nome dentro de UMA corrida upstream. A
+    chave passa a ser o par, e a lista fica so para entradas repetidas da mesma
+    corrida (POTE-UNICO, 2026-09-27).
     """
     out = {}
     for e in corrida.get("LINEAGE") or []:
         if isinstance(e, dict) and not e_ignorancia(e.get("ITEM_ID")):
-            out.setdefault(str(e["ITEM_ID"]), []).append(e)
+            chave = (_chave_upstream(e.get("CORRIDA_UPSTREAM")), str(e["ITEM_ID"]))
+            out.setdefault(chave, []).append(e)
     return out
 
 
-def conferir_prova(sinal: dict, linhagem: dict):
+def g0_passou(entrada: dict) -> bool:
+    """A regra de G0 da v1: so PASSOU prova alguma coisa."""
+    return entrada.get("G0") == "PASSOU"
+
+
+def conferir_prova(sinal: dict, linhagem: dict, admite=g0_passou):
     """`(motivo, detalhe)` se a prova nao aguenta; `None` se aguenta.
 
     UM SINAL SEM PROVA NAO ATRAVESSA. E a prova nao vale por existir: cada
-    elemento tem de chegar ao DOCUMENT_ID, e o ITEM_ID tem de estar na linhagem
-    DESTA corrida, com G0 = PASSOU e o mesmo SOURCE_ID e RAW_OBSERVATION_ID (e a
-    mesma CORRIDA_UPSTREAM, se a prova a disser). Se sobrar mais de uma entrada
-    e elas discordarem no G0, a prova e AMBIGUA e nao passa: escolher uma seria
-    a ponte a decidir que observacao o sinal quis dizer. A resposta nao depende
-    da ordem da LINEAGE.
+    elemento tem de chegar ao DOCUMENT_ID, e o par (CORRIDA_UPSTREAM, ITEM_ID)
+    tem de estar na linhagem DESTA corrida, com o mesmo SOURCE_ID e
+    RAW_OBSERVATION_ID, e a entrada tem de ser admitida (`admite`; por omissao
+    G0 = PASSOU). Se a prova nao disser a CORRIDA_UPSTREAM e o ITEM_ID existir
+    em mais de uma corrida upstream, a prova e AMBIGUA e nao passa: escolher
+    uma seria a ponte a decidir que observacao o sinal quis dizer. A resposta
+    nao depende da ordem da LINEAGE.
     """
     prova = sinal.get("PROVA")
     if not isinstance(prova, list) or not prova:
@@ -187,28 +202,36 @@ def conferir_prova(sinal: dict, linhagem: dict):
         falta = [c for c in CAMPOS_DA_PROVA if e_ignorancia(p.get(c))]
         if falta:
             return "PROVA_INCOMPLETA", "falta " + ", ".join(falta)
-        todas = linhagem.get(str(p["ITEM_ID"])) or []
-        if not todas:
-            return "PROVA_FORA_DA_CORRIDA", f"ITEM_ID {p['ITEM_ID']} nao esta na LINEAGE da corrida"
-        if not e_ignorancia(p.get("CORRIDA_UPSTREAM")):
-            todas = [e for e in todas
-                     if str(e.get("CORRIDA_UPSTREAM")) == str(p["CORRIDA_UPSTREAM"])]
+        item = str(p["ITEM_ID"])
+        corridas = sorted(up for (up, it) in linhagem if it == item)
+        if not corridas:
+            return "PROVA_FORA_DA_CORRIDA", f"ITEM_ID {item} nao esta na LINEAGE da corrida"
+        if e_ignorancia(p.get("CORRIDA_UPSTREAM")):
+            if len(corridas) > 1:
+                return ("PROVA_AMBIGUA", f"ITEM_ID {item} existe em {len(corridas)} corridas upstream "
+                        f"({', '.join(corridas)}); a prova tem de dizer CORRIDA_UPSTREAM")
+            up = corridas[0]
+        else:
+            up = str(p["CORRIDA_UPSTREAM"])
+            if up not in corridas:
+                return ("PROVA_FORA_DA_CORRIDA", f"ITEM_ID {item} nao esta na LINEAGE da corrida "
+                        f"com CORRIDA_UPSTREAM {up}")
+        todas = linhagem[(up, item)]
         batem = [e for e in todas
                  if all(str(e.get(c)) == str(p[c]) for c in ("SOURCE_ID", "RAW_OBSERVATION_ID"))]
         if not batem:
             # O motivo mais de base primeiro: um item que nunca passou G0 nao
             # prova nada, bata ou nao bata o resto.
-            if todas and all(e.get("G0") != "PASSOU" for e in todas):
-                return "ITEM_BLOQUEADO_EM_G0", f"ITEM_ID {p['ITEM_ID']} nunca passou G0 nesta corrida"
+            if all(not admite(e) for e in todas):
+                return "ITEM_BLOQUEADO_EM_G0", f"ITEM_ID {item} nunca passou G0 nesta corrida"
             return ("PROVA_CONTRADIZ_A_CORRIDA", "nenhuma entrada da LINEAGE tem o mesmo "
-                    "SOURCE_ID, RAW_OBSERVATION_ID (e CORRIDA_UPSTREAM, se dita)")
-        g0 = sorted({str(e.get("G0")) for e in batem})
-        if g0 == ["PASSOU"]:
+                    "SOURCE_ID, RAW_OBSERVATION_ID e CORRIDA_UPSTREAM")
+        if all(admite(e) for e in batem):
             continue
-        if "PASSOU" in g0:
-            return ("PROVA_AMBIGUA", f"ITEM_ID {p['ITEM_ID']} tem G0 {g0} em corridas upstream "
-                    "diferentes; a prova tem de dizer CORRIDA_UPSTREAM")
-        return "ITEM_BLOQUEADO_EM_G0", f"ITEM_ID {p['ITEM_ID']} tem G0 = {g0}"
+        g0 = sorted({str(e.get("G0")) for e in batem})
+        if any(admite(e) for e in batem):
+            return ("PROVA_AMBIGUA", f"ITEM_ID {item} tem G0 {g0} na mesma corrida upstream {up}")
+        return "ITEM_BLOQUEADO_EM_G0", f"ITEM_ID {item} tem G0 = {g0}"
     return None
 
 

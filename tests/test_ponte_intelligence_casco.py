@@ -410,6 +410,61 @@ class G_OCascoNoArEALinhagemReal(unittest.TestCase):
             ma = self._duas_corridas_upstream(ordem, {"CORRIDA_UPSTREAM": "SINT-UP-B"})
             self.assertIn(("windows", "SINT-SG-5", "ITEM_BLOQUEADO_EM_G0"), motivos(ma))
 
+    def test_G6_a_chave_e_o_par_corrida_upstream_e_item(self):
+        """P1 (POTE-UNICO): o mesmo ITEM_ID em duas corridas upstream, AS DUAS
+        com G0 = PASSOU mas de fontes diferentes. A prova que diz a corrida A
+        com a fonte da corrida B nao pode passar — um indice so por ITEM_ID
+        achava a entrada de B e aceitava."""
+        c = corrida_sintetica()
+        a = dict(ITEM_ID="SINT-ITEM-6", RAW_OBSERVATION_ID="SINT-RAW-6A", SOURCE_ID="SINT-SRC-6A",
+                 CORRIDA_UPSTREAM="SINT-UP-A", G0="PASSOU")
+        b = dict(ITEM_ID="SINT-ITEM-6", RAW_OBSERVATION_ID="SINT-RAW-6B", SOURCE_ID="SINT-SRC-6B",
+                 CORRIDA_UPSTREAM="SINT-UP-B", G0="PASSOU")
+        c["LINEAGE"] += [a, b]
+        cruzada = {"ITEM_ID": "SINT-ITEM-6", "CORRIDA_UPSTREAM": "SINT-UP-A",
+                   "RAW_OBSERVATION_ID": "SINT-RAW-6B", "SOURCE_ID": "SINT-SRC-6B",
+                   "DOCUMENT_ID": "SINT-DOC-6"}
+        c["ITENS_POR_FERRAMENTA"] = {"windows": [{"SIGNAL_ID": "SINT-SG-6", "ESTADO": "EXPERIMENTAL_CANDIDATE",
+                                                  "CHAVES": {}, "PROVA": [cruzada]}]}
+        pl = P.adaptar(c)
+        self.assertEqual(todos_os_cartoes(pl), [])
+        self.assertIn(("windows", "SINT-SG-6", "PROVA_CONTRADIZ_A_CORRIDA"), motivos(pl))
+        certa = dict(cruzada, RAW_OBSERVATION_ID="SINT-RAW-6A", SOURCE_ID="SINT-SRC-6A")
+        c["ITENS_POR_FERRAMENTA"]["windows"][0]["PROVA"] = [certa]
+        self.assertEqual([x["SIGNAL_ID"] for x in todos_os_cartoes(P.adaptar(c))], ["SINT-SG-6"])
+
+    def test_G7_sem_corrida_upstream_e_duas_corridas_e_ambigua_mesmo_com_dois_passou(self):
+        """Ajuste DECLARADO (POTE-UNICO): antes, dois PASSOU sem CORRIDA_UPSTREAM
+        passavam. Um ITEM_ID em duas corridas sao duas observacoes, e a prova tem
+        de dizer qual."""
+        c = corrida_sintetica()
+        for up in ("SINT-UP-A", "SINT-UP-B"):
+            c["LINEAGE"].append(dict(ITEM_ID="SINT-ITEM-7", RAW_OBSERVATION_ID="SINT-RAW-7",
+                                     SOURCE_ID="SINT-SRC-7", CORRIDA_UPSTREAM=up, G0="PASSOU"))
+        c["ITENS_POR_FERRAMENTA"] = {"windows": [{"SIGNAL_ID": "SINT-SG-7", "ESTADO": "EXPERIMENTAL_CANDIDATE",
+                                                  "CHAVES": {}, "PROVA": [_prova(7)]}]}
+        self.assertIn(("windows", "SINT-SG-7", "PROVA_AMBIGUA"), motivos(P.adaptar(c)))
+
+    def test_G8_na_mesma_corrida_upstream_g0_que_discorda_e_ambiguo(self):
+        c = corrida_sintetica()
+        e = dict(ITEM_ID="SINT-ITEM-8", RAW_OBSERVATION_ID="SINT-RAW-8", SOURCE_ID="SINT-SRC-8",
+                 CORRIDA_UPSTREAM="SINT-UP-A", G0="PASSOU")
+        c["LINEAGE"] += [e, dict(e, G0="BLOQUEADO_EM_G0")]
+        p = dict(_prova(8), CORRIDA_UPSTREAM="SINT-UP-A")
+        c["ITENS_POR_FERRAMENTA"] = {"windows": [{"SIGNAL_ID": "SINT-SG-8", "ESTADO": "EXPERIMENTAL_CANDIDATE",
+                                                  "CHAVES": {}, "PROVA": [p]}]}
+        self.assertIn(("windows", "SINT-SG-8", "PROVA_AMBIGUA"), motivos(P.adaptar(c)))
+
+    def test_G9_p4_fact_location_viaja_como_fact_location_e_nao_vira_region_id(self):
+        """P4: o valor fora do contrato viaja com o NOME que a corrida lhe deu."""
+        c = corrida_sintetica()
+        c["ITENS_POR_FERRAMENTA"] = {"windows": [{"SIGNAL_ID": "SINT-SG-9", "ESTADO": "EXPERIMENTAL_CANDIDATE",
+                                                  "CHAVES": {"FACT_LOCATION": "SINT-Puglia"},
+                                                  "PROVA": [_prova(1)]}]}
+        cartao = todos_os_cartoes(P.adaptar(c))[0]
+        self.assertEqual(cartao["CHAVES"]["REGION_ID"], NAO_SEI)
+        self.assertEqual(cartao["FORA_DO_CONTRATO"], {"FACT_LOCATION": "SINT-Puglia"})
+
     def test_G5_a_pagina_mostra_o_fora_do_contrato_com_valor(self):
         html = P.como_html(P.adaptar(corrida_sintetica()), css_href="styles.css")
         self.assertIn("fuori contratto D84", html)
