@@ -75,6 +75,17 @@ ORIGENS_DO_LUGAR = ('ESCRITO', 'CITADO', 'DA_FONTE', 'DEDUZIDO',
                     'LISTA_TERRITORIAL', 'NAO_SEI')
 ORIGENS_QUE_SUSTENTAM_FATO = ('ESCRITO', 'CITADO')
 
+# ── ONDE, DENTRO DO ESCRITO, O LUGAR ESTÁ — COL-LAW-032 (D112) ────────
+# «Escrito» tinha um balde só, e a Puglia mostrou que ele misturava três
+# coisas: o lugar na frase, o lugar no cabeçalho de secção que o TEXTO traz,
+# e o lugar que só aparece na IMAGEM da página. O terceiro nunca sustenta
+# FACT_LOCATION: fica candidato, e o fato fica UNRESOLVED até existir regra
+# canónica de herança. Não há valor aqui para «deduzido do layout».
+LOCATION_SOURCES = ('TEXT', 'SECTION_HEADER', 'VISUAL_HEADER_CANDIDATE',
+                    'UNRESOLVED')
+LOCATION_SOURCES_QUE_SUSTENTAM_FATO = ('TEXT', 'SECTION_HEADER')
+UNRESOLVED = 'UNRESOLVED'
+
 # ── OS PAPÉIS DE UM LUGAR DENTRO DE UM CONTEÚDO ───────────────────────
 # Guardar os que NÃO são fato é o que permite PROVAR que não viraram
 # ocorrência. Sem eles, a recusa não deixa rastro.
@@ -117,6 +128,24 @@ def sustenta_fato(origem_do_dado, papel):
     if origem_do_dado not in ORIGENS_QUE_SUSTENTAM_FATO:
         return False, 'origem %s não sustenta lugar do fato' % origem_do_dado
     return True, 'sustentado por %s' % origem_do_dado
+
+
+def fact_location(location_source, lugar_resolvido):
+    """COL-LAW-032 (D112): o que se grava em FACT_LOCATION, e porquê.
+
+    `lugar_resolvido` é o lugar do gazetteer/zona da fonte, ou None quando a
+    fonte escreveu só uma expressão («zone irrigue costiere di tutti
+    comprensori»). Sem lugar resolvido nunca há ponto: o bruto vai para
+    LOCATION_EXPRESSION_RAW e o fato fica UNRESOLVED.
+    """
+    if location_source not in LOCATION_SOURCES:
+        return UNRESOLVED, 'LOCATION_SOURCE %r fora do vocabulário' % (location_source,)
+    if location_source not in LOCATION_SOURCES_QUE_SUSTENTAM_FATO:
+        return UNRESOLVED, ('%s não sustenta FACT_LOCATION — candidato, não fato'
+                            % location_source)
+    if not lugar_resolvido:
+        return UNRESOLVED, 'expressão territorial sem lugar resolvido — nunca ponto artificial'
+    return lugar_resolvido, 'sustentado por %s' % location_source
 
 
 def mais_especifico_que(a, b):
@@ -167,6 +196,8 @@ def contrato():
         'TIPOS_DE_EVIDENCIA': list(TIPOS_DE_EVIDENCIA),
         'ORIGENS_DO_LUGAR': list(ORIGENS_DO_LUGAR),
         'ORIGENS_QUE_SUSTENTAM_FATO': list(ORIGENS_QUE_SUSTENTAM_FATO),
+        'LOCATION_SOURCES': list(LOCATION_SOURCES),
+        'LOCATION_SOURCES_QUE_SUSTENTAM_FATO': list(LOCATION_SOURCES_QUE_SUSTENTAM_FATO),
         'PAPEIS_NO_CONTEUDO': list(PAPEIS_NO_CONTEUDO),
         'ESTADOS_DO_LUGAR': list(ESTADOS_DO_LUGAR),
         'ORIGENS_DO_TEMPO': list(ORIGENS_DO_TEMPO),
