@@ -36,7 +36,9 @@ class TestLugar(unittest.TestCase):
 
     def test_o_lugar_da_fonte_e_a_data_de_coleta_nao_tem_por_onde_entrar(self):
         params = set(inspect.signature(FT.campos_do_fato).parameters)
-        self.assertEqual({"texto", "publication_time", "publication_time_basis"}, params)
+        # EXTRATOR-EVENTO-V2: `titulo` e `descricao` do video entram — sao texto do AUTOR, nem o lugar da
+        # fonte nem a data da coleta. A lista continua fechada: outro parametro reprova.
+        self.assertEqual({"texto", "publication_time", "publication_time_basis", "titulo", "descricao"}, params)
 
     def test_mencao_sem_acontecimento_fica_nao_sei(self):
         r = FT.campos_do_fato("La nostra associazione rappresenta i produttori di Firenze da oltre trenta anni.\n")

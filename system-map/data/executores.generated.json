@@ -1,15 +1,15 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "a8356a8ba60a7cb0e7d79027e98e0cc8d8b1498b",
+  "HEAD": "638f98e96f852c3fafe7416f7e30034d352d43ad",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 81,
- "TOTAL_CAMINHOS_RELEVANTES": 68,
+ "TOTAL_FICHEIROS": 84,
+ "TOTAL_CAMINHOS_RELEVANTES": 69,
  "POR_ESTADO": {
-  "NOT_APPLICABLE": 13,
-  "NOT_INSTRUMENTED": 63,
+  "NOT_APPLICABLE": 15,
+  "NOT_INSTRUMENTED": 64,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
  },
@@ -23,72 +23,72 @@
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 66,
+   "NOT_INSTRUMENTED": 67,
    "NOT_APPLICABLE": 0
   }
  },
@@ -206,12 +206,12 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 81,
-  "TOTAL_RELEVANT_PATHS": 68,
+  "TOTAL_FILES_SCANNED": 84,
+  "TOTAL_RELEVANT_PATHS": 69,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
   "TOTAL_ORCHESTRATORS": 6,
-  "TOTAL_ADAPTERS": 8,
+  "TOTAL_ADAPTERS": 9,
   "TOTAL_PRESERVATION_OWNERS": 4,
   "TOTAL_CHECKPOINT_OWNERS": 4,
   "TOTAL_TELEMETRY_EMITTERS": 4,
@@ -712,7 +712,7 @@
   {
    "EXECUTOR_ID": "coleta/executor_texto_de_html.py",
    "GAVETA": "coleta",
-   "LINHAS": 887,
+   "LINHAS": 905,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -736,7 +736,7 @@
   {
    "EXECUTOR_ID": "coleta/executor_texto_de_pdf.py",
    "GAVETA": "coleta",
-   "LINHAS": 716,
+   "LINHAS": 726,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -786,6 +786,30 @@
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
    "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/extratores_de_texto.py",
+   "GAVETA": "coleta",
+   "LINHAS": 54,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": true,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
   },
   {
    "EXECUTOR_ID": "coleta/filas.py",
@@ -1143,7 +1167,7 @@
   {
    "EXECUTOR_ID": "coleta/rota_forward_documento.py",
    "GAVETA": "coleta",
-   "LINHAS": 634,
+   "LINHAS": 639,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1249,7 +1273,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_colheita.py",
    "GAVETA": "coleta",
-   "LINHAS": 1032,
+   "LINHAS": 1076,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW"
@@ -1327,7 +1351,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_http.py",
    "GAVETA": "coleta",
-   "LINHAS": 804,
+   "LINHAS": 825,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1557,6 +1581,30 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "coleta/teto_da_onda.py",
+   "GAVETA": "coleta",
+   "LINHAS": 196,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
    "EXECUTOR_ID": "coleta/texto_fonte.py",
    "GAVETA": "coleta",
    "LINHAS": 99,
@@ -1607,7 +1655,7 @@
   {
    "EXECUTOR_ID": "coleta/youtube_janela.py",
    "GAVETA": "coleta",
-   "LINHAS": 663,
+   "LINHAS": 684,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW"
@@ -2204,7 +2252,7 @@
   {
    "EXECUTOR_ID": "ferramentas/youtube_transcrever.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 474,
+   "LINHAS": 535,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -2226,9 +2274,33 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "ferramentas/yt_dlp_com_freio.py",
+   "GAVETA": "ferramentas",
+   "LINHAS": 54,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
    "EXECUTOR_ID": "orquestrador/orquestrador.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 1318,
+   "LINHAS": 1326,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",

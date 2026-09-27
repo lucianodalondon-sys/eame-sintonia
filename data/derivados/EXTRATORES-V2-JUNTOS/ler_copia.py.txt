@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+# EXTRATORES-V2-JUNTOS · leitor SO-LEITURA da COPIA da Sala (era o da QUATRO-CHAVES-MEDIR). Registo do ensaio (.txt).
+#   py data/derivados/QUATRO-CHAVES-MEDIR/ler_sala.py.txt "<sql>"   -> linhas separadas por \x1f
+# O DSN vem do ficheiro e nunca e impresso; a sessao abre com default_transaction_read_only=on
+# e o script recusa qualquer sql que nao comece por select/with.
+import os
+import subprocess
+import sys
+
+# EXTRATORES-V2-JUNTOS: le a COPIA descartavel (copia_sala.py.txt), NUNCA a Sala real (porta 54330 recusada)
+DSN = "postgresql://postgres@127.0.0.1:54391/sala_copia_reproc"
+_REAL = open(os.path.expanduser("~/sintonia-sala-italia/SALA_DSN.txt"), encoding="utf-8").read().strip()
+assert ":54391/" in DSN and DSN != _REAL and ":54330" not in DSN
+PSQL = os.path.expanduser("~/orca/pgtmp/pgsql/bin/psql.exe")
+SEP = "\x1f"
+
+
+def consultar(sql):
+    if not sql.lstrip().lower().startswith(("select", "with")):
+        raise SystemExit("so leitura: o sql tem de comecar por select/with")
+    env = dict(os.environ, PGOPTIONS="-c default_transaction_read_only=on", PGCLIENTENCODING="UTF8")
+    r = subprocess.run([PSQL, "-X", "-q", "-A", "-t", "-F", SEP, "-v", "ON_ERROR_STOP=1",
+                        "-d", DSN, "-c", sql], env=env, capture_output=True)
+    if r.returncode:
+        raise SystemExit("psql falhou: " + r.stderr.decode("utf-8", "replace").replace(DSN, "<DSN>")[:400])
+    # \r do psql no Windows (memoria psql-traz-cr) fora; linhas vazias fora
+    return [l.rstrip("\r") for l in r.stdout.decode("utf-8").split("\n") if l.rstrip("\r")]
+
+
+if __name__ == "__main__":
+    for l in consultar(sys.argv[1]):
+        print(l.replace(SEP, " | "))
