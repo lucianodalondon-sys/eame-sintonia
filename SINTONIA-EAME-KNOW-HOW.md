@@ -22565,6 +22565,14 @@ stealth no serviço contínuo sem rota nomeada, canário, teto e proveniência.
 - As lacunas B4–B7 eram **parciais**, não ausentes; B6 cabe no `CAP-FUT` como está; B9 (`STUDY_LOCATION`/`PERIOD`)
   começa no claim/`FATO`, não em colunas novas.
 
+**O ITEM NÃO ESPERA PELA FONTE (D94 · D94-b, 27/09) — emenda proposta à `COL-LAW-042`.** O dono viu o sistema
+«travado»: nenhum post, reel ou vídeo de pesquisador na Sala. A escada da fonte (candidata → … → automática) passa a
+provar só a **coleta recorrente**; o **primeiro item** achado por assunto ou por pessoa entra na Admissão com a fonte
+ainda CANDIDATA, desde que `SOURCE_ID`, `ITEM_ID`, RAW, rota, corrida e proveniência estejam provados — e isso **não
+promove** a fonte. Riscos que a emenda nomeia: snippet é só descoberta (guardar o conteúdo real); nome ≠ perfil ≠ pessoa;
+três portas ≠ três Collections; contar só itens únicos, admitidos e com identidade provada. Medida de sucesso (D94):
+itens de redes de pesquisadores **na Sala por dia**.
+
 **ARMADILHAS.**
 - **Uma primeira redação tinha nove leis** (COL-LAW-701..704, INT-LAW-310..315). Foi substituída pelas três do bot:
   mais curtas, e alinhadas com as correções. **Escrever mais lei não é escrever melhor lei** — e o que é ferramenta

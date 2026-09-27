@@ -1495,5 +1495,21 @@ do bot de fontes guiado pela Intelligence) é aplicação de `COL-LAW-207`, `208
 leis (COL-LAW-701..704, INT-LAW-310..315); foi substituída pelas três do bot, mais curtas e
 alinhadas com as correções da secção F.
 
+**D94-b (27/09) — emenda à `COL-LAW-042` (PROPOSTA).**
+
+```
+LAW_ID    COL-LAW-042 (existente, emendada)
+BEFORE    a Admissão não dizia se o item de uma fonte ainda CANDIDATA podia entrar; na prática,
+          a escada da fonte (candidata → registada → contratada → automática) era pré-condição
+          do primeiro item.
+AFTER     SOURCE_READY_FOR_RECURRENCE ≠ ITEM_READY_FOR_ADMISSION: item achado por assunto ou pessoa
+          passa com SOURCE_STATE=CANDIDATA se SOURCE_ID, ITEM_ID, RAW, rota, corrida e proveniência
+          estiverem provados; não promove a fonte nem autoriza recorrência. Texto do bot Luciano.
+WHY       D94 do dono: «sistema travado»; redes dos pesquisadores = ouro, e até agora nada.
+EVIDENCE  a decisão escrita; 0 itens de redes de pesquisadores na Sala até 27/09.
+IMPACT    nenhum runtime mudou. A regra da decisão por par (item, universo) fica igual.
+VERSION   Coleta V1.5 (proposta, a mesma emenda)
+```
+
 **Porque 219, 220 e 137.** São os números que o bot propôs; medidos livres em 559 pontas de
 ramo. (A faixa COL-LAW-6xx já foi usada por um ramo lateral, Card Contract, 601..617.)

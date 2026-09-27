@@ -22,7 +22,7 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 | **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
 | **V1.4** | 2026-09-11 | **o retorno do executor entra na lei**: `COL-LAW-505` responde a pergunta que `COL-LAW-013` fez e nunca respondeu — «`OUTPUT` = onde larguei, e **em que forma**». Medido antes de escrita: `FALSE_HARVEST_TOTAL = 253` sobre os cinco executores canónicos | **105** (+1) |
-| **V1.5** | 2026-09-26 | **PROPOSTA — só entra em vigor com a aprovação do dono.** O que o campo mede, e até onde se pode ir buscá-lo (D85 · D88 · ALINHAMENTO COLLECTION → INTELLIGENCE), com o texto mínimo do bot Luciano: a medição que a fonte declara chega como veio, com a espécie da afirmação e nunca resumida (`COL-LAW-219`); e o material público pode ser alcançado por navegador real, JavaScript ou outra rota técnica, inclusive anti-automação, sem atravessar conta, paywall nem login (`COL-LAW-220`). Medido antes de escrita: 69 séries (66 numéricas) no acervo; Salerno 4 → 40 capturas de *Ceratitis capitata* | **107** (+2) |
+| **V1.5** | 2026-09-26 | **PROPOSTA — só entra em vigor com a aprovação do dono.** O que o campo mede, e até onde se pode ir buscá-lo (D85 · D88 · ALINHAMENTO COLLECTION → INTELLIGENCE), com o texto mínimo do bot Luciano: a medição que a fonte declara chega como veio, com a espécie da afirmação e nunca resumida (`COL-LAW-219`); e o material público pode ser alcançado por navegador real, JavaScript ou outra rota técnica, inclusive anti-automação, sem atravessar conta, paywall nem login (`COL-LAW-220`). E a **COL-LAW-042 ganha uma emenda** (D94-b, texto do bot): `SOURCE_READY_FOR_RECURRENCE ≠ ITEM_READY_FOR_ADMISSION` — item achado por assunto ou pessoa passa à Admissão com a fonte ainda CANDIDATA, se tudo o resto estiver provado; não promove a fonte. Medido antes de escrita: 69 séries (66 numéricas) no acervo; Salerno 4 → 40 capturas de *Ceratitis capitata* | **107** (+2; 042 emendada) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
@@ -1088,6 +1088,30 @@ a versão 1 rejeitou» é uma operação; sem ela, é uma coleta inteira de novo
 é o registro de **onde se pode coletar**. Responder-lhe `NAO_SEI` é dar uma resposta educada
 a uma pergunta que não se devia ter feito — e por isso ninguém vai investigar. O resultado
 certo é `NAO_SE_APLICA`.
+
+**EMENDA V1.5 — PROPOSTA** (texto do bot Luciano, **D94-b**, 27/09 ~08:50; em vigor só com a aprovação do dono):
+
+```
+SOURCE_READY_FOR_RECURRENCE  ≠  ITEM_READY_FOR_ADMISSION
+```
+
+Item achado por assunto ou pessoa pode passar pela Admission com `SOURCE_STATE=CANDIDATA`, desde que `SOURCE_ID`,
+`ITEM_ID`, RAW, rota, corrida e proveniência estejam provados. Isso não promove a fonte nem autoriza coleta
+recorrente.
+
+**O QUE ISTO MUDA.** A escada de degraus da fonte (candidata → registada → contratada → automática) passa a ser a
+prova para **coleta recorrente**, e deixa de ser pré-condição para **o primeiro item** entrar (D94: três portas —
+busca por assunto, busca por pessoa, fontes aprovadas em rodízio). A pergunta da Admissão continua a mesma — a
+decisão por par (item, universo), auditável —; muda só quem pode chegar a ela.
+
+**RISCOS, e a regra de cada um** (bot Luciano, D94-b):
+
+- o **snippet** de uma busca é só descoberta: busca-se o conteúdo real e guarda-se o RAW antes da Admissão;
+- `NAME ≠ PROFILE ≠ PERSON` (`COL-LAW-034`): um perfil com o nome do pesquisador não prova que é ele;
+- **três portas ≠ três Collections**, nem três contadores, nem três escritores da Sala (`COL-LAW-011`);
+- conta-se só item **único, admitido e com identidade provada** — não snippets, perfis, duplicados nem páginas de login;
+- **um bom item não promove a fonte**;
+- rede em paralelo só com o contador multicanal provado.
 
 **CONTRATOS.** `admissao/admissao.py` · `data/samples/LIVRO-DE-DECISOES.json`
 **ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`

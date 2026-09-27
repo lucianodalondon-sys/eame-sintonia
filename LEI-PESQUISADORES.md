@@ -109,6 +109,11 @@ Os `.md` de lei e as docstrings mudadas são fonte rastreada pelo mapa: até ele
 - **D91 (acréscimo 22:32):** na `COL-LAW-220`, «não ignorar robots» virou «respeitar robots no crawling comum; API pública
   oficial pode operar com contrato documentado, sem login/paywall, respeitando termos, teto, RAW e proveniência» — não vale
   para qualquer site. Também na `POLITICA_DE_ACESSO` e na §222.
+- **D94-b (acréscimo 27/09 08:58):** emenda **proposta** à `COL-LAW-042` (Lei da Admissão), texto do bot Luciano:
+  `SOURCE_READY_FOR_RECURRENCE ≠ ITEM_READY_FOR_ADMISSION` — item achado por assunto ou pessoa passa pela Admissão com
+  `SOURCE_STATE=CANDIDATA` se `SOURCE_ID`, `ITEM_ID`, RAW, rota, corrida e proveniência estiverem provados; não promove a
+  fonte nem autoriza recorrência. Com os riscos que o bot nomeou (snippet, nome ≠ perfil ≠ pessoa, três portas ≠ três
+  Collections, contar só itens únicos e admitidos). Registada no diário (lei existente alterada, COL-LAW-069) e na §222.
 - A reavaliação do bot Luciano sobre esta redação fica para quando ele voltar.
 
 ## EM PALAVRAS SIMPLES
