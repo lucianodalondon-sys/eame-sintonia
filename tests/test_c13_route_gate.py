@@ -145,6 +145,13 @@ DECISOES_NASCIDAS_DEPOIS = {
     'LINKEDIN/DISCOVER_POST': ('ALLOWED', 'linkedin:pagina-publica-da-organizacao', 'SIM', 'PROVED'),
     'LINKEDIN/FETCH_VIDEO_BYTES': ('ALLOWED', 'linkedin:data-sources-mp4', 'SIM', 'PROVED'),
     'LINKEDIN/FETCH_TRANSCRIPT': ('ALLOWED', 'linkedin:data-captions-url', 'SIM', 'PROVED'),
+    # ── D106 · 2026-09-27 · O COMENTARIO DE TERCEIRO NO LINKEDIN (COMENTARIOS-V1) ──
+    # O dono derrubou a trava da D24 sobre «comentarios de terceiros» e liberou o
+    # comentario sem esperar o juridico da ADAMA, primeiro pelas rotas gratuitas. A
+    # rota e a do JSON-LD da pagina PUBLICA do post, e nasce POSSIBLE_NOT_PROVED: nenhum
+    # HTML com esse bloco esta guardado na arvore, e medir e rede (do servico, D86-c).
+    'LINKEDIN/FETCH_COMMENTS': ('ALLOWED', 'linkedin:post-publico:jsonld-comment', 'SIM',
+                                'POSSIBLE_NOT_PROVED'),
 }
 
 

@@ -454,10 +454,11 @@ def comentarios(por_post=20):
     """A única camada que a rota grátis não entrega — e a única com dado pessoal."""
     pode, motivo = ip.pode_coletar()
     if not pode:
-        print('PORTÃO DE DADO PESSOAL FECHADO. Nada foi gasto.\n\n%s' % motivo)
+        # D106: o dado pessoal deixou de esperar o juridico; o que fecha agora e o GASTO.
+        print('PORTÃO DO GASTO FECHADO (rota paga sem OK explícito, D106). Nada foi gasto.\n\n%s' % motivo)
         _gravar('COMENTARIOS.json', {
             'SOURCE_ID': 'INSTAGRAM-COLETA/COMENTARIOS',
-            'STATE': 'BLOCKED_BY_PERSONAL_DATA_GATE', 'WHY': motivo,
+            'STATE': 'BLOCKED_BY_SPEND_GATE', 'WHY': motivo,
             'APIFY_RUNS': 0, 'COST_USD': 0, 'ITEM_COUNT': 0,
             'ZERO_SIGNIFICA': ('o portão estava fechado. NÃO é "não há comentários" — '
                                'a rota grátis já mediu que há.'),

@@ -290,7 +290,19 @@ LIMITES = ('PUBLIC_AUDIO_ONLY',
            #     AUTORIZAR A COLETA NAO VIRA CONFORMIDADE JURIDICA.
            #     O dono assumiu o risco da COLETA; a revisao juridica da ADAMA
            #     continua a ser quem decide a TELA.
-           'PUBLIC_PERSON_VIDEO_ONLY')
+           'PUBLIC_PERSON_VIDEO_ONLY',
+           # ── O LIMITE DO COMENTARIO PUBLICO (D106, 2026-09-27) ────────────
+           # Ampliado por decisao de dono, escrita: a D106 derrubou a trava da
+           # D24 sobre «comentarios de terceiros» e liberou LinkedIn e Instagram
+           # sem esperar o juridico da ADAMA.
+           # O QUE ELE PERMITE: o TEXTO do comentario que a pagina PUBLICA do
+           # post serve deslogada, a data e um pseudonimo estavel do autor, com
+           # o PAI nomeado (PARENT_CONTENT_ID), como PUBLIC_ASSERTION.
+           # O QUE ELE NAO PERMITE: perfil, avatar, url ou midia de quem
+           # comentou · lugar de quem comentou (o lugar e so do pai; a regiao
+           # da FALA so com evidencia explicita, D107) · login, cookie, conta ·
+           # rota paga sem OK explicito (D106-3) · pontuar ou ranquear a pessoa.
+           'PUBLIC_POST_COMMENTS_MINIMIZED')
 
 #: Os tres campos, na ordem em que se leem. Uma rota declara-os TODOS ou nenhum.
 EIXOS = ('OWNER_AUTHORIZED', 'PLATFORM_POLICY_STATUS', 'LIMITE')
@@ -868,7 +880,11 @@ MATRIZ = {
         'FETCH_COMMENTS': [
             r('apify:comments', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',
               'O ÚNICO buraco real medido: a rota grátis dá o NÚMERO de comentários, nunca '
-              'o TEXTO. Motivo canônico: FREE_ROUTE_INSUFFICIENT_CAPABILITY.',
+              'o TEXTO. Motivo canônico: FREE_ROUTE_INSUFFICIENT_CAPABILITY. '
+              'D106 (2026-09-27): o portão de dado pessoal deixa de esperar o jurídico da '
+              'ADAMA — mas esta rota é PAGA e a D106 NÃO a autoriza: só com OK explícito '
+              'de gasto (`IG_COMENTARIOS_AUTORIZADO`). Rota grátis de TEXTO: não existe '
+              '(medido), e por isso CONDICIONAL continua a ser a palavra certa.',
               'scripts/instagram_janela.py'),
         ],
         'FETCH_POST': [
@@ -1088,6 +1104,27 @@ MATRIZ = {
               'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',
               owner_authorized='SIM', platform_policy='DISALLOWED',
               limite='PUBLIC_PERSON_VIDEO_ONLY'),
+        ],
+        # ── D106 · 2026-09-27 · COMENTARIOS-V1 ──────────────────────────────────
+        # O dono derrubou a trava da D24 sobre «comentarios de terceiros» e liberou o
+        # comentario SEM esperar juridico da ADAMA — primeiro as rotas GRATUITAS. A
+        # unica gratuita candidata e a do proprio post publico: o bloco JSON-LD da
+        # pagina deslogada traz `comment[]` (o leitor da SOC-PESSOAS ja o via, e
+        # descartava-o por causa da D24). NAO MEDIDA NESTA ARVORE: nenhum HTML de post
+        # com esse bloco esta guardado aqui, e medir e 1 pedido de rede, que e do
+        # servico (D86-c). Por isso POSSIBLE_NOT_PROVED, e nao PROVED.
+        # A rota paga (texto de comentario como evento pago) NAO entra: D106-3.
+        'FETCH_COMMENTS': [
+            r('linkedin:post-publico:jsonld-comment', 'DIRECT_HTTP', 'SIM',
+              'POSSIBLE_NOT_PROVED', 'zero',
+              'D106: comentario de terceiro LIBERADO (cai a trava D24), so o que a pagina '
+              'PUBLICA do post serve deslogada, no JSON-LD. Minimizado: texto, data e '
+              'pseudonimo — sem perfil, avatar, url ou midia do comentarista. '
+              'COMENTARIO = PUBLIC_ASSERTION, nunca FACT; lugar so do pai. Medir antes de '
+              'promover: `provas/comentarios_v1/medir_comentarios_linkedin.py`.',
+              'pedido/elegibilidade_comentario.py · coleta/adaptador_linkedin.py::comentarios_do_jsonld',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_POST_COMMENTS_MINIMIZED'),
         ],
     },
 

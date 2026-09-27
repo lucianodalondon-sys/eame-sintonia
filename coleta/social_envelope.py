@@ -159,6 +159,83 @@ def agora():
     return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# O COMENTÁRIO É ASSERÇÃO PÚBLICA, NUNCA FACTO (D105/D106 · COMENTARIOS-V1)
+# ══════════════════════════════════════════════════════════════════════════
+# O vocabulário NÃO é novo: a casa já o escrevia fora do canónico, três vezes, à
+# mão — `regras/sensor_coleta.py` («comentário é FIELD_VOICE_OBSERVED quando
+# cabível, nunca FIELD_PROBLEM_CONFIRMED. Voz não é incidência.»),
+# `coleta/instagram_coleta.py` e `coleta/instagram_pessoal.py`
+# (`EVIDENCE_CLASS`, `*_IDENTITY_STATE = UNVERIFIED`). O que faltava era ele
+# VIAJAR no envelope canónico: medido na COMMENT-INTELLIGENCE-FASE1, o
+# `youtube_oficial._comentario` saía com `content_type='COMMENT'` e NENHUM campo
+# de asserção. Aqui ele passa a nascer com o objeto, e a nascer SEMPRE — um
+# comentário sem estes campos já não se consegue montar.
+#
+#     COMENTÁRIO = PUBLIC_ASSERTION. NUNCA FACT. VOZ NÃO É INCIDÊNCIA.
+#
+# O LUGAR DO FACTO é do MATERIAL PAI, e só dele (`leis/lugar_do_fato.py`:
+# PLACE_MENTION != FACT_LOCATION; a localização de quem comenta nem se coleta).
+# O comentário leva o PONTEIRO para o pai; o lugar herdado só vem preenchido
+# quando quem monta o objeto JÁ o tem provado. Sem isso é UNKNOWN, com o porquê
+# — e resolve-se por junção pelo `PARENT_CONTENT_ID`, não por cópia.
+CLAIM_KIND_DO_COMENTARIO = 'PUBLIC_ASSERTION'
+EVIDENCE_CLASS_DO_COMENTARIO = 'FIELD_VOICE_OBSERVED'
+ORIGIN_STATUS_DO_COMENTARIO = 'UNVERIFIED'
+AUTHOR_ROLE_DO_COMENTARIO = DESCONHECIDO
+NAO_E_DO_COMENTARIO = ('FACT nem FIELD_PROBLEM_CONFIRMED. Voz não é incidência: alguém '
+                       'dizer que tem um problema não mede que o problema exista.')
+LUGAR_DO_AUTOR_DO_COMENTARIO = 'NAO_SE_COLETA'
+
+
+def assercao_do_comentario(*, parent_content_id, parent_fact_location=None,
+                           parent_fact_location_basis=None):
+    """Os campos que todo `COMMENT` carrega. Falha fechado sem o pai.
+
+    `parent_fact_location` só se passa quando o lugar do PAI está provado; o
+    comentário nunca é fonte de lugar, nem pelo texto nem pelo perfil de quem o
+    escreveu.
+    """
+    pai = str(parent_content_id or '').strip()
+    if not pai or pai.upper() == DESCONHECIDO:
+        raise ValueError('COMENTARIO_SEM_PAI: um comentário sem PARENT_CONTENT_ID não '
+                         'tem a que pertencer — nem lugar, nem tempo, nem assunto.')
+    tem_lugar = parent_fact_location not in (None, '', DESCONHECIDO, 'NOT_KNOWN', 'NAO SEI')
+    return {
+        'CLAIM_KIND': CLAIM_KIND_DO_COMENTARIO,
+        'EVIDENCE_CLASS': EVIDENCE_CLASS_DO_COMENTARIO,
+        'ORIGIN_STATUS': ORIGIN_STATUS_DO_COMENTARIO,
+        'AUTHOR_ROLE': AUTHOR_ROLE_DO_COMENTARIO,
+        'NAO_E': NAO_E_DO_COMENTARIO,
+        'PARENT_CONTENT_ID': pai,
+        'FACT_LOCATION': parent_fact_location if tem_lugar else DESCONHECIDO,
+        'FACT_LOCATION_BASIS': (
+            'HERDADO_DO_PAI %s: %s' % (pai, parent_fact_location_basis or 'lugar provado do pai')
+            if tem_lugar else
+            'O_PAI_NAO_TRAZ_LUGAR_PROVADO_NESTA_CORRIDA: resolve-se por junção pelo '
+            'PARENT_CONTENT_ID; o comentário e quem o escreveu NÃO são fonte de lugar'),
+        'COMMENT_AUTHOR_LOCATION': LUGAR_DO_AUTOR_DO_COMENTARIO,
+        # ── D107: a SEGUNDA finalidade — o comentário como corpus linguístico ──
+        # (IAB-REGIONAL-LANGUAGE-INTELLIGENCE §5, §7, §19-22). O SCRAP não julga
+        # nenhum dos dois sinais: nascem NAO_AVALIADO e quem os marca é a régua do
+        # pedido (`pedido/elegibilidade_comentario.marcar`). A região de quem fala
+        # NUNCA é o lugar do facto do pai: sem evidência explícita, é UNKNOWN.
+        'AGRONOMIC_SIGNAL': SINAL_NAO_AVALIADO,
+        'LINGUISTIC_SIGNAL': SINAL_NAO_AVALIADO,
+        'PARENT_TOPIC': DESCONHECIDO,
+        'CANONICAL_ENTITIES': [],
+        'REGIONAL_LANGUAGE_EVIDENCE': DESCONHECIDO,
+        'REGION_IF_PROVEN': DESCONHECIDO,
+        'SPEAKER_LANGUAGE_LOCATION': DESCONHECIDO,
+    }
+
+
+SINAL_NAO_AVALIADO = 'NAO_AVALIADO'
+#: D107 §7 — a escada da evidência regional da FALA. Fechada.
+EVIDENCIAS_REGIONAIS = ('EXPLICIT', 'STRONG_CONTEXT', 'WEAK_CONTEXT', DESCONHECIDO)
+SINAIS = ('YES', 'NO', SINAL_NAO_AVALIADO)
+
+
 def hoje():
     return datetime.datetime.now(datetime.timezone.utc).date().isoformat()
 
@@ -338,7 +415,8 @@ def envelope(*, platform, native_id, url, content_type, route, executor,
              raw_reference=None, raw=None, title=None, text=None,
              text_kind=None, text_kind_basis=None, text_relation=None,
              text_language=None, text_derivation=None, text_tool=None,
-             text_model=None, text_units=None):
+             text_model=None, text_units=None, parent_content_id=None,
+             parent_fact_location=None, parent_fact_location_basis=None):
     """Monta o envelope canônico. Campos ausentes viram UNKNOWN, nunca ''.
 
     `text_units` é a forma completa — uma observação com legenda E fala traz
@@ -415,6 +493,11 @@ def envelope(*, platform, native_id, url, content_type, route, executor,
     # Rota que não impõe prazo recebe `{}` — nenhum campo a mais. O áudio e a
     # transcrição LOCAL continuam exactamente como estavam (D20.2).
     fora.update(retencao_da_rota(route, coletado_em=fora['COLLECTED_AT']))
+    # O comentário nasce asserção pública, com o pai nomeado — ou não nasce.
+    if content_type == 'COMMENT':
+        fora.update(assercao_do_comentario(
+            parent_content_id=parent_content_id, parent_fact_location=parent_fact_location,
+            parent_fact_location_basis=parent_fact_location_basis))
     return fora
 
 

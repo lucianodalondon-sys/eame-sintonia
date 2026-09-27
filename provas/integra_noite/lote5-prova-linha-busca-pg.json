@@ -1,0 +1,51 @@
+{
+ "PG": "/usr/lib/postgresql/16/bin",
+ "PORTO": 54469,
+ "MIGRATIONS_RC": 0,
+ "MIGRATIONS_PASS": 34,
+ "ANTES": {
+  "collection_run": 0,
+  "raw_asset": 0,
+  "storage_object": 0,
+  "sala_de_espera": 0
+ },
+ "PASSADA_1": {
+  "RC": 0,
+  "STDOUT": "{\"CORRIDA\": \"LINHA-BUSCA-RAW-SINTETICA-LOTE5\", \"PAGINAS_ADMITIDAS_LIDAS\": 1, \"RAW\": {\"RUN_STATE\": \"COMPLETE\", \"OBSERVACOES\": 1, \"MEMORIA\": true, \"FECHO\": \"concluida\"}, \"PRONTOS_COM_RAW\": 1, \"ITENS_UNICOS\": 1, \"POUSADO\": {\"ESTADO\": \"PASSED\", \"RUN_ID\": \"LINHA-BUSCA-RAW-SINTETICA-LOTE5\", \"FICHEIRO\": \"postgres:public.sala_de_espera?run_id=LINHA-BUSCA-RAW-SINTETICA-LOTE5\", \"MORADA\": \"postgres:public.sala_de_espera?run_id=LINHA-BUSCA-RAW-SINTETICA-LOTE5\", \"UNIDADES\": 1, \"INSERIDAS\": 1, \"JA_NA_SALA_POR_OUTRA_CORRIDA\": 0, \"VERSOES\": [], \"BACKEND\": \"POSTGRES\", \"CANONICO\": true, \"PORQUE\": \"escrita publicada nesta execucao\"}}",
+  "STDERR": "",
+  "ERROS_DO_BANCO": [],
+  "CONTAGENS": {
+   "collection_run": 1,
+   "raw_asset": 1,
+   "storage_object": 1,
+   "sala_de_espera": 1
+  }
+ },
+ "PASSADA_2": {
+  "RC": 0,
+  "STDOUT": "{\"CORRIDA\": \"LINHA-BUSCA-RAW-SINTETICA-LOTE5\", \"PAGINAS_ADMITIDAS_LIDAS\": 1, \"RAW\": {\"RUN_STATE\": \"PARTIAL\", \"OBSERVACOES\": 1, \"MEMORIA\": false, \"FECHO\": \"concluida\"}, \"PRONTOS_COM_RAW\": 1, \"ITENS_UNICOS\": 1, \"POUSADO\": {\"ESTADO\": \"REUSED\", \"RUN_ID\": \"LINHA-BUSCA-RAW-SINTETICA-LOTE5\", \"FICHEIRO\": \"postgres:public.sala_de_espera?run_id=LINHA-BUSCA-RAW-SINTETICA-LOTE5\", \"MORADA\": \"postgres:public.sala_de_espera?run_id=LINHA-BUSCA-RAW-SINTETICA-LOTE5\", \"UNIDADES\": 1, \"INSERIDAS\": 0, \"JA_NA_SALA_POR_OUTRA_CORRIDA\": \"NAO SEI\", \"VERSOES\": [], \"BACKEND\": \"POSTGRES\", \"CANONICO\": true, \"PORQUE\": \"a corrida ja tinha exactamente este conteudo\"}}",
+  "STDERR": "",
+  "ERROS_DO_BANCO": [],
+  "CONTAGENS": {
+   "collection_run": 1,
+   "raw_asset": 1,
+   "storage_object": 1,
+   "sala_de_espera": 1
+  }
+ },
+ "CORRIDA": "LINHA-BUSCA-RAW-SINTETICA-LOTE5",
+ "COLLECTION_RUN": "LINHA-BUSCA-RAW-SINTETICA-LOTE5|HTTP direto|coleta/linha_busca.py|concluida",
+ "RAW_DA_CORRIDA": "1|1",
+ "SALA_DA_CORRIDA": "1|1",
+ "SALA_LIGA_AO_RAW": 1,
+ "STORAGE_PATHS": [
+  "IT/cand-0001/OBSERVATION/fd4599a7ffc0252e-u4e75ecf7daff5fe4-bollettino-21.html"
+ ],
+ "VEREDITO": {
+  "CORRIDA_NASCE": true,
+  "RAW_NASCE": true,
+  "ITEM_POUSA_LIGADO_AO_RAW": true,
+  "SEGUNDA_PASSADA_INSERE_0": true,
+  "RC_OK": true
+ }
+}

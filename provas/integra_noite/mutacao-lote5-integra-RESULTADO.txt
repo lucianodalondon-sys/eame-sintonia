@@ -1,0 +1,23 @@
+MUTACAO LOTE5-INTEGRA sobre 71fb9714
+LIMPO rc=0 /usr/local/bin/python3 system-map/scripts/validate_system_map.py :: SYSTEM_MAP_CHECK=PASS · o mapa corresponde ao repositorio
+LIMPO rc=0 -c /usr/local/bin/python3 system-map/scripts/generate_system_map.py >/dev/null && /usr/local/bin/python3 system-map/scripts/validate_system_map.py :: SYSTEM_MAP_CHECK=PASS · o mapa corresponde ao repositorio
+LIMPO rc=0 provas/linha_busca_raw_no_postgres_descartavel.py /tmp/lote5-mutacao-pg :: }
+LIMPO rc=0 /usr/local/bin/python3 tests/test_linha_busca.py :: OK
+LIMPO rc=0 /usr/local/bin/python3 tests/test_busca_no_actions.py :: OK
+MORTO J1-a   coleta/linha_busca.py | colher --pousar volta a pousar direto na Sala (sem collection_run/raw_asset) | rc=1 :: FAILED (failures=1)
+MORTO J1-b   coleta/linha_busca.py | --sem-portao-it deixa de se restringir a API oficial | rc=1 :: FAILED (failures=1)
+MORTO J1-c   coleta/linha_busca.py | a tesoura da chave sai do erro da busca | rc=1 :: FAILED (failures=1)
+MORTO J1-d   coleta/linha_busca.py | --buscar com motor API volta ao transporte de paginas | rc=1 :: FAILED (failures=3)
+MORTO J1-e   coleta/linha_busca.py | admitir ignora o raw_asset_id real (READY sem linhagem) | rc=1 :: FAILED (failures=1)
+MORTO J3-a   coleta/linha_busca_raw.py | pousa noutra corrida (a que nao nasceu em collection_run) | rc=1 :: }
+MORTO J3-b   coleta/linha_busca_raw.py | salta o dono do RAW e inventa o id (o defeito original: run_id_fkey) | rc=1 :: }
+MORTO J2-a   system-map/data/architecture.declared.json | a peca C-PROVA-COMENTARIOS some do mapa | rc=1 :: Leia AGENTS.md antes de mexer.
+MORTO J2-b   system-map/data/architecture.declared.json | a peca C-LINHA-BUSCA some do mapa | rc=1 :: Leia AGENTS.md antes de mexer.
+MORTO J4-a   system-map/data/state.generated.json | gerado velho (o da base 18461b92) fica no lugar | rc=1 :: Leia AGENTS.md antes de mexer.
+RESULTADO 10/10 mortos
+# J3 conferido a mao (ERROS_DO_BANCO da prova, mesmo mutante, mesmo commit):
+#   J3-a  ERROR: insert or update on table "sala_de_espera" violates foreign key constraint "sala_de_espera_run_id_fkey"
+#         DETAIL: Key (run_id)=(LINHA-BUSCA-RAW-SINTETICA-LOTE5-OUTRA) is not present in table "collection_run".
+#   J3-b  ERROR: ... violates foreign key constraint "sala_de_espera_run_id_fkey"
+#         DETAIL: Key (run_id)=(LINHA-BUSCA-RAW-SINTETICA-LOTE5) is not present in table "collection_run".  (o defeito original)
+# 1a passada sobre 62c793c8: 8/10 (J1-a e J1-c VIVOS) -> 2 testes de juncao em 71fb9714 -> 10/10.

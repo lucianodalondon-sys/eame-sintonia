@@ -206,7 +206,55 @@ def _valor_e_segredo(trecho):
 #
 # Fica vazia de propósito. Se o padrão voltar — ali ou em qualquer sítio — a
 # guarda passa a acusá-lo como achado NOVO, que é o que ele seria.
-DIVIDA_CONHECIDA = {}
+DIVIDA_CONHECIDA = {
+    # BUSCA-NO-ACTIONS (27/09): a pagina de cifo.it guardada como amostra RAW do juiz de pagina (C2-JUIZ, 74a76c2f)
+    # traz a chave PUBLICA do Google Maps DO SITE (`maps.googleapis.com/maps/api/js?key=...`), que o site entrega a
+    # qualquer visitante. Nao e credencial nossa, e o RAW nao se altera. Fica listada — o relatorio continua a mostra-la.
+    'tests/dados/c2-juiz/raw-1558.html': 'chave publica do Google Maps do proprio cifo.it, dentro da pagina copiada '
+                                         '(RAW de teste); nao e credencial do SINTONIA',
+    # BUSCA-NO-ACTIONS (27/09): medido no ramo linha-busca-v1 @ 99eebc26 (sobre o vivo 2ef6fef8) — a guarda
+    # acusava estes ficheiros, TODOS anteriores a esta missao, e por isso NENHUM workflow com o passo 0 passava.
+    # Nenhum e credencial do SINTONIA. Ficam listados, um a um: o relatorio mostra-os em cada corrida, e um
+    # achado NOVO continua a travar.
+    'DEDUP-INSTALAR.md':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'data/derivados/PERIODO-E-CHAVES/testes-ANTES.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'data/derivados/PERIODO-E-CHAVES/testes-BATERIA-LEVE.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'data/derivados/PERIODO-E-CHAVES/testes-caderno-ANTES.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'data/derivados/QUATRO-CHAVES-MEDIR/testes-pendentes-ANTES.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'data/derivados/QUATRO-CHAVES-V2/testes-nuvem-sem-banco.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'data/derivados/QUATRO-CHAVES-V2/testes-por-nome-ANTES.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'data/derivados/RECEITA-T8-V1/testes-ANTES.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'data/derivados/RECEITA-T8-V1/vizinhos-ANTES.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'data/derivados/RECEITA-T8-V1/vizinhos-DEPOIS.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'ferramentas/big_collection/onda4/RODADA1-ROTEIRO.md':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'ferramentas/big_collection/onda_web.py':
+        'caminho pessoal do Windows escrito no CODIGO (pasta de trabalho desta maquina); nao e credencial — trocar por ambiente/~ numa missao propria',
+    'ferramentas/c9/ensaio/antes.err':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'ferramentas/c9/ensaio/depois.err':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'ferramentas/maestro_social/maestro_social.py':
+        'caminho pessoal do Windows escrito no CODIGO (pasta de trabalho desta maquina); nao e credencial — trocar por ambiente/~ numa missao propria',
+    'provas/integra_noite/lote3-pesado-sem036.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'provas/integra_noite/lote3-pesado-vivo.txt':
+        'caminho pessoal do Windows dentro de um relatorio/saida guardado como prova; nao e credencial — a prova nao se reescreve',
+    'provas/t2_boletins/rede/bytes/ae6395590f25cd3397f8.bin':
+        'licenca PUBLICA do widget de acessibilidade accessiweb.it (data-license-key) dentro da pagina copiada (RAW de prova); nao e credencial do SINTONIA',
+    'scripts/regua_t2/prova_d29_porta.py':
+        'caminho pessoal do Windows escrito no CODIGO (pasta de trabalho desta maquina); nao e credencial — trocar por ambiente/~ numa missao propria',
+}
 
 # Extensões que não vale a pena abrir procurando texto.
 BINARIOS = re.compile(r'(?i)\.(png|jpg|jpeg|gif|webp|pdf|zip|gz|woff2?|ttf|otf|ico|mp4|mp3)$')
