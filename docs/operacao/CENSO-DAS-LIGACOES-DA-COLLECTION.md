@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  987b5b5f279ac69594297e540f09e23568dbf48b
-BRANCH           claude/lote6-integra-671dm9
-GERADO_EM        2026-09-27T19:40:07+00:00
+HEAD_DA_MEDICAO  f5f5b8ad415f9623aa7e9519a297d6e767a0cd69
+BRANCH           claude/single-reference-gateway-hhhj7t
+GERADO_EM        2026-09-27T21:26:48+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -80,21 +80,21 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `coleta/concorrencia_meta.py`, `coleta/meta_anunciante.py` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | DESENVOLVIMENTO_MERCADO · MARKETING · INTELIGENCIA |
-| **status operacional** | green — outra peca do sistema importa isto para funcionar. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | pedido/receitas.py:658; tests/mutacao_concorrencia_meta.py:23; tests/test_concorrencia_meta.py:26 |
+| **prova de quem ativa** | pedido/receitas.py:658; provas/porta_unica_referencia/mutantes.py:40; tests/mutacao_concorrencia_meta.py:23 |
 | **porquê** | estas pecas importam-na — C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json`, `ferramentas/meta_biblioteca.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 3 |
-| **arestas provadas** | entram 7 · saem 3 |
+| **arestas no mapa** | entram 8 · saem 4 |
+| **arestas provadas** | entram 8 · saem 4 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 10 |
+| **prova das ligações** | CODE 12 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -513,13 +513,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json` |
 | **o que sai · dado** | C-SUPABASE |
 | **o que sai · ficheiros** | `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json`, `data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json` |
-| **arestas no mapa** | entram 5 · saem 11 |
-| **arestas provadas** | entram 4 · saem 11 |
+| **arestas no mapa** | entram 5 · saem 12 |
+| **arestas provadas** | entram 4 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 15 · NÃO SEI 1 |
+| **prova das ligações** | CODE 16 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -1144,7 +1144,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | green — outras pecas importam ou carregam isto. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/concorrencia_meta.py:68; coleta/concorrencia_meta.py:434; tests/mutacao_concorrencia_meta.py:47 |
+| **prova de quem ativa** | coleta/concorrencia_meta.py:69; coleta/concorrencia_meta.py:436; tests/mutacao_concorrencia_meta.py:47 |
 | **porquê** | estas pecas importam-na — C-COLETA-META — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -1371,19 +1371,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-COLETA-PUBLICA.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/comunicacao_concorrenza.py:73; motor/v21_ingest.py:266; pacote/lastmile_entregar.py:65 |
-| **porquê** | estas pecas importam-na — C-COLETA-PUBLICA · C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | coleta/comunicacao_concorrenza.py:73; motor/porta_da_referencia.py:65; motor/v21_ingest.py:266 |
+| **porquê** | estas pecas importam-na — C-COLETA-PUBLICA · C-INT-PORTA-REFERENCIA · C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json`, `data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json`, `research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json`, `research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json` |
-| **arestas no mapa** | entram 1 · saem 5 |
-| **arestas provadas** | entram 1 · saem 5 |
+| **arestas no mapa** | entram 2 · saem 7 |
+| **arestas provadas** | entram 2 · saem 7 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 6 |
+| **prova das ligações** | CODE 9 |
 | **lei da Bíblia** | COL-LAW-009 · fonte, endpoint, rota, executor, item e artefato sao seis coisas |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2676,12 +2676,12 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `referencia/adama/ACTIVE-INGREDIENTS.json`, `referencia/adama/AUTHORIZED-USES.json`, `referencia/adama/CATALOG-SNAPSHOTS.json`, `referencia/adama/CONTRATO-ADAMA-REFERENCE.md`, `referencia/adama/DOSES.json` _(e mais 10)_ |
+| **peça real** | `referencia/adama/ACTIVE-INGREDIENTS.json`, `referencia/adama/AUTHORIZED-USES.json`, `referencia/adama/CATALOG-SNAPSHOTS.json`, `referencia/adama/CONTRATO-ADAMA-REFERENCE.md`, `referencia/adama/DOSES.json` _(e mais 11)_ |
 | **papel** | STORAGE · medido no plano CODE |
 | **dono** | REGULATORIO_PORTFOLIO · INTELIGENCIA |
-| **status operacional** | yellow — existe teste que exercita esta lei. NENHUM modulo de runtime a importa — a lei esta escrita e nao esta a ser aplicada (DECLARED_RULE_NOT_ENFORCED).  Mas ha 15 f |
+| **status operacional** | yellow — existe teste que exercita esta lei. NENHUM modulo de runtime a importa — a lei esta escrita e nao esta a ser aplicada (DECLARED_RULE_NOT_ENFORCED).  Mas ha 16 f |
 | **QUEM ATIVA** | **NAO_SE_ATIVA** |
-| **prova de quem ativa** | 15 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
+| **prova de quem ativa** | 16 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
 | **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -2858,7 +2858,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-COLETA-META, C-ESTRADA-PDF.  Mas 1 ficheiro(s) mudaram depois de a desc |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/adaptador_linkedin.py:117; coleta/coletor.py:76; coleta/concorrencia_meta.py:70 |
+| **prova de quem ativa** | coleta/adaptador_linkedin.py:117; coleta/coletor.py:76; coleta/concorrencia_meta.py:71 |
 | **porquê** | estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-COLETA-META · C-DATA-CLOCK — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/samples/POLITICA-RAW-ROTA-PAGA.json`, `data/samples/RUN-MANIFEST.json` |

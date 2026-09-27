@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T19:40:29+00:00",
-    "HEAD": "987b5b5f279ac69594297e540f09e23568dbf48b",
+    "GENERATED_AT": "2026-09-27T21:32:22+00:00",
+    "HEAD": "f5f5b8ad415f9623aa7e9519a297d6e767a0cd69",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "56322093317b2e4d07ef3708020cd8818840c111ca3b961e0feda692c5f0f21a",
-    "FICHEIROS_NA_IMPRESSAO": 4149,
+    "SOURCE_TREE_FINGERPRINT": "d9be63f2f36a69e18e85e71f29a4c897f385a162db62c0c6eb0030cc343642fa",
+    "FICHEIROS_NA_IMPRESSAO": 4164,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -230,7 +230,7 @@
       {
         "PATH": "coleta/concorrencia_meta.py",
         "PAPEL": "FONTE",
-        "VERSAO": "5e7cdab091ac44ef10ad4c02e3713ccca616e198",
+        "VERSAO": "dc01f3b0791cfd1776b3be1becdb9d9441287eab",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1329,7 +1329,7 @@
       {
         "PATH": "fontes/adama_referencia.py",
         "PAPEL": "FONTE",
-        "VERSAO": "b9a7ec25bd72c4955f537c93aafdb2e7512dd338",
+        "VERSAO": "689127ff821289635e8830c6c5baccc43d5f0781",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1636,7 +1636,7 @@
       }
     ],
     "INPUTS_COUNT": 232,
-    "INPUTS_DIGEST": "93854da0fbab30f77964d5ff808d3fab9aedf660e73fa95fc74853d48c163246",
+    "INPUTS_DIGEST": "c4788d321d93080351074494d41efae64cb243f14dbb1ec257f41a1e3e920994",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2054,7 +2054,7 @@
     {
       "ficheiro": "fontes/adama_referencia.py",
       "gaveta": "fontes",
-      "linhas": 717,
+      "linhas": 831,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -3911,7 +3911,7 @@
     {
       "ficheiro": "coleta/concorrencia_meta.py",
       "gaveta": "coleta",
-      "linhas": 537,
+      "linhas": 591,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -4830,7 +4830,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "fontes/adama_referencia.py"
+      ],
       "no_ci": false
     },
     {
@@ -6326,7 +6328,7 @@
     "ficheiros_de_codigo": 232,
     "pontos_de_entrada": 167,
     "executores_que_saem_para_fora": 31,
-    "sem_chamador_e_fora_do_ci": 111,
+    "sem_chamador_e_fora_do_ci": 110,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 138,
     "deitam_fora_alguma_coisa": 52,
@@ -6630,7 +6632,6 @@
       "coleta/preservar_pdf.py",
       "coleta/regulatorio_importar.py",
       "coleta/ropf_pre_requisito.py",
-      "coleta/rotulos_ler.py",
       "coleta/sensor_canal_identidade.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",

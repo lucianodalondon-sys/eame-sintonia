@@ -18,7 +18,7 @@ coleta para descobrir o que já se sabe.
   - `docs/fontes/ATLAS-DE-FONTES-EAME.md`
   - `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`
   - `data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json`
-- **O que a ADAMA sabe de si** — O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna.
+- **O que a ADAMA sabe de si** — O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna. O construtor da referencia (fontes/adama_referencia.py) confere a edicao corrente contra o bruto do Ministero e escreve a data da ultima checagem que deu certo; cola a citacao dos pares do leitor de rotulos aos usos autorizados so depois de conferir par a par que sao os mesmos 2030.
   - `fontes/adama_catalogo_ler.py`
   - `fontes/adama_catalogo_montar.py`
   - `fontes/adama_catalogo_snapshot.py`

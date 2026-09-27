@@ -37,8 +37,9 @@ MUTANTES = [
   "        ready[\"FACT_LOCATION_BASIS\"] = NAO_SEI + \" — \" + rel[\"FACT_LOCATION\"][\"PORQUE\"]",
   "        pass"),
  ("M5", MOTOR, "triagem: estudo vai tambem a CAP-WIN (estudo vira observacao de janela)",
-  "    win = WIN.julgar(livro, itens_win, hoje, fora=para_win)",
-  "    win = WIN.julgar(livro, itens_win, hoje, fora={})"),
+  # ajuste declarado (PORTA-UNICA-REFERENCIA): a linha ganhou `referencia=ref`; o defeito e o mesmo
+  "    win = WIN.julgar(livro, itens_win, hoje, fora=para_win, referencia=ref)",
+  "    win = WIN.julgar(livro, itens_win, hoje, fora={}, referencia=ref)"),
  ("M6", MOTOR, "triagem: a classe declarada pela fonte passa a decidir o estudo",
   "    if achado:\n        return True",
   "    if achado or ready.get(\"SOURCE_DECLARED_EVIDENCE_CLASS\") == \"SCIENTIFIC_RESULT\":\n        return True"),
@@ -98,8 +99,9 @@ MUTANTES = [
   "        sobra = sorted(set(r) - {\"READY\"})",
   "        sobra = []"),
  ("M28", MOTOR, "duas corridas: a CAP-SCI corre num livro proprio (contador duplicado)",
-  "    sci = SCI.julgar(livro, ready_cap, referencia, triados_fora=para_sci)",
-  "    sci = SCI.julgar(CI.correr(PERGUNTA + ' (SCI)', ready_cap), ready_cap, referencia, triados_fora=para_sci)"),
+  # ajuste declarado (PORTA-UNICA-REFERENCIA): a SCI recebe `ref` (a da porta); o defeito e o mesmo
+  "    sci = SCI.julgar(livro, ready_cap, ref, triados_fora=para_sci)",
+  "    sci = SCI.julgar(CI.correr(PERGUNTA + ' (SCI)', ready_cap), ready_cap, ref, triados_fora=para_sci)"),
  ("M29", MOTOR, "rendimento: prova sem DOCUMENT_ID entra (o pote recusa a fonte inteira)",
   "        com_doc = [l for l in passaram if not _ign(", "        com_doc = [l for l in passaram if True or not _ign("),
  ("M30", MOTOR, "futuro: item bloqueado por mais do que o futuro prova o futuro",

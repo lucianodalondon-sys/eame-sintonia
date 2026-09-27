@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote6-integra-671dm9",
-    "HEAD": "987b5b5f279ac69594297e540f09e23568dbf48b",
-    "GENERATED_AT": "2026-09-27T19:40:07+00:00",
-    "SOURCE_TREE_FINGERPRINT": "56322093317b2e4d07ef3708020cd8818840c111ca3b961e0feda692c5f0f21a"
+    "BRANCH": "claude/single-reference-gateway-hhhj7t",
+    "HEAD": "f5f5b8ad415f9623aa7e9519a297d6e767a0cd69",
+    "GENERATED_AT": "2026-09-27T21:26:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d9be63f2f36a69e18e85e71f29a4c897f385a162db62c0c6eb0030cc343642fa"
   },
   "FILES": [
     {
@@ -298,6 +298,13 @@
     {
       "path": "CONSERTO-REGUA.md",
       "sha": "90a447767ed4cdea922d01d8730282e45f71d286",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "CRUZAMENTOS-MAX.md",
+      "sha": "cc2173e760523d443240d90beca9017ffb25acb3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2243,7 +2250,7 @@
     },
     {
       "path": "coleta/concorrencia_meta.py",
-      "sha": "5e7cdab091ac44ef10ad4c02e3713ccca616e198",
+      "sha": "dc01f3b0791cfd1776b3be1becdb9d9441287eab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11510,8 +11517,43 @@
       "code_dir": false
     },
     {
+      "path": "docs/intelligence/r7/ANALISE-R7.json",
+      "sha": "80001e9d5175c4c53db7f8b3b793afcf5c5e6116",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
+      "sha": "c4ea79bfe24d8fe7ca7afd8bd12a32ef7a56ddf6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
+      "sha": "1b41cf47c0910b790bf441d247bab17df9d853c9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/intelligence/r7/RELATORIO-RODADA-7.md",
+      "sha": "928a2a607c85aa7ba3a6bc08bcfc66f2f10738b7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/nuvem/nuvem-boletim-por-secao-v1-MERGES.txt",
       "sha": "1d9c09395bc69e60f30aacb43999e0efe1647068",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/nuvem/nuvem-cruzamentos-max-v1-MERGES.txt",
+      "sha": "f1ee486b6686800e3e542b533afa1c9bba0d69ad",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -15620,7 +15662,7 @@
     },
     {
       "path": "fontes/adama_referencia.py",
-      "sha": "b9a7ec25bd72c4955f537c93aafdb2e7512dd338",
+      "sha": "689127ff821289635e8830c6c5baccc43d5f0781",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17853,7 +17895,7 @@
     },
     {
       "path": "leis/boletim_do_campo.py",
-      "sha": "931b1d0fc3af5079671a057831b307ce7112ac1c",
+      "sha": "5f0af9f830ff98e48f29497bde5767672a2a04c7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18553,14 +18595,14 @@
     },
     {
       "path": "motor/cap_win.py",
-      "sha": "045e1564b43a4704c9cded128d1b5b63c9df2056",
+      "sha": "89c38fd28fadf16fdc853f558d12903cb2a14bc7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "motor/capacidade_cientifica.py",
-      "sha": "2489be6a8360637ff1e8b62f4af280847fc567cb",
+      "sha": "264efaa5d32f60659dd838ec1a5abcfbd45f1766",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18575,6 +18617,13 @@
     {
       "path": "motor/corrida_da_inteligencia.py",
       "sha": "c928ad3bfbdf4162da652da3bc8bfd63741b9191",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/cruzamentos_max.py",
+      "sha": "0ab43eee8446b1cf7bafbb18004da687957c3344",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18595,7 +18644,7 @@
     },
     {
       "path": "motor/motor_das_capacidades.py",
-      "sha": "1dd1a5323189a8d95f68a163d4ec0b2b43fce6c2",
+      "sha": "85d6e567fbf10eb7c551e24da2f50d6cbe5ff592",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18624,6 +18673,13 @@
     {
       "path": "motor/pacote_normalizar.py",
       "sha": "c2d08c2031610aa7b11e20c59ce4728610eb66d8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/porta_da_referencia.py",
+      "sha": "199db4b80d9a3258217e98b800135a5be1d5544a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19007,6 +19063,13 @@
       "code_dir": true
     },
     {
+      "path": "pacote/pote_cruzamentos_max.py",
+      "sha": "199a84e54c3924af1b13ae6971ad6f70a1ca788a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "pacote/pote_intelligence_casco.py",
       "sha": "074d70c72afcac00eb95ebeed10c3a5dbea3d253",
       "ext": ".py",
@@ -19247,6 +19310,13 @@
     {
       "path": "provas/_mutantes_cap_sci.py",
       "sha": "c3ee86e8fbb7332d3171999666c5a933818db66c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_mutantes_cruzamentos_max.py",
+      "sha": "fc38380bb7e0306665225ebf5f68ed467768987b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20044,7 +20114,7 @@
     },
     {
       "path": "provas/cap_win/MUTANTES.json",
-      "sha": "51735efc754f3a32f961eb70c430be60e82587ab",
+      "sha": "32c22a9b4110fc7471cd0513b8ccb5cdc6e7e7d9",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20387,7 +20457,7 @@
     },
     {
       "path": "provas/int_r7/MUTANTES.json",
-      "sha": "9a10c13066da8dceb95a47f90176ffd326a9c616",
+      "sha": "865f0a6e4d7b04c0bfc68f0662b5533c99bd7910",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20415,7 +20485,7 @@
     },
     {
       "path": "provas/int_r7/mutantes.py",
-      "sha": "e32a001577c2e635430def76d6742867eec09180",
+      "sha": "e4becded73d79d419c41c0237faaacbeab6488b7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21345,6 +21415,20 @@
       "code_dir": true
     },
     {
+      "path": "provas/porta_unica_referencia/MUTANTES.json",
+      "sha": "ac9649e26d652b80dfa8d747192fb4288d4148d8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/porta_unica_referencia/mutantes.py",
+      "sha": "ec836337b7a4d77cc997ab5a8760dda524c736d5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/portas_canonicas_no_postgres.py",
       "sha": "6fd0ff6c4beaae3d9584bb43a90e52e9ac3c1818",
       "ext": ".py",
@@ -22172,7 +22256,7 @@
     },
     {
       "path": "referencia/adama/AUTHORIZED-USES.json",
-      "sha": "0e6cc777dee89ba9beb97fa9b7f48df2dddf5f46",
+      "sha": "ec80787b223c1b1b335d08f684476660d3ff1bee",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -22186,7 +22270,7 @@
     },
     {
       "path": "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
-      "sha": "5a646f685837d3da4e62afdb082de8e3654eda95",
+      "sha": "5adf3fdc18729fd0c6908b8d6ebdc97691f056e3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -22201,6 +22285,13 @@
     {
       "path": "referencia/adama/LABEL-DOCUMENTS.json",
       "sha": "629c7996d7765f38749cced262b1b2bb09b3114d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "referencia/adama/LABEL-READINGS.json",
+      "sha": "42f668cdaff612dde2d43145efca519e55d7b552",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -22256,7 +22347,7 @@
     },
     {
       "path": "referencia/adama/SNAPSHOTS.json",
-      "sha": "f785aface45fb972dc3dc6c26446ee09b237796d",
+      "sha": "8d4c2e604bb837cd513ca39d7f7cd7bd56994047",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -25000,7 +25091,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "4c0f6403fdeca977c654c970538ea78aa8215fca",
+      "sha": "3d3580f32d2116643a441d7c6a61fa659eb57b58",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26595,6 +26686,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_cruzamentos_max.py",
+      "sha": "91245ea36c7f2be78fd34d8d2990ac18422c3380",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_d1_detector_d14.py",
       "sha": "e5712a8f0c494c5f022cc94fcd156390d467fa28",
       "ext": ".py",
@@ -27374,6 +27472,13 @@
     {
       "path": "tests/test_porta_de_producao.py",
       "sha": "2d46818153772c9902f2494854ca007e201b8aa1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_porta_unica_referencia.py",
+      "sha": "6d71baf133cc77f176aa4b018190d4054a9a4e98",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30895,7 +31000,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/concorrencia_meta.py",
-        "line": 67,
+        "line": 68,
         "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
       }
     },
@@ -30906,7 +31011,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/concorrencia_meta.py",
-        "line": 83,
+        "line": 85,
         "snippet": "'PAGINAS-META-IT-V1.json')"
       }
     },
@@ -30917,7 +31022,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/concorrencia_meta.py",
-        "line": 68,
+        "line": 69,
         "snippet": "import meta_biblioteca as bib  # noqa: E402"
       }
     },
@@ -30928,8 +31033,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/concorrencia_meta.py",
-        "line": 434,
+        "line": 436,
         "snippet": "tool='ferramentas/meta_biblioteca.py')]"
+      }
+    },
+    {
+      "from_file": "coleta/concorrencia_meta.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/concorrencia_meta.py",
+        "line": 72,
+        "snippet": "import porta_da_referencia as porta  # noqa: E402 — D116: a referencia ADAMA so pela porta"
       }
     },
     {
@@ -30939,7 +31055,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/concorrencia_meta.py",
-        "line": 69,
+        "line": 70,
         "snippet": "import meta_identidade as ident  # noqa: E402"
       }
     },
@@ -30950,7 +31066,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/concorrencia_meta.py",
-        "line": 70,
+        "line": 71,
         "snippet": "import proveniencia as pv  # noqa: E402"
       }
     },
@@ -47225,12 +47341,23 @@
     },
     {
       "from_file": "fontes/adama_referencia.py",
+      "to_file": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "fontes/adama_referencia.py",
+        "line": 104,
+        "snippet": "\"PARES\": os.path.join(RAIZ, \"data\", \"samples\", \"IT-ROTULOS\", \"IT-ROTULOS-PARES.json\"),"
+      }
+    },
+    {
+      "from_file": "fontes/adama_referencia.py",
       "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 301,
+        "line": 307,
         "snippet": "\"PROVING_ARTIFACT\": \"data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv\","
       }
     },
@@ -47241,7 +47368,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 636,
+        "line": 724,
         "snippet": "\"AUTHORIZED-USES.json\": _env(\"ADAMA-AUTHORIZED-USES\", usos,"
       }
     },
@@ -47252,7 +47379,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 639,
+        "line": 731,
         "snippet": "\"DOSES.json\": _env(\"ADAMA-DOSES\", doses,"
       }
     },
@@ -47263,8 +47390,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 634,
+        "line": 722,
         "snippet": "\"LABEL-DOCUMENTS.json\": _env(\"ADAMA-LABEL-DOCUMENTS\", documentos,"
+      }
+    },
+    {
+      "from_file": "fontes/adama_referencia.py",
+      "to_file": "referencia/adama/LABEL-READINGS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "fontes/adama_referencia.py",
+        "line": 727,
+        "snippet": "\"LABEL-READINGS.json\": _env(\"ADAMA-LABEL-READINGS\", leituras,"
       }
     },
     {
@@ -47274,7 +47412,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 628,
+        "line": 716,
         "snippet": "\"PORTFOLIO.json\": _env(\"ADAMA-PORTFOLIO\", portfolio,"
       }
     },
@@ -47285,7 +47423,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 327,
+        "line": 414,
         "snippet": "vpai = v21(\"PRODUCT-ACTIVE-INGREDIENTS.json\")[\"RECORDS\"]"
       }
     },
@@ -47296,7 +47434,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 313,
+        "line": 400,
         "snippet": "caminho = os.path.join(CASA, \"PRODUCT-MASTER.json\")"
       }
     },
@@ -47307,7 +47445,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 631,
+        "line": 719,
         "snippet": "\"REGISTRATIONS.json\": _env(\"ADAMA-REGISTRATIONS\", registos,"
       }
     },
@@ -47318,8 +47456,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 626,
-        "snippet": "\"SNAPSHOTS.json\": _env(\"ADAMA-SNAPSHOTS\", SNAPSHOTS,"
+        "line": 715,
+        "snippet": "\"SNAPSHOTS.json\": _snapshots(registos),"
       }
     },
     {
@@ -47329,7 +47467,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 649,
+        "line": 741,
         "snippet": "\"SOURCE-ID-MAP.json\": _env(\"ADAMA-SOURCE-ID-MAP\", ["
       }
     },
@@ -47340,7 +47478,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 669,
+        "line": 761,
         "snippet": "\"DEEP_AI\": \"research/adama-italy-product-intelligence-deep/ACTIVE-INGREDIENTS.json\","
       }
     },
@@ -47351,7 +47489,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 324,
+        "line": 411,
         "snippet": "drec = {r[\"PRODUCT_ID\"]: r for r in deep(\"COMMERCIAL-REGULATORY-RECONCILIATION.json\")[\"ROWS\"]}"
       }
     },
@@ -47362,7 +47500,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 323,
+        "line": 410,
         "snippet": "dlab = deep(\"LABEL-MANIFEST.json\")[\"DOCUMENTS\"]"
       }
     },
@@ -47373,7 +47511,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 320,
+        "line": 407,
         "snippet": "dim = deep(\"PRODUCT-IDENTITY-MAP.json\")[\"PRODUCTS\"]"
       }
     },
@@ -47384,7 +47522,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 321,
+        "line": 408,
         "snippet": "dcom = {p.get(\"PRODUCT_NAME\"): p for p in deep(\"PRODUCTS-COMMERCIAL.json\")[\"PRODUCTS\"]}"
       }
     },
@@ -47395,7 +47533,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_referencia.py",
-        "line": 295,
+        "line": 301,
         "snippet": "\"PROVING_ARTIFACT\": \"research/adama-italy-product-intelligence-deep/PRODUCTS-REGULATORY.json\","
       }
     },
@@ -52779,6 +52917,17 @@
       }
     },
     {
+      "from_file": "leis/boletim_do_campo.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/boletim_do_campo.py",
+        "line": 636,
+        "snippet": "import porta_da_referencia as PORTA   # noqa: PLC0415"
+      }
+    },
+    {
       "from_file": "leis/calendario_handoff.py",
       "to_file": "data/samples/AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json",
       "type": "READS",
@@ -55804,6 +55953,17 @@
       }
     },
     {
+      "from_file": "motor/cap_win.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cap_win.py",
+        "line": 86,
+        "snippet": "import porta_da_referencia as PORTA             # noqa: E402"
+      }
+    },
+    {
       "from_file": "motor/capacidade_cientifica.py",
       "to_file": "motor/corrida_da_inteligencia.py",
       "type": "IMPORTS",
@@ -55812,6 +55972,17 @@
         "file": "motor/capacidade_cientifica.py",
         "line": 56,
         "snippet": "import corrida_da_inteligencia as CORRIDA                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/capacidade_cientifica.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/capacidade_cientifica.py",
+        "line": 59,
+        "snippet": "import porta_da_referencia as PORTA                                 # noqa: E402"
       }
     },
     {
@@ -55892,6 +56063,83 @@
       }
     },
     {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 57,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/ANALISE-R7.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 172,
+        "snippet": "R7 = os.path.join(ROOT, \"docs\", \"intelligence\", \"r7\", \"ANALISE-R7.json\")"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 190,
+        "snippet": "SAIDA_ITENS = os.path.join(ROOT, \"docs\", \"intelligence\", \"r7\", \"CRUZAMENTOS-MAX-ITENS-DO-POTE.json\")"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 189,
+        "snippet": "SAIDA = os.path.join(ROOT, \"docs\", \"intelligence\", \"r7\", \"CRUZAMENTOS-MAX.json\")"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 59,
+        "snippet": "from boletim_do_campo import CULTURAS as CULTURAS_BOLETIM     # noqa: E402  (leis/)"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 65,
+        "snippet": "import porta_da_referencia as PORTA                           # noqa: E402  (motor/)"
+      }
+    },
+    {
+      "from_file": "motor/cruzamentos_max.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cruzamentos_max.py",
+        "line": 61,
+        "snippet": "from ponte_intelligence_casco import NAO_SEI, MARCA, ESTADO_TRANSPORTAVEL   # noqa: E402  (pacote/)"
+      }
+    },
+    {
       "from_file": "motor/matriz_recorte.py",
       "to_file": "data/samples/PILOT-SCOPE-MATRIX-V1.json",
       "type": "READS",
@@ -55920,7 +56168,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "motor/motor_das_capacidades.py",
-        "line": 86,
+        "line": 87,
         "snippet": "import afirmacao_da_fonte as AFIRMACAO           # noqa: E402"
       }
     },
@@ -55931,7 +56179,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "motor/motor_das_capacidades.py",
-        "line": 81,
+        "line": 82,
         "snippet": "import lugar_do_fato as LUGAR                    # noqa: E402"
       }
     },
@@ -55966,6 +56214,17 @@
         "file": "motor/motor_das_capacidades.py",
         "line": 76,
         "snippet": "import corrida_da_inteligencia as CI            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/motor_das_capacidades.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/motor_das_capacidades.py",
+        "line": 79,
+        "snippet": "import porta_da_referencia as PORTA              # noqa: E402  (D116: uma edicao para as duas)"
       }
     },
     {
@@ -56230,6 +56489,17 @@
         "file": "motor/pacote_normalizar.py",
         "line": 179,
         "snippet": "('OUTRA', 'adama-other-lines.json')):"
+      }
+    },
+    {
+      "from_file": "motor/porta_da_referencia.py",
+      "to_file": "fontes/adama_referencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/porta_da_referencia.py",
+        "line": 65,
+        "snippet": "CONSTRUTOR = \"fontes/adama_referencia.py\""
       }
     },
     {
@@ -60699,6 +60969,50 @@
       }
     },
     {
+      "from_file": "pacote/pote_cruzamentos_max.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_cruzamentos_max.py",
+        "line": 47,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "pacote/pote_cruzamentos_max.py",
+      "to_file": "motor/cruzamentos_max.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_cruzamentos_max.py",
+        "line": 49,
+        "snippet": "import cruzamentos_max as XM                       # noqa: E402  (motor/)"
+      }
+    },
+    {
+      "from_file": "pacote/pote_cruzamentos_max.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_cruzamentos_max.py",
+        "line": 51,
+        "snippet": "from ponte_intelligence_casco import NAO_SEI, LeiViolada, e_ignorancia   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/pote_cruzamentos_max.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/pote_cruzamentos_max.py",
+        "line": 50,
+        "snippet": "import pote_intelligence_casco as POTE             # noqa: E402"
+      }
+    },
+    {
       "from_file": "pacote/pote_intelligence_casco.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -61708,6 +62022,72 @@
         "file": "provas/_mutantes_cap_sci.py",
         "line": 47,
         "snippet": "P.write_text(ORIG.replace(a, b))"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/ANALISE-R7.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 27,
+        "snippet": "\"docs/intelligence/r7/ANALISE-R7.json\", \"docs/intelligence/r7/CRUZAMENTOS-MAX.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 28,
+        "snippet": "\"docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 27,
+        "snippet": "\"docs/intelligence/r7/ANALISE-R7.json\", \"docs/intelligence/r7/CRUZAMENTOS-MAX.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "motor/cruzamentos_max.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 24,
+        "snippet": "MOTOR = \"motor/cruzamentos_max.py\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "pacote/pote_cruzamentos_max.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 25,
+        "snippet": "POTE = \"pacote/pote_cruzamentos_max.py\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_cruzamentos_max.py",
+      "to_file": "tests/test_cruzamentos_max.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_cruzamentos_max.py",
+        "line": 26,
+        "snippet": "COPIAR = (\"tests/test_cruzamentos_max.py\","
       }
     },
     {
@@ -73236,6 +73616,116 @@
         "file": "provas/paridade_red_team.mjs",
         "line": 136,
         "snippet": "[\"regras/paridade_test.mjs\", \"as provas da paridade\"],"
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "_gavetas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 24,
+        "snippet": "COPIAR = (\"_gavetas.py\", \"motor\", \"leis\", \"coleta\", \"fontes\", \"pacote\", \"provas\", \"tests\", \"regras\","
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/COMMERCIAL-CATALOG.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 47,
+        "snippet": "\"    open(os.path.join(motor, 'COMMERCIAL-CATALOG.json'))\\n\"),"
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "coleta/concorrencia_meta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 40,
+        "snippet": "(\"L3 concorrencia_meta le o CSV do Ministero\", \"coleta/concorrencia_meta.py\","
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "fontes/adama_referencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 89,
+        "snippet": "(\"C1 a checagem confirma sempre\", \"fontes/adama_referencia.py\","
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 44,
+        "snippet": "(\"L4 boletim le o COMMERCIAL-CATALOG\", \"leis/boletim_do_campo.py\","
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "motor/cap_win.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 32,
+        "snippet": "(\"L1 cap_win abre o PORTFOLIO por fora\", \"motor/cap_win.py\","
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "motor/capacidade_cientifica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 77,
+        "snippet": "(\"F5 cap_sci ignora o frescor\", \"motor/capacidade_cientifica.py\","
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "motor/cruzamentos_max.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 36,
+        "snippet": "(\"L2 cruzamentos_max volta a ler os pares do leitor\", \"motor/cruzamentos_max.py\","
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 55,
+        "snippet": "(\"E3 o motor abre a porta duas vezes (WIN numa edicao, SCI noutra)\", \"motor/motor_das_capacidades.py\","
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 23,
+        "snippet": "PORTA = \"motor/porta_da_referencia.py\""
       }
     },
     {
@@ -92731,6 +93221,83 @@
       }
     },
     {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 19,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "coleta/rotulos_ler.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 394,
+        "snippet": "import rotulos_ler"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "fontes/adama_it_intelligence.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 395,
+        "snippet": "import adama_it_intelligence"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "motor/cruzamentos_max.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 21,
+        "snippet": "import cruzamentos_max as XM                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "pacote/ponte_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 24,
+        "snippet": "from ponte_intelligence_casco import NAO_SEI  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "pacote/pote_cruzamentos_max.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 22,
+        "snippet": "import pote_cruzamentos_max as PX            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_cruzamentos_max.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cruzamentos_max.py",
+        "line": 23,
+        "snippet": "import pote_intelligence_casco as POTE       # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_d1_detector_d14.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -99265,6 +99832,402 @@
       }
     },
     {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 38,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "coleta/concorrencia_meta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 47,
+        "snippet": "import concorrencia_meta as META         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "coleta/concorrencia_meta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 62,
+        "snippet": "\"motor/cruzamentos_max.py\", \"coleta/concorrencia_meta.py\", \"leis/boletim_do_campo.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "coleta/cruzar_regua_rotulo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 68,
+        "snippet": "\"coleta/cruzar_regua_rotulo.py\": \"DIVIDA DECLARADA — le IT-ROTULOS-PARES direto (regua x rotulo). \""
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 70,
+        "snippet": "\"coleta/pesquisadores_t6.py\": \"DIVIDA DECLARADA — le ACTIVE-INGREDIENTS e o CSV PROD_FTS 0907 para o \""
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "coleta/rotulos_baixar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 66,
+        "snippet": "\"coleta/rotulos_baixar.py\": \"PRODUTOR — baixa os PDF crus (data/raw/IT-ROTULOS). Nao e consumidor.\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "coleta/rotulos_ler.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 67,
+        "snippet": "\"coleta/rotulos_ler.py\": \"PRODUTOR — escreve IT-ROTULOS-PARES.json, que o CONSTRUTOR da referencia le.\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 158,
+        "snippet": "self.assertTrue(leituras_por_fora('X = open(\"data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json\")\\n'))"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "fontes/adama_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 41,
+        "snippet": "import adama_referencia as CONSTRUTOR    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 46,
+        "snippet": "import boletim_do_campo as BOL           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 62,
+        "snippet": "\"motor/cruzamentos_max.py\", \"coleta/concorrencia_meta.py\", \"leis/boletim_do_campo.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "leis/data_clock.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 79,
+        "snippet": "\"leis/data_clock.py\": \"DIVIDA DECLARADA — registo de relogio das fontes aponta o CSV 0824 bruto.\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/cap_win.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 43,
+        "snippet": "import cap_win as WIN                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/cap_win.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 61,
+        "snippet": "RELIGADOS = (\"motor/capacidade_cientifica.py\", \"motor/motor_das_capacidades.py\", \"motor/cap_win.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/capacidade_cientifica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 42,
+        "snippet": "import capacidade_cientifica as SCI      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/capacidade_cientifica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 61,
+        "snippet": "RELIGADOS = (\"motor/capacidade_cientifica.py\", \"motor/motor_das_capacidades.py\", \"motor/cap_win.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 44,
+        "snippet": "import corrida_da_inteligencia as CI     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/cruzamentos_max.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 45,
+        "snippet": "import cruzamentos_max as XM             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/cruzamentos_max.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 62,
+        "snippet": "\"motor/cruzamentos_max.py\", \"coleta/concorrencia_meta.py\", \"leis/boletim_do_campo.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 213,
+        "snippet": "import motor_das_capacidades as M"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 61,
+        "snippet": "RELIGADOS = (\"motor/capacidade_cientifica.py\", \"motor/motor_das_capacidades.py\", \"motor/cap_win.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/normalize_substance.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 74,
+        "snippet": "\"motor/normalize_substance.py\": \"DIVIDA DECLARADA (LEGADO V2) — CSV PROD_FTS 0824 bruto.\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/pacote_convergencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 72,
+        "snippet": "\"motor/pacote_convergencia.py\": \"DIVIDA DECLARADA — le IT-ROTULOS-PARES e IT-CENSO-DE-TERMOS (pacote \""
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/pacote_normalizar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 78,
+        "snippet": "\"motor/pacote_normalizar.py\": \"MENCAO — texto de proveniencia com o nome da foto; nao abre ficheiro.\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 40,
+        "snippet": "import porta_da_referencia as P          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 59,
+        "snippet": "A_PORTA = \"motor/porta_da_referencia.py\""
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/v21_ingest.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 77,
+        "snippet": "\"motor/v21_ingest.py\": \"MENCAO — texto de proveniencia com o nome da foto; nao abre ficheiro.\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/v2_cruzamentos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 75,
+        "snippet": "\"motor/v2_cruzamentos.py\": \"DIVIDA DECLARADA (LEGADO V2) — V2/COMMERCIAL-CATALOG.json.\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "motor/v2_montar_handoff.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 76,
+        "snippet": "\"motor/v2_montar_handoff.py\": \"DIVIDA DECLARADA (LEGADO V2) — nomeia COMMERCIAL-CATALOG.json no handoff.\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "referencia/adama/AUTHORIZED-USES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 420,
+        "snippet": "for nome in (\"SNAPSHOTS.json\", \"AUTHORIZED-USES.json\", \"LABEL-READINGS.json\", \"REGISTRATIONS.json\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "referencia/adama/LABEL-READINGS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 299,
+        "snippet": "(self.copia / \"LABEL-READINGS.json\").unlink()"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "referencia/adama/PORTFOLIO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 156,
+        "snippet": "self.assertTrue(leituras_por_fora('X = os.path.join(R, \"referencia\", \"adama\", \"PORTFOLIO.json\")\\n'))"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "referencia/adama/REGISTRATIONS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 157,
+        "snippet": "self.assertTrue(leituras_por_fora('X = R / \"referencia\" / \"adama\" / \"REGISTRATIONS.json\"\\n'))"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "referencia/adama/SNAPSHOTS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 420,
+        "snippet": "for nome in (\"SNAPSHOTS.json\", \"AUTHORIZED-USES.json\", \"LABEL-READINGS.json\", \"REGISTRATIONS.json\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 215,
+        "snippet": "\"SINTETICO-R7-SALA-EXPORT.json\").read_text(encoding=\"utf-8\")))"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_unica_referencia.py",
+      "to_file": "tests/test_cruzamentos_max.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_unica_referencia.py",
+        "line": 376,
+        "snippet": "import test_cruzamentos_max as TX"
+      }
+    },
+    {
       "from_file": "tests/test_portao.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -105323,10 +106286,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4001,
-    "files_readable": 1668,
-    "files_code_dir": 2017,
-    "file_edges": 6971,
+    "files_tracked": 4016,
+    "files_readable": 1675,
+    "files_code_dir": 2025,
+    "file_edges": 7049,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },
