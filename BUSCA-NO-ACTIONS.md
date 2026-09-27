@@ -62,7 +62,7 @@ git -C C:/busca push origin busca-no-actions-v1
 
 - **No código da casa: sim.** O motor `GOOGLE_CSE` (`motores.google_cse_pedido`) nem monta o pedido sem chave **e** CX.
 - **Na API: o diagnóstico MEDE-O** na 1.ª corrida.
-  - Sem o secret do CX, a chamada vai sem `cx`.
+  - Sem CX no pedido (hoje não há), a chamada vai sem `cx`.
   - O Google confere primeiro se a API está ligada e se a chave pode usá-la, e só depois os parâmetros.
   - Então um `400 INVALID_ARGUMENT` quer dizer duas coisas ao mesmo tempo: **a API está ligada, a chave pode, e
     o CX é obrigatório (medido)**.
@@ -100,7 +100,8 @@ O diagnóstico ajuda a ver:
    - em programmablesearchengine.google.com, criar um mecanismo, ou abrir um que já exista;
    - ver se a opção «pesquisar a web inteira» aparece (§4);
    - copiar o **ID do mecanismo de pesquisa** (esse é o CX);
-   - gravá-lo no GitHub em Settings › Secrets and variables › Actions › `GOOGLE_CSE_CX`.
+   - passá-lo à coordenação, que o põe no campo `CX` de `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json`
+     (o CX não é senha; o único secret usado é a chave).
 5. **Quota:** 100 consultas/dia são grátis. Passar disso é pago e exige faturação no projeto: **não ativar sem
    decisão do dono**.
 
