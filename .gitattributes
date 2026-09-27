@@ -4,3 +4,9 @@
 # o SHA-256 em disco deixaria de bater e o diff BASELINE x client viraria ruido.
 italia-portale/BASELINE/** -text -diff
 italia-portale/client/**   -text
+
+# Os insumos do casco (docs/casco/) sao selados por sha256 no manifesto de quem os
+# gerou. Sem esta linha, um checkout em Windows com core.autocrlf trocava LF por
+# CRLF em disco e o sha medido localmente deixava de ser o do Git (medido na
+# missao ACERVO-ORGANIZADO: POTE-R7 2610af4b em CRLF, 01899678 em LF).
+docs/casco/** -text

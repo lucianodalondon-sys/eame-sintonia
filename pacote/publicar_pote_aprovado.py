@@ -30,12 +30,25 @@ escolhe o que e candidata: COPIA o pote e a analise tal como a Intelligence os
 escreveu (INT-LAW-023 / INT-LAW-280) e recusa se eles se contradisserem. O
 casco le; quem decide e a Intelligence.
 
-O QUE NAO CONFERE, DITO NO PROPRIO FICHEIRO
--------------------------------------------
-O MANIFESTO-R7 declara um SHA256 do POTE-R7 que nao e o do ficheiro trazido
-para este ramo. As contagens por compartimento e por motivo de recusa batem; o
-byte a byte nao. Isso nao se esconde: viaja no ficheiro publicado como
-`SHA256_CONFERE_COM_O_MANIFESTO = false`, e a tela di-lo.
+O SHA DO MANIFESTO E O DOS BYTES CRLF — MEDIDO, NAO SUPOSTO
+-----------------------------------------------------------
+O MANIFESTO-R7 declara para o POTE-R7 o sha `2610af4b…`; o ficheiro no Git
+da `01899678…`. A causa foi medida (missao ACERVO-ORGANIZADO, item 6): o
+gerador escreveu o pote em Windows com fim de linha CRLF e fez o hash desses
+bytes; o Git guardou-o com LF. Trocar cada LF por CRLF nos bytes do Git da
+EXATAMENTE `2610af4b…` — nenhuma outra transformacao foi precisa.
+
+A conferencia aceita, por isso, DUAS formas e so duas, e diz qual:
+
+    IGUAL_BYTE_A_BYTE              sha(bytes) == sha do manifesto
+    IGUAL_APOS_FIM_DE_LINHA_CRLF   o ficheiro nao tem CR nenhum, e
+                                   sha(bytes com LF -> CRLF) == sha do manifesto
+
+Qualquer outro byte mudado da DIFERENTE, e a tela di-lo. Nao e uma
+normalizacao solta (nada de espacos, indentacao ou reserializar JSON): e a
+unica troca que o proprio sistema de ficheiros do gerador faz. `.gitattributes`
+fixa `docs/casco/** -text` para que um checkout em Windows nao volte a trocar
+os bytes em disco.
 """
 from __future__ import annotations
 
@@ -76,6 +89,19 @@ class Recusado(Exception):
 
 def _sha(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
+
+
+def conferir_sha_do_manifesto(bruto: bytes, declarado) -> dict:
+    """As duas formas aceites, e so elas (ver o topo). Devolve o modo e os dois sha medidos."""
+    lf = hashlib.sha256(bruto).hexdigest()
+    crlf = None if b"\r" in bruto else hashlib.sha256(bruto.replace(b"\n", b"\r\n")).hexdigest()
+    if declarado and lf == declarado:
+        modo = "IGUAL_BYTE_A_BYTE"
+    elif declarado and crlf is not None and crlf == declarado:
+        modo = "IGUAL_APOS_FIM_DE_LINHA_CRLF"
+    else:
+        modo = "DIFERENTE"
+    return {"MODO": modo, "SHA256_BYTES": lf, "SHA256_BYTES_EM_CRLF": crlf}
 
 
 def _rel(p: Path) -> str:
@@ -142,8 +168,9 @@ def publicado() -> str:
     falhas = conferir(pote, analise, manifesto)
     if falhas:
         raise Recusado("; ".join(falhas))
-    sha_pote = _sha(POTE)
     sha_manifesto = (manifesto.get("SHA256") or {}).get("POTE-R7.json")
+    conf = conferir_sha_do_manifesto(POTE.read_bytes(), sha_manifesto)
+    sha_pote = conf["SHA256_BYTES"]
     meta = {
         "SCHEMA": "POTE_PUBLICADO/v1",
         "DECISAO": DECISAO,
@@ -156,7 +183,9 @@ def publicado() -> str:
         "POTE_FICHEIRO": _rel(POTE),
         "POTE_SHA256": sha_pote,
         "SHA256_DECLARADO_NO_MANIFESTO": sha_manifesto,
-        "SHA256_CONFERE_COM_O_MANIFESTO": sha_pote == sha_manifesto,
+        "POTE_SHA256_EM_CRLF": conf["SHA256_BYTES_EM_CRLF"],
+        "SHA256_CONFERENCIA": conf["MODO"],
+        "SHA256_CONFERE_COM_O_MANIFESTO": conf["MODO"] != "DIFERENTE",
         "CONTAGENS_CONFEREM_COM_O_MANIFESTO": True,
         "ANALISE_FICHEIRO": _rel(ANALISE),
         "ANALISE_SHA256": _sha(ANALISE),

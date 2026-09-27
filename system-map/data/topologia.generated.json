@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T19:33:15+00:00",
-  "HEAD": "05d398bf6f2cdbb94eda1c7a631d440b090c9346",
-  "BRANCH": "claude/casco-r7-publication-yb7nsg",
+  "GENERATED_AT": "2026-09-27T20:22:14+00:00",
+  "HEAD": "1b2f0cda1e52283500122de168601bdf712ff781",
+  "BRANCH": "claude/organize-collection-system-japwor",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "dc4d16d52d306987f34063f882d5b57ea69503f48b14f78477654245021bc869",
-  "FICHEIROS_NA_IMPRESSAO": 1534,
+  "SOURCE_TREE_FINGERPRINT": "856b0dfccfe91e9a9a1e49b31073c95173453d6dc8895f56b6e7827ff3ada5be",
+  "FICHEIROS_NA_IMPRESSAO": 1546,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1530,6 +1530,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "pacote/acervo_inventario.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "2db98955e715e3bc3f3041e3f76427dd51bc93b9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "pacote/lastmile_entregar.py",
     "PAPEL": "FONTE",
     "VERSAO": "349ca4149746f9458b75585a41a90904e41ec45b",
@@ -1642,9 +1649,16 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "pacote/pote_ferramenta_label.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "6eac1565605b6be19b584cad3151ad750f6d6efd",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "pacote/publicar_pote_aprovado.py",
     "PAPEL": "FONTE",
-    "VERSAO": "ddc7232b61b2bea46e1cf21f5a30e3cb084f7984",
+    "VERSAO": "057911ed890a222b651c991ccfbc00acb72be753",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1945,14 +1959,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "dc4d16d52d306987f34063f882d5b57ea69503f48b14f78477654245021bc869",
+    "VERSAO": "856b0dfccfe91e9a9a1e49b31073c95173453d6dc8895f56b6e7827ff3ada5be",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "dc4d16d52d306987f34063f882d5b57ea69503f48b14f78477654245021bc869",
+    "VERSAO": "856b0dfccfe91e9a9a1e49b31073c95173453d6dc8895f56b6e7827ff3ada5be",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -2205,6 +2219,13 @@
     "PATH": "tests/fixtures/ARESTAS/so_comentario.py",
     "PAPEL": "FONTE",
     "VERSAO": "c71cfa4eaf9bfe8728135ac17d9dc60b848afb7a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_acervo_organizado.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "8c7841beebba4015844345d1a6b6a09d1e054c7c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2692,8 +2713,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 379,
-  "INPUTS_DIGEST": "ea5d2a7921b4b8c0d3665f1ceef828bc6e7255563330b254658dd54d887342dd",
+  "INPUTS_COUNT": 382,
+  "INPUTS_DIGEST": "605e34d8907dc36571769528d32904e58c05f18836439e91568ae93cc6ebac32",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -2719,15 +2740,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 251,
+  "DOCUMENTOS_LIDOS": 254,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "c2ce1f3e0cf9d1f102e7568a79eddb8b26a351f2ab8ca2d68866e8ac5abbc830",
-  "SEMANTIC_HASH": "8cc99e3df3f5b75e9f219b46644a9783dff843dc83877a8959d3b24bd0f5a386"
+  "MEASUREMENT_HASH": "1f9f25c0456089289435fa8e72f41c02382f02782e0c80eb032b921054574190",
+  "SEMANTIC_HASH": "799500f762e10edd88b3c911b1fa5de0b20164a1b418099dc3ad79be37b5a74f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -3045,6 +3066,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 107,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADAMA-IT--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "pacote/lastmile_entregar.py",
       "LINHA": 65,
@@ -3700,6 +3729,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-LASTMILE",
+    "FROM": "C-ARTEFACTO-V21",
+    "TO": "C-LASTMILE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 125,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ARTEFACTO-V21--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-SITE-INGEST",
     "FROM": "C-ARTEFACTO-V21",
     "TO": "C-SITE-INGEST",
@@ -4278,6 +4329,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-AUDIT-CASCO--READS-->C-TESTES",
+    "FROM": "C-AUDIT-CASCO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_acervo_organizado.py",
+      "LINHA": 279,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AUDIT-CASCO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-AUDIT-GERAL--IMPORTS-->C-PORTAO-BUILD",
     "FROM": "C-AUDIT-GERAL",
     "TO": "C-PORTAO-BUILD",
@@ -4303,6 +4376,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AUDIT-GERAL--IMPORTS-->C-PORTAO-BUILD",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AUDIT-GERAL--READS-->C-LASTMILE",
+    "FROM": "C-AUDIT-GERAL",
+    "TO": "C-LASTMILE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 113,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AUDIT-GERAL--READS-->C-LASTMILE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -9828,6 +9923,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IMPORTAR--READS-->C-LASTMILE",
+    "FROM": "C-IMPORTAR",
+    "TO": "C-LASTMILE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 90,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IMPORTAR--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IMPORTAR--WRITES-->C-SUPABASE",
     "FROM": "C-IMPORTAR",
     "TO": "C-SUPABASE",
@@ -10670,6 +10787,36 @@
     "EVIDENCE_BINDING": []
    },
    {
+    "EDGE_ID": "C-LASTMILE--IMPORTS-->C-TESTES",
+    "FROM": "C-LASTMILE",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_acervo_organizado.py",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_acervo_organizado.py",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-LASTMILE--READS-->C-AUDIT-CASCO",
     "FROM": "C-LASTMILE",
     "TO": "C-AUDIT-CASCO",
@@ -10683,7 +10830,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_pote_publicado.mjs",
-      "LINHA": 63,
+      "LINHA": 64,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE--READS-->C-AUDIT-CASCO",
@@ -10838,6 +10985,38 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_acervo_organizado.py",
+      "LINHA": 89,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_acervo_organizado.py",
+      "LINHA": 106,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_acervo_organizado.py",
+      "LINHA": 163,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_acervo_organizado.py",
+      "LINHA": 203,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_adama_relevance.py",
       "LINHA": 27,
       "SUPPORTS": "YES",
@@ -10891,7 +11070,7 @@
      },
      {
       "FICHEIRO": "pacote/publicar_pote_aprovado.py",
-      "LINHA": 193,
+      "LINHA": 222,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE--WRITES-->C-PORTAL-DADOS",
@@ -12610,6 +12789,30 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 108,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 131,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 134,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "pacote/meeting_snapshot.py",
       "LINHA": 187,
       "SUPPORTS": "YES",
@@ -12618,8 +12821,16 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "pacote/pote_ferramenta_label.py",
+      "LINHA": 58,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "pacote/publicar_pote_aprovado.py",
-      "LINHA": 63,
+      "LINHA": 76,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
@@ -12645,6 +12856,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-DADOS--READS-->C-MAPA-SCAN",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PORTAL-DADOS--READS-->C-TESTES",
+    "FROM": "C-PORTAL-DADOS",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_acervo_organizado.py",
+      "LINHA": 259,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-DADOS--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -12680,6 +12913,44 @@
     ]
    },
    {
+    "EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+    "FROM": "C-PORTAL-MODELO",
+    "TO": "C-LASTMILE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 61,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 126,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 132,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PORTAL-MODELO--READS-->C-MAPA-SCAN",
     "FROM": "C-PORTAL-MODELO",
     "TO": "C-MAPA-SCAN",
@@ -12697,6 +12968,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-MAPA-SCAN",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
+    "FROM": "C-PORTAL-MODELO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_acervo_organizado.py",
+      "LINHA": 183,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -16806,6 +17099,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-V21-COMERCIAL--READS-->C-LASTMILE",
+    "FROM": "C-V21-COMERCIAL",
+    "TO": "C-LASTMILE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 65,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V21-COMERCIAL--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 82,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V21-COMERCIAL--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-V21-COMERCIAL--READS-->C-PACOTE-CAMADAS",
     "FROM": "C-V21-COMERCIAL",
     "TO": "C-PACOTE-CAMADAS",
@@ -16963,6 +17286,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-V21-CRUZAMENTO--IMPORTS-->C-PACOTE-CAMADAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-V21-CRUZAMENTO--READS-->C-LASTMILE",
+    "FROM": "C-V21-CRUZAMENTO",
+    "TO": "C-LASTMILE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 60,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V21-CRUZAMENTO--READS-->C-LASTMILE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -17328,6 +17673,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-V21-OPORTUNIDADE--READS-->C-LASTMILE",
+    "FROM": "C-V21-OPORTUNIDADE",
+    "TO": "C-LASTMILE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_inventario.mjs",
+      "LINHA": 60,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V21-OPORTUNIDADE--READS-->C-LASTMILE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-V21-OPORTUNIDADE--READS-->C-V21-COMERCIAL",
     "FROM": "C-V21-OPORTUNIDADE",
     "TO": "C-V21-COMERCIAL",
@@ -17680,12 +18047,12 @@
     ]
    }
   ],
-  "COUNT": 522
+  "COUNT": 533
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 107,
   "CARTOES_AUDITADOS": 107,
-  "ARESTAS_RELACIONADAS": 522,
+  "ARESTAS_RELACIONADAS": 533,
   "ENTRYPOINTS": [
    "C-APIFY-POOL",
    "C-AUDIT-GERAL",
@@ -17942,8 +18309,8 @@
    "CODE": 66,
    "CONTROL": 34,
    "DATA": 23,
-   "PROOF": 173,
-   "READ": 136,
+   "PROOF": 177,
+   "READ": 143,
    "RULE": 81,
    "WRITE": 9
   },
@@ -18335,7 +18702,7 @@
     "unrendered"
    ],
    "ENTRAM": 16,
-   "SAEM": 2,
+   "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ",
@@ -19920,7 +20287,7 @@
     "issue_local"
    ],
    "ENTRAM": 3,
-   "SAEM": 2,
+   "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "READ"
@@ -20279,20 +20646,26 @@
    "KIND": "engine",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "pacote/acervo_inventario.mjs",
     "pacote/lastmile_entregar.py",
     "pacote/lastmile_inventario.py",
     "pacote/lastmile_para_supabase.py",
     "pacote/lastmile_relatorio.py",
     "pacote/ler_saida_leque.py",
     "pacote/meeting_snapshot.py",
+    "pacote/pote_ferramenta_label.py",
     "pacote/publicar_pote_aprovado.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "tests/test_acervo_organizado.py",
     "tests/test_pote_publicado.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "HANDOFF-BUILD-DA-REUNIAO.md",
+    "docs/acervo/ACERVO-ORGANIZADO.md",
+    "docs/acervo/INVENTARIO-ACERVO.md",
+    "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.md",
     "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md"
    ],
    "E_ENTRYPOINT": false,
@@ -20307,6 +20680,7 @@
     "fonte_externa",
     "lastmile_registro_pendente",
     "mercado_observacao",
+    "resistencia_confirmada",
     "sinal_regulatorio_futuro"
    ],
    "LE_DE": [
@@ -20316,8 +20690,8 @@
     "historical",
     "pathlib"
    ],
-   "ENTRAM": 2,
-   "SAEM": 9,
+   "ENTRAM": 9,
+   "SAEM": 10,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ"
    ],
@@ -22040,6 +22414,7 @@
    "FICHEIROS": [
     "tests/es/test_adama_es_gate.py",
     "tests/es/test_adama_es_import_rules.py",
+    "tests/test_acervo_organizado.py",
     "tests/test_adama_relevance.py",
     "tests/test_aprender_com_a_fonte.py",
     "tests/test_arestas.py",
@@ -22171,7 +22546,7 @@
     "v_saude_da_rota",
     "x"
    ],
-   "ENTRAM": 97,
+   "ENTRAM": 101,
    "SAEM": 10,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -22259,7 +22634,7 @@
     "v"
    ],
    "ENTRAM": 7,
-   "SAEM": 7,
+   "SAEM": 8,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ"
@@ -22300,7 +22675,7 @@
     "pacote_normalizar"
    ],
    "ENTRAM": 6,
-   "SAEM": 1,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -22308,7 +22683,8 @@
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
-    "CODE"
+    "CODE",
+    "READ"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],

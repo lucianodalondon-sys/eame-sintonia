@@ -605,6 +605,10 @@
       "data/samples/X-007-canonical-agro-dictionary.json"
     ],
     "docs": [
+      "docs/acervo/ACERVO-ORGANIZADO.md",
+      "docs/acervo/AUDITORIA-D97-R7.json",
+      "docs/acervo/INVENTARIO-ACERVO.json",
+      "docs/acervo/INVENTARIO-ACERVO.md",
       "docs/adama/AVALIACAO-IT-T4-001-CONTRA-V2.1.md",
       "docs/adama/FECHAMENTO-HANDOFF-ADAMA-ES.md",
       "docs/adama/GATE-HANDOFF-ADAMA-ES.md",
@@ -628,6 +632,7 @@
       "docs/biblia/leis.json",
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
       "docs/capacidades/SINTONIA-SCRAP-SOCIAL.md",
+      "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
       "docs/casco/r7/ANALISE-R7.json",
       "docs/casco/r7/MANIFESTO-R7.json",
       "docs/casco/r7/POTE-R7.json",
@@ -661,6 +666,9 @@
       "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+      "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.json",
+      "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.md",
       "docs/nuvem/nuvem-casco-ao-ar-r7-v1-MERGES.txt",
       "docs/operacao/A-CASA-DO-DERIVADO.md",
       "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
@@ -895,6 +903,7 @@
       "italia-portale/audit/casco/brandwell-parita.mjs",
       "italia-portale/audit/casco/censo-demo.mjs",
       "italia-portale/audit/casco/censo-precedenza.mjs",
+      "italia-portale/audit/casco/d97-auditoria.mjs",
       "italia-portale/audit/casco/demo-visibile.mjs",
       "italia-portale/audit/casco/due-mappe.mjs",
       "italia-portale/audit/casco/falso-zero.mjs",
@@ -1105,6 +1114,7 @@
       "orquestrador/orquestrador.py"
     ],
     "pacote": [
+      "pacote/acervo_inventario.mjs",
       "pacote/lastmile_entregar.py",
       "pacote/lastmile_inventario.py",
       "pacote/lastmile_para_supabase.py",
@@ -1121,6 +1131,7 @@
       "pacote/pacote_mercado.py",
       "pacote/pacote_montar.py",
       "pacote/pacote_relacoes_convergencia.py",
+      "pacote/pote_ferramenta_label.py",
       "pacote/publicar_pote_aprovado.py",
       "pacote/v21_handoff_json.py"
     ],
@@ -1390,6 +1401,7 @@
       "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
       "tests/fixtures/pote/POTE-SINTETICO.json",
       "tests/fixtures/yt-raw-minimo.json",
+      "tests/test_acervo_organizado.py",
       "tests/test_adama_relevance.py",
       "tests/test_aprender_com_a_fonte.py",
       "tests/test_arestas.py",
@@ -1467,8 +1479,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 549 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 549 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 550 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 550 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1842,10 +1854,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/casco-r7-publication-yb7nsg",
-    "HEAD": "05d398bf6f2cdbb94eda1c7a631d440b090c9346",
-    "GENERATED_AT": "2026-09-27T16:08:24-03:00",
-    "SOURCE_TREE_FINGERPRINT": "dc4d16d52d306987f34063f882d5b57ea69503f48b14f78477654245021bc869"
+    "BRANCH": "claude/organize-collection-system-japwor",
+    "HEAD": "1b2f0cda1e52283500122de168601bdf712ff781",
+    "GENERATED_AT": "2026-09-27T19:34:32+00:00",
+    "SOURCE_TREE_FINGERPRINT": "856b0dfccfe91e9a9a1e49b31073c95173453d6dc8895f56b6e7827ff3ada5be"
   },
   "FAMILIES": [
     {
@@ -3018,6 +3030,7 @@
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS",
         "C-AUDIT-MARCA",
+        "C-LASTMILE",
         "C-PORTAO-BUILD",
         "C-SITE-INGEST",
         "C-TELA-FIELD",
@@ -5759,6 +5772,7 @@
       "files": [
         "italia-portale/audit/casco/censo-demo.mjs",
         "italia-portale/audit/casco/censo-precedenza.mjs",
+        "italia-portale/audit/casco/d97-auditoria.mjs",
         "italia-portale/audit/casco/demo-visibile.mjs",
         "italia-portale/audit/casco/due-mappe.mjs",
         "italia-portale/audit/casco/falso-zero.mjs",
@@ -5777,7 +5791,7 @@
         "tests/test_pote_no_casco.mjs",
         "tests/test_pote_publicado.mjs"
       ],
-      "file_count": 19,
+      "file_count": 20,
       "status": "PENDING",
       "status_reason": "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada.",
       "changed_since_declared": [
@@ -5792,7 +5806,8 @@
         "C-TELA-FIELD"
       ],
       "outbound": [
-        "C-AUDIT-GERAL"
+        "C-AUDIT-GERAL",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -5944,6 +5959,7 @@
         "C-V21-FONTES"
       ],
       "outbound": [
+        "C-LASTMILE",
         "C-PORTAO-BUILD"
       ],
       "paises": {},
@@ -10744,6 +10760,7 @@
       ],
       "outbound": [
         "C-CENSO-ARMAZEM-IT",
+        "C-LASTMILE",
         "C-SUPABASE"
       ],
       "paises": {},
@@ -11686,26 +11703,36 @@
       "lane": "official",
       "family": "F-ENTREGA",
       "files": [
+        "pacote/acervo_inventario.mjs",
         "pacote/lastmile_entregar.py",
         "pacote/lastmile_inventario.py",
         "pacote/lastmile_para_supabase.py",
         "pacote/lastmile_relatorio.py",
         "pacote/ler_saida_leque.py",
         "pacote/meeting_snapshot.py",
+        "pacote/pote_ferramenta_label.py",
         "pacote/publicar_pote_aprovado.py"
       ],
-      "file_count": 7,
+      "file_count": 9,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/IT-LASTMILE/IT-LASTMILE-INVENTARIO.json",
+        "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
         "italia-portale/client/meeting-intelligence-snapshot.json",
         "research/italy-lastmile/LAST-MILE-REALITY-GAPS.md"
       ],
       "inbound": [
         "C-ADAMA-IT",
-        "C-PORTAL-DADOS"
+        "C-ARTEFACTO-V21",
+        "C-AUDIT-GERAL",
+        "C-IMPORTAR",
+        "C-PORTAL-DADOS",
+        "C-PORTAL-MODELO",
+        "C-V21-COMERCIAL",
+        "C-V21-CRUZAMENTO",
+        "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
         "C-AUDIT-CASCO",
@@ -11719,12 +11746,13 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 31
+        "ITALIA": 33
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CABECALHO",
           "CAMPOS",
           "CULTURAS_PILOTO",
           "CULTURA_PALAVRAS",
@@ -11734,11 +11762,11 @@
           "REGIOES_IT",
           "SO_COM_ROTA_ITALIANA"
         ],
-        "palavras": 202,
+        "palavras": 221,
         "por_lingua": {
           "IT": 27
         },
-        "sem_marca_de_lingua": 175,
+        "sem_marca_de_lingua": 194,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11773,6 +11801,12 @@
         },
         {
           "onde": "GIT",
+          "file": "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
           "file": "italia-portale/client/meeting-intelligence-snapshot.js",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
@@ -11780,12 +11814,6 @@
         {
           "onde": "GIT",
           "file": "italia-portale/client/meeting-intelligence-snapshot.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "italia-portale/client/sintonia-pote-publicado.js",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -11804,6 +11832,7 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "build/ITALY-REALITY-HANDOFF-V2/CROP-ECONOMIC-WEIGHT.json",
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json",
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/COMPETITOR-WATCH/competitor-activities.json",
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/CROP-WINDOWS/current-phenology.json",
@@ -11820,12 +11849,34 @@
         "data/samples/IT-LASTMILE/IT-LASTMILE-INVENTARIO.json",
         "data/samples/IT-LASTMILE/IT-ROTA-COM_VPN_IT.json",
         "data/samples/IT-LASTMILE/IT-ROTA-SEM_VPN.json",
+        "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv",
+        "docs/acervo/INVENTARIO-ACERVO.json",
+        "docs/acervo/INVENTARIO-ACERVO.md",
+        "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
         "docs/casco/r7/ANALISE-R7.json",
         "docs/casco/r7/MANIFESTO-R7.json",
         "docs/casco/r7/POTE-R7.json",
+        "docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+        "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.json",
+        "fontes/adama_it_intelligence.py",
+        "guarda/importar_italia.py",
+        "italia-portale/audit/etichette-gate.mjs",
+        "italia-portale/client/adama-relevance.js",
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-casa.js",
+        "italia-portale/client/italy-handoff-v21.js",
+        "italia-portale/client/italy-label-intelligence.js",
+        "italia-portale/client/italy-v21.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-intelligence-snapshot.json",
         "italia-portale/client/sintonia-pote-publicado.js",
+        "motor/v21_adama_registro_validar.py",
+        "motor/v21_comercial.py",
+        "motor/v21_crossings.py",
+        "motor/v21_oportunidades.py",
+        "pacote/pote_ferramenta_label.py",
+        "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json",
+        "research/adama-italy-product-intelligence-deep/PRODUCTS-REGULATORY.json",
         "research/italy-lastmile/LAST-MILE-REALITY-GAPS.json",
         "research/italy-lastmile/LAST-MILE-REALITY-GAPS.md",
         "research/italy-lastmile/NEW-REAL-DATA.json",
@@ -14138,7 +14189,8 @@
         "C-TELA-MEETING",
         "C-TELA-PORTFOLIO",
         "C-TELA-SCIENCE",
-        "C-TELA-WINDOWS"
+        "C-TELA-WINDOWS",
+        "C-TESTES"
       ],
       "paises": {
         "ESPANHA": 1
@@ -14285,12 +14337,14 @@
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS",
         "C-AUDIT-MARCA",
+        "C-LASTMILE",
         "C-MAPA-SCAN",
         "C-PORTAL-CASCO",
         "C-PORTAL-DADOS",
         "C-PORTAO-BUILD",
         "C-TELA-ARCHIVE",
         "C-TELA-FIELD",
+        "C-TESTES",
         "C-V21-COMERCIAL"
       ],
       "paises": {},
@@ -19570,6 +19624,7 @@
       "files": [
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
+        "tests/test_acervo_organizado.py",
         "tests/test_adama_relevance.py",
         "tests/test_aprender_com_a_fonte.py",
         "tests/test_arestas.py",
@@ -19640,9 +19695,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 71,
+      "file_count": 72,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 31 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 32 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -19655,6 +19710,7 @@
         "C-APRENDER-COM-A-FONTE",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
+        "C-AUDIT-CASCO",
         "C-BANCO-NO-SECO",
         "C-BIBLIA",
         "C-CADEIA-V21",
@@ -19699,6 +19755,8 @@
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
         "C-POLITICA-COLETA",
+        "C-PORTAL-DADOS",
+        "C-PORTAL-MODELO",
         "C-PROCEDENCIA",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
@@ -19940,6 +19998,8 @@
         "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
         "data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json",
         "data/samples/X-006-eu-cas-to-ephy.json",
+        "docs/acervo/AUDITORIA-D97-R7.json",
+        "docs/acervo/INVENTARIO-ACERVO.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
         "docs/apresentacao/CONTRATO-DE-PROVA-DA-APRESENTACAO.md",
         "docs/apresentacao/MATRIZ-DE-PROVA-EAME.md",
@@ -19950,6 +20010,9 @@
         "docs/biblia/EMENDA-V1-2.md",
         "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
         "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
+        "docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json",
+        "docs/casco/r7/MANIFESTO-R7.json",
+        "docs/casco/r7/POTE-R7.json",
         "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
         "docs/decisoes/DIARIO-DE-DECISOES.md",
         "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md",
@@ -19960,6 +20023,8 @@
         "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
         "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+        "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.json",
         "docs/operacao/IDENTIDADE-DO-ARTEFATO.md",
         "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
         "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
@@ -19981,7 +20046,10 @@
         "guarda/preservar_derivado.py",
         "guarda/social_guarda.py",
         "guarda/social_sessao.py",
+        "italia-portale/audit/casco/d97-auditoria.mjs",
         "italia-portale/client/meeting-intelligence-snapshot.json",
+        "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "leis/aprender_com_a_fonte.py",
         "leis/diagnostico.py",
         "leis/evolucao.py",
@@ -19995,6 +20063,9 @@
         "medidas/corrida_instrumentada.py",
         "motor/cadeia_canonica.sh",
         "motor/v21_tm_colher.py",
+        "pacote/acervo_inventario.mjs",
+        "pacote/pote_ferramenta_label.py",
+        "pacote/publicar_pote_aprovado.py",
         "provas/a_rota_m2_atravessa.py",
         "provas/chain.py",
         "provas/fluxo_no_seco.py",
@@ -20347,6 +20418,7 @@
         "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
+        "C-LASTMILE",
         "C-PACOTE-CAMADAS",
         "C-SCRAP-GUARDA",
         "C-TESTES",
@@ -20642,6 +20714,7 @@
         "C-V21-INGEST"
       ],
       "outbound": [
+        "C-LASTMILE",
         "C-PACOTE-CAMADAS"
       ],
       "paises": {},
@@ -21082,6 +21155,7 @@
         "C-V21-FONTES"
       ],
       "outbound": [
+        "C-LASTMILE",
         "C-TESTES",
         "C-V21-COMERCIAL"
       ],
@@ -21809,7 +21883,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/casco-r7-publication-yb7nsg"
+        "branch claude/organize-collection-system-japwor"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -22154,8 +22228,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que a ADAMA sabe de si alimenta Ultima milha da entrega. Provado por 2 linhas de codigo.",
+      "reason": "O que a ADAMA sabe de si alimenta Ultima milha da entrega. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 107,
+          "snippet": "LEITORES: [['fontes/adama_it_intelligence.py', 'PROD_FTS_6_']] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-IT--READS-->C-LASTMILE",
+            "FROM": "C-ADAMA-IT",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "pacote/lastmile_entregar.py",
           "line": 65,
@@ -23253,6 +23343,41 @@
             "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-AUDIT-MARCA",
             "FROM": "C-ARTEFACTO-V21",
             "TO": "C-AUDIT-MARCA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ARTEFACTO-V21",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Artefacto embarcado (italy-handoff-v21.js) alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 125,
+          "snippet": "['italy-handoff-v21.js', 'ITALY_HANDOFF_V21'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-LASTMILE",
+            "FROM": "C-ARTEFACTO-V21",
+            "TO": "C-LASTMILE",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -24388,6 +24513,76 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-AUDIT-CASCO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria do casco alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 279,
+          "snippet": "r = _node(['italia-portale/audit/casco/d97-auditoria.mjs', '--json'])",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-CASCO--READS-->C-TESTES",
+            "FROM": "C-AUDIT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 113,
+          "snippet": "LEITORES: [['italia-portale/audit/etichette-gate.mjs', 'ITALY_LABEL_INTELLIGENCE'], ['pacote/pote_ferramenta_label.py', 'ITALY_LABEL_INTELLIGENCE']] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-GERAL--READS-->C-LASTMILE",
+            "FROM": "C-AUDIT-GERAL",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-AUDIT-GERAL",
       "to": "C-PORTAO-BUILD",
       "type": "IMPORTS",
@@ -24549,7 +24744,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Harness de auditoria tem o seu codigo importado por Auditoria do casco. Provado por 20 linhas de codigo.",
+      "reason": "Harness de auditoria tem o seu codigo importado por Auditoria do casco. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/casco/censo-demo.mjs",
@@ -24571,6 +24766,22 @@
           "file": "italia-portale/audit/casco/censo-precedenza.mjs",
           "line": 1,
           "snippet": "import { loadData } from '../lib/harness.mjs';",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
+            "FROM": "C-AUDIT-HARNESS",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 30,
+          "snippet": "import { mount, CLIENT } from '../lib/harness.mjs';",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
             "FROM": "C-AUDIT-HARNESS",
@@ -24715,22 +24926,6 @@
           "file": "italia-portale/audit/casco/pote-publicado-browser.mjs",
           "line": 17,
           "snippet": "import { serve, open, CLIENT } from '../lib/drive.mjs';",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
-            "FROM": "C-AUDIT-HARNESS",
-            "TO": "C-AUDIT-CASCO",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "italia-portale/audit/casco/quarantatre.mjs",
-          "line": 8,
-          "snippet": "import { serve, open, screenText, C, line } from '../lib/drive.mjs';",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
             "FROM": "C-AUDIT-HARNESS",
@@ -24760,7 +24955,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "UNKNOWN",
-      "reason": "Harness de auditoria alimenta Auditoria do casco. Provado por 20 linhas de codigo.",
+      "reason": "Harness de auditoria alimenta Auditoria do casco. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/casco/censo-demo.mjs",
@@ -24776,6 +24971,16 @@
           "file": "italia-portale/audit/casco/censo-precedenza.mjs",
           "line": 1,
           "snippet": "import { loadData } from '../lib/harness.mjs';",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 30,
+          "snippet": "import { mount, CLIENT } from '../lib/harness.mjs';",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
           "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
@@ -24866,16 +25071,6 @@
           "file": "italia-portale/audit/casco/pote-publicado-browser.mjs",
           "line": 17,
           "snippet": "import { serve, open, CLIENT } from '../lib/drive.mjs';",
-          "ASSERTION_SUPPORTED": null,
-          "SUPPORTS": "AMBIGUOUS",
-          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "italia-portale/audit/casco/quarantatre.mjs",
-          "line": 8,
-          "snippet": "import { serve, open, screenText, C, line } from '../lib/drive.mjs';",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
           "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
@@ -34616,6 +34811,41 @@
     },
     {
       "from": "C-IMPORTAR",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Levar o dado para o banco alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 90,
+          "snippet": "LEITORES: [['motor/v21_crossings.py', \"le('RESISTANCE.json')\"], ['guarda/importar_italia.py', 'insert into public.resistencia_confirmada']] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IMPORTAR--READS-->C-LASTMILE",
+            "FROM": "C-IMPORTAR",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IMPORTAR",
       "to": "C-SUPABASE",
       "type": "WRITES",
       "payload": "artefacto",
@@ -36133,7 +36363,7 @@
       "evidence": [
         {
           "file": "tests/test_pote_publicado.mjs",
-          "line": 63,
+          "line": 64,
           "snippet": "const r = spawnSync('python3', ['pacote/publicar_pote_aprovado.py', '--conferir'], { cwd: RAIZ, encoding: 'utf8' });",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LASTMILE--READS-->C-AUDIT-CASCO",
@@ -36337,7 +36567,7 @@
         },
         {
           "file": "pacote/publicar_pote_aprovado.py",
-          "line": 193,
+          "line": 222,
           "snippet": "DESTINO.write_text(texto, encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LASTMILE--WRITES-->C-PORTAL-DADOS",
@@ -36433,13 +36663,128 @@
     {
       "from": "C-LASTMILE",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ultima milha da entrega tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 30,
+          "snippet": "import publicar_pote_aprovado as PUB  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--IMPORTS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 31,
+          "snippet": "import pote_ferramenta_label as LI  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--IMPORTS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LASTMILE",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ultima milha da entrega alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Ultima milha da entrega alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 89,
+          "snippet": "r = subprocess.run([sys.executable, 'pacote/publicar_pote_aprovado.py', '--conferir'], cwd=ROOT,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 106,
+          "snippet": "cls.pote = _j('docs/casco/ferramentas/POTE-FERRAMENTA-LABEL-INTELLIGENCE.json')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 163,
+          "snippet": "r = subprocess.run([sys.executable, 'pacote/pote_ferramenta_label.py', '--conferir'], cwd=ROOT,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 203,
+          "snippet": "r = _node(['pacote/acervo_inventario.mjs', '--conferir'])",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LASTMILE--READS-->C-TESTES",
+            "FROM": "C-LASTMILE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_adama_relevance.py",
           "line": 27,
@@ -39508,11 +39853,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Auditoria do casco. Provado por 1 linha de codigo.",
+      "reason": "Camadas de dado do portal alimenta Auditoria do casco. Provado por 2 linhas de codigo.",
       "evidence": [
         {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 87,
+          "snippet": "for (const f of ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js']) {",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_pote_publicado.mjs",
-          "line": 36,
+          "line": 37,
           "snippet": "const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-DADOS--READS-->C-AUDIT-CASCO",
@@ -39888,8 +40249,56 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Ultima milha da entrega. Provado por 2 linhas de codigo.",
+      "reason": "Camadas de dado do portal alimenta Ultima milha da entrega. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 108,
+          "snippet": "{ ID: 'label-intelligence-usos', FICHEIRO: 'italia-portale/client/italy-label-intelligence.js',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 131,
+          "snippet": "['meeting-intelligence-snapshot.js', 'MEETING_INTELLIGENCE'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 134,
+          "snippet": "['adama-relevance.js', 'ADAMA_RELEVANCE'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "pacote/meeting_snapshot.py",
           "line": 187,
@@ -39907,8 +40316,24 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "pacote/pote_ferramenta_label.py",
+          "line": 58,
+          "snippet": "FONTE = RAIZ / \"italia-portale/client/italy-label-intelligence.js\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "pacote/publicar_pote_aprovado.py",
-          "line": 63,
+          "line": 76,
           "snippet": "DESTINO = RAIZ / \"italia-portale/client/sintonia-pote-publicado.js\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-DADOS--READS-->C-LASTMILE",
@@ -40561,6 +40986,41 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-PORTAL-DADOS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Camadas de dado do portal alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 259,
+          "snippet": "pub = _ler(os.path.join(ROOT, 'italia-portale/client/sintonia-pote-publicado.js'))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-DADOS--READS-->C-TESTES",
+            "FROM": "C-PORTAL-DADOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-PORTAL-MODELO",
       "to": "C-AUDIT-CASCO",
       "type": "READS",
@@ -40568,8 +41028,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Auditoria do casco. Provado por 3 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Auditoria do casco. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 87,
+          "snippet": "for (const f of ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js']) {",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 87,
+          "snippet": "for (const f of ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js']) {",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_pote_no_casco.mjs",
           "line": 26,
@@ -40588,7 +41080,7 @@
         },
         {
           "file": "tests/test_pote_publicado.mjs",
-          "line": 36,
+          "line": 37,
           "snippet": "const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
@@ -40604,7 +41096,7 @@
         },
         {
           "file": "tests/test_pote_publicado.mjs",
-          "line": 36,
+          "line": 37,
           "snippet": "const FICHEIROS = ['sintonia-pote-publicado.js', 'sintonia-pote-casco.js', 'sintonia-pote-publicacao.js'];",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
@@ -40731,6 +41223,73 @@
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-MARCA",
             "FROM": "C-PORTAL-MODELO",
             "TO": "C-AUDIT-MARCA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAL-MODELO",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta Ultima milha da entrega. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 61,
+          "snippet": "['italia-portale/client/italy-app-model.js', 'RAW.HANDOFF_V21.productRelationships']] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 126,
+          "snippet": "['italy-v21.js', 'ITALY_HANDOFF_V21'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 132,
+          "snippet": "['italy-casa.js', 'ITALY_CASA'],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-LASTMILE",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-LASTMILE",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -41024,6 +41583,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAL-MODELO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_acervo_organizado.py",
+          "line": 183,
+          "snippet": "\"vm.createContext(c);vm.runInContext(fs.readFileSync('italia-portale/client/sintonia-pote-casco.js','utf8'),c);\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -47470,8 +48064,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Rete Commerciale di Campo alimenta Auditoria do casco. Provado por 3 linhas de codigo.",
+      "reason": "Rete Commerciale di Campo alimenta Auditoria do casco. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "italia-portale/audit/casco/d97-auditoria.mjs",
+          "line": 35,
+          "snippet": "const PORTAL_F = 'italia-portale/client/portale.html';",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TELA-FIELD--READS-->C-AUDIT-CASCO",
+            "FROM": "C-TELA-FIELD",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "italia-portale/audit/casco/demo-visibile.mjs",
           "line": 77,
@@ -48139,6 +48749,57 @@
     },
     {
       "from": "C-V21-COMERCIAL",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Leitura comercial e completude alimenta Ultima milha da entrega. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 65,
+          "snippet": "LEITORES: [['motor/v21_adama_registro_validar.py', 'PRODUCTS-REGULATORY.json'], ['motor/v21_oportunidades.py', \"cs['PRODUCTS-REGULATORY']\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-COMERCIAL--READS-->C-LASTMILE",
+            "FROM": "C-V21-COMERCIAL",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 82,
+          "snippet": "LEITORES: [['motor/v21_crossings.py', 'PRODUCTS-COMMERCIAL.json'], ['motor/v21_comercial.py', \"p.get('MATCHED_REGULATORY_ID')\"]] },",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-COMERCIAL--READS-->C-LASTMILE",
+            "FROM": "C-V21-COMERCIAL",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-COMERCIAL",
       "to": "C-PACOTE-CAMADAS",
       "type": "READS",
       "payload": "artefacto",
@@ -48509,6 +49170,41 @@
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-CRUZAMENTO",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cruzamentos e convergencia alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 60,
+          "snippet": "LEITORES: [['motor/v21_crossings.py', \"PRODUCT-RELATIONSHIPS.json\"], ['motor/v21_oportunidades.py', \"cs['PRODUCT-RELATIONSHIPS'], 'CROP_IDS'\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-CRUZAMENTO--READS-->C-LASTMILE",
+            "FROM": "C-V21-CRUZAMENTO",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -49385,6 +50081,41 @@
     },
     {
       "from": "C-V21-OPORTUNIDADE",
+      "to": "C-LASTMILE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor de Oportunidade alimenta Ultima milha da entrega. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_inventario.mjs",
+          "line": 60,
+          "snippet": "LEITORES: [['motor/v21_crossings.py', \"PRODUCT-RELATIONSHIPS.json\"], ['motor/v21_oportunidades.py', \"cs['PRODUCT-RELATIONSHIPS'], 'CROP_IDS'\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-OPORTUNIDADE--READS-->C-LASTMILE",
+            "FROM": "C-V21-OPORTUNIDADE",
+            "TO": "C-LASTMILE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-OPORTUNIDADE",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -50013,7 +50744,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 708,
+  "UNCLAIMED_FILES_COUNT": 715,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -50192,12 +50923,12 @@
     "components_pending": 91,
     "components_broken": 8,
     "components_unknown": 8,
-    "edges": 592,
-    "edges_proven": 545,
+    "edges": 603,
+    "edges_proven": 556,
     "edges_unknown": 47,
     "business_edges": 4,
-    "files_tracked": 1397,
-    "files_covered": 689,
+    "files_tracked": 1409,
+    "files_covered": 694,
     "files_code_unclaimed": 0,
     "roles_proven": 118,
     "roles_declared_only": 5,
