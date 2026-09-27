@@ -20,6 +20,7 @@ for p in ("", "leis", "admissao", "coleta"):
 import _gavetas  # noqa: E402,F401
 import admissao as adm  # noqa: E402
 import boletim_do_campo as BC  # noqa: E402
+import afirmacao_da_fonte as AF  # noqa: E402
 import estudo_chaves as EC  # noqa: E402
 import pesquisadores_t6 as T6  # noqa: E402
 import reprocessar_estudos_chaves as RE  # noqa: E402
@@ -78,7 +79,10 @@ class D112OTrechoELiteral(unittest.TestCase):
             r = EC.chaves_do_estudo(i["texto"])
             for k in CHAVES:
                 if r[k]["VALOR"] == EC.AUSENCIA:
-                    self.assertEqual(EC.AUSENCIA, r[k]["ENTITY_SOURCE"], (i["item_id"], k))
+                    # LOTE6-INTEGRA (ajuste DECLARADO): sem trecho a procedencia e «UNKNOWN», a palavra da
+                    # COL-LAW-221 (D112, leis/afirmacao_da_fonte.ENTITY_SOURCES); o VALOR continua «NAO SEI».
+                    self.assertEqual("UNKNOWN", r[k]["ENTITY_SOURCE"], (i["item_id"], k))
+                    self.assertIn(r[k]["ENTITY_SOURCE"], AF.ENTITY_SOURCES)
                     self.assertEqual([], r[k]["SPANS"], (i["item_id"], k))
                     continue
                 self.assertEqual("SPAN", r[k]["ENTITY_SOURCE"])

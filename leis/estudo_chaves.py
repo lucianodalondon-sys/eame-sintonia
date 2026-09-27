@@ -53,6 +53,10 @@ import unicodedata
 
 EXTRATOR = "estudo-chaves-v1"
 ENTITY_SOURCE = "SPAN"                   # D112
+# LOTE6-INTEGRA: sem trecho, a PROCEDENCIA e «UNKNOWN» — a palavra da COL-LAW-221 (`leis/afirmacao_da_fonte`,
+# dono do vocabulario) — e o VALOR e «NAO SEI». Sao dois campos: gravar «NAO SEI» em ENTITY_SOURCE punha la
+# uma palavra que a lei nao tem. A conferencia contra o dono esta mais abaixo (`_conferir_vocabulario`).
+ENTITY_SOURCE_SEM_TRECHO = "UNKNOWN"
 AUSENCIA = "NAO SEI"
 NATUREZA = "ESTUDO_CIENTIFICO"
 ESTADO_DO_PROBLEMA = "NOMEADO_NO_ESTUDO"
@@ -143,6 +147,19 @@ def _literal(texto, mapa, ini, fim):
 
 # ═════════════════════════════════════════════ os vocabularios, compostos dos donos
 _VOC = {}
+
+
+def _conferir_vocabulario():
+    """As duas procedencias que este extrator grava tem de ser palavras da COL-LAW-221 — lidas do dono."""
+    sys.path.insert(0, os.path.join(_RAIZ, "leis"))
+    import afirmacao_da_fonte as AF                  # noqa: PLC0415 — dono de ENTITY_SOURCES (D112)
+    fora = {ENTITY_SOURCE, ENTITY_SOURCE_SEM_TRECHO} - set(AF.ENTITY_SOURCES)
+    if fora:
+        raise ImportError("estudo_chaves grava ENTITY_SOURCE fora da COL-LAW-221: %s" % sorted(fora))
+    return AF
+
+
+_conferir_vocabulario()
 
 
 def _t6():
@@ -354,7 +371,7 @@ def chaves_do_estudo(texto: str) -> dict:
     else:
         cultura = dict(nada, PORQUE=("so formas ambiguas no texto: AMBIGUO = NAO SEI" if ambiguas
                                      else "o texto nao nomeia cultura de nenhum dos vocabularios"))
-    cultura.update({"ENTITY_SOURCE": ENTITY_SOURCE if culturas else AUSENCIA,
+    cultura.update({"ENTITY_SOURCE": ENTITY_SOURCE if culturas else ENTITY_SOURCE_SEM_TRECHO,
                     "SPANS": [_limpo(h) for h in culturas], "AMBIGUAS": [_limpo(h) for h in ambiguas],
                     "NATUREZA": NATUREZA,
                     "FORMA": "o nome do vocabulario que casou primeiro; nao e EPPO"})
@@ -365,7 +382,7 @@ def chaves_do_estudo(texto: str) -> dict:
                     "BASE": " ; ".join("«%s»" % h["TRECHO"] for h in problemas)[:600]}
     else:
         problema = dict(nada, PORQUE="o texto nao nomeia praga/doenca de nenhum dos vocabularios")
-    problema.update({"ENTITY_SOURCE": ENTITY_SOURCE if problemas else AUSENCIA,
+    problema.update({"ENTITY_SOURCE": ENTITY_SOURCE if problemas else ENTITY_SOURCE_SEM_TRECHO,
                      "SPANS": [_limpo(h) for h in problemas],
                      "ESTADO": ESTADO_DO_PROBLEMA if problemas else AUSENCIA,
                      "NATUREZA": NATUREZA, "LEI": LEI_CAP_SCI,
@@ -378,7 +395,7 @@ def chaves_do_estudo(texto: str) -> dict:
                   "PRECISAO": list(dict.fromkeys(h["PRECISAO"] for h in lugares))}
     else:
         regiao = dict(nada, PORQUE="o texto nao diz onde o estudo foi feito (lugar ancorado a um experimento)")
-    regiao.update({"ENTITY_SOURCE": ENTITY_SOURCE if lugares else AUSENCIA,
+    regiao.update({"ENTITY_SOURCE": ENTITY_SOURCE if lugares else ENTITY_SOURCE_SEM_TRECHO,
                    "SPANS": [_limpo(h) for h in lugares], "RECUSADOS": [_limpo(h) for h in recusados],
                    "KIND": KIND_DO_LUGAR, "NATUREZA": NATUREZA, "LEI": LEI_LUGAR + " · " + LEI_CAP_SCI})
     return {"CULTURA": cultura, "PROBLEMA": problema, "REGIAO_DO_FATO": regiao,
