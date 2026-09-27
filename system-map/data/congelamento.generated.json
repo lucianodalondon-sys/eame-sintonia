@@ -1,9 +1,9 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
+  "FROZEN_AT_HEAD": "42c12fece3befb3ba4d5f850c77c38e82cb904c2",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 307,
+  "ARTEFATOS": 311,
   "POR_ESPECIE": {
     "CONTRACT": 4,
     "DATA_SAMPLE": 103,
@@ -11,9 +11,9 @@
     "GENERATED_OUTPUT": 26,
     "IMPLEMENTATION": 14,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 52,
-    "PORTAL_UI": 68,
-    "TEST": 29
+    "MENCAO_FRACA_APENAS": 53,
+    "PORTAL_UI": 69,
+    "TEST": 31
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -428,6 +428,12 @@
       ]
     },
     {
+      "PATH": "italia-portale/client/sintonia-pote-casco.js",
+      "SPECIES": "PORTAL_UI",
+      "GIT_BLOB_SHA": "0d1a3dbbb423905dc4d37a5b12810407778f0c23",
+      "MARCAS_FORTES": []
+    },
+    {
       "PATH": "leis/afirmacao_da_fonte.py",
       "SPECIES": "IMPLEMENTATION",
       "GIT_BLOB_SHA": "bd05d96bd44bd3dea0f10498b47710aae6adb71a",
@@ -550,7 +556,7 @@
     {
       "PATH": "pacote/pote_intelligence_casco.py",
       "SPECIES": "PORTAL_UI",
-      "GIT_BLOB_SHA": "074d70c72afcac00eb95ebeed10c3a5dbea3d253",
+      "GIT_BLOB_SHA": "8e6a3737100426b49f1c94c8a0d1b6536c0284d3",
       "MARCAS_FORTES": []
     },
     {
@@ -619,7 +625,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "3d3580f32d2116643a441d7c6a61fa659eb57b58",
+      "GIT_BLOB_SHA": "368b9db8f370488cc6215710191201b4f5ab70f9",
       "MARCAS_FORTES": []
     }
   ],
@@ -1289,6 +1295,10 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "provas/pote_v2/medir_recusas_r6.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "provas/trava_da_inteligencia_morde.py",
       "SPECIES": "INSTRUMENT"
     },
@@ -1394,6 +1404,14 @@
     },
     {
       "PATH": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
       "SPECIES": "TEST"
     },
     {

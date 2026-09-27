@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T21:42:51+00:00",
-  "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
-  "BRANCH": "claude/single-reference-gateway-hhhj7t",
+  "GENERATED_AT": "2026-09-27T23:22:10+00:00",
+  "HEAD": "42c12fece3befb3ba4d5f850c77c38e82cb904c2",
+  "BRANCH": "claude/acervo-intelligence-processing-148qau",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9",
-  "FICHEIROS_NA_IMPRESSAO": 4167,
+  "SOURCE_TREE_FINGERPRINT": "4e02cf6737316be4629976acffe55934b4c23dc8dcb4cd278d96cdd08e9a97a3",
+  "FICHEIROS_NA_IMPRESSAO": 4190,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2050,7 +2050,7 @@
    {
     "PATH": "italia-portale/client/sintonia-pote-casco.js",
     "PAPEL": "FONTE",
-    "VERSAO": "786d76dc9fd165fc4bfad6f8ac1120ae7d659bf5",
+    "VERSAO": "0d1a3dbbb423905dc4d37a5b12810407778f0c23",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2653,6 +2653,13 @@
     "PATH": "orquestrador/persistencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "fde4230200b250d1cc1870e0e09a6c9289e65d6a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "pacote/acervo_na_intelligence.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0e4170a4188e620d611ea0949640f8ff1469b22b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5207,14 +5214,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9",
+    "VERSAO": "4e02cf6737316be4629976acffe55934b4c23dc8dcb4cd278d96cdd08e9a97a3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9",
+    "VERSAO": "4e02cf6737316be4629976acffe55934b4c23dc8dcb4cd278d96cdd08e9a97a3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5670,6 +5677,13 @@
     "PATH": "tests/test_a_sala_de_espera_tem_um_dono.py",
     "PAPEL": "FONTE",
     "VERSAO": "497e170fde8bfff0e3dedfa06d47f56d874b6ced",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_acervo_na_intelligence.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "9e124b184442e64216ddec96c5423f42b1d5c1f2",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7153,7 +7167,14 @@
    {
     "PATH": "tests/test_pote_intelligence_casco.py",
     "PAPEL": "FONTE",
-    "VERSAO": "7e7736df695cf463cb9bbbc2715fa36af3923dfd",
+    "VERSAO": "e420cd84dea3bfec4f44637d9c7ddf479176cff2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_pote_v2_unico.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "33de48cbadab6fb34fe629735908de140c11343e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7753,8 +7774,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1102,
-  "INPUTS_DIGEST": "c68aa9464445f3db1e277a90124c4ac70829f0a727e15f9a6735f82afa3c6593",
+  "INPUTS_COUNT": 1105,
+  "INPUTS_DIGEST": "39fc058b9d32b65c7774150291a1df26ab2c6d90e3418bc78db0794f91f78e45",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7780,15 +7801,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 620,
+  "DOCUMENTOS_LIDOS": 624,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "381de4abfd7b4eebe02d7a00387844b53ed23722b2002c8795e1adf3951ed744",
-  "SEMANTIC_HASH": "7db9d8c6469b21ab4629e21bc19dbe697be8b424c4c2ce6fadde7ba343268cf5"
+  "MEASUREMENT_HASH": "d4b7b5b73188bd4499caaf2ef538bfc5222fa1fdccd100c150056bf5982118f0",
+  "SEMANTIC_HASH": "45a61c79620e6cf742f3c0e2d26b999e6c9e43f39952bb0401f6267236dd001f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7930,6 +7951,7 @@
   "EXCLUSION_RULE": "ja ser membro de UNIVERSE",
   "NAO_E": "membro da coleta. Somar isto a coleta e o ataque 15 do contrato.",
   "MEMBERS": [
+   "C-ACERVO-NA-INTELLIGENCE",
    "C-APRENDER-COM-A-FONTE",
    "C-ASK-SINTONIA",
    "C-AUDIT-GERAL",
@@ -8031,13 +8053,14 @@
    "C-V21-INGEST",
    "C-VOCI-DAL-CAMPO"
   ],
-  "COUNT": 100
+  "COUNT": 101
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
   "ENTITY_SPECIES": "SYSTEM_MAP_VISUAL_CARD",
   "DEFINITION": "UNIVERSE mais BOUNDARY_NEIGHBORS. E o que o censo audita.",
   "MEMBERS": [
+   "C-ACERVO-NA-INTELLIGENCE",
    "C-ADAMA-ES",
    "C-ADAMA-IT",
    "C-ADAMA-REFERENCE",
@@ -8259,16 +8282,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 220
+  "COUNT": 221
  },
  "ARITMETICA": {
   "COLLECTION": 120,
-  "BOUNDARY": 100,
-  "SOMA": 220,
-  "EXPANDED": 220,
+  "BOUNDARY": 101,
+  "SOMA": 221,
+  "EXPANDED": 221,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 220,
+  "RESUMO_CARTOES_NO_UNIVERSO": 221,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -8276,6 +8299,50 @@
   "MODELO": "DECLARED · CODE · OBSERVED · PROVEN (+ PROVEN_PLANE)",
   "ORDEM": "EDGE_ID crescente",
   "MEMBERS": [
+   {
+    "EDGE_ID": "C-ACERVO-NA-INTELLIGENCE--IMPORTS-->C-TESTES",
+    "FROM": "C-ACERVO-NA-INTELLIGENCE",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_acervo_na_intelligence.py",
+      "LINHA": 26,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ACERVO-NA-INTELLIGENCE--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ACERVO-NA-INTELLIGENCE--READS-->C-PROVA-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-ACERVO-NA-INTELLIGENCE",
+    "TO": "C-PROVA-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/acervo_na_intelligence/mutantes.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ACERVO-NA-INTELLIGENCE--READS-->C-PROVA-ACERVO-NA-INTELLIGENCE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
    {
     "EDGE_ID": "C-ADAMA-ES--READS-->C-PROVA-COLETA",
     "FROM": "C-ADAMA-ES",
@@ -11028,6 +11095,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-APRENDER-COM-A-FONTE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-ARTEFACTO-V21",
+    "TO": "C-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 95,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ARTEFACTO-V21--READS-->C-ACERVO-NA-INTELLIGENCE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -18406,6 +18495,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-COLETA-META--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-COLETA-META",
+    "TO": "C-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 83,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-COLETA-META--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -27583,6 +27694,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-INT-CORRIDA",
+    "TO": "C-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 78,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
     "FROM": "C-INT-CORRIDA",
     "TO": "C-TESTES",
@@ -28300,6 +28433,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-INT-MOTOR-CAPACIDADES",
+    "TO": "C-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 79,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-PROVA-INT-R7",
     "FROM": "C-INT-MOTOR-CAPACIDADES",
     "TO": "C-PROVA-INT-R7",
@@ -28489,6 +28644,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-MOTOR-V2-REQ--READS-->C-INT-ARBITRAGEM",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-INT-PORTA-REFERENCIA",
+    "TO": "C-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 80,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -35054,6 +35231,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 76,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ADAMA-ES",
     "FROM": "C-MAPA-TESTES",
     "TO": "C-ADAMA-ES",
@@ -36340,6 +36539,14 @@
      {
       "FICHEIRO": "pacote/pote_intelligence_casco.py",
       "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/validar_pote_v2.py",
+      "LINHA": 30,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
@@ -43373,8 +43580,16 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/pote_v2/mutantes_pote_v2_unico.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-POTE-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_pote_no_casco.mjs",
-      "LINHA": 26,
+      "LINHA": 31,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-POTE-CASCO",
@@ -43627,6 +43842,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-POTE-INT-CASCO",
+    "TO": "C-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 84,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 85,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-PROVA-INT-R7",
     "FROM": "C-POTE-INT-CASCO",
     "TO": "C-PROVA-INT-R7",
@@ -43661,6 +43906,22 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_acervo_na_intelligence.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_acervo_na_intelligence.py",
+      "LINHA": 28,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_cruzamentos_max.py",
       "LINHA": 23,
       "SUPPORTS": "YES",
@@ -43671,6 +43932,22 @@
      {
       "FICHEIRO": "tests/test_pote_intelligence_casco.py",
       "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 35,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
@@ -43714,7 +43991,23 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_pote_intelligence_casco.py",
-      "LINHA": 299,
+      "LINHA": 305,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 333,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 333,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -46408,7 +46701,15 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_pote_intelligence_casco.py",
-      "LINHA": 446,
+      "LINHA": 454,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 41,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
@@ -56316,6 +56617,30 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/pote_v2/mutantes_pote_v2_unico.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/pote_v2/mutantes_pote_v2_unico.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/pote_v2/mutantes_pote_v2_unico.py",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -57712,6 +58037,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-V21-COMERCIAL--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-V21-COMERCIAL",
+    "TO": "C-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 82,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V21-COMERCIAL--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-V21-COMERCIAL--IMPORTS-->C-TESTES",
     "FROM": "C-V21-COMERCIAL",
     "TO": "C-TESTES",
@@ -58408,6 +58755,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-VOCI-DAL-CAMPO--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+    "FROM": "C-VOCI-DAL-CAMPO",
+    "TO": "C-ACERVO-NA-INTELLIGENCE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/acervo_na_intelligence.py",
+      "LINHA": 81,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-VOCI-DAL-CAMPO--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-VOCI-DAL-CAMPO--IMPORTS-->C-PROVA-VOCI-DAL-CAMPO",
     "FROM": "C-VOCI-DAL-CAMPO",
     "TO": "C-PROVA-VOCI-DAL-CAMPO",
@@ -58804,12 +59173,12 @@
     ]
    }
   ],
-  "COUNT": 1666
+  "COUNT": 1677
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 220,
-  "CARTOES_AUDITADOS": 220,
-  "ARESTAS_RELACIONADAS": 1666,
+  "CARTOES_NO_UNIVERSO": 221,
+  "CARTOES_AUDITADOS": 221,
+  "ARESTAS_RELACIONADAS": 1677,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -58951,6 +59320,7 @@
    "C-V21-INGEST"
   ],
   "SEM_CHAMADOR_DE_RUNTIME": [
+   "C-ACERVO-NA-INTELLIGENCE",
    "C-ADAMA-ES",
    "C-APRENDER-COM-A-FONTE",
    "C-AUDIT-GERAL",
@@ -59205,6 +59575,9 @@
     "opportunity",
     "science"
    ],
+   "C-PROVA-ACERVO-NA-INTELLIGENCE": [
+    "infra"
+   ],
    "C-PROVA-AUDIO-ONLY": [
     "audit"
    ],
@@ -59277,11 +59650,11 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 286,
+   "CODE": 293,
    "CONTROL": 87,
    "DATA": 31,
-   "PROOF": 589,
-   "READ": 379,
+   "PROOF": 591,
+   "READ": 381,
    "RULE": 274,
    "WRITE": 20
   },
@@ -59301,6 +59674,45 @@
   "TRAVESSIAS_QUE_LEVAM_DADO": 0
  },
  "FICHAS": [
+  {
+   "CARD_ID": "C-ACERVO-NA-INTELLIGENCE",
+   "NOME": "O acervo antigo pelas capacidades da Intelligence, ate ao pote v2",
+   "FAMILIA": "F-ENTREGA",
+   "TERRITORIO": "Z-PACOTE",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "pacote/acervo_na_intelligence.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/acervo_na_intelligence/mutantes.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "datetime",
+    "pathlib"
+   ],
+   "ENTRAM": 9,
+   "SAEM": 2,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "PROOF",
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF",
+    "READ"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
   {
    "CARD_ID": "C-ADAMA-ES",
    "NOME": "O portao do catalogo espanhol · projeto futuro",
@@ -61228,7 +61640,7 @@
     "leis"
    ],
    "ENTRAM": 8,
-   "SAEM": 4,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -61236,6 +61648,7 @@
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
+    "CODE",
     "PROOF",
     "READ"
    ],
@@ -63341,7 +63754,7 @@
     "pathlib"
    ],
    "ENTRAM": 1,
-   "SAEM": 9,
+   "SAEM": 10,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ"
    ],
@@ -64536,7 +64949,7 @@
     "pente_fino_da_coleta"
    ],
    "ENTRAM": 29,
-   "SAEM": 120,
+   "SAEM": 121,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -65565,6 +65978,7 @@
    "SO_MEDEM_ESTE": [
     "provas/_mutantes_pote_casco.py",
     "provas/demanda_de_dados_da_italia.py",
+    "provas/pote_v2/mutantes_pote_v2_unico.py",
     "system-map/scripts/scan_casco.py",
     "system-map/scripts/scan_repo.py",
     "tests/test_a_demanda_de_dados_da_italia.py",
@@ -66998,6 +67412,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/acervo_na_intelligence/mutantes.py",
     "provas/cap_win/mutantes.py",
     "provas/independencia/mutantes.py",
     "provas/porta_unica_referencia/mutantes.py",
@@ -67482,6 +67897,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/acervo_na_intelligence/mutantes.py",
     "provas/cap_win/mutantes.py",
     "provas/independencia/mutantes.py",
     "provas/int_r7/mutantes.py"
@@ -70075,6 +70491,7 @@
     "tests/test_a_rota_do_html.py",
     "tests/test_a_sala_de_espera_nao_tem_morada.py",
     "tests/test_a_sala_de_espera_tem_um_dono.py",
+    "tests/test_acervo_na_intelligence.py",
     "tests/test_adama_catalogo_drift.py",
     "tests/test_adama_referencia.py",
     "tests/test_adama_relevance.py",
@@ -70287,6 +70704,7 @@
     "tests/test_portoes_da_collection.py",
     "tests/test_portoes_eame.py",
     "tests/test_pote_intelligence_casco.py",
+    "tests/test_pote_v2_unico.py",
     "tests/test_preco_de_mercado.py",
     "tests/test_preflight_de_egresso.py",
     "tests/test_preservar_coleta.py",
@@ -70389,6 +70807,7 @@
     "provas/_mutantes_prova_teto_social.py",
     "provas/a_fronteira_da_coleta.py",
     "provas/a_rota_m2_atravessa.py",
+    "provas/acervo_na_intelligence/mutantes.py",
     "provas/c2_juiz_mutacao.py",
     "provas/contador_24h_mutacao.py",
     "provas/estudos_chaves/mutacao_estudos_chaves.py",
@@ -70402,6 +70821,7 @@
     "provas/onda_web_mutacao.py",
     "provas/os_portoes_da_collection.py",
     "provas/porta_unica_referencia/mutantes.py",
+    "provas/pote_v2/mutantes_pote_v2_unico.py",
     "provas/preservar_coleta_no_postgres.py",
     "provas/rastro_no_postgres.py",
     "provas/raw_entre_jobs.py",
@@ -70526,7 +70946,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 254,
+   "ENTRAM": 255,
    "SAEM": 43,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -70709,7 +71129,7 @@
     "collections"
    ],
    "ENTRAM": 5,
-   "SAEM": 3,
+   "SAEM": 4,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "RULE",

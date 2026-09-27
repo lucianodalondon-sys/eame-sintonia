@@ -74,6 +74,7 @@
       "PORTA-UNICA-REFERENCIA.md",
       "PORTAL-CAPABILITY-INVENTORY.md",
       "POTE-UNICO.md",
+      "POTE-V2-UNICO.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
       "RELATORIO-ALVOS-NOVOS.md",
@@ -1673,6 +1674,14 @@
       "docs/intelligence/README.md",
       "docs/intelligence/RED-TEAM-INTELLIGENCE-ARBITRATION-V1.md",
       "docs/intelligence/RELATORIO-T6-CAP-SCI.md",
+      "docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+      "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.json",
+      "docs/intelligence/acervo/INSUMOS-DECLARADOS-ACERVO.md",
+      "docs/intelligence/acervo/corrida-acervo/POTE-ACERVO.json",
+      "docs/intelligence/acervo/corrida-acervo/RESUMO-ACERVO.json",
+      "docs/intelligence/pote-v2/CONTRATO-POTE-V2.md",
+      "docs/intelligence/pote-v2/FORMATOS-MEDIDOS.md",
+      "docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.schema.json",
       "docs/intelligence/r7/ANALISE-R7.json",
       "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
       "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
@@ -1682,6 +1691,7 @@
       "docs/nuvem/nuvem-estudos-chaves-v1-MERGES.txt",
       "docs/nuvem/nuvem-int-r7-caps-v1-MERGES.txt",
       "docs/nuvem/nuvem-lote6-integra-v1-MERGES.txt",
+      "docs/nuvem/nuvem-pote-v2-unico-v1-MERGES.txt",
       "docs/operacao/A-CASA-DO-DERIVADO.md",
       "docs/operacao/ACHADO-RELEVANCIA-E-O-SNAPSHOT-NOVO.md",
       "docs/operacao/ALLOWED-STRUCTURED-TARGETS-POR-FONTE.md",
@@ -2754,6 +2764,7 @@
       "orquestrador/persistencia.py"
     ],
     "pacote": [
+      "pacote/acervo_na_intelligence.py",
       "pacote/esqueleto_scientifica.py",
       "pacote/lastmile_entregar.py",
       "pacote/lastmile_inventario.py",
@@ -2774,7 +2785,8 @@
       "pacote/ponte_intelligence_casco.py",
       "pacote/pote_cruzamentos_max.py",
       "pacote/pote_intelligence_casco.py",
-      "pacote/v21_handoff_json.py"
+      "pacote/v21_handoff_json.py",
+      "pacote/validar_pote_v2.py"
     ],
     "pedido": [
       "pedido/pedido.py",
@@ -2858,6 +2870,8 @@
       "provas/a_sala_sobrevive_ao_processo.py",
       "provas/a_taxonomia_tem_um_dono.py",
       "provas/a_unidade_pousa_na_espera.py",
+      "provas/acervo_na_intelligence/MUTANTES.json",
+      "provas/acervo_na_intelligence/mutantes.py",
       "provas/alcance_da_pergunta_tematica.py",
       "provas/amostragem_neutra_t3.py",
       "provas/arbitragem_da_intelligence.py",
@@ -3121,6 +3135,10 @@
       "provas/porta_unica_referencia/MUTANTES.json",
       "provas/porta_unica_referencia/mutantes.py",
       "provas/portas_canonicas_no_postgres.py",
+      "provas/pote_v2/bateria-base-f357712.json",
+      "provas/pote_v2/bateria-ramo-9719efc.json",
+      "provas/pote_v2/medir_recusas_r6.py",
+      "provas/pote_v2/mutantes_pote_v2_unico.py",
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
       "provas/primeira_coleta_controlada_italia.py",
@@ -3769,6 +3787,9 @@
       "tests/fixtures/pesquisadores_t6/orcid-0000-0003-3719-2520-works.json",
       "tests/fixtures/ponte_onboard_17_contratos.json",
       "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
+      "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+      "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
       "tests/fixtures/pote/POTE-SINTETICO.json",
       "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
       "tests/fixtures/yt-raw-minimo.json",
@@ -3795,6 +3816,7 @@
       "tests/test_a_rota_do_html.py",
       "tests/test_a_sala_de_espera_nao_tem_morada.py",
       "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "tests/test_acervo_na_intelligence.py",
       "tests/test_adama_catalogo_drift.py",
       "tests/test_adama_referencia.py",
       "tests/test_adama_relevance.py",
@@ -4008,6 +4030,7 @@
       "tests/test_portoes_eame.py",
       "tests/test_pote_intelligence_casco.py",
       "tests/test_pote_no_casco.mjs",
+      "tests/test_pote_v2_unico.py",
       "tests/test_preco_de_mercado.py",
       "tests/test_preflight_de_egresso.py",
       "tests/test_preservar_coleta.py",
@@ -4612,10 +4635,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/single-reference-gateway-hhhj7t",
-    "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
-    "GENERATED_AT": "2026-09-27T21:40:15+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9"
+    "BRANCH": "claude/acervo-intelligence-processing-148qau",
+    "HEAD": "42c12fece3befb3ba4d5f850c77c38e82cb904c2",
+    "GENERATED_AT": "2026-09-27T23:20:41+00:00",
+    "SOURCE_TREE_FINGERPRINT": "4e02cf6737316be4629976acffe55934b4c23dc8dcb4cd278d96cdd08e9a97a3"
   },
   "FAMILIES": [
     {
@@ -4686,7 +4709,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 118
+      "count": 119
     },
     {
       "id": "F-ENTREGA",
@@ -4702,7 +4725,7 @@
         "Z-SUPERFICIE",
         "Z-TELAS"
       ],
-      "count": 30
+      "count": 31
     }
   ],
   "TERRITORIES": [
@@ -4979,7 +5002,7 @@
       "y": 190,
       "w": 820,
       "h": 10666,
-      "count": 6
+      "count": 7
     },
     {
       "id": "Z-PORTOES",
@@ -5058,7 +5081,7 @@
       "y": 190,
       "w": 1235,
       "h": 10666,
-      "count": 98
+      "count": 99
     },
     {
       "id": "Z-REFERENCIA",
@@ -5104,6 +5127,115 @@
     "ENGENHARIA": "Engenharia do proprio SINTONIA (nao e departamento da ADAMA)."
   },
   "NODES": [
+    {
+      "id": "C-ACERVO-NA-INTELLIGENCE",
+      "name": "O acervo antigo pelas capacidades da Intelligence, ate ao pote v2",
+      "territory": "Z-PACOTE",
+      "kind": "engine",
+      "what": "Le docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json (2.080 itens ja coletados) e, pelo ID, o registo de origem em italia-portale/client/italy-handoff-v21.js (so leitura, sha256 conferido contra a ENTRADA). Monta o READY de cada item (tempo do facto por uma tabela declarada; publicacao nunca e tempo do facto salvo onde o facto E publicar; captura pelo dia real ou por limite provado: publicacao / inicio do facto observado, e o commit git da origem; FACT_LOCATION sempre NAO SEI, D112) e corre as capacidades QUE JA EXISTEM numa corrida so: motor_das_capacidades (G0/v4 + CAP-WIN + CAP-SCI + facto futuro + rendimento), concorrencia_meta.adama_no_anuncio pela porta (concorrente so por substancia, SINAL, nunca oportunidade), voce_dal_campo (CAP-FIELD) e a serie do Polso (P8, ler_serie do pote). Gera o POTE v2 da corrida ACERVO (docs/intelligence/acervo/corrida-acervo/POTE-ACERVO.json, validado por validar_pote_v2) e o RESUMO por tipo. IDs PROVISORIO (D119); COMPOSTO_DE nao usado (nao existe no contrato). Nao escreve no casco.",
+      "why_here": "ACERVO-NA-INTELLIGENCE (D115/D97, 2026-09-27): o acervo antigo e real e passa pela Intelligence antes do casco. Vive em pacote/ como pacote/rete_voci_dati.py: orquestra e adapta leitura, nao julga (em motor/ importar coleta/ seria mais uma travessia COLETA->INTELIGENCIA). Declara dois defeitos medidos e nao consertados aqui: SOURCE_ID com «API» derruba a corrida G0 inteira (7 itens ficam FORA_DA_CORRIDA, contados), e o mapa CHAVES.ENTITY_SOURCE do motor reprova no schema do contrato unico (viaja como ENTITY_SOURCE_POR_CHAVE, leitura de compatibilidade declarada). tests/test_acervo_na_intelligence.py.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⇢",
+      "views": [
+        "audit",
+        "generator",
+        "portal"
+      ],
+      "lane": "official",
+      "family": "F-ENTREGA",
+      "files": [
+        "pacote/acervo_na_intelligence.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ARTEFACTO-V21",
+        "C-COLETA-META",
+        "C-INT-CORRIDA",
+        "C-INT-MOTOR-CAPACIDADES",
+        "C-INT-PORTA-REFERENCIA",
+        "C-MAPA-TESTES",
+        "C-POTE-INT-CASCO",
+        "C-V21-COMERCIAL",
+        "C-VOCI-DAL-CAMPO"
+      ],
+      "outbound": [
+        "C-PROVA-ACERVO-NA-INTELLIGENCE",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPO_DA_PUBLICACAO",
+          "CAPACIDADE_DO_TIPO",
+          "REGRA_DO_TEMPO"
+        ],
+        "palavras": 32,
+        "por_lingua": {
+          "PT": 1
+        },
+        "sem_marca_de_lingua": 31,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 4 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+        "docs/intelligence/acervo/corrida-acervo/POTE-ACERVO.json",
+        "docs/intelligence/acervo/corrida-acervo/RESUMO-ACERVO.json",
+        "italia-portale/client/italy-handoff-v21.js"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-ACERVO-NA-INTELLIGENCE",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/acervo_na_intelligence/mutantes.py:23",
+          "tests/test_acervo_na_intelligence.py:26"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 16910,
+      "y": 360
+    },
     {
       "id": "C-ADAMA-ES",
       "name": "O portao do catalogo espanhol · projeto futuro",
@@ -6153,6 +6285,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS",
         "C-AUDIT-MARCA",
@@ -6203,9 +6336,9 @@
           "italia-portale/audit/deploy-surface.mjs:53",
           "italia-portale/audit/lib/harness.mjs:38"
         ],
-        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAO-BUILD · C-SITE-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 16910,
+      "x": 17325,
       "y": 360
     },
     {
@@ -6231,8 +6364,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 859",
-        "desses, mostrados aqui: 40 (ficam de fora 819)"
+        "enderecos que o codigo realmente chama: 861",
+        "desses, mostrados aqui: 40 (ficam de fora 821)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -43121,6 +43254,7 @@
         "C-PROCEDENCIA"
       ],
       "outbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-PROVA-PORTA-REFERENCIA",
         "C-RECEITAS",
         "C-TESTES"
@@ -43177,12 +43311,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "pacote/acervo_na_intelligence.py:83",
           "pedido/receitas.py:658",
           "provas/porta_unica_referencia/mutantes.py:40",
-          "tests/mutacao_concorrencia_meta.py:23",
-          "tests/test_concorrencia_meta.py:26"
+          "tests/mutacao_concorrencia_meta.py:23"
         ],
-        "PORQUE": "estas pecas importam-na — C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 8365,
       "y": 360
@@ -46040,7 +46174,7 @@
           "italia-portale/client/accesso.html:15",
           "italia-portale/client/portale.html:25",
           "provas/_mutantes_ponte_casco.py:29",
-          "provas/_mutantes_pote_casco.py:32"
+          "provas/_mutantes_pote_casco.py:33"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAL-CASCO · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -49183,6 +49317,7 @@
         "C-LUGAR-COLETA"
       ],
       "outbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-INT-ARBITRAGEM",
         "C-INT-CAP-SCI",
         "C-INT-CAP-WIN",
@@ -49246,9 +49381,9 @@
           "motor/cap_win.py:82",
           "motor/capacidade_cientifica.py:56",
           "motor/motor_das_capacidades.py:76",
-          "pacote/ponte_intelligence_casco.py:72"
+          "pacote/acervo_na_intelligence.py:78"
         ],
-        "PORQUE": "estas pecas importam-na — C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES · C-PONTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES · C-PONTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 14670,
       "y": 1004
@@ -49949,6 +50084,7 @@
         "C-LUGAR-COLETA"
       ],
       "outbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-PROVA-COLETA",
         "C-PROVA-INT-R7",
         "C-PROVA-PORTA-REFERENCIA",
@@ -49997,21 +50133,16 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
-        "QUEM": [
-          "C-PROVA-COLETA",
-          "C-PROVA-INT-R7",
-          "C-PROVA-PORTA-REFERENCIA",
-          "C-TESTES"
-        ],
-        "PLANO": "CODE",
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
         "PROVA": [
+          "pacote/acervo_na_intelligence.py:79",
           "provas/int_r7/export_numa_copia_descartavel.py:37",
           "provas/int_r7/export_numa_copia_descartavel.py:47",
-          "provas/lote6_integra/mutacao_juncao.py:24",
-          "provas/porta_unica_referencia/mutantes.py:55"
+          "provas/lote6_integra/mutacao_juncao.py:24"
         ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 14670,
       "y": 1326
@@ -50120,6 +50251,7 @@
         "C-ADAMA-IT"
       ],
       "outbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-COLETA-META",
         "C-CRUZAMENTOS-MAX",
         "C-INT-CAP-SCI",
@@ -50181,7 +50313,7 @@
           "motor/cap_win.py:86",
           "motor/capacidade_cientifica.py:59"
         ],
-        "PORQUE": "estas pecas importam-na — C-COLETA-META · C-CRUZAMENTOS-MAX · C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-COLETA-META · C-CRUZAMENTOS-MAX · C-INT-CAP-SCI · C-INT-CAP-WIN — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 15085,
       "y": 1326
@@ -51632,8 +51764,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-MARCA · C-PORTAL-DADOS · C-PORTAL-MODELO · C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 17325,
-      "y": 360
+      "x": 16910,
+      "y": 682
     },
     {
       "id": "C-LASTMILE-MEDIDORES",
@@ -53342,6 +53474,7 @@
         "C-SUPABASE"
       ],
       "outbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-ADAMA-ES",
         "C-ADMISSAO",
         "C-APIFY-POOL",
@@ -55230,7 +55363,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 16910,
+      "x": 17325,
       "y": 682
     },
     {
@@ -56064,6 +56197,7 @@
         "C-POTE-INT-CASCO",
         "C-PROVA-INT-R7",
         "C-PROVA-PONTE-CASCO",
+        "C-PROVA-POTE-CASCO",
         "C-TESTES"
       ],
       "paises": {},
@@ -56120,8 +56254,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CRUZAMENTOS-MAX · C-POTE-CRUZAMENTOS-MAX · C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 17325,
-      "y": 682
+      "x": 16910,
+      "y": 1004
     },
     {
       "id": "C-PONTE-ONBOARD",
@@ -56957,7 +57091,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 16910,
+      "x": 17325,
       "y": 1004
     },
     {
@@ -56965,8 +57099,8 @@
       "name": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta",
       "territory": "Z-PACOTE",
       "kind": "engine",
-      "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy.",
-      "why_here": "POTE-UNICO (D95/D96, 2026-09-27). O casco lia uma inteligencia congelada (snapshot 07/09) e demo; a ponte v1 nao tinha especie nem vaga para Radar Futuro (P2/P5), Registro/Archivio (P3), e o portal nao a lia. INT-LAW-023/280: transporta, nao cruza, nao promove, nao muda especie, nao calcula rendimento. 45 testes (tests/test_pote_intelligence_casco.py + tests/test_pote_no_casco.mjs, fixture SINTETICA declarada em tests/fixtures/pote/).",
+      "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy. POTE-V2-UNICO (27/09): e o contrato UNICO (docs/intelligence/pote-v2/CONTRATO-POTE-V2.md + schema ao lado + validar_pote_v2.py = forma do schema e lei de conferir_pote). INTELLIGENCE_RUN_ID no topo (em CABECALHO so por leitura declarada em LEITURA_DE_COMPATIBILIDADE); cada PROVA com URL e PUBLISHED_AT, ou NAO SEI com a base, G0 e ADMITIDA_POR; ENTITY_SOURCE/LOCATION_SOURCE (D112; o lugar da fonte nunca vira lugar do facto). P7: RENDIMENTO_DE_FONTE e resultado honesto (NAO / NAO_TRATAR_AGORA / NO_DEFENSIBLE_ACTION_YET) nao dependem de FACT_TIME (USO_EXIGE_TEMPO); proveniencia continua obrigatoria. P8: no Polso, MERCADO.LEITURA = SERIE_MEDIDA so com >= 2 pontos na mesma unidade; um ponto e SINAL_SOLTO, e afirmar mudanca sem serie e recusado.",
+      "why_here": "POTE-UNICO (D95/D96, 2026-09-27). O casco lia uma inteligencia congelada (snapshot 07/09) e demo; a ponte v1 nao tinha especie nem vaga para Radar Futuro (P2/P5), Registro/Archivio (P3), e o portal nao a lia. INT-LAW-023/280: transporta, nao cruza, nao promove, nao muda especie, nao calcula rendimento. 45 testes (tests/test_pote_intelligence_casco.py + tests/test_pote_no_casco.mjs, fixture SINTETICA declarada em tests/fixtures/pote/). POTE-V2-UNICO: o bot emitia um R5 com o id em CABECALHO e o gerador ce775ff5 recusava-o; o R6 aprovado recusava o «nao» da APOL e deixava 3 de 47 fontes no Registro (P7), e o Polso lia sinal solto como mudanca (P8). +38 testes em tests/test_pote_v2_unico.py; numa fixture SINTETICA equivalente a R6, 45 das 46 recusas voltam (provas/pote_v2/medir_recusas_r6.py).",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -56982,11 +57116,12 @@
       "lane": "official",
       "family": "F-ENTREGA",
       "files": [
-        "pacote/pote_intelligence_casco.py"
+        "pacote/pote_intelligence_casco.py",
+        "pacote/validar_pote_v2.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -56994,6 +57129,7 @@
         "C-PONTE-INT-CASCO"
       ],
       "outbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-POTE-CRUZAMENTOS-MAX",
         "C-PROVA-INT-R7",
         "C-PROVA-POTE-CASCO",
@@ -57007,11 +57143,14 @@
         "listas": [
           "COMPARTIMENTOS",
           "DA_V1",
+          "LER_NA_ENTRADA",
+          "LOCATION_SOURCE_PROIBIDA",
+          "PALAVRAS",
           "_CHAVES_T4"
         ],
-        "palavras": 122,
+        "palavras": 155,
         "por_lingua": {},
-        "sem_marca_de_lingua": 122,
+        "sem_marca_de_lingua": 155,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -57020,20 +57159,22 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
+      "consumes": [
+        "docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.schema.json"
+      ],
+      "consumes_plane": "CODE",
       "DECLARED": "YES",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -57046,15 +57187,15 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "pacote/acervo_na_intelligence.py:84",
           "pacote/pote_cruzamentos_max.py:50",
           "provas/_mutantes_pote_casco.py:24",
-          "provas/int_r7/aceite_pelo_gerador.py:33",
-          "provas/int_r7/aceite_pelo_gerador.py:24"
+          "provas/int_r7/aceite_pelo_gerador.py:33"
         ],
-        "PORQUE": "estas pecas importam-na — C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 17325,
-      "y": 1004
+      "x": 16910,
+      "y": 1326
     },
     {
       "id": "C-PRECO-DE-MERCADO",
@@ -57333,6 +57474,95 @@
       "y": 1326
     },
     {
+      "id": "C-PROVA-ACERVO-NA-INTELLIGENCE",
+      "name": "Mutacao do acervo na Intelligence",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Planta 18 defeitos numa copia da arvore (sem .git) em pasta temporaria (o repo nao e tocado): anuncio vira OPORTUNIDADE ou entra no Radar, cultura do anuncio afirmada, concorrente ligado pelo alvo, anuncio sem tempo sem G0; preco anterior vira ponto da serie, variacao vira MUDANCA_DE_MERCADO, serie mistura unidades; pais da fonte e alcance do anuncio viram lugar do facto; publicacao da ciencia vira tempo do facto, data do pacote vira limite da captura, inicio do facto vira limite para todo tipo, URL ambigua escolhida; ID deixa de ser PROVISORIO, ENTITY_SOURCE cru ao pote, fora-da-corrida em silencio, Archivio com recusados. Corre tests/test_acervo_na_intelligence.py e sai 1 se algum sobreviver.",
+      "why_here": "Prova que os testes do acervo apanham o que a missao proibe. Resultado em provas/acervo_na_intelligence/MUTANTES.json.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/acervo_na_intelligence/mutantes.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ACERVO-NA-INTELLIGENCE"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "M"
+        ],
+        "palavras": 12,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 12,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "MEASUREMENT_INSTRUMENT",
+        "MEASURED_WHY": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 1 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "pacote/acervo_na_intelligence.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 22925,
+      "y": 3902
+    },
+    {
       "id": "C-PROVA-ADAMA-REFERENCE",
       "name": "O red team da referencia ADAMA",
       "territory": "Z-PROVA",
@@ -57434,7 +57664,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 3902
     },
     {
@@ -57527,8 +57757,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 3902
+      "x": 22510,
+      "y": 4224
     },
     {
       "id": "C-PROVA-ASR-LOCAL",
@@ -57608,7 +57838,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 4224
     },
     {
@@ -57679,7 +57909,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 4224
     },
     {
@@ -57770,8 +58000,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 4224
+      "x": 22510,
+      "y": 4546
     },
     {
       "id": "C-PROVA-BIBLIA",
@@ -57887,7 +58117,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 4546
     },
     {
@@ -58086,7 +58316,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 4546
     },
     {
@@ -58178,8 +58408,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 4546
+      "x": 22510,
+      "y": 4868
     },
     {
       "id": "C-PROVA-CANARIO-D24-PESSOA",
@@ -58274,7 +58504,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 4868
     },
     {
@@ -58373,7 +58603,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 4868
     },
     {
@@ -58465,8 +58695,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 4868
+      "x": 22510,
+      "y": 5190
     },
     {
       "id": "C-PROVA-CANARIO-REEL",
@@ -58556,7 +58786,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5190
     },
     {
@@ -58657,7 +58887,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 5190
     },
     {
@@ -58758,8 +58988,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 5190
+      "x": 22510,
+      "y": 5512
     },
     {
       "id": "C-PROVA-COLETA",
@@ -59398,7 +59628,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5512
     },
     {
@@ -59508,7 +59738,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 5512
     },
     {
@@ -59660,8 +59890,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 5512
+      "x": 22510,
+      "y": 5834
     },
     {
       "id": "C-PROVA-CRUZAMENTOS-MAX",
@@ -59757,7 +59987,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5834
     },
     {
@@ -59874,7 +60104,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 5834
     },
     {
@@ -59964,8 +60194,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 5834
+      "x": 22510,
+      "y": 6156
     },
     {
       "id": "C-PROVA-ENCANAMENTO",
@@ -60056,7 +60286,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6156
     },
     {
@@ -60136,7 +60366,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6156
     },
     {
@@ -60255,8 +60485,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 6156
+      "x": 22510,
+      "y": 6478
     },
     {
       "id": "C-PROVA-FORWARD-CONTA",
@@ -60350,7 +60580,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6478
     },
     {
@@ -60449,7 +60679,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6478
     },
     {
@@ -60537,8 +60767,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 6478
+      "x": 22510,
+      "y": 6800
     },
     {
       "id": "C-PROVA-INDEPENDENCIA",
@@ -60633,7 +60863,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6800
     },
     {
@@ -60748,7 +60978,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6800
     },
     {
@@ -60917,8 +61147,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 6800
+      "x": 22510,
+      "y": 7122
     },
     {
       "id": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
@@ -61008,7 +61238,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7122
     },
     {
@@ -61121,7 +61351,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7122
     },
     {
@@ -61258,8 +61488,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 7122
+      "x": 22510,
+      "y": 7444
     },
     {
       "id": "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -61372,7 +61602,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7444
     },
     {
@@ -61460,7 +61690,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7444
     },
     {
@@ -61610,8 +61840,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 23340,
-      "y": 7444
+      "x": 22510,
+      "y": 7766
     },
     {
       "id": "C-PROVA-PONTE-CASCO",
@@ -61717,7 +61947,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7766
     },
     {
@@ -61833,7 +62063,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7766
     },
     {
@@ -61933,8 +62163,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 7766
+      "x": 22510,
+      "y": 8088
     },
     {
       "id": "C-PROVA-PORTA-REFERENCIA",
@@ -62042,7 +62272,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8088
     },
     {
@@ -62050,8 +62280,8 @@
       "name": "Mutacao do pote unico e da leitura no casco",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Planta 29 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): 17 no pote (oportunidade no Radar Futuro, qualquer bloqueio de G0 aceite como futuro, P2/P4 de volta, FACT_LOCATION vira REGION_ID, publicacao vira tempo do facto, promocao por especie ausente, SOURCE_HEAD inventado, ...), 9 no leitor do casco (futuro com a forma da oportunidade, reordenar, NAO SEI sem destaque, pote recusado desenha, link javascript:, pedir o pote sem ?pote=local, ...) e 3 na precedencia do portale.html. Corre tests/test_pote_intelligence_casco.py (que corre tests/test_pote_no_casco.mjs, as provas do casco em JavaScript, que moram nesta peca). Sai 1 se algum sobreviver.",
-      "why_here": "Prova que os testes do pote apanham o que ele jura nao fazer. 29/29 mortos a 2026-09-27.",
+      "what": "Planta 29 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): 17 no pote (oportunidade no Radar Futuro, qualquer bloqueio de G0 aceite como futuro, P2/P4 de volta, FACT_LOCATION vira REGION_ID, publicacao vira tempo do facto, promocao por especie ausente, SOURCE_HEAD inventado, ...), 9 no leitor do casco (futuro com a forma da oportunidade, reordenar, NAO SEI sem destaque, pote recusado desenha, link javascript:, pedir o pote sem ?pote=local, ...) e 3 na precedencia do portale.html. Corre tests/test_pote_intelligence_casco.py (que corre tests/test_pote_no_casco.mjs, as provas do casco em JavaScript, que moram nesta peca). Sai 1 se algum sobreviver. POTE-V2-UNICO: provas/pote_v2/mutantes_pote_v2_unico.py planta mais 25 (sem run id no topo, compatibilidade nao declarada, prova sem URL / NAO SEI sem base, publicacao vira tempo, schema sem a base, sinal solto como mudanca, unidades diferentes, recusa por falta de tempo em uso que nao exige tempo, proveniencia dispensada, oportunidade «nao», lugar da fonte, e 6 no casco); provas/pote_v2/medir_recusas_r6.py mede base x ramo numa fixture SINTETICA equivalente a R6.",
+      "why_here": "Prova que os testes do pote apanham o que ele jura nao fazer. 29/29 mortos a 2026-09-27 (POTE-UNICO); resultado do POTE-V2-UNICO em POTE-V2-UNICO.md.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -62066,16 +62296,23 @@
       "family": "F-GOVERNANCA",
       "files": [
         "provas/_mutantes_pote_casco.py",
+        "provas/pote_v2/bateria-base-f357712.json",
+        "provas/pote_v2/bateria-ramo-9719efc.json",
+        "provas/pote_v2/medir_recusas_r6.py",
+        "provas/pote_v2/mutantes_pote_v2_unico.py",
         "tests/test_pote_no_casco.mjs"
       ],
-      "file_count": 2,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json"
+      ],
       "inbound": [
         "C-AUDIT-HARNESS",
         "C-DS-ADAMA",
+        "C-PONTE-INT-CASCO",
         "C-PORTAL-MODELO",
         "C-POTE-INT-CASCO",
         "C-TELA-FIELD",
@@ -62093,46 +62330,63 @@
           "COPIAR",
           "M"
         ],
-        "palavras": 47,
+        "palavras": 82,
         "por_lingua": {},
-        "sem_marca_de_lingua": 47,
+        "sem_marca_de_lingua": 82,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "PROOF",
-      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE": "UNKNOWN",
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
-        "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 10 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "escreve tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json, e C-TESTES le isso: entrega trabalho a peca seguinte",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 10 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json, e C-TESTES le isso: entrega trabalho a peca seguinte) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "docs/intelligence/pote-v2/CONTRATO-POTE-V2.md",
+        "docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.schema.json",
         "italia-portale/audit/lib/harness.mjs",
         "italia-portale/client/_ds/adama-brandwell/styles.css",
         "italia-portale/client/portale.html",
         "italia-portale/client/sintonia-pote-casco.js",
+        "pacote/ponte_intelligence_casco.py",
         "pacote/pote_intelligence_casco.py",
+        "pacote/validar_pote_v2.py",
+        "provas/pote_v2/medir_recusas_r6.py",
         "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+        "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
+        "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
         "tests/fixtures/pote/POTE-SINTETICO.json",
         "tests/test_ponte_intelligence_casco.py",
         "tests/test_pote_intelligence_casco.py",
-        "tests/test_pote_no_casco.mjs"
+        "tests/test_pote_no_casco.mjs",
+        "tests/test_pote_v2_unico.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -62149,11 +62403,11 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "tests/test_pote_intelligence_casco.py:446"
+          "tests/test_pote_intelligence_casco.py:454"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8088
     },
     {
@@ -62249,8 +62503,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 8088
+      "x": 22510,
+      "y": 8410
     },
     {
       "id": "C-PROVA-RETRY-DO-SCRAP",
@@ -62338,7 +62592,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8410
     },
     {
@@ -62460,7 +62714,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8410
     },
     {
@@ -62563,8 +62817,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 8410
+      "x": 22510,
+      "y": 8732
     },
     {
       "id": "C-PROVA-ROTAS-REAIS",
@@ -62714,7 +62968,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8732
     },
     {
@@ -62812,7 +63066,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8732
     },
     {
@@ -62925,8 +63179,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 8732
+      "x": 22510,
+      "y": 9054
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -63036,7 +63290,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9054
     },
     {
@@ -63194,7 +63448,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9054
     },
     {
@@ -63293,8 +63547,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9054
+      "x": 22510,
+      "y": 9376
     },
     {
       "id": "C-PROVA-TETO-DOMINIO",
@@ -63418,7 +63672,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9376
     },
     {
@@ -63506,7 +63760,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9376
     },
     {
@@ -63590,8 +63844,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 9376
+      "x": 22510,
+      "y": 9698
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -63687,7 +63941,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9698
     },
     {
@@ -63821,7 +64075,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9698
     },
     {
@@ -64204,8 +64458,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9698
+      "x": 22510,
+      "y": 10020
     },
     {
       "id": "C-RECEITAS",
@@ -64711,7 +64965,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10020
     },
     {
@@ -64886,7 +65140,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10020
     },
     {
@@ -65112,8 +65366,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 23340,
-      "y": 10020
+      "x": 22510,
+      "y": 10342
     },
     {
       "id": "C-REGUA-T1-JANELA",
@@ -65976,7 +66230,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10342
     },
     {
@@ -67390,7 +67644,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10342
     },
     {
@@ -67971,8 +68225,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 10342
+      "x": 22510,
+      "y": 10664
     },
     {
       "id": "C-SUPABASE",
@@ -68317,7 +68571,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10664
     },
     {
@@ -70293,6 +70547,7 @@
         "tests/test_a_rota_do_html.py",
         "tests/test_a_sala_de_espera_nao_tem_morada.py",
         "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "tests/test_acervo_na_intelligence.py",
         "tests/test_adama_catalogo_drift.py",
         "tests/test_adama_referencia.py",
         "tests/test_adama_relevance.py",
@@ -70505,6 +70760,7 @@
         "tests/test_portoes_da_collection.py",
         "tests/test_portoes_eame.py",
         "tests/test_pote_intelligence_casco.py",
+        "tests/test_pote_v2_unico.py",
         "tests/test_preco_de_mercado.py",
         "tests/test_preflight_de_egresso.py",
         "tests/test_preservar_coleta.py",
@@ -70591,7 +70847,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 323,
+      "file_count": 325,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -70621,6 +70877,7 @@
         "vercel.json"
       ],
       "inbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-ADAMA-ES",
         "C-ADAMA-IT",
         "C-ADAMA-REFERENCE",
@@ -71300,6 +71557,7 @@
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
         "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
+        "docs/intelligence/pote-v2/CONTRATO-POTE-V2.md",
         "docs/operacao/A-CASA-DO-DERIVADO.md",
         "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
         "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
@@ -71413,6 +71671,7 @@
         "package.json",
         "pacote/pacote_camadas.py",
         "pacote/pote_intelligence_casco.py",
+        "pacote/validar_pote_v2.py",
         "pedido/receitas.py",
         "provas/_c108a_ultima_corrida.json",
         "provas/a_collection_preserva_o_fato.py",
@@ -71595,6 +71854,9 @@
         "tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json",
         "tests/fixtures/ponte_onboard_17_contratos.json",
         "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+        "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
+        "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+        "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
         "tests/fixtures/pote/POTE-SINTETICO.json",
         "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
         "tests/fixtures/yt-raw-minimo.json",
@@ -71632,7 +71894,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10664
     },
     {
@@ -71998,6 +72260,7 @@
         "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-INT-ARBITRAGEM",
         "C-PACOTE-CAMADAS",
         "C-TESTES",
@@ -72161,9 +72424,9 @@
           "motor/v21_aceitacao.py:39",
           "motor/v21_oportunidades.py:45",
           "motor/v21_traducao_trava.py:351",
-          "pacote/v21_handoff_json.py:9"
+          "pacote/acervo_na_intelligence.py:82"
         ],
-        "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 14670,
       "y": 1648
@@ -72890,6 +73153,7 @@
         "C-V21-CRUZAMENTO"
       ],
       "outbound": [
+        "C-ACERVO-NA-INTELLIGENCE",
         "C-PROVA-VOCI-DAL-CAMPO",
         "C-TESTES"
       ],
@@ -72951,18 +73215,16 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
-        "QUEM": [
-          "C-PROVA-VOCI-DAL-CAMPO",
-          "C-TESTES"
-        ],
-        "PLANO": "CODE",
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
         "PROVA": [
+          "pacote/acervo_na_intelligence.py:81",
           "provas/voci_dal_campo/_ver.py:5",
           "provas/voci_dal_campo/mutar.py:93",
           "tests/test_voce_dal_campo.py:20"
         ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 14670,
       "y": 2292
@@ -73967,6 +74229,76 @@
     }
   ],
   "EDGES": [
+    {
+      "from": "C-ACERVO-NA-INTELLIGENCE",
+      "to": "C-PROVA-ACERVO-NA-INTELLIGENCE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O acervo antigo pelas capacidades da Intelligence, ate ao pote v2 alimenta Mutacao do acervo na Intelligence. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/acervo_na_intelligence/mutantes.py",
+          "line": 23,
+          "snippet": "ALVO = \"pacote/acervo_na_intelligence.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ACERVO-NA-INTELLIGENCE--READS-->C-PROVA-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-ACERVO-NA-INTELLIGENCE",
+            "TO": "C-PROVA-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ACERVO-NA-INTELLIGENCE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O acervo antigo pelas capacidades da Intelligence, ate ao pote v2 tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_acervo_na_intelligence.py",
+          "line": 26,
+          "snippet": "import acervo_na_intelligence as A     # noqa: E402  (pacote/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ACERVO-NA-INTELLIGENCE--IMPORTS-->C-TESTES",
+            "FROM": "C-ACERVO-NA-INTELLIGENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
     {
       "from": "C-ADAMA-ES",
       "to": "C-PROVA-COLETA",
@@ -78671,6 +79003,41 @@
     },
     {
       "from": "C-ARTEFACTO-V21",
+      "to": "C-ACERVO-NA-INTELLIGENCE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Artefacto embarcado (italy-handoff-v21.js) alimenta O acervo antigo pelas capacidades da Intelligence, ate ao pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 95,
+          "snippet": "ORIGEM = RAIZ / \"italia-portale\" / \"client\" / \"italy-handoff-v21.js\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-ARTEFACTO-V21",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ARTEFACTO-V21",
       "to": "C-AUDIT-GERAL",
       "type": "READS",
       "payload": "artefacto",
@@ -82597,7 +82964,7 @@
       "evidence": [
         {
           "file": "tests/test_pote_no_casco.mjs",
-          "line": 22,
+          "line": 27,
           "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-PROVA-POTE-CASCO",
@@ -82628,11 +82995,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Harness de auditoria alimenta Mutacao do pote unico e da leitura no casco. Provado por 2 linhas de codigo.",
+      "reason": "Harness de auditoria alimenta Mutacao do pote unico e da leitura no casco. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_pote_casco.py",
-          "line": 30,
+          "line": 31,
+          "snippet": "\"italia-portale/audit/lib/harness.mjs\", \"italia-portale/client/.gitignore\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-HARNESS--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-AUDIT-HARNESS",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 32,
           "snippet": "\"italia-portale/audit/lib/harness.mjs\", \"italia-portale/client/.gitignore\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-HARNESS--READS-->C-PROVA-POTE-CASCO",
@@ -82648,7 +83031,7 @@
         },
         {
           "file": "tests/test_pote_no_casco.mjs",
-          "line": 22,
+          "line": 27,
           "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -92283,6 +92666,41 @@
     },
     {
       "from": "C-COLETA-META",
+      "to": "C-ACERVO-NA-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher os anuncios pagos do concorrente na Meta tem o seu codigo importado por O acervo antigo pelas capacidades da Intelligence, ate ao pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 83,
+          "snippet": "import concorrencia_meta as CM                  # noqa: E402  (coleta/: adama_no_anuncio, pela porta)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-META--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-COLETA-META",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-COLETA-META",
       "to": "C-PROVA-PORTA-REFERENCIA",
       "type": "READS",
       "payload": "artefacto",
@@ -100942,11 +101360,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Extrato local do ADAMA Design System alimenta Mutacao do pote unico e da leitura no casco. Provado por 1 linha de codigo.",
+      "reason": "Extrato local do ADAMA Design System alimenta Mutacao do pote unico e da leitura no casco. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_pote_casco.py",
-          "line": 32,
+          "line": 33,
+          "snippet": "\"italia-portale/client/_ds/adama-brandwell/styles.css\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DS-ADAMA--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-DS-ADAMA",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 34,
           "snippet": "\"italia-portale/client/_ds/adama-brandwell/styles.css\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DS-ADAMA--READS-->C-PROVA-POTE-CASCO",
@@ -108357,6 +108791,41 @@
     },
     {
       "from": "C-INT-CORRIDA",
+      "to": "C-ACERVO-NA-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por O acervo antigo pelas capacidades da Intelligence, ate ao pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 78,
+          "snippet": "import corrida_da_inteligencia as CI            # noqa: E402  (motor/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CORRIDA",
       "to": "C-INT-ARBITRAGEM",
       "type": "READS",
       "payload": "artefacto",
@@ -109953,6 +110422,41 @@
     },
     {
       "from": "C-INT-MOTOR-CAPACIDADES",
+      "to": "C-ACERVO-NA-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por O acervo antigo pelas capacidades da Intelligence, ate ao pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 79,
+          "snippet": "import motor_das_capacidades as MOTOR           # noqa: E402  (motor/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-MOTOR-CAPACIDADES",
       "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -110269,6 +110773,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-PORTA-REFERENCIA",
+      "to": "C-ACERVO-NA-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta unica da referencia ADAMA — bulas e portfolio, uma edicao tem o seu codigo importado por O acervo antigo pelas capacidades da Intelligence, ate ao pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 80,
+          "snippet": "import porta_da_referencia as PORTA             # noqa: E402  (motor/, D116)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-INT-PORTA-REFERENCIA",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -121441,6 +121980,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-ACERVO-NA-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por O acervo antigo pelas capacidades da Intelligence, ate ao pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 76,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-ADAMA-ES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -123765,11 +124339,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por O pote unico: uma corrida da Intelligence, um compartimento por ferramenta. Provado por 1 linha de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por O pote unico: uma corrida da Intelligence, um compartimento por ferramenta. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "pacote/pote_intelligence_casco.py",
           "line": 63,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-POTE-INT-CASCO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/validar_pote_v2.py",
+          "line": 30,
           "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
@@ -126359,7 +126949,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 167 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 168 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -134454,6 +135044,41 @@
     },
     {
       "from": "C-PONTE-INT-CASCO",
+      "to": "C-PROVA-POTE-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A ponte Intelligence -> casco (experimental, nao para cliente) alimenta Mutacao do pote unico e da leitura no casco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/pote_v2/medir_recusas_r6.py",
+          "line": 94,
+          "snippet": "for rel in (\"pacote/pote_intelligence_casco.py\", \"pacote/ponte_intelligence_casco.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-PONTE-INT-CASCO",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PONTE-INT-CASCO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -136428,7 +137053,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Mutacao do pote unico e da leitura no casco. Provado por 2 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Mutacao do pote unico e da leitura no casco. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_pote_casco.py",
@@ -136447,8 +137072,24 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 27,
+          "snippet": "LEITOR = \"italia-portale/client/sintonia-pote-casco.js\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_pote_no_casco.mjs",
-          "line": 26,
+          "line": 31,
           "snippet": "const LEITOR = fs.readFileSync(path.join(CLIENT, 'sintonia-pote-casco.js'), 'utf8');",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-POTE-CASCO",
@@ -136952,6 +137593,57 @@
     },
     {
       "from": "C-POTE-INT-CASCO",
+      "to": "C-ACERVO-NA-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por O acervo antigo pelas capacidades da Intelligence, ate ao pote v2. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 84,
+          "snippet": "import pote_intelligence_casco as PIC           # noqa: E402  (pacote/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 85,
+          "snippet": "import validar_pote_v2 as VALIDAR               # noqa: E402  (pacote/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-POTE-INT-CASCO",
       "to": "C-POTE-CRUZAMENTOS-MAX",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -137063,12 +137755,60 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta alimenta Mutacao do pote unico e da leitura no casco. Provado por 1 linha de codigo.",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta alimenta Mutacao do pote unico e da leitura no casco. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_pote_casco.py",
           "line": 24,
           "snippet": "POTE = \"pacote/pote_intelligence_casco.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/pote_v2/medir_recusas_r6.py",
+          "line": 94,
+          "snippet": "for rel in (\"pacote/pote_intelligence_casco.py\", \"pacote/ponte_intelligence_casco.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 24,
+          "snippet": "POTE = \"pacote/pote_intelligence_casco.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 25,
+          "snippet": "VALIDADOR = \"pacote/validar_pote_v2.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-POTE-CASCO",
             "FROM": "C-POTE-INT-CASCO",
@@ -137098,8 +137838,40 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_acervo_na_intelligence.py",
+          "line": 27,
+          "snippet": "import pote_intelligence_casco as PIC  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_acervo_na_intelligence.py",
+          "line": 28,
+          "snippet": "import validar_pote_v2 as VALIDAR      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_cruzamentos_max.py",
           "line": 23,
@@ -137131,6 +137903,38 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v2_unico.py",
+          "line": 34,
+          "snippet": "import pote_intelligence_casco as P                           # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v2_unico.py",
+          "line": 35,
+          "snippet": "import validar_pote_v2 as VV                                  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -137149,12 +137953,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_pote_intelligence_casco.py",
-          "line": 299,
+          "line": 305,
           "snippet": "src = (RAIZ / \"pacote\" / \"pote_intelligence_casco.py\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v2_unico.py",
+          "line": 333,
+          "snippet": "for termo in (\"POTE_INTELLIGENCE_CASCO/v2\", \"pacote/pote_intelligence_casco.py\", \"pacote/validar_pote_v2.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v2_unico.py",
+          "line": 333,
+          "snippet": "for termo in (\"POTE_INTELLIGENCE_CASCO/v2\", \"pacote/pote_intelligence_casco.py\", \"pacote/validar_pote_v2.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
             "FROM": "C-POTE-INT-CASCO",
@@ -141804,12 +142640,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Mutacao do pote unico e da leitura no casco alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Mutacao do pote unico e da leitura no casco alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_pote_intelligence_casco.py",
-          "line": 446,
+          "line": 454,
           "snippet": "r = subprocess.run([node, str(RAIZ / \"tests\" / \"test_pote_no_casco.mjs\")], cwd=RAIZ,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
+            "FROM": "C-PROVA-POTE-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v2_unico.py",
+          "line": 41,
+          "snippet": "R6 = FX / \"CORRIDA-SINTETICA-R6-EQUIVALENTE.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
             "FROM": "C-PROVA-POTE-CASCO",
@@ -158127,11 +158979,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Rete Commerciale di Campo alimenta Mutacao do pote unico e da leitura no casco. Provado por 1 linha de codigo.",
+      "reason": "Rete Commerciale di Campo alimenta Mutacao do pote unico e da leitura no casco. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_pote_casco.py",
           "line": 26,
+          "snippet": "PORTAL = \"italia-portale/client/portale.html\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TELA-FIELD--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-TELA-FIELD",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 28,
           "snippet": "PORTAL = \"italia-portale/client/portale.html\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TELA-FIELD--READS-->C-PROVA-POTE-CASCO",
@@ -159904,7 +160772,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes alimenta Mutacao do pote unico e da leitura no casco. Provado por 2 linhas de codigo.",
+      "reason": "Suite de testes alimenta Mutacao do pote unico e da leitura no casco. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_pote_casco.py",
@@ -159926,6 +160794,54 @@
           "file": "provas/_mutantes_pote_casco.py",
           "line": 28,
           "snippet": "\"tests/test_ponte_intelligence_casco.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 29,
+          "snippet": "COPIAR = (\"tests/test_pote_v2_unico.py\", \"tests/test_pote_intelligence_casco.py\", \"tests/test_pote_no_casco.mjs\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 29,
+          "snippet": "COPIAR = (\"tests/test_pote_v2_unico.py\", \"tests/test_pote_intelligence_casco.py\", \"tests/test_pote_no_casco.mjs\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 30,
+          "snippet": "\"tests/test_ponte_intelligence_casco.py\", \"docs/intelligence/pote-v2/CONTRATO-POTE-V2.md\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
             "FROM": "C-TESTES",
@@ -161631,6 +162547,41 @@
     },
     {
       "from": "C-V21-COMERCIAL",
+      "to": "C-ACERVO-NA-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Leitura comercial e completude tem o seu codigo importado por O acervo antigo pelas capacidades da Intelligence, ate ao pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 82,
+          "snippet": "import v21_completude_oportunidade as V21       # noqa: E402  (motor/: o leitor do pacote servido, sem navegador)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-COMERCIAL--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-V21-COMERCIAL",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-COMERCIAL",
       "to": "C-INT-ARBITRAGEM",
       "type": "READS",
       "payload": "artefacto",
@@ -163304,6 +164255,41 @@
     },
     {
       "from": "C-VOCI-DAL-CAMPO",
+      "to": "C-ACERVO-NA-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Voci dal Campo — o extrator de voz (ferramenta n.3 do casco) tem o seu codigo importado por O acervo antigo pelas capacidades da Intelligence, ate ao pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/acervo_na_intelligence.py",
+          "line": 81,
+          "snippet": "import voce_dal_campo as VOZ                    # noqa: E402  (motor/, CAP-FIELD)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-VOCI-DAL-CAMPO--IMPORTS-->C-ACERVO-NA-INTELLIGENCE",
+            "FROM": "C-VOCI-DAL-CAMPO",
+            "TO": "C-ACERVO-NA-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-VOCI-DAL-CAMPO",
       "to": "C-PROVA-VOCI-DAL-CAMPO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -163951,7 +164937,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2216,
+  "UNCLAIMED_FILES_COUNT": 2229,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -164201,7 +165187,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 268,
+      "PECAS_EM_DESACORDO": 270,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -164213,26 +165199,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 295
+      "TOTAL_DE_PECAS": 297
     }
   ],
   "COUNTS": {
-    "components": 295,
+    "components": 297,
     "components_proven": 33,
-    "components_pending": 254,
+    "components_pending": 256,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1763,
-    "edges_proven": 1696,
+    "edges": 1775,
+    "edges_proven": 1708,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 4019,
-    "files_covered": 1803,
+    "files_tracked": 4042,
+    "files_covered": 1813,
     "files_code_unclaimed": 0,
-    "roles_proven": 196,
+    "roles_proven": 198,
     "roles_declared_only": 9,
     "roles_unknown": 90,
-    "roles_conflict": 51,
+    "roles_conflict": 52,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
     "concept_owner_single": 2,
