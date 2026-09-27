@@ -50,6 +50,7 @@
     "test_a_conta_diz_quantos_saem_de_nao_sei",
     "test_afiliacao_nunca_vira_regiao_mesmo_com_verbo_de_experimento",
     "test_cada_fixture_da_o_esperado",
+    "test_linguagem_de_incidencia_nao_e_lugar_do_estudo",
     "test_linha_de_comando",
     "test_mesmo_codigo_duas_vezes_nao_repete",
     "test_nomear_um_lugar_nao_e_dizer_onde_o_estudo_foi_feito",
@@ -57,7 +58,7 @@
     "test_revisoes_no_formato_de_rever",
     "test_todo_valor_tem_span_literal_do_texto"
    ],
-   "FIM": "FAILED (failures=1, errors=8)"
+   "FIM": "FAILED (failures=1, errors=9)"
   },
   {
    "ID": "M05",
@@ -146,7 +147,20 @@
     "test_nomes_cientificos_comuns_ingles_e_italiano"
    ],
    "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M13",
+   "FICHEIRO": "leis/estudo_chaves.py",
+   "DEFEITO": "«established/located» voltam a ser pista de ensaio (incidencia vira lugar do estudo)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_conta_diz_quantos_saem_de_nao_sei",
+    "test_cada_fixture_da_o_esperado",
+    "test_linguagem_de_incidencia_nao_e_lugar_do_estudo",
+    "test_revisoes_no_formato_de_rever"
+   ],
+   "FIM": "FAILED (failures=4)"
   }
  ],
- "RESUMO": "12/12 MORTOS"
+ "RESUMO": "13/13 MORTOS"
 }

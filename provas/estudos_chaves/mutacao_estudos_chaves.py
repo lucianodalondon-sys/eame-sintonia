@@ -44,6 +44,8 @@ MUTANTES = [
      'if False and', "o reprocesso repete a revisao com o mesmo codigo (deixa de ser idempotente)"),
     ("M12", "coleta/pesquisadores_t6.py", "'olivo': ('olea europaea', ", "'olivo': (",
      "o nome cientifico do olivo sai do lexico T6"),
+    ("M13", "leis/estudo_chaves.py", 'r"performed|set\\s+up|', 'r"performed|established|located|set\\s+up|',
+     "«established/located» voltam a ser pista de ensaio (incidencia vira lugar do estudo)"),
 ]
 
 

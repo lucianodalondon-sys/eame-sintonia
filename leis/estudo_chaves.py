@@ -80,17 +80,19 @@ AMBIGUOS_LUGAR = {
 }
 
 # ── o experimento: a frase tem de dizer que ALGO FOI FEITO ali ─────────────────────────────────────
+# ⚠️ FORA, e medido nas fixtures: «established» e «located» («Xylella has become ESTABLISHED in Apulia» e
+# linguagem de INCIDENCIA, nao de ensaio — CAP-SCI), «situato/ubicato» (idem) e «raccolta» sozinha (e a
+# colheita: «la raccolta in Puglia»). «study area is located in…» continua a contar, por «study area».
 _PISTA_DE_ESTUDO = re.compile(
     r"(?<![a-z])(?:"
     # en
     r"trials?|experiments?|experimental|field\s+(?:study|studies|surveys?|plots?|conditions|work)|"
     r"surveys?|surveyed|sampl(?:ed|ing|es)|collected|monitor(?:ed|ing)|conducted|carried\s+out|"
-    r"performed|established|located|set\s+up|study\s+(?:area|sites?)|"
+    r"performed|set\s+up|study\s+(?:area|sites?)|"
     # it
     r"prov[ae]\s+(?:sperimentali|di\s+campo|in\s+campo)|sperimentazion[ei]|sperimental[ei]|esperiment[oi]|"
-    r"campionament[oi]|campion[ei]\s+(?:raccolt|prelevat)\w*|raccolt[oiae]|prelevat[oiae]|monitoraggi?o|"
-    r"condott[oaie]|effettuat[oaie]|realizzat[oaie]|svolt[oaie]|ubicat[oaie]|situat[oaie]|allestit[oaie]|"
-    r"indagin[ei]"
+    r"campionament[oi]|campion[ei]\s+(?:raccolt|prelevat)\w*|prelevat[oiae]|monitoraggi?o|"
+    r"condott[oaie]|effettuat[oaie]|realizzat[oaie]|svolt[oaie]|allestit[oaie]|indagin[ei]"
     r")(?![a-z])")
 # a preposicao logo antes do lugar (cauda do texto dobrado ate ao lugar)
 _PREPOSICAO = re.compile(

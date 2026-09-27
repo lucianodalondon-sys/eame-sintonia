@@ -18,9 +18,9 @@ escreve «grapevine», «Plasmopara viticola», «olive».
 | 2 | Ligado à porta: `janela_declarada()` usa-o **só no universo T5** | `admissao/admissao.py` (`UNIVERSOS_DE_ESTUDO`, `_estudo_de`, `janela_declarada`) |
 | 3 | O olivo e as duas pragas dele entram **no léxico T6 que já existe** | `coleta/pesquisadores_t6.py` (`CULTURAS['olivo']`, `PROBLEMAS["mosca dell'olivo"]`, `PROBLEMAS['xylella']`) |
 | 4 | Script de reprocesso: devolve as revisões, **não grava** | `admissao/reprocessar_estudos_chaves.py` |
-| 5 | Fixtures SINTÉTICAS (14 títulos/resumos inventados e marcados) | `tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json` |
-| 6 | Testes (27) | `tests/test_estudo_chaves.py` |
-| 7 | Mutação (12 defeitos plantados) | `provas/estudos_chaves/mutacao_estudos_chaves.py` → `MUTACAO-ESTUDOS-CHAVES.json` |
+| 5 | Fixtures SINTÉTICAS (17 títulos/resumos inventados e marcados) | `tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json` |
+| 6 | Testes (28) | `tests/test_estudo_chaves.py` |
+| 7 | Mutação (13 defeitos plantados) | `provas/estudos_chaves/mutacao_estudos_chaves.py` → `MUTACAO-ESTUDOS-CHAVES.json` |
 
 **Sem segundo vocabulário.** `leis/estudo_chaves.py` não escreve nome de cultura, praga ou lugar: compõe o
 léxico T6 (`pesquisadores_t6.CULTURAS/PROBLEMAS/REGIOES_EN/EXONIMOS/ZONAS_IT`), o vocabulário de pragas
@@ -39,7 +39,8 @@ escrito no código do extrator. O que faltava (*Olea europaea*, *olive fly*) ent
 - **Lugar do estudo** só quando a frase diz que algo foi feito ali: verbo/nome de experimento na mesma
   frase («trials», «conducted», «samples were collected», «prove sperimentali», «condotte») **e** o lugar
   logo depois de uma preposição («in Tuscany», «field trials in Apulia and Sicily», «in the province of
-  Lecce»). «Xylella is widespread in Apulia» fica NÃO SEI.
+  Lecce»). «Xylella is widespread in Apulia» e «has become established in Apulia» (linguagem de
+  incidência) ficam NÃO SEI; «established», «located» e «raccolta» sozinha **não** são pista de ensaio.
 - **Afiliação nunca vira lugar (INT-LAW-102).** «University of Florence», «conducted at the University
   of Naples» → recusado, com o motivo em `RECUSADOS`.
 - **CAP-SCI.** O PROBLEMA do estudo sai `ESTADO = NOMEADO_NO_ESTUDO` (nunca PRESENTE); o lugar sai
@@ -60,7 +61,7 @@ Devolve `GRAVOU_NO_BANCO: false`, a `VERSAO_DO_EXTRATOR` (sha256 do código), a 
 revisões no formato de `sala_de_espera.rever(RUN_ID, ORDEM, REVISOES, extrator, versao, motivo)` —
 campo `janela_declarada`, JSON com chaves ordenadas. Aplicar é passo do coordenador, na Sala canônica.
 
-**Nas fixtures sintéticas** (14): 11 com cultura, 12 com problema, 8 com lugar do estudo, 1 só com forma
+**Nas fixtures sintéticas** (17): 14 com cultura, 15 com problema, 9 com lugar do estudo, 1 só com forma
 ambígua. **Nos 100 reais: NÃO SEI** — não estão aqui; o número sai da corrida do coordenador.
 
 ## Testes, mutação, mapa

@@ -134,6 +134,13 @@ class OLugarDoEstudoNuncaEAfiliacao(unittest.TestCase):
         self.assertEqual(EC.AUSENCIA, r["VALOR"])
         self.assertIn("Apulia", [x["TRECHO"] for x in r["RECUSADOS"]])
 
+    def test_linguagem_de_incidencia_nao_e_lugar_do_estudo(self):
+        # CAP-SCI: «established in Apulia» e a praga instalada, nao o ensaio; «raccolta» e a colheita
+        for sid in ("SINT-15", "SINT-16"):
+            r = EC.chaves_do_estudo(POR_ID[sid]["texto"])["REGIAO_DO_FATO"]
+            self.assertEqual(EC.AUSENCIA, r["VALOR"], sid)
+            self.assertIn("Puglia", [x["VALOR"] for x in r["RECUSADOS"]], sid)
+
     def test_lugares_coordenados_na_mesma_frase(self):
         r = EC.chaves_do_estudo(POR_ID["SINT-01"]["texto"])["REGIAO_DO_FATO"]
         self.assertEqual(["Puglia", "Sicilia"], r["VALOR"])
