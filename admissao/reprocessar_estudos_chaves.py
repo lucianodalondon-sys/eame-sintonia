@@ -96,7 +96,7 @@ def revisoes_de(janela: dict, universo: str) -> list:
 def reprocessar(entradas: list) -> dict:
     versao = versao_do_codigo()
     conta = {"ITENS": len(entradas), "SEM_ITEM_ID": 0, "SEM_TEXTO": 0, "COM_CULTURA": 0,
-             "COM_PROBLEMA": 0, "COM_REGIAO_DO_ESTUDO": 0, "SO_FORMAS_AMBIGUAS": 0,
+             "COM_PROBLEMA": 0, "PROBLEMA_SO_CANDIDATOS": 0, "COM_REGIAO_DO_ESTUDO": 0, "SO_FORMAS_AMBIGUAS": 0,
              "REVISOES": 0, "JA_ERAM_ASSIM": 0}
     itens = []
     for e in entradas:
@@ -110,6 +110,10 @@ def reprocessar(entradas: list) -> dict:
         for chave, n in (("CULTURA", "COM_CULTURA"), ("PROBLEMA", "COM_PROBLEMA"),
                          ("REGIAO_DO_FATO", "COM_REGIAO_DO_ESTUDO")):
             conta[n] += janela[chave]["VALOR"] != adm.AUSENCIA
+        # CHAVE-PROBLEMA: COM_PROBLEMA conta o VALOR do contrato PROBLEMA/v1 (UM nome); o estudo que nomeia
+        # mais de um fica NAO SEI e conta aqui, com os nomes a vista em CANDIDATOS
+        conta["PROBLEMA_SO_CANDIDATOS"] += (janela["PROBLEMA"]["VALOR"] == adm.AUSENCIA
+                                            and bool(janela["PROBLEMA"].get("CANDIDATOS")))
         conta["SO_FORMAS_AMBIGUAS"] += (janela["CULTURA"]["VALOR"] == adm.AUSENCIA
                                         and bool(janela["CULTURA"].get("AMBIGUAS")))
         revs = revisoes_de(janela, e.get("universo") or "T5")

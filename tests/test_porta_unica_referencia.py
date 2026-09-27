@@ -167,13 +167,25 @@ class A_Varredura(unittest.TestCase):
 # ═══════════════════════════════════════════════════════════════════════════
 # B · o carimbo da edicao, em cada consumidor
 # ═══════════════════════════════════════════════════════════════════════════
+TEXTO_DE_JANELA = "Peronospora: intervenire alla comparsa dei sintomi."
+
+
+def _problema_do_texto(problema):
+    import boletim_do_campo as BC
+    p = BC.problema_do_boletim(TEXTO_DE_JANELA)
+    assert p["VALOR"] == problema, p
+    return p
+
+
 def _item_de_janela(cultura, problema):
     campo = lambda v: {"VALOR": v, "BASE": "SINTETICO", "VEIO_DE": "SINTETICO"}  # noqa: E731
     return {"MARCA": "SINTETICO", "ITEM_ID": "SINT-PORTA-1", "RAW_OBSERVATION_ID": "RAW-SINT-PORTA-1",
             "SOURCE_ID": "SRC-sint", "URL": "https://sint.example/b", "CAPTURED_AT": "2026-09-25T10:00:00Z",
             "PUBLISHED_AT": "2026-09-25", "FACT_TIME": "2026-09-20/2026-09-24", "FACT_TIME_BASIS": "SINTETICO",
-            "TEXTO": "Peronospora: intervenire alla comparsa dei sintomi.",
-            "JANELA_DECLARADA": {"CULTURA": campo(cultura), "PROBLEMA": campo(problema),
+            "TEXTO": TEXTO_DE_JANELA,
+            # CHAVE-PROBLEMA (27/09) — AJUSTE DECLARADO: o PROBLEMA sai no contrato PROBLEMA/v1, pelo
+            # produtor unico da Collection sobre o proprio texto (antes: VEIO_DE = SINTETICO, fora do contrato)
+            "JANELA_DECLARADA": {"CULTURA": campo(cultura), "PROBLEMA": _problema_do_texto(problema),
                                  "REGIAO_DO_FATO": campo("IT-VEN"),
                                  "FASE": {"VALOR": "NAO SEI", "BASE": "NAO SEI"},
                                  "JANELA": {"VALOR": "NAO SEI", "BASE": "NAO SEI"}}}

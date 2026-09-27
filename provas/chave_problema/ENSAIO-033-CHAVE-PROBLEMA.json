@@ -1,0 +1,70 @@
+{
+ "PG_BIN": "/usr/lib/postgresql/16/bin",
+ "PASSOS": {
+  "1_MIGRACOES": {
+   "CODIGO": 0,
+   "PASS": 34
+  },
+  "2_POUSAR": {
+   "LINHAS_COM_PROBLEMA_NA_033": 1,
+   "ESPERADO": 1
+  },
+  "3_REPROCESSO": {
+   "CONTA_SECO": {
+    "ITENS": 2,
+    "ERROS": 0,
+    "COM_PROBLEMA": 2,
+    "SO_CANDIDATOS": 0,
+    "SO_AUSENTES": 0,
+    "SEM_LEITOR_NO_UNIVERSO": 0,
+    "POR_VEIO_DE": {
+     "TEXT": 2
+    },
+    "COM_EPPO": 2,
+    "REVISOES": 1,
+    "JA_ERAM_ASSIM": 1
+   },
+   "APLICAR_1": {
+    "APLICOU": true,
+    "VERSAO_DO_EXTRATOR": "chave-problema@399c2836a31732e4",
+    "INSERIDAS": 1,
+    "JA_ERAM_ASSIM": 0,
+    "LINHAS": 1
+   },
+   "APLICAR_2": {
+    "APLICOU": true,
+    "VERSAO_DO_EXTRATOR": "chave-problema@399c2836a31732e4",
+    "INSERIDAS": 0,
+    "JA_ERAM_ASSIM": 0,
+    "LINHAS": 0
+   }
+  },
+  "4_LEITURA": {
+   "PROBLEMA": "mosca dell'olivo",
+   "VEIO_DE": "TEXT",
+   "CODIGO": "DACUOL",
+   "PROBLEMA_LIDO_PELO_CONTRATO": "mosca dell'olivo",
+   "FALTA_NA_CAP_WIN_ANTES": [
+    "JANELA_DECLARADA.CULTURA: VALOR = NAO SEI",
+    "JANELA_DECLARADA.PROBLEMA: PROBLEMA ausente",
+    "JANELA_DECLARADA.REGIAO_DO_FATO: VALOR = NAO SEI"
+   ],
+   "FALTA_NA_CAP_WIN_DEPOIS": [
+    "JANELA_DECLARADA.CULTURA: VALOR = NAO SEI",
+    "JANELA_DECLARADA.REGIAO_DO_FATO: VALOR = NAO SEI"
+   ],
+   "NOTA": "o item antigo continua sem CULTURA e REGIAO_DO_FATO (e a verdade da Sala): o par so fecha com as tres; o PROBLEMA saiu da falta",
+   "REVISOES_DA_LINHA": 1
+  },
+  "5_TRAVAS": {
+   "SALA_IGUAL": true,
+   "UPDATE_RECUSADO": true,
+   "DELETE_RECUSADO": true
+  }
+ },
+ "VEREDITO": "PASS",
+ "CODIGO": {
+  "VERSAO_DO_EXTRATOR": "chave-problema@399c2836a31732e4",
+  "SHA256_DA_033": "6329261b3fca05cb7cbe6a8672b6e753b628137e204f5bcba86bae045d401ce4"
+ }
+}

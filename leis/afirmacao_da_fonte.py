@@ -64,6 +64,98 @@ def procedencia_da_entidade(entity_source, *, nome_no_trecho,
     return True, 'herdada de %s, dita como herdada' % entity_source
 
 
+# ── CHAVE-PROBLEMA (27/09) · O PROBLEMA COMO CHAVE DA COLLECTION ──────
+# Medido: `motor/cap_win.py` dizia «PROBLEMA NAO EXISTE no contrato 033», e todo
+# item real saía NOT_POSSIBLE. A porta JÁ escrevia um bloco PROBLEMA dentro da
+# `janela_declarada` (boletins T2/T3, estudos T5), mas fora de contrato: VALOR
+# era uma LISTA (a CAP-WIN colava-a com vírgulas num ISSUE_ID que ninguém
+# escreveu), VEIO_DE era uma frase livre e a BASE uma descrição da regra, não
+# o trecho. Este é o contrato — a forma, e só a forma; quem o preenche é a
+# Collection (INT-LAW-083/084), e quem o lê não volta ao texto para o refazer.
+#
+#     VALOR     UM nome canónico (tabela versionada `MESMO_PROBLEMA`, D111), ou «NAO SEI»
+#     VEIO_DE   TEXT · SECTION_HEADER · DOCUMENT_TITLE — onde o nome está ESCRITO
+#     BASE      o trecho LITERAL que contém o nome (confere-se contra o texto do item)
+#     FORMA     o nome como a fonte o escreve (tem de estar dentro da BASE)
+#     CODIGO    EPPO só com o binómio latino escrito no texto e casado EXACTAMENTE com a
+#               tabela do repo; senão NOME_CANONICO. Nunca por semelhança (COL-LAW-034).
+#
+# ⚠️ DUAS PRAGAS NO ITEM = NAO SEI (D112: «outra praga no meio»). Escolher uma
+# seria inferir; os CANDIDATOS ficam à vista, com a base de cada um.
+# ⚠️ Mora na `janela_declarada` que a 033 já guarda (a trava da 033 só exige as
+# quatro chaves e não proíbe uma quinta) e revê-se pelo campo `janela_declarada`
+# que a 033 já aceita. Não há migração (CHAVE-PROBLEMA.md).
+CONTRATO_PROBLEMA = 'PROBLEMA/v1'
+VEIO_DE_DO_PROBLEMA = ('TEXT', 'SECTION_HEADER', 'DOCUMENT_TITLE')
+#: a mesma pergunta da COL-LAW-221, feita ao item e não à afirmação
+ENTITY_SOURCE_DO_VEIO_DE = {'TEXT': 'SPAN', 'SECTION_HEADER': 'SECTION_TITLE',
+                            'DOCUMENT_TITLE': 'DOCUMENT_TITLE'}
+SISTEMAS_DO_CODIGO = ('EPPO', 'NOME_CANONICO')
+AUSENCIA_DO_PROBLEMA = 'NAO SEI'
+_CODIGO_EPPO = re.compile(r'^[0-9A-Z]{5,6}$')
+
+
+def _espacos(s):
+    return re.sub(r'\s+', ' ', str(s or '')).strip()
+
+
+def _dobra(s):
+    s = unicodedata.normalize('NFKD', _espacos(s))
+    return ''.join(c for c in s if not unicodedata.combining(c)).lower()
+
+
+def problema_conforme(bloco, texto=None):
+    """→ (ok, porque). A trava do contrato PROBLEMA/v1, sem extrair nada.
+
+    Com `texto` (o texto do item), a BASE tem de estar LITERALMENTE nele, e a
+    prova do código EPPO também: um problema cuja base o texto não contém foi
+    inferido, não lido. «NAO SEI» com PORQUE é conforme (é a verdade dita)."""
+    if not isinstance(bloco, dict):
+        return False, 'PROBLEMA ausente'
+    if bloco.get('CONTRATO') != CONTRATO_PROBLEMA:
+        return False, 'PROBLEMA fora do contrato %s (CONTRATO=%r)' % (
+            CONTRATO_PROBLEMA, bloco.get('CONTRATO'))
+    valor = bloco.get('VALOR')
+    if not isinstance(valor, str) or not valor.strip():
+        return False, 'VALOR tem de ser UM nome (texto), nunca lista nem vazio'
+    if valor == AUSENCIA_DO_PROBLEMA:
+        if not _espacos(bloco.get('PORQUE')):
+            return False, 'NAO SEI sem PORQUE'
+        return True, 'NAO SEI declarado: %s' % bloco['PORQUE']
+    if bloco.get('VEIO_DE') not in VEIO_DE_DO_PROBLEMA:
+        return False, 'VEIO_DE %r fora de %s' % (bloco.get('VEIO_DE'), VEIO_DE_DO_PROBLEMA)
+    base, forma = _espacos(bloco.get('BASE')), _espacos(bloco.get('FORMA'))
+    if not base or base == AUSENCIA_DO_PROBLEMA:
+        return False, 'VALOR sem BASE'
+    if not forma or _dobra(forma) not in _dobra(base):
+        return False, 'a FORMA %r nao esta dentro da BASE' % forma
+    if texto is not None and base not in _espacos(texto):
+        return False, 'a BASE nao esta no texto do item: foi inferida, nao lida'
+    codigo = bloco.get('CODIGO')
+    if not isinstance(codigo, dict) or codigo.get('SISTEMA') not in SISTEMAS_DO_CODIGO:
+        return False, 'CODIGO sem SISTEMA de %s' % (SISTEMAS_DO_CODIGO,)
+    if codigo['SISTEMA'] == 'EPPO':
+        prova = _espacos(codigo.get('PROVA'))
+        if not _CODIGO_EPPO.match(str(codigo.get('VALOR') or '')) or not prova:
+            return False, 'CODIGO EPPO sem codigo valido ou sem PROVA escrita'
+        if texto is not None and _dobra(prova) not in _dobra(texto):
+            return False, 'a PROVA do EPPO nao esta no texto: codigo cunhado, nao lido'
+    elif codigo.get('VALOR') != valor or not _espacos(codigo.get('TABELA')):
+        return False, 'NOME_CANONICO tem de ser o proprio VALOR, com a TABELA que o da'
+    return True, 'conforme %s' % CONTRATO_PROBLEMA
+
+
+def problema_da_chave(bloco, texto=None):
+    """→ (valor | None, porque). O que QUEM CRUZA lê: o nome canónico, só se o
+    bloco é conforme e não é NAO SEI. O leitor não volta ao texto para o refazer."""
+    ok, porque = problema_conforme(bloco, texto)
+    if not ok:
+        return None, porque
+    if bloco['VALOR'] == AUSENCIA_DO_PROBLEMA:
+        return None, 'VALOR = NAO SEI (%s)' % _espacos(bloco.get('PORQUE'))
+    return bloco['VALOR'], porque
+
+
 # ── COL-LAW-223 · A ESPÉCIE DA AFIRMAÇÃO ──────────────────────────────
 ESPECIES_DA_AFIRMACAO = ('FATO_OBSERVADO', 'PREVISAO', 'RECOMENDACAO')
 
@@ -219,6 +311,9 @@ def contrato():
         'LEIS': ['COL-LAW-221', 'COL-LAW-222', 'COL-LAW-223',
                  'INT-LAW-078', 'INT-LAW-079'],
         'ENTITY_SOURCES': list(ENTITY_SOURCES),
+        'CONTRATO_PROBLEMA': CONTRATO_PROBLEMA,
+        'VEIO_DE_DO_PROBLEMA': list(VEIO_DE_DO_PROBLEMA),
+        'SISTEMAS_DO_CODIGO': list(SISTEMAS_DO_CODIGO),
         'ESPECIES_DA_AFIRMACAO': list(ESPECIES_DA_AFIRMACAO),
         'RELACOES': list(RELACOES),
         'CONTRADICTION_STATUS': list(CONTRADICTION_STATUS),

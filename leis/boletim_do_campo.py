@@ -139,6 +139,14 @@ def _forma(c: str) -> str:
     return FORMAS.get(c, c)
 
 
+def _estado_da_praga(d: str, fim: int, linhas: list, n: int) -> str:
+    """AUSENTE («non presente» logo depois do nome), PRESENTE ou CITADA. `d` e a linha n ja dobrada."""
+    depois = d[fim:fim + JANELA_DO_ESTADO] + " " + " ".join(
+        _dobrar(x) for x in linhas[n + 1:n + 3])[:JANELA_DO_ESTADO]
+    return ("AUSENTE" if _AUSENTE.search(depois.split(".")[0][:JANELA_DO_ESTADO])
+            else "PRESENTE" if _PRESENTE.search(d) else "CITADA")
+
+
 def _trecho(linha: str, ini: int, fim: int, n: int = 90) -> str:
     return re.sub(r"\s+", " ", linha[max(0, ini - n):fim + n]).strip()
 
@@ -177,10 +185,7 @@ def ler_boletim(texto: str) -> dict:
         for m in _RE_PROBLEMA.finditer(d):
             forma = re.sub(r"\s+", " ", m.group(0))
             nome = nome_do_problema(forma)
-            depois = d[m.end():m.end() + JANELA_DO_ESTADO] + " " + " ".join(
-                _dobrar(x) for x in linhas[n + 1:n + 3])[:JANELA_DO_ESTADO]
-            estado = ("AUSENTE" if _AUSENTE.search(depois.split(".")[0][:JANELA_DO_ESTADO])
-                      else "PRESENTE" if _PRESENTE.search(d) else "CITADA")
+            estado = _estado_da_praga(d, m.end(), linhas, n)
             # A PRAGA QUE TRAZ A CULTURA NO NOME diz sozinha de quem e: «tignoletta della vite», «mosca
             # dell'olivo». Medido no ARIF (IT-T3-008): sem linha curta da vite, a Lobesia ia para a secao do
             # olivo, que era a ultima aberta. Vai para a secao da cultura do nome (aberta se preciso).
@@ -620,6 +625,150 @@ def aplicacoes_territoriais(texto: str, trecho: str, *, publicador: str | None =
     return {"OCORRENCIAS": len(lidas), "APLICACOES_TERRITORIAIS": len(territorios), "TERRITORIOS": territorios,
             "INSTITUICOES_INDEPENDENTES": 1 if lidas else 0, "PUBLICADOR": publicador or UNKNOWN,
             "LEI": "mesma afirmacao, mesmo documento: N aplicacoes territoriais, UMA instituicao (nao N fontes)"}
+
+
+# ════════════════════════════════════════════════════════════════════════════════════════════════════════
+# CHAVE-PROBLEMA (27/09) — o PROBLEMA do item no contrato PROBLEMA/v1 (`afirmacao_da_fonte.CONTRATO_PROBLEMA`)
+# ════════════════════════════════════════════════════════════════════════════════════════════════════════
+# O dono da FORMA e `leis/afirmacao_da_fonte.py`; este e o UNICO que a preenche (a porta chama-o para os boletins
+# T2/T3 e para os estudos T5; o reprocessamento da Sala chama a porta). Nao e um segundo extrator: as mencoes
+# dos boletins saem do MESMO vocabulario, da MESMA regra de AUSENTE e da MESMA tabela MESMO_PROBLEMA de
+# `ler_boletim`; as dos estudos saem dos SPANS de `leis/estudo_chaves.py`, tal como vieram.
+#
+#   · VEIO_DE diz ONDE o nome esta escrito — nunca de onde «deve» vir:
+#       DOCUMENT_TITLE  a 1.a linha do texto, o `titulo` dado, ou a linha de titulo repetida (`_titulo_do_documento`)
+#       SECTION_HEADER  uma linha CURTA sozinha (<= PALAVRAS_DO_CABECALHO palavras, sem «:», sem «;», sem «.» no
+#                       fim; marcador «•» permitido) — «• Mosca delle olive (Bactrocera oleae)»
+#       TEXT            o resto: o nome dentro de uma frase
+#     O nome no cabecalho e no texto: a BASE e a do TEXTO (a mais proxima do que a fonte afirma); as outras
+#     ocorrencias ficam em OCORRENCIAS. O nome SO no cabecalho continua SECTION_HEADER — nunca vira TEXT.
+#   · Duas ou mais pragas distintas (depois de MESMO_PROBLEMA) nao marcadas ausentes = NAO SEI (D112).
+#   · CODIGO EPPO so quando uma das formas ESCRITAS do problema e um binomio latino que casa EXACTAMENTE com
+#     a tabela do repo (`motor/normalize_agro.py`, dicionario ES-T4-001 do MAPA, sem grupos). Nome comum
+#     italiano nunca cunha EPPO (normalize_agro: «esta arvore NAO tem autoridade italiano->EPPO»).
+TABELA_DO_NOME = "leis/boletim_do_campo.py::MESMO_PROBLEMA (D111: as formas da mesma praga contam uma vez)"
+_ORDEM_DO_VEIO_DE = {"TEXT": 0, "SECTION_HEADER": 1, "DOCUMENT_TITLE": 2}
+_BINOMIOS = {}
+
+
+def mencoes_do_boletim(texto: str) -> list:
+    """Cada praga/doenca ESCRITA no texto: [{NOME, FORMA, ESTADO, INICIO, FIM}], posicoes em `texto`.
+
+    `texto` ja deve vir sem vizinhos (`fato_do_texto.sem_vizinhos`), como `ler_boletim` o le."""
+    t = str(texto or "")
+    linhas = t.splitlines()
+    fora = []
+    for n, (pos, linha) in enumerate(_linhas_com_posicao(t)):
+        d = _dobrar(linha)
+        for m in _RE_PROBLEMA.finditer(d):
+            fora.append({"NOME": nome_do_problema(re.sub(r"\s+", " ", m.group(0))),
+                         "FORMA": re.sub(r"\s+", " ", linha[m.start():m.end()]),
+                         "ESTADO": _estado_da_praga(d, m.end(), linhas, n),
+                         "INICIO": pos + m.start(), "FIM": pos + m.end()})
+    return fora
+
+
+def _e_cabecalho(linha: str) -> bool:
+    s = linha.strip().lstrip("•·*-– \t").strip()
+    return bool(s) and len(re.findall(r"[A-Za-zÀ-ÿ']+", s)) <= PALAVRAS_DO_CABECALHO \
+        and not re.search(r"[:;]", s) and not s.endswith(".")
+
+
+def _onde_esta(texto: str, ini: int, fim: int, titulos: list) -> tuple:
+    """(VEIO_DE, BASE) da mencao texto[ini:fim]: a linha dela diz se e titulo, cabecalho ou frase.
+    A linha parte-se como `mencoes_do_boletim` a parte (`splitlines`: «\\f» de pagina tambem corta)."""
+    a, linha = next(((p, l) for p, l in _linhas_com_posicao(texto) if p <= ini < p + max(len(l), 1)),
+                    (0, texto))
+    s = re.sub(r"\s+", " ", linha).strip()
+    primeira = next((l.strip() for l in texto.splitlines() if l.strip()), "")
+    if linha.strip() == primeira or s in titulos:
+        return "DOCUMENT_TITLE", s
+    if _e_cabecalho(linha):
+        return "SECTION_HEADER", s
+    return "TEXT", _trecho(linha, ini - a, fim - a)
+
+
+def _binomios() -> dict:
+    """{binomio normalizado: (codigo EPPO, cientifico)} — a tabela do repo, lida pelo dono dela."""
+    if not _BINOMIOS:
+        import os
+        import sys
+        raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        for p in (raiz, os.path.join(raiz, "motor")):
+            if p not in sys.path:
+                sys.path.insert(0, p)
+        import normalize_agro as NA      # noqa: PLC0415
+        _BINOMIOS["NORM"] = NA.norm
+        _BINOMIOS["TABELA"] = NA._binomios_do_dicionario(NA.es_dict()["pests"])
+        _BINOMIOS["AUTORIDADE"] = ("data/samples/ES-T4-001/eppo-dictionary.json (tabelas oficiais do MAPA), "
+                                   "lido por motor/normalize_agro.py::_binomios_do_dicionario")
+    return _BINOMIOS
+
+
+def _codigo(nome: str, formas: list, tabelas: list) -> dict:
+    b = _binomios()
+    achados = {}
+    for f in formas:
+        hit = b["TABELA"].get(b["NORM"](f))
+        if hit:
+            achados.setdefault(hit[0], (hit[1], f))
+    if len(achados) == 1:
+        codigo, (cientifico, forma) = next(iter(achados.items()))
+        return {"SISTEMA": "EPPO", "VALOR": codigo, "CIENTIFICO": cientifico, "PROVA": forma,
+                "COMO": "CASAMENTO_EXACTO_DE_BINOMIO_LATINO escrito no texto", "TABELA": b["AUTORIDADE"],
+                "NOME_CANONICO": nome}
+    porque = ("o texto escreve binomios de codigos EPPO diferentes para o mesmo nome (%s): nenhum e escolhido"
+              % ", ".join(sorted(achados)) if achados else
+              "o texto nao escreve o binomio latino; nome comum nao cunha EPPO (COL-LAW-034)")
+    return {"SISTEMA": "NOME_CANONICO", "VALOR": nome, "TABELA": " + ".join(tabelas) or TABELA_DO_NOME,
+            "EPPO": AF.AUSENCIA_DO_PROBLEMA, "PORQUE_SEM_EPPO": porque}
+
+
+def declarar_problema(texto: str, mencoes: list, *, titulo: str | None = None, ler: str = "") -> dict:
+    """O bloco PROBLEMA/v1 do item, a partir das mencoes JA lidas (posicoes em `texto`).
+
+    Cada mencao: {NOME, FORMA, ESTADO, INICIO, FIM} e, opcional, TABELA (o vocabulario que deu o NOME;
+    omissao = MESMO_PROBLEMA deste ficheiro).
+
+    `ler` diz quem leu as mencoes (entra no LEITOR; nao muda a regra)."""
+    t = str(texto or "")
+    nada = AF.AUSENCIA_DO_PROBLEMA
+    base = {"CONTRATO": AF.CONTRATO_PROBLEMA, "LEITOR": ler or "leis/boletim_do_campo.py::declarar_problema",
+            "LEI": ("D112: o nome ESCRITO, com o trecho literal; duas pragas = NAO SEI; D111: formas da mesma "
+                    "praga contam uma vez (MESMO_PROBLEMA); EPPO so com o binomio escrito")}
+    titulos = _titulo_do_documento(t, titulo)
+    lidas = []
+    for m in mencoes or []:
+        veio, trecho = _onde_esta(t, m["INICIO"], m["FIM"], [re.sub(r"\s+", " ", x).strip() for x in titulos])
+        lidas.append(dict(m, VEIO_DE=veio, BASE=trecho))
+    ausentes = sorted({m["NOME"] for m in lidas if m["ESTADO"] == "AUSENTE"}
+                      - {m["NOME"] for m in lidas if m["ESTADO"] != "AUSENTE"})
+    vivas = [m for m in lidas if m["ESTADO"] != "AUSENTE"]
+    nomes = list(dict.fromkeys(m["NOME"] for m in vivas))
+    base["AUSENTES"] = ausentes
+    base["CANDIDATOS"] = [{"NOME": n, "OCORRENCIAS": [{"VEIO_DE": m["VEIO_DE"], "FORMA": m["FORMA"],
+                                                       "ESTADO": m["ESTADO"], "BASE": m["BASE"][:200]}
+                                                      for m in vivas if m["NOME"] == n]} for n in nomes]
+    if len(nomes) != 1:
+        porque = ("D112: o item nomeia %d problemas distintos (%s); escolher um seria inferir"
+                  % (len(nomes), ", ".join(nomes)) if nomes else
+                  "so pragas marcadas ausentes no texto (%s): ausente nao e ocorrencia" % ", ".join(ausentes)
+                  if ausentes else "o texto nao nomeia praga/doenca do vocabulario")
+        return dict(base, VALOR=nada, VEIO_DE=nada, BASE=nada, FORMA=nada, ENTITY_SOURCE="UNKNOWN",
+                    CODIGO={"SISTEMA": nada, "VALOR": nada}, PORQUE=porque)
+    nome = nomes[0]
+    doc = sorted(vivas, key=lambda m: (_ORDEM_DO_VEIO_DE[m["VEIO_DE"]], m["INICIO"]))[0]
+    return dict(base, VALOR=nome, VEIO_DE=doc["VEIO_DE"], BASE=doc["BASE"], FORMA=doc["FORMA"],
+                ESTADO=doc["ESTADO"], ENTITY_SOURCE=AF.ENTITY_SOURCE_DO_VEIO_DE[doc["VEIO_DE"]],
+                CODIGO=_codigo(nome, [m["FORMA"] for m in vivas],
+                               list(dict.fromkeys(m.get("TABELA") or TABELA_DO_NOME for m in vivas))))
+
+
+def problema_do_boletim(texto: str, *, titulo: str | None = None) -> dict:
+    """O bloco PROBLEMA/v1 de um BOLETIM (T2/T3): as mencoes de `mencoes_do_boletim` no texto sem vizinhos."""
+    t = _ft().sem_vizinhos(texto)
+    return declarar_problema(t, mencoes_do_boletim(t), titulo=titulo,
+                             ler="leis/boletim_do_campo.py::mencoes_do_boletim (secoes do boletim, D84)")
 
 
 # ── PORTA-UNICA-REFERENCIA (D116): o SINAL praga x cultura -> produtos ADAMA autorizados ─────────────────

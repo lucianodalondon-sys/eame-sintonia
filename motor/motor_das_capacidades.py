@@ -667,8 +667,14 @@ def _objeto_do_futuro(f: dict, ctx: dict) -> tuple:
     ent = {}
     for chave, campo in (("CROP_ID", "CULTURA"), ("ISSUE_ID", "PROBLEMA"), ("REGION_ID", "REGIAO_DO_FATO")):
         b = jd.get(campo) if isinstance(jd.get(campo), dict) else {}
-        ok = not _ign(b.get("VALOR")) and not CI.base_ignorante(b.get("BASE"))
-        ent[chave] = _entidade(b.get("VALOR") if ok else NAO_SEI, "JANELA_DECLARADA." + campo,
+        if campo == "PROBLEMA":
+            # CHAVE-PROBLEMA: o PROBLEMA le-se SO pelo contrato PROBLEMA/v1 (o mesmo leitor da CAP-WIN)
+            valor, _porque = AFIRMACAO.problema_da_chave(b or None, texto=str(ready.get("TEXTO") or ""))
+            ok = valor is not None
+        else:
+            valor = b.get("VALOR")
+            ok = not _ign(valor) and not CI.base_ignorante(b.get("BASE"))
+        ent[chave] = _entidade(valor if ok else NAO_SEI, "JANELA_DECLARADA." + campo,
                                [dict(item[0], VEIO_DE=_v(b.get("VEIO_DE")))])
     lugar = ctx["D112"][iid]["FACT_LOCATION"]
     ent["FACT_LOCATION"] = _entidade(lugar["VALOR"], "READY.FACT_LOCATION", item)

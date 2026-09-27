@@ -2126,6 +2126,46 @@ def _estudo_de(item: dict) -> dict:
     return EC.chaves_do_estudo(item.get("texto") or "")
 
 
+# ── CHAVE-PROBLEMA (27/09) · o PROBLEMA no contrato PROBLEMA/v1 ───────────────────────────────────────────
+#: Medido: `motor/cap_win.py` lia `JANELA_DECLARADA.PROBLEMA` e dizia que ele NAO EXISTIA no contrato 033.
+#: Existia, fora de contrato: VALOR em lista, VEIO_DE em frase livre, BASE que descrevia a regra. A forma
+#: agora e a de `leis/afirmacao_da_fonte.CONTRATO_PROBLEMA` e quem a preenche e UM so:
+#: `leis/boletim_do_campo.declarar_problema` — com as mencoes do boletim (T2/T3) ou os SPANS do estudo (T5).
+#: A leitura antiga (SECOES do boletim; NATUREZA/LEI CAP-SCI do estudo) viaja AO LADO, e os nomes que o item
+#: cita ficam em CANDIDATOS; o VALOR e UM nome, ou NAO SEI.
+def _problema_da_chave(item: dict, universo: str, boletim, estudo) -> dict:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leis"))
+    import boletim_do_campo as BC                                  # noqa: PLC0415
+    texto = str(item.get("texto") or "")
+    if estudo:
+        ep = estudo["PROBLEMA"]
+        mencoes = [{"NOME": s["VALOR"], "FORMA": s["TRECHO"], "ESTADO": ep.get("ESTADO") or AUSENCIA,
+                    "INICIO": s["INICIO"], "FIM": s["FIM"], "TABELA": s.get("VOCABULARIO")}
+                   for s in ep.get("SPANS") or []]
+        p = BC.declarar_problema(texto, mencoes, ler="leis/estudo_chaves.py (SPANS com o trecho literal, D112)")
+        p.update({"NATUREZA": ep.get("NATUREZA", AUSENCIA), "LEI_CAP_SCI": ep.get("LEI", AUSENCIA)})
+        return p
+    if universo in UNIVERSOS_DE_BOLETIM:
+        p = BC.problema_do_boletim(texto)
+        legado = _problema_do_boletim(boletim, universo)
+        if "SECOES" in legado:
+            p["SECOES"] = legado["SECOES"]      # o par cultura -> pragas por secao (cruzamentos_max le-o)
+        return p
+    return {"CONTRATO": BC.AF.CONTRATO_PROBLEMA, "VALOR": AUSENCIA, "VEIO_DE": AUSENCIA, "BASE": AUSENCIA,
+            "FORMA": AUSENCIA, "ENTITY_SOURCE": "UNKNOWN", "CODIGO": {"SISTEMA": AUSENCIA, "VALOR": AUSENCIA},
+            "CANDIDATOS": [], "AUSENTES": [],
+            "PORQUE": ("universo %s: a porta so le o problema de boletins (%s) e estudos (%s); aqui nao leu"
+                       % (universo, "/".join(UNIVERSOS_DE_BOLETIM), "/".join(UNIVERSOS_DE_ESTUDO)))}
+
+
+def problema_da_chave(item: dict, universo: str) -> dict:
+    """O bloco PROBLEMA/v1 que `janela_declarada()` daria a este item — a MESMA regra, para o reprocesso
+    da Sala (`admissao/reprocessar_problema.py`) nao ter uma segunda."""
+    return _problema_da_chave(item, universo,
+                              _boletim_de(item) if universo in UNIVERSOS_DE_BOLETIM else None,
+                              _estudo_de(item) if universo in UNIVERSOS_DE_ESTUDO else None)
+
+
 def janela_declarada(item: dict, decisao: Decisao) -> dict:
     """QUATRO-CHAVES (D29): o que a porta JA SABE sobre a janela, com a lei.
 
@@ -2144,6 +2184,9 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
       · num ESTUDO (T5, ESTUDOS-CHAVES) cultura, problema e o LUGAR DO ESTUDO vem de
         `leis/estudo_chaves.py`, com o trecho literal (D112); o problema e NOMEADO, nunca
         PRESENTE, e o lugar e LOCAL_DO_ESTUDO, nunca incidencia (CAP-SCI);
+      · o PROBLEMA (5.a informacao, fora da contagem das quatro) sai no contrato
+        PROBLEMA/v1 (`leis/afirmacao_da_fonte.py`; CHAVE-PROBLEMA): UM nome, onde esta
+        escrito e o trecho literal — duas pragas no item = NAO SEI (D112);
       · FACT_TIME != PUBLISHED_AT != CAPTURED_AT, cada um no seu campo;
       · ausencia = `AUSENCIA` («NAO SEI»), nunca vazio nem None.
 
@@ -2232,8 +2275,9 @@ def janela_declarada(item: dict, decisao: Decisao) -> dict:
                 "VEIO_DE": "decisao.evidencia.palavras" if momentos else AUSENCIA,
                 "BASE": base if momentos else AUSENCIA,
                 "FORMA": "sinais de momento que a regua achou; nao e estadio normalizado"}
-    # CAP-SCI: a praga de um estudo e NOMEADA pelo estudo (ESTADO = NOMEADO_NO_ESTUDO), nunca PRESENTE
-    problema = dict(estudo["PROBLEMA"]) if estudo else _problema_do_boletim(boletim, decisao.universo)
+    # CAP-SCI: a praga de um estudo e NOMEADA pelo estudo (ESTADO = NOMEADO_NO_ESTUDO), nunca PRESENTE.
+    # CHAVE-PROBLEMA: o bloco sai no contrato PROBLEMA/v1 (um nome, onde esta escrito, o trecho literal).
+    problema = _problema_da_chave(item, decisao.universo, boletim, estudo)
     if periodo["VALOR"] != AUSENCIA:
         janela = {"VALOR": periodo["VALOR"], "VEIO_DE": periodo["VEIO_DE"], "BASE": periodo["BASE"],
                   "PRECISAO": periodo["PRECISAO"], "EXPRESSAO": periodo["EXPRESSAO"],
