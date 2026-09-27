@@ -17,6 +17,8 @@ e ASSUNTO-PRIMEIRO: pergunta-se o assunto e vem a pagina. Esta linha faz o segun
     py coleta/linha_busca.py --plano [--r3=<LACUNAS-PARA-A-COLETA-R3.json>] --saida=<pasta>
     py coleta/linha_busca.py --medir-motores --autorizado --saida=<pasta>
     py coleta/linha_busca.py --buscar --autorizado --motor=<M> --consultas=<CONSULTAS.json> --n=4 --saida=<pasta>
+    py coleta/linha_busca.py --diagnosticar-cse --autorizado [--sem-portao-it] --saida=<pasta>   (1 chamada)
+    py coleta/linha_busca.py --buscar --autorizado --sem-portao-it --motor=GOOGLE_CSE ...   (no Actions, sem VPN)
     py coleta/linha_busca.py --colher --autorizado --resultados=<RESULTADOS.json> --fila=<fila> --saida=<pasta> [--pousar]
     py coleta/linha_busca.py --ensaio --resultados=<fixture> --paginas=<pasta de bytes> --fila=<COPIA> --saida=<pasta>
     py coleta/linha_busca.py --marcar --saida=<pasta> --fila=<fila>      (D93.4: fonte recusada depois -> itens marcados)
@@ -39,6 +41,7 @@ import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 
 sys.path.insert(0, str(RAIZ / "ferramentas" / "linha_busca"))
 sys.path.insert(0, str(RAIZ / "curadoria"))
+import api_oficial as API                                             # noqa: E402
 import consultas as CQ                                                # noqa: E402
 import motores as MO                                                  # noqa: E402
 
@@ -345,7 +348,9 @@ def buscar_consultas(motor: str, consultas: list, buscar, saida: Path) -> list:
         try:
             corpo, meta = buscar(pedido, cab or None)
         except Exception as e:                                        # noqa: BLE001
-            out.append({"CONSULTA_ID": q["CONSULTA_ID"], "MOTOR": motor, "ERRO": "%s: %s" % (type(e).__name__, str(e)[:200])})
+            # a tesoura: o endereco da API leva a chave, e uma mensagem de erro pode repeti-lo
+            out.append({"CONSULTA_ID": q["CONSULTA_ID"], "MOTOR": motor,
+                        "ERRO": API.redigir("%s: %s" % (type(e).__name__, str(e)[:200]))})
             continue
         sha = hashlib.sha256(corpo).hexdigest()
         (saida / "serp").mkdir(parents=True, exist_ok=True)
@@ -390,10 +395,27 @@ def main(argv) -> int:
     if "--autorizado" not in argv:
         print("RECUSADO: este passo sai a rede; so com --autorizado (quem corre e o coordenador)")
         return 2
-    if not portao_it(saida, "ANTES"):
+    # BUSCA-NO-ACTIONS (27/09): a busca por API OFICIAL corre no GitHub Actions, sem VPN — a API nao precisa de
+    # saida italiana. `--sem-portao-it` so vale para isso: diagnostico da API ou `--buscar` com motor API_OFICIAL.
+    # PAGINAS nunca: o `--colher` e o `--medir-motores` continuam presos ao portao IT (e a esta maquina).
+    sem_portao = "--sem-portao-it" in argv
+    motor_api = MO.MOTORES.get(arg.get("motor", ""), {}).get("ROTA") == "API_OFICIAL"
+    if sem_portao and not ("--diagnosticar-cse" in argv or ("--buscar" in argv and motor_api)):
+        print("RECUSADO: --sem-portao-it so serve a busca por API oficial (--diagnosticar-cse, ou --buscar com "
+              "motor API_OFICIAL); paginas colhem-se com o portao IT")
+        return 2
+    if "--diagnosticar-cse" in argv:
+        d = API.diagnosticar_cse()
+        (saida / "DIAGNOSTICO.json").write_text(json.dumps(d, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        for k in ("HTTP", "API_ATIVA", "CHAVE_PODE_USAR_A_API", "CX", "BUSCA_POSSIVEL", "PORQUE"):
+            print("%-22s %s" % (k, API.redigir(d.get(k))))
+        for i, passo in enumerate(d.get("O_QUE_O_DONO_FAZ") or [], 1):
+            print("DONO %d: %s" % (i, passo))
+        return 0 if d.get("BUSCA_POSSIVEL") == "SIM" else 4
+    if not sem_portao and not portao_it(saida, "ANTES"):
         print("PAROU: portao de egresso nao e IT (antes)")
         return 3
-    buscar = transporte_real(saida)
+    buscar = API.transporte() if ("--buscar" in argv and motor_api) else transporte_real(saida)
     if "--medir-motores" in argv:
         q = CQ.prioridade(CQ.gerar())[0]
         medida = {}
@@ -405,7 +427,12 @@ def main(argv) -> int:
         (saida / "MOTORES-MEDIDOS.json").write_text(json.dumps(medida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         print(json.dumps({k: (v["RESULTADOS"], v["ERRO"]) for k, v in medida.items()}, ensure_ascii=False))
     elif "--buscar" in argv:
-        qs = json.loads(Path(arg["consultas"]).read_text(encoding="utf-8"))[: int(arg.get("n", "4"))]
+        n = int(arg.get("n", "4"))
+        teto = API.QUOTA_DIA.get(arg["motor"])
+        if teto is not None and not 1 <= n <= teto:
+            print("RECUSADO: --n=%d fora da quota declarada de %s (1..%d consultas/dia)" % (n, arg["motor"], teto))
+            return 2
+        qs = json.loads(Path(arg["consultas"]).read_text(encoding="utf-8"))[:n]
         rs = buscar_consultas(arg["motor"], qs, buscar, saida)
         (saida / "RESULTADOS.json").write_text(json.dumps(rs, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         print(len([x for x in rs if x.get("URL")]), "resultados;", sum(1 for x in rs if x.get("ERRO")), "erros")
@@ -415,6 +442,8 @@ def main(argv) -> int:
         doc = colher(res, Path(arg["fila"]), saida, buscar, pousar="--pousar" in argv, livro=arg.get("livro"))
         print(json.dumps({k: doc[k] for k in ("CORRIDA", "RESULTADOS", "ESTADOS", "ADMITIDAS", "ITENS_UNICOS_ADMITIDOS", "POUSADAS")},
                          ensure_ascii=False, default=str))
+    if sem_portao:
+        return 0
     ok = portao_it(saida, "DEPOIS")
     print("portao IT depois:", "PASS" if ok else "NAO E IT")
     return 0 if ok else 3
