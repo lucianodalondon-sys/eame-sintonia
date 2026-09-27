@@ -2,7 +2,7 @@
 
 ```text
 BIBLE_ID = SINTONIA-INTELLIGENCE-BIBLE
-VERSION = V0.3
+VERSION = V0.4
 STATUS = CANONICAL
 DATE = 2026-09-13
 REVISED = 2026-09-14
@@ -18,6 +18,10 @@ IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_
 > ```text
 > ACRESCENTAR LEI != AUTORIZAR OBRA NOVA
 > ```
+
+> **V0.4 (2026-09-27 · D112) acrescenta duas leis à secção 7** — `INT-LAW-078` e
+> `INT-LAW-079`, as relações entre afirmações que o gold humano da Puglia exigiu —
+> e não altera nenhuma outra. A fronteira de implementação é a mesma.
 
 > Esta é a **Bíblia de Engenharia da Intelligence**, não um relatório, backlog, handoff, design de portal ou prova de implementação.
 >
@@ -507,6 +511,34 @@ Verificar pelo menos:
 - cultura/issue quando aplicável;
 - dependência/originador;
 - double counting.
+
+## INT-LAW-078 — Mesma redação em N territórios = N aplicações, 1 instituição
+
+Quando a mesma fonte aplica a mesma afirmação textual a N territórios, há N
+aplicações territoriais da mesma afirmação — não N observações, nem N fontes.
+
+```text
+APLICACOES_TERRITORIAIS = N
+INSTITUICOES_INDEPENDENTES = 1
+```
+
+Para geografia contam N; para «quantas instituições independentes concordam?»
+a instituição conta uma vez (`INT-LAW-071`).
+
+## INT-LAW-079 — Divergência não é contradição, e mudança no tempo também não
+
+Limites ou recomendações diferentes entre fontes diferentes são
+`RELATION = DIVERGENT_RECOMMENDATIONS` com `CONTRADICTION_STATUS = UNRESOLVED`
+até se compararem, no mínimo: autoridade, território, validade, definição e
+método. Nem contradição, nem «não há contradição», por defeito.
+
+A mesma fonte a mudar de recomendação entre períodos diferentes é
+`RELATION = TEMPORAL_CHANGE_IN_RECOMMENDATION`: não é contradição, e **não prova
+mudança no campo** — prova que a recomendação mudou. A razão da mudança exige
+outra evidência.
+
+A coleta preserva os campos de que esta lei precisa (`COL-LAW-221` a
+`COL-LAW-223`, `BIBLIA-CANONICA-DA-COLETA.md`); a relação decide-se aqui.
 
 ---
 
@@ -1600,6 +1632,19 @@ QUAL É A JANELA
 QUAL É O ESCOPO
 O QUE MUDARIA O JUDGMENT
 E QUANDO A RESPOSTA CORRETA É NÃO AGIR AINDA
+```
+
+---
+
+## 33.4 · EMENDA V0.4, 2026-09-27 (D112)
+
+```text
+BIBLE_VERSION_BEFORE = V0.3
+BIBLE_VERSION_AFTER  = V0.4
+LEIS_ACRESCENTADAS   = 2   (INT-LAW-078 · INT-LAW-079)
+LEIS_ALTERADAS       = 0
+IMPLEMENTATION_AUTHORIZED = inalterado
+RAZAO_E_EVIDENCIA    = docs/decisoes/DIARIO-DE-DECISOES.md (D112)
 ```
 
 ---

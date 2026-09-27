@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  554c1ec1bb232b8a3298e3cfb330c8de86413134
-BRANCH           claude/fix-fact-time-extraction-ylh1oj
-GERADO_EM        2026-09-26T20:15:56-03:00
+HEAD_DA_MEDICAO  6f88b7f7f2c64e8131a26feafc33a9bbe1b85e3d
+BRANCH           claude/metodo-puglia-rm5sdo
+GERADO_EM        2026-09-27T14:57:36-03:00
 CARDS            110
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -313,13 +313,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json`, `data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json`, `supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql` |
 | **o que sai · dado** | C-SUPABASE |
 | **o que sai · ficheiros** | `data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json` |
-| **arestas no mapa** | entram 5 · saem 11 |
-| **arestas provadas** | entram 4 · saem 11 |
+| **arestas no mapa** | entram 5 · saem 12 |
+| **arestas provadas** | entram 4 · saem 12 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 15 · NÃO SEI 1 |
+| **prova das ligações** | CODE 16 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 

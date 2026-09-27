@@ -2,7 +2,7 @@
 
 ```
 BIBLE_ID          SINTONIA-COLLECTION-BIBLE
-VERSION           V1.4
+VERSION           V1.5
 STATUS            CANONICAL
 EFFECTIVE_FROM    2026-09-07
 CURRENT_PROFILE   ITALY_PROFILE_V1
@@ -22,6 +22,7 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 | **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
 | **V1.4** | 2026-09-11 | **o retorno do executor entra na lei**: `COL-LAW-505` responde a pergunta que `COL-LAW-013` fez e nunca respondeu — «`OUTPUT` = onde larguei, e **em que forma**». Medido antes de escrita: `FALSE_HARVEST_TOTAL = 253` sobre os cinco executores canónicos | **105** (+1) |
+| **V1.5** | 2026-09-27 | **a afirmação da fonte entra na lei (D112 — VEREDITO PUGLIA = APROVADO COM CORREÇÕES)**: `COL-LAW-032` ganha `LOCATION_SOURCE` e `LOCATION_EXPRESSION_RAW`; três leis novas (PARTE XXI) — `COL-LAW-221` procedência da entidade, `COL-LAW-222` fidelidade da afirmação, `COL-LAW-223` espécie da afirmação. As relações entre afirmações ficam na Intelligence (`INT-LAW-078` · `INT-LAW-079`) | **108** (+3) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
@@ -812,6 +813,28 @@ DA_FONTE  veio do cadastro da fonte   ⛔ PROIBIDO sustentar fato
 DEDUZIDO  a inteligência inferiu      ⛔ PROIBIDO sustentar fato
 ```
 
+**DENTRO DO ESCRITO, ONDE ESTÁ O LUGAR** (V1.5 · D112). Todo `FACT_LOCATION` **DEVE**
+carregar `LOCATION_SOURCE`:
+
+```
+TEXT                      o lugar está na frase da afirmação
+SECTION_HEADER            o lugar está num cabeçalho de secção presente no TEXTO,
+                          e a afirmação está dentro dessa secção
+VISUAL_HEADER_CANDIDATE   o lugar só aparece na imagem/layout da página
+                          ⛔ NUNCA sustenta FACT_LOCATION
+UNRESOLVED                nenhum lugar sustentado
+```
+
+`VISUAL_HEADER_CANDIDATE` guarda-se como **candidato**, com a sua prova, e o fato fica
+`FACT_LOCATION = UNRESOLVED` até existir regra canônica de herança territorial. Perfil,
+contexto, origem da página ou qualquer outro atalho **NÃO DEVEM** produzir
+`LOCATION_SOURCE`.
+
+**EXPRESSÃO TERRITORIAL NÃO É LUGAR.** Quando a fonte escreve uma expressão territorial
+sem lugar resolvido, guarda-se o literal em `LOCATION_EXPRESSION_RAW` e
+`FACT_LOCATION = UNRESOLVED`. **NÃO DEVE** nascer ponto artificial (centro, capital,
+coordenada aproximada), nem expansão para uma lista de lugares que o documento não enumera.
+
 **PRECISÃO NÃO SOBE NEM DESCE SOZINHA.** Escada: `PAIS → REGIAO → PROVINCIA → MUNICIPIO →
 LOCALIDADE → COORDENADA`. Se a fonte prova Toscana, não se inventa Grosseto; se prova
 Grosseto, não se reduz para Itália. `PROVINCIAL ≠ REGIONAL`, e um cruzamento **NÃO DEVE**
@@ -830,10 +853,12 @@ sistema chamava de outra coisa. **E a lei já estava escrita no `CLAUDE.md` dele
 
 > **LEI QUE NINGUÉM MEDE É COMENTÁRIO.**
 
-**CONTRATOS.** `leis/lugar_do_fato.py` (a lei, sem idioma) · `leis/fato_local.py` (o
-leitor italiano) · `leis/v21_geografia_contrato.py` (o contador que falha fechado) ·
-migration 015 (as constraints)
-**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+**CONTRATOS.** `leis/lugar_do_fato.py` (a lei, sem idioma; `fact_location()` é a trava do
+`LOCATION_SOURCE`) · `leis/fato_local.py` (o leitor italiano) ·
+`leis/v21_geografia_contrato.py` (o contador que falha fechado) · migration 015 (as
+constraints)
+**COMO PROVAR.** `py tests/test_lugar_do_fato.py` · `py tests/test_metodo_puglia.py`
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
 
@@ -2920,6 +2945,101 @@ ficha de catálogo) · `COL-LAW-207` (`DISCOVER` produz índice por natureza) ·
 
 **NÃO IMPLEMENTADO NESTA MISSÃO.** A lei e o validador existem; `a_colheita()` continua com a
 heurística antiga, e nenhum executor foi adaptado. Ligar o runtime é outra missão.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+# PARTE XXI · A AFIRMAÇÃO DA FONTE
+
+> **Emenda V1.5 · D112.** Três leis sobre a unidade que a coleta entrega à inteligência: a
+> afirmação da fonte. A razão e a evidência estão no
+> [`docs/decisoes/DIARIO-DE-DECISOES.md`](docs/decisoes/DIARIO-DE-DECISOES.md) (D112), não aqui.
+>
+> As **relações entre afirmações** — mesma redação em vários territórios, limites diferentes
+> entre fontes, mudança de recomendação no tempo — são da Intelligence: `INT-LAW-078` e
+> `INT-LAW-079`, na [`BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`](BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md).
+> A coleta preserva o que elas precisam (trecho, SHA-256, publisher, território, validade) e
+> não decide a relação.
+
+## COL-LAW-221 · A ENTIDADE DIZ DE ONDE VEIO O NOME
+
+**REGRA.** Toda entidade de uma afirmação — praga, doença, cultura, produto, molécula, ou
+outra entidade relevante — **DEVE** carregar `ENTITY_SOURCE`:
+
+```
+SPAN               o nome está dentro do trecho da afirmação
+PARAGRAPH_CONTEXT  o nome está no mesmo parágrafo, fora do trecho
+SECTION_TITLE      o nome está no título da secção que governa o trecho
+DOCUMENT_TITLE     o nome está no título do documento
+UNKNOWN            não se sabe
+```
+
+`SPAN` **só** quando o nome está no trecho. Entidade herdada **NÃO DEVE** ser gravada como
+se estivesse no trecho.
+
+Havendo **outra entidade concorrente** da mesma espécie, ou **troca de secção**, entre o
+nome e o trecho: `ENTITY_SOURCE = UNKNOWN`. Conhecimento externo **NÃO DEVE** preencher a
+lacuna.
+
+**CONTRATOS.** `leis/afirmacao_da_fonte.py` (`procedencia_da_entidade`)
+
+**COMO PROVAR.** `py tests/test_metodo_puglia.py`
+
+**LIGA-SE A** `COL-LAW-033` (procedência do artefato — o eixo de cima) · `COL-LAW-203` (a
+procedência chega até o valor) · `COL-LAW-222` (entidades citadas juntas).
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-222 · A FICHA NÃO ACRESCENTA NEM CORTA
+
+**REGRA.** A ficha de uma afirmação **DEVE** dizer o que o trecho diz — nem mais, nem menos.
+
+- Exceções, condições e qualificadores — incluindo números, limites e negação — **são parte
+  da afirmação** e **NÃO DEVEM** ser cortados.
+- Entidades citadas juntas no trecho são **todas** preservadas.
+- Tradução é **ajuda de leitura, nunca evidência**. A evidência é o trecho original, com o
+  seu SHA-256.
+- O que é da **FONTE** e o que é **INTERPRETACAO_DO_SISTEMA** ficam separados e marcados.
+  Explicação, classificação ou saber externo **NÃO DEVEM** entrar no texto atribuído à fonte:
+  vão para o campo `INTERPRETACAO_DO_SISTEMA`. O único rótulo admitido dentro da tradução é
+  a espécie da afirmação (`COL-LAW-223`), que já está na ficha.
+
+**CONTRATOS.** `leis/afirmacao_da_fonte.py` (`fidelidade` — lint determinístico: reprovar
+prova infidelidade; aprovar não prova fidelidade)
+
+**COMO PROVAR.** `py tests/test_metodo_puglia.py`
+
+**LIGA-SE A** `COL-LAW-203` (normalização não destrói o original) · `COL-LAW-201` (artefato
+não é fato).
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-223 · PREVISÃO, FATO OBSERVADO E RECOMENDAÇÃO SÃO AFIRMAÇÕES DIFERENTES
+
+**REGRA.** Toda afirmação **DEVE** declarar a sua espécie:
+
+```
+FATO_OBSERVADO   a fonte relata o que foi visto ou medido
+PREVISAO         a fonte diz o que vai ou pode acontecer
+RECOMENDACAO     a fonte diz o que fazer ou não fazer — a negativa também é recomendação
+
+PREVISAO ≠ FATO_OBSERVADO ≠ RECOMENDACAO
+```
+
+Só `FATO_OBSERVADO` sustenta que algo aconteceu no campo. Frases vizinhas de espécies
+diferentes são **afirmações diferentes**, cada uma com a sua ficha, mesmo quando uma é
+consequência da outra.
+
+**CONTRATOS.** `leis/afirmacao_da_fonte.py` (`usavel_como_fato_observado`)
+
+**COMO PROVAR.** `py tests/test_metodo_puglia.py`
+
+**LIGA-SE A** `INT-LAW-131` (FORECAST ≠ FACT) · `INT-LAW-024` (RECOMMENDATION ≠ ACTION).
 
 **ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 

@@ -990,6 +990,28 @@
    ]
   },
   {
+   "id": "C-AFIRMACAO-DA-FONTE",
+   "name": "A afirmacao da fonte — a lei que a Puglia ensinou, e ainda nao aplicada",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "❝",
+   "views": [
+    "audit"
+   ],
+   "what": "Diz de onde veio o nome de cada entidade de uma afirmacao (ENTITY_SOURCE), separa previsao, fato observado e recomendacao, classifica a relacao entre duas afirmacoes, e reprova com um lint deterministico a ficha que acrescenta ou corta o que a fonte disse.",
+   "why_here": "D112 — VEREDITO PUGLIA = APROVADO COM CORRECOES. O dono reviu a mao 12 fichas reais (D111) e as correcoes viraram lei: COL-LAW-221, 222, 223 na Biblia da Coleta e INT-LAW-078, 079 na da Intelligence. Este ficheiro e o VOCABULARIO e as TRAVAS dessas leis, medidos contra o gold humano em tests/test_metodo_puglia.py. ⚠️ NAO E EXTRATOR e nada o importa em producao: nenhum codigo de extracao emite ENTITY_SOURCE nem LOCATION_SOURCE hoje — isso esta medido como falha conhecida DECLARADA no teste, e e o backlog. Nenhuma aresta foi criada para o fazer parecer usado.",
+   "departments": [
+    "INTELIGENCIA",
+    "TECNICO_CIENCIA"
+   ],
+   "files": [
+    "leis/afirmacao_da_fonte.py",
+    "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
+    "docs/iab/puglia/DECISAO-D112.md",
+    "METODO-PUGLIA.md"
+   ]
+  },
+  {
    "id": "C-CONTRATO-CAMPOS",
    "name": "O que a coleta tem de trazer",
    "territory": "Z-MEDIDAS",
@@ -2462,7 +2484,8 @@
     "provas/migracao_034_ensaio_copia.py",
     "provas/migracao_037_ensaio_descartavel.py",
     "provas/migracao_036_ensaio_copia.py",
-    "provas/integra_noite/mutacao_da20.py"
+    "provas/integra_noite/mutacao_da20.py",
+    "provas/mutacao_metodo_puglia.py"
    ],
    "views": [
     "audit"

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T12:03:19+00:00",
-  "HEAD": "554c1ec1bb232b8a3298e3cfb330c8de86413134",
-  "BRANCH": "claude/fix-fact-time-extraction-ylh1oj",
+  "GENERATED_AT": "2026-09-27T18:33:54+00:00",
+  "HEAD": "6f88b7f7f2c64e8131a26feafc33a9bbe1b85e3d",
+  "BRANCH": "claude/metodo-puglia-rm5sdo",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d11201a2f2f0d319001a5084d05ca4a4dbd3cf3e149fea2298ed0cce0cc997ab",
-  "FICHEIROS_NA_IMPRESSAO": 3922,
+  "SOURCE_TREE_FINGERPRINT": "07af7016df387e2b5032972c16d36b2aa35192139b4192fdc7ece4d6fc261176",
+  "FICHEIROS_NA_IMPRESSAO": 3928,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2036,7 +2036,7 @@
    {
     "PATH": "leis/lugar_do_fato.py",
     "PAPEL": "FONTE",
-    "VERSAO": "1dfbacceb89343bc0b1cd4c151b5f5d4be0fcd89",
+    "VERSAO": "5ac6b4e97efe6bbdfaa8434e0a3605abb667cdac",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4470,6 +4470,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/lugar_fato/medir_moldura_html.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "275a3a13cb957d7522de5a1da640ec719aa6b958",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/lugar_fato/mutar_data_do_fato.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4fbdb6e51955398ec21d8fa31689ea65d9617d4a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/lugar_fato/mutar_fato_do_texto.py",
     "PAPEL": "FONTE",
     "VERSAO": "36f29c991633dcc1665686bcc1a7afa6f952d1d1",
@@ -4780,14 +4794,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d11201a2f2f0d319001a5084d05ca4a4dbd3cf3e149fea2298ed0cce0cc997ab",
+    "VERSAO": "07af7016df387e2b5032972c16d36b2aa35192139b4192fdc7ece4d6fc261176",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d11201a2f2f0d319001a5084d05ca4a4dbd3cf3e149fea2298ed0cce0cc997ab",
+    "VERSAO": "07af7016df387e2b5032972c16d36b2aa35192139b4192fdc7ece4d6fc261176",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5866,6 +5880,13 @@
     "PATH": "tests/test_d37_campos_de_politica.py",
     "PAPEL": "FONTE",
     "VERSAO": "fc41d736734f7542f4f84a883f07c830c62a3c9a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_data_do_fato.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "61fd5d2532356b4875ea29775e7d3ec5e7a57661",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7102,8 +7123,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1009,
-  "INPUTS_DIGEST": "f9ba5bc212fd20bef329574a4238c5604919f1744afa0201feb2ae43f3bcafec",
+  "INPUTS_COUNT": 1012,
+  "INPUTS_DIGEST": "bf645b8200b49834a2fdc32b6f13ee59ad835e94c4c905b8429a3d44b31cf436",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7129,15 +7150,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 586,
+  "DOCUMENTOS_LIDOS": 587,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "67e223e31c64ff8175e3f9365aabfad6cd1946e7cc0521d9bd37f2a44c849b4f",
-  "SEMANTIC_HASH": "2e28ad9a3d73a1412c1d01b004233a328a68d60efbed51bb608b32a47da8d7cf"
+  "MEASUREMENT_HASH": "82f0dce1e1ae26761054bc078db57fac6ceb5f045ac276d4286a2cd0754adc52",
+  "SEMANTIC_HASH": "b150bd04ee2abba98905c1a76c0fa6e950d0be9054aa1d14f2386bbe72b81937"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -23712,6 +23733,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-LUGAR-COLETA",
+    "FROM": "C-FONTES-EU",
+    "TO": "C-LUGAR-COLETA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/lugar_fato/medir_moldura_html.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-FONTES-EU--IMPORTS-->C-LUGAR-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-RECORRENCIA",
     "FROM": "C-FONTES-EU",
     "TO": "C-RECORRENCIA",
@@ -31285,6 +31328,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_data_do_fato.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_extrator_evento_v2.py",
       "LINHA": 18,
       "SUPPORTS": "YES",
@@ -31439,6 +31490,14 @@
      {
       "FICHEIRO": "tests/test_c7_lugar_do_fato.py",
       "LINHA": 225,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_data_do_fato.py",
+      "LINHA": 20,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -32922,6 +32981,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/lugar_fato/medir_moldura_html.py",
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-LUGAR-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "scripts/reproc_acervo/prever_acervo.py",
       "LINHA": 32,
@@ -53527,12 +53594,12 @@
     ]
    }
   ],
-  "COUNT": 1498
+  "COUNT": 1499
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 203,
   "CARTOES_AUDITADOS": 203,
-  "ARESTAS_RELACIONADAS": 1498,
+  "ARESTAS_RELACIONADAS": 1499,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -53885,9 +53952,6 @@
     "opportunity",
     "science"
    ],
-   "C-FONTES-EU": [
-    "science"
-   ],
    "C-GESTAO-DA-COLETA": [
     "opportunity",
     "science"
@@ -53975,7 +54039,7 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 252,
+   "CODE": 253,
    "CONTROL": 86,
    "DATA": 30,
    "PROOF": 523,
@@ -57328,7 +57392,7 @@
     "pdf_text"
    ],
    "ENTRAM": 5,
-   "SAEM": 11,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -57343,9 +57407,7 @@
     "WRITE"
    ],
    "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "science"
-   ],
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -58672,15 +58734,20 @@
     "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
     "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
     "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+    "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+    "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
     "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
     "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
     "scripts/lugar_fato/bateria_por_nome.py",
     "scripts/lugar_fato/medir_78.py",
+    "scripts/lugar_fato/medir_moldura_html.py",
+    "scripts/lugar_fato/mutar_data_do_fato.py",
     "scripts/lugar_fato/mutar_fato_do_texto.py",
     "scripts/lugar_fato/mutar_lei_do_tempo.py",
     "scripts/reproc_acervo/ACERVO-TEMPO-LUGAR-V1.json",
     "scripts/reproc_acervo/ENSAIO-034-DESCARTAVEL.json",
-    "scripts/reproc_acervo/prever_acervo.py"
+    "scripts/reproc_acervo/prever_acervo.py",
+    "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -58688,6 +58755,7 @@
     "system-map/scripts/generate_system_map.py",
     "tests/mutacao_conserto_regua.py",
     "tests/test_c7_lugar_do_fato.py",
+    "tests/test_data_do_fato.py",
     "tests/test_fato_do_texto.py",
     "tests/test_lugar_do_fato.py"
    ],
@@ -58698,10 +58766,11 @@
    "ESCREVE_EM": [],
    "LE_DE": [
     "__future__",
+    "coleta",
     "datetime",
     "pathlib"
    ],
-   "ENTRAM": 6,
+   "ENTRAM": 7,
    "SAEM": 11,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -64069,6 +64138,7 @@
     "tests/test_d24_video_de_pessoa.py",
     "tests/test_d36_envelope_equivalente.py",
     "tests/test_d37_campos_de_politica.py",
+    "tests/test_data_do_fato.py",
     "tests/test_dedup_video_social.py",
     "tests/test_egresso_consenso.py",
     "tests/test_ensaio_offline_micro.py",

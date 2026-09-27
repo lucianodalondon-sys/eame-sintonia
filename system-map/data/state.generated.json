@@ -1608,6 +1608,7 @@
       "docs/fontes/AUDITORIA-DA-FILA-ITALIANA-2026-09-15.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "docs/iab/puglia/DECISAO-D112.md",
       "docs/intelligence/BACKLOG-OBRIGATORIO.md",
       "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
       "docs/intelligence/INTELLIGENCE-CANONICAL-TOPOLOGY-V1.md",
@@ -3265,10 +3266,14 @@
       "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
       "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
       "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+      "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+      "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
       "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
       "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
       "scripts/lugar_fato/bateria_por_nome.py",
       "scripts/lugar_fato/medir_78.py",
+      "scripts/lugar_fato/medir_moldura_html.py",
+      "scripts/lugar_fato/mutar_data_do_fato.py",
       "scripts/lugar_fato/mutar_fato_do_texto.py",
       "scripts/lugar_fato/mutar_lei_do_tempo.py",
       "scripts/micro_coleta/COORTE-PROPOSTA.json",
@@ -3536,6 +3541,7 @@
       "tests/dados/c2-juiz/raw-1558.html",
       "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
       "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+      "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json",
       "tests/dados/item-social-ispra-porta.json",
       "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
       "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
@@ -3552,6 +3558,7 @@
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "tests/fixtures/ponte_onboard_17_contratos.json",
+      "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/medir_multilingue.py",
       "tests/mutacao_conserto_regua.py",
@@ -3666,6 +3673,7 @@
       "tests/test_d24_video_de_pessoa.py",
       "tests/test_d36_envelope_equivalente.py",
       "tests/test_d37_campos_de_politica.py",
+      "tests/test_data_do_fato.py",
       "tests/test_dedup_video_social.py",
       "tests/test_egresso_consenso.py",
       "tests/test_ensaio_offline_micro.py",
@@ -4361,10 +4369,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/fix-fact-time-extraction-ylh1oj",
-    "HEAD": "554c1ec1bb232b8a3298e3cfb330c8de86413134",
-    "GENERATED_AT": "2026-09-26T20:15:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d11201a2f2f0d319001a5084d05ca4a4dbd3cf3e149fea2298ed0cce0cc997ab"
+    "BRANCH": "claude/metodo-puglia-rm5sdo",
+    "HEAD": "6f88b7f7f2c64e8131a26feafc33a9bbe1b85e3d",
+    "GENERATED_AT": "2026-09-27T14:57:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "07af7016df387e2b5032972c16d36b2aa35192139b4192fdc7ece4d6fc261176"
   },
   "FAMILIES": [
     {
@@ -4435,7 +4443,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 105
+      "count": 106
     },
     {
       "id": "F-ENTREGA",
@@ -4791,7 +4799,7 @@
       "y": 190,
       "w": 1235,
       "h": 9378,
-      "count": 18
+      "count": 19
     },
     {
       "id": "Z-PROVA",
@@ -5458,6 +5466,81 @@
       "y": 360
     },
     {
+      "id": "C-AFIRMACAO-DA-FONTE",
+      "name": "A afirmacao da fonte — a lei que a Puglia ensinou, e ainda nao aplicada",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Diz de onde veio o nome de cada entidade de uma afirmacao (ENTITY_SOURCE), separa previsao, fato observado e recomendacao, classifica a relacao entre duas afirmacoes, e reprova com um lint deterministico a ficha que acrescenta ou corta o que a fonte disse.",
+      "why_here": "D112 — VEREDITO PUGLIA = APROVADO COM CORRECOES. O dono reviu a mao 12 fichas reais (D111) e as correcoes viraram lei: COL-LAW-221, 222, 223 na Biblia da Coleta e INT-LAW-078, 079 na da Intelligence. Este ficheiro e o VOCABULARIO e as TRAVAS dessas leis, medidos contra o gold humano em tests/test_metodo_puglia.py. ⚠️ NAO E EXTRATOR e nada o importa em producao: nenhum codigo de extracao emite ENTITY_SOURCE nem LOCATION_SOURCE hoje — isso esta medido como falha conhecida DECLARADA no teste, e e o backlog. Nenhuma aresta foi criada para o fazer parecer usado.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "❝",
+      "views": [
+        "audit",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "docs/iab/puglia/DECISAO-D112.md",
+        "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json"
+      ],
+      "file_count": 2,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "ROLE_MEASURED": "CONTRACT_OR_RULE",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_ENUNCIA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "CONTRACT_OR_RULE",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "OWNER": "INTELIGENCIA · TECNICO_CIENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
+      "x": 20145,
+      "y": 360
+    },
+    {
       "id": "C-APIFY-POOL",
       "name": "Apify — a rota paga",
       "territory": "Z-FERRAMENTAS",
@@ -5660,7 +5743,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 20145,
+      "x": 20560,
       "y": 360
     },
     {
@@ -39127,7 +39210,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 20560,
+      "x": 20975,
       "y": 360
     },
     {
@@ -42985,8 +43068,8 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 20975,
-      "y": 360
+      "x": 20145,
+      "y": 682
     },
     {
       "id": "C-CONTRATO-CAMPOS",
@@ -43173,7 +43256,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 20145,
+      "x": 20560,
       "y": 682
     },
     {
@@ -43285,7 +43368,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 20560,
+      "x": 20975,
       "y": 682
     },
     {
@@ -43930,8 +44013,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-RECEITAS · C-REGRA-COLETA · C-SAUDE-FONTE · C-V21-INGEST · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20975,
-      "y": 682
+      "x": 20145,
+      "y": 1004
     },
     {
       "id": "C-DECISAO-DA-FILA",
@@ -44765,7 +44848,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 20145,
+      "x": 20560,
       "y": 1004
     },
     {
@@ -45898,7 +45981,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 20560,
+      "x": 20975,
       "y": 1004
     },
     {
@@ -46473,8 +46556,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DECISAO-DA-FILA · C-SCRAP-COLHEITA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20975,
-      "y": 1004
+      "x": 20145,
+      "y": 1326
     },
     {
       "id": "C-FONTES-EU",
@@ -46527,6 +46610,7 @@
         "C-EXECUTOR-TEXTO-HTML",
         "C-IMPORTAR",
         "C-LASTMILE-MEDIDORES",
+        "C-LUGAR-COLETA",
         "C-PROVA-ROTAS-REAIS",
         "C-RECEITAS",
         "C-RECORRENCIA",
@@ -46819,7 +46903,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 20145,
+      "x": 20560,
       "y": 1326
     },
     {
@@ -50838,17 +50922,22 @@
         "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
         "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
         "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
+        "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+        "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
         "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
         "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
         "scripts/lugar_fato/bateria_por_nome.py",
         "scripts/lugar_fato/medir_78.py",
+        "scripts/lugar_fato/medir_moldura_html.py",
+        "scripts/lugar_fato/mutar_data_do_fato.py",
         "scripts/lugar_fato/mutar_fato_do_texto.py",
         "scripts/lugar_fato/mutar_lei_do_tempo.py",
         "scripts/reproc_acervo/ACERVO-TEMPO-LUGAR-V1.json",
         "scripts/reproc_acervo/ENSAIO-034-DESCARTAVEL.json",
-        "scripts/reproc_acervo/prever_acervo.py"
+        "scripts/reproc_acervo/prever_acervo.py",
+        "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json"
       ],
-      "file_count": 19,
+      "file_count": 24,
       "status": "PENDING",
       "status_reason": "o sistema importa esta lei em runtime para decidir: C-ADMISSAO, C-CONTRATO-ARTEFATO, C-INT-CORRIDA, C-LUGAR-V2.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -50858,6 +50947,7 @@
       "produces": [],
       "inbound": [
         "C-CONTRATO-ARTEFATO",
+        "C-FONTES-EU",
         "C-INGRESSO",
         "C-IT-COLETA",
         "C-MAPA-TESTES",
@@ -50910,12 +51000,12 @@
           "TIPOS_DE_EVIDENCIA",
           "_DIAS_RAIZ"
         ],
-        "palavras": 711,
+        "palavras": 726,
         "por_lingua": {
           "IT": 17,
           "PT": 1
         },
-        "sem_marca_de_lingua": 693,
+        "sem_marca_de_lingua": 708,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -50925,6 +51015,18 @@
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
@@ -50940,7 +51042,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json e este mapa nao viu ninguem ler",
+      "rule_role_evidence": "escreve scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json e este mapa nao viu ninguem ler",
       "ROLE_MEASURED": "UNKNOWN",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "SEM_REGRA",
@@ -50957,6 +51059,8 @@
         "leis/artefato.py",
         "leis/fato_do_texto.py",
         "provas/testa_golden_path_pdf.py",
+        "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+        "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
         "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
         "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json"
       ],
@@ -50980,7 +51084,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-ADMISSAO · C-CONTRATO-ARTEFATO · C-INT-CORRIDA · C-LUGAR-V2 · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20560,
+      "x": 20975,
       "y": 1326
     },
     {
@@ -51079,8 +51183,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20975,
-      "y": 1326
+      "x": 20145,
+      "y": 1648
     },
     {
       "id": "C-LUGAR-V2",
@@ -54143,7 +54247,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 20145,
+      "x": 20560,
       "y": 1648
     },
     {
@@ -60385,7 +60489,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20560,
+      "x": 20975,
       "y": 1648
     },
     {
@@ -62154,8 +62258,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-MARCA · C-INT-CONVERGENCIA · C-PACOTE-CAMADAS · C-PORTAL-DADOS · C-ROTULOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20975,
-      "y": 1648
+      "x": 20145,
+      "y": 1970
     },
     {
       "id": "C-RELEVANCIA-DA-FONTE",
@@ -62252,7 +62356,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUTORIZACAO-DE-GASTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20145,
+      "x": 20560,
       "y": 1970
     },
     {
@@ -63389,7 +63493,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-APIFY-POOL · C-CENSO-OBSERVABILIDADE · C-COLETA-BASE · C-COLETA-PUBLICA · C-CONTRATO-TELEMETRIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20560,
+      "x": 20975,
       "y": 1970
     },
     {
@@ -66458,8 +66562,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-PEDIDO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20975,
-      "y": 1970
+      "x": 20145,
+      "y": 2292
     },
     {
       "id": "C-TESTES",
@@ -66596,6 +66700,7 @@
         "tests/test_d24_video_de_pessoa.py",
         "tests/test_d36_envelope_equivalente.py",
         "tests/test_d37_campos_de_politica.py",
+        "tests/test_data_do_fato.py",
         "tests/test_dedup_video_social.py",
         "tests/test_egresso_consenso.py",
         "tests/test_ensaio_offline_micro.py",
@@ -66773,7 +66878,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 291,
+      "file_count": 292,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -67117,13 +67222,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1728,
+        "palavras": 1733,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1716,
+        "sem_marca_de_lingua": 1721,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -67671,6 +67776,7 @@
         "system-map/scripts/validate_system_map.py",
         "tests/dados/c9-idioma/raw-1436-arpae-mare-balneabile.txt",
         "tests/dados/c9-idioma/raw-1437-arpae-portale-prelievi.txt",
+        "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json",
         "tests/dados/item-social-ispra-porta.json",
         "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
         "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
@@ -98478,6 +98584,41 @@
     },
     {
       "from": "C-FONTES-EU",
+      "to": "C-LUGAR-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ler as bases oficiais da Europa tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/lugar_fato/medir_moldura_html.py",
+          "line": 23,
+          "snippet": "from coleta.texto_fonte import limpar  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-LUGAR-COLETA",
+            "FROM": "C-FONTES-EU",
+            "TO": "C-LUGAR-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-FONTES-EU",
       "to": "C-PROVA-ROTAS-REAIS",
       "type": "READS",
       "payload": "artefacto",
@@ -111371,7 +111512,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_artefato_tempo_do_fato.py",
@@ -111425,6 +111566,22 @@
           "file": "tests/test_conserto_regua.py",
           "line": 24,
           "snippet": "import fato_do_texto as FT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_data_do_fato.py",
+          "line": 18,
+          "snippet": "import fato_do_texto as FT   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -111550,7 +111707,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_conserto_regua.py",
@@ -111572,6 +111729,22 @@
           "file": "tests/test_c7_lugar_do_fato.py",
           "line": 225,
           "snippet": "dele = _fonte('leis/fato_local.py')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_data_do_fato.py",
+          "line": 20,
+          "snippet": "CASOS = json.loads((RAIZ / \"tests\" / \"dados\" / \"data-do-fato\" / \"CASOS-DATA-DO-FATO-V1.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -114287,8 +114460,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "scripts/lugar_fato/medir_moldura_html.py",
+          "line": 22,
+          "snippet": "import _gavetas  # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-LUGAR-COLETA",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-LUGAR-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "scripts/reproc_acervo/prever_acervo.py",
           "line": 32,
@@ -151410,7 +151599,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 238,
+      "PECAS_EM_DESACORDO": 239,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -151422,23 +151611,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 263
+      "TOTAL_DE_PECAS": 264
     }
   ],
   "COUNTS": {
-    "components": 263,
+    "components": 264,
     "components_proven": 31,
     "components_pending": 224,
     "components_broken": 0,
-    "components_unknown": 8,
-    "edges": 1565,
-    "edges_proven": 1498,
+    "components_unknown": 9,
+    "edges": 1566,
+    "edges_proven": 1499,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3768,
-    "files_covered": 1658,
+    "files_tracked": 3776,
+    "files_covered": 1666,
     "files_code_unclaimed": 0,
-    "roles_proven": 182,
+    "roles_proven": 183,
     "roles_declared_only": 9,
     "roles_unknown": 72,
     "roles_conflict": 40,

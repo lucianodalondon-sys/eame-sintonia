@@ -1461,3 +1461,38 @@ está intacta. Fecharam-se duas coisas que faltavam à prova dela:
 
     UMA SUITE QUE NÃO REPROVA UM LIMIAR ALTERADO
     NÃO ESTÁ A GUARDAR LIMIAR NENHUM.
+
+---
+
+## D112 · MÉTODO PUGLIA — o laboratório fecha, e as correções viram lei
+
+- **Data:** 2026-09-27
+- **Estado:** DECIDIDO (dono). Texto verbatim em
+  [`docs/iab/puglia/DECISAO-D112.md`](../iab/puglia/DECISAO-D112.md).
+- **Veredito:** `VEREDITO PUGLIA = APROVADO COM CORREÇÕES`. A aprovação quer dizer que o
+  teste encontrou falhas reais e permitiu corrigi-las — **não** que a primeira saída estava
+  certa.
+- **Evidência:** o gold humano `PUGLIA-HUMANA-V1` (10 casos, 12 fichas reais de boletins
+  públicos, respostas e comentários do dono em D111), agora em
+  `tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json`, selado por SHA-256 e medido em
+  `tests/test_metodo_puglia.py`. A revisão por IA anterior concordou com o dono em 16 de 22
+  respostas, e errou para o lado frouxo: aceitou cabeçalho só-na-imagem como lugar.
+
+| LAW_ID | BEFORE | AFTER | WHY (caso do gold) | IMPACT |
+|---|---|---|---|---|
+| `COL-LAW-032` | `ESCRITO` era um balde só | `LOCATION_SOURCE = TEXT · SECTION_HEADER · VISUAL_HEADER_CANDIDATE · UNRESOLVED`; `LOCATION_EXPRESSION_RAW`; nunca ponto artificial. IT `IMPLEMENTED → PARTIAL` | C01 · C05 · C06 (cabeçalho só na imagem → UNRESOLVED); C02 · C03 · C07 (cabeçalho de secção no texto); C04 (lugar na frase); C08 (expressão sem lugar) | trava em `leis/lugar_do_fato.py::fact_location`; nenhum extrator a aplica ainda |
+| `COL-LAW-221` (nova) | procedência parava no artefato (`033`) e no valor (`203`) | `ENTITY_SOURCE = SPAN · PARAGRAPH_CONTEXT · SECTION_TITLE · DOCUMENT_TITLE · UNKNOWN`; concorrente ou troca de secção → `UNKNOWN` | C02 · C08 (título), C09 (parágrafo / título de secção), C04 (Prays oleae concorrente → praga UNKNOWN) | `PARTIAL`: vocabulário e trava; nenhum extrator |
+| `COL-LAW-222` (nova) | não havia | a ficha não acrescenta nem corta; qualificadores são afirmação; entidades citadas juntas preservadas; tradução não é evidência; FONTE × `INTERPRETACAO_DO_SISTEMA` | C05 (acrescentou «[outra praga da oliveira]», perdeu «margaronia»); C06 (cortou a exceção) | `PARTIAL`: lint determinístico, 9/9 com o Q1 do dono |
+| `COL-LAW-223` (nova) | só existia do lado da Intelligence (`INT-LAW-131`) | `PREVISAO ≠ FATO_OBSERVADO ≠ RECOMENDACAO`; frases vizinhas de espécies diferentes = afirmações diferentes | C03 (previsão seguida de recomendação) | `PARTIAL` |
+| `INT-LAW-078` (nova) | `INT-LAW-071` dizia o geral | mesma redação em N territórios = N aplicações, 1 instituição | C07 | Intelligence V0.3 → V0.4 |
+| `INT-LAW-079` (nova) | `INT-LAW-033` só dizia que contradição é first-class | `DIVERGENT_RECOMMENDATIONS` + `CONTRADICTION_STATUS = UNRESOLVED`; `TEMPORAL_CHANGE_IN_RECOMMENDATION` não é contradição e não prova campo | C09 · C10 | idem |
+
+- **VERSION:** Coleta `V1.4 → V1.5` (105 → 108 leis). Intelligence `V0.3 → V0.4`.
+- **Procurado antes de escrever:** `COL-LAW-219` («medição declarada») **não existe nesta
+  árvore** (`git grep` em `2ef6fef`). Se existir noutra linha, a `COL-LAW-222` tem de ser
+  reconciliada com ela na integração. O número `220` ficou livre de propósito, pelo mesmo
+  risco de colisão.
+- **O que se recusou:** pôr razão, contagens ou dado agronómico dentro das leis (D109) —
+  estão aqui. E ajustar o esperado do gold para o código passar: onde o código contradiz o
+  dono, o teste declara a falha conhecida (`expectedFailure`), e isso é o backlog.
+- **Quem decidiu:** o dono (D112); redação das leis na missão METODO-PUGLIA.
