@@ -1957,7 +1957,8 @@
     "italia-portale/client/italy-i18n.js",
     "italia-portale/client/italy-v21.js",
     "italia-portale/client/support.js",
-    "italia-portale/client/italy-sala-leitura.js"
+    "italia-portale/client/italy-sala-leitura.js",
+    "italia-portale/client/sintonia-pote-casco.js"
    ],
    "views": [],
    "icon": "▣"
@@ -5684,6 +5685,82 @@
    "files": [
     "ferramentas/t6_para_sala/antes_depois_extratores.py",
     "ferramentas/t6_para_sala/medir_modelos_resistencia.py"
+   ]
+  },
+  {
+   "id": "C-PONTE-INT-CASCO",
+   "name": "A ponte Intelligence -> casco (experimental, nao para cliente)",
+   "territory": "Z-PACOTE",
+   "kind": "engine",
+   "icon": "⇢",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Pega no livro de uma corrida da Intelligence ja fechada e devolve UM payload com as doze ferramentas do casco. So atravessa sinal EXPERIMENTAL_CANDIDATE com PROVA ate ao DOCUMENT_ID e ITEM_ID na LINEAGE da propria corrida (G0 = PASSOU); cada cartao leva a marca EXPERIMENTAL · NAO_PARA_CLIENTE, as chaves do contrato D84 da ferramenta com NAO SEI por extenso, e o porque/contradiz/incerteza. Lacunas e REQUIREMENTS passam verbatim. Recusa com motivo: sem prova, estado promovido, ferramenta sem contrato, corrida ERROR/NOT_RUN, duplicado. Nao escreve dentro de italia-portale/. Tambem o ESQUELETO de Intelligence Scientifica (esqueleto_scientifica.py): tema do casco (so o par que esta na consulta E no texto) -> pesquisadores MUR ligados pela lista mestra (so por OPENALEX_ID provado; SO_NOME fora; VARIOS_IDS sem fundir) -> estudos (DOI, titulo, publicacao != periodo do estudo, local escrito, molecula, NAO SEI por extenso); independencia so a da pre-medicao, com a base dita. PRE_SALA: material fora da Sala, NAO e Intelligence (INT-LAW-010); pagina local, fora de italia-portale/.",
+   "why_here": "nuvem-int-casco-ponte-v1 (2026-09-26). INT-LAW-023/280: o portal desenha, nao reconstroi Intelligence. EXPERIMENTAL_CANDIDATE nao existia no repo; o contrato de entrada e declarado no proprio ficheiro. Nao ligado a portale.html (nao e deploy); quem o casco le e o pote v2 (C-POTE-INT-CASCO). 39 testes, mutacao 23/23 na ponte. As doze ferramentas sao a lista AMMESSE de portale.html menos as duas vistas de operacao declaradas (sala, painel; teste G1 confere); a LINEAGE indexa-se pelo PAR (CORRIDA_UPSTREAM, ITEM_ID) (P1, fechado pela chave em POTE-UNICO 2026-09-27: mesmo item em duas corridas upstream sem a prova dizer qual -> PROVA_AMBIGUA, sem depender da ordem). `conferir_prova` aceita a regra de G0 como parametro, para o pote v2 a reutilizar em vez de a copiar. Gera tambem uma PAGINA LOCAL (.html, faixa EXPERIMENTAL fixa, tokens do extrato ADAMA ligados) fora de italia-portale/.",
+   "files": [
+    "pacote/ponte_intelligence_casco.py",
+    "pacote/esqueleto_scientifica.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-PONTE-CASCO",
+   "name": "Mutacao da ponte Intelligence -> casco",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Planta 32 defeitos (23 na ponte, 9 no esqueleto de Intelligence Scientifica) (incluindo a pagina local: faixa removida, texto sem escapar; e os defeitos P1/P4 achados pelo bot da Intelligence na R2 real), numa copia minima em pasta temporaria (o repo nao e tocado), e corre tests/test_ponte_intelligence_casco.py: sinal sem prova, marca removida, NAO SEI escondido, promocao, G0 ignorado, escrever no portal, entre outros. Sai 1 se algum sobreviver.",
+   "why_here": "Prova que os testes da ponte apanham o que ela jura nao fazer. 31/31 mortos a 2026-09-26; 32/32 a 2026-09-27 (POTE-UNICO: P1 pela chave (CORRIDA_UPSTREAM, ITEM_ID), M19/M21/M22 reescritos e M23 novo, ajuste DECLARADO).",
+   "files": [
+    "provas/_mutantes_ponte_casco.py"
+   ]
+  },
+  {
+   "id": "C-POTE-INT-CASCO",
+   "name": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta",
+   "territory": "Z-PACOTE",
+   "kind": "engine",
+   "icon": "⇢",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy.",
+   "why_here": "POTE-UNICO (D95/D96, 2026-09-27). O casco lia uma inteligencia congelada (snapshot 07/09) e demo; a ponte v1 nao tinha especie nem vaga para Radar Futuro (P2/P5), Registro/Archivio (P3), e o portal nao a lia. INT-LAW-023/280: transporta, nao cruza, nao promove, nao muda especie, nao calcula rendimento. 45 testes (tests/test_pote_intelligence_casco.py + tests/test_pote_no_casco.mjs, fixture SINTETICA declarada em tests/fixtures/pote/).",
+   "files": [
+    "pacote/pote_intelligence_casco.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-POTE-CASCO",
+   "name": "Mutacao do pote unico e da leitura no casco",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Planta 29 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): 17 no pote (oportunidade no Radar Futuro, qualquer bloqueio de G0 aceite como futuro, P2/P4 de volta, FACT_LOCATION vira REGION_ID, publicacao vira tempo do facto, promocao por especie ausente, SOURCE_HEAD inventado, ...), 9 no leitor do casco (futuro com a forma da oportunidade, reordenar, NAO SEI sem destaque, pote recusado desenha, link javascript:, pedir o pote sem ?pote=local, ...) e 3 na precedencia do portale.html. Corre tests/test_pote_intelligence_casco.py (que corre tests/test_pote_no_casco.mjs, as provas do casco em JavaScript, que moram nesta peca). Sai 1 se algum sobreviver.",
+   "why_here": "Prova que os testes do pote apanham o que ele jura nao fazer. 29/29 mortos a 2026-09-27.",
+   "files": [
+    "provas/_mutantes_pote_casco.py",
+    "tests/test_pote_no_casco.mjs"
    ]
   }
  ],
