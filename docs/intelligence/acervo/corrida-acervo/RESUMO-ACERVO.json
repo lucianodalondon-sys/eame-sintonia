@@ -1,0 +1,274 @@
+{
+ "SCHEMA": "RESUMO_ACERVO_NA_INTELLIGENCE/v1",
+ "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+ "INTELLIGENCE_RUN_ID": "IR-c25ca7c56d432a223e5e",
+ "SOURCE_HEAD": "b2ed128fa16fffcfe89476efc114a108e387f7f7",
+ "POR_TIPO": {
+  "agromet": {
+   "ENTRARAM": 44,
+   "G0_PASSOU": 0,
+   "VIRARAM_OBJETO": 0,
+   "RECUSADOS": 44,
+   "PORQUE": {
+    "G0: FACT_TIME": 38,
+    "NAO_ENTRA_NA_CORRIDA_G0 (SOURCE_ID com palavra da Collection)": 6
+   }
+  },
+  "anuncio": {
+   "ENTRARAM": 577,
+   "G0_PASSOU": 561,
+   "VIRARAM_OBJETO": 561,
+   "RECUSADOS": 16,
+   "PORQUE": {
+    "G0: FACT_TIME": 16
+   }
+  },
+  "boletim": {
+   "ENTRARAM": 133,
+   "G0_PASSOU": 0,
+   "VIRARAM_OBJETO": 0,
+   "RECUSADOS": 133,
+   "PORQUE": {
+    "G0: FACT_TIME": 133
+   }
+  },
+  "ciencia": {
+   "ENTRARAM": 851,
+   "G0_PASSOU": 0,
+   "VIRARAM_OBJETO": 0,
+   "RECUSADOS": 851,
+   "PORQUE": {
+    "G0: FACT_TIME": 851
+   }
+  },
+  "evento": {
+   "ENTRARAM": 40,
+   "G0_PASSOU": 0,
+   "VIRARAM_OBJETO": 2,
+   "RECUSADOS": 38,
+   "PORQUE": {
+    "G0: FACT_TIME:CAPTURA_DESCONHECIDA_FUTURO_NAO_EXCLUIDO": 16,
+    "G0: FACT_TIME": 22
+   }
+  },
+  "noticia": {
+   "ENTRARAM": 8,
+   "G0_PASSOU": 0,
+   "VIRARAM_OBJETO": 0,
+   "RECUSADOS": 8,
+   "PORQUE": {
+    "G0: FACT_TIME": 8
+   }
+  },
+  "preco": {
+   "ENTRARAM": 157,
+   "G0_PASSOU": 77,
+   "VIRARAM_OBJETO": 0,
+   "RECUSADOS": 157,
+   "PORQUE": {
+    "PROVA_INCOMPLETA: falta DOCUMENT_ID": 77,
+    "G0: FACT_TIME": 79,
+    "NAO_ENTRA_NA_CORRIDA_G0 (SOURCE_ID com palavra da Collection)": 1
+   }
+  },
+  "sinal_de_campo": {
+   "ENTRARAM": 7,
+   "G0_PASSOU": 0,
+   "VIRARAM_OBJETO": 0,
+   "RECUSADOS": 7,
+   "PORQUE": {
+    "G0: FACT_TIME+SOURCE_ID": 4,
+    "G0: FACT_TIME": 3
+   }
+  },
+  "transcricao": {
+   "ENTRARAM": 184,
+   "G0_PASSOU": 0,
+   "VIRARAM_OBJETO": 0,
+   "RECUSADOS": 184,
+   "PORQUE": {
+    "G0: FACT_TIME": 184
+   }
+  },
+  "voz": {
+   "ENTRARAM": 79,
+   "G0_PASSOU": 0,
+   "VIRARAM_OBJETO": 0,
+   "RECUSADOS": 79,
+   "PORQUE": {
+    "G0: FACT_TIME": 79
+   }
+  }
+ },
+ "POTE_POR_COMPARTIMENTO": {
+  "meeting": {
+   "OBJETOS": 0,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA"
+  },
+  "future": {
+   "OBJETOS": 2,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "COM_OBJETOS",
+   "PORQUE_VAZIO": null
+  },
+  "windows": {
+   "OBJETOS": 0,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA"
+  },
+  "market": {
+   "OBJETOS": 0,
+   "RECUSADOS_AQUI": 77,
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA"
+  },
+  "voices": {
+   "OBJETOS": 0,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA"
+  },
+  "competitors": {
+   "OBJETOS": 561,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "COM_OBJETOS",
+   "PORQUE_VAZIO": null
+  },
+  "science": {
+   "OBJETOS": 0,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA"
+  },
+  "portfolio": {
+   "OBJETOS": 0,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA"
+  },
+  "archive": {
+   "OBJETOS": 563,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "COM_OBJETOS",
+   "PORQUE_VAZIO": null
+  },
+  "sources": {
+   "OBJETOS": 2,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "COM_OBJETOS",
+   "PORQUE_VAZIO": null
+  },
+  "field": {
+   "OBJETOS": 0,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "CASCO_SEM_CONTRATO_DE_INTELLIGENCE"
+  },
+  "casa": {
+   "OBJETOS": 0,
+   "RECUSADOS_AQUI": 0,
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "CASCO_SEM_CONTRATO_DE_INTELLIGENCE"
+  }
+ },
+ "RECUSADOS_NO_POTE_POR_MOTIVO": {
+  "PROVA_INCOMPLETA": 77
+ },
+ "NAO_ENVIADOS_AO_POTE_POR_MOTIVO": {
+  "RENDIMENTO_SEM_PROVA": 84,
+  "SEM_PRECO_NO_REGISTO": 79,
+  "SEM_PROVA_ADMITIDA_PELO_POTE": 1795,
+  "SEM_TEXTO": 21,
+  "SEM_VOZ_EXTRAIDA": 49,
+  "TEXTO_NAO_ESTA_NO_REPOSITORIO": 141
+ },
+ "CAP_SCI": {
+  "JULGADOS": 849,
+  "FORA": 1224,
+  "TENTATIVAS_DE_LIGACAO_AO_ROTULO": {
+   "NOT_POSSIBLE": 849
+  },
+  "LIGACOES_PARTIAL_OU_CANDIDATE": 0,
+  "APLICABILIDADE": {
+   "PARCIAL": 279,
+   "TEMA_NAO_PROVADO": 570
+  }
+ },
+ "CAP_WIN": {
+  "JANELAS": 0
+ },
+ "CAPACIDADES_EXECUTADAS": {
+  "CAP-WIN": {
+   "VERSION": "CAP-WIN/v1",
+   "RUN": "IR-c25ca7c56d432a223e5e"
+  },
+  "CAP-SCI": {
+   "VERSION": "CAP-SCI/v1",
+   "RUN": "IR-c25ca7c56d432a223e5e"
+  },
+  "CAP-COMP": {
+   "VIA": "CAP-COMP (coleta/concorrencia_meta.adama_no_anuncio pela porta)",
+   "RUN": "IR-c25ca7c56d432a223e5e",
+   "MEDIDA": {
+    "REFERENCIA_ADAMA": {
+     "PORTA": "motor/porta_da_referencia.py",
+     "ESTADO": "LIDA",
+     "HOJE": "2026-09-27",
+     "HOJE_VEIO_DE": "DECLARADO",
+     "EDICAO_REGISTRO": "PROD_FTS_6_20260831",
+     "DATA_DA_EDICAO_REGISTRO": "2026-08-31",
+     "ULTIMA_CHECAGEM_OK": "2026-09-07",
+     "DIAS_SEM_CHECAGEM": 20,
+     "ESTADO_FRESCOR": "PODE_ESTAR_DESATUALIZADO",
+     "EDICAO_CATALOGO": "CAT_ADAMA_IT_20260915",
+     "DATA_DA_EDICAO_CATALOGO": "2026-09-15",
+     "ESTADO_FRESCOR_CATALOGO": "FRESCA",
+     "IMPRESSAO_DOS_LIVROS": "e244d38edd6f87afcaf0da3db7aeb2e79818f783802f0f97b2fd9b105f648749",
+     "SHA256": {
+      "SNAPSHOTS": "f61a76215f36d8080b825b2196a40f5dbed24bcad86e94964714a69364ea25e7",
+      "REGISTRATIONS": "5aa72cfef7c6fa00a9fa76d80829777abe66ce1d7057c9d12ae0e7d625c41d2f",
+      "AUTHORIZED-USES": "8c86a91502e4b34a84bda72985fc1d0d7a0ab022cd07270079ec11764642edd6",
+      "LABEL-READINGS": "3229c76df8b2e8fbd323b5ed528c4d81893485d742cb84b33a88581f4c987b37",
+      "PRODUCT-ACTIVE-INGREDIENTS": "f5ff2faf5d83e78e6d3b20093f77458e79524be4167763a21b6823b550311d3f",
+      "ACTIVE-INGREDIENTS": "5c9d25359093ed1d6b5da78b41df1618248a060b43f7c6a33beb0c5d5382586d",
+      "DOSES": "2d29f3f85c09c1d0e91ed3e111de7ffc702df0dc30a9cfd2c96d3ac9e7ea2990",
+      "LABEL-DOCUMENTS": "6090d6248a5f73bc85287fdd3dc0d24dce497d3accaac0be8df3c861cb54e70d",
+      "CATALOG-SNAPSHOTS": "6bf1b24bc80d715f2c73b7628ca3457e1bbf9636b3b779d115ef368fbe48c0d3",
+      "PRODUCT-MASTER": "2635922c1149e65429119c5c863f063ed589fa5cfcc5b71b313dccfd2d3abe59",
+      "PORTFOLIO": "3b622ead6a999d3fe07a1f42f3c76554b343b3d1ce5c2cc1d01b8e425c7de82b",
+      "PORTFOLIO-OBSERVATIONS": "df8ad354af946dc5f8ebf298cd008ae2edb857976aba6f8b7712e29526f9adc0"
+     }
+    },
+    "ESTADO": "LIDA",
+    "ANUNCIOS_COM_SUBSTANCIA": 2,
+    "ANUNCIOS_COM_ALVO": 92
+   }
+  },
+  "CAP-MKT": {
+   "VIA": "CAP-MKT (P8: pacote/pote_intelligence_casco.ler_serie)",
+   "RUN": "IR-c25ca7c56d432a223e5e"
+  },
+  "CAP-FIELD": {
+   "VIA": "CAP-FIELD (motor/voce_dal_campo)",
+   "REGRA": "voce-v1",
+   "RUN": "IR-c25ca7c56d432a223e5e",
+   "MEDIDA": {
+    "DOCUMENTOS_LIDOS": 101,
+    "SEM_TEXTO_NO_REPO": 141,
+    "VOZES_EXTRAIDAS": 930,
+    "VOZES_SEM_PROVA_ADMITIDA": 930
+   }
+  }
+ },
+ "REFERENCIA_ADAMA": {
+  "EDICAO_REGISTRO": "PROD_FTS_6_20260831",
+  "DATA_DA_EDICAO_REGISTRO": "2026-08-31",
+  "ULTIMA_CHECAGEM_OK": "2026-09-07",
+  "DIAS_SEM_CHECAGEM": 20,
+  "ESTADO_FRESCOR": "PODE_ESTAR_DESATUALIZADO",
+  "EDICAO_CATALOGO": "CAT_ADAMA_IT_20260915"
+ }
+}
