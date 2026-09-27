@@ -629,6 +629,7 @@
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
       "docs/capacidades/SINTONIA-SCRAP-SOCIAL.md",
       "docs/casco/r7/ANALISE-R7.json",
+      "docs/casco/r7/CASCO-AO-AR-R7.md",
       "docs/casco/r7/MANIFESTO-R7.json",
       "docs/casco/r7/POTE-R7.json",
       "docs/casco/r7/RELATORIO-RODADA-7.md",
@@ -1843,9 +1844,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/casco-r7-publication-yb7nsg",
-    "HEAD": "1b2f0cda1e52283500122de168601bdf712ff781",
-    "GENERATED_AT": "2026-09-27T19:34:32+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e25129067bbd6ace3857adefc10e716c4e9b545c32ea4adc51cb01cf66113bd9"
+    "HEAD": "0f4f51b9865aa3a91bf9021382f7ec6f0698d42e",
+    "GENERATED_AT": "2026-09-27T21:01:23+00:00",
+    "SOURCE_TREE_FINGERPRINT": "5920d7297ea2bac2d28fbb1c9ab3b328bb0f95c6565e8ad6019c992eb7a483f4"
   },
   "FAMILIES": [
     {
@@ -5781,6 +5782,7 @@
       "status": "PENDING",
       "status_reason": "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada.",
       "changed_since_declared": [
+        "italia-portale/audit/casco/quarantatre.mjs",
         "italia-portale/audit/casco/release-gate.mjs"
       ],
       "produces": [],
@@ -5921,11 +5923,14 @@
       ],
       "file_count": 61,
       "status": "PENDING",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 7 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "italia-portale/audit/checks.mjs",
         "italia-portale/audit/cta-navigation.mjs",
+        "italia-portale/audit/meeting-browser.mjs",
         "italia-portale/audit/meeting-gate.mjs",
+        "italia-portale/audit/mobile.mjs",
+        "italia-portale/audit/opportunity-hub.mjs",
         "italia-portale/audit/run.mjs"
       ],
       "produces": [],
@@ -50013,7 +50018,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 708,
+  "UNCLAIMED_FILES_COUNT": 709,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -50196,7 +50201,7 @@
     "edges_proven": 545,
     "edges_unknown": 47,
     "business_edges": 4,
-    "files_tracked": 1397,
+    "files_tracked": 1398,
     "files_covered": 689,
     "files_code_unclaimed": 0,
     "roles_proven": 118,
