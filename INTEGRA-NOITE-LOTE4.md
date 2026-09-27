@@ -64,7 +64,18 @@ passa no `3f7b43ef` sozinho e falha 2 no ramo; `test_comunicacao_concorrenza` pa
 aplicada):** o iD ORCID é a IDENTIDADE da pessoa, não o assunto de um dia — a regra T6 lê o endereço inteiro; as
 outras continuam só com nome + casa (o caso Didacta continua consertado). Com teste dos dois lados e mutação.
 
-## 4 · Falta
+## 4 · Achado da coordenação (22:45) — o `py` sem `yt_dlp`/`faster_whisper`
+
+O launcher `py` aponta para `C:/actions-runner-2/_work/_tool/Python/3.12.10/x64/python.exe`, sem `yt_dlp` nem
+`faster_whisper` (a volta 2A do maestro deu SUCCESS com colheita 0 — `YT_DLP_NAO_ENTREGOU`).
+- **Nas baterias desta integração não escondeu nada:** `test_baixador_social`, `test_freio_social`,
+  `test_prova_teto_social` (os da bateria que citam `yt_dlp`) dão **37 corridos, 0 saltados, OK** com e sem
+  `PYTHONPATH` — usam um `yt_dlp` falso. Pelo mesmo motivo **não provam** que a biblioteca real está lá.
+- **No plano do lote 4**, todo comando de vídeo/transcrição leva, até o ambiente ser consertado:
+  `export PYTHONPATH=C:/Users/London1/AppData/Local/Programs/Python/Python312/Lib/site-packages`
+  (e `SINTONIA_ASR_DEVICE=GPU`, como no lote 3), e confere antes: `py -c "import yt_dlp, faster_whisper"`.
+
+## 5 · Falta
 
 decisões → juntar os 2 → bateria por nome outra vez → mutação → mapa UMA vez na minha vez da FILA-PESADO (7.º) → plano
 A/B → PRONTO.
