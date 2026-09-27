@@ -61,11 +61,57 @@ def fontes_sociais(contratos: dict) -> list[str]:
                   if (c.get("ACQUISITION") or {}).get("STRATEGY") == "SCRAP_FASE")
 
 
-def pedido_de(c: dict) -> Pedido:
+# ── C2 (FREIO-SOCIAL, 26/09): O TETO DO PEDIDO NA ONDA NAO E O DO CONTRATO ──────
+# O contrato LinkedIn escreve `teto: 2` (quantos videos por conta). Com 2 contas numa
+# onda isso da 2 x (1 pagina + 2 posts) = 6 pedidos a linkedin.com — passa o teto D38.
+# A onda pede `teto=1` por conta (2 x 2 = 4). O contrato nao muda: e a onda que decide
+# quanto gasta, e escreve-o no pedido.
+TETO_LINKEDIN_NA_ONDA = 1
+CONTAS_LINKEDIN_POR_ONDA = 2
+TETO_D38 = 5
+
+
+def pedido_de(c: dict, *, teto_linkedin: int | None = TETO_LINKEDIN_NA_ONDA) -> Pedido:
     aq = c["ACQUISITION"]
     f = {"fase": aq["FASE"], "fonte": c["SOURCE_ID"], "pais": "IT", "universo": c["TERRITORY"]}
     f.update({k: str(v) for k, v in (aq.get("FILTROS") or {}).items()})
+    if aq.get("FASE") == "video-linkedin" and teto_linkedin is not None:
+        f["teto"] = str(teto_linkedin)
     return Pedido(alvo=c["TERRITORY"], filtros=f)
+
+
+def previsto_linkedin(teto: int) -> dict:
+    """Pedidos por conta, LIDOS no codigo (adaptador_linkedin.video_da_pagina_publica):
+    1 pagina + ate `teto` posts a linkedin.com; ate `teto` MP4 + ate `teto` legendas a licdn.com."""
+    return {"linkedin.com": 1 + teto, "licdn.com": 2 * teto}
+
+
+#: MEDIDO offline (SOCIAL-QUALIFICAR): 3 a youtube.com + 1 a googlevideo.com por video ate ~9,7 MiB (D41: um orcamento).
+PREVISTO_YOUTUBE_VIDEO_CURTO = {"youtube.com": 4}
+
+
+def rodadas(linhas: list[dict], *, teto_linkedin: int = TETO_LINKEDIN_NA_ONDA,
+            contas_li: int = CONTAS_LINKEDIN_POR_ONDA) -> list[dict]:
+    """As ondas da passagem A: ate `contas_li` contas LinkedIn + 1 canal YouTube por onda
+    (dominios diferentes). Cada onda leva o PREVISTO por dominio e diz se cabe no teto D38.
+    Previsto e o maximo que o codigo pode pedir; o freio (`coleta/teto_da_onda.py`) trava o resto."""
+    li = [l["SOURCE_ID"] for l in linhas if l.get("NA_ONDA") and l.get("FASE") == "video-linkedin"]
+    yt = [l["SOURCE_ID"] for l in linhas if l.get("NA_ONDA") and l.get("FASE") in ("canal-youtube", "audio-youtube")]
+    n = max((len(li) + contas_li - 1) // contas_li, len(yt))
+    fora = []
+    for i in range(n):
+        contas = li[i * contas_li:(i + 1) * contas_li]
+        canal = yt[i:i + 1]
+        prev = {}
+        for _ in contas:
+            for d, k in previsto_linkedin(teto_linkedin).items():
+                prev[d] = prev.get(d, 0) + k
+        for _ in canal:
+            for d, k in PREVISTO_YOUTUBE_VIDEO_CURTO.items():
+                prev[d] = prev.get(d, 0) + k
+        fora.append({"ONDA": i + 1, "LINKEDIN": contas, "YOUTUBE": canal, "PREVISTO_POR_DOMINIO": prev,
+                     "CABE_NO_TETO": all(v <= TETO_D38 for v in prev.values())})
+    return fora
 
 
 def plano() -> dict:
@@ -114,6 +160,8 @@ def plano() -> dict:
             "FORA_POR_MOTIVO": dict(Counter(f.split(":")[0] + ":" + f.split(":")[1]
                                             for l in linhas for f in l["FALTA"])),
             "BURACOS": {k: {"O_QUE": v[0], "DONO": v[1]} for k, v in BURACOS.items()},
+            "TETO_LINKEDIN_NA_ONDA": TETO_LINKEDIN_NA_ONDA,
+            "RODADAS": rodadas(linhas),
             "LINHAS": linhas}
 
 

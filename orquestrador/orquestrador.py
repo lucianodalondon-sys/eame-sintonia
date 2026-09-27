@@ -519,7 +519,7 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
             "DONO": "guarda/preservar_documento.py"}
 
 
-def _fato_do_texto(texto, bruto, publicacao=None):
+def _fato_do_texto(texto, bruto, publicacao=None, *, titulo=None, descricao=None):
     """FACT_TIME / FACT_LOCATION lidos do TEXTO, com a base — so o que falta.
 
     O extractor e da bancada LUGAR-FATO (`leis/fato_do_texto.py`), e ele NAO
@@ -536,7 +536,10 @@ def _fato_do_texto(texto, bruto, publicacao=None):
     # «ieri» a partir dela: o leitor recebe-a SEM base, e a relativa fica NAO SEI.
     base_pub = (None if publicacao.get("PUBLISHED_AT_CONFLITO")
                 else bruto.get("PUBLISHED_AT_BASIS"))
-    r = FT.campos_do_fato(texto, bruto.get("PUBLISHED_AT"), base_pub)
+    # EXTRATOR-EVENTO-V2: o titulo e a descricao do video, quando a estrada os traz, entram na leitura
+    # (sao texto do autor, nunca a data de publicacao).
+    r = FT.campos_do_fato(texto, bruto.get("PUBLISHED_AT"), base_pub,
+                          titulo=titulo, descricao=descricao)
     fora = {}
     veio_de = {}
     for valor, base, v, b in (("FACT_TIME", "FACT_TIME_BASIS",
@@ -662,7 +665,8 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     publicacao = {k: bruto.pop(k) for k in ing.TEMPO_E_LUGAR_PARA_A_EVIDENCIA
                   if k in bruto}
     bruto.update(_fato_do_texto(estruturado.get("TEXTO") or "", bruto,
-                                publicacao))
+                                publicacao, titulo=estruturado.get("TITULO"),
+                                descricao=estruturado.get("DESCRICAO")))
     item = ing.para_a_porta(bruto)
     item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
                  "raw_asset_id": estruturado.get("RAW_ASSET_ID")})
@@ -739,7 +743,7 @@ def universo_do_pedido(p) -> str:
     return _rf.universo_declarado((p.filtros or {}).get("universo"))
 
 
-def pela_porta(itens: list, universo: str, run_id: str) -> dict:
+def pela_porta(itens: list, universo: str, run_id: str, armazem=None) -> dict:
     """Leva cada item a porta de admissao e guarda TODAS as decisoes.
 
     TODAS, e nao so as que passaram: o «nao» sem testemunha e trabalho perdido
@@ -774,7 +778,11 @@ def pela_porta(itens: list, universo: str, run_id: str) -> dict:
         if d.resultado == adm.SIM:
             aceites.append(adm.pronto_para_inteligencia(x, d))
     # A ESCRITA E DO DONO DA ESPERA. Aqui so se diz o que foi admitido.
-    recibo = espera.pousar(run_id, aceites)
+    # D79 (DEDUP-PARA-INSTALAR): quem pousa entrega ao decisor de versoes o armazem
+    # (para ler o RAW anterior) e os extratores (para o re-extrair). Sem eles, «o
+    # extrator mudou» e sempre NAO SEI. Import tardio: so quem pousa o carrega.
+    from coleta.extratores_de_texto import registo as _extratores
+    recibo = espera.pousar(run_id, aceites, armazem=armazem, extratores=_extratores())
 
     conta: dict = {}
     for d in decisoes:
@@ -1200,7 +1208,7 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
         # existe e já levanta `UniversoNaoDeclarado`. Uma segunda exceção com
         # a mesma função seria uma segunda lei.
         universo = universo_do_pedido(p)
-        r = pela_porta(julgar, universo, recibo["RUN_ID"])
+        r = pela_porta(julgar, universo, recibo["RUN_ID"], armazem=armazem)
         recibo["ADMISSAO"] = r
         # ── UM FOSSIL DO SCRAP, RETIRADO — E A DIVIDA DELE, DECLARADA ───────
         # Aqui estava `pop("ENTRADOS")`. `ENTRADOS` era o segundo balde de

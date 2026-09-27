@@ -39,16 +39,19 @@ import youtube_transcrever as ytv  # noqa: E402
 VID = "AbCdEfGhIjK"
 PEDIDOS = []
 TAMANHO = {"n": 3 << 20}
+#: a duracao que o video sintetico declara (segundos) — para medir o `--match-filter` do baixador
+DURACAO = {"s": 600}
 
 
 def _player_response(host_stream):
     n = TAMANHO["n"]
-    fmt = {"itag": 140, "url": "https://%s/videoplayback?itag=140&id=x&clen=%d&dur=600.0" % (host_stream, n),
+    d = DURACAO["s"]
+    fmt = {"itag": 140, "url": "https://%s/videoplayback?itag=140&id=x&clen=%d&dur=%d.0" % (host_stream, n, d),
            "mimeType": 'audio/mp4; codecs="mp4a.40.2"', "bitrate": 130000, "averageBitrate": 128000,
-           "contentLength": str(n), "approxDurationMs": "600000", "audioQuality": "AUDIO_QUALITY_MEDIUM",
+           "contentLength": str(n), "approxDurationMs": str(d * 1000), "audioQuality": "AUDIO_QUALITY_MEDIUM",
            "audioSampleRate": "44100", "audioChannels": 2, "lastModified": "1", "quality": "tiny"}
     return {"playabilityStatus": {"status": "OK", "playableInEmbed": True},
-            "videoDetails": {"videoId": VID, "title": "Video sintetico", "lengthSeconds": "600",
+            "videoDetails": {"videoId": VID, "title": "Video sintetico", "lengthSeconds": str(d),
                              "channelId": "UCxxxxxxxxxxxxxxxxxxxxxx", "author": "Canal", "viewCount": "10",
                              "shortDescription": "descricao", "isLiveContent": False},
             "microformat": {"playerMicroformatRenderer": {"publishDate": "2026-09-19T09:38:04-07:00",
