@@ -209,7 +209,10 @@ class AsQuatroLeisNovas(unittest.TestCase):
         # 4 para 5 na V1.4 (COL-LAW-505), com registo em
         # docs/decisoes/DIARIO-DE-DECISOES.md e linha no historico
         # constitucional, como a COL-LAW-069 exige.
-        for bloco, quantas in (('1', 12), ('2', 18), ('3', 16), ('4', 6), ('5', 5)):
+        # AJUSTE DECLARADO · D112 (V1.5): o bloco 2xx passou de 18 para 21
+        # (COL-LAW-221, 222, 223), com linha no historico constitucional e
+        # entrada D112 no diario. Nenhuma lei saiu nem mudou de numero.
+        for bloco, quantas in (('1', 12), ('2', 21), ('3', 16), ('4', 6), ('5', 5)):
             n = len([x for x in ids if x[-3] == bloco])
             self.assertEqual(quantas, n,
                              f'o bloco {bloco}xx tinha {quantas} leis e agora tem {n}')
@@ -218,7 +221,8 @@ class AsQuatroLeisNovas(unittest.TestCase):
         # numero, e sao nomeadas uma a uma de proposito.
         for lei in ('COL-LAW-501', 'COL-LAW-502', 'COL-LAW-503', 'COL-LAW-504',
                     'COL-LAW-505', 'COL-LAW-012', 'COL-LAW-013', 'COL-LAW-014',
-                    'COL-LAW-042', 'COL-LAW-043', 'COL-LAW-069'):
+                    'COL-LAW-042', 'COL-LAW-043', 'COL-LAW-069',
+                    'COL-LAW-221', 'COL-LAW-222', 'COL-LAW-223'):
             self.assertIn(lei, ids, f'{lei} desapareceu ou foi renumerada')
 
 

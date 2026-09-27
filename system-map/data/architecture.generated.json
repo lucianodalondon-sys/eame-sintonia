@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/metodo-puglia-rm5sdo",
-    "HEAD": "6f88b7f7f2c64e8131a26feafc33a9bbe1b85e3d",
-    "GENERATED_AT": "2026-09-27T14:57:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "07af7016df387e2b5032972c16d36b2aa35192139b4192fdc7ece4d6fc261176"
+    "HEAD": "52da843764abc0c695da4abd89f252aae3e3943d",
+    "GENERATED_AT": "2026-09-27T18:34:43+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3100f2ca9e21aa74d5d4faed0aaa81033740cd31a27ff61725ee0f0722963a44"
   },
   "FILES": [
     {
@@ -213,7 +213,7 @@
     },
     {
       "path": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
-      "sha": "1340f52126f381c8e4c026c5bc06743a134781e6",
+      "sha": "f786e63cd7559c08608573af13b2fc3d79491d94",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -396,6 +396,13 @@
     {
       "path": "MAESTRO-SOCIAL.md",
       "sha": "d910073fe9aafdc4865a3b6036b53dc59b7aca61",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "METODO-PUGLIA.md",
+      "sha": "e0557a597e9a7f775e54fda878730021babd06ff",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -17292,6 +17299,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/afirmacao_da_fonte.py",
+      "sha": "5368e478e8d3d7e0eb2b91e09f3bef7e5ec7a919",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/aprender_com_a_fonte.py",
       "sha": "a291ef6d1fe97367c48b1b407d509f62db1a6e3d",
       "ext": ".py",
@@ -20087,6 +20101,13 @@
     {
       "path": "provas/mutacao_do_gate.py",
       "sha": "59820eddeda377bf803cbdbf159a077bb6a3ab9f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/mutacao_metodo_puglia.py",
+      "sha": "0b6cf7a57389418228cc359fbc801a9121f31544",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25441,7 +25462,7 @@
     },
     {
       "path": "tests/test_integracao_biblia.py",
-      "sha": "bc0c573aabcd1feaf33d52506cddd858461a2887",
+      "sha": "e284e38988dfc632e66151ca6cbe602c7995cb5a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25596,6 +25617,13 @@
     {
       "path": "tests/test_medir_cutover.py",
       "sha": "9dd08817e63fd9c2033795b48dc2089d7dfcef59",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_metodo_puglia.py",
+      "sha": "70b6c7e3587394d3b7ae0259d603b26f68d50613",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25868,7 +25896,7 @@
     },
     {
       "path": "tests/test_portoes_da_collection.py",
-      "sha": "220caa983a6e518c9f147ed3b307049cf1714c89",
+      "sha": "4dd935e7fade80755a6f036971a602fa082402c5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -66604,6 +66632,61 @@
       }
     },
     {
+      "from_file": "provas/mutacao_metodo_puglia.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_metodo_puglia.py",
+        "line": 25,
+        "snippet": "('M2_ENTITY_SOURCE_REMOVIDO_DA_LEI', 'BIBLIA-CANONICA-DA-COLETA.md',"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_metodo_puglia.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_metodo_puglia.py",
+        "line": 28,
+        "snippet": "('M3_SPAN_SEM_NOME_NO_TRECHO', 'leis/afirmacao_da_fonte.py',"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_metodo_puglia.py",
+      "to_file": "leis/lugar_do_fato.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_metodo_puglia.py",
+        "line": 22,
+        "snippet": "('M1_VISUAL_HEADER_VIRA_FACT_LOCATION', 'leis/lugar_do_fato.py',"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_metodo_puglia.py",
+      "to_file": "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_metodo_puglia.py",
+        "line": 37,
+        "snippet": "('M6_ESPERADO_DO_DONO_ALTERADO', 'tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json',"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_metodo_puglia.py",
+      "to_file": "tests/test_metodo_puglia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_metodo_puglia.py",
+        "line": 19,
+        "snippet": "SUITE = os.path.join(RAIZ, 'tests', 'test_metodo_puglia.py')"
+      }
+    },
+    {
       "from_file": "provas/nada_some_em_silencio.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -91530,6 +91613,105 @@
       }
     },
     {
+      "from_file": "tests/test_metodo_puglia.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_metodo_puglia.py",
+        "line": 40,
+        "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_metodo_puglia.py",
+      "to_file": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_metodo_puglia.py",
+        "line": 41,
+        "snippet": "BIBLIA_INT = os.path.join(RAIZ, 'BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_metodo_puglia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_metodo_puglia.py",
+        "line": 30,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_metodo_puglia.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_metodo_puglia.py",
+        "line": 32,
+        "snippet": "import afirmacao_da_fonte as A                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_metodo_puglia.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_metodo_puglia.py",
+        "line": 246,
+        "snippet": "for v in ('INTERPRETACAO_DO_SISTEMA', 'nunca evidência', 'leis/afirmacao_da_fonte.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_metodo_puglia.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_metodo_puglia.py",
+        "line": 34,
+        "snippet": "import fato_do_texto as FT                                         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_metodo_puglia.py",
+      "to_file": "leis/fato_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_metodo_puglia.py",
+        "line": 33,
+        "snippet": "import fato_local as IT                                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_metodo_puglia.py",
+      "to_file": "leis/lugar_do_fato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_metodo_puglia.py",
+        "line": 31,
+        "snippet": "import lugar_do_fato as L                                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_metodo_puglia.py",
+      "to_file": "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_metodo_puglia.py",
+        "line": 79,
+        "snippet": "with open(GOLD, 'rb') as f:"
+      }
+    },
+    {
       "from_file": "tests/test_metricas.py",
       "to_file": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
       "type": "READS",
@@ -94110,7 +94292,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_portoes_da_collection.py",
-        "line": 327,
+        "line": 331,
         "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
       }
     },
@@ -94121,7 +94303,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_portoes_da_collection.py",
-        "line": 307,
+        "line": 311,
         "snippet": "\"COLLECTION-V1-CLOSE-GATES.md\"),"
       }
     },
@@ -99677,10 +99859,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3776,
-    "files_readable": 1562,
-    "files_code_dir": 1836,
-    "file_edges": 6602,
+    "files_tracked": 3780,
+    "files_readable": 1565,
+    "files_code_dir": 1839,
+    "file_edges": 6616,
     "escritas_em_pasta": 89,
     "declared_missing_here": 0
   },

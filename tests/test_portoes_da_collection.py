@@ -64,8 +64,12 @@ class ONumeroDeLeisVemDoDono(unittest.TestCase):
             fonte = f.read()
         self.assertNotIn("LAW_TOTAL = 105", fonte)
         self.assertNotIn("return 105", fonte)
-        self.assertEqual(_art()["LAW_TOTAL"], 105,
-                         "o registo deixou de ter 105 leis — remedir, nao "
+        self.assertNotIn("LAW_TOTAL = 108", fonte)
+        self.assertNotIn("return 108", fonte)
+        # AJUSTE DECLARADO · D112: o registo (docs/biblia/leis.json) passou de
+        # 105 para 108 leis pela emenda V1.5 — remedido, nao reescrito.
+        self.assertEqual(_art()["LAW_TOTAL"], 108,
+                         "o registo deixou de ter 108 leis — remedir, nao "
                          "reescrever o numero")
 
     def test_o_total_segue_o_registo_e_nao_uma_constante(self):
@@ -326,9 +330,10 @@ class ODocumentoNaoEDonoDosNumeros(unittest.TestCase):
         with open(os.path.join(RAIZ, "docs", "biblia",
                                "CONFORMIDADE-ITALIA.md"), encoding="utf-8") as f:
             m = f.read()
-        self.assertIn("**Bíblia:** `V1.4`", m)
-        self.assertIn("**LAW_TOTAL:** `105`", m)
-        self.assertNotIn("**Bíblia:** `V1.3`", m,
+        # AJUSTE DECLARADO · D112: a emenda V1.5 levou a Biblia a 108 leis.
+        self.assertIn("**Bíblia:** `V1.5`", m)
+        self.assertIn("**LAW_TOTAL:** `108`", m)
+        self.assertNotIn("**Bíblia:** `V1.4`", m,
                          "a matriz ainda anuncia a versao antiga")
 
 

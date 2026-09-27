@@ -42,6 +42,7 @@
       "INTEGRA-NOITE-LOTE3.md",
       "LOTE3-SOCIAL.md",
       "MAESTRO-SOCIAL.md",
+      "METODO-PUGLIA.md",
       "MICRO-PROVA-LOTE1.md",
       "MIGRACAO-SALA.md",
       "MISSAO-CANDIDATE-FEEDER-V1.md",
@@ -2511,6 +2512,7 @@
     ],
     "leis": [
       "leis/adama_relevance.py",
+      "leis/afirmacao_da_fonte.py",
       "leis/aprender_com_a_fonte.py",
       "leis/artefato.py",
       "leis/auditoria_regua_comercial.py",
@@ -2926,6 +2928,7 @@
       "provas/mutacao_da_sala_duravel.py",
       "provas/mutacao_do_fluxo_canonico.py",
       "provas/mutacao_do_gate.py",
+      "provas/mutacao_metodo_puglia.py",
       "provas/nada_some_em_silencio.py",
       "provas/nenhuma_compra_sem_autorizacao.py",
       "provas/nome_da_pasta_contratos_em_risco.json",
@@ -3731,6 +3734,7 @@
       "tests/test_medir_admission_t3_atual.py",
       "tests/test_medir_apos_receitas.py",
       "tests/test_medir_cutover.py",
+      "tests/test_metodo_puglia.py",
       "tests/test_metricas.py",
       "tests/test_micro_coleta_instrumento.py",
       "tests/test_micro_rede_real.py",
@@ -4370,9 +4374,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/metodo-puglia-rm5sdo",
-    "HEAD": "6f88b7f7f2c64e8131a26feafc33a9bbe1b85e3d",
-    "GENERATED_AT": "2026-09-27T14:57:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "07af7016df387e2b5032972c16d36b2aa35192139b4192fdc7ece4d6fc261176"
+    "HEAD": "52da843764abc0c695da4abd89f252aae3e3943d",
+    "GENERATED_AT": "2026-09-27T18:34:43+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3100f2ca9e21aa74d5d4faed0aaa81033740cd31a27ff61725ee0f0722963a44"
   },
   "FAMILIES": [
     {
@@ -5477,7 +5481,7 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "❝",
       "views": [
         "audit",
@@ -5487,19 +5491,36 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "METODO-PUGLIA.md",
         "docs/iab/puglia/DECISAO-D112.md",
+        "leis/afirmacao_da_fonte.py",
         "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json"
       ],
-      "file_count": 2,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "file_count": 4,
+      "status": "PENDING",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-PROVA-COLETA",
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ENTITY_SOURCES",
+          "NOMES_DE_SUPERFICIE"
+        ],
+        "palavras": 21,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 21,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -56446,6 +56467,7 @@
         "provas/mutacao_da_sala_duravel.py",
         "provas/mutacao_do_fluxo_canonico.py",
         "provas/mutacao_do_gate.py",
+        "provas/mutacao_metodo_puglia.py",
         "provas/nenhuma_compra_sem_autorizacao.py",
         "provas/o_canario_da_collection.py",
         "provas/o_canario_do_scrap_v1.py",
@@ -56490,7 +56512,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 90,
+      "file_count": 91,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -56506,6 +56528,7 @@
       "inbound": [
         "C-ADAMA-ES",
         "C-ADMISSAO",
+        "C-AFIRMACAO-DA-FONTE",
         "C-APIFY-POOL",
         "C-ASK-SINTONIA",
         "C-AUTORIZACAO-DE-GASTO",
@@ -56672,12 +56695,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1565,
+        "palavras": 1578,
         "por_lingua": {
           "IT": 2,
           "PT": 1
         },
-        "sem_marca_de_lingua": 1562,
+        "sem_marca_de_lingua": 1575,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -56891,7 +56914,9 @@
         "ferramentas/youtube_transcrever.py",
         "guarda/es/workflows/adama-es-gate.yml",
         "guarda/preservar_coleta.py",
+        "leis/afirmacao_da_fonte.py",
         "leis/autorizacao_de_gasto.py",
+        "leis/lugar_do_fato.py",
         "leis/relevancia_da_fonte.py",
         "leis/retorno_da_coleta.py",
         "leis/social_matriz.py",
@@ -56945,8 +56970,10 @@
         "system-map/data/provas-de-execucao.json",
         "system-map/scripts/censo_cards_sensores.py",
         "system-map/scripts/censo_da_observabilidade.py",
+        "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
         "tests/test_c2_juiz.py",
         "tests/test_m2_rota_forward.py",
+        "tests/test_metodo_puglia.py",
         "tests/test_rodadas.py"
       ],
       "consumes_plane": "CODE",
@@ -66758,6 +66785,7 @@
         "tests/test_medir_admission_t3_atual.py",
         "tests/test_medir_apos_receitas.py",
         "tests/test_medir_cutover.py",
+        "tests/test_metodo_puglia.py",
         "tests/test_metricas.py",
         "tests/test_micro_coleta_instrumento.py",
         "tests/test_micro_rede_real.py",
@@ -66878,7 +66906,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 292,
+      "file_count": 293,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -66912,6 +66940,7 @@
         "C-ADAMA-IT",
         "C-ADAMA-REFERENCE",
         "C-ADMISSAO",
+        "C-AFIRMACAO-DA-FONTE",
         "C-APIFY-POOL",
         "C-APRENDER-COM-A-FONTE",
         "C-AS-FONTES",
@@ -67593,6 +67622,7 @@
         "italia-portale/client/meeting-intelligence-snapshot.json",
         "know-how/daily/2026-09-10.md",
         "leis/adama_relevance.py",
+        "leis/afirmacao_da_fonte.py",
         "leis/aprender_com_a_fonte.py",
         "leis/autorizacao_de_gasto.py",
         "leis/diagnostico.py",
@@ -67788,6 +67818,7 @@
         "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
         "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
         "tests/fixtures/ponte_onboard_17_contratos.json",
+        "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
         "tests/fixtures/yt-raw-minimo.json",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c4h_ponte_de_midia.py",
@@ -73513,6 +73544,143 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-AFIRMACAO-DA-FONTE",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, e ainda nao aplicada alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 28,
+          "snippet": "('M3_SPAN_SEM_NOME_NO_TRECHO', 'leis/afirmacao_da_fonte.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PROVA-COLETA",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 37,
+          "snippet": "('M6_ESPERADO_DO_DONO_ALTERADO', 'tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PROVA-COLETA",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AFIRMACAO-DA-FONTE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_metodo_puglia.py",
+          "line": 32,
+          "snippet": "import afirmacao_da_fonte as A                                     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-TESTES",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AFIRMACAO-DA-FONTE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, e ainda nao aplicada alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_metodo_puglia.py",
+          "line": 79,
+          "snippet": "with open(GOLD, 'rb') as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-TESTES",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_metodo_puglia.py",
+          "line": 246,
+          "snippet": "for v in ('INTERPRETACAO_DO_SISTEMA', 'nunca evidência', 'leis/afirmacao_da_fonte.py'):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-TESTES",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-APIFY-POOL",
       "to": "C-COLETA-BASE",
       "type": "IMPORTS",
@@ -78629,12 +78797,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 727,
           "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-BIBLIA--READS-->C-PROVA-COLETA",
+            "FROM": "C-BIBLIA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 25,
+          "snippet": "('M2_ENTITY_SOURCE_REMOVIDO_DA_LEI', 'BIBLIA-CANONICA-DA-COLETA.md',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-BIBLIA--READS-->C-PROVA-COLETA",
             "FROM": "C-BIBLIA",
@@ -78766,7 +78950,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -78929,8 +79113,8 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 30,
+          "file": "tests/test_metodo_puglia.py",
+          "line": 40,
           "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-BIBLIA--READS-->C-TESTES",
@@ -78945,9 +79129,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-          "line": 176,
-          "snippet": "(\"BIBLIA-CANONICA-DA-COLETA.md\", \"LEGISLA\")):",
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 30,
+          "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-BIBLIA--READS-->C-TESTES",
             "FROM": "C-BIBLIA",
@@ -101827,12 +102011,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia de Engenharia da Intelligence alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A Bíblia de Engenharia da Intelligence alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
           "line": 145,
           "snippet": "\"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\"], biblias,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-BIBLIA--READS-->C-TESTES",
+            "FROM": "C-INT-BIBLIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_metodo_puglia.py",
+          "line": 41,
+          "snippet": "BIBLIA_INT = os.path.join(RAIZ, 'BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-BIBLIA--READS-->C-TESTES",
             "FROM": "C-INT-BIBLIA",
@@ -111420,6 +111620,41 @@
     },
     {
       "from": "C-LUGAR-COLETA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 22,
+          "snippet": "('M1_VISUAL_HEADER_VIRA_FACT_LOCATION', 'leis/lugar_do_fato.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LUGAR-COLETA",
       "to": "C-RECEITAS",
       "type": "READS",
       "payload": "artefacto",
@@ -111512,7 +111747,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_artefato_tempo_do_fato.py",
@@ -111678,6 +111913,22 @@
           "file": "tests/test_lugar_do_fato.py",
           "line": 23,
           "snippet": "import fato_local as IT                                            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_metodo_puglia.py",
+          "line": 31,
+          "snippet": "import lugar_do_fato as L                                          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -117570,7 +117821,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 158 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 159 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -147714,12 +147965,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "Suite de testes alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/c2_juiz_mutacao.py",
           "line": 58,
           "snippet": "r = subprocess.run([sys.executable, \"tests/test_c2_juiz.py\"], cwd=pasta, env=env, capture_output=True,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 19,
+          "snippet": "SUITE = os.path.join(RAIZ, 'tests', 'test_metodo_puglia.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
             "FROM": "C-TESTES",
@@ -151617,15 +151884,15 @@
   "COUNTS": {
     "components": 264,
     "components_proven": 31,
-    "components_pending": 224,
+    "components_pending": 225,
     "components_broken": 0,
-    "components_unknown": 9,
-    "edges": 1566,
-    "edges_proven": 1499,
+    "components_unknown": 8,
+    "edges": 1570,
+    "edges_proven": 1503,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3776,
-    "files_covered": 1666,
+    "files_tracked": 3780,
+    "files_covered": 1670,
     "files_code_unclaimed": 0,
     "roles_proven": 183,
     "roles_declared_only": 9,

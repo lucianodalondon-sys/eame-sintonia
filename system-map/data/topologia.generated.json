@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T18:33:54+00:00",
-  "HEAD": "6f88b7f7f2c64e8131a26feafc33a9bbe1b85e3d",
+  "GENERATED_AT": "2026-09-27T19:18:55+00:00",
+  "HEAD": "52da843764abc0c695da4abd89f252aae3e3943d",
   "BRANCH": "claude/metodo-puglia-rm5sdo",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "07af7016df387e2b5032972c16d36b2aa35192139b4192fdc7ece4d6fc261176",
+  "SOURCE_TREE_FINGERPRINT": "3100f2ca9e21aa74d5d4faed0aaa81033740cd31a27ff61725ee0f0722963a44",
   "FICHEIROS_NA_IMPRESSAO": 3928,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -3525,6 +3525,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/mutacao_metodo_puglia.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0b6cf7a57389418228cc359fbc801a9121f31544",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/nada_some_em_silencio.py",
     "PAPEL": "FONTE",
     "VERSAO": "beb4ff56d7d1f16fe5b39d245e81181da89842b9",
@@ -4794,14 +4801,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "07af7016df387e2b5032972c16d36b2aa35192139b4192fdc7ece4d6fc261176",
+    "VERSAO": "3100f2ca9e21aa74d5d4faed0aaa81033740cd31a27ff61725ee0f0722963a44",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "07af7016df387e2b5032972c16d36b2aa35192139b4192fdc7ece4d6fc261176",
+    "VERSAO": "3100f2ca9e21aa74d5d4faed0aaa81033740cd31a27ff61725ee0f0722963a44",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6131,7 +6138,7 @@
    {
     "PATH": "tests/test_integracao_biblia.py",
     "PAPEL": "FONTE",
-    "VERSAO": "bc0c573aabcd1feaf33d52506cddd858461a2887",
+    "VERSAO": "e284e38988dfc632e66151ca6cbe602c7995cb5a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6286,6 +6293,13 @@
     "PATH": "tests/test_medir_cutover.py",
     "PAPEL": "FONTE",
     "VERSAO": "9dd08817e63fd9c2033795b48dc2089d7dfcef59",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_metodo_puglia.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "70b6c7e3587394d3b7ae0259d603b26f68d50613",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6558,7 +6572,7 @@
    {
     "PATH": "tests/test_portoes_da_collection.py",
     "PAPEL": "FONTE",
-    "VERSAO": "220caa983a6e518c9f147ed3b307049cf1714c89",
+    "VERSAO": "4dd935e7fade80755a6f036971a602fa082402c5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7123,8 +7137,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1012,
-  "INPUTS_DIGEST": "bf645b8200b49834a2fdc32b6f13ee59ad835e94c4c905b8429a3d44b31cf436",
+  "INPUTS_COUNT": 1014,
+  "INPUTS_DIGEST": "b3a97de92c20b3a74b7bc905afdc9b2f831bdcc663dc34a3a81c0bf6f73e1760",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7150,15 +7164,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 587,
+  "DOCUMENTOS_LIDOS": 588,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "82f0dce1e1ae26761054bc078db57fac6ceb5f045ac276d4286a2cd0754adc52",
-  "SEMANTIC_HASH": "b150bd04ee2abba98905c1a76c0fa6e950d0be9054aa1d14f2386bbe72b81937"
+  "MEASUREMENT_HASH": "9e3e3db5035b5cf68870c372eab09fde3a77364b8e94bfc334bbd534d0ea8684",
+  "SEMANTIC_HASH": "bdcad3994af398223e60bcbc40cd43b615201abcccc94c2c853b44e98789dd77"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -9640,6 +9654,88 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-TESTES",
+    "FROM": "C-AFIRMACAO-DA-FONTE",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_metodo_puglia.py",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PROVA-COLETA",
+    "FROM": "C-AFIRMACAO-DA-FONTE",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/mutacao_metodo_puglia.py",
+      "LINHA": 28,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/mutacao_metodo_puglia.py",
+      "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-TESTES",
+    "FROM": "C-AFIRMACAO-DA-FONTE",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_metodo_puglia.py",
+      "LINHA": 79,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_metodo_puglia.py",
+      "LINHA": 246,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -12229,6 +12325,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/mutacao_metodo_puglia.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-BIBLIA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/os_portoes_da_collection.py",
       "LINHA": 45,
       "SUPPORTS": "YES",
@@ -12383,16 +12487,16 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
-      "FICHEIRO": "tests/test_o10r_a_verdade_dos_nomes.py",
-      "LINHA": 30,
+      "FICHEIRO": "tests/test_metodo_puglia.py",
+      "LINHA": 40,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-BIBLIA--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      },
      {
-      "FICHEIRO": "tests/test_o_controle_separa_lei_de_mencao.py",
-      "LINHA": 176,
+      "FICHEIRO": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "LINHA": 30,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-BIBLIA--READS-->C-TESTES",
@@ -25603,6 +25707,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_metodo_puglia.py",
+      "LINHA": 41,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-BIBLIA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_o_controle_separa_lei_de_mencao.py",
       "LINHA": 417,
       "SUPPORTS": "YES",
@@ -31382,6 +31494,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_metodo_puglia.py",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -31411,6 +31531,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-LUGAR-V2",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
+    "FROM": "C-LUGAR-COLETA",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/mutacao_metodo_puglia.py",
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -51360,6 +51502,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/mutacao_metodo_puglia.py",
+      "LINHA": 19,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/os_portoes_da_collection.py",
       "LINHA": 354,
       "SUPPORTS": "YES",
@@ -53594,12 +53744,12 @@
     ]
    }
   ],
-  "COUNT": 1499
+  "COUNT": 1503
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 203,
   "CARTOES_AUDITADOS": 203,
-  "ARESTAS_RELACIONADAS": 1499,
+  "ARESTAS_RELACIONADAS": 1503,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -53904,6 +54054,10 @@
    "C-DERIVED-ARTIFACT": "ARMAZEM"
   },
   "ORFAOS_FALSOS_POR_VISTA": {
+   "C-AFIRMACAO-DA-FONTE": [
+    "opportunity",
+    "science"
+   ],
    "C-APRENDER-COM-A-FONTE": [
     "opportunity",
     "science"
@@ -54042,7 +54196,7 @@
    "CODE": 253,
    "CONTROL": 86,
    "DATA": 30,
-   "PROOF": 523,
+   "PROOF": 527,
    "READ": 338,
    "RULE": 252,
    "WRITE": 17
@@ -54772,6 +54926,7 @@
     "provas/a_sala_de_espera_nao_tem_morada.py",
     "provas/arbitragem_da_intelligence.py",
     "provas/medir_admission_t3_atual.py",
+    "provas/mutacao_metodo_puglia.py",
     "provas/os_portoes_da_collection.py",
     "provas/valida_biblia.py",
     "tests/test_a_linhagem_do_ready.py",
@@ -54780,6 +54935,7 @@
     "tests/test_atomicidade_da_intelligence.py",
     "tests/test_biblia.py",
     "tests/test_integracao_biblia.py",
+    "tests/test_metodo_puglia.py",
     "tests/test_o10r_a_verdade_dos_nomes.py",
     "tests/test_o9_caminho_instrumentado.py",
     "tests/test_o_controle_separa_lei_de_mencao.py",
@@ -58752,12 +58908,14 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/a_collection_preserva_o_fato.py",
+    "provas/mutacao_metodo_puglia.py",
     "system-map/scripts/generate_system_map.py",
     "tests/mutacao_conserto_regua.py",
     "tests/test_c7_lugar_do_fato.py",
     "tests/test_data_do_fato.py",
     "tests/test_fato_do_texto.py",
-    "tests/test_lugar_do_fato.py"
+    "tests/test_lugar_do_fato.py",
+    "tests/test_metodo_puglia.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -58771,7 +58929,7 @@
     "pathlib"
    ],
    "ENTRAM": 7,
-   "SAEM": 11,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -60633,6 +60791,7 @@
     "provas/mutacao_da_sala_duravel.py",
     "provas/mutacao_do_fluxo_canonico.py",
     "provas/mutacao_do_gate.py",
+    "provas/mutacao_metodo_puglia.py",
     "provas/nenhuma_compra_sem_autorizacao.py",
     "provas/o_canario_da_collection.py",
     "provas/o_canario_do_scrap_v1.py",
@@ -60857,7 +61016,7 @@
     "unnest",
     "urllib"
    ],
-   "ENTRAM": 86,
+   "ENTRAM": 88,
    "SAEM": 22,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -64196,6 +64355,7 @@
     "tests/test_medir_admission_t3_atual.py",
     "tests/test_medir_apos_receitas.py",
     "tests/test_medir_cutover.py",
+    "tests/test_metodo_puglia.py",
     "tests/test_metricas.py",
     "tests/test_micro_coleta_instrumento.py",
     "tests/test_micro_rede_real.py",
@@ -64329,6 +64489,7 @@
     "provas/c2_juiz_mutacao.py",
     "provas/inventario_esperado.py",
     "provas/medir_admission_t3_atual.py",
+    "provas/mutacao_metodo_puglia.py",
     "provas/nenhuma_compra_sem_autorizacao.py",
     "provas/o_dedupe_tem_constraint.py",
     "provas/o_fluxo_canonico_do_scrap.py",
@@ -64457,7 +64618,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 215,
+   "ENTRAM": 217,
    "SAEM": 36,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
