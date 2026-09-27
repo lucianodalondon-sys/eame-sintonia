@@ -61,7 +61,7 @@ bash ferramentas/cadeia_ate.sh $N "$DSN" | tee $B/up-$N.txt
 # 4 · idempotente: MIGRATION_$N=SKIP (ja no livro-razao) HASH=MATCH
 bash ferramentas/cadeia_ate.sh $N "$DSN" | tee $B/up2-$N.txt
 
-# 5 · conteudo igual (Sala 94 linhas, revisoes, derivados, RAW)
+# 5 · conteudo igual (Sala, revisoes, derivados, RAW — a impressao, nao um numero fixo)
 PGOPTIONS="$RO" psql -X -A -t -c "$IMP" "$DSN" | tee $B/depois-$N.txt
 diff $B/antes-$N.txt $B/depois-$N.txt && echo CONTEUDO_IGUAL_$N
 
@@ -86,7 +86,35 @@ Caminho completo de volta: `pg_restore` do `$B/antes-$N.dump` desse passo.
 
 ## 3 · Ensaio completo numa cópia da Sala
 
-ENSAIO_PENDENTE
+**PROVADO** em 26/09, 22:31–22:38, sob LOCK-PESADO (4.º da FILA-PESADO), com
+`provas/migracoes_em_serie_ensaio.py` sobre o ramo `45100af2` (já com o vivo `554c1ec1`).
+
+Dump da Sala real, só leitura: **2.830.019 bytes**, sha256
+`3acb29728e6c992020ffc662212dbd65c8f04d000efcaff0f217cf1fcc4e3201`; a Sala **não mudou durante o dump**.
+Guardado FORA do Git: `C:/Users/London1/AppData/Local/Temp/demo-seg/serie-20260926-2231/`.
+
+Cópia restaurada: **104 linhas** na Sala (`a8b469e2…`; eram 94 de manhã — a coleta seguiu), **478**
+revisões, **1.115** derivados, **1.615** brutos; livro-razão até **033**.
+
+| passo | 034 lápide | 035 acervo | 036 versões |
+|---|---|---|---|
+| a · backup da cópia (sha256) | `f06a748f…` | `48464ad4…` | `ce242aca…` |
+| c · `cadeia_ate.sh NNN` | **034=PASS**, resto SKIP | **035=PASS**, resto SKIP | **036=PASS**, resto SKIP |
+| d · validação | tabela `t`, 0 lápides | regra aceita `TEMPO_LUGAR` = `t`, 0 desses | tabela `t`, 2 gatilhos, 0 versões |
+| e · outra vez (idempotente) | nada fora de SKIP | nada fora de SKIP | nada fora de SKIP |
+| f · conteúdo igual (Sala, revisões, derivados, RAW) | **sim** | **sim** | **sim** |
+| g · desfazer | esquema **igual ao de antes**, conteúdo igual, livro volta a 033 | idem, livro volta a 034 | idem, livro volta a 035 |
+| h · reaplicar | 034=PASS | 035=PASS | 036=PASS |
+
+No fim: **cadeia inteira = 35 SKIP HASH=MATCH, nada fora de SKIP**; conteúdo igual ao do início.
+sha256 das migrações: 034 `8d0a2775…`, 035 `083f16cc…`, 036 `641eeef3…`.
+
+⚠️ **Instalar a partir DESTE ramo, não do vivo `554c1ec1`.** O vivo tem ainda a numeração antiga
+(`034_o_acervo…` e `036`, sem a lápide). Este ramo tem a da D79/DA-19 (034 lápide, 035 acervo, 036). As
+duas não se misturam: se a antiga for aplicada numa cópia, a nova pára em `MIGRATION_APLICADA_MUDOU=034`.
+
+A 035 **está pronta** para isto: aplica sozinha, é idempotente, desfaz para o esquema exato e o
+desfazer recusa se já houver derivados `TEMPO_LUGAR`.
 
 ## 4 · As 2 falhas antigas
 
