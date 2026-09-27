@@ -203,6 +203,36 @@ export const CONTRACTS = {
   "IT-T4-001": {
     // UPDATE_BEHAVIOR: «ADITIVO por data de arquivo». O CSV traz a versao no nome (PROD_FTS_6_AAAAMMDD.csv).
     RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
+    // D116 + D117 (dono, 27/09) — BIBLIOTECA DE REFERENCIA, nao noticia. RECOLLECTION diz se se
+    // revisita um detalhe; CADENCIA diz QUANDO se volta a fonte. Quem a le e
+    // `regras/cadencia_da_referencia.mjs`, chamado por `coleta/italy_recurrent_collect.mjs`.
+    // CADENCIA NAO E ADMISSAO: so vale dentro do que `curadoria/collection_gate.py` admitir.
+    CADENCIA: {
+      TIPO: "SEMANAL", DIA: "TER", RETENTAR: ["QUA", "QUI"], ALERTA_SE_FALHAR: true,
+      DECIDIDO_POR: "D117.1 (dono, 27/09)",
+      PORQUE: "as edicoes observadas sao todas de SEGUNDA-feira, 7 dias entre si (20260824, 20260831, " +
+              "20260907 em referencia/adama/SNAPSHOTS.json; 20260914 no livro de observacoes); a terca " +
+              "da um dia de folga a publicacao. «O dataset declara Settimanale» e texto da D117 — NAO " +
+              "verificado nesta casa (offline); DECLARED_FREQUENCY continua como estava."
+    },
+    // A REFERENCIA QUE NAO E ESTE CSV: a bula (etichetta) e outro ENDPOINT do MESMO publicador
+    // (Ministero della Salute, Banca dati dei prodotti fitosanitari), com a MESMA chave
+    // (num_registrazione) — por COL-LAW-009/205 endpoint nao e fonte, como o catalogo e endpoint de
+    // IT-T9-008 (know-how §127). Paga o MESMO dominio registavel (salute.gov.it) no teto de 24 h.
+    ENDPOINTS_DE_REFERENCIA: {
+      ETICHETTE: {
+        URL: "https://www.fitosanitari.salute.gov.it/ · EtichettaServlet (um PDF por num_registrazione)",
+        O_QUE_TRAZ: "cultura x alvo x dose — o que o CSV NAO traz. So daqui sai cultura/alvo (D117.1).",
+        CADENCIA: { TIPO: "ROTACAO_DIARIA", MAX_POR_DIA: 3, PRIORIDADE: "DISPARADAS_PELO_DIFF",
+                    DECIDIDO_POR: "D117.2 (dono, 27/09)",
+                    CICLO: "ESTIMATIVA ~2 meses (fila / 3 por dia) — nao e promessa" },
+        ROBOTS: "OBRIGATORIO — robots.txt da origem antes do primeiro pedido",
+        TETO: "5 pedidos / dominio registavel (salute.gov.it) / 24 h, PARTILHADO com o CSV (SINTONIA_TETO_24H)",
+        DISPARO: "coleta/it/edicoes_do_registro.py — produto ADAMA ou concorrente com mudanca comprovada",
+        EXECUTOR: "NAO LIGADO — coleta/rotulos_baixar.py baixa hoje sem robots nem teto de 24 h; ligar a " +
+                  "rotacao ao transporte com cortesia (italy_pilot_collect.mjs) e decisao pendente, nao feita aqui"
+      }
+    },
     OWNER_ID: "IT-OWN-MINSALUTE", OWNER: "Ministero della Salute — Open Data",
     TERRITORY: "T4", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
@@ -500,7 +530,21 @@ export const CONTRACTS = {
     FACT_LOCATION_RULE: "UNKNOWN — artigo de empresa nao localiza fato de campo. NUNCA inferir pela sede.",
     EVIDENCE_CLASS: "COMPANY_CLAIM", LEI: "COMPANY_CLAIM != REGULATORY_FACT — vale inclusive para a ADAMA",
     AUTOMATION_FEASIBILITY: "MEDIUM — exige navegador. BROWSER_REQUIRED != SOURCE_UNAUTOMATABLE.",
-    NEGATIVE_CONTROL: { descricao: "extrato sem published_time", esperado: "FAILED por falta de identidade" }
+    NEGATIVE_CONTROL: { descricao: "extrato sem published_time", esperado: "FAILED por falta de identidade" },
+    // D116 + D117.3 (dono, 27/09). O CATALOGO (portfolio) e ENDPOINT desta fonte (know-how §127) e
+    // BIBLIOTECA DE REFERENCIA: catalogo comercial != registro oficial. A cadencia fica NO ENDPOINT,
+    // nao no topo do contrato: a do topo mandaria tambem nos artigos, que sao outra pergunta.
+    ENDPOINTS_DE_REFERENCIA: {
+      CATALOGO: {
+        URL: "https://www.adama.com/italia/it/prodotti-adama/* e /it/prodotti/*",
+        CADENCIA: { TIPO: "MENSAL", EXTRAORDINARIA: "DIFF_DO_REGISTRO_COM_PRODUTO_ADAMA_NOVO_OU_REVOGADO",
+                    DECIDIDO_POR: "D117.3 (dono, 27/09)" },
+        ROBOTS: "OBRIGATORIO", TETO: "5 pedidos / dominio registavel (adama.com) / 24 h",
+        GUARDA: "referencia/adama/CATALOG-SNAPSHOTS.json (fotos datadas; nenhuma apagada)",
+        EXECUTOR: "NAO LIGADO — o site exige navegador (WAF); fontes/adama_catalogo_snapshot.py monta a foto " +
+                  "de evidencia ja guardada. Ligar a ida mensal e decisao pendente, nao feita aqui"
+      }
+    }
     },
 
     "IT-T8-001": {

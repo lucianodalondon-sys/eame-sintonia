@@ -39,6 +39,7 @@ import { join } from "node:path";
 import { openSync, closeSync, unlinkSync, existsSync, writeFileSync, readFileSync, mkdirSync, appendFileSync } from "node:fs";
 import { PROFILES, PERFIL_PADRAO } from "../candidatas/italy_profiles.mjs";
 import { CONTRACTS } from "../regras/italy_contracts.mjs";
+import { filtrarPorCadencia } from "../regras/cadencia_da_referencia.mjs";
 
 const run = promisify(execFile);
 const arg = n => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : null; };
@@ -241,6 +242,30 @@ async function main() {
     //
     // Sem a bandeira, nada muda: a coleta agendada toca toda a populacao.
     let aColher = comContrato;
+
+    // 6c' · A CADENCIA (D117, dono, 27/09): «e devida HOJE?», lida do contrato.
+    //
+    // Depois do portao e do contrato, nunca antes: a cadencia NAO abre fonte
+    // recusada — so tira do dia quem declarou `CADENCIA` e nao e devida hoje
+    // (a referencia semanal nao se colhe todo dia). Quem nao declara passa,
+    // como sempre passou. A «ultima checagem ok» vem do DONO dessa leitura
+    // (`leis/frescor_da_referencia.py`), nao de uma segunda leitura do livro
+    // aqui. Se ele nao responder, a cadencia nao adivinha: fica NAO SEI.
+    //
+    //     CADENCIA NAO E ADMISSAO. DEVIDA HOJE NAO E ELEGIVEL.
+    if (aColher.some(s => CONTRACTS[s] && CONTRACTS[s].CADENCIA)) {
+      let checagens = null;
+      try {
+        const saida = execFileSync(PY, ["leis/frescor_da_referencia.py", "--json"],
+          { cwd: RAIZ, encoding: "utf8", maxBuffer: 32 * 1024 * 1024, env: { ...process.env, ITALY_OPS_ROOT: OPS_ROOT, PYTHONIOENCODING: "utf-8", PYTHONUTF8: "1" } });
+        const f = JSON.parse(saida.slice(saida.indexOf("{"))).FONTES;
+        checagens = Object.fromEntries(Object.entries(f).map(([s, v]) => [s, v.ULTIMA_CHECAGEM_OK_INSTANTE === "NAO SEI" ? null : v.ULTIMA_CHECAGEM_OK_INSTANTE]));
+      } catch (e) { resumo.CADENCIA_CHECAGENS = `NAO SEI: ${String(e.message).slice(0, 120)}`; }
+      const cad = filtrarPorCadencia(aColher, CONTRACTS, dataEmRoma(), checagens);
+      aColher = cad.aColher;
+      resumo.FORA_DA_CADENCIA = cad.foraDaCadencia;
+      resumo.ALERTAS_DE_CADENCIA = cad.alertas;
+    }
     const limite = arg("--canario-limite");
     if (limite !== null) {
       const n = Number(limite);
@@ -278,7 +303,10 @@ async function main() {
       resumo.RUN_STATE = "NO_SOURCE_ELIGIBLE";
       resumo.RUNNER_HEALTH = "HEALTHY";
       resumo.SOURCE_NOT_MEASURED = POPULACAO.length;
-      resumo.reason = POPULACAO.length
+      const foraCad = Object.keys(resumo.FORA_DA_CADENCIA || {});
+      resumo.reason = foraCad.length && comContrato.length
+        ? `o portao admitiu ${POPULACAO.length}; as ${comContrato.length} com contrato nao sao devidas hoje pela cadencia: ${foraCad.join(" · ")}`
+        : POPULACAO.length
         ? `o portao admitiu ${POPULACAO.length}, e nenhuma tem contrato nesta casa: ${semContrato.join(" · ")}`
         : "o portao nao admitiu nenhuma fonte hoje";
       resumo.lei = "NENHUMA ELEGIVEL NAO E FALHA DO CORREDOR.";

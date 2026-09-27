@@ -1,0 +1,100 @@
+diff --git a/BIBLIA-CANONICA-DA-COLETA.md b/BIBLIA-CANONICA-DA-COLETA.md
+index f72baf4..db14d60 100644
+--- a/BIBLIA-CANONICA-DA-COLETA.md
++++ b/BIBLIA-CANONICA-DA-COLETA.md
+@@ -2666,6 +2666,54 @@ construção é outra missão.
+ 
+ ---
+ 
++## COL-LAW-407 · A CADÊNCIA DA REFERÊNCIA É CONTRATO DA COLETA
++
++**REGRA.** O registo oficial, as bulas e o portfólio são **biblioteca de referência
++versionada** (fonte · data do snapshot · versão · hash), não item de notícia. A cadência de
++cada um **DEVE** viver no **contrato da fonte** (`regras/italy_contracts.mjs`, bloco
++`CADENCIA`, ou `ENDPOINTS_DE_REFERENCIA.<endpoint>.CADENCIA`), e só lá. Quem a lê é
++`regras/cadencia_da_referencia.mjs`; quem a aplica é o corredor agendado, **depois** do portão
++de admissão.
++
++```
++RECOLLECTION  ≠  CADÊNCIA          «revisito o detalhe?» ≠ «quando volto à fonte?»
++CADÊNCIA      ≠  ADMISSÃO          devida hoje não é elegível; a cadência só tira do dia
++CATÁLOGO COMERCIAL ≠ REGISTO OFICIAL
++```
++
++**A CADÊNCIA DA D117 (dono, 27/09), como os contratos a declaram:**
++
++| referência | cadência | retentativa / disparo | teto |
++|---|---|---|---|
++| registo `IT-T4-001` (CSV das segundas) | `SEMANAL` — **terça** | quarta e quinta; o alerta **continua** até haver checagem ok | 5 pedidos / domínio registável / 24 h |
++| bulas (etichette, endpoint de `IT-T4-001`) | `ROTACAO_DIARIA` — até **3/dia** | as **disparadas pelo diff** vão à frente; depois a checagem mais antiga | o que **sobra** do mesmo teto (`salute.gov.it` é um domínio só) |
++| portfólio ADAMA (catálogo, endpoint de `IT-T9-008`) | `MENSAL` | `EXTRAORDINARIA` quando o diff do registo mostra produto ADAMA novo/revogado | 5 / domínio / 24 h |
++
++O ciclo das bulas (~2 meses) **é estimativa**, e escreve-se como estimativa.
++
++**O QUE A EDIÇÃO NOVA FAZ.** Guarda-se **sem sobrescrever** a anterior (o bruto é imutável;
++o diff de um par guarda-se em criação exclusiva). O diff é **produto a produto**, no
++vocabulário da `REGUA-DE-CHANGE-EVENT-EAME`, e cada mudança comprovada vira **EVENTO
++REGULATÓRIO** com a data que a **fonte** prova (`coleta/it/edicoes_do_registro.py`), pela
++porta canónica até à Sala.
++
++**NÃO DEVE:** duplicar a tabela-mestra no Brain/portal; inferir cultura × alvo pelo nome do
++produto (o CSV não os traz — só a bula); apresentar snapshot antigo como atual; ler «saiu do
++ficheiro» como revogação.
++
++**COMO PROVAR.** `node regras/cadencia_da_referencia_test.mjs` ·
++`python3 tests/test_edicoes_do_registro.py` · `python3 provas/mutacao_referencia_manutencao.py`
++
++**LIGA-SE A** COL-LAW-402 (abastecer referência também é coleta), COL-LAW-404 (a cadência é
++da fonte, não do gosto — esta lei diz **onde** ela se escreve) e COL-LAW-405 (a referência tem
++história).
++
++**ORIGEM.** `OWNER_DECISION` (D116 + D117, 27/09) · **LAW_STATUS** `PROPOSED` · **IT** `PARTIAL`
++— registo semanal ligado ao corredor; executores das bulas e do catálogo **não ligados**; o
++registo `IT-T4-001` continua **recusado pelo portão** (`READY_LEGACY`) até decisão do Curator.
++
++---
++
+ # PARTE XX · O QUE A PRIMEIRA ESTRADA ENSINOU
+ 
+ > **Emenda V1.3.** Quatro leis, e nenhuma delas foi inventada: **as quatro nasceram de
+diff --git a/BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md b/BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md
+index 9f24a2f..db76dc4 100644
+--- a/BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md
++++ b/BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md
+@@ -2023,6 +2023,36 @@ a `INT-LAW-091`, o quarto é a `INT-LAW-142`.
+ > chave que não atravessa. Os quatro estados existem para que a resposta «sim»
+ > tenha de dizer *sim a quê*.
+ 
++## INT-LAW-285 — Quem consulta a referência consulta a VERSÃO e o FRESCOR
++
++D116 + D117.4/.6 (dono, 27/09). Toda ferramenta de Intelligence que responda com o
++registo oficial, com a bula ou com o portfólio **DEVE** consultar, e mostrar ao lado do
++número, três coisas — e tratar a desatualização em vez de a esconder:
++
++```text
++EDICAO_DATA          a edicao que a fonte provou (ex.: PROD_FTS_6_20260914)
++ULTIMA_CHECAGEM_OK   quando se olhou com sucesso pela ultima vez
++ESTADO_FRESCOR       EM_DIA · PODE_ESTAR_DESATUALIZADO · NAO_SEI
++```
++
++A regra é **uma função pura**, com dono: `leis/frescor_da_referencia.py::estado_frescor`
++(CLI `--json`). Não se recalcula na ferramenta (INT-LAW-282).
++
++```text
++< 14 dias desde a ULTIMA CHECAGEM   EM_DIA
++>= 14                               PODE_ESTAR_DESATUALIZADO
++>= 30                               as autorizacoes passam a «a confirmar»
++sem checagem                        NAO_SEI  (nunca EM_DIA)
++```
++
++Conta-se desde a **checagem**, não desde a edição: edição velha checada ontem está em
++dia; edição nova que ninguém volta a olhar envelhece.
++
++**NÃO DEVE:** apresentar snapshot antigo como atual; afirmar autorização com
++`AUTORIZACOES = A_CONFIRMAR` sem o dizer; ler cultura × alvo do registo (o CSV não os
++traz — só a bula); duplicar a tabela-mestra dentro da ferramenta; tratar um
++`EVENTO_REGULATORIO` como sinal de mercado (`REGUA-DE-CHANGE-EVENT-EAME` §5).
++
+ ## 35.2 · O PORTAL NÃO DEFINE A ARQUITETURA
+ 
+ As superfícies de hoje são **evidência de produto existente**, e isso não é o
