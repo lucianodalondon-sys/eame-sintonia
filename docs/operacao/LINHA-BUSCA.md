@@ -176,8 +176,22 @@ py coleta/linha_busca.py --marcar --saida=$S/B1 --fila=$V/candidatas/FONTES-CAND
   - sem `--autorizado`, nada sai à rede.
 - **`curadoria/test_collection_gate.py`:** 22 de 23 passam. A que falha é de **base**. Ela lista 4 ficheiros que
   não são desta missão: `nome_da_pasta.mjs`, `teto_da_onda.py`, `onda_web.py` e `buscar_indices_d40.py`.
-- **Mutação:** ver §5.
+- **Mutação:** 12 de 12 (§5).
 
 ## 5 · Mutação
 
-(preenchida no commit seguinte)
+**12 de 12** estragos feitos de propósito foram pegos. A corrida foi numa worktree destacada
+(`ferramentas/linha_busca/mutar.py.txt`), com a **guarda de rede** no módulo de testes: nenhum mutante saiu à rede.
+Os mutantes foram:
+
+- o portão aceita sem proveniência, ou aceita fonte recusada;
+- a página é colhida com o portão a recusar;
+- vira `READY` sem passar a Admission;
+- o RAW fica sem proveniência;
+- a mesma fonte vira duas candidatas;
+- o `--marcar` apaga o livro;
+- sai à rede sem `--autorizado`;
+- as consultas regionais vão primeiro;
+- o DuckDuckGo não desembrulha o link;
+- passa um resultado do próprio motor;
+- usa-se o livro de outra árvore por omissão.

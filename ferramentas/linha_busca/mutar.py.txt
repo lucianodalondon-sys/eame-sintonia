@@ -1,0 +1,32 @@
+# LINHA-BUSCA · corrida de mutacao (registo). Corre numa worktree DESTACADA em tmp-pd/mut-lb, nunca na do ramo.
+# O modulo de testes troca portao_it e transporte_real por uma guarda: nenhum mutante sai a rede.
+import subprocess, sys
+from pathlib import Path
+R = Path("C:/Users/London1/tmp-pd/mut-lb")
+CG = R / "curadoria/collection_gate.py"; LB = R / "coleta/linha_busca.py"; CQ = R / "ferramentas/linha_busca/consultas.py"
+MO = R / "ferramentas/linha_busca/motores.py"
+M = [
+ ("M1 portao aceita sem proveniencia", CG, '    if prov.get("ESPECIE") != "ACHADO_POR_BUSCA" or faltam:', '    if False:'),
+ ("M2 portao aceita fonte recusada", CG, '    if (estado_da_fonte or "").upper() in ESTADOS_QUE_NAO_ENTRAM_PELA_BUSCA:', '    if False:'),
+ ("M3 colhe mesmo com o portao a recusar", LB, '    if not portao["COLLECTION_ELIGIBLE"]:', '    if False:'),
+ ("M4 item sem passar a Admission vira READY", LB, '    if d.resultado == adm.SIM:', '    if True:'),
+ ("M5 RAW sem proveniencia", LB, '"PROVENIENCIA": reg["PROVENIENCIA"], "ROTA_DA_PAGINA"', '"PROVENIENCIA": {}, "ROTA_DA_PAGINA"'),
+ ("M6 a mesma fonte vira duas candidatas", LB, '"%s://%s/" % (p.scheme or "https", p.netloc)', '"%s://%s%s" % (p.scheme or "https", p.netloc, p.path)'),
+ ("M7 marcar apaga o livro", LB, '    with open(livro, "a", encoding="utf-8") as fh:\n        for m in marcas:', '    with open(livro, "w", encoding="utf-8") as fh:\n        for m in marcas:'),
+ ("M8 sai a rede sem --autorizado", LB, '    if "--autorizado" not in argv:', '    if False:'),
+ ("M9 consultas regionais primeiro", CQ, '        return (0 if q["REGIAO"] is None and q["ORIGEM"].startswith("CASCO") else', '        return (3 if q["REGIAO"] is None and q["ORIGEM"].startswith("CASCO") else'),
+ ("M10 DDG sem desembrulhar o uddg", MO, '        if "uddg=" in h:', '        if False:'),
+ ("M11 resultado do proprio motor passa", MO, '        if not h or ENGINES_PROPRIOS.search(h):', '        if not h:'),
+ ("M12 livro de outra arvore por omissao", LB, '    if not livro.exists():\n        return cand, est', '    if not livro.exists():\n        livro = RAIZ / "curadoria" / "LIFECYCLE-LEDGER-V1.json"'),
+]
+mortos = 0
+for nome, f, a, b in M:
+    o = f.read_text(encoding="utf-8")
+    assert o.count(a) == 1, (nome, o.count(a))
+    f.write_text(o.replace(a, b), encoding="utf-8", newline="\n")
+    r = subprocess.run([sys.executable, "-B", "-m", "unittest", "tests.test_linha_busca"], cwd=R, capture_output=True, text=True, timeout=900)
+    f.write_text(o, encoding="utf-8", newline="\n")
+    mortos += r.returncode != 0
+    print("%-45s %s" % (nome, "MORTO" if r.returncode else "SOBREVIVEU"))
+r = subprocess.run([sys.executable, "-B", "-m", "unittest", "tests.test_linha_busca"], cwd=R, capture_output=True, text=True)
+print("mutacao %d/%d; sem mutacao: %s" % (mortos, len(M), "VERDE" if r.returncode == 0 else "VERMELHO"))
