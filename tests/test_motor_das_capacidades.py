@@ -89,10 +89,13 @@ class A_AEntradaDaSala(unittest.TestCase):
         self.assertEqual(e["RAW"]["9001"]["URL"], "https://www.apol.it/SINTETICO/bollettino-mosca-38-brle")
         self.assertEqual(e["RAW"]["9102"]["DOCUMENT_ID"], NAO_SEI)
 
-    def test_A3_janela_viaja_ao_lado_do_ready(self):
+    def test_A3_janela_viaja_dentro_do_ready(self):
+        # LOTE6-INTEGRA (ajuste DECLARADO): o dono do READY (sala_de_espera.CAMPOS_DO_READY, D58
+        # QUATRO-CHAVES-NA-SALA, ja na base 18461b92) leva JANELA_DECLARADA DENTRO do READY. Este teste
+        # nasceu num ramo anterior a D58 e pedia-a ao lado; agora pede-a onde o dono a pos, e so la.
         r = entrada()["ITENS"][0]
-        self.assertNotIn("JANELA_DECLARADA", r["READY"])
-        self.assertEqual(r["JANELA_DECLARADA"]["CULTURA"]["VALOR"], "olivo")
+        self.assertEqual(set(r), {"READY"})
+        self.assertEqual(r["READY"]["JANELA_DECLARADA"]["CULTURA"]["VALOR"], "olivo")
 
     def test_A4_campo_de_fora_do_ready_e_recusado(self):
         e = entrada()
@@ -349,7 +352,7 @@ class G_Relacoes(unittest.TestCase):
         j["RESULT"] = WIN.ACT_NOW
         j["WHY"] = ["as quatro condicoes do W8 estao satisfeitas"]
         ctx = {"RUN_ID": "X", "RAW": entrada()["RAW"], "D112": {},
-               "JANELA": {r["READY"]["ITEM_ID"]: r["JANELA_DECLARADA"] for r in entrada()["ITENS"]},
+               "JANELA": {r["READY"]["ITEM_ID"]: r["READY"]["JANELA_DECLARADA"] for r in entrada()["ITENS"]},
                "READY": {r["READY"]["ITEM_ID"]: r["READY"] for r in entrada()["ITENS"]},
                "LINHA": {l["ITEM_ID"]: l for l in saida()["LINEAGE"]}}
         o, _ = M._objeto_da_janela(j, ctx, M.relacoes(j))

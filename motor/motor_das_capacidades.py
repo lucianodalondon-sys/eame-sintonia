@@ -79,6 +79,11 @@ import capacidade_cientifica as SCI              # noqa: E402
 # A LEI DO LUGAR tem dono (leis/lugar_do_fato.py): quem pode virar lugar do
 # fato e porque nao. D112(a) chama-a — nao a reescreve.
 import lugar_do_fato as LUGAR                    # noqa: E402
+# LOTE6-INTEGRA: a D112 passou a estar ESCRITA no repositorio (METODO-PUGLIA: COL-LAW-221..223 na Biblia
+# da Coleta, INT-LAW-078/079 na da Intelligence). O vocabulario das RELACOES tem dono
+# (leis/afirmacao_da_fonte.RELACOES / CONTRADICTION_STATUS): cada relacao deste motor diz tambem a
+# palavra da lei, calculada pelas regras da lei — nao a reescreve.
+import afirmacao_da_fonte as AFIRMACAO           # noqa: E402
 
 NAO_SEI = CI.NAO_SEI
 CONTRATO_DA_ENTRADA = "ENTRADA_DO_MOTOR_DAS_CAPACIDADES/v1"
@@ -94,8 +99,9 @@ ESTADO_TRANSPORTAVEL = "EXPERIMENTAL_CANDIDATE"
 PERGUNTA = ("rodada das capacidades: que janela de cultura (CAP-WIN) e que ciencia "
             "(CAP-SCI) a Sala sustenta, com prova ate ao RAW?")
 
-#: D112, verbatim da missao INT-R7-CAPS (a decisao D112 nao esta escrita no
-#: repositorio; o texto e o do pedido, e por isso a fonte fica dita aqui).
+#: D112, verbatim da missao INT-R7-CAPS. Quando este ramo nasceu a decisao nao
+#: estava escrita no repositorio; desde o LOTE6-INTEGRA esta (docs/iab/puglia/
+#: DECISAO-D112.md, METODO-PUGLIA.md), e as relacoes falam a lingua dela (RELATION).
 D112 = (
     "local do fato so com sustentacao explicita da fonte",
     "toda entidade com procedencia da evidencia (ENTITY_SOURCE)",
@@ -110,6 +116,14 @@ MESMA_REDACAO = "MESMA_REDACAO"
 DIVERGENT = "DIVERGENT"
 TEMPORAL_CHANGE = "TEMPORAL_CHANGE"
 UNRESOLVED = "UNRESOLVED"
+#: As palavras da lei (INT-LAW-078/079), lidas do dono. `TIPO` e o agrupamento deste motor;
+#: `RELATION` e o veredito na lingua da lei. Palavra fora do dono = o modulo nem carrega.
+REL_078, REL_TEMPORAL, REL_DIVERGENT, REL_NAO_SEI = (
+    "SAME_CLAIM_TERRITORIAL_APPLICATION", "TEMPORAL_CHANGE_IN_RECOMMENDATION",
+    "DIVERGENT_RECOMMENDATIONS", "NAO_SEI")
+if ({REL_078, REL_TEMPORAL, REL_DIVERGENT, REL_NAO_SEI} != set(AFIRMACAO.RELACOES)
+        or {UNRESOLVED, "NO"} != set(AFIRMACAO.CONTRADICTION_STATUS)):
+    raise ImportError("motor_das_capacidades fala relacoes fora da INT-LAW-078/079")
 
 #: As especies do pote v2 que ESTE motor emite. SINAL para o juizo das
 #: capacidades (o pote v2 nao tem especie ANALYTIC_JUDGMENT: a do motor viaja
@@ -210,12 +224,16 @@ def entrada_do_export(export: dict) -> dict:
             "TEMPO_LUGAR_EVIDENCIA": _json(l.get("tempo_lugar_evidencia")),
             "SOURCE_DECLARED_EVIDENCE_CLASS": l.get("source_declared_evidence_class"),
             "FATO": _json(l.get("fato")),
+            # LOTE6-INTEGRA: o dono do READY (admissao/sala_de_espera.CAMPOS_DO_READY, D58
+            # QUATRO-CHAVES-NA-SALA) leva a janela DENTRO do READY. Este ramo nasceu antes (60faa7cb)
+            # e levava-a ao lado; o consumidor segue o dono — uma copia so.
+            "JANELA_DECLARADA": _json(l.get("janela_declarada")),
             "CAPTURED_AT": l.get("captured_at"),
             "CORRIDA": l.get("run_id"),
             "ADMITIDO_POR": l.get("admitido_por"),
         }
         ready = {c: (NAO_SEI if ready[c] is None else ready[c]) for c in CI.CAMPOS_DO_READY}
-        itens.append({"READY": ready, "JANELA_DECLARADA": _json(l.get("janela_declarada"))})
+        itens.append({"READY": ready})
         if obs not in (None, "") and str(obs) not in raw:
             raw[str(obs)] = {n: _v(l.get(c)) for c, n in COLUNAS_DO_RAW.items()}
     return {"SCHEMA": CONTRATO_DA_ENTRADA, "SINTETICA": export.get("SINTETICO") is True,
@@ -227,7 +245,7 @@ def _conferir_entrada(entrada: dict) -> None:
     if not isinstance(entrada, dict) or entrada.get("SCHEMA") != CONTRATO_DA_ENTRADA:
         raise LeiViolada("entrada fora do contrato %s" % CONTRATO_DA_ENTRADA)
     for r in entrada.get("ITENS") or []:
-        sobra = sorted(set(r) - {"READY", "JANELA_DECLARADA"})
+        sobra = sorted(set(r) - {"READY"})
         if sobra:
             raise LeiViolada("IDENTIDADE_DE_FORA_DO_READY: registo com %s" % ", ".join(sobra))
         SCI.conferir_ready(r.get("READY"))
@@ -279,7 +297,7 @@ def aplicar_d112_lugar(registo: dict) -> tuple:
     if not rel["FACT_LOCATION"]["SUSTENTADO"] and not _ign(ready.get("FACT_LOCATION")):
         # a CAP-SCI le o local pela BASE: sem base, NAO SEI com o valor a vista.
         ready["FACT_LOCATION_BASIS"] = NAO_SEI + " — " + rel["FACT_LOCATION"]["PORQUE"]
-    jd = registo.get("JANELA_DECLARADA")
+    jd = ready.get("JANELA_DECLARADA")
     jd = json.loads(json.dumps(jd)) if isinstance(jd, dict) else {}
     for campo in LUGARES_DA_JANELA:
         bloco = jd.get(campo)
@@ -289,6 +307,8 @@ def aplicar_d112_lugar(registo: dict) -> tuple:
         rel["JANELA_DECLARADA." + campo] = r
         if not r["SUSTENTADO"]:
             jd[campo] = dict(bloco, VALOR=NAO_SEI, D112=r["PORQUE"])
+    if jd:
+        ready["JANELA_DECLARADA"] = jd     # a copia das capacidades leva a janela JA passada pela D112a
     return ready, jd, rel
 
 
@@ -386,6 +406,11 @@ def relacoes(janela: dict) -> list:
                                   or None})
         out.append({
             "TIPO": MESMA_REDACAO, "PAR": par,
+            # INT-LAW-078 so para a MESMA instituicao; a mesma redacao em casas diferentes a lei nao
+            # qualifica (afirmacao_da_fonte.relacao: mesmo valor, outra casa = NAO_SEI, UNRESOLVED)
+            "RELATION": REL_078 if len(por) == 1 else REL_NAO_SEI,
+            "CONTRADICTION_STATUS": "NO" if len(por) == 1 else UNRESOLVED,
+            "LEI": "INT-LAW-078",
             "DA_FONTE": {"REDACAO": g["TEXTO"]},
             "POR_INSTITUICAO": por,
             "INSTITUICOES": len(por),
@@ -408,8 +433,13 @@ def relacoes(janela: dict) -> list:
             g["INSTITUICOES"].add(i["INSTITUICAO"])
             g["CONDICOES"].update(i["CONDICOES_COM_LIMITE"])
     if len(por_limite) > 1:
+        casas = {c for g in por_limite.values() for c in g["INSTITUICOES"]}
         out.append({
             "TIPO": DIVERGENT, "PAR": par, "CONTRADICAO": UNRESOLVED,
+            # INT-LAW-079: DIVERGENT_RECOMMENDATIONS e entre FONTES diferentes; a mesma casa com limites
+            # diferentes e sem validade que os ordene a lei nao qualifica (NAO_SEI). UNRESOLVED nos dois.
+            "RELATION": REL_DIVERGENT if len(casas) > 1 else REL_NAO_SEI,
+            "CONTRADICTION_STATUS": UNRESOLVED, "LEI": "INT-LAW-079",
             "DA_FONTE": [{"LIMITE": list(k), "ITENS": sorted(g["ITENS"]),
                           "INSTITUICOES": sorted(g["INSTITUICOES"]),
                           "CONDICOES": sorted(g["CONDICOES"])}
@@ -437,6 +467,8 @@ def relacoes(janela: dict) -> list:
                 continue
             out.append({
                 "TIPO": TEMPORAL_CHANGE, "PAR": par, "INSTITUICAO": inst,
+                "RELATION": REL_TEMPORAL, "CONTRADICTION_STATUS": "NO",
+                "CONCLUIR_MUDANCA_DO_CAMPO": False, "LEI": "INT-LAW-079",
                 "TERRITORIOS": list(terr) or NAO_SEI,
                 "DE": a["ITEM_ID"], "PARA": b["ITEM_ID"],
                 "DA_FONTE": {"ANTES": dict(sa, TIME_WINDOW=a["TIME_WINDOW"]),

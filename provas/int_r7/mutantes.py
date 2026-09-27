@@ -95,7 +95,7 @@ MUTANTES = [
  ("M26", MOTOR, "portao: leitura proibida passa",
   "        if p in texto:\n            v.append(\"leitura proibida", "        if False:\n            v.append(\"leitura proibida"),
  ("M27", MOTOR, "entrada: campo de fora do READY passa",
-  "        sobra = sorted(set(r) - {\"READY\", \"JANELA_DECLARADA\"})",
+  "        sobra = sorted(set(r) - {\"READY\"})",
   "        sobra = []"),
  ("M28", MOTOR, "duas corridas: a CAP-SCI corre num livro proprio (contador duplicado)",
   "    sci = SCI.julgar(livro, ready_cap, referencia, triados_fora=para_sci)",
