@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 24980,
-    "h": 10512
+    "h": 10834
   },
   "INVENTORY": {
     ".claude": [
@@ -24,6 +24,7 @@
       "CASCO-LEITURA.md",
       "CASCO-PAINEL.md",
       "CLAUDE.md",
+      "COMANDO-HOJE.md",
       "CONCORRENCIA-META.md",
       "CONSERTO-REGUA.md",
       "CUTOVER-CHECKLIST.md",
@@ -355,6 +356,7 @@
       "coleta/instagram_diario.py",
       "coleta/instagram_janela.py",
       "coleta/instagram_pessoal.py",
+      "coleta/it/edicoes_do_registro.py",
       "coleta/italy_executor.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_pilot_collect.mjs",
@@ -1753,6 +1755,7 @@
       "docs/piloto/VEREDITO-M10-HANDOFF.md",
       "docs/ponte/ACERVO-PERSISTENTE-EAME.md",
       "docs/ponte/BRASIL-PARA-EAME-MAPA-DE-PRIORIDADE.md",
+      "docs/propostas/PATCH-BIBLIAS-REFERENCIA-D116-D117.patch",
       "docs/regras/BRAZIL-LESSONS-TRANSFER-EAME.md",
       "docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md",
       "docs/regras/MODELO-DE-IDENTIDADE-EAME.md",
@@ -2582,6 +2585,7 @@
       "leis/fato_do_texto.py",
       "leis/fato_local.py",
       "leis/fonte_do_atlas.py",
+      "leis/frescor_da_referencia.py",
       "leis/fundacao_da_coleta.py",
       "leis/gestao_da_coleta.py",
       "leis/identidade_do_video.py",
@@ -3024,6 +3028,7 @@
       "provas/mutacao_da_sala_duravel.py",
       "provas/mutacao_do_fluxo_canonico.py",
       "provas/mutacao_do_gate.py",
+      "provas/mutacao_referencia_manutencao.py",
       "provas/nada_some_em_silencio.py",
       "provas/nenhuma_compra_sem_autorizacao.py",
       "provas/nome_da_pasta_contratos_em_risco.json",
@@ -3200,6 +3205,8 @@
     "regras": [
       "regras/ROTA-NAVEGADOR.json",
       "regras/boletim_data_local_test.mjs",
+      "regras/cadencia_da_referencia.mjs",
+      "regras/cadencia_da_referencia_test.mjs",
       "regras/comunicacao_identidade.py",
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
@@ -3687,6 +3694,8 @@
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
+      "tests/fixtures/it_t4_001/PROD_FTS_6_20260914.csv",
+      "tests/fixtures/it_t4_001/PROD_FTS_6_20260921.csv",
       "tests/fixtures/pesquisadores_t6/MANIFEST.json",
       "tests/fixtures/pesquisadores_t6/montar.py",
       "tests/fixtures/pesquisadores_t6/openalex-A5002982424.json",
@@ -3823,6 +3832,7 @@
       "tests/test_d37_campos_de_politica.py",
       "tests/test_data_do_fato.py",
       "tests/test_dedup_video_social.py",
+      "tests/test_edicoes_do_registro.py",
       "tests/test_egresso_consenso.py",
       "tests/test_ensaio_offline_micro.py",
       "tests/test_espinha_da_intelligence.py",
@@ -3845,6 +3855,7 @@
       "tests/test_fontes_explicitas_no_coletor.py",
       "tests/test_forward_instrumentado.py",
       "tests/test_freio_social.py",
+      "tests/test_frescor_da_referencia.py",
       "tests/test_fronteira_mede_a_sala_canonica.py",
       "tests/test_fronteira_mede_producao.py",
       "tests/test_fundacao_da_coleta.py",
@@ -4532,10 +4543,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/reference-maintenance-collection-8s2lwy",
+    "HEAD": "47b6b45567975c87918204a50d7e7fffe28e6ec3",
+    "GENERATED_AT": "2026-09-27T20:39:46+00:00",
+    "SOURCE_TREE_FINGERPRINT": "cb602bcc1c22791edcf838b3ca097137d6f2c704679e384d6448f7c60a7f67d8"
   },
   "FAMILIES": [
     {
@@ -4545,7 +4556,7 @@
       "x": 260,
       "y": 60,
       "w": 23755,
-      "h": 10192,
+      "h": 10514,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -4563,7 +4574,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 119
+      "count": 121
     },
     {
       "id": "F-ESPERA",
@@ -4572,7 +4583,7 @@
       "x": 13865,
       "y": 60,
       "w": 485,
-      "h": 10192,
+      "h": 10514,
       "zones": [
         "Z-ESPERA"
       ],
@@ -4585,7 +4596,7 @@
       "x": 14570,
       "y": 60,
       "w": 10150,
-      "h": 10192,
+      "h": 10514,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE",
@@ -4601,12 +4612,12 @@
       "x": 20460,
       "y": 60,
       "w": 2850,
-      "h": 10192,
+      "h": 10514,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 112
+      "count": 114
     },
     {
       "id": "F-ENTREGA",
@@ -4615,7 +4626,7 @@
       "x": 16810,
       "y": 60,
       "w": 3430,
-      "h": 10192,
+      "h": 10514,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -4637,7 +4648,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 1
     },
     {
@@ -4651,7 +4662,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 1
     },
     {
@@ -4666,7 +4677,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 2
     },
     {
@@ -4681,7 +4692,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 2
     },
     {
@@ -4696,7 +4707,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 3
     },
     {
@@ -4711,7 +4722,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 2
     },
     {
@@ -4726,7 +4737,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 3
     },
     {
@@ -4741,7 +4752,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 5
     },
     {
@@ -4757,7 +4768,7 @@
       "x": 5940,
       "y": 190,
       "w": 1235,
-      "h": 10022,
+      "h": 10344,
       "count": 21
     },
     {
@@ -4773,8 +4784,8 @@
       "x": 7475,
       "y": 190,
       "w": 1235,
-      "h": 10022,
-      "count": 22
+      "h": 10344,
+      "count": 23
     },
     {
       "id": "Z-GUARDA",
@@ -4789,7 +4800,7 @@
       "x": 9010,
       "y": 190,
       "w": 1235,
-      "h": 10022,
+      "h": 10344,
       "count": 14
     },
     {
@@ -4805,8 +4816,8 @@
       "x": 10545,
       "y": 190,
       "w": 820,
-      "h": 10022,
-      "count": 8
+      "h": 10344,
+      "count": 9
     },
     {
       "id": "Z-MEDIDAS",
@@ -4820,7 +4831,7 @@
       "x": 11665,
       "y": 190,
       "w": 1235,
-      "h": 10022,
+      "h": 10344,
       "count": 32
     },
     {
@@ -4835,7 +4846,7 @@
       "x": 13200,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 2
     },
     {
@@ -4850,7 +4861,7 @@
       "x": 13905,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 1
     },
     {
@@ -4866,7 +4877,7 @@
       "x": 14610,
       "y": 190,
       "w": 1235,
-      "h": 10022,
+      "h": 10344,
       "count": 14
     },
     {
@@ -4882,7 +4893,7 @@
       "x": 16145,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 4
     },
     {
@@ -4898,7 +4909,7 @@
       "x": 16850,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 5
     },
     {
@@ -4914,7 +4925,7 @@
       "x": 17555,
       "y": 190,
       "w": 820,
-      "h": 10022,
+      "h": 10344,
       "count": 7
     },
     {
@@ -4930,7 +4941,7 @@
       "x": 18675,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 5
     },
     {
@@ -4945,7 +4956,7 @@
       "x": 19380,
       "y": 190,
       "w": 820,
-      "h": 10022,
+      "h": 10344,
       "count": 12
     },
     {
@@ -4961,8 +4972,8 @@
       "x": 20500,
       "y": 190,
       "w": 1235,
-      "h": 10022,
-      "count": 19
+      "h": 10344,
+      "count": 20
     },
     {
       "id": "Z-PROVA",
@@ -4977,8 +4988,8 @@
       "x": 22035,
       "y": 190,
       "w": 1235,
-      "h": 10022,
-      "count": 93
+      "h": 10344,
+      "count": 94
     },
     {
       "id": "Z-REFERENCIA",
@@ -4993,7 +5004,7 @@
       "x": 23570,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 1
     },
     {
@@ -5008,7 +5019,7 @@
       "x": 24275,
       "y": 190,
       "w": 405,
-      "h": 10022,
+      "h": 10344,
       "count": 4
     }
   ],
@@ -5524,6 +5535,7 @@
         "C-DUAS-PORTAS-MEDIDORES",
         "C-ESTRADA-PDF",
         "C-INT-ARBITRAGEM",
+        "C-IT-EDICOES-DO-REGISTRO",
         "C-LASTMILE-MEDIDORES",
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
@@ -5558,7 +5570,9 @@
         "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
@@ -13221,6 +13235,24 @@
           "separa_fonte_do_fato": false,
           "leis_que_obedece": [],
           "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/it/edicoes_do_registro.py",
+          "como_se_chama": "coleta/it/edicoes_do_registro.py",
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
+          "carimba_lugar": [
+            "FACT_LOCATION",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": true,
+          "leis_que_obedece": [
+            "source_health"
+          ],
+          "regista_descarte": [
+            "RECUSAD"
+          ]
         },
         {
           "ficheiro": "coleta/italy_executor.py",
@@ -49735,7 +49767,7 @@
       "name": "Colher as fontes italianas",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte. Desde a FECHAR-ONDA2-B (25/09) o nome FISICO da pasta de cada documento vem de `nome_da_pasta.mjs`: igual ao de sempre quando serve; com `* ? \" < > |` ou mais de 255 bytes, percent-encoding reversivel + 12 hex do sha256 do DOCUMENT_ID — o DOCUMENT_ID no livro nao muda (na 2.a onda o `?redirect=%2F` da IT-T2-050 dava mkdir ENOENT). E o RETORNO.json do executor so diz SUCCESS quando o coletor nao falhou: com falha e FAILED (nada chegou) ou PARTIAL (algo chegou).",
+      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte. Desde a FECHAR-ONDA2-B (25/09) o nome FISICO da pasta de cada documento vem de `nome_da_pasta.mjs`: igual ao de sempre quando serve; com `* ? \" < > |` ou mais de 255 bytes, percent-encoding reversivel + 12 hex do sha256 do DOCUMENT_ID — o DOCUMENT_ID no livro nao muda (na 2.a onda o `?redirect=%2F` da IT-T2-050 dava mkdir ENOENT). E o RETORNO.json do executor so diz SUCCESS quando o coletor nao falhou: com falha e FAILED (nada chegou) ou PARTIAL (algo chegou). Desde a REFERENCIA-MANUTENCAO (27/09) o corredor agendado aplica a CADENCIA do contrato (regras/cadencia_da_referencia.mjs) DEPOIS do portao de admissao, perguntando a ultima checagem ok a leis/frescor_da_referencia.py; quem nao declara cadencia continua a ser colhida todo dia.",
       "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
       "departments": [
         "INTELIGENCIA",
@@ -49778,6 +49810,8 @@
         "C-IT-PRESERVAR",
         "C-MAPA-TESTES",
         "C-ORQUESTRADOR",
+        "C-REFERENCIA-CADENCIA",
+        "C-REFERENCIA-FRESCOR",
         "V-YOUTUBE"
       ],
       "outbound": [
@@ -49800,10 +49834,12 @@
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-PARIDADE",
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
+        "C-PROVA-REFERENCIA-MANUTENCAO",
         "C-PROVA-SALA-ITALIANA",
         "C-PROVA-TETO-DOMINIO",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-RECEITAS",
+        "C-REFERENCIA-CADENCIA",
         "C-SALA-DE-ESPERA",
         "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
@@ -49829,7 +49865,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 16 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 18 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "INTELIGENCIA · TECNICO_CIENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -49845,7 +49881,9 @@
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
         "data/samples/IT-PROBE/probe-fase-c.json",
+        "leis/frescor_da_referencia.py",
         "regras/ROTA-NAVEGADOR.json",
+        "regras/cadencia_da_referencia.mjs",
         "regras/incrementalidade.mjs",
         "regras/italy_contracts.mjs",
         "regras/motor_de_rota.mjs",
@@ -49984,7 +50022,7 @@
       "name": "O contrato de cada fonte italiana",
       "territory": "Z-REGRAS",
       "kind": "contract",
-      "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA.",
+      "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA. Desde a REFERENCIA-MANUTENCAO (D116/D117, 27/09) IT-T4-001 declara CADENCIA (semanal na terca, retenta quarta e quinta) e ENDPOINTS_DE_REFERENCIA.ETICHETTE (bulas, rotacao ate 3/dia no teto do dominio); IT-T9-008 declara ENDPOINTS_DE_REFERENCIA.CATALOGO (portfolio, mensal + extraordinaria). Os executores das bulas e do catalogo ficam declarados como NAO LIGADOS.",
       "why_here": "Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.",
       "departments": [
         "ENGENHARIA",
@@ -50057,6 +50095,7 @@
         "C-PROVA-T2-BOLETINS",
         "C-PROVA-TETO-DOMINIO",
         "C-RECOLLECTION-CENSO",
+        "C-REFERENCIA-CADENCIA",
         "C-SALA-DE-ESPERA",
         "C-SCRAP-COLHEITA",
         "C-SCRAP-SOCIAL",
@@ -50149,6 +50188,109 @@
       },
       "x": 11020,
       "y": 360
+    },
+    {
+      "id": "C-IT-EDICOES-DO-REGISTRO",
+      "name": "As edicoes do registro — o diff produto a produto e o EVENTO_REGULATORIO",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Compara duas edicoes do CSV do Ministero (IT-T4-001, PROD_FTS_6_AAAAMMDD) produto a produto e devolve cada mudanca com NUMERO_REGISTRAZIONE, CAMPO, ANTES, DEPOIS e EDICAO, no vocabulario da REGUA-DE-CHANGE-EVENT-EAME (NEW_REGISTRATION, REGISTRATION_LEFT_THE_LIST, STATUS_CHANGE com SUBTIPO REVOGACAO, HOLDER_CHANGE, COMPOSITION_CHANGE, DATE_CHANGE, UNKNOWN_CHANGE), atras do portao de versao de medidas/source_health.py. Cada mudanca que emite vira um item FATO que passa pela porta canonica (admissao.decidir T4 -> pronto_para_inteligencia -> sala_de_espera.pousar). A biblioteca das edicoes le-se do livro canonico; o diff de um par guarda-se em criacao exclusiva.",
+      "why_here": "CW-01: nenhum derivador abria CSV. Sair do ficheiro nao e revogacao (o ficheiro lista os revogados); a data do fato e a que a linha escreve (registrazione, decreto de revoga), nunca a da edicao; cultura x alvo NAO estao no CSV e nunca se inferem do nome (D116) — medido: com o nome na 1.a linha do texto, a porta lia cultura «vite» de RAME VITE.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "INTELIGENCIA",
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "Δ",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/it/edicoes_do_registro.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe teste que exercita isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-IT-PRESERVAR",
+        "C-MAPA-TESTES",
+        "C-SALA-DE-ESPERA",
+        "C-SAUDE-FONTE"
+      ],
+      "outbound": [
+        "C-PROVA-REFERENCIA-MANUTENCAO"
+      ],
+      "paises": {
+        "ITALIA": 1
+      },
+      "paises_dado": {},
+      "pais": "ITALIA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "COLUNAS_OBRIGATORIAS",
+          "TIPOS_QUE_EMITEM",
+          "TIPO_DO_CAMPO"
+        ],
+        "palavras": 31,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 31,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 2 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "REGULATORIO_PORTFOLIO · INTELIGENCIA · ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/collection-ledger/italy/observations.ndjson",
+        "docs/regras/REGUA-DE-CHANGE-EVENT-EAME.md"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-REFERENCIA-MANUTENCAO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/mutacao_referencia_manutencao.py:17"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 7950,
+      "y": 1970
     },
     {
       "id": "C-IT-INCREMENTALIDADE",
@@ -50500,6 +50642,7 @@
         "C-IT-COLETA",
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
+        "C-IT-EDICOES-DO-REGISTRO",
         "C-LASTMILE-MEDIDORES",
         "C-MAPA-SCAN",
         "C-MICRO-COLETA-INSTRUMENTO",
@@ -50515,6 +50658,7 @@
         "C-PROVA-SALA-ITALIANA",
         "C-PROVA-TETO-DOMINIO",
         "C-RECOLLECTION-CENSO",
+        "C-REFERENCIA-FRESCOR",
         "C-RELATORIO-FLUXO",
         "C-SCRAP-COLHEITA",
         "C-TESTES"
@@ -50523,7 +50667,7 @@
         "ITALIA": 1
       },
       "paises_dado": {
-        "ITALIA": 3
+        "ITALIA": 4
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -50561,10 +50705,10 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "coleta/it/edicoes_do_registro.py:431",
           "coleta/italy_executor.py:88",
           "coleta/scrap_colheita.py:905",
-          "ferramentas/big_collection/bc5_big_collection.py:39",
-          "ferramentas/big_collection/ensaio_rodada.py:277"
+          "ferramentas/big_collection/bc5_big_collection.py:39"
         ],
         "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-INTEGRA-ONDA2 · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -51582,7 +51726,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 7950,
+      "x": 8365,
       "y": 1970
     },
     {
@@ -52640,6 +52784,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-INGRESSO",
         "C-IT-COLETA",
+        "C-IT-EDICOES-DO-REGISTRO",
         "C-LASTMILE-MEDIDORES",
         "C-LEITOR-DATA-YT",
         "C-LUGAR-COLETA",
@@ -52720,8 +52865,8 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ESPANHA": 2,
-        "ITALIA": 1
+        "ITALIA": 2,
+        "ESPANHA": 2
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -55181,8 +55326,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 8365,
-      "y": 1970
+      "x": 7535,
+      "y": 2292
     },
     {
       "id": "C-POLITICA-COLETA",
@@ -60868,6 +61013,107 @@
       "y": 7766
     },
     {
+      "id": "C-PROVA-REFERENCIA-MANUTENCAO",
+      "name": "A mutacao da referencia-manutencao",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Planta 16 defeitos (sobrescrever edicao antiga, inventar cultura, pular revogacao, frescor contado da edicao, alerta que morre, rotacao acima do teto, corredor que ignora a cadencia) e exige que o teste nomeado fique vermelho; restaura e confere o sha256.",
+      "why_here": "Teste que nunca viu vermelho nao e teste. O mutante K5 (o corredor calcula a cadencia e deita o resultado fora) sobreviveu na primeira volta e obrigou uma guarda nova.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/mutacao_referencia_manutencao.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-COLETA",
+        "C-IT-EDICOES-DO-REGISTRO",
+        "C-REFERENCIA-CADENCIA",
+        "C-REFERENCIA-FRESCOR",
+        "C-TESTES"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MUTANTES"
+        ],
+        "palavras": 16,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 16,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "MEASUREMENT_INSTRUMENT",
+        "MEASURED_WHY": "le 7 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 7 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "coleta/it/edicoes_do_registro.py",
+        "coleta/italy_recurrent_collect.mjs",
+        "leis/frescor_da_referencia.py",
+        "regras/cadencia_da_referencia.mjs",
+        "regras/cadencia_da_referencia_test.mjs",
+        "tests/test_edicoes_do_registro.py",
+        "tests/test_frescor_da_referencia.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 22510,
+      "y": 7766
+    },
+    {
       "id": "C-PROVA-RETRY-DO-SCRAP",
       "name": "A prova de que o retry recupera a MESMA corrida",
       "territory": "Z-PROVA",
@@ -60953,7 +61199,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7766
     },
     {
@@ -61075,8 +61321,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
-      "y": 7766
+      "x": 22095,
+      "y": 8088
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -61178,7 +61424,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 8088
     },
     {
@@ -61329,7 +61575,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8088
     },
     {
@@ -61427,8 +61673,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
-      "y": 8088
+      "x": 22095,
+      "y": 8410
     },
     {
       "id": "C-PROVA-SALA-ITALIANA",
@@ -61540,7 +61786,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 8410
     },
     {
@@ -61651,7 +61897,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8410
     },
     {
@@ -61809,8 +62055,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
-      "y": 8410
+      "x": 22095,
+      "y": 8732
     },
     {
       "id": "C-PROVA-T6-ATRAVESSA",
@@ -61908,7 +62154,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 8732
     },
     {
@@ -62033,7 +62279,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8732
     },
     {
@@ -62121,8 +62367,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
-      "y": 8732
+      "x": 22095,
+      "y": 9054
     },
     {
       "id": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -62205,7 +62451,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 9054
     },
     {
@@ -62302,7 +62548,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9054
     },
     {
@@ -62436,8 +62682,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
-      "y": 9054
+      "x": 22095,
+      "y": 9376
     },
     {
       "id": "C-PROVENIENCIA",
@@ -62819,7 +63065,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 9376
     },
     {
@@ -63326,7 +63572,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9376
     },
     {
@@ -63501,8 +63747,190 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
-      "y": 9376
+      "x": 22095,
+      "y": 9698
+    },
+    {
+      "id": "C-REFERENCIA-CADENCIA",
+      "name": "A cadencia da referencia — quando se volta a fonte",
+      "territory": "Z-REGRAS",
+      "kind": "engine",
+      "what": "Le o bloco CADENCIA do contrato da fonte (D117, dono, 27/09) e responde «e devida HOJE?»: SEMANAL (IT-T4-001 na terca, retenta quarta e quinta, o alerta continua ate haver checagem ok), MENSAL com EXTRAORDINARIA (catalogo ADAMA, disparada pelo diff do registro) e ROTACAO_DIARIA (bulas: disparadas pelo diff primeiro, depois a checagem mais antiga, ate 3 por dia e nunca acima do que sobra do teto de 5 por dominio em 24 h). O corredor agendado aplica-a DEPOIS do portao de admissao: tira do dia quem nao e devida, com o porque, e nunca acrescenta ninguem.",
+      "why_here": "RECOLLECTION != CADENCIA. O contrato de IT-T4-001 dizia se se revisita um detalhe e nada dizia sobre QUANDO voltar a fonte; nenhuma edicao do registro foi colhida depois de 14/09. CADENCIA NAO E ADMISSAO: quem diz se uma fonte pode ser colhida continua a ser curadoria/collection_gate.py. A ultima checagem ok vem de leis/frescor_da_referencia.py — um dono so para essa leitura.",
+      "departments": [
+        "ENGENHARIA",
+        "REGULATORIO_PORTFOLIO"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⟲",
+      "views": [
+        "acervo",
+        "audit",
+        "collection-strategy"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "regras/cadencia_da_referencia.mjs",
+        "regras/cadencia_da_referencia_test.mjs"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-COLETA",
+        "C-IT-CONTRATOS",
+        "C-REFERENCIA-FRESCOR"
+      ],
+      "outbound": [
+        "C-IT-COLETA",
+        "C-PROVA-REFERENCIA-MANUTENCAO"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 6
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: le artefato e nao escreve nenhum: olha e da nota",
+      "OWNER": "ENGENHARIA · REGULATORIO_PORTFOLIO",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/italy_recurrent_collect.mjs",
+        "curadoria/collection_gate.py",
+        "leis/frescor_da_referencia.py",
+        "regras/cadencia_da_referencia.mjs",
+        "regras/italy_contracts.mjs"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/italy_recurrent_collect.mjs:42",
+          "provas/mutacao_referencia_manutencao.py:19"
+        ],
+        "PORQUE": "estas pecas importam-na — C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 11020,
+      "y": 1326
+    },
+    {
+      "id": "C-REFERENCIA-FRESCOR",
+      "name": "O frescor da referencia — 14 e 30 dias desde a ultima checagem",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Funcao pura estado_frescor(EDICAO_DATA, ULTIMA_CHECAGEM_OK, hoje): menos de 14 dias EM_DIA; 14 ou mais PODE_ESTAR_DESATUALIZADO; 30 ou mais as autorizacoes passam a A_CONFIRMAR (D117.4). Conta desde a ultima CHECAGEM bem-sucedida (HEALTHY, inclui SEEN_AGAIN), nunca desde a edicao; sem checagem e NAO_SEI. A CLI --json le o livro de observacoes e e o que a Intelligence/Label Intelligence consulta (D117.6) e o que o corredor agendado pergunta para a cadencia.",
+      "why_here": "EDICAO VELHA != DADO DESATUALIZADO; CHECAGEM VELHA = NAO SABEMOS SE MUDOU. A idade do documento nao diz se o sabemos atual — a idade do olhar diz.",
+      "departments": [
+        "INTELIGENCIA",
+        "REGULATORIO_PORTFOLIO"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⌛",
+      "views": [
+        "audit",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "leis/frescor_da_referencia.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-PRESERVAR"
+      ],
+      "outbound": [
+        "C-IT-COLETA",
+        "C-PROVA-REFERENCIA-MANUTENCAO",
+        "C-REFERENCIA-CADENCIA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: le artefato e nao escreve nenhum: olha e da nota",
+      "OWNER": "INTELIGENCIA · REGULATORIO_PORTFOLIO",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/collection-ledger/italy/observations.ndjson"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/italy_recurrent_collect.mjs:259",
+          "provas/mutacao_referencia_manutencao.py:18",
+          "regras/cadencia_da_referencia_test.mjs:111",
+          "tests/test_frescor_da_referencia.py:15"
+        ],
+        "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-REFERENCIA-CADENCIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 20560,
+      "y": 1970
     },
     {
       "id": "C-REGRA-COLETA",
@@ -63727,7 +64155,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 9698
     },
     {
@@ -64322,7 +64750,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-MARCA · C-INT-CONVERGENCIA · C-PACOTE-CAMADAS · C-PORTAL-DADOS · C-PRECO-DE-MERCADO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20560,
+      "x": 20975,
       "y": 1970
     },
     {
@@ -64420,7 +64848,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUTORIZACAO-DE-GASTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20975,
+      "x": 21390,
       "y": 1970
     },
     {
@@ -64591,7 +65019,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9698
     },
     {
@@ -64712,7 +65140,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 7535,
+      "x": 7950,
       "y": 2292
     },
     {
@@ -64888,7 +65316,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7950,
+      "x": 8365,
       "y": 2292
     },
     {
@@ -64940,6 +65368,7 @@
       "outbound": [
         "C-DUAS-PORTAS-MEDIDORES",
         "C-INT-ESPINHA",
+        "C-IT-EDICOES-DO-REGISTRO",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
@@ -64960,7 +65389,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 3
+        "ITALIA": 4
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -65059,18 +65488,21 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-EDICOES-DO-REGISTRO.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-DATA-CLOCK"
       ],
       "outbound": [
+        "C-IT-EDICOES-DO-REGISTRO",
         "C-RECORRENCIA",
         "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
@@ -65105,17 +65537,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
-        "QUEM": [
-          "C-RECORRENCIA",
-          "C-TESTES"
-        ],
-        "PLANO": "CODE",
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
         "PROVA": [
+          "coleta/it/edicoes_do_registro.py:85",
           "provas/chain.py:43",
           "tests/test_falhas.py:22"
         ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+        "PORQUE": "estas pecas importam-na — C-IT-EDICOES-DO-REGISTRO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 12140,
       "y": 3580
@@ -65232,8 +65662,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 8365,
-      "y": 2292
+      "x": 7535,
+      "y": 2614
     },
     {
       "id": "C-SCRAP-EVIDENCIA",
@@ -65559,8 +65989,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-APIFY-POOL · C-CENSO-OBSERVABILIDADE · C-COLETA-BASE · C-COLETA-PUBLICA · C-CONTRATO-TELEMETRIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 21390,
-      "y": 1970
+      "x": 20560,
+      "y": 2292
     },
     {
       "id": "C-SCRAP-ROTA",
@@ -65872,7 +66302,7 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 7535,
+      "x": 7950,
       "y": 2614
     },
     {
@@ -65997,8 +66427,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22925,
-      "y": 9698
+      "x": 22095,
+      "y": 10020
     },
     {
       "id": "C-SEGUIR-PESQUISADORES",
@@ -66228,8 +66658,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 11020,
-      "y": 1326
+      "x": 10605,
+      "y": 1648
     },
     {
       "id": "C-SINTONIA-SCRAP",
@@ -66578,7 +67008,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22095,
+      "x": 22510,
       "y": 10020
     },
     {
@@ -66924,7 +67354,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10020
     },
     {
@@ -68851,7 +69281,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-PEDIDO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20560,
+      "x": 20975,
       "y": 2292
     },
     {
@@ -68997,6 +69427,7 @@
         "tests/test_d37_campos_de_politica.py",
         "tests/test_data_do_fato.py",
         "tests/test_dedup_video_social.py",
+        "tests/test_edicoes_do_registro.py",
         "tests/test_egresso_consenso.py",
         "tests/test_ensaio_offline_micro.py",
         "tests/test_espinha_da_intelligence.py",
@@ -69019,6 +69450,7 @@
         "tests/test_fontes_explicitas_no_coletor.py",
         "tests/test_forward_instrumentado.py",
         "tests/test_freio_social.py",
+        "tests/test_frescor_da_referencia.py",
         "tests/test_fronteira_mede_a_sala_canonica.py",
         "tests/test_fronteira_mede_producao.py",
         "tests/test_fundacao_da_coleta.py",
@@ -69187,7 +69619,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 312,
+      "file_count": 314,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -69354,6 +69786,7 @@
         "C-RECEITAS",
         "C-RECEITAS-PROPOSTA",
         "C-RECORRENCIA",
+        "C-REFERENCIA-FRESCOR",
         "C-REGRA-COLETA",
         "C-REGUA-T1-JANELA",
         "C-REGUA-T2-JANELA",
@@ -69418,6 +69851,7 @@
         "C-PROVA-FRONTEIRA",
         "C-PROVA-PONTE-CASCO",
         "C-PROVA-POTE-CASCO",
+        "C-PROVA-REFERENCIA-MANUTENCAO",
         "C-PROVA-ROTAS-REAIS",
         "C-REGRESSAO-NAVEGADOR",
         "C-SALA-DE-ESPERA",
@@ -69512,6 +69946,7 @@
           "LINHA_BOA",
           "MINIMOS",
           "MUR",
+          "OBS",
           "ONDE",
           "OUTRAS_GAVETAS",
           "PAGINAS",
@@ -69558,13 +69993,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1908,
+        "palavras": 1940,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1896,
+        "sem_marca_de_lingua": 1928,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -69943,6 +70378,7 @@
         "leis/falhas.py",
         "leis/fato_do_texto.py",
         "leis/fato_local.py",
+        "leis/frescor_da_referencia.py",
         "leis/fundacao_da_coleta.py",
         "leis/gestao_da_coleta.py",
         "leis/politica_da_coleta.py",
@@ -70141,6 +70577,8 @@
         "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
         "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
         "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
+        "tests/fixtures/it_t4_001/PROD_FTS_6_20260914.csv",
+        "tests/fixtures/it_t4_001/PROD_FTS_6_20260921.csv",
         "tests/fixtures/ponte_onboard_17_contratos.json",
         "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
         "tests/fixtures/pote/POTE-SINTETICO.json",
@@ -70179,8 +70617,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
-      "y": 10020
+      "x": 22095,
+      "y": 10342
     },
     {
       "id": "C-TRANSCRICAO",
@@ -74025,6 +74463,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-IT-EDICOES-DO-REGISTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por As edicoes do registro — o diff produto a produto e o EVENTO_REGULATORIO. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/it/edicoes_do_registro.py",
+          "line": 398,
+          "snippet": "import admissao as adm  # noqa: E402 — a porta canonica",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-IT-EDICOES-DO-REGISTRO",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-IT-EDICOES-DO-REGISTRO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -78383,7 +78856,7 @@
         },
         {
           "file": "coleta/italy_recurrent_collect.mjs",
-          "line": 81,
+          "line": 82,
           "snippet": "try { ({ stdout } = await run(PY, [join(RAIZ, \"superficie\", \"rede.py\"), \"--portao-de-egresso\", \"IT\"], { encoding: \"utf8\", timeout: 90000 })); }",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-IT-COLETA",
@@ -83239,7 +83712,7 @@
       "evidence": [
         {
           "file": "regras/italy_contracts.mjs",
-          "line": 584,
+          "line": 628,
           "snippet": "readFileSync(new URL(\"./italy_contracts_onboarded.json\", import.meta.url), \"utf8\"));",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CAPA-MATERIA--READS-->C-IT-CONTRATOS",
@@ -109232,6 +109705,41 @@
     },
     {
       "from": "C-IT-COLETA",
+      "to": "C-PROVA-REFERENCIA-MANUTENCAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta A mutacao da referencia-manutencao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_referencia_manutencao.py",
+          "line": 20,
+          "snippet": "RUN = R / \"coleta\" / \"italy_recurrent_collect.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-REFERENCIA-MANUTENCAO",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-REFERENCIA-MANUTENCAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-COLETA",
       "to": "C-PROVA-SALA-ITALIANA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -109369,6 +109877,57 @@
             "EDGE_ID": "C-IT-COLETA--READS-->C-RECEITAS",
             "FROM": "C-IT-COLETA",
             "TO": "C-RECEITAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-REFERENCIA-CADENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta A cadencia da referencia — quando se volta a fonte. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "regras/cadencia_da_referencia_test.mjs",
+          "line": 101,
+          "snippet": "const runner = readFileSync(new URL(\"../coleta/italy_recurrent_collect.mjs\", import.meta.url), \"utf8\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-REFERENCIA-CADENCIA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-REFERENCIA-CADENCIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "regras/cadencia_da_referencia_test.mjs",
+          "line": 106,
+          "snippet": "&& codigo.indexOf(\"filtrarPorCadencia(aColher\") < codigo.indexOf('import(\"./italy_pilot_collect.mjs\")'));",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-REFERENCIA-CADENCIA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-REFERENCIA-CADENCIA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -111468,6 +112027,70 @@
     },
     {
       "from": "C-IT-CONTRATOS",
+      "to": "C-REFERENCIA-CADENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por A cadencia da referencia — quando se volta a fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/cadencia_da_referencia_test.mjs",
+          "line": 9,
+          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-REFERENCIA-CADENCIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-REFERENCIA-CADENCIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-REFERENCIA-CADENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "O contrato de cada fonte italiana alimenta A cadencia da referencia — quando se volta a fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/cadencia_da_referencia_test.mjs",
+          "line": 9,
+          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
       "to": "C-SALA-DE-ESPERA",
       "type": "READS",
       "payload": "artefacto",
@@ -111810,6 +112433,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-EDICOES-DO-REGISTRO",
+      "to": "C-PROVA-REFERENCIA-MANUTENCAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As edicoes do registro — o diff produto a produto e o EVENTO_REGULATORIO alimenta A mutacao da referencia-manutencao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_referencia_manutencao.py",
+          "line": 17,
+          "snippet": "DIFF = R / \"coleta\" / \"it\" / \"edicoes_do_registro.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-EDICOES-DO-REGISTRO--READS-->C-PROVA-REFERENCIA-MANUTENCAO",
+            "FROM": "C-IT-EDICOES-DO-REGISTRO",
+            "TO": "C-PROVA-REFERENCIA-MANUTENCAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -113352,6 +114010,41 @@
     },
     {
       "from": "C-IT-PRESERVAR",
+      "to": "C-IT-EDICOES-DO-REGISTRO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta As edicoes do registro — o diff produto a produto e o EVENTO_REGULATORIO. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/it/edicoes_do_registro.py",
+          "line": 431,
+          "snippet": "with open(livro, encoding=\"utf-8\") as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-IT-EDICOES-DO-REGISTRO",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-IT-EDICOES-DO-REGISTRO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
       "to": "C-LASTMILE-MEDIDORES",
       "type": "READS",
       "payload": "artefacto",
@@ -114309,6 +115002,41 @@
     },
     {
       "from": "C-IT-PRESERVAR",
+      "to": "C-REFERENCIA-FRESCOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta O frescor da referencia — 14 e 30 dias desde a ultima checagem. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/frescor_da_referencia.py",
+          "line": 178,
+          "snippet": "or os.path.join(raiz, \"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-REFERENCIA-FRESCOR",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-REFERENCIA-FRESCOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
       "to": "C-RELATORIO-FLUXO",
       "type": "READS",
       "payload": "artefacto",
@@ -114401,7 +115129,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
@@ -114423,6 +115151,22 @@
           "file": "tests/test_fontes_explicitas_no_coletor.py",
           "line": 80,
           "snippet": "\"observations.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_frescor_da_referencia.py",
+          "line": 83,
+          "snippet": "p = os.path.join(d, \"observations.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
             "FROM": "C-IT-PRESERVAR",
@@ -118763,6 +119507,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-IT-EDICOES-DO-REGISTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por As edicoes do registro — o diff produto a produto e o EVENTO_REGULATORIO. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/it/edicoes_do_registro.py",
+          "line": 83,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-IT-EDICOES-DO-REGISTRO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-IT-EDICOES-DO-REGISTRO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-LASTMILE-MEDIDORES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -122175,7 +122954,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 161 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 163 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -139568,6 +140347,296 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-REFERENCIA-CADENCIA",
+      "to": "C-IT-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A cadencia da referencia — quando se volta a fonte tem o seu codigo importado por Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 42,
+          "snippet": "import { filtrarPorCadencia } from \"../regras/cadencia_da_referencia.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REFERENCIA-CADENCIA--IMPORTS-->C-IT-COLETA",
+            "FROM": "C-REFERENCIA-CADENCIA",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REFERENCIA-CADENCIA",
+      "to": "C-IT-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "A cadencia da referencia — quando se volta a fonte alimenta Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 42,
+          "snippet": "import { filtrarPorCadencia } from \"../regras/cadencia_da_referencia.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REFERENCIA-CADENCIA",
+      "to": "C-PROVA-REFERENCIA-MANUTENCAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A cadencia da referencia — quando se volta a fonte alimenta A mutacao da referencia-manutencao. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_referencia_manutencao.py",
+          "line": 19,
+          "snippet": "CAD = R / \"regras\" / \"cadencia_da_referencia.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REFERENCIA-CADENCIA--READS-->C-PROVA-REFERENCIA-MANUTENCAO",
+            "FROM": "C-REFERENCIA-CADENCIA",
+            "TO": "C-PROVA-REFERENCIA-MANUTENCAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/mutacao_referencia_manutencao.py",
+          "line": 23,
+          "snippet": "T_CAD = [\"node\", \"regras/cadencia_da_referencia_test.mjs\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REFERENCIA-CADENCIA--READS-->C-PROVA-REFERENCIA-MANUTENCAO",
+            "FROM": "C-REFERENCIA-CADENCIA",
+            "TO": "C-PROVA-REFERENCIA-MANUTENCAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REFERENCIA-FRESCOR",
+      "to": "C-IT-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O frescor da referencia — 14 e 30 dias desde a ultima checagem alimenta Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 259,
+          "snippet": "const saida = execFileSync(PY, [\"leis/frescor_da_referencia.py\", \"--json\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REFERENCIA-FRESCOR--READS-->C-IT-COLETA",
+            "FROM": "C-REFERENCIA-FRESCOR",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REFERENCIA-FRESCOR",
+      "to": "C-PROVA-REFERENCIA-MANUTENCAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O frescor da referencia — 14 e 30 dias desde a ultima checagem alimenta A mutacao da referencia-manutencao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_referencia_manutencao.py",
+          "line": 18,
+          "snippet": "FRE = R / \"leis\" / \"frescor_da_referencia.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REFERENCIA-FRESCOR--READS-->C-PROVA-REFERENCIA-MANUTENCAO",
+            "FROM": "C-REFERENCIA-FRESCOR",
+            "TO": "C-PROVA-REFERENCIA-MANUTENCAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REFERENCIA-FRESCOR",
+      "to": "C-REFERENCIA-CADENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O frescor da referencia — 14 e 30 dias desde a ultima checagem alimenta A cadencia da referencia — quando se volta a fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/cadencia_da_referencia_test.mjs",
+          "line": 111,
+          "snippet": "t(\"a ultima checagem vem do dono (leis/frescor_da_referencia.py)\", codigo.includes('\"leis/frescor_da_referencia.py\", \"--json\"'));",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REFERENCIA-FRESCOR--READS-->C-REFERENCIA-CADENCIA",
+            "FROM": "C-REFERENCIA-FRESCOR",
+            "TO": "C-REFERENCIA-CADENCIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REFERENCIA-FRESCOR",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O frescor da referencia — 14 e 30 dias desde a ultima checagem tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_frescor_da_referencia.py",
+          "line": 15,
+          "snippet": "import frescor_da_referencia as F  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REFERENCIA-FRESCOR--IMPORTS-->C-TESTES",
+            "FROM": "C-REFERENCIA-FRESCOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REFERENCIA-FRESCOR",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O frescor da referencia — 14 e 30 dias desde a ultima checagem alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_frescor_da_referencia.py",
+          "line": 86,
+          "snippet": "r = subprocess.run([sys.executable, os.path.join(RAIZ, \"leis\", \"frescor_da_referencia.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REFERENCIA-FRESCOR--READS-->C-TESTES",
+            "FROM": "C-REFERENCIA-FRESCOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-REGRA-COLETA",
       "to": "C-TESTES",
       "type": "IMPORTS",
@@ -142202,6 +143271,41 @@
     },
     {
       "from": "C-SALA-DE-ESPERA",
+      "to": "C-IT-EDICOES-DO-REGISTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por As edicoes do registro — o diff produto a produto e o EVENTO_REGULATORIO. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/it/edicoes_do_registro.py",
+          "line": 417,
+          "snippet": "import sala_de_espera as espera  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-IT-EDICOES-DO-REGISTRO",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-IT-EDICOES-DO-REGISTRO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -143164,7 +144268,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 19 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 20 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -143218,6 +144322,22 @@
           "file": "tests/test_cliente_postgres.py",
           "line": 221,
           "snippet": "import sala_de_espera as se",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_edicoes_do_registro.py",
+          "line": 151,
+          "snippet": "import sala_de_espera as espera",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
             "FROM": "C-SALA-DE-ESPERA",
@@ -143330,22 +144450,6 @@
           "file": "tests/test_periodo_e_chaves.py",
           "line": 209,
           "snippet": "import reprocessar_tempo_lugar as RP",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
-            "FROM": "C-SALA-DE-ESPERA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_periodo_e_chaves.py",
-          "line": 238,
-          "snippet": "import sala_de_espera as S",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
             "FROM": "C-SALA-DE-ESPERA",
@@ -143539,6 +144643,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SAUDE-FONTE",
+      "to": "C-IT-EDICOES-DO-REGISTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A saude de cada fonte tem o seu codigo importado por As edicoes do registro — o diff produto a produto e o EVENTO_REGULATORIO. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/it/edicoes_do_registro.py",
+          "line": 85,
+          "snippet": "import source_health as sh  # noqa: E402 — o portao de versao da regua de change event",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SAUDE-FONTE--IMPORTS-->C-IT-EDICOES-DO-REGISTRO",
+            "FROM": "C-SAUDE-FONTE",
+            "TO": "C-IT-EDICOES-DO-REGISTRO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -154191,12 +155330,28 @@
       "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes escreve em Guardar com impressao digital. Provado por 2 linhas de codigo.",
+      "reason": "Suite de testes escreve em Guardar com impressao digital. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_ensaio_offline_micro.py",
           "line": 41,
           "snippet": "(led / \"observations.ndjson\").write_text(json.dumps(",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
+            "FROM": "C-TESTES",
+            "TO": "C-IT-PRESERVAR",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_frescor_da_referencia.py",
+          "line": 84,
+          "snippet": "with open(p, \"w\", encoding=\"utf-8\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
             "FROM": "C-TESTES",
@@ -154873,6 +156028,57 @@
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
             "FROM": "C-TESTES",
             "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-PROVA-REFERENCIA-MANUTENCAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta A mutacao da referencia-manutencao. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_referencia_manutencao.py",
+          "line": 21,
+          "snippet": "T_DIFF = [sys.executable, \"tests/test_edicoes_do_registro.py\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-REFERENCIA-MANUTENCAO",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-REFERENCIA-MANUTENCAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/mutacao_referencia_manutencao.py",
+          "line": 22,
+          "snippet": "T_FRE = [sys.executable, \"tests/test_frescor_da_referencia.py\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-REFERENCIA-MANUTENCAO",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-REFERENCIA-MANUTENCAO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -158779,7 +159985,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2184,
+  "UNCLAIMED_FILES_COUNT": 2188,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -159029,7 +160235,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 255,
+      "PECAS_EM_DESACORDO": 259,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -159041,26 +160247,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 283
+      "TOTAL_DE_PECAS": 287
     }
   ],
   "COUNTS": {
-    "components": 283,
+    "components": 287,
     "components_proven": 34,
-    "components_pending": 241,
+    "components_pending": 245,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1686,
-    "edges_proven": 1619,
-    "edges_unknown": 67,
+    "edges": 1706,
+    "edges_proven": 1637,
+    "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 3939,
-    "files_covered": 1755,
+    "files_tracked": 3950,
+    "files_covered": 1762,
     "files_code_unclaimed": 0,
-    "roles_proven": 193,
+    "roles_proven": 196,
     "roles_declared_only": 9,
-    "roles_unknown": 81,
-    "roles_conflict": 46,
+    "roles_unknown": 82,
+    "roles_conflict": 47,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
     "concept_owner_single": 2,
