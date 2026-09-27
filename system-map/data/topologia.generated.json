@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T17:42:50+00:00",
-  "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-  "BRANCH": "claude/lote4-final-integration-l02r5q",
+  "GENERATED_AT": "2026-09-27T19:48:08+00:00",
+  "HEAD": "6ccf70c8d37cda6325909d941b16b3f1d4050500",
+  "BRANCH": "claude/rete-voci-dati-adapters-sit3hj",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
-  "FICHEIROS_NA_IMPRESSAO": 4087,
+  "SOURCE_TREE_FINGERPRINT": "ec42cb1dc1a97e4167de52ee93d16098196bce8a507a945f7e3c7fb5fec7067e",
+  "FICHEIROS_NA_IMPRESSAO": 4092,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2748,6 +2748,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "pacote/rete_voci_dati.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "7c76cc89ea9d29fc0fb8187644372d99c5ffadb2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "pacote/v21_handoff_json.py",
     "PAPEL": "FONTE",
     "VERSAO": "94aadd8693d949bef7a77d109872e1e372d9f8d0",
@@ -2884,6 +2891,13 @@
     "PATH": "provas/_mutantes_prova_teto_social.py",
     "PAPEL": "FONTE",
     "VERSAO": "2877aabc9dc28484ff2ab284ba2c5cc33fc1e5cf",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/_mutantes_rete_voci_dati.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "f94b7ec810acc8c90f6e4ae4803e1ad264371fd0",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -5109,14 +5123,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
+    "VERSAO": "ec42cb1dc1a97e4167de52ee93d16098196bce8a507a945f7e3c7fb5fec7067e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
+    "VERSAO": "ec42cb1dc1a97e4167de52ee93d16098196bce8a507a945f7e3c7fb5fec7067e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7200,6 +7214,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_rete_voci_dati.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a67065a0a1bd7e5e1b8c340a522fd5c6f192809f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_retirada_por_decisao.py",
     "PAPEL": "FONTE",
     "VERSAO": "730f94111ee490b4c0394d5fd670b0d809542dc7",
@@ -7578,8 +7599,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1077,
-  "INPUTS_DIGEST": "68a2e799cd43672b60733a8ef42a5dffc247835d068670c53f27eba7a8f3461d",
+  "INPUTS_COUNT": 1080,
+  "INPUTS_DIGEST": "676cc9dbd12e8947694528e169e5afa9097ae425adc2d8f810eaf68877a644f1",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7612,8 +7633,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "31d408822eda3515a09c99449db780842b25b230ce7c2a42c8652d6e88eef9eb",
-  "SEMANTIC_HASH": "a36729b51950f0c9c17c69e035e530cef2675a0c023d7566915662a113ff981c"
+  "MEASUREMENT_HASH": "9d8de2b98c2907d5d9b14c44eba36bb0e26ec7710d8386ad4c1a4b10e29aca49",
+  "SEMANTIC_HASH": "0f7e88cc7cb1c5a4c00b96bd9c4723eef622ff416abc9dc6f836787d5bee9c68"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7827,6 +7848,7 @@
    "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-RECOLLECTION",
+   "C-PROVA-RETE-VOCI-DATI",
    "C-PROVA-RETRY-DO-SCRAP",
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -7843,6 +7865,7 @@
    "C-RECORRENCIA",
    "C-RELEVANCIA",
    "C-RELEVANCIA-DA-FONTE",
+   "C-RETE-VOCI-DATI",
    "C-SCRAP-LEIS",
    "C-SECURITY-CHECK",
    "C-SITE-INGEST",
@@ -7853,7 +7876,7 @@
    "C-V21-INGEST",
    "C-VOCI-DAL-CAMPO"
   ],
-  "COUNT": 97
+  "COUNT": 99
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -8021,6 +8044,7 @@
    "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-RECOLLECTION",
+   "C-PROVA-RETE-VOCI-DATI",
    "C-PROVA-RETRY-DO-SCRAP",
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -8048,6 +8072,7 @@
    "C-RELEVANCIA",
    "C-RELEVANCIA-DA-FONTE",
    "C-REPARO-MEDICAO",
+   "C-RETE-VOCI-DATI",
    "C-ROTA-M2",
    "C-ROTULOS",
    "C-SALA-DE-ESPERA",
@@ -8078,16 +8103,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 217
+  "COUNT": 219
  },
  "ARITMETICA": {
   "COLLECTION": 120,
-  "BOUNDARY": 97,
-  "SOMA": 217,
-  "EXPANDED": 217,
+  "BOUNDARY": 99,
+  "SOMA": 219,
+  "EXPANDED": 219,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 217,
+  "RESUMO_CARTOES_NO_UNIVERSO": 219,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -11081,6 +11106,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-PROVA-AUTORIDADE-FONTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AS-FONTES--READS-->C-PROVA-RETE-VOCI-DATI",
+    "FROM": "C-AS-FONTES",
+    "TO": "C-PROVA-RETE-VOCI-DATI",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_rete_voci_dati.py",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-PROVA-RETE-VOCI-DATI",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -15189,6 +15236,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-JANELA-FORMAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-RETE-VOCI-DATI",
+    "FROM": "C-CENSO-UNIFICACAO",
+    "TO": "C-PROVA-RETE-VOCI-DATI",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_rete_voci_dati.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-RETE-VOCI-DATI",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -20149,6 +20218,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CORPUS--READS-->C-RECEITAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CORPUS--READS-->C-RETE-VOCI-DATI",
+    "FROM": "C-CORPUS",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 105,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CORPUS--READS-->C-RETE-VOCI-DATI",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -26742,6 +26833,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-RETE-VOCI-DATI",
+    "FROM": "C-INT-CORRIDA",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 75,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-RETE-VOCI-DATI",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
     "FROM": "C-INT-CORRIDA",
     "TO": "C-TESTES",
@@ -26780,6 +26893,14 @@
      {
       "FICHEIRO": "tests/test_ponte_intelligence_casco.py",
       "LINHA": 28,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_rete_voci_dati.py",
+      "LINHA": 27,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
@@ -27135,6 +27256,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-RETE-VOCI-DATI",
+    "FROM": "C-INT-ESPINHA",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 76,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-RETE-VOCI-DATI",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-TESTES",
     "FROM": "C-INT-ESPINHA",
     "TO": "C-TESTES",
@@ -27296,6 +27439,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-ESPINHA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-INT-GRAFO-DEPENDENCIA--IMPORTS-->C-RETE-VOCI-DATI",
+    "FROM": "C-INT-GRAFO-DEPENDENCIA",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 77,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-GRAFO-DEPENDENCIA--IMPORTS-->C-RETE-VOCI-DATI",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -28005,6 +28170,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CATALOGO--READS-->C-PROVA-RETE-VOCI-DATI",
+    "FROM": "C-IT-CATALOGO",
+    "TO": "C-PROVA-RETE-VOCI-DATI",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_rete_voci_dati.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-PROVA-RETE-VOCI-DATI",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CATALOGO--READS-->C-PROVA-ROTA-M2-ATRAVESSA",
     "FROM": "C-IT-CATALOGO",
     "TO": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -28022,6 +28209,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-PROVA-ROTA-M2-ATRAVESSA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-CATALOGO--READS-->C-RETE-VOCI-DATI",
+    "FROM": "C-IT-CATALOGO",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 300,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-RETE-VOCI-DATI",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -35951,6 +36160,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-RETE-VOCI-DATI",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 70,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-RETE-VOCI-DATI",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ROTA-M2",
     "FROM": "C-MAPA-TESTES",
     "TO": "C-ROTA-M2",
@@ -37288,6 +37519,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-RETE-VOCI-DATI",
+    "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 103,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-RETE-VOCI-DATI",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -41910,6 +42163,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-RETE-VOCI-DATI",
+    "FROM": "C-POTE-INT-CASCO",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 80,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-RETE-VOCI-DATI",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
     "FROM": "C-POTE-INT-CASCO",
     "TO": "C-TESTES",
@@ -41924,6 +42199,14 @@
      {
       "FICHEIRO": "tests/test_pote_intelligence_casco.py",
       "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_rete_voci_dati.py",
+      "LINHA": 26,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
@@ -41949,6 +42232,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PRECO-DE-MERCADO--IMPORTS-->C-RETE-VOCI-DATI",
+    "FROM": "C-PRECO-DE-MERCADO",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 78,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PRECO-DE-MERCADO--IMPORTS-->C-RETE-VOCI-DATI",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -46815,6 +47120,94 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RELEVANCIA-DA-FONTE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-RETE-VOCI-DATI--IMPORTS-->C-PROVA-RETE-VOCI-DATI",
+    "FROM": "C-RETE-VOCI-DATI",
+    "TO": "C-PROVA-RETE-VOCI-DATI",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_rete_voci_dati.py",
+      "LINHA": 105,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RETE-VOCI-DATI--IMPORTS-->C-PROVA-RETE-VOCI-DATI",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-RETE-VOCI-DATI--IMPORTS-->C-TESTES",
+    "FROM": "C-RETE-VOCI-DATI",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_rete_voci_dati.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RETE-VOCI-DATI--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-RETE-VOCI-DATI--READS-->C-PROVA-RETE-VOCI-DATI",
+    "FROM": "C-RETE-VOCI-DATI",
+    "TO": "C-PROVA-RETE-VOCI-DATI",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_rete_voci_dati.py",
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RETE-VOCI-DATI--READS-->C-PROVA-RETE-VOCI-DATI",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-RETE-VOCI-DATI--READS-->C-TESTES",
+    "FROM": "C-RETE-VOCI-DATI",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_rete_voci_dati.py",
+      "LINHA": 365,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RETE-VOCI-DATI--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -54369,6 +54762,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--READS-->C-PROVA-RETE-VOCI-DATI",
+    "FROM": "C-TESTES",
+    "TO": "C-PROVA-RETE-VOCI-DATI",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/_mutantes_rete_voci_dati.py",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-RETE-VOCI-DATI",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTAS-REAIS",
     "FROM": "C-TESTES",
     "TO": "C-PROVA-ROTAS-REAIS",
@@ -56049,6 +56464,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-V21-FONTES--READS-->C-RETE-VOCI-DATI",
+    "FROM": "C-V21-FONTES",
+    "TO": "C-RETE-VOCI-DATI",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/rete_voci_dati.py",
+      "LINHA": 95,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V21-FONTES--READS-->C-RETE-VOCI-DATI",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-V21-FONTES--READS-->C-SITE-INGEST",
     "FROM": "C-V21-FONTES",
     "TO": "C-SITE-INGEST",
@@ -56791,12 +57228,12 @@
     ]
    }
   ],
-  "COUNT": 1606
+  "COUNT": 1624
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 217,
-  "CARTOES_AUDITADOS": 217,
-  "ARESTAS_RELACIONADAS": 1606,
+  "CARTOES_NO_UNIVERSO": 219,
+  "CARTOES_AUDITADOS": 219,
+  "ARESTAS_RELACIONADAS": 1624,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -57027,6 +57464,7 @@
    "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-RECOLLECTION",
+   "C-PROVA-RETE-VOCI-DATI",
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
@@ -57043,6 +57481,7 @@
    "C-REGUA-T2-JANELA",
    "C-RELATORIO-FLUXO",
    "C-REPARO-MEDICAO",
+   "C-RETE-VOCI-DATI",
    "C-ROTULOS",
    "C-SAUDE-FONTE",
    "C-SEGUIR-PESQUISADORES",
@@ -57113,6 +57552,7 @@
    "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
    "C-PROVA-GATE-1D",
    "C-PROVA-PONTE-CASCO",
+   "C-PROVA-RETE-VOCI-DATI",
    "C-RECOLLECTION-CENSO",
    "C-RELATORIO-FLUXO",
    "C-REPARO-MEDICAO",
@@ -57258,12 +57698,12 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 275,
+   "CODE": 280,
    "CONTROL": 87,
    "DATA": 31,
-   "PROOF": 562,
-   "READ": 363,
-   "RULE": 268,
+   "PROOF": 566,
+   "READ": 370,
+   "RULE": 270,
    "WRITE": 20
   },
   "GAPS_NOMEADOS": [
@@ -57648,6 +58088,7 @@
     ".github/workflows/comunicacao-publica.yml"
    ],
    "SO_MEDEM_ESTE": [
+    "provas/_mutantes_rete_voci_dati.py",
     "provas/a_autoridade_da_fonte.py",
     "provas/a_taxonomia_tem_um_dono.py",
     "provas/canario_reels_instagram.py",
@@ -57675,7 +58116,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 0,
-   "SAEM": 22,
+   "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [],
    "CATEGORIAS_QUE_SAEM": [
     "DATA",
@@ -58810,7 +59251,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 10,
-   "SAEM": 21,
+   "SAEM": 22,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -59643,7 +60084,7 @@
     "datetime"
    ],
    "ENTRAM": 2,
-   "SAEM": 7,
+   "SAEM": 8,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "DATA"
@@ -61265,7 +61706,7 @@
     "typing"
    ],
    "ENTRAM": 3,
-   "SAEM": 8,
+   "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
     "DATA",
     "READ"
@@ -61336,6 +61777,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/_mutantes_rete_voci_dati.py",
     "provas/a_autoridade_da_fonte.py",
     "provas/a_rota_m2_atravessa.py",
     "provas/italy_accounting.mjs",
@@ -61360,7 +61802,7 @@
     "a"
    ],
    "ENTRAM": 2,
-   "SAEM": 15,
+   "SAEM": 17,
    "CATEGORIAS_QUE_ENTRAM": [
     "RULE"
    ],
@@ -62441,7 +62883,7 @@
     "pente_fino_da_coleta"
    ],
    "ENTRAM": 29,
-   "SAEM": 115,
+   "SAEM": 116,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -62640,7 +63082,7 @@
     "urllib"
    ],
    "ENTRAM": 19,
-   "SAEM": 4,
+   "SAEM": 5,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -63616,14 +64058,15 @@
     "pathlib"
    ],
    "ENTRAM": 5,
-   "SAEM": 1,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
     "READ",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
-    "PROOF"
+    "PROOF",
+    "RULE"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
@@ -65351,6 +65794,38 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-PROVA-RETE-VOCI-DATI",
+   "NOME": "Mutacao da rete voci dati",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/_mutantes_rete_voci_dati.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "pathlib"
+   ],
+   "ENTRAM": 6,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "PROOF",
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-PROVA-RETRY-DO-SCRAP",
    "NOME": "A prova de que o retry recupera a MESMA corrida",
    "FAMILIA": "F-GOVERNANCA",
@@ -66628,6 +67103,50 @@
    "ORFAO_FALSO_NAS_VISTAS": [
     "collection-strategy"
    ],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-RETE-VOCI-DATI",
+   "NOME": "Rete voci dati: o dado ja coletado no contrato do pote",
+   "FAMILIA": "F-ENTREGA",
+   "TERRITORIO": "Z-PACOTE",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "pacote/rete_voci_dati.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/_mutantes_rete_voci_dati.py",
+    "tests/test_rete_voci_dati.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "corrida_da_inteligencia",
+    "espinha_da_intelligence",
+    "pathlib"
+   ],
+   "ENTRAM": 10,
+   "SAEM": 4,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "PROOF",
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "CODE",
+    "PROOF",
+    "READ"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -68104,6 +68623,7 @@
     "tests/test_regua_t2.py",
     "tests/test_relatorio_do_fluxo.py",
     "tests/test_relevance_priority_sobrecarga.py",
+    "tests/test_rete_voci_dati.py",
     "tests/test_retirada_por_decisao.py",
     "tests/test_retorno_da_coleta.py",
     "tests/test_retorno_nao_diz_success_na_falha.py",
@@ -68170,6 +68690,7 @@
     "provas/_mutantes_ponte_casco.py",
     "provas/_mutantes_pote_casco.py",
     "provas/_mutantes_prova_teto_social.py",
+    "provas/_mutantes_rete_voci_dati.py",
     "provas/a_fronteira_da_coleta.py",
     "provas/a_rota_m2_atravessa.py",
     "provas/c2_juiz_mutacao.py",
@@ -68268,6 +68789,7 @@
     "comentario",
     "consumo_da_referencia_adama",
     "contextlib",
+    "corrida_da_inteligencia",
     "coverage",
     "dataclasses",
     "datetime",
@@ -68304,8 +68826,8 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 238,
-   "SAEM": 41,
+   "ENTRAM": 240,
+   "SAEM": 42,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

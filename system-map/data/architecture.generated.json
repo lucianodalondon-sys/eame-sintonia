@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/rete-voci-dati-adapters-sit3hj",
+    "HEAD": "6ccf70c8d37cda6325909d941b16b3f1d4050500",
+    "GENERATED_AT": "2026-09-27T19:39:10+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ec42cb1dc1a97e4167de52ee93d16098196bce8a507a945f7e3c7fb5fec7067e"
   },
   "FILES": [
     {
@@ -6995,6 +6995,13 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/RETE-VOCI-DATI/CONTAGEM.json",
+      "sha": "a4b8832e0ab81ee6de6ca2e2382e7f4fb9cbece0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "sha": "b1f60f02e33d4c71c1eef14f823517d0b9e970f0",
       "ext": ".json",
@@ -11415,6 +11422,13 @@
       "path": "docs/intelligence/RED-TEAM-INTELLIGENCE-ARBITRATION-V1.md",
       "sha": "b8215eb06a5e8d412e13a74954898ebfb2c7d011",
       "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/nuvem/nuvem-rete-voci-dati-v1-MERGES.txt",
+      "sha": "f1ee486b6686800e3e542b533afa1c9bba0d69ad",
+      "ext": ".txt",
       "readable": false,
       "code_dir": false
     },
@@ -18853,6 +18867,13 @@
       "code_dir": true
     },
     {
+      "path": "pacote/rete_voci_dati.py",
+      "sha": "7c76cc89ea9d29fc0fb8187644372d99c5ffadb2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "pacote/v21_handoff_json.py",
       "sha": "94aadd8693d949bef7a77d109872e1e372d9f8d0",
       "ext": ".py",
@@ -19135,6 +19156,13 @@
     {
       "path": "provas/_mutantes_prova_teto_social.py",
       "sha": "2877aabc9dc28484ff2ab284ba2c5cc33fc1e5cf",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_mutantes_rete_voci_dati.py",
+      "sha": "f94b7ec810acc8c90f6e4ae4803e1ad264371fd0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24664,7 +24692,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e63baf949631281955e19224243f29533f74a425",
+      "sha": "2716d1430a0882ad2a50808cca6a64343c719d66",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -27192,6 +27220,13 @@
     {
       "path": "tests/test_relevance_priority_sobrecarga.py",
       "sha": "444da670945595bb81aa49f68aa8d92b4e4ea44f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_rete_voci_dati.py",
+      "sha": "a67065a0a1bd7e5e1b8c340a522fd5c6f192809f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -60012,6 +60047,215 @@
       }
     },
     {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 70,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/COMPETITOR-PUBLIC-SIGNALS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 102,
+        "snippet": "(\"SINAIS_CONCORRENCIA\", _H + \"COMPETITOR-PUBLIC-SIGNALS.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/MARKET-OBSERVATIONS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 96,
+        "snippet": "(\"MERCADO_CURADO\", _H + \"MARKET-OBSERVATIONS.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/COMPETITOR-WATCH/competitor-activities.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 100,
+        "snippet": "(\"CONCORRENCIA\", _H + \"PREVIOUS-HANDOFF/01-DESIGN-READY/COMPETITOR-WATCH/competitor-activities.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "build/ITALY-REALITY-HANDOFF-V2/PUBLIC-VOICES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 95,
+        "snippet": "(\"VOZES\", _H + \"PUBLIC-VOICES.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 300,
+        "snippet": "MESTRE_ITALIANO = \"candidatas/ITALY-SOURCE-MASTER-V1.json\""
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "data/derivados/LISTA-MESTRA/CRUZAMENTO-MUR-AGRI05.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 106,
+        "snippet": "(\"MUR\", \"data/derivados/LISTA-MESTRA/CRUZAMENTO-MUR-AGRI05.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "data/derivados/PESQUISADORES-T6/ENSAIO-OFFLINE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 103,
+        "snippet": "(\"T6_TRABALHOS\", \"data/derivados/PESQUISADORES-T6/ENSAIO-OFFLINE.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "data/derivados/T6-PARA-SALA/POR-EVIDENCIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 104,
+        "snippet": "(\"T6_POR_EVIDENCIA\", \"data/derivados/T6-PARA-SALA/POR-EVIDENCIA.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-prices-IT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 97,
+        "snippet": "(\"EU_CEREAIS\", \"data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-prices-IT.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "data/samples/IT-MERCADO/EU-AGRIFOOD-oliveOil-prices-IT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 98,
+        "snippet": "(\"EU_AZEITE\", \"data/samples/IT-MERCADO/EU-AGRIFOOD-oliveOil-prices-IT.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "data/samples/IT-MERCADO/EU-AGRIFOOD-wine-prices-IT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 99,
+        "snippet": "(\"EU_VINHO\", \"data/samples/IT-MERCADO/EU-AGRIFOOD-wine-prices-IT.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 105,
+        "snippet": "(\"CORPUS_PESQUISADOR\", \"data/samples/RESEARCHER-CORPUS-EAME-V1.json\"),"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "leis/preco_de_mercado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 78,
+        "snippet": "import preco_de_mercado as PRECO                                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 75,
+        "snippet": "from corrida_da_inteligencia import portao_g0, e_ignorancia     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "motor/grafo_de_dependencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 77,
+        "snippet": "import grafo_de_dependencia as GRAFO                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 80,
+        "snippet": "import pote_intelligence_casco as POTE                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "provas/espinha_da_intelligence.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 76,
+        "snippet": "from espinha_da_intelligence import NAO_SEI                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/rete_voci_dati.py",
+      "to_file": "tests/dados/concorrencia_meta/SNAPSHOT-S1-IT-31-08.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pacote/rete_voci_dati.py",
+        "line": 101,
+        "snippet": "(\"META_S1_31_08\", \"tests/dados/concorrencia_meta/SNAPSHOT-S1-IT-31-08.json\"),"
+      }
+    },
+    {
       "from_file": "pacote/v21_handoff_json.py",
       "to_file": "HANDOFF-V2-PAUSE.json",
       "type": "READS",
@@ -61472,6 +61716,94 @@
         "file": "provas/_mutantes_prova_teto_social.py",
         "line": 21,
         "snippet": "(\"M15 D41 fora do verificar\",\"provas/prova_teto_dominio.py\",\"            dom = orcamento_de(host)\\n\",\"            dom = dominio_registavel(host)\\n\"),"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_rete_voci_dati.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_rete_voci_dati.py",
+        "line": 25,
+        "snippet": "\"curadoria/italy_contracts_curator.json\", \"candidatas/ITALY-SOURCE-MASTER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_rete_voci_dati.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_rete_voci_dati.py",
+        "line": 25,
+        "snippet": "\"curadoria/italy_contracts_curator.json\", \"candidatas/ITALY-SOURCE-MASTER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_rete_voci_dati.py",
+      "to_file": "data/derivados/RETE-VOCI-DATI/CONTAGEM.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_rete_voci_dati.py",
+        "line": 24,
+        "snippet": "\"data/derivados/RETE-VOCI-DATI/CONTAGEM.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_rete_voci_dati.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_rete_voci_dati.py",
+        "line": 24,
+        "snippet": "\"data/derivados/RETE-VOCI-DATI/CONTAGEM.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_rete_voci_dati.py",
+      "to_file": "pacote/rete_voci_dati.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_mutantes_rete_voci_dati.py",
+        "line": 105,
+        "snippet": "import rete_voci_dati as R                               # noqa: E402 — so para saber que ficheiros le"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_rete_voci_dati.py",
+      "to_file": "pacote/rete_voci_dati.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_rete_voci_dati.py",
+        "line": 22,
+        "snippet": "ALVO = \"pacote/rete_voci_dati.py\""
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_rete_voci_dati.py",
+      "to_file": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_rete_voci_dati.py",
+        "line": 23,
+        "snippet": "COPIAR = (\"tests/test_rete_voci_dati.py\", \"tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json\","
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_rete_voci_dati.py",
+      "to_file": "tests/test_rete_voci_dati.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/_mutantes_rete_voci_dati.py",
+        "line": 23,
+        "snippet": "COPIAR = (\"tests/test_rete_voci_dati.py\", \"tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json\","
       }
     },
     {
@@ -99480,6 +99812,72 @@
       }
     },
     {
+      "from_file": "tests/test_rete_voci_dati.py",
+      "to_file": "data/derivados/RETE-VOCI-DATI/CONTAGEM.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_rete_voci_dati.py",
+        "line": 30,
+        "snippet": "CONTAGEM_COMMITADA = RAIZ / \"data\" / \"derivados\" / \"RETE-VOCI-DATI\" / \"CONTAGEM.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_rete_voci_dati.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rete_voci_dati.py",
+        "line": 27,
+        "snippet": "from corrida_da_inteligencia import portao_g0, e_ignorancia   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_rete_voci_dati.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rete_voci_dati.py",
+        "line": 26,
+        "snippet": "import pote_intelligence_casco as POTE                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_rete_voci_dati.py",
+      "to_file": "pacote/rete_voci_dati.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rete_voci_dati.py",
+        "line": 25,
+        "snippet": "import rete_voci_dati as R                                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_rete_voci_dati.py",
+      "to_file": "pacote/rete_voci_dati.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_rete_voci_dati.py",
+        "line": 365,
+        "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"pacote\" / \"rete_voci_dati.py\"), \"--saida\", str(saida),"
+      }
+    },
+    {
+      "from_file": "tests/test_rete_voci_dati.py",
+      "to_file": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_rete_voci_dati.py",
+        "line": 31,
+        "snippet": "CORRIDA_SINTETICA = RAIZ / \"tests\" / \"fixtures\" / \"pote\" / \"CORRIDA-SINTETICA-POTE.json\""
+      }
+    },
+    {
       "from_file": "tests/test_retirada_por_decisao.py",
       "to_file": "regras/italy_contracts.mjs",
       "type": "READS",
@@ -103459,10 +103857,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3939,
-    "files_readable": 1641,
-    "files_code_dir": 1971,
-    "file_edges": 6841,
+    "files_tracked": 3944,
+    "files_readable": 1644,
+    "files_code_dir": 1974,
+    "file_edges": 6874,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },
