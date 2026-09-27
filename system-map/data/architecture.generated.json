@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/bulletin-by-section-c39nij",
+    "HEAD": "45db49aec26a404d8a664c65bc07acc45439c3e7",
+    "GENERATED_AT": "2026-09-27T18:34:16+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ff2565773eb9359fcbcabb639d87cf439fe5624a18b76b7ead0a7dfeb09d2409"
   },
   "FILES": [
     {
@@ -242,6 +242,13 @@
     {
       "path": "BLOQUEADAS-DESTRAVAR.md",
       "sha": "a0773077b47b95c4cc86e3e2f3d44241d7fdada2",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "BOLETIM-POR-SECAO.md",
+      "sha": "f61d35c74654130f232e58234e5c3f019b2bffcb",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1088,7 +1095,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "5fdc36812772fbfafbc1fb66b74a298f0bc7c570",
+      "sha": "2df44aad11bded4661c74b918bb34e49273c79f1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11335,6 +11342,20 @@
       "code_dir": false
     },
     {
+      "path": "docs/iab/puglia/DECISAO-D112.md",
+      "sha": "0bdbf605b786a09f274f3f9cc2e9ebdfae9a5b4c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/iab/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
+      "sha": "f650eded4779ed5ef7e8fb91134a85426be7dad0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/intelligence/BACKLOG-OBRIGATORIO.md",
       "sha": "69b80a38481104896437da05f72de0137c465cd0",
       "ext": ".md",
@@ -11415,6 +11436,13 @@
       "path": "docs/intelligence/RED-TEAM-INTELLIGENCE-ARBITRATION-V1.md",
       "sha": "b8215eb06a5e8d412e13a74954898ebfb2c7d011",
       "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/nuvem/nuvem-boletim-por-secao-v1-MERGES.txt",
+      "sha": "1d9c09395bc69e60f30aacb43999e0efe1647068",
+      "ext": ".txt",
       "readable": false,
       "code_dir": false
     },
@@ -17727,7 +17755,7 @@
     },
     {
       "path": "leis/boletim_do_campo.py",
-      "sha": "7e16f6960304e5d97bacba07d5f76e410c7d256d",
+      "sha": "a12df602f426aed59ba869300e58e5e3bf98860e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17769,7 +17797,7 @@
     },
     {
       "path": "leis/fato_do_texto.py",
-      "sha": "bb62e524e2106789ff0bd9a349872dc56ee119d0",
+      "sha": "7d9b5dc2767268705a3c6c05e06b6e427687deb3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23249,6 +23277,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/lugar_fato/MEDIDA-GOLD-PUGLIA-V1.json",
+      "sha": "8409eb986c394f76f75232265d7905a6854752b0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
       "sha": "dc43b79e799635a0a825ad85a8fe605fc4bb11d5",
       "ext": ".json",
@@ -23258,6 +23293,13 @@
     {
       "path": "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
       "sha": "ad924894b39fa015c6cb09e8ec07c2112df40283",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/MUTACAO-BOLETIM-POR-SECAO-V1.json",
+      "sha": "b5adda3413ef63b2da514b1f2ec7e40951fc1b08",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -23291,6 +23333,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/lugar_fato/gold_puglia.py",
+      "sha": "3f768ac4756b8fb8073440000be48b5a3358538c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/lugar_fato/medir_78.py",
       "sha": "fcd53cf49e4bb367cb4957089059dad59f11e4dc",
       "ext": ".py",
@@ -23298,8 +23347,22 @@
       "code_dir": true
     },
     {
+      "path": "scripts/lugar_fato/medir_gold_puglia.py",
+      "sha": "6b2519845e3673491ec50c8b96d603ae54013dff",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/lugar_fato/medir_moldura_html.py",
       "sha": "275a3a13cb957d7522de5a1da640ec719aa6b958",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+      "sha": "dee3c397b7458a2a487c279e3d4e428f2ff0d2fa",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24664,7 +24727,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e63baf949631281955e19224243f29533f74a425",
+      "sha": "cb826e064fee59af04a4fd41cd6715b929e02823",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -25722,6 +25785,13 @@
     {
       "path": "tests/test_boletim_do_campo.py",
       "sha": "954afb3a64352338be524cd67e6fdeb3f2ca7313",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_boletim_por_secao.py",
+      "sha": "48031905e5118a1a36cf516b441bb8d695b277ff",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29119,8 +29189,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2084,
+        "line": 2091,
         "snippet": "import boletim_do_campo as BC                                  # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "admissao/admissao.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/admissao.py",
+        "line": 2070,
+        "snippet": "import fato_do_texto as FT                                     # noqa: PLC0415"
       }
     },
     {
@@ -52210,6 +52291,17 @@
         "file": "leis/autorizacao_de_gasto.py",
         "line": 178,
         "snippet": "import relevancia_da_fonte as rel  # noqa: E402 — PERGUNTA-SE; nao se decide aqui"
+      }
+    },
+    {
+      "from_file": "leis/boletim_do_campo.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/boletim_do_campo.py",
+        "line": 294,
+        "snippet": "import fato_do_texto as FT          # noqa: PLC0415"
       }
     },
     {
@@ -77161,6 +77253,28 @@
       }
     },
     {
+      "from_file": "scripts/lugar_fato/gold_puglia.py",
+      "to_file": "docs/iab/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/gold_puglia.py",
+        "line": 41,
+        "snippet": "GOLD = RAIZ / \"docs\" / \"iab\" / \"puglia\" / \"GOLD-FIXTURE-PUGLIA-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/gold_puglia.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/lugar_fato/gold_puglia.py",
+        "line": 200,
+        "snippet": "import boletim_do_campo as BC  # noqa: PLC0415"
+      }
+    },
+    {
       "from_file": "scripts/lugar_fato/medir_78.py",
       "to_file": "leis/fato_do_texto.py",
       "type": "IMPORTS",
@@ -77180,6 +77294,72 @@
         "file": "scripts/lugar_fato/medir_78.py",
         "line": 17,
         "snippet": "import fato_local as FL      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/medir_gold_puglia.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_gold_puglia.py",
+        "line": 32,
+        "snippet": "import boletim_do_campo as BCX  # noqa: PLC0415  (o da revisao medida)"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/medir_gold_puglia.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_gold_puglia.py",
+        "line": 39,
+        "snippet": "sp = u.spec_from_file_location(\"bc_harness\", RAIZ / \"leis\" / \"boletim_do_campo.py\")"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/medir_gold_puglia.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_gold_puglia.py",
+        "line": 37,
+        "snippet": "import fato_do_texto as FTX     # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/medir_gold_puglia.py",
+      "to_file": "scripts/lugar_fato/MEDIDA-GOLD-PUGLIA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_gold_puglia.py",
+        "line": 25,
+        "snippet": "SAIDA = AQUI / \"MEDIDA-GOLD-PUGLIA-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/medir_gold_puglia.py",
+      "to_file": "scripts/lugar_fato/MEDIDA-GOLD-PUGLIA-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_gold_puglia.py",
+        "line": 80,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/medir_gold_puglia.py",
+      "to_file": "scripts/lugar_fato/gold_puglia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/lugar_fato/medir_gold_puglia.py",
+        "line": 33,
+        "snippet": "import gold_puglia as G         # noqa: PLC0415"
       }
     },
     {
@@ -77235,6 +77415,72 @@
         "file": "scripts/lugar_fato/medir_moldura_html.py",
         "line": 49,
         "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+        "line": 22,
+        "snippet": "BC, FT, AD = \"leis/boletim_do_campo.py\", \"leis/fato_do_texto.py\", \"admissao/admissao.py\""
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+        "line": 22,
+        "snippet": "BC, FT, AD = \"leis/boletim_do_campo.py\", \"leis/fato_do_texto.py\", \"admissao/admissao.py\""
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+        "line": 22,
+        "snippet": "BC, FT, AD = \"leis/boletim_do_campo.py\", \"leis/fato_do_texto.py\", \"admissao/admissao.py\""
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+      "to_file": "scripts/lugar_fato/MUTACAO-BOLETIM-POR-SECAO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+        "line": 113,
+        "snippet": "out = Path(__file__).with_name(\"MUTACAO-BOLETIM-POR-SECAO-V1.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+      "to_file": "scripts/lugar_fato/MUTACAO-BOLETIM-POR-SECAO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+        "line": 114,
+        "snippet": "out.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+      "to_file": "tests/test_boletim_por_secao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+        "line": 21,
+        "snippet": "TESTE = \"tests/test_boletim_por_secao.py\""
       }
     },
     {
@@ -85297,6 +85543,61 @@
       "evidence": {
         "file": "tests/test_boletim_do_campo.py",
         "line": 17,
+        "snippet": "import fato_do_texto as FT  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_boletim_por_secao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_boletim_por_secao.py",
+        "line": 21,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_boletim_por_secao.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_boletim_por_secao.py",
+        "line": 252,
+        "snippet": "import admissao as A"
+      }
+    },
+    {
+      "from_file": "tests/test_boletim_por_secao.py",
+      "to_file": "data/derivados/texto/RAW-59da05274359eff6.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_boletim_por_secao.py",
+        "line": 109,
+        "snippet": "with open(APOL_N9, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_boletim_por_secao.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_boletim_por_secao.py",
+        "line": 22,
+        "snippet": "import boletim_do_campo as BC  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_boletim_por_secao.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_boletim_por_secao.py",
+        "line": 23,
         "snippet": "import fato_do_texto as FT  # noqa: E402"
       }
     },
@@ -103459,10 +103760,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3939,
-    "files_readable": 1641,
-    "files_code_dir": 1971,
-    "file_edges": 6841,
+    "files_tracked": 3949,
+    "files_readable": 1645,
+    "files_code_dir": 1977,
+    "file_edges": 6862,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },

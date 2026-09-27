@@ -20,6 +20,7 @@
       "BIG-COLLECTION-RUNBOOK.md",
       "BLOQUEADAS-268.md",
       "BLOQUEADAS-DESTRAVAR.md",
+      "BOLETIM-POR-SECAO.md",
       "CASCO-CLIENT-DEMO.md",
       "CASCO-LEITURA.md",
       "CASCO-PAINEL.md",
@@ -1646,6 +1647,8 @@
       "docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "docs/iab/puglia/DECISAO-D112.md",
+      "docs/iab/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
       "docs/intelligence/BACKLOG-OBRIGATORIO.md",
       "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
       "docs/intelligence/INTELLIGENCE-CANONICAL-TOPOLOGY-V1.md",
@@ -1658,6 +1661,7 @@
       "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
       "docs/intelligence/README.md",
       "docs/intelligence/RED-TEAM-INTELLIGENCE-ARBITRATION-V1.md",
+      "docs/nuvem/nuvem-boletim-por-secao-v1-MERGES.txt",
       "docs/operacao/A-CASA-DO-DERIVADO.md",
       "docs/operacao/ACHADO-RELEVANCIA-E-O-SNAPSHOT-NOVO.md",
       "docs/operacao/ALLOWED-STRUCTURED-TARGETS-POR-FONTE.md",
@@ -3385,14 +3389,19 @@
       "scripts/lugar_fato/BATERIA-D70-ANTES.json",
       "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
       "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
+      "scripts/lugar_fato/MEDIDA-GOLD-PUGLIA-V1.json",
       "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
       "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+      "scripts/lugar_fato/MUTACAO-BOLETIM-POR-SECAO-V1.json",
       "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
       "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
       "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
       "scripts/lugar_fato/bateria_por_nome.py",
+      "scripts/lugar_fato/gold_puglia.py",
       "scripts/lugar_fato/medir_78.py",
+      "scripts/lugar_fato/medir_gold_puglia.py",
       "scripts/lugar_fato/medir_moldura_html.py",
+      "scripts/lugar_fato/mutar_boletim_por_secao.py",
       "scripts/lugar_fato/mutar_data_do_fato.py",
       "scripts/lugar_fato/mutar_fato_do_texto.py",
       "scripts/lugar_fato/mutar_lei_do_tempo.py",
@@ -3749,6 +3758,7 @@
       "tests/test_bc4_armazem_e_pais.py",
       "tests/test_biblia.py",
       "tests/test_boletim_do_campo.py",
+      "tests/test_boletim_por_secao.py",
       "tests/test_c10_1_source_id.py",
       "tests/test_c10_2_origin_gate.py",
       "tests/test_c10_3_location.py",
@@ -4532,10 +4542,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/bulletin-by-section-c39nij",
+    "HEAD": "45db49aec26a404d8a664c65bc07acc45439c3e7",
+    "GENERATED_AT": "2026-09-27T18:34:16+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ff2565773eb9359fcbcabb639d87cf439fe5624a18b76b7ead0a7dfeb09d2409"
   },
   "FAMILIES": [
     {
@@ -5525,6 +5535,7 @@
         "C-ESTRADA-PDF",
         "C-INT-ARBITRAGEM",
         "C-LASTMILE-MEDIDORES",
+        "C-LUGAR-COLETA",
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
         "C-MICRO-COLETA-INSTRUMENTO",
@@ -51608,6 +51619,7 @@
       "family": "F-GOVERNANCA",
       "files": [
         "ACERVO-TEMPO-LUGAR.md",
+        "BOLETIM-POR-SECAO.md",
         "RELATORIO-LUGAR-FATO.md",
         "leis/boletim_do_campo.py",
         "leis/fato_do_texto.py",
@@ -51616,14 +51628,19 @@
         "scripts/lugar_fato/BATERIA-D70-ANTES.json",
         "scripts/lugar_fato/BATERIA-D70-COMPARACAO.json",
         "scripts/lugar_fato/BATERIA-D70-DEPOIS.json",
+        "scripts/lugar_fato/MEDIDA-GOLD-PUGLIA-V1.json",
         "scripts/lugar_fato/MEDIDA-LUGAR-TEMPO-78-V1.json",
         "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+        "scripts/lugar_fato/MUTACAO-BOLETIM-POR-SECAO-V1.json",
         "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
         "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
         "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
         "scripts/lugar_fato/bateria_por_nome.py",
+        "scripts/lugar_fato/gold_puglia.py",
         "scripts/lugar_fato/medir_78.py",
+        "scripts/lugar_fato/medir_gold_puglia.py",
         "scripts/lugar_fato/medir_moldura_html.py",
+        "scripts/lugar_fato/mutar_boletim_por_secao.py",
         "scripts/lugar_fato/mutar_data_do_fato.py",
         "scripts/lugar_fato/mutar_fato_do_texto.py",
         "scripts/lugar_fato/mutar_lei_do_tempo.py",
@@ -51632,7 +51649,7 @@
         "scripts/reproc_acervo/prever_acervo.py",
         "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json"
       ],
-      "file_count": 24,
+      "file_count": 30,
       "status": "PENDING",
       "status_reason": "o sistema importa esta lei em runtime para decidir: C-ADMISSAO, C-CONTRATO-ARTEFATO, C-INT-CORRIDA, C-LUGAR-V2.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -51641,13 +51658,15 @@
       ],
       "produces": [],
       "inbound": [
+        "C-ADMISSAO",
         "C-CONTRATO-ARTEFATO",
         "C-FONTES-EU",
         "C-INGRESSO",
         "C-IT-COLETA",
         "C-MAPA-TESTES",
         "C-ORQUESTRADOR",
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-TESTES"
       ],
       "outbound": [
         "C-ADMISSAO",
@@ -51676,11 +51695,13 @@
           "ANCORAS_DE_TEMPO_DO_FATO",
           "ANCORAS_NEGATIVAS",
           "ANCORAS_POSITIVAS",
+          "CHAVES_DO_EXTRATOR",
           "CULTURAS",
           "ESCADA_ADMINISTRATIVA",
           "FASES",
           "FORMAS",
           "MESES",
+          "MESMA_CULTURA",
           "MESMO_PROBLEMA",
           "MODULOS",
           "MUTANTES",
@@ -51695,14 +51716,16 @@
           "RESOLUCAO",
           "RESOLUCAO_TEMPORAL",
           "TIPOS_DE_EVIDENCIA",
-          "_DIAS_RAIZ"
+          "_DIAS_RAIZ",
+          "_PARA_A_ZONA",
+          "_ROTULOS_VIZINHOS"
         ],
-        "palavras": 726,
+        "palavras": 830,
         "por_lingua": {
-          "IT": 17,
+          "IT": 21,
           "PT": 1
         },
-        "sem_marca_de_lingua": 708,
+        "sem_marca_de_lingua": 808,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -51714,7 +51737,19 @@
       "destino_prova": [
         {
           "onde": "GIT",
+          "file": "scripts/lugar_fato/MEDIDA-GOLD-PUGLIA-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
           "file": "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/lugar_fato/MUTACAO-BOLETIM-POR-SECAO-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
@@ -51723,23 +51758,11 @@
           "file": "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json e este mapa nao viu ninguem ler",
+      "rule_role_evidence": "escreve scripts/lugar_fato/MEDIDA-GOLD-PUGLIA-V1.json e este mapa nao viu ninguem ler",
       "ROLE_MEASURED": "UNKNOWN",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "SEM_REGRA",
@@ -51753,13 +51776,19 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "admissao/admissao.py",
+        "docs/iab/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
         "leis/artefato.py",
+        "leis/boletim_do_campo.py",
         "leis/fato_do_texto.py",
         "provas/testa_golden_path_pdf.py",
+        "scripts/lugar_fato/MEDIDA-GOLD-PUGLIA-V1.json",
         "scripts/lugar_fato/MEDIDA-MOLDURA-HTML-V1.json",
+        "scripts/lugar_fato/MUTACAO-BOLETIM-POR-SECAO-V1.json",
         "scripts/lugar_fato/MUTACAO-DATA-DO-FATO-V1.json",
         "scripts/lugar_fato/MUTACAO-FATO-DO-TEXTO-V1.json",
-        "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json"
+        "scripts/lugar_fato/MUTACAO-LEI-DO-TEMPO-D70.json",
+        "tests/test_boletim_por_secao.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -51774,7 +51803,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "admissao/admissao.py:2084",
+          "admissao/admissao.py:2070",
           "admissao/reprocessar_tempo_lugar.py:60",
           "coleta/pesquisadores_t6.py:265",
           "ferramentas/lugar_v2/estimar_comuni.py:10"
@@ -68923,6 +68952,7 @@
         "tests/test_bc4_armazem_e_pais.py",
         "tests/test_biblia.py",
         "tests/test_boletim_do_campo.py",
+        "tests/test_boletim_por_secao.py",
         "tests/test_c10_1_source_id.py",
         "tests/test_c10_2_origin_gate.py",
         "tests/test_c10_3_location.py",
@@ -69187,7 +69217,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 312,
+      "file_count": 313,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -69404,6 +69434,7 @@
         "C-INTEGRA-ONDA2",
         "C-IT-PRESERVAR",
         "C-LEITOR-DATA-YT",
+        "C-LUGAR-COLETA",
         "C-LUGAR-V2",
         "C-MAPA-GERADOR",
         "C-MICRO-PROVA-LOTE1",
@@ -69759,6 +69790,7 @@
         "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
         "data/derivados/PESQUISADORES-T6/PLANO.json",
         "data/derivados/REGISTO-DE-ARTEFATOS.json",
+        "data/derivados/texto/RAW-59da05274359eff6.txt",
         "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
         "data/raw/IT-ROTULOS/_MANIFESTO.json",
         "data/review/inbox/T3-HUMAN-QUALITY-GATE-RESULTS-V1.json",
@@ -74069,6 +74101,41 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-LUGAR-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+          "line": 22,
+          "snippet": "BC, FT, AD = \"leis/boletim_do_campo.py\", \"leis/fato_do_texto.py\", \"admissao/admissao.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-LUGAR-COLETA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-LUGAR-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-MAPA-GERADOR",
       "type": "READS",
       "payload": "artefacto",
@@ -75312,7 +75379,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 2275,
+          "line": 2282,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -75699,7 +75766,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 51 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 52 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -115340,11 +115407,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por A porta de admissao. Provado por 1 linha de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por A porta de admissao. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 2084,
+          "line": 2070,
+          "snippet": "import fato_do_texto as FT                                     # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-ADMISSAO",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-ADMISSAO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "admissao/admissao.py",
+          "line": 2091,
           "snippet": "import boletim_do_campo as BC                                  # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-ADMISSAO",
@@ -115754,7 +115837,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_artefato_tempo_do_fato.py",
@@ -115791,6 +115874,38 @@
         {
           "file": "tests/test_boletim_do_campo.py",
           "line": 17,
+          "snippet": "import fato_do_texto as FT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_boletim_por_secao.py",
+          "line": 22,
+          "snippet": "import boletim_do_campo as BC  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_boletim_por_secao.py",
+          "line": 23,
           "snippet": "import fato_do_texto as FT  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
@@ -115904,22 +116019,6 @@
           "file": "tests/test_lugar_do_fato.py",
           "line": 22,
           "snippet": "import lugar_do_fato as L                                          # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
-            "FROM": "C-LUGAR-COLETA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_lugar_do_fato.py",
-          "line": 23,
-          "snippet": "import fato_local as IT                                            # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -122175,7 +122274,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 161 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 162 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -154287,6 +154386,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-LUGAR-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/lugar_fato/mutar_boletim_por_secao.py",
+          "line": 21,
+          "snippet": "TESTE = \"tests/test_boletim_por_secao.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-LUGAR-COLETA",
+            "FROM": "C-TESTES",
+            "TO": "C-LUGAR-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-LUGAR-V2",
       "type": "READS",
       "payload": "artefacto",
@@ -158779,7 +158913,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2184,
+  "UNCLAIMED_FILES_COUNT": 2187,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -159050,12 +159184,12 @@
     "components_pending": 241,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1686,
-    "edges_proven": 1619,
+    "edges": 1688,
+    "edges_proven": 1621,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3939,
-    "files_covered": 1755,
+    "files_tracked": 3949,
+    "files_covered": 1762,
     "files_code_unclaimed": 0,
     "roles_proven": 193,
     "roles_declared_only": 9,
