@@ -26,7 +26,7 @@ as 12 ferramentas do casco**. Só atravessa o que tem prova, e a marca vai em tu
 | recusa escrever dentro de `italia-portale/` | `pacote/ponte_intelligence_casco.py:505` |
 | testes (35) | `tests/test_ponte_intelligence_casco.py` |
 | mutação (22 defeitos) | `provas/_mutantes_ponte_casco.py` |
-| mapa declarado: `C-PONTE-INT-CASCO` (Z-PACOTE) e `C-PROVA-PONTE-CASCO` (Z-PROVA) | `system-map/data/architecture.declared.json:4357` e `:4376` |
+| mapa declarado: `C-PONTE-INT-CASCO` (Z-PACOTE) e `C-PROVA-PONTE-CASCO` (Z-PROVA) | `system-map/data/architecture.declared.json:4369` e `:4389` |
 
 **O contrato de entrada é NOVO e está declarado no próprio ficheiro.** Medido na base: a palavra
 `EXPERIMENTAL_CANDIDATE` não existia no repositório nem na história do Git, e o motor
