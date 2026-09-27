@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  d8f0fde2d20d84515d3ed566aec99b337d5a68d4
+HEAD_DA_MEDICAO  75c7f80fedc483f4dfca8e9258ca69a9e60e62f0
 BRANCH           claude/lote4-final-integration-l02r5q
-GERADO_EM        2026-09-27T16:42:04+00:00
+GERADO_EM        2026-09-27T17:37:48+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
