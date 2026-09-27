@@ -88,6 +88,6 @@ Uma linha só pode pôr pedidos na rede com **uma reserva por pedido** neste mes
   cadeado. Se não houver vaga, ele não visita e anota «volta às tantas horas».
 - Testei com dois programas **de verdade**, rodando ao mesmo tempo contra um site falso que conta as visitas:
   o site recebeu exatamente 5, nunca 6. O programa que chegou depois não visitou nada.
-- Testei também o contrário: estraguei o código de 10 jeitos diferentes, e os testes pegaram os 10.
+- Testei também o contrário: estraguei o código de 12 jeitos diferentes, e os testes pegaram os 12.
 - A coleta de sites **e a das redes sociais** já usam o caderno novo. Os pesquisadores, os PDFs e as APIs
   precisam de uma linha de código cada um, nos seus ramos. Até lá, a regra é uma coleta pela internet de cada vez.
