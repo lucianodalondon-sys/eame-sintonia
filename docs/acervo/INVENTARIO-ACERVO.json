@@ -1,0 +1,4610 @@
+{
+ "SCHEMA": "INVENTARIO_ACERVO/v1",
+ "MISSAO": "ACERVO-ORGANIZADO (D114 + correcao do dono 27/09 16:50)",
+ "LEI": "D97 · COLLECTION -> SALA -> INTELLIGENCE (e INTELLIGENCE TOOLS) -> POTE -> CASCO; dado coletado nunca vai direto do repo para o casco",
+ "GERADO_POR": "pacote/acervo_inventario.mjs",
+ "CLASSES": {
+  "a": "SAIDA_DE_INTELLIGENCE_TOOL — vai ao pote como produto da ferramenta, com a data do snapshot, sem recalcular",
+  "b": "REFERENCIA_OFICIAL — insumo da Intelligence; no pote so como objeto referenciado/procedencia",
+  "c": "ITEM_COLETADO — NAO vai ao casco; passa pela Intelligence (ENTRADA-INTELLIGENCE-ACERVO.json)",
+  "d": "FORA — demo, simulado, CLIENT_SAFE=false, oportunidade nao provada, interpretacao fora da Intelligence",
+  "NAO_SEI": "nao se sabe; o motivo vai escrito"
+ },
+ "CANONICO": "italia-portale/client/italy-handoff-v21.js (V21-ef6e7e5f37eaa6e6) — o que o portal carrega; copias noutros ficheiros sao DUPLICADO_DE medido pelo ID",
+ "CONTAGEM_POR_CLASSE": {
+  "SEM_COPIAS": {
+   "a": {
+    "CONJUNTOS": 5,
+    "REGISTOS": 555,
+    "BLOCOS": 0
+   },
+   "b": {
+    "CONJUNTOS": 18,
+    "REGISTOS": 9572,
+    "BLOCOS": 2
+   },
+   "c": {
+    "CONJUNTOS": 11,
+    "REGISTOS": 2080,
+    "BLOCOS": 0
+   },
+   "d": {
+    "CONJUNTOS": 68,
+    "REGISTOS": 323,
+    "BLOCOS": 49
+   },
+   "NAO_SEI": {
+    "CONJUNTOS": 9,
+    "REGISTOS": 100,
+    "BLOCOS": 0
+   }
+  },
+  "COM_COPIAS": {
+   "a": {
+    "CONJUNTOS": 5,
+    "REGISTOS": 555,
+    "BLOCOS": 0
+   },
+   "b": {
+    "CONJUNTOS": 35,
+    "REGISTOS": 15788,
+    "BLOCOS": 2
+   },
+   "c": {
+    "CONJUNTOS": 27,
+    "REGISTOS": 3934,
+    "BLOCOS": 0
+   },
+   "d": {
+    "CONJUNTOS": 71,
+    "REGISTOS": 364,
+    "BLOCOS": 49
+   },
+   "NAO_SEI": {
+    "CONJUNTOS": 9,
+    "REGISTOS": 100,
+    "BLOCOS": 0
+   }
+  }
+ },
+ "ENTRADA_INTELLIGENCE": {
+  "FICHEIRO": "docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json",
+  "ITENS": 2080
+ },
+ "FICHEIROS": [
+  {
+   "FICHEIRO": "italia-portale/client/italy-label-intelligence.js",
+   "GLOBAL": "window.ITALY_LABEL_INTELLIGENCE",
+   "SHA256": "9407742792c1103e1ea10972aaf546431250d3c69427df0d97a7683d31becf07",
+   "BYTES": 3826118,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "BUILT_AT": "2026-09-06",
+    "DATA_DATE": "20260831",
+    "DATA_SNAPSHOT_ID": "PROD_FTS_6_20260831",
+    "COLLECTED_AT": "2026-09-04",
+    "RUN": "RUN-2026-09-06-C"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/italy-handoff-v21.js",
+   "GLOBAL": "window.ITALY_HANDOFF_V21",
+   "SHA256": "96e0e721a3f7a6ce79f73aa5fe2a70c309a6abb0a5370a9424a7eeaeee40056b",
+   "BYTES": 11198815,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "buildId": "V21-ef6e7e5f37eaa6e6",
+    "packageBuiltAt": "2026-09-02",
+    "referenceDate": "2026-09-02"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/italy-v21.js",
+   "GLOBAL": "window.ITALY_HANDOFF_V21",
+   "SHA256": "ca384ab06c8e2e2dc9c2599ac5045944d695b5de5963cd0612ad79addf924f89",
+   "BYTES": 10359119,
+   "CARREGADO_PELO_PORTAL": false,
+   "DATAS_DO_FICHEIRO": {
+    "BUILD_ID": "V21-843baf4229d93598",
+    "BUILT_AT": "2026-09-02",
+    "REFERENCE_DATE": "2026-09-02"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/italy-ingested.js",
+   "GLOBAL": "window.ITALY_INGEST",
+   "SHA256": "68191efda3da681f7697e068eda97b53f21dde579734995484c54ce7ce17c42d",
+   "BYTES": 801059,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "BUILT": "2026-09-02"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/italy-catalog.js",
+   "GLOBAL": "window.ITALY_CATALOG",
+   "SHA256": "6c14ee564589538f558f444cc41fc05da695aa966683a56443dbf024cbfefc90",
+   "BYTES": 17333,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "BUILT": "2026-09-02"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/italy-real-intelligence.js",
+   "GLOBAL": "window.ITALY_REAL",
+   "SHA256": "2a0d5e092b7990453f82e4bb4eaeb4a0885b0b3f20bf589beaa325af3726c522",
+   "BYTES": 24594,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "LAST_CHECKED": "2026-09-01"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/italy-demo-data.js",
+   "GLOBAL": "window.ITALY_DEMO",
+   "SHA256": "f843629c0bea8f2e2cda56c72384ce1162127dc1a588f90e789e1273c54d584b",
+   "BYTES": 139235,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {}
+  },
+  {
+   "FICHEIRO": "italia-portale/client/meeting-intelligence-snapshot.js",
+   "GLOBAL": "window.MEETING_INTELLIGENCE",
+   "SHA256": "3c3e0a3939544b6bc9f6406e5c2b7857ed72e5ef6863f69a2d1fa7a5c4c1891a",
+   "BYTES": 508764,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "BUILD_ID": "V21-ef6e7e5f37eaa6e6",
+    "GENERATED_AT": "2026-09-07T19:23:48Z",
+    "MEETING_CUTOFF": "2026-09-07T19:23:48Z",
+    "SOURCE_HEAD": "fb96f49d"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/italy-casa.js",
+   "GLOBAL": "window.ITALY_CASA",
+   "SHA256": "2f1e9a3f473a240f6fddfb5e7793b864e5d9f0852833815f885f46f2a72576ac",
+   "BYTES": 495010,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "DATA_DE_REFERENCIA": "2026-09-04"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/italy-canonical-windows.js",
+   "GLOBAL": "window.ITALY_CANONICAL",
+   "SHA256": "883cc83a6b66213438157d95a9d580b4065fe824afdd57ca8f737d20a90c18df",
+   "BYTES": 22906,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "referenceDate": "2026-09-02",
+    "version": "1.0"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/adama-relevance.js",
+   "GLOBAL": "window.ADAMA_RELEVANCE",
+   "SHA256": "212a1128f47d0336aa0c436b0df53b2d5ab167967cebd77fa60445b38b290f3b",
+   "BYTES": 8827,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "BUILD_ID": "V21-ef6e7e5f37eaa6e6",
+    "SOURCE_HEAD": "fb96f49d"
+   }
+  },
+  {
+   "FICHEIRO": "italia-portale/client/italy-label-verdicts.js",
+   "GLOBAL": "window.ITALY_LABEL_VERDICTS",
+   "SHA256": "af3e39a7acf9baf3c757faa267badc70b1f0571a944d8c5899518b23aff0f417",
+   "BYTES": 3282,
+   "CARREGADO_PELO_PORTAL": true,
+   "DATAS_DO_FICHEIRO": {
+    "AUDIT_DATE": "2026-09-02"
+   }
+  }
+ ],
+ "CONJUNTOS": [
+  {
+   "ID": "italy-label-intelligence.js::products",
+   "FICHEIRO": "italy-label-intelligence.js",
+   "CONJUNTO": "products",
+   "N": 166,
+   "UNIDADE": "registos",
+   "CLASSE": "a",
+   "MOTIVO": "leitura selada do rotulo oficial pela ferramenta pilot-label-intelligence (selo CONTENT_SHA256 recalculado)",
+   "PROVENANCE": {
+    "(sem campo)": 166
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 166
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "label_effective",
+    "COM_VALOR": 161,
+    "DE": 166,
+    "MIN": "2016-12-19",
+    "MAX": "2026-07-29",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "captured_at",
+    "COM_VALOR": 163,
+    "DE": 166,
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-label-intelligence.js::objects",
+   "FICHEIRO": "italy-label-intelligence.js",
+   "CONJUNTO": "objects",
+   "N": 210,
+   "UNIDADE": "registos",
+   "CLASSE": "a",
+   "MOTIVO": "objetos de registro da mesma ferramenta (diferencas entre snapshots oficiais)",
+   "PROVENANCE": {
+    "(sem campo)": 210
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 210
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "VALID_FROM",
+    "COM_VALOR": 51,
+    "DE": 210,
+    "MIN": "2025-07-21",
+    "MAX": "2026-08-31",
+    "SEM_DATA_EM": {
+     "VALID_FROM": 159
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "CAPTURED_AT",
+    "COM_VALOR": 210,
+    "DE": 210,
+    "MIN": "2025-07-21",
+    "MAX": "2026-09-04",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-label-intelligence.js::versions",
+   "FICHEIRO": "italy-label-intelligence.js",
+   "CONJUNTO": "versions",
+   "N": 54,
+   "UNIDADE": "registos",
+   "CLASSE": "a",
+   "MOTIVO": "as versoes do registro oficial que a ferramenta leu — procedencia da propria ferramenta",
+   "PROVENANCE": {
+    "(sem campo)": 54
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 54
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "date",
+    "COM_VALOR": 54,
+    "DE": 54,
+    "MIN": "2025-07-14",
+    "MAX": "2026-08-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 54,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-label-intelligence.js::crop_check_list",
+   "FICHEIRO": "italy-label-intelligence.js",
+   "CONJUNTO": "crop_check_list",
+   "N": 76,
+   "UNIDADE": "registos",
+   "CLASSE": "a",
+   "MOTIVO": "agregado selado da ferramenta (crop_check)",
+   "PROVENANCE": {
+    "(sem campo)": 76
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 76
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 76,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 76,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-label-intelligence.js::pair_check_list",
+   "FICHEIRO": "italy-label-intelligence.js",
+   "CONJUNTO": "pair_check_list",
+   "N": 49,
+   "UNIDADE": "registos",
+   "CLASSE": "a",
+   "MOTIVO": "agregado selado da ferramenta (pair_check)",
+   "PROVENANCE": {
+    "(sem campo)": 49
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 49
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 49,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 49,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::activeIngredients",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "activeIngredients",
+   "N": 53,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "substancias ativas com estado de aprovacao UE (EU pesticides database / CELEX)",
+   "PROVENANCE": {
+    "EVIDENCE_SOURCED": 53
+   },
+   "CLIENT_SAFE": {
+    "true": 53
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 53,
+    "DE": 53,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 53,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::agrometConditions",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "agrometConditions",
+   "N": 44,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "condicoes agrometeorologicas publicadas",
+   "PROVENANCE": {
+    "REAL_SOURCE_LAST_MILE": 44
+   },
+   "CLIENT_SAFE": {
+    "false": 30,
+    "true": 14
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 39,
+    "DE": 44,
+    "MIN": "2025-02-20",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {
+     "REFERENCE_DATE": 5
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 44,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "windows",
+    "PASSO": "G0 → condicao agrometeorologica e contexto, nao janela",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::clientSafeCrossings",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "clientSafeCrossings",
+   "N": 19,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "cruzamentos V2.1: CLIENT_SAFE=false em todos (o nome do conjunto nao e o estado dos registos)",
+   "PROVENANCE": {
+    "(sem campo)": 19
+   },
+   "CLIENT_SAFE": {
+    "false": 19
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::competitorActivities",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "competitorActivities",
+   "N": 577,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "anuncios/atividade de concorrentes (Meta Ad Library)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 561,
+    "REAL_SOURCE_LAST_MILE": 16
+   },
+   "CLIENT_SAFE": {
+    "false": 8,
+    "true": 569
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "PUBLISHED_AT",
+    "COM_VALOR": 147,
+    "DE": 577,
+    "MIN": "2011-04-29",
+    "MAX": "2026-08-11",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 577,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "competitors",
+    "PASSO": "G0 → crossing concorrente × produto × cultura (T4_REGISTRATION_EVIDENCE_ID exigido)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::cropEconomics",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "cropEconomics",
+   "N": 2978,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "estatistica oficial (ISTAT/Eurostat) de peso economico da cultura",
+   "PROVENANCE": {
+    "REAL_DERIVED": 981,
+    "REAL_SOURCE_LAST_MILE": 1997
+   },
+   "CLIENT_SAFE": {
+    "false": 2965,
+    "true": 13
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 2976,
+    "DE": 2978,
+    "MIN": "2024-01-10",
+    "MAX": "2026-12-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 2978,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::currentFieldSignals",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "currentFieldSignals",
+   "N": 7,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "sinais de campo correntes com fonte",
+   "PROVENANCE": {
+    "REAL_FACT": 5,
+    "REAL_SOURCE": 2
+   },
+   "CLIENT_SAFE": {
+    "true": 7
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "windows",
+    "PASSO": "G0 → sinal de campo com fonte e data",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::events",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "events",
+   "N": 40,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "eventos do setor com data e organizador",
+   "PROVENANCE": {
+    "REAL_SOURCE": 18,
+    "REAL_SOURCE_LAST_MILE": 22
+   },
+   "CLIENT_SAFE": {
+    "false": 14,
+    "true": 26
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "DATE",
+    "COM_VALOR": 18,
+    "DE": 40,
+    "MIN": "2026-02-04",
+    "MAX": "2027-04-11",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 40,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "future · archive",
+    "PASSO": "G0 → FATO_PRESENTE_SOBRE_O_FUTURO (data do evento ≠ janela)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::fieldBulletins",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "fieldBulletins",
+   "N": 133,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "boletins fitossanitarios regionais",
+   "PROVENANCE": {
+    "REAL_SOURCE": 73,
+    "REAL_SOURCE_LAST_MILE": 60
+   },
+   "CLIENT_SAFE": {
+    "false": 36,
+    "true": 97
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 129,
+    "DE": 133,
+    "MIN": "2018-04-11",
+    "MAX": "2026-09-03",
+    "SEM_DATA_EM": {
+     "REFERENCE_DATE": 4
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 133,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "windows · archive",
+    "PASSO": "G0 → o mesmo caminho dos boletins T3 que a R7 ja leu (sonda, cruzamentos X2/X3)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::futureEvents",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "futureEvents",
+   "N": 14,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "RECORTE de events (DOUBLE_COUNT_WARNING do proprio pacote)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 2,
+    "REAL_SOURCE_LAST_MILE": 12
+   },
+   "CLIENT_SAFE": {
+    "false": 7,
+    "true": 7
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "DATE",
+    "COM_VALOR": 2,
+    "DE": 14,
+    "MIN": "2026-11-10",
+    "MAX": "2027-04-11",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 14,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::events",
+    "MESMO_ID_LA": 14,
+    "DE_N": 14,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "future · archive",
+    "PASSO": "G0 → FATO_PRESENTE_SOBRE_O_FUTURO (data do evento ≠ janela)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::futureSignals",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "futureSignals",
+   "N": 3,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "interpretacao SINTONIA feita fora da Intelligence (SINTONIA_INTERPRETATION)",
+   "PROVENANCE": {
+    "REAL_DERIVED": 2,
+    "REAL_FACT": 1
+   },
+   "CLIENT_SAFE": {
+    "false": 2,
+    "true": 1
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::marketObservations",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "marketObservations",
+   "N": 157,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "observacoes de preco com publicador e periodo",
+   "PROVENANCE": {
+    "REAL_SOURCE": 77,
+    "REAL_SOURCE_LAST_MILE": 80
+   },
+   "CLIENT_SAFE": {
+    "false": 67,
+    "true": 90
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_PERIOD",
+    "COM_VALOR": 77,
+    "DE": 157,
+    "MIN": "2010-06-21",
+    "MAX": "2026-08-17",
+    "SEM_DATA_EM": {
+     "PUBLICATION_DATE": 40
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 157,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "market",
+    "PASSO": "G0 → CROP_ID/MARKET_PLACE_ID/PERIOD/PRICE/UNIT",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::news",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "news",
+   "N": 8,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "noticias da imprensa tecnica",
+   "PROVENANCE": {
+    "REAL_SOURCE": 8
+   },
+   "CLIENT_SAFE": {
+    "true": 8
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "DATE",
+    "COM_VALOR": 6,
+    "DE": 8,
+    "MIN": "2021-02-24",
+    "MAX": "2026-06-03",
+    "SEM_DATA_EM": {
+     "DATE": 2
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 8,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "archive",
+    "PASSO": "G0 → publicacao nao vira fact time",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::opportunities",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "opportunities",
+   "N": 43,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "oportunidades do motor V2.1: CLIENT_SAFE=false em todas, nao provadas, nao sao da Intelligence do pote",
+   "PROVENANCE": {
+    "REAL_DERIVED": 43
+   },
+   "CLIENT_SAFE": {
+    "false": 43
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 43,
+    "DE": 43,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 43,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::opportunityEvidence",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "opportunityEvidence",
+   "N": 43,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "evidencia das 43 oportunidades V2.1 — vai com elas",
+   "PROVENANCE": {
+    "(sem campo)": 43
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 43
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 43,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 43,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::opportunityRules",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "opportunityRules",
+   "N": 3,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "regras do motor V2.1 (arquetipos, estados) — configuracao, nao dado",
+   "PROVENANCE": {
+    "(sem campo)": 3
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 3
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::productActiveIngredients",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "productActiveIngredients",
+   "N": 203,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "ponte produto × substancia ativa do registro",
+   "PROVENANCE": {
+    "EVIDENCE_DOCUMENTED": 203
+   },
+   "CLIENT_SAFE": {
+    "true": 203
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 203,
+    "DE": 203,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 203,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::productRelationships",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "productRelationships",
+   "N": 5402,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "pares produto × cultura × alvo lidos nos rotulos — o portfolio que os cruzamentos pedem",
+   "PROVENANCE": {
+    "REAL_DERIVED": 3517,
+    "REAL_FACT": 1885
+   },
+   "CLIENT_SAFE": {
+    "false": 3517,
+    "true": 1885
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 5402,
+    "DE": 5402,
+    "MIN": "2026-08-15",
+    "MAX": "2040-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 5402,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::productsCommercial",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "productsCommercial",
+   "N": 51,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "catalogo comercial ADAMA Italia (51)",
+   "PROVENANCE": {
+    "REAL_SOURCE_LAST_MILE": 51
+   },
+   "CLIENT_SAFE": {
+    "true": 51
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 51,
+    "DE": 51,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 51,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::productsRegulatory",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "productsRegulatory",
+   "N": 163,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "registro ministerial dos 163 produtos ADAMA (Ministero della Salute)",
+   "PROVENANCE": {
+    "REAL_FACT": 163
+   },
+   "CLIENT_SAFE": {
+    "true": 163
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "EXPIRY",
+    "COM_VALOR": 163,
+    "DE": 163,
+    "MIN": "2026-08-15",
+    "MAX": "2041-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 163,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::publicChannels",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "publicChannels",
+   "N": 62,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "registro de canais publicos — procedencia das vozes, nao voz",
+   "PROVENANCE": {
+    "REAL_SOURCE": 62
+   },
+   "CLIENT_SAFE": {
+    "true": 62
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "EXAMPLE_PUBLISHED_AT",
+    "COM_VALOR": 62,
+    "DE": 62,
+    "MIN": "2010-06-11",
+    "MAX": "2026-06-23",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 62,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::publicVoices",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "publicVoices",
+   "N": 79,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "vozes publicas com pessoa, canal e data",
+   "PROVENANCE": {
+    "REAL_SOURCE": 58,
+    "REAL_SOURCE_LAST_MILE": 21
+   },
+   "CLIENT_SAFE": {
+    "false": 14,
+    "true": 65
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 21,
+    "DE": 79,
+    "MIN": "2024-06-19",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {
+     "DATE": 58,
+     "REFERENCE_DATE": 58
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 79,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "voices",
+    "PASSO": "G0 → SPEAKER_ID/QUOTE_OR_TRANSCRIPT/FACT_TIME",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::regulatoryFuture",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "regulatoryFuture",
+   "N": 28,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "atos regulatorios futuros com fonte oficial; CLIENT_SAFE maioritariamente false: so como procedencia",
+   "PROVENANCE": {
+    "REAL_SOURCE_LAST_MILE": 28
+   },
+   "CLIENT_SAFE": {
+    "false": 22,
+    "true": 6
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 17,
+    "DE": 28,
+    "MIN": "2026-07-01",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {
+     "REFERENCE_DATE": 11
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 28,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::regulatoryFutureFacts",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "regulatoryFutureFacts",
+   "N": 47,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "datas de expiracao de aprovacao UE por substancia — referencia oficial (data regulatoria nao vira janela)",
+   "PROVENANCE": {
+    "EVIDENCE_DOCUMENTED": 47
+   },
+   "CLIENT_SAFE": {
+    "true": 47
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 47,
+    "DE": 47,
+    "MIN": "2026-09-30",
+    "MAX": "2039-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 47,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::relationships",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "relationships",
+   "N": 19,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "ligacoes dos mesmos 19 cruzamentos V2.1, CLIENT_SAFE=false",
+   "PROVENANCE": {
+    "(sem campo)": 19
+   },
+   "CLIENT_SAFE": {
+    "false": 19
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::researchers",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "researchers",
+   "N": 60,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "diretorio de investigadores (ORCID/OpenAlex) — entidade de referencia, nao item",
+   "PROVENANCE": {
+    "REAL_SOURCE": 60
+   },
+   "CLIENT_SAFE": {
+    "true": 60
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "LAST_ACTIVITY",
+    "COM_VALOR": 60,
+    "DE": 60,
+    "MIN": "2019-01-02",
+    "MAX": "2026-07-30",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 60,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::resistance",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "resistance",
+   "N": 34,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "casos de resistencia com autoridade e citacao (GIRE/HRAC)",
+   "PROVENANCE": {
+    "REAL_FACT": 34
+   },
+   "CLIENT_SAFE": {
+    "true": 34
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 34,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {
+     "REFERENCE_DATE": 12
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 34,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::scienceCorpus",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "scienceCorpus",
+   "N": 763,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "corpus cientifico colhido (OpenAlex); IDs distintos dos 88 scienceRecords",
+   "PROVENANCE": {
+    "REAL_SOURCE": 763
+   },
+   "CLIENT_SAFE": {
+    "false": 181,
+    "true": 582
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "PUBLISHED_AT",
+    "COM_VALOR": 763,
+    "DE": 763,
+    "MIN": "2019-01-01",
+    "MAX": "2026-08-27",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 763,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "science",
+    "PASSO": "G0 → DOI/MOLECULE/CROP_ID/ISSUE_ID (ciencia nao vira incidencia de campo)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::scienceRecords",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "scienceRecords",
+   "N": 88,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "registos de ciencia com DOI/autor/instituicao",
+   "PROVENANCE": {
+    "REAL_SOURCE": 88
+   },
+   "CLIENT_SAFE": {
+    "true": 88
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "PUBLISHED_AT",
+    "COM_VALOR": 88,
+    "DE": 88,
+    "MIN": "2019-01-01",
+    "MAX": "2026-08-14",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 88,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "science",
+    "PASSO": "G0 → DOI/MOLECULE/CROP_ID/ISSUE_ID (ciencia nao vira incidencia de campo)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-handoff-v21.js::sources",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "sources",
+   "N": 196,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "registro de fontes — procedencia, nao dado",
+   "PROVENANCE": {
+    "REAL_SOURCE": 31,
+    "REAL_SOURCE_LAST_MILE": 163,
+    "SENTINELA": 2
+   },
+   "CLIENT_SAFE": {
+    "false": 165,
+    "true": 31
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 196,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 196,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-handoff-v21.js::transcripts",
+   "FICHEIRO": "italy-handoff-v21.js",
+   "CONJUNTO": "transcripts",
+   "N": 184,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "transcricoes de video (a prova das vozes)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 184
+   },
+   "CLIENT_SAFE": {
+    "false": 24,
+    "true": 160
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "PUBLICATION_DATE",
+    "COM_VALOR": 184,
+    "DE": 184,
+    "MIN": "2016-03-31",
+    "MAX": "2026-09-03",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "OBSERVED_AT",
+    "COM_VALOR": 184,
+    "DE": 184,
+    "MIN": "2026-08-29",
+    "MAX": "2026-09-04",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null,
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "voices",
+    "PASSO": "G0 → a transcricao e a prova de uma voz, nao uma voz",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::MANIFEST",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "MANIFEST",
+   "N": 26,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "manifesto de uma build anterior do pacote — nao e dado",
+   "PROVENANCE": {
+    "(sem campo)": 26
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 26
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 26,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 26,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-v21.js::collections.products.regulatory",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.products.regulatory",
+   "N": 163,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — registro ministerial dos 163 produtos ADAMA (Ministero della Salute)",
+   "PROVENANCE": {
+    "REAL_FACT": 163
+   },
+   "CLIENT_SAFE": {
+    "true": 163
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "EXPIRY",
+    "COM_VALOR": 163,
+    "DE": 163,
+    "MIN": "2026-08-15",
+    "MAX": "2041-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 163,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::productsRegulatory",
+    "MESMO_ID_LA": 163,
+    "DE_N": 163,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.products.commercial",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.products.commercial",
+   "N": 51,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — catalogo comercial ADAMA Italia (51)",
+   "PROVENANCE": {
+    "REAL_SOURCE_LAST_MILE": 51
+   },
+   "CLIENT_SAFE": {
+    "true": 51
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 51,
+    "DE": 51,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 51,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::productsCommercial",
+    "MESMO_ID_LA": 51,
+    "DE_N": 51,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.products.relationships",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.products.relationships",
+   "N": 2030,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — pares produto × cultura × alvo lidos nos rotulos — o portfolio que os cruzamentos pedem",
+   "PROVENANCE": {
+    "REAL_DERIVED": 518,
+    "REAL_FACT": 1512
+   },
+   "CLIENT_SAFE": {
+    "false": 518,
+    "true": 1512
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 2030,
+    "DE": 2030,
+    "MIN": "2026-08-15",
+    "MAX": "2040-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 2030,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::productRelationships",
+    "MESMO_ID_LA": 2030,
+    "DE_N": 2030,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.activeIngredients",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.activeIngredients",
+   "N": 53,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — substancias ativas com estado de aprovacao UE (EU pesticides database / CELEX)",
+   "PROVENANCE": {
+    "EVIDENCE_SOURCED": 53
+   },
+   "CLIENT_SAFE": {
+    "true": 53
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 53,
+    "DE": 53,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 53,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::activeIngredients",
+    "MESMO_ID_LA": 53,
+    "DE_N": 53,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.products.activeIngredients",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.products.activeIngredients",
+   "N": 203,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — ponte produto × substancia ativa do registro",
+   "PROVENANCE": {
+    "EVIDENCE_DOCUMENTED": 203
+   },
+   "CLIENT_SAFE": {
+    "true": 203
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 203,
+    "DE": 203,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 203,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::productActiveIngredients",
+    "MESMO_ID_LA": 203,
+    "DE_N": 203,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.regulatoryFutureFacts",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.regulatoryFutureFacts",
+   "N": 47,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — datas de expiracao de aprovacao UE por substancia — referencia oficial (data regulatoria nao vira janela)",
+   "PROVENANCE": {
+    "EVIDENCE_DOCUMENTED": 47
+   },
+   "CLIENT_SAFE": {
+    "true": 47
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 47,
+    "DE": 47,
+    "MIN": "2026-09-30",
+    "MAX": "2039-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 47,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::regulatoryFutureFacts",
+    "MESMO_ID_LA": 47,
+    "DE_N": 47,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.windows",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.windows",
+   "N": 7,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "build anterior: janelas montadas a mao (mesmas 7 do design pack) — interpretacao fora da Intelligence",
+   "PROVENANCE": {
+    "REAL_FACT": 5,
+    "REAL_SOURCE": 2
+   },
+   "CLIENT_SAFE": {
+    "true": 7
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-v21.js::collections.fieldSignals",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.fieldSignals",
+   "N": 122,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — boletins fitossanitarios regionais",
+   "PROVENANCE": {
+    "REAL_SOURCE": 73,
+    "REAL_SOURCE_LAST_MILE": 49
+   },
+   "CLIENT_SAFE": {
+    "false": 36,
+    "true": 86
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 118,
+    "DE": 122,
+    "MIN": "2018-04-11",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 122,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::fieldBulletins",
+    "MESMO_ID_LA": 122,
+    "DE_N": 122,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "windows · archive",
+    "PASSO": "G0 → o mesmo caminho dos boletins T3 que a R7 ja leu (sonda, cruzamentos X2/X3)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.cropEconomicWeight",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.cropEconomicWeight",
+   "N": 2978,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — estatistica oficial (ISTAT/Eurostat) de peso economico da cultura",
+   "PROVENANCE": {
+    "REAL_DERIVED": 981,
+    "REAL_SOURCE_LAST_MILE": 1997
+   },
+   "CLIENT_SAFE": {
+    "false": 2965,
+    "true": 13
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 2976,
+    "DE": 2978,
+    "MIN": "2024-01-10",
+    "MAX": "2026-12-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 2978,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::cropEconomics",
+    "MESMO_ID_LA": 2978,
+    "DE_N": 2978,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.market",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.market",
+   "N": 157,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — observacoes de preco com publicador e periodo",
+   "PROVENANCE": {
+    "REAL_SOURCE": 77,
+    "REAL_SOURCE_LAST_MILE": 80
+   },
+   "CLIENT_SAFE": {
+    "false": 67,
+    "true": 90
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "PUBLICATION_DATE",
+    "COM_VALOR": 40,
+    "DE": 157,
+    "MIN": "2022-07-21",
+    "MAX": "2026-08-27",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 157,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::marketObservations",
+    "MESMO_ID_LA": 157,
+    "DE_N": 157,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "market",
+    "PASSO": "G0 → CROP_ID/MARKET_PLACE_ID/PERIOD/PRICE/UNIT",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.competitors",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.competitors",
+   "N": 577,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — anuncios/atividade de concorrentes (Meta Ad Library)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 561,
+    "REAL_SOURCE_LAST_MILE": 16
+   },
+   "CLIENT_SAFE": {
+    "false": 8,
+    "true": 569
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "PUBLISHED_AT",
+    "COM_VALOR": 147,
+    "DE": 577,
+    "MIN": "2011-04-29",
+    "MAX": "2026-08-11",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 577,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::competitorActivities",
+    "MESMO_ID_LA": 577,
+    "DE_N": 577,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "competitors",
+    "PASSO": "G0 → crossing concorrente × produto × cultura (T4_REGISTRATION_EVIDENCE_ID exigido)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.science",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.science",
+   "N": 88,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — registos de ciencia com DOI/autor/instituicao",
+   "PROVENANCE": {
+    "REAL_SOURCE": 88
+   },
+   "CLIENT_SAFE": {
+    "true": 88
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "PUBLISHED_AT",
+    "COM_VALOR": 88,
+    "DE": 88,
+    "MIN": "2019-01-01",
+    "MAX": "2026-08-14",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 88,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::scienceRecords",
+    "MESMO_ID_LA": 88,
+    "DE_N": 88,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "science",
+    "PASSO": "G0 → DOI/MOLECULE/CROP_ID/ISSUE_ID (ciencia nao vira incidencia de campo)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.researchers",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.researchers",
+   "N": 60,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — diretorio de investigadores (ORCID/OpenAlex) — entidade de referencia, nao item",
+   "PROVENANCE": {
+    "REAL_SOURCE": 60
+   },
+   "CLIENT_SAFE": {
+    "true": 60
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "LAST_ACTIVITY",
+    "COM_VALOR": 60,
+    "DE": 60,
+    "MIN": "2019-01-02",
+    "MAX": "2026-07-30",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 60,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::researchers",
+    "MESMO_ID_LA": 60,
+    "DE_N": 60,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.resistance",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.resistance",
+   "N": 34,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — casos de resistencia com autoridade e citacao (GIRE/HRAC)",
+   "PROVENANCE": {
+    "REAL_FACT": 34
+   },
+   "CLIENT_SAFE": {
+    "true": 34
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 34,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 34,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::resistance",
+    "MESMO_ID_LA": 34,
+    "DE_N": 34,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.voices",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.voices",
+   "N": 79,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — vozes publicas com pessoa, canal e data",
+   "PROVENANCE": {
+    "REAL_SOURCE": 58,
+    "REAL_SOURCE_LAST_MILE": 21
+   },
+   "CLIENT_SAFE": {
+    "false": 14,
+    "true": 65
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 21,
+    "DE": 79,
+    "MIN": "2024-06-19",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {
+     "DATE": 58,
+     "REFERENCE_DATE": 58
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 79,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::publicVoices",
+    "MESMO_ID_LA": 79,
+    "DE_N": 79,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "voices",
+    "PASSO": "G0 → SPEAKER_ID/QUOTE_OR_TRANSCRIPT/FACT_TIME",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.channels",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.channels",
+   "N": 62,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — registro de canais publicos — procedencia das vozes, nao voz",
+   "PROVENANCE": {
+    "REAL_SOURCE": 62
+   },
+   "CLIENT_SAFE": {
+    "true": 62
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "EXAMPLE_PUBLISHED_AT",
+    "COM_VALOR": 62,
+    "DE": 62,
+    "MIN": "2010-06-11",
+    "MAX": "2026-06-23",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 62,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::publicChannels",
+    "MESMO_ID_LA": 62,
+    "DE_N": 62,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.regulatoryFuture",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.regulatoryFuture",
+   "N": 28,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — atos regulatorios futuros com fonte oficial; CLIENT_SAFE maioritariamente false: so como procedencia",
+   "PROVENANCE": {
+    "REAL_SOURCE_LAST_MILE": 28
+   },
+   "CLIENT_SAFE": {
+    "false": 22,
+    "true": 6
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 17,
+    "DE": 28,
+    "MIN": "2026-07-01",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 28,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::regulatoryFuture",
+    "MESMO_ID_LA": 28,
+    "DE_N": 28,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.agromet",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.agromet",
+   "N": 44,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — condicoes agrometeorologicas publicadas",
+   "PROVENANCE": {
+    "REAL_SOURCE_LAST_MILE": 44
+   },
+   "CLIENT_SAFE": {
+    "false": 30,
+    "true": 14
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 39,
+    "DE": 44,
+    "MIN": "2025-02-20",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 44,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::agrometConditions",
+    "MESMO_ID_LA": 44,
+    "DE_N": 44,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "windows",
+    "PASSO": "G0 → condicao agrometeorologica e contexto, nao janela",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.events",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.events",
+   "N": 40,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — eventos do setor com data e organizador",
+   "PROVENANCE": {
+    "REAL_SOURCE": 18,
+    "REAL_SOURCE_LAST_MILE": 22
+   },
+   "CLIENT_SAFE": {
+    "false": 14,
+    "true": 26
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "DATE",
+    "COM_VALOR": 18,
+    "DE": 40,
+    "MIN": "2026-02-04",
+    "MAX": "2027-04-11",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 40,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::events",
+    "MESMO_ID_LA": 40,
+    "DE_N": 40,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "future · archive",
+    "PASSO": "G0 → FATO_PRESENTE_SOBRE_O_FUTURO (data do evento ≠ janela)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.futureEvents",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.futureEvents",
+   "N": 14,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — RECORTE de events (DOUBLE_COUNT_WARNING do proprio pacote)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 2,
+    "REAL_SOURCE_LAST_MILE": 12
+   },
+   "CLIENT_SAFE": {
+    "false": 7,
+    "true": 7
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "DATE",
+    "COM_VALOR": 2,
+    "DE": 14,
+    "MIN": "2026-11-10",
+    "MAX": "2027-04-11",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 14,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::futureEvents",
+    "MESMO_ID_LA": 14,
+    "DE_N": 14,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "future · archive",
+    "PASSO": "G0 → FATO_PRESENTE_SOBRE_O_FUTURO (data do evento ≠ janela)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.opportunities",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.opportunities",
+   "N": 3,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — oportunidades do motor V2.1: CLIENT_SAFE=false em todas, nao provadas, nao sao da Intelligence do pote",
+   "PROVENANCE": {
+    "REAL_DERIVED": 3
+   },
+   "CLIENT_SAFE": {
+    "false": 3
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::opportunities",
+    "MESMO_ID_LA": 0,
+    "DE_N": 3,
+    "CHAVE": "ID",
+    "TODOS": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.futureSignals",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.futureSignals",
+   "N": 3,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — interpretacao SINTONIA feita fora da Intelligence (SINTONIA_INTERPRETATION)",
+   "PROVENANCE": {
+    "REAL_DERIVED": 2,
+    "REAL_FACT": 1
+   },
+   "CLIENT_SAFE": {
+    "false": 2,
+    "true": 1
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::futureSignals",
+    "MESMO_ID_LA": 3,
+    "DE_N": 3,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.sources",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.sources",
+   "N": 189,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — registro de fontes — procedencia, nao dado",
+   "PROVENANCE": {
+    "REAL_SOURCE": 31,
+    "REAL_SOURCE_LAST_MILE": 156,
+    "SENTINELA": 2
+   },
+   "CLIENT_SAFE": {
+    "false": 158,
+    "true": 31
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 189,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 189,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::sources",
+    "MESMO_ID_LA": 189,
+    "DE_N": 189,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.news",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.news",
+   "N": 8,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — noticias da imprensa tecnica",
+   "PROVENANCE": {
+    "REAL_SOURCE": 8
+   },
+   "CLIENT_SAFE": {
+    "true": 8
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "DATE",
+    "COM_VALOR": 6,
+    "DE": 8,
+    "MIN": "2021-02-24",
+    "MAX": "2026-06-03",
+    "SEM_DATA_EM": {
+     "DATE": 1
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 8,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::news",
+    "MESMO_ID_LA": 8,
+    "DE_N": 8,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "archive",
+    "PASSO": "G0 → publicacao nao vira fact time",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.relationships",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.relationships",
+   "N": 19,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — ligacoes dos mesmos 19 cruzamentos V2.1, CLIENT_SAFE=false",
+   "PROVENANCE": {
+    "(sem campo)": 19
+   },
+   "CLIENT_SAFE": {
+    "false": 19
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::relationships",
+    "MESMO_ID_LA": 19,
+    "DE_N": 19,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-v21.js::collections.crossings",
+   "FICHEIRO": "italy-v21.js",
+   "CONJUNTO": "collections.crossings",
+   "N": 19,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "build ANTERIOR V21-843baf do mesmo pacote, nao carregada pelo portal — cruzamentos V2.1: CLIENT_SAFE=false em todos (o nome do conjunto nao e o estado dos registos)",
+   "PROVENANCE": {
+    "(sem campo)": 19
+   },
+   "CLIENT_SAFE": {
+    "false": 19
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::clientSafeCrossings",
+    "MESMO_ID_LA": 19,
+    "DE_N": 19,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-ingested.js::PRODUCTS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "PRODUCTS",
+   "N": 163,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "registro ministerial (copia do design pack)",
+   "PROVENANCE": {
+    "REAL_FACT": 163
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 163
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "expiry",
+    "COM_VALOR": 163,
+    "DE": 163,
+    "MIN": "2026-08-15",
+    "MAX": "2041-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 163,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::productsRegulatory",
+    "MESMO_ID_LA": 163,
+    "DE_N": 163,
+    "CHAVE": "reg = REGISTRATION_NUMBER",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-ingested.js::LINKS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "LINKS",
+   "N": 219,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "pares produto × cultura × alvo com dose do rotulo (design pack)",
+   "PROVENANCE": {
+    "REAL_FACT": 219
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 219
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 219,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 219,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-ingested.js::CROPS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "CROPS",
+   "N": 17,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "vocabulario de culturas com contagem de produtos no rotulo",
+   "PROVENANCE": {
+    "REAL_DERIVED": 17
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 17
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 17,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 17,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-ingested.js::COMP_ACTIVITIES",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "COMP_ACTIVITIES",
+   "N": 503,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "anuncios Meta e videos organicos (copia do design pack)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 503
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 503
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "start",
+    "COM_VALOR": 414,
+    "DE": 503,
+    "MIN": "2019-12-05",
+    "MAX": "2026-08-26",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 503,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::competitorActivities",
+    "MESMO_ID_LA": 503,
+    "DE_N": 503,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "competitors",
+    "PASSO": "G0 → crossing concorrente × produto × cultura (T4_REGISTRATION_EVIDENCE_ID exigido)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-ingested.js::COMP_COMPANIES",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "COMP_COMPANIES",
+   "N": 14,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "agregado por empresa derivado fora da Intelligence (contagens de anuncios)",
+   "PROVENANCE": {
+    "REAL_DERIVED": 14
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 14
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 14,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 14,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-ingested.js::COMP_PRODUCTS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "COMP_PRODUCTS",
+   "N": 36,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "agregado por produto concorrente derivado fora da Intelligence",
+   "PROVENANCE": {
+    "REAL_SOURCE": 36
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 36
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 36,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 36,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-ingested.js::SCIENCE",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "SCIENCE",
+   "N": 88,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "ciencia (copia)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 88
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 88
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "PUBLISHED_AT",
+    "COM_VALOR": 88,
+    "DE": 88,
+    "MIN": "2019-01-01",
+    "MAX": "2026-08-14",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 88,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::scienceRecords",
+    "MESMO_ID_LA": 88,
+    "DE_N": 88,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "science",
+    "PASSO": "G0 → DOI/MOLECULE/CROP_ID/ISSUE_ID (ciencia nao vira incidencia de campo)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-ingested.js::RESEARCHERS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "RESEARCHERS",
+   "N": 60,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "diretorio (copia)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 60
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 60
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "LAST_ACTIVITY",
+    "COM_VALOR": 60,
+    "DE": 60,
+    "MIN": "2019-01-02",
+    "MAX": "2026-07-30",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 60,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::researchers",
+    "MESMO_ID_LA": 60,
+    "DE_N": 60,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-ingested.js::RESISTANCE",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "RESISTANCE",
+   "N": 34,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "resistencia (copia)",
+   "PROVENANCE": {
+    "REAL_FACT": 34
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 34
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 34,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 34,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::resistance",
+    "MESMO_ID_LA": 34,
+    "DE_N": 34,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-ingested.js::THEMES",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "THEMES",
+   "N": 5,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "agregados de tema derivados fora da Intelligence",
+   "PROVENANCE": {
+    "REAL_SOURCE": 5
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 5
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 5,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 5,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-ingested.js::VOICES",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "VOICES",
+   "N": 17,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "vozes (copia)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 17
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 17
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 17,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {
+     "DATE": 17
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 17,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::publicVoices",
+    "MESMO_ID_LA": 17,
+    "DE_N": 17,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "voices",
+    "PASSO": "G0 → SPEAKER_ID/QUOTE_OR_TRANSCRIPT/FACT_TIME",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-ingested.js::CHANNELS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "CHANNELS",
+   "N": 30,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "canais (copia)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 30
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 30
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "EXAMPLE_PUBLISHED_AT",
+    "COM_VALOR": 30,
+    "DE": 30,
+    "MIN": "2010-06-11",
+    "MAX": "2026-04-09",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 30,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::publicChannels",
+    "MESMO_ID_LA": 30,
+    "DE_N": 30,
+    "CHAVE": "ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-ingested.js::SOURCES",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "SOURCES",
+   "N": 31,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "registro de fontes (copia parcial)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 31
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 31
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 31,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 31,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::sources",
+    "MESMO_ID_LA": 31,
+    "DE_N": 31,
+    "CHAVE": "SOURCE_ID = SOURCE_ID",
+    "TODOS": true
+   }
+  },
+  {
+   "ID": "italy-ingested.js::PEOPLE",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "PEOPLE",
+   "N": 15,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "pessoas com evidencia de identidade e papel — entidade de referencia",
+   "PROVENANCE": {
+    "REAL_SOURCE": 15
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 15
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 15,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 15,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-ingested.js::EVENTS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "EVENTS",
+   "N": 18,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "eventos (copia)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 18
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 18
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "DATE",
+    "COM_VALOR": 18,
+    "DE": 18,
+    "MIN": "2026-02-04",
+    "MAX": "2027-04-11",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 18,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::events",
+    "MESMO_ID_LA": 18,
+    "DE_N": 18,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "future · archive",
+    "PASSO": "G0 → FATO_PRESENTE_SOBRE_O_FUTURO (data do evento ≠ janela)",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-ingested.js::NEWS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "NEWS",
+   "N": 8,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "noticias (copia)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 8
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 8
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "DATE",
+    "COM_VALOR": 6,
+    "DE": 8,
+    "MIN": "2021-02-24",
+    "MAX": "2026-06-03",
+    "SEM_DATA_EM": {
+     "DATE": 1
+    }
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 8,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::news",
+    "MESMO_ID_LA": 8,
+    "DE_N": 8,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "archive",
+    "PASSO": "G0 → publicacao nao vira fact time",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-ingested.js::MARKET",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "MARKET",
+   "N": 77,
+   "UNIDADE": "registos",
+   "CLASSE": "c",
+   "MOTIVO": "precos (copia)",
+   "PROVENANCE": {
+    "REAL_SOURCE": 77
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 77
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "PUBLICATION_DATE",
+    "COM_VALOR": 40,
+    "DE": 77,
+    "MIN": "2022-07-21",
+    "MAX": "2026-08-27",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 77,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": {
+    "DE": "italy-handoff-v21.js::marketObservations",
+    "MESMO_ID_LA": 77,
+    "DE_N": 77,
+    "CHAVE": "ID",
+    "TODOS": true
+   },
+   "CAMINHO": {
+    "PORTA": "admissao/admissao.py (a porta de admissao por par item × universo) → Sala → G0",
+    "COMPARTIMENTO": "market",
+    "PASSO": "G0 → CROP_ID/MARKET_PLACE_ID/PERIOD/PRICE/UNIT",
+    "LEITOR_NO_REPO": "a porta existe (admissao/admissao.py); o passo da Intelligence NAO esta neste repositorio (motor a5db06c4, ramo int-intake-g0v4-v1)",
+    "NA_ENTRADA": false
+   }
+  },
+  {
+   "ID": "italy-ingested.js::MARKET_SUMMARIES",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "MARKET_SUMMARIES",
+   "N": 5,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "sumarios de texto por cultura — interpretacao fora da Intelligence",
+   "PROVENANCE": {
+    "(sem campo)": 5
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 5
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 5,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 5,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-ingested.js::CROP_WINDOWS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "CROP_WINDOWS",
+   "N": 7,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "janelas montadas a mao a partir de boletins e da norma — interpretacao fora da Intelligence",
+   "PROVENANCE": {
+    "REAL_FACT": 5,
+    "REAL_SOURCE": 2
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 7
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-ingested.js::OPPORTUNITIES",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "OPPORTUNITIES",
+   "N": 3,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "tres fichas de oportunidade escritas a mao (LEGACY_CASE_ID IT-HERO)",
+   "PROVENANCE": {
+    "REAL_DERIVED": 3
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 3
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-ingested.js::FUTURE_SIGNALS",
+   "FICHEIRO": "italy-ingested.js",
+   "CONJUNTO": "FUTURE_SIGNALS",
+   "N": 3,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "interpretacao fora da Intelligence",
+   "PROVENANCE": {
+    "REAL_DERIVED": 2,
+    "REAL_FACT": 1
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 3
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 3,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-catalog.js::ITEMS",
+   "FICHEIRO": "italy-catalog.js",
+   "CONJUNTO": "ITEMS",
+   "N": 44,
+   "UNIDADE": "registos",
+   "CLASSE": "b",
+   "MOTIVO": "catalogo comercial ADAMA Italia com o estado da ligacao ao registro",
+   "PROVENANCE": {
+    "(sem campo)": 44
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 44
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "expiry",
+    "COM_VALOR": 41,
+    "DE": 44,
+    "MIN": "2026-08-31",
+    "MAX": "2041-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 44,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-real-intelligence.js::RESEARCHERS",
+   "FICHEIRO": "italy-real-intelligence.js",
+   "CONJUNTO": "RESEARCHERS",
+   "N": 14,
+   "UNIDADE": "registos",
+   "CLASSE": "NAO_SEI",
+   "MOTIVO": "transcrito a mao do brief (LAST_CHECKED 2026-09-01): sem URL, sem COLLECTED_AT, sem observacao bruta — nao se sabe se e coleta nem de quando",
+   "PROVENANCE": {
+    "REAL_FACT": 14
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 14
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 14,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 14,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-real-intelligence.js::SCIENCE",
+   "FICHEIRO": "italy-real-intelligence.js",
+   "CONJUNTO": "SCIENCE",
+   "N": 12,
+   "UNIDADE": "registos",
+   "CLASSE": "NAO_SEI",
+   "MOTIVO": "idem: transcrito do brief, sem URL nem data de coleta",
+   "PROVENANCE": {
+    "REAL_DERIVED": 3,
+    "REAL_FACT": 9
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 12
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 12,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 12,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-real-intelligence.js::NEWS",
+   "FICHEIRO": "italy-real-intelligence.js",
+   "CONJUNTO": "NEWS",
+   "N": 9,
+   "UNIDADE": "registos",
+   "CLASSE": "NAO_SEI",
+   "MOTIVO": "idem: transcrito do brief; datas sem ano («01 Sep»)",
+   "PROVENANCE": {
+    "REAL_FACT": 9
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 9
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 9,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 9,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-real-intelligence.js::BULLETINS",
+   "FICHEIRO": "italy-real-intelligence.js",
+   "CONJUNTO": "BULLETINS",
+   "N": 7,
+   "UNIDADE": "registos",
+   "CLASSE": "NAO_SEI",
+   "MOTIVO": "idem: contagens de boletins transcritas, sem o boletim",
+   "PROVENANCE": {
+    "REAL_FACT": 7
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 7
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-real-intelligence.js::COMPETITOR_REAL",
+   "FICHEIRO": "italy-real-intelligence.js",
+   "CONJUNTO": "COMPETITOR_REAL",
+   "N": 19,
+   "UNIDADE": "registos",
+   "CLASSE": "NAO_SEI",
+   "MOTIVO": "idem: REAL_DERIVED do dataset Meta, sem ID do anuncio",
+   "PROVENANCE": {
+    "REAL_DERIVED": 11,
+    "REAL_FACT": 4,
+    "REAL_SOURCE": 4
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 19
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-real-intelligence.js::EVENTS_EXTRA",
+   "FICHEIRO": "italy-real-intelligence.js",
+   "CONJUNTO": "EVENTS_EXTRA",
+   "N": 1,
+   "UNIDADE": "registos",
+   "CLASSE": "NAO_SEI",
+   "MOTIVO": "idem",
+   "PROVENANCE": {
+    "(sem campo)": 1
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 1
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 1,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 1,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-real-intelligence.js::SOURCES_EXTRA",
+   "FICHEIRO": "italy-real-intelligence.js",
+   "CONJUNTO": "SOURCES_EXTRA",
+   "N": 19,
+   "UNIDADE": "registos",
+   "CLASSE": "NAO_SEI",
+   "MOTIVO": "idem",
+   "PROVENANCE": {
+    "(sem campo)": 19
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 19
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 19,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-real-intelligence.js::REALITY",
+   "FICHEIRO": "italy-real-intelligence.js",
+   "CONJUNTO": "REALITY",
+   "N": 12,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "etiquetas de estado para a demo (REAL_DATA_AVAILABLE...) — nao e dado",
+   "PROVENANCE": {
+    "(sem campo)": 12
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 12
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 12,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 12,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::CAT",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "CAT",
+   "N": 3,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 3
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::STATUS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "STATUS",
+   "N": 11,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 11
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::DEPT",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "DEPT",
+   "N": 6,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 6
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::REGIONS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "REGIONS",
+   "N": 20,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 20
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::REGION_STATS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "REGION_STATS",
+   "N": 20,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 20
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::PRODUCTS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "PRODUCTS",
+   "N": 33,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 33
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::PRODUCT_LIST",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "PRODUCT_LIST",
+   "N": 33,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 33
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::CASES",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "CASES",
+   "N": 29,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 29
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::SIGNALS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "SIGNALS",
+   "N": 56,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 56
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::COMPANIES",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "COMPANIES",
+   "N": 6,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 6
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::CO_META",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "CO_META",
+   "N": 6,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 6
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::ACTIVITIES",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "ACTIVITIES",
+   "N": 53,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 53
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::EVENTS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "EVENTS",
+   "N": 5,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 5
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::CPRODUCTS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "CPRODUCTS",
+   "N": 14,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 14
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::MATRIX",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "MATRIX",
+   "N": 6,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 6
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::CROP_COLS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "CROP_COLS",
+   "N": 6,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 6
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::ISSUE_ROWS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "ISSUE_ROWS",
+   "N": 12,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 12
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::WHAT_CHANGED",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "WHAT_CHANGED",
+   "N": 6,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 6
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::ATYPE_COLOR",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "ATYPE_COLOR",
+   "N": 6,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 6
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::SCI_THEMES",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "SCI_THEMES",
+   "N": 10,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 10
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::RECORDS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "RECORDS",
+   "N": 24,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 24
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::INSTITUTIONS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "INSTITUTIONS",
+   "N": 12,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 12
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::PEOPLE",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "PEOPLE",
+   "N": 25,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 25
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::TSR",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "TSR",
+   "N": 7,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 7
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::FIELD_MESSAGES",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "FIELD_MESSAGES",
+   "N": 18,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 18
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::FIELD_KPI",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "FIELD_KPI",
+   "N": 6,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 6
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::NOTIFICATIONS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "NOTIFICATIONS",
+   "N": 6,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 6
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::WINDOWS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "WINDOWS",
+   "N": 29,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 29
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::WINDOW_KPI",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "WINDOW_KPI",
+   "N": 9,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 9
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::LADDER",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "LADDER",
+   "N": 5,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 5
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::F_COLOR",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "F_COLOR",
+   "N": 7,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 7
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::GROUP_COLOR",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "GROUP_COLOR",
+   "N": 11,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 11
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::SOURCES",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "SOURCES",
+   "N": 34,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 34
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::ARCHIVE",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "ARCHIVE",
+   "N": 420,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 420
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::KPI",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "KPI",
+   "N": 25,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 25
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::REAL_STATS",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "REAL_STATS",
+   "N": 4,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 4
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::CROP_CAL",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "CROP_CAL",
+   "N": 8,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 8
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::OBSERVED",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "OBSERVED",
+   "N": 10,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 10
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-demo-data.js::CAL",
+   "FICHEIRO": "italy-demo-data.js",
+   "CONJUNTO": "CAL",
+   "N": 16,
+   "UNIDADE": "entradas do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "pacote de demonstracao (ITALY-DEMO-PROVENANCE-MATRIX.md): fixtures locais, nao dado — FORA do casco",
+   "PROVENANCE": {
+    "SYNTHETIC_DEMO (ficheiro inteiro)": 16
+   },
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "meeting-intelligence-snapshot.js::CASES",
+   "FICHEIRO": "meeting-intelligence-snapshot.js",
+   "CONJUNTO": "CASES",
+   "N": 43,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "os 43 casos do motor V2.1 (07/09): oportunidades nao provadas, nao sao da Intelligence do pote",
+   "PROVENANCE": {
+    "(sem campo)": 43
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 43
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 43,
+    "DE": 43,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 43,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::AUTORIZACOES",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "AUTORIZACOES",
+   "N": 8,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "b",
+   "MOTIVO": "contagens do registro ministerial feitas por superficie/it_casa_dados.py — referencia; o casco so a mostra via pote",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::COBERTURA",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "COBERTURA",
+   "N": 5,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "medida de cobertura de uma leitura fora da Intelligence",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::DESTAQUE",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "DESTAQUE",
+   "N": 20,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "destaque montado fora da Intelligence",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::EVIDENCIA",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "EVIDENCIA",
+   "N": 3,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "regra de apresentacao",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::FONTES",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "FONTES",
+   "N": 5,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "contagem de fontes da camada humana",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::LABELS",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "LABELS",
+   "N": 324,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "rotulos IT/EN — vocabulario, nao dado",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::OPPORTUNITA_ATTUALI",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "OPPORTUNITA_ATTUALI",
+   "N": 17,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "as 43 oportunidades V2.1 (CLIENT_SAFE=false)",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::RADAR_FUTURO",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "RADAR_FUTURO",
+   "N": 10,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "radar futuro montado sobre o V2.1, fora da Intelligence",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::REVOGADO_X_SCADUTO",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "REVOGADO_X_SCADUTO",
+   "N": 7,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "b",
+   "MOTIVO": "estado administrativo do registro (revogado × scaduto)",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::SENSORES",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "SENSORES",
+   "N": 4,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "sensores humanos julgados fora da Intelligence",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-casa.js::SINAIS_DE_CAMPO",
+   "FICHEIRO": "italy-casa.js",
+   "CONJUNTO": "SINAIS_DE_CAMPO",
+   "N": 4,
+   "UNIDADE": "chaves do bloco",
+   "CLASSE": "d",
+   "MOTIVO": "cartao de sinais de campo da camada humana",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": {
+    "CAMPO": "DATA_DE_REFERENCIA",
+    "MIN": "2026-09-04",
+    "MAX": "2026-09-04"
+   },
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-canonical-windows.js::windows",
+   "FICHEIRO": "italy-canonical-windows.js",
+   "CONJUNTO": "windows",
+   "N": 29,
+   "UNIDADE": "registos",
+   "CLASSE": "d",
+   "MOTIVO": "janelas EXPECTED_NORM montadas fora da Intelligence (nenhuma CONFIRMED, dito no proprio ficheiro)",
+   "PROVENANCE": {
+    "EXPECTED_NORM": 24,
+    "NOT_ESTABLISHED": 5
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 29
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "START_DATE",
+    "COM_VALOR": 24,
+    "DE": 29,
+    "MIN": "2026-03-15",
+    "MAX": "2027-05-01",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 29,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "adama-relevance.js::VERDETTI",
+   "FICHEIRO": "adama-relevance.js",
+   "CONJUNTO": "VERDETTI",
+   "N": 43,
+   "UNIDADE": "vereditos",
+   "CLASSE": "d",
+   "MOTIVO": "veredito de relevancia sobre as 43 oportunidades V2.1 — fora com elas",
+   "PROVENANCE": {},
+   "CLIENT_SAFE": {},
+   "DATA_DO_DADO": null,
+   "DATA_DE_COLETA": null,
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-label-verdicts.js::VERIFIED",
+   "FICHEIRO": "italy-label-verdicts.js",
+   "CONJUNTO": "VERIFIED",
+   "N": 12,
+   "UNIDADE": "registos",
+   "CLASSE": "NAO_SEI",
+   "MOTIVO": "vereditos de uma leitura dos rotulos (02/09) sem selo nem ferramenta nomeada — nao se sabe se e saida de ferramenta",
+   "PROVENANCE": {
+    "(sem campo)": 12
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 12
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 12,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 12,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  },
+  {
+   "ID": "italy-label-verdicts.js::NOT_FOUND",
+   "FICHEIRO": "italy-label-verdicts.js",
+   "CONJUNTO": "NOT_FOUND",
+   "N": 7,
+   "UNIDADE": "registos",
+   "CLASSE": "NAO_SEI",
+   "MOTIVO": "idem",
+   "PROVENANCE": {
+    "(sem campo)": 7
+   },
+   "CLIENT_SAFE": {
+    "(sem campo)": 7
+   },
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DATA_DE_COLETA": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 7,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "DUPLICADO_DE": null
+  }
+ ]
+}

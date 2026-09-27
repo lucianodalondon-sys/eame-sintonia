@@ -26,7 +26,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
       faixa: 'PUBBLICATO PER DECISIONE {D} DEL PROPRIETARIO · {DATA} — corsa {R} della Intelligence. I dati restano EXPERIMENTAL: si leggono come esperimento, non come raccomandazione.',
       corsa: 'corsa', rodada: 'giro', corte: 'copia della Sala', ready: 'elementi READY letti', motor: 'motore',
       gerador: 'generatore del pote', conferir: 'verifica del pote (dal manifesto)', sha: 'SHA256 del pote',
-      shaNao: 'NON CORRISPONDE al manifesto', shaSim: 'corrisponde al manifesto', conteggi: 'conteggi per compartimento: corrispondono al manifesto',
+      shaNao: 'NON CORRISPONDE al manifesto', shaSim: 'corrisponde al manifesto', shaCrlf: 'corrisponde al manifesto dopo il solo cambio di fine riga (CRLF nel manifesto, LF nel Git) — nessun altro byte', conteggi: 'conteggi per compartimento: corrispondono al manifesto',
       analise: 'incroci', rec: 'RIFIUTATI DAL POTE IN QUESTO COMPARTIMENTO', recLeg: 'visibili qui, mai disegnati come oggetti: il pote li ha rifiutati e dice perché',
       cruzT: 'GLI {N} INCROCI DELLA CORSA', cruzQ: 'domanda: «l\'etichetta ADAMA letta autorizza la sostanza citata nella coltura del bollettino?»',
       cruzLeg: '«SÌ» = l\'etichetta letta copre quella sostanza in quella coltura. NON prova uso, raccomandazione di un prodotto ADAMA, luogo né momento.',
@@ -44,7 +44,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
       faixa: 'PUBLISHED BY OWNER DECISION {D} · {DATA} — Intelligence run {R}. The data stay EXPERIMENTAL: read them as an experiment, not as a recommendation.',
       corsa: 'run', rodada: 'round', corte: 'Sala copy', ready: 'READY items read', motor: 'engine',
       gerador: 'pot generator', conferir: 'pot check (from the manifest)', sha: 'pot SHA256',
-      shaNao: 'DOES NOT MATCH the manifest', shaSim: 'matches the manifest', conteggi: 'counts per compartment: match the manifest',
+      shaNao: 'DOES NOT MATCH the manifest', shaSim: 'matches the manifest', shaCrlf: 'matches the manifest after the line-ending change only (CRLF in the manifest, LF in Git) — no other byte', conteggi: 'counts per compartment: match the manifest',
       analise: 'crossings', rec: 'REFUSED BY THE POT IN THIS COMPARTMENT', recLeg: 'visible here, never drawn as objects: the pot refused them and says why',
       cruzT: 'THE {N} CROSSINGS OF THE RUN', cruzQ: 'question: «does the ADAMA label read authorise the substance cited in the crop of the bulletin?»',
       cruzLeg: '«YES» = the label read covers that substance on that crop. It does NOT prove use, a recommendation of an ADAMA product, place or moment.',
@@ -156,7 +156,11 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
 
   function cabecalho(pub, pote, T) {
     var D = pub.DECISAO || {}, SH = pote.SOURCE_HEAD || {}, C = pote.CORTE || {};
-    var shaOk = pub.SHA256_CONFERE_COM_O_MANIFESTO === true;
+    /* So as duas formas que o publicador aceita contam como «confere»; qualquer outra coisa e ambar. */
+    var shaModo = pub.SHA256_CONFERENCIA;
+    var shaOk = pub.SHA256_CONFERE_COM_O_MANIFESTO === true &&
+      (shaModo === 'IGUAL_BYTE_A_BYTE' || shaModo === 'IGUAL_APOS_FIM_DE_LINHA_CRLF');
+    var shaTxt = shaModo === 'IGUAL_APOS_FIM_DE_LINHA_CRLF' ? T.shaCrlf : T.shaSim;
     return {
       faixa: T.faixa.replace('{D}', txt(D.ID)).replace('{DATA}', quando(D.DATA)).replace('{R}', txt(pub.RODADA)),
       decisao: '«' + txt(D.TEXTO) + '» — ' + txt(D.ID),
@@ -164,7 +168,7 @@ window.SINTONIA_POTE_PUBLICACAO = (function () {
         par(T.rodada, pub.RODADA), par(T.corsa, pote.INTELLIGENCE_RUN_ID), par(T.corte, quando(C.COPIA_DA_SALA_EM)),
         par(T.ready, C.READY), par(T.motor, txt(SH.MOTOR_RAMO) + ' @ ' + txt(SH.MOTOR).slice(0, 8)),
         par(T.gerador, pub.GERADOR_DO_POTE), par(T.conferir, pub.CONFERIR_POTE_DO_DONO),
-        { k: T.sha, v: txt(pub.POTE_SHA256).slice(0, 16) + '… · ' + (shaOk ? T.shaSim : T.shaNao + ' (' + txt(pub.SHA256_DECLARADO_NO_MANIFESTO).slice(0, 16) + '…) · ' + T.conteggi),
+        { k: T.sha, v: txt(pub.POTE_SHA256).slice(0, 16) + '… · ' + (shaOk ? shaTxt : T.shaNao + ' (' + txt(pub.SHA256_DECLARADO_NO_MANIFESTO).slice(0, 16) + '…) · ' + T.conteggi),
           color: shaOk ? BRANCO : AMBAR }
       ]
     };

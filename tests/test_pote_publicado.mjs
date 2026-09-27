@@ -18,7 +18,8 @@
      Q5  os recusados de cada compartimento estao visiveis, com o motivo;
      Q6  vazio diz o PORQUE; a Rete Commerciale simulada nao volta;
      Q7  o relogio diz a data da copia da Sala e o menu conta o pote — nenhum «oggi»;
-     Q8  o SHA que nao confere com o manifesto esta dito na tela;
+     Q8  o SHA do pote contra o manifesto esta dito na tela, com o MODO da conferencia; e um pote cujo
+         sha nao confere continua a aparecer em ambar como NON CORRISPONDE;
      Q9  um pote de OUTRA corrida nao herda os cruzamentos desta;
      Q10 toda ligacao {{ }} dos blocos da publicacao resolve. */
 import fs from 'node:fs';
@@ -200,11 +201,30 @@ for (const r of ['sala', 'painel', 'search']) prova(`Q3 #${r} nao e ferramenta: 
     igual(x.sideRows.slice(1).map((r) => r.v), [47, 86, 245]));
 }
 
-/* ── Q8 · o SHA que nao confere ──────────────────────────────────────────── */
+/* ── Q8 · o SHA do pote contra o manifesto ───────────────────────────────
+   AJUSTE DECLARADO (missao ACERVO-ORGANIZADO, item 6, sobre a D114): esta prova esperava
+   «NON CORRISPONDE» porque a causa nao estava medida. Foi medida: o manifesto fez o hash dos
+   bytes CRLF, o Git guarda LF, e LF -> CRLF nos bytes do Git da exatamente o sha declarado.
+   O publicador passou a dizer o MODO (IGUAL_BYTE_A_BYTE / IGUAL_APOS_FIM_DE_LINHA_CRLF /
+   DIFERENTE). A prova nao afrouxa: (a) o modo real e o CRLF e a tela di-lo por extenso; (b) o
+   caminho do ambar continua provado, com um pote que nao confere. */
 {
   const m = V('sources').potePub.meta.find((q) => /SHA256/.test(q.k));
-  prova('Q8 o SHA do pote que nao confere com o manifesto esta dito, em destaque',
-    !!m && /NON CORRISPONDE/.test(m.v) && m.color === '#F5B317');
+  const pub = montar().ctx.SINTONIA_POTE_PUBLICADO;
+  prova('Q8 o publicado declara o modo CRLF e o sha em CRLF e o do manifesto',
+    pub.SHA256_CONFERENCIA === 'IGUAL_APOS_FIM_DE_LINHA_CRLF' && pub.SHA256_CONFERE_COM_O_MANIFESTO === true &&
+    pub.POTE_SHA256_EM_CRLF === pub.SHA256_DECLARADO_NO_MANIFESTO && pub.POTE_SHA256 !== pub.SHA256_DECLARADO_NO_MANIFESTO);
+  prova('Q8 a tela diz que confere SO pelo fim de linha, sem ambar',
+    !!m && /fine riga/.test(m.v) && /CRLF/.test(m.v) && !/NON CORRISPONDE/.test(m.v) && m.color !== '#F5B317', m && m.v);
+  const N = montar('', (ctx) => { ctx.SINTONIA_POTE_PUBLICADO.SHA256_CONFERENCIA = 'DIFERENTE';
+    ctx.SINTONIA_POTE_PUBLICADO.SHA256_CONFERE_COM_O_MANIFESTO = false; });
+  const mn = N.vals({ view: 'sources', lang: 'it' }).potePub.meta.find((q) => /SHA256/.test(q.k));
+  prova('Q8 um pote cujo sha nao confere aparece NON CORRISPONDE, em ambar',
+    !!mn && /NON CORRISPONDE/.test(mn.v) && mn.color === '#F5B317', mn && mn.v);
+  const B = montar('', (ctx) => { ctx.SINTONIA_POTE_PUBLICADO.SHA256_CONFERENCIA = 'OUTRO_MODO_QUALQUER'; });
+  const mb = B.vals({ view: 'sources', lang: 'it' }).potePub.meta.find((q) => /SHA256/.test(q.k));
+  prova('Q8 um modo que o publicador nao conhece nao passa por «corrisponde»',
+    !!mb && /NON CORRISPONDE/.test(mb.v) && mb.color === '#F5B317', mb && mb.v);
 }
 
 /* ── Q9 · um pote de outra corrida nao herda estes cruzamentos ──────────── */
