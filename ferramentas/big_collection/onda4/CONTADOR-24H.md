@@ -2,7 +2,7 @@
 
 Estudo do bot Luciano (D90, `auditoria-madrugada/ESTUDO-ORQUESTRACAO-24H-LUCIANO.md` §2.2): «não encontrei prova de
 uma **reserva atómica compartilhada** entre todas as linhas… até a reserva global passar num teste concorrente…
-apenas uma linha de rede ativa por vez». Ramo `contador-24h-v1`, sobre o vivo `dc0de726`. Sem rede, nada
+apenas uma linha de rede ativa por vez». Ramo `contador-24h-v1`, sobre o vivo `dc0de726` e **já junto com o vivo novo `554c1ec1`** (LOTE 3, 26/09 22:25; junção sem conflito). Sem rede, nada
 instalado. **Falta só o mapa.**
 
 ## O defeito que isto fecha (medido no código do vivo)
@@ -37,14 +37,16 @@ RESERVAR(domínio_registável, quantidade, janela=24 h, run_id) -> RESERVADO | A
 
 ## Provas (sem rede)
 
-- `tests/test_contador_24h.py` **17/17**:
+- `tests/test_contador_24h.py` **20/20** (sobre `554c1ec1`):
   - a regra: 5 passam e a 6.ª fica adiada com a hora certa; janela móvel; www/sub juntos; googlevideo gasta de
     youtube; quantidade maior do que sobra; quem gastou fica registado;
   - FAIL sem livro e com pedido inválido; UNKNOWN com JSON partido, com JSON sem `RESERVAS`, e com trinco preso;
     o trinco é libertado;
   - **16 processos Python** a correr ao mesmo tempo no mesmo domínio (48 pedidos): **exatamente 5 RESERVADO**;
   - **Python e Node ao mesmo tempo** no mesmo livro: exatamente 5;
-  - o gémeo Node: livro ilegível = UNKNOWN; a mesma regra do Python.
+  - o gémeo Node: livro ilegível = UNKNOWN; a mesma regra do Python;
+  - **a linha social** (freio): pára no 6.º com `TETO_24H` (e googlevideo gasta de youtube); **web e social somam no
+    mesmo livro** (3 do transporte Node + 2 do freio, o 3.º do freio é recusado); sem o livro, o freio é o de antes.
 - **`provas/contador_24h_local.mjs` — o teste adversarial pedido (8/8).** Cada executor é um **processo Node
   próprio** a correr o **transporte real** (`executarRodada`, curl) contra um servidor em 127.0.0.1 que **conta**.
   Os executores partilham só o livro de 24 h, **sem livro de onda**, que é o caso que o teto antigo não via:
@@ -54,12 +56,13 @@ RESERVAR(domínio_registável, quantidade, janela=24 h, run_id) -> RESERVADO | A
     corrida acaba normalmente;
   - **A3** um executor Python e um Node, concorrentes, no mesmo domínio → ≤ 5; livro = servidor;
   - **A4** outro domínio não é afetado.
-- **Mutação** `provas/contador_24h_mutacao.py` **10/10 mortos** (`provas/CONTADOR-24H-MUTACAO.json`): teto folgado ·
+- **Mutação** `provas/contador_24h_mutacao.py` **12/12 mortos** (`provas/CONTADOR-24H-MUTACAO.json`): teto folgado ·
   sem trinco · livro ilegível vira vazio · janela ignorada · googlevideo separado · reserva não escrita · o
-  transporte não reserva · Node sem trinco · Node com livro ilegível vazio · Node com teto folgado. Dois mutantes
+  transporte não reserva · Node sem trinco · Node com livro ilegível vazio · Node com teto folgado · **o freio social não reserva · o freio social ignora o ADIADO**. Dois mutantes
   sobreviveram à primeira passagem (livro JSON válido sem `RESERVAS`, em Python e em Node): eram buracos dos meus
   testes. Acrescentei os testes e os dois morreram.
-- **Regressão** (sem `SINTONIA_TETO_24H`): `test_teto_dominio` OK, `teto_dominio_local` 7/7, `test_corrida_abortada`
+- **Regressão sobre `554c1ec1`** (sem `SINTONIA_TETO_24H`): `test_freio_social` 11/11, `test_maestro_social` 12/12,
+  `test_baixador_social` 4/4, `test_teto_dominio` OK, `teto_dominio_local` 10/10, `test_corrida_abortada`
   OK, `test_onda_web` 17/17, `test_rodadas` 38/38. `test_cortesia_no_transporte` falha **no C5**, e falha igual no
   vivo `dc0de726` sem esta mudança (29/1 nos dois): é de base, não é desta entrega.
 
@@ -70,7 +73,7 @@ Uma linha só pode pôr pedidos na rede com **uma reserva por pedido** neste mes
 | linha | ramo | onde reservar | como |
 |---|---|---|---|
 | sites / boletins (`rodadas.py` → `onda_web` → transporte) | **este** | `umaIda()` | **feito** |
-| social (Scrap, yt-dlp) | `lote3-social-v2` / `freio-social-v2` | `coleta/teto_da_onda.py::reservar()`, antes de mexer no livro da onda | chamar `reserva_24h.reservar(host, 1, run_id=…, linha="SOCIAL")`; se não for RESERVADO, levantar `TetoDaOnda` (a recusa que já existe) |
+| social (Scrap, yt-dlp) | **este** (o freio entrou no vivo com o LOTE 3) | `coleta/teto_da_onda.py::reservar()`, **antes** do livro da onda | **feito**: com `SINTONIA_TETO_24H`, reserva primeiro no livro comum (`linha=SOCIAL`); não reservado = recusa `TETO_24H` registada + `TetoDaOnda`; sem o livro, o freio é o de antes |
 | páginas de pesquisadores | `seguir-pesquisadores-v1` | `Transporte._pedir()` (`seguir.py:134`), antes do `urlopen` (robots incluído) | idem, `linha="PESQUISADORES"`; recusa = `PENDENTE` (o motivo que o `seguir` já usa) |
 | PDFs de monitorização | `micro-prova-lote2b-v1` | o `buscar` que `ler_pdf_monitorizacao.correr()` recebe | embrulhar o `buscar` com a reserva, `linha="PDF"` |
 | lista mestra / APIs científicas | `lista-mestra-v1`, `pesquisadores-t6-v1` | os transportes que ela usa: `T6.CP._get` e `T6._pedir` | reservar no transporte T6, `linha="CIENCIA"` |
@@ -86,5 +89,5 @@ Uma linha só pode pôr pedidos na rede com **uma reserva por pedido** neste mes
 - Testei com dois programas **de verdade**, rodando ao mesmo tempo contra um site falso que conta as visitas:
   o site recebeu exatamente 5, nunca 6. O programa que chegou depois não visitou nada.
 - Testei também o contrário: estraguei o código de 10 jeitos diferentes, e os testes pegaram os 10.
-- Só a coleta de sites já usa o caderno novo. As redes sociais, os pesquisadores, os PDFs e as APIs precisam
-  de uma linha de código cada um, nos seus ramos. Até lá, a regra é uma coleta pela internet de cada vez.
+- A coleta de sites **e a das redes sociais** já usam o caderno novo. Os pesquisadores, os PDFs e as APIs
+  precisam de uma linha de código cada um, nos seus ramos. Até lá, a regra é uma coleta pela internet de cada vez.
