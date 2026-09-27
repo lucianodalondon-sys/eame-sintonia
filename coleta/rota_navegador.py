@@ -139,9 +139,9 @@ def medir(url: str, *, livros: str, recibos: str | None, saida: str, egresso=Non
 
 def _dominio(host):
     """O orcamento do dominio, pela regra da prova-teto (D38/D41), a mesma que as rodadas usam."""
-    sys.path.insert(0, os.path.join(RAIZ, "provas"))
-    import prova_teto_dominio as PT                                     # noqa: PLC0415
-    return PT.orcamento_de(host)
+    sys.path.insert(0, os.path.join(RAIZ, "coleta"))
+    import dominio_registavel as DR                                     # noqa: PLC0415  (DA-21: runtime, nao provas/)
+    return DR.orcamento_de(host)
 
 
 def _egresso_do_dono():
@@ -161,7 +161,9 @@ def _janela_24h(host, livros, recibos):
     R = importlib.util.module_from_spec(s)
     s.loader.exec_module(R)
     ult = R.ultima_visita_por_dominio(Path(livros), tuple(Path(x) for x in [recibos] if x))
-    t = ult.get(R.PT.dominio_registavel(host))
+    sys.path.insert(0, os.path.join(RAIZ, "coleta"))
+    import dominio_registavel as DR                                     # noqa: PLC0415
+    t = ult.get(DR.dominio_registavel(host))
     agora = datetime.now(timezone.utc)
     return (t + timedelta(hours=24)).isoformat(timespec="seconds") if t and agora < t + timedelta(hours=24) else None
 

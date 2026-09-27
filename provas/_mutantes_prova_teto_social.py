@@ -17,10 +17,10 @@ M=[
  ("M11 fase fora conta","coleta/scrap_colheita.py","    if fase not in FASES_CONTADAS:\n","    if False:\n"),
  ("M12 nao contados ignorados","coleta/scrap_colheita.py","    nao_contados = list(de_fora)\n","    nao_contados = []\n"),
  ("M13 sem zerar por corrida","coleta/scrap_colheita.py","    http.zerar_contagem()\n    inicio = _agora()\n","    inicio = _agora()\n"),
- ("M14 D41 desligada","provas/prova_teto_dominio.py",'MESMO_ORCAMENTO = {"googlevideo.com": "youtube.com"}','MESMO_ORCAMENTO = {}'),
+ ("M14 D41 desligada","coleta/dominio_registavel.py",'MESMO_ORCAMENTO = {"googlevideo.com": "youtube.com"}','MESMO_ORCAMENTO = {}'),
  ("M15 D41 fora do verificar","provas/prova_teto_dominio.py","            dom = orcamento_de(host)\n","            dom = dominio_registavel(host)\n"),
  ("M16 XX ignorado","provas/prova_teto_dominio.py",'(?:IT|XX)-T','IT-T'),
- ("M17 D41 junta linkedin","provas/prova_teto_dominio.py",'MESMO_ORCAMENTO = {"googlevideo.com": "youtube.com"}','MESMO_ORCAMENTO = {"googlevideo.com": "youtube.com", "licdn.com": "linkedin.com"}'),
+ ("M17 D41 junta linkedin","coleta/dominio_registavel.py",'MESMO_ORCAMENTO = {"googlevideo.com": "youtube.com"}','MESMO_ORCAMENTO = {"googlevideo.com": "youtube.com", "licdn.com": "linkedin.com"}'),
  ("M18 adaptador nao passa o yt-dlp","coleta/adaptador_youtube.py","        http.contar_de_fora(getattr(ytv, 'ULTIMO_TRAFEGO', None), quem='yt-dlp')\n","        pass\n"),
 ]
 env=dict(os.environ,PYTHONUTF8="1")

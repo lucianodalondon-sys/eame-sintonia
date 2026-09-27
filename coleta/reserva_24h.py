@@ -13,7 +13,7 @@ sob o mesmo trinco.
 
 O LIVRO: `SINTONIA_TETO_24H` (um ficheiro JSON) = {"RESERVAS": [{"DOMINIO", "QTD", "EM", "RUN_ID", "LINHA"}]}
   · EM = segundos UTC (epoch). A janela e MOVEL: contam as reservas com EM > agora - 24 h.
-  · O dominio e o registavel (a mesma regra do transporte: `prova_teto_dominio.dominio_registavel`),
+  · O dominio e o registavel (a mesma regra do transporte: `coleta/dominio_registavel.dominio_registavel`, a mesma que a prova-teto importa),
     com os orcamentos partilhados declarados (D41: googlevideo.com gasta de youtube.com).
   · Sem livro (variavel vazia): FAIL — nao ha contador, nao se pede. Uma linha de rede sem contador
     partilhado e o que o estudo proibe.
@@ -33,8 +33,8 @@ import time
 from pathlib import Path
 
 _AQUI = Path(__file__).resolve().parent
-sys.path.insert(0, str(_AQUI.parent / "provas"))
-import prova_teto_dominio as _PT                                   # noqa: E402 — um so dono da regra
+sys.path.insert(0, str(_AQUI))
+import dominio_registavel as _PT                                   # noqa: E402 — um so dono da regra (DA-21: runtime, nao provas/)
 
 TETO = int(os.environ.get("SINTONIA_TETO_POR_HOST") or _PT.TETO_D38)
 JANELA_S = 24 * 3600

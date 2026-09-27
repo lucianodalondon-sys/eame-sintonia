@@ -39,10 +39,10 @@ def _dominio_da_casa(url_ou_host: str) -> str:
     h = urlsplit(url_ou_host).hostname if "://" in (url_ou_host or "") else (url_ou_host or "")
     try:
         raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        if os.path.join(raiz, "provas") not in sys.path:
-            sys.path.insert(0, os.path.join(raiz, "provas"))
-        import prova_teto_dominio as PT                                     # noqa: PLC0415
-        return PT.orcamento_de(h)
+        if os.path.join(raiz, "coleta") not in sys.path:
+            sys.path.insert(0, os.path.join(raiz, "coleta"))
+        import dominio_registavel as DR                                     # noqa: PLC0415  (DA-21: runtime, nao provas/)
+        return DR.orcamento_de(h)
     except Exception:                                                       # noqa: BLE001
         h = (h or "").lower()
         return h[4:] if h.startswith("www.") else h

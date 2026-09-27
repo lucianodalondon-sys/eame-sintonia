@@ -12,7 +12,9 @@ POR QUE É INDEPENDENTE
     (`SINTONIA_TETO_ONDA`, que é o contador de quem está a ser verificado): lê o LIVRO DE CORRIDAS
     (`data/collection-ledger/italy/runs.ndjson`), onde o transporte do coletor escreve, por corrida,
     `CORTESIA.PEDIDOS_POR_HOST`.
-  - O domínio registável é calculado AQUI, com uma lista de sufixos própria (abaixo).
+  - O domínio registável vem de `coleta/dominio_registavel.py` (a lista de sufixos própria, sem Public Suffix
+    List): um só dono da regra para o transporte, as rodadas e esta prova (DA-21). A independência é a do
+    CONTADOR — esta prova não lê o de quem é verificado.
   - Uma corrida da onda que o livro não tem, ou sem `PEDIDOS_POR_HOST`, NÃO conta zero: a prova
     diz NAO_SEI (código 2). Contar zero deixaria uma onda cega passar.
 
@@ -20,60 +22,20 @@ Saída: por domínio, o total, os hosts e as corridas que o somaram; PASS (0) / 
 """
 import argparse
 import json
+import os
 import re
 import sys
 
-TETO_D38 = 5
 # `XX-` tambem: o orquestrador cunha `{pais}-{alvo}-...` e um pedido sem pais sai `XX`
 # (PROVA-TETO-SOCIAL). Uma corrida da onda ignorada pelo padrao seria contada como zero.
 RE_RUN_ID = re.compile(r"(?:IT|XX)-T\d+-\d{4}-\d{2}-\d{2}-\d{6}-[0-9a-f]{16}")
 
-# Sufixos públicos de DOIS níveis que esta prova conhece (escritos aqui, sem Public Suffix List:
-# nenhuma nesta casa, e nenhuma se vai buscar à rede). Um sufixo que falte junta MAIS do que devia
-# (ex.: `x.provincia.it` com `provincia.it`): a prova fica mais exigente, nunca mais branda.
-SUFIXOS_DOIS_NIVEIS = frozenset("""
-gov.it edu.it
-abruzzo.it abr.it basilicata.it bas.it calabria.it cal.it campania.it cam.it
-emilia-romagna.it emiliaromagna.it emr.it friuli-venezia-giulia.it friuli-vgiulia.it friulivenezia-giulia.it
-friulivgiulia.it fvg.it lazio.it laz.it liguria.it lig.it lombardia.it lom.it marche.it mar.it molise.it mol.it
-piemonte.it pmn.it puglia.it pug.it sardegna.it sar.it sicilia.it sic.it toscana.it tos.it trentino.it
-trentino-alto-adige.it trentinoaltoadige.it taa.it umbria.it umb.it valledaosta.it valle-daosta.it vda.it vao.it
-veneto.it ven.it
-co.uk org.uk ac.uk gov.uk com.br org.br gov.br com.au org.au co.jp com.es com.pt co.nz com.ar com.mx
-""".split())
-
-
-# D41 (25/09): dominios DIFERENTES que sao o MESMO orcamento. O stream do YouTube vem de
-# `googlevideo.com`; contar a parte deixaria cada video gastar 5 + 5. Escrito aqui, a mao,
-# e so com o que a decisao nomeou: juntar de menos e o unico erro que esta prova nao pode fazer.
-MESMO_ORCAMENTO = {"googlevideo.com": "youtube.com"}
-
-
-def host_limpo(h):
-    h = str(h or "").strip().lower()
-    h = re.sub(r"^[a-z][a-z0-9+.-]*://", "", h)      # aceita tambem uma origem com esquema
-    h = h.split("/")[0].split("@")[-1]
-    if h.startswith("[") and "]" in h:                # IPv6 entre parenteses
-        return h[: h.index("]") + 1]
-    h = h.split(":")[0].rstrip(".")
-    return h[4:] if h.startswith("www.") else h
-
-
-def dominio_registavel(host):
-    h = host_limpo(host)
-    if not h or re.fullmatch(r"\d{1,3}(\.\d{1,3}){3}", h) or h.startswith("["):
-        return h
-    partes = [p for p in h.split(".") if p]
-    if len(partes) <= 2:
-        return ".".join(partes)
-    dois = ".".join(partes[-2:])
-    return ".".join(partes[-3:]) if dois in SUFIXOS_DOIS_NIVEIS else dois
-
-
-def orcamento_de(host):
-    """O dominio que PAGA o pedido: o registavel, ou aquele a que a D41 o junta."""
-    d = dominio_registavel(host)
-    return MESMO_ORCAMENTO.get(d, d)
+# A regra do dominio registavel (sufixos, D41, host limpo) e o TETO_D38 vivem em `coleta/dominio_registavel.py`
+# — um so dono no runtime (DA-21, lote 4). Importados com os MESMOS nomes: quem usa `prova_teto_dominio.X`
+# (rodadas, maestro, testes) continua igual.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "coleta"))
+from dominio_registavel import (TETO_D38, SUFIXOS_DOIS_NIVEIS, MESMO_ORCAMENTO,  # noqa: E402,F401
+                                host_limpo, dominio_registavel, orcamento_de)
 
 
 def run_ids_da_onda(texto):
