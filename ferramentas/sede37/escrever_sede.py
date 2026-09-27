@@ -91,14 +91,27 @@ def invariantes(antes, depois, permitidos):
                 raise InvarianteQuebrado("%s: pisou um %s que ja existia" % (a["SOURCE_ID"], k))
 
 
+def _forma(d, texto):
+    """A forma EXATA do livro (recuo, ensure_ascii): a que o reescreve byte a byte. Sem nenhuma, recusa.
+    LUGAR-DO-PUBLICADOR: o livro do Curator do vivo tem recuo 2 e a porta escrevia 1 — 22 mil linhas mudavam."""
+    for indent in (2, 1, 4, None):
+        for ascii_ in (False, True):
+            if json.dumps(d, ensure_ascii=ascii_, indent=indent) == texto.rstrip("\n"):
+                return {"indent": indent, "ensure_ascii": ascii_}
+    raise InvarianteQuebrado("o livro nao se reescreve igual com nenhuma forma conhecida: nao se escreve")
+
+
 def _ler(caminho):
     b = open(caminho, "rb").read()
-    return json.loads(b.decode("utf-8")), ("\r\n" if b"\r\n" in b else "\n"), b.endswith(b"\n")
+    texto = b.decode("utf-8").replace("\r\n", "\n")
+    d = json.loads(texto)
+    return d, ("\r\n" if b"\r\n" in b else "\n", _forma(d, texto)), b.endswith(b"\n")
 
 
 def _escrever(caminho, d, quebra, fim):
+    quebra, forma = quebra
     with open(caminho, "w", encoding="utf-8", newline=quebra) as fh:
-        fh.write(json.dumps(d, ensure_ascii=False, indent=1) + ("\n" if fim else ""))
+        fh.write(json.dumps(d, **forma) + ("\n" if fim else ""))
 
 
 def main(argv=None) -> int:

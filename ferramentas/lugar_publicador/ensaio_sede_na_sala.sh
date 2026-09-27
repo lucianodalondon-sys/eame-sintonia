@@ -44,7 +44,23 @@ for P in ferramentas/sede37/PAGINAS-DE-SEDE.json ferramentas/lugar_publicador/me
   head -1 "$OUT/2-$n-MOSTRAR.txt"; head -1 "$OUT/2-$n-SEGUNDA.txt"
 done
 node -e "import('./regras/italy_contracts.mjs').then(m=>console.log('CONTRACTS', Object.keys(m.CONTRACTS).length))"
-git diff --stat > "$OUT/2-LIVROS-DIFF-STAT.txt"; cat "$OUT/2-LIVROS-DIFF-STAT.txt"
+# comparar com a COPIA do vivo (nao com o Git: os livros do vivo ja diferem do Git — sao livros vivos)
+py -B - "$VIVO" "$OUT" <<'PYEOF'
+import collections, json, subprocess, sys
+vivo, out = sys.argv[1], sys.argv[2]
+res = {}
+for rel in ("curadoria/italy_contracts_curator.json", "regras/italy_contracts_onboarded.json"):
+    a = open(vivo + "/" + rel, "rb").read(); d = open(rel, "rb").read()
+    A = {c["SOURCE_ID"]: c for c in json.loads(a)["FONTES"]}; D = {c["SOURCE_ID"]: c for c in json.loads(d)["FONTES"]}
+    assert list(A) == list(D), rel
+    campos = collections.Counter(k for s in A for k in set(A[s]) | set(D[s]) if A[s].get(k) != D[s].get(k))
+    fontes = sorted(s for s in A if A[s] != D[s])
+    la, ld = a.decode().splitlines(), d.decode().splitlines()
+    res[rel] = {"FONTES_MUDADAS": len(fontes), "CAMPOS_MUDADOS": dict(campos), "LINHAS_ANTES": len(la), "LINHAS_DEPOIS": len(ld),
+                "FONTES": fontes}
+    print(rel, len(fontes), "fontes;", dict(campos), "; linhas", len(la), "->", len(ld))
+json.dump(res, open(out + "/2-LIVROS-O-QUE-MUDOU.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+PYEOF
 
 echo "== 3 · copia da Sala: pg_dump so-leitura -> Postgres descartavel na porta $PORTA"
 PGOPTIONS='-c default_transaction_read_only=on' "$BIN/pg_dump.exe" -Fc --no-owner --no-acl -f "$TMP/sala.dump" "$DSN_REAL"
@@ -60,7 +76,7 @@ q "$FOTO" > "$OUT/3-ANTES.txt"
 q "select count(*) from sala_de_espera_revisao" > "$OUT/3-REVISOES-ANTES.txt"
 
 echo "== 4 · a porta da sede na copia: mostrar -> aplicar -> 2.a passagem"
-export SINTONIA_SALA_BACKEND=POSTGRES SINTONIA_SALA_DSN="$COPIA"
+export SINTONIA_SALA_BACKEND=POSTGRES SINTONIA_SALA_DSN="$COPIA" SINTONIA_PSQL_EXE="$(cygpath -w "$BIN/psql.exe")"
 py -B ferramentas/lugar_publicador/preencher_sede_na_sala.py --saida "$OUT/4-MOSTRAR.json" | head -12
 py -B ferramentas/lugar_publicador/preencher_sede_na_sala.py --aplicar --saida "$OUT/4-APLICAR.json" | grep -A6 CONTA
 py -B ferramentas/lugar_publicador/preencher_sede_na_sala.py --aplicar --saida "$OUT/4-SEGUNDA.json" | grep -A6 CONTA
