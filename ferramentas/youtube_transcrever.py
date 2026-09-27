@@ -207,10 +207,20 @@ def _audio(video_id):
         # O `--match-filter` rejeitou o video: nada desceu, e isso diz-se pelo nome.
         return None, ('VIDEO_LONGO_DEMAIS: mais de %d s (SINTONIA_YT_DURACAO_MAX_S); '
                       'nao se descarregou' % duracao_max_s())
-    erro = [l for l in (r.stderr or '').strip().splitlines() if l.strip()]
-    erro = erro or [l for l in (r.stdout or '').strip().splitlines()
-                    if l.strip() and not _LINHA_DE_TRAFEGO.match(l)]
-    return None, ('YT_DLP_NAO_ENTREGOU: %s' % (erro[-1][:150] if erro else 'sem mensagem'))
+    return None, 'YT_DLP_NAO_ENTREGOU: %s' % _motivo_do_yt_dlp(r.stderr, r.stdout)
+
+
+def _motivo_do_yt_dlp(stderr, stdout):
+    """A ultima linha de ERRO e os AVISOS que a antecedem (ate 3 linhas, 600 letras). So a ultima linha
+    dizia «403» e escondia porque: os avisos (JS runtime, formatos saltados, PO token) sao o diagnostico."""
+    linhas = [l.strip() for l in (stderr or '').splitlines() if l.strip()]
+    linhas = linhas or [l.strip() for l in (stdout or '').splitlines()
+                        if l.strip() and not _LINHA_DE_TRAFEGO.match(l)]
+    if not linhas:
+        return 'sem mensagem'
+    erro = [l for l in linhas if l.startswith('ERROR')][-1:] or linhas[-1:]
+    avisos = [l for l in linhas if l.startswith('WARNING')][-2:]
+    return (' | '.join(erro + avisos))[:600]
 
 
 FREIO_DO_YT_DLP = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'yt_dlp_com_freio.py')
@@ -236,13 +246,33 @@ def duracao_max_s():
     return n
 
 
+# YT-403 (27/09): `--no-warnings` SAIU. Ele escondia o aviso que dizia a causa: «No supported JavaScript
+# runtime could be found … some formats may be missing» — sem motor de JS o yt-dlp 2026.06.09 so usa o
+# cliente `android_vr` (medido nos 4 info.json da volta 2A: 12 formatos, todos ANDROID_VR). Os avisos vao
+# para o stderr e as ultimas linhas entram no motivo da falha (`_motivo_do_yt_dlp`).
+#
+# A fatia (`--http-chunk-size`) passa a poder ser trocada por SINTONIA_YT_FATIA sem mexer no codigo:
+# «50M» (omissao, o do MAESTRO-SOCIAL) ou «0» = sem o argumento, e o yt-dlp usa a do proprio YouTube
+# (10 MiB por formato). NAO SEI se a fatia grande pesa no 403: o video que passou usou a mesma.
+FATIA_OMISSAO = '50M'
+
+
+def fatia_do_ambiente():
+    v = os.environ.get('SINTONIA_YT_FATIA')
+    v = FATIA_OMISSAO if v in (None, '') else v.strip()
+    if v != '0' and not re.fullmatch(r'\d+[KMG]?', v):
+        raise ValueError('SINTONIA_YT_FATIA invalida: %r (ex.: 50M, 10M ou 0)' % v)
+    return None if v == '0' else v
+
+
 def argumentos_do_yt_dlp(media):
     """Os argumentos do yt-dlp (sem o endereco). Um so sitio: o transcritor e a prova usam estes."""
-    return ['-q', '--no-warnings', '--print-traffic',
+    fatia = fatia_do_ambiente()
+    return ['-q', '--print-traffic',
             '-f', 'bestaudio/best', '-x', '--audio-format', 'wav',
             '--postprocessor-args', '-ac 1 -ar 16000',
             '--write-info-json',
-            '--http-chunk-size', '50M',
+            *(['--http-chunk-size', fatia] if fatia else []),
             '--retries', '1', '--fragment-retries', '1', '--extractor-retries', '1',
             '--match-filter', 'duration <= %d' % duracao_max_s(),
             '--print', 'after_filter:MAESTRO_PASSOU_O_FILTRO %(id)s', '--no-simulate',

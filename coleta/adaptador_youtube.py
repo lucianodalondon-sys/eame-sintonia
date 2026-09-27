@@ -607,22 +607,49 @@ def pronto_para_audio_publico(**_):
     Nao toca a rede: so olha para o que esta instalado.
     """
     import shutil
-    faltam = [n for n in ('yt-dlp', 'ffmpeg', 'ffprobe') if not shutil.which(n)]
+    faltam = [n for n in ('ffmpeg', 'ffprobe') if not shutil.which(n)]
+    # YT-403 (27/09): perguntava por `yt-dlp` no PATH — o PROGRAMA — mas quem corre e o MODULO, importado
+    # pelo freio no mesmo interpretador. Medido: o programa existia e o modulo nao (volta 2A: «No module
+    # named yt_dlp», e a corrida saiu SUCCESS com zero). A pergunta vai ao dono da resposta, sem rede.
+    if not _yt_dlp_do_freio()[0]:
+        faltam.append('yt_dlp (modulo)')
     if faltam:
         return (False, 'EXECUTOR_UNAVAILABLE')
     return (True, '')
 
 
+def _yt_dlp_do_freio():
+    """→ (sim, onde): o `yt_dlp` que o `yt_dlp_com_freio.py` vai importar, visto daqui."""
+    import importlib.util as ilu
+    caminho = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                           'ferramentas', 'yt_dlp_com_freio.py')
+    spec = ilu.spec_from_file_location('yt_dlp_com_freio_check', caminho)
+    m = ilu.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m.yt_dlp_disponivel()
+
+
 def _classificar_falha(motivo):
     """Traduz a falha da aquisicao para o vocabulario canonico de `leis/falhas`.
 
-    Tres causas, tres nomes, e nenhuma delas e `ZERO_RESULTS`:
+    Cinco causas, cinco nomes, e nenhuma delas e `ZERO_RESULTS`:
 
+        o modulo `yt_dlp` nao importa                     -> EXECUTOR_UNAVAILABLE
+        o googlevideo respondeu 403                       -> BLOCKED
         o video nao existe / e privado / foi removido   -> SOURCE_GONE
         a ferramenta local nao respondeu                -> EXECUTOR_UNAVAILABLE
         o resto (a fonte nao serviu o som agora)        -> SOURCE_UNAVAILABLE
     """
-    m = str(motivo or '').lower()
+    # So a parte do ERRO decide: os AVISOS que `_motivo_do_yt_dlp` junta depois de « | » sao diagnostico, e
+    # um aviso com «unavailable» nao pode fazer de um 403 um video removido.
+    m = str(motivo or '').split(' | ')[0].lower()
+    # YT-403 (27/09): a ferramenta que nao importa e defeito NOSSO, nao fonte doente (era SOURCE_UNAVAILABLE).
+    if any(x in m for x in ('no module named', 'modulenotfounderror', 'importerror')):
+        return 'EXECUTOR_UNAVAILABLE'
+    # e o 403 do googlevideo e a plataforma a impedir-nos tecnicamente — BLOCKED em `leis/falhas`
+    # («403 de agente; repetir igual so piora»), nao «a fonte respondeu 5xx».
+    if 'http error 403' in m or '403: forbidden' in m:
+        return 'BLOCKED'
     if any(x in m for x in ('unavailable', 'private', 'removed', 'deleted',
                             'terminated', 'does not exist')):
         return 'SOURCE_GONE'

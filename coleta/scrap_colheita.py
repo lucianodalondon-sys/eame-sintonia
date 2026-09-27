@@ -78,6 +78,7 @@ for _p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', 'regras', ''):
 import fonte_do_atlas as fa                                       # noqa: E402  — quem diz se a fonte existe
 import proveniencia as pv                                        # noqa: E402  — o dono do texto
 import retorno_da_coleta as rc                                    # noqa: E402
+import falhas as FA                                               # noqa: E402  — o que e falha e o que e zero
 import scrap_executor as sx                                       # noqa: E402
 
 EXECUTOR_ID = 'scrap-colheita'
@@ -844,8 +845,20 @@ def colher(fase, *, run_id, fonte, banco=None, **extra):
                 os.environ.get('ITALY_OPS_ROOT') or RAIZ, IV.REGISTO))
         suporte = suporte_do_trace(trace)
         if not colheita:
-            porque_zero = ('a corrida correu e não observou nada. ZERO LEGÍTIMO '
-                           'NÃO É FALHA: %s' % (trace.get('RESULT') or 'sem estado'))
+            # ⚠️ YT-403 (27/09, D92): «ZERO LEGÍTIMO» so e zero quando a rota MEDIU e nao havia nada
+            # (`leis/falhas.NAO_SAO_FALHA`). Medido na volta 2A do maestro: o `yt_dlp` nao importava, e
+            # depois o googlevideo deu 403 — e as duas sairam SUCCESS com colheita 0, porque este envelope
+            # dizia PARTIAL + «ZERO LEGÍTIMO NÃO É FALHA» e o processo saia com 0.
+            #
+            #     ZERO PORQUE FALHOU NAO E ZERO: E FALHA, E DIZ-SE FAILED.
+            res = trace.get('RESULT')
+            if res and FA.e_falha(res):
+                estado = rc.FAILED
+                porque_zero = ('a corrida FALHOU e não colheu nada — isto NÃO é zero legítimo: %s'
+                               % (resumo_do_trace(trace).get('PORQUE') or res))
+            else:
+                porque_zero = ('a corrida correu e não observou nada. ZERO LEGÍTIMO '
+                               'NÃO É FALHA: %s' % (res or 'sem estado'))
 
     envelope = {
         'RUN_ID': run_id, 'EXECUTOR_ID': EXECUTOR_ID,
@@ -1068,7 +1081,10 @@ def main(argv=None):
         print('  porque zero   %s' % envelope['PORQUE_ZERO_COLHEITA'])
     for m in mal:
         print('  CONTRATO      %s' % m)
-    return 0 if not mal else 1
+    if mal:
+        return 1
+    # D92: a corrida que falhou sai com codigo de falha — e o orquestrador grava FAILED, nao SUCCESS.
+    return 3 if envelope.get('ESTADO') == rc.FAILED else 0
 
 
 if __name__ == '__main__':
