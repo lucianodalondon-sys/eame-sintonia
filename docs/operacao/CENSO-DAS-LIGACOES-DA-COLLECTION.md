@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  42c12fece3befb3ba4d5f850c77c38e82cb904c2
+HEAD_DA_MEDICAO  9b8764b8cae387a866ad25f40ca8e68f1d63f249
 BRANCH           claude/acervo-intelligence-processing-148qau
-GERADO_EM        2026-09-27T23:20:41+00:00
+GERADO_EM        2026-09-27T23:28:17+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
