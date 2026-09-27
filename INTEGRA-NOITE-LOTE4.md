@@ -1,7 +1,7 @@
 # INTEGRA-NOITE · LOTE 4 — sobre o vivo `554c1ec1` (lote 3)
 
 Ramo `integra-noite-v4`, a partir do vivo **`554c1ec1`** (lote 3, instalado 22:25 — é a base, aviso da coordenação).
-**NÃO instalado.** Estado: **PARADO em 2 decisões** (§3) — 8 pacotes juntos; mapa na FILA-PESADO (7.º).
+**NÃO instalado.** Estado: **PARADO em 3 decisões** (§3) — 8 pacotes juntos; mapa na FILA-PESADO (7.º).
 
 ## 1 · Os pacotes
 
@@ -25,9 +25,15 @@ Migrações: **nenhuma** no writeset (`supabase/` intocado).
 ⚠️ A ficha do mapa agora junta-se por `ficha_juntar.py` (fora do Git): conflito na ficha resolve-se sozinho só com
 **0 dúvidas** (só acréscimos do pacote sobre a base comum); remoção, peça apagada ou campo em conflito PARAM a junção.
 
-## 2 · Testes por NOME (em curso)
+## 2 · Testes por NOME — 1.ª corrida, com os 8 pacotes
 
 Contra o vivo `554c1ec1`, mesmos dados, rede fechada, pastas com o nome do vivo; +15 módulos e 1 prova Node do lote 4.
+`provas/integra_noite/lote4-{ramo,vivo}-v1.json`: 101 módulos; **1.481** no ramo, **1.209** no vivo; **98 herdadas**
+(as mesmas do lote 3); **3 novas**:
+- `test_comunicacao_concorrenza.test_561_atividades_do_repo` — **falha da CÓPIA, não do código**: lê
+  `build/ITALY-REALITY-HANDOFF-V2/...competitor-activities.json`, e a cópia da bateria não leva `build/`. No ramo
+  inteiro e no pacote sozinho passa (medido). Na próxima corrida a cópia leva `build/`.
+- `test_pesquisadores_t6` (2) — **choque entre pacotes**, §3.3.
 
 ## 3 · ⛔ Duas decisões
 
@@ -49,6 +55,14 @@ Os dois reescreveram o «O QUE ESTE FICHEIRO NAO FAZ» por causa da D88: o scrap
 `COL-LAW-220` («proposta à espera do dono») e que «o comportamento deste ficheiro não mudou» — o que deixa de ser
 verdade depois do scrap-evolucao. Escolher qual lei o comentário cita é conteúdo. A lei-pesquisadores **não** mexe
 em `EMENDAS_EM_VIGOR`: juntá-la **não liga** a peça 6.
+
+**3.3 · lista-mestra × concorrenza — a regra do território T6 (ORCID).** `curadoria/atribuir_source_id.territorio_de`.
+O lista-mestra (PESQUISADORES-T6) pôs a regra «`orcid.org/0000-0000-0000-0000` é T6» — o número está no CAMINHO. O
+concorrenza passou a ler **só o nome e a casa (host)**, nunca o caminho («uma página que diz ITALIA não é uma empresa
+italiana», IT-T9-021). Juntas: o registo ORCID de uma pessoa volta a dar `NAO SEI`. Medido: `test_pesquisadores_t6`
+passa no `3f7b43ef` sozinho e falha 2 no ramo; `test_comunicacao_concorrenza` passa nos dois. **Proposta (não
+aplicada):** o iD ORCID é a IDENTIDADE da pessoa, não o assunto de um dia — a regra T6 lê o endereço inteiro; as
+outras continuam só com nome + casa (o caso Didacta continua consertado). Com teste dos dois lados e mutação.
 
 ## 4 · Falta
 
