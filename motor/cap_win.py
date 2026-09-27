@@ -76,15 +76,17 @@ from datetime import date, timedelta
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-for _gaveta in ("motor", "provas", "leis"):
-    if str(RAIZ / _gaveta) not in sys.path:
-        sys.path.insert(0, str(RAIZ / _gaveta))
+if str(RAIZ / "motor") not in sys.path:
+    sys.path.insert(0, str(RAIZ / "motor"))
 
 import corrida_da_inteligencia as CI            # noqa: E402
 import grafo_de_dependencia as GD               # noqa: E402
-from espinha_da_intelligence import (           # noqa: E402
-    NAO_SEI, PALAVRAS_QUE_O_REQUISITO_RECUSA,
-)
+
+# ⚠️ O vocabulario vem da CORRIDA, que ja o le da espinha. Importar a espinha
+# daqui era runtime a importar `provas/` por nome nu — e
+# `test_a_porta_cli_liga_o_banco.test_1` reprova isso (apanhou-me na bateria).
+NAO_SEI = CI.NAO_SEI
+PALAVRAS_QUE_O_REQUISITO_RECUSA = CI.PALAVRAS_QUE_O_REQUISITO_RECUSA
 
 VERSAO = "CAP-WIN/v1"
 CAPACIDADE = "CAP-WIN"
