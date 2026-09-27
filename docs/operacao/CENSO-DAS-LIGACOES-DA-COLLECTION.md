@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  02b8abc091fad514c81e766cb2d3049b6b37a65f
-BRANCH           c9-sobre-ce28-v1
-GERADO_EM        2026-09-26T01:07:37-03:00
+HEAD_DA_MEDICAO  0d39f2722467435f197a3cbcbed2be739113bbd4
+BRANCH           claude/cap-sci-intelligence-fjqmyd
+GERADO_EM        2026-09-27T12:47:16-03:00
 CARDS            104
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -515,13 +515,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/ingresso.py`, `coleta/italy_executor.py` |
 | **o que sai · dado** | C-INT-ESPINHA |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 13 · saem 21 |
-| **arestas provadas** | entram 13 · saem 20 |
+| **arestas no mapa** | entram 14 · saem 22 |
+| **arestas provadas** | entram 14 · saem 21 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 33 · NÃO SEI 1 |
+| **prova das ligações** | CODE 35 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 

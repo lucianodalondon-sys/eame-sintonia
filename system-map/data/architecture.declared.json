@@ -4240,6 +4240,25 @@
    ]
   },
   {
+   "id": "C-PROVA-CAP-SCI-MUTACAO",
+   "name": "A CAP-SCI sob mutacao — cada regra tem um teste que a apanha",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "🧬",
+   "views": [
+    "audit"
+   ],
+   "what": "Planta 22 defeitos, um de cada vez, em motor/capacidade_cientifica.py (campo de fora do READY ignorado, afiliacao virando local, publicacao virando periodo, estudo pequeno sem rebaixar, mesmo ensaio contado duas vezes, estudo sem chave contado como independente, rotulo revogado ligando, METALAXYL virando METALAXYL-M, regra de modelo ligando a produto, trava de leitura proibida desligada...) e exige que tests.test_capacidade_cientifica reprove em cada um. Restaura o original sempre.",
+   "why_here": "Um teste que continua verde com a regra partida nao prova a regra. Na primeira passagem 3 dos 22 mutantes viveram (sem chave virando grupo, ligacao sem molecula, regra de modelo com molecula) e os testes foram reforcados ate 22/22.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "provas/_mutantes_cap_sci.py"
+   ]
+  },
+  {
    "id": "C-INT-BIBLIA",
    "name": "A Bíblia de Engenharia da Intelligence",
    "kind": "contract",
@@ -4329,6 +4348,25 @@
    "why_here": "C-INT-PILOT-01, a primeira missao que a §32 da Biblia autoriza. O RUN_ID deriva do pedido e das ENTRADAS, nunca do relogio — sem isso REUSED deixa de ser detetavel, e INT-LAW-054 exige que o reuso seja PROVADO. Ela NAO sabe abrir a Sala de Espera, e e de proposito: quem sabe abrir a Sala consegue, um dia, decidir enche-la. Corrida real sobre um item real: DONE · NO_ANALYTIC_OUTPUT_YET · 0 sinais · 1 requisito · 0 coletores.",
    "files": [
     "motor/corrida_da_inteligencia.py"
+   ]
+  },
+  {
+   "id": "C-INT-CAP-SCI",
+   "name": "CAP-SCI — forca e aplicabilidade da evidencia cientifica",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "icon": "⚗",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Le o livro de uma corrida G0/v4 fechada e, so para os itens READY com o uso LEITURA_ATEMPORAL_DE_CAPACIDADE, julga cada estudo: FORCA decomposta (desenho, n, estudo pequeno = INDICATIVA), APLICABILIDADE (cultura x problema x molecula, local e periodo do estudo so quando provados por FACT_LOCATION/FACT_TIME com base), ESPECIE declarada pelo estudo (SCIENTIFIC_RESULT, MODEL_RULE e RESISTANCE separadas), INDEPENDENCIA por ensaio, dataset, autor e instituicao (teto, nunca prova), replicacao e contradicao declaradas, e a ligacao TEMATICA a rotulo ADAMA ativo so com cultura+alvo+molecula provados (referencia/adama, so leitura). Nao produz FINDING, OPPORTUNITY nem score unico.",
+   "why_here": "Biblia §34 CAP-SCI e mapa do dono §35: nao e biblioteca de papers, e que conhecimento cientifico novo pode alterar uma decisao. Nunca le identidade de fora do READY (campo a mais e recusado), nunca le o TEXTO, afiliacao nao vira local (INT-LAW-102), publicacao nao vira periodo (INT-LAW-100), tres papers do mesmo ensaio nao sao tres evidencias (INT-LAW-072/073), e nenhum estudo vira «o produto nao funciona» — essa leitura nao existe no vocabulario e uma trava rebenta se aparecer. Provado so com fixture SINTETICA; o registo T6 real nao esta nesta arvore.",
+   "files": [
+    "motor/capacidade_cientifica.py"
    ]
   },
   {
