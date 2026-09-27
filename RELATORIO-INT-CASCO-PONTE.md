@@ -1,7 +1,7 @@
 # RELATÓRIO — PONTE INTELLIGENCE → CASCO (`nuvem-int-casco-ponte-v1`)
 
 > **EXPERIMENTAL · NAO_PARA_CLIENTE.** Nada disto foi publicado. Nenhum deploy. Nenhum ficheiro do
-> portal (`italia-portale/`) foi alterado. Base final = vivo **`554c1ec1`** (lote 3), por reaplicação limpa. PRONTO-SEM-MAPA.
+> portal (`italia-portale/`) foi alterado. Base final = vivo **`2ef6fef8`** (data-do-fato, ff de 554c1ec1), por rebase limpo. PRONTO-SEM-MAPA.
 
 ## 1 · O que foi feito
 
@@ -26,7 +26,7 @@ as 12 ferramentas do casco**. Só atravessa o que tem prova, e a marca vai em tu
 | recusa escrever dentro de `italia-portale/` | `pacote/ponte_intelligence_casco.py:505` |
 | testes (35) | `tests/test_ponte_intelligence_casco.py` |
 | mutação (22 defeitos) | `provas/_mutantes_ponte_casco.py` |
-| mapa declarado: `C-PONTE-INT-CASCO` (Z-PACOTE) e `C-PROVA-PONTE-CASCO` (Z-PROVA) | `system-map/data/architecture.declared.json:4369` e `:4389` |
+| mapa declarado: `C-PONTE-INT-CASCO` (Z-PACOTE) e `C-PROVA-PONTE-CASCO` (Z-PROVA) | `system-map/data/architecture.declared.json:4374` e `:4394` |
 
 **O contrato de entrada é NOVO e está declarado no próprio ficheiro.** Medido na base: a palavra
 `EXPERIMENTAL_CANDIDATE` não existia no repositório nem na história do Git, e o motor
@@ -109,7 +109,7 @@ P1 de volta · P4 de volta · `CORRIDA_UPSTREAM` ignorada · ambiguidade resolvi
 
 ## 7 · Mapa
 
-**Estado final: PRONTO-SEM-MAPA sobre o vivo `554c1ec1` (lote 3).**
+**Estado final: PRONTO-SEM-MAPA sobre o vivo `2ef6fef8` (27/09, data-do-fato; rebase limpo de 9 commits sobre 554c1ec1 + 2; mesmos 171 testes leves verdes e mutação 31/31 sobre ele).**
 
 - Sobre `278cd489` o mapa foi regerado e validado duas vezes: `SYSTEM_MAP_CHECK=PASS` e carimbo `IGUAL`
   (commits `4ebc6f06` e `780fa38a`, guardados no ramo local `backup/int-casco-ponte-780fa38a`).
