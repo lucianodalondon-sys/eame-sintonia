@@ -20,6 +20,33 @@ aplicada na Sala (`APLICADA b980c76e…`). O reprocesso só **acrescenta** revis
 original da Sala não muda; o RAW não é aberto para escrita (só se leem os bytes, e só com o
 sha256 certo).
 
+## ENSAIO 1 (26/09 22:25–22:31, 3.º da FILA-PESADO) — o ensaio travou o roteiro, e ainda bem
+
+Backup `sala_italia-20260925-193339.dump` (sha256 `a05beb22…`, **80 linhas**, 478 revisões), Postgres descartável,
+código do vivo `554c1ec1` (cópia fora do vivo). O que correu bem: 033 validada (5 colunas, 2 gatilhos pela definição,
+livro `APLICADA b980c76e…`), passadas até 0 (309 → **0**; na Parte B+vivo 207 → 0), originais: nº e md5 conferidos.
+
+**O que correu mal — e é um defeito do roteiro, não dos consertos:** `plano: 80 linhas · SEM LIVRO 80 · COM PÁGINA 0`.
+O Git Bash dá caminhos `/c/Users/…`; o Python do Windows não os abre, e o glob devolveu **zero livros, calado**.
+Sem livro nem página, o reprocesso grava `NAO SEI`: na cópia, a vista passou **publicação 38 → 0** (as 38 datas
+conhecidas apagadas da leitura; a linha original ficou intacta, como manda a 033). A mesma causa derrubou a comparação
+da vista (`PARAR: comparar a vista`). **Na Sala real teria acontecido o mesmo.**
+
+Consertado (`scripts/reproc_sala/reprocessar_sala.sh`): todo caminho que vai para o Python passa por `win` (`/c/x` →
+`C:/x`, sem comer o `*` dos globs — o `cygpath` comia); medido: 154 livros achados contra 0. E **dois travões novos
+antes de escrever** (passo 3): `SEM_LIVRO` ≤ `SEM_LIVRO_ACEITE` (0) e `PERDAS` — valores conhecidos que o plano poria em
+`NAO SEI` (`scripts/reproc_sala/perdas_do_plano.py`) — ≤ `PERDAS_ACEITES` (0). Sobre a saída deste ensaio, o travão
+dá `PERDAS=38` e teria parado antes de escrever.
+
+⚠️ O roteiro da MIGRACAO-SALA (passo 7) usava os mesmos caminhos `$HOME/…`. As corridas de 25/09 do coordenador deram
+`SEM_LIVRO 0`, logo não foram por este caminho; mas quem o seguir à letra no Git Bash cai no mesmo buraco.
+
+`test_migracao_033_sala` + `test_sala_dedup_por_document_key` no descartável: 31 testes, **1 erro, herdado**
+(`test_3_repousar_o_mesmo_e_retry_e_nao_conflito`, já na lista de falhas da BASE do EXTRATORES-V2-JUNTOS).
+
+**Falta:** um 2.º turno de ~15 min na FILA-PESADO para o ensaio com os caminhos consertados — os números da vista
+antes → depois saem daí.
+
 <!-- ENSAIO -->
 
 ## PARTE B · LOTE 1 já instalado (vivo `69b0e23f`) · passo (d): reprocessar o TEMPO/LUGAR da Sala com o leitor-data-yt

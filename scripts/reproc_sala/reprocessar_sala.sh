@@ -9,22 +9,41 @@
 #   CODIGO = a arvore cujo admissao/reprocessar_tempo_lugar.py reprocessa (por omissao, esta).
 #   A versao gravada em cada revisao e o sha256 do codigo DESSA arvore: para reprocessar com o
 #   codigo instalado no robo, CODIGO=<pasta do vivo>.
+# Travoes antes de escrever (passo 3): SEM_LIVRO tem de ser <= SEM_LIVRO_ACEITE (por omissao 0) e as
+#   PERDAS (valor conhecido -> NAO SEI, pelo plano) <= PERDAS_ACEITES (por omissao 0; o numero certo
+#   vem do ensaio). Sao estes os numeros que o ensaio de 26/09 22:26 mostrou a zero livros achados.
 # Na Sala real (porta 54330) so corre com --sala-real E com o robo parado (PARAR.flag no vivo).
 # Ultima linha: REPROC_SALA=PASS ou REPROC_SALA=FAIL (com o PARAR: que falhou antes).
 set -u
 OUT=${1:?pasta de saida}
 REAL=${2:-}
-RAIZ=$(cd "$(dirname "$0")/../.." && pwd)
-CODIGO=${CODIGO:-$RAIZ}
+# ⚠️ o Python e do Windows: um caminho `/c/Users/...` do Git Bash e, para ele, uma pasta que nao
+# existe — e o glob devolve ZERO livros, calado. Tudo o que vai para o Python passa por `win`.
+# `/c/x` -> `C:/x` a mao: o cygpath come o `*` dos globs. Sem `*`, o cygpath resolve o resto (/tmp).
+um_win() {
+  case "$1" in
+    /[a-zA-Z]/*) printf '%s:%s\n' "$(printf '%s' "${1:1:1}" | tr a-z A-Z)" "${1:2}" ;;
+    *'*'*)       printf '%s\n' "$1" ;;
+    /*)          cygpath -m "$1" 2>/dev/null || printf '%s\n' "$1" ;;
+    *)           printf '%s\n' "$1" ;;
+  esac
+}
+win() { local x fora="" partes; IFS=';' read -ra partes <<< "$1"; for x in "${partes[@]}"; do [ -n "$x" ] && fora="$fora${fora:+;}$(um_win "$x")"; done; echo "$fora"; }
+RAIZ=$(win "$(cd "$(dirname "$0")/../.." && pwd)")
+CODIGO=$(win "${CODIGO:-$RAIZ}")
 PY=${PY:-py}
-VIVA=${VIVA:-$HOME/orca/workspaces/eame-sintonia/source-curator-service-v1}
-LIV=${LIV:-$VIVA/data/collection-ledger/italy/observations.ndjson;$HOME/orca/workspaces/eame-sintonia/*/data/collection-ledger/italy/observations.ndjson}
-RZ=${RZ:-$HOME/sintonia-sala-italia/armazem;$HOME/orca/workspaces/eame-sintonia/*}
+H=$(win "$HOME")
+VIVA=$(win "${VIVA:-$H/orca/workspaces/eame-sintonia/source-curator-service-v1}")
+LIV=$(win "${LIV:-$VIVA/data/collection-ledger/italy/observations.ndjson;$H/orca/workspaces/eame-sintonia/*/data/collection-ledger/italy/observations.ndjson}")
+RZ=$(win "${RZ:-$H/sintonia-sala-italia/armazem;$H/orca/workspaces/eame-sintonia/*}")
+SEM_LIVRO_ACEITE=${SEM_LIVRO_ACEITE:-0}
+PERDAS_ACEITES=${PERDAS_ACEITES:-0}
 DSN="$SINTONIA_SALA_DSN"
 PASSADAS_MAX=5
 export PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1
 export HTTP_PROXY=http://127.0.0.1:9 HTTPS_PROXY=http://127.0.0.1:9   # sem rede
 mkdir -p "$OUT"
+OUT=$(cygpath -m "$OUT" 2>/dev/null || echo "$OUT")
 
 falha() { echo "PARAR: $*"; echo "REPROC_SALA=FAIL"; exit 1; }
 q() { "$SINTONIA_PSQL_EXE" -X -q -A -t -F'|' -v ON_ERROR_STOP=1 -c "$1" "$DSN" | tr -d '\r'; }
@@ -78,7 +97,12 @@ $PY -B admissao/reprocessar_tempo_lugar.py --livros "$LIV" --raizes "$RZ" --said
 [ "$(q "$REVS")" = "$REVS_ANTES" ] || falha "o reprocesso SEM --aplicar escreveu"
 conta() { $PY -B -c "import json,sys; d=json.load(open(sys.argv[1],encoding='utf-8')); print(d['CONTA']['$2'])" "$1" 2>/dev/null | tail -1; }
 echo "3 · versao do extrator: $($PY -B -c "import json,sys; print(json.load(open(sys.argv[1],encoding='utf-8'))['VERSAO_DO_EXTRATOR'])" "$OUT/plano.json" 2>/dev/null | tail -1)"
-echo "3 · plano: linhas $(conta "$OUT/plano.json" LINHAS) · sem livro $(conta "$OUT/plano.json" SEM_LIVRO) · com pagina $(conta "$OUT/plano.json" COM_PAGINA)"
+SEM=$(conta "$OUT/plano.json" SEM_LIVRO)
+echo "3 · plano: linhas $(conta "$OUT/plano.json" LINHAS) · sem livro $SEM · com pagina $(conta "$OUT/plano.json" COM_PAGINA)"
+[ "${SEM:-x}" -le "$SEM_LIVRO_ACEITE" ] 2>/dev/null || falha "$SEM linhas sem livro do coletor (aceites: $SEM_LIVRO_ACEITE) — os livros estao em LIV=$LIV?"
+PERDAS=$($PY -B "$RAIZ/scripts/reproc_sala/perdas_do_plano.py" "$OUT/vista-antes.json" "$OUT/plano.json" "$OUT/perdas.json" 2>/dev/null | tee /dev/stderr | sed -n 's/^PERDAS=//p')
+[ -n "$PERDAS" ] || falha "contar as perdas do plano"
+[ "$PERDAS" -le "$PERDAS_ACEITES" ] || falha "o plano poe $PERDAS valores conhecidos em NAO SEI (aceites: $PERDAS_ACEITES; lista em perdas.json)"
 
 # ── 4 · passadas ate INSERIDAS=0 ──────────────────────────────────────────────
 N=0; INS=x
