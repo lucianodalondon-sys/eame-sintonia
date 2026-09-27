@@ -1,9 +1,9 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
+  "FROZEN_AT_HEAD": "08ecbd59ae0c4257909be26efe442c7500c36507",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 277,
+  "ARTEFATOS": 282,
   "POR_ESPECIE": {
     "CONTRACT": 3,
     "DATA_SAMPLE": 99,
@@ -11,9 +11,9 @@
     "GENERATED_OUTPUT": 26,
     "IMPLEMENTATION": 10,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 46,
+    "MENCAO_FRACA_APENAS": 48,
     "PORTAL_UI": 65,
-    "TEST": 17
+    "TEST": 20
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -563,7 +563,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "2e70e218f30997daa2ca76c530473209422b8d19",
+      "GIT_BLOB_SHA": "1a2d509a54c79d5833924d7808ee3926286cb972",
       "MARCAS_FORTES": []
     }
   ],
@@ -1117,7 +1117,15 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "motor/cap_win.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "motor/corrida_da_inteligencia.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/grafo_de_dependencia.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
@@ -1337,6 +1345,10 @@
       "SPECIES": "TEST"
     },
     {
+      "PATH": "tests/test_grafo_de_dependencia.py",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_hero_cases_v1.py",
       "SPECIES": "TEST"
     },
@@ -1349,6 +1361,10 @@
       "SPECIES": "TEST"
     },
     {
+      "PATH": "tests/test_os_consertos_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_prioridade_comercial.py",
       "SPECIES": "TEST"
     },
@@ -1358,6 +1374,10 @@
     },
     {
       "PATH": "tests/test_relevance_priority_sobrecarga.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_todo_ready_atravessa_o_intake.py",
       "SPECIES": "TEST"
     },
     {

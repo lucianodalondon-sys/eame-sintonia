@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "c9-sobre-ce28-v1",
-    "HEAD": "02b8abc091fad514c81e766cb2d3049b6b37a65f",
-    "GENERATED_AT": "2026-09-26T01:07:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "bc1806ba3c5034a4ac47364ad1145f38ace9f7130fe2d8a6fc56ec80509e170a"
+    "BRANCH": "claude/cap-win-intelligence-tn7qfi",
+    "HEAD": "08ecbd59ae0c4257909be26efe442c7500c36507",
+    "GENERATED_AT": "2026-09-27T16:00:05+00:00",
+    "SOURCE_TREE_FINGERPRINT": "4cce00518239f984272529bab5adb21cbac3456d1381d68912a4e2bb92a1f13d"
   },
   "FILES": [
     {
@@ -10236,6 +10236,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/intelligence/CAP-WIN-DESENHO-R5.md",
+      "sha": "2725941844f760aad06411550963fd926a28205f",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
       "sha": "98d105e0bb7ed886054e85fb2c2db40ce0cb4451",
       "ext": ".md",
@@ -10288,6 +10295,13 @@
       "path": "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
       "sha": "6e9bcebe0fee24993b50c8049dd6d7efc4206196",
       "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/intelligence/MAPA-DAS-FERRAMENTAS-DO-PORTAL-DONO.md",
+      "sha": "031d96efbbc581b695f87f9b7042002d1d07dcbc",
+      "ext": ".md",
       "readable": false,
       "code_dir": false
     },
@@ -16592,6 +16606,13 @@
       "code_dir": true
     },
     {
+      "path": "motor/cap_win.py",
+      "sha": "1f6fb89f4ac89106b7f4ba46ccab083d2d10d5db",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "motor/consolidar_leque.py",
       "sha": "fdcf45d90fa394705a285f18d5b93849a4af9fa8",
       "ext": ".py",
@@ -16600,7 +16621,14 @@
     },
     {
       "path": "motor/corrida_da_inteligencia.py",
-      "sha": "5dd4b698fd023517e9d2bee94455c2045ee54082",
+      "sha": "930aad1ededd449d4c34818521314004f6c26553",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "motor/grafo_de_dependencia.py",
+      "sha": "34183b2fc4cad6820c72865b450ec5afb0b6b94f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17579,6 +17607,20 @@
       "code_dir": true
     },
     {
+      "path": "provas/cap_win/MUTANTES.json",
+      "sha": "7cd6667b475564be31b185a5a954c04921070785",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/cap_win/mutantes.py",
+      "sha": "acd1a7ba12ac43e1b447dd10eb1e62cc997b967d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/censo_corpus_rotulado_admission.py",
       "sha": "1ec7a93a18b2eb9eb889d31485d5ba0fbe978ac4",
       "ext": ".py",
@@ -17699,7 +17741,7 @@
     },
     {
       "path": "provas/espinha_da_intelligence.py",
-      "sha": "99df05ad89ca27c889dc013e971ffc5e256e4ecb",
+      "sha": "0b2f75bfb24a06f384a4bf051f9f66011ab89973",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21087,7 +21129,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "2e70e218f30997daa2ca76c530473209422b8d19",
+      "sha": "1a2d509a54c79d5833924d7808ee3926286cb972",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -21527,6 +21569,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/dados/cap-win/arif-apol-mosca-sintetico.json",
+      "sha": "126e2f39e11c93c4c368ce6c43026fe32d872908",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "tests/es/test_adama_es_gate.py",
       "sha": "6a314fa029012cc403351afa7248c1b89666e786",
       "ext": ".py",
@@ -21710,7 +21759,7 @@
     },
     {
       "path": "tests/test_a_primeira_corrida_da_inteligencia.py",
-      "sha": "83555746caab61965d50fb8480c43c50883335fb",
+      "sha": "33bd54c37064c57adc2a5fc5d1fc50607eb7aa57",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22220,6 +22269,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_cap_win.py",
+      "sha": "8741e7d7ca4d43971bc445659bb8cb7d48b23957",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_censo_cards_sensores.py",
       "sha": "c8a11bbf11d3dc6c7a6b54d5e6ee2381d584d95d",
       "ext": ".py",
@@ -22368,7 +22424,7 @@
     },
     {
       "path": "tests/test_espinha_da_intelligence.py",
-      "sha": "af89d9f8eb9f2cce5a91b829c1259ddc0ad4f5b0",
+      "sha": "81b32801b17bcc3f67ca43a8d30db35632cb4944",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22516,6 +22572,13 @@
     {
       "path": "tests/test_gestao_da_coleta.py",
       "sha": "d9849ca418b58e8518d10f91e2bbe99b83ca2ca1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_grafo_de_dependencia.py",
+      "sha": "424d470d40dd192cc02ce6d15cfb5417578d1e53",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22880,6 +22943,13 @@
     {
       "path": "tests/test_operacao.py",
       "sha": "5ea75fb6c76062f21484df7da28073be23fc69a6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_os_consertos_da_intelligence.py",
+      "sha": "b60d9be0692a597d7ddad2176d44814245a3392a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23307,6 +23377,13 @@
     {
       "path": "tests/test_thread_parcial.py",
       "sha": "55fdb804a0480dc405bbf2a4ad0e28b539803284",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_todo_ready_atravessa_o_intake.py",
+      "sha": "b99aebb42b9d750a5e4470778c354177fbd21963",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -48627,6 +48704,39 @@
       }
     },
     {
+      "from_file": "motor/cap_win.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cap_win.py",
+        "line": 83,
+        "snippet": "import corrida_da_inteligencia as CI            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/cap_win.py",
+      "to_file": "motor/grafo_de_dependencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cap_win.py",
+        "line": 84,
+        "snippet": "import grafo_de_dependencia as GD               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/cap_win.py",
+      "to_file": "provas/espinha_da_intelligence.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cap_win.py",
+        "line": 85,
+        "snippet": "from espinha_da_intelligence import (           # noqa: E402"
+      }
+    },
+    {
       "from_file": "motor/consolidar_leque.py",
       "to_file": "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json",
       "type": "READS",
@@ -48650,12 +48760,45 @@
     },
     {
       "from_file": "motor/corrida_da_inteligencia.py",
+      "to_file": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/corrida_da_inteligencia.py",
+        "line": 87,
+        "snippet": "BIBLIA = RAIZ / \"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\""
+      }
+    },
+    {
+      "from_file": "motor/corrida_da_inteligencia.py",
+      "to_file": "controle/AUTORIDADES-CANONICAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "motor/corrida_da_inteligencia.py",
+        "line": 88,
+        "snippet": "REGISTO_DAS_AUTORIDADES = RAIZ / \"controle\" / \"AUTORIDADES-CANONICAS.json\""
+      }
+    },
+    {
+      "from_file": "motor/corrida_da_inteligencia.py",
+      "to_file": "leis/fato_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/corrida_da_inteligencia.py",
+        "line": 66,
+        "snippet": "from fato_local import MES_NUM                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/corrida_da_inteligencia.py",
       "to_file": "provas/espinha_da_intelligence.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "motor/corrida_da_inteligencia.py",
-        "line": 58,
+        "line": 61,
         "snippet": "from espinha_da_intelligence import (           # noqa: E402"
       }
     },
@@ -58593,6 +58736,50 @@
       }
     },
     {
+      "from_file": "provas/cap_win/mutantes.py",
+      "to_file": "motor/cap_win.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/cap_win/mutantes.py",
+        "line": 18,
+        "snippet": "ALVO = RAIZ / \"motor\" / \"cap_win.py\""
+      }
+    },
+    {
+      "from_file": "provas/cap_win/mutantes.py",
+      "to_file": "motor/cap_win.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/cap_win/mutantes.py",
+        "line": 86,
+        "snippet": "ALVO.write_text(texto.replace(velho, novo), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/cap_win/mutantes.py",
+      "to_file": "provas/cap_win/MUTANTES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/cap_win/mutantes.py",
+        "line": 19,
+        "snippet": "SAIDA = Path(__file__).resolve().parent / \"MUTANTES.json\""
+      }
+    },
+    {
+      "from_file": "provas/cap_win/mutantes.py",
+      "to_file": "provas/cap_win/MUTANTES.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/cap_win/mutantes.py",
+        "line": 102,
+        "snippet": "SAIDA.write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "provas/censo_corpus_rotulado_admission.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -59624,6 +59811,17 @@
         "file": "provas/especie_do_texto_auditoria.py",
         "line": 49,
         "snippet": "import proveniencia as pv            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/espinha_da_intelligence.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/espinha_da_intelligence.py",
+        "line": 93,
+        "snippet": "DONO_DOS_CAMPOS = Path(__file__).resolve().parents[1] / \"admissao\" / \"sala_de_espera.py\""
       }
     },
     {
@@ -73977,7 +74175,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_a_primeira_corrida_da_inteligencia.py",
-        "line": 354,
+        "line": 364,
         "snippet": "import sala_de_espera as SALA                        # noqa: E402"
       }
     },
@@ -73999,7 +74197,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_primeira_corrida_da_inteligencia.py",
-        "line": 186,
+        "line": 196,
         "snippet": "fonte = (RAIZ / \"motor\" / \"corrida_da_inteligencia.py\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -80659,6 +80857,39 @@
       }
     },
     {
+      "from_file": "tests/test_cap_win.py",
+      "to_file": "motor/cap_win.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cap_win.py",
+        "line": 28,
+        "snippet": "import cap_win as W                                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_cap_win.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cap_win.py",
+        "line": 29,
+        "snippet": "import corrida_da_inteligencia as CI                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_cap_win.py",
+      "to_file": "tests/dados/cap-win/arif-apol-mosca-sintetico.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_cap_win.py",
+        "line": 32,
+        "snippet": "CORTE = RAIZ / \"tests\" / \"dados\" / \"cap-win\" / \"arif-apol-mosca-sintetico.json\""
+      }
+    },
+    {
       "from_file": "tests/test_censo_cards_sensores.py",
       "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "type": "READS",
@@ -81848,6 +82079,50 @@
     },
     {
       "from_file": "tests/test_espinha_da_intelligence.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_espinha_da_intelligence.py",
+        "line": 505,
+        "snippet": "from admissao import decidir, pronto_para_inteligencia  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_espinha_da_intelligence.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_espinha_da_intelligence.py",
+        "line": 504,
+        "snippet": "import sala_de_espera as DONO                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_espinha_da_intelligence.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_espinha_da_intelligence.py",
+        "line": 522,
+        "snippet": "falso = Path(d) / \"sala_de_espera.py\""
+      }
+    },
+    {
+      "from_file": "tests/test_espinha_da_intelligence.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_espinha_da_intelligence.py",
+        "line": 523,
+        "snippet": "falso.write_text(\"CAMPOS_READY = None\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_espinha_da_intelligence.py",
       "to_file": "provas/espinha_da_intelligence.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -82845,6 +83120,28 @@
         "file": "tests/test_gestao_da_coleta.py",
         "line": 17,
         "snippet": "import gestao_da_coleta as g  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_grafo_de_dependencia.py",
+      "to_file": "motor/grafo_de_dependencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_grafo_de_dependencia.py",
+        "line": 26,
+        "snippet": "import grafo_de_dependencia as GD                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_grafo_de_dependencia.py",
+      "to_file": "research/intelligence/COORTE-DA-SALA-2026-09-14.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_grafo_de_dependencia.py",
+        "line": 91,
+        "snippet": "/ \"COORTE-DA-SALA-2026-09-14.json\").read_text(encoding=\"utf-8\"))[\"ITENS\"]"
       }
     },
     {
@@ -86629,6 +86926,61 @@
         "file": "tests/test_operacao.py",
         "line": 24,
         "snippet": "from coverage import Coverage, CoverageError                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_os_consertos_da_intelligence.py",
+      "to_file": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_consertos_da_intelligence.py",
+        "line": 181,
+        "snippet": "cab = (RAIZ / \"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\").read_text("
+      }
+    },
+    {
+      "from_file": "tests/test_os_consertos_da_intelligence.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_os_consertos_da_intelligence.py",
+        "line": 29,
+        "snippet": "import corrida_da_inteligencia as CI          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_os_consertos_da_intelligence.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_consertos_da_intelligence.py",
+        "line": 190,
+        "snippet": "fonte = (RAIZ / \"motor\" / \"corrida_da_inteligencia.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_os_consertos_da_intelligence.py",
+      "to_file": "provas/espinha_da_intelligence.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_os_consertos_da_intelligence.py",
+        "line": 30,
+        "snippet": "import espinha_da_intelligence as ESP          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_os_consertos_da_intelligence.py",
+      "to_file": "provas/espinha_da_intelligence.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_os_consertos_da_intelligence.py",
+        "line": 239,
+        "snippet": "arvore = ast.parse((RAIZ / \"provas\" / \"espinha_da_intelligence.py\")"
       }
     },
     {
@@ -90768,6 +91120,17 @@
       }
     },
     {
+      "from_file": "tests/test_todo_ready_atravessa_o_intake.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_todo_ready_atravessa_o_intake.py",
+        "line": 28,
+        "snippet": "import corrida_da_inteligencia as CI          # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_trava_da_inteligencia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -92341,10 +92704,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3345,
-    "files_readable": 1422,
-    "files_code_dir": 1531,
-    "file_edges": 6210,
+    "files_tracked": 3356,
+    "files_readable": 1429,
+    "files_code_dir": 1540,
+    "file_edges": 6236,
     "escritas_em_pasta": 88,
     "declared_missing_here": 0
   },
