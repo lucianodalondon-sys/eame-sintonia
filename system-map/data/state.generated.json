@@ -25,6 +25,7 @@
       "CASCO-CLIENT-DEMO.md",
       "CASCO-LEITURA.md",
       "CASCO-PAINEL.md",
+      "CHAVE-PROBLEMA.md",
       "CLAUDE.md",
       "CONCORRENCIA-META.md",
       "CONSERTO-REGUA.md",
@@ -180,6 +181,7 @@
       "admissao/admissao.py",
       "admissao/idioma.py",
       "admissao/reprocessar_estudos_chaves.py",
+      "admissao/reprocessar_problema.py",
       "admissao/reprocessar_tempo_lugar.py",
       "admissao/sala_de_espera.py",
       "admissao/versao_do_documento.py",
@@ -2935,6 +2937,12 @@
       "provas/censo_corpus_rotulado_admission.py",
       "provas/censo_executavel_da_v1.py",
       "provas/chain.py",
+      "provas/chave_problema/BATERIA-BASE-c551062.json",
+      "provas/chave_problema/BATERIA-DEPOIS.json",
+      "provas/chave_problema/ENSAIO-033-CHAVE-PROBLEMA.json",
+      "provas/chave_problema/MUTACAO-CHAVE-PROBLEMA.json",
+      "provas/chave_problema/ensaio_033_descartavel.py",
+      "provas/chave_problema/mutacao_chave_problema.py",
       "provas/concorrencia_meta/BATERIA-COMPARACAO.json",
       "provas/concorrencia_meta/MUTACAO-V1.json",
       "provas/conserto_regua_recalcular.py",
@@ -3873,6 +3881,7 @@
       "tests/test_censo_cards_sensores.py",
       "tests/test_censo_corpus_rotulado_admission.py",
       "tests/test_censo_dos_donos.py",
+      "tests/test_chave_problema.py",
       "tests/test_cicatrizes_brasil.py",
       "tests/test_cliente_postgres.py",
       "tests/test_col_e7_contrato_do_texto.py",
@@ -4612,10 +4621,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/single-reference-gateway-hhhj7t",
-    "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
-    "GENERATED_AT": "2026-09-27T21:40:15+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9"
+    "BRANCH": "claude/declare-problem-contract-lj7kfp",
+    "HEAD": "5712ba9ae7d43d3e20e96e9a1cf102918fd5f875",
+    "GENERATED_AT": "2026-09-27T23:18:30+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a5c0d64c99a256460b0d8c5d6d543bd1e5e4f34612dd51fbee9ed65eced3ea4f"
   },
   "FAMILIES": [
     {
@@ -5565,7 +5574,7 @@
       "name": "A porta de admissao",
       "territory": "Z-ADMISSAO",
       "kind": "gate",
-      "what": "Decide, por par (item, universo), se entra: SIM, NAO, NAO_SEI, NAO_SE_APLICA ou ERRO — e escreve o motivo, a regra, a versao e a prova no livro de decisoes.",
+      "what": "Decide, por par (item, universo), se entra: SIM, NAO, NAO_SEI, NAO_SE_APLICA ou ERRO — e escreve o motivo, a regra, a versao e a prova no livro de decisoes. CHAVE-PROBLEMA (27/09): a janela_declarada leva a chave PROBLEMA no contrato PROBLEMA/v1 (admissao.problema_da_chave — boletins T2/T3 e estudos T5; os outros universos dizem NAO SEI com o porque).",
       "why_here": "So um ficheiro em toda a coleta decidia relevancia, para cinco veiculos. O caminho era colher, carimbar e guardar tudo — sem peneira.",
       "departments": [
         "ENGENHARIA"
@@ -5722,7 +5731,7 @@
       "name": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins",
       "territory": "Z-REGUAS",
       "kind": "contract",
-      "what": "Diz de onde veio o nome de cada entidade de uma afirmacao (ENTITY_SOURCE), separa previsao, fato observado e recomendacao, classifica a relacao entre duas afirmacoes, e reprova com um lint deterministico a ficha que acrescenta ou corta o que a fonte disse.",
+      "what": "Diz de onde veio o nome de cada entidade de uma afirmacao (ENTITY_SOURCE), separa previsao, fato observado e recomendacao, classifica a relacao entre duas afirmacoes, e reprova com um lint deterministico a ficha que acrescenta ou corta o que a fonte disse. CHAVE-PROBLEMA (27/09): e tambem o dono da FORMA do PROBLEMA como chave da Collection — o contrato PROBLEMA/v1 (VALOR = UM nome canonico ou NAO SEI; VEIO_DE = TEXT/SECTION_HEADER/DOCUMENT_TITLE; BASE = o trecho literal; CODIGO = EPPO so com o binomio escrito, senao NOME_CANONICO) — e da trava que o le (problema_conforme / problema_da_chave), que confere a BASE contra o texto do item: base que o texto nao tem e praga inferida.",
       "why_here": "D112 — VEREDITO PUGLIA = APROVADO COM CORRECOES. O dono reviu a mao 12 fichas reais (D111) e as correcoes viraram lei: COL-LAW-221, 222, 223 na Biblia da Coleta e INT-LAW-078, 079 na da Intelligence. Este ficheiro e o VOCABULARIO e as TRAVAS dessas leis, medidos contra o gold humano em tests/test_metodo_puglia.py. NAO E EXTRATOR. LOTE6-INTEGRA: o extrator por secao dos boletins (leis/boletim_do_campo.py, ler_afirmacao) importa-o — le daqui ENTITY_SOURCES e passa cada procedencia por procedencia_da_entidade antes de devolver; o gold passa 9/9 casos medidos (tests/test_metodo_puglia.py T7). ⚠️ O lint de fidelidade e a especie da afirmacao continuam sem nenhuma producao de ficha que os chame.",
       "departments": [
         "INTELIGENCIA",
@@ -5746,14 +5755,16 @@
       ],
       "file_count": 4,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-INT-MOTOR-CAPACIDADES, C-LUGAR-COLETA.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-INT-CAP-WIN, C-INT-MOTOR-CAPACIDADES, C-LUGAR-COLETA.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-INT-CAP-WIN",
         "C-INT-MOTOR-CAPACIDADES",
         "C-LUGAR-COLETA",
         "C-PROVA-COLETA",
+        "C-SALA-DE-ESPERA",
         "C-TESTES"
       ],
       "paises": {},
@@ -5763,11 +5774,12 @@
         "papel": "NAO SEI",
         "listas": [
           "ENTITY_SOURCES",
+          "ENTITY_SOURCE_DO_VEIO_DE",
           "NOMES_DE_SUPERFICIE"
         ],
-        "palavras": 21,
+        "palavras": 27,
         "por_lingua": {},
-        "sem_marca_de_lingua": 21,
+        "sem_marca_de_lingua": 27,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -6231,8 +6243,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 859",
-        "desses, mostrados aqui: 40 (ficam de fora 819)"
+        "enderecos que o codigo realmente chama: 861",
+        "desses, mostrados aqui: 40 (ficam de fora 821)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -48838,7 +48850,7 @@
       "name": "CAP-WIN — a janela de cultura (definida ≠ aberta agora)",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Le o livro de uma corrida G0/v4 e os itens READY, e julga por CULTURA x PROBLEMA x REGIAO (com fase/BBCH, subarea e periodo) duas perguntas separadas: WINDOW_DEFINED (que condicao define o momento de agir: os 8 tipos da regra do V21) e WINDOW_OPEN_NOW (a fonte declara a condicao satisfeita, e o facto tem tempo e e CURRENT?). Conta apoios pelo grafo de dependencia (observacao por originador e rede declarada; a regra partilhada conta uma vez), marca SUPPORT/CONTRADICTS entre observacoes da mesma semana e subarea, e devolve um ANALYTIC_JUDGMENT CROP_WINDOW com ACT_NOW so com YES, CURRENT, 2 independentes provados e 0 contradicoes — senao NO_DEFENSIBLE_ACTION_YET com o porque. Sem par em campo: NOT_POSSIBLE e o requisito CROP_ISSUE_EM_CAMPO. Nao produz oportunidade. Aceita a triagem do motor das capacidades (fora={ITEM_ID: motivo}): o estudo sai em FORA com o motivo e nao gera requisito de par. Cada janela diz que produtos ADAMA a bula lida autoriza para a cultura x problema (PRODUTOS_ADAMA, pela porta; bula nao lida = A_CONFIRMAR), sem mexer no RESULT da janela. PORTA-UNICA-REFERENCIA (D116): a referencia ADAMA entra so por motor/porta_da_referencia.py, na mesma edicao das outras capacidades, e a edicao usada fica carimbada no resultado.",
+      "what": "Le o livro de uma corrida G0/v4 e os itens READY, e julga por CULTURA x PROBLEMA x REGIAO (com fase/BBCH, subarea e periodo) duas perguntas separadas: WINDOW_DEFINED (que condicao define o momento de agir: os 8 tipos da regra do V21) e WINDOW_OPEN_NOW (a fonte declara a condicao satisfeita, e o facto tem tempo e e CURRENT?). Conta apoios pelo grafo de dependencia (observacao por originador e rede declarada; a regra partilhada conta uma vez), marca SUPPORT/CONTRADICTS entre observacoes da mesma semana e subarea, e devolve um ANALYTIC_JUDGMENT CROP_WINDOW com ACT_NOW so com YES, CURRENT, 2 independentes provados e 0 contradicoes — senao NO_DEFENSIBLE_ACTION_YET com o porque. Sem par em campo: NOT_POSSIBLE e o requisito CROP_ISSUE_EM_CAMPO. Nao produz oportunidade. Aceita a triagem do motor das capacidades (fora={ITEM_ID: motivo}): o estudo sai em FORA com o motivo e nao gera requisito de par. Cada janela diz que produtos ADAMA a bula lida autoriza para a cultura x problema (PRODUTOS_ADAMA, pela porta; bula nao lida = A_CONFIRMAR), sem mexer no RESULT da janela. PORTA-UNICA-REFERENCIA (D116): a referencia ADAMA entra so por motor/porta_da_referencia.py, na mesma edicao das outras capacidades, e a edicao usada fica carimbada no resultado. CHAVE-PROBLEMA (27/09): o ISSUE_ID le-se SO de JANELA_DECLARADA.PROBLEMA pelo contrato PROBLEMA/v1 (leis/afirmacao_da_fonte.problema_da_chave), com a base conferida contra o TEXTO do item; lista, bloco fora do contrato ou NAO SEI continuam NOT_POSSIBLE.",
       "why_here": "Missao CAP-WIN (D100-b/L6: a CAP-WIN vem primeiro na espinha G0-G6), desenho docs/intelligence/CAP-WIN-DESENHO-R5.md W0-W8. Porta a REGRA de scripts/v21_janelas.py @ 85df96f7 sem portar o ficheiro (o legado le DESIGN-INGEST e atribui par por texto, INT-LAW-084). Dois acrescimos declarados, os dois medidos no corte ARIF x APOL: soglia nao atingida escrita por extenso -> NO com a razao certa, e o plural «soglie». O tempo so bloqueia o uso que exige tempo: a regra de um READY sem FACT_TIME continua lida, o «agora» nao. EXPERIMENTAL / NAO_PARA_CLIENTE.",
       "departments": [
         "ENGENHARIA",
@@ -48863,6 +48875,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-AFIRMACAO-DA-FONTE",
         "C-INT-CORRIDA",
         "C-INT-GRAFO-DEPENDENCIA",
         "C-INT-PORTA-REFERENCIA",
@@ -48871,6 +48884,7 @@
       "outbound": [
         "C-INT-MOTOR-CAPACIDADES",
         "C-PROVA-CAP-WIN",
+        "C-PROVA-COLETA",
         "C-PROVA-INT-R7",
         "C-PROVA-PORTA-REFERENCIA",
         "C-TESTES"
@@ -48924,8 +48938,8 @@
         "PROVA": [
           "motor/motor_das_capacidades.py:77",
           "provas/cap_win/mutantes.py:18",
-          "provas/int_r7/mutantes.py:21",
-          "provas/porta_unica_referencia/mutantes.py:32"
+          "provas/chave_problema/ensaio_033_descartavel.py:59",
+          "provas/chave_problema/mutacao_chave_problema.py:46"
         ],
         "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -49243,7 +49257,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/cap_win.py:82",
+          "motor/cap_win.py:83",
           "motor/capacidade_cientifica.py:56",
           "motor/motor_das_capacidades.py:76",
           "pacote/ponte_intelligence_casco.py:72"
@@ -49725,7 +49739,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/cap_win.py:83",
+          "motor/cap_win.py:84",
           "motor/corrida_da_inteligencia.py:69",
           "motor/v21_oportunidades.py:47",
           "provas/independencia/mutantes.py:10"
@@ -49915,7 +49929,7 @@
       "name": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida.",
+      "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida. CHAVE-PROBLEMA (27/09): o objeto do futuro le o ISSUE_ID pelo mesmo contrato PROBLEMA/v1 que a CAP-WIN.",
       "why_here": "Missao INT-R7-CAPS: juntar CAP-WIN e CAP-SCI no motor sem duplicar leis nem contadores (uma corrida, um RUN_ID) e preparar a rodada 7 (RUNBOOK-R7.md). Conflitos resolvidos pelo significado: URL/DOCUMENT_ID nao sao READY (vem do RAW); JANELA_DECLARADA nao esta em CAMPOS_READY (viaja ao lado, so a CAP-WIN a le); boletim nao e estudo e estudo nao e janela. Nao abre a Sala, nao cunha identidade, nao produz OPORTUNIDADE. EXPERIMENTAL / NAO_PARA_CLIENTE.",
       "departments": [
         "ENGENHARIA",
@@ -50006,9 +50020,9 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
+          "provas/chave_problema/mutacao_chave_problema.py:48",
           "provas/int_r7/export_numa_copia_descartavel.py:37",
           "provas/int_r7/export_numa_copia_descartavel.py:47",
-          "provas/lote6_integra/mutacao_juncao.py:24",
           "provas/porta_unica_referencia/mutantes.py:55"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
@@ -50177,8 +50191,8 @@
         "PLANO": null,
         "PROVA": [
           "coleta/concorrencia_meta.py:72",
-          "leis/boletim_do_campo.py:636",
-          "motor/cap_win.py:86",
+          "leis/boletim_do_campo.py:785",
+          "motor/cap_win.py:87",
           "motor/capacidade_cientifica.py:59"
         ],
         "PORQUE": "estas pecas importam-na — C-COLETA-META · C-CRUZAMENTOS-MAX · C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -52297,7 +52311,7 @@
       "name": "O lugar do fato — a lei escrita, e ainda nao aplicada",
       "territory": "Z-REGUAS",
       "kind": "contract",
-      "what": "Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe o candidato lendo o texto na lingua do pais. ESTUDOS-CHAVES (27/09): leis/estudo_chaves.py le no titulo+resumo de um estudo T5 a CULTURA, o PROBLEMA e o LUGAR DO ESTUDO, compondo os vocabularios que ja existem (lexico T6, pragas do boletim, regua T1, gazetteer), com o trecho literal (D112, ENTITY_SOURCE=SPAN); ambiguo = NAO SEI; afiliacao nunca vira lugar (INT-LAW-102); o lugar so conta com verbo/nome de experimento na frase; CAP-SCI: a praga e NOMEADA pelo estudo, nunca incidencia de campo. E aplicado quando o dado entra: admissao.janela_declarada chama-o no universo T5. leis/boletim_do_campo.produtos_adama_do_boletim: praga x cultura da MESMA secao -> produtos ADAMA autorizados, pela porta; ler_boletim continua pura.",
+      "what": "Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe o candidato lendo o texto na lingua do pais. ESTUDOS-CHAVES (27/09): leis/estudo_chaves.py le no titulo+resumo de um estudo T5 a CULTURA, o PROBLEMA e o LUGAR DO ESTUDO, compondo os vocabularios que ja existem (lexico T6, pragas do boletim, regua T1, gazetteer), com o trecho literal (D112, ENTITY_SOURCE=SPAN); ambiguo = NAO SEI; afiliacao nunca vira lugar (INT-LAW-102); o lugar so conta com verbo/nome de experimento na frase; CAP-SCI: a praga e NOMEADA pelo estudo, nunca incidencia de campo. E aplicado quando o dado entra: admissao.janela_declarada chama-o no universo T5. leis/boletim_do_campo.produtos_adama_do_boletim: praga x cultura da MESMA secao -> produtos ADAMA autorizados, pela porta; ler_boletim continua pura. CHAVE-PROBLEMA (27/09): leis/boletim_do_campo.declarar_problema e o UNICO que preenche o contrato PROBLEMA/v1 — com as mencoes do boletim (mencoes_do_boletim: o mesmo vocabulario, a mesma regra de AUSENTE e a mesma tabela MESMO_PROBLEMA de ler_boletim) ou com os SPANS do estudo; duas pragas no item = NAO SEI (D112); o codigo EPPO so vem do binomio latino escrito, pela tabela que motor/normalize_agro.py ja le (nunca por semelhanca).",
       "why_here": "Uma fonte italiana a falar de Espanha nao torna o fato italiano. Esta e das licoes que o Brasil ensinou a esta casa, e — como o proprio texto anterior dizia — SO VALE SE FOR APLICADA QUANDO O DADO ENTRA. ⚠️ NAO ESTA. Medido: `grep -rn 'import lugar_do_fato'` e `'import fato_local'` em toda a arvore devolvem UMA linha cada, e as duas estao em `tests/test_lugar_do_fato.py`. Nenhum workflow corre estes ficheiros. O cartao dizia «o motor importa esta lei para decidir», e isso era falso. A lei continua valida e por isso NAO foi apagada — mudou de sitio: sai de Z-MEDIDAS (esteira da coleta) para Z-REGUAS, em F-GOVERNANCA, onde vivem as leis. E fica classificada como DECLARED_RULE_NOT_ENFORCED em vez de fingir que o motor a consulta. Nenhuma aresta foi criada para a fazer parecer usada. Aplica-la quando o dado entra e decisao de arquitetura, e continua por tomar.",
       "departments": [
         "INTELIGENCIA",
@@ -52367,7 +52381,8 @@
         "C-ORQUESTRADOR",
         "C-PESQUISADORES-T6",
         "C-PROVA-COLETA",
-        "C-TESTES"
+        "C-TESTES",
+        "C-V21-INGEST"
       ],
       "outbound": [
         "C-ADMISSAO",
@@ -58729,12 +58744,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "OPERATIONAL_STEP",
-        "MEASURED_WHY": "escreve motor/cap_win.py, e C-PROVA-INT-R7 le isso: entrega trabalho a peca seguinte",
+        "MEASURED_WHY": "escreve motor/cap_win.py, e C-PROVA-COLETA le isso: entrega trabalho a peca seguinte",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve motor/cap_win.py, e C-PROVA-INT-R7 le isso: entrega trabalho a peca seguinte) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve motor/cap_win.py, e C-PROVA-COLETA le isso: entrega trabalho a peca seguinte) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -58781,6 +58796,7 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "CHAVE-PROBLEMA.md",
         "LOTE6-INTEGRA.md",
         "provas/_c106b_filho.py",
         "provas/_c106c_filho.py",
@@ -58807,6 +58823,12 @@
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/censo_executavel_da_v1.py",
+        "provas/chave_problema/BATERIA-BASE-c551062.json",
+        "provas/chave_problema/BATERIA-DEPOIS.json",
+        "provas/chave_problema/ENSAIO-033-CHAVE-PROBLEMA.json",
+        "provas/chave_problema/MUTACAO-CHAVE-PROBLEMA.json",
+        "provas/chave_problema/ensaio_033_descartavel.py",
+        "provas/chave_problema/mutacao_chave_problema.py",
         "provas/conserto_regua_recalcular.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/ensaio_canonico_de_capacidade.py",
@@ -58884,7 +58906,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 102,
+      "file_count": 109,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -58929,6 +58951,7 @@
         "C-EXECUTOR-TEXTO-PDF",
         "C-FONTE-DO-ATLAS",
         "C-INGRESSO",
+        "C-INT-CAP-WIN",
         "C-INT-MOTOR-CAPACIDADES",
         "C-IT-COLETA",
         "C-IT-CONTRATOS",
@@ -59073,12 +59096,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1699,
+        "palavras": 1736,
         "por_lingua": {
-          "IT": 2,
-          "PT": 1
+          "PT": 2,
+          "IT": 2
         },
-        "sem_marca_de_lingua": 1696,
+        "sem_marca_de_lingua": 1732,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -59143,13 +59166,13 @@
         },
         {
           "onde": "GIT",
-          "file": "provas/gate_de_aceitacao_tematica.py",
+          "file": "provas/chave_problema/ENSAIO-033-CHAVE-PROBLEMA.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
         {
           "onde": "GIT",
-          "file": "provas/lote6_integra/MUTACAO-JUNCAO.json",
+          "file": "provas/gate_de_aceitacao_tematica.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -59181,6 +59204,7 @@
         "README.md",
         "admissao/admissao.py",
         "admissao/reprocessar_estudos_chaves.py",
+        "admissao/reprocessar_problema.py",
         "admissao/reprocessar_tempo_lugar.py",
         "admissao/sala_de_espera.py",
         "coleta/adaptador_instagram.py",
@@ -59314,6 +59338,7 @@
         "leis/retorno_da_coleta.py",
         "leis/social_matriz.py",
         "motor/cadeia_canonica.sh",
+        "motor/cap_win.py",
         "motor/motor_das_capacidades.py",
         "orquestrador/orquestrador.py",
         "pedido/receitas.py",
@@ -59332,6 +59357,7 @@
         "provas/amostragem_neutra_t3.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
+        "provas/chave_problema/MUTACAO-CHAVE-PROBLEMA.json",
         "provas/contador_24h_local.mjs",
         "provas/estudos_chaves/MUTACAO-ESTUDOS-CHAVES.json",
         "provas/gate_de_aceitacao_tematica.py",
@@ -66282,7 +66308,7 @@
       "name": "A Sala de Espera",
       "territory": "Z-ADMISSAO",
       "kind": "engine",
-      "what": "O dono unico da fila onde a unidade READY pousa. O backend canonico e PostgreSQL (public.sala_de_espera, migration 031): uma transacao por pouso, trava por CORRIDA com pg_advisory_xact_lock que morre com a transacao, retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e a fila WAITING -> CONSUMED sem apagar a linha. O backend de FICHEIRO (data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json, escrita atomica por fsync + os.replace) continua atras do MESMO dono e esta declarado NAO CANONICO: ele nao sobrevive ao fim do job, e foi isso que bloqueou a primeira coleta real italiana. Desde a migration 033 (MIGRACAO-SALA, D68) corrige SEM apagar: rever() so acrescenta em sala_de_espera_revisao (o banco recusa UPDATE/DELETE), ler_atual() le a vista sala_de_espera_atual (ultima revisao, senao o original), e admissao/reprocessar_tempo_lugar.py refaz o tempo e o lugar do acervo pela porta, sem rede. admissao/reprocessar_estudos_chaves.py refaz SO a janela_declarada dos estudos T5 a partir do texto guardado (entrada JSON item_id/texto/published_at) e DEVOLVE as revisoes no formato de rever(), sem abrir o banco: quem aplica e o coordenador.",
+      "what": "O dono unico da fila onde a unidade READY pousa. O backend canonico e PostgreSQL (public.sala_de_espera, migration 031): uma transacao por pouso, trava por CORRIDA com pg_advisory_xact_lock que morre com a transacao, retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e a fila WAITING -> CONSUMED sem apagar a linha. O backend de FICHEIRO (data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json, escrita atomica por fsync + os.replace) continua atras do MESMO dono e esta declarado NAO CANONICO: ele nao sobrevive ao fim do job, e foi isso que bloqueou a primeira coleta real italiana. Desde a migration 033 (MIGRACAO-SALA, D68) corrige SEM apagar: rever() so acrescenta em sala_de_espera_revisao (o banco recusa UPDATE/DELETE), ler_atual() le a vista sala_de_espera_atual (ultima revisao, senao o original), e admissao/reprocessar_tempo_lugar.py refaz o tempo e o lugar do acervo pela porta, sem rede. admissao/reprocessar_estudos_chaves.py refaz SO a janela_declarada dos estudos T5 a partir do texto guardado (entrada JSON item_id/texto/published_at) e DEVOLVE as revisoes no formato de rever(), sem abrir o banco: quem aplica e o coordenador. admissao/reprocessar_problema.py (CHAVE-PROBLEMA) le uma COPIA exportada da vista sala_de_espera_atual e devolve, a seco, a janela ATUAL com SO a chave PROBLEMA trocada (contrato PROBLEMA/v1), idempotente; --aplicar escreve so pela porta rever(), exige a Sala canonica e recusa revisoes de outra versao do codigo. Sem migracao: a 033 ja guarda a quinta chave e ja reve janela_declarada.",
       "why_here": "A escrita vivia dentro do orquestrador, e isso contradizia a COL-LAW-012: o orquestrador CONTROLA, nao transporta dado. Enquanto a unica escrita estivesse no control plane, a rota forward nao tinha como pousar a unidade sem escrever uma SEGUNDA. ONE CONCEPT -> ONE OWNER.",
       "departments": [
         "ENGENHARIA"
@@ -66299,18 +66325,20 @@
       "family": "F-COLETA",
       "files": [
         "admissao/reprocessar_estudos_chaves.py",
+        "admissao/reprocessar_problema.py",
         "admissao/reprocessar_tempo_lugar.py",
         "admissao/sala_de_espera.py",
         "admissao/versao_do_documento.py",
         "admissao/video_na_sala.py"
       ],
-      "file_count": 5,
+      "file_count": 6,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
+        "C-AFIRMACAO-DA-FONTE",
         "C-COLETA-YOUTUBE",
         "C-CONTRATO-TELEMETRIA",
         "C-DONO-DA-ESCRITA",
@@ -66323,7 +66351,8 @@
         "C-ORQUESTRADOR",
         "C-PESQUISADORES-T6",
         "C-SINTONIA-SCRAP",
-        "C-TESTES"
+        "C-TESTES",
+        "C-V21-INGEST"
       ],
       "outbound": [
         "C-DUAS-PORTAS-MEDIDORES",
@@ -66349,7 +66378,8 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 3
+        "ITALIA": 3,
+        "ESPANHA": 1
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -66369,9 +66399,9 @@
           "REVISTOS",
           "_COLUNAS"
         ],
-        "palavras": 172,
+        "palavras": 181,
         "por_lingua": {},
-        "sem_marca_de_lingua": 172,
+        "sem_marca_de_lingua": 181,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -66387,7 +66417,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 12 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 15 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -66398,10 +66428,13 @@
         "coleta/ingresso.py",
         "coleta/italy_executor.py",
         "coleta/pesquisadores_t6.py",
+        "data/samples/ES-T4-001/eppo-dictionary.json",
+        "leis/afirmacao_da_fonte.py",
         "leis/boletim_do_campo.py",
         "leis/estudo_chaves.py",
         "leis/fato_do_texto.py",
         "leis/fato_local.py",
+        "motor/normalize_agro.py",
         "orquestrador/orquestrador.py",
         "regras/contratos_de_fonte.py",
         "regras/italy_contracts.mjs"
@@ -70371,6 +70404,7 @@
         "tests/test_censo_cards_sensores.py",
         "tests/test_censo_corpus_rotulado_admission.py",
         "tests/test_censo_dos_donos.py",
+        "tests/test_chave_problema.py",
         "tests/test_cicatrizes_brasil.py",
         "tests/test_cliente_postgres.py",
         "tests/test_col_e7_contrato_do_texto.py",
@@ -70591,7 +70625,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 323,
+      "file_count": 324,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -70889,6 +70923,7 @@
           "CONTRATO",
           "CONTRATOS",
           "COORTE",
+          "COPIA",
           "CORRIDA",
           "DADOS",
           "DECISOES_ANTIGAS",
@@ -70980,13 +71015,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 2051,
+        "palavras": 2058,
         "por_lingua": {
-          "IT": 11,
+          "IT": 12,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 2035,
+        "sem_marca_de_lingua": 2041,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -71096,6 +71131,7 @@
         "SINTONIA-EAME-KNOW-HOW.md",
         "admissao/admissao.py",
         "admissao/reprocessar_estudos_chaves.py",
+        "admissao/reprocessar_problema.py",
         "admissao/sala_de_espera.py",
         "candidatas/FONTES-CANDIDATAS.json",
         "candidatas/ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx",
@@ -72595,9 +72631,11 @@
       ],
       "outbound": [
         "C-INT-CONVERGENCIA",
+        "C-LUGAR-COLETA",
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
         "C-PROVA-COLETA",
+        "C-SALA-DE-ESPERA",
         "C-TESTES",
         "C-V21-COMERCIAL"
       ],
@@ -75980,7 +76018,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 25 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 26 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
@@ -76191,12 +76229,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/c2_juiz_mutacao.py",
           "line": 24,
           "snippet": "ADM = \"admissao/admissao.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-COLETA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 21,
+          "snippet": "BC, AF, AD = \"leis/boletim_do_campo.py\", \"leis/afirmacao_da_fonte.py\", \"admissao/admissao.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-COLETA",
             "FROM": "C-ADMISSAO",
@@ -76953,7 +77007,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 2316,
+          "line": 2360,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -77270,11 +77324,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por A Sala de Espera. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por A Sala de Espera. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "admissao/reprocessar_estudos_chaves.py",
           "line": 41,
+          "snippet": "import admissao as adm  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-SALA-DE-ESPERA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 44,
           "snippet": "import admissao as adm  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-SALA-DE-ESPERA",
@@ -77321,12 +77391,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta A Sala de Espera. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao alimenta A Sala de Espera. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "admissao/reprocessar_estudos_chaves.py",
           "line": 51,
           "snippet": "CODIGO_DA_VERSAO = (\"admissao/reprocessar_estudos_chaves.py\", \"admissao/admissao.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-SALA-DE-ESPERA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 56,
+          "snippet": "CODIGO_DA_VERSAO = (\"admissao/reprocessar_problema.py\", \"admissao/admissao.py\", \"leis/boletim_do_campo.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-SALA-DE-ESPERA",
             "FROM": "C-ADMISSAO",
@@ -77372,7 +77458,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 53 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 54 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -77740,6 +77826,41 @@
     },
     {
       "from": "C-AFIRMACAO-DA-FONTE",
+      "to": "C-INT-CAP-WIN",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins tem o seu codigo importado por CAP-WIN — a janela de cultura (definida ≠ aberta agora). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/cap_win.py",
+          "line": 89,
+          "snippet": "import afirmacao_da_fonte as AF                 # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-INT-CAP-WIN",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-INT-CAP-WIN",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AFIRMACAO-DA-FONTE",
       "to": "C-INT-MOTOR-CAPACIDADES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -77785,7 +77906,7 @@
       "evidence": [
         {
           "file": "leis/boletim_do_campo.py",
-          "line": 269,
+          "line": 274,
           "snippet": "import afirmacao_da_fonte as AF     # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-LUGAR-COLETA",
@@ -77862,13 +77983,64 @@
     {
       "from": "C-AFIRMACAO-DA-FONTE",
       "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chave_problema/ensaio_033_descartavel.py",
+          "line": 60,
+          "snippet": "import afirmacao_da_fonte as AF",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AFIRMACAO-DA-FONTE",
+      "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 21,
+          "snippet": "BC, AF, AD = \"leis/boletim_do_campo.py\", \"leis/afirmacao_da_fonte.py\", \"admissao/admissao.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PROVA-COLETA",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/lote6_integra/mutacao_juncao.py",
           "line": 39,
@@ -77928,17 +78100,84 @@
     },
     {
       "from": "C-AFIRMACAO-DA-FONTE",
+      "to": "C-SALA-DE-ESPERA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins alimenta A Sala de Espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 57,
+          "snippet": "\"leis/afirmacao_da_fonte.py\", \"leis/estudo_chaves.py\", \"leis/fato_do_texto.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-SALA-DE-ESPERA",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AFIRMACAO-DA-FONTE",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
+          "file": "tests/test_cap_win.py",
+          "line": 28,
+          "snippet": "import afirmacao_da_fonte as AF                        # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-TESTES",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_chave_problema.py",
+          "line": 30,
+          "snippet": "import afirmacao_da_fonte as AF  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-TESTES",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_estudo_chaves.py",
-          "line": 23,
+          "line": 22,
           "snippet": "import afirmacao_da_fonte as AF  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-TESTES",
@@ -108029,6 +108268,76 @@
     },
     {
       "from": "C-INT-CAP-WIN",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "CAP-WIN — a janela de cultura (definida ≠ aberta agora) tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chave_problema/ensaio_033_descartavel.py",
+          "line": 59,
+          "snippet": "import cap_win as W",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-WIN--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-INT-CAP-WIN",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CAP-WIN",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "CAP-WIN — a janela de cultura (definida ≠ aberta agora) alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 46,
+          "snippet": "(\"M09\", \"motor/cap_win.py\", '        if campo == \"PROBLEMA\":', \"        if False:\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-WIN--READS-->C-PROVA-COLETA",
+            "FROM": "C-INT-CAP-WIN",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CAP-WIN",
       "to": "C-PROVA-INT-R7",
       "type": "READS",
       "payload": "artefacto",
@@ -108105,12 +108414,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "CAP-WIN — a janela de cultura (definida ≠ aberta agora) tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "CAP-WIN — a janela de cultura (definida ≠ aberta agora) tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_cap_win.py",
-          "line": 28,
+          "line": 29,
           "snippet": "import cap_win as W                                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CAP-WIN--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-CAP-WIN",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_chave_problema.py",
+          "line": 32,
+          "snippet": "import cap_win as W  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CAP-WIN--IMPORTS-->C-TESTES",
             "FROM": "C-INT-CAP-WIN",
@@ -108437,7 +108762,7 @@
       "evidence": [
         {
           "file": "motor/cap_win.py",
-          "line": 82,
+          "line": 83,
           "snippet": "import corrida_da_inteligencia as CI            # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-INT-CAP-WIN",
@@ -108678,7 +109003,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_primeira_corrida_da_inteligencia.py",
@@ -108698,7 +109023,7 @@
         },
         {
           "file": "tests/test_cap_win.py",
-          "line": 29,
+          "line": 30,
           "snippet": "import corrida_da_inteligencia as CI                   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
@@ -108716,6 +109041,22 @@
           "file": "tests/test_capacidade_cientifica.py",
           "line": 28,
           "snippet": "import corrida_da_inteligencia as CI           # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_chave_problema.py",
+          "line": 33,
+          "snippet": "import corrida_da_inteligencia as CI  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
             "FROM": "C-INT-CORRIDA",
@@ -109597,7 +109938,7 @@
       "evidence": [
         {
           "file": "motor/cap_win.py",
-          "line": 83,
+          "line": 84,
           "snippet": "import grafo_de_dependencia as GD               # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-GRAFO-DEPENDENCIA--IMPORTS-->C-INT-CAP-WIN",
@@ -109959,8 +110300,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 48,
+          "snippet": "(\"M10\", \"motor/motor_das_capacidades.py\", '        if campo == \"PROBLEMA\":', \"        if False:\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-COLETA",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/lote6_integra/mutacao_juncao.py",
           "line": 24,
@@ -110115,8 +110472,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_chave_problema.py",
+          "line": 303,
+          "snippet": "import motor_das_capacidades as M",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_lote6_integra.py",
           "line": 43,
@@ -110151,7 +110524,7 @@
         },
         {
           "file": "tests/test_porta_unica_referencia.py",
-          "line": 213,
+          "line": 225,
           "snippet": "import motor_das_capacidades as M",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-TESTES",
@@ -110393,7 +110766,7 @@
       "evidence": [
         {
           "file": "motor/cap_win.py",
-          "line": 86,
+          "line": 87,
           "snippet": "import porta_da_referencia as PORTA             # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-INT-CAP-WIN",
@@ -110463,7 +110836,7 @@
       "evidence": [
         {
           "file": "leis/boletim_do_campo.py",
-          "line": 636,
+          "line": 785,
           "snippet": "import porta_da_referencia as PORTA   # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-LUGAR-COLETA",
@@ -119431,8 +119804,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Provas da coleta canonica. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 21,
+          "snippet": "BC, AF, AD = \"leis/boletim_do_campo.py\", \"leis/afirmacao_da_fonte.py\", \"admissao/admissao.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
           "line": 23,
@@ -119600,7 +119989,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta A Sala de Espera. Provado por 5 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta A Sala de Espera. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "admissao/reprocessar_estudos_chaves.py",
@@ -119638,6 +120027,70 @@
           "file": "admissao/reprocessar_estudos_chaves.py",
           "line": 52,
           "snippet": "\"leis/estudo_chaves.py\", \"leis/boletim_do_campo.py\", \"leis/fato_local.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--READS-->C-SALA-DE-ESPERA",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 56,
+          "snippet": "CODIGO_DA_VERSAO = (\"admissao/reprocessar_problema.py\", \"admissao/admissao.py\", \"leis/boletim_do_campo.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--READS-->C-SALA-DE-ESPERA",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 57,
+          "snippet": "\"leis/afirmacao_da_fonte.py\", \"leis/estudo_chaves.py\", \"leis/fato_do_texto.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--READS-->C-SALA-DE-ESPERA",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 57,
+          "snippet": "\"leis/afirmacao_da_fonte.py\", \"leis/estudo_chaves.py\", \"leis/fato_do_texto.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--READS-->C-SALA-DE-ESPERA",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 58,
+          "snippet": "\"leis/fato_local.py\", \"coleta/pesquisadores_t6.py\", \"motor/normalize_agro.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-SALA-DE-ESPERA",
             "FROM": "C-LUGAR-COLETA",
@@ -119699,7 +120152,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 24 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 25 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_artefato_tempo_do_fato.py",
@@ -119782,6 +120235,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_chave_problema.py",
+          "line": 31,
+          "snippet": "import boletim_do_campo as BC  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_conserto_regua.py",
           "line": 24,
           "snippet": "import fato_do_texto as FT  # noqa: E402",
@@ -119815,7 +120284,7 @@
         },
         {
           "file": "tests/test_estudo_chaves.py",
-          "line": 22,
+          "line": 23,
           "snippet": "import boletim_do_campo as BC  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
@@ -119831,7 +120300,7 @@
         },
         {
           "file": "tests/test_estudo_chaves.py",
-          "line": 24,
+          "line": 25,
           "snippet": "import estudo_chaves as EC  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
@@ -119847,7 +120316,7 @@
         },
         {
           "file": "tests/test_estudo_chaves.py",
-          "line": 215,
+          "line": 219,
           "snippet": "import fato_local as FL",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
@@ -119865,22 +120334,6 @@
           "file": "tests/test_extrator_evento_v2.py",
           "line": 18,
           "snippet": "import fato_do_texto as FT  # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
-            "FROM": "C-LUGAR-COLETA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_extrator_lugar_v2.py",
-          "line": 22,
-          "snippet": "import fato_local as FL  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -119962,7 +120415,7 @@
         },
         {
           "file": "tests/test_estudo_chaves.py",
-          "line": 223,
+          "line": 227,
           "snippet": "with open(os.path.join(RAIZ, \"leis\", \"estudo_chaves.py\"), encoding=\"utf-8\") as h:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -124144,7 +124597,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Provas da coleta canonica. Provado por 42 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Provas da coleta canonica. Provado por 43 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -125941,11 +126394,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por A Sala de Espera. Provado por 3 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por A Sala de Espera. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "admissao/reprocessar_estudos_chaves.py",
           "line": 39,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-SALA-DE-ESPERA",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 42,
           "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-SALA-DE-ESPERA",
@@ -126359,7 +126828,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 167 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 168 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -127774,8 +128243,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/chave_problema/ensaio_033_descartavel.py",
+          "line": 35,
+          "snippet": "_spec = importlib.util.spec_from_file_location(\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/migracao_033_ensaio_copia.py",
           "line": 35,
@@ -133861,12 +134346,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados alimenta A Sala de Espera. Provado por 1 linha de codigo.",
+      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados alimenta A Sala de Espera. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "admissao/reprocessar_estudos_chaves.py",
           "line": 53,
           "snippet": "\"coleta/pesquisadores_t6.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-SALA-DE-ESPERA",
+            "FROM": "C-PESQUISADORES-T6",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 58,
+          "snippet": "\"leis/fato_local.py\", \"coleta/pesquisadores_t6.py\", \"motor/normalize_agro.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-SALA-DE-ESPERA",
             "FROM": "C-PESQUISADORES-T6",
@@ -133986,7 +134487,7 @@
         },
         {
           "file": "tests/test_estudo_chaves.py",
-          "line": 25,
+          "line": 26,
           "snippet": "import pesquisadores_t6 as T6  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PESQUISADORES-T6--IMPORTS-->C-TESTES",
@@ -147131,7 +147632,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 10 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
@@ -147230,6 +147731,38 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "provas/chave_problema/ensaio_033_descartavel.py",
+          "line": 42,
+          "snippet": "import reprocessar_problema as RP  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/chave_problema/ensaio_033_descartavel.py",
+          "line": 58,
+          "snippet": "import sala_de_espera as espera",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "provas/conserto_regua_recalcular.py",
           "line": 25,
           "snippet": "import reprocessar_tempo_lugar as R  # noqa: E402",
@@ -147310,12 +147843,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "A Sala de Espera alimenta Provas da coleta canonica. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
           "line": 697,
           "snippet": "[sys.executable, os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-COLETA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 22,
+          "snippet": "RP = \"admissao/reprocessar_problema.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-COLETA",
             "FROM": "C-SALA-DE-ESPERA",
@@ -148103,7 +148652,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 20 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 22 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -148154,6 +148703,38 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_chave_problema.py",
+          "line": 34,
+          "snippet": "import reprocessar_problema as RP  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_chave_problema.py",
+          "line": 240,
+          "snippet": "import sala_de_espera as espera",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_cliente_postgres.py",
           "line": 221,
           "snippet": "import sala_de_espera as se",
@@ -148187,7 +148768,7 @@
         },
         {
           "file": "tests/test_estudo_chaves.py",
-          "line": 26,
+          "line": 27,
           "snippet": "import reprocessar_estudos_chaves as RE  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
@@ -148264,38 +148845,6 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-          "line": 732,
-          "snippet": "import sala_de_espera as SALA                                # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
-            "FROM": "C-SALA-DE-ESPERA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_periodo_e_chaves.py",
-          "line": 209,
-          "snippet": "import reprocessar_tempo_lugar as RP",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
-            "FROM": "C-SALA-DE-ESPERA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -148314,7 +148863,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_migracao_033.py",
@@ -148365,6 +148914,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_chave_problema.py",
+          "line": 376,
+          "snippet": "arvore = ast.parse((RAIZ / \"admissao\" / \"reprocessar_problema.py\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_cliente_postgres.py",
           "line": 136,
           "snippet": "\"admissao/sala_de_espera.py\")",
@@ -148398,7 +148963,7 @@
         },
         {
           "file": "tests/test_estudo_chaves.py",
-          "line": 291,
+          "line": 307,
           "snippet": "r = subprocess.run([sys.executable, os.path.join(RAIZ, \"admissao\", \"reprocessar_estudos_chaves.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
@@ -160045,7 +160610,7 @@
         },
         {
           "file": "tests/test_estudo_chaves.py",
-          "line": 279,
+          "line": 295,
           "snippet": "with open(os.path.join(RAIZ, \"admissao\", \"reprocessar_estudos_chaves.py\"), encoding=\"utf-8\") as h:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-SALA-DE-ESPERA",
@@ -162695,6 +163260,41 @@
     },
     {
       "from": "C-V21-INGEST",
+      "to": "C-LUGAR-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ingestao V2.1 tem o seu codigo importado por O lugar do fato — a lei escrita, e ainda nao aplicada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/boletim_do_campo.py",
+          "line": 700,
+          "snippet": "import normalize_agro as NA      # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-INGEST--IMPORTS-->C-LUGAR-COLETA",
+            "FROM": "C-V21-INGEST",
+            "TO": "C-LUGAR-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-INGEST",
       "to": "C-LUGAR-DO-FATO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -162922,6 +163522,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-INGEST",
+      "to": "C-SALA-DE-ESPERA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ingestao V2.1 alimenta A Sala de Espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 58,
+          "snippet": "\"leis/fato_local.py\", \"coleta/pesquisadores_t6.py\", \"motor/normalize_agro.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-INGEST--READS-->C-SALA-DE-ESPERA",
+            "FROM": "C-V21-INGEST",
+            "TO": "C-SALA-DE-ESPERA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -164222,12 +164857,12 @@
     "components_pending": 254,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1763,
-    "edges_proven": 1696,
+    "edges": 1770,
+    "edges_proven": 1703,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 4019,
-    "files_covered": 1803,
+    "files_tracked": 4028,
+    "files_covered": 1812,
     "files_code_unclaimed": 0,
     "roles_proven": 196,
     "roles_declared_only": 9,

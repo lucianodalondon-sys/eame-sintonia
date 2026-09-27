@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  93d5a2cc44022bc361d67abf05fd55933931c107
-BRANCH           claude/single-reference-gateway-hhhj7t
-GERADO_EM        2026-09-27T21:40:15+00:00
+HEAD_DA_MEDICAO  5712ba9ae7d43d3e20e96e9a1cf102918fd5f875
+BRANCH           claude/declare-problem-contract-lj7kfp
+GERADO_EM        2026-09-27T23:18:30+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -604,10 +604,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `admissao/reprocessar_estudos_chaves.py`, `admissao/reprocessar_tempo_lugar.py`, `admissao/sala_de_espera.py`, `admissao/versao_do_documento.py`, `admissao/video_na_sala.py` |
+| **peça real** | `admissao/reprocessar_estudos_chaves.py`, `admissao/reprocessar_problema.py`, `admissao/reprocessar_tempo_lugar.py`, `admissao/sala_de_espera.py`, `admissao/versao_do_documento.py` _(e mais 1)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
 | **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:484 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -615,13 +615,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/executor_texto_de_html.py`, `coleta/ingresso.py` |
 | **o que sai · dado** | C-INT-ESPINHA |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 17 · saem 26 |
-| **arestas provadas** | entram 17 · saem 25 |
+| **arestas no mapa** | entram 19 · saem 26 |
+| **arestas provadas** | entram 19 · saem 25 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 42 · NÃO SEI 1 |
+| **prova das ligações** | CODE 44 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 

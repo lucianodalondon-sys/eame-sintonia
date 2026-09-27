@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/single-reference-gateway-hhhj7t",
-    "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
-    "GENERATED_AT": "2026-09-27T21:40:15+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9"
+    "BRANCH": "claude/declare-problem-contract-lj7kfp",
+    "HEAD": "5712ba9ae7d43d3e20e96e9a1cf102918fd5f875",
+    "GENERATED_AT": "2026-09-27T23:18:30+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a5c0d64c99a256460b0d8c5d6d543bd1e5e4f34612dd51fbee9ed65eced3ea4f"
   },
   "FILES": [
     {
@@ -277,6 +277,13 @@
     {
       "path": "CASCO-PAINEL.md",
       "sha": "802cf175c3482a8e9bbf142933efe012b9609db0",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "CHAVE-PROBLEMA.md",
+      "sha": "47a421a39ef5d72745430aa51c8395815cccc1bc",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1151,7 +1158,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "6763157c8c9a392c27a0e8bfe0ce1e4d2a34fac3",
+      "sha": "4b7cd7c2f72d6b6ed77bd93563cd6512f2205b84",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1165,7 +1172,14 @@
     },
     {
       "path": "admissao/reprocessar_estudos_chaves.py",
-      "sha": "a14737a255303597b0a30c81f173979717950eb9",
+      "sha": "32f17b67d1aa2bdfca27617e07dd8c9458ed6ae1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "admissao/reprocessar_problema.py",
+      "sha": "ffbddc4548d3a4f78f39d2a9724187630cfafd31",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17867,7 +17881,7 @@
     },
     {
       "path": "leis/afirmacao_da_fonte.py",
-      "sha": "bd05d96bd44bd3dea0f10498b47710aae6adb71a",
+      "sha": "2afe6a8da725d48a1c0eccac8f01a1e123138629",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17902,7 +17916,7 @@
     },
     {
       "path": "leis/boletim_do_campo.py",
-      "sha": "5f0af9f830ff98e48f29497bde5767672a2a04c7",
+      "sha": "7090fa7bcb7e1b19392ae1bf4c8f016533f9fa04",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18602,7 +18616,7 @@
     },
     {
       "path": "motor/cap_win.py",
-      "sha": "89c38fd28fadf16fdc853f558d12903cb2a14bc7",
+      "sha": "3259345bfeb50f72d9963d7fcb5b7f5864f46090",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18651,7 +18665,7 @@
     },
     {
       "path": "motor/motor_das_capacidades.py",
-      "sha": "85d6e567fbf10eb7c551e24da2f50d6cbe5ff592",
+      "sha": "bc427bf4677aee38e61a67e9d956885626e64dab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20150,6 +20164,48 @@
     {
       "path": "provas/chain.py",
       "sha": "d5c07eec3c026b3e2fad7b2013db9da49a3fba90",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/chave_problema/BATERIA-BASE-c551062.json",
+      "sha": "995da8cd55a3595226efc27e957287963c44f63d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/chave_problema/BATERIA-DEPOIS.json",
+      "sha": "06d8bcfc157a2ce0bd688eeb6a00a3466f1bb725",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/chave_problema/ENSAIO-033-CHAVE-PROBLEMA.json",
+      "sha": "d65722503c7c634c68cdd10153956b50abbec0fd",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/chave_problema/MUTACAO-CHAVE-PROBLEMA.json",
+      "sha": "3415c908540f2e225673a2476b8257820311ae3f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/chave_problema/ensaio_033_descartavel.py",
+      "sha": "768b7b004c87d4717a7ab2e29a7d73d92bcd9254",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/chave_problema/mutacao_chave_problema.py",
+      "sha": "ada2034d6aaf77d7013071e727e84a825887c1c3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25112,7 +25168,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "3d3580f32d2116643a441d7c6a61fa659eb57b58",
+      "sha": "50b4f270899394467cbc03fdd2e4b176769745f5",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -25651,7 +25707,7 @@
     },
     {
       "path": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
-      "sha": "0ac3c282881f1a1c47f41b66ed6dad28d61c171b",
+      "sha": "a99ad0dadb5be7626938d6abd13d427d38a94960",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26204,7 +26260,7 @@
     },
     {
       "path": "tests/test_boletim_do_campo.py",
-      "sha": "954afb3a64352338be524cd67e6fdeb3f2ca7313",
+      "sha": "0a20ef19d140a8a787fa772fb758dfdd678457d8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26554,7 +26610,7 @@
     },
     {
       "path": "tests/test_cap_win.py",
-      "sha": "8741e7d7ca4d43971bc445659bb8cb7d48b23957",
+      "sha": "95e87ed8bc8d7fe940daf05bebd89e106a94c33e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26590,6 +26646,13 @@
     {
       "path": "tests/test_censo_dos_donos.py",
       "sha": "93d966b1c25e3ffd1ab5eee169d698b1d572ed7a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_chave_problema.py",
+      "sha": "b81dd3e791c1318de4d36d5b3b5428472372dcc5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26799,7 +26862,7 @@
     },
     {
       "path": "tests/test_estudo_chaves.py",
-      "sha": "783dd71a2465b0e96e251291e7c6b9c1f93a5331",
+      "sha": "ac20255df2d3d4e36ccd1e5b826d61234f3614ae",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27499,7 +27562,7 @@
     },
     {
       "path": "tests/test_porta_unica_referencia.py",
-      "sha": "6d71baf133cc77f176aa4b018190d4054a9a4e98",
+      "sha": "1a75f99341025f8008565c9425d770e6b562cac7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29780,6 +29843,138 @@
         "file": "admissao/reprocessar_estudos_chaves.py",
         "line": 52,
         "snippet": "\"leis/estudo_chaves.py\", \"leis/boletim_do_campo.py\", \"leis/fato_local.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 42,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 44,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 56,
+        "snippet": "CODIGO_DA_VERSAO = (\"admissao/reprocessar_problema.py\", \"admissao/admissao.py\", \"leis/boletim_do_campo.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 134,
+        "snippet": "import sala_de_espera as espera   # noqa: PLC0415 — o seco nunca abre o banco"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 58,
+        "snippet": "\"leis/fato_local.py\", \"coleta/pesquisadores_t6.py\", \"motor/normalize_agro.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "data/samples/ES-T4-001/eppo-dictionary.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 59,
+        "snippet": "\"data/samples/ES-T4-001/eppo-dictionary.json\")"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 57,
+        "snippet": "\"leis/afirmacao_da_fonte.py\", \"leis/estudo_chaves.py\", \"leis/fato_do_texto.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 56,
+        "snippet": "CODIGO_DA_VERSAO = (\"admissao/reprocessar_problema.py\", \"admissao/admissao.py\", \"leis/boletim_do_campo.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "leis/estudo_chaves.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 57,
+        "snippet": "\"leis/afirmacao_da_fonte.py\", \"leis/estudo_chaves.py\", \"leis/fato_do_texto.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 57,
+        "snippet": "\"leis/afirmacao_da_fonte.py\", \"leis/estudo_chaves.py\", \"leis/fato_do_texto.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "leis/fato_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 58,
+        "snippet": "\"leis/fato_local.py\", \"coleta/pesquisadores_t6.py\", \"motor/normalize_agro.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_problema.py",
+      "to_file": "motor/normalize_agro.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_problema.py",
+        "line": 58,
+        "snippet": "\"leis/fato_local.py\", \"coleta/pesquisadores_t6.py\", \"motor/normalize_agro.py\","
       }
     },
     {
@@ -52911,7 +53106,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 269,
+        "line": 274,
         "snippet": "import afirmacao_da_fonte as AF     # noqa: PLC0415"
       }
     },
@@ -52922,7 +53117,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 314,
+        "line": 319,
         "snippet": "import fato_do_texto as FT          # noqa: PLC0415"
       }
     },
@@ -52933,8 +53128,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 270,
+        "line": 275,
         "snippet": "import lugar_do_fato as LF          # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "leis/boletim_do_campo.py",
+      "to_file": "motor/normalize_agro.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/boletim_do_campo.py",
+        "line": 700,
+        "snippet": "import normalize_agro as NA      # noqa: PLC0415"
       }
     },
     {
@@ -52944,7 +53150,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 636,
+        "line": 785,
         "snippet": "import porta_da_referencia as PORTA   # noqa: PLC0415"
       }
     },
@@ -55953,12 +56159,23 @@
     },
     {
       "from_file": "motor/cap_win.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/cap_win.py",
+        "line": 89,
+        "snippet": "import afirmacao_da_fonte as AF                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "motor/cap_win.py",
       "to_file": "motor/corrida_da_inteligencia.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "motor/cap_win.py",
-        "line": 82,
+        "line": 83,
         "snippet": "import corrida_da_inteligencia as CI            # noqa: E402"
       }
     },
@@ -55969,7 +56186,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "motor/cap_win.py",
-        "line": 83,
+        "line": 84,
         "snippet": "import grafo_de_dependencia as GD               # noqa: E402"
       }
     },
@@ -55980,7 +56197,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "motor/cap_win.py",
-        "line": 86,
+        "line": 87,
         "snippet": "import porta_da_referencia as PORTA             # noqa: E402"
       }
     },
@@ -67554,6 +67771,171 @@
         "file": "provas/chain.py",
         "line": 42,
         "snippet": "from coverage import Coverage                                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/ensaio_033_descartavel.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chave_problema/ensaio_033_descartavel.py",
+        "line": 32,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/ensaio_033_descartavel.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chave_problema/ensaio_033_descartavel.py",
+        "line": 41,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/ensaio_033_descartavel.py",
+      "to_file": "admissao/reprocessar_problema.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chave_problema/ensaio_033_descartavel.py",
+        "line": 42,
+        "snippet": "import reprocessar_problema as RP  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/ensaio_033_descartavel.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chave_problema/ensaio_033_descartavel.py",
+        "line": 58,
+        "snippet": "import sala_de_espera as espera"
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/ensaio_033_descartavel.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chave_problema/ensaio_033_descartavel.py",
+        "line": 60,
+        "snippet": "import afirmacao_da_fonte as AF"
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/ensaio_033_descartavel.py",
+      "to_file": "motor/cap_win.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/chave_problema/ensaio_033_descartavel.py",
+        "line": 59,
+        "snippet": "import cap_win as W"
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/ensaio_033_descartavel.py",
+      "to_file": "provas/chave_problema/ENSAIO-033-CHAVE-PROBLEMA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/chave_problema/ensaio_033_descartavel.py",
+        "line": 148,
+        "snippet": "sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else \"ENSAIO-033-CHAVE-PROBLEMA.json\"))"
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/ensaio_033_descartavel.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/chave_problema/ensaio_033_descartavel.py",
+        "line": 35,
+        "snippet": "_spec = importlib.util.spec_from_file_location(\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")"
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/mutacao_chave_problema.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/chave_problema/mutacao_chave_problema.py",
+        "line": 21,
+        "snippet": "BC, AF, AD = \"leis/boletim_do_campo.py\", \"leis/afirmacao_da_fonte.py\", \"admissao/admissao.py\""
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/mutacao_chave_problema.py",
+      "to_file": "admissao/reprocessar_problema.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/chave_problema/mutacao_chave_problema.py",
+        "line": 22,
+        "snippet": "RP = \"admissao/reprocessar_problema.py\""
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/mutacao_chave_problema.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/chave_problema/mutacao_chave_problema.py",
+        "line": 21,
+        "snippet": "BC, AF, AD = \"leis/boletim_do_campo.py\", \"leis/afirmacao_da_fonte.py\", \"admissao/admissao.py\""
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/mutacao_chave_problema.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/chave_problema/mutacao_chave_problema.py",
+        "line": 21,
+        "snippet": "BC, AF, AD = \"leis/boletim_do_campo.py\", \"leis/afirmacao_da_fonte.py\", \"admissao/admissao.py\""
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/mutacao_chave_problema.py",
+      "to_file": "motor/cap_win.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/chave_problema/mutacao_chave_problema.py",
+        "line": 46,
+        "snippet": "(\"M09\", \"motor/cap_win.py\", '        if campo == \"PROBLEMA\":', \"        if False:\","
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/mutacao_chave_problema.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/chave_problema/mutacao_chave_problema.py",
+        "line": 48,
+        "snippet": "(\"M10\", \"motor/motor_das_capacidades.py\", '        if campo == \"PROBLEMA\":', \"        if False:\","
+      }
+    },
+    {
+      "from_file": "provas/chave_problema/mutacao_chave_problema.py",
+      "to_file": "provas/chave_problema/MUTACAO-CHAVE-PROBLEMA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/chave_problema/mutacao_chave_problema.py",
+        "line": 20,
+        "snippet": "SAIDA = os.path.join(RAIZ, \"provas\", \"chave_problema\", \"MUTACAO-CHAVE-PROBLEMA.json\")"
       }
     },
     {
@@ -91945,12 +92327,23 @@
     },
     {
       "from_file": "tests/test_cap_win.py",
-      "to_file": "motor/cap_win.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_cap_win.py",
         "line": 28,
+        "snippet": "import afirmacao_da_fonte as AF                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_cap_win.py",
+      "to_file": "motor/cap_win.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cap_win.py",
+        "line": 29,
         "snippet": "import cap_win as W                                    # noqa: E402"
       }
     },
@@ -91961,7 +92354,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_cap_win.py",
-        "line": 29,
+        "line": 30,
         "snippet": "import corrida_da_inteligencia as CI                   # noqa: E402"
       }
     },
@@ -91972,7 +92365,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_cap_win.py",
-        "line": 32,
+        "line": 33,
         "snippet": "CORTE = RAIZ / \"tests\" / \"dados\" / \"cap-win\" / \"arif-apol-mosca-sintetico.json\""
       }
     },
@@ -92117,6 +92510,127 @@
         "file": "tests/test_censo_corpus_rotulado_admission.py",
         "line": 27,
         "snippet": "\"censo_corpus_rotulado_admission.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 28,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 29,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "admissao/reprocessar_problema.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 34,
+        "snippet": "import reprocessar_problema as RP  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "admissao/reprocessar_problema.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 376,
+        "snippet": "arvore = ast.parse((RAIZ / \"admissao\" / \"reprocessar_problema.py\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 240,
+        "snippet": "import sala_de_espera as espera"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 30,
+        "snippet": "import afirmacao_da_fonte as AF  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 31,
+        "snippet": "import boletim_do_campo as BC  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "motor/cap_win.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 32,
+        "snippet": "import cap_win as W  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 33,
+        "snippet": "import corrida_da_inteligencia as CI  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 303,
+        "snippet": "import motor_das_capacidades as M"
+      }
+    },
+    {
+      "from_file": "tests/test_chave_problema.py",
+      "to_file": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_chave_problema.py",
+        "line": 304,
+        "snippet": "e = json.loads((RAIZ / \"tests\" / \"dados\" / \"int-r7\" / \"SINTETICO-R7-SALA-EXPORT.json\")"
       }
     },
     {
@@ -93886,7 +94400,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 26,
+        "line": 27,
         "snippet": "import reprocessar_estudos_chaves as RE  # noqa: E402"
       }
     },
@@ -93897,7 +94411,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 291,
+        "line": 307,
         "snippet": "r = subprocess.run([sys.executable, os.path.join(RAIZ, \"admissao\", \"reprocessar_estudos_chaves.py\"),"
       }
     },
@@ -93908,7 +94422,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 279,
+        "line": 295,
         "snippet": "with open(os.path.join(RAIZ, \"admissao\", \"reprocessar_estudos_chaves.py\"), encoding=\"utf-8\") as h:"
       }
     },
@@ -93919,7 +94433,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 25,
+        "line": 26,
         "snippet": "import pesquisadores_t6 as T6  # noqa: E402"
       }
     },
@@ -93930,7 +94444,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 23,
+        "line": 22,
         "snippet": "import afirmacao_da_fonte as AF  # noqa: E402"
       }
     },
@@ -93941,7 +94455,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 22,
+        "line": 23,
         "snippet": "import boletim_do_campo as BC  # noqa: E402"
       }
     },
@@ -93952,7 +94466,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 24,
+        "line": 25,
         "snippet": "import estudo_chaves as EC  # noqa: E402"
       }
     },
@@ -93963,7 +94477,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 223,
+        "line": 227,
         "snippet": "with open(os.path.join(RAIZ, \"leis\", \"estudo_chaves.py\"), encoding=\"utf-8\") as h:"
       }
     },
@@ -93974,7 +94488,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 215,
+        "line": 219,
         "snippet": "import fato_local as FL"
       }
     },
@@ -93985,7 +94499,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_estudo_chaves.py",
-        "line": 29,
+        "line": 30,
         "snippet": "with open(FIXTURE, encoding=\"utf-8\") as _h:"
       }
     },
@@ -100068,7 +100582,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_porta_unica_referencia.py",
-        "line": 213,
+        "line": 225,
         "snippet": "import motor_das_capacidades as M"
       }
     },
@@ -100178,7 +100692,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_unica_referencia.py",
-        "line": 420,
+        "line": 432,
         "snippet": "for nome in (\"SNAPSHOTS.json\", \"AUTHORIZED-USES.json\", \"LABEL-READINGS.json\", \"REGISTRATIONS.json\"):"
       }
     },
@@ -100189,7 +100703,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_unica_referencia.py",
-        "line": 299,
+        "line": 311,
         "snippet": "(self.copia / \"LABEL-READINGS.json\").unlink()"
       }
     },
@@ -100222,7 +100736,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_unica_referencia.py",
-        "line": 420,
+        "line": 432,
         "snippet": "for nome in (\"SNAPSHOTS.json\", \"AUTHORIZED-USES.json\", \"LABEL-READINGS.json\", \"REGISTRATIONS.json\"):"
       }
     },
@@ -100233,7 +100747,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_unica_referencia.py",
-        "line": 215,
+        "line": 227,
         "snippet": "\"SINTETICO-R7-SALA-EXPORT.json\").read_text(encoding=\"utf-8\")))"
       }
     },
@@ -100244,7 +100758,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_porta_unica_referencia.py",
-        "line": 376,
+        "line": 388,
         "snippet": "import test_cruzamentos_max as TX"
       }
     },
@@ -106307,10 +106821,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4019,
-    "files_readable": 1675,
-    "files_code_dir": 2027,
-    "file_edges": 7049,
+    "files_tracked": 4028,
+    "files_readable": 1679,
+    "files_code_dir": 2035,
+    "file_edges": 7090,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },
