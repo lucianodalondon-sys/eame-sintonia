@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  52da843764abc0c695da4abd89f252aae3e3943d
+HEAD_DA_MEDICAO  c4bba5af747a188aaf2c453a2b9cbdee9f53c29c
 BRANCH           claude/metodo-puglia-rm5sdo
-GERADO_EM        2026-09-27T18:34:43+00:00
+GERADO_EM        2026-09-27T19:19:36+00:00
 CARDS            110
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
