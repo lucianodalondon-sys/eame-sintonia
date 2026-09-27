@@ -384,6 +384,15 @@ export function dominioRegistavel(host) {
   const dois = p.slice(-2).join(".");
   return SUFIXOS_DE_DOIS_NIVEIS.has(dois) ? p.slice(-3).join(".") : dois;
 }
+// D41 (25/09): dominios DIFERENTES que sao o MESMO orcamento. O stream do YouTube
+// vem de googlevideo.com; contados a parte, cada video gastava 5 + 5. So o que a
+// decisao nomeou (FREIO-SOCIAL, 26/09). O mesmo mapa vive em `coleta/teto_da_onda.py`,
+// o freio do Scrap, que escreve no MESMO livro da onda.
+export const MESMO_ORCAMENTO = Object.freeze({ "googlevideo.com": "youtube.com" });
+export function orcamentoDe(host) {
+  const d = dominioRegistavel(host);
+  return MESMO_ORCAMENTO[d] || d;
+}
 // O livro da onda: { PEDIDOS_POR_DOMINIO: { "cia.it": 3, ... } }. Escreve-se sob
 // um trinco (um directorio, que o sistema cria ou recusa de uma vez) e por
 // renomeacao, para dois processos nunca somarem sobre a mesma leitura.
@@ -425,7 +434,7 @@ async function umaIda(url, host, tipo, crawlDelay) {
     if (falta > 0) await dormir(falta);
   }
   CORTESIA.porHost.set(host, (CORTESIA.porHost.get(host) || 0) + 1);
-  const dominio = dominioRegistavel(host);
+  const dominio = orcamentoDe(host);
   CORTESIA.porDominio.set(dominio, (CORTESIA.porDominio.get(dominio) || 0) + 1);
   gastarNaOnda(dominio);                 // o pedido que sai gasta o lugar, responda ou nao
   CORTESIA.pedidos[tipo]++;
@@ -476,7 +485,7 @@ async function umaIda(url, host, tipo, crawlDelay) {
 // O teto pergunta pelo DOMINIO REGISTAVEL: o desta corrida e, havendo livro da
 // onda, o da onda inteira (que ja inclui o desta corrida). Vale o maior.
 const tetoAtingido = host => {
-  const d = dominioRegistavel(host);
+  const d = orcamentoDe(host);
   const gasto = Math.max(CORTESIA.porDominio.get(d) || 0, lerLivroDaOnda()[d] || 0);
   return gasto >= CORTESIA.cfg.TETO_POR_HOST;
 };
@@ -519,7 +528,7 @@ async function licenca(url) {
   let u;
   try { u = new URL(url); } catch { return { recusado: "URL_INVALIDA", porque: `endereco invalido: ${url}` }; }
   const host = u.hostname;
-  if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos ao dominio ${dominioRegistavel(host)} ${livroDaOnda() ? "nesta onda" : "nesta corrida"}` };
+  if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos ao dominio ${orcamentoDe(host)} ${livroDaOnda() ? "nesta onda" : "nesta corrida"}` };
   let rb = CORTESIA.robots.get(u.origin);
   if (!rb) {
     rb = await robotsDaOrigem(u.origin);

@@ -267,6 +267,16 @@ def registar_achado(achado, caminho, conta, erros):
     return conta
 
 
+def receita():
+    """Os PARAMETROS da derivacao (nenhum: `None`, hash da cadeia vazia).
+
+    Um so sitio, como no HTML: `derivar_um` e `coleta/extratores_de_texto.py`.
+    Mudar isto sem subir `EXECUTOR_VERSION` reprova em
+    `tests/test_a_receita_tem_versao.py`.
+    """
+    return None
+
+
 def derivar_um(raw_asset_id, pdf, armazem, memoria, relogio=None,
                contexto_da_passagem=None) -> dict:
     """Um PDF, um pai canónico, um derivado — pelo dono da escrita.
@@ -312,7 +322,7 @@ def derivar_um(raw_asset_id, pdf, armazem, memoria, relogio=None,
          "producer": EXECUTOR_ID,
          "producer_version": EXECUTOR_VERSION,
          "pipeline_version": PIPELINE_VERSION,
-         "parameters": None,
+         "parameters": receita(),
          "serie_posicao": None,
          "media_type": "text/plain"},
         texto.encode("utf-8"), armazem, memoria,

@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+# PERIODO-E-CHAVES · 20 culturas ao acaso (semente fixa) com o titulo e a prova, para ler a mao;
+# e os pares cruzaveis com o sha256 do TEXTO (a mesma pagina guardada duas vezes?). SO LEITURA.
+#   PYTHONUTF8=1 py data/derivados/PERIODO-E-CHAVES/amostra_cultura.py.txt
+import hashlib
+import importlib.machinery
+import json
+import os
+import random
+import re
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+LS = importlib.machinery.SourceFileLoader("ler_sala", os.path.join(AQUI, "ler_sala.py.txt")).load_module()
+ARMAZEM = os.path.expanduser("~/sintonia-sala-italia/armazem")
+M = json.load(open(os.path.join(AQUI, "MEDIDA.json"), encoding="utf-8"))
+
+
+def texto(i):
+    if i["GRUPO"] == "SALA":
+        l = LS.consultar("select to_json(texto)::text from public.sala_de_espera_atual "
+                         "where run_id = '%s' and ordem = %d" % (i["RUN_ID"], i["ORDEM"]))
+        return json.loads(l[0])
+    sp = LS.consultar("select storage_path from public.derived_artifact where parent_sha256 = '%s' "
+                      "and kind in ('TEXT_EXTRACTION','TRANSCRIPTION') order by id limit 1" % i["SHA256"])[0]
+    return open(os.path.join(ARMAZEM, sp), encoding="utf-8").read()
+
+
+com = [i for i in M["ITENS"] if i["CULTURA"]["PROVADA"]]
+rnd = random.Random(20260926)
+fora = {"AMOSTRA_CULTURA_20": [], "PARES": []}
+for n, i in enumerate(rnd.sample(com, min(20, len(com)))):
+    t = texto(i)
+    titulo = next((l for l in t.splitlines() if l.strip()), "")
+    prova = re.findall(r"«([^»]*)»", str(i["REGIAO_DO_FATO"].get("BASE") or ""))
+    fora["AMOSTRA_CULTURA_20"].append({"N": n + 1, "GRUPO": i["GRUPO"], "SOURCE_ID": i["SOURCE_ID"],
+                                       "SHA256": i["SHA256"][:16], "CULTURA": i["CULTURA"]["VALOR"],
+                                       "TITULO": titulo[:200], "PROVA_DO_LUGAR": [p[:200] for p in prova]})
+for p in M["CRUZAMENTOS_POSSIVEIS_NAO_EXECUTADOS"]["PARES"]:
+    lados = []
+    for lado in ("A", "B"):
+        i = next(x for x in M["ITENS"] if x["SHA256"].startswith(p[lado]["SHA256"]))
+        t = texto(i)
+        lados.append({"SHA256_BRUTO": p[lado]["SHA256"], "SHA256_TEXTO": hashlib.sha256(t.encode("utf-8")).hexdigest()[:16],
+                      "TITULO": next((l for l in t.splitlines() if l.strip()), "")[:160], "LETRAS": len(t)})
+    fora["PARES"].append({"CULTURA": p["CULTURA"], "REGIAO": p["REGIAO"], "JANELA": p["A"]["JANELA"],
+                          "MESMO_TEXTO": lados[0]["SHA256_TEXTO"] == lados[1]["SHA256_TEXTO"], "LADOS": lados})
+json.dump(fora, open(os.path.join(AQUI, "AMOSTRA-CULTURA.json"), "w", encoding="utf-8", newline="\n"),
+          ensure_ascii=False, indent=1)
+for a in fora["AMOSTRA_CULTURA_20"]:
+    print("#%(N)d %(GRUPO)s %(SOURCE_ID)s %(SHA256).8s CULT=%(CULTURA)s\n   T: %(TITULO)s" % a)
+    for p in a["PROVA_DO_LUGAR"]:
+        print("   P:", p)
+for p in fora["PARES"]:
+    print("PAR", p["CULTURA"], p["REGIAO"], p["JANELA"], "MESMO_TEXTO=%s" % p["MESMO_TEXTO"],
+          [(l["SHA256_TEXTO"], l["LETRAS"], l["TITULO"][:90]) for l in p["LADOS"]])
