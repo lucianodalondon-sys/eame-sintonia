@@ -78,6 +78,8 @@ class OpenAlex(unittest.TestCase):
             self.assertEqual(5, r1["PEDIDOS_OPENALEX"])                   # 4 lotes de autores + 1 pagina de obras
             self.assertEqual((4, 1), (r1["AUTORES_LOTES"], r1["OBRAS_PAGINAS"]))
             self.assertEqual("C2", e["OBRAS"]["GRUPOS"][0]["CURSOR"])     # o cursor fica para a rodada seguinte
+            ped1 = json.loads((saida / "RODADA-01" / "PEDIDOS.json").read_text(encoding="utf-8"))["PEDIDOS"]
+            self.assertFalse([x for x in ped1 if x["RESULTADO"] in S.TETOS])   # nao se pede o que se sabe que nao cabe
             self.assertEqual(0, OA.main(base))
             e = json.loads((saida / "ESTADO-OPENALEX.json").read_text(encoding="utf-8"))
             self.assertTrue(all(g["FIM"] for g in e["OBRAS"]["GRUPOS"]))
@@ -131,8 +133,15 @@ class Grupos(unittest.TestCase):
             self.assertEqual("ROBOTS_OU_NAO_LIDO", feitos["https://www.agr.unipi.it/"]["MOTIVO"])
             ped = json.loads((saida / "RODADA-01" / "PEDIDOS.json").read_text(encoding="utf-8"))
             self.assertLessEqual(max(ped["POR_DOMINIO"].values()), 5)
+            self.assertFalse([x for x in ped["PEDIDOS"] if x["RESULTADO"] in S.TETOS])
             self.assertNotIn("cnr.it", ped["POR_DOMINIO"])                           # CNR fechado
             self.assertIn("https://www.ibbr.cnr.it/", [x["URL"] for x in e["FILA"]])  # fica na fila
+            self.assertIn("https://www.fmach.it/ricerca/lab-virologia", [x["URL"] for x in e["FILA"]])   # o 6.o: fica
+
+    def test_ligacoes_sem_mail_nem_telefone(self):
+        p = G.ler_pagina("<a href='mailto:a@b.it'>Laboratorio</a><a href='tel:1'>RSS</a><a href='/lab'>Lab</a>", "https://u.it/")
+        self.assertEqual([("https://u.it/lab", "Lab")], p.ancoras)
+        self.assertEqual([], p.feeds)
 
     def test_candidatas_numa_copia(self):
         with tempfile.TemporaryDirectory() as d:
