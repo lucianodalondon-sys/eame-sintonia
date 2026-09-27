@@ -99,9 +99,16 @@ class OResto(unittest.TestCase):
              "T7": ["italia-recorrente"], "T8": ["scrap-colheita"],
              "T9": ["comunicacao-publica", "scrap-colheita"]}
 
+    # AJUSTE DECLARADO (CONCORRENCIA-META-LINHA, 27/09): uma linha registada
+    # DEPOIS da D48 e que so serve a SUA fase (`serve_fases`), por isso nao muda
+    # o que abre um pedido sem fase nem o de sites. Sai da fotografia pelo NOME,
+    # e so ela: qualquer outro executor novo continua a reprovar aqui.
+    POSTERIORES_A_D48 = {"T9": ["concorrencia-meta"]}
+
     def test_os_outros_universos_nao_mudam(self):
         for u, ids in self.ANTES.items():
-            agora = [e.get("id") for e in R.EXECUTORES[u]]
+            agora = [e.get("id") for e in R.EXECUTORES[u]
+                     if e.get("id") not in self.POSTERIORES_A_D48.get(u, ())]
             if u in ("T8", "T9"):
                 self.assertEqual(agora[:len(ids)], ids, u)   # o de antes, pela mesma ordem, a frente
                 self.assertEqual(agora[len(ids):], ["italia-recorrente"], u)

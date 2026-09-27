@@ -674,6 +674,14 @@ jobs:
         if: '!cancelled()'
         run: python3 provas/a_fronteira_da_coleta.py
 
+      # A LINHA DA META, sem rede: a comparacao reproduz a de 31/08 sobre a
+      # fixture declarada, a guarda de identidade recusa o homonimo, e o
+      # envelope atravessa o ingresso ate a Admissao T9. E o quadro das
+      # frentes versionado tem de ser o que os livros produzem.
+      - name: 4q2 · a linha da Meta so afirma mudanca onde as duas leituras vao igualmente fundo
+        if: '!cancelled()'
+        run: python3 tests/test_concorrencia_meta.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'
         run: |

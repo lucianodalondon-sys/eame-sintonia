@@ -5762,6 +5762,90 @@
     "provas/_mutantes_pote_casco.py",
     "tests/test_pote_no_casco.mjs"
    ]
+  },
+  {
+   "id": "C-META-BIBLIOTECA",
+   "name": "A porta da Biblioteca de Anuncios da Meta",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "library",
+   "icon": "◎",
+   "views": [
+    "infra",
+    "scrap"
+   ],
+   "what": "Monta o endereco publico da Biblioteca de Anuncios (locale=en_US, country= e o pais ALCANCADO), le pelo Chrome com janela (ferramentas/cdp.py) o cabecalho e os cartoes que a pagina mostra sem login, rola ate a lista parar de crescer, e diz se a leitura bate com o numero que a PROPRIA FONTE declara (~N results). Cartao nao e anuncio: o cartao que diz «N ads use this creative and text» vale N.",
+   "why_here": "Medido a 30/08/2026: curl leva 403, a API pede token, so o Chrome com janela le. E a primeira regra de completude («parou de crescer») leu 29 cartoes numa pagina de 230 e chamou-lhe completa — teria produzido 160 «parou de veicular» falsos. PAROU_DE_CRESCER != CHEGOU_AO_FIM.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "ferramentas/meta_biblioteca.py"
+   ]
+  },
+  {
+   "id": "C-META-IDENTIDADE",
+   "name": "Quem e o anunciante na Meta",
+   "territory": "Z-REGRAS",
+   "kind": "contract",
+   "icon": "⛨",
+   "views": [
+    "acervo",
+    "audit"
+   ],
+   "what": "Carimba cada pagina da lista da linha Meta antes da visita: PAGE_ID so com prova da propria Meta (detalhe do anuncio ou painel de irmas) e o token da empresa tem de ABRIR o nome da pagina. Escopo de pais da pagina so com rotulo da Meta; entrega nao prova nacionalidade. A lista versionada (PAGINAS-META-IT-V1.json) diz, pagina a pagina, a prova e o motivo de quem fica fora.",
+   "why_here": "O Instytut Adama Mickiewicza (instituto cultural polaco) entrou como ADAMA por token no meio do nome: 33 de 40 cartoes do acervo proprio eram ele. TOKEN_NO_MEIO_DO_NOME != MESMA_EMPRESA, e ANUNCIOS_ENTREGUES_NA_IT != PAGINA_E_ITALIANA.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
+    "regras/meta_identidade.py"
+   ]
+  },
+  {
+   "id": "C-COLETA-META",
+   "name": "Colher os anuncios pagos do concorrente na Meta",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "⚙",
+   "views": [
+    "acervo",
+    "collection-strategy"
+   ],
+   "what": "A linha recorrente T9 da Biblioteca de Anuncios: uma visita por pagina por rodada no recorte IT, snapshot datado com o RAW da pagina e o sha256, comparacao por recorte com a ultima leitura boa (novo so conta onde a leitura anterior foi pelo menos tao funda; terminado so com as duas leituras fechadas pela fonte), e os cartoes vistos pela primeira vez saem como COLHEITA no envelope da COL-LAW-505 para o ingresso e a Admissao T9. A descoberta (meta_anunciante) so PROPOE paginas novas; entrar na lista e gesto de gente.",
+   "why_here": "A captura de 31/08 (414 cartoes = 601 anuncios que alcancaram a Italia) foi uma fotografia a mao e nunca entrou na producao. E nela 587 «novos» eram so a leitura nova a ir mais fundo: LI_MAIS_FUNDO != APARECERAM_MAIS_ANUNCIOS. A nuvem nao colhe: a rota exige Chrome com janela e saida pela Italia.",
+   "departments": [
+    "DESENVOLVIMENTO_MERCADO",
+    "MARKETING",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "coleta/concorrencia_meta.py",
+    "coleta/meta_anunciante.py"
+   ]
+  },
+  {
+   "id": "C-FRENTES-CONCORRENCIA",
+   "name": "As frentes publicas da concorrencia — o que esta na fila e o que falta",
+   "territory": "Z-MEDIDAS",
+   "kind": "scanner",
+   "icon": "⌕",
+   "views": [
+    "collection-strategy",
+    "audit"
+   ],
+   "what": "Le, so leitura, a fila de fontes, o livro de contratos do curador, as contas provadas da comunicacao publica e a lista da linha Meta, e escreve o quadro 12 empresas x 5 frentes (Meta, LinkedIn de empresa, YouTube, Instagram, site/novidades) com o degrau de cada celula e o executor que ja sabe colhe-la. --conferir reprova se o quadro versionado nao for o que os livros produzem.",
+   "why_here": "O mesmo desenho da linha Meta vale para as outras frentes, e antes de colher e preciso saber que conta provada existe. FALTA_NOS_LIVROS != A_CONTA_NAO_EXISTE.",
+   "departments": [
+    "DESENVOLVIMENTO_MERCADO",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json",
+    "medidas/concorrencia_frentes.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
@@ -6342,7 +6426,14 @@
   "tests/test_v21_geografia.py": "b1cdf7054e55b3da37544360c0b690af8df6d008",
   "tests/test_v21_mercado.py": "b7a7cde4628f9b59e97bcd7f86bd9e7fa3e7b0c6",
   "tests/test_v21_traducao_trava.py": "e0a4d34194dbf01532620db40606d6b06bc88f04",
-  "tests/test_voz.py": "9024c8951eb004056317fad9b865ca2ecaa2bd7c"
+  "tests/test_voz.py": "9024c8951eb004056317fad9b865ca2ecaa2bd7c",
+  "coleta/concorrencia_meta.py": "5e7cdab091ac44ef10ad4c02e3713ccca616e198",
+  "coleta/meta_anunciante.py": "e7edb5a85b4135694156596b77eaeb42757c38d0",
+  "data/samples/CONCORRENCIA-META/FRENTES-PUBLICAS-IT-V1.json": "5aa54d36b2a459717eed7ca1e918a52c65e76c04",
+  "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json": "6fb886667fdfa1ae89980964adab7b73f2dc9f96",
+  "ferramentas/meta_biblioteca.py": "64e8e7e3049337c2ec155071c9c9b31ca5549ea6",
+  "medidas/concorrencia_frentes.py": "ec0a312aacb5baa8b0ebe57c720a228053df0179",
+  "regras/meta_identidade.py": "6334e2e2da1e351c272caaf4b958b404c5f31592"
  },
  "FAMILIES": [
   {

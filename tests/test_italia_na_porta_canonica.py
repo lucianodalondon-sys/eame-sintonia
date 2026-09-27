@@ -227,6 +227,10 @@ class OCaminhoEstaLigado(CasoB1):
         "regulatorio-eu",      # T4 · o adapter regulatorio, que nao cunha
         "scrap-colheita",      # SCRAP · a colheita social, que tambem nao cunha
         "pesquisadores-t6",    # T6-PARA-SALA · declara as rodadas guardadas; nao cunha
+        # CONCORRENCIA-META-LINHA (27/09): a linha recorrente da Meta PEDE a
+        # corrida por escrito (`recebe_run_id` na receita T9) e le-a de
+        # `--run-id=`; nao a cunha (test_6b continua a exigi-lo).
+        "concorrencia-meta",
     }
 
     def test_6_so_recebe_corrida_quem_a_pede_por_escrito(self):
