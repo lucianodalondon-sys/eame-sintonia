@@ -759,10 +759,12 @@
       "guarda/sql_conferir.py"
     ],
     "handoff": [
+      "handoff/KNOW-HOW-DELTA-ENDERECO-OFICIAL.md",
       "handoff/SYSTEM-MAP-FRESHNESS-V1.md",
       "handoff/SYSTEM-MAP-SM-P1.md",
       "handoff/SYSTEM-MAP-SM-P1R.md",
       "handoff/SYSTEM-MAP-SM-P2.md",
+      "handoff/SYSTEM-MAP-SM-P3.md",
       "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
       "handoff/paused-v2/MANIFEST.md",
       "handoff/paused-v2/MANIFESTO.json",
@@ -1826,10 +1828,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-handoff-sm-p3",
-    "HEAD": "3ec314ec00d236b05eefafe3c12423ebdbf1786f",
-    "GENERATED_AT": "2026-09-14T02:32:13-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e0320656e322a2502c333f94c2abb1cba3e944b07c9654a0de780cfcde80ebc7"
+    "BRANCH": "casco-real-v1",
+    "HEAD": "27b9e674f1b576f15523ad97f0e5de4d9ea8f46d",
+    "GENERATED_AT": "2026-09-14T02:47:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c30c0fd212d87c47209f53e4da40461b5542b037f585e75df4073cde31b20d8a"
   },
   "FAMILIES": [
     {
@@ -18242,7 +18244,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -18356,7 +18359,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -18461,7 +18465,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -19194,7 +19199,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -19298,7 +19304,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
-        "italia-portale/client/support.js"
+        "italia-portale/client/support.js",
+        "superficie/it_casa_dados.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -21739,7 +21746,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-handoff-sm-p3"
+        "branch casco-real-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -39321,7 +39328,7 @@
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
-          "line": 263,
+          "line": 267,
           "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-CASCO--READS-->C-TELA-FIELD",
@@ -39980,7 +39987,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 15 linhas de codigo.",
+      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -49707,7 +49714,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 699,
+  "UNCLAIMED_FILES_COUNT": 701,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -49890,7 +49897,7 @@
     "edges_proven": 541,
     "edges_unknown": 47,
     "business_edges": 4,
-    "files_tracked": 1381,
+    "files_tracked": 1383,
     "files_covered": 682,
     "files_code_unclaimed": 0,
     "roles_proven": 118,
