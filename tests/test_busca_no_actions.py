@@ -275,6 +275,12 @@ class F_OWorkflow(unittest.TestCase):
         self.assertIn("default: 'YOUTUBE_DATA_API_KEY'", self.y)
         self.assertNotIn("--colher", self.y.split("jobs:")[1])
 
+    def test_so_o_ramo_de_disparo_corre_a_busca(self):
+        # entregar/integrar esta linha (push de codigo) nunca pode gastar quota nem usar a chave por acidente
+        self.assertIn("branches: [disparo-linha-busca-google]", self.y)
+        for ramo in ("busca-no-actions-v1", "linha-busca-v1", "main", "servico-"):
+            self.assertNotRegex(self.y, r"branches: \[[^\]]*%s" % re.escape(ramo))
+
     def test_o_yaml_e_valido_quando_ha_leitor(self):
         try:
             import yaml

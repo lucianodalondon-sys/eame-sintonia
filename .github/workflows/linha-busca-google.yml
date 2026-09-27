@@ -32,8 +32,10 @@
 # COMO SE DISPARA
 # ---------------
 #   · `workflow_dispatch` (interface web ou `gh workflow run`), ou
-#   · um PUSH que mude `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json` numa das branches abaixo —
-#     é assim que se dispara desta máquina, onde o `gh` não tem sessão.
+#   · um PUSH que mude `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json` no ramo de DISPARO
+#     `disparo-linha-busca-google` — é assim que se dispara desta máquina, onde o `gh` não tem sessão:
+#         git push origin HEAD:disparo-linha-busca-google
+#     Nenhum ramo de código dispara: entregar ou integrar esta linha não gasta quota nem usa a chave.
 # ═══════════════════════════════════════════════════════════════════════
 name: linha-busca-google
 
@@ -57,7 +59,8 @@ on:
         type: boolean
         default: true
   push:
-    branches: [busca-no-actions-v1, linha-busca-v1]
+    # SO um ramo de DISPARO: um push de codigo (entrega, integracao) nunca corre a busca por acidente.
+    branches: [disparo-linha-busca-google]
     paths: ['ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json']
 
 permissions:
