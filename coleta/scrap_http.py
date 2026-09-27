@@ -81,7 +81,9 @@ POLITICA_DE_ACESSO = {
                       'proxy pago', 'outra saida (IP)'),
     'CONTINUA': ('uso interno', 'minimizacao de dado pessoal', 'teto por dominio', 'VPN IT provada',
                  'rota usada escrita no RAW', 'nada pago sem aprovacao'),
-    'ROBOTS_TXT': 'a D88 nao fala dele: a regra de robots em vigor nao mudou',
+    'ROBOTS_TXT': ('respeitar no crawling comum; API publica OFICIAL (ORCID, OpenAlex, Crossref) pode operar pelo '
+                   'contrato documentado dela, sem login/paywall, com termos, teto, RAW e proveniencia (D91) — '
+                   'nao vale para qualquer site'),
     'LIGADA_AO_COMPORTAMENTO': False,
 }
 

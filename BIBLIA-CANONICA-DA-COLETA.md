@@ -3027,9 +3027,16 @@ atravesse fronteira de autorização.
 - usar token/credencial de terceiro;
 - usar solver humano/pago de CAPTCHA;
 - usar proxy residencial pago sem aprovação;
-- ignorar robots, teto, VPN, ritmo ou minimização de dado pessoal;
+- ignorar teto, VPN, ritmo ou minimização de dado pessoal;
 - chamar de público conteúdo que só aparece a usuário autenticado, em cache, snippet ou para
   terceiro autorizado.
+
+**ROBOTS** (texto do bot Luciano, **D91**, 26/09 22:30 — substitui «não ignorar robots»): **respeitar robots no
+crawling comum; API pública oficial pode operar com contrato documentado, sem login/paywall, respeitando termos, teto,
+RAW e proveniência.** O `robots.txt` **não é** barreira técnica da D88: em páginas comuns continua regra obrigatória. A
+exceção é só a API pública **oficial**, feita para comunicação automática (ex.: ORCID `/v3.0/expanded-search`,
+OpenAlex, Crossref), onde vale o contrato, os termos e os limites **da API** e não o robots genérico do host. **Não vale
+para qualquer site.**
 
 **PROVA** (texto do bot Luciano): URL, instante, estado anônimo, rota técnica, desafio encontrado,
 robots/política, custo, teto do domínio, RAW e lineage.
@@ -3039,7 +3046,7 @@ acesso» que vivia nas decisões D16–D24:
 
 | antes | com esta lei |
 |---|---|
-| D16: não autoriza «contorno de login/robots» | anti-automação de material público: **pode**; login e robots: **não** |
+| D16: não autoriza «contorno de login/robots» | anti-automação de material público: **pode**; login: **não**; robots: respeitado no crawling comum — só a API pública oficial, com contrato documentado, segue os termos dela (D91) |
 | D23 · D24: «NÃO contornar login wall / CAPTCHA / bloqueio» | bloqueio **anti-automação**: pode; **login wall** e **solver de CAPTCHA pago**: não |
 | código (`coleta/scrap_http.py`, `coleta/social_rotas.py`): «não finge ser navegador de gente», «nunca uma tentativa mais esperta» | reescrito para citar esta lei; o **comportamento não mudou** (ver abaixo) |
 | D17.3 · D24: nenhuma conta pessoal | **igual** |

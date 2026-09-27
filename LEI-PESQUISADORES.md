@@ -88,7 +88,7 @@ fonte, p. ex. `WAF_CHALLENGE`), não lei. O resto, classificado:
 | `curadoria/capturador.py:675`, `amostrar.py:10`, `caracterizador.py:138`, `atlas_social.py:70`, `escrever_no_atlas.py:111`, `RELATORIO-MISSAO-03.md:178` | «não contorna muro» (consentimento/login) | descrição de ferramentas | compatível — não mexido |
 | `candidatas/*.mjs`, `guarda/italy_preserve.mjs:107`, `candidatas/ITALY-SOURCE-MASTER-V1.md:299`, `docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md` | «não se tentou contornar autenticação»; `WAF_CHALLENGE` como estado | registo de medições antigas | não mexido (história); `WAF_CHALLENGE` passa a ser **re-tentável** pela 220 |
 | `docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md:91`, `D24-VIDEO-DE-PESSOA.md:130, 276`, `C13-YOUTUBE-PUBLIC-AUDIO.md:159`, `provas/canario_d23_*.py:29`, `provas/canario_d24_*.py:27, 309` | «sem contornar login wall, CAPTCHA ou **bloqueio**» | registo das decisões D23/D24 e dos canários | não mexido (história); a `COL-LAW-220` diz o que mudou |
-| `docs/decisoes/ADR-TAXONOMIA-DE-FALHAS-E-POLITICA.md:101`, `docs/arquitetura/SINTONIA-SCRAP-TARGET.md:90` | robots lido «com o User-agent real» | robots | compatível: a D88 não fala de robots, e a 220 diz «nunca ignorar robots» |
+| `docs/decisoes/ADR-TAXONOMIA-DE-FALHAS-E-POLITICA.md:101`, `docs/arquitetura/SINTONIA-SCRAP-TARGET.md:90` | robots lido «com o User-agent real» | robots | compatível: pela D91, robots respeitado no crawling comum; só a API pública oficial com contrato documentado segue os termos dela |
 
 ## 6. Testes do Scrap, base `dc0de726` × ramo (o texto não mudou comportamento)
 Os 45 ficheiros de teste que importam `scrap_http`, `social_rotas` ou `social_matriz`, cada versão numa cópia própria,
@@ -106,6 +106,9 @@ Os `.md` de lei e as docstrings mudadas são fonte rastreada pelo mapa: até ele
   impressão digital de navegador é do engenheiro do Scrap, com rota nomeada, canário, teto e proveniência.
 - **Listas oficiais fora do MUR** (CNR, CREA, FEM): não medidas.
 - **O que as colunas da tabela APOL medem**: NAO SEI (cabeçalho em imagem).
+- **D91 (acréscimo 22:32):** na `COL-LAW-220`, «não ignorar robots» virou «respeitar robots no crawling comum; API pública
+  oficial pode operar com contrato documentado, sem login/paywall, respeitando termos, teto, RAW e proveniência» — não vale
+  para qualquer site. Também na `POLITICA_DE_ACESSO` e na §222.
 - A reavaliação do bot Luciano sobre esta redação fica para quando ele voltar.
 
 ## EM PALAVRAS SIMPLES

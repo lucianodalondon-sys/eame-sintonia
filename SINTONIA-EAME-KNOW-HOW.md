@@ -22544,7 +22544,9 @@ Intelligence pede pela Collection, não escolhe rota) e `INT-LAW-290` (a perform
 pessoa não identificada e não autenticada recebe pode ser alcançado por navegador real, JavaScript, fingerprint de
 navegador ou outra rota técnica, inclusive anti-automação (Cloudflare/Turnstile); **nunca** paywall, conta paga,
 login, cookie de sessão, credencial de terceiro, solver de CAPTCHA pago ou proxy pago sem o dono; **nunca** ignorar
-robots, teto, VPN, ritmo ou minimização. Prova de cada captura: URL, instante, estado anónimo, rota técnica, desafio
+teto, VPN, ritmo ou minimização. **Robots (D91):** respeitado no crawling comum; só a API pública
+**oficial** (ORCID `/v3.0/expanded-search`, OpenAlex, Crossref), com contrato documentado, segue os termos e limites dela
+em vez do robots genérico do host — sem login/paywall, com teto, RAW e proveniência. Não vale para qualquer site. Prova de cada captura: URL, instante, estado anónimo, rota técnica, desafio
 encontrado, custo, teto, RAW e lineage. **Bloqueio por origem (IP) ≠ bloqueio por programa (UA/JS/fingerprint)**: a
 D88 só abre o segundo (Piemonte: 52 bytes sem agente de navegador, 6 110 108 com ele; Coldiretti recusa a saída da
 VPN). A lei antiga que estava **escrita no código** (`coleta/scrap_http.py`, `coleta/social_rotas.py`: «não finge
