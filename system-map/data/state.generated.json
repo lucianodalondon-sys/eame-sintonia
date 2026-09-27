@@ -899,7 +899,6 @@
       "italia-portale/audit/casco/fuga-tsr.mjs",
       "italia-portale/audit/casco/mappa-azioni.mjs",
       "italia-portale/audit/casco/parita-visiva.mjs",
-      "italia-portale/audit/casco/pote-casco.mjs",
       "italia-portale/audit/casco/quarantatre.mjs",
       "italia-portale/audit/casco/release-gate.mjs",
       "italia-portale/audit/casco/ricchezza.mjs",
@@ -996,7 +995,6 @@
       "italia-portale/client/italy-label-verdicts.js",
       "italia-portale/client/italy-market-pulse.js",
       "italia-portale/client/italy-pdf.js",
-      "italia-portale/client/italy-pote.js",
       "italia-portale/client/italy-real-intelligence.js",
       "italia-portale/client/italy-science-business.js",
       "italia-portale/client/italy-v21.js",
@@ -1005,6 +1003,7 @@
       "italia-portale/client/meeting-labels.js",
       "italia-portale/client/meeting-surface.js",
       "italia-portale/client/portale.html",
+      "italia-portale/client/sintonia-pote-casco.js",
       "italia-portale/client/support.js",
       "italia-portale/client/upstream/IT-FUTURO-HANDOFF-LINHA-B-V1.json",
       "italia-portale/client/upstream/IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json",
@@ -1379,6 +1378,8 @@
       "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+      "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "tests/fixtures/pote/POTE-SINTETICO.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_adama_relevance.py",
       "tests/test_aprender_com_a_fonte.py",
@@ -1425,6 +1426,7 @@
       "tests/test_porta_de_producao.py",
       "tests/test_portao.py",
       "tests/test_portoes_eame.py",
+      "tests/test_pote_no_casco.mjs",
       "tests/test_preservar_coleta.py",
       "tests/test_preservar_coleta_no_banco.py",
       "tests/test_preservar_derivado.py",
@@ -1455,8 +1457,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 547 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 547 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 546 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 546 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1831,9 +1833,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "casco-real-v1",
-    "HEAD": "9088c68250b1e7f4fa3a77a5a452a6b4cd0c185e",
-    "GENERATED_AT": "2026-09-27T10:03:12-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f4fe98894b4aa8685d1faa56b781a45f1bafba336af90f0c4576d9dfb79c01d3"
+    "HEAD": "69fcff6d108917b391ca11145d8def8744ec937a",
+    "GENERATED_AT": "2026-09-27T10:58:55-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d04cee8b190720797a6f71b6039ace775f245f364392bd37da5f1949bf528916"
   },
   "FAMILIES": [
     {
@@ -5756,12 +5758,12 @@
         "italia-portale/audit/casco/fuga-tsr.mjs",
         "italia-portale/audit/casco/mappa-azioni.mjs",
         "italia-portale/audit/casco/parita-visiva.mjs",
-        "italia-portale/audit/casco/pote-casco.mjs",
         "italia-portale/audit/casco/quarantatre.mjs",
         "italia-portale/audit/casco/release-gate.mjs",
         "italia-portale/audit/casco/ricchezza.mjs",
         "italia-portale/audit/casco/sinale.mjs",
-        "italia-portale/audit/casco/sperimentali.mjs"
+        "italia-portale/audit/casco/sperimentali.mjs",
+        "tests/test_pote_no_casco.mjs"
       ],
       "file_count": 17,
       "status": "PENDING",
@@ -5772,6 +5774,7 @@
       "produces": [],
       "inbound": [
         "C-AUDIT-HARNESS",
+        "C-PORTAL-MODELO",
         "C-TELA-FIELD"
       ],
       "outbound": [],
@@ -5790,7 +5793,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 3 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 5 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -5798,7 +5801,9 @@
       "consumes": [
         "italia-portale/audit/lib/drive.mjs",
         "italia-portale/audit/lib/harness.mjs",
-        "italia-portale/client/portale.html"
+        "italia-portale/client/portale.html",
+        "italia-portale/client/sintonia-pote-casco.js",
+        "tests/fixtures/pote/POTE-SINTETICO.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -14058,7 +14063,6 @@
         "italia-portale/client/italy-label-verdicts.js",
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
-        "italia-portale/client/italy-pote.js",
         "italia-portale/client/italy-real-intelligence.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
@@ -14067,7 +14071,7 @@
         "superficie/es/proto_es.py",
         "superficie/it_casa_dados.py"
       ],
-      "file_count": 18,
+      "file_count": 17,
       "status": "PENDING",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -14221,9 +14225,10 @@
         "italia-portale/client/italy-casa.js",
         "italia-portale/client/italy-i18n.js",
         "italia-portale/client/italy-v21.js",
+        "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/support.js"
       ],
-      "file_count": 5,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -14238,6 +14243,7 @@
         "C-V21-FONTES"
       ],
       "outbound": [
+        "C-AUDIT-CASCO",
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS",
         "C-AUDIT-MARCA",
@@ -18243,12 +18249,12 @@
         "italia-portale/client/italy-label-verdicts.js",
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
-        "italia-portale/client/italy-pote.js",
         "italia-portale/client/italy-real-intelligence.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/support.js",
         "superficie/it_casa_dados.py"
       ],
@@ -18359,12 +18365,12 @@
         "italia-portale/client/italy-label-verdicts.js",
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
-        "italia-portale/client/italy-pote.js",
         "italia-portale/client/italy-real-intelligence.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/support.js",
         "superficie/it_casa_dados.py"
       ],
@@ -18466,12 +18472,12 @@
         "italia-portale/client/italy-label-verdicts.js",
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
-        "italia-portale/client/italy-pote.js",
         "italia-portale/client/italy-real-intelligence.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/support.js",
         "superficie/it_casa_dados.py"
       ],
@@ -19201,12 +19207,12 @@
         "italia-portale/client/italy-label-verdicts.js",
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
-        "italia-portale/client/italy-pote.js",
         "italia-portale/client/italy-real-intelligence.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/support.js",
         "superficie/it_casa_dados.py"
       ],
@@ -19307,12 +19313,12 @@
         "italia-portale/client/italy-label-verdicts.js",
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
-        "italia-portale/client/italy-pote.js",
         "italia-portale/client/italy-real-intelligence.js",
         "italia-portale/client/italy-science-business.js",
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
+        "italia-portale/client/sintonia-pote-casco.js",
         "italia-portale/client/support.js",
         "superficie/it_casa_dados.py"
       ],
@@ -24460,7 +24466,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Harness de auditoria tem o seu codigo importado por Auditoria do casco. Provado por 17 linhas de codigo.",
+      "reason": "Harness de auditoria tem o seu codigo importado por Auditoria do casco. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/casco/censo-demo.mjs",
@@ -24671,7 +24677,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "UNKNOWN",
-      "reason": "Harness de auditoria alimenta Auditoria do casco. Provado por 17 linhas de codigo.",
+      "reason": "Harness de auditoria alimenta Auditoria do casco. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/casco/censo-demo.mjs",
@@ -39337,7 +39343,7 @@
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
-          "line": 267,
+          "line": 268,
           "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-CASCO--READS-->C-TELA-FIELD",
@@ -39996,7 +40002,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 17 linhas de codigo.",
+      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -40371,6 +40377,41 @@
     },
     {
       "from": "C-PORTAL-MODELO",
+      "to": "C-AUDIT-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta Auditoria do casco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_pote_no_casco.mjs",
+          "line": 26,
+          "snippet": "const LEITOR = fs.readFileSync(path.join(CLIENT, 'sintonia-pote-casco.js'), 'utf8');",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-AUDIT-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAL-MODELO",
       "to": "C-AUDIT-GERAL",
       "type": "READS",
       "payload": "artefacto",
@@ -40666,7 +40707,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 4 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -40720,6 +40761,22 @@
           "file": "italia-portale/client/portale.html",
           "line": 69,
           "snippet": "<script src=\"italy-casa.js\"></script>",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TELA-FIELD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 76,
+          "snippet": "<script src=\"sintonia-pote-casco.js\"></script>",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
             "FROM": "C-PORTAL-MODELO",
@@ -49723,7 +49780,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 701,
+  "UNCLAIMED_FILES_COUNT": 703,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -49902,11 +49959,11 @@
     "components_pending": 91,
     "components_broken": 8,
     "components_unknown": 8,
-    "edges": 588,
-    "edges_proven": 541,
+    "edges": 589,
+    "edges_proven": 542,
     "edges_unknown": 47,
     "business_edges": 4,
-    "files_tracked": 1385,
+    "files_tracked": 1387,
     "files_covered": 684,
     "files_code_unclaimed": 0,
     "roles_proven": 118,
