@@ -126,7 +126,10 @@ def main(argv) -> int:
                                 "--saidas=%s" % lote, "--corrida=%s" % corrida, "--pousar"],
                                env=env, capture_output=True, text=True, cwd=str(RAIZ))
             out["PASSADA_%d" % i] = {"RC": r.returncode, "STDOUT": r.stdout.strip()[-1500:],
-                                     "STDERR": r.stderr.strip()[-1500:], "CONTAGENS": contagens()}
+                                     "STDERR": r.stderr.strip()[-1500:],
+                                     "ERROS_DO_BANCO": [l.strip()[:300] for l in r.stderr.splitlines()
+                                                        if "ERROR:" in l or "DETAIL:" in l][:4],
+                                     "CONTAGENS": contagens()}
         out["CORRIDA"] = corrida
         out["COLLECTION_RUN"] = psql("select run_id, platform, actor, status from public.collection_run "
                                      "where run_id = '%s'" % corrida)
