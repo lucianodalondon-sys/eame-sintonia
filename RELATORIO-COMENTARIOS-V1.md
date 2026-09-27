@@ -43,8 +43,8 @@ metadados no acervo. **Alargar o vocabulário é do dono dele**, não desta miss
 
 ## Testes
 
-- **Novos:** `tests/test_comentarios_v1.py`, 25 testes (envelope, YouTube, herança do lugar, amostra, D107, elegibilidade, piloto,
-  matriz, leitor do LinkedIn, porta trocada, portão do Instagram, workflow).
+- **Novos:** `tests/test_comentarios_v1.py`, 26 testes (envelope, YouTube, herança do lugar, amostra, D107, elegibilidade, piloto,
+  matriz, leitor do LinkedIn, plano sem rota paga, porta trocada, portão do Instagram, workflow).
 - **Três testes antigos ajustados, de forma DECLARADA e citando a D106** (nenhuma lei afrouxou):
   - `tests/test_d24_video_de_pessoa.py::test_8`: a listagem de comentários continua a morrer antes da rede, agora como porta trocada;
   - `tests/test_c13_route_gate.py`: a decisão nova registada em `DECISOES_NASCIDAS_DEPOIS`, que é o mecanismo do próprio teste;
@@ -65,7 +65,7 @@ metadados no acervo. **Alargar o vocabulário é do dono dele**, não desta miss
 ## Mutação — `provas/comentarios_v1/MUTACAO.json`
 
 **15 de 15 mortos**, e os 6 ficheiros foram repostos iguais (sha256). O mutante só conta se fizer aparecer falha **nova**, além
-das 2 herdadas. Os 14:
+das falhas herdadas. Os 15:
 - o comentário vira FACT;
 - o comentário sem pai passa;
 - o COMMENT perde a asserção;
