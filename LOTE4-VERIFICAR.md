@@ -31,6 +31,14 @@ Resultados: `provas/integra_noite/lote4-verificar-base-554c1ec1.json` e `…-ram
 A falha da cópia (`test_comunicacao_concorrenza.test_561`, lida em `build/`) **não** aparece: esta bateria corre em
 worktree com a árvore inteira — 31 testes, verde.
 
+**Depois do conserto do mapa**, `system-map/tests/*` re-corridos no HEAD `368b0b4`: as provas reprovadas pelo nome
+(`reprovada(s): …`) são **as mesmas da base** (`test_system_map` 11 = 11, `test_cadeia_declara_io` 2 = 2,
+`test_base_da_auditoria` 1 = 1, `test_topologia_persistida` 2 = 2). `test_impressao_verificavel` saiu vermelho na corrida
+paralela (outro teste regerou `architecture.generated.json` na mesma worktree) e **sozinho passa: 102 provas, 0 falhas**.
+Limite desta comparação: 5 ficheiros do system-map (`test_ordem_por_dependencia`,
+`test_quatro_planos`, `test_reconciliacao_do_universo`, `test_verdade_da_collection_actual`, `verificar_a_tela.mjs`)
+não escrevem nomes legíveis — já eram vermelhos na base e compararam-se **só pelo código de saída**: pelo nome, NÃO SEI.
+
 ⚠️ **Achado de integração:** o `t6-para-sala-v1` está no INTEGRA-NOITE-LOTE4.md como **FORA**, mas **entrou**: o
 `lista-mestra-v1` (`3f7b43ef`) contém `ff9ba9f2` (`git merge-base --is-ancestor ff9ba9f2 3f7b43ef` = sim). Estão na
 árvore `coleta/pesquisadores_t6_executor.py`, `ferramentas/t6_para_sala/*`, `provas/o_pedido_t6_atravessa.py`,
