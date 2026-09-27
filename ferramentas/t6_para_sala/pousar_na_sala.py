@@ -58,7 +58,7 @@ def main(argv):
     recibo = orq.correr(p, memoria=per.memoria, banco_do_rastro=per.banco_do_rastro,
                         raiz_do_armazem=per.raiz_do_armazem)
     recibo.pop('_plano', None)
-    porta = recibo.get('PORTA') or {}
+    porta = recibo.get('ADMISSAO') or recibo.get('PORTA') or {}   # a porta devolve-se em ADMISSAO
     ing = recibo.get('INGRESSO') or {}
     print(json.dumps({'UNIVERSO': universo, 'RUN_ID': recibo.get('RUN_ID'), 'STATUS': recibo.get('STATUS'),
                       'PERSISTENCIA': per.para_json(), 'COLHEITA': recibo.get('COLHEITA_ENCONTRADA'),

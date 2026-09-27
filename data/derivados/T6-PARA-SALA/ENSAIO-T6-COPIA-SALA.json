@@ -1,0 +1,151 @@
+{
+ "UNIVERSO": "T5",
+ "PG_DUMP_CODIGO": 0,
+ "DUMP_BYTES": 2830019,
+ "SALA_REAL_LINHAS": {
+  "sala_de_espera": 104,
+  "raw_asset": 1615,
+  "storage_object": 1307,
+  "derived_artifact": 1115,
+  "collection_run": 479
+ },
+ "SALA_REAL_MUDOU_DURANTE_O_DUMP": false,
+ "RESTAURO": {
+  "PASSOS": [
+   {
+    "CMD": "dropdb.exe --if-exists sala_italia",
+    "CODIGO": 0,
+    "ERRO": "NOTA:  banco de dados \"sala_italia\" não existe, ignorando\n"
+   },
+   {
+    "CMD": "createdb.exe sala_italia",
+    "CODIGO": 0,
+    "ERRO": ""
+   },
+   {
+    "CMD": "pg_restore.exe --no-owner --no-privileges -d C:\\Users\\London1\\sintonia-sala-italia\\pesquisadores-t6\\ensaio-copia-sala\\SALA-COPIA.dump",
+    "CODIGO": 0,
+    "ERRO": ""
+   }
+  ],
+  "OK": true
+ },
+ "COPIA_IGUAL_A_REAL": true,
+ "ANTES": {
+  "SALA": 104,
+  "SALA_T5": 51,
+  "SALA_T6": 0,
+  "SALA_EU_T5_001": 0,
+  "RAW": 1615,
+  "RUNS": 479
+ },
+ "PASSAGEM_1": {
+  "CODIGO": 0,
+  "ADMISSAO": null,
+  "COLHEITA": 589,
+  "PRONTOS": null,
+  "ESPERA": null,
+  "RECIBO_DA_SALA": null,
+  "PERSISTENCIA": {
+   "ESTADO": "OPERACIONAL",
+   "MORADA": "127.0.0.1:54132/sala_italia",
+   "PORQUE": "SINTONIA_COLLECTION_DSN declarada e provada operacional autorizada; memoria e rastro ligados ao mesmo banco.",
+   "VARIAVEL": "BANCO_DESCARTAVEL_URL",
+   "ARMAZEM_RAIZ": "C:\\Users\\London1\\sintonia-sala-italia\\pesquisadores-t6\\ensaio-copia-sala\\armazem",
+   "AMBIENTE_RETIRADO": [],
+   "MEMORIA": "MemoriaPostgres",
+   "BANCO_DO_RASTRO": "Banco"
+  },
+  "INGRESSO": {
+   "PRESERVADOS": 589,
+   "RECUSADOS": 0,
+   "RUN_STATE": "COMPLETE",
+   "FONTE_PROVADA": "EU-T5-001"
+  },
+  "ERRO": "Could not find platform independent libraries <prefix>"
+ },
+ "DEPOIS_1": {
+  "SALA": 204,
+  "SALA_T5": 151,
+  "SALA_T6": 0,
+  "SALA_EU_T5_001": 100,
+  "RAW": 2204,
+  "RUNS": 480
+ },
+ "CAMPOS_PREENCHIDOS_NAS_LINHAS_NOVAS": {
+  "run_id": 100,
+  "item_id": 100,
+  "universo": 100,
+  "texto": 100,
+  "source_id": 100,
+  "source_location": 0,
+  "fact_location": 0,
+  "fact_time": 0,
+  "captured_at": 0,
+  "admitido_por": 100,
+  "estado_da_fila": 100,
+  "consumido_por": 0,
+  "estagio": 100,
+  "published_at": 100,
+  "observed_at": 0,
+  "fact_time_basis": 100,
+  "fact_location_basis": 100,
+  "source_declared_evidence_class": 0,
+  "fato": 100,
+  "published_at_basis": 100,
+  "source_location_basis": 0,
+  "completude_tempo_lugar": 100,
+  "tempo_lugar_evidencia": 100,
+  "janela_declarada": 100
+ },
+ "UMA_LINHA_NOVA": "{\"run_id\":\"IT-T6-2026-09-27-010548-6d9916c82fd2d8d3\",\"ordem\":0,\"item_id\":\"https://doi.org/10.1002/arch.21655\",\"raw_observation_id\":1616,\"universo\":\"T5\",\"texto\":\"Is the existence of a mutualistic relationship between Lobesia botrana and Botrytis cinerea well‐founded?. Some studies have highlighted benefits for Lobesia botrana by adding Botrytis cinerea mycelium to an artificial larval diet and have suggested a mutualistic relationship between the two organisms on grapevine, hypothesizing that fungal sterols were the nutritional factor involved. Because the nutritional quality of an artificial diet should be similar to grapes to allow extrapolation of the results to the field conditions, in the current study L. botrana larval performance was compared when larvae were fed on grapes (berries) or two artificial diets either with or without enrichment with B. cinerea. Based on sterol analysis, the two artificial diets had high cholesterol content, but relative to berries showed comparable and low phytosterol contents, respectively (high- and low-phytosterol, HPh, and LPh). While larval fitness on the HPh diet was similar to berries, the LPh diet led to higher mortality and worse larval performance. The addition of the fungus compensated for the shortage in the LPh diet but did not improve the HPh diet. Supplementing the LPh diet with linoleic acid, which is supplied also from B. cinerea, partially improved larval performance. In a field experiment, females did not show any egg-laying preferences towards naturally botrytized bunches. The positive effect of B. cinerea on the moth's next generation that is reported in the literature could be a consequence of fungus developed inside berry tunnels bored by larvae. Therefore, based on our data and previous reports the existence of a mutualistic relationship between L. botrana and B. cinerea is not well-founded.\",\"source_id\":\"EU-T5-001\",\"source_location\":\"NAO SEI\",\"fact_location\":\"NAO SEI\",\"fact_time\":\"NAO SEI\",\"captured_at\":\"NAO SEI\",\"admitido_por\":\"pertence ao universo v10\",\"corrida_sha256\":\"23479a46bc8ae0a2ca63dada93a587ad59d602b688123939718b911887b0ab5e\",\"estado_da_fila\":\"WAITING\",\"pousado_em\":\"2026-09-27T01:13:28.094246+00:00\",\"consumido_em\":null,\"consumido_por\":null,\"estagio\":\"DOCUMENTO\",\"published_at\":\"2020-01-17\",\"observed_at\":\"NAO SEI\",\"fact_time_basis\":\"TEXTO: NAO SEI · nenhuma data explícita do texto ligada ao acontecimento ou a um evento técnico · a data de publicação sozinha nunca preenche este campo\",\"fact_location_basis\":\"TEXTO: NAO SEI · nenhum lugar ligado a um acontecimento, evento técnico ou mercado no corpo do texto\",\"source_declared_evidence_class\":\"NAO SEI\",\"fato\":\"NAO_SE_APLICA\",\"published_at_basis\":\"OpenAlex publication_date do registo\",\"source_location_basis\":\"NAO SEI\",\"completude_tempo_lugar\":{\"DATA_DO_FATO\": \"NAO SEI\", \"LOCAL_DA_FONTE\": \"NAO SEI\", \"LOCAL_DO_FATO\": \"NAO SEI\", \"PROVADAS\": 1, \"PUBLICACAO\": \"PROVADA\"},\"tempo_lugar_evidencia\":{\"FACT_LOCATION_KIND\": \"NAO SEI\", \"FACT_LOCAT",
+ "PASSAGEM_2": {
+  "CODIGO": 0,
+  "ADMISSAO": null,
+  "COLHEITA": 589,
+  "PRONTOS": null,
+  "ESPERA": null,
+  "RECIBO_DA_SALA": null,
+  "PERSISTENCIA": {
+   "ESTADO": "OPERACIONAL",
+   "MORADA": "127.0.0.1:54132/sala_italia",
+   "PORQUE": "SINTONIA_COLLECTION_DSN declarada e provada operacional autorizada; memoria e rastro ligados ao mesmo banco.",
+   "VARIAVEL": "BANCO_DESCARTAVEL_URL",
+   "ARMAZEM_RAIZ": "C:\\Users\\London1\\sintonia-sala-italia\\pesquisadores-t6\\ensaio-copia-sala\\armazem",
+   "AMBIENTE_RETIRADO": [],
+   "MEMORIA": "MemoriaPostgres",
+   "BANCO_DO_RASTRO": "Banco"
+  },
+  "INGRESSO": {
+   "PRESERVADOS": 589,
+   "RECUSADOS": 0,
+   "RUN_STATE": "COMPLETE",
+   "FONTE_PROVADA": "EU-T5-001"
+  },
+  "ERRO": "Could not find platform independent libraries <prefix>"
+ },
+ "DEPOIS_2": {
+  "SALA": 204,
+  "SALA_T5": 151,
+  "SALA_T6": 0,
+  "SALA_EU_T5_001": 100,
+  "RAW": 2793,
+  "RUNS": 481
+ },
+ "ENTRARAM_NA_1A": {
+  "SALA": 100,
+  "SALA_T5": 100,
+  "SALA_T6": 0,
+  "SALA_EU_T5_001": 100,
+  "RAW": 589,
+  "RUNS": 1
+ },
+ "ENTRARAM_NA_2A": {
+  "SALA": 0,
+  "SALA_T5": 0,
+  "SALA_T6": 0,
+  "SALA_EU_T5_001": 0,
+  "RAW": 589,
+  "RUNS": 1
+ }
+}

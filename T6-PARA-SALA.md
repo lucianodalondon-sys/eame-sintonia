@@ -1,6 +1,6 @@
 # T6-PARA-SALA — o que as rodadas trouxeram, e o caminho mínimo até à Sala
 
-- **Ramo:** `t6-para-sala-v1`, a partir de `pesquisadores-t6-v1` (`34713ccc`, que parte do vivo `69b0e23f`).
+- **Ramo:** `t6-para-sala-v1`, rebaseado sobre o vivo **`554c1ec1`** (LOTE 3).
   **Nada instalado.** Sem rede nesta missão; a Sala real só foi lida.
 - **Material:** as 3 rodadas que a coordenação correu às 10:20, 10:45 e 11:05 (VPN IT), em
   `sintonia-sala-italia/pesquisadores-t6/rede`. Trabalhei sobre uma **fotografia** dela, `foto-final/`,
@@ -290,41 +290,73 @@ py coleta/pesquisadores_t6.py --rede2 --rodada=2 --saida=C:/Users/London1/sinton
   - 13 com período;
   - 24 com molécula.
 
-### 6.2 · Ensaio numa cópia da Sala (Postgres descartável, LOCK-PESADO)
+### 6.2 · Ensaio numa cópia da Sala (Postgres descartável) — MEDIDO em 26/09, 22:03–22:20
 
-**NÃO MEDIDO. A LOCK-PESADO nunca ficou livre para mim.**
-- das 10:42 às 13:34 esteve com 5 missões seguidas: REPROC-EXTRATORES, DEDUP-INSTALAR, NUVEM-CONCORRENZA,
-  ACERVO-PARA-SALA-2 (11:58–13:27) e INTEGRA-NOITE-LOTE2 (13:27, mapa);
-- às 11:40 houve ainda uma trava de 0 bytes, que outra sessão tratou como órfã;
-- não forcei nenhuma trava e não corri nada pesado.
+**LOCK-PESADO:** 1.º da `FILA-PESADO.md`, com ~9 GB livres. Solta às 22:25; a `LOCK-PRIORIDADE` passou à MICRO-PROVA-LOTE2.
 
-**O ensaio está pronto e testado até ao ponto em que o banco entra:**
-- o programa `provas/ensaio_t6_na_copia_da_sala.py`;
-- o ambiente, uma cópia destacada deste ramo em `%TEMP%/t6-sonda` (`b8b43909`), com as 42 respostas da
-  foto final em `data/colheita/pesquisadores-t6/rodadas`.
-
-**O que ele faz:**
-- a cópia da Sala real só com leitura (o mesmo `pg_dump` do `backup_sala.cmd`), fotografada antes e depois;
+**Como se fez:**
+- a cópia da Sala real só com leitura: `pg_dump` código 0, 2,8 MB, sha256 `73a34497…`;
+- a Sala real **não mudou** durante a cópia, e a cópia reposta ficou **igual** à real (md5 das 5 tabelas);
 - um Postgres descartável `sala_italia` numa porta livre;
-- **duas** passagens do botão canónico com a Sala em POSTGRES: a 1.ª mede quantos entram; a 2.ª que
-  **não entram outra vez** (idempotência por documento);
-- as contas por SQL na cópia, antes e depois: Sala total, T5, T6, a fonte `EU-T5-001`, `raw_asset` e as corridas;
-- no fim desce o banco e apaga o cluster.
+- **o MESMO programa que se corre na Sala real:** `ferramentas/t6_para_sala/pousar_na_sala.py`;
+- a persistência da **produção** (`dependencias_do_runtime` → OPERACIONAL, Sala em POSTGRES);
+- os bytes do bruto na pasta do ensaio (8 MB), **nunca** no armazém real;
+- desceu o banco e apagou o cluster.
 
-**Para correr** (com a LOCK-PESADO na mão e ≥ 5 GB livres):
+**Resultado:** `data/derivados/T6-PARA-SALA/ENSAIO-T6-COPIA-SALA.json`, sha256 `f17e528f…`
 
+| | Sala | Sala T5 | Sala T6 | fonte EU-T5-001 | raw_asset | corridas |
+|---|---|---|---|---|---|---|
+| Antes (= Sala real hoje) | 104 | 51 | 0 | 0 | 1.615 | 479 |
+| **1.ª passagem** | **+100** | +100 | 0 | +100 | +589 | +1 |
+| 2.ª passagem (os mesmos dados) | **+0** | 0 | 0 | 0 | **+589** | +1 |
+
+**Quantos T6 entram:**
+- **100 estudos entram, com o universo T5** (a régua de ciência que já existe).
+- **T6 entra 0**, porque não há régua T6.
+- A 2.ª passagem prova que a Sala **não duplica** (idempotente por documento).
+- **Mas o bruto ganha outras 589 linhas** a cada passagem: cada corrida guarda uma observação nova do mesmo registo. **Corre-se UMA vez.**
+
+**Com que campos entram** (as 100 linhas novas; ≠ NÃO SEI):
+
+| Preenchido em 100 de 100 | Vazio (NÃO SEI) em 100 de 100 |
+|---|---|
+| `item_id` = o DOI (`https://doi.org/…`) · `texto` = título + resumo · `published_at` + base · `source_id` = EU-T5-001 · `universo` = T5 · `estagio` = DOCUMENTO · `admitido_por` = «pertence ao universo v10» · `raw_observation_id` (ligado ao `raw_asset`) · `estado_da_fila` · `completude_tempo_lugar` · `tempo_lugar_evidencia` · `janela_declarada` | `fact_time` · `fact_location` · `source_location` · `captured_at` · `observed_at` · e, dentro de `janela_declarada`, **CULTURA, REGIAO_DO_FATO, FASE e JANELA** |
+
+⚠️ **O que o T6 sabe não chega à LINHA da Sala:** pesquisadores com a prova, cultura, problema, molécula, local e período do estudo.
+- **Não se perde:** está no **bruto**. O `raw_observation_id` de cada linha aponta para o registo do OpenAlex (autoria, instituição, ORCID), guardado com sha256.
+- A Intelligence chega lá pela ligação que a própria Sala já dá.
+- Pôr esses campos na linha da Sala seria mudar o esquema, e isso não está neste ramo.
+
+**O COMANDO para aplicar na Sala real** (Git Bash, uma vez só):
+- **De onde:** do vivo depois de instalar `t6-para-sala-v1`, ou de um clone do ramo.
+- **Antes:** o backup da Sala.
+- **Sem** `BANCO_DESCARTAVEL_URL` no ambiente: dois modos declarados ao mesmo tempo fazem a corrida falhar fechada.
+
+```bash
+cd <arvore com t6-para-sala-v1>
+cmd //c C:\\Users\\London1\\sintonia-sala-italia\\backup_sala.cmd
+unset BANCO_DESCARTAVEL_URL
+DSN="$(cat C:/Users/London1/sintonia-sala-italia/SALA_DSN.txt)"
+SINTONIA_COLLECTION_DSN="$DSN" SINTONIA_SALA_BACKEND=POSTGRES SINTONIA_SALA_DSN="$DSN" \
+SINTONIA_ARMAZEM_RAIZ='C:\Users\London1\sintonia-sala-italia\armazem' \
+SINTONIA_PSQL_EXE='C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe' \
+HTTP_PROXY=http://127.0.0.1:9 HTTPS_PROXY=http://127.0.0.1:9 PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 \
+py ferramentas/t6_para_sala/pousar_na_sala.py --confirmo --universo=T5 \
+   --rodadas=C:/Users/London1/sintonia-sala-italia/pesquisadores-t6/foto-final
 ```
-cd %TEMP%\t6-sonda
-py provas/ensaio_t6_na_copia_da_sala.py --saida=C:/Users/London1/sintonia-sala-italia/pesquisadores-t6/ensaio-copia-sala --universo=T5
-```
 
-**O que se espera, sem ter sido medido:**
-- **100 linhas novas na Sala na 1.ª passagem e 0 na 2.ª.** São os 100 SIM do §6.1, e a Sala real
-  não tem nenhum item da fonte `EU-T5-001`.
-- **Há três riscos que só o banco responde:**
-  - uma regra (CHECK) do esquema recusar a fonte com prefixo `EU-` na `sala_de_espera` (o coletor web só aceita `IT-`, D80);
-  - o `raw_asset` recusar o tipo `application/json`;
-  - a trava de identidade por documento tratar os 589 como novos.
+**O que se espera:**
+- a Sala passa de **104 para 204** (+100 T5, fonte EU-T5-001);
+- o `raw_asset` ganha +589, e há 1 corrida;
+- os bytes ficam no armazém operacional (`…\armazem\…`), junto do marcador `ARMAZEM_OPERACIONAL.json`.
+
+**O programa recusa-se a correr quando:**
+- falta `--confirmo`;
+- a Sala não está em modo canónico;
+- a persistência não é OPERACIONAL.
+
+**Efeito lateral, declarado:** as respostas das rodadas são copiadas para `data/colheita/pesquisadores-t6/rodadas/` da árvore onde corre (pasta ignorada pelo Git). É o balcão do executor.
 
 ## 7 · A decisão que falta ao dono (1 frase)
 
@@ -342,5 +374,6 @@ régua, e por isso não vai como padrão.)
 3. **A instituição é a do índice e erra** (Bitron, Hospital, «Cereal Research Centre» em videira).
 4. **A lista dos 30 mede evidência nos 12 pares; não mede importância.** 861 das 1.466 pessoas só têm a prova do índice.
 5. **A Consulta 2 não foi corrida** (rede). Só está ensaiada com transporte falso.
-6. **O ensaio na cópia da Sala (Postgres) NÃO foi medido** — LOCK-PESADO ocupada toda a janela (§6.2).
-7. **Mapa não corrido** (PRONTO-SEM-MAPA).
+6. **A linha da Sala leva só texto, DOI e data de publicação** (§6.2). Os pesquisadores e as chaves ficam no bruto ligado.
+7. **Correr duas vezes duplica o BRUTO** (+589 por corrida), embora a Sala não duplique. Corre-se uma vez.
+8. **Mapa não corrido** (PRONTO-SEM-MAPA).
