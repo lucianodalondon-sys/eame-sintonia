@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T18:34:43+00:00",
-    "HEAD": "45db49aec26a404d8a664c65bc07acc45439c3e7",
+    "GENERATED_AT": "2026-09-27T19:22:27+00:00",
+    "HEAD": "00ca07c1e5e81f120f509b26f127631ee6adbdd6",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "ff2565773eb9359fcbcabb639d87cf439fe5624a18b76b7ead0a7dfeb09d2409",
-    "FICHEIROS_NA_IMPRESSAO": 4097,
+    "SOURCE_TREE_FINGERPRINT": "88adfad78127c9892d29e37b0c9d74b9cfb789b3e8c14d3e75e657268c66be4a",
+    "FICHEIROS_NA_IMPRESSAO": 4144,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "2df44aad11bded4661c74b918bb34e49273c79f1",
+        "VERSAO": "6763157c8c9a392c27a0e8bfe0ce1e4d2a34fac3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -21,6 +21,13 @@
         "PATH": "admissao/idioma.py",
         "PAPEL": "FONTE",
         "VERSAO": "ee745685d7b75cc45399578660ab1db60a15c707",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/reprocessar_estudos_chaves.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "a14737a255303597b0a30c81f173979717950eb9",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -461,7 +468,7 @@
       {
         "PATH": "coleta/pesquisadores_t6.py",
         "PAPEL": "FONTE",
-        "VERSAO": "c999ddbf63a33afa62142a1c373730ec3dc61af1",
+        "VERSAO": "1a121d6738f0b8f7f0585d5ee109ecc02b08906a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1628,8 +1635,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 231,
-    "INPUTS_DIGEST": "4f54a201992e9e1e3c9bd71f3729e471d39df6b800c6b2835dcd24507463a1da",
+    "INPUTS_COUNT": 232,
+    "INPUTS_DIGEST": "93854da0fbab30f77964d5ff808d3fab9aedf660e73fa95fc74853d48c163246",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -4614,7 +4621,7 @@
     {
       "ficheiro": "coleta/pesquisadores_t6.py",
       "gaveta": "coleta",
-      "linhas": 1190,
+      "linhas": 1198,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -4627,6 +4634,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "admissao/reprocessar_estudos_chaves.py",
         "coleta/lista_mestra_mur.py",
         "coleta/pesquisadores_t6_executor.py",
         "ferramentas/t6_para_sala/antes_depois_extratores.py",
@@ -5835,7 +5843,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 2456,
+      "linhas": 2490,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -5851,6 +5859,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "admissao/reprocessar_estudos_chaves.py",
         "admissao/reprocessar_tempo_lugar.py",
         "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
@@ -5879,6 +5888,22 @@
       "no_ci": false
     },
     {
+      "ficheiro": "admissao/reprocessar_estudos_chaves.py",
+      "gaveta": "admissao",
+      "linhas": 156,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "admissao/reprocessar_tempo_lugar.py",
       "gaveta": "admissao",
       "linhas": 221,
@@ -5893,7 +5918,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "admissao/reprocessar_estudos_chaves.py"
+      ],
       "no_ci": false
     },
     {
@@ -6296,12 +6323,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 231,
-    "pontos_de_entrada": 166,
+    "ficheiros_de_codigo": 232,
+    "pontos_de_entrada": 167,
     "executores_que_saem_para_fora": 31,
     "sem_chamador_e_fora_do_ci": 111,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 137,
+    "escrevem_ficheiro": 138,
     "deitam_fora_alguma_coisa": 52,
     "deitam_fora_SEM_escrever_o_motivo": 5,
     "ficheiros_com_decisao_escondida": 5,
@@ -6464,6 +6491,7 @@
       "regras/sensor_medir.py",
       "admissao/admissao.py",
       "admissao/idioma.py",
+      "admissao/reprocessar_estudos_chaves.py",
       "admissao/reprocessar_tempo_lugar.py",
       "admissao/sala_de_espera.py",
       "guarda/catalogo_importar.py",
@@ -6615,7 +6643,7 @@
       "regras/italy_scheduling_guards.mjs",
       "regras/paridade_test.mjs",
       "regras/rotulos_censo.py",
-      "admissao/reprocessar_tempo_lugar.py",
+      "admissao/reprocessar_estudos_chaves.py",
       "admissao/video_na_sala.py",
       "guarda/banco_operacional.py",
       "guarda/es/adama_es_gate.py",

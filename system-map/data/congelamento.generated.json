@@ -1,19 +1,19 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "45db49aec26a404d8a664c65bc07acc45439c3e7",
+  "FROZEN_AT_HEAD": "00ca07c1e5e81f120f509b26f127631ee6adbdd6",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 292,
+  "ARTEFATOS": 301,
   "POR_ESPECIE": {
     "CONTRACT": 3,
-    "DATA_SAMPLE": 102,
+    "DATA_SAMPLE": 101,
     "DOCUMENTATION": 5,
     "GENERATED_OUTPUT": 26,
-    "IMPLEMENTATION": 11,
+    "IMPLEMENTATION": 13,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 49,
+    "MENCAO_FRACA_APENAS": 51,
     "PORTAL_UI": 67,
-    "TEST": 23
+    "TEST": 29
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -422,11 +422,27 @@
       ]
     },
     {
+      "PATH": "leis/afirmacao_da_fonte.py",
+      "SPECIES": "IMPLEMENTATION",
+      "GIT_BLOB_SHA": "bd05d96bd44bd3dea0f10498b47710aae6adb71a",
+      "MARCAS_FORTES": [
+        "RECOMMENDATION"
+      ]
+    },
+    {
       "PATH": "leis/auditoria_regua_comercial.py",
       "SPECIES": "IMPLEMENTATION",
       "GIT_BLOB_SHA": "0b74e427335ff870fb7c815426e92832e67127d4",
       "MARCAS_FORTES": [
         "OPPORTUNITY_SCORE"
+      ]
+    },
+    {
+      "PATH": "motor/motor_das_capacidades.py",
+      "SPECIES": "IMPLEMENTATION",
+      "GIT_BLOB_SHA": "1dd1a5323189a8d95f68a163d4ec0b2b43fce6c2",
+      "MARCAS_FORTES": [
+        "RECOMMENDATION"
       ]
     },
     {
@@ -583,7 +599,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "cb826e064fee59af04a4fd41cd6715b929e02823",
+      "GIT_BLOB_SHA": "66b087e90e5ca6faa40c157b58770fb9452d03d3",
       "MARCAS_FORTES": []
     }
   ],
@@ -957,10 +973,6 @@
       "SPECIES": "DATA_SAMPLE"
     },
     {
-      "PATH": "docs/iab/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
-      "SPECIES": "DATA_SAMPLE"
-    },
-    {
       "PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
       "SPECIES": "DATA_SAMPLE"
     },
@@ -1142,6 +1154,14 @@
     },
     {
       "PATH": "leis/social_matriz.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/cap_win.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/capacidade_cientifica.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
@@ -1337,7 +1357,15 @@
       "SPECIES": "INSTRUMENT"
     },
     {
+      "PATH": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
       "SPECIES": "TEST"
     },
     {
@@ -1365,6 +1393,10 @@
       "SPECIES": "TEST"
     },
     {
+      "PATH": "tests/test_capacidade_cientifica.py",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_coleta_externa.py",
       "SPECIES": "TEST"
     },
@@ -1385,11 +1417,19 @@
       "SPECIES": "TEST"
     },
     {
+      "PATH": "tests/test_grafo_de_dependencia.py",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_hero_cases_v1.py",
       "SPECIES": "TEST"
     },
     {
       "PATH": "tests/test_independencia_de_fontes.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_metodo_puglia.py",
       "SPECIES": "TEST"
     },
     {
@@ -1422,6 +1462,10 @@
     },
     {
       "PATH": "tests/test_relevance_priority_sobrecarga.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_todo_ready_atravessa_o_intake.py",
       "SPECIES": "TEST"
     },
     {

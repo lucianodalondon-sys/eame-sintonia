@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-27T18:36:27+00:00",
-    "HEAD": "45db49aec26a404d8a664c65bc07acc45439c3e7",
+    "GENERATED_AT": "2026-09-27T19:22:21+00:00",
+    "HEAD": "00ca07c1e5e81f120f509b26f127631ee6adbdd6",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "ff2565773eb9359fcbcabb639d87cf439fe5624a18b76b7ead0a7dfeb09d2409",
-    "FICHEIROS_NA_IMPRESSAO": 4097,
+    "SOURCE_TREE_FINGERPRINT": "88adfad78127c9892d29e37b0c9d74b9cfb789b3e8c14d3e75e657268c66be4a",
+    "FICHEIROS_NA_IMPRESSAO": 4144,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -39121,6 +39121,27 @@
       ]
     },
     {
+      "endpoint": "https://www.facebook.com/ads",
+      "usado_por": [
+        {
+          "file": "ferramentas/meta_biblioteca.py",
+          "line": 57
+        },
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 53
+        },
+        {
+          "file": "tests/test_grafo_de_dependencia.py",
+          "line": 156
+        },
+        {
+          "file": "tests/test_independencia_de_fontes.py",
+          "line": 158
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.adama.com/italia",
       "usado_por": [
         {
@@ -39233,28 +39254,11 @@
           "line": 89
         }
       ]
-    },
-    {
-      "endpoint": "https://www.regione.calabria.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 193
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 936
-        },
-        {
-          "file": "curadoria/test_discovery_sementes.py",
-          "line": 24
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 855,
+  "ENDPOINTS_FOUND": 858,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 815,
+  "ENDPOINTS_TRUNCATED": 818,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -39272,9 +39276,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 855,
+    "endpoints": 858,
     "endpoints_published": 40,
-    "endpoints_truncated": 815,
+    "endpoints_truncated": 818,
     "candidates": 1199,
     "coletores": 64,
     "coletores_com_data": 20,

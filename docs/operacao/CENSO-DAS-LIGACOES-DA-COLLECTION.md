@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  45db49aec26a404d8a664c65bc07acc45439c3e7
-BRANCH           claude/bulletin-by-section-c39nij
-GERADO_EM        2026-09-27T18:34:16+00:00
+HEAD_DA_MEDICAO  00ca07c1e5e81f120f509b26f127631ee6adbdd6
+BRANCH           claude/lote6-integra-671dm9
+GERADO_EM        2026-09-27T19:22:01+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -463,13 +463,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 6 · saem 6 |
-| **arestas provadas** | entram 6 · saem 6 |
+| **arestas no mapa** | entram 6 · saem 9 |
+| **arestas provadas** | entram 6 · saem 9 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 12 |
+| **prova das ligações** | CODE 15 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -590,13 +590,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/idioma.py`, `curadoria/politica_nao_sei.py`, `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 10 · saem 50 |
-| **arestas provadas** | entram 8 · saem 49 |
+| **arestas no mapa** | entram 10 · saem 51 |
+| **arestas provadas** | entram 8 · saem 50 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 55 · NÃO SEI 3 · OBSERVED 2 |
+| **prova das ligações** | CODE 56 · NÃO SEI 3 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -604,10 +604,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `admissao/reprocessar_tempo_lugar.py`, `admissao/sala_de_espera.py`, `admissao/versao_do_documento.py`, `admissao/video_na_sala.py` |
+| **peça real** | `admissao/reprocessar_estudos_chaves.py`, `admissao/reprocessar_tempo_lugar.py`, `admissao/sala_de_espera.py`, `admissao/versao_do_documento.py`, `admissao/video_na_sala.py` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
 | **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:484 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -615,13 +615,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `admissao/admissao.py`, `coleta/executor_texto_de_html.py`, `coleta/ingresso.py` |
 | **o que sai · dado** | C-INT-ESPINHA |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 16 · saem 25 |
-| **arestas provadas** | entram 16 · saem 24 |
+| **arestas no mapa** | entram 17 · saem 26 |
+| **arestas provadas** | entram 17 · saem 25 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 40 · NÃO SEI 1 |
+| **prova das ligações** | CODE 42 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -2231,13 +2231,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `RELATORIO-RELEVANCIA-ELEGIVEIS.md`, `admissao/admissao.py`, `coleta/italy_executor.py` |
 | **o que sai · dado** | C-CAPA-MATERIA |
 | **o que sai · ficheiros** | `data/derivados/PESQUISADORES-T6/ENSAIO-OFFLINE.json` |
-| **arestas no mapa** | entram 19 · saem 4 |
-| **arestas provadas** | entram 19 · saem 4 |
+| **arestas no mapa** | entram 19 · saem 5 |
+| **arestas provadas** | entram 19 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 23 |
+| **prova das ligações** | CODE 24 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
