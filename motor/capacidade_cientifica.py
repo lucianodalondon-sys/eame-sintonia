@@ -677,12 +677,16 @@ def ligar_ao_produto(e: dict, ref: dict) -> dict:
             continue
         completo = (e["LOCAL_DO_ESTUDO"]["ESTADO"] == "PROVADO"
                     and e["PERIODO_DO_ESTUDO"]["ESTADO"] == "PROVADO")
-        a_confirmar = (ref.get("CARIMBO") or {}).get("ESTADO_FRESCOR") == PORTA.AUTORIZACAO_A_CONFIRMAR
+        # A regra e da PORTA (D117 + grao do uso): so LINHA_DA_TABELA/BLOCO_DA_CULTURA autorizam;
+        # DECLARACAO_DE_PRODUTO e edicao sem checagem ha >= 30 dias ficam a confirmar.
+        frescor = (ref.get("CARIMBO") or {}).get("ESTADO_FRESCOR")
+        julgados = [PORTA.autorizacao_do_uso(u, frescor) for u in usos]
+        autorizado = any(est == PORTA.AUTORIZADO_NA_BULA_LIDA for est, _ in julgados)
         por_mol.append({
             "MOLECULA": m, "MOLECULA_NA_REFERENCIA": mref,
             "ESTADO": "CANDIDATE" if completo else "PARTIAL",
-            # D117: edicao sem checagem ha >= 30 dias -> a autorizacao da bula fica a confirmar
-            "AUTORIZACAO": PORTA.A_CONFIRMAR if a_confirmar else PORTA.AUTORIZADO_NA_BULA_LIDA,
+            "AUTORIZACAO": PORTA.AUTORIZADO_NA_BULA_LIDA if autorizado else PORTA.A_CONFIRMAR,
+            "AUTORIZACAO_PORQUE": None if autorizado else julgados[0][1],
             "FALTA": [k for k in ("LOCAL", "PERIODO")
                       if not e["APLICABILIDADE"]["PROVADO"][k]],
             "PRODUTOS": [{"ADAMA_PRODUCT_ID": p, "NOME_NO_ROTULO": nome,

@@ -65,6 +65,11 @@ RELIGADOS = ("motor/capacidade_cientifica.py", "motor/motor_das_capacidades.py",
 EXCECOES = {
     "coleta/rotulos_baixar.py": "PRODUTOR — baixa os PDF crus (data/raw/IT-ROTULOS). Nao e consumidor.",
     "coleta/rotulos_ler.py": "PRODUTOR — escreve IT-ROTULOS-PARES.json, que o CONSTRUTOR da referencia le.",
+    # AJUSTE DECLARADO (LOTE7-INTEGRA, juncao com claude/reference-maintenance-collection-8s2lwy, D117):
+    # a peca nasceu no outro ramo, sem ver esta varredura. Nomeia PROD_FTS so para reconhecer a EDICAO
+    # BRUTA do Ministero (l.97 regex do nome; l.380 texto de proveniencia). Nao abre referencia/adama.
+    "coleta/it/edicoes_do_registro.py": "PRODUTOR — compara edicoes BRUTAS do CSV do Ministero "
+                                        "(IT-T4-001) e emite EVENTO_REGULATORIO; nao consome a referencia.",
     "coleta/cruzar_regua_rotulo.py": "DIVIDA DECLARADA — le IT-ROTULOS-PARES direto (regua x rotulo). "
                                      "Fora do escopo desta missao; religar e a proxima.",
     "coleta/pesquisadores_t6.py": "DIVIDA DECLARADA — le ACTIVE-INGREDIENTS e o CSV PROD_FTS 0907 para o "
@@ -469,6 +474,114 @@ class H_Hash(_Copia):
         antes = P.abrir(self.copia, hoje=HOJE)["CARIMBO"]["IMPRESSAO_DOS_LIVROS"]
         _mexer(self.copia, "DOSES", lambda d: d.update(NOTA="x"))
         self.assertNotEqual(antes, P.abrir(self.copia, hoje=HOJE)["CARIMBO"]["IMPRESSAO_DOS_LIVROS"])
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# I · o GRAO do uso (LOTE7-INTEGRA; achado do LAB, PESQUISA-CRUZAMENTOS F.2-1)
+#     so LINHA_DA_TABELA / BLOCO_DA_CULTURA autorizam; DECLARACAO_DE_PRODUTO = A_CONFIRMAR.
+#     A regra mora NA PORTA, uma vez so; os consumidores herdam.
+# ═══════════════════════════════════════════════════════════════════════════
+class I_Grao(_Copia):
+    def test_I1_a_regra_unica(self):
+        for nivel, esperado in ((P.LINHA_DA_TABELA, P.AUTORIZADO_NA_BULA_LIDA),
+                                (P.BLOCO_DA_CULTURA, P.AUTORIZADO_NA_BULA_LIDA),
+                                (P.DECLARACAO_DE_PRODUTO, P.A_CONFIRMAR),
+                                (P.NAO_SEI, P.A_CONFIRMAR), (None, P.A_CONFIRMAR)):
+            est, porque = P.autorizacao_do_uso({"LINK_LEVEL": nivel}, P.FRESCA)
+            self.assertEqual(est, esperado, nivel)
+            if est == P.A_CONFIRMAR:
+                self.assertIn("GRAO", porque)
+        self.assertEqual(P.autorizacao_do_uso({}, P.FRESCA)[0], P.A_CONFIRMAR)
+        # o frescor (D117) continua a mandar por cima do grao
+        self.assertEqual(P.autorizacao_do_uso({"LINK_LEVEL": P.LINHA_DA_TABELA}, P.AUTORIZACAO_A_CONFIRMAR)[0],
+                         P.A_CONFIRMAR)
+        self.assertEqual(P.NIVEIS_QUE_AUTORIZAM, (P.LINHA_DA_TABELA, P.BLOCO_DA_CULTURA))
+
+    def test_I2_nenhum_autorizado_da_porta_vem_de_declaracao(self):
+        r = P.abrir(hoje=HOJE)
+        pares = sorted({(u["CROP_ON_LABEL"], u["TARGET_ON_LABEL"]) for u in P.livro(r, "AUTHORIZED-USES")})
+        vistos = {P.AUTORIZADO_NA_BULA_LIDA: 0, P.A_CONFIRMAR: 0}
+        for c, a in pares:
+            x = P.autorizados(r, c, a)
+            for p in x["PRODUTOS"]:
+                vistos[p["ESTADO"]] += 1
+                self.assertEqual(p["ESTADO"] == P.AUTORIZADO_NA_BULA_LIDA,
+                                 p["LINK_LEVEL"] in P.NIVEIS_QUE_AUTORIZAM, (c, a, p["USE_ID"]))
+            fortes = [p for p in x["PRODUTOS"] if p["LINK_LEVEL"] in P.NIVEIS_QUE_AUTORIZAM]
+            self.assertEqual(x["ESTADO"] == P.AUTORIZADO_NA_BULA_LIDA, bool(fortes), (c, a))
+        self.assertGreater(vistos[P.A_CONFIRMAR], 0)       # ha declaracoes na edicao, e elas caem
+        self.assertGreater(vistos[P.AUTORIZADO_NA_BULA_LIDA], 0)
+
+    def test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque(self):
+        r = P.abrir(hoje=HOJE)
+        usos = P.livro(r, "AUTHORIZED-USES")
+        niveis = {}
+        for u in usos:
+            niveis.setdefault((u["CROP_ON_LABEL"], u["TARGET_ON_LABEL"]), set()).add(u["LINK_LEVEL"])
+        so_decl = sorted(k for k, v in niveis.items() if v == {P.DECLARACAO_DE_PRODUTO})
+        self.assertTrue(so_decl)
+        x = P.autorizados(r, *so_decl[0])
+        self.assertTrue(x["PRODUTOS"])
+        self.assertEqual(x["ESTADO"], P.A_CONFIRMAR)
+        self.assertIn("DECLARACAO_DE_PRODUTO", x["PORQUE"])
+
+    def _tudo_declaracao(self):
+        def f(d):
+            for u in d["RECORDS"]:
+                u["LINK_LEVEL"] = P.DECLARACAO_DE_PRODUTO
+        _mexer(self.copia, "AUTHORIZED-USES", f)
+        return P.abrir(self.copia, hoje=HOJE)
+
+    def test_I4_os_consumidores_herdam_da_porta(self):
+        r = self._tudo_declaracao()
+        self.assertEqual(r["ESTADO"], "LIDA")
+        a = P.autorizados(r, "vite", "peronospora")
+        self.assertTrue(a["PRODUTOS"])
+        self.assertEqual(a["ESTADO"], P.A_CONFIRMAR)
+        # CAP-WIN
+        self.assertEqual(WIN.produtos_adama(r, "vite", "peronospora")["ESTADO"], P.A_CONFIRMAR)
+        # boletim
+        leitura = {"SECOES": [{"CULTURA": "vigneto", "PROBLEMAS": [{"NOME": "peronospora", "ESTADO": "PRESENTE"}]}]}
+        b = BOL.produtos_adama_do_boletim(leitura, r)
+        self.assertEqual(b["PARES"][0]["PRODUTOS_ADAMA"]["ESTADO"], P.A_CONFIRMAR)
+        # concorrencia (por alvo)
+        self.assertEqual(P.por_alvo(r, "PERONOSPORA")["ESTADO"], P.A_CONFIRMAR)
+        # CAP-SCI
+        e = {"ITEM_ID": "SINT", "DOI": "SINT", "CULTURA": "vite", "PROBLEMA": "peronospora",
+             "MOLECULA": ["FOLPET"], "LOCAL_DO_ESTUDO": {"ESTADO": "PROVADO"},
+             "PERIODO_DO_ESTUDO": {"ESTADO": "PROVADO"},
+             "APLICABILIDADE": {"PROVADO": {"LOCAL": True, "PERIODO": True}}}
+        (m,) = SCI.ligar_ao_produto(e, SCI.da_porta(r))["POR_MOLECULA"]
+        self.assertTrue(m["PRODUTOS"])
+        self.assertEqual(m["AUTORIZACAO"], P.A_CONFIRMAR)
+        self.assertIn("GRAO", m["AUTORIZACAO_PORQUE"])
+        (m,) = SCI.ligar_ao_produto(e, SCI.carregar_referencia(hoje=HOJE))["POR_MOLECULA"]
+        self.assertEqual(m["AUTORIZACAO"], P.AUTORIZADO_NA_BULA_LIDA)
+
+    def test_I5_por_alvo_so_diz_cultura_na_bula_quando_o_grao_une(self):
+        r = P.abrir(hoje=HOJE)
+        usos = P.livro(r, "AUTHORIZED-USES")
+        x = P.por_alvo(r, "PERONOSPORA")
+        for reg in x["REGISTOS"]:
+            fortes = {u["CROP_ON_LABEL"] for u in usos if u["REGISTRATION_NUMBER"] == reg["REGISTRATION_NUMBER"]
+                      and u["TARGET_ON_LABEL"] == "PERONOSPORA" and u["LINK_LEVEL"] in P.NIVEIS_QUE_AUTORIZAM}
+            self.assertEqual(set(reg["CULTURAS_NA_BULA"]), fortes, reg["REGISTRATION_NUMBER"])
+            self.assertEqual(reg["ESTADO"] == P.AUTORIZADO_NA_BULA_LIDA, bool(fortes))
+        r2 = self._tudo_declaracao()
+        for reg in P.por_alvo(r2, "PERONOSPORA")["REGISTOS"]:
+            self.assertEqual(reg["CULTURAS_NA_BULA"], [])
+            self.assertTrue(reg["CULTURAS_SO_DECLARADAS"])
+            self.assertEqual(reg["ESTADO"], P.A_CONFIRMAR)
+
+    def test_I6_a_regra_mora_so_na_porta(self):
+        """cruzamentos_max le os niveis da porta; nenhum religado escreve a sua lista de niveis."""
+        self.assertIs(XM.NIVEIS_FORTES, P.NIVEIS_QUE_AUTORIZAM)
+        for rel in RELIGADOS:
+            arv = ast.parse((RAIZ / rel).read_text(encoding="utf-8"))
+            docs = _docstrings(arv)
+            lit = [n.lineno for n in ast.walk(arv) if isinstance(n, ast.Constant) and id(n) not in docs
+                   and n.value in (P.LINHA_DA_TABELA, P.BLOCO_DA_CULTURA)]
+            self.assertEqual(lit, [], "%s reescreve os niveis que autorizam: linhas %s" % (rel, lit))
 
 
 if __name__ == "__main__":

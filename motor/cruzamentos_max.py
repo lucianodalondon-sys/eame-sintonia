@@ -205,7 +205,8 @@ PM_NAO_SEI = "NAO_SEI"
 
 #: Pares do rotulo em que o DOCUMENTO une cultura e alvo. DECLARACAO_DE_PRODUTO sao duas listas que o
 #: rotulo manteve separadas (IT-ROTULOS-PARES.json, LEI_DO_NIVEL_DE_LIGACAO): nao se somam.
-NIVEIS_FORTES = ("LINHA_DA_TABELA", "BLOCO_DA_CULTURA")
+#: LOTE7-INTEGRA: a regra mora na PORTA (uma vez so); este motor herda-a, nao a reescreve.
+NIVEIS_FORTES = PORTA.NIVEIS_QUE_AUTORIZAM
 
 #: As chaves do leitor de rotulos que juntam MAIS DE UMA cultura (medido nas regex de
 #: coleta/rotulos_ler.py:CULTURAS_ROTULO). Para elas a chave igual nao prova a cultura do boletim.
@@ -906,7 +907,7 @@ def portfolio_match(par_b: dict, ref: Referencia, adama_regs) -> dict:
                                                      "de rotulos: ligar a outro alvo seria inventar",
                     PRODUTOS=[], ESPECTRO=[])
     fortes = cobertura_da_cultura(cultura, adama_regs, ref, alvo=a, niveis=NIVEIS_FORTES)
-    fracos = cobertura_da_cultura(cultura, adama_regs, ref, alvo=a, niveis=("DECLARACAO_DE_PRODUTO",))
+    fracos = cobertura_da_cultura(cultura, adama_regs, ref, alvo=a, niveis=(PORTA.DECLARACAO_DE_PRODUTO,))
     if k is None and not fortes["PROVAS"] and not fracos["PROVAS"]:
         return dict(base, ESTADO=PM_NAO_SEI, MOTIVO=f"a cultura «{cultura}» nao esta no vocabulario do leitor "
                                                      "de rotulos", PRODUTOS=[], ESPECTRO=[])

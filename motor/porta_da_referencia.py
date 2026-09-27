@@ -42,6 +42,15 @@ Todo livro do REGISTRO declara `CURRENT_SNAPSHOT`, e todos tem de dizer o MESMO,
 ser o SNAPSHOT corrente de SNAPSHOTS.json. Um so diferente e a referencia sai NAO SEI inteira:
 responder com meia edicao de um dia e meia de outro daria uma autorizacao que nunca existiu.
 
+O GRAO DO USO (LOTE7-INTEGRA; achado do LAB, PESQUISA-CRUZAMENTOS F.2-1)
+-----------------------------------------------------------------------
+Um uso so sai AUTORIZADO quando a BULA une a cultura e o alvo: LINK_LEVEL = LINHA_DA_TABELA (a
+mesma linha da tabela) ou BLOCO_DA_CULTURA (o bloco escrito para a cultura). DECLARACAO_DE_PRODUTO
+sao duas listas que o rotulo manteve SEPARADAS (culturas de um lado, alvos do outro): espectro do
+produto nao e espectro na cultura, e a porta devolve A_CONFIRMAR. Nivel ausente ou desconhecido
+tambem e A_CONFIRMAR. A regra mora AQUI, uma vez so (`autorizacao_do_uso`); quem fala de produto
+herda-a da porta — nenhum consumidor a reescreve.
+
 AUSENCIA E AUSENCIA NA NOSSA LEITURA
 ------------------------------------
 Bula nao lida (LABEL-READINGS.LABEL_WAS_READ = false, ou registo sem leitura) nunca vira «nao
@@ -83,6 +92,13 @@ AUTORIZACAO_A_CONFIRMAR = "AUTORIZACAO_A_CONFIRMAR"
 AUTORIZADO_NA_BULA_LIDA = "AUTORIZADO_NA_BULA_LIDA"
 A_CONFIRMAR = "A_CONFIRMAR"
 REGISTRADO_COM_A_SUBSTANCIA = "REGISTRADO_COM_A_SUBSTANCIA"
+
+# ── o grao do uso: so a bula que UNE cultura e alvo autoriza ────────────────
+LINHA_DA_TABELA = "LINHA_DA_TABELA"
+BLOCO_DA_CULTURA = "BLOCO_DA_CULTURA"
+DECLARACAO_DE_PRODUTO = "DECLARACAO_DE_PRODUTO"
+#: Os UNICOS niveis de ligacao que deixam um uso sair AUTORIZADO. Os consumidores leem daqui.
+NIVEIS_QUE_AUTORIZAM = (LINHA_DA_TABELA, BLOCO_DA_CULTURA)
 
 
 class ReferenciaIlegivel(Exception):
@@ -269,6 +285,25 @@ def _estado_do_uso(ref: dict) -> tuple:
     return AUTORIZADO_NA_BULA_LIDA, None
 
 
+def autorizacao_do_uso(uso: dict, estado_frescor) -> tuple:
+    """-> (AUTORIZADO_NA_BULA_LIDA | A_CONFIRMAR, porque). A REGRA UNICA de um uso lido.
+
+    Duas condicoes, as duas daqui: o frescor da edicao (D117) e o GRAO do uso — so
+    LINHA_DA_TABELA e BLOCO_DA_CULTURA unem cultura e alvo no papel. DECLARACAO_DE_PRODUTO
+    (listas separadas) e nivel ausente ficam A_CONFIRMAR. Nunca devolve «nao autoriza».
+    """
+    if estado_frescor == AUTORIZACAO_A_CONFIRMAR:
+        return A_CONFIRMAR, ("edicao sem checagem ha >= %d dias (D117): a autorizacao fica a confirmar"
+                             % DIAS_AUTORIZACAO_A_CONFIRMAR)
+    nivel = (uso or {}).get("LINK_LEVEL", NAO_SEI)
+    if nivel not in NIVEIS_QUE_AUTORIZAM:
+        return A_CONFIRMAR, (
+            "GRAO: DECLARACAO_DE_PRODUTO — cultura e alvo em listas separadas do rotulo; espectro do "
+            "produto nao e espectro na cultura" if nivel == DECLARACAO_DE_PRODUTO else
+            "GRAO: nivel de ligacao %r nao prova que a bula une cultura e alvo" % (nivel,))
+    return AUTORIZADO_NA_BULA_LIDA, None
+
+
 def _aviso(ref: dict):
     r = ref["REGISTRO"]
     if r["ESTADO_FRESCOR"] == FRESCA:
@@ -304,19 +339,22 @@ def autorizados(ref: dict, cultura, alvo=None) -> dict:
                     PORQUE="o alvo %r nao esta escrito nesta forma em nenhuma bula lida. NAO "
                            "quer dizer que nao ha produto." % (alvo,))
     ativos, leituras = _ativos(ref), _leituras(ref)
-    estado_uso, porque_uso = _estado_do_uso(ref)
+    porque_uso = _estado_do_uso(ref)[1]
+    frescor = ref["REGISTRO"]["ESTADO_FRESCOR"]
     produtos = []
     for u in usos:
         if u["CROP_ON_LABEL"] != c or (a is not None and u["TARGET_ON_LABEL"] != a):
             continue
         if u["REGISTRATION_NUMBER"] not in ativos:
             continue
+        estado_u, porque_u = autorizacao_do_uso(u, frescor)
         produtos.append({"USE_ID": u["USE_ID"], "REGISTRATION_NUMBER": u["REGISTRATION_NUMBER"],
                          "ADAMA_PRODUCT_ID": u["ADAMA_PRODUCT_ID"],
                          "NOME_NA_BULA": u["OBSERVED_PRODUCT_NAME"],
                          "CULTURA": u["CROP_ON_LABEL"], "ALVO": u["TARGET_ON_LABEL"],
                          "LINK_LEVEL": u.get("LINK_LEVEL", NAO_SEI),
-                         "ESTADO": estado_uso, "USOS_LIDOS_CONTRA": u.get("SOURCE_SNAPSHOT", NAO_SEI)})
+                         "ESTADO": estado_u, "PORQUE": porque_u,
+                         "USOS_LIDOS_CONTRA": u.get("SOURCE_SNAPSHOT", NAO_SEI)})
     # As bulas ativas que ninguem leu: podem cobrir o par. A_CONFIRMAR, nunca «nao».
     nao_lidas = sorted(n for n in ativos
                        if not (leituras.get(n) or {}).get("LABEL_WAS_READ"))
@@ -324,15 +362,19 @@ def autorizados(ref: dict, cultura, alvo=None) -> dict:
                    "ESTADO": A_CONFIRMAR,
                    "PORQUE": "registo ativo nesta edicao cuja bula nao foi lida (ou foi lida sem "
                              "tabela): pode autorizar o par, nao sabemos. Nunca «nao autoriza»."}
-    if produtos:
-        estado = estado_uso
+    so_declaracao = bool(produtos) and all(p["ESTADO"] == A_CONFIRMAR for p in produtos)
+    if any(p["ESTADO"] == AUTORIZADO_NA_BULA_LIDA for p in produtos):
+        estado = AUTORIZADO_NA_BULA_LIDA
+    elif produtos:
+        estado = A_CONFIRMAR
     else:
         estado = A_CONFIRMAR if nao_lidas else NAO_SEI
     return dict(base, ESTADO=estado, PRODUTOS=produtos, A_CONFIRMAR=a_confirmar,
                 AVISO_DE_FRESCOR=_aviso(ref),
-                PORQUE=porque_uso or ("nenhum uso lido casa; %d bulas ativas nao lidas ficam a "
-                                      "confirmar — ausencia NA NOSSA LEITURA" % len(nao_lidas)
-                                      if not produtos else None),
+                PORQUE=porque_uso or (produtos[0]["PORQUE"] if so_declaracao else None)
+                or ("nenhum uso lido casa; %d bulas ativas nao lidas ficam a "
+                    "confirmar — ausencia NA NOSSA LEITURA" % len(nao_lidas)
+                    if not produtos else None),
                 NAO_PROVA="a bula autoriza o uso. NAO diz que o produto esta a venda hoje, "
                           "nem dose, nem que foi recomendado.")
 
@@ -394,19 +436,32 @@ def por_alvo(ref: dict, alvo) -> dict:
         return dict(base, ESTADO=NAO_SEI, REGISTOS=[],
                     PORQUE="o alvo %r nao esta escrito nesta forma em nenhuma bula lida" % (alvo,))
     ativos = _ativos(ref)
-    estado_uso, porque = _estado_do_uso(ref)
+    porque = _estado_do_uso(ref)[1]
+    frescor = ref["REGISTRO"]["ESTADO_FRESCOR"]
     por = {}
     for u in livro(ref, "AUTHORIZED-USES"):
         if u["TARGET_ON_LABEL"] == a and u["REGISTRATION_NUMBER"] in ativos:
             x = por.setdefault(u["REGISTRATION_NUMBER"], {
                 "REGISTRATION_NUMBER": u["REGISTRATION_NUMBER"], "NOME_NA_BULA": u["OBSERVED_PRODUCT_NAME"],
-                "ADAMA_PRODUCT_ID": u["ADAMA_PRODUCT_ID"], "CULTURAS_NA_BULA": set(), "ESTADO": estado_uso})
-            x["CULTURAS_NA_BULA"].add(u["CROP_ON_LABEL"])
-    registos = [dict(x, CULTURAS_NA_BULA=sorted(x["CULTURAS_NA_BULA"])) for _, x in sorted(por.items())]
-    return dict(base, ESTADO=(estado_uso if registos else A_CONFIRMAR), REGISTOS=registos,
+                "ADAMA_PRODUCT_ID": u["ADAMA_PRODUCT_ID"], "CULTURAS_NA_BULA": set(),
+                "CULTURAS_SO_DECLARADAS": set(), "ESTADO": A_CONFIRMAR})
+            estado_u, _ = autorizacao_do_uso(u, frescor)
+            if estado_u == AUTORIZADO_NA_BULA_LIDA:
+                x["ESTADO"] = AUTORIZADO_NA_BULA_LIDA
+            # a cultura so se diz «na bula» com o alvo quando o grao as une; declaracao fica a parte
+            (x["CULTURAS_NA_BULA"] if u.get("LINK_LEVEL") in NIVEIS_QUE_AUTORIZAM
+             else x["CULTURAS_SO_DECLARADAS"]).add(u["CROP_ON_LABEL"])
+    registos = [dict(x, CULTURAS_NA_BULA=sorted(x["CULTURAS_NA_BULA"]),
+                     CULTURAS_SO_DECLARADAS=sorted(x["CULTURAS_SO_DECLARADAS"] - x["CULTURAS_NA_BULA"]))
+                for _, x in sorted(por.items())]
+    estado = (AUTORIZADO_NA_BULA_LIDA if any(r["ESTADO"] == AUTORIZADO_NA_BULA_LIDA for r in registos)
+              else A_CONFIRMAR)
+    return dict(base, ESTADO=estado, REGISTOS=registos,
                 AVISO_DE_FRESCOR=_aviso(ref),
-                PORQUE=porque or (None if registos else "nenhum registo ativo com bula lida nomeia o alvo; "
-                                  "bulas nao lidas ficam a confirmar"))
+                PORQUE=porque or (("GRAO: o alvo so aparece em DECLARACAO_DE_PRODUTO (listas separadas do "
+                                   "rotulo): a confirmar" if estado == A_CONFIRMAR else None) if registos
+                                  else "nenhum registo ativo com bula lida nomeia o alvo; "
+                                       "bulas nao lidas ficam a confirmar"))
 
 
 def no_catalogo(ref: dict, adama_product_id) -> dict:
