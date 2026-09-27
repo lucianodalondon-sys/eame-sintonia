@@ -98,14 +98,17 @@ class NadaMaisMuda(unittest.TestCase):
         self.assertEqual("", tf.descricao_do_youtube(b))
 
 
-class AReceitaSoMudaOndeOTextoMudou(unittest.TestCase):
-    def test_pagina_sem_video_mantem_a_receita_de_antes(self):
-        self.assertEqual({"TEXT_KIND", "TEXT_RELATION", "TEXT_BASIS", "DERIVATION_METHOD", "TEXT_OWNER"},
-                         set(ex.receita(NadaMaisMuda.PAGINA)))
+class AReceitaNovaEVersaoNova(unittest.TestCase):
+    """D79: receita nova = versao nova. A "3" declara SEMPRE o dono da descricao (a receita e
+    do extractor, nao da pagina); `tests/test_a_receita_tem_versao.py` guarda o hash."""
 
-    def test_pagina_de_video_declara_o_dono_da_descricao(self):
-        r = ex.receita(_amostra())
-        self.assertEqual("coleta/texto_fonte.py::descricao_do_youtube", r.get("VIDEO_DESCRIPTION_OWNER"))
+    def test_a_versao_3_declara_o_dono_da_descricao(self):
+        self.assertEqual("3", ex.EXECUTOR_VERSION)
+        self.assertEqual("coleta/texto_fonte.py::descricao_do_youtube",
+                         ex.receita().get("VIDEO_DESCRIPTION_OWNER"))
+
+    def test_a_receita_nao_depende_da_pagina(self):
+        self.assertEqual(ex.receita(), ex.receita())
 
 
 if __name__ == "__main__":
