@@ -16,7 +16,9 @@ PY_CURADORIA = ["test_canario_detalhe", "test_retirar_duplicadas_d49", "test_ret
                 "test_pagina_boletim", "test_boletim_data_local", "test_receita_identidade", "test_strip_suffix",
                 "test_receita_pdf", "test_canario_pdf", "test_canario_hrefs", "test_robo_diag",
                 # INTEGRA-NOITE lote 2
-                "test_url_com_acento", "test_colher_prova_territorio", "test_sonda_um_pedido"]
+                "test_url_com_acento", "test_colher_prova_territorio", "test_sonda_um_pedido",
+                # INTEGRA-NOITE lote 4 (micro-prova-lote2b)
+                "test_micro_prova_passo9"]
 PY_TESTS = ["test_importar_do_coletor", "test_legacy_colchetes", "test_legacy_recheck", "test_onboardar_rotas_provadas",
             "test_onda3_b_inerte", "test_receita_web_t8_t9_t12", "test_pagina_boletim_local",
             # INTEGRA-NOITE lote 1: os testes que cada pacote traz ou altera
@@ -42,10 +44,17 @@ PY_TESTS = ["test_importar_do_coletor", "test_legacy_colchetes", "test_legacy_re
             "test_maestro_social", "test_plano_onda_social_c2", "test_prova_de_post_de_pessoa", "test_video_na_sala",
             # extratores-v2-juntos
             "test_boletim_do_campo", "test_extrator_evento_v2", "test_extrator_lugar_v2", "test_fato_do_texto",
-            "test_periodo_e_chaves"]
+            "test_periodo_e_chaves",
+            # INTEGRA-NOITE lote 4: os testes que cada pacote traz ou altera
+            "test_captura_xhr", "test_comunicacao_concorrenza", "test_contador_24h", "test_feed_discovery",
+            "test_independencia_de_fontes", "test_italia_na_porta_canonica", "test_lista_mestra_mur",
+            "test_listas_oficiais", "test_orcid_lote", "test_pesquisadores_t6", "test_preco_de_mercado",
+            "test_scrap_evolucao", "test_seguir_pesquisadores", "test_t6_para_sala", "test_voce_dal_campo"]
 NODE = ["regras/motor_de_rota_test.mjs", "regras/boletim_data_local_test.mjs", "regras/recollection_test.mjs",
         "regras/incrementalidade_test.mjs", "regras/paridade_test.mjs", "regras/italy_contract_test.mjs",
-        "provas/boletins_data_local/boletim_pdf_local.mjs", "provas/janela_formas/pagina_boletim_local.mjs"]
+        "provas/boletins_data_local/boletim_pdf_local.mjs", "provas/janela_formas/pagina_boletim_local.mjs",
+        # INTEGRA-NOITE lote 4
+        "regras/feed_discovery_test.mjs"]
 # REDE FECHADA (D41.3): proxy numa porta morta — nenhum teste sai para a rede, nem por engano
 env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", NODE_DISABLE_COMPILE_CACHE="1",
            HTTP_PROXY="http://127.0.0.1:9", HTTPS_PROXY="http://127.0.0.1:9", http_proxy="http://127.0.0.1:9",
