@@ -157,8 +157,8 @@ def o_que_o_dono_faz(d: dict) -> list:
                       "(APIs e servicos > Biblioteca > Custom Search API > Ativar).")
     if d.get("CX") in ("AUSENTE", "OBRIGATORIO_E_AUSENTE", "INVALIDO", "NAO_SEI"):
         passos.append("Em programmablesearchengine.google.com, criar um mecanismo de busca (ou abrir o que ja "
-                      "existe), copiar o 'ID do mecanismo de pesquisa' (esse ID e o CX) e grava-lo no GitHub como secret "
-                      "GOOGLE_CSE_CX (Settings > Secrets and variables > Actions).")
+                      "existe), copiar o 'ID do mecanismo de pesquisa' (esse ID e o CX; nao e senha) e passa-lo a "
+                      "coordenacao, que o poe no campo CX de ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json.")
     if "clientes novos" in (d.get("PORQUE") or ""):
         passos.append("Confirmar com o Google se este projeto ainda pode usar a Custom Search JSON API; se nao, "
                       "a alternativa e outro motor oficial (ex.: Brave Search API) — decisao do dono.")

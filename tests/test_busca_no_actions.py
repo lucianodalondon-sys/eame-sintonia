@@ -83,7 +83,7 @@ class B_ODiagnostico(unittest.TestCase):
         d = API.ler_diagnostico(*SEM_CX, com_cx=False)
         self.assertEqual((d["API_ATIVA"], d["CHAVE_PODE_USAR_A_API"], d["CX"]), ("SIM", "SIM", "OBRIGATORIO_E_AUSENTE"))
         self.assertIn("OBRIGATORIO (medido)", d["PORQUE"])
-        self.assertTrue(any("GOOGLE_CSE_CX" in p for p in API.o_que_o_dono_faz(d)))
+        self.assertTrue(any("PEDIDO-BUSCA-GOOGLE.json" in p for p in API.o_que_o_dono_faz(d)))
 
     def test_cx_dado_e_recusado(self):
         self.assertEqual(API.ler_diagnostico(*SEM_CX, com_cx=True)["CX"], "INVALIDO")
