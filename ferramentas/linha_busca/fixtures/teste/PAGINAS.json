@@ -1,0 +1,22 @@
+{
+ "https://www.servizio-vite.example.it/bollettino-21": {
+  "FICHEIRO": "boletim-vite.html",
+  "CONTENT_TYPE": "text/html"
+ },
+ "https://www.servizio-vite.example.it/bollettini/": {
+  "FICHEIRO": "capa-indice.html",
+  "CONTENT_TYPE": "text/html"
+ },
+ "https://www.proibido.example.it/bollettino": {
+  "ERRO": "RotaNaoPermitida",
+  "PORQUE": "robots.txt do host barra este caminho"
+ },
+ "https://www.cheio.example.it/bollettino": {
+  "ERRO": "TetoDoDominio",
+  "PORQUE": "teto de 5 pedidos"
+ },
+ "https://www.recusada.example.it/pagina": {
+  "FICHEIRO": "boletim-vite.html",
+  "CONTENT_TYPE": "text/html"
+ }
+}
