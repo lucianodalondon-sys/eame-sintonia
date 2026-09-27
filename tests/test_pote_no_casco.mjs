@@ -257,6 +257,8 @@ const POTE2 = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/PO
 for (const [nome, mexer] of [
   ['sinal solto dito SERIE_MEDIDA', (p) => { p.COMPARTIMENTOS.market.OBJETOS[0].MERCADO.LEITURA = 'SERIE_MEDIDA'; }],
   ['Polso sem leitura de mercado', (p) => { delete p.COMPARTIMENTOS.market.OBJETOS[0].MERCADO; }],
+  ['serie de um ponto so dita SERIE_MEDIDA', (p) => { const m = p.COMPARTIMENTOS.market.OBJETOS[0].MERCADO;
+    m.LEITURA = 'SERIE_MEDIDA'; m.SERIE = [{ PERIOD: '2026-W37', PRICE: 'SINT-210', UNIT: 'EUR/t' }]; }],
   ['prova sem URL', (p) => { delete p.COMPARTIMENTOS.market.OBJETOS[0].PROVA[0].URL; }],
   ['prova sem PUBLISHED_AT', (p) => { delete p.COMPARTIMENTOS.market.OBJETOS[0].PROVA[0].PUBLISHED_AT; }],
   ['URL NAO SEI sem base', (p) => { const q = p.COMPARTIMENTOS.meeting.OBJETOS[0].PROVA[0]; q.URL = 'NAO SEI'; q.URL_BASE = 'NAO SEI'; }],

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-27T17:42:50+00:00",
-  "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-  "BRANCH": "claude/lote4-final-integration-l02r5q",
+  "GENERATED_AT": "2026-09-27T18:45:54+00:00",
+  "HEAD": "ce147210869067bd3c1f9760a71a4867ddae6dfc",
+  "BRANCH": "claude/pote-v2-unico-contract-y8o1pi",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
-  "FICHEIROS_NA_IMPRESSAO": 4087,
+  "SOURCE_TREE_FINGERPRINT": "58615448ce2c48c5eae40887a371830096f88db085d32d0ff454ef8f15488aae",
+  "FICHEIROS_NA_IMPRESSAO": 4098,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2043,7 +2043,7 @@
    {
     "PATH": "italia-portale/client/sintonia-pote-casco.js",
     "PAPEL": "FONTE",
-    "VERSAO": "786d76dc9fd165fc4bfad6f8ac1120ae7d659bf5",
+    "VERSAO": "0d1a3dbbb423905dc4d37a5b12810407778f0c23",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5109,14 +5109,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
+    "VERSAO": "58615448ce2c48c5eae40887a371830096f88db085d32d0ff454ef8f15488aae",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
+    "VERSAO": "58615448ce2c48c5eae40887a371830096f88db085d32d0ff454ef8f15488aae",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6985,7 +6985,14 @@
    {
     "PATH": "tests/test_pote_intelligence_casco.py",
     "PAPEL": "FONTE",
-    "VERSAO": "7e7736df695cf463cb9bbbc2715fa36af3923dfd",
+    "VERSAO": "e420cd84dea3bfec4f44637d9c7ddf479176cff2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_pote_v2_unico.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "33de48cbadab6fb34fe629735908de140c11343e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7578,8 +7585,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1077,
-  "INPUTS_DIGEST": "68a2e799cd43672b60733a8ef42a5dffc247835d068670c53f27eba7a8f3461d",
+  "INPUTS_COUNT": 1078,
+  "INPUTS_DIGEST": "4ad3fe986a8da5cdf80c53bf0cca6e0c1fdbe714a3491d92ad6648735ba799b1",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7605,15 +7612,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 605,
+  "DOCUMENTOS_LIDOS": 607,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "31d408822eda3515a09c99449db780842b25b230ce7c2a42c8652d6e88eef9eb",
-  "SEMANTIC_HASH": "a36729b51950f0c9c17c69e035e530cef2675a0c023d7566915662a113ff981c"
+  "MEASUREMENT_HASH": "b6a7a32d3c74e1e00c08f3f99c2c4beac379aa68d57a502f6096ec81a2ca5a37",
+  "SEMANTIC_HASH": "76ef0078113a30aa73ec55e2f8dad83d733bfb74d9ad3697a701bca33add43b6"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -34857,6 +34864,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "pacote/validar_pote_v2.py",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -41678,8 +41693,16 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/pote_v2/mutantes_pote_v2_unico.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-POTE-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_pote_no_casco.mjs",
-      "LINHA": 26,
+      "LINHA": 31,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-POTE-CASCO",
@@ -41928,6 +41951,22 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -41945,7 +41984,23 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_pote_intelligence_casco.py",
-      "LINHA": 299,
+      "LINHA": 305,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 333,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 333,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -44617,7 +44672,15 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_pote_intelligence_casco.py",
-      "LINHA": 446,
+      "LINHA": 454,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_pote_v2_unico.py",
+      "LINHA": 41,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
@@ -54365,6 +54428,30 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/pote_v2/mutantes_pote_v2_unico.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/pote_v2/mutantes_pote_v2_unico.py",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/pote_v2/mutantes_pote_v2_unico.py",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -63467,6 +63554,7 @@
    "SO_MEDEM_ESTE": [
     "provas/_mutantes_pote_casco.py",
     "provas/demanda_de_dados_da_italia.py",
+    "provas/pote_v2/mutantes_pote_v2_unico.py",
     "system-map/scripts/scan_casco.py",
     "system-map/scripts/scan_repo.py",
     "tests/test_a_demanda_de_dados_da_italia.py",
@@ -68074,6 +68162,7 @@
     "tests/test_portoes_da_collection.py",
     "tests/test_portoes_eame.py",
     "tests/test_pote_intelligence_casco.py",
+    "tests/test_pote_v2_unico.py",
     "tests/test_preco_de_mercado.py",
     "tests/test_preflight_de_egresso.py",
     "tests/test_preservar_coleta.py",
@@ -68182,6 +68271,7 @@
     "provas/o_forward_conta_se.py",
     "provas/onda_web_mutacao.py",
     "provas/os_portoes_da_collection.py",
+    "provas/pote_v2/mutantes_pote_v2_unico.py",
     "provas/preservar_coleta_no_postgres.py",
     "provas/rastro_no_postgres.py",
     "provas/raw_entre_jobs.py",

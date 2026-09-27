@@ -70,7 +70,7 @@ M = [
     ("V13 o Registro volta a depender do tempo",
      "    if especie == RENDIMENTO:\n        return False\n", "    if especie == RENDIMENTO:\n        return True\n"),
     ("V14 todo uso dispensa o tempo",
-     "            return False\n    return True\n", "            return False\n    return False\n"),
+     "        return False\n    return True\n\n\ndef so_tempo", "        return False\n    return False\n\n\ndef so_tempo"),
     ("V15 proveniencia dispensada (so_tempo aceita tudo)",
      "    return bool(falta) and all(f == \"FACT_TIME\" or f.startswith(\"FACT_TIME:\") for f in falta)\n",
      "    return True\n"),
