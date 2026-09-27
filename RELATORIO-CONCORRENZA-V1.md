@@ -1,7 +1,7 @@
 # RELATÓRIO — NUVEM-CONCORRENZA-V1
 
-Ramo `nuvem-concorrenza-v1`. Feito sobre `69b0e23f`, reaplicado sobre `278cd489` (coordenação 14:00) e **de novo sobre o vivo
-`dc0de726`** (coordenação 17:35); testes e mutação medidos de novo em cada base. Sem rede externa. Nenhum livro vivo foi
+Ramo `nuvem-concorrenza-v1`. Feito sobre `69b0e23f`, reaplicado sobre `278cd489` (coordenação 14:00) sobre `dc0de726` (17:35) e **por fim sobre o vivo
+`554c1ec1`** (coordenação 22:25, base do LOTE 4); testes e mutação medidos de novo em cada base. Sem rede externa. Nenhum livro vivo foi
 alterado (`curadoria/*-V1.json`, `data/collection-ledger`, `candidatas/FONTES-CANDIDATAS.json` só foram
 **lidos**). Dados da Sala: nenhum — só o que está no repo e casos sintéticos marcados `SINTETICO`.
 
@@ -72,7 +72,7 @@ vem cortado em 700 letras (4 produtos do pacote não estão no texto que o repo 
 Módulos: `test_comunicacao`, `test_c7_lugar_do_fato`, `test_reel_transcricao`,
 `test_scrap_convergencia`, `test_hero_cases_v1` (+ novo `test_comunicacao_concorrenza`).
 
-- **Antes (vivo dc0de726 puro, numa cópia só-leitura; o mesmo em 278cd489 e 69b0e23f):** 2 falhas —
+- **Antes (vivo 554c1ec1 puro, numa cópia só-leitura; o mesmo em dc0de726, 278cd489 e 69b0e23f):** 2 falhas —
   `test_todo_artefato_canonico_existe_e_bate` (hero_cases) e `test_zero_colisoes_de_nome_curto`
   (scrap_convergencia, `mutacao.py` em 3 gavetas — herdada).
 - **Depois:** as **mesmas 2**, pelo nome. **0 falhas novas.** Novo módulo: **31/31 OK**.
@@ -83,7 +83,7 @@ Módulos: `test_comunicacao`, `test_c7_lugar_do_fato`, `test_reel_transcricao`,
 
 ## 3. Mutação — `provas/mutacao_concorrenza.py`
 
-**24/24 colhidos** (em 69b0e23f, em 278cd489 e em dc0de726). Depois do rebase o Git trouxe os
+**24/24 colhidos** (em 69b0e23f, 278cd489, dc0de726 e 554c1ec1). Depois do rebase o Git trouxe os
 ficheiros com fim de linha CRLF e 2 alvos de duas linhas deixaram de casar (`ALVO_NAO_UNICO (0)` —
 não plantados, não «sobreviventes»); o script passou a aceitar os dois fins de linha. Um defeito de cada vez; reposição byte a byte (sem `git checkout`); `-B` e
 `__pycache__` apagado a cada mutante. Cobre: regra do nome (caminho, fim de palavra, casa), substância
@@ -99,19 +99,20 @@ lugar, acréscimo desligado, «pero» espanhol, lista de marcas divergente do pa
   Na 1.ª passagem (sobre 69b0e23f) pus a prova de mutação em `C-COLETA-PUBLICA` e o VALIDAR reprovou
   `P2_PASTA_BATE_COM_MAPA` (pasta `provas/` ≠ peça em `coleta/`); corrigido.
 - Sobre 69b0e23f: REGERAR `CADEIA=OK`, VALIDAR `SYSTEM_MAP_CHECK=PASS`, carimbo `IGUAL`.
-- Sobre 278cd489 e depois dc0de726: os gerados antigos foram largados e a cadeia correu de novo depois deste relatório
-  (o relatório é ficheiro rastreado e move o carimbo). O resultado final — `CADEIA=OK`,
-  `SYSTEM_MAP_CHECK` e `IMPRESSAO_DO_CARIMBO` — está no commit «mapa: regerado pela cadeia» logo a
-  seguir a este e na mensagem de entrega.
+- Sobre as bases seguintes (278cd489 → dc0de726 → 554c1ec1) a cadeia **não** correu nesta missão:
+  por ordem da coordenação (22:05) a entrega é **PRONTO-SEM-MAPA** e o mapa é regenerado uma vez só
+  no LOTE 4 da INTEGRA. Os dois ficheiros novos já estão declarados; o carimbo desta árvore dá
+  `DIFERENTE` até essa regeneração.
 - O VALIDAR reescreve gerados só com HEAD/hora; esse ruído é guardado com `git stash` de nome antes de
   descartar (1.º: «nuvem-concorrenza-v1-ruido-do-validar-2f4339b6» =
   `5218c0bcccf99c2651935205cdd20621fa490007`).
 
 ## 5. Commits e cópia
 
-Ramo reaplicado sobre `dc0de726`: extrator+regra, mutação, relatório, mapa declarado, mapa regerado.
+Ramo reaplicado sobre `554c1ec1`: extrator+regra, mutação, relatório, mapa declarado (sem gerados).
 A linha anterior (sobre 69b0e23f) ficou guardada no ramo local `concorrenza-v1-antes-do-rebase`
-(`67522953`); a linha sobre 278cd489 em `concorrenza-v1-antes-do-rebase-dc0` (`34dcb755`). O SHA final vai na mensagem de entrega (este ficheiro não pode conter o próprio SHA).
+(`67522953`); a linha sobre 278cd489 em `concorrenza-v1-antes-do-rebase-dc0` (`34dcb755`); a linha sobre dc0de726 em
+`concorrenza-v1-antes-do-rebase-554` (`778c21ff`). O SHA final vai na mensagem de entrega (este ficheiro não pode conter o próprio SHA).
 
 ## EM PALAVRAS SIMPLES
 
