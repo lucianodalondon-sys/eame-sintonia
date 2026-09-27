@@ -1,7 +1,7 @@
 # RELATÓRIO — NUVEM-CONCORRENZA-V1
 
-Ramo `nuvem-concorrenza-v1`. Feito sobre `69b0e23f`, reaplicado sobre `278cd489` (coordenação 14:00) sobre `dc0de726` (17:35) e **por fim sobre o vivo
-`554c1ec1`** (coordenação 22:25, base do LOTE 4); testes e mutação medidos de novo em cada base. Sem rede externa. Nenhum livro vivo foi
+Ramo `nuvem-concorrenza-v1`. Feito sobre `69b0e23f`, reaplicado sobre `278cd489` (coordenação 14:00) sobre `dc0de726` (17:35), sobre `554c1ec1` (22:25) e **por fim sobre o vivo `2ef6fef8`**
+(coordenação 27/09 10:52); testes e mutação medidos de novo em cada base. Sem rede externa. Nenhum livro vivo foi
 alterado (`curadoria/*-V1.json`, `data/collection-ledger`, `candidatas/FONTES-CANDIDATAS.json` só foram
 **lidos**). Dados da Sala: nenhum — só o que está no repo e casos sintéticos marcados `SINTETICO`.
 
@@ -72,7 +72,7 @@ vem cortado em 700 letras (4 produtos do pacote não estão no texto que o repo 
 Módulos: `test_comunicacao`, `test_c7_lugar_do_fato`, `test_reel_transcricao`,
 `test_scrap_convergencia`, `test_hero_cases_v1` (+ novo `test_comunicacao_concorrenza`).
 
-- **Antes (vivo 554c1ec1 puro, numa cópia só-leitura; o mesmo em dc0de726, 278cd489 e 69b0e23f):** 2 falhas —
+- **Antes (vivo 2ef6fef8 puro, numa cópia só-leitura: 148 testes; o mesmo em 554c1ec1, dc0de726, 278cd489 e 69b0e23f):** 2 falhas —
   `test_todo_artefato_canonico_existe_e_bate` (hero_cases) e `test_zero_colisoes_de_nome_curto`
   (scrap_convergencia, `mutacao.py` em 3 gavetas — herdada).
 - **Depois:** as **mesmas 2**, pelo nome. **0 falhas novas.** Novo módulo: **31/31 OK**.
@@ -83,7 +83,7 @@ Módulos: `test_comunicacao`, `test_c7_lugar_do_fato`, `test_reel_transcricao`,
 
 ## 3. Mutação — `provas/mutacao_concorrenza.py`
 
-**24/24 colhidos** (em 69b0e23f, 278cd489, dc0de726 e 554c1ec1). Depois do rebase o Git trouxe os
+**24/24 colhidos** (em 69b0e23f, 278cd489, dc0de726, 554c1ec1 e 2ef6fef8). Depois do rebase o Git trouxe os
 ficheiros com fim de linha CRLF e 2 alvos de duas linhas deixaram de casar (`ALVO_NAO_UNICO (0)` —
 não plantados, não «sobreviventes»); o script passou a aceitar os dois fins de linha. Um defeito de cada vez; reposição byte a byte (sem `git checkout`); `-B` e
 `__pycache__` apagado a cada mutante. Cobre: regra do nome (caminho, fim de palavra, casa), substância
@@ -109,10 +109,10 @@ lugar, acréscimo desligado, «pero» espanhol, lista de marcas divergente do pa
 
 ## 5. Commits e cópia
 
-Ramo reaplicado sobre `554c1ec1`: extrator+regra, mutação, relatório, mapa declarado (sem gerados).
+Ramo reaplicado sobre `2ef6fef8`: extrator+regra, mutação, relatório, mapa declarado (sem gerados).
 A linha anterior (sobre 69b0e23f) ficou guardada no ramo local `concorrenza-v1-antes-do-rebase`
 (`67522953`); a linha sobre 278cd489 em `concorrenza-v1-antes-do-rebase-dc0` (`34dcb755`); a linha sobre dc0de726 em
-`concorrenza-v1-antes-do-rebase-554` (`778c21ff`). O SHA final vai na mensagem de entrega (este ficheiro não pode conter o próprio SHA).
+`concorrenza-v1-antes-do-rebase-554` (`778c21ff`); a linha sobre 554c1ec1 em `concorrenza-v1-antes-do-rebase-2ef` (`f5d097d2`). O SHA final vai na mensagem de entrega (este ficheiro não pode conter o próprio SHA).
 
 ## EM PALAVRAS SIMPLES
 
