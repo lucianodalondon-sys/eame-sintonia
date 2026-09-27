@@ -1,0 +1,91 @@
+# -*- coding: utf-8 -*-
+# FRONTEIRAS-AUDITORIA (D109) · varredura SO LEITURA do know-how e das duas Biblias num commit dado.
+#   PYTHONUTF8=1 python varrer.py.txt 2ef6fef8     -> MISTURAS.json + resumo no ecra
+# Le os ficheiros por `git show <commit>:<caminho>` (nao a arvore de trabalho). Nao escreve em nenhum dos tres.
+# Os padroes sao DECLARADOS aqui e sao heuristica: a lista e para ler, nao um veredito automatico.
+import collections
+import json
+import os
+import re
+import subprocess
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+COMMIT = sys.argv[1] if len(sys.argv) > 1 else "2ef6fef8"
+DOCS = {"KH": "SINTONIA-EAME-KNOW-HOW.md", "COL": "BIBLIA-CANONICA-DA-COLETA.md",
+        "INT": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md"}
+
+# 1 · cabecalho normativo (regra) — num know-how e mistura; numa Biblia e o sitio certo
+NORMA_CAB = re.compile(r"^#{1,6} .*(\bLEI\b|\bLEIS\b|\bREGRA|\bDEVE\b|\bNUNCA\b|PROIBID|OBRIGAT|INVARIANT|CANÔNIC|CANONIC)", re.I)
+NORMA_PARAG = re.compile(r"^\*\*(A REGRA|REGRA|LEI)[^*]{0,40}\.?\*\*")
+# 2 · dado agronomico (organismo, doenca, evento de campo, observacao de campo)
+AGRO = re.compile(r"(bactrocera|ceratitis|prays\b|halyomorpha|cimice|mosca dell|mosca della frutta|mosca delle olive|"
+                  r"peronospor|oidio|botrit|flavescenza|xylella|popillia|tignol|lobesia|carpocapsa|cydia|afid[ei]|"
+                  r"fusari|ticchiolatura|scaphoideus|tuta absoluta|drosophila suzukii|grandinat|gelata|siccit|alluvion|"
+                  r"catture|infestazion|punture|soglia di intervento|limiar de interven|"
+                  r"\bolivo\b|\bvite\b|vigneti|frumento|grano duro|pomodoro|agrumi|\bmele\b|nocciol|kiwi|actinidia|"
+                  r"prezz[oi]|€/t|euro/q|quintal|"
+                  r"\bCaffi\b|\bSalotti\b|Ioriatti|Zappal|\bAnfora\b|\bTonina\b|\bFedele\b)", re.I)
+AGRO_FACTO = re.compile(r"(\d+\s*%|\bn\.\s*\d+|\d+\s*(catture|capturas)|\d{1,2}/\d{1,2}/20\d\d|\d{1,2}\s+(gen|feb|mar|apr|mag|giu|lug|ago|set|ott|nov|dic)\w*\s+20\d\d)", re.I)
+# 3 · diario / medicao / bug / relatorio (numa Biblia e mistura; no know-how e o sitio certo)
+DIARIO = re.compile(r"(\bMEDIDO\b|\bmedido em\b|\bMedido em\b|\bmedimos\b|\b20\d\d-\d\d-\d\d\b|\bcommit\b|\bbug\b|"
+                    r"\bdefeito\b|\bcorrigid[oa] em\b|\bmiss[aã]o\b|\bHEAD\b|\b[0-9a-f]{8,40}\b|\bontem\b|\bhoje\b)", re.I)
+
+
+def ler(caminho):
+    return subprocess.run(["git", "show", "%s:%s" % (COMMIT, caminho)], capture_output=True,
+                          check=True).stdout.decode("utf-8").splitlines()
+
+
+def seccoes(linhas, chave):
+    atual, fora = "(topo)", []
+    for ln in linhas:
+        if chave == "KH" and re.match(r"^# ", ln):
+            atual = ln[2:80]
+        elif chave != "KH" and re.match(r"^(#{1,2} (PARTE|COL-LAW|INT-LAW|\d+\.)|## \d+\.\d)", ln):
+            atual = ln.lstrip("# ")[:80]
+        fora.append(atual)
+    return fora
+
+
+def main():
+    achados = []
+    for chave, caminho in DOCS.items():
+        L = ler(caminho)
+        S = seccoes(L, chave)
+        cerca = False
+        for i, ln in enumerate(L, 1):
+            if ln.startswith("```"):
+                cerca = not cerca
+            base = {"DOC": caminho, "LINHA": i, "SECCAO": S[i - 1], "TRECHO": ln.strip()[:200]}
+            if chave == "KH":
+                if not cerca and (NORMA_CAB.search(ln) or NORMA_PARAG.search(ln)):
+                    achados.append(dict(base, TIPO="KH_COM_NORMA", CASA_CORRETA="BIBLIA (se for regra oficial) ou KNOW-HOW reescrito como aprendizado",
+                                        GRAVIDADE="MEDIA" if NORMA_CAB.search(ln) else "BAIXA"))
+                if AGRO.search(ln):
+                    facto = bool(AGRO_FACTO.search(ln))
+                    achados.append(dict(base, TIPO="KH_COM_DADO_AGRO", CASA_CORRETA="ITALIAN_AGRO_BRAIN",
+                                        GRAVIDADE="MEDIA" if facto else "BAIXA",
+                                        NOTA="valor/data de campo na linha" if facto else "termo agronomico (pode ser exemplo de engenharia)"))
+            else:
+                if AGRO.search(ln):
+                    achados.append(dict(base, TIPO="BIBLIA_COM_DADO_AGRO", CASA_CORRETA="ITALIAN_AGRO_BRAIN",
+                                        GRAVIDADE="ALTA" if AGRO_FACTO.search(ln) else "MEDIA"))
+                if DIARIO.search(ln) and not ln.startswith("|") or (ln.startswith("|") and re.search(r"\b20\d\d-\d\d-\d\d\b", ln)):
+                    if DIARIO.search(ln):
+                        achados.append(dict(base, TIPO="BIBLIA_COM_DIARIO", CASA_CORRETA="KNOW-HOW / DIARIO-DE-DECISOES / relatorio",
+                                            GRAVIDADE="MEDIA"))
+    json.dump({"COMMIT": COMMIT, "ACHADOS": achados}, open(os.path.join(AQUI, "MISTURAS.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    c = collections.Counter((a["DOC"], a["TIPO"], a["GRAVIDADE"]) for a in achados)
+    for k, v in sorted(c.items()):
+        print("%-45s %-22s %-6s %5d" % (k[0], k[1], k[2], v))
+    for tipo in ("KH_COM_NORMA", "KH_COM_DADO_AGRO", "BIBLIA_COM_DADO_AGRO", "BIBLIA_COM_DIARIO"):
+        sec = collections.Counter((a["DOC"], a["SECCAO"]) for a in achados if a["TIPO"] == tipo)
+        print("\n== %s · top seccoes" % tipo)
+        for (d, s), n in sec.most_common(12):
+            print("   %4d  %s · %s" % (n, d.split("-")[0][:8], s[:80]))
+
+
+if __name__ == "__main__":
+    main()
