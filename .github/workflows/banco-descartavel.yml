@@ -19,6 +19,15 @@
 # ═══════════════════════════════════════════════════════════════════════
 name: banco-descartavel
 
+# Este job le codigo e levanta um Postgres efemero. Nao escreve no repositorio,
+# nao publica artefacto e nao le segredo. O escopo minimo e portanto o de
+# leitura — e escreve-lo e o que impede que a omissao herde, amanha, o que quer
+# que passe a ser o escopo por omissao do repositorio.
+#
+#     PERMISSAO POR OMISSAO E PERMISSAO QUE NINGUEM DECIDIU.
+permissions:
+  contents: read
+
 on:
   push:
     paths:
@@ -29,18 +38,223 @@ on:
       - 'supabase/migrations/022_*.sql'
       - 'supabase/migrations/023_*.sql'
       - 'supabase/migrations/024_*.sql'
+      - 'supabase/migrations/025_*.sql'
+      - 'provas/objeto_e_observacao_no_postgres.py'
+      - 'provas/a_lei_da_fase_10.py'
+      - 'provas/a_fase_10_entra_no_acervo.py'
+      - 'supabase/migrations/026_*.sql'
+      - 'supabase/migrations/027_*.sql'
       - 'medidas/rastro_da_coleta.py'
+      - 'coleta/coleta_checkpoint.py'
+      - 'provas/run_duravel_no_postgres.py'
+      - 'provas/_c106b_filho.py'
+      - 'provas/runtime_comum_no_postgres.py'
+      - 'provas/_c106c_filho.py'
+      - 'coleta/scrap_executor.py'
+      - 'coleta/scrap_registo.py'
       - 'provas/rastro_no_postgres.py'
       - 'provas/social_persistencia_no_postgres.py'
       - 'coleta/social_persistencia.py'
       - 'provas/derived_artifact_no_postgres.py'
       - 'guarda/preservar_derivado.py'
+      # A ROTA FORWARD INTEIRA. Estes eram os ficheiros que a travessia
+      # atravessa e que NAO estavam na lista: mexer neles nao acordava
+      # portao nenhum, e a unica prova ponta-a-ponta da coleta so corria
+      # se um humano se lembrasse dela a mao.
+      - 'coleta/derivacao_forward.py'
+      - 'coleta/rota_forward_documento.py'
+      - 'coleta/executor_texto_de_pdf.py'
+      - 'admissao/admissao.py'
+      - 'leis/telemetria.py'
+      - 'provas/a_rota_m2_atravessa.py'
+      - 'provas/o_scrap_chega_ao_acervo.py'
+      - 'provas/a_linhagem_do_ready_social.py'
+      - 'provas/mutacao_da_linhagem_social.py'
+      - 'provas/as_travas_do_scrap_no_postgres.py'
+      - 'provas/a_repeticao_do_scrap.py'
+      - 'provas/o_retry_do_scrap.py'
+      - 'provas/_e2e02_janela_dois_posts.py'
+      - 'provas/_e2e01_janela_admissivel.py'
+      - 'provas/_flow01_janela_falsa.py'
+      - 'provas/o_fluxo_canonico_do_scrap.py'
+      - 'provas/o_forward_conta_se.py'
+      - 'provas/o_executor_conta_se.py'
+      - 'provas/a_autoridade_da_fonte.py'
+      - 'provas/o_dedupe_tem_constraint.py'
+      - 'provas/inventario_esperado.py'
+      # A SALA DURAVEL. Mexer no dono da sala, na migration dela ou no
+      # preflight tem de acordar a prova que os mede — senao a unica prova
+      # ponta-a-ponta da durabilidade so corre se alguem se lembrar dela.
+      - 'supabase/migrations/031_*.sql'
+      - 'admissao/sala_de_espera.py'
+      - 'superficie/rede.py'
+      - 'provas/a_sala_sobrevive_ao_processo.py'
+      - 'provas/o_egresso_antes_da_aquisicao.py'
+      - 'provas/mutacao_da_sala_duravel.py'
       - 'motor/cadeia_canonica.sh'
       - 'provas/trava_de_drift_de_migration.sh'
+      # A ponte de midia e o executor dela: mudar qualquer um muda o que a
+      # aresta `raw_asset(audio/*) -> derived_artifact` escreve no banco, e
+      # isso so se ve com Postgres a serio.
+      - 'coleta/executor_transcricao_midia.py'
+      - 'provas/a_ponte_de_midia_no_postgres.py'
       - '.github/workflows/banco-descartavel.yml'
   workflow_dispatch:
 
 jobs:
+  # ═════════════════════════════════════════════════════════════════════
+  # A PONTE DE MIDIA — JOB PROPRIO, E A RAZAO E MEDIDA
+  #
+  # Esta prova comecou dentro de `postgres-descartavel`, a seguir a `2g`. Nao
+  # correu nunca: o job aborta no passo `2b6`, e aborta ha dias, em TODAS as
+  # branches — medido a 2026-09-14 em `local-gpu-on-current-collection-v1`,
+  # `collection-to-waiting-room-v1` e mais quatro, sempre no MESMO passo.
+  #
+  #     UM PASSO NOVO ATRAS DE UMA AVARIA ANTIGA NAO E UM PASSO NOVO:
+  #     E CODIGO QUE NINGUEM VAI VER CORRER.
+  #
+  # A saida NAO foi por-lhe `continue-on-error` no passo avariado — isso
+  # calaria uma falha que e de outra pessoa e continua a ser real. E tambem
+  # nao foi consertar o `2b6`, que nao e desta missao.
+  #
+  # Job separado: a avaria antiga continua vermelha e visivel, e a aresta nova
+  # e exercitada na mesma. Os dois factos aparecem, e nenhum tapa o outro.
+  # ═════════════════════════════════════════════════════════════════════
+  # O PORTAO DA BIG COLLECTION — o READY existe, ou so a etapa correu?
+  #
+  # A prova da ponte de midia mediu, e foi honesta: `ADMISSION = NAO_SEI`,
+  # `READY_HANDLING = NOT_RUN`, Sala vazia. A etapa correu; nenhum READY
+  # existiu. Este job vai ver a LINHA.
+  #
+  #     ETAPA REGISTADA != UNIDADE PRODUZIDA.
+  #
+  # Job proprio pela mesma razao do outro: `postgres-descartavel` aborta cedo,
+  # e um passo atras de uma avaria antiga nunca corre.
+  portao-big-collection:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: descartavel
+          POSTGRES_DB: descartavel
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    # ⚠️ O BACKEND DA SALA E DECLARADO AO NIVEL DO JOB, E NAO DENTRO DE UM PASSO.
+    # E a mesma lei que `provas/o_egresso_antes_da_aquisicao.py` guarda para o
+    # workflow de coleta: um portao que mede um ambiente e deixa passar para
+    # outro nao mediu nada. Aqui o risco e concreto — sem a variavel, o dono da
+    # Sala cai para FICHEIRO, e um READY escrito no disco efemero do runner
+    # passaria por READY persistido.
+    env:
+      SINTONIA_SALA_BACKEND: POSTGRES
+      SINTONIA_SALA_DSN: postgresql://postgres:descartavel@localhost:5432/descartavel
+      BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # `pdftotext` nao e detalhe de maquina: o canario admissivel e um boletim
+      # italiano REAL em PDF, e sem o extractor a prova mediria o runner.
+      - name: 1 · o extractor de texto existe
+        run: |
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update -qq || true
+          sudo apt-get install -y poppler-utils
+          pdftotext -v 2>&1 | head -1
+
+      - name: 2 · o READY existe mesmo, e outro processo ve-o
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/o_portao_da_big_collection.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+
+      - name: 3 · o que o banco mostrou fica legivel
+        if: always()
+        run: cat system-map/data/portao-big-collection.generated.json || true
+
+  ponte-de-midia:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: descartavel
+          POSTGRES_DB: descartavel
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # ⚠️ A FALA E GERADA AQUI, E NAO VEM DO REPOSITORIO.
+      # O unico ficheiro com fala real desta casa e de terceiro, e este
+      # repositorio e PUBLICO. Commitar um clipe alheio para um teste passar
+      # nao se faz. `espeak-ng` produz a voz na hora, sem rede e sem licenca
+      # de ninguem.
+      #
+      # O modelo e o `tiny` de proposito: esta prova mede a ESTRADA, e nao a
+      # qualidade da transcricao. Qualidade mede-se na GPU local, que e onde
+      # ela se mede.
+      - name: 1 · as ferramentas da fala existem, ou isto nao corre
+        run: |
+          # ⚠️ O `update` PODE FALHAR POR CULPA DE UM ESPELHO DE TERCEIRO, E
+          # ISSO NAO E UMA FALHA DESTA CASA. Medido a 2026-09-14: o repositorio
+          # do Chrome devolveu «File has unexpected size (1410 != 1413)» —
+          # sincronizacao a meio, do lado deles — e o job inteiro morreu antes
+          # de tocar no Postgres.
+          #
+          #     UM ESPELHO DESALINHADO NAO E UMA PROVA REPROVADA.
+          #
+          # O `|| true` NAO esconde nada: se o pacote faltar mesmo, o `install`
+          # abaixo falha, e as tres conferencias no fim falham a seguir. O que
+          # ele evita e que um soluco de rede de terceiro se leia como veredito
+          # sobre a ponte de midia.
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update -qq || true
+          sudo apt-get install -y espeak-ng ffmpeg
+          python3 -m pip install --quiet faster-whisper
+          espeak-ng --version
+          ffmpeg -version | head -1
+
+      - name: 2 · a ponte de midia atravessa ate a Sala, com Postgres real
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_ponte_de_midia_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          SINTONIA_ASR_MODELO: tiny
+          SINTONIA_ASR_DEVICE: CPU
+
+      - name: 3 · o que o banco mostrou fica legivel
+        if: always()
+        run: cat system-map/data/ponte-de-midia-postgres.generated.json || true
+
   postgres-descartavel:
     runs-on: ubuntu-latest
 
@@ -69,6 +283,17 @@ jobs:
 
       # `psql` ja existe no runner. Nao se instala pacote global so para um
       # teste passar — a prova fala com o banco pelo cliente que ja la esta.
+      # `pdftotext` NAO E DETALHE DE MAQUINA AQUI. Sem ele o executor de
+      # texto devolve FERRAMENTA_AUSENTE para tudo, e a prova da rota
+      # mediria o runner em vez de medir a estrada. Ela recusa-se a correr
+      # nesse caso — e uma recusa silenciosa num CI e um portao que nao
+      # corre. Instala-se, e assim a recusa nunca precisa de acontecer.
+      - name: 0 · a ferramenta de texto existe
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+          pdftotext -v
+
       - name: 1 · o cliente do banco existe, e o banco responde
         run: |
           psql --version
@@ -95,9 +320,114 @@ jobs:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/derivado
 
+      # A migration 025 separa a COPIA da OBSERVACAO, e essa cirurgia so vale
+      # se separar dado que JA ESTAVA JUNTO. Por isso a prova escreve o acervo
+      # com o esquema antigo e so entao aplica a 025 — correr a migration sobre
+      # uma tabela vazia provaria o SQL e nada mais.
+      #
+      # Banco proprio (`objeto`): herdar linhas de outra prova faria um caso
+      # passar por causa do estado alheio.
+      - name: 2b2 · a copia separa-se da observacao, sobre dado que ja existia
+        run: |
+          psql "$ADMIN_URL" -c 'create database objeto;'
+          python3 provas/objeto_e_observacao_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/objeto
+
+      # ── A FASE 10, NAS DUAS PERGUNTAS QUE ELA TEM ──────────────────────
+      # A LEI: o que o esquema novo PERMITE — a corrida nova que reencontra o
+      # mesmo documento, a chave da tentativa sem prova, a identidade que nao
+      # se reescreve, e o escritor canonico a atravessar tudo isso.
+      #
+      # Corre no banco `descartavel`, que a esta altura ja tem schema de outras
+      # provas: a primeira coisa que ela faz e deita-lo fora e reconstruir.
+      - name: 2b3 · a lei da fase 10, medida contra a migration 027
+        run: python3 provas/a_lei_da_fase_10.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # A PASSAGEM: o que acontece ao acervo QUE JA LA ESTAVA quando a 027
+      # chega. Sao perguntas diferentes, e uma migration pode responder bem a
+      # primeira e mal a segunda.
+      #
+      #     MIGRATION SO PROVADA EM BANCO NOVO E MIGRATION POR PROVAR.
+      #
+      # Aplica pela cadeia canonica, sobre uma fixture com a FORMA do vivo, e
+      # encena uma falha a meio numa raiz temporaria para medir o que sobrou.
+      - name: 2b4 · a fase 10 entra num acervo que ja existe
+        run: python3 provas/a_fase_10_entra_no_acervo.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
       # SKIP CEGO E PROIBIDO. Reproduz o defeito antigo e prova o conserto:
       # migration aplicada e depois editada tem de fazer o aplicador falhar
       # ANTES de qualquer DDL.
+      # ══════════════════════════════════════════════════════════════════
+      # 2b5 · A SALA DE ESPERA SOBREVIVE AO PROCESSO
+      # ══════════════════════════════════════════════════════════════════
+      # A `C-ITALIA-FIRST-REAL-COLLECTION-CANARY-V1` parou a primeira coleta
+      # real italiana aqui: o READY era escrito no workspace do runner e
+      # ninguem o guardava.
+      #
+      #     MODULE EXISTS != FILE WRITTEN ON RUNNER != PERSISTED AFTER RUN.
+      #
+      # Esta prova mata o processo que escreveu e SO DEPOIS pergunta ao banco.
+      # Banco proprio (`sala`), para nao herdar linhas das provas anteriores:
+      # um caso que passa por causa do estado alheio nao prova nada.
+      - name: 2b5 · a sala de espera sobrevive ao processo que a escreveu
+        run: |
+          psql "$ADMIN_URL" -c 'create database sala;'
+          python3 provas/a_sala_sobrevive_ao_processo.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/sala
+
+      # O portao do egresso nao precisa de banco, e nao liga VPN nenhuma: todos
+      # os casos injetam o corpo do checker. A unica medicao real que ele faz e
+      # read-only e nao adquire nada.
+      #
+      #     UM PORTAO QUE SO SE TESTA COM A VPN LIGADA NAO SE TESTA.
+      - name: 2b6 · o egresso mede-se ANTES de adquirir, e UNKNOWN fecha a porta
+        # ⚠️ ESTE PASSO ABORTAVA HA DIAS, EM TODAS AS BRANCHES, POR UM `import`.
+        #
+        # Medido a 2026-09-14 em seis corridas seguidas de branches diferentes:
+        # `ModuleNotFoundError: No module named 'yaml'`. A prova lê o PRÓPRIO
+        # workflow para conferir que `SINTONIA_SALA_BACKEND` é declarado ao
+        # nível do JOB, e não só dentro do preflight — a lei de que
+        #
+        #     UM PORTÃO QUE MEDE UM AMBIENTE E DEIXA PASSAR PARA OUTRO
+        #     NÃO MEDIU NADA.
+        #
+        # Para isso precisa de um analisador de YAML a sério. Escrever um aqui
+        # para fugir à dependência seria pôr um segundo dono a interpretar o
+        # mesmo ficheiro — e um analisador caseiro que se engane deixa o portão
+        # passar por cima da lei que ele existe para guardar.
+        #
+        # Esta casa declara dependências de Python no passo que as usa (é o que
+        # `faster-whisper` já faz, no job da ponte de mídia). Não há
+        # `requirements.txt` — e inventar um aqui seria arquitectura nova por
+        # causa de um `pip install`.
+        #
+        #     UM PORTÃO QUE NÃO CORRE NÃO É UM PORTÃO FECHADO: É UM PORTÃO
+        #     AUSENTE, E ELE ESTAVA VERMELHO A DIZER ISSO.
+        run: |
+          python3 -m pip install --quiet pyyaml
+          python3 provas/o_egresso_antes_da_aquisicao.py
+
+      # E a pergunta que fecha as duas: as provas acima MORDEM? Cada mutante
+      # quebra uma lei numa copia descartavel da arvore e exige vermelho.
+      #
+      #     UMA PROVA QUE NAO MORDE NAO E UMA PROVA. E UM COMENTARIO VERDE.
+      #
+      # Ela cria um banco por mutante, e a razao esta escrita la dentro: o
+      # livro-razao da cadeia canonica recusaria uma `031` editada sobre um
+      # banco onde ela ja entrou, e a recusa seria lida como morte do mutante.
+      - name: 2b7 · as leis da sala duravel mordem (mutacao)
+        run: python3 provas/mutacao_da_sala_duravel.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
       - name: 2c · migration aplicada que muda faz a cadeia parar
         run: bash provas/trava_de_drift_de_migration.sh
         env:
@@ -159,6 +489,242 @@ jobs:
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/social
+
+      # ═══════════════════════════════════════════════════════════════
+      # A TRAVESSIA. Ate aqui este workflow provava PECAS: a casa do bruto,
+      # a casa do derivado, o contrato social, o rastro. Nenhuma delas
+      # perguntava se a ESTRADA existe.
+      #
+      #     UM PORTAO QUE NAO CORRE NAO E UM PORTAO.
+      #
+      # `provas/a_rota_m2_atravessa.py` e a unica prova de que a MESMA rota
+      # atravessa DERIVED -> STRUCTURED -> ADMISSION numa corrida so, com o
+      # artefato a viajar e as duas arestas com os dois topos no banco — e
+      # ela nao era chamada por workflow nenhum. Corria quando alguem se
+      # lembrasse. Passa a correr aqui.
+      #
+      # Banco VIRGEM antes de cada uma: a cadeia de migrations nao e
+      # idempotente (a segunda aplicacao morre em «type pais already
+      # exists»), e uma prova que corre sobre o esquema deixado por outra
+      # nao prova o que diz provar.
+      - name: 2f · a estrada forward emite, e termina onde termina de verdade
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/o_forward_conta_se.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      - name: 2g · A MESMA rota atravessa as tres etapas, numa corrida so
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_rota_m2_atravessa.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # ═══════════════════════════════════════════════════════════════
+      # E A ESTRADA DO SCRAP, DO BOTAO AO ACERVO.
+      #
+      # `o_fluxo_canonico_do_scrap.py` ja prova que o SCRAP ATRAVESSA, e
+      # prova-o SEM BANCO NENHUM. Sao duas perguntas, e so a segunda e a
+      # desta linha de trabalho:
+      #
+      #     ATRAVESSAR NAO E CHEGAR.
+      #
+      # Este passo corre a MESMA rota com `memoria=` e `banco_do_rastro=`
+      # ligados, e pergunta ao banco e ao disco o que a corrida deixou la:
+      # `raw_asset`, `storage_object`, os bytes relidos, o sha, a cadeia
+      # RUN -> RAW -> STORAGE, a matriz do texto, o READY e a sala.
+      #
+      # Corre DUAS corridas de proposito. Uma com texto que nenhum universo
+      # reconhece (a porta responde NAO_SEI, e a sala fica vazia — que e a
+      # LEI), outra com texto do universo pedido (e ai tem de chegar). Com
+      # so a primeira, «sala vazia» teria duas leituras indistinguiveis: a
+      # lei a morder, ou a estrada partida.
+      #
+      # A fronteira externa e falsa e e o unico ficheiro falso:
+      # REAL_NETWORK = 0 · META_REQUESTS = 0 · PAID_USD = 0.
+      #
+      # Banco VIRGEM, pela razao de sempre: a cadeia de migrations nao e
+      # idempotente, e uma prova sobre o esquema deixado por outra nao
+      # prova o que diz provar.
+      - name: 2g2 · o SCRAP chega ao acervo, e nao so o atravessa
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/o_scrap_chega_ao_acervo.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # As travas do esquema, atacadas A PARTIR DA LINHA QUE A ROTA
+      # ESCREVEU DE VERDADE. Uma constraint listada nao e uma constraint
+      # provada, e QUE O BOM PASSE NAO PROVA QUE O MAU PARE.
+      #
+      # Cada ataque declara a LEI em que tem de morrer, e morrer noutra
+      # reprova. Isto nao e zelo: na primeira corrida deste ficheiro SEIS
+      # ataques deram «ok» sem nunca terem chegado a lei que visavam —
+      # morreram todos numa coluna `NOT NULL` que o ataque esquecera de
+      # preencher.
+      #
+      #     UMA RECUSA PELA LEI ERRADA NAO PROVA A LEI CERTA.
+      - name: 2g3 · as travas mordem a forma que o SCRAP escreve
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/as_travas_do_scrap_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # A repeticao: correr a MESMA colheita duas vezes e perguntar ao banco
+      # o que ficou. Ela MEDE e nao conserta, e guarda uma lei estreita: que
+      # os dois brutos difiram EXATAMENTE no `/RUN_ID`.
+      #
+      # No dia em que alguem tirar o `RUN_ID` de dentro do bruto, os shas
+      # passam a colidir, a trava do endereco acorda, e este passo reprova a
+      # dizer exactamente isso — que e o aviso que se quer, e nao um
+      # silencio verde.
+      - name: 2g4 · a repeticao do SCRAP, medida
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_repeticao_do_scrap.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # O RETRY DE VERDADE, e nao duas corridas novas.
+      #
+      #     DUAS CORRIDAS NOVAS NAO SAO UMA CORRIDA REPETIDA.
+      #
+      # `a_repeticao_do_scrap.py` mede NEW_RUN + NEW_RUN. Este mede
+      # RECUPERACAO DENTRO de uma corrida: o armazem recusa escrever na
+      # primeira tentativa, a corrida fica PARTIAL com a linha de
+      # `collection_run` ja aberta, e o retry entra pela MESMA porta com o
+      # MESMO recibo.
+      #
+      # A falha nao e injectada em codigo de producao: e posta no MUNDO — um
+      # ficheiro onde tem de haver a pasta do deposito — e o codigo responde
+      # como ja responde.
+      - name: 2g5 · o retry do SCRAP recupera a MESMA corrida
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/o_retry_do_scrap.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # ═══════════════════════════════════════════════════════════════
+      # E A VOLTA: DO READY SOCIAL DE REGRESSO AO BYTE.
+      #
+      # `a_linhagem_do_ready.py` ja fecha esta volta na rota DOCUMENTAL.
+      # A rota social nao a fechava, e o motivo era TEMPORAL: a ficha para a
+      # porta era montada ANTES de `preservar()` cunhar `raw_asset.id`, e o
+      # item chegava a Admissao sem ele. Medido antes do conserto, com a rota
+      # SCRAP inteira contra Postgres real:
+      #
+      #     SCRAP_RAW_OBSERVATION_ID       = 1
+      #     SCRAP_READY_RAW_OBSERVATION_ID = NAO SEI
+      #
+      #     O ID EXISTIA. O ITEM E QUE NAO O LEVAVA.
+      #
+      # Esta prova mede a estrada inteira e depois volta SO pelo que ficou
+      # pousado na sala, e ataca a ponte por 23 lados — sha, run, fonte,
+      # caminho, posicao, bytes iguais, duas corridas, retry, recusa no meio.
+      #
+      # Banco VIRGEM, pela razao de sempre: a cadeia nao e idempotente, e a
+      # propria prova aplica-a.
+      - name: 2g6 · o READY social volta ao RAW, e ao byte
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_linhagem_do_ready_social.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # E A PERGUNTA QUE SESSENTA CASOS VERDES NAO RESPONDEM:
+      #
+      #     SE EU PARTIR A PONTE, ALGUM FICA VERMELHO?
+      #
+      # Cinco mutantes reais (a observacao nao atravessa, e trocada pelo
+      # RUN_ID, pelo sha, a alca deixa de separar dois brutos do mesmo sha, e
+      # a prova do SCRAP volta a validar ONZE campos) mais UMA contraprova
+      # no-op — sem ela, uma bateria que morre com qualquer mudanca pareceria
+      # sensivel e seria cega.
+      - name: 2g7 · e a mutacao diz se essa volta esta mesmo guardada
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/mutacao_da_linhagem_social.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # Corre LOGO A SEGUIR a travessia, e de proposito no MESMO banco: o
+      # AU8 pergunta se MEDIR a autoridade escreve identidade, e essa
+      # resposta tem de ser a mesma com o banco cheio do trabalho da rota.
+      # Media contagens absolutas e mudava de veredito conforme a ordem;
+      # hoje mede o delta, e este passo e o que guarda esse conserto.
+      #
+      # ⚠️ ESTE PASSO NAO FECHA O GAP DA IDENTIDADE. Ele MEDE-O. O veredito
+      # esperado e `SOURCE_AUTHORITY[IT-T2-002] = UNRESOLVED`, e isso e um
+      # PASS: a prova passa quando consegue medir a falta, nao quando a
+      # falta desaparece. Quem a fizer «passar» inventando um dono partiu-a.
+      - name: 2h · a autoridade da fonte, medida — e o que medir nao escreve
+        run: python3 provas/a_autoridade_da_fonte.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # ⚠️ ESTE PASSO MATA PROCESSOS DE PROPOSITO, E E ESSE O ASSUNTO.
+      # `os._exit(97)` em cinco pontos da cadeia duravel, e um processo NOVO com
+      # ligacao NOVA a perguntar ao banco o que aconteceu. Uma excecao nao serve:
+      # excecao tem `finally`, e `finally` e exactamente o que uma morte de
+      # processo nao executa.
+      #
+      #     PROCESS DEATH != EXCEPTION.
+      #     PROCESS_CRASH != LOST_COLLECTION.
+      #
+      # Nao toca plataforma nenhuma: o trabalho e local e declara o que fez. O
+      # que se mede e a DURABILIDADE — exigir rede para provar que se sobrevive
+      # a um crash seria medir a rede.
+      - name: 2j · o RUN sobrevive ao processo (C10.6B)
+        run: python3 provas/run_duravel_no_postgres.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # ⚠️ TRES CLASSES DE EXECUCAO, UM BOUNDARY SO. E as tres a morrerem no
+      # mesmo ponto, para se ver se se partem da MESMA maneira.
+      #
+      #     A PROVA DE QUE A INFRAESTRUTURA E COMUM E ELA PARTIR-SE IGUAL
+      #     EM TODAS.
+      #
+      # Nenhuma toca a rede: o transporte inteiro e fixture, e `permitido`
+      # tambem — ele le `robots.txt` VIVO, e ler robots e sair.
+      - name: 2k · a durabilidade e do runtime comum (C10.6C)
+        run: python3 provas/runtime_comum_no_postgres.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          YOUTUBE_DATA_API_KEY: FIXTURE
+          C106C_RONDAS: '10'
+
+      # Sem banco: le migrations e codigo, e confronta cada `on conflict`
+      # com a chave unica que o sustenta. `if: always()` porque a pergunta
+      # dele nao depende de nenhum passo acima ter corrido.
+      - name: 2i · toda clausula `on conflict` tem chave que a sustente
+        if: always()
+        run: python3 provas/o_dedupe_tem_constraint.py
 
       - name: 3 · a prova recusa-se a correr fora de um banco descartável
         if: always()

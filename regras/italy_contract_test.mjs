@@ -154,7 +154,7 @@ T("DURUM_WHEAT continua declarado como lacuna", /LACUNA/i.test(master.matriz_reg
 // ===== MISSAO SOURCE CONTRACT HARDENING V1 =====
 {
   const { CONTRACTS } = await import("./italy_contracts.mjs");
-  const { contabilidade, ACCESS_ONLY, BASE_CLASSIFIED_SET } = await import("./italy_accounting.mjs");
+  const { contabilidade, ACCESS_ONLY, BASE_CLASSIFIED_SET } = await import("../provas/italy_accounting.mjs");
   const { medir } = await import("./italy_source_health.mjs");
   const C = contabilidade();
 

@@ -44,6 +44,7 @@ import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho
 import v21_datas as DT  # noqa: E402
 import v21_necessidade as NE  # noqa: E402
 import v21_comercial as CM  # noqa: E402
+import grafo_de_dependencia as GD  # noqa: E402 — D12 · D16 (INDEPENDENCIA-V1)
 
 HOJE = date(2026, 9, 2)          # a data de referência do pacote, pinada
 JANELA_FUTURA = 365              # dias à frente que ainda contam como "preparar"
@@ -235,6 +236,19 @@ TIPOS_QUE_OBSERVAM = ('FIELD_SIGNAL', 'MARKET_OBSERVATION', 'COMPETITOR_ACTIVITY
                       'EVENT', 'PUBLIC_VOICE', 'SCIENTIFIC_RECORD',
                       'RESISTANCE_RECORD', 'CROP_ECONOMIC_WEIGHT_CLAIM',
                       'AGROMET_CONDITION', 'NEWS_ITEM', 'CROP_WINDOW')
+
+# ⚠️ D16 · VALIDACAO ESTRUTURAL NAO E FONTE (INT-LAW-076). Rotulo, registo,
+# catalogo e ingrediente ativo confirmam que a ESTRUTURA existe; nao sao sinais
+# externos sobre o campo. No grafo de dependencia contam em
+# STRUCTURAL_VALIDATION_COUNT e nunca em INDEPENDENT_SOURCE_COUNT.
+TIPOS_ESTRUTURAIS = ('LABEL_USE_RELATIONSHIP', 'REGULATORY_PRODUCT', 'CATALOG_PRODUCT',
+                     'ACTIVE_INGREDIENT', 'PRODUCT_ACTIVE_INGREDIENT')
+
+
+def dependencia(ev):
+    """O grafo de dependencia dos apoios de um caso (INT-LAW-070..077)."""
+    return GD.grafo(ev, lambda e: e.get('ENTITY_TYPE') in TIPOS_ESTRUTURAIS)
+
 
 # E quem só declara AUTORIZAÇÃO. A geografia destes vive à parte, em
 # PRODUCT_AUTHORIZATION_GEOGRAPHY, e nunca entra no portão A.
@@ -719,6 +733,20 @@ def main():
         ini, fim, dias, jest, jcampo, jtipo = janela(
             janelas_do_caso(crop, alvo, geo) + apoios)
         sdata, sidade = data_do_sinal(apoios)
+        # ⚠️ D16 · MULTI_SOURCE ERA CONTADOR DE LISTA, E NAO DE FONTES. O O1 contava
+        # SOURCE_IDS distintos (o mesmo site com dois SOURCE_ID dava 2), o O2
+        # contava familias (mercado + peso economico do MESMO originador dava 2),
+        # o O4/O5 punham 2 fixo. Agora o teto e o numero de originadores
+        # independentes PROVADOS: seis leituras do mesmo site pesam 1.
+        #
+        #     CONVERGENCIA SO COM INDEPENDENCIA (INT-LAW-077).
+        #
+        # O valor que o arquetipo declarou fica ao lado (INT-LAW-093: o score
+        # nao substitui a decomposicao) — e o teto so desce, nunca sobe.
+        dep = dependencia(apoios)
+        declarado = dim.get('MULTI_SOURCE', 0)
+        dim = dict(dim, MULTI_SOURCE=min(declarado,
+                                         min(2, dep['INDEPENDENT_SOURCE_COUNT_MIN'])))
         oid, chave = identidade(arquetipo, crop, alvo, geo,
                                 ini or ('EU' if arquetipo == 'O5_REGULATORY_PREPARATION' else None))
         o = {'ID': oid, 'IDENTITY_KEY': chave, 'ARCHETYPE': arquetipo,
@@ -734,6 +762,8 @@ def main():
              'NUMBERS': numeros,
              'WHAT_IT_PROVES': prova, 'WHAT_IT_DOES_NOT_PROVE': nao_prova,
              'SCORE_DIMENSIONS': dim, 'OPPORTUNITY_SCORE': score(dim),
+             'MULTI_SOURCE_DECLARED': declarado,
+             'DEPENDENCY_GRAPH': dep,
              'ACTION_MAP': acao}
         o.update(varredura(crop, alvo, produtos))
         scan = consulta_o_acervo(crop, alvo, geo)
@@ -998,9 +1028,13 @@ def gravar(brutos, C, cs):
             a['EVIDENCE_FAMILIES'] = sorted(set(a['EVIDENCE_FAMILIES']) |
                                             set(o['EVIDENCE_FAMILIES']))
             a['MERGED_FROM'] = a.get('MERGED_FROM', 0) + 1
+            # os apoios fundidos entram no grafo do registo; uma copia, para
+            # nao mexer na lista de trabalho de quem chamou
+            vistos = {x.get('ID') for x in aev}
+            porid[o['ID']] = (a, aev + [x for x in ev if x.get('ID') not in vistos])
             colapsados += 1
             continue
-        porid[o['ID']] = (o, ev)
+        porid[o['ID']] = (o, list(ev))
 
     regs, rejeitados = [], []
     for oid in sorted(porid):
@@ -1055,6 +1089,10 @@ def gravar(brutos, C, cs):
             'EVIDENCE_IDS': o['EVIDENCE_IDS'],
             'EVIDENCE_FAMILIES': o['EVIDENCE_FAMILIES'],
             'EVIDENCE_COUNT': len(o['EVIDENCE_IDS']),
+            # ⚠️ D12 · EVIDENCE_COUNT conta IDs, e dois IDs podem ser o mesmo
+            # documento. As quatro metricas separadas (INT-LAW-092) vivem aqui.
+            'DEPENDENCY_GRAPH': dependencia(ev),
+            'MULTI_SOURCE_DECLARED': o.get('MULTI_SOURCE_DECLARED'),
             'WHAT_IT_PROVES': o['WHAT_IT_PROVES'],
             'WHAT_IT_DOES_NOT_PROVE': o['WHAT_IT_DOES_NOT_PROVE'],
             'CONFIDENCE': o['CONFIDENCE'],

@@ -1,0 +1,183 @@
+{
+ "TESTE": "tests.test_porta_unica_referencia",
+ "MUTANTES": [
+  {
+   "MUTANTE": "L1 cap_win abre o PORTFOLIO por fora",
+   "ALVO": "motor/cap_win.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas",
+    "test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora"
+   ]
+  },
+  {
+   "MUTANTE": "L2 cruzamentos_max volta a ler os pares do leitor",
+   "ALVO": "motor/cruzamentos_max.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas",
+    "test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora"
+   ]
+  },
+  {
+   "MUTANTE": "L3 concorrencia_meta le o CSV do Ministero",
+   "ALVO": "coleta/concorrencia_meta.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas",
+    "test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora"
+   ]
+  },
+  {
+   "MUTANTE": "L4 boletim le o COMMERCIAL-CATALOG",
+   "ALVO": "leis/boletim_do_campo.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas",
+    "test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora",
+    "test_B5_boletim"
+   ]
+  },
+  {
+   "MUTANTE": "E1 a porta aceita livros de edicoes diferentes",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C1_um_livro_de_outra_edicao_derruba_a_referencia_inteira",
+    "test_C2_duas_fotos_correntes"
+   ]
+  },
+  {
+   "MUTANTE": "E2 a porta aceita o catalogo misturado",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C3_catalogo_misturado"
+   ]
+  },
+  {
+   "MUTANTE": "E3 o motor abre a porta duas vezes (WIN numa edicao, SCI noutra)",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades"
+   ]
+  },
+  {
+   "MUTANTE": "K1 registo na vitrine conta como autorizado",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D1_na_vitrine_com_registo_inativo_nao_e_autorizado"
+   ]
+  },
+  {
+   "MUTANTE": "K2 os livros do catalogo entram na metade do registo",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D3_as_metades_nao_se_misturam"
+   ]
+  },
+  {
+   "MUTANTE": "F1 os 30 dias nao existem",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E1_os_tres_degraus_do_d117",
+    "test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada",
+    "test_E5_cap_sci_marca_a_ligacao_a_confirmar",
+    "test_E6_cruzamentos_nao_confirma_com_referencia_velha"
+   ]
+  },
+  {
+   "MUTANTE": "F2 os 14 dias nao existem",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E1_os_tres_degraus_do_d117",
+    "test_E4_aos_14_a_resposta_sai_com_aviso"
+   ]
+  },
+  {
+   "MUTANTE": "F3 a resposta ignora o frescor",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada"
+   ]
+  },
+  {
+   "MUTANTE": "F4 frescor contado da data do ficheiro, e nao da checagem",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E1_os_tres_degraus_do_d117",
+    "test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada",
+    "test_E4_aos_14_a_resposta_sai_com_aviso",
+    "test_E5_cap_sci_marca_a_ligacao_a_confirmar"
+   ]
+  },
+  {
+   "MUTANTE": "F5 cap_sci ignora o frescor",
+   "ALVO": "motor/capacidade_cientifica.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E5_cap_sci_marca_a_ligacao_a_confirmar"
+   ]
+  },
+  {
+   "MUTANTE": "F6 cruzamentos confirma com referencia velha",
+   "ALVO": "motor/cruzamentos_max.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E6_cruzamentos_nao_confirma_com_referencia_velha"
+   ]
+  },
+  {
+   "MUTANTE": "F7 sem data de checagem = fresca",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E2_sem_data_de_checagem_e_a_confirmar"
+   ]
+  },
+  {
+   "MUTANTE": "B1 bula nao lida some (vira «nao»)",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G1_sem_uso_lido_e_com_bula_ativa_nao_lida_e_a_confirmar"
+   ]
+  },
+  {
+   "MUTANTE": "C1 a checagem confirma sempre",
+   "ALVO": "fontes/adama_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_F3_bruto_divergente_nao_confirma"
+   ]
+  },
+  {
+   "MUTANTE": "C2 o carimbo nao e o sha do livro",
+   "ALVO": "motor/porta_da_referencia.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades",
+    "test_H1_o_carimbo_e_o_sha_do_ficheiro",
+    "test_H2_mexer_num_livro_muda_a_impressao"
+   ]
+  },
+  {
+   "MUTANTE": "C3 cap_win nao carimba a edicao",
+   "ALVO": "motor/cap_win.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B2_cap_win_carimba_e_responde_produtos",
+    "test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades"
+   ]
+  }
+ ],
+ "MORTOS": 20,
+ "TOTAL": 20
+}

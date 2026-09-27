@@ -32,7 +32,7 @@ sys.path.insert(0, RAIZ)
 
 from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402
 from guarda.preservar_coleta import (  # noqa: E402
-    METADATA_CONFLICT, PRESERVED_AND_REGISTERED, RUN_ID_CONFLICT,
+    METADATA_CONFLICT, NEW_RUN_SAME_STORAGE_PATH, PRESERVED_AND_REGISTERED, RUN_ID_CONFLICT,
     RUN_NOT_CLOSED_IN_DB, UPLOAD_PENDING_METADATA, ArmazemDeMentira,
     caminho_do_objeto, preservar, sha256)
 
@@ -50,6 +50,9 @@ A, B = b"o conteudo A", b"o conteudo B"
 def _art(nome, dados, nativo, url=None):
     return {
         "COUNTRY": "IT", "SOURCE_SLUG": "fonte-de-teste",
+        # 026: a observacao diz DE QUEM e DE QUE ela e. Sem SOURCE_ID real o
+        # dono do RAW recusa — e nao ha estado de identidade para inventar.
+        "SOURCE_ID": "IT-T2-002", "DOCUMENT_ID": "ARPAV:Z07:%s" % nativo,
         "ARTIFACT_KIND": "DOCUMENT", "NAME": nome, "SOURCE_NATIVE_ID": nativo,
         "SHA256": sha256(dados), "BYTES": len(dados),
         "MEDIA_TYPE": "application/pdf", "CAPTURED_AT": "2026-09-08T00:00:00Z",
@@ -135,25 +138,65 @@ class OConflitoNaoEEngolido(CasoBase):
         impostor["SHA256"] = art["SHA256"]
         caminho = caminho_do_objeto(impostor)
         self.assertEqual(caminho, caminho_do_objeto(art))
-        # e agora muda-se so o conteudo declarado, mantendo o endereco
-        self.banco.con.execute(
-            "update raw_asset set sha256 = ? where storage_path = ?",
-            (sha256(B), caminho))
+        # e agora poe-se OUTRO conteudo no mesmo endereco. Desde a 026 isso
+        # troca as DUAS especies: a chave estrangeira composta recusa a
+        # observacao dizer H1 e a copia dizer H2 — e essa recusa e a trava.
+        self.banco.aplicar(
+            "delete from raw_asset where storage_path = '%s';\n"
+            "delete from storage_object where storage_path = '%s';\n"
+            "insert into storage_object (storage_path, media_type, bytes, "
+            "sha256) values ('%s','application/pdf',1,'%s');\n"
+            "insert into raw_asset (run_id, storage_path, media_type, bytes, "
+            "sha256, captured_at, storage_object_id, identity_state, "
+            "source_id, document_key, document_key_basis) select "
+            "'%s','%s','application/pdf',1,'%s','2026-09-08T00:00:00Z', o.id,"
+            "'FORWARD_IDENTIFIED','IT-T2-002','DOC:OUTRO','SOURCE_DOCUMENT_ID' "
+            "from storage_object o where o.storage_path = '%s';"
+            % (caminho, caminho, caminho, sha256(B), CORRIDA["RUN_ID"], caminho,
+               sha256(B), caminho))
         r = self.correr([art])
         self.assertEqual(r["PENDENCIA"], METADATA_CONFLICT)
         self.assertEqual(r["RUN_STATE"], "PARTIAL")
         self.assertIn("sem_conflito_de_metadata", r["COMPLETION_BASIS"]["FALTOU"])
         divergencias = r["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"][0]
-        self.assertEqual(divergencias["DIVERGENCIAS"][0]["CAMPO"], "sha256")
+        self.assertIn("sha256",
+                      [d["CAMPO"] for d in divergencias["DIVERGENCIAS"]])
 
-    def test_G_mesmo_caminho_com_outra_corrida_e_CONFLICT(self):
-        """Byte reclamado por duas corridas não se resolve por antiguidade."""
+    def test_G_mesmo_caminho_com_outra_corrida_e_NEW_RUN_SAME_STORAGE_PATH(self):
+        """Byte reclamado por duas corridas não se resolve por antiguidade.
+
+        E desde a 026 o conflito tem NOME PRÓPRIO. Divergir só na corrida não é
+        «duas verdades no mesmo endereço»: é a MESMA verdade observada outra
+        vez, e a chave de idempotência sabe disso. O que impede a segunda
+        observação de entrar é a trava física antiga — `unique (storage_path)`,
+        que só cai na FASE 10. Chamar-lhe METADATA_CONFLICT escondia a fase
+        atrás de um diagnóstico errado.
+        """
         art = _art("a.pdf", A, "11")
         self.correr([art])
         outra = dict(CORRIDA, RUN_ID="IT-BANCO-0002")
         r = self.correr([art], run=outra)
-        self.assertEqual(r["PENDENCIA"], METADATA_CONFLICT)
+        self.assertEqual(r["PENDENCIA"], NEW_RUN_SAME_STORAGE_PATH)
         self.assertEqual(r["RUN_STATE"], "PARTIAL")
+        # ⚠️ E DEIXOU DE SER CONFLITO. Era o último nó do runtime: o escritor
+        # recusava a corrida nova por SUA CONTA, em Python, e continuaria a
+        # recusá-la depois de a fase 10 retirar a trava. O código levava a
+        # trava física dentro de si.
+        #
+        #     UMA TRAVA DO ESQUEMA NAO SE REESCREVE EM PYTHON.
+        #
+        # Agora é uma NOTA, a escrita é TENTADA, e quem recusa é o banco. A
+        # `PENDENCIA` continua a dizer o nome certo — porque o que mordeu foi
+        # mesmo a trava física, e não «falta escrever».
+        self.assertEqual(r["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"], [])
+        nota = r["JA_EXISTIA_NO_BANCO"][
+            "OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO"][0]
+        self.assertEqual(nota["TIPO"], NEW_RUN_SAME_STORAGE_PATH)
+        self.assertEqual(nota["CORRIDAS_QUE_JA_LA_ESTAO"], [CORRIDA["RUN_ID"]])
+        self.assertEqual(nota["OCUPANTES"], 1)
+        # E O BANCO FOI OUVIDO: a escrita foi tentada e ele recusou-a.
+        self.assertFalse(r["MEMORIA"]["APLICADA"])
+        self.assertIsNotNone(r["MEMORIA"]["ERRO"])
 
     def test_J_mesmo_run_id_com_outra_identidade_e_RUN_ID_CONFLICT(self):
         """A configuração da corrida é congelada (COL-LAW-211). Se ela mudar,
@@ -202,7 +245,16 @@ class OBancoGravaMenosDoQueSePediu(CasoBase):
 
         def aplicar_e_recusar_o_fecho(sql):
             estado["n"] += 1
-            if "update" in sql:
+            # ⚠️ ERA `if "update" in sql`, E ISSO DEIXOU DE SER O FECHO.
+            # O SQL de memória passou a trazer um `update` proprio — o que
+            # conta a tentativa — e a armadilha apanhava-o tambem: a escrita
+            # inteira era recusada, e o caso media a morte errada.
+            #
+            #     UM TESTE QUE APANHA A INSTRUCAO CERTA PELO VERBO
+            #     APANHA QUALQUER OUTRA QUE USE O MESMO VERBO.
+            #
+            # O fecho tem nome: e o `update` da CORRIDA.
+            if "update public.collection_run" in sql:
                 raise IOError("o banco recusou o fecho")
             original(sql)
 
@@ -240,7 +292,16 @@ class QuandoOProcessoMorre(CasoBase):
         original = self.banco.aplicar
 
         def recusar_o_fecho(sql):
-            if "update" in sql:
+            # ⚠️ ERA `if "update" in sql`, E ISSO DEIXOU DE SER O FECHO.
+            # O SQL de memória passou a trazer um `update` proprio — o que
+            # conta a tentativa — e a armadilha apanhava-o tambem: a escrita
+            # inteira era recusada, e o caso media a morte errada.
+            #
+            #     UM TESTE QUE APANHA A INSTRUCAO CERTA PELO VERBO
+            #     APANHA QUALQUER OUTRA QUE USE O MESMO VERBO.
+            #
+            # O fecho tem nome: e o `update` da CORRIDA.
+            if "update public.collection_run" in sql:
                 raise IOError("morreu antes de fechar")
             original(sql)
 
@@ -287,11 +348,26 @@ class ContarNaoEConferir(CasoBase):
                     "insert into public.collection_run "
                     "(run_id, platform, started_at, rule_version) values "
                     "('INTRUSA','x','2026-01-01T00:00:00Z','1');")
+                # 025: o intruso escreve as DUAS especies, porque no esquema
+                # novo nao ha como escrever so uma. A encenacao fica mais
+                # realista, nao menos: quem chega primeiro ao endereco fica com
+                # a copia, e a nossa observacao vai apontar para a DELE.
+                original(
+                    "insert into public.storage_object (storage_path, "
+                    "media_type, bytes, sha256) values "
+                    "('%s', 'application/pdf', 999, '%s') "
+                    "on conflict (storage_path) do nothing;"
+                    % (caminho, "e" * 64))
                 original(
                     "insert into public.raw_asset (run_id, storage_path, "
-                    "media_type, bytes, sha256, captured_at) values "
-                    "('INTRUSA', '%s', 'application/pdf', 999, '%s', "
-                    "'2026-01-01T00:00:00Z');" % (caminho, "e" * 64))
+                    "media_type, bytes, sha256, captured_at, "
+                    "storage_object_id, identity_state, source_id, "
+                    "document_key, document_key_basis) select 'INTRUSA', '%s', "
+                    "'application/pdf', 999, '%s', '2026-01-01T00:00:00Z', "
+                    "o.id, 'FORWARD_IDENTIFIED','IT-INTRUSA','DOC:INTRUSA',"
+                    "'SOURCE_DOCUMENT_ID' from public.storage_object o "
+                    "where o.storage_path = '%s';"
+                    % (caminho, "e" * 64, caminho))
                 self.banco.aplicar = original
             original(sql)
 
@@ -381,6 +457,8 @@ class OGoldenPathPODERIAPassarPorAqui(CasoBase):
             conteudo[sha256(dados)] = dados
             arts.append({
                 "COUNTRY": "IT", "SOURCE_SLUG": "golden-path",
+                "SOURCE_ID": "IT-T2-002",
+                "DOCUMENT_ID": "ARPAV:GOLDEN:" + sha[:8],
                 "ARTIFACT_KIND": "DOCUMENT",
                 "NAME": (a.get("PARENT_ARTIFACT_ID") or sha[:12]) + ".pdf",
                 "SOURCE_NATIVE_ID": sha[:8], "SHA256": sha256(dados),
@@ -403,13 +481,28 @@ class OGoldenPathPODERIAPassarPorAqui(CasoBase):
         self.assertEqual(self.banco.corrida(CORRIDA["RUN_ID"])["status"],
                          "concluida")
 
-    def test_esta_peca_ainda_nao_tem_caller_real(self):
-        """CAN DO ≠ DID DO, e o repositório tem de o admitir.
+    def test_o_raw_tem_um_caller_e_e_a_porta_canonica(self):
+        """A PEÇA GANHOU CALLER, E O CALLER É UM SÓ.
 
-        Medido: nenhum ficheiro de produção chama `preservar()`. Só testes,
-        provas e o adaptador descartável. Enquanto for assim, o mapa não pode
-        pintar isto como estrada corrente — e é este teste que segura a
-        honestidade se alguém ligar a peça e esquecer de atualizar o estado.
+        ⚠️ ESTE TESTE MUDOU DE PERGUNTA PORQUE A ÁRVORE MUDOU DE ESTADO, e ele
+        próprio pediu que assim fosse: dizia «é este teste que segura a
+        honestidade se alguém ligar a peça e esquecer de atualizar o estado».
+
+        Alguém ligou a peça — a missão C-PLUMB-1 — e o estado está atualizado
+        aqui. Até então a medição era `nenhum ficheiro de produção chama
+        preservar()`: a etapa RAW existia, estava provada contra Postgres, e a
+        coleta ia do executor DIRECTO à admissão, sem preservar nada.
+
+        A pergunta que fica não é mais «há caller?». É a que interessa agora:
+
+            HÁ UM CALLER, E É A PORTA CANÓNICA?
+
+        Um segundo caminho de produção a chamar `preservar()` seria uma segunda
+        entrada na coleta — e duas entradas é exactamente o que a porta existe
+        para não haver. `coleta/ingresso.py` é o dono da travessia da entrada;
+        quem colhe entrega a ele, e ele entrega ao dono do RAW.
+
+            O COLETOR OBSERVA. A PORTA PRESERVA. A ADMISSÃO JULGA.
         """
         chamadores = []
         for pasta, _sub, ficheiros in os.walk(RAIZ):
@@ -431,9 +524,9 @@ class OGoldenPathPODERIAPassarPorAqui(CasoBase):
                 if "preservar(" in fonte and "def preservar(" not in fonte:
                     chamadores.append(os.path.relpath(caminho, RAIZ))
         self.assertEqual(
-            chamadores, [],
-            "a peca ganhou caller real: atualize o estado do G-42 forward de "
-            "DB_TESTED para OPERATIONAL e o cartao do mapa junto")
+            chamadores, ["coleta/ingresso.py"],
+            "o dono do RAW tem de ser chamado pela porta canonica, e SO por ela: "
+            "um segundo chamador de producao e uma segunda entrada na coleta")
 
 
 class AProvaEmPostgresEACuaTranca(unittest.TestCase):
@@ -461,7 +554,34 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
 
         Aqui o comando é lido como o psql o leria: cada sinalizador tem de
         aparecer, e o `-v` tem de estar colado ao seu valor.
+
+        ⚠️ O CONTRATO MUDOU EM 2026-09-17, E ESTE TESTE FICOU A EXIGIR O
+        ANTIGO. Exigia `-c` — o SQL no argv — quando o adaptador canónico
+        (`guarda/memoria_postgres.py`) passou, de propósito, a mandar o SQL
+        por stdin com `-f -`: texto acentuado não viaja em argv no Windows
+        (know-how §130, o 0x92 de um boletim da Campania). O primeiro gate de
+        integração Collection→trunk reprovou por isto: um teste verde no
+        trunk e vermelho no candidato, a defender um defeito já curado.
+
+            O TESTE SERVE AO CONTRATO. O CONTRATO NÃO SE REVERTE PARA
+            SERVIR AO TESTE.
+
+        O contrato que este teste prova, e que o runtime consome:
+
+            <psql resolvido> -X -q -A -t -F <SEP> -v ON_ERROR_STOP=1 -f - <DSN>
+            stdin = o SQL · text · encoding utf-8 · capture_output
+
+        ARGV É CONFIGURAÇÃO. STDIN É O CONTEÚDO. A pergunta aqui é «que
+        comando e que conteúdo o adaptador pediu?», não «há PostgreSQL nesta
+        máquina?». Por isso a cabeça da lista — quem decide qual `psql` é
+        `guarda/cliente_postgres.py` — é substituída por um executável
+        fictício, e o `subprocess.run` que já era espiado passa a guardar
+        também os kwargs. Sem isso o teste dependia do PATH da máquina e
+        caía em `ClientePostgresAusente` antes de medir fosse o que fosse.
         """
+        from unittest import mock
+        from guarda import memoria_postgres as adaptador
+
         capturado = {}
 
         class Espia(self.pg.MemoriaPostgres):
@@ -469,22 +589,30 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
                 self.url = "postgresql://u@localhost:5432/descartavel"
 
         def falso_run(cmd, **kw):
-            capturado["cmd"] = cmd
+            capturado["cmd"] = list(cmd)
+            capturado["kwargs"] = dict(kw)
             class R:
                 returncode = 0
                 stdout = "1\n"
                 stderr = ""
             return R()
 
-        antigo = self.pg.subprocess.run
-        self.pg.subprocess.run = falso_run
-        try:
-            Espia()._psql("select 1")
-        finally:
-            self.pg.subprocess.run = antigo
+        # Um caminho que não existe em máquina nenhuma: nunca é executado,
+        # e é exactamente o que o dono da resolução devolveu que tem de ir
+        # para a cabeça do comando — nunca um `"psql"` nu.
+        psql_ficticio = os.path.join(os.sep, "bancada-ficticia", "psql.exe")
+        with mock.patch.object(adaptador, "resolver_psql",
+                               return_value=psql_ficticio), \
+             mock.patch.object(self.pg.subprocess, "run", falso_run):
+            saida = Espia()._psql("select 1")
+        self.assertEqual(saida, "1\n")
 
         cmd = capturado["cmd"]
-        for sinalizador in ("-X", "-q", "-A", "-t", "-F", "-v", "-c"):
+        kwargs = capturado["kwargs"]
+
+        # a cabeça é o executável que o dono resolveu
+        self.assertEqual(cmd[0], psql_ficticio)
+        for sinalizador in ("-X", "-q", "-A", "-t", "-F", "-v", "-f"):
             self.assertIn(sinalizador, cmd, "falta %s" % sinalizador)
         # o valor do -v tem de vir LOGO a seguir a ele
         self.assertEqual(cmd[cmd.index("-v") + 1], "ON_ERROR_STOP=1")
@@ -492,6 +620,18 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
         self.assertEqual(cmd[cmd.index("-F") + 1], self.pg.MemoriaPostgres.SEP)
         # nenhum sinalizador se meteu entre outro e o seu valor
         self.assertNotEqual(cmd[cmd.index("-v") + 1][:1], "-")
+        # o SQL entra por stdin: `-f -`, e NUNCA `-c`
+        self.assertEqual(cmd[cmd.index("-f") + 1], "-")
+        self.assertNotIn("-c", cmd, "o SQL voltou ao argv: é o defeito do 0x92")
+        self.assertNotIn("select 1", cmd, "o SQL nao viaja no argv")
+        # a DSN em ÚLTIMO: o psql do Windows não permuta opções (BG-04)
+        self.assertEqual(cmd[-1], "postgresql://u@localhost:5432/descartavel")
+
+        # o conteúdo vai por stdin, em texto, UTF-8 — e a saída é capturada
+        self.assertEqual(kwargs.get("input"), "select 1")
+        self.assertIs(kwargs.get("text"), True)
+        self.assertEqual(kwargs.get("encoding"), "utf-8")
+        self.assertTrue(kwargs.get("capture_output"))
 
     def test_2_o_separador_de_campos_nao_aparece_em_dado_nenhum(self):
         """Uma unidade de separação do ASCII. Não existe em caminho, URL nem
@@ -543,14 +683,28 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
         self.assertTrue(self.pg.HOSTS_LOCAIS)
         # A lista e curta de proposito: acrescentar um nome tem de ser uma
         # decisao consciente, e doer um bocadinho.
-        self.assertLessEqual(len(self.pg.BANCOS_PERMITIDOS), 3)
+        #
+        # ⚠️ SUBIU DE 3 PARA 4 EM 2026-09-10, e a dor cumpriu-se: este caso
+        # reprovou primeiro. `objeto` entrou para a prova da migration 025, que
+        # separa a copia da observacao — e ela precisa mesmo de banco proprio,
+        # porque assere CONTAGENS EXATAS (`objetos=3 enderecos=3`) e herdar
+        # linhas de outra prova faria um caso passar por estado alheio.
+        #
+        # O numero continua colado ao que existe HOJE. O quinto nome volta a
+        # reprovar aqui, que e o ponto.
+        self.assertLessEqual(len(self.pg.BANCOS_PERMITIDOS), 4)
         self.assertIn("descartavel", self.pg.BANCOS_PERMITIDOS)
         for proibido in ("producao", "prod", "postgres", "eame-sintonia"):
             self.assertNotIn(proibido, self.pg.BANCOS_PERMITIDOS)
-        fonte = open(os.path.join(RAIZ, "provas",
-                                  "preservar_coleta_no_postgres.py"),
+        # A trava decompõe a URL, e desde 2026-09-17 mora no dono canónico
+        # (`guarda/banco_descartavel.py`), de onde a prova a importa.
+        fonte = open(os.path.join(RAIZ, "guarda", "banco_descartavel.py"),
                      encoding="utf-8").read()
         self.assertIn("urlparse", fonte)
+        prova = open(os.path.join(RAIZ, "provas",
+                                  "preservar_coleta_no_postgres.py"),
+                     encoding="utf-8").read()
+        self.assertIn("guarda.banco_descartavel", prova)
 
     def test_os_cenarios_do_postgres_correm_tambem_aqui(self):
         """O ENSAIO. Os mesmos casos, contra o banco descartável local.
@@ -596,13 +750,27 @@ class AsTravasDoEsquemaSaoReais(CasoBase):
     """O banco descartável tem de reproduzir as travas que interessam."""
 
     def test_run_id_e_obrigatorio_e_tem_chave_estrangeira(self):
-        """A trava que NÃO se relaxa para caber o legado italiano."""
+        """A trava que NÃO se relaxa para caber o legado italiano.
+
+        ⚠️ A COPIA E CRIADA E LIGADA DE PROPOSITO. Desde a 025 uma linha sem
+        `storage_object_id` tambem seria recusada — e entao este caso passaria
+        pelo motivo errado, provando a trava nova em vez da que tem no nome.
+        Aqui só falta a corrida, e por isso só a chave estrangeira dela pode
+        reprovar.
+        """
         import sqlite3
+        self.banco.con.execute(
+            "insert into storage_object (storage_path, media_type, bytes, "
+            "sha256) values ('x','application/pdf',1,'a')")
         with self.assertRaises(sqlite3.IntegrityError):
             self.banco.con.execute(
                 "insert into raw_asset (run_id, storage_path, media_type, "
-                "bytes, sha256, captured_at) values "
-                "('CORRIDA-QUE-NAO-EXISTE','x','application/pdf',1,'a','t')")
+                "bytes, sha256, captured_at, storage_object_id, "
+                "identity_state, source_id, document_key, document_key_basis) "
+                "select 'CORRIDA-QUE-NAO-EXISTE','x','application/pdf',1,'a',"
+                "'t', o.id, 'FORWARD_IDENTIFIED','IT-T2-002','DOC:X',"
+                "'SOURCE_DOCUMENT_ID' from storage_object o "
+                "where o.storage_path = 'x'")
 
     def test_storage_path_e_unico_e_sha256_nao_e(self):
         """O mesmo conteúdo em dois endereços continua a caber — foi o que os

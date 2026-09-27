@@ -83,7 +83,16 @@ case "$ETAPA" in
     # registro, a primeira execução aplica o que falta e ANOTA o que já
     # existia — a anotação vem da resposta do banco ("already exists"), não
     # de suposição sobre até onde alguém foi.
-    psql "$URL" -v ON_ERROR_STOP=1 -q -c "
+    # ⚠️ O BOOTSTRAP ENTRA POR STDIN, NAO POR -c — E ISSO E WINDOWS, nao gosto.
+    # Medido em 2026-09-16: quando um processo NATIVO (python) lanca o bash
+    # que lanca o psql, o texto acentuado passado em ARGV chega ao psql em
+    # CP1252 (0xE3 para o a-til), enquanto os ficheiros de -f continuam
+    # UTF-8. Nao existe UMA client_encoding que sirva as duas rotas ao
+    # mesmo tempo: UTF8 rebenta no argv, WIN1252 rebenta nos ficheiros.
+    #
+    #     TEXTO ACENTUADO NAO VIAJA EM ARGV NO WINDOWS.
+    #     BYTES POR STDIN VIAJAM INTEIROS NOS DOIS SISTEMAS.
+    psql -v ON_ERROR_STOP=1 -q -f - "$URL" >/dev/null <<'SQL_BOOTSTRAP'
       create table if not exists public.schema_migracao (
         versao      text primary key,
         aplicada_em timestamptz not null default now(),
@@ -93,7 +102,8 @@ case "$ETAPA" in
         'Infraestrutura do aplicador de migrations, não schema de domínio. '
         'Existe para que a cadeia NÃO reaplique o que já foi aplicado — '
         'reaplicar pode ressuscitar coluna que uma migration posterior '
-        'aposentou, e foi por isso que ele nasceu.';" >/dev/null
+        'aposentou, e foi por isso que ele nasceu.';
+SQL_BOOTSTRAP
     for f in $(ls "$RAIZ"/supabase/migrations/*.sql | grep -v '/008_' | sort); do
       num=$(basename "$f" | cut -c1-3)
       sha=$(sha256sum "$f" | cut -d' ' -f1)
@@ -107,8 +117,8 @@ case "$ETAPA" in
       #     VERSAO IGUAL COM SHA DIFERENTE E DRIFT.
       #
       # O SHA nao e segredo e pode aparecer no log; a DSN e que nunca aparece.
-      guardado=$(psql "$URL" -tAc "select sha256 from public.schema_migracao
-                                   where versao='$num'")
+      guardado=$(psql -tAc "select sha256 from public.schema_migracao
+                                   where versao='$num'" "$URL")
       if [ -n "$guardado" ]; then
         if [ "$guardado" = "$sha" ]; then
           echo "MIGRATION_$num=SKIP (ja no livro-razao) HASH=MATCH"
@@ -125,15 +135,36 @@ case "$ETAPA" in
         echo "  NENHUMA migration posterior sera aplicada."
         exit 1
       fi
-      if psql "$URL" -v ON_ERROR_STOP=1 -q -f "$f" >/tmp/cc.out 2>/tmp/cc.err; then
-        psql "$URL" -q -c "insert into public.schema_migracao (versao, resultado, sha256)
-          values ('$num','APLICADA','$sha') on conflict (versao) do nothing" >/dev/null
+      # ── UMA MIGRATION ENTRA INTEIRA, OU NAO ENTRA ─────────────────
+      # Sem `--single-transaction`, cada instrucao do ficheiro confirma-se
+      # sozinha. Reproduzido num Postgres descartavel com um ficheiro
+      # A / B / ERRO / C: depois do erro, A e B FICARAM na tabela.
+      #
+      #     META MIGRATION APLICADA E PIOR DO QUE NENHUMA:
+      #     o livro-razao nao a tem, e o banco ja mudou.
+      #
+      # Medido antes de escolher: nenhuma migration desta arvore usa
+      # `concurrently`, `vacuum` ou `alter system`, que nao correm dentro de
+      # transacao. As unicas com `begin;`/`commit;` proprios sao a 023 e a
+      # 024, e nas duas o `commit;` e a ULTIMA linha — nada corre depois dele.
+      #
+      # E O LIVRO-RAZAO VIAJA NO MESMO FLUXO. Antes ele era uma SEGUNDA
+      # chamada ao psql: entre o DDL e o registo havia uma janela em que o
+      # banco ja tinha mudado e o livro ainda nao sabia. Agora o `insert` do
+      # registo entra a seguir ao ficheiro, na mesma transacao — e se o
+      # ficheiro reprovar, o registo reprova com ele.
+      if { cat "$f"
+           printf '\ninsert into public.schema_migracao (versao, resultado, sha256)'
+           printf " values ('%s','APLICADA','%s') on conflict (versao) do nothing;\n" \
+                  "$num" "$sha"
+         } | psql -v ON_ERROR_STOP=1 --single-transaction -q -f - "$URL" \
+               >/tmp/cc.out 2>/tmp/cc.err; then
         echo "MIGRATION_$num=PASS"
       elif grep -qiE "already exists|ja existe|já existe" /tmp/cc.err; then
         # O banco respondeu que os objetos já estão lá. Isso é RESPOSTA, e
         # é ela que entra no livro — não uma suposição sobre o histórico.
-        psql "$URL" -q -c "insert into public.schema_migracao (versao, resultado, sha256)
-          values ('$num','JA_EXISTIA','$sha') on conflict (versao) do nothing" >/dev/null
+        psql -q -c "insert into public.schema_migracao (versao, resultado, sha256)
+          values ('$num','JA_EXISTIA','$sha') on conflict (versao) do nothing" "$URL" >/dev/null
         echo "MIGRATION_$num=SKIP (objetos ja existem; anotado no livro-razao)"
       else
         echo "MIGRATION_$num=FAIL"; sanitiza < /tmp/cc.err | head -8; exit 1
@@ -141,6 +172,20 @@ case "$ETAPA" in
     done
     ;;
   importacoes)
+    # ── A TRAVA SAIU DAQUI, E COM ELA O QUE ELA GUARDAVA ──────────────
+    # Ela existia por UM ficheiro: o catalogo ADAMA, com 138 `insert` em
+    # `raw_asset` no formato anterior a 026. Esse ficheiro saiu desta lista —
+    # nao esta bloqueado, esta APOSENTADO, e a razao e medida: contra um banco
+    # com a 026 ele falha na PRIMEIRA linha, em `identity_state` NOT NULL,
+    # antes de haver conflito para o `on conflict` resolver.
+    #
+    # E A TRAVA TINHA DE SAIR COM ELE. Medido: dos tres ficheiros desta lista,
+    # NENHUM dos outros dois toca `raw_asset`. Mantida aqui, a trava deixaria
+    # de proteger fosse o que fosse e passaria a recusar TODA importacao futura
+    # contra qualquer banco pos-026 — ou seja, contra o unico banco que existe.
+    #
+    #     UMA TRAVA QUE SO TRAVA O QUE E LEGITIMO NAO E UMA TRAVA.
+
     # A ordem É a lei. Regulatório primeiro.
     #
     # A IT-LASTMILE entra POR ULTIMO, e nao e preferencia: ela referencia
@@ -149,7 +194,6 @@ case "$ETAPA" in
     # mas a regra da casa e uma ordem so, escrita num lugar so, e quem chega
     # depois entra no fim.
     for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \
-             supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql \
              supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do
       # ── CONFERENCIA DE SINTAXE, ANTES DE TOCAR O BANCO ──────────────
       # O arquivo da last-mile tem 2,8 MB e 3.798 inserts gerados por
@@ -163,7 +207,7 @@ case "$ETAPA" in
         fi
       fi
       nome=$(basename "$f")
-      if psql "$URL" -v ON_ERROR_STOP=1 -q -f "$RAIZ/$f" >/tmp/cc.out 2>/tmp/cc.err; then
+      if psql -v ON_ERROR_STOP=1 -q -f "$RAIZ/$f" "$URL" >/tmp/cc.out 2>/tmp/cc.err; then
         echo "IMPORT_${nome%%.sql}=PASS"
       else
         echo "IMPORT_${nome%%.sql}=FAIL"; sanitiza < /tmp/cc.err | head -8; exit 1

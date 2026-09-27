@@ -236,21 +236,18 @@ def caminhos_de_pdf():
     A regra do que é italiano vive lá e é importada daqui — dois censos com
     duas regras de contagem produziriam dois números verdadeiros e
     contraditórios, que é o pior resultado possível.
+
+    E a LISTA também vem de lá, e vem do Git (`git ls-files`), não do disco.
+    A primeira versão andava por `os.walk(RAIZ)` e contou, na máquina do
+    autor, nove PDF de `XX/it-t2-002/` — pasta que o .gitignore exclui — e
+    publicou 58 cópias / 51 conteúdos onde um clone limpo mede 49 / 43. O
+    manifesto da cadeia sempre declarou este passo como «git ls-files»; o
+    código é que não cumpria.
     """
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from censo_do_corpus_it import e_italiano  # noqa: E402
+    from censo_do_corpus_it import e_italiano, pdfs_italianos_rastreados  # noqa: E402,F401
 
-    fora = []
-    for pasta, _sub, ficheiros in os.walk(RAIZ):
-        if ".git" in pasta.replace("\\", "/").split("/"):
-            continue
-        for nome in ficheiros:
-            if not nome.lower().endswith(".pdf"):
-                continue
-            absoluto = os.path.join(pasta, nome)
-            if e_italiano(_rel(absoluto)):
-                fora.append(absoluto)
-    return sorted(fora)
+    return pdfs_italianos_rastreados()
 
 
 def censo():

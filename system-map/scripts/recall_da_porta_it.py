@@ -89,9 +89,14 @@ def main():
     por_ficheiro = {}
     exemplos = {'SIM': [], 'NAO': [], 'NAO_SEI': []}
     for it in itens:
+        # ⚠️ O UNIVERSO MEDIDO E `T5`, E A MUDANCA NAO E DE GOSTO.
+        # Este script perguntava por `T7` quando `T7` queria dizer «Ciencia e
+        # ensaio» nesta casa. No Atlas — o dono — `T7` e TECHNICAL NETWORK, e
+        # o assunto que este ficheiro sempre quis medir chama-se `T5 SCIENCE`.
+        # Continuar a perguntar `T7` mediria a peneira errada com o nome certo.
         d = adm.decidir({'id': it['id'], 'texto': it['texto'],
                          'source_id': 'IT-RECALL', 'fact_time': '2026-09-07'},
-                        'T7')
+                        'T5')
         r = d.resultado
         contas[r] += 1
         por_ficheiro.setdefault(it['FICHEIRO'], collections.Counter())[r] += 1

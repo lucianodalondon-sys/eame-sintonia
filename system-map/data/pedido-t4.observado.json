@@ -1,0 +1,63 @@
+{
+  "CLASSE": "T4",
+  "CELEX": "32026R1696",
+  "CRITERIO_DO_CANARIO": "o atlas declara `EU-T4-001` com `territory: T4` e `type: Registro legal oficial primario`, e este CELEX e o `real_example` da propria ficha. O ato e um Regulamento de Execucao publicado no Jornal Oficial da UE que renova a aprovacao de uma substancia ativa ao abrigo do Reg. 1107/2009 — regulatorio por aquilo que E, e nao por casar com uma palavra",
+  "RUN_ID": "IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7",
+  "ESTRADA": {
+    "REQUEST": {
+      "OBSERVED": true,
+      "EVIDENCE": "recibo.PEDIDO = {\"alvo\": \"T4\", \"acionamento\": \"MANUAL\", \"escopo\": \"PONTUAL\", \"filtros\": {\"pais\": \"IT\", \"celex\": \"32026R1696\"}}"
+    },
+    "ORCHESTRATOR": {
+      "OBSERVED": true,
+      "EVIDENCE": "ACTOR=coleta/eu_regulatorio_executor.py · PLATFORM=EUR-Lex por CELEX (rota declarada no contrato de EU-T4-001) · CAPTURE_METHOD=gratuito"
+    },
+    "EXECUTOR": {
+      "OBSERVED": true,
+      "EVIDENCE": "COMANDO=coleta/eu_regulatorio_executor.py 32026R1696 --run-id=IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7 · versao=f06b203c · colheita=1"
+    },
+    "RUN": {
+      "OBSERVED": true,
+      "EVIDENCE": "collection_run: [['IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7', 'concluida']]"
+    },
+    "RAW": {
+      "OBSERVED": true,
+      "EVIDENCE": "raw_asset da corrida: ['1']"
+    },
+    "STORAGE": {
+      "OBSERVED": true,
+      "EVIDENCE": "storage_object ligados a esta corrida: 1"
+    },
+    "DERIVED": {
+      "OBSERVED": true,
+      "EVIDENCE": "derived_artifact desta corrida: 1"
+    },
+    "STRUCTURED": {
+      "OBSERVED": true,
+      "EVIDENCE": "documento_estruturado: 1"
+    },
+    "ADMISSION": {
+      "OBSERVED": true,
+      "EVIDENCE": "a porta julgou 1 itens: {'SIM': 1}"
+    },
+    "READY": {
+      "OBSERVED": true,
+      "EVIDENCE": "unidades prontas: 1"
+    },
+    "WAITING_ROOM": {
+      "OBSERVED": true,
+      "EVIDENCE": "ficheiros na sala DEPOIS: ['IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7.json']"
+    }
+  },
+  "FIRST_LOST_EDGE": null,
+  "ACHADOS_NAO_CONSERTADOS": [
+    {
+      "NOME": "ENVELOPE_PARTILHADO",
+      "ESTADO": "DETECTA",
+      "DETALHE": "perguntei pela colheita de `CORRIDA-QUE-NAO-EXISTE` e recebi 0 item(ns) de `CORRIDA-QUE-NAO-EXISTE`"
+    }
+  ],
+  "ORIGEM_DOS_BYTES": "ARQUIVO_LOCAL",
+  "AQUISICAO_PELA_REDE": "NOT_PROVEN",
+  "CANONICAL_E2E": "PASS"
+}

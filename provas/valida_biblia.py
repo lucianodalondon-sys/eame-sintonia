@@ -216,12 +216,35 @@ def main() -> int:
         'LAWS': leis,
     }
     if '--build' in sys.argv:
+        # ⚠️ `--build` NAO E UM CHECK, E ANTES NAO DIZIA ISSO.
+        #
+        # Ele saia com 0 fosse qual fosse o numero de leis reprovadas mais
+        # acima: `falhas` so era consultado depois deste `return`. E como o
+        # remedio documentado para um `B10` vermelho e «corra --build e comite
+        # o resultado», o caminho normal de conserto era um comando que (a)
+        # dizia OK com a Biblia reprovada e (b) gerava `leis.json` A PARTIR
+        # dessa Biblia reprovada — carimbando o defeito no registo.
+        #
+        #     GERAR NAO E VALIDAR.
+        #     E QUEM GERA A PARTIR DE ALGO REPROVADO TEM DE SABER.
+        #
+        # Continua a GERAR — recusar-se seria tirar a ferramenta a quem
+        # precisa dela para consertar. Mas grita, e sai com codigo proprio.
+        if falhas:
+            print('\n  ⚠️  %d LEI(S) REPROVADA(S) ANTES DE GERAR: %s'
+                  % (len(falhas), ', '.join(falhas)))
         os.makedirs(PASTA, exist_ok=True)
         with open(LEIS_JSON, 'w', encoding='utf-8') as f:
             json.dump(pacote, f, ensure_ascii=False, indent=1)
             f.write('\n')
         print('\nLEIS_JSON_GERADO=OK · %s · %d leis'
               % (os.path.relpath(LEIS_JSON, ROOT), len(leis)))
+        if falhas:
+            print('LEIS_JSON_GERADO_A_PARTIR_DE_BIBLIA_REPROVADA=SIM')
+            print('  O ficheiro foi escrito, e NAO deve ser comitado assim:')
+            print('  ele carrega para o registo aquilo que o texto ja tinha')
+            print('  de errado. Conserte as leis acima e volte a gerar.')
+            return 3
         return 0
 
     igual = False

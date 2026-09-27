@@ -1,0 +1,201 @@
+{
+ "DATASET": "MUTACAO-BOLETIM-POR-SECAO-V1",
+ "TESTE": "tests/test_boletim_por_secao.py",
+ "MUTANTES": [
+  {
+   "MUTANTE": "M01_SECAO_DO_DOCUMENTO",
+   "REGRA": "D18: a afirmacao herda a 1.a secao do documento, nao a sua",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=7)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M02_CABECALHO_VISUAL_VIRA_FATO",
+   "REGRA": "o cabecalho so na imagem vira FACT_LOCATION (com a trava da lei desligada)",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=5)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M03_SEM_CORTE_DE_SECAO",
+   "REGRA": "o paragrafo atravessa rotulo/troca de secao",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=4)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M04_SEM_ENTIDADE_CONCORRENTE",
+   "REGRA": "titulo diz A, paragrafo diz B, e fica A",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M05_PARAGRAFO_INTEIRO",
+   "REGRA": "a janela do paragrafo vai ate ao inicio da secao",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=4)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M06_SO_A_PRIMEIRA_PRAGA_DO_TRECHO",
+   "REGRA": "o trecho com duas pragas guarda so uma (C05)",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=3)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M07_EXPRESSAO_SEM_NOME_VIRA_PONTO",
+   "REGRA": "«zone irrigue … di tutti comprensori» vira lugar resolvido (C08)",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=3)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M08_EXCLUSAO_RESOLVE",
+   "REGRA": "«TERRITORIO ESCLUSO X» vira o lugar X",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M09_TITULO_VENCE_O_TRECHO",
+   "REGRA": "o titulo passa a frente do nome escrito no trecho",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=5)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M10_DOCUMENTO_VENCE_A_SECAO",
+   "REGRA": "o titulo do documento passa a frente do titulo da secao",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M11_RODAPE_NAO_FECHA_A_SECAO",
+   "REGRA": "o anexo depois do rodape herda o comprensorio",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M12_CABECALHO_PARTIDO_NAO_JUNTA",
+   "REGRA": "«COMPRENSORIO - LE - PIANURA» + «SALENTINA SUD» fica pela metade",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M13_REPETICAO_CONTA_INSTITUICOES",
+   "REGRA": "o mesmo paragrafo em 3 secoes conta 3 instituicoes (C07)",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M14_AFIRMACAO_COM_BARRA_LATERAL",
+   "REGRA": "D19: ler_afirmacao le a manchete vizinha como contexto",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M15_BOLETIM_COM_BARRA_LATERAL",
+   "REGRA": "D19: ler_boletim abre secao de cultura na manchete vizinha",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M16_MESMA_CULTURA_VAZIA",
+   "REGRA": "«oliveto» no paragrafo concorre com «olivo» do titulo (C02)",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M17_SEM_MARGARONIA",
+   "REGRA": "o vocabulario perde a margaronia (C05)",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=8)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M18_CORPO_COM_BARRA_LATERAL",
+   "REGRA": "D19: o corpo do texto le a barra lateral (Basilicata)",
+   "ALVO": "leis/fato_do_texto.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M19_ROTULO_VIZINHO_CEGO",
+   "REGRA": "D19: «Ultime notizie» deixa de ser rotulo de bloco vizinho",
+   "ALVO": "leis/fato_do_texto.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=5)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M20_TITULO_DA_CHAVE_COM_VIZINHOS",
+   "REGRA": "D19: a 1.a linha da chave de cultura e a manchete vizinha",
+   "ALVO": "admissao/admissao.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "M21_SEM_JANELA_DO_PARAGRAFO",
+   "REGRA": "o contexto do paragrafo deixa de existir (C09 SA-03)",
+   "ALVO": "leis/boletim_do_campo.py",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "FAILED (failures=5)",
+   "RESULTADO": "MORTO"
+  }
+ ],
+ "SEM_MUTANTE": {
+  "RC": 0,
+  "SAIDA": "OK"
+ },
+ "MORTOS": 21,
+ "TOTAL": 21
+}

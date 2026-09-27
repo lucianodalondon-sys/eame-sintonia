@@ -1,0 +1,173 @@
+{
+ "IT-T7-112": {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "https://www.cia.it/associazioni-cia/agia/",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://www.cia.it/associazioni-cia/agia/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "ENTRADA_RETRATO": {
+   "HTML_KIND": "CONTENT",
+   "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+   "LINKS": 124,
+   "PARAGRAPH_CHARACTERS": 3294,
+   "TEXT_SHA256": "ac4f21ba70f20212f32f2bb1c52ee048f8321aace223229b1b3bc9151af8199e"
+  },
+  "SECCAO_TENTADA": null,
+  "FAMILIAS_VISTAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?cia\\.it/news/?\\?tag=\\d+$",
+    "MEMBROS": 9,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.cia.it/news/?tag=10",
+     "https://www.cia.it/news/?tag=145",
+     "https://www.cia.it/news/?tag=173"
+    ],
+    "FLUXO": "vocabulario de publicacao: news"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?cia\\.it/news/notizie/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 3,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/",
+     "https://www.cia.it/news/notizie/cia-toscana-solo-il-7-di-giovani-in-agricoltura-ricambio-generazionale-deve-essere-priorita/",
+     "https://www.cia.it/news/notizie/eletti-i-presidenti-di-anp-agia-e-donne-in-campo-di-cia-calabria/"
+    ],
+    "FLUXO": "vocabulario de publicacao: news"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?cia\\.it/associazioni\\-cia/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 2,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.cia.it/associazioni-cia/aidaldo-invalidi-e-datori-lavoro-domestico/",
+     "https://www.cia.it/associazioni-cia/donne-in-campo/"
+    ],
+    "FLUXO": "titulos longos (mediana 6 palavras)"
+   }
+  ],
+  "FAMILIAS_ESTATICAS": [
+   {
+    "PADRAO": "^https?://(www\\.)?cia\\.it/offerte\\-associati/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 4,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://cia.it/offerte-associati/servizi-ai-cittadini/",
+     "https://cia.it/offerte-associati/servizi-alle-imprese/",
+     "https://www.cia.it/offerte-associati/servizi-ai-cittadini/"
+    ],
+    "FLUXO": null
+   }
+  ],
+  "DESFECHO": "RECUSA",
+  "MOTIVO": "ITEM_NAO_E_MATERIA",
+  "TENTADOS": [
+   {
+    "PADRAO": "^https?://(www\\.)?cia\\.it/news/?\\?tag=\\d+$",
+    "MEMBROS": 9,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.cia.it/news/?tag=10",
+     "https://www.cia.it/news/?tag=145",
+     "https://www.cia.it/news/?tag=173"
+    ],
+    "FLUXO": "vocabulario de publicacao: news",
+    "ALVO": "https://www.cia.it/news/?tag=10",
+    "ITEM": {
+     "URL": "https://www.cia.it/news/?tag=10",
+     "HTTP": 200,
+     "BYTES": 86935,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 99,
+     "NON_WHITESPACE_CHARACTERS": 1722,
+     "PARAGRAPH_CHARACTERS": 0,
+     "TEXT_SHA256": "8ed4521c85d4f46b3ff5b63d25117466bef36fa758690b60f47c7f073a1cb8b2"
+    },
+    "VEREDITO": "FAMILIA_E_MENU: 8 dos 9 enderecos da familia repetem-se dentro do item — navegacao do site, nao lista de materias"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?cia\\.it/news/notizie/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 3,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/",
+     "https://www.cia.it/news/notizie/cia-toscana-solo-il-7-di-giovani-in-agricoltura-ricambio-generazionale-deve-essere-priorita/",
+     "https://www.cia.it/news/notizie/eletti-i-presidenti-di-anp-agia-e-donne-in-campo-di-cia-calabria/"
+    ],
+    "FLUXO": "vocabulario de publicacao: news",
+    "ALVO": "https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/",
+    "VEREDITO": "DUPLICADA de IT-T7-115"
+   },
+   {
+    "PADRAO": "^https?://(www\\.)?cia\\.it/associazioni\\-cia/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+    "MEMBROS": 2,
+    "COMO": "FAMILIA_POR_ESQUELETO (receitas 6-PREP-d)",
+    "EXEMPLOS": [
+     "https://www.cia.it/associazioni-cia/aidaldo-invalidi-e-datori-lavoro-domestico/",
+     "https://www.cia.it/associazioni-cia/donne-in-campo/"
+    ],
+    "FLUXO": "titulos longos (mediana 6 palavras)",
+    "ALVO": "https://www.cia.it/associazioni-cia/aidaldo-invalidi-e-datori-lavoro-domestico/",
+    "ITEM": {
+     "URL": "https://www.cia.it/associazioni-cia/aidaldo-invalidi-e-datori-lavoro-domestico/",
+     "HTTP": 200,
+     "BYTES": 84021,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 88,
+     "NON_WHITESPACE_CHARACTERS": 2316,
+     "PARAGRAPH_CHARACTERS": 576,
+     "TEXT_SHA256": "e7118ae0d94e2d189a1291e7c8fe2c81167658d9431f18f1d52bd85f73a3b515"
+    },
+    "VEREDITO": "NAVIGATION/CAPA_PROVAVEL, 576 em paragrafos (< 800 ou nao e materia)"
+   }
+  ],
+  "PORQUE": "https://www.cia.it/news/?tag=10 -> FAMILIA_E_MENU: 8 dos 9 enderecos da familia repetem-se dent; https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei -> DUPLICADA de IT-T7-115; https://www.cia.it/associazioni-cia/aidaldo-invalidi-e-datori-lavoro-d -> NAVIGATION/CAPA_PROVAVEL, 576 e",
+  "PEDIDOS": 3,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "https://www.cia.it/associazioni-cia/agia/",
+    "HTTP": 200,
+    "BYTES": 113215
+   },
+   {
+    "URL": "https://www.cia.it/news/?tag=10",
+    "HTTP": 200,
+    "BYTES": 86935
+   },
+   {
+    "URL": "https://www.cia.it/associazioni-cia/aidaldo-invalidi-e-datori-lavoro-domestico/",
+    "HTTP": 200,
+    "BYTES": 84021
+   }
+  ]
+ },
+ "IT-T7-120": {
+  "METODO": "REPARO-DE-CONTRATO/v1",
+  "ENTRADA": "https://inac-cia.it/news/notizie/",
+  "ACQUISITION_ANTERIOR": {
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "MATCH": "URL",
+   "INDEX_URL": "https://inac-cia.it/news/notizie/",
+   "LINK_PATTERN": "^https?://(www\\.)?inac\\-cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1
+  },
+  "DESFECHO": "RECUSA",
+  "MOTIVO": "ENTRADA_HTTP_404",
+  "PORQUE": "a entrada respondeu HTTP 404: a fonte mudou de casa ou saiu do ar",
+  "PEDIDOS": 1,
+  "PAGINAS_LIDAS": [
+   {
+    "URL": "https://inac-cia.it/news/notizie/",
+    "HTTP": 404,
+    "BYTES": 0
+   }
+  ]
+ }
+}

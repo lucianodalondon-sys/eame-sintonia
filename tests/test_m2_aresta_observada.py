@@ -93,10 +93,22 @@ class AArestaSoContaComOsDoisTopos(unittest.TestCase):
                       visto["ARESTAS_DECLARADAS_SEM_TOPO"])
 
     def test_o_que_ficou_so_declarado_aparece_e_nao_desaparece(self):
-        """Um buraco que some da medicao volta como surpresa."""
-        visto = rastro.o_que_a_rota_observou(self.COMPLETA, ROTA)
-        self.assertIn(("RAW", "DERIVED"), visto["ARESTAS_DECLARADAS_SEM_TOPO"],
-                      "o gap RAW_FORWARD_NAO_EMITE deixou de ser visivel")
+        """Um buraco que some da medicao volta como surpresa.
+
+        ⚠️ O SUJEITO MUDOU, E A LEI NAO. Ate C-MAKE-RAW-OBSERVABLE-V1 este
+        teste usava `self.COMPLETA` — onde RAW nao tinha linha — para provar
+        que a aresta `RAW -> DERIVED` aparecia como declarada e sem topo. A
+        etapa RAW passou a falar, e essa aresta deixou de estar sem topo.
+
+        O que este teste guarda continua a ser o mesmo: o medidor tem de
+        MOSTRAR a aresta cujo topo falta, em vez de a calar. Entao ele passa a
+        perguntar-lho sobre uma passagem que REALMENTE falta.
+        """
+        sem_raw = [p for p in self.COMPLETA if p["ETAPA"] != "DERIVED"]
+        visto = rastro.o_que_a_rota_observou(sem_raw, ROTA)
+        self.assertIn(("DERIVED", "STRUCTURED"),
+                      visto["ARESTAS_DECLARADAS_SEM_TOPO"],
+                      "uma aresta sem topo deixou de ser visivel na medicao")
 
     def test_MUTACAO_uma_etapa_que_nao_correu_nao_cobre_nem_liga(self):
         """NOT_RUN deixa linha e nao e passagem. Se contasse, bastava uma linha

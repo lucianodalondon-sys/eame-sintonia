@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "a50951a9e9fe812e1ef2769e4456f673abe59c3c"
+    "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107"
   },
   "VOCABULARIOS": [
     {
@@ -25,9 +25,26 @@
       "FOREIGN_ONLY": 11,
       "CONSUMERS": [
         ".github/workflows/apify-sensores.yml",
+        "coleta/adaptador_youtube.py",
+        "coleta/coletor.py",
+        "coleta/social_scrap.py",
+        "leis/autorizacao_de_gasto.py",
+        "leis/social_matriz.py",
+        "provas/mutacao_da_autorizacao.py",
+        "provas/orcamento_financeiro.py",
+        "provas/queda_e_repeticao_da_v1.py",
+        "provas/red_team_da_release_v1.py",
         "provas/testa_coleta_canonica.py",
         "system-map/scripts/censo_semantico_it.py",
         "system-map/scripts/generate_system_map.py",
+        "tests/test_autorizacao_de_gasto.py",
+        "tests/test_c10_8af_orcamento_financeiro.py",
+        "tests/test_c3_youtube_cutover.py",
+        "tests/test_c4_gpu_local.py",
+        "tests/test_c5_transcript_gate.py",
+        "tests/test_c6_especie_do_texto.py",
+        "tests/test_linkedin_op_01_operacional.py",
+        "tests/test_scrap_sr02_autorizacao_de_gasto.py",
         "tests/test_trava_da_inteligencia.py"
       ],
       "TERMOS": [
@@ -487,7 +504,10 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py",
+        "tests/test_c7_lugar_do_fato.py",
+        "tests/test_c8_convergencia.py"
       ],
       "TERMOS": [
         {
@@ -593,7 +613,10 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py",
+        "tests/test_c7_lugar_do_fato.py",
+        "tests/test_c8_convergencia.py"
       ],
       "TERMOS": [
         {
@@ -683,7 +706,10 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py",
+        "tests/test_c7_lugar_do_fato.py",
+        "tests/test_c8_convergencia.py"
       ],
       "TERMOS": [
         {
@@ -777,7 +803,10 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py",
+        "tests/test_c7_lugar_do_fato.py",
+        "tests/test_c8_convergencia.py"
       ],
       "TERMOS": [
         {
@@ -1007,7 +1036,10 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py",
+        "tests/test_c7_lugar_do_fato.py",
+        "tests/test_c8_convergencia.py"
       ],
       "TERMOS": [
         {
@@ -1089,7 +1121,10 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py",
+        "tests/test_c7_lugar_do_fato.py",
+        "tests/test_c8_convergencia.py"
       ],
       "TERMOS": [
         {
@@ -1163,7 +1198,10 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py",
+        "tests/test_c7_lugar_do_fato.py",
+        "tests/test_c8_convergencia.py"
       ],
       "TERMOS": [
         {
@@ -1210,27 +1248,100 @@
       "OWNER": "admissao",
       "ROLE": "ADMISSAO",
       "O_QUE_E": "as palavras que decidem se o item pertence ao universo pedido",
-      "TOTAL_TERMS": 57,
+      "TOTAL_TERMS": 128,
       "POR_ESCOPO": {
-        "IT_ONLY": 28,
+        "UNKNOWN": 63,
+        "IT_ONLY": 37,
         "PT_ONLY": 20,
         "SHARED_MULTILINGUAL": 6,
-        "INTERNATIONAL": 2,
-        "UNKNOWN": 1
+        "INTERNATIONAL": 2
       },
-      "CLASSIFIED": 56,
-      "UNKNOWN": 1,
+      "CLASSIFIED": 65,
+      "UNKNOWN": 63,
       "FECHA": true,
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
+        ".github/workflows/banco-descartavel.yml",
+        "admissao/reprocessar_estudos_chaves.py",
+        "admissao/reprocessar_tempo_lugar.py",
+        "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py",
         "coleta/rota_forward_documento.py",
+        "controle/censo_do_controle.py",
+        "controle/red_team_do_controle.py",
+        "ferramentas/reel_transcricao.py",
         "leis/artefato.py",
+        "leis/estudo_chaves.py",
+        "leis/relevancia_da_fonte.py",
+        "medidas/medir_v1a.py",
+        "medidas/micro_colheita.py",
+        "medidas/mutacao_v1a.py",
+        "medidas/o_contrato_do_universo.py",
+        "medidas/porque_a_sala_nao_recebeu.py",
+        "medidas/relevancia_antes_da_coleta.py",
         "orquestrador/orquestrador.py",
+        "provas/a_collection_preserva_o_fato.py",
+        "provas/a_fonte_atravessa_ate_a_porta.py",
+        "provas/a_fonte_t4_italiana_atravessa.py",
+        "provas/a_fronteira_da_coleta.py",
+        "provas/a_linhagem_do_ready.py",
+        "provas/a_linhagem_do_ready_social.py",
+        "provas/a_linhagem_do_reaproveitamento.py",
+        "provas/a_maquina_depois_do_crash.py",
+        "provas/a_maquina_sob_carga.py",
+        "provas/a_porta_le_italiano.py",
+        "provas/a_regra_de_t2.py",
+        "provas/a_rota_do_html_atravessa.py",
         "provas/a_rota_m2_atravessa.py",
+        "provas/a_sala_de_espera_nao_tem_morada.py",
+        "provas/a_sala_sobrevive_ao_processo.py",
+        "provas/a_unidade_pousa_na_espera.py",
+        "provas/alcance_da_pergunta_tematica.py",
+        "provas/arbitragem_da_intelligence.py",
+        "provas/auditoria_agro_fronteira.py",
+        "provas/benchmark_tematico.py",
+        "provas/c2_juiz_mutacao.py",
+        "provas/canario_d23_linkedin_video.py",
+        "provas/canario_d24_video_de_pessoa.py",
+        "provas/canario_reels_instagram.py",
+        "provas/candidatos_tematicos.py",
+        "provas/censo_corpus_rotulado_admission.py",
+        "provas/ensaio_do_texto_na_collection.py",
+        "provas/ensaio_scrap_para_a_collection.py",
+        "provas/espinha_da_intelligence.py",
+        "provas/estudos_chaves/mutacao_estudos_chaves.py",
+        "provas/implementacoes_candidatas.py",
+        "provas/medir_admission_t3_atual.py",
+        "provas/medir_source_id_wiring_gap.py",
+        "provas/mutacao_da_linhagem_do_ready.py",
+        "provas/nada_some_em_silencio.py",
+        "provas/o_canario_da_collection.py",
+        "provas/o_censo_da_sala_de_espera.py",
+        "provas/o_corte_de_cr1.py",
+        "provas/o_material_italiano_chega_a_sala.py",
+        "provas/o_pedido_atravessa.py",
+        "provas/o_pedido_t4_atravessa.py",
+        "provas/o_pedido_t6_atravessa.py",
+        "provas/o_portao_da_big_collection.py",
+        "provas/o_scrap_chega_ao_acervo.py",
+        "provas/os_portoes_da_collection.py",
+        "provas/red_team_collection_ate_a_sala.py",
+        "provas/red_team_duas_portas.py",
+        "provas/so_a_colheita_atravessa.py",
+        "provas/t2_boletins/canario_arpae.py",
+        "provas/tempo_e_lugar_replay.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
+        "scripts/diagnostico_sala/ler_os_76.py",
+        "scripts/diagnostico_sala/onde_casou.py",
+        "scripts/lugar_fato/mutar_boletim_por_secao.py",
+        "scripts/micro_coleta/ensaio_offline.py",
+        "scripts/micro_coleta/micro_coleta.py",
+        "scripts/regua_t1/selecionar_cega.py",
+        "scripts/regua_t2/medir_regua_t2.py",
+        "scripts/regua_t2/medir_via_agrometeo.py",
+        "scripts/regua_t2/mutar_regua_t2.py",
         "system-map/scripts/censo_das_derivacoes.py",
         "system-map/scripts/censo_semantico_it.py",
         "system-map/scripts/generate_system_map.py",
@@ -1238,8 +1349,65 @@
         "system-map/scripts/scan_repo.py",
         "system-map/scripts/validate_system_map.py",
         "system-map/tests/test_system_map.py",
+        "system-map/tests/test_verdade_das_ligacoes.py",
+        "tests/medir_multilingue.py",
+        "tests/mutacao_tempo_e_lugar.py",
+        "tests/test_a_collection_preserva_o_fato.py",
+        "tests/test_a_linhagem_do_ready.py",
+        "tests/test_a_operacao_aguenta_concorrencia.py",
+        "tests/test_a_regra_de_t10.py",
+        "tests/test_a_regra_de_t2.py",
+        "tests/test_a_rota_do_html.py",
+        "tests/test_a_sala_de_espera_nao_tem_morada.py",
+        "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "tests/test_admissao_multilingue.py",
+        "tests/test_alcance_tematico.py",
+        "tests/test_amostragem_neutra_t3.py",
+        "tests/test_atomicidade_da_intelligence.py",
+        "tests/test_bc4_armazem_e_pais.py",
+        "tests/test_boletim_do_campo.py",
+        "tests/test_boletim_por_secao.py",
+        "tests/test_c10_2_origin_gate.py",
+        "tests/test_c2_juiz.py",
+        "tests/test_cadeia_do_audio_offline.py",
+        "tests/test_candidatos_tematicos.py",
+        "tests/test_censo_corpus_rotulado_admission.py",
+        "tests/test_col_e7_contrato_do_texto.py",
+        "tests/test_concorrencia_meta.py",
+        "tests/test_d1_detector_d14.py",
+        "tests/test_espinha_da_intelligence.py",
+        "tests/test_estagio_atravessa_a_fronteira.py",
+        "tests/test_estudo_chaves.py",
+        "tests/test_fonte_atravessa.py",
+        "tests/test_fronteira_mede_producao.py",
+        "tests/test_gate_de_aceitacao_tematica.py",
+        "tests/test_implementacoes_candidatas.py",
+        "tests/test_lingua_da_porta.py",
         "tests/test_m2_rota_forward.py",
-        "tests/test_red_team_estrada.py"
+        "tests/test_medir_admission_t3_atual.py",
+        "tests/test_migracao_033_sala.py",
+        "tests/test_o_canario_da_collection.py",
+        "tests/test_o_pedido_t4_atravessa.py",
+        "tests/test_pacote_de_revisao_t3.py",
+        "tests/test_periodo_e_chaves.py",
+        "tests/test_politica_nao_sei.py",
+        "tests/test_quarentena_naosei.py",
+        "tests/test_quatro_chaves.py",
+        "tests/test_quatro_chaves_na_sala.py",
+        "tests/test_red_team_estrada.py",
+        "tests/test_reel_transcricao_trava.py",
+        "tests/test_regua_t1.py",
+        "tests/test_regua_t2.py",
+        "tests/test_relevance_priority_sobrecarga.py",
+        "tests/test_sala_dedup_por_document_key.py",
+        "tests/test_sala_duravel.py",
+        "tests/test_sala_idempotente_por_documento.py",
+        "tests/test_sala_por_nome.py",
+        "tests/test_tempo_e_lugar_atravessa.py",
+        "tests/test_ui_revisao_t3_ptbr.py",
+        "tests/test_universo_explicito.py",
+        "tests/test_universo_vem_do_pedido.py",
+        "tests/test_v1a_v1_ligada.py"
       ],
       "TERMOS": [
         {
@@ -1287,10 +1455,6 @@
           "escopo": "IT_ONLY"
         },
         {
-          "termo": "prova",
-          "escopo": "UNKNOWN"
-        },
-        {
           "termo": "ricerca",
           "escopo": "IT_ONLY"
         },
@@ -1323,8 +1487,60 @@
           "escopo": "IT_ONLY"
         },
         {
+          "termo": "prova di campo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "prove sperimentali",
+          "escopo": "UNKNOWN"
+        },
+        {
           "termo": "tesi",
           "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "cooperativa",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "consorcio",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "agronomo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "extensao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "assistencia tecnica",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "consorzio",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "agronomi",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "assistenza tecnica",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "servizio agronomico",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "tecnico di campo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "divulgazione tecnica",
+          "escopo": "UNKNOWN"
         },
         {
           "termo": "concorrente",
@@ -1423,6 +1639,10 @@
           "escopo": "SHARED_MULTILINGUAL"
         },
         {
+          "termo": "larva",
+          "escopo": "UNKNOWN"
+        },
+        {
           "termo": "praga",
           "escopo": "PT_ONLY"
         },
@@ -1441,6 +1661,22 @@
         {
           "termo": "sintoma",
           "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "daninha",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "erva daninha",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "herbicida",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "resistencia",
+          "escopo": "UNKNOWN"
         },
         {
           "termo": "parassita",
@@ -1469,15 +1705,231 @@
         {
           "termo": "patogeno",
           "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "fitopatolog",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "trappola",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "trappole",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ovideposizione",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "peronospora",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "oidio",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "botrite",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ticchiolatura",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "infestante",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "diserbo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "erbicida",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "malerba",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "commodity",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "prezzo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "prezzi",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "quotazion",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "listino",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "importazion",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "esportazion",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "rincar",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "borsa merci",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "domanda e offerta",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "precos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "cotacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "cotacoes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "importacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "importacoes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "exportacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "exportacoes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "fenologia|fenologica|fenologico|fenologiche|fenologici|bbch|estadio fenologico",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "fioritura|allegagione|invaiatura|germogliamento|ingrossamento|inolizione|floracao|florescimento",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "difesa integrata|lotta integrata|producao integrada|manejo integrado",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "soglia di intervento|soglia di trattamento|nivel de controle|nivel de dano",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "infestazione|infestazioni|infestacao|catture|capturas",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "trattamento fitosanitario|trattamenti fitosanitari|trattamento insetticida|trattamenti insetticidi|intervento fitosanitario|interventi fitosanitari|tratamento fitossanitario|tratamentos fitossanitarios",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "inizio della raccolta|avvio della raccolta|raccolta iniziata|epoca di raccolta|tempi di raccolta|in corso di raccolta|la raccolta 2026|prime vendemmie|vendemmia in corso|semina|semine|trebbiatura|inicio da colheita|semeadura",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "pioggia|piogge|precipitazione|precipitazioni|chuva|chuvas|precipitacao|precipitacoes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "temperatura|temperature|temperaturas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "siccita|seca|secas|estiagem",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "gelata|gelate|brina|brinate|geada|geadas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "grandine|grandinata|grandinate|granizo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ondata di calore|ondate di calore|onda de calor|ondas de calor",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "umidita del suolo|umidade do solo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "stress idrico|deficit idrico|bilancio idrico|estresse hidrico|deficit hidrico|balanco hidrico",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "eventi estremi|evento estremo|eventos extremos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "evapotraspirazione|evapotranspiracao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "irrigazione|irrigazioni|irrigacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "risorsa idrica|risorse idriche|recurso hidrico|recursos hidricos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "anticiclone|anticicloni|anticiclonico|anticiclonica|anticiclones",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "saccatura|saccature|cavado|cavados",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "perturbazione|perturbazioni|perturbacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "temporalesco|temporaleschi|temporalesca|temporalesche|trovoada|trovoadas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "nuvolosita|nuvolosa|nuvoloso|nebulosidade",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "pluviometro|pluviometri|pluviometrico|pluviometrica|anemometro|anemometri",
+          "escopo": "UNKNOWN"
         }
       ]
     }
   ],
   "COUNTS": {
     "vocabularios": 10,
-    "termos_ao_todo": 299,
+    "termos_ao_todo": 370,
     "por_papel": {
-      "ADMISSAO": 57,
+      "ADMISSAO": 128,
       "BUSCA": 68,
       "CLASSIFICACAO": 139,
       "EXTRACAO": 35

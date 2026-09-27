@@ -1,0 +1,488 @@
+{
+ "DATASET": "SINTONIA-INTELLIGENCE-REARBITRATION",
+ "MISSAO": "C-INT-ATOMICITY-01",
+ "FOTOGRAFIA": {
+  "COMMIT": "72150f8341af2b783116615e1f001954226f2e3e",
+  "BRANCH": "claude/intelligence-atomicity-v1",
+  "ARVORE_LIMPA": false,
+  "SHALLOW": "false"
+ },
+ "AUTORIDADES_EXIGIDAS": 15,
+ "AUTORIDADES_AUSENTES": {},
+ "CONTROL_PLANE_ATOMICITY": "PASS",
+ "CONCEITOS": {
+  "SOURCE_FACT / READY_ITEM": {
+   "OWNER": "COLLECTION",
+   "ALIAS": [
+    "SOURCE_CLAIM",
+    "EVIDENCE",
+    "READY_ITEM"
+   ],
+   "MODULO_DONO": "admissao/admissao.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 64,
+   "POR_CAMADA": {
+    "COLLECTION": 7,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 24,
+    "LEI": 17,
+    "OUTRA": 16
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "CLAIM_DOMAIN_JUDGMENT": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": "motor/v21_dominio_da_alegacao.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 10,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 2,
+    "DELIVERY": 0,
+    "PROVA": 1,
+    "LEI": 5,
+    "OUTRA": 2
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "INTELLIGENCE_REQUEST": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [
+    "KIT",
+    "KIQ"
+   ],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 13,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 1,
+    "LEI": 8,
+    "OUTRA": 4
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "INTELLIGENCE_RUN": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 21,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 3,
+    "LEI": 12,
+    "OUTRA": 6
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "SIGNAL": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [
+    "ANALYTIC_SIGNAL"
+   ],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 20,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 2,
+    "DELIVERY": 6,
+    "PROVA": 4,
+    "LEI": 5,
+    "OUTRA": 3
+   },
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "SCREENING": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 11,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 1,
+    "LEI": 8,
+    "OUTRA": 2
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "SUPPORT": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 23,
+   "POR_CAMADA": {
+    "COLLECTION": 2,
+    "INTELLIGENCE": 2,
+    "DELIVERY": 6,
+    "PROVA": 6,
+    "LEI": 2,
+    "OUTRA": 5
+   },
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "CONTRADICTION": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 9,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 3,
+    "PROVA": 2,
+    "LEI": 1,
+    "OUTRA": 3
+   },
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "DEPENDENCY / INDEPENDENCE": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [
+    "SAME_ORIGIN"
+   ],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 9,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 1,
+    "LEI": 7,
+    "OUTRA": 1
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "CROSSING": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": "motor/v21_crossings.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 111,
+   "POR_CAMADA": {
+    "COLLECTION": 3,
+    "INTELLIGENCE": 11,
+    "DELIVERY": 22,
+    "PROVA": 11,
+    "LEI": 18,
+    "OUTRA": 46
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "CONVERGENCE": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": "motor/pacote_convergencia.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 96,
+   "POR_CAMADA": {
+    "COLLECTION": 1,
+    "INTELLIGENCE": 4,
+    "DELIVERY": 38,
+    "PROVA": 9,
+    "LEI": 13,
+    "OUTRA": 31
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "ANALYTIC_ASSUMPTION": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 6,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 1,
+    "LEI": 3,
+    "OUTRA": 2
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "ANALYTIC_HYPOTHESIS": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [
+    "CANDIDATE_FINDING"
+   ],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 12,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 3,
+    "LEI": 6,
+    "OUTRA": 3
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "VALIDATION_STATE": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [
+    "VALIDATION_QUEUE"
+   ],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 15,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 1,
+    "DELIVERY": 4,
+    "PROVA": 2,
+    "LEI": 5,
+    "OUTRA": 3
+   },
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "FINDING / ANALYTIC_JUDGMENT": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [
+    "JUDGMENT"
+   ],
+   "MODULO_DONO": "motor/v21_fechar.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 15,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 4,
+    "LEI": 7,
+    "OUTRA": 4
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "REVERSAL / DEMOTED_BY": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 8,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 2,
+    "LEI": 6,
+    "OUTRA": 0
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "FUTURE_SIGNAL": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 51,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 3,
+    "DELIVERY": 34,
+    "PROVA": 1,
+    "LEI": 3,
+    "OUTRA": 10
+   },
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "OPPORTUNITY": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": "motor/v21_oportunidades.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 64,
+   "POR_CAMADA": {
+    "COLLECTION": 2,
+    "INTELLIGENCE": 9,
+    "DELIVERY": 12,
+    "PROVA": 6,
+    "LEI": 11,
+    "OUTRA": 24
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "ANALYTIC_RECOMMENDATION": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 6,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 1,
+    "LEI": 3,
+    "OUTRA": 2
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "INTELLIGENCE_PACKAGE": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 70,
+   "POR_CAMADA": {
+    "COLLECTION": 1,
+    "INTELLIGENCE": 6,
+    "DELIVERY": 31,
+    "PROVA": 1,
+    "LEI": 6,
+    "OUTRA": 25
+   },
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "CONFIDENCE": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 106,
+   "POR_CAMADA": {
+    "COLLECTION": 2,
+    "INTELLIGENCE": 8,
+    "DELIVERY": 29,
+    "PROVA": 7,
+    "LEI": 9,
+    "OUTRA": 51
+   },
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "INTELLIGENCE_REQUIREMENT": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [
+    "COLLECTION_GAP (metade da Intelligence)"
+   ],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 22,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 4,
+    "LEI": 12,
+    "OUTRA": 6
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "GAP / SATISFACTION / DECISION / ROTA": {
+   "OWNER": "COLLECTION",
+   "ALIAS": [
+    "COLLECTION_GAP (metade da Collection)"
+   ],
+   "MODULO_DONO": "leis/gestao_da_coleta.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 26,
+   "POR_CAMADA": {
+    "COLLECTION": 2,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 10,
+    "LEI": 6,
+    "OUTRA": 8
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "RELEVANCE": {
+   "OWNER": "HUMAN_DECISION_REQUIRED",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 105,
+   "POR_CAMADA": {
+    "COLLECTION": 8,
+    "INTELLIGENCE": 3,
+    "DELIVERY": 32,
+    "PROVA": 14,
+    "LEI": 10,
+    "OUTRA": 38
+   },
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "VERDICT": "OWNER_NEEDS_HUMAN_DECISION",
+   "ALERTA_DE_CAMADA": false
+  },
+  "PRIORITY": {
+   "OWNER": "HUMAN_DECISION_REQUIRED",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 114,
+   "POR_CAMADA": {
+    "COLLECTION": 6,
+    "INTELLIGENCE": 5,
+    "DELIVERY": 21,
+    "PROVA": 9,
+    "LEI": 7,
+    "OUTRA": 66
+   },
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "VERDICT": "OWNER_NEEDS_HUMAN_DECISION",
+   "ALERTA_DE_CAMADA": false
+  }
+ },
+ "SUPERSEDED_BY": "INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+ "SUPERSEDED_PORQUE": "A decisao humana de C-INT-NIGHT-01 (opcao A/A) aposentou os nomes nus RELEVANCE e PRIORITY. Este ficheiro fica como a medicao ANTES da decisao, e nao se reescreve: um censo que muda depois de medido deixa de poder ser conferido."
+}

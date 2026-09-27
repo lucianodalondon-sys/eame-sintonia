@@ -47,12 +47,25 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 import _gavetas  # noqa: E402,F401
 import artefato as art  # noqa: E402
-import admissao as adm  # noqa: E402
+import admissao as adm
+import ingresso as ing  # noqa: E402 — o dono da lingua da porta  # noqa: E402
+import proveniencia as pv  # noqa: E402
 import executor_texto_de_pdf as ex  # noqa: E402
 
-MANIFESTO = RAIZ / "data" / "samples" / "RUN-MANIFEST.json"
+# O caminho do RUN-MANIFEST vive no dono dele, `regras/proveniencia.py`.
 RECONCILIACAO = RAIZ / "system-map" / "data" / "golden-path-pdf.generated.json"
-UNIVERSO = "T7"
+# ⚠️ ESTE UNIVERSO ERA `T7`, E MUDOU PORQUE `T7` MUDOU DE SIGNIFICADO.
+# Esta estrada julga TEXTO EXTRAIDO DE PDF italiano — boletins, notiziari,
+# bilanci fitossanitari — contra o universo que esta casa chamava «Ciencia e
+# ensaio». No Atlas, que e o dono da taxonomia (`leis/territorios.py`), `T7` e
+# TECHNICAL NETWORK: cooperativas, consorcios e servico agronomico. O universo
+# que esta estrada sempre quis perguntar chama-se `T5 SCIENCE`.
+#
+#     UM NOME QUE MUDA DE DONO LEVA CONSIGO TODOS OS SITIOS QUE O CITAVAM.
+#
+# Sem esta linha, a estrada continuaria a correr e a escrever decisoes no livro
+# — com o rotulo errado, e sem nada a acusar.
+UNIVERSO = "T5"
 
 
 def impressoes_dos_brutos() -> dict:
@@ -142,28 +155,82 @@ def pela_porta(artefatos: list, run_id: str) -> dict:
     responde NÃO_SEI. Isso não é a estrada a falhar — é a estrada a dizer, com
     precisão, qual é o degrau que falta.
     """
-    itens, decisoes = [], []
+    itens, decisoes, cortados = [], [], []
     for a in artefatos:
         caminho = RAIZ / a["STORAGE_LOCATION"]
         texto = caminho.read_text(encoding="utf-8", errors="replace") \
             if caminho.is_file() else ""
-        item = {
-            "id": a["ARTIFACT_ID"],
+        # ── A POLITICA DESTA ESTRADA, e so ela ─────────────────────────
+        # Estas tres linhas NAO sao traducao: sao decisoes desta estrada sobre
+        # um DERIVADO. Ficam aqui, visiveis, e nao se escondem dentro do
+        # tradutor — que e de toda a casa e nao sabe nada de PDF.
+        unidade = {
             # A ESPECIE E DECLARADA, NAO ADIVINHADA. Sem isto a porta nao sabe
             # que esta a julgar um documento, e volta a cobrar-lhe o tempo de
             # um fato que ainda nao foi extraido (COL-LAW-502).
-            "artifact_type": a["ARTIFACT_TYPE"],
-            "parent_artifact_id": a["PARENT_ARTIFACT_ID"],
-            "texto": texto[:20000],
-            "source_id": (a["SOURCE_ID"] if a["SOURCE_ID"] != art.NAO_SEI
+            "ARTIFACT_TYPE": a["ARTIFACT_TYPE"],
+            "PARENT_ARTIFACT_ID": a["PARENT_ARTIFACT_ID"],
+            # derivado sem fonte propria herda a do pai
+            "SOURCE_ID": (a["SOURCE_ID"] if a["SOURCE_ID"] != art.NAO_SEI
                           else a["PARENT_ARTIFACT_ID"]),
-            "fact_time": (a["FACT_TIME"]
+            # `NAO SEI` nao e uma data: vai vazio, e a porta cobra o degrau
+            "FACT_TIME": (a["FACT_TIME"]
                           if a["FACT_TIME"] not in (art.NAO_SEI, art.NAO_SE_APLICA)
                           else ""),
-            "source_location": a["SOURCE_LOCATION"],
-            "fact_location": a["FACT_LOCATION"],
-            "captured_at": a["DERIVED_AT"],
+            "SOURCE_LOCATION": a["SOURCE_LOCATION"],
+            "FACT_LOCATION": a["FACT_LOCATION"],
+            # ── DOIS TEMPOS, DOIS CAMPOS — E ISTO JUNTAVA-OS ───────────
+            # ⚠️ ESTA LINHA DIZIA `"COLLECTED_AT": a["DERIVED_AT"]`, com um
+            # comentario a explicar porque: «a captura de um DERIVADO e a hora
+            # em que ele foi derivado». Soa razoavel e contradiz o dono do
+            # contrato. `leis/artefato.py::derivado_de` escreve-o por extenso:
+            #
+            #     «Nao herda `COLLECTED_AT`, porque esta corrida nao foi buscar
+            #      nada a lado nenhum — so abriu o que ja ca estava. O que ela
+            #      ganha e `DERIVED_AT`, que e outra coisa e vive noutro campo.»
+            #
+            # O efeito nao era abstracto: `CAPTURED_AT` chegava a Sala de
+            # Espera com a hora do TRABALHO DE ESCRITORIO, com ar de medida, no
+            # campo onde devia estar a hora em que o original foi colhido.
+            #
+            #     UM TEMPO ERRADO NO CAMPO CERTO E PIOR DO QUE UM CAMPO VAZIO:
+            #     O VAZIO AVISA, E ELE NAO.
+            #
+            # O derivado herda o `COLLECTED_AT` do PAI quando o pai o declara —
+            # e e o pai quem foi colhido. Sem ele, fica ausente, e a porta
+            # escreve `NAO SEI`, que e a verdade.
+            **({"COLLECTED_AT": a["COLLECTED_AT"]}
+               if a.get("COLLECTED_AT") not in (art.NAO_SEI, art.NAO_SE_APLICA,
+                                                None, "") else {}),
+            # E `DERIVED_AT` viaja no campo dele, que e o que ele e.
+            "DERIVED_AT": a["DERIVED_AT"],
         }
+        # ── E A TRAVESSIA DE LINGUA, PELO DONO DELA ────────────────────
+        item = ing.para_a_porta(unidade)
+        item["id"] = a["ARTIFACT_ID"]
+        # ── O TEXTO INTEIRO VAI A PORTA ────────────────────────────────
+        # ⚠️ ESTA LINHA ERA `texto[:20000]`, NUM FICHEIRO CUJO CABECALHO
+        # PROMETE, EM MAIUSCULAS, «NADA SOME EM SILENCIO».
+        #
+        # Medido nesta arvore, sobre os 43 derivados reais em disco: 19 deles
+        # passam dos 20.000 caracteres, e o maior perdia 139.915 de 159.915 —
+        # 87.5% do documento. A porta julgava o primeiro decimo e escrevia a
+        # decisao como se tivesse lido tudo.
+        #
+        #     UM CORTE SILENCIOSO NAO FAZ UM JULGAMENTO PARCIAL:
+        #     FAZ UM JULGAMENTO SOBRE OUTRO DOCUMENTO.
+        #
+        # E o dano e assimetrico e invisivel: o que estava depois do corte nunca
+        # reprova nada — apenas nunca conta. Um boletim cuja unica mencao de
+        # praga aparece na pagina 9 e rejeitado por «nao fala disto».
+        #
+        # Nao ha teto novo. Se algum dia houver limite legitimo, ele tem de
+        # produzir estado INCOMPLETO e impedir promocao — nunca cortar e calar.
+        item["texto"] = texto
+        cortados.append({"ITEM": a["ARTIFACT_ID"],
+                         "INPUT_CHARACTERS": len(texto),
+                         "JUDGED_CHARACTERS": len(item["texto"]),
+                         "DROPPED_CHARACTERS": len(texto) - len(item["texto"])})
         itens.append(item)
         decisoes.append(adm.decidir(item, UNIVERSO, corrida=run_id))
 
@@ -177,8 +244,21 @@ def pela_porta(artefatos: list, run_id: str) -> dict:
         porques.setdefault(d.resultado, []).append(
             {"item": d.item, "regra": d.regra, "motivo": d.motivo[:200],
              "prova": d.evidencia})
+    # ── A CONTA DA PERDA, NO RECIBO ────────────────────────────────────
+    # `NADA SOME EM SILENCIO` deixa de ser uma frase do cabecalho e passa a ser
+    # um numero que alguem pode conferir. Se um dia voltar a haver corte, este
+    # numero sobe e aparece.
+    perdidos = sum(c["DROPPED_CHARACTERS"] for c in cortados)
     return {"vistos": len(itens), "por_resultado": conta,
             "porques": {k: v[:3] for k, v in porques.items()},
+            "TEXTO_INTEGRAL": {
+                "INPUT_CHARACTERS": sum(c["INPUT_CHARACTERS"] for c in cortados),
+                "JUDGED_CHARACTERS": sum(c["JUDGED_CHARACTERS"] for c in cortados),
+                "DROPPED_CHARACTERS": perdidos,
+                "A_LEI": ("a porta julga o documento INTEIRO. DROPPED_CHARACTERS "
+                          "diferente de zero quer dizer que alguem julgou outro "
+                          "documento."),
+            },
             "decisoes": decisoes, "itens": itens}
 
 
@@ -354,6 +434,15 @@ def main() -> int:
             "PARENT_UNKNOWN": len(manuais) - len(provados),
             "FICHAS": manuais,
         },
+        # ── A CONTA DA PERDA, ONDE ALGUEM A LE ─────────────────────────────
+        # O cabecalho deste ficheiro promete «NADA SOME EM SILENCIO». Ate esta
+        # missao, `texto[:20000]` desmentia-o 19 vezes em 43 documentos, e o
+        # recibo nao trazia numero nenhum sobre isso — a promessa vivia so na
+        # prosa. Agora ela tem um numero, e o numero sobe se voltar a haver
+        # corte.
+        #
+        #     UMA PROMESSA SEM NUMERO E UMA PROMESSA.
+        "TEXTO_INTEGRAL": porta["TEXTO_INTEGRAL"],
         "PORQUES_DA_PORTA": porta["porques"],
         "PRECISION": ("UNKNOWN — nao ha gabarito humano. Contar quantos "
                       "passaram e COBERTURA; dizer que estao certos exigiria "
@@ -422,42 +511,44 @@ def main() -> int:
         json.dumps(reconc, ensure_ascii=False, indent=1) + "\n",
         encoding="utf-8")
 
-    # ── 7 · o recibo entra no manifesto que a casa ja usa ────────────────────
-    d = {"RUNS": []}
-    if MANIFESTO.is_file():
-        try:
-            d = json.loads(MANIFESTO.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            pass
-    ja = {r.get("RUN_ID") for r in d.get("RUNS", [])}
-    if recibo["RUN_ID"] not in ja:
-        d.setdefault("RUNS", []).append({
-            "RUN_ID": recibo["RUN_ID"],
-            "PLATFORM": "LOCAL",
-            "ACTOR": recibo["EXECUTOR_ID"],
-            "ACTOR_VERSION": recibo["EXECUTOR_VERSION"],
-            "STARTED_AT": recibo["STARTED_AT"],
-            "FINISHED_AT": recibo["FINISHED_AT"],
-            "COUNTRY": "IT",
-            "MISSION": recibo["MISSION"],
-            "STATUS": recibo["STATUS"],
-            # O ESTADO DE FECHO VIAJA COM O RECIBO. Sem ele, quem le o
-            # manifesto so sabe que o executor terminou.
-            "RUN_STATE": reconc["RUN_STATE"],
-            "ROUTE": reconc["ROUTE"],
-            "GIT_COMMIT": reconc["GIT_COMMIT"],
-            "BIBLE_VERSION": reconc["BIBLE_VERSION"],
-            "PIPELINE_VERSION": recibo["PIPELINE_VERSION"],
-            "ERROR": "",
-            "CAPTURE_METHOD": "DERIVATION_RUN",
-            "ITEM_COUNT_RAW": c["RAW_INPUT"],
-            "ITEM_COUNT_NORMALIZED": aterrados,
-            "COST_USD": 0.0,
-            "EVIDENCE_PATH": RECONCILIACAO.relative_to(RAIZ).as_posix(),
-            "OUTPUT_WRITTEN_AT": art.agora(),
-        })
-        MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n",
-                             encoding="utf-8")
+    # ── 7 · o recibo vai para quem e dono da procedencia ────────────────────
+    # Isto lia e escrevia o RUN-MANIFEST a mao, sem passar pelo contrato. O dono
+    # e `regras/proveniencia.py`: ele e que sabe que campos a lei exige, que
+    # palavras `STATUS` aceita, e o que fazer quando o ficheiro esta ilegivel.
+    #
+    #     CONHECER OS DETALHES DA PROPRIA CORRIDA
+    #     NAO E SER A AUTORIDADE SOBRE A PROCEDENCIA DELA.
+    #
+    # A estrada continua a trazer tudo o que sabe — e sabe muito, incluindo o
+    # estado de fecho. So deixou de ser ela a escrever.
+    faltaram = pv.acrescentar({
+        "RUN_ID": recibo["RUN_ID"],
+        "PLATFORM": "LOCAL",
+        "ACTOR": recibo["EXECUTOR_ID"],
+        "ACTOR_VERSION": recibo["EXECUTOR_VERSION"],
+        "STARTED_AT": recibo["STARTED_AT"],
+        "FINISHED_AT": recibo["FINISHED_AT"],
+        "COUNTRY": "IT",
+        "MISSION": recibo["MISSION"],
+        "STATUS": recibo["STATUS"],
+        # O ESTADO DE FECHO VIAJA COM O RECIBO. Sem ele, quem le o
+        # manifesto so sabe que o executor terminou.
+        "RUN_STATE": reconc["RUN_STATE"],
+        "ROUTE": reconc["ROUTE"],
+        "GIT_COMMIT": reconc["GIT_COMMIT"],
+        "BIBLE_VERSION": reconc["BIBLE_VERSION"],
+        "PIPELINE_VERSION": recibo["PIPELINE_VERSION"],
+        "ERROR": "",
+        "CAPTURE_METHOD": "DERIVATION_RUN",
+        "ITEM_COUNT_RAW": c["RAW_INPUT"],
+        "ITEM_COUNT_NORMALIZED": aterrados,
+        "COST_USD": 0.0,
+        "EVIDENCE_PATH": RECONCILIACAO.relative_to(RAIZ).as_posix(),
+        "OUTPUT_WRITTEN_AT": art.agora(),
+    })
+    if faltaram:
+        print("  · manifesto: %d campo(s) do contrato ficaram NOT_PRESERVED: %s"
+              % (len(faltaram), ", ".join(faltaram)))
 
     print("  6 · emitidos %d · guardados %d · vistos pela porta %d · PERDIDOS %d"
           % (emitidos, aterrados, vistos, perdidos))

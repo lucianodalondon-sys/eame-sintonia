@@ -186,6 +186,32 @@ def teste_traducao_nao_divergiu():
 
 def main():
     print("PROVA — O EXECUTOR CONTA-SE?")
+    # ⚠️ SEM A FERRAMENTA, ESTA PROVA NAO MEDE UM EXECUTOR — MEDE UMA CACHE.
+    #
+    # A arvore carrega derivados ja produzidos, e o executor, ao reencontra-los,
+    # devolve REUSED sem chamar o `pdftotext`. Um red team mediu o resultado:
+    #
+    #     python3 provas/o_executor_conta_se.py                  -> PASS
+    #     PATH=<sem pdftotext> python3 provas/o_executor_conta_se.py -> PASS
+    #
+    # saida BYTE A BYTE IGUAL, com 43 entradas e 43 REUSED nas duas. Uma
+    # extraccao inteiramente partida era invisivel para este portao — e ele
+    # anunciava, na ultima linha, «um executor REAL emite a lingua comum».
+    #
+    #     UM PORTAO QUE PASSA SEM CONSEGUIR MEDIR
+    #     E PIOR DO QUE PORTAO NENHUM.
+    #
+    # Os dois irmaos ja se recusavam a correr assim
+    # (`a_rota_m2_atravessa.py:258`, `o_forward_conta_se.py:214`); este, que e
+    # o unico do trio no caminho barato do CI, era o que nao se recusava.
+    if not ex.ha_ferramenta():
+        print("")
+        print("RECUSADO: `pdftotext` nao esta nesta maquina.")
+        print("  Sem ele o executor devolve REUSED para tudo o que ja esta na")
+        print("  arvore, e esta prova mediria a cache em vez da estrada. Ela")
+        print("  passaria — e passar aqui seria mentir.")
+        print("EXECUTOR_CONTA_SE=NOT_RUN")
+        return 2
     print("")
     print("A — o executor real, a seco")
     a = teste_a_caminho_bom()
@@ -205,6 +231,10 @@ def main():
     print("  relato distingue NAO CORREU de FALHOU de RECUSADO.")
     print("  o que NAO prova: que o Postgres aceita — isso e DB_TESTED, e")
     print("  mede-se em provas/rastro_no_postgres.py.")
+    print("  e NAO prova que a extraccao funciona: os derivados desta arvore")
+    print("  ja existem, e o caminho bom mede-os como REUSED, que e o estado")
+    print("  certo. Quem prova a extraccao a serio, com um PDF a atravessar,")
+    print("  e provas/a_rota_m2_atravessa.py.")
     return 0 if bom else 1
 
 

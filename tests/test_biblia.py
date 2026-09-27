@@ -363,9 +363,19 @@ class Integridade(unittest.TestCase):
                                            'CENSO-DA-INFRAESTRUTURA.md'))
 
     def test_versao_bate_com_o_historico(self):
-        self.assertRegex(self.t, r'VERSION\s+V1\.3')
-        for v in ('| **V1** |', '| **V1.1** |', '| **V1.2** |', '| **V1.3** |'):
-            self.assertIn(v, self.t, f'{v} sumiu do historico constitucional')
+        # ⚠️ ISTO JA FOI UM LITERAL CRAVADO (`V1.3`), e um literal cravado
+        # convida a ser editado para o teste ficar verde — que e exactamente o
+        # contrario do que a COL-LAW-069 quer. Agora a versao declarada e
+        # COMPARADA com a ultima linha do historico constitucional: subir a
+        # versao sem registar a emenda passa a ser impossivel, e registar a
+        # emenda sem subir a versao tambem.
+        historico = re.findall(r'^\| \*\*(V[\d.]+)\*\* \|', self.t, re.M)
+        self.assertTrue(historico, 'o historico constitucional desapareceu')
+        declarada = re.search(r'VERSION\s+(V[\d.]+)', self.t).group(1)
+        self.assertEqual(declarada, historico[-1],
+                         'a VERSION declarada nao e a ultima emenda registada')
+        for v in ('V1', 'V1.1', 'V1.2', 'V1.3'):
+            self.assertIn(v, historico, f'{v} sumiu do historico constitucional')
 
     def test_a_lei_da_infra_nasceu_de_medicao(self):
         """Lei de infraestrutura escrita sem censo e opiniao com cara de lei."""

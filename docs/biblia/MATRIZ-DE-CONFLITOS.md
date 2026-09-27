@@ -13,11 +13,11 @@
 | | |
 |---|---|
 | **CONCEITO** | tempo do fato |
-| **FONTE A** | `medidas/fato_local.py:410-411` — `def tempo_do_fato(texto, published_at=None)` com a docstring: *«FACT_TIME só com evidência própria. `published_at` NUNCA o preenche.»* |
+| **FONTE A** | `leis/fato_local.py:410-411` — `def tempo_do_fato(texto, published_at=None)` com a docstring: *«FACT_TIME só com evidência própria. `published_at` NUNCA o preenche.»* |
 | **FONTE B** | `admissao/admissao.py:169` — `q = item.get("fact_time") or item.get("data") or item.get("published_at")`, e a pergunta chama-se «tem tempo do fato» |
 | **CONFLITO** | REAL. A porta de admissão aceita `published_at` como resposta à pergunta «quando o fato aconteceu», que é exatamente o que a lei do lugar-e-tempo do fato proíbe. Um item sem `fact_time` mas com data de publicação passa a porta como se tivesse tempo de fato. |
 | **PROVA** | as duas linhas acima, no mesmo HEAD |
-| **RESOLUÇÃO CANÔNICA** | **A vence.** `AGENTS.md` já lista *«publicação não vira fact time»* entre as leis que o mapa não pode violar, e `medidas/lugar_do_fato.py` a declara no vocabulário do core (`PUBLISHED_AT != FACT_TIME`). Duas leis maduras contra uma linha de fallback. |
+| **RESOLUÇÃO CANÔNICA** | **A vence.** `AGENTS.md` já lista *«publicação não vira fact time»* entre as leis que o mapa não pode violar, e `leis/lugar_do_fato.py` a declara no vocabulário do core (`PUBLISHED_AT != FACT_TIME`). Duas leis maduras contra uma linha de fallback. |
 | **LEI** | COL-LAW-031 |
 | **AÇÃO** | `admissao/admissao.py` deve deixar de aceitar `published_at` nessa pergunta. Item com publicação e sem fato → `NAO_SEI`, não `SIM`. **Não corrigido nesta missão** (§65: a Bíblia não conserta a coleta) — entra como gap G-01. |
 

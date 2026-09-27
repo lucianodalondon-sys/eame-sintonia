@@ -79,7 +79,7 @@ já existe.
 |---|---|
 | `RUN-MANIFEST.json` | o contrato do recibo já está desenhado e já é lido por 5 réguas |
 | `regras/proveniencia.py` | carimba de onde veio, no momento em que entra |
-| `medidas/fato_local.py` | separa o lugar da fonte do lugar do fato |
+| `leis/fato_local.py` | separa o lugar da fonte do lugar do fato |
 | `leis/data_clock.py` | separa o tempo do fato do tempo da captura |
 | `medidas/padrao_da_coleta.py` | o chão que só sobe; mede o que falta, não o que está certo |
 | `ferramentas/*` | 12 ferramentas; só **um** par com sobreposição real |

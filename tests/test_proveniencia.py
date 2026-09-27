@@ -36,9 +36,22 @@ class TestRunManifest(unittest.TestCase):
             self.assertEqual(set(), set(pv.CAMPOS_RUN) - set(r), f'{rid} incompleto')
 
     def test_campo_desconhecido_e_not_preserved_e_nunca_ausente(self):
+        # ⚠️ ESTE CASO REBENTAVA EM VEZ DE REPROVAR.
+        # `r[c]` a seco levantava `KeyError` no primeiro manifesto incompleto,
+        # e o caso morria ali — sem chegar aos manifestos seguintes. Um caso
+        # que rebenta relata UM defeito; um caso que reprova relata TODOS.
+        # A pergunta continua a mesma e o veredito continua vermelho: o que
+        # muda e passar a ver a lista inteira da divida.
+        ausentes = []
         for rid, r in self.runs.items():
             for c in pv.CAMPOS_RUN:
-                self.assertIsNot(r[c], None, f'{rid}.{c} virou None em vez de NOT_PRESERVED')
+                if c not in r:
+                    ausentes.append(f'{rid}.{c} AUSENTE')
+                elif r[c] is None:
+                    ausentes.append(f'{rid}.{c} virou None em vez de NOT_PRESERVED')
+        self.assertEqual([], ausentes,
+                         '%d campo(s) do contrato em falta ou nulos: %s'
+                         % (len(ausentes), ausentes[:8]))
 
     def test_o_run_id_resolve(self):
         # o defeito que este arquivo fecha: o rotulo agrupava e nao resolvia
@@ -115,12 +128,22 @@ class TestOrdemExigeHoraMedida(unittest.TestCase):
 
     def test_hora_de_escrita_nao_e_hora_de_execucao(self):
         runs = pv.carregar()
-        antigas = [r for r in runs.values() if not r['RUN_ID'].startswith('GATE-TEST')]
-        com_escrita = [r for r in antigas if r['OUTPUT_WRITTEN_AT'] != pv.NOT_PRESERVED]
+        antigas = [r for r in runs.values()
+                   if not str(r.get('RUN_ID', '')).startswith('GATE-TEST')]
+        # Quem nao declara `OUTPUT_WRITTEN_AT` nao entra nesta pergunta — mas
+        # tambem nao passa em silencio: `test_todo_run_tem_todos_os_campos_do_contrato`
+        # e quem cobra a ausencia. Aqui rebentava, e levava consigo os que
+        # DECLARAM o campo e podiam estar a promover a hora de escrita.
+        sem_campo = sorted(r.get('RUN_ID', '?') for r in antigas
+                           if 'OUTPUT_WRITTEN_AT' not in r)
+        com_escrita = [r for r in antigas
+                       if r.get('OUTPUT_WRITTEN_AT', pv.NOT_PRESERVED)
+                       != pv.NOT_PRESERVED]
         self.assertTrue(com_escrita, 'a hora de escrita foi medida e precisa estar guardada')
         for r in com_escrita:
-            self.assertEqual(pv.NOT_PRESERVED, r['STARTED_AT'],
-                             'hora de escrita nao pode ser promovida a hora de execucao')
+            self.assertEqual(pv.NOT_PRESERVED, r.get('STARTED_AT', pv.NOT_PRESERVED),
+                             'hora de escrita nao pode ser promovida a hora de '
+                             'execucao (%s)' % r.get('RUN_ID'))
 
     def test_execucao_nova_sustenta_ordem(self):
         runs = pv.carregar()
@@ -143,14 +166,23 @@ class TestRawEvidence(unittest.TestCase):
     """P5 — RAW nunca e substituido pelo normalizado."""
 
     def test_toda_rota_paga_declara_estado_do_bruto(self):
+        # AUSENTE nao e um estado do bruto: e a falta de um. Antes isto
+        # levantava `KeyError` e o caso morria no primeiro; agora junta todos
+        # e reprova com a lista, que e a divida verdadeira.
+        maus = []
         for rid, r in pv.carregar().items():
-            self.assertIn(r['RAW_EVIDENCE_STATE'], pv.ESTADOS_RAW, rid)
+            e = r.get('RAW_EVIDENCE_STATE', 'AUSENTE')
+            if e not in pv.ESTADOS_RAW:
+                maus.append('%s=%s' % (rid, e))
+        self.assertEqual([], maus,
+                         '%d corrida(s) sem estado do bruto valido: %s'
+                         % (len(maus), maus[:8]))
 
     def test_o_bruto_declarado_como_preservado_existe(self):
         for rid, r in pv.carregar().items():
-            if r['RAW_EVIDENCE_STATE'] != 'PRESERVED':
+            if r.get('RAW_EVIDENCE_STATE') != 'PRESERVED':
                 continue
-            caminhos = r['RAW_EVIDENCE_PATH']
+            caminhos = r.get('RAW_EVIDENCE_PATH', pv.NOT_PRESERVED)
             caminhos = caminhos if isinstance(caminhos, list) else [caminhos]
             for caminho in caminhos:
                 caminho = str(caminho).split(' (')[0].strip()

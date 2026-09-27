@@ -1,0 +1,107 @@
+{
+ "DATASET": "B1-PONTE-PROVA-VIVA-V1",
+ "MEDIDO_EM": "2026-09-23T05:14Z (copias)",
+ "SNAPSHOT": {
+  "PASTA": "C:/Users/London1/sintonia-gabarito/B1-SNAPSHOT-20260923T051430Z",
+  "SHA256": {
+   "COLLECTION-INTAKE-V1.json": "c607e5c1dd48fa40891a6c9ea96900714aba861e7da2b49e0c0a9a0ff3c8cc19",
+   "PONTE-AUTOMATICA-STATE.json": "b8893da6fd2cc2ac0474ef3911ae77ca5c6aa10004c780ec0ac414bdfce1ff5b",
+   "ponte-curador-v1_curadoria_LIFECYCLE-EVIDENCE-V1.json": "6a7fc10f118200fdf8905e2e3614c178c704603d4a80ef4766cd3b7970e3a910",
+   "ponte-curador-v1_curadoria_LIFECYCLE-LEDGER-V1.json": "2d85a59b77ef9c636507aabcc17dc9a7956c77217cee322b1c1962184642752c",
+   "ponte-curador-v1_curadoria_PONTE-AUTOMATICA-LOG.ndjson": "a98fea691b8b2451a0c87c9f14a9ade6f0e8bbc1829337aedde399264eff9a71",
+   "ponte-curador-v1_curadoria_italy_contracts_curator.json": "c82b3d8fc54ec87232232cb754cfeb8bdba36e100ece2bb6fe3a9d16bad250cb",
+   "source-curator-service-v1_curadoria_LIFECYCLE-EVIDENCE-V1.json": "ce70364421ac9caf2f799a9516e9d9a28c8c7e5a749e1336e0723006d33f8ad5",
+   "source-curator-service-v1_curadoria_LIFECYCLE-LEDGER-V1.json": "641dcbb39cc9ddcb90ac44b2831cabd0d33ab9d122fa5eb48d79d738aa0af555"
+  }
+ },
+ "TRAVESSIAS_REAIS": {
+  "N": 106,
+  "DESDE_ARRANQUE_PID_14960": 104,
+  "ARRANQUES": 2,
+  "ELIGIBLE_ANTES_DEPOIS": {
+   "8->8": 106
+  },
+  "ENTRARAM": 0,
+  "SAIRAM": 0,
+  "LATENCIA_S": {
+   "MEDIANA": 3.8,
+   "MAX": 12703.1,
+   "MAX_NOTA": "1.a travessia: apanhou decisoes do bot de antes do arranque do observador"
+  },
+  "CLASSIFICACAO_NO_PORTAO": {
+   "PROMOTION": 0,
+   "DEMOTION": 0,
+   "NEUTRA": 106
+  }
+ },
+ "NO_LIVRO": {
+  "TRANSICOES_NA_JANELA": 559,
+  "ENTRARAM_EM_READY": 35,
+  "SAIRAM_DE_READY": 3,
+  "PORQUE_AS_35_NAO_PASSAM": {
+   "MOTIVO_DO_PORTAO": "READY_LEGACY 35/35",
+   "SEM_PROVA_IMPORTADA": 23,
+   "SEM_CONTRATO_NO_LIVRO_DO_PORTAO": 12,
+   "NOTA": "o proprio bot escreve PASS_PARCIAL no motivo e promove; a regua do portao (DETAIL/v1) nao se cumpre sem prova importada e contrato"
+  },
+  "AS_3_QUE_SAIRAM": [
+   "IT-T12-086",
+   "IT-T12-095",
+   "IT-T5-082"
+  ],
+  "AS_3_ERAM_ELEGIVEIS": false
+ },
+ "CAMINHO": {
+  "HUMANO_NO_CAMINHO": "NO",
+  "GIT_NO_CAMINHO": "NO",
+  "PROVA": "ponte_automatica.py sem chamadas a git; collection_gate.avaliar le o livro do disco (LC._ler_bruto); o unico git show (ready_split._ready_do_outro_livro) esta em separar(), relatorio fora do caminho"
+ },
+ "INVARIANTES": {
+  "NUNCA_PROMOVE_RETIRADA_POR_DECISAO": {
+   "ESTADO": "NAO_IMPLEMENTADO",
+   "PORQUE": "nao ha estado RETIRADA nem referencia a D9 em lifecycle.py, ponte_automatica.py, reconciliar_livros.py, collection_gate.py, ready_split.py; hoje nenhuma fonte esta retirada, por isso nao ha violacao observada — so ausencia de guarda",
+   "EXEMPLO_DE_RISCO": "IT-T12-086 (Sanita) e IT-T12-095 entraram em READY na janela; a proposta de catalogo manda retira-las"
+  },
+  "NUNCA_SEM_CANARIO_DO_CONTRATO_ACTUAL": {
+   "ESTADO": "PARCIAL",
+   "PORQUE": "passos_da_promocao compara ROUTE_PROVENANCE.INTEGRADO_EM com a data da promocao; SEM essa data assume contrato actual; a evidencia nao guarda o hash do contrato",
+   "CASO": "IT-T5-041 e elegivel so por essa suposicao (INTEGRADO_EM ausente) — e e a fonte que desde 22/09 redirige para rinova.eu (M3)"
+  },
+  "PORTAO_LE_A_PONTE_NAO_O_GIT": {
+   "ESTADO": "OK"
+  }
+ },
+ "DIVERGENCIA": {
+  "IT-T5-041": {
+   "BOT": "CAPABILITY_BLOCK 2026-09-20T22:54",
+   "LIVRO_DO_PORTAO": "READY 2026-09-21T03:58 (listagem provada na bancada da ponte)",
+   "PORTAO": "ELIGIBLE",
+   "NOTA": "o bot nunca re-mediu; a data mais nova vence e o portao aprova uma fonte que o bot da por bloqueada"
+  }
+ },
+ "GATES": {
+  "BRIDGE_AUTOMATIC": "YES (106 travessias, 0 humanos, 0 git)",
+  "PROMOTION_PROVEN": "NO — NAO_OBSERVADO; e hoje ESTRUTURALMENTE impossivel para promocoes do bot (faltam prova importada e contrato)",
+  "DEMOTION_PROVEN": "NAO_OBSERVADO (o bot nao re-mede as 8 elegiveis desde 20/09)"
+ },
+ "PROVA_VIVA_PROPOSTA": {
+  "EXECUTADA": false,
+  "DEMOTION": {
+   "FONTE": "IT-T5-041 (CRPV)",
+   "PORQUE_ESTA": "e a unica elegivel com falha natural ja medida: crpv.it redirige tudo para rinova.eu (M3, 22/09)",
+   "ACCAO": "o coordenador enfileira UMA revalidacao (VALIDATE_ROUTE) desta fonte no bot; nada mais",
+   "ESPERADO": "o bot regista uma transicao nova (CANARY_FAILED/CAPABILITY_BLOCK) com data > 2026-09-21T03:58 -> a ponte atravessa -> o livro do portao tira-a de READY -> ELIGIBLE 8 -> 7, SAIRAM=[IT-T5-041] no log da ponte",
+   "CUSTO": "1 fonte, <=4 pedidos, egresso IT medido",
+   "RISCO": "se a transicao do bot vier sem prova, a reconciliacao pode nao a atravessar (estado sem prova nao atravessa) — isso tambem e resultado"
+  },
+  "PROMOTION": {
+   "ESTADO": "NAO HA PROVA VIVA SEGURA SEM CODIGO",
+   "CAPACIDADE_EM_FALTA": [
+    "a prova de promocao do bot tem de chegar ao ficheiro de evidencias do portao (23/35 nao chegaram)",
+    "o contrato da fonte tem de estar no livro de contratos que o portao le (12/35 nao estavam)",
+    "a prova do bot tem de trazer os quatro passos DETAIL/v1 (hoje traz PASS_PARCIAL)"
+   ],
+   "DEPOIS_DISSO": "escolher UMA fonte com rota provada e corpo >= 800 caracteres (M3: IT-T2-034, 3565) e observar a proxima promocao atravessar: ELIGIBLE 8 -> 9"
+  }
+ }
+}

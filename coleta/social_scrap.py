@@ -41,6 +41,7 @@ só passa não mediu nada — ela só confirmou o caminho feliz.
 import json
 import os
 import sys
+import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(HERE)
@@ -223,7 +224,9 @@ def video():
               % (plat, descobre, meta, midia, trans, (d['ROTA'] if d else 'nenhuma')[:32]))
     print('\n  TRANSCRIÇÃO — a ordem é sempre a mesma, e ela já existe nesta casa:')
     print('    1. legenda pública        → só YouTube tem, e SÓ para o dono do vídeo')
-    print('    2. faster-whisper local   → scripts/instagram_transcrever.py, custo ZERO dólar')
+    # Isto é instrução OPERACIONAL: quem a lê vai correr o que ela nomeia.
+    # Até a C10.4C nomeava a rota de vídeo inteiro, que hoje está aposentada.
+    print('    2. faster-whisper local   → ferramentas/reel_transcricao.py (audio-only), custo ZERO dólar')
     print('    3. transcrição paga       → último, com motivo canônico declarado')
     print('\n  O buraco honesto: para vídeo de canal de TERCEIRO no YouTube não existe')
     print('  rota permitida até o áudio. Sem áudio, o Whisper local não tem o que fazer.')
@@ -587,6 +590,331 @@ def youtube_piloto(modo=OPERATIONAL, limite_videos=3, limite_threads=20):
     return 0 if rel['CHANNELS_RESOLVED'] else 5
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# A EVIDÊNCIA QUE ATRAVESSA A FRONTEIRA DO JOB
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.8B-LIVE pagou por 59.743 bytes, escreveu-os, releu-os e assinou-os —
+# tudo dentro do mesmo processo. O job seguinte não os encontrou: o `.gitignore`
+# ignora `data/samples/**/*.gz` e o `actions/checkout` limpa o que o `.gitignore`
+# ignora.
+#
+#     RAW CAPTURADO NO PROCESSO
+#       != RAW QUE SOBREVIVE AO JOB
+#       != RAW DEVOLVIDO PARA INVESTIGAÇÃO
+#       != PRESERVAÇÃO FORWARD CANÔNICA.
+#
+# Quatro estados. Esta função fecha o TERCEIRO, e só ele.
+#
+# O MECANISMO NÃO É NOVO
+# ------------------------
+# `_raw_do_piloto`, aqui abaixo, já inventaria RAW com SHA e já decide o estado
+# da prova a partir do artefato do Actions — incluindo a lei
+# `UPLOAD STEP SUCCESS != ARTIFACT EXISTS`. O que não existia era a METADE DA
+# VOLTA: `download-artifact` não aparece em nenhum workflow desta casa. Um
+# mecanismo que só sobe é um mecanismo que ninguém provou.
+#
+#     GUARDAR SEM NUNCA TER IDO BUSCAR NÃO É GUARDAR. É ESPERAR.
+#
+#     WORKFLOW ARTIFACT != CANONICAL FORWARD STORAGE.
+GAVETA_EVIDENCIA = os.path.join('.tmp', 'scrap-evidencia')
+
+#: Retenção do mecanismo. FINITA, e dizê-lo é metade do contrato.
+EVIDENCIA_RETENCAO_DIAS = 30
+EVIDENCIA_RETENCAO = 'TEMPORARY'
+
+#: O que NUNCA pode viajar dentro de um pacote de evidência. A busca é sobre os
+#: BYTES, não sobre a intenção de quem os escreveu.
+#:
+#:     MELHOR FALHAR ALTO DO QUE REDIGIR EM SILÊNCIO: apagar evidência para o
+#:     pacote passar destrói a coisa que o pacote existe para guardar.
+PROIBIDO_NA_EVIDENCIA = ('apify_api_', 'Authorization:', 'Bearer ',
+                         'set-cookie', 'X-Api-Key', 'SUPABASE_SERVICE_ROLE')
+
+
+class EvidenciaComSegredo(RuntimeError):
+    """O pacote levava algo com cara de credencial. Ele NÃO é escrito."""
+
+
+def _sha_e_bytes(caminho):
+    import hashlib
+    with open(caminho, 'rb') as f:
+        dados = f.read()
+    return hashlib.sha256(dados).hexdigest(), len(dados), dados
+
+
+def _tipo_do_ficheiro(nome):
+    """O tipo pelo que o nome declara. `None` quando não se sabe — não se chuta."""
+    baixo = nome.lower()
+    if baixo.endswith('.json.gz'):
+        return 'application/json+gzip'
+    if baixo.endswith('.gz'):
+        return 'application/gzip'
+    if baixo.endswith('.json'):
+        return 'application/json'
+    if baixo.endswith('.txt'):
+        return 'text/plain'
+    return None
+
+
+def _cheira_a_segredo(dados):
+    """→ o termo proibido encontrado, ou None. Lê os bytes, não a intenção.
+
+    O bruto pago nasce COMPRIMIDO: `coletor` grava `.json.gz`. Uma sonda que
+    lesse só os bytes do ficheiro nunca veria um token dentro do gzip — ela
+    daria verde sobre um pacote com credencial lá dentro.
+
+        UMA SONDA QUE NÃO DESCOMPRIME DÁ VERDE AO QUE NÃO CONSEGUE LER.
+
+    Por isso: descomprime quando é gzip, e olha as DUAS formas. Falhar a
+    descompressão não é «limpo» — é `GZIP_ILEGIVEL`, e quem chama decide.
+    """
+    formas = [dados]
+    if dados[:2] == b'\x1f\x8b':
+        import gzip
+        try:
+            formas.append(gzip.decompress(dados))
+        except Exception:                                         # noqa: BLE001
+            return 'GZIP_ILEGIVEL'
+    for forma in formas:
+        texto = forma.decode('utf-8', 'ignore')
+        for termo in PROIBIDO_NA_EVIDENCIA:
+            if termo in texto:
+                return termo
+    return None
+
+
+def evidencia_publicar(run_id, *, platform=None, capability=None, rota=None,
+                       provider=None, ficheiros=None, gaveta=None):
+    """Empacota o RAW DESTA corrida para atravessar a fronteira do job.
+
+    → o estado da transferência. NÃO levanta por falha de transporte: uma
+    aquisição que aconteceu não deixa de ter acontecido porque o pacote não
+    subiu.
+
+        ACQUISITION_RESULT != EVIDENCE_TRANSFER_RESULT.
+
+    A chave do pacote é o `RUN_ID`, e só ele. «O último artefato» recuperaria o
+    de outra corrida com a cara desta.
+    """
+    import shutil
+    alvo = os.path.join(gaveta or GAVETA_EVIDENCIA, str(run_id))
+    origem = list(ficheiros if ficheiros is not None else env.produzidos())
+    itens, faltaram = [], []
+    for caminho in origem:
+        if not os.path.isfile(caminho):
+            faltaram.append(os.path.basename(caminho))
+            continue
+        sha, tam, dados = _sha_e_bytes(caminho)
+        termo = _cheira_a_segredo(dados)
+        if termo:
+            raise EvidenciaComSegredo(
+                'o pacote de %s levava %r em %s — nada foi escrito'
+                % (run_id, termo, os.path.basename(caminho)))
+        itens.append({'RAW_FILENAME': os.path.basename(caminho),
+                      'RAW_BYTES': tam, 'SHA256': sha,
+                      'CONTENT_TYPE': _tipo_do_ficheiro(caminho)})
+    if not itens:
+        return {'EVIDENCE_TRANSFERRED': 'NO_RAW_PRODUCED',
+                'EVIDENCE_REFERENCE': None,
+                'EVIDENCE_RETENTION': EVIDENCIA_RETENCAO,
+                'EVIDENCE_RETENTION_DAYS': EVIDENCIA_RETENCAO_DIAS,
+                'EVIDENCE_FILES': [], 'EVIDENCE_FILES_VANISHED': faltaram,
+                'CANONICAL_FORWARD_PRESERVATION': 'NO'}
+    if os.path.isdir(alvo):
+        shutil.rmtree(alvo)
+    os.makedirs(alvo)
+    for caminho in origem:
+        if os.path.isfile(caminho):
+            shutil.copy2(caminho, os.path.join(alvo, os.path.basename(caminho)))
+    manifesto = {
+        'RUN_ID': str(run_id),
+        'CAPTURED_AT': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+        'PLATFORM': platform, 'CAPABILITY': capability,
+        'ROUTE': rota, 'PROVIDER': provider,
+        'FILES': itens,
+        # O que este pacote É, e o que ele NÃO é. As duas frases viajam juntas.
+        'EVIDENCE_CLASS': 'DIAGNOSTIC_JOB_TO_JOB',
+        'EVIDENCE_RETENTION': EVIDENCIA_RETENCAO,
+        'EVIDENCE_RETENTION_DAYS': EVIDENCIA_RETENCAO_DIAS,
+        'CANONICAL_FORWARD_PRESERVATION': 'NO',
+        'NOTA': ('WORKFLOW ARTIFACT != CANONICAL FORWARD STORAGE. Este pacote '
+                 'fecha a investigacao entre jobs por %d dias. O dono forward '
+                 '(Storage + raw_asset) NAO recebeu estes bytes, e o RUN_ID '
+                 'daqui NAO e um RAW_OBSERVATION_ID.' % EVIDENCIA_RETENCAO_DIAS),
+    }
+    with open(os.path.join(alvo, 'MANIFESTO.json'), 'w', encoding='utf-8') as f:
+        f.write(json.dumps(manifesto, ensure_ascii=False, indent=1,
+                           sort_keys=True) + '\n')
+    return {'EVIDENCE_TRANSFERRED': 'STAGED',
+            'EVIDENCE_REFERENCE': alvo.replace('\\', '/'),
+            'EVIDENCE_RETENTION': EVIDENCIA_RETENCAO,
+            'EVIDENCE_RETENTION_DAYS': EVIDENCIA_RETENCAO_DIAS,
+            'EVIDENCE_FILES': itens, 'EVIDENCE_FILES_VANISHED': faltaram,
+            'CANONICAL_FORWARD_PRESERVATION': 'NO'}
+
+
+def evidencia_recuperar(run_id, *, de):
+    """Lê um pacote recuperado e RECALCULA o SHA de cada ficheiro.
+
+    → o estado da recuperação. O SHA do manifesto é uma AFIRMAÇÃO; o SHA
+    recalculado é a medição. Aceitar a primeira sem a segunda seria confiar
+    numa etiqueta colada pelo próprio pacote.
+
+        UM SHA QUE SÓ VEM DO MANIFESTO NÃO PROVA OS BYTES.
+    """
+    pasta = os.path.join(de, str(run_id))
+    if not os.path.isdir(pasta):
+        # Sem fallback para «o último». Um pacote de outra corrida com o mesmo
+        # formato pareceria este, e a investigacao leria os bytes errados.
+        return {'RECOVERED': 'NO', 'WHY': 'nenhum pacote para %s em %s'
+                % (run_id, de), 'SHA_MATCH': 'NOT_APPLICABLE', 'FILES': []}
+    caminho_man = os.path.join(pasta, 'MANIFESTO.json')
+    if not os.path.isfile(caminho_man):
+        return {'RECOVERED': 'NO', 'WHY': 'pacote sem MANIFESTO.json',
+                'SHA_MATCH': 'NOT_APPLICABLE', 'FILES': []}
+    with open(caminho_man, encoding='utf-8') as f:
+        manifesto = json.load(f)
+    if str(manifesto.get('RUN_ID')) != str(run_id):
+        return {'RECOVERED': 'NO',
+                'WHY': 'o manifesto diz RUN_ID=%s e pediram %s'
+                       % (manifesto.get('RUN_ID'), run_id),
+                'SHA_MATCH': 'NO', 'FILES': []}
+    conferidos, todos_batem = [], True
+    for decl in (manifesto.get('FILES') or []):
+        alvo = os.path.join(pasta, decl['RAW_FILENAME'])
+        if not os.path.isfile(alvo):
+            conferidos.append(dict(decl, RECOVERED='NO', SHA_MATCH='NO',
+                                   RECOVERED_BYTES=None, RECOVERED_SHA256=None))
+            todos_batem = False
+            continue
+        sha, tam, _d = _sha_e_bytes(alvo)
+        bate = (sha == decl['SHA256']) and (tam == decl['RAW_BYTES'])
+        todos_batem = todos_batem and bate
+        conferidos.append(dict(decl, RECOVERED='YES',
+                               RECOVERED_BYTES=tam, RECOVERED_SHA256=sha,
+                               SHA_MATCH='YES' if bate else 'NO'))
+    return {'RECOVERED': 'YES' if conferidos else 'NO',
+            'RUN_ID': manifesto.get('RUN_ID'),
+            'PLATFORM': manifesto.get('PLATFORM'),
+            'CAPABILITY': manifesto.get('CAPABILITY'),
+            'ROUTE': manifesto.get('ROUTE'),
+            'PROVIDER': manifesto.get('PROVIDER'),
+            'EVIDENCE_RETENTION': manifesto.get('EVIDENCE_RETENTION'),
+            'CANONICAL_FORWARD_PRESERVATION':
+                manifesto.get('CANONICAL_FORWARD_PRESERVATION'),
+            'SHA_MATCH': 'YES' if todos_batem else 'NO',
+            'FILES': conferidos}
+
+
+#: Os bytes que a prova da fronteira usa. REAIS, do acervo versionado desta
+#: casa, e de uma corrida paga que já aconteceu — não bytes fabricados para o
+#: teste passar.
+#:
+#: Os 59.743 bytes da C10.8B-LIVE não servem: eles já não existem. É essa a
+#: razão de esta missão existir.
+FIXTURE_DA_FRONTEIRA = 'data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz'
+
+
+def evidencia_publicar_prova(run_id, *, gaveta=None):
+    """JOB A — escreve o RAW DESTA corrida e publica o pacote. → código de saída.
+
+    O ficheiro nasce com o `run_id` no nome, dentro de `RAW_DIR`, que o
+    `.gitignore` ignora. Por isso ele NÃO existe no checkout do job seguinte —
+    e é exactamente essa a fronteira que a C10.8B-LIVE não atravessou.
+    """
+    import gzip
+    import hashlib
+    origem = os.path.join(env.ROOT, FIXTURE_DA_FRONTEIRA)
+    if not os.path.isfile(origem):
+        print('FIXTURE_AUSENTE=%s' % FIXTURE_DA_FRONTEIRA)
+        return 1
+    with open(origem, 'rb') as f:
+        bytes_gz = f.read()
+    pasta = os.path.join(env.RAW_DIR, 'YOUTUBE')
+    os.makedirs(pasta, exist_ok=True)
+    alvo_gz = os.path.join(pasta, '%s.raw.json.gz' % run_id)
+    with open(alvo_gz, 'wb') as f:
+        f.write(bytes_gz)
+    # E um segundo, NÃO comprimido: o mecanismo tem de aceitar ficheiro opaco,
+    # e provar-se só com `.gz` provaria o gzip.
+    alvo_json = os.path.join(pasta, '%s.raw.json' % run_id)
+    with open(alvo_json, 'wb') as f:
+        f.write(gzip.decompress(bytes_gz))
+    env.esquecer_produzidos()
+    for caminho in (alvo_gz, alvo_json):
+        env.registar_produzido(caminho)
+    # ── RAW ESCRITO → RELIDO → SHA CONFIRMADO → SÓ ENTÃO TRANSFERIDO ───────
+    #     RAW BEFORE NORMALIZATION — e transferência DEPOIS da releitura.
+    print('RAW_CAPTURED=YES')
+    for caminho in (alvo_gz, alvo_json):
+        with open(caminho, 'rb') as f:
+            dados = f.read()
+        print('  %-48s %8d bytes  %s'
+              % (os.path.basename(caminho), len(dados),
+                 hashlib.sha256(dados).hexdigest()))
+    print('RAW_READ_BACK=YES')
+    estado = evidencia_publicar(run_id, platform='YOUTUBE',
+                                capability='youtube.native_caption',
+                                rota='apify:transcricao', provider='APIFY',
+                                gaveta=gaveta)
+    for chave in ('EVIDENCE_TRANSFERRED', 'EVIDENCE_REFERENCE',
+                  'EVIDENCE_RETENTION', 'EVIDENCE_RETENTION_DAYS',
+                  'CANONICAL_FORWARD_PRESERVATION'):
+        print('%s=%s' % (chave, estado.get(chave)))
+    return 0 if estado.get('EVIDENCE_TRANSFERRED') == 'STAGED' else 1
+
+
+def evidencia_recuperar_prova(run_id, *, de):
+    """JOB B — confere que o workspace NÃO tem o RAW, recupera e reprocessa.
+
+    → código de saída. Zero rede: se alguma linha daqui abrisse ligação, o
+    teto de rede a zero levantava.
+    """
+    import gzip
+    import scrap_http as http
+    pasta_raw = os.path.join(env.RAW_DIR, 'YOUTUBE')
+    locais = [n for n in (os.listdir(pasta_raw) if os.path.isdir(pasta_raw) else [])
+              if n.startswith(str(run_id))]
+    print('WORKSPACE_RAW_BEFORE=%s' % ('PRESENT %s' % locais if locais else 'ABSENT'))
+    if locais:
+        # O job B tem de começar SEM os bytes. Se os tem, a prova mediria o
+        # workspace e não a recuperação.
+        #
+        #     UM JOB QUE JA TEM O FICHEIRO NAO PROVA QUE O FOI BUSCAR.
+        print('PROVA_INVALIDA=o job B já tinha o RAW antes de recuperar')
+        return 1
+    estado = evidencia_recuperar(run_id, de=de)
+    print('RECOVERED=%s' % estado.get('RECOVERED'))
+    print('SHA_MATCH=%s' % estado.get('SHA_MATCH'))
+    print('EVIDENCE_RETENTION=%s' % estado.get('EVIDENCE_RETENTION'))
+    print('CANONICAL_FORWARD_PRESERVATION=%s'
+          % estado.get('CANONICAL_FORWARD_PRESERVATION'))
+    for f in estado.get('FILES') or []:
+        print('  %-48s %8s bytes  match=%s'
+              % (f['RAW_FILENAME'], f.get('RECOVERED_BYTES'), f['SHA_MATCH']))
+    if estado.get('RECOVERED') != 'YES' or estado.get('SHA_MATCH') != 'YES':
+        return 1
+    # ── REPROCESSAR OS BYTES RECUPERADOS, SEM REDE E SEM PROVIDER ─────────
+    # Isto é literalmente o que a C10.8B-LIVE não conseguiu fazer.
+    alvo = os.path.join(de, str(run_id))
+    with http.orcamento_de_rede(0) as orcamento:
+        itens = None
+        for f in estado['FILES']:
+            caminho = os.path.join(alvo, f['RAW_FILENAME'])
+            if f['RAW_FILENAME'].endswith('.gz'):
+                with open(caminho, 'rb') as fh:
+                    itens = json.loads(gzip.decompress(fh.read()).decode('utf-8'))
+            elif f['RAW_FILENAME'].endswith('.json'):
+                with open(caminho, encoding='utf-8') as fh:
+                    itens = json.load(fh)
+        chaves = sorted(itens[0]) if isinstance(itens, list) and itens else []
+    print('REPROCESS_ITEMS=%d' % (len(itens) if isinstance(itens, list) else 0))
+    print('REPROCESS_KEYS=%s' % chaves)
+    print('REPROCESS_NETWORK_USED=%d' % orcamento.usados)
+    print('PROVIDER_CALLS=0')
+    return 0 if (itens and orcamento.usados == 0) else 1
+
+
 def _raw_do_piloto(run_id):
     """Inventaria o RAW da corrida e diz ONDE a prova está — sem mentir.
 
@@ -826,9 +1154,828 @@ def ledger():
         print('    %-11s execuções=%-3d objetos=%-5d %s' % (k, v['exec'], v['obj'], marca))
 
 
+
+# ══════════════════════════════════════════════════════════════════════════
+# YOUTUBE OFICIAL — a prova de que a rota canonica atravessa, ponta a ponta
+# ══════════════════════════════════════════════════════════════════════════
+# Esta fase NAO e um segundo motor de YouTube. Ela nao chama `youtube_oficial`
+# e nao chama `social_rotas`. Ela chama o EXECUTOR, e deixa o caminho acontecer:
+#
+#     scrap_executor.COLLECT
+#             -> social_rotas (portao do robots, trava de sessao, trava do gasto)
+#                     -> adaptador_youtube (a rota crua)
+#                             -> youtube_oficial (a API v3, contando quota)
+#
+# A fase `youtube` que ja existia chama `youtube_oficial` DIRETO. Ela continua a
+# servir — mede a API sem atravessar o resto. Esta prova a cadeia inteira, que e
+# outra pergunta:
+#
+#     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+#
+# A C1 declarou as quatro capacidades e registou os executores. Medido nesta
+# missao, antes de mexer: `COLLECT` NAO conseguia chamar nenhuma delas —
+# faltava `country_scope` e a forma do retorno era outra. A declaracao estava
+# certa e o fluxo nunca tinha corrido. Esta fase existe para que isso nao volte
+# a ser possivel sem alguem reparar.
+#
+# O QUE ELA NAO FAZ
+# ------------------
+# Nao imprime a chave. Nao imprime tamanho, prefixo nem hash da chave. Nao faz
+# coleta ampla: uma busca, um canal, um lote de metadata e uma pagina de
+# comentarios. E nao cai para a Apify se a API recusar — a recusa E o resultado.
+ALVO_OFICIAL = {
+    # Vindos do acervo desta casa, nao inventados: `YOUTUBE-PILOTO-IT.json`
+    # guardou-os numa corrida autenticada anterior.
+    'TERMO': 'agricoltura di precisione',
+    'CANAL': 'UCUs2Mg7jvUTRt7_MSOFYM5Q',      # @agronotizietv
+    'VIDEOS': ['MCnd9c2pzd8', '7Ps4g3juOIU', 'GpmfcN5huug'],
+}
+
+#: As quatro desta missao, na ordem em que uma alimenta a seguinte.
+QUATRO = ('youtube.search', 'youtube.channel.discovery',
+          'youtube.video.metadata', 'youtube.comments')
+
+
+def youtube_oficial_prova():
+    """As quatro capacidades pela rota canonica. → 0 se todas usarem a API oficial."""
+    import scrap_executor as scrap
+    import scrap_fornecedores as forn
+    import youtube_oficial as yt
+
+    run_id = 'C2-YT-OFICIAL-%s' % time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
+    print('\nYOUTUBE OFICIAL — a rota canonica, ponta a ponta')
+    print('=' * 74)
+    print('RUN_ID  %s' % run_id)
+
+    # ── 1 · O CHECK, QUE NAO GASTA ────────────────────────────────────────
+    print('\n  CHECK — de graca, antes de qualquer chamada')
+    prontas = []
+    for c in QUATRO:
+        v = scrap.CHECK('YOUTUBE', c)
+        print('    %-28s CAN=%-5s %-22s alvo=%s' % (c, v['CAN'], v['STATE'],
+                                                    v['EXECUTION_TARGET']))
+        if v['CAN']:
+            prontas.append(c)
+    if not prontas:
+        print('\n  NENHUMA capacidade pronta neste ambiente.')
+        print('  Isto NAO e defeito: e o CHECK a fazer o trabalho dele antes de gastar.')
+        return 1
+
+    # ── 2 · O COLLECT, PELO CAMINHO CANONICO ──────────────────────────────
+    pedidos = {
+        'youtube.search': dict(termo=ALVO_OFICIAL['TERMO'], limit=5),
+        'youtube.channel.discovery': dict(channel_id=ALVO_OFICIAL['CANAL'], limit=5),
+        'youtube.video.metadata': dict(video_ids=ALVO_OFICIAL['VIDEOS']),
+        'youtube.comments': dict(video_id=ALVO_OFICIAL['VIDEOS'][0], limite_threads=5),
+    }
+    print('\n  CAPABILITY                   API_METHOD              ITENS  RESULT')
+    print('  ' + '-' * 70)
+    linhas, tudo_oficial, amostras = [], True, {}
+    for c in QUATRO:
+        if c not in prontas:
+            linhas.append({'CAPABILITY': c, 'RESULT': 'NOT_RUN',
+                           'WHY': 'CHECK recusou antes de gastar'})
+            print('  %-28s %-22s %5s  NOT_RUN' % (c, '-', '-'))
+            continue
+        objetos, trace = scrap.COLLECT(platform='YOUTUBE', capability=c,
+                                       run_id=run_id, country_scope='IT',
+                                       **pedidos[c])
+        # ── COMENTARIO: ZERO NAO E DESLIGADO, E UM VIDEO SO NAO PROVA NENHUM ──
+        # Um video sem comentario devolve ZERO_RESULTS legitimo, e isso nao
+        # prova a capacidade. Um video com comentario DESLIGADO devolve
+        # FEATURE_DISABLED, e isso e um fato sobre o video — nao uma coleta
+        # vazia. Sao tres coisas, e colapsa-las apagaria a diferenca para
+        # sempre.
+        #
+        #     ZERO_RESULTS != FEATURE_DISABLED != ERROR.
+        if c == 'youtube.comments':
+            # A CADEIA ESCOLHE O PROPRIO ALVO, e isso e mais do que conveniencia.
+            # `videos.list` ja devolveu COMMENT_COUNT por video. Perguntar
+            # comentarios a um video que a propria API diz ter zero produziria um
+            # ZERO_RESULTS verdadeiro e uma prova falsa: provaria que a chamada
+            # atravessa, nao que a capacidade traz comentario.
+            #
+            #     ZERO LEGITIMO NAO PROVA CAPACIDADE. Prova que aquele video esta
+            #     calado.
+            candidatos = []
+            for o in (amostras.get('_metadata_todos') or []):
+                n = ((o.get('RAW') or {}).get('COMMENT_COUNT') or 0)
+                try:
+                    n = int(n)
+                except (TypeError, ValueError):
+                    n = 0
+                if n > 0:
+                    candidatos.append((n, (o.get('RAW') or {}).get('VIDEO_ID')
+                                       or o.get('NATIVE_ID')))
+            candidatos.sort(reverse=True)
+            if candidatos:
+                print('      videos com comentario, segundo a propria API: %s'
+                      % ', '.join('%s(%d)' % (v, n) for n, v in candidatos[:3]))
+                pedidos[c] = dict(video_id=candidatos[0][1], limite_threads=5)
+            else:
+                print('      a API diz COMMENT_COUNT=0 em todos os videos deste lote')
+            objetos, trace = scrap.COLLECT(platform='YOUTUBE', capability=c,
+                                           run_id=run_id, country_scope='IT',
+                                           **pedidos[c])
+        t = scrap.TRACE(trace)
+        metodo = (trace.get('ROUTE') or '').split(':')[-1] or '-'
+        if objetos:
+            amostras[c] = objetos[0]
+            if c == 'youtube.video.metadata':
+                amostras['_metadata_todos'] = objetos
+            # A DESCOBERTA ALIMENTA O RESTO, que e como a coleta de verdade anda:
+            # descobrir, medir, e so entao perguntar comentario. Usar uma lista
+            # fixa provaria que a chamada atravessa, e nao que a cadeia funciona.
+            if c in ('youtube.search', 'youtube.channel.discovery'):
+                ids = [o.get('NATIVE_ID') for o in objetos
+                       if (o.get('CONTENT_TYPE') or '').upper() == 'VIDEO'
+                       and o.get('NATIVE_ID')]
+                if ids:
+                    achados = amostras.setdefault('_ids_descobertos', [])
+                    for i in ids:
+                        if i not in achados:
+                            achados.append(i)
+                    pedidos['youtube.video.metadata'] = dict(
+                        video_ids=achados[:5])
+                    print('      %d video(s) descobertos alimentam o metadata' % len(ids))
+        print('  %-28s %-22s %5d  %s' % (c, metodo, len(objetos), t['RESULT']))
+        if t['PROVIDER_USED'] not in (None, forn.API_OFICIAL):
+            tudo_oficial = False
+            print('      FORNECEDOR INESPERADO: %s' % t['PROVIDER_USED'])
+        if t['PAID_PROVIDER_USED']:
+            tudo_oficial = False
+            print('      ROTA PAGA USADA — isto reprova esta fase')
+        linhas.append({'CAPABILITY': c, 'API_METHOD': metodo,
+                       'RESULT': t['RESULT'], 'ITEM_COUNT': len(objetos),
+                       'PROVIDER_REQUESTED': t['PROVIDER_REQUESTED'],
+                       'PROVIDER_USED': t['PROVIDER_USED'],
+                       'WHY_FALLBACK': t['WHY_FALLBACK'],
+                       'PAID_PROVIDER_USED': t['PAID_PROVIDER_USED'],
+                       'COST_USD': trace.get('COST_USD'),
+                       'ROUTE': trace.get('ROUTE'),
+                       'ROUTE_CLASS': trace.get('ROUTE_CLASS'),
+                       'NATIVE_REASON': trace.get('NATIVE_REASON')})
+
+    # ── 3 · A QUOTA, QUE E GRATIS E NAO E INFINITA ────────────────────────
+    # O contador vive na sessao, e cada chamada abriu a sua. Entao o que se pode
+    # dizer aqui e o MODELO e o custo POR METODO — nao o gasto somado, que
+    # ninguem mediu.
+    #
+    #     US$ 0,00 NAO QUER DIZER «A VONTADE».
+    # ── BATCHING · UMA CHAMADA PARA N IDENTIFICADORES ────────────────────
+    # `videos.list` aceita ate 50 ids por chamada e custa 1 unidade seja qual
+    # for o numero. Fazer N chamadas para N videos gasta N vezes a mesma coisa
+    # e devolve o mesmo — e a diferenca entre 1 e 50 e o dia inteiro de quota.
+    lote = [l for l in linhas if l['CAPABILITY'] == 'youtube.video.metadata']
+    if lote and lote[0]['RESULT'] == 'OK':
+        n = len(pedidos['youtube.video.metadata']['video_ids'])
+        print('\n  BATCHING — %d identificadores, 1 chamada, 1 unidade de quota' % n)
+        print('    MAX_IDS_PER_CALL   50 (limite da API)')
+        print('    QUOTA_PER_CALL     1 unidade, independente de quantos ids')
+        print('    objetos devolvidos %d' % lote[0]['ITEM_COUNT'])
+        for o in (amostras.get('_metadata_todos') or []):
+            r = o.get('RAW') or {}
+            print('      %-13s views=%-9s likes=%-6s comentarios=%s'
+                  % (r.get('VIDEO_ID') or o.get('NATIVE_ID'), r.get('VIEW_COUNT'),
+                     r.get('LIKE_COUNT'), r.get('COMMENT_COUNT')))
+
+    # ── OUTPUT COMPATIBILITY · o que o objeto realmente carrega ──────────
+    # Nenhum campo que alguem consome pode desaparecer em silencio. Aqui sai a
+    # lista, para que a diferenca seja vista e nao suposta.
+    if amostras:
+        print('\n  CAMPOS DO OBJETO NORMALIZADO, por capacidade')
+        for c, obj in sorted(amostras.items()):
+            if c.startswith('_'):
+                continue
+            campos = sorted(obj) if isinstance(obj, dict) else []
+            bruto = sorted((obj or {}).get('RAW') or {}) if isinstance(obj, dict) else []
+            print('    %-28s envelope=%d campos' % (c, len(campos)))
+            if bruto:
+                print('      RAW: %s' % ', '.join(bruto))
+
+    print('\n  QUOTA — modelo oficial, dois baldes que nao se somam')
+    for c in linhas:
+        m = c.get('API_METHOD')
+        if m and m in yt.QUOTA:
+            balde, custo = yt.QUOTA[m]
+            print('    %-22s balde=%-8s %s unidade(s) por chamada' % (m, balde, custo))
+    print('    limite do projeto: %s' % yt.LIMITE_PADRAO)
+    print('    fonte: %s' % yt.QUOTA_FONTE)
+
+    print('\n  COST_USD 0.00 (%s) · APIFY_CALLS 0' % yt.COST_BASIS)
+    print('  quota: MEASURED = a sessao contou esta chamada. PARTIAL = piso,')
+    print('         alguma rota nao declarou. E os baldes nao se somam: SEARCH')
+    print('         conta CHAMADAS (100/dia), GENERAL conta UNIDADES (10.000/dia).')
+    print('  TODAS PELA API OFICIAL: %s' % ('SIM' if tudo_oficial else 'NAO'))
+    if not tudo_oficial:
+        print('  Uma das quatro saiu por outra porta. Isto reprova de proposito.')
+        return 1
+    executadas = [l for l in linhas if l['RESULT'] != 'NOT_RUN']
+    print('  capacidades executadas: %d de %d' % (len(executadas), len(QUATRO)))
+    return 0 if len(executadas) == len(QUATRO) else 1
+
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# CUTOVER — a prova de que os callers antigos atravessam o SCRAP
+# ══════════════════════════════════════════════════════════════════════════
+# A C2 provou a API. Esta fase prova outra coisa: que o caminho de QUEM CHAMA
+# passou a atravessar o executor. Sao perguntas diferentes, e a segunda e a
+# unica que fecha a contradicao que a C3 existe para acabar:
+#
+#     A CAPACIDADE JA NAO PRECISAVA DO ATOR. OS CALLERS AINDA CONSEGUIAM
+#     CHAMA-LO.
+#
+# Ela e BOUNDED de proposito: uma conta da comunicacao publica, um termo do
+# sensor, um video de comentarios. Nao amplia coleta nenhuma para gerar prova —
+# ampliar para provar seria gastar quota a fingir de rigor.
+def cutover_prova():
+    """Os tres callers, pelo caminho canonico, no menor tamanho possivel."""
+    import scrap_executor as scrap
+    import comunicacao_coleta as cc
+    import sensor_coleta as sc
+    import youtube_oficial as yt
+
+    run_id = 'C3-CUTOVER-%s' % time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
+    print('\nCUTOVER — os tres callers pela rota canonica')
+    print('=' * 74)
+    print('RUN_ID  %s' % run_id)
+
+    print('\n  CHECK — de graca, antes de qualquer chamada')
+    for c in ('youtube.channel.resolve', 'youtube.search', 'youtube.comments'):
+        v = scrap.CHECK('YOUTUBE', c)
+        print('    %-28s CAN=%-5s %s' % (c, v['CAN'], v['STATE']))
+        if not v['CAN']:
+            print('\n  o CHECK recusou antes de gastar. Isto nao e defeito.')
+            return 1
+
+    linhas = []
+
+    # ── 1 · COMUNICACAO PUBLICA ──────────────────────────────────────────
+    # DUAS coisas precisam de prova, nao uma: que uma conta resolvivel COLHE, e
+    # que uma conta `/c/` RECUSA com estado proprio. Provar so a primeira
+    # esconderia o teto; provar so a segunda esconderia a capacidade.
+    #
+    # Vai por TRES contas no maximo. Isto e prova, nao coleta.
+    contas = list(cc.contas_autorizadas('YOUTUBE'))[:3]
+    itens, mans = cc._colher_pelo_scrap('YOUTUBE', contas, 30)
+    print('\n  1 · COMUNICACAO PUBLICA  (%d contas, prova limitada)' % len(contas))
+    colheu = None
+    for m in mans:
+        print('      %-46s %-26s geral=%s/%s itens~%s'
+              % (str(m.get('ACCOUNT_URL'))[:46], m.get('STATUS'),
+                 m.get('OFFICIAL_API_QUOTA_USED'),
+                 m.get('OFFICIAL_API_QUOTA_STATE'), m.get('CHANNEL_ID') or '-'))
+        if m.get('STATUS') == 'OK':
+            colheu = m
+    m = colheu or (mans[0] if mans else {})
+    print('      provider=%-14s pago=%-6s itens no total=%d'
+          % (m.get('COLLECTION_PROVIDER'), m.get('PAID'), len(itens)))
+    if itens:
+        print('      ACTOR no item = %r  ·  COLLECTION_PROVIDER = %r'
+              % (itens[0].get('ACTOR'), itens[0].get('COLLECTION_PROVIDER')))
+    nao_resolvidas = [x for x in mans if x.get('STATUS') == 'CHANNEL_IDENTITY_UNRESOLVED']
+    if nao_resolvidas:
+        print('      %d conta(s) sem resolvedor oficial — estado proprio, nao zero'
+              % len(nao_resolvidas))
+    linhas.append(('comunicacao.youtube', m.get('COLLECTION_PROVIDER'),
+                   m.get('PAID'), len(itens), m.get('STATUS')))
+
+    # ── 2 · SENSOR · BUSCA ───────────────────────────────────────────────
+    it2, m2, _p = sc._rodar_scrap(sc.CAPACIDADES_SCRAP['YOUTUBE_SEARCH'],
+                                  run_id=run_id, platform='YOUTUBE', country='IT',
+                                  query='fusariosi grano', lote='C3',
+                                  termo='fusariosi grano', limit=3)
+    print('\n  2 · SENSOR BUSCA')
+    print('      provider=%-14s pago=%-6s geral=%s busca=%s/%s itens=%-4d estado=%s'
+          % (m2.get('COLLECTION_PROVIDER'), m2.get('PAID'),
+             m2.get('OFFICIAL_API_QUOTA_USED'),
+             m2.get('OFFICIAL_API_SEARCH_CALLS'),
+             m2.get('OFFICIAL_API_QUOTA_STATE'), len(it2), m2.get('STATUS')))
+    prov2 = sc._proveniencia(m2, None, 'C3', 'BATCH-C3')
+    print('      APIFY_ACTOR = %r  ·  PAID = %r'
+          % (prov2['APIFY_ACTOR'], prov2['PAID']))
+    linhas.append(('sensor.search', m2.get('COLLECTION_PROVIDER'), m2.get('PAID'),
+                   len(it2), m2.get('STATUS')))
+
+    # ── 3 · SENSOR · COMENTARIOS ─────────────────────────────────────────
+    # O MESMO CUIDADO DA C2: perguntar comentario a um video que a API diz ter
+    # zero produz um ZERO_RESULTS verdadeiro e uma prova falsa.
+    alvo = None
+    ids = [o.get('NATIVE_ID') for o in it2
+           if (o.get('CONTENT_TYPE') or '').upper() == 'VIDEO' and o.get('NATIVE_ID')]
+    if ids:
+        meta, _t = scrap.COLLECT(platform='YOUTUBE',
+                                 capability='youtube.video.metadata',
+                                 run_id=run_id, country_scope='IT', video_ids=ids)
+        com = sorted(((int((o.get('RAW') or {}).get('COMMENT_COUNT') or 0),
+                       (o.get('RAW') or {}).get('VIDEO_ID') or o.get('NATIVE_ID'))
+                      for o in meta), reverse=True)
+        if com and com[0][0] > 0:
+            alvo = com[0][1]
+            print('\n      video escolhido pela propria API: %s (%d comentarios)'
+                  % (alvo, com[0][0]))
+        else:
+            print('\n      a API diz COMMENT_COUNT=0 em todos os videos da busca')
+    if alvo is None and ids:
+        alvo = ids[0]
+    if alvo:
+        it3, m3, _p = sc._rodar_scrap(sc.CAPACIDADES_SCRAP['YOUTUBE_COMMENTS'],
+                                      run_id=run_id, platform='YOUTUBE',
+                                      country='MULTI', query=alvo, lote='C3',
+                                      video_id=alvo, limite_threads=5)
+        print('\n  3 · SENSOR COMENTARIOS  video=%s' % alvo)
+        print('      provider=%-14s pago=%-6s geral=%s busca=%s/%s itens=%-4d estado=%s'
+              % (m3.get('COLLECTION_PROVIDER'), m3.get('PAID'),
+                 m3.get('OFFICIAL_API_QUOTA_USED'),
+                 m3.get('OFFICIAL_API_SEARCH_CALLS'),
+                 m3.get('OFFICIAL_API_QUOTA_STATE'), len(it3), m3.get('STATUS')))
+        if it3:
+            rc = it3[0].get('RAW') or {}
+            print('      campos do comentario: DATE=%s UPDATED=%s IS_REPLY=%s'
+                  % (bool(rc.get('PUBLISHED_AT')), bool(rc.get('UPDATED_AT')),
+                     rc.get('IS_REPLY')))
+        linhas.append(('sensor.comments', m3.get('COLLECTION_PROVIDER'),
+                       m3.get('PAID'), len(it3), m3.get('STATUS')))
+
+    # ── O VEREDICTO ──────────────────────────────────────────────────────
+    print('\n  CALLER                 PROVIDER        PAGO   ITENS  ESTADO')
+    print('  ' + '-' * 62)
+    todos_oficiais = True
+    for nome, prov, pago, n, estado in linhas:
+        print('  %-22s %-15s %-6s %-6d %s' % (nome, prov, pago, n, estado))
+        if pago:
+            todos_oficiais = False
+        if prov not in (None, 'OFFICIAL_API'):
+            todos_oficiais = False
+    print('\n  COST_USD 0.00 (%s) · APIFY_CALLS 0' % yt.COST_BASIS)
+    print('  TODOS PELA API OFICIAL, NENHUM PAGO: %s'
+          % ('SIM' if todos_oficiais else 'NAO'))
+    return 0 if todos_oficiais else 1
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A ENTRADA OPERACIONAL CANÔNICA — UMA CLI FINA, NÃO UM MOTOR NOVO
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.6C encontrou o boundary comum e provou-o. A C10.6D mediu quem passa por
+# ele: as fases de `sintonia-scrap.yml` corriam as IMPLEMENTAÇÕES diretamente —
+# `instagram_janela.py`, `youtube_janela.py`, `youtube_transcrever.py` — e
+# **nenhuma delas importa `social_matriz`**. Seis portas de produção, e nenhuma
+# perguntava à dona da decisão se podia.
+#
+#     UMA DECISÃO QUE UMA PORTA NÃO CONHECE NÃO É UMA DECISÃO. É UM DESEJO.
+#
+# WORKFLOW É DISPARADOR, NÃO MOTOR
+# ----------------------------------
+# Um workflow diz O QUE quer. Não escolhe provedor, não escolhe rota, não decide
+# política. Esta função é a tradução mínima entre as duas coisas:
+#
+#     parsear o pedido → montar o pedido canônico → chamar o dono
+#
+# E mais nada. Nenhuma lógica de plataforma vive aqui: o mapa de fase para
+# capacidade é uma tabela, e o que cada capacidade faz é assunto do adaptador.
+#
+#     CLI != OWNER. UMA CLI QUE DECIDE ALGUMA COISA JÁ É UM SEGUNDO MOTOR.
+#
+# O QUE NÃO ESTÁ NESTA TABELA NÃO ENTRA POR AQUI
+# ------------------------------------------------
+# Uma fase que não tem rota canônica NÃO ganha uma entrada aqui para «fazer a
+# convergência passar». Ela fica de fora, e o workflow recusa — que é o que a
+# C10.6D decidiu para as quatro fases do YouTube e as quatro pagas do Instagram.
+#
+#     FABRICAR CAPACIDADE PARA BAIXAR O NÚMERO DE BYPASSES É MENTIR COM MÉTRICA.
+#: fase do workflow → (plataforma, capacidade, argumentos fixos da fase)
+FASES_CANONICAS = {
+    'janela':         ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'tudo'}),
+    'janela-perfis':  ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'perfis'}),
+    'janela-objetos': ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'objetos'}),
+    # ── A ÚNICA FASE PAGA DESTA CLI ──────────────────────────────────────────
+    # Ela é canônica como as outras: entra pelo `COLLECT` e por mais nada. O que
+    # a distingue vive em `FASES_PAGAS`, logo abaixo.
+    'yt-legenda-paga': ('YOUTUBE', 'youtube.native_caption',
+                        {'video_id': 'EAkcA_2FDN8'}),
+}
+
+#: O QUE TORNA UMA FASE PAGA, DECLARADO AQUI E NÃO NO WORKFLOW
+#: ------------------------------------------------------------
+#: O workflow diz um nome de fase. Tudo o resto — a autorização, o motivo, o
+#: teto de dinheiro e o teto de acessos — vive em Python versionado, que se lê
+#: num commit e não se muda num campo de formulário.
+#:
+#:     UM TETO QUE VIVE NO DISPARADOR É UM TETO QUE QUEM DISPARA ESCOLHE.
+#:
+#: A C10.8A-R já pagou por um teto que vivia fora do runtime. Um teto que vive
+#: no YAML do workflow é a mesma família: quem despacha escolheria o número.
+#:
+#: O `TETO_DE_REDE` não é um palpite: foi medido na C10.8B contra a API falsa —
+#: 1 POST de criação, até uma consulta de estado, 1 leitura do dataset e 2 do
+#: armazém de chave-valor.
+#:
+#: ── E DESDE A SCRAP-SR-02, A AUTORIZAÇÃO É UM OBJETO E NÃO UMA FRASE ──────
+#: `AUTORIZACAO` era prosa: dizia em português que havia autorização humana de
+#: US$0,10, um provider run e um POST. Prosa não trava nada. Os mesmos números
+#: passam a viajar em `AUTORIZACAO_DE_GASTO`, num formato que a guarda em
+#: `leis/autorizacao_de_gasto.py` sabe conferir antes do POST.
+#:
+#:     UM LIMITE ESCRITO EM PROSA É UM LIMITE QUE NINGUÉM CONSEGUE OBEDECER.
+#:
+#: A frase fica, porque ela diz PORQUÊ; o objeto entra, porque ele diz QUANTO.
+FASES_PAGAS = {
+    'yt-legenda-paga': {
+        'MODO': 'TRIAL',
+        'MOTIVO_PAGO': 'ROUTE_NOT_ALLOWED',
+        'TETO_DE_GASTO_USD': 0.10,
+        'TETO_DE_REDE': 5,
+        'AUTORIZACAO': ('C10.8B-LIVE · autorização humana explícita · US$0,10 no '
+                        'total da missão · 1 provider run · 1 POST de criação'),
+        # ── O PEDIDO DE AUTORIZAÇÃO, E NÃO A AUTORIZAÇÃO ─────────────────
+        # ⚠️ AQUI VIVIA A PRÓPRIA AUTORIZAÇÃO, COMO DICIONÁRIO. Isso fazia
+        # desta tabela o sítio que CONCEDE o direito de gastar — e uma tabela
+        # que concede autorização é um campo de formulário com outro nome.
+        #
+        #     CAMPO PREENCHIDO PELO CHAMADOR != AUTORIZAÇÃO.
+        #
+        # Agora o que vive aqui é o PEDIDO: os números que uma pessoa
+        # autorizou, por escrito, num commit que se lê. Quem concede é
+        # `leis/autorizacao_de_gasto.autorizar()`, e o objecto que ele devolve
+        # é selado — ninguém o consegue escrever a mão.
+        'PEDIDO_DE_AUTORIZACAO': {
+            'motivo': 'TRIAL_DE_CAPACIDADE',
+            'proposito': 'T9',
+            'max_execucoes': 1,
+            'max_usd': 0.10,
+            'quem_autorizou': ('C10.8B-LIVE · autorização humana explícita, '
+                               'registada no briefing da missão'),
+            'porque': ('provar que a rota apify:transcricao chega ao provider '
+                       'e entrega — a capacidade, não a fonte'),
+            'condicao_de_paragem': 'uma execução paga, um POST de criação',
+        },
+        'ALVO_PORQUE': ('sentinela do acervo: SENSOR-TR-B-3-p3, mesmo ator, '
+                        'transcrição histórica preservada em '
+                        'data/samples/SENSOR-PILOT/TRANSCRICOES-B.json'),
+    },
+}
+
+
+def _autorizacao_da_fase(paga):
+    """Pede a autorização ao dono dela. → `Autorizacao`, ou levanta.
+
+    Esta CLI não concede nada: ela traz o pedido que está escrito em
+    `FASES_PAGAS` e leva-o a `leis/autorizacao_de_gasto.autorizar()`, que é
+    quem faz as perguntas. Se faltar um teto ou um responsável, a autorização
+    NÃO nasce — e o que não nasce não compra.
+
+        QUEM PEDE A COMPRA NÃO É QUEM A AUTORIZA.
+    """
+    import autorizacao_de_gasto as ag
+    return ag.autorizar(**paga['PEDIDO_DE_AUTORIZACAO'])
+
+
+def _banco_se_houver():
+    """O dono da durabilidade, se houver DSN. `None` NÃO é falha.
+
+    Sem banco a coleta corre e não alega retomada — exactamente o que
+    `youtube_oficial.checkpoint_disponivel` já decidiu para o YouTube. O que não
+    se faz é abrir um segundo dono durável em JSON porque o primeiro não estava.
+
+        SEM CHECKPOINT NÃO SE INVENTA CHECKPOINT. DIZ-SE QUE NÃO HÁ.
+    """
+    dsn = (os.environ.get('SUPABASE_DB_URL') or '').strip()
+    if not dsn:
+        return None
+    import coleta_checkpoint as ck
+    return ck.Banco(dsn)
+
+
+#: Onde uma fase paga deixa o registo dela. O RAW em si fica onde o dono o
+#: escreveu; o que volta ao repositório é o RECORD.
+GAVETA_PAGA = os.path.join('data', 'samples', 'SCRAP-YOUTUBE')
+
+
+def _registar_fase_paga(fase, paga, corrida, objetos, trace):
+    """Grava o registo REDIGIDO da corrida paga. → o caminho, ou None.
+
+    POR QUE O RAW NÃO VOLTA, E POR QUE ISSO SE ESCREVE
+    ----------------------------------------------------
+    `coletor.executar` grava o bruto em `data/samples/raw-paid/*.raw.json.gz`, e
+    o `.gitignore` desta casa ignora `data/samples/**/*.gz`. Numa corrida de
+    runner, o bruto existe na máquina e NÃO volta ao repositório — e chamar a
+    isso «preservado» sem dizer onde seria a mesma confusão que a casa já
+    nomeou noutro sítio.
+
+        RAW CAPTURADO NO RUNNER != RAW DEVOLVIDO AO REPOSITÓRIO
+        != PRESERVAÇÃO FORWARD CANÔNICA.
+
+    Três estados, três campos. O SHA-256 viaja mesmo quando os bytes não
+    viajam: é ele que permite reconhecer os bytes se alguém os trouxer depois.
+    """
+    import hashlib
+    med = (trace.get('ROUTER_RECORD') or {}).get('MEDIDA') or {}
+    caminho_raw = med.get('SCRAP_RAW_REFERENCE')
+    lido, bytes_lidos, sha_lido, forma = 'NO', None, None, None
+    # O manifesto guarda o caminho CANÔNICO. Quem sabe onde os bytes foram
+    # parar é o dono do bruto — e numa prova a seco a gaveta dele é outra.
+    # Reler pelo caminho escrito mediria a gaveta, e não os bytes.
+    if caminho_raw:
+        import coletor as _ct
+        caminho_raw = os.path.join(_ct.RAW_DIR, os.path.basename(caminho_raw))
+    if caminho_raw and os.path.exists(caminho_raw):
+        with open(caminho_raw, 'rb') as f:
+            bruto = f.read()
+        bytes_lidos = len(bruto)
+        import gzip as _gz
+        import json as _json
+        try:
+            itens = _json.loads(_gz.decompress(bruto).decode('utf-8'))
+            sha_lido = hashlib.sha256(_json.dumps(
+                itens, ensure_ascii=False, sort_keys=True).encode('utf-8')).hexdigest()
+            lido = 'YES'
+            # ── A FORMA DO BRUTO VIAJA MESMO QUE OS BYTES NÃO VIAGEM ──────
+            # A C10.8B-LIVE pagou por 59.743 bytes e o objeto veio sem
+            # transcrição. Para saber se o ator mudou de esquema ou se o vídeo
+            # deixou de ter legenda, era preciso reler os bytes — e eles já não
+            # existiam: `actions/checkout` limpa o que o `.gitignore` ignora.
+            #
+            #     RAW CAPTURADO NO PROCESSO != RAW QUE SOBREVIVE AO JOB.
+            #
+            # A forma é barata, cabe no registo e responde à pergunta sem
+            # comprar outra vez.
+            forma = []
+            for it in (itens if isinstance(itens, list) else [itens])[:3]:
+                if not isinstance(it, dict):
+                    forma.append({'TIPO': type(it).__name__})
+                    continue
+                forma.append({k: {
+                    'TIPO': type(v).__name__,
+                    'TAMANHO': (len(v) if isinstance(v, (str, list, dict))
+                                else None),
+                    'VAZIO': (v is None or v == '' or v == [] or v == {}),
+                } for k, v in sorted(it.items())})
+        except Exception:                                         # noqa: BLE001
+            lido = 'UNREADABLE'
+    registo = {
+        'SOURCE_ID': 'SCRAP-YOUTUBE/%s' % fase,
+        'MISSION': 'C10.8B-LIVE',
+        'CAPTURED_AT': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+        'RUN_ID': corrida,
+        'AUTORIZACAO': paga['AUTORIZACAO'],
+        'RESULT': trace.get('RESULT'),
+        'ROUTE': trace.get('ROUTE'),
+        'ROUTE_CLASS': trace.get('ROUTE_CLASS'),
+        'PROVIDER_USED': trace.get('PROVIDER_USED'),
+        'PAID_PROVIDER_USED': trace.get('PAID_PROVIDER_USED'),
+        'MOTIVO_PAGO': (trace.get('ROUTER_RECORD') or {}).get('MOTIVO_PAGO'),
+        'PROVIDER_RUN_ID': med.get('PROVIDER_RUN_ID'),
+        'PROVIDER_STATUS': med.get('PROVIDER_STATUS'),
+        'OBJETOS': len(objetos or []),
+        'COST_STATE': trace.get('COST_STATE'),
+        'ACTUAL_COST_USD': trace.get('ACTUAL_COST_USD'),
+        'SETTLED_COST_USD': 'UNKNOWN',
+        'SCRAP_RAW_CAPTURED_ON_RUNNER': med.get('SCRAP_RAW_STATE') or 'NOT_RUN',
+        'SCRAP_RAW_REFERENCE': caminho_raw,
+        'SCRAP_RAW_SHA256': med.get('SCRAP_RAW_SHA256'),
+        'SCRAP_RAW_READ_BACK': lido,
+        'SCRAP_RAW_BYTES': bytes_lidos,
+        'SCRAP_RAW_SHA256_READ_BACK': sha_lido,
+        'SCRAP_RAW_ITEM_SHAPE': forma,
+        'SCRAP_RAW_RETURNED_TO_REPO': 'NO',
+        'SCRAP_RAW_WHY_NOT_RETURNED': ('.gitignore ignora data/samples/**/*.gz — '
+                                       'o bruto fica na máquina que colheu'),
+        'CANONICAL_FORWARD_PRESERVATION': 'NO',
+    }
+    for campo in ('FINANCIAL_BUDGET_AUTHORIZED_USD', 'FINANCIAL_BUDGET_COMMITTED_USD',
+                  'FINANCIAL_BUDGET_ACTUAL_USD', 'FINANCIAL_BUDGET_UNKNOWN_USD',
+                  'FINANCIAL_BUDGET_REMAINING_USD', 'FINANCIAL_CALLS_REFUSED',
+                  'NETWORK_BUDGET_LIMIT', 'NETWORK_REQUESTS_USED'):
+        registo[campo] = trace.get(campo)
+    registo['FINANCIAL_ATTEMPTS'] = trace.get('FINANCIAL_ATTEMPTS')
+    registo['NETWORK_ATTEMPTS'] = trace.get('NETWORK_ATTEMPTS')
+    registo['ITEMS'] = [{
+        'NATIVE_ID': o.get('NATIVE_ID'), 'URL': o.get('URL'),
+        'LANGUAGE': o.get('LANGUAGE'), 'CHARS': (o.get('RAW') or {}).get('CHARS'),
+        'SPECIES': (o.get('RAW') or {}).get('SPECIES'),
+        'TIMESTAMPS': (o.get('RAW') or {}).get('TIMESTAMPS'),
+        'TRANSCRIPT_PRESENT': (o.get('RAW') or {}).get('TRANSCRIPT_PRESENT'),
+        'TEXT_HEAD': (o.get('TEXT') or '')[:400] or None,
+    } for o in (objetos or [])]
+    os.makedirs(GAVETA_PAGA, exist_ok=True)
+    alvo = os.path.join(GAVETA_PAGA, '%s.json' % fase)
+    texto = json.dumps(registo, ensure_ascii=False, indent=1, sort_keys=True)
+    # Um registo de corrida paga NUNCA leva credencial. A trava é aqui, e não
+    # na esperança de que nada a tenha posto no rasto.
+    if 'apify_api_' in texto:
+        raise RuntimeError('o registo da fase paga levava credencial — abortado')
+    with open(alvo, 'w', encoding='utf-8') as f:
+        f.write(texto + '\n')
+    print('\n  REGISTO     %s' % alvo)
+    return alvo
+
+
+def bruto(run_id=None):
+    """Lê o BRUTO já pago e diz que FORMA ele tem. Zero rede, zero dólar.
+
+    POR QUE ISTO EXISTE, E POR QUE NÃO É UMA SEGUNDA COMPRA
+    --------------------------------------------------------
+    A corrida real da C10.8B-LIVE trouxe um objeto SEM transcrição nos campos
+    que o adaptador lê — `transcript` e `chars`. O bruto tem 59.743 bytes, o
+    que não é o tamanho de uma resposta vazia. Ou o ator mudou o esquema de
+    SAÍDA, ou o vídeo deixou de ter legenda: são duas conclusões diferentes e
+    só os bytes as separam.
+
+        UM OBJETO VAZIO NÃO DIZ SE A FONTE CALOU OU SE O CAMPO MUDOU DE NOME.
+
+    Estes bytes já foram pagos. Lê-los é o contrário de comprar outra vez — é
+    usar o que se comprou em vez de deitar fora e repetir.
+
+        RELER O QUE JÁ SE PAGOU NÃO É PAGAR OUTRA VEZ.
+
+    Esta função não importa o coletor, não abre socket e não conhece provider.
+    """
+    import gzip
+    gaveta = os.path.join('data', 'samples', 'raw-paid')
+    if not os.path.isdir(gaveta):
+        print('SEM_GAVETA=%s' % gaveta)
+        return 1
+    # O run_id vem do REGISTO da corrida, e não de «o último ficheiro da
+    # pasta». A gaveta guarda brutos de várias missões, e escolher pelo nome
+    # mais recente leria o bruto de outra corrida com a cara desta.
+    #
+    #     «O ÚLTIMO DA PASTA» NÃO É «O DESTA CORRIDA».
+    if run_id is None:
+        registo = os.path.join(GAVETA_PAGA, 'yt-legenda-paga.json')
+        if os.path.exists(registo):
+            with open(registo, encoding='utf-8') as f:
+                run_id = json.load(f).get('RUN_ID')
+            print('RUN_ID_DO_REGISTO=%s' % run_id)
+    nomes = sorted(n for n in os.listdir(gaveta) if n.endswith('.raw.json.gz')
+                   and (run_id is None or n.startswith(run_id)))
+    if not nomes:
+        print('SEM_BRUTO_DESTA_CORRIDA=%s · gaveta com %d ficheiro(s)'
+              % (run_id, len(os.listdir(gaveta))))
+        return 1
+    alvo = os.path.join(gaveta, nomes[-1])
+    with open(alvo, 'rb') as f:
+        comprimido = f.read()
+    itens = json.loads(gzip.decompress(comprimido).decode('utf-8'))
+    print('BRUTO         %s' % nomes[-1])
+    print('BYTES_GZ      %d' % len(comprimido))
+    print('ITENS         %d' % (len(itens) if isinstance(itens, list) else 1))
+    if isinstance(itens, list) and itens and isinstance(itens[0], dict):
+        it = itens[0]
+        print('CHAVES        %s' % sorted(it))
+        for k in sorted(it):
+            v = it[k]
+            forma = type(v).__name__
+            tam = len(v) if isinstance(v, (str, list, dict)) else ''
+            amostra = str(v)[:120].replace('\n', ' ')
+            print('  %-22s %-6s %-7s %s' % (k, forma, tam, amostra))
+    else:
+        print('FORMA         %s' % type(itens).__name__)
+        print('AMOSTRA       %s' % str(itens)[:300])
+    return 0
+
+
+def coletar(fase, *, teto=None, run_id=None, banco=None):
+    """A entrada operacional. → código de saída.
+
+    Não sabe o que é um Reel, um canal ou uma grade. Sabe traduzir uma fase num
+    pedido e entregá-lo ao executor.
+    """
+    import scrap_executor as scrap
+    if fase not in FASES_CANONICAS:
+        print('FASE_SEM_ROTA_CANONICA=%s' % fase)
+        print('  Esta fase não tem capacidade registada com rota. Ela NÃO corre')
+        print('  por aqui, e NÃO deve correr a implementação directamente.')
+        print('  As fases com rota canônica: %s'
+              % ', '.join(sorted(FASES_CANONICAS)))
+        return 2
+    plataforma, capacidade, fixos = FASES_CANONICAS[fase]
+    kw = dict(fixos)
+    if teto not in (None, '', '0'):
+        kw['teto'] = teto
+    # ── UMA FASE PAGA LEVA OS DOIS TETOS, E ELES VÊM DA TABELA ───────────────
+    # Nem desta função, nem do workflow, nem de uma variável de ambiente: da
+    # declaração versionada da fase. E quem RECUSA continua a ser o `CHECK`
+    # dentro do `COLLECT` — esta CLI imprime o estado, não decide por ele.
+    #
+    #     O PORTÃO É DE QUEM JÁ O TEM. IMPRIMIR NÃO É DECIDIR.
+    paga = FASES_PAGAS.get(fase)
+    if paga is not None:
+        kw.update({'modo': paga['MODO'], 'permitir_pago': True,
+                   'motivo_pago': paga['MOTIVO_PAGO'],
+                   'teto_de_gasto': paga['TETO_DE_GASTO_USD'],
+                   'teto_de_rede': paga['TETO_DE_REDE'],
+                   # A autorização desce pelo mesmo caminho de todo o resto —
+                   # `COLLECT` -> roteador -> adaptador -> `coletor`. Ela não
+                   # atalha, e é por isso que quem a salta não compra.
+                   'autorizacao': _autorizacao_da_fase(paga)})
+    # O `RUN_ID` vem do chamador canônico. Sem um, cunha-se aqui UM por execução
+    # — e diz-se que foi aqui. Inventar um `run_id` em silêncio seria fabricar
+    # proveniência; declará-lo é o contrário disso.
+    corrida = run_id or ('SCRAP-%s-%s' % (fase, time.strftime('%Y%m%dT%H%M%SZ',
+                                                              time.gmtime())))
+    print('PEDIDO CANONICO')
+    print('  fase        %s' % fase)
+    print('  plataforma  %s' % plataforma)
+    print('  capacidade  %s' % capacidade)
+    print('  run_id      %s' % corrida)
+    if paga is not None:
+        pronto = scrap.CHECK(plataforma, capacidade, modo=paga['MODO'])
+        print('\nESTADO ANTES DO GASTO')
+        print('  autorizacao        %s' % paga['AUTORIZACAO'])
+        for campo, valor in sorted(paga['PEDIDO_DE_AUTORIZACAO'].items()):
+            print('    %-20s %s' % (campo, valor))
+        print('  alvo               %s' % fixos)
+        print('  alvo porque        %s' % paga['ALVO_PORQUE'])
+        print('  motivo pago        %s' % paga['MOTIVO_PAGO'])
+        print('  teto de gasto USD  %s' % paga['TETO_DE_GASTO_USD'])
+        print('  teto de rede       %s' % paga['TETO_DE_REDE'])
+        print('  capability state   %s' % pronto.get('CAPABILITY_STATE'))
+        print('  CHECK.CAN          %s' % pronto.get('CAN'))
+        print('  CHECK.STATE        %s' % pronto.get('STATE'))
+        print('  READY_TO_SPEND     %s' % ('YES' if pronto.get('CAN') else 'NO'))
+        print('  (quem recusa e o CHECK, dentro do COLLECT — nao esta impressao)')
+    objetos, trace = scrap.COLLECT(platform=plataforma, capability=capacidade,
+                                   run_id=corrida, banco=banco, **kw)
+    print('\nRESULTADO')
+    print('  objetos     %d' % len(objetos or []))
+    print('  resultado   %s' % trace.get('RESULT'))
+    print('  rota        %s' % (trace.get('ROTA_ESCOLHIDA') or trace.get('ROUTE') or '—'))
+    print('  executor    %s' % trace.get('EXECUTOR_ID'))
+    print('  run durável %s' % trace.get('RUN_STATE_PERSISTED', 'NOT_REQUESTED'))
+    if paga is not None:
+        # O que uma fase paga TEM de publicar, mesmo quando nao gastou nada.
+        # Um relatorio que so fala de dinheiro quando houve dinheiro obriga
+        # quem le a deduzir o zero pela ausencia — e ausencia nao e valor.
+        print('\nDINHEIRO E REDE')
+        for campo in ('FINANCIAL_BUDGET_AUTHORIZED_USD',
+                      'FINANCIAL_BUDGET_COMMITTED_USD',
+                      'FINANCIAL_BUDGET_ACTUAL_USD',
+                      'FINANCIAL_BUDGET_UNKNOWN_USD',
+                      'FINANCIAL_BUDGET_REMAINING_USD',
+                      'FINANCIAL_CALLS_REFUSED', 'COST_STATE',
+                      'NETWORK_BUDGET_LIMIT', 'NETWORK_REQUESTS_USED'):
+            print('  %-34s %s' % (campo, trace.get(campo)))
+        for t in (trace.get('FINANCIAL_ATTEMPTS') or []):
+            print('  tentativa  %s' % {k: v for k, v in t.items()
+                                       if k != 'ROUTE'})
+        med = (trace.get('ROUTER_RECORD') or {}).get('MEDIDA') or {}
+        for campo in ('PROVIDER_RUN_ID', 'PROVIDER_STATUS', 'SCRAP_RAW_REFERENCE',
+                      'SCRAP_RAW_STATE', 'SCRAP_RAW_SHA256'):
+            if campo in med:
+                print('  %-34s %s' % (campo, med[campo]))
+        _registar_fase_paga(fase, paga, corrida, objetos, trace)
+    estado = trace.get('RESULT')
+    if estado in ('ROUTE_NOT_ALLOWED', 'AUTOMATION_NOT_ALLOWED'):
+        print('\n  A POLÍTICA RECUSOU, E ISSO É UM RESULTADO — não um erro desta CLI.')
+        return 3
+    return 0 if objetos else 1
+
+
+#: As fases desta CLI que ADQUIREM e que NÃO atravessam `scrap_executor.COLLECT`.
+#:
+#: A C10.6D mediu o alcance de cada fase por CHAMADA — não por import, que já
+#: mentiu uma vez nesta casa. Das 16 fases, 3 chegam ao boundary e 13 não; de
+#: entre as 13, estas quatro adquirem, e as outras nove leem o que já está cá
+#: dentro ou imprimem política.
+#:
+#: E NÃO se converteram, de propósito. `youtube` existe para medir a API
+#: DIRETAMENTE, e `youtube-oficial` existe para medir a MESMA API pelo
+#: executor. O par é a medição: fazer as duas entrarem pela mesma porta apagava
+#: exactamente a pergunta que elas respondem —
+#:
+#:     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+#:
+#: O que se corrigiu foi o silêncio. Uma fase que salta o boundary passa a
+#: DIZÊ-LO na saída, para que ninguém a leia como porta de produção:
+#:
+#:     UM DESVIO DECLARADO É UMA MEDIÇÃO. UM DESVIO CALADO É UM BURACO.
+FASES_QUE_NAO_ATRAVESSAM_O_BOUNDARY = {
+    'youtube': 'mede a YouTube Data API DIRETO; o par canonico e `youtube-oficial`',
+    'youtube-piloto': 'piloto real sobre a mesma estrada direta',
+    'youtube-piloto-oneshot': 'o mesmo piloto, uma volta so',
+    'piloto': 'prova adversarial CONTRA o roteador, incluindo rotas que devem recusar',
+}
+
+
+def _avisar_se_salta_o_boundary(cmd):
+    """Diz, na saida, que esta fase nao atravessa a casa. → True se saltou."""
+    porque = FASES_QUE_NAO_ATRAVESSAM_O_BOUNDARY.get(cmd)
+    if not porque:
+        return False
+    print('DESVIO_DECLARADO=%s' % cmd)
+    print('  Esta fase ADQUIRE e NAO atravessa `scrap_executor.COLLECT`.')
+    print('  PORQUE: %s' % porque)
+    print('  Sem RUN duravel, sem rasto de etapa, sem checkpoint. E medicao,')
+    print('  nao e porta de producao — e esta linha existe para que ninguem a')
+    print('  confunda com uma.')
+    return True
+
+
 def main():
     args = sys.argv[1:]
     cmd = args[0] if args else 'censo'
+    _avisar_se_salta_o_boundary(cmd)
     if cmd == 'censo':
         mz.main()
     elif cmd == 'gap':
@@ -846,12 +1993,39 @@ def main():
         ss.main()
     elif cmd == 'youtube':
         youtube()
+    elif cmd == 'youtube-oficial':
+        return youtube_oficial_prova()
+    elif cmd == 'cutover':
+        return cutover_prova()
     elif cmd == 'youtube-piloto':
         return youtube_piloto(OPERATIONAL)
     elif cmd == 'youtube-piloto-oneshot':
         return youtube_piloto(ONE_SHOT)
     elif cmd == 'authmodes':
         authmodes()
+    elif cmd == 'evidencia-publicar':
+        # JOB A. Le ficheiro do acervo, escreve, rele e publica. Zero rede.
+        if len(args) < 2:
+            print('uso: evidencia-publicar <run_id>')
+            return 2
+        return evidencia_publicar_prova(args[1])
+    elif cmd == 'evidencia-recuperar':
+        # JOB B. Confere o workspace, recupera por RUN_ID e reprocessa. Zero rede.
+        if len(args) < 2:
+            print('uso: evidencia-recuperar <run_id> [pasta]')
+            return 2
+        return evidencia_recuperar_prova(
+            args[1], de=args[2] if len(args) > 2 else GAVETA_EVIDENCIA)
+    elif cmd == 'bruto':
+        # Leitura de ficheiro local. Nao adquire, nao gasta e nao toca rede.
+        return bruto(args[1] if len(args) > 1 else None)
+    elif cmd == 'coletar':
+        # `coletar <fase> [teto]` — a entrada que os workflows usam.
+        if len(args) < 2:
+            print('uso: coletar <fase> [teto]')
+            return 2
+        return coletar(args[1], teto=args[2] if len(args) > 2 else None,
+                       banco=_banco_se_houver())
     elif cmd == 'guarda':
         import social_guarda
         sys.exit(social_guarda.main())

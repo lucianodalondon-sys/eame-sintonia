@@ -1,0 +1,43 @@
+{
+ "DATASET": "BC5-PASSO-A",
+ "SHA_INSTALADO": "dfec8873",
+ "REFERENCIA": "f24a459f (M5G, ferramentas/unificacao/m5/suite-unificado-f24a459f.json)",
+ "SUITE": {
+  "curadoria": "Ran 590, ok 589",
+  "tests": "Ran 5087, ok 4821"
+ },
+ "VERMELHOS_POR_NOME": {
+  "REF": 98,
+  "dfec8873": 87
+ },
+ "SAIRAM": [
+  "tests::test_c4_gpu_local.T19RedTeamPorInjecao.test_rt6_a_placa_que_cai_na_carga_cai_para_o_processador_com_nome.test_rt6_a_placa_que_cai_na_carga_cai_para_o_processador_com_nome",
+  "tests::test_c4_gpu_local.T19RedTeamPorInjecao.test_rt6b_falha_que_nao_e_memoria_cai_como_indisponivel.test_rt6b_falha_que_nao_e_memoria_cai_como_indisponivel",
+  "tests::test_c4_gpu_local.T20PrepararNaoEOuvir.test_modelo_que_nao_carrega_nao_e_audio_sem_fala.test_modelo_que_nao_carrega_nao_e_audio_sem_fala",
+  "tests::test_c4b_gpu_execucao.T5NaoHaSegundoDonoNemDownloadNovo.test_o_modelo_so_e_aceite_se_ja_estiver_na_maquina.test_o_modelo_so_e_aceite_se_ja_estiver_na_maquina",
+  "tests::test_c4h_ponte_de_midia.OContratoDoTexto.test_T8_a_lingua_detectada_viaja_com_a_fonte_dela.test_T8_a_lingua_detectada_viaja_com_a_fonte_dela",
+  "tests::test_cadeia_do_audio_offline.ACadeiaDoAudioOffline.test_04_a_derivacao_produz_TEXTO_pelo_dono_do_ASR.test_04_a_derivacao_produz_TEXTO_pelo_dono_do_ASR",
+  "tests::test_cadeia_do_audio_offline.ACadeiaDoAudioOffline.test_05_a_admissao_le_o_texto_e_a_regua_multilingue_decide.test_05_a_admissao_le_o_texto_e_a_regua_multilingue_decide",
+  "tests::test_cadeia_do_audio_offline.ACadeiaDoReelOffline.test_12_o_reel_chega_ao_DERIVED_como_qualquer_midia.test_12_o_reel_chega_ao_DERIVED_como_qualquer_midia",
+  "tests::test_scrap_flow01_caminho_canonico.ODisparadorPedeNaoConduz.test_rt01_a_fase_migrada_nao_chama_mais_o_script.test_rt01_a_fase_migrada_nao_chama_mais_o_script",
+  "tests::test_scrap_flow01_caminho_canonico.ODisparadorPedeNaoConduz.test_rt02_o_disparador_nao_conhece_ator_rota_nem_provider.test_rt02_o_disparador_nao_conhece_ator_rota_nem_provider",
+  "tests::test_scrap_rc01_release_candidate.ARelevanciaGuardaOGasto.test_rt20_o_livro_esta_vazio_e_diz_se.test_rt20_o_livro_esta_vazio_e_diz_se",
+  "tests::test_scrap_rc01_release_candidate.AsEntradasDaV1.setUpClass",
+  "tests::test_scrap_rc01_release_candidate.UmaRotaQueNaoCorreuNaoObservouNada.test_ns1_a_rota_recusada_devolve_mesmo_um_objeto.test_ns1_a_rota_recusada_devolve_mesmo_um_objeto",
+  "tests::test_scrap_rc01_release_candidate.UmaRotaQueNaoCorreuNaoObservouNada.test_ns6_e_o_envelope_diz_porque_o_zero_e_zero.test_ns6_e_o_envelope_diz_porque_o_zero_e_zero"
+ ],
+ "ENTRARAM": [
+  "tests::test_canonico.TestNumerosEntreDocumentos.test_o_total_de_testes_declarado_vem_da_suite.test_o_total_de_testes_declarado_vem_da_suite",
+  "tests::test_metricas.TestDocumentoBateComODono.test_todo_numero_publicado_vem_do_dono.test_todo_numero_publicado_vem_do_dono",
+  "tests::test_metricas.TestNumeroCorrenteTemDono.test_nenhum_marcador_esta_desatualizado.test_nenhum_marcador_esta_desatualizado"
+ ],
+ "MEDIDOS_ISOLADOS": {
+  "98ec8fbf": "3/3 OK",
+  "dfec8873": "3 FAIL (6 linhas)"
+ },
+ "NEW_FAILURES_BY_NAME": 3,
+ "TOCAM_A_ESTRADA_DA_COLETA": "NAO (tests/test_canonico, tests/test_metricas: numero de testes publicado em 8 documentos, 5.351 != 5.373 depois dos testes da BC4b)",
+ "CONSERTO": "bae2cd0b: pacote/metricas_canonicas.py --sync (8 marcadores); test_canonico+test_metricas: os 3 passam; ficam 2 vermelhos herdados da referencia (test_fontes_placar_bate_com_o_declarado, test_total_de_fontes_bate_com_os_source_ids_reais)",
+ "NAO_INSTALADO": "o conserto e so documentos; a instalacao e do coordenador",
+ "PASSO_B": "NAO COMECOU: a regra da missao exige A = 0 novos no SHA instalado"
+}

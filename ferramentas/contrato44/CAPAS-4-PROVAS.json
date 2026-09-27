@@ -1,0 +1,253 @@
+{
+ "DATASET": "CAPAS-4-PROVAS",
+ "NOTA": "IT-T7-120: a ultima linha e a prova com o contrato REPARADO na copia (desfeito depois)",
+ "LINHAS": {
+  "IT-T12-104": {
+   "SOURCE_ID": "IT-T12-104",
+   "OWNER": "geoportale.regione.lombardia.it",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.geoportale.regione.lombardia.it/news",
+   "LINK_PATTERN": "^https?://(www\\.)?geoportale\\.regione\\.lombardia\\.it/news/\\-/asset_publisher/80SRILUddraK/content/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=\\d+&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=[^&]+$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.geoportale.regione.lombardia.it/news",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 54,
+    "NON_WHITESPACE_CHARACTERS": 3911,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 3,
+   "AMOSTRA_LINKS": [
+    "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/valore-agricolo-dei-suoli-2023?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3709160&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3709160",
+    "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/nuovo-sfondo-mondiale-nel-viewer?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707656&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707656",
+    "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/disponibile-il-download-del-dbgt-ristrutturato?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707596&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707596"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/valore-agricolo-dei-suoli-2023?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3709160&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3709160",
+     "HTTP": 200,
+     "BYTES": 67527,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 28,
+     "NON_WHITESPACE_CHARACTERS": 784,
+     "PARAGRAPH_CHARACTERS": 121,
+     "TEXT_SHA256": "3a8a89485e948242d1ed372fb701c0d1b1bee8a06301d3786fba64937fddeb86",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (28 ligacoes para 784 caracteres, 121 em paragrafos)"
+    },
+    {
+     "URL": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/nuovo-sfondo-mondiale-nel-viewer?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707656&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707656",
+     "HTTP": 200,
+     "BYTES": 68315,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 27,
+     "NON_WHITESPACE_CHARACTERS": 1014,
+     "PARAGRAPH_CHARACTERS": 343,
+     "TEXT_SHA256": "d897a58884d3a54b9fd925e531c132da3cf662f9dfba43e1f7dc6b3f67a24164",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (27 ligacoes para 1014 caracteres, 343 em paragrafos)"
+    }
+   ],
+   "VEREDITO": "CAPABILITY_BLOCK",
+   "CAUSA": "https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/valore-agricolo-dei-suoli-2023?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3709160&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3709160: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (28 ligacoes para 784 caracteres, 121 em paragrafos); https://www.geoportale.regione.lombardia.it/news/-/asset_publisher/80SRILUddraK/content/nuovo-sfondo-mondiale-nel-viewer?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId=3707656&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_redirect=https%3A%2F%2Fwww.geoportale.regione.lombardia.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_80SRILUddraK_assetEntryId%3D3707656: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (27 ligacoes para 1014 caracteres, 343 em paragrafos)",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "d3870d3defdbfa24885c8026bee69b211534fd07a4f30bfe5599ea84161507b7",
+   "PROVADO_EM": "2026-09-25T10:02:05.175427+00:00"
+  },
+  "IT-T3-045": {
+   "SOURCE_ID": "IT-T3-045",
+   "OWNER": "Servizio Fitosanitario Regionale",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.amap.marche.it/progetti-europei/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?amap\\.marche\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.amap.marche.it/progetti-europei/notizie",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 350,
+    "NON_WHITESPACE_CHARACTERS": 12470,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 11,
+   "AMOSTRA_LINKS": [
+    "https://www.amap.marche.it/progetti/progetti-misura-16-1-psr-marche",
+    "https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi",
+    "https://www.amap.marche.it/progetti-europei/notizie/amap-a-larissa-per-il-quinto-meeting-del-progetto-joinable",
+    "https://www.amap.marche.it/progetti-europei/notizie/amap-e-arpam-rafforzano-la-sinergia-istituzionale-per-il-progetto-europeo-ainature",
+    "https://www.amap.marche.it/progetti-europei/notizie/dai-rifiuti-marini-a-nuove-risorse-prosegue-a-porto-san-giorgio-il-progetto-europeo-joinable"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.amap.marche.it/progetti/progetti-misura-16-1-psr-marche",
+     "HTTP": 200,
+     "BYTES": 174670,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 344,
+     "NON_WHITESPACE_CHARACTERS": 12128,
+     "PARAGRAPH_CHARACTERS": 2548,
+     "TEXT_SHA256": "fe02d7f40169fef8affdb172871b72ea13a2031325804bc3581f5cfbdc13bdc9",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (344 ligacoes para 12128 caracteres, 2548 em paragrafos)"
+    },
+    {
+     "URL": "https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 160956,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 318,
+     "NON_WHITESPACE_CHARACTERS": 8979,
+     "PARAGRAPH_CHARACTERS": 319,
+     "TEXT_SHA256": "2e6a63f23994f58d663d6228cc4daed7acaa076259479c0cb2632c77acc011ca",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (318 ligacoes para 8979 caracteres, 319 em paragrafos)"
+    }
+   ],
+   "VEREDITO": "CAPABILITY_BLOCK",
+   "CAUSA": "https://www.amap.marche.it/progetti/progetti-misura-16-1-psr-marche: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (344 ligacoes para 12128 caracteres, 2548 em paragrafos); https://www.amap.marche.it/progetti-europei/progetti-europei-conclusi: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (318 ligacoes para 8979 caracteres, 319 em paragrafos)",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "49c73c40da41c5cf8e02a10a77c248abd122bb9204a8be020deffb52568215f0",
+   "PROVADO_EM": "2026-09-25T10:02:19.214264+00:00"
+  },
+  "IT-T7-115": {
+   "SOURCE_ID": "IT-T7-115",
+   "OWNER": "Agenda",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.cia.it/agenda-archivio/",
+   "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.cia.it/agenda-archivio/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 93,
+    "NON_WHITESPACE_CHARACTERS": 1837,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 12,
+   "AMOSTRA_LINKS": [
+    "https://www.cia.it/eventi/cia-a-eima-international-2026/",
+    "https://www.cia.it/eventi/x-festa-dei-pensionati-anp-cia-nord-italia/",
+    "https://www.cia.it/eventi/vi-festa-interregionale-dei-pensionati-anp-cia-del-sud/",
+    "https://www.cia.it/eventi/cia-cuneo-al-confronto-sulla-sostenibilita-e-produzione/",
+    "https://www.cia.it/eventi/xv-festa-interregionale-dei-pensionati-anp-cia-del-centro-italia/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.cia.it/eventi/cia-a-eima-international-2026/",
+     "HTTP": 200,
+     "BYTES": 79512,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 84,
+     "NON_WHITESPACE_CHARACTERS": 1459,
+     "PARAGRAPH_CHARACTERS": 236,
+     "TEXT_SHA256": "fab3e0f93ae7a4c020cea244684db9dc08e244c36857209bab7d33363f6cd73c",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (84 ligacoes para 1459 caracteres, 236 em paragrafos)"
+    },
+    {
+     "URL": "https://www.cia.it/eventi/x-festa-dei-pensionati-anp-cia-nord-italia/",
+     "HTTP": 200,
+     "BYTES": 83976,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 89,
+     "NON_WHITESPACE_CHARACTERS": 3787,
+     "PARAGRAPH_CHARACTERS": 2372,
+     "TEXT_SHA256": "be3bbf76fb07308c662f5c6e662c83c44f7dce55138e082f97bb2a6523b2c30b",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.cia.it/eventi/x-festa-dei-pensionati-anp-cia-nord-italia/",
+    "HTTP": 200,
+    "BYTES": 83976,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 89,
+    "NON_WHITESPACE_CHARACTERS": 3787,
+    "PARAGRAPH_CHARACTERS": 2372,
+    "TEXT_SHA256": "be3bbf76fb07308c662f5c6e662c83c44f7dce55138e082f97bb2a6523b2c30b",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 12 links pelo motor -> https://www.cia.it/eventi/x-festa-dei-pensionati-anp-cia-nord-italia/ com 2372 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "57c04b8f6db1a30d2687d848bcdf13a9abbce67d19df23bb8bb51e6888d31c44",
+   "PROVADO_EM": "2026-09-25T10:02:31.747925+00:00"
+  },
+  "IT-T7-120": {
+   "SOURCE_ID": "IT-T7-120",
+   "OWNER": "INAC Cia",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://inac-cia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?inac\\-cia\\.it/news/notizie/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 4,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://inac-cia.it/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 69,
+    "NON_WHITESPACE_CHARACTERS": 3871,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 6,
+   "AMOSTRA_LINKS": [
+    "https://inac-cia.it/news/notizie/sei-un-pensionato/",
+    "https://inac-cia.it/news/notizie/vuoi-sapere-quando-andrai-in-pensione/",
+    "https://inac-cia.it/news/notizie/lavori-o-hai-lavorato-e-soffri-di-una-patologia/",
+    "https://inac-cia.it/news/notizie/riforma-disabilita-dal-1-marzo-sperimentazione-estesa-a-40-province-in-tutta-italia-rivolgiti-al-patronato-inac-per-tutti-gli-aggiornamenti/",
+    "https://inac-cia.it/news/notizie/servizio-civile-agricolo-la-proposta-di-cia-e-inac-a-lollobrigida-il-governo-traduca-lattivita-da-sperimentale-a-strutturale-fino-al-2030/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://inac-cia.it/news/notizie/sei-un-pensionato/",
+     "HTTP": 200,
+     "BYTES": 43246,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 40,
+     "NON_WHITESPACE_CHARACTERS": 2397,
+     "PARAGRAPH_CHARACTERS": 619,
+     "TEXT_SHA256": "16706dc0e3f4bea8205fe3b5b62e7201bd0cc63c35d831192838a0824a7608cf",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    },
+    {
+     "URL": "https://inac-cia.it/news/notizie/vuoi-sapere-quando-andrai-in-pensione/",
+     "HTTP": 200,
+     "BYTES": 43295,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 40,
+     "NON_WHITESPACE_CHARACTERS": 2373,
+     "PARAGRAPH_CHARACTERS": 602,
+     "TEXT_SHA256": "ee53a3d31b198e275fb68eea3b99854bb23a9e8194b1ee78c910a3d31e2771be",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    }
+   ],
+   "VEREDITO": "CAPABILITY_BLOCK",
+   "CAUSA": "https://inac-cia.it/news/notizie/sei-un-pensionato/: alvo sem corpo util: HTML_KIND=MIXED; https://inac-cia.it/news/notizie/vuoi-sapere-quando-andrai-in-pensione/: alvo sem corpo util: HTML_KIND=MIXED",
+   "CONTRATO_LIDO_DE": "disco:curadoria/italy_contracts_curator.json",
+   "CONTRATO_SHA256": "56c3195339404c12e83e81aec9f32279e7501438aacabc4f7b67d6d17bfccb2e",
+   "PROVADO_EM": "2026-09-25T10:04:53.489011+00:00"
+  }
+ }
+}

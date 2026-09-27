@@ -1,0 +1,392 @@
+{
+ "MISSAO": "5-PREP-b",
+ "CORTE": {
+  "CORTE_EM": "2026-09-23T01:00:55Z",
+  "ORIGEM": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\source-curator-service-v1\\curadoria",
+  "INTERVALO_S": 30.0,
+  "TENTATIVA": 1,
+  "SHA256": {
+   "LIFECYCLE-LEDGER-V1.json": "4a3b9863aa78c1e6242505240ecf4f61a9816ca784aa0feba2804c31fca83dd5",
+   "LIFECYCLE-EVIDENCE-V1.json": "af4fe1658062aa8947601e24ce9f126248f9373c9a79a8a706d67f566f12ce6d",
+   "LIFECYCLE-QUEUE-V1.json": "ee4b1532c42d466353e0b8b9cc2207969a4d15c9ebf56c04825340b22dada976",
+   "italy_contracts_curator.json": "7a9eecaded22dfa915a6838c623a21d4a79631de4e7876c3aa3d93bb1d2c9ff6",
+   "RED-TEAM-TELEMETRIA-V1.json": "21580f550a1c2af4ce099363db8b08d1cd382177d79aea607428044062039523"
+  },
+  "BYTES": {
+   "LIFECYCLE-LEDGER-V1.json": 543201,
+   "LIFECYCLE-EVIDENCE-V1.json": 665014,
+   "LIFECYCLE-QUEUE-V1.json": 425038,
+   "italy_contracts_curator.json": 847797,
+   "RED-TEAM-TELEMETRIA-V1.json": 2966
+  },
+  "TRANSICOES": 1400
+ },
+ "LIVRO_A": "HEAD:curadoria/LIFECYCLE-LEDGER-V1.json (copia em TEMP)",
+ "POR_ESTADO_FINAL_C_GIT_779ac8f6": {
+  "READY_CURRENT": 10,
+  "READY_LEGACY": 92,
+  "RETRY": 24,
+  "DEGRADED": 18,
+  "POLICY_BLOCK": 69,
+  "CAPABILITY_BLOCK": 28,
+  "UNKNOWN": 34,
+  "NOT_READY": 280
+ },
+ "POR_ESTADO_FINAL_C_CORTE": {
+  "READY_CURRENT": 12,
+  "READY_LEGACY": 95,
+  "RETRY": 13,
+  "DEGRADED": 18,
+  "POLICY_BLOCK": 69,
+  "CAPABILITY_BLOCK": 28,
+  "UNKNOWN": 39,
+  "NOT_READY": 281
+ },
+ "BLOQUEIOS_CORTE": {
+  "POLICY_BLOCK_IMPORTED": 0,
+  "CAPABILITY_BLOCK_IMPORTED": 0,
+  "POLICY_BLOCK_IMPORTED_NO_LIVRO": 69,
+  "CAPABILITY_BLOCK_IMPORTED_NO_LIVRO": 18,
+  "BLOCKS_REJECTED_AS_STALE": [
+   {
+    "SOURCE_ID": "CAND-0271",
+    "CHAVE_NO_LIVRO": "CAND-0271",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0271",
+    "CHAVE_NO_LIVRO": "CAND-0271",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0289",
+    "CHAVE_NO_LIVRO": "CAND-0289",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0289",
+    "CHAVE_NO_LIVRO": "CAND-0289",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0300",
+    "CHAVE_NO_LIVRO": "CAND-0300",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0300",
+    "CHAVE_NO_LIVRO": "CAND-0300",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0331",
+    "CHAVE_NO_LIVRO": "CAND-0331",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0331",
+    "CHAVE_NO_LIVRO": "CAND-0331",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0332",
+    "CHAVE_NO_LIVRO": "CAND-0332",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0332",
+    "CHAVE_NO_LIVRO": "CAND-0332",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0335",
+    "CHAVE_NO_LIVRO": "CAND-0335",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0335",
+    "CHAVE_NO_LIVRO": "CAND-0335",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0377",
+    "CHAVE_NO_LIVRO": "CAND-0377",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0377",
+    "CHAVE_NO_LIVRO": "CAND-0377",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0414",
+    "CHAVE_NO_LIVRO": "CAND-0414",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0414",
+    "CHAVE_NO_LIVRO": "CAND-0414",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0423",
+    "CHAVE_NO_LIVRO": "CAND-0423",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0423",
+    "CHAVE_NO_LIVRO": "CAND-0423",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0452",
+    "CHAVE_NO_LIVRO": "CAND-0452",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0452",
+    "CHAVE_NO_LIVRO": "CAND-0452",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0469",
+    "CHAVE_NO_LIVRO": "CAND-0469",
+    "LIVRO": "A",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   },
+   {
+    "SOURCE_ID": "CAND-0469",
+    "CHAVE_NO_LIVRO": "CAND-0469",
+    "LIVRO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "PORQUE": "candidata ausente da porta desta arvore — bloqueio sem prova local"
+   }
+  ],
+  "BLOCKS_SUPERSEDED_BY_LATER_EVIDENCE": [
+   {
+    "SOURCE_ID": "IT-T5-041",
+    "LIVRO_DO_BLOQUEIO": "B2",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "SUPERADO_POR": {
+     "LIVRO": "A",
+     "ESTADO_POSTERIOR": "READY_FOR_COLLECTION",
+     "EVIDENCE_REF": "EV-IT-T5-041-CANARY-0059",
+     "OBSERVED_AT": "2026-09-21T03:58:55.745920+00:00"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T5-041",
+    "LIVRO_DO_BLOQUEIO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "SUPERADO_POR": {
+     "LIVRO": "A",
+     "ESTADO_POSTERIOR": "READY_FOR_COLLECTION",
+     "EVIDENCE_REF": "EV-IT-T5-041-CANARY-0059",
+     "OBSERVED_AT": "2026-09-21T03:58:55.745920+00:00"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T5-051",
+    "LIVRO_DO_BLOQUEIO": "B2",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "SUPERADO_POR": {
+     "LIVRO": "A",
+     "ESTADO_POSTERIOR": "READY_FOR_COLLECTION",
+     "EVIDENCE_REF": "EV-IT-T5-051-CANARY-0061",
+     "OBSERVED_AT": "2026-09-21T03:59:05.716779+00:00"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T5-051",
+    "LIVRO_DO_BLOQUEIO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "SUPERADO_POR": {
+     "LIVRO": "A",
+     "ESTADO_POSTERIOR": "READY_FOR_COLLECTION",
+     "EVIDENCE_REF": "EV-IT-T5-051-CANARY-0061",
+     "OBSERVED_AT": "2026-09-21T03:59:05.716779+00:00"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T9-015",
+    "LIVRO_DO_BLOQUEIO": "B2",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "SUPERADO_POR": {
+     "LIVRO": "A",
+     "ESTADO_POSTERIOR": "READY_FOR_COLLECTION",
+     "EVIDENCE_REF": "EV-IT-T9-015-CANARY-0063",
+     "OBSERVED_AT": "2026-09-21T03:59:13.980133+00:00"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T9-015",
+    "LIVRO_DO_BLOQUEIO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "SUPERADO_POR": {
+     "LIVRO": "A",
+     "ESTADO_POSTERIOR": "READY_FOR_COLLECTION",
+     "EVIDENCE_REF": "EV-IT-T9-015-CANARY-0063",
+     "OBSERVED_AT": "2026-09-21T03:59:13.980133+00:00"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T9-019",
+    "LIVRO_DO_BLOQUEIO": "B2",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "SUPERADO_POR": {
+     "LIVRO": "A",
+     "ESTADO_POSTERIOR": "READY_FOR_COLLECTION",
+     "EVIDENCE_REF": "EV-IT-T9-019-CANARY-0065",
+     "OBSERVED_AT": "2026-09-21T03:59:21.936603+00:00"
+    }
+   },
+   {
+    "SOURCE_ID": "IT-T9-019",
+    "LIVRO_DO_BLOQUEIO": "C",
+    "ESTADO": "CAPABILITY_BLOCK",
+    "SUPERADO_POR": {
+     "LIVRO": "A",
+     "ESTADO_POSTERIOR": "READY_FOR_COLLECTION",
+     "EVIDENCE_REF": "EV-IT-T9-019-CANARY-0065",
+     "OBSERVED_AT": "2026-09-21T03:59:21.936603+00:00"
+    }
+   }
+  ]
+ },
+ "LIVRO_C_POR_ESTADO": {
+  "RECONCILIATION_REQUIRED": 50,
+  "READY_FOR_COLLECTION": 38,
+  "CONTRACTED_CANARY_FAILED": 171,
+  "CAPABILITY_BLOCK": 31,
+  "RETRY_AFTER": 5,
+  "POLICY_BLOCK": 69,
+  "SEMANTIC_REVIEW": 55,
+  "CONTRACT_READY_ROUTE_BLOCKED": 13,
+  "AUTH_BLOCK": 5
+ },
+ "MUDAM_POR_CAUSA_DO_CORTE": [
+  {
+   "SOURCE_ID": "IT-T12-035",
+   "DE": "RETRY",
+   "PARA": "UNKNOWN",
+   "PORQUE": "C: estado fora do vocabulario: AUTH_BLOCK | C mediu depois (2026-09-23T00:24:03)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-046",
+   "DE": "RETRY",
+   "PARA": "UNKNOWN",
+   "PORQUE": "C: estado fora do vocabulario: AUTH_BLOCK | C mediu depois (2026-09-23T00:24:05)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-055",
+   "DE": "RETRY",
+   "PARA": "UNKNOWN",
+   "PORQUE": "C: estado fora do vocabulario: AUTH_BLOCK | C mediu depois (2026-09-23T00:24:07)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-072",
+   "DE": "RETRY",
+   "PARA": "UNKNOWN",
+   "PORQUE": "C: estado fora do vocabulario: AUTH_BLOCK | C mediu depois (2026-09-23T00:24:08)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-078",
+   "DE": "RETRY",
+   "PARA": "UNKNOWN",
+   "PORQUE": "C: estado fora do vocabulario: AUTH_BLOCK | C mediu depois (2026-09-23T00:24:10)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-049",
+   "DE": "RETRY",
+   "PARA": "NOT_READY",
+   "PORQUE": "C: CONTRACTED_CANARY_FAILED (nenhum dos 76 enderecos da entrada casa com o padrao — EMPTY_LIST, com) | C mediu depois (2026-09-23T00:26:01)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-050",
+   "DE": "RETRY",
+   "PARA": "READY_LEGACY",
+   "PORQUE": "C: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL | C mediu depois (2026-09-23T00:26:11)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-051",
+   "DE": "RETRY",
+   "PARA": "READY_LEGACY",
+   "PORQUE": "C: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL | C mediu depois (2026-09-23T00:26:20)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-052",
+   "DE": "RETRY",
+   "PARA": "READY_LEGACY",
+   "PORQUE": "C: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL | C mediu depois (2026-09-23T00:26:29)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-053",
+   "DE": "RETRY",
+   "PARA": "READY_CURRENT",
+   "PORQUE": "C: os quatro passos estao na evidencia e o contrato e o atual | C mediu depois (2026-09-23T00:26:40)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-058",
+   "DE": "RETRY",
+   "PARA": "READY_CURRENT",
+   "PORQUE": "C: os quatro passos estao na evidencia e o contrato e o atual | C mediu depois (2026-09-23T00:27:02)"
+  }
+ ],
+ "APLICADO_NO_ENSAIO": {
+  "APLICADO_EM": "2026-09-23T01:01:51.087909+00:00",
+  "LINHAS_ANTES": 1549,
+  "LINHAS_DEPOIS": 1565,
+  "APENDIDAS": 16,
+  "PLANEADAS": 16,
+  "CADEIAS_ILEGAIS_NAO_IMPORTADAS": [],
+  "EVIDENCIA": {
+   "PROVAS_CITADAS_DE_C": 0,
+   "PROVAS_IMPORTADAS": 0,
+   "PROVAS_JA_PRESENTES_IDENTICAS": 0,
+   "COLISOES_NAO_IMPORTADAS": [],
+   "PROVAS_NO_MANIFESTO_DEPOIS": 550
+  },
+  "SEGUNDA_PASSAGEM_PLANEIA": 0
+ }
+}

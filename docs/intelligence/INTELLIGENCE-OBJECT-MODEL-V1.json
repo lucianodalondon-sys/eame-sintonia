@@ -1,0 +1,1697 @@
+{
+ "SCHEMA": "sintonia.intelligence.object-model.declared/1",
+ "NOTA": [
+  "O MODELO DE OBJETOS DA INTELLIGENCE. Contrato SUBORDINADO a",
+  "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md, que continua a ser a lei.",
+  "",
+  "ESTE FICHEIRO E DECLARADO, NAO GERADO. Espécie de objeto, transicao",
+  "permitida e portao de promocao sao decisoes humanas: nenhuma medicao as",
+  "deriva do codigo. O que se mede e se o codigo OBEDECE — e isso vive em",
+  "tests/test_modelo_de_objetos_da_intelligence.py e em",
+  "provas/modelo_de_objetos_da_intelligence.py, que le este ficheiro.",
+  "",
+  "    DECLARADO != IMPLEMENTADO != OBSERVADO",
+  "",
+  "CURRENT_IMPLEMENTATION diz o que esta MEDIDO hoje, e vem de",
+  "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json. Nunca se escreveu",
+  "IMPLEMENTED onde so ha DEFINED_ONLY.",
+  "",
+  "O QUE ESTE FICHEIRO NAO FAZ: nao implementa runtime, nao persiste nada, nao",
+  "toca a Collection, nao abre o Portal. Ele responde a nove perguntas sobre",
+  "qualquer coisa da Intelligence — o que e, quem e dono, quem pode criar, de",
+  "onde vem, para onde pode ir, o que proibe subir, que prova exige, que",
+  "historico preserva, que ferramenta lhe pode tocar."
+ ],
+ "MISSAO": "C-INT-OBJECT-MODEL-01",
+ "SUBORDINADO_A": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+ "BIBLE_CHANGE_REQUIRED": "NO",
+ "FOTOGRAFIA": {
+  "COMMIT": "2b3d58d86c6632ef7f1317bf12ba86a901eed7a9",
+  "BRANCH": "claude/intelligence-object-model-v1",
+  "DATA": "2026-09-14",
+  "PRODUTO": "SINTONIA ITALIA"
+ },
+ "FONTES_ARBITRADAS": [
+  "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md — a lei",
+  "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json — os donos, medidos",
+  "research/intelligence/INTELLIGENCE-SPINE-CONTRACT-V1.md — a espinha e os portoes",
+  "research/intelligence/AGRO-INTELLIGENCE-PROMOTION-MODEL-V1.md — as promocoes",
+  "research/intelligence/AGRO-INTELLIGENCE-TOOL-ROLES-V1.md — os papeis das ferramentas",
+  "research/intelligence/DISEASE-INTELLIGENCE-LEVELS-V1.md — o tecto do dominio doenca",
+  "provas/espinha_da_intelligence.py — o vocabulario de estados, executavel",
+  "italia-portale/audit/_specs.json — a medicao do que o Portal inventou"
+ ],
+ "ESPECIES": {
+  "ENTITY": "tem identidade propria e sobrevive a corrida que a criou",
+  "RELATION": "liga dois objetos; nao existe sozinha e nao cria o que liga",
+  "STATE": "um valor que um objeto CARREGA; nunca uma caixa onde objetos vivem",
+  "TRANSITION": "uma passagem entre estados; tem regra e prova, nao tem identidade",
+  "PROJECTION": "uma vista derivada de objetos que ja existem; nao persiste",
+  "OUTPUT": "o que a Intelligence entrega para fora de si",
+  "EXTERNAL_REFERENCE": "pertence a outra frente; a Intelligence aponta e nunca recria",
+  "NOT_A_CONCEPT": "um nome que nao tem objeto por tras — fica declarado para nao voltar"
+ },
+ "OBJETOS": {
+  "INTELLIGENCE_REQUEST": {
+   "ESPECIE": "ENTITY",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "gente, ou um agendador — nunca um ecra",
+   "ENTRADA_MINIMA": [
+    "REQUEST_ID",
+    "PERGUNTA",
+    "SCOPE",
+    "JANELA_TEMPORAL quando aplicavel",
+    "ESCOPO_GEOGRAFICO quando aplicavel"
+   ],
+   "ESTADOS": [
+    "ABERTA",
+    "RESPONDIDA",
+    "BLOQUEADA",
+    "FECHADA_SEM_RESPOSTA"
+   ],
+   "SAIDA_POSSIVEL": [
+    "uma ou mais INTELLIGENCE_RUN"
+   ],
+   "PERSISTIDO": "SIM (quando houver runtime)",
+   "MORA_EM": "NAO_EXISTE_AINDA",
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "RESPONDE_A_PERGUNTA": "o que estamos a tentar responder?",
+   "NUNCA_E": [
+    "uma caixa de pesquisa",
+    "um URL",
+    "um prompt solto",
+    "um pedido de coleta",
+    "uma rota do Portal"
+   ],
+   "PORQUE": "KIT/KIQ sao o nome que a literatura de intelligence lhe da. Sao o mesmo objeto, e ficam como alias historico."
+  },
+  "INTELLIGENCE_RUN": {
+   "ESPECIE": "ENTITY",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "motor/corrida_da_inteligencia.py::correr()",
+   "ENTRADA_MINIMA": [
+    "RUN_ID",
+    "REQUEST_ID",
+    "INPUT_REFERENCES",
+    "RULESET_VERSION",
+    "BIBLE_VERSION",
+    "MODEL/PROMPT_VERSION quando aplicavel",
+    "START",
+    "END"
+   ],
+   "ESTADOS": [
+    "NOT_RUN",
+    "RUNNING",
+    "EMPTY_RESULT",
+    "NO_FINDING",
+    "ERROR",
+    "REUSED",
+    "DONE"
+   ],
+   "SAIDA_POSSIVEL": [
+    "SIGNAL",
+    "CROSSING",
+    "ANALYTIC_HYPOTHESIS",
+    "FINDING",
+    "INTELLIGENCE_REQUIREMENT",
+    "nada — e resultado valido"
+   ],
+   "PERSISTIDO": "SIM — um livro por corrida, em ficheiro",
+   "MORA_EM": "motor/corrida_da_inteligencia.py",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "RESPONDE_A_PERGUNTA": "qual execucao analitica produziu este resultado?",
+   "NUNCA_E": [
+    "um COLLECTION_RUN",
+    "um FINDING",
+    "um pedido"
+   ],
+   "PORQUE": "INT-LAW-053: NOT_RUN != ERROR != EMPTY_RESULT != NO_FINDING != REUSED. Cinco estados, cinco perguntas diferentes — comprimi-los perde a unica informacao que distingue «nao corri» de «corri e nao achei». ⚠️ IMPLEMENTADO em 2026-09-14 por C-INT-PILOT-01, a primeira missao que a §32 da Biblia autoriza. O RUN_ID deriva do pedido e das ENTRADAS, nunca do relogio: com o relogio dentro, duas corridas da mesma pergunta sobre a mesma materia teriam nomes diferentes e REUSED deixava de ser detetavel."
+  },
+  "SIGNAL": {
+   "ESPECIE": "ENTITY",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G0, dentro de um INTELLIGENCE_RUN",
+   "ENTRADA_MINIMA": [
+    "SIGNAL_ID",
+    "ITEM_ID (aponta para cima)",
+    "SOURCE_ID",
+    "ESPECIE",
+    "SUJEITO",
+    "MATCH_TYPE",
+    "FACT_TIME",
+    "FACT_LOCATION",
+    "PRECISAO_GEO/TEMPO/SEMANTICA",
+    "REGRA"
+   ],
+   "ESTADOS": [
+    "SINAL",
+    "RASTREADO",
+    "DESCARTADO"
+   ],
+   "SAIDA_POSSIVEL": [
+    "CROSSING via G2",
+    "DESCARTADO via G1",
+    "INTELLIGENCE_REQUIREMENT"
+   ],
+   "PERSISTIDO": "SIM",
+   "MORA_EM": "provas/espinha_da_intelligence.py::Sinal",
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "RESPONDE_A_PERGUNTA": "que leitura analitica esta evidencia admitida suporta?",
+   "NUNCA_E": [
+    "um facto novo",
+    "uma verdade",
+    "um FINDING"
+   ],
+   "PORQUE": "FAVORAVEL != OBSERVADO != MODELADO != CONFIRMADO. Clima favoravel produz AGROCLIMATIC_SIGNAL e nunca DISEASE_PRESENT."
+  },
+  "SCREENING": {
+   "ESPECIE": "TRANSITION",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G1",
+   "ENTRADA_MINIMA": [
+    "um SIGNAL",
+    "a versao da regra de rastreio"
+   ],
+   "ESTADOS": [
+    "(nao tem estado proprio — escreve ESTADO no SIGNAL)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "SIGNAL(RASTREADO)",
+    "SIGNAL(DESCARTADO) com motivo e versao da regra"
+   ],
+   "PERSISTIDO": "NAO — e transicao",
+   "MORA_EM": "portao G1",
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "RESPONDE_A_PERGUNTA": "vale a pena olhar para isto?",
+   "NUNCA_E": [
+    "uma entidade",
+    "uma fila",
+    "um ecra"
+   ],
+   "PORQUE": "Foi tentador torna-lo entidade porque tem vocabulario proprio. Nao e: nao tem identidade, nao sobrevive ao run, e o resultado dele mora no SIGNAL. UMA TRANSICAO COM NOME NAO E UMA ENTIDADE."
+  },
+  "SUPPORT": {
+   "ESPECIE": "RELATION",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G3 — nunca o G2",
+   "ENTRADA_MINIMA": [
+    "origem (SIGNAL_ID ou CROSSING_ID)",
+    "destino (HYPOTHESIS_ID)",
+    "REGRA",
+    "MOTIVO"
+   ],
+   "ESTADOS": [
+    "(a relacao existe ou nao existe)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "sustenta uma hipotese ja criada"
+   ],
+   "PERSISTIDO": "SIM — como aresta no objeto sustentado",
+   "MORA_EM": "provas/espinha_da_intelligence.py::Aresta(TIPO=APOIA)",
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "RESPONDE_A_PERGUNTA": "que evidencia sustenta esta hipotese, e por que regra?",
+   "NUNCA_E": [
+    "a criacao do objeto suportado",
+    "um facto"
+   ],
+   "PORQUE": "INT-LAW-032: SUPPORT != CLAIM. Apoiar nao cria. A aresta nasce em G3 precisamente para que o cruzamento nao tenha onde escrever um julgamento."
+  },
+  "CONTRADICTION": {
+   "ESPECIE": "RELATION",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G3 e qualquer run posterior",
+   "ENTRADA_MINIMA": [
+    "origem (evidencia)",
+    "destino (HYPOTHESIS_ID ou FINDING_ID)",
+    "REGRA",
+    "MOTIVO",
+    "RUN_ID em que foi detetada"
+   ],
+   "ESTADOS": [
+    "(a relacao existe ou nao existe)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "derruba hipotese",
+    "dispara REVERSAL sobre finding"
+   ],
+   "PERSISTIDO": "SIM — aresta de primeira classe",
+   "MORA_EM": "provas/espinha_da_intelligence.py::Aresta(TIPO=CONTRADIZ)",
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "RESPONDE_A_PERGUNTA": "que evidencia contradiz o que, e em que corrida isso se viu?",
+   "NUNCA_E": [
+    "um campo booleano",
+    "algo que se possa descartar em silencio"
+   ],
+   "PORQUE": "INT-LAW-033: CONTRADICTION e first-class. Guardada como booleano, perde-se QUAL evidencia contradiz e QUANDO — e sem isso nao ha reversao auditavel."
+  },
+  "DEPENDENCY / INDEPENDENCE": {
+   "ESPECIE": "RELATION",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G2, ao montar o grafo",
+   "ENTRADA_MINIMA": [
+    "duas ou mais evidencias",
+    "a origem de cada uma"
+   ],
+   "ESTADOS": [
+    "INDEPENDENTES",
+    "MESMA_ORIGEM",
+    "UNKNOWN"
+   ],
+   "SAIDA_POSSIVEL": [
+    "ORIGENS_INDEPENDENTES e ORIGENS_TOTAIS no CROSSING"
+   ],
+   "PERSISTIDO": "SIM — no CROSSING",
+   "MORA_EM": "provas/espinha_da_intelligence.py::Cruzamento",
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "RESPONDE_A_PERGUNTA": "estas duas evidencias sao mesmo duas, ou sao a mesma vista duas vezes?",
+   "NUNCA_E": [
+    "uma contagem de fontes"
+   ],
+   "PORQUE": "SOURCE COUNT != INDEPENDENT EVIDENCE COUNT. Duas ONPF a republicar o mesmo boletim sao uma origem. Contar duas e fabricar convergencia."
+  },
+  "CROSSING": {
+   "ESPECIE": "ENTITY",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G2",
+   "ENTRADA_MINIMA": [
+    "CROSSING_ID",
+    "SINAIS",
+    "PERGUNTA",
+    "JOIN_KEY PROVADA",
+    "ORIGENS_INDEPENDENTES",
+    "ORIGENS_TOTAIS"
+   ],
+   "ESTADOS": [
+    "PROVADO",
+    "PARCIAL",
+    "NOT_POSSIBLE",
+    "UNKNOWN"
+   ],
+   "SAIDA_POSSIVEL": [
+    "ANALYTIC_HYPOTHESIS via G3"
+   ],
+   "PERSISTIDO": "SIM",
+   "MORA_EM": "motor/v21_crossings.py · provas/espinha_da_intelligence.py::Cruzamento",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "RESPONDE_A_PERGUNTA": "que coincidencia estrutural entre evidencias foi PROVADA?",
+   "NUNCA_E": [
+    "um julgamento",
+    "uma importancia",
+    "uma doenca",
+    "uma oportunidade"
+   ],
+   "PORQUE": "INT-LAW-037: crossing e relacao provada, nao semelhanca. A classe NAO TEM CAMPO onde escrever um julgamento — e ganhar esse campo e o ataque."
+  },
+  "CONVERGENCE": {
+   "ESPECIE": "PROJECTION",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "derivada do grafo de dependencia e dos crossings",
+   "ENTRADA_MINIMA": [
+    "o grafo de dependencia",
+    "os crossings provados"
+   ],
+   "ESTADOS": [
+    "(projecao — nao tem estado proprio)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "metrica separada, nunca somada a contagem de fontes"
+   ],
+   "PERSISTIDO": "NAO — e derivada",
+   "MORA_EM": "motor/pacote_convergencia.py",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "RESPONDE_A_PERGUNTA": "quantas origens INDEPENDENTES apontam para o mesmo?",
+   "NUNCA_E": [
+    "prova de verdade",
+    "contagem de documentos"
+   ],
+   "PORQUE": "INT-LAW-077: convergencia exige independencia + compatibilidade. INT-LAW-092: metricas de convergencia ficam separadas."
+  },
+  "ANALYTIC_ASSUMPTION": {
+   "ESPECIE": "ENTITY",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G3, ao formar a hipotese",
+   "ENTRADA_MINIMA": [
+    "a premissa, escrita",
+    "porque nao e um facto observado"
+   ],
+   "ESTADOS": [
+    "DECLARADA",
+    "DERRUBADA"
+   ],
+   "SAIDA_POSSIVEL": [
+    "entra em PREMISSAS da hipotese e viaja ate ao finding"
+   ],
+   "PERSISTIDO": "SIM — dentro da hipotese",
+   "MORA_EM": "provas/espinha_da_intelligence.py::Hipotese.PREMISSAS",
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "RESPONDE_A_PERGUNTA": "que premissa a analise esta a usar sem ser um facto observado?",
+   "NUNCA_E": [
+    "um facto",
+    "algo que possa ficar implicito no codigo"
+   ],
+   "PORQUE": "INT-LAW-034: ANALYTIC_ASSUMPTION e explicita. Premissa escondida em codigo e premissa que ninguem pode derrubar."
+  },
+  "ANALYTIC_HYPOTHESIS": {
+   "ESPECIE": "ENTITY",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G3",
+   "ENTRADA_MINIMA": [
+    "HYPOTHESIS_ID",
+    "PERGUNTA",
+    "APOIA_SE_EM",
+    "PREMISSAS",
+    "O_QUE_A_DERRUBA (obrigatorio)",
+    "NIVEL"
+   ],
+   "ESTADOS": [
+    "HIPOTESE",
+    "EM_VALIDACAO",
+    "REJEITADA",
+    "PROMOVIDA"
+   ],
+   "SAIDA_POSSIVEL": [
+    "FINDING via G4",
+    "REJEITADA — e nao produz achado nenhum"
+   ],
+   "PERSISTIDO": "SIM",
+   "MORA_EM": "provas/espinha_da_intelligence.py::Hipotese",
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "RESPONDE_A_PERGUNTA": "que explicacao falsificavel merece validacao?",
+   "NUNCA_E": [
+    "um FINDING",
+    "algo que possa nascer sem falsificador"
+   ],
+   "PORQUE": "Ela TEM DE PODER MORRER: sem `O_QUE_A_DERRUBA` nao nasce. CANDIDATE_FINDING e o mesmo objeto com outro nome."
+  },
+  "VALIDATION_STATE": {
+   "ESPECIE": "STATE",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G4",
+   "ENTRADA_MINIMA": [
+    "a hipotese",
+    "o traco de decisao"
+   ],
+   "ESTADOS": [
+    "NAO_EXIGIDA",
+    "PENDENTE",
+    "APROVADA",
+    "RECUSADA"
+   ],
+   "SAIDA_POSSIVEL": [
+    "FINDING quando APROVADA",
+    "REJEITADA quando RECUSADA"
+   ],
+   "PERSISTIDO": "SIM — campo no objeto validado",
+   "MORA_EM": "provas/espinha_da_intelligence.py::Hipotese.VALIDACAO",
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "RESPONDE_A_PERGUNTA": "isto ja foi validado, por quem, e com que resultado?",
+   "NUNCA_E": [
+    "uma fila",
+    "uma caixa de entrada",
+    "uma entidade VALIDATION_QUEUE"
+   ],
+   "PORQUE": "O ESTADO MORA NO OBJETO, NAO NUMA CAIXA. Uma fila e um ecra a ordenar objetos que ja carregam o seu estado — e um ecra nao e uma entidade."
+  },
+  "FINDING / ANALYTIC_JUDGMENT": {
+   "ESPECIE": "ENTITY",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G4 — Intelligence propoe, revisor humano valida",
+   "ENTRADA_MINIMA": [
+    "FINDING_ID",
+    "HYPOTHESIS_ID",
+    "PERGUNTA",
+    "NIVEL",
+    "TRACO_DE_DECISAO",
+    "SCOPE",
+    "TEMPO",
+    "GEOGRAFIA",
+    "SUPPORT",
+    "CONTRADICTIONS",
+    "DEPENDENCIES",
+    "INCERTEZA",
+    "LINHAGEM"
+   ],
+   "ESTADOS": [
+    "CONFIRMADO",
+    "REBAIXADO",
+    "REABERTO",
+    "REJEITADO",
+    "SUBSTITUIDO"
+   ],
+   "SAIDA_POSSIVEL": [
+    "FUTURE_SIGNAL via G5",
+    "OPPORTUNITY via G6",
+    "ANALYTIC_RECOMMENDATION",
+    "REVERSAL"
+   ],
+   "PERSISTIDO": "SIM",
+   "MORA_EM": "motor/v21_fechar.py · provas/espinha_da_intelligence.py::Achado",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "RESPONDE_A_PERGUNTA": "que pergunta analitica foi respondida, e porque e defensavel?",
+   "NUNCA_E": [
+    "algo interessante",
+    "uma oportunidade",
+    "uma recomendacao",
+    "uma acao"
+   ],
+   "PORQUE": "INT-LAW-038: precisa de decision trace auditavel. E nao desaparece: muda de estado, e a serie fica legivel."
+  },
+  "REVERSAL / DEMOTED_BY": {
+   "ESPECIE": "TRANSITION",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "uma causa canonica, nunca uma mudanca de ideia",
+   "ENTRADA_MINIMA": [
+    "o objeto a reverter",
+    "a causa canonica",
+    "a evidencia"
+   ],
+   "ESTADOS": [
+    "(nao tem estado proprio — escreve ESTADO no objeto revertido)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "REJEITADO",
+    "REBAIXADO",
+    "REABERTO",
+    "SUBSTITUIDO"
+   ],
+   "PERSISTIDO": "SIM — como evento na historia da corrida",
+   "MORA_EM": "provas/espinha_da_intelligence.py::CAUSAS_DE_REVERSAO",
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "RESPONDE_A_PERGUNTA": "o que fez isto andar para tras, e com que evidencia?",
+   "NUNCA_E": [
+    "um apagador",
+    "uma entidade global",
+    "uma reescrita do passado"
+   ],
+   "PORQUE": "INT-LAW-210/213. Um achado que estava certo em Maio CONTINUA a ter estado certo em Maio, mesmo que Junho o desminta. Reescreve-lo apaga a unica serie que permitiria calibrar."
+  },
+  "FUTURE_SIGNAL": {
+   "ESPECIE": "PROJECTION",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G5, sobre um FINDING",
+   "ENTRADA_MINIMA": [
+    "um FINDING",
+    "HORIZONTE declarado",
+    "GATILHO declarado"
+   ],
+   "ESTADOS": [
+    "(projecao — o estado mora no FINDING)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "volta a mesa quando o gatilho disparar"
+   ],
+   "PERSISTIDO": "NAO — e projecao de FINDING",
+   "MORA_EM": "sem dono de codigo — hoje so existe no Portal",
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "RESPONDE_A_PERGUNTA": "o que e que ainda nao e acionavel, e quando volta a mesa?",
+   "NUNCA_E": [
+    "uma previsao certa do futuro",
+    "uma entidade paralela ao FINDING",
+    "algo com vocabulario de estado proprio"
+   ],
+   "PORQUE": "MEDIDO, E E O ATAQUE RT22 APANHADO EM PRODUCAO: o Portal inventou um STATUS de sete valores (NEW SIGNAL / GAINING ATTENTION / MULTIPLE SIGNALS / WATCH CLOSELY / NEEDS VALIDATION / TIMING APPROACHING / PREPARE) que a montante nunca existiu — os registos reais tem status === null (3/3). Uma ferramenta criou um conceito proprio, e a auditoria da casa apanhou-o."
+  },
+  "OPPORTUNITY": {
+   "ESPECIE": "ENTITY",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao G6 — Intelligence propoe, MD valida",
+   "ENTRADA_MINIMA": [
+    "FINDING_ID",
+    "NIVEL (A·B·C·D) provado",
+    "JANELA composta"
+   ],
+   "ESTADOS": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "SAIDA_POSSIVEL": [
+    "ANALYTIC_RECOMMENDATION"
+   ],
+   "PERSISTIDO": "SIM",
+   "MORA_EM": "motor/v21_oportunidades.py",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "RESPONDE_A_PERGUNTA": "ha algo a fazer, e a tempo?",
+   "NUNCA_E": [
+    "uma venda",
+    "procura",
+    "quota de mercado",
+    "intencao de compra",
+    "disponibilidade comercial"
+   ],
+   "PORQUE": "Dado publico prova no maximo A (agronomico) e B (portfolio registado). C e D exigem dado privado. NIVEL E PARTE DO OBJETO, NAO DO TEXTO."
+  },
+  "ANALYTIC_RECOMMENDATION": {
+   "ESPECIE": "OUTPUT",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "depois de G5/G6",
+   "ENTRADA_MINIMA": [
+    "FINDINGS_USADOS",
+    "PREMISSAS",
+    "INCERTEZA",
+    "AMBITO_DA_DECISAO"
+   ],
+   "ESTADOS": [
+    "PROPOSTA",
+    "ACEITE",
+    "RECUSADA",
+    "CADUCA"
+   ],
+   "SAIDA_POSSIVEL": [
+    "nada — a acao e de gente"
+   ],
+   "PERSISTIDO": "SIM",
+   "MORA_EM": "NAO_EXISTE_AINDA",
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "RESPONDE_A_PERGUNTA": "dado o que sabemos, o que sugerimos fazer?",
+   "NUNCA_E": [
+    "um facto",
+    "uma acao",
+    "um FINDING"
+   ],
+   "PORQUE": "INT-LAW-024: RECOMMENDATION != ACTION. E uma recomendacao nunca vira facto por alguem a aceitar."
+  },
+  "INTELLIGENCE_REQUIREMENT": {
+   "ESPECIE": "OUTPUT",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "qualquer portao que bloqueie por falta de materia-prima",
+   "ENTRADA_MINIMA": [
+    "REQUIREMENT_ID",
+    "QUESTION_BLOCKED",
+    "MISSING_FACT_OR_KEY",
+    "WHY_EXISTING_MATERIAL_IS_INSUFFICIENT",
+    "REQUIRED_SCOPE",
+    "URGENCY"
+   ],
+   "ESTADOS": [
+    "ABERTO",
+    "SATISFEITO",
+    "RECUSADO_PELA_COLETA"
+   ],
+   "SAIDA_POSSIVEL": [
+    "atravessa para a Collection por REQUIREMENT_ID, e mais nada"
+   ],
+   "PERSISTIDO": "SIM",
+   "MORA_EM": "provas/espinha_da_intelligence.py::Requisito",
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "RESPONDE_A_PERGUNTA": "o que falta para responder, e porque o que ja temos nao chega?",
+   "NUNCA_E": [
+    "uma rota",
+    "um coletor",
+    "um URL",
+    "um executor",
+    "uma decisao de coleta"
+   ],
+   "PORQUE": "A COSTURA E EXATAMENTE {REQUIREMENT_ID}. O requisito recusa em codigo 12 palavras que pertencem a Collection — GAP_ID, DECISION, ROTA, EXECUTOR, COLETOR, SCRAPER, API, URL, ENDPOINT e as restantes."
+  },
+  "CLAIM_DOMAIN_JUDGMENT": {
+   "ESPECIE": "ENTITY",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "motor/v21_dominio_da_alegacao.py",
+   "ENTRADA_MINIMA": [
+    "a alegacao",
+    "o dominio"
+   ],
+   "ESTADOS": [
+    "(medido no modulo dono)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "entra como evidencia de hipotese"
+   ],
+   "PERSISTIDO": "SIM",
+   "MORA_EM": "motor/v21_dominio_da_alegacao.py",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "RESPONDE_A_PERGUNTA": "a que dominio pertence esta alegacao?",
+   "NUNCA_E": [
+    "um facto da fonte"
+   ],
+   "PORQUE": "Ja implementado antes desta missao. Nao reconstruido: tem dono provado."
+  },
+  "INTELLIGENCE_PACKAGE": {
+   "ESPECIE": "PROJECTION",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "derivada de findings e oportunidades ja existentes",
+   "ENTRADA_MINIMA": [
+    "os objetos a empacotar"
+   ],
+   "ESTADOS": [
+    "(projecao)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "entrega"
+   ],
+   "PERSISTIDO": "NAO — e projecao",
+   "MORA_EM": "sem dono de codigo unico",
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "RESPONDE_A_PERGUNTA": "que conjunto coerente entregamos a um leitor?",
+   "NUNCA_E": [
+    "um sitio onde nascem conceitos novos"
+   ],
+   "PORQUE": "Empacotar nao cria. Um pacote que introduza um campo que nenhum dos objetos empacotados tem esta a inventar."
+  },
+  "CONFIDENCE": {
+   "ESPECIE": "STATE",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "o portao que promove o objeto",
+   "ENTRADA_MINIMA": [
+    "o objeto",
+    "a base declarada da confianca"
+   ],
+   "ESTADOS": [
+    "(escala declarada pelo objeto que a carrega)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "acompanha o objeto"
+   ],
+   "PERSISTIDO": "SIM — campo no objeto",
+   "MORA_EM": "disperso",
+   "CURRENT_IMPLEMENTATION": "DISPERSO",
+   "RESPONDE_A_PERGUNTA": "quao segura e esta leitura, e com base em que?",
+   "NUNCA_E": [
+    "um portao",
+    "algo que substitua prova",
+    "um numero sem denominador"
+   ],
+   "PORQUE": "INT-LAW-093: score nao substitui decomposicao. E HARD GATE > SCORE."
+  },
+  "ATTENTION_ITEM": {
+   "ESPECIE": "NOT_A_CONCEPT",
+   "OWNER": "NAO_APLICAVEL",
+   "QUEM_CRIA": "ninguem — nao e um objeto",
+   "ENTRADA_MINIMA": [],
+   "ESTADOS": [],
+   "SAIDA_POSSIVEL": [],
+   "PERSISTIDO": "NAO",
+   "MORA_EM": "NAO_EXISTE_EM_LADO_NENHUM",
+   "CURRENT_IMPLEMENTATION": "ABSENT",
+   "RESPONDE_A_PERGUNTA": "(nenhuma — e uma palavra de entrega, nao um objeto)",
+   "NUNCA_E": [
+    "uma entidade",
+    "um FINDING com outro nome"
+   ],
+   "PORQUE": "MEDIDO: zero ocorrencias em codigo, contratos e leis desta arvore. A unica aparicao e uma linha de benchmark a agrupar «OPPORTUNITY / ATTENTION ITEM / FUTURE SIGNAL». Nao tem dono, nao tem campo, nao tem estado. O que distingue «merece atencao» de «e finding» NAO E NADA NO OBJETO: e a VISTA. Declarar entidade era duplicar FINDING — o ataque RT18."
+  },
+  "SOURCE_FACT / READY_ITEM": {
+   "ESPECIE": "EXTERNAL_REFERENCE",
+   "OWNER": "COLLECTION",
+   "QUEM_CRIA": "admissao/admissao.py · pronto_para_inteligencia()",
+   "ENTRADA_MINIMA": [
+    "os 12 campos de COL-LAW-043"
+   ],
+   "ESTADOS": [
+    "READY"
+   ],
+   "SAIDA_POSSIVEL": [
+    "referencia por ITEM_ID"
+   ],
+   "PERSISTIDO": "SIM — na Collection",
+   "MORA_EM": "admissao/sala_de_espera.py · data/samples/PRONTO-PARA-INTELIGENCIA/",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "RESPONDE_A_PERGUNTA": "que materia-prima admitida existe para ser lida?",
+   "NUNCA_E": [
+    "um objeto da Intelligence",
+    "algo que a Intelligence possa criar ou corrigir"
+   ],
+   "PORQUE": "A Intelligence APONTA para ele e nunca o recria. Um INTELLIGENCE_READY_ITEM paralelo seria um segundo facto sobre a mesma observacao."
+  },
+  "CASE_RELEVANCE": {
+   "ESPECIE": "STATE",
+   "OWNER": "INTELLIGENCE",
+   "QUEM_CRIA": "leis/adama_relevance.py",
+   "ENTRADA_MINIMA": [
+    "o caso",
+    "a classe A-E declarada"
+   ],
+   "ESTADOS": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "SAIDA_POSSIVEL": [
+    "acompanha o objeto classificado"
+   ],
+   "PERSISTIDO": "SIM — campo no objeto",
+   "MORA_EM": "leis/adama_relevance.py",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "RESPONDE_A_PERGUNTA": "quanto e que este caso interessa a ADAMA?",
+   "NUNCA_E": [
+    "o nome nu RELEVANCE",
+    "um portao",
+    "uma pontuacao que abra transicao"
+   ],
+   "PORQUE": "MEDIDO EM V3 COM ALERTA_DE_CAMADA: o dono e uma lei da Intelligence (1 toque) e a camada DELIVERY toca-o 9 vezes. TOCAR != POSSUIR — e nove toques de um ecra nao movem o dono."
+  },
+  "GAP / SATISFACTION / DECISION / ROTA": {
+   "ESPECIE": "EXTERNAL_REFERENCE",
+   "OWNER": "COLLECTION",
+   "QUEM_CRIA": "leis/gestao_da_coleta.py — GESTAO_DA_COLETA/v1",
+   "ENTRADA_MINIMA": [
+    "REQUIREMENT_ID vindo da Intelligence"
+   ],
+   "ESTADOS": [
+    "(da Collection — esta lei nao os declara)"
+   ],
+   "SAIDA_POSSIVEL": [
+    "COLLECT_NOW",
+    "LATER",
+    "DO_NOT",
+    "NEEDS_HUMAN"
+   ],
+   "PERSISTIDO": "SIM — na Collection",
+   "MORA_EM": "leis/gestao_da_coleta.py",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "RESPONDE_A_PERGUNTA": "o que falta foi medido, decidido e por onde se vai buscar?",
+   "NUNCA_E": [
+    "um objeto da Intelligence",
+    "algo que a Intelligence possa escolher"
+   ],
+   "PORQUE": "A OUTRA METADE DE COLLECTION_GAP. A Intelligence declara o REQUISITO; a Collection mede o gap, decide e escolhe a rota. A costura e {REQUIREMENT_ID} e nada mais atravessa."
+  }
+ },
+ "ALIASES": {
+  "CANDIDATE_FINDING": {
+   "CANONICO": "ANALYTIC_HYPOTHESIS",
+   "CLASSE": "SAME_CONCEPT",
+   "PORQUE": "o mesmo objeto no mesmo portao. «Candidato a achado» descreve o destino; «hipotese» descreve o que ele E — e so o segundo obriga a declarar o que o derruba."
+  },
+  "JUDGMENT": {
+   "CANONICO": "FINDING / ANALYTIC_JUDGMENT",
+   "CLASSE": "SAME_CONCEPT",
+   "PORQUE": "ja arbitrado em V3. Um nome, um objeto."
+  },
+  "ANALYTIC_JUDGMENT": {
+   "CANONICO": "FINDING / ANALYTIC_JUDGMENT",
+   "CLASSE": "SAME_CONCEPT",
+   "PORQUE": "o nome longo do mesmo objeto; ambos ficam no identificador canonico."
+  },
+  "VALIDATION_QUEUE": {
+   "CANONICO": "VALIDATION_STATE",
+   "CLASSE": "DIFFERENT_CONCEPT",
+   "PORQUE": "NAO sao sinonimos, e e por isso que um deles morre. «Fila» e uma ORDENACAO DE ECRA sobre objetos que ja carregam o seu estado. O estado e do objeto; a fila e da vista. Promover a fila a entidade cria um segundo sitio onde o estado vive."
+  },
+  "ANALYTIC_SIGNAL": {
+   "CANONICO": "SIGNAL",
+   "CLASSE": "SAME_CONCEPT",
+   "PORQUE": "ja arbitrado em V3. Todo SIGNAL da Intelligence e analitico — o adjetivo nao separa nada."
+  },
+  "DEMOTION": {
+   "CANONICO": "REVERSAL / DEMOTED_BY",
+   "CLASSE": "DIFFERENT_CONCEPT",
+   "PORQUE": "REBAIXADO e um DESTINO da reversao, nao a reversao. Quatro destinos partilham uma transicao: chamar a transicao pelo nome de um dos destinos esconde os outros tres."
+  },
+  "REOPEN": {
+   "CANONICO": "REVERSAL / DEMOTED_BY",
+   "CLASSE": "DIFFERENT_CONCEPT",
+   "PORQUE": "REABERTO e destino, nao transicao. Mesma razao."
+  },
+  "SUPERSEDE": {
+   "CANONICO": "REVERSAL / DEMOTED_BY",
+   "CLASSE": "DIFFERENT_CONCEPT",
+   "PORQUE": "SUBSTITUIDO e destino, nao transicao. Mesma razao. (Nao confundir com o SUPERSEDES do Control Plane, que liga AUTORIDADES.)"
+  },
+  "KIT": {
+   "CANONICO": "INTELLIGENCE_REQUEST",
+   "CLASSE": "HISTORICAL_ALIAS",
+   "PORQUE": "Key Intelligence Topic. Vocabulario da literatura, mesmo objeto."
+  },
+  "KIQ": {
+   "CANONICO": "INTELLIGENCE_REQUEST",
+   "CLASSE": "HISTORICAL_ALIAS",
+   "PORQUE": "Key Intelligence Question. Idem."
+  },
+  "SAME_ORIGIN": {
+   "CANONICO": "DEPENDENCY / INDEPENDENCE",
+   "CLASSE": "SAME_CONCEPT",
+   "PORQUE": "ja arbitrado em V3."
+  },
+  "ADAMA_RELEVANCE": {
+   "CANONICO": "CASE_RELEVANCE",
+   "CLASSE": "SAME_CONCEPT",
+   "PORQUE": "ja arbitrado em V3; o dono e leis/adama_relevance.py."
+  },
+  "EVIDENCE": {
+   "CANONICO": "SOURCE_FACT / READY_ITEM",
+   "CLASSE": "SAME_CONCEPT",
+   "PORQUE": "ja arbitrado em V3. O dono e a COLLECTION."
+  },
+  "SOURCE_CLAIM": {
+   "CANONICO": "SOURCE_FACT / READY_ITEM",
+   "CLASSE": "SAME_CONCEPT",
+   "PORQUE": "idem."
+  },
+  "COLLECTION_GAP": {
+   "CANONICO": "INTELLIGENCE_REQUIREMENT + GAP / SATISFACTION / DECISION / ROTA",
+   "CLASSE": "DIFFERENT_CONCEPT",
+   "PORQUE": "um nome, DOIS conceitos, DOIS donos. A metade da Intelligence e o REQUISITO; a metade da Collection e o GAP e o que se faz com ele. A costura e {REQUIREMENT_ID}."
+  },
+  "RELEVANCE": {
+   "CANONICO": "RETIRED_AS_OVERLOADED_NAME",
+   "CLASSE": "HISTORICAL_ALIAS",
+   "PORQUE": "decisao humana de C-INT-NIGHT-01. Cobria cinco conceitos com donos diferentes. O nome nu foi aposentado, e NAO recebeu dono."
+  },
+  "PRIORITY": {
+   "CANONICO": "RETIRED_AS_OVERLOADED_NAME",
+   "CLASSE": "HISTORICAL_ALIAS",
+   "PORQUE": "idem, cobria quatro."
+  },
+  "READY_ITEM": {
+   "CANONICO": "SOURCE_FACT / READY_ITEM",
+   "CLASSE": "SAME_CONCEPT",
+   "PORQUE": "o nome curto do mesmo objeto. O canonico e o de INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json, que e quem arbitra nomes — e ESTA MISSAO ESCREVEU OS DOIS antes de o proprio verificador a apanhar. Um modelo que cria um alias no ficheiro que existe para os eliminar seria o defeito a nascer dentro da cura."
+  }
+ },
+ "RELACOES": {
+  "SUPPORT": {
+   "DE": [
+    "SIGNAL",
+    "CROSSING"
+   ],
+   "PARA": [
+    "ANALYTIC_HYPOTHESIS",
+    "FINDING / ANALYTIC_JUDGMENT"
+   ],
+   "NASCE_EM": "G3",
+   "NUNCA": "cria o objeto para que aponta"
+  },
+  "CONTRADICTION": {
+   "DE": [
+    "SIGNAL",
+    "CROSSING",
+    "SOURCE_FACT / READY_ITEM"
+   ],
+   "PARA": [
+    "ANALYTIC_HYPOTHESIS",
+    "FINDING / ANALYTIC_JUDGMENT"
+   ],
+   "NASCE_EM": "G3 e qualquer run posterior",
+   "NUNCA": "desaparece; e first-class e guarda o RUN_ID em que foi vista"
+  },
+  "DEPENDENCY / INDEPENDENCE": {
+   "DE": [
+    "SIGNAL",
+    "SOURCE_FACT / READY_ITEM"
+   ],
+   "PARA": [
+    "SIGNAL",
+    "SOURCE_FACT / READY_ITEM"
+   ],
+   "NASCE_EM": "G2",
+   "NUNCA": "e substituida por uma contagem de fontes"
+  }
+ },
+ "PORTOES": [
+  {
+   "GATE": "G0",
+   "FROM": "SOURCE_FACT / READY_ITEM",
+   "TO": "SIGNAL",
+   "PERGUNTA": "de que especie e isto, e sobre quem fala?",
+   "PROOF_REQUIRED": [
+    "especie declarada pela fonte",
+    "FACT_TIME",
+    "identidade ontologica do sujeito"
+   ],
+   "HARD_GATES": [
+    "SOURCE_LOCATION nunca serve de FACT_LOCATION",
+    "PUBLICATION_TIME nunca serve de FACT_TIME",
+    "MATCH_TYPE 1:N nao se resolve escolhendo o primeiro"
+   ],
+   "WHO_MAY_PROMOTE": "INTELLIGENCE (IA pode)",
+   "WHAT_MAY_BLOCK": [
+    "falta de especie -> BLOQUEADO_EM_G0 + INTELLIGENCE_REQUIREMENT",
+    "ontologia ambigua -> UNRESOLVED, nunca uma escolha silenciosa"
+   ]
+  },
+  {
+   "GATE": "G1",
+   "FROM": "SIGNAL",
+   "TO": "SIGNAL(RASTREADO)",
+   "PERGUNTA": "vale a pena olhar para isto?",
+   "PROOF_REQUIRED": [
+    "resposta visivel a cada criterio",
+    "versao da regra de rastreio"
+   ],
+   "HARD_GATES": [
+    "descartar exige motivo escrito — silencio nao descarta"
+   ],
+   "WHO_MAY_PROMOTE": "INTELLIGENCE (IA pode)",
+   "WHAT_MAY_BLOCK": [
+    "criterio sem resposta -> UNKNOWN, nunca FALSO"
+   ]
+  },
+  {
+   "GATE": "G2",
+   "FROM": "SIGNAL(RASTREADO)",
+   "TO": "CROSSING",
+   "PERGUNTA": "estes sinais falam do mesmo?",
+   "PROOF_REQUIRED": [
+    "JOIN KEY factual provada",
+    "grafo de dependencia entre as origens"
+   ],
+   "HARD_GATES": [
+    "sem join key -> NOT_POSSIBLE",
+    "a precisao do cruzamento e a PIOR das precisoes dos sinais",
+    "origens dependentes nao contam como independentes"
+   ],
+   "WHO_MAY_PROMOTE": "INTELLIGENCE (IA pode)",
+   "WHAT_MAY_BLOCK": [
+    "chave em falta -> INTELLIGENCE_REQUIREMENT",
+    "precisao desconhecida contamina e para o cruzamento"
+   ]
+  },
+  {
+   "GATE": "G3",
+   "FROM": "CROSSING",
+   "TO": "ANALYTIC_HYPOTHESIS",
+   "PERGUNTA": "o que isto pode significar?",
+   "PROOF_REQUIRED": [
+    "pergunta",
+    "premissas explicitas",
+    "O_QUE_A_DERRUBA"
+   ],
+   "HARD_GATES": [
+    "sem falsificador nao nasce",
+    "as arestas APOIA/CONTRADIZ nascem AQUI, nunca no cruzamento"
+   ],
+   "WHO_MAY_PROMOTE": "INTELLIGENCE propoe (IA pode propor) + agronomo",
+   "WHAT_MAY_BLOCK": [
+    "sem evidencia a apoiar -> nao nasce",
+    "contradicao aberta -> nao promove"
+   ]
+  },
+  {
+   "GATE": "G4",
+   "FROM": "ANALYTIC_HYPOTHESIS",
+   "TO": "FINDING / ANALYTIC_JUDGMENT",
+   "PERGUNTA": "isto e defensavel?",
+   "PROOF_REQUIRED": [
+    "traco de decisao auditavel",
+    "nivel",
+    "contraditorio ligado",
+    "linhagem ate READY_ITEM"
+   ],
+   "HARD_GATES": [
+    "IA NAO PODE PROMOVER AQUI",
+    "score alto nao substitui prova em falta",
+    "aprovacao humana nao converte UNKNOWN em facto"
+   ],
+   "WHO_MAY_PROMOTE": "INTELLIGENCE propoe · REVISOR HUMANO valida",
+   "WHAT_MAY_BLOCK": [
+    "validacao RECUSADA -> REJEITADA, e nao produz achado nenhum"
+   ]
+  },
+  {
+   "GATE": "G5",
+   "FROM": "FINDING / ANALYTIC_JUDGMENT",
+   "TO": "FUTURE_SIGNAL",
+   "PERGUNTA": "quando e que isto volta a mesa?",
+   "PROOF_REQUIRED": [
+    "horizonte declarado",
+    "gatilho declarado"
+   ],
+   "HARD_GATES": [
+    "um horizonte sem gatilho nao e um sinal de futuro: e uma data"
+   ],
+   "WHO_MAY_PROMOTE": "INTELLIGENCE (IA pode)",
+   "WHAT_MAY_BLOCK": [
+    "horizonte passou -> deixa de ser futuro"
+   ]
+  },
+  {
+   "GATE": "G6",
+   "FROM": "FINDING / ANALYTIC_JUDGMENT",
+   "TO": "OPPORTUNITY",
+   "PERGUNTA": "ha algo a fazer, e a tempo?",
+   "PROOF_REQUIRED": [
+    "NIVEL A-D provado",
+    "janela composta"
+   ],
+   "HARD_GATES": [
+    "IA NAO PODE PROMOVER AQUI",
+    "dado publico prova no maximo B",
+    "C e D exigem dado privado declarado"
+   ],
+   "WHO_MAY_PROMOTE": "INTELLIGENCE propoe · MD valida",
+   "WHAT_MAY_BLOCK": [
+    "janela fechada",
+    "nivel nao provado",
+    "registo em falta"
+   ]
+  },
+  {
+   "GATE": "DEMOTED_BY",
+   "FROM": "qualquer estado acima",
+   "TO": "REJEITADO·REBAIXADO·REABERTO·SUBSTITUIDO",
+   "PERGUNTA": "o que fez isto andar para tras?",
+   "PROOF_REQUIRED": [
+    "causa canonica das sete",
+    "a evidencia que a sustenta"
+   ],
+   "HARD_GATES": [
+    "NAO PROMOVE NUNCA — so anda para tras",
+    "nao apaga o estado anterior",
+    "nao reescreve o julgamento passado"
+   ],
+   "WHO_MAY_PROMOTE": "INTELLIGENCE",
+   "WHAT_MAY_BLOCK": [
+    "causa fora das sete -> nao e reversao, e uma mudanca de ideia"
+   ]
+  }
+ ],
+ "TRANSICOES_PERMITIDAS": [
+  {
+   "FROM": "SOURCE_FACT / READY_ITEM",
+   "TO": "SIGNAL",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "e a unica porta de entrada da Intelligence",
+   "GATE": "G0"
+  },
+  {
+   "FROM": "SIGNAL",
+   "TO": "SIGNAL(RASTREADO)",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "rastreio barato, feito para descartar",
+   "GATE": "G1"
+  },
+  {
+   "FROM": "SIGNAL",
+   "TO": "DESCARTADO",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "com motivo e versao da regra",
+   "GATE": "G1"
+  },
+  {
+   "FROM": "SIGNAL(RASTREADO)",
+   "TO": "CROSSING",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "com join key provada",
+   "GATE": "G2"
+  },
+  {
+   "FROM": "CROSSING",
+   "TO": "ANALYTIC_HYPOTHESIS",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "com falsificador declarado",
+   "GATE": "G3"
+  },
+  {
+   "FROM": "ANALYTIC_HYPOTHESIS",
+   "TO": "FINDING / ANALYTIC_JUDGMENT",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "com validacao aprovada e traco de decisao",
+   "GATE": "G4"
+  },
+  {
+   "FROM": "ANALYTIC_HYPOTHESIS",
+   "TO": "REJEITADA",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "e nao produz achado nenhum — rejeitar e resultado valido",
+   "GATE": "G4"
+  },
+  {
+   "FROM": "FINDING / ANALYTIC_JUDGMENT",
+   "TO": "FUTURE_SIGNAL",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "com horizonte e gatilho",
+   "GATE": "G5"
+  },
+  {
+   "FROM": "FINDING / ANALYTIC_JUDGMENT",
+   "TO": "OPPORTUNITY",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "com nivel A-D provado e janela composta",
+   "GATE": "G6"
+  },
+  {
+   "FROM": "OPPORTUNITY",
+   "TO": "ANALYTIC_RECOMMENDATION",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "carregando findings usados, premissas, incerteza e ambito"
+  },
+  {
+   "FROM": "FUTURE_SIGNAL",
+   "TO": "ANALYTIC_RECOMMENDATION",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "idem"
+  },
+  {
+   "FROM": "FINDING / ANALYTIC_JUDGMENT",
+   "TO": "REJEITADO·REBAIXADO·REABERTO·SUBSTITUIDO",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "por causa canonica, preservando a serie",
+   "GATE": "DEMOTED_BY"
+  },
+  {
+   "FROM": "qualquer portao bloqueado",
+   "TO": "INTELLIGENCE_REQUIREMENT",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "falta de materia-prima produz requisito — e so requisito"
+  },
+  {
+   "FROM": "INTELLIGENCE_REQUIREMENT",
+   "TO": "GAP / SATISFACTION / DECISION / ROTA",
+   "VEREDITO": "ALLOWED",
+   "PORQUE": "atravessa por {REQUIREMENT_ID}, e a Collection decide sozinha o resto"
+  }
+ ],
+ "TRANSICOES_PROIBIDAS": [
+  {
+   "FROM": "SOURCE_FACT / READY_ITEM",
+   "TO": "FINDING / ANALYTIC_JUDGMENT",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "ha cinco portoes no meio. Um item admitido nao e um julgamento."
+  },
+  {
+   "FROM": "SIGNAL",
+   "TO": "FINDING / ANALYTIC_JUDGMENT",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "nao existe aresta. SIGNAL != FINDING — entre os dois ha G2, G3 e G4, e cada um sabe dizer NAO."
+  },
+  {
+   "FROM": "SIGNAL",
+   "TO": "OPPORTUNITY",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "uma oportunidade exige um achado validado por tras. Sem ele, o nivel A-D nao tem o que provar."
+  },
+  {
+   "FROM": "CROSSING",
+   "TO": "FINDING / ANALYTIC_JUDGMENT",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "CROSSING != FINDING. O cruzamento estabelece relacao estrutural e NAO TEM CAMPO onde escrever um julgamento."
+  },
+  {
+   "FROM": "CROSSING",
+   "TO": "ANALYTIC_RECOMMENDATION",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "recomendar sobre uma coincidencia por validar e transformar estrutura em conselho."
+  },
+  {
+   "FROM": "ANALYTIC_HYPOTHESIS",
+   "TO": "OPPORTUNITY",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "uma hipotese pode morrer. Promove-la a oportunidade e agir sobre algo que ainda pode ser falso."
+  },
+  {
+   "FROM": "ANALYTIC_HYPOTHESIS",
+   "TO": "FINDING / ANALYTIC_JUDGMENT",
+   "VEREDITO": "CONDITIONAL",
+   "PORQUE": "permitida SO com VALIDATION_STATE=APROVADA e traco de decisao. Sem eles, proibida.",
+   "GATE": "G4"
+  },
+  {
+   "FROM": "OPPORTUNITY",
+   "TO": "SOURCE_FACT / READY_ITEM",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "uma oportunidade e leitura nossa. Devolve-la a montante como facto da fonte fabrica evidencia."
+  },
+  {
+   "FROM": "ANALYTIC_RECOMMENDATION",
+   "TO": "FINDING / ANALYTIC_JUDGMENT",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "o que sugerimos fazer nunca vira o que sabemos. RECOMMENDATION != FINDING."
+  },
+  {
+   "FROM": "ANALYTIC_RECOMMENDATION",
+   "TO": "ACAO",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "INT-LAW-024. A acao e de gente, e nao desta V1."
+  },
+  {
+   "FROM": "OPPORTUNITY(A ou B)",
+   "TO": "OPPORTUNITY(C ou D)",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "dado publico nao prova comercial nem venda. Subir de nivel exige dado privado declarado, nunca inferencia."
+  },
+  {
+   "FROM": "qualquer objeto",
+   "TO": "COLETOR·ROTA·EXECUTOR",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "a Intelligence nao tem nenhuma funcao que nomeie uma rota. Nem por requisito."
+  },
+  {
+   "FROM": "NAO SEI",
+   "TO": "FALSO",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "levanta LeiViolada. UNKNOWN nao e ausencia."
+  },
+  {
+   "FROM": "NAO SEI",
+   "TO": "ZERO",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "nao encontrado != zero provado, sem universo declarado."
+  },
+  {
+   "FROM": "FINDING / ANALYTIC_JUDGMENT",
+   "TO": "FINDING / ANALYTIC_JUDGMENT",
+   "VEREDITO": "CONDITIONAL",
+   "PORQUE": "so por causa canonica das sete. Um achado nao muda de estado porque alguem mudou de ideia.",
+   "GATE": "DEMOTED_BY"
+  },
+  {
+   "FROM": "FERRAMENTA·PORTAL",
+   "TO": "qualquer conceito novo",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "uma ferramenta nao cria arquitetura. Pode mudar VALIDATION_STATE se autorizada; nao pode criar uma entidade paralela porque o ecra precisa."
+  },
+  {
+   "FROM": "SCORE alto",
+   "TO": "transicao proibida",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "HARD GATE > SCORE. Pontuacao ordena; nao abre portao."
+  },
+  {
+   "FROM": "APROVACAO HUMANA",
+   "TO": "UNKNOWN vira facto",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "humano nao transforma evidencia fraca em facto. HUMAN APPROVAL != FACTUAL PROOF."
+  },
+  {
+   "FROM": "SAIDA DE LLM",
+   "TO": "evidencia de fonte",
+   "VEREDITO": "FORBIDDEN",
+   "PORQUE": "MODEL OUTPUT != SOURCE EVIDENCE. Uma hipotese proposta por modelo tem de apontar para evidencia a montante."
+  }
+ ],
+ "REVERSAO": {
+  "ESPECIE": "TRANSITION — nunca entidade global",
+  "CAUSAS": [
+   {
+    "CAUSA": "RECORD_INVALIDATED",
+    "QUEM_DISPARA": "a autoridade",
+    "DESTINO": "REJEITADO"
+   },
+   {
+    "CAUSA": "NO_LONGER_PRESENT",
+    "QUEM_DISPARA": "a autoridade",
+    "DESTINO": "REBAIXADO"
+   },
+   {
+    "CAUSA": "NORMALIZATION_REVISED",
+    "QUEM_DISPARA": "nos",
+    "DESTINO": "REABERTO"
+   },
+   {
+    "CAUSA": "SOURCE_RETRACTED",
+    "QUEM_DISPARA": "a fonte",
+    "DESTINO": "REJEITADO"
+   },
+   {
+    "CAUSA": "DEPENDENCY_DISCOVERED",
+    "QUEM_DISPARA": "nos",
+    "DESTINO": "REBAIXADO"
+   },
+   {
+    "CAUSA": "AUTHORIZATION_CHANGED",
+    "QUEM_DISPARA": "o regulador",
+    "DESTINO": "SUBSTITUIDO"
+   },
+   {
+    "CAUSA": "WINDOW_CLOSED",
+    "QUEM_DISPARA": "o tempo",
+    "DESTINO": "REBAIXADO"
+   }
+  ],
+  "NUNCA_FAZ": [
+   "apaga o estado anterior",
+   "reescreve o julgamento passado",
+   "perde o traco de decisao original"
+  ],
+  "REVALIDADA_EM": "C-INT-OBJECT-MODEL-01 — as sete continuam as sete, e nenhuma foi inventada nesta missao"
+ },
+ "AUTONOMIA_IA": {
+  "EXTRACT": {
+   "AUTORIZADO": "SIM",
+   "CONDICAO": "com a fonte ao lado"
+  },
+  "CLASSIFY": {
+   "AUTORIZADO": "SIM",
+   "CONDICAO": "a regra e a versao dela ficam no objeto"
+  },
+  "PROPOSE_HYPOTHESIS": {
+   "AUTORIZADO": "SIM",
+   "CONDICAO": "a hipotese tem de apontar para evidencia a montante. MODEL OUTPUT != SOURCE EVIDENCE."
+  },
+  "GENERATE_CANDIDATE_FINDING": {
+   "AUTORIZADO": "SIM",
+   "CONDICAO": "e o mesmo que propor hipotese — CANDIDATE_FINDING e alias de ANALYTIC_HYPOTHESIS, e gerar uma nao a valida"
+  },
+  "PROMOTE_FINDING": {
+   "AUTORIZADO": "NAO",
+   "CONDICAO": "G4 exige revisor humano. E a aprovacao humana tambem nao converte UNKNOWN em facto."
+  },
+  "PROPOSE_RECOMMENDATION": {
+   "AUTORIZADO": "SIM",
+   "CONDICAO": "propor, nunca decidir; e a recomendacao nunca vira facto"
+  },
+  "PROMOTE_OPPORTUNITY": {
+   "AUTORIZADO": "NAO",
+   "CONDICAO": "G6 exige MD"
+  },
+  "ACT": {
+   "AUTORIZADO": "NAO",
+   "CONDICAO": "em nada, nesta V1"
+  },
+  "SER_FONTE": {
+   "AUTORIZADO": "NAO",
+   "CONDICAO": "um modelo nunca e evidencia. A saida dele e uma proposta que aponta para evidencia, ou nao vale."
+  }
+ },
+ "DOMINIOS_ITALIA": {
+  "DISEASE": {
+   "QUESTION": "esta doenca/praga esta a acontecer, onde e quando?",
+   "INPUT": [
+    "boletins fitossanitarios regionais",
+    "avisos de ONPF",
+    "EPPO"
+   ],
+   "SIGNAL": [
+    "OBSERVED_FIELD_SIGNAL quando a fonte declara observacao de campo"
+   ],
+   "CROSSING": [
+    "mesmo organismo (EPPO) x mesma cultura x geografia compativel x janela compativel"
+   ],
+   "POSSIBLE_FINDING": [
+    "presenca observada, ao nivel que a regua de Disease Intelligence permitir"
+   ],
+   "FORBIDDEN_OUTPUT": [
+    "incidencia sem denominador",
+    "prevalencia sem populacao-alvo",
+    "severidade sem metodo/unidade/escala",
+    "presenca a partir SO de clima favoravel"
+   ],
+   "NOTA": "A regua ja mediu o tecto: sem especie da evidencia, sem metodo, sem denominador e sem inputs de modelo a atravessar a fronteira, os niveis altos da regua nao sao alcancaveis hoje. Isso e um limite MEDIDO, nao uma opiniao — e nenhum dominio pode ultrapassa-lo com prosa."
+  },
+  "CLIMATE": {
+   "QUESTION": "as condicoes favoreceram/favorecem o desenvolvimento de um problema?",
+   "INPUT": [
+    "series meteorologicas publicas",
+    "modelos agroclimaticos publicos"
+   ],
+   "SIGNAL": [
+    "AGROCLIMATIC_SIGNAL — favorabilidade, com janela e grao explicitos"
+   ],
+   "CROSSING": [
+    "favorabilidade x cultura x geografia x janela"
+   ],
+   "POSSIBLE_FINDING": [
+    "janela de risco agroclimatico declarada como MODELADA"
+   ],
+   "FORBIDDEN_OUTPUT": [
+    "DISEASE_PRESENT",
+    "incidencia",
+    "qualquer afirmacao de observacao"
+   ],
+   "NOTA": "O dominio que mais facilmente mente. FAVORAVEL != OBSERVADO != MODELADO != CONFIRMADO, e este dominio so pode produzir os dois do meio."
+  },
+  "SCIENCE": {
+   "QUESTION": "que trabalho publicado sustenta ou contradiz esta hipotese?",
+   "INPUT": [
+    "metadados de publicacao",
+    "DOI",
+    "trial_id",
+    "afiliacao"
+   ],
+   "SIGNAL": [
+    "SCIENCE_SIGNAL com identidade de publicacao"
+   ],
+   "CROSSING": [
+    "mesmo organismo x mesma cultura x mesma pergunta"
+   ],
+   "POSSIBLE_FINDING": [
+    "suporte ou contradicao cientifica a uma hipotese"
+   ],
+   "FORBIDDEN_OUTPUT": [
+    "tres papers do mesmo ensaio contados como tres origens independentes",
+    "conclusao de paper apresentada como facto de campo em Italia"
+   ],
+   "NOTA": "BLOQUEADO POR ENTRADA: sem DOI/trial_id/afiliacao a atravessar a fronteira, este dominio NAO consegue distinguir tres papers de um ensaio — e por isso nao pode alimentar contagem de independencia."
+  },
+  "REGULATORY": {
+   "QUESTION": "o que a autoridade decidiu, e o que isso afeta?",
+   "INPUT": [
+    "actos regulatorios",
+    "registos nacionais"
+   ],
+   "SIGNAL": [
+    "REGULATORY_FACT com versao na chave"
+   ],
+   "CROSSING": [
+    "substancia x produto x cultura x pais"
+   ],
+   "POSSIBLE_FINDING": [
+    "produtos afetados por uma decisao, nomeados a partir do registo"
+   ],
+   "FORBIDDEN_OUTPUT": [
+    "disponibilidade comercial",
+    "venda",
+    "quota",
+    "intencao de compra a partir de registo"
+   ],
+   "NOTA": "REGISTO E AUTORIDADE. E o unico dominio onde o facto e publico E forte — e exatamente por isso e o mais tentador de esticar ate ao comercial."
+  },
+  "LABEL / PORTFOLIO": {
+   "QUESTION": "que usos estao autorizados neste rotulo, e para quem?",
+   "INPUT": [
+    "rotulos",
+    "registos de produto"
+   ],
+   "SIGNAL": [
+    "LABEL_FACT — par cultura x alvo com dose, quando a fonte o der"
+   ],
+   "CROSSING": [
+    "produto x cultura x alvo x pais"
+   ],
+   "POSSIBLE_FINDING": [
+    "cobertura de portfolio REGISTADO"
+   ],
+   "FORBIDDEN_OUTPUT": [
+    "catalogo de vendas",
+    "disponibilidade comercial",
+    "par cultura x alvo inferido quando o rotulo os lista sem os ligar"
+   ],
+   "NOTA": "Ja medido nesta casa: 144 de 163 produtos com ZERO linha de uso, e 82 deles com cultura E alvo no rotulo SEM ligacao entre os dois. Inferir o par e fabricar autorizacao."
+  },
+  "COMPETITOR": {
+   "QUESTION": "o que um concorrente REGISTOU, e o que ele DIZ?",
+   "INPUT": [
+    "registos nacionais",
+    "comunicacao da empresa"
+   ],
+   "SIGNAL": [
+    "duas especies separadas: REGULATORY_FACT e COMPANY_CLAIM"
+   ],
+   "CROSSING": [
+    "empresa x substancia x cultura x pais"
+   ],
+   "POSSIBLE_FINDING": [
+    "presenca registada de concorrente"
+   ],
+   "FORBIDDEN_OUTPUT": [
+    "alegacao de empresa contada como facto regulatorio",
+    "as duas camadas a partilhar a mesma contagem"
+   ],
+   "NOTA": "SAO DOIS DOMINIOS COM UM NOME. IT-T9-008 ja o escreveu: COMPANY_CLAIM != REGULATORY_FACT."
+  },
+  "FUTURE": {
+   "QUESTION": "o que ainda nao e acionavel, e quando volta a mesa?",
+   "INPUT": [
+    "findings ja validados",
+    "horizonte",
+    "gatilho"
+   ],
+   "SIGNAL": [
+    "(nenhum — o futuro nao produz sinal proprio)"
+   ],
+   "CROSSING": [
+    "(nenhum — nao cruza; projeta findings)"
+   ],
+   "POSSIBLE_FINDING": [
+    "(nenhum — FUTURE_SIGNAL e projecao de FINDING, nao achado novo)"
+   ],
+   "FORBIDDEN_OUTPUT": [
+    "previsao certa do futuro",
+    "vocabulario de estado proprio",
+    "sinal de futuro sem finding por tras"
+   ],
+   "NOTA": "O dominio que ja falhou em producao: o Portal deu-lhe um STATUS de sete valores que a montante nunca existiu. Um dominio de projecao que ganha vocabulario proprio deixou de ser projecao."
+  },
+  "OPPORTUNITY": {
+   "QUESTION": "ha algo a fazer, e a tempo?",
+   "INPUT": [
+    "findings validados",
+    "janela composta",
+    "portfolio registado"
+   ],
+   "SIGNAL": [
+    "(nenhum — nao produz sinal)"
+   ],
+   "CROSSING": [
+    "cultura x problema x janela x portfolio"
+   ],
+   "POSSIBLE_FINDING": [
+    "oportunidade de nivel A (agronomico) ou B (portfolio registado)"
+   ],
+   "FORBIDDEN_OUTPUT": [
+    "nivel C (comercial)",
+    "nivel D (venda)",
+    "procura",
+    "quota",
+    "previsao de receita",
+    "disponibilidade comercial"
+   ],
+   "NOTA": "Dado publico prova A e B. C e D exigem dado privado declarado. O NIVEL E PARTE DO OBJETO, NAO DO TEXTO — e uma oportunidade de nivel A apresentada com a linguagem do nivel D e o pior defeito possivel desta casa."
+  }
+ },
+ "FERRAMENTAS": {
+  "LABEL INTELLIGENCE": {
+   "READS": [
+    "LABEL_FACT",
+    "READY_ITEM (referencia)",
+    "FINDING"
+   ],
+   "WRITES": [
+    "nada — e leitura"
+   ],
+   "NEVER_WRITES": [
+    "LABEL_FACT novo",
+    "par cultura x alvo que o rotulo nao ligou",
+    "qualquer conceito proprio"
+   ]
+  },
+  "DISEASE INTELLIGENCE": {
+   "READS": [
+    "SIGNAL",
+    "CROSSING",
+    "FINDING",
+    "a regua de niveis"
+   ],
+   "WRITES": [
+    "nada — e leitura"
+   ],
+   "NEVER_WRITES": [
+    "presenca de doenca",
+    "incidencia sem denominador",
+    "um nivel de regua acima do que a entrada sustenta"
+   ]
+  },
+  "VALIDATION": {
+   "READS": [
+    "ANALYTIC_HYPOTHESIS",
+    "FINDING",
+    "arestas APOIA/CONTRADIZ"
+   ],
+   "WRITES": [
+    "VALIDATION_STATE (se autorizada) — e SO esse campo"
+   ],
+   "NEVER_WRITES": [
+    "VALIDATION_RESULT_V2 ou qualquer entidade paralela",
+    "FINDING novo",
+    "apagar uma contradicao"
+   ],
+   "PORQUE": "E a unica ferramenta que ESCREVE, e escreve um campo de um objeto que ja existe. Criar uma entidade propria porque o ecra precisa e o ataque RT20."
+  },
+  "FUTURE RADAR": {
+   "READS": [
+    "FINDING em estado de watch",
+    "horizonte",
+    "gatilho"
+   ],
+   "WRITES": [
+    "nada — e projecao"
+   ],
+   "NEVER_WRITES": [
+    "STATUS proprio",
+    "FUTURE_SIGNAL que nao venha de um FINDING",
+    "previsao"
+   ],
+   "PORQUE": "MEDIDO EM PRODUCAO: inventou NEW SIGNAL / GAINING ATTENTION / MULTIPLE SIGNALS / WATCH CLOSELY / NEEDS VALIDATION / TIMING APPROACHING / PREPARE. Os registos reais tem status === null (3/3). Sete valores de avaliacao que a montante nunca produziu."
+  },
+  "OPPORTUNITY": {
+   "READS": [
+    "FINDING",
+    "OPPORTUNITY com o seu nivel",
+    "janela"
+   ],
+   "WRITES": [
+    "nada — a promocao e do portao G6, nao do ecra"
+   ],
+   "NEVER_WRITES": [
+    "nivel",
+    "oportunidade nova",
+    "linguagem de nivel superior ao provado"
+   ],
+   "PORQUE": "E o card com mais superficie para falsificar nivel. Por isso o nivel e parte do objeto, e o ecra nao lhe toca."
+  },
+  "SCIENCE INTELLIGENCE": {
+   "READS": [
+    "SCIENCE_SIGNAL",
+    "grafo de dependencia",
+    "publicacoes"
+   ],
+   "WRITES": [
+    "nada — e leitura"
+   ],
+   "NEVER_WRITES": [
+    "contagem de independencia",
+    "facto de campo a partir de paper"
+   ]
+  },
+  "COMPETITOR INTELLIGENCE": {
+   "READS": [
+    "REGULATORY_FACT",
+    "COMPANY_CLAIM — separados"
+   ],
+   "WRITES": [
+    "nada — e leitura"
+   ],
+   "NEVER_WRITES": [
+    "uma contagem unica das duas camadas",
+    "alegacao apresentada como registo"
+   ]
+  },
+  "ARCHIVE / PROVENANCE": {
+   "READS": [
+    "tudo, ate a prova"
+   ],
+   "WRITES": [
+    "nada"
+   ],
+   "NEVER_WRITES": [
+    "qualquer conclusao — nao conclui, e nao deve"
+   ]
+  }
+ },
+ "PRINCIPIO_DAS_FERRAMENTAS": [
+  "UMA FERRAMENTA NAO CRIA ARQUITETURA.",
+  "",
+  "Ela le objetos que ja existem e, quando autorizada, escreve um CAMPO de um",
+  "objeto que ja existe. O que ela nunca faz e criar uma entidade paralela",
+  "porque o ecra precisa de uma — e isto nao e hipotetico: esta arvore carrega",
+  "o caso, medido pela auditoria da propria casa.",
+  "",
+  "PORTAL NAO E DONO DE NADA. Nenhum conceito pode ganhar como dono um",
+  "portale.html, um componente, um dashboard, um ecra ou um card."
+ ],
+ "INVARIANTES": [
+  "SIGNAL != FINDING",
+  "CROSSING != FINDING",
+  "ANALYTIC_HYPOTHESIS != FINDING",
+  "FINDING != OPPORTUNITY",
+  "OPPORTUNITY != ANALYTIC_RECOMMENDATION",
+  "SOURCE_FACT / READY_ITEM e da COLLECTION",
+  "INTELLIGENCE_REQUIREMENT nao nomeia rota, coletor nem executor",
+  "o PORTAL nao possui nenhum conceito da Intelligence",
+  "HARD GATE > SCORE",
+  "MODEL OUTPUT != SOURCE EVIDENCE",
+  "HUMAN APPROVAL != FACTUAL PROOF",
+  "TOCAR != POSSUIR"
+ ],
+ "O_QUE_FICA_EM_NAO_SEI": {
+  "COMPORTAMENTO_EM_CORRIDA_REAL": "NAO SEI — nao ha runtime",
+  "CUSTO_DE_UMA_CORRIDA": "UNKNOWN — nada foi medido",
+  "SE_OS_ESTADOS_CHEGAM_PARA_O_DOMINIO_DOENCA": "NAO SEI — a entrada nao atravessa especie da evidencia, metodo, unidade nem denominador",
+  "USER_DECISION_RELEVANCE": "SEM_DONO_DECLARADO — medido em V3, e esta missao nao o resolve: e decisao humana, e nao aparece em nenhuma transicao"
+ }
+}

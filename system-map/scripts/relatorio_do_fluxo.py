@@ -101,7 +101,7 @@ def relatorio():
     for c in corridas:
         rid = c.get('RUN_ID')
         meus = por_corrida.get(rid, [])
-        destinos = collections.Counter(o.get('OBSERVATION_RESULT')
+        destinos = collections.Counter(o.get('OBSERVATION_RESULT') or 'NAO SEI'
                                        for o in meus)
         # Cada observacao sai por uma porta com nome. Se alguma nao tiver
         # resultado, ela e UNACCOUNTED — e e esse o numero que importa.
@@ -125,9 +125,29 @@ def relatorio():
             'EXECUTOR': 'NOT_INSTRUMENTED',
         })
 
-    por_fonte = collections.Counter(o.get('SOURCE_ID') for o in obs)
-    por_destino = collections.Counter(o.get('OBSERVATION_RESULT') for o in obs)
-    por_mime = collections.Counter(o.get('MIME_ASSINATURA') for o in obs)
+    # ⚠️ UM CAMPO AUSENTE VIRA `None`, E `None` NAO SE ORDENA CONTRA TEXTO.
+    # Medido nesta arvore: 31 das 175 observacoes sao falhas de transporte
+    # (`curl: (56) CONNECT tunnel failed, response 403`) e nunca chegaram a ter
+    # bytes — logo nao tem `MIME_ASSINATURA`. `dict(sorted(...))` rebentava com
+    #
+    #     TypeError: '<' not supported between instances of 'NoneType' and 'str'
+    #
+    # e a CADEIA INTEIRA do System Map parava no quinto passo. O mapa nao ficava
+    # errado: ficava por regerar, que e a unica maneira de ele envelhecer sem
+    # ninguem reparar.
+    #
+    #     UMA AUSENCIA QUE REBENTA O GERADOR NAO E UM BUG DE ORDENACAO:
+    #     E O RELATORIO A RECUSAR CONTAR O QUE NAO FOI MEDIDO.
+    #
+    # `NAO SEI` e a palavra que esta casa usa para ausencia, e ela e um BALDE
+    # legitimo aqui: «31 observacoes sem assinatura de MIME» e a verdade, e e
+    # diferente de nao as contar.
+    def _balde(chave):
+        return collections.Counter(o.get(chave) or 'NAO SEI' for o in obs)
+
+    por_fonte = _balde('SOURCE_ID')
+    por_destino = _balde('OBSERVATION_RESULT')
+    por_mime = _balde('MIME_ASSINATURA')
     por_hora = collections.Counter(
         (o.get('CAPTURED_AT') or '')[:13] for o in obs if o.get('CAPTURED_AT'))
 

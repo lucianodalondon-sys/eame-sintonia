@@ -43,7 +43,7 @@
             "*"
           ],
           "FILTRO_DONO": "system-map/scripts/scan_repo.py · git(\"ls-files\") · LEGIVEIS",
-          "MEDIDO_VARRE": 1376,
+          "MEDIDO_VARRE": 1726,
           "PORQUE": "este passo NAO mede um subconjunto: ele enumera a arvore rastreada inteira. `*` aqui e a regra verdadeira, e e o unico passo em que e.",
           "INCLUI_GERADOS": [
             "CENSO_CARDS_SENSORES",
@@ -89,7 +89,7 @@
             "*.sh"
           ],
           "FILTRO_DONO": "system-map/scripts/scan_sources.py · as_palavras, as_portas",
-          "MEDIDO_VARRE": 315,
+          "MEDIDO_VARRE": 516,
           "PORQUE": "nao pergunta ao git: pergunta ao artefato do passo anterior"
         },
         {
@@ -195,7 +195,7 @@
             ".github/workflows/*.yml"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_da_coleta.py · GAVETAS, CODIGO",
-          "MEDIDO_VARRE": 118,
+          "MEDIDO_VARRE": 136,
           "PORQUE": "o subconjunto e identificavel e esta declarado: as oito gavetas"
         }
       ],
@@ -364,7 +364,7 @@
             "*.yaml"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_do_congelamento.py · EXTS",
-          "MEDIDO_VARRE": 963,
+          "MEDIDO_VARRE": 1208,
           "PORQUE": "a extensao e a regra, e esta escrita em EXTS — nao e a arvore toda",
           "INCLUI_GERADOS": [
             "CENSO_CARDS_SENSORES",
@@ -416,7 +416,7 @@
             "research/*"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_do_corpus_it.py · PASTAS",
-          "MEDIDO_VARRE": 502,
+          "MEDIDO_VARRE": 615,
           "PORQUE": "o corpus italiano vive em `data`, e o que o passo varre e mais largo do que a lista PASTAS do codigo: ele segue referencias para fora dela. Declarar PASTAS seria declarar a intencao do autor, e nao o que o programa faz.",
           "INCLUI_GERADOS": [
             "CENSO_CARDS_SENSORES",
@@ -449,7 +449,7 @@
             "*.sql"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_dos_donos.py · EXTS",
-          "MEDIDO_VARRE": 534,
+          "MEDIDO_VARRE": 738,
           "PORQUE": "o codigo todo, pela extensao declarada em EXTS",
           "INCLUI_GERADOS": [
             "GENERATE_SYSTEM_MAP"
@@ -476,7 +476,7 @@
             "coleta/*"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_da_observabilidade.py · DIMENSOES",
-          "MEDIDO_VARRE": 46,
+          "MEDIDO_VARRE": 59,
           "PORQUE": "os executores da coleta, para medir que dimensao cada um instrumenta"
         },
         {
@@ -516,7 +516,7 @@
             "orquestrador/*"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_dos_executores.py · GAVETAS",
-          "MEDIDO_VARRE": 59,
+          "MEDIDO_VARRE": 74,
           "PORQUE": "as quatro gavetas onde vive quem executa"
         },
         {
@@ -607,7 +607,7 @@
             "*.py"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_dos_buracos.py · git(\"ls-files\", \"*.py\")",
-          "MEDIDO_VARRE": 309,
+          "MEDIDO_VARRE": 510,
           "PORQUE": "os tuplos GAPS de qualquer ficheiro .py, lidos por AST"
         },
         {
@@ -712,7 +712,7 @@
             "*"
           ],
           "FILTRO_DONO": "system-map/scripts/generate_system_map.py · arquivos",
-          "MEDIDO_VARRE": 620,
+          "MEDIDO_VARRE": 836,
           "PORQUE": "abre os ficheiros que o inventario nomeia, para medir peca e aresta"
         }
       ],
@@ -761,6 +761,11 @@
           "KIND": "GENERATED_ARTIFACT",
           "PATH": "regras/LEIA-ANTES-DE-COLETAR.md",
           "PORQUE": "a porta de entrada das reguas"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
+          "PORQUE": "a auditoria da Collection card a card, DERIVADA do mesmo estado que a tela le. Um censo escrito a mao e uma fotografia: nasce certo e envelhece em silencio. Este sai da mesma corrida, e por isso nao pode ficar a discordar do mapa."
         }
       ]
     },
@@ -821,7 +826,7 @@
             "*.sh"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_da_topologia.py · documentos_da_arvore",
-          "MEDIDO_VARRE": 624,
+          "MEDIDO_VARRE": 987,
           "PORQUE": "o codigo e os documentos, para saber quem chama quem e quem documenta o que",
           "INCLUI_GERADOS": [
             "GENERATE_SYSTEM_MAP"
@@ -913,7 +918,7 @@
             "*"
           ],
           "FILTRO_DONO": "system-map/scripts/validate_system_map.py · arquitetura, servido",
-          "MEDIDO_VARRE": 303,
+          "MEDIDO_VARRE": 462,
           "PORQUE": "abre o que o mapa cita, para provar que existe e que a linha bate",
           "INCLUI_GERADOS": [
             "GENERATE_SYSTEM_MAP"
@@ -1131,6 +1136,14 @@
       "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito."
     },
     {
+      "STEP_ID": "RAMO_NAO_ENTRA_NO_MAPA",
+      "EXECUTABLE": "system-map/tests/test_ramo_nao_entra_no_mapa.py",
+      "PAPEL": "PROVA",
+      "O_QUE_PROVA": "o mesmo commit passa P1 com tres nomes de branch e em HEAD destacado (D50), e uma fonte mexida sem regerar continua a reprovar",
+      "OUTPUTS": [],
+      "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito. Corre a cadeia num clone descartavel."
+    },
+    {
       "STEP_ID": "RECONCILIACAO",
       "EXECUTABLE": "system-map/tests/test_reconciliacao_do_universo.py",
       "PAPEL": "PROVA",
@@ -1214,6 +1227,22 @@
       "O_QUE_FAZ": "pergunta ao URL publico se o commit implantado foi mesmo publicado. Corre no workflow `system-map-deploy-verify`.",
       "OUTPUTS": [],
       "NAO_MATERIALIZA": "le a web e devolve veredito; nao escreve artefato do mapa."
+    },
+    {
+      "STEP_ID": "TEST_BASE_DA_AUDITORIA",
+      "EXECUTABLE": "system-map/tests/test_base_da_auditoria.py",
+      "PAPEL": "PROVA",
+      "O_QUE_PROVA": "a arvore auditada contem a linha funcional actual da Collection",
+      "OUTPUTS": [],
+      "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito. Esta em particular recusa-se a passar por nao ter medido — CANNOT_MEASURE reprova."
+    },
+    {
+      "STEP_ID": "TEST_VERDADE_DA_COLLECTION_ACTUAL",
+      "EXECUTABLE": "system-map/tests/test_verdade_da_collection_actual.py",
+      "PAPEL": "PROVA",
+      "O_QUE_PROVA": "vinte e seis ataques a verdade da Collection actual: a base, o SCRAP, o LinkedIn, e as fronteiras entre existir, poder e ter acontecido",
+      "OUTPUTS": [],
+      "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito."
     }
   ],
   "PRODUTORES_EXTERNOS": [

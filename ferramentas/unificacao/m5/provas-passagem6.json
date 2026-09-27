@@ -1,0 +1,306 @@
+{
+ "REF": "de4dec2b",
+ "SHA": "de4dec2b0bf4d7875a7b30a231fdd92468807b7d",
+ "PONTE_PROOF": {
+  "RC": 0,
+  "FIM": [
+   "BOT_HEAD_LIDO_AGORA        075501a0 (descoberto: True)",
+   "POSITIVA IT-T99-001  None -> READY_FOR_COLLECTION | regua DETAIL/v1 | ELIGIVEL True | ATRAVESSOU True",
+   "NEGATIVA IT-T99-002  CAPABILITY_BLOCK       | ESTADO_NAO_READY       | NAO_ATRAVESSOU True",
+   "NEGATIVA IT-T99-003  UNKNOWN                | ESTADO_NAO_READY       | NAO_ATRAVESSOU True",
+   "DESPROMOCAO IT-T99-001  era ELIGIVEL True -> False | ESTADO_NAO_READY",
+   "   ELIGIBLE 12 -> 11 | SAIRAM ['IT-T99-001'] | ATRAVESSOU True",
+   "PORTAO  ANTES 19  APOS PROMOCAO 12  APOS DESPROMOCAO 11  ENTRARAM ['IT-T99-001']",
+   "INTEGRACAO  {\"ENTRA\": true, \"NUNCA_ENTROU\": true, \"SAI\": true}",
+   "PROVAS_IMPORTADAS          76",
+   "IDEMPOTENCIA_NO_OP         True",
+   "LEGACY_LEAK                0",
+   "PONTE_VIVA                 True"
+  ]
+ },
+ "RED_TEAM_PONTE": {
+  "RC": 0,
+  "FIM": [
+   "BASE suite=True vivo=True",
+   "  RT-A1_livro_do_bot_sobrescreve_o_canonico      MORTO=True  suite",
+   "  RT-A2_promocao_sem_prova_de_canario_passa      MORTO=True  suite",
+   "  RT-A3_legacy_lavada_para_current               MORTO=True  suite",
+   "  RT-A4_policy_block_some_por_omissao            MORTO=True  suite",
+   "  RT-A5_fonte_so_do_bot_desaparece               MORTO=True  suite",
+   "  RT-A6_fonte_so_da_collection_desaparece        MORTO=True  suite",
+   "  RT-A7_identidade_duplicada_passa               MORTO=True  suite",
+   "  RT-A8_ponte_apaga_em_vez_de_acrescentar        MORTO=True  suite",
+   "  RT-A9_reconciliacao_sem_proveniencia           MORTO=True  suite",
+   "  RT-A10_portao_deixa_de_morder                  MORTO=True  suite",
+   "  RT-A11_portao_ignora_revisao_humana            MORTO=True  suite",
+   "  RT-A12_regua_aceita_capa_como_item             MORTO=True  suite",
+   "  RT-A13_ponte_presa_a_um_commit_fixo            MORTO=True  suite",
+   "  RT-A14_prova_do_bot_nao_atravessa              MORTO=True  prova ao vivo",
+   "  RT-A15_colisao_de_prova_sobrepoe_a_local       MORTO=True  suite",
+   "  RT-A16_despromocao_do_bot_nao_atravessa        MORTO=True  suite",
+   "  RT-A17_regua_ignora_gate_reprovado             MORTO=True  suite",
+   "ATAQUES 17  MORTOS 17  SURVIVORS 0"
+  ]
+ },
+ "SUPERVISOR_ESTADO": {
+  "RC": 0,
+  "FIM": [
+   " \"WORKER_STATE\": \"DOWN\",",
+   " \"WORKER_PID\": null,",
+   " \"WORKER_ALIVE\": false,",
+   " \"HEARTBEAT_AT\": null,",
+   " \"HEARTBEAT_AGE_S\": null,",
+   " \"HEARTBEAT_STALE\": false,",
+   " \"HEARTBEAT_TIMEOUT_S\": 300,",
+   " \"QUEUE_ELIGIBLE_NOW\": 0,",
+   " \"STOP_REQUESTED\": false,",
+   " \"LAST_PROGRESS_AT\": null,",
+   " \"RESTARTS_TOTAL\": 0,",
+   " \"LAST_RESTART_AT\": null,",
+   " \"LAST_RESTART_REASON\": null,",
+   " \"SERVICE_DIAGNOSIS\": \"UNKNOWN\",",
+   " \"SERVICE_STATE_IN_FILE\": \"UNKNOWN\",",
+   " \"SERVICE_STATE_MEASURED_VIA\": \"tasklist PID + nome de imagem python + batimento no run log\",",
+   " \"HEARTBEAT_FRESH\": null,",
+   " \"SUPERVISOR_BLOCKED_REASON\": null,",
+   " \"FEEDER_CHAMADAS_TOTAL\": 0,",
+   " \"FEEDER_NOOP_TOTAL\": 0,",
+   " \"FEEDER_NOOP_ULTIMO_AT\": null,",
+   " \"FEEDER_ULTIMA_CHAMADA_AT\": null,",
+   " \"LIVENESS_SOURCE\": \"DERIVED_FROM_OS_AT_READ_TIME\",",
+   " \"PID_CHECK_NAO_SEI\": []",
+   "}"
+  ]
+ },
+ "PONTE_SAUDE": {
+  "RC": 1,
+  "FIM": [
+   "{",
+   " \"ULTIMO_SHA\": null,",
+   " \"VOLTAS\": 0,",
+   " \"NOOPS\": 0,",
+   " \"TRAVESSIAS\": 0,",
+   " \"FALHAS_CONSECUTIVAS\": 0,",
+   " \"ULTIMO_ERRO\": null,",
+   " \"SAUDE\": \"NUNCA_CORREU\",",
+   " \"VIVACIDADE\": \"NUNCA_DEU_UMA_VOLTA\",",
+   " \"IDADE_S\": null,",
+   " \"A_TRABALHAR\": false",
+   "}"
+  ]
+ },
+ "SUPERVISOR_VOLTA": {
+  "RC": 0,
+  "FIM": [
+   "{\"ACCAO_FILA_VAZIA\": \"IDLE\", \"HOOK_CHAMADO\": 1, \"WORKERS_LANCADOS\": 0, \"ACCAO_DEPOIS_DE_SAIDA_LIMPA\": \"IDLE\", \"CRASHES_DEPOIS_DE_SAIDA_LIMPA\": 0}"
+  ]
+ },
+ "MODULOS_DE_PROVA": {
+  "RC": 0,
+  "FIM": [
+   "test_canario_de_outra_aquisicao_nao_entra_na_tabela (tests.test_aplicar_desbloqueio.TestPacote.test_canario_de_outra_aquisicao_nao_entra_na_tabela) ... ok",
+   "test_divergencia_livro_tabela_e_reportada_nas_duas_passagens (tests.test_aplicar_desbloqueio.TestPacote.test_divergencia_livro_tabela_e_reportada_nas_duas_passagens) ... ok",
+   "test_duas_fontes_mesmo_documento_so_a_primeira_entra (tests.test_aplicar_desbloqueio.TestPacote.test_duas_fontes_mesmo_documento_so_a_primeira_entra) ... ok",
+   "test_idempotente (tests.test_aplicar_desbloqueio.TestPacote.test_idempotente) ... ok",
+   "test_linha_nova_na_tabela_com_T_diferente_do_livro_e_recusada (tests.test_aplicar_desbloqueio.TestPacote.test_linha_nova_na_tabela_com_T_diferente_do_livro_e_recusada) ... ok",
+   "test_livro_mudado_depois_da_prova_salta (tests.test_aplicar_desbloqueio.TestPacote.test_livro_mudado_depois_da_prova_salta) ... ok",
+   "test_nunca_muda_grupo_T (tests.test_aplicar_desbloqueio.TestPacote.test_nunca_muda_grupo_T) ... ok",
+   "test_nunca_retira_fonte_nem_muda_outro_campo (tests.test_aplicar_desbloqueio.TestPacote.test_nunca_retira_fonte_nem_muda_outro_campo) ... ok",
+   "test_padrao_que_casa_capa_do_gabarito_salta (tests.test_aplicar_desbloqueio.TestPacote.test_padrao_que_casa_capa_do_gabarito_salta) ... ok",
+   "test_pagina_alterada_salta (tests.test_aplicar_desbloqueio.TestPacote.test_pagina_alterada_salta) ... ok",
+   "test_pagina_em_falta_salta (tests.test_aplicar_desbloqueio.TestPacote.test_pagina_em_falta_salta) ... ok",
+   "test_prova_que_bate_aplica_nos_dois_livros (tests.test_aplicar_desbloqueio.TestPacote.test_prova_que_bate_aplica_nos_dois_livros) ... ok",
+   "test_cada_receita_v3_passa_a_prova_do_g1 (tests.test_ld2_aditamento.TestAditamentoV3.test_cada_receita_v3_passa_a_prova_do_g1) ... ok",
+   "test_it_t11_010_fica_nao_sei_com_o_que_falta (tests.test_ld2_aditamento.TestAditamentoV3.test_it_t11_010_fica_nao_sei_com_o_que_falta) ... ok",
+   "test_o_pacote_le_a_v3 (tests.test_ld2_aditamento.TestAditamentoV3.test_o_pacote_le_a_v3) ... ok",
+   "test_padrao_generico_na_v3_seria_recusado (tests.test_ld2_aditamento.TestAditamentoV3.test_padrao_generico_na_v3_seria_recusado) ... ok",
+   "test_v3_nao_propoe_nada_sem_prova (tests.test_ld2_aditamento.TestAditamentoV3.test_v3_nao_propoe_nada_sem_prova) ... ok",
+   "test_a_pagina_do_indice_de_hoje_e_a_entrada (tests.test_ld2_aditamento.TestEntradaDaV3.test_a_pagina_do_indice_de_hoje_e_a_entrada) ... ok",
+   "test_sem_pagina_de_hoje_uma_listagem_antiga_serve (tests.test_ld2_aditamento.TestEntradaDaV3.test_sem_pagina_de_hoje_uma_listagem_antiga_serve) ... ok",
+   "test_uma_materia_nunca_e_entrada (tests.test_ld2_aditamento.TestEntradaDaV3.test_uma_materia_nunca_e_entrada) ... ok",
+   "",
+   "----------------------------------------------------------------------",
+   "Ran 183 tests in 73.118s",
+   "",
+   "OK"
+  ]
+ },
+ "MODULOS_NAO_SEI": {
+  "RC": 0,
+  "FIM": [
+   "test_reentrada_conta_a_idade_de_novo (test_quarentena_naosei.Painel.test_reentrada_conta_a_idade_de_novo) ... ok",
+   "test_sem_alarme_se_alguma_saiu_na_janela (test_quarentena_naosei.Painel.test_sem_alarme_se_alguma_saiu_na_janela) ... ok",
+   "test_tamanho_idade_e_saidas (test_quarentena_naosei.Painel.test_tamanho_idade_e_saidas) ... ok",
+   "test_a_versao_da_regra_subiu (test_quarentena_naosei.Porta.test_a_versao_da_regra_subiu) ... ok",
+   "test_capa_e_nao_com_a_evidencia (test_quarentena_naosei.Porta.test_capa_e_nao_com_a_evidencia) ... ok",
+   "test_materia_segue_para_as_perguntas_seguintes (test_quarentena_naosei.Porta.test_materia_segue_para_as_perguntas_seguintes) ... ok",
+   "test_nao_sei_do_detector_fica_em_quarentena_e_nao_entra (test_quarentena_naosei.Porta.test_nao_sei_do_detector_fica_em_quarentena_e_nao_entra) ... ok",
+   "test_quarentena_nao_e_descarte (test_quarentena_naosei.Porta.test_quarentena_nao_e_descarte) ... ok",
+   "test_sem_retrato_a_pergunta_nao_se_aplica_e_o_pdf_nao_muda (test_quarentena_naosei.Porta.test_sem_retrato_a_pergunta_nao_se_aplica_e_o_pdf_nao_muda) ... ok",
+   "test_ao_sair_passa_pela_admission_normal (test_quarentena_naosei.Saidas.test_ao_sair_passa_pela_admission_normal) ... ok",
+   "test_decisao_humana_capa (test_quarentena_naosei.Saidas.test_decisao_humana_capa) ... ok",
+   "test_decisao_humana_de_outra_pagina_nao_liberta_esta (test_quarentena_naosei.Saidas.test_decisao_humana_de_outra_pagina_nao_liberta_esta) ... ok",
+   "test_saida_por_decisao_humana_registada_materia (test_quarentena_naosei.Saidas.test_saida_por_decisao_humana_registada_materia) ... ok",
+   "test_saida_por_regra_provada_no_replay (test_quarentena_naosei.Saidas.test_saida_por_regra_provada_no_replay) ... ok",
+   "test_sem_regra_nova_nem_humano_continua_em_quarentena (test_quarentena_naosei.Saidas.test_sem_regra_nova_nem_humano_continua_em_quarentena) ... ok",
+   "test_a_derivacao_forward_transporta_o_retrato (test_quarentena_naosei.Transporte.test_a_derivacao_forward_transporta_o_retrato) ... ok",
+   "test_a_estruturacao_transporta_o_retrato (test_quarentena_naosei.Transporte.test_a_estruturacao_transporta_o_retrato) ... ok",
+   "test_derivar_um_do_html_devolve_o_retrato (test_quarentena_naosei.Transporte.test_derivar_um_do_html_devolve_o_retrato) ... ok",
+   "test_o_derivador_de_html_entrega_o_retrato (test_quarentena_naosei.Transporte.test_o_derivador_de_html_entrega_o_retrato) ... ok",
+   "test_o_item_da_porta_leva_o_retrato (test_quarentena_naosei.Transporte.test_o_item_da_porta_leva_o_retrato) ... ok",
+   "",
+   "----------------------------------------------------------------------",
+   "Ran 28 tests in 0.943s",
+   "",
+   "OK"
+  ]
+ },
+ "PROVAS_NODE_R1_R2": {
+  "provas/recollection_http_local.mjs": {
+   "RC": 0,
+   "FIM": [
+    "  R5   pedidos_ao_servidor=1  DETAIL_REQUESTS=1  NEW=0 SKIPPED_KNOWN=0 CHANGED=0 SEEN_AGAIN=1  FAILED=0  UNNECESSARY_REFETCHES=0",
+    "  R6   pedidos_ao_servidor=1  DETAIL_REQUESTS=1  NEW=0 SKIPPED_KNOWN=0 CHANGED=1 SEEN_AGAIN=0  FAILED=0  UNNECESSARY_REFETCHES=0",
+    "  ok    UNNECESSARY_REFETCHES = 0 em TODAS as rodadas",
+    "  ok    so houve pedidos a 127.0.0.1 (o servidor viu tudo o que o coletor pediu)",
+    "",
+    "  15 passaram, 0 falharam"
+   ]
+  },
+  "provas/recollection_indice_local.mjs": {
+   "RC": 0,
+   "FIM": [
+    "  I4  indice=1 materias=0  NEW=0 SKIPPED_KNOWN=3 REVALIDATED=0 SEEN_AGAIN=0 CHANGED=0 INDEX_REQUESTS=1  UNNECESSARY_REFETCHES=0",
+    "  I5  indice=1 materias=1  NEW=0 SKIPPED_KNOWN=2 REVALIDATED=0 SEEN_AGAIN=1 CHANGED=0 INDEX_REQUESTS=1  UNNECESSARY_REFETCHES=0",
+    "  I6  indice=1 materias=3  NEW=0 SKIPPED_KNOWN=0 REVALIDATED=3 SEEN_AGAIN=3 CHANGED=0 INDEX_REQUESTS=1  UNNECESSARY_REFETCHES=0",
+    "  ok    UNNECESSARY_REFETCHES = 0 em TODAS as rodadas",
+    "",
+    "  13 passaram, 0 falharam"
+   ]
+  },
+  "provas/recollection_timeout_local.mjs": {
+   "RC": 0,
+   "FIM": [
+    "══ CENSO ═══════════════════════════════════════════════════════",
+    "  T1  183 s  indice=1 materias=2  NEW=0 FAILED=1 ADIADAS=2  UNNECESSARY_REFETCHES=0",
+    "  T2    6 s  indice=1 materias=3  NEW=3 FAILED=0 ADIADAS=0  UNNECESSARY_REFETCHES=0",
+    "  T3  182 s  indice=2 materias=0  NEW=0 FAILED=1 ADIADAS=0  UNNECESSARY_REFETCHES=0",
+    "",
+    "  8 passaram, 0 falharam"
+   ]
+  }
+ },
+ "PONTE_B2_PROMOCAO_DESPROMOCAO": {
+  "RC": 0,
+  "FIM": [
+   "   \"PORQUE\": \"READY_CURRENT pela regua DETAIL/v1, sem pedido de olho humano\"",
+   "  },",
+   "  {",
+   "   \"SOURCE_ID\": \"IT-T8-030\",",
+   "   \"READY_RULE\": \"DETAIL/v1\",",
+   "   \"PORQUE\": \"READY_CURRENT pela regua DETAIL/v1, sem pedido de olho humano\"",
+   "  },",
+   "  {",
+   "   \"SOURCE_ID\": \"IT-T8-034\",",
+   "   \"READY_RULE\": \"DETAIL/v1\",",
+   "   \"PORQUE\": \"READY_CURRENT pela regua DETAIL/v1, sem pedido de olho humano\"",
+   "  },",
+   "  {",
+   "   \"SOURCE_ID\": \"IT-T8-039\",",
+   "   \"READY_RULE\": \"DETAIL/v1\",",
+   "   \"PORQUE\": \"READY_CURRENT pela regua DETAIL/v1, sem pedido de olho humano\"",
+   "  },",
+   "  {",
+   "   \"SOURCE_ID\": \"IT-T8-040\",",
+   "   \"READY_RULE\": \"DETAIL/v1\",",
+   "   \"PORQUE\": \"READY_CURRENT pela regua DETAIL/v1, sem pedido de olho humano\"",
+   "  }",
+   " ],",
+   " \"FICHEIROS_REAIS_INTOCADOS\": true",
+   "}"
+  ]
+ },
+ "COPIA_SUJA_DEPOIS": [
+  " M curadoria/LIFECYCLE-QUEUE-V1.json",
+  " M curadoria/italy_contracts_curator.json"
+ ],
+ "COPIA_TAR": {
+  "RC": 0,
+  "TEM_GIT": false
+ },
+ "ENSAIO_WORKER_PENDURADO": {
+  "RC": 0,
+  "FIM": [
+   "{",
+   " \"DATASET\": \"WORKER-PENDURADO-ENSAIO-V1\",",
+   " \"CANAL_STDOUT\": \"o de supervisor._lancar_worker (medido: outro)\",",
+   " \"TAREFAS\": 80,",
+   " \"FECHADAS_NO_FIM\": 80,",
+   " \"VIVO_NO_FIM\": false,",
+   " \"RC\": 0,",
+   " \"SEGUNDO_EM_QUE_PAROU_DE_AVANCAR\": 9,",
+   " \"BYTES_DE_STDOUT_ESCRITOS\": 0,",
+   " \"EVENTOS_NO_DIARIO\": [",
+   "  \"ARRANQUE\",",
+   "  \"VOLTA\",",
+   "  \"WORKER_OCIOSO_SAIU\"",
+   " ],",
+   " \"PENDURADO\": false",
+   "}"
+  ]
+ },
+ "ENSAIO_GATILHO_OCIOSO": {
+  "RC": 0,
+  "FIM": [
+   "   \"BLOCKED\",",
+   "   \"sem contrato nesta arvore\"",
+   "  ]",
+   " },",
+   " \"CRASHES_SEM_PROGRESSO\": [],",
+   " \"JANELA_IDLE\": {",
+   "  \"SEGUNDOS\": 182,",
+   "  \"VOLTAS_DO_SUPERVISOR\": 12,",
+   "  \"EVENTOS_ESCRITOS\": 0,",
+   "  \"EVENTOS_POR_HORA_EXTRAPOLADO\": 0.0,",
+   "  \"FEEDER_NOOP_TOTAL\": 18",
+   " },",
+   " \"ASSERCOES\": {",
+   "  \"IDLE_ANTES_DO_RELOGIO\": true,",
+   "  \"RELANCADO_QUANDO_VENCE\": true,",
+   "  \"WORKER_PROCESSOU\": true,",
+   "  \"WORKER_OCIOSO_SAIU\": true,",
+   "  \"SUPERVISOR_VIU_SAIDA_LIMPA\": true,",
+   "  \"IDLE_DEPOIS\": true,",
+   "  \"GATILHO_CORREU_DEPOIS_DA_SAIDA\": true,",
+   "  \"NAO_BLOQUEOU\": true,",
+   "  \"SEM_ECO_NA_JANELA\": true",
+   " },",
+   " \"PASS\": true",
+   "}"
+  ]
+ },
+ "ENSAIO_FILA_WINDOWS": {
+  "RC": 0,
+  "FIM": [
+   "{",
+   " \"DATASET\": \"FILA-WINDOWS-ENSAIO-V1\",",
+   " \"CODIGO\": \"novo (fila com paciencia, pid tri-estado)\",",
+   " \"TAREFAS\": 150,",
+   " \"SEGUNDOS\": 22,",
+   " \"LEITORES\": \"2 processos a cada 100 ms (read_text de fora + fila._ler da casa)\",",
+   " \"FECHADAS\": 150,",
+   " \"IN_PROGRESS_NO_FIM\": 0,",
+   " \"PENDING_NO_FIM\": 0,",
+   " \"WORKERS_LANCADOS\": 1,",
+   " \"MAX_WORKERS_VIVOS\": 1,",
+   " \"MORTES_POR_RC\": {",
+   "  \"0\": 1",
+   " },",
+   " \"PERMISSION_ERROR_NO_STDOUT_DO_WORKER\": 0,",
+   " \"WORKER_PENDURADO_TERMINADO\": 0",
+   "}"
+  ]
+ },
+ "COPIA_TAR_REMOVIDA": true,
+ "WORKTREE_REMOVIDA": true
+}

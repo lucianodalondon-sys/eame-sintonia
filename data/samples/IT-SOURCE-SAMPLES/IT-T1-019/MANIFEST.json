@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-019",
+ "SOURCE": "SIA — Societa Italiana di Agronomia",
+ "OWNER": "Societa Italiana di Agronomia",
+ "URL": "https://www.siagr.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:37Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 134455 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://siagr.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "siagr",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-04-06",
+  "BYTES_LIDOS": 148868
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://siagr.it/wp-content/uploads/2025/01/Statuto-della-Societa-Italiana-di-Agronomia19.06.2023.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Scarica lo Statuto della SIA",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 134455,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "84b9ab31036e6f24714ca6aacd56b152aa1db66fa863e97d7f7edeb0d989546a",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

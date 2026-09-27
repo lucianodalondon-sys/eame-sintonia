@@ -109,7 +109,16 @@ porta. Isso está **certo**. Não se inventa `fact_time` para o fazer passar.
 | **CLASSIFICAÇÃO** | **KEEP** |
 
 É este o `READY` desta casa. Não se cria um `READY_FOR_INTELLIGENCE` novo em
-inglês ao lado de um que já existe em português e já tem consumidor.
+inglês ao lado de um que já existe em português.
+
+> ⚠️ **CORRIGIDO EM 2026-09-09.** Esta entrada dizia «e já tem consumidor».
+> Não tem. Medido por [`provas/a_fronteira_da_coleta.py`](../../provas/a_fronteira_da_coleta.py):
+> **2 produtores** (`orquestrador/orquestrador.py`, que é CLI e não corre em
+> workflow nenhum, e uma prova), **0 consumidores**, e a pasta de destino
+> `data/samples/PRONTO-PARA-INTELIGENCIA/` **não existe na árvore**.
+> A classificação `KEEP` mantém-se — o contrato é bom e é único. O que falta
+> é alguém entregar nele e alguém recolher dele.
+> **DECLARADO ≠ IMPLEMENTADO ≠ PRODUZIDO ≠ CONSUMIDO.**
 
 ---
 

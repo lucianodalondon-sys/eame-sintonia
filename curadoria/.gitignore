@@ -1,0 +1,39 @@
+# Os bytes das amostras nao entram no Git: sao 58 MB de material de
+# terceiros, capturados para qualificar candidatas. A prova versionada e o
+# REAL-EXAMPLE-MANIFEST-V1.json (sha256 por ficheiro), que permite refazer a
+# captura e comparar. Na promocao, os bytes mudam para o caminho canonico
+# data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/ — que so existe com SOURCE_ID.
+evidencia/
+amostras/
+_lote_*.json
+_dec_*.json
+_c_*.json
+_ens_*.json
+
+# ESTADO VIVO DO CICLO CONTINUO — nao se versiona.
+# O status e o diario sao reescritos a cada volta do worker; commita-los
+# poe a worktree suja de segundo a segundo e faz o System Map acusar drift
+# que nao e arquitetura, e sim o Bot a trabalhar.
+#
+#     UM FICHEIRO QUE MUDA SOZINHO NAO PERTENCE AO COMMIT.
+#
+# O que fica versionado e o que NAO muda sozinho: o livro de transicoes,
+# a fila, os lotes e as provas.
+SOURCE-CURATOR-STATUS-LIVE.json
+SOURCE-CURATOR-RUN-LOG.ndjson
+SUPERVISOR-STATE.json
+SUPERVISOR.lock
+
+# O estado e o diario da ponte automatica sao RUNTIME, nao fonte: mudam a cada
+# volta do observador. Versiona-los poria um commit por tick no historico — o
+# mesmo ruido que este desenho existe para nao produzir. O que fica no Git e o
+# codigo e as provas; o que a ponte viu le-se no ficheiro vivo.
+PONTE-AUTOMATICA-STATE.json
+PONTE-AUTOMATICA-LOG.ndjson
+# Historico de checkpoints da telemetria: append-only, event-driven, escrito
+# pelo servico. Persiste no disco (sobrevive a restart) mas nao se versiona —
+# muda sozinho, como o run-log.
+TELEMETRY-CHECKPOINT-HISTORY-V1.ndjson
+WORKER-STDOUT.log
+WORKER-STDOUT.log.1
+WORKER-HEARTBEAT.json

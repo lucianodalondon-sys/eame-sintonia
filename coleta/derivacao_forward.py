@@ -52,16 +52,34 @@ Emite UMA passagem: `DERIVED`, com `edge_from='RAW'`.
 
         STAGE EXISTS IN VOCABULARY  !=  STAGE RAN.
 
-                           A unidade forward de hoje TERMINA em `DERIVED`. Não
-                           há dono forward ligado a `derived_artifact` a jusante:
-                           o modelo das estradas dá `STRUCTURED` e `ADMISSION` da
-                           RC-1 como `STATE=CODE`, `PROOF_KIND=NENHUMA` — código
-                           escrito, nunca corrido nesta cadeia. `NOT_RUN` também
-                           seria mentira: `NOT_RUN` é «fazia parte do plano e não
-                           chegou a vez». Estas etapas não fazem parte do plano
-                           desta unidade; elas não têm ainda quem as corra.
+                           Esta fronteira continua a emitir UMA passagem, e é
+                           `DERIVED`. Quem emite as de baixo é
+                           `coleta/rota_forward_documento.py`.
 
-O buraco fica declarado em `GAPS`, e não fechado com uma linha bonita.
+⚠️ E AQUI ESTAVA ESCRITO QUE NÃO HAVIA NINGUÉM LÁ EM BAIXO. JÁ HÁ.
+------------------------------------------------------------------
+Até à C4H este cabeçalho dizia, por extenso: *«A unidade forward de hoje TERMINA
+em `DERIVED`. Não há dono forward ligado a `derived_artifact` a jusante»*. Era
+verdade quando foi escrito. **Deixou de ser**, e ninguém veio apagar a frase.
+
+O custo não foi cosmético: em 2026-09-14 uma missão leu esta linha, concluiu
+que a estrada a jusante não existia, e começou a planear arquitectura nova para
+uma estrada **que já estava construída**. Só não a construiu duas vezes porque
+foi ler o código em vez do comentário.
+
+    UM COMENTÁRIO DESACTUALIZADO NÃO É RUÍDO: É UMA AFIRMAÇÃO FALSA
+    ASSINADA POR ESTA CASA, E A PRÓXIMA PESSOA ACREDITA NELA.
+
+O que o código faz hoje, medido contra PostgreSQL 16 descartável no CI
+(`provas/a_ponte_de_midia_no_postgres.py`, 2026-09-14):
+
+    ETAPAS_OBSERVADAS = ['ADMISSION', 'DERIVED', 'RAW', 'READY', 'STRUCTURED']
+
+`rota_forward_documento.levar_a_espera()` chama `espera.pousar()`, distingue
+`PASSED` de `REUSED`, e escreve `NOT_RUN` quando a Admissão não diz `SIM`.
+
+O que continua verdade, e não mudou: **esta peça** não emite nenhuma delas.
+Emitir aqui seria falar por um dono que está calado.
 
 ⚠️ ESTA PEÇA NÃO É UM EXECUTOR.
 O censo tipado (`system-map/scripts/censo_da_observabilidade.py`) classifica-a
@@ -146,24 +164,108 @@ DESTINO_DO_ESTADO = {
 DESTINO_DO_MOTIVO = {
     art.TEXT_LAYER_ABSENT:  "REJECTED",
     art.EXTRACTION_ERROR:   "ERROR",
+    # ── E OS MOTIVOS DA MIDIA, QUE A C4H TROUXE ──────────────────────────
+    # ⚠️ SEM ESTAS LINHAS, TUDO O QUE VINHA DA MIDIA CAIA EM `UNKNOWN`.
+    # Medido no CI a 2026-09-14: o executor de midia devolveu `SEM_DERIVADO`
+    # com um motivo que esta tabela nao conhecia, e a etapa saiu `ERROR` sem
+    # que nada nosso tivesse falhado.
+    #
+    # A divisao e a MESMA do PDF, e nao uma regra nova: o que e propriedade do
+    # ORIGINAL e `REJECTED`; o que e avaria NOSSA e `ERROR`.
+    #
+    #     UM VIDEO MUDO NAO E UMA FERRAMENTA PARTIDA.
+    #     E UMA FERRAMENTA AUSENTE NAO E UM VIDEO SEM FALA.
+    "SEM_FAIXA_DE_AUDIO":      "REJECTED",   # o contentor nao traz som
+    "REQUESTED_EMPTY":         "REJECTED",   # traz som, e nao ha fala nele
+    "ASR_INDISPONIVEL":        "ERROR",      # a biblioteca nao esta ca
+    "ASR_FALHOU":              "ERROR",      # tentou e nao completou
+    "TRANSCRIPTION_TIMEOUT":   "ERROR",      # o teto desta casa fechou
+    # ── E OS MOTIVOS DO HTML, QUE A DUAS-PORTAS TROUXE ───────────────────
+    # A MESMA divisao, outra vez: o que e propriedade do ORIGINAL (ou da
+    # declaracao que veio com ele) e `REJECTED`; o que e avaria NOSSA e
+    # `ERROR`.
+    #
+    #     UMA PAGINA SEM LETRA NAO E UM EXTRACTOR PARTIDO.
+    #
+    #: o documento nao trazia texto. Nao e `TEXT_LAYER_ABSENT`, que promete
+    #: OCR — um HTML sem letra nao tem imagem para reconhecer.
+    "SEM_TEXTO_NO_DOCUMENTO":  "REJECTED",
+    #: os bytes eram outra coisa. A rota e de outro dono, e nao desta.
+    "BYTES_NAO_SAO_HTML":      "REJECTED",
+    # ⚠️ `UNIDADE_RECUSADA` JA EXISTIA NO EXECUTOR DE MIDIA E NAO ESTAVA
+    # AQUI — caia em `UNKNOWN`, que se le como «ninguem sabe por que porta
+    # ele saiu» quando se sabe muito bem: a FORMA da unidade de texto nao
+    # passou no dono do vocabulario, e isso e um facto sobre NOS.
+    #
+    #     UM MOTIVO SEM DESTINO NAO E UM DESTINO NOVO: E UM SILENCIO.
+    #
+    # Isto NAO muda o estado da etapa — `UNKNOWN` ja contava como avaria.
+    # Muda o nome do balde, que passa a dizer o que aconteceu.
+    "UNIDADE_RECUSADA":        "ERROR",
 }
 
 # O que este caminho AINDA não faz, dito com nome. Um buraco declarado é uma
 # dívida; um buraco calado é uma mentira que ninguém vai procurar.
 GAPS = (
-    ("RAW_FORWARD_NAO_EMITE",
-     "guarda/preservar_coleta.py escreve `raw_asset` e nao emite rastro. A "
-     "etapa RAW existe, tem dono e corre — e e muda. Esta fronteira NAO fala "
-     "por ela."),
+    # ⚠️ AQUI VIVIA `RAW_FORWARD_NAO_EMITE`, E ELE FECHOU EM
+    # C-MAKE-RAW-OBSERVABLE-V1. O texto dizia que `guarda/preservar_coleta.py`
+    # escrevia `raw_asset` e nao emitia rastro — e era verdade.
+    #
+    # Quem passou a falar pela etapa RAW NAO foi esta fronteira: foi
+    # `coleta/ingresso.falar_do_raw()`, na porta que preserva. Esta continua a
+    # nao falar pelo RAW, e continua a ter razao — ler a linha de outro nao e
+    # ter corrido a etapa dele.
+    #
+    #     UM BURACO QUE FECHA SAI DA LISTA DOS BURACOS.
+    #     DEIXA-LO CA DEPOIS DE FECHADO E DIVIDA INVENTADA.
+    #
+    # A prova vive em `provas/o_raw_fala.py`, e `provas/a_rota_m2_atravessa.py`
+    # exige que a aresta `RAW -> DERIVED` continue com os DOIS topos.
     ("STRUCTURED_SEM_DONO_LIGADO",
      "RC-1 STEPS.STRUCTURED: STATE=CODE, PROOF_KIND=NENHUMA. Ha codigo em "
      "guarda/importar_italia.py e ele nunca correu nesta cadeia."),
     ("ADMISSION_SEM_DONO_LIGADO",
      "RC-1 STEPS.ADMISSION: STATE=CODE, PROOF_KIND=NENHUMA. admissao/admissao.py "
      "julga o registo legado, e nao `derived_artifact`."),
+    # ⚠️ O NOME DESTE GAP DIZ MAIS DO QUE SE MEDIU, e fica com o texto
+    # corrigido em vez de ser apagado — porque a FALTA e real, so que nao e
+    # a que o nome anuncia. Medido em `provas/a_fronteira_da_coleta.py`:
+    #
+    #     READY TEM contrato   COL-LAW-043, 12 campos, fixos
+    #     READY TEM dono       admissao.pronto_para_inteligencia()
+    #     READY TEM 0 produtores em runtime (so um CLI e uma prova)
+    #     READY TEM 0 consumidores, e o destino nem sequer existe
+    #
+    # `leis/artefato.py:43` ja dizia «ja e o READY desta casa», e este tuplo
+    # dizia «nao tem dono». Os dois nao podiam estar certos.
+    #
+    # O ID nao muda: ele e citado noutras linhas desta casa, e trocar um
+    # identificador para melhorar uma frase espalha o custo por toda a gente.
     ("READY_NAO_TEM_DONO",
-     "nenhuma peca decide que um derivado esta PRONTO. READY sem ADMISSION nao "
-     "e uma etapa: e uma afirmacao sem quem a assine."),
+     "o NOME esta errado e o buraco e real: READY TEM dono "
+     "(admissao.pronto_para_inteligencia) e TEM contrato (COL-LAW-043, 11 "
+     "campos). O que nao tem e caminho: a rota forward termina em ADMISSION e "
+     "nao chega la — o dono recebe `item` e a rota produz `derived_artifact` — "
+     "e nao tem NENHUM consumidor. UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA "
+     "PORTA. Medido em provas/a_fronteira_da_coleta.py."),
+    # ⚠️ ESTE ESTAVA DECLARADO SO NUM `print`.
+    # `provas/o_forward_conta_se.py` media-o e escrevia-o no ecra — e mais
+    # nada. Nao estava neste tuplo, nao estava em JSON nenhum, e nenhum
+    # teste o guardava: era o unico dos oito buracos desta casa que podia
+    # desaparecer sem dar erro em sitio nenhum.
+    #
+    #     UM BURACO DECLARADO E UMA DIVIDA.
+    #     UM BURACO SO NUM `print` E UMA DIVIDA QUE NINGUEM HERDA.
+    #
+    # O sitio e este porque a excecao sobe por `correr()`, que e daqui. E
+    # continua sem POLITICA de proposito: escrever aqui o que fazer quando
+    # o sensor se parte seria inventar constituicao para passar num exame.
+    # Declara-se a falta; nao se preenche.
+    ("TELEMETRY_FAILURE_SEM_POLITICA",
+     "a excecao do rastro SOBE por `correr()`. O artefato fica guardado — a "
+     "coleta NAO falhou — mas quem chama perde o recibo e pode ler a excecao "
+     "como corrida falhada. Nao ha politica escrita para «o sensor partiu-se». "
+     "OBSERVABILITY FAILURE != COLLECTION FAILURE."),
 )
 
 
@@ -175,9 +277,31 @@ def _porta(resultado: dict) -> str:
     return DESTINO_DO_ESTADO.get(estado, "UNKNOWN")
 
 
+#: Quando mais de um executor correu na mesma passagem, o rastro diz isso por
+#: extenso em vez de eleger um. `MIXED` não é um executor: é a recusa honesta
+#: de escolher entre dois que trabalharam.
+ATOR_MISTO = "MIXED"
+
+
+def _ator_da_corrida(donos):
+    if not donos:
+        return ex.EXECUTOR_ID
+    if len(donos) == 1:
+        return getattr(donos[0], "EXECUTOR_ID", ex.EXECUTOR_ID)
+    return "%s:%s" % (ATOR_MISTO,
+                      "+".join(sorted(getattr(d, "EXECUTOR_ID", "?")
+                                      for d in donos)))
+
+
+def _versao_da_corrida(donos):
+    if len(donos) == 1:
+        return getattr(donos[0], "EXECUTOR_VERSION", ex.EXECUTOR_VERSION)
+    return ex.EXECUTOR_VERSION if not donos else art.NAO_SE_APLICA
+
+
 def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
            source_id=None, route_class_id=None, relogio=None, derivar=None,
-           tentativa=0) -> dict:
+           tentativa=None) -> dict:
     """Deriva N unidades forward e conta-se ao rastro. Devolve o recibo.
 
     `unidades`   [{"RAW_ASSET_ID": <id real no banco>, "PDF": <caminho>}, ...]
@@ -190,18 +314,75 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
                  a identidade da unidade. `None` é resposta legítima e é a
                  resposta CERTA quando não se pode provar qual é.
 
+    `tentativa`  `None` quer dizer «pergunta ao dono». Ela estava FIXA EM
+                 ZERO, e uma segunda derivação da mesma corrida colidia na
+                 chave `(run_id, etapa, tentativa)` — a passagem da segunda
+                 perdia-se, e o erro do banco subia com o tipo do erro do
+                 fluxo. Quem sabe responder é `rastro.proxima_tentativa`, que
+                 é dono da tabela; aqui não se conta nada.
+
+                     A PERGUNTA SOBRE UMA TABELA É DE QUEM É DONO DELA.
+
     ⚠️ A DERIVAÇÃO ACONTECE PRIMEIRO, E O RASTRO DEPOIS. Se fosse ao contrário,
     uma falha a escrever telemetria podia impedir uma derivação de acontecer — e
     OBSERVABILITY FAILURE != COLLECTION FAILURE.
     """
-    derivar = derivar or ex.derivar_um
+    # ⚠️ A ESCOLHA DO EXECUTOR PASSOU A SER POR UNIDADE, E NÃO POR CORRIDA.
+    #
+    # Até aqui esta linha era `derivar = derivar or ex.derivar_um`: UM executor
+    # para a corrida inteira, escolhido por um `import` no topo do ficheiro.
+    # Enquanto houve um executor só, isso estava certo por acidente. Com um
+    # segundo — o de mídia — passava a estar errado em silêncio: um MP4 e um
+    # PDF na mesma corrida iam os dois para o `pdftotext`.
+    #
+    #     UM `import` NO TOPO NÃO É UMA DECISÃO DE ROTEAMENTO.
+    #
+    # `derivar` explícito continua a vencer, e é o que os testes usam para
+    # injectar um duplo. Quando é `None`, pergunta-se ao dono da capacidade —
+    # `ingresso.executor_para` — pela espécie DECLARADA de cada unidade.
+    escolhido_pelo_chamador = derivar is not None
+    _quem_abre = None
+    if not escolhido_pelo_chamador:
+        try:
+            import ingresso as _ing                            # noqa: PLC0415
+            _quem_abre = _ing.executor_para
+        except Exception:                                      # noqa: BLE001
+            _quem_abre = None
+
+    def _derivar_da_unidade(u):
+        """O `derivar_um` do executor que abre ESTA espécie.
+
+        ⚠️ AUSÊNCIA CONTINUA A NÃO SER RECUSA. Sem espécie declarada, ou sem
+        ninguém a declará-la, volta-se ao executor de PDF — que é o que esta
+        casa sempre fez, e que responde honestamente o que encontrou. Recusar
+        aqui encolheria a coleta por silêncio.
+
+            AUSÊNCIA DE EVIDÊNCIA NÃO É EVIDÊNCIA DE AUSÊNCIA.
+        """
+        if escolhido_pelo_chamador:
+            return derivar, ex
+        mod = _quem_abre(u.get("MEDIA_TYPE")) if _quem_abre else None
+        mod = mod or ex
+        return getattr(mod, "derivar_um", ex.derivar_um), mod
+
+    #: Quem realmente correu, para o rastro não carimbar o executor errado.
+    donos_usados = []
     baldes = {d: 0 for d in ("PASSED", "REJECTED", "ERROR", "NOT_RUN",
                              "UNKNOWN", "REUSED")}
     resultados, ultimo_bom, primeiro_erro = [], None, None
 
     for u in unidades:
-        r = derivar(u["RAW_ASSET_ID"], u["PDF"], armazem, memoria,
-                    relogio=relogio)
+        # ⚠️ A CORRIDA DA PASSAGEM VIAJA, E NAO E LIDA PELO EXECUTOR.
+        # O dono do derivado escreve a participacao `(observacao, derivado)` e
+        # precisa de saber em que corrida ela foi vista pela primeira vez. Essa
+        # corrida e ESTA — a da passagem — e nao a que capturou a observacao.
+        # O executor transporta o envelope e nao o abre.
+        _derivar_um, _dono = _derivar_da_unidade(u)
+        if _dono not in donos_usados:
+            donos_usados.append(_dono)
+        r = _derivar_um(u["RAW_ASSET_ID"], u["PDF"], armazem, memoria,
+                        relogio=relogio,
+                        contexto_da_passagem={"run_id": run_id})
         porta = _porta(r)
         baldes[porta] += 1
         # ⚠️ A LINHA DO DERIVADO SAI NO RECIBO, e nao so o veredito.
@@ -217,12 +398,55 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
         linha = (r.get("LINHA_ESCRITA") or r.get("LINHA_EXISTENTE") or {}) \
             if porta in ("PASSED", "REUSED") else {}
         resultados.append({"RAW_ASSET_ID": u["RAW_ASSET_ID"], "PDF": u["PDF"],
+                           # A hora da CAPTURA do original, tal como veio da
+                           # unidade. Este runner nao a mede e nao a substitui
+                           # pela sua: COLLECTED_AT != DERIVED_AT.
+                           "CAPTURED_AT": u.get("CAPTURED_AT"),
+                           # A fonte da observacao-pai, transportada e nao
+                           # reconstruida: `SOURCE_ID` nao sai de caminho,
+                           # de pasta, de slug nem de sha.
+                           "SOURCE_ID": u.get("SOURCE_ID"),
+                           # V1A: o endereco da observacao-pai, transportado.
+                           "SOURCE_URL": u.get("SOURCE_URL"),
+                           # TEMPO-E-LUGAR: o recado da observacao-pai, tal e
+                           # qual. Este runner nao o le, nao o mede, nao o muda.
+                           "TEMPO_E_LUGAR": dict(u.get("TEMPO_E_LUGAR") or {}),
                            "ESTADO": r.get("ESTADO"), "PORTA": porta,
                            "PORQUE": r.get("PORQUE"),
                            "LINHA": linha or None,
                            "STORAGE_PATH": (linha.get("storage_path")
                                             or r.get("STORAGE_PATH")),
-                           "MOTIVO_DO_EXECUTOR": r.get("MOTIVO_DO_EXECUTOR")})
+                           "MOTIVO_DO_EXECUTOR": r.get("MOTIVO_DO_EXECUTOR"),
+                           # QUEM abriu esta unidade. Sem este campo, «o vídeo
+                           # não foi ao pdftotext» é uma afirmação que ninguém
+                           # consegue conferir sem ler o código.
+                           "EXECUTOR_ID": getattr(_dono, "EXECUTOR_ID", None),
+                           "MEDIA_TYPE": u.get("MEDIA_TYPE"),
+                           # A espécie do texto, quando o executor a declarar.
+                           # O de PDF não declara: `None` é a resposta certa e
+                           # não se preenche com `TEXT`.
+                           "TEXT_KIND": r.get("TEXT_KIND"),
+                           "TEXT_RELATION": r.get("TEXT_RELATION"),
+                           # ⚠️ A UNIDADE MONTADA E CONFERIDA PELO DONO DO
+                           # VOCABULARIO VIAJA INTEIRA — e ate aqui NAO
+                           # viajava. `executor_transcricao_midia` devolve-a
+                           # desde a C4H com o comentario «sem ela, nenhuma
+                           # traducao futura tem para onde apontar», e este
+                           # runner deitava-a fora na linha seguinte.
+                           #
+                           #     UM CAMPO PROMETIDO PELO PRODUTOR E DEITADO
+                           #     FORA PELO TRANSPORTADOR E UM CAMPO QUE NAO
+                           #     EXISTE — com a agravante de parecer que sim.
+                           #
+                           # `None` continua a ser resposta: o executor de PDF
+                           # nao monta unidade nenhuma, e nao se lhe inventa
+                           # uma aqui.
+                           "TEXT_UNIT": r.get("TEXT_UNIT"),
+                           # Q1 (D11): o veredito do detector de capa, quando o
+                           # executor o der (so o de HTML da). Transportado.
+                           "RETRATO_DO_DETECTOR": r.get("RETRATO_DO_DETECTOR"),
+                           "LANGUAGE": r.get("LANGUAGE"),
+                           "LANGUAGE_SOURCE": r.get("LANGUAGE_SOURCE")})
         if porta in ("PASSED", "REUSED"):
             ultimo_bom = linha.get("storage_path") or ultimo_bom
         elif porta == "ERROR" and primeiro_erro is None:
@@ -279,7 +503,11 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
 
     # ── A PASSAGEM, PELO DONO CANÓNICO ──────────────────────────────────────
     # Nada de SQL aqui. `medidas/rastro_da_coleta.py` é quem escreve; esta peça
-    # só lhe diz o que aconteceu, na língua que ele fala.
+    # só lhe diz o que aconteceu, na língua que ele fala — e é também a ele que
+    # se pergunta em que tentativa vai esta corrida.
+    if tentativa is None:
+        tentativa = rastro.proxima_tentativa(banco_do_rastro, run_id, "DERIVED")
+
     linha = rastro.registrar(
         banco_do_rastro,
         run_id=run_id, etapa="DERIVED", edge_from="RAW", tentativa=tentativa,
@@ -291,7 +519,15 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
         error=baldes["ERROR"], not_run=baldes["NOT_RUN"],
         unknown=baldes["UNKNOWN"], reused=baldes["REUSED"],
         estado=estado,
-        actor=ex.EXECUTOR_ID, actor_version=ex.EXECUTOR_VERSION,
+        # ⚠️ O ATOR É QUEM CORREU, E NÃO O QUE ESTÁ NO `import` DO TOPO.
+        # Com dois executores, carimbar `texto-de-pdf` numa corrida que
+        # transcreveu áudio poria no rastro o nome de quem não trabalhou.
+        # E quando correram DOIS, não se escolhe um: diz-se que foram dois —
+        # um rastro que nomeia um dono de uma corrida mista está a esconder
+        # metade dela.
+        #
+        #     UM CAMPO QUE SÓ CABE UM NOME NÃO AUTORIZA A INVENTAR O VENCEDOR.
+        actor=_ator_da_corrida(donos_usados), actor_version=_versao_da_corrida(donos_usados),
         policy_version=ex.PIPELINE_VERSION,
         canonical_state=canonico,
         error_class=((primeiro_erro or {}).get("ESTADO") if houve_avaria else None),
@@ -301,6 +537,71 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
     recibo["RASTRO"] = linha
     return recibo
 
+
+def nao_se_aplica(nao_derivaveis, *, banco_do_rastro, run_id,
+                  source_id=None, route_class_id=None, tentativa=None) -> dict:
+    """A etapa DERIVED não se aplica a estas observações — e isso DIZ-SE.
+
+    ⚠️ ESTA FUNÇÃO EXISTE PORQUE O SILÊNCIO TAMBÉM MENTE.
+
+    Quando a porta não encontra nada para derivar, a alternativa fácil é não
+    escrever passagem nenhuma. Só que uma corrida sem linha `DERIVED` no rastro
+    lê-se, três meses depois, como «ninguém sabe se aquela etapa correu» — e
+    aqui sabe-se muito bem: ela não se aplica àquelas observações, e há razão
+    escrita para isso.
+
+        UMA ETAPA QUE NÃO SE APLICA NÃO É UMA ETAPA SEM RESPOSTA.
+        NOT_APPLICABLE != NOT_RUN != FAIL != PASS.
+
+    E não é `FAIL`: falhar é a etapa ter corrido e ter-se partido. Não é
+    `NOT_RUN`: esse é «fazia parte do plano e não chegou a vez». Não é
+    `SKIPPED`: esse é «decidiu-se não correr». É `NOT_APPLICABLE` — «não existe
+    nesta rota, com razão escrita» — palavra por palavra o que
+    `leis/telemetria.py` declara. Nada de vocabulário novo.
+
+    `ETAPA_ACONTECEU = ('PASS', 'PARTIAL')` já exclui este estado, e por isso
+    nenhum leitor a jusante o vai confundir com sucesso.
+
+    O que ela NÃO faz, e é metade da honestidade: não conta as observações como
+    `PASSED`, não inventa `last_good_artifact`, e não promove nada. Elas
+    entraram como `input_count` e saíram como ZERO — que é a verdade.
+    """
+    quantas = len(nao_derivaveis or [])
+    porques = sorted({str(x.get("PORQUE")) for x in (nao_derivaveis or [])
+                      if x.get("PORQUE")})
+    recibo = {
+        "FRONTEIRA": FRONTEIRA,
+        "RUN_ID": run_id,
+        "SOURCE_ID": source_id,
+        "ROUTE_CLASS_ID": route_class_id,
+        "ENTRADA": quantas,
+        "SAIRAM": 0,
+        "BALDES": {d: 0 for d in ("PASSED", "REJECTED", "ERROR", "NOT_RUN",
+                                  "UNKNOWN", "REUSED")},
+        "ESTADO_DA_ETAPA": rastro.NOT_APPLICABLE,
+        "PORQUE": porques,
+        "RESULTADOS": [],
+        "TERMINA_EM": "DERIVED",
+    }
+    if banco_do_rastro is None:
+        recibo["ETAPAS_EMITIDAS"] = []
+        recibo["RASTRO"] = "NAO_EMITIDO"
+        return recibo
+    if tentativa is None:
+        tentativa = rastro.proxima_tentativa(banco_do_rastro, run_id, "DERIVED")
+    recibo["ETAPAS_EMITIDAS"] = ["DERIVED"]
+    recibo["RASTRO"] = rastro.registrar(
+        banco_do_rastro,
+        run_id=run_id, etapa="DERIVED", edge_from="RAW", tentativa=tentativa,
+        source_id=source_id, route_class_id=route_class_id,
+        input_grain=GRAO_ENTRADA, input_count=quantas,
+        output_grain=GRAO_SAIDA, output_count=0,
+        cardinalidade="1:1",
+        estado=rastro.NOT_APPLICABLE,
+        actor=ex.EXECUTOR_ID, actor_version=ex.EXECUTOR_VERSION,
+        policy_version=ex.PIPELINE_VERSION,
+        error_message=" · ".join(porques) or None)
+    return recibo
 
 def main():
     print(__doc__)

@@ -42,7 +42,8 @@ import sqlite3
 
 from guarda.preservar_derivado import MemoriaDoDerivado
 
-# TRADUÇÃO da migration 001 — as duas tabelas que a garantia forward toca.
+# TRADUÇÃO das migrations 001, 022 e 025 — as tabelas que a garantia forward
+# toca.
 # Cada trava aqui existe na original, e está anotada com o que ela prova.
 ESQUEMA = """
 create table collection_run (
@@ -76,6 +77,29 @@ create table collection_run (
     check (cost_usd is null or cost_method is not null)
 );
 
+-- TRADUCAO da migration 025. A COPIA FISICA, separada da observacao. Sem
+-- `~` (o CHECK de formato do hash fica para o Postgres, no CI) e sem `btrim`
+-- no check — SQLite tem `trim`, e a diferenca de dialeto nao muda a trava que
+-- importa aqui: `storage_path` unico, `sha256` NAO unico.
+create table storage_object (
+  id            integer primary key autoincrement,
+  -- 025: a IDENTIDADE da copia e o ENDERECO dela.
+  storage_path  text not null unique,
+  media_type    text not null,
+  bytes         integer not null,
+  -- 025: SEM unique, e medido — a ADAMA publicou a mesma ficha como ficha de
+  -- dois produtos, e sao dois objetos com o mesmo sha.
+  sha256        text not null,
+  created_at    text not null default (datetime('now')),
+  constraint objeto_tem_endereco check (trim(storage_path) <> ''),
+  -- 026: o alvo da chave estrangeira COMPOSTA de raw_asset. Nao torna
+  -- `sha256` unico: torna o PAR (id, sha256) unico, que ja era verdade porque
+  -- `id` e chave primaria. Existe para o banco poder exigir que a observacao e
+  -- a copia falem do MESMO conteudo.
+  constraint objeto_id_e_sha_juntos unique (id, sha256)
+);
+create index storage_object_hash_idx on storage_object (sha256);
+
 create table raw_asset (
   id            integer primary key autoincrement,
   -- 001: NOT NULL com chave estrangeira. E a trava que impede byte sem corrida —
@@ -91,13 +115,76 @@ create table raw_asset (
   source_url    text,
   preserved     integer not null default 1,
   not_preserved_reason text,
+  -- 025: QUAL COPIA esta observacao preservou. Anulavel, porque uma observacao
+  -- NAO PRESERVADA nao tem copia para apontar.
+  storage_object_id integer references storage_object(id),
+  -- ── TRADUCAO DA MIGRATION 026 ────────────────────────────────────────
+  -- NOT NULL e SEM DEFAULT. O default seria a porta de fuga: com ele, um
+  -- writer que esquecesse a coluna CLASSIFICARIA a linha em silencio. Aqui a
+  -- coluna ja nasce fechada porque este banco nasce vazio — no Postgres ela
+  -- passa por uma fase anulavel e fecha na fase 8, que e a metade que so
+  -- aquele lado prova.
+  identity_state      text not null,
+  source_id           text,
+  document_key        text,
+  document_key_basis  text,
+  -- TELEMETRIA, e fora da chave. Anulaveis de proposito: nao se escreve 1 so
+  -- porque houve sucesso.
+  attempts            integer,
+  last_attempt_at     text,
   constraint bruto_ausente_precisa_de_motivo
     check (preserved = 1 or not_preserved_reason is not null),
+  -- 025: preservado E uma afirmacao, e uma afirmacao tem de poder ser
+  -- conferida. Aqui ela ja nasce validada; no Postgres instala-se NOT VALID e
+  -- valida-se a seguir, que e a metade que so o Postgres prova.
+  constraint preservado_aponta_para_a_copia
+    check (preserved = 0 or storage_object_id is not null),
+  -- 026: os tres estados, e o banco recusa um quarto.
+  constraint estado_de_identidade_tem_vocabulario
+    check (identity_state in ('LEGACY_PRE_IDEMPOTENCY','FORWARD_IDENTIFIED',
+                              'FORWARD_IDENTITY_UNPROVEN')),
+  -- 026: escrito como «= LEGADO or fonte real», e nao como «<> FORWARD_*»:
+  -- assim qualquer estado que venha a nascer cai DENTRO da exigencia, e so o
+  -- legado fica de fora, por nome.
+  --     «nao sei qual documento»  !=  «nao sei que fonte pedi»
+  constraint fonte_real_em_qualquer_estado_forward
+    check (identity_state = 'LEGACY_PRE_IDEMPOTENCY'
+           or (source_id is not null and trim(source_id) <> ''
+               and upper(trim(source_id)) not in
+                   ('NAO SEI','NAO_SEI','NÃO SEI','NAO_SE_APLICA',
+                    'UNKNOWN','NOT_KNOWN'))),
+  constraint forward_identificado_exige_identidade
+    check (identity_state <> 'FORWARD_IDENTIFIED'
+           or (document_key is not null and trim(document_key) <> ''
+               and upper(trim(document_key)) not in
+                   ('NAO SEI','NAO_SEI','NÃO SEI','NAO_SE_APLICA',
+                    'UNKNOWN','NOT_KNOWN')
+               and document_key_basis is not null)),
+  constraint forward_sem_prova_nao_finge_chave
+    check (identity_state <> 'FORWARD_IDENTITY_UNPROVEN'
+           or (document_key is null and document_key_basis is null)),
+  -- 026: CONTENT_DERIVED foi REVOGADO. O vocabulario tem UM valor, e o check
+  -- nao olha para a chave — olhar sugeriria que ha uma forma certa de o
+  -- escrever.
+  constraint base_da_chave_tem_vocabulario
+    check (document_key_basis is null
+           or document_key_basis = 'SOURCE_DOCUMENT_ID'),
+  -- 026: a observacao e a copia falam do MESMO conteudo. Chave estrangeira
+  -- COMPOSTA — a simples deixava `sha256 = H1` apontar para um objeto de H2.
+  foreign key (storage_object_id, sha256)
+    references storage_object(id, sha256),
   -- 022: o alvo da chave estrangeira COMPOSTA de derived_artifact. Nao e regra
   -- nova — (id, sha256) ja era unico porque id e chave primaria — e sem ela o
   -- SQLite recusa a FK com «foreign key mismatch», tal como o Postgres.
   unique (id, sha256)
 );
+-- 026 · A CHAVE DE IDEMPOTENCIA, e ela exclui por ESTADO e nunca por «onde o
+-- campo e nulo». Excluir por nulo deixaria uma observacao forward escapar da
+-- protecao por esquecimento; excluir por estado obriga a linha a DECLARAR-SE.
+create unique index raw_identidade_forward_idx
+  on raw_asset (run_id, source_id, document_key, sha256)
+  where identity_state = 'FORWARD_IDENTIFIED';
+create index raw_storage_object_idx on raw_asset (storage_object_id);
 create index raw_hash_idx on raw_asset (sha256);
 create index raw_run_idx  on raw_asset (run_id);
 
@@ -132,6 +219,35 @@ create table derived_artifact (
           serie_posicao)
 );
 create index derived_parent_idx on derived_artifact (parent_sha256);
+
+-- TRADUCAO da migration 029.
+--
+-- ⚠️ ELA FALTAVA AQUI, E A FALTA SO APARECEU QUANDO ALGUEM CORREU O CAMINHO
+-- DE PRODUCAO. `preservar_derivado` escreve esta aresta sempre que a passagem
+-- declara `run_id` — e `derivacao_forward.correr()` declara SEMPRE. Os testes
+-- do writer nunca a exercitaram porque o pedido deles nao leva corrida, e por
+-- isso `_declarar_participacao` devolvia `PARTICIPACAO_SEM_CORRIDA` e voltava
+-- para tras sem tocar no banco.
+--
+--     UM BANCO DE TESTE SEM UMA TABELA DA PRODUCAO
+--     NAO E UM BANCO MAIS SIMPLES: E UM CAMINHO QUE NAO SE CONSEGUE CORRER.
+--
+-- Medido a 2026-09-21: o canario da rota do HTML rebentou com
+-- `no such table: participacao_na_derivacao` na PRIMEIRA vez que uma prova
+-- chamou `derivar_um` pelo runner canonico em vez de o chamar a mao.
+create table participacao_na_derivacao (
+  raw_asset_id        integer not null references raw_asset (id),
+  derived_artifact_id integer not null references derived_artifact (id),
+  first_seen_derivation_run_id text not null
+                      references collection_run (run_id),
+  first_seen_at       text not null default (datetime('now')),
+  -- 029: participar outra vez nao e participar duas vezes.
+  primary key (raw_asset_id, derived_artifact_id)
+);
+create index participacao_por_derivado_idx
+  on participacao_na_derivacao (derived_artifact_id);
+create index participacao_por_corrida_idx
+  on participacao_na_derivacao (first_seen_derivation_run_id);
 """
 
 
@@ -193,11 +309,45 @@ class MemoriaDescartavel(MemoriaDoDerivado):
         linha = cur.fetchone()
         return dict(linha) if linha else None
 
-    def objeto_em(self, storage_path: str):
+    # ── UMA PERGUNTA, UMA CHAVE ─────────────────────────────────────────
+    # `objeto_em(storage_path)` vivia aqui e ia a `raw_asset` buscar a primeira
+    # linha do endereco. Depois da fase 10 sao N, e «a primeira» e a que o
+    # planeador devolver. As tres perguntas separadas nao tem essa escolha.
+    def copia_em(self, storage_path: str):
         cur = self.con.execute(
-            "select * from raw_asset where storage_path = ?", (storage_path,))
+            "select * from storage_object where storage_path = ?",
+            (storage_path,))
         linha = cur.fetchone()
         return dict(linha) if linha else None
+
+    def observacao_identificada(self, run_id, source_id, document_key, sha256):
+        cur = self.con.execute(
+            "select * from raw_asset where identity_state = ?"
+            " and run_id = ? and source_id = ? and document_key = ?"
+            " and sha256 = ?",
+            ("FORWARD_IDENTIFIED", run_id, source_id, document_key, sha256))
+        linha = cur.fetchone()
+        return dict(linha) if linha else None
+
+    def tentativa_sem_prova(self, run_id, source_id, storage_object_id, sha256):
+        # `is not distinct from` e nao `=`: sem copia o `storage_object_id` e
+        # nulo dos dois lados, e `null = null` nao e verdade em SQL nenhum.
+        # Era exactamente isto que fazia a chave deixar passar a linha nao
+        # preservada — medido, e a razao de `nulls not distinct` no indice.
+        cur = self.con.execute(
+            "select * from raw_asset where identity_state = ?"
+            " and run_id = ? and source_id = ?"
+            " and storage_object_id is ? and sha256 = ?",
+            ("FORWARD_IDENTITY_UNPROVEN", run_id, source_id,
+             storage_object_id, sha256))
+        linha = cur.fetchone()
+        return dict(linha) if linha else None
+
+    def observacoes_em(self, storage_path: str):
+        cur = self.con.execute(
+            "select * from raw_asset where storage_path = ? order by id",
+            (storage_path,))
+        return [dict(x) for x in cur.fetchall()]
 
     def objetos_da_corrida(self, run_id: str):
         cur = self.con.execute(

@@ -1,0 +1,88 @@
+{
+ "PASSOS": {
+  "1_MIGRATIONS": {
+   "CODIGO": 0,
+   "PASS": 32
+  },
+  "2_POUSAR": {
+   "SINT-R7-SALA-1": {
+    "ESTADO": "PASSED",
+    "INSERIDAS": 6
+   },
+   "SINT-R7-SALA-T6": {
+    "ESTADO": "PASSED",
+    "INSERIDAS": 3
+   }
+  },
+  "3_EXPORT": {
+   "CODIGO": 0,
+   "ERRO": "",
+   "LINHAS": 9,
+   "READ_ONLY": "on"
+  },
+  "4_ESCRITA_RECUSADA": {
+   "CODIGO": 1,
+   "ERRO": "ERROR:  cannot execute INSERT in a read-only transaction"
+  },
+  "5_MOTOR": {
+   "JANELAS": [
+    [
+     "olivo",
+     "Bactrocera oleae",
+     "Puglia",
+     "NO",
+     "NO_DEFENSIBLE_ACTION_YET"
+    ]
+   ],
+   "NOT_POSSIBLE": [
+    "SINT-R7-ARIF-38#1"
+   ],
+   "ESTUDOS": [
+    [
+     "SINT-R7-EST-01",
+     "SCIENTIFIC_RESULT",
+     "FORTE",
+     "COMPLETA"
+    ],
+    [
+     "SINT-R7-EST-02",
+     "SCIENTIFIC_RESULT",
+     "INDICATIVA",
+     "PARCIAL"
+    ],
+    [
+     "SINT-R7-EST-03",
+     "RESISTANCE",
+     "FRACA",
+     "PARCIAL"
+    ]
+   ],
+   "RELACOES": [
+    "DIVERGENT",
+    "MESMA_REDACAO",
+    "TEMPORAL_CHANGE"
+   ],
+   "OBJETOS": {
+    "windows": 1,
+    "science": 3,
+    "future": 1,
+    "sources": 3
+   }
+  },
+  "6_IGUAL_A_FIXTURE": true,
+  "5_POTE_V2": {
+   "future": 1,
+   "windows": 1,
+   "science": 2,
+   "sources": 3
+  },
+  "5_POTE_V2_RECUSADOS": [
+   [
+    "science",
+    "PROVA_INCOMPLETA",
+    "falta DOCUMENT_ID"
+   ]
+  ]
+ },
+ "ESTADO": "PASS"
+}

@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T9-013",
+ "SOURCE": "Certis Belchim Italia",
+ "OWNER": "Certis Belchim",
+ "URL": "https://www.certisbelchim.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:32Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 198095 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://certisbelchim.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Certis Belchim &#8211; Growing Together",
+  "IDIOMA": "en-us",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 221640
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://certisbelchim.co.uk/pdf/GENERAL%20TERMS%20AND%20CONDITIONS%20OF%20SALE.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Termini e condizioni di vendita standard",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 198095,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "a18ce1559fc7c852dcb99d9f0c0c1a10eac768aceab80aeaa546e8afa6e6cfee",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

@@ -70,7 +70,39 @@ NAVIGATION_FAILED = 'NAVIGATION_FAILED'
 
 # ─────────────────────────────────────────────────────── WebSocket em socket puro
 class Erro(Exception):
-    """Falha de transporte com o navegador. Nunca é conclusão sobre a página."""
+    """Falha de transporte com o navegador. Nunca é conclusão sobre a página.
+
+    ⚠️ E ALGUMAS DELAS ESTE FICHEIRO SABE NOMEAR, E POR ISSO NOMEIA-AS.
+
+    Medido na NIGHT-SHIFT-01 §9: sem Chrome nesta máquina,
+    `instagram.profile.discovery` chegava ao trace como `UNKNOWN_ERROR` — o
+    balde de «ninguém sabe o que houve» — enquanto a mensagem dizia, por
+    extenso, «sem Chrome nesta máquina». `leis/falhas.py` já tinha o estado
+    certo à espera, e já listava `BROWSER_NOT_REACHED` como nome nativo dele:
+
+        EXECUTOR_UNAVAILABLE · camada EXECUTOR
+        «a nossa ferramenta não está lá — Chrome não subiu, ator não existe.
+         Nada foi medido sobre a fonte.»
+
+    Faltava só quem o dissesse. E o dono é este ficheiro — `falhas.classificar`
+    escreve-o por extenso: «Quem tem informação melhor — `apify_pool`,
+    `social_rotas`, `cdp` — deve classificar por conta própria».
+
+        UMA MENSAGEM QUE SABE E UM ESTADO QUE NÃO SABE VALEM MENOS QUE NENHUM
+        DOS DOIS: QUEM LÊ POR MÁQUINA LÊ O ESTADO.
+
+        FAILURE STATE VEM DO DONO, OU NÃO É FAILURE STATE.
+
+    `estado` fica `None` onde este ficheiro NÃO sabe — um erro de JavaScript na
+    página não é o navegador em falta, e carimbá-lo com o mesmo nome seria
+    trocar um balde por outro. NÃO SEI CONTINUA A SER UMA RESPOSTA.
+    """
+
+    def __init__(self, mensagem, estado=None):
+        super().__init__(mensagem)
+        #: O nome nativo do estado, no vocabulário que `leis/falhas.py` já
+        #: traduz — ou `None` quando este ficheiro não tem como saber.
+        self.estado = estado
 
 
 def _handshake(host, porta, caminho, timeout):
@@ -221,7 +253,8 @@ def abas(porta, timeout=10):
     except (urllib.error.URLError, OSError, ValueError) as e:
         raise Erro('não achei Chrome escutando na porta %d (%s: %s). '
                    'Ele foi aberto com --remote-debugging-port=%d?'
-                   % (porta, type(e).__name__, str(e)[:80], porta))
+                   % (porta, type(e).__name__, str(e)[:80], porta),
+                   BROWSER_NOT_REACHED)
 
 
 def subir(porta, *, perfil=None, url='about:blank', segundos=25):
@@ -242,7 +275,8 @@ def subir(porta, *, perfil=None, url='about:blank', segundos=25):
         pass
     achado = navegador.descobrir()
     if not achado['FOUND']:
-        raise Erro('sem Chrome nesta máquina: %s' % achado.get('WHY'))
+        raise Erro('sem Chrome nesta máquina: %s' % achado.get('WHY'),
+                   BROWSER_NOT_REACHED)
     args = navegador.argumentos(url, perfil=perfil, porta_devtools=porta)
     p = subprocess.Popen([achado['EXECUTABLE']] + args,
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -253,7 +287,8 @@ def subir(porta, *, perfil=None, url='about:blank', segundos=25):
             return p
         except Erro:
             time.sleep(1)
-    raise Erro('o Chrome subiu mas a porta %d não passou a escutar em %ds' % (porta, segundos))
+    raise Erro('o Chrome subiu mas a porta %d não passou a escutar em %ds'
+               % (porta, segundos), BROWSER_NOT_REACHED)
 
 
 def _aba_de_pagina(porta):

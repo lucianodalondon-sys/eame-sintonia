@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T5-020",
+ "SOURCE": "IRIS UNITO — Archivio istituzionale",
+ "OWNER": "Universita di Torino",
+ "URL": "https://iris.unito.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:11Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 148662 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://iris.unito.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Home page",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 47620
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://iris.unito.it/sr/htm/pdf/come_allegare_2023.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Come allegare il file Open Access [istruzioni]",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 148662,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "a4717407c0e8e82d4a23e07c7c09cf7a2ab8a607715c96ab78e7a9e596b99ac2",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

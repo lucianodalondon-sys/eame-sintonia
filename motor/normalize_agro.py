@@ -299,6 +299,162 @@ def evaluate(pairs, esd):
     return recs
 
 
+# ═══════════════════════════════════════════════════════════════════════════
+# A IDENTIDADE DO PROBLEMA NUM TEXTO JÁ GUARDADO — sem rede, e sem parecido-com
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# O estudo da Intelligence mediu, na linha dela, 7.078 registos e 836 com
+# `ISSUE_ID` utilizável — 11,8 % — e disse que havia nomes de praga e de doença
+# **já presentes no texto** sem identidade estruturada nenhuma.
+#
+# Medido outra vez, nesta árvore, contra os textos REAIS que já estão guardados
+# (`data/derivados/texto/*.txt`, 43 ficheiros extraídos de documentos italianos):
+#
+#     34 dos 43 contêm um BINÓMIO LATINO que casa EXACTAMENTE com o nome
+#     científico de uma entrada do dicionário EPPO que esta casa já tem.
+#
+# Isso é reprocessável **sem coleta nova**, e é o que esta função faz.
+#
+# ── AS QUATRO RECUSAS, E SÃO ELAS QUE TORNAM ISTO DEFENSÁVEL ────────────────
+#
+# 1 · NADA DE PARECIDO-COM. Só casamento exacto, palavra inteira, do binómio
+#     latino. `SequenceMatcher` existe neste ficheiro e NÃO é usado aqui: um
+#     `ratio()` alto entre dois nomes de espécie é a maneira mais rápida de
+#     fabricar um `ISSUE_ID` que ninguém vai reabrir.
+#
+# 2 · NOME COMUM ITALIANO NÃO CUNHA NADA. `peronospora`, `oidio`, `botrite`,
+#     `ticchiolatura` estão nos boletins às dezenas — e esta árvore NÃO tem
+#     autoridade italiano→EPPO nenhuma. Sem autoridade, `ISSUE_ID = UNKNOWN`
+#     e o termo original fica preservado. Inventar o código a partir da
+#     semelhança com o espanhol seria exactamente o defeito que a `COL-LAW-034`
+#     proíbe: junção por semelhança textual.
+#
+#         VITE · VITE DA VINO · VINE PARECEM-SE E NÃO SE AUTORIZAM.
+#
+# 3 · UMA MENÇÃO NÃO É UMA OCORRÊNCIA. O nome sai daqui como `ISSUE_MENTION`,
+#     nunca como «esta praga ocorreu». A `COL-LAW-032` já tinha escrito a mesma
+#     lei para o lugar — *«MENÇÃO NÃO É FATO»* — e um boletim que LISTA trinta
+#     pragas num índice não afirma trinta ocorrências.
+#
+# 4 · A NORMALIZAÇÃO NÃO DESTRÓI O ORIGINAL (COL-LAW-203). O que sai traz o
+#     termo tal como está no texto, a posição onde foi encontrado, a autoridade
+#     que confirmou e a versão da regra — para que um erro de amanhã seja
+#     reprocessável em vez de permanente.
+#
+# ⚠️ E NÃO HÁ REDE AQUI. `pest_index()` e `crop_index()` vão à EPPO Global
+# Database e guardam cache em `data/raw/EPPO-CACHE/`, que NÃO existe nesta
+# árvore. Esta função lê só o dicionário que já está no repositório.
+VERSAO_DA_REGRA_DE_MENCAO = 'mencao-eppo-v1'
+
+#: Uma menção é do que o texto NOMEIA. Estas duas palavras separam o que a
+#: função faz do que ela NÃO faz, e são parte do resultado.
+ISSUE_MENTION = 'ISSUE_MENTION'
+ISSUE_OCCURRENCE = 'ISSUE_OCCURRENCE'   # NUNCA devolvido aqui.
+
+_BINOMIO = re.compile(r'^[A-Z][a-z]{2,}\s+[a-z][a-z.\-]{2,}$')
+
+
+def _binomios_do_dicionario(tabela):
+    """`{forma normalizada: (codigo, cientifico)}`, só para binómios de verdade.
+
+    O dicionário do MAPA mistura espécies com GRUPOS — `3WEEDT` tem
+    `scientific = "Malas hierbas"`, que não é um nome científico nenhum. Deixar
+    um grupo entrar aqui faria a frase «malas hierbas» de um texto qualquer
+    cunhar um código de praga.
+
+        UM GRUPO NÃO É UMA ESPÉCIE, E UM RÓTULO DE GAVETA NÃO É UM TÁXON.
+
+    ⚠️ E A FORMA NÃO CHEGA — ISTO FOI MEDIDO A FALHAR.
+    A primeira versão só olhava para o FEITIO do nome (`Xxxx yyyy`), e
+    `"Malas hierbas"` tem exactamente esse feitio: maiúscula, minúscula, duas
+    palavras. O ataque passou:
+
+        mencoes_de_problema("malas hierbas no campo")  ->  3WEEDT
+
+    O que separa um táxon de um rótulo não é o feitio: é a tabela dizer a MESMA
+    coisa nas duas colunas. Quando o MAPA não tem nome científico para uma
+    gaveta, ele repete o nome comum na coluna científica — e é essa repetição
+    que denuncia a gaveta.
+
+        PARECER UM NOME CIENTÍFICO != SER UM NOME CIENTÍFICO.
+    """
+    fora = {}
+    for codigo, v in tabela.items():
+        cientifico = (v.get('scientific') or '').strip()
+        comum = (v.get('es') or '').strip()
+        if not _BINOMIO.match(cientifico):
+            continue
+        if comum and norm(comum) == norm(cientifico):
+            continue
+        fora.setdefault(norm(cientifico), (codigo, cientifico))
+    return fora
+
+
+def mencoes_de_problema(texto, dicionario=None):
+    """Os problemas que ESTE texto NOMEIA, com o código EPPO que os confirma.
+
+    Devolve uma lista de recibos. Cada um diz o que foi encontrado, onde, qual
+    a autoridade e o que isto NÃO afirma. Texto sem binómio nenhum devolve `[]`
+    — e `[]` quer dizer «não encontrei nome que eu saiba confirmar», nunca
+    «não há problema nenhum aqui».
+
+        NENHUMA MENÇÃO ENCONTRADA != NENHUM PROBLEMA NO DOCUMENTO.
+    """
+    dic = dicionario if dicionario is not None else es_dict()
+    alvo = norm(texto or '')
+    if not alvo.strip():
+        return []
+    fora = []
+    for chave, (codigo, cientifico) in sorted(_binomios_do_dicionario(dic['pests']).items()):
+        at = re.search(r'(?<![a-z0-9])' + re.escape(chave) + r'(?![a-z0-9])', alvo)
+        if not at:
+            continue
+        fora.append({
+            'ESPECIE_DO_ACHADO': ISSUE_MENTION,
+            'ISSUE_EPPO': codigo,
+            'ISSUE_CANONICO': cientifico,
+            # COL-LAW-203: o valor original nunca se perde.
+            'TERMO_ORIGINAL': cientifico,
+            'ONDE': at.start(),
+            'COMO': 'CASAMENTO_EXACTO_DE_BINOMIO_LATINO',
+            'AUTORIDADE': 'data/samples/ES-T4-001/eppo-dictionary.json '
+                          '(tabelas oficiais do MAPA · ES-T4-001)',
+            'RULE_VERSION': VERSAO_DA_REGRA_DE_MENCAO,
+            'O_QUE_ISTO_NAO_AFIRMA':
+                'que o problema OCORREU, nem onde, nem quando. E uma mencao '
+                'nomeada no texto (COL-LAW-032: MENCAO NAO E FATO).',
+        })
+    return fora
+
+
+def termos_sem_autoridade(texto, vocabulario):
+    """Os nomes comuns que o texto usa e que esta casa NÃO sabe traduzir.
+
+    Existe para a lacuna ser DIZÍVEL. Sem isto, um boletim cheio de
+    `peronospora` sai com zero menções e parece um documento sem problema
+    nenhum — quando a verdade é que o problema está lá e falta a autoridade.
+
+        NOT_IN_AUTHORITY != NOT_A_PROBLEM != REJECTED_BY_LAW
+    """
+    alvo = norm(texto or '')
+    fora = []
+    for termo in vocabulario:
+        chave = norm(termo)
+        at = re.search(r'(?<![a-z0-9])' + re.escape(chave) + r'(?![a-z0-9])', alvo)
+        if at:
+            fora.append({
+                'TERMO_ORIGINAL': termo,
+                'ISSUE_EPPO': 'UNKNOWN',
+                'ONDE': at.start(),
+                'PORQUE': 'NO_AUTHORITY_FOR_THIS_LANGUAGE: esta arvore nao tem '
+                          'crosswalk italiano->EPPO. Cunhar um codigo por '
+                          'semelhanca com o espanhol seria juncao por semelhanca '
+                          'textual, que a COL-LAW-034 proibe.',
+                'RULE_VERSION': VERSAO_DA_REGRA_DE_MENCAO,
+            })
+    return fora
+
+
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'build'
     pairs, esd = load_pairs(), es_dict()

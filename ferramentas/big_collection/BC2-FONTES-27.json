@@ -1,0 +1,224 @@
+{
+ "DATASET": "BC2-FONTES-27",
+ "MISSAO": "BC2, 23/09/2026",
+ "COMO": "canario real medidas/canario_rotas_elegiveis.py (robots primeiro, 1 s entre pedidos, max 4 por fonte), 1 fonte por vez, 10 s entre fontes, sites intercalados; egresso IT PASS antes; as 5 UNKNOWN repetidas com egresso IT antes e depois de cada uma. Depois o DONO: curadoria/onboardar_rotas_provadas.py (com a regra nova: duplicada de fonte ja contratada) --aplicar",
+ "EGRESSO": "antes IT/PASS; no fim da 1.a volta o medidor deu UNKNOWN (rede a oscilar: 5 URLError/timeout); 2 min depois IT/PASS x2 e curl ipinfo=IT; as repeticoes com IT antes e depois de cada fonte",
+ "RESULTADO": {
+  "CANARIO": {
+   "ROUTE_PROVEN": 20,
+   "UNKNOWN": 4,
+   "CAPABILITY_BLOCK": 3
+  },
+  "ONBOARDAR": {
+   "ENTRA": 18,
+   "FICA": 7
+  },
+  "PRONTAS": "10 -> 19",
+  "BLOQUEADAS": "27 -> 18"
+ },
+ "IDENTIDADE_A_REVER": {
+  "CIA (mesmo site e padrao, seccoes diferentes, canarios em materias diferentes)": [
+   "IT-T7-112",
+   "IT-T7-118",
+   "IT-T7-121",
+   "IT-T7-123",
+   "IT-T7-135"
+  ],
+  "Terra e Vita": [
+   "IT-T8-021",
+   "IT-T8-051"
+  ],
+  "NOTA": "entraram; a Sala e idempotente por documento (A3); dono da identidade decide se sao uma fonte"
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T12-137",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 3 links pelo motor -> https://www.psrn.it/evento/grande-successo-di-pubblico-allevento-di-chiusura-della-campagna-di-comunicazione-del-psrn-2014-2022/ com 6324 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T12",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-056",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 8 links pelo motor -> https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2 com 851 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_CONTRATO_DE_COLETA",
+   "MOTIVO_MEDIDO": "pagina de SELECCAO DE IDIOMA da ARPAE (OWNER 'Italiano'): mesmo site e padrao que IT-T2-051, ja contratada"
+  },
+  {
+   "SOURCE_ID": "IT-T2-106",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 8 links pelo motor -> https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2 com 851 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_CONTRATO_DE_COLETA",
+   "MOTIVO_MEDIDO": "outra pagina de seleccao de idioma da ARPAE: mesmo documento que IT-T2-056"
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "CANARIO": "CAPABILITY_BLOCK",
+   "CAUSA_DO_CANARIO": "https://www.di3a.unict.it/it/notizie/avvisi-lezioni: alvo sem corpo util: HTML_KIND=MIXED; https://www.di3a.unict.it/it/notizie/kit-di-sopravvivenza-la-sessione-di-esami-strumenti-psicologici-contro-lansia: alvo sem corp",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: ROTA:CAPABILITY_BLOCK",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-090",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 41 links pelo motor -> https://www.istat.it/attivita-e-servizi-per-tipo-di-utenti/ricercatori/eventi-segnalati-dalle-societa-scientifiche/ com 7110 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "PRONTA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-101",
+   "CANARIO": "UNKNOWN",
+   "CAUSA_DO_CANARIO": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_CONTRATO_DE_COLETA",
+   "MOTIVO_MEDIDO": "cnr.it: o curl le o robots (HTTP 200) mas o Python do canario nao (URLError) — defeito do nosso lado, NAO SEI"
+  },
+  {
+   "SOURCE_ID": "IT-T7-053",
+   "CANARIO": "UNKNOWN",
+   "CAUSA_DO_CANARIO": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_CONTRATO_DE_COLETA",
+   "MOTIVO_MEDIDO": "veneto.coldiretti.it: tempo esgotado a partir desta saida (a Coldiretti recusa a saida Proton, memoria de 22/09)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-058",
+   "CANARIO": "UNKNOWN",
+   "CAUSA_DO_CANARIO": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_CONTRATO_DE_COLETA",
+   "MOTIVO_MEDIDO": "unaprol.it: tempo esgotado a partir desta saida"
+  },
+  {
+   "SOURCE_ID": "IT-T7-100",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 2 links pelo motor -> https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo com 2344 caracteres em paragrafos (1 alvo(s) abert",
+   "DEPOIS_DO_ONBOARDAR": "PRONTA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-112",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 4 links pelo motor -> https://www.cia.it/news/notizie/agia-cia-umbria-primo-insediamento-dei-giovani-agricoltori-70-mila-sono-unopportunita/ com 2355 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "PRONTA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-115",
+   "CANARIO": "CAPABILITY_BLOCK",
+   "CAUSA_DO_CANARIO": "https://www.cia.it/news/settore-comunicazione-contatti/: CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (89 ligacoes para 1607 caracteres, 0 em paragrafos); https://www.cia.it/",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_CONTRATO_DE_COLETA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-117",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 7 links pelo motor -> https://www.caf-cia.it/news/notizie/servizio-delega-digitale-730-precompilato/ com 932 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "PRONTA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-118",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 10 links pelo motor -> https://www.cia.it/news/notizie/la-presidente-di-donne-in-campo-cia-a-salerno-al-forum-di-cibo-dintorni/ com 1463 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "PRONTA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-120",
+   "CANARIO": "CAPABILITY_BLOCK",
+   "CAUSA_DO_CANARIO": "https://inac-cia.it/news/notizie/sei-un-pensionato/: alvo sem corpo util: HTML_KIND=MIXED; https://inac-cia.it/news/notizie/vuoi-sapere-quando-andrai-in-pensione/: alvo sem corpo util: HTML_KIND=MIXED",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_CONTRATO_DE_COLETA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-121",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 4 links pelo motor -> https://www.cia.it/news/notizie/biologico-anabio-cia-la-domanda-cresce-ma-non-abbastanza-il-reddito-delle-aziende/ com 1522 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "PRONTA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-123",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 4 links pelo motor -> https://www.cia.it/news/notizie/fauna-selvatica-cia-etruria-a-pomarance-danni-ingenti-alle-colture/ com 2341 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "PRONTA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-135",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 5 links pelo motor -> https://cia.it/news/notizie/la-zuppa-della-felicita-salentina-vince-agrichef-festival-2025/ com 2622 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "PRONTA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-141",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 11 links pelo motor -> https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2026/ com 4508 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "PRONTA",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-021",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 18 links pelo motor -> https://terraevita.edagricole.it/attualita/soil-date-i-giovani-dicono-la-loro-sul-futuro-del-suolo/ com 6534 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T8",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-028",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 4 links pelo motor -> https://rivistafrutticoltura.edagricole.it/eventi/fruitlab-2026-dalla-ricerca-al-campo-la-sfida-e-fare-innovazione/ com 6721 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T8",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-029",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 5 links pelo motor -> https://contoterzista.edagricole.it/tecnica/per-unottima-trinciatura-di-grandi-aree-verdi/ com 15368 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T8",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-030",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 5 links pelo motor -> https://informatorezootecnico.edagricole.it/documenti/cheese-2025-vetrina-mondiale-dei-formaggi-a-latte-crudo/ com 18227 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T8",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-034",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 5 links pelo motor -> https://macchineagricolenews.edagricole.it/notizie-dallindustria/crisi-climatica-e-geopolitica-frenano-il-mercato/ com 3586 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T8",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-039",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 4 links pelo motor -> https://rivistaorticoltura.edagricole.it/filiere-agricoltura24/news-filiere-agricoltura24/ortaggi-lilluminazione-migliora-il-profilo-nutrizionale/ com 2892 caracteres em paragrafos (1 alvo",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T8",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-040",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 3 links pelo motor -> https://suinicoltura.edagricole.it/eventi/il-futuro-della-zootecnia-alla-fiera-di-montichiari-il-24-ottobre/ com 3541 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T8",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-051",
+   "CANARIO": "ROUTE_PROVEN",
+   "CAUSA_DO_CANARIO": "indice -> 8 links pelo motor -> https://terraevita.edagricole.it/attualita/bruxelles/pac-la-nuova-ocm-ridisegna-gli-equilibri-piu-flessibilita-agli-stati/ com 3560 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T8",
+   "MOTIVO_MEDIDO": null
+  },
+  {
+   "SOURCE_ID": "IT-T9-021",
+   "CANARIO": "UNKNOWN",
+   "CAUSA_DO_CANARIO": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "DEPOIS_DO_ONBOARDAR": "BLOQUEADA: SEM_RECEITA_WEB_PARA_T9",
+   "MOTIVO_MEDIDO": "fieradidacta.indire.it: o DNS daqui nao resolve o nome (curl rc 6); ja tinha contrato; falta tambem a receita web T9"
+  }
+ ]
+}

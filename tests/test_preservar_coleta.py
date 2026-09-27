@@ -49,6 +49,9 @@ BYTES_B = b"o conteudo B"
 def _art(nome, dados, nativo, usado_por=None, url=None):
     return {
         "COUNTRY": "IT", "SOURCE_SLUG": "fonte-de-teste",
+        # 026: a observacao diz DE QUEM e DE QUE ela e. Sem SOURCE_ID real o
+        # dono do RAW recusa — e nao ha estado de identidade para inventar.
+        "SOURCE_ID": "IT-T2-002", "DOCUMENT_ID": "ARPAV:Z07:%s" % nativo,
         "ARTIFACT_KIND": "DOCUMENT", "NAME": nome,
         "SOURCE_NATIVE_ID": nativo, "SHA256": sha256(dados),
         "BYTES": len(dados), "MEDIA_TYPE": "application/pdf",
@@ -197,18 +200,60 @@ class OQueEsteDonoNuncaFaz(unittest.TestCase):
             self.assertNotIn(inventada, fonte)
 
     def test_nao_sabe_apagar_do_armazem(self):
-        """A porta do armazém tem três métodos, e nenhum é «remover»."""
+        """A porta do armazém tem quatro métodos, e nenhum é «remover».
+
+        A lista é EXATA de propósito: quem acrescentar um método à porta tem
+        de vir aqui dizer porquê. Uma porta que cresce sem passar por este
+        recenseamento é uma porta que ninguém sabe quão larga ficou.
+
+        ⚠️ O QUARTO CHEGOU EM `C-WIRE-STORAGE-TO-DERIVED`, e não é uma
+        pergunta nova: `caminho_local` é a mesma pergunta do `ler`, feita por
+        quem não pode receber bytes. Uma ferramenta externa — `pdftotext` —
+        recebe um CAMINHO e abre-o ela própria. Sem isto, quem manda derivar
+        reconstruía o caminho por fora, juntando a raiz ao `storage_path`, e a
+        regra de endereçamento passava a viver em dois sítios.
+
+            DOIS DONOS DO MESMO ENDEREÇO SÃO DOIS ENDEREÇOS,
+            E UM DELES VAI ESCREVER FORA DO ARMAZÉM.
+
+        E continua a não haver «remover»: se a memória falhar depois do envio,
+        apagar o byte para fingir atomicidade destruiria a única evidência que
+        sobrou.
+        """
         from guarda import preservar_coleta as pc
         metodos = [m for m in dir(pc.Armazem) if not m.startswith("_")]
-        self.assertEqual(sorted(metodos), ["enviar", "existe", "ler"])
+        self.assertEqual(sorted(metodos),
+                         ["caminho_local", "enviar", "existe", "ler"])
+        for apagar in ("remover", "apagar", "delete", "unlink", "drop"):
+            self.assertNotIn(apagar, metodos)
 
     def test_a_porta_do_banco_sabe_ler(self):
         """E a porta do banco tem de saber LER — sem leitura não há
-        reconciliação, e sem reconciliação `COMPLETE` é opinião."""
+        reconciliação, e sem reconciliação `COMPLETE` é opinião.
+
+        ⚠️ `objeto_em` SAIU, e o nome já dizia o erro: ele prometia um OBJETO
+        e ia buscá-lo a `raw_asset`, que guarda OBSERVAÇÕES. Enquanto o
+        endereço foi único as duas perguntas tiveram a mesma resposta por
+        acidente; as três implementações faziam `linhas[0] if linhas else
+        None`, e depois da fase 10 isso é «a que o planeador devolver».
+
+            ESCOLHER A PRIMEIRA E ESCOLHER AO ACASO COM CARA DE DETERMINISMO.
+
+        No lugar dele há quatro perguntas, e cada uma tem uma chave que a
+        torna determinística por construção.
+        """
         from guarda import preservar_coleta as pc
         metodos = sorted(m for m in dir(pc.Memoria) if not m.startswith("_"))
-        self.assertEqual(metodos,
-                         ["aplicar", "corrida", "objeto_em", "objetos_da_corrida"])
+        self.assertEqual(metodos, [
+            "aplicar",
+            "copia_em",                # que CÓPIA há neste endereço
+            "corrida",
+            "objetos_da_corrida",
+            "observacao_identificada",  # que OBSERVAÇÃO é esta (chave forward)
+            "observacoes_em",           # TODAS as daquele endereço; lista
+            "tentativa_sem_prova",      # a mesma, para quem não tem chave
+        ])
+        self.assertNotIn("objeto_em", metodos)
 
     def test_so_o_sql_de_fecho_promove_a_corrida(self):
         """`concluida` não aparece no SQL de escrita: a corrida abre `rodando`

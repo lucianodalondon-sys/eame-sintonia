@@ -59,6 +59,28 @@ const O_QUE_E_O_PAPEL = {
 };
 const papelCurto = n => (O_QUE_E_O_PAPEL[n.ROLE] || O_QUE_E_O_PAPEL.UNKNOWN)[0];
 
+/* ══ G9 · QUEM ATIVA ESTA PEÇA ═══════════════════════════════════════════════
+   O cartão respondia «Recebe de — ninguém» a um botão que uma PESSOA carrega.
+   «Ninguém» é falso, e faz uma entrada legítima parecer uma peça órfã.
+
+       UMA ENTRADA EXTERNA NÃO É UM BURACO. Chamar-lhe buraco gasta a
+       atenção que os buracos a sério precisam.
+
+   Sete respostas, e nenhuma delas é o silêncio. A classe vem MEDIDA do
+   gerador (`ATIVACAO`); aqui só se traduz para português de gente. */
+const O_QUE_E_A_ATIVACAO = {
+  PECA_INTERNA:          ['OUTRA PEÇA MANDA',  'há peça no mapa que manda esta correr'],
+  EXTERNO_MANUAL:        ['GENTE · À MÃO',     'é um botão: só se ativa quando alguém carrega'],
+  EXTERNO_AGENDADO:      ['O RELÓGIO',         'há horário declarado — corre sozinha'],
+  EXTERNO_EVENTO:        ['UM ACONTECIMENTO',  'um evento do repositório acorda-a'],
+  CANAL_ABERTO_POR_ROTA: ['ABRE-SE POR ROTA',  'um canal não corre: é aberto por uma rota'],
+  SO_A_PROVA_A_CORRE:    ['SÓ A PROVA',        'na coleta ninguém a corre — só quem a veio medir'],
+  NAO_SE_ATIVA:          ['NÃO SE ATIVA',      'é consultada, não corre'],
+  NAO_SEI:               ['NÃO SEI',           'nada medido diz quem lhe dá a ordem'],
+};
+const ativacaoDe = n => O_QUE_E_A_ATIVACAO[(n.ATIVACAO || {}).CLASSE]
+  || O_QUE_E_A_ATIVACAO.NAO_SEI;
+
 /* ══ G8 · A CLASSE DE PROVA DE UMA ARESTA — DOS QUATRO PLANOS, NUNCA DO KIND
    ---------------------------------------------------------------------------
    ISTO ERA O DEFEITO, E ELE ESTAVA MEDIDO NA TELA.
@@ -77,7 +99,7 @@ const papelCurto = n => (O_QUE_E_O_PAPEL[n.ROLE] || O_QUE_E_O_PAPEL.UNKNOWN)[0];
 
    Agora a classe sai dos planos, na ordem em que eles se provam:
 
-       OBSERVADA   ha corrida que a atravessou            (0 hoje, e e a verdade)
+       OBSERVADA   ha corrida que a atravessou            (plano OBSERVED)
        PROVADA     ha linha de codigo que a sustenta      (plano CODE)
        DECLARADA   uma autoridade disse que devia existir, e ninguem a provou
        NAO SEI     nem uma coisa nem outra
@@ -108,6 +130,15 @@ const VISOES = [
      onde o caminho canonico esta partido, ele aparece partido. */
   ['canonico', '⇉', 'Caminho canônico'],
   ['desvios', '⚠', 'Onde a coleta salta o cérebro'],
+  /* SCRAP / AQUISIÇÃO — um bloco, e não uma segunda Collection.
+     A COLLECTION PEDE · O SCRAP EXECUTA · A COLLECTION ADMITE.
+     A lente traz as peças que ESCOLHEM e CORREM ferramentas mutáveis de
+     aquisição, mais os canais por onde elas saem, mais as DUAS peças da
+     fronteira — o orquestrador, que pede, e a porta de admissão, que recebe.
+     Sem essas duas, o bloco flutuaria a falar com o nada.
+     O que NÃO entra: as provas com «scrap» no nome. Uma prova sobre a
+     aquisição não adquire nada, e nome não é prova de função. */
+  ['scrap', '⤥', 'SCRAP / aquisição'],
   ['all', '◉', 'Sistema inteiro'], ['official', '→', 'Rota oficial hoje'],
   ['lineage', '⌥', 'Linhagens e donos'], ['acervo', '◫', 'Acervo → pacote'],
   ['generator', '⚙', 'Gerador V2.1'], ['opportunity', '◎', 'Opportunity + relevância'],
@@ -118,6 +149,13 @@ const VISOES = [
 ];
 
 let S, nodes = [], edges = [], nodeById = {}, MUNDO = { w: 1, h: 1 };
+/* O nome da branch NAO vive nos factos do mapa: muda com o checkout, e o
+   validador reprovava o mesmo commit numa branch e nao noutra (D50). O gerador
+   escreve este ponteiro constante (FACTO_DO_RAMO em generate_system_map.py) e a
+   tela poe no lugar dele o valor medido, que vive em PROVENANCE.BRANCH. */
+const FACTO_DO_RAMO = 'branch · ver PROVENANCE.BRANCH';
+const facto = f => (f === FACTO_DO_RAMO && S && S.PROVENANCE && S.PROVENANCE.BRANCH)
+  ? `branch ${S.PROVENANCE.BRANCH}` : f;
 let scale = .145, tx = 8, ty = 18, drag = false, lx = 0, ly = 0;
 let currentView = 'all', pathSet = null, hoverId = null;
 /* As partes ligam-se em conjunto, nao uma de cada vez. Ver COLETA e A ESPERA
@@ -204,7 +242,7 @@ function render() {
            Ele continua a vista — escondido seria pior — mas atras do que a
            pessoa esta mesmo a perguntar. -->
       <div class="nodeFiles" title="${esc((n.files || []).join(' · '))}">${
-        esc((n.files.length ? n.files : n.facts || [])
+        esc((n.files.length ? n.files : (n.facts || []).map(facto))
         .slice(0, 2).join(' · ') || 'sem ficheiro')}</div>
     </div>`).join('');
 
@@ -263,8 +301,11 @@ function showNodeTip(e, n) {
          : '⚪ NÃO SEI — ninguém declarou'}</div>
      <div class="ttLabel">O que faz</div><div class="ttText">${esc(n.what)}</div>
      <div class="ttLabel">Por que está aqui</div><div class="ttText">${esc(n.why_here)}</div>
+     <div class="ttLabel">Quem ativa</div><div class="ttText"><b>${
+       esc(ativacaoDe(n)[0])}</b> — ${esc(ativacaoDe(n)[1])}</div>
      <div class="ttLabel">Recebe de</div><div class="ttText">${
-       de.length ? esc(de.slice(0, 3).join(' · ')) : '— ninguém'}</div>
+       de.length ? esc(de.slice(0, 3).join(' · '))
+         : '— nenhuma peça do mapa lhe entrega'}</div>
      ${(() => {
        /* «ENVIA PARA — ninguem» NUM CANAL E UMA MENTIRA POR OMISSAO.
           O canal nao escreve nada, e nunca escreveu: quem escreve e a acao que
@@ -681,6 +722,28 @@ function openDetail(id) {
           <i>${esc(n.ROLE_CONFLICT.RESOLUTION)}</i></div>` : ''}
       </div>
 
+      <!-- G9 · QUEM ATIVA. A primeira pergunta de quem olha um mapa de coleta
+           é «isto anda sozinho ou alguém tem de carregar?». O cartão não a
+           respondia em lado nenhum — e a ausência de seta lia-se como órfã. -->
+      ${(() => {
+        const a = n.ATIVACAO || {}; const [rot, exp] = ativacaoDe(n);
+        const quem = (a.QUEM || []).filter(q => q !== 'EXTERNO')
+          .map(q => nodeById[q]?.name || q);
+        const cinza = a.CLASSE === 'NAO_SEI' || a.CLASSE === 'SO_A_PROVA_A_CORRE';
+        return `<div class="sec"><h4>Quem ativa esta peça</h4>
+          <p><b>${esc(rot)}</b> — ${esc(exp)}</p>
+          ${quem.length ? `<div class="tags">${quem.map(q =>
+            `<span class="tag">${esc(q)}</span>`).join('')}</div>` : ''}
+          <div class="evidence" style="border-color:${cinza ? 'var(--warn)'
+            : 'var(--adama)'};background:${cinza ? '#fff8e2' : '#edf7f1'}">
+            ${esc(a.PORQUE || 'NÃO SEI')}
+            ${a.PLANO ? `<br><b>plano da prova: ${esc(a.PLANO)}</b>` : ''}
+            ${(a.PROVA || []).filter(Boolean).length
+              ? `<div class="limite">${(a.PROVA || []).filter(Boolean)
+                  .slice(0, 4).map(esc).join('<br>')}</div>` : ''}
+          </div></div>`;
+      })()}
+
       <!-- G8 · O QUE ENTRA E O QUE SAI, EM FICHEIROS.
            As setas dizem DE QUEM vem. Isto diz O QUE vem — e são perguntas
            diferentes: uma peça pode receber de três peças e ler um ficheiro só. -->
@@ -743,7 +806,7 @@ function openDetail(id) {
         quem esta peça alimenta (${sai.length})</h4>${lig(sai, 'out')}</div>
 
       ${n.facts?.length ? `<div class="sec"><h4>Medido</h4>${
-        n.facts.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}
+        n.facts.map(f => `<div class="file">${esc(facto(f))}</div>`).join('')}</div>` : ''}
 
       ${n.produces?.length ? `<div class="sec">
         <h4>O que esta peça produz (${n.produces.length})</h4>
@@ -1137,6 +1200,20 @@ function renderMini() {
 }
 
 /* ══ 6 · INVENTARIO — o repositorio inteiro, sem acreditar na palavra do mapa ═ */
+/* A CONTA DAS SETAS SEM PROVA — DERIVADA, e nunca escrita na casca.
+   Estava «47 de 659» à mão no HTML, e o mapa já ia em 671 arestas. Um número
+   escrito à mão numa tela é um facto a esconder-se onde nenhum validador o
+   alcança — que é exactamente o que o cabeçalho do `index.html` proíbe.
+
+       O MAPA É DERIVADO DO REPO. A CONTAGEM DELE TAMBÉM. */
+function contarSemProva() {
+  const el = $('contaSemProva'); if (!el) return;
+  const sem = edges.filter(e => !arestaProvada(e)).length;
+  const obs = edges.filter(e => e.OBSERVED === 'YES').length;
+  el.textContent = `${sem} de ${edges.length}`
+    + (obs ? ` · e ${obs} são OBSERVADAS` : '');
+}
+
 function renderInventory(q = '') {
   q = q.toLowerCase();
   $('inventoryBody').innerHTML = Object.entries(S.INVENTORY).map(([grupo, arr]) => {
@@ -1441,6 +1518,49 @@ const relogio = s => (typeof s === 'string' ? esc(s.slice(0, 16).replace('T', ' 
    e «nao ha buracos» sao frases opostas, e a segunda seria a mentira confortavel.
    Um mapa sem buracos nenhuns tambem se diz por extenso, para nao se confundir
    com a ausencia. */
+/* ══ V2 · AS ESTRADAS QUE UMA CORRIDA INTEIRA ATRAVESSOU ═══════════════════
+   O mapa sabia desenhar LIGAÇÕES e não sabia responder à pergunta que o dono
+   do produto faz primeiro: **alguma coleta chegou ao fim?**
+
+       UMA LIGAÇÃO PROVADA DIZ QUE O CAMINHO EXISTE.
+       SÓ O RECIBO DE UMA CORRIDA DIZ QUE ALGUÉM O PERCORREU.
+
+   Aqui saem os recibos, etapa a etapa, com a primeira aresta perdida escrita
+   quando a estrada morre a meio. `PASS` e `FAIL` são do RECIBO, não do mapa. */
+function blocoDasEstradas() {
+  const R = S.ESTRADAS_OBSERVADAS;
+  const cabeca = d => `<div class="statusScope"><b>ALGUMA COLETA CHEGOU AO FIM?</b><br>${d}</div>`;
+  if (!Array.isArray(R)) {
+    return cabeca('<i>NÃO MEDIDO</i> — nenhum recibo de corrida inteira foi '
+      + 'lido nesta árvore. Isto não quer dizer que nenhuma corrida existiu.');
+  }
+  if (!R.length) {
+    return cabeca('Nenhum recibo de corrida inteira nesta árvore. Foi MEDIDO: '
+      + 'procurou-se e não há.');
+  }
+  const linhas = R.map(r => {
+    const ok = r.E2E === 'PASS';
+    const etapas = (r.ETAPAS || []).map(e =>
+      `<span class="etapaChip ${e.OBSERVED === 'YES' ? 'etapaOk' : 'etapaNao'}"
+         title="${esc(String(e.EVIDENCIA || '')).slice(0, 180)}">${esc(e.ETAPA)}</span>`).join('');
+    return `<div class="estrada ${ok ? 'estradaOk' : 'estradaFalha'}">
+      <div class="estradaTopo"><b>${esc(r.RUN_ID)}</b>
+        <span class="provaChip ${ok ? 'prova-observada' : 'prova-naosei'}">${
+          ok ? 'CHEGOU AO FIM' : 'MORREU A MEIO'}</span></div>
+      <div class="estradaEtapas">${etapas}</div>
+      <div class="estradaNota">${r.ETAPAS_OBSERVADAS}/${r.ETAPAS_TOTAL} etapas
+        observadas${r.PRIMEIRA_ARESTA_PERDIDA
+          ? ` · primeira aresta perdida: <b>${esc(r.PRIMEIRA_ARESTA_PERDIDA)}</b>` : ''}
+        ${r.AQUISICAO_PELA_REDE && r.AQUISICAO_PELA_REDE !== 'NÃO SEI'
+          ? `<br><span style="opacity:.75">aquisição pela rede: <b>${
+              esc(r.AQUISICAO_PELA_REDE)}</b> · origem dos bytes: ${
+              esc(r.ORIGEM_DOS_BYTES)}</span>` : ''}
+      </div></div>`;
+  }).join('');
+  return cabeca(`${R.length} recibo(s) de corrida inteira, lidos do banco depois
+    de ela correr. <b>PASS</b> é do recibo, não do mapa.${linhas}`);
+}
+
 function blocoDosBuracos() {
   const B = S.BURACOS;
   const cabeca = (dentro) => '<div class="statusScope"><b>O QUE ESTÁ DECLARADO '
@@ -1658,6 +1778,7 @@ async function provarFrescura() {
     ${linha(esc(SM_FRESHNESS.COBERTURA_ROTULO),
       `${c.files_covered}&thinsp;/&thinsp;${c.files_tracked} tracked files`)}
     </dl>
+    ${blocoDasEstradas()}
     ${blocoDosBuracos()}
     <div class="statusScope"><b>MAP COVERAGE não é FRESHNESS.</b><br>
       ${esc(SM_FRESHNESS.COBERTURA_EXPLICACAO)}</div>
@@ -1763,7 +1884,7 @@ async function arrancar() {
       `<label class="check" title="${esc(desc)}"><input type="radio" name="dept"
         value="${esc(k)}">${esc(k.replace(/_/g, ' '))}</label>`).join('');
 
-  render(); bind(); renderMini(); applyFilters();
+  render(); bind(); renderMini(); contarSemProva(); applyFilters();
   requestAnimationFrame(() => enquadrarFaixa((S.FAMILIES || [])[0]?.id));
 
   const alvo = location.hash.slice(1);

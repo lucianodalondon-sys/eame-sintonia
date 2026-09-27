@@ -1,0 +1,30 @@
+Could not find platform independent libraries <prefix>
+.........................................................................................................................................C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\coleta\italy_executor.py:235: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\London1\\AppData\\Local\\Temp\\tmpkpti9sb7.html'>
+  dados = open(caminho, "rb").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_tempo_e_lugar_atravessa.py:427: ResourceWarning: unclosed file <_io.BufferedReader name='C:\\Users\\London1\\AppData\\Local\\Temp\\tmpkpti9sb7.html'>
+  sha = hashlib.sha256(open(fh.name, "rb").read()).hexdigest()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.................C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_regua_t1.py:86: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\periodo-chaves-v1\\scripts\\regua_t1\\PROVA-CEGA-POSITIVOS-T1-V1.json' mode='r' encoding='utf-8'>
+  m = json.load(open(os.path.join(AQUI, "PROVA-CEGA-POSITIVOS-T1-V1.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_regua_t1.py:152: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\periodo-chaves-v1\\scripts\\regua_t1\\GABARITO-T1-V1.json' mode='r' encoding='utf-8'>
+  self.g = json.load(open(os.path.join(AQUI, "GABARITO-T1-V1.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_regua_t1.py:153: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\periodo-chaves-v1\\scripts\\regua_t1\\MEDICAO-REGUA-T1-V1.json' mode='r' encoding='utf-8'>
+  self.m = json.load(open(os.path.join(AQUI, "MEDICAO-REGUA-T1-V1.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......................................................................C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_regua_t2.py:167: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\periodo-chaves-v1\\scripts\\regua_t2\\MEDICAO-T2C-V1.json' mode='r' encoding='utf-8'>
+  m = json.load(open(os.path.join(AQUI, "MEDICAO-T2C-V1.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+......C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_regua_t2.py:190: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\periodo-chaves-v1\\scripts\\regua_t2\\GABARITO-T2-V2.json' mode='r' encoding='utf-8'>
+  self.g = json.load(open(os.path.join(AQUI, "GABARITO-T2-V2.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\London1\orca\workspaces\eame-sintonia\periodo-chaves-v1\tests\test_regua_t2.py:191: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\periodo-chaves-v1\\scripts\\regua_t2\\MEDICAO-REGUA-T2-V2.json' mode='r' encoding='utf-8'>
+  self.m = json.load(open(os.path.join(AQUI, "MEDICAO-REGUA-T2-V2.json"), encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+................................................
+----------------------------------------------------------------------
+Ran 286 tests in 1.585s
+
+OK

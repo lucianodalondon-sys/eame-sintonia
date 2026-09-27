@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-005",
+ "SOURCE": "Umbria — Agricoltura e foreste",
+ "OWNER": "Regione Umbria",
+ "URL": "https://www.regione.umbria.it/home",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:38Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 44288 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.regione.umbria.it/home",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Home - Regione Umbria",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 79242
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.regione.umbria.it/notizie/-/asset_publisher/54m7RxsCDsHr/content/celebrazioni-del-165-anniversario-dell-ente-santa-croce-maria-montessori-di-perugia?read_more=true",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "Celebrazioni del 165° anniversario dell’Ente Santa Croce Maria Montessori di Perugia, presidente Proietti: “Dal vostro operato prendiamo ese",
+  "TITULO": "Celebrazioni del 165 anniversario dell’Ente Santa Croce Maria Montessori di Perugia - Notizie - Regione Umbria",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 44288,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "03d657d4ef8342e47cfcb273a3e39636f0cc2bc885876fda91902767eb41706b",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

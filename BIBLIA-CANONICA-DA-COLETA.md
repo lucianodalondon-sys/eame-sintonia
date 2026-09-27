@@ -2,7 +2,7 @@
 
 ```
 BIBLE_ID          SINTONIA-COLLECTION-BIBLE
-VERSION           V1.3
+VERSION           V1.5
 STATUS            CANONICAL
 EFFECTIVE_FROM    2026-09-07
 CURRENT_PROFILE   ITALY_PROFILE_V1
@@ -21,6 +21,8 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1.1** | 2026-09-07 | **duas emendas**: a lei da observabilidade (PARTE XVI — o System Map é a placa de vídeo do SINTONIA, e tudo tem de ser renderizável) e as leis roubadas de sistemas maduros de coleta (PARTE XVII — artefato ≠ fato, watermark, run completa, reparo, três eixos de confiança) | **78** (+30) |
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 | **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
+| **V1.4** | 2026-09-11 | **o retorno do executor entra na lei**: `COL-LAW-505` responde a pergunta que `COL-LAW-013` fez e nunca respondeu — «`OUTPUT` = onde larguei, e **em que forma**». Medido antes de escrita: `FALSE_HARVEST_TOTAL = 253` sobre os cinco executores canónicos | **105** (+1) |
+| **V1.5** | 2026-09-27 | **a afirmação da fonte entra na lei (D112 — VEREDITO PUGLIA = APROVADO COM CORREÇÕES)**: `COL-LAW-032` ganha `LOCATION_SOURCE` e `LOCATION_EXPRESSION_RAW`; três leis novas (PARTE XXI) — `COL-LAW-221` procedência da entidade, `COL-LAW-222` fidelidade da afirmação, `COL-LAW-223` espécie da afirmação. As relações entre afirmações ficam na Intelligence (`INT-LAW-078` · `INT-LAW-079`) | **108** (+3) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
@@ -315,7 +317,7 @@ Protocolo externo **NÃO DEVE** ser copiado literalmente. Esta é a versão SINT
 |---|---|
 | procedência | `regras/proveniencia.py` |
 | tempo do fato | `leis/data_clock.py` |
-| lugar do fato | `medidas/fato_local.py` · `medidas/lugar_do_fato.py` |
+| lugar do fato | `leis/fato_local.py` · `leis/lugar_do_fato.py` |
 | recibo da corrida | `data/samples/RUN-MANIFEST.json` |
 
 **ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
@@ -497,8 +499,16 @@ crédito.
 **ESTADO HONESTO.** ⚠️ Os cinco campos de escalada **não existem hoje** em nenhum ficheiro
 deste repositório. Esta é lei futura, e a Bíblia diz isso em vez de fingir.
 
+**HISTÓRICO.** Até 2026-09-09 esta lei nomeava a ferramenta apify_contrato.py, que foi
+removida do repositório por estar morta: zero importadores, zero execuções, e a saída que
+declarava nunca existiu no disco. O CONCEITO — **ler o contrato do ator de graça antes de
+gastar** — continua canônico, e o dono vivo dele é `ferramentas/contrato_ator.py`, que a
+esteira importa em runtime.
+
+> **UMA LEI NÃO DEPENDE DE UM NOME DE FICHEIRO. DEPENDE DO QUE ELA EXIGE.**
+
 **CONTRATOS.** `docs/regras/POLITICA-DE-CHAVES-DESCARTAVEIS.md` ·
-`ferramentas/apify_contrato.py` · `coleta/coletor.py`
+`ferramentas/contrato_ator.py` · `coleta/coletor.py`
 **ORIGEM.** `ARCHITECTURAL_DECISION` + `EXISTING_SINTONIA_LAW`
 **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
 
@@ -750,12 +760,27 @@ texto: `"NAO_SEI — pagina sem data de publicacao visivel"` começa por `N`, e
 
 **PRECISÃO VIAJA COM A DATA.** Se a fonte prova o mês, não se inventa o dia.
 
-**⚠️ VIOLAÇÃO VIVA, hoje, neste repositório.** `admissao/admissao.py:169` aceita
-`published_at` como resposta à pergunta «tem tempo do fato», enquanto
-`medidas/fato_local.py:411` declara que *«`published_at` NUNCA o preenche»*. Ver C-001. Gap
-**G-01**.
+**✅ VIOLAÇÃO FECHADA em `C-COL-PRESERVE-FACTS-V1`, e eram DUAS.** A primeira era
+a registrada: `admissao/admissao.py` aceitava `published_at` como resposta a «tem
+tempo do fato». A segunda não tinha nome e era pior, porque ninguém a procurava:
 
-**CONTRATOS.** `leis/v21_datas.py` · `leis/data_clock.py` · `medidas/fato_local.py::tempo_do_fato`
+```
+pronto_para_inteligencia:  item.get("fact_time") or item.get("data")
+_tem_quando:               item.get("fact_time") or item.get("data")
+```
+
+O campo genérico `data` **não declara de que tempo é**. Um coletor põe lá a data
+que tem — a do documento — e o `FACT_TIME` saía preenchido e falso, carimbado
+como fato. `published_at` pelo menos **diz o que é**; `data` não diz nada, e por
+isso passava.
+
+> **UM CAMPO QUE NÃO DECLARA DE QUE ESPÉCIE É NÃO PODE PROMOVER A ESPÉCIE NENHUMA.**
+
+Os dois continuam a servir de **âncora para admitir** — apertar o transporte não
+é apertar a porta — e a evidência passou a dizer qual é qual:
+`PUBLICATION_TIME` e `TIME_UNDECLARED`. Gap **G-01** fechado; ver COL-LAW-043.
+
+**CONTRATOS.** `leis/v21_datas.py` · `leis/data_clock.py` · `leis/fato_local.py::tempo_do_fato`
 **ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
@@ -788,6 +813,28 @@ DA_FONTE  veio do cadastro da fonte   ⛔ PROIBIDO sustentar fato
 DEDUZIDO  a inteligência inferiu      ⛔ PROIBIDO sustentar fato
 ```
 
+**DENTRO DO ESCRITO, ONDE ESTÁ O LUGAR** (V1.5 · D112). Todo `FACT_LOCATION` **DEVE**
+carregar `LOCATION_SOURCE`:
+
+```
+TEXT                      o lugar está na frase da afirmação
+SECTION_HEADER            o lugar está num cabeçalho de secção presente no TEXTO,
+                          e a afirmação está dentro dessa secção
+VISUAL_HEADER_CANDIDATE   o lugar só aparece na imagem/layout da página
+                          ⛔ NUNCA sustenta FACT_LOCATION
+UNRESOLVED                nenhum lugar sustentado
+```
+
+`VISUAL_HEADER_CANDIDATE` guarda-se como **candidato**, com a sua prova, e o fato fica
+`FACT_LOCATION = UNRESOLVED` até existir regra canônica de herança territorial. Perfil,
+contexto, origem da página ou qualquer outro atalho **NÃO DEVEM** produzir
+`LOCATION_SOURCE`.
+
+**EXPRESSÃO TERRITORIAL NÃO É LUGAR.** Quando a fonte escreve uma expressão territorial
+sem lugar resolvido, guarda-se o literal em `LOCATION_EXPRESSION_RAW` e
+`FACT_LOCATION = UNRESOLVED`. **NÃO DEVE** nascer ponto artificial (centro, capital,
+coordenada aproximada), nem expansão para uma lista de lugares que o documento não enumera.
+
 **PRECISÃO NÃO SOBE NEM DESCE SOZINHA.** Escada: `PAIS → REGIAO → PROVINCIA → MUNICIPIO →
 LOCALIDADE → COORDENADA`. Se a fonte prova Toscana, não se inventa Grosseto; se prova
 Grosseto, não se reduz para Itália. `PROVINCIAL ≠ REGIONAL`, e um cruzamento **NÃO DEVE**
@@ -806,10 +853,12 @@ sistema chamava de outra coisa. **E a lei já estava escrita no `CLAUDE.md` dele
 
 > **LEI QUE NINGUÉM MEDE É COMENTÁRIO.**
 
-**CONTRATOS.** `medidas/lugar_do_fato.py` (a lei, sem idioma) · `medidas/fato_local.py` (o
-leitor italiano) · `leis/v21_geografia_contrato.py` (o contador que falha fechado) ·
-migration 015 (as constraints)
-**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+**CONTRATOS.** `leis/lugar_do_fato.py` (a lei, sem idioma; `fact_location()` é a trava do
+`LOCATION_SOURCE`) · `leis/fato_local.py` (o leitor italiano) ·
+`leis/v21_geografia_contrato.py` (o contador que falha fechado) · migration 015 (as
+constraints)
+**COMO PROVAR.** `py tests/test_lugar_do_fato.py` · `py tests/test_metodo_puglia.py`
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
 
@@ -1078,10 +1127,152 @@ terminou».
 O contrato de saída é fixo, e a inteligência recebe **isto e mais nada**:
 
 ```
-ESTADO · ITEM_ID · UNIVERSO · TEXTO · SOURCE_ID
-SOURCE_LOCATION · FACT_LOCATION · FACT_TIME · CAPTURED_AT
-CORRIDA · ADMITIDO_POR
+ESTADO · ITEM_ID · RAW_OBSERVATION_ID · UNIVERSO · ESTAGIO · TEXTO · SOURCE_ID
+SOURCE_LOCATION · FACT_LOCATION · FACT_TIME
+FACT_TIME_BASIS · FACT_LOCATION_BASIS · PUBLISHED_AT · OBSERVED_AT
+PUBLISHED_AT_BASIS · SOURCE_LOCATION_BASIS · COMPLETUDE_TEMPO_LUGAR · TEMPO_LUGAR_EVIDENCIA
+SOURCE_DECLARED_EVIDENCE_CLASS · FATO · JANELA_DECLARADA
+CAPTURED_AT · CORRIDA · ADMITIDO_POR
 ```
+
+> **`JANELA_DECLARADA` (D58, QUATRO-CHAVES-NA-SALA).** `CULTURA × REGIÃO DO FATO × FASE ×
+> JANELA` (D29), cada uma com `VALOR`, `VEIO_DE` e `BASE`; dono `admissao.janela_declarada()`;
+> coluna `janela_declarada` da 033 única. Cultura e fase vêm da régua T1; `REGIAO_DO_FATO` **NÃO
+> DEVE** vir de `source_location`; a janela, que ninguém extrai, é `NAO SEI`. `PRECISAO` conta o
+> que há (nada é obrigatório, D62). A expressão relativa («ieri») fica só como evidência em
+> `TEMPO_RELATIVO` — `FACT_TIME`/`FACT_LOCATION` a partir do texto são do extrator `lugar-fato`
+> (DA-6), e este campo **não** os escreve.
+
+> **033 (MIGRACAO-SALA, 25/09 — D61/D62/DA-7/DA-9).** Os quatro da linha do meio
+> passaram a viajar porque o VALOR de `PUBLISHED_AT` e de `SOURCE_LOCATION`
+> chegava à Sala e a BASE parava na porta. `COMPLETUDE_TEMPO_LUGAR` diz, das
+> quatro perguntas (publicação, lugar da fonte, data e lugar do facto), quais
+> estão PROVADAS, CALCULADAS ou NÃO SEI — **nada disto barra** (D62).
+> `TEMPO_LUGAR_EVIDENCIA` guarda o que o leitor do texto mediu (espécie,
+> precisão, cálculo, expressão) e a 2.ª fonte da publicação com o CONFLITO (DA-9).
+> `IMPLEMENTATION_STATUS`: exige a migração 033 **antes** do código.
+
+### Eram doze, e a própria lei dizia que doze não chegavam
+
+Até `C-COL-PRESERVE-FACTS-V1` esta lista tinha **doze** nomes. O alvo escrito
+três parágrafos abaixo — *«QUEM disse O QUÊ sobre QUE CULTURA e QUE PROBLEMA,
+ONDE, QUANDO, DE QUE PAPEL e COM QUE EVIDÊNCIA»* — pede **oito** coisas, e a
+lista de doze respondia três. **A lei contradizia-se a si própria**, e o *«isto e
+mais nada»* venceu na prática.
+
+Medido no caminho real, com um fato agronômico de 25 campos:
+
+```
+campos na entrada .... 25
+campos no READY ...... 12
+perdidos ............. 20   claim_id · subject · predicate · object · crop ·
+                            crop_eppo · problem · problem_eppo · method ·
+                            unit · scale · denominator · phenological_stage ·
+                            doi · registration_id · active_substance · nuts ·
+                            value · published_at
+```
+
+E o detalhe que faz disto **defeito** e não escolha: **a porta já sabia que
+aquilo era um fato.** `MARCAS_DE_FATO` lê `claim_id`, `subject`, `predicate` e
+`fact_id`; `estagio()` devolve `FATO`; **a régua aplicada muda por causa disso.**
+Os campos entram, são lidos, decidem — e não saíam.
+
+> ## O SISTEMA SABE O QUE É UM CLAIM. O CONTRATO DE SAÍDA NÃO TINHA ONDE O PÔR.
+
+**Nenhum dos sete é conceito novo.** Cada um tinha dono declarado **antes** desta
+missão, e morria nesta fronteira:
+
+| campo | dono, antes desta missão |
+|---|---|
+| `ESTAGIO` | `admissao.estagio()` (COL-LAW-502) |
+| `PUBLISHED_AT` · `OBSERVED_AT` | `coleta/ingresso.py::FRONTEIRA_TRANSPORTA` |
+| `FACT_LOCATION_BASIS` | `leis/artefato.py::conferir` — **já reprovava** um `FACT_LOCATION` preenchido «sem dizer de onde saiu» |
+| `FACT_TIME_BASIS` | o livro do coletor italiano: **175 observações** escrevem, uma a uma, *porquê* o tempo do fato é desconhecido |
+| `SOURCE_DECLARED_EVIDENCE_CLASS` | `regras/italy_contracts.mjs` — **13 de 13** contratos declaram `EVIDENCE_CLASS` antes de qualquer execução |
+| `FATO` | `admissao.MARCAS_DE_FATO` |
+
+> **RUNTIME SABE ≠ O SISTEMA GUARDA.**
+
+### `FATO` **NÃO É** uma lista de campos, e isso é a lei aqui
+
+`FATO` preserva **o que o produtor declarou**, tal e qual, com as chaves
+ordenadas — e **nada mais**. Ele **NÃO DEVE** virar um esquema fechado de nomes
+agronômicos: a COL-LAW-202 declara o que um claim **PODE** preservar, e não uma
+lista. Uma lista fixa decidiria, sem caso que obrigue, que campos o agro tem
+direito a ter — e o campo 101 morreria calado, que é exatamente a doença.
+
+```
+PRESERVAR O QUE CHEGOU  ≠  ADIVINHAR O QUE DEVIA TER CHEGADO
+```
+
+`FATO` **NÃO DEVE** repetir nenhum campo que já tenha nome próprio no READY:
+dois donos do mesmo conceito divergem no dia em que um deles mudar.
+
+E ele **não extrai nada**. Extração de claim é `TARGET` na COL-LAW-202 e continua
+a **não existir** nesta casa. Estágio que não é `FATO` recebe `NAO_SE_APLICA` —
+nunca `{}`, que diria «olhei e não havia».
+
+### `SOURCE_DECLARED_EVIDENCE_CLASS` — o nome é longo, e **NÃO DEVE** encurtar
+
+O valor é do **contrato de fonte**, não do documento, e é **texto livre** —
+medido: *«OBSERVED_FIELD_SIGNAL + TECHNICAL_GUIDELINE (separar por bloco)»*.
+Chamar-lhe `EVIDENCE_CLASS` faria qualquer leitor lê-lo como a espécie **deste**
+documento, medida.
+
+```
+DECLARADO PELA FONTE  ≠  MEDIDO NO DOCUMENTO
+```
+
+Se ele deve virar lista fechada continua **em aberto**, e de propósito
+(`docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md` §14.4). Esta emenda
+precisa que a espécie **atravesse**, não que ela seja arrumada.
+
+### `FACT_TIME` **NÃO DEVE** vir do campo genérico `data`
+
+Reparado nesta emenda, em dois sítios: `_tem_quando()` e o contrato de saída.
+`data` não declara de que tempo é; um coletor põe lá a data que tem — a do
+documento — e isso produzia `FACT_TIME` falso, carimbado como fato. É a
+COL-LAW-031 a ser cumprida: *«não por conveniência, não por omissão, NÃO POR
+FALLBACK»*. Ele continua a servir de **âncora para admitir**, e a evidência passa
+a dizer o que ele é: `TIME_UNDECLARED`.
+
+### `ITEM_ID` **NÃO DEVE** ser `"?"`
+
+A porta ganhou a pergunta `identidade`. Um item sem `id` e sem `url` sai
+`NAO_SEI` e **não passa** — `source_id` **não serve**, porque é da FONTE e não do
+item. É a COL-LAW-034 a ser cumprida, e a Sala já tinha a cicatriz escrita:
+`ItemAmbiguo` existe porque dois `"?"` na mesma corrida têm a mesma morada.
+
+### `RAW_OBSERVATION_ID` — a linhagem viaja, e viaja uma vez só
+
+`RAW_OBSERVATION_ID = raw_asset.id`. Ausente: `NAO SEI`. **Nunca** derivado de
+`sha256`, URL, `storage_path`, filename ou `RUN_ID`.
+
+> **TER RAW ≠ O READY CONSEGUIR PROVAR QUAL RAW É O SEU.**
+
+Até `C-READY-LINEAGE-BEFORE-SCALE-V1` este campo não existia, e voltar do item
+ao bruto só se conseguia procurando `derived_artifact` pelo `sha256` do texto.
+**Medido contra PostgreSQL 16 com a cadeia canônica:** dois PDFs diferentes com
+o mesmo texto extraído produzem **dois** derivados com o mesmo `sha256`, e essa
+procura devolve **2 derivados · 2 observações · 2 objetos de armazém**.
+
+```
+READY_TO_RAW (antes)   AMBIGUOUS — 2 candidatos
+READY_TO_RAW (depois)  PROVEN    — 1, por id canônico
+```
+
+**Isto não é lei nova: é a `COL-LAW-033` a ser cumprida.** Ela já exigia
+linhagem de todo artefato, e já tinha escrito o prazo — *«A PROCEDÊNCIA SÓ VALE
+SE FOR POSTA NA COLETA. Depois é tarde.»* Enquanto os dois textos divergiram, o
+`isto e mais nada` desta lei venceu na prática e a linhagem ficou de fora.
+
+**E só este id viaja.** `STORAGE_OBJECT_ID` não entra: `raw_asset` já aponta
+para a cópia por chave estrangeira composta `(storage_object_id, sha256)`, e
+duplicá-lo aqui daria duas declarações do mesmo parentesco, livres para
+divergir. `TEXT_KIND`, `TEXT_RELATION` e `LANGUAGE` também não entram — as
+`TEXT_UNITS` ficam preservadas nos bytes do RAW (`coleta/ingresso.py::
+_bytes_do_item` serializa o item inteiro), e resolvem-se por esta mesma
+linhagem. **A MENOR IDENTIDADE QUE FECHA A ESTRADA É A CERTA.**
 
 Ela não sabe — nem precisa de saber — qual raspador trouxe, qual API, qual veículo, nem que
 remendo foi preciso. Se amanhã o executor for outro, **este contrato não muda**.
@@ -2690,6 +2881,167 @@ que não muda quando o commit muda de nome. O `MAP_ARTIFACT_COMMIT` é opcional 
 Gap **G-35**.
 
 **ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-505 · O EXECUTOR DECLARA O QUE É COLHEITA E O QUE É SUPORTE
+
+**REGRA.** O retorno de uma corrida **DEVE** separar, por declaração de quem correu,
+a **COLHEITA** dos **ARTEFATOS DE SUPORTE**. **SÓ A COLHEITA ENTRA NO INGRESSO.**
+
+```
+COLHEITA      unidade observada na fonte
+MANIFEST      listagem de payloads (indice, manifesto, recibo de descarga)
+CATALOG       inventario de entidades ou de onde se PODE coletar
+RUN_RECEIPT   prova da execucao
+PLAN          o que se tenciona fazer
+UNKNOWN       declarado e nao classificavel — nunca entra
+```
+
+Espécie **NÃO DEVE** ser inferida de nome de ficheiro, nome de pasta, extensão, presença
+de um campo, nem de «a primeira lista do JSON». **DECLARADA, nunca adivinhada.**
+
+Cada unidade de colheita **DEVE** trazer `SOURCE_ID` provado e **DEVE** declarar
+`DOCUMENT_ID` — que **PODE** ser `NAO SEI`, e **NÃO DEVE** ser derivado do `sha256` nem do
+endereço do ficheiro. O `PAYLOAD` **DEVE** ter estado próprio — `PRESENTE` · `AUSENTE` ·
+`NAO_SE_APLICA` — **medido na árvore**, e não afirmado por quem declarou o caminho.
+
+Uma corrida que termina sem colheita **NÃO É** uma falha: `EMPTY_SUCCESS ≠ ERROR`.
+
+**POR QUÊ.** `COL-LAW-013` já exigia `OUTPUT = onde larguei, e em que forma`. O **onde** tem
+campo desde `COL-LAW-012` (`larga_em`); o **em que forma** nunca teve campo, enum nem guarda,
+e vivia em prosa livre que nenhum código lê. `COL-LAW-014` já nomeava os campos em falta
+(`artifact_types` · `produces`) e declarava que não existiam. Esta lei responde a pergunta que
+as duas fizeram — não abre uma terceira.
+
+**MEDIDO.** 2026-09-11, sobre os cinco executores de `pedido/receitas.py`:
+
+```
+ITEMS_EMITTED        253
+REAL_HARVEST_ITEMS     0
+FALSE_HARVEST_TOTAL  253
+```
+
+Um manifesto de 163 descargas, um catálogo de 12 pessoas, 74 fichas de conta e 4 passos de
+plano entraram na cadeia como material observado. A admissão recusou todos — **e recusou bem**
+(`COL-LAW-042`), mas depois do facto e por cheiro de campos.
+
+**VIOLAÇÃO.** `CLASSIFICADO-V1.json` declara um contentor `ITEMS` com `ITEM_COUNT = 0`. A
+heurística genérica **salta-o por estar vazio** e agarra a lista de catálogo ao lado.
+
+```
+UMA HEURISTICA QUE PREFERE UMA LISTA CHEIA A UMA LISTA CERTA
+NAO ESTA A LER O RETORNO: ESTA A ADIVINHAR.
+```
+
+**CONTRATOS.** `leis/retorno_da_coleta.py` — vocabulário, validador e `so_o_que_entra()`.
+
+**COMO PROVAR.** `py -m unittest tests.test_retorno_da_coleta` · `py provas/o_corte_de_cr1.py`
+
+**LIGA-SE A** `COL-LAW-012` (onde larga) · `COL-LAW-013` (em que forma — a pergunta) ·
+`COL-LAW-014` (`artifact_types`/`produces` — os campos) · `COL-LAW-042` (a porta recusa
+ficha de catálogo) · `COL-LAW-207` (`DISCOVER` produz índice por natureza) ·
+`COL-LAW-501` (espécies de bytes — outro eixo, não este).
+
+**NÃO IMPLEMENTADO NESTA MISSÃO.** A lei e o validador existem; `a_colheita()` continua com a
+heurística antiga, e nenhum executor foi adaptado. Ligar o runtime é outra missão.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+# PARTE XXI · A AFIRMAÇÃO DA FONTE
+
+> **Emenda V1.5 · D112.** Três leis sobre a unidade que a coleta entrega à inteligência: a
+> afirmação da fonte. A razão e a evidência estão no
+> [`docs/decisoes/DIARIO-DE-DECISOES.md`](docs/decisoes/DIARIO-DE-DECISOES.md) (D112), não aqui.
+>
+> As **relações entre afirmações** — mesma redação em vários territórios, limites diferentes
+> entre fontes, mudança de recomendação no tempo — são da Intelligence: `INT-LAW-078` e
+> `INT-LAW-079`, na [`BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`](BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md).
+> A coleta preserva o que elas precisam (trecho, SHA-256, publisher, território, validade) e
+> não decide a relação.
+
+## COL-LAW-221 · A ENTIDADE DIZ DE ONDE VEIO O NOME
+
+**REGRA.** Toda entidade de uma afirmação — praga, doença, cultura, produto, molécula, ou
+outra entidade relevante — **DEVE** carregar `ENTITY_SOURCE`:
+
+```
+SPAN               o nome está dentro do trecho da afirmação
+PARAGRAPH_CONTEXT  o nome está no mesmo parágrafo, fora do trecho
+SECTION_TITLE      o nome está no título da secção que governa o trecho
+DOCUMENT_TITLE     o nome está no título do documento
+UNKNOWN            não se sabe
+```
+
+`SPAN` **só** quando o nome está no trecho. Entidade herdada **NÃO DEVE** ser gravada como
+se estivesse no trecho.
+
+Havendo **outra entidade concorrente** da mesma espécie, ou **troca de secção**, entre o
+nome e o trecho: `ENTITY_SOURCE = UNKNOWN`. Conhecimento externo **NÃO DEVE** preencher a
+lacuna.
+
+**CONTRATOS.** `leis/afirmacao_da_fonte.py` (`procedencia_da_entidade`)
+
+**COMO PROVAR.** `py tests/test_metodo_puglia.py`
+
+**LIGA-SE A** `COL-LAW-033` (procedência do artefato — o eixo de cima) · `COL-LAW-203` (a
+procedência chega até o valor) · `COL-LAW-222` (entidades citadas juntas).
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-222 · A FICHA NÃO ACRESCENTA NEM CORTA
+
+**REGRA.** A ficha de uma afirmação **DEVE** dizer o que o trecho diz — nem mais, nem menos.
+
+- Exceções, condições e qualificadores — incluindo números, limites e negação — **são parte
+  da afirmação** e **NÃO DEVEM** ser cortados.
+- Entidades citadas juntas no trecho são **todas** preservadas.
+- Tradução é **ajuda de leitura, nunca evidência**. A evidência é o trecho original, com o
+  seu SHA-256.
+- O que é da **FONTE** e o que é **INTERPRETACAO_DO_SISTEMA** ficam separados e marcados.
+  Explicação, classificação ou saber externo **NÃO DEVEM** entrar no texto atribuído à fonte:
+  vão para o campo `INTERPRETACAO_DO_SISTEMA`. O único rótulo admitido dentro da tradução é
+  a espécie da afirmação (`COL-LAW-223`), que já está na ficha.
+
+**CONTRATOS.** `leis/afirmacao_da_fonte.py` (`fidelidade` — lint determinístico: reprovar
+prova infidelidade; aprovar não prova fidelidade)
+
+**COMO PROVAR.** `py tests/test_metodo_puglia.py`
+
+**LIGA-SE A** `COL-LAW-203` (normalização não destrói o original) · `COL-LAW-201` (artefato
+não é fato).
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-223 · PREVISÃO, FATO OBSERVADO E RECOMENDAÇÃO SÃO AFIRMAÇÕES DIFERENTES
+
+**REGRA.** Toda afirmação **DEVE** declarar a sua espécie:
+
+```
+FATO_OBSERVADO   a fonte relata o que foi visto ou medido
+PREVISAO         a fonte diz o que vai ou pode acontecer
+RECOMENDACAO     a fonte diz o que fazer ou não fazer — a negativa também é recomendação
+
+PREVISAO ≠ FATO_OBSERVADO ≠ RECOMENDACAO
+```
+
+Só `FATO_OBSERVADO` sustenta que algo aconteceu no campo. Frases vizinhas de espécies
+diferentes são **afirmações diferentes**, cada uma com a sua ficha, mesmo quando uma é
+consequência da outra.
+
+**CONTRATOS.** `leis/afirmacao_da_fonte.py` (`usavel_como_fato_observado`)
+
+**COMO PROVAR.** `py tests/test_metodo_puglia.py`
+
+**LIGA-SE A** `INT-LAW-131` (FORECAST ≠ FACT) · `INT-LAW-024` (RECOMMENDATION ≠ ACTION).
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
 

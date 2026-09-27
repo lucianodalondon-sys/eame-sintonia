@@ -1,0 +1,323 @@
+{
+ "INSTRUMENTO": "medidas/corrida_canonica.py",
+ "CORRIDA": "RUN1",
+ "COMECOU_EM": "2026-09-21T19:03:11.129Z",
+ "REDE_REAL": true,
+ "ELIGIBLE_INPUT": 8,
+ "ELEGIVEIS": [
+  "IT-T10-018",
+  "IT-T10-022",
+  "IT-T5-041",
+  "IT-T5-049",
+  "IT-T7-017",
+  "IT-T7-033",
+  "IT-T7-042",
+  "IT-T7-043"
+ ],
+ "PAINEL_DO_PORTAO": {
+  "READY_TOTAL": 87,
+  "READY_CURRENT_TOTAL": 10,
+  "READY_LEGACY_TOTAL": 77,
+  "HUMAN_REVIEW_REQUIRED": 3,
+  "COLLECTION_ELIGIBLE": 8
+ },
+ "LIVRO_ANTES": 184,
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "RUN_ID": "IT-T10-2026-09-21-190312-183419e87ae3961c",
+   "FOI_A_REDE": true,
+   "CONTRACT_RESOLVED": true,
+   "ROUTE_RESOLVED": true,
+   "ENTRADA": "https://www.myfruit.it/",
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "ROBOTS": {
+    "ROBOTS_RESULT": "ROBOTS_ALLOW",
+    "PORQUE": "robots.txt do host permite este caminho",
+    "LIDO_EM": "2026-09-21T19:03:11.180Z",
+    "PODE_IR": true
+   },
+   "LANCADO_EM": "2026-09-21T19:03:12.246Z",
+   "COLETOR": {
+    "CODIGO": 0
+   },
+   "COLETOR_ERRO": "",
+   "OBSERVACOES": [
+    {
+     "SOURCE_ID": "IT-T10-018",
+     "DETAIL_URL": "AUSENTE_NO_LIVRO",
+     "OBSERVATION_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "RAW_ASSET_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "SHA256": "AUSENTE_NO_LIVRO",
+     "STORAGE_PATH": "AUSENTE_NO_LIVRO",
+     "BYTES": "AUSENTE_NO_LIVRO",
+     "HTTP_STATUS": "AUSENTE_NO_LIVRO — o livro guarda o RESULTADO, nao o codigo",
+     "ROBOTS_RESULT": "ROBOTS_ALLOW",
+     "OBSERVATION_RESULT": "DISCOVERY_FAILED",
+     "DOCUMENT_ID": null,
+     "DOCUMENT_VERSION_ID": "AUSENTE_NO_LIVRO",
+     "FACT_TIME": "AUSENTE_NO_LIVRO",
+     "CONTENT_TYPE": "AUSENTE_NO_LIVRO",
+     "MIME_ASSINATURA": "AUSENTE_NO_LIVRO",
+     "RAW_PRESERVED_BEFORE_PARSE": "AUSENTE_NO_LIVRO",
+     "RAW_OBJECT_CREATED": "AUSENTE_NO_LIVRO"
+    }
+   ],
+   "OBSERVACOES_NOVAS": 1,
+   "DESFECHO": "COLHEU"
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "RUN_ID": "IT-T10-2026-09-21-190322-c509c9d184b7de4f",
+   "FOI_A_REDE": true,
+   "CONTRACT_RESOLVED": true,
+   "ROUTE_RESOLVED": true,
+   "ENTRADA": "https://zootecnicainternational.com/news/",
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "ROBOTS": {
+    "ROBOTS_RESULT": "ROBOTS_ALLOW",
+    "PORQUE": "robots.txt do host permite este caminho",
+    "LIDO_EM": "2026-09-21T19:03:20.466Z",
+    "PODE_IR": true
+   },
+   "LANCADO_EM": "2026-09-21T19:03:22.208Z",
+   "COLETOR": {
+    "CODIGO": 0
+   },
+   "COLETOR_ERRO": "",
+   "OBSERVACOES": [
+    {
+     "SOURCE_ID": "IT-T10-022",
+     "DETAIL_URL": "AUSENTE_NO_LIVRO",
+     "OBSERVATION_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "RAW_ASSET_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "SHA256": "AUSENTE_NO_LIVRO",
+     "STORAGE_PATH": "AUSENTE_NO_LIVRO",
+     "BYTES": "AUSENTE_NO_LIVRO",
+     "HTTP_STATUS": "AUSENTE_NO_LIVRO — o livro guarda o RESULTADO, nao o codigo",
+     "ROBOTS_RESULT": "ROBOTS_ALLOW",
+     "OBSERVATION_RESULT": "DISCOVERY_FAILED",
+     "DOCUMENT_ID": null,
+     "DOCUMENT_VERSION_ID": "AUSENTE_NO_LIVRO",
+     "FACT_TIME": "AUSENTE_NO_LIVRO",
+     "CONTENT_TYPE": "AUSENTE_NO_LIVRO",
+     "MIME_ASSINATURA": "AUSENTE_NO_LIVRO",
+     "RAW_PRESERVED_BEFORE_PARSE": "AUSENTE_NO_LIVRO",
+     "RAW_OBJECT_CREATED": "AUSENTE_NO_LIVRO"
+    }
+   ],
+   "OBSERVACOES_NOVAS": 1,
+   "DESFECHO": "COLHEU"
+  },
+  {
+   "SOURCE_ID": "IT-T5-041",
+   "RUN_ID": null,
+   "FOI_A_REDE": false,
+   "CONTRACT_RESOLVED": false,
+   "ROUTE_RESOLVED": false,
+   "ENTRADA": "",
+   "STRATEGY": "NAO SEI",
+   "DESFECHO": "SEM_ROTA",
+   "PORQUE": "SOURCE_ID sem contrato nenhum",
+   "ROBOTS": {
+    "ROBOTS_RESULT": "NAO_LIDO",
+    "PORQUE": "nao se le o robots de um sitio onde nao se vai"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "RUN_ID": "IT-T5-2026-09-21-190329-6e111265e6c0af93",
+   "FOI_A_REDE": true,
+   "CONTRACT_RESOLVED": true,
+   "ROUTE_RESOLVED": true,
+   "ENTRADA": "https://www.di3a.unict.it/it/notizie",
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "ROBOTS": {
+    "ROBOTS_RESULT": "ROBOTS_ALLOW",
+    "PORQUE": "robots.txt do host permite este caminho",
+    "LIDO_EM": "2026-09-21T19:03:28.576Z",
+    "PODE_IR": true
+   },
+   "LANCADO_EM": "2026-09-21T19:03:29.686Z",
+   "COLETOR": {
+    "CODIGO": 0
+   },
+   "COLETOR_ERRO": "",
+   "OBSERVACOES": [
+    {
+     "SOURCE_ID": "IT-T5-049",
+     "DETAIL_URL": "AUSENTE_NO_LIVRO",
+     "OBSERVATION_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "RAW_ASSET_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "SHA256": "AUSENTE_NO_LIVRO",
+     "STORAGE_PATH": "AUSENTE_NO_LIVRO",
+     "BYTES": "AUSENTE_NO_LIVRO",
+     "HTTP_STATUS": "AUSENTE_NO_LIVRO — o livro guarda o RESULTADO, nao o codigo",
+     "ROBOTS_RESULT": "ROBOTS_ALLOW",
+     "OBSERVATION_RESULT": "DISCOVERY_FAILED",
+     "DOCUMENT_ID": null,
+     "DOCUMENT_VERSION_ID": "AUSENTE_NO_LIVRO",
+     "FACT_TIME": "AUSENTE_NO_LIVRO",
+     "CONTENT_TYPE": "AUSENTE_NO_LIVRO",
+     "MIME_ASSINATURA": "AUSENTE_NO_LIVRO",
+     "RAW_PRESERVED_BEFORE_PARSE": "AUSENTE_NO_LIVRO",
+     "RAW_OBJECT_CREATED": "AUSENTE_NO_LIVRO"
+    }
+   ],
+   "OBSERVACOES_NOVAS": 1,
+   "DESFECHO": "COLHEU"
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "RUN_ID": "IT-T7-2026-09-21-190336-ab36ae8322fed5ba",
+   "FOI_A_REDE": true,
+   "CONTRACT_RESOLVED": true,
+   "ROUTE_RESOLVED": true,
+   "ENTRADA": "https://www.riuniteciv.com/news-e-eventi/",
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "ROBOTS": {
+    "ROBOTS_RESULT": "ROBOTS_ALLOW",
+    "PORQUE": "robots.txt do host permite este caminho",
+    "LIDO_EM": "2026-09-21T19:03:34.329Z",
+    "PODE_IR": true
+   },
+   "LANCADO_EM": "2026-09-21T19:03:36.439Z",
+   "COLETOR": {
+    "CODIGO": 0
+   },
+   "COLETOR_ERRO": "",
+   "OBSERVACOES": [
+    {
+     "SOURCE_ID": "IT-T7-017",
+     "DETAIL_URL": "AUSENTE_NO_LIVRO",
+     "OBSERVATION_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "RAW_ASSET_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "SHA256": "AUSENTE_NO_LIVRO",
+     "STORAGE_PATH": "AUSENTE_NO_LIVRO",
+     "BYTES": "AUSENTE_NO_LIVRO",
+     "HTTP_STATUS": "AUSENTE_NO_LIVRO — o livro guarda o RESULTADO, nao o codigo",
+     "ROBOTS_RESULT": "ROBOTS_ALLOW",
+     "OBSERVATION_RESULT": "DISCOVERY_FAILED",
+     "DOCUMENT_ID": null,
+     "DOCUMENT_VERSION_ID": "AUSENTE_NO_LIVRO",
+     "FACT_TIME": "AUSENTE_NO_LIVRO",
+     "CONTENT_TYPE": "AUSENTE_NO_LIVRO",
+     "MIME_ASSINATURA": "AUSENTE_NO_LIVRO",
+     "RAW_PRESERVED_BEFORE_PARSE": "AUSENTE_NO_LIVRO",
+     "RAW_OBJECT_CREATED": "AUSENTE_NO_LIVRO"
+    }
+   ],
+   "OBSERVACOES_NOVAS": 1,
+   "DESFECHO": "COLHEU"
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "RUN_ID": null,
+   "FOI_A_REDE": false,
+   "CONTRACT_RESOLVED": true,
+   "ROUTE_RESOLVED": true,
+   "ENTRADA": "https://www.chianticlassico.com/news/",
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "ROBOTS": {
+    "ROBOTS_RESULT": "ROBOTS_GATE_FAIL",
+    "PORQUE": "não deu para LER o robots.txt de https://www.chianticlassico.com: o transporte caiu antes da resposta. Isto não é uma recusa do host.",
+    "LIDO_EM": "2026-09-21T19:03:42.493Z",
+    "PODE_IR": false,
+    "LEI": "nao consegui LER != o site proibiu"
+   },
+   "DESFECHO": "ROBOTS_GATE_FAIL",
+   "PORQUE": "não deu para LER o robots.txt de https://www.chianticlassico.com: o transporte caiu antes da resposta. Isto não é uma recusa do host."
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "RUN_ID": "IT-T7-2026-09-21-190404-ac2eb0aa915dc439",
+   "FOI_A_REDE": true,
+   "CONTRACT_RESOLVED": true,
+   "ROUTE_RESOLVED": true,
+   "ENTRADA": "https://www.consorziobalsamico.it/news-blog/",
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "ROBOTS": {
+    "ROBOTS_RESULT": "ROBOTS_ALLOW",
+    "PORQUE": "robots.txt do host permite este caminho",
+    "LIDO_EM": "2026-09-21T19:04:02.407Z",
+    "PODE_IR": true
+   },
+   "LANCADO_EM": "2026-09-21T19:04:04.003Z",
+   "COLETOR": {
+    "CODIGO": 0
+   },
+   "COLETOR_ERRO": "",
+   "OBSERVACOES": [
+    {
+     "SOURCE_ID": "IT-T7-042",
+     "DETAIL_URL": "AUSENTE_NO_LIVRO",
+     "OBSERVATION_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "RAW_ASSET_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "SHA256": "AUSENTE_NO_LIVRO",
+     "STORAGE_PATH": "AUSENTE_NO_LIVRO",
+     "BYTES": "AUSENTE_NO_LIVRO",
+     "HTTP_STATUS": "AUSENTE_NO_LIVRO — o livro guarda o RESULTADO, nao o codigo",
+     "ROBOTS_RESULT": "ROBOTS_ALLOW",
+     "OBSERVATION_RESULT": "DISCOVERY_FAILED",
+     "DOCUMENT_ID": null,
+     "DOCUMENT_VERSION_ID": "AUSENTE_NO_LIVRO",
+     "FACT_TIME": "AUSENTE_NO_LIVRO",
+     "CONTENT_TYPE": "AUSENTE_NO_LIVRO",
+     "MIME_ASSINATURA": "AUSENTE_NO_LIVRO",
+     "RAW_PRESERVED_BEFORE_PARSE": "AUSENTE_NO_LIVRO",
+     "RAW_OBJECT_CREATED": "AUSENTE_NO_LIVRO"
+    }
+   ],
+   "OBSERVACOES_NOVAS": 1,
+   "DESFECHO": "COLHEU"
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "RUN_ID": "IT-T7-2026-09-21-190409-6807f1add9fb83a2",
+   "FOI_A_REDE": true,
+   "CONTRACT_RESOLVED": true,
+   "ROUTE_RESOLVED": true,
+   "ENTRADA": "https://agrofarma.federchimica.it/news-ed-eventi",
+   "STRATEGY": "HTML_LINK_DISCOVERY",
+   "ROBOTS": {
+    "ROBOTS_RESULT": "ROBOTS_ALLOW",
+    "PORQUE": "host não publica robots.txt (permissivo por omissão)",
+    "LIDO_EM": "2026-09-21T19:04:08.779Z",
+    "PODE_IR": true
+   },
+   "LANCADO_EM": "2026-09-21T19:04:09.806Z",
+   "COLETOR": {
+    "CODIGO": 0
+   },
+   "COLETOR_ERRO": "",
+   "OBSERVACOES": [
+    {
+     "SOURCE_ID": "IT-T7-043",
+     "DETAIL_URL": "AUSENTE_NO_LIVRO",
+     "OBSERVATION_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "RAW_ASSET_ID": "AUSENTE_NO_LIVRO — nasce na porta",
+     "SHA256": "AUSENTE_NO_LIVRO",
+     "STORAGE_PATH": "AUSENTE_NO_LIVRO",
+     "BYTES": "AUSENTE_NO_LIVRO",
+     "HTTP_STATUS": "AUSENTE_NO_LIVRO — o livro guarda o RESULTADO, nao o codigo",
+     "ROBOTS_RESULT": "ROBOTS_ALLOW",
+     "OBSERVATION_RESULT": "DISCOVERY_FAILED",
+     "DOCUMENT_ID": null,
+     "DOCUMENT_VERSION_ID": "AUSENTE_NO_LIVRO",
+     "FACT_TIME": "AUSENTE_NO_LIVRO",
+     "CONTENT_TYPE": "AUSENTE_NO_LIVRO",
+     "MIME_ASSINATURA": "AUSENTE_NO_LIVRO",
+     "RAW_PRESERVED_BEFORE_PARSE": "AUSENTE_NO_LIVRO",
+     "RAW_OBJECT_CREATED": "AUSENTE_NO_LIVRO"
+    }
+   ],
+   "OBSERVACOES_NOVAS": 1,
+   "DESFECHO": "COLHEU"
+  }
+ ],
+ "ACABOU_EM": "2026-09-21T19:04:13.456Z",
+ "LIVRO_DEPOIS": 190,
+ "OBSERVACOES_NOVAS_TOTAL": 6,
+ "PAID_USD": 0.0,
+ "PAID_USD_PORQUE": "todas as rotas sao GET em HTTP publico pelo transporte proprio; nenhuma rota paga foi invocada"
+}

@@ -1,0 +1,58 @@
+{
+ "https://pub.orcid.org/robots.txt": {
+  "TEXTO": "User-agent: *\nDisallow: /v3.0/*/email\n"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0001/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/persone/rossi\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/lab/rossi\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://www.linkedin.com/in/mario-rossi-123/\"}}]}"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0002/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url-name\": \"x\", \"url\": {\"value\": \"https://bsky.app/profile/bianchi.bsky.social\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://newsletter.bianchi-lab.it/\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://www.bloqueado.it/bianchi\"}}]}"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0003/researcher-urls": {
+  "HTTP": 404,
+  "TEXTO": ""
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0006/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/persone/blu\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/lab/blu\"}}]}"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0007/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/persone/rosa\"}}]}"
+ },
+ "https://www.agraria.uni-exemplo.it/robots.txt": {
+  "TEXTO": "User-agent: *\nAllow: /\n"
+ },
+ "https://www.agraria.uni-exemplo.it/lab/rossi": {
+  "TEXTO": "<a href='https://www.youtube.com/@labrossi'>YouTube</a><a href='mailto:mario@x.it'>mail</a>"
+ },
+ "https://www.agraria.uni-exemplo.it/persone/blu": {
+  "TEXTO": "<a href='https://x.com/carlablu'>X</a>"
+ },
+ "https://www.agraria.uni-exemplo.it/lab/blu": {
+  "TEXTO": "<a href='https://www.youtube.com/channel/UCabcdefghijklmnopqrstuv'>canal</a>"
+ },
+ "https://www.agraria.uni-exemplo.it/persone/rosa": {
+  "TEXTO": "<a href='https://fediscience.org/@rosa'>Mastodon</a>"
+ },
+ "https://www.bloqueado.it/robots.txt": {
+  "TEXTO": "User-agent: *\nDisallow: /\n"
+ },
+ "https://www.agraria.uni-exemplo.it/persone/rossi": {
+  "TEXTO": "<html><body><h1>Prof. Mario Rossi</h1>\n<a href=\"https://x.com/rossi_entomo\">X</a> <a href=\"https://www.linkedin.com/posts/mario-rossi-123_flavescenza-activity-7300000000000000000-abcd\">post</a>\n<a href=\"https://www.spreaker.com/show/entomologia-in-campo\">podcast</a> <a href=\"https://www.researchgate.net/profile/Mario-Rossi\">RG</a>\n<a href=\"/persone/rossi/cv\">cv</a> <a href=\"tel:+39000\">tel</a></body></html>"
+ },
+ "https://pub.orcid.org/v3.0/expanded-search/?q=orcid%3A0000-0000-0000-0001+OR+orcid%3A0000-0000-0000-0002+OR+orcid%3A0000-0000-0000-0003+OR+orcid%3A0000-0000-0000-0006+OR+orcid%3A0000-0000-0000-0007+OR+orcid%3A0000-0000-0000-0101&rows=200": {
+  "TEXTO": "{\"num-found\": 6, \"expanded-result\": [{\"orcid-id\": \"0000-0000-0000-0001\", \"given-names\": \"x\", \"family-names\": \"y\", \"institution-name\": [\"Universita\"]}, {\"orcid-id\": \"0000-0000-0000-0002\", \"given-names\": \"x\", \"family-names\": \"y\", \"institution-name\": [\"Universita\"]}, {\"orcid-id\": \"0000-0000-0000-0003\", \"given-names\": \"x\", \"family-names\": \"y\", \"institution-name\": [\"Universita\"]}, {\"orcid-id\": \"0000-0000-0000-0006\", \"given-names\": \"x\", \"family-names\": \"y\", \"institution-name\": [\"Universita\"]}, {\"orcid-id\": \"0000-0000-0000-0007\", \"given-names\": \"x\", \"family-names\": \"y\", \"institution-name\": [\"Universita\"]}, {\"orcid-id\": \"0000-0000-0000-0101\", \"given-names\": \"x\", \"family-names\": \"y\", \"institution-name\": [\"Universita\"]}]}"
+ },
+ "https://pub.orcid.org/v3.0/csv-search/?q=orcid%3A0000-0000-0000-0001+OR+orcid%3A0000-0000-0000-0002+OR+orcid%3A0000-0000-0000-0003+OR+orcid%3A0000-0000-0000-0006+OR+orcid%3A0000-0000-0000-0007+OR+orcid%3A0000-0000-0000-0101&fl=orcid%2Cgiven-names%2Cfamily-name%2Ccurrent-institution-affiliation-name%2Cresearcher-urls&rows=200": {
+  "HTTP": 400,
+  "TEXTO": "campo fl researcher-urls nao suportado (inventado)"
+ },
+ "https://pub.orcid.org/v3.0/expanded-search/?q=%28family-name%3A%22Tonina%22+AND+given-names%3A%22Lorenzo%22%29+OR+%28family-name%3A%22Neri%22+AND+given-names%3A%22Paolo%22%29+OR+%28family-name%3A%22Rossi%22+AND+given-names%3A%22Mario%22%29+OR+%28family-name%3A%22Neri%22+AND+given-names%3A%22Anna%22%29&rows=200": {
+  "TEXTO": "{\"num-found\": 5, \"expanded-result\": [{\"orcid-id\": \"0000-0000-0000-0201\", \"given-names\": \"Lorenzo\", \"family-names\": \"Tonina\", \"institution-name\": [\"Fondazione Edmund Mach\"]}, {\"orcid-id\": \"0000-0000-0000-0301\", \"given-names\": \"Paolo\", \"family-names\": \"Neri\", \"institution-name\": [\"Universit\\u00e0 degli Studi di Bari Aldo Moro\"]}, {\"orcid-id\": \"0000-0000-0000-0302\", \"given-names\": \"P.\", \"family-names\": \"Neri\", \"institution-name\": [\"University of Bari\"]}, {\"orcid-id\": \"0000-0000-0000-0001\", \"given-names\": \"Mario\", \"family-names\": \"Rossi\", \"institution-name\": [\"University of Padua\"]}]}"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0201/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url\": {\"value\": \"https://www.youtube.com/@toninalab\"}}]}"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0101/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url\": {\"value\": \"https://x.com/anfora\"}}]}"
+ }
+}

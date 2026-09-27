@@ -49,7 +49,10 @@ plano = resolver(p)
 prova("1_plano_encontra_executor", plano.da_para_correr)
 recibo = orq.correr(p, seco=True)
 prova("1_corrida_devolve_recibo_com_versao",
-      recibo["STATUS"] == "OK" and recibo["ACTOR_VERSION"] != "NOT_PRESERVED",
+      # `SUCCESS` e a palavra do contrato do manifesto. O orquestrador dizia
+      # `OK`, que a lei nao aceita — dai as tres corridas com `STATUS: OK`
+      # no ficheiro. Uma palavra por estado, e a palavra e a da lei.
+      recibo["STATUS"] == "SUCCESS" and recibo["ACTOR_VERSION"] != "NOT_PRESERVED",
       str(recibo.get("ACTOR_VERSION")))
 prova("1_recibo_diz_quem_correu_e_quando",
       all(recibo.get(k) for k in ("ACTOR", "STARTED_AT", "FINISHED_AT", "QUERY")))

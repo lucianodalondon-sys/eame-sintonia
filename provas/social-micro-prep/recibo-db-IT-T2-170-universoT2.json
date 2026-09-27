@@ -1,0 +1,362 @@
+{
+ "RUN_ID": "IT-T2-2026-09-26-015750-08fdce0639fee4bd",
+ "STATUS": "SUCCESS",
+ "PEDIDO": {
+  "alvo": "T2",
+  "acionamento": "MANUAL",
+  "escopo": "PONTUAL",
+  "filtros": {
+   "fase": "video-linkedin",
+   "fonte": "IT-T2-170",
+   "pagina": "https://www.linkedin.com/company/arpa-valle-d-aosta/",
+   "teto": "1",
+   "pais": "IT",
+   "universo": "T2"
+  }
+ },
+ "MISSION": "CLIMATE / WATER / SOIL",
+ "COUNTRY": "IT",
+ "PLATFORM": "Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico)",
+ "ACTOR": "coleta/scrap_colheita.py",
+ "ACTOR_VERSION": "b944ebe3",
+ "CAPTURE_METHOD": "gratuito",
+ "INPUT": {
+  "fase": "video-linkedin",
+  "fonte": "IT-T2-170",
+  "pagina": "https://www.linkedin.com/company/arpa-valle-d-aosta/",
+  "teto": "1",
+  "pais": "IT",
+  "universo": "T2"
+ },
+ "QUERY": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fase=video-linkedin · fonte=IT-T2-170 · pagina=https://www.linkedin.com/company/arpa-valle-d-aosta/ · pais=IT · teto=1 · universo=T2",
+ "COMANDO": "coleta/scrap_colheita.py video-linkedin IT-T2-170 --teto=1 --pagina=https://www.linkedin.com/company/arpa-valle-d-aosta/ --run-id=IT-T2-2026-09-26-015750-08fdce0639fee4bd",
+ "STARTED_AT": "2026-09-26T01:57:50Z",
+ "FINISHED_AT": "2026-09-26T01:57:50Z",
+ "COST_USD": 0,
+ "ITEM_COUNT_RAW": 1,
+ "ITEM_COUNT_NORMALIZED": 0,
+ "ERROR": "",
+ "ESTADO_DOS_ITENS": "NA_PORTA",
+ "FONTES_DO_ASSUNTO": 36,
+ "FONTES_SEM_CAMINHO": 5,
+ "SAIDA": "(nao se colheu: so se levou a colheita a porta)",
+ "COLHEITA_ENCONTRADA": 1,
+ "COLHEITA_NAO_ENCONTRADA": "colheita reprocessada da corrida «IT-T2-2026-09-26-013122-d2a62bb995556b9c» pela corrida «IT-T2-2026-09-26-015750-08fdce0639fee4bd»",
+ "RETORNO": {
+  "ESTADO": "PARTIAL",
+  "COLHEITA": 0,
+  "SUPORTE": [],
+  "ERROS": [],
+  "PORQUE_ZERO_COLHEITA": "este executor nao declara o que devolve (sem ENVELOPE nem LEGADO em `retorno`). Antes, era aqui que a heuristica adivinhava."
+ },
+ "INGRESSO": {
+  "PARA_A_PORTA": [
+   {
+    "ESPECIE": "COLHEITA",
+    "RUN_ID": "IT-T2-2026-09-26-013122-d2a62bb995556b9c",
+    "DOCUMENT_ID": "NAO SEI",
+    "DOCUMENT_ID_BASE": "o contrato de fonte «IT-T2-170» nao declara DOCUMENT_ID_RULE. Sem regra nao ha identidade documental a materializar.",
+    "DOCUMENT_ID_REGRA": "NAO SEI",
+    "COUNTRY_SCOPE": "IT",
+    "ITEM_LANGUAGE": "en",
+    "OBSERVACAO": {
+     "ACQUISITION_TIER": "FREE",
+     "COLLECTED_AT": "2026-09-24T13:56:57+00:00",
+     "CONTENT_TYPE": "VIDEO",
+     "COST_USD": 0.0,
+     "COUNTRY_SCOPE": "IT",
+     "DECISAO_DO_DONO": "D23",
+     "DISCOVERY_ROUTES": [
+      "linkedin:data-sources-mp4"
+     ],
+     "EGRESS_MEASURED": null,
+     "EXECUTOR": "adaptador_linkedin.video_da_pagina_publica",
+     "FIELD_ORIGIN_TIER": "FREE",
+     "LANGUAGE": "en",
+     "NATIVE_ID": "7507360685509607424",
+     "OWNER_AUTHORIZED": "SIM",
+     "PLATFORM": "LINKEDIN",
+     "PLATFORM_POLICY_STATUS": "DISALLOWED",
+     "PUBLISHED_AT": "2026-09-20T08:51:07.434Z",
+     "RAW": {
+      "ACTIVITY_ID": "7507360685509607424",
+      "ACTIVITY_ID_DO_URL": null,
+      "ACTIVITY_ID_DO_URN": "7507360685509607424",
+      "ASPECT_RATIO": "0.8",
+      "ASSET_URN": "urn:li:digitalmediaAsset:D4D05AQH1yJW2COxvNQ",
+      "CAPTION_FORMAT_DECLARED_BY_URL": null,
+      "CAPTION_URL": null,
+      "CARD_LINK": "CONFLITO_DE_POSICAO",
+      "COMMENT_COUNT": 0,
+      "CONTENT_TYPE": "video/mp4",
+      "CREATOR_NAME": "ARPA Valle d'Aosta",
+      "CREATOR_URL": "https://it.linkedin.com/company/arpa-valle-d-aosta",
+      "DECISAO_DO_DONO": "D23",
+      "DECISAO_DO_DONO_REF": "DECISOES-DONO-2026-09-23.md",
+      "DECLARED_LANGUAGE": "en",
+      "DECLARED_LANGUAGE_BASIS": "DECLARED_BY_PLATFORM:data-language da etiqueta <video> — nunca inferida do texto",
+      "DECLARED_LANGUAGE_NOTE": "a plataforma DECLARA esta lingua no atributo data-language da etiqueta <video>; o texto da legenda e o texto do autor sao servidos na lingua da publicacao. Medido no canario D23: declarado `en`, texto italiano. O campo guarda o que a plataforma declarou — inferir do texto seria fabricar.",
+      "DERIVED_TEXT": "ASR_REQUIRED",
+      "DERIVED_TEXT_BASIS": "o video nao declara faixa de legenda. O texto teria de vir do dono unico do ASR: ferramentas/fala_local.py (via coleta/executor_transcricao_midia.py)",
+      "DESCRIPTION": "🔬 Ispra a RemTech Expo: ricerca e competenze al centro del confronto.\n\n🌍 L’Istituto, insieme al SNPA - Sistema Nazionale per la Protezione dell'Ambiente, ha partecipato con oltre 40 esperti contribuendo con le proprie competenze tecnico-scientifiche al confronto su tutti i principali temi ambientali.\n\n👥 Presenti anche la Presidente Alessandra Gallone e il Direttore Generale Fabrizio Penna.\n\n🚢 Presso il nostro stand, sono state presentate la campagna Facciamo circolare e il modellino della nave oceanografica Arcadia, con la quale si aprirà una nuova stagione della ricerca in mare.\n\n💬 “Remtech compie 20 anni. Nel 2006 i temi di questa manifestazione erano pressoché visionari.\n\n Oggi tutto questo è realtà e vediamo quale ricchezza di proposte si è sviluppata negli anni per rigenerare le città, risanare i territori, mettere in sicurezza le aree contaminate, prevenire i rischi naturali. \nISPRA e SNPA hanno seguito con fedeltà questa visione portando il contributo della nostra conoscenza scientifica e operatività sul territorio”, ha sottolineato la Presidente ISPRA e SNPA Alessandra Gallone.\n\n📊Esperti dell’Istituto hanno coordinato e partecipato ai principali eventi scientifici: dalla Conferenza nazionale sul dissesto idrogeologico agli Stati generali sulla rigenerazione urbana e sul monitoraggio dallo spazio.\n\n🏙️ I contributi ISPRA hanno arricchito i panel su innovazione e sostenibilità negli smart ports, rapporto tra industria e ambiente, gestione delle terre e rocce da scavo, danno ambientale, economia circolare ed end of waste, finanza sostenibile come leva della transizione energetica, sostanze chimiche e regolamento europeo.\n\n🤝 “Alle parole chiave della manifestazione Avvicinare, Abilitare e Agire aggiungerei Alleanza – conclude la Presidente Gallone – Il percorso fatto ci mostra quanto sia fondamentale lavorare insieme nella stessa direzione. Solo la collaborazione e l’integrazione tra mondo della ricerca, istituzioni e territorio possono generare i risultati che ci attendiamo per il nostro Paese”.",
+      "DURATION": "PT18S",
+      "EGRESS_MEASURED": null,
+      "EMBED_URL": "https://www.linkedin.com/embed/feed/update/urn:li:activity:7507360685509607424?compact=true",
+      "HEADLINE": "🔬 Ispra a RemTech Expo: ricerca e competenze al centro del confronto.",
+      "HEIGHT": 900,
+      "IDENTITY_CROSSCHECK": "CONFIRMADA_PELO_ASSET_DO_JSON_LD",
+      "IS_FAMILY_FRIENDLY": true,
+      "KEYWORDS": null,
+      "LIKE_COUNT": 39,
+      "NAME": " | ARPA Valle d&#39;Aosta",
+      "NATIVE_CAPTION": null,
+      "OWNER_AUTHORIZED": "SIM",
+      "PAGE_URL": null,
+      "PLATFORM": "LINKEDIN",
+      "PLATFORM_POLICY_STATUS": "DISALLOWED",
+      "POSTER_URL": "https://media.licdn.com/dms/image/v2/D4D05AQH1yJW2COxvNQ/videocover-high/B4DaC5B43eKYBM-/0/1789810676856?e=2147483647&v=beta&t=P7SIs-XYTWewtvd5NAYtjLqo85tNTq94vldOY80fkd0",
+      "POST_URL": "https://www.linkedin.com/feed/update/urn:li:activity:7507360685509607424/",
+      "PUBLISHED_AT": "2026-09-20T08:51:07.434Z",
+      "PUBLISHED_AT_SOURCE": "JSON_LD_VideoObject.datePublished",
+      "RENDITION_CHOSEN": "https://dms.licdn.com/playlist/vid/v2/D4D05AQH1yJW2COxvNQ/mp4-640p-30fp-crf28/B4DaC5B43eKYBk-/0/1789810678621?e=2147483647&v=beta&t=Byvn2-3ateVg34JsGlHMeDq7Rq4eiBMbhr1pWJyzveY",
+      "RENDITION_CHOSEN_BITRATE": 163394,
+      "RENDITION_CHOSEN_BY": "MENOR_BITRATE_DECLARADO",
+      "STORAGE_LOCATION": "data/raw/LINKEDIN/video/7507360685509607424__382f96ce824c80d0.mp4",
+      "TEXT_UNITS_MADE": [
+       "AUTHOR_TEXT"
+      ],
+      "THUMBNAIL_URL": "https://media.licdn.com/dms/image/v2/D4D05AQH1yJW2COxvNQ/videocover-high/B4DaC5B43eKYBM-/0/1789810676856?e=2147483647&v=beta&t=P7SIs-XYTWewtvd5NAYtjLqo85tNTq94vldOY80fkd0",
+      "UPLOAD_DATE": "2026-09-20T08:51:07.434Z",
+      "URL_EXPIRY_OBSERVED": null,
+      "VIDEO_BYTES": 679948,
+      "VIDEO_BYTES_ACQUIRED": true,
+      "VIDEO_CONTENT_TYPE_SERVED": "video/mp4",
+      "VIDEO_RENDITIONS_DECLARED": [
+       {
+        "BITRATE": 209224,
+        "SRC": "https://dms.licdn.com/playlist/vid/v2/D4D05AQH1yJW2COxvNQ/mp4-720p-30fp-crf28/B4DaC5B43eKYB8-/0/1789810678620?e=2147483647&v=beta&t=6QB7vg6Vb7vi34caMb_ZRgyIknGRItzGMhIfoTu0JMA",
+        "TYPE": "video/mp4"
+       },
+       {
+        "BITRATE": 163394,
+        "SRC": "https://dms.licdn.com/playlist/vid/v2/D4D05AQH1yJW2COxvNQ/mp4-640p-30fp-crf28/B4DaC5B43eKYBk-/0/1789810678621?e=2147483647&v=beta&t=Byvn2-3ateVg34JsGlHMeDq7Rq4eiBMbhr1pWJyzveY",
+        "TYPE": "video/mp4"
+       }
+      ],
+      "VIDEO_SHA256": "382f96ce824c80d04b5961a64f0287c9d222bf424adec02c4d577e362f770f20",
+      "VIDEO_STORAGE_LOCATION": "data/raw/LINKEDIN/video/7507360685509607424__382f96ce824c80d0.mp4",
+      "VIDEO_URL_SERVED": "https://dms.licdn.com/playlist/vid/v2/D4D05AQH1yJW2COxvNQ/mp4-640p-30fp-crf28/B4DaC5B43eKYBk-/0/1789810678621?e=2147483647&v=beta&t=Byvn2-3ateVg34JsGlHMeDq7Rq4eiBMbhr1pWJyzveY",
+      "WIDTH": 720
+     },
+     "RAW_REFERENCE": "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7507360685509607424__dcb1f17e0b2e3714.txt",
+     "RAW_SHA256": "dcb1f17e0b2e37141eccfffc1b9b1910625a336c0c91cb14efa23d8902f3d5e7",
+     "ROUTE": "linkedin:data-sources-mp4",
+     "RUN_ID": "IT-T2-2026-09-26-013122-d2a62bb995556b9c",
+     "SOURCE_ACCOUNT": "UNKNOWN",
+     "SOURCE_LOCATION": "UNKNOWN",
+     "TEXT": null,
+     "TEXT_UNITS": [
+      {
+       "LANGUAGE": "en",
+       "LINEAGE": {
+        "DERIVATION_METHOD": "READ_FROM_SOURCE_FIELD",
+        "MODEL": "UNKNOWN",
+        "RAW_OBSERVATION_ID": "UNKNOWN",
+        "SOURCE_ARTIFACT": "UNKNOWN",
+        "TOOL": "adaptador_linkedin.video_do_post"
+       },
+       "TEXT": "🔬 Ispra a RemTech Expo: ricerca e competenze al centro del confronto.\n\n🌍 L’Istituto, insieme al SNPA - Sistema Nazionale per la Protezione dell'Ambiente, ha partecipato con oltre 40 esperti contribuendo con le proprie competenze tecnico-scientifiche al confronto su tutti i principali temi ambientali.\n\n👥 Presenti anche la Presidente Alessandra Gallone e il Direttore Generale Fabrizio Penna.\n\n🚢 Presso il nostro stand, sono state presentate la campagna Facciamo circolare e il modellino della nave oceanografica Arcadia, con la quale si aprirà una nuova stagione della ricerca in mare.\n\n💬 “Remtech compie 20 anni. Nel 2006 i temi di questa manifestazione erano pressoché visionari.\n\n Oggi tutto questo è realtà e vediamo quale ricchezza di proposte si è sviluppata negli anni per rigenerare le città, risanare i territori, mettere in sicurezza le aree contaminate, prevenire i rischi naturali. \nISPRA e SNPA hanno seguito con fedeltà questa visione portando il contributo della nostra conoscenza scientifica e operatività sul territorio”, ha sottolineato la Presidente ISPRA e SNPA Alessandra Gallone.\n\n📊Esperti dell’Istituto hanno coordinato e partecipato ai principali eventi scientifici: dalla Conferenza nazionale sul dissesto idrogeologico agli Stati generali sulla rigenerazione urbana e sul monitoraggio dallo spazio.\n\n🏙️ I contributi ISPRA hanno arricchito i panel su innovazione e sostenibilità negli smart ports, rapporto tra industria e ambiente, gestione delle terre e rocce da scavo, danno ambientale, economia circolare ed end of waste, finanza sostenibile come leva della transizione energetica, sostanze chimiche e regolamento europeo.\n\n🤝 “Alle parole chiave della manifestazione Avvicinare, Abilitare e Agire aggiungerei Alleanza – conclude la Presidente Gallone – Il percorso fatto ci mostra quanto sia fondamentale lavorare insieme nella stessa direzione. Solo la collaborazione e l’integrazione tra mondo della ricerca, istituzioni e territorio possono generare i risultati che ci attendiamo per il nostro Paese”.",
+       "TEXT_KIND": "AUTHOR_TEXT",
+       "TEXT_KIND_BASIS": "DECLARED_BY_PROVIDER",
+       "TEXT_RELATION": "ORIGINAL",
+       "TEXT_UNIT_ID": "7507360685509607424:AUTHOR",
+       "TRANSLATED_FROM_TEXT_UNIT_ID": null
+      }
+     ],
+     "TITLE": " | ARPA Valle d&#39;Aosta",
+     "URL": "https://www.linkedin.com/feed/update/urn:li:activity:7507360685509607424/",
+     "ROBOTS_STATUS": "DISALLOW_ALL",
+     "ROBOTS_URL": "https://www.linkedin.com/robots.txt",
+     "ROBOTS_MEDIDO_EM": "2026-09-08",
+     "ROBOTS_MEDIDA_REF": "leis/social_matriz.py (cabecalho: robots.txt de cada plataforma, medido desta maquina)",
+     "DECISAO_DO_ROBOTS": "D37",
+     "PUBLISHED_AT_SOURCE": "PLATAFORMA — LinkedIn, pagina publica do post, JSON_LD_VideoObject.datePublished",
+     "PUBLISHED_AT_PRECISION": "SECOND"
+    },
+    "TEXT_UNITS": [
+     {
+      "LANGUAGE": "en",
+      "LINEAGE": {
+       "DERIVATION_METHOD": "READ_FROM_SOURCE_FIELD",
+       "MODEL": "UNKNOWN",
+       "RAW_OBSERVATION_ID": "UNKNOWN",
+       "SOURCE_ARTIFACT": "UNKNOWN",
+       "TOOL": "adaptador_linkedin.video_do_post"
+      },
+      "TEXT": "🔬 Ispra a RemTech Expo: ricerca e competenze al centro del confronto.\n\n🌍 L’Istituto, insieme al SNPA - Sistema Nazionale per la Protezione dell'Ambiente, ha partecipato con oltre 40 esperti contribuendo con le proprie competenze tecnico-scientifiche al confronto su tutti i principali temi ambientali.\n\n👥 Presenti anche la Presidente Alessandra Gallone e il Direttore Generale Fabrizio Penna.\n\n🚢 Presso il nostro stand, sono state presentate la campagna Facciamo circolare e il modellino della nave oceanografica Arcadia, con la quale si aprirà una nuova stagione della ricerca in mare.\n\n💬 “Remtech compie 20 anni. Nel 2006 i temi di questa manifestazione erano pressoché visionari.\n\n Oggi tutto questo è realtà e vediamo quale ricchezza di proposte si è sviluppata negli anni per rigenerare le città, risanare i territori, mettere in sicurezza le aree contaminate, prevenire i rischi naturali. \nISPRA e SNPA hanno seguito con fedeltà questa visione portando il contributo della nostra conoscenza scientifica e operatività sul territorio”, ha sottolineato la Presidente ISPRA e SNPA Alessandra Gallone.\n\n📊Esperti dell’Istituto hanno coordinato e partecipato ai principali eventi scientifici: dalla Conferenza nazionale sul dissesto idrogeologico agli Stati generali sulla rigenerazione urbana e sul monitoraggio dallo spazio.\n\n🏙️ I contributi ISPRA hanno arricchito i panel su innovazione e sostenibilità negli smart ports, rapporto tra industria e ambiente, gestione delle terre e rocce da scavo, danno ambientale, economia circolare ed end of waste, finanza sostenibile come leva della transizione energetica, sostanze chimiche e regolamento europeo.\n\n🤝 “Alle parole chiave della manifestazione Avvicinare, Abilitare e Agire aggiungerei Alleanza – conclude la Presidente Gallone – Il percorso fatto ci mostra quanto sia fondamentale lavorare insieme nella stessa direzione. Solo la collaborazione e l’integrazione tra mondo della ricerca, istituzioni e territorio possono generare i risultati che ci attendiamo per il nostro Paese”.",
+      "TEXT_KIND": "AUTHOR_TEXT",
+      "TEXT_KIND_BASIS": "DECLARED_BY_PROVIDER",
+      "TEXT_RELATION": "ORIGINAL",
+      "TEXT_UNIT_ID": "7507360685509607424:AUTHOR",
+      "TRANSLATED_FROM_TEXT_UNIT_ID": null
+     }
+    ],
+    "STORAGE_LOCATION": "data/raw/LINKEDIN/video/7507360685509607424__382f96ce824c80d0.mp4",
+    "CONTENT_TYPE": "video/mp4",
+    "PAYLOAD": {
+     "ONDE": "data/raw/LINKEDIN/video/7507360685509607424__382f96ce824c80d0.mp4",
+     "ESTADO": "PRESENTE"
+    },
+    "ARTIFACT_ID": "RAW-382f96ce824c80d0",
+    "SHA256": "382f96ce824c80d04b5961a64f0287c9d222bf424adec02c4d577e362f770f20",
+    "BYTES": 679948,
+    "texto": "🔬 Ispra a RemTech Expo: ricerca e competenze al centro del confronto.\n\n🌍 L’Istituto, insieme al SNPA - Sistema Nazionale per la Protezione dell'Ambiente, ha partecipato con oltre 40 esperti contribuendo con le proprie competenze tecnico-scientifiche al confronto su tutti i principali temi ambientali.\n\n👥 Presenti anche la Presidente Alessandra Gallone e il Direttore Generale Fabrizio Penna.\n\n🚢 Presso il nostro stand, sono state presentate la campagna Facciamo circolare e il modellino della nave oceanografica Arcadia, con la quale si aprirà una nuova stagione della ricerca in mare.\n\n💬 “Remtech compie 20 anni. Nel 2006 i temi di questa manifestazione erano pressoché visionari.\n\n Oggi tutto questo è realtà e vediamo quale ricchezza di proposte si è sviluppata negli anni per rigenerare le città, risanare i territori, mettere in sicurezza le aree contaminate, prevenire i rischi naturali. \nISPRA e SNPA hanno seguito con fedeltà questa visione portando il contributo della nostra conoscenza scientifica e operatività sul territorio”, ha sottolineato la Presidente ISPRA e SNPA Alessandra Gallone.\n\n📊Esperti dell’Istituto hanno coordinato e partecipato ai principali eventi scientifici: dalla Conferenza nazionale sul dissesto idrogeologico agli Stati generali sulla rigenerazione urbana e sul monitoraggio dallo spazio.\n\n🏙️ I contributi ISPRA hanno arricchito i panel su innovazione e sostenibilità negli smart ports, rapporto tra industria e ambiente, gestione delle terre e rocce da scavo, danno ambientale, economia circolare ed end of waste, finanza sostenibile come leva della transizione energetica, sostanze chimiche e regolamento europeo.\n\n🤝 “Alle parole chiave della manifestazione Avvicinare, Abilitare e Agire aggiungerei Alleanza – conclude la Presidente Gallone – Il percorso fatto ci mostra quanto sia fondamentale lavorare insieme nella stessa direzione. Solo la collaborazione e l’integrazione tra mondo della ricerca, istituzioni e territorio possono generare i risultati che ci attendiamo per il nostro Paese”.",
+    "texto_especie": "AUTHOR_TEXT",
+    "texto_relacao": "ORIGINAL",
+    "texto_lingua": "en",
+    "texto_unidade": "7507360685509607424:AUTHOR",
+    "texto_escolha_porque": "escolhida por TEXT_RELATION=ORIGINAL e TEXT_KIND=AUTHOR_TEXT, pela ordem canonica de `regras/proveniencia.py`",
+    "source_id": "IT-T2-170",
+    "url": "https://www.linkedin.com/feed/update/urn:li:activity:7507360685509607424/",
+    "published_at": "2026-09-20T08:51:07.434Z",
+    "source_location": "ITALY",
+    "artifact_type": "RAW",
+    "observed_at": "2026-09-24T13:56:57+00:00",
+    "published_at_basis": "PLATAFORMA — LinkedIn, pagina publica do post, JSON_LD_VideoObject.datePublished",
+    "published_at_precision": "SECOND",
+    "source_location_basis": "PAIS da ficha do site oficial arpa.vda.it no Atlas (IT-T2-022), o site que aponta para a conta; a regiao da ficha e cobertura, nao morada",
+    "source_location_precision": "COUNTRY",
+    "raw_asset_id": 1
+   }
+  ],
+  "PARA_A_DERIVACAO": [
+   {
+    "RAW_ASSET_ID": 1,
+    "CAPTURED_AT": "2026-09-26T01:57:50Z",
+    "MEDIA_TYPE": "video/mp4",
+    "SOURCE_ID": "IT-T2-170",
+    "SOURCE_URL": "https://www.linkedin.com/feed/update/urn:li:activity:7507360685509607424/",
+    "TEMPO_E_LUGAR": {
+     "PUBLISHED_AT": "2026-09-20T08:51:07.434Z",
+     "PUBLISHED_AT_BASIS": "PLATAFORMA — LinkedIn, pagina publica do post, JSON_LD_VideoObject.datePublished",
+     "OBSERVED_AT": "2026-09-24T13:56:57+00:00",
+     "SOURCE_LOCATION": "ITALY",
+     "SOURCE_LOCATION_BASIS": "PAIS da ficha do site oficial arpa.vda.it no Atlas (IT-T2-022), o site que aponta para a conta; a regiao da ficha e cobertura, nao morada",
+     "PUBLISHED_AT_PRECISION": "SECOND",
+     "SOURCE_LOCATION_PRECISION": "COUNTRY"
+    },
+    "PDF": "C:\\ens-sm\\IT\\it-t2-170\\OBSERVATION\\382f96ce824c80d0-uf558a9320fe2a343-7507360685509607424__382f96ce824c80d0.mp4"
+   }
+  ],
+  "SEM_BYTES_PARA_DERIVAR": [],
+  "FONTE_PROVADA": "IT-T2-170",
+  "PRESERVADOS": 1,
+  "RECUSADOS": 0,
+  "PORQUE_RECUSADOS": [],
+  "RUN_STATE": "COMPLETE",
+  "RASTRO": {
+   "ACCOUNTED_INPUT": 1,
+   "UNACCOUNTED_INPUT": 0,
+   "ESTADO": "PASS",
+   "DIAGNOSTIC_CODE": null
+  },
+  "BANCO": "SELECT em raw_asset por run_id, filtrado pelos caminhos do plano. Leitura real do banco, nao contagem esperada."
+ },
+ "DERIVACAO": {
+  "CHAMADO": true,
+  "UNIDADES": 1,
+  "RUNNER": "derivacao-forward",
+  "RUN_ID": "IT-T2-2026-09-26-015750-08fdce0639fee4bd",
+  "SOURCE_ID": "IT-T2-170",
+  "ROUTE_CLASS_ID": null,
+  "ESTADO_DA_ETAPA": "PASS",
+  "BALDES": {
+   "PASSED": 0,
+   "REJECTED": 1,
+   "ERROR": 0,
+   "NOT_RUN": 0,
+   "UNKNOWN": 0,
+   "REUSED": 0
+  },
+  "SAIRAM": 0,
+  "RASTRO": "EMITIDO",
+  "DERIVADOS": [
+   {
+    "RAW_ASSET_ID": 1,
+    "PORTA": "REJECTED",
+    "STORAGE_PATH": null
+   }
+  ],
+  "RESULTADOS": [
+   {
+    "RAW_ASSET_ID": 1,
+    "PDF": "C:\\ens-sm\\IT\\it-t2-170\\OBSERVATION\\382f96ce824c80d0-uf558a9320fe2a343-7507360685509607424__382f96ce824c80d0.mp4",
+    "CAPTURED_AT": "2026-09-26T01:57:50Z",
+    "SOURCE_ID": "IT-T2-170",
+    "SOURCE_URL": "https://www.linkedin.com/feed/update/urn:li:activity:7507360685509607424/",
+    "TEMPO_E_LUGAR": {
+     "PUBLISHED_AT": "2026-09-20T08:51:07.434Z",
+     "PUBLISHED_AT_BASIS": "PLATAFORMA — LinkedIn, pagina publica do post, JSON_LD_VideoObject.datePublished",
+     "OBSERVED_AT": "2026-09-24T13:56:57+00:00",
+     "SOURCE_LOCATION": "ITALY",
+     "SOURCE_LOCATION_BASIS": "PAIS da ficha do site oficial arpa.vda.it no Atlas (IT-T2-022), o site que aponta para a conta; a regiao da ficha e cobertura, nao morada",
+     "PUBLISHED_AT_PRECISION": "SECOND",
+     "SOURCE_LOCATION_PRECISION": "COUNTRY"
+    },
+    "ESTADO": "SEM_DERIVADO",
+    "PORTA": "REJECTED",
+    "PORQUE": "o reconhecedor devolveu REQUESTED_EMPTY",
+    "LINHA": null,
+    "STORAGE_PATH": null,
+    "MOTIVO_DO_EXECUTOR": "REQUESTED_EMPTY",
+    "EXECUTOR_ID": "transcricao-de-midia",
+    "MEDIA_TYPE": "video/mp4",
+    "TEXT_KIND": null,
+    "TEXT_RELATION": null,
+    "TEXT_UNIT": null,
+    "RETRATO_DO_DETECTOR": null,
+    "LANGUAGE": null,
+    "LANGUAGE_SOURCE": null
+   }
+  ]
+ },
+ "ESTRUTURACAO": {
+  "CHAMADO": false,
+  "UNIDADES": 0,
+  "PORQUE": "nenhum derivado desta corrida para estruturar"
+ },
+ "ADMISSAO": {
+  "itens": 1,
+  "por_resultado": {
+   "NAO": 1
+  },
+  "prontos": 0,
+  "ficheiro": "",
+  "espera": null,
+  "FRONTEIRA": {
+   "CONTRATO": "STRUCTURED -> ADMISSION",
+   "DONO": "coleta/ingresso.py::conferir_fronteira",
+   "MEDIDOS": 1,
+   "EXIGIDOS_EM_FALTA": {},
+   "TRANSPORTAVEIS_AUSENTES": {
+    "COLLECTED_AT": 1,
+    "FACT_LOCATION": 1,
+    "FACT_TIME": 1,
+    "PARENT_SHA256": 1,
+    "SOURCE_DECLARED_EVIDENCE_CLASS": 1
+   },
+   "COM_LINHAGEM": 1,
+   "A_LEI": "FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT != DERIVED_AT"
+  }
+ },
+ "PERSISTENCIA": {
+  "ESTADO": "DESCARTAVEL",
+  "MORADA": "127.0.0.1:58000/descartavel",
+  "PORQUE": "BANCO_DESCARTAVEL_URL declarada e provada descartavel; memoria e rastro ligados ao mesmo banco.",
+  "VARIAVEL": "BANCO_DESCARTAVEL_URL",
+  "ARMAZEM_RAIZ": "C:\\ens-sm",
+  "AMBIENTE_RETIRADO": [],
+  "MEMORIA": "MemoriaPostgres",
+  "BANCO_DO_RASTRO": "Banco"
+ }
+}

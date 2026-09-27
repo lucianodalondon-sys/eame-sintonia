@@ -1,6 +1,6 @@
 # ITALY_COLLECTION_COMPLIANCE_MATRIX — apêndice C da Bíblia
 
-**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.3` · **Data:** 2026-09-07 · **HEAD medido:** `4b3c0d4` (integração)
+**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.5` · **Data:** 2026-09-12 (V1.5: 2026-09-27, sobre `2ef6fef`) · **HEAD medido:** `465e318a` · **LAW_TOTAL:** `108`
 
 > Esta matriz mede a **implementação italiana** contra as 104 leis canônicas. Ela não é a
 > lei: a lei está em [`../../BIBLIA-CANONICA-DA-COLETA.md`](../../BIBLIA-CANONICA-DA-COLETA.md).
@@ -15,14 +15,28 @@ alteradas, medidas nem portadas nesta missão.
 
 ## O PLACAR
 
-| estado | V1 | V1.1 | **V1.3** | |
-|---|---:|---:|---:|---|
-| `IMPLEMENTED` | 21 | 24 | **37** | há código no caminho produtivo e prova executável |
-| `PARTIAL` | 23 | 42 | **47** | existe em parte, ou existe para um caminho e não para os outros |
-| `ABSENT` | 4 | 11 | **18** | é lei, e não há implementação nenhuma |
-| `NOT_APPLICABLE` | 0 | 1 | **2** | a lei não se aplica ao perfil italiano de hoje |
-| `UNKNOWN` | 0 | 0 | **0** | — |
-| **total** | 48 | 78 | **104** | |
+| estado | V1 | V1.1 | V1.3 | V1.4 | **V1.5** | |
+|---|---:|---:|---:|---:|---:|---|
+| `IMPLEMENTED` | 21 | 24 | 37 | 37 | **36** | há código no caminho produtivo e prova executável |
+| `PARTIAL` | 23 | 42 | 47 | 48 | **52** | existe em parte, ou existe para um caminho e não para os outros |
+| `ABSENT` | 4 | 11 | 18 | 18 | **18** | é lei, e não há implementação nenhuma |
+| `NOT_APPLICABLE` | 0 | 1 | 2 | 2 | **2** | a lei não se aplica ao perfil italiano de hoje |
+| `UNKNOWN` | 0 | 0 | 0 | 0 | **0** | — |
+| **total** | 48 | 78 | 104 | 105 | **108** | |
+
+> ⚠️ **ESTE PLACAR É UM EIXO SÓ, E NÃO É O QUE DECIDE O FECHO.**
+> Ele diz se a lei já funciona. Não diz se a falta dela **impede** a coleta
+> grande. O segundo eixo vive em
+> [`../../data/derivados/COLLECTION-V1-CLOSE-GATES.json`](../../data/derivados/COLLECTION-V1-CLOSE-GATES.json)
+> e é **medido**, não declarado.
+>
+> ```
+> UMA LEI PARTIAL PODE NÃO BLOQUEAR NADA,
+> E UMA LEI PEQUENA PODE BLOQUEAR TUDO.
+> ```
+>
+> Medido em 2026-09-12: **48 leis `PARTIAL`** e **5 blockers**. Nenhum blocker
+> foi derivado do estado de lei.
 
 > **DUAS LEIS DESCERAM DE `IMPLEMENTED` PARA `PARTIAL` em 08/09/2026 — e ninguém desfez
 > trabalho nenhum.** A COL-LAW-106 e a COL-LAW-210 tinham sido dadas por cumpridas medindo
@@ -72,7 +86,7 @@ o lado que parece rigoroso.
 | `COL-LAW-029` source drift e controle negativo | `IMPLEMENTED` | `--negativos` corrompe 8 documentos em memória e exige `FAILED` | — | — |
 | `COL-LAW-030` mundo ≠ pipeline | `PARTIAL` | `COLLECTOR_VERSION` e `SOURCE_CONTRACT_VERSION` no ledger italiano | `PIPELINE_VERSION` não existe; o `RUN-MANIFEST` não tem nenhum dos três | G-02 |
 | `COL-LAW-031` temporalidade | `PARTIAL` | `FACT_TIME` separado em 144 observações; `v21_datas.py` recusa prosa | ⚠️ `admissao/admissao.py:169` aceita `published_at` como tempo do fato | **G-01** |
-| `COL-LAW-032` geografia | `IMPLEMENTED` | lei no core + leitor italiano + constraints da migration 015 | — | — |
+| `COL-LAW-032` geografia | `PARTIAL` | lei no core + leitor italiano + constraints da migration 015; V1.5: `LOCATION_SOURCE` e `fact_location()` em `leis/lugar_do_fato.py`, provados contra o gold humano da Puglia | V1.5 (D112): nenhum extrator emite `LOCATION_SOURCE` nem `LOCATION_EXPRESSION_RAW`; `SECTION_HEADER` e o lugar escrito na frase («zona costiera del Gargano») saem `NAO SEI` — 5 falhas conhecidas declaradas em `tests/test_metodo_puglia.py` | METODO-PUGLIA |
 | `COL-LAW-033` procedência | `IMPLEMENTED` | `RAW_SHA256` em 144 de 144 observações; contrato V2.1 falha fechado | — | — |
 | `COL-LAW-034` identidade | `PARTIAL` | `identidade_valida()` recusa campos que mudam entre execuções | `ITEM_ID` e `ARTIFACT_ID` não são campos próprios no ledger italiano | G-06 |
 | `COL-LAW-035` UNKNOWN | `IMPLEMENTED` | `P7_NAO_SEI_VIVE` no CI; `NOT_PRESERVED ≠ NÃO SEI` em código | ⚠️ cinco grafias do sentinela (C-003, decisão em aberto) | **G-14** |
@@ -191,7 +205,24 @@ o lado que parece rigoroso.
 | `COL-LAW-502` documento pronto ≠ fato pronto | SIM | `IMPLEMENTED` | a porta lê o ESTÁGIO e pergunta o que se aplica; 43 → 18 SIM · 19 NÃO · 6 NÃO_SEI, sem data inventada | — | — |
 | `COL-LAW-503` ferramenta ausente ≠ documento quebrado | SIM | `IMPLEMENTED` | pré-voo no passo 0: sem a ferramenta a corrida para com `FAILED_PRECONDITION`, zero documentos tocados | — | — |
 | `COL-LAW-504` árvore escaneada ≠ commit do mapa | SIM | `ABSENT` | ⚠️ um campo só (`PROVENANCE.HEAD`) para duas perguntas; 3 commits de «carimbo do HEAD» na história do ramo | `SOURCE_TREE_FINGERPRINT` e `MAP_ARTIFACT_COMMIT` separados | **G-35** |
+| `COL-LAW-505` o executor declara colheita vs suporte | SIM | `PARTIAL` | contrato, vocabulário fechado e validador em `leis/retorno_da_coleta.py`; 34 travas e 12 mutações apanhadas em `tests/test_retorno_da_coleta.py`; medido `FALSE_HARVEST_TOTAL = 253` sobre os 5 executores | `a_colheita()` ainda usa a heurística genérica e nenhum executor declara espécie — 3 famílias a adaptar (T2 · T3 · T4/T7/T9) | **G-41** |
 
+
+
+---
+
+## A MATRIZ — LEIS DA EMENDA V1.5 (D112 · a afirmação da fonte)
+
+> Medidas contra o gold humano da Puglia (`tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json`),
+> não contra opinião. O vocabulário e as travas existem. **LOTE6-INTEGRA:** o extrator por secção
+> dos boletins (`leis/boletim_do_campo.ler_afirmacao`) lê o vocabulário daqui e passa pelas travas
+> `procedencia_da_entidade` e `fact_location` antes de devolver — o gold passa 9/9 casos medidos.
+
+| LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
+|---|---|---|---|---|---|
+| `COL-LAW-221` procedência da entidade | SIM | `PARTIAL` | `ENTITY_SOURCE` e `procedencia_da_entidade()` em `leis/afirmacao_da_fonte.py`; as 9 procedências do gold obedecem à trava; `leis/boletim_do_campo.ler_afirmacao` emite `ENTITY_SOURCE` (praga e cultura) e as 9 batem com o dono (`tests/test_metodo_puglia.py` T7) | só os boletins (T3) passam pelo extrator por secção; as outras fichas (T5, social, notícia) não emitem `ENTITY_SOURCE` | LOTE6-INTEGRA → estender |
+| `COL-LAW-222` fidelidade da afirmação | SIM | `PARTIAL` | lint `fidelidade()` reprova C05 e C06, aprova C02 · C08 · C10, e concorda com a resposta Q1 do dono em 9 de 9 fichas | o lint não está ligado a nenhuma produção de ficha | METODO-PUGLIA |
+| `COL-LAW-223` espécie da afirmação | SIM | `PARTIAL` | `leis/fato_do_texto.py` já separa previsão e recomendação para o TEMPO; `usavel_como_fato_observado()` | a ficha não tem campo de espécie com este vocabulário em código | METODO-PUGLIA |
 
 ---
 

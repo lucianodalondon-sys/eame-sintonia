@@ -1,0 +1,11 @@
+LIMPO tests.test_pesquisadores_t6 tests.test_comunicacao_concorrenza | OK
+LIMPO tests.test_a_porta_cli_liga_o_banco.ORuntimeNaoImportaProvasEHaUmAdaptador | OK
+LIMPO tests.test_contador_24h | OK
+MORTO O1 a regra ORCID->T6 desligada | FAILED (failures=2) | reposto sha256 152af610cd9c
+MORTO O2 a regra ORCID le so nome + casa (o caminho some) | FAILED (failures=2) | reposto sha256 152af610cd9c
+MORTO O3 todas as regras voltam a ler o endereco inteiro (o conserto do concorrenza desfeito) | FAILED (failures=2) | reposto sha256 152af610cd9c
+MORTO D1 o runtime volta a importar provas/ (reserva_24h) | FAILED (failures=1) | reposto sha256 7a906b1e6a08
+MORTO D2 o runtime volta a importar provas/ (rota_navegador) | FAILED (failures=1) | reposto sha256 ba56b7618649
+MORTO D3 o runtime volta a importar provas/ (espera_por_dominio) | FAILED (failures=1) | reposto sha256 6e390ba97226
+MORTO P1 a prova do contador volta a chamar `py` fixo | FAILED (failures=1) | reposto sha256 6567e82756eb
+MUTANTES 7, MORTOS 7

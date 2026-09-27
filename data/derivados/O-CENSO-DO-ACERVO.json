@@ -1,0 +1,55 @@
+{
+  "PERGUNTA": "que tamanho tem a fila que pode chegar a Sala de Espera?",
+  "SO_LEITURA": "YES — nada foi movido, promovido, admitido ou reprocessado",
+  "EM_DISCO": {
+    "LIVRO_DO_COLETOR_ITALIANO": {
+      "OBSERVACOES_NO_LIVRO": 144,
+      "ILEGIVEIS": 0,
+      "COM_CAMINHO_DE_BYTES": 35,
+      "COM_BYTES_MESMO_NA_ARVORE": 10,
+      "DECLARADOS_SEM_BYTES": 25,
+      "CORRIDAS_NO_LIVRO": 6,
+      "POR_FONTE": {
+        "IT-T2-002": 124,
+        "IT-T2-004": 6,
+        "IT-T3-002": 2,
+        "IT-T3-005": 6,
+        "IT-T3-008": 2,
+        "IT-T3-010": 2,
+        "IT-T4-001": 2
+      }
+    },
+    "DOCUMENTOS_REGULATORIOS_EU": {
+      "PDFS": 1,
+      "BONS": 1,
+      "TRUNCADOS": 0
+    },
+    "COLHEITAS_DECLARADAS": {
+      "ENVELOPES": 0,
+      "UNIDADES_DECLARADAS_COMO_COLHEITA": 0,
+      "POR_ESTADO": {},
+      "FORA_DO_CONTRATO": []
+    },
+    "TEXTOS_JA_EXTRAIDOS": 43
+  },
+  "NO_BANCO_LIVE": {
+    "MEDIDO": "NO",
+    "PORQUE": "este ambiente nao tem credenciais do LIVE: SUPABASE_DB_URL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY ausentes",
+    "VARIAVEIS_PRESENTES": [],
+    "POR_ESTADO": {
+      "RAW_ONLY": "NOT_MEASURED",
+      "RAW_WITH_STORAGE": "NOT_MEASURED",
+      "DERIVED": "NOT_MEASURED",
+      "STRUCTURED": "NOT_MEASURED",
+      "ADMISSION_DECIDED": "NOT_MEASURED",
+      "READY": "NOT_MEASURED",
+      "WAITING_ROOM": "NOT_MEASURED",
+      "ERROR": "NOT_MEASURED",
+      "UNKNOWN": "NOT_MEASURED",
+      "LEGACY_OUT_OF_FLOW": "NOT_MEASURED",
+      "REPROCESSABLE": "NOT_MEASURED"
+    },
+    "COMO_MEDIR": "com `SUPABASE_DB_URL` definida, contar por estado em `raw_asset`, `storage_object`, `derived_artifact`, `documento_estruturado` e no livro de decisoes — tudo com SELECT, sem escrever nada"
+  },
+  "GENERATED_BY": "provas/o_censo_do_acervo.py"
+}

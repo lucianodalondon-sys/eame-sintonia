@@ -2,25 +2,74 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T21:22:23+00:00",
-    "HEAD": "a50951a9e9fe812e1ef2769e4456f673abe59c3c",
+    "GENERATED_AT": "2026-09-27T21:41:37+00:00",
+    "HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c1e54f42b09b1fed427a8fcdbd3fdc2666350f697704c6b921e62a0e0532d1a6",
-    "FICHEIROS_NA_IMPRESSAO": 1535,
+    "SOURCE_TREE_FINGERPRINT": "f91ce657de3644e74fc43e11393248eedee010d83a67a222942c28cc1953f1f9",
+    "FICHEIROS_NA_IMPRESSAO": 4167,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "f619753dbad4e1ec8aa1bace67eb4b36c96af3fc",
+        "VERSAO": "6763157c8c9a392c27a0e8bfe0ce1e4d2a34fac3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/idioma.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ee745685d7b75cc45399578660ab1db60a15c707",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/reprocessar_estudos_chaves.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "a14737a255303597b0a30c81f173979717950eb9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/reprocessar_tempo_lugar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ccaa4fc58fe6d835fc2615d2891e0542fa3110ed",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/sala_de_espera.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "f4435065e826bd96cd9e379181b2900bab488681",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/versao_do_documento.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "f0d3f2f6fde7c6c3b038eb2a371f35b3e7b153cf",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/video_na_sala.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "b21da0677ef9b30a09ce4d8f54f3d4770b4e3bdb",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/decidir_fila_italia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "22de8d850b4499c701cbed6cad317fb744458f0e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "candidatas/fonte_nova.py",
         "PAPEL": "FONTE",
-        "VERSAO": "9a96acc19f31d08a1aebca168fcc0380268c46c9",
+        "VERSAO": "2617154069d64d58a51bf8cea4c5e1c378a9200e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -48,7 +97,7 @@
       {
         "PATH": "candidatas/italy_profiles.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "445164345e6aa765e10fc1a9bf87639365da383f",
+        "VERSAO": "7d56604bdfd5108f5bf19ef0b2a7e56ea5675c7e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -62,7 +111,63 @@
       {
         "PATH": "candidatas/italy_write_matrix.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "3e64e612d2b80748c5e9d65d2c432deb70bc3161",
+        "VERSAO": "7be10ad18b8ba878b09ed93fd41b82ab74262828",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/reconciliar_fichas_orfas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "18018f0ae1bb994bedf1705ce4b4895eed8e442a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/xlsx_simples.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "46c087bf2df6ff645e09143c45ae6b7e3f96adc2",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/adaptador_aberto.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "9d4994f0453920ddd3c31209a88573d9b0c6358d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/adaptador_facebook.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "abeffae0c5d5bcbd5d2b112b552bee22c9c52aaa",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/adaptador_instagram.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "08c56a31892979e5d98ebb4ebedfa60c06d8e117",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/adaptador_linkedin.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "2eda34b44aa89bdd532d38babfcda5e0f37da108",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/adaptador_x.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "683ba4b3ca034b2a4ed41953458170d5f3c989b2",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/adaptador_youtube.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "88dcb425731f4cab3be6974eac461d2047f59dbb",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -83,35 +188,49 @@
       {
         "PATH": "coleta/coleta_checkpoint.py",
         "PAPEL": "FONTE",
-        "VERSAO": "18217020ae76fb647651a1cd85cdb4469bd2c468",
+        "VERSAO": "fedb342f438f63652ff06e85a197f8265cea39f6",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "coleta/coletor.py",
         "PAPEL": "FONTE",
-        "VERSAO": "7ac48f9d4811b9b94bd72682ebc69bfd777ac27c",
+        "VERSAO": "e6d83752a40f3d1d462f7a2d77cca7b1466bd395",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "coleta/comunicacao_classificar.py",
         "PAPEL": "FONTE",
-        "VERSAO": "3c1d6af0ab7aca36b38615b64c7eb1ee32457559",
+        "VERSAO": "e0061b5e47af2a866b1cbc926c65ab2f3234f8d9",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "coleta/comunicacao_coleta.py",
         "PAPEL": "FONTE",
-        "VERSAO": "e13c01805ce58ae4f5cb2dd69f48a9dac27e5526",
+        "VERSAO": "63503bdb9f81d3d7be04015cfefd2782fc613b95",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/comunicacao_concorrenza.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "4b7abdbb4f6bada5a1297c3cd213ea684a211f89",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "coleta/comunicacao_medir.py",
         "PAPEL": "FONTE",
-        "VERSAO": "eda976cee16adac1dd8485837df599671c1248c0",
+        "VERSAO": "fb13942aa0c9100357092673a32c9e53017d4993",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/concorrencia_meta.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "dc01f3b0791cfd1776b3be1becdb9d9441287eab",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -139,7 +258,14 @@
       {
         "PATH": "coleta/derivacao_forward.py",
         "PAPEL": "FONTE",
-        "VERSAO": "5e9cd144714a41d653aace5785ee15b91eac21f4",
+        "VERSAO": "d804af4bd47aa42608ae7020a22b6f082a55bf6b",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/dominio_registavel.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6faa69c083441a42d974591eac5ef172b5d4cd02",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -165,6 +291,20 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "coleta/espera_por_dominio.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "36efae771edf4c32cf5d067736d4d4ad5dcb796e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/eu_regulatorio_executor.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "868efc415f744710867eea061a25ac9e147fd712",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "coleta/eu_substancia_adama_it.py",
         "PAPEL": "FONTE",
         "VERSAO": "93600f2cc5f920838d750aa57675b22329583dd0",
@@ -172,9 +312,30 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "coleta/executor_texto_de_html.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "2197b7ac28ddf1211e95a308b305c9ad4bd04b07",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "coleta/executor_texto_de_pdf.py",
         "PAPEL": "FONTE",
-        "VERSAO": "ab7f0b86f3b1759dacfc672254b9f810d7fb43cd",
+        "VERSAO": "137534173b2d7b6c88fbb7262ee195ace350820a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/executor_transcricao_midia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "db0f49e3cee0a5fb0aa48b3b6597e9cc8f9e089b",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/extratores_de_texto.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6db3debd91f4e7d9a11dee1aec3a84505c08c166",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -195,14 +356,21 @@
       {
         "PATH": "coleta/golden_path_pdf.py",
         "PAPEL": "FONTE",
-        "VERSAO": "cb7fc0ab240be388b7b0d38f3292de0125b7748f",
+        "VERSAO": "2626895255dcab5ec25b860d3cb072422091b0ef",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/ingresso.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "2d39a29268e1077d975deb0344d38393643cde85",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "coleta/instagram_coleta.py",
         "PAPEL": "FONTE",
-        "VERSAO": "4672abd66ebf1dea06863ca4bffaf88369eb1544",
+        "VERSAO": "95009e6f87f65fb5758394d7188bb481b8ae95fd",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -216,7 +384,7 @@
       {
         "PATH": "coleta/instagram_janela.py",
         "PAPEL": "FONTE",
-        "VERSAO": "0b89f4e2ddd937fab12c1a52a4abdcdd08ab2c97",
+        "VERSAO": "6a37d0aeea2308ec9865bca964d6e6439c509dbf",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -224,6 +392,13 @@
         "PATH": "coleta/instagram_pessoal.py",
         "PAPEL": "FONTE",
         "VERSAO": "957774eff46891cbf73b0f57bc3ea0273f074370",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/italy_executor.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e5ed8433b37268c185cf73c7e38b32d5a8d8dce9",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -237,7 +412,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "bddf9028c4b4abd3815f11201a304288f9eafa70",
+        "VERSAO": "23849cfdaaeac955281413fc55a8560fab14cecf",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -251,7 +426,14 @@
       {
         "PATH": "coleta/italy_recurrent_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "af33d941dac1a9efc3b687a106450c50c70b3642",
+        "VERSAO": "d3258293157e31c49cdbff253e9dd005482d295a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/lista_mestra_mur.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "173b42ca267c66e723ee5f639ec8e638bb0dd3fe",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -263,9 +445,37 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "coleta/meta_anunciante.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e7edb5a85b4135694156596b77eaeb42757c38d0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/nome_da_pasta.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "18b087587a6518f2f486013627d4f1efb600dfd2",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "coleta/pdf_text.py",
         "PAPEL": "FONTE",
         "VERSAO": "88b6b6d24e4f58a1948a390a0d72d4a21efa495c",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/pesquisadores_t6.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "1a121d6738f0b8f7f0585d5ee109ecc02b08906a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/pesquisadores_t6_executor.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "4684428af209785f8a2978b98cb94bb1cc8fbbd4",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -284,6 +494,20 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "coleta/reserva_24h.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "b52272857eb450f5385891e8aad0081190043fba",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/retrato_html.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "59033176f66b0e3a76cfa63765233930b93f3c0e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "coleta/ropf_pre_requisito.py",
         "PAPEL": "FONTE",
         "VERSAO": "9e12db2b075779f9cb91f107d40eb53723332308",
@@ -293,7 +517,14 @@
       {
         "PATH": "coleta/rota_forward_documento.py",
         "PAPEL": "FONTE",
-        "VERSAO": "4343ce48ee0559c6dd35514b9dedff389cf68a87",
+        "VERSAO": "e87d04b651c801551a5f85f8861fbdbedfe6253b",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/rota_navegador.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "9668505962258defba4a79389914654d5e0c0a25",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -307,7 +538,49 @@
       {
         "PATH": "coleta/rotulos_ler.py",
         "PAPEL": "FONTE",
-        "VERSAO": "00c2e08df029370b59ffb9190b96cdb59a7b0d03",
+        "VERSAO": "55336ae99e341e8b2f89b7a48a63cee2e309c11d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/scrap_capacidades.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "69ec2c0f5a722283a8e6b2465404b87e1efde884",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/scrap_colheita.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ed029244e8df58bb0fdbbe0a166a3fae0404d74f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/scrap_executor.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "9c5b02ce55f38134abd11aec57769e58492dcd6f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/scrap_fornecedores.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ada49af21045e1a2a0474eb600dec47b79e7b3c7",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/scrap_http.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "d5d4dfd71aea631ed81805599edea1f3b27cc3d8",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/scrap_registo.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "aa5272997e06074f56d0e683c5c74e047faa207e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -321,7 +594,7 @@
       {
         "PATH": "coleta/social_envelope.py",
         "PAPEL": "FONTE",
-        "VERSAO": "1248eaf49a2cc8e586af62170a544db71b7de8dd",
+        "VERSAO": "d6110a48e52bb4db3903c9eef63da1ebcb124efa",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -335,14 +608,14 @@
       {
         "PATH": "coleta/social_rotas.py",
         "PAPEL": "FONTE",
-        "VERSAO": "63ceeea016b65a78528727c547ca53428b3c6a6e",
+        "VERSAO": "f40bd755257ee701332952df74599c900d993a0a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "coleta/social_scrap.py",
         "PAPEL": "FONTE",
-        "VERSAO": "615169a015779739c5ff073bae6b40a7948f8759",
+        "VERSAO": "29f1ee2e53be794563c236ff8bfa824a0b33dcf1",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -357,6 +630,20 @@
         "PATH": "coleta/speaker_universo.py",
         "PAPEL": "FONTE",
         "VERSAO": "a8b3143a3825c3716071a1c52a7d69984e0f97b8",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/teto_da_onda.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "7e7e0fa02eaf983f9b13163c434720d3e939102d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/texto_de_pdf.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "21b43f23f47d316bdd9db8839c92abc108beac32",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -377,14 +664,14 @@
       {
         "PATH": "coleta/youtube_janela.py",
         "PAPEL": "FONTE",
-        "VERSAO": "799d36f9f1e35bbe3b9e1348416c4a9bfd2dc053",
+        "VERSAO": "cbcb56ac20908c7e21be1e8ae3d5e3d00c90f2b6",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "coleta/youtube_oficial.py",
         "PAPEL": "FONTE",
-        "VERSAO": "b63c524d73aa5084037dd584c383b215d40b8a10",
+        "VERSAO": "9f33ca9b8cf4213f1b20ca133275d043faa938f6",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -396,13 +683,6 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
-        "PATH": "ferramentas/apify_contrato.py",
-        "PAPEL": "FONTE",
-        "VERSAO": "086011405938a0a9de149c70af055ee21eeef09a",
-        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-        "LIDO_POR": "medir() · read_text"
-      },
-      {
         "PATH": "ferramentas/apify_pool.py",
         "PAPEL": "FONTE",
         "VERSAO": "ae8f12d5ac931b41d0d205e0d12c6b6b00831025",
@@ -410,16 +690,93 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
-        "PATH": "ferramentas/apify_recuperar.py",
+        "PATH": "ferramentas/big_collection/bc5_big_collection.py",
         "PAPEL": "FONTE",
-        "VERSAO": "7a71bf276daade550d51a1d5433fffd4663d226b",
+        "VERSAO": "9364a688e360aae97c880c9810f56ce133e08adf",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/coorte_unica.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ae6e99ada092ba8943b4419679295af05f0a78b5",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/ensaio_rodada.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6e739e0a710e83dff5348d287f1128d4e6514791",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/onda_web.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "f9f580ba7a840e9755e3eed9cf0ad21d0061ca49",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "00f2632379959e774dd61d24d87c874ab51dfd11",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/rodadas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "49045e52b14d9dce5645245826179b76996ee4e0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/c9/c9-testes.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "4fa8dff9becbd3df4f09a148c9feff16156e5d93",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/c9/ensaio_c9.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "97b9b17ca9a364cd9c69f0b0c3de419d86fbd1a3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/canais41/ensaio_a_seco.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "d5db26a371a4a937bc989a2e55815f9f3756ff0d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/canais41/montar_corridas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "1cdd64ab4c75816040c180af3dcc8f6d96a78fe2",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/canais41/para_aplicar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "bce41e5be3d4008ea2b4bf1ad300261e54fb27e4",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/captura_xhr.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ec47ec38ddd93509e20bf76b34151f5a6626deb9",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "ferramentas/cdp.py",
         "PAPEL": "FONTE",
-        "VERSAO": "41e8859018030289384dbcc57f0c428b2a7ed980",
+        "VERSAO": "f3472d8b63a9d6f8ea82c8eafe76945d0a2d8ee1",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -427,6 +784,97 @@
         "PATH": "ferramentas/contrato_ator.py",
         "PAPEL": "FONTE",
         "VERSAO": "aae0c5d013b5512c8a0c862278ef91b7fc86ead0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/cutover/congelar_extras.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "d6d4c10b82314a26729078bb99d38eece9165507",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/cutover/medir_cutover.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "c5cfe323235e9b0d6d805f8e4bc46baedba6f768",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/cutover/observador_ensaio.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "c650af1b1612f2601116fe85c270d0a92ac50306",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/cutover/passos_do_cutover.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "02537e7d333c316774e7c01b284d9f9feed4de9d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/cutover/resolver_conflitos_ensaio.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "91d7e5d234c970067f73f202d26b72f47f35282e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/fala_local.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e3363d354f3f6b6f8f0bad0be6661925ff7fa18e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/hr6/hr6-copia.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "7150db672d641ad601e8a93262aacdea1e2b420b",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/hr6/hr6-plano.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "cadce6b1ba8b342ad17d005719fb456af0b18f05",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/hr6/remedir_hr6.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "97a5cf65c266474015a82a32fb7bed05164fc027",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/hr6/ronda_a_reparo_infere.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "a5777a54d40e91f42390e13fdb1d1ced0ebb58b3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/hr6/ronda_bc_canario_curador.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "88362d8b4a4a0e5546bf9d4129732408bb9e2b45",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/hr6/ronda_worker_uma_fonte.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ea16524ef8750c9994396b68e140ec533c8fbfb9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/hr6/test_remedir_hr6.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6a8f3f8bd678825e58d1aedb99b15f5a338de06e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -440,7 +888,21 @@
       {
         "PATH": "ferramentas/instagram_transcrever.py",
         "PAPEL": "FONTE",
-        "VERSAO": "108f8d14a52324e395a47fc9d094bd8cd33f9af3",
+        "VERSAO": "d228ab1eaeb1103db4caa9eca181ed87facbde11",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "bf46a5ea6f0e6b446da41aaab8c61439df11d9dd",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/integra_onda2/prova_teto_micro.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "cfb52a645c84311300c84f7140f7bf1d813a327d",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -448,6 +910,146 @@
         "PATH": "ferramentas/italy_extract_fields.mjs",
         "PAPEL": "FONTE",
         "VERSAO": "00faf5a979beb1d74960d3dbb2111aebf537245a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/legacy99/revalidar_em_rondas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "60b8fc56be85e127bc2d4f036e20ded37040e364",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/legacy99v2/mutacao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "0b33552df0489bce0b3fc78f5991433f1dee9ad3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/legacy99v2/mutacao_ab.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ad07b0e685b4477495635379a8ef811211ee2cf8",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "c1bc22c48082b58b2d9262cf773cc96a84ce08da",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/legacy99v4/ensaio_na_copia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "13167a96768f351b9132e5b4102861733bff81ca",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/legacy99v4/mutacao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "f220cbf4b89a9fad22cec5437aa8b902e5fa0d4a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/leitor_data_yt/comparar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e3d1af29b3c69e0f792659265d6b394294340685",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/leitor_data_yt/ler_20.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "39e812e64babcf2fa0b81495ee6a0e70ef5456ef",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/leitor_data_yt/medir_antes_depois.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "714703f6d1c4ca419b8d3c68de917271d7cbcce9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/leitor_data_yt/mutar_leitor.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "bc45b28611ec33e6bb7f94cf1ff287eac6d1a4d9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/leitor_data_yt/prever_acervo.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "441469182d811a774ea467e4cb5faba0dc9d4184",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/lugar_v2/classificar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "b5e11a87407c2af728460fae70fb193f37b048a4",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/lugar_v2/comparar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e3d1af29b3c69e0f792659265d6b394294340685",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/lugar_v2/estimar_comuni.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "66a9e281f4fcfc0f94bee610879d28f76c02c29e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/lugar_v2/ler_20.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "5d8eef8492478f49a1dd2f78719bb15e3aeccf64",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/lugar_v2/medir_antes_depois.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "35fb44740a7078137362c464c522b125ec24f9aa",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/lugar_v2/mutar_lugar_v2.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "5db0dfb9094074d77f54287e06c645824b190e2b",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/lugar_v2/prever_acervo.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "441469182d811a774ea467e4cb5faba0dc9d4184",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/maestro_social/maestro_social.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "589b5dea37ce68f07c514e91022be6e3d428586f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/meta_biblioteca.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "64e8e7e3049337c2ec155071c9c9b31ca5549ea6",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -466,6 +1068,34 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "ce0dac7d2e6ea4e28242843845d82623b5a20d57",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "74415c086ae8533cefe5184b1117665ef14e080b",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "3be759dcebc5861bcd8c39248232a514f7126288",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/onda3_pacote/v2/tl-testes.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "2545a5f76edef76407270777751ee55e5f0593e0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/pdf_peek.mjs",
         "PAPEL": "FONTE",
         "VERSAO": "8bf939a51b4307b39bf0af5296b0a51e339e9164",
@@ -473,9 +1103,156 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/ponte_onboard/mutacao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "85cc102b6289dd89c4bf146f96f8a23ef3d6a549",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/reel_transcricao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "80f7de73ecce7e34ef8bc113435fea30ca629634",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/seguir_pesquisadores/contador.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "224478afa6af6f71c88364f8e8edd666b4befa5d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/seguir_pesquisadores/fora_do_mur.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "1bd047fdd1871ddeb478b4d376497b3e3a34c2de",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/seguir_pesquisadores/listas_oficiais.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "844ed4fd8f162d8ec4620da32c747a6e49426c62",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/seguir_pesquisadores/orcid_lote.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "da9dabe936299b71b27a81d536d172cc96a8a444",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/seguir_pesquisadores/pessoas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "7d498f2b8fe00704eed1282bea382bc40dcc58d6",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/seguir_pesquisadores/seguir.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "490875d8d3c076d7a1568c025b00b2b25c27ca67",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/t6_para_sala/antes_depois_extratores.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ea648285b1eb08e6492305efe43cefbf7a05b53f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/t6_para_sala/medir_modelos_resistencia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "dad5bd7d109f59b445f7098f4c43f319af849875",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/aplicar_d13_capacidade.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "fc4307b1fece13a8d56cb00372ad4403295c86f3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/aplicar_d15_politica.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "2adc59b7d1e11ecd29f4f60fe13e9d46a2649d80",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/censo_lanes.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "7911424ac316bd6f5e2b506c3d4b48edb163211f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/congelar_livros_do_servico.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "d9256956a081a46a926dad1915d5b81df9a1da7e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/ensaio_unificacao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "edbbcd030a958459b65838e4a4c0325a3ea3fbeb",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/medir_suite.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "0c12c7a2d531b20c2bb95fa126c5f1476c5a1fc8",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/provar_em_copia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "3ce958cbfa6a4d04a15eaabe9ae615e3947a2682",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/resolver_conflitos.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "2964d19b090d8246a191a89b2689ca932400314a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/unir_ledger.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "8325ff1fd82e393189bdb94459180fedccdd765d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/unificacao/unir_livros_do_servico.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "bf5e4f2195f3d2750ad3ed80c1da33ca64b6280a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/youtube_transcrever.py",
         "PAPEL": "FONTE",
-        "VERSAO": "ef47ea13f6d1fea264d283ee8b6824c50a777a1a",
+        "VERSAO": "8a4d7e86e980cfb97a779e8414106e5211e48481",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/yt_dlp_com_freio.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "667b55b7f98fed6cdba0ebdf48b4ddb5213692a2",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -490,6 +1267,13 @@
         "PATH": "fontes/adama_catalogo_montar.py",
         "PAPEL": "FONTE",
         "VERSAO": "6cdf2f0363c1c3b3c405ec221797c9004ad32796",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_catalogo_snapshot.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "321751483654978752ce27aee251f1519af9820f",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -543,16 +1327,44 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "fontes/adama_referencia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "689127ff821289635e8830c6c5baccc43d5f0781",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/banco_descartavel.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "39a75642656edc5b068774352247fd5ae3e7a854",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/banco_operacional.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "4d0a23a8965dd66235468b97b8dbf388667f1ecc",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "guarda/catalogo_importar.py",
         "PAPEL": "FONTE",
-        "VERSAO": "3048c6d98a2dbe010cd10c35b6d08157987af183",
+        "VERSAO": "21614cbd570ef1034d9994c02e39ef039be1b7e7",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/cliente_postgres.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "7a211dab1837d79aa962d5406494c66493d1c782",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "guarda/es/adama_es_gate.py",
         "PAPEL": "FONTE",
-        "VERSAO": "81395ee5b97a6a23438440bbfe21739f55f3c762",
+        "VERSAO": "6e805856b80b350ac3b7714770838970100741e0",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -573,49 +1385,63 @@
       {
         "PATH": "guarda/italy_preserve.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "1f85713ec766389071fd94ceaa09f5cc4848787d",
+        "VERSAO": "b2171dd3e74573392fcfde679547a43e920bbec2",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "guarda/memoria_descartavel.py",
         "PAPEL": "FONTE",
-        "VERSAO": "316ad71ed74fba8188d9499d725360be431f9329",
+        "VERSAO": "f261b593aec31f5797de7a5a9432883865185089",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/memoria_postgres.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "9e56ed35ea3fe992711613738aa2a2a8db9e7488",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "guarda/portas_live.py",
         "PAPEL": "FONTE",
-        "VERSAO": "44d93bf69d7b5bf7e4ec43ccff4e6dc250e65cda",
+        "VERSAO": "d68ce4a1c74f018526fb69ea267e8a1fb1e482d3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "guarda/preservar_coleta.py",
         "PAPEL": "FONTE",
-        "VERSAO": "f44eb40eb298d308bb1b2383c12470739b7d4c18",
+        "VERSAO": "b8e4762380ad04eaf18d1e89ae329570d896d107",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "guarda/preservar_derivado.py",
         "PAPEL": "FONTE",
-        "VERSAO": "b1a0f91d148cf5026d4c4f732074c0e850c21a23",
+        "VERSAO": "982e126ada84a6e024a0a333acf25e326c96771b",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/preservar_documento.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "cabbb9e39d2a48b9005d1f922646f1fe72f0c289",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "guarda/social_guarda.py",
         "PAPEL": "FONTE",
-        "VERSAO": "dd4ad088a6948db9672887177d11ccc941258d05",
+        "VERSAO": "431b97fb8264db0e1cf65ec1c5207eb405c68fab",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "guarda/social_sessao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "a55f10a8ec1da51c6f7b5bf253bd9fce6c317aa0",
+        "VERSAO": "abea8f33878beb30ac32f8bd162edc155a744ff2",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -629,14 +1455,21 @@
       {
         "PATH": "pedido/pedido.py",
         "PAPEL": "FONTE",
-        "VERSAO": "783852b225b497ca118f1f250f650123d1f81df0",
+        "VERSAO": "1483e06c221c5ae7ca9c5d5dcf5e224d06d27e3b",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "pedido/receitas.py",
         "PAPEL": "FONTE",
-        "VERSAO": "38e9779c369d70ce0ae5c926ce96472360c78fa9",
+        "VERSAO": "90dce0cc13f0029e4bfe6b2586719c0edcc59e60",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/boletim_data_local_test.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "6c0b06c3469ad3d9f96cf6b68e9313a85677f711",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -657,35 +1490,70 @@
       {
         "PATH": "regras/comunicacao_universo.py",
         "PAPEL": "FONTE",
-        "VERSAO": "6c25a78aa4314def6ee4354b0f5329f3d9cce622",
+        "VERSAO": "aca4e0d2beeef514afedc2f6581e52509deddcb6",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/contratos_de_fonte.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "0a23584d740690d5e52402669f2dce9eae0cb701",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/feed_discovery_test.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "63acb02b2790e52effd2f3727d69044f475fc867",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/identidade_do_motor_cli.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "3a14b6d30e4b150767afdb1f3aa33d2925f58169",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/incrementalidade.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "a6bb3ac66ccaf1417772038955aa2afa8ac3cec9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/incrementalidade_test.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "6f28994d2d260c6cefb9bd643991e5d2904350f6",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "regras/italy_contract_test.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "593d2c51c898ba6b811b4d61b2bae46fe00b670f",
+        "VERSAO": "4448c6f6a2e5da146d41f21c9942b5aa4f9023e8",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "regras/italy_contracts.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "ae6fc38c114ed3b996021f6f120632a234c8a533",
+        "VERSAO": "0399e3175fd7dcde6fd030ffafb1b5b9fb511ef3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "regras/italy_pilot_guards.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "b1a1e27587938b7c23b24f0a90bd4846b2b17afe",
+        "VERSAO": "eb5320371d1a7ec84e890c225691a56bdfa85408",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "regras/italy_scheduling_guards.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "8cea2854f0470892f5b08051a76303a5336fc548",
+        "VERSAO": "fa3ba0576d7a625e6cf2dedb3d362b78581bde8c",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -697,9 +1565,51 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "regras/meta_identidade.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6334e2e2da1e351c272caaf4b958b404c5f31592",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/motor_de_rota.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "fd1551016255c78541a35aa6247878eaa73262fb",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/motor_de_rota_test.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "cfd39ab576f18975539ce462134f3e4bd4de434f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/normalizacao_de_conteudo.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "e7747ee0db426195a8eb97e1b922b4f54632d04b",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/paridade_test.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "d9d722293b2694e72f05198ae9366ac55bcfaac4",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "regras/proveniencia.py",
         "PAPEL": "FONTE",
-        "VERSAO": "ed6c8a44342a5ef59dcb73023296d5bca9e3754a",
+        "VERSAO": "c94e9147603bd912b240d841d26e71572137c063",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/recollection_test.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "3c2e64e910dc0a9aa29c500ecb0e3b7520c1afa1",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -713,20 +1623,20 @@
       {
         "PATH": "regras/sensor_coleta.py",
         "PAPEL": "FONTE",
-        "VERSAO": "6267585dda56bda9ff2c8b4e443e0d2386b82ccc",
+        "VERSAO": "dfca41b3924ab8c4f65ecccf65715e1960af3457",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "regras/sensor_medir.py",
         "PAPEL": "FONTE",
-        "VERSAO": "78a08f1ac8d8d832df55ae53a667d28792f0b307",
+        "VERSAO": "66e673f32b1481489fe2614bb02b0a36f9b3ece5",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 102,
-    "INPUTS_DIGEST": "0ece4b42b2c9b8076f4cc9d4e3dadb6f84625f608f8130580dfe39ae005c6493",
+    "INPUTS_COUNT": 232,
+    "INPUTS_DIGEST": "c4788d321d93080351074494d41efae64cb243f14dbb1ec257f41a1e3e920994",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -743,7 +1653,7 @@
     {
       "ficheiro": "pedido/pedido.py",
       "gaveta": "pedido",
-      "linhas": 246,
+      "linhas": 250,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -754,6 +1664,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "admissao/admissao.py",
+        "ferramentas/maestro_social/maestro_social.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -761,7 +1673,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 235,
+      "linhas": 932,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -771,20 +1683,43 @@
         "YOUTUBE"
       ],
       "ferramentas": [
-        "APIFY (rota paga)"
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
       ],
       "descarta": true,
       "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/italy_executor.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/decidir_fila_italia.py",
+      "gaveta": "candidatas",
+      "linhas": 554,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
       "chamado_por": [],
       "no_ci": false
     },
     {
       "ficheiro": "candidatas/fonte_nova.py",
       "gaveta": "candidatas",
-      "linhas": 213,
+      "linhas": 280,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -799,7 +1734,14 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "candidatas/decidir_fila_italia.py",
+        "ferramentas/seguir_pesquisadores/listas_oficiais.py",
+        "ferramentas/seguir_pesquisadores/orcid_lote.py",
+        "ferramentas/seguir_pesquisadores/seguir.py",
+        "ferramentas/unificacao/aplicar_d13_capacidade.py",
+        "ferramentas/unificacao/aplicar_d15_politica.py"
+      ],
       "no_ci": false
     },
     {
@@ -853,7 +1795,7 @@
     {
       "ficheiro": "candidatas/italy_profiles.mjs",
       "gaveta": "candidatas",
-      "linhas": 26,
+      "linhas": 44,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -863,7 +1805,11 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/italy_recurrent_collect.mjs",
+        "regras/italy_scheduling_guards.mjs"
+      ],
       "no_ci": false
     },
     {
@@ -899,6 +1845,40 @@
       "no_ci": false
     },
     {
+      "ficheiro": "candidatas/reconciliar_fichas_orfas.py",
+      "gaveta": "candidatas",
+      "linhas": 267,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/xlsx_simples.py",
+      "gaveta": "candidatas",
+      "linhas": 126,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "candidatas/decidir_fila_italia.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "fontes/adama_catalogo_ler.py",
       "gaveta": "fontes",
       "linhas": 241,
@@ -921,6 +1901,22 @@
       "ficheiro": "fontes/adama_catalogo_montar.py",
       "gaveta": "fontes",
       "linhas": 380,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_catalogo_snapshot.py",
+      "gaveta": "fontes",
+      "linhas": 741,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1056,23 +2052,22 @@
       "no_ci": false
     },
     {
-      "ficheiro": "ferramentas/apify_contrato.py",
-      "gaveta": "ferramentas",
-      "linhas": 211,
+      "ficheiro": "fontes/adama_referencia.py",
+      "gaveta": "fontes",
+      "linhas": 831,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
-      "veiculos": [
-        "LINKEDIN"
-      ],
-      "ferramentas": [
-        "APIFY (rota paga)"
-      ],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/comunicacao_concorrenza.py",
+        "fontes/adama_catalogo_snapshot.py"
+      ],
       "no_ci": false
     },
     {
@@ -1091,27 +2086,221 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/adaptador_youtube.py",
         "coleta/coleta_checkpoint.py",
+        "coleta/coletor.py",
         "coleta/comunicacao_coleta.py",
         "coleta/instagram_coleta.py",
-        "ferramentas/apify_contrato.py",
-        "ferramentas/apify_recuperar.py",
+        "ferramentas/reel_transcricao.py",
         "regras/sensor_coleta.py"
       ],
       "no_ci": true
     },
     {
-      "ficheiro": "ferramentas/apify_recuperar.py",
+      "ficheiro": "ferramentas/big_collection/bc5_big_collection.py",
       "gaveta": "ferramentas",
-      "linhas": 229,
+      "linhas": 147,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/coorte_unica.py",
+      "gaveta": "ferramentas",
+      "linhas": 137,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/integra_onda2/final/ensaio_integra.sh",
+        "ferramentas/onda3_pacote/ensaio_onda3.sh",
+        "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+        "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/ensaio_rodada.py",
+      "gaveta": "ferramentas",
+      "linhas": 348,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/onda_web.py",
+      "gaveta": "ferramentas",
+      "linhas": 381,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/big_collection/bc5_big_collection.py",
+        "ferramentas/big_collection/rodadas.py",
+        "ferramentas/integra_onda2/final/ensaio_integra.sh",
+        "ferramentas/maestro_social/maestro_social.py",
+        "ferramentas/onda3_pacote/ensaio_onda3.sh",
+        "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+        "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "gaveta": "ferramentas",
+      "linhas": 106,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/rodadas.py",
+      "gaveta": "ferramentas",
+      "linhas": 533,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/big_collection/ensaio_rodada.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/c9/c9-testes.sh",
+      "gaveta": "ferramentas",
+      "linhas": 15,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/c9/ensaio_c9.sh",
+      "gaveta": "ferramentas",
+      "linhas": 45,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/canais41/ensaio_a_seco.py",
+      "gaveta": "ferramentas",
+      "linhas": 133,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
-        "LINKEDIN"
+        "YOUTUBE"
       ],
-      "ferramentas": [
-        "APIFY (rota paga)"
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/canais41/montar_corridas.py",
+      "gaveta": "ferramentas",
+      "linhas": 73,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
       ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/canais41/para_aplicar.py",
+      "gaveta": "ferramentas",
+      "linhas": 60,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/captura_xhr.py",
+      "gaveta": "ferramentas",
+      "linhas": 268,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
@@ -1123,27 +2312,32 @@
     {
       "ficheiro": "ferramentas/cdp.py",
       "gaveta": "ferramentas",
-      "linhas": 391,
+      "linhas": 426,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
         "HTTP DIRETO",
         "INSTAGRAM"
       ],
-      "ferramentas": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/concorrencia_meta.py",
         "coleta/instagram_diario.py",
         "coleta/instagram_janela.py",
+        "coleta/meta_anunciante.py",
         "coleta/youtube_janela.py",
-        "ferramentas/instagram_transcrever.py",
+        "ferramentas/captura_xhr.py",
+        "ferramentas/meta_biblioteca.py",
         "guarda/social_sessao.py"
       ],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "ferramentas/contrato_ator.py",
@@ -1165,9 +2359,241 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/coletor.py",
         "coleta/comunicacao_coleta.py",
         "coleta/instagram_coleta.py"
       ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/cutover/congelar_extras.py",
+      "gaveta": "ferramentas",
+      "linhas": 30,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/cutover/medir_cutover.py",
+      "gaveta": "ferramentas",
+      "linhas": 191,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "ferramentas/cutover/passos_do_cutover.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/cutover/observador_ensaio.py",
+      "gaveta": "ferramentas",
+      "linhas": 17,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/cutover/passos_do_cutover.py",
+      "gaveta": "ferramentas",
+      "linhas": 135,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/cutover/resolver_conflitos_ensaio.py",
+      "gaveta": "ferramentas",
+      "linhas": 36,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/fala_local.py",
+      "gaveta": "ferramentas",
+      "linhas": 1261,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [
+        "if descart"
+      ],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_instagram.py",
+        "coleta/adaptador_linkedin.py",
+        "coleta/adaptador_youtube.py",
+        "coleta/comunicacao_coleta.py",
+        "coleta/executor_transcricao_midia.py",
+        "ferramentas/instagram_transcrever.py",
+        "ferramentas/reel_transcricao.py",
+        "ferramentas/youtube_transcrever.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/hr6/hr6-copia.sh",
+      "gaveta": "ferramentas",
+      "linhas": 14,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/hr6/hr6-plano.sh",
+      "gaveta": "ferramentas",
+      "linhas": 19,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/hr6/remedir_hr6.py",
+      "gaveta": "ferramentas",
+      "linhas": 94,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "ferramentas/hr6/test_remedir_hr6.py",
+        "ferramentas/onda3_pacote/ensaio_onda3.sh",
+        "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+        "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/hr6/ronda_a_reparo_infere.py",
+      "gaveta": "ferramentas",
+      "linhas": 28,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/hr6/ronda_bc_canario_curador.py",
+      "gaveta": "ferramentas",
+      "linhas": 32,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/hr6/ronda_worker_uma_fonte.py",
+      "gaveta": "ferramentas",
+      "linhas": 17,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/hr6/test_remedir_hr6.py",
+      "gaveta": "ferramentas",
+      "linhas": 71,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
       "no_ci": false
     },
     {
@@ -1191,24 +2617,59 @@
     {
       "ficheiro": "ferramentas/instagram_transcrever.py",
       "gaveta": "ferramentas",
-      "linhas": 396,
+      "linhas": 133,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "ferramentas/fala_local.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "gaveta": "ferramentas",
+      "linhas": 76,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
-        "HTTP DIRETO",
-        "INSTAGRAM"
+        "HTTP DIRETO"
       ],
-      "ferramentas": [
-        "APIFY (rota paga)",
-        "TRANSCRICAO"
-      ],
-      "descarta": true,
-      "escreve_o_motivo_do_descarte": true,
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
-      "no_ci": true
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/integra_onda2/prova_teto_micro.py",
+      "gaveta": "ferramentas",
+      "linhas": 64,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
     },
     {
       "ficheiro": "ferramentas/italy_extract_fields.mjs",
@@ -1227,6 +2688,370 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/legacy99/revalidar_em_rondas.py",
+      "gaveta": "ferramentas",
+      "linhas": 209,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/legacy99v2/mutacao.py",
+      "gaveta": "ferramentas",
+      "linhas": 114,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/legacy99v2/mutacao_ab.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/legacy99v2/mutacao_ab.py",
+      "gaveta": "ferramentas",
+      "linhas": 122,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+      "gaveta": "ferramentas",
+      "linhas": 58,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/legacy99v4/ensaio_na_copia.py",
+      "gaveta": "ferramentas",
+      "linhas": 62,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/legacy99v4/mutacao.py",
+      "gaveta": "ferramentas",
+      "linhas": 173,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/leitor_data_yt/comparar.py",
+      "gaveta": "ferramentas",
+      "linhas": 50,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/leitor_data_yt/ler_20.py",
+      "gaveta": "ferramentas",
+      "linhas": 44,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/leitor_data_yt/medir_antes_depois.sh",
+      "gaveta": "ferramentas",
+      "linhas": 24,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/leitor_data_yt/mutar_leitor.py",
+      "gaveta": "ferramentas",
+      "linhas": 54,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/leitor_data_yt/prever_acervo.py",
+      "gaveta": "ferramentas",
+      "linhas": 191,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/leitor_data_yt/medir_antes_depois.sh"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/lugar_v2/classificar.py",
+      "gaveta": "ferramentas",
+      "linhas": 40,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/lugar_v2/comparar.py",
+      "gaveta": "ferramentas",
+      "linhas": 50,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/lugar_v2/estimar_comuni.py",
+      "gaveta": "ferramentas",
+      "linhas": 50,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/lugar_v2/ler_20.py",
+      "gaveta": "ferramentas",
+      "linhas": 27,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/lugar_v2/medir_antes_depois.sh",
+      "gaveta": "ferramentas",
+      "linhas": 24,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/lugar_v2/mutar_lugar_v2.py",
+      "gaveta": "ferramentas",
+      "linhas": 46,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/lugar_v2/prever_acervo.py",
+      "gaveta": "ferramentas",
+      "linhas": 191,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/lugar_v2/medir_antes_depois.sh"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/maestro_social/maestro_social.py",
+      "gaveta": "ferramentas",
+      "linhas": 369,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/meta_biblioteca.py",
+      "gaveta": "ferramentas",
+      "linhas": 296,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/concorrencia_meta.py",
+        "coleta/meta_anunciante.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/navegador.py",
       "gaveta": "ferramentas",
       "linhas": 242,
@@ -1240,6 +3065,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "ferramentas/captura_xhr.py",
         "ferramentas/cdp.py",
         "guarda/social_sessao.py"
       ],
@@ -1265,6 +3091,77 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "gaveta": "ferramentas",
+      "linhas": 145,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+      "gaveta": "ferramentas",
+      "linhas": 223,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
+      "gaveta": "ferramentas",
+      "linhas": 186,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/onda3_pacote/v2/tl-testes.sh",
+      "gaveta": "ferramentas",
+      "linhas": 13,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/pdf_peek.mjs",
       "gaveta": "ferramentas",
       "linhas": 28,
@@ -1283,10 +3180,453 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/ponte_onboard/mutacao.py",
+      "gaveta": "ferramentas",
+      "linhas": 85,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/reel_transcricao.py",
+      "gaveta": "ferramentas",
+      "linhas": 1784,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/adaptador_instagram.py",
+        "coleta/comunicacao_coleta.py",
+        "coleta/social_scrap.py",
+        "ferramentas/instagram_transcrever.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/seguir_pesquisadores/contador.py",
+      "gaveta": "ferramentas",
+      "linhas": 85,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/seguir_pesquisadores/listas_oficiais.py",
+        "ferramentas/seguir_pesquisadores/orcid_lote.py",
+        "ferramentas/seguir_pesquisadores/seguir.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/seguir_pesquisadores/fora_do_mur.py",
+      "gaveta": "ferramentas",
+      "linhas": 122,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/seguir_pesquisadores/listas_oficiais.py",
+      "gaveta": "ferramentas",
+      "linhas": 294,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/seguir_pesquisadores/orcid_lote.py",
+      "gaveta": "ferramentas",
+      "linhas": 423,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/seguir_pesquisadores/pessoas.py",
+      "gaveta": "ferramentas",
+      "linhas": 195,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/seguir_pesquisadores/listas_oficiais.py",
+        "ferramentas/seguir_pesquisadores/orcid_lote.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/seguir_pesquisadores/seguir.py",
+      "gaveta": "ferramentas",
+      "linhas": 368,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "FACEBOOK",
+        "HTTP DIRETO",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/seguir_pesquisadores/listas_oficiais.py",
+        "ferramentas/seguir_pesquisadores/orcid_lote.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/t6_para_sala/antes_depois_extratores.py",
+      "gaveta": "ferramentas",
+      "linhas": 87,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/t6_para_sala/medir_modelos_resistencia.py",
+      "gaveta": "ferramentas",
+      "linhas": 130,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/aplicar_d13_capacidade.py",
+      "gaveta": "ferramentas",
+      "linhas": 52,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/aplicar_d15_politica.py",
+      "gaveta": "ferramentas",
+      "linhas": 66,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/censo_lanes.py",
+      "gaveta": "ferramentas",
+      "linhas": 170,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "gaveta": "ferramentas",
+      "linhas": 92,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/ensaio_unificacao.py",
+      "gaveta": "ferramentas",
+      "linhas": 119,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/medir_suite.py",
+      "gaveta": "ferramentas",
+      "linhas": 84,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/provar_em_copia.py",
+      "gaveta": "ferramentas",
+      "linhas": 163,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/resolver_conflitos.py",
+      "gaveta": "ferramentas",
+      "linhas": 301,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/unificacao/ensaio_unificacao.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/unir_ledger.py",
+      "gaveta": "ferramentas",
+      "linhas": 98,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/unificacao/unir_livros_do_servico.py",
+      "gaveta": "ferramentas",
+      "linhas": 183,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/youtube_transcrever.py",
       "gaveta": "ferramentas",
-      "linhas": 305,
+      "linhas": 535,
       "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/adaptador_youtube.py",
+        "ferramentas/fala_local.py",
+        "ferramentas/instagram_transcrever.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/yt_dlp_com_freio.py",
+      "gaveta": "ferramentas",
+      "linhas": 54,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_aberto.py",
+      "gaveta": "coleta",
+      "linhas": 207,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_facebook.py",
+      "gaveta": "coleta",
+      "linhas": 38,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_instagram.py",
+      "gaveta": "coleta",
+      "linhas": 498,
+      "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
         "INSTAGRAM",
@@ -1300,9 +3640,75 @@
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "ferramentas/instagram_transcrever.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_linkedin.py",
+      "gaveta": "coleta",
+      "linhas": 1943,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
-      "no_ci": true
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_x.py",
+      "gaveta": "coleta",
+      "linhas": 58,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_youtube.py",
+      "gaveta": "coleta",
+      "linhas": 964,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/scrap_colheita.py"
+      ],
+      "no_ci": false
     },
     {
       "ficheiro": "coleta/agrifood_ue.py",
@@ -1345,7 +3751,7 @@
     {
       "ficheiro": "coleta/coleta_checkpoint.py",
       "gaveta": "coleta",
-      "linhas": 322,
+      "linhas": 949,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1358,6 +3764,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/adaptador_instagram.py",
+        "coleta/scrap_executor.py",
         "coleta/social_persistencia.py",
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py"
@@ -1367,35 +3775,10 @@
     {
       "ficheiro": "coleta/coletor.py",
       "gaveta": "coleta",
-      "linhas": 422,
+      "linhas": 1001,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
-        "INSTAGRAM"
-      ],
-      "ferramentas": [
-        "APIFY (rota paga)"
-      ],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [
-        "coleta/comunicacao_coleta.py",
-        "coleta/instagram_coleta.py",
-        "regras/sensor_coleta.py"
-      ],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "coleta/comunicacao_classificar.py",
-      "gaveta": "coleta",
-      "linhas": 260,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [
-        "FACEBOOK",
         "INSTAGRAM",
         "LINKEDIN",
         "YOUTUBE"
@@ -1408,13 +3791,50 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/adaptador_youtube.py",
+        "coleta/comunicacao_coleta.py",
+        "coleta/instagram_coleta.py",
+        "coleta/scrap_executor.py",
+        "coleta/social_envelope.py",
+        "coleta/social_rotas.py",
+        "coleta/social_scrap.py",
+        "ferramentas/reel_transcricao.py",
+        "regras/sensor_coleta.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/comunicacao_classificar.py",
+      "gaveta": "coleta",
+      "linhas": 330,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/comunicacao_concorrenza.py",
+        "ferramentas/reel_transcricao.py"
+      ],
       "no_ci": true
     },
     {
       "ficheiro": "coleta/comunicacao_coleta.py",
       "gaveta": "coleta",
-      "linhas": 356,
+      "linhas": 952,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1424,7 +3844,8 @@
         "YOUTUBE"
       ],
       "ferramentas": [
-        "APIFY (rota paga)"
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
       ],
       "descarta": true,
       "escreve_o_motivo_do_descarte": true,
@@ -1432,15 +3853,42 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/coletor.py",
+        "coleta/social_scrap.py",
         "ferramentas/contrato_ator.py",
-        "pedido/receitas.py"
+        "ferramentas/reel_transcricao.py",
+        "pedido/receitas.py",
+        "regras/proveniencia.py"
       ],
       "no_ci": true
     },
     {
+      "ficheiro": "coleta/comunicacao_concorrenza.py",
+      "gaveta": "coleta",
+      "linhas": 478,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/comunicacao_medir.py",
       "gaveta": "coleta",
-      "linhas": 202,
+      "linhas": 231,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1459,6 +3907,26 @@
       "escreve_ficheiro": true,
       "chamado_por": [],
       "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/concorrencia_meta.py",
+      "gaveta": "coleta",
+      "linhas": 591,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/meta_biblioteca.py",
+        "pedido/receitas.py",
+        "regras/meta_identidade.py"
+      ],
+      "no_ci": false
     },
     {
       "ficheiro": "coleta/corpus_pesquisador.py",
@@ -1481,6 +3949,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/pesquisadores_t6.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -1522,10 +3991,33 @@
     {
       "ficheiro": "coleta/derivacao_forward.py",
       "gaveta": "coleta",
-      "linhas": 315,
+      "linhas": 616,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/ingresso.py",
+        "coleta/rota_forward_documento.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/dominio_registavel.py",
+      "gaveta": "coleta",
+      "linhas": 62,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
       "ferramentas": [],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
@@ -1533,7 +4025,9 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "coleta/rota_forward_documento.py"
+        "coleta/espera_por_dominio.py",
+        "coleta/reserva_24h.py",
+        "coleta/rota_navegador.py"
       ],
       "no_ci": false
     },
@@ -1592,6 +4086,45 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/espera_por_dominio.py",
+      "gaveta": "coleta",
+      "linhas": 117,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/dominio_registavel.py",
+        "coleta/scrap_http.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/eu_regulatorio_executor.py",
+      "gaveta": "coleta",
+      "linhas": 414,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/eu_substancia_adama_it.py",
       "gaveta": "coleta",
       "linhas": 199,
@@ -1610,9 +4143,33 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/executor_texto_de_html.py",
+      "gaveta": "coleta",
+      "linhas": 905,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "admissao/reprocessar_tempo_lugar.py",
+        "coleta/italy_executor.py",
+        "coleta/retrato_html.mjs"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/executor_texto_de_pdf.py",
       "gaveta": "coleta",
-      "linhas": 592,
+      "linhas": 726,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1628,7 +4185,52 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/derivacao_forward.py",
-        "coleta/golden_path_pdf.py"
+        "coleta/executor_texto_de_html.py",
+        "coleta/golden_path_pdf.py",
+        "coleta/ingresso.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/executor_transcricao_midia.py",
+      "gaveta": "coleta",
+      "linhas": 500,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_linkedin.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/extratores_de_texto.py",
+      "gaveta": "coleta",
+      "linhas": 54,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/executor_texto_de_html.py",
+        "coleta/executor_texto_de_pdf.py",
+        "coleta/rota_forward_documento.py"
       ],
       "no_ci": false
     },
@@ -1674,25 +4276,65 @@
     {
       "ficheiro": "coleta/golden_path_pdf.py",
       "gaveta": "coleta",
-      "linhas": 479,
+      "linhas": 570,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
       "ferramentas": [
         "APIFY (rota paga)"
       ],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/ingresso.py",
+        "regras/proveniencia.py"
+      ],
       "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/ingresso.py",
+      "gaveta": "coleta",
+      "linhas": 1492,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "admissao/admissao.py",
+        "admissao/reprocessar_tempo_lugar.py",
+        "coleta/derivacao_forward.py",
+        "coleta/eu_regulatorio_executor.py",
+        "coleta/executor_texto_de_html.py",
+        "coleta/executor_texto_de_pdf.py",
+        "coleta/golden_path_pdf.py",
+        "coleta/italy_executor.py",
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/rota_forward_documento.py",
+        "coleta/scrap_colheita.py",
+        "ferramentas/leitor_data_yt/prever_acervo.py",
+        "ferramentas/lugar_v2/prever_acervo.py",
+        "guarda/catalogo_importar.py",
+        "guarda/preservar_coleta.py",
+        "pedido/receitas.py",
+        "regras/motor_de_rota.mjs",
+        "regras/proveniencia.py"
+      ],
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/instagram_coleta.py",
       "gaveta": "coleta",
-      "linhas": 675,
+      "linhas": 680,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1735,12 +4377,11 @@
     {
       "ficheiro": "coleta/instagram_janela.py",
       "gaveta": "coleta",
-      "linhas": 846,
+      "linhas": 855,
       "e_ponto_de_entrada": true,
-      "sai_para_fora": true,
+      "sai_para_fora": false,
       "veiculos": [
         "FACEBOOK",
-        "HTTP DIRETO",
         "INSTAGRAM"
       ],
       "ferramentas": [
@@ -1752,6 +4393,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_instagram.py",
         "coleta/instagram_coleta.py",
         "coleta/instagram_diario.py",
         "ferramentas/instagram_transcrever.py"
@@ -1781,6 +4423,29 @@
       "no_ci": true
     },
     {
+      "ficheiro": "coleta/italy_executor.py",
+      "gaveta": "coleta",
+      "linhas": 725,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "admissao/reprocessar_tempo_lugar.py",
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/scrap_colheita.py",
+        "ferramentas/leitor_data_yt/prever_acervo.py",
+        "ferramentas/lugar_v2/prever_acervo.py",
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/italy_find_docs.mjs",
       "gaveta": "coleta",
       "linhas": 46,
@@ -1799,18 +4464,35 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 416,
+      "linhas": 1521,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
-      "veiculos": [],
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
       "ferramentas": [],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
+      "decisoes_escondidas": [
+        "if (decisao.DECISAO === \"SKIP"
+      ],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
-        "regras/italy_pilot_guards.mjs"
+        "coleta/nome_da_pasta.mjs",
+        "coleta/reserva_24h.py",
+        "coleta/retrato_html.mjs",
+        "coleta/teto_da_onda.py",
+        "ferramentas/big_collection/onda_web.py",
+        "pedido/receitas.py",
+        "regras/contratos_de_fonte.py",
+        "regras/incrementalidade.mjs",
+        "regras/italy_pilot_guards.mjs",
+        "regras/motor_de_rota.mjs",
+        "regras/motor_de_rota_test.mjs",
+        "regras/normalizacao_de_conteudo.mjs",
+        "regras/paridade_test.mjs"
       ],
       "no_ci": false
     },
@@ -1833,7 +4515,25 @@
     {
       "ficheiro": "coleta/italy_recurrent_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 181,
+      "linhas": 358,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "regras/italy_scheduling_guards.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/lista_mestra_mur.py",
+      "gaveta": "coleta",
+      "linhas": 324,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1844,7 +4544,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
-        "regras/italy_scheduling_guards.mjs"
+        "ferramentas/seguir_pesquisadores/orcid_lote.py"
       ],
       "no_ci": false
     },
@@ -1867,6 +4567,40 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/meta_anunciante.py",
+      "gaveta": "coleta",
+      "linhas": 197,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/nome_da_pasta.mjs",
+      "gaveta": "coleta",
+      "linhas": 93,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/pdf_text.py",
       "gaveta": "coleta",
       "linhas": 186,
@@ -1881,6 +4615,49 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/denominaciones.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/pesquisadores_t6.py",
+      "gaveta": "coleta",
+      "linhas": 1198,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [
+        "if len(nome) >= 4:                    # «2,4-D» e parecidos ficam de fora: casariam ruido"
+      ],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "admissao/reprocessar_estudos_chaves.py",
+        "coleta/lista_mestra_mur.py",
+        "coleta/pesquisadores_t6_executor.py",
+        "ferramentas/t6_para_sala/antes_depois_extratores.py",
+        "ferramentas/t6_para_sala/medir_modelos_resistencia.py",
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/pesquisadores_t6_executor.py",
+      "gaveta": "coleta",
+      "linhas": 193,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "pedido/receitas.py"
       ],
       "no_ci": false
     },
@@ -1917,6 +4694,47 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/reserva_24h.py",
+      "gaveta": "coleta",
+      "linhas": 151,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/dominio_registavel.py",
+        "coleta/italy_pilot_collect.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/retrato_html.mjs",
+      "gaveta": "coleta",
+      "linhas": 186,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "admissao/admissao.py",
+        "regras/identidade_do_motor_cli.mjs",
+        "regras/motor_de_rota.mjs"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/ropf_pre_requisito.py",
       "gaveta": "coleta",
       "linhas": 122,
@@ -1935,17 +4753,45 @@
     {
       "ficheiro": "coleta/rota_forward_documento.py",
       "gaveta": "coleta",
-      "linhas": 355,
+      "linhas": 639,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
-      "veiculos": [],
+      "veiculos": [
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/derivacao_forward.py",
+        "coleta/ingresso.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/rota_navegador.py",
+      "gaveta": "coleta",
+      "linhas": 190,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
       "ferramentas": [],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [],
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/dominio_registavel.py",
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/scrap_http.py",
+        "ferramentas/captura_xhr.py"
+      ],
       "no_ci": false
     },
     {
@@ -1964,6 +4810,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/eu_regulatorio_executor.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -1971,7 +4818,7 @@
     {
       "ficheiro": "coleta/rotulos_ler.py",
       "gaveta": "coleta",
-      "linhas": 1001,
+      "linhas": 908,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1983,8 +4830,188 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "fontes/adama_referencia.py"
+      ],
       "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/scrap_capacidades.py",
+      "gaveta": "coleta",
+      "linhas": 582,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_instagram.py",
+        "coleta/scrap_executor.py",
+        "coleta/scrap_registo.py",
+        "coleta/social_rotas.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/scrap_colheita.py",
+      "gaveta": "coleta",
+      "linhas": 1076,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/canais41/ensaio_a_seco.py",
+        "pedido/receitas.py",
+        "regras/contratos_de_fonte.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/scrap_executor.py",
+      "gaveta": "coleta",
+      "linhas": 913,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_instagram.py",
+        "coleta/comunicacao_coleta.py",
+        "coleta/scrap_colheita.py",
+        "coleta/social_scrap.py",
+        "regras/sensor_coleta.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/scrap_fornecedores.py",
+      "gaveta": "coleta",
+      "linhas": 231,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_instagram.py",
+        "coleta/adaptador_youtube.py",
+        "coleta/scrap_executor.py",
+        "coleta/social_scrap.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/scrap_http.py",
+      "gaveta": "coleta",
+      "linhas": 860,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_aberto.py",
+        "coleta/adaptador_instagram.py",
+        "coleta/adaptador_linkedin.py",
+        "coleta/adaptador_youtube.py",
+        "coleta/coletor.py",
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/rota_navegador.py",
+        "coleta/scrap_colheita.py",
+        "coleta/scrap_executor.py",
+        "coleta/social_rotas.py",
+        "coleta/social_scrap.py",
+        "regras/sensor_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/scrap_registo.py",
+      "gaveta": "coleta",
+      "linhas": 212,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_aberto.py",
+        "coleta/adaptador_facebook.py",
+        "coleta/adaptador_instagram.py",
+        "coleta/adaptador_linkedin.py",
+        "coleta/adaptador_x.py",
+        "coleta/adaptador_youtube.py",
+        "coleta/scrap_executor.py",
+        "coleta/social_rotas.py"
+      ],
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/sensor_canal_identidade.py",
@@ -2009,25 +5036,34 @@
     {
       "ficheiro": "coleta/social_envelope.py",
       "gaveta": "coleta",
-      "linhas": 231,
+      "linhas": 465,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
         "LINKEDIN",
         "YOUTUBE"
       ],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_aberto.py",
+        "coleta/adaptador_linkedin.py",
+        "coleta/adaptador_youtube.py",
+        "coleta/coletor.py",
+        "coleta/scrap_colheita.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
-        "coleta/youtube_oficial.py"
+        "coleta/youtube_oficial.py",
+        "ferramentas/reel_transcricao.py",
+        "regras/proveniencia.py"
       ],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/social_persistencia.py",
@@ -2048,19 +5084,19 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "coleta/rota_forward_documento.py"
+        "coleta/rota_forward_documento.py",
+        "coleta/social_envelope.py",
+        "guarda/preservar_documento.py"
       ],
       "no_ci": true
     },
     {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
-      "linhas": 510,
+      "linhas": 410,
       "e_ponto_de_entrada": false,
-      "sai_para_fora": true,
+      "sai_para_fora": false,
       "veiculos": [
-        "HTTP DIRETO",
-        "INSTAGRAM",
         "YOUTUBE"
       ],
       "ferramentas": [
@@ -2072,6 +5108,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/scrap_colheita.py",
+        "coleta/scrap_executor.py",
         "coleta/social_scrap.py"
       ],
       "no_ci": false
@@ -2079,7 +5117,7 @@
     {
       "ficheiro": "coleta/social_scrap.py",
       "gaveta": "coleta",
-      "linhas": 865,
+      "linhas": 2039,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2095,9 +5133,13 @@
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [],
+      "grava_no_banco": true,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/scrap_colheita.py",
+        "coleta/social_envelope.py",
+        "pedido/receitas.py"
+      ],
       "no_ci": true
     },
     {
@@ -2142,6 +5184,50 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/teto_da_onda.py",
+      "gaveta": "coleta",
+      "linhas": 196,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/scrap_colheita.py",
+        "coleta/scrap_http.py",
+        "ferramentas/maestro_social/maestro_social.py",
+        "ferramentas/youtube_transcrever.py",
+        "ferramentas/yt_dlp_com_freio.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/texto_de_pdf.mjs",
+      "gaveta": "coleta",
+      "linhas": 30,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/italy_pilot_collect.mjs",
+        "regras/identidade_do_motor_cli.mjs"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/texto_fonte.py",
       "gaveta": "coleta",
       "linhas": 99,
@@ -2156,7 +5242,10 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "admissao/versao_do_documento.py",
+        "coleta/executor_texto_de_html.py"
+      ],
       "no_ci": false
     },
     {
@@ -2182,7 +5271,7 @@
     {
       "ficheiro": "coleta/youtube_janela.py",
       "gaveta": "coleta",
-      "linhas": 663,
+      "linhas": 684,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -2199,13 +5288,16 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "admissao/reprocessar_tempo_lugar.py",
+        "coleta/adaptador_youtube.py"
+      ],
       "no_ci": true
     },
     {
       "ficheiro": "coleta/youtube_oficial.py",
       "gaveta": "coleta",
-      "linhas": 994,
+      "linhas": 1018,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -2221,8 +5313,9 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "coleta/social_rotas.py",
-        "coleta/social_scrap.py"
+        "coleta/adaptador_youtube.py",
+        "coleta/social_scrap.py",
+        "ferramentas/canais41/ensaio_a_seco.py"
       ],
       "no_ci": true
     },
@@ -2247,9 +5340,26 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "admissao/admissao.py",
+        "ferramentas/instagram_transcrever.py",
         "ferramentas/youtube_transcrever.py"
       ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "regras/boletim_data_local_test.mjs",
+      "gaveta": "regras",
+      "linhas": 293,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
     },
     {
       "ficheiro": "regras/comunicacao_identidade.py",
@@ -2302,7 +5412,7 @@
     {
       "ficheiro": "regras/comunicacao_universo.py",
       "gaveta": "regras",
-      "linhas": 193,
+      "linhas": 286,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2319,6 +5429,99 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/comunicacao_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/contratos_de_fonte.py",
+      "gaveta": "regras",
+      "linhas": 483,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "admissao/reprocessar_tempo_lugar.py",
+        "coleta/italy_executor.py",
+        "coleta/scrap_colheita.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/feed_discovery_test.mjs",
+      "gaveta": "regras",
+      "linhas": 117,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/identidade_do_motor_cli.mjs",
+      "gaveta": "regras",
+      "linhas": 44,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/incrementalidade.mjs",
+      "gaveta": "regras",
+      "linhas": 421,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/italy_pilot_collect.mjs",
+        "regras/italy_contracts.mjs",
+        "regras/normalizacao_de_conteudo.mjs",
+        "regras/paridade_test.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/incrementalidade_test.mjs",
+      "gaveta": "regras",
+      "linhas": 461,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
       "chamado_por": [],
       "no_ci": false
     },
@@ -2343,10 +5546,12 @@
     {
       "ficheiro": "regras/italy_contracts.mjs",
       "gaveta": "regras",
-      "linhas": 415,
+      "linhas": 719,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
-      "veiculos": [],
+      "veiculos": [
+        "YOUTUBE"
+      ],
       "ferramentas": [],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
@@ -2354,7 +5559,18 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "admissao/admissao.py",
+        "admissao/reprocessar_tempo_lugar.py",
         "candidatas/italy_write_matrix.mjs",
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/italy_recurrent_collect.mjs",
+        "coleta/nome_da_pasta.mjs",
+        "coleta/scrap_colheita.py",
+        "ferramentas/big_collection/coorte_unica.py",
+        "ferramentas/integra_onda2/final/ensaio_integra.sh",
+        "ferramentas/integra_onda2/prova_teto_micro.py",
+        "pedido/receitas.py",
+        "regras/contratos_de_fonte.py",
         "regras/italy_pilot_guards.mjs"
       ],
       "no_ci": false
@@ -2378,7 +5594,7 @@
     {
       "ficheiro": "regras/italy_scheduling_guards.mjs",
       "gaveta": "regras",
-      "linhas": 103,
+      "linhas": 145,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2410,25 +5626,149 @@
       "no_ci": false
     },
     {
-      "ficheiro": "regras/proveniencia.py",
+      "ficheiro": "regras/meta_identidade.py",
       "gaveta": "regras",
-      "linhas": 391,
-      "e_ponto_de_entrada": true,
+      "linhas": 132,
+      "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
-      "ferramentas": [
-        "APIFY (rota paga)"
-      ],
+      "ferramentas": [],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/concorrencia_meta.py",
+        "coleta/meta_anunciante.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/motor_de_rota.mjs",
+      "gaveta": "regras",
+      "linhas": 882,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/texto_de_pdf.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/motor_de_rota_test.mjs",
+      "gaveta": "regras",
+      "linhas": 812,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "ferramentas/onda3_pacote/ensaio_onda3.sh",
+        "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+        "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/normalizacao_de_conteudo.mjs",
+      "gaveta": "regras",
+      "linhas": 457,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/italy_pilot_collect.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/paridade_test.mjs",
+      "gaveta": "regras",
+      "linhas": 325,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/proveniencia.py",
+      "gaveta": "regras",
+      "linhas": 1119,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_linkedin.py",
         "coleta/coletor.py",
+        "coleta/concorrencia_meta.py",
+        "coleta/executor_texto_de_html.py",
+        "coleta/executor_transcricao_midia.py",
+        "coleta/golden_path_pdf.py",
+        "coleta/ingresso.py",
         "coleta/instagram_janela.py",
+        "coleta/scrap_colheita.py",
+        "coleta/social_envelope.py",
+        "coleta/youtube_oficial.py",
         "pedido/receitas.py",
-        "regras/sensor_coleta.py"
+        "regras/sensor_coleta.py",
+        "regras/sensor_medir.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/recollection_test.mjs",
+      "gaveta": "regras",
+      "linhas": 251,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "regras/incrementalidade_test.mjs"
       ],
       "no_ci": false
     },
@@ -2453,7 +5793,7 @@
     {
       "ficheiro": "regras/sensor_coleta.py",
       "gaveta": "regras",
-      "linhas": 966,
+      "linhas": 1230,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -2470,13 +5810,17 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/adaptador_youtube.py",
+        "coleta/coletor.py",
+        "coleta/social_scrap.py"
+      ],
       "no_ci": true
     },
     {
       "ficheiro": "regras/sensor_medir.py",
       "gaveta": "regras",
-      "linhas": 552,
+      "linhas": 680,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2486,8 +5830,8 @@
         "APIFY (rota paga)",
         "TRANSCRICAO"
       ],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [
         "if _tem(t, RUIDO"
       ],
@@ -2501,7 +5845,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 420,
+      "linhas": 2490,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2517,16 +5861,20 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "admissao/reprocessar_estudos_chaves.py",
+        "admissao/reprocessar_tempo_lugar.py",
+        "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py",
-        "coleta/rota_forward_documento.py"
+        "coleta/rota_forward_documento.py",
+        "ferramentas/reel_transcricao.py"
       ],
-      "no_ci": false
+      "no_ci": true
     },
     {
-      "ficheiro": "guarda/catalogo_importar.py",
-      "gaveta": "guarda",
-      "linhas": 663,
+      "ficheiro": "admissao/idioma.py",
+      "gaveta": "admissao",
+      "linhas": 91,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2534,10 +5882,183 @@
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
-      "grava_no_banco": true,
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "admissao/admissao.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "admissao/reprocessar_estudos_chaves.py",
+      "gaveta": "admissao",
+      "linhas": 156,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "admissao/reprocessar_tempo_lugar.py",
+      "gaveta": "admissao",
+      "linhas": 221,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "admissao/reprocessar_estudos_chaves.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "admissao/sala_de_espera.py",
+      "gaveta": "admissao",
+      "linhas": 1362,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "admissao/reprocessar_tempo_lugar.py",
+        "coleta/rota_forward_documento.py",
+        "ferramentas/reel_transcricao.py"
+      ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "admissao/versao_do_documento.py",
+      "gaveta": "admissao",
+      "linhas": 126,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "admissao/sala_de_espera.py",
+        "coleta/extratores_de_texto.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "admissao/video_na_sala.py",
+      "gaveta": "admissao",
+      "linhas": 62,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/banco_descartavel.py",
+      "gaveta": "guarda",
+      "linhas": 164,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "guarda/banco_operacional.py",
+        "guarda/cliente_postgres.py",
+        "guarda/memoria_postgres.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/banco_operacional.py",
+      "gaveta": "guarda",
+      "linhas": 159,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/catalogo_importar.py",
+      "gaveta": "guarda",
+      "linhas": 693,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/social_envelope.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "guarda/cliente_postgres.py",
+      "gaveta": "guarda",
+      "linhas": 131,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "admissao/sala_de_espera.py",
+        "coleta/coleta_checkpoint.py",
+        "guarda/memoria_postgres.py"
+      ],
+      "no_ci": false
     },
     {
       "ficheiro": "guarda/es/adama_es_gate.py",
@@ -2594,7 +6115,7 @@
     {
       "ficheiro": "guarda/italy_preserve.mjs",
       "gaveta": "guarda",
-      "linhas": 95,
+      "linhas": 127,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2610,7 +6131,7 @@
     {
       "ficheiro": "guarda/memoria_descartavel.py",
       "gaveta": "guarda",
-      "linhas": 238,
+      "linhas": 388,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2620,13 +6141,34 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/social_envelope.py"
+      ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "guarda/memoria_postgres.py",
+      "gaveta": "guarda",
+      "linhas": 293,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "guarda/cliente_postgres.py",
+        "guarda/portas_live.py"
+      ],
+      "no_ci": false
     },
     {
       "ficheiro": "guarda/portas_live.py",
       "gaveta": "guarda",
-      "linhas": 229,
+      "linhas": 134,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -2638,13 +6180,15 @@
       "decisoes_escondidas": [],
       "grava_no_banco": true,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/coleta_checkpoint.py"
+      ],
       "no_ci": false
     },
     {
       "ficheiro": "guarda/preservar_coleta.py",
       "gaveta": "guarda",
-      "linhas": 646,
+      "linhas": 1703,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2653,19 +6197,26 @@
       "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
-      "escreve_ficheiro": false,
+      "escreve_ficheiro": true,
       "chamado_por": [
+        "admissao/admissao.py",
+        "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
+        "coleta/ingresso.py",
         "coleta/rota_forward_documento.py",
+        "coleta/social_envelope.py",
+        "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+        "guarda/catalogo_importar.py",
         "guarda/portas_live.py",
-        "guarda/preservar_derivado.py"
+        "guarda/preservar_derivado.py",
+        "guarda/preservar_documento.py"
       ],
       "no_ci": true
     },
     {
       "ficheiro": "guarda/preservar_derivado.py",
       "gaveta": "guarda",
-      "linhas": 460,
+      "linhas": 522,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2677,25 +6228,49 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/derivacao_forward.py",
+        "coleta/executor_texto_de_html.py",
         "coleta/executor_texto_de_pdf.py",
+        "coleta/executor_transcricao_midia.py",
+        "coleta/extratores_de_texto.py",
         "guarda/memoria_descartavel.py",
-        "guarda/portas_live.py"
+        "guarda/memoria_postgres.py",
+        "guarda/preservar_documento.py"
       ],
       "no_ci": true
     },
     {
+      "ficheiro": "guarda/preservar_documento.py",
+      "gaveta": "guarda",
+      "linhas": 209,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "guarda/preservar_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "guarda/social_guarda.py",
       "gaveta": "guarda",
-      "linhas": 231,
+      "linhas": 301,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
         "INSTAGRAM",
         "LINKEDIN"
       ],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
@@ -2707,7 +6282,7 @@
     {
       "ficheiro": "guarda/social_sessao.py",
       "gaveta": "guarda",
-      "linhas": 560,
+      "linhas": 577,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2750,24 +6325,27 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 102,
-    "pontos_de_entrada": 84,
-    "executores_que_saem_para_fora": 21,
-    "sem_chamador_e_fora_do_ci": 46,
+    "ficheiros_de_codigo": 232,
+    "pontos_de_entrada": 167,
+    "executores_que_saem_para_fora": 31,
+    "sem_chamador_e_fora_do_ci": 110,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 66,
-    "deitam_fora_alguma_coisa": 23,
-    "deitam_fora_SEM_escrever_o_motivo": 2,
-    "ficheiros_com_decisao_escondida": 2,
-    "decisoes_escondidas_ao_todo": 2
+    "escrevem_ficheiro": 138,
+    "deitam_fora_alguma_coisa": 52,
+    "deitam_fora_SEM_escrever_o_motivo": 5,
+    "ficheiros_com_decisao_escondida": 5,
+    "decisoes_escondidas_ao_todo": 5
   },
   "LISTAS": {
     "pontos_de_entrada": [
       "pedido/pedido.py",
       "pedido/receitas.py",
+      "candidatas/decidir_fila_italia.py",
       "candidatas/fonte_nova.py",
+      "candidatas/reconciliar_fichas_orfas.py",
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
+      "fontes/adama_catalogo_snapshot.py",
       "fontes/adama_it_eu.py",
       "fontes/adama_it_frac.py",
       "fontes/adama_it_gaps.py",
@@ -2775,31 +6353,98 @@
       "fontes/adama_it_labels.py",
       "fontes/adama_it_moa.py",
       "fontes/adama_it_qa.py",
-      "ferramentas/apify_contrato.py",
+      "fontes/adama_referencia.py",
       "ferramentas/apify_pool.py",
-      "ferramentas/apify_recuperar.py",
+      "ferramentas/big_collection/bc5_big_collection.py",
+      "ferramentas/big_collection/coorte_unica.py",
+      "ferramentas/big_collection/ensaio_rodada.py",
+      "ferramentas/big_collection/onda_web.py",
+      "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "ferramentas/big_collection/rodadas.py",
+      "ferramentas/canais41/ensaio_a_seco.py",
+      "ferramentas/canais41/montar_corridas.py",
+      "ferramentas/canais41/para_aplicar.py",
+      "ferramentas/captura_xhr.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
+      "ferramentas/cutover/congelar_extras.py",
+      "ferramentas/cutover/medir_cutover.py",
+      "ferramentas/cutover/observador_ensaio.py",
+      "ferramentas/cutover/passos_do_cutover.py",
+      "ferramentas/cutover/resolver_conflitos_ensaio.py",
+      "ferramentas/fala_local.py",
+      "ferramentas/hr6/remedir_hr6.py",
+      "ferramentas/hr6/ronda_a_reparo_infere.py",
+      "ferramentas/hr6/ronda_bc_canario_curador.py",
+      "ferramentas/hr6/ronda_worker_uma_fonte.py",
+      "ferramentas/hr6/test_remedir_hr6.py",
       "ferramentas/html_text.mjs",
       "ferramentas/instagram_transcrever.py",
+      "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "ferramentas/integra_onda2/prova_teto_micro.py",
+      "ferramentas/legacy99/revalidar_em_rondas.py",
+      "ferramentas/legacy99v2/mutacao.py",
+      "ferramentas/legacy99v2/mutacao_ab.py",
+      "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+      "ferramentas/legacy99v4/ensaio_na_copia.py",
+      "ferramentas/legacy99v4/mutacao.py",
+      "ferramentas/leitor_data_yt/comparar.py",
+      "ferramentas/leitor_data_yt/ler_20.py",
+      "ferramentas/leitor_data_yt/mutar_leitor.py",
+      "ferramentas/leitor_data_yt/prever_acervo.py",
+      "ferramentas/lugar_v2/classificar.py",
+      "ferramentas/lugar_v2/comparar.py",
+      "ferramentas/lugar_v2/estimar_comuni.py",
+      "ferramentas/lugar_v2/ler_20.py",
+      "ferramentas/lugar_v2/mutar_lugar_v2.py",
+      "ferramentas/lugar_v2/prever_acervo.py",
+      "ferramentas/maestro_social/maestro_social.py",
+      "ferramentas/meta_biblioteca.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
+      "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+      "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/ponte_onboard/mutacao.py",
+      "ferramentas/reel_transcricao.py",
+      "ferramentas/seguir_pesquisadores/fora_do_mur.py",
+      "ferramentas/seguir_pesquisadores/listas_oficiais.py",
+      "ferramentas/seguir_pesquisadores/orcid_lote.py",
+      "ferramentas/seguir_pesquisadores/pessoas.py",
+      "ferramentas/seguir_pesquisadores/seguir.py",
+      "ferramentas/t6_para_sala/antes_depois_extratores.py",
+      "ferramentas/t6_para_sala/medir_modelos_resistencia.py",
+      "ferramentas/unificacao/aplicar_d13_capacidade.py",
+      "ferramentas/unificacao/aplicar_d15_politica.py",
+      "ferramentas/unificacao/censo_lanes.py",
+      "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "ferramentas/unificacao/ensaio_unificacao.py",
+      "ferramentas/unificacao/medir_suite.py",
+      "ferramentas/unificacao/provar_em_copia.py",
+      "ferramentas/unificacao/resolver_conflitos.py",
+      "ferramentas/unificacao/unir_ledger.py",
+      "ferramentas/unificacao/unir_livros_do_servico.py",
       "ferramentas/youtube_transcrever.py",
+      "ferramentas/yt_dlp_com_freio.py",
       "coleta/agrifood_ue.py",
       "coleta/coleta_checkpoint.py",
       "coleta/coletor.py",
       "coleta/comunicacao_classificar.py",
       "coleta/comunicacao_coleta.py",
+      "coleta/comunicacao_concorrenza.py",
       "coleta/comunicacao_medir.py",
+      "coleta/concorrencia_meta.py",
       "coleta/corpus_pesquisador.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/denominaciones.py",
       "coleta/derivacao_forward.py",
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
+      "coleta/eu_regulatorio_executor.py",
       "coleta/eu_substancia_adama_it.py",
+      "coleta/executor_texto_de_html.py",
       "coleta/executor_texto_de_pdf.py",
+      "coleta/executor_transcricao_midia.py",
       "coleta/filas.py",
       "coleta/gire_mapas.py",
       "coleta/golden_path_pdf.py",
@@ -2807,18 +6452,26 @@
       "coleta/instagram_diario.py",
       "coleta/instagram_janela.py",
       "coleta/instagram_pessoal.py",
+      "coleta/italy_executor.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_pilot_collect.mjs",
       "coleta/italy_probe.mjs",
       "coleta/italy_recurrent_collect.mjs",
+      "coleta/lista_mestra_mur.py",
       "coleta/mapa_regfi.py",
+      "coleta/meta_anunciante.py",
       "coleta/pdf_text.py",
+      "coleta/pesquisadores_t6.py",
+      "coleta/pesquisadores_t6_executor.py",
       "coleta/preservar_pdf.py",
       "coleta/regulatorio_importar.py",
+      "coleta/reserva_24h.py",
       "coleta/ropf_pre_requisito.py",
       "coleta/rota_forward_documento.py",
+      "coleta/rota_navegador.py",
       "coleta/rotulos_baixar.py",
       "coleta/rotulos_ler.py",
+      "coleta/scrap_colheita.py",
       "coleta/sensor_canal_identidade.py",
       "coleta/social_persistencia.py",
       "coleta/social_scrap.py",
@@ -2832,12 +6485,17 @@
       "regras/comunicacao_identidade.py",
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
+      "regras/contratos_de_fonte.py",
       "regras/italy_source_health.mjs",
       "regras/proveniencia.py",
       "regras/rotulos_censo.py",
       "regras/sensor_coleta.py",
       "regras/sensor_medir.py",
       "admissao/admissao.py",
+      "admissao/idioma.py",
+      "admissao/reprocessar_estudos_chaves.py",
+      "admissao/reprocessar_tempo_lugar.py",
+      "admissao/sala_de_espera.py",
       "guarda/catalogo_importar.py",
       "guarda/es/adama_es_gate.py",
       "guarda/es/adama_es_import_rules.py",
@@ -2849,19 +6507,29 @@
       "guarda/sql_conferir.py"
     ],
     "executores": [
+      "ferramentas/c9/ensaio_c9.sh",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
-      "ferramentas/instagram_transcrever.py",
+      "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "ferramentas/legacy99/revalidar_em_rondas.py",
+      "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+      "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
+      "ferramentas/reel_transcricao.py",
+      "ferramentas/seguir_pesquisadores/seguir.py",
       "ferramentas/youtube_transcrever.py",
+      "ferramentas/yt_dlp_com_freio.py",
+      "coleta/adaptador_instagram.py",
       "coleta/agrifood_ue.py",
       "coleta/corpus_pesquisador.py",
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
+      "coleta/eu_regulatorio_executor.py",
       "coleta/gire_mapas.py",
-      "coleta/instagram_janela.py",
       "coleta/mapa_regfi.py",
+      "coleta/rota_navegador.py",
       "coleta/rotulos_baixar.py",
-      "coleta/social_rotas.py",
+      "coleta/scrap_http.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
       "coleta/texto_fonte.py",
@@ -2872,62 +6540,147 @@
       "guarda/portas_live.py"
     ],
     "orfaos": [
-      "pedido/receitas.py",
-      "candidatas/fonte_nova.py",
+      "candidatas/decidir_fila_italia.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
       "candidatas/italy_fix_semantics.mjs",
-      "candidatas/italy_profiles.mjs",
       "candidatas/italy_update_master_browser.mjs",
       "candidatas/italy_write_matrix.mjs",
+      "candidatas/reconciliar_fichas_orfas.py",
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
+      "fontes/adama_catalogo_snapshot.py",
       "fontes/adama_it_gaps.py",
       "fontes/adama_it_labels.py",
       "fontes/adama_it_qa.py",
-      "ferramentas/apify_contrato.py",
-      "ferramentas/apify_recuperar.py",
+      "ferramentas/big_collection/bc5_big_collection.py",
+      "ferramentas/big_collection/ensaio_rodada.py",
+      "ferramentas/big_collection/reconciliar_bytes_bc4.py",
+      "ferramentas/c9/c9-testes.sh",
+      "ferramentas/c9/ensaio_c9.sh",
+      "ferramentas/canais41/ensaio_a_seco.py",
+      "ferramentas/canais41/montar_corridas.py",
+      "ferramentas/canais41/para_aplicar.py",
+      "ferramentas/captura_xhr.py",
+      "ferramentas/cutover/congelar_extras.py",
+      "ferramentas/cutover/observador_ensaio.py",
+      "ferramentas/cutover/passos_do_cutover.py",
+      "ferramentas/cutover/resolver_conflitos_ensaio.py",
+      "ferramentas/hr6/hr6-copia.sh",
+      "ferramentas/hr6/hr6-plano.sh",
+      "ferramentas/hr6/ronda_a_reparo_infere.py",
+      "ferramentas/hr6/ronda_bc_canario_curador.py",
+      "ferramentas/hr6/ronda_worker_uma_fonte.py",
+      "ferramentas/hr6/test_remedir_hr6.py",
       "ferramentas/html_text.mjs",
+      "ferramentas/integra_onda2/final/ensaio_integra.sh",
+      "ferramentas/integra_onda2/prova_teto_micro.py",
       "ferramentas/italy_extract_fields.mjs",
+      "ferramentas/legacy99/revalidar_em_rondas.py",
+      "ferramentas/legacy99v2/mutacao_ab.py",
+      "ferramentas/legacy99v4/d53_nos_recibos_reais.py",
+      "ferramentas/legacy99v4/ensaio_na_copia.py",
+      "ferramentas/legacy99v4/mutacao.py",
+      "ferramentas/leitor_data_yt/comparar.py",
+      "ferramentas/leitor_data_yt/ler_20.py",
+      "ferramentas/leitor_data_yt/medir_antes_depois.sh",
+      "ferramentas/leitor_data_yt/mutar_leitor.py",
+      "ferramentas/lugar_v2/classificar.py",
+      "ferramentas/lugar_v2/comparar.py",
+      "ferramentas/lugar_v2/estimar_comuni.py",
+      "ferramentas/lugar_v2/ler_20.py",
+      "ferramentas/lugar_v2/medir_antes_depois.sh",
+      "ferramentas/lugar_v2/mutar_lugar_v2.py",
+      "ferramentas/maestro_social/maestro_social.py",
+      "ferramentas/onda3_pacote/ensaio_onda3.sh",
+      "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+      "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh",
+      "ferramentas/onda3_pacote/v2/tl-testes.sh",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/ponte_onboard/mutacao.py",
+      "ferramentas/seguir_pesquisadores/fora_do_mur.py",
+      "ferramentas/seguir_pesquisadores/listas_oficiais.py",
+      "ferramentas/seguir_pesquisadores/orcid_lote.py",
+      "ferramentas/t6_para_sala/antes_depois_extratores.py",
+      "ferramentas/t6_para_sala/medir_modelos_resistencia.py",
+      "ferramentas/unificacao/aplicar_d13_capacidade.py",
+      "ferramentas/unificacao/aplicar_d15_politica.py",
+      "ferramentas/unificacao/censo_lanes.py",
+      "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "ferramentas/unificacao/ensaio_unificacao.py",
+      "ferramentas/unificacao/medir_suite.py",
+      "ferramentas/unificacao/provar_em_copia.py",
+      "ferramentas/unificacao/unir_ledger.py",
+      "ferramentas/unificacao/unir_livros_do_servico.py",
+      "ferramentas/yt_dlp_com_freio.py",
+      "coleta/adaptador_aberto.py",
+      "coleta/adaptador_facebook.py",
+      "coleta/adaptador_linkedin.py",
+      "coleta/adaptador_x.py",
       "coleta/agrifood_ue.py",
+      "coleta/comunicacao_concorrenza.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/ephy.sh",
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
       "coleta/gire_mapas.py",
-      "coleta/golden_path_pdf.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_probe.mjs",
       "coleta/mapa_regfi.py",
+      "coleta/meta_anunciante.py",
+      "coleta/nome_da_pasta.mjs",
       "coleta/preservar_pdf.py",
       "coleta/regulatorio_importar.py",
       "coleta/ropf_pre_requisito.py",
-      "coleta/rota_forward_documento.py",
-      "coleta/rotulos_ler.py",
       "coleta/sensor_canal_identidade.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
-      "coleta/texto_fonte.py",
       "coleta/universo_ciencia_it.py",
-      "regras/comunicacao_universo.py",
+      "regras/boletim_data_local_test.mjs",
+      "regras/feed_discovery_test.mjs",
+      "regras/identidade_do_motor_cli.mjs",
+      "regras/incrementalidade_test.mjs",
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
+      "regras/paridade_test.mjs",
       "regras/rotulos_censo.py",
+      "admissao/reprocessar_estudos_chaves.py",
+      "admissao/video_na_sala.py",
+      "guarda/banco_operacional.py",
       "guarda/es/adama_es_gate.py",
       "guarda/italy_preserve.mjs",
-      "guarda/portas_live.py",
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [
+      "ferramentas/unificacao/medir_suite.py",
+      "ferramentas/unificacao/provar_em_copia.py",
       "coleta/ropf_pre_requisito.py",
+      "admissao/video_na_sala.py",
       "guarda/portas_live.py"
     ],
     "decisoes_escondidas": [
       {
+        "ficheiro": "ferramentas/fala_local.py",
+        "linhas": [
+          "if descart"
+        ]
+      },
+      {
         "ficheiro": "coleta/instagram_diario.py",
         "linhas": [
           "if abs(var) >= RUIDO"
+        ]
+      },
+      {
+        "ficheiro": "coleta/italy_pilot_collect.mjs",
+        "linhas": [
+          "if (decisao.DECISAO === \"SKIP"
+        ]
+      },
+      {
+        "ficheiro": "coleta/pesquisadores_t6.py",
+        "linhas": [
+          "if len(nome) >= 4:                    # «2,4-D» e parecidos ficam de fora: casariam ruido"
         ]
       },
       {

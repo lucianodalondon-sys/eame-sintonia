@@ -1,0 +1,62 @@
+{
+ "DATASET": "MUTACAO-DATA-DO-FATO-V1",
+ "ALVO": "leis/fato_do_texto.py",
+ "TESTE": "tests.test_data_do_fato",
+ "ALVO_SHA256": "bc6b5f8a31625da743202694a284e1bbaf22d76328ad9e0294a7af0fd25816ae",
+ "MUTANTES": [
+  {
+   "MUTANTE": "D1_SEM_A_REGRA",
+   "REGRA": "reprova se «avviata nel 2013» voltar a ser o ano do facto",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 9 tests in 0.074s | FAILED (failures=9)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D2_SEM_AVVIAT",
+   "REGRA": "reprova se o verbo do caso real («avviata») sair da lista",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 9 tests in 0.070s | FAILED (failures=4)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D3_SEM_DAL_SOZINHO",
+   "REGRA": "reprova se «dal 2019/20» (inicio de serie) voltar a ser o tempo do facto",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 9 tests in 0.046s | FAILED (failures=2)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D4_DAL_APANHA_DIA",
+   "REGRA": "reprova se «dal 12 settembre» (um DIA, o facto) passar a ser tapado",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 9 tests in 0.047s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D5_NEL_SOZINHO_TAPA",
+   "REGRA": "reprova se «Nel 2025 … constatati» (data propria do facto) passar a ser tapado",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 9 tests in 0.044s | FAILED (failures=3)",
+   "RESULTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "D6_SEM_MES_ANTES_DO_ANO",
+   "REGRA": "reprova se «avviato a settembre 2013» voltar a dar fact_time = settembre",
+   "COMPILA": true,
+   "RC": 1,
+   "SAIDA": "Ran 9 tests in 0.062s | FAILED (failures=1)",
+   "RESULTADO": "MORTO"
+  }
+ ],
+ "SEM_MUTANTE": {
+  "RC": 0,
+  "SAIDA": "Ran 9 tests in 0.044s | OK"
+ },
+ "MORTOS": 6,
+ "TOTAL": 6
+}

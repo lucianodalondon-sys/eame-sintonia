@@ -1,17 +1,19 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "a50951a9e9fe812e1ef2769e4456f673abe59c3c",
+  "FROZEN_AT_HEAD": "93d5a2cc44022bc361d67abf05fd55933931c107",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 228,
+  "ARTEFATOS": 307,
   "POR_ESPECIE": {
-    "DATA_SAMPLE": 81,
-    "GENERATED_OUTPUT": 25,
-    "IMPLEMENTATION": 10,
-    "INSTRUMENT": 4,
-    "MENCAO_FRACA_APENAS": 32,
-    "PORTAL_UI": 66,
-    "TEST": 10
+    "CONTRACT": 4,
+    "DATA_SAMPLE": 103,
+    "DOCUMENTATION": 5,
+    "GENERATED_OUTPUT": 26,
+    "IMPLEMENTATION": 14,
+    "INSTRUMENT": 6,
+    "MENCAO_FRACA_APENAS": 52,
+    "PORTAL_UI": 68,
+    "TEST": 29
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -23,7 +25,7 @@
     {
       "PATH": "coleta/instagram_coleta.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "4672abd66ebf1dea06863ca4bffaf88369eb1544",
+      "GIT_BLOB_SHA": "95009e6f87f65fb5758394d7188bb481b8ae95fd",
       "MARCAS_FORTES": [
         "FIELD_VOICE"
       ]
@@ -43,6 +45,20 @@
       "MARCAS_FORTES": [
         "FIELD_VOICE"
       ]
+    },
+    {
+      "PATH": "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "6e9bcebe0fee24993b50c8049dd6d7efc4206196",
+      "MARCAS_FORTES": [
+        "RECOMMENDATION"
+      ]
+    },
+    {
+      "PATH": "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "1b41cf47c0910b790bf441d247bab17df9d853c9",
+      "MARCAS_FORTES": []
     },
     {
       "PATH": "italia-portale/BASELINE/italy-app-model.js",
@@ -232,7 +248,7 @@
     {
       "PATH": "italia-portale/audit/meeting-browser.mjs",
       "SPECIES": "PORTAL_UI",
-      "GIT_BLOB_SHA": "4172333ec2ae58e066c9ea719d02367f46bc0535",
+      "GIT_BLOB_SHA": "2f37dfa2c6afa3d26b39d1bd05a7bffb3f52ba95",
       "MARCAS_FORTES": [
         "RECOMMENDATION"
       ]
@@ -268,7 +284,7 @@
     {
       "PATH": "italia-portale/audit/opportunity-hub.mjs",
       "SPECIES": "PORTAL_UI",
-      "GIT_BLOB_SHA": "1525552af787d3a700d73270865c00c6314e71f3",
+      "GIT_BLOB_SHA": "d592244de2af0b5e608ea97f87081bc404baa9c6",
       "MARCAS_FORTES": []
     },
     {
@@ -412,10 +428,12 @@
       ]
     },
     {
-      "PATH": "italia-portale/client/sintonia-pote-publicado.js",
-      "SPECIES": "PORTAL_UI",
-      "GIT_BLOB_SHA": "210a75719d13791afa4b6f71413294f5839876c6",
-      "MARCAS_FORTES": []
+      "PATH": "leis/afirmacao_da_fonte.py",
+      "SPECIES": "IMPLEMENTATION",
+      "GIT_BLOB_SHA": "bd05d96bd44bd3dea0f10498b47710aae6adb71a",
+      "MARCAS_FORTES": [
+        "RECOMMENDATION"
+      ]
     },
     {
       "PATH": "leis/auditoria_regua_comercial.py",
@@ -423,6 +441,14 @@
       "GIT_BLOB_SHA": "0b74e427335ff870fb7c815426e92832e67127d4",
       "MARCAS_FORTES": [
         "OPPORTUNITY_SCORE"
+      ]
+    },
+    {
+      "PATH": "motor/motor_das_capacidades.py",
+      "SPECIES": "IMPLEMENTATION",
+      "GIT_BLOB_SHA": "85d6e567fbf10eb7c551e24da2f50d6cbe5ff592",
+      "MARCAS_FORTES": [
+        "RECOMMENDATION"
       ]
     },
     {
@@ -436,7 +462,7 @@
     {
       "PATH": "motor/v21_oportunidades.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "edb67ee2aadf91a8fc58fba8538028e093c8cbbb",
+      "GIT_BLOB_SHA": "8309ab4a5ff173a1b4bf1f9860c94b8639007098",
       "MARCAS_FORTES": [
         "OPPORTUNITY_SCORE"
       ]
@@ -510,18 +536,52 @@
       ]
     },
     {
+      "PATH": "pacote/ponte_intelligence_casco.py",
+      "SPECIES": "PORTAL_UI",
+      "GIT_BLOB_SHA": "b5aa20dbf6fea4c2657ba197ac21e25aa303d339",
+      "MARCAS_FORTES": []
+    },
+    {
+      "PATH": "pacote/pote_cruzamentos_max.py",
+      "SPECIES": "PORTAL_UI",
+      "GIT_BLOB_SHA": "199a84e54c3924af1b13ae6971ad6f70a1ca788a",
+      "MARCAS_FORTES": []
+    },
+    {
+      "PATH": "pacote/pote_intelligence_casco.py",
+      "SPECIES": "PORTAL_UI",
+      "GIT_BLOB_SHA": "074d70c72afcac00eb95ebeed10c3a5dbea3d253",
+      "MARCAS_FORTES": []
+    },
+    {
       "PATH": "portoes/site_v21_ingest.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "fc532be8e26d220ba99514ee27f5103f9f3ea3ab",
+      "GIT_BLOB_SHA": "1e64382050462c6a5307f36c40aced83ac3527c2",
       "MARCAS_FORTES": [
         "OPPORTUNITY_SCORE",
         "PROMOTED_TO_RADAR"
       ]
     },
     {
+      "PATH": "provas/independencia/antes_e_depois_v21.py",
+      "SPECIES": "IMPLEMENTATION",
+      "GIT_BLOB_SHA": "466d6aa8557bcf8682e0330a8aa4deb773f46ebb",
+      "MARCAS_FORTES": [
+        "OPPORTUNITY_SCORE"
+      ]
+    },
+    {
+      "PATH": "provas/lote6_integra/mutacao_juncao.py",
+      "SPECIES": "IMPLEMENTATION",
+      "GIT_BLOB_SHA": "89eb51454544672007aad65a0b02f021b0f39707",
+      "MARCAS_FORTES": [
+        "RECOMMENDATION"
+      ]
+    },
+    {
       "PATH": "regras/italy_contracts.mjs",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "ae6fc38c114ed3b996021f6f120632a234c8a533",
+      "GIT_BLOB_SHA": "0399e3175fd7dcde6fd030ffafb1b5b9fb511ef3",
       "MARCAS_FORTES": [
         "RECOMMENDATION"
       ]
@@ -529,7 +589,7 @@
     {
       "PATH": "regras/sensor_coleta.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "6267585dda56bda9ff2c8b4e443e0d2386b82ccc",
+      "GIT_BLOB_SHA": "dfca41b3924ab8c4f65ecccf65715e1960af3457",
       "MARCAS_FORTES": [
         "FIELD_VOICE"
       ]
@@ -537,24 +597,40 @@
     {
       "PATH": "regras/sensor_medir.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "78a08f1ac8d8d832df55ae53a667d28792f0b307",
+      "GIT_BLOB_SHA": "66e673f32b1481489fe2614bb02b0a36f9b3ece5",
       "MARCAS_FORTES": [
         "FIELD_VOICE"
       ]
     },
     {
+      "PATH": "research/intelligence/DATA-DEMAND-MATRIX-ITALY.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "1896228d15439454ff646ab7fbe779928e4a21a2",
+      "MARCAS_FORTES": []
+    },
+    {
       "PATH": "superficie/it_casa_dados.py",
       "SPECIES": "PORTAL_UI",
-      "GIT_BLOB_SHA": "ea4ef19118f35b42dba189b3a7b134a7eab8ba25",
+      "GIT_BLOB_SHA": "50ff87ff872ae2d1b6e0699e0bf091085ba7a662",
       "MARCAS_FORTES": [
         "RECOMMENDATION"
       ]
+    },
+    {
+      "PATH": "system-map/data/architecture.declared.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "3d3580f32d2116643a441d7c6a61fa659eb57b58",
+      "MARCAS_FORTES": []
     }
   ],
   "OUTROS_ARTEFATOS": [
     {
       "PATH": "HANDOFF-V2-PAUSE.json",
       "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "admissao/admissao.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
       "PATH": "build/ITALY-REALITY-HANDOFF-V2/CANONICAL-INTELLIGENCE.json",
@@ -669,6 +745,70 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "controle/AUTORIDADES-CANONICAS.json",
+      "SPECIES": "INSTRUMENT"
+    },
+    {
+      "PATH": "curadoria/DISCOVERY-SIGNAL-V1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "curadoria/SOURCE-CARDS-V1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "curadoria/amostrar.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "curadoria/atribuir_source_id.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "curadoria/caracterizador.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "curadoria/italy_contracts_curator.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "curadoria/nivel_da_fila.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "curadoria/status_live.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "curadoria/test_impasse_b4.py",
+      "SPECIES": "DOCUMENTATION"
+    },
+    {
+      "PATH": "curadoria/test_nivel_da_fila.py",
+      "SPECIES": "DOCUMENTATION"
+    },
+    {
+      "PATH": "curadoria/test_painel_discovery.py",
+      "SPECIES": "DOCUMENTATION"
+    },
+    {
+      "PATH": "curadoria/test_worker_volta_sobrevive.py",
+      "SPECIES": "DOCUMENTATION"
+    },
+    {
+      "PATH": "curadoria/test_zz_guarda_isolamento.py",
+      "SPECIES": "DOCUMENTATION"
+    },
+    {
+      "PATH": "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
       "PATH": "data/i18n/v21-traducoes.json",
       "SPECIES": "DATA_SAMPLE"
     },
@@ -694,6 +834,10 @@
     },
     {
       "PATH": "data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
       "SPECIES": "DATA_SAMPLE"
     },
     {
@@ -777,6 +921,10 @@
       "SPECIES": "DATA_SAMPLE"
     },
     {
+      "PATH": "data/samples/IT-SOURCE-SAMPLES/IT-T8-001/MANIFEST.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
       "PATH": "data/samples/IT-V2/IT-V2-CANONICO.json",
       "SPECIES": "DATA_SAMPLE"
     },
@@ -786,6 +934,10 @@
     },
     {
       "PATH": "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "data/samples/LIVRO-DE-RELEVANCIA-DE-FONTE.json",
       "SPECIES": "DATA_SAMPLE"
     },
     {
@@ -817,6 +969,10 @@
       "SPECIES": "DATA_SAMPLE"
     },
     {
+      "PATH": "data/samples/SENSOR-PILOT/ESPECIE-DO-TEXTO-AUDITORIA-V1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
       "PATH": "data/samples/SENSOR-PILOT/MEDICAO.json",
       "SPECIES": "DATA_SAMPLE"
     },
@@ -837,7 +993,39 @@
       "SPECIES": "DATA_SAMPLE"
     },
     {
-      "PATH": "docs/casco/r7/ANALISE-R7.json",
+      "PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "docs/intelligence/r7/ANALISE-R7.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "docs/operacao/CENSO-ATUAL-DA-INTELLIGENCE.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "ferramentas/big_collection/BC5-SUITE-dfec8873.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "ferramentas/unificacao/censo-2026-09-22.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "ferramentas/unificacao/m5/livros-passo3-servico.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "ferramentas/unificacao/m5/suite-unificado-f24a459f.json",
       "SPECIES": "DATA_SAMPLE"
     },
     {
@@ -989,6 +1177,30 @@
       "SPECIES": "INSTRUMENT"
     },
     {
+      "PATH": "leis/social_matriz.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/cap_win.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/capacidade_cientifica.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/corrida_da_inteligencia.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/cruzamentos_max.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "motor/grafo_de_dependencia.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "motor/matriz_recorte.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
@@ -1045,20 +1257,72 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "motor/voce_dal_campo.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "provas/_mutantes_ponte_casco.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "provas/arbitragem_da_intelligence.py",
+      "SPECIES": "INSTRUMENT"
+    },
+    {
+      "PATH": "provas/especie_do_texto_auditoria.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "provas/espinha_da_intelligence.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "provas/independencia/V21-ANTES-E-DEPOIS.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "provas/lote6_integra/MUTACAO-JUNCAO.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "provas/modelo_de_objetos_da_intelligence.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "provas/trava_da_inteligencia_morde.py",
       "SPECIES": "INSTRUMENT"
+    },
+    {
+      "PATH": "regras/contratos_de_fonte.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
       "PATH": "regras/italy_contract_test.mjs",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "regras/italy_contracts_onboarded.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
       "PATH": "research/adama-italy-product-intelligence-deep/HANDOFF-TO-V2.1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "research/intelligence/INTELLIGENCE-SPINE-ARBITRATION-V1.json",
       "SPECIES": "DATA_SAMPLE"
     },
     {
       "PATH": "research/italy-demo-reality/ITALY-EXISTING-REALITY-INVENTORY.json",
       "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "security/projeccao-baseline.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "security/ratchet.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
       "PATH": "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
@@ -1074,6 +1338,10 @@
     },
     {
       "PATH": "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
@@ -1101,6 +1369,10 @@
       "SPECIES": "GENERATED_OUTPUT"
     },
     {
+      "PATH": "system-map/data/controle.generated.json",
+      "SPECIES": "GENERATED_OUTPUT"
+    },
+    {
       "PATH": "system-map/data/estradas-it.generated.json",
       "SPECIES": "GENERATED_OUTPUT"
     },
@@ -1117,7 +1389,27 @@
       "SPECIES": "INSTRUMENT"
     },
     {
+      "PATH": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_a_collection_preserva_o_fato.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_a_demanda_de_dados_da_italia.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_a_primeira_corrida_da_inteligencia.py",
       "SPECIES": "TEST"
     },
     {
@@ -1125,7 +1417,15 @@
       "SPECIES": "TEST"
     },
     {
+      "PATH": "tests/test_atomicidade_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_canonico.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_capacidade_cientifica.py",
       "SPECIES": "TEST"
     },
     {
@@ -1141,11 +1441,47 @@
       "SPECIES": "TEST"
     },
     {
+      "PATH": "tests/test_d24_video_de_pessoa.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_espinha_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_grafo_de_dependencia.py",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_hero_cases_v1.py",
       "SPECIES": "TEST"
     },
     {
-      "PATH": "tests/test_pote_publicado.mjs",
+      "PATH": "tests/test_independencia_de_fontes.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_metodo_puglia.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_modelo_de_objetos_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_o_mapa_da_intelligence_nao_mente.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_os_consertos_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_ponte_intelligence_casco.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_pote_intelligence_casco.py",
       "SPECIES": "TEST"
     },
     {
@@ -1157,8 +1493,20 @@
       "SPECIES": "TEST"
     },
     {
+      "PATH": "tests/test_relevance_priority_sobrecarga.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_todo_ready_atravessa_o_intake.py",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_trava_da_inteligencia.py",
       "SPECIES": "INSTRUMENT"
+    },
+    {
+      "PATH": "tests/test_voce_dal_campo.py",
+      "SPECIES": "TEST"
     }
   ]
 }

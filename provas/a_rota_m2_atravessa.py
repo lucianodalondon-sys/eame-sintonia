@@ -46,6 +46,7 @@ O QUE ELA NAO PROVA
 Nao prova producao: a `024` continua por aplicar, e nada aqui toca Supabase.
 Nao prova READY — a rota termina em ADMISSION, e terminar ai e a verdade.
 """
+import io
 import json
 import os
 import subprocess
@@ -72,13 +73,52 @@ import rota_forward_documento as m2      # noqa: E402
 import social_persistencia as sp          # noqa: E402
 import telemetria as tel                 # noqa: E402
 from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402
+from coleta import ingresso as ing        # noqa: E402
 from guarda import preservar_derivado as pd   # noqa: E402
 
-MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
-              '011', '012', '013', '014', '015', '016', '017', '018', '019',
-              '020', '021', '022', '023', '024']
+# ── A CADEIA DE MIGRATIONS VEM DO DISCO, E NAO DE UMA LISTA ────────────────
+# ⚠️ AQUI ESTAVA UMA LISTA ESCRITA A MAO, E ELA ENVELHECEU DUAS VEZES. A
+# primeira vez foi apanhada e remendada com `025` e `026`, e o comentario que
+# ficou dizia, com todas as letras:
+#
+#     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
+#
+# Envelheceu outra vez. A `027` — a que tirou a trava do endereco de
+# `raw_asset` e pos chave sobre `storage_object_id` — nunca chegou a ser
+# aplicada por esta prova. Ela atravessava um esquema uma migration atras da
+# realidade e dizia-se canonica.
+#
+#     REMENDAR UMA LISTA QUE JA ENVELHECEU UMA VEZ
+#     E MARCAR ENCONTRO COM O MESMO DEFEITO.
+#
+# Agora a cadeia e LIDA da pasta. Quando nascer a `028`, esta prova aplica-a
+# sem que ninguem se lembre dela.
+#
+# A `008` fica de fora por ser outra especie: nao constroi esquema nenhum, e a
+# VERIFICACAO POS-APLICACAO que confere o que as outras construiram. Corre-la
+# no meio seria pedir-lhe contas de tabelas que ainda nao nasceram.
+_SO_VERIFICA = ("008",)
+
+
+def _cadeia_de_migrations():
+    pasta = os.path.join(RAIZ, "supabase", "migrations")
+    fora = []
+    for f in sorted(os.listdir(pasta)):
+        if not f.endswith(".sql"):
+            continue
+        n = f.split("_", 1)[0]
+        if n in _SO_VERIFICA:
+            continue
+        fora.append(n)
+    return fora
+
+
+MIGRATIONS = _cadeia_de_migrations()
 
 MODELO = os.path.join(RAIZ, "system-map", "data", "estradas-it.model.json")
+# Onde a medicao desta corrida fica escrita, e o ledger que ela confere.
+OBSERVADO = os.path.join(RAIZ, "system-map", "data", "rota-m2.observada.json")
+LEDGER = os.path.join(RAIZ, "system-map", "data", "provas-de-execucao.json")
 CATALOGO = os.path.join(RAIZ, "candidatas", "ITALY-SOURCE-MASTER-V1.json")
 LOJA = "data/collection-store/italy"
 RELOGIO = "2026-09-08T02:00:00Z"
@@ -132,8 +172,8 @@ def aplicar_migrations(url):
     pasta = os.path.join(RAIZ, "supabase", "migrations")
     for n in MIGRATIONS:
         achados = [f for f in sorted(os.listdir(pasta)) if f.startswith(n + "_")]
-        r = subprocess.run(["psql", url, "-v", "ON_ERROR_STOP=1", "-q", "-f",
-                            os.path.join(pasta, achados[0])],
+        r = subprocess.run(["psql", "-v", "ON_ERROR_STOP=1", "-q", "-f",
+                            os.path.join(pasta, achados[0]), url],
                            capture_output=True, text=True)
         if r.returncode != 0:
             print("FALHOU a aplicar %s\n%s" % (achados[0], r.stderr[:900]))
@@ -201,18 +241,43 @@ def canal_da_fonte(banco_sql, fonte):
     def q(v):
         return "'" + str(v).replace("'", "''") + "'"
 
+    # ⚠️ `on conflict do nothing` NAO DEDUPLICA SEM CONSTRAINT UNICA — e aqui
+    # nao ha nenhuma: `public.organizacao` so tem unique em `ror_id` (002:22-32)
+    # e `public.origem` nao tem unique em `rotulo` (so os indices PARCIAIS
+    # `origem_por_pessoa_idx` / `origem_por_organizacao_idx`). A clausula nunca
+    # disparava, e cada chamada inseria outra linha com outro `id`:
+    #
+    #     MEDIDO, com a forma antiga, tres vezes o MESMO nome:
+    #     ids devolvidos 1, 2, 3 · linhas em organizacao: 3
+    #
+    # Nao e so lixo: o `coalesce` devolvia uma IDENTIDADE DIFERENTE em cada
+    # replay, e a rota que esta prova diz atravessar deixava de ser a mesma.
+    #
+    #     ON CONFLICT DO NOTHING SEM CONSTRAINT RELEVANTE != DEDUPLICACAO.
+    #
+    # `tests/test_m2_rota_forward.py:146` ja tinha medido e consertado isto no
+    # lado do teste; o lado da PROVA ficou com a forma partida. A deduplicacao
+    # tem de ser explicita — `where not exists`.
+    #
+    # O `canal`, mais abaixo, continua com `on conflict (plataforma,
+    # channel_id)`: esse tem constraint unica de verdade (002), e por isso a
+    # clausula la e honesta.
     org = banco_sql.executa(
         "with novo as (insert into public.organizacao (nome_canonico, tipo)"
-        " values (%s, 'orgao_publico') on conflict do nothing returning id)"
+        " select %s, 'orgao_publico' where not exists"
+        "  (select 1 from public.organizacao where nome_canonico = %s)"
+        " returning id)"
         " select coalesce((select id from novo),"
         "  (select id from public.organizacao where nome_canonico = %s))"
-        % (q(nome), q(nome)))
+        % (q(nome), q(nome), q(nome)))
     ori = banco_sql.executa(
         "with novo as (insert into public.origem (organizacao_id, rotulo)"
-        " values (%d, %s) on conflict do nothing returning id)"
+        " select %d, %s where not exists"
+        "  (select 1 from public.origem where rotulo = %s)"
+        " returning id)"
         " select coalesce((select id from novo),"
         "  (select id from public.origem where rotulo = %s))"
-        % (int(org[0][0]), q(dono), q(dono)))
+        % (int(org[0][0]), q(dono), q(dono), q(dono)))
     can = banco_sql.executa(
         "with novo as (insert into public.canal"
         " (origem_id, plataforma, channel_id, url) values (%d, 'web', %s, %s)"
@@ -235,7 +300,9 @@ def main():
             "pdftotext ausente: sem ele o executor devolve FERRAMENTA_AUSENTE "
             "para tudo, e esta prova mediria a maquina, e nao a rota.")
 
-    print("MIGRATIONS — a cadeia canonica, ate a 024")
+    # ⚠️ O ROTULO VEM DA CADEIA, E NAO DE UMA MEMORIA. Escrito a mao,
+    # ele dizia "ate a 026" enquanto a cadeia ja ia na 027.
+    print("MIGRATIONS — a cadeia canonica, ate a %s" % MIGRATIONS[-1])
     caso("A1_a_cadeia_aplica_num_postgres_real",
          aplicar_migrations(url) == len(MIGRATIONS),
          "%d migrations em PostgreSQL 16" % len(MIGRATIONS))
@@ -276,6 +343,7 @@ def main():
                "MISSION": "M2 rota forward", "STARTED_AT": "2026-09-08T00:00:00Z",
                "RULE_VERSION": "v1", "CAPTURE_METHOD": "HTTP_GET"}
     artefato = {"COUNTRY": "IT", "SOURCE_SLUG": fonte_provavel,
+                "SOURCE_ID": fonte_provavel, "DOCUMENT_ID": "M2:DOC:1",
                 "ARTIFACT_KIND": "DOCUMENT", "NAME": os.path.basename(pdf),
                 "SOURCE_NATIVE_ID": "M2-1", "SHA256": sha256(bytes_do_pdf),
                 "BYTES": len(bytes_do_pdf), "MEDIA_TYPE": "application/pdf",
@@ -290,6 +358,18 @@ def main():
     caso("A3_o_bruto_e_real_e_foi_escrito_pelo_dono",
          recibo_raw["PENDENCIA"] == "PRESERVED_AND_REGISTERED" and raw_id > 0,
          "raw_asset_id=%d, por guarda/preservar_coleta.py" % raw_id)
+
+    # ── E A ETAPA RAW CONTA-SE, PELA MESMA FRONTEIRA QUE A PRODUCAO USA ──
+    # ⚠️ ISTO NAO E UM RASTRO ESCRITO A MAO PELA PROVA. E a funcao que
+    # `coleta/ingresso.receber()` chama em producao, com o recibo REAL que
+    # `preservar()` acabou de devolver. Uma prova que emitisse um rastro que a
+    # producao nunca emite estaria a medir a prova.
+    #
+    #     ATE AQUI A ARESTA `RAW -> DERIVED` ESTAVA DECLARADA E SEM TOPO:
+    #     `DERIVED` dizia vir de `RAW`, e `RAW` nao tinha linha nenhuma.
+    ing.falar_do_raw(sql, recibo=recibo_raw, corrida=corrida, entrada=1,
+                     recusas_da_porta=0, source_id=fonte_provavel,
+                     route_class_id=rota_provavel)
 
     # ── DERIVED, na MESMA corrida ────────────────────────────────────────
     print("\nA ROTA, NUMA CORRIDA SO")
@@ -339,8 +419,10 @@ def main():
     r_s = m2.estruturar(sql, unidade=unidade, run_id=RUN, canal_id=canal_id)
     dec = None
     if (r_s or {}).get("STATE") in ("OK", sp.REOBSERVADO):
+        # Universo DECLARADO (obrigatorio desde a ADMISSION-EXPLICIT-UNIVERSE-V1).
+        # O material desta prova e boletim fitossanitario italiano real: T3.
         dec = m2.admitir(sql, unidade=unidade, run_id=RUN,
-                         conteudo_id=r_s.get("CONTEUDO_ID"))
+                         conteudo_id=r_s.get("CONTEUDO_ID"), universo='T3')
     r_m2 = {"DERIVED": r_der, "STRUCTURED": r_s, "ADMISSION": dec}
     print("  STRUCTURED  %s" % (r_m2["STRUCTURED"] or {}).get("STATE"))
     print("  ADMISSION   %s · a porta respondeu: %s"
@@ -360,30 +442,96 @@ def main():
     caso("A8_as_duas_arestas_foram_OBSERVADAS_com_os_dois_topos",
          set(ARESTAS_DA_M2) <= visto["ARESTAS"],
          "arestas observadas: %s" % sorted(visto["ARESTAS"]))
+    # ── O LEDGER NAO PODE PROMETER MAIS DO QUE O BANCO MOSTROU ───────────
+    #
+    # `system-map/data/provas-de-execucao.json` e um ledger ESCRITO A MAO, e
+    # ele diz porque: correr todos os executores exigiria rede, API paga e
+    # producao. Para a maioria das linhas isso e honesto e continua a valer.
+    #
+    # Para ESTA rota, nao. Ela corre inteira num Postgres descartavel, com PDF
+    # local, sem rede e sem fatura — e e exactamente o que este ficheiro
+    # acabou de medir NO BANCO. Enquanto o ledger declarava
+    # `ETAPAS_OBSERVADAS`, `ARESTAS_OBSERVADAS` e `END_TO_END` como literais,
+    # `M2_ROUTE_OBSERVABILITY_READY` (censo_dos_executores.py:508) derivava de
+    # texto que ninguem confrontava com medicao nenhuma.
+    #
+    #     UM PORTAO QUE LE UM LITERAL MEDE A ESCRITA, NAO O SISTEMA.
+    #
+    # Entao a medicao passa a ser ESCRITA em disco, e o ledger passa a ser
+    # CONFERIDO contra ela: ele pode declarar MENOS do que se observou (uma
+    # linha conservadora e legitima), nunca MAIS. Quem editar o ledger para
+    # prometer uma etapa ou aresta que o banco nao mostrou faz esta prova
+    # reprovar.
+    io.open(OBSERVADO, "w", encoding="utf-8").write(json.dumps({
+        "SCHEMA": "rota-m2-observada/v1",
+        "O_QUE_ISTO_E": (
+            "O que o BANCO mostrou nesta corrida, escrito por quem mediu. "
+            "NAO e declaracao: e leitura de `etapa_da_corrida` depois de a "
+            "rota ter corrido. O ledger de provas-de-execucao.json e "
+            "conferido contra este ficheiro."),
+        "GERADO_POR": "provas/a_rota_m2_atravessa.py",
+        "SOURCE_ID": ROTA[0], "ROUTE_CLASS_ID": ROTA[1],
+        "ETAPAS_OBSERVADAS": sorted(visto["ETAPAS"]),
+        "ARESTAS_OBSERVADAS": sorted([list(a) for a in visto["ARESTAS"]]),
+        "ARESTAS_DECLARADAS_SEM_TOPO": sorted(
+            [list(a) for a in visto["ARESTAS_DECLARADAS_SEM_TOPO"]]),
+        "END_TO_END": True,
+        "RUN_UNICO": RUN,
+    }, ensure_ascii=False, indent=1) + "\n")
+
+    ledger_f = {}
+    try:
+        _L = json.loads(io.open(LEDGER, encoding="utf-8").read())
+        ledger_f = ((_L.get("PROVADOS") or {})
+                    .get("coleta/rota_forward_documento.py") or {}).get("FORWARD") or {}
+    except (OSError, ValueError):
+        ledger_f = {}
+    etapas_declaradas = set(ledger_f.get("ETAPAS_OBSERVADAS") or [])
+    arestas_declaradas = {tuple(a) for a in (ledger_f.get("ARESTAS_OBSERVADAS") or [])}
+    excesso_e = sorted(etapas_declaradas - visto["ETAPAS"])
+    excesso_a = sorted(arestas_declaradas - visto["ARESTAS"])
+    caso("A8b_o_ledger_nao_declara_etapa_que_o_banco_nao_mostrou",
+         not excesso_e,
+         "ledger %s <= banco %s" % (sorted(etapas_declaradas), sorted(visto["ETAPAS"]))
+         if not excesso_e else "o ledger promete e o banco nao mostra: %s" % excesso_e)
+    caso("A8c_o_ledger_nao_declara_aresta_que_o_banco_nao_mostrou",
+         not excesso_a,
+         "ledger %d aresta(s) <= banco %d" % (len(arestas_declaradas), len(visto["ARESTAS"]))
+         if not excesso_a else "o ledger promete e o banco nao mostra: %s" % excesso_a)
+    caso("A8d_e_o_END_TO_END_do_ledger_e_o_desta_corrida",
+         bool(ledger_f.get("END_TO_END")) is True,
+         "END_TO_END declarado e medido na mesma corrida (%s)" % RUN)
+
     # ⚠️ E O QUE SOBRA DE DECLARADO TEM DE SER EXATAMENTE O GAP JA CONHECIDO.
     #
     # Esta prova apanhou uma aresta a mais do que eu esperava — `RAW -> DERIVED`
-    # — e ela esta CERTA a apanha-la. `coleta/derivacao_forward.py` emite
-    # `DERIVED` com `edge_from='RAW'` e NAO emite `RAW`, de propósito: quem
-    # escreve `raw_asset` e `guarda/preservar_coleta.py`, e ler a linha de
-    # outro nao e ter corrido a etapa dele. O gap ja estava declarado em prosa
-    # desde O9R (`RAW_FORWARD_NAO_EMITE`); o que muda agora e que ele passou a
-    # ser VISIVEL NO RASTRO, e nao so num comentario.
+    # ⚠️ AQUI ESTAVA O GAP `RAW_FORWARD_NAO_EMITE`, E ELE FECHOU.
+    # Ate C-MAKE-RAW-OBSERVABLE-V1, `DERIVED` declarava `edge_from='RAW'` e
+    # `RAW` nao tinha linha nenhuma: a seta estava desenhada dos dois lados e
+    # so um lado existia. A prova exigia que a lista de arestas sem topo fosse
+    # EXATAMENTE `{("RAW","DERIVED")}` — o buraco visivel na medicao.
     #
-    #     UM BURACO QUE APARECE NA MEDICAO E DIVIDA.
-    #     UM BURACO QUE SO APARECE NO COMENTARIO E ESQUECIMENTO COM DATA.
+    # Agora a etapa RAW conta-se, pela fronteira que a producao usa, e a lista
+    # esvaziou-se. O que era «exatamente este buraco» passa a ser «nenhum».
     #
-    # A prova nao o perdoa em silencio: ela exige que a lista de arestas sem
-    # topo seja EXATAMENTE esta. Uma segunda aresta declarada e nao percorrida
-    # reprova aqui, no dia em que nascer.
-    esperadas_sem_topo = {("RAW", "DERIVED")}
-    caso("A9_o_unico_declarado_sem_topo_e_o_gap_ja_conhecido",
-         visto["ARESTAS_DECLARADAS_SEM_TOPO"] == esperadas_sem_topo,
-         "sem topo: %s · e RAW_FORWARD_NAO_EMITE e gap declarado do O9R"
+    #     UM BURACO QUE FECHA NAO SE APAGA DA PROVA:
+    #     A PROVA PASSA A EXIGIR QUE ELE CONTINUE FECHADO.
+    #
+    # E a exigencia ficou MAIS forte, nao menos: qualquer aresta declarada e
+    # nao percorrida reprova aqui, no dia em que nascer.
+    caso("A9_nenhuma_aresta_ficou_declarada_sem_topo",
+         visto["ARESTAS_DECLARADAS_SEM_TOPO"] == set(),
+         "sem topo: %s · a aresta RAW->DERIVED tem os dois lados"
          % sorted(visto["ARESTAS_DECLARADAS_SEM_TOPO"]))
-    caso("A9b_o_gap_do_RAW_continua_declarado_pelo_dono_da_fronteira",
-         "RAW_FORWARD_NAO_EMITE" in [g[0] for g in fwd.GAPS],
-         "quem emite DERIVED diz, por escrito, que nao fala pelo RAW")
+    caso("A9b_a_etapa_RAW_deixou_passagem_nesta_MESMA_corrida",
+         "RAW" in visto["ETAPAS"],
+         "etapas observadas na rota: %s" % sorted(visto["ETAPAS"]))
+    caso("A9c_e_a_passagem_do_RAW_aponta_para_a_observacao_desta_corrida",
+         str(banco._valor(
+             "select coalesce(raw_asset_id::text,'<NULL>') from"
+             " public.etapa_da_corrida where run_id = '%s' and etapa = 'RAW'"
+             % RUN)) == str(raw_id),
+         "etapa_da_corrida.raw_asset_id = raw_asset.id = %s" % raw_id)
 
     integ = rastro.integridade(passagens)
     caso("A10_a_conta_fecha_em_todas_as_etapas",

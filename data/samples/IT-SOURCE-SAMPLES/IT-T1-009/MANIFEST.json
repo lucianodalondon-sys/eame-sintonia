@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-009",
+ "SOURCE": "Lazio — Agricoltura Regione Lazio",
+ "OWNER": "Regione Lazio",
+ "URL": "https://www.regione.lazio.it/cittadini/agricoltura",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:53Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 103903 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.regione.lazio.it/cittadini/agricoltura",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "| Regione Lazio | CITTADINI-AGRICOLTURA",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": "2026-09-11",
+  "BYTES_LIDOS": 214441
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.regione.lazio.it/notizie/agricoltura/pn-feampa-2021-2027-intervento-222507-approvazione-bando",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": null,
+  "TITULO": "| Regione Lazio | PN FEAMPA 2021/2027 Intervento 222507 – Approvazione Bando",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 103903,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "afef58c432d3a3122b3a5f3c48972b52d22dbcfcf530c6ca319da362ca4f8414",
+  "DATA_VISIVEL": "2026-08-04",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

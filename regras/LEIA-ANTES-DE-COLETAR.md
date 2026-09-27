@@ -14,14 +14,14 @@ e o caminho de cada uma é onde ela realmente vive.
 O acervo de fontes é **capital parado** — consulta-se antes de coletar. Não se
 coleta para descobrir o que já se sabe.
 
-- **AS FONTES** — O capital parado da casa: 23 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.
+- **AS FONTES** — O capital parado da casa: 297 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.
   - `docs/fontes/ATLAS-DE-FONTES-EAME.md`
   - `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`
   - `data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json`
-- **O que a ADAMA sabe de si** — O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna.
+- **O que a ADAMA sabe de si** — O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna. O construtor da referencia (fontes/adama_referencia.py) confere a edicao corrente contra o bruto do Ministero e escreve a data da ultima checagem que deu certo; cola a citacao dos pares do leitor de rotulos aos usos autorizados so depois de conferir par a par que sao os mesmos 2030.
   - `fontes/adama_catalogo_ler.py`
   - `fontes/adama_catalogo_montar.py`
-  - `fontes/adama_it_eu.py`
+  - `fontes/adama_catalogo_snapshot.py`
 
 ```bash
 py candidatas/fonte_nova.py --listar     # a fila de fontes candidatas
@@ -45,7 +45,7 @@ Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha n
 
 | | |
 |---|---|
-| estado | PROVEN — o sistema importa esta lei em runtime para decidir: C-COLETA-YOUTUBE, C-RELEVANCIA. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-YOUTUBE, C-RELEVANCIA.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `regras/rotulos_censo.py` |
 | onde vive | `regras/sensor_medir.py` |
 
@@ -57,7 +57,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PROVEN — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-REGRA-COLETA, C-SENSOR-COLETA. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-COLETA-META, C-ESTRADA-PDF.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `regras/proveniencia.py` |
 
 ### O contrato de cada fonte italiana
@@ -68,13 +68,32 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PENDING — e uma lei sem prova executavel apontando para ela. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-CAPA-MATERIA, C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md` |
+| onde vive | `regras/ROTA-NAVEGADOR.json` |
+| onde vive | `regras/boletim_data_local_test.mjs` |
+| onde vive | `regras/contratos_de_fonte.py` |
+| onde vive | `regras/feed_discovery_test.mjs` |
+| onde vive | `regras/identidade_do_motor_cli.mjs` |
 | onde vive | `regras/italy_contract_test.mjs` |
 | onde vive | `regras/italy_contracts.mjs` |
 | onde vive | `regras/italy_pilot_guards.mjs` |
 | onde vive | `regras/italy_scheduling_guards.mjs` |
 | onde vive | `regras/italy_source_health.mjs` |
+| onde vive | `regras/motor_de_rota.mjs` |
+| onde vive | `regras/motor_de_rota_test.mjs` |
+
+### Quem e o anunciante na Meta
+
+Carimba cada pagina da lista da linha Meta antes da visita: PAGE_ID so com prova da propria Meta (detalhe do anuncio ou painel de irmas) e o token da empresa tem de ABRIR o nome da pagina. Escopo de pais da pagina so com rotulo da Meta; entrega nao prova nacionalidade. A lista versionada (PAGINAS-META-IT-V1.json) diz, pagina a pagina, a prova e o motivo de quem fica fora.
+
+*Por que existe:* O Instytut Adama Mickiewicza (instituto cultural polaco) entrou como ADAMA por token no meio do nome: 33 de 40 cartoes do acervo proprio eram ele. TOKEN_NO_MEIO_DO_NOME != MESMA_EMPRESA, e ANUNCIOS_ENTREGUES_NA_IT != PAGINA_E_ITALIANA.
+
+| | |
+|---|---|
+| estado | PROVEN — o sistema importa esta lei em runtime para decidir: C-COLETA-META, C-FRENTES-CONCORRENCIA. |
+| onde vive | `data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json` |
+| onde vive | `regras/meta_identidade.py` |
 
 ### Quem esta autorizado a ser coletado
 
@@ -84,7 +103,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 
 | | |
 |---|---|
-| estado | PROVEN — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED). |
+| estado | PENDING — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json` |
 | onde vive | `regras/comunicacao_identidade.py` |
 | onde vive | `regras/comunicacao_lote.py` |
@@ -94,10 +113,27 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 
 ## COM O QUE SE VAI
 
-- **A fala vira texto, sem fatura** — Transcreve o audio dos videos na propria maquina, com whisper local.
+- **A coorte unica da Big Collection (D25)** — Le o plano do runbook (micro_coleta.py plano), o portao, as provas do canario e o dono dos contratos do coletor, e escreve COORTE-BIG-COLLECTION-V1.json: as PRONTAS com contrato executavel + regua DETAIL/v1 + canario com prova <= 7 dias, fonte a fonte, com o sha256 dos livros lidos. Nao decide nada novo.
+- **A fala vira texto, sem fatura** — Transcreve o audio dos videos na propria maquina, com whisper local. `fala_local.py` e o DONO UNICO do reconhecimento; `reel_transcricao.py` e a cadeia que liga um Reel publico ao texto falado, com RAW e DERIVED separados; os dois programas de lote chamam o mesmo dono.
+- **A impressao digital do contrato que o robo vai usar (PONTE-ONBOARD)** — sha256 canonico de SOURCE_ID + OUTPUT_TYPE + ACQUISITION — exactamente o que onboardar_rotas_provadas escreve na tabela do coletor. O canario de rotas grava-o na prova (CONTRATO_SHA256, PROVADO_EM); o onboarding so escreve a linha se a impressao provada for igual a do contrato de agora e a prova tiver <= 7 dias. O supervisor chama o onboarding a cada volta (onboardar_se_mudou: so quando a prova muda ou de 10 em 10 min). mutacao.py desliga cada guarda e exige que um teste caia.
+- **A porta da Biblioteca de Anuncios da Meta** — Monta o endereco publico da Biblioteca de Anuncios (locale=en_US, country= e o pais ALCANCADO), le pelo Chrome com janela (ferramentas/cdp.py) o cabecalho e os cartoes que a pagina mostra sem login, rola ate a lista parar de crescer, e diz se a leitura bate com o numero que a PROPRIA FONTE declara (~N results). Cartao nao e anuncio: o cartao que diz «N ads use this creative and text» vale N.
 - **Abrir PDF, ODS e HTML** — Tira o texto de dentro de um PDF, de uma planilha ODS ou de uma pagina.
 - **Apify — a rota paga** — Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.
+- **C9-INSTALAR-PREP — o ensaio do C9-IDIOMA sobre o vivo (relatorio da 3.a onda, antes e depois)** — ensaio_c9.sh: copia fiel do vivo (worktree no HEAD + os livros do disco), relatorio da micro-coleta com os RUN_IDs da 3.a onda ANTES (codigo da producao) e DEPOIS (C9, --estado=ONDA-WEB-ESTADO.json), Sala so lida (default_transaction_read_only), sem rede HTTP; merge --ff-only e desfazer por reset --keep.
+- **CANAIS-41: o roteiro do teste dos 41 canais YouTube pelo Scrap** — ensaio_a_seco.py: corre a fase canal-youtube do Scrap numa COPIA com chave falsa so no processo, transporte da API trocado por literais e proxy fechado, conta os pedidos por host e passa o envelope pela regua social (D53). montar_corridas.py: monta o --corridas da regua a partir de SOURCE_ID/RUN_ID, contando RAW so leitura (DSN de ficheiro, nunca impresso). para_aplicar.py: separa o que a regua pode escrever no livro (READY, FALHA da fonte) do defeito nosso (chave, teto, RAW, envelope, Atlas, marcas em falta).
+- **Censo das lanes antes de unificar** — Mede, so a ler o git, que ficheiros cada lane mudou, quais sao iguais, quais divergem e onde o codigo entra em conflito de verdade; e as ferramentas da unificacao (missao 5): resolver o codigo, unir livros por chave e o ledger por estado, medir a suite e provar em copia descartavel; e as do ensaio do cutover (X1): medidores que mandam PARAR antes do passo seguinte, a fotografia dos livros extra e os passos 5b/5c/7b que o SWITCH_PLAN nao tinha.
+- **Condutor da Big Collection (1.a onda, BC5)** — Corre a coorte congelada UMA fonte de cada vez pela porta canonica (micro_coleta.correr), fotografa a Sala antes/depois de cada fonte e aplica os disjuntores do BIG-COLLECTION-RUNBOOK §6 (egresso fora de IT, Sala a descer, >30 min, 3 FAILED seguidas, C6, proveniencia partida, pedidos acima do teto). Nao decide elegibilidade nem admissao: pergunta aos donos.
+- **Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)** — Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos.
+- **EXTRATOR-LUGAR-V2 — medida antes/depois do lugar do facto e mutacao** — prever_acervo.py/medir_antes_depois.sh/comparar.py (copias da ACERVO/LEITOR-DATA-YT): antes x depois nos 1.252, so leitura. classificar.py: GANHA/PERDE/TROCA/SO_BASE. ler_20.py: 20 mudancas lidas a mao. estimar_comuni.py: teto do que a lista ISTAT resolveria pela sigla. mutar_lugar_v2.py: 8 mutantes. Amostra COM O FORMATO do CSV do ISTAT (4 linhas, nao e a lista).
+- **HR-6 — re-medir pelo caminho canonico as READY que o portao manda a olho humano** — remedir_hr6.py: READY + HUMAN_REVIEW_REQUIRED -> CANARY_PENDING + VALIDATE_ROUTE pela fila (so mostra; --aplicar escreve); o worker re-mede com canario.escolher_alvo (tenta o item mais fundo, volta ao 1.o se falhar). ronda_*.py e hr6-*.sh: as rondas e a copia da missao (rede so pelo portao IT, 1 fonte por dominio, D38). Nada aqui promove.
+- **INTEGRA-ONDA2 — o ensaio integrado da 2.a onda e a prova do teto sobre o plano do MICRO** — ensaio_integra.sh: o ensaio integrado numa copia fiel do vivo com a rede FECHADA (clone local + livros do vivo; onboarding com a prova de rotas ja feita, plano do runbook, coorte congelada so na copia, onda_web --so-plano, plano do MICRO, prova do teto sobre os dois planos, desfazer). prova_teto_micro.py: plano do MICRO so com as fontes de um lote e a prova independente do teto (C-PROVA-TETO-DOMINIO) no pior caso de 5 pedidos por fonte PRONTA. Sem rede.
+- **LEGACY-99: as READY_LEGACY de volta pela regua de hoje (ensaios e mutacao)** — revalidar_em_rondas.py: revalida READY_LEGACY numa COPIA pelo caminho canonico (ready_split.remedir -> worker), em rodadas de 1 fonte por dominio, com urlopen embrulhado (rede fechada por omissao, D41.3; teto 5 por dominio contado, D38) e o portao de consenso antes de cada rodada. video_com_o_guardado.py: as fontes YouTube pela regua VIDEO/v1 (D53) sobre as paginas /watch ja guardadas na Sala (so leitura, sha256 conferido), sem rede. mutacao*.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro. [onda3-pacote-v2: so A+C+D da v2; B inerte (DA-15/D67); sem a rota VIDEO] ensaio_na_copia.py: numa COPIA dos livros do vivo (recusa a arvore do bot), aplica o A (importar_do_coletor, HTML) e o B (pelo_scrap: o canal YouTube vai para a fase canal-youtube do Scrap pelo bloco 4 do desbloqueio) e conta os estados; nada promove. d53_nos_recibos_reais.py: passa os itens de recibos reais do Scrap ja guardados pela prova da D53 (regua_social.provas_do_video), so leitura. mutacao.py: cada guarda nova desligada tem de fazer cair um teste, e o mutador acusa quem escrever num livro.
+- **LEITOR-DATA-YOUTUBE — a medicao antes/depois do PUBLISHED_AT por meta itemprop datePublished** — prever_acervo.py (copia da previsao da ACERVO-TEMPO-LUGAR, so muda o campo CODIGO): corre o codigo de uma arvore sobre o acervo, so leitura. medir_antes_depois.sh: antes (vivo) x depois (ramo) com as mesmas entradas (sha256 conferido). comparar.py: campo a campo e item a item. ler_20.py: 20 lidos a mao contra o publishDate do player. mutar_leitor.py: 4 mutantes do leitor.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
+- **PACOTE-ONDA3 — o ensaio integrado da 3.a onda** — ensaio_onda3.sh: ensaio integrado numa worktree destacada no HEAD do vivo + os ficheiros sujos do vivo lidos na hora (para se o pacote tocar um livro no Git); D49/D51, D52, provas de rota ja feitas, onboarding, o que o robo vai medir, plano, coorte PROVISORIA da 3.a onda, onda_web --so-plano, prova do teto, desfazer a partir da foto. Sem rede.
+- **Reconciliar os bytes da micro real da BC4 (so plano, pelo dono)** — Le da Sala real (so SELECT, read-only) o storage_path e o sha256 das 4 observacoes (raw_asset 1406-1409) e dos 4 derivados (909-912) da micro real da BC4, confere o sha256 dos bytes na origem e, so com --aplicar, escreve-os na raiz operacional do armazem pelo ArmazemLocal.enviar, no MESMO caminho relativo. Nenhuma linha da Sala muda.
+- **SEGUIR-PESQUISADORES (D85): quem seguir e os canais publicos onde os pesquisadores publicam** — pessoas.py: liga a lista-mestra MUR (nome, universidade, setor) aos autores da T6 por sobrenome + inicial + mesma universidade (ambiguo nao funde) e ordena pela obra recente com par do casco no texto. seguir.py: por pessoa, ORCID researcher-urls (so os links declarados) e a pagina declarada, com teto 5/dominio/rodada contando o robots, robots respeitado, 3 s, portao IT antes/depois, bytes fora do Git com sha256; LinkedIn perfil fora, so posts; candidatas pela porta canonica candidatas/fonte_nova.py numa fila dada. fora_do_mur.py + listas_oficiais.py (PESQ-FORA-DO-MUR): quem da T6 e da FEM, do CREA ou do CNR pela instituicao que a OBRA declara, e as listas oficiais de pessoal de cada casa lidas por rodadas (so o perfil de quem esta no cruzamento; CNR so com liberacao). contador.py + orcid_lote.py (D90 3.4): um contador de pedidos por dominio em 24 h partilhado pelas tres; ORCID por canario e depois em lote, <=5 pedidos a orcid.org por 24 h, pendentes ficam.
+- **T6-PARA-SALA — medir os extratores e os modelos nos trabalhos guardados** — antes_depois_extratores.py: os extratores T6 (local, periodo, molecula) de um commit antigo contra os da arvore, sobre as mesmas rodadas, sem rede, com amostra fixa para ler a mao. medir_modelos_resistencia.py: so mede (sem campo novo no contrato) DSS/modelo, condicao->risco e resistencia pelo termo escrito no titulo+resumo.
 
 ---
 
@@ -143,4 +179,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 4 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 5 réguas, 21 ferramentas e 2 peças de fonte declaradas no mapa.

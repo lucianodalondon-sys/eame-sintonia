@@ -1,0 +1,78 @@
+# -*- coding: utf-8 -*-
+# EXTRATORES-V2-JUNTOS · a COPIA da Sala num PostgreSQL DESCARTAVEL. Registo do ensaio (.txt).
+# Pesado: so com LOCK-PESADO e >= 5 GB.
+#   PYTHONUTF8=1 python copia_sala.py.txt ligar     -> pg_dump SO-LEITURA da Sala real, initdb, restore (porta 54391)
+#   PYTHONUTF8=1 python copia_sala.py.txt desligar  -> pg_ctl stop + apaga a pasta e o dump
+# A Sala real so e LIDA (pg_dump com default_transaction_read_only=on); o DSN nunca e impresso.
+# A copia so escuta em 127.0.0.1:54391; a porta da Sala real e recusada.
+import datetime
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+from urllib.parse import urlparse
+
+PGBIN = os.path.expanduser("~/orca/pgtmp/pgsql/bin")
+PASTA = os.path.join(os.environ.get("TEMP", "/tmp"), "reproc-extratores-pg")
+PORTA = 54391
+BASE = "sala_copia_reproc"
+DSN_REAL = open(os.path.expanduser("~/sintonia-sala-italia/SALA_DSN.txt"), encoding="utf-8").read().strip()
+AQUI = os.path.dirname(os.path.abspath(__file__))
+exe = lambda n: os.path.join(PGBIN, n + ".exe")
+URL_COPIA = "postgresql://postgres@127.0.0.1:%d/%s" % (PORTA, BASE)
+
+
+def corre(*a, **kw):
+    # sem capture_output no pg_ctl start: o postmaster herda os pipes e pendura
+    return subprocess.run(list(a), **kw)
+
+
+def ligar():
+    real = urlparse(DSN_REAL)
+    assert (real.port or 5432) != PORTA, "a copia nao pode ter a porta da Sala real"
+    os.makedirs(PASTA, exist_ok=True)
+    dump = os.path.join(PASTA, "sala.dump")
+    out = {"INICIO": datetime.datetime.now(datetime.timezone.utc).isoformat(), "PORTA_DA_COPIA": PORTA,
+           "PORTA_DA_SALA_REAL": real.port}
+    env_r = dict(os.environ, PGOPTIONS="-c default_transaction_read_only=on", PGCLIENTENCODING="UTF8")
+    r = corre(exe("pg_dump"), "-Fc", "-f", dump, "-d", DSN_REAL, env=env_r, capture_output=True)
+    if r.returncode:
+        raise SystemExit("pg_dump falhou: " + r.stderr.decode("utf-8", "replace").replace(DSN_REAL, "<DSN>")[:400])
+    out["DUMP_BYTES"] = os.path.getsize(dump)
+    out["DUMP_SHA256"] = hashlib.sha256(open(dump, "rb").read()).hexdigest()
+    env = dict(os.environ, PGPASSWORD="", PGOPTIONS="")
+    dados, log = os.path.join(PASTA, "dados"), os.path.join(PASTA, "pg.log")
+    corre(exe("initdb"), "-D", dados, "-U", "postgres", "-A", "trust", "-E", "UTF8", "--no-sync",
+          env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+    corre(exe("pg_ctl"), "-D", dados, "-l", log, "-w", "-o", "-p %d -c listen_addresses=127.0.0.1" % PORTA,
+          "start", env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+    corre(exe("createdb"), "-h", "127.0.0.1", "-p", str(PORTA), "-U", "postgres", BASE, env=env, check=True)
+    r = corre(exe("pg_restore"), "-h", "127.0.0.1", "-p", str(PORTA), "-U", "postgres", "--no-owner",
+              "--no-privileges", "-d", BASE, dump, env=env, capture_output=True, text=True)
+    out["PG_RESTORE_CODIGO"] = r.returncode
+    out["PG_RESTORE_AVISOS"] = (r.stderr or "")[-600:]
+    q = lambda db, sql, e: corre(exe("psql"), "-X", "-q", "-A", "-t", "-d", db, "-c", sql, env=e,
+                                 capture_output=True, text=True).stdout.strip()
+    contas = ("select (select count(*) from public.sala_de_espera) || '/' || "
+              "(select count(*) from public.sala_de_espera_atual) || '/' || (select count(*) from public.raw_asset) "
+              "|| '/' || (select count(*) from public.derived_artifact)")
+    out["REAL_SALA/ATUAL/RAW/DERIVED"] = q(DSN_REAL, contas, env_r)
+    out["COPIA_SALA/ATUAL/RAW/DERIVED"] = q(URL_COPIA, contas, env)
+    out["IGUAIS"] = out["REAL_SALA/ATUAL/RAW/DERIVED"] == out["COPIA_SALA/ATUAL/RAW/DERIVED"]
+    json.dump(out, open(os.path.join(AQUI, "COPIA-DA-SALA.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(json.dumps(out, ensure_ascii=False, indent=1))
+
+
+def desligar():
+    dados = os.path.join(PASTA, "dados")
+    if os.path.isdir(dados):
+        corre(exe("pg_ctl"), "-D", dados, "-m", "fast", "stop", stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    shutil.rmtree(PASTA, ignore_errors=True)
+    print(json.dumps({"DESLIGADO_E_APAGADO": not os.path.exists(PASTA),
+                      "FIM": datetime.datetime.now(datetime.timezone.utc).isoformat()}))
+
+
+if __name__ == "__main__":
+    {"ligar": ligar, "desligar": desligar}[sys.argv[1]]()

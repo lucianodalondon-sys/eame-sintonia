@@ -82,6 +82,7 @@ sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import falhas                        # noqa: E402
 import social_envelope as env        # noqa: E402
+import proveniencia as pv            # noqa: E402  — o dono da especie do texto
 import social_matriz as mz           # noqa: E402  — DONO da regra de quota
 
 API = 'https://www.googleapis.com/youtube/v3'
@@ -455,7 +456,13 @@ def buscar(*, termo, run_id, country_scope='IT', limit=25, tipo='video',
             executor='youtube_oficial.buscar', run_id=run_id,
             country_scope=country_scope, source_account=sn.get('channelId'),
             published_at=sn.get('publishedAt'), title=sn.get('title'),
-            text=sn.get('description'), cost_usd=COST_USD, raw_reference=raw,
+            # A descricao e do canal que publicou: texto de autor, lido de um
+            # campo. `search.list` nao devolve idioma, e por isso nao ha lingua
+            # a declarar — ler a descricao para a adivinhar e o que a lei proibe.
+            text=sn.get('description'),
+            text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+            text_relation=pv.ORIGINAL, text_derivation=pv.LIDO_DO_CAMPO,
+            cost_usd=COST_USD, raw_reference=raw,
             raw={'CHANNEL_TITLE': sn.get('channelTitle'),
                  'CHANNEL_ID': sn.get('channelId'),
                  'QUERY': termo, 'API_METHOD': 'search.list',
@@ -670,6 +677,8 @@ def uploads_recentes(*, channel_id, run_id, country_scope='IT', limit=25,
                 country_scope=country_scope, source_account=channel_id,
                 published_at=cd.get('videoPublishedAt') or sn.get('publishedAt'),
                 title=sn.get('title'), text=sn.get('description'),
+                text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+                text_relation=pv.ORIGINAL, text_derivation=pv.LIDO_DO_CAMPO,
                 cost_usd=COST_USD, raw_reference=raw,
                 raw={'CHANNEL_ID': channel_id, 'UPLOADS_PLAYLIST': pl,
                      'UPLOADS_PLAYLIST_PROVENANCE': proc['PROVENANCE'],
@@ -720,6 +729,13 @@ def metadata(*, video_ids, run_id, country_scope='IT', sessao=None):
                 country_scope=country_scope, source_account=sn.get('channelId'),
                 published_at=sn.get('publishedAt'), title=sn.get('title'),
                 text=sn.get('description'),
+                text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+                text_relation=pv.ORIGINAL, text_derivation=pv.LIDO_DO_CAMPO,
+                # ⚠️ A LINGUA DO TEXTO E A DO CAMPO QUE FALA DO TEXTO.
+                # `defaultAudioLanguage` fala do AUDIO; `defaultLanguage` fala
+                # dos metadados — e a descricao e metadado. Dar ao texto a
+                # lingua do audio seria declarar uma coisa medindo outra.
+                text_language=sn.get('defaultLanguage'),
                 # `defaultAudioLanguage` é DECLARAÇÃO do canal sobre o áudio.
                 # Não é prova de lugar, e nunca vira SOURCE_LOCATION.
                 language=sn.get('defaultAudioLanguage') or sn.get('defaultLanguage'),
@@ -758,6 +774,14 @@ def _comentario(c, *, video_id, parent_id, run_id, country_scope, raw_ref, canal
         # pela plataforma; `textOriginal` é o que a pessoa digitou.
         text=sn.get('textOriginal') if sn.get('textOriginal') is not None
         else sn.get('textDisplay'),
+        # ⚠️ `ORIGINAL` AQUI E «NAO E TRADUCAO», E NAO «E O textOriginal».
+        # Sao duas perguntas diferentes que a palavra «original» serve nas duas:
+        # o eixo do contrato diz se as palavras sao de quem falou ou de quem
+        # traduziu, e a API nunca traduz um comentario. O que muda entre
+        # `textOriginal` e `textDisplay` e a MARCACAO, e isso ja esta medido no
+        # `RAW`, com os dois campos lado a lado.
+        text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+        text_relation=pv.ORIGINAL, text_derivation=pv.LIDO_DO_CAMPO,
         cost_usd=COST_USD, raw_reference=raw_ref,
         raw={
             'COMMENT_ID': cid,

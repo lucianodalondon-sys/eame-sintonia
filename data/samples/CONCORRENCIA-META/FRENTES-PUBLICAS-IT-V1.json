@@ -1,0 +1,844 @@
+{
+ "CELULAS_EM_FALTA": [
+  "BASF/YOUTUBE",
+  "BASF/SITE_NOVIDADES",
+  "Bayer/SITE_NOVIDADES",
+  "Syngenta/SITE_NOVIDADES",
+  "Corteva/LINKEDIN_EMPRESA",
+  "Corteva/YOUTUBE",
+  "Corteva/INSTAGRAM",
+  "Corteva/SITE_NOVIDADES",
+  "FMC/LINKEDIN_EMPRESA",
+  "FMC/YOUTUBE",
+  "FMC/INSTAGRAM",
+  "FMC/SITE_NOVIDADES",
+  "UPL/LINKEDIN_EMPRESA",
+  "UPL/YOUTUBE",
+  "UPL/INSTAGRAM",
+  "UPL/SITE_NOVIDADES",
+  "Nufarm/YOUTUBE",
+  "Nufarm/INSTAGRAM",
+  "Nufarm/SITE_NOVIDADES",
+  "Sipcam/META_ADS",
+  "Sipcam/LINKEDIN_EMPRESA",
+  "Sipcam/YOUTUBE",
+  "Sipcam/INSTAGRAM",
+  "Gowan/META_ADS",
+  "Gowan/LINKEDIN_EMPRESA",
+  "Gowan/YOUTUBE",
+  "Gowan/INSTAGRAM",
+  "Gowan/SITE_NOVIDADES",
+  "Certis/YOUTUBE",
+  "Certis/INSTAGRAM",
+  "Certis/SITE_NOVIDADES",
+  "Ascenza/META_ADS",
+  "Ascenza/LINKEDIN_EMPRESA",
+  "Ascenza/YOUTUBE",
+  "Ascenza/INSTAGRAM",
+  "Ascenza/SITE_NOVIDADES",
+  "ADAMA/LINKEDIN_EMPRESA",
+  "ADAMA/YOUTUBE",
+  "ADAMA/INSTAGRAM",
+  "ADAMA/SITE_NOVIDADES"
+ ],
+ "CONTAGEM_POR_FRENTE": {
+  "INSTAGRAM": {
+   "CONTA_PROVADA_IT": 2,
+   "CONTA_PROVADA_OUTRA": 1,
+   "FALTA": 9
+  },
+  "LINKEDIN_EMPRESA": {
+   "CONTA_PROVADA_OUTRA": 3,
+   "FALTA": 7,
+   "NA_FILA": 2
+  },
+  "META_ADS": {
+   "FALTA": 3,
+   "NA_LINHA": 9
+  },
+  "SITE_NOVIDADES": {
+   "FALTA": 11,
+   "NA_FILA": 1
+  },
+  "YOUTUBE": {
+   "CONTA_PROVADA_IT": 2,
+   "FALTA": 10
+  }
+ },
+ "DATASET": "CONCORRENCIA-FRENTES-PUBLICAS-IT-V1",
+ "DEGRAUS": [
+  "NA_LINHA",
+  "CONTA_PROVADA_IT",
+  "CONTA_PROVADA_OUTRA",
+  "NA_FILA",
+  "FALTA"
+ ],
+ "FALTA_SIGNIFICA": "nenhum dos livros tem entrada. FALTA_NOS_LIVROS != A_CONTA_NAO_EXISTE",
+ "FRENTES": {
+  "INSTAGRAM": {
+   "executor": "scrap-colheita",
+   "fase": "captura-reel",
+   "limite": "D22: so Reel publico por URL DIRETA; listar os reels de um perfil NAO esta autorizado — a frente precisa de URL de reel, e conta sozinha nao chega"
+  },
+  "LINKEDIN_EMPRESA": {
+   "executor": "scrap-colheita",
+   "fase": "video-linkedin",
+   "limite": "D23: so o video da pagina publica da organizacao; posts pedidos batem em ROUTE_NOT_ALLOWED"
+  },
+  "META_ADS": {
+   "executor": "concorrencia-meta",
+   "fase": "meta-anuncios",
+   "limite": "Biblioteca publica, sem login (D88)"
+  },
+  "SITE_NOVIDADES": {
+   "executor": "italia-recorrente",
+   "fase": "",
+   "limite": "HTTP direto, robots respeitado (D91)"
+  },
+  "YOUTUBE": {
+   "executor": "scrap-colheita",
+   "fase": "canal-youtube",
+   "limite": "API oficial (Data API v3)"
+  }
+ },
+ "LIVROS_LIDOS": {
+  "CANDIDATAS": {
+   "caminho": "candidatas/FONTES-CANDIDATAS.json",
+   "linhas": 1199
+  },
+  "CONTAS": {
+   "caminho": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+   "linhas": 44
+  },
+  "CURADOR": {
+   "caminho": "curadoria/italy_contracts_curator.json",
+   "linhas": 574
+  },
+  "META": {
+   "caminho": "data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json",
+   "linhas": 25
+  }
+ },
+ "O_QUE_E": "quadro concorrente x frente publica, medido SO por leitura dos livros abaixo. Nada foi coletado para o montar.",
+ "QUADRO": [
+  {
+   "empresa": "BASF",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "CONTA_PROVADA_OUTRA",
+     "evidencias": [
+      {
+       "autorizada": "NO",
+       "degrau": "CONTA_PROVADA_OUTRA",
+       "escopo": "GLOBAL",
+       "id": "BASF|IT|INSTAGRAM",
+       "livro": "CONTAS",
+       "url": "https://www.instagram.com/basf_global/?hl=it"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "CONTA_PROVADA_OUTRA",
+     "evidencias": [
+      {
+       "autorizada": "NO",
+       "degrau": "CONTA_PROVADA_OUTRA",
+       "escopo": "GLOBAL",
+       "id": "BASF|IT|LINKEDIN",
+       "livro": "CONTAS",
+       "url": "https://www.linkedin.com/company/basf/?originalSubdomain=it"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "NA_LINHA",
+     "evidencias": [
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "1741459832625091",
+       "livro": "META",
+       "nome": "BASF Agricultural Solutions"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "829453353861635",
+       "livro": "META",
+       "nome": "BASF Agro"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "1915260415168139",
+       "livro": "META",
+       "nome": "BASF Аграрні рішення"
+      }
+     ],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "Bayer",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "CONTA_PROVADA_IT",
+     "evidencias": [
+      {
+       "autorizada": "YES",
+       "degrau": "CONTA_PROVADA_IT",
+       "escopo": "LOCAL_COUNTRY_PROVED",
+       "id": "BAYER|IT|INSTAGRAM",
+       "livro": "CONTAS",
+       "url": "https://www.instagram.com/bayer_italia"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "CONTA_PROVADA_OUTRA",
+     "evidencias": [
+      {
+       "autorizada": "NO",
+       "degrau": "CONTA_PROVADA_OUTRA",
+       "escopo": "GLOBAL",
+       "id": "BAYER|IT|LINKEDIN",
+       "livro": "CONTAS",
+       "url": "https://it.linkedin.com/company/bayer-cropscience"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "NA_LINHA",
+     "evidencias": [
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "407321036522278",
+       "livro": "META",
+       "nome": "Bayer Crop Science España"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "100452355885332",
+       "livro": "META",
+       "nome": "Bayer Crop Science Italia"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "557757044098472",
+       "livro": "META",
+       "nome": "Bayer Crop Science Australia"
+      }
+     ],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "CONTA_PROVADA_IT",
+     "evidencias": [
+      {
+       "autorizada": "YES",
+       "degrau": "CONTA_PROVADA_IT",
+       "escopo": "LOCAL_COUNTRY_PROVED",
+       "id": "BAYER|IT|YOUTUBE",
+       "livro": "CONTAS",
+       "url": "https://www.youtube.com/user/BayerCropScienceIT"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "Syngenta",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "CONTA_PROVADA_IT",
+     "evidencias": [
+      {
+       "autorizada": "YES",
+       "degrau": "CONTA_PROVADA_IT",
+       "escopo": "LOCAL_COUNTRY_PROVED",
+       "id": "SYNGENTA|IT|INSTAGRAM",
+       "livro": "CONTAS",
+       "url": "https://www.instagram.com/syngentaitalia/"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "NA_FILA",
+     "evidencias": [
+      {
+       "degrau": "NA_FILA",
+       "estado": "POLICY_BLOCK",
+       "id": "CAND-0092",
+       "livro": "CANDIDATAS",
+       "nome": "Valagro — Linkedin ufficiale",
+       "url": "https://www.linkedin.com/company/syngenta"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "NA_LINHA",
+     "evidencias": [
+      {
+       "autorizada": "YES",
+       "degrau": "NA_FILA",
+       "escopo": "LOCAL_COUNTRY_PROVED",
+       "estado": "PAGE_ID_CANDIDATO_DO_SITE_OFICIAL",
+       "id": "SYNGENTA|IT|FACEBOOK",
+       "livro": "CONTAS",
+       "nota": "o site oficial liga esta pagina; confirmar o PAGE_ID pela Meta antes de entrar na linha",
+       "page_id_candidato": "2007689772789481",
+       "url": "https://www.facebook.com/Syngenta-2007689772789481"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "106074059247602",
+       "livro": "META",
+       "nome": "Syngenta Vegetable Seeds"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "191463755107393",
+       "livro": "META",
+       "nome": "Syngenta"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "100132055981865",
+       "livro": "META",
+       "nome": "Syngenta Professional Pest Management Italia"
+      }
+     ],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "CONTA_PROVADA_IT",
+     "evidencias": [
+      {
+       "degrau": "NA_FILA",
+       "estado": "EM_ANALISE",
+       "id": "CAND-0183",
+       "livro": "CANDIDATAS",
+       "nome": "Valagro — Youtube ufficiale",
+       "url": "https://www.youtube.com/@syngenta"
+      },
+      {
+       "autorizada": "YES",
+       "degrau": "CONTA_PROVADA_IT",
+       "escopo": "LOCAL_COUNTRY_PROVED",
+       "id": "SYNGENTA|IT|YOUTUBE",
+       "livro": "CONTAS",
+       "url": "https://www.youtube.com/Syngentaitaly"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "Corteva",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "NA_LINHA",
+     "evidencias": [
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "301875220487005",
+       "livro": "META",
+       "nome": "Corteva Agriscience"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "653618664503171",
+       "livro": "META",
+       "nome": "Corteva.Agriscience"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "141858625884958",
+       "livro": "META",
+       "nome": "Corteva Agriscience"
+      }
+     ],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "FMC",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "NA_LINHA",
+     "evidencias": [
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "126368200361567",
+       "livro": "META",
+       "nome": "FMC Agro España"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "318499698004669",
+       "livro": "META",
+       "nome": "FMC Italia"
+      },
+      {
+       "degrau": "NA_FILA",
+       "estado": "NAO_AGRO_DECLARADO: a guarda de identidade aceita (o token FMC abre o nome), mas a pagina e de motocicletas. Fica na lista, VISIVEL e fora da linha. Nos 414 de 31/08 ela contava 11 cartoes dentro dos 98 da FMC: a FMC agro em IT sao 87.",
+       "id": "101167338588947",
+       "livro": "META",
+       "nome": "FMC Moto Srl"
+      }
+     ],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "UPL",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "NA_LINHA",
+     "evidencias": [
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "256753487527240",
+       "livro": "META",
+       "nome": "UPL Corp Agri Solutions"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "101391071271786",
+       "livro": "META",
+       "nome": "UPL Iberia"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "112842495094665",
+       "livro": "META",
+       "nome": "UPL Corp France"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "974896235961055",
+       "livro": "META",
+       "nome": "UPL-Ltd"
+      }
+     ],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "Nufarm",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "CONTA_PROVADA_OUTRA",
+     "evidencias": [
+      {
+       "autorizada": "NO",
+       "degrau": "CONTA_PROVADA_OUTRA",
+       "escopo": "NOT_KNOWN",
+       "id": "NUFARM|IT|LINKEDIN",
+       "livro": "CONTAS",
+       "url": "https://au.linkedin.com/company/nufarm"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "NA_LINHA",
+     "evidencias": [
+      {
+       "autorizada": "YES",
+       "degrau": "NA_FILA",
+       "escopo": "LOCAL_COUNTRY_PROVED",
+       "estado": "PAGE_ID_CANDIDATO_DO_SITE_OFICIAL",
+       "id": "NUFARM|IT|FACEBOOK",
+       "livro": "CONTAS",
+       "nota": "o site oficial liga esta pagina; confirmar o PAGE_ID pela Meta antes de entrar na linha",
+       "page_id_candidato": "2312073685546312",
+       "url": "https://www.facebook.com/Nufarm-Italia-2312073685546312"
+      },
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "113985315353360",
+       "livro": "META",
+       "nome": "Nufarm Brasil"
+      }
+     ],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "Sipcam",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "NA_FILA",
+     "evidencias": [
+      {
+       "degrau": "NA_FILA",
+       "estado": "EM_ANALISE",
+       "id": "CAND-0158",
+       "livro": "CANDIDATAS",
+       "nome": "Sipcam Italia",
+       "url": "https://www.sipcamitalia.it/"
+      }
+     ],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "Gowan",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "Certis",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "NA_FILA",
+     "evidencias": [
+      {
+       "degrau": "NA_FILA",
+       "estado": "POLICY_BLOCK",
+       "id": "CAND-0114",
+       "livro": "CANDIDATAS",
+       "nome": "Certis Belchim Italia — Linkedin ufficiale",
+       "url": "https://www.linkedin.com/company/certisbelchim-italia"
+      }
+     ],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "NA_LINHA",
+     "evidencias": [
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "1690651457850715",
+       "livro": "META",
+       "nome": "Certis Belchim España"
+      }
+     ],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "Ascenza",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  },
+  {
+   "empresa": "ADAMA",
+   "frentes": {
+    "INSTAGRAM": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "captura-reel"
+    },
+    "LINKEDIN_EMPRESA": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "video-linkedin"
+    },
+    "META_ADS": {
+     "degrau": "NA_LINHA",
+     "evidencias": [
+      {
+       "degrau": "NA_LINHA",
+       "estado": "EM_LINHA",
+       "id": "1720702718165314",
+       "livro": "META",
+       "nome": "ADAMA Ltd."
+      },
+      {
+       "degrau": "NA_FILA",
+       "estado": "ADVERTISER_IDENTITY_REJECTED_TOKEN_NOT_LEADING",
+       "id": "132249453484007",
+       "livro": "META",
+       "nome": "Instytut Adama Mickiewicza"
+      }
+     ],
+     "executor": "concorrencia-meta",
+     "fase": "meta-anuncios"
+    },
+    "SITE_NOVIDADES": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "italia-recorrente",
+     "fase": ""
+    },
+    "YOUTUBE": {
+     "degrau": "FALTA",
+     "evidencias": [],
+     "executor": "scrap-colheita",
+     "fase": "canal-youtube"
+    }
+   }
+  }
+ ]
+}

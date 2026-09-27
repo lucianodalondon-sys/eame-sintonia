@@ -87,6 +87,20 @@ jobs:
       # Sem dependências. O scanner usa só a biblioteca padrão, de propósito:
       # um mapa de arquitetura que depende de pacote de terceiro para ser
       # gerado tem uma dependência que o próprio mapa não consegue explicar.
+      # ⚠️ SEM `pdftotext`, VARIOS PASSOS ABAIXO PASSAM SEM MEDIR.
+      # Medido nesta arvore, com a ferramenta retirada do PATH:
+      #   tests/test_preservar_derivado.py  -> OK (skipped=2)
+      #   provas/o_executor_conta_se.py     -> PASS, saida byte a byte igual
+      # Os casos de PDF ficavam permanentemente pulados neste workflow — o que
+      # corre em TODO push — e um pulo silencioso tem a cor do verde.
+      # Instalar custa segundos; nao instalar custa a confianca nos passos.
+      - name: 0 · a ferramenta de texto existe
+        if: '!cancelled()'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+          pdftotext -v
+
       # A LISTA FICA ESCRITA AQUI, À VISTA — e isto foi MEDIDO, não escolhido.
       # A primeira versão desta mudança lia a lista de `CADEIA-DO-MAPA.json` em
       # tempo de execução, para não haver duas listas. O mapa regenerado logo
@@ -107,24 +121,21 @@ jobs:
       # exactamente a de `CADEIA-DO-MAPA.json`, na mesma ordem.
       #
       #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
+      # ⚠️ A LISTA DOS PASSOS NAO VIVE AQUI. Vivia — dezanove linhas de YAML — e
+      # os DOIS jobs deste mesmo ficheiro tinham listas DIFERENTES: o job `mapa`
+      # corria dezanove scripts e o job `regras` corria sete. Ninguem comparava.
+      #
+      #     DOIS SITIOS COM A LISTA DOS PASSOS NAO SAO UMA LISTA REPETIDA:
+      #     SAO DUAS CADEIAS, E UMA DELAS ESTA SEMPRE ERRADA SEM NINGUEM SABER.
+      #
+      # Agora a composicao vive so em `CADEIA-DO-MAPA.json`, e o corredor le-a em
+      # runtime. Acrescentar um passo ao manifesto passa a bastar; e
+      # `test_cadeia_declara_io.py` reprova se alguem voltar a escrever a lista
+      # em YAML, em JS, em Python ou num array de shell.
       - name: 1 · regerar o mapa a partir desta árvore
-        # A LISTA SAIU DAQUI, E ISSO É A CURA — NÃO O AFROUXAMENTO.
-        # Os sete passos estavam escritos aqui à mão e o manifesto tinha os
-        # seus. Duas listas com o mesmo nome são duas cadeias, e a que corre no
-        # CI deixa de ser a que a build da Vercel corre no momento em que uma
-        # delas ganha um passo. Ganhou treze.
-        #
-        #     DOIS SITIOS COM A LISTA DOS PASSOS SAO DUAS CADEIAS.
-        #
-        # Agora corre-se o corredor, e o corredor lê `CADEIA-DO-MAPA.json` — o
-        # mesmo ficheiro que `publicar_no_deploy.mjs` lê na build. Um dono.
+        if: '!cancelled()'
         run: python3 system-map/scripts/correr_a_cadeia.py REGERAR
 
-      # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
-      # PROVENANCE carrega HEAD e BRANCH, que mudam a cada commit e a cada ramo.
-      # Um diff cru reprovaria toda a gente, sempre — inclusive o commit que
-      # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
-      # o carimbo, e cobre tambem a copia que vai ser servida.
       - name: 2 · o validador (provas anti-drift, falha fechado)
         # Ele REGENERA por dentro (é a P1), logo não depende do passo 1 ter
         # corrido. Correr na mesma dá o segundo diagnóstico em vez do silêncio.
@@ -227,28 +238,34 @@ jobs:
       # exactamente a de `CADEIA-DO-MAPA.json`, na mesma ordem.
       #
       #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
+      # A SEGUNDA LISTA VIVIA AQUI, E ERA MAIS CURTA: sete scripts contra os
+      # dezanove do job `mapa`. Este job validava as regras sobre meio mapa.
       - name: 1 · regerar o mapa a partir desta árvore
-        # A LISTA SAIU DAQUI, E ISSO É A CURA — NÃO O AFROUXAMENTO.
-        # Os sete passos estavam escritos aqui à mão e o manifesto tinha os
-        # seus. Duas listas com o mesmo nome são duas cadeias, e a que corre no
-        # CI deixa de ser a que a build da Vercel corre no momento em que uma
-        # delas ganha um passo. Ganhou treze.
-        #
-        #     DOIS SITIOS COM A LISTA DOS PASSOS SAO DUAS CADEIAS.
-        #
-        # Agora corre-se o corredor, e o corredor lê `CADEIA-DO-MAPA.json` — o
-        # mesmo ficheiro que `publicar_no_deploy.mjs` lê na build. Um dono.
+        if: '!cancelled()'
         run: python3 system-map/scripts/correr_a_cadeia.py REGERAR
 
-      # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
-      # PROVENANCE carrega HEAD e BRANCH, que mudam a cada commit e a cada ramo.
-      # Um diff cru reprovaria toda a gente, sempre — inclusive o commit que
-      # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
-      # o carimbo, e cobre tambem a copia que vai ser servida.
+      # ⚠️ ESTE PASSO NASCE DE UMA NOITE PERDIDA. Uma auditoria inteira da
+      # Collection correu sobre uma árvore de três dias antes: validador verde,
+      # 22 guardas verdes, red team a zero — e o sistema descrito já não
+      # existia. Todas as guardas perguntavam «o mapa corresponde a ESTA
+      # árvore?». Nenhuma perguntava «ESTA árvore é o sistema?».
+      #
+      #     MAP CURRENT != SYSTEM CURRENT.
+      #
+      # Corre CEDO, antes de qualquer medição.
+      - name: 3z · a árvore auditada contém a Collection funcional atual
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_base_da_auditoria.py
 
       - name: 4 · as regras do mapa não afrouxaram
         if: '!cancelled()'
         run: python3 system-map/tests/test_system_map.py
+
+      # Os ataques à verdade da Collection ATUAL: a base, o SCRAP, o LinkedIn,
+      # e as fronteiras entre existir, poder e ter acontecido.
+      - name: 4m · vinte e seis ataques à verdade da Collection atual
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_verdade_da_collection_actual.py
 
       - name: 4k · a lei da frescura nunca fica verde sem as quatro provas
         if: '!cancelled()'
@@ -263,6 +280,13 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_impressao_da_arvore.py
 
+      # O MESMO COMMIT passava numa branch e reprovava noutra: o nome da branch
+      # vazava para os factos do mapa, onde o P1 compara (D50). Esta prova
+      # valida um commit com três nomes e em HEAD destacado — e prova que uma
+      # fonte mexida sem regerar continua a reprovar.
+      - name: 4l2 · o nome da branch não decide o P1
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_ramo_nao_entra_no_mapa.py
 
       # OS NÚMEROS DO MAPA TÊM DE SE ENCONTRAR, E NÃO SÓ DE ESTAR CERTOS.
       # Três contagens chamavam-se «os cartões da coleta» e contavam populações
@@ -503,6 +527,26 @@ jobs:
         with:
           python-version: '3.12'
 
+      # ⚠️ A MESMA HISTORIA DO `fetch-depth`, OUTRA VEZ, COM OUTRA FERRAMENTA.
+      #
+      # `provas/o_executor_conta_se.py` nunca tinha corrido aqui: o passo 3
+      # cortava antes dele. Ao pôr todos os passos a correr, ele correu e disse
+      # a verdade — «RECUSADO: pdftotext nao esta nesta maquina». E recusa-se de
+      # propósito: um red team mediu que, sem a ferramenta, o executor devolve
+      # REUSED para tudo o que já está na árvore e a prova passaria a medir a
+      # cache em vez da estrada.
+      #
+      #     PASSAR AQUI SEM A FERRAMENTA SERIA MENTIR.
+      #
+      # O conserto é o mesmo de sempre neste job: dar-lhe o que ela precisa
+      # para medir, nunca afrouxar a prova.
+      - name: 0 · a ferramenta de texto existe
+        if: '!cancelled()'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+          pdftotext -v
+
       - name: 3 · o padrão do departamento de coleta não piorou
         if: '!cancelled()'
         run: python3 medidas/padrao_da_coleta.py
@@ -572,3 +616,105 @@ jobs:
       - name: 4j · a porta de produção continua lacrada
         if: '!cancelled()'
         run: python3 tests/test_porta_de_producao.py
+
+      # ═══════════════════════════════════════════════════════════════
+      # AS PROVAS DA COLETA QUE NAO PRECISAM DE BANCO — e que ninguem corria.
+      #
+      #     UM PORTAO QUE NAO CORRE NAO E UM PORTAO.
+      #
+      # Medido: `grep -rl <nome> .github/workflows/ motor/` devolvia vazio
+      # para as quatro. Nao eram codigo morto — eram GATES DESLIGADOS, que e
+      # outra coisa e mais perigosa: parecem cobertura e nao cobrem nada.
+      #
+      # A prova disto e o que se encontrou ao liga-las: `fluxo_no_seco`
+      # estava VERMELHA, com dois defeitos reais e antigos la dentro.
+      - name: 4k · a lingua e a mesma no contrato, no storage e no scanner
+        if: '!cancelled()'
+        run: python3 provas/paridade_da_lingua.py
+
+      - name: 4l · a telemetria distingue NAO CORREU de FALHOU, e a conta fecha
+        if: '!cancelled()'
+        run: python3 provas/fluxo_no_seco.py
+
+      - name: 4m · as trinta armadilhas do caminho do PDF continuam vazias
+        if: '!cancelled()'
+        run: python3 provas/testa_golden_path_pdf.py
+
+      - name: 4n · o mapa nao diz que nao existe o que existe
+        if: '!cancelled()'
+        run: python3 provas/o_mapa_nao_mente.py
+
+      # O ENCANAMENTO: uma porta, uma ordem, um dono do RAW. Catorze
+      # invariantes pequenos e separados — um portao gigante esconde qual das
+      # perguntas reprovou.
+      - name: 4n2 · a coleta tem UMA porta de entrada, e ela vem antes da admissao
+        if: '!cancelled()'
+        run: python3 provas/o_encanamento_tem_uma_porta.py
+
+      # Sem banco: le migrations e codigo, e confronta cada `on conflict` com
+      # a chave unica que o sustenta. Corre tambem em `banco-descartavel.yml`,
+      # que so acorda por caminho; aqui acorda em todo o push.
+      - name: 4o · toda clausula `on conflict` tem chave que a sustente
+        if: '!cancelled()'
+        run: python3 provas/o_dedupe_tem_constraint.py
+
+      # A fronteira entre a coleta e a inteligencia: que a lei e o codigo
+      # continuem a declarar o MESMO contrato, e que ele tenha um dono so.
+      # Ela NAO falha por nao haver consumidor — isso e um buraco declarado,
+      # e o trabalho dela e medi-lo, nao pinta-lo de verde.
+      # Ele RECUSA-SE a correr sem `pdftotext` — antes passava sem a
+      # ferramenta, medindo os derivados ja em arvore como REUSED e chamando
+      # a isso «um executor REAL». Com o passo 0 acima, a recusa nunca chega
+      # a ser precisa aqui, e e essa a intencao.
+      - name: 4p · o executor conta-se, e a lingua que ele fala e a comum
+        if: '!cancelled()'
+        run: python3 provas/o_executor_conta_se.py
+
+      - name: 4q · a fronteira tem um contrato, um dono, e a lei bate com o codigo
+        if: '!cancelled()'
+        run: python3 provas/a_fronteira_da_coleta.py
+
+      # A LINHA DA META, sem rede: a comparacao reproduz a de 31/08 sobre a
+      # fixture declarada, a guarda de identidade recusa o homonimo, e o
+      # envelope atravessa o ingresso ate a Admissao T9. E o quadro das
+      # frentes versionado tem de ser o que os livros produzem.
+      - name: 4q2 · a linha da Meta so afirma mudanca onde as duas leituras vao igualmente fundo
+        if: '!cancelled()'
+        run: python3 tests/test_concorrencia_meta.py
+
+      - name: 5 · o que vai ser publicado existe e é servível
+        if: '!cancelled()'
+        run: |
+          set -e
+          for f in index.html map.js map.css state.generated.json; do
+            test -s "italia-portale/client/system-map/$f" \
+              || { echo "::error::falta italia-portale/client/system-map/$f"; exit 1; }
+          done
+          # A app carrega os tokens oficiais em `../_ds/`. Se esse caminho não
+          # existir no que é servido, a página publica sai sem a marca ADAMA —
+          # e uma página que perde o Design System em silêncio é pior do que
+          # uma que não abre.
+          test -f italia-portale/client/_ds/adama-brandwell/tokens/colors.css \
+            || { echo "::error::o Design System não está no caminho servido"; exit 1; }
+          python3 - <<'PY'
+          import json
+          s = json.load(open('italia-portale/client/system-map/state.generated.json',
+                             encoding='utf-8'))
+          c = s['COUNTS']
+          print(f"PUBLICAVEL=YES · HEAD={s['PROVENANCE']['HEAD'][:10]} · peças={c['components']} "
+                f"(P{c['components_proven']} p{c['components_pending']} "
+                f"B{c['components_broken']} U{c['components_unknown']}) "
+                f"· ligações={c['edges']} · cobertura={c['files_covered']}/{c['files_tracked']}")
+          PY
+
+      - name: 6 · nenhum segredo atravessa para o que é publicado
+        if: '!cancelled()'
+        run: |
+          # O repositório é público e o mapa é servido. Ele carrega caminho de
+          # ficheiro e trecho de linha — e trecho de linha é exatamente onde um
+          # segredo se esconderia sem ninguém reparar.
+          if grep -rIEn '(APIFY_TOKEN|SUPABASE_[A-Z_]*KEY|SERVICE_ROLE|BEGIN [A-Z ]*PRIVATE KEY)[^A-Z_]*[:=][[:space:]]*['"'"'"][A-Za-z0-9_-]{16,}' \
+               italia-portale/client/system-map/ ; then
+            echo "::error::possível segredo no que vai ser publicado"; exit 1
+          fi
+          echo "SEM_SEGREDO=YES"

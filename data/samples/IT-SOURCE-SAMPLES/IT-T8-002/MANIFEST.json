@@ -1,0 +1,25 @@
+{
+ "SOURCE_ID": "IT-T8-002",
+ "CAPTURED_AT": "2026-09-19T04:36:23Z",
+ "MEASURED_ON_HEAD": "195bdb7bd8c3",
+ "REQUEST_URL": "https://it.linkedin.com/company/image-line",
+ "METHOD": "navegador real (sem login)",
+ "ACCESS_SHAPE": "BROWSER_PUBLIC",
+ "OBSERVED": {
+  "h1": "Image Line",
+  "followers": "4.595",
+  "settore": "Tecnologia, informazioni e internet",
+  "sede_principale": "Faenza, Ravenna",
+  "dipendenti": 64,
+  "about": "Image Line e un AgroDigital Hub. Realizziamo servizi digitali in ambito #AgroTech, #AgroMarketing e #AgroInnovation"
+ },
+ "NEGATIVE_CONTROL": "linkedin.com/company/coldiretti -> HTTP 404. O slug e verificado, nao presumido.",
+ "ACCESS_STABILITY": "INSTAVEL — uma visita anonima caiu em /authwall; outras renderizaram a pagina publica. Fato de acesso, nao fonte invalida (BLOCKED != DEAD).",
+ "NOTE": "CAPTURE observada; bytes nao descarregados. Nenhum DOCUMENT_ID emitido.",
+ "PORTED_TO_TRUNK": {
+  "AT": "2026-09-19T16:38:23Z",
+  "TRUNK": "fd62d0625c4a6aa1dd9322178bfaa21964bf1ca5",
+  "FROM_BRANCH": "claude/it-social-sources-v2 @ 5e9ed0cf",
+  "MODE": "porte semantico (ficha copiada, derivado regenerado) — NAO merge"
+ }
+}

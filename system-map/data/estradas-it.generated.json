@@ -106,9 +106,9 @@
      "STATE": "CODE",
      "OWNER": "admissao/admissao.py",
      "OWNER_EXISTS": true,
-     "CONNECTION_LEVEL": "NO_DIRECT_REFERENCE",
+     "CONNECTION_LEVEL": "CANDIDATE_CONNECTION",
      "CONNECTED_TO_ROUTE": false,
-     "ABSENCE_IS_CONCLUSIVE": true,
+     "ABSENCE_IS_CONCLUSIVE": false,
      "DIRECT_REQUIRED": true,
      "EDGE_TEST": null,
      "EDGE_OBSERVED": null,
@@ -225,9 +225,9 @@
      "STATE": "CODE",
      "OWNER": "admissao/admissao.py",
      "OWNER_EXISTS": true,
-     "CONNECTION_LEVEL": "NO_DIRECT_REFERENCE",
-     "CONNECTED_TO_ROUTE": false,
-     "ABSENCE_IS_CONCLUSIVE": true,
+     "CONNECTION_LEVEL": "TRANSITIVE_CODE_PATH",
+     "CONNECTED_TO_ROUTE": true,
+     "ABSENCE_IS_CONCLUSIVE": false,
      "DIRECT_REQUIRED": true,
      "EDGE_TEST": null,
      "EDGE_OBSERVED": null,
@@ -237,8 +237,7 @@
    },
    "ARCHITECTURE_CLOSED": false,
    "STEPS_BLOQUEANDO": [
-    "RUN",
-    "ADMISSION"
+    "RUN"
    ],
    "OBSERVATION_STATE": "PARTIALLY_OBSERVED",
    "BLOCKED_REASON": null,
@@ -250,7 +249,7 @@
    "STEPS": {
     "DISCOVER": {
      "STATE": "LOCAL_TESTED",
-     "OWNER": "coleta/social_rotas.py",
+     "OWNER": "coleta/adaptador_aberto.py",
      "OWNER_EXISTS": true,
      "CONNECTION_LEVEL": "DIRECT_CODE_REFERENCE",
      "CONNECTED_TO_ROUTE": true,
@@ -263,7 +262,7 @@
     },
     "FETCH": {
      "STATE": "LOCAL_TESTED",
-     "OWNER": "coleta/social_rotas.py",
+     "OWNER": "coleta/adaptador_aberto.py",
      "OWNER_EXISTS": true,
      "CONNECTION_LEVEL": "DIRECT_CODE_REFERENCE",
      "CONNECTED_TO_ROUTE": true,
@@ -1080,7 +1079,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (124 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (140 obs)",
    "ACCESS_METHOD": "NÃO SEI (esperado PDF/HTML)",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1104,7 +1103,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (6 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (7 obs)",
    "ACCESS_METHOD": "NÃO SEI",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1140,7 +1139,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (2 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (3 obs)",
    "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1188,7 +1187,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (2 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (3 obs)",
    "ACCESS_METHOD": "NÃO SEI",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1224,7 +1223,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (2 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (22 obs)",
    "ACCESS_METHOD": "NÃO SEI",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1260,7 +1259,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (2 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (3 obs)",
    "ACCESS_METHOD": "CSV direto (4,6 MB), sem chave",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -2260,19 +2259,19 @@
  },
  "CLASSES_SOCIAIS": {
   "DECLARADAS": {
-   "OFFICIAL_API_FREE": 14,
-   "LOCAL_EXECUTOR": 4,
-   "PUBLIC_NATIVE": 14,
-   "DIRECT_HTTP": 4,
+   "OFFICIAL_API_FREE": 15,
+   "LOCAL_EXECUTOR": 6,
+   "PUBLIC_NATIVE": 15,
+   "DIRECT_HTTP": 11,
    "APIFY": 5,
    "PUBLIC_BROWSER": 3,
    "OFFICIAL_API_PAID": 2
   },
   "PERMITIDAS": {
    "OFFICIAL_API_FREE": 4,
-   "PUBLIC_NATIVE": 10,
-   "LOCAL_EXECUTOR": 1,
-   "DIRECT_HTTP": 1,
+   "PUBLIC_NATIVE": 11,
+   "LOCAL_EXECUTOR": 3,
+   "DIRECT_HTTP": 7,
    "OFFICIAL_API_PAID": 1
   },
   "ROTAS_SEM_RAZAO_ESCRITA": 1
@@ -2290,19 +2289,19 @@
  "GIT_COMO_BANCO_OPERACIONAL": [
   {
    "FICHEIRO": "data/collection-ledger/italy/observations.ndjson",
-   "LINHAS": 144
+   "LINHAS": 521
   },
   {
    "FICHEIRO": "data/collection-ledger/italy/runs.ndjson",
-   "LINHAS": 6
+   "LINHAS": 59
   }
  ],
  "ORQUESTRADOR": {
   "EXISTE": true,
   "FICHEIRO": "orquestrador/orquestrador.py",
-  "EXECUTORES_ALCANCADOS": 4,
+  "EXECUTORES_ALCANCADOS": 10,
   "PROVA": "recebe um Pedido, resolve um Plano em `pedido/receitas.py` e despacha por subprocess. NAO coleta: escolhe quem coleta.",
-  "RESSALVA": "alcanca 4 dos executores medidos por censo_da_coleta.py — existir nao e cobrir. E `SINTONIA SCRAP` continua sendo COMPOSITE_EXECUTOR, nao um segundo orquestrador: ele coordena rotas de UMA aquisicao."
+  "RESSALVA": "alcanca 10 dos executores medidos por censo_da_coleta.py — existir nao e cobrir. E `SINTONIA SCRAP` continua sendo COMPOSITE_EXECUTOR, nao um segundo orquestrador: ele coordena rotas de UMA aquisicao."
  },
  "COLLECTION_FOUNDATION_CLOSED": false,
  "VEREDITOS": {

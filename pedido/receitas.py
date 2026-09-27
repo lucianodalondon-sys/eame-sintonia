@@ -55,9 +55,77 @@ FONTES_MEDIDAS = RAIZ / "system-map" / "data" / "sources.generated.json"
 #
 # Um executor entra aqui quando prova que percorre a rota; sai quando deixa de
 # a percorrer. Nao ha «talvez».
+# ── O QUE CADA EXECUTOR DEVOLVE, E O QUE ISSO E ─────────────────────────────
+# `larga_em` diz ONDE. A chave `retorno` diz O QUE — e e a COL-LAW-505 a entrar
+# no runtime.
+#
+#     ENVELOPE   o ficheiro onde a CORRIDA declara o que produziu.
+#                E a unica origem possivel de COLHEITA.
+#
+#     LEGADO     {caminho: ESPECIE} para o que ja esta em disco e cujo produtor
+#                nao corre offline. SO PODE DECLARAR SUPORTE: manifesto,
+#                catalogo, recibo de execucao ou plano.
+#
+# ⚠️ POR QUE O LEGADO NAO PODE DECLARAR COLHEITA. Uma declaracao escrita aqui e
+# feita ANTES da corrida e envelhece sozinha — o proprio `larga_em` prova isso,
+# com dois caminhos a apontar para pastas que nao existem sem ninguem notar. Se
+# esta chave pudesse dizer «aqui ha colheita», uma linha desactualizada mandava
+# suporte para o ingresso outra vez, e teriamos trocado uma heuristica por um
+# literal. `leis/retorno_da_coleta.py::envelope_do_legado` recusa, e escreve o
+# motivo no recibo.
+#
+#     DECLARAR SUPORTE E INOFENSIVO MESMO QUANDO ERRADO: SUPORTE NAO ATRAVESSA.
+#     DECLARAR COLHEITA NAO E — E POR ISSO NAO SE PODE.
 EXECUTORES = {
-    "T7": [{
+    # ⚠️ ESTE REGISTO MUDOU DE CHAVE, E A MUDANCA E UM CONSERTO DE VERDADE.
+    # Estava em `"T7"` porque `pedido/pedido.py` declarava `T7 = «Ciencia e
+    # ensaio»`. No Atlas — que e o dono — `T7` e TECHNICAL NETWORK, e as doze
+    # fontes italianas classificadas la sao COOPERATIVAS E CONSORCIOS. Pedir
+    # ciencia mandava este coletor cientifico correr sobre cooperativas.
+    #
+    # A chave certa nao e `T5` (SCIENCE) e sim `T6` (RESEARCHERS), e o criterio
+    # nao e gosto: e a separacao que o proprio Atlas impoe e que o
+    # `ITALY-SOURCE-MASTER-V1.json` repete —
+    #
+    #     TERRITORY = o que a rota MEDE.  ACCESS_METHOD = como se acessa.
+    #
+    # O que esta rota MEDE esta escrito no `retorno` dela, e foi contado: doze
+    # fichas de PESSOA, zero unidades de obra. Ela mede pesquisadores. Que o
+    # faca atraves de registos cientificos (OpenAlex, ORCID, que sao T5) e a
+    # rota, e rota nao e territorio — confundir os dois foi exactamente o que
+    # produziu esta colisao.
+    #
+    # ⚠️ E ISTO DEIXA `T5` SEM EXECUTOR, O QUE E A VERDADE E NAO UM BURACO NOVO.
+    # As seis fontes de SCIENCE em ficha — `IT-T5-001..005` e `EU-T5-001` —
+    # nunca tiveram executor nesta casa; tinham um coletor a correr sobre as
+    # fontes ERRADAS e ninguem via. O plano passa a dizer «NAO SEI COMO», que e
+    # o que sempre foi verdade.
+    #
+    #     UM BURACO QUE APARECE NAO E UM BURACO NOVO: E UM BURACO QUE ERA CEGO.
+    "T6": [{
+        # T6-PARA-SALA (26/09) · ENTRA A FRENTE, e o `corpus-pesquisador` FICA.
+        # O orquestrador corre `plano.executores[0]`: a ordem e uma DECISAO (do
+        # dono), nao arrumacao. O antigo devolve um CATALOGO de 12 pessoas
+        # (suporte, nunca atravessa); este DECLARA COLHEITA — os trabalhos que
+        # as rodadas de `coleta/pesquisadores_t6.py --rede` ja guardaram, sem
+        # rede nenhuma nesta etapa. A fonte e a que o Atlas ja tem: EU-T5-001.
+        "id": "pesquisadores-t6",
+        "retorno": {"ENVELOPE": "data/colheita/pesquisadores-t6/RETORNO.json"},
+        "roda": ["coleta/pesquisadores_t6_executor.py"],
+        "recebe_run_id": True,
+        "filtros_nomeados": ["rodadas"],
+        "larga_em": ["data/colheita/pesquisadores-t6/"],
+        "rotas": ["OpenAlex (EU-T5-001), respostas ja guardadas pelas rodadas"],
+        "o_que_traz": "um trabalho por DOI (o registo que o OpenAlex publicou: titulo, "
+                      "resumo, autoria com afiliacao obra a obra), com os pesquisadores "
+                      "italianos e a prova de cada um dentro da unidade",
+        "custo": "gratuito",
+    }, {
         "id": "corpus-pesquisador",
+        # F3 · o retorno e o CATALOGO das pessoas de quem se PODE colher
+        # obra — nao as obras. Medido: 12 fichas de pessoa, zero unidades.
+        "retorno": {"LEGADO": {
+            "data/samples/RESEARCHER-CORPUS-EAME-V1.json": "CATALOG"}},
         "roda": ["coleta/corpus_pesquisador.py", "coletar"],
         # ONDE ELE LARGA o que traz. Sem isto declarado, o orquestrador corre o
         # executor e fica sem saber o que procurar — e a colheita nunca chega a
@@ -70,16 +138,125 @@ EXECUTORES = {
         "custo": "gratuito",
     }],
     "T4": [{
+        # ⚠️ ESTE EXECUTOR ENTROU A FRENTE DO `rotulos-oficiais`, E NAO NO
+        # LUGAR DELE. O orquestrador corre `plano.executores[0]`, e a ordem
+        # desta lista e portanto uma DECISAO, nao arrumacao.
+        #
+        # O censo das classes mediu que T4 estava a UMA peca de atravessar a
+        # Collection inteira — tinha regra de admissao e dono STRUCTURED, e
+        # nao tinha aquisicao canonica. O `rotulos-oficiais` nao a podia dar:
+        # declara `LEGADO/MANIFEST` (suporte, que nunca atravessa) e a fonte
+        # dele nao verifica TLS deste ambiente.
+        #
+        #     UM EXECUTOR QUE NAO PODE DECLARAR COLHEITA
+        #     NAO E UM EXECUTOR MAU: E OUTRO TRABALHO.
+        #
+        # O `rotulos-oficiais` FICA: ele indexa 163 rotulos e esse indice tem
+        # valor. Sai da frente porque nao colhe — nao porque nao sirva.
+        "id": "regulatorio-eu",
+        # F1 · a corrida DECLARA o que produziu. Origem legitima de COLHEITA.
+        "retorno": {"ENVELOPE": "data/colheita/eu-regulatorio/RETORNO.json"},
+        "roda": ["coleta/eu_regulatorio_executor.py"],
+        # O adapter NAO cunha corrida: recebe a que o orquestrador cunhou.
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/eu-regulatorio/"],
+        # O pedido escolhe o ato; a receita traduz o filtro em argumento.
+        "argumentos_de_filtros": ["celex"],
+        # ⚠️ ESTE CELEX NAO FOI ESCOLHIDO POR CASAR COM A REGRA DA PORTA.
+        # E o que a ficha de `EU-T4-001` ja nomeia no campo `real_example`,
+        # escrito por outra missao. O criterio e mais velho do que a medicao.
+        "filtros_por_omissao": {"celex": "32026R1696"},
+        "rotas": ["EUR-Lex por CELEX (rota declarada no contrato de "
+                  "EU-T4-001)"],
+        "o_que_traz": "o ato regulatorio oficial da UE, em PDF, como o Jornal "
+                      "Oficial o publica, com o CELEX que a fonte declara como "
+                      "identidade",
+        "custo": "gratuito",
+    }, {
         "id": "rotulos-oficiais",
+        # F3 · o retorno e o MANIFESTO de 163 descargas. Os 163 PDF que ele
+        # indexa nao estao nesta arvore: `PAYLOAD = AUSENTE`, e ausencia
+        # nao e erro nem e item.
+        "retorno": {"LEGADO": {
+            "data/raw/IT-ROTULOS/_MANIFESTO.json": "MANIFEST"}},
         "roda": ["coleta/rotulos_baixar.py"],
         "larga_em": ["data/raw/IT-ROTULOS"],
         "rotas": ["registro oficial (HTTP)"],
         "o_que_traz": "o rotulo oficial do produto, como PDF, com a data em que "
                       "foi baixado",
         "custo": "gratuito",
+    }, {
+        # ── A FONTE T4 ITALIANA GANHA O EXECUTOR QUE JA A COLHE — BG-05 ─────
+        # `IT-T4-001` e T4, o coletor italiano SABE percorre-la (esta em
+        # `PILOT_SOURCES` e ja a colheu com aquisicao real em 15/09), e ainda
+        # assim um pedido `T4 + fonte=IT-T4-001` abria o `regulatorio-eu` —
+        # que nao consome `fonte`, descartava o filtro EM SILENCIO e colhia
+        # `EU-T4-001`. Outra fonte, outro pais, outro ato.
+        #
+        #     O PEDIDO NOMEIA UMA FONTE; O EXECUTOR NAO PODE TROCA-LA.
+        #
+        # Ele vem em TERCEIRO de proposito: o pedido T4 SEM filtros continua a
+        # abrir exactamente o que abria antes (`regulatorio-eu`, primeiro da
+        # lista). Quem o promove e a regra de consumo de filtros no
+        # `resolver()`: declarado `fonte`, so ele a consome, e sobe.
+        #
+        # SEM `filtros_por_omissao`, e isso e uma escolha: um T4 que chegasse
+        # aqui sem `fonte` nao pode ganhar uma fonte inventada pela receita —
+        # e o coletor, sem fonte nomeada, recusa alto (FONTES_AUSENTES, BG-06).
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "o registo oficial datado da fonte T4 italiana nomeada "
+                      "no pedido, como CSV, com a versao do documento e o "
+                      "sitio onde o byte ficou",
+        "custo": "gratuito",
     }],
     "T3": [{
+        # ── O COLETOR ITALIANO COBRE T3, E A RECEITA NAO O DIZIA ───────────
+        # ⚠️ ESTE REGISTO NAO E NOVO CODIGO: E UMA DECLARACAO QUE FALTAVA.
+        # `coleta/italy_pilot_collect.mjs` declara, no proprio ficheiro:
+        #
+        #     PILOT_SOURCES = ["IT-T3-005", "IT-T2-002", "IT-T2-004",
+        #                      "IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"]
+        #
+        # QUATRO das sete sao T3 — boletins fitossanitarios e de praga, com
+        # bytes preservados e SHA no livro italiano. A receita registava este
+        # executor SO em T2, e por isso um pedido de T3 abria o `eppo`, que
+        # nunca correu e cujo `larga_em` aponta para uma pasta inexistente.
+        #
+        #     UM EXECUTOR QUE COLHE T3 E SO SE DECLARA EM T2
+        #     FAZ O PEDIDO DE T3 BATER NUMA PORTA QUE NAO ABRE.
+        #
+        # Ele vem PRIMEIRO porque o orquestrador abre `executores[0]` e este e
+        # o unico dos dois que colhe. O `eppo` fica — o registo dele nao esta
+        # errado, esta por cumprir — e passa para tras, que e onde estao os
+        # executores que ainda nao atravessam.
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        # `IT-T3-010` e o Bollettino Mosca dell'Olivo da APOL: boletim de praga
+        # publicado, com bytes nesta arvore e SHA no livro. Nao foi escolhido
+        # por casar com o vocabulario da porta — e o que o contrato de
+        # `regras/italy_contracts.mjs` ja declara como P0 de T3.
+        "filtros_por_omissao": {"fonte": "IT-T3-010"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "o boletim fitossanitario ou de praga da zona, como PDF "
+                      "ou HTML, com a versao do documento e o sitio onde o "
+                      "byte ficou",
+        "custo": "gratuito",
+    }, {
         "id": "eppo",
+        # F2 · nunca correu, e o sitio declarado nao existe. Nao ha nada a
+        # declarar, e inventar uma especie para um ficheiro inexistente
+        # seria a casa a fingir que sabe. Fica sem `retorno`, e o recibo
+        # diz porque.
         "roda": ["coleta/eppo_gd.py"],
         "larga_em": ["data/samples/IT-PRAGAS"],
         "rotas": ["EPPO Global Database"],
@@ -87,22 +264,461 @@ EXECUTORES = {
                       "distribuicao declarada",
         "custo": "gratuito",
     }],
+    "T2": [{
+        "id": "italia-recorrente",
+        # F1 · a corrida DECLARA o que produziu. E a unica origem legitima
+        # de COLHEITA nesta casa.
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        # O COLETOR ITALIANO E NODE, e a rota canonica corre executores com
+        # `sys.executable`. Quem entra aqui e o ADAPTER em Python — ele e que
+        # sabe chamar o Node, ler o livro append-only e largar a colheita DESTA
+        # corrida na lingua da porta. Sem ele, a Italia colhia ha meses e nunca
+        # passava por `coleta/ingresso.py`: 144 observacoes preservadas num
+        # armazem paralelo, zero linhas em `raw_asset`.
+        "roda": ["coleta/italy_executor.py"],
+        # ⚠️ O ADAPTER PRECISA DA CORRIDA QUE O T-04 CUNHOU, e nao de uma que
+        # ele proprio invente. Este campo e OPT-IN: os outros executores nao o
+        # declaram e continuam a ser chamados exactamente como antes.
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        # precedente: o T9 ja traduz filtros do pedido em argumentos do executor.
+        "argumentos_de_filtros": ["fonte"],
+        # A A5.2 autorizou UMA fonte para o primeiro corte. O coletor sabe
+        # percorrer sete; registar as sete de uma vez seria prometer o que nao
+        # foi provado por aqui.
+        "filtros_por_omissao": {"fonte": "IT-T2-002"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "o boletim agrometeorologico da zona, como PDF, com a "
+                      "versao do documento e o sitio onde o byte ficou",
+        "custo": "gratuito",
+    }],
+
+    # ── T10 · T7 · T5 — TRES DECLARACOES QUE FALTAVAM ──────────────────────
+    # ⚠️ ISTO NAO E CODIGO NOVO, E NAO ABRE ROTA NENHUMA QUE NAO ESTEJA JA
+    # PROVADA. E o mesmo caso que o registo de T3 acima descreve — o executor
+    # ja percorre estas rotas, e a receita e que nao o dizia.
+    #
+    # MEDIDO na CANONICAL-MICRO-V1 (2026-09-21), coorte RUN1C:
+    #
+    #     85 observacoes com documento, bytes integros, sha conferido
+    #     IT-T10-018 30 · IT-T7-017 30 · IT-T7-042 10 · IT-T10-022 9
+    #     IT-T5-049   4 · IT-T7-043  2
+    #
+    # E todas pararam ANTES da porta: `raw_asset` ZERO. Nao por recusa da
+    # admissao — a pergunta nunca chegou a ser feita. O plano respondia
+    # «NAO SEI COMO: nenhum executor desta casa declara saber percorrer a
+    # rota delas», e era falso: o executor declarado em T2/T3/T4 tinha
+    # acabado de percorrer as seis.
+    #
+    #     UM EXECUTOR QUE COLHE TRES UNIVERSOS E SO SE DECLARA EM DOIS
+    #     FAZ O PEDIDO BATER NUMA PORTA QUE NAO ABRE.
+    #
+    # ⚠️ E O QUE ESTAS TRES LINHAS **NAO** DIZEM:
+    # nao dizem que o executor sabe percorrer TODAS as fontes destes
+    # universos. `filtros_por_omissao` nomeia UMA fonte por universo, e e uma
+    # fonte com colheita provada e bytes no armazem. As restantes continuam a
+    # exigir `--filtro fonte=`, e um pedido sem fonte continua a abrir so o
+    # que esta provado. Registar os 90 contratos de uma vez seria prometer o
+    # que ninguem mediu — e foi exactamente contra isso que o registo de T2
+    # se limitou a `IT-T2-002`.
+    "T10": [{
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        # `IT-T10-018` (myfruit.it): 30 observacoes com documento na RUN1C,
+        # HTML_LINK_DISCOVERY com MATCH:URL, identidade CONTENT_CAPTURE.
+        "filtros_por_omissao": {"fonte": "IT-T10-018"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "a noticia de mercado ortofruticola publicada pela fonte, "
+                      "como HTML, com a versao do documento e o sitio onde o "
+                      "byte ficou",
+        "custo": "gratuito",
+    }],
+    "T7": [{
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        # `IT-T7-017` (riuniteciv.com): 30 observacoes na RUN1C — a mais
+        # produtiva das tres fontes T7 medidas. (A primeira versao desta
+        # linha dizia `IT-T7-042`, e estava errada: essa trouxe 10. O erro
+        # era meu, no rotulo; o banco ficou certo na mesma porque a porta
+        # NAO acredita no filtro — prova a fonte pelo conteudo, com
+        # `italy_executor.fonte_do_conteudo(sha256)`, que le o SOURCE_ID
+        # que o coletor escreveu para AQUELES bytes.)
+        "filtros_por_omissao": {"fonte": "IT-T7-017"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "a nota tecnica ou de evento publicada pelo consorcio ou "
+                      "pela associacao, como HTML, com a versao do documento e "
+                      "o sitio onde o byte ficou",
+        "custo": "gratuito",
+    }],
+    "T5": [{
+        # ⚠️ LEIA-SE JUNTO COM O AVISO NO TOPO DESTE FICHEIRO, que diz:
+        # «ISTO DEIXA T5 SEM EXECUTOR, O QUE E A VERDADE E NAO UM BURACO NOVO
+        #  — as seis fontes de SCIENCE em ficha (IT-T5-001..005, EU-T5-001)
+        #  nunca tiveram executor nesta casa».
+        #
+        # ESSE AVISO CONTINUA INTEIRO E CONTINUA CERTO. `IT-T5-001..005` NAO
+        # ganham executor com esta linha: o plano continua a dize-las em «NAO
+        # SEI COMO», porque e o que sao.
+        #
+        # O que mudou nao foi a opiniao — foi o facto. `IT-T5-049` e outra
+        # fonte, entrou no acervo depois, tem contrato com ACQUISITION
+        # executavel, e a RUN1C trouxe dela 4 documentos com bytes integros.
+        #
+        #     UMA FONTE PROVADA NAO APAGA CINCO POR PROVAR.
+        #     DECLARA-SE A QUE HA, E AS OUTRAS CONTINUAM A DIZER QUE NAO HA.
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        "filtros_por_omissao": {"fonte": "IT-T5-049"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "a noticia ou nota do departamento universitario agrario, "
+                      "como HTML, com a versao do documento e o sitio onde o "
+                      "byte ficou",
+        "custo": "gratuito",
+    }],
     "T9": [{
         "id": "comunicacao-publica",
+        # F3 · seis ficheiros, quatro especies, zero colheita. O
+        # `CLASSIFICADO-V1.json` DECLARA um contentor `ITEMS` com
+        # `ITEM_COUNT = 0`: e o recibo de uma coleta que nao trouxe nada,
+        # e a heuristica antiga saltava-o por estar vazio para agarrar a
+        # lista de contas ao lado.
+        "retorno": {"LEGADO": {
+            "data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json": "CATALOG",
+            "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json": "CATALOG",
+            "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json": "CATALOG",
+            "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "PLAN",
+            "data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json": "RUN_RECEIPT",
+            "data/samples/COMPETITOR-PUBLIC-COMM/CLASSIFICADO-V1.json": "RUN_RECEIPT"}},
+        "serve_fases": ["contratos", "posts", "transcrever"],
         "roda": ["coleta/comunicacao_coleta.py"],
         # O executor precisa de saber a fase e a plataforma, e essas vem do
         # pedido — nao de quem o chama. Declarar aqui QUE filtros viram
         # argumentos e o que permite ao botao do GitHub parar de conhecer a
         # linha de comando do script: ele pede, e a receita traduz.
+        # `fase` aceita hoje: `contratos` (gratis, le o schema do ator),
+        # `posts` (a coleta paga) e `transcrever` — a FALA dos videos ja
+        # coletados, que corre local e custa zero dolares.
+        #
+        # A fala entrou por AQUI, e nao como executor novo, de proposito: o
+        # orquestrador chama apenas o PRIMEIRO executor de cada alvo, portanto
+        # um segundo registo em T9 nunca seria aberto e ficaria a mentir nesta
+        # lista. Uma capacidade, uma porta.
         "argumentos_de_filtros": ["fase", "plataforma"],
         "filtros_por_omissao": {"fase": "posts"},
-        "larga_em": ["data/samples/COMPETITOR-PUBLIC-COMM"],
+        "larga_em": ["data/samples/COMPETITOR-PUBLIC-COMM",
+                     "data/samples/REEL-TRANSCRICOES"],
         "rotas": ["YouTube", "Instagram", "LinkedIn", "Facebook"],
         "o_que_traz": "o que o concorrente publicou em canal aberto, com a data "
-                      "e o endereco de onde veio",
-        "custo": "pago quando passa pela rota Apify",
+                      "e o endereco de onde veio — e, com `fase=transcrever`, a "
+                      "FALA do video, num campo separado da legenda",
+        "custo": "pago quando passa pela rota Apify; `transcrever` custa zero "
+                 "dolares e paga-se em tempo de maquina",
+    }, {
+        # ── A FRENTE DE AQUISICAO CANONICA, E POR QUE ELA VEM PRIMEIRO ──────
+        # O SCRAP e o executor canonico de aquisicao desta casa: tem portao
+        # (`CHECK`), roteador, teto de rede, teto de gasto, guarda de
+        # autorizacao e preservacao de RAW. Ate a SCRAP-FLOW-01 nenhum
+        # `COLLECTION_REQUEST` conseguia chegar a ele — o disparador ia direto
+        # a `coleta/social_scrap.py` e o que se colhia nunca via a porta.
+        #
+        #     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+        #
+        # Ele fica em SEGUNDO de proposito: o pedido que nao nomeia fase
+        # continua a abrir exactamente o executor que abria antes desta
+        # missao. `serve_fases` e que o promove, e so para as fases dele.
+        # Antes, a lista era lida so no primeiro item — e o comentario do
+        # `comunicacao-publica` ja avisava que um segundo registo «nunca seria
+        # aberto e ficaria a mentir nesta lista». Deixou de ficar.
+        "id": "scrap-colheita",
+        "roda": ["coleta/scrap_colheita.py"],
+        "recebe_run_id": True,
+        # A fonte DESCE COM O PEDIDO. O SCRAP observa PLATAFORMAS e a porta
+        # fala em FONTES; sem o SOURCE_ID vindo daqui, o adapter declara zero
+        # colheita e escreve porque. URL NAO E SOURCE_ID.
+        # A ORDEM E A LINHA DE COMANDO. O orquestrador acrescenta os valores
+        # por esta ordem, sem nomes — como ja faz para o `comunicacao-publica`.
+        "argumentos_de_filtros": ["fase", "fonte"],
+        # O TETO DE OBJETOS da janela. Ele existia no disparador desde sempre e
+        # a SCRAP-FLOW-01 perdeu-o ao migrar: `social_scrap.py coletar FASE
+        # $TETO` passava-o posicionalmente, e o pedido nao o levava.
+        #
+        #     MIGRAR UM CAMINHO E MUDAR POR ONDE ELE PASSA,
+        #     NAO O QUE ELE LEVA.
+        #
+        # Ele desce como FILTRO nomeado, e nao como posicional: um terceiro
+        # argumento sem nome seria indistinguivel da fonte no dia em que
+        # alguem omitisse uma delas.
+        # `handle` junta-se ao `teto` porque o canario da Release V1 precisa
+        # de saber A QUE CONTA bate. Ele NAO e a fonte: `--fonte` continua a
+        # descer o SOURCE_ID provado, e `coleta/scrap_colheita.py::NOMEADOS`
+        # declara, por fase, qual dos dois ela aceita — um nome fora da lista
+        # da fase recusa a corrida em vez de morrer no `**_` do adaptador.
+        #
+        #     HANDLE NAO E SOURCE_ID.
+        # ⚠️ `site` ENTRA AQUI E NAO EM `argumentos_de_filtros`, E ISSO E UMA
+        # ESCOLHA. A LINKEDIN-OP-01 passava-o como TERCEIRO POSICIONAL. Um
+        # terceiro argumento sem nome e indistinguivel da fonte no dia em que
+        # alguem omitir uma delas — e a `coleta/scrap_colheita.py::NOMEADOS`
+        # ja declara, por fase, que filtros cada uma aceita, recusando os
+        # outros em vez de os deixar morrer no `**_` do adaptador.
+        #
+        #     PORTA-SE O COMPORTAMENTO, NAO O MECANISMO.
+        #     E O MECANISMO QUE FICA E O QUE RECUSA MAIS CEDO.
+        "filtros_nomeados": ["teto", "handle", "site",
+                             # ── OS ENDERECOS DAS TRES FASES NOVAS ─────────
+                             # Cada um e o endereco de UMA rota de
+                             # `adaptador_aberto`, e nenhum e SOURCE_ID.
+                             # `scrap_colheita.py::NOMEADOS` declara, por fase,
+                             # qual destes ela aceita — e recusa os outros em
+                             # vez de os deixar morrer no `**_` do adaptador.
+                             #
+                             #     A LISTA AQUI ABRE; A LISTA DA FASE FECHA.
+                             "canal", "instancia", "tag", "termo",
+                             # Os quatro do YouTube oficial. `termo` ja estava
+                             # aberto acima e serve as duas buscas: e a lista
+                             # POR FASE que decide quem o recebe.
+                             "canal_id", "videos", "video",
+                             # ── O ENDERECO DO REEL ────────────────────────────
+                             # As tres fases do Reel aceitam `url`, e so elas:
+                             # `NOMEADOS` fecha a lista por fase, e um nome que a
+                             # rota nao conhece recusa a corrida em vez de morrer
+                             # no `**_` do adaptador.
+                             #
+                             #     URL NAO E SOURCE_ID — e por isso `fonte`
+                             #     continua a descer ao lado dela.
+                             "url",
+                             # ── O ENDERECO DA PAGINA DA ORGANIZACAO ────────
+                             # `pagina` NAO e `site`, e nao e o `url` do Reel.
+                             # `site` e o site PROPRIO da organizacao, de onde
+                             # se descobre o handle; `pagina` e a pagina do
+                             # LinkedIn que ela serve publicamente. Dois
+                             # enderecos, dois actos, dois nomes.
+                             #
+                             #     UMA PAGINA NAO E O SITE DA ORGANIZACAO —
+                             #     E O NOME ERRADO SERIA UM PEDIDO A BATER NO
+                             #     SITIO ERRADO COM O AR DE ESTAR CERTO.
+                             #
+                             # Nenhum deles e o SOURCE_ID: `fonte` continua a
+                             # descer ao lado.
+                             "pagina"],
+        # `identidade-linkedin` chegou da LINKEDIN-OP-01. Ela e a UNICA rota que
+        # a politica canonica permite no LinkedIn: le o site DA PROPRIA
+        # organizacao e traz de la o endereco que a organizacao publicou. Nunca
+        # toca `linkedin.com`, nunca usa buscador, e devolve CATALOGO — uma
+        # entidade de onde se PODE colher — e nao COLHEITA.
+        #
+        #     IDENTITY != CONTENT. Pedir posts do LinkedIn continua a bater em
+        #     `ROUTE_NOT_ALLOWED`, e nao ha receita que o contorne.
+        "serve_fases": ["janela", "janela-perfis", "janela-objetos",
+                        "canario-bluesky", "identidade-linkedin",
+                        # As tres irmas da forma `adaptador_aberto/ROTA/ONLINE`.
+                        # Sem esta linha a fase existe em `scrap_colheita` e o
+                        # orquestrador continua a nao a saber pedir: a fase diz
+                        # O QUE CORRE, e `serve_fases` diz QUEM A ABRE.
+                        "canal-telegram", "tag-mastodon", "contas-bluesky",
+                        # As quatro OFICIAIS do YouTube (Data API v3). A quinta
+                        # — `youtube.native_caption` — fica de fora porque a
+                        # rota dela e paga e o gate dela e outro.
+                        "busca-youtube", "canal-youtube", "video-youtube",
+                        "comentarios-youtube",
+                        # A quinta, que ficou para tras: o SOM. A capability
+                        # estava provada e com rota, mas sem fase — e sem esta
+                        # linha a fase existiria em `scrap_colheita` e o pedido
+                        # continuaria a nao a saber pedir. §151 outra vez.
+                        "audio-youtube",
+                        # ── AS TRES DO REEL, PELA MESMA RAZAO ────────────────
+                        # `instagram.reel.capture`, `.audio` e `.transcribe` tem
+                        # adaptador, rota, prova e o `CHECK` responde
+                        # `CAN_COLLECT_NOW` — e a Collection nao as sabia pedir.
+                        # A fase diz O QUE CORRE; `serve_fases` diz QUEM A ABRE.
+                        #
+                        # ⚠️ `profile.discovery` (a fase `janela`) NAO entra
+                        # aqui por esta porta: ela continua declarada
+                        # `LOCAL/DATACENTER_BLOCKED` e a fase dela ja existe
+                        # acima. Isto nao a promove — declara as tres que faltam.
+                        "captura-reel", "audio-reel", "transcricao-reel",
+                        # ── D23 · O VIDEO DA PAGINA PUBLICA DE ORGANIZACAO ──
+                        # A capacidade (tres actos: descobrir as publicacoes,
+                        # buscar o MP4, buscar a legenda) tem adaptador, rota
+                        # declarada nos eixos e o `CHECK` responde
+                        # `CAN_COLLECT_NOW`. O que faltava era o degrau de CIMA —
+                        # a Collection saber pedi-la (§151, §154).
+                        #
+                        #     CAPABILITY PROVEN != EDGE WIRED != COLLECTION REACHABLE
+                        #
+                        # A fase diz O QUE CORRE; `serve_fases` diz QUEM A ABRE.
+                        "video-linkedin"],
+        "filtros_por_omissao": {},
+        # O envelope do COL-LAW-505. Nao e `larga_em`: `larga_em` diz ONDE se
+        # largou, e este diz O QUE SE LARGOU — que e a pergunta que faltava.
+        # ── O VOCABULARIO DO RETORNO E UM SO ───────────────────────────
+        # Esta receita dizia `envelope_em`. As outras cinco desta casa dizem
+        # `retorno: {ESPECIE: caminho}`, que e a forma da COL-LAW-505 — a lei
+        # que nomeia a ESPECIE do que volta, e nao so o sitio.
+        #
+        # E o orquestrador desta arvore le `retorno`. Com `envelope_em` ele
+        # corria o executor, nao encontrava nada, e seguia em frente:
+        # `COLHEITA_ENCONTRADA = 0`, admissao a nao correr, e nenhum erro.
+        #
+        #     DOIS NOMES PARA O MESMO CONCEITO NAO SAO SINONIMOS:
+        #     SAO UM CAMINHO QUE NINGUEM PERCORRE.
+        #
+        # `ENVELOPE` e a especie certa: o SCRAP devolve UM envelope canonico,
+        # e nao um legado por classificar.
+        "retorno": {"ENVELOPE": "data/colheita/scrap/ENVELOPE.json"},
+        "larga_em": ["data/colheita/scrap/"],
+        "rotas": ["Instagram", "Bluesky",
+                  "LinkedIn (so identidade, rota indireta)",
+                  # ⚠️ ISTO NAO E ROTEAMENTO — e medido: quem le `rotas` e
+                  # `orquestrador.py:880`, e so para escrever `PLATFORM` no
+                  # RECIBO da corrida. Nada seleciona executor por aqui.
+                  #
+                  # Mas um recibo que omite o YouTube mente sobre a corrida que
+                  # aconteceu: `serve_fases` ja abria quatro fases YouTube
+                  # antes desta missao, e o recibo continuava a dizer apenas
+                  # «Instagram, Bluesky, LinkedIn».
+                  #
+                  #     CAMPO DESCRITIVO QUE DESCREVE ERRADO NAO E INOFENSIVO:
+                  #     E UMA PROVA FALSA GUARDADA COM AR DE PROVA.
+                  "YouTube (oficial: busca, canal, video, comentarios; "
+                  "e o audio publico)"],
+        "o_que_traz": "a janela publica da conta — o perfil e os objetos que "
+                      "ela publicou — pelo executor canonico do SCRAP, com "
+                      "RAW preservado antes de qualquer normalizacao; e, na "
+                      "fase `canario-bluesky`, a cronologia publica de uma "
+                      "conta Bluesky pela AppView aberta, sem credencial; e, "
+                      "com `fase=identidade-linkedin`, o ENDERECO LinkedIn que "
+                      "a propria organizacao publica no site dela, como "
+                      "CATALOGO e nunca como colheita",
+        "custo": "gratuito",
     }],
 }
+
+# ── T8 REUTILIZA O EXECUTOR DE T9. NAO O COPIA. ────────────────────────────
+# A IT-T8-001 (canal YouTube da AgroNotizie) e uma fonte T8 · FARMERS &
+# INFLUENCERS. O executor que sabe falar com o YouTube — `scrap-colheita` —
+# estava registado SO em T9, e por isso um pedido com `alvo="T8"` devolvia
+# plano VAZIO: o alvo existe em `pedido.ALVOS`, a fonte existe, a capability
+# existe, e mesmo assim nao havia caminho.
+#
+# As quatro saidas erradas, e por que nao se tomou nenhuma:
+#
+#   mover a fonte para T9 ......... mentiria sobre o territorio dela
+#   declarar que YouTube = T9 ..... confunde PLATAFORMA com TERRITORIO
+#   copiar a entrada para T8 ...... dois donos do mesmo executor divergem
+#   criar um segundo SCRAP ........ um segundo downloader diverge
+#
+#     TERRITORY != PLATFORM != ROUTE.
+#     T8 NAO E YOUTUBE. T9 NAO E YOUTUBE.
+#
+# O que se faz e registar A MESMA entrada (o MESMO objeto em memoria, por
+# referencia — nao uma copia) tambem sob T8. Quem escolhe continua a ser a
+# combinacao explicita SOURCE + REQUEST + CAPABILITY do resolvedor: `fase` e
+# `fonte` tem de vir declarados no pedido, e `serve_fases` continua a fechar
+# a porta as fases que este executor nao serve.
+#
+#     ISTO NAO DIZ «TODO T8 USA YOUTUBE».
+#     Diz que um pedido T8 que NOMEIE uma fase YouTube encontra quem a sirva.
+#
+# ⚠️ Onde a porta fecha, medido — e NAO e aqui. Um pedido T8 sem `fase` ainda
+# recebe este executor no PLANO: o resolvedor ordena candidatos, nao os
+# elimina. Quem recusa e `coleta/scrap_colheita.py`, que sem fase nomeada
+# levanta `KeyError` antes de qualquer rede (medido: NETWORK_CALLS = 0).
+#
+#     ESTAR NO PLANO != COLHER.
+#
+# Escrever aqui que o plano ficaria vazio seria mais bonito e seria falso.
+EXECUTORES["T8"] = [e for e in EXECUTORES["T9"] if e.get("id") == "scrap-colheita"]
+
+# ── T9 · A LINHA RECORRENTE DA BIBLIOTECA DE ANUNCIOS DA META ──────────────
+# A captura de 31/08 (414 cartoes que alcancaram a Italia, ramo
+# `claude/eame-meta-competitor`) foi uma fotografia feita a mao e nunca entrou
+# na producao. Esta entrada e a mesma medida como LINHA: a lista de paginas com
+# PAGE_ID provado pela Meta, uma visita por pagina por rodada, snapshot datado,
+# comparacao com o anterior, e COLHEITA pelo envelope da COL-LAW-505.
+#
+# SO SERVE A SUA FASE. Um pedido T9 sem fase continua a abrir exactamente o que
+# abria; `fase=meta-anuncios` e o que a promove (o resolvedor ordena por
+# `serve_fases`). A rota e Chrome COM JANELA e saida pela Italia: a nuvem nao
+# colhe — sem Chrome, cada visita sai `SLICE_FAILED`/`BROWSER_NOT_REACHED`.
+EXECUTORES["T9"].append({
+    "id": "concorrencia-meta",
+    "roda": ["coleta/concorrencia_meta.py"],
+    "recebe_run_id": True,
+    # `pais` e o recorte (anuncios que ALCANCARAM o pais); `teto` corta a lista
+    # para um canario. Nomeados, nunca posicionais.
+    "filtros_nomeados": ["pais", "teto"],
+    "serve_fases": ["meta-anuncios"],
+    "retorno": {"ENVELOPE": "data/colheita/meta/ENVELOPE.json"},
+    "larga_em": ["data/colheita/meta/"],
+    "rotas": ["Meta Ads Library (Chrome com janela, sem login)"],
+    "o_que_traz": "os cartoes de anuncio pago que cada pagina de concorrente "
+                  "(e da ADAMA) mostrou a quem estava na Italia, com o snapshot "
+                  "datado, o RAW da pagina e a comparacao com a rodada anterior",
+    "custo": "gratuito (tempo de maquina e VPN italiana)",
+})
+
+# ── T8 · T9 · T12 GANHAM O COLETOR DE SITES (D48, 25/09/2026) ──────────────
+# Medido a 25/09 (FUNIL-RESTO): 22 fontes elegiveis de T8/T9/T12 sao PAGINAS
+# WEB (revistas Edagricole, regioes, PSRN, Didacta) e ficavam
+# `SEM_RECEITA_WEB`: T8 so tinha o social, T9 o de comunicacao publica e o
+# social, T12 nada. Nao era falta de fonte — era falta de receita.
+#
+# O gesto e o mesmo que o do YouTube acima: o executor que JA EXISTE entra
+# noutro universo. Nao se cria executor, nao se copia regua, nao se mexe no
+# portao, no teto D38 nem no robots — continuam os do `italy_executor`.
+#
+#     TERRITORY != PLATFORM != ROUTE.
+#     ISTO NAO DIZ «TODO O T8 E WEB». Diz que um pedido T8 que NOMEIE uma
+#     fonte web encontra quem a colha.
+#
+# ⚠️ ENTRA NO FIM DA LISTA, E A ORDEM E A LEI. O `resolver()` so reordena
+# quando ha filtros declarados, e `fase` e filtro do proprio resolvedor: num
+# pedido social os dois empatam e ganha a ORDEM. No fim, um pedido social ou
+# sem filtros abre exactamente o que abria antes; um pedido web (fonte, sem
+# fase) sobe o de sites, porque o social so serve as fases dele.
+#
+# ⚠️ SEM `filtros_por_omissao`. As outras entradas `italia-recorrente` nomeiam
+# uma fonte provada por omissao; aqui nenhuma foi colhida ainda por esta
+# porta (a prova e a micro nas 10 com contrato, D48). Sem `--filtro fonte=`
+# nao ha fonte — e o coletor recusa alto.
+#
+# ⚠️ SAUDE ANIMAL / VETERINARIA FICA FORA POR FONTE, e nao aqui: a receita
+# e por universo; a exclusao e do Curator (D48), fonte a fonte.
+_SITES_POR_FONTE_NOMEADA = {
+    "id": "italia-recorrente",
+    "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+    "roda": ["coleta/italy_executor.py"],
+    "recebe_run_id": True,
+    "larga_em": ["data/colheita/italia/"],
+    "argumentos_de_filtros": ["fonte"],
+    # ⚠️ SO SERVE O PEDIDO SEM FASE. Sem esta linha o `resolver()` le «sem
+    # `serve_fases`» como «serve TODAS» (`fase in (... or [fase])`), e um pedido
+    # T9 `fase=posts fonte=...` — que era do Scrap/comunicacao publica — subia
+    # para o de sites. Medido no teste `OSocialNaoMuda` antes desta linha.
+    "serve_fases": [""],
+    "rotas": ["HTTP direto"],
+    "o_que_traz": "a pagina da fonte web nomeada no pedido (noticia, boletim, "
+                  "documento), como HTML ou PDF, com a versao do documento e o "
+                  "sitio onde o byte ficou",
+    "custo": "gratuito",
+    "registado_por": "D48 (bot Luciano, delegacao do dono, 25/09/2026)",
+}
+for _u in ("T8", "T9", "T12"):
+    EXECUTORES[_u] = list(EXECUTORES.get(_u, [])) + [_SITES_POR_FONTE_NOMEADA]
+del _u
 
 # Contratos que NENHUMA coleta pode dispensar. Nao sao conselhos: sem eles o
 # item nao consegue provar de onde veio nem quando aconteceu, e a inteligencia
@@ -112,11 +728,41 @@ CONTRATOS_OBRIGATORIOS = (
      "carimba de onde veio, no momento em que entra"),
     ("tempo do fato", "leis/data_clock.py",
      "separa quando o fato aconteceu de quando nos o capturamos"),
-    ("lugar do fato", "medidas/fato_local.py",
+    ("lugar do fato", "leis/fato_local.py",
      "separa o lugar de onde veio o documento do lugar onde o fato aconteceu"),
     ("recibo da corrida", "data/samples/RUN-MANIFEST.json",
      "quem correu, quando, com que entrada, quanto trouxe e quanto custou"),
 )
+
+
+#: Os filtros que o PROPRIO resolvedor consome — recortam fontes e ordenam
+#: executores, e por isso nao descem ao executor nem podem ser acusados de
+#: nao-consumidos. Um filtro fora desta lista OU e consumido pelo executor
+#: escolhido, OU a corrida e recusada antes da rede (BG-05).
+#:
+#: ⚠️ `universo` ENTROU AQUI PORQUE ELE NAO E DO EXECUTOR — E NEM DEVE SER.
+#: Ele e a PERGUNTA que a Admissao fara ao conteudo, e quem a le e o control
+#: plane (`orquestrador.universo_do_pedido`), depois de o executor ja ter
+#: corrido. Nenhum executor o consome, e nenhum deve: um coletor que conhece
+#: o universo passa a poder escolher o que colhe pela resposta que quer.
+#:
+#:     O UNIVERSO E DO PEDIDO E DA PORTA. NAO E DA AQUISICAO.
+#:
+#: Sem esta linha, declarar `universo` fazia a corrida ser recusada com
+#: `FILTRO_NAO_CONSUMIDO` — a guarda do BG-05 a fazer exactamente o trabalho
+#: dela sobre um campo que nunca lhe pertenceu. Medido.
+FILTROS_DO_RESOLVEDOR = ("pais", "tema", "fase", "universo")
+
+
+def filtros_consumidos(e: dict) -> set:
+    """O que ESTE executor declara saber consumir — e nada alem disso.
+
+    A declaracao ja existia (`argumentos_de_filtros` + `filtros_nomeados`);
+    o que faltava era alguem le-la ANTES de correr, em vez de deixar o
+    filtro nao-declarado cair no chao.
+    """
+    return (set(e.get("argumentos_de_filtros") or ())
+            | set(e.get("filtros_nomeados") or ()))
 
 
 def _fontes() -> list:
@@ -189,6 +835,28 @@ class Plano:
         return "\n".join(L)
 
 
+def promover_o_scrap(execs: list, fase: str, executores: dict | None = None) -> list:
+    """A FASE DO SCRAP E SEMPRE DO SCRAP — em qualquer territorio (SOC4).
+
+    O executor era escolhido pelo TERRITORIO (`EXECUTORES[p.alvo]`), e o
+    `scrap-colheita` so estava registado em T8/T9. Medido em 23/09 nos 50 canais
+    YouTube da tabela: 6 chegavam ao Scrap, 34 iam para o executor HTML (e o
+    filtro `canal_id` morria em FILTRO_NAO_CONSUMIDO) e 10 nao tinham executor
+    nenhum (T12). Com esta promocao, 50 de 50.
+
+        A PLATAFORMA DECIDE O EXECUTOR; O TERRITORIO DECIDE O ASSUNTO.
+
+    A lista de fases e a que o proprio registo `scrap-colheita` declara em
+    `serve_fases` — nada inventado aqui. Pedido sem fase, ou com fase que nao e
+    do Scrap: a lista volta exactamente como chegou (o mesmo objecto).
+    """
+    executores = EXECUTORES if executores is None else executores
+    scrap = next((e for e in executores.get("T9", []) if e.get("id") == "scrap-colheita"), None)
+    if not scrap or fase not in (scrap.get("serve_fases") or ()):
+        return execs
+    return [scrap] + [e for e in execs if e.get("id") != "scrap-colheita"]
+
+
 def resolver(p: Pedido) -> Plano:
     """Do pedido ao caminho. Tudo medido do atlas; nada adivinhado."""
     pais = (p.filtros.get("pais") or "").upper()
@@ -215,7 +883,36 @@ def resolver(p: Pedido) -> Plano:
 
     com = [f for f in do_assunto if _sabe_o_caminho(f)]
     sem = [f for f in do_assunto if not _sabe_o_caminho(f)]
-    execs = EXECUTORES.get(p.alvo, [])
+
+    # ── QUEM CONSOME OS FILTROS DECLARADOS VEM PRIMEIRO — BG-05 ────────────
+    # O orquestrador abre apenas `executores[0]`. Enquanto a ordem fosse fixa,
+    # um segundo executor no mesmo alvo nunca era aberto — e o proprio registo
+    # do `comunicacao-publica` dizia isso, por escrito, como defeito conhecido.
+    #
+    #     UMA LISTA CUJO SEGUNDO ITEM NUNCA E LIDO NAO E UMA LISTA:
+    #     E UM ITEM E UMA MENTIRA.
+    #
+    # A promocao tem DUAS chaves, por esta ordem:
+    #
+    #   1 · consome TODOS os filtros que o pedido declarou (fora os do
+    #       resolvedor). Foi a falta disto que mandou `T4 + fonte=IT-T4-001`
+    #       para o `regulatorio-eu`, que nao consome `fonte` — o filtro
+    #       morria calado e vinha `EU-T4-001` no lugar.
+    #   2 · serve a fase pedida (a regra que ja existia).
+    #
+    # Nao ha adivinhacao: quem nao declara `serve_fases` serve tudo, como
+    # sempre serviu; um pedido SEM filtros de executor nao mexe em nada, e a
+    # ordem declarada continua a mandar entre iguais (sort estavel).
+    execs = list(EXECUTORES.get(p.alvo, []))
+    fase = str(p.filtros.get("fase") or "").strip()
+    declarados = ({k for k, v in p.filtros.items() if v not in (None, "")}
+                  - set(FILTROS_DO_RESOLVEDOR))
+    if fase or declarados:
+        execs.sort(key=lambda e: (
+            0 if declarados <= filtros_consumidos(e) else 1,
+            0 if fase in (e.get("serve_fases") or [fase]) else 1))
+
+    execs = promover_o_scrap(execs, fase)
 
     return Plano(
         pedido=p,

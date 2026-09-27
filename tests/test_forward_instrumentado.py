@@ -92,8 +92,13 @@ class AFronteiraForward(unittest.TestCase):
         """Um `derivar` de mentira: a fronteira e o que esta a ser medido."""
         fila = list(resultados)
 
-        def derivar(raw_asset_id, pdf, armazem, memoria, relogio=None):
-            return fila.pop(0)
+        def derivar(raw_asset_id, pdf, armazem, memoria, relogio=None,
+                    contexto_da_passagem=None):
+            # O envelope da passagem viaja ate ao dono da escrita e o executor
+            # nao o le. Aqui ele e so recebido, para o duplo ter a MESMA forma
+            # do executor real — um duplo com outra assinatura mede o duplo.
+            fila_ = fila.pop(0)
+            return fila_
 
         unidades = [{"RAW_ASSET_ID": i + 1, "PDF": "x%d.pdf" % i}
                     for i in range(len(resultados))]

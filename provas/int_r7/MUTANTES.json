@@ -1,0 +1,332 @@
+{
+ "ALVOS_SHA256": {
+  "motor/motor_das_capacidades.py": "756f209c28f95cc6878d9aeb40a03423aee1368136dfa9a739d55b6c08e0153e",
+  "motor/cap_win.py": "cffe15a19ce7dfa8fa675b5815047aebc3e652281138b15576469b5816c9fcb1",
+  "motor/capacidade_cientifica.py": "c89ef8c9b25bd8624334a74ec2c66a4a14881dfe0582cc2ba4aad5b955075a0d"
+ },
+ "TESTE": "tests.test_motor_das_capacidades",
+ "PLANTADOS": 32,
+ "MORTOS": 32,
+ "MUTANTES": [
+  {
+   "ID": "M1",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112a: lugar DA_FONTE passa a sustentar o fato",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D2_da_fonte_deduzido_lista_e_nao_sei_nao_sustentam",
+    "test_D4_regiao_da_fonte_vira_not_possible_e_pede_a_regiao",
+    "test_D5_afiliacao_nao_vira_local_do_estudo",
+    "test_D6_o_original_nao_muda_no_livro",
+    "test_E2_a_procedencia_da_janela_e_por_item",
+    "test_G3_territorio_nao_sustentado_da_aplicacoes_nao_sei"
+   ]
+  },
+  {
+   "ID": "M2",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112a: lugar sem base passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D3_sem_base_nao_sustenta_mesmo_escrito"
+   ]
+  },
+  {
+   "ID": "M3",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112a: a regiao recusada continua a chegar a CAP-WIN",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D4_regiao_da_fonte_vira_not_possible_e_pede_a_regiao",
+    "test_E2_a_procedencia_da_janela_e_por_item",
+    "test_G3_territorio_nao_sustentado_da_aplicacoes_nao_sei"
+   ]
+  },
+  {
+   "ID": "M4",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112a: o local recusado continua a chegar a CAP-SCI",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D5_afiliacao_nao_vira_local_do_estudo",
+    "test_D6_o_original_nao_muda_no_livro",
+    "test_R2_estudos"
+   ]
+  },
+  {
+   "ID": "M5",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "triagem: estudo vai tambem a CAP-WIN (estudo vira observacao de janela)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C3_estudo_fora_da_cap_win_nao_pede_par_em_campo"
+   ]
+  },
+  {
+   "ID": "M6",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "triagem: a classe declarada pela fonte passa a decidir o estudo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C5_a_classe_declarada_pela_fonte_nao_decide"
+   ]
+  },
+  {
+   "ID": "M7",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112e: mesma redacao em N territorios conta N instituicoes",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G1_mesma_redacao_em_tres_territorios_e_uma_instituicao"
+   ]
+  },
+  {
+   "ID": "M8",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112e: territorio nao sustentado conta como aplicacao",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G3_territorio_nao_sustentado_da_aplicacoes_nao_sei"
+   ]
+  },
+  {
+   "ID": "M9",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112f: limites diferentes deixam de ser DIVERGENT",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G4_limites_diferentes_sao_divergent_unresolved",
+    "test_G7_divergent_nunca_deixa_agir_agora"
+   ]
+  },
+  {
+   "ID": "M10",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112f: a divergencia sai RESOLVIDA (o sistema escolhe)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G4_limites_diferentes_sao_divergent_unresolved"
+   ]
+  },
+  {
+   "ID": "M11",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112f: DIVERGENT deixa agir agora",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G7_divergent_nunca_deixa_agir_agora"
+   ]
+  },
+  {
+   "ID": "M12",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112g: tempos que se tocam viram «antes e depois»",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G9_tempos_que_se_tocam_nao_sao_antes_e_depois"
+   ]
+  },
+  {
+   "ID": "M13",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112g: TEMPORAL_CHANGE passa a provar mudanca no campo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G8_mudanca_de_recomendacao_e_temporal_change_e_nao_prova_o_campo"
+   ]
+  },
+  {
+   "ID": "M14",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112g: territorios diferentes viram mudanca no tempo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G10_territorios_diferentes_nao_sao_mudanca_no_tempo"
+   ]
+  },
+  {
+   "ID": "M15",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112b: entidade com valor sai sem procedencia",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B1_um_run_id_para_tudo",
+    "test_B2_todo_ready_atravessa_e_ninguem_some",
+    "test_B3_a_mesma_entrada_da_a_mesma_corrida",
+    "test_C1_estudos_vao_a_cap_sci_e_o_resto_a_cap_win",
+    "test_C2_nenhum_estudo_numa_janela",
+    "test_C3_estudo_fora_da_cap_win_nao_pede_par_em_campo"
+   ]
+  },
+  {
+   "ID": "M16",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "D112d: o juizo entra no bloco da fonte",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_F2_o_juizo_nao_esta_no_bloco_da_fonte"
+   ]
+  },
+  {
+   "ID": "M17",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "prova: a publicacao vira tempo do facto",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B1_um_run_id_para_tudo",
+    "test_B2_todo_ready_atravessa_e_ninguem_some",
+    "test_B3_a_mesma_entrada_da_a_mesma_corrida",
+    "test_C1_estudos_vao_a_cap_sci_e_o_resto_a_cap_win",
+    "test_C2_nenhum_estudo_numa_janela",
+    "test_C3_estudo_fora_da_cap_win_nao_pede_par_em_campo"
+   ]
+  },
+  {
+   "ID": "M18",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "prova: URL deixa de vir do RAW",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_P2_prova_com_url_e_published_at_e_fact_time_da_corrida",
+    "test_P6_o_gerador_de_verdade_aceita"
+   ]
+  },
+  {
+   "ID": "M19",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "prova: DOCUMENT_ID cunhado quando o RAW nao o tem",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_P5b_o_motor_nao_cunha_document_id",
+    "test_P6_o_gerador_de_verdade_aceita"
+   ]
+  },
+  {
+   "ID": "M20",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "prova: item bloqueado em G0 entra na prova da janela",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_P5c_evidencia_sem_g0_fica_fora_da_prova_e_a_vista"
+   ]
+  },
+  {
+   "ID": "M21",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "INTELLIGENCE_RUN_ID sai do topo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B1_um_run_id_para_tudo",
+    "test_B2_todo_ready_atravessa_e_ninguem_some",
+    "test_B3_a_mesma_entrada_da_a_mesma_corrida",
+    "test_C1_estudos_vao_a_cap_sci_e_o_resto_a_cap_win",
+    "test_C2_nenhum_estudo_numa_janela",
+    "test_C3_estudo_fora_da_cap_win_nao_pede_par_em_campo"
+   ]
+  },
+  {
+   "ID": "M22",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "portao: estudo numa janela passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_Q1_estudo_numa_janela"
+   ]
+  },
+  {
+   "ID": "M23",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "portao: PUBLISHED_AT divergente passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_Q3_published_at_nao_e_fact_time"
+   ]
+  },
+  {
+   "ID": "M24",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "portao: especie OPORTUNIDADE passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_Q4_oportunidade_nunca"
+   ]
+  },
+  {
+   "ID": "M25",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "portao: prova fora da LINEAGE passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_Q7_prova_fora_da_lineage_ou_bloqueada"
+   ]
+  },
+  {
+   "ID": "M26",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "portao: leitura proibida passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_Q5_leitura_proibida"
+   ]
+  },
+  {
+   "ID": "M27",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "entrada: campo de fora do READY passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A4_campo_de_fora_do_ready_e_recusado"
+   ]
+  },
+  {
+   "ID": "M28",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "duas corridas: a CAP-SCI corre num livro proprio (contador duplicado)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B1_um_run_id_para_tudo"
+   ]
+  },
+  {
+   "ID": "M29",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "rendimento: prova sem DOCUMENT_ID entra (o pote recusa a fonte inteira)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_P5_o_rendimento_vem_da_lineage",
+    "test_P6_o_gerador_de_verdade_aceita"
+   ]
+  },
+  {
+   "ID": "M30",
+   "ALVO": "motor/motor_das_capacidades.py",
+   "FINGE": "futuro: item bloqueado por mais do que o futuro prova o futuro",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_P5d_futuro_com_outra_falta_nao_vai_ao_radar_futuro"
+   ]
+  },
+  {
+   "ID": "M31",
+   "ALVO": "motor/cap_win.py",
+   "FINGE": "CAP-WIN ignora a triagem do motor",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C3_estudo_fora_da_cap_win_nao_pede_par_em_campo"
+   ]
+  },
+  {
+   "ID": "M32",
+   "ALVO": "motor/capacidade_cientifica.py",
+   "FINGE": "CAP-SCI ignora a triagem do motor (boletim julgado como estudo)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C4_boletim_nao_e_julgado_como_estudo",
+    "test_P6_o_gerador_de_verdade_aceita",
+    "test_Q1_estudo_numa_janela",
+    "test_Q2_chave_sem_entity_source",
+    "test_R2_estudos"
+   ]
+  }
+ ]
+}

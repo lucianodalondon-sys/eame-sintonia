@@ -100,18 +100,61 @@ def alcancaveis_do_runtime():
     return raizes, vistos
 
 
-def chamadores(ficheiros):
-    """Quem executa estes ficheiros. Separa RUNTIME de QUEM SO MEDE."""
-    runtime, medem = set(), set()
-    for f in ficheiros:
-        base = os.path.basename(f)
-        if not base or '.' not in base:
+_FONTES_QUE_CHAMAM = None
+
+
+def fontes_que_chamam(recarregar=False):
+    """OS FICHEIROS QUE PODEM CHAMAR OUTROS, RASTREADOS E POR ORDEM LEXICAL.
+
+    Mesma correcao que `documentos_da_arvore` ja tinha, aplicada ao sitio que
+    ficou de fora: a lista vem de `git ls-files` — que ordena — e le-se uma vez.
+    """
+    global _FONTES_QUE_CHAMAM
+    if _FONTES_QUE_CHAMAM is not None and not recarregar:
+        return _FONTES_QUE_CHAMAM
+    fora = []
+    for caminho in sorted(_sh("git ls-files -z | tr '\\0' '\\n'")):
+        if not caminho.endswith(('.yml', '.yaml', '.sh', '.py', '.mjs')):
             continue
-        for l in _sh("grep -rn --include=*.yml --include=*.sh --include=*.py "
-                     "--include=*.mjs -F %s . 2>/dev/null | head -60"
-                     % json.dumps(base)):
-            onde = l.split(':', 1)[0].lstrip('./')
-            if onde == f:
+        try:
+            with open(os.path.join(RAIZ, caminho), encoding='utf-8',
+                      errors='replace') as fh:
+                fora.append((caminho, fh.read()))
+        except OSError:
+            continue                      # rastreado e ausente do disco: nao inventa
+    _FONTES_QUE_CHAMAM = fora
+    return fora
+
+
+def chamadores(ficheiros):
+    """Quem executa estes ficheiros. Separa RUNTIME de QUEM SO MEDE.
+
+    ⚠️ ESTA FUNCAO TINHA O DEFEITO QUE O BLOCO ABAIXO DESCREVE, E QUE JA TINHA
+    SIDO CONSERTADO AO LADO. Ela perguntava:
+
+        grep -rn --include=... -F <base> . | head -60
+
+    `grep -r` percorre por `readdir`, cuja ordem e do sistema de ficheiros, e o
+    `head -60` cortava. Numa arvore pequena nenhum nome batia sessenta vezes e
+    o corte nunca mordia; nesta arvore — 1727 ficheiros rastreados contra os
+    1515 da anterior — `admissao.py` e `orquestrador.py` passam dos sessenta, e
+    a resposta passou a depender de em que disco a copia estava.
+
+        MESMA ARVORE GIT, OUTRA ORDEM DE DISCO, OUTRA RESPOSTA
+        NAO E UMA MEDICAO: E UMA SORTE.
+
+    A guarda `o_hash_da_medicao_e_igual_nos_dois_discos` (ext4 contra tmpfs)
+    apanhou-o. Agora le-se a lista RASTREADA, ordenada, e sem corte nenhum:
+    quem responde a pergunta e a arvore do git, nao o `readdir`.
+    """
+    runtime, medem = set(), set()
+    bases = {os.path.basename(f): f for f in ficheiros
+             if os.path.basename(f) and '.' in os.path.basename(f)}
+    if not bases:
+        return [], []
+    for onde, texto in fontes_que_chamam():
+        for base, f in bases.items():
+            if base not in texto or onde == f:
                 continue
             if onde.startswith(ONDE_SE_CHAMA):
                 runtime.add(onde)

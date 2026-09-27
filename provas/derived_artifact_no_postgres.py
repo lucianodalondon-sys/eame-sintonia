@@ -45,6 +45,11 @@ _spec.loader.exec_module(_pg)
 MIGRACOES = [
     "001_fundacao_geografia_e_proveniencia.sql",
     "022_o_derivado_ganha_casa.sql",
+    # 025 entra porque ela acrescenta uma trava A `raw_asset`, e o pai que esta
+    # prova escreve e uma linha de `raw_asset`. Aplicar a 022 sem a 025 provaria
+    # o derivado contra um esquema que ja nao existe.
+    "025_o_objeto_ganha_casa.sql",
+    "026_a_observacao_ganha_identidade.sql",
 ]
 
 SHA_PAI = "a" * 64
@@ -64,6 +69,26 @@ class Banco(_pg.MemoriaPostgres):
         return r.returncode, (r.stderr or "").strip()
 
 
+def _a_unica_observacao_em(banco, caminho):
+    """A observação naquele endereço — **provando** que é uma só.
+
+    ⚠️ ISTO ERA `banco.objeto_em(caminho)`, e aquilo devolvia `linhas[0]`.
+    Numa prova com uma observação por endereço acertava sempre, e era
+    exactamente por isso que o defeito era invisível: o teste que devia
+    apanhá-lo tinha o mesmo hábito do código.
+
+    Aqui a lista vem inteira, e se vier com mais de uma a prova REBENTA em vez
+    de escolher. Ler «a primeira» é uma decisão, e uma decisão escondida numa
+    leitura não é uma leitura.
+    """
+    linhas = banco.observacoes_em(caminho)
+    if len(linhas) > 1:
+        raise AssertionError(
+            "%d observacoes em %s — esta prova conta com uma, e escolher a "
+            "primeira seria escolher ao acaso" % (len(linhas), caminho))
+    return linhas[0] if linhas else None
+
+
 def _raw(banco, run_id, caminho, sha=SHA_PAI):
     """Cria a corrida e o bruto de que o derivado vai nascer."""
     banco.aplicar(
@@ -71,11 +96,23 @@ def _raw(banco, run_id, caminho, sha=SHA_PAI):
         "rule_version, source_country) values "
         "('%s','teste','2026-09-08T00:00:00Z','1','IT') "
         "on conflict (run_id) do nothing;" % run_id)
+    # 025: a copia primeiro, a observacao depois. Sem isto a trava
+    # `preservado_aponta_para_a_copia` recusa — e recusa com razao.
     banco.aplicar(
+        "insert into public.storage_object (storage_path, media_type, bytes, "
+        "sha256) values ('%s','application/pdf',100,'%s') "
+        "on conflict (storage_path) do nothing;" % (caminho, sha))
+    banco.aplicar(
+        # 026: a observacao declara identidade. NOT NULL sem DEFAULT — nao ha
+        # caminho para escrever sem ela, e e essa a trava.
         "insert into public.raw_asset (run_id, storage_path, media_type, bytes, "
-        "sha256, captured_at) values ('%s','%s','application/pdf',100,'%s',"
-        "'2026-09-08T00:00:00Z') on conflict (storage_path) do nothing;"
-        % (run_id, caminho, sha))
+        "sha256, captured_at, storage_object_id, identity_state, source_id, "
+        "document_key, document_key_basis) "
+        "select '%s','%s','application/pdf',100,'%s','2026-09-08T00:00:00Z', "
+        "o.id, 'FORWARD_IDENTIFIED','IT-T2-002','DOC:%s','SOURCE_DOCUMENT_ID' "
+        "from public.storage_object o where o.storage_path = '%s' "
+        "on conflict (storage_path) do nothing;"
+        % (run_id, caminho, sha, sha[:12], caminho))
     return int(banco._valor(
         "select id from public.raw_asset where storage_path = '%s'" % caminho))
 
@@ -211,10 +248,10 @@ def cenarios(banco):
          erro.splitlines()[0][:110] if erro else "ACEITOU EM SILENCIO")
 
     # ── G · o bruto fica imutável ───────────────────────────────────────
-    antes = banco.objeto_em("IT/x/DOCUMENT/pai.pdf")
+    antes = _a_unica_observacao_em(banco, "IT/x/DOCUMENT/pai.pdf")
     banco.executar(_derivado(raw_id, "IT/x/OCR/a.txt", kind="OCR",
                              producer="tesseract", sha256=SHA_OUTRO))
-    depois = banco.objeto_em("IT/x/DOCUMENT/pai.pdf")
+    depois = _a_unica_observacao_em(banco, "IT/x/DOCUMENT/pai.pdf")
     caso("G_criar_derivado_nao_altera_o_bruto", antes == depois,
          "antes==depois" if antes == depois else "O BRUTO MUDOU")
 
@@ -472,9 +509,22 @@ def cenarios(banco):
 def main():
     url = os.environ.get("BANCO_DESCARTAVEL_URL", "")
     if not url:
-        print("BANCO_DESCARTAVEL_URL nao definido — esta prova so corre no "
+        print("BANCO_DESCARTAVEL_URL nao definido · NOT_RUN — esta prova so corre no "
               "workflow banco-descartavel.yml.")
-        return 0
+        # ⚠️ NOT_RUN NAO E PASS, E O CODIGO DE SAIDA TEM DE O DIZER.
+        #
+        # Isto devolvia 0. Sem a variavel de ambiente a prova nao aplicava
+        # migration nenhuma, nao falava com banco nenhum, e saia com o codigo
+        # do sucesso — de modo que um workflow a que alguem tirasse o bloco
+        # `env:` ficava verde para sempre sem nunca ter tocado no Postgres.
+        #
+        #     UM TESTE QUE PASSA PORQUE NAO CONSEGUIU MEDIR
+        #     E PIOR DO QUE TESTE NENHUM.
+        #
+        # Nao vira FAIL: nao ha defeito nenhum provado. Vira NOT_RUN, que e uma
+        # terceira coisa, com o codigo de saida 2 — o mesmo que
+        # `provas/a_autoridade_da_fonte.py` ja usa. Uma casa, um vocabulario.
+        return 2
     banco = Banco(url)
     for nome in MIGRACOES:
         with open(os.path.join(RAIZ, "supabase", "migrations", nome),

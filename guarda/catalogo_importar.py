@@ -4,7 +4,13 @@ IMPORTADOR DETERMINÍSTICO — artefato do Git -> linhas normalizadas -> SQL ide
 
     python3 guarda/catalogo_importar.py --linhas   # normaliza e escreve o JSON de linhas
     python3 guarda/catalogo_importar.py --sql      # escreve o SQL idempotente
-    python3 guarda/catalogo_importar.py --aplicar  # exige psql + SUPABASE_DB_URL
+    python3 guarda/catalogo_importar.py --aplicar  # APOSENTADO — ver o fim deste ficheiro
+
+`--aplicar` escrevia `raw_asset` sem identidade, e desde a migration 026 nao ha
+identidade que se lhe possa dar: `adama-website` e uma ORGANIZACAO, e nao um
+codigo de fonte do atlas. O unico escritor forward desta casa e
+`guarda/preservar_coleta.py`. `--linhas` e `--sql` continuam inteiros: eles
+GERAM, e nunca aplicaram nada sozinhos.
 
 Por que gera SQL em vez de falar direto com o banco: o SQL é AUDITÁVEL. Ele entra no Git,
 alguém lê antes de rodar, e o mesmo arquivo pode ser aplicado por qualquer via (psql,
@@ -442,6 +448,20 @@ def gerar_sql(L):
     out.append("\n-- 5 · documentos (%d). FAILED nunca aponta raw_asset.\n"
                % len(L['DOCUMENTO']))
     for d in L['DOCUMENTO']:
+        # ⚠️ ESTE SUBSELECT PROCURA UMA OBSERVACAO POR ENDERECO, e depois da
+        # fase 10 um endereco pode ter N. O subselect devolveria mais de uma
+        # linha e o Postgres recusaria — com razao.
+        #
+        # E NAO SE CORRIGE AQUI, porque nao ha nada vivo para corrigir: o SQL
+        # que esta funcao gera NAO SE APLICA a banco nenhum desde a 026. Ele
+        # falha na PRIMEIRA linha, em `identity_state` NOT NULL, e nao ha
+        # `SOURCE_ID` real para lhe dar — `adama-website` e uma organizacao.
+        # `--aplicar` foi aposentado por isso mesmo.
+        #
+        #     CORRIGIR SQL QUE NUNCA VAI CORRER E FINGIR QUE ELE VIVE.
+        #
+        # Fica aqui como esta, e o ficheiro gerado continua a ser o REGISTO
+        # historico do que foi importado em 2026-08-30 — nao uma capacidade.
         ra = ('null' if not d['storage_path'] else
               "(select id from public.raw_asset where storage_path=%s)" % q(d['storage_path']))
         out.append("insert into public.catalogo_produto_documento (produto_id, document_id,"
@@ -640,23 +660,33 @@ if __name__ == '__main__':
               % (os.path.relpath(SQL_OUT, ROOT), len(sql), sql.count(';')))
         sys.exit(0)
     if '--aplicar' in sys.argv:
-        db = (os.environ.get('SUPABASE_DB_URL') or '').strip()
-        if not db:
-            print('SUPABASE_DB_URL ausente — nada aplicado.')
-            sys.exit(2)
-        import shutil
-        import subprocess
-        if not shutil.which('psql'):
-            print('psql nao instalado nesta maquina — nada aplicado.')
-            sys.exit(3)
-        if not os.path.exists(SQL_OUT):
-            print('rode --sql antes')
-            sys.exit(4)
-        r = subprocess.run(['psql', db, '-v', 'ON_ERROR_STOP=1', '-f', SQL_OUT],
-                           capture_output=True, text=True)
-        # nunca imprimir a URL do banco: ela carrega a senha
-        print((r.stdout or '')[-2000:].replace(db, '<OMITIDO>'))
-        if r.returncode:
-            print((r.stderr or '')[-2000:].replace(db, '<OMITIDO>'))
-        sys.exit(r.returncode)
+        # ── ESTE CAMINHO FOI APOSENTADO, E NAO SUSPENSO ─────────────────
+        # Ele escrevia `raw_asset` no formato anterior a 026 — sem `source_id`,
+        # sem `document_key`, sem estado. Durante uma missao ficou atras de uma
+        # trava, e a trava dizia «agora nao». A medicao diz outra coisa: ele
+        # nao volta NUNCA, e por uma razao que nao e de calendario.
+        #
+        #     NAO HA IDENTIDADE PARA DECLARAR.
+        #
+        # `adama-website` e uma ORGANIZACAO, e nao um codigo de fonte do atlas.
+        # Sem `SOURCE_ID` real nao ha estado forward possivel, e inventar um
+        # registaria uma fonte que esta casa nunca teve. Medido contra um banco
+        # com a 026: o import falha na PRIMEIRA linha, em `identity_state` NOT
+        # NULL, antes de haver conflito para o `on conflict` resolver.
+        #
+        # E POR ISSO A TRAVA SAIU TAMBEM. Guardar uma porta que nao se volta a
+        # abrir e fingir que ela ainda e uma porta.
+        #
+        #     UM CAMINHO BLOQUEADO AINDA E UM CAMINHO. UM CAMINHO
+        #     APOSENTADO NAO E.
+        #
+        # O que escreve `raw_asset` nesta casa e UM SO: `guarda/
+        # preservar_coleta.py`, chamado por `coleta/ingresso.py::receber`. Uma
+        # fonte com codigo real entra por la, com identidade, ou nao entra.
+        print('--aplicar foi APOSENTADO. Este caminho escrevia raw_asset sem\n'
+              'identidade, e nao ha identidade para lhe dar: `adama-website` e\n'
+              'uma organizacao, nao um codigo de fonte. O unico escritor\n'
+              'forward desta casa e guarda/preservar_coleta.py.\n'
+              '`--linhas` e `--sql` continuam: eles geram, nao aplicam.')
+        sys.exit(6)
     print(__doc__)

@@ -77,10 +77,53 @@ import hashlib
 import io
 import json
 import os
+import subprocess
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SAIDA = os.path.join(RAIZ, 'system-map', 'data', 'corpus-it.generated.json')
+
+
+# ── O CONJUNTO DE ENTRADA É A ÁRVORE RASTREADA, NÃO O DISCO ────────────────
+# O manifesto da cadeia (CADEIA-DO-MAPA.json) declara este passo e o censo de
+# identidade como TRACKED_SOURCE_TREE · ORIGEM «git ls-files». O código fazia
+# outra coisa: `os.walk(RAIZ)`. A diferença ficou invisível até o artefato
+# ser gerado numa máquina com `XX/it-t2-002/` — pasta que o .gitignore
+# exclui de propósito — e publicar 58 ocorrências onde um clone limpo mede
+# 49. Um artefato versionado que depende de ficheiros que só existem no disco
+# do autor não é medição: é o retrato de uma máquina.
+#
+#     O QUE O GIT NÃO GUARDA, O CENSO NÃO CONTA.
+#
+# Sem git para perguntar, o censo recusa em vez de voltar a andar pelo disco:
+# cair para `os.walk` seria reintroduzir a contaminação em silêncio.
+def ficheiros_rastreados():
+    """Os caminhos que o Git rastreia nesta árvore, tal como `git ls-files -z`
+    os devolve (relativos à raiz, com `/`), e que existem no disco."""
+    r = subprocess.run(['git', 'ls-files', '-z'], cwd=RAIZ,
+                       capture_output=True)
+    if r.returncode != 0:
+        raise RuntimeError('git ls-files falhou (%d): o censo nao anda pelo '
+                           'disco no lugar do Git' % r.returncode)
+    fora = []
+    for rel in r.stdout.decode('utf-8', 'surrogateescape').split('\0'):
+        if rel and os.path.exists(os.path.join(RAIZ, rel)):
+            fora.append(rel)
+    return fora
+
+
+def pdfs_italianos_rastreados():
+    """Os PDF italianos da árvore rastreada, absolutos e ordenados.
+
+    É a ÚNICA lista de PDF que os censos do corpo, da identidade e do armazém
+    contam — dois censos com duas regras de enumeração dariam dois números
+    verdadeiros e contraditórios.
+    """
+    fora = []
+    for rel in ficheiros_rastreados():
+        if rel.lower().endswith('.pdf') and e_italiano(rel):
+            fora.append(os.path.join(RAIZ, rel.replace('/', os.sep)))
+    return sorted(fora)
 
 # ── ONDE PROCURAR ──────────────────────────────────────────────────────────
 # Só Itália. Espanha e França ficam de fora de propósito: este repositório é o
@@ -340,43 +383,37 @@ def o_bruto_por_ler(indice_de_prosa):
     """
     por_impressao = derivados_por_impressao_digital()
     achados = []
-    for dirp, _, fs in os.walk(RAIZ):
-        if '.git' in dirp.replace('\\', '/').split('/'):
-            continue
-        for f in fs:
-            if not f.lower().endswith('.pdf'):
-                continue
-            rel = os.path.relpath(os.path.join(dirp, f), RAIZ).replace('\\', '/')
-            if not e_italiano(rel):
-                continue
-            tem, onde = _tem_texto_derivado(rel, indice_de_prosa)
-            # A PROVA VEM PRIMEIRO: se o registo de artefatos diz que este
-            # conteudo tem filho, isso decide — o nome do ficheiro nao tem voto.
-            sha = _sha256(os.path.join(dirp, f))
-            if sha in por_impressao:
+    # A lista vem do Git, nunca de `os.walk(RAIZ)`: ver `pdfs_italianos_rastreados`.
+    for absoluto in pdfs_italianos_rastreados():
+        rel = os.path.relpath(absoluto, RAIZ).replace('\\', '/')
+        tem, onde = _tem_texto_derivado(rel, indice_de_prosa)
+        # A PROVA VEM PRIMEIRO: se o registo de artefatos diz que este
+        # conteudo tem filho, isso decide — o nome do ficheiro nao tem voto.
+        sha = _sha256(absoluto)
+        if sha in por_impressao:
+            tem = True
+            onde = sorted(set(onde) | set(por_impressao[sha]))
+        # Um ficheiro de texto ao lado do PDF também conta como derivação.
+        derivado = 0
+        irmao = os.path.splitext(absoluto)[0]
+        for ext in ('.txt', '.md', '.text'):
+            if os.path.exists(irmao + ext):
                 tem = True
-                onde = sorted(set(onde) | set(por_impressao[sha]))
-            # Um ficheiro de texto ao lado do PDF também conta como derivação.
-            derivado = 0
-            irmao = os.path.splitext(os.path.join(dirp, f))[0]
-            for ext in ('.txt', '.md', '.text'):
-                if os.path.exists(irmao + ext):
-                    tem = True
-                    onde.append(os.path.relpath(irmao + ext, RAIZ)
-                                .replace('\\', '/'))
-                    try:
-                        derivado += len(io.open(irmao + ext,
-                                                encoding='utf-8').read())
-                    except Exception:
-                        pass
-            achados.append({
-                'FICHEIRO': rel,
-                'BYTES': os.path.getsize(os.path.join(dirp, f)),
-                'SHA256': sha,
-                'TEM_TEXTO_DERIVADO': tem,
-                'CARACTERES_JA_DERIVADOS': derivado,
-                'ONDE_ESTA_O_TEXTO': onde,
-            })
+                onde.append(os.path.relpath(irmao + ext, RAIZ)
+                            .replace('\\', '/'))
+                try:
+                    derivado += len(io.open(irmao + ext,
+                                            encoding='utf-8').read())
+                except Exception:
+                    pass
+        achados.append({
+            'FICHEIRO': rel,
+            'BYTES': os.path.getsize(absoluto),
+            'SHA256': sha,
+            'TEM_TEXTO_DERIVADO': tem,
+            'CARACTERES_JA_DERIVADOS': derivado,
+            'ONDE_ESTA_O_TEXTO': onde,
+        })
     achados.sort(key=lambda x: -x['BYTES'])
     return achados
 
@@ -444,66 +481,66 @@ def indice_de_quem_cita_pdf():
     sítio?». Sem ela, a resposta só poderia ser um palpite.
     """
     indice = {}
-    for pasta in ('data', 'build', 'docs'):
-        base = os.path.join(RAIZ, pasta)
-        if not os.path.isdir(base):
+    # Só a árvore rastreada (ver `ficheiros_rastreados`): um .md ignorado em
+    # data/colheita/ que citasse um PDF decidiria «tem texto derivado» numa
+    # máquina e não noutra.
+    for rel in ficheiros_rastreados():
+        if not rel.startswith(('data/', 'build/', 'docs/')):
             continue
-        for dirp, _, fs in os.walk(base):
-            for f in fs:
-                if not f.endswith(('.json', '.ndjson', '.md')):
-                    continue
-                caminho = os.path.join(dirp, f)
-                rel = os.path.relpath(caminho, RAIZ).replace('\\', '/')
-                try:
-                    bruto = io.open(caminho, encoding='utf-8').read()
-                except Exception:
-                    continue
-                if '.pdf' not in bruto.lower():
-                    continue  # não cita PDF nenhum: não interessa aqui
+        f = os.path.basename(rel)
+        if not f.endswith(('.json', '.ndjson', '.md')):
+            continue
+        caminho = os.path.join(RAIZ, rel.replace('/', os.sep))
+        try:
+            bruto = io.open(caminho, encoding='utf-8').read()
+        except Exception:
+            continue
+        if '.pdf' not in bruto.lower():
+            continue  # não cita PDF nenhum: não interessa aqui
+        arvore = None
+        if f.endswith('.json'):
+            try:
+                arvore = json.loads(bruto)
+            except Exception:
                 arvore = None
-                if f.endswith('.json'):
-                    try:
-                        arvore = json.loads(bruto)
-                    except Exception:
-                        arvore = None
-                indice[rel] = (bruto, arvore)
+        indice[rel] = (bruto, arvore)
     return indice
 
 
 def main():
     fichas, erros = [], []
-    for pasta in PASTAS:
-        base = os.path.join(RAIZ, pasta)
-        if not os.path.isdir(base):
+    # A árvore rastreada debaixo de PASTAS — não o disco. `data/raw/*` e
+    # `data/samples/**/*.raw.json` estão no .gitignore e acabam em `.json`:
+    # andar pelo disco contava-os na máquina que os tivesse.
+    for rel in ficheiros_rastreados():
+        if not any(rel.startswith(p + '/') for p in PASTAS):
             continue
-        for dirp, _, fs in os.walk(base):
-            for f in fs:
-                if not f.endswith('.json'):
-                    continue
-                caminho = os.path.join(dirp, f)
-                rel = os.path.relpath(caminho, RAIZ).replace('\\', '/')
-                if not e_italiano(rel):
-                    continue
-                saco = {'registos': 0, 'registos_com_texto': 0,
-                        'objetos_em_lista': 0, 'caracteres': 0, 'campos': {}}
-                try:
-                    with io.open(caminho, encoding='utf-8') as fh:
-                        varrer(json.load(fh), saco)
-                except Exception as e:
-                    erros.append({'FICHEIRO': rel, 'ERRO': str(e)[:120]})
-                    continue
-                g, porque = gaveta(f, saco['registos'], saco['caracteres'])
-                fichas.append({
-                    'FICHEIRO': rel,
-                    'REGISTOS_COM_IDENTIFICADOR': saco['registos'],
-                    'OBJETOS_DENTRO_DE_LISTAS': saco['objetos_em_lista'],
-                    'REGISTOS': saco['registos'],
-                    'REGISTOS_COM_TEXTO': saco['registos_com_texto'],
-                    'CARACTERES_DE_TEXTO': saco['caracteres'],
-                    'CAMPOS_DE_TEXTO_USADOS': saco['campos'],
-                    'GAVETA': g,
-                    'PORQUE': porque,
-                })
+        f = os.path.basename(rel)
+        if not f.endswith('.json'):
+            continue
+        caminho = os.path.join(RAIZ, rel.replace('/', os.sep))
+        if not e_italiano(rel):
+            continue
+        saco = {'registos': 0, 'registos_com_texto': 0,
+                'objetos_em_lista': 0, 'caracteres': 0, 'campos': {}}
+        try:
+            with io.open(caminho, encoding='utf-8') as fh:
+                varrer(json.load(fh), saco)
+        except Exception as e:
+            erros.append({'FICHEIRO': rel, 'ERRO': str(e)[:120]})
+            continue
+        g, porque = gaveta(f, saco['registos'], saco['caracteres'])
+        fichas.append({
+            'FICHEIRO': rel,
+            'REGISTOS_COM_IDENTIFICADOR': saco['registos'],
+            'OBJETOS_DENTRO_DE_LISTAS': saco['objetos_em_lista'],
+            'REGISTOS': saco['registos'],
+            'REGISTOS_COM_TEXTO': saco['registos_com_texto'],
+            'CARACTERES_DE_TEXTO': saco['caracteres'],
+            'CAMPOS_DE_TEXTO_USADOS': saco['campos'],
+            'GAVETA': g,
+            'PORQUE': porque,
+        })
 
     brutos = o_bruto_por_ler(indice_de_quem_cita_pdf())
     fichas.sort(key=lambda x: -x['CARACTERES_DE_TEXTO'])

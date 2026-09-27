@@ -492,6 +492,19 @@ _SEGREDOS_POR_FORMA = re.compile(
     r'|gh[pousr]_[A-Za-z0-9]{20,}'              # token do GitHub
     r'|AIza[A-Za-z0-9_\-]{30,})')              # chave de API do Google
 
+# E ha uma terceira forma, que nao tem rotulo nem assinatura: a SENHA DENTRO DA
+# URL. `postgresql://utilizador:SenhaSecreta@servidor/base` nao casa com
+# `senha=` nem com `apify_api_`, e saia daqui INTACTA — medido, nao suposto.
+#
+# Redige-se SO a senha. Esquema, utilizador, servidor e base sobrevivem, porque
+# um erro de ligacao sem servidor nem base nao se diagnostica, e uma redacao que
+# apaga o diagnostico e trocada pela primeira pessoa com pressa.
+#
+#     O QUE ESTA CORRIGIDO E O GUARDA. O vazamento vivo pelo `psql` NAO foi
+#     reproduzido, e continua `LIVE_PASSWORD_LEAK = NOT_REPRODUCED`.
+_SENHA_EM_URL = re.compile(
+    r'(?i)\b([a-z][a-z0-9+.\-]*://[^\s:/?#\[\]@"\']+):([^\s/?#\[\]@"\']+)@')
+
 _CAMINHO_PESSOAL = re.compile(
     r'(?i)([A-Z]:\\Users\\[^\\\s"\']+|/home/[^/\s"\']+|/Users/[^/\s"\']+)')
 
@@ -510,6 +523,10 @@ def redigir(texto):
     # Depois do rótulo, a forma. A ordem importa: o passo acima já apagou a maioria,
     # e este pega o que sobrou solto — inclusive dentro de uma URL de traceback.
     t = _SEGREDOS_POR_FORMA.sub('<REDIGIDO>', t)
+    # A senha dentro da URL vem depois das outras duas: as anteriores ja
+    # apagaram o que tinha rotulo ou assinatura, e esta apanha a que nao tem
+    # nem uma coisa nem outra.
+    t = _SENHA_EM_URL.sub(lambda m: '%s:<REDIGIDO>@' % m.group(1), t)
     t = _CAMINHO_PESSOAL.sub('<CAMINHO-LOCAL>', t)
     return t
 

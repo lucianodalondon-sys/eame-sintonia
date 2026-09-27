@@ -181,5 +181,43 @@ class RT_Congelamento(unittest.TestCase):
         self.assertEqual(r.ETAPAS[-1], 'READY')
 
 
+
+class TestOBuracoDaRotaSocialTemNome(unittest.TestCase):
+    """O SCRAP nao atravessa RAW — e isso tem de estar dito onde uma maquina le.
+
+    Ate 2026-09-09 este buraco existia so em prosa, em quatro sitios, e o mapa
+    nao mostrava nada: desenhava o SCRAP a coletar e calava o que vinha a
+    seguir. Um censo de buracos nao consegue ler um comentario.
+
+        UM BURACO DESCRITO EM PROSA E UMA DIVIDA QUE SO O AUTOR HERDA.
+
+    Estes casos nao pedem que o buraco FECHE. Ligar o SCRAP ao dono do RAW e
+    decisao de arquitetura. Pedem que ele continue NOMEADO enquanto for
+    verdade, e que a medicao por tras dele continue a bater.
+    """
+
+    def test_o_gap_esta_declarado_por_quem_carimba_a_preservacao(self):
+        import social_envelope as se
+        self.assertIn('SCRAP_RAW_NAO_RECEBIDO', [g[0] for g in se.GAPS],
+                      'o buraco da rota social perdeu o nome')
+
+    def test_a_medicao_por_tras_do_gap_continua_verdadeira(self):
+        """Quem escreve `conteudo` NAO escreve `raw_asset`.
+
+        Se um dia isto falhar, o gap deixou de ser verdade — e o conserto e
+        FECHAR o gap com prova, nao apagar o teste.
+        """
+        fonte = open(os.path.join(RAIZ, 'coleta', 'social_persistencia.py'),
+                     encoding='utf-8').read()
+        self.assertIn('insert into public.conteudo', fonte)
+        self.assertNotIn('insert into public.raw_asset', fonte,
+                         'o SCRAP passou a escrever raw_asset: o gap '
+                         'SCRAP_RAW_NAO_RECEBIDO tem de ser reavaliado')
+
+    def test_o_envelope_continua_a_dizer_que_o_bruto_nao_foi_preservado(self):
+        import social_envelope as se
+        self.assertEqual('NOT_PRESERVED', se.NOT_PRESERVED)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

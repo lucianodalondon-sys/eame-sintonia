@@ -1,0 +1,4975 @@
+{
+ "ENSAIO": "OFFLINE — respostas gravadas, zero pedidos",
+ "FIXTURES": {
+  "PASTA": "C:/sc-hot/data/raw/RESEARCHER-CORPUS",
+  "GRAVADO_EM": "2026-09-18 18:25-18:27 (-03), pela receita T6 corpus_pesquisador.py coletar",
+  "PEDIDO_ORIGINAL": "OpenAlex /works?filter=author.id:<A>,from_publication_date:2019-01-01 ; ORCID /v3.0/<orcid>/works",
+  "O_QUE_MUDOU": "so campos do select= e so trabalhos que nomeiam cultura ou problema; ORCID so os DOI"
+ },
+ "RESPOSTAS_INVALIDAS": [],
+ "OCORRENCIAS_PAR_TRABALHO": 24,
+ "UNIDADES_DEPOIS_DE_DEDUPLICAR": 21,
+ "GRUPOS": [
+  {
+   "ESTADO": "PROVAVEL_MESMA_OBRA",
+   "POR": "mesmo titulo + autor em comum",
+   "DOIS": [
+    "10.1016/j.cub.2020.07.057",
+    "10.1101/2020.02.26.962936"
+   ]
+  }
+ ],
+ "POR_PAR": {
+  "mais x diabrotica": 1,
+  "mais x piralide": 1,
+  "pomodoro x botrite": 2,
+  "vite x botrite": 2,
+  "vite x peronospora": 5,
+  "vite x scafoideo": 11
+ },
+ "CAMPOS_PREENCHIDOS": {
+  "DOI": 21,
+  "TRIAL_ID": 0,
+  "DATASET_ID": 0,
+  "CULTURA": 21,
+  "PROBLEMA": 21,
+  "MOLECULA": 1,
+  "LOCAL_DO_ESTUDO_ESCRITO": 12,
+  "PERIODO_DO_ESTUDO": 2
+ },
+ "PESSOAS_COM_AFILIACAO_IT": 78,
+ "PESSOAS_COM_ORCID_AUTODECLARADO": 3,
+ "CANDIDATAS_T6_PROPOSTAS": 59,
+ "PESSOAS_COM_PAR_NO_TEXTO_SEM_ORCID": 19,
+ "PLANO_SE_FOSSE_REDE": {
+  "PEDIDOS_POR_DOMINIO": {
+   "api.openalex.org": 12,
+   "api.crossref.org": 1,
+   "pub.orcid.org": 59
+  },
+  "TETO_POR_DOMINIO_POR_RODADA": 5,
+  "RODADAS_POR_DOMINIO": {
+   "api.openalex.org": 3,
+   "api.crossref.org": 1,
+   "pub.orcid.org": 12
+  },
+  "OBRIGATORIO": "api.openalex.org (as 12 consultas: 3 rodadas)",
+  "INCREMENTAL": [
+   "api.crossref.org",
+   "pub.orcid.org"
+  ]
+ },
+ "UNIDADES": [
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.3390/pathogens15080850",
+   "OPENALEX_WORK_ID": "https://openalex.org/W7203470356",
+   "TITULO": "Putative Effector Genes Reveal Hidden Genetic Diversity Beyond Conventional Typing Markers in Flavescence Dorée Phytoplasmas",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2026-08-14",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5046809875",
+     "NOME": "Camilla Barbieri",
+     "ORCID_NO_INDICE": "0009-0007-1920-060X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5059491465",
+     "NOME": "Sara Torcoli",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Consortium GARR",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03x9xd924"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5063067830",
+     "NOME": "Flavio Serina",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Consortium GARR",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03x9xd924"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5049644757",
+     "NOME": "M. Salvetti",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5020875852",
+     "NOME": "I.E. Rigamonti",
+     "ORCID_NO_INDICE": "0000-0002-3854-2599",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5002982424",
+     "NOME": "Nicola Mori",
+     "ORCID_NO_INDICE": "0000-0002-5736-9584",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5048718662",
+     "NOME": "P.A. Bianco",
+     "ORCID_NO_INDICE": "0000-0002-9541-1923",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "scaphoideus titanus"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Italia",
+     "PRECISAO": "PAIS",
+     "TERMO": "italy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.3390/agriculture15181988",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4414392305",
+   "TITULO": "Performance of Georgian Grapevine Varieties in a Vineyard Infected by Flavescence Dorée Phytoplasma in Piedmont, Northwestern Italy",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2025-09-21",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5116656901",
+     "NOME": "Letizia Portaccio",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Salento",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03fc1k060"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5028518946",
+     "NOME": "Maria Alessandra Paissoni",
+     "ORCID_NO_INDICE": "0000-0003-2160-8632",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5072956758",
+     "NOME": "Simone Giacosa",
+     "ORCID_NO_INDICE": "0000-0002-2019-7010",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5007345972",
+     "NOME": "Alessandro Passera",
+     "ORCID_NO_INDICE": "0000-0001-6928-453X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5046809875",
+     "NOME": "Camilla Barbieri",
+     "ORCID_NO_INDICE": "0009-0007-1920-060X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5072780976",
+     "NOME": "D. Maghradze",
+     "ORCID_NO_INDICE": "0000-0001-8197-9502",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Caucasus International University",
+       "PAIS": "GE",
+       "ROR": "https://ror.org/00atp1s12"
+      },
+      {
+       "NOME": "National Environmental Agency",
+       "PAIS": "GE",
+       "ROR": "https://ror.org/00ae67970"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5025884919",
+     "NOME": "Luca Rollè",
+     "ORCID_NO_INDICE": "0000-0002-6075-079X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5013582438",
+     "NOME": "Vincenzo Gerbi",
+     "ORCID_NO_INDICE": "0000-0001-7748-120X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5088256653",
+     "NOME": "O. Failla",
+     "ORCID_NO_INDICE": "0000-0002-4114-062X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5048718662",
+     "NOME": "P.A. Bianco",
+     "ORCID_NO_INDICE": "0000-0002-9541-1923",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "flavescence doree"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Piemonte",
+     "PRECISAO": "REGIAO",
+     "TERMO": "piedmont",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.5958/2249-4677.2025.00028.9",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4408202176",
+   "TITULO": "Biology and phytoplasma detection of the newly described Bamboosella dimorpha leafhopper in grapevine yellows-affected vineyards",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2025-01-01",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5019446548",
+     "NOME": "N. Mōri",
+     "ORCID_NO_INDICE": "0000-0003-2138-3787",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5040432746",
+     "NOME": "Enea Guerrieri",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5009335974",
+     "NOME": "Francesco Sanna",
+     "ORCID_NO_INDICE": "0000-0003-1795-4102",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5063067830",
+     "NOME": "Flavio Serina",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Ministerio de Educación Cultura y Deporte",
+       "PAIS": "ES",
+       "ROR": "https://ror.org/03nc27g21"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5059491465",
+     "NOME": "Sara Torcoli",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Ministerio de Educación Cultura y Deporte",
+       "PAIS": "ES",
+       "ROR": "https://ror.org/03nc27g21"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_LIDO_SEM_ESTE_DOI",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "flavescence doree"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Italia",
+     "PRECISAO": "PAIS",
+     "TERMO": "italy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.3390/biology12091216",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4386495882",
+   "TITULO": "Investigation on Flavescence Dorée in North-Western Italy Identifies Map-M54 (16SrV-D/Map-FD2) as the Only Phytoplasma Genotype in Vitis vinifera L. and Reveals the Presence of New Putative Reservoir Plants",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2023-09-07",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5020875852",
+     "NOME": "I.E. Rigamonti",
+     "ORCID_NO_INDICE": "0000-0002-3854-2599",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5049644757",
+     "NOME": "M. Salvetti",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5009706244",
+     "NOME": "Paola Girgenti",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5048718662",
+     "NOME": "P.A. Bianco",
+     "ORCID_NO_INDICE": "0000-0002-9541-1923",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "scaphoideus titanus"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Italia",
+     "PRECISAO": "PAIS",
+     "TERMO": "italy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1007/s42161-023-01474-2",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4385663466",
+   "TITULO": "Identification of phytoplasmas associated with grapevine ‘bois noir’ and flavescence dorée in inter-row groundcover vegetation used for green manure in Franciacorta vineyards",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2023-08-08",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5074372166",
+     "NOME": "Abdelhameed Moussa",
+     "ORCID_NO_INDICE": "0000-0002-3069-3325",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Free University of Bozen-Bolzano",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/012ajp527"
+      },
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5040432746",
+     "NOME": "Enea Guerrieri",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5059491465",
+     "NOME": "Sara Torcoli",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5063067830",
+     "NOME": "Flavio Serina",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5002982424",
+     "NOME": "Nicola Mori",
+     "ORCID_NO_INDICE": "0000-0002-5736-9584",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "flavescence doree"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Italia",
+     "PRECISAO": "PAIS",
+     "TERMO": "italy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": [
+    {
+     "DE": "2020",
+     "ATE": "2020",
+     "TRECHO": "in 2020"
+    }
+   ],
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.24425/jppr.2022.142129",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4353055727",
+   "TITULO": "Survey on phytoplasmas associated with grapevine yellows in Eastern Georgia, Caucasus region",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2023-03-22",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5063788520",
+     "NOME": "Iveta Megrelishvili",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Plant Protection",
+       "PAIS": "CN",
+       "ROR": "https://ror.org/0111f7045"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5069524292",
+     "NOME": "Zurab Khidesheli",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Plant Protection",
+       "PAIS": "CN",
+       "ROR": "https://ror.org/0111f7045"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5113762615",
+     "NOME": "Tinatin Elbakidze",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "California Department of Food and Agriculture",
+       "PAIS": "US",
+       "ROR": "https://ror.org/04ma4gj04"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5068816977",
+     "NOME": "L. Ujmajuridze",
+     "ORCID_NO_INDICE": "0000-0003-2907-4276",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Department of Scientific and Industrial Research",
+       "PAIS": "IN",
+       "ROR": "https://ror.org/049nrz535"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5019150527",
+     "NOME": "Nino Maziashvili",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Plant Protection",
+       "PAIS": "CN",
+       "ROR": "https://ror.org/0111f7045"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "flavescence doree"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": "NAO SEI",
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1016/j.cropro.2022.106114",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4301603129",
+   "TITULO": "Multilocus sequence typing of phytoplasmas associated with Flavescence dorée disease in Tuscany vineyards identifies a highly homogeneous lineage in the subgroup 16SrV–C",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2022-10-05",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5003756289",
+     "NOME": "Roberto Pierro",
+     "ORCID_NO_INDICE": "0000-0001-8305-9355",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Salerno",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/0192m2k53"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5052720620",
+     "NOME": "Kristi D. Bottner-Parker",
+     "ORCID_NO_INDICE": "0000-0001-5908-1480",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5015786815",
+     "NOME": "Alessandra Panattoni",
+     "ORCID_NO_INDICE": "0000-0001-6772-2241",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Pisa",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03ad39j10"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5100323829",
+     "NOME": "Wei Wei",
+     "ORCID_NO_INDICE": "0000-0003-3561-913X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5024191546",
+     "NOME": "Carmine Marcone",
+     "ORCID_NO_INDICE": "0000-0002-1847-5296",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Salerno",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/0192m2k53"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5006962417",
+     "NOME": "Domenico Rizzo",
+     "ORCID_NO_INDICE": "0000-0003-2834-4684",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5014647287",
+     "NOME": "Alberto Materazzi",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Pisa",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03ad39j10"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5051947975",
+     "NOME": "Yan Zhao",
+     "ORCID_NO_INDICE": "0000-0002-0032-7535",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "vineyards"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "flavescence doree"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Toscana",
+     "PRECISAO": "REGIAO",
+     "TERMO": "tuscany",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1051/bioconf/20224404002",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4210674711",
+   "TITULO": "Dissecting the susceptibility/resistance mechanism of Vitis vinifera for the future control of downy mildew",
+   "TIPO": "OTHER_TECHNICAL_PUBLICATION",
+   "PUBLICADO_EM": "2022-01-01",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5033947855",
+     "NOME": "Valentina Ricciardi",
+     "ORCID_NO_INDICE": "0000-0001-7081-8906",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5075238177",
+     "NOME": "Demetrio Marcianò",
+     "ORCID_NO_INDICE": "0000-0003-4781-9593",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057082133",
+     "NOME": "Maryam Sargolzaei",
+     "ORCID_NO_INDICE": "0000-0002-7117-8311",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5024009356",
+     "NOME": "Elena Marrone Fassolo",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5030823026",
+     "NOME": "Daniela Fracassetti",
+     "ORCID_NO_INDICE": "0000-0003-0525-7123",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5078202592",
+     "NOME": "Matteo Brilli",
+     "ORCID_NO_INDICE": "0000-0001-9891-4617",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Biosciences and Bioresources",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/01gtsa866"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5030829979",
+     "NOME": "Mirko Moser",
+     "ORCID_NO_INDICE": "0000-0002-1936-984X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Fondazione Edmund Mach",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/0381bab64"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5025790825",
+     "NOME": "Shariati J. Vahid",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "National Institute of Genetic Engineering and Biotechnology",
+       "PAIS": "IR",
+       "ROR": "https://ror.org/03ckh6215"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5060422741",
+     "NOME": "Elahe Tavakole",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Shiraz University",
+       "PAIS": "IR",
+       "ROR": "https://ror.org/028qtbk54"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5032185996",
+     "NOME": "Giuliana Maddalena",
+     "ORCID_NO_INDICE": "0000-0003-0415-2581",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5074989671",
+     "NOME": "Alessandro Passera",
+     "ORCID_NO_INDICE": "0000-0003-1995-0666",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5044838976",
+     "NOME": "P. Casati",
+     "ORCID_NO_INDICE": "0000-0001-6152-8712",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5023019523",
+     "NOME": "Massimo Pindo",
+     "ORCID_NO_INDICE": "0000-0002-8516-9010",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Fondazione Edmund Mach",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/0381bab64"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5082742429",
+     "NOME": "Alessandro Cestaro",
+     "ORCID_NO_INDICE": "0000-0003-1439-5165",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Fondazione Edmund Mach",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/0381bab64"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5020717871",
+     "NOME": "Alex Costa",
+     "ORCID_NO_INDICE": "0000-0002-2628-1176",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Biosciences and Bioresources",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/01gtsa866"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5023335020",
+     "NOME": "Maria Cristina Bonza",
+     "ORCID_NO_INDICE": "0000-0001-7096-2967",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Biosciences and Bioresources",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/01gtsa866"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5072780976",
+     "NOME": "D. Maghradze",
+     "ORCID_NO_INDICE": "0000-0001-8197-9502",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Caucasus University",
+       "PAIS": "GE",
+       "ROR": "https://ror.org/02tc4et63"
+      },
+      {
+       "NOME": "Caucasus International University",
+       "PAIS": "GE",
+       "ROR": "https://ror.org/00atp1s12"
+      },
+      {
+       "NOME": "National Environmental Agency",
+       "PAIS": "GE",
+       "ROR": "https://ror.org/00ae67970"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5087951469",
+     "NOME": "Antonio Tirelli",
+     "ORCID_NO_INDICE": "0000-0001-9108-8906",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5088256653",
+     "NOME": "O. Failla",
+     "ORCID_NO_INDICE": "0000-0002-4114-062X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5048718662",
+     "NOME": "P.A. Bianco",
+     "ORCID_NO_INDICE": "0000-0002-9541-1923",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_LIDO_SEM_ESTE_DOI",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5082894183",
+     "NOME": "Silvia Laura Toffolatti",
+     "ORCID_NO_INDICE": "0000-0003-3572-8686",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5079753268",
+     "NOME": "Gabriella De Lorenzis",
+     "ORCID_NO_INDICE": "0000-0001-8943-1218",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": "NAO SEI",
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "peronospora",
+     "TERMO": "plasmopara viticola"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": "NAO SEI",
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x peronospora"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x peronospora"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1111/ppa.13257",
+   "OPENALEX_WORK_ID": "https://openalex.org/W3049121080",
+   "TITULO": "A molecular epidemiology study reveals the presence of identical genotypes on grapevines and ground cover weeds and the existence of separate genetic groups in a Botrytis cinerea population",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2020-08-13",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5082894183",
+     "NOME": "Silvia Laura Toffolatti",
+     "ORCID_NO_INDICE": "0000-0003-3572-8686",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5032185996",
+     "NOME": "Giuliana Maddalena",
+     "ORCID_NO_INDICE": "0000-0003-0415-2581",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5075238177",
+     "NOME": "Demetrio Marcianò",
+     "ORCID_NO_INDICE": "0000-0003-4781-9593",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5074989671",
+     "NOME": "Alessandro Passera",
+     "ORCID_NO_INDICE": "0000-0003-1995-0666",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    },
+    {
+     "VALOR": "pomodoro",
+     "TERMO": "tomato"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "botrite",
+     "TERMO": "botrytis cinerea"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Lombardia",
+     "PRECISAO": "REGIAO",
+     "TERMO": "lombardy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "pomodoro x botrite",
+    "vite x botrite"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "pomodoro x botrite",
+    "vite x botrite"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.3390/genes11030261",
+   "OPENALEX_WORK_ID": "https://openalex.org/W3009074983",
+   "TITULO": "Novel Aspects on The Interaction Between Grapevine and Plasmopara viticola: Dual-RNA-Seq Analysis Highlights Gene Expression Dynamics in The Pathogen and The Plant During The Battle For Infection",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2020-02-28",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5082894183",
+     "NOME": "Silvia Laura Toffolatti",
+     "ORCID_NO_INDICE": "0000-0003-3572-8686",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5079753268",
+     "NOME": "Gabriella De Lorenzis",
+     "ORCID_NO_INDICE": "0000-0001-8943-1218",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5078202592",
+     "NOME": "Matteo Brilli",
+     "ORCID_NO_INDICE": "0000-0001-9891-4617",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5030829979",
+     "NOME": "Mirko Moser",
+     "ORCID_NO_INDICE": "0000-0002-1936-984X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Fondazione Edmund Mach",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/0381bab64"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5089273624",
+     "NOME": "Vahid Shariati",
+     "ORCID_NO_INDICE": "0000-0003-3745-4949",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "National Institute of Genetic Engineering and Biotechnology",
+       "PAIS": "IR",
+       "ROR": "https://ror.org/03ckh6215"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5036169013",
+     "NOME": "Elahe Tavakol",
+     "ORCID_NO_INDICE": "0000-0002-1895-8482",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Shiraz University",
+       "PAIS": "IR",
+       "ROR": "https://ror.org/028qtbk54"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5032185996",
+     "NOME": "Giuliana Maddalena",
+     "ORCID_NO_INDICE": "0000-0003-0415-2581",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5074989671",
+     "NOME": "Alessandro Passera",
+     "ORCID_NO_INDICE": "0000-0003-1995-0666",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5044838976",
+     "NOME": "P. Casati",
+     "ORCID_NO_INDICE": "0000-0001-6152-8712",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5023019523",
+     "NOME": "Massimo Pindo",
+     "ORCID_NO_INDICE": "0000-0002-8516-9010",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Fondazione Edmund Mach",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/0381bab64"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5082742429",
+     "NOME": "Alessandro Cestaro",
+     "ORCID_NO_INDICE": "0000-0003-1439-5165",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Fondazione Edmund Mach",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/0381bab64"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5072780976",
+     "NOME": "D. Maghradze",
+     "ORCID_NO_INDICE": "0000-0001-8197-9502",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Caucasus University",
+       "PAIS": "GE",
+       "ROR": "https://ror.org/02tc4et63"
+      },
+      {
+       "NOME": "Caucasus International University",
+       "PAIS": "GE",
+       "ROR": "https://ror.org/00atp1s12"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5088256653",
+     "NOME": "O. Failla",
+     "ORCID_NO_INDICE": "0000-0002-4114-062X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5048718662",
+     "NOME": "P.A. Bianco",
+     "ORCID_NO_INDICE": "0000-0002-9541-1923",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "peronospora",
+     "TERMO": "plasmopara viticola"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": "NAO SEI",
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x peronospora"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x peronospora"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.3389/fmicb.2019.01409",
+   "OPENALEX_WORK_ID": "https://openalex.org/W2952363143",
+   "TITULO": "Not Just a Pathogen? Description of a Plant-Beneficial Pseudomonas syringae Strain",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2019-06-21",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5074989671",
+     "NOME": "Alessandro Passera",
+     "ORCID_NO_INDICE": "0000-0003-1995-0666",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5041300910",
+     "NOME": "Stéphane Compant",
+     "ORCID_NO_INDICE": "0000-0003-0709-6087",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "AIT Austrian Institute of Technology GmbH",
+       "PAIS": "AT",
+       "ROR": "https://ror.org/04knbh022"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5044838976",
+     "NOME": "P. Casati",
+     "ORCID_NO_INDICE": "0000-0001-6152-8712",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5071539969",
+     "NOME": "Maria Giovanna Maturo",
+     "ORCID_NO_INDICE": "0000-0001-8802-3220",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5088634742",
+     "NOME": "Giovanna Battelli",
+     "ORCID_NO_INDICE": "0000-0002-0295-0048",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Sciences of Food Production",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03x7xkr71"
+      },
+      {
+       "NOME": "National Research Council",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/04zaypm56"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5057322051",
+     "NOME": "F. Quaglino",
+     "ORCID_NO_INDICE": "0000-0001-8866-0633",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5061962068",
+     "NOME": "Livio Antonielli",
+     "ORCID_NO_INDICE": "0000-0002-7140-8359",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "AIT Austrian Institute of Technology GmbH",
+       "PAIS": "AT",
+       "ROR": "https://ror.org/04knbh022"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5002704035",
+     "NOME": "Domenico Salerno",
+     "ORCID_NO_INDICE": "0000-0001-8160-8349",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milano-Bicocca",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/01ynf4891"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5056990817",
+     "NOME": "Milena Brasca",
+     "ORCID_NO_INDICE": "0000-0002-8821-0787",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Sciences of Food Production",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03x7xkr71"
+      },
+      {
+       "NOME": "National Research Council",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/04zaypm56"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5082894183",
+     "NOME": "Silvia Laura Toffolatti",
+     "ORCID_NO_INDICE": "0000-0003-3572-8686",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5018255205",
+     "NOME": "Francesco Mantegazza",
+     "ORCID_NO_INDICE": "0000-0003-4257-2165",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milano-Bicocca",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/01ynf4891"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5050686627",
+     "NOME": "Massimo Delledonne",
+     "ORCID_NO_INDICE": "0000-0002-7100-4581",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5074186939",
+     "NOME": "Birgit Mitter",
+     "ORCID_NO_INDICE": "0000-0003-3170-1080",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "AIT Austrian Institute of Technology GmbH",
+       "PAIS": "AT",
+       "ROR": "https://ror.org/04knbh022"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "pomodoro",
+     "TERMO": "tomato"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "botrite",
+     "TERMO": "botrytis cinerea"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": "NAO SEI",
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "pomodoro x botrite"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "pomodoro x botrite"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1016/j.jafr.2026.103219",
+   "OPENALEX_WORK_ID": "https://openalex.org/W7203586111",
+   "TITULO": "Foliar uptake, systemic translocation and pest control efficacy of acetamiprid in combination with biostimulants and adjuvants on grapevines",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2026-08-01",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5147282117",
+     "NOME": "Giacomo Ortis",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5016093258",
+     "NOME": "Giacomo Santoiemma",
+     "ORCID_NO_INDICE": "0000-0002-3226-9253",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5054933062",
+     "NOME": "Paolo Beccari",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Ospedale Garibaldi",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/01q6hrg49"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5147280596",
+     "NOME": "Massimiliano Pasini",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Ospedale Garibaldi",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/01q6hrg49"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5065572356",
+     "NOME": "Silvia Pettenuzzo",
+     "ORCID_NO_INDICE": "0000-0003-2458-9457",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5147300013",
+     "NOME": "Marco Roverso",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5030551791",
+     "NOME": "Andrea Tapparo",
+     "ORCID_NO_INDICE": "0000-0001-8928-705X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5002982424",
+     "NOME": "Nicola Mori",
+     "ORCID_NO_INDICE": "0000-0002-5736-9584",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "scaphoideus titanus"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": "NAO SEI",
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1111/eea.13543",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4407268835",
+   "TITULO": "New tools to monitor Scaphoideus titanus, the main vector of phytoplasmas associated with Flavescence dorée in vineyards",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2025-02-07",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5064129300",
+     "NOME": "Giacomo Ortis",
+     "ORCID_NO_INDICE": "0000-0003-2620-3714",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5062539744",
+     "NOME": "Carlo Duso",
+     "ORCID_NO_INDICE": "0000-0002-2600-2536",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5002982424",
+     "NOME": "Nicola Mori",
+     "ORCID_NO_INDICE": "0000-0002-5736-9584",
+     "PROVA_DA_PESSOA": "ORCID_LIDO_SEM_ESTE_DOI",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "scaphoideus titanus"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": "NAO SEI",
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.3390/insects14020101",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4317106962",
+   "TITULO": "Efficacy of Conventional and Organic Insecticides against Scaphoideus titanus: Field and Semi-Field Trials",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2023-01-17",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5062067842",
+     "NOME": "Stefan Cristian Prazaru",
+     "ORCID_NO_INDICE": "0000-0002-0458-8994",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5065204578",
+     "NOME": "Lisa D’Ambrogio",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5008419362",
+     "NOME": "Martina Dal Cero",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5085210047",
+     "NOME": "Mirko Rasera",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5064679088",
+     "NOME": "Giovanni Cenedese",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5040432746",
+     "NOME": "Enea Guerrieri",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5061094949",
+     "NOME": "Marika Pavasini",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5002982424",
+     "NOME": "Nicola Mori",
+     "ORCID_NO_INDICE": "0000-0002-5736-9584",
+     "PROVA_DA_PESSOA": "ORCID_LIDO_SEM_ESTE_DOI",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5035745075",
+     "NOME": "F. Pavan",
+     "ORCID_NO_INDICE": "0000-0001-9111-2144",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Udine",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/05ht0mh31"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5062539744",
+     "NOME": "Carlo Duso",
+     "ORCID_NO_INDICE": "0000-0002-2600-2536",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Padua",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00240q980"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "vineyards"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "scaphoideus titanus"
+    }
+   ],
+   "MOLECULA": [
+    {
+     "VALOR": "deltamethrin",
+     "ACTIVE_INGREDIENT_ID": "IT-AI-DELTAMETHRIN"
+    }
+   ],
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Italia",
+     "PRECISAO": "PAIS",
+     "TERMO": "italy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.5958/2249-4677.2023.00015.4",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4377984885",
+   "TITULO": "Presence and distribution of known, alternative and putative insect vectors of phytoplasmas associated with “flavescence doree” disease inNortheast Italy",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2023-01-01",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5040432746",
+     "NOME": "Enea Guerrieri",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5044834613",
+     "NOME": "Vally Forte",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Istituto Sperimentale per la Frutticoltura",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/02hb07017"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5062342420",
+     "NOME": "Elena Belgeri",
+     "ORCID_NO_INDICE": "0000-0003-1391-957X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Istituto Sperimentale per la Frutticoltura",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/02hb07017"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5029386125",
+     "NOME": "Marzia Signorotto",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Istituto Sperimentale per la Frutticoltura",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/02hb07017"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5019173211",
+     "NOME": "Luisa Filippin",
+     "ORCID_NO_INDICE": "0000-0001-7690-9147",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Istituto Sperimentale per la Frutticoltura",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/02hb07017"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5092010161",
+     "NOME": "Mattia Burati",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5061094949",
+     "NOME": "Marika Pavasini",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5043390104",
+     "NOME": "Elisa Angelini",
+     "ORCID_NO_INDICE": "0000-0002-2638-6584",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Istituto Sperimentale per la Frutticoltura",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/02hb07017"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5002982424",
+     "NOME": "Nicola Mori",
+     "ORCID_NO_INDICE": "0000-0002-5736-9584",
+     "PROVA_DA_PESSOA": "ORCID_LIDO_SEM_ESTE_DOI",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "scafoideo",
+     "TERMO": "scaphoideus titanus"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Italia",
+     "PRECISAO": "PAIS",
+     "TERMO": "italy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": [
+    {
+     "DE": "2021",
+     "ATE": "2022",
+     "TRECHO": "during 2021–2022"
+    }
+   ],
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x scafoideo"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x scafoideo"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.3390/toxins14070422",
+   "OPENALEX_WORK_ID": "https://openalex.org/W4283328963",
+   "TITULO": "The Effect of Foliar Fungicide and Insecticide Application on the Contamination of Fumonisins, Moniliformin and Deoxynivalenol in Maize Used for Food Purposes",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2022-06-21",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5061913370",
+     "NOME": "Massimo Blandino",
+     "ORCID_NO_INDICE": "0000-0003-3719-2520",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5079904373",
+     "NOME": "Valentina Scarpino",
+     "ORCID_NO_INDICE": "0000-0002-9994-9907",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5068524687",
+     "NOME": "Giulio Testa",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5052134270",
+     "NOME": "Francesca Vanara",
+     "ORCID_NO_INDICE": "0000-0003-0563-462X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5009023828",
+     "NOME": "Amedeo Reyneri",
+     "ORCID_NO_INDICE": "0000-0002-4859-9572",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "mais",
+     "TERMO": "maize"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "piralide",
+     "TERMO": "european corn borer"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Italia",
+     "PRECISAO": "PAIS",
+     "TERMO": "italy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "mais x piralide"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "mais x piralide"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1016/j.cropro.2020.105306",
+   "OPENALEX_WORK_ID": "https://openalex.org/W3040587622",
+   "TITULO": "Chemical-based strategies to control the western corn rootworm, Diabrotica virgifera virgifera LeConte",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2020-07-07",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5076226828",
+     "NOME": "Chiara Ferracini",
+     "ORCID_NO_INDICE": "0000-0002-2135-1147",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5061913370",
+     "NOME": "Massimo Blandino",
+     "ORCID_NO_INDICE": "0000-0003-3719-2520",
+     "PROVA_DA_PESSOA": "ORCID_AUTODECLARADO",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5020875852",
+     "NOME": "I.E. Rigamonti",
+     "ORCID_NO_INDICE": "0000-0002-3854-2599",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5016745830",
+     "NOME": "C. Jucker",
+     "ORCID_NO_INDICE": "0000-0001-5052-3705",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5073066572",
+     "NOME": "Enrico Busato",
+     "ORCID_NO_INDICE": "0000-0002-8772-3871",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5041161322",
+     "NOME": "Matteo Alessandro Saladini",
+     "ORCID_NO_INDICE": "0000-0002-3420-5851",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5009023828",
+     "NOME": "Amedeo Reyneri",
+     "ORCID_NO_INDICE": "0000-0002-4859-9572",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5055036637",
+     "NOME": "Alberto Alma",
+     "ORCID_NO_INDICE": "0000-0003-4829-4178",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Turin",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/048tbm396"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "mais",
+     "TERMO": "corn"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "diabrotica",
+     "TERMO": "diabrotica virgifera"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": "NAO SEI",
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "mais x diabrotica"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "mais x diabrotica"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.14601/phytopathol_mediter-10619",
+   "OPENALEX_WORK_ID": "https://openalex.org/W2991278182",
+   "TITULO": "New records of Penicillium and Aspergillus from withered grapes in Italy, and description of Penicillium fructuariae-cellae sp. nov.",
+   "TIPO": "PREPRINT",
+   "PUBLICADO_EM": "2019-09-14",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5001130740",
+     "NOME": "Marilinda Lorenzini",
+     "ORCID_NO_INDICE": "0000-0001-7104-4076",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5073450679",
+     "NOME": "Maria Stella Cappello",
+     "ORCID_NO_INDICE": "0000-0002-8124-2348",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Sciences of Food Production",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03x7xkr71"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5050783349",
+     "NOME": "Giancarlo Perrone",
+     "ORCID_NO_INDICE": "0000-0002-3841-6066",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Sciences of Food Production",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03x7xkr71"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5030669619",
+     "NOME": "Antonio Logrieco",
+     "ORCID_NO_INDICE": "0000-0002-8606-451X",
+     "PROVA_DA_PESSOA": "ORCID_LIDO_SEM_ESTE_DOI",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institute of Sciences of Food Production",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/03x7xkr71"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5002106865",
+     "NOME": "Giacomo Zapparoli",
+     "ORCID_NO_INDICE": "0000-0002-8423-4298",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Verona",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/039bp8j42"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "vitis vinifera"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "botrite",
+     "TERMO": "botrytis cinerea"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Italia",
+     "PRECISAO": "PAIS",
+     "TERMO": "italy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x botrite"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x botrite"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1016/j.cub.2020.07.057",
+   "OPENALEX_WORK_ID": "https://openalex.org/W3048487707",
+   "TITULO": "Identification of the First Oomycete Mating-type Locus Sequence in the Grapevine Downy Mildew Pathogen, Plasmopara viticola",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2020-08-13",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5019571453",
+     "NOME": "Yann Dussert",
+     "ORCID_NO_INDICE": "0000-0003-1900-7715",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Université de Bordeaux",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/057qpr032"
+      },
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Santé et Agroécologie du Vignoble",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00vfxg105"
+      },
+      {
+       "NOME": "Unité mixte de recherche Œnologie",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/0473hxz56"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5079360085",
+     "NOME": "Ludovic Legrand",
+     "ORCID_NO_INDICE": "0000-0001-9634-709X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Centre National de la Recherche Scientifique",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02feahw73"
+      },
+      {
+       "NOME": "Université Fédérale de Toulouse Midi-Pyrénées",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/004raaa70"
+      },
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Laboratoire des Interactions Plantes Microbes Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02gwt2810"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5004224162",
+     "NOME": "Isabelle D. Mazet",
+     "ORCID_NO_INDICE": "0009-0007-3897-2808",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Université de Bordeaux",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/057qpr032"
+      },
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Santé et Agroécologie du Vignoble",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00vfxg105"
+      },
+      {
+       "NOME": "Unité mixte de recherche Œnologie",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/0473hxz56"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5067343977",
+     "NOME": "Carole Couture",
+     "ORCID_NO_INDICE": "0000-0002-4348-213X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Université de Bordeaux",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/057qpr032"
+      },
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Santé et Agroécologie du Vignoble",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00vfxg105"
+      },
+      {
+       "NOME": "Unité mixte de recherche Œnologie",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/0473hxz56"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5013810722",
+     "NOME": "Marie-Christine Piron",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Colmar Inra Research Centre",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/019msr682"
+      },
+      {
+       "NOME": "Institut Français de la Vigne et du Vin",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/03synvw58"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5112809959",
+     "NOME": "Rémy-Félix Serre",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Génétique Physiologie et Systèmes d'Elevage",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/04gg6ne93"
+      },
+      {
+       "NOME": "Genotoul coordination",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02f0kwz92"
+      },
+      {
+       "NOME": "Génome et Transcriptome - Plateforme Génomique",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/04kph4f16"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5012477824",
+     "NOME": "Olivier Bouchez",
+     "ORCID_NO_INDICE": "0000-0002-7255-0058",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Génétique Physiologie et Systèmes d'Elevage",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/04gg6ne93"
+      },
+      {
+       "NOME": "Genotoul coordination",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02f0kwz92"
+      },
+      {
+       "NOME": "Génome et Transcriptome - Plateforme Génomique",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/04kph4f16"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5075824409",
+     "NOME": "Pere Mestre",
+     "ORCID_NO_INDICE": "0000-0003-4488-6563",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Colmar Inra Research Centre",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/019msr682"
+      },
+      {
+       "NOME": "Institut Français de la Vigne et du Vin",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/03synvw58"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5082894183",
+     "NOME": "Silvia Laura Toffolatti",
+     "ORCID_NO_INDICE": "0000-0003-3572-8686",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5062611747",
+     "NOME": "Tatiana Giraud",
+     "ORCID_NO_INDICE": "0000-0002-2685-6478",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Centre National de la Recherche Scientifique",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02feahw73"
+      },
+      {
+       "NOME": "Ecologie, Société, Evolution",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00kk89y84"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5088752812",
+     "NOME": "François Delmotte",
+     "ORCID_NO_INDICE": "0000-0002-7601-5685",
+     "PROVA_DA_PESSOA": "ORCID_LIDO_SEM_ESTE_DOI",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Université de Bordeaux",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/057qpr032"
+      },
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Biologie du Fruit et Pathologie",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00ccpdp17"
+      },
+      {
+       "NOME": "Santé et Agroécologie du Vignoble",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00vfxg105"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "peronospora",
+     "TERMO": "plasmopara viticola"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": "NAO SEI",
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x peronospora"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x peronospora"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1101/2020.02.26.962936",
+   "OPENALEX_WORK_ID": "https://openalex.org/W3007557414",
+   "TITULO": "Identification of the first oomycete mating-type locus sequence in the grapevine downy mildew pathogen, Plasmopara viticola",
+   "TIPO": "PREPRINT",
+   "PUBLICADO_EM": "2020-02-27",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5019571453",
+     "NOME": "Yann Dussert",
+     "ORCID_NO_INDICE": "0000-0003-1900-7715",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "École Nationale Supérieure des Sciences Agronomiques de Bordeaux-Aquitaine",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00har9915"
+      },
+      {
+       "NOME": "Santé et Agroécologie du Vignoble",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00vfxg105"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5079360085",
+     "NOME": "Ludovic Legrand",
+     "ORCID_NO_INDICE": "0000-0001-9634-709X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Centre National de la Recherche Scientifique",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02feahw73"
+      },
+      {
+       "NOME": "Université Fédérale de Toulouse Midi-Pyrénées",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/004raaa70"
+      },
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5004224162",
+     "NOME": "Isabelle D. Mazet",
+     "ORCID_NO_INDICE": "0009-0007-3897-2808",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "École Nationale Supérieure des Sciences Agronomiques de Bordeaux-Aquitaine",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00har9915"
+      },
+      {
+       "NOME": "Santé et Agroécologie du Vignoble",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00vfxg105"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5067343977",
+     "NOME": "Carole Couture",
+     "ORCID_NO_INDICE": "0000-0002-4348-213X",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "École Nationale Supérieure des Sciences Agronomiques de Bordeaux-Aquitaine",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00har9915"
+      },
+      {
+       "NOME": "Santé et Agroécologie du Vignoble",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00vfxg105"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5013810722",
+     "NOME": "Marie-Christine Piron",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Santé de la Vigne et Qualité du Vin",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/0291jbz11"
+      },
+      {
+       "NOME": "Université de Strasbourg",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00pg6eq24"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5112809959",
+     "NOME": "Rémy-Félix Serre",
+     "ORCID_NO_INDICE": "NAO SEI",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Génétique Physiologie et Systèmes d'Elevage",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/04gg6ne93"
+      },
+      {
+       "NOME": "Genotoul coordination",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02f0kwz92"
+      },
+      {
+       "NOME": "Génome et Transcriptome - Plateforme Génomique",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/04kph4f16"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5012477824",
+     "NOME": "Olivier Bouchez",
+     "ORCID_NO_INDICE": "0000-0002-7255-0058",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Génétique Physiologie et Systèmes d'Elevage",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/04gg6ne93"
+      },
+      {
+       "NOME": "Genotoul coordination",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02f0kwz92"
+      },
+      {
+       "NOME": "Génome et Transcriptome - Plateforme Génomique",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/04kph4f16"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5075824409",
+     "NOME": "Pere Mestre",
+     "ORCID_NO_INDICE": "0000-0003-4488-6563",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "Santé de la Vigne et Qualité du Vin",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/0291jbz11"
+      },
+      {
+       "NOME": "Université de Strasbourg",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00pg6eq24"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5082894183",
+     "NOME": "Silvia Laura Toffolatti",
+     "ORCID_NO_INDICE": "0000-0003-3572-8686",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5062611747",
+     "NOME": "Tatiana Giraud",
+     "ORCID_NO_INDICE": "0000-0002-2685-6478",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Centre National de la Recherche Scientifique",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02feahw73"
+      },
+      {
+       "NOME": "AgroParisTech",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/02kbmgc12"
+      },
+      {
+       "NOME": "Université Paris-Saclay",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/03xjwb503"
+      },
+      {
+       "NOME": "Ecologie, Société, Evolution",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00kk89y84"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5088752812",
+     "NOME": "François Delmotte",
+     "ORCID_NO_INDICE": "0000-0002-7601-5685",
+     "PROVA_DA_PESSOA": "ORCID_LIDO_SEM_ESTE_DOI",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/003vg9w96"
+      },
+      {
+       "NOME": "École Nationale Supérieure des Sciences Agronomiques de Bordeaux-Aquitaine",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00har9915"
+      },
+      {
+       "NOME": "Santé et Agroécologie du Vignoble",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00vfxg105"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "peronospora",
+     "TERMO": "plasmopara viticola"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": "NAO SEI",
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x peronospora"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x peronospora"
+   ]
+  },
+  {
+   "UNIDADE": "TRABALHO_DE_PESQUISADOR",
+   "DOI": "10.1111/aab.12567",
+   "OPENALEX_WORK_ID": "https://openalex.org/W2997782969",
+   "TITULO": "Genetic structure of Italian population of the grapevine downy mildew agent, Plasmopara viticola",
+   "TIPO": "PEER_REVIEWED_PAPER",
+   "PUBLICADO_EM": "2020-01-01",
+   "TRIAL_ID": "NAO SEI",
+   "DATASET_ID": "NAO SEI",
+   "AUTORES": [
+    {
+     "OPENALEX_ID": "https://openalex.org/A5032185996",
+     "NOME": "Giuliana Maddalena",
+     "ORCID_NO_INDICE": "0000-0003-0415-2581",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5088752812",
+     "NOME": "François Delmotte",
+     "ORCID_NO_INDICE": "0000-0002-7601-5685",
+     "PROVA_DA_PESSOA": "ORCID_LIDO_SEM_ESTE_DOI",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "Santé et Agroécologie du Vignoble",
+       "PAIS": "FR",
+       "ROR": "https://ror.org/00vfxg105"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": false
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5048718662",
+     "NOME": "P.A. Bianco",
+     "ORCID_NO_INDICE": "0000-0002-9541-1923",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5079753268",
+     "NOME": "Gabriella De Lorenzis",
+     "ORCID_NO_INDICE": "0000-0001-8943-1218",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    },
+    {
+     "OPENALEX_ID": "https://openalex.org/A5082894183",
+     "NOME": "Silvia Laura Toffolatti",
+     "ORCID_NO_INDICE": "0000-0003-3572-8686",
+     "PROVA_DA_PESSOA": "SO_INDICE",
+     "INSTITUICOES_NESTA_OBRA": [
+      {
+       "NOME": "University of Milan",
+       "PAIS": "IT",
+       "ROR": "https://ror.org/00wjc7c48"
+      }
+     ],
+     "AFILIACAO_ITALIANA_NESTA_OBRA": true
+    }
+   ],
+   "CULTURA": [
+    {
+     "VALOR": "vite",
+     "TERMO": "grapevine"
+    }
+   ],
+   "PROBLEMA": [
+    {
+     "VALOR": "peronospora",
+     "TERMO": "plasmopara viticola"
+    }
+   ],
+   "MOLECULA": "NAO SEI",
+   "MOLECULA_LEXICO": "so os 122 ativos do portfolio ADAMA Italia (referencia/adama)",
+   "LOCAL_DO_ESTUDO_ESCRITO": [
+    {
+     "VALOR": "Italia",
+     "PRECISAO": "PAIS",
+     "TERMO": "italy",
+     "ORIGEM": "ESCRITO"
+    }
+   ],
+   "PERIODO_DO_ESTUDO": "NAO SEI",
+   "CONSULTAS_QUE_O_TROUXERAM": [
+    "vite x peronospora"
+   ],
+   "NA_CONSULTA_E_NO_TEXTO": [
+    "vite x peronospora"
+   ]
+  }
+ ],
+ "PESSOAS": [
+  {
+   "OPENALEX_ID": "https://openalex.org/A5074372166",
+   "NOME": "Abdelhameed Moussa",
+   "ORCID": "0000-0002-3069-3325",
+   "INSTITUICOES_ITALIANAS": [
+    "Free University of Bozen-Bolzano",
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1007/s42161-023-01474-2"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5055036637",
+   "NOME": "Alberto Alma",
+   "ORCID": "0000-0003-4829-4178",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2020.105306"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x diabrotica"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5014647287",
+   "NOME": "Alberto Materazzi",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Pisa"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2022.106114"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5015786815",
+   "NOME": "Alessandra Panattoni",
+   "ORCID": "0000-0001-6772-2241",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Pisa"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2022.106114"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5082742429",
+   "NOME": "Alessandro Cestaro",
+   "ORCID": "0000-0003-1439-5165",
+   "INSTITUICOES_ITALIANAS": [
+    "Fondazione Edmund Mach"
+   ],
+   "DOIS": [
+    "10.1051/bioconf/20224404002",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5007345972",
+   "NOME": "Alessandro Passera",
+   "ORCID": "0000-0001-6928-453X",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.3390/agriculture15181988"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5074989671",
+   "NOME": "Alessandro Passera",
+   "ORCID": "0000-0003-1995-0666",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1111/ppa.13257",
+    "10.3389/fmicb.2019.01409",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite",
+    "vite x botrite",
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5020717871",
+   "NOME": "Alex Costa",
+   "ORCID": "0000-0002-2628-1176",
+   "INSTITUICOES_ITALIANAS": [
+    "Institute of Biosciences and Bioresources"
+   ],
+   "DOIS": [
+    "10.1051/bioconf/20224404002"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5009023828",
+   "NOME": "Amedeo Reyneri",
+   "ORCID": "0000-0002-4859-9572",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2020.105306",
+    "10.3390/toxins14070422"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x diabrotica",
+    "mais x piralide"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5030551791",
+   "NOME": "Andrea Tapparo",
+   "ORCID": "0000-0001-8928-705X",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.1016/j.jafr.2026.103219"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5030669619",
+   "NOME": "Antonio Logrieco",
+   "ORCID": "0000-0002-8606-451X",
+   "INSTITUICOES_ITALIANAS": [
+    "Institute of Sciences of Food Production"
+   ],
+   "DOIS": [
+    "10.14601/phytopathol_mediter-10619"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x botrite"
+   ],
+   "PROVAS": [
+    "ORCID_LIDO_SEM_ESTE_DOI"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5016745830",
+   "NOME": "C. Jucker",
+   "ORCID": "0000-0001-5052-3705",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2020.105306"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x diabrotica"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5046809875",
+   "NOME": "Camilla Barbieri",
+   "ORCID": "0009-0007-1920-060X",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.3390/agriculture15181988",
+    "10.3390/pathogens15080850"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5062539744",
+   "NOME": "Carlo Duso",
+   "ORCID": "0000-0002-2600-2536",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.1111/eea.13543",
+    "10.3390/insects14020101"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5024191546",
+   "NOME": "Carmine Marcone",
+   "ORCID": "0000-0002-1847-5296",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Salerno"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2022.106114"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5076226828",
+   "NOME": "Chiara Ferracini",
+   "ORCID": "0000-0002-2135-1147",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2020.105306"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x diabrotica"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5075238177",
+   "NOME": "Demetrio Marcianò",
+   "ORCID": "0000-0003-4781-9593",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1111/ppa.13257"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite",
+    "vite x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5002704035",
+   "NOME": "Domenico Salerno",
+   "ORCID": "0000-0001-8160-8349",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milano-Bicocca"
+   ],
+   "DOIS": [
+    "10.3389/fmicb.2019.01409"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5062342420",
+   "NOME": "Elena Belgeri",
+   "ORCID": "0000-0003-1391-957X",
+   "INSTITUICOES_ITALIANAS": [
+    "Istituto Sperimentale per la Frutticoltura"
+   ],
+   "DOIS": [
+    "10.5958/2249-4677.2023.00015.4"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5043390104",
+   "NOME": "Elisa Angelini",
+   "ORCID": "0000-0002-2638-6584",
+   "INSTITUICOES_ITALIANAS": [
+    "Istituto Sperimentale per la Frutticoltura"
+   ],
+   "DOIS": [
+    "10.5958/2249-4677.2023.00015.4"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5040432746",
+   "NOME": "Enea Guerrieri",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.1007/s42161-023-01474-2",
+    "10.3390/insects14020101",
+    "10.5958/2249-4677.2023.00015.4",
+    "10.5958/2249-4677.2025.00028.9"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5073066572",
+   "NOME": "Enrico Busato",
+   "ORCID": "0000-0002-8772-3871",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2020.105306"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x diabrotica"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5035745075",
+   "NOME": "F. Pavan",
+   "ORCID": "0000-0001-9111-2144",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Udine"
+   ],
+   "DOIS": [
+    "10.3390/insects14020101"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5057322051",
+   "NOME": "F. Quaglino",
+   "ORCID": "0000-0001-8866-0633",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1007/s42161-023-01474-2",
+    "10.1016/j.cropro.2022.106114",
+    "10.1111/ppa.13257",
+    "10.24425/jppr.2022.142129",
+    "10.3389/fmicb.2019.01409",
+    "10.3390/agriculture15181988",
+    "10.3390/biology12091216",
+    "10.3390/genes11030261",
+    "10.3390/pathogens15080850",
+    "10.5958/2249-4677.2025.00028.9"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite",
+    "vite x botrite",
+    "vite x peronospora",
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "ORCID_AUTODECLARADO",
+    "ORCID_LIDO_SEM_ESTE_DOI"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5063067830",
+   "NOME": "Flavio Serina",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "Consortium GARR"
+   ],
+   "DOIS": [
+    "10.3390/pathogens15080850"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5052134270",
+   "NOME": "Francesca Vanara",
+   "ORCID": "0000-0003-0563-462X",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.3390/toxins14070422"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x piralide"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5018255205",
+   "NOME": "Francesco Mantegazza",
+   "ORCID": "0000-0003-4257-2165",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milano-Bicocca"
+   ],
+   "DOIS": [
+    "10.3389/fmicb.2019.01409"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5009335974",
+   "NOME": "Francesco Sanna",
+   "ORCID": "0000-0003-1795-4102",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.5958/2249-4677.2025.00028.9"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5079753268",
+   "NOME": "Gabriella De Lorenzis",
+   "ORCID": "0000-0001-8943-1218",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1111/aab.12567",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5147282117",
+   "NOME": "Giacomo Ortis",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.1016/j.jafr.2026.103219"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5064129300",
+   "NOME": "Giacomo Ortis",
+   "ORCID": "0000-0003-2620-3714",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.1111/eea.13543"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5016093258",
+   "NOME": "Giacomo Santoiemma",
+   "ORCID": "0000-0002-3226-9253",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.1016/j.jafr.2026.103219"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5002106865",
+   "NOME": "Giacomo Zapparoli",
+   "ORCID": "0000-0002-8423-4298",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.14601/phytopathol_mediter-10619"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5050783349",
+   "NOME": "Giancarlo Perrone",
+   "ORCID": "0000-0002-3841-6066",
+   "INSTITUICOES_ITALIANAS": [
+    "Institute of Sciences of Food Production"
+   ],
+   "DOIS": [
+    "10.14601/phytopathol_mediter-10619"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5088634742",
+   "NOME": "Giovanna Battelli",
+   "ORCID": "0000-0002-0295-0048",
+   "INSTITUICOES_ITALIANAS": [
+    "Institute of Sciences of Food Production",
+    "National Research Council"
+   ],
+   "DOIS": [
+    "10.3389/fmicb.2019.01409"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5064679088",
+   "NOME": "Giovanni Cenedese",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.3390/insects14020101"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5032185996",
+   "NOME": "Giuliana Maddalena",
+   "ORCID": "0000-0003-0415-2581",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1111/aab.12567",
+    "10.1111/ppa.13257",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite",
+    "vite x botrite",
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5068524687",
+   "NOME": "Giulio Testa",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.3390/toxins14070422"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x piralide"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5020875852",
+   "NOME": "I.E. Rigamonti",
+   "ORCID": "0000-0002-3854-2599",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2020.105306",
+    "10.3390/biology12091216",
+    "10.3390/pathogens15080850"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x diabrotica",
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5116656901",
+   "NOME": "Letizia Portaccio",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Salento"
+   ],
+   "DOIS": [
+    "10.3390/agriculture15181988"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5065204578",
+   "NOME": "Lisa D’Ambrogio",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.3390/insects14020101"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5025884919",
+   "NOME": "Luca Rollè",
+   "ORCID": "0000-0002-6075-079X",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.3390/agriculture15181988"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5019173211",
+   "NOME": "Luisa Filippin",
+   "ORCID": "0000-0001-7690-9147",
+   "INSTITUICOES_ITALIANAS": [
+    "Istituto Sperimentale per la Frutticoltura"
+   ],
+   "DOIS": [
+    "10.5958/2249-4677.2023.00015.4"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5147300013",
+   "NOME": "Marco Roverso",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.1016/j.jafr.2026.103219"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5028518946",
+   "NOME": "Maria Alessandra Paissoni",
+   "ORCID": "0000-0003-2160-8632",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.3390/agriculture15181988"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5023335020",
+   "NOME": "Maria Cristina Bonza",
+   "ORCID": "0000-0001-7096-2967",
+   "INSTITUICOES_ITALIANAS": [
+    "Institute of Biosciences and Bioresources"
+   ],
+   "DOIS": [
+    "10.1051/bioconf/20224404002"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5071539969",
+   "NOME": "Maria Giovanna Maturo",
+   "ORCID": "0000-0001-8802-3220",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.3389/fmicb.2019.01409"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5073450679",
+   "NOME": "Maria Stella Cappello",
+   "ORCID": "0000-0002-8124-2348",
+   "INSTITUICOES_ITALIANAS": [
+    "Institute of Sciences of Food Production"
+   ],
+   "DOIS": [
+    "10.14601/phytopathol_mediter-10619"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5061094949",
+   "NOME": "Marika Pavasini",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.3390/insects14020101",
+    "10.5958/2249-4677.2023.00015.4"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5001130740",
+   "NOME": "Marilinda Lorenzini",
+   "ORCID": "0000-0001-7104-4076",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.14601/phytopathol_mediter-10619"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5008419362",
+   "NOME": "Martina Dal Cero",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.3390/insects14020101"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5029386125",
+   "NOME": "Marzia Signorotto",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "Istituto Sperimentale per la Frutticoltura"
+   ],
+   "DOIS": [
+    "10.5958/2249-4677.2023.00015.4"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5147280596",
+   "NOME": "Massimiliano Pasini",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "Ospedale Garibaldi"
+   ],
+   "DOIS": [
+    "10.1016/j.jafr.2026.103219"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5061913370",
+   "NOME": "Massimo Blandino",
+   "ORCID": "0000-0003-3719-2520",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2020.105306",
+    "10.3390/toxins14070422"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x diabrotica",
+    "mais x piralide"
+   ],
+   "PROVAS": [
+    "ORCID_AUTODECLARADO"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5050686627",
+   "NOME": "Massimo Delledonne",
+   "ORCID": "0000-0002-7100-4581",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.3389/fmicb.2019.01409"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5023019523",
+   "NOME": "Massimo Pindo",
+   "ORCID": "0000-0002-8516-9010",
+   "INSTITUICOES_ITALIANAS": [
+    "Fondazione Edmund Mach"
+   ],
+   "DOIS": [
+    "10.1051/bioconf/20224404002",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5041161322",
+   "NOME": "Matteo Alessandro Saladini",
+   "ORCID": "0000-0002-3420-5851",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2020.105306"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x diabrotica"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5078202592",
+   "NOME": "Matteo Brilli",
+   "ORCID": "0000-0001-9891-4617",
+   "INSTITUICOES_ITALIANAS": [
+    "Institute of Biosciences and Bioresources",
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1051/bioconf/20224404002",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5092010161",
+   "NOME": "Mattia Burati",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.5958/2249-4677.2023.00015.4"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5056990817",
+   "NOME": "Milena Brasca",
+   "ORCID": "0000-0002-8821-0787",
+   "INSTITUICOES_ITALIANAS": [
+    "Institute of Sciences of Food Production",
+    "National Research Council"
+   ],
+   "DOIS": [
+    "10.3389/fmicb.2019.01409"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5030829979",
+   "NOME": "Mirko Moser",
+   "ORCID": "0000-0002-1936-984X",
+   "INSTITUICOES_ITALIANAS": [
+    "Fondazione Edmund Mach"
+   ],
+   "DOIS": [
+    "10.1051/bioconf/20224404002",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5085210047",
+   "NOME": "Mirko Rasera",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.3390/insects14020101"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5019446548",
+   "NOME": "N. Mōri",
+   "ORCID": "0000-0003-2138-3787",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.5958/2249-4677.2025.00028.9"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5002982424",
+   "NOME": "Nicola Mori",
+   "ORCID": "0000-0002-5736-9584",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Verona"
+   ],
+   "DOIS": [
+    "10.1007/s42161-023-01474-2",
+    "10.1016/j.jafr.2026.103219",
+    "10.1111/eea.13543",
+    "10.3390/insects14020101",
+    "10.3390/pathogens15080850",
+    "10.5958/2249-4677.2023.00015.4"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "ORCID_AUTODECLARADO",
+    "ORCID_LIDO_SEM_ESTE_DOI"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5088256653",
+   "NOME": "O. Failla",
+   "ORCID": "0000-0002-4114-062X",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.3390/agriculture15181988",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x peronospora",
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5044838976",
+   "NOME": "P. Casati",
+   "ORCID": "0000-0001-6152-8712",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.3389/fmicb.2019.01409",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite",
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5048718662",
+   "NOME": "P.A. Bianco",
+   "ORCID": "0000-0002-9541-1923",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1111/aab.12567",
+    "10.3390/agriculture15181988",
+    "10.3390/biology12091216",
+    "10.3390/genes11030261",
+    "10.3390/pathogens15080850"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x peronospora",
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5009706244",
+   "NOME": "Paola Girgenti",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.3390/biology12091216"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5054933062",
+   "NOME": "Paolo Beccari",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "Ospedale Garibaldi"
+   ],
+   "DOIS": [
+    "10.1016/j.jafr.2026.103219"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5003756289",
+   "NOME": "Roberto Pierro",
+   "ORCID": "0000-0001-8305-9355",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Salerno"
+   ],
+   "DOIS": [
+    "10.1016/j.cropro.2022.106114"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5059491465",
+   "NOME": "Sara Torcoli",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "Consortium GARR"
+   ],
+   "DOIS": [
+    "10.3390/pathogens15080850"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5082894183",
+   "NOME": "Silvia Laura Toffolatti",
+   "ORCID": "0000-0003-3572-8686",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Milan"
+   ],
+   "DOIS": [
+    "10.1016/j.cub.2020.07.057",
+    "10.1101/2020.02.26.962936",
+    "10.1111/aab.12567",
+    "10.1111/ppa.13257",
+    "10.3389/fmicb.2019.01409",
+    "10.3390/genes11030261"
+   ],
+   "PARES_NO_TEXTO": [
+    "pomodoro x botrite",
+    "vite x botrite",
+    "vite x peronospora"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5065572356",
+   "NOME": "Silvia Pettenuzzo",
+   "ORCID": "0000-0003-2458-9457",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.1016/j.jafr.2026.103219"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5072956758",
+   "NOME": "Simone Giacosa",
+   "ORCID": "0000-0002-2019-7010",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.3390/agriculture15181988"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5062067842",
+   "NOME": "Stefan Cristian Prazaru",
+   "ORCID": "0000-0002-0458-8994",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Padua"
+   ],
+   "DOIS": [
+    "10.3390/insects14020101"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5079904373",
+   "NOME": "Valentina Scarpino",
+   "ORCID": "0000-0002-9994-9907",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.3390/toxins14070422"
+   ],
+   "PARES_NO_TEXTO": [
+    "mais x piralide"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5044834613",
+   "NOME": "Vally Forte",
+   "ORCID": "NAO SEI",
+   "INSTITUICOES_ITALIANAS": [
+    "Istituto Sperimentale per la Frutticoltura"
+   ],
+   "DOIS": [
+    "10.5958/2249-4677.2023.00015.4"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  },
+  {
+   "OPENALEX_ID": "https://openalex.org/A5013582438",
+   "NOME": "Vincenzo Gerbi",
+   "ORCID": "0000-0001-7748-120X",
+   "INSTITUICOES_ITALIANAS": [
+    "University of Turin"
+   ],
+   "DOIS": [
+    "10.3390/agriculture15181988"
+   ],
+   "PARES_NO_TEXTO": [
+    "vite x scafoideo"
+   ],
+   "PROVAS": [
+    "SO_INDICE"
+   ]
+  }
+ ]
+}

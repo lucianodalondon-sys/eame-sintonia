@@ -1,0 +1,158 @@
+{
+ "DATASET": "PROVA-D29-PORTA-CANONICA-OFFLINE",
+ "QUANDO": "2026-09-24T17:00Z",
+ "COPIA": "C:/regua-t2-base @ 475ea3be (worktree destacada; a arvore de trabalho da missao nao foi usada)",
+ "BANCO": "Postgres descartavel proprio (C:/Users/London1/regua-t2-prova/cluster-pai), 31 migracoes, DESLIGADO no fim (postmaster.pid ausente)",
+ "REDE": "NENHUMA: HTTP(S)_PROXY=127.0.0.1:9. A prova pela VPN IT ficou BLOQUEADA pelo portao de egresso: ipinfo.io respondeu 429 (limite de pedidos) de 16:55Z a 17:10Z — EGRESS_COUNTRY_CODE=UNKNOWN, e o portao bloqueia UNKNOWN (certo).",
+ "COMANDO": "orquestrador.py 'colete clima da italia' --so-a-porta --colheita-da-corrida=<corrida do ledger> --filtro pais=IT --filtro fonte=X --filtro universo=T2 (driver: scripts/regua_t2/prova_d29_porta.py --offline)",
+ "CORRIDAS": {
+  "OFFLINE:IT-T2-002": {
+   "SOURCE_ID": "IT-T2-002",
+   "COLHEITA_DA_CORRIDA": "IT-T2-2026-09-14-155903-f49139dc61b15b9c",
+   "PORQUE": "ARPAV Agrometeo Informa - esperado SIM",
+   "RC": 0,
+   "SEGUNDOS": 11.6,
+   "FIM": "09-24-170013-fd9d16db5e2fd3c2\n  persistencia: DESCARTAVEL (127.0.0.1:59916/descartavel)\n  executor coleta/italy_executor.py @ 27411924\n  de 2026-09-24T17:00:13Z a 2026-09-24T17:00:13Z\n  colheita encontrada: 4 item(ns)\n  NAO ENCONTREI O QUE ELE LARGOU: colheita reprocessada da corrida «IT-T2-2026-09-14-155903-f49139dc61b15b9c» pela corrida «IT-T2-2026-09-24-170013-fd9d16db5e2fd3c2»\n  pela porta de admissao: NAO_SEI 4\n"
+  },
+  "OFFLINE:IT-T3-002": {
+   "SOURCE_ID": "IT-T3-002",
+   "COLHEITA_DA_CORRIDA": "XX-T3-2026-09-18-171909-b66be5e4276b76f7",
+   "PORQUE": "Campania servico fitossanitario - esperado SIM",
+   "RC": 1,
+   "SEGUNDOS": 0.6,
+   "FIM": "r\n    f = ficha(item, corrida=corrida, raiz=raiz)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\regua-t2-base\\coleta\\ingresso.py\", line 829, in ficha\n    return art.Artefato(\n           ^^^^^^^^^^^^^\nTypeError: artefato.Artefato() got multiple values for keyword argument 'CONTENT_TYPE'\n"
+  },
+  "OFFLINE:IT-T3-008": {
+   "SOURCE_ID": "IT-T3-008",
+   "COLHEITA_DA_CORRIDA": "XX-T3-2026-09-18-171937-6f76511ca75100a5",
+   "PORQUE": "ARIF notiziario agrometeorologico - esperado SIM",
+   "RC": 1,
+   "SEGUNDOS": 0.6,
+   "FIM": "r\n    f = ficha(item, corrida=corrida, raiz=raiz)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\regua-t2-base\\coleta\\ingresso.py\", line 829, in ficha\n    return art.Artefato(\n           ^^^^^^^^^^^^^\nTypeError: artefato.Artefato() got multiple values for keyword argument 'CONTENT_TYPE'\n"
+  },
+  "OFFLINE:IT-T3-010": {
+   "SOURCE_ID": "IT-T3-010",
+   "COLHEITA_DA_CORRIDA": "IT-T3-2026-09-14-160206-d157d76ef0904580",
+   "PORQUE": "APOL mosca da oliveira - esperado SIM",
+   "RC": 0,
+   "SEGUNDOS": 3.3,
+   "FIM": "09-24-170026-c56ede95461f4955\n  persistencia: DESCARTAVEL (127.0.0.1:59916/descartavel)\n  executor coleta/italy_executor.py @ 27411924\n  de 2026-09-24T17:00:26Z a 2026-09-24T17:00:26Z\n  colheita encontrada: 1 item(ns)\n  NAO ENCONTREI O QUE ELE LARGOU: colheita reprocessada da corrida «IT-T3-2026-09-14-160206-d157d76ef0904580» pela corrida «IT-T2-2026-09-24-170026-c56ede95461f4955»\n  pela porta de admissao: NAO_SEI 1\n"
+  },
+  "OFFLINE:IT-T2-004": {
+   "SOURCE_ID": "IT-T2-004",
+   "COLHEITA_DA_CORRIDA": "PILOT_RUN_20260907153737_4c34b3",
+   "PORQUE": "SIAS tabela de chuva - controlo, esperado NAO_SEI",
+   "RC": 0,
+   "SEGUNDOS": 28.3,
+   "FIM": "cutor.py @ 27411924\n  de 2026-09-24T17:00:30Z a 2026-09-24T17:00:30Z\n  colheita encontrada: 10 item(ns)\n  NAO ENCONTREI O QUE ELE LARGOU: colheita reprocessada da corrida «PILOT_RUN_20260907153737_4c34b3» pela corrida «IT-T2-2026-09-24-170030-89faeadfe9037496»\n  pela porta de admissao: NAO_SEI 1 · SIM 8\n  prontos para a inteligencia: 8 -> postgres:public.sala_de_espera?run_id=IT-T2-2026-09-24-170030-89faeadfe9037496\n"
+  },
+  "OFFLINE:IT-T10-018": {
+   "SOURCE_ID": "IT-T10-018",
+   "COLHEITA_DA_CORRIDA": "IT-T10-2026-09-21-190312-183419e87ae3961c",
+   "PORQUE": "myfruit noticias de mercado - controlo, esperado nao SIM",
+   "RC": 0,
+   "SEGUNDOS": 4.6,
+   "FIM": "9-24-170058-ca92482c5f7a3d89\n  persistencia: DESCARTAVEL (127.0.0.1:59916/descartavel)\n  executor coleta/italy_executor.py @ 27411924\n  de 2026-09-24T17:00:58Z a 2026-09-24T17:00:59Z\n  colheita encontrada: 1 item(ns)\n  NAO ENCONTREI O QUE ELE LARGOU: colheita reprocessada da corrida «IT-T10-2026-09-21-190312-183419e87ae3961c» pela corrida «IT-T2-2026-09-24-170058-ca92482c5f7a3d89»\n  pela porta de admissao: NAO_SEI 1\n"
+  }
+ },
+ "CONTAGENS_NO_BANCO": {
+  "RAW": "16",
+  "DERIVED": "9",
+  "ESTRUTURADO": "9",
+  "SALA": "8"
+ },
+ "DECISOES_DA_ADMISSAO": {
+  "legivel:NAO_SEI": 6,
+  "pertence ao universo:SIM": 8,
+  "materia:NAO_SEI": 1
+ },
+ "SALA": [
+  {
+   "ITEM_ID": "derived:1",
+   "SOURCE_ID": "IT-T2-002",
+   "UNIVERSO": "T2",
+   "ESTAGIO": "DOCUMENTO",
+   "SOURCE_LOCATION": "NAO SEI",
+   "FACT_LOCATION": "NAO SEI",
+   "FACT_TIME": "NAO SEI",
+   "TEXTO_140": "Agrometeo… Informa Zona 24 Alto Polesine N° 54 02/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale Torna ad espandersi un pro"
+  },
+  {
+   "ITEM_ID": "derived:2",
+   "SOURCE_ID": "IT-T2-002",
+   "UNIVERSO": "T2",
+   "ESTAGIO": "DOCUMENTO",
+   "SOURCE_LOCATION": "NAO SEI",
+   "FACT_LOCATION": "NAO SEI",
+   "FACT_TIME": "NAO SEI",
+   "TEXTO_140": "Agrometeo… Informa Zona 9 Medio Polesine N° 54 02/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale Torna ad espandersi un pro"
+  },
+  {
+   "ITEM_ID": "derived:3",
+   "SOURCE_ID": "IT-T2-002",
+   "UNIVERSO": "T2",
+   "ESTAGIO": "DOCUMENTO",
+   "SOURCE_LOCATION": "NAO SEI",
+   "FACT_LOCATION": "NAO SEI",
+   "FACT_TIME": "NAO SEI",
+   "TEXTO_140": "Agrometeo… Informa Zona 16 Val d'Illasi Alpone N° 54 03/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale L'estensione dell'An"
+  },
+  {
+   "ITEM_ID": "derived:4",
+   "SOURCE_ID": "IT-T2-002",
+   "UNIVERSO": "T2",
+   "ESTAGIO": "DOCUMENTO",
+   "SOURCE_LOCATION": "NAO SEI",
+   "FACT_LOCATION": "NAO SEI",
+   "FACT_TIME": "NAO SEI",
+   "TEXTO_140": "Agrometeo… Informa Zona 1 Vittorio Veneto-Conegliano N° 54 03/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale L'estensione d"
+  },
+  {
+   "ITEM_ID": "derived:6",
+   "SOURCE_ID": "IT-T3-002",
+   "UNIVERSO": "T2",
+   "ESTAGIO": "DOCUMENTO",
+   "SOURCE_LOCATION": "NAO SEI",
+   "FACT_LOCATION": "NAO SEI",
+   "FACT_TIME": "NAO SEI",
+   "TEXTO_140": "GIUNTA REGIONALE DELLA CAMPANIA DIREZIONE GENERALE E POLITICHE AGRICOLE, ALIMENTARI E FORESTALI UOS2070303- DIFESA DELLE COLTURE, SERVIZIO F"
+  },
+  {
+   "ITEM_ID": "derived:7",
+   "SOURCE_ID": "IT-T3-005",
+   "UNIVERSO": "T2",
+   "ESTAGIO": "DOCUMENTO",
+   "SOURCE_LOCATION": "NAO SEI",
+   "FACT_LOCATION": "NAO SEI",
+   "FACT_TIME": "NAO SEI",
+   "TEXTO_140": "--> Monitoraggio mosca dell'olivo toscana --> Navigazione Veloce --> --> Chiudi Navigazione Home Negozio Online Contatti News Area Riservata"
+  },
+  {
+   "ITEM_ID": "derived:8",
+   "SOURCE_ID": "IT-T3-008",
+   "UNIVERSO": "T2",
+   "ESTAGIO": "DOCUMENTO",
+   "SOURCE_LOCATION": "NAO SEI",
+   "FACT_LOCATION": "NAO SEI",
+   "FACT_TIME": "NAO SEI",
+   "TEXTO_140": "Settimanale N. 36 Anno XL 02 - 08 settembre 2026 Agenzia regionale per le attività irrigue e forestali Situazione Attuale Il quadro sinottic"
+  },
+  {
+   "ITEM_ID": "derived:9",
+   "SOURCE_ID": "IT-T3-010",
+   "UNIVERSO": "T2",
+   "ESTAGIO": "DOCUMENTO",
+   "SOURCE_LOCATION": "NAO SEI",
+   "FACT_LOCATION": "NAO SEI",
+   "FACT_TIME": "NAO SEI",
+   "TEXTO_140": "INGROSSAMENTO FRUTTI 7 9 MOSCA DELLE OLIVE 07/09/2026 - 13/09/2026 COMPRENSORIO - BR - COLLINA LITORANEA BRINDISI CAROVIGNO CEGLIE MESSAPICA"
+  }
+ ],
+ "LEITURA": [
+  "8 SIM na Sala, todos boletins de janela (ARPAV x4, Campania SFR, Terre dell'Etruria mosca, ARIF, APOL) — vieram da corrida PILOT_RUN_20260907153737_4c34b3, que tem 10 observacoes de VARIAS fontes: o --filtro fonte=IT-T2-004 NAO recorta uma colheita reprocessada.",
+  "FACT_TIME/FACT_LOCATION/SOURCE_LOCATION chegam a Sala como NAO SEI: a porta nao inventou tempo nem lugar (D29: a janela e da Intelligence).",
+  "6 NAO_SEI por 'legivel': itens sem bytes nesta copia (ARPAV 14/09 x4, APOL 14/09, myfruit 21/09) — sem texto nao se julga.",
+  "1 NAO_SEI por 'materia' (quarentena do detector de capa).",
+  "DEFEITO PRE-EXISTENTE (nao da regua): as corridas XX-T3-2026-09-18-171909 (Campania) e XX-T3-2026-09-18-171937 (ARIF) rebentam no ingresso: coleta/ingresso.py:829 ficha() -> TypeError: Artefato() got multiple values for keyword argument 'CONTENT_TYPE'. Os mesmos boletins entraram pela corrida PILOT."
+ ]
+}

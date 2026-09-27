@@ -1,0 +1,42 @@
+{
+ "https://pub.orcid.org/robots.txt": {
+  "TEXTO": "User-agent: *\nDisallow: /v3.0/*/email\n"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0001/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/persone/rossi\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/lab/rossi\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://www.linkedin.com/in/mario-rossi-123/\"}}]}"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0002/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url-name\": \"x\", \"url\": {\"value\": \"https://bsky.app/profile/bianchi.bsky.social\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://newsletter.bianchi-lab.it/\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://www.bloqueado.it/bianchi\"}}]}"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0003/researcher-urls": {
+  "HTTP": 404,
+  "TEXTO": ""
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0006/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/persone/blu\"}}, {\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/lab/blu\"}}]}"
+ },
+ "https://pub.orcid.org/v3.0/0000-0000-0000-0007/researcher-urls": {
+  "TEXTO": "{\"researcher-url\": [{\"url-name\": \"x\", \"url\": {\"value\": \"https://www.agraria.uni-exemplo.it/persone/rosa\"}}]}"
+ },
+ "https://www.agraria.uni-exemplo.it/robots.txt": {
+  "TEXTO": "User-agent: *\nAllow: /\n"
+ },
+ "https://www.agraria.uni-exemplo.it/persone/rossi": {
+  "FICHEIRO": "pagina-rossi.html"
+ },
+ "https://www.agraria.uni-exemplo.it/lab/rossi": {
+  "TEXTO": "<a href='https://www.youtube.com/@labrossi'>YouTube</a><a href='mailto:mario@x.it'>mail</a>"
+ },
+ "https://www.agraria.uni-exemplo.it/persone/blu": {
+  "TEXTO": "<a href='https://x.com/carlablu'>X</a>"
+ },
+ "https://www.agraria.uni-exemplo.it/lab/blu": {
+  "TEXTO": "<a href='https://www.youtube.com/channel/UCabcdefghijklmnopqrstuv'>canal</a>"
+ },
+ "https://www.agraria.uni-exemplo.it/persone/rosa": {
+  "TEXTO": "<a href='https://fediscience.org/@rosa'>Mastodon</a>"
+ },
+ "https://www.bloqueado.it/robots.txt": {
+  "TEXTO": "User-agent: *\nDisallow: /\n"
+ }
+}

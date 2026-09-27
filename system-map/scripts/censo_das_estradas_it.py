@@ -84,11 +84,26 @@ def apify():
 
 
 def git_como_banco():
-    """Onde o Git ainda guarda estado operacional. Historico nao se apaga."""
+    """Onde o Git ainda guarda estado operacional. Historico nao se apaga.
+
+    ⚠️ `os.listdir` DEVOLVE PASTAS TAMBEM, E ESTA NAO AS FILTRAVA.
+    O ledger italiano tem `logs/` la dentro, e `open()` sobre uma pasta rebenta
+    — `IsADirectoryError` em Linux, `PermissionError` em Windows. A CADEIA
+    INTEIRA do System Map parava no sexto passo, e o mapa ficava por regerar.
+
+        UM CENSO DE FICHEIROS QUE TROPECA NUMA PASTA
+        NAO MEDE MENOS: NAO MEDE NADA.
+
+    Contar as linhas de `logs/` tambem nao era o que se queria: o censo procura
+    LEDGERS — ficheiros de estado operacional guardados no Git — e uma pasta de
+    logs e outra coisa.
+    """
     achados = []
     if os.path.isdir(LEDGER_GIT):
         for n in sorted(os.listdir(LEDGER_GIT)):
             caminho = os.path.join(LEDGER_GIT, n)
+            if not os.path.isfile(caminho):
+                continue
             with open(caminho, encoding='utf-8', errors='ignore') as f:
                 linhas = sum(1 for _ in f)
             achados.append({'FICHEIRO': os.path.relpath(caminho, RAIZ).replace('\\', '/'),

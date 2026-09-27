@@ -28,7 +28,7 @@ Aqui corre a estrada:
 
 OS NOVE CASOS
 -------------
-    F1  a cadeia canonica aplica-se num Postgres real, ate a 024
+    F1  a cadeia canonica aplica-se num Postgres real, ate a 026
     F2  a corrida e REAL: o `run_id` referencia `collection_run`, e o banco
         recusa um `run_id` que nao exista — a chave estrangeira nao se contorna
     F3  o `raw_asset_id` e REAL, lido do banco, e a linhagem fecha no filho
@@ -77,9 +77,48 @@ from guarda import preservar_derivado as pd    # noqa: E402
 
 # A 008 e CONFERENCIA, nao criacao. A lista e a mesma de
 # `provas/rastro_no_postgres.py` — duas listas divergiriam.
-MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
-              '011', '012', '013', '014', '015', '016', '017', '018', '019',
-              '020', '021', '022', '023', '024']
+# ── A LISTA A MAO ENVELHECEU DUAS VEZES ─────────────────────────────────
+# Ela ja tinha envelhecido uma vez: faltava a `025`, o `raw_asset` nao tinha a
+# trava dela, e a prova morria com «relation does not exist». O conserto de
+# entao foi acrescentar `'025', '026'` a mao — e o comentario que ficou ao lado
+# dizia, em letra bem grande, que UMA LISTA A MAO ENVELHECE CALADA.
+#
+# Envelheceu outra vez. Chegaram a `027`, a `028`, a `029` e a `030`, e o mesmo
+# erro voltou com outro nome de tabela: `participacao_na_derivacao`, que a
+# `029` cria e esta prova escreve.
+#
+#     REMENDAR UMA LISTA QUE JA ENVELHECEU UMA VEZ
+#     E MARCAR ENCONTRO COM O MESMO DEFEITO.
+#
+# A casa ja tinha aprendido isto: `provas/a_rota_m2_atravessa.py` sofreu o
+# mesmo defeito, foi curado da mesma maneira, e ficou com uma guarda em
+# `tests/test_a_prova_e2e_segue_a_producao.py`. A cura estava escrita — esta
+# prova e que tinha ficado de fora dela. Por isso o que se usa aqui e o MESMO
+# nome e a MESMA forma, e nao uma segunda maneira de dizer a mesma coisa:
+#
+#     DUAS CURAS COM NOMES DIFERENTES PARA O MESMO DEFEITO
+#     SAO DUAS COISAS PARA ALGUEM ESQUECER DE PROCURAR.
+#
+# A `008` fica de fora por ser outra especie: nao constroi esquema nenhum, e a
+# VERIFICACAO POS-APLICACAO que confere o que as outras construiram. Corre-la
+# no meio seria pedir-lhe contas de tabelas que ainda nao nasceram.
+_SO_VERIFICA = ("008",)
+
+
+def _cadeia_de_migrations():
+    pasta = os.path.join(RAIZ, "supabase", "migrations")
+    fora = []
+    for f in sorted(os.listdir(pasta)):
+        if not f.endswith(".sql"):
+            continue
+        n = f.split("_", 1)[0]
+        if n in _SO_VERIFICA:
+            continue
+        fora.append(n)
+    return fora
+
+
+MIGRATIONS = _cadeia_de_migrations()
 
 MODELO_DAS_ESTRADAS = os.path.join(RAIZ, "system-map", "data",
                                    "estradas-it.model.json")
@@ -151,14 +190,32 @@ def source_id_do_caminho(caminho):
 # ═════════════════════════════════════════════════════════════════════════
 # O ARRANJO — a corrida e o bruto, escritos pelos donos canonicos
 # ═════════════════════════════════════════════════════════════════════════
+def limpar_derivados(sql):
+    """O RESET DA BANCADA — e nao uma operacao do sistema.
+
+    Era uma linha solta, repetida em tres sitios: `delete from
+    derived_artifact`. A `029` deu um FILHO ao derivado
+    (`participacao_na_derivacao`), e a partir dai essa linha passou a bater
+    numa chave estrangeira nos tres sitios ao mesmo tempo.
+
+        TRES COPIAS DE UMA REGRA SAO TRES SITIOS PARA ESQUECER A MESMA COISA.
+
+    Agora e uma funcao. A proxima tabela que pendurar do derivado acrescenta-se
+    AQUI, uma vez, e os tres sitios ficam certos juntos. A ordem e a da
+    dependencia: primeiro quem aponta, depois quem e apontado.
+    """
+    sql.executa("delete from public.participacao_na_derivacao")
+    sql.executa("delete from public.derived_artifact")
+
+
 def aplicar_migrations(url):
     pasta = os.path.join(RAIZ, "supabase", "migrations")
     for n in MIGRATIONS:
         achados = [f for f in sorted(os.listdir(pasta)) if f.startswith(n + "_")]
         if not achados:
             raise SystemExit("migration %s nao encontrada" % n)
-        r = subprocess.run(["psql", url, "-v", "ON_ERROR_STOP=1", "-q", "-f",
-                            os.path.join(pasta, achados[0])],
+        r = subprocess.run(["psql", "-v", "ON_ERROR_STOP=1", "-q", "-f",
+                            os.path.join(pasta, achados[0]), url],
                            capture_output=True, text=True)
         if r.returncode != 0:
             print("FALHOU a aplicar %s" % achados[0])
@@ -192,6 +249,10 @@ def preservar_um_bruto(banco, run_id, caminho, nativo, source_id):
                "MISSION": "O9R forward", "STARTED_AT": "2026-09-08T00:00:00Z",
                "RULE_VERSION": "1", "CAPTURE_METHOD": "HTTP_GET"}
     artefato = {"COUNTRY": "IT", "SOURCE_SLUG": source_id or "NAO_SEI",
+                # 026: sem fonte real o dono do RAW recusa — e e assim que
+                # tem de ser. Esta prova declara a fonte que mediu.
+                "SOURCE_ID": source_id or "NAO_SEI",
+                "DOCUMENT_ID": "O9R:DOC:%s" % nativo,
                 "ARTIFACT_KIND": "DOCUMENT",
                 "NAME": os.path.basename(caminho), "SOURCE_NATIVE_ID": nativo,
                 "SHA256": sha256(dados), "BYTES": len(dados),
@@ -215,7 +276,8 @@ def main():
             "RECUSADO: '%s' nao parece um banco descartavel local. "
             "Esta prova nunca corre contra producao." % url)
 
-    print("MIGRATIONS — a cadeia canonica, ate a 024")
+    print("MIGRATIONS — a cadeia canonica inteira, lida da pasta: %s..%s"
+          % (MIGRATIONS[0], MIGRATIONS[-1]))
     quantas = aplicar_migrations(url)
     caso("F1_a_cadeia_aplica_num_postgres_real", quantas == len(MIGRATIONS),
          "%d migrations aplicadas em PostgreSQL 16" % quantas)
@@ -234,7 +296,7 @@ def main():
     # descartavel comeca do zero; um reutilizado nao pode fazer um caso passar
     # por causa do estado alheio.
     sql.executa("delete from public.etapa_da_corrida where run_id like 'RUN-O9R%'")
-    sql.executa("delete from public.derived_artifact")
+    limpar_derivados(sql)
     sql.executa("delete from public.raw_asset where run_id like 'RUN-O9R%'")
     sql.executa("delete from public.collection_run where run_id like 'RUN-O9R%'")
 
@@ -367,7 +429,8 @@ def main():
          (mordida[0]["PORQUE"] if mordida else "a lei NAO mordeu")[:96])
     caso("F6f_o_buraco_a_jusante_esta_declarado_e_nao_calado",
          {"STRUCTURED_SEM_DONO_LIGADO", "ADMISSION_SEM_DONO_LIGADO",
-          "READY_NAO_TEM_DONO"} <= set(recibo["GAPS"]),
+          "READY_NAO_TEM_DONO", "TELEMETRY_FAILURE_SEM_POLITICA"}
+         <= set(recibo["GAPS"]),
          "GAPS: %s" % ", ".join(recibo["GAPS"]))
 
     # ── F8 · A TELEMETRIA NAO MUDA O QUE E PRODUZIDO ─────────────────────
@@ -379,7 +442,7 @@ def main():
     # reset da bancada, nao uma operacao do sistema. Sem o reset a segunda
     # corrida daria REUSED, e REUSED nao compara producao com producao.
     print("\nINVARIANCIA — a mesma unidade, com e sem telemetria")
-    sql.executa("delete from public.derived_artifact")
+    limpar_derivados(sql)
     arm_a = ArmazemDeMentira()
     fwd.correr([{"RAW_ASSET_ID": raw_id, "PDF": pdfs[0]}],
                banco_do_rastro=None, run_id=RUN, armazem=arm_a, memoria=banco,
@@ -463,7 +526,7 @@ def main():
         "insert into public.collection_run (run_id, platform, source_country,"
         " started_at, status, rule_version)"
         " values ('%s','local','IT',now(),'rodando','1')" % RUN_T)
-    sql.executa("delete from public.derived_artifact")
+    limpar_derivados(sql)
 
     class BancoQueMorre:
         """O rastro parte. A coleta nao tem de partir com ele."""
@@ -499,6 +562,10 @@ def main():
          "OBSERVABILITY FAILURE != COLLECTION FAILURE")
 
     # ⚠️ O QUE ISTO **NAO** FECHA, E FICA DECLARADO.
+    # O texto abaixo EXPLICA o buraco; quem o DECLARA e `derivacao_forward.GAPS`,
+    # e o caso F-GAPS acima exige que ele continue la. Ate 2026-09-09 este era
+    # o unico sitio onde ele existia, e um `print` nao e uma declaracao: nenhum
+    # teste o guardava, nenhum censo o via, e ele podia sumir em silencio.
     #
     # ⚠️ UM BURACO QUE SO EXISTE NUM `print` NAO EXISTE PARA NINGUEM.
     # Ele estava so aqui em baixo, em texto impresso, e por isso o mapa nao

@@ -91,6 +91,27 @@ IGNORAR = re.compile(
     # a encontrar.
     r"^system-map/data/[\w-]+\.generated\.json$|"
     r"^italia-portale/client/system-map/|"
+    # E os TRES DOCUMENTOS que o gerador tambem escreve. Escaparam a regra de
+    # cima por nao se chamarem `.generated.json`, e um deles custou o mesmo
+    # defeito outra vez: `CENSO-DAS-LIGACOES-DA-COLLECTION.md` carimba o
+    # `HEAD_DA_MEDICAO` no proprio texto. O mapa gravava o SHA desse ficheiro,
+    # o commit mudava o HEAD, a regeneracao seguinte reescrevia o carimbo, o
+    # SHA mudava — e o portao acusava drift de uma mudanca que era ele proprio
+    # a fazer. Localmente nao aparecia (o HEAD nao se mexe entre duas corridas);
+    # no CI aparecia sempre, porque la o checkout ja e o commit novo.
+    #
+    #     O MAPA NAO MEDE O QUE O MAPA ESCREVE.
+    #
+    # Os outros dois nao carimbam HEAD e por isso nao driftavam — mas sao saida
+    # do mesmo gerador, e deixar um dentro e dois fora era guardar a mesma
+    # armadilha para a proxima vez que alguem lhes acrescentar uma data.
+    #
+    # Os tres destinos estao no gerador desta arvore, nomeados: linha 3984
+    # (`CENSO-DAS-LIGACOES-DA-COLLECTION.md`), 4110 (`INDICE-DE-FONTES.md`) e
+    # 4530 (`LEIA-ANTES-DE-COLETAR.md`). Nao sao suposicao: sao `write_text`.
+    r"^docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION\.md$|"
+    r"^docs/fontes/INDICE-DE-FONTES\.md$|"
+    r"^regras/LEIA-ANTES-DE-COLETAR\.md$|"
     r"(^|/)(vendor|node_modules|__pycache__|\.venv)/|"
     r"\.(png|jpg|jpeg|gif|pdf|otf|ttf|woff2?|gz|zip|ase)$"
 )
@@ -172,9 +193,22 @@ def ler(caminho: str) -> list[str]:
         return []
 
 
+# A DSN NAO VIAJA NO TRECHO DE PROVA. O trecho e copiado tal como esta para o
+# artefato publicado (architecture → state → o cliente do portal), e a lei do
+# mapa e «nenhuma credencial no estado» (tests/test_observabilidade_estrada.py
+# T21 · `postgresql://\S+`). A linha 5a-IT do sintonia-scrap.yml TEM de trazer a
+# DSN literal da bancada descartavel — e a isencao de linha fisica que a porta
+# de producao exige (know-how §131) — e o scanner copiava-a para o estado.
+# Duas leis certas a colidir num trecho de 160 caracteres: resolve-se aqui,
+# porque e o scanner quem publica. A aresta continua provada pela mesma linha;
+# so a morada do banco deixa de ser reproduzida.
+_DSN_NO_TRECHO = re.compile(r"postgres(?:ql)?://[^\s'\"]+")
+
+
 def prova(caminho: str, n: int, linha: str) -> dict:
     """Toda aresta carrega uma destas. Sem isto, a aresta nao existe."""
-    return {"file": caminho, "line": n, "snippet": linha.strip()[:160]}
+    trecho = _DSN_NO_TRECHO.sub("<DSN-REDIGIDA>", linha.strip())
+    return {"file": caminho, "line": n, "snippet": trecho[:160]}
 
 
 # ─────────────────────────────────────────────────────────────────────────────

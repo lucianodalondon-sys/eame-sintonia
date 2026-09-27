@@ -1,0 +1,177 @@
+{
+ "DATASET": "LEGACY-99-V4-MUTACAO",
+ "MORTOS": 32,
+ "TOTAL": 32,
+ "TESTES": [
+  "tests.test_legacy_colchetes",
+  "tests.test_importar_do_coletor",
+  "tests.test_legacy_recheck",
+  "tests.test_onboardar_rotas_provadas",
+  "tests.test_youtube_pelo_scrap",
+  "tests.test_rota_video_d53",
+  "tests.test_d36_envelope_equivalente",
+  "curadoria.test_regua_social"
+ ],
+ "MUTANTES": [
+  {
+   "MUTANTE": "D1 o link malformado volta a passar",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "A1 o canario 'prova' qualquer estrategia (PDF entra)",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "A2 o YouTube deixa de ser reconhecido",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "A3 a importacao ja nao recusa o canal YouTube",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "A4 importa sem identidade",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "A5 o contrato importado pode diferir da linha",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "A6 quem ja tem contrato HTML no Curator e reimportado",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C1 entram fontes que nao sao READY_LEGACY",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C2 entram contratos que o canario nao prova",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C3 duas do mesmo dominio no lote",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C4 lote sem maximo",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C5 sem intervalo entre lotes",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C6 o loop remede por omissao",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C7 o servico nao liga o re-check",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C8 o gancho nao e chamado",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C9 a ordem deixa de ser a mais antiga primeiro",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "C10 remede mesmo sem candidatas",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "B1 grava mesmo quando o bloco 4 salta",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "B2 grava no livro tambem as fontes nao pedidas",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "B3 grava na tabela tambem as linhas nao pedidas",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "B4 aceita fontes fora do plano",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "B5 nao manda ao remedir",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "B6 o canal com contrato fica parado em vez de ir pelo Scrap",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "B7 sem ledger",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "V1 a D53 nao se aplica ao canal-youtube",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "V2 a pagina do video nao e conferida",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "V3 qualquer host serve de pagina do video",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "V4 id de video de qualquer forma",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "V5 'Private video' conta como titulo",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "V6 UNKNOWN deixa de ser ausencia",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "V7 o canal nao e conferido",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  },
+  {
+   "MUTANTE": "V8 o titulo nao e conferido",
+   "RESULTADO": "MORTO",
+   "ESCREVEU_LIVRO": []
+  }
+ ]
+}
