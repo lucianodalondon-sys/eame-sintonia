@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  4a0b77a4d0fdfee1398af4e022bca8a085b92e48
+HEAD_DA_MEDICAO  38ab3cdcdf0e5773dd05e9671ace06bdbe64e468
 BRANCH           claude/int-r7-caps-motor-5rwp2n
-GERADO_EM        2026-09-27T18:39:44+00:00
+GERADO_EM        2026-09-27T18:52:37+00:00
 CARDS            104
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
