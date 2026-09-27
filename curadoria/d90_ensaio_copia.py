@@ -88,6 +88,15 @@ def main():
                            capture_output=True, text=True, encoding="utf-8", errors="replace")
         sala_antes = psql("select md5(string_agg(t::text, '' order by run_id, ordem)) from sala_de_espera t")
         fora["PASSOS"]["1_RESTAURO"] = {"CODIGO": r.returncode, "ERRO": r.stderr[-300:], **contagens()}
+        man = json.loads((Path(a.pacotes) / "MANIFESTO.json").read_text(encoding="utf-8"))
+        pais = {}
+        for d in man["DOCUMENTOS"]:
+            if d["RAW"] == "PRESENTE" and d["LINHAS"]:
+                no_banco = psql("select sha256 from public.raw_asset where id = %d" % int(d["RAW_ID_PAI_PROPOSTO"]))
+                pais[str(d["RAW_ID_PAI_PROPOSTO"])] = no_banco == d["PARENT_SHA256"]
+        fora["PASSOS"]["1_RESTAURO"]["PAIS_CONFEREM"] = pais
+        if not pais or not all(pais.values()):
+            raise SystemExit("o pai na copia nao e o do pacote: %s" % pais)
         fora["PASSOS"]["2_ESCRITA"] = escrever("1")
         fora["PASSOS"]["3_OUTRA_VEZ"] = escrever("2")
         fora["PASSOS"]["4_SELECTS"] = {
@@ -99,7 +108,7 @@ def main():
         shutil.rmtree(pasta, ignore_errors=True)
     Path(a.saida).write_text(json.dumps(fora, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     p = fora["PASSOS"]
-    ok = (all(e in ("INSERTED", "REUSED") for _, e in p["2_ESCRITA"]["ESTADOS"])
+    ok = (all(p["1_RESTAURO"]["PAIS_CONFEREM"].values()) and all(e in ("INSERTED", "REUSED") for _, e in p["2_ESCRITA"]["ESTADOS"])
           and all(e == "REUSED" for _, e in p["3_OUTRA_VEZ"]["ESTADOS"]) and p["4_SELECTS"]["SALA_DE_ESPERA_IGUAL"])
     print(json.dumps({"ENSAIO_D90": "PASS" if ok else "FAIL", "ANTES": p["1_RESTAURO"], "DEPOIS": {
         k: p["4_SELECTS"][k] for k in ("raw_asset", "derived_artifact", "sala_de_espera")}}, ensure_ascii=False))
