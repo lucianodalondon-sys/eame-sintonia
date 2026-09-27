@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  8b8b6844257095830924937b296c5d908507fee2
+HEAD_DA_MEDICAO  6c0b260596c8c967ed78e9f5d80257436515ca56
 BRANCH           claude/comments-battery-tests-pt0d99
-GERADO_EM        2026-09-27T15:54:39+00:00
+GERADO_EM        2026-09-27T16:00:13+00:00
 CARDS            111
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
