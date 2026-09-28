@@ -38,6 +38,8 @@ import { join } from "node:path";
 // resolver os nomes curtos; o lado Node ficou com os imports da pasta unica, e
 // por isso este coletor NAO CARREGAVA — nao e sintaxe, e o caminho.
 import { CONTRACTS } from "../regras/italy_contracts.mjs";
+// D124: o teto por dominio tem UM dono (a politica adaptativa); este transporte pergunta-lhe.
+import * as CA from "./cortesia_adaptativa.mjs";
 // O motor declarativo de rota. Ele responde «que enderecos buscar?» a partir
 // do bloco `ACQUISITION` do contrato — e NAO le nenhum campo em prosa.
 import { alvosDoContrato, identidadeDoContrato } from "../regras/motor_de_rota.mjs";
@@ -220,20 +222,25 @@ const REDE = { total: 0 };
 //           sozinho (`-L` saiu), porque um 301 para outro caminho ou outro host
 //           e um pedido novo e pede licenca outra vez (a mesma lei de
 //           `scrap_http._PortaoEmCadaSalto`).
-//   PAUSA   minima entre dois pedidos ao MESMO host, configuravel
-//           (SINTONIA_PAUSA_POR_HOST_S); por omissao 1,0 s, o
-//           `PAUSA_ENTRE_CHAMADAS` de `scrap_http.py`. Um `Crawl-delay` maior
-//           no robots manda sobre ela.
-//   TETO    pedidos HTTP por SITE (host sem `www.`) numa corrida, configuravel
-//           (SINTONIA_TETO_POR_HOST); por omissao 5 — a D7 do dono: «ate 5
-//           pedidos por site (robots + pagina + ate 3 materias)». Conta TODAS
-//           as idas: robots, indice, materias, saltos e retentativas.
+//   PAUSA   minima entre dois pedidos ao MESMO host: por omissao a da CLASSE
+//           do dominio na politica adaptativa (D124: SITE 5 s, PLATAFORMA 10 s,
+//           API a publicada); SINTONIA_PAUSA_POR_HOST_S, se declarada, manda
+//           (decisao do operador, escrita no ambiente). Um `Crawl-delay` maior
+//           no robots manda sobre as duas.
+//   TETO    D124 (dono, 27/09): o 5 fixo da D7 SAIU. O teto de um dominio e o
+//           ORCAMENTO VIGENTE da politica adaptativa (`coleta/cortesia_adaptativa.mjs`,
+//           `regras/POLITICA-CORTESIA-ADAPTATIVA.json`): o inicial da classe, que
+//           dobra sem sinal de resistencia e recua no sinal. SINTONIA_TETO_POR_HOST,
+//           se declarada, e um teto MANUAL por corrida (so para baixo do que o
+//           operador quer). Conta TODAS as idas: robots, indice, materias, saltos
+//           e retentativas.
 //
 // O que a cortesia recusa NAO e uma observacao da fonte: nao se escreve no
 // livro (como `DEFERRED_AFTER_TIMEOUT`), vai contado no resumo e em
 // `detalhes`, com o motivo. Na corrida seguinte o endereco continua
 // desconhecido e volta a ser pedido — ADIADO != NUNCA.
-export const CORTESIA_PADRAO = Object.freeze({ PAUSA_S: 1.0, TETO_POR_HOST: 5, MAX_SALTOS: 10 });
+// PAUSA_S e TETO_POR_HOST `null` = os da politica adaptativa, por dominio (D124). Numero = declarado no ambiente.
+export const CORTESIA_PADRAO = Object.freeze({ PAUSA_S: null, TETO_POR_HOST: null, MAX_SALTOS: 10 });
 // ── AS EXCECOES: NENHUMA, E ISSO E UMA MEDICAO ─────────────────────────────
 // A regra da missao: so excecoes ja decididas pelo dono E ja escritas no
 // codigo. A unica que existe (D23, videos de organizacoes no LinkedIn) vive no
@@ -253,20 +260,22 @@ function cortesiaDoAmbiente() {
   };
   const TETO_POR_HOST = ler("SINTONIA_TETO_POR_HOST", CORTESIA_PADRAO.TETO_POR_HOST);
   // Um teto 0 ou fracionario nao e um teto: e uma forma de desligar a coleta
-  // (ou de a deixar a adivinhar) sem o dizer. Falha alto.
-  if (!Number.isInteger(TETO_POR_HOST) || TETO_POR_HOST < 1)
+  // (ou de a deixar a adivinhar) sem o dizer. Falha alto. `null` = o adaptativo (D124).
+  if (TETO_POR_HOST !== null && (!Number.isInteger(TETO_POR_HOST) || TETO_POR_HOST < 1))
     throw new Error(`CORTESIA_INVALIDA: SINTONIA_TETO_POR_HOST=${TETO_POR_HOST} (inteiro >= 1)`);
   return { PAUSA_S: ler("SINTONIA_PAUSA_POR_HOST_S", CORTESIA_PADRAO.PAUSA_S), TETO_POR_HOST,
            MAX_SALTOS: CORTESIA_PADRAO.MAX_SALTOS };
 }
 // Estado de UMA corrida. `executarRodada()` recomeca-o, como faz a `REDE.total`.
 const CORTESIA = { cfg: CORTESIA_PADRAO, robots: new Map(), porHost: new Map(), porDominio: new Map(),
-                   ultimo: new Map(), pedidos: { ROBOTS: 0, FONTE: 0, ROBOTS_DO_LIVRO_24H: 0, CONDICIONAL_ENVIADO: 0, NAO_MODIFICADO_304: 0 }, recusas: [] };
+                   ultimo: new Map(), pedidos: { ROBOTS: 0, FONTE: 0, ROBOTS_DO_LIVRO_24H: 0, CONDICIONAL_ENVIADO: 0, NAO_MODIFICADO_304: 0 }, recusas: [],
+                   recuo: new Map(), sinais: [] };
 function reiniciarCortesia() {
   CORTESIA.cfg = cortesiaDoAmbiente();
   CORTESIA.robots = new Map(); CORTESIA.porHost = new Map(); CORTESIA.porDominio = new Map();
   CORTESIA.ultimo = new Map();
   CORTESIA.pedidos = { ROBOTS: 0, FONTE: 0, ROBOTS_DO_LIVRO_24H: 0, CONDICIONAL_ENVIADO: 0, NAO_MODIFICADO_304: 0 }; CORTESIA.recusas = [];
+  CORTESIA.recuo = new Map(); CORTESIA.sinais = [];
 }
 const dormir = ms => new Promise(r => setTimeout(r, ms));
 
@@ -430,90 +439,74 @@ function gastarNaOnda(dominio, f = livroDaOnda()) {
     renameSync(`${f}.tmp`, f);
   } finally { rmdirSync(trinco); }
 }
-// ── O CONTADOR MULTICANAL ATOMICO DE 24 H (D90, 26/09/2026) ────────────────────
-// Gemeo de `coleta/reserva_24h.py`: o MESMO livro (`SINTONIA_TETO_24H`,
-// {"RESERVAS": [{DOMINIO, QTD, EM, RUN_ID, LINHA}]}), o MESMO trinco (`<livro>.trinco`,
-// um directorio) e a MESMA regra (<= TETO por dominio registavel nas ultimas 24 h;
-// googlevideo.com gasta de youtube.com, D41). Python e Node excluem-se pelo trinco.
-// O teto antigo (`tetoAtingido` le, `gastarNaOnda` escreve) NAO era atomico entre
-// processos: dois executores no mesmo dominio liam ambos 4 e ambos pediam (D90 §2.2).
-// Aqui a pergunta e a escrita sao um passo so. Livro ilegivel = UNKNOWN, nunca vazio.
-export const MESMO_ORCAMENTO_24H = Object.freeze({ "googlevideo.com": "youtube.com", "ytimg.com": "youtube.com" });
-const JANELA_24H_S = 24 * 3600;
-const livro24h = () => process.env.SINTONIA_TETO_24H || null;
+// ── O CONTADOR MULTICANAL ATOMICO (D90) — AGORA ADAPTATIVO (D124, 27/09/2026) ─────
+// O contador de 24 h era um livro JSON com teto fixo 5. Passou a ser o livro da CORTESIA ADAPTATIVA
+// (`coleta/cortesia_adaptativa.mjs`, gemeo de `.py`): SINTONIA_CORTESIA_LIVRO (o nome antigo
+// SINTONIA_TETO_24H continua a apontar para ele), append-only, o MESMO trinco `<livro>.trinco`.
+// Pergunta e escrita num passo so; 1 pedido de cada vez por dominio; o orcamento de cada dominio
+// e o vigente (sobe sem sinal, recua no sinal). Livro ilegivel = UNKNOWN, nunca vazio.
+export const MESMO_ORCAMENTO_24H = Object.freeze({ ...CA.politica().MESMO_ORCAMENTO });
+const livro24h = () => CA.livro();
 let RUN_ATUAL = null;
-export const dominio24h = host => { const d = dominioRegistavel(host); return MESMO_ORCAMENTO_24H[d] || d; };
-function lerReservas24h(f) {
-  let d;
-  try { d = JSON.parse(readFileSync(f, "utf8")); }
-  catch (e) {
-    if (e.code === "ENOENT") return [];
-    throw new Error(`TETO_24H_ILEGIVEL: ${f}: ${e.message}`);
-  }
-  if (!d || !Array.isArray(d.RESERVAS)) throw new Error(`TETO_24H_ILEGIVEL: ${f}: sem RESERVAS[]`);
-  return d.RESERVAS;
+export const dominio24h = host => CA.orcamentoDe(dominioRegistavel(host));
+const linhaAtual = () => process.env.SINTONIA_LINHA || "SITES";
+export function reservar24h(host, qtd = 1, { runId = RUN_ATUAL || `node-${process.pid}`, linha = linhaAtual(), agora = null, crawlDelayS = null } = {}) {
+  // D124: 1 pedido de cada vez por dominio — reservar varios de uma vez seria a rajada que a politica proibe.
+  if (qtd !== 1) return { DOMINIO: dominio24h(host), QTD: qtd, RUN_ID: runId, LINHA: linha, ESTADO: "FAIL", PORQUE: "D124: um pedido de cada vez (qtd=1)" };
+  return { QTD: 1, ...CA.reservar(dominioRegistavel(host), { runId, linha, agora, crawlDelayS, host: siteDe(host) }) };
 }
-const gasto24h = (res, dom, agora) =>
-  res.filter(r => r.DOMINIO === dom && Number(r.EM) > agora - JANELA_24H_S).reduce((a, r) => a + Number(r.QTD), 0);
-export function reservar24h(host, qtd = 1, { runId = RUN_ATUAL || `node-${process.pid}`, linha = process.env.SINTONIA_LINHA || "SITES", agora = null } = {}) {
-  const f = livro24h();
-  const teto = CORTESIA.cfg.TETO_POR_HOST;
-  const base = { DOMINIO: null, QTD: qtd, RUN_ID: runId, LINHA: linha };
-  if (!f) return { ...base, ESTADO: "FAIL", PORQUE: "SINTONIA_TETO_24H vazio" };
-  const dom = dominio24h(host);
-  base.DOMINIO = dom;
-  if (!Number.isInteger(qtd) || qtd < 1 || qtd > teto) return { ...base, ESTADO: "FAIL", PORQUE: "qtd invalida" };
-  const trinco = `${f}.trinco`;
-  for (let i = 0; ; i++) {
-    try { mkdirSync(trinco); break; }
-    catch (e) {
-      if (e.code !== "EEXIST") return { ...base, ESTADO: "UNKNOWN", PORQUE: `trinco: ${e.code}` };
-      if (i >= 400) return { ...base, ESTADO: "UNKNOWN", PORQUE: `TETO_24H_TRINCO: ${trinco} ocupado ha mais de 10 s` };
-      esperarMs(25);
-    }
-  }
-  try {
-    let res;
-    try { res = lerReservas24h(f); } catch (e) { return { ...base, ESTADO: "UNKNOWN", PORQUE: e.message }; }
-    const t = agora ?? Date.now() / 1000;
-    const g = gasto24h(res, dom, t);
-    if (g + qtd > teto) {
-      const vivas = res.filter(r => r.DOMINIO === dom && Number(r.EM) > t - JANELA_24H_S)
-        .map(r => [Number(r.EM), Number(r.QTD)]).sort((a, b) => a[0] - b[0]);
-      let usado = g, ate = t;
-      for (const [em, q] of vivas) { usado -= q; if (usado + qtd <= teto) { ate = em + JANELA_24H_S; break; } }
-      return { ...base, ESTADO: "ADIADO_ATE", ATE: ate, GASTO_24H: g };
-    }
-    const novas = res.concat([{ DOMINIO: dom, QTD: qtd, EM: t, RUN_ID: runId, LINHA: linha }])
-      .filter(r => Number(r.EM) > t - 2 * JANELA_24H_S);
-    writeFileSync(`${f}.tmp`, JSON.stringify({ RESERVAS: novas }));
-    renameSync(`${f}.tmp`, f);
-    return { ...base, ESTADO: "RESERVADO", GASTO_24H: g + qtd, EM: t };
-  } finally { rmdirSync(trinco); }
-}
+// O teto de um dominio NESTA corrida: o manual declarado (SINTONIA_TETO_POR_HOST) ou o ORCAMENTO
+// VIGENTE da politica (D124). Livro ilegivel rebenta (como antes): quem nao leu o teto nao pede.
+export const tetoDe = host => CORTESIA.cfg.TETO_POR_HOST ?? CA.tetoVigente(dominioRegistavel(host));
 const esgotado24h = host => {
-  const f = livro24h();
-  if (!f) return false;
-  return gasto24h(lerReservas24h(f), dominio24h(host), Date.now() / 1000) >= CORTESIA.cfg.TETO_POR_HOST;
+  if (!livro24h()) return false;
+  const e = CA.estadoDoDominio(dominioRegistavel(host));
+  if (e.ESTADO === "UNKNOWN") throw new Error(`TETO_24H_ILEGIVEL: ${e.PORQUE}`);
+  return e.CABEM <= 0;
 };
 export const motivoDoTeto = () => (livro24h() ? "TETO_24H" : livroDaOnda() ? "TETO_DOMINIO" : "TETO_POR_HOST");
+// A resposta vai ao livro (fecha o «um de cada vez») com o que ela MEDIU. Sem livro, o sinal
+// medido corta o dominio no resto desta corrida (recuo local: sem memoria, nao ha metade de nada).
+function registarResposta(host, url, r, marcas = []) {
+  const dom = dominioRegistavel(host);
+  if (livro24h()) {
+    const x = CA.registrarResposta(dom, { status: r?.status ?? 0, headers: r?.cabecalhos ?? null, corpo: r?.buf ? r.buf.subarray(0, 65536) : null,
+                                         nBytes: r?.buf ? r.buf.length : null, url, marcas, runId: RUN_ATUAL || `node-${process.pid}`, linha: linhaAtual() });
+    if (x.SINAIS?.length) CORTESIA.sinais.push({ URL: url, DOMINIO: x.DOMINIO, SINAIS: x.SINAIS, ORCAMENTO_24H: x.DEPOIS?.ORCAMENTO_24H, SITUACAO: x.DEPOIS?.SITUACAO });
+    return x;
+  }
+  const [sinais] = CA.detectarSinais({ status: r?.status ?? 0, headers: r?.cabecalhos ?? null, corpo: r?.buf ? r.buf.subarray(0, 65536) : null,
+                                       nBytes: r?.buf ? r.buf.length : null, url, marcas, agora: Date.now() / 1000 });
+  if (sinais.length) {
+    CORTESIA.recuo.set(CA.orcamentoDe(dom), sinais);
+    CORTESIA.sinais.push({ URL: url, DOMINIO: CA.orcamentoDe(dom), SINAIS: sinais, SITUACAO: "RECUO_NA_CORRIDA" });
+  }
+  return null;
+}
 // `condicional` (FEED-LIGADO, 27/09): { cabecalhos: [...] } — os validadores a mandar (If-None-Match /
 // If-Modified-Since) — e o pedido passa a trazer de volta ETag e Last-Modified da resposta. O pedido
 // condicional e UM PEDIDO: sai por aqui, reserva no livro de 24 h e conta no teto como outro qualquer,
 // responda 200 ou 304.
 async function umaIda(url, host, tipo, crawlDelay, condicional = null) {
-  const minimo = Math.max(CORTESIA.cfg.PAUSA_S, crawlDelay || 0) * 1000;
+  const minimo = Math.max(CORTESIA.cfg.PAUSA_S ?? CA.classeDe(dominio24h(host))[1].PAUSA_S, crawlDelay || 0) * 1000;
   host = siteDe(host);
   const ultimo = CORTESIA.ultimo.get(host);
   if (ultimo !== undefined) {
     const falta = ultimo + minimo - Date.now();
     if (falta > 0) await dormir(falta);
   }
-  // D90: com contador de 24 h, o pedido so sai com a RESERVA escrita (antes de contar o que for).
+  // D90/D124: com livro, o pedido so sai com a RESERVA escrita (antes de contar o que for). Uma espera
+  // CURTA (um de cada vez, pausa minima, limite global) espera-se; orcamento esgotado, Retry-After e
+  // pausa de 24 h nunca se esperam aqui: o pedido nao sai.
   if (livro24h()) {
-    const r = reservar24h(host, 1);
+    let r;
+    for (let i = 0; ; i++) {
+      r = reservar24h(host, 1, { crawlDelayS: crawlDelay || null });
+      if (r.ESTADO !== "ADIADO_ATE" || !CA.ESPERA_CURTA.includes(r.MOTIVO) || i >= 60 || r.ATE * 1000 - Date.now() > 180e3) break;
+      await dormir(Math.max(10, r.ATE * 1000 - Date.now()));
+    }
     if (r.ESTADO !== "RESERVADO")
-      throw Object.assign(new Error(`TETO_24H ${r.ESTADO}: ${r.DOMINIO} ${r.PORQUE || (r.ATE ? "ate " + new Date(r.ATE * 1000).toISOString() : "")}`),
+      throw Object.assign(new Error(`TETO_24H ${r.ESTADO}: ${r.DOMINIO} ${r.MOTIVO || ""} ${r.PORQUE || (r.ATE ? "ate " + new Date(r.ATE * 1000).toISOString() : "")}`),
                           { code: "TETO_24H", reserva: r });
   }
   CORTESIA.porHost.set(host, (CORTESIA.porHost.get(host) || 0) + 1);
@@ -548,51 +541,91 @@ async function umaIda(url, host, tipo, crawlDelay, condicional = null) {
     //
     // ⚠️ `-L` SAIU DE PROPOSITO (ver o bloco da cortesia): quem segue o salto e
     // `baixar()`, que pede licenca ao robots do destino antes de ir.
-    // Os cabecalhos da resposta vao para um ficheiro so quando o pedido e condicional: e o unico caso
-    // em que alguem os le. `-D` e o de todas as versoes do curl (`%header{}` so existe desde a 7.84, e
-    // a versao do curl da maquina de producao e NAO SEI).
-    const cab = condicional ? join(tmpdir(), `sintonia-cab-${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2)}.txt`) : null;
-    const extra = condicional ? [...(condicional.cabecalhos || []).flatMap((h) => ["-H", h]), "-D", cab] : [];
+    // Os cabecalhos da resposta vao SEMPRE para um ficheiro (`-D`, o de todas as versoes do curl).
+    // FEED-LIGADO: os validadores (ETag, Last-Modified) saem dele quando o pedido e condicional.
+    // D124-REBASE: os SINAIS (Retry-After, cf-mitigated) tambem saem dele, e nunca do `%header{}` no
+    // reboque: `%header{}` so existe desde a 7.84, e o `System32\curl` 7.83 do cmd.exe da producao
+    // devolve-o VAZIO — o sinal perdia-se calado (verificador independente, 28/09).
+    const cab = join(tmpdir(), `sintonia-cab-${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2)}.txt`);
+    const extra = [...(condicional ? (condicional.cabecalhos || []).flatMap((h) => ["-H", h]) : []), "-D", cab];
     try {
-      const { stdout } = await run("curl", ["-sS", "--max-time", "90", "-A", UA,
-        "-H", `Accept-Language: ${ROTA_NAVEGADOR.ACCEPT_LANGUAGE}`, ...extra, "-o", "-",
-        "-w", "\\n__S__%{http_code}\\t%{content_type}\\t%{redirect_url}", url],
-        { maxBuffer: 128e6, encoding: "buffer" });
+      let stdout;
+      try {
+        ({ stdout } = await run("curl", ["-sS", "--max-time", "90", "-A", UA,
+          "-H", `Accept-Language: ${ROTA_NAVEGADOR.ACCEPT_LANGUAGE}`, ...extra, "-o", "-",
+          "-w", "\\n__S__%{http_code}\\t%{content_type}\\t%{redirect_url}", url],
+          { maxBuffer: 128e6, encoding: "buffer" }));
+      } catch (e) {
+        // D124: a falha de transporte tambem vai ao livro (fecha o «um de cada vez»); o timeout (curl 28)
+        // e uma MARCA, e 3 seguidos no dominio sao o sinal TIMEOUTS_EM_SERIE.
+        registarResposta(host, url, null, e.code === 28 ? ["TIMEOUT"] : []);
+        throw e;
+      }
       const s = stdout.toString("latin1");
       const k = s.lastIndexOf("\n__S__");
       const reboque = (k < 0 ? "" : s.slice(k + 6)).split("\t");
       // O reboque tem TRES campos: codigo, especie e destino do salto. Nenhum traz
       // tabulacao. AUSENTE CONTINUA AUSENTE: um servidor que nao declara tipo devolve
       // vazio aqui, e vazio vira `null` — nunca uma especie adivinhada pelo nome.
-      return { buf: stdout.subarray(0, k < 0 ? stdout.length : k), status: Number(reboque[0]),
-               contentType: (reboque[1] || "").trim().split(";")[0].trim() || null,
-               destino: (reboque[2] || "").trim() || null,
-               ...(cab ? { validadores: validadoresDaResposta(cab) } : {}) };
+      const lidos = cabecalhosDaResposta(cab);
+      const resposta = { buf: stdout.subarray(0, k < 0 ? stdout.length : k), status: Number(reboque[0]),
+                         contentType: (reboque[1] || "").trim().split(";")[0].trim() || null,
+                         destino: (reboque[2] || "").trim() || null,
+                         ...(condicional ? { validadores: { ETAG: lidos.etag ?? null, LAST_MODIFIED: lidos["last-modified"] ?? null } } : {}) };
+      // D124: os cabecalhos que sao SINAL vao ao livro com a resposta.
+      const cabecalhos = {};
+      for (const nome of ["retry-after", "cf-mitigated"]) if (lidos[nome]) cabecalhos[nome] = lidos[nome];
+      registarResposta(host, url, { ...resposta, cabecalhos });
+      return resposta;
     } finally {
-      if (cab) rmSync(cab, { force: true });
+      rmSync(cab, { force: true });
     }
   } finally {
     CORTESIA.ultimo.set(host, Date.now());
   }
 }
 
-// ── OS VALIDADORES DA RESPOSTA (ETag, Last-Modified) ───────────────────────────────────────────────
+// ── OS CABECALHOS DA RESPOSTA (o ficheiro do `-D`) ───────────────────────────────────────────────────
 // O ficheiro do `-D` pode ter mais de um bloco (o «200 Connection established» de um proxy vem antes):
-// vale o ULTIMO, que e o do servidor. Sem cabecalho, `null` — ausente continua ausente.
-export function validadoresDaResposta(caminho) {
+// vale o ULTIMO, que e o do servidor. Sem cabecalho, ausente — ausente continua ausente.
+// Um leitor so para os validadores (FEED-LIGADO) e para os sinais (D124: Retry-After, cf-mitigated).
+export function cabecalhosDaResposta(caminho) {
   let t = "";
-  try { t = readFileSync(caminho, "latin1"); } catch { return { ETAG: null, LAST_MODIFIED: null }; }
+  try { t = readFileSync(caminho, "latin1"); } catch { return {}; }
   const blocos = t.split(/\r?\n\r?\n/).filter((b) => /^HTTP\//.test(b.trim()));
   const ultimo = blocos.at(-1) || "";
-  const ler = (nome) => { const m = ultimo.match(new RegExp(`^${nome}\\s*:\\s*(.+?)\\s*$`, "im")); return m ? m[1] : null; };
-  return { ETAG: ler("etag"), LAST_MODIFIED: ler("last-modified") };
+  const h = {};
+  for (const linha of ultimo.split(/\r?\n/).slice(1)) {
+    const m = linha.match(/^([A-Za-z0-9-]+)\s*:\s*(.*?)\s*$/);
+    if (m && m[2] && !(m[1].toLowerCase() in h)) h[m[1].toLowerCase()] = m[2];
+  }
+  return h;
+}
+export function validadoresDaResposta(caminho) {
+  const h = cabecalhosDaResposta(caminho);
+  return { ETAG: h.etag ?? null, LAST_MODIFIED: h["last-modified"] ?? null };
 }
 // O teto pergunta pelo DOMINIO REGISTAVEL: o desta corrida e, havendo livro da
 // onda, o da onda inteira (que ja inclui o desta corrida). Vale o maior.
+// D124 (o D40 que era 5 - 2 = 3): quantos alvos NOVOS uma fonte pode escolher = o que ainda cabe no
+// dominio dela menos robots e indice, nunca menos que os 3 da D40. O transporte corta o resto na mesma.
+function alvosPorFonteD124(c) {
+  const aq = c.ACQUISITION || {};
+  let host;
+  try { host = new URL(aq.INDEX_URL || aq.FEED_URL || c.CANONICAL_ENTRY_URL).hostname; } catch { return 3; }
+  let resta;
+  try {
+    const d = orcamentoDe(host);
+    resta = tetoDe(host) - Math.max(CORTESIA.porDominio.get(d) || 0, lerLivroDaOnda()[d] || 0);
+    if (livro24h()) resta = Math.min(resta, CA.estadoDoDominio(dominioRegistavel(host)).CABEM ?? 0);
+  } catch { return 3; }
+  return Math.max(3, resta - 2);
+}
+// D124: o teto e o do dominio (tetoDe), e um dominio que deu sinal nesta corrida sem livro fica cortado.
 const tetoAtingido = host => {
   const d = orcamentoDe(host);
   const gasto = Math.max(CORTESIA.porDominio.get(d) || 0, lerLivroDaOnda()[d] || 0);
-  return gasto >= CORTESIA.cfg.TETO_POR_HOST || esgotado24h(host);
+  return gasto >= tetoDe(host) || CORTESIA.recuo.has(dominio24h(host)) || esgotado24h(host);
 };
 
 async function robotsDaOrigem(origem) {
@@ -601,7 +634,7 @@ async function robotsDaOrigem(origem) {
     const host = new URL(alvo).hostname;
     let r = null;
     for (let i = 1; i <= 2 && !r; i++) {
-      if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado antes de ler o robots.txt` };
+      if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${tetoDe(host)} pedidos a ${host} esgotado antes de ler o robots.txt` };
       try { r = await umaIda(alvo, host, "ROBOTS", 0); }
       catch (e) {
         if (e.code === "TETO_24H") return { recusado: "TETO_24H", porque: e.message };
@@ -703,7 +736,7 @@ async function licenca(url) {
   let u;
   try { u = new URL(url); } catch { return { recusado: "URL_INVALIDA", porque: `endereco invalido: ${url}` }; }
   const host = u.hostname;
-  if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos ao dominio ${orcamentoDe(host)} ${livroDaOnda() ? "nesta onda" : "nesta corrida"}` };
+  if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${tetoDe(host)} pedidos ao dominio ${orcamentoDe(host)} ${livroDaOnda() ? "nesta onda" : "nesta corrida"}` };
   let rb = CORTESIA.robots.get(u.origin);
   if (!rb) {
     // FEED-LIGADO: primeiro o livro de 24 h (outro processo da onda ja o leu); so depois a rede.
@@ -726,7 +759,7 @@ async function licenca(url) {
   if (rb.estado === "ILEGIVEL") return { recusado: "ROBOTS_ILEGIVEL", porque: rb.porque };
   if (rb.estado === "LIDO" && !robotsPermite(rb.grupos, u.pathname + u.search))
     return { recusado: "ROBOTS_PROIBE", porque: `o robots.txt de ${u.origin} proibe ${u.pathname}${u.search}` };
-  if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado pelo robots.txt` };
+  if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${tetoDe(host)} pedidos a ${host} esgotado pelo robots.txt` };
   return { host, crawlDelay: rb.crawlDelay ?? null };
 }
 
@@ -798,7 +831,7 @@ async function baixar(url, tentativas = 2, { condicional = false } = {}) {
     let r = null;
     for (let i = 1; i <= tentativas && !r; i++) {
       if (i > 1 && tetoAtingido(lic.host))
-        return { erro: `CORTESIA ${motivoDoTeto()}: retentativa recusada, teto de ${CORTESIA.cfg.TETO_POR_HOST} esgotado`, status: 0, tentativas: i - 1, recusado: motivoDoTeto(), foiARede, retry_permitido: false };
+        return { erro: `CORTESIA ${motivoDoTeto()}: retentativa recusada, teto de ${tetoDe(lic.host)} esgotado`, status: 0, tentativas: i - 1, recusado: motivoDoTeto(), foiARede, retry_permitido: false };
       try {
         // So o endereco PEDIDO leva validador (um salto e outro endereco, com outra copia).
         const copia = condicional && atual === url ? lerCacheHttp(url) : null;
@@ -893,7 +926,7 @@ export async function alvosDe(sourceId, classificar = null) {
   if (c && c.ACQUISITION) {
     // O indice/feed revisita-se sempre (decidirSobreIndice): e o pedido que o validador serve.
     const buscar = (u) => baixar(u, 2, { condicional: true });
-    return await alvosDoContrato(sourceId, c, { buscar, adapters: ADAPTERS, classificar });
+    return await alvosDoContrato(sourceId, c, { buscar, adapters: ADAPTERS, classificar, alvosPorFonte: alvosPorFonteD124(c) });
   }
   switch (sourceId) {
     case "IT-T3-005":
@@ -1665,6 +1698,10 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     // indice, materias, saltos e retentativas) e cada recusa com o porque.
     CORTESIA: forcarBuf ? "NAO_SE_APLICA" : {
       PAUSA_MINIMA_S: CORTESIA.cfg.PAUSA_S, TETO_POR_HOST: CORTESIA.cfg.TETO_POR_HOST,
+      // D124: o teto de cada dominio tocado, como estava em vigor no fim da corrida, e os sinais medidos.
+      TETO_ADAPTATIVO: { POLITICA: CA.politica().VERSAO, LIVRO: livro24h(),
+        POR_DOMINIO: Object.fromEntries([...CORTESIA.porDominio.keys()].map(d => { try { return [d, tetoDe(d)]; } catch (e) { return [d, "NAO SEI"]; } })),
+        SINAIS: CORTESIA.sinais },
       MAX_SALTOS: CORTESIA.cfg.MAX_SALTOS, EXCECOES: [...EXCECOES_DE_CORTESIA],
       ROBOTS: Object.fromEntries([...CORTESIA.robots].map(([o, r]) => [o, { ESTADO: r.estado, CRAWL_DELAY: r.crawlDelay ?? null, PORQUE: r.porque,
         // FEED-LIGADO: as linhas `Sitemap:` que o robots ja trazia (so medida; nenhum pedido sai por elas)

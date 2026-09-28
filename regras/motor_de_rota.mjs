@@ -593,9 +593,12 @@ export function nomeDoAlvo(url, outputType) {
 //   * corta em ALVOS_POR_FONTE_D40 = 3, seja qual for o MAX_TARGETS do contrato;
 //   * sem nada novo nem revisita, volta VAZIO — com a conta dos conhecidos saltados, nao
 //     um zero calado.
-// O teto por DOMINIO (D38, 5 pedidos por corrida contando robots e indice) NAO vive aqui:
-// quem corta e o transporte (`umaIda()` em coleta/italy_pilot_collect.mjs, ONDA2-G3). Esta
-// escolha so planeia: robots (1) + indice (1) + 3 materias = 5.
+// O teto por DOMINIO NAO vive aqui: quem corta e o transporte (`umaIda()` em
+// coleta/italy_pilot_collect.mjs, ONDA2-G3). Esta escolha so planeia.
+//
+// D124 (dono, 27/09): o 3 era a conta do 5 fixo da D38 (robots 1 + indice 1 + 3 materias = 5).
+// O 5 saiu; o 3 fica so como OMISSAO de quem nao diz quanto cabe. O transporte diz: passa
+// `alvosPorFonte` = o que cabe agora no dominio (orcamento vigente) menos robots e indice.
 export const ALVOS_POR_FONTE_D40 = 3;
 
 // ── PAGINA DE LISTA NAO E ALVO (coordenador, ALVOS-NOVOS-2, 25/09) ───────────
@@ -621,7 +624,7 @@ export function ePaginaDeLista(u) {
   return SO_LISTA.test(ultimo) || LISTA_COM_ANO.test(ultimo);
 }
 
-export function escolherAlvosD40(urls, classificar, nomeDe) {
+export function escolherAlvosD40(urls, classificar, nomeDe, limite = ALVOS_POR_FONTE_D40) {
   const novos = [], revisitas = [];
   let conhecidos = 0, listas = 0;
   for (const url of urls) {
@@ -632,7 +635,7 @@ export function escolherAlvosD40(urls, classificar, nomeDe) {
     else if (classe === "REVISITA") revisitas.push(url);
     else novos.push(url);
   }
-  const alvos = [...novos, ...revisitas].slice(0, ALVOS_POR_FONTE_D40)
+  const alvos = [...novos, ...revisitas].slice(0, limite)
     .map((url) => ({ url, nome: nomeDe(url) }));
   // a conta vai no proprio resultado (o coletor pode dize-la no resumo); um array continua
   // a ser o que todos os chamadores ja recebiam
@@ -643,7 +646,7 @@ export function escolherAlvosD40(urls, classificar, nomeDe) {
   return alvos;
 }
 
-export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {}, classificar = null } = {}) {
+export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {}, classificar = null, alvosPorFonte = ALVOS_POR_FONTE_D40 } = {}) {
   const aq = contrato && contrato.ACQUISITION;
   conferirAquisicao(sourceId, aq);
 
@@ -703,7 +706,7 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
       // (na MESMA lista: o D40 pendura nela as suas contas — CONHECIDOS_SALTADOS, VAZIO_HONESTO…)
       const comTexto = (as) => { if (Array.isArray(as)) for (const a of as) a.textoDaLigacao = textos.get(a.url) ?? ""; return as; };
       if (typeof classificar === "function") {
-        return comTexto(escolherAlvosD40(urls, classificar, (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE)));
+        return comTexto(escolherAlvosD40(urls, classificar, (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE), alvosPorFonte));
       }
       return comTexto(urls.slice(0, limite).map((url) => ({ url, nome: nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE) })));
     }
@@ -717,7 +720,7 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
     const base = aq.BASE_URL || aq.INDEX_URL;
     const urls = [...new Set(achados.map((h) => new URL(h, base).href))];
     if (typeof classificar === "function") {
-      return escolherAlvosD40(urls, classificar, (url) => url.split("/").pop());
+      return escolherAlvosD40(urls, classificar, (url) => url.split("/").pop(), alvosPorFonte);
     }
     return urls.slice(0, Number.isFinite(limite) ? limite : urls.length)
                .map((url) => ({ url, nome: url.split("/").pop() }));
@@ -770,13 +773,14 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
     };
     const nomeDe = (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE);
     // ── O TETO CONTA PEDIDOS, E O ITEM COM CORPO NAO PEDE NADA ─────────────────────────────────────
-    // D40 corta em 3 MATERIAS A PEDIR (robots + feed + 3 = 5, D38). O item cujo texto ja veio no feed nao
-    // bate a porta, e por isso nao ocupa um desses 3 lugares: vai a parte, sem corte (o feed ja e o
+    // D40 corta em `alvosPorFonte` MATERIAS A PEDIR (D124: o que cabe agora no dominio − robots − feed;
+    // 3 so por omissao). O item cujo texto ja veio no feed nao bate a porta, e por isso nao ocupa
+    // um desses lugares: vai a parte, sem corte (o feed ja e o
     // limite — o WordPress poe 10). O livro continua a mandar nele: o CONHECIDO nao volta a entrar.
     const comCorpo = itens.filter((it) => it.corpo).map((it) => it.url);
     const semCorpo = itens.filter((it) => !it.corpo).map((it) => it.url);
     if (typeof classificar === "function") {
-      const aPedir = escolherAlvosD40(semCorpo, classificar, nomeDe);
+      const aPedir = escolherAlvosD40(semCorpo, classificar, nomeDe, alvosPorFonte);
       let conhecidos = 0, listas = 0;
       const doFeed = [];
       for (const url of comCorpo) {

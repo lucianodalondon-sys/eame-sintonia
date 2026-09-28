@@ -13,7 +13,10 @@ fala o MESMO livro, para uma onda que misture web e redes pagar tudo no mesmo si
 
   · o livro da onda e o ficheiro em SINTONIA_TETO_ONDA: {"PEDIDOS_POR_DOMINIO": {...}};
   · escreve-se sob o MESMO trinco (o directorio `<livro>.trinco`) e por renomeacao;
-  · o teto e SINTONIA_TETO_POR_HOST (omissao 5), o mesmo nome do transporte web.
+  · o teto: D124 (dono, 27/09) — o 5 fixo SAIU. O teto de um dominio e o ORCAMENTO VIGENTE da politica
+    adaptativa (`coleta/cortesia_adaptativa.py`); SINTONIA_TETO_POR_HOST, se declarada, e um teto manual.
+  · com o livro da cortesia (SINTONIA_CORTESIA_LIVRO) o pedido tambem RESERVA la antes de sair (1 de cada
+    vez por dominio, pausa minima, orcamento de 24 h) e `registrar_resposta` escreve o que ele mediu.
 
 Duas diferencas, as duas de proposito:
   1. RESERVAR E ATOMICO: ler, comparar e gastar acontecem dentro do trinco. Dois
@@ -39,7 +42,7 @@ import re
 import threading
 import time
 
-TETO_POR_OMISSAO = 5
+TETO_POR_OMISSAO = None          # D124: sem numero fixo — o teto e o vigente da politica adaptativa
 ENV_LIVRO = "SINTONIA_TETO_ONDA"
 ENV_TETO = "SINTONIA_TETO_POR_HOST"
 # Onde um processo FILHO (o yt-dlp com freio) deixa as recusas dele, uma por linha.
@@ -88,10 +91,24 @@ def orcamento_de(host):
     return MESMO_ORCAMENTO.get(d, d)
 
 
-def teto():
+def _ca():
+    import sys                                                     # noqa: PLC0415
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import cortesia_adaptativa as CA                               # noqa: PLC0415 — o dono unico (D124)
+    return CA
+
+
+def teto(host=None):
+    """O teto do dominio de `host`: o manual declarado (SINTONIA_TETO_POR_HOST) ou o ORCAMENTO VIGENTE da
+    politica adaptativa (D124). Sem host e sem manual: o texto que diz de onde vem (para o livro)."""
     v = os.environ.get(ENV_TETO)
     if v in (None, ""):
-        return TETO_POR_OMISSAO
+        if host is None:
+            return "ADAPTATIVO_POR_DOMINIO (D124: coleta/cortesia_adaptativa.py)"
+        try:
+            return _ca().teto_vigente(host)
+        except ValueError as e:                                    # livro ilegivel: nao se adivinha um teto
+            raise TetoDaOnda("TETO_ADAPTATIVO_ILEGIVEL: %s" % e)
     n = int(v)
     if n < 1:
         raise ValueError("TETO_INVALIDO: %s=%r (inteiro >= 1)" % (ENV_TETO, v))
@@ -139,21 +156,31 @@ def reservar(host, *, url=None, quem="scrap_http"):
     orcamento ja chegou ao teto, regista a recusa e levanta `TetoDaOnda` — o pedido
     nao sai. O lugar gasto nao se devolve se o pedido falhar: saiu, bateu a porta."""
     f = livro()
-    if not f:
+    ca = _ca()
+    if not f and not ca.livro():
         return None
     orc = orcamento_de(host)
+    t_dom = teto(host)
+    if f and int(ler_livro(f).get(orc, 0)) >= t_dom:               # leitura: a onda ja esgotou, nem se reserva
+        _recusar(url, host, orc, int(ler_livro(f).get(orc, 0)), t_dom, quem,
+                 "teto de %d pedidos ao dominio %s nesta onda" % (t_dom, orc))
+    if ca.livro():
+        # D124: a reserva no livro da cortesia (atomica, 1 de cada vez, pausa minima, orcamento de 24 h).
+        r = ca.reservar_ou_esperar(host, run_id=os.environ.get("SINTONIA_RUN_ID") or "scrap-%d" % os.getpid(),
+                                   linha=os.environ.get("SINTONIA_LINHA") or quem)
+        if r["ESTADO"] != "RESERVADO":
+            _recusar(url, host, orc, r.get("GASTO_24H"), r.get("ORCAMENTO_24H"), quem,
+                     "cortesia adaptativa: %s %s %s" % (r["ESTADO"], r.get("MOTIVO") or "", r.get("PORQUE") or ""),
+                     motivo="TETO_24H")
+        if not f:
+            return orc
     with _LOCK:
         t = _trinco(f)
         try:
             p = ler_livro(f)
             gasto = int(p.get(orc, 0))
-            if gasto >= teto():
-                r = {"URL": url, "HOST": _site(host), "ORCAMENTO": orc, "GASTO": gasto,
-                     "TETO": teto(), "MOTIVO": MOTIVO, "QUEM": quem,
-                     "PORQUE": "teto de %d pedidos ao dominio %s nesta onda" % (teto(), orc)}
-                _RECUSAS.append(r)
-                _escrever_recusa_para_o_pai(r)
-                raise TetoDaOnda("%s: %s" % (MOTIVO, r["PORQUE"]))
+            if gasto >= t_dom:
+                _recusar(url, host, orc, gasto, t_dom, quem, "teto de %d pedidos ao dominio %s nesta onda" % (t_dom, orc))
             p[orc] = gasto + 1
             tmp = f + ".tmp"
             with open(tmp, "w", encoding="utf-8") as fh:
@@ -162,6 +189,24 @@ def reservar(host, *, url=None, quem="scrap_http"):
         finally:
             os.rmdir(t)
     return orc
+
+
+def _recusar(url, host, orc, gasto, t_dom, quem, porque, motivo=MOTIVO):
+    r = {"URL": url, "HOST": _site(host), "ORCAMENTO": orc, "GASTO": gasto, "TETO": t_dom, "MOTIVO": motivo,
+         "QUEM": quem, "PORQUE": porque}
+    _RECUSAS.append(r)
+    _escrever_recusa_para_o_pai(r)
+    raise TetoDaOnda("%s: %s" % (motivo, porque))
+
+
+def registrar_resposta(host, status, headers=None, url=None, quem="scrap_http"):
+    """D124: com o livro da cortesia, a resposta vai la (fecha o «um de cada vez») com o que mediu."""
+    ca = _ca()
+    if not ca.livro():
+        return None
+    return ca.registrar_resposta(host, status, dict(headers or {}), url=url,
+                                 run_id=os.environ.get("SINTONIA_RUN_ID") or "scrap-%d" % os.getpid(),
+                                 linha=os.environ.get("SINTONIA_LINHA") or quem)
 
 
 def _escrever_recusa_para_o_pai(r):

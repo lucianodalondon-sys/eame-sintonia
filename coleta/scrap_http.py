@@ -462,6 +462,17 @@ class _ContaCadaPedido(urllib.request.BaseHandler):
 
     https_request = http_request
 
+    def http_response(self, req, resp):
+        """D124: com o livro da cortesia adaptativa, a resposta (codigo e cabecalhos: 429, 503, 403,
+        Retry-After, cf-mitigated) vai ao livro — fecha o «um de cada vez» e mede o sinal. Corre antes
+        do HTTPErrorProcessor (handler_order 500 < 1000), por isso ve tambem os 4xx/5xx."""
+        import teto_da_onda as teto                                # noqa: PLC0415
+        teto.registrar_resposta(urllib.parse.urlsplit(req.full_url).hostname, resp.code,
+                                dict(resp.headers.items()), url=req.full_url)
+        return resp
+
+    https_response = http_response
+
 
 # E INSTALA-SE, em vez de se abrir por fora.
 #

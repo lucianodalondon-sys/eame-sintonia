@@ -68,7 +68,19 @@ def fontes_sociais(contratos: dict) -> list[str]:
 # quanto gasta, e escreve-o no pedido.
 TETO_LINKEDIN_NA_ONDA = 1
 CONTAS_LINKEDIN_POR_ONDA = 2
-TETO_D38 = 5
+# D124 (dono, 27/09): o TETO_D38 = 5 fixo SAIU. O teto de cada dominio e o ORCAMENTO VIGENTE da politica
+# adaptativa (`coleta/cortesia_adaptativa.py`), ou o manual declarado em SINTONIA_TETO_POR_HOST.
+# (TETO_LINKEDIN_NA_ONDA = 1 fica: e a decisao C2 sobre quantos videos por conta, nao um teto de dominio.)
+
+
+def teto_do_dominio(d: str) -> int:
+    import os                                                       # noqa: PLC0415
+    v = os.environ.get("SINTONIA_TETO_POR_HOST")
+    if v:
+        return int(v)
+    sys.path.insert(0, str(RAIZ / "coleta"))
+    import cortesia_adaptativa as CA                                # noqa: PLC0415 — o dono unico (D124)
+    return CA.teto_vigente(d)
 
 
 def pedido_de(c: dict, *, teto_linkedin: int | None = TETO_LINKEDIN_NA_ONDA) -> Pedido:
@@ -93,7 +105,7 @@ PREVISTO_YOUTUBE_VIDEO_CURTO = {"youtube.com": 4}
 def rodadas(linhas: list[dict], *, teto_linkedin: int = TETO_LINKEDIN_NA_ONDA,
             contas_li: int = CONTAS_LINKEDIN_POR_ONDA) -> list[dict]:
     """As ondas da passagem A: ate `contas_li` contas LinkedIn + 1 canal YouTube por onda
-    (dominios diferentes). Cada onda leva o PREVISTO por dominio e diz se cabe no teto D38.
+    (dominios diferentes). Cada onda leva o PREVISTO por dominio e diz se cabe no teto do dominio (D124).
     Previsto e o maximo que o codigo pode pedir; o freio (`coleta/teto_da_onda.py`) trava o resto."""
     li = [l["SOURCE_ID"] for l in linhas if l.get("NA_ONDA") and l.get("FASE") == "video-linkedin"]
     yt = [l["SOURCE_ID"] for l in linhas if l.get("NA_ONDA") and l.get("FASE") in ("canal-youtube", "audio-youtube")]
@@ -110,7 +122,7 @@ def rodadas(linhas: list[dict], *, teto_linkedin: int = TETO_LINKEDIN_NA_ONDA,
             for d, k in PREVISTO_YOUTUBE_VIDEO_CURTO.items():
                 prev[d] = prev.get(d, 0) + k
         fora.append({"ONDA": i + 1, "LINKEDIN": contas, "YOUTUBE": canal, "PREVISTO_POR_DOMINIO": prev,
-                     "CABE_NO_TETO": all(v <= TETO_D38 for v in prev.values())})
+                     "CABE_NO_TETO": all(v <= teto_do_dominio(d) for d, v in prev.items())})
     return fora
 
 

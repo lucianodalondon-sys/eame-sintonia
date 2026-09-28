@@ -5,7 +5,8 @@
     py ferramentas/big_collection/rodadas.py --correr --sha256=<da coorte congelada> --base=<pasta>
           [--historico=...] [--rodada=N] [--teto-dia=N] [--livros-do-dia=<pasta das ondas>] [--sem-janela-24h]
           [--rendimento=<R1-X-R2-E-FONTES.json>] [--recibos=<pasta,pasta>] [--inicio=<AAAA-MM-DDTHH:MM-03:00>]
-          [--teto-24h=<TETO-24H.json>]   (D90: o contador multicanal atomico, partilhado por todas as linhas)
+          [--cortesia=<LIVRO-CORTESIA.ndjson> | --teto-24h=...]   (D90/D124: o contador atomico adaptativo, partilhado)
+          [--janela-24h]   (D79 so se ligada; D124 desligou-a por omissao)
 
 Porque existe (C2-ONDA4, 26/09/2026): na 3.a onda 26 de 64 fontes ficaram de fora por
 TETO_DOMINIO — edagricole.it sozinho tem 15 fontes, e o teto (D38) e 5 pedidos por dominio POR
@@ -34,6 +35,14 @@ com as guardas que a mao esquecia:
   5. --teto-dia=N (opcional): soma os `TETO-ONDA.json` de HOJE em --livros-do-dia (por omissao, a
      pasta-mae de --base). Sem ele, nada muda em relacao ao `onda_web` de hoje.
 
+  6. D124 (dono, 27/09): o 5 fixo SAIU. O teto de cada dominio numa rodada e o ORCAMENTO VIGENTE da
+     politica adaptativa (`coleta/cortesia_adaptativa.py`, via `onda_web.teto_do_dominio`; manual em
+     SINTONIA_TETO_POR_HOST). A JANELA DE 24 H (D79) deixa de ser a regra: fica DESLIGADA por omissao
+     (`--janela-24h` liga-a, dizendo-o; `--sem-janela-24h` continua aceite e nao muda nada). Quem trava
+     agora e o livro da cortesia (`--cortesia=` ou `--teto-24h=`): antes de cada rodada, uma fonte cujo
+     dominio nao tem orcamento AGORA (esgotado, Retry-After, pausa de 24 h por sinal) fica ADIADA com
+     PORQUE=TETO_ADAPTATIVO — nunca pedida.
+
     UMA RODADA SO FECHA COM A PROVA INDEPENDENTE. O CONTADOR QUE CORTA NAO E O QUE CONFERE.
 """
 from __future__ import annotations
@@ -50,8 +59,23 @@ RAIZ = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ / "provas"))
 import prova_teto_dominio as PT                                    # noqa: E402 — um so dono da prova
 
-TETO = PT.TETO_D38
+
+
+def teto_do_dominio(dominio: str) -> int:
+    """D124: o teto de um dominio numa rodada — o do condutor da onda (um so dono da pergunta)."""
+    sys.path.insert(0, str(ONDA_WEB.parent))
+    import onda_web as OW                                          # noqa: PLC0415
+    return OW.teto_do_dominio(dominio)
+
+
+def _t(teto, d) -> int:
+    return teto(d) if callable(teto) else int(teto)
+
+
+PEDIDOS_SEM_HISTORICO = 5                  # PREVISAO de uma fonte sem medida (robots + indice + 3 materias), nao teto
 ONDA_WEB = RAIZ / "ferramentas" / "big_collection" / "onda_web.py"
+sys.path.insert(0, str(RAIZ / "coleta"))
+import cortesia_adaptativa as CA                                   # noqa: E402 — o dono unico do teto (D124)
 PLANO_F = "RODADAS-PLANO.json"
 ESTADO_F = "RODADAS-ESTADO.json"
 
@@ -74,7 +98,7 @@ def pedidos_medidos(estados: list[dict]) -> dict:
 
 # ── 1b. a ORDEM PELO RENDIMENTO (coordenador 26/09 11:45, retorno da Intelligence rodada 2) ─
 # «T3/T10/T2 primeiro e T5 institucional por ultimo; a rodada 1 e a de maior rendimento previsto».
-# O teto (5/dominio/rodada) e a janela (D79, 1 rodada/24 h) NAO mudam: so muda QUEM vai em que rodada.
+# O teto (D124: o vigente de cada dominio) e a janela NAO mudam aqui: so muda QUEM vai em que rodada.
 #   0  A/B da Intelligence (deu sinal / cultura presa no texto)        peso 3
 #   1  T3, T10, T2 (familias pedidas primeiro)                        peso 2
 #   2  o resto ainda sem medida                                       peso 1
@@ -120,7 +144,7 @@ def dominios_tocados(estados: list[dict]) -> dict:
     return out
 
 
-def planear(linhas: list[dict], medidos: dict, teto: int = TETO, prioridade: dict | None = None,
+def planear(linhas: list[dict], medidos: dict, teto=teto_do_dominio, prioridade: dict | None = None,
             tocados: dict | None = None, bloqueio: dict | None = None,
             inicio: datetime | None = None) -> list[dict]:
     """Parte as fontes (ja na ordem justa) em rodadas: nenhum dominio passa de `teto` previstos
@@ -133,14 +157,15 @@ def planear(linhas: list[dict], medidos: dict, teto: int = TETO, prioridade: dic
     onde = {}                                   # dominio -> (rodada actual, gasto nela)
     for l in linhas:
         d, s = l["DOMINIO"], l["SOURCE_ID"]
-        p = max(1, min(teto, medidos.get(s) or l.get("PEDIDOS_PREVISTOS") or teto))
+        t = _t(teto, d)
+        p = max(1, min(t, medidos.get(s) or l.get("PEDIDOS_PREVISTOS") or PEDIDOS_SEM_HISTORICO))
         r, gasto = onde.get(d, (0, 0))
-        if gasto + p > teto:
+        if gasto + p > t:
             r, gasto = r + 1, 0
         while len(rodadas) <= r:
             rodadas.append([])
         rodadas[r].append({"SOURCE_ID": s, "DOMINIO": d, "PREVISTOS": p,
-                           "PREVISAO_VEM_DE": "medido" if medidos.get(s) else "teto/1.a onda"})
+                           "PREVISAO_VEM_DE": "medido" if medidos.get(s) else "1.a onda/sem medida"})
         onde[d] = (r, gasto + p)
     out = []
     for i, fs in enumerate(rodadas, 1):
@@ -161,10 +186,10 @@ def planear_por_rendimento(linhas, medidos, teto, prioridade, tocados, bloqueio,
     O numero de rodadas e o minimo que isto permite."""
     def cria(l):
         s = l["SOURCE_ID"]
-        p = max(1, min(teto, medidos.get(s) or l.get("PEDIDOS_PREVISTOS") or teto))
+        p = max(1, min(_t(teto, l["DOMINIO"]), medidos.get(s) or l.get("PEDIDOS_PREVISTOS") or PEDIDOS_SEM_HISTORICO))
         pr = prioridade.get(s) or {"CLASSE_PRIORIDADE": 2, "ATRASAR": False, "PORQUE": "sem medida"}
         return {"SOURCE_ID": s, "DOMINIO": l["DOMINIO"], "PREVISTOS": p,
-                "PREVISAO_VEM_DE": "medido" if medidos.get(s) else "teto/1.a onda",
+                "PREVISAO_VEM_DE": "medido" if medidos.get(s) else "1.a onda/sem medida",
                 "DOMINIOS": sorted({PT.dominio_registavel(l["DOMINIO"])} | set(tocados.get(s, ()))),
                 "CLASSE_PRIORIDADE": pr["CLASSE_PRIORIDADE"], "ATRASAR": pr["ATRASAR"], "PORQUE": pr["PORQUE"]}
     grupos: dict = {}
@@ -174,9 +199,10 @@ def planear_por_rendimento(linhas, medidos, teto, prioridade, tocados, bloqueio,
         grupos.setdefault(f["DOMINIO"], []).append(f)
 
     def fatias(fs):
-        out, gasto = [], teto + 1
+        out, gasto = [], None
         for f in fs:
-            if gasto + f["PREVISTOS"] > teto:
+            t = _t(teto, f["DOMINIO"])
+            if gasto is None or gasto + f["PREVISTOS"] > t:
                 out.append([])
                 gasto = 0
             out[-1].append(f)
@@ -336,11 +362,34 @@ def ledger_real() -> Path:
 
 
 # ── 4. a prova de uma rodada (o codigo da PROVA-TETO, nao uma copia) ─────────
-def provar_rodada(pasta: Path, ledger: Path, teto: int = TETO) -> dict:
+def provar_rodada(pasta: Path, ledger: Path, teto: int | None = None) -> dict:
     ids = PT.run_ids_da_onda((pasta / "ONDA-WEB-ESTADO.json").read_text(encoding="utf-8")
                              if (pasta / "ONDA-WEB-ESTADO.json").exists() else "")
     linhas = ledger.read_text(encoding="utf-8").splitlines() if ledger.exists() else []
-    return PT.verificar(ids, PT.ler_livro(linhas), teto)
+    eventos = CA.ler_eventos(CA.livro()) if CA.livro() else None
+    return PT.verificar(ids, PT.ler_livro(linhas), teto, eventos)
+
+
+def filtrar_pelo_orcamento(fontes: list[dict], cabem=None) -> tuple:
+    """D124: (correm, adiadas) pelo orcamento que cabe AGORA em cada dominio, lido do livro da cortesia.
+    Sem livro: correm todas (o transporte usa o inicial da classe). Livro ilegivel: ninguem corre (NAO SEI)."""
+    if cabem is None:
+        if not CA.livro():
+            return list(fontes), []
+        cabem = CA.orcamento_do_dominio
+    ja, correm, adiadas = {}, [], []
+    for f in fontes:
+        d = f["DOMINIO"]
+        if d not in ja:
+            ja[d] = cabem(d)
+        if ja[d] is None:
+            adiadas.append(dict(f, PORQUE="TETO_ADAPTATIVO", CABEM="NAO SEI (livro da cortesia ilegivel)"))
+        elif ja[d] <= 0:
+            adiadas.append(dict(f, PORQUE="TETO_ADAPTATIVO", CABEM=0))
+        else:
+            correm.append(f)
+            ja[d] -= f["PREVISTOS"]
+    return correm, adiadas
 
 
 # ── 5. o laco ────────────────────────────────────────────────────────────────
@@ -398,6 +447,12 @@ def correr_rodadas(base: Path, sha: str, plano: dict, *, onda, portao, relatorio
         correm, adiadas = filtrar_pelo_dia(pendentes, gasto_do_dia(livros_do_dia or base.parent, hoje)
                                            if teto_dia is not None else {}, teto_dia)
         reg["ADIADAS_TETO_DIA"] = adiadas
+        correm, adiadas_ca = filtrar_pelo_orcamento(correm)
+        if adiadas_ca:
+            reg["ADIADAS_TETO_ADAPTATIVO"] = adiadas_ca
+            adiadas = adiadas + adiadas_ca
+        if not correm and adiadas_ca and not reg["ADIADAS_TETO_DIA"]:
+            return parar("TETO_ADAPTATIVO", NOTA="nenhum dominio da rodada tem orcamento agora (D124); retomar depois")
         if not correm:
             return parar("TETO_DIA", NOTA="todas as fontes da rodada passariam o teto do dia; retomar amanha")
         reg["FONTES"] = [f["SOURCE_ID"] for f in correm]
@@ -429,7 +484,7 @@ def correr_rodadas(base: Path, sha: str, plano: dict, *, onda, portao, relatorio
             return parar("ONDA_PAROU", DISJUNTOR=e.get("PAROU"))
         reg["FEITAS"] = feitas + reg["FONTES"]
         if adiadas:                                              # nao se perde ninguem: a rodada fica por acabar
-            reg.update(ESTADO="INCOMPLETA", PORQUE="TETO_DIA", FIM=agora(),
+            reg.update(ESTADO="INCOMPLETA", PORQUE="TETO_DIA" if reg["ADIADAS_TETO_DIA"] else "TETO_ADAPTATIVO", FIM=agora(),
                        FALTAM=[a["SOURCE_ID"] for a in adiadas])
             estado["PAROU_NA_RODADA"] = n
             gravar(base, ESTADO_F, estado)
@@ -459,7 +514,9 @@ def plano_da_coorte(historico: list[str], rendimento: Path | None = None, livros
         rodadas = planear(sp["LINHAS"], pedidos_medidos(estados))
     return {"DATASET": "RODADAS-PLANO", "GERADO_EM": agora(), "ARVORE": sp["ARVORE"],
             "COORTE_SHA256": sp["COORTE_SHA256_DO_COMMIT"], "COORTE_ESTADO": sp["COORTE_ESTADO"],
-            "PODE_CORRER": sp["PODE_CORRER"], "TETO_POR_DOMINIO_POR_RODADA": TETO, "HISTORICO": historico,
+            "PODE_CORRER": sp["PODE_CORRER"], "HISTORICO": historico,
+            "TETO_POR_DOMINIO_POR_RODADA": {d: teto_do_dominio(d) for d in sorted({l["DOMINIO"] for l in sp["LINHAS"]})},
+            "TETO_VEM_DE": "politica adaptativa (D124) ou SINTONIA_TETO_POR_HOST (manual)",
             "FONTES": sum(len(r["FONTES"]) for r in rodadas), "N_RODADAS": len(rodadas),
             "PEDIDOS_PREVISTOS": sum(r["PEDIDOS_PREVISTOS"] for r in rodadas),
             "ORDEM": "RENDIMENTO (%s)" % rendimento if rendimento is not None else "JUSTA",
@@ -476,8 +533,8 @@ def main(argv=None) -> int:
     base = Path(arg["base"])
     historico = [x for x in arg.get("historico", "").split(",") if x]
     teto_dia = int(arg["teto-dia"]) if arg.get("teto-dia") else None
-    # D79: a janela de 24 h por dominio e a regra; so se desliga dizendo-o.
-    janela_h = None if "--sem-janela-24h" in argv else 24
+    # D124: a janela de 24 h (D79) deixou de ser a regra; so se liga dizendo-o (--janela-24h).
+    janela_h = 24 if "--janela-24h" in argv else None
     recibos = tuple(Path(x) for x in arg.get("recibos", "").split(",") if x)
     rendimento = Path(arg["rendimento"]) if arg.get("rendimento") else None
     inicio = datetime.fromisoformat(arg["inicio"]).astimezone(timezone.utc) if arg.get("inicio") else None
@@ -503,8 +560,9 @@ def main(argv=None) -> int:
     if "--correr" in argv:
         # D90: o contador multicanal de 24 h. O transporte (e qualquer linha) reserva ANTES de cada pedido
         # neste livro; herdado por onda_web -> orquestrador -> executor -> node, como SINTONIA_TETO_ONDA.
-        if arg.get("teto-24h"):
-            os.environ["SINTONIA_TETO_24H"] = arg["teto-24h"]
+        if arg.get("teto-24h") or arg.get("cortesia"):
+            # D124: o livro da cortesia adaptativa (o mesmo contador D90, agora adaptativo)
+            os.environ["SINTONIA_CORTESIA_LIVRO"] = arg.get("cortesia") or arg["teto-24h"]
         if not arg.get("sha256"):
             raise SystemExit("--correr exige --sha256=<da coorte congelada>")
         base.mkdir(parents=True, exist_ok=True)

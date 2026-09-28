@@ -207,15 +207,16 @@ def plano(pessoas_em_falta, com_orcid=0):
     return {'PESSOAS_A_PROCURAR': len(pessoas_em_falta),
             'ORCID_BUSCA_PEDIDOS': math.ceil(len(pessoas_em_falta) / NOMES_POR_PEDIDO_ORCID),
             'OPENALEX_AUTORES_PEDIDOS': math.ceil(max(com_orcid, len(pessoas_em_falta)) / ORCIDS_POR_PEDIDO_OPENALEX),
-            'RODADAS_MINIMAS': max(math.ceil(math.ceil(len(pessoas_em_falta) / NOMES_POR_PEDIDO_ORCID) / T6.TETO_POR_DOMINIO), 1) + 1,
-            'TETO_POR_DOMINIO_POR_RODADA': T6.TETO_POR_DOMINIO,
+            'RODADAS_MINIMAS': max(math.ceil(math.ceil(len(pessoas_em_falta) / NOMES_POR_PEDIDO_ORCID)
+                                             / max(T6.teto_por_dominio('pub.orcid.org'), 1)), 1) + 1,
+            'TETO_POR_DOMINIO_POR_RODADA': {d: T6.teto_por_dominio(d) for d in T6.DOMINIOS},     # D124
             'ORDEM': ('1) ORCID: todos, em lotes de 20; 2) OpenAlex /authors por ORCID, em lotes de 50: '
                       'instituicao atual e TEMAS; 3) as obras (consulta 2 do T6) pela prioridade medida nos temas')}
 
 
 def rodada(n, mur, rodadas, saida, pausa=T6.PAUSA):
-    """Rodada n: primeiro o ORCID para os NAO_ENCONTRADO/SO_NOME (lotes de 20, <= 5 pedidos);
-    quando todos tiverem sido procurados, o OpenAlex /authors pelos ORCID achados (<= 5)."""
+    """Rodada n: primeiro o ORCID para os NAO_ENCONTRADO/SO_NOME (lotes de 20, <= o orcamento do dominio, D124);
+    quando todos tiverem sido procurados, o OpenAlex /authors pelos ORCID achados (<= o orcamento, D124)."""
     os.makedirs(saida, exist_ok=True)
     f_est = os.path.join(saida, 'ESTADO-LISTA-MESTRA.json')
     est = T6._ler(f_est) if os.path.exists(f_est) else {'ORCID_PROCURADOS': [], 'ORCID_ACHADOS': {},
@@ -228,15 +229,17 @@ def rodada(n, mur, rodadas, saida, pausa=T6.PAUSA):
     # Entomologia primeiro; dentro do setor, a ordem do MUR (alfabetica). Nao e ranking de pessoa.
     falta.sort(key=lambda p: (0 if (p.get('SSD_2024') or '').endswith('/A') else 1, p['MUR_NOME']))
     reg = {'RODADA': n, 'PEDIDOS': {d: 0 for d in T6.DOMINIOS}, 'RESPOSTAS': []}
+    teto = {d: T6.teto_por_dominio(d) for d in T6.DOMINIOS}        # D124: o orcamento de cada dominio, lido antes
+    reg['TETO'] = teto
 
     def anotar(dom, nome, d, ok, porque):
         reg['PEDIDOS'][dom] += 1
-        assert reg['PEDIDOS'][dom] <= T6.TETO_POR_DOMINIO, 'teto por dominio passado'
+        assert reg['PEDIDOS'][dom] <= teto[dom], 'teto por dominio passado'
         nome = nome if ok else 'FALHA-r%d-%s' % (n, nome)
         reg['RESPOSTAS'].append({'DOMINIO': dom, 'FICHEIRO': nome, 'SHA256': T6._guardar(saida, nome, d),
                                  'OK': ok, 'PORQUE': porque})
 
-    for k in range(0, min(len(falta), T6.TETO_POR_DOMINIO * NOMES_POR_PEDIDO_ORCID), NOMES_POR_PEDIDO_ORCID):
+    for k in range(0, min(len(falta), teto['pub.orcid.org'] * NOMES_POR_PEDIDO_ORCID), NOMES_POR_PEDIDO_ORCID):
         lote = falta[k:k + NOMES_POR_PEDIDO_ORCID]
         d, err = T6.CP._get(url_orcid_busca(lote))
         ok = isinstance(d, dict) and 'expanded-result' in d
@@ -251,7 +254,7 @@ def rodada(n, mur, rodadas, saida, pausa=T6.PAUSA):
         time.sleep(pausa)
     if not falta:
         todos = sorted({o for v in est['ORCID_ACHADOS'].values() for o in v} - set(est['OPENALEX_FEITOS']))
-        for k in range(0, min(len(todos), T6.TETO_POR_DOMINIO * ORCIDS_POR_PEDIDO_OPENALEX), ORCIDS_POR_PEDIDO_OPENALEX):
+        for k in range(0, min(len(todos), teto['api.openalex.org'] * ORCIDS_POR_PEDIDO_OPENALEX), ORCIDS_POR_PEDIDO_OPENALEX):
             lote = todos[k:k + ORCIDS_POR_PEDIDO_OPENALEX]
             d, err = T6._pedir(url_openalex_por_orcid(lote))
             ok, porque = T6.resposta_valida(d) if d is not None else (False, err)

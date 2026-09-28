@@ -931,7 +931,8 @@ def linha_da_corrida(*, run_id, fase, fonte, inicio, abortada=None):
     recusadas = teto.recusas()
     if recusadas:
         linha['CORTESIA']['RECUSAS'] = recusadas
-        linha['CORTESIA']['TETO_POR_DOMINIO'] = teto.teto()
+        # D124: o teto e por dominio (o vigente da politica adaptativa, ou o manual declarado)
+        linha['CORTESIA']['TETO_POR_DOMINIO'] = {r['ORCAMENTO']: r['TETO'] for r in recusadas}
     if abortada is not None:
         # Presente SO quando a corrida rebentou: a linha existe, mas nao e de sucesso.
         linha['ABORTED'] = {'SOURCE_ID': fonte or rc.NAO_SEI,
@@ -943,7 +944,8 @@ def _livro_da_corrida_se_faltar(fase, run_id):
     """FREIO-SOCIAL: numa fase social SEM livro da onda, a corrida ganha um livro PROPRIO.
 
     O freio (`teto_da_onda`) so trava com livro. A onda nomeia o dela; uma corrida social
-    pedida sozinha continua com o teto de 5 por dominio — no livro dela, que morre com ela.
+    pedida sozinha continua com o teto por dominio (D124: o vigente da politica adaptativa) — no livro
+    dela, que morre com ela.
     As outras fases nao mudam. → o caminho do livro criado aqui, ou None."""
     import re                                                    # noqa: PLC0415
     import tempfile                                              # noqa: PLC0415
