@@ -111,6 +111,56 @@ class FormasDeSegredo(unittest.TestCase):
         self._ignora("Cookie: <REDIGIDO pela guarda>",
                      "redigir a origem nao pode virar um achado novo")
 
+    # ── O NOME DO PARAMETRO NAO E A CHAVE (corrigido em 2026-09-28) ───────
+    # Medido em `servico-20260923-0923` @ `a2aa73f4`: `coleta/pesquisadores_t6.py`
+    # linha 733 monta a query string — `url += '&api_key=' + quote(chave)` — e a
+    # guarda acusava AQUELA linha. O padrao antigo nao excluia a quebra de linha
+    # da classe do valor, logo o «valor» comecava em `&api_key=` e so parava na
+    # aspa seguinte, SETE LINHAS ABAIXO, dentro de uma docstring.
+    #
+    #     UM PADRAO QUE ATRAVESSA A LINHA ACUSA O CODIGO QUE MONTA A URL.
+    #
+    # O falso positivo nao era cosmetico: o passo `0` do `scrap-social` morria
+    # antes do passo `1`, e NENHUMA fase da linha de producao chegava a correr —
+    # o passo `0a` dizia `SCRAP_CODE_PRESENT=YES` e a fase ficava `skipped`.
+    #
+    #     UM PORTAO QUE FALHA PELA RAZAO ERRADA ENSINA A IGNORAR O PORTAO.
+    #
+    # As duas faces ficam aqui: a linha legitima que NAO casa, e a chave escrita
+    # de verdade, numa linha continua, que CONTINUA a casar. Sem a segunda, esta
+    # correcao seria um afrouxamento sem contraprova.
+    def test_parametro_da_query_nao_e_chave(self):
+        codigo = (
+            "def _pedir(url, chave=None):\n"
+            "    if chave:\n"
+            "        url += '&" + monta("api_", "key=") + "' + urllib.parse.quote(chave)\n"
+            "    return CP._get(url)\n"
+            "\n"
+            "\n"
+            "def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):\n"
+            '    """UMA rodada, <= TETO_POR_DOMINIO pedidos em cada dominio."""\n'
+        )
+        self._ignora(codigo, "montar `api_key=` na query nao e escrever a chave")
+
+    def test_chave_literal_numa_linha_continua_a_casar(self):
+        self._pega(monta("api_", "key = '", "AKfycByA1b2C3d4E5f6") + "'",
+                   "chave de API literal")
+
+    def test_o_ficheiro_da_falsa_acusacao_continua_limpo(self):
+        """A contraprova no ficheiro REAL, e nao numa forma parecida.
+
+        `coleta/pesquisadores_t6.py` e de outro dono e nao foi alterado: quem
+        estava errado era a guarda. Este teste morre se a guarda voltar a
+        acusa-lo. Ele vive na linha de producao, por isso um ramo sem ele nao
+        pode responder por ele — e o `skip` diz isso em voz alta, em vez de
+        fingir um verde que nao mediu nada.
+        """
+        alvo = RAIZ / "coleta" / "pesquisadores_t6.py"
+        if not alvo.is_file():
+            self.skipTest("coleta/pesquisadores_t6.py nao existe nesta ref")
+        self.assertEqual(guarda.varrer(["coleta/pesquisadores_t6.py"], "TESTE"), [],
+                         "a guarda voltou a acusar codigo legitimo")
+
     # ── O MARCADOR DE CAMINHO TINHA EXCEPCAO E NAO TINHA PROVA ────────────
     # `CONTEUDO_PROIBIDO` isenta `[A-Z]:\Users\(?!<)` desde sempre, e
     # `social_sessao.redigir()` escreve `<CAMINHO-LOCAL>` nesse lugar. O cookie

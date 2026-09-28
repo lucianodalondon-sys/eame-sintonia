@@ -78,7 +78,34 @@ CONTEUDO_PROIBIDO = (
     ('csrf token', re.compile(r'(?i)\b(csrftoken|x-csrf-token)\s*[:=]\s*["\']?\S{8,}')),
     ('access/refresh token', re.compile(r'(?i)\b(access_token|refresh_token)\s*[:=]\s*["\']?\S{12,}')),
     ('senha literal', re.compile(r'(?i)\b(password|passwd|senha)\s*[:=]\s*["\'][^"\']{3,}["\']')),
-    ('chave de API literal', re.compile(r'(?i)\b(api[_-]?key|client[_-]?secret)\s*[:=]\s*["\'][^"\']{8,}["\']')),
+    # ⚠️ CORRIGIDO EM 2026-09-28 — A CLASSE DO VALOR NAO EXCLUIA A QUEBRA DE
+    # LINHA, E A GUARDA ACUSOU CODIGO LEGITIMO NA LINHA DE PRODUCAO.
+    #
+    # Medido em `servico-20260923-0923` @ `a2aa73f4`: `coleta/pesquisadores_t6.py`
+    # linha 733 e' `url += '&api_key=' + urllib.parse.quote(chave)`. O padrao
+    # antigo casava ai' e so' parava na aspa seguinte, SETE LINHAS ABAIXO, dentro
+    # de uma docstring — `[^"']{8,}` nao exclui `\n`, logo o "valor" atravessava o
+    # ficheiro. O trecho acusado era `&api_key=`: o NOME do parametro, nao um
+    # segredo. E `_NAO_E_SEGREDO` nao o reconhecia porque ele comeca por `&`.
+    #
+    #     UM PADRAO QUE ATRAVESSA A LINHA ACUSA O CODIGO QUE MONTA A URL.
+    #
+    # Custo medido da falsa acusacao: o passo `0` do `scrap-social` morria ANTES
+    # do passo `1`, em QUALQUER fase e em qualquer ramo cuja arvore tivesse
+    # aquele ficheiro. O passo `0a` dizia `SCRAP_CODE_PRESENT=YES` e a coleta
+    # nunca corria. Medido no run 36374322110: `0a` success, `0` failure,
+    # `1 · rodar a fase` skipped.
+    #
+    # O PRECO DESTA CORRECAO, DITO EM VOZ ALTA: `[ \t]*` no lugar de `\s*` deixa
+    # de casar um segredo partido por quebra de linha (`API_KEY =\n  "..."`).
+    # Preferiu-se o falso NEGATIVO raro ao falso POSITIVO diario, porque
+    #
+    #     GUARDA QUE GRITA DEMAIS VIRA GUARDA DESLIGADA,
+    #
+    # e o valor continua a ser apanhado onde se escreve um valor: na linha dele.
+    # As duas faces — a linha legitima que NAO casa e a chave literal que casa —
+    # vivem em `tests/test_security_secret_shapes.py`.
+    ('chave de API literal', re.compile(r'(?i)\b(api[_-]?key|client[_-]?secret)[ \t]*[:=][ \t]*["\'][^"\'\n]{8,}["\']')),
     ('caminho pessoal Windows', re.compile(r'(?i)[A-Z]:\\Users\\(?!<)[^\\\s"\']{2,}')),
 
     # ── FORMAS DE CREDENCIAL DE PLATAFORMA ──────────────────────────────────
