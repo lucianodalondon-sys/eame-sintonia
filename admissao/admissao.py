@@ -817,6 +817,20 @@ def _formas_que_casam(termo: str, texto_dobrado: str) -> list:
 
 
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
+    """Pertence ao universo pedido? → (resultado, motivo, evidencia).
+
+    Com `PORTA_SALA_RENDE_LIGADA = False` (a omissao) isto e EXACTAMENTE a regua
+    de hoje: `_do_universo_regua` sem nenhum extra. A proposta PORTA-DA-SALA-RENDE
+    (ver o bloco dela, mais abaixo) so corre com a chave ligada.
+    """
+    if not PORTA_SALA_RENDE_LIGADA:
+        return _do_universo_regua(item, universo, palavras)
+    return _porta_sala_rende(item, universo, palavras)
+
+
+def _do_universo_regua(item: dict, universo: str, palavras: list, *,
+                       proposta: bool = False, nao_com_dois: bool = False,
+                       lingua: str | None = None) -> tuple:
     """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
 
     A LEI CANONICA QUE ESTA FUNCAO VIOLAVA
@@ -861,16 +875,23 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     texto = _dobrar(" ".join(str(item.get(k) or "") for k in
                              ("texto", "title", "nome", "topics", "crops", "resumo")))
     # D3: a mesma regua, na lingua do texto. it/pt/NAO SEI: nada muda.
-    lingua = _lingua_do_item(item)
-    reguas = PERGUNTAS_DO_UNIVERSO
+    # `lingua` vem de fora so na proposta: a lingua mede-se na PAGINA inteira, como hoje,
+    # e nao no corpo separado (medido: um corpo italiano curto saiu «en» e perdeu `prezzo`)
+    lingua = lingua or _lingua_do_item(item)
+    # PORTA-DA-SALA-RENDE: com a proposta, T8/T12 entram nas reguas — por palavra
+    # inteira e TRANSVERSAIS (nunca provam NAO a outro universo). Sem ela, nada muda.
+    extra = _reguas_psr("en" if lingua == "en" else "it") if proposta else {}
+    palavra_inteira = PALAVRA_INTEIRA | frozenset(extra)
+    transversais = TRANSVERSAIS | frozenset(extra)
+    reguas = dict(PERGUNTAS_DO_UNIVERSO, **extra) if extra else PERGUNTAS_DO_UNIVERSO
     if lingua in IDIOMAS_SEM_REGUA:
         return NAO_SEI, (f"IDIOMA_NAO_SUPORTADO:{lingua} — o texto esta em «{lingua}» e esta "
                          f"porta nao tem regua nessa lingua. NAO_SEI dito, nao fingido."), \
             {"idioma": lingua}
     if lingua == "en":
-        reguas = PERGUNTAS_EN
-        palavras = PERGUNTAS_EN.get(universo, [])
-    if universo in PALAVRA_INTEIRA:
+        reguas = dict(PERGUNTAS_EN, **extra) if extra else PERGUNTAS_EN
+        palavras = reguas.get(universo, [])
+    if universo in palavra_inteira:
         achadas = [p.split("|")[0] for p in palavras if _casa(p, texto)]
     else:
         achadas = [p for p in palavras if _dobrar(p) in texto]
@@ -943,14 +964,24 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
     noutros = {}
     for outro, termos in reguas.items():
-        if outro == universo or outro in TRANSVERSAIS:
+        if outro == universo or outro in transversais:
             continue
         # um universo por conceito («forma|forma») so casa pelas suas formas, e por
         # palavra inteira; os antigos continuam como estavam.
         casou = [t.split("|")[0] for t in termos
-                 if (_casa(t, texto) if outro in PALAVRA_INTEIRA else t.lower() in texto)]
+                 if (_casa(t, texto) if outro in palavra_inteira else t.lower() in texto)]
         if casou:
             noutros[outro] = casou[:4]
+    if nao_com_dois and noutros and not any(len(w) >= SINAIS_MINIMOS for w in noutros.values()):
+        # PORTA-DA-SALA-RENDE · NAO_COM_DOIS_SINAIS: a mesma barra do SIM. Uma palavra
+        # solta de outro universo e indicio, nao prova de exclusao (R03: `campagna`).
+        quais = "; ".join(f"{u}: {', '.join(w)}" for u, w in noutros.items())
+        return NAO_SEI, (
+            f"UM_SO_SINAL_DE_OUTRO_UNIVERSO: nao fala de «{universo}», e de outro universo so "
+            f"aparece uma palavra solta por universo ({quais}). Para SIM a porta pede "
+            f"{SINAIS_MINIMOS} sinais; um NAO com menos do que isso seria uma exclusao por "
+            f"indicio. Fica NAO_SEI — nao entra e nao e rejeitado."), \
+            {"achado_noutro": noutros, "sinais_minimos": SINAIS_MINIMOS}
     if noutros:
         quais = "; ".join(f"{u}: {', '.join(w)}" for u, w in noutros.items())
         return NAO, (f"nao fala de «{universo}», e fala claramente de outro "
@@ -1345,6 +1376,231 @@ PERGUNTAS_EN = {
 IDIOMAS_SEM_REGUA = ("fr", "es", "de")
 
 
+# ── PORTA-DA-SALA-RENDE (28/09) · PROPOSTA — DESLIGADA POR OMISSAO ──────────
+# Dono (27/09): «precisamos de muita materia prima»; D61-D64: nunca descartar por
+# faltar dado. Medido em PORTA-DA-SALA-RENDE.md (replay offline do livro). A decisao
+# de ligar e do bot Luciano / dono — NAO desta missao. Desligada, a porta e a de hoje
+# byte a byte (`_do_universo` chama `_do_universo_regua` sem extras).
+#
+# CINCO PECAS, cada uma medivel sozinha (PORTA_SALA_RENDE_PECAS):
+#   MOLDURA             a regua julga o CORPO da pagina HTML, nao o menu/cabecalho/
+#                       rodape. NAO se criou extrator: e `leis/fato_do_texto.corpo()`
+#                       (o dono do corpo, com `sem_vizinhos` D19). So em pagina HTML
+#                       (quem traz `retrato_do_detector`): PDF e video nao tem menu de
+#                       site. ⚠️ MEDIDO: numa pagina minificada (uma linha so) o corpo
+#                       sai VAZIO (IT-T10-022, 28/28) — ai NAO se julga o vazio: fica o
+#                       texto inteiro, como hoje, e a evidencia diz porque.
+#   NAO_COM_DOIS_SINAIS NAO pede o que o SIM pede: >= SINAIS_MINIMOS termos de UM
+#                       outro universo. Menos do que isso fica NAO_SEI (R03).
+#   T8 · T12            reguas por conceito, palavra inteira e TRANSVERSAIS. T8 e a
+#                       regua YT2 (branch `youtube-regua-t8-v1`, 4f39e8c0), medida no
+#                       GABARITO-T8-V1 — trazida sem mudar uma palavra. T12 e PROPOSTA
+#                       nova, NAO MEDIDA contra gabarito (nao ha): ver o comentario dela.
+#   SECAO               uma pagina HTML cuja morada acaba num segmento de < 5 palavras
+#                       sem algarismos (`/attualita/chi-e-dove/`) e seccao ou listagem,
+#                       nao materia: nao vira SIM (fica NAO_SEI). O criterio e o de
+#                       `curadoria/reparar_contrato._palavras` + `MENU_PALAVRAS_MAX`
+#                       (medido no crea.gov.it), lido do dono, sem copia.
+# E UMA REGRA TRANSVERSAL: nenhum SIM sai da proposta sem TRECHO do texto julgado.
+# LIGAR e mudar esta linha E subir VERSAO_DA_REGRA para "11" no mesmo commit — a versao
+# e o que deixa reabrir so o que a regua nova decidiu.
+PORTA_SALA_RENDE_LIGADA = False
+PORTA_SALA_RENDE_PECAS = frozenset({"MOLDURA", "NAO_COM_DOIS_SINAIS", "T8", "T12", "SECAO"})
+#: abaixo disto o corpo separado nao e corpo: e o separador a falhar (pagina de uma linha)
+CORPO_MINIMO_DA_MOLDURA = 200
+
+REGUAS_PSR = {
+    # T8 · FARMERS & INFLUENCERS — copia literal da regua YT2 (4f39e8c0). Ali estao as
+    # razoes de cada conceito e dos que ficaram de fora (raccolta, resa, campagna, varieta).
+    # ⚠️ Medida em VIDEOS de canais (precisao 0,769 · recall 0,50, rotulos de modelo,
+    # VALIDADO_POR_HUMANO = NAO). Em DOCUMENTOS institucionais (boletins) ela nao sabe
+    # QUEM fala — risco de falso SIM declarado no relatorio.
+    "T8": ["agricoltore|agricoltori|agricultor|agricultores",
+           "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural",
+           "in campo|nei campi|no campo|nos campos",
+           "coltivatore|coltivatori|viticoltore|viticoltori|frutticoltore|frutticoltori|"
+           "olivicoltore|olivicoltori|produtor rural|produtores rurais",
+           "allevatore|allevatori|pecuarista|pecuaristas",
+           "raccolto|raccolti|colheita|colheitas",
+           "semina|semine|sementeira|plantio",
+           "potatura|poda",
+           "concimazione|concimi|fertilizzanti|adubacao|fertilizantes",
+           "irrigazione|irrigacao",
+           "ettaro|ettari|hectare|hectares",
+           "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares",
+           "trattore|trattori|trator|tratores",
+           "redditivita|costi di produzione|rentabilidade|custos de producao"],
+    # T12 · POLICY / AGRICULTURAL ENVIRONMENT — PROPOSTA (28/09), NAO MEDIDA.
+    # Do Atlas (docs/fontes/ATLAS-DE-FONTES-EAME.md:56): «CAP, politicas agricolas,
+    # sustentabilidade, reducao de insumos, agricultura regenerativa, restricoes, mudancas
+    # que afetam produtor/mercado/portfolio». Exemplos REAIS do acervo que a pedem:
+    #   IT-T7-043 «Manifesto per il Biocontrollo» (politica agricola comune)
+    #   IT-T7-042 «DdL Coltiva Italia … l'emendamento» (processo legislativo)
+    #   IT-T10-018 «Certificazioni e Ppwr» (regolamento europeo sugli imballaggi)
+    # ⚠️ FICARAM DE FORA, MEDIDO no acervo (data/collection-store + data/derivados/texto):
+    #   `politiche agricole` 69 so na moldura/cabecalho — e o NOME do ministerio e da
+    #                        «Direzione generale politiche agricole» dos boletins.
+    #   `masaf`/`ministero dell'agricoltura` — «finanziata dal MASAF», linha de credito.
+    #   `sostenibilita`      24 corpos, todos slogan de empresa (Riunite, myfruit).
+    #   `regolamento (ue)`   o GDPR no formulario de contacto.
+    #   `parlamento europeo` a citacao do Reg. 1107/2009 (isso e T4, nao politica).
+    #   `normativa` solta   «secondo la normativa vigente»; ficam so as formas qualificadas.
+    #   `agricoltura biologica` e pratica nos boletins T3 («aziende biologiche»).
+    #   `biocontrollo`       e categoria de produto (T9/T4), nao politica.
+    "T12": ["politica agricola comune|politica agricola comunitaria|pac",
+            "sviluppo rurale|psr|feasr",
+            "ecoschema|ecoschemi|eco-schema|eco-schemi|condizionalita",
+            "green deal|farm to fork|dal produttore al consumatore",
+            "disegno di legge|ddl|legge di bilancio|decreto-legge|decreto legge",
+            "emendamento|emendamenti",
+            "uso sostenibile dei prodotti fitosanitari|piano d'azione nazionale"
+            "|riduzione dei fitofarmaci|riduzione dei pesticidi|riduzione dei prodotti fitosanitari",
+            "agricoltura rigenerativa|agricoltura conservativa|carbon farming|crediti di carbonio",
+            "nuove tecniche genomiche|tecniche di evoluzione assistita",
+            "aiuti di stato|aiuto di stato|de minimis",
+            "direttiva nitrati|zone vulnerabili ai nitrati",
+            "normativa europea|normativa comunitaria|quadro normativo|semplificazione normativa",
+            "dazi|dazio|accordo di libero scambio|mercosur|tensioni commerciali"],
+}
+REGUAS_PSR_EN = {
+    "T8": ["farmer|farmers", "farm|farms", "in the field|in the fields",
+           "grower|growers", "harvest|harvests", "sowing|planting", "pruning",
+           "fertiliser|fertilizer|fertilisers|fertilizers", "irrigation",
+           "hectare|hectares", "vineyard|vineyards|orchard|orchards",
+           "tractor|tractors", "yield|yields", "livestock"],
+    # ⚠️ NAO MEDIDO (nenhum texto ingles de politica no acervo). `cap` sozinho e «tampa»,
+    # «teto de preco»: so a forma por extenso.
+    "T12": ["common agricultural policy",
+            "rural development",
+            "eco-scheme|eco-schemes|conditionality",
+            "green deal|farm to fork",
+            "amendment|amendments|draft law",
+            "sustainable use of pesticides|pesticide reduction",
+            "regenerative agriculture|conservation agriculture|carbon farming|carbon credits",
+            "new genomic techniques",
+            "state aid",
+            "nitrates directive",
+            "tariff|tariffs|free trade agreement|trade war|mercosur"],
+}
+
+
+def _reguas_psr(lingua: str) -> dict:
+    """As reguas T8/T12 da proposta que estao nas pecas pedidas, na lingua do texto."""
+    fonte = REGUAS_PSR_EN if lingua == "en" else REGUAS_PSR
+    return {u: fonte[u] for u in ("T8", "T12") if u in PORTA_SALA_RENDE_PECAS}
+
+
+def _palavras_do_universo(universo: str) -> list:
+    """A regua do universo, com T8/T12 so quando a proposta esta ligada."""
+    if PORTA_SALA_RENDE_LIGADA and universo in _reguas_psr("it"):
+        return _reguas_psr("it")[universo]
+    return PERGUNTAS_DO_UNIVERSO.get(universo, [])
+
+
+def _sem_moldura(item: dict) -> tuple:
+    """(item a julgar, evidencia). So pagina HTML; o corpo e o de `fato_do_texto.corpo`."""
+    if not item.get("retrato_do_detector") or not str(item.get("texto") or "").strip():
+        return item, {"aplicada": False, "porque": "nao e pagina HTML: nao ha moldura de site"}
+    ft = _da_leis("fato_do_texto")
+    texto = str(item["texto"])
+    c = ft.corpo(texto)
+    ev = {"caracteres_texto": len(texto), "caracteres_corpo": len(c),
+          "dono": "leis/fato_do_texto.py::corpo"}
+    if len(c.strip()) < CORPO_MINIMO_DA_MOLDURA:
+        return item, dict(ev, aplicada=False, porque=(
+            "MOLDURA_NAO_SEPARAVEL: o corpo separado tem < %d caracteres (pagina de uma "
+            "linha so, ou sem frase). Julga-se o texto inteiro, como hoje — nao o vazio."
+            % CORPO_MINIMO_DA_MOLDURA))
+    return dict(item, texto=c), dict(ev, aplicada=True)
+
+
+def _da_leis(nome: str):
+    m = sys.modules.get(nome)
+    if m is not None:
+        return m
+    import importlib.util  # noqa: PLC0415
+    if str(RAIZ / "leis") not in sys.path:
+        sys.path.insert(0, str(RAIZ / "leis"))
+    spec = importlib.util.spec_from_file_location(nome, RAIZ / "leis" / (nome + ".py"))
+    m = importlib.util.module_from_spec(spec)
+    sys.modules[nome] = m
+    spec.loader.exec_module(m)
+    return m
+
+
+def _e_secao(item: dict):
+    """A morada da pagina HTML e de seccao/listagem? → motivo, ou None (nao se sabe / nao e)."""
+    url = item.get("url_da_pagina")
+    if not item.get("retrato_do_detector") or not url:
+        return None
+    from urllib.parse import urlparse  # noqa: PLC0415
+    segs = [s for s in urlparse(str(url)).path.split("/") if s]
+    ultimo = segs[-1] if segs else ""
+    if any(ch.isdigit() for ch in ultimo):
+        return None                       # «...-2026», «/63565»: morada de item, nao de seccao
+    rc = _da_curadoria("reparar_contrato")
+    n = rc._palavras(str(url))
+    if n < rc.MENU_PALAVRAS_MAX:
+        return ("SECAO_OU_LISTAGEM: a morada acaba em «%s» (%d palavra(s) < %d) — nome de "
+                "seccao, nao titulo de materia (criterio de curadoria/reparar_contrato)"
+                % (ultimo or "/", n, rc.MENU_PALAVRAS_MAX))
+    return None
+
+
+def _trechos(texto: str, formas: list, n: int = 3, largura: int = 90) -> list:
+    """O trecho do texto julgado onde cada sinal casou (forma dobrada). Prova do SIM."""
+    import re
+    t = _dobrar(texto)
+    out = []
+    for termo in formas:
+        for f in (_dobrar(x) for x in str(termo).split("|")):
+            if not f:
+                continue
+            # palavra inteira primeiro; as reguas antigas casam por pedaco, e o trecho
+            # tem de mostrar ONDE elas casaram, pedaco incluido
+            m = re.search(r"(?<![a-z0-9])" + re.escape(f) + r"(?![a-z0-9])", t) \
+                or re.search(re.escape(f), t)
+            if m:
+                out.append({"sinal": str(termo).split("|")[0], "trecho": " ".join(
+                    t[max(0, m.start() - largura): m.end() + largura].split())})
+                break
+        if len(out) >= n:
+            break
+    return out
+
+
+def _porta_sala_rende(item: dict, universo: str, palavras: list) -> tuple:
+    """A proposta, com a chave ligada: moldura -> regua (+T8/T12, NAO com dois) -> seccao."""
+    julgado, ev_moldura = item, None
+    if "MOLDURA" in PORTA_SALA_RENDE_PECAS:
+        julgado, ev_moldura = _sem_moldura(item)
+    r, motivo, ev = _do_universo_regua(
+        julgado, universo, palavras, proposta=bool(PORTA_SALA_RENDE_PECAS & {"T8", "T12"}),
+        nao_com_dois="NAO_COM_DOIS_SINAIS" in PORTA_SALA_RENDE_PECAS,
+        lingua=_lingua_do_item(item))
+    ev = dict(ev, porta_sala_rende="PROPOSTA (28/09)")
+    if ev_moldura is not None:
+        ev["moldura"] = ev_moldura
+    if r == SIM and "SECAO" in PORTA_SALA_RENDE_PECAS:
+        porque = _e_secao(item)
+        if porque:
+            return NAO_SEI, (porque + ". Uma lista mistura assuntos de varias materias: nao "
+                             "vira SIM, fica NAO_SEI — nao entra e nao e rejeitada."), \
+                dict(ev, secao=porque, sim_barrado=motivo)
+    if r == SIM:
+        sinais = list(ev.get("palavras") or []) + list(ev.get("ancoras") or [])
+        texto = " ".join(str(julgado.get(k) or "") for k in
+                         ("texto", "title", "nome", "topics", "crops", "resumo"))
+        formas = [p for p in (palavras or []) + [a for d in ANCORAS.values() for a in d["FORTES"]]
+                  if p.split("|")[0] in sinais] or sinais
+        ev["trechos"] = _trechos(texto, formas)
+        if not ev["trechos"]:
+            # NENHUM SIM SEM TRECHO: se o sinal nao se acha no texto julgado, nao ha prova.
+            return NAO_SEI, ("SEM_TRECHO: a regua disse SIM mas nenhum sinal se acha no texto "
+                             "julgado — sem trecho nao ha prova, fica NAO_SEI"), ev
+    return r, motivo, ev
+
+
 # ── T2 · A LIGACAO AGRICOLA ESCRITA (D29 — JANELAS DE CULTURA, 2026-09-24) ──
 # O dono (D29): «na coleta precisamos coletar informacoes relevantes sobre as
 # JANELAS DE CULTURA». A regua T2 deixa de perguntar «isto fala de clima?» e passa
@@ -1556,7 +1812,7 @@ def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
                            evidencia=dict(ev, estagio=est, portoes=provas),
                            corrida=corrida)
 
-    r, motivo, ev = _do_universo(item, universo, PERGUNTAS_DO_UNIVERSO.get(universo, []))
+    r, motivo, ev = _do_universo(item, universo, _palavras_do_universo(universo))
     provas["pertence ao universo"] = dict(ev, resultado=r)
     ev = dict(ev, estagio=est, portoes=provas)
     if est == DOCUMENTO:

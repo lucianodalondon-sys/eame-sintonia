@@ -615,6 +615,30 @@
    ]
   },
   {
+   "id": "C-PORTA-SALA-RENDE",
+   "name": "Porta da Sala rende — replay offline da regua PROPOSTA (desligada)",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Replay so-leitura do LIVRO-DE-DECISOES com a proposta PORTA-DA-SALA-RENDE de admissao/admissao.py (chave PORTA_SALA_RENDE_LIGADA = False por omissao): moldura do site tirada pelo corpo() de leis/fato_do_texto, NAO so com dois sinais de outro universo, reguas T8 (a YT2) e T12 (proposta), e pagina de seccao que nao vira SIM. Liga a chave so dentro do processo, junta cada decisao ao texto versionado (collection-store pelo sha256 do pai, derivados/texto pelo registo) e escreve a tabela antes/depois por universo, a lista do que muda com o trecho, o que continua fora e porque. Mutacao numa copia. Nunca chama adm.escrever(), nunca abre rede, nunca escreve na Sala.",
+   "why_here": "Dono 27/09: «precisamos de muita materia prima»; D61-D64. A pergunta era quanto a regua deixa de fora e porque — e a resposta tinha de vir do livro relido, nao de um palpite. A decisao de ligar e do bot Luciano / dono (PORTA-DA-SALA-RENDE.md).",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+    "scripts/porta_sala_rende/mutar_porta_sala_rende.py",
+    "scripts/porta_sala_rende/REPLAY-PORTA-SALA-RENDE-V1.json",
+    "scripts/porta_sala_rende/MUTACAO-PORTA-SALA-RENDE-V1.json",
+    "scripts/porta_sala_rende/AMOSTRA-LIDA-V1.json"
+   ]
+  },
+  {
    "id": "C-DESBLOQUEIO-PACOTE",
    "name": "Pacote de desbloqueio da coorte — aplica-se uma vez no cutover",
    "territory": "Z-MEDIDAS",
