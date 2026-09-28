@@ -213,8 +213,20 @@ Um ciclo **a meio** acaba o que começou (e religa o robô). Para o parar a meio
   RAM ignorada, RAM NÃO SEI passa, backup ignorado, teto 24 h ignorado, livro ilegível vira vazio, parado não fica
   parado, linha não ligada corre, código da onda ignorado, reconciliação ignorada, só o domínio do plano, feitas
   repetem, rodízio parado, onda sem o livro de 24 h, ligação pelo nome, erro não para, interruptor ignorado.
-- **Regressão:** `test_rodadas`, `test_contador_24h`, `test_onda_web` OK. Bateria inteira por nome: ver o
-  relatório da missão.
+- **Regressão:** `test_rodadas`, `test_contador_24h`, `test_onda_web` OK (`rodadas.py` não foi tocado).
+- **Bateria inteira por nome** (executor `provas/integra_noite/bateria_inteira_por_nome.py`, rede fechada, cópia
+  limpa de cada commit; Linux, Python 3.11, node 22): base `18461b92` × ramo `6c80022d`
+  (`provas/COLETA-CONTINUA-BATERIA-base-18461b9.json` / `…-ramo-6c80022.json`).
+
+  | | base 18461b92 | ramo 6c80022d |
+  |---|---|---|
+  | ficheiros de teste | 393 | 394 (+ `test_coleta_continua.py`) |
+  | testes corridos | 7.373 | 7.423 |
+  | ficheiros vermelhos | 77 | 77 (os mesmos) |
+  | falhas por nome | 338 (337 com os números do system-map normalizados) | 338 (337) |
+
+  **337 herdadas · 0 consertadas · 0 novas.** (Neste ambiente Linux as falhas herdadas não são as 415 do
+  LOTE4-FINAL, medido em Windows: a comparação vale só dentro da mesma máquina, base contra ramo.)
 
 ## O que NÃO faz (declarado)
 
