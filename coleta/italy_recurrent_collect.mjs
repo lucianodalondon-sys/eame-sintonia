@@ -36,7 +36,8 @@ import { randomUUID } from "node:crypto";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
-import { openSync, closeSync, unlinkSync, existsSync, writeFileSync, readFileSync, mkdirSync, appendFileSync } from "node:fs";
+import { hostname } from "node:os";
+import { openSync, closeSync, unlinkSync, existsSync, writeFileSync, readFileSync, mkdirSync, appendFileSync, statSync, writeSync, renameSync } from "node:fs";
 import { PROFILES, PERFIL_PADRAO } from "../candidatas/italy_profiles.mjs";
 import { CONTRACTS } from "../regras/italy_contracts.mjs";
 import { filtrarPorCadencia } from "../regras/cadencia_da_referencia.mjs";
@@ -63,11 +64,111 @@ const dataEmRoma = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Ro
 function log(o) { mkdirSync(LOG_DIR, { recursive: true }); appendFileSync(`${LOG_DIR}/runs.log`, JSON.stringify(o) + "\n"); }
 
 // ---------- 1 · LOCK: uma instancia por vez ----------
-function pegarLock() {
-  try { const fd = openSync(LOCK, "wx"); writeFileSync(LOCK, JSON.stringify({ pid: process.pid, at: agora() })); closeSync(fd); return true; }
-  catch { return false; }
+//
+// LEI: CADEADO DE PROCESSO VIVO E RESPEITADO · CADEADO DE PROCESSO MORTO E
+// ASSUMIDO, E A ASSUNCAO FICA DITA.
+//
+// O DEFEITO QUE ISTO FECHA — medido neste registo em 2026-09-28: o
+// `catch { return false; }` tratava QUALQUER erro como «outra coleta esta a
+// correr». Das 518 execucoes registradas, 430 pararam em SKIPPED_LOCK_HELD, e
+// a maioria delas era contra um cadeado deixado por um processo que ja nao
+// existia. O cadeado nem dizia de quem era: ninguem o lia. A coleta horaria
+// ficou presa de 24/09 ate alguem ir renomear o ficheiro a mao.
+//
+//     «NAO CONSEGUI PEGAR O CADEADO» NAO E «OUTRA COLETA ESTA A CORRER».
+//     SO UMA DESSAS DUAS E MOTIVO PARA NAO COLHER.
+//
+// Regras, nesta ordem, e nenhuma delas inventa um facto que nao tem:
+//   dono VIVO    -> RESPEITAR · nunca se abre segunda instancia
+//   dono MORTO   -> ASSUMIR · preservando o cadeado antigo com outro nome
+//   dono NAO SEI -> a IDADE decide · recente respeita, velho assume
+//   ficheiro ilegivel ou vazio -> idem, com motivo ILEGIVEL
+//
+// Ao assumir, o cadeado antigo NUNCA e apagado: e RENOMEADO. Desfazer e
+// renomear de volta, e assim a prova do que estava preso sobrevive a limpeza.
+//
+// O teto de idade NAO vem do gosto: a corrida mais demorada ja MEDIDA neste
+// registo durou 120 s (`DURATION_S` maximo em runs.log). 15 minutos sao 7,5x.
+const MAX_IDADE_DE_CORRIDA_MIN = 15;
+
+// `null` e NAO SEI, e NAO SEI nao e o mesmo que MORTO. Um pid de outro host nao
+// se mede daqui, e um pid reaproveitado pelo sistema nao se distingue de um
+// vivo — limite declarado, e nao escondido.
+function processoVivo(pid) {
+  if (!Number.isInteger(pid) || pid <= 0) return null;
+  try { process.kill(pid, 0); return true; }
+  catch (e) { return e.code === "EPERM" ? true : (e.code === "ESRCH" ? false : null); }
 }
-function soltarLock() { try { unlinkSync(LOCK); } catch { } }
+
+function lerCadeado() {
+  try {
+    const j = JSON.parse(readFileSync(LOCK, "utf8"));
+    return { pid: Number.isInteger(j?.pid) ? j.pid : null, at: j?.at ?? null, host: j?.host ?? null, ilegivel: false };
+  } catch { return { pid: null, at: null, host: null, ilegivel: true }; }
+}
+
+function idadeDoCadeadoMin() {
+  try { return Math.floor((Date.now() - statSync(LOCK).mtimeMs) / 60000); }
+  catch { return null; }
+}
+
+function preservarCadeadoAntigo(motivo) {
+  const carimbo = agora().replace(/[-:T.]/g, "").slice(0, 14);
+  try { const nome = `${LOCK}.ASSUMIDO-${carimbo}-${motivo}`; renameSync(LOCK, nome); return nome; }
+  catch { return null; }
+}
+
+// O que se mediu do cadeado nesta execucao. Viaja no resumo, para que uma
+// assuncao seja um facto registado e nao um silencio.
+const cadeado = { ESTADO: null, DONO_PID: null, DONO_HOST: null, IDADE_MIN: null, DONO_VIVO: null, PRESERVADO_EM: null, AVISO: null };
+
+function criarCadeado() {
+  try {
+    const fd = openSync(LOCK, "wx");
+    // Escreve-se PELO DESCRITOR. Com `writeFileSync` havia um instante em que o
+    // cadeado existia VAZIO — e um cadeado vazio nao diz de quem e.
+    writeSync(fd, JSON.stringify({ pid: process.pid, at: agora(), host: hostname() }));
+    closeSync(fd);
+    return true;
+  } catch { return false; }
+}
+
+function pegarLock() {
+  if (criarCadeado()) { cadeado.ESTADO = "NOVO"; cadeado.DONO_PID = process.pid; cadeado.DONO_VIVO = true; return true; }
+
+  const c = lerCadeado();
+  const idade = idadeDoCadeadoMin();
+  const mesmoHost = !c.host || c.host === hostname();
+  const vivo = mesmoHost ? processoVivo(c.pid) : null;
+  const velho = idade === null ? null : idade >= MAX_IDADE_DE_CORRIDA_MIN;
+  cadeado.DONO_PID = c.pid; cadeado.DONO_HOST = c.host; cadeado.IDADE_MIN = idade; cadeado.DONO_VIVO = vivo;
+
+  if (vivo === true) {
+    cadeado.ESTADO = "RESPEITADO_PID_VIVO";
+    if (velho === true) cadeado.AVISO = `cadeado com ${idade} min e dono vivo — mais velho que a corrida mais longa ja medida aqui (2 min); respeitado por precaucao, e dito para alguem olhar`;
+    return false;
+  }
+  if (vivo === null && velho !== true) {
+    // NAO SEI de quem e, e e recente: respeitar e a unica resposta honesta.
+    cadeado.ESTADO = c.ilegivel ? "RESPEITADO_ILEGIVEL_RECENTE" : "RESPEITADO_DONO_NAO_SEI_RECENTE";
+    return false;
+  }
+  // Morto, ou NAO SEI mas velho: ASSUMIR — com a prova guardada primeiro.
+  const motivo = c.ilegivel ? "ILEGIVEL" : (vivo === false ? `PID${c.pid}-MORTO` : "PID-NAO-SEI");
+  const preservado = preservarCadeadoAntigo(motivo);
+  if (!preservado) { cadeado.ESTADO = "PRESERVAR_FALHOU"; return false; }   // sem prova guardada, nao se assume
+  cadeado.PRESERVADO_EM = preservado;
+  if (!criarCadeado()) { cadeado.ESTADO = "PERDIDO_PARA_OUTRA_INSTANCIA"; return false; }
+  cadeado.ESTADO = "ASSUMIDO";
+  return true;
+}
+
+// So se solta o CADEADO PROPRIO. Se outra instancia assumiu o nosso (por nos
+// dar por mortos), soltar aqui tiraria a trava das maos de quem esta a colher.
+function soltarLock() {
+  if (lerCadeado().pid !== process.pid) return;
+  try { unlinkSync(LOCK); } catch { }
+}
 
 // ---------- 4 · VPN: precondicao, ANTES de tocar em qualquer fonte ----------
 async function checarEgress() {
@@ -102,18 +203,26 @@ async function main() {
     EGRESS_COUNTRY: null, EGRESS_IP: null,
     SOURCE_ATTEMPTED: 0, SOURCE_HEALTHY: 0, SOURCE_DEGRADED: 0, SOURCE_FAILED: 0, SOURCE_NOT_MEASURED: 0,
     NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, RAW_CREATED: 0, NORMALIZED_NEW: 0,
-    COMMIT: null, REMOTE_HEAD: null, LOCAL_HEAD: null, RUN_STORAGE_STATE: null
+    COMMIT: null, REMOTE_HEAD: null, LOCAL_HEAD: null, RUN_STORAGE_STATE: null,
+    CADEADO: null
   };
 
   // 2 · runtime
   if (!PROFILE) { resumo.RUN_STATE = "FAILED_PRECONDITION"; resumo.reason = `perfil desconhecido: ${PROFILE_NAME}`; resumo.RUNNER_HEALTH = "FAILED"; return fim(resumo, t0); }
 
   // 1 · lock
-  if (!pegarLock()) {
+  const pegouOCadeado = pegarLock();
+  // O que se mediu do cadeado vai para o registo SEMPRE — numa corrida que
+  // colhe e numa que nao colhe. Uma assuncao que so aparece na consola de quem
+  // a fez deixa de existir no dia seguinte.
+  resumo.CADEADO = { ...cadeado };
+  if (!pegouOCadeado) {
     resumo.RUN_STATE = "SKIPPED_LOCK_HELD";
     resumo.RUNNER_HEALTH = "HEALTHY";
     resumo.SOURCE_NOT_MEASURED = null;   // a populacao vem do portao, e o portao ainda nao correu
-    resumo.reason = "outra coleta ja esta rodando — nao se inicia segunda instancia";
+    resumo.reason = cadeado.DONO_VIVO === true
+      ? `outra coleta ja esta rodando (pid ${cadeado.DONO_PID}, vivo, ${cadeado.IDADE_MIN} min) — nao se inicia segunda instancia`
+      : `cadeado de dono NAO SEI e recente (${cadeado.IDADE_MIN} min) — nao se assume por precaucao`;
     return fim(resumo, t0);
   }
 
