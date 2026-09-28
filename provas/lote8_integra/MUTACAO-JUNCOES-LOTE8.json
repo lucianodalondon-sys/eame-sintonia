@@ -1,0 +1,114 @@
+{
+ "REF": "719c505",
+ "SEM_MUTANTE": {
+  "-m unittest tests.test_porta_unica_referencia.J_Lote8LigacaoHerdaOGrao tests.test_ligacao_adama": 0,
+  "-m unittest tests.test_lote8_juncoes.J_Acervo tests.test_acervo_na_intelligence": 0,
+  "-m unittest tests.test_lote8_juncoes.J_Busca": 0,
+  "-m unittest tests.test_lote8_juncoes.J_Linhas": 0,
+  "node tests/test_pote_no_casco.mjs +CRLF_VERCELIGNORE": 0
+ },
+ "MUTANTES": [
+  {
+   "MUTANTE": "G1_ligacao_redefine_o_grao_igual",
+   "ALVO": "motor/porta_da_referencia.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [
+    "test_J1_uma_atribuicao_so_na_porta"
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "G2_ligacao_redefine_o_grao_com_declaracao",
+   "ALVO": "motor/porta_da_referencia.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [
+    "test_C3_declaracao_de_produto_fica_a_confirmar"
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "G3_ligacao_com_lista_propria_de_niveis",
+   "ALVO": "motor/porta_da_referencia.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [
+    "test_J2_mudar_o_dono_muda_a_ligacao"
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "A1_acervo_sem_a_porta_no_ctx",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "A2_concorrente_sem_ligacao",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [
+    "test_B2_concorrente_so_por_substancia_e_so_pela_porta"
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "A3_mercado_com_ligacao_feita_a_mao",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "A4_voz_sem_a_porta_aberta",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "A5_arquivo_perde_a_ligacao",
+   "ALVO": "pacote/acervo_na_intelligence.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [
+    "test_A9_o_archivio_so_guarda_o_que_atravessou"
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "B1_busca_sem_a_conta_no_reel",
+   "ALVO": "coleta/linha_busca.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "L1_linha_entra_so_por_o_ficheiro_existir",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [
+    "test_JL2_busca_existe_e_nao_reserva_fica_a_espera_pelo_motivo_certo"
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "P6_volta_ao_split_por_LF_com_checkout_CRLF",
+   "ALVO": "tests/test_pote_no_casco.mjs",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [],
+   "CAUDA": null
+  }
+ ],
+ "MORTOS": 11,
+ "TOTAL": 11
+}

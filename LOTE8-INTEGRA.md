@@ -1,3 +1,167 @@
-# LOTE8-INTEGRA — pacote unico de integracao (D124/D125/D126 · bot Luciano)
+# LOTE8-INTEGRA — um lote de integração sobre a produção viva (dono 27/09 · bot Luciano)
 
-(em redacao)
+```text
+RAMO      claude/lote8-integra-zobt7p
+BASE      b273660b6  (= origin/servico-20260923-0923, produção viva, LOTE7-INTEGRA) — ancestral deste ramo:
+          a instalação é FAST-FORWARD
+REDE      nenhuma. Nada colhido. Nada instalado. Livros vivos (curadoria/*-V1.json, data/collection-ledger,
+          candidatas/FONTES-CANDIDATAS.json) NÃO tocados: `git diff --name-only b273660 HEAD` → 0 desses.
+SHA FINAL a cabeça de origin/claude/lote8-integra-zobt7p (o commit que contém este ficheiro não pode conhecer o
+          próprio SHA; o relatório da sessão di-lo). Código medido: 7af5709
+MÉTODO    o do LOTE7-INTEGRA: merge aditivo ramo a ramo, conflito resolvido por regra escrita, bateria por nome
+          antes/depois, mutação, mapa regerado pela cadeia, checklist com SHA final.
+```
+
+## 1 · Os merges (declarados, `--no-ff`, nenhuma história reescrita)
+
+| # | ramo | cabeça | base do ramo | commit do merge | o que trouxe |
+|---|---|---|---|---|---|
+| 1 | `claude/coleta-continua-servico-dm3efk` | `e1bb56b` | `18461b92d` | `b77fef0` | coleta contínua D86: agendador por FONTE sobre o plano das rodadas (`ferramentas/big_collection/coleta_continua.py`), ensaio a seco, 50 testes |
+| 2 | `claude/feed-discovery-italy-sources-hr8vlb` | `e18b75a` | `18461b92d` | `99a367c` | FEED-LIGADO: FEED_DISCOVERY pela porta (`regras/ligar_feeds.py` + pacote dos 13), BODY_FROM_FEED sem pedido, robots 1×/24 h, GET condicional (304 conta no teto), `Sitemap:` só medido |
+| 3 | `claude/social-at-sala-7wu107` | `c3ebff7` | `18461b92d` | `23ba5b1` | SOCIAL até a Sala: desbloqueio pelas portas D22/D23/D24/D106, régua social por PROVAS, feed do canal YouTube (fechado pela matriz), entrada por URL achado |
+| 4 | `claude/declare-problem-contract-lj7kfp` | `45b34db` | `c551062` | `93481d4` | contrato `PROBLEMA/v1` na Collection (dono `leis/afirmacao_da_fonte.py`), CAP-WIN e motor leem só pelo contrato, reprocessador da Sala |
+| 5 | `claude/adama-linking-gateway-a2fewj` | `82c013e` | `c551062` (+ pote-v2 `8982ce4`) | `8d01ccb` | LIGAÇÃO-ADAMA D123: `ligacao_adama` na porta, 5 estados, o pote recusa sem ligação, fila BULAS_A_LER |
+| 6 | `claude/acervo-intelligence-processing-148qau` | `33804ec` | `c551062` (+ pote-v2 `8982ce4`) | `71ce7a6` (+ `dcfd2ac`) | o acervo (2.080 itens) pelas capacidades da Intelligence até o pote v2 |
+
+- Os ramos 5 e 6 trouxeram o pote-v2 **`8982ce4`**, o mesmo que o lote 7 já tinha: entrou sem conflito.
+- **Não entraram (por ordem):** `nuvem/porteiro-dataset-oficial-v1` (sem entrega provada no Git),
+  `claude/casco-publication-minimum-5q7kbw` (cancelada pelo dono), `claude/casco-r7-publication-yb7nsg` (desenha
+  recusados), rete-voci.
+
+## 2 · Conflitos — cada um com a sua regra
+
+| merge | conflitos | regra |
+|---|---|---|
+| 1 | 14, **todos gerados** (`system-map/data/*.generated.json`, `state` do cliente, CENSO) | **R1 · gerado em conflito → lado do HEAD, REGERADO pela cadeia no fim** (gerado não se edita à mão) |
+| 2 | gerados (INDICE, CENSO, LEIA-ANTES) + `architecture.declared.json` (C-IT-COLETA, C-IT-CONTRATOS) | R1 · e **R2 · as duas linhas acrescentaram frase ao FIM do mesmo `what` → união** (texto do HEAD + frase do ramo) |
+| 3 | só gerados | R1 |
+| 4 | só gerados; o resto entrou **igual ao ramo** (numstat conferido) | R1 |
+| 5 | gerados + `architecture.declared.json` C-INT-PORTA-REFERENCIA (`what` do GRÃO do lote 7 × LIGAÇÃO-ADAMA; `why_here` só o ramo mudou) | R1 · R2 · **R3 · campo que só um lado mudou → o desse lado** |
+| 6 | só gerados | R1 |
+
+Linhas apagadas conferidas em cada merge (`git diff --numstat | awk '$2>0'`): só as que o próprio ramo apagou.
+Os ajustes de teste que entraram são os **declarados pelos ramos** (test_d36 12/13/15 e test_as_duas_portas_do_scrap
+no social; test_cap_win, test_porta_unica_referencia, test_boletim_do_campo, test_estudo_chaves e o sintético R7 no
+PROBLEMA; fixtures do pote na LIGAÇÃO-ADAMA).
+
+## 3 · As junções que só aparecem com os ramos juntos (e o que foi feito)
+
+| # | junção | medido | feito | onde |
+|---|---|---|---|---|
+| J1 | **LIGAÇÃO-ADAMA × porta única do lote 7** | o ramo 5 nasceu sem ver a regra do GRÃO e reescrevia `NIVEIS_QUE_AUTORIZAM`/`DECLARACAO_DE_PRODUTO` dentro da porta (~l.501). A 2.ª atribuição **rebinda o global**: a linha do dono (`:102`) ficava morta — mudar a regra no dono não mudava nada | a redefinição saiu; a ligação lê o dono | `motor/porta_da_referencia.py:500` (nota), `:102` (dono) · teste `tests/test_porta_unica_referencia.py:599` J1–J3 (uma atribuição; mudar o dono muda a ligação; ligação e `autorizados` concordam par a par) |
+| J2 | **LIGAÇÃO-ADAMA × PROBLEMA/v1** | os consumidores que perguntam a ligação (CAP-WIN `par_em_campo`, motor `_objeto_do_futuro`) já leem o PROBLEMA **pelo contrato** (`AF.problema_da_chave`) antes de o passar à porta — o merge juntou as duas linhas certas | nada a mudar; conferido e testado (373 + 490 testes das duas suítes juntas, OK) | `motor/cap_win.py:392-432`, `motor/motor_das_capacidades.py:672-704` |
+| J3 | **acervo × LIGAÇÃO-ADAMA** | o motor passou a pedir `ctx["REF"]` e o pote recusa `SEM_LIGACAO_ADAMA`: o acervo rebentava (`KeyError: 'REF'`, 3 erros) | ctx com a porta aberta; concorrente leva a ligação que `concorrencia_meta` já pediu à porta (substância do criativo); mercado pela porta com as chaves do objeto (CROP_ID NÃO SEI → FALTA CULTURA); voz por `voce_dal_campo.extrair(referencia=…)`; o Archivio leva a ligação do objeto de origem. `POTE-ACERVO.json` **regerado**: mesmos objetos (561 competitors · 2 future · 563 archive · 2 sources; 77 recusados PROVA_INCOMPLETA), agora ligados (todos `NAO_SEI`, FALTA CULTURA); `validar_pote_v2` PASSA | `pacote/acervo_na_intelligence.py:469, 542, 587, 619, 662, 719` · ajuste de teste **declarado** `tests/test_acervo_na_intelligence.py:316` (C8 ganha `REF=None`; nenhuma asserção muda) |
+| J4 | **linha-busca (lote 5) → social por URL achado** | o social lê `POSTS-PARA-O-SCRAP.jsonl` num ramo que não tinha a linha-busca. Formato compatível — **mas** a linha-busca mandava `instagram.com/<conta>/reel/<código>` (a forma do transcritor e a que o social lê) para PISTAS-DE-CONTA: esse Reel nunca chegava ao Scrap | conta opcional no molde `POSTS` | `coleta/linha_busca.py:177-182` |
+| J5 | **coleta contínua × linha-busca** | a coleta contínua mede se cada linha chama a reserva de 24 h. Na árvore dela a BUSCA não existia; nesta existe e **não reserva** | nada a mudar: fica `ESPERA_LIGACAO` por `SEM_RESERVA_24H` (não entra no rodízio só por o ficheiro ter aparecido); SITES continua LIGADA depois do FEED-LIGADO | testado |
+| J6 | **FEED-LIGADO × `regras/paridade_test.mjs`** | falha **nova** na bateria Node (o ramo só correu a Python): a chamada virou `await baixar(alvo.url, 2, {condicional})` e a âncora textual `await baixar(alvo.url)` sumiu. A regra continua verdadeira (decisão `:1271`, download `:1340`) | âncora = prefixo da chamada, e a regra ficou **mais forte**: TODA chamada que baixa o alvo vem depois da decisão. **AJUSTE DECLARADO** (decisão: GET condicional do FEED-LIGADO, aprovado neste lote) | `regras/paridade_test.mjs:274` |
+
+Testes das junções: `tests/test_lote8_juncoes.py` (J-ACERVO 4, J-BUSCA 2, J-LINHAS 2).
+
+### O P6 de `tests/test_pote_no_casco.mjs` — defeito do TESTE, não da regra
+
+O `.vercelignore` não tem `-text` no `.gitattributes`; com `core.autocrlf` no Windows sai do checkout com CRLF.
+`split('\n')` deixava `\r` no fim de cada linha e o `includes()` reprovava uma regra **que está lá**. Agora
+`split(/\r?\n/)` (`tests/test_pote_no_casco.mjs:172-176`). Provado numa cópia com o `.vercelignore` em CRLF: teste
+antigo **117/118** (P6 FAIL), corrigido **118/118**; com a linha tirada do `.vercelignore`, o corrigido reprova P6
+(continua a morder).
+
+## 4 · Bateria inteira por nome (`provas/int_r7/bateria_por_nome.py`, rede fechada, worktrees limpas)
+
+BATERIA_PY
+
+Fora da bateria Python — todos os `.mjs` de teste (`regras/*test.mjs`, `tests/*.mjs`, `system-map/tests/*.mjs`),
+comparados pelo nome da linha que falha:
+
+BATERIA_NODE
+
+JSON: `provas/lote8_integra/BATERIA-BASE-b273660.json`, `…/BATERIA-DEPOIS-7641675.json`, `…/NODE-BASE-b273660.json`,
+`…/NODE-DEPOIS-7af5709.json`.
+
+## 5 · Mutação
+
+MUTACAO
+
+## 6 · System Map
+
+`python3 system-map/scripts/correr_a_cadeia.py REGERAR` (depois do `git add`) · `VALIDAR` =
+**SYSTEM_MAP_CHECK=PASS** · `impressao_da_arvore.py --conferir-carimbo` = **IGUAL** (conferido depois do último
+commit). Os gerados em conflito nos 6 merges foram todos refeitos pela cadeia. Metadata declarada: frases de
+`C-ACERVO-NA-INTELLIGENCE`, `C-INT-PORTA-REFERENCIA`, `C-LINHA-BUSCA`, `C-PROVA-COLETA` (+ `LOTE8-INTEGRA.md`,
+`provas/lote8_integra/*`). Sem `--stamp`: as peças tocadas e não relidas ficam 🟡, que é a verdade.
+
+## 7 · CHECKLIST DE INSTALAÇÃO NO VIVO (coordenador — **não instalado por esta sessão**)
+
+```bash
+VIVA=/c/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1   # bot, servico-20260923-0923
+C=/c/inst/$(date +%Y%m%d-%H%M)-lote8; mkdir -p $C/livros
+FINAL=$(git -C $VIVA fetch -q origin && git -C $VIVA rev-parse origin/claude/lote8-integra-zobt7p); echo $FINAL
+```
+
+| # | passo | comando / critério | 🛑 pára se |
+|---|---|---|---|
+| 0 | **Medir** | `git -C $VIVA rev-parse HEAD` = `b273660b66c1d693aadeb60c5bf8e82d0b066b62`; `git -C $VIVA merge-base --is-ancestor HEAD $FINAL` sai 0; `$FINAL` = o SHA final da sessão. Um só supervisor, worker IDLE (`py curadoria/supervisor.py --estado`). Nenhuma tarefa `SINTONIA-COLETA-CONTINUA*` criada ainda (`schtasks /Query /TN SINTONIA-COLETA-CONTINUA` → não existe) | HEAD diferente (a produção andou: refazer o ensaio) · não é ancestral |
+| 1 | **Robô parado** | `PARAR.flag` com marca própria; esperar o supervisor sair (`--estado` → parado, confirmado no SO); parar o observador da ponte. A tarefa `SINTONIA-Arranque` não toca flag alheio | supervisor não sai |
+| 2 | **Backup dos livros sujos** | `(cd $VIVA && git status --short \| awk '{print $2}' \| while read f; do find "$f" -type f; done) > $C/lista`; `while read f; do mkdir -p $C/livros/$(dirname "$f"); cp "$VIVA/$f" "$C/livros/$f"; done < $C/lista`; `(cd $C && find livros -type f \| xargs sha256sum) > $C/foto.sha`. E a Sala: `backup_sala.cmd` (com `PROVA_VALE: true`) | cópia falha · backup sem PROVA_VALE |
+| 3 | **Tocam livro vivo?** | `git -C $VIVA diff --name-only HEAD $FINAL -- $(cat $C/lista)` **vazio** (medido aqui: o lote não traz nenhum `curadoria/*-V1.json`, `data/collection-ledger`, `candidatas/FONTES-CANDIDATAS.json`, nem `regras/italy_contracts_onboarded.json`) | sai algum nome |
+| 4 | **Fast-forward** | `git -C $VIVA merge --ff-only $FINAL` (de b273660b6 até ao SHA final; sem merge, sem conflito) | recusa o ff |
+| 5 | **LIVROS_IGUAIS** | `(cd $C && sed 's# livros/# '"$VIVA"'/#' foto.sha \| sha256sum -c)` (ou `cmp` um a um): tudo `OK` → `LIVROS_IGUAIS` | algum MUDOU → DESFAZER |
+| 6 | **Testes pós-instalação** (rede fechada) | `py -m unittest tests.test_lote8_juncoes tests.test_coleta_continua tests.test_feed_ligado tests.test_desbloquear_social tests.test_regua_social_por_provas tests.test_social_por_url_achado tests.test_youtube_feed_sem_chave tests.test_chave_problema tests.test_ligacao_adama tests.test_acervo_na_intelligence tests.test_porta_unica_referencia tests.test_cap_win tests.test_cruzamentos_max tests.test_pote_v2_unico tests.test_pote_intelligence_casco tests.test_linha_busca tests.test_rodadas tests.test_contador_24h tests.test_onda_web` → OK; `node regras/feed_discovery_test.mjs`, `node regras/paridade_test.mjs`, `node regras/cadencia_da_referencia_test.mjs`, `node tests/test_pote_no_casco.mjs` (**118/118 no Windows** — é a prova viva do P6) → 0 falhas; `py pacote/acervo_na_intelligence.py --conferir` → `True`. Opcional: bateria inteira por nome contra a base medida **na mesma máquina** — 0 novas | falha nova → DESFAZER |
+| 7 | **Mapa** | `py system-map/scripts/impressao_da_arvore.py --conferir-carimbo` = `IGUAL` | DIFERENTE |
+| 8 | **Religar** | tirar o flag; `Stop-ScheduledTask SINTONIA-Arranque; Start-ScheduledTask SINTONIA-Arranque`; `py curadoria/supervisor.py --estado` → RUNNING/IDLE, um só | não volta |
+| 9 | **Publicar** | push de `servico-20260923-0923` (agora = `$FINAL`) | — |
+
+**↩️ DESFAZER** — `PARAR.flag`; `git -C $VIVA reset -q --keep b273660b6`; conferir a foto (`sha256sum -c`);
+relançar como no passo 8.
+
+### 7b · COMO LIGAR A COLETA CONTÍNUA NO AGENDADOR — MODO CANÁRIO (1 ciclo)
+
+Depois do passo 9, **e só com o robô de volta RUNNING**. Nada disto corre sozinho com a instalação.
+
+| # | passo | comando / critério | 🛑 pára se |
+|---|---|---|---|
+| C0 | **CNR (decisão do dono, em aberto)** | o plano corre `IT-T5-160` (cnr.it) na rodada 15; a mensagem de 26/09 dizia «sem CNR» e o `ORDEM-RENDIMENTO-ONDA4.md` deixou tirá-la como decisão. **Este lote NÃO a tirou.** Se for para tirar: tirar do plano/coorte ANTES de C1 | decisão por tomar e CNR na lista do ensaio |
+| C1 | **Ensaio a seco com os livros reais** (0 rede) | `py ferramentas\big_collection\ensaio_coleta_continua.py --plano=%O%\ONDA4-RODADAS\RODADAS-PLANO.json --estado-rodadas=%O%\ONDA4-RODADAS\RODADAS-ESTADO.json --livros-do-dia=%O% --recibos=%SI%\vozes-agronomos,%SI%\micro-prova,%SI%\pesquisadores-t6` → ler a lista de fontes livres e os `ABRE_EM` | lista inesperada |
+| C2 | **VPN IT** | ProtonVPN num servidor italiano; medir `country: IT` antes (o portão do ciclo mede de novo, consenso de 3) | não é IT |
+| C3 | **Ficheiro de arranque** | `%SI%\coleta_continua.cmd` como em `ferramentas/big_collection/onda4/COLETA-CONTINUA.md` §1, **com `--um-ciclo --max-fontes=1`** (canário: 1 ciclo, 1 fonte) e `--teto-24h=%SI%\TETO-24H.json` (o mesmo livro que o transporte reserva) | — |
+| C4 | **Agendar UMA vez** | `schtasks /Create /TN "SINTONIA-COLETA-CONTINUA-CANARIO" /SC ONCE /ST <HH:MM> /TR "%SI%\coleta_continua.cmd" /F` (ou correr o `.cmd` à mão). **Não** criar a tarefa de 30 min ainda. **Não** correr `rodadas.py --correr` depois disto | — |
+| C5 | **Backup** | o próprio ciclo faz `provar_backup_da_sala.py` e **PARA** sem `PROVA_VALE: true` (`BACKUP_SEM_PROVA_VALE`) | PARA |
+| C6 | **Prova-teto** | última linha de `%O%\COLETA-CONTINUA\CICLOS.ndjson`: as duas PROVA-TETO (`do ciclo` e `24 h`) = PASS, `PEDIDOS_POR_DOMINIO` ≤ 5 (**freio temporário**, D124), reconciliação da Sala = PASS, robô antes = depois = RUNNING, `PARA` vazio. `py ferramentas\big_collection\coleta_continua.py --estado --base=%O%\COLETA-CONTINUA` | qualquer FAIL/NAO_SEI · PARA preenchido (ler `PAROU`; só `--rearmar --porque=…` depois de resolver) |
+| C7 | **Só depois, e por decisão:** o serviço | `schtasks /Create /TN "SINTONIA-COLETA-CONTINUA" /SC MINUTE /MO 30 /TR "%SI%\coleta_continua.cmd" /F` com o `.cmd` sem `--max-fontes=1`. Desligar: `PARAR-COLETA.flag` ou `schtasks /Change /TN … /DISABLE` | — |
+
+⚠️ **D124 — o 5 é FREIO TEMPORÁRIO.** O dono decidiu que o teto fixo 5/domínio/24 h **deixou de ser regra**
+(teto adaptativo pelo sinal medido do site, por outra equipe: `nuvem-teto-adaptativo-v1`). Neste lote o 5 fica
+no código **sem ser reescrito**, como freio temporário (bot Luciano) — escrito assim em
+`ferramentas/big_collection/onda4/CONTADOR-24H.md`, `COLETA-CONTINUA.md`, `FEED-LIGADO.md` e no KNOW-HOW §222.
+
+⚠️ **O que a instalação muda no comportamento vivo:**
+(a) todo objeto que chega ao pote leva `LIGACAO_ADAMA` da porta, e o pote **recusa** `SEM_LIGACAO_ADAMA`/`FORA_DA_PORTA`;
+(b) CAP-WIN e o motor leem o PROBLEMA **só** pelo contrato `PROBLEMA/v1` — item com o bloco antigo (lista) sai
+`NOT_POSSIBLE` até o reprocessador correr (`admissao/reprocessar_problema.py`, seco por omissão; `--aplicar` com o
+cuidado de `MIGRACAO-SALA.md`); (c) o coletor passa a guardar robots em `<SINTONIA_TETO_24H>.robots.json` e a cópia
+do GET condicional em `data/collection-cache/italy/http/` (**não está no `.gitignore`**: vai aparecer como não
+rastreado no `git status` do vivo); (d) a régua social passa a julgar por PROVAS. **Não mudam sozinhos:** o feed só
+se liga com `py regras/ligar_feeds.py --aplicar` (FEED-LIGADO.md §4; ele escreve na tabela rastreada
+`regras/italy_contracts_onboarded.json` e tem `--desfazer`); o desbloqueio social só com
+`curadoria/desbloquear_social.py --aplicar --vivo`; a coleta contínua só pelo §7b.
+
+## 8 · Limites declarados
+
+- **CNR:** decisão do dono, não retirada por esta sessão (§7b C0).
+- **FEED-LIGADO.md** chegou com `BATERIA_PLACEHOLDER` (o ramo não fechou o relatório); a bateria deste lote cobre-o.
+  Nesta árvore 8 das 13 fontes do pacote têm linha na tabela; na produção o seco diz quantas.
+- **SOCIAL-ATÉ-A-SALA** não tem relatório `.md` no ramo; o que ele faz está nos commits `0b69ecc`/`c3ebff7`.
+- **Acervo:** a parte científica (851), transcrições (184), boletins (133), vozes (79), notícias, agromet e sinais
+  **não atravessaram a régua** (sem tempo do facto / sem prova admitida) e ficam fora do pote, contadas com o motivo
+  (`RESUMO-ACERVO.json`). Nada do acervo vai ao portal: `POTE-ACERVO.json` não é referido em `italia-portale/`; as
+  mudanças de `portale.html`/casco no ramo 6 são as do pote-v2 já instalado no lote 7.
+- Todos os 1.128 objetos do POTE-ACERVO saem com ligação `NAO_SEI` (FALTA CULTURA): a porta não inventa cultura.
+- Coleta contínua: só a linha SITES está ligada ao livro de 24 h; BUSCA/CIÊNCIA/SOCIAL/PESQUISADORES ficam
+  `ESPERA_LIGACAO`. `RoboReal`/`backup_real`/`reconciliar_real` **NÃO SEI** contra o Windows/Postgres reais — o canário
+  §7b é a primeira medida.
+- `system-map/tests/verificar_a_tela.mjs` falha igual na base e aqui (`ERR_MODULE_NOT_FOUND`: precisa da bancada do
+  navegador); `regras/italy_contract_test.mjs` 82 falhas herdadas, as mesmas pelo nome.
+- `--stamp` do mapa não foi corrido.
+
+## EM PALAVRAS SIMPLES
+
+EM_PALAVRAS
