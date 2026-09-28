@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e7480fe8cd21561bbdb359048d8e2ae261ec5dc7
+HEAD_DA_MEDICAO  0dbba8391dfff7204e2c3dc7bb7cbfebc4576fa7
 BRANCH           claude/casco-publication-minimum-5q7kbw
-GERADO_EM        2026-09-28T00:55:25+00:00
+GERADO_EM        2026-09-28T01:13:45+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
