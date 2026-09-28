@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  389a8a09844ea20f3707250e292b9b38f60b821e
+HEAD_DA_MEDICAO  4fae2f5a1e73cab9379c2c67a20ba409dbf90e38
 BRANCH           claude/coleta-continua-servico-dm3efk
-GERADO_EM        2026-09-27T23:37:16+00:00
+GERADO_EM        2026-09-28T00:33:48+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
