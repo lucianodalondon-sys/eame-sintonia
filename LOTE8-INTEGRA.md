@@ -7,7 +7,7 @@ BASE      b273660b6  (= origin/servico-20260923-0923, produção viva, LOTE7-INT
 REDE      nenhuma. Nada colhido. Nada instalado. Livros vivos (curadoria/*-V1.json, data/collection-ledger,
           candidatas/FONTES-CANDIDATAS.json) NÃO tocados: `git diff --name-only b273660 HEAD` → 0 desses.
 SHA FINAL a cabeça de origin/claude/lote8-integra-zobt7p (o commit que contém este ficheiro não pode conhecer o
-          próprio SHA; o relatório da sessão di-lo). Código medido: 7af5709
+          próprio SHA; o relatório da sessão di-lo). Código medido: 609a471 (depois dele só entram o harness da porta `4bc57cd`, provas, este relatório e o mapa)
 MÉTODO    o do LOTE7-INTEGRA: merge aditivo ramo a ramo, conflito resolvido por regra escrita, bateria por nome
           antes/depois, mutação, mapa regerado pela cadeia, checklist com SHA final.
 ```
@@ -55,6 +55,9 @@ PROBLEMA; fixtures do pote na LIGAÇÃO-ADAMA).
 | J5 | **coleta contínua × linha-busca** | a coleta contínua mede se cada linha chama a reserva de 24 h. Na árvore dela a BUSCA não existia; nesta existe e **não reserva** | nada a mudar: fica `ESPERA_LIGACAO` por `SEM_RESERVA_24H` (não entra no rodízio só por o ficheiro ter aparecido); SITES continua LIGADA depois do FEED-LIGADO | testado |
 | J6 | **FEED-LIGADO × `regras/paridade_test.mjs`** | falha **nova** na bateria Node (o ramo só correu a Python): a chamada virou `await baixar(alvo.url, 2, {condicional})` e a âncora textual `await baixar(alvo.url)` sumiu. A regra continua verdadeira (decisão `:1271`, download `:1340`) | âncora = prefixo da chamada, e a regra ficou **mais forte**: TODA chamada que baixa o alvo vem depois da decisão. **AJUSTE DECLARADO** (decisão: GET condicional do FEED-LIGADO, aprovado neste lote) | `regras/paridade_test.mjs:274` |
 
+| J7 | **social × lei 04a do curador** | falha **nova** na bateria Python intermédia: `coleta/social_por_url_achado.py` abria `curadoria/italy_contracts_curator.json` (a coleta não lê o registo do curador) | teste intacto; a leitura mudou-se para o dono dos livros e a coleta pergunta-lhe | `curadoria/desbloquear_social.py` (`livros_de_identidade`), `coleta/social_por_url_achado.py:120-130` |
+| J8 | **PROBLEMA/v1 × harness de mutação da porta** | a cópia limpa de `provas/porta_unica_referencia/mutantes.py` reprovava (`FileNotFoundError …/ES-T4-001/eppo-dictionary.json`): o contrato PROBLEMA lê a tabela EPPO nos testes da porta | a cópia leva a tabela; nenhum mutante nem teste mudou | `provas/porta_unica_referencia/mutantes.py:28-30` |
+
 Testes das junções: `tests/test_lote8_juncoes.py` (J-ACERVO 4, J-BUSCA 2, J-LINHAS 2).
 
 ### O P6 de `tests/test_pote_no_casco.mjs` — defeito do TESTE, não da regra
@@ -67,15 +70,41 @@ antigo **117/118** (P6 FAIL), corrigido **118/118**; com a linha tirada do `.ver
 
 ## 4 · Bateria inteira por nome (`provas/int_r7/bateria_por_nome.py`, rede fechada, worktrees limpas)
 
-BATERIA_PY
+| | módulos | testes | falhas por nome |
+|---|---|---|---|
+| base `b273660` (produção, worktree limpa) | 320 | 7190 | 131 |
+| intermédia `7641675` (merges + junções J1–J5, mapa regerado) | 330 | 7434 | 131 |
+| **final `609a471`** (código final, mapa regerado) | **330** | **7434** | **130** |
+
+- **Novas: 0. Sumidas: 1.** A sumida é `test_o9_caminho_instrumentado.test_O9_1_o_censo_elege_este_caminho` e **não
+  é conserto**: o censo desempata pelo nº de linhas, e as 4 linhas que o FEED-LIGADO pôs em `coleta/italy_executor.py`
+  voltaram a eleger `coleta/executor_texto_de_pdf.py`. Coincidência medida, declarada.
+- ⚠️ Medida intermédia, dita: sobre `7641675` houve **1 nova**,
+  `test_integracao_04a_curator.test_a_pasta_coleta_nao_tem_executor_para_o_feed` — `coleta/social_por_url_achado.py`
+  (ramo 3, que não correu esta suíte) abria `curadoria/italy_contracts_curator.json`, e a lei do teste diz que a coleta
+  não lê o registo do curador. **Teste intacto**; a leitura passou para o dono dos livros:
+  `curadoria/desbloquear_social.py::livros_de_identidade`, e a coleta pergunta-lhe
+  (`coleta/social_por_url_achado.py:120-130`). Em `609a471` passa.
+- 10 módulos novos, **0 falhas**: `test_coleta_continua` 50 · `test_ligacao_adama` 38 · `test_chave_problema` 35 ·
+  `test_acervo_na_intelligence` 32 · `test_regua_social_por_provas` 22 · `test_social_por_url_achado` 20 ·
+  `test_youtube_feed_sem_chave` 17 · `test_desbloquear_social` 11 · `test_feed_ligado` 8 · `test_lote8_juncoes` 8.
+  `test_porta_unica_referencia` 43 → 46 (+3 da J1).
+- As 130 herdadas são da base, pelo nome (lista inteira no JSON). A bateria da base mediu 320/7190/131 — **os mesmos
+  números** do DEPOIS do lote 7 (`d0e0901`): a produção é aquilo que o lote 7 entregou.
 
 Fora da bateria Python — todos os `.mjs` de teste (`regras/*test.mjs`, `tests/*.mjs`, `system-map/tests/*.mjs`),
 comparados pelo nome da linha que falha:
 
-BATERIA_NODE
+| | ficheiros | falhas por nome |
+|---|---|---|
+| base `b273660` | 11 | 82 (todas `regras/italy_contract_test.mjs`) + `verificar_a_tela.mjs` RC=1 sem teste corrido (`ERR_MODULE_NOT_FOUND`) |
+| intermédia `7641675` | 11 | 83 — **1 nova**: `regras/paridade_test.mjs` «a DECISAO vem ANTES do download» (J6, §3) |
+| **final `609a471`** | 11 | **82 — novas 0, sumidas 0** |
 
-JSON: `provas/lote8_integra/BATERIA-BASE-b273660.json`, `…/BATERIA-DEPOIS-7641675.json`, `…/NODE-BASE-b273660.json`,
-`…/NODE-DEPOIS-7af5709.json`.
+Executor: `provas/lote8_integra/bateria_node_por_nome.py` (cada `.mjs` num processo, rede fechada).
+
+JSON: `provas/lote8_integra/BATERIA-BASE-b273660.json`, `…/BATERIA-DEPOIS-7641675.json`, `…/BATERIA-DEPOIS-609a471.json`,
+`…/NODE-BASE-b273660.json`, `…/NODE-DEPOIS-7641675.json`, `…/NODE-DEPOIS-609a471.json`.
 
 ## 5 · Mutação
 
