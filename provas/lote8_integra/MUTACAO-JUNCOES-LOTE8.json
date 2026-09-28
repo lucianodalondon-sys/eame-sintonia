@@ -1,10 +1,12 @@
 {
- "REF": "719c505",
+ "REF": "609a471",
  "SEM_MUTANTE": {
   "-m unittest tests.test_porta_unica_referencia.J_Lote8LigacaoHerdaOGrao tests.test_ligacao_adama": 0,
   "-m unittest tests.test_lote8_juncoes.J_Acervo tests.test_acervo_na_intelligence": 0,
   "-m unittest tests.test_lote8_juncoes.J_Busca": 0,
   "-m unittest tests.test_lote8_juncoes.J_Linhas": 0,
+  "node regras/paridade_test.mjs": 0,
+  "-m unittest tests.test_integracao_04a_curator.OMotorNaoAlcancaAs50PeloFeed": 0,
   "node tests/test_pote_no_casco.mjs +CRLF_VERCELIGNORE": 0
  },
  "MUTANTES": [
@@ -14,6 +16,7 @@
    "MORTO": true,
    "CODIGO": 1,
    "APANHADO_POR": [
+    "AssertionError",
     "test_J1_uma_atribuicao_so_na_porta"
    ],
    "CAUDA": null
@@ -24,7 +27,9 @@
    "MORTO": true,
    "CODIGO": 1,
    "APANHADO_POR": [
-    "test_C3_declaracao_de_produto_fica_a_confirmar"
+    "AssertionError",
+    "test_C3_declaracao_de_produto_fica_a_confirmar",
+    "test_J1_uma_atribuicao_so_na_porta"
    ],
    "CAUDA": null
   },
@@ -34,6 +39,7 @@
    "MORTO": true,
    "CODIGO": 1,
    "APANHADO_POR": [
+    "AssertionError",
     "test_J2_mudar_o_dono_muda_a_ligacao"
    ],
    "CAUDA": null
@@ -43,7 +49,11 @@
    "ALVO": "pacote/acervo_na_intelligence.py",
    "MORTO": true,
    "CODIGO": 1,
-   "APANHADO_POR": [],
+   "APANHADO_POR": [
+    "KeyError",
+    "setUpClass",
+    "test_C9_o_conferir_apanha_as_tres_mentiras"
+   ],
    "CAUDA": null
   },
   {
@@ -52,6 +62,9 @@
    "MORTO": true,
    "CODIGO": 1,
    "APANHADO_POR": [
+    "AssertionError",
+    "test_A5_o_pote_commitado_e_o_que_a_arvore_regera",
+    "test_B1_anuncio_nao_e_oportunidade_nem_demanda",
     "test_B2_concorrente_so_por_substancia_e_so_pela_porta"
    ],
    "CAUDA": null
@@ -61,7 +74,10 @@
    "ALVO": "pacote/acervo_na_intelligence.py",
    "MORTO": true,
    "CODIGO": 1,
-   "APANHADO_POR": [],
+   "APANHADO_POR": [
+    "AssertionError",
+    "test_JA1_mercado_ligado_pela_porta_com_a_porta_aberta"
+   ],
    "CAUDA": null
   },
   {
@@ -69,7 +85,10 @@
    "ALVO": "pacote/acervo_na_intelligence.py",
    "MORTO": true,
    "CODIGO": 1,
-   "APANHADO_POR": [],
+   "APANHADO_POR": [
+    "AssertionError",
+    "test_JA2_a_voz_recebe_a_porta_aberta"
+   ],
    "CAUDA": null
   },
   {
@@ -78,7 +97,11 @@
    "MORTO": true,
    "CODIGO": 1,
    "APANHADO_POR": [
-    "test_A9_o_archivio_so_guarda_o_que_atravessou"
+    "AssertionError",
+    "KeyError",
+    "test_A5_o_pote_commitado_e_o_que_a_arvore_regera",
+    "test_A9_o_archivio_so_guarda_o_que_atravessou",
+    "test_JA3_o_arquivo_leva_a_ligacao_do_objeto_de_origem"
    ],
    "CAUDA": null
   },
@@ -87,7 +110,11 @@
    "ALVO": "coleta/linha_busca.py",
    "MORTO": true,
    "CODIGO": 1,
-   "APANHADO_POR": [],
+   "APANHADO_POR": [
+    "AssertionError",
+    "test_JB1_o_registo_real_da_linha_busca_entra_no_social",
+    "test_JB2_as_duas_formas_do_reel_e_do_post_vao_para_o_scrap"
+   ],
    "CAUDA": null
   },
   {
@@ -96,7 +123,39 @@
    "MORTO": true,
    "CODIGO": 1,
    "APANHADO_POR": [
+    "AssertionError",
     "test_JL2_busca_existe_e_nao_reserva_fica_a_espera_pelo_motivo_certo"
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "D1_download_do_alvo_antes_da_decisao",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [
+    "a DECISAO vem ANTES do download, e nao depois"
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "D2_download_condicional_antes_da_decisao",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [
+    "a DECISAO vem ANTES do download, e nao depois"
+   ],
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "S1_coleta_volta_a_ler_o_registo_do_curador",
+   "ALVO": "coleta/social_por_url_achado.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "APANHADO_POR": [
+    "AssertionError",
+    "test_a_pasta_coleta_nao_tem_executor_para_o_feed"
    ],
    "CAUDA": null
   },
@@ -105,10 +164,13 @@
    "ALVO": "tests/test_pote_no_casco.mjs",
    "MORTO": true,
    "CODIGO": 1,
-   "APANHADO_POR": [],
+   "APANHADO_POR": [
+    "P6",
+    "P6 sintonia-pote.js esta no .gitignore do cliente e no .vercelignore"
+   ],
    "CAUDA": null
   }
  ],
- "MORTOS": 11,
- "TOTAL": 11
+ "MORTOS": 14,
+ "TOTAL": 14
 }
