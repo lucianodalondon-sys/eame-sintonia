@@ -37,6 +37,7 @@
       "DEDUP-DOC.md",
       "DEDUP-INSTALAR.md",
       "DEPOIS-DO-PORTAL.md",
+      "ESTEIRA-SOZINHA.md",
       "ESTUDOS-CHAVES.md",
       "EXTRATOR-EVENTO-V2.md",
       "EXTRATORES-V2-JUNTOS.md",
@@ -187,6 +188,7 @@
     ],
     "admissao": [
       "admissao/admissao.py",
+      "admissao/gatilho_da_inteligencia.py",
       "admissao/idioma.py",
       "admissao/passagem_para_a_sala.py",
       "admissao/reprocessar_estudos_chaves.py",
@@ -2760,7 +2762,6 @@
       "motor/consolidar_leque.py",
       "motor/corrida_da_inteligencia.py",
       "motor/cruzamentos_max.py",
-      "motor/gatilho_da_inteligencia.py",
       "motor/grafo_de_dependencia.py",
       "motor/matriz_recorte.py",
       "motor/motor_das_capacidades.py",
@@ -4720,9 +4721,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/autonomous-pipeline-6s66x9",
-    "HEAD": "1144e6ec0e8df4f6048b6300d8f1ec5e43e20694",
-    "GENERATED_AT": "2026-09-28T00:54:32+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5896b69017de7d7511f3e93e660f41fe96c862b8e1ea2ed410b2effbef246f8e"
+    "HEAD": "ce8aecee757e034e8275b4bb73990e9f64ade265",
+    "GENERATED_AT": "2026-09-28T00:59:26+00:00",
+    "SOURCE_TREE_FINGERPRINT": "fb1690531272682688c3a6b16e0bc3a5e433ff4a13abf0804b4ed0faf2bc9318"
   },
   "FAMILIES": [
     {
@@ -4750,7 +4751,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 127
+      "count": 128
     },
     {
       "id": "F-ESPERA",
@@ -4778,7 +4779,7 @@
         "Z-LINEAGE",
         "Z-INT-LEI"
       ],
-      "count": 28
+      "count": 27
     },
     {
       "id": "F-GOVERNANCA",
@@ -5023,7 +5024,7 @@
       "y": 190,
       "w": 405,
       "h": 10988,
-      "count": 3
+      "count": 4
     },
     {
       "id": "Z-ESPERA",
@@ -5054,7 +5055,7 @@
       "y": 190,
       "w": 1235,
       "h": 10988,
-      "count": 20
+      "count": 19
     },
     {
       "id": "Z-LINEAGE",
@@ -46008,9 +46009,9 @@
         "PLANO": null,
         "PROVA": [
           "admissao/admissao.py:73",
+          "admissao/gatilho_da_inteligencia.py:146",
           "admissao/sala_de_espera.py:89",
-          "coleta/coleta_checkpoint.py:46",
-          "coleta/ingresso.py:84"
+          "coleta/coleta_checkpoint.py:46"
         ],
         "PORQUE": "estas pecas importam-na — C-ADMISSAO · C-COLETA-BASE · C-DETECTOR-CAPA-GABARITO · C-DONO-DO-DERIVADO · C-ESTEIRA-GATILHO-INTELLIGENCE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -46637,10 +46638,10 @@
     {
       "id": "C-ESTEIRA-GATILHO-INTELLIGENCE",
       "name": "O gatilho da Intelligence (D90-5), pelo servico",
-      "territory": "Z-MOTOR",
+      "territory": "Z-ADMISSAO",
       "kind": "engine",
       "what": "Chamado pelo supervisor a cada volta; pergunta a Sala (so SELECT, de 5 em 5 min) quantos READY pousaram depois da ultima tentativa. Corre com 10 novos OU com 1 novo que ja espera 4 h. Trinco (sala_de_espera._Trava) impede duas corridas sobrepostas. A corrida e o motor que ja existe: backup da Sala reposto numa copia descartavel (PROVA_VALE), export read-only da copia exactamente como o RUNBOOK-R7 (motor/r7_export_da_copia.sql, READ_ONLY=on conferido), motor_das_capacidades.rodar, pote_intelligence_casco.ler_entrada, e o fiscal validar_pote_v2 sobre o ficheiro candidato: so PASSA sobe para italia-portale/client/sintonia-pote.js (os.replace); reprovado fica guardado com as violacoes. Recuo de 30 min depois de falha.",
-      "why_here": "A Intelligence corria a mao (R6/R7). O gatilho nao escreve outro motor: chama o motor, o gerador e o fiscal que ja existem, e obedece ao fiscal — no ensaio real o pote saiu reprovado (ENTITY_SOURCE objeto no motor, string no contrato v2) e nao subiu.",
+      "why_here": "A Intelligence corria a mao (R6/R7). O gatilho nao escreve outro motor: chama o motor, o gerador e o fiscal que ja existem, e obedece ao fiscal — no ensaio real o pote saiu reprovado (ENTITY_SOURCE objeto no motor, string no contrato v2) e nao subiu. Mora em admissao/, ao lado do dono da Sala (sala_de_espera.py, que tambem e quem diz «saiu da fila»): o gatilho decide QUANDO a espera acaba e entrega uma COPIA ao motor; nao analisa nada. No motor/ ele fazia o motor abrir a Sala (duas travessias COLETA -> INTELIGENCIA a mais, test_system_map::a_coleta_nao_conversa_com_o_motor_as_centenas) — o contrario do que o motor declara.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -46649,15 +46650,14 @@
       "ui_status": "yellow",
       "icon": "⏱",
       "views": [
+        "acervo",
         "audit",
-        "generator",
-        "infra",
-        "opportunity"
+        "infra"
       ],
       "lane": "official",
-      "family": "F-INTELIGENCIA",
+      "family": "F-COLETA",
       "files": [
-        "motor/gatilho_da_inteligencia.py"
+        "admissao/gatilho_da_inteligencia.py"
       ],
       "file_count": 1,
       "status": "PENDING",
@@ -46679,7 +46679,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "nivel": "INTERNO",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "PRINCIPAL",
       "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
@@ -46719,8 +46721,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
-      "y": 360
+      "x": 13260,
+      "y": 682
     },
     {
       "id": "C-ESTEIRA-PASSAGEM",
@@ -46807,7 +46809,7 @@
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 13260,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-ESTEIRA-VIGIA",
@@ -49133,8 +49135,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 14670,
-      "y": 682
+      "x": 15500,
+      "y": 360
     },
     {
       "id": "C-INT-ARBITRAGEM",
@@ -49470,7 +49472,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
+      "x": 14670,
       "y": 682
     },
     {
@@ -49569,7 +49571,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
+      "x": 15085,
       "y": 682
     },
     {
@@ -49784,8 +49786,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
-      "y": 1004
+      "x": 15500,
+      "y": 682
     },
     {
       "id": "C-INT-CORRIDA",
@@ -49890,7 +49892,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES · C-PONTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
+      "x": 14670,
       "y": 1004
     },
     {
@@ -50083,7 +50085,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
+      "x": 15085,
       "y": 1004
     },
     {
@@ -50372,8 +50374,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CAP-WIN · C-INT-CORRIDA · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
-      "y": 1326
+      "x": 15500,
+      "y": 1004
     },
     {
       "id": "C-INT-MODELO",
@@ -50642,14 +50644,14 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/gatilho_da_inteligencia.py:59",
-          "motor/gatilho_da_inteligencia.py:73",
+          "admissao/gatilho_da_inteligencia.py:59",
+          "admissao/gatilho_da_inteligencia.py:73",
           "provas/int_r7/export_numa_copia_descartavel.py:37",
           "provas/int_r7/export_numa_copia_descartavel.py:47"
         ],
         "PORQUE": "estas pecas importam-na — C-ESTEIRA-GATILHO-INTELLIGENCE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
+      "x": 14670,
       "y": 1326
     },
     {
@@ -50819,7 +50821,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COLETA-META · C-CRUZAMENTOS-MAX · C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
+      "x": 15085,
       "y": 1326
     },
     {
@@ -58075,7 +58077,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/gatilho_da_inteligencia.py:60",
+          "admissao/gatilho_da_inteligencia.py:60",
           "pacote/pote_cruzamentos_max.py:50",
           "provas/_mutantes_pote_casco.py:24",
           "provas/int_r7/aceite_pelo_gerador.py:33"
@@ -61331,11 +61333,11 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "admissao/gatilho_da_inteligencia.py",
         "admissao/passagem_para_a_sala.py",
         "curadoria/supervisor.py",
         "data/collection-ledger/italy/runs.ndjson",
         "medidas/vigia_da_esteira.py",
-        "motor/gatilho_da_inteligencia.py",
         "provas/esteira_sozinha/ENSAIO-PONTA-A-PONTA.json",
         "provas/esteira_sozinha/MUTANTES.json"
       ],
@@ -68156,7 +68158,7 @@
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
       "x": 13260,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -73742,8 +73744,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-ACHADO · C-PRECO-DE-MERCADO · C-V21-FONTES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
-      "y": 1648
+      "x": 15500,
+      "y": 1326
     },
     {
       "id": "C-V21-COMERCIAL",
@@ -73967,7 +73969,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
+      "x": 14670,
       "y": 1648
     },
     {
@@ -74075,7 +74077,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
+      "x": 15085,
       "y": 1648
     },
     {
@@ -74232,8 +74234,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 14670,
-      "y": 1970
+      "x": 15500,
+      "y": 1648
     },
     {
       "id": "C-V21-FONTES",
@@ -74347,7 +74349,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15085,
+      "x": 14670,
       "y": 1970
     },
     {
@@ -74550,7 +74552,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
+      "x": 15085,
       "y": 1970
     },
     {
@@ -74656,8 +74658,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 14670,
-      "y": 2292
+      "x": 15500,
+      "y": 1970
     },
     {
       "id": "C-VOCI-DAL-CAMPO",
@@ -74768,7 +74770,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 15085,
+      "x": 14670,
       "y": 2292
     },
     {
@@ -101285,7 +101287,7 @@
       "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "motor/gatilho_da_inteligencia.py",
+          "file": "admissao/gatilho_da_inteligencia.py",
           "line": 146,
           "snippet": "from guarda.cliente_postgres import resolver_psql       # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
@@ -103771,7 +103773,7 @@
         {
           "file": "provas/esteira_sozinha/mutantes.py",
           "line": 21,
-          "snippet": "GI = \"motor/gatilho_da_inteligencia.py\"",
+          "snippet": "GI = \"admissao/gatilho_da_inteligencia.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ESTEIRA-GATILHO-INTELLIGENCE--READS-->C-PROVA-ESTEIRA-SOZINHA",
             "FROM": "C-ESTEIRA-GATILHO-INTELLIGENCE",
@@ -113037,7 +113039,7 @@
       "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "motor/gatilho_da_inteligencia.py",
+          "file": "admissao/gatilho_da_inteligencia.py",
           "line": 59,
           "snippet": "import motor_das_capacidades as M                # noqa: E402 — o motor que ja existe",
           "ASSERTION_SUPPORTED": {
@@ -113072,7 +113074,7 @@
       "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 alimenta O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "motor/gatilho_da_inteligencia.py",
+          "file": "admissao/gatilho_da_inteligencia.py",
           "line": 73,
           "snippet": "SQL_EXPORT = RAIZ / \"motor\" / \"r7_export_da_copia.sql\"",
           "ASSERTION_SUPPORTED": {
@@ -126537,7 +126539,7 @@
       "reason": "Testes do System Map tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "motor/gatilho_da_inteligencia.py",
+          "file": "admissao/gatilho_da_inteligencia.py",
           "line": 56,
           "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
           "ASSERTION_SUPPORTED": {
@@ -141669,7 +141671,7 @@
       "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "motor/gatilho_da_inteligencia.py",
+          "file": "admissao/gatilho_da_inteligencia.py",
           "line": 60,
           "snippet": "import pote_intelligence_casco as P              # noqa: E402 — o gerador do pote",
           "ASSERTION_SUPPORTED": {
@@ -141685,7 +141687,7 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "motor/gatilho_da_inteligencia.py",
+          "file": "admissao/gatilho_da_inteligencia.py",
           "line": 61,
           "snippet": "import validar_pote_v2 as VP                     # noqa: E402 — o fiscal do pote",
           "ASSERTION_SUPPORTED": {
@@ -152397,7 +152399,7 @@
       "reason": "A Sala de Espera tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "motor/gatilho_da_inteligencia.py",
+          "file": "admissao/gatilho_da_inteligencia.py",
           "line": 58,
           "snippet": "import sala_de_espera as espera                  # noqa: E402 — dono da trava",
           "ASSERTION_SUPPORTED": {
@@ -170071,7 +170073,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2253,
+  "UNCLAIMED_FILES_COUNT": 2254,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -170354,7 +170356,7 @@
     "edges_proven": 1796,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4126,
+    "files_tracked": 4127,
     "files_covered": 1873,
     "files_code_unclaimed": 0,
     "roles_proven": 206,

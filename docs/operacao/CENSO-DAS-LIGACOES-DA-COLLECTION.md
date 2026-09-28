@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  1144e6ec0e8df4f6048b6300d8f1ec5e43e20694
+HEAD_DA_MEDICAO  ce8aecee757e034e8275b4bb73990e9f64ade265
 BRANCH           claude/autonomous-pipeline-6s66x9
-GERADO_EM        2026-09-28T00:54:32+00:00
-CARDS            127
+GERADO_EM        2026-09-28T00:59:26+00:00
+CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -649,6 +649,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova das ligações** | CODE 60 · NÃO SEI 3 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
+
+### `C-ESTEIRA-GATILHO-INTELLIGENCE` · O gatilho da Intelligence (D90-5), pelo servico
+
+| | |
+|---|---|
+| **peça real** | `admissao/gatilho_da_inteligencia.py` |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **dono** | ENGENHARIA · INTELIGENCIA |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | curadoria/supervisor.py:765; provas/esteira_sozinha/ensaio_ponta_a_ponta.py:131; provas/esteira_sozinha/mutantes.py:21 |
+| **porquê** | estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `motor/r7_export_da_copia.sql` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 6 · saem 4 |
+| **arestas provadas** | entram 6 · saem 4 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 10 |
+| **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-ESTEIRA-PASSAGEM` · A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA)
 
@@ -1648,7 +1673,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | admissao/admissao.py:73; admissao/sala_de_espera.py:89; coleta/coleta_checkpoint.py:46 |
+| **prova de quem ativa** | admissao/admissao.py:73; admissao/gatilho_da_inteligencia.py:146; admissao/sala_de_espera.py:89 |
 | **porquê** | estas pecas importam-na — C-ADMISSAO · C-COLETA-BASE · C-DETECTOR-CAPA-GABARITO · C-DONO-DO-DERIVADO · C-ESTEIRA-GATILHO-INTELLIGENCE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -3232,10 +3257,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 45
-UNKNOWN            42
+UNKNOWN            43
 SYSTEM_GAP         16
 TERMINAL           15
 EXTERNAL_ENTRY     7
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              127
+TOTAL              128
 ```

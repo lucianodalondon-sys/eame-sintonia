@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/autonomous-pipeline-6s66x9",
-    "HEAD": "1144e6ec0e8df4f6048b6300d8f1ec5e43e20694",
-    "GENERATED_AT": "2026-09-28T00:54:32+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5896b69017de7d7511f3e93e660f41fe96c862b8e1ea2ed410b2effbef246f8e"
+    "HEAD": "ce8aecee757e034e8275b4bb73990e9f64ade265",
+    "GENERATED_AT": "2026-09-28T00:59:26+00:00",
+    "SOURCE_TREE_FINGERPRINT": "fb1690531272682688c3a6b16e0bc3a5e433ff4a13abf0804b4ed0faf2bc9318"
   },
   "FILES": [
     {
@@ -368,6 +368,13 @@
     {
       "path": "DEPOIS-DO-PORTAL.md",
       "sha": "bdf3477ab8fe95b282e877dacec54fc0a3f19e42",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "ESTEIRA-SOZINHA.md",
+      "sha": "ae3c43bf450c8c3712d5954a4a5448a8ad1c974d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1215,6 +1222,13 @@
     {
       "path": "admissao/admissao.py",
       "sha": "6763157c8c9a392c27a0e8bfe0ce1e4d2a34fac3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "admissao/gatilho_da_inteligencia.py",
+      "sha": "0441c79855e540f92e6ed04c98305a1af0f18bfe",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4399,7 +4413,7 @@
     },
     {
       "path": "curadoria/supervisor.py",
-      "sha": "b8cbbc74ed936473213b0320bedeafb39d0a6aa0",
+      "sha": "729c917ba27d1b38f305df03e1acc9f44cee5481",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -19007,13 +19021,6 @@
       "code_dir": true
     },
     {
-      "path": "motor/gatilho_da_inteligencia.py",
-      "sha": "66c2bddefbeb27becbae5d88e40b1fd4736cb194",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
       "path": "motor/grafo_de_dependencia.py",
       "sha": "34183b2fc4cad6820c72865b450ec5afb0b6b94f",
       "ext": ".py",
@@ -20807,28 +20814,28 @@
     },
     {
       "path": "provas/esteira_sozinha/ENSAIO-PONTA-A-PONTA.json",
-      "sha": "c42cfd62431d7fb173d8ac74d747009ebd0cddc6",
+      "sha": "84d1fcf3e00c2ed96bedf7339966927e466333c4",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/esteira_sozinha/MUTANTES.json",
-      "sha": "8c2a1f3e36eee4774c766bca7bfb2ba7460f3916",
+      "sha": "168c68031a4130f15d0b60fc63838bca8665701e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
-      "sha": "0b7a8ca2d99cef73ecff665adeea353639bb85d3",
+      "sha": "6ec6dbf9f1528d3319e46b08d6b5a845e9b8ef5e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "provas/esteira_sozinha/mutantes.py",
-      "sha": "4497025307c6994e675a7b789ce980c939932f3c",
+      "sha": "3ba2d76cbefb47f2d11f05841e3b5f963436c6fb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25777,7 +25784,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "a304ad8ba3403e49bd2ed9357ecefcd223074624",
+      "sha": "10bf60262a333a5ed6f5330150fb8439df1daecd",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -30496,6 +30503,83 @@
         "file": "admissao/admissao.py",
         "line": 2070,
         "snippet": "import fato_do_texto as FT                                     # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 56,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 58,
+        "snippet": "import sala_de_espera as espera                  # noqa: E402 — dono da trava"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "guarda/cliente_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 146,
+        "snippet": "from guarda.cliente_postgres import resolver_psql       # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 59,
+        "snippet": "import motor_das_capacidades as M                # noqa: E402 — o motor que ja existe"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "motor/r7_export_da_copia.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 73,
+        "snippet": "SQL_EXPORT = RAIZ / \"motor\" / \"r7_export_da_copia.sql\""
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 60,
+        "snippet": "import pote_intelligence_casco as P              # noqa: E402 — o gerador do pote"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "pacote/validar_pote_v2.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 61,
+        "snippet": "import validar_pote_v2 as VP                     # noqa: E402 — o fiscal do pote"
       }
     },
     {
@@ -39949,6 +40033,17 @@
     },
     {
       "from_file": "curadoria/supervisor.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/supervisor.py",
+        "line": 765,
+        "snippet": "import gatilho_da_inteligencia as GI        # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/supervisor.py",
       "to_file": "admissao/passagem_para_a_sala.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -40011,17 +40106,6 @@
         "file": "curadoria/supervisor.py",
         "line": 766,
         "snippet": "import vigia_da_esteira as VIG              # noqa: PLC0415"
-      }
-    },
-    {
-      "from_file": "curadoria/supervisor.py",
-      "to_file": "motor/gatilho_da_inteligencia.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "curadoria/supervisor.py",
-        "line": 765,
-        "snippet": "import gatilho_da_inteligencia as GI        # noqa: PLC0415"
       }
     },
     {
@@ -57636,83 +57720,6 @@
       }
     },
     {
-      "from_file": "motor/gatilho_da_inteligencia.py",
-      "to_file": "_gavetas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/gatilho_da_inteligencia.py",
-        "line": 56,
-        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
-      }
-    },
-    {
-      "from_file": "motor/gatilho_da_inteligencia.py",
-      "to_file": "admissao/sala_de_espera.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/gatilho_da_inteligencia.py",
-        "line": 58,
-        "snippet": "import sala_de_espera as espera                  # noqa: E402 — dono da trava"
-      }
-    },
-    {
-      "from_file": "motor/gatilho_da_inteligencia.py",
-      "to_file": "guarda/cliente_postgres.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/gatilho_da_inteligencia.py",
-        "line": 146,
-        "snippet": "from guarda.cliente_postgres import resolver_psql       # noqa: PLC0415"
-      }
-    },
-    {
-      "from_file": "motor/gatilho_da_inteligencia.py",
-      "to_file": "motor/motor_das_capacidades.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/gatilho_da_inteligencia.py",
-        "line": 59,
-        "snippet": "import motor_das_capacidades as M                # noqa: E402 — o motor que ja existe"
-      }
-    },
-    {
-      "from_file": "motor/gatilho_da_inteligencia.py",
-      "to_file": "motor/r7_export_da_copia.sql",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "motor/gatilho_da_inteligencia.py",
-        "line": 73,
-        "snippet": "SQL_EXPORT = RAIZ / \"motor\" / \"r7_export_da_copia.sql\""
-      }
-    },
-    {
-      "from_file": "motor/gatilho_da_inteligencia.py",
-      "to_file": "pacote/pote_intelligence_casco.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/gatilho_da_inteligencia.py",
-        "line": 60,
-        "snippet": "import pote_intelligence_casco as P              # noqa: E402 — o gerador do pote"
-      }
-    },
-    {
-      "from_file": "motor/gatilho_da_inteligencia.py",
-      "to_file": "pacote/validar_pote_v2.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "motor/gatilho_da_inteligencia.py",
-        "line": 61,
-        "snippet": "import validar_pote_v2 as VP                     # noqa: E402 — o fiscal do pote"
-      }
-    },
-    {
       "from_file": "motor/matriz_recorte.py",
       "to_file": "data/samples/PILOT-SCOPE-MATRIX-V1.json",
       "type": "READS",
@@ -70419,6 +70426,17 @@
     },
     {
       "from_file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+        "line": 131,
+        "snippet": "import gatilho_da_inteligencia as GI"
+      }
+    },
+    {
+      "from_file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
       "to_file": "admissao/passagem_para_a_sala.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -70474,17 +70492,6 @@
     },
     {
       "from_file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
-      "to_file": "motor/gatilho_da_inteligencia.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
-        "line": 131,
-        "snippet": "import gatilho_da_inteligencia as GI"
-      }
-    },
-    {
-      "from_file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
       "to_file": "provas/esteira_sozinha/ENSAIO-PONTA-A-PONTA.json",
       "type": "READS",
       "payload": "artefacto",
@@ -70492,6 +70499,17 @@
         "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
         "line": 41,
         "snippet": "SAIDA_PADRAO = AQUI.parent / \"ENSAIO-PONTA-A-PONTA.json\""
+      }
+    },
+    {
+      "from_file": "provas/esteira_sozinha/mutantes.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/esteira_sozinha/mutantes.py",
+        "line": 21,
+        "snippet": "GI = \"admissao/gatilho_da_inteligencia.py\""
       }
     },
     {
@@ -70525,17 +70543,6 @@
         "file": "provas/esteira_sozinha/mutantes.py",
         "line": 22,
         "snippet": "VIG = \"medidas/vigia_da_esteira.py\""
-      }
-    },
-    {
-      "from_file": "provas/esteira_sozinha/mutantes.py",
-      "to_file": "motor/gatilho_da_inteligencia.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/esteira_sozinha/mutantes.py",
-        "line": 21,
-        "snippet": "GI = \"motor/gatilho_da_inteligencia.py\""
       }
     },
     {
@@ -96555,6 +96562,17 @@
     },
     {
       "from_file": "tests/test_esteira_sozinha.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_esteira_sozinha.py",
+        "line": 27,
+        "snippet": "import gatilho_da_inteligencia as GI             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_esteira_sozinha.py",
       "to_file": "admissao/passagem_para_a_sala.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -96595,17 +96613,6 @@
         "file": "tests/test_esteira_sozinha.py",
         "line": 29,
         "snippet": "import vigia_da_esteira as VIG                   # noqa: E402"
-      }
-    },
-    {
-      "from_file": "tests/test_esteira_sozinha.py",
-      "to_file": "motor/gatilho_da_inteligencia.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "tests/test_esteira_sozinha.py",
-        "line": 27,
-        "snippet": "import gatilho_da_inteligencia as GI             # noqa: E402"
       }
     },
     {
@@ -109409,7 +109416,7 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4126,
+    "files_tracked": 4127,
     "files_readable": 1733,
     "files_code_dir": 2118,
     "file_edges": 7261,

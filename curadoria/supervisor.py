@@ -757,7 +757,7 @@ def _loop(pausa_worker: float, poll: float, revalidar_legacy: bool = False,
 def _passos_da_esteira() -> tuple:
     """Os tres passos da ESTEIRA-SOZINHA, pela ordem do dado: Sala, Intelligence, vigia.
 
-    Cada um vive na gaveta do que e (admissao/, motor/, medidas/); aqui so se chamam."""
+    Cada um vive na gaveta do que e (admissao/, admissao/, medidas/); aqui so se chamam."""
     if str(RAIZ) not in sys.path:
         sys.path.insert(0, str(RAIZ))
     import _gavetas  # noqa: F401,PLC0415 — poe as gavetas do processo no caminho
