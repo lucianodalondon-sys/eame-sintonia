@@ -4711,10 +4711,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote7-integra-grain-rule-37g8vv",
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217",
-    "GENERATED_AT": "2026-09-27T23:28:34+00:00",
-    "SOURCE_TREE_FINGERPRINT": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5"
+    "BRANCH": "claude/portal-auto-publish-1f67wu",
+    "HEAD": "b273660b66c1d693aadeb60c5bf8e82d0b066b62",
+    "GENERATED_AT": "2026-09-27T23:37:56+00:00",
+    "SOURCE_TREE_FINGERPRINT": "635115270bf9fe5ab240c95455ef2e11a45f97f8eac8ac81f8b0794df7c01459"
   },
   "FAMILIES": [
     {
@@ -4785,7 +4785,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 122
+      "count": 123
     },
     {
       "id": "F-ENTREGA",
@@ -4801,7 +4801,7 @@
         "Z-SUPERFICIE",
         "Z-TELAS"
       ],
-      "count": 30
+      "count": 31
     }
   ],
   "TERRITORIES": [
@@ -5094,7 +5094,7 @@
       "y": 190,
       "w": 820,
       "h": 10988,
-      "count": 7
+      "count": 8
     },
     {
       "id": "Z-SUPERFICIE",
@@ -5157,7 +5157,7 @@
       "y": 190,
       "w": 1235,
       "h": 10988,
-      "count": 101
+      "count": 102
     },
     {
       "id": "Z-REFERENCIA",
@@ -57162,7 +57162,7 @@
         "PLANO": null,
         "PROVA": [
           "italia-portale/audit/casa-gate.mjs:582",
-          "italia-portale/client/portale.html:272"
+          "italia-portale/client/portale.html:275"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -63185,6 +63185,72 @@
       "y": 8410
     },
     {
+      "id": "C-PROVA-PUBLICA-SOZINHO",
+      "name": "Mutacao do publicador que publica sozinho",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Planta defeitos no publicador (portoes/publicar_portal_sozinho.py), no leitor do casco e no portale.html, numa copia da arvore (git worktree temporario — o repo nao e tocado), e corre tests/test_publicar_portal_sozinho.py: pote invalido que passa, D122/D123 desligadas, objeto sem prova, dado cru, demo em producao, promocao sem o dono, contagem da tela ignorada, legado visivel ignorado, SHA no ar ignorado, vermelho novo do release aceite, rollback que nao roda dado por provado, o casco que ignora o pote publicado, a barra que volta ao numero antigo. Sai 1 se algum sobreviver. E o registo do ensaio completo (anfitriao local, todas as conferencias reais).",
+      "why_here": "Prova que os testes do publicador apanham o que ele jura nao fazer (missao PORTAL-PUBLICA-SOZINHO, D126).",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com provas/portal_publica_sozinho/*. Conferido tambem no disco: nao esta la.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "PROOF",
+      "ROLE_PLANE": "DECLARED",
+      "ROLE_EVIDENCE": "declarado `kind: proof` em architecture.declared.json — nenhum ficheiro medido sustenta ou contradiz isto",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 22925,
+      "y": 8410
+    },
+    {
       "id": "C-PROVA-RECOLLECTION",
       "name": "O red team da recollection — doze ataques a semantica da revisita",
       "territory": "Z-PROVA",
@@ -63277,7 +63343,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8410
     },
     {
@@ -63378,8 +63444,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 8410
+      "x": 22510,
+      "y": 8732
     },
     {
       "id": "C-PROVA-RETRY-DO-SCRAP",
@@ -63467,7 +63533,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8732
     },
     {
@@ -63589,7 +63655,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8732
     },
     {
@@ -63692,8 +63758,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 8732
+      "x": 22510,
+      "y": 9054
     },
     {
       "id": "C-PROVA-ROTAS-REAIS",
@@ -63843,7 +63909,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9054
     },
     {
@@ -63941,7 +64007,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9054
     },
     {
@@ -64054,8 +64120,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9054
+      "x": 22510,
+      "y": 9376
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -64165,7 +64231,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9376
     },
     {
@@ -64327,7 +64393,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-SCRAP-GUARDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9376
     },
     {
@@ -64426,8 +64492,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9376
+      "x": 22510,
+      "y": 9698
     },
     {
       "id": "C-PROVA-TETO-DOMINIO",
@@ -64551,7 +64617,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9698
     },
     {
@@ -64639,7 +64705,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9698
     },
     {
@@ -64723,8 +64789,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 9698
+      "x": 22510,
+      "y": 10020
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -64820,7 +64886,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10020
     },
     {
@@ -64954,7 +65020,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10020
     },
     {
@@ -65068,6 +65134,73 @@
       },
       "x": 20975,
       "y": 1970
+    },
+    {
+      "id": "C-PUBLICA-SOZINHO",
+      "name": "O portal publica sozinho (D126)",
+      "territory": "Z-PORTOES",
+      "kind": "gate",
+      "what": "Quando sai um pote novo da Intelligence, monta o portal EXISTENTE com ele numa copia da arvore (git worktree) e corre TODAS as conferencias: C0 o pote (forma+lei v2 pelo validar_pote_v2, D122 evento so com data, D123 caso->produto->bula, nenhum objeto sem prova, nada de dado cru, nada da demo, e a promocao de um pote EXPERIMENTAL so com a regra aprovada pelo dono), C1 build-gate, C2 deploy-surface, C3 os tres jobs do portao do release LIDOS de release/canonical, C5 a copia com o pote num navegador (contagem por tela = a do pote, sem os 43/44 antigos, a barra conta o pote, SHA certo). So se tudo passa implanta (ensaio local, preview ou producao pelo CLI da Vercel com build pre-construida), confere NO AR (C6) e, se reprovar, volta sozinho ao deployment anterior, prova a volta e grava ALERTA. Cada publicacao guarda em PUBLICACOES/ (fora do Git) fotos e contagens antes/depois, o pote publicado e o anterior com SHA; ULTIMA-PUBLICACAO.json e o ANTERIOR do DELTA da D125.",
+      "why_here": "D126 (dono, 27/09 ~21:40): «portal publica sozinho». O pote tem dado real e o repositorio e publico: nao pode viajar pelo Git. O envelope conferido e escrito so na copia implantada (o lugar no Git, italia-portale/client/sintonia-pote-publicado.js, diz null). A lei vive em portoes/PUBLICACAO-AUTOMATICA.json; o CLI da Vercel nao foi testado nesta missao (sem CLI nem credencial no contentor) — o caminho inteiro foi ensaiado com o anfitriao local.",
+      "departments": [
+        "ENGENHARIA",
+        "LIDERANCA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "⇪",
+      "views": [
+        "audit",
+        "portal"
+      ],
+      "lane": "official",
+      "family": "F-ENTREGA",
+      "files": [],
+      "file_count": 0,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add portoes/PUBLICACAO-AUTOMATICA.json portoes/fotografar_portal.mjs portoes/publicar_portal_sozinho.py` e regerar. ISTO NAO E «nao existe».",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "nenhum ficheiro rastreado reivindicado por esta peca",
+      "OWNER": "ENGENHARIA · LIDERANCA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 18030,
+      "y": 1326
     },
     {
       "id": "C-RASTRO",
@@ -65337,8 +65470,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 10020
+      "x": 22510,
+      "y": 10342
     },
     {
       "id": "C-RECEITAS",
@@ -65844,7 +65977,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10342
     },
     {
@@ -66019,7 +66152,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10342
     },
     {
@@ -66427,8 +66560,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 23340,
-      "y": 10342
+      "x": 22510,
+      "y": 10664
     },
     {
       "id": "C-REGUA-T1-JANELA",
@@ -67293,7 +67426,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10664
     },
     {
@@ -68742,7 +68875,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10664
     },
     {
@@ -69238,7 +69371,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 18030,
+      "x": 18445,
       "y": 1326
     },
     {
@@ -69325,8 +69458,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 10664
+      "x": 22510,
+      "y": 10986
     },
     {
       "id": "C-SUPABASE",
@@ -69671,7 +69804,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10986
     },
     {
@@ -73018,7 +73151,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10986
     },
     {
@@ -138477,7 +138610,7 @@
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
-          "line": 272,
+          "line": 275,
           "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-CASCO--READS-->C-TELA-FIELD",
@@ -139992,7 +140125,7 @@
         },
         {
           "file": "italia-portale/client/portale.html",
-          "line": 80,
+          "line": 83,
           "snippet": "<script src=\"sintonia-pote-casco.js\"></script>",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
@@ -168835,15 +168968,15 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 305
+      "TOTAL_DE_PECAS": 307
     }
   ],
   "COUNTS": {
-    "components": 305,
+    "components": 307,
     "components_proven": 33,
     "components_pending": 264,
-    "components_broken": 0,
-    "components_unknown": 8,
+    "components_broken": 1,
+    "components_unknown": 9,
     "edges": 1835,
     "edges_proven": 1766,
     "edges_unknown": 69,
@@ -168852,8 +168985,8 @@
     "files_covered": 1867,
     "files_code_unclaimed": 0,
     "roles_proven": 203,
-    "roles_declared_only": 9,
-    "roles_unknown": 93,
+    "roles_declared_only": 10,
+    "roles_unknown": 94,
     "roles_conflict": 54,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,

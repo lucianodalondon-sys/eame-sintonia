@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote7-integra-grain-rule-37g8vv",
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217",
-    "GENERATED_AT": "2026-09-27T23:28:34+00:00",
-    "SOURCE_TREE_FINGERPRINT": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5"
+    "BRANCH": "claude/portal-auto-publish-1f67wu",
+    "HEAD": "b273660b66c1d693aadeb60c5bf8e82d0b066b62",
+    "GENERATED_AT": "2026-09-27T23:37:56+00:00",
+    "SOURCE_TREE_FINGERPRINT": "635115270bf9fe5ab240c95455ef2e11a45f97f8eac8ac81f8b0794df7c01459"
   },
   "FILES": [
     {
@@ -185,14 +185,14 @@
     },
     {
       "path": ".gitignore",
-      "sha": "b60444007e2f11d21fdd5ae2a0b1c319691c939f",
+      "sha": "fe47eb689196b21fc27db2b66230cfd2fa5a3e0c",
       "ext": "",
       "readable": false,
       "code_dir": false
     },
     {
       "path": ".vercelignore",
-      "sha": "404137096242c402d37f86b6cf4eaaf11c6d768d",
+      "sha": "2e80a6db32864a1e3b10442378a964dc73304b5f",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -17965,14 +17965,14 @@
     },
     {
       "path": "italia-portale/client/portale.html",
-      "sha": "8fc7c74a50f801f5d3edc481a444f2422f546498",
+      "sha": "a0578ff11be9c5683f0410cd4e506dc49e3a3afb",
       "ext": ".html",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "italia-portale/client/sintonia-pote-casco.js",
-      "sha": "0d1a3dbbb423905dc4d37a5b12810407778f0c23",
+      "sha": "5c107d4f1c709cfe675f924edd2868d03b3888fe",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -25728,7 +25728,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f92f2df7af2f1020429a2795f23ca69dd9bd097b",
+      "sha": "ccdc049adae1441cef50505f799dd027aa058e4e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -53846,7 +53846,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "italia-portale/client/portale.html",
-        "line": 272,
+        "line": 275,
         "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)"
       }
     },
@@ -54088,7 +54088,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "italia-portale/client/portale.html",
-        "line": 80,
+        "line": 83,
         "snippet": "<script src=\"sintonia-pote-casco.js\"></script>"
       }
     },
@@ -108929,7 +108929,11 @@
     "files_code_dir": 2110,
     "file_edges": 7222,
     "escritas_em_pasta": 94,
-    "declared_missing_here": 0
+    "declared_missing_here": 1
   },
-  "ELSEWHERE": {}
+  "ELSEWHERE": {
+    "italia-portale/client/sintonia-pote-publicado.js": [
+      "origin/claude/casco-publication-minimum-5q7kbw"
+    ]
+  }
 }
