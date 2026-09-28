@@ -1,0 +1,555 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""D126 · PORTAL-PUBLICA-SOZINHO — o publicador, atacado.
+
+    python3 -m unittest tests.test_publicar_portal_sozinho -v
+
+⚠️ DADO SINTETICO DECLARADO: os potes daqui sao os de tests/fixtures/pote/ (todo id SINT-, SINTETICA = true).
+O que se chama «pote real» num teste e o sintetico com os ids renomeados — continua inventado.
+
+Prova que:
+  P0  o pote: forma+lei v2, D122 (evento so com data), D123 (caso -> produto -> bula), nenhum objeto sem
+      prova, nada de dado cru, nada da demo, e a promocao de um pote EXPERIMENTAL so com o dono;
+  P1  as telas: a contagem do navegador tem de ser a do pote, os 43/44 antigos escondidos, a barra conta o
+      pote, o SHA servido e o do pote; casa (fora das rotas) e medida e dita, sem bloquear;
+  P2  o portao do release e LIDO do workflow (nao copiado) e so o vermelho herdado e declarado passa;
+  P3  o caminho inteiro, com o anfitriao local do ensaio: publica, nao publica o que reprova, nao
+      republica o que ja esta no ar, VOLTA sozinho quando a pagina no ar nao tem a contagem, e grita
+      ALERTA_CRITICO quando a volta nao roda;
+  P4  o casco le o pote publicado (o lugar no Git e null), o local vence, e a barra conta o pote;
+  P5  o pote e o registo ficam fora do Git e do deploy.
+"""
+import copy
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+RAIZ = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(RAIZ / "portoes"))
+sys.path.insert(0, str(RAIZ))
+import _gavetas  # noqa: E402,F401
+
+import publicar_portal_sozinho as P  # noqa: E402
+
+FIX = RAIZ / "tests" / "fixtures" / "pote"
+POTE_ENSAIO = json.loads((FIX / "POTE-SINTETICO-PUBLICA-SOZINHO.json").read_text(encoding="utf-8"))
+POTE_SEM_BULA = json.loads((FIX / "POTE-SINTETICO.json").read_text(encoding="utf-8"))
+CONTRATO = P.carregar_contrato()
+
+
+def ids(linhas, falhas=True):
+    return [l["ID"] for l in linhas if (not l["PASS"]) == falhas]
+
+
+def pote_nao_sintetico():
+    """O sintetico com outro nome — para provar o caminho de producao. Continua inventado."""
+    txt = json.dumps(POTE_ENSAIO, ensure_ascii=False).replace("SINT-", "RUN-")
+    p = json.loads(txt)
+    p["CORRIDA_SINTETICA"] = False
+    return p
+
+
+def contrato_aprovado():
+    c = copy.deepcopy(CONTRATO)
+    c["REGRA_DE_PROMOCAO"].update(ESTADO="APROVADA_PELO_DONO", APROVADA_POR="teste", APROVADA_EM="2026-09-28")
+    return c
+
+
+def contagens_boas(pote, sha, contrato=CONTRATO):
+    """O CONTAGENS.json que o fotografo escreveria para um portal que obedece."""
+    esp = P.contagem_esperada(pote, contrato)
+    nav = {v: str(n) for v, n in esp.items() if v != "inicio"}
+    nav.update(painel="", sala="")
+    T = {}
+    for t in contrato["TELAS"]["DO_POTE"]:
+        T[t] = {"HTTP": 200, "POTE_NA_TELA": True, "POTE_OBJETOS": esp.get(t), "POTE_RECUSADO": False, "MARCA": True,
+                "LEGADO_CARTOES": 0, "LEGADO_43_UNIVERSO": 43, "LEGADO_43_VISIVEIS": 0, "LEGADO_44_UNIVERSO": 44,
+                "LEGADO_44_VISIVEIS": 0, "NAV": dict(nav), "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True}}
+    T["accesso"] = {"HTTP": 200, "LEGADO_CARTOES": 0, "LEGADO_43_VISIVEIS": 0, "LEGADO_44_VISIVEIS": 0, "LEGADO_43_UNIVERSO": 43}
+    T["casa"] = {"HTTP": 200, "LEGADO_43_VISIVEIS": 43, "LEGADO_44_VISIVEIS": 44}
+    return {"MEDICAO_COMPLETA": True, "TELAS": T}
+
+
+# ── P0 · o pote ──────────────────────────────────────────────────────────────
+class P0_OPote(unittest.TestCase):
+    def test_o_pote_do_ensaio_passa_em_ensaio_com_as_notas(self):
+        L = P.conferir_pote(POTE_ENSAIO, CONTRATO, "ensaio")
+        self.assertEqual(ids(L), [], L)
+        notas = " ".join(l.get("NOTA") or "" for l in L)
+        self.assertIn("SINTETICO", notas)
+        self.assertIn("APROVADA_PELO_DONO", notas)
+
+    def test_sintetico_nunca_vai_a_producao(self):
+        L = P.conferir_pote(POTE_ENSAIO, contrato_aprovado(), "producao")
+        self.assertIn("C0_NADA_DA_DEMO", ids(L))
+
+    def test_experimental_sem_o_dono_nao_vai_a_producao(self):
+        self.assertEqual(CONTRATO["REGRA_DE_PROMOCAO"]["ESTADO"], "AGUARDA_DONO",
+                         "a regra de promocao nasce a espera do dono — so ele a aprova")
+        L = P.conferir_pote(pote_nao_sintetico(), CONTRATO, "producao")
+        self.assertEqual(ids(L), ["C0_PROMOCAO"])
+
+    def test_aprovada_pelo_dono_e_corrida_real_passa_em_producao(self):
+        self.assertEqual(ids(P.conferir_pote(pote_nao_sintetico(), contrato_aprovado(), "producao")), [])
+
+    def test_aprovacao_sem_nome_nem_data_nao_vale(self):
+        c = contrato_aprovado()
+        c["REGRA_DE_PROMOCAO"]["APROVADA_POR"] = None
+        self.assertIn("C0_PROMOCAO", ids(P.conferir_pote(pote_nao_sintetico(), c, "producao")))
+
+    def test_d123_oportunidade_sem_bula(self):
+        L = P.conferir_pote(POTE_SEM_BULA, CONTRATO, "ensaio")
+        self.assertIn("C0_D123_CASO_PRODUTO_BULA", ids(L))
+
+    def test_d123_oportunidade_sem_produto(self):
+        p = copy.deepcopy(POTE_ENSAIO)
+        for o in p["COMPARTIMENTOS"]["meeting"]["OBJETOS"]:
+            if o["ESPECIE"] == "OPORTUNIDADE":
+                o["CHAVES"]["ADAMA_PRODUCT_ID"] = "NAO SEI"
+        self.assertIn("C0_D123_CASO_PRODUTO_BULA", ids(P.conferir_pote(p, CONTRATO, "ensaio")))
+
+    def test_d122_evento_sem_data(self):
+        p = copy.deepcopy(POTE_ENSAIO)
+        p["COMPARTIMENTOS"]["future"]["OBJETOS"][0]["CHAVES"]["FACT_TIME"] = "NAO SEI"
+        self.assertIn("C0_D122_EVENTO_SO_COM_DATA", ids(P.conferir_pote(p, CONTRATO, "ensaio")))
+        p["COMPARTIMENTOS"]["future"]["OBJETOS"][0]["CHAVES"]["FACT_TIME"] = "primavera"
+        self.assertIn("C0_D122_EVENTO_SO_COM_DATA", ids(P.conferir_pote(p, CONTRATO, "ensaio")))
+
+    def test_objeto_sem_prova_ate_ao_documento(self):
+        p = copy.deepcopy(POTE_ENSAIO)
+        p["COMPARTIMENTOS"]["windows"]["OBJETOS"][0]["PROVA"][0]["DOCUMENT_ID"] = "NAO SEI"
+        self.assertIn("C0_NENHUM_OBJETO_SEM_PROVA", ids(P.conferir_pote(p, CONTRATO, "ensaio")))
+        p["COMPARTIMENTOS"]["windows"]["OBJETOS"][0]["PROVA"] = []
+        self.assertIn("C0_NENHUM_OBJETO_SEM_PROVA", ids(P.conferir_pote(p, CONTRATO, "ensaio")))
+
+    def test_dado_cru_chave_e_texto_longo(self):
+        p = copy.deepcopy(POTE_ENSAIO)
+        p["COMPARTIMENTOS"]["windows"]["OBJETOS"][0]["FORA_DO_CONTRATO"] = {"RAW_TEXT": "o documento inteiro"}
+        self.assertIn("C0_NADA_DE_DADO_CRU", ids(P.conferir_pote(p, CONTRATO, "ensaio")))
+        p = copy.deepcopy(POTE_ENSAIO)
+        p["COMPARTIMENTOS"]["windows"]["OBJETOS"][0]["PORQUE"] = "x" * 4001
+        self.assertIn("C0_NADA_DE_DADO_CRU", ids(P.conferir_pote(p, CONTRATO, "ensaio")))
+
+    def test_pote_que_o_validador_v2_reprova(self):
+        p = copy.deepcopy(POTE_ENSAIO)
+        p["SCHEMA"] = "POTE_INTELLIGENCE_CASCO/v1"
+        self.assertIn("C0_POTE_V2_FORMA_E_LEI", ids(P.conferir_pote(p, CONTRATO, "ensaio")))
+
+    def test_o_sha_e_do_conteudo_e_nao_da_ordem(self):
+        a = P.sha_do_pote(POTE_ENSAIO)
+        b = P.sha_do_pote(json.loads(json.dumps(POTE_ENSAIO, sort_keys=False)))
+        self.assertEqual(a, b)
+        p = copy.deepcopy(POTE_ENSAIO)
+        p["CORTE"] = "outro"
+        self.assertNotEqual(a, P.sha_do_pote(p))
+
+    def test_o_envelope_se_le_de_volta_e_o_lugar_vazio_nao(self):
+        sha = P.sha_do_pote(POTE_ENSAIO)
+        js = P.js_do_envelope(P.envelope(POTE_ENSAIO, sha, CONTRATO, "ensaio", "abc"))
+        env = P.ler_envelope_js(js)
+        self.assertEqual(env["POTE_SHA256"], sha)
+        self.assertEqual(P.sha_do_pote(env["POTE"]), sha)
+        stub = (RAIZ / "italia-portale" / "client" / "sintonia-pote-publicado.js").read_text(encoding="utf-8")
+        self.assertIsNone(P.ler_envelope_js(stub))
+
+
+# ── P1 · as telas ────────────────────────────────────────────────────────────
+class P1_AsTelas(unittest.TestCase):
+    def setUp(self):
+        self.sha = P.sha_do_pote(POTE_ENSAIO)
+        self.C = contagens_boas(POTE_ENSAIO, self.sha)
+
+    def conf(self):
+        return P.conferir_telas(self.C, POTE_ENSAIO, self.sha, CONTRATO, "C5")
+
+    def test_a_contagem_esperada_vem_do_pote(self):
+        esp = P.contagem_esperada(POTE_ENSAIO, CONTRATO)
+        self.assertEqual(esp["meeting"], 2)
+        self.assertEqual(esp["radarfuturo"], 1)
+        self.assertEqual(esp["future"], 2, "a rota #future le o compartimento archive")
+        self.assertEqual(esp["etichette"], esp["portfolio"])
+        self.assertEqual(esp["field"], 0)
+        self.assertEqual(set(CONTRATO["TELAS"]["DO_POTE"]) - set(esp), set())
+
+    def test_portal_que_obedece_passa_e_a_casa_fica_dita(self):
+        L = self.conf()
+        self.assertEqual(ids(L), [])
+        casa = [l for l in L if l["ID"].endswith("FORA_DAS_ROTAS_CASA")][0]
+        self.assertIn("AVISO", casa.get("NOTA") or "")
+
+    def test_pagina_sem_a_contagem(self):
+        self.C["TELAS"]["market"]["POTE_OBJETOS"] = 5
+        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+        self.C = contagens_boas(POTE_ENSAIO, self.sha)
+        self.C["TELAS"]["meeting"]["POTE_NA_TELA"] = False
+        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+
+    def test_pote_recusado_na_tela(self):
+        self.C["TELAS"]["sources"]["POTE_RECUSADO"] = True
+        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+
+    def test_sha_servido_nao_e_o_do_pote(self):
+        self.C["TELAS"]["windows"]["ENVELOPE"]["POTE_SHA256"] = "0" * 64
+        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+
+    def test_d122_legado_visivel(self):
+        self.C["TELAS"]["radarfuturo"]["LEGADO_44_VISIVEIS"] = 44
+        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()))
+        self.C = contagens_boas(POTE_ENSAIO, self.sha)
+        self.C["TELAS"]["accesso"]["LEGADO_CARTOES"] = 3
+        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()))
+
+    def test_d122_detector_que_nao_mediu_nao_vale_zero(self):
+        self.C["TELAS"]["meeting"]["LEGADO_43_UNIVERSO"] = 0
+        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()))
+
+    def test_d122_a_barra_com_o_numero_antigo(self):
+        self.C["TELAS"]["meeting"]["NAV"]["radarfuturo"] = "44"
+        self.assertIn("C5_D122_BARRA_CONTA_O_POTE", ids(self.conf()))
+
+    def test_medicao_incompleta_nao_autoriza(self):
+        self.C["MEDICAO_COMPLETA"] = False
+        self.assertIn("C5_MEDIDO", ids(self.conf()))
+        self.assertTrue(ids(P.conferir_telas(None, POTE_ENSAIO, self.sha, CONTRATO, "C6")))
+
+    def test_tela_que_faltou(self):
+        del self.C["TELAS"]["science"]
+        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+
+
+# ── P2 · o portao do release ─────────────────────────────────────────────────
+class P2_OPortaoDoRelease(unittest.TestCase):
+    def test_lido_do_workflow_e_nao_copiado(self):
+        cmds, erro = P.comandos_do_release(CONTRATO)
+        if erro and "nao consegui ler" in erro:
+            self.fail("origin/release/canonical nao esta nesta arvore: git fetch origin release/canonical — " + erro)
+        self.assertIsNone(erro)
+        txt = [c for _, _, c in cmds]
+        self.assertIn("node italia-portale/audit/build-gate.mjs", txt)
+        self.assertIn("node italia-portale/audit/run.mjs", txt)
+        self.assertIn("python3 system-map/scripts/correr_a_cadeia.py VALIDAR", txt)
+        self.assertFalse([c for c in txt if "playwright" in c], "instalar o browser e ferramenta, nao conferencia")
+
+    def test_release_ilegivel_reprova(self):
+        c = copy.deepcopy(CONTRATO)
+        c["RELEASE_REF"] = "refs/heads/nao-existe-de-todo"
+        cmds, erro = P.comandos_do_release(c)
+        self.assertIsNone(cmds)
+        self.assertIn("nao consegui ler", erro)
+
+    def _run(self, saida, rc):
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / "italia-portale" / "audit").mkdir(parents=True)
+            (Path(d) / "italia-portale" / "audit" / "run.mjs").write_text(
+                f"console.log({json.dumps(saida)}); process.exit({rc});\n", encoding="utf-8")
+            return P.conferir_comando("C3", "node italia-portale/audit/run.mjs", d, CONTRATO, 60)
+
+    def test_so_o_vermelho_herdado_e_declarado_passa(self):
+        l = self._run("  \x1b[31mFAIL\x1b[0m  N1    Nav counts\n  72/73 passing  1 failing", 1)
+        self.assertTrue(l["PASS"], l)
+        self.assertIn("INHERITED", l["NOTA"])
+
+    def test_vermelho_novo_reprova(self):
+        l = self._run("  FAIL  N1    x\n  FAIL  B2    y\n  71/73 passing", 1)
+        self.assertFalse(l["PASS"])
+        self.assertIn("B2", " ".join(l["DETALHE"]))
+
+    def test_corrida_que_nao_chegou_ao_fim_reprova(self):
+        self.assertFalse(self._run("  FAIL  N1    x\nTypeError: boom", 1)["PASS"])
+
+    def test_comando_que_falha_reprova(self):
+        l = P.conferir_comando("C1", [sys.executable, "-c", "import sys; sys.exit(3)"], RAIZ, CONTRATO, 60)
+        self.assertFalse(l["PASS"])
+
+
+# ── P3 · o caminho inteiro, com o anfitriao local ────────────────────────────
+STUB = (RAIZ / "italia-portale" / "client" / "sintonia-pote-publicado.js").read_text(encoding="utf-8")
+
+
+def cliente_minimo(d: Path):
+    (d / "italia-portale" / "client").mkdir(parents=True, exist_ok=True)
+    (d / "italia-portale" / "client" / "index.html").write_text("<!doctype html><title>x</title>", encoding="utf-8")
+    (d / "italia-portale" / "client" / "sintonia-pote-publicado.js").write_text(STUB, encoding="utf-8")
+    return d / "italia-portale" / "client"
+
+
+class PublicadorDeProva(P.Publicador):
+    """O caminho real, com as pecas que tocam o mundo trocadas: a arvore e um cliente minimo, as conferencias
+    do codigo dizem o que o teste mandar, e o navegador e o CONTAGENS que o teste der — mas o SHA no ar e
+    medido de verdade, por HTTP, no anfitriao local."""
+    codigo_passa = True
+    contagens_no_ar = "boas"   # "boas" | "sem_contagem"
+    montados = 0
+
+    def montar(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="teste-montagem-"))
+        cliente_minimo(self.tmp / "arvore")
+        (self.tmp / "ferramentas").mkdir()
+        PublicadorDeProva.montados += 1
+        return self.tmp / "arvore", self.tmp / "ferramentas", "0" * 40
+
+    def desmontar(self):
+        shutil.rmtree(self.tmp, ignore_errors=True) if self.tmp else None
+
+    def conferir_codigo(self, copia):
+        return [P.linha("C1_BUILD_GATE", self.codigo_passa, ["prova"])]
+
+    def construir(self, copia):
+        return P.linha("C1_BUILD_COM_O_POTE", True, ["prova"])
+
+    def conferir_montagem(self, copia, ferr, pote, sha, pasta):
+        return P.conferir_telas(contagens_boas(pote, sha, self.c), pote, sha, self.c, "C5_MONTAGEM"), None
+
+    def conferir_no_ar(self, url, ferr, pote, sha, pasta):
+        st, s = P.sha_no_ar(url)
+        L = [P.linha("C6_NO_AR_SHA", s == sha, [f"HTTP {st} SHA {s}"])]
+        cont = contagens_boas(pote, sha, self.c)
+        if self.contagens_no_ar == "sem_contagem" or s != sha:
+            for t in cont["TELAS"].values():
+                t.update(POTE_NA_TELA=False, POTE_OBJETOS=0, ENVELOPE=None)
+        return L + P.conferir_telas(cont, pote, sha, self.c, "C6_NO_AR"), None
+
+
+class EnsaioQueImplantaSemOPote(P.EnsaioLocal):
+    """O defeito «a pagina no ar sem contagem»: o deploy leva o lugar vazio em vez do envelope."""
+    def implantar(self, copia, prod):
+        novo = super().implantar(copia, prod)
+        (self.pasta / "deployments" / novo["ID"] / "sintonia-pote-publicado.js").write_text(STUB, encoding="utf-8")
+        return novo
+
+
+class EnsaioQueNaoVolta(EnsaioQueImplantaSemOPote):
+    """O defeito «o rollback que nao roda»: diz que voltou e nao mexe no alias."""
+    def voltar(self, anterior):
+        return True
+
+
+class P3_OCaminhoInteiro(unittest.TestCase):
+    def setUp(self):
+        self.d = Path(tempfile.mkdtemp(prefix="teste-publica-"))
+        self.reg = self.d / "PUBLICACOES"
+        self.imps = []
+
+    def tearDown(self):
+        for i in self.imps:
+            i.fechar()
+        shutil.rmtree(self.d, ignore_errors=True)
+
+    def anfitriao(self, cls=P.EnsaioLocal):
+        imp = cls(self.d / "host")
+        imp.semear(cliente_minimo(self.d / "semente"))
+        self.imps.append(imp)
+        return imp
+
+    def publicar(self, imp, pote=POTE_ENSAIO, modo="ensaio", **kw):
+        pub = PublicadorDeProva(CONTRATO, imp, self.reg, modo, espera_no_ar=1)
+        for k, v in kw.items():
+            setattr(pub, k, v)
+        return pub.publicar(pote, origem="teste")
+
+    def registos(self):
+        return [json.loads(p.read_text(encoding="utf-8")) for p in sorted(self.reg.rglob("REGISTO.json"))]
+
+    def alertas(self):
+        f = self.reg / "ALERTAS.jsonl"
+        return [json.loads(l) for l in f.read_text(encoding="utf-8").splitlines()] if f.exists() else []
+
+    def test_publica_e_guarda_o_antes_o_depois_e_o_sha(self):
+        imp = self.anfitriao()
+        antes = imp.atual()["ID"]
+        self.assertEqual(self.publicar(imp), P.PUBLICADO)
+        sha = P.sha_do_pote(POTE_ENSAIO)
+        self.assertEqual(P.sha_no_ar(imp.url_no_ar()), (200, sha))
+        u = json.loads((self.reg / "ULTIMA-PUBLICACAO.json").read_text(encoding="utf-8"))
+        self.assertEqual(u["POTE_SHA256"], sha)
+        self.assertTrue(Path(u["POTE_JS"]).exists())
+        R = self.registos()[-1]
+        self.assertEqual(R["ESTADO"], "PUBLICADO")
+        self.assertEqual(R["ANTERIOR"]["DEPLOYMENT"]["ID"], antes)
+        self.assertIsNone(R["ANTERIOR"]["POTE_SHA256_NO_AR"], "antes estava no ar o lugar vazio")
+
+    def test_o_segundo_pote_guarda_o_primeiro_como_anterior(self):
+        imp = self.anfitriao()
+        self.assertEqual(self.publicar(imp), P.PUBLICADO)
+        p2 = copy.deepcopy(POTE_ENSAIO)
+        p2["CORTE"] = "2026-09-28T10:00:00Z"
+        self.assertEqual(self.publicar(imp, pote=p2), P.PUBLICADO)
+        R = self.registos()[-1]
+        self.assertEqual(R["POTE_ANTERIOR"]["POTE_SHA256"], P.sha_do_pote(POTE_ENSAIO))
+        self.assertEqual(R["POTE_ANTERIOR"]["FICHEIRO"], "POTE-ANTERIOR.js")
+
+    def test_o_mesmo_pote_no_ar_nao_se_republica(self):
+        imp = self.anfitriao()
+        self.publicar(imp)
+        n = PublicadorDeProva.montados
+        self.assertEqual(self.publicar(imp), P.PUBLICADO)
+        self.assertEqual(self.registos()[-1]["ESTADO"], "NADA_A_PUBLICAR")
+        self.assertEqual(PublicadorDeProva.montados, n, "nada se montou")
+
+    def test_pote_invalido_nao_vai_ao_ar(self):
+        imp = self.anfitriao()
+        antes = imp.atual()["ID"]
+        p = copy.deepcopy(POTE_ENSAIO)
+        p["COMPARTIMENTOS"]["windows"]["OBJETOS"][0]["PROVA"] = []
+        self.assertEqual(self.publicar(imp, pote=p), P.BLOQUEADO)
+        self.assertEqual(imp.atual()["ID"], antes)
+        self.assertEqual(P.sha_no_ar(imp.url_no_ar())[1], None)
+
+    def test_conferencia_do_codigo_falhada_nao_vai_ao_ar(self):
+        imp = self.anfitriao()
+        antes = imp.atual()["ID"]
+        self.assertEqual(self.publicar(imp, codigo_passa=False), P.BLOQUEADO)
+        self.assertEqual(imp.atual()["ID"], antes)
+        self.assertEqual(self.registos()[-1]["ESTADO"], "BLOQUEADO")
+
+    def test_pagina_no_ar_sem_contagem_volta_sozinha_e_avisa(self):
+        imp = self.anfitriao(EnsaioQueImplantaSemOPote)
+        antes = imp.atual()["ID"]
+        self.assertEqual(self.publicar(imp), P.REVERTIDO)
+        self.assertEqual(imp.atual()["ID"], antes, "o alias voltou para o anterior")
+        R = self.registos()[-1]
+        self.assertTrue(R["VOLTA"]["PROVADA"])
+        self.assertEqual([a["TIPO"] for a in self.alertas()], ["REVERTIDO"])
+        self.assertFalse((self.reg / "ULTIMA-PUBLICACAO.json").exists(), "o que foi revertido nao e a ultima")
+
+    def test_rollback_que_nao_roda_e_alerta_critico(self):
+        imp = self.anfitriao(EnsaioQueNaoVolta)
+        self.assertEqual(self.publicar(imp), P.CRITICO)
+        self.assertEqual([a["TIPO"] for a in self.alertas()], ["ALERTA_CRITICO"])
+        self.assertFalse(self.registos()[-1]["VOLTA"]["PROVADA"])
+
+    def test_producao_nunca_pelo_anfitriao_de_ensaio(self):
+        imp = self.anfitriao()
+        self.assertEqual(self.publicar(imp, pote=pote_nao_sintetico(), modo="producao"), P.BLOQUEADO)
+
+    def test_deriva_no_ar_e_alertada(self):
+        imp = self.anfitriao()
+        self.publicar(imp)
+        (self.d / "host" / "deployments" / imp.atual()["ID"] / "sintonia-pote-publicado.js").write_text(STUB, encoding="utf-8")
+        self.assertEqual(self.publicar(imp), P.PUBLICADO, "o pote volta a subir")
+        self.assertIn("DERIVA", [a["TIPO"] for a in self.alertas()])
+
+
+# ── P4 · o casco ─────────────────────────────────────────────────────────────
+NODE_CASCO = r"""
+const fs = require('fs'), vm = require('vm'), path = require('path');
+const CL = path.join(process.argv[1], 'italia-portale', 'client');
+const LEITOR = fs.readFileSync(path.join(CL, 'sintonia-pote-casco.js'), 'utf8');
+const STUB = fs.readFileSync(path.join(CL, 'sintonia-pote-publicado.js'), 'utf8');
+const POTE = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+function janela(search, publicado) {
+  const w = { location: { search }, document: { escrito: [], write(s) { this.escrito.push(s); } } };
+  w.window = w; w.document = w.document; vm.createContext(w);
+  vm.runInContext(STUB, w);
+  if (publicado !== undefined) w.SINTONIA_POTE_PUBLICADO = publicado;
+  vm.runInContext(LEITOR, w);
+  return w;
+}
+const out = {};
+let w = janela('', undefined);
+out.stub = { pote: w.SINTONIA_POTE, pedido: w.SINTONIA_POTE_PEDIDO, escrito: w.document.escrito.length,
+  conta: w.SINTONIA_POTE_CASCO.contagemDaVista(w.SINTONIA_POTE, 'meeting'),
+  vm: w.SINTONIA_POTE_CASCO.vm(w.SINTONIA_POTE, 'field', 'it') };
+w = janela('', { CONTRATO: 'SINTONIA_POTE_PUBLICADO/1', POTE });
+const C = w.SINTONIA_POTE_CASCO;
+out.pub = { run: (w.SINTONIA_POTE || {}).INTELLIGENCE_RUN_ID, pedido: w.SINTONIA_POTE_PEDIDO,
+  conta: Object.fromEntries(['meeting', 'radarfuturo', 'future', 'etichette', 'field', 'sala', 'painel', 'radar']
+    .map((v) => [v, C.contagemDaVista(w.SINTONIA_POTE, v)])),
+  field: (() => { const x = C.vm(w.SINTONIA_POTE, 'field', 'it'); return x && { comp: x.comp.codigo, vazio: x.vazio, titulo: x.vazioTitulo }; })() };
+const ruim = JSON.parse(JSON.stringify(POTE)); ruim.SCHEMA = 'x';
+w = janela('', { POTE: ruim });
+out.ruim = { conta: w.SINTONIA_POTE_CASCO.contagemDaVista(w.SINTONIA_POTE, 'meeting') };
+w = janela('?pote=local', { POTE });
+out.local = { pote: w.SINTONIA_POTE, pedido: w.SINTONIA_POTE_PEDIDO, escrito: w.document.escrito.join('') };
+w = janela('', { POTE: null });
+out.semPote = { pote: w.SINTONIA_POTE, pedido: w.SINTONIA_POTE_PEDIDO };
+console.log(JSON.stringify(out));
+"""
+
+
+class P4_OCasco(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        r = subprocess.run(["node", "-e", NODE_CASCO, str(RAIZ), str(FIX / "POTE-SINTETICO-PUBLICA-SOZINHO.json")],
+                           capture_output=True, text=True, timeout=120)
+        if r.returncode != 0:
+            raise AssertionError("node nao correu o leitor do casco: " + r.stderr[-800:])
+        cls.o = json.loads(r.stdout)
+
+    def test_o_lugar_no_git_e_null_e_nada_muda(self):
+        s = self.o["stub"]
+        self.assertIsNone(s["pote"])
+        self.assertFalse(s["pedido"])
+        self.assertEqual(s["escrito"], 0)
+        self.assertIsNone(s["conta"], "sem pote, o contador e o de sempre")
+        self.assertIsNone(s["vm"])
+        stub = (RAIZ / "italia-portale" / "client" / "sintonia-pote-publicado.js").read_text(encoding="utf-8")
+        self.assertIn("window.SINTONIA_POTE_PUBLICADO = window.SINTONIA_POTE_PUBLICADO || null;", stub)
+        self.assertNotIn("INTELLIGENCE_RUN_ID\":", stub)
+
+    def test_o_pote_publicado_e_lido_e_pedido(self):
+        p = self.o["pub"]
+        self.assertEqual(p["run"], "SINT-IR-PUBLICA-0001")
+        self.assertTrue(p["pedido"])
+
+    def test_a_barra_conta_o_pote(self):
+        c = self.o["pub"]["conta"]
+        esp = P.contagem_esperada(POTE_ENSAIO, CONTRATO)
+        for v in ("meeting", "radarfuturo", "future", "etichette", "field"):
+            self.assertEqual(c[v], esp[v], v)
+        self.assertEqual(c["radar"], esp["meeting"])
+        self.assertIsNone(c["sala"])
+        self.assertIsNone(c["painel"])
+
+    def test_field_mostra_o_porque_do_pote_e_nao_a_demo(self):
+        f = self.o["pub"]["field"]
+        self.assertEqual(f["comp"], "field")
+        self.assertTrue(f["vazio"])
+        self.assertIn("CASCO_SEM_CONTRATO_DE_INTELLIGENCE", f["titulo"])
+
+    def test_pote_publicado_que_reprova_e_nao_sei_na_barra(self):
+        self.assertEqual(self.o["ruim"]["conta"], "NAO SEI")
+
+    def test_o_local_vence(self):
+        l = self.o["local"]
+        self.assertIsNone(l["pote"], "o local ainda nao chegou; o publicado nao o substitui")
+        self.assertTrue(l["pedido"])
+        self.assertIn("sintonia-pote.js", l["escrito"])
+
+    def test_envelope_sem_pote_nao_pede(self):
+        self.assertIsNone(self.o["semPote"]["pote"])
+        self.assertFalse(self.o["semPote"]["pedido"])
+
+    def test_o_portal_carrega_o_lugar_antes_do_leitor(self):
+        html = (RAIZ / "italia-portale" / "client" / "portale.html").read_text(encoding="utf-8")
+        a = html.find('<script src="sintonia-pote-publicado.js"></script>')
+        b = html.find('<script src="sintonia-pote-casco.js"></script>')
+        self.assertTrue(0 < a < b)
+        self.assertIn("'isField'];", html, "a rota field tambem cede ao pote")
+        self.assertEqual(html.count("count: poteConta("), 3)
+        self.assertEqual(html.count('data-nav-view="{{ n.view }}"'), 3)
+
+
+# ── P5 · fora do Git e do deploy ─────────────────────────────────────────────
+class P5_ForaDoGit(unittest.TestCase):
+    def test_o_registo_nunca_entra_no_git_nem_sobe(self):
+        self.assertIn("PUBLICACOES/", (RAIZ / ".gitignore").read_text(encoding="utf-8").splitlines())
+        self.assertIn("/PUBLICACOES", (RAIZ / ".vercelignore").read_text(encoding="utf-8").splitlines())
+
+    def test_o_pote_local_continua_fora(self):
+        self.assertIn("/italia-portale/client/sintonia-pote.js",
+                      (RAIZ / ".vercelignore").read_text(encoding="utf-8").splitlines())
+
+    def test_o_contrato_diz_a_autoridade_e_a_regra(self):
+        self.assertIn("release/canonical", " ".join(CONTRATO["AUTORIDADE_DE_DEPLOY"]["MEDIDO"]))
+        self.assertIn("--prebuilt", CONTRATO["AUTORIDADE_DE_DEPLOY"]["COMANDOS_VERCEL"]["IMPLANTAR"])
+        self.assertEqual(set(CONTRATO["VERMELHOS_HERDADOS_DO_RELEASE"]) - {"PORQUE"}, {"N1"})
+
+
+if __name__ == "__main__":
+    unittest.main()
