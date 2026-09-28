@@ -169,8 +169,11 @@ for (const [nome, mexer] of [
   const op = M.vals({ view: 'meeting', lang: 'it' }).pote.objetos[0].provas[0];
   prova('P6 URL https vira link, com a prova ate ao DOCUMENT_ID',
     op.temUrl === true && /^https:/.test(op.url) && /ITEM_ID .* → RAW_OBSERVATION_ID .* → SOURCE_ID .* → DOCUMENT_ID /.test(op.cadeia));
-  const gi = fs.readFileSync(path.join(CLIENT, '.gitignore'), 'utf8').split('\n');
-  const vi = fs.readFileSync(path.join(RAIZ, '.vercelignore'), 'utf8').split('\n');
+  // LOTE8-INTEGRA: split por /\r?\n/. O .vercelignore nao tem `-text` no .gitattributes e, com
+  // core.autocrlf no Windows, sai do checkout com CRLF: split('\n') deixava o '\r' no fim de cada
+  // linha e o includes() reprovava uma regra que esta la. Defeito do TESTE, nao da regra.
+  const gi = fs.readFileSync(path.join(CLIENT, '.gitignore'), 'utf8').split(/\r?\n/);
+  const vi = fs.readFileSync(path.join(RAIZ, '.vercelignore'), 'utf8').split(/\r?\n/);
   prova('P6 sintonia-pote.js esta no .gitignore do cliente e no .vercelignore',
     gi.includes('sintonia-pote.js') && vi.includes('/italia-portale/client/sintonia-pote.js'));
   prova('P6 o portale.html nao pede sintonia-pote.js direto (so o carregador, com ?pote=local)',
