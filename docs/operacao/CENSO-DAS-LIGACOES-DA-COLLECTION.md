@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5b64a30c383fd75e9c84ecb142d6fddc7b714813
+HEAD_DA_MEDICAO  047aaebfac2ab934bd94c04a916c552226ee9fb2
 BRANCH           casco-e2e-v1
-GERADO_EM        2026-09-28T14:02:47-03:00
+GERADO_EM        2026-09-28T15:28:10-03:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
