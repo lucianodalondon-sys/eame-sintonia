@@ -105,7 +105,7 @@ trabalhadores):
 |---|---|---|---|
 | base `e24139702` | 332 | 7507 | 148 |
 | 1.ª passagem `43da7cf` | 333 | 7535 | 150 → **2 novas** |
-| final | __FINAL__ |
+| final `7a1be03` | 333 | 7535 | 148 → **0 novas, 0 sumidas** |
 
 As 2 novas da 1.ª passagem eram testes que afirmavam a premissa antiga, e foram atualizados (declarado abaixo):
 `test_lote8_juncoes.test_JL2_busca_existe_e_nao_reserva_fica_a_espera_pelo_motivo_certo` exigia BUSCA em
@@ -122,7 +122,9 @@ linhas **desligadas**; agora espera SITES/BUSCA/CIÊNCIA/SOCIAL ligadas pela son
 (BUSCA ligada, com as rotas PÁGINA e API medidas). Nenhuma asserção afrouxada: onde se esperava «desligada», espera-se
 agora «ligada», com a medida.
 
-**System Map:** `correr_a_cadeia.py REGERAR` → `VALIDAR` = __MAPA__
+**System Map:** `correr_a_cadeia.py REGERAR` → `VALIDAR` = `SYSTEM_MAP_CHECK=PASS`; `impressao_da_arvore.py
+--conferir-carimbo` = IGUAL (medido no commit final; o SHA final vai no relato, porque um commit não sabe o seu SHA).
+Depois de `7a1be03` só entraram este relatório, o JSON da bateria e o mapa regerado (nenhum código nem teste).
 
 ## 4 · As regras que continuam
 

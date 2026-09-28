@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  43da7cf7144c3b2aed78b972ffd42bab13d6216c
+HEAD_DA_MEDICAO  7a1be0352b01f8c4b621a7cda311441ad507e368
 BRANCH           claude/linhas-no-contador-yth7nl
-GERADO_EM        2026-09-28T12:03:42+00:00
+GERADO_EM        2026-09-28T12:15:20+00:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
