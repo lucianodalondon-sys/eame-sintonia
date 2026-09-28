@@ -6306,13 +6306,14 @@
    "kind": "library",
    "icon": "⚙",
    "views": [],
-   "what": "Gerador de consultas, tabela de motores, cliente da API oficial (quota declarada, tesoura da chave), pedido do Actions e as fixtures SINTETICAS das paginas e SERPs usadas pelos testes.",
+   "what": "Gerador de consultas, tabela de motores, cliente da API oficial (quota declarada, tesoura da chave), pedido do Actions, piloto de comentarios D106 (commentThreads.list, crus + sha256) e as fixtures SINTETICAS das paginas e SERPs usadas pelos testes.",
    "why_here": "O que a linha usa mas nao decide: mora em ferramentas/ para que o executor da linha nao carregue listas nem clientes.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
     "ferramentas/linha_busca/api_oficial.py",
+    "ferramentas/linha_busca/comentarios_piloto_d106.py",
     "ferramentas/linha_busca/consultas.py",
     "ferramentas/linha_busca/fazer_fixture_lote0.py",
     "ferramentas/linha_busca/motores.py",
