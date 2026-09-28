@@ -138,6 +138,21 @@ outras missões (VOZES, MICRO-PROVA, T6). Agora = 27/09 20:25 (-03).
   ```
   grava `%O%\ENSAIO-COLETA-CONTINUA.json`. **Correr isto antes de ligar** e conferir a lista.
 
+## D124-REBASE (28/09) — o que mudou por baixo do serviço
+
+A cortesia adaptativa (D124) entrou por baixo deste serviço. **O `.cmd` não precisa de mudar**:
+
+- `--teto-24h=%SI%\TETO-24H.json` continua a ser o livro. No formato antigo (`{"RESERVAS": [...]}`) é **lido** (cada
+  reserva conta no gasto de 24 h como contava) e **migrado** para ndjson no primeiro pedido, sob o trinco; o
+  original fica em `%SI%\TETO-24H.json.D90.json`. Para migrar à mão antes de ligar:
+  `py coleta\cortesia_adaptativa.py --migrar %SI%\TETO-24H.json`. Um livro malformado continua `LIVRO_24H_NAO_SEI`.
+- O teto de cada domínio é o **orçamento vigente** da política (`regras/POLITICA-CORTESIA-ADAPTATIVA.json`: SITE 40/24 h,
+  sobe sem sinal, recua no sinal), somando o gasto de 24 h e todas as linhas do ciclo; `SINTONIA_TETO_POR_HOST=5` no
+  ambiente volta ao 5 manual. Pausa de 24 h e Retry-After fecham o domínio até à hora que o livro diz.
+- A janela D79 (1 visita por domínio por 24 h) **só com `--janela-24h`**, como em `rodadas.py` desde a D124.
+- A linha SITES só corre se a **sonda** (`sonda_ligacao_sites.mjs`) provar, contra um servidor local, que o transporte
+  reserva antes de cada pedido e não pede a um domínio pausado — nunca pelo texto da chamada.
+
 ## Instalar e ligar (Windows, no vivo)
 
 Pré-requisitos: este ramo instalado no vivo; a coorte da 4.ª onda congelada (`eb7b6ab7…`, já está);

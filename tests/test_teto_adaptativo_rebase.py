@@ -321,6 +321,30 @@ class OTransporteNode(Base):
         self.assertLess(CA.teto_sem_livro("cia.it"), CA.politica()["CLASSES"]["SITE"]["ORCAMENTO_INICIAL_24H"])
 
 
+# ── o orcamento esgotado recusa a reserva nos DOIS gemeos (nao so a pre-verificacao do transporte) ──
+class OOrcamentoEsgotadoNosDois(Base):
+    def test_a_reserva_41_e_adiada_em_python_e_em_node(self):
+        """O transporte Node pergunta ANTES (esgotado24h) e o mutante «orcamento ignorado» no reservar do gemeo
+        sobrevivia (mutacao do rebase, M05). Aqui pergunta-se ao reservar dos dois, direto."""
+        livro = self.tmp / "L.ndjson"
+        os.environ["SINTONIA_CORTESIA_LIVRO"] = str(livro)
+        t0 = 1_800_000_000.0
+        inicial = CA.politica()["CLASSES"]["SITE"]["ORCAMENTO_INICIAL_24H"]
+        with open(livro, "w", encoding="utf-8") as h:
+            for i in range(inicial):
+                h.write(json.dumps({"TIPO": "RESERVA", "DOMINIO": "o.it", "EM": t0 + 10 * i, "RUN_ID": "r", "LINHA": "S"}) + "\n")
+                h.write(json.dumps({"TIPO": "RESPOSTA", "DOMINIO": "o.it", "EM": t0 + 10 * i + 1, "STATUS": 200,
+                                    "SINAIS": [], "RUN_ID": "r", "LINHA": "S"}) + "\n")
+        t = t0 + 10 * inicial + 60
+        py = CA.reservar("o.it", run_id="p", linha="S", agora=t)
+        js = self.node("import * as C from './coleta/cortesia_adaptativa.mjs';"
+                       "console.log(JSON.stringify(C.reservar('o.it',{runId:'n',linha:'S',agora:%r})))" % t)
+        for r in (py, js):
+            self.assertEqual((r["ESTADO"], r.get("MOTIVO")), ("ADIADO_ATE", "ORCAMENTO_ESGOTADO"), r)
+            self.assertEqual(r["ATE"], t0 + 86400)
+        self.assertEqual(sum(1 for l in livro.read_text(encoding="utf-8").splitlines()), 2 * inicial)
+
+
 # ── o Crawl-delay no lado Python (o livro guarda-o e a reserva obedece) ───────
 class OCrawlDelayPython(Base):
     def test_crawl_delay_maior_do_que_a_pausa_da_classe_manda(self):
