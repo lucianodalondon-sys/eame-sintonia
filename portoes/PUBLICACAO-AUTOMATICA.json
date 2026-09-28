@@ -62,18 +62,22 @@
     "LIBERACAO_POR_OBJETO": {
       "CAMPO": "LIBERACAO",
       "VALOR_QUE_LIBERA": "LIBERADO_PARA_CLIENTE",
-      "ESTADO_DO_NOME": "PROVISORIO — a Intelligence ainda passa o nome e o formato do campo (Diretoria, 28/09). Enquanto nenhum objeto o trouxer, TODO pote real e recusado em producao: o lado seguro.",
+      "ESTADO_DO_NOME": "ACEITE PELA INTELLIGENCE (Diretoria, 28/09). Enquanto nenhum objeto o trouxer, TODO pote real e recusado em producao: o lado seguro.",
+      "POTE_PARA_CLIENTE": "a Intelligence gera um pote PARA_CLIENTE separado, so com objetos liberados. Ele MANTEM a marca EXPERIMENTAL · NAO_PARA_CLIENTE no pote, nos compartimentos e nos objetos (o validador v2 e o leitor do casco a exigem); a liberacao e so o campo LIBERACAO.",
       "POTE_COM_OBJETO_NAO_LIBERADO": "o pote inteiro e RECUSADO em producao. O publicador nao filtra nem reescreve o pote (o SHA publicado tem de ser o que a Intelligence escreveu): quem decide o que vai ao cliente e a Intelligence."
     },
     "VEREDITO_DO_LAB": {
       "COMO_CHEGA": "--veredito-lab <ficheiro JSON>",
-      "FORMA": {"POTE_SHA256": "o sha do pote aprovado (sha_do_pote)", "VEREDITO": "APROVADO", "PREVIEW": "o endereco ou id do preview avaliado", "CRITERIO": "id/hash do criterio congelado do LAB", "QUANDO": "data"},
-      "ESTADO_DA_FORMA": "PROVISORIO — CONTRATO NECESSARIO com o LAB. Veredito ausente, ilegivel, de outro pote, sem PREVIEW ou sem CRITERIO = BLOQUEIA."
+      "FORMA": {"POTE_SHA256": "o sha do pote aprovado (sha_do_pote)", "VEREDITO": "APROVADO", "PREVIEW": "o endereco ou id do preview avaliado", "CRITERIO": "sha256 (64 hex) do criterio congelado do LAB", "QUANDO": "data", "V1..V10": "resultado de cada verificacao do LAB (lidas pelo LAB, nao pelo publicador)"},
+      "ONDE_O_LAB_GUARDA": "lab/vereditos/VEREDITO-<12 primeiros do POTE_SHA256>.json",
+      "NO_REGISTO": "REGISTO.json de cada publicacao guarda VEREDITO_DO_LAB = {ARQUIVO, SHA256 dos bytes do ficheiro, POTE_SHA256, VEREDITO, CRITERIO}",
+      "FORA_DO_PUBLICADOR": "comparar RAW_STORAGE_PATH do pote com raw_asset.storage_path da Sala e a V4 do LAB; o publicador rele o byte no endereco que o pote diz",
+      "ESTADO_DA_FORMA": "ACEITE PELO LAB (Diretoria, 28/09). Veredito ausente, ilegivel, de outro pote, sem PREVIEW ou com CRITERIO que nao e sha256 = BLOQUEIA."
     },
     "RAW_NO_ARMAZEM": {
       "CAMPOS_DA_PROVA": ["RAW_SHA256", "RAW_STORAGE_PATH"],
       "ARMAZEM": "guarda/preservar_coleta.py ArmazemLocal na raiz SINTONIA_ARMAZEM_RAIZ (a mesma porta que escreveu os bytes)",
-      "ESTADO_DOS_NOMES": "PROVISORIO — a Sala guarda sha256 e storage_path; o pote ainda nao os copia (a Intelligence corrige no gerador, Diretoria 28/09). Raiz nao declarada, byte ausente ou sha diferente = BLOQUEIA."
+      "ESTADO_DOS_NOMES": "ACEITE PELA INTELLIGENCE (Diretoria, 28/09): copiados de raw_asset.sha256 / raw_asset.storage_path. Raiz nao declarada, byte ausente ou sha diferente = BLOQUEIA."
     },
     "ENSAIO_E_PREVIEW": "Nao sao publicacao ao cliente: correm todas as conferencias; as tres da liberacao (C0_LIBERADO_PARA_CLIENTE, C0_VEREDITO_DO_LAB, C0_RAW_CONFERIDO_NO_ARMAZEM) aparecem como NOTA e nao bloqueiam — o LAB precisa do preview para dar o veredito. Um pote sintetico so pode ir a ensaio ou preview, nunca a producao."
   },

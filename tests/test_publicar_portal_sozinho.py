@@ -86,7 +86,7 @@ def pote_liberado():
             bytes_.setdefault(lugar, f"<html>{pr['RAW_OBSERVATION_ID']}</html>".encode("utf-8"))
             pr[sha_c], pr[lugar_c] = P.hashlib.sha256(bytes_[lugar]).hexdigest(), lugar
     ver = {"POTE_SHA256": P.sha_do_pote(p), "VEREDITO": "APROVADO", "PREVIEW": "preview-de-prova",
-           "CRITERIO": "criterio-de-prova", "QUANDO": "2026-09-28"}
+           "CRITERIO": "21556c27b1ca8ba99f1f11a31e917a4b11a0e867962e9def952de384a13bb9f5", "QUANDO": "2026-09-28"}
     return p, ArmazemDeProva(bytes_), ver
 
 
@@ -173,6 +173,9 @@ class P0_OPote(unittest.TestCase):
         self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", reprovado, arm)), ["C0_VEREDITO_DO_LAB"])
         sem_criterio = dict(ver, CRITERIO="NAO SEI")
         self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", sem_criterio, arm)), ["C0_VEREDITO_DO_LAB"])
+        criterio_que_nao_e_sha = dict(ver, CRITERIO="criterio-v2")
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", criterio_que_nao_e_sha, arm)),
+                         ["C0_VEREDITO_DO_LAB"])
 
     def test_raw_que_nao_bate_no_armazem(self):
         p, arm, ver = pote_liberado()
@@ -482,6 +485,14 @@ class P3_OCaminhoInteiro(unittest.TestCase):
         self.assertEqual(R["ESTADO"], "PUBLICADO")
         self.assertEqual(R["ANTERIOR"]["DEPLOYMENT"]["ID"], antes)
         self.assertIsNone(R["ANTERIOR"]["POTE_SHA256_NO_AR"], "antes estava no ar o lugar vazio")
+
+    def test_o_registo_guarda_o_sha_do_ficheiro_de_veredito(self):
+        imp = self.anfitriao()
+        _, _, ver = pote_liberado()
+        arq = {"ARQUIVO": "lab/vereditos/VEREDITO-x.json", "SHA256": "a" * 64}
+        self.publicar(imp, veredito_lab=ver, veredito_arquivo=arq)
+        v = self.registos()[-1]["VEREDITO_DO_LAB"]
+        self.assertEqual((v["ARQUIVO"], v["SHA256"], v["CRITERIO"]), (arq["ARQUIVO"], arq["SHA256"], ver["CRITERIO"]))
 
     def test_o_segundo_pote_guarda_o_primeiro_como_anterior(self):
         imp = self.anfitriao()
