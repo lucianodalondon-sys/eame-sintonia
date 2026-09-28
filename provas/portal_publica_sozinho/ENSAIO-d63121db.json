@@ -1,0 +1,692 @@
+{
+ "HEAD_DO_ENSAIO": "d63121db0a0d6627263ff9c79aff9447f9c8596e",
+ "AVISO": "DADO SINTETICO DECLARADO (tests/fixtures/pote/*, ids SINT-). Anfitriao LOCAL; nada foi publicado de verdade.",
+ "CENARIOS": {
+  "A_POTE_NOVO": {
+   "ESPERADO": "PUBLICADO",
+   "RC": 0,
+   "ESTADO": "PUBLICADO",
+   "OK": true
+  },
+  "B_O_MESMO_POTE": {
+   "ESPERADO": "NADA_A_PUBLICAR",
+   "RC": 0,
+   "ESTADO": "NADA_A_PUBLICAR",
+   "OK": true
+  },
+  "C_SEGUNDO_POTE": {
+   "ESPERADO": "PUBLICADO",
+   "RC": 0,
+   "ESTADO": "PUBLICADO",
+   "OK": true
+  },
+  "D_POTE_SEM_BULA": {
+   "ESPERADO": "BLOQUEADO",
+   "RC": 1,
+   "ESTADO": "BLOQUEADO",
+   "OK": true
+  },
+  "E_PAGINA_NO_AR_SEM_CONTAGEM": {
+   "ESPERADO": "REVERTIDO",
+   "RC": 2,
+   "ESTADO": "REVERTIDO",
+   "OK": true
+  },
+  "F_VOLTA_QUE_NAO_RODA": {
+   "ESPERADO": "ALERTA_CRITICO",
+   "RC": 3,
+   "ESTADO": "ALERTA_CRITICO",
+   "OK": true
+  },
+  "G_PRODUCAO_PELO_ENSAIO": {
+   "ESPERADO": "BLOQUEADO",
+   "RC": 1,
+   "ESTADO": "BLOQUEADO",
+   "OK": true
+  }
+ },
+ "REGISTOS": {
+  "A_POTE_NOVO": {
+   "ESTADO": "PUBLICADO",
+   "POTE_SHA256": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6",
+   "FALHAS": [],
+   "PASSOU": [
+    "C0_POTE_V2_FORMA_E_LEI",
+    "C0_NENHUM_OBJETO_SEM_PROVA",
+    "C0_D123_CASO_PRODUTO_BULA",
+    "C0_D122_EVENTO_SO_COM_DATA",
+    "C0_NADA_DE_DADO_CRU",
+    "C0_NADA_DA_DEMO",
+    "C0_PROMOCAO",
+    "ANTES_ALVO_DE_VOLTA",
+    "C1_BUILD_GATE",
+    "C2_DEPLOY_SURFACE",
+    "C3_RELEASE · proveniencia · node italia-portale/audit/build-gate.mjs",
+    "C3_RELEASE · mapa · python3 system-map/scripts/correr_a_cadeia.py REGERAR",
+    "C3_RELEASE · mapa · python3 system-map/scripts/correr_a_cadeia.py VALIDAR",
+    "C3_RELEASE · portal · npm run build",
+    "C3_RELEASE · portal · node italia-portale/audit/run.mjs",
+    "C1_BUILD_COM_O_POTE (npm run build)",
+    "C5_MONTAGEM_CONTAGEM_POR_TELA",
+    "C5_MONTAGEM_D122_LEGADO_ESCONDIDO",
+    "C5_MONTAGEM_D122_BARRA_CONTA_O_POTE",
+    "C5_MONTAGEM_FORA_DAS_ROTAS_CASA",
+    "C6_NO_AR_SHA",
+    "C6_NO_AR_CONTAGEM_POR_TELA",
+    "C6_NO_AR_D122_LEGADO_ESCONDIDO",
+    "C6_NO_AR_D122_BARRA_CONTA_O_POTE",
+    "C6_NO_AR_FORA_DAS_ROTAS_CASA"
+   ],
+   "NOTAS": [
+    "AVISO: casa.html nao e alcancavel por nenhuma rota do portal (portale.html o diz), mas responde por URL direto e mostra os 43 e os 44 antigos. Mexer nela e decisao do dono (o portao VIEW_READS_ONLY_ITALY_CASA proibe que ela leia o pote). MEDIDA e FOTOGRAFADA em cada publicacao, com AVISO no registo; nao bloqueia.",
+    "INHERITED RED != NEW DEPLOY REGRESSION",
+    "SINTETICO — aceite so em ensaio; em producao reprova",
+    "ensaio: nao e publicacao ao cliente; em producao a regra tem de estar APROVADA_PELO_DONO"
+   ],
+   "ANTERIOR": {
+    "DEPLOYMENT": {
+     "ID": "ensaio-inicial",
+     "URL": "http://127.0.0.1:47037"
+    },
+    "URL": "http://127.0.0.1:47037",
+    "HTTP": 200,
+    "POTE_SHA256_NO_AR": null,
+    "ULTIMA_PUBLICACAO_REGISTADA": null
+   },
+   "POTE_ANTERIOR": {
+    "POTE_SHA256": null,
+    "INTELLIGENCE_RUN_ID": null,
+    "FICHEIRO": null
+   },
+   "VOLTA": null,
+   "ALERTAS": []
+  },
+  "B_O_MESMO_POTE": {
+   "ESTADO": "NADA_A_PUBLICAR",
+   "POTE_SHA256": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6",
+   "FALHAS": [],
+   "PASSOU": [
+    "C0_POTE_V2_FORMA_E_LEI",
+    "C0_NENHUM_OBJETO_SEM_PROVA",
+    "C0_D123_CASO_PRODUTO_BULA",
+    "C0_D122_EVENTO_SO_COM_DATA",
+    "C0_NADA_DE_DADO_CRU",
+    "C0_NADA_DA_DEMO",
+    "C0_PROMOCAO"
+   ],
+   "NOTAS": [],
+   "ANTERIOR": {
+    "DEPLOYMENT": {
+     "ID": "ensaio-20260928-013255-103307",
+     "URL": "http://127.0.0.1:47037"
+    },
+    "URL": "http://127.0.0.1:47037",
+    "HTTP": 200,
+    "POTE_SHA256_NO_AR": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6",
+    "ULTIMA_PUBLICACAO_REGISTADA": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6"
+   },
+   "POTE_ANTERIOR": null,
+   "VOLTA": null,
+   "ALERTAS": []
+  },
+  "C_SEGUNDO_POTE": {
+   "ESTADO": "PUBLICADO",
+   "POTE_SHA256": "2963072539ab5854523fe0a48e69804c61b4b654e675ca089fba2c1baeb48b7a",
+   "FALHAS": [],
+   "PASSOU": [
+    "C0_POTE_V2_FORMA_E_LEI",
+    "C0_NENHUM_OBJETO_SEM_PROVA",
+    "C0_D123_CASO_PRODUTO_BULA",
+    "C0_D122_EVENTO_SO_COM_DATA",
+    "C0_NADA_DE_DADO_CRU",
+    "C0_NADA_DA_DEMO",
+    "C0_PROMOCAO",
+    "ANTES_ALVO_DE_VOLTA",
+    "C1_BUILD_GATE",
+    "C2_DEPLOY_SURFACE",
+    "C3_RELEASE · proveniencia · node italia-portale/audit/build-gate.mjs",
+    "C3_RELEASE · mapa · python3 system-map/scripts/correr_a_cadeia.py REGERAR",
+    "C3_RELEASE · mapa · python3 system-map/scripts/correr_a_cadeia.py VALIDAR",
+    "C3_RELEASE · portal · npm run build",
+    "C3_RELEASE · portal · node italia-portale/audit/run.mjs",
+    "C1_BUILD_COM_O_POTE (npm run build)",
+    "C5_MONTAGEM_CONTAGEM_POR_TELA",
+    "C5_MONTAGEM_D122_LEGADO_ESCONDIDO",
+    "C5_MONTAGEM_D122_BARRA_CONTA_O_POTE",
+    "C5_MONTAGEM_FORA_DAS_ROTAS_CASA",
+    "C6_NO_AR_SHA",
+    "C6_NO_AR_CONTAGEM_POR_TELA",
+    "C6_NO_AR_D122_LEGADO_ESCONDIDO",
+    "C6_NO_AR_D122_BARRA_CONTA_O_POTE",
+    "C6_NO_AR_FORA_DAS_ROTAS_CASA"
+   ],
+   "NOTAS": [
+    "AVISO: casa.html nao e alcancavel por nenhuma rota do portal (portale.html o diz), mas responde por URL direto e mostra os 43 e os 44 antigos. Mexer nela e decisao do dono (o portao VIEW_READS_ONLY_ITALY_CASA proibe que ela leia o pote). MEDIDA e FOTOGRAFADA em cada publicacao, com AVISO no registo; nao bloqueia.",
+    "INHERITED RED != NEW DEPLOY REGRESSION · medido no cenario A, mesmo commit",
+    "SINTETICO — aceite so em ensaio; em producao reprova",
+    "ensaio: nao e publicacao ao cliente; em producao a regra tem de estar APROVADA_PELO_DONO",
+    "medido no cenario A, mesmo commit"
+   ],
+   "ANTERIOR": {
+    "DEPLOYMENT": {
+     "ID": "ensaio-20260928-013255-103307",
+     "URL": "http://127.0.0.1:47037"
+    },
+    "URL": "http://127.0.0.1:47037",
+    "HTTP": 200,
+    "POTE_SHA256_NO_AR": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6",
+    "ULTIMA_PUBLICACAO_REGISTADA": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6"
+   },
+   "POTE_ANTERIOR": {
+    "POTE_SHA256": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6",
+    "INTELLIGENCE_RUN_ID": "SINT-IR-PUBLICA-0001",
+    "FICHEIRO": "POTE-ANTERIOR.js"
+   },
+   "VOLTA": null,
+   "ALERTAS": []
+  },
+  "D_POTE_SEM_BULA": {
+   "ESTADO": "BLOQUEADO",
+   "POTE_SHA256": "1f740a6845bdf1413917fdb181405e527db65440c8832a3ace09181d071dd9ca",
+   "FALHAS": [
+    "C0_D123_CASO_PRODUTO_BULA"
+   ],
+   "PASSOU": [
+    "C0_POTE_V2_FORMA_E_LEI",
+    "C0_NENHUM_OBJETO_SEM_PROVA",
+    "C0_D122_EVENTO_SO_COM_DATA",
+    "C0_NADA_DE_DADO_CRU",
+    "C0_NADA_DA_DEMO",
+    "C0_PROMOCAO"
+   ],
+   "NOTAS": [],
+   "ANTERIOR": null,
+   "POTE_ANTERIOR": null,
+   "VOLTA": null,
+   "ALERTAS": []
+  },
+  "E_PAGINA_NO_AR_SEM_CONTAGEM": {
+   "ESTADO": "REVERTIDO",
+   "POTE_SHA256": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6",
+   "FALHAS": [
+    "C6_NO_AR_SHA",
+    "C6_NO_AR_CONTAGEM_POR_TELA",
+    "C6_NO_AR_D122_LEGADO_ESCONDIDO",
+    "C6_NO_AR_D122_BARRA_CONTA_O_POTE"
+   ],
+   "PASSOU": [
+    "C0_POTE_V2_FORMA_E_LEI",
+    "C0_NENHUM_OBJETO_SEM_PROVA",
+    "C0_D123_CASO_PRODUTO_BULA",
+    "C0_D122_EVENTO_SO_COM_DATA",
+    "C0_NADA_DE_DADO_CRU",
+    "C0_NADA_DA_DEMO",
+    "C0_PROMOCAO",
+    "ANTES_ALVO_DE_VOLTA",
+    "C1_BUILD_GATE",
+    "C2_DEPLOY_SURFACE",
+    "C3_RELEASE · proveniencia · node italia-portale/audit/build-gate.mjs",
+    "C3_RELEASE · mapa · python3 system-map/scripts/correr_a_cadeia.py REGERAR",
+    "C3_RELEASE · mapa · python3 system-map/scripts/correr_a_cadeia.py VALIDAR",
+    "C3_RELEASE · portal · npm run build",
+    "C3_RELEASE · portal · node italia-portale/audit/run.mjs",
+    "C1_BUILD_COM_O_POTE (npm run build)",
+    "C5_MONTAGEM_CONTAGEM_POR_TELA",
+    "C5_MONTAGEM_D122_LEGADO_ESCONDIDO",
+    "C5_MONTAGEM_D122_BARRA_CONTA_O_POTE",
+    "C5_MONTAGEM_FORA_DAS_ROTAS_CASA",
+    "C6_NO_AR_FORA_DAS_ROTAS_CASA"
+   ],
+   "NOTAS": [
+    "AVISO: casa.html nao e alcancavel por nenhuma rota do portal (portale.html o diz), mas responde por URL direto e mostra os 43 e os 44 antigos. Mexer nela e decisao do dono (o portao VIEW_READS_ONLY_ITALY_CASA proibe que ela leia o pote). MEDIDA e FOTOGRAFADA em cada publicacao, com AVISO no registo; nao bloqueia.",
+    "INHERITED RED != NEW DEPLOY REGRESSION · medido no cenario A, mesmo commit",
+    "SINTETICO — aceite so em ensaio; em producao reprova",
+    "ensaio: nao e publicacao ao cliente; em producao a regra tem de estar APROVADA_PELO_DONO",
+    "medido no cenario A, mesmo commit"
+   ],
+   "ANTERIOR": {
+    "DEPLOYMENT": {
+     "ID": "ensaio-inicial",
+     "URL": "http://127.0.0.1:59767"
+    },
+    "URL": "http://127.0.0.1:59767",
+    "HTTP": 200,
+    "POTE_SHA256_NO_AR": null,
+    "ULTIMA_PUBLICACAO_REGISTADA": null
+   },
+   "POTE_ANTERIOR": {
+    "POTE_SHA256": null,
+    "INTELLIGENCE_RUN_ID": null,
+    "FICHEIRO": null
+   },
+   "VOLTA": {
+    "PARA": {
+     "ID": "ensaio-inicial",
+     "URL": "http://127.0.0.1:59767"
+    },
+    "COMANDO_OK": true,
+    "NO_AR": {
+     "ID": "ensaio-inicial",
+     "URL": "http://127.0.0.1:59767"
+    },
+    "HTTP": 200,
+    "POTE_SHA256_NO_AR": null,
+    "ESPERADO": null,
+    "PROVADA": true
+   },
+   "ALERTAS": [
+    {
+     "QUANDO": "2026-09-28T01:39:00",
+     "TIPO": "REVERTIDO",
+     "REGISTO": "/tmp/claude-0/-home-user-eame-sintonia/ccfcdb01-fe63-5647-9173-a683d3e041dd/scratchpad/ensaio-trab/PUBLICACOES-E_PAGINA_NO_AR_SEM_CONTAGEM/2026-09-28/013900-51ae6c08",
+     "FALHAS": [
+      "C6_NO_AR_SHA",
+      "C6_NO_AR_CONTAGEM_POR_TELA",
+      "C6_NO_AR_D122_LEGADO_ESCONDIDO",
+      "C6_NO_AR_D122_BARRA_CONTA_O_POTE"
+     ],
+     "VOLTA": {
+      "PARA": {
+       "ID": "ensaio-inicial",
+       "URL": "http://127.0.0.1:59767"
+      },
+      "COMANDO_OK": true,
+      "NO_AR": {
+       "ID": "ensaio-inicial",
+       "URL": "http://127.0.0.1:59767"
+      },
+      "HTTP": 200,
+      "POTE_SHA256_NO_AR": null,
+      "ESPERADO": null,
+      "PROVADA": true
+     }
+    }
+   ]
+  },
+  "F_VOLTA_QUE_NAO_RODA": {
+   "ESTADO": "ALERTA_CRITICO",
+   "POTE_SHA256": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6",
+   "FALHAS": [
+    "C6_NO_AR_SHA",
+    "C6_NO_AR_CONTAGEM_POR_TELA",
+    "C6_NO_AR_D122_LEGADO_ESCONDIDO",
+    "C6_NO_AR_D122_BARRA_CONTA_O_POTE"
+   ],
+   "PASSOU": [
+    "C0_POTE_V2_FORMA_E_LEI",
+    "C0_NENHUM_OBJETO_SEM_PROVA",
+    "C0_D123_CASO_PRODUTO_BULA",
+    "C0_D122_EVENTO_SO_COM_DATA",
+    "C0_NADA_DE_DADO_CRU",
+    "C0_NADA_DA_DEMO",
+    "C0_PROMOCAO",
+    "ANTES_ALVO_DE_VOLTA",
+    "C1_BUILD_GATE",
+    "C2_DEPLOY_SURFACE",
+    "C3_RELEASE · proveniencia · node italia-portale/audit/build-gate.mjs",
+    "C3_RELEASE · mapa · python3 system-map/scripts/correr_a_cadeia.py REGERAR",
+    "C3_RELEASE · mapa · python3 system-map/scripts/correr_a_cadeia.py VALIDAR",
+    "C3_RELEASE · portal · npm run build",
+    "C3_RELEASE · portal · node italia-portale/audit/run.mjs",
+    "C1_BUILD_COM_O_POTE (npm run build)",
+    "C5_MONTAGEM_CONTAGEM_POR_TELA",
+    "C5_MONTAGEM_D122_LEGADO_ESCONDIDO",
+    "C5_MONTAGEM_D122_BARRA_CONTA_O_POTE",
+    "C5_MONTAGEM_FORA_DAS_ROTAS_CASA",
+    "C6_NO_AR_FORA_DAS_ROTAS_CASA"
+   ],
+   "NOTAS": [
+    "AVISO: casa.html nao e alcancavel por nenhuma rota do portal (portale.html o diz), mas responde por URL direto e mostra os 43 e os 44 antigos. Mexer nela e decisao do dono (o portao VIEW_READS_ONLY_ITALY_CASA proibe que ela leia o pote). MEDIDA e FOTOGRAFADA em cada publicacao, com AVISO no registo; nao bloqueia.",
+    "INHERITED RED != NEW DEPLOY REGRESSION · medido no cenario A, mesmo commit",
+    "SINTETICO — aceite so em ensaio; em producao reprova",
+    "ensaio: nao e publicacao ao cliente; em producao a regra tem de estar APROVADA_PELO_DONO",
+    "medido no cenario A, mesmo commit"
+   ],
+   "ANTERIOR": {
+    "DEPLOYMENT": {
+     "ID": "ensaio-inicial",
+     "URL": "http://127.0.0.1:49069"
+    },
+    "URL": "http://127.0.0.1:49069",
+    "HTTP": 200,
+    "POTE_SHA256_NO_AR": null,
+    "ULTIMA_PUBLICACAO_REGISTADA": null
+   },
+   "POTE_ANTERIOR": {
+    "POTE_SHA256": null,
+    "INTELLIGENCE_RUN_ID": null,
+    "FICHEIRO": null
+   },
+   "VOLTA": {
+    "PARA": {
+     "ID": "ensaio-inicial",
+     "URL": "http://127.0.0.1:49069"
+    },
+    "COMANDO_OK": true,
+    "NO_AR": {
+     "ID": "ensaio-20260928-015232-555277",
+     "URL": "http://127.0.0.1:49069"
+    },
+    "HTTP": 200,
+    "POTE_SHA256_NO_AR": null,
+    "ESPERADO": null,
+    "PROVADA": false
+   },
+   "ALERTAS": [
+    {
+     "QUANDO": "2026-09-28T01:48:09",
+     "TIPO": "ALERTA_CRITICO",
+     "REGISTO": "/tmp/claude-0/-home-user-eame-sintonia/ccfcdb01-fe63-5647-9173-a683d3e041dd/scratchpad/ensaio-trab/PUBLICACOES-F_VOLTA_QUE_NAO_RODA/2026-09-28/014809-51ae6c08",
+     "FALHAS": [
+      "C6_NO_AR_SHA",
+      "C6_NO_AR_CONTAGEM_POR_TELA",
+      "C6_NO_AR_D122_LEGADO_ESCONDIDO",
+      "C6_NO_AR_D122_BARRA_CONTA_O_POTE"
+     ],
+     "VOLTA": {
+      "PARA": {
+       "ID": "ensaio-inicial",
+       "URL": "http://127.0.0.1:49069"
+      },
+      "COMANDO_OK": true,
+      "NO_AR": {
+       "ID": "ensaio-20260928-015232-555277",
+       "URL": "http://127.0.0.1:49069"
+      },
+      "HTTP": 200,
+      "POTE_SHA256_NO_AR": null,
+      "ESPERADO": null,
+      "PROVADA": false
+     }
+    }
+   ]
+  },
+  "G_PRODUCAO_PELO_ENSAIO": {
+   "ESTADO": "BLOQUEADO",
+   "POTE_SHA256": "51ae6c089e68d8e794bbfe55d06bbe6ccc94a60b48bfb5d04d026eba757d7cb6",
+   "FALHAS": [
+    "MODO"
+   ],
+   "PASSOU": [],
+   "NOTAS": [],
+   "ANTERIOR": null,
+   "POTE_ANTERIOR": null,
+   "VOLTA": null,
+   "ALERTAS": []
+  }
+ },
+ "A_CONTAGENS_ANTES_DEPOIS": {
+  "inicio": {
+   "ANTES": {
+    "pote": 0,
+    "43": 17,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 2,
+    "comp": "meeting",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "meeting": {
+   "ANTES": {
+    "pote": 0,
+    "43": 17,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 2,
+    "comp": "meeting",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "radarfuturo": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 44,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 1,
+    "comp": "future",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "future": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 2,
+    "comp": "archive",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "archive": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 2,
+    "comp": "archive",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "windows": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 1,
+    "comp": "windows",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "market": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 0,
+    "comp": "market",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "voices": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 0,
+    "comp": "voices",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "competitors": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 0,
+    "comp": "competitors",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "science": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 0,
+    "comp": "science",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "portfolio": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 0,
+    "comp": "portfolio",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "etichette": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 0,
+    "comp": "portfolio",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "sources": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 1,
+    "comp": "sources",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "field": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": true
+   },
+   "DEPOIS": {
+    "pote": 0,
+    "comp": "field",
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "accesso": {
+   "ANTES": {
+    "pote": 0,
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   },
+   "DEPOIS": {
+    "pote": 0,
+    "comp": null,
+    "43": 0,
+    "44": 0,
+    "oggi": false
+   }
+  },
+  "casa": {
+   "ANTES": {
+    "pote": 0,
+    "43": 43,
+    "44": 44,
+    "oggi": false
+   },
+   "DEPOIS": {
+    "pote": 0,
+    "comp": null,
+    "43": 43,
+    "44": 44,
+    "oggi": false
+   }
+  }
+ },
+ "A_BARRA_DEPOIS": {
+  "meeting": "2",
+  "portfolio": "0",
+  "radarfuturo": "1",
+  "etichette": "0",
+  "windows": "1",
+  "market": "0",
+  "voices": "0",
+  "competitors": "0",
+  "science": "0",
+  "archive": "2",
+  "sources": "1",
+  "painel": "",
+  "sala": "",
+  "field": "0"
+ },
+ "A_BARRA_ANTES": {
+  "meeting": "17",
+  "portfolio": "173",
+  "radarfuturo": "44",
+  "etichette": "166",
+  "windows": "29",
+  "market": "157",
+  "voices": "79",
+  "competitors": "577",
+  "science": "88",
+  "archive": "1114",
+  "sources": "194",
+  "painel": "",
+  "sala": "",
+  "field": "18"
+ }
+}
