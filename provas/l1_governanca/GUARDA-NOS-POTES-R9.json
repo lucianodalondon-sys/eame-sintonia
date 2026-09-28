@@ -1,0 +1,33 @@
+{
+ "O_QUE_E": "a guarda D140 aplicada aos potes REAIS da R9 (fora do Git, so leitura). A prova do LAB foi SIMULADA como PASS so para exercitar o resto da guarda; sem ela real, a guarda recusa.",
+ "POTE_PARA_CLIENTE": {
+  "FICHEIRO": "C:/Users/London1/sintonia-sala-italia/intelligence-experimental/PARA-O-CASCO-R9/POTE-R9-PARA_CLIENTE.json",
+  "SHA256": "9aa916e328845c8c10b17a6c392c3ac9b23279f105e4a1e5e07d3aae1bc8d963"
+ },
+ "POTE_EXPERIMENTAL": {
+  "FICHEIRO": "C:/Users/London1/sintonia-sala-italia/intelligence-experimental/PARA-O-CASCO-R9/POTE-R9-EXPERIMENTAL.json",
+  "SHA256": "f208be60b8ba3604b708d1832212a34d0aa212c561b80af6320e572c9e099f72"
+ },
+ "CASOS": {
+  "R9_PARA_CLIENTE_no_preview_local": {
+   "PASSA": true,
+   "MOTIVO": "EXCECAO PREVIEW_E2E (D140) · 2 objeto(s) liberado(s) para BUILD_LOCAL na branch claude/l3-radar-original-v1 · COLLECTION_FOUNDATION_CLOSED continua NAO"
+  },
+  "R9_PARA_CLIENTE_no_host_canonico": {
+   "PASSA": false,
+   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · sintonia-eame-preview.vercel.app e o endereco do produto, nao um preview"
+  },
+  "R9_PARA_CLIENTE_em_release_canonical": {
+   "PASSA": false,
+   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · branch 'release/canonical' e de producao (ou nao dita)"
+  },
+  "R9_EXPERIMENTAL_no_preview_local": {
+   "PASSA": false,
+   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · 3 objeto(s) nao liberado(s), o pote inteiro fica: windows/SG-a5d48c8cb6f73f24 sem LIBERACAO=LIBERADO_PARA_CLIENTE"
+  },
+  "R9_PARA_CLIENTE_sem_prova_do_LAB": {
+   "PASSA": false,
+   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · sem a prova reversa do LAB (VEREDITO=PASS e onde esta)"
+  }
+ }
+}
