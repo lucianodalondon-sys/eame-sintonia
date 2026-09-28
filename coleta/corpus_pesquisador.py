@@ -227,6 +227,16 @@ def _get(url, headers=None):
     """→ (json, None) ou (None, motivo). NUNCA levanta: FALHA DE FONTE != ZERO."""
     h = {'User-Agent': 'SintoniaEAME (mailto:%s)' % MAILTO, 'Accept': 'application/json'}
     h.update(headers or {})
+    # SCRAP-S1S2 (28/09) — D90: O PEDIDO RESERVA ANTES DE SAIR, EM TODAS AS LINHAS.
+    # Esta linha lia o orcamento (`teto_por_dominio` -> `CA.orcamento_do_dominio`) e nunca reservava; e o
+    # abridor de `coleta/scrap_http.py` nao esta instalado neste caminho (este ficheiro so importa stdlib),
+    # por isso o pedido saia a rede sem lugar no livro de 24 h. Sem livro nomeado o freio nao trava
+    # (devolve None) — o comportamento antigo fica igual; com livro, a reserva passa a existir.
+    try:
+        import teto_da_onda as teto                                     # noqa: PLC0415 — o dono do freio
+        teto.reservar(urllib.parse.urlsplit(url).hostname, url=url, quem='pesquisadores_t6')
+    except Exception as e:                                             # noqa: BLE001 — TetoDaOnda incluido
+        return None, 'TETO: %s: %s' % (type(e).__name__, str(e)[:120])
     try:
         with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=90) as r:
             return json.loads(r.read().decode('utf-8')), None

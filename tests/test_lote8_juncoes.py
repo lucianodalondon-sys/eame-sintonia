@@ -148,11 +148,15 @@ class J_Linhas(unittest.TestCase):
         m = CC.medir_ligacao(self._linha("SITES"))
         self.assertTrue(m["LIGADA"], m["PORQUE"])
 
-    def test_JL2_busca_existe_e_nao_reserva_fica_a_espera_pelo_motivo_certo(self):
+    def test_JL2_busca_reserva_pelo_abridor_e_nao_pelo_proprio_ficheiro(self):
+        """SCRAP-S1S2: `linha_busca.py` NAO chama a reserva — quem reserva por ela e o abridor de
+        `scrap_http` (o `teto.reservar` que a D124 liga a cortesia adaptativa). A medida e de TEXTO,
+        e vem rotulada assim mesmo."""
         self.assertTrue((RAIZ / "coleta" / "linha_busca.py").exists())
         m = CC.medir_ligacao(self._linha("BUSCA"))
-        self.assertFalse(m["LIGADA"])
-        self.assertTrue(m["PORQUE"].startswith("SEM_RESERVA_24H"), m["PORQUE"])
+        self.assertTrue(m["LIGADA"], m["PORQUE"])
+        self.assertEqual(m["MEDIDO_EM"], "TEXTO", m)
+        self.assertEqual(m["PROVA_EM"], "coleta/scrap_http.py", m)
 
 
 if __name__ == "__main__":

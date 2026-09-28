@@ -446,10 +446,26 @@ class Linhas(Base):
         self.assertEqual(_por_dominio(CONTAGEM), {"x.test": 3})
 
     def test_ligacao_medida_no_codigo_desta_arvore(self):
+        """SCRAP-S1S2 (28/09): a SITES prova-se pelo COMPORTAMENTO; as outras quatro pelo TEXTO no
+        ficheiro que RESERVA por elas — o dono do freio (`teto_da_onda`), ou o abridor que o chama
+        (`scrap_http`), e nao o ficheiro do transporte. A medida vem SEMPRE rotulada: TEXTO nao passa
+        por comportamento. Antes desta correcao, a regua procurava a string no transporte e deixava
+        BUSCA e SOCIAL em ESPERA_LIGACAO com o transporte ligado ao livro."""
         m = {l["LINHA"]: C.medir_ligacao(l) for l in C.LINHAS}
         self.assertTrue(m["SITES"]["LIGADA"], m["SITES"])
+        self.assertEqual(m["SITES"]["MEDIDO_EM"], "COMPORTAMENTO", m["SITES"])
         for n in ("BUSCA", "CIENCIA", "SOCIAL", "PESQUISADORES"):
-            self.assertFalse(m[n]["LIGADA"], (n, m[n]))
+            self.assertTrue(m[n]["LIGADA"], (n, m[n]))
+            self.assertEqual(m[n]["MEDIDO_EM"], "TEXTO", (n, m[n]))
+
+    def test_linha_sem_ficheiro_de_reserva_nao_se_liga(self):
+        """LIGADA nao se declara: o ficheiro nomeado tem de EXISTIR e CHAMAR. Sem isso, fica a espera."""
+        l = {"LINHA": "Z", "TRANSPORTE": "coleta/teto_da_onda.py",
+             "RESERVA_EM": [{"FICHEIRO": "coleta/nao-existe-esta-linha.py", "CHAMADA": "teto.reservar("}]}
+        m = C.medir_ligacao(l, C.RAIZ)
+        self.assertFalse(m["LIGADA"], m)
+        self.assertTrue(m["PORQUE"].startswith("SEM_RESERVA_24H"), m["PORQUE"])
+        self.assertIsNone(m["MEDIDO_EM"], m)
 
     def test_a_ligacao_e_a_chamada_nao_o_nome(self):
         d = self.tmp / "coleta"

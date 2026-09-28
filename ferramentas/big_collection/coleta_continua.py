@@ -87,23 +87,46 @@ CICLOS_F = "CICLOS.ndjson"
 DESLIGAR_F = "PARAR-COLETA.flag"
 TRINCO_F = "COLETA-CONTINUA.trinco"
 
-# ── as linhas (D86-b): o transporte de cada uma e a CHAMADA que prova que ela reserva no livro de 24 h ─
-# LIGADA e MEDIDA no codigo (a chamada existe no ficheiro), nunca declarada. Sem ela, a linha NAO corre:
+# ── as linhas (D86-b): o transporte de cada uma, e ONDE se prova que ela reserva no livro de 24 h ──
+# LIGADA e MEDIDA, nunca declarada. Sem ela, a linha NAO corre:
 # «ate cada linha estar ligada a este livro, so UMA linha de rede de cada vez» (CONTADOR-24H.md).
 # D124-REBASE: a SITES tem SONDA — a ligacao mede-se pelo que o transporte FAZ (contra um servidor local,
 # sem rede), e nao pelo texto da chamada: a D124 mudou `reservar24h(host, 1)` para `reservar24h(host, 1, {...})`
 # e o texto deixava a linha em ESPERA_LIGACAO com o transporte ligado (verificador independente, 28/09).
+#
+# SCRAP-S1S2 (28/09): a DOUTRINA deste ficheiro (linha 33: «nunca por um texto no ficheiro») mandava, e o
+# codigo so a cumpria na SITES. Nas outras quatro, a reserva EXISTE — mas desde a D124 ela vive no dono unico
+# (`coleta/teto_da_onda.py` -> `cortesia_adaptativa.reservar_ou_esperar`), alcancado pelo abridor instalado em
+# `coleta/scrap_http.py`, e nao no ficheiro do transporte. Medir o TEXTO no transporte era medir o ficheiro
+# errado: `RESERVA_EM` nomeia quem realmente reserva por esta linha, e o `PORQUE` diz sempre SE a medida foi
+# de COMPORTAMENTO (SONDA) ou de TEXTO (fraca, e por isso rotulada).
+#
+# ⚠️ `RESERVA_EM` e uma medida FRACA (um comentario satisfaz-la). A correcao definitiva e uma SONDA por linha,
+# como a da SITES — fica ABERTA e registada; ate la, o rotulo `MEDIDO_EM=TEXTO` impede que ela passe por prova.
 LINHAS = [
     {"LINHA": "SITES", "FAMILIA": "sites e boletins (T2/T3/T5/T7/T8/T9/T10/T12), pela coorte congelada",
      "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs"},
     {"LINHA": "BUSCA", "FAMILIA": "paginas de busca (linha_busca)",
-     "TRANSPORTE": "coleta/linha_busca.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/linha_busca.py",
+     # linha_busca pede por `scrap_http.buscar_bytes`; e o abridor de `scrap_http` que reserva ANTES do pedido.
+     "RESERVA_EM": [{"FICHEIRO": "coleta/scrap_http.py", "CHAMADA": "teto.reservar("}]},
     {"LINHA": "CIENCIA", "FAMILIA": "APIs cientificas OpenAlex/Crossref/ORCID (excecao de robots D91)",
-     "TRANSPORTE": "coleta/pesquisadores_t6.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/pesquisadores_t6.py",
+     # SCRAP-S1S2: aqui o buraco era REAL — o transporte liao o orcamento (`CA.orcamento_do_dominio`) mas
+     # NUNCA reservava, e o abridor de `scrap_http` nao esta instalado neste caminho (`corpus_pesquisador`
+     # so importa stdlib). O freio passou a estar onde o pedido sai.
+     "RESERVA_EM": [{"FICHEIRO": "coleta/corpus_pesquisador.py", "CHAMADA": "teto.reservar("}]},
     {"LINHA": "SOCIAL", "FAMILIA": "YouTube/social (so o que o freio social ja libera)",
-     "TRANSPORTE": "coleta/teto_da_onda.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/teto_da_onda.py",
+     # O DONO E O RESERVADOR. Pedir-lhe a string `reserva_24h.reservar(` era pedir ao dono que chamasse a
+     # fachada de si mesmo — e criaria um SEGUNDO dono da mesma reserva (D124).
+     "RESERVA_EM": [{"FICHEIRO": "coleta/teto_da_onda.py", "CHAMADA": "ca.reservar_ou_esperar("}]},
     {"LINHA": "PESQUISADORES", "FAMILIA": "paginas de pesquisadores T6",
-     "TRANSPORTE": "coleta/seguir.py", "CHAMADA": "reserva_24h.reservar("},
+     # S2: o ficheiro mudou de gaveta e a tabela ficou no sitio antigo (`coleta/seguir.py`).
+     "TRANSPORTE": "ferramentas/seguir_pesquisadores/seguir.py",
+     # Reserva pelo CONTADOR INJETADO (`Transporte(contador=...)`), nao pelo dono do freio directamente:
+     # sem contador o pedido sai sem reserva. Quem conduz esta linha tem de dar o contador — fica registado.
+     "RESERVA_EM": [{"FICHEIRO": "ferramentas/seguir_pesquisadores/seguir.py", "CHAMADA": "contador.reservar("}]},
 ]
 
 
@@ -122,25 +145,44 @@ def sondar_ligacao(linha: dict, raiz: Path = RAIZ, timeout_s: float = 120.0) -> 
         ultima = (r.stdout.strip().splitlines() or [""])[-1]
         m = json.loads(ultima)
     except (OSError, ValueError, subprocess.TimeoutExpired) as ex:
-        return {"LIGADA": False, "PORQUE": "SONDA_NAO_CORREU: %s: %s" % (linha["SONDA"], str(ex)[:200])}
+        return {"LIGADA": False, "MEDIDO_EM": "COMPORTAMENTO",
+                "PORQUE": "SONDA_NAO_CORREU: %s: %s" % (linha["SONDA"], str(ex)[:200])}
     if not isinstance(m, dict) or m.get("LIGADA") is not True:
-        return {"LIGADA": False, "PORQUE": "SONDA: %s" % (m.get("PORQUE") if isinstance(m, dict) else m),
+        return {"LIGADA": False, "MEDIDO_EM": "COMPORTAMENTO",
+                "PORQUE": "SONDA: %s" % (m.get("PORQUE") if isinstance(m, dict) else m),
                 "MEDIDO": m.get("MEDIDO") if isinstance(m, dict) else None}
-    return {"LIGADA": True, "PORQUE": "SONDA: %s" % m.get("PORQUE"), "MEDIDO": m.get("MEDIDO")}
+    return {"LIGADA": True, "MEDIDO_EM": "COMPORTAMENTO", "PORQUE": "SONDA: %s" % m.get("PORQUE"),
+            "MEDIDO": m.get("MEDIDO")}
 
 
 def medir_ligacao(linha: dict, raiz: Path = RAIZ) -> dict:
-    """{"LIGADA": bool, "PORQUE": texto}: o transporte da linha existe E reserva no livro de 24 h.
-    Com "SONDA": medido pelo comportamento. Sem ela: a chamada tem de estar no codigo (medida de texto)."""
+    """{"LIGADA": bool, "PORQUE": texto, "MEDIDO_EM": "COMPORTAMENTO"|"TEXTO"|None}: o transporte
+    da linha existe E reserva no livro de 24 h. Com "SONDA": medido pelo COMPORTAMENTO. Sem ela: a chamada
+    tem de existir no ficheiro que RESERVA por esta linha (`RESERVA_EM` — o dono do freio, nao o transporte),
+    e a medida vem rotulada como TEXTO, porque um comentario tambem a satisfaria.
+
+    SCRAP-S1S2 (28/09): antes disto, o TEXTO era procurado SO no ficheiro do transporte. Desde a D124 a
+    reserva vive no dono unico (`teto_da_onda` -> `cortesia_adaptativa`), pelo que BUSCA e SOCIAL estavam
+    LIGADAS e apareciam ESPERA_LIGACAO — a corrente parava por causa da REGUA, nao do transporte.
+    """
     f = raiz / linha["TRANSPORTE"]
     if not f.exists():
-        return {"LIGADA": False, "PORQUE": "TRANSPORTE_NAO_EXISTE_NESTA_ARVORE: %s" % linha["TRANSPORTE"]}
+        return {"LIGADA": False, "MEDIDO_EM": None,
+                "PORQUE": "TRANSPORTE_NAO_EXISTE_NESTA_ARVORE: %s" % linha["TRANSPORTE"]}
     if linha.get("SONDA"):
         return sondar_ligacao(linha, raiz)
-    if linha["CHAMADA"] not in f.read_text(encoding="utf-8", errors="replace"):
-        return {"LIGADA": False, "PORQUE": "SEM_RESERVA_24H: %s nao chama %s (CONTADOR-24H.md)"
-                % (linha["TRANSPORTE"], linha["CHAMADA"])}
-    return {"LIGADA": True, "PORQUE": "%s chama %s" % (linha["TRANSPORTE"], linha["CHAMADA"])}
+    candidatos = list(linha.get("RESERVA_EM") or [])
+    # Compatibilidade: uma linha que declare `CHAMADA` e nada mais mede-se no proprio transporte (rotulada).
+    if not candidatos and linha.get("CHAMADA"):
+        candidatos = [{"FICHEIRO": linha["TRANSPORTE"], "CHAMADA": linha["CHAMADA"]}]
+    for c in candidatos:
+        g = raiz / c["FICHEIRO"]
+        if g.exists() and c["CHAMADA"] in g.read_text(encoding="utf-8", errors="replace"):
+            return {"LIGADA": True, "MEDIDO_EM": "TEXTO", "PROVA_EM": c["FICHEIRO"],
+                    "PORQUE": "TEXTO (fraco, nao e comportamento): %s chama %s" % (c["FICHEIRO"], c["CHAMADA"])}
+    falta = ", ".join("%s -> %s" % (c["FICHEIRO"], c["CHAMADA"]) for c in candidatos) or linha["TRANSPORTE"]
+    return {"LIGADA": False, "MEDIDO_EM": None,
+            "PORQUE": "SEM_RESERVA_24H: nenhum destes chama a reserva: %s (CONTADOR-24H.md)" % falta}
 
 
 def ordem_das_linhas(nomes: list, n_ciclo: int) -> list:
@@ -466,13 +508,15 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
             ln["PASSAGEM"] = ln.get("PASSAGEM", 1) + 1
             ln["FEITAS_NA_PASSAGEM"] = []
         if not lig["LIGADA"]:
-            reg["LINHAS"][nome] = {"ESTADO": "ESPERA_LIGACAO", "PORQUE": lig["PORQUE"], "FONTES": []}
+            reg["LINHAS"][nome] = {"ESTADO": "ESPERA_LIGACAO", "PORQUE": lig["PORQUE"], "FONTES": [],
+                                   "MEDIDO_EM": lig.get("MEDIDO_EM")}
             continue
         e = escolher(cands, feitas=feitas, ultima=ultima, reservas=reservas, agora_utc=agora_u,
                      orcamento=orcamento, max_fontes=max_fontes, janela_h=janela_h)
         escolha[nome] = e["CORREM"]
         reg["ESPERAM"] += [dict(x, LINHA=nome) for x in e["ESPERAM"]]
         reg["LINHAS"][nome] = {"ESTADO": "A_CORRER" if e["CORREM"] else "NADA_ELEGIVEL",
+                               "MEDIDO_EM": lig.get("MEDIDO_EM"), "PROVA_EM": lig.get("PROVA_EM"),
                                "FONTES": [c["SOURCE_ID"] for c in e["CORREM"]],
                                "PEDIDOS_PREVISTOS": sum(c["PREVISTOS"] for c in e["CORREM"])}
     reg["ORCAMENTO_DO_CICLO"] = orcamento
