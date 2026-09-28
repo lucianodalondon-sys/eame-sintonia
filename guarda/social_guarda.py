@@ -177,11 +177,44 @@ _NAO_E_SEGREDO = re.compile(
     r')')
 
 
+# ── O QUE É CÓDIGO, E NÃO UM SEGREDO ────────────────────────────────────────
+# Medido em produção (`servico-20260923-0923`), `coleta/pesquisadores_t6.py:747`:
+#
+#     url += '&api_key=' + urllib.parse.quote(chave)
+#
+# A guarda acusou ESTA linha. O padrão de chave de API exige uma aspa depois de
+# `api_key=`, e a encontra — a aspa que FECHA o literal `'&api_key='`. Dali, a
+# classe do valor (`[^"']{8,}`) atravessa a linha, o `\n`, e só para na aspa
+# SEGUINTE — sete linhas abaixo, dentro de uma docstring. O que a guarda leu
+# como «valor» era, na verdade, um pedaço de código.
+#
+#     A ASPA QUE O PADRÃO ENCONTRA PODE SER A QUE FECHA O NOME, NÃO A QUE
+#     ABRE O VALOR.
+#
+# A TENTAÇÃO ERA ENCURTAR O ALCANCE — proibir o `\n` na classe. Isso cala o
+# falso positivo E CEGA A GUARDA: um segredo literal partido em duas linhas
+# dentro de aspas deixaria de ser visto, e o dono mandou «não enfraquecer a
+# guarda». O alcance FICA COMO ESTAVA; o que se acrescenta é o reconhecimento
+# de que o valor apanhado é uma EXPRESSÃO e não um literal.
+#
+# Três famílias, todas ancoradas no INÍCIO do valor — de propósito. Ancorar no
+# início é o que preserva o alcance: um literal que COMEÇA com o segredo (e
+# segue por outras linhas) não casa nenhuma das três, e continua a ser achado.
+_E_CODIGO = re.compile(
+    r'^\s*["\']?\s*(?:'
+    r'\+'                              # concatenação: ' + variavel
+    r'|[A-Za-z_][A-Za-z0-9_.]*\s*\('   # chamada: quote( · urllib.parse.quote(
+    r'|[fF][rR]?["\']'                 # f-string: f"{token}"
+    r')')
+
+
 def _valor_e_segredo(trecho):
     """O padrão casou. Mas o VALOR é um segredo ou é uma referência a um?"""
     corte = re.split(r'[:=]', trecho, 1)
     valor = corte[1] if len(corte) > 1 else trecho
     valor = re.sub(r'(?i)^\s*(bearer|basic)\s+', '', valor.strip())
+    if _E_CODIGO.match(valor):
+        return False
     return not _NAO_E_SEGREDO.match(valor)
 
 

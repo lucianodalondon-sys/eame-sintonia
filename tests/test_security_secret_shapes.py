@@ -140,6 +140,68 @@ class FormasDeSegredo(unittest.TestCase):
         self._ignora(monta("05  C:", "\\", "eame-sintonia", "\\", ".claude", "\\", "worktrees"),
                      "nao passa pelo perfil de ninguem: nao carrega nome de conta")
 
+    # ── CÓDIGO NÃO É SEGREDO — SEM ENCOLHER O ALCANCE DO VALOR ────────────
+    # Medido em produção (`servico-20260923-0923`), `coleta/pesquisadores_t6.py:747`.
+    # O padrão encontra uma aspa depois de `api_key=`, mas é a aspa que FECHA o
+    # nome, não a que ABRE o valor. A classe do valor atravessa então a linha e
+    # o `\n`, e o que a guarda lê como «segredo» é um pedaço de CÓDIGO.
+    #
+    #     A ASPA QUE O PADRÃO ENCONTRA PODE SER A QUE FECHA O NOME.
+    #
+    # A cura NÃO é proibir o `\n` na classe — isso calaria o falso positivo e
+    # cegaria a guarda para um segredo partido em linhas. É reconhecer que o
+    # valor apanhado é uma EXPRESSÃO. Estes três testes são os que morrem se
+    # alguém tirar esse reconhecimento.
+    def test_concatenacao_de_codigo_nao_e_segredo(self):
+        # Fiel à produção: o valor só para na aspa SEGUINTE, que vive linhas
+        # abaixo. Foi assim que a guarda leu código como se fosse segredo.
+        linha = monta("url += '&api", "_key=' + urllib.parse.", "quote(chave)\n",
+                      "    return CP._get(url)\n", "    \"\"\"docstring\"\"\"")
+        self._ignora(linha, "o valor e a CONCATENACAO de um pedaco de codigo, nao um literal")
+
+    def test_concatenacao_sem_limite_de_linhas(self):
+        """O que distingue CÓDIGO de LITERAL, sem depender de quantas linhas.
+
+        O valor começa por `+`: é uma expressão, por muito longe que a aspa
+        seguinte esteja. A exclusão não olha a distância — olha o começo.
+        """
+        linha = monta("k = '&api", "_key=', valor_real_do_segredo_que_nao_e_codigo")
+        self._ignora(linha, "o valor comeca por concatenacao")
+
+    def test_chamada_no_valor_nao_e_segredo(self):
+        self._ignora("sessionid=" + monta("os.environ.", "get('SINTONIA_SID')"),
+                     "o valor e uma CHAMADA, nao um literal")
+
+    def test_f_string_nao_e_segredo(self):
+        self._ignora("sessionid=" + monta("f\"{token_", "da_sessao}\""),
+                     "f-string interpola em tempo de execucao: nao carrega valor")
+
+    # ── E O ALCANCE CONTINUA INTEIRO ──────────────────────────────────────
+    # A fixture é FALSA e declara-se falsa NO PRÓPRIO VALOR (`isto_nao_e_segredo`),
+    # como manda a correção do house guard — mas o marcador vive na SEGUNDA
+    # linha, e a isenção por linha olha a linha onde o casamento COMEÇA. Logo
+    # não isenta. Se alguém encurtar a classe do valor para parar no `\n`, o
+    # padrão deixa de casar e este teste reprova — que é precisamente o que
+    # tem de acontecer.
+    def test_segredo_partido_em_linhas_continua_a_ser_apanhado(self):
+        texto = monta("api", "_key = \"", "Ab1Cd2Ef3Gh4Ij5K", "\n",
+                      "isto_nao_e_segredo", "\"")
+        self._pega(texto, "chave de API")
+
+    def test_segredo_partido_com_aspas_simples_tambem(self):
+        texto = monta("client", "_secret = '", "Zq7Wx8Yv9Ut0Sr1P", "\n",
+                      "continua_aqui_o_valor", "'")
+        self._pega(texto, "chave de API")
+
+    def test_valor_que_apenas_contem_a_palavra_mais_abaixo(self):
+        """O controle positivo do falso positivo original.
+
+        A MESMA forma de produção, com o valor a ser um literal REAL em vez de
+        uma concatenação: aqui a exclusão de código NÃO pode disparar.
+        """
+        texto = monta("api", "_key='", "Ab1Cd2Ef3Gh4Ij5K", "'")
+        self._pega(texto, "chave de API")
+
 
 class ArvoreReal(unittest.TestCase):
     def test_a_arvore_versionada_continua_sem_credencial(self):
