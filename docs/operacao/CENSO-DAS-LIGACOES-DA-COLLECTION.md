@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ce677612dca5dcd79d06662525997eacf0c12c98
+HEAD_DA_MEDICAO  8014b937745318c77be36d2dbfd2978220f2e067
 BRANCH           claude/c6-repetido-dedup-doc-9eqszm
-GERADO_EM        2026-09-28T17:09:08+00:00
+GERADO_EM        2026-09-28T17:11:14+00:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
