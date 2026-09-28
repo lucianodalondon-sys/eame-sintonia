@@ -1,0 +1,29 @@
+base: verde na copia (tests.test_identidade_cruzamento, tests.test_pote_v21)
+M1 NAO SEI junta com NAO SEI: MORTO  <- test_RT03_lugar_nao_resolvido_nao_junta, test_RT04_nao_sei_nao_e_igual_a_nao_sei, test_T13_47_lugares_25_cartoes_e_o_arquivo_sem_copia, test_T14_tau_fluvalinato_continua_2_com_o_mesmo_grupo
+M2 grupo vira membro (drupacee/pomacee): MORTO  <- test_K1_a_fixture_do_casco_e_a_que_o_gerador_produz, test_RT05_cultura_generica_nao_vira_especifica
+M3 lugar sobe para a regiao: MORTO  <- test_RT01_lugares_diferentes_nao_juntam, test_RT02_niveis_diferentes_nao_juntam
+M4 substancia agressiva (METALAXYL = METALAXYL-M): MORTO  <- test_RT09_substancias_parecidas_nao_juntam
+M5 evidencia por item, nao por documento: MORTO  <- test_K1_a_fixture_do_casco_e_a_que_o_gerador_produz, test_RT15_o_mesmo_boletim_2x_e_1_evidencia, test_T3_um_documento_novo_que_toca_3_potes_zero_repetidos_mesmo_carimbo
+M6 independencia por SOURCE_ID: MORTO  <- test_RT16_tres_distritos_da_mesma_instituicao_sao_1_fonte
+M7 tudo e conflito (TEMPORAL_CHANGE vira DIVERGENT): MORTO  <- test_P1_temporal_change_nao_e_conflitante, test_RT17_tratar_nao_tratar_da_mesma_origem_e_temporal_change
+M8 edicao da bula na chave: MORTO  <- test_RT10_edicao_nova_da_bula_nao_cria_pergunta
+M9 publicacao vira fact time: MORTO  <- test_RT13_publicacao_nao_e_fact_time
+D1 o compartimento guarda copia: MORTO  <- test_K1_a_fixture_do_casco_e_a_que_o_gerador_produz, test_T10_validador_le_a_v21_e_o_schema_proibe_a_copia, test_T11_linha_de_comando_com_anterior_publicado, test_T12_o_casco_nao_calcula_o_delta_so_o_le
+D2 a conferencia aceita a copia: MORTO  <- test_T2_copia_no_compartimento_reprova
+D3 o dependente nao muda junto com o pai: MORTO  <- test_T5_mudou_estado_propaga_aos_dependentes
+D4 o fecho soma os filhos: MORTO  <- test_K1_a_fixture_do_casco_e_a_que_o_gerador_produz, test_T7_fecho_conta_cada_documento_e_originador_uma_vez
+D5 o fecho esquece o pai: MORTO  <- test_K1_a_fixture_do_casco_e_a_que_o_gerador_produz, test_T7_fecho_conta_cada_documento_e_originador_uma_vez
+D6 ausencia vira SAIU: MORTO  <- test_T4_ausencia_nao_e_saida_e_saiu_exige_causa
+D7 ANTERIOR sem SHA256 aceite: MORTO  <- test_T8_anterior_exige_o_sha_e_a_contagem_bate
+D8 F1 pelo estado dos links, nao do rotulo: MORTO  <- test_P2_F1_resposta_e_do_rotulo_nao_do_melhor_link
+D9 o run volta para o SG2: MORTO  <- test_S1_o_mesmo_item_tem_o_mesmo_SG2_em_duas_corridas
+D10 o ID antigo nao vai para ALIAS (migracao): MORTO  <- test_T14_tau_fluvalinato_continua_2_com_o_mesmo_grupo, test_T9_objetos_do_esquema_anterior_da_mesma_pergunta_viram_um_cartao_com_alias
+D11 o ID antigo nao vai para ALIAS (cruzamentos): MORTO  <- test_P2_F1_resposta_e_do_rotulo_nao_do_melhor_link
+D12 o casco aceita a copia: MORTO  <- test_L1_o_casco_resolve_o_id_e_so_mostra_o_delta
+D13 o casco inventa o selo: MORTO  <- test_L1_o_casco_resolve_o_id_e_so_mostra_o_delta
+D14 «mosca» sozinho vira mosca da oliveira: MORTO  <- test_RT06_praga_de_nome_parecido_nao_junta
+D15 ID repetido no compartimento aceite: MORTO  <- test_T2_copia_no_compartimento_reprova
+D16 a mesma pergunta com dois cartoes aceite: MORTO  <- test_T2_copia_no_compartimento_reprova
+
+MUTACAO: 25/25 mortos · vivos 0 · nao aplicados 0
+RC=0

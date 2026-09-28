@@ -1,0 +1,35 @@
+base: verde na copia
+G1 declaracao de grupo de OUTRO rotulo serve: MORTO  <- test_A2_declaracao_de_outro_rotulo_nao_serve
+G2 chave de grupo do leitor prova a cultura sozinha: MORTO  <- test_A3_chave_do_grupo_sem_nome_nao_prova, test_A4_cultura_fora_da_zona_nao_prova, test_A6_subtipo_nao_cobre_o_generico, test_X1_contagens_commitadas_batem
+G3 cultura de rotacao vira uso: MORTO  <- test_A5_rotacao_nao_e_uso, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+G4 subtipo cobre o generico («cavolo» por «cavolo cappuccio»): MORTO  <- test_A6_subtipo_nao_cobre_o_generico, test_X4_itens_commitados_batem
+G5 a zona da cultura e a citacao inteira: MORTO  <- test_A4_cultura_fora_da_zona_nao_prova, test_X4_itens_commitados_batem
+G6 grupo declarado prova num par de outra cultura: MORTO  <- test_A10_grupo_declarado_nao_prova_num_par_de_outra_cultura
+R1 PARTIAL vira YES sem ligacao no texto: MORTO  <- test_B1_partial_continua_partial_sem_ligacao_no_texto, test_B9_substancia_longe_da_cultura_nao_liga, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+R2 rotulo nao lido vira NO: MORTO  <- test_B4_rotulo_nao_lido_nunca_e_no, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+R3 cultura fora do vocabulario vira NO: MORTO  <- test_B5_cultura_fora_do_vocabulario_nunca_e_no, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+R4 X3w sem janela (qualquer cultura do troco liga): MORTO  <- test_B9_substancia_longe_da_cultura_nao_liga
+C1 data do boletim NAO SEI confirma: MORTO  <- test_C2_data_do_boletim_nao_sei_nao_confirma, test_X1_contagens_commitadas_batem, test_X4_itens_commitados_batem
+C2 cabecalho nao conferido: MORTO  <- test_C3_cabecalho_fora_do_troco_nao_confirma, test_X4_itens_commitados_batem
+C3 empresa nao conferida: MORTO  <- test_C5_empresa_que_nao_e_adama
+V1 validade ignora a scadenza: MORTO  <- test_C8_validade_terminada_antes, test_F1_so_outras_empresas_validas, test_H2_competitors_com_grao_substancia
+V2 validade ignora a revoga: MORTO  <- test_C7_revogado_antes_do_boletim, test_D3_revogado_depois_valia_antes, test_F1_so_outras_empresas_validas, test_H2_competitors_com_grao_substancia
+V3 validade ignora o registo posterior: MORTO  <- test_C4_registo_depois_do_boletim, test_E6_registo_invalido_na_data_nao_e_match
+V4 sem data vira SIM: MORTO  <- test_D1_sem_data, test_X4_itens_commitados_batem
+P1 declaracao de produto conta como par forte: MORTO  <- test_E2_so_espectro_de_produto_nao_soma
+P2 praga sem alvo ligada ao primeiro alvo: MORTO  <- test_E4_praga_sem_alvo_no_vocabulario_e_nao_sei, test_X4_itens_commitados_batem
+P3 registo invalido conta como match: MORTO  <- test_E6_registo_invalido_na_data_nao_e_match
+S1 ADAMA entra no competitive set: MORTO  <- test_F1_so_outras_empresas_validas, test_H2_competitors_com_grao_substancia
+S2 substancia por pedaco (METALAXYL = METALAXYL-M): MORTO  <- test_F2_metalaxyl_nao_e_metalaxyl_m
+S3 CS com cultura inventada: MORTO  <- test_F1_so_outras_empresas_validas
+S4 secao sem cultura herda a do boletim: MORTO  <- test_G1_so_pares_da_mesma_secao
+O1 objeto confirmado vira OPORTUNIDADE: MORTO  <- test_H1_confirmado_atravessa_com_estado_visivel, test_H8_nada_de_oportunidade_nem_sinal
+O2 DOCUMENT_ID fabricado da chave da Sala: MORTO  <- test_H1_confirmado_atravessa_com_estado_visivel, test_H3_sem_document_id_e_recusado_a_vista, test_H5_lineage_ambigua_nao_e_ligada, test_X4_itens_commitados_batem
+O3 CROSSING_STATE some: MORTO  <- test_H1_confirmado_atravessa_com_estado_visivel, test_X4_itens_commitados_batem
+Z1 a copia do vocabulario diverge do leitor (Revocato conta como ativo): MORTO  <- test_Z1_vocabulario_igual_ao_do_leitor
+K1 LINEAGE ambigua e ligada a primeira: MORTO  <- test_H5_lineage_ambigua_nao_e_ligada
+K2 a corrida nova usa o id da R7: MORTO  <- test_H6_corrida_nova_nao_e_a_r7
+K3 --so-cruzamentos leva os objetos da R7: MORTO  <- test_H7_objetos_da_r7_mantidos_salvo_so_cruzamentos
+
+MUTACAO: 31/31 mortos · vivos 0 · nao aplicados 0
+RC=0

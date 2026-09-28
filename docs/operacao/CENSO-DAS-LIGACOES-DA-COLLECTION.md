@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3c22ec40a3e23aabc84cc328c9b01b5e1d4060e1
+HEAD_DA_MEDICAO  7f8e8c1e60be81d635764e88ad473a07a57a32ad
 BRANCH           claude/potes-one-card-per-question-frzml5
-GERADO_EM        2026-09-28T01:16:35+00:00
+GERADO_EM        2026-09-28T01:19:16+00:00
 CARDS            125
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
