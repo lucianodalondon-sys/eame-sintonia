@@ -11,7 +11,8 @@ Prova que:
   P0  o pote: forma+lei v2, D122 (evento so com data), D123 (caso -> produto -> bula), nenhum objeto sem
       prova, nada de dado cru, nada da demo, e a promocao de um pote EXPERIMENTAL so com o dono;
   P1  as telas: a contagem do navegador tem de ser a do pote, os 43/44 antigos escondidos, a barra conta o
-      pote, o SHA servido e o do pote; casa (fora das rotas) e medida e dita, sem bloquear;
+      pote, o SHA servido e o do pote; casa (legado fora do casco, correcao do dono 28/09) tem de acabar na
+      porta /accesso, sem os 43/44 — senao BLOQUEIA; o redirect vem do vercel.json, e o servidor local o cumpre;
   P2  o portao do release e LIDO do workflow (nao copiado) e so o vermelho herdado e declarado passa;
   P3  o caminho inteiro, com o anfitriao local do ensaio: publica, nao publica o que reprova, nao
       republica o que ja esta no ar, VOLTA sozinho quando a pagina no ar nao tem a contagem, e grita
@@ -105,7 +106,7 @@ def contagens_boas(pote, sha, contrato=CONTRATO):
                 "LEGADO_44_VISIVEIS": 0, "OGGI_LEGADO": False, "NAV": dict(nav),
                 "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True}}
     T["accesso"] = {"HTTP": 200, "LEGADO_CARTOES": 0, "LEGADO_43_VISIVEIS": 0, "LEGADO_44_VISIVEIS": 0, "LEGADO_43_UNIVERSO": 43}
-    T["casa"] = {"HTTP": 200, "LEGADO_43_VISIVEIS": 43, "LEGADO_44_VISIVEIS": 44}
+    T["casa"] = {"HTTP": 200, "URL_FINAL": "http://127.0.0.1:1/accesso", "LEGADO_43_VISIVEIS": 0, "LEGADO_44_VISIVEIS": 0}
     return {"MEDICAO_COMPLETA": True, "TELAS": T}
 
 
@@ -282,11 +283,60 @@ class P1_AsTelas(unittest.TestCase):
         self.assertEqual(esp["field"], 0)
         self.assertEqual(set(CONTRATO["TELAS"]["DO_POTE"]) - set(esp), set())
 
-    def test_portal_que_obedece_passa_e_a_casa_fica_dita(self):
+    def test_portal_que_obedece_passa_e_a_casa_redireciona(self):
         L = self.conf()
         self.assertEqual(ids(L), [])
-        casa = [l for l in L if l["ID"].endswith("FORA_DAS_ROTAS_CASA")][0]
-        self.assertIn("AVISO", casa.get("NOTA") or "")
+        self.assertIn("C5_REDIRECIONADA_CASA", ids(L, falhas=False))
+        self.assertEqual(CONTRATO["TELAS"]["FORA_DAS_ROTAS"], {}, "a casa saiu de «so dita» para redirecionada")
+
+    def test_casa_que_ainda_abre_bloqueia(self):
+        """Correcao do dono 28/09: pagina demo acessivel por URL publica nao pode ficar. So avisar ja nao chega."""
+        self.C["TELAS"]["casa"] = {"HTTP": 200, "URL_FINAL": "http://127.0.0.1:1/casa",
+                                   "LEGADO_43_VISIVEIS": 43, "LEGADO_44_VISIVEIS": 44}
+        self.assertIn("C5_REDIRECIONADA_CASA", ids(self.conf()))
+
+    def test_casa_redirecionada_para_outro_sitio_bloqueia(self):
+        self.C["TELAS"]["casa"]["URL_FINAL"] = "http://127.0.0.1:1/portale"
+        self.assertIn("C5_REDIRECIONADA_CASA", ids(self.conf()))
+
+    def test_casa_nao_medida_bloqueia(self):
+        del self.C["TELAS"]["casa"]
+        self.assertIn("C5_REDIRECIONADA_CASA", ids(self.conf()))
+
+    def test_o_vercel_json_redireciona_a_casa_para_a_porta(self):
+        """A regra que a Vercel aplica e a que o contrato espera — um so destino, lido dos dois lados."""
+        r = {x["source"]: x["destination"] for x in P.redirecionamentos(RAIZ / "vercel.json")}
+        para = CONTRATO["TELAS"]["REDIRECIONADAS"]["casa"]["PARA"]
+        self.assertEqual(r.get("/casa"), para)
+        self.assertEqual(r.get("/casa.html"), para)
+        self.assertTrue((RAIZ / "italia-portale" / "client" / "casa.html").exists(),
+                        "o ficheiro fica no Git: redirecionar nao e apagar")
+
+    def test_o_servidor_local_cumpre_o_redirect_antes_do_ficheiro(self):
+        import urllib.request as U
+        d = Path(tempfile.mkdtemp(prefix="teste-redirect-"))
+        try:
+            (d / "casa.html").write_text("CASA-LEGADA", encoding="utf-8")
+            (d / "accesso.html").write_text("PORTA", encoding="utf-8")
+            (d / "vercel.json").write_text(json.dumps({"redirects": [
+                {"source": "/casa", "destination": "/accesso", "permanent": False},
+                {"source": "/casa.html", "destination": "/accesso", "permanent": False}]}), encoding="utf-8")
+            srv = P.Servidor(lambda: d, lambda: P.redirecionamentos(d / "vercel.json"))
+            try:
+                for caminho in ("/casa", "/casa.html"):
+                    with U.urlopen(srv.url + caminho, timeout=10) as r:
+                        self.assertEqual(r.read().decode(), "PORTA", caminho)
+                        self.assertTrue(r.geturl().endswith("/accesso"), r.geturl())
+                sem = P.Servidor(lambda: d)   # sem regras: o ficheiro e servido (o antes)
+                try:
+                    with U.urlopen(sem.url + "/casa", timeout=10) as r:
+                        self.assertEqual(r.read().decode(), "CASA-LEGADA")
+                finally:
+                    sem.fechar()
+            finally:
+                srv.fechar()
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
 
     def test_pagina_sem_a_contagem(self):
         self.C["TELAS"]["market"]["POTE_OBJETOS"] = 5

@@ -105,8 +105,15 @@
   "TELAS": {
     "DO_POTE": ["inicio", "meeting", "radarfuturo", "future", "archive", "windows", "market", "voices", "competitors", "science", "portfolio", "etichette", "sources", "field"],
     "PORTA": ["accesso"],
-    "FORA_DAS_ROTAS": {
-      "casa": "casa.html nao e alcancavel por nenhuma rota do portal (portale.html o diz), mas responde por URL direto e mostra os 43 e os 44 antigos. Mexer nela e decisao do dono (o portao VIEW_READS_ONLY_ITALY_CASA proibe que ela leia o pote). MEDIDA e FOTOGRAFADA em cada publicacao, com AVISO no registo; nao bloqueia."
+    "FORA_DAS_ROTAS": {},
+    "REDIRECIONADAS": {
+      "casa": {
+        "PARA": "/accesso",
+        "DECISAO": "correcao do dono 28/09 ~20:37 (missao L3), item 4: «casa.html: primeiro PROVE se e legado fora do Casco canonico. Se for: preservar no historico do Git; retirar do artefato servido OU redirecionar para a entrada canonica; nao deixar pagina demo acessivel por URL publica. Nada de exclusao destrutiva.»",
+        "PROVA_DE_LEGADO": "italia-portale/client/portale.html:5916 («casa.html non e piu raggiungibile da nessuna rotta») e italia-portale/client/accesso.html:293-304 (a porta deixou de mandar para casa.html)",
+        "COMO": "vercel.json -> redirects /casa e /casa.html -> /accesso (a entrada canonica: index.html:27 manda para accesso.html). O ficheiro continua no Git e na pasta; o redirect vem antes do ficheiro, na Vercel e no servidor local do publicador.",
+        "CONFERENCIA": "C5 e C6: a tela casa tem de acabar em /accesso, HTTP 200, e sem nenhum dos 43/44 antigos. BLOQUEIA."
+      }
     },
     "ROTA_PARA_COMPARTIMENTO_SEM_VISTA": {"field": "field"},
     "ROTAS_SINONIMAS": {"radar": "meeting", "msignals": "meeting", "mradar": "meeting"}

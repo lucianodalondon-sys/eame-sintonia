@@ -130,7 +130,8 @@ for (const tela of TELAS) {
     const { IDS, ...m } = medido;
     if (IDS && IDS.ids43.length && !conhecidos) conhecidos = IDS;
     await page.screenshot({ path: path.join(SAIDA, `${tela}.png`), fullPage: false });
-    res.TELAS[tela] = { URL: url, HTTP: status, CLICOU_NA_BARRA: clicou, ...m, ERROS_JS: erros.slice(antes) };
+    /* URL_FINAL: onde a pagina terminou depois dos redirects (a casa legada tem de acabar na porta). */
+    res.TELAS[tela] = { URL: url, URL_FINAL: page.url(), HTTP: status, CLICOU_NA_BARRA: clicou, ...m, ERROS_JS: erros.slice(antes) };
     if (status !== 200) falhou = true;
   } catch (e) {
     res.TELAS[tela] = { URL: url, HTTP: null, NAO_CONSEGUI_MEDIR: String(e.message || e).slice(0, 300) };
