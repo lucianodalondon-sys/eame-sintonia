@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  9bf949d2f31d0c1f71679d8582ce6ac96911959f
+HEAD_DA_MEDICAO  b0f893cf170a5fb71378e56b94a4b1f0a8db36f4
 BRANCH           claude/reroute-t1t2-rule-t5-v45dba
-GERADO_EM        2026-09-28T15:24:57+00:00
+GERADO_EM        2026-09-28T15:47:20+00:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
