@@ -16,7 +16,9 @@ REPLAY T5 (158 de antes)        saem 48 (texto inteiro) / 57 (corpo estrito) · 
 CORPO()=0 NO CREA               causa: o texto chega numa linha só (coleta/texto_fonte.py:69) — proposta, não consertado
 TESTES                          test_reroute_t1t2_d130 14/14 · test_reroute_d56 22/22 (5 contra Postgres 16 descartável)
 MUTAÇÃO                         D130+T5: 16/16 mortos · D56 sobre o código fundido: 20/20 (1.ª volta 19/20 → teste apertado)
-BATERIA POR NOME                (ver §5)
+BATERIA POR NOME                base e24139702: 332 módulos · 7.485 testes · 132 falhas → depois fa8e7c5: 334 · 7.521 · 132
+                                NOVAS 0 · SUMIDAS 0 (comparado pelo NOME)
+SYSTEM MAP                      REGERAR + VALIDAR → SYSTEM_MAP_CHECK=PASS · --conferir-carimbo = IGUAL
 ```
 
 ---
@@ -61,7 +63,7 @@ sobreviver (a gaveta «já estava» escondia a origem errada), e foi a mutação
 
 ## 2 · A régua T5 (proposta C1 do LAB) — escrita, testada, DESLIGADA
 
-`admissao/admissao.py:1535-1609` · chave `REGUA_T5_EXIGE_AGRO = False` (`:1566`) · ligada em `decidir()`
+`admissao/admissao.py:1537-1612` · chave `REGUA_T5_EXIGE_AGRO = False` (`:1566`) · ligada em `decidir()`
 só para o universo T5 (`:1651`).
 
 Com a chave ligada, **só o PEDIDO T5** muda:
@@ -228,14 +230,21 @@ só anotar). **A régua T5 não precisa de desfazer: vai desligada.**
 ## 5 · Provas
 
 - **Bateria por nome** (`provas/int_r7/bateria_por_nome.py`, rede fechada, 3 trabalhadores, Postgres 16
-  descartável nas duas voltas, worktrees limpas, MESMA máquina): BATERIA_PLACEHOLDER
+  descartável nas duas voltas, worktrees limpas, MESMA máquina): base `e24139702` **332** módulos · 7.485
+  testes · **132** falhas; depois `fa8e7c5` **334** (+`test_reroute_d56`, +`test_reroute_t1t2_d130`) · 7.521 ·
+  **132** — **NOVAS 0 · SUMIDAS 0**. `provas/reroute_t1t2/BATERIA-BASE-e241397.json`,
+  `BATERIA-DEPOIS-fa8e7c5.json`, `COMPARAR-BATERIA.txt`. Nas duas voltas, neste contentor: `test_cliente_postgres`
+  = TIMEOUT (a prova de processo fica à espera do Postgres), `test_migracao_033_sala.test_3_…` falha — as mesmas
+  falhas pelo nome dos dois lados, logo do ambiente, não desta mudança. O commit a seguir a `fa8e7c5` só
+  acrescenta este relatório, os JSON da bateria e o mapa regerado (nenhum código).
 - **Mutação:** `provas/reroute_t1t2/mutar_reroute_t1t2.py` → `MUTACAO-REROUTE-T1T2.json` **16/16**;
   `provas/reroute_d56/mutar_reroute_d56.py` sobre o código fundido → `MUTACAO-REROUTE-D56-SOBRE-D130.json`
   **20/20** (1.ª volta 19/20: M15 sobreviveu ao meu ajuste do `test_4` — corrigido). O mutador da D56 ganhou
   duas mudanças DECLARADAS: o trecho de M01 (`_reroute_entra`) e `TESTE` com vários módulos.
 - **Postgres descartável:** neste contentor `initdb`/`pg_ctl` recusam root; como na REROUTE-D56, um *shim* de
   ambiente em `~/orca/pgtmp/pgsql/bin` (fora do repositório) corre-os como o utilizador `postgres`.
-- **System Map:** `correr_a_cadeia.py REGERAR` + `VALIDAR` → MAPA_PLACEHOLDER. Peças: `C-ADMISSAO` (descrição
+- **System Map:** `correr_a_cadeia.py REGERAR` + `VALIDAR` → `SYSTEM_MAP_CHECK=PASS`;
+  `impressao_da_arvore.py --conferir-carimbo` → `IGUAL` (depois do commit). Peças: `C-ADMISSAO` (descrição
   + D130 e C1), `C-PROVA-COLETA` (+ `provas/reroute_t1t2/*`). Não recarimbei (`--stamp`).
 
 ## 6 · FATO · INFERÊNCIA · NÃO SEI
