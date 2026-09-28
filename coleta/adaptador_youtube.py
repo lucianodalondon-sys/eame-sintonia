@@ -169,6 +169,14 @@ def youtube_buscar(*, termo, run_id, country_scope, limit=25, sessao=None,
 def youtube_uploads(*, channel_id, run_id, country_scope, limit=25, conhecidos=(),
                     sessao=None, medida=None, **_):
     import youtube_oficial as yt
+    if not yt.chave():
+        # SOCIAL-ATE-A-SALA · C: sem chave, a rota alternativa DENTRO da mesma fase — e
+        # ela so sai se a matriz a abrir (hoje fechada: ROUTE_NOT_ALLOWED, zero pedidos).
+        aberta, _ = feed_aberto_pela_matriz()
+        if aberta:
+            return youtube_canal_sem_chave(channel_id=channel_id, run_id=run_id,
+                                           country_scope=country_scope, medida=medida,
+                                           limit=min(int(limit or LIMITE_FEED), LIMITE_FEED))
     antes, s = _antes(sessao), sessao
     try:
         objs, s, _rel = yt.uploads_recentes(
@@ -916,6 +924,178 @@ def youtube_canal_publico(*, run_id, country_scope, canal_id=None, canal_url=Non
     return objetos
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# SOCIAL-ATE-A-SALA · C — A LISTA COM DATA, SEM CHAVE: o feed do canal, SE A LEI DEIXAR
+# ══════════════════════════════════════════════════════════════════════════
+# O coordenador pediu (27/09) a rota alternativa da fase `canal-youtube` quando nao ha
+# chave: o feed publico do canal, UM pedido por canal, ate 15 videos COM DATA. Ela fica
+# aqui, dentro da fase que ja existe (`canal-youtube` -> `youtube.channel.discovery` ->
+# `youtube_uploads`) — nao e um segundo coletor.
+#
+# ⚠️ E ELA NASCE FECHADA, PORQUE A CASA JA MEDIU: `Disallow: /feeds/videos.xml` no
+# robots.txt de www.youtube.com (2026-09-08, 2026-09-20 e 2026-09-24), e a matriz
+# (`leis/social_matriz.py`, YOUTUBE/INCREMENTAL) escreve a linha `feeds/videos.xml`
+# com PERMITIDA=NAO / ROUTE_NOT_ALLOWED. Esta funcao LE essa linha antes de sair para
+# a rede: fechada, recusa com ZERO pedidos. Abrir e decisao do DONO, escrita NA MATRIZ
+# (uma linha, com OWNER_AUTHORIZED e PLATFORM_POLICY_STATUS lado a lado, como a D23 fez
+# no LinkedIn) — nunca uma excepcao aqui dentro.
+#
+#     A LEI MORA NA MATRIZ. O CODIGO SO A LE — E OBEDECE NOS DOIS SENTIDOS.
+#
+# Aberta, a rota continua a passar pelo transporte canonico (`scrap_http.buscar_bytes`):
+# robots VIVO, hosts proibidos da chamada, teto por dominio do `teto_da_onda` (o livro
+# da onda, <= 5/24 h) e a pausa de cortesia. Robots a barrar sem a decisao do dono
+# escrita na linha = `ROUTE_NOT_ALLOWED`, e nada se contorna.
+ROTA_FEED_DO_CANAL = 'feeds/videos.xml'            # o nome da linha na matriz
+FEED_DO_CANAL = 'https://www.youtube.com/feeds/videos.xml?channel_id=%s'
+LIMITE_FEED = 15                                   # o que o feed serve, medido (matriz)
+HOSTS_DO_FEED = ('www.youtube.com',)
+_ID_DO_CANAL = re.compile(r'^UC[A-Za-z0-9_-]{22}$')
+_NS_FEED = {'a': 'http://www.w3.org/2005/Atom', 'yt': 'http://www.youtube.com/xml/schemas/2015'}
+
+
+def linha_do_feed():
+    """→ a linha `feeds/videos.xml` da matriz (YOUTUBE/INCREMENTAL), ou None. LE, nao decide."""
+    import social_matriz as mz                                       # noqa: PLC0415
+    for rota in (mz.MATRIZ.get(PLATAFORMA) or {}).get('INCREMENTAL') or []:
+        if rota.get('ROTA') == ROTA_FEED_DO_CANAL:
+            return rota
+    return None
+
+
+def feed_aberto_pela_matriz():
+    """→ (aberta?, porque). Aberta SO com PERMITIDA=SIM e um estado que nao a recusa."""
+    linha = linha_do_feed()
+    if linha is None:
+        return False, 'a matriz nao declara %s: ninguem mediu esta porta' % ROTA_FEED_DO_CANAL
+    if linha.get('PERMITIDA') != 'SIM' or linha.get('ESTADO') in ('ROUTE_NOT_ALLOWED', 'BLOCKED'):
+        return False, ('matriz YOUTUBE/INCREMENTAL/%s: PERMITIDA=%s ESTADO=%s — %s'
+                       % (ROTA_FEED_DO_CANAL, linha.get('PERMITIDA'), linha.get('ESTADO'),
+                          str(linha.get('NOTA') or '')[:160]))
+    return True, 'matriz YOUTUBE/INCREMENTAL/%s: PERMITIDA=SIM' % ROTA_FEED_DO_CANAL
+
+
+def videos_do_feed(corpo, canal_id):
+    """O feed Atom -> [{VIDEO_ID, CHANNEL_ID, TITLE, PUBLISHED_AT, URL, AUTOR, AUTOR_URL}]. Puro.
+
+    Le SO o que o feed declara. Um `<entry>` sem `yt:videoId` com forma de id, ou de OUTRO
+    canal, nao entra (e conta-se em `fora`). DTD/ENTIDADE recusa-se antes de ler: um feed
+    nao precisa de nenhuma das duas, e as duas sao a porta da bomba de expansao.
+    """
+    import xml.etree.ElementTree as ET                               # noqa: PLC0415
+    dados = corpo if isinstance(corpo, bytes) else str(corpo).encode('utf-8')
+    if b'<!DOCTYPE' in dados[:4096].upper() or b'<!ENTITY' in dados.upper():
+        raise ValueError('feed com DTD/ENTITY: recusado sem ler')
+    raiz = ET.fromstring(dados)
+    videos, fora = [], []
+    for e in raiz.findall('a:entry', _NS_FEED):
+        vid = (e.findtext('yt:videoId', '', _NS_FEED) or '').strip()
+        canal = (e.findtext('yt:channelId', '', _NS_FEED) or '').strip()
+        if not _ID_DO_YOUTUBE.match(vid):
+            fora.append({'PORQUE': 'VIDEO_ID_SEM_FORMA', 'VALOR': vid[:40]})
+            continue
+        if canal != canal_id:
+            fora.append({'PORQUE': 'OUTRO_CANAL', 'VIDEO_ID': vid, 'CHANNEL_ID': canal})
+            continue
+        link = next((l.get('href') for l in e.findall('a:link', _NS_FEED)
+                     if l.get('rel') == 'alternate'), None)
+        videos.append({'VIDEO_ID': vid, 'CHANNEL_ID': canal,
+                       'TITLE': (e.findtext('a:title', '', _NS_FEED) or '').strip(),
+                       'PUBLISHED_AT': (e.findtext('a:published', '', _NS_FEED) or '').strip(),
+                       'URL': link or 'https://www.youtube.com/watch?v=' + vid,
+                       'AUTOR': (e.findtext('a:author/a:name', '', _NS_FEED) or '').strip(),
+                       'AUTOR_URL': (e.findtext('a:author/a:uri', '', _NS_FEED) or '').strip()})
+    return videos, fora
+
+
+def _precisao_do_feed(publicado):
+    """`2026-07-09T14:25:29+00:00` -> SECOND. Sem forma de instante, sem precisao (NAO SEI)."""
+    return 'SECOND' if re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}', publicado or '') else None
+
+
+def youtube_canal_sem_chave(*, channel_id, run_id, country_scope, limit=LIMITE_FEED,
+                            medida=None, buscar=None, **_):
+    """A LISTA de videos RECENTES de um canal, COM DATA, sem chave: UM pedido ao feed.
+
+    `buscar` so existe para o teste (sem rede); em producao e `scrap_http.buscar_bytes`.
+    → objetos no envelope canonico: NATIVE_ID, URL, TITLE, PUBLISHED_AT (+ precisao e
+    base), CHANNEL_ID/URL, OWNER_AUTHORIZED e PLATFORM_POLICY_STATUS da linha da matriz.
+    """
+    canal = str(channel_id or '').strip()
+    if not _ID_DO_CANAL.match(canal):
+        raise ValueError('channel_id sem forma de canal (UC + 22): %r' % canal[:40])
+    aberta, porque = feed_aberto_pela_matriz()
+    if medida is not None:
+        medida.update({'ROUTE': ROTA_FEED_DO_CANAL, 'MATRIZ': porque, 'REQUESTS': 0})
+    if not aberta:
+        # ZERO pedidos: nem o robots.txt se le — a lei ja respondeu.
+        raise _EstadoDaApi({'STATE': 'ROUTE_NOT_ALLOWED', 'NATIVE_REASON': porque,
+                            'RECOVERY_ACTION': 'HUMAN_DECISION'})
+    linha = linha_do_feed()
+    url = FEED_DO_CANAL % canal
+    buscar = buscar or (lambda u: http.buscar_bytes(u, aceitar='application/atom+xml,application/xml'))
+    try:
+        if linha.get('OWNER_AUTHORIZED') == 'SIM':
+            # A decisao do dono viaja NOMEADA, com a politica medida da plataforma ao lado.
+            with http.autorizacao_do_dono(ROTA_FEED_DO_CANAL, HOSTS_DO_FEED, plataforma=PLATAFORMA,
+                                          decisao='leis/social_matriz.py YOUTUBE/INCREMENTAL/%s: %s'
+                                                  % (ROTA_FEED_DO_CANAL, str(linha.get('NOTA'))[:160])):
+                corpo, meta = buscar(url)
+        else:
+            corpo, meta = buscar(url)
+    except http.RotaNaoPermitida as e:
+        raise _EstadoDaApi({'STATE': 'ROUTE_NOT_ALLOWED', 'NATIVE_REASON': str(e)[:300],
+                            'RECOVERY_ACTION': 'HUMAN_DECISION'}) from e
+    if medida is not None:
+        medida['REQUESTS'] = 1
+    videos, fora = videos_do_feed(corpo, canal)
+    ref = env.guardar_raw(PLATAFORMA, 'feed-%s' % canal,
+                          corpo.decode('utf-8', 'replace') if isinstance(corpo, bytes) else corpo)
+    agora = env.agora()
+    objetos = []
+    for v in videos[:int(limit or LIMITE_FEED)]:
+        o = env.envelope(platform=PLATAFORMA, native_id=v['VIDEO_ID'], url=v['URL'], content_type='VIDEO',
+                         route=ROTA_FEED_DO_CANAL, executor='adaptador_youtube.youtube_canal_sem_chave',
+                         run_id=run_id, country_scope=country_scope, source_account=canal,
+                         published_at=v['PUBLISHED_AT'] or None, title=v['TITLE'] or None,
+                         cost_usd=0.0, raw_reference=ref['PATH'],
+                         raw={'CHANNEL_ID': canal, 'CREATOR_NAME': v['AUTOR'] or None,
+                              'CREATOR_URL': v['AUTOR_URL'] or None, 'FEED_URL': url,
+                              'FEED_SHA256': ref['SHA256'], 'AUTHOR_LOCATION': env.DESCONHECIDO})
+        precisao = _precisao_do_feed(v['PUBLISHED_AT'])
+        o.update({'CHANNEL_ID': canal, 'CHANNEL_URL': 'https://www.youtube.com/channel/' + canal,
+                  'CHANNEL_ID_ESTADO': 'DECLARADO_PELA_PLATAFORMA',
+                  'PUBLISHED_AT_PRECISION': precisao or 'NAO SEI',
+                  'FACT_TIME': 'NAO SEI', 'COLLECTED_AT': agora,
+                  'OWNER_AUTHORIZED': linha.get('OWNER_AUTHORIZED') or 'NAO SEI',
+                  'PLATFORM_POLICY_STATUS': linha.get('PLATFORM_POLICY_STATUS') or linha.get('ESTADO'),
+                  'AUTORIZACAO_DE': 'leis/social_matriz.py', 'LIMITE': LIMITE_FEED})
+        if v['PUBLISHED_AT']:
+            o['PUBLISHED_AT_SOURCE'] = 'PLATAFORMA — YouTube, feed Atom do canal, <published>'
+        objetos.append(o)
+    if medida is not None:
+        medida.update({'VIDEOS_NO_FEED': len(videos), 'FORA_DO_FEED': fora,
+                       'HTTP': (meta or {}).get('STATUS'), 'ACTUAL_COST_USD': 0.0})
+    return objetos
+
+
+def pronto_para_canal(**_):
+    """`youtube.channel.discovery`: pronta com a chave OU com o feed aberto pela matriz.
+
+    Com a matriz fechada (hoje), a resposta e EXACTAMENTE a de antes: CREDENTIAL_MISSING.
+    """
+    ok, estado = pronto_para_api()
+    if ok:
+        return ok, estado
+    aberta, _ = feed_aberto_pela_matriz()
+    return (True, 'SEM_CHAVE: %s aberta pela matriz' % ROTA_FEED_DO_CANAL) if aberta else (False, estado)
+
+
+#: Esta sonda LE a chave (chama `pronto_para_api` primeiro): a fase continua a precisar
+#: dela no workflow. O teste da porta operacional deriva a lista das fases com chave disto.
+pronto_para_canal.LE_A_CHAVE = True
+
+
 def pronto_para_canal_publico(**_):
     """A rota publica nao tem credencial nenhuma para estar pronta.
 
@@ -936,8 +1116,10 @@ reg.registar(PLATAFORMA, 'youtube.search', adaptador=NOME,
              pronto=pronto_para_api, rota=youtube_buscar,
              nota='API oficial search.list; `ytsearch` do yt-dlp esta ROUTE_NOT_ALLOWED na matriz')
 reg.registar(PLATAFORMA, 'youtube.channel.discovery', adaptador=NOME,
-             pronto=pronto_para_api, rota=youtube_uploads,
-             nota='playlistItems.list; o feeds/videos.xml foi reprovado pelo portao')
+             pronto=pronto_para_canal, rota=youtube_uploads,
+             nota='playlistItems.list; sem chave, o feeds/videos.xml SO se a matriz o abrir '
+                  '(hoje ROUTE_NOT_ALLOWED: Disallow no robots.txt, medido) — '
+                  'youtube_canal_sem_chave, 1 pedido por canal, ate 15 videos com data')
 reg.registar(PLATAFORMA, 'youtube.video.metadata', adaptador=NOME,
              pronto=pronto_para_api, rota=youtube_metadata,
              nota='videos.list custa 1 unidade de quota; oembed esta PROVED na matriz')

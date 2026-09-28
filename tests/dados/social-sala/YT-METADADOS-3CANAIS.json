@@ -1,0 +1,61 @@
+{
+ "DATASET": "SOCIAL-ATE-A-SALA · os 3 casos reais de docs/sintonia-scrap/YT-METADADOS-PROVA-3CANAIS.md",
+ "LEI": "Cada valor diz de onde veio. Nada foi medido de novo (sem rede). O que o repositorio nao guarda fica NAO SEI e NAO se inventa: a regua tem de o dizer.",
+ "FONTES_DOS_VALORES": {
+  "RUN_ID, RAW_BYTES, VIDEO": "curadoria/SOC-ONDA2-CANARIO-YOUTUBE-V1.json (corrida real audio-youtube de 24/09, MEDIDA.RAW)",
+  "CHANNEL_ID": "curadoria/CANARIO-YOUTUBE-SOC-ONDA2-VIDEOS.json (lista do canal, run 36028407680)",
+  "TITLE, PUBLISHED_AT de IT-T5-165 e IT-T3-025": "curadoria/REAL-EXAMPLE-INDEX-V1.json (REAL_EXAMPLE_TITLE / REAL_EXAMPLE_PUBLISHED_AT, capturado 2026-09-20)",
+  "IT-T9-029 inteiro": "tests/test_d36_envelope_equivalente.py::item (medido ao vivo em 25/09 pelo bloco A do YT-METADADOS; os bytes batem com o RAW de 24/09: 2967630)",
+  "AUDIO_SHA256 de IT-T5-165 e IT-T3-025": "NAO SEI — o repositorio guarda o tamanho (MEDIDA.RAW) mas nao o sha256 do audio destas duas corridas",
+  "OWNER_AUTHORIZED / PLATFORM_POLICY_STATUS": "o carimbo que o bloco A escreve a partir de leis/social_matriz.py (rota yt-dlp:public_audio)"
+ },
+ "VEREDITO_ANTIGO": "FALHA x3 pelo nome da fase: 'o envelope e da fase audio-youtube, e o contrato pede canal-youtube' (YT-METADADOS §1)",
+ "CASOS": [
+  {
+   "SOURCE_ID": "IT-T9-029", "NAME": "Cifo Giardinaggio", "CHANNEL_ID": "UC4A5UdkaIvcbaA7z1mz-YdA",
+   "RUN_ID": "IT-T9-2026-09-24-201345-1082786976b04d48", "FASE_DA_CORRIDA": "audio-youtube", "RAW_NO_BANCO": 1,
+   "OBSERVACAO": {
+    "NATIVE_ID": "ehjdygGJJqQ", "SOURCE_URL": "https://www.youtube.com/watch?v=ehjdygGJJqQ",
+    "TITLE": "Come si pota il limone", "PUBLISHED_AT": "2026-02-11T15:02:31Z", "PUBLISHED_AT_PRECISION": "SECOND",
+    "COLLECTED_AT": "2026-09-25T04:59:32+00:00", "FACT_TIME": "NAO SEI",
+    "CHANNEL_ID": "UC4A5UdkaIvcbaA7z1mz-YdA", "CHANNEL_ID_ESTADO": "DECLARADO_PELA_PLATAFORMA",
+    "CHANNEL_NAME": "Cifo Giardinaggio", "CHANNEL_URL": "https://www.youtube.com/channel/UC4A5UdkaIvcbaA7z1mz-YdA",
+    "OWNER_AUTHORIZED": "SIM", "PLATFORM_POLICY_STATUS": "DISALLOWED", "AUTORIZACAO_DE": "leis/social_matriz.py",
+    "AUDIO_BYTES": 2967630, "AUDIO_DURATION_S": 92.74,
+    "AUDIO_SHA256": "288c88d244087cbe2c08c3c352580f7c1797683d9693f70835a1b52a5be7541",
+    "AUDIO_REFERENCE": "data/samples/YOUTUBE-TRANSCRICOES/audio-cache/ehjdygGJJqQ.wav",
+    "RAW": {"CHANNEL_ID": "UC4A5UdkaIvcbaA7z1mz-YdA", "CREATOR_NAME": "Cifo Giardinaggio",
+            "CREATOR_URL": "https://www.youtube.com/channel/UC4A5UdkaIvcbaA7z1mz-YdA"}
+   },
+   "ESPERADO": "READY"
+  },
+  {
+   "SOURCE_ID": "IT-T5-165", "NAME": "Olio Officina — Youtube ufficiale", "CHANNEL_ID": "UCXUG407gp3CnWnfS3ycijhA",
+   "RUN_ID": "IT-T5-2026-09-24-201441-f19a5e8360077cf1", "FASE_DA_CORRIDA": "audio-youtube", "RAW_NO_BANCO": 1,
+   "OBSERVACAO": {
+    "NATIVE_ID": "CsWIA9ud0cE", "SOURCE_URL": "https://www.youtube.com/watch?v=CsWIA9ud0cE",
+    "TITLE": "I migliori oli in commercio secondo la giuria del MIOAA 2026. Seconda parte",
+    "PUBLISHED_AT": "2026-07-09T14:25:29+00:00", "PUBLISHED_AT_PRECISION": "SECOND", "FACT_TIME": "NAO SEI",
+    "CHANNEL_ID": "UCXUG407gp3CnWnfS3ycijhA", "CHANNEL_URL": "https://www.youtube.com/channel/UCXUG407gp3CnWnfS3ycijhA",
+    "OWNER_AUTHORIZED": "SIM", "PLATFORM_POLICY_STATUS": "DISALLOWED", "AUTORIZACAO_DE": "leis/social_matriz.py",
+    "AUDIO_BYTES": 173728504, "AUDIO_SHA256": "NAO SEI",
+    "AUDIO_REFERENCE": "data/samples/YOUTUBE-TRANSCRICOES/audio-cache/CsWIA9ud0cE.wav"
+   },
+   "ESPERADO": "FALHA · so a midia: o sha256 do audio nao esta no repositorio"
+  },
+  {
+   "SOURCE_ID": "IT-T3-025", "NAME": "Societa Entomologica Italiana — Youtube ufficiale", "CHANNEL_ID": "UCnY1rs74L8pttWxtBiZwULQ",
+   "RUN_ID": "IT-T3-2026-09-24-201733-1fe3816dc19ed644", "FASE_DA_CORRIDA": "audio-youtube", "RAW_NO_BANCO": 1,
+   "OBSERVACAO": {
+    "NATIVE_ID": "mpJzJyiUTQQ", "SOURCE_URL": "https://www.youtube.com/watch?v=mpJzJyiUTQQ",
+    "TITLE": "Incontri Entomologici della SEI - Romiti",
+    "PUBLISHED_AT": "2026-06-27T04:45:50+00:00", "PUBLISHED_AT_PRECISION": "SECOND", "FACT_TIME": "NAO SEI",
+    "CHANNEL_ID": "UCnY1rs74L8pttWxtBiZwULQ", "CHANNEL_URL": "https://www.youtube.com/channel/UCnY1rs74L8pttWxtBiZwULQ",
+    "OWNER_AUTHORIZED": "SIM", "PLATFORM_POLICY_STATUS": "DISALLOWED", "AUTORIZACAO_DE": "leis/social_matriz.py",
+    "AUDIO_BYTES": 124301512, "AUDIO_SHA256": "NAO SEI",
+    "AUDIO_REFERENCE": "data/samples/YOUTUBE-TRANSCRICOES/audio-cache/mpJzJyiUTQQ.wav"
+   },
+   "ESPERADO": "FALHA · so a midia: o sha256 do audio nao esta no repositorio"
+  }
+ ]
+}

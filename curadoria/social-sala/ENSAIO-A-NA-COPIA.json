@@ -1,0 +1,600 @@
+{
+ "DATASET": "SOCIAL-ATE-A-SALA · ensaio A numa COPIA dos livros do repositorio (codigo 0b69eccc)",
+ "COMO": "python3 curadoria/desbloquear_social.py --ensaio --copia --tambem-candidatas (rede fechada: proxy numa porta morta)",
+ "LIVROS_DA_COPIA": "os do repositorio @ 18461b9 (NAO os do vivo): 44 LinkedIn + 25 Instagram em POLICY_BLOCK, 24 LinkedIn + 1 Instagram em CANDIDATA",
+ "OS_NUMEROS": "os SOURCE_ID abaixo saem do registo de alocacao DESTA copia; no vivo saem do registo do vivo (quem ganha e o mesmo, o numero pode nao ser)",
+ "DESBLOQUEADAS": {
+  "INSTAGRAM:DESBLOQUEADA": 25,
+  "INSTAGRAM:NAO_ESTA_EM_POLICY_BLOCK (CANDIDATA): nada a desfazer": 1,
+  "LINKEDIN:DESBLOQUEADA": 44,
+  "LINKEDIN:NAO_ESTA_EM_POLICY_BLOCK (CANDIDATA): nada a desfazer": 24
+ },
+ "TAREFAS": {
+  "QUALIFY:BLOCK": 57,
+  "QUALIFY:OK": 37,
+  "BUILD_CONTRACT:OK": 37,
+  "VALIDATE_ROUTE:OK": 37
+ },
+ "GANHAM_SOURCE_ID": {
+  "LINKEDIN": 37
+ },
+ "REUSAM_SOURCE_ID_QUE_JA_EXISTIA": 0,
+ "PARAM_NO_QUALIFY": {
+  "INSTAGRAM · INSTAGRAM: sem rota que liste a conta (D22 so abre o Reel)": 26,
+  "LINKEDIN · SHOWCASE: nao e alvo do adaptador": 4,
+  "LINKEDIN · PESSOA: a rota do Scrap le so /company/ (D24 sem fase)": 24,
+  "LINKEDIN · territorio NAO SEI (sem decisao semantica)": 3
+ },
+ "SEM_QUALIFY_CORRIDO": [],
+ "ESTADO_DAS_NOVAS": {
+  "CANARY_PENDING": 37
+ },
+ "NOVAS": [
+  {
+   "CANDIDATA_ID": "CAND-0130",
+   "SOURCE_ID": "IT-T12-151",
+   "URL": "https://www.linkedin.com/company/provincia-autonoma-di-trento",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «provincia» -> T12"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0101",
+   "SOURCE_ID": "IT-T2-128",
+   "URL": "https://www.linkedin.com/company/arpa-lazio",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0102",
+   "SOURCE_ID": "IT-T2-129",
+   "URL": "https://www.linkedin.com/company/arpa-lombardia",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0106",
+   "SOURCE_ID": "IT-T2-130",
+   "URL": "https://www.linkedin.com/company/arpa-marche",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0108",
+   "SOURCE_ID": "IT-T2-131",
+   "URL": "https://www.linkedin.com/company/arpa-molise",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0126",
+   "SOURCE_ID": "IT-T2-132",
+   "URL": "https://www.linkedin.com/company/arpa-piemonte",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0133",
+   "SOURCE_ID": "IT-T2-133",
+   "URL": "https://www.linkedin.com/company/arpa-valle-d-aosta",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0128",
+   "SOURCE_ID": "IT-T2-134",
+   "URL": "https://www.linkedin.com/company/arpatoscana",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0107",
+   "SOURCE_ID": "IT-T12-152",
+   "URL": "https://www.linkedin.com/company/amap-marche",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ASSAM» -> T12"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0111",
+   "SOURCE_ID": "IT-T7-163",
+   "URL": "https://www.linkedin.com/company/assosementi",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Assosementi» -> T7"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0112",
+   "SOURCE_ID": "IT-T7-164",
+   "URL": "https://www.linkedin.com/company/cia-agricoltori-italiani",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «CIA» -> T7"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0113",
+   "SOURCE_ID": "IT-T5-146",
+   "URL": "https://www.linkedin.com/company/283032",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «CNR» -> T5"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0093",
+   "SOURCE_ID": "IT-T5-147",
+   "URL": "https://www.linkedin.com/company/rinovaricerca",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Ricerc» -> T5"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0094",
+   "SOURCE_ID": "IT-T10-043",
+   "URL": "https://www.linkedin.com/company/gruppocaviro",
+   "TERRITORY_REASON": "D21: o canal herda T10 do site caviro.com (ONDE_VIU: declarado no site oficial do dono; fontes do site: IT-T10-038)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0114",
+   "SOURCE_ID": "IT-T9-023",
+   "URL": "https://www.linkedin.com/company/certisbelchim-italia",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Italia» -> T9"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0095",
+   "SOURCE_ID": "IT-T9-024",
+   "URL": "https://www.linkedin.com/company/cifo-s.r.l.",
+   "TERRITORY_REASON": "D21: o canal herda T9 do site cifo.it (ONDE_VIU: declarado no site oficial do dono; fontes do site: IT-T9-009)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0115",
+   "SOURCE_ID": "IT-T7-165",
+   "URL": "https://www.linkedin.com/company/confederazione-nazionale-coldiretti",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Coldiretti» -> T7"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0134",
+   "SOURCE_ID": "IT-T7-166",
+   "URL": "https://www.linkedin.com/company/consorzio-per-la-tutela-dei-vini-della-valpolicella",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0135",
+   "SOURCE_ID": "IT-T7-167",
+   "URL": "https://www.linkedin.com/company/15179878/admin/dashboard",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0103",
+   "SOURCE_ID": "IT-T7-168",
+   "URL": "https://www.linkedin.com/company/consorzio-tutela-grana-padano",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0116",
+   "SOURCE_ID": "IT-T7-169",
+   "URL": "https://www.linkedin.com/company/federunacoma",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «FederUnacoma» -> T7"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0104",
+   "SOURCE_ID": "IT-T5-148",
+   "URL": "https://www.linkedin.com/company/fondazione-minoprio",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Fondazion» -> T5"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0117",
+   "SOURCE_ID": "IT-T9-025",
+   "URL": "https://www.linkedin.com/company/1602695",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Italia» -> T9"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0118",
+   "SOURCE_ID": "IT-T5-149",
+   "URL": "https://www.linkedin.com/company/ispra_2",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Istituto» -> T5"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0119",
+   "SOURCE_ID": "IT-T7-170",
+   "URL": "https://www.linkedin.com/company/italmopa",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Associazion» -> T7"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0120",
+   "SOURCE_ID": "IT-T9-026",
+   "URL": "https://www.linkedin.com/company/24658052",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Italia» -> T9"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0132",
+   "SOURCE_ID": "IT-T5-150",
+   "URL": "https://www.linkedin.com/company/833389",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Universit» -> T5"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0097",
+   "SOURCE_ID": "IT-T11-012",
+   "URL": "https://www.linkedin.com/company/macfrut-fiera",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Macfrut» -> T11"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0121",
+   "SOURCE_ID": "IT-T10-044",
+   "URL": "https://www.linkedin.com/company/698415/admin/feed/posts",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Myfruit» -> T10"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0122",
+   "SOURCE_ID": "IT-T5-151",
+   "URL": "https://www.linkedin.com/company/olioofficina",
+   "TERRITORY_REASON": "D21: o canal herda T5 do site olioofficina.it (ONDE_VIU: declarado no site oficial do dono; fontes do site: IT-T5-046)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0127",
+   "SOURCE_ID": "IT-T12-153",
+   "URL": "https://www.linkedin.com/company/regione-piemonte",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Regione» -> T12"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0098",
+   "SOURCE_ID": "IT-T11-013",
+   "URL": "https://www.linkedin.com/company/sanafiera",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «SANA» -> T11"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0124",
+   "SOURCE_ID": "IT-T1-026",
+   "URL": "https://www.linkedin.com/company/societ",
+   "TERRITORY_REASON": "D21: o canal herda T1 do site siagr.it (ONDE_VIU: declarado no site oficial do dono; fontes do site: IT-T1-019)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0125",
+   "SOURCE_ID": "IT-T11-014",
+   "URL": "https://www.linkedin.com/company/simeiexhibition",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Salone» -> T11"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0100",
+   "SOURCE_ID": "IT-T5-152",
+   "URL": "https://www.linkedin.com/company/department-of-agricultural-and-food-sciences",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Dipartiment» -> T5"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0105",
+   "SOURCE_ID": "IT-T5-153",
+   "URL": "https://www.linkedin.com/company/dipartimento-di-scienze-agrarie-ambientali",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Dipartiment» -> T5"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0129",
+   "SOURCE_ID": "IT-T10-045",
+   "URL": "https://www.linkedin.com/company/winenewsit",
+   "TERRITORY_REASON": "D21: o canal herda T10 do site winenews.it (ONDE_VIU: declarado no site oficial do dono; fontes do site: IT-T10-020)"
+  }
+ ],
+ "PARADAS": [
+  {
+   "CANDIDATA_ID": "CAND-0067",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0068",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0069",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0070",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0071",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0072",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0073",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0074",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0075",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0076",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0077",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0078",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0079",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0080",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0081",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0082",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0083",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0084",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0085",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0086",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0087",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0088",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0089",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0090",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0091",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0092",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "territorio indeterminado pelo nome (Valagro — Linkedin ufficiale) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/humano) ou caracter"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0096",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "territorio indeterminado pelo nome (Fieravicola — Linkedin ufficiale) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/humano) ou cara"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0099",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN SHOWCASE_NAO_E_ALVO_DO_SCRAP: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/showcase/edagricole)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0109",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN SHOWCASE_NAO_E_ALVO_DO_SCRAP: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/showcase/agrofarma)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0110",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN SHOWCASE_NAO_E_ALVO_DO_SCRAP: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/showcase/assofertilizzanti)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0123",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN SHOWCASE_NAO_E_ALVO_DO_SCRAP: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/showcase/retenazionalepac)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-0131",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "territorio indeterminado pelo nome (Interpoma — Linkedin ufficiale) — SOURCE_ID fica UNKNOWN, sem fabricar; precisa de decisao semantica (Opus/humano) ou caract"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1174",
+   "TIPO": "INSTAGRAM",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "INSTAGRAM: a D22 abre so o Reel por URL directa; listar os Reels da conta e INSTAGRAM/instagram.profile.discovery: ROUTE_NOT_ALLOWED — sem rota que colha a cont"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1175",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/alex-beneventi-0680b635)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1176",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/barbara-menin-6b42a449)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1177",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/claudio-zaccone-univr)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1178",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/cristianperna98)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1179",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/daniela-marone-8b9b4b44)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1180",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/daniele-massa-b6712233)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1181",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/david-knollseisen-a15595143)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1182",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/elena-benedetti-3350458a)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1183",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/emanuel-di-marco-09b513197)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1184",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/federica-mereghetti-8236b6180)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1185",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/fernandagiorda)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1186",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/francesca-cossu-683ba04a)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1187",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/francesca-sparvoli-4a6aaa34)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1188",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/francesco-saverio-mazzi-1a76b4159)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1189",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/giovanna-frugis-99260429)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1190",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/giulio-senes-81515321)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1191",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/lorenavaldicelli)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1192",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/manuela-plutino-13964b109)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1193",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/massimo-gatta-5ba525109)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1194",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/pietro-iavazzo-272a9155)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1195",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/stefania-nin-9684a530)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1196",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/stefano-gattolin-35b45a4a)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1197",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/tania-bobbo-b9455042)"
+  },
+  {
+   "CANDIDATA_ID": "CAND-1198",
+   "TIPO": "LINKEDIN",
+   "RESULTADO": "BLOCK",
+   "PORQUE": "LINKEDIN PERFIL_DE_PESSOA: a rota do Scrap (video-linkedin, D23) le so /company/<slug>/ (https://www.linkedin.com/in/ugo-chiavetta)"
+  }
+ ]
+}

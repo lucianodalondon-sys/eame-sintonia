@@ -1282,7 +1282,7 @@
    "territory": "Z-CANDIDATAS",
    "kind": "engine",
    "icon": "⊕",
-   "what": "Onde se anota uma fonte nova que apareceu — no meio de uma coleta ou na mao — organizada por tipo, com para que serve e quem a viu.",
+   "what": "Onde se anota uma fonte nova que apareceu — no meio de uma coleta ou na mao — organizada por tipo, com para que serve e quem a viu. E a porta tambem DESFAZ: `desbloquear_por_decisao` tira uma candidata LinkedIn/Instagram de POLICY_BLOCK so pelas decisoes do dono que cobrem o tipo (D22/D106 Instagram; D23/D24/D106 LinkedIn), com OWNER_AUTHORIZED=SIM e PLATFORM_POLICY_STATUS medido lado a lado, sem apagar o bloqueio nem a prova dos termos.",
    "why_here": "O acervo de fontes e capital parado: consulta-se antes de coletar. Sem porta, fonte nova morre no historico do terminal de quem a viu. Mas o que entra e CANDIDATA, nunca fonte: fonte nasce quando alguem abre, olha e guarda prova.",
    "departments": [
     "INTELIGENCIA"
@@ -2934,7 +2934,7 @@
     "acervo",
     "scrap"
    ],
-   "what": "O EXECUTOR unico da aquisicao social, hibrido ONLINE/LOCAL. Declara os seis verbos de COL-LAW-013 — CAPABILITIES, CHECK, COLLECT, STATE, OUTPUT, TRACE — em scrap_executor.py. Por dentro tem um SCRAP ADAPTER ROUTER, nao um segundo cerebro: social_rotas.py escolhe a porta, mede o portao de robots e executa; scrap_registo.py e o dono unico do mapa PLATAFORMA/CAPACIDADE -> ADAPTADOR; scrap_capacidades.py declara as 34 capacidades com estado medido (PROVEN, PARTIAL, BLOCKED, UNKNOWN, NOT_EXECUTED), ambiente de execucao (ONLINE, LOCAL, EITHER, HYBRID, UNKNOWN) e o documento que provou cada uma; scrap_fornecedores.py guarda PROVIDER_REQUESTED, PROVIDER_USED, WHY_FALLBACK e RESULT, e RECUSA fallback silencioso; scrap_http.py e o portao e a busca, fora do roteador para que adaptador e despacho nao se importem um ao outro. Seis adaptadores, um modulo cada: Instagram, LinkedIn, YouTube, X, Facebook e a social aberta (Mastodon, Bluesky, Telegram). Quem chama diz PLATAFORMA + CAPACIDADE e NUNCA escolhe ferramenta nem ambiente.",
+   "what": "O EXECUTOR unico da aquisicao social, hibrido ONLINE/LOCAL. Declara os seis verbos de COL-LAW-013 — CAPABILITIES, CHECK, COLLECT, STATE, OUTPUT, TRACE — em scrap_executor.py. Por dentro tem um SCRAP ADAPTER ROUTER, nao um segundo cerebro: social_rotas.py escolhe a porta, mede o portao de robots e executa; scrap_registo.py e o dono unico do mapa PLATAFORMA/CAPACIDADE -> ADAPTADOR; scrap_capacidades.py declara as 34 capacidades com estado medido (PROVEN, PARTIAL, BLOCKED, UNKNOWN, NOT_EXECUTED), ambiente de execucao (ONLINE, LOCAL, EITHER, HYBRID, UNKNOWN) e o documento que provou cada uma; scrap_fornecedores.py guarda PROVIDER_REQUESTED, PROVIDER_USED, WHY_FALLBACK e RESULT, e RECUSA fallback silencioso; scrap_http.py e o portao e a busca, fora do roteador para que adaptador e despacho nao se importem um ao outro. Seis adaptadores, um modulo cada: Instagram, LinkedIn, YouTube, X, Facebook e a social aberta (Mastodon, Bluesky, Telegram). Quem chama diz PLATAFORMA + CAPACIDADE e NUNCA escolhe ferramenta nem ambiente. SOCIAL-ATE-A-SALA (27/09): a fase `canal-youtube` ganhou, SEM CHAVE, a rota alternativa do feed do canal (`adaptador_youtube.youtube_canal_sem_chave`: 1 pedido, ate 15 videos com NATIVE_ID, PUBLISHED_AT e canal, pelo transporte canonico com robots vivo e teto do dominio) — e ela NASCE FECHADA: le a linha `feeds/videos.xml` da matriz (PERMITIDA=NAO, Disallow medido) e, fechada, recusa com zero pedidos. Abrir e decisao do dono, escrita na matriz.",
    "why_here": "Havia duas linhagens de SCRAP que nao se conheciam, e o roteador guardava um dict literal com o nome de todas as plataformas — acrescentar uma obrigava a edita-lo, que e a definicao do monolito. Agora o mapa vive no registo e cada adaptador escreve-se nele. E o executor NAO compete com C-ORQUESTRADOR pela pergunta global: ele nao cria COLLECTION_REQUEST, nao admite e nao julga. COLETAR != ADMITIR != JULGAR, e COL-LAW-011 continua a ter um dono so.",
    "departments": [
     "ENGENHARIA",
@@ -2960,6 +2960,25 @@
     "coleta/social_scrap.py",
     "coleta/youtube_oficial.py",
     "coleta/teto_da_onda.py"
+   ]
+  },
+  {
+   "id": "C-SOCIAL-POR-URL-ACHADO",
+   "name": "A entrada por URL achado · reel e post LinkedIn achados -> pedido do Scrap",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "⌖",
+   "views": [
+    "acervo",
+    "scrap"
+   ],
+   "what": "Le os enderecos de publicacoes sociais que a BUSCA (D93) ou uma PESSOA (D94) achou, no formato `POSTS-PARA-O-SCRAP.jsonl` da linha da busca (URL + PROVENIENCIA: consulta, motor, posicao, instante), e diz a cada um o que o Scrap pode pedir: Reel -> `captura-reel` (url), post de ORGANIZACAO -> `video-linkedin` (pagina dela). O SOURCE_ID vem dos livros do Curator, nunca da URL; conta sem SOURCE_ID entra como candidata pela porta canonica e o pedido ESPERA; autor que o endereco nao nomeia fica NAO SEI; post de PESSOA fica bloqueado por decisao (D24 sem fase, D37). Nao sai para a rede e nao corre o Scrap: monta o pedido e, depois da corrida, anexa a proveniencia ao lado do envelope.",
+   "why_here": "O Instagram nao lista os Reels de uma conta a partir de datacenter, e o perfil LinkedIn de pessoa fecha (999): o que abre e a publicacao pelo endereco. Sem esta entrada, os enderecos achados pela busca paravam num ficheiro que ninguem lia. URL NAO E SOURCE_ID — a identidade desce do livro.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/social_por_url_achado.py"
    ]
   },
   {
@@ -4432,7 +4451,8 @@
     "provas/a_ponte_de_midia_atravessa.py",
     "provas/a_ponte_de_midia_no_postgres.py",
     "provas/o_portao_da_big_collection.py",
-    "provas/_mutantes_d36_equivalencia.py"
+    "provas/_mutantes_d36_equivalencia.py",
+    "provas/_mutantes_social_ate_a_sala.py"
    ]
   },
   {
