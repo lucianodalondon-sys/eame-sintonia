@@ -63,7 +63,10 @@ GABARITOS = [Path.home() / "detector-capa-gabarito", Path.home() / "receitas-pag
 LIVROS_EXTRA = [Path.home() / "orca" / "workspaces" / "eame-sintonia" / "lote-76-v1"]
 COORTE_G1 = ["IT-T10-018", "IT-T10-021", "IT-T10-022", "IT-T2-051",
              "IT-T7-017", "IT-T7-033", "IT-T7-041", "IT-T7-043"]
-PG_BIN = Path.home() / "orca" / "pgtmp" / "pgsql" / "bin"
+# SINTONIA_PG_BIN (ESTEIRA-SOZINHA, 28/09): noutra maquina os binarios vivem noutro sitio. A prova
+# do R7 ja o lia por fora (provas/int_r7/export_numa_copia_descartavel.py); agora quem o le e o dono.
+PG_BIN = (Path(os.environ["SINTONIA_PG_BIN"]) if os.environ.get("SINTONIA_PG_BIN")
+          else Path.home() / "orca" / "pgtmp" / "pgsql" / "bin")
 AUSENCIA = "NAO SEI"
 
 
