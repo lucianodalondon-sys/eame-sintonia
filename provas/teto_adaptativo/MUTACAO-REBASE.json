@@ -1,0 +1,302 @@
+{
+ "REF": "8bbdfd6",
+ "MUTANTES": [
+  {
+   "MUTANTE": "M01_NODE_TETO_INFINITO",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "provas/teto_adaptativo/transporte_rebase_local.mjs rc=1 falhas=['R6:']"
+   ]
+  },
+  {
+   "MUTANTE": "M02_PY_TETO_INFINITO",
+   "ALVO": "coleta/cortesia_adaptativa.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_cortesia_adaptativa rc=1 falhas=['test_limite_publicado_da_api', 'test_teto_de_seguranca_esgotado_abre_bilhete', 'test_orcamento_esgotado_diz_quando_abre', 'test_cada_desobediencia_e_apanhada', 'test_a_mesma_dobra_nos_dois', 'test_sem_livro_e_fail_e_nao_se_pede']"
+   ]
+  },
+  {
+   "MUTANTE": "M03_CC_ORCAMENTO_IGNORADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_um_ciclo_a_seco_pelo_cli_com_o_livro_d90']",
+    "tests.test_coleta_continua rc=1 falhas=['test_o_livro_de_24h_de_outra_linha_fecha_o_dominio']"
+   ]
+  },
+  {
+   "MUTANTE": "M04_PY_ORCAMENTO_IGNORADO",
+   "ALVO": "coleta/cortesia_adaptativa.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_cortesia_adaptativa rc=1 falhas=['test_limite_publicado_da_api', 'test_teto_de_seguranca_esgotado_abre_bilhete', 'test_orcamento_esgotado_diz_quando_abre', 'test_livro_honesto_passa']"
+   ]
+  },
+  {
+   "MUTANTE": "M05_NODE_ORCAMENTO_IGNORADO",
+   "ALVO": "coleta/cortesia_adaptativa.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "provas/scrap_evolucao/feed_ligado_local.mjs rc=0 falhas=[]",
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_a_reserva_41_e_adiada_em_python_e_em_node']"
+   ]
+  },
+  {
+   "MUTANTE": "M06_PY_CRAWL_DELAY_IGNORADO",
+   "ALVO": "coleta/cortesia_adaptativa.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_crawl_delay_maior_do_que_a_pausa_da_classe_manda']"
+   ]
+  },
+  {
+   "MUTANTE": "M07_NODE_CRAWL_DELAY_IGNORADO_EM_UMAIDA",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "provas/teto_adaptativo/transporte_rebase_local.mjs rc=1 falhas=['R2:']"
+   ]
+  },
+  {
+   "MUTANTE": "M08_NODE_CRAWL_DELAY_IGNORADO_NA_COTA",
+   "ALVO": "coleta/cortesia_adaptativa.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_cortesia_adaptativa rc=1 falhas=['test_a_mesma_dobra_nos_dois']"
+   ]
+  },
+  {
+   "MUTANTE": "M09_NODE_ROBOTS_PROIBE_IGNORADO",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "provas/teto_adaptativo/transporte_rebase_local.mjs rc=1 falhas=['R1']"
+   ]
+  },
+  {
+   "MUTANTE": "M10_EGRESSO_IT_ANTES_IGNORADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua rc=1 falhas=['test_parado_fica_parado_ate_rearmar', 'test_portao_it_antes_falha_zero_pedidos_e_robo_intacto']"
+   ]
+  },
+  {
+   "MUTANTE": "M11_EGRESSO_IT_DEPOIS_IGNORADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua rc=1 falhas=['test_portao_it_depois_falha_para']"
+   ]
+  },
+  {
+   "MUTANTE": "M12_NODE_SINAIS_SEM_O_FICHEIRO_D",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "provas/teto_adaptativo/transporte_rebase_local.mjs rc=1 falhas=['R3:', 'R4:', 'R5:']"
+   ]
+  },
+  {
+   "MUTANTE": "M13_PY_LIVRO_D90_ILEGIVEL",
+   "ALVO": "coleta/cortesia_adaptativa.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_node_le_o_antigo_igual_ao_python', 'test_um_ciclo_a_seco_pelo_cli_com_o_livro_d90', 'test_a_fachada_reserva_24h_tambem_le_o_antigo', 'test_leitura_compativel_conta_o_gasto_como_antes', 'test_reservar_migra_o_livro_e_guarda_o_original']",
+    "tests.test_coleta_continua rc=1 falhas=['test_o_livro_de_24h_de_outra_linha_fecha_o_dominio']"
+   ]
+  },
+  {
+   "MUTANTE": "M14_NODE_LIVRO_D90_ILEGIVEL",
+   "ALVO": "coleta/cortesia_adaptativa.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_node_le_o_antigo_igual_ao_python', 'test_node_reserva_migra_e_python_le']"
+   ]
+  },
+  {
+   "MUTANTE": "M15_PY_LIVRO_D90_NAO_MIGRA",
+   "ALVO": "coleta/cortesia_adaptativa.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_reservar_migra_o_livro_e_guarda_o_original']"
+   ]
+  },
+  {
+   "MUTANTE": "M16_NODE_LIVRO_D90_NAO_MIGRA",
+   "ALVO": "coleta/cortesia_adaptativa.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_node_reserva_migra_e_python_le']"
+   ]
+  },
+  {
+   "MUTANTE": "M17_PY_D90_QTD_IGNORADA",
+   "ALVO": "coleta/cortesia_adaptativa.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_um_ciclo_a_seco_pelo_cli_com_o_livro_d90', 'test_a_fachada_reserva_24h_tambem_le_o_antigo', 'test_cli_migrar', 'test_leitura_compativel_conta_o_gasto_como_antes', 'test_node_le_o_antigo_igual_ao_python', 'test_reservar_migra_o_livro_e_guarda_o_original']"
+   ]
+  },
+  {
+   "MUTANTE": "M18_NODE_SEM_LIVRO_VALE_40",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "provas/teto_adaptativo/transporte_rebase_local.mjs rc=1 falhas=['R6:']"
+   ]
+  },
+  {
+   "MUTANTE": "M19_SONDA_SEMPRE_LIGADA",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_o_texto_da_chamada_nao_chega', 'test_o_transporte_que_ignora_o_livro_pausado_nao_esta_ligado']"
+   ]
+  },
+  {
+   "MUTANTE": "M20_SONDA_SEM_O_CASO_PAUSADO",
+   "ALVO": "ferramentas/big_collection/sonda_ligacao_sites.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_o_transporte_que_ignora_o_livro_pausado_nao_esta_ligado']"
+   ]
+  },
+  {
+   "MUTANTE": "M21_SONDA_NAO_CONTA_AS_RESERVAS",
+   "ALVO": "ferramentas/big_collection/sonda_ligacao_sites.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_o_texto_da_chamada_nao_chega']"
+   ]
+  },
+  {
+   "MUTANTE": "M22_CC_PAUSA_E_RETRY_AFTER_IGNORADOS",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_pausa_de_24h_e_retry_after_fecham_o_dominio']"
+   ]
+  },
+  {
+   "MUTANTE": "M23_CC_LIVRO_SO_PELO_NOME_ANTIGO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua rc=1 falhas=['test_a_onda_herda_o_livro_de_24h']"
+   ]
+  },
+  {
+   "MUTANTE": "M24_NODE_ROBOTS_24H_SEM_JANELA",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "provas/teto_adaptativo/transporte_rebase_local.mjs rc=1 falhas=[]",
+    "provas/scrap_evolucao/feed_ligado_local.mjs rc=1 falhas=[]"
+   ]
+  },
+  {
+   "MUTANTE": "M25_CC_JANELA_D79_LIGADA_POR_OMISSAO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_um_ciclo_a_seco_pelo_cli_com_o_livro_d90']"
+   ]
+  },
+  {
+   "MUTANTE": "M26_CC_TETO_DO_CICLO_SEM_O_GASTO_24H",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_teto_adaptativo_rebase rc=1 falhas=['test_o_gasto_de_24h_e_o_do_ciclo_somam_contra_o_orcamento']"
+   ]
+  },
+  {
+   "MUTANTE": "P01_CC_M01_DOMINIO_BLOQUEADO_PASSA",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua rc=1 falhas=['test_proximo_a_abrir', 'test_sem_fontes_o_robo_nao_e_tocado', 'test_dominio_bloqueado_espera_e_as_outras_seguem', 'test_todos_os_dominios_da_fonte_contam', 'test_o_livro_diz_o_que_aconteceu']"
+   ]
+  },
+  {
+   "MUTANTE": "P02_CC_M02_TETO_6_NO_CICLO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua rc=1 falhas=['test_limiar_exato_3_mais_2_cabe', 'test_teto_6_no_mesmo_dominio_nao_entra_no_ciclo', 'test_as_linhas_em_paralelo_partilham_o_orcamento', 'test_cada_linha_tem_o_seu_contador', 'test_duas_linhas_nao_somam_6_no_mesmo_dominio', 'test_o_rodizio_muda_quem_abre_o_ciclo']"
+   ]
+  },
+  {
+   "MUTANTE": "P03_CC_M04_LINHAS_SEM_ORCAMENTO_PARTILHADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua rc=1 falhas=['test_teto_6_no_mesmo_dominio_nao_entra_no_ciclo', 'test_as_linhas_em_paralelo_partilham_o_orcamento', 'test_cada_linha_tem_o_seu_contador', 'test_duas_linhas_nao_somam_6_no_mesmo_dominio', 'test_o_rodizio_muda_quem_abre_o_ciclo']"
+   ]
+  },
+  {
+   "MUTANTE": "P04_CC_M17_TETO_24H_IGNORADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua rc=1 falhas=['test_o_livro_de_24h_de_outra_linha_fecha_o_dominio']"
+   ]
+  },
+  {
+   "MUTANTE": "P05_FEED_O_FEED_NAO_CONTA",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "provas/scrap_evolucao/feed_ligado_local.mjs rc=1 falhas=['G1a:', 'G5a:', 'G5b:', 'G1b:']"
+   ]
+  },
+  {
+   "MUTANTE": "P06_FEED_O_CONDICIONAL_NAO_RESERVA",
+   "ALVO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "provas/scrap_evolucao/feed_ligado_local.mjs rc=1 falhas=['G5a:', 'G5b:', 'G1b:']"
+   ]
+  },
+  {
+   "MUTANTE": "P07_FEED_D40_O_ITEM_COM_CORPO_OCUPA_LUGAR",
+   "ALVO": "regras/motor_de_rota.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "regras/feed_discovery_test.mjs rc=1 falhas=[]"
+   ]
+  },
+  {
+   "MUTANTE": "P08_FREIO_O_6_PASSA",
+   "ALVO": "coleta/teto_da_onda.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_freio_social tests.test_teto_dominio tests.test_dedup_video_social tests.test_plano_onda_social_c2 rc=1 falhas=['test_o_6o_pedido_nao_chega_ao_servidor', 'test_teto_por_ambiente', 'test_linha_leva_recusas_e_o_teto', 'test_corrida_social_sozinha_tem_teto_e_o_livro_morre_com_ela', 'test_quatro_processos_nunca_passam_de_5']"
+   ]
+  },
+  {
+   "MUTANTE": "P09_FREIO_A_RODADA_DIZ_QUE_CABE_SEMPRE",
+   "ALVO": "curadoria/plano_onda_social.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_freio_social tests.test_teto_dominio tests.test_dedup_video_social tests.test_plano_onda_social_c2 rc=1 falhas=['test_com_o_teto_do_contrato_duas_contas_nao_cabem']"
+   ]
+  }
+ ],
+ "SEM_MUTANTE": {
+  "CODIGO": 0,
+  "TESTES": [
+   "provas/teto_adaptativo/transporte_rebase_local.mjs rc=0 falhas=[]",
+   "tests.test_cortesia_adaptativa rc=0 falhas=[]",
+   "tests.test_teto_adaptativo_rebase rc=0 falhas=[]",
+   "tests.test_coleta_continua rc=0 falhas=[]",
+   "provas/scrap_evolucao/feed_ligado_local.mjs rc=0 falhas=[]",
+   "regras/feed_discovery_test.mjs rc=0 falhas=[]",
+   "tests.test_freio_social tests.test_teto_dominio tests.test_dedup_video_social tests.test_plano_onda_social_c2 rc=0 falhas=[]"
+  ]
+ },
+ "RESUMO": "35/35 mortos"
+}
