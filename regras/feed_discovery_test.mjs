@@ -112,5 +112,71 @@ await TA("a data do feed NUNCA vira FACT_TIME: a identidade do alvo continua com
   assert.equal(id.DOCUMENT_ID, "IT-T9-009:URL:newsroom/catalogo-cifo-2026-soluzioni");
 });
 
+// ── FEED-LIGADO (27/09): o corpo que o feed traz, e o teto que so conta pedidos ─────────────────────
+console.log("\nFEED-LIGADO · BODY_FROM_FEED");
+const escondido = `<p style="display:none">testo nascosto]]]]><![CDATA[>resto</p><script>var x=1;</script><p>Visibile &amp; vero.</p>`;
+const itemRss = (n, corpo) => `<item><title>T${n}</title><link>https://www.cifo.it/newsroom/articolo-${n}/</link>
+  <pubDate>Thu, 24 Sep 2026 07:${String(n).padStart(2, "0")}:00 +0000</pubDate>
+  <description><![CDATA[resumo ${n}]]></description>${corpo ? `<content:encoded><![CDATA[${corpo}]]></content:encoded>` : ""}</item>`;
+const RSS_MISTO = `<?xml version="1.0"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel>
+${[1, 2, 3, 4, 5].map((n) => itemRss(n, n <= 2 ? `<p>Corpo ${n}.</p>${escondido}` : "")).join("\n")}
+${[6, 7].map((n) => itemRss(n, `<p>Corpo ${n}.</p>`)).join("\n")}
+</channel></rss>`;
+
+await TA("RSS content:encoded: o corpo vem como a fonte o escreveu — so sem o CDATA; nada limpo, nada apagado", async () => {
+  const it = itensDoFeed(RSS_MISTO, FEED);
+  assert.equal(it.length, 7);
+  assert.equal(it[0].campoCorpo, "content:encoded");
+  // o CDATA partido em dois («]]]]><![CDATA[>», como o WordPress faz) volta a ser «]]>»; o <script>, o
+  // texto escondido e a entidade HTML dentro do CDATA ficam tal e qual (a peca C saiu da coleta)
+  assert.equal(it[0].corpo, `<p>Corpo 1.</p><p style="display:none">testo nascosto]]>resto</p><script>var x=1;</script><p>Visibile &amp; vero.</p>`);
+  assert.equal(it[2].corpo, undefined, "a <description> e resumo: nao conta como texto completo");
+});
+
+await TA("Atom: <content type=html> e corpo (entidades do XML desfeitas); type=text nao e", async () => {
+  const atom = `<feed xmlns="http://www.w3.org/2005/Atom">
+<entry><link href="https://www.a.it/news/uno/"/><published>2026-09-21T10:00:00Z</published>
+  <content type="html">&lt;p&gt;Uno &amp;amp; due&lt;/p&gt;</content></entry>
+<entry><link href="https://www.a.it/news/due/"/><content type="text">solo testo</content></entry></feed>`;
+  const it = itensDoFeed(atom, "https://www.a.it/feed/atom/");
+  assert.equal(it[0].corpo, "<p>Uno &amp; due</p>");
+  assert.equal(it[0].campoCorpo, "content");
+  assert.equal(it[1].corpo, undefined);
+});
+
+await TA("o teto D40 conta PEDIDOS: itens com corpo vao todos (0 pedidos); dos sem corpo, so 3", async () => {
+  const a = await alvosDoContrato("IT-T9-009", contrato(), { buscar: leitor(RSS_MISTO), classificar: () => "NOVO" });
+  const comCorpo = a.filter((x) => x.corpoDoFeed), aPedir = a.filter((x) => !x.corpoDoFeed);
+  assert.deepEqual(comCorpo.map((x) => x.url.match(/articolo-(\d)/)[1]), ["1", "2", "6", "7"]);
+  assert.deepEqual(aPedir.map((x) => x.url.match(/articolo-(\d)/)[1]), ["3", "4", "5"]);
+  assert.equal(aPedir.length, ALVOS_POR_FONTE_D40);
+  assert.equal(a.D40.A_PEDIR, 3);
+  assert.equal(a.D40.CORPO_DO_FEED, 4);
+  // o corpo viaja com a origem: o feed e a impressao dos bytes do feed
+  assert.equal(comCorpo[0].corpoDoFeed.FEED_URL, FEED);
+  assert.equal(comCorpo[0].corpoDoFeed.CAMPO, "content:encoded");
+  assert.match(comCorpo[0].corpoDoFeed.FEED_SHA256, /^[0-9a-f]{64}$/);
+  assert.match(comCorpo[0].publicadoNoIndice.BASE, /nivel indice; nunca FACT_TIME/);
+});
+
+await TA("o livro manda tambem no item com corpo: o CONHECIDO nao volta a entrar; tudo conhecido = VAZIO_HONESTO", async () => {
+  const conhecidos = new Set(["https://www.cifo.it/newsroom/articolo-1/", "https://www.cifo.it/newsroom/articolo-3/"]);
+  const a = await alvosDoContrato("IT-T9-009", contrato(), { buscar: leitor(RSS_MISTO),
+    classificar: (u) => (conhecidos.has(u) ? "CONHECIDO" : "NOVO") });
+  assert.ok(!a.some((x) => conhecidos.has(x.url)), JSON.stringify(a.map((x) => x.url)));
+  assert.equal(a.D40.CONHECIDOS_SALTADOS, 2);
+  const v = await alvosDoContrato("IT-T9-009", contrato(), { buscar: leitor(RSS_MISTO), classificar: () => "CONHECIDO" });
+  assert.equal(v.length, 0);
+  assert.equal(v.D40.VAZIO_HONESTO, true);
+});
+
+await TA("o item com corpo que a identidade le continua com FACT_TIME UNKNOWN e o DOCUMENT_ID do ENDERECO", async () => {
+  const [alvo] = await alvosDoContrato("IT-T9-009", contrato(), { buscar: leitor(RSS_MISTO), classificar: () => "NOVO" });
+  assert.ok(alvo.corpoDoFeed);
+  const id = identidadeDoContrato("IT-T9-009", contrato(), alvo);
+  assert.equal(id.FACT_TIME, "UNKNOWN");
+  assert.equal(id.DOCUMENT_ID, "IT-T9-009:URL:newsroom/articolo-1");
+});
+
 console.log(`\n  PASSOU ${ok} · FALHOU ${mau}`);
 process.exit(mau ? 1 : 0);

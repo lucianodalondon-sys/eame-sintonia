@@ -1,0 +1,31 @@
+{
+ "DATASET": "FEED-LIGADO-PACOTE-V1",
+ "MISSAO": "FEED-LIGADO (Scrap Engineer 27/09, respostas 1-4)",
+ "O_QUE_E": "Os feeds que o coordenador pediu com rede em 27/09 (provas/scrap_evolucao/medir_feeds_com_rede.py), um por fonte. O instalador (regras/ligar_feeds.py) troca a ACQUISITION da linha da fonte na tabela do coletor (regras/italy_contracts_onboarded.json) para FEED_DISCOVERY com este FEED_URL. Nao cria linha: fonte sem linha na tabela fica como esta e so entra pela ponte (curadoria/onboardar_rotas_provadas.py).",
+ "REGRA_DO_URL": "o feed do site inteiro que a propria fonte anuncia no <head> das paginas guardadas: o mais curto que nao e de comentarios (provas/scrap_evolucao/medir_feeds_com_rede.py::feeds, sobre provas/scrap_evolucao/FEEDS-NO-ACERVO.json)",
+ "MEDIDA": {
+  "QUEM": "coordenador, com rede e VPN IT, 27/09",
+  "O_QUE_DISSE": "13/14 feeds HTTP 200, 489 itens, 100% do proprio site e com data de publicacao, 179 (36,6%) com texto completo (content:encoded, mediana ~3.000 caracteres); IT-T12-130 fechado 24 h",
+  "ONDE": "C:/Users/London1/auditoria-madrugada/scrap-evolucao/feeds-2709 (NAO existe na nuvem)",
+  "CONFERIDA_AQUI": "NAO — os corpos e recibos nao estao nesta arvore. `py regras/ligar_feeds.py --conferir-feeds=<pasta>` confere-os com o motor verdadeiro antes de aplicar."
+ },
+ "FEEDS": {
+  "IT-T10-022": {"FEED_URL": "https://zootecnicainternational.com/feed/", "LIGAR": true},
+  "IT-T12-117": {"FEED_URL": "https://energia.calabriaimpresa.eu/feed/", "LIGAR": true},
+  "IT-T12-137": {"FEED_URL": "https://www.psrn.it/feed/", "LIGAR": true},
+  "IT-T5-090": {"FEED_URL": "https://www.istat.it/feed/", "LIGAR": true},
+  "IT-T5-186": {"FEED_URL": "https://sostenibilita.enea.it/eventi/meeting-internazionali-0/feed", "LIGAR": false,
+                "PORQUE": "o unico feed que o site anuncia e o de UM evento (SCRAP-EVOLUCAO.md: «IT-T5-186 (ENEA) so anuncia o feed de um evento»). Nao e o indice da fonte; ligar a fonte a ele trocaria o indice por uma pagina."},
+  "IT-T7-021": {"FEED_URL": "https://etvilloresi.it/feed/", "LIGAR": true},
+  "IT-T7-033": {"FEED_URL": "https://www.chianticlassico.com/feed/", "LIGAR": true},
+  "IT-T7-042": {"FEED_URL": "https://www.consorziobalsamico.it/feed/", "LIGAR": true},
+  "IT-T7-049": {"FEED_URL": "https://copagri.org/feed/", "LIGAR": true},
+  "IT-T7-125": {"FEED_URL": "https://cia-puglia.it/feed/", "LIGAR": true},
+  "IT-T7-139": {"FEED_URL": "https://www.florovivaistiitaliani.it/feed/", "LIGAR": true},
+  "IT-T9-009": {"FEED_URL": "https://www.cifo.it/feed/", "LIGAR": true},
+  "IT-T9-021": {"FEED_URL": "https://fieradidacta.indire.it/it/feed/", "LIGAR": true}
+ },
+ "FORA": {
+  "IT-T12-130": "anuncia feed, mas o dominio estava fechado 24 h na medida de 27/09: sem medida, nao entra"
+ }
+}

@@ -225,6 +225,10 @@ def bytes_da_pagina(obs: dict, raiz: str = None):
     um ficheiro que nao e o que o livro guardou seria medir outra coisa.
     """
     import hashlib                                        # noqa: PLC0415
+    # FEED-LIGADO (27/09): o corpo que veio no feed NAO e a pagina. Le-lo como pagina poria o leitor de
+    # publicacao da PAGINA a julgar um recorte — e a data que ele tem ja veio do feed, com a base dela.
+    if obs.get("RAW_EVIDENCE_STATE") == "BODY_FROM_FEED":
+        return None
     caminho = obs.get("RAW_PATH") or ""
     sha = str(obs.get("RAW_SHA256") or "").strip()
     if not caminho or not sha or not caminho.lower().endswith((".html", ".htm")):

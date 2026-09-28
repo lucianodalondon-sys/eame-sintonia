@@ -1,0 +1,189 @@
+{
+ "MUTANTES": 21,
+ "MORTOS": 21,
+ "RESULTADOS": [
+  {
+   "MUTANTE": "TETO: o pedido ao feed nao conta (nem no livro de 24 h, nem no dominio)",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G1a: corrida 1 = robots + feed + 1 materia (3 pedidos); os 2 com corpo nao pedem nada",
+    "FALHA G5a: corrida 2 — o feed vai com If-None-Match, volta 304 e CONTA (livro de 24 h = 4)",
+    "FALHA G5b: corrida 3 — feed 200 (5.o pedido); a materia nova e RECUSADA pelo teto de 24 h — o 304 contou"
+   ]
+  },
+  {
+   "MUTANTE": "ROTULO: o corpo do feed sai rotulado como pagina (RAW_PRESERVED)",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G2: BODY_FROM_FEED — rotulo, origem, bytes exactos (nada limpo), nome que o diz, FACT_TIME UNKNOWN, PUBLISHED_AT do feed"
+   ]
+  },
+  {
+   "MUTANTE": "ROBOTS: ILEGIVEL passa a ser permissao",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G7: robots em HTML = ILEGIVEL: o feed nao e pedido, nao vai ao livro de 24 h, e a corrida seguinte pede-o outra vez",
+    "FALHA G8: entrada do livro de robots que nao se entende (LIDO sem texto) nao e permissao: pede-se o robots"
+   ]
+  },
+  {
+   "MUTANTE": "TETO: o pedido condicional (o que volta 304) nao reserva no livro de 24 h",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G5a: corrida 2 — o feed vai com If-None-Match, volta 304 e CONTA (livro de 24 h = 4)",
+    "FALHA G5b: corrida 3 — feed 200 (5.o pedido); a materia nova e RECUSADA pelo teto de 24 h — o 304 contou",
+    "FALHA G1b: nunca mais de 5 pedidos do dominio em 24 h — contado no SERVIDOR e no livro"
+   ]
+  },
+  {
+   "MUTANTE": "ROTULO: o ficheiro do corpo do feed tem nome de pagina",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G2: BODY_FROM_FEED — rotulo, origem, bytes exactos (nada limpo), nome que o diz, FACT_TIME UNKNOWN, PUBLISHED_AT do feed"
+   ]
+  },
+  {
+   "MUTANTE": "ROTULO: o executor le o corpo do feed como pagina",
+   "FICHEIRO": "coleta/italy_executor.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FAIL: test_o_corpo_do_feed_nao_e_lido_como_pagina (test_feed_ligado.TestExecutor.test_o_corpo_do_feed_nao_e_lido_como_pagina)",
+    "FAILED (failures=1)"
+   ]
+  },
+  {
+   "MUTANTE": "TEMPO: a data do feed vira FACT_TIME do corpo",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G2: BODY_FROM_FEED — rotulo, origem, bytes exactos (nada limpo), nome que o diz, FACT_TIME UNKNOWN, PUBLISHED_AT do feed"
+   ]
+  },
+  {
+   "MUTANTE": "CORPO: o <script> e apagado (sanitizar)",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FAIL  RSS content:encoded: o corpo vem como a fonte o escreveu — so sem o CDATA; nada limpo, nada apagado"
+   ]
+  },
+  {
+   "MUTANTE": "CORPO: a <description> (resumo) conta como texto completo",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FAIL  RSS content:encoded: o corpo vem como a fonte o escreveu — so sem o CDATA; nada limpo, nada apagado",
+    "FAIL  o teto D40 conta PEDIDOS: itens com corpo vao todos (0 pedidos); dos sem corpo, so 3"
+   ]
+  },
+  {
+   "MUTANTE": "D40: o item com corpo ocupa um dos 3 lugares de pedido",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FAIL  o teto D40 conta PEDIDOS: itens com corpo vao todos (0 pedidos); dos sem corpo, so 3",
+    "FAIL  o livro manda tambem no item com corpo: o CONHECIDO nao volta a entrar; tudo conhecido = VAZIO_HONESTO"
+   ]
+  },
+  {
+   "MUTANTE": "LIVRO: o item com corpo ja conhecido volta a entrar",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FAIL  o livro manda tambem no item com corpo: o CONHECIDO nao volta a entrar; tudo conhecido = VAZIO_HONESTO"
+   ]
+  },
+  {
+   "MUTANTE": "SITEMAP: as linhas Sitemap: deitadas fora",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G6: as linhas Sitemap: ficam no resumo; nenhum pedido sai por elas"
+   ]
+  },
+  {
+   "MUTANTE": "ROBOTS 24H: o livro nunca e lido (re-pede em cada corrida)",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G4: corrida 2 — o robots vem do livro de 24 h (o servidor nao o ve)",
+    "FALHA G5a: corrida 2 — o feed vai com If-None-Match, volta 304 e CONTA (livro de 24 h = 4)",
+    "FALHA G5b: corrida 3 — feed 200 (5.o pedido); a materia nova e RECUSADA pelo teto de 24 h — o 304 contou"
+   ]
+  },
+  {
+   "MUTANTE": "ROBOTS 24H: entrada LIDO sem texto vira permissao",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G8: entrada do livro de robots que nao se entende (LIDO sem texto) nao e permissao: pede-se o robots"
+   ]
+  },
+  {
+   "MUTANTE": "ROBOTS 24H: ILEGIVEL tambem vai para o livro",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G7: robots em HTML = ILEGIVEL: o feed nao e pedido, nao vai ao livro de 24 h, e a corrida seguinte pede-o outra vez"
+   ]
+  },
+  {
+   "MUTANTE": "CONDICIONAL: o validador nunca e enviado",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G5a: corrida 2 — o feed vai com If-None-Match, volta 304 e CONTA (livro de 24 h = 4)"
+   ]
+  },
+  {
+   "MUTANTE": "CONDICIONAL: o validador lido do bloco do proxy",
+   "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FALHA G9: o validador e o do SERVIDOR (ultimo bloco), nunca o do «Connection established» do proxy"
+   ]
+  },
+  {
+   "MUTANTE": "INSTALADOR: cria a linha que falta na tabela",
+   "FICHEIRO": "regras/ligar_feeds.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "ERROR: test_a_linha_ligada_expande_pelo_dono_do_contrato_e_passa_a_conferencia (test_feed_ligado.TestInstalador.test_a_linha_ligada_expande_",
+    "ERROR: test_a_previsao_sai_das_datas_do_feed_e_sem_corpo_e_nao_sei (test_feed_ligado.TestInstalador.test_a_previsao_sai_das_datas_do_feed_e_",
+    "ERROR: test_aplicar_nao_cria_linha_guarda_o_caminho_de_volta_e_desfazer_repoe (test_feed_ligado.TestInstalador.test_aplicar_nao_cria_linha_g"
+   ]
+  },
+  {
+   "MUTANTE": "INSTALADOR: o LINK_PATTERN antigo passa para o feed",
+   "FICHEIRO": "regras/ligar_feeds.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FAIL: test_aplicar_nao_cria_linha_guarda_o_caminho_de_volta_e_desfazer_repoe (test_feed_ligado.TestInstalador.test_aplicar_nao_cria_linha_gu",
+    "FAILED (failures=1)"
+   ]
+  },
+  {
+   "MUTANTE": "PREVISAO: o item com corpo tambem cabe nos 3 do teto",
+   "FICHEIRO": "regras/ligar_feeds.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FAIL: test_a_previsao_sai_das_datas_do_feed_e_sem_corpo_e_nao_sei (test_feed_ligado.TestInstalador.test_a_previsao_sai_das_datas_do_feed_e_s",
+    "FAILED (failures=1)"
+   ]
+  },
+  {
+   "MUTANTE": "CONTRATO: a entrada de uma linha de feed continua a ser o INDEX_URL",
+   "FICHEIRO": "regras/italy_contracts.mjs",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "FAIL: test_a_linha_ligada_expande_pelo_dono_do_contrato_e_passa_a_conferencia (test_feed_ligado.TestInstalador.test_a_linha_ligada_expande_p",
+    "FAILED (failures=1)"
+   ]
+  }
+ ]
+}

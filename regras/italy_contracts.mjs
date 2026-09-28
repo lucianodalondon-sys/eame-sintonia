@@ -596,7 +596,11 @@ export function contratoGenerico(linha) {
   // do bloco. A entrada canonica e a que a linha declara (a pagina publica da
   // fonte), e a descoberta diz o nome do adapter — nunca um SOURCE_ID.
   const adapter = aq.STRATEGY === "CUSTOM_ADAPTER";
-  const entrada = fixo ? aq.URL : adapter ? (linha.CANONICAL_ENTRY_URL || aq.INDEX_URL || "NAO SEI") : aq.INDEX_URL;
+  // FEED-LIGADO (27/09): a entrada de uma linha FEED_DISCOVERY e o feed — e o unico endereco de
+  // descoberta que o coletor pede. O INDEX_URL antigo pode ficar no bloco (a regra V1 da capa le-o),
+  // mas nunca e pedido.
+  const feed = aq.STRATEGY === "FEED_DISCOVERY";
+  const entrada = fixo ? aq.URL : adapter ? (linha.CANONICAL_ENTRY_URL || aq.INDEX_URL || "NAO SEI") : feed ? aq.FEED_URL : aq.INDEX_URL;
   return {
     OWNER_ID: "NAO SEI", OWNER: linha.OWNER || linha.NAME || "NAO SEI",
     TERRITORY: linha.TERRITORY, VALUE: "NAO SEI",
@@ -605,7 +609,9 @@ export function contratoGenerico(linha) {
       ? "GET direto no documento observado (documento fixo; descoberta de edicoes novas NAO configurada)"
       : adapter
         ? `ADAPTER ${aq.ADAPTER_ID} do registry canonico (coleta/adaptadores_de_aquisicao.mjs): os parametros vivem no bloco ACQUISITION da linha; o despachador nao conhece SOURCE_ID`
-        : "GENERICO: abrir INDEX_URL, resolver todos os href e ficar com os que casam com LINK_PATTERN (MATCH=URL)",
+        : feed
+          ? "FEED: abrir FEED_URL (RSS/Atom que a propria fonte anuncia), ficar com os itens do proprio site; item com texto completo no feed (content:encoded) entra rotulado BODY_FROM_FEED sem pedir a materia"
+          : "GENERICO: abrir INDEX_URL, resolver todos os href e ficar com os que casam com LINK_PATTERN (MATCH=URL)",
     RETRIEVAL_METHOD: "GET direto no documento",
     ROUTE_TYPE: fixo ? "STATIC_ROUTE" : adapter ? "APPLICATION_ROUTE" : "DISCOVERED_ROUTE",
     ACCESS_INSTRUMENT: "HTTP", AUTH_REQUIRED: false, BROWSER_REQUIRED: false, JS_REQUIRED: false,
