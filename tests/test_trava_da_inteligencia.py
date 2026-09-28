@@ -77,6 +77,26 @@ def _blob_do_git(rel):
     return r.stdout.strip() if r.returncode == 0 else None
 
 
+def _autorizados_pela_excecao():
+    """D140 · {PATH: GIT_BLOB_SHA} que a excecao PREVIEW_E2E autoriza — preso por
+    sha, e VAZIO numa branch de promocao (la vale so o manifesto).
+
+    A guarda e a lei (`fundacao_da_coleta.artefatos_autorizados`); este teste so
+    a consome. Os ramos em que se corre: o do git e os que o CI e a Vercel dizem."""
+    import sys
+    sys.path.insert(0, RAIZ)
+    import _gavetas  # noqa: F401
+    import fundacao_da_coleta as lei
+    r = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=RAIZ,
+                       capture_output=True, text=True)
+    ramos = {r.stdout.strip()} | {os.environ.get(k) for k in (
+        "GITHUB_REF_NAME", "GITHUB_BASE_REF", "GITHUB_HEAD_REF", "VERCEL_GIT_COMMIT_REF")}
+    ramos.discard(None)
+    ramos.discard("")
+    trava, diario, publicacao = lei.carregar()
+    return lei.artefatos_autorizados(trava, diario, publicacao, tuple(sorted(ramos)))
+
+
 class ATravaExisteEDizOEstado(unittest.TestCase):
 
     def test_o_contrato_existe_e_declara_a_regra(self):
@@ -146,11 +166,12 @@ class AInteligenciaCongeladaNaoAvancou(unittest.TestCase):
 
         Sumiu também conta: apagar não é congelar."""
         mudaram, sumiram = [], []
+        autorizados = _autorizados_pela_excecao()
         for a in self.m["FROZEN_INTELLIGENCE_ARTIFACTS"]:
             agora = _blob_do_git(a["PATH"])
             if agora is None:
                 sumiram.append(a["PATH"])
-            elif agora != a["GIT_BLOB_SHA"]:
+            elif agora != a["GIT_BLOB_SHA"] and agora != autorizados.get(a["PATH"]):
                 mudaram.append("%s\n    congelado=%s\n    agora     =%s"
                                % (a["PATH"], a["GIT_BLOB_SHA"][:16],
                                   agora[:16]))
@@ -171,7 +192,9 @@ class AInteligenciaCongeladaNaoAvancou(unittest.TestCase):
         censo = _json(CENSO)
         antes = {a["PATH"] for a in self.m["FROZEN_INTELLIGENCE_ARTIFACTS"]}
         agora = {a["PATH"] for a in censo["FROZEN_INTELLIGENCE_ARTIFACTS"]}
-        novos = sorted(agora - antes)
+        autorizados = _autorizados_pela_excecao()
+        novos = sorted(p for p in agora - antes
+                       if _blob_do_git(p) is None or _blob_do_git(p) != autorizados.get(p))
         self.assertEqual(
             novos, [],
             "INTELIGENCIA NOVA antes de COLLECTION_FOUNDATION_CLOSED:\n  %s"

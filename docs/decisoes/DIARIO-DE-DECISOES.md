@@ -1496,3 +1496,48 @@ está intacta. Fecharam-se duas coisas que faltavam à prova dela:
   estão aqui. E ajustar o esperado do gold para o código passar: onde o código contradiz o
   dono, o teste declara a falha conhecida (`expectedFailure`), e isso é o backlog.
 - **Quem decidiu:** o dono (D112); redação das leis na missão METODO-PUGLIA.
+
+---
+
+## D140 · EXCEÇÃO CONTROLADA DE E2E PARA PREVIEW — a fundação continua NÃO FECHADA
+
+- **Data:** 2026-09-28, 17:16 (BRT)
+- **Autor:** DONO REAL (Luciano). Registada pela missão L1-GOVERNANCA-PREVIEW, ramo
+  `claude/l1-governanca-preview-v1`, sobre a produção `origin/servico-20260923-0923 @ fd8c94698`.
+- **Estado:** DECIDIDO (dono).
+- **Texto literal da decisão**, tal como chegou à missão (as reticências `...` já vinham no texto
+  recebido; o que elas omitem não chegou a esta missão e por isso **não** se reconstrói aqui):
+
+  > «A fundação da Collection CONTINUA NÃO FECHADA. Não falsifique este estado. ... PODE existir
+  > uma EXCEÇÃO CONTROLADA DE E2E PARA PREVIEW. Essa exceção serve apenas para provar: SALA REAL →
+  > INTELLIGENCE → POTE → CASCO ORIGINAL → PREVIEW. Ela NÃO significa: produção liberada; fundação
+  > fechada; autorização geral de Intelligence; autorização para escrever indiscriminadamente na
+  > Sala; autorização para inventar dados. ... registrada pelo caminho canônico de governança e
+  > refletida corretamente na TRAVA. Não editar artefato gerado na mão.»
+
+- **Red team (bot Luciano, 17:20), literal:**
+
+  > «a exceção só aproxima o loop se atravessar a TRAVA EXECUTÁVEL; um bloco novo no JSON,
+  > sozinho, não abre a rota. Os testes atuais congelam arquivos do Portal por SHA e barram novos
+  > artefatos — exceção só descritiva criaria contradição entre contrato e guarda. Fazer exceção
+  > estreita também na guarda executável, com mutantes de vazamento para produção e fora do
+  > escopo; remedir A..N sem usar a exceção para declarar fundação fechada.»
+
+- **Onde isto passa a morder:**
+  - contrato: `docs/operacao/TRAVA-DA-INTELIGENCIA.json` → `EXCECOES_CONTROLADAS[PREVIEW_E2E]`,
+    com `AUTORIDADE = D140`. `COLLECTION_FOUNDATION_CLOSED` continua `NAO` e a `REGRA` não muda;
+  - guarda executável: `leis/fundacao_da_coleta.py` → `pode_atravessar_a_trava` (o pedido de
+    levar um pote ao Casco) e `excecao_vigente` (a entrada só vale se esta D140 estiver neste
+    diário e a entrada não estiver revogada);
+  - testes e mutantes: `tests/test_excecao_preview_e2e.py`.
+- **O que a exceção NÃO faz, e a guarda recusa:** destino de produção (a branch
+  `release/canonical` e o host canónico de `system-map/CANONICAL-PUBLICATION.json` — que tem
+  «preview» no nome e **é** o endereço do produto), cliente, URL pública de produção; escrever na
+  Sala; ler a Sala real sem ser por cópia/snapshot `READ_ONLY`; objeto que não seja
+  `LIBERACAO = LIBERADO_PARA_CLIENTE` com as conferências C1..C8 do contrato de liberação por
+  objeto v2.2; pote que o validador do pote v2 reprova; pedido sem a prova reversa do LAB.
+- **Revogável:** pôr `REVOGADA = true` na entrada (ou apagá-la, ou apagar esta D140) fecha tudo
+  de novo — sem mexer em mais nada.
+- **Critérios A..N:** re-medidos pela lei (`fundacao_da_coleta.medir_criterios`, chamada pela
+  cadeia do mapa em `censo_das_estradas_it.py`), e **não** pela exceção. O resultado está em
+  `system-map/data/estradas-it.generated.json` → `CRITERIOS_A_N`.

@@ -150,6 +150,9 @@ const pacote = {
     estado: trava.COLLECTION_FOUNDATION_CLOSED !== 'SIM' ? 'BLOQUEADA' : 'LIVRE',
     regra: trava.REGRA, fundacaoFechada: trava.COLLECTION_FOUNDATION_CLOSED, travaMedidaEm: trava.MEDIDO_EM,
     criteriosCumpridos: trava.QUAIS_JA_CUMPRIDOS, criteriosEmFalta: trava.QUAIS_FALTAM, prova: prova(travaF),
+    // D140: a excecao estreita nao muda o estado acima — continua BLOQUEADA; so se mostra que existe e se vale
+    excecoes: (trava.EXCECOES_CONTROLADAS || []).map((e) => ({ id: e.ID, autoridade: e.AUTORIDADE,
+      estado: e.REVOGADA === false ? 'VIGENTE' : 'REVOGADA', escopo: (e.ESCOPO || {}).DESTINO || NS })),
     emenda: Object.assign({ estado: 'PROPOSTA — espera as 2 assinaturas do dono (emenda + linha na trava)' }, emenda),
     defeitos: DEFEITOS, fonteDosDefeitos: prova(OPT.decisoes),
   },

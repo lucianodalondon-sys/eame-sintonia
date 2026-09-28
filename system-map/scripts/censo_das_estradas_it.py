@@ -921,6 +921,9 @@ def main():
         'COLLECTION_FOUNDATION_CLOSED': fdc.COLLECTION_FOUNDATION_CLOSED,
         'VEREDITOS': vereditos(resolucao, rotas),
     }
+    # Os 14 criterios A..N, medidos pela LEI sobre o que este censo acabou de
+    # medir (D140). A excecao PREVIEW_E2E nao entra aqui: ela nao fecha nada.
+    rel['CRITERIOS_A_N'] = fdc.medir_criterios(rel)
     with open(SAIDA, 'w', encoding='utf-8') as f:
         json.dump(rel, f, ensure_ascii=False, indent=1)
     print('FONTES IT %d · com rota PROVADA %d · so CANDIDATA %d · UNKNOWN %d · BLOCKED %d'

@@ -19,6 +19,51 @@
     "alimentar o portal com dado de inteligencia",
     "ativar Field Voices ou Opportunity Radar"
   ],
+  "EXCECOES_CONTROLADAS": [
+    {
+      "ID": "PREVIEW_E2E",
+      "AUTORIDADE": "D140",
+      "ONDE_A_AUTORIDADE_ESTA_ESCRITA": "docs/decisoes/DIARIO-DE-DECISOES.md → «D140 · EXCEÇÃO CONTROLADA DE E2E PARA PREVIEW»",
+      "DECIDIDA_EM": "2026-09-28",
+      "REVOGADA": false,
+      "REVOGAVEL": "SIM. REVOGADA = true, apagar esta entrada ou apagar a D140 do diario fecha tudo de novo — a guarda deixa de a reconhecer e volta a bloquear.",
+      "PARA_QUE_SERVE": "provar uma vez, de ponta a ponta: SALA REAL → INTELLIGENCE → POTE → CASCO ORIGINAL → PREVIEW.",
+      "NAO_SIGNIFICA": [
+        "producao liberada",
+        "fundacao fechada",
+        "autorizacao geral de Intelligence",
+        "autorizacao para escrever na Sala",
+        "autorizacao para inventar dados"
+      ],
+      "NAO_FECHA_A_FUNDACAO": true,
+      "ESCOPO": {
+        "DESTINO": "SO o preview do Casco original: build local, ou deployment de preview da Vercel de uma branch que NAO e de promocao.",
+        "DESTINOS_TIPO": [
+          "BUILD_LOCAL",
+          "VERCEL_PREVIEW"
+        ],
+        "NUNCA": [
+          "producao",
+          "cliente",
+          "URL publica de producao",
+          "as branches de PROMOTION_AUTHORITY_BRANCHES e o CANONICAL_HOST de system-map/CANONICAL-PUBLICATION.json — o host canonico tem «preview» no nome e E o endereco do produto"
+        ]
+      },
+      "ENTRADA": {
+        "SALA": "SO leitura, por copia/snapshot READ_ONLY. Nunca a Sala real diretamente, nunca escrita.",
+        "TIPO": "SALA_COPIA_READ_ONLY"
+      },
+      "SAIDA": {
+        "SO": "objetos com LIBERACAO = LIBERADO_PARA_CLIENTE (contrato de liberacao por objeto v2.2: C1..C7 = PASSOU e C8 = decisao do dono), LIBERADO_POR = INTELLIGENCE, da mesma corrida, num pote que passa todos os gates do pote v2 (pacote/validar_pote_v2.py: forma + conferir_pote).",
+        "UM_OBJETO_NAO_LIBERADO_RECUSA_O_POTE_INTEIRO": "a guarda nao filtra nem reescreve o pote — o contrato v2.2 proibe filtrar depois de a Intelligence escrever."
+      },
+      "PROVA": "OBRIGATORIA: prova reversa do LAB (TELA → POTE → INTELLIGENCE → SALA → RAW → FONTE) com VEREDITO = PASS e o sitio onde esta. Sem ela, a guarda recusa.",
+      "ARTEFATOS_AUTORIZADOS": [],
+      "ARTEFATOS_AUTORIZADOS_COMO": "cada artefato congelado que o preview precise de mudar, ou artefato novo de especie congelada, entra aqui com PATH e o GIT_BLOB_SHA novo exato — continua preso por sha, so muda de sha A para sha B. Vazio hoje: nenhum artefato foi autorizado. Numa branch de promocao esta lista e ignorada e o congelamento volta a ser o do manifesto.",
+      "GUARDA_EXECUTAVEL": "leis/fundacao_da_coleta.py → excecao_vigente, pode_atravessar_a_trava, artefatos_autorizados",
+      "TESTES": "tests/test_excecao_preview_e2e.py"
+    }
+  ],
   "ESTADO_MEDIDO_HOJE": {
     "CORRECAO": "A versao 1 deste contrato dizia AREAS_DE_INTELIGENCIA_IMPLEMENTADAS = 0. ERRADO. A medicao antiga procurava PASTAS com certos nomes, nao achava nenhuma, e dai eu concluia que nao havia inteligencia. Nao havia PASTA. Havia artefatos espalhados por outras gavetas — a contagem esta em ARTEFATOS_CONGELADOS.",
     "ARTEFATOS_QUE_MENCIONAM_INTELIGENCIA": 221,
