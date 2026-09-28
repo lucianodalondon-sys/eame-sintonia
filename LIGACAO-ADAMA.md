@@ -76,15 +76,43 @@ do texto (o `VEM_DE` diz). A porta, ela própria, não lê texto nenhum. O casco
 
 ## Testes — bateria inteira por nome (`provas/int_r7/bateria_por_nome.py`, rede fechada)
 
-BATERIA_PLACEHOLDER
+| | módulos | testes | falhas por nome |
+|---|---|---|---|
+| base `c551062` (worktree limpo) | 314 | 7030 | 130 |
+| ramo, código `2df3ad91` (antes de regerar o mapa) | 316 | 7106 | 131 |
+
+- **Sumidas: 0.** **Novas: 1** na medida sobre `2df3ad91`: `test_o_controle_separa_lei_de_mencao.test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore`
+  — é a impressão do mapa, que naquele commit ainda não tinha sido regerado (fontes mudaram, carimbo velho). Depois
+  do mapa regerado e commitado, o módulo foi recorrido: ver `- **Depois do mapa regerado e commitado**, `tests.test_o_controle_separa_lei_de_mencao` recorrido: **`M5` passa**;
+  as outras falhas do módulo (`B0`, `C2`, `P5`) são as mesmas da base, pelo nome. **Novas finais: 0.**` abaixo.
+- 2 módulos novos: `test_ligacao_adama` (38, 0 falhas) e `test_pote_v2_unico` (trazido com o contrato único, 0 falhas).
+- Nota: o relatório da PORTA-UNICA mediu 131 na base `21cc06c`; na base desta missão (`c551062`), pelo nome, são 130.
+
+- **Depois do mapa regerado e commitado**, `tests.test_o_controle_separa_lei_de_mencao` recorrido: **`M5` passa**;
+  as outras falhas do módulo (`B0`, `C2`, `P5`) são as mesmas da base, pelo nome. **Novas finais: 0.**
 
 ## Mutação
 
-MUTACAO_PLACEHOLDER
+| prova | resultado |
+|---|---|
+| **LIGACAO-ADAMA** `provas/ligacao_adama/mutantes.py` | **25/25 mortos** (`MUTANTES.json`): objeto sem ligação aceite (gerador, `conferir_pote`, schema, motor, voz) · ligação fora da porta (dict à mão, selo próprio, boletim sem porta, selo não conferido, fila sem selo, texto como chave) · catálogo autoriza (×2) · DECLARACAO_DE_PRODUTO autoriza (×2) · D117 ignorado · ligação como fonte independente (trava, prova da referência no pote, `NAO_PROVA` vazio) · ADAMA_SEM_PRODUTO sem ter lido (×4) · várias culturas autorizadas · edições misturadas no pote |
+| porta única (já existia) | 20/20 |
+| pote v2 único | 25/25 |
+| pote → casco | 29/29 |
+| int-r7 (motor) | 32/32 (sha dos alvos regravados em `provas/int_r7/MUTANTES.json`) |
+| cruzamentos-max | 31/31 |
+| cap-win · cap-sci | 22/22 · 22/22 |
+| voci dal campo | 20/20 |
+
+Nenhuma âncora antiga deixou de aplicar.
 
 ## System Map
 
-MAPA_PLACEHOLDER
+`python3 system-map/scripts/correr_a_cadeia.py REGERAR` → `VALIDAR` = **SYSTEM_MAP_CHECK=PASS** →
+commit dos gerados → `python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo` = **IGUAL** (conferido
+depois do último commit). Peças novas declaradas: `C-INT-FILA-BULAS` (Z-MOTOR), `C-PROVA-LIGACAO-ADAMA` (Z-PROVA);
+frases de `C-INT-PORTA-REFERENCIA` e `C-POTE-INT-CASCO` reescritas à mão. **Sem `--stamp`**: as peças tocadas e não
+relidas ficam 🟡, que é a verdade.
 
 ## EM PALAVRAS SIMPLES
 
