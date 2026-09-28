@@ -67,6 +67,11 @@ MUTANTES = [
      "      const decisao = decidirSobreDetalhe(alvo.url, {",
      "      await baixar(alvo.url, 2, { condicional: true }); const decisao = decidirSobreDetalhe(alvo.url, {",
      T_PARIDADE, None),
+    ("S1_coleta_volta_a_ler_o_registo_do_curador", "coleta/social_por_url_achado.py",
+     "    return CURADORIA.livros_de_identidade(raiz)\n",
+     "    return {\"CONTRATOS\": _ler(raiz / \"curadoria\" / \"italy_contracts_curator.json\"),\n"
+     "            \"ALLOC\": {}, \"FILA\": {}}\n",
+     ["-m", "unittest", "tests.test_integracao_04a_curator.OMotorNaoAlcancaAs50PeloFeed"], None),
     ("P6_volta_ao_split_por_LF_com_checkout_CRLF", "tests/test_pote_no_casco.mjs",
      "'.vercelignore'), 'utf8').split(/\\r?\\n/);", "'.vercelignore'), 'utf8').split('\\n');", T_P6, "CRLF_VERCELIGNORE"),
 ]

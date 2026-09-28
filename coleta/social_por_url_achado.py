@@ -118,10 +118,15 @@ def _ler(p: Path) -> dict:
 
 
 def livros(raiz: Path = RAIZ) -> dict:
-    """Os livros de identidade da MESMA arvore (nunca os de outra: os CAND-ids colidem)."""
-    return {"CONTRATOS": _ler(raiz / "curadoria" / "italy_contracts_curator.json"),
-            "ALLOC": _ler(raiz / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json"),
-            "FILA": _ler(raiz / "candidatas" / "FONTES-CANDIDATAS.json")}
+    """Os livros de identidade da MESMA arvore (nunca os de outra: os CAND-ids colidem).
+
+    LOTE8-INTEGRA: quem os abre e o DONO deles, a curadoria (`desbloquear_social.livros_de_identidade`).
+    A coleta nao le o registo do curador (tests/test_integracao_04a_curator: o ficheiro da curadoria e
+    registo, nao configuracao da coleta) — pergunta a quem o guarda."""
+    if str(RAIZ / "curadoria") not in sys.path:      # curadoria/ nao e gaveta do processo (_gavetas.py)
+        sys.path.insert(0, str(RAIZ / "curadoria"))
+    import desbloquear_social as CURADORIA   # noqa: PLC0415
+    return CURADORIA.livros_de_identidade(raiz)
 
 
 def _sid_da_candidata(cid: str, alloc: dict) -> str | None:

@@ -47,6 +47,17 @@ ROBOTS_LINKEDIN = {"ROBOTS_STATUS": "DISALLOW_ALL", "ROBOTS_URL": "https://www.l
                    "ROBOTS_MEDIDO_EM": "2026-09-08", "FONTE": "leis/social_matriz.py (cabecalho) · D37"}
 
 
+def livros_de_identidade(raiz: Path = RAIZ) -> dict:
+    """Os livros de identidade da MESMA arvore, lidos pelo dono (a curadoria): contratos do curador,
+    alocacao de SOURCE_ID e a fila de candidatas. So leitura. Usado por coleta/social_por_url_achado.py
+    (LOTE8-INTEGRA: a coleta pergunta a curadoria em vez de abrir o registo dela)."""
+    def ler(p: Path) -> dict:
+        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    return {"CONTRATOS": ler(raiz / "curadoria" / "italy_contracts_curator.json"),
+            "ALLOC": ler(raiz / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json"),
+            "FILA": ler(raiz / "candidatas" / "FONTES-CANDIDATAS.json")}
+
+
 def decisoes_de(c: dict) -> list[str]:
     """As decisoes do dono que cobrem ESTA candidata (e so estas)."""
     if c.get("TIPO") == "INSTAGRAM":
