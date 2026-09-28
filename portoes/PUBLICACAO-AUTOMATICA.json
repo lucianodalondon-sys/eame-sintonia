@@ -29,7 +29,7 @@
       "ATUAL": "vercel inspect <CANONICAL_HOST>",
       "PUXAR": "vercel pull --yes --environment=<production|preview>",
       "CONSTRUIR": "vercel build [--prod]",
-      "IMPLANTAR": "vercel deploy --prebuilt [--prod]",
+      "IMPLANTAR": "vercel deploy --prebuilt --archive=tgz [--prod]",
       "VOLTAR": "vercel rollback <deployment-id>",
       "ESTADO": "NAO_TESTADO_NESTA_MAQUINA — o CLI da Vercel nao esta instalado no contentor da missao e nao ha credencial. O caminho inteiro foi ensaiado com o implantador de ENSAIO (local), que obedece a mesma interface."
     }

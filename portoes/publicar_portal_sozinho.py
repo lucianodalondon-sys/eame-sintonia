@@ -682,7 +682,7 @@ class VercelCLI(Implantador):
             rc, txt = self._v(a, cwd=copia)
             if rc != 0:
                 return {"ERRO": f"vercel {' '.join(a)} -> {rc}: {txt[-400:]}"}
-        rc, txt = self._v(["deploy", "--prebuilt"] + (["--prod"] if prod else []), cwd=copia)
+        rc, txt = self._v(["deploy", "--prebuilt", "--archive=tgz"] + (["--prod"] if prod else []), cwd=copia)
         urls = re.findall(r"https://[A-Za-z0-9.-]+\.vercel\.app", txt or "")
         if rc != 0 or not urls:
             return {"ERRO": f"vercel deploy -> {rc}: {(txt or '')[-400:]}"}
