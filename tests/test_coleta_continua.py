@@ -635,7 +635,7 @@ class RoboDeFontes(Base):
 import ensaio_coleta_continua as ECC  # noqa: E402 — o plano commitado da 4.a onda (a tabela do documento)
 
 EDAG = "edagricole.it"
-FALTA_ABRIR_S = 15 * 3600 + 22 * 60 + 10          # ciclo 30: 28/09 15:50 local -> ABRE_EM 29/09 11:12:10Z
+FALTA_ABRIR_S = 16 * 3600 + 22 * 60 + 10          # ciclo 30: 28/09 15:50 (-03) = 18:50Z -> ABRE_EM 29/09 11:12:10Z
 
 
 class OndaDoLivro:
@@ -675,7 +675,7 @@ class OndaDoLivro:
 class ColetaOciosa(Base):
     """O caso medido do ciclo 30, reconstruido: plano da 4.a onda (64 fontes, 15 edagricole.it), PASSAGEM 2 com
     TODAS as outras feitas, e edagricole.it com GASTO_24H 36 / ORCAMENTO_24H 40 (o orcamento vigente D124, sem
-    teto manual) ate daqui a 15h22m10s. Cada fonte edagricole quer 5: nenhuma cabe."""
+    teto manual) ate daqui a 16h22m10s. Cada fonte edagricole quer 5: nenhuma cabe."""
 
     def setUp(self):
         super().setUp()

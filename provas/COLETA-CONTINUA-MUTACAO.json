@@ -1,5 +1,5 @@
 {
- "REF": "389a8a0",
+ "REF": "4dd7c302",
  "MUTANTES": [
   {
    "MUTANTE": "M01_DOMINIO_BLOQUEADO_PASSA",
@@ -203,12 +203,54 @@
    "MORTO": true,
    "CODIGO": 1,
    "CAUDA": null
+  },
+  {
+   "MUTANTE": "M30_SEM_A_CONDICAO_SO_DOMINIO_FECHADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M31_RESISTENCIA_CONTA_COMO_FECHADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M32_SEM_PASSAGEM_NOVA",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M33_PASSAGEM_ABERTA_SEM_NADA_A_CORRER",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M34_AS_QUE_ESPERAM_CONTAM_COMO_FEITAS",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M35_ORCAMENTO_DA_PASSAGEM_NOVA_PERDIDO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
   }
  ],
  "SEM_MUTANTE": {
   "CODIGO": 0,
-  "TESTES": 50
+  "TESTES": 58
  },
- "MORTOS": 29,
- "TOTAL": 29
+ "MORTOS": 35,
+ "TOTAL": 35
 }
