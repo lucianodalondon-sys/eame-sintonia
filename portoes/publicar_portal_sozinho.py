@@ -400,7 +400,7 @@ def _handler(raiz_fn):
         def translate_path(self, caminho):
             base = Path(raiz_fn())
             rel = caminho.split("?", 1)[0].split("#", 1)[0]
-            rel = urllib.request.url2pathname(rel).lstrip("/")
+            rel = urllib.request.url2pathname(rel).lstrip("/\\")
             alvo = (base / rel) if rel else (base / "index.html")
             # cleanUrls, como na Vercel: /portale -> portale.html
             if not alvo.exists() and not alvo.suffix and alvo.with_suffix(".html").exists():
@@ -706,7 +706,7 @@ class Publicador:
     def publicar(self, pote: dict, origem: str = "") -> int:
         agora = _dt.datetime.now()
         sha = sha_do_pote(pote)
-        reg = self.registro / agora.strftime("%Y-%m-%d") / f"{agora.strftime('%H%M%S')}-{sha[:8]}"
+        reg = self.registro / agora.strftime("%Y-%m-%d") / f"{agora.strftime('%H%M%S-%f')}-{sha[:8]}"
         R = {"D126": "portal publica sozinho", "MODO": self.modo, "IMPLANTADOR": self.imp.nome,
              "POTE": {"ORIGEM": origem, "POTE_SHA256": sha, "INTELLIGENCE_RUN_ID": pote.get("INTELLIGENCE_RUN_ID"),
                       "CONTAGENS": {k: len((e or {}).get("OBJETOS") or []) for k, e in (pote.get("COMPARTIMENTOS") or {}).items()}},
