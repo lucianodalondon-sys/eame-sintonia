@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
-    "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-    "GENERATED_AT": "2026-09-28T05:29:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a"
+    "BRANCH": "claude/reroute-t1t2-rule-t5-v45dba",
+    "HEAD": "9bf949d2f31d0c1f71679d8582ce6ac96911959f",
+    "GENERATED_AT": "2026-09-28T15:24:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8fa68a444da00056f16554e61cd3ee9c38c419d01343bd6099cf429ebc868239"
   },
   "FILES": [
     {
@@ -1178,6 +1178,20 @@
       "code_dir": false
     },
     {
+      "path": "REROUTE-D56.md",
+      "sha": "5e0016813e0976bf081cc74ad65c20a5b6744898",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "REROUTE-T1T2.md",
+      "sha": "162f46516fcfc5b3760a1e9204de9ee8683165e3",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RUNBOOK-R7.md",
       "sha": "0304389a6469dc8220c6060c1b857e23bbfa5f4c",
       "ext": ".md",
@@ -1263,7 +1277,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "4b7cd7c2f72d6b6ed77bd93563cd6512f2205b84",
+      "sha": "dc224f2df786926c6e3013b4ee8bb2dcd3b8c25b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1290,6 +1304,13 @@
       "code_dir": true
     },
     {
+      "path": "admissao/reprocessar_reroute.py",
+      "sha": "fb29d79a114263992124d0f36743574fec155e63",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "admissao/reprocessar_tempo_lugar.py",
       "sha": "ccaa4fc58fe6d835fc2615d2891e0542fa3110ed",
       "ext": ".py",
@@ -1298,7 +1319,7 @@
     },
     {
       "path": "admissao/sala_de_espera.py",
-      "sha": "f4435065e826bd96cd9e379181b2900bab488681",
+      "sha": "beab3b5553a53468cc255f9d15430d65ae668f9f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11804,6 +11825,48 @@
       "code_dir": false
     },
     {
+      "path": "docs/lab-insumos/reroute-prova/CONFRONTO-T5-MEDIDO.json",
+      "sha": "a900b0fcf0d816b8384d4513e2f93fe4ef8d9c22",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/lab-insumos/reroute-prova/CRITERIO-ROTULO-V1.md",
+      "sha": "b7f401b389ff9a57909338aa5965cfb03c9eb490",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/lab-insumos/reroute-prova/LAB-ROTULOS-V1.json",
+      "sha": "14c7c1a5f4cd0d8034aada50061a2160b372089b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/lab-insumos/reroute-prova/ONDE-CASOU-T5.json",
+      "sha": "991f3c39bc1f9e5c7a40b91f03df8449f466dc52",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/lab-insumos/reroute-prova/REROUTE-PROVA.md",
+      "sha": "a1f3e383773feb5a564e3f18e9f090a93be11f4e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/lab-insumos/reroute-prova/SALA-T5-EXPORT.json",
+      "sha": "972988e2c3fb5eec199034be136bdbd2dcb9a1f5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/nuvem/nuvem-boletim-por-secao-v1-MERGES.txt",
       "sha": "1d9c09395bc69e60f30aacb43999e0efe1647068",
       "ext": ".txt",
@@ -19470,7 +19533,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "7fa7cca731f81aa8dee6e78269b5f973fc3cfcf7",
+      "sha": "11f0d2af65d2a79d923b76192f2a037a669de416",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22004,7 +22067,7 @@
     },
     {
       "path": "provas/medir_admission_t3_atual.py",
-      "sha": "0ea6ece3117343bb7b38f8f3f56253729e016ba8",
+      "sha": "f2911d5c8fe6136eec084cfb85577ab384757988",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22628,6 +22691,139 @@
     {
       "path": "provas/reel_fala_qualidade.py",
       "sha": "6927ebd7f240c5017a1e9e53a5ae51b20b957383",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/BATERIA-BASE-a2aa73f.json",
+      "sha": "a3fdb896ae46e71357e40496e7780a77df31689b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/BATERIA-DEPOIS-1b6b373.json",
+      "sha": "26a03b202e28b10ff97c1e8c9696b7ba44df3361",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/BATERIA-DEPOIS-443430e.json",
+      "sha": "1ac6a0195d024847f8b1f4a58a482e9d4f23d436",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/LEITURA-NOVOS-SIM-D56.json",
+      "sha": "0e03c367c29828858d083bce0d8037110daefe83",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/MUTACAO-REROUTE-D56.json",
+      "sha": "6930e015e973fce983a7fbe591989941180f55c8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/NOVOS-SIM-D56.json",
+      "sha": "1806dfa8cd33ff3ed326bb649678989eb54db141",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/REPLAY-REROUTE-D56.json",
+      "sha": "e7406ebaf80d0c06543b052b3d201e916b731aae",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/leitura_novos_sim.py",
+      "sha": "3f8b5cea1d16774e65f5b66c547c9fb30dada4e9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/mutar_reroute_d56.py",
+      "sha": "208a4185a16346df71735df8a6380a5d8ccf3f81",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_d56/replay_reroute_d56.py",
+      "sha": "f619e2b93cee12a694eb0cced340dfe77bc3e0e2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_t1t2/LEITURA-SAI-T5-C1.json",
+      "sha": "7960b0950026229c4134a99d55f1bba01133a44f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_t1t2/MEDIDA-CORPO-VAZIO.json",
+      "sha": "bde145be53f57dc783379fd39e489a779fe9ce23",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_t1t2/MUTACAO-REROUTE-D56-SOBRE-D130.json",
+      "sha": "3b4c93f358a8f0f3754fe9c8b2eebdbda8400c8e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_t1t2/MUTACAO-REROUTE-T1T2.json",
+      "sha": "8f0865ef4b49b164c0036ad6a72b5dcf282935a1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_t1t2/REPLAY-T5-C1.json",
+      "sha": "08381e6ae71c9c8199fe10d75f2a50fbaa5976ab",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_t1t2/leitura_sai_t5_c1.py",
+      "sha": "69748b426c6c88aae3c2c4c90cb590778b6163c4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_t1t2/medir_corpo_vazio.py",
+      "sha": "0c68e7d52166d7a906723af3604f041508249dc3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_t1t2/mutar_reroute_t1t2.py",
+      "sha": "acab419e9bdf49fe0cfef018d47b2e780aa1951d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/reroute_t1t2/replay_t5_c1.py",
+      "sha": "6fa2e9080b803b93ffd9ad5ea728b9e1ad019d7a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25742,7 +25938,7 @@
     },
     {
       "path": "supabase/desfazer/033_desfazer.sql",
-      "sha": "3f86f99171b64c984f5a55451551df5dcb605360",
+      "sha": "439c91eda1408b60f472911e128b96009b43c43b",
       "ext": ".sql",
       "readable": false,
       "code_dir": false
@@ -25757,6 +25953,13 @@
     {
       "path": "supabase/desfazer/036_desfazer.sql",
       "sha": "83ea5771be23e194c59fbf6bcff30e9efee2f3d8",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "supabase/desfazer/038_desfazer.sql",
+      "sha": "6cee6125c7730b23fe5646cdb6bd3a53faaa7cd0",
       "ext": ".sql",
       "readable": false,
       "code_dir": false
@@ -26077,6 +26280,13 @@
       "code_dir": false
     },
     {
+      "path": "supabase/migrations/038_a_sala_mostra_cada_item_em_cada_gaveta.sql",
+      "sha": "4c7e85f759d376fcb512ef8babf998e6ba2b2fbc",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "supabase/propostas/037_a_sala_diz_qual_video_e_o_mesmo.sql",
       "sha": "4b72cd4be4d99a523f7a3c37ce61012e55de4780",
       "ext": ".sql",
@@ -26246,7 +26456,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "940148ded4e8a9036196ca5c35d78328176895a0",
+      "sha": "4321058f0c20df9ac12c5c15dfc0b29733e35023",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -29031,6 +29241,20 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_reroute_d56.py",
+      "sha": "9546e5a58b448a03e8aab88be67627d04cfa7f91",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_reroute_t1t2_d130.py",
+      "sha": "d83cde9e144049edd6470646cd0a87815f3d1342",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_retirada_por_decisao.py",
       "sha": "730f94111ee490b4c0394d5fd670b0d809542dc7",
       "ext": ".py",
@@ -29088,7 +29312,7 @@
     },
     {
       "path": "tests/test_sala_dedup_por_document_key.py",
-      "sha": "3a4a35cca2eae4a72e1535e0efe4b91858203da2",
+      "sha": "bcdefe7b7e8880e28ff09374caee397fe5a03826",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29102,7 +29326,7 @@
     },
     {
       "path": "tests/test_sala_idempotente_por_documento.py",
-      "sha": "cd582d96e66a3ee217189c8de01d98e029c0f7a2",
+      "sha": "4239fdd1e75c06d53fb91ea2c9804f518d238573",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30981,7 +31205,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 1514,
+        "line": 1529,
         "snippet": "_sp = _iu.spec_from_file_location(\"admissao_idioma\", Path(__file__).resolve().parent / \"idioma.py\")"
       }
     },
@@ -31025,7 +31249,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2091,
+        "line": 2532,
         "snippet": "import boletim_do_campo as BC                                  # noqa: PLC0415"
       }
     },
@@ -31036,7 +31260,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2125,
+        "line": 2566,
         "snippet": "import estudo_chaves as EC                                     # noqa: PLC0415"
       }
     },
@@ -31047,7 +31271,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2070,
+        "line": 2511,
         "snippet": "import fato_do_texto as FT                                     # noqa: PLC0415"
       }
     },
@@ -31258,6 +31482,94 @@
         "file": "admissao/reprocessar_problema.py",
         "line": 58,
         "snippet": "\"leis/fato_local.py\", \"coleta/pesquisadores_t6.py\", \"motor/normalize_agro.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_reroute.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_reroute.py",
+        "line": 45,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_reroute.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_reroute.py",
+        "line": 47,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_reroute.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_reroute.py",
+        "line": 53,
+        "snippet": "CODIGO_DA_VERSAO = (\"admissao/reprocessar_reroute.py\", \"admissao/admissao.py\", \"admissao/idioma.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_reroute.py",
+      "to_file": "admissao/idioma.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_reroute.py",
+        "line": 53,
+        "snippet": "CODIGO_DA_VERSAO = (\"admissao/reprocessar_reroute.py\", \"admissao/admissao.py\", \"admissao/idioma.py\","
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_reroute.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_reroute.py",
+        "line": 142,
+        "snippet": "import sala_de_espera as espera  # noqa: PLC0415 — so quem aplica abre a Sala"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_reroute.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_reroute.py",
+        "line": 54,
+        "snippet": "\"leis/fato_do_texto.py\", \"leis/fato_local.py\", \"leis/territorios.py\")"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_reroute.py",
+      "to_file": "leis/fato_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_reroute.py",
+        "line": 54,
+        "snippet": "\"leis/fato_do_texto.py\", \"leis/fato_local.py\", \"leis/territorios.py\")"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_reroute.py",
+      "to_file": "leis/territorios.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/reprocessar_reroute.py",
+        "line": 54,
+        "snippet": "\"leis/fato_do_texto.py\", \"leis/fato_local.py\", \"leis/territorios.py\")"
       }
     },
     {
@@ -61385,7 +61697,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "orquestrador/orquestrador.py",
-        "line": 784,
+        "line": 799,
         "snippet": "from coleta.extratores_de_texto import registo as _extratores"
       }
     },
@@ -73529,7 +73841,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_admission_t3_atual.py",
-        "line": 727,
+        "line": 731,
         "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\","
       }
     },
@@ -73540,7 +73852,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_admission_t3_atual.py",
-        "line": 727,
+        "line": 731,
         "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\","
       }
     },
@@ -73551,7 +73863,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_admission_t3_atual.py",
-        "line": 727,
+        "line": 731,
         "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\","
       }
     },
@@ -73595,7 +73907,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_admission_t3_atual.py",
-        "line": 79,
+        "line": 83,
         "snippet": "(\"coleta/ingresso.py\", \"def para_a_porta(\","
       }
     },
@@ -73606,7 +73918,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_admission_t3_atual.py",
-        "line": 76,
+        "line": 80,
         "snippet": "(\"coleta/rota_forward_documento.py\","
       }
     },
@@ -73650,7 +73962,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_admission_t3_atual.py",
-        "line": 728,
+        "line": 732,
         "snippet": "\"docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md\"],"
       }
     },
@@ -73661,8 +73973,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/medir_admission_t3_atual.py",
-        "line": 74,
-        "snippet": "(\"orquestrador/orquestrador.py\", \"adm.decidir(x, universo, corrida=run_id)\","
+        "line": 76,
+        "snippet": "(\"orquestrador/orquestrador.py\", \"adm.decidir_todas(x, universo, corrida=run_id)\","
       }
     },
     {
@@ -79658,6 +79970,358 @@
         "file": "provas/reel_fala_qualidade.py",
         "line": 174,
         "snippet": "with open(CORPUS, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/leitura_novos_sim.py",
+      "to_file": "provas/reroute_d56/LEITURA-NOVOS-SIM-D56.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/leitura_novos_sim.py",
+        "line": 27,
+        "snippet": "SAIDA = AQUI / \"LEITURA-NOVOS-SIM-D56.json\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/leitura_novos_sim.py",
+      "to_file": "provas/reroute_d56/LEITURA-NOVOS-SIM-D56.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/leitura_novos_sim.py",
+        "line": 123,
+        "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/leitura_novos_sim.py",
+      "to_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/reroute_d56/leitura_novos_sim.py",
+        "line": 24,
+        "snippet": "import replay_reroute_d56 as R  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/mutar_reroute_d56.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/mutar_reroute_d56.py",
+        "line": 24,
+        "snippet": "AD, SE = \"admissao/admissao.py\", \"admissao/sala_de_espera.py\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/mutar_reroute_d56.py",
+      "to_file": "admissao/reprocessar_reroute.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/mutar_reroute_d56.py",
+        "line": 25,
+        "snippet": "OQ, RR = \"orquestrador/orquestrador.py\", \"admissao/reprocessar_reroute.py\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/mutar_reroute_d56.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/mutar_reroute_d56.py",
+        "line": 24,
+        "snippet": "AD, SE = \"admissao/admissao.py\", \"admissao/sala_de_espera.py\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/mutar_reroute_d56.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/mutar_reroute_d56.py",
+        "line": 25,
+        "snippet": "OQ, RR = \"orquestrador/orquestrador.py\", \"admissao/reprocessar_reroute.py\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/mutar_reroute_d56.py",
+      "to_file": "provas/reroute_d56/MUTACAO-REROUTE-D56.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/mutar_reroute_d56.py",
+        "line": 23,
+        "snippet": "SAIDA = os.path.join(RAIZ, \"provas\", \"reroute_d56\", \"MUTACAO-REROUTE-D56.json\")"
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 36,
+        "snippet": "import _gavetas  # noqa: E402,F401 — as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 38,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "coleta/texto_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 39,
+        "snippet": "from coleta.texto_fonte import limpar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 49,
+        "snippet": "f = raiz / \"data\" / \"collection-ledger\" / \"italy\" / \"observations.ndjson\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 65,
+        "snippet": "reg = raiz / \"data\" / \"derivados\" / \"REGISTO-DE-ARTEFATOS.json\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 179,
+        "snippet": "livro = livro or json.loads((RAIZ / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\")"
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "provas/reroute_d56/NOVOS-SIM-D56.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 43,
+        "snippet": "NOVOS = AQUI / \"NOVOS-SIM-D56.json\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "provas/reroute_d56/NOVOS-SIM-D56.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 215,
+        "snippet": "NOVOS.write_text(json.dumps({\"DO_LIVRO\": novos, \"DO_ACERVO_INTEIRO\": hnovos},"
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "provas/reroute_d56/REPLAY-REROUTE-D56.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 42,
+        "snippet": "SAIDA = AQUI / \"REPLAY-REROUTE-D56.json\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_d56/replay_reroute_d56.py",
+      "to_file": "provas/reroute_d56/REPLAY-REROUTE-D56.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_d56/replay_reroute_d56.py",
+        "line": 214,
+        "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/leitura_sai_t5_c1.py",
+      "to_file": "provas/reroute_t1t2/LEITURA-SAI-T5-C1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/leitura_sai_t5_c1.py",
+        "line": 109,
+        "snippet": "(AQUI / \"LEITURA-SAI-T5-C1.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/leitura_sai_t5_c1.py",
+      "to_file": "provas/reroute_t1t2/REPLAY-T5-C1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/leitura_sai_t5_c1.py",
+        "line": 78,
+        "snippet": "rep = json.loads((AQUI / \"REPLAY-T5-C1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/medir_corpo_vazio.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/reroute_t1t2/medir_corpo_vazio.py",
+        "line": 24,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/medir_corpo_vazio.py",
+      "to_file": "coleta/texto_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/reroute_t1t2/medir_corpo_vazio.py",
+        "line": 26,
+        "snippet": "from coleta.texto_fonte import limpar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/medir_corpo_vazio.py",
+      "to_file": "docs/lab-insumos/reroute-prova/SALA-T5-EXPORT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/medir_corpo_vazio.py",
+        "line": 68,
+        "snippet": "sala = json.loads((RAIZ / \"docs\" / \"lab-insumos\" / \"reroute-prova\" / \"SALA-T5-EXPORT.json\")"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/medir_corpo_vazio.py",
+      "to_file": "provas/reroute_t1t2/MEDIDA-CORPO-VAZIO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/medir_corpo_vazio.py",
+        "line": 100,
+        "snippet": "(AQUI / \"MEDIDA-CORPO-VAZIO.json\").write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/mutar_reroute_t1t2.py",
+      "to_file": "provas/reroute_t1t2/MUTACAO-REROUTE-T1T2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/mutar_reroute_t1t2.py",
+        "line": 20,
+        "snippet": "M.SAIDA = os.path.join(AQUI, \"MUTACAO-REROUTE-T1T2.json\")"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/replay_t5_c1.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/reroute_t1t2/replay_t5_c1.py",
+        "line": 32,
+        "snippet": "import _gavetas  # noqa: E402,F401 — as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/replay_t5_c1.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/reroute_t1t2/replay_t5_c1.py",
+        "line": 34,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/replay_t5_c1.py",
+      "to_file": "docs/lab-insumos/reroute-prova/CONFRONTO-T5-MEDIDO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/replay_t5_c1.py",
+        "line": 81,
+        "snippet": "hoje = [r[0] for r in json.loads((LAB / \"CONFRONTO-T5-MEDIDO.json\").read_text(encoding=\"utf-8\"))]"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/replay_t5_c1.py",
+      "to_file": "docs/lab-insumos/reroute-prova/LAB-ROTULOS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/replay_t5_c1.py",
+        "line": 80,
+        "snippet": "rot = json.loads((LAB / \"LAB-ROTULOS-V1.json\").read_text(encoding=\"utf-8\"))[\"SALA_HOJE\"]"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/replay_t5_c1.py",
+      "to_file": "docs/lab-insumos/reroute-prova/SALA-T5-EXPORT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/replay_t5_c1.py",
+        "line": 79,
+        "snippet": "sala = json.loads((LAB / \"SALA-T5-EXPORT.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/replay_t5_c1.py",
+      "to_file": "provas/reroute_t1t2/REPLAY-T5-C1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/replay_t5_c1.py",
+        "line": 37,
+        "snippet": "SAIDA = Path(__file__).resolve().parent / \"REPLAY-T5-C1.json\""
+      }
+    },
+    {
+      "from_file": "provas/reroute_t1t2/replay_t5_c1.py",
+      "to_file": "provas/reroute_t1t2/REPLAY-T5-C1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/reroute_t1t2/replay_t5_c1.py",
+        "line": 128,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
     {
@@ -108316,6 +108980,171 @@
       }
     },
     {
+      "from_file": "tests/test_reroute_d56.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_d56.py",
+        "line": 32,
+        "snippet": "import _gavetas                          # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_d56.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_d56.py",
+        "line": 33,
+        "snippet": "import admissao as adm                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_d56.py",
+      "to_file": "admissao/reprocessar_reroute.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_d56.py",
+        "line": 35,
+        "snippet": "import reprocessar_reroute as rr         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_d56.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_d56.py",
+        "line": 34,
+        "snippet": "import sala_de_espera as espera          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_d56.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_d56.py",
+        "line": 225,
+        "snippet": "import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_d56.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_reroute_d56.py",
+        "line": 38,
+        "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_d56.py",
+      "to_file": "supabase/desfazer/038_desfazer.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_reroute_d56.py",
+        "line": 393,
+        "snippet": "\"-f\", str(RAIZ / \"supabase\" / \"desfazer\" / \"038_desfazer.sql\"), self.base.url],"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_t1t2_d130.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_t1t2_d130.py",
+        "line": 29,
+        "snippet": "import _gavetas                          # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_t1t2_d130.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_t1t2_d130.py",
+        "line": 30,
+        "snippet": "import admissao as adm                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_t1t2_d130.py",
+      "to_file": "admissao/reprocessar_reroute.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_t1t2_d130.py",
+        "line": 32,
+        "snippet": "import reprocessar_reroute as rr         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_t1t2_d130.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_t1t2_d130.py",
+        "line": 31,
+        "snippet": "import sala_de_espera as espera          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_t1t2_d130.py",
+      "to_file": "docs/lab-insumos/reroute-prova/SALA-T5-EXPORT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_reroute_t1t2_d130.py",
+        "line": 225,
+        "snippet": "(RAIZ / \"docs\" / \"lab-insumos\" / \"reroute-prova\" / \"SALA-T5-EXPORT.json\").read_text(encoding=\"utf-8\"))}"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_t1t2_d130.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_reroute_t1t2_d130.py",
+        "line": 113,
+        "snippet": "import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_t1t2_d130.py",
+      "to_file": "provas/reroute_t1t2/REPLAY-T5-C1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_reroute_t1t2_d130.py",
+        "line": 223,
+        "snippet": "rep = json.loads((RAIZ / \"provas\" / \"reroute_t1t2\" / \"REPLAY-T5-C1.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_reroute_t1t2_d130.py",
+      "to_file": "provas/reroute_t1t2/replay_t5_c1.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_reroute_t1t2_d130.py",
+        "line": 220,
+        "snippet": "\"replay_t5_c1\", RAIZ / \"provas\" / \"reroute_t1t2\" / \"replay_t5_c1.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_retirada_por_decisao.py",
       "to_file": "regras/italy_contracts.mjs",
       "type": "READS",
@@ -112539,10 +113368,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4205,
-    "files_readable": 1766,
-    "files_code_dir": 2181,
-    "file_edges": 7494,
+    "files_tracked": 4237,
+    "files_readable": 1776,
+    "files_code_dir": 2203,
+    "file_edges": 7549,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
