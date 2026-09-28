@@ -447,6 +447,10 @@ function gastarNaOnda(dominio, f = livroDaOnda()) {
 // e o vigente (sobe sem sinal, recua no sinal). Livro ilegivel = UNKNOWN, nunca vazio.
 export const MESMO_ORCAMENTO_24H = Object.freeze({ ...CA.politica().MESMO_ORCAMENTO });
 const livro24h = () => CA.livro();
+// D124-REBASE: a janela de 24 h do ROBOTS guardado (FEED-LIGADO, `robotsDoLivro24h`/`guardarRobots24h`).
+// A D124 tinha-a apagado com o contador antigo; o FEED-LIGADO, que chegou a producao depois, ainda a usa —
+// sem ela, a 2.a leitura do robots guardado rebentava com ReferenceError (medido no rebase, 28/09).
+const JANELA_24H_S = 24 * 3600;
 let RUN_ATUAL = null;
 export const dominio24h = host => CA.orcamentoDe(dominioRegistavel(host));
 const linhaAtual = () => process.env.SINTONIA_LINHA || "SITES";
@@ -457,7 +461,10 @@ export function reservar24h(host, qtd = 1, { runId = RUN_ATUAL || `node-${proces
 }
 // O teto de um dominio NESTA corrida: o manual declarado (SINTONIA_TETO_POR_HOST) ou o ORCAMENTO
 // VIGENTE da politica (D124). Livro ilegivel rebenta (como antes): quem nao leu o teto nao pede.
-export const tetoDe = host => CORTESIA.cfg.TETO_POR_HOST ?? CA.tetoVigente(dominioRegistavel(host));
+// D124-REBASE: SEM livro nao ha memoria entre corridas — o teto por corrida e o SEM_LIVRO da politica
+// (o MINIMO da classe: SITE 5), nunca o inicial 40 (verificador independente, 28/09).
+export const tetoDe = host => CORTESIA.cfg.TETO_POR_HOST
+  ?? (livro24h() ? CA.tetoVigente(dominioRegistavel(host)) : CA.tetoSemLivro(dominioRegistavel(host)));
 const esgotado24h = host => {
   if (!livro24h()) return false;
   const e = CA.estadoDoDominio(dominioRegistavel(host));
@@ -691,8 +698,8 @@ export function sitemapsDoRobots(txt) {
 //     UM LIVRO QUE NAO SE LE, OU UMA ENTRADA QUE NAO SE ENTENDE, NAO E PERMISSAO: E UM PEDIDO AO ROBOTS.
 //
 // Sem livro de 24 h (SINTONIA_TETO_24H vazio) nada se guarda entre corridas: vale o de sempre, uma vez
-// por origem e por corrida. O livro das reservas NAO muda de forma (o gemeo Python reescreve-o so com
-// RESERVAS[]); por isso o robots vive num ficheiro irmao, e nao dentro dele.
+// por origem e por corrida. O livro das reservas e so da cortesia (D124: ndjson append-only, o antigo
+// RESERVAS[] migra-se sozinho); por isso o robots vive num ficheiro irmao, e nao dentro dele.
 const livroRobots24h = () => (livro24h() ? `${livro24h()}.robots.json` : null);
 export function robotsDoLivro24h(origem, { agora = Date.now() / 1000 } = {}) {
   const f = livroRobots24h();
@@ -874,6 +881,17 @@ async function baixar(url, tentativas = 2, { condicional = false } = {}) {
     return { ...resposta, foiARede, ...(atual !== url ? { URL_FINAL: atual } : {}) };
   }
   return { erro: `mais de ${CORTESIA.cfg.MAX_SALTOS} redireccionamentos a partir de ${url}`, status: 0, tentativas: 1, foiARede, retry_permitido: false };
+}
+
+// ── A SONDA DA LIGACAO (D124-REBASE, 28/09) ─────────────────────────────────────────────────────────
+// A coleta continua so corre a linha SITES se este transporte RESERVA no livro de 24 h antes de cada pedido.
+// Isso media-se pelo TEXTO da chamada, e a D124 mudou o texto. Agora mede-se o que o transporte FAZ:
+// `ferramentas/big_collection/sonda_ligacao_sites.mjs` chama esta funcao contra um servidor LOCAL, com um
+// livro temporario, e confere no servidor e no livro. E o MESMO `baixar()` da coleta — nada de atalho.
+export async function baixarParaSonda(url, { runId = `SONDA-${process.pid}` } = {}) {
+  reiniciarCortesia();
+  RUN_ATUAL = runId;
+  return await baixar(url, 1);
 }
 
 // O corpo do feed guarda-se com um nome que o diz: `<materia>.body-from-feed.html`. Continua a acabar em

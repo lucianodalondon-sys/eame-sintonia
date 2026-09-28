@@ -7,6 +7,10 @@
  "JANELA_S": 86400,
  "LEASE_S": 150,
  "LEASE_PORQUE": "1 pedido de cada vez por dominio: a reserva segura o dominio ate a resposta ser registada, ou ate LEASE_S (curl --max-time 90 + folga), se o executor morrer sem registar.",
+ "SEM_LIVRO": {
+  "TETO_POR_CORRIDA": "MINIMO_24H",
+  "PORQUE": "D124-REBASE (verificador independente, 28/09): sem livro (SINTONIA_CORTESIA_LIVRO/SINTONIA_TETO_24H vazios) nao ha memoria entre corridas, logo nao ha prova de que o site aguenta o inicial da classe — e cada corrida podia gastar 40 outra vez. Quem pede sem livro fica no MINIMO_24H da classe (o chao do recuo: SITE 5, PLATAFORMA_GRANDE 2), POR CORRIDA. Com livro vale o orcamento vigente. SINTONIA_TETO_POR_HOST (manual) continua a mandar."
+ },
  "LIMITE_GLOBAL_EM_PARALELO": 8,
  "LIMITE_GLOBAL_PORQUE": "dominios DIFERENTES podem correr em paralelo; no maximo este numero de dominios com pedido em curso ao mesmo tempo (a VPN IT e uma so saida).",
  "MESMO_ORCAMENTO": {"googlevideo.com": "youtube.com", "ytimg.com": "youtube.com"},

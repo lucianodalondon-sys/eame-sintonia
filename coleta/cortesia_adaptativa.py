@@ -125,11 +125,68 @@ def alertas_f() -> Path | None:
     return f.parent / ALERTAS_NOME if f else None
 
 
+# ── o livro ANTIGO (D90, 26/09): {"RESERVAS": [{DOMINIO, QTD, EM, RUN_ID, LINHA}]} ─────────────────────
+# D124-REBASE (verificador independente, 28/09): o livro vivo `%SI%\TETO-24H.json`, passado pela coleta
+# continua em --teto-24h, esta neste formato. Lido como ndjson dava ILEGIVEL -> toda a reserva UNKNOWN ->
+# a coleta parava. Agora: LEITURA COMPATIVEL (cada reserva antiga vira QTD eventos RESERVA, com o mesmo EM,
+# e conta no gasto de 24 h como contava) e MIGRACAO no 1.o escrito, sob o trinco: o ficheiro passa a ndjson
+# (o original fica em `<livro>.D90.json`, uma vez). Um livro antigo MALFORMADO continua ILEGIVEL (NAO SEI).
+# Nenhuma resposta e inventada: a reserva antiga sem resposta segura o dominio so ate ao LEASE.
+MIGRADO_DE = "TETO-24H/D90"
+_RE_ANTIGO = re.compile(r'^\s*\{\s*"RESERVAS"\s*:')
+
+
+def e_livro_antigo(texto: str) -> bool:
+    return bool(_RE_ANTIGO.match(texto[:256]))
+
+
+def eventos_do_livro_antigo(texto: str) -> list:
+    try:
+        d = json.loads(texto)
+    except ValueError as ex:
+        raise LivroIlegivel("livro D90 (RESERVAS[]) nao e JSON: %s" % ex)
+    if not isinstance(d, dict) or not isinstance(d.get("RESERVAS"), list):
+        raise LivroIlegivel("livro D90 sem RESERVAS[]")
+    out = []
+    for i, r in enumerate(d["RESERVAS"], 1):
+        if not isinstance(r, dict) or not isinstance(r.get("DOMINIO"), str) or not r["DOMINIO"] \
+                or isinstance(r.get("EM"), bool) or not isinstance(r.get("EM"), (int, float)) \
+                or isinstance(r.get("QTD"), bool) or not isinstance(r.get("QTD"), int) or r["QTD"] < 1:
+            raise LivroIlegivel("livro D90: reserva %d sem DOMINIO/EM/QTD validos" % i)
+        for _ in range(r["QTD"]):
+            out.append({"TIPO": "RESERVA", "DOMINIO": dominio(r["DOMINIO"]), "EM": r["EM"],
+                        "RUN_ID": r.get("RUN_ID"), "LINHA": r.get("LINHA"), "HOST": r["DOMINIO"],
+                        "MIGRADO_DE": MIGRADO_DE})
+    return out
+
+
+def migrar_livro_antigo(f: Path) -> dict:
+    """Chamar SOB o trinco. Livro D90 -> ndjson (o original fica em `<livro>.D90.json`). Idempotente."""
+    if not f.exists():
+        return {"ESTADO": "SEM_LIVRO", "LIVRO": str(f)}
+    texto = f.read_text(encoding="utf-8")
+    if not e_livro_antigo(texto):
+        return {"ESTADO": "JA_NDJSON", "LIVRO": str(f)}
+    ev = eventos_do_livro_antigo(texto)                            # malformado levanta: nada se escreve
+    copia = Path(str(f) + ".D90.json")
+    if not copia.exists():
+        copia.write_text(texto, encoding="utf-8")
+    tmp = Path(str(f) + ".tmp")
+    with open(tmp, "w", encoding="utf-8", newline="\n") as h:
+        for e in ev:
+            h.write(json.dumps(e, ensure_ascii=False, sort_keys=True) + "\n")
+    os.replace(tmp, f)
+    return {"ESTADO": "MIGRADO", "LIVRO": str(f), "COPIA_D90": str(copia), "EVENTOS": len(ev)}
+
+
 def ler_eventos(f: Path) -> list:
     if not f.exists():
         return []
+    texto = f.read_text(encoding="utf-8")
+    if e_livro_antigo(texto):
+        return eventos_do_livro_antigo(texto)
     out = []
-    for i, l in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+    for i, l in enumerate(texto.splitlines(), 1):
         if not l.strip():
             continue
         try:
@@ -145,6 +202,11 @@ def ler_eventos(f: Path) -> list:
 
 def _acrescentar(f: Path, e: dict) -> None:
     f.parent.mkdir(parents=True, exist_ok=True)
+    if f.exists():
+        with open(f, encoding="utf-8") as h:
+            cabeca = h.read(256)
+        if e_livro_antigo(cabeca):
+            migrar_livro_antigo(f)                                 # sob o trinco de quem escreve (D124-REBASE)
     with open(f, "a", encoding="utf-8", newline="\n") as h:
         h.write(json.dumps(e, ensure_ascii=False, sort_keys=True) + "\n")
 
@@ -361,6 +423,17 @@ def teto_vigente(host: str, agora: float | None = None) -> int:
     if e.get("ESTADO") == "UNKNOWN":
         raise LivroIlegivel(e["PORQUE"])
     return e["ORCAMENTO_24H"]
+
+
+def teto_sem_livro(host: str) -> int:
+    """D124-REBASE: o teto POR CORRIDA de quem pede SEM livro (sem memoria entre corridas nao ha prova de
+    que o site aguenta o inicial): o que a politica declara em SEM_LIVRO (o MINIMO da classe, o chao do recuo)."""
+    pol = politica()
+    _, k = classe_de(dominio(host), pol)
+    regra = (pol.get("SEM_LIVRO") or {}).get("TETO_POR_CORRIDA", "MINIMO_24H")
+    if regra != "MINIMO_24H":
+        raise ValueError("POLITICA: SEM_LIVRO.TETO_POR_CORRIDA=%r (so MINIMO_24H e conhecido)" % regra)
+    return int(k["MINIMO"])
 
 
 def reservar(host: str, *, run_id: str, linha: str, crawl_delay_s: float | None = None,
@@ -594,12 +667,25 @@ def main(argv=None) -> int:
     if a[:1] == ["--estado"] and len(a) > 1:
         print(json.dumps(estado_do_dominio(a[1]), ensure_ascii=False, indent=1))
         return 0
+    if a[:1] == ["--migrar"]:
+        # py coleta/cortesia_adaptativa.py --migrar [livro]  -> o livro D90 ({RESERVAS:[]}) passa a ndjson
+        f = Path(a[1]) if len(a) > 1 else livro()
+        if f is None:
+            print("SEM_LIVRO: --migrar <livro> ou %s" % ENV_LIVRO)
+            return 2
+        try:
+            with _Trinco(f):
+                r = migrar_livro_antigo(f)
+        except (LivroIlegivel, TimeoutError) as ex:
+            r = {"ESTADO": "UNKNOWN", "LIVRO": str(f), "PORQUE": str(ex)}
+        print(json.dumps(r, ensure_ascii=False, indent=1))
+        return 0 if r["ESTADO"] != "UNKNOWN" else 2
     if a[:1] == ["--resumo"]:
         r = resumo()
         print(json.dumps(r, ensure_ascii=False, indent=1))
         return 0 if r["ESTADO"] != "UNKNOWN" else 2
     print(__doc__)
-    print("uso: --estado <host> | --resumo | --pergunta [AAAA-MM-DD]   (livro em %s)" % ENV_LIVRO)
+    print("uso: --estado <host> | --resumo | --pergunta [AAAA-MM-DD] | --migrar [livro]   (livro em %s)" % ENV_LIVRO)
     return 2
 
 

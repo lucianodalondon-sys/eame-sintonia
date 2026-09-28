@@ -10,7 +10,7 @@
 // `orcamentoDe` aplica a D41 (googlevideo/ytimg pagam de youtube).
 //
 //     SEM LIVRO NAO HA CONTADOR (FAIL). LIVRO ILEGIVEL NAO E LIVRO VAZIO (UNKNOWN). SINAL MEDIDO, NUNCA ADIVINHADO.
-import { readFileSync, appendFileSync, mkdirSync, rmdirSync, existsSync } from "node:fs";
+import { readFileSync, appendFileSync, mkdirSync, rmdirSync, existsSync, writeFileSync, renameSync, openSync, readSync, closeSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -41,10 +41,51 @@ export function classeDe(dom, pol = politica()) {
                   PAUSA_S: k.PAUSA_MINIMA_S, DOBRA: !!k.DOBRA }];
 }
 
+// ── o livro ANTIGO (D90): {"RESERVAS": [{DOMINIO, QTD, EM, RUN_ID, LINHA}]} — gemeo de `.py` ───────────
+// D124-REBASE: leitura compativel (cada reserva antiga = QTD eventos RESERVA, o mesmo EM) e migracao para
+// ndjson no 1.o escrito, sob o trinco (o original fica em `<livro>.D90.json`). Malformado = ILEGIVEL.
+export const MIGRADO_DE = "TETO-24H/D90";
+export const eLivroAntigo = texto => /^\s*\{\s*"RESERVAS"\s*:/.test(String(texto).slice(0, 256));
+const ilegivel = m => Object.assign(new Error(m), { ilegivel: true });
+export function eventosDoLivroAntigo(texto) {
+  let d;
+  try { d = JSON.parse(texto); } catch (x) { throw ilegivel(`livro D90 (RESERVAS[]) nao e JSON: ${x.message}`); }
+  if (!d || typeof d !== "object" || !Array.isArray(d.RESERVAS)) throw ilegivel("livro D90 sem RESERVAS[]");
+  const out = [];
+  d.RESERVAS.forEach((r, i) => {
+    if (!r || typeof r !== "object" || typeof r.DOMINIO !== "string" || !r.DOMINIO || typeof r.EM !== "number"
+        || !Number.isInteger(r.QTD) || r.QTD < 1)
+      throw ilegivel(`livro D90: reserva ${i + 1} sem DOMINIO/EM/QTD validos`);
+    for (let q = 0; q < r.QTD; q++)
+      out.push({ TIPO: "RESERVA", DOMINIO: orcamentoDe(r.DOMINIO), EM: r.EM, RUN_ID: r.RUN_ID ?? null, LINHA: r.LINHA ?? null,
+                 HOST: r.DOMINIO, MIGRADO_DE });
+  });
+  return out;
+}
+const ordenado = e => Object.fromEntries(Object.keys(e).sort().map(k => [k, e[k]]));
+export function migrarLivroAntigo(f) {           // chamar SOB o trinco; idempotente
+  if (!existsSync(f)) return { ESTADO: "SEM_LIVRO", LIVRO: f };
+  const texto = readFileSync(f, "utf8");
+  if (!eLivroAntigo(texto)) return { ESTADO: "JA_NDJSON", LIVRO: f };
+  const ev = eventosDoLivroAntigo(texto);
+  const copia = `${f}.D90.json`;
+  if (!existsSync(copia)) writeFileSync(copia, texto);
+  writeFileSync(`${f}.tmp`, ev.map(e => JSON.stringify(ordenado(e)) + "\n").join(""));
+  renameSync(`${f}.tmp`, f);
+  return { ESTADO: "MIGRADO", LIVRO: f, COPIA_D90: copia, EVENTOS: ev.length };
+}
+function cabecaDe(f) {
+  const fd = openSync(f, "r");
+  try { const b = Buffer.alloc(256); const n = readSync(fd, b, 0, 256, 0); return b.subarray(0, n).toString("utf8"); }
+  finally { closeSync(fd); }
+}
+
 export function lerEventos(f) {
   if (!existsSync(f)) return [];
+  const texto = readFileSync(f, "utf8");
+  if (eLivroAntigo(texto)) return eventosDoLivroAntigo(texto);
   const out = [];
-  readFileSync(f, "utf8").split(/\r?\n/).forEach((l, i) => {
+  texto.split(/\r?\n/).forEach((l, i) => {
     if (!l.trim()) return;
     let e;
     try { e = JSON.parse(l); } catch (x) { throw Object.assign(new Error(`linha ${i + 1} nao e JSON: ${x.message}`), { ilegivel: true }); }
@@ -57,8 +98,8 @@ export function lerEventos(f) {
 }
 const acrescentar = (f, e) => {
   mkdirSync(dirname(f), { recursive: true });
-  const ord = Object.fromEntries(Object.keys(e).sort().map(k => [k, e[k]]));
-  appendFileSync(f, JSON.stringify(ord) + "\n");
+  if (existsSync(f) && eLivroAntigo(cabecaDe(f))) migrarLivroAntigo(f);   // sob o trinco de quem escreve
+  appendFileSync(f, JSON.stringify(ordenado(e)) + "\n");
 };
 const esperarMs = ms => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 function comTrinco(f, fn) {
@@ -228,6 +269,14 @@ function alertar(f, dom, est, linha, tipo, sinal, recibos, t) {
               SITUACAO: est.SITUACAO ?? null, ESTUDAR: pol.ALERTAS.MELHORIAS_A_ESTUDAR, LIVRO: String(f) };
   acrescentar(a, b);
   return b;
+}
+
+// D124-REBASE: o teto POR CORRIDA de quem pede SEM livro (gemeo de `teto_sem_livro`): sem memoria entre
+// corridas nao ha prova de que o site aguenta o inicial; vale o que a politica declara em SEM_LIVRO.
+export function tetoSemLivro(dominioRegistavel, pol = politica()) {
+  const regra = (pol.SEM_LIVRO || {}).TETO_POR_CORRIDA ?? "MINIMO_24H";
+  if (regra !== "MINIMO_24H") throw new Error(`POLITICA: SEM_LIVRO.TETO_POR_CORRIDA=${regra} (so MINIMO_24H e conhecido)`);
+  return classeDe(orcamentoDe(dominioRegistavel), pol)[1].MINIMO;
 }
 
 export function reservar(dominioRegistavel, { runId, linha, crawlDelayS = null, agora = null, host = null } = {}) {

@@ -4,7 +4,7 @@
     py ferramentas/big_collection/coleta_continua.py --um-ciclo  --base=<pasta> --sha256=<coorte congelada>
           --teto-24h=<TETO-24H.json> [--plano=<RODADAS-PLANO.json>] [--estado-rodadas=<RODADAS-ESTADO.json>]
           [--historico=a.json,b.json] [--livros-do-dia=<pasta das ondas>] [--recibos=<pasta,pasta>]
-          [--max-fontes=N] [--paralelo]
+          [--max-fontes=N] [--paralelo] [--janela-24h]   (D124: a janela D79 so se ligada)
     py ferramentas/big_collection/coleta_continua.py --servico   (os mesmos) [--intervalo-min=30]
     py ferramentas/big_collection/coleta_continua.py --ensaio-a-seco (os mesmos) [--agora=<ISO>]   0 rede, 0 Sala
     py ferramentas/big_collection/coleta_continua.py --estado  --base=<pasta>
@@ -17,10 +17,20 @@ de edagricole/cia. Na pratica 1 rodada por dia. E nada relancava o disparador so
 
 O QUE MUDA: a unidade e a FONTE. A cada ciclo escolhe-se, pela ORDEM DO PLANO (a justa/rendimento que o
 `rodadas.planear` ja fez: rodada 1 primeiro, T5 no fim), as fontes cujos dominios estao TODOS livres:
-  · D79: nenhum pedido ao dominio nas ultimas 24 h (livros das ondas + recibos: `rodadas.ultima_visita_por_dominio`);
-  · D90: o contador multicanal de 24 h (`coleta/reserva_24h.py`) tem lugar para os pedidos previstos;
-  · D38: somando TODAS as linhas do ciclo, nenhum dominio passa de 5 previstos.
+  · D79 (so com --janela-24h; D124 desligou-a por omissao, como em `rodadas.py`): nenhum pedido ao dominio
+    nas ultimas 24 h (livros das ondas + recibos: `rodadas.ultima_visita_por_dominio`);
+  · D90/D124: o livro da cortesia adaptativa (`coleta/cortesia_adaptativa.py`, o contador multicanal de 24 h
+    agora adaptativo) tem lugar para os pedidos previstos no ORCAMENTO VIGENTE do dominio, e o dominio nao
+    esta em pausa de 24 h nem em Retry-After;
+  · somando TODAS as linhas do ciclo e o gasto de 24 h, nenhum dominio passa do orcamento vigente.
 Fonte de dominio fechado ESPERA (com a hora em que abre); as outras seguem. O FREIO NAO MUDA.
+
+D124-REBASE (verificador independente, 28/09): este ficheiro usava `rodadas.TETO` e `reserva_24h._ler/gasto/
+ate_quando`, que a D124 removeu — `import coleta_continua` rebentava e a tarefa SINTONIA-COLETA-CONTINUA
+parava. Agora o teto de cada dominio e o da politica (ou SINTONIA_TETO_POR_HOST, manual); o livro de 24 h e o
+da cortesia, e o livro ANTIGO ({"RESERVAS": [...]}, `--teto-24h=%SI%\TETO-24H.json`) le-se e migra-se sozinho
+(`cortesia_adaptativa.migrar_livro_antigo`). A linha SITES prova-se LIGADA pelo COMPORTAMENTO do transporte
+(`sonda_ligacao_sites.mjs`: sem reserva o pedido nao sai), nunca por um texto no ficheiro.
 
 O QUE NAO MUDA (reuso, nada de coletor novo): cada linha corre numa onda propria pelo MESMO
 `onda_web.py --correr --fontes=... --saida=<base>/CICLO-NNNN/<LINHA>` (`rodadas.onda_real`), entre o MESMO
@@ -67,9 +77,10 @@ sys.path.insert(0, str(AQUI))
 sys.path.insert(0, str(RAIZ / "coleta"))
 import rodadas as R                                                # noqa: E402 — plano, janela, portao, onda, prova
 import reserva_24h as R24                                          # noqa: E402 — o contador multicanal (D90)
+import cortesia_adaptativa as CA                                   # noqa: E402 — o dono unico do teto (D124)
 
 PT = R.PT
-TETO = R.TETO
+SONDA_SITES = AQUI / "sonda_ligacao_sites.mjs"
 RAM_MINIMA_GB = 5.0                                                # a regra da LOCK-PESADO: >= 5 GB livres
 ESTADO_F = "COLETA-CONTINUA-ESTADO.json"
 CICLOS_F = "CICLOS.ndjson"
@@ -79,9 +90,12 @@ TRINCO_F = "COLETA-CONTINUA.trinco"
 # ── as linhas (D86-b): o transporte de cada uma e a CHAMADA que prova que ela reserva no livro de 24 h ─
 # LIGADA e MEDIDA no codigo (a chamada existe no ficheiro), nunca declarada. Sem ela, a linha NAO corre:
 # «ate cada linha estar ligada a este livro, so UMA linha de rede de cada vez» (CONTADOR-24H.md).
+# D124-REBASE: a SITES tem SONDA — a ligacao mede-se pelo que o transporte FAZ (contra um servidor local,
+# sem rede), e nao pelo texto da chamada: a D124 mudou `reservar24h(host, 1)` para `reservar24h(host, 1, {...})`
+# e o texto deixava a linha em ESPERA_LIGACAO com o transporte ligado (verificador independente, 28/09).
 LINHAS = [
     {"LINHA": "SITES", "FAMILIA": "sites e boletins (T2/T3/T5/T7/T8/T9/T10/T12), pela coorte congelada",
-     "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "CHAMADA": "reservar24h(host, 1)"},
+     "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs"},
     {"LINHA": "BUSCA", "FAMILIA": "paginas de busca (linha_busca)",
      "TRANSPORTE": "coleta/linha_busca.py", "CHAMADA": "reserva_24h.reservar("},
     {"LINHA": "CIENCIA", "FAMILIA": "APIs cientificas OpenAlex/Crossref/ORCID (excecao de robots D91)",
@@ -97,11 +111,32 @@ def agora_iso() -> str:
     return datetime.now().astimezone().isoformat(timespec="seconds")
 
 
+def sondar_ligacao(linha: dict, raiz: Path = RAIZ, timeout_s: float = 120.0) -> dict:
+    """A SONDA do transporte (so para linhas com "SONDA"): corre-o contra um servidor LOCAL com um livro da
+    cortesia temporario e mede. {"LIGADA": bool, "PORQUE": texto, "MEDIDO": {...}}. Falha da sonda = NAO LIGADA."""
+    sonda, transporte = raiz / linha["SONDA"], raiz / linha["TRANSPORTE"]
+    try:
+        r = subprocess.run(["node", str(sonda), "--transporte=" + str(transporte)], cwd=raiz, capture_output=True,
+                           text=True, encoding="utf-8", errors="replace", timeout=timeout_s,
+                           env={k: v for k, v in os.environ.items() if not k.startswith("SINTONIA_")})
+        ultima = (r.stdout.strip().splitlines() or [""])[-1]
+        m = json.loads(ultima)
+    except (OSError, ValueError, subprocess.TimeoutExpired) as ex:
+        return {"LIGADA": False, "PORQUE": "SONDA_NAO_CORREU: %s: %s" % (linha["SONDA"], str(ex)[:200])}
+    if not isinstance(m, dict) or m.get("LIGADA") is not True:
+        return {"LIGADA": False, "PORQUE": "SONDA: %s" % (m.get("PORQUE") if isinstance(m, dict) else m),
+                "MEDIDO": m.get("MEDIDO") if isinstance(m, dict) else None}
+    return {"LIGADA": True, "PORQUE": "SONDA: %s" % m.get("PORQUE"), "MEDIDO": m.get("MEDIDO")}
+
+
 def medir_ligacao(linha: dict, raiz: Path = RAIZ) -> dict:
-    """{"LIGADA": bool, "PORQUE": texto}: o transporte da linha existe E chama a reserva de 24 h."""
+    """{"LIGADA": bool, "PORQUE": texto}: o transporte da linha existe E reserva no livro de 24 h.
+    Com "SONDA": medido pelo comportamento. Sem ela: a chamada tem de estar no codigo (medida de texto)."""
     f = raiz / linha["TRANSPORTE"]
     if not f.exists():
         return {"LIGADA": False, "PORQUE": "TRANSPORTE_NAO_EXISTE_NESTA_ARVORE: %s" % linha["TRANSPORTE"]}
+    if linha.get("SONDA"):
+        return sondar_ligacao(linha, raiz)
     if linha["CHAMADA"] not in f.read_text(encoding="utf-8", errors="replace"):
         return {"LIGADA": False, "PORQUE": "SEM_RESERVA_24H: %s nao chama %s (CONTADOR-24H.md)"
                 % (linha["TRANSPORTE"], linha["CHAMADA"])}
@@ -140,18 +175,44 @@ def feitas_das_rodadas(estado_rodadas: dict) -> list:
 
 # ── 2. o livro de 24 h (so leitura; ilegivel = NAO SEI) ─────────────────────
 def reservas_24h(livro: Path | None) -> list:
-    """As reservas do livro multicanal. Ausente = []; ilegivel levanta (quem chama PARA)."""
+    """Os EVENTOS do livro da cortesia (D124; o livro antigo D90 {"RESERVAS": [...]} le-se convertido).
+    Ausente = []; ilegivel levanta (LivroIlegivel e ValueError: quem chama PARA)."""
     if livro is None:
         raise ValueError("SEM_LIVRO_24H: a coleta continua exige --teto-24h (D90: todas as linhas partilham)")
-    return R24._ler(Path(livro))
+    return CA.ler_eventos(Path(livro))
+
+
+def teto_manual() -> int | None:
+    """SINTONIA_TETO_POR_HOST: o teto MANUAL declarado pelo operador (o mesmo nome do transporte)."""
+    v = os.environ.get("SINTONIA_TETO_POR_HOST")
+    return int(v) if v else None
+
+
+def quando_cabem(eventos: list, dom: str, p: int, nivel: int, agora: float) -> float:
+    """O primeiro instante em que `p` pedidos cabem em `nivel` (vao saindo as reservas mais antigas da
+    janela). `p` maior que o nivel: nunca cabe neste nivel — daqui a uma janela (o nivel pode mudar)."""
+    J = float(CA.politica()["JANELA_S"])
+    vivas = sorted(float(e["EM"]) for e in eventos
+                   if e["TIPO"] == "RESERVA" and e["DOMINIO"] == dom and float(e["EM"]) > agora - J)
+    k = len(vivas) + p - nivel
+    if k <= 0:
+        return agora
+    if p > nivel or k > len(vivas):
+        return agora + J
+    return vivas[k - 1] + J
 
 
 # ── 3. escolher: PURO ─────────────────────────────────────────────────────────
 def escolher(candidatas: list, *, feitas, ultima: dict, reservas: list, agora_utc: datetime,
-             orcamento: dict, teto: int = TETO, janela_h: int = 24, max_fontes: int | None = None) -> dict:
+             orcamento: dict, teto: int | None = None, janela_h: int | None = 24,
+             max_fontes: int | None = None) -> dict:
     """{"CORREM": [...], "ESPERAM": [...]}. `orcamento` (dominio -> previstos neste ciclo) e PARTILHADO entre
-    as linhas do ciclo: e mutado aqui. Uma fonte so corre se TODOS os seus dominios estao livres."""
+    as linhas do ciclo: e mutado aqui. Uma fonte so corre se TODOS os seus dominios estao livres.
+    `reservas`: os EVENTOS do livro da cortesia. `teto`: None = o orcamento vigente de cada dominio (D124), ou
+    SINTONIA_TETO_POR_HOST; int = teto manual. `janela_h`: None = sem a janela D79."""
     t = agora_utc.timestamp()
+    teto = teto if teto is not None else teto_manual()
+    pol = CA.politica()
     correm, esperam = [], []
     feitas = set(feitas)
     for c in candidatas:
@@ -161,18 +222,27 @@ def escolher(candidatas: list, *, feitas, ultima: dict, reservas: list, agora_ut
         fechados = {}
         for d in c["DOMINIOS"]:
             v = ultima.get(d)
-            if v and agora_utc < v + timedelta(hours=janela_h):                  # D79
+            if janela_h and v and agora_utc < v + timedelta(hours=janela_h):     # D79 (so se ligada)
                 fechados[d] = {"PORQUE": "JANELA_24H", "ABRE_EM": (v + timedelta(hours=janela_h)).isoformat(timespec="seconds")}
                 continue
-            dd = R24.dominio(d)
-            g = R24.gasto(reservas, dd, t)                                       # D90
-            if g + p > teto:
-                fechados[d] = {"PORQUE": "TETO_24H", "GASTO_24H": g, "ABRE_EM": datetime.fromtimestamp(
-                    R24.ate_quando(reservas, dd, p, t, teto), timezone.utc).isoformat(timespec="seconds")}
+            dd = CA.dominio(d)
+            e = CA.dobrar_eventos(reservas, dd, t, pol)                          # D90/D124: o livro da cortesia
+            nivel = teto if teto is not None else e["ORCAMENTO_24H"]
+            g = e["GASTO_24H"]
+            bloq = max(e["PAUSADO_ATE"] or 0, e["RETRY_ATE"] or 0)
+            if bloq > t:                                                         # D124: o site pediu para esperar
+                fechados[d] = {"PORQUE": "PAUSA_24H" if (e["PAUSADO_ATE"] or 0) >= bloq else "RETRY_AFTER",
+                               "SITUACAO": e["SITUACAO"], "ABRE_EM": datetime.fromtimestamp(bloq, timezone.utc)
+                               .isoformat(timespec="seconds")}
                 continue
-            if orcamento.get(dd, 0) + p > teto:                                  # D38, somando as linhas
-                fechados[d] = {"PORQUE": "TETO_NO_CICLO", "NO_CICLO": orcamento.get(dd, 0),
-                               "ABRE_EM": (agora_utc + timedelta(hours=janela_h)).isoformat(timespec="seconds")}
+            if g + p > nivel:
+                fechados[d] = {"PORQUE": "TETO_24H", "GASTO_24H": g, "ORCAMENTO_24H": nivel,
+                               "ABRE_EM": datetime.fromtimestamp(quando_cabem(reservas, dd, p, nivel, t),
+                                                                 timezone.utc).isoformat(timespec="seconds")}
+                continue
+            if g + orcamento.get(dd, 0) + p > nivel:                             # somando as linhas do ciclo
+                fechados[d] = {"PORQUE": "TETO_NO_CICLO", "NO_CICLO": orcamento.get(dd, 0), "ORCAMENTO_24H": nivel,
+                               "ABRE_EM": (agora_utc + timedelta(hours=janela_h or 24)).isoformat(timespec="seconds")}
         if not fechados and max_fontes is not None and len(correm) >= max_fontes:
             esperam.append(dict(c, PORQUE="MAX_FONTES_NO_CICLO", ABRE_EM=None))
             continue
@@ -181,7 +251,7 @@ def escolher(candidatas: list, *, feitas, ultima: dict, reservas: list, agora_ut
                                 ABRE_EM=max(x["ABRE_EM"] for x in fechados.values())))
             continue
         correm.append(c)
-        for d in {R24.dominio(x) for x in c["DOMINIOS"]}:
+        for d in {CA.dominio(x) for x in c["DOMINIOS"]}:
             orcamento[d] = orcamento.get(d, 0) + p
     return {"CORREM": correm, "ESPERAM": esperam}
 
@@ -346,7 +416,7 @@ def _juntar(a: dict | None, b: dict | None, f) -> dict | None:
 def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, historico: list | None = None,
           livros: Path | None = None, recibos: tuple = (), livro_24h: Path | None = None,
           agora_utc: datetime | None = None, max_fontes: int | None = None, paralelo: bool = False,
-          ligacao=medir_ligacao, a_seco: bool = False) -> dict:
+          ligacao=medir_ligacao, a_seco: bool = False, janela_h: int | None = None) -> dict:
     """Um ciclo inteiro. Devolve a linha do livro de ciclos. `PARA` != None = o servico para (fica PARADO)."""
     base.mkdir(parents=True, exist_ok=True)
     estado = ler_estado(base)
@@ -379,8 +449,10 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
     # 2. o agendador por fonte: as linhas pela ordem do rodizio, a partilhar o orcamento do dominio
     try:
         reservas = reservas_24h(livro_24h)
-    except (ValueError, KeyError, TypeError) as ex:
+    except (ValueError, KeyError, TypeError, OSError) as ex:
         return fim("LIVRO_24H_NAO_SEI", ERRO=str(ex)[:300])
+    reg["JANELA_24H"] = janela_h
+    reg["TETO_VEM_DE"] = "SINTONIA_TETO_POR_HOST (manual)" if teto_manual() is not None else "orcamento vigente (D124)"
     ultima = R.ultima_visita_por_dominio(livros or base.parent, recibos)
     orcamento: dict = {}
     escolha = {}
@@ -397,7 +469,7 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
             reg["LINHAS"][nome] = {"ESTADO": "ESPERA_LIGACAO", "PORQUE": lig["PORQUE"], "FONTES": []}
             continue
         e = escolher(cands, feitas=feitas, ultima=ultima, reservas=reservas, agora_utc=agora_u,
-                     orcamento=orcamento, max_fontes=max_fontes)
+                     orcamento=orcamento, max_fontes=max_fontes, janela_h=janela_h)
         escolha[nome] = e["CORREM"]
         reg["ESPERAM"] += [dict(x, LINHA=nome) for x in e["ESPERAM"]]
         reg["LINHAS"][nome] = {"ESTADO": "A_CORRER" if e["CORREM"] else "NADA_ELEGIVEL",
@@ -458,7 +530,10 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
 def _ondas(base, sha, reg, correm, pecas, historico, livro_24h, paralelo, agora_u) -> str | None:
     """As ondas das linhas, a prova-teto (do ciclo e das 24 h), o relatorio e a reconciliacao."""
     if livro_24h is not None:
-        os.environ["SINTONIA_TETO_24H"] = str(livro_24h)               # herdado pela onda (D90)
+        # herdado pela onda (D90). D124: o livro da cortesia le SINTONIA_CORTESIA_LIVRO ANTES do nome antigo —
+        # os dois apontam para o MESMO ficheiro, senao um ambiente com o nome novo partia o contador em dois.
+        os.environ["SINTONIA_TETO_24H"] = str(livro_24h)
+        os.environ["SINTONIA_CORTESIA_LIVRO"] = str(livro_24h)
     pastas = {n: base / ("CICLO-%04d" % reg["CICLO"]) / n for n in correm}
 
     def uma(n):
@@ -491,13 +566,19 @@ def _ondas(base, sha, reg, correm, pecas, historico, livro_24h, paralelo, agora_
     # a PROVA-TETO independente: TODAS as corridas do ciclo juntas (duas linhas no mesmo dominio somam)
     linhas = pecas["ledger"].read_text(encoding="utf-8").splitlines() if pecas["ledger"].exists() else []
     livro = PT.ler_livro(linhas)
-    p = PT.verificar(sorted(set(reg["RUN_IDS"])), livro, TETO)
+    # D124: o teto da prova e o orcamento que ESTEVE em vigor (reproduzido do livro da cortesia), ou o manual.
+    try:
+        eventos = CA.ler_eventos(Path(livro_24h)) if livro_24h is not None else None
+    except (ValueError, OSError) as ex:
+        reg["PROVA_TETO_CICLO"] = {"ESTADO": "NAO_SEI", "PORQUE": "livro da cortesia ilegivel: %s" % str(ex)[:200]}
+        return "PROVA_TETO_NAO_SEI"
+    p = PT.verificar(sorted(set(reg["RUN_IDS"])), livro, teto_manual(), eventos)
     reg["PROVA_TETO_CICLO"] = {k: p[k] for k in ("ESTADO", "PEDIDOS_NA_ONDA", "DOMINIOS_ACIMA_DO_TETO",
                                                 "CORRIDAS_SEM_LINHA_NO_LIVRO", "CORRIDAS_SEM_PEDIDOS_POR_HOST")}
     if p["ESTADO"] != "PASS":
         return "PROVA_TETO_%s" % p["ESTADO"]
     # e a de 24 h: as corridas deste servico nas ultimas 24 h + as deste ciclo (janela movel, D79/D90)
-    p24 = PT.verificar(sorted(set(run_ids_das_ultimas_24h(base, agora_u) + reg["RUN_IDS"])), livro, TETO)
+    p24 = PT.verificar(sorted(set(run_ids_das_ultimas_24h(base, agora_u) + reg["RUN_IDS"])), livro, teto_manual(), eventos)
     reg["PROVA_TETO_24H"] = {k: p24[k] for k in ("ESTADO", "DOMINIOS_ACIMA_DO_TETO")}
     if p24["ESTADO"] != "PASS":
         return "PROVA_TETO_24H_%s" % p24["ESTADO"]
@@ -585,7 +666,7 @@ def main(argv=None) -> int:
     cands = {l["LINHA"]: [] for l in LINHAS}
     cands["SITES"] = candidatas_do_plano(plano)
     kw = dict(historico=historico, livros=livros, recibos=recibos, livro_24h=livro_24h, max_fontes=max_f,
-              paralelo="--paralelo" in argv)
+              paralelo="--paralelo" in argv, janela_h=24 if "--janela-24h" in argv else None)
     if "--ensaio-a-seco" in argv:
         # 0 rede, 0 Sala, 0 robo: so o agendador, com as feitas do disparador e os livros de hoje
         ag = datetime.fromisoformat(arg["agora"]).astimezone(timezone.utc) if arg.get("agora") else None
