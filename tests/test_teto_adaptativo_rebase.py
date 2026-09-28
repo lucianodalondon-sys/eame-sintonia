@@ -166,6 +166,42 @@ class AColetaContinuaNaoPara(Base):
         self.assertEqual(livro.read_bytes(), antes, "o ensaio a seco nao escreve no livro")
 
 
+class UmCicloEmLoopback(Base):
+    def test_um_ciclo_inteiro_contra_o_servidor_local_com_o_livro_d90(self):
+        """Um ciclo NAO seco: portao, backup, robo, onda (pedidos HTTP reais a 127.0.0.1, reservados e respondidos
+        no livro), prova-teto do ciclo e das 24 h pelo ORCAMENTO VIGENTE (sem teto manual) e reconciliacao — com o
+        livro vivo ainda no formato D90. No fim: o livro migrou, o original ficou em .D90.json, e o gasto antigo
+        continua a contar."""
+        from tests import test_coleta_continua as T
+        import coleta_continua as C
+        T.CONTAGEM.clear()
+        livro = self.tmp / "TETO-24H.json"
+        t = time.time()
+        _livro_d90(livro, [{"DOMINIO": "cia.test", "QTD": 4, "EM": t - 600, "RUN_ID": "X", "LINHA": "SITES"}])
+        os.environ["SINTONIA_TETO_24H"] = str(livro)
+        base = self.tmp / "ondas" / "COLETA-CONTINUA"
+        base.mkdir(parents=True)
+        ledger = self.tmp / "runs.ndjson"
+        sala, robo = T.Sala(), T.Robo(self.tmp / "PARAR.flag")
+        onda = T.OndaFalsa(ledger, sala)
+        pecas = {"portao": T.Portao(), "onda": onda, "relatorio": lambda e, s: 0, "ledger": ledger, "ram": lambda: 12.0,
+                 "backup": lambda p: {"PROVA_VALE": True}, "robo": robo, "reconciliar": sala.reconciliar}
+        cands = {"SITES": C.candidatas_do_plano(T._plano([["IT-T9-002"]]))}
+        r = C.ciclo(base, T.SHA, cands, pecas=pecas, livro_24h=livro, ligacao=lambda l: {"LIGADA": True, "PORQUE": "t"})
+        self.assertIsNone(r["PARA"], r)
+        self.assertEqual(r["TETO_VEM_DE"], "orcamento vigente (D124)")
+        self.assertEqual(T.CONTAGEM, {"dois.test": 1})
+        self.assertEqual(r["PROVA_TETO_CICLO"]["ESTADO"], "PASS")
+        self.assertEqual(r["PROVA_TETO_24H"]["ESTADO"], "PASS")
+        self.assertEqual(r["RECONCILIACAO"]["ESTADO"], "PASS")
+        self.assertEqual(robo.eventos, ["PARAR", "TIRAR_FLAG", "LANCAR"])
+        self.assertTrue((self.tmp / "TETO-24H.json.D90.json").exists())
+        ev = CA.ler_eventos(livro)
+        self.assertEqual(sum(1 for e in ev if e["DOMINIO"] == "dois.test" and e["TIPO"] == "RESERVA"), 1)
+        self.assertEqual(sum(1 for e in ev if e["DOMINIO"] == "dois.test" and e["TIPO"] == "RESPOSTA"), 1)
+        self.assertEqual(CA.estado_do_dominio("cia.test")["GASTO_24H"], 4)
+
+
 # ── 2. a linha SITES e medida pelo que o transporte FAZ ───────────────────────
 class ALigacaoPorComportamento(Base):
     def copia(self):

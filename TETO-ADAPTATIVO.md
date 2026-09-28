@@ -6,6 +6,11 @@
 
 Base: `b273660` (servico-20260923-0923). Branch: `claude/adaptive-collection-ceiling-i3n4jh`.
 
+> ⚠️ **SUPERADO PARA INSTALAR (28/09):** o verificador independente reprovou esta entrega sobre `a2aa73f`
+> (coleta contínua não importava, linha SITES por texto, livro `TETO-24H.json` ilegível, sinais por `%header{}`,
+> sem livro = 40). A instalação válida é a de [`TETO-ADAPTATIVO-REBASE.md`](TETO-ADAPTATIVO-REBASE.md) — em
+> particular, **um livro só**: o `%SI%\TETO-24H.json` da coleta contínua, e não um segundo `data\cortesia\…`.
+
 ## 1 · O que mudou
 
 **Um dono só da política:** `coleta/cortesia_adaptativa.py` + gêmeo `coleta/cortesia_adaptativa.mjs`,
