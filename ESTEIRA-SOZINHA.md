@@ -6,7 +6,7 @@
 > (`curadoria/supervisor.py`, tarefa SINTONIA-Arranque). Não existe segundo orquestrador.
 
 ```
-COMMITS   1144e6e  código + provas        b253c65  mapa regerado
+COMMITS   1144e6e  código + provas · b253c65  mapa · b3993b8  gatilho em admissao/ + mapa
           (+ este relatório e o mapa regerado de novo: SHA final no fim da entrega)
 TESTES    tests/test_esteira_sozinha.py 36/36 · bateria inteira por NOME: 0 falhas novas (§5)
 MUTAÇÃO   26/26 mortos (provas/esteira_sozinha/MUTANTES.json)
@@ -101,9 +101,19 @@ Os mutantes simulam: duas corridas sobrepostas (Intelligence e passagem), Admiss
 
 ## 5 · Testes — antes/depois, pelo NOME
 
-`provas/integra_noite/bateria_inteira_por_nome.py`, com rede fechada, base `b273660` × ramo `b253c65` (código + mapa):
+`provas/integra_noite/bateria_inteira_por_nome.py`, com rede fechada, base `b273660` × ramo `b3993b8` (código final + mapa):
 
-BATERIA_AQUI
+| | base `b273660` | ramo `b3993b8` |
+|---|---|---|
+| ficheiros de teste | 411 | 412 (+`tests/test_esteira_sozinha.py`, 36/36) |
+| testes corridos | 7.940 | 7.976 |
+| ficheiros vermelhos | 77 | 77 (os mesmos) |
+| falhas por nome | 338 | 338 |
+| **falhas novas / sumidas** | | **0 / 0** |
+
+Os resultados estão em `provas/esteira_sozinha/BATERIA-ANTES-b273660.json` e `BATERIA-DEPOIS-b3993b8.json`. Na comparação, os **números dentro do texto** de cada falha foram normalizados. `test_cadeia_declara_io::o_MEDIDO_VARRE_declarado_bate_com_a_corrida` já falha na base e escreve no próprio nome quantos ficheiros o scanner mediu, e a árvore ganhou ficheiros. É a mesma falha, com outra contagem.
+A **primeira** bateria `depois` (`b253c65`) apanhou uma falha nova real: `a_coleta_nao_conversa_com_o_motor_as_centenas`. Ela foi consertada mudando o gatilho de gaveta, e o teste não foi mexido (§2).
+Os 3 vermelhos de `curadoria/test_supervisor.py` (tasklist/wmic do Windows) já falham igual na base.
 
 ## 6 · SINTONIA-Italy-ForwardOnly — deve existir? (proposta; nada apagado)
 
