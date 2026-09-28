@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-28T05:31:27+00:00",
-  "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-  "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
+  "GENERATED_AT": "2026-09-28T12:30:50+00:00",
+  "HEAD": "127acad7940b30c0f042d92241e5464a780fc2ba",
+  "BRANCH": "claude/busca-secret-fixo-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a",
-  "FICHEIROS_NA_IMPRESSAO": 4353,
+  "SOURCE_TREE_FINGERPRINT": "f4b50e6af18883913eb471cfd363dcf1f4d4cc7b7f4e219567921b3684a39bcf",
+  "FICHEIROS_NA_IMPRESSAO": 4355,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -97,7 +97,7 @@
    {
     "PATH": ".github/workflows/linha-busca-google.yml",
     "PAPEL": "FONTE",
-    "VERSAO": "38d958f42b3747cd806ba8ba0e4b953e523a80bc",
+    "VERSAO": "daf855bf75c55a8ad02f8b6bc7af665c695a59a8",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -1238,7 +1238,14 @@
    {
     "PATH": "ferramentas/linha_busca/api_oficial.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6ae19eb96a4d28f9ba877b97ecc71ef756b6b2f9",
+    "VERSAO": "33f2db440a3397f70007e2f1b6a3fd6a3caac50a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "9674866f81df060489ec148e0b117d5638bf86bc",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1266,7 +1273,7 @@
    {
     "PATH": "ferramentas/linha_busca/pedido_actions.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e2b3f2b99f5fe18592bb8d6738b43c9912b9b0fc",
+    "VERSAO": "eb8b8a37cc3b9ce6d70388eefdd44770035f827c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3471,7 +3478,7 @@
    {
     "PATH": "provas/busca_no_actions/mutantes_busca_actions.py",
     "PAPEL": "FONTE",
-    "VERSAO": "5012f75c96e9090ae9c7f2f0d556006997c20c86",
+    "VERSAO": "8d221754b7fe8d68b2cdb4bb5ea82774acaebc68",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -5543,14 +5550,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a",
+    "VERSAO": "f4b50e6af18883913eb471cfd363dcf1f4d4cc7b7f4e219567921b3684a39bcf",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a",
+    "VERSAO": "f4b50e6af18883913eb471cfd363dcf1f4d4cc7b7f4e219567921b3684a39bcf",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6187,7 +6194,7 @@
    {
     "PATH": "tests/test_busca_no_actions.py",
     "PAPEL": "FONTE",
-    "VERSAO": "d73b03f1983291fc6c6251d74529a7ade516d10b",
+    "VERSAO": "564ce52bf4ba6bda0392f3562294b3f5630bce97",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6685,6 +6692,13 @@
     "PATH": "tests/test_contador_24h.py",
     "PAPEL": "FONTE",
     "VERSAO": "da9be345b5ee9501de1f0f59f646f8ad4b95f640",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_contrato_workflows_sem_secret_dinamico.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0c6ccd22d07b5a32ea8fa447f0c49d2b609b7250",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8215,8 +8229,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1168,
-  "INPUTS_DIGEST": "4a6df3f300293f209b65cba5caa28d123c0d41334156d37e3f9a8ec7f1ddc587",
+  "INPUTS_COUNT": 1170,
+  "INPUTS_DIGEST": "8467f72789e95dcdc7256e1f06999ea8b5572e4a5a208aea1233fd659b0f8530",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8249,8 +8263,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e0a3cba6a775d4e1891f0c59eb9a36ca8337a8abdeea012f1a34362c5f3b7b0d",
-  "SEMANTIC_HASH": "c52fddeb942d7e98b40be15efe8dd26cca0f53947271d6f8079585e7f7044600"
+  "MEASUREMENT_HASH": "9dcc670bcbc076df27afbf7c4a47f1fab6e30a3f6024599822bcd930d18e4d31",
+  "SEMANTIC_HASH": "31c10189d2e93d11bd3068af6e68a1591b43892d82bc4d3e00f7efa6e81c85ca"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -16900,7 +16914,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
-      "LINHA": 20,
+      "LINHA": 22,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
@@ -16922,7 +16936,15 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_busca_no_actions.py",
-      "LINHA": 29,
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_contrato_workflows_sem_secret_dinamico.py",
+      "LINHA": 43,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-TESTES",
@@ -16944,7 +16966,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": ".github/workflows/linha-busca-google.yml",
-      "LINHA": 107,
+      "LINHA": 80,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-LINHA-BUSCA",
@@ -16966,7 +16988,15 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": ".github/workflows/linha-busca-google.yml",
-      "LINHA": 98,
+      "LINHA": 71,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-LINHA-BUSCA-FERRAMENTAS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+      "LINHA": 100,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-LINHA-BUSCA-FERRAMENTAS",
@@ -16988,7 +17018,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": ".github/workflows/linha-busca-google.yml",
-      "LINHA": 88,
+      "LINHA": 67,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-SCRAP-GUARDA",
@@ -36335,7 +36365,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": ".github/workflows/linha-busca-google.yml",
-      "LINHA": 118,
+      "LINHA": 91,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-CI-LINHA-BUSCA",
@@ -36417,7 +36447,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
-      "LINHA": 19,
+      "LINHA": 21,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
@@ -36455,7 +36485,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_busca_no_actions.py",
-      "LINHA": 186,
+      "LINHA": 187,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
@@ -36463,7 +36493,7 @@
      },
      {
       "FICHEIRO": "tests/test_busca_no_actions.py",
-      "LINHA": 197,
+      "LINHA": 198,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
@@ -36501,7 +36531,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
-      "LINHA": 19,
+      "LINHA": 21,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
@@ -36509,7 +36539,15 @@
      },
      {
       "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
-      "LINHA": 20,
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
+      "LINHA": 23,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
@@ -60748,6 +60786,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--READS-->C-PROVA-LINHA-BUSCA",
+    "FROM": "C-TESTES",
+    "TO": "C-PROVA-LINHA-BUSCA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
+      "LINHA": 117,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-LINHA-BUSCA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--READS-->C-PROVA-PONTE-CASCO",
     "FROM": "C-TESTES",
     "TO": "C-PROVA-PONTE-CASCO",
@@ -63674,12 +63734,12 @@
     ]
    }
   ],
-  "COUNT": 1810
+  "COUNT": 1811
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 236,
   "CARTOES_AUDITADOS": 236,
-  "ARESTAS_RELACIONADAS": 1810,
+  "ARESTAS_RELACIONADAS": 1811,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -64190,7 +64250,7 @@
    "CODE": 325,
    "CONTROL": 90,
    "DATA": 30,
-   "PROOF": 646,
+   "PROOF": 647,
    "READ": 407,
    "RULE": 292,
    "WRITE": 20
@@ -65908,7 +65968,8 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/busca_no_actions/mutantes_busca_actions.py",
-    "tests/test_busca_no_actions.py"
+    "tests/test_busca_no_actions.py",
+    "tests/test_contrato_workflows_sem_secret_dinamico.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": true,
@@ -69409,7 +69470,6 @@
     "tests/test_social_por_url_achado.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "BUSCA-NO-ACTIONS.md",
     "docs/operacao/LINHA-BUSCA.md"
    ],
    "E_ENTRYPOINT": true,
@@ -69451,6 +69511,7 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "ferramentas/linha_busca/api_oficial.py",
+    "ferramentas/linha_busca/comentarios_piloto_d106.py",
     "ferramentas/linha_busca/consultas.py",
     "ferramentas/linha_busca/fazer_fixture_lote0.py",
     "ferramentas/linha_busca/fixtures/busca-lote-0/p01.html",
@@ -69480,6 +69541,7 @@
    ],
    "SO_MEDEM_ESTE": [
     "provas/busca_no_actions/mutantes_busca_actions.py",
+    "tests/test_busca_no_actions.py",
     "tests/test_linha_busca.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -72636,7 +72698,7 @@
     "sala_de_espera",
     "storage_object"
    ],
-   "ENTRAM": 5,
+   "ENTRAM": 6,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -75910,6 +75972,7 @@
     "tests/test_conserto_regua.py",
     "tests/test_consumo_da_referencia_adama.py",
     "tests/test_contador_24h.py",
+    "tests/test_contrato_workflows_sem_secret_dinamico.py",
     "tests/test_corrida_abortada.py",
     "tests/test_cortesia_adaptativa.py",
     "tests/test_cortesia_no_transporte.py",
@@ -76132,6 +76195,7 @@
    "CHAMADORES_DE_RUNTIME": [
     ".github/workflows/auditoria-live.yml",
     ".github/workflows/comunicacao-publica.yml",
+    ".github/workflows/linha-busca-google.yml",
     ".github/workflows/system-map.yml",
     "motor/cruzamentos_max.py",
     "motor/porta_da_referencia.py",
@@ -76147,6 +76211,7 @@
     "provas/a_fronteira_da_coleta.py",
     "provas/a_rota_m2_atravessa.py",
     "provas/acervo_na_intelligence/mutantes.py",
+    "provas/busca_no_actions/mutantes_busca_actions.py",
     "provas/c2_juiz_mutacao.py",
     "provas/chave_problema/mutacao_chave_problema.py",
     "provas/coleta_continua_mutacao.py",
@@ -76294,7 +76359,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 273,
-   "SAEM": 47,
+   "SAEM": 48,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

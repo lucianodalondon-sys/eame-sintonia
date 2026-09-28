@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
-    "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-    "GENERATED_AT": "2026-09-28T05:29:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a"
+    "BRANCH": "claude/busca-secret-fixo-v1",
+    "HEAD": "127acad7940b30c0f042d92241e5464a780fc2ba",
+    "GENERATED_AT": "2026-09-28T09:27:42-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f4b50e6af18883913eb471cfd363dcf1f4d4cc7b7f4e219567921b3684a39bcf"
   },
   "FILES": [
     {
@@ -101,7 +101,7 @@
     },
     {
       "path": ".github/workflows/linha-busca-google.yml",
-      "sha": "38d958f42b3747cd806ba8ba0e4b953e523a80bc",
+      "sha": "daf855bf75c55a8ad02f8b6bc7af665c695a59a8",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -269,7 +269,7 @@
     },
     {
       "path": "BUSCA-NO-ACTIONS.md",
-      "sha": "825af096d994cf6bd6a24ba00b19d80528f52b1b",
+      "sha": "9bae6dd3619e56f5f3ca6725a96207c1405ce677",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -14500,14 +14500,21 @@
     },
     {
       "path": "ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json",
-      "sha": "a56a7aae3a653004baccfc09be6a9f571ce8c49f",
+      "sha": "19e86f52917bf671dac71a8520a0347527fc4078",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "ferramentas/linha_busca/api_oficial.py",
-      "sha": "6ae19eb96a4d28f9ba877b97ecc71ef756b6b2f9",
+      "sha": "33f2db440a3397f70007e2f1b6a3fd6a3caac50a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+      "sha": "9674866f81df060489ec148e0b117d5638bf86bc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14703,7 +14710,7 @@
     },
     {
       "path": "ferramentas/linha_busca/pedido_actions.py",
-      "sha": "e2b3f2b99f5fe18592bb8d6738b43c9912b9b0fc",
+      "sha": "eb8b8a37cc3b9ce6d70388eefdd44770035f827c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20674,14 +20681,14 @@
     },
     {
       "path": "provas/busca_no_actions/MUTANTES.json",
-      "sha": "22f9928c2e4f55960b48c7f8b8adada376efe5da",
+      "sha": "334d71111a6f6afebc47d457a9be5a780a5123d7",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/busca_no_actions/mutantes_busca_actions.py",
-      "sha": "5012f75c96e9090ae9c7f2f0d556006997c20c86",
+      "sha": "8d221754b7fe8d68b2cdb4bb5ea82774acaebc68",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26246,7 +26253,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "940148ded4e8a9036196ca5c35d78328176895a0",
+      "sha": "d36542d79cbf860cc47087e4cd2781528d16a2b9",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -27401,7 +27408,7 @@
     },
     {
       "path": "tests/test_busca_no_actions.py",
-      "sha": "d73b03f1983291fc6c6251d74529a7ade516d10b",
+      "sha": "564ce52bf4ba6bda0392f3562294b3f5630bce97",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27899,6 +27906,13 @@
     {
       "path": "tests/test_contador_24h.py",
       "sha": "da9be345b5ee9501de1f0f59f646f8ad4b95f640",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_contrato_workflows_sem_secret_dinamico.py",
+      "sha": "0c6ccd22d07b5a32ea8fa447f0c49d2b609b7250",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30123,7 +30137,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/linha-busca-google.yml",
-        "line": 107,
+        "line": 80,
         "snippet": "run: python3 coleta/linha_busca.py --diagnosticar-cse --autorizado --sem-portao-it --saida=saida"
       }
     },
@@ -30134,8 +30148,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/linha-busca-google.yml",
-        "line": 118,
+        "line": 91,
         "snippet": "--consultas=data/derivados/LINHA-BUSCA/CONSULTAS.json --n=\"$N\" --saida=saida"
+      }
+    },
+    {
+      "from_file": ".github/workflows/linha-busca-google.yml",
+      "to_file": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/linha-busca-google.yml",
+        "line": 100,
+        "snippet": "run: python3 ferramentas/linha_busca/comentarios_piloto_d106.py --saida=saida"
       }
     },
     {
@@ -30145,7 +30170,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/linha-busca-google.yml",
-        "line": 98,
+        "line": 71,
         "snippet": "run: PYTHONUTF8=1 python3 ferramentas/linha_busca/pedido_actions.py >> \"$GITHUB_OUTPUT\""
       }
     },
@@ -30156,7 +30181,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/linha-busca-google.yml",
-        "line": 88,
+        "line": 67,
         "snippet": "run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py"
       }
     },
@@ -46969,6 +46994,17 @@
       }
     },
     {
+      "from_file": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+      "to_file": "ferramentas/linha_busca/api_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+        "line": 34,
+        "snippet": "import api_oficial as API  # noqa: E402"
+      }
+    },
+    {
       "from_file": "ferramentas/linha_busca/consultas.py",
       "to_file": "motor/matriz_recorte.py",
       "type": "IMPORTS",
@@ -46997,7 +47033,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/linha_busca/pedido_actions.py",
-        "line": 61,
+        "line": 59,
         "snippet": "import api_oficial as API                                          # noqa: PLC0415"
       }
     },
@@ -69591,8 +69627,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/busca_no_actions/mutantes_busca_actions.py",
-        "line": 20,
-        "snippet": "\"ferramentas/linha_busca/pedido_actions.py\", \".github/workflows/linha-busca-google.yml\")"
+        "line": 22,
+        "snippet": "\"ferramentas/linha_busca/pedido_actions.py\", \".github/workflows/linha-busca-google.yml\","
       }
     },
     {
@@ -69602,8 +69638,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/busca_no_actions/mutantes_busca_actions.py",
-        "line": 19,
-        "snippet": "API, LB, PA, WF = (\"ferramentas/linha_busca/api_oficial.py\", \"coleta/linha_busca.py\","
+        "line": 21,
+        "snippet": "API, LB, PA, WF, CP = (\"ferramentas/linha_busca/api_oficial.py\", \"coleta/linha_busca.py\","
       }
     },
     {
@@ -69613,8 +69649,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/busca_no_actions/mutantes_busca_actions.py",
-        "line": 19,
-        "snippet": "API, LB, PA, WF = (\"ferramentas/linha_busca/api_oficial.py\", \"coleta/linha_busca.py\","
+        "line": 21,
+        "snippet": "API, LB, PA, WF, CP = (\"ferramentas/linha_busca/api_oficial.py\", \"coleta/linha_busca.py\","
+      }
+    },
+    {
+      "from_file": "provas/busca_no_actions/mutantes_busca_actions.py",
+      "to_file": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/busca_no_actions/mutantes_busca_actions.py",
+        "line": 23,
+        "snippet": "\"ferramentas/linha_busca/comentarios_piloto_d106.py\")"
       }
     },
     {
@@ -69624,8 +69671,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/busca_no_actions/mutantes_busca_actions.py",
-        "line": 20,
-        "snippet": "\"ferramentas/linha_busca/pedido_actions.py\", \".github/workflows/linha-busca-google.yml\")"
+        "line": 22,
+        "snippet": "\"ferramentas/linha_busca/pedido_actions.py\", \".github/workflows/linha-busca-google.yml\","
+      }
+    },
+    {
+      "from_file": "provas/busca_no_actions/mutantes_busca_actions.py",
+      "to_file": "tests/test_contrato_workflows_sem_secret_dinamico.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/busca_no_actions/mutantes_busca_actions.py",
+        "line": 117,
+        "snippet": "('o contrato fica cego para secrets[', \"tests/test_contrato_workflows_sem_secret_dinamico.py\","
       }
     },
     {
@@ -91888,7 +91946,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_busca_no_actions.py",
-        "line": 29,
+        "line": 30,
         "snippet": "WORKFLOW = RAIZ / \".github\" / \"workflows\" / \"linha-busca-google.yml\""
       }
     },
@@ -91910,7 +91968,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_busca_no_actions.py",
-        "line": 186,
+        "line": 187,
         "snippet": "rc = LB.main([\"linha_busca.py\", *args, \"--saida=%s\" % self.tmp])"
       }
     },
@@ -91921,8 +91979,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_busca_no_actions.py",
-        "line": 197,
+        "line": 198,
         "snippet": "\"--consultas=%s\" % (RAIZ / \"data\" / \"derivados\" / \"LINHA-BUSCA\" / \"CONSULTAS.json\"), \"--n=3\")"
+      }
+    },
+    {
+      "from_file": "tests/test_busca_no_actions.py",
+      "to_file": "ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_busca_no_actions.py",
+        "line": 86,
+        "snippet": "self.assertTrue(any(\"PEDIDO-BUSCA-GOOGLE.json\" in p for p in API.o_que_o_dono_faz(d)))"
       }
     },
     {
@@ -98237,6 +98306,17 @@
         "file": "tests/test_contador_24h.py",
         "line": 192,
         "snippet": "r = subprocess.run([\"node\", \"provas/contador_24h_local.mjs\"], cwd=RAIZ, capture_output=True, text=True,"
+      }
+    },
+    {
+      "from_file": "tests/test_contrato_workflows_sem_secret_dinamico.py",
+      "to_file": ".github/workflows/linha-busca-google.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_contrato_workflows_sem_secret_dinamico.py",
+        "line": 43,
+        "snippet": "self.assertIn(os.path.join(PASTA, \"linha-busca-google.yml\"), workflows())"
       }
     },
     {
@@ -112539,10 +112619,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4205,
-    "files_readable": 1766,
-    "files_code_dir": 2181,
-    "file_edges": 7494,
+    "files_tracked": 4207,
+    "files_readable": 1768,
+    "files_code_dir": 2183,
+    "file_edges": 7500,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
