@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""O DOMINIO REGISTAVEL e o ORCAMENTO de um host — a regra D38/D41, com UM so dono no runtime.
+"""O DOMINIO REGISTAVEL e o ORCAMENTO de um host — a regra D38/D41 do DOMINIO, com UM so dono no runtime.
 
 Nasceu em `provas/prova_teto_dominio.py` (a prova independente do teto D38) e foi usada dali pelo runtime
 (`coleta/rota_navegador.py`, `coleta/espera_por_dominio.py`, `coleta/reserva_24h.py`) — o runtime importava
@@ -11,7 +11,8 @@ dominio e uma so, para o transporte, as rodadas e a prova nao contarem dominios 
 """
 import re
 
-TETO_D38 = 5
+# D124 (dono, 27/09): o 5 fixo (TETO_D38) SAIU daqui. A regra de QUEM paga continua (este ficheiro);
+# QUANTO cabe passou a ter um dono so: `coleta/cortesia_adaptativa.py` (teto adaptativo por dominio).
 
 # Sufixos públicos de DOIS níveis que esta prova conhece (escritos aqui, sem Public Suffix List:
 # nenhuma nesta casa, e nenhuma se vai buscar à rede). Um sufixo que falte junta MAIS do que devia

@@ -10,7 +10,9 @@ O que muda em relacao ao `bc5_big_collection.py` (a 1.a onda, que fica como regi
      DESTA arvore, confere que o ficheiro no disco e byte a byte o do commit (`git show HEAD:...`)
      e, para correr, que o sha256 e o que quem autoriza declarou (`--sha256=`) e que o ESTADO e
      CONGELADA. O `C:\\bc\\COORTE-BIG-COLLECTION.json` (fora do Git) deixa de ser lido.
-  2. O TETO E POR DOMINIO E PELA ONDA INTEIRA (D38). Cada onda nomeia um livro novo
+  2. O TETO E POR DOMINIO E PELA ONDA INTEIRA (D38). D124 (dono, 27/09): o numero ja nao e 5 fixo —
+     e o ORCAMENTO VIGENTE de cada dominio na politica adaptativa (`coleta/cortesia_adaptativa.py`,
+     `teto_do_dominio`), ou o manual declarado em SINTONIA_TETO_POR_HOST. Cada onda nomeia um livro novo
      (`<saida>/TETO-ONDA.json`) em SINTONIA_TETO_ONDA; o transporte (`coleta/italy_pilot_collect.mjs`,
      o dono unico do teto) soma nele os pedidos por dominio registavel de todas as corridas.
      Uma fonte cujo dominio ja gastou o teto NAO corre: fica com PORQUE=TETO_DOMINIO, e isso nao e
@@ -41,7 +43,24 @@ from urllib.parse import urlparse
 RAIZ = Path(__file__).resolve().parents[2]
 COORTE_OFICIAL = "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json"
 HISTORICO_1A_ONDA = RAIZ / "ferramentas/big_collection/BC5-BIG-COLLECTION-1A-ONDA.json"
-TETO = 5                                   # D7/D38; o transporte le SINTONIA_TETO_POR_HOST, com o mesmo padrao
+# D124 (dono, 27/09): o TETO = 5 fixo (D7/D38) SAIU. O teto de cada dominio e o vigente da politica adaptativa.
+# Uma fonte SEM historico preve 5 pedidos (robots + indice + ate 3 materias, a conta da D7): e PREVISAO, nao teto.
+PEDIDOS_SEM_HISTORICO = 5
+
+
+def teto_do_dominio(dominio: str) -> int:
+    """O teto do dominio: o manual declarado (SINTONIA_TETO_POR_HOST, o mesmo nome do transporte) ou o
+    ORCAMENTO VIGENTE da politica adaptativa (D124). Livro ilegivel levanta: nao se planeia a adivinhar."""
+    v = os.environ.get("SINTONIA_TETO_POR_HOST")
+    if v:
+        return int(v)
+    sys.path.insert(0, str(RAIZ / "coleta"))
+    import cortesia_adaptativa as CA                                # noqa: PLC0415 — o dono unico (D124)
+    return CA.teto_vigente(dominio)
+
+
+def _teto(teto, d):
+    return teto(d) if callable(teto) else int(teto)
 AVISO = Path(r"C:\Users\London1\auditoria-madrugada\bc4-aviso-vivo.txt")
 LEDGER = RAIZ / "data/collection-ledger/italy/runs.ndjson"
 
@@ -144,15 +163,16 @@ def historicos(extra: list[str] | None = None) -> list[dict]:
     return [json.loads(f.read_text(encoding="utf-8")) for f in fic if f.exists()]
 
 
-def repartir(linhas: list[dict], teto: int = TETO) -> list[dict]:
-    """Reparte o teto por dominio pela ordem da coorte. Puro: sem rede, sem ficheiros."""
+def repartir(linhas: list[dict], teto=teto_do_dominio) -> list[dict]:
+    """Reparte o teto de CADA dominio pela ordem da coorte. `teto`: numero, ou funcao dominio -> teto (D124)."""
     gasto = {}
     for l in linhas:
         d = l["DOMINIO"]
-        resta = teto - gasto.get(d, 0)
+        t = _teto(teto, d)
+        resta = t - gasto.get(d, 0)
         prev = l["PEDIDOS_PREVISTOS"]
         if resta <= 0:
-            l.update(PEDIDOS_NA_ONDA=0, PORQUE="TETO_DOMINIO", NOTA="o dominio %s ja gastou %d na onda" % (d, teto))
+            l.update(PEDIDOS_NA_ONDA=0, PORQUE="TETO_DOMINIO", NOTA="o dominio %s ja gastou %d na onda" % (d, t))
         else:
             dados = min(prev, resta)
             l.update(PEDIDOS_NA_ONDA=dados, PORQUE=None if dados == prev else "TETO_DOMINIO_PARCIAL",
@@ -217,8 +237,9 @@ def so_plano(caminho: str, saida: Path | None, historico: list[str] | None = Non
                        "PLANO_AGORA": estado.get(s, {}).get("ESTADO", "NAO_MEDIDA"),
                        "FALTA": estado.get(s, {}).get("FALTA"),
                        "ULTIMA_VEZ_ATENDIDA": ultima.get(s, "NUNCA"),
-                       "PEDIDOS_PREVISTOS": hist.get(s, TETO),
-                       "PREVISAO_VEM_DE": "1.a onda (BC5)" if s in hist else "sem historico: o teto inteiro"})
+                       "PEDIDOS_PREVISTOS": hist.get(s, PEDIDOS_SEM_HISTORICO),
+                       "PREVISAO_VEM_DE": "1.a onda (BC5)" if s in hist else
+                       "sem historico: %d (robots + indice + 3 materias, D7)" % PEDIDOS_SEM_HISTORICO})
     repartir(linhas)
     por_dom = {}
     for l in linhas:
@@ -227,7 +248,9 @@ def so_plano(caminho: str, saida: Path | None, historico: list[str] | None = Non
            "ARVORE": oficial["HEAD"], "COORTE_FICHEIRO": caminho, "COORTE_SHA256_DO_COMMIT": oficial["SHA256_DO_COMMIT"],
            "COORTE_ESTADO": c.get("ESTADO"), "PODE_CORRER": c.get("ESTADO") == "CONGELADA",
            "SO_AS_FONTES": so,
-           "TETO_POR_DOMINIO_NA_ONDA": TETO, "FONTES": len(linhas),
+           "TETO_POR_DOMINIO_NA_ONDA": {d: teto_do_dominio(d) for d in sorted(por_dom)},
+           "TETO_VEM_DE": "SINTONIA_TETO_POR_HOST (manual)" if os.environ.get("SINTONIA_TETO_POR_HOST")
+                          else "politica adaptativa (D124, coleta/cortesia_adaptativa.py)", "FONTES": len(linhas),
            "CORREM": sum(1 for l in linhas if l["PORQUE"] != "TETO_DOMINIO"),
            "SALTAM_POR_TETO_DOMINIO": [l["SOURCE_ID"] for l in linhas if l["PORQUE"] == "TETO_DOMINIO"],
            "PARCIAIS": [l["SOURCE_ID"] for l in linhas if l["PORQUE"] == "TETO_DOMINIO_PARCIAL"],
@@ -250,12 +273,12 @@ def ler_livro(livro: Path) -> dict:
 
 def antes_da_fonte(livro: Path, dominio: str) -> str | None:
     """TETO_DOMINIO se o dominio desta fonte ja gastou o teto na onda: a fonte nao corre."""
-    return "TETO_DOMINIO" if ler_livro(livro).get(dominio, 0) >= TETO else None
+    return "TETO_DOMINIO" if ler_livro(livro).get(dominio, 0) >= teto_do_dominio(dominio) else None
 
 
 def disjuntor_de_dominio(livro_agora: dict) -> str | None:
     """Se o livro da onda passou do teto em algum dominio, o transporte falhou: PARA TUDO."""
-    acima = {d: v for d, v in livro_agora.items() if v > TETO}
+    acima = {d: v for d, v in livro_agora.items() if v > teto_do_dominio(d)}
     return "PEDIDOS_POR_DOMINIO_ACIMA_DO_TETO_NA_ONDA %s" % acima if acima else None
 
 
@@ -333,7 +356,7 @@ def correr(caminho: str, sha: str, saida: Path, historico: list[str] | None = No
             parar = "C6_BYPASS"
         elif C and linha["C4"].get("SALA_LINHAS") != linha["C4"].get("SALA_COM_CADEIA_INTEIRA"):
             parar = "PROVENIENCIA_PARTIDA"
-        elif any(v > TETO for v in (cort.get("PEDIDOS_POR_HOST") or {}).values()):
+        elif any(v > teto_do_dominio(h) for h, v in (cort.get("PEDIDOS_POR_HOST") or {}).items()):
             parar = "PEDIDOS_POR_SITE_ACIMA_DO_TETO %s" % cort.get("PEDIDOS_POR_HOST")
         elif disjuntor_de_dominio(livro_agora):
             parar = disjuntor_de_dominio(livro_agora)

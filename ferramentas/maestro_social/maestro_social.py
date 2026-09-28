@@ -9,7 +9,8 @@
 O condutor da web (`ferramentas/big_collection/onda_web.py`) no molde social (MAESTRO-SOCIAL, 26/09):
 
   1. AS RODADAS vem de `curadoria/plano_onda_social.rodadas()`: ate 2 contas LinkedIn (`teto=1` no
-     pedido — C2) + 1 video YouTube por ONDA. Dominios diferentes; cada um cabe em 5 (D38/D41).
+     pedido — C2) + 1 video YouTube por ONDA. Dominios diferentes; cada um cabe no seu teto (D124: o
+     ORCAMENTO VIGENTE da politica adaptativa, `coleta/cortesia_adaptativa.py`; o 5 fixo da D38 saiu).
   2. O FREIO E ANTES DO PEDIDO. Cada onda nomeia o SEU livro (`<saida>/ONDA-nn/TETO-ONDA.json`) em
      SINTONIA_TETO_ONDA; todas as corridas dela (Scrap e o yt-dlp com freio) somam nele e o pedido que
      passaria do teto NAO sai (`coleta/teto_da_onda.py`). O livro e um por onda e a onda e uma.
@@ -47,7 +48,14 @@ RAIZ = Path(__file__).resolve().parents[2]
 for _p in ("", "curadoria", "coleta", "provas", "orquestrador", "scripts/micro_coleta"):
     sys.path.insert(0, str(RAIZ / _p) if _p else str(RAIZ))
 
-TETO = 5
+
+
+def teto_do_dominio(d: str) -> int:
+    """D124: o teto de um dominio na onda social = o de `curadoria/plano_onda_social` (um so dono da pergunta)."""
+    import plano_onda_social as P                                   # noqa: PLC0415
+    return P.teto_do_dominio(d)
+
+
 ESTADO = "MAESTRO-SOCIAL-ESTADO.json"
 ENV_CHAVE_YT = "YOUTUBE_DATA_API_KEY"
 LIMITE_S = 1800
@@ -98,7 +106,8 @@ def plano(*, canario: bool, so: list[str] | None, linhas: list[dict] | None = No
     linhas = escolher(linhas if linhas is not None else linhas_do_plano(canario=canario), so)
     rod = P.rodadas(linhas)
     return {"DATASET": "MAESTRO-SOCIAL-PLANO", "GERADO_EM": agora(), "CANARIO": canario, "SO_AS_FONTES": so,
-            "TETO_POR_DOMINIO_NA_ONDA": TETO, "TETO_LINKEDIN_NO_PEDIDO": P.TETO_LINKEDIN_NA_ONDA,
+            "TETO_POR_DOMINIO_NA_ONDA": {d: teto_do_dominio(d) for d in sorted({d for r in rod for d in r["PREVISTO_POR_DOMINIO"]})},
+            "TETO_LINKEDIN_NO_PEDIDO": P.TETO_LINKEDIN_NA_ONDA,
             "ONDAS": len(rod), "TODAS_CABEM": all(r["CABE_NO_TETO"] for r in rod),
             "FORA_DA_ONDA": sorted(l["SOURCE_ID"] for l in linhas if not l["NA_ONDA"]),
             "RODADAS": rod}
@@ -161,7 +170,7 @@ def linha_do_livro(run_id: str | None) -> dict:
 def prova_teto(run_ids: list[str]) -> dict:
     import prova_teto_dominio as PT                                 # noqa: PLC0415
     with open(ledger(), encoding="utf-8") if ledger().exists() else open(os.devnull) as f:
-        return PT.verificar(run_ids, PT.ler_livro(f), TETO)
+        return PT.verificar(run_ids, PT.ler_livro(f), None)          # D124: o orcamento vigente de cada dominio
 
 
 def ler_livro_da_onda(livro: Path) -> dict:
@@ -274,7 +283,7 @@ def correr(saida: Path, *, canario: bool = False, so: list[str] | None = None, v
                 return parar("EGRESSO_SAIU_DE_IT depois da fonte: %s" % depois.get("PAIS"), sid)
             if seg > LIMITE_S:
                 return parar("CORRIDA_MAIS_DE_30_MIN", sid)
-            acima = {d: v for d, v in livro_agora.items() if v > TETO}
+            acima = {d: v for d, v in livro_agora.items() if v > teto_do_dominio(d)}
             if acima:
                 return parar("LIVRO_DA_ONDA_ACIMA_DO_TETO %s" % acima, sid)
             falhas_seguidas = falhas_seguidas + 1 if linha["STATUS"] == "FAILED" else 0

@@ -3,8 +3,8 @@
 //
 //     node provas/contador_24h_executor.mjs <host> <porta> <run_id> <n_materias>
 //
-// Nao sabe nada do outro executor: partilha com ele SO o livro de 24 h
-// (SINTONIA_TETO_24H), como duas linhas de rede diferentes partilhariam.
+// Nao sabe nada do outro executor: partilha com ele SO o livro da cortesia adaptativa
+// (SINTONIA_CORTESIA_LIVRO, D124), como duas linhas de rede diferentes partilhariam.
 // Escreve numa linha JSON o que a corrida disse (pedidos por host, recusas).
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";

@@ -57,7 +57,8 @@ OPENALEX = 'https://api.openalex.org/works'
 CROSSREF = 'https://api.crossref.org/works'
 ORCID_WORKS = 'https://pub.orcid.org/v3.0/%s/works'
 DOMINIOS = ('api.openalex.org', 'api.crossref.org', 'pub.orcid.org')
-TETO_POR_DOMINIO = 5          # D38: por dominio, por rodada
+# D124 (dono, 27/09): o TETO_POR_DOMINIO = 5 fixo (D38) SAIU. As tres APIs tem limite PUBLICADO, e a politica
+# adaptativa (`coleta/cortesia_adaptativa.py`, classe API_COM_LIMITE_PUBLICADO) usa-o: `teto_por_dominio`.
 DOIS_POR_PEDIDO_CROSSREF = 40  # filtros doi: repetidos sao OU no Crossref
 POR_PAGINA = 200
 DESDE = '2019-01-01'
@@ -307,8 +308,20 @@ def consultas():
     return out
 
 
+def teto_por_dominio(dom):
+    """Quantos pedidos cabem AGORA neste dominio: o manual declarado (SINTONIA_TETO_POR_HOST) ou o orcamento
+    da politica adaptativa (D124: o limite publicado da API, menos o gasto no livro da cortesia, se houver).
+    NAO SEI (livro ilegivel) = 0: nao se pede."""
+    v = os.environ.get('SINTONIA_TETO_POR_HOST')
+    if v:
+        return int(v)
+    import cortesia_adaptativa as CA                                   # noqa: PLC0415 — o dono unico (D124)
+    n = CA.orcamento_do_dominio(dom)
+    return 0 if n is None else n
+
+
 def plano_de_rodadas(n_dois=0, n_pessoas=0):
-    """Quantos pedidos por dominio, e em quantas rodadas cada dominio cabe no teto de 5.
+    """Quantos pedidos por dominio, e em quantas rodadas cada dominio cabe no seu teto (D124: o orcamento vigente).
 
     Os tres dominios andam em paralelo, cada um com o seu teto. So o OpenAlex e
     obrigatorio para a unidade existir; Crossref (prova da obra) e ORCID (prova da pessoa)
@@ -320,8 +333,9 @@ def plano_de_rodadas(n_dois=0, n_pessoas=0):
         'api.crossref.org': math.ceil(n_dois / DOIS_POR_PEDIDO_CROSSREF) if n_dois else 0,
         'pub.orcid.org': n_pessoas,
     }
-    rodadas = {d: math.ceil(v / TETO_POR_DOMINIO) for d, v in pedidos.items()}
-    return {'PEDIDOS_POR_DOMINIO': pedidos, 'TETO_POR_DOMINIO_POR_RODADA': TETO_POR_DOMINIO,
+    teto = {d: teto_por_dominio(d) for d in pedidos}
+    rodadas = {d: math.ceil(v / teto[d]) if teto[d] else NAO_SEI for d, v in pedidos.items()}
+    return {'PEDIDOS_POR_DOMINIO': pedidos, 'TETO_POR_DOMINIO_POR_RODADA': teto,
             'RODADAS_POR_DOMINIO': rodadas,
             'OBRIGATORIO': 'api.openalex.org (as 12 consultas: %d rodadas)' % rodadas['api.openalex.org'],
             'INCREMENTAL': ['api.crossref.org', 'pub.orcid.org']}
@@ -735,7 +749,7 @@ def _pedir(url, chave=None):
 
 
 def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
-    """UMA rodada, <= TETO_POR_DOMINIO pedidos em CADA um dos 3 dominios, contados antes:
+    """UMA rodada, <= teto_por_dominio(d) pedidos em CADA um dos 3 dominios (D124), contados antes:
 
         A. OpenAlex  — os proximos pares ainda sem resposta valida (12 pares = 3 rodadas)
         B. Crossref  — os DOI ja trazidos e ainda nao conferidos, 40 por pedido
@@ -747,16 +761,18 @@ def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
     os.makedirs(saida, exist_ok=True)
     est = _estado(saida)
     registo = {'RODADA': n, 'PEDIDOS': {d: 0 for d in DOMINIOS}, 'RESPOSTAS': []}
+    teto = {d: teto_por_dominio(d) for d in DOMINIOS}              # D124: o orcamento de cada dominio, lido antes
+    registo['TETO'] = teto
 
     def anotar(dom, nome, d, ok, porque, extra=None):
         registo['PEDIDOS'][dom] += 1
-        assert registo['PEDIDOS'][dom] <= TETO_POR_DOMINIO, 'teto por dominio passado'
+        assert registo['PEDIDOS'][dom] <= teto[dom], 'teto por dominio passado'
         nome = nome if ok else 'FALHA-r%d-%s' % (n, nome)
         registo['RESPOSTAS'].append(dict({'DOMINIO': dom, 'FICHEIRO': nome, 'SHA256': _guardar(saida, nome, d),
                                           'OK': ok, 'PORQUE': porque}, **(extra or {})))
 
     # A · OpenAlex
-    for q in [q for q in consultas() if q['PAR'] not in est['OPENALEX_PARES_FEITOS']][:TETO_POR_DOMINIO]:
+    for q in [q for q in consultas() if q['PAR'] not in est['OPENALEX_PARES_FEITOS']][:teto['api.openalex.org']]:
         d, err = _pedir(q['URL'], chave_openalex)
         ok, porque = resposta_valida(d) if d is not None else (False, err)
         anotar('api.openalex.org', 'openalex-%s.json' % q['PAR'].replace(' x ', '-'), d, ok, porque,
@@ -772,7 +788,7 @@ def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
     # B · Crossref
     faltam = sorted(u['DOI'] for u in unidades
                     if u['DOI'] != NAO_SEI and u['DOI'] not in est['CROSSREF_DOIS_FEITOS'])
-    for i in range(0, min(len(faltam), TETO_POR_DOMINIO * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
+    for i in range(0, min(len(faltam), teto['api.crossref.org'] * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
         lote = faltam[i:i + DOIS_POR_PEDIDO_CROSSREF]
         d, err = CP._get(url_crossref(lote))
         ok = isinstance(d, dict) and isinstance((d.get('message') or {}).get('items'), list)
@@ -784,7 +800,7 @@ def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
         time.sleep(pausa)
 
     # C · ORCID (alfabetico: nao e ranking)
-    for p in [g for g in gente if g['ORCID'] != NAO_SEI and g['ORCID'] not in est['ORCID_FEITOS']][:TETO_POR_DOMINIO]:
+    for p in [g for g in gente if g['ORCID'] != NAO_SEI and g['ORCID'] not in est['ORCID_FEITOS']][:teto['pub.orcid.org']]:
         d, err = CP._get(ORCID_WORKS % p['ORCID'])
         ok = isinstance(d, dict) and 'group' in d
         anotar('pub.orcid.org', 'orcid-%s-works.json' % p['ORCID'], d, ok, '' if ok else (err or 'sem group'),
@@ -907,16 +923,18 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
     est = _ler(f_est) if os.path.exists(f_est) else {'PESSOAS': {}, 'OBRAS_FEITAS': [], 'ORCID_FEITOS': [],
                                                      'CROSSREF_DOIS_FEITOS': [], 'RODADAS': []}
     registo = {'RODADA': n, 'PEDIDOS': {d: 0 for d in DOMINIOS}, 'RESPOSTAS': []}
+    teto = {d: teto_por_dominio(d) for d in DOMINIOS}              # D124: o orcamento de cada dominio, lido antes
+    registo['TETO'] = teto
 
     def anotar(dom, nome, d, ok, porque):
         registo['PEDIDOS'][dom] += 1
-        assert registo['PEDIDOS'][dom] <= TETO_POR_DOMINIO, 'teto por dominio passado'
+        assert registo['PEDIDOS'][dom] <= teto[dom], 'teto por dominio passado'
         nome = nome if ok else 'FALHA-r%d-%s' % (n, nome)
         registo['RESPOSTAS'].append({'DOMINIO': dom, 'FICHEIRO': nome, 'SHA256': _guardar(saida, nome, d),
                                      'OK': ok, 'PORQUE': porque})
 
     falta_procurar = [(p, i) for p, i in PESSOAS_CONSULTA2 if p not in est['PESSOAS']]
-    for p, i in falta_procurar[:TETO_POR_DOMINIO]:
+    for p, i in falta_procurar[:teto['api.openalex.org']]:
         d, err = _pedir(url_autores(p), chave_openalex)
         ok, porque = resposta_valida(d) if d is not None else (False, err)
         anotar('api.openalex.org', 'autores-%s.json' % _slug_nome(p), d, ok, porque)
@@ -926,7 +944,7 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
         time.sleep(pausa)
     if not falta_procurar:
         prontas = [p for p, r in est['PESSOAS'].items() if r['IDS'] and p not in est['OBRAS_FEITAS']]
-        for p in prontas[:TETO_POR_DOMINIO]:
+        for p in prontas[:teto['api.openalex.org']]:
             d, err = _pedir(url_obras_de(est['PESSOAS'][p]['IDS']), chave_openalex)
             ok, porque = resposta_valida(d) if d is not None else (False, err)
             anotar('api.openalex.org', 'openalex-PESSOA-%s.json' % _slug_nome(p), d, ok, porque)
@@ -936,7 +954,7 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
             time.sleep(pausa)
         orcids = sorted({c['ORCID'] for r in est['PESSOAS'].values() for c in r['CANDIDATOS']
                          if c['ORCID'] != NAO_SEI} - set(est['ORCID_FEITOS']))
-        for o in orcids[:TETO_POR_DOMINIO]:
+        for o in orcids[:teto['pub.orcid.org']]:
             d, err = CP._get(ORCID_WORKS % o)
             ok = isinstance(d, dict) and 'group' in d
             anotar('pub.orcid.org', 'orcid-%s-works.json' % o, d, ok, '' if ok else (err or 'sem group'))
@@ -946,7 +964,7 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
             time.sleep(pausa)
         us, _, _ = ler_pasta(saida, com_provas=False)
         faltam = sorted(u['DOI'] for u in us if u['DOI'] != NAO_SEI and u['DOI'] not in est['CROSSREF_DOIS_FEITOS'])
-        for k in range(0, min(len(faltam), TETO_POR_DOMINIO * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
+        for k in range(0, min(len(faltam), teto['api.crossref.org'] * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
             lote = faltam[k:k + DOIS_POR_PEDIDO_CROSSREF]
             d, err = CP._get(url_crossref(lote))
             ok = isinstance(d, dict) and isinstance((d.get('message') or {}).get('items'), list)
