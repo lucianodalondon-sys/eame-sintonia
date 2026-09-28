@@ -23,6 +23,9 @@ for (const k of ["http_proxy", "https_proxy", "HTTP_PROXY", "HTTPS_PROXY", "ALL_
 const HOST = "feed.test";
 process.env.NO_PROXY = process.env.no_proxy = ["127.0.0.1", "localhost", HOST].join(",");
 for (const k of ["SINTONIA_TETO_POR_HOST", "SINTONIA_TETO_ONDA"]) delete process.env[k];
+// D124 (dono, 27/09) — AJUSTE DECLARADO: o 5 fixo deixou de ser a omissao (o teto e o orcamento vigente
+// da politica adaptativa). Esta prova mede a MECANICA do teto por dominio com o teto MANUAL declarado de 5.
+process.env.SINTONIA_TETO_POR_HOST = "5";
 process.env.SINTONIA_PAUSA_POR_HOST_S = "0";
 
 const enchimento = "<p>" + "Testo dell'articolo sulla mosca dell'olivo. ".repeat(60) + "</p>";

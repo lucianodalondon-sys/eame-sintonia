@@ -406,6 +406,23 @@ class OGemeoNode(Base):
               % (json.dumps(casos), T0))
         self.assertEqual(json.loads(json.dumps(py)), self._node(js))
 
+    def test_node_com_trinco_preso_e_unknown_e_nao_escreve(self):
+        os.mkdir(str(self.livro) + ".trinco")
+        try:
+            e = self._node("import * as C from './coleta/cortesia_adaptativa.mjs';"
+                           "console.log(JSON.stringify(C.reservar('cia.it',{runId:'N',linha:'NODE'}).ESTADO))")
+            self.assertEqual(e, "UNKNOWN")
+            self.assertFalse(self.livro.exists())
+        finally:
+            os.rmdir(str(self.livro) + ".trinco")
+
+    def test_node_livro_ilegivel_e_unknown(self):
+        self.livro.write_text('{"TIPO": "RESERVA"}\n', encoding="utf-8")
+        e = self._node("import * as C from './coleta/cortesia_adaptativa.mjs';"
+                       "console.log(JSON.stringify([C.reservar('cia.it',{runId:'N',linha:'NODE'}).ESTADO, C.orcamentoDoDominio('cia.it')]))")
+        self.assertEqual(e, ["UNKNOWN", None])
+        self.assertEqual(self.livro.read_text(encoding="utf-8"), '{"TIPO": "RESERVA"}\n')
+
     def test_node_escreve_e_python_le_o_mesmo_recuo(self):
         js = ("import * as C from './coleta/cortesia_adaptativa.mjs';const T=%r;"
               "const a=C.reservar('cia.it',{runId:'N',linha:'NODE',agora:T});"

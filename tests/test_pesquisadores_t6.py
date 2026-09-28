@@ -71,7 +71,8 @@ class Consultas(SemRede):
                          {'api.openalex.org': 12, 'api.crossref.org': 3, 'pub.orcid.org': 11})
         self.assertEqual(pl['RODADAS_POR_DOMINIO'],
                          {'api.openalex.org': 3, 'api.crossref.org': 1, 'pub.orcid.org': 3})
-        self.assertEqual(T6.TETO_POR_DOMINIO, 5)
+        # D124 (declarado): o 5 ja nao e constante — e o teto manual declarado neste modulo (setUpModule)
+        self.assertEqual({d: T6.teto_por_dominio(d) for d in T6.DOMINIOS}, {d: 5 for d in T6.DOMINIOS})
 
     def test_um_pedido_ao_crossref_leva_varios_doi(self):
         u = T6.url_crossref(['10.1/a', '10.1/b'])
@@ -289,6 +290,29 @@ class Qualify(unittest.TestCase):
         self.assertEqual(ASI.territorio_de({'NOME': 'Università di Sassari', 'URL': 'https://www.uniss.it'})[0], 'T5')
         self.assertEqual(ASI.territorio_de({'NOME': 'Mario', 'URL': 'https://orcid.org/'})[0], 'NAO SEI')
 
+
+
+# ── D124 (dono, 27/09 ~21:30) — AJUSTE DECLARADO ─────────────────────────────────────────
+# O 5 fixo por dominio deixou de ser a regra: o teto e o ORCAMENTO VIGENTE da politica adaptativa
+# (`coleta/cortesia_adaptativa.py`, SITE comeca em 40). Estes testes provam a MECANICA (repartir,
+# contar, travar, provar) e continuam a faze-lo com o teto MANUAL declarado SINTONIA_TETO_POR_HOST=5,
+# que o codigo continua a respeitar. Nenhuma asserção foi afrouxada: o numero passou a ser declarado.
+_TETO_ANTES = None
+
+
+def setUpModule():
+    global _TETO_ANTES
+    import os as _os
+    _TETO_ANTES = _os.environ.get("SINTONIA_TETO_POR_HOST")
+    _os.environ["SINTONIA_TETO_POR_HOST"] = "5"
+
+
+def tearDownModule():
+    import os as _os
+    if _TETO_ANTES is None:
+        _os.environ.pop("SINTONIA_TETO_POR_HOST", None)
+    else:
+        _os.environ["SINTONIA_TETO_POR_HOST"] = _TETO_ANTES
 
 if __name__ == '__main__':
     unittest.main()

@@ -63,7 +63,7 @@ class _ComLivro(unittest.TestCase):
         p = mock.patch.dict(os.environ, {teto.ENV_LIVRO: self.livro})
         p.start()
         self.addCleanup(p.stop)
-        os.environ.pop(teto.ENV_TETO, None)
+        os.environ[teto.ENV_TETO] = "5"    # D124 (declarado): o teto manual de 5; o 5 fixo ja nao e a omissao
         teto.zerar()
         http.zerar_contagem()
         http._ROBOTS.clear()
@@ -142,7 +142,8 @@ class F2ARecusaFicaNaLinha(_Corrida):
         self.assertEqual(len(self.srv.pedidos), 5)
         self.assertIn("ABORTED", l)
         self.assertEqual(l["CORTESIA"]["PEDIDOS_POR_HOST"], {"127.0.0.1": 5})
-        self.assertEqual(l["CORTESIA"]["TETO_POR_DOMINIO"], 5)
+        # D124 (declarado): o teto e por dominio — a linha diz o de cada dominio recusado
+        self.assertEqual(l["CORTESIA"]["TETO_POR_DOMINIO"], {"127.0.0.1": 5})
         self.assertEqual([r["MOTIVO"] for r in l["CORTESIA"]["RECUSAS"]], ["TETO_DOMINIO"])
 
     def test_sem_recusa_a_linha_nao_inventa_recusas(self):
@@ -290,6 +291,29 @@ class F9ParidadeComOTransporteWeb(unittest.TestCase):
         self.assertEqual(teto.orcamento_de("media.licdn.com"), "licdn.com")
         self.assertEqual(teto.orcamento_de("www.salute.gov.it"), "salute.gov.it")
 
+
+
+# ── D124 (dono, 27/09 ~21:30) — AJUSTE DECLARADO ─────────────────────────────────────────
+# O 5 fixo por dominio deixou de ser a regra: o teto e o ORCAMENTO VIGENTE da politica adaptativa
+# (`coleta/cortesia_adaptativa.py`, SITE comeca em 40). Estes testes provam a MECANICA (repartir,
+# contar, travar, provar) e continuam a faze-lo com o teto MANUAL declarado SINTONIA_TETO_POR_HOST=5,
+# que o codigo continua a respeitar. Nenhuma asserção foi afrouxada: o numero passou a ser declarado.
+_TETO_ANTES = None
+
+
+def setUpModule():
+    global _TETO_ANTES
+    import os as _os
+    _TETO_ANTES = _os.environ.get("SINTONIA_TETO_POR_HOST")
+    _os.environ["SINTONIA_TETO_POR_HOST"] = "5"
+
+
+def tearDownModule():
+    import os as _os
+    if _TETO_ANTES is None:
+        _os.environ.pop("SINTONIA_TETO_POR_HOST", None)
+    else:
+        _os.environ["SINTONIA_TETO_POR_HOST"] = _TETO_ANTES
 
 if __name__ == "__main__":
     unittest.main()

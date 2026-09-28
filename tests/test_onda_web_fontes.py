@@ -83,7 +83,7 @@ class OCorrerSoComAsEscolhidas(unittest.TestCase):
             teste.livros.append(str(livro))
             host = dict(COORTE)[s].split("/")[2]
             gasto = json.loads(livro.read_text(encoding="utf-8"))["PEDIDOS_POR_DOMINIO"] if livro.exists() else {}
-            gasto[DOM[host]] = min(O.TETO, gasto.get(DOM[host], 0) + 5)       # o transporte gasta ate ao teto
+            gasto[DOM[host]] = min(O.teto_do_dominio(DOM[host]), gasto.get(DOM[host], 0) + 5)       # o transporte gasta ate ao teto
             livro.write_text(json.dumps({"PEDIDOS_POR_DOMINIO": gasto}), encoding="utf-8")
             return {"CORRIDAS": [{"CORREU": True, "STATUS": "SUCCESS", "RUN_ID": "R-" + s,
                                   "EGRESSO_ANTES": {"PAIS": "IT"}, "EGRESSO_DEPOIS": {"PAIS": "IT"}}]}
@@ -134,7 +134,7 @@ class OCorrerSoComAsEscolhidas(unittest.TestCase):
         self.assertEqual(len(saltou), 1)
         self.assertEqual(saltou[0]["DOMINIO"], "cia.it")
         self.assertNotIn("IT-A2", self.chamadas)
-        self.assertLessEqual(max(O.ler_livro(self.saida / "TETO-ONDA.json").values()), O.TETO)
+        self.assertLessEqual(max(O.ler_livro(self.saida / "TETO-ONDA.json").values()), O.teto_do_dominio("cia.it"))
 
     def test_9_fora_da_coorte_recusa_antes_de_qualquer_chamada(self):
         with self.assertRaises(SystemExit):
@@ -148,6 +148,29 @@ class OCorrerSoComAsEscolhidas(unittest.TestCase):
         self.assertEqual(rc, 0)
         self.assertEqual(self.chamadas, ["IT-C1"])
 
+
+
+# ── D124 (dono, 27/09 ~21:30) — AJUSTE DECLARADO ─────────────────────────────────────────
+# O 5 fixo por dominio deixou de ser a regra: o teto e o ORCAMENTO VIGENTE da politica adaptativa
+# (`coleta/cortesia_adaptativa.py`, SITE comeca em 40). Estes testes provam a MECANICA (repartir,
+# contar, travar, provar) e continuam a faze-lo com o teto MANUAL declarado SINTONIA_TETO_POR_HOST=5,
+# que o codigo continua a respeitar. Nenhuma asserção foi afrouxada: o numero passou a ser declarado.
+_TETO_ANTES = None
+
+
+def setUpModule():
+    global _TETO_ANTES
+    import os as _os
+    _TETO_ANTES = _os.environ.get("SINTONIA_TETO_POR_HOST")
+    _os.environ["SINTONIA_TETO_POR_HOST"] = "5"
+
+
+def tearDownModule():
+    import os as _os
+    if _TETO_ANTES is None:
+        _os.environ.pop("SINTONIA_TETO_POR_HOST", None)
+    else:
+        _os.environ["SINTONIA_TETO_POR_HOST"] = _TETO_ANTES
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
