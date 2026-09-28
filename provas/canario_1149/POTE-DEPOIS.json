@@ -1,0 +1,427 @@
+{
+ "SCHEMA": "POTE_INTELLIGENCE_CASCO/v2",
+ "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+ "NAO_PARA_CLIENTE": true,
+ "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+ "SOURCE_HEAD": "NAO SEI",
+ "CORTE": "2026-09-28T14:03:30.703505+00:00",
+ "RESULT_STATE": "DONE",
+ "RUN_SCHEMA": "MOTOR_DAS_CAPACIDADES/v1",
+ "CORRIDA_SINTETICA": false,
+ "ENTRADA": "CORRIDA",
+ "LEITURA_DE_COMPATIBILIDADE": [],
+ "REVISAO_DO_CONTRATO": "v2 + LIGACAO_ADAMA/v1 (D123, 2026-09-27)",
+ "LEI": "o casco desenha isto; nao refaz crossing, nao completa NAO SEI, nao promove, nao muda especie (INT-LAW-023 · INT-LAW-280)",
+ "COMPARTIMENTOS": {
+  "meeting": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "meeting",
+   "NOME_IT": "Radar delle Opportunità",
+   "VISTAS_DO_CASCO": [
+    "meeting"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "OPORTUNIDADE",
+    "CROSSING",
+    "FINDING",
+    "SINAL"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "ISSUE_ID",
+    "REGION_ID",
+    "TIME_WINDOW",
+    "ADAMA_PRODUCT_ID",
+    "AUTHORIZATION_EVIDENCE_ID"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "future": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "future",
+   "NOME_IT": "Radar Futuro",
+   "VISTAS_DO_CASCO": [
+    "radarfuturo"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "FATO_PRESENTE_SOBRE_O_FUTURO"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "ISSUE_ID",
+    "REGION_ID",
+    "FACT_LOCATION",
+    "FACT_TIME",
+    "FACT_TIME_BASIS"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "windows": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "windows",
+   "NOME_IT": "Finestre Colturali",
+   "VISTAS_DO_CASCO": [
+    "windows"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "REGION_ID",
+    "ISSUE_ID",
+    "DATE_OR_STAGE"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [
+    {
+     "REQUIREMENT_ID": "REQ-9cc5bff1f3db0ef6",
+     "REQUIREMENT": [
+      "REGION_EM_CAMPO"
+     ],
+     "QUESTION_BLOCKED": "CAP-WIN: sem CROP_ID x ISSUE_ID x REGION_ID em campo nao ha janela de ninguem (INT-LAW-091)",
+     "MISSING_FACT_OR_KEY": [
+      "JANELA_DECLARADA.REGIAO_DO_FATO: VALOR = NAO SEI"
+     ],
+     "SONDA_DO_TEXTO": [],
+     "WHY_EXISTING_MATERIAL_IS_INSUFFICIENT": "o texto pode nomear cultura e praga, mas atribuir par por texto e fabricar CROP_ID/ISSUE_ID; a chave tem de vir em campo, com base",
+     "REQUIRED_SCOPE": {
+      "ITEM_ID": "derived:1149",
+      "SOURCE_ID": "IT-T5-111",
+      "UNIVERSO": "T5"
+     },
+     "URGENCY": "NAO SEI",
+     "FERRAMENTA": "windows",
+     "CAPACIDADE": "CAP-WIN",
+     "ORIGEM": "REQUIREMENTS"
+    }
+   ],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "market": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "market",
+   "NOME_IT": "Polso di Mercato",
+   "VISTAS_DO_CASCO": [
+    "market"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "MARKET_PLACE_ID",
+    "PERIOD",
+    "PRICE",
+    "UNIT",
+    "MARKET_STAGE"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "voices": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "voices",
+   "NOME_IT": "Voci dal Campo",
+   "VISTAS_DO_CASCO": [
+    "voices"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "SPEAKER_ID",
+    "SPEAKER_ROLE",
+    "QUOTE_OR_TRANSCRIPT",
+    "CROP_ID",
+    "ISSUE_ID",
+    "FACT_LOCATION",
+    "FACT_TIME"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "competitors": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "competitors",
+   "NOME_IT": "Concorrenza",
+   "VISTAS_DO_CASCO": [
+    "competitors"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "COMPANY_ID",
+    "PRODUCT_ID",
+    "CROP_ID",
+    "FACT_LOCATION",
+    "FACT_TIME",
+    "T4_REGISTRATION_EVIDENCE_ID"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "science": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "science",
+   "NOME_IT": "Intelligence Scientifica",
+   "VISTAS_DO_CASCO": [
+    "science"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "DOI",
+    "TRIAL_ID",
+    "RESEARCHER_ORCID",
+    "INSTITUTION_ID",
+    "MOLECULE",
+    "CROP_ID",
+    "ISSUE_ID",
+    "STUDY_LOCATION",
+    "STUDY_PERIOD"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "portfolio": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "portfolio",
+   "NOME_IT": "Portafoglio / Etichette",
+   "VISTAS_DO_CASCO": [
+    "portfolio",
+    "etichette"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING"
+   ],
+   "CONTRATO_CHAVES": [
+    "PRODUCT_ID",
+    "CROP_ID",
+    "TARGET_ID",
+    "ACTIVE_INGREDIENT_ID",
+    "REGISTRATION_VERSION"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "archive": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "archive",
+   "NOME_IT": "Archivio",
+   "VISTAS_DO_CASCO": [
+    "archive",
+    "future"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "SINAL",
+    "FINDING",
+    "CROSSING",
+    "OPORTUNIDADE",
+    "FATO_PRESENTE_SOBRE_O_FUTURO"
+   ],
+   "CONTRATO_CHAVES": [
+    "CROP_ID",
+    "ISSUE_ID",
+    "REGION_ID",
+    "FACT_LOCATION",
+    "FACT_TIME"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "sources": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "sources",
+   "NOME_IT": "Registro delle fonti",
+   "VISTAS_DO_CASCO": [
+    "sources"
+   ],
+   "ESPECIES_ADMITIDAS": [
+    "RENDIMENTO_DE_FONTE"
+   ],
+   "CONTRATO_CHAVES": [
+    "SOURCE_ID",
+    "ITENS_LIDOS",
+    "ITENS_QUE_PASSARAM_G0",
+    "OBJETOS_PRODUZIDOS"
+   ],
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "SEM_OBJETOS_NESTA_CORRIDA",
+   "PORQUE_TEXTO": "esta corrida nao trouxe objeto que atravessasse para esta ferramenta; zero aqui nao prova ausencia no mundo",
+   "RECUSADOS_AQUI": 0
+  },
+  "field": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "field",
+   "NOME_IT": "Field",
+   "VISTAS_DO_CASCO": [],
+   "ESPECIES_ADMITIDAS": [],
+   "CONTRATO_CHAVES": "NAO SEI",
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "CASCO_SEM_CONTRATO_DE_INTELLIGENCE",
+   "PORQUE_TEXTO": "o casco nao tem contrato de Intelligence para esta ferramenta; nenhum objeto a pode preencher",
+   "RECUSADOS_AQUI": 0
+  },
+  "casa": {
+   "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+   "NAO_PARA_CLIENTE": true,
+   "COMPARTIMENTO": "casa",
+   "NOME_IT": "Casa",
+   "VISTAS_DO_CASCO": [],
+   "ESPECIES_ADMITIDAS": [],
+   "CONTRATO_CHAVES": "NAO SEI",
+   "OBJETOS": [],
+   "LACUNAS": [],
+   "UNIVERSO": {
+    "INTELLIGENCE_RUN_ID": "IR-78b8841234e76691af6a",
+    "LEITURA": "objetos NESTA corrida; zero aqui nao prova ausencia no mundo",
+    "OBJETOS": 0
+   },
+   "ESTADO": "VAZIO",
+   "PORQUE_VAZIO": "CASCO_SEM_CONTRATO_DE_INTELLIGENCE",
+   "PORQUE_TEXTO": "o casco nao tem contrato de Intelligence para esta ferramenta; nenhum objeto a pode preencher",
+   "RECUSADOS_AQUI": 0
+  }
+ },
+ "LACUNAS_SEM_COMPARTIMENTO": [
+  {
+   "REQUIREMENT_ID": "REQ-63949f85a022eb9b",
+   "QUESTION_BLOCKED": "o item nao pode virar SINAL temporal nem entrar em pergunta que exija tempo (crossing com chave TIME, ACT_NOW, janela); CONTINUA na corrida com FACT_TIME = NAO SEI e o motivo",
+   "MISSING_FACT_OR_KEY": [
+    "FACT_TIME"
+   ],
+   "WHY_EXISTING_MATERIAL_IS_INSUFFICIENT": "o item existe e foi admitido, mas os campos acima chegaram como NAO SEI, sem base, sem ano, depois da captura, ou nao chegaram de todo. Preenche-los aqui seria a Intelligence a fabricar a identidade que a Collection nao cunhou.",
+   "REQUIRED_SCOPE": {
+    "ITEM_ID": "derived:1149",
+    "SOURCE_ID": "IT-T5-111",
+    "UNIVERSO": "T5"
+   },
+   "URGENCY": "NAO SEI",
+   "CAPACIDADE": "CORRIDA_G0",
+   "ORIGEM": "REQUIREMENTS"
+  }
+ ],
+ "RECUSADOS": []
+}

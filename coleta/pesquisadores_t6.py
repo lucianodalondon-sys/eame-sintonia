@@ -285,7 +285,11 @@ PROVINCIAS_IT = _provincias()
 ZONAS_IT = {'Norte de Italia': ('northern italy', 'north italy', 'north-eastern italy', 'northeastern italy',
                                 'north-western italy', 'northwestern italy', 'nord italia', 'italia settentrionale'),
             'Sul de Italia': ('southern italy', 'south italy', 'italia meridionale'),
-            'Centro de Italia': ('central italy', 'italia centrale')}
+            'Centro de Italia': ('central italy', 'italia centrale'),
+            # CANARIO-1149 (28/09): uma area SUB-REGIONAL com nome proprio, medida na Sala (CREA: «nelle aree
+            # colpite del Salento»). Precisao ZONA, e so ela: que o Salento fica na Puglia o texto nao escreve,
+            # e a porta nao o acrescenta (D112: o nome escrito, nada inferido)
+            'Salento': ('salento',)}
 # «University of Padova» nao e onde o ensaio foi: o nome logo depois destas palavras nao conta
 _INSTITUCIONAL = re.compile(r'(universit\w*|institut\w*|istituto|department|dipartimento|cnr|crea)\W+(of|di|degli|della|del)?\W*$', re.I)
 

@@ -680,6 +680,11 @@ def _onde_esta(texto: str, ini: int, fim: int, titulos: list) -> tuple:
     a, linha = next(((p, l) for p, l in _linhas_com_posicao(texto) if p <= ini < p + max(len(l), 1)),
                     (0, texto))
     s = re.sub(r"\s+", " ", linha).strip()
+    # CANARIO-1149: a pagina ACHATADA numa linha so (`fato_do_texto.LINHA_ACHATADA`) nao e titulo nem
+    # cabecalho — e o documento inteiro. O nome esta numa frase dela: TEXT, com o trecho a volta (nunca a
+    # pagina inteira como BASE, nem DOCUMENT_TITLE para um nome que esta no corpo)
+    if len(re.findall(r"[A-Za-zÀ-ÿ']+", linha)) >= _ft().LINHA_ACHATADA:
+        return "TEXT", _trecho(linha, ini - a, fim - a)
     primeira = next((l.strip() for l in texto.splitlines() if l.strip()), "")
     if linha.strip() == primeira or s in titulos:
         return "DOCUMENT_TITLE", s
@@ -724,6 +729,40 @@ def _codigo(nome: str, formas: list, tabelas: list) -> dict:
             "EPPO": AF.AUSENCIA_DO_PROBLEMA, "PORQUE_SEM_EPPO": porque}
 
 
+# ── CANARIO-1149 (28/09) · O ORGANISMO QUE É O REMÉDIO NÃO É O PROBLEMA ─────────────────────────────────
+# Medido na Sala real (derived:1149, CREA): «due nuove specie di NEMATODI PARASSITI DELLA SPUTACCHINA» — os
+# nematoides sao AGENTES DE CONTROLO do vector da Xylella, e o PROBLEMA saia «xylella, nematode» = NAO SEI.
+# Uma mencao e AGENTE_DE_CONTROLE quando, COLADA a ela (so espacos e ate 2 adjectivos, sem pontuacao), vem
+#     parassit… / antagonist… / predator… / entomopatogen… / nemic… natural… / per il (bio)controllo /
+#     per il contenimento / agent… di (bio)controllo      + di/del/della/… | contro | of | against
+# E O HOSPEDEIRO QUE SE SEGUE E UM ANIMAL-PRAGA: uma praga do vocabulario (`_RE_PROBLEMA`) ou uma palavra de
+# `HOSPEDEIROS_ANIMAIS`. «nematodi parassiti DELLE PIANTE / DELL'OLIVO» continua PROBLEMA: o hospedeiro e
+# planta, e a regra nao se aplica — na duvida fica PROBLEMA (o lado conservador e o NAO SEI de sempre).
+# O agente sai de CANDIDATOS e fica a vista em AGENTES_DE_CONTROLE, com o trecho. Nao e vocabulario de pragas.
+HOSPEDEIROS_ANIMAIS = (r"insett\w*", r"vettor[ei]", r"fitofag\w*", r"larv[ae]", r"sputacchin[ae]",
+                       r"philaenus(?:\s+spumarius)?", r"cicalin[ae]", r"cicadell\w*", r"acar[io]",
+                       r"insects?", r"vectors?", r"pests?", r"spittlebugs?")
+_RE_AGENTE = re.compile(
+    r"^(?:\s+[a-z]+){0,2}?\s+(?:(?:entomo)?parassit\w*|antagonist\w*|predator\w*|entomopatogen\w*|"
+    r"nemic\w*\s+natural\w*|per\s+il\s+(?:bio)?controllo|per\s+il\s+contenimento|"
+    r"agent\w*\s+di\s+(?:bio)?controllo)\s+"
+    r"(?:(?:d(?:ella|ello|elle|egli|ei|el|i)|contro|of|against)\s+|dell')(?:the\s+)?"
+    r"(?P<hospedeiro>[a-z]+)")
+_RE_HOSPEDEIRO_ANIMAL = re.compile(r"^(?:%s)(?![a-z])" % "|".join(HOSPEDEIROS_ANIMAIS))
+
+
+def agente_de_controle(texto: str, fim: int) -> str | None:
+    """O trecho que faz da mencao que acaba em `fim` um AGENTE DE CONTROLO (None se nao faz)."""
+    depois = _dobrar(str(texto or "")[fim:fim + 90])
+    m = _RE_AGENTE.match(depois)
+    if not m:
+        return None
+    h = m.group("hospedeiro")
+    if not (_RE_HOSPEDEIRO_ANIMAL.match(h) or _RE_PROBLEMA.match(h)):
+        return None
+    return re.sub(r"\s+", " ", str(texto)[max(0, fim - 40):fim + m.end()]).strip()
+
+
 def declarar_problema(texto: str, mencoes: list, *, titulo: str | None = None, ler: str = "") -> dict:
     """O bloco PROBLEMA/v1 do item, a partir das mencoes JA lidas (posicoes em `texto`).
 
@@ -740,7 +779,13 @@ def declarar_problema(texto: str, mencoes: list, *, titulo: str | None = None, l
     lidas = []
     for m in mencoes or []:
         veio, trecho = _onde_esta(t, m["INICIO"], m["FIM"], [re.sub(r"\s+", " ", x).strip() for x in titulos])
-        lidas.append(dict(m, VEIO_DE=veio, BASE=trecho))
+        agente = agente_de_controle(t, m["FIM"])
+        lidas.append(dict(m, VEIO_DE=veio, BASE=trecho, **({"AGENTE": agente} if agente else {})))
+    # CANARIO-1149: o agente de controlo nao e o problema (nem conta como ausente): sai a parte
+    agentes = [m for m in lidas if m.get("AGENTE")]
+    lidas = [m for m in lidas if not m.get("AGENTE")]
+    base["AGENTES_DE_CONTROLE"] = [{"NOME": m["NOME"], "FORMA": m["FORMA"], "BASE": m["AGENTE"][:200]}
+                                   for m in agentes]
     ausentes = sorted({m["NOME"] for m in lidas if m["ESTADO"] == "AUSENTE"}
                       - {m["NOME"] for m in lidas if m["ESTADO"] != "AUSENTE"})
     vivas = [m for m in lidas if m["ESTADO"] != "AUSENTE"]

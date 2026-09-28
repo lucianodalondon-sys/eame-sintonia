@@ -1,0 +1,556 @@
+{
+ "INTELLIGENCE_RUN_ID": "IR-e5602f34dda19c509c48",
+ "SCHEMA": "MOTOR_DAS_CAPACIDADES/v1",
+ "CONTRATO_DE_SAIDA_PARA": "POTE_INTELLIGENCE_CASCO/v2 · pacote/pote_intelligence_casco.py @ ce775ff5ad2287d8f6fc19bee5feebd02843b8de (claude/intelligence-bridge-v2-7mngha)",
+ "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+ "NAO_PARA_CLIENTE": true,
+ "SOURCE_HEAD": "NAO SEI",
+ "CORTE": "2026-09-28T14:03:28.314186+00:00",
+ "RESULT_STATE": "DONE",
+ "SINTETICA": false,
+ "HOJE": "2026-09-28",
+ "REFERENCIA_ADAMA": {
+  "PORTA": "motor/porta_da_referencia.py",
+  "ESTADO": "LIDA",
+  "HOJE": "2026-09-28",
+  "HOJE_VEIO_DE": "DECLARADO",
+  "EDICAO_REGISTRO": "PROD_FTS_6_20260831",
+  "DATA_DA_EDICAO_REGISTRO": "2026-08-31",
+  "ULTIMA_CHECAGEM_OK": "2026-09-07",
+  "DIAS_SEM_CHECAGEM": 21,
+  "ESTADO_FRESCOR": "PODE_ESTAR_DESATUALIZADO",
+  "EDICAO_CATALOGO": "CAT_ADAMA_IT_20260915",
+  "DATA_DA_EDICAO_CATALOGO": "2026-09-15",
+  "ESTADO_FRESCOR_CATALOGO": "FRESCA",
+  "IMPRESSAO_DOS_LIVROS": "e244d38edd6f87afcaf0da3db7aeb2e79818f783802f0f97b2fd9b105f648749",
+  "SHA256": {
+   "SNAPSHOTS": "f61a76215f36d8080b825b2196a40f5dbed24bcad86e94964714a69364ea25e7",
+   "REGISTRATIONS": "5aa72cfef7c6fa00a9fa76d80829777abe66ce1d7057c9d12ae0e7d625c41d2f",
+   "AUTHORIZED-USES": "8c86a91502e4b34a84bda72985fc1d0d7a0ab022cd07270079ec11764642edd6",
+   "LABEL-READINGS": "3229c76df8b2e8fbd323b5ed528c4d81893485d742cb84b33a88581f4c987b37",
+   "PRODUCT-ACTIVE-INGREDIENTS": "f5ff2faf5d83e78e6d3b20093f77458e79524be4167763a21b6823b550311d3f",
+   "ACTIVE-INGREDIENTS": "5c9d25359093ed1d6b5da78b41df1618248a060b43f7c6a33beb0c5d5382586d",
+   "DOSES": "2d29f3f85c09c1d0e91ed3e111de7ffc702df0dc30a9cfd2c96d3ac9e7ea2990",
+   "LABEL-DOCUMENTS": "6090d6248a5f73bc85287fdd3dc0d24dce497d3accaac0be8df3c861cb54e70d",
+   "CATALOG-SNAPSHOTS": "6bf1b24bc80d715f2c73b7628ca3457e1bbf9636b3b779d115ef368fbe48c0d3",
+   "PRODUCT-MASTER": "2635922c1149e65429119c5c863f063ed589fa5cfcc5b71b313dccfd2d3abe59",
+   "PORTFOLIO": "3b622ead6a999d3fe07a1f42f3c76554b343b3d1ce5c2cc1d01b8e425c7de82b",
+   "PORTFOLIO-OBSERVATIONS": "df8ad354af946dc5f8ebf298cd008ae2edb857976aba6f8b7712e29526f9adc0"
+  }
+ },
+ "LINEAGE": [
+  {
+   "ITEM_ID": "derived:1149",
+   "RAW_OBSERVATION_ID": 2272,
+   "SOURCE_ID": "IT-T5-111",
+   "CORRIDA_UPSTREAM": "IT-T5-2026-09-28-112058-aacf19302d12b1b0",
+   "CAMPOS_DO_CONTRATO_PRESENTES": [
+    "ADMITIDO_POR",
+    "CAPTURED_AT",
+    "COMPLETUDE_TEMPO_LUGAR",
+    "CORRIDA",
+    "ESTADO",
+    "ESTAGIO",
+    "FACT_LOCATION",
+    "FACT_LOCATION_BASIS",
+    "FACT_TIME",
+    "FACT_TIME_BASIS",
+    "FATO",
+    "ITEM_ID",
+    "JANELA_DECLARADA",
+    "OBSERVED_AT",
+    "PUBLISHED_AT",
+    "PUBLISHED_AT_BASIS",
+    "RAW_OBSERVATION_ID",
+    "SOURCE_DECLARED_EVIDENCE_CLASS",
+    "SOURCE_ID",
+    "SOURCE_LOCATION",
+    "SOURCE_LOCATION_BASIS",
+    "TEMPO_LUGAR_EVIDENCIA",
+    "TEXTO",
+    "UNIVERSO"
+   ],
+   "CAMPOS_DO_CONTRATO_AUSENTES": [],
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "FACT_TIME"
+   ],
+   "INTAKE": "ADMITIDO_NA_CORRIDA",
+   "FACT_TIME": "NAO SEI",
+   "TEMPORAL_STATE": "UNKNOWN_WINDOW",
+   "PORQUE_TEMPO": [
+    "FACT_TIME"
+   ],
+   "PUBLICATION_TIME": "NAO SEI",
+   "PUBLICATION_TIME_NAO_E_FACT_TIME": true,
+   "PROVENIENCIA": "COMPLETA",
+   "USOS_BLOQUEADOS": {
+    "SINAL_TEMPORAL": "FACT_TIME:UNKNOWN_WINDOW",
+    "CROSSING_COM_CHAVE_TIME": "FACT_TIME:UNKNOWN_WINDOW",
+    "ACT_NOW": "FACT_TIME:UNKNOWN_WINDOW",
+    "CAP-WIN": "FACT_TIME:UNKNOWN_WINDOW",
+    "CAP-FUT": "FACT_TIME:UNKNOWN_WINDOW",
+    "CAP-OPP": "FACT_TIME:UNKNOWN_WINDOW"
+   },
+   "USOS_DISPONIVEIS": [
+    "EVIDENCIA_NAVEGAVEL",
+    "CROSSING_SEM_CHAVE_TIME",
+    "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+   ]
+  }
+ ],
+ "SIGNALS": [],
+ "GAPS": [],
+ "REQUIREMENTS": [
+  {
+   "REQUIREMENT_ID": "REQ-6567b03158d61658",
+   "REQUIREMENT": [
+    "CROP_ISSUE_EM_CAMPO",
+    "REGION_EM_CAMPO"
+   ],
+   "QUESTION_BLOCKED": "CAP-WIN: sem CROP_ID x ISSUE_ID x REGION_ID em campo nao ha janela de ninguem (INT-LAW-091)",
+   "MISSING_FACT_OR_KEY": [
+    "JANELA_DECLARADA.PROBLEMA: VALOR = NAO SEI (D112: o item nomeia 2 problemas distintos (xylella, nematode); escolher um seria inferir)",
+    "JANELA_DECLARADA.REGIAO_DO_FATO: VALOR = NAO SEI"
+   ],
+   "SONDA_DO_TEXTO": [],
+   "WHY_EXISTING_MATERIAL_IS_INSUFFICIENT": "o texto pode nomear cultura e praga, mas atribuir par por texto e fabricar CROP_ID/ISSUE_ID; a chave tem de vir em campo, com base",
+   "REQUIRED_SCOPE": {
+    "ITEM_ID": "derived:1149",
+    "SOURCE_ID": "IT-T5-111",
+    "UNIVERSO": "T5"
+   },
+   "URGENCY": "NAO SEI",
+   "FERRAMENTA": "windows",
+   "CAPACIDADE": "CAP-WIN"
+  },
+  {
+   "REQUIREMENT_ID": "REQ-28089f6bcb6c3126",
+   "QUESTION_BLOCKED": "o item nao pode virar SINAL temporal nem entrar em pergunta que exija tempo (crossing com chave TIME, ACT_NOW, janela); CONTINUA na corrida com FACT_TIME = NAO SEI e o motivo",
+   "MISSING_FACT_OR_KEY": [
+    "FACT_TIME"
+   ],
+   "WHY_EXISTING_MATERIAL_IS_INSUFFICIENT": "o item existe e foi admitido, mas os campos acima chegaram como NAO SEI, sem base, sem ano, depois da captura, ou nao chegaram de todo. Preenche-los aqui seria a Intelligence a fabricar a identidade que a Collection nao cunhou.",
+   "REQUIRED_SCOPE": {
+    "ITEM_ID": "derived:1149",
+    "SOURCE_ID": "IT-T5-111",
+    "UNIVERSO": "T5"
+   },
+   "URGENCY": "NAO SEI",
+   "CAPACIDADE": "CORRIDA_G0"
+  }
+ ],
+ "ITENS_POR_FERRAMENTA": {
+  "windows": [],
+  "science": [],
+  "future": [],
+  "sources": []
+ },
+ "NAO_ENVIADOS_AO_POTE": [
+  {
+   "OBJETO_ID": "R7-SRC-022f6686cffc2b73",
+   "COMPARTIMENTO": "sources",
+   "MOTIVO": "RENDIMENTO_SEM_PROVA",
+   "DETALHE": "fonte IT-T5-111: nenhum item passou G0 — o rendimento prova-se so pela propria fonte"
+  }
+ ],
+ "CAPACIDADES_EXECUTADAS": {
+  "CAP-WIN": {
+   "VERSION": "CAP-WIN/v1",
+   "RUN": "IR-e5602f34dda19c509c48"
+  },
+  "CAP-SCI": {
+   "VERSION": "CAP-SCI/v1",
+   "RUN": "IR-e5602f34dda19c509c48"
+  }
+ },
+ "TRIAGEM": {
+  "derived:1149": {
+   "CAPACIDADE": "CAP-WIN",
+   "PORQUE": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica"
+  }
+ },
+ "D112": {
+  "REGRAS": [
+   "local do fato so com sustentacao explicita da fonte",
+   "toda entidade com procedencia da evidencia (ENTITY_SOURCE)",
+   "evidencia insuficiente = NAO SEI",
+   "separar o que veio da fonte x interpretacao do sistema",
+   "relacoes: mesma redacao em N territorios = N aplicacoes/1 instituicao",
+   "limites diferentes = DIVERGENT com contradicao UNRESOLVED",
+   "mudanca de recomendacao no tempo = TEMPORAL_CHANGE, nao prova mudanca no campo"
+  ],
+  "LUGAR": {
+   "derived:1149": {
+    "FACT_LOCATION": {
+     "SUSTENTADO": false,
+     "VALOR": "NAO SEI",
+     "PORQUE": "valor NAO SEI"
+    },
+    "JANELA_DECLARADA.REGIAO_DO_FATO": {
+     "SUSTENTADO": false,
+     "VALOR": "NAO SEI",
+     "PORQUE": "valor NAO SEI"
+    }
+   }
+  },
+  "RELACOES": []
+ },
+ "CAP_WIN": {
+  "SCHEMA": "CAP-WIN/v1",
+  "CAPABILITY": "CAP-WIN",
+  "INTELLIGENCE_RUN_ID": "IR-e5602f34dda19c509c48",
+  "RULESET_VERSION": "G0/v4",
+  "HOJE": "2026-09-28",
+  "REFERENCIA_ADAMA": {
+   "PORTA": "motor/porta_da_referencia.py",
+   "ESTADO": "LIDA",
+   "HOJE": "2026-09-28",
+   "HOJE_VEIO_DE": "DECLARADO",
+   "EDICAO_REGISTRO": "PROD_FTS_6_20260831",
+   "DATA_DA_EDICAO_REGISTRO": "2026-08-31",
+   "ULTIMA_CHECAGEM_OK": "2026-09-07",
+   "DIAS_SEM_CHECAGEM": 21,
+   "ESTADO_FRESCOR": "PODE_ESTAR_DESATUALIZADO",
+   "EDICAO_CATALOGO": "CAT_ADAMA_IT_20260915",
+   "DATA_DA_EDICAO_CATALOGO": "2026-09-15",
+   "ESTADO_FRESCOR_CATALOGO": "FRESCA",
+   "IMPRESSAO_DOS_LIVROS": "e244d38edd6f87afcaf0da3db7aeb2e79818f783802f0f97b2fd9b105f648749",
+   "SHA256": {
+    "SNAPSHOTS": "f61a76215f36d8080b825b2196a40f5dbed24bcad86e94964714a69364ea25e7",
+    "REGISTRATIONS": "5aa72cfef7c6fa00a9fa76d80829777abe66ce1d7057c9d12ae0e7d625c41d2f",
+    "AUTHORIZED-USES": "8c86a91502e4b34a84bda72985fc1d0d7a0ab022cd07270079ec11764642edd6",
+    "LABEL-READINGS": "3229c76df8b2e8fbd323b5ed528c4d81893485d742cb84b33a88581f4c987b37",
+    "PRODUCT-ACTIVE-INGREDIENTS": "f5ff2faf5d83e78e6d3b20093f77458e79524be4167763a21b6823b550311d3f",
+    "ACTIVE-INGREDIENTS": "5c9d25359093ed1d6b5da78b41df1618248a060b43f7c6a33beb0c5d5382586d",
+    "DOSES": "2d29f3f85c09c1d0e91ed3e111de7ffc702df0dc30a9cfd2c96d3ac9e7ea2990",
+    "LABEL-DOCUMENTS": "6090d6248a5f73bc85287fdd3dc0d24dce497d3accaac0be8df3c861cb54e70d",
+    "CATALOG-SNAPSHOTS": "6bf1b24bc80d715f2c73b7628ca3457e1bbf9636b3b779d115ef368fbe48c0d3",
+    "PRODUCT-MASTER": "2635922c1149e65429119c5c863f063ed589fa5cfcc5b71b313dccfd2d3abe59",
+    "PORTFOLIO": "3b622ead6a999d3fe07a1f42f3c76554b343b3d1ce5c2cc1d01b8e425c7de82b",
+    "PORTFOLIO-OBSERVATIONS": "df8ad354af946dc5f8ebf298cd008ae2edb857976aba6f8b7712e29526f9adc0"
+   }
+  },
+  "N_DIAS_CURRENT": 30,
+  "N_DIAS_CURRENT_ESTADO": "HERDADO_DO_V21 — decisao do dono pendente (desenho §7)",
+  "REGRA_PORTADA_DE": "scripts/v21_janelas.py @ 85df96f7c83083aabbc7bdf84ab6f575503f7134",
+  "CAPACIDADES_EXECUTADAS": {
+   "CAP-WIN": {
+    "VERSION": "CAP-WIN/v1",
+    "RUN": "IR-e5602f34dda19c509c48"
+   }
+  },
+  "ANALYTIC_OUTPUT": "NOT_POSSIBLE",
+  "CROP_WINDOWS": [],
+  "NOT_POSSIBLE": [
+   {
+    "ITEM_ID": "derived:1149",
+    "ESTADO": "NOT_POSSIBLE",
+    "PORQUE": "INT-LAW-091: JANELA_DECLARADA.PROBLEMA: VALOR = NAO SEI (D112: o item nomeia 2 problemas distintos (xylella, nematode); escolher um seria inferir); JANELA_DECLARADA.REGIAO_DO_FATO: VALOR = NAO SEI",
+    "REQUIREMENT_ID": "REQ-6567b03158d61658",
+    "LIGACAO_ADAMA": {
+     "CONTRATO": "LIGACAO_ADAMA/v1",
+     "CALCULADA_POR": "motor/porta_da_referencia.py",
+     "PERGUNTA": {
+      "CULTURA": [],
+      "PROBLEMA": [],
+      "SUBSTANCIA": []
+     },
+     "VEM_DE": {
+      "CULTURA": "NAO SEI",
+      "PROBLEMA": "NAO SEI",
+      "SUBSTANCIA": "NAO SEI"
+     },
+     "CHAVES_SEM_PROCEDENCIA_IGNORADAS": [],
+     "CARIMBO": {
+      "PORTA": "motor/porta_da_referencia.py",
+      "ESTADO": "LIDA",
+      "HOJE": "2026-09-28",
+      "HOJE_VEIO_DE": "DECLARADO",
+      "EDICAO_REGISTRO": "PROD_FTS_6_20260831",
+      "DATA_DA_EDICAO_REGISTRO": "2026-08-31",
+      "ULTIMA_CHECAGEM_OK": "2026-09-07",
+      "DIAS_SEM_CHECAGEM": 21,
+      "ESTADO_FRESCOR": "PODE_ESTAR_DESATUALIZADO",
+      "EDICAO_CATALOGO": "CAT_ADAMA_IT_20260915",
+      "DATA_DA_EDICAO_CATALOGO": "2026-09-15",
+      "ESTADO_FRESCOR_CATALOGO": "FRESCA",
+      "IMPRESSAO_DOS_LIVROS": "e244d38edd6f87afcaf0da3db7aeb2e79818f783802f0f97b2fd9b105f648749"
+     },
+     "ESTADO": "NAO_SEI",
+     "FALTA": [
+      "CULTURA",
+      "PROBLEMA",
+      "SUBSTANCIA"
+     ],
+     "PORQUE": "o fato nao traz CULTURA com procedencia: nao ha pergunta de autorizacao",
+     "PRODUTOS_ADAMA": [],
+     "CONCORRENTES_MESMA_SUBSTANCIA": [],
+     "CONCORRENTES_ESTADO": "NAO SEI",
+     "BULAS_A_LER": [],
+     "PROVA_DA_LEITURA": {},
+     "NAO_PROVA": [
+      "PRESSAO_DE_CAMPO",
+      "DEMANDA"
+     ],
+     "NAO_PROVA_LEI": "INT-LAW-145: autorizacao/portfolio/label contextualizam; nao criam sinal de campo/demanda",
+     "CONTA_COMO_FONTE_INDEPENDENTE": false,
+     "FONTE_INDEPENDENTE_LEI": "INT-LAW-076: catalogo, label e registro validam estrutura; nao sao sinais independentes",
+     "CATALOGO_E_AUTORIZACAO": false,
+     "CATALOGO_LEI": "D116: a vitrine (CATALOGO) nunca responde autorizacao; so o REGISTRO (bula lida)",
+     "CONCORRENTES_PORQUE": "sem substancia no fato nao ha concorrente por substancia",
+     "SELO": "884bbbcfb653a4cef5e20e243237ddf4556faaddb01b42be12b514513a947ce8"
+    }
+   }
+  ],
+  "FORA": [],
+  "REQUIREMENTS": [
+   {
+    "REQUIREMENT_ID": "REQ-6567b03158d61658",
+    "REQUIREMENT": [
+     "CROP_ISSUE_EM_CAMPO",
+     "REGION_EM_CAMPO"
+    ],
+    "QUESTION_BLOCKED": "CAP-WIN: sem CROP_ID x ISSUE_ID x REGION_ID em campo nao ha janela de ninguem (INT-LAW-091)",
+    "MISSING_FACT_OR_KEY": [
+     "JANELA_DECLARADA.PROBLEMA: VALOR = NAO SEI (D112: o item nomeia 2 problemas distintos (xylella, nematode); escolher um seria inferir)",
+     "JANELA_DECLARADA.REGIAO_DO_FATO: VALOR = NAO SEI"
+    ],
+    "SONDA_DO_TEXTO": [],
+    "WHY_EXISTING_MATERIAL_IS_INSUFFICIENT": "o texto pode nomear cultura e praga, mas atribuir par por texto e fabricar CROP_ID/ISSUE_ID; a chave tem de vir em campo, com base",
+    "REQUIRED_SCOPE": {
+     "ITEM_ID": "derived:1149",
+     "SOURCE_ID": "IT-T5-111",
+     "UNIVERSO": "T5"
+    },
+    "URGENCY": "NAO SEI"
+   }
+  ],
+  "OPPORTUNITIES": [],
+  "ESTADO": "EXPERIMENTAL / NAO_PARA_CLIENTE"
+ },
+ "CAP_SCI": {
+  "SCHEMA": "CAP-SCI/v1",
+  "CAPACIDADE": "CAP-SCI",
+  "PERGUNTA": "que conhecimento cientifico novo pode alterar uma decisao agronomica ou estrategica — com que forca, aplicavel a que, replicado por quem?",
+  "INTELLIGENCE_RUN_ID": "IR-e5602f34dda19c509c48",
+  "RULESET_DA_CORRIDA": "G0/v4",
+  "CODE_VERSION": "360f8e34b8bc6b3f",
+  "REFERENCIA": {
+   "ESTADO": "LIDA",
+   "PASTA": "referencia/adama",
+   "SHA256": {
+    "ACTIVE-INGREDIENTS": "5c9d25359093ed1d6b5da78b41df1618248a060b43f7c6a33beb0c5d5382586d",
+    "PRODUCT-ACTIVE-INGREDIENTS": "f5ff2faf5d83e78e6d3b20093f77458e79524be4167763a21b6823b550311d3f",
+    "AUTHORIZED-USES": "8c86a91502e4b34a84bda72985fc1d0d7a0ab022cd07270079ec11764642edd6",
+    "REGISTRATIONS": "5aa72cfef7c6fa00a9fa76d80829777abe66ce1d7057c9d12ae0e7d625c41d2f"
+   },
+   "CARIMBO": {
+    "PORTA": "motor/porta_da_referencia.py",
+    "ESTADO": "LIDA",
+    "HOJE": "2026-09-28",
+    "HOJE_VEIO_DE": "DECLARADO",
+    "EDICAO_REGISTRO": "PROD_FTS_6_20260831",
+    "DATA_DA_EDICAO_REGISTRO": "2026-08-31",
+    "ULTIMA_CHECAGEM_OK": "2026-09-07",
+    "DIAS_SEM_CHECAGEM": 21,
+    "ESTADO_FRESCOR": "PODE_ESTAR_DESATUALIZADO",
+    "EDICAO_CATALOGO": "CAT_ADAMA_IT_20260915",
+    "DATA_DA_EDICAO_CATALOGO": "2026-09-15",
+    "ESTADO_FRESCOR_CATALOGO": "FRESCA",
+    "IMPRESSAO_DOS_LIVROS": "e244d38edd6f87afcaf0da3db7aeb2e79818f783802f0f97b2fd9b105f648749",
+    "SHA256": {
+     "SNAPSHOTS": "f61a76215f36d8080b825b2196a40f5dbed24bcad86e94964714a69364ea25e7",
+     "REGISTRATIONS": "5aa72cfef7c6fa00a9fa76d80829777abe66ce1d7057c9d12ae0e7d625c41d2f",
+     "AUTHORIZED-USES": "8c86a91502e4b34a84bda72985fc1d0d7a0ab022cd07270079ec11764642edd6",
+     "LABEL-READINGS": "3229c76df8b2e8fbd323b5ed528c4d81893485d742cb84b33a88581f4c987b37",
+     "PRODUCT-ACTIVE-INGREDIENTS": "f5ff2faf5d83e78e6d3b20093f77458e79524be4167763a21b6823b550311d3f",
+     "ACTIVE-INGREDIENTS": "5c9d25359093ed1d6b5da78b41df1618248a060b43f7c6a33beb0c5d5382586d",
+     "DOSES": "2d29f3f85c09c1d0e91ed3e111de7ffc702df0dc30a9cfd2c96d3ac9e7ea2990",
+     "LABEL-DOCUMENTS": "6090d6248a5f73bc85287fdd3dc0d24dce497d3accaac0be8df3c861cb54e70d",
+     "CATALOG-SNAPSHOTS": "6bf1b24bc80d715f2c73b7628ca3457e1bbf9636b3b779d115ef368fbe48c0d3",
+     "PRODUCT-MASTER": "2635922c1149e65429119c5c863f063ed589fa5cfcc5b71b313dccfd2d3abe59",
+     "PORTFOLIO": "3b622ead6a999d3fe07a1f42f3c76554b343b3d1ce5c2cc1d01b8e425c7de82b",
+     "PORTFOLIO-OBSERVATIONS": "df8ad354af946dc5f8ebf298cd008ae2edb857976aba6f8b7712e29526f9adc0"
+    }
+   }
+  },
+  "UNIVERSO": {
+   "ITENS": 1,
+   "JULGADOS": 0,
+   "FORA": 1
+  },
+  "ESTUDOS": [],
+  "FORA": [
+   {
+    "ITEM_ID": "derived:1149",
+    "PORQUE": "TRIAGEM: nao e estudo — o FATO nao declara DOI, TRIAL_ID nem especie cientifica"
+   }
+  ],
+  "INDEPENDENCIA": {},
+  "REPLICACAO": [],
+  "REGRAS_DE_MODELO": [],
+  "RESISTENCIAS": [],
+  "LIGACOES": [],
+  "TENTATIVAS_DE_LIGACAO": {},
+  "CONTAGENS": {
+   "FORCA": {},
+   "APLICABILIDADE": {},
+   "ESPECIE": {},
+   "LEITURA": {}
+  },
+  "NAO_PRODUZ": [
+   "FINDING",
+   "OPPORTUNITY",
+   "INCIDENCIA_DE_CAMPO",
+   "SCORE_UNICO"
+  ]
+ },
+ "CORRIDA": {
+  "SCHEMA": "CORRIDA_DA_INTELLIGENCE/v1",
+  "INTELLIGENCE_RUN_ID": "IR-e5602f34dda19c509c48",
+  "REQUEST_ID": "IQ-4b217920b6386da4",
+  "QUESTION": "rodada das capacidades: que janela de cultura (CAP-WIN) e que ciencia (CAP-SCI) a Sala sustenta, com prova ate ao RAW?",
+  "START": "2026-09-28T14:03:30+00:00",
+  "END": "2026-09-28T14:03:30+00:00",
+  "RULESET_VERSION": "G0/v4",
+  "BIBLE_VERSION": "SINTONIA-INTELLIGENCE-BIBLE V0.4 CANONICAL",
+  "BIBLE_FILE_SHA256": "bb51629d6609a31c9f24dec4bd77aa0418c264c0bc43ebc77bef9cf66708db79",
+  "CODE_VERSION": "059040d861ed91cc",
+  "MODEL_VERSION": "NENHUM — esta corrida nao usa modelo",
+  "INPUT_REFERENCES": [
+   {
+    "ITEM_ID": "derived:1149",
+    "SOURCE_ID": "IT-T5-111",
+    "RAW_OBSERVATION_ID": 2272,
+    "CORRIDA_UPSTREAM": "IT-T5-2026-09-28-112058-aacf19302d12b1b0",
+    "UNIVERSO": "T5"
+   }
+  ],
+  "UNIVERSE": {
+   "ITENS_NO_CORTE": 1,
+   "CORTE": "2026-09-28T14:03:28.314186+00:00",
+   "ITENS_NA_CORRIDA": 1,
+   "ESTADO": "DECLARADO"
+  },
+  "INTAKE": {
+   "RECEBIDOS": 1,
+   "DESCARTADOS_ANTES_DO_LIVRO": 0,
+   "NO_LIVRO": 1,
+   "POR_TEMPORAL_STATE": {
+    "UNKNOWN_WINDOW": 1
+   },
+   "SEM_PROVENIENCIA": 0,
+   "COM_USO_SEM_TEMPO": 1
+  },
+  "RESULT_STATE": "DONE",
+  "ANALYTIC_OUTPUT": "NO_ANALYTIC_OUTPUT_YET",
+  "SIGNALS": [],
+  "REQUIREMENTS": [
+   {
+    "REQUIREMENT_ID": "REQ-28089f6bcb6c3126",
+    "QUESTION_BLOCKED": "o item nao pode virar SINAL temporal nem entrar em pergunta que exija tempo (crossing com chave TIME, ACT_NOW, janela); CONTINUA na corrida com FACT_TIME = NAO SEI e o motivo",
+    "MISSING_FACT_OR_KEY": [
+     "FACT_TIME"
+    ],
+    "WHY_EXISTING_MATERIAL_IS_INSUFFICIENT": "o item existe e foi admitido, mas os campos acima chegaram como NAO SEI, sem base, sem ano, depois da captura, ou nao chegaram de todo. Preenche-los aqui seria a Intelligence a fabricar a identidade que a Collection nao cunhou.",
+    "REQUIRED_SCOPE": {
+     "ITEM_ID": "derived:1149",
+     "SOURCE_ID": "IT-T5-111",
+     "UNIVERSO": "T5"
+    },
+    "URGENCY": "NAO SEI"
+   }
+  ],
+  "FUTURE_DATED_FACTS": [],
+  "ERRORS": [],
+  "LINEAGE": [
+   {
+    "ITEM_ID": "derived:1149",
+    "RAW_OBSERVATION_ID": 2272,
+    "SOURCE_ID": "IT-T5-111",
+    "CORRIDA_UPSTREAM": "IT-T5-2026-09-28-112058-aacf19302d12b1b0",
+    "CAMPOS_DO_CONTRATO_PRESENTES": [
+     "ADMITIDO_POR",
+     "CAPTURED_AT",
+     "COMPLETUDE_TEMPO_LUGAR",
+     "CORRIDA",
+     "ESTADO",
+     "ESTAGIO",
+     "FACT_LOCATION",
+     "FACT_LOCATION_BASIS",
+     "FACT_TIME",
+     "FACT_TIME_BASIS",
+     "FATO",
+     "ITEM_ID",
+     "JANELA_DECLARADA",
+     "OBSERVED_AT",
+     "PUBLISHED_AT",
+     "PUBLISHED_AT_BASIS",
+     "RAW_OBSERVATION_ID",
+     "SOURCE_DECLARED_EVIDENCE_CLASS",
+     "SOURCE_ID",
+     "SOURCE_LOCATION",
+     "SOURCE_LOCATION_BASIS",
+     "TEMPO_LUGAR_EVIDENCIA",
+     "TEXTO",
+     "UNIVERSO"
+    ],
+    "CAMPOS_DO_CONTRATO_AUSENTES": [],
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "INTAKE": "ADMITIDO_NA_CORRIDA",
+    "FACT_TIME": "NAO SEI",
+    "TEMPORAL_STATE": "UNKNOWN_WINDOW",
+    "PORQUE_TEMPO": [
+     "FACT_TIME"
+    ],
+    "PUBLICATION_TIME": "NAO SEI",
+    "PUBLICATION_TIME_NAO_E_FACT_TIME": true,
+    "PROVENIENCIA": "COMPLETA",
+    "USOS_BLOQUEADOS": {
+     "SINAL_TEMPORAL": "FACT_TIME:UNKNOWN_WINDOW",
+     "CROSSING_COM_CHAVE_TIME": "FACT_TIME:UNKNOWN_WINDOW",
+     "ACT_NOW": "FACT_TIME:UNKNOWN_WINDOW",
+     "CAP-WIN": "FACT_TIME:UNKNOWN_WINDOW",
+     "CAP-FUT": "FACT_TIME:UNKNOWN_WINDOW",
+     "CAP-OPP": "FACT_TIME:UNKNOWN_WINDOW"
+    },
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ]
+   }
+  ],
+  "DEPENDENCIA": {
+   "GERAL": {
+    "VERSAO": "GRAFO-DE-DEPENDENCIA/v1",
+    "LEI": "INT-LAW-070..077 · INT-LAW-092",
+    "EXTERNAL_SIGNAL_COUNT": 0,
+    "EVIDENCE_BASE_COUNT": 0,
+    "INDEPENDENT_SOURCE_COUNT": 0,
+    "INDEPENDENT_SOURCE_COUNT_MIN": 0,
+    "INDEPENDENT_SOURCE_COUNT_MAX": 0,
+    "STRUCTURAL_VALIDATION_COUNT": 0,
+    "DOMINANT_SOURCE": null,
+    "DOMINANT_SOURCE_SIGNALS": 0,
+    "DOMINANT_SOURCE_SHARE_PCT": null,
+    "CONVERGENCE": "NAO_CONVERGE",
+    "CONVERGENCE_WHY": [
+     "nenhum sinal externo: validacao estrutural nao e sinal (INT-LAW-076)"
+    ],
+    "INDEPENDENCE_BASIS": "ORIGINADOR_DISTINTO — dominio, SOURCE_ID ou declaracao da Collection; sindicacao com bytes diferentes so e apanhada se for declarada",
+    "DOCUMENT_DUPLICATES": [],
+    "SOURCE_FAMILIES": [],
+    "SEM_ORIGINADOR": []
+   },
+   "POR_FATO": {},
+   "LEI": "INT-LAW-070..077",
+   "VERSAO": "GRAFO-DE-DEPENDENCIA/v1"
+  },
+  "COLLECTOR_CALLS": 0
+ }
+}

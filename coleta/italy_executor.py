@@ -242,13 +242,15 @@ def bytes_da_pagina(obs: dict, raiz: str = None):
     return dados if hashlib.sha256(dados).hexdigest() == sha else None
 
 
-def publicacao_da_pagina(dados) -> dict:
-    """O leitor de pagina da nuvem tempo-publicacao, nos nomes do contrato."""
+def publicacao_da_pagina(dados, texto=None) -> dict:
+    """O leitor de pagina da nuvem tempo-publicacao, nos nomes do contrato.
+    CANARIO-1149: e, SO quando os niveis da pagina se calam, a data escrita ao lado do rotulo de
+    comunicado no TEXTO visivel (`executor_texto_de_html.publicacao_no_texto`, o ultimo nivel)."""
     import executor_texto_de_html as H                    # noqa: PLC0415
-    return H.publicacao_para_o_contrato(H.tempo_de_publicacao(dados))
+    return H.publicacao_para_o_contrato(H.tempo_de_publicacao_com_texto(dados, texto))
 
 
-def tempo_e_lugar(obs: dict, dados_da_pagina=None) -> dict:
+def tempo_e_lugar(obs: dict, dados_da_pagina=None, texto=None) -> dict:
     """O que a observacao PROVA sobre tempo e lugar, cada valor com a BASE.
 
     ⚠️ TEMPO-E-LUGAR (25/09): as 78 da Sala real chegaram com os cinco campos
@@ -263,7 +265,9 @@ def tempo_e_lugar(obs: dict, dados_da_pagina=None) -> dict:
       · PUBLISHED_AT — o que o coletor declarar COM base (`PUBLISHED_AT` +
         `PUBLISHED_AT_BASIS`, o extractor da pagina); senao `SOURCE_DATE_ISO`,
         SO se o contrato declarar que a data do documento e a da EDICAO.
-        Validade e geracao NAO sao publicacao.
+        Validade e geracao NAO sao publicacao. CANARIO-1149: o ultimo nivel
+        da pagina e a data ao lado do rotulo de comunicado no texto visivel
+        (`texto`, quando os bytes nao estao a mao).
       · FACT_TIME — so o que o coletor declarar como valor; a confissao
         («UNKNOWN — ...») vira `FACT_TIME_BASIS`. NUNCA a data de publicacao.
       · SOURCE_LOCATION — o contrato (`lugar_declarado_pela_fonte`, conferido
@@ -302,7 +306,9 @@ def tempo_e_lugar(obs: dict, dados_da_pagina=None) -> dict:
                 "a data do documento (%s) NAO e de publicacao: o contrato de %s "
                 "declara DOCUMENT_DATE_KIND «%s»"
                 % (obs["SOURCE_DATE_ISO"], sid, especie["ESPECIE"]))
-    pagina = publicacao_da_pagina(dados_da_pagina) if dados_da_pagina else {}
+    # CANARIO-1149: sem os bytes guardados (reprocesso a partir da Sala), o texto que a linha guardou
+    # ainda responde pelo nivel 5 — o rotulo de comunicado — e so por ele
+    pagina = publicacao_da_pagina(dados_da_pagina, texto) if (dados_da_pagina or texto) else {}
     fora.update(publicacao_escolhida(contrato, pagina))
 
     # TEMPO DO FACTO

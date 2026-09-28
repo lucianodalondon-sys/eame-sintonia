@@ -96,7 +96,10 @@ _PISTA_DE_ESTUDO = re.compile(
     # it
     r"prov[ae]\s+(?:sperimentali|di\s+campo|in\s+campo)|sperimentazion[ei]|sperimental[ei]|esperiment[oi]|"
     r"campionament[oi]|campion[ei]\s+(?:raccolt|prelevat)\w*|prelevat[oiae]|monitoraggi?o|"
-    r"condott[oaie]|effettuat[oaie]|realizzat[oaie]|svolt[oaie]|allestit[oaie]|indagin[ei]"
+    r"condott[oaie]|effettuat[oaie]|realizzat[oaie]|svolt[oaie]|allestit[oaie]|indagin[ei]|"
+    # CANARIO-1149 (28/09): selecionar/fenotipar genotipos NO campo e trabalho do estudo («Il team di ricerca ha
+    # selezionato e caratterizzato, nelle aree colpite del Salento 200 genotipi di olivo», CREA)
+    r"selezionat[oaie]|fenotipizzat[oaie]|fenotipizzazion[ei]"
     r")(?![a-z])")
 # a preposicao logo antes do lugar (cauda do texto dobrado ate ao lugar)
 _PREPOSICAO = re.compile(
@@ -105,6 +108,12 @@ _PREPOSICAO = re.compile(
     r"(?:(?:province|region|area|district|island|provincia|regione|zona|territorio)\s+"
     r"(?:of|di|del|della|dell')\s*)?$")
 _PROVINCIA_DE = re.compile(r"(?:province|provincia)\s+(?:of|di)\s*$")
+# CANARIO-1149 (28/09): «NELLE AREE colpite DEL Salento», «in the affected AREAS OF Apulia» — a preposicao de lugar
+# rege a AREA, e o nome vem depois do «del/of» que a liga a ele (ate 2 palavras qualificam a area pelo meio)
+_AREA_DE = re.compile(
+    r"(?<![a-z])(?:nelle|nella|nell'|negli|nei|nel|in)\s+(?:the\s+)?"
+    r"(?:aree|area|areas|zone|zona|zones|territori|territorio|territories|territory)"
+    r"(?:\s+[a-z]+){0,2}\s+(?:del|della|delle|dei|degli|di|of|dell'\s*)\s*(?:the\s+)?$")
 # «University of Pisa»: o nome logo depois disto e da AFILIACAO (o mesmo criterio do lexico T6)
 _INSTITUCIONAL = re.compile(
     r"(?<![a-z])(?:universit\w*(?:\s+degli\s+studi)?|institut\w*|istituto|department|dipartimento|faculty|"
@@ -329,7 +338,7 @@ def _achados_de_lugar(texto, dob, mapa):
         anterior = ancorados[-1] if ancorados else None
         coordenado = (anterior is not None and anterior["FRASE"] == frase
                       and _COORDENADO.match(dob[anterior["FIM_D"]:h["INICIO_D"]]))
-        if not (_PREPOSICAO.search(antes) or coordenado):
+        if not (_PREPOSICAO.search(antes) or _AREA_DE.search(antes) or coordenado):
             recusados.append(dict(h, PORQUE="sem preposicao de lugar logo antes: nomear nao e dizer onde o "
                                             "estudo foi feito"))
             continue

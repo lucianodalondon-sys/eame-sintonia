@@ -123,7 +123,9 @@ def titulo_e_descricao(dados) -> dict:
 
 def ready_de(linha, obs, dados=None):
     """O READY que a estrada de hoje daria a esta linha — sem rede e sem banco."""
-    tl = ex.tempo_e_lugar(obs or {"SOURCE_ID": linha["SOURCE_ID"]}, dados)
+    # CANARIO-1149: o texto da linha vai junto — sem os bytes, a data ao lado do rotulo de comunicado
+    # (o ultimo nivel da publicacao) ainda se le do que a Sala guardou
+    tl = ex.tempo_e_lugar(obs or {"SOURCE_ID": linha["SOURCE_ID"]}, dados, linha.get("TEXTO"))
     item_id = str(linha["ITEM_ID"])
     est = {"SOURCE_ID": linha["SOURCE_ID"], "TEXTO": linha["TEXTO"],
            "DERIVED_ARTIFACT_ID": item_id.split(":", 1)[-1],

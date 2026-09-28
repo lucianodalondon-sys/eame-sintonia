@@ -492,6 +492,92 @@ def tempo_de_publicacao(dados, data_no_indice=None) -> dict:
             "PORQUE": "NAO SEI — " + "; ".join(viu)}
 
 
+# ── 5 · CANARIO-1149 (28/09) · A DATA ESCRITA AO LADO DO RÓTULO DE COMUNICADO ─────
+#
+# Medido na Sala real (derived:1149, CREA IT-T5-111): a página não tem JSON-LD,
+# nem `article:published_time`, nem `<time>`, nem itemprop — e o texto VISÍVEL
+# diz «COMUNICATO STAMPA remove 22 giu 2026». `published_at` ficava NAO SEI.
+#
+# É um nível NOVO, o ÚLTIMO da ordem: só fala quando os cinco de cima se calam,
+# por isso NENHUMA data já lida muda de valor nem de base. E é estreito de
+# propósito — a data só conta colada ao RÓTULO que diz «isto é a publicação»:
+#
+#     «COMUNICATO STAMPA» · «NEWS» · «pubblicato il» · «data (di) pubblicazione»
+#     + no máximo 2 fichas de interface entre os dois («remove», «event», «|», «-»)
+#     + a data «dd mmm aaaa» (mês italiano, inteiro ou abreviado) ou «dd/mm/aaaa»
+#
+# ⚠️ O QUE NÃO CONTA: a data de menu, de rodapé ou de «Risorse correlate» (sem o
+# rótulo colado); o plural «Comunicati Stampa» do menu (é secção, não o carimbo
+# deste texto); duas datas diferentes ao lado de rótulos = AMBÍGUO = NAO SEI.
+# ⚠️ E CONTINUA A SER SÓ PUBLICAÇÃO: nada daqui vira FACT_TIME (D61).
+BASE_TEXTO = "TEXTO: a data escrita ao lado do rotulo de comunicado"
+_MESES_DO_TEXTO = {
+    "gennaio": 1, "gen": 1, "febbraio": 2, "feb": 2, "marzo": 3, "mar": 3, "aprile": 4, "apr": 4,
+    "maggio": 5, "mag": 5, "giugno": 6, "giu": 6, "luglio": 7, "lug": 7, "agosto": 8, "ago": 8,
+    "settembre": 9, "sett": 9, "set": 9, "ottobre": 10, "ott": 10, "novembre": 11, "nov": 11,
+    "dicembre": 12, "dic": 12}
+_ROTULO_DE_PUBLICACAO = (r"(?i:comunicato\s+stampa|news|pubblicato\s+(?:il|in\s+data)|"
+                         r"data\s+(?:di\s+)?pubblicazione)")
+#: a ficha de interface é minúscula (nome de ícone: «remove», «event», «calendar_today»)
+_FICHA_DE_INTERFACE = r"(?:\s*[-|·:–—]\s*|\s+[a-z_]{1,20})"
+_DATA_DO_TEXTO = (r"(\d{1,2})\s+(?i:(%s))\.?\s+(\d{4})|(\d{1,2})[/.](\d{1,2})[/.](\d{4})"
+                  % "|".join(sorted(_MESES_DO_TEXTO, key=len, reverse=True)))
+_RE_PUBLICACAO_NO_TEXTO = re.compile(
+    r"(?<![A-Za-zÀ-ÿ])%s%s{0,2}\s*(?:%s)(?![0-9])"
+    % (_ROTULO_DE_PUBLICACAO, _FICHA_DE_INTERFACE, _DATA_DO_TEXTO))
+
+
+def publicacao_no_texto(texto) -> dict:
+    """O nível 5: a data de publicação escrita no TEXTO ao lado do rótulo. Mesma forma de
+    `tempo_de_publicacao` (`VALOR`, `BASE`, `PRECISAO`, `ORIGINAL`, `PORQUE`); nunca inventa."""
+    t = str(texto or "")
+    achadas = {}
+    for m in _RE_PUBLICACAO_NO_TEXTO.finditer(t):
+        g = m.groups()
+        if g[0]:
+            d, me, a = int(g[0]), _MESES_DO_TEXTO[g[1].lower()], int(g[2])
+        else:
+            d, me, a = int(g[3]), int(g[4]), int(g[5])
+        try:
+            iso = datetime.date(a, me, d).isoformat()
+        except ValueError:
+            continue
+        achadas.setdefault(iso, re.sub(r"\s+", " ", m.group(0)).strip())
+    if not achadas:
+        return {"VALOR": art.NAO_SEI, "BASE": art.NAO_SEI, "PRECISAO": art.NAO_SEI,
+                "ORIGINAL": art.NAO_SEI, "PORQUE": "%s: ausente" % BASE_TEXTO}
+    if len(achadas) > 1:
+        return {"VALOR": art.NAO_SEI, "BASE": art.NAO_SEI, "PRECISAO": art.NAO_SEI,
+                "ORIGINAL": art.NAO_SEI,
+                "PORQUE": "%s: AMBIGUO, %d datas diferentes (%s)"
+                          % (BASE_TEXTO, len(achadas), "; ".join("«%s»" % v for v in achadas.values()))}
+    (iso, trecho), = achadas.items()
+    return {"VALOR": iso, "BASE": "%s «%s»" % (BASE_TEXTO, trecho), "PRECISAO": "DIA",
+            "ORIGINAL": trecho, "PORQUE": "%s: «%s»" % (BASE_TEXTO, trecho)}
+
+
+def tempo_de_publicacao_com_texto(dados, texto=None, data_no_indice=None) -> dict:
+    """Os níveis 1-4 na página e, SÓ se todos se calarem, o nível 5 no texto visível.
+    `texto` é o texto que a Sala guardou; sem ele, sai de `limpar(dados)` — o mesmo dono."""
+    r = tempo_de_publicacao(dados, data_no_indice) if dados else {
+        "VALOR": art.NAO_SEI, "PORQUE": "NAO SEI — pagina nao guardada (so o texto)"}
+    if r.get("VALOR") not in (art.NAO_SEI, "", None):
+        return r
+    if texto is None and dados:
+        try:
+            texto = limpar(dados if isinstance(dados, bytes) else str(dados).encode("utf-8"),
+                           "text/html")
+        except Exception:                                        # noqa: BLE001
+            texto = ""
+    t = publicacao_no_texto(texto)
+    if t["VALOR"] != art.NAO_SEI:
+        t["PORQUE"] = "; ".join([str(r.get("PORQUE") or "").replace("NAO SEI — ", "", 1), t["PORQUE"]])
+        return t
+    r = dict(r)
+    r["PORQUE"] = "%s; %s" % (r.get("PORQUE") or "NAO SEI", t["PORQUE"])
+    return r
+
+
 def publicacao_para_o_contrato(r: dict) -> dict:
     """O recibo de `tempo_de_publicacao`, nos nomes do contrato comum.
 

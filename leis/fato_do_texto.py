@@ -191,18 +191,43 @@ def titulo(texto: str) -> str:
     return t
 
 
+# ── 1c · CANARIO-1149 (28/09) · a PAGINA ACHATADA numa linha so ─────────────────────────────────────────
+# Medido na Sala real (derived:1149, CREA, 8.989 letras): o texto guardado e UMA linha — menu, comunicado e
+# rodape colados. O rodape («Seguici», «tel.», «Partita IVA», «Via della Navicella 2/4») casa RODAPE, e a
+# linha INTEIRA saia: «o texto não tem corpo (só menu/rodapé)» com o comunicado inteiro la dentro.
+# Uma linha com LINHA_ACHATADA palavras ou mais nao e uma linha: parte-se em FRASES (fim = «.!?» seguido de
+# espaco e maiuscula — «L. botrana» nao parte), e cada frase passa pelo MESMO filtro das linhas (palavras
+# minimas e RODAPE). O menu colado a 1.a frase continua a sair com ela quando ela casa RODAPE.
+# WHY 300: um paragrafo real de noticia tem 30-150 palavras; so a pagina achatada chega as centenas (1149:
+# ~1.400). Linhas abaixo disto nao mudam — nenhum texto ja medido muda de corpo. Heuristica declarada.
+LINHA_ACHATADA = 300
+_RE_FIM_DE_FRASE = re.compile(r"(?<=[.!?])\s+(?=[A-ZÀ-Ý«“\"])")
+
+
+def _linhas_do_corpo(texto: str) -> list:
+    """As linhas do texto; a linha ACHATADA (>= LINHA_ACHATADA palavras) sai partida em frases."""
+    fora = []
+    for linha in str(texto or "").splitlines():
+        if _palavras(linha) >= LINHA_ACHATADA:
+            fora.extend(_RE_FIM_DE_FRASE.split(linha))
+        else:
+            fora.append(linha)
+    return fora
+
+
 def corpo(texto: str) -> str:
     """As linhas do texto que sao frase de conteudo — menu, cabecalho e rodape ficam de fora.
     O titulo curto (1.a linha, sem o nome do site) entra a frente, como frase propria; um texto sem NENHUMA
     frase longa e lido como titulo (no maximo LINHAS_DO_TITULO linhas curtas).
-    D19: menu, barra lateral e manchetes vizinhas saem ANTES (`sem_vizinhos`)."""
+    D19: menu, barra lateral e manchetes vizinhas saem ANTES (`sem_vizinhos`).
+    CANARIO-1149: a pagina achatada numa linha so e lida frase a frase (`_linhas_do_corpo`)."""
     texto = sem_vizinhos(texto)
     fica = []
     t = titulo(texto)
     if t:
         fica.append(t)
     primeira = next((l.strip() for l in str(texto or "").splitlines() if l.strip()), None)
-    for linha in str(texto or "").splitlines():
+    for linha in _linhas_do_corpo(texto):
         if t and linha.strip() == primeira:
             continue           # a 1.a linha ja entrou, SEM o nome do site (nunca a sede de quem publica)
         l = linha.strip()
