@@ -272,7 +272,10 @@ t("italy_pilot_collect.mjs importa a normalizacao de conteudo", () => {
 
 t("a DECISAO vem ANTES do download, e nao depois", () => {
   const iDecisao = fonte.indexOf("decidirSobreDetalhe(alvo.url");
-  const iBaixar = fonte.indexOf("await baixar(alvo.url)");
+  // AJUSTE DECLARADO (FEED-LIGADO, 27/09, FEED-LIGADO.md §2.5): a chamada ganhou argumentos
+  // (`{ condicional }` na revalidacao). A ancora e o PREFIXO da mesma chamada — uma so no ficheiro —
+  // e a pergunta continua a mesma: a decisao vem antes do download.
+  const iBaixar = fonte.indexOf("await baixar(alvo.url");
   assert.ok(iDecisao > 0, "nao ha decisao sobre o alvo");
   assert.ok(iBaixar > 0, "nao ha download do alvo");
   assert.ok(iDecisao < iBaixar,

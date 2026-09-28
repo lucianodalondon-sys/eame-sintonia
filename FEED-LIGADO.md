@@ -110,7 +110,27 @@ que a página de índice anuncia os mesmos itens que o feed).
 
 **Bateria inteira por nome** (`provas/integra_noite/bateria_inteira_por_nome.py`, worktrees limpas):
 
-BATERIA_PLACEHOLDER
+| | base `18461b9` | ramo `5fd3656` |
+|---|---|---|
+| ficheiros de teste | 393 | 394 (+ `tests/test_feed_ligado.py`) |
+| testes corridos | 7.373 | 7.381 |
+| ficheiros vermelhos | 77 | 77 |
+| falhas por nome | 334 | 337 |
+
+A parte `system-map/` da base foi corrida **duas vezes** (na 1.ª eu corri o red team da cortesia na mesma
+worktree enquanto ela corria — podia estar contaminada); vale a 2.ª, limpa. Comparação **pelo nome**:
+
+- **NOVA e minha, consertada:** `regras/paridade_test.mjs` «a DECISAO vem ANTES do download». O teste procura o
+  texto `await baixar(alvo.url)`, e a chamada ganhou argumentos (§2.5). **Ajuste DECLARADO no teste**
+  (`regras/paridade_test.mjs:274-277`, com o comentário a citar esta decisão): a âncora passa a ser o prefixo da
+  mesma chamada (uma só ocorrência). Provado que a guarda **continua a morder**: com o download posto antes da
+  decisão, o teste reprova. Depois do ajuste: 28/0.
+- **Varia entre corridas, não é deste ramo:** `system-map/tests/test_topologia_persistida.py` (5 nomes no ramo;
+  na base, 3 na 1.ª corrida e 0 na 2.ª). Sozinho, numa worktree limpa: **129 provas · 0 falhas na base e no
+  ramo**. Depende do estado da árvore deixado pelos testes anteriores da mesma corrida serial.
+- **Saíram (não fui eu que as consertei; também variam):** `test_impressao_verificavel.py` (variou entre as
+  duas corridas da base) e `tests/test_o9_caminho_instrumentado.py`.
+- **Nenhuma outra falha nova.** As restantes 331 são herdadas, com o mesmo nome.
 
 **System Map**: `correr_a_cadeia.py REGERAR` → `VALIDAR` = **SYSTEM_MAP_CHECK=PASS**; commit dos gerados;
 `impressao_da_arvore.py --conferir-carimbo` = **IGUAL**. Não recarimbei (`--stamp`): C-IT-CONTRATOS já estava
