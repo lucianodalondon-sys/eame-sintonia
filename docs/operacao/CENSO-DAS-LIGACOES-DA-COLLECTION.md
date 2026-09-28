@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  71e2ff58b46be4019ed08ad3776b0e8394d1fcb7
+HEAD_DA_MEDICAO  9883823c0b22ada578d71280209fff03be8a5a6b
 BRANCH           claude/porta-sala-rende-k4gunr
-GERADO_EM        2026-09-28T01:45:31+00:00
+GERADO_EM        2026-09-28T01:48:14+00:00
 CARDS            126
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

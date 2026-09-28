@@ -242,6 +242,16 @@ número é o tamanho da pergunta, não matéria provada.
 - Testes: `tests/test_porta_sala_rende.py` — **25/25**. E1 (R03 modelada: hoje 2 NÃO + 3 NSA, 0 SIM),
   E2 (menu CIA não dá NÃO; corpo T7 positivo entra com trecho do corpo), E3 (T8/T12 sem régua =
   NSA literal), E4 (`chi-e-dove` não vira SIM; a mesma página numa morada de matéria entra).
+- Bateria inteira por nome (`provas/int_r7/bateria_por_nome.py`, rede fechada, Linux):
+  base `b273660` 320 módulos · 7.190 testes · **125** falhas; depois 321 · 7.216 · **124**.
+  **Novas: 0.** Sumida: 1 (`test_c3_youtube_cutover.test_gravar_raw_respeita_o_redirecionamento`
+  — falha na base só porque o worktree da base estava em `/tmp` e o caminho relativo saía dele;
+  ambiente, não esta mudança). A 1.ª volta depois deu 2 «novas» (`test_candidatos_tematicos`,
+  `test_gate_de_aceitacao_tematica`): verificam que `admissao/` não tem mudança **por commitar** —
+  passam depois do commit. JSON: `scripts/porta_sala_rende/BATERIA-*.json`.
+- System Map: `correr_a_cadeia.py REGERAR` + `VALIDAR` → `SYSTEM_MAP_CHECK=PASS`;
+  `impressao_da_arvore.py --conferir-carimbo` → `IGUAL`. `C-ADMISSAO` continua 🟡 PENDING
+  (já estava na base: descrição por reler por gente) — **não recarimbei**.
 - Mutação: `scripts/porta_sala_rende/mutar_porta_sala_rende.py` numa cópia → **17/17 mortos**
   (`MUTACAO-PORTA-SALA-RENDE-V1.json`). Na primeira volta 2 sobreviveram (teste do «NÃO com
   dois» usava 3 palavras; teste do ministério não tinha segundo conceito): os testes foram
