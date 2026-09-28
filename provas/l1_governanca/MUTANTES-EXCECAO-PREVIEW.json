@@ -1,0 +1,201 @@
+{
+ "ALVO": "leis/fundacao_da_coleta.py",
+ "SHA256_DO_ALVO": "afd70d258d3578780922cf8bf8c8e6d23b75c80133a990a979ac6979b2f24730",
+ "SUITE": "tests.test_excecao_preview_e2e",
+ "MUTANTES": 23,
+ "MORTOS": 23,
+ "DESFEITO_E_CONFERIDO": true,
+ "RESULTADOS": [
+  {
+   "MUTANTE": "M01_excecao_destrava_a_inteligencia",
+   "PERGUNTA": "a",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_a_a_fundacao_continua_nao_fechada_nos_tres_sitios",
+    "test_a_atravessar_nao_mexe_na_fundacao"
+   ]
+  },
+  {
+   "MUTANTE": "M02_entrada_que_fecha_a_fundacao_vale",
+   "PERGUNTA": "a",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_a_entrada_que_diz_que_fecha_a_fundacao_nao_vale"
+   ]
+  },
+  {
+   "MUTANTE": "M03_branch_de_producao_aceite",
+   "PERGUNTA": "b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_b_branch_de_promocao_e_recusada"
+   ]
+  },
+  {
+   "MUTANTE": "M04_host_canonico_aceite",
+   "PERGUNTA": "b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_b_o_host_canonico_e_recusado_mesmo_com_preview_no_nome"
+   ]
+  },
+  {
+   "MUTANTE": "M05_contrato_alarga_o_escopo",
+   "PERGUNTA": "b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_b_o_contrato_nao_ensina_a_guarda_a_aceitar_producao"
+   ]
+  },
+  {
+   "MUTANTE": "M06_para_cliente_aceite",
+   "PERGUNTA": "b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_b_para_cliente_verdadeiro_ou_nao_dito_e_recusado"
+   ]
+  },
+  {
+   "MUTANTE": "M07_build_local_com_host_publico",
+   "PERGUNTA": "b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_b_build_local_com_host_publico_e_recusado"
+   ]
+  },
+  {
+   "MUTANTE": "M08_artefatos_autorizados_em_producao",
+   "PERGUNTA": "b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_b_numa_branch_de_producao_nenhum_artefato_e_autorizado"
+   ]
+  },
+  {
+   "MUTANTE": "M09_objeto_nao_liberado_passa",
+   "PERGUNTA": "c",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_objeto_nao_para_cliente_recusa_o_pote_inteiro",
+    "test_c_objeto_sem_liberacao_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M10_conferencia_falhada_passa",
+   "PERGUNTA": "c",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_conferencia_falhada_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M11_sem_decisao_do_dono_passa",
+   "PERGUNTA": "c",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_sem_decisao_do_dono_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M12_gates_do_pote_v2_saltados",
+   "PERGUNTA": "c",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_que_reprova_nos_gates_do_pote_v2_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M13_pote_vazio_passa",
+   "PERGUNTA": "c",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M14_escrever_na_sala_aceite",
+   "PERGUNTA": "d",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_d_escrever_na_sala_e_recusado"
+   ]
+  },
+  {
+   "MUTANTE": "M15_sala_real_sem_read_only",
+   "PERGUNTA": "d",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_d_sala_real_sem_copia_read_only_e_recusada"
+   ]
+  },
+  {
+   "MUTANTE": "M16_sem_prova_reversa_do_lab",
+   "PERGUNTA": "d",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_d_sem_prova_reversa_do_lab_e_recusado"
+   ]
+  },
+  {
+   "MUTANTE": "M17_d140_fora_do_diario_vale",
+   "PERGUNTA": "e",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_e_sem_a_d140_no_diario_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M18_outra_autoridade_vale",
+   "PERGUNTA": "e",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_e_autoridade_diferente_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M19_revogada_vale",
+   "PERGUNTA": "e",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_e_revogada_nao_dita_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M20_sem_excecao_passa_igual",
+   "PERGUNTA": "e",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_e_ambito_exato_esta_escrito_e_e_lido",
+    "test_e_autoridade_diferente_recusa",
+    "test_e_revogada_nao_dita_recusa",
+    "test_e_revogada_recusa",
+    "test_e_sem_a_d140_no_diario_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M22_ambito_exato_ignorado",
+   "PERGUNTA": "e",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_e_ambito_exato_esta_escrito_e_e_lido"
+   ]
+  },
+  {
+   "MUTANTE": "M23_consumido_em_aceite",
+   "PERGUNTA": "d",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_d_consumido_em_fica_fora"
+   ]
+  },
+  {
+   "MUTANTE": "M21_excecao_removida_da_guarda",
+   "PERGUNTA": "f",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa"
+   ]
+  }
+ ]
+}

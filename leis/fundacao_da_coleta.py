@@ -132,6 +132,11 @@ CONFERENCIAS_QUE_PASSAM = ('C1_PROVA_DO_ARQUIVO', 'C2_DATA_PROPRIA', 'C3_LUGAR_P
                            'C4_LIGACAO_ADAMA', 'C5_SEM_DUPLICADO',
                            'C6_ESPECIE_DO_COMPARTIMENTO', 'C7_SO_SAIDA_DA_INTELLIGENCE')
 DECISAO_DO_DONO = 'C8_DECISAO_DO_DONO'
+#: O ambito exato da D140, como o coordenador o pediu escrito. A guarda LE-o no
+#: contrato e exige-o literal: um valor diferente nao alarga — invalida.
+AMBITO_EXATO = {'DESTINO': 'SO_PREVIEW', 'SALA_LEITURA': 'SO_COPIA_READ_ONLY',
+                'SALA_ESCRITA': 'NUNCA', 'CONSUMIDO_EM': 'FORA',
+                'PRODUCAO': 'BLOQUEADA', 'ENDERECO_OFICIAL': 'NAO'}
 
 
 def _ler_json(caminho):
@@ -158,6 +163,9 @@ def excecao_vigente(trava, diario, ident=EXCECAO_PREVIEW):
         if e.get('AUTORIDADE') != AUTORIDADE_PREVIEW or MARCA_NO_DIARIO not in diario:
             return None
         if e.get('REVOGADA') is not False or e.get('NAO_FECHA_A_FUNDACAO') is not True:
+            return None
+        ambito = e.get('AMBITO_EXATO') or {}
+        if any(ambito.get(k) != v for k, v in AMBITO_EXATO.items()):
             return None
         return e
     return None
@@ -218,6 +226,8 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     if pedido.get('OPERACAO') != PUBLICAR_NO_PREVIEW:
         return False, '%s · operacao %r: a Sala nunca se escreve por aqui, e a excecao so publica no preview' % (
             BLOQUEIO, pedido.get('OPERACAO'))
+    if any(k in pedido for k in ('CONSUMIDO_EM', 'MARCAR_CONSUMIDO_EM')):
+        return False, '%s · consumido_em fica FORA da excecao (D140): outra decisao' % BLOQUEIO
     e = excecao_vigente(trava, diario)
     if e is None:
         return False, '%s · sem a excecao %s vigente (autoridade %s no diario, nao revogada)' % (

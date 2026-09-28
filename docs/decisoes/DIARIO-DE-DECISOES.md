@@ -1541,3 +1541,27 @@ está intacta. Fecharam-se duas coisas que faltavam à prova dela:
 - **Critérios A..N:** re-medidos pela lei (`fundacao_da_coleta.medir_criterios`, chamada pela
   cadeia do mapa em `censo_das_estradas_it.py`), e **não** pela exceção. O resultado está em
   `system-map/data/estradas-it.generated.json` → `CRITERIOS_A_N`.
+- **Âmbito exato (nota do coordenador, 28/09, registada a pedido do dono da L1):** PREVIEW
+  apenas; só leitura da Sala; NUNCA escrever na Sala; `consumido_em` FORA; produção bloqueada;
+  endereço oficial NÃO. Está no contrato em `EXCECOES_CONTROLADAS[PREVIEW_E2E].AMBITO_EXATO` e a
+  guarda **lê** esses seis valores literais (`fundacao_da_coleta.AMBITO_EXATO`): mudar um deles
+  invalida a exceção em vez de a alargar. `COLLECTION_FOUNDATION_CLOSED` não mudou.
+
+---
+
+## D141 · LOOP_VIVO_REPETIVEL só é PASS com os 9 requisitos
+
+- **Data:** 2026-09-28, 20:37 (BRT)
+- **Autor:** DONO REAL (Luciano). Chegou à missão L1-GOVERNANCA-PREVIEW pela nota do
+  coordenador.
+- **Estado:** DECIDIDO (dono).
+- **Texto literal, tal como chegou:**
+
+  > «LOOP_VIVO_REPETIVEL so PASS com os 9 requisitos.»
+
+- ⚠️ **NÃO SEI quais são os 9 requisitos.** A lista não veio no texto que chegou a esta missão, e
+  por isso **não** é reconstruída aqui — escrevê-la de memória seria inventar a lei. Até a lista
+  literal do dono ser acrescentada a esta entrada, a consequência é uma só: nenhum
+  `LOOP_VIVO_REPETIVEL = PASS` pode ser declarado, porque não há contra o que conferir.
+- **O que a D141 não muda:** a D140 (a exceção PREVIEW_E2E continua estreita e revogável) e
+  `COLLECTION_FOUNDATION_CLOSED = NAO`.

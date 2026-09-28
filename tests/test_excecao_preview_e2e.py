@@ -147,6 +147,20 @@ class A_AExcecaoNaoFechaAFundacao(Base):
         self.assertEqual(m["N"]["ESTADO"], lei.FAIL)
         self.assertNotIn("PREVIEW", json.dumps(m))
 
+    def test_a_a_trava_diz_o_que_a_cadeia_mediu(self):
+        """A..N no contrato = CRITERIOS_A_N que a cadeia escreveu pela lei. Uma
+        lista escrita a mao que diverge da medicao reprova aqui."""
+        with open(os.path.join(RAIZ, "system-map", "data", "estradas-it.generated.json"),
+                  encoding="utf-8") as f:
+            medido = json.load(f)["CRITERIOS_A_N"]
+        por = {e: sorted(k for k, v in medido.items() if v["ESTADO"] == e)
+               for e in (lei.PASS, lei.FAIL, lei.NAO_SEI)}
+        self.assertEqual(sorted(self.trava["QUAIS_JA_CUMPRIDOS"]), por[lei.PASS])
+        self.assertEqual(sorted(self.trava["QUAIS_FALHAM"]), por[lei.FAIL])
+        self.assertEqual(sorted(self.trava["QUAIS_NAO_SEI"]), por[lei.NAO_SEI])
+        self.assertEqual(sorted(self.trava["QUAIS_FALTAM"]), sorted(por[lei.FAIL] + por[lei.NAO_SEI]))
+        self.assertEqual(self.trava["COLLECTION_FOUNDATION_CLOSED"], "NAO")
+
     def test_a_entrada_que_diz_que_fecha_a_fundacao_nao_vale(self):
         self.assertIsNone(lei.excecao_vigente(self.com_entrada(NAO_FECHA_A_FUNDACAO=False), self.diario))
 
@@ -226,6 +240,12 @@ class C_OQueNaoFoiLiberadoNaoSai(Base):
         for e in p["POTE"]["COMPARTIMENTOS"].values():
             e["OBJETOS"] = []
         self.recusa(p)
+        # e mesmo que os gates do pote v2 o deixassem passar, a guarda recusa-o
+        # por si: isolar a regra, senao ela so vive a sombra do validador
+        pode, motivo = lei.pode_atravessar_a_trava(p, self.trava, self.diario, self.publicacao,
+                                                   validar=lambda _pote: [])
+        self.assertFalse(pode, motivo)
+        self.assertIn("nada a publicar", motivo)
 
     def test_c_contagem_de_liberados_que_mente_recusa(self):
         p = self.pedido()
@@ -239,6 +259,10 @@ class D_ASalaNaoSeEscreve(Base):
         for op in ("ESCREVER_NA_SALA", "MARCAR_CONSUMIDO_EM", None):
             self.recusa(self.pedido(OPERACAO=op))
 
+    def test_d_consumido_em_fica_fora(self):
+        self.recusa(self.pedido(CONSUMIDO_EM="2026-09-28T20:00:00Z"))
+        self.recusa(self.pedido(MARCAR_CONSUMIDO_EM=True))
+
     def test_d_sala_real_sem_copia_read_only_e_recusada(self):
         self.recusa(self.pedido(ENTRADA={"TIPO": "SALA_REAL"}))
         self.recusa(self.pedido(ENTRADA={"READ_ONLY": False}))
@@ -249,6 +273,17 @@ class D_ASalaNaoSeEscreve(Base):
 
 
 class E_SemAD140VoltaABloquearTudo(Base):
+
+    def test_e_ambito_exato_esta_escrito_e_e_lido(self):
+        e = lei.excecao_vigente(self.trava, self.diario)
+        self.assertEqual({k: e["AMBITO_EXATO"][k] for k in lei.AMBITO_EXATO}, lei.AMBITO_EXATO)
+        for k in lei.AMBITO_EXATO:
+            amb = dict(e["AMBITO_EXATO"], **{k: "SIM"})
+            self.recusa(self.pedido(), trava=self.com_entrada(AMBITO_EXATO=amb))
+        t = self.com_entrada()
+        for x in t["EXCECOES_CONTROLADAS"]:
+            x.pop("AMBITO_EXATO")
+        self.recusa(self.pedido(), trava=t)
 
     def test_e_sem_a_d140_no_diario_recusa(self):
         diario = self.diario.replace(lei.MARCA_NO_DIARIO, "## (retirada)")
