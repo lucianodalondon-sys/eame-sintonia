@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  1aa4beb921b3f7f2ebdb37f003a1ede069392e54
-BRANCH           claude/derivacao-estrutura-v2-d76w9o
-GERADO_EM        2026-09-28T16:35:15+00:00
+HEAD_DA_MEDICAO  620d1b19b02169d7f9b3886aeea3451c2df42e4d
+BRANCH           claude/canario-1149-rederivar-ial9hh
+GERADO_EM        2026-09-28T17:51:31+00:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
