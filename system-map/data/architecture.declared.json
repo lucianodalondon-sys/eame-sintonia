@@ -4692,7 +4692,7 @@
   {
    "id": "C-ESTEIRA-GATILHO-INTELLIGENCE",
    "name": "O gatilho da Intelligence (D90-5), pelo servico",
-   "territory": "Z-MOTOR",
+   "territory": "Z-ADMISSAO",
    "kind": "engine",
    "icon": "⏱",
    "views": [
@@ -4704,9 +4704,9 @@
     "INTELIGENCIA"
    ],
    "what": "Chamado pelo supervisor a cada volta; pergunta a Sala (so SELECT, de 5 em 5 min) quantos READY pousaram depois da ultima tentativa. Corre com 10 novos OU com 1 novo que ja espera 4 h. Trinco (sala_de_espera._Trava) impede duas corridas sobrepostas. A corrida e o motor que ja existe: backup da Sala reposto numa copia descartavel (PROVA_VALE), export read-only da copia exactamente como o RUNBOOK-R7 (motor/r7_export_da_copia.sql, READ_ONLY=on conferido), motor_das_capacidades.rodar, pote_intelligence_casco.ler_entrada, e o fiscal validar_pote_v2 sobre o ficheiro candidato: so PASSA sobe para italia-portale/client/sintonia-pote.js (os.replace); reprovado fica guardado com as violacoes. Recuo de 30 min depois de falha.",
-   "why_here": "A Intelligence corria a mao (R6/R7). O gatilho nao escreve outro motor: chama o motor, o gerador e o fiscal que ja existem, e obedece ao fiscal — no ensaio real o pote saiu reprovado (ENTITY_SOURCE objeto no motor, string no contrato v2) e nao subiu.",
+   "why_here": "A Intelligence corria a mao (R6/R7). O gatilho nao escreve outro motor: chama o motor, o gerador e o fiscal que ja existem, e obedece ao fiscal — no ensaio real o pote saiu reprovado (ENTITY_SOURCE objeto no motor, string no contrato v2) e nao subiu. Mora em admissao/, ao lado do dono da Sala (sala_de_espera.py, que tambem e quem diz «saiu da fila»): o gatilho decide QUANDO a espera acaba e entrega uma COPIA ao motor; nao analisa nada. No motor/ ele fazia o motor abrir a Sala (duas travessias COLETA -> INTELIGENCIA a mais, test_system_map::a_coleta_nao_conversa_com_o_motor_as_centenas) — o contrario do que o motor declara.",
    "files": [
-    "motor/gatilho_da_inteligencia.py"
+    "admissao/gatilho_da_inteligencia.py"
    ]
   },
   {

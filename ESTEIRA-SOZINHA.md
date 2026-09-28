@@ -48,7 +48,7 @@ rodada estão na máquina do coordenador. A partir de hoje, o vigia e o `--plano
 | passo | ficheiro | o que faz |
 |---|---|---|
 | **PASSAGEM** | `admissao/passagem_para_a_sala.py` | Para cada corrida **reconciliada** (fechada no livro de corridas **e** com observações no livro de observações) que ainda **não passou pela porta**, leva a colheita à **porta canônica**: `italy_executor.colher` refaz o envelope e `orquestrador --so-a-porta --colheita-da-corrida=<RUN_ID>`, com o pedido de `micro_coleta.comando()` (o mesmo da rodada). Antes de gravar, faz o backup **PROVA_VALE** (`provar_backup_da_sala.provar`), `:245`. Há **um só escritor** (`sala_de_espera._Trava`), `:244`, e `PARAR.flag` é respeitado antes e entre corridas, `:217`, `:253`. **Não passa, e diz o porquê:** universo sem régua (T8/T12), corrida com várias fontes, corrida aberta, passado anterior a `PAS_DESDE`. |
-| **INTELLIGENCE** | `motor/gatilho_da_inteligencia.py` | Pergunta à Sala, só com SELECT e de 5 em 5 min, quantos READY pousaram depois da última tentativa. A regra: **10 novos OU ≥1 novo esperando há 4 h**, `decidir()` `:121-142`. O **trinco** está em `:236`. A corrida usa o **motor que já existe**: backup → **cópia descartável** (PROVA_VALE) → export read-only **da cópia** (RUNBOOK-R7 §2, `READ_ONLY=on` conferido, `:150-166`) → `motor_das_capacidades.rodar` → `pote_intelligence_casco` → **fiscal `validar_pote_v2` sobre o ficheiro candidato**. Só se o fiscal disser PASSA há `os.replace` para `italia-portale/client/sintonia-pote.js`, `:192-212`. Um pote reprovado **não sobe**: fica guardado com as violações. Depois de falha há recuo de 30 min. |
+| **INTELLIGENCE** | `admissao/gatilho_da_inteligencia.py` | Pergunta à Sala, só com SELECT e de 5 em 5 min, quantos READY pousaram depois da última tentativa. A regra: **10 novos OU ≥1 novo esperando há 4 h**, `decidir()` `:121-142`. O **trinco** está em `:236`. A corrida usa o **motor que já existe**: backup → **cópia descartável** (PROVA_VALE) → export read-only **da cópia** (RUNBOOK-R7 §2, `READ_ONLY=on` conferido, `:150-166`) → `motor_das_capacidades.rodar` → `pote_intelligence_casco` → **fiscal `validar_pote_v2` sobre o ficheiro candidato**. Só se o fiscal disser PASSA há `os.replace` para `italia-portale/client/sintonia-pote.js`, `:192-212`. Um pote reprovado **não sobe**: fica guardado com as violações. Depois de falha há recuo de 30 min. |
 | **VIGIA** | `medidas/vigia_da_esteira.py` | De hora a hora escreve `curadoria/ESTEIRA-SAUDE.json` (e uma linha em `ESTEIRA-SAUDE-HISTORICO.ndjson`) com a última vez que cada etapa andou. **ALERTA** quando uma etapa passa de N horas **ou quando não se sabe** quando ela andou. |
 | gancho | `curadoria/supervisor.py` `_passos_da_esteira`, `_hook_esteira` | Quem liga é **o serviço**, no `main()`: por omissão, `esteira=True`. Se `_loop` for chamado sem `esteira=True` (os testes), os passos não correm. `--sem-esteira` desliga. Um passo que rebenta fica no diário (`ESTEIRA_ERRO`) e não derruba o supervisor. |
 
@@ -70,6 +70,7 @@ Pequenas mudanças de apoio, declaradas:
 
 - `scripts/micro_coleta/provar_backup_da_sala.py` virou a função `provar()`, e o CLI continua igual. Ela também **devolve `SINTONIA_SALA_DSN` ao ambiente**. Antes a prova apagava essa variável e não a repunha: dentro do serviço, a escrita seguinte perderia a Sala. O `pg_restore` passou a funcionar fora do Windows.
 - `scripts/micro_coleta/ensaio_offline.py`: `PG_BIN` agora lê `SINTONIA_PG_BIN`, quando existe.
+- **O gatilho mora em `admissao/` e não em `motor/`.** Na primeira versão ele estava em `motor/`, e a bateria apanhou o erro: `test_system_map::a_coleta_nao_conversa_com_o_motor_as_centenas` subiu de 12 para 14. O motor passava a abrir a Sala (`sala_de_espera`, `cliente_postgres`), o contrário do que o motor declara. **O teste não foi mexido.** A peça foi para ao lado do dono da Sala, porque ela decide **quando a espera acaba** e entrega uma **cópia** ao motor, sem analisar nada.
 
 ## 3 · Provas
 
@@ -131,7 +132,7 @@ setx ITALY_OPS_ROOT          "C:\eame-sintonia-ops"
 
 # conferir SEM gravar nada:
 py admissao\passagem_para_a_sala.py --plano          # o que passaria, e o que fica, e porque
-py motor\gatilho_da_inteligencia.py --medir          # o delta da Sala e a decisão (só SELECT)
+py admissao\gatilho_da_inteligencia.py --medir          # o delta da Sala e a decisão (só SELECT)
 py medidas\vigia_da_esteira.py                       # escreve curadoria\ESTEIRA-SAUDE.json
 
 # reiniciar o supervisor (ele só carrega código novo ao arrancar): tarefa SINTONIA-Arranque

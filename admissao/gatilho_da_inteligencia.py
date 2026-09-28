@@ -7,7 +7,7 @@
     QUEM CHAMA  o supervisor (`curadoria/supervisor.py::_hook_esteira`), a cada volta. Nao ha
              segundo orquestrador: isto e um passo do servico que ja existe.
 
-    python3 motor/gatilho_da_inteligencia.py --medir      # so mede o delta e diz o que faria
+    python3 admissao/gatilho_da_inteligencia.py --medir      # so mede o delta e diz o que faria
 
 A REGRA, E ELA E ESTA E MAIS NENHUMA
 ------------------------------------
@@ -276,7 +276,7 @@ def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     if "--medir" not in argv:
         print(__doc__.strip().split("\n\n")[0])
-        print("\n  uso: python3 motor/gatilho_da_inteligencia.py --medir   (so SELECT; nao corre o motor)")
+        print("\n  uso: python3 admissao/gatilho_da_inteligencia.py --medir   (so SELECT; nao corre o motor)")
         return 2
     delta = medir_delta(_consulta_padrao, next((a.split("=", 1)[1] for a in argv
                                                 if a.startswith("--desde=")), None))

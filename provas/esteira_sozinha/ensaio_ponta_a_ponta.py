@@ -8,7 +8,7 @@ O QUE E REAL (o mesmo codigo que o supervisor chama)
     admissao/passagem_para_a_sala.passar_se_devido   -> backup PROVA_VALE (pg_dump + restauro + md5)
         -> italy_executor.colher (o envelope refeito pelo dono) -> orquestrador --so-a-porta
         -> RAW -> DERIVED -> STRUCTURED -> Admission -> sala_de_espera.pousar
-    motor/gatilho_da_inteligencia.correr_se_devido   -> backup + copia + export read-only (RUNBOOK-R7)
+    admissao/gatilho_da_inteligencia.correr_se_devido -> backup + copia + export read-only (RUNBOOK-R7)
         -> motor_das_capacidades -> pote -> validar_pote_v2 -> sobe ou nao sobe
     medidas/vigia_da_esteira.vigiar_se_devido        -> ESTEIRA-SAUDE.json
     O banco: PostgreSQL 16 descartavel, numa porta livre, com a cadeia `migrations` inteira.

@@ -18,7 +18,7 @@ RAIZ = Path(__file__).resolve().parents[2]
 SAIDA = Path(__file__).resolve().parent / "MUTANTES.json"
 TESTE = "tests.test_esteira_sozinha"
 PAS = "admissao/passagem_para_a_sala.py"
-GI = "motor/gatilho_da_inteligencia.py"
+GI = "admissao/gatilho_da_inteligencia.py"
 VIG = "medidas/vigia_da_esteira.py"
 SUP = "curadoria/supervisor.py"
 
