@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
+  "HEAD": "52ab061bdb8d17e7c3b539f05c0375868d5760aa",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -583,7 +583,7 @@
   {
    "EXECUTOR_ID": "coleta/corpus_pesquisador.py",
    "GAVETA": "coleta",
-   "LINHAS": 771,
+   "LINHAS": 783,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "DERIVED",
@@ -610,15 +610,15 @@
   {
    "EXECUTOR_ID": "coleta/cortesia_adaptativa.py",
    "GAVETA": "coleta",
-   "LINHAS": 694,
+   "LINHAS": 713,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
-   "NETWORK_REQUIRED": false,
+   "NETWORK_REQUIRED": true,
    "PAID": false,
    "PRODUCTION_REQUIRED": false,
-   "CAN_RUN_OFFLINE": true,
+   "CAN_RUN_OFFLINE": false,
    "USA_TELEMETRIA": false,
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
@@ -1169,7 +1169,7 @@
   {
    "EXECUTOR_ID": "coleta/linha_busca.py",
    "GAVETA": "coleta",
-   "LINHAS": 459,
+   "LINHAS": 468,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1322,7 +1322,7 @@
   {
    "EXECUTOR_ID": "coleta/pesquisadores_t6.py",
    "GAVETA": "coleta",
-   "LINHAS": 1216,
+   "LINHAS": 1275,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1418,15 +1418,15 @@
   {
    "EXECUTOR_ID": "coleta/reserva_24h.py",
    "GAVETA": "coleta",
-   "LINHAS": 69,
+   "LINHAS": 125,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
-   "NETWORK_REQUIRED": false,
+   "NETWORK_REQUIRED": true,
    "PAID": false,
    "PRODUCTION_REQUIRED": false,
-   "CAN_RUN_OFFLINE": true,
+   "CAN_RUN_OFFLINE": false,
    "USA_TELEMETRIA": false,
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
@@ -1674,7 +1674,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_http.py",
    "GAVETA": "coleta",
-   "LINHAS": 871,
+   "LINHAS": 899,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1930,7 +1930,7 @@
   {
    "EXECUTOR_ID": "coleta/teto_da_onda.py",
    "GAVETA": "coleta",
-   "LINHAS": 241,
+   "LINHAS": 255,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -2028,7 +2028,7 @@
   {
    "EXECUTOR_ID": "coleta/youtube_oficial.py",
    "GAVETA": "coleta",
-   "LINHAS": 1022,
+   "LINHAS": 1041,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "DERIVED"

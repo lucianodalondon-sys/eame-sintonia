@@ -54,6 +54,7 @@
       "INTEGRA-NOITE-LOTE3.md",
       "INTEGRA-NOITE-LOTE4.md",
       "LIGACAO-ADAMA.md",
+      "LINHAS-NO-CONTADOR.md",
       "LISTA-MESTRA-PESQUISADORES.md",
       "LOTE3-SOCIAL.md",
       "LOTE4-FINAL.md",
@@ -1937,6 +1938,7 @@
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/big_collection/rodadas.py",
+      "ferramentas/big_collection/sonda_ligacao_linhas.py",
       "ferramentas/big_collection/sonda_ligacao_sites.mjs",
       "ferramentas/c9/C9-INSTALAR-PLANO.md",
       "ferramentas/c9/TESTES-PRODUCAO.txt",
@@ -3178,6 +3180,10 @@
       "provas/ligacao_adama/mutantes.py",
       "provas/linha_busca_raw_na_copia_da_sala.py",
       "provas/linha_busca_raw_no_postgres_descartavel.py",
+      "provas/linhas_no_contador/CICLO-A-SECO-BASE-e2413970.json",
+      "provas/linhas_no_contador/CICLO-A-SECO-DEPOIS.json",
+      "provas/linhas_no_contador/MUTACAO.json",
+      "provas/linhas_no_contador/mutacao.py",
       "provas/linkedin_local_first.py",
       "provas/lote6_integra/BATERIA-BASE-18461b92.json",
       "provas/lote6_integra/BATERIA-RAMO.json",
@@ -3920,6 +3926,7 @@
       "tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json",
       "tests/fixtures/it_t4_001/PROD_FTS_6_20260914.csv",
       "tests/fixtures/it_t4_001/PROD_FTS_6_20260921.csv",
+      "tests/fixtures/linhas_no_contador/DECISOES-SOCIAIS-e2413970.json",
       "tests/fixtures/pesquisadores_t6/MANIFEST.json",
       "tests/fixtures/pesquisadores_t6/montar.py",
       "tests/fixtures/pesquisadores_t6/openalex-A5002982424.json",
@@ -4126,6 +4133,7 @@
       "tests/test_lingua_da_porta.py",
       "tests/test_lingua_unica.py",
       "tests/test_linha_busca.py",
+      "tests/test_linhas_no_contador.py",
       "tests/test_linkedin_build_01_local_first.py",
       "tests/test_linkedin_op_01_operacional.py",
       "tests/test_lista_mestra_mur.py",
@@ -4798,10 +4806,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
-    "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-    "GENERATED_AT": "2026-09-28T05:29:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a"
+    "BRANCH": "claude/linhas-no-contador-yth7nl",
+    "HEAD": "52ab061bdb8d17e7c3b539f05c0375868d5760aa",
+    "GENERATED_AT": "2026-09-28T11:43:27+00:00",
+    "SOURCE_TREE_FINGERPRINT": "737a9720f6300f291ebd8987bbb18ef97d3fc59026766452b89b19d46244ed01"
   },
   "FAMILIES": [
     {
@@ -42692,7 +42700,7 @@
           "curadoria/bloqueadas_268.py:120",
           "curadoria/retirar_por_decisao.py:40",
           "curadoria/sonda_um_pedido.py:38",
-          "ferramentas/big_collection/coleta_continua.py:339"
+          "ferramentas/big_collection/coleta_continua.py:347"
         ],
         "PORQUE": "estas pecas importam-na — C-BLOQUEADAS-268 · C-BLOQUEADAS-DESTRAVAR · C-CANAIS-41 · C-CANARIO-ROTAS-ELEGIVEIS · C-COORTE-BIG-COLLECTION — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -43931,7 +43939,7 @@
       "name": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir",
       "territory": "Z-ACOES",
       "kind": "library",
-      "what": "reserva_24h.py: FACHADA do dono unico da politica (coleta/cortesia_adaptativa.py): reservar(host, 1, run_id, linha) -> RESERVADO | ADIADO_ATE | FAIL | UNKNOWN no livro da cortesia (SINTONIA_CORTESIA_LIVRO; SINTONIA_TETO_24H e sinonimo), sob o trinco <livro>.trinco partilhado com o transporte Node; 1 pedido de cada vez por dominio, orcamento vigente (nao mais 5 fixo); sem livro devolve FAIL e nao se pede. dominio_registavel.py: QUEM paga o pedido (dominio registavel + D41); o TETO_D38 saiu daqui (D124).",
+      "what": "reserva_24h.py: FACHADA do dono unico da politica (coleta/cortesia_adaptativa.py): reservar(host, 1, run_id, linha) -> RESERVADO | ADIADO_ATE | FAIL | UNKNOWN no livro da cortesia (SINTONIA_CORTESIA_LIVRO; SINTONIA_TETO_24H e sinonimo), sob o trinco <livro>.trinco partilhado com o transporte Node; 1 pedido de cada vez por dominio, orcamento vigente (nao mais 5 fixo); sem livro devolve FAIL e nao se pede. dominio_registavel.py: QUEM paga o pedido (dominio registavel + D41); o TETO_D38 saiu daqui (D124). LINHAS-NO-CONTADOR (28/09): pedir(url, fazer, run_id, linha) e a PORTA de UM pedido das linhas Python (CIENCIA, BUSCA-API, SOCIAL-YouTube Data): reserva ANTES, fazer() so com RESERVADO, a resposta/falha (429, Retry-After, TIMEOUT) ao livro DEPOIS; dentro_da_porta() impede o abridor do scrap_http de reservar duas vezes o mesmo pedido.",
       "why_here": "CONTADOR-24H (D90, lote 4 da INTEGRA-NOITE): a pergunta e a escrita do teto passam a ser um passo so, partilhado por todas as linhas de rede. Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa. D124 (dono, 27/09): o 5 fixo deixou de ser a regra; o contador passou a fachada da cortesia adaptativa.",
       "departments": [
         "ENGENHARIA"
@@ -43959,7 +43967,9 @@
       ],
       "outbound": [
         "C-CORTESIA-ADAPTATIVA",
+        "C-LINHA-BUSCA-FERRAMENTAS",
         "C-ONDA-WEB",
+        "C-PESQUISADORES-T6",
         "C-PROVA-COLETA",
         "C-PROVA-TETO-DOMINIO",
         "C-SCRAP-SOCIAL",
@@ -43975,14 +43985,14 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "coleta/reserva_24h.py abre ligacao de rede: vai buscar dado fora da arvore",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -44001,12 +44011,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/cortesia_adaptativa.py:62",
+          "coleta/cortesia_adaptativa.py:63",
           "coleta/espera_por_dominio.py:44",
-          "ferramentas/big_collection/coleta_continua.py:79",
-          "provas/_mutantes_prova_teto_social.py:20"
+          "coleta/pesquisadores_t6.py:755",
+          "ferramentas/big_collection/coleta_continua.py:80"
         ],
-        "PORQUE": "estas pecas importam-na — C-CORTESIA-ADAPTATIVA · C-ONDA-WEB · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CORTESIA-ADAPTATIVA · C-LINHA-BUSCA-FERRAMENTAS · C-ONDA-WEB · C-PESQUISADORES-T6 · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 8365,
       "y": 682
@@ -44645,7 +44655,7 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -44663,9 +44673,11 @@
         "coleta/universo_ciencia_it.py"
       ],
       "file_count": 6,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/corpus_pesquisador.py"
+      ],
       "produces": [
         "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
         "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
@@ -44926,7 +44938,7 @@
       "name": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer",
       "territory": "Z-ACOES",
       "kind": "library",
-      "what": "O UNICO dono da politica do teto por dominio. orcamento_do_dominio(host) diz quantos pedidos cabem agora; reservar(host, run_id, linha) pergunta e escreve num passo so, sob o trinco (1 pedido de cada vez por dominio, pausa minima ou Crawl-delay, limite global de dominios em paralelo); registrar_resposta(host, status, headers) mede o sinal de resistencia (429, 503, 403 novo, Retry-After, pagina de desafio, timeouts em serie, queda de bytes na mesma URL). O estado de cada dominio DERIVA de um livro append-only (ndjson) pela mesma dobra em Python e no gemeo .mjs: SITE comeca em 40/24 h, dobra por janela limpa e usada ate 640; o sinal corta para metade (minimo 5) e cumpre o Retry-After; 2 sinais em 24 h = pausa de 24 h. Classes e numeros em regras/POLITICA-CORTESIA-ADAPTATIVA.json (PLATAFORMA_GRANDE; API_COM_LIMITE_PUBLICADO usa o limite publicado, citado e marcado NAO_CONFERIDO). Recuo, pausa, teto de seguranca/limite publicado esgotado e rendimento baixo gravam um bilhete em ALERTAS-SCRAP-ENGINEER.ndjson; --pergunta monta PERGUNTA-SCRAP-ENGINEER-<data>.txt (texto, sem LLM). D124-REBASE: o livro antigo da D90 ({RESERVAS:[]}, o TETO-24H.json vivo) le-se como eventos e migra-se para ndjson no 1.o escrito, sob o trinco (original em <livro>.D90.json; --migrar); sem livro, o teto por corrida e o SEM_LIVRO da politica (o MINIMO da classe), nunca o inicial.",
+      "what": "O UNICO dono da politica do teto por dominio. orcamento_do_dominio(host) diz quantos pedidos cabem agora; reservar(host, run_id, linha) pergunta e escreve num passo so, sob o trinco (1 pedido de cada vez por dominio, pausa minima ou Crawl-delay, limite global de dominios em paralelo); registrar_resposta(host, status, headers) mede o sinal de resistencia (429, 503, 403 novo, Retry-After, pagina de desafio, timeouts em serie, queda de bytes na mesma URL). O estado de cada dominio DERIVA de um livro append-only (ndjson) pela mesma dobra em Python e no gemeo .mjs: SITE comeca em 40/24 h, dobra por janela limpa e usada ate 640; o sinal corta para metade (minimo 5) e cumpre o Retry-After; 2 sinais em 24 h = pausa de 24 h. Classes e numeros em regras/POLITICA-CORTESIA-ADAPTATIVA.json (PLATAFORMA_GRANDE; API_COM_LIMITE_PUBLICADO usa o limite publicado, citado e marcado NAO_CONFERIDO). Recuo, pausa, teto de seguranca/limite publicado esgotado e rendimento baixo gravam um bilhete em ALERTAS-SCRAP-ENGINEER.ndjson; --pergunta monta PERGUNTA-SCRAP-ENGINEER-<data>.txt (texto, sem LLM). D124-REBASE: o livro antigo da D90 ({RESERVAS:[]}, o TETO-24H.json vivo) le-se como eventos e migra-se para ndjson no 1.o escrito, sob o trinco (original em <livro>.D90.json; --migrar); sem livro, o teto por corrida e o SEM_LIVRO da politica (o MINIMO da classe), nunca o inicial. LINHAS-NO-CONTADOR (28/09): dominio_do_pedido(host, url) separa ROTAS com limites publicados diferentes no mesmo dominio (googleapis.com: Custom Search 100/dia != YouTube search.list 100/dia != YouTube Data 10000/dia); API sem teto DIARIO publicado (Crossref, ORCID) = NAO_SEI, comeca no minimo seguro e so dobra ate ao que o ritmo publicado permite.",
       "why_here": "D124 (dono, 27/09 ~21:30): o 5/dominio/24h (D7 teste -> D38/D41 -> D79 -> D86) nunca foi medido e travava a coleta (rodadas adiadas 24 h, ~1 video/dia). O limite passa a ser o das ferramentas, e o unico freio e o sinal de resistencia medido. Os sitios que tinham o 5 (transporte, contador 24 h, freio da onda, onda_web, rodadas, maestro, T6, prova-teto, D40) perguntam agora a esta peca.",
       "departments": [
         "ENGENHARIA"
@@ -44951,11 +44963,13 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CONTADOR-24H"
+        "C-CONTADOR-24H",
+        "C-TESTES"
       ],
       "outbound": [
         "C-CONTADOR-24H",
         "C-IT-COLETA",
+        "C-LINHA-BUSCA-FERRAMENTAS",
         "C-MATERIA-PRIMA-POR-DIA",
         "C-ONDA-WEB",
         "C-PESQUISADORES-T6",
@@ -44988,14 +45002,14 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "coleta/cortesia_adaptativa.py abre ligacao de rede: vai buscar dado fora da arvore",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -45021,7 +45035,7 @@
           "coleta/reserva_24h.py:29",
           "coleta/teto_da_onda.py:97"
         ],
-        "PORQUE": "estas pecas importam-na — C-CONTADOR-24H · C-IT-COLETA · C-MATERIA-PRIMA-POR-DIA · C-ONDA-WEB · C-PESQUISADORES-T6 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CONTADOR-24H · C-IT-COLETA · C-LINHA-BUSCA-FERRAMENTAS · C-MATERIA-PRIMA-POR-DIA · C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 7950,
       "y": 1004
@@ -53241,7 +53255,7 @@
       "name": "Ferramentas da LINHA-BUSCA (consultas, motores, API oficial)",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "Gerador de consultas, tabela de motores, cliente da API oficial (quota declarada, tesoura da chave), pedido do Actions e as fixtures SINTETICAS das paginas e SERPs usadas pelos testes.",
+      "what": "Gerador de consultas, tabela de motores, cliente da API oficial (quota declarada, tesoura da chave), pedido do Actions e as fixtures SINTETICAS das paginas e SERPs usadas pelos testes. LINHAS-NO-CONTADOR (28/09): com o livro da cortesia, api_oficial.pedir passa pela porta do contador (orcamento da ROTA Custom Search: 100/dia); sem livro (Actions) fica a QUOTA_DIA por corrida.",
       "why_here": "O que a linha usa mas nao decide: mora em ferramentas/ para que o executor da linha nao carregue listas nem clientes.",
       "departments": [
         "ENGENHARIA"
@@ -53288,9 +53302,12 @@
       "produces": [],
       "inbound": [
         "C-CI-LINHA-BUSCA",
+        "C-CONTADOR-24H",
+        "C-CORTESIA-ADAPTATIVA",
         "C-V21-CRUZAMENTO"
       ],
       "outbound": [
+        "C-PROVA-COLETA",
         "C-PROVA-LINHA-BUSCA",
         "C-TESTES"
       ],
@@ -55781,7 +55798,7 @@
       "name": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38)",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos. rodadas.py corre a onda em rodadas fixas (D124: o teto de cada dominio e o orcamento vigente da politica adaptativa, onda_web.teto_do_dominio; a janela 24 h D79 so se liga com --janela-24h; fontes de dominio sem orcamento AGORA ficam ADIADAS, TETO_ADAPTATIVO); coleta_continua.py (D86) e o servico que agenda por FONTE sobre o mesmo plano: a cada ciclo corre as fontes cujos dominios estao livres (D124-REBASE: o livro da cortesia adaptativa — o antigo TETO-24H.json {RESERVAS:[]} le-se e migra-se sozinho — com o orcamento vigente de cada dominio somando o gasto de 24 h e as linhas do ciclo, pausa de 24 h e Retry-After fecham o dominio; a janela D79 so com --janela-24h; a linha SITES so corre se a SONDA sonda_ligacao_sites.mjs provar contra um servidor local que o transporte reserva antes de cada pedido e obedece ao livro), pelo mesmo onda_web, portao IT antes/depois, PROVA-TETO do ciclo e das 24 h e reconciliacao da Sala; para o robo so quando grava e religa-o; PARA sozinho (RAM < 5 GB, portao, backup sem PROVA_VALE, prova-teto FAIL/NAO_SEI) ate --rearmar.",
+      "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos. rodadas.py corre a onda em rodadas fixas (D124: o teto de cada dominio e o orcamento vigente da politica adaptativa, onda_web.teto_do_dominio; a janela 24 h D79 so se liga com --janela-24h; fontes de dominio sem orcamento AGORA ficam ADIADAS, TETO_ADAPTATIVO); coleta_continua.py (D86) e o servico que agenda por FONTE sobre o mesmo plano: a cada ciclo corre as fontes cujos dominios estao livres (D124-REBASE: o livro da cortesia adaptativa — o antigo TETO-24H.json {RESERVAS:[]} le-se e migra-se sozinho — com o orcamento vigente de cada dominio somando o gasto de 24 h e as linhas do ciclo, pausa de 24 h e Retry-After fecham o dominio; a janela D79 so com --janela-24h; a linha SITES so corre se a SONDA sonda_ligacao_sites.mjs provar contra um servidor local que o transporte reserva antes de cada pedido e obedece ao livro; LINHAS-NO-CONTADOR: BUSCA, CIENCIA, SOCIAL e PESQUISADORES medem-se pela sonda Python sonda_ligacao_linhas.py, cada rota num processo, com os casos reserva-antes, livro pausado e 429 obedecido — nunca pelo texto; uma linha LIGADA sem executor de ciclo fica LIGADA_SEM_ONDA), pelo mesmo onda_web, portao IT antes/depois, PROVA-TETO do ciclo e das 24 h e reconciliacao da Sala; para o robo so quando grava e religa-o; PARA sozinho (RAM < 5 GB, portao, backup sem PROVA_VALE, prova-teto FAIL/NAO_SEI) ate --rearmar.",
       "why_here": "ONDA2-PLANO mediu cia.it com 16 pedidos numa onda (5 fontes, teto por corrida) e o disparador da BC5 a ler a coorte de C:\bc fora do Git. D38: 5 por dominio na onda inteira.",
       "departments": [
         "ENGENHARIA"
@@ -55801,12 +55818,13 @@
         "ferramentas/big_collection/ensaio_rodada.py",
         "ferramentas/big_collection/onda_web.py",
         "ferramentas/big_collection/rodadas.py",
+        "ferramentas/big_collection/sonda_ligacao_linhas.py",
         "ferramentas/big_collection/sonda_ligacao_sites.mjs",
         "ferramentas/maestro_social/maestro_social.py"
       ],
-      "file_count": 7,
+      "file_count": 8,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/LIFECYCLE-QUEUE-V1.json",
@@ -55860,11 +55878,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "LINHAS"
+          "LINHAS",
+          "ROTAS"
         ],
-        "palavras": 36,
+        "palavras": 51,
         "por_lingua": {},
-        "sem_marca_de_lingua": 36,
+        "sem_marca_de_lingua": 51,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -55914,7 +55933,8 @@
         "coleta/italy_pilot_collect.mjs",
         "coleta/linha_busca.py",
         "coleta/pesquisadores_t6.py",
-        "coleta/teto_da_onda.py",
+        "coleta/scrap_http.py",
+        "coleta/youtube_oficial.py",
         "curadoria/LIFECYCLE-QUEUE-V1.json",
         "curadoria/supervisor.py",
         "data/collection-ledger/italy/runs.ndjson",
@@ -55924,6 +55944,7 @@
         "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md",
         "ferramentas/big_collection/onda_web.py",
         "ferramentas/big_collection/rodadas.py",
+        "ferramentas/big_collection/sonda_ligacao_linhas.py",
         "ferramentas/big_collection/sonda_ligacao_sites.mjs",
         "ferramentas/seguir_pesquisadores/seguir.py",
         "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
@@ -57112,7 +57133,7 @@
       "name": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "pesquisadores_t6.py: consultas ao OpenAlex por par cultura + problema (a pessoa nasce do trabalho), com --plano, --ensaio sem rede sobre respostas gravadas, --rede por rodadas e --ler/--medir/--ordenar sem rede; reaproveita o transporte e os lexicos de coleta/corpus_pesquisador.py. pesquisadores_t6_executor.py: NAO vai a rede — declara a porta canonica (COL-LAW-505) os trabalhos ja guardados pelas rodadas, fonte unica EU-T5-001 (OpenAlex), uma unidade = um trabalho (DOI), os pesquisadores viajam dentro da unidade (campo T6).",
+      "what": "pesquisadores_t6.py: consultas ao OpenAlex por par cultura + problema (a pessoa nasce do trabalho), com --plano, --ensaio sem rede sobre respostas gravadas, --rede por rodadas e --ler/--medir/--ordenar sem rede; reaproveita o transporte e os lexicos de coleta/corpus_pesquisador.py. pesquisadores_t6_executor.py: NAO vai a rede — declara a porta canonica (COL-LAW-505) os trabalhos ja guardados pelas rodadas, fonte unica EU-T5-001 (OpenAlex), uma unidade = um trabalho (DOI), os pesquisadores viajam dentro da unidade (campo T6). LINHAS-NO-CONTADOR (28/09): a rede (--rede/--rede2) pede pela porta do contador (reserva_24h.pedir, linha CIENCIA): sem livro da cortesia nada sai; ADIADO_ATE nao conta como pedido e para o dominio.",
       "why_here": "PESQUISADORES-T6 e T6-PARA-SALA (lote 4 da INTEGRA-NOITE): e uma acao da coleta — colhe e entrega pela porta canonica. Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa.",
       "departments": [
         "INTELIGENCIA",
@@ -57138,6 +57159,7 @@
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
+        "C-CONTADOR-24H",
         "C-CONTRATO-DE-RETORNO",
         "C-CORPUS",
         "C-CORTESIA-ADAPTATIVA",
@@ -60191,6 +60213,7 @@
       "family": "F-GOVERNANCA",
       "files": [
         "CHAVE-PROBLEMA.md",
+        "LINHAS-NO-CONTADOR.md",
         "LOTE6-INTEGRA.md",
         "LOTE7-INTEGRA.md",
         "LOTE8-INTEGRA.md",
@@ -60243,6 +60266,10 @@
         "provas/integra_noite/mutacao_da21.py",
         "provas/integra_noite/mutacao_lote4_final.py",
         "provas/integra_noite/mutacao_lote5_integra.py",
+        "provas/linhas_no_contador/CICLO-A-SECO-BASE-e2413970.json",
+        "provas/linhas_no_contador/CICLO-A-SECO-DEPOIS.json",
+        "provas/linhas_no_contador/MUTACAO.json",
+        "provas/linhas_no_contador/mutacao.py",
         "provas/linkedin_local_first.py",
         "provas/lote6_integra/BATERIA-BASE-18461b92.json",
         "provas/lote6_integra/BATERIA-RAMO.json",
@@ -60324,7 +60351,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 133,
+      "file_count": 138,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -60379,6 +60406,7 @@
         "C-IT-NORMALIZACAO",
         "C-IT-PRESERVAR",
         "C-LINHA-BUSCA",
+        "C-LINHA-BUSCA-FERRAMENTAS",
         "C-LUGAR-COLETA",
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
@@ -60409,6 +60437,7 @@
         "C-SCRAP-EVIDENCIA",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
+        "C-SEGUIR-PESQUISADORES",
         "C-SENSOR-COLETA",
         "C-SINTONIA-SCRAP",
         "C-SOCIAL-POR-URL-ACHADO",
@@ -60525,12 +60554,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1918,
+        "palavras": 1966,
         "por_lingua": {
           "PT": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 1914,
+        "sem_marca_de_lingua": 1962,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -60768,10 +60797,13 @@
         "docs/operacao/T3-REVIEW-PACKET-V1.md",
         "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/big_collection/rodadas.py",
+        "ferramentas/big_collection/sonda_ligacao_linhas.py",
         "ferramentas/big_collection/sonda_ligacao_sites.mjs",
         "ferramentas/cdp.py",
         "ferramentas/instagram_transcrever.py",
+        "ferramentas/linha_busca/api_oficial.py",
         "ferramentas/reel_transcricao.py",
+        "ferramentas/seguir_pesquisadores/seguir.py",
         "ferramentas/youtube_transcrever.py",
         "guarda/es/workflows/adama-es-gate.yml",
         "guarda/preservar_coleta.py",
@@ -60812,6 +60844,7 @@
         "provas/gate_de_aceitacao_tematica.py",
         "provas/implementacoes_candidatas.py",
         "provas/linha_busca_raw_no_postgres_descartavel.py",
+        "provas/linhas_no_contador/MUTACAO.json",
         "provas/lote6_integra/MUTACAO-JUNCAO.json",
         "provas/lote8_integra/MUTACAO-JUNCOES-LOTE8.json",
         "provas/o_canario_da_collection.py",
@@ -69712,7 +69745,8 @@
         "C-TESTES"
       ],
       "outbound": [
-        "C-ONDA-WEB"
+        "C-ONDA-WEB",
+        "C-PROVA-COLETA"
       ],
       "paises": {},
       "paises_dado": {},
@@ -69776,7 +69810,8 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "ferramentas/big_collection/coleta_continua.py:106"
+          "ferramentas/big_collection/coleta_continua.py:111",
+          "provas/linhas_no_contador/mutacao.py:110"
         ],
         "PORQUE": "estas pecas importam-na — C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -72840,6 +72875,7 @@
         "tests/test_lingua_da_porta.py",
         "tests/test_lingua_unica.py",
         "tests/test_linha_busca.py",
+        "tests/test_linhas_no_contador.py",
         "tests/test_linkedin_build_01_local_first.py",
         "tests/test_linkedin_op_01_operacional.py",
         "tests/test_lista_mestra_mur.py",
@@ -72993,7 +73029,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 341,
+      "file_count": 342,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -73226,6 +73262,7 @@
         "C-CENSO-UNIFICACAO",
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
+        "C-CORTESIA-ADAPTATIVA",
         "C-DETECTOR-CAPA-GABARITO",
         "C-ESTRADAS-IT",
         "C-FONTE-DO-ATLAS",
@@ -73264,7 +73301,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 78,
+        "ITALIA": 79,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -73328,6 +73365,7 @@
           "DONOS",
           "DONOS_DECLARADOS",
           "ELEG",
+          "ENVS",
           "ESCRITORES",
           "ESPECIES",
           "ESTADOS",
@@ -73412,13 +73450,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 2233,
+        "palavras": 2241,
         "por_lingua": {
           "IT": 12,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 2216,
+        "sem_marca_de_lingua": 2224,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -73535,6 +73573,7 @@
         "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
         "RUNBOOK-R7.md",
         "SINTONIA-EAME-KNOW-HOW.md",
+        "_gavetas.py",
         "admissao/admissao.py",
         "admissao/reprocessar_estudos_chaves.py",
         "admissao/reprocessar_problema.py",
@@ -73795,6 +73834,7 @@
         "ferramentas/big_collection/onda4/ENSAIO-COLETA-CONTINUA.json",
         "ferramentas/big_collection/onda_web.py",
         "ferramentas/big_collection/rodadas.py",
+        "ferramentas/big_collection/sonda_ligacao_linhas.py",
         "ferramentas/cutover/medir_cutover.py",
         "ferramentas/cutover/passos_do_cutover.py",
         "ferramentas/fala_local.py",
@@ -73960,6 +74000,7 @@
         "referencia/adama/SNAPSHOTS.json",
         "referencia/adama/SOURCE-ID-MAP.json",
         "regras/FEED-LIGADO-PACOTE.json",
+        "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
         "regras/ROTA-NAVEGADOR.json",
         "regras/comunicacao_identidade.py",
         "regras/comunicacao_universo.py",
@@ -74068,6 +74109,7 @@
         "tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json",
         "tests/fixtures/it_t4_001/PROD_FTS_6_20260914.csv",
         "tests/fixtures/it_t4_001/PROD_FTS_6_20260921.csv",
+        "tests/fixtures/linhas_no_contador/DECISOES-SOCIAIS-e2413970.json",
         "tests/fixtures/ponte_onboard_17_contratos.json",
         "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
         "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
@@ -84394,7 +84436,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ask Sintonia alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Ask Sintonia alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canonico.py",
@@ -84448,6 +84490,22 @@
           "file": "tests/test_egresso_consenso.py",
           "line": 208,
           "snippet": "\"scripts/egresso/mutar_egresso.py\": \"mutante `ipinfo_vota` (tem de morrer)\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-TESTES",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_linhas_no_contador.py",
+          "line": 518,
+          "snippet": "self.assertTrue(str(cmd[1]).replace(\"\\\\\", \"/\").endswith(\"superficie/rede.py\"), cmd)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-TESTES",
             "FROM": "C-ASK-SINTONIA",
@@ -90475,7 +90533,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 339,
+          "line": 347,
           "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
@@ -94589,7 +94647,7 @@
         },
         {
           "file": "coleta/youtube_oficial.py",
-          "line": 316,
+          "line": 335,
           "snippet": "import coleta_checkpoint as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-SCRAP-SOCIAL",
@@ -96698,12 +96756,47 @@
       "evidence": [
         {
           "file": "coleta/cortesia_adaptativa.py",
-          "line": 62,
+          "line": 63,
           "snippet": "import dominio_registavel as _DR                                   # noqa: E402 — um so dono da regra do dominio",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-CORTESIA-ADAPTATIVA",
             "FROM": "C-CONTADOR-24H",
             "TO": "C-CORTESIA-ADAPTATIVA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
+      "to": "C-LINHA-BUSCA-FERRAMENTAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir tem o seu codigo importado por Ferramentas da LINHA-BUSCA (consultas, motores, API oficial). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/linha_busca/api_oficial.py",
+          "line": 75,
+          "snippet": "import reserva_24h as R24                                             # noqa: PLC0415 — a porta unica",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-LINHA-BUSCA-FERRAMENTAS",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-LINHA-BUSCA-FERRAMENTAS",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -96733,12 +96826,47 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 79,
+          "line": 80,
           "snippet": "import reserva_24h as R24                                          # noqa: E402 — o contador multicanal (D90)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-ONDA-WEB",
             "FROM": "C-CONTADOR-24H",
             "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
+      "to": "C-PESQUISADORES-T6",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir tem o seu codigo importado por PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/pesquisadores_t6.py",
+          "line": 755,
+          "snippet": "import reserva_24h as R24                                          # noqa: PLC0415 — a porta unica (D90/D124)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-PESQUISADORES-T6",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-PESQUISADORES-T6",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -96764,7 +96892,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/integra_noite/mutacao_da21.py",
@@ -96786,6 +96914,22 @@
           "file": "provas/integra_noite/mutacao_lote4_final.py",
           "line": 14,
           "snippet": "RES = R / \"coleta\" / \"reserva_24h.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--READS-->C-PROVA-COLETA",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 27,
+          "snippet": "PORTA, CA_PY, CA_MJS = \"coleta/reserva_24h.py\", \"coleta/cortesia_adaptativa.py\", \"coleta/cortesia_adaptativa.mjs\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTADOR-24H--READS-->C-PROVA-COLETA",
             "FROM": "C-CONTADOR-24H",
@@ -96885,7 +97029,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
+      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/espera_por_dominio.py",
@@ -96918,9 +97062,76 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/teto_da_onda.py",
+          "line": 155,
+          "snippet": "import reserva_24h as R24                                      # noqa: PLC0415 — a porta das linhas Python",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 250,
+          "snippet": "import reserva_24h as R24                                          # noqa: PLC0415 — a porta unica",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTADOR-24H",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_linhas_no_contador.py",
+          "line": 38,
+          "snippet": "import reserva_24h as R24  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-TESTES",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -96936,7 +97147,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_cortesia_adaptativa.py",
@@ -96958,6 +97169,22 @@
           "file": "tests/test_cortesia_adaptativa.py",
           "line": 87,
           "snippet": "\"coleta/reserva_24h.py\": r\"_PT\\.TETO_D38\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTADOR-24H--READS-->C-TESTES",
+            "FROM": "C-CONTADOR-24H",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_linhas_no_contador.py",
+          "line": 411,
+          "snippet": "PORTA = \"coleta/reserva_24h.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTADOR-24H--READS-->C-TESTES",
             "FROM": "C-CONTADOR-24H",
@@ -99827,6 +100054,41 @@
     },
     {
       "from": "C-CORTESIA-ADAPTATIVA",
+      "to": "C-LINHA-BUSCA-FERRAMENTAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer tem o seu codigo importado por Ferramentas da LINHA-BUSCA (consultas, motores, API oficial). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/linha_busca/api_oficial.py",
+          "line": 72,
+          "snippet": "import cortesia_adaptativa as CA                                      # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-LINHA-BUSCA-FERRAMENTAS",
+            "FROM": "C-CORTESIA-ADAPTATIVA",
+            "TO": "C-LINHA-BUSCA-FERRAMENTAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CORTESIA-ADAPTATIVA",
       "to": "C-MATERIA-PRIMA-POR-DIA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -99872,7 +100134,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 80,
+          "line": 81,
           "snippet": "import cortesia_adaptativa as CA                                   # noqa: E402 — o dono unico do teto (D124)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-ONDA-WEB",
@@ -99970,8 +100232,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 27,
+          "snippet": "PORTA, CA_PY, CA_MJS = \"coleta/reserva_24h.py\", \"coleta/cortesia_adaptativa.py\", \"coleta/cortesia_adaptativa.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-PROVA-COLETA",
+            "FROM": "C-CORTESIA-ADAPTATIVA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 27,
+          "snippet": "PORTA, CA_PY, CA_MJS = \"coleta/reserva_24h.py\", \"coleta/cortesia_adaptativa.py\", \"coleta/cortesia_adaptativa.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-PROVA-COLETA",
+            "FROM": "C-CORTESIA-ADAPTATIVA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/teto_adaptativo/mutacao_rebase.py",
           "line": 28,
@@ -100123,7 +100417,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/teto_da_onda.py",
@@ -100140,9 +100434,60 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 247,
+          "snippet": "import cortesia_adaptativa as CA                                   # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-CORTESIA-ADAPTATIVA",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CORTESIA-ADAPTATIVA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_linhas_no_contador.py",
+          "line": 37,
+          "snippet": "import cortesia_adaptativa as CA  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-TESTES",
+            "FROM": "C-CORTESIA-ADAPTATIVA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -117555,8 +117900,8 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 98,
-          "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\"},",
+          "line": 102,
+          "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-ONDA-WEB",
             "FROM": "C-IT-COLETA",
@@ -118881,7 +119226,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 20 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_tempo_e_lugar.py",
@@ -125158,12 +125503,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "LINHA-BUSCA · coleta assunto-primeiro (D93) alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "LINHA-BUSCA · coleta assunto-primeiro (D93) alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 100,
-          "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "line": 105,
+          "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA\": SONDA_LINHAS},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LINHA-BUSCA--READS-->C-ONDA-WEB",
+            "FROM": "C-LINHA-BUSCA",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+          "line": 44,
+          "snippet": "\"BUSCA\": [(\"PAGINA\", \"coleta/linha_busca.py\", \"pagina\"), (\"API\", \"coleta/linha_busca.py\", \"api\")],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-ONDA-WEB",
             "FROM": "C-LINHA-BUSCA",
@@ -125362,7 +125723,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "LINHA-BUSCA · coleta assunto-primeiro (D93) tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "LINHA-BUSCA · coleta assunto-primeiro (D93) tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_busca_no_actions.py",
@@ -125400,6 +125761,22 @@
           "file": "tests/test_linha_busca.py",
           "line": 207,
           "snippet": "import linha_busca_raw as LR",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LINHA-BUSCA--IMPORTS-->C-TESTES",
+            "FROM": "C-LINHA-BUSCA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_linhas_no_contador.py",
+          "line": 212,
+          "snippet": "import linha_busca as M",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--IMPORTS-->C-TESTES",
             "FROM": "C-LINHA-BUSCA",
@@ -125503,6 +125880,41 @@
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
             "FROM": "C-LINHA-BUSCA",
             "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LINHA-BUSCA-FERRAMENTAS",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ferramentas da LINHA-BUSCA (consultas, motores, API oficial) alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 28,
+          "snippet": "T6, API, YT, TETO, HTTP = (\"coleta/pesquisadores_t6.py\", \"ferramentas/linha_busca/api_oficial.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-COLETA",
+            "FROM": "C-LINHA-BUSCA-FERRAMENTAS",
+            "TO": "C-PROVA-COLETA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -130200,8 +130612,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+          "line": 58,
+          "snippet": "import _gavetas  # noqa: F401 — as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ONDA-WEB",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "ferramentas/maestro_social/maestro_social.py",
           "line": 133,
@@ -133498,7 +133926,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 179 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 180 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -133709,8 +134137,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Testes do System Map alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_linhas_no_contador.py",
+          "line": 419,
+          "snippet": "shutil.copy(RAIZ / \"_gavetas.py\", d / \"_gavetas.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--READS-->C-TESTES",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_o_controle_separa_lei_de_mencao.py",
           "line": 174,
@@ -134987,7 +135431,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 301,
+          "line": 309,
           "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -136216,12 +136660,60 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Provas da coleta canonica. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/coleta_continua_mutacao.py",
           "line": 25,
           "snippet": "ALVO = \"ferramentas/big_collection/coleta_continua.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 30,
+          "snippet": "POL, MZ, ROD = \"regras/POLITICA-CORTESIA-ADAPTATIVA.json\", \"leis/social_matriz.py\", \"ferramentas/big_collection/rodadas.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 31,
+          "snippet": "CC, SONDA = \"ferramentas/big_collection/coleta_continua.py\", \"ferramentas/big_collection/sonda_ligacao_linhas.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 31,
+          "snippet": "CC, SONDA = \"ferramentas/big_collection/coleta_continua.py\", \"ferramentas/big_collection/sonda_ligacao_linhas.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
             "FROM": "C-ONDA-WEB",
@@ -136541,11 +137033,11 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38) alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_continua.py",
-          "line": 667,
+          "line": 673,
           "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
@@ -136595,6 +137087,22 @@
           "file": "tests/test_cortesia_adaptativa.py",
           "line": 92,
           "snippet": "\"ferramentas/maestro_social/maestro_social.py\": r\"^TETO\\s*=\\s*5\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
+            "FROM": "C-ONDA-WEB",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_linhas_no_contador.py",
+          "line": 424,
+          "snippet": "shutil.copy(RAIZ / \"ferramentas\" / \"big_collection\" / \"sonda_ligacao_linhas.py\", d / \"ferramentas\" / \"big_collection\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
             "FROM": "C-ONDA-WEB",
@@ -141367,12 +141875,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 102,
-          "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "line": 107,
+          "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"SONDA\": SONDA_LINHAS},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-ONDA-WEB",
+            "FROM": "C-PESQUISADORES-T6",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+          "line": 45,
+          "snippet": "\"CIENCIA\": [(\"API\", \"coleta/pesquisadores_t6.py\", \"ciencia\")],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-ONDA-WEB",
             "FROM": "C-PESQUISADORES-T6",
@@ -141402,12 +141926,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
           "line": 45,
           "snippet": "(\"M12\", \"coleta/pesquisadores_t6.py\", \"'olivo': ('olea europaea', \", \"'olivo': (\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-PROVA-COLETA",
+            "FROM": "C-PESQUISADORES-T6",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 28,
+          "snippet": "T6, API, YT, TETO, HTTP = (\"coleta/pesquisadores_t6.py\", \"ferramentas/linha_busca/api_oficial.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-PROVA-COLETA",
             "FROM": "C-PESQUISADORES-T6",
@@ -141593,7 +142133,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "PESQUISADORES T6 — consultas cultura+problema e o executor que entrega os trabalhos guardados tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/fixtures/pesquisadores_t6/montar.py",
@@ -141628,8 +142168,24 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_linhas_no_contador.py",
+          "line": 209,
+          "snippet": "import pesquisadores_t6 as M",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PESQUISADORES-T6--IMPORTS-->C-TESTES",
+            "FROM": "C-PESQUISADORES-T6",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_pesquisadores_t6.py",
-          "line": 13,
+          "line": 14,
           "snippet": "import pesquisadores_t6 as T6          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PESQUISADORES-T6--IMPORTS-->C-TESTES",
@@ -160077,8 +160633,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 30,
+          "snippet": "POL, MZ, ROD = \"regras/POLITICA-CORTESIA-ADAPTATIVA.json\", \"leis/social_matriz.py\", \"ferramentas/big_collection/rodadas.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/mutacao_da_release_v1.py",
           "line": 129,
@@ -160731,7 +161303,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 61 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 62 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -161984,12 +162556,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 104,
-          "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "line": 109,
+          "snippet": "\"TRANSPORTE\": \"coleta/scrap_http.py\", \"SONDA\": SONDA_LINHAS},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-ONDA-WEB",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+          "line": 46,
+          "snippet": "\"SOCIAL\": [(\"SCRAP_HTTP\", \"coleta/scrap_http.py\", \"scrap\"), (\"YOUTUBE_DATA\", \"coleta/youtube_oficial.py\", \"yt\")],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-ONDA-WEB",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+          "line": 46,
+          "snippet": "\"SOCIAL\": [(\"SCRAP_HTTP\", \"coleta/scrap_http.py\", \"scrap\"), (\"YOUTUBE_DATA\", \"coleta/youtube_oficial.py\", \"yt\")],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-ONDA-WEB",
             "FROM": "C-SCRAP-SOCIAL",
@@ -162466,7 +163070,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 24 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 27 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_linhagem_do_ready.py",
@@ -162565,6 +163169,54 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 29,
+          "snippet": "\"coleta/youtube_oficial.py\", \"coleta/teto_da_onda.py\", \"coleta/scrap_http.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 29,
+          "snippet": "\"coleta/youtube_oficial.py\", \"coleta/teto_da_onda.py\", \"coleta/scrap_http.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 29,
+          "snippet": "\"coleta/youtube_oficial.py\", \"coleta/teto_da_onda.py\", \"coleta/scrap_http.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "provas/mutacao_da_autorizacao.py",
           "line": 150,
           "snippet": "('M16 · a rota gratuita passa a exigir autorizacao de gasto', 'coleta/scrap_executor.py',",
@@ -162600,54 +163252,6 @@
           "file": "provas/mutacao_da_release_v1.py",
           "line": 38,
           "snippet": "ROT = 'coleta/social_rotas.py'",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/mutacao_da_release_v1.py",
-          "line": 43,
-          "snippet": "HTTP = 'coleta/scrap_http.py'",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/mutacao_da_release_v1.py",
-          "line": 44,
-          "snippet": "IGA = 'coleta/adaptador_instagram.py'",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/mutacao_da_release_v1.py",
-          "line": 114,
-          "snippet": "'        \"roda\": [\"coleta/social_scrap.py\", \"coletar\"],',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",
             "FROM": "C-SCRAP-SOCIAL",
@@ -163653,7 +164257,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 177 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 179 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -164228,12 +164832,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SEGUIR-PESQUISADORES (D85): quem seguir e os canais publicos onde os pesquisadores publicam alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 1 linha de codigo.",
+      "reason": "SEGUIR-PESQUISADORES (D85): quem seguir e os canais publicos onde os pesquisadores publicam alimenta Disparador da onda web (2.a onda em diante) — coorte oficial conferida e teto por dominio na onda (D38). Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "ferramentas/big_collection/coleta_continua.py",
-          "line": 106,
-          "snippet": "\"TRANSPORTE\": \"coleta/seguir.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},",
+          "line": 111,
+          "snippet": "\"TRANSPORTE\": \"ferramentas/seguir_pesquisadores/seguir.py\", \"SONDA\": SONDA_LINHAS},",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-ONDA-WEB",
+            "FROM": "C-SEGUIR-PESQUISADORES",
+            "TO": "C-ONDA-WEB",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+          "line": 47,
+          "snippet": "\"PESQUISADORES\": [(\"SEGUIR\", \"ferramentas/seguir_pesquisadores/seguir.py\", \"seguir\")],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-ONDA-WEB",
             "FROM": "C-SEGUIR-PESQUISADORES",
@@ -164248,6 +164868,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SEGUIR-PESQUISADORES",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SEGUIR-PESQUISADORES (D85): quem seguir e os canais publicos onde os pesquisadores publicam alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/linhas_no_contador/mutacao.py",
+          "line": 110,
+          "snippet": "(\"M30_CC_PESQUISADORES_NO_CAMINHO_ERRADO\", CC, '\"TRANSPORTE\": \"ferramentas/seguir_pesquisadores/seguir.py\"',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-PROVA-COLETA",
+            "FROM": "C-SEGUIR-PESQUISADORES",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -168510,6 +169165,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-CORTESIA-ADAPTATIVA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_linhas_no_contador.py",
+          "line": 466,
+          "snippet": "% (json.dumps((RAIZ / \"coleta\" / \"cortesia_adaptativa.mjs\").as_uri()), json.dumps(doms)))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-CORTESIA-ADAPTATIVA",
+            "FROM": "C-TESTES",
+            "TO": "C-CORTESIA-ADAPTATIVA",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -174190,7 +174880,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2271,
+  "UNCLAIMED_FILES_COUNT": 2272,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174441,7 +175131,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 285,
+      "PECAS_EM_DESACORDO": 286,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -174458,20 +175148,20 @@
   ],
   "COUNTS": {
     "components": 312,
-    "components_proven": 33,
-    "components_pending": 271,
+    "components_proven": 32,
+    "components_pending": 272,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1913,
-    "edges_proven": 1844,
+    "edges": 1921,
+    "edges_proven": 1852,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4205,
-    "files_covered": 1934,
+    "files_tracked": 4213,
+    "files_covered": 1941,
     "files_code_unclaimed": 0,
-    "roles_proven": 207,
+    "roles_proven": 208,
     "roles_declared_only": 10,
-    "roles_unknown": 95,
+    "roles_unknown": 94,
     "roles_conflict": 55,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,

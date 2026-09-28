@@ -1,0 +1,263 @@
+{
+ "REF": "52ab061bd",
+ "MUTANTES": [
+  {
+   "MUTANTE": "M01_PORTA_PEDE_SEM_RESERVA",
+   "ALVO": "coleta/reserva_24h.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_o_429_vai_ao_livro_como_sinal_e_o_recuo_vale', 'test_sem_livro_nao_ha_contador_e_nada_sai', 'test_sem_reserva_o_pedido_nao_sai', 'test_um_de_cada_vez_a_reserva_atomica_entre_processos', 'test_a_reserva_esta_no_livro_quando_o_pedido_sai', 'test_o_scrap_http_nao_reserva_duas_vezes_o_pedido_da_porta']",
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']"
+   ]
+  },
+  {
+   "MUTANTE": "M02_PORTA_IGNORA_O_ADIADO",
+   "ALVO": "coleta/reserva_24h.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_o_429_vai_ao_livro_como_sinal_e_o_recuo_vale', 'test_sem_livro_nao_ha_contador_e_nada_sai', 'test_sem_reserva_o_pedido_nao_sai', 'test_a_copia_sem_defeito_esta_ligada', 'test_ignora_o_livro_pausado', 'test_nao_regista_o_sinal']",
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']"
+   ]
+  },
+  {
+   "MUTANTE": "M03_CIENCIA_CROSSREF_POR_FORA",
+   "ALVO": "coleta/pesquisadores_t6.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_pesquisadores_t6 rc=1 falhas=['test_cada_pedido_tem_reserva_e_resposta_no_livro']"
+   ]
+  },
+  {
+   "MUTANTE": "M04_CIENCIA_OPENALEX_POR_FORA",
+   "ALVO": "coleta/pesquisadores_t6.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_pesquisadores_t6 rc=1 falhas=['test_cada_pedido_tem_reserva_e_resposta_no_livro', 'test_sem_livro_nenhum_pedido_sai']"
+   ]
+  },
+  {
+   "MUTANTE": "M05_BUSCA_API_SEM_RESERVA",
+   "ALVO": "ferramentas/linha_busca/api_oficial.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']",
+    "tests.test_linhas_no_contador rc=1 falhas=['test_o_ultimo_lugar_do_orcamento_so_um_pede']"
+   ]
+  },
+  {
+   "MUTANTE": "M06_SOCIAL_YOUTUBE_SEM_RESERVA",
+   "ALVO": "coleta/youtube_oficial.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']",
+    "tests.test_linhas_no_contador rc=1 falhas=['test_o_ultimo_lugar_do_orcamento_so_um_pede']"
+   ]
+  },
+  {
+   "MUTANTE": "M07_SOCIAL_SCRAP_SEM_RESERVA_NA_CORTESIA",
+   "ALVO": "coleta/teto_da_onda.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']"
+   ]
+  },
+  {
+   "MUTANTE": "M08_SCRAP_NAO_RESERVA_O_PEDIDO",
+   "ALVO": "coleta/scrap_http.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']"
+   ]
+  },
+  {
+   "MUTANTE": "M09_SCRAP_A_PORTA_TAPA_OUTRO_DOMINIO",
+   "ALVO": "coleta/reserva_24h.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_um_salto_para_outro_dominio_dentro_da_porta_reserva_a_parte']"
+   ]
+  },
+  {
+   "MUTANTE": "M10_PORTA_RESERVA_DEPOIS_DO_PEDIDO",
+   "ALVO": "coleta/reserva_24h.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_o_429_vai_ao_livro_como_sinal_e_o_recuo_vale', 'test_sem_livro_nao_ha_contador_e_nada_sai', 'test_sem_reserva_o_pedido_nao_sai', 'test_um_de_cada_vez_a_reserva_atomica_entre_processos', 'test_a_reserva_esta_no_livro_quando_o_pedido_sai', 'test_o_scrap_http_nao_reserva_duas_vezes_o_pedido_da_porta']",
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']"
+   ]
+  },
+  {
+   "MUTANTE": "M11_PORTA_NAO_REGISTA_A_RESPOSTA",
+   "ALVO": "coleta/reserva_24h.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_a_reserva_esta_no_livro_quando_o_pedido_sai', 'test_o_scrap_http_nao_reserva_duas_vezes_o_pedido_da_porta', 'test_a_copia_sem_defeito_esta_ligada', 'test_ignora_o_livro_pausado', 'test_nao_regista_o_sinal', 'test_reserva_depois_do_pedido']",
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']"
+   ]
+  },
+  {
+   "MUTANTE": "M12_PORTA_NAO_REGISTA_A_FALHA",
+   "ALVO": "coleta/reserva_24h.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_o_429_vai_ao_livro_como_sinal_e_o_recuo_vale']",
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']"
+   ]
+  },
+  {
+   "MUTANTE": "M13_SOCIAL_ABRE_INSTAGRAM",
+   "ALVO": "leis/social_matriz.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_a_matriz_decide_o_mesmo_que_na_base_com_o_contador_ligado', 'test_instagram_linkedin_continuam_fechados_onde_estavam']"
+   ]
+  },
+  {
+   "MUTANTE": "M14_ORCAMENTO_LIVRE_PASSA_POR_CIMA_DO_ROBOTS",
+   "ALVO": "coleta/scrap_http.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_orcamento_livre_nao_passa_por_cima_do_robots']"
+   ]
+  },
+  {
+   "MUTANTE": "M15_API_CSE_ACIMA_DAS_100",
+   "ALVO": "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_a_101a_consulta_do_cse_nao_sai', 'test_as_cinco_apis_da_missao_pelos_enderecos_do_codigo', 'test_cada_api_diz_o_numero_e_de_onde_ele_vem', 'test_os_numeros_nao_passam_dos_donos_que_ja_existem_no_codigo']"
+   ]
+  },
+  {
+   "MUTANTE": "M16_API_CSE_E_YOUTUBE_NO_MESMO_ORCAMENTO",
+   "ALVO": "coleta/cortesia_adaptativa.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_a_101a_consulta_do_cse_nao_sai', 'test_as_cinco_apis_da_missao_pelos_enderecos_do_codigo']"
+   ]
+  },
+  {
+   "MUTANTE": "M17_API_YOUTUBE_ACIMA_DAS_10000",
+   "ALVO": "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_as_cinco_apis_da_missao_pelos_enderecos_do_codigo', 'test_cada_api_diz_o_numero_e_de_onde_ele_vem', 'test_os_numeros_nao_passam_dos_donos_que_ja_existem_no_codigo']"
+   ]
+  },
+  {
+   "MUTANTE": "M18_API_NAO_SEI_COMECA_NO_DERIVADO",
+   "ALVO": "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_as_cinco_apis_da_missao_pelos_enderecos_do_codigo', 'test_cada_api_diz_o_numero_e_de_onde_ele_vem']"
+   ]
+  },
+  {
+   "MUTANTE": "M19_API_PUBLICADA_DOBRA",
+   "ALVO": "coleta/cortesia_adaptativa.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_cada_api_diz_o_numero_e_de_onde_ele_vem', 'test_classe_das_apis_igual_nos_dois']",
+    "tests.test_cortesia_adaptativa rc=0 falhas=[]"
+   ]
+  },
+  {
+   "MUTANTE": "M20_NODE_LE_A_API_DE_OUTRA_MANEIRA",
+   "ALVO": "coleta/cortesia_adaptativa.mjs",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_classe_das_apis_igual_nos_dois']"
+   ]
+  },
+  {
+   "MUTANTE": "M21_PORTAO_REAL_PASSA_FIXO",
+   "ALVO": "ferramentas/big_collection/rodadas.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_rede_py_reprova_passa_e_falso', 'test_saida_ilegivel_com_codigo_de_falha_nao_passa']"
+   ]
+  },
+  {
+   "MUTANTE": "M22_PORTAO_REAL_SEM_IT",
+   "ALVO": "ferramentas/big_collection/rodadas.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_rede_py_aprova_passa_e_verdadeiro_e_pergunta_por_it']"
+   ]
+  },
+  {
+   "MUTANTE": "M23_CC_O_TEXTO_LIGA_OUTRA_VEZ",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_a_ligacao_e_o_comportamento_nao_o_texto']"
+   ]
+  },
+  {
+   "MUTANTE": "M24_SONDA_SEMPRE_LIGADA",
+   "ALVO": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']"
+   ]
+  },
+  {
+   "MUTANTE": "M25_SONDA_NAO_CONTA_AS_RESERVAS",
+   "ALVO": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_pede_sem_reservar']"
+   ]
+  },
+  {
+   "MUTANTE": "M26_SONDA_SEM_A_ORDEM",
+   "ALVO": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_reserva_depois_do_pedido']"
+   ]
+  },
+  {
+   "MUTANTE": "M27_SONDA_SEM_O_CASO_PAUSADO",
+   "ALVO": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_ignora_o_livro_pausado']"
+   ]
+  },
+  {
+   "MUTANTE": "M28_SONDA_SEM_O_CASO_DO_SINAL",
+   "ALVO": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_nao_regista_o_sinal']"
+   ]
+  },
+  {
+   "MUTANTE": "M29_CC_LINHA_SEM_ONDA_ENTRA_NO_CICLO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_linhas_no_contador rc=1 falhas=['test_busca_ligada_com_candidatas_nao_corre_a_onda_web']"
+   ]
+  },
+  {
+   "MUTANTE": "M30_CC_PESQUISADORES_NO_CAMINHO_ERRADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "ESTADO": "MORTO",
+   "QUEM_APANHOU": [
+    "tests.test_coleta_continua.Linhas rc=1 falhas=['test_ligacao_medida_no_codigo_desta_arvore']"
+   ]
+  }
+ ],
+ "SEM_MUTANTE": {
+  "CODIGO": 0,
+  "TESTES": [
+   "tests.test_linhas_no_contador rc=0 falhas=[]",
+   "tests.test_coleta_continua.Linhas rc=0 falhas=[]",
+   "tests.test_pesquisadores_t6 rc=0 falhas=[]",
+   "tests.test_cortesia_adaptativa rc=0 falhas=[]"
+  ]
+ },
+ "RESUMO": "30/30 mortos"
+}
