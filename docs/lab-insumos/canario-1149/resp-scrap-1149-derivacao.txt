@@ -1,0 +1,106 @@
+Medido. Não escrevi uma linha no repositório vivo — tudo correu em memória, a ler os bytes do acervo; os dois ficheiros de apoio que criei ficaram em C:\Users\London1\auditoria-madrugada\_replay_htmls.txt e _replay_antes_depois.json (pasta de auditoria, que não é o vivo nem outra worktree).
+
+═══════════════════════════════════════════
+EM PALAVRAS SIMPLES (o essencial, primeiro)
+═══════════════════════════════════════════
+1. Sim, a causa é essa e só essa: quem lê o HTML troca cada etiqueta por um espaço, por isso a página inteira vira um parágrafo único. Nada perde estrutura antes — o HTML guardado está inteiro.
+2. O conserto é minúsculo e é no lugar certo: as etiquetas que significam "quebra de linha" passam a dar mesmo quebra de linha. Só isso já devolve o corpo do artigo — no 1149 passa de ZERO para 7.705 caracteres de texto útil.
+3. A data está lá, escrita à mão numa caixinha própria, mas essa caixinha não é de confiança sozinha: numa página do acervo, a mesma caixinha guarda a data de um EVENTO, não da publicação. Só é segura colada à categoria (COMUNICATO STAMPA) e mesmo assim o valor tem de ser traduzido do italiano — é uma régua nova.
+4. Antes de ligar isto, exijo três provas: o mesmo documento antes×depois, o acervo inteiro antes×depois (463 páginas), e o controlo negativo (nenhuma data muda por acaso).
+5. O defeito é do dono da Collection (o ficheiro é dele); a capacidade de "extração técnica inicial" é minha. Dono definido, partido em dois — não é "NÃO DEFINIDO".
+
+═══════════════════════════════════════════
+1 · A CAUSA É A DERIVAÇÃO — CONFIRMADO. E NÃO HÁ PERDA ANTES.
+═══════════════════════════════════════════
+Medido no RAW real (C:/Users/London1/sintonia-sala-italia/armazem/XX/it-t5-111/OBSERVATION/f2158520f2362956-...html, 82.925 bytes, sha256 f2158520f2362956756e31864406962e68ce6632206a4ce56e078e826a953d01):
+- 186 `</div>` + 28 `<p>` + 8 `<br>` + 12 `<li>` + 9 `<h2>` + 5 `<section>` + `nav/header/footer` — estrutura toda presente; só 36 quebras de linha no ficheiro.
+- `coleta/texto_fonte.py:69` (`re.sub(r'<[^>]+>',' ')`) → texto derivado = **1 linha, 8.988 chars**. Bate com o medido na Sala (8.989, diferença de 1 char de cauda).
+
+**Não há ponto antes de `limpar()` que perca estrutura, neste trilho.** Medido em `coleta/executor_texto_de_html.py:757-759` (`derivar_um` abre o ficheiro em `rb` e entrega os bytes) → `:241` (`extrair` → `limpar`). Os bytes chegam intactos.
+- Ressalva honesta: existe um SEGUNDO caminho de corpo, o dos feeds — `regras/motor_de_rota.mjs:404-414` (`BODY_FROM_FEED`, `coleta/italy_pilot_collect.mjs:1618`) —, mas lá o HTML do `<content:encoded>` também é guardado inteiro («nada se limpa, nada se apaga», l.411-413). Não é perda antes; é a mesma derivação a jusante.
+- E o derivado é mesmo a entrada de tudo o resto: `coleta/rota_forward_documento.py:576,592` põe o texto do artefacto derivado em `TEXTO` e passa à estruturação → admissão. O blast radius é real.
+- Correcção ao MAPA (§0/§8 do canário): «186 `</div>` e 28 `<p>`» — confirmado; e `content-date` confirmado literal: `<div class="content-category">COMUNICATO STAMPA</div> … <div class="content-date"> 22 giu 2026 </div>`, dentro de `<div class="content-metadata">`.
+- `PUBLISHED_AT` hoje, medido com o código vivo: `VALOR/BASE = NAO SEI`, PORQUE = «JSON-LD ausente; meta article:published_time ausente; <time datetime> ausente; meta itemprop ausente; INDICE ausente». O MAPA está certo.
+
+═══════════════════════════════════════════
+2 · O MENOR CONSERTO, NO LUGAR CERTO — E O SEU RISCO
+═══════════════════════════════════════════
+Lugar: `coleta/texto_fonte.py:69`, uma linha, sem biblioteca nova. Duas passagens em vez de uma:
+- etiquetas de BLOCO (`p div li h1-h6 br tr td th section article header footer nav blockquote pre ul ol table …`) → `'\n'`;
+- todas as outras (inline) → `' '` (como hoje).
+
+Medido no 1149 (em memória): 1 linha → **80 linhas**; e o filtro de corpo que JÁ existe (`leis/fato_do_texto.py:194 corpo()`) passa de **0 chars** para **7.705 chars / 1.045 palavras**. O menu (l.0-31), a categoria (l.32), a DATA (**l.34 = «22 giu 2026»**) e o título (l.35) ficam em linhas separadas e visíveis.
+
+Correcção honesta ao que o MAPA afirma («menu e rodapé separáveis pelo `corpo()` que JÁ existe»): **parcialmente**. `corpo()` é filtro POR LINHA (`_palavras(l) < PALAVRAS_MINIMAS`, `RODAPE`): na medição, 11 linhas de menu longas (listas de links, ex. «Conosci il CREA Organi Direzione Generale…») SOBREVIVEM. O `corpo()` deixa de estar cego, mas continua a não separar menu estruturalmente — isso é trabalho seguinte, não deste conserto.
+
+**Quem chama `limpar()` hoje (medido por grep, sem contar ficheiros gerados do mapa):**
+| chamador | tipo | efeito da mudança |
+|---|---|---|
+| `coleta/executor_texto_de_html.py:84` →`:241` | **produção (a derivação)** | é o alvo; muda o artefacto derivado |
+| `coleta/texto_fonte.py:85` | CLI do próprio dono (vai à rede) | só muda o texto impresso |
+| `medidas/porque_a_sala_nao_recebeu.py:44` | medidor | números e o `PORQUE-A-SALA-NAO-RECEBEU-V1.json` ficam velhos → regerar |
+| `medidas/o_contrato_do_universo.py:55` | medidor | idem (`O-CONTRATO-DO-UNIVERSO-V1.json`) |
+| `scripts/lugar_fato/medir_moldura_html.py:23` | medidor de moldura | idem |
+| `tests/test_a_rota_do_html.py:306`, `tests/test_c4g_a_especie_do_video.py` | prova | a re-correr |
+
+**Risco que ninguém vê, e é o mais grave:** `receita()` (`executor_texto_de_html.py:712-725`) faz o `parameters_hash` com `TEXT_KIND/TEXT_RELATION/TEXT_BASIS/METHOD/TEXT_OWNER` — **o algoritmo de `limpar()` não entra**. Mudar `limpar()` muda o DERIVADO sem mudar a receita: dois derivados do mesmo RAW, um achatado e outro com estrutura, ficariam ambos `texto-de-html` versão **"2"**. `tests/test_a_receita_tem_versao.py` **não apanha isto** (compara a receita, não o extrator). Consequência: subir `EXECUTOR_VERSION` (l.96) é obrigatório, e o dono deve decidir se a versão da régua entra na receita.
+
+Segundo risco (medido, no acervo inteiro — ver §4): o `corpo()` de 166 páginas muda de tamanho; 125 crescem, e há 5/463 que ficam com corpo < 20 palavras. Antes de ligar, é preciso olhar as cinco.
+
+═══════════════════════════════════════════
+3 · A DATA: SEGURA SÓ NUMA VERSÃO ESTREITÍSSIMA
+═══════════════════════════════════════════
+Uma regra «classe contém date/data» é **perigosa — medido em 218 das 463 páginas**, com todo o tipo de veneno lá dentro: `2 settimane fa` / `3 settimane fa` (relativo — D62 proíbe, `executor_texto_de_html.py:333-336`), `Data di aggiornamento/verifica` (rótulo, não data), `6 November 2022 / 27 September 2026` (três datas da barra lateral «últimos artigos» — o mesmo defeito do IT-T7-021 já documentado em `:287-290`), `15/09/2026, 14/09/2026, 24/06/2026` (ambíguo), `Data di pubblicazione dell'evento: MERCO…`.
+
+A versão segura, e é a que a medição suporta:
+- ler SÓ `class="content-date"` **cujo irmão seja `content-category`** dentro do mesmo `content-metadata` (o BASE é o seletor, literalmente: `DIV.content-metadata > DIV.content-date`);
+- **exigir que o valor seja uma data** — se não casar `DD mmm AAAA`, é `NAO SEI`, nunca palpite;
+- medido: 15 páginas das 463 têm esse campo; **0 páginas têm mais de um** (sem ambiguidade neste molde); **1 das 15 é falso positivo** (`Data di pubblicazione dell'evento: MERCO…` = data de EVENTO, não de publicação). Com a exigência de «ser data», ficam 14 seguras de 15.
+- A regra só fala onde os 5 níveis da D61 se calam: hoje o leitor responde em **237/463**; o campo `content-date` acrescentaria **15**.
+
+E há um segundo trabalho, que **não é o mesmo**: `normalizar_instante` (`:319-341`) só aceita ISO 8601 — **`22 giu 2026` não passa** (`:341` diz «nao e ISO 8601»). Ou seja, encontrar o campo não chega: falta uma régua de data em prosa italiana (12 abreviaturas de mês + formatos), que o próprio ficheiro chama «outra régua, com outra prova» (`:330-331`). Essa régua precisa do seu próprio teste controlado, e é ela que decide a confiança.
+
+Confiança a declarar: `PUBLISHED_AT = 2026-06-22`, `PUBLISHED_AT_BASIS = "DIV.content-date (irmão de content-category)"`, `PUBLISHED_AT_PRECISION = DIA` (o campo não escreve hora — precisão DIA, como a função já sabe devolver em `:348-349`). Nunca `INSTANTE`; e **nunca vira FACT_TIME** (`:505-506`).
+
+═══════════════════════════════════════════
+4 · A PROVA QUE EU EXIGIRIA
+═══════════════════════════════════════════
+Antes de tocar no vivo, nesta ordem, tudo offline (sem rede, sem segundo extrator):
+1. **Só o RAW 2272, numa cópia**: antes×depois com a contagem de linhas, o corpo que o `corpo()` vivo devolve, e `PUBLISHED_AT` + BASE + PRECISÃO. Sou obrigado a declarar já o que medi: 1→80 linhas, corpo 0→7.705 chars, PUBLISHED_AT NAO SEI → 2026-06-22 (só depois da régua de prosa).
+2. **Replay no acervo inteiro, antes×depois** — as 463 páginas HTML de `.../armazem/**/OBSERVATION/`. Já corrido, 10,7 s, 0 erros; e é este o número que a decisão precisa:
+   - páginas que saem de «1 linha»: **76/463**;
+   - corpo vazio antes: **75/463** → depois: **0/463**;
+   - corpo cresce: **125**; encolhe: **166**; igual: **172**; corpo < 20 palavras depois: **5/463**;
+   - mediana de linhas: 94 → 112.
+   Os encolhimentos inspeccionados são, pelo menos nos casos vistos, limpeza de lixo (o `cand-1205` larga «Request object name/value: org.apache.catalina.jsp_file…»), mas **166 páginas a mudar de corpo obrigam a amostra olhada à mão e às 5 com corpo quase vazio explicadas**, uma a uma, antes de ligar.
+3. **Controlo negativo de PUBLISHED_AT**: com o campo estreito, mostrar que **nenhuma das 237 páginas que já respondiam muda de valor nem de base** (era a disciplina do 3b, `:281-285`), e que as 15 com `content-date` são as únicas que ganham data — mais o falso positivo declarado.
+4. **Prova de identidade**: subir `EXECUTOR_VERSION` (`:96`) e demonstrar, com o `parameters_hash`, que o mesmo RAW re-derivado **não colide** com o derivado 1149 antigo (é o risco de §2). O `tests/test_a_receita_tem_versao.py` tem de passar a apanhar a régua, não só a receita.
+5. **Re-derivação real na Sala**: o derivado novo do 2272 existe, com pai = RAW 2272 e sha novo, e o item que chega à admissão já traz PUBLISHED_AT com base.
+Tudo isto em cópia/worktree, com git provando o antes e o depois, e o RAW 2272 preservado byte a byte.
+
+═══════════════════════════════════════════
+5 · DE QUEM É O TRABALHO — DONO DEFINIDO, PARTIDO EM DOIS
+═══════════════════════════════════════════
+Não é «DONO = NÃO DEFINIDO». Está definido e é partido, e o SOUL não deixa dúvida:
+- **A capacidade** («parsing técnico inicial» / «extração técnica inicial», SOUL §FRONTEIRA) é **minha — SCRAP ENGINEER**. Eu meço, especifico a régua, provo no acervo e aposento se falhar.
+- **A alteração de código** vive em `coleta/texto_fonte.py`, que é do **dono da Collection** — e `limpar()` é declarado «O DONO ÚNICO DA EXTRAÇÃO» (`executor_texto_de_html.py:84,139`). Mudar o algoritmo mexe no artefacto derivado, contrato COL-LAW-008/203 (Bíblia da Coleta l.150), na receita e na versão do executor. Isso **não é meu para editar sem autorização**.
+- Fronteira que eu NÃO toco: admissão (Defeito A), ontologia/claim com papel (COL-LAW-202, ONTOLOGIA_INSUFICIENTE — decisão do dono), gazetteer, Sala, Intelligence. Se o B1 ficar verde e o 1149 continuar vermelho no elo 4/5, isso é achado para o dono, não remendo meu.
+Logo: **eu especifico e provo a capability; a Collection implementa no ficheiro dela.** Se o dono quiser que a mão que mede seja a mão que corta, precisa de o dizer — e aí o corte é em worktree própria, com a versão subida.
+
+═══════════════════════════════════════════
+O QUE NÃO MUDOU / O QUE CONTINUA DESCONHECIDO
+═══════════════════════════════════════════
+- Não alterei nada no vivo; os números de §4 são medição em memória, não instalação.
+- O `corpo()` continua a deixar passar menu longo (11 linhas no 1149) — separar menu de corpo é passo seguinte, de outro tamanho.
+- A régua de data em prosa italiana não existe: sem ela, o campo `content-date` encontrado ainda devolve NAO SEI. `PRECISA MEDIR` com conjunto controlado (12 meses × formatos).
+- As 5 páginas com corpo < 20 palavras depois: **NÃO SEI** se perdem conteúdo — não as inspeccionei.
+- Os medidores de `medidas/` ficam com os JSON velhos: regerar é obrigatório na mesma mudança.
+
+KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA (é durável): «`limpar()` achata a estrutura; a receita do derivado NÃO inclui a régua de extração, por isso mudá-la exige subir `EXECUTOR_VERSION` à mão». Isto não pode ficar só no chat.
+BÍBLIA/CONTRATO: a Bíblia da Coleta pode precisar de uma linha (derivação preserva estrutura de bloco); a decisão é do dono.
+
+PRÓXIMO PASSO MÍNIMO: autorização do dono da Collection para a mudança de uma linha em `coleta/texto_fonte.py:69` + subida de `EXECUTOR_VERSION`, em worktree própria, com o replay das 463 páginas anexado como prova.
+
+HARD STOP.
+
+MOTOR_VERIFICADO: sessao=20260928_123402_8c444e modelo=deepseek/deepseek-v4.1-flash provedor=openrouter -> OK
