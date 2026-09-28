@@ -1,0 +1,85 @@
+{
+ "REF": "59199ff3f4f21df8748b24476798027533165d3d",
+ "TESTES": [
+  "tests.test_c6_repetido",
+  "tests.test_micro_coleta_instrumento"
+ ],
+ "MUTANTES": {
+  "M01_SEM_FORWARD_IDENTIFIED_NO_BRUTO_DO_ITEM": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_mesmo_item_outro_universo_reprova",
+    "test_raw_do_item_com_identidade_nula_reprova",
+    "test_raw_do_item_sem_identidade_provada_reprova"
+   ]
+  },
+  "M02_SEM_FORWARD_IDENTIFIED_NA_LINHA_DA_SALA": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_raw_da_linha_da_sala_sem_identidade_provada_reprova"
+   ]
+  },
+  "M03_SEM_MESMO_UNIVERSO_NO_DOCUMENTO": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_decisao_sem_universo_nao_funde",
+    "test_mesmo_documento_outro_universo_reprova"
+   ]
+  },
+  "M04_SEM_MESMO_UNIVERSO_NO_ITEM": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_mesmo_item_outro_universo_reprova"
+   ]
+  },
+  "M05_FUSAO_POR_DOCUMENTO_NAO_TIRA_DO_FORA": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_caso_real_58_1243_mesmo_documento_passa"
+   ]
+  },
+  "M06_FUSAO_POR_ITEM_NAO_TIRA_DO_FORA": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_fundido_por_item_noutra_corrida_passa"
+   ]
+  },
+  "M07_CONTAGEM_SEM_A_FUSAO_POR_DOCUMENTO": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_a_contagem_ja_na_sala_passa_a_ver_a_fusao_por_documento"
+   ]
+  },
+  "M08_TUDO_O_QUE_NAO_POUSOU_CONTA_COMO_FUNDIDO": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_decisao_sem_universo_nao_funde",
+    "test_mesmo_documento_outro_universo_reprova",
+    "test_mesmo_documento_so_na_mesma_corrida_nao_e_fusao_de_outra_corrida",
+    "test_mesmo_item_outro_universo_reprova",
+    "test_raw_da_linha_da_sala_sem_identidade_provada_reprova",
+    "test_raw_do_item_com_identidade_nula_reprova",
+    "test_raw_do_item_sem_identidade_provada_reprova",
+    "test_sim_que_simplesmente_nao_pousou_reprova"
+   ]
+  },
+  "M09_SALA_SEM_SIM_DEIXA_DE_REPROVAR": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_sala_sem_sim_no_livro_continua_a_reprovar_mesmo_com_fusao"
+   ]
+  },
+  "M10_PROVA_APONTA_PARA_O_PROPRIO_ITEM": {
+   "ESTADO": "MORTO",
+   "MATOU": [
+    "test_caso_real_58_1243_mesmo_documento_passa",
+    "test_sala_sem_sim_no_livro_continua_a_reprovar_mesmo_com_fusao"
+   ]
+  }
+ },
+ "FALHAS_NA_COPIA_LIMPA": [
+  "test_fica_fora_da_3b_nao_barra_a_fonte",
+  "test_relatorio_e_dados_da_3b_desencontrados_rebentam"
+ ],
+ "PLACAR": "10/10"
+}
