@@ -1688,10 +1688,12 @@
       "docs/intelligence/RELATORIO-T6-CAP-SCI.md",
       "docs/intelligence/pote-v2/CONTRATO-POTE-V2.md",
       "docs/intelligence/pote-v2/FORMATOS-MEDIDOS.md",
+      "docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.1.schema.json",
       "docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.schema.json",
       "docs/intelligence/r7/ANALISE-R7.json",
       "docs/intelligence/r7/CRUZAMENTOS-MAX-ITENS-DO-POTE.json",
       "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
+      "docs/intelligence/r7/POTE-R7-PUBLICADO.json",
       "docs/intelligence/r7/RELATORIO-RODADA-7.md",
       "docs/nuvem/nuvem-boletim-por-secao-v1-MERGES.txt",
       "docs/nuvem/nuvem-cruzamentos-max-v1-MERGES.txt",
@@ -2759,6 +2761,7 @@
       "motor/corrida_da_inteligencia.py",
       "motor/cruzamentos_max.py",
       "motor/grafo_de_dependencia.py",
+      "motor/identidade_do_cruzamento.py",
       "motor/matriz_recorte.py",
       "motor/motor_das_capacidades.py",
       "motor/normalize_agro.py",
@@ -2798,6 +2801,7 @@
       "motor/v2_montar_handoff.py",
       "motor/v2_qa_atribuir.py",
       "motor/v2_relatorio.py",
+      "motor/vocabulario_unico.py",
       "motor/voce_dal_campo.py"
     ],
     "orquestrador": [
@@ -2874,6 +2878,7 @@
       "provas/_mutantes_d36_equivalencia.py",
       "provas/_mutantes_d37.py",
       "provas/_mutantes_freio_social.py",
+      "provas/_mutantes_identidade.py",
       "provas/_mutantes_maestro_social.py",
       "provas/_mutantes_ponte_casco.py",
       "provas/_mutantes_pote_casco.py",
@@ -3207,6 +3212,10 @@
       "provas/pote_v2/bateria-ramo-9719efc.json",
       "provas/pote_v2/medir_recusas_r6.py",
       "provas/pote_v2/mutantes_pote_v2_unico.py",
+      "provas/potes_um_cartao/ITENS-XMAX-ANTES-b273660.json",
+      "provas/potes_um_cartao/MEDICAO-R7.json",
+      "provas/potes_um_cartao/gerar_fixture_v21.py",
+      "provas/potes_um_cartao/medir_r7.py",
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
       "provas/primeira_coleta_controlada_italia.py",
@@ -3862,6 +3871,8 @@
       "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
       "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
       "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
+      "tests/fixtures/pote/POTE-SINTETICO-V21-A.json",
+      "tests/fixtures/pote/POTE-SINTETICO-V21.json",
       "tests/fixtures/pote/POTE-SINTETICO.json",
       "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
       "tests/fixtures/yt-raw-minimo.json",
@@ -4026,6 +4037,7 @@
       "tests/test_grafo_de_dependencia.py",
       "tests/test_handoff.py",
       "tests/test_hero_cases_v1.py",
+      "tests/test_identidade_cruzamento.py",
       "tests/test_identidade_do_artefato.py",
       "tests/test_implementacoes_candidatas.py",
       "tests/test_importar_do_coletor.py",
@@ -4106,6 +4118,8 @@
       "tests/test_portoes_eame.py",
       "tests/test_pote_intelligence_casco.py",
       "tests/test_pote_no_casco.mjs",
+      "tests/test_pote_v21.py",
+      "tests/test_pote_v21_no_casco.mjs",
       "tests/test_pote_v2_unico.py",
       "tests/test_preco_de_mercado.py",
       "tests/test_preflight_de_egresso.py",
@@ -4711,10 +4725,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote7-integra-grain-rule-37g8vv",
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217",
-    "GENERATED_AT": "2026-09-27T23:28:34+00:00",
-    "SOURCE_TREE_FINGERPRINT": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5"
+    "BRANCH": "claude/potes-one-card-per-question-frzml5",
+    "HEAD": "3c22ec40a3e23aabc84cc328c9b01b5e1d4060e1",
+    "GENERATED_AT": "2026-09-28T01:16:35+00:00",
+    "SOURCE_TREE_FINGERPRINT": "fb108793709b089726f51e16be81a1bcd2eb549cf88491b58dd26711154cb49b"
   },
   "FAMILIES": [
     {
@@ -4770,7 +4784,7 @@
         "Z-LINEAGE",
         "Z-INT-LEI"
       ],
-      "count": 27
+      "count": 28
     },
     {
       "id": "F-GOVERNANCA",
@@ -4785,7 +4799,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 122
+      "count": 123
     },
     {
       "id": "F-ENTREGA",
@@ -5046,7 +5060,7 @@
       "y": 190,
       "w": 1235,
       "h": 10988,
-      "count": 19
+      "count": 20
     },
     {
       "id": "Z-LINEAGE",
@@ -5157,7 +5171,7 @@
       "y": 190,
       "w": 1235,
       "h": 10988,
-      "count": 101
+      "count": 102
     },
     {
       "id": "Z-REFERENCIA",
@@ -6335,8 +6349,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 884",
-        "desses, mostrados aqui: 40 (ficam de fora 844)"
+        "enderecos que o codigo realmente chama: 887",
+        "desses, mostrados aqui: 40 (ficam de fora 847)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -44687,8 +44701,8 @@
       "name": "Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Le docs/intelligence/r7/ANALISE-R7.json (86 cruzamentos), e a referencia ADAMA PELA PORTA (motor/porta_da_referencia.py, edicao corrente): os usos autorizados com a citacao do par, a leitura de cada bula e os registos ADAMA. Ja nao le os pares do leitor de rotulos nem o CSV de 07/09 (outra edicao). (1) Refaz os cruzamentos com uma TABELA DE GRAO que so aceita o que o MESMO rotulo declara («Pomacee (melo, pero, ...)») ou nomeia na zona da cultura do par; grupo do leitor sem nome = GRAO_NAO_PROVADO; cultura de rotacao e subtipo nao contam. (2) Confere os POSSIBLE_ANSWER_YES_A_CONFIRMAR contra os registos ADAMA da edicao corrente (registo ADAMA, substancia na composicao, validade NA DATA DO BOLETIM, cultura no rotulo, dose/intervalo transcritos) -> CONFIRMED_YES / NO / UNRESOLVED. (3) PORTFOLIO_MATCH: para pares cultura x praga da mesma secao do boletim, os produtos ADAMA com essa cultura x alvo no rotulo (linha/bloco) e registo valido. (4) COMPETITIVE_SET: produtos de outras empresas com a mesma substancia — NAO SEI enquanto a referencia nao tiver o mercado (LACUNA-3, declarada). (5) Escreve CRUZAMENTOS-MAX.json e os objetos no contrato de entrada do pote v2 (ESPECIE CROSSING).",
-      "why_here": "CRUZAMENTOS-MAX (D114 do dono, 2026-09-27: o maximo de cruzamentos, cada um com prova). Mede sobre o repo, sem rede: 48 PARTIAL continuam 48 (a substancia nao esta ligada a cultura no troco guardado; o texto integral nao esta versionado), 5 YES -> 3 CONFIRMED_YES + 2 UNRESOLVED, 22 dos 29 NO eram NO sem rotulo lido -> UNRESOLVED. Ausencia e ausencia NA NOSSA LEITURA (102/163 rotulos). Testes: tests/test_cruzamentos_max.py (sinteticos SINT- + drift do JSON commitado). PORTA-UNICA-REFERENCIA (D116): pela porta o grao ficou identico (86/86), e os 3 CONFIRMED_YES voltam a POSSIBLE_ANSWER_YES_A_CONFIRMAR — a edicao corrente nao traz data de registo/revoga (LACUNA-2); o competitive set fica NAO SEI (LACUNA-3).",
+      "what": "Le docs/intelligence/r7/ANALISE-R7.json (86 cruzamentos), e a referencia ADAMA PELA PORTA (motor/porta_da_referencia.py, edicao corrente): os usos autorizados com a citacao do par, a leitura de cada bula e os registos ADAMA. Ja nao le os pares do leitor de rotulos nem o CSV de 07/09 (outra edicao). (1) Refaz os cruzamentos com uma TABELA DE GRAO que so aceita o que o MESMO rotulo declara («Pomacee (melo, pero, ...)») ou nomeia na zona da cultura do par; grupo do leitor sem nome = GRAO_NAO_PROVADO; cultura de rotacao e subtipo nao contam. (2) Confere os POSSIBLE_ANSWER_YES_A_CONFIRMAR contra os registos ADAMA da edicao corrente (registo ADAMA, substancia na composicao, validade NA DATA DO BOLETIM, cultura no rotulo, dose/intervalo transcritos) -> CONFIRMED_YES / NO / UNRESOLVED. (3) PORTFOLIO_MATCH: para pares cultura x praga da mesma secao do boletim, os produtos ADAMA com essa cultura x alvo no rotulo (linha/bloco) e registo valido. (4) COMPETITIVE_SET: produtos de outras empresas com a mesma substancia — NAO SEI enquanto a referencia nao tiver o mercado (LACUNA-3, declarada). (5) Escreve CRUZAMENTOS-MAX.json e os objetos no contrato de entrada do pote v2 (ESPECIE CROSSING). D125 · POTES-UM-CARTAO (dono 27/09: «potes, aprovo»): (6) os objetos saem UM POR PERGUNTA: a chave IDENT-v1 (F1 IT x substancia x cultura; F2 IT x cultura x praga; F3 IT x substancia x registo, com o boletim-gatilho como REFERENCIA) da OBJETO_ID = XQ-sha(CROSSING_KEY), os XMAX- antigos vao para ALIAS, uma PROVA/LINK por documento, e a RESPOSTA da F1 e a do ROTULO (avaliar_rotulo), nunca o melhor link.",
+      "why_here": "CRUZAMENTOS-MAX (D114 do dono, 2026-09-27: o maximo de cruzamentos, cada um com prova). Mede sobre o repo, sem rede: 48 PARTIAL continuam 48 (a substancia nao esta ligada a cultura no troco guardado; o texto integral nao esta versionado), 5 YES -> 3 CONFIRMED_YES + 2 UNRESOLVED, 22 dos 29 NO eram NO sem rotulo lido -> UNRESOLVED. Ausencia e ausencia NA NOSSA LEITURA (102/163 rotulos). Testes: tests/test_cruzamentos_max.py (sinteticos SINT- + drift do JSON commitado). PORTA-UNICA-REFERENCIA (D116): pela porta o grao ficou identico (86/86), e os 3 CONFIRMED_YES voltam a POSSIBLE_ANSWER_YES_A_CONFIRMAR — a edicao corrente nao traz data de registo/revoga (LACUNA-2); o competitive set fica NAO SEI (LACUNA-3). D125 · POTES-UM-CARTAO (dono 27/09: «potes, aprovo»): na R7 do repo, 96 objetos por link viram 83 perguntas; OLIVO x mosca da oliveira 13 -> 1 (13 documentos, 10 SOURCE_ID); FOLPET x VITE 2 -> 1 com os dois estados nos links.",
       "departments": [
         "INTELIGENCIA",
         "ENGENHARIA"
@@ -44712,14 +44726,17 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-IDENTIDADE-DO-CRUZAMENTO",
         "C-INT-PORTA-REFERENCIA",
         "C-LUGAR-COLETA",
         "C-MAPA-TESTES",
         "C-PONTE-INT-CASCO"
       ],
       "outbound": [
+        "C-IDENTIDADE-DO-CRUZAMENTO",
         "C-POTE-CRUZAMENTOS-MAX",
         "C-PROVA-CRUZAMENTOS-MAX",
+        "C-PROVA-IDENTIDADE",
         "C-PROVA-PORTA-REFERENCIA",
         "C-TESTES"
       ],
@@ -44778,12 +44795,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "pacote/pote_cruzamentos_max.py:49",
+          "motor/identidade_do_cruzamento.py:101",
+          "pacote/pote_cruzamentos_max.py:50",
           "provas/_mutantes_cruzamentos_max.py:24",
-          "provas/lote7_integra/medir_grao_na_porta.py:33",
-          "provas/porta_unica_referencia/mutantes.py:36"
+          "provas/_mutantes_identidade.py:26"
         ],
-        "PORQUE": "estas pecas importam-na — C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-IDENTIDADE-DO-CRUZAMENTO · C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 15085,
       "y": 360
@@ -48392,6 +48409,108 @@
       "y": 360
     },
     {
+      "id": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "name": "Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "A regra que da nome ao cartao pela PERGUNTA, e nao pelo boletim nem pela corrida. motor/vocabulario_unico.py (VOCAB-v1): praga, cultura e lugar com CODIGO + ALIAS + VERSAO, compostos das listas que o repo ja tem (leitor de rotulos, boletim_do_campo MESMO_PROBLEMA, gazetteer de fato_local) — grupo != especie, «mosca» sozinho = NAO SEI. motor/identidade_do_cruzamento.py: CROSSING_KEY por familia (F1..F5) -> XQ-; NAO_SEI@<documento> nunca junta; a edicao da bula fica fora da chave; evidencia = documento e independencia = originador; SG2/FUT2 sem run; identificar() migra XC-/XMAX-/SG-/FUT- para o novo ID com ALIAS; consolidar() junta os links da mesma pergunta; estado_vigente() (TEMPORAL_CHANGE != CONFLITANTE); fecho(), conferir_referencias() (DAG) e delta() contra o pote anterior publicado (opcao A), com PAI_MUDOU para os dependentes.",
+      "why_here": "D125 (dono 27/09 ~21:40: «potes, aprovo»), desenho docs/lab/IDENTIDADE-CRUZAMENTO.md (§11.2 INT-LAW-096/097/098/099/215/216, ordem §11.3). A duplicacao nascia no ID: 0/47 IDs iguais de R6 para R7, 13 cartoes para OLIVO x mosca. Testes: tests/test_identidade_cruzamento.py (os 17 casos do red team do LAB contra o codigo real, os 2 defeitos da POC corrigidos, SG2 estavel entre corridas, R7 do repo).",
+      "departments": [
+        "INTELIGENCIA",
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "generator",
+        "opportunity"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "motor/identidade_do_cruzamento.py",
+        "motor/vocabulario_unico.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CRUZAMENTOS-MAX",
+        "C-LUGAR-COLETA",
+        "C-MAPA-TESTES"
+      ],
+      "outbound": [
+        "C-CRUZAMENTOS-MAX",
+        "C-INT-CORRIDA",
+        "C-INT-MOTOR-CAPACIDADES",
+        "C-POTE-INT-CASCO",
+        "C-PROVA-IDENTIDADE",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "FAMILIAS",
+          "RANK",
+          "_SHA"
+        ],
+        "palavras": 26,
+        "por_lingua": {
+          "PT": 1
+        },
+        "sem_marca_de_lingua": 25,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "INTELIGENCIA · ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "motor/corrida_da_inteligencia.py:71",
+          "motor/cruzamentos_max.py:67",
+          "motor/motor_das_capacidades.py:88",
+          "pacote/pote_intelligence_casco.py:77"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CRUZAMENTOS-MAX · C-INT-CORRIDA · C-INT-MOTOR-CAPACIDADES · C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 15500,
+      "y": 360
+    },
+    {
       "id": "C-IMPORTAR",
       "name": "Levar o dado para o banco",
       "territory": "Z-GUARDA",
@@ -48845,8 +48964,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
-      "y": 360
+      "x": 14670,
+      "y": 682
     },
     {
       "id": "C-INT-ARBITRAGEM",
@@ -49182,7 +49301,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 682
     },
     {
@@ -49281,7 +49400,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 682
     },
     {
@@ -49496,15 +49615,15 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
-      "y": 682
+      "x": 14670,
+      "y": 1004
     },
     {
       "id": "C-INT-CORRIDA",
       "name": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Abre uma corrida identificada sobre itens JA LIDOS da Sala de Espera, guarda pergunta, entradas, versao de regras, de codigo e da Biblia, inicio, fim, estado e erro — e fecha. O portao G0 pergunta se da para saber sobre quem o item fala, de onde veio e quando o facto aconteceu; quando nao da, produz INTELLIGENCE_REQUIREMENT e para. Nao produz achado, oportunidade nem pontuacao.",
+      "what": "Abre uma corrida identificada sobre itens JA LIDOS da Sala de Espera, guarda pergunta, entradas, versao de regras, de codigo e da Biblia, inicio, fim, estado e erro — e fecha. O portao G0 pergunta se da para saber sobre quem o item fala, de onde veio e quando o facto aconteceu; quando nao da, produz INTELLIGENCE_REQUIREMENT e para. Nao produz achado, oportunidade nem pontuacao. D125 · POTES-UM-CARTAO (dono 27/09: «potes, aprovo»): o SIGNAL_ID passa a SG2-sha(documento|RAW|FACT_TIME) (sem run, sem posicao); o SG- antigo fica em ALIAS; a duplicata desempata pelo ITEM_ID.",
       "why_here": "C-INT-PILOT-01, a primeira missao que a §32 da Biblia autoriza. O RUN_ID deriva do pedido e das ENTRADAS, nunca do relogio — sem isso REUSED deixa de ser detetavel, e INT-LAW-054 exige que o reuso seja PROVADO. Ela NAO sabe abrir a Sala de Espera, e e de proposito: quem sabe abrir a Sala consegue, um dia, decidir enche-la. Corrida real sobre um item real: DONE · NO_ANALYTIC_OUTPUT_YET · 0 sinais · 1 requisito · 0 coletores.",
       "departments": [
         "ENGENHARIA",
@@ -49529,6 +49648,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-IDENTIDADE-DO-CRUZAMENTO",
         "C-INT-BIBLIA",
         "C-INT-ESPINHA",
         "C-INT-GRAFO-DEPENDENCIA",
@@ -49542,6 +49662,7 @@
         "C-INT-ESPINHA",
         "C-INT-MOTOR-CAPACIDADES",
         "C-PONTE-INT-CASCO",
+        "C-PROVA-IDENTIDADE",
         "C-PROVA-INDEPENDENCIA",
         "C-PROVA-PONTE-CASCO",
         "C-TESTES"
@@ -49602,7 +49723,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES · C-PONTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 1004
     },
     {
@@ -49795,7 +49916,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 1004
     },
     {
@@ -50084,8 +50205,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CAP-WIN · C-INT-CORRIDA · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
-      "y": 1004
+      "x": 14670,
+      "y": 1326
     },
     {
       "id": "C-INT-MODELO",
@@ -50267,7 +50388,7 @@
       "name": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida.",
+      "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida. D125 · POTES-UM-CARTAO (dono 27/09: «potes, aprovo»): o facto futuro passa a FUT2 (ISSUE x lugar x horizonte; sem ISSUE, documento x RAW x horizonte), sem run; o R7-FUT- antigo fica em ALIAS.",
       "why_here": "Missao INT-R7-CAPS: juntar CAP-WIN e CAP-SCI no motor sem duplicar leis nem contadores (uma corrida, um RUN_ID) e preparar a rodada 7 (RUNBOOK-R7.md). Conflitos resolvidos pelo significado: URL/DOCUMENT_ID nao sao READY (vem do RAW); JANELA_DECLARADA nao esta em CAMPOS_READY (viaja ao lado, so a CAP-WIN a le); boletim nao e estudo e estudo nao e janela. Nao abre a Sala, nao cunha identidade, nao produz OPORTUNIDADE. EXPERIMENTAL / NAO_PARA_CLIENTE.",
       "departments": [
         "ENGENHARIA",
@@ -50294,6 +50415,7 @@
       "produces": [],
       "inbound": [
         "C-AFIRMACAO-DA-FONTE",
+        "C-IDENTIDADE-DO-CRUZAMENTO",
         "C-INT-CAP-SCI",
         "C-INT-CAP-WIN",
         "C-INT-CORRIDA",
@@ -50365,7 +50487,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 1326
     },
     {
@@ -50535,7 +50657,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COLETA-META · C-CRUZAMENTOS-MAX · C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 1326
     },
     {
@@ -53091,6 +53213,7 @@
         "C-CONTRATO-ARTEFATO",
         "C-CRUZAMENTOS-MAX",
         "C-ELEGIBILIDADE-COMENTARIO",
+        "C-IDENTIDADE-DO-CRUZAMENTO",
         "C-INT-CORRIDA",
         "C-INT-MOTOR-CAPACIDADES",
         "C-LUGAR-V2",
@@ -53232,7 +53355,7 @@
           "coleta/pesquisadores_t6.py:273",
           "ferramentas/lugar_v2/estimar_comuni.py:10"
         ],
-        "PORQUE": "estas pecas importam-na — C-ADMISSAO · C-CONTRATO-ARTEFATO · C-CRUZAMENTOS-MAX · C-ELEGIBILIDADE-COMENTARIO · C-INT-CORRIDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ADMISSAO · C-CONTRATO-ARTEFATO · C-CRUZAMENTOS-MAX · C-ELEGIBILIDADE-COMENTARIO · C-IDENTIDADE-DO-CRUZAMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 21805,
       "y": 1326
@@ -54093,6 +54216,7 @@
         "C-FONTES-EU",
         "C-FRENTES-CONCORRENCIA",
         "C-FRONTEIRA-TELEMETRIA",
+        "C-IDENTIDADE-DO-CRUZAMENTO",
         "C-INGRESSO",
         "C-IT-COLETA",
         "C-IT-EDICOES-DO-REGISTRO",
@@ -54136,6 +54260,7 @@
         "C-PROVA-FALA-QUALIDADE",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-IDENTIDADE",
         "C-PROVA-INT-R7",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -56841,8 +56966,8 @@
         "PLANO": null,
         "PROVA": [
           "motor/cruzamentos_max.py:61",
-          "pacote/pote_cruzamentos_max.py:51",
-          "pacote/pote_intelligence_casco.py:68",
+          "pacote/pote_cruzamentos_max.py:52",
+          "pacote/pote_intelligence_casco.py:71",
           "provas/_mutantes_ponte_casco.py:23"
         ],
         "PORQUE": "estas pecas importam-na — C-CRUZAMENTOS-MAX · C-POTE-CRUZAMENTOS-MAX · C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -57358,7 +57483,7 @@
       "name": "Modelo de aplicacao do portal",
       "territory": "Z-SUPERFICIE",
       "kind": "surface",
-      "what": "A logica de tela: o que aparece, em que ordem, com que rotulo.",
+      "what": "A logica de tela: o que aparece, em que ordem, com que rotulo. D125 · POTES-UM-CARTAO (dono 27/09: «potes, aprovo»): sintonia-pote-casco.js le tambem o pote v2.1: RESOLVE cada ID no unico cartao (copia no compartimento ou ID sem cartao = recusado) e so MOSTRA o selo DELTA, o GRUPO, a RESPOSTA e a lista SAIRAM que a Intelligence escreveu — nao compara potes nem calcula.",
       "why_here": "Guarda a leitura, nao a decisao.",
       "departments": [
         "COMERCIAL",
@@ -57406,6 +57531,7 @@
         "C-PORTAL-CASCO",
         "C-PORTAL-DADOS",
         "C-PORTAO-BUILD",
+        "C-PROVA-IDENTIDADE",
         "C-PROVA-POTE-CASCO",
         "C-TELA-ARCHIVE",
         "C-TELA-FIELD",
@@ -57609,7 +57735,7 @@
       "name": "O pote dos cruzamentos-max (o coordenador roda localmente)",
       "territory": "Z-PACOTE",
       "kind": "engine",
-      "what": "Corre motor/cruzamentos_max.py (com o livro das secoes, se o coordenador o der), monta UMA corrida nova (IR-XMAX-..., CORRIDA_BASE = a R7) com a LINEAGE da R7 verbatim, os objetos da R7 (salvo --so-cruzamentos) e os objetos CRUZAMENTOS-MAX em portfolio e competitors, e entrega-a a pacote/pote_intelligence_casco.py (contrato v2), que confere e recusa a vista. Liga a prova a LINEAGE so por identidade exata e unica (SOURCE_ID+RAW_OBSERVATION_ID, ou ITEM_ID); ambigua ou ausente fica como veio. DOCUMENT_ID que a LINEAGE nao tem continua NAO SEI. Escreve so fora do portal ou em italia-portale/client/sintonia-pote.js (regra do pote).",
+      "what": "Corre motor/cruzamentos_max.py (com o livro das secoes, se o coordenador o der), monta UMA corrida nova (IR-XMAX-..., CORRIDA_BASE = a R7) com a LINEAGE da R7 verbatim, os objetos da R7 (salvo --so-cruzamentos) e os objetos CRUZAMENTOS-MAX em portfolio e competitors, e entrega-a a pacote/pote_intelligence_casco.py (contrato v2), que confere e recusa a vista. Liga a prova a LINEAGE so por identidade exata e unica (SOURCE_ID+RAW_OBSERVATION_ID, ou ITEM_ID); ambigua ou ausente fica como veio. DOCUMENT_ID que a LINEAGE nao tem continua NAO SEI. Escreve so fora do portal ou em italia-portale/client/sintonia-pote.js (regra do pote). D125 · POTES-UM-CARTAO (dono 27/09: «potes, aprovo»): --v21 [--anterior POTE-PUBLICADO] entrega o pote v2.1 (um cartao por pergunta, o compartimento so com IDS, DELTA contra o pote anterior publicado pelo RUN_ID + SHA256).",
       "why_here": "A LINEAGE da R7 e o livro das secoes vivem fora do repo; sem eles nenhum objeto atravessa o pote, e assim deve ser. O coordenador corre isto na maquina dele.",
       "departments": [
         "ENGENHARIA",
@@ -57693,8 +57819,8 @@
       "name": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta",
       "territory": "Z-PACOTE",
       "kind": "engine",
-      "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy. POTE-V2-UNICO (27/09): e o contrato UNICO (docs/intelligence/pote-v2/CONTRATO-POTE-V2.md + schema ao lado + validar_pote_v2.py = forma do schema e lei de conferir_pote). INTELLIGENCE_RUN_ID no topo (em CABECALHO so por leitura declarada em LEITURA_DE_COMPATIBILIDADE); cada PROVA com URL e PUBLISHED_AT, ou NAO SEI com a base, G0 e ADMITIDA_POR; ENTITY_SOURCE/LOCATION_SOURCE (D112; o lugar da fonte nunca vira lugar do facto). P7: RENDIMENTO_DE_FONTE e resultado honesto (NAO / NAO_TRATAR_AGORA / NO_DEFENSIBLE_ACTION_YET) nao dependem de FACT_TIME (USO_EXIGE_TEMPO); proveniencia continua obrigatoria. P8: no Polso, MERCADO.LEITURA = SERIE_MEDIDA so com >= 2 pontos na mesma unidade; um ponto e SINAL_SOLTO, e afirmar mudanca sem serie e recusado.",
-      "why_here": "POTE-UNICO (D95/D96, 2026-09-27). O casco lia uma inteligencia congelada (snapshot 07/09) e demo; a ponte v1 nao tinha especie nem vaga para Radar Futuro (P2/P5), Registro/Archivio (P3), e o portal nao a lia. INT-LAW-023/280: transporta, nao cruza, nao promove, nao muda especie, nao calcula rendimento. 45 testes (tests/test_pote_intelligence_casco.py + tests/test_pote_no_casco.mjs, fixture SINTETICA declarada em tests/fixtures/pote/). POTE-V2-UNICO: o bot emitia um R5 com o id em CABECALHO e o gerador ce775ff5 recusava-o; o R6 aprovado recusava o «nao» da APOL e deixava 3 de 47 fontes no Registro (P7), e o Polso lia sinal solto como mudanca (P8). +38 testes em tests/test_pote_v2_unico.py; numa fixture SINTETICA equivalente a R6, 45 das 46 recusas voltam (provas/pote_v2/medir_recusas_r6.py).",
+      "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy. POTE-V2-UNICO (27/09): e o contrato UNICO (docs/intelligence/pote-v2/CONTRATO-POTE-V2.md + schema ao lado + validar_pote_v2.py = forma do schema e lei de conferir_pote). INTELLIGENCE_RUN_ID no topo (em CABECALHO so por leitura declarada em LEITURA_DE_COMPATIBILIDADE); cada PROVA com URL e PUBLISHED_AT, ou NAO SEI com a base, G0 e ADMITIDA_POR; ENTITY_SOURCE/LOCATION_SOURCE (D112; o lugar da fonte nunca vira lugar do facto). P7: RENDIMENTO_DE_FONTE e resultado honesto (NAO / NAO_TRATAR_AGORA / NO_DEFENSIBLE_ACTION_YET) nao dependem de FACT_TIME (USO_EXIGE_TEMPO); proveniencia continua obrigatoria. P8: no Polso, MERCADO.LEITURA = SERIE_MEDIDA so com >= 2 pontos na mesma unidade; um ponto e SINAL_SOLTO, e afirmar mudanca sem serie e recusado. D125 · POTES-UM-CARTAO (dono 27/09: «potes, aprovo»): contrato POTE_INTELLIGENCE_CASCO/v2.1 (adaptar_v21 / v21_do_v2 / materializar / conferir_pote_v21, schema docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.1.schema.json): CARTOES guarda cada cartao UMA vez; cada compartimento guarda so os IDS (o Arquivo deixa de repetir); ANTERIOR = RUN_ID + SHA256 do pote publicado; DELTA NOVO/FORTALECEU/MUDOU_ESTADO/ENFRAQUECEU/SEM_REVISAO com CAUSA e GATILHO; SAIU so com causa; REFERENCIAS {CROSSING_ID, AVALIACAO_ID, PAPEL} so para baixo; FECHO conta cada documento e originador uma vez. Identidade, fecho e DELTA sao calculados por motor/identidade_do_cruzamento.py; o pote transporta e confere.",
+      "why_here": "POTE-UNICO (D95/D96, 2026-09-27). O casco lia uma inteligencia congelada (snapshot 07/09) e demo; a ponte v1 nao tinha especie nem vaga para Radar Futuro (P2/P5), Registro/Archivio (P3), e o portal nao a lia. INT-LAW-023/280: transporta, nao cruza, nao promove, nao muda especie, nao calcula rendimento. 45 testes (tests/test_pote_intelligence_casco.py + tests/test_pote_no_casco.mjs, fixture SINTETICA declarada em tests/fixtures/pote/). POTE-V2-UNICO: o bot emitia um R5 com o id em CABECALHO e o gerador ce775ff5 recusava-o; o R6 aprovado recusava o «nao» da APOL e deixava 3 de 47 fontes no Registro (P7), e o Polso lia sinal solto como mudanca (P8). +38 testes em tests/test_pote_v2_unico.py; numa fixture SINTETICA equivalente a R6, 45 das 46 recusas voltam (provas/pote_v2/medir_recusas_r6.py). D125 · POTES-UM-CARTAO (dono 27/09: «potes, aprovo»): o POTE-R7 publicado tinha 47 objetos e 25 distintos (o archive repetia 22); com a v2.1 sao 25 cartoes em 47 lugares. tests/test_pote_v21.py (D125-3: 1 documento novo que toca 3 potes = 0 cartoes repetidos, o mesmo carimbo nos 3).",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -57719,11 +57845,13 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-IDENTIDADE-DO-CRUZAMENTO",
         "C-MAPA-TESTES",
         "C-PONTE-INT-CASCO"
       ],
       "outbound": [
         "C-POTE-CRUZAMENTOS-MAX",
+        "C-PROVA-IDENTIDADE",
         "C-PROVA-INT-R7",
         "C-PROVA-POTE-CASCO",
         "C-TESTES"
@@ -57734,6 +57862,7 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_DE_IDENTIDADE",
           "COMPARTIMENTOS",
           "DA_V1",
           "LER_NA_ENTRADA",
@@ -57741,9 +57870,9 @@
           "PALAVRAS",
           "_CHAVES_T4"
         ],
-        "palavras": 155,
+        "palavras": 172,
         "por_lingua": {},
-        "sem_marca_de_lingua": 155,
+        "sem_marca_de_lingua": 172,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -57759,12 +57888,13 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 2 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.1.schema.json",
         "docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.schema.json"
       ],
       "consumes_plane": "CODE",
@@ -57780,10 +57910,10 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "pacote/pote_cruzamentos_max.py:50",
+          "pacote/pote_cruzamentos_max.py:51",
+          "provas/_mutantes_identidade.py:28",
           "provas/_mutantes_pote_casco.py:24",
-          "provas/int_r7/aceite_pelo_gerador.py:33",
-          "provas/int_r7/aceite_pelo_gerador.py:24"
+          "provas/int_r7/aceite_pelo_gerador.py:33"
         ],
         "PORQUE": "estas pecas importam-na — C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -61431,6 +61561,140 @@
       "y": 6800
     },
     {
+      "id": "C-PROVA-IDENTIDADE",
+      "name": "Mutacao da identidade do cruzamento e do pote v2.1",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Planta 25 defeitos numa copia da arvore em pasta temporaria (o repo nao e tocado): os 9 mutantes do red team do LAB (NAO SEI junta, grupo vira membro, lugar sobe para a regiao, METALAXYL = METALAXYL-M, evidencia por item, independencia por SOURCE_ID, TEMPORAL_CHANGE vira conflito, edicao na chave, publicacao vira fact time) e 16 da D125 (copia no compartimento, conferencia que aceita a copia, dependente que nao muda junto, fecho que soma ou esquece o pai, ausencia vira SAIU, ANTERIOR sem SHA, F1 pelos links, run no SG2, ALIAS apagado, casco que aceita copia ou inventa o selo, ...). Corre tests/test_identidade_cruzamento.py e tests/test_pote_v21.py. Sai 1 se algum sobreviver. provas/potes_um_cartao/gerar_fixture_v21.py gera a fixture SINTETICA do pote v2.1 que o casco le. provas/potes_um_cartao/medir_r7.py mede a D125 nos dados do repo (POTE-R7 publicado: 47 objetos -> 25 cartoes, o Arquivo 22 copias -> 22 IDs; cruzamentos R7: 96 objetos por link -> 83 perguntas, OLIVO x mosca 13 -> 1) e escreve MEDICAO-R7.json.",
+      "why_here": "Prova que os testes apanham o que a regra de identidade e o pote v2.1 juram nao fazer (D125).",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/_mutantes_identidade.py",
+        "provas/potes_um_cartao/gerar_fixture_v21.py",
+        "provas/potes_um_cartao/medir_r7.py"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [
+        "provas/potes_um_cartao/MEDICAO-R7.json"
+      ],
+      "inbound": [
+        "C-CRUZAMENTOS-MAX",
+        "C-IDENTIDADE-DO-CRUZAMENTO",
+        "C-INT-CORRIDA",
+        "C-MAPA-TESTES",
+        "C-PORTAL-MODELO",
+        "C-POTE-INT-CASCO",
+        "C-TESTES"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "M"
+        ],
+        "palavras": 40,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 40,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "tests/fixtures/pote",
+          "prova": {
+            "file": "provas/potes_um_cartao/gerar_fixture_v21.py",
+            "line": 36,
+            "snippet": "escreve em FX"
+          }
+        },
+        {
+          "pasta": "provas/potes_um_cartao",
+          "prova": {
+            "file": "provas/potes_um_cartao/medir_r7.py",
+            "line": 80,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/potes_um_cartao/MEDICAO-R7.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M6_ESCREVE_NUMA_PASTA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "escreve na pasta tests/fixtures/pote (provas/potes_um_cartao/gerar_fixture_v21.py:36): produz dado",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve na pasta tests/fixtures/pote (provas/potes_um_cartao/gerar_fixture_v21.py:36): produz dado) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "docs/intelligence/r7/POTE-R7-PUBLICADO.json",
+        "italia-portale/client/sintonia-pote-casco.js",
+        "motor/corrida_da_inteligencia.py",
+        "motor/cruzamentos_max.py",
+        "motor/identidade_do_cruzamento.py",
+        "motor/vocabulario_unico.py",
+        "pacote/pote_intelligence_casco.py",
+        "provas/potes_um_cartao/MEDICAO-R7.json",
+        "tests/fixtures/pote/POTE-SINTETICO-V21-A.json",
+        "tests/fixtures/pote/POTE-SINTETICO-V21.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 22925,
+      "y": 6800
+    },
+    {
       "id": "C-PROVA-INDEPENDENCIA",
       "name": "As provas do grafo de dependência — testes por nome, mutação e o V2.1 antes/depois",
       "territory": "Z-PROVA",
@@ -61523,7 +61787,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6800
     },
     {
@@ -61638,8 +61902,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 6800
+      "x": 22510,
+      "y": 7122
     },
     {
       "id": "C-PROVA-JANELA-FORMAS",
@@ -61807,7 +62071,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7122
     },
     {
@@ -61912,7 +62176,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7122
     },
     {
@@ -62003,8 +62267,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 7122
+      "x": 22510,
+      "y": 7444
     },
     {
       "id": "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -62116,7 +62380,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7444
     },
     {
@@ -62254,7 +62518,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7444
     },
     {
@@ -62368,8 +62632,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 7444
+      "x": 22510,
+      "y": 7766
     },
     {
       "id": "C-PROVA-O-RAW-FALA",
@@ -62456,7 +62720,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7766
     },
     {
@@ -62606,7 +62870,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7766
     },
     {
@@ -62713,8 +62977,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 7766
+      "x": 22510,
+      "y": 8088
     },
     {
       "id": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -62829,7 +63093,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8088
     },
     {
@@ -62929,7 +63193,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8088
     },
     {
@@ -63046,15 +63310,15 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 8088
+      "x": 22510,
+      "y": 8410
     },
     {
       "id": "C-PROVA-POTE-CASCO",
       "name": "Mutacao do pote unico e da leitura no casco",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Planta 29 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): 17 no pote (oportunidade no Radar Futuro, qualquer bloqueio de G0 aceite como futuro, P2/P4 de volta, FACT_LOCATION vira REGION_ID, publicacao vira tempo do facto, promocao por especie ausente, SOURCE_HEAD inventado, ...), 9 no leitor do casco (futuro com a forma da oportunidade, reordenar, NAO SEI sem destaque, pote recusado desenha, link javascript:, pedir o pote sem ?pote=local, ...) e 3 na precedencia do portale.html. Corre tests/test_pote_intelligence_casco.py (que corre tests/test_pote_no_casco.mjs, as provas do casco em JavaScript, que moram nesta peca). Sai 1 se algum sobreviver. POTE-V2-UNICO: provas/pote_v2/mutantes_pote_v2_unico.py planta mais 25 (sem run id no topo, compatibilidade nao declarada, prova sem URL / NAO SEI sem base, publicacao vira tempo, schema sem a base, sinal solto como mudanca, unidades diferentes, recusa por falta de tempo em uso que nao exige tempo, proveniencia dispensada, oportunidade «nao», lugar da fonte, e 6 no casco); provas/pote_v2/medir_recusas_r6.py mede base x ramo numa fixture SINTETICA equivalente a R6.",
+      "what": "Planta 29 defeitos numa copia minima em pasta temporaria (o repo nao e tocado): 17 no pote (oportunidade no Radar Futuro, qualquer bloqueio de G0 aceite como futuro, P2/P4 de volta, FACT_LOCATION vira REGION_ID, publicacao vira tempo do facto, promocao por especie ausente, SOURCE_HEAD inventado, ...), 9 no leitor do casco (futuro com a forma da oportunidade, reordenar, NAO SEI sem destaque, pote recusado desenha, link javascript:, pedir o pote sem ?pote=local, ...) e 3 na precedencia do portale.html. Corre tests/test_pote_intelligence_casco.py (que corre tests/test_pote_no_casco.mjs, as provas do casco em JavaScript, que moram nesta peca). Sai 1 se algum sobreviver. POTE-V2-UNICO: provas/pote_v2/mutantes_pote_v2_unico.py planta mais 25 (sem run id no topo, compatibilidade nao declarada, prova sem URL / NAO SEI sem base, publicacao vira tempo, schema sem a base, sinal solto como mudanca, unidades diferentes, recusa por falta de tempo em uso que nao exige tempo, proveniencia dispensada, oportunidade «nao», lugar da fonte, e 6 no casco); provas/pote_v2/medir_recusas_r6.py mede base x ramo numa fixture SINTETICA equivalente a R6. D125 · POTES-UM-CARTAO (dono 27/09: «potes, aprovo»): tests/test_pote_v21_no_casco.mjs prova que o casco resolve o ID, mostra o mesmo selo nos 3 potes, nao recalcula e recusa copia.",
       "why_here": "Prova que os testes do pote apanham o que ele jura nao fazer. 29/29 mortos a 2026-09-27 (POTE-UNICO); resultado do POTE-V2-UNICO em POTE-V2-UNICO.md.",
       "departments": [
         "ENGENHARIA"
@@ -63074,9 +63338,10 @@
         "provas/pote_v2/bateria-ramo-9719efc.json",
         "provas/pote_v2/medir_recusas_r6.py",
         "provas/pote_v2/mutantes_pote_v2_unico.py",
-        "tests/test_pote_no_casco.mjs"
+        "tests/test_pote_no_casco.mjs",
+        "tests/test_pote_v21_no_casco.mjs"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -63156,6 +63421,7 @@
         "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
         "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
         "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
+        "tests/fixtures/pote/POTE-SINTETICO-V21.json",
         "tests/fixtures/pote/POTE-SINTETICO.json",
         "tests/test_ponte_intelligence_casco.py",
         "tests/test_pote_intelligence_casco.py",
@@ -63181,7 +63447,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8410
     },
     {
@@ -63277,7 +63543,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8410
     },
     {
@@ -63378,8 +63644,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 8410
+      "x": 22510,
+      "y": 8732
     },
     {
       "id": "C-PROVA-RETRY-DO-SCRAP",
@@ -63467,7 +63733,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8732
     },
     {
@@ -63589,7 +63855,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8732
     },
     {
@@ -63692,8 +63958,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 8732
+      "x": 22510,
+      "y": 9054
     },
     {
       "id": "C-PROVA-ROTAS-REAIS",
@@ -63843,7 +64109,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9054
     },
     {
@@ -63941,7 +64207,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9054
     },
     {
@@ -64054,8 +64320,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9054
+      "x": 22510,
+      "y": 9376
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -64165,7 +64431,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9376
     },
     {
@@ -64327,7 +64593,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-SCRAP-GUARDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9376
     },
     {
@@ -64426,8 +64692,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9376
+      "x": 22510,
+      "y": 9698
     },
     {
       "id": "C-PROVA-TETO-DOMINIO",
@@ -64551,7 +64817,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9698
     },
     {
@@ -64639,7 +64905,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9698
     },
     {
@@ -64723,8 +64989,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 9698
+      "x": 22510,
+      "y": 10020
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -64820,7 +65086,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10020
     },
     {
@@ -64954,7 +65220,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10020
     },
     {
@@ -65337,8 +65603,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 10020
+      "x": 22510,
+      "y": 10342
     },
     {
       "id": "C-RECEITAS",
@@ -65844,7 +66110,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10342
     },
     {
@@ -66019,7 +66285,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10342
     },
     {
@@ -66427,8 +66693,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 23340,
-      "y": 10342
+      "x": 22510,
+      "y": 10664
     },
     {
       "id": "C-REGUA-T1-JANELA",
@@ -67293,7 +67559,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10664
     },
     {
@@ -68742,7 +69008,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10664
     },
     {
@@ -69325,8 +69591,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 10664
+      "x": 22510,
+      "y": 10986
     },
     {
       "id": "C-SUPABASE",
@@ -69671,7 +69937,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10986
     },
     {
@@ -71785,6 +72051,7 @@
         "tests/test_grafo_de_dependencia.py",
         "tests/test_handoff.py",
         "tests/test_hero_cases_v1.py",
+        "tests/test_identidade_cruzamento.py",
         "tests/test_identidade_do_artefato.py",
         "tests/test_implementacoes_candidatas.py",
         "tests/test_importar_do_coletor.py",
@@ -71864,6 +72131,7 @@
         "tests/test_portoes_da_collection.py",
         "tests/test_portoes_eame.py",
         "tests/test_pote_intelligence_casco.py",
+        "tests/test_pote_v21.py",
         "tests/test_pote_v2_unico.py",
         "tests/test_preco_de_mercado.py",
         "tests/test_preflight_de_egresso.py",
@@ -71951,7 +72219,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 329,
+      "file_count": 331,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -71978,6 +72246,8 @@
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
         "ferramentas/seguir_pesquisadores/fixtures/RESPOSTAS-ORCID.json",
         "tests/fixtures/pesquisadores_t6/MANIFEST.json",
+        "tests/fixtures/pote/POTE-SINTETICO-V21-A.json",
+        "tests/fixtures/pote/POTE-SINTETICO-V21.json",
         "vercel.json"
       ],
       "inbound": [
@@ -72049,6 +72319,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
+        "C-IDENTIDADE-DO-CRUZAMENTO",
         "C-IMPORTAR",
         "C-IMPRESSAO-DA-ARVORE",
         "C-INGRESSO",
@@ -72197,6 +72468,7 @@
         "C-PROVA-CONTADOR-24H",
         "C-PROVA-CRUZAMENTOS-MAX",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-IDENTIDADE",
         "C-PROVA-PONTE-CASCO",
         "C-PROVA-POTE-CASCO",
         "C-PROVA-REFERENCIA-MANUTENCAO",
@@ -72676,6 +72948,7 @@
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
         "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
         "docs/intelligence/pote-v2/CONTRATO-POTE-V2.md",
+        "docs/intelligence/r7/POTE-R7-PUBLICADO.json",
         "docs/operacao/A-CASA-DO-DERIVADO.md",
         "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
         "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
@@ -72743,6 +73016,7 @@
         "italia-portale/client/italy-app-model.js",
         "italia-portale/client/italy-v21.js",
         "italia-portale/client/meeting-intelligence-snapshot.json",
+        "italia-portale/client/sintonia-pote-casco.js",
         "know-how/daily/2026-09-10.md",
         "leis/adama_relevance.py",
         "leis/afirmacao_da_fonte.py",
@@ -72848,6 +73122,7 @@
         "provas/os_portoes_da_collection.py",
         "provas/pacote_de_revisao_t3.py",
         "provas/paridade_da_lingua.py",
+        "provas/potes_um_cartao/ITENS-XMAX-ANTES-b273660.json",
         "provas/preservar_coleta_no_postgres.py",
         "provas/primeira_rota_paga.py",
         "provas/qualidade_t3.py",
@@ -72981,6 +73256,7 @@
         "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
         "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
         "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
+        "tests/fixtures/pote/POTE-SINTETICO-V21.json",
         "tests/fixtures/pote/POTE-SINTETICO.json",
         "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
         "tests/fixtures/yt-raw-minimo.json",
@@ -72989,6 +73265,7 @@
         "tests/test_comunicacao.py",
         "tests/test_m2_rota_forward.py",
         "tests/test_pote_no_casco.mjs",
+        "tests/test_pote_v21_no_casco.mjs",
         "tests/test_quarentena_naosei.py"
       ],
       "consumes_plane": "CODE",
@@ -73018,7 +73295,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10986
     },
     {
@@ -73326,8 +73603,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-ACHADO · C-PRECO-DE-MERCADO · C-V21-FONTES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
-      "y": 1326
+      "x": 14670,
+      "y": 1648
     },
     {
       "id": "C-V21-COMERCIAL",
@@ -73551,7 +73828,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 1648
     },
     {
@@ -73659,7 +73936,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 1648
     },
     {
@@ -73816,8 +74093,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
-      "y": 1648
+      "x": 14670,
+      "y": 1970
     },
     {
       "id": "C-V21-FONTES",
@@ -73931,7 +74208,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 1970
     },
     {
@@ -74134,7 +74411,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 1970
     },
     {
@@ -74240,8 +74517,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
-      "y": 1970
+      "x": 14670,
+      "y": 2292
     },
     {
       "id": "C-VOCI-DAL-CAMPO",
@@ -74352,7 +74629,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 2292
     },
     {
@@ -84156,11 +84433,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Harness de auditoria tem o seu codigo importado por Mutacao do pote unico e da leitura no casco. Provado por 1 linha de codigo.",
+      "reason": "Harness de auditoria tem o seu codigo importado por Mutacao do pote unico e da leitura no casco. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_pote_no_casco.mjs",
           "line": 27,
+          "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-AUDIT-HARNESS",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21_no_casco.mjs",
+          "line": 20,
           "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-PROVA-POTE-CASCO",
@@ -84191,7 +84484,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Harness de auditoria alimenta Mutacao do pote unico e da leitura no casco. Provado por 3 linhas de codigo.",
+      "reason": "Harness de auditoria alimenta Mutacao do pote unico e da leitura no casco. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_pote_casco.py",
@@ -84228,6 +84521,16 @@
         {
           "file": "tests/test_pote_no_casco.mjs",
           "line": 27,
+          "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21_no_casco.mjs",
+          "line": 20,
           "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -98022,6 +98325,57 @@
     },
     {
       "from": "C-CRUZAMENTOS-MAX",
+      "to": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia tem o seu codigo importado por Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "motor/identidade_do_cruzamento.py",
+          "line": 101,
+          "snippet": "import cruzamentos_max as XM   # noqa: E402  (motor/; importado na hora — ele importa este ficheiro)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-IDENTIDADE-DO-CRUZAMENTO",
+            "FROM": "C-CRUZAMENTOS-MAX",
+            "TO": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "motor/vocabulario_unico.py",
+          "line": 62,
+          "snippet": "import cruzamentos_max as XM   # noqa: E402  (motor/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-IDENTIDADE-DO-CRUZAMENTO",
+            "FROM": "C-CRUZAMENTOS-MAX",
+            "TO": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CRUZAMENTOS-MAX",
       "to": "C-POTE-CRUZAMENTOS-MAX",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -98032,7 +98386,7 @@
       "evidence": [
         {
           "file": "pacote/pote_cruzamentos_max.py",
-          "line": 49,
+          "line": 50,
           "snippet": "import cruzamentos_max as XM                       # noqa: E402  (motor/)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-POTE-CRUZAMENTOS-MAX",
@@ -98073,6 +98427,76 @@
             "EDGE_ID": "C-CRUZAMENTOS-MAX--READS-->C-PROVA-CRUZAMENTOS-MAX",
             "FROM": "C-CRUZAMENTOS-MAX",
             "TO": "C-PROVA-CRUZAMENTOS-MAX",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CRUZAMENTOS-MAX",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia tem o seu codigo importado por Mutacao da identidade do cruzamento e do pote v2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/potes_um_cartao/medir_r7.py",
+          "line": 26,
+          "snippet": "import cruzamentos_max as XM             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-CRUZAMENTOS-MAX",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CRUZAMENTOS-MAX",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia alimenta Mutacao da identidade do cruzamento e do pote v2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_identidade.py",
+          "line": 26,
+          "snippet": "XMX = \"motor/cruzamentos_max.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CRUZAMENTOS-MAX--READS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-CRUZAMENTOS-MAX",
+            "TO": "C-PROVA-IDENTIDADE",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -98168,12 +98592,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_cruzamentos_max.py",
           "line": 21,
           "snippet": "import cruzamentos_max as XM                 # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-TESTES",
+            "FROM": "C-CRUZAMENTOS-MAX",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_identidade_cruzamento.py",
+          "line": 27,
+          "snippet": "import cruzamentos_max as XM               # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CRUZAMENTOS-MAX--IMPORTS-->C-TESTES",
             "FROM": "C-CRUZAMENTOS-MAX",
@@ -107546,6 +107986,315 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "to": "C-CRUZAMENTOS-MAX",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1 tem o seu codigo importado por Cruzamentos-max: rotulo x boletim com grao provado, cadastro, portfolio e concorrencia. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "motor/cruzamentos_max.py",
+          "line": 67,
+          "snippet": "import identidade_do_cruzamento as IDENT                      # noqa: E402  (motor/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--IMPORTS-->C-CRUZAMENTOS-MAX",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-CRUZAMENTOS-MAX",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "motor/cruzamentos_max.py",
+          "line": 68,
+          "snippet": "import vocabulario_unico as VOCAB                             # noqa: E402  (motor/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--IMPORTS-->C-CRUZAMENTOS-MAX",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-CRUZAMENTOS-MAX",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "to": "C-INT-CORRIDA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1 tem o seu codigo importado por A corrida da Intelligence — o INTELLIGENCE_RUN mínimo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/corrida_da_inteligencia.py",
+          "line": 71,
+          "snippet": "import identidade_do_cruzamento as IDENT        # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--IMPORTS-->C-INT-CORRIDA",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-INT-CORRIDA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "to": "C-INT-MOTOR-CAPACIDADES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1 tem o seu codigo importado por Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/motor_das_capacidades.py",
+          "line": 88,
+          "snippet": "import identidade_do_cruzamento as IDENT         # noqa: E402  (D125: FUT2 sem run)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-INT-MOTOR-CAPACIDADES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "to": "C-POTE-INT-CASCO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1 tem o seu codigo importado por O pote unico: uma corrida da Intelligence, um compartimento por ferramenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/pote_intelligence_casco.py",
+          "line": 77,
+          "snippet": "import identidade_do_cruzamento as IDENT              # noqa: E402  (motor/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--IMPORTS-->C-POTE-INT-CASCO",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-POTE-INT-CASCO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1 tem o seu codigo importado por Mutacao da identidade do cruzamento e do pote v2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/potes_um_cartao/medir_r7.py",
+          "line": 25,
+          "snippet": "import identidade_do_cruzamento as IDENT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--IMPORTS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1 alimenta Mutacao da identidade do cruzamento e do pote v2.1. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_identidade.py",
+          "line": 24,
+          "snippet": "IDN = \"motor/identidade_do_cruzamento.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--READS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/_mutantes_identidade.py",
+          "line": 25,
+          "snippet": "VOC = \"motor/vocabulario_unico.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--READS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1 tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_identidade_cruzamento.py",
+          "line": 25,
+          "snippet": "import identidade_do_cruzamento as IDENT   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--IMPORTS-->C-TESTES",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_identidade_cruzamento.py",
+          "line": 26,
+          "snippet": "import vocabulario_unico as VOCAB          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--IMPORTS-->C-TESTES",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21.py",
+          "line": 36,
+          "snippet": "import identidade_do_cruzamento as IDENT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE-DO-CRUZAMENTO--IMPORTS-->C-TESTES",
+            "FROM": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-IMPORTAR",
       "to": "C-CENSO-ARMAZEM-IT",
       "type": "READS",
@@ -109727,7 +110476,7 @@
       "evidence": [
         {
           "file": "motor/corrida_da_inteligencia.py",
-          "line": 90,
+          "line": 92,
           "snippet": "BIBLIA = RAIZ / \"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-BIBLIA--READS-->C-INT-CORRIDA",
@@ -110720,6 +111469,41 @@
     },
     {
       "from": "C-INT-CORRIDA",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo alimenta Mutacao da identidade do cruzamento e do pote v2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_identidade.py",
+          "line": 27,
+          "snippet": "CRR = \"motor/corrida_da_inteligencia.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--READS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CORRIDA",
       "to": "C-PROVA-INDEPENDENCIA",
       "type": "READS",
       "payload": "artefacto",
@@ -110796,7 +111580,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_primeira_corrida_da_inteligencia.py",
@@ -110834,6 +111618,22 @@
           "file": "tests/test_capacidade_cientifica.py",
           "line": 28,
           "snippet": "import corrida_da_inteligencia as CI           # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_identidade_cruzamento.py",
+          "line": 28,
+          "snippet": "import corrida_da_inteligencia as CI       # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
             "FROM": "C-INT-CORRIDA",
@@ -122103,6 +122903,57 @@
     },
     {
       "from": "C-LUGAR-COLETA",
+      "to": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "motor/vocabulario_unico.py",
+          "line": 47,
+          "snippet": "from boletim_do_campo import CULTURAS as CULTURAS_BOLETIM, FORMAS, nome_do_problema   # noqa: E402  (leis/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-IDENTIDADE-DO-CRUZAMENTO",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "motor/vocabulario_unico.py",
+          "line": 48,
+          "snippet": "from fato_local import REGIOES, PROVINCIAS                                            # noqa: E402  (leis/)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-IDENTIDADE-DO-CRUZAMENTO",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LUGAR-COLETA",
       "to": "C-INT-CORRIDA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -125727,6 +126578,57 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-IDENTIDADE-DO-CRUZAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por Identidade do cruzamento (IDENT-v1) e o vocabulario unico v1. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "motor/identidade_do_cruzamento.py",
+          "line": 53,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-IDENTIDADE-DO-CRUZAMENTO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "motor/vocabulario_unico.py",
+          "line": 45,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-IDENTIDADE-DO-CRUZAMENTO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-IDENTIDADE-DO-CRUZAMENTO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-INGRESSO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -126826,7 +127728,7 @@
       "evidence": [
         {
           "file": "pacote/pote_cruzamentos_max.py",
-          "line": 47,
+          "line": 48,
           "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-CRUZAMENTOS-MAX",
@@ -126861,7 +127763,7 @@
       "evidence": [
         {
           "file": "pacote/pote_intelligence_casco.py",
-          "line": 63,
+          "line": 66,
           "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
@@ -127699,6 +128601,57 @@
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-FRONTEIRA",
             "FROM": "C-MAPA-TESTES",
             "TO": "C-PROVA-FRONTEIRA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por Mutacao da identidade do cruzamento e do pote v2.1. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/potes_um_cartao/gerar_fixture_v21.py",
+          "line": 18,
+          "snippet": "import _gavetas  # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/potes_um_cartao/medir_r7.py",
+          "line": 23,
+          "snippet": "import _gavetas  # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PROVA-IDENTIDADE",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -129537,7 +130490,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 170 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 172 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -137623,7 +138576,7 @@
       "evidence": [
         {
           "file": "pacote/pote_cruzamentos_max.py",
-          "line": 51,
+          "line": 52,
           "snippet": "from ponte_intelligence_casco import NAO_SEI, LeiViolada, e_ignorancia   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-POTE-CRUZAMENTOS-MAX",
@@ -137658,7 +138611,7 @@
       "evidence": [
         {
           "file": "pacote/pote_intelligence_casco.py",
-          "line": 68,
+          "line": 71,
           "snippet": "import ponte_intelligence_casco as V1                  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-POTE-INT-CASCO",
@@ -137810,7 +138763,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A ponte Intelligence -> casco (experimental, nao para cliente) tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A ponte Intelligence -> casco (experimental, nao para cliente) tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_cruzamentos_max.py",
@@ -137864,6 +138817,22 @@
           "file": "tests/test_pote_intelligence_casco.py",
           "line": 30,
           "snippet": "import ponte_intelligence_casco as V1                         # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-TESTES",
+            "FROM": "C-PONTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21.py",
+          "line": 37,
+          "snippet": "from ponte_intelligence_casco import LeiViolada  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-TESTES",
             "FROM": "C-PONTE-INT-CASCO",
@@ -139807,13 +140776,48 @@
     },
     {
       "from": "C-PORTAL-MODELO",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta Mutacao da identidade do cruzamento e do pote v2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_identidade.py",
+          "line": 29,
+          "snippet": "JSC = \"italia-portale/client/sintonia-pote-casco.js\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAL-MODELO",
       "to": "C-PROVA-POTE-CASCO",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Mutacao do pote unico e da leitura no casco. Provado por 3 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Mutacao do pote unico e da leitura no casco. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_pote_casco.py",
@@ -139850,6 +140854,22 @@
         {
           "file": "tests/test_pote_no_casco.mjs",
           "line": 31,
+          "snippet": "const LEITOR = fs.readFileSync(path.join(CLIENT, 'sintonia-pote-casco.js'), 'utf8');",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21_no_casco.mjs",
+          "line": 25,
           "snippet": "const LEITOR = fs.readFileSync(path.join(CLIENT, 'sintonia-pote-casco.js'), 'utf8');",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-POTE-CASCO",
@@ -140023,12 +141043,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_demanda_de_dados_da_italia.py",
           "line": 303,
           "snippet": "self.assertIn(\"italy-v21.js\", fonte)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21.py",
+          "line": 278,
+          "snippet": "leitor = (RAIZ / \"italia-portale\" / \"client\" / \"sintonia-pote-casco.js\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
             "FROM": "C-PORTAL-MODELO",
@@ -140363,7 +141399,7 @@
       "evidence": [
         {
           "file": "pacote/pote_cruzamentos_max.py",
-          "line": 50,
+          "line": 51,
           "snippet": "import pote_intelligence_casco as POTE             # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-POTE-CRUZAMENTOS-MAX",
@@ -140379,6 +141415,92 @@
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-POTE-INT-CASCO",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Mutacao da identidade do cruzamento e do pote v2.1. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/potes_um_cartao/gerar_fixture_v21.py",
+          "line": 19,
+          "snippet": "import pote_intelligence_casco as P  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/potes_um_cartao/medir_r7.py",
+          "line": 24,
+          "snippet": "import pote_intelligence_casco as P      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-POTE-INT-CASCO",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta alimenta Mutacao da identidade do cruzamento e do pote v2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_identidade.py",
+          "line": 28,
+          "snippet": "POT = \"pacote/pote_intelligence_casco.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -140547,7 +141669,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_cruzamentos_max.py",
@@ -140569,6 +141691,38 @@
           "file": "tests/test_pote_intelligence_casco.py",
           "line": 29,
           "snippet": "import pote_intelligence_casco as P                           # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21.py",
+          "line": 34,
+          "snippet": "import pote_intelligence_casco as P      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21.py",
+          "line": 35,
+          "snippet": "import validar_pote_v2 as VV             # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
             "FROM": "C-POTE-INT-CASCO",
@@ -145387,12 +146541,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Mutacao do pote unico e da leitura no casco alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Mutacao do pote unico e da leitura no casco alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_pote_intelligence_casco.py",
           "line": 454,
           "snippet": "r = subprocess.run([node, str(RAIZ / \"tests\" / \"test_pote_no_casco.mjs\")], cwd=RAIZ,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
+            "FROM": "C-PROVA-POTE-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21.py",
+          "line": 300,
+          "snippet": "r = subprocess.run([node, str(RAIZ / \"tests\" / \"test_pote_v21_no_casco.mjs\")], cwd=RAIZ,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
             "FROM": "C-PROVA-POTE-CASCO",
@@ -164265,6 +165435,92 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes tem o seu codigo importado por Mutacao da identidade do cruzamento e do pote v2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/potes_um_cartao/gerar_fixture_v21.py",
+          "line": 20,
+          "snippet": "from tests.test_pote_v21 import corrida, prova, publicar  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--IMPORTS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-PROVA-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Mutacao da identidade do cruzamento e do pote v2.1. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/potes_um_cartao/gerar_fixture_v21.py",
+          "line": 35,
+          "snippet": "for nome, p in ((\"POTE-SINTETICO-V21-A.json\", a), (\"POTE-SINTETICO-V21.json\", b)):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/potes_um_cartao/gerar_fixture_v21.py",
+          "line": 35,
+          "snippet": "for nome, p in ((\"POTE-SINTETICO-V21-A.json\", a), (\"POTE-SINTETICO-V21.json\", b)):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-IDENTIDADE",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-IDENTIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-PROVA-PONTE-CASCO",
       "type": "READS",
       "payload": "artefacto",
@@ -164322,7 +165578,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes alimenta Mutacao do pote unico e da leitura no casco. Provado por 5 linhas de codigo.",
+      "reason": "Suite de testes alimenta Mutacao do pote unico e da leitura no casco. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_mutantes_pote_casco.py",
@@ -164392,6 +165648,22 @@
           "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
           "line": 30,
           "snippet": "\"tests/test_ponte_intelligence_casco.py\", \"docs/intelligence/pote-v2/CONTRATO-POTE-V2.md\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-POTE-CASCO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_pote_v21_no_casco.mjs",
+          "line": 23,
+          "snippet": "const V21 = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/POTE-SINTETICO-V21.json'), 'utf8'));",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
             "FROM": "C-TESTES",
@@ -168573,7 +169845,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2251,
+  "UNCLAIMED_FILES_COUNT": 2254,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -168823,7 +170095,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 278,
+      "PECAS_EM_DESACORDO": 280,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -168835,26 +170107,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 305
+      "TOTAL_DE_PECAS": 307
     }
   ],
   "COUNTS": {
-    "components": 305,
+    "components": 307,
     "components_proven": 33,
-    "components_pending": 264,
+    "components_pending": 266,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1835,
-    "edges_proven": 1766,
+    "edges": 1854,
+    "edges_proven": 1785,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4118,
-    "files_covered": 1867,
+    "files_tracked": 4132,
+    "files_covered": 1878,
     "files_code_unclaimed": 0,
     "roles_proven": 203,
     "roles_declared_only": 9,
-    "roles_unknown": 93,
-    "roles_conflict": 54,
+    "roles_unknown": 95,
+    "roles_conflict": 55,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
     "concept_owner_single": 2,
