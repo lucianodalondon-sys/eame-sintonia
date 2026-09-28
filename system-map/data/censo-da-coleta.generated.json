@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T17:41:29+00:00",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
+    "GENERATED_AT": "2026-09-28T00:09:40+00:00",
+    "HEAD": "18461b92dcf576816e45af27586d2d7f783d0a07",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
-    "FICHEIROS_NA_IMPRESSAO": 4087,
+    "SOURCE_TREE_FINGERPRINT": "4399404c5adaeb19fc09684565461e73862eebcc2093063249857ae64b11d772",
+    "FICHEIROS_NA_IMPRESSAO": 4095,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -62,7 +62,7 @@
       {
         "PATH": "candidatas/fonte_nova.py",
         "PAPEL": "FONTE",
-        "VERSAO": "2617154069d64d58a51bf8cea4c5e1c378a9200e",
+        "VERSAO": "03f239bb3b56654592d8220f2d755a4252896c3d",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -160,7 +160,7 @@
       {
         "PATH": "coleta/adaptador_youtube.py",
         "PAPEL": "FONTE",
-        "VERSAO": "88dcb425731f4cab3be6974eac461d2047f59dbb",
+        "VERSAO": "8560a65da3dc80a46260c5fffe4580fd9cdc2575",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -595,6 +595,13 @@
         "PATH": "coleta/social_persistencia.py",
         "PAPEL": "FONTE",
         "VERSAO": "682f888100e0b3f3635ce20891f47782db14cdf2",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/social_por_url_achado.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ed2a35267f4fd7079a88215bc24a91927d5c0e96",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1628,8 +1635,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 231,
-    "INPUTS_DIGEST": "971df8d0f1230e59fb6e9b7937307b07f1fbe72f36a0d6e39f418f2a163f60c4",
+    "INPUTS_COUNT": 232,
+    "INPUTS_DIGEST": "acea373c11204eba74b650b4ec2ebac34920d7010122c0f6cd45d589578ab151",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1712,7 +1719,7 @@
     {
       "ficheiro": "candidatas/fonte_nova.py",
       "gaveta": "candidatas",
-      "linhas": 280,
+      "linhas": 332,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1729,6 +1736,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "candidatas/decidir_fila_italia.py",
+        "coleta/social_por_url_achado.py",
         "ferramentas/seguir_pesquisadores/listas_oficiais.py",
         "ferramentas/seguir_pesquisadores/orcid_lote.py",
         "ferramentas/seguir_pesquisadores/seguir.py",
@@ -3683,10 +3691,11 @@
     {
       "ficheiro": "coleta/adaptador_youtube.py",
       "gaveta": "coleta",
-      "linhas": 964,
+      "linhas": 1146,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
+        "LINKEDIN",
         "YOUTUBE"
       ],
       "ferramentas": [
@@ -5081,6 +5090,25 @@
       "no_ci": true
     },
     {
+      "ficheiro": "coleta/social_por_url_achado.py",
+      "gaveta": "coleta",
+      "linhas": 390,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
       "linhas": 410,
@@ -6296,13 +6324,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 231,
-    "pontos_de_entrada": 166,
+    "ficheiros_de_codigo": 232,
+    "pontos_de_entrada": 167,
     "executores_que_saem_para_fora": 31,
-    "sem_chamador_e_fora_do_ci": 111,
+    "sem_chamador_e_fora_do_ci": 112,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 137,
-    "deitam_fora_alguma_coisa": 52,
+    "escrevem_ficheiro": 138,
+    "deitam_fora_alguma_coisa": 53,
     "deitam_fora_SEM_escrever_o_motivo": 5,
     "ficheiros_com_decisao_escondida": 5,
     "decisoes_escondidas_ao_todo": 5
@@ -6445,6 +6473,7 @@
       "coleta/scrap_colheita.py",
       "coleta/sensor_canal_identidade.py",
       "coleta/social_persistencia.py",
+      "coleta/social_por_url_achado.py",
       "coleta/social_scrap.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
@@ -6604,6 +6633,7 @@
       "coleta/ropf_pre_requisito.py",
       "coleta/rotulos_ler.py",
       "coleta/sensor_canal_identidade.py",
+      "coleta/social_por_url_achado.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
       "coleta/universo_ciencia_it.py",

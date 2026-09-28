@@ -1,15 +1,15 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
+  "HEAD": "18461b92dcf576816e45af27586d2d7f783d0a07",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 96,
- "TOTAL_CAMINHOS_RELEVANTES": 79,
+ "TOTAL_FICHEIROS": 97,
+ "TOTAL_CAMINHOS_RELEVANTES": 80,
  "POR_ESTADO": {
   "NOT_APPLICABLE": 17,
-  "NOT_INSTRUMENTED": 74,
+  "NOT_INSTRUMENTED": 75,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
  },
@@ -23,72 +23,72 @@
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 77,
+   "NOT_INSTRUMENTED": 78,
    "NOT_APPLICABLE": 0
   }
  },
@@ -206,8 +206,8 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 96,
-  "TOTAL_RELEVANT_PATHS": 79,
+  "TOTAL_FILES_SCANNED": 97,
+  "TOTAL_RELEVANT_PATHS": 80,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
   "TOTAL_ORCHESTRATORS": 6,
@@ -215,7 +215,7 @@
   "TOTAL_PRESERVATION_OWNERS": 4,
   "TOTAL_CHECKPOINT_OWNERS": 4,
   "TOTAL_TELEMETRY_EMITTERS": 4,
-  "TOTAL_UNKNOWN": 46,
+  "TOTAL_UNKNOWN": 47,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
  "PORQUE_ESSE": "corre sem rede, sem API paga e sem producao, e ja fala a lingua das falhas — instrumenta-lo custa o writer, e nao um ambiente.",
@@ -353,7 +353,7 @@
   {
    "EXECUTOR_ID": "coleta/adaptador_youtube.py",
    "GAVETA": "coleta",
-   "LINHAS": 964,
+   "LINHAS": 1146,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "FETCH",
@@ -1698,6 +1698,30 @@
    "ETAPAS_NOMEADAS": [
     "RAW"
    ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/social_por_url_achado.py",
+   "GAVETA": "coleta",
+   "LINHAS": 390,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": false,

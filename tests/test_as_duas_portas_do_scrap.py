@@ -267,7 +267,11 @@ class AChaveEntraSoOndeEUsada(unittest.TestCase):
         for fase in SC.FASES:
             plat, capacidade = SC.FASES[fase][0], SC.FASES[fase][1]
             r = reg.adaptador_de(plat, capacidade) or {}
-            if r.get("PRONTO") is ay.pronto_para_api:
+            # AJUSTE DECLARADO (SOCIAL-ATE-A-SALA, C): a sonda de `canal-youtube` passou a
+            # ser `pronto_para_canal`, que LE a chave primeiro e so depois olha o feed da
+            # matriz. Continua a ser derivado do registo: a sonda declara que le a chave.
+            p = r.get("PRONTO")
+            if p is ay.pronto_para_api or getattr(p, "LE_A_CHAVE", False):
                 fora.add(fase)
         return fora
 

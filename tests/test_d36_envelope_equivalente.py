@@ -139,29 +139,49 @@ class SemQualquerUmaDasQuatroProvasReprova(unittest.TestCase):
 
 
 class NaoHaExcecaoGenerica(unittest.TestCase):
-    def test_12_par_de_fases_nao_declarado_reprova(self):
-        """Só a equivalência declarada passa. Outra fase continua a reprovar como antes."""
-        v, porque = veredicto(envelope(fase="comentarios-youtube"))
+    # ⚠️ AJUSTE DECLARADO (SOCIAL-ATE-A-SALA, 27/09): os testes 12, 13 e 15 mediam a lei
+    # antiga — «so o PAR de nomes enumerado passa» (`A_EQUIVALENCIA_NAO_ESTA_DECLARADA`).
+    # A missao do coordenador, sobre a decisao delegada da D36, trocou o NOME pelas
+    # PROVAS: nenhuma fase passa nem reprova pelo nome. A protecao que estes testes davam
+    # continua medida — o envelope de comentarios e a lista do canal CONTINUAM a reprovar —
+    # mas agora pela prova que lhes falta, e o motivo di-la.
+    def test_12_outra_fase_sem_midia_reprova_pela_prova_nao_pelo_nome(self):
+        """Um item de comentario nao traz a midia do video: falta a 4.a prova."""
+        comentario = item(NATIVE_ID="UgyxS0li0QZdHrFb2D94AaABAg", AUDIO_SHA256=None, AUDIO_BYTES=None,
+                          AUDIO_REFERENCE=None)
+        v, porque = veredicto(envelope([comentario], fase="comentarios-youtube"))
         self.assertEqual(v, R.FALHA)
-        self.assertIn("A_EQUIVALENCIA_NAO_ESTA_DECLARADA", porque)
+        self.assertIn("LIGACAO_CANAL_VIDEO_AUDIO", porque)
+        self.assertNotIn("A_EQUIVALENCIA_NAO_ESTA_DECLARADA", porque)
 
-    def test_13_o_par_invertido_nao_esta_declarado(self):
-        """`canal-youtube` a satisfazer um contrato de `audio-youtube` não é a lei."""
+    def test_13_a_lista_do_canal_nao_satisfaz_um_contrato_de_audio(self):
+        """(b) recusada: a lista (`youtube_canal_publico`) nao tem data nem midia — reprova nas duas."""
         c = {"SOURCE_ID": SID, "NAME": "Cifo Giardinaggio",
              "ACQUISITION": {"FASE": "audio-youtube", "CHANNEL_ID": CANAL}}
-        v, porque = veredicto(envelope(fase="canal-youtube"), contrato=c)
+        lista = {"OBSERVACAO": {"OBJECT_KIND": "PUBLIC_CHANNEL_LISTING", "NATIVE_ID": "ehjdygGJJqQ",
+                                "SOURCE_URL": "https://www.youtube.com/watch?v=ehjdygGJJqQ",
+                                "CHANNEL_ID": CANAL, "OWNER_AUTHORIZED": "SIM",
+                                "PLATFORM_POLICY_STATUS": "PROVED", "PUBLISHED_AT": "NAO SEI"}}
+        v, porque = veredicto(envelope([lista], fase="canal-youtube"), contrato=c)
         self.assertEqual(v, R.FALHA)
-        self.assertIn("A_EQUIVALENCIA_NAO_ESTA_DECLARADA", porque)
+        self.assertIn("DATA_DE_PUBLICACAO", porque)
+        self.assertIn("sem a midia adquirida", porque)
+
+    def test_15_a_mesma_fase_de_sempre_nao_passa_pelas_provas_sociais(self):
+        """Quando a fase bate, o criterio e o de sempre (D53): um upload sem audio fica READY."""
+        upload = {"OBSERVACAO": {"NATIVE_ID": "ehjdygGJJqQ", "URL": "https://www.youtube.com/watch?v=ehjdygGJJqQ",
+                                 "TITLE": "Come si pota il limone", "PUBLISHED_AT": "2026-02-11T15:02:31Z",
+                                 "SOURCE_ACCOUNT": CANAL, "OWNER_AUTHORIZED": "SIM",
+                                 "PLATFORM_POLICY_STATUS": "ALLOWED", "RAW": {"CHANNEL_ID": CANAL}}}
+        v, porque = veredicto(envelope([upload], fase="canal-youtube"))
+        self.assertEqual(v, R.READY, porque)
+        self.assertTrue(R.provas_da_equivalencia(envelope([upload], fase="canal-youtube"),
+                                                 "canal-youtube", CONTRATO))
 
     def test_14_envelope_sem_colheita_nao_prova_nada(self):
         v, porque = veredicto(envelope(itens=[]))
         self.assertEqual(v, R.FALHA)
         self.assertIn("COLHEITA_VAZIA", porque)
-
-    def test_15_a_mesma_fase_de_sempre_nao_passa_por_aqui(self):
-        """Quando a fase bate, o critério é o de sempre: esta equivalência nem corre."""
-        faltam = R.provas_da_equivalencia(envelope(fase="canal-youtube"), "canal-youtube", CONTRATO)
-        self.assertEqual(faltam, ["A_EQUIVALENCIA_NAO_ESTA_DECLARADA"])
 
     def test_16_o_estado_do_item_nao_compra_a_data(self):
         """FACT_TIME continua NAO SEI: a publicação não vira tempo do facto."""

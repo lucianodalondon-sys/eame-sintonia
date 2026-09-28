@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-27T17:41:23+00:00",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
+    "GENERATED_AT": "2026-09-28T00:11:18+00:00",
+    "HEAD": "18461b92dcf576816e45af27586d2d7f783d0a07",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388",
-    "FICHEIROS_NA_IMPRESSAO": 4087,
+    "SOURCE_TREE_FINGERPRINT": "4399404c5adaeb19fc09684565461e73862eebcc2093063249857ae64b11d772",
+    "FICHEIROS_NA_IMPRESSAO": 4095,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -36235,6 +36235,18 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/social_por_url_achado.py",
+      "como_se_chama": "coleta/social_por_url_achado.py --plano --achados",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD",
+        "REJEIT"
+      ]
+    },
+    {
       "ficheiro": "coleta/social_scrap.py",
       "como_se_chama": "scripts/social_scrap.py censo",
       "carimba_data": [
@@ -38015,6 +38027,10 @@
           "line": 761
         },
         {
+          "file": "coleta/social_por_url_achado.py",
+          "line": 273
+        },
+        {
           "file": "curadoria/descobrir.py",
           "line": 644
         },
@@ -38083,6 +38099,10 @@
           "line": 103
         },
         {
+          "file": "tests/test_desbloquear_social.py",
+          "line": 43
+        },
+        {
           "file": "tests/test_linkedin_build_01_local_first.py",
           "line": 379
         },
@@ -38099,12 +38119,20 @@
           "line": 22
         },
         {
+          "file": "tests/test_regua_social_por_provas.py",
+          "line": 207
+        },
+        {
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 305
         },
         {
           "file": "tests/test_semear_so_as_candidatas.py",
           "line": 20
+        },
+        {
+          "file": "tests/test_social_por_url_achado.py",
+          "line": 58
         }
       ]
     },
@@ -38176,8 +38204,73 @@
           "line": 116
         },
         {
+          "file": "tests/test_regua_social_por_provas.py",
+          "line": 122
+        },
+        {
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 810
+        },
+        {
+          "file": "tests/test_social_por_url_achado.py",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/channel",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 832
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 450
+        },
+        {
+          "file": "curadoria/test_d21_heranca.py",
+          "line": 43
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 59
+        },
+        {
+          "file": "curadoria/test_soc_onda2_social.py",
+          "line": 146
+        },
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 806
+        },
+        {
+          "file": "tests/test_d36_envelope_equivalente.py",
+          "line": 48
+        },
+        {
+          "file": "tests/test_onda3_b_inerte.py",
+          "line": 52
+        },
+        {
+          "file": "tests/test_rota_video_d53.py",
+          "line": 62
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 99
+        },
+        {
+          "file": "tests/test_youtube_feed_sem_chave.py",
+          "line": 38
+        },
+        {
+          "file": "tests/test_youtube_pelo_scrap.py",
+          "line": 39
+        },
+        {
+          "file": "tests/test_yt_metadados_do_audio.py",
+          "line": 55
         }
       ]
     },
@@ -38235,59 +38328,6 @@
         {
           "file": "tests/test_ld2_aditamento.py",
           "line": 58
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/channel",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_youtube.py",
-          "line": 824
-        },
-        {
-          "file": "coleta/youtube_oficial.py",
-          "line": 450
-        },
-        {
-          "file": "curadoria/test_d21_heranca.py",
-          "line": 43
-        },
-        {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 59
-        },
-        {
-          "file": "curadoria/test_soc_onda2_social.py",
-          "line": 146
-        },
-        {
-          "file": "regras/sensor_coleta.py",
-          "line": 806
-        },
-        {
-          "file": "tests/test_d36_envelope_equivalente.py",
-          "line": 48
-        },
-        {
-          "file": "tests/test_onda3_b_inerte.py",
-          "line": 52
-        },
-        {
-          "file": "tests/test_rota_video_d53.py",
-          "line": 62
-        },
-        {
-          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
-          "line": 99
-        },
-        {
-          "file": "tests/test_youtube_pelo_scrap.py",
-          "line": 39
-        },
-        {
-          "file": "tests/test_yt_metadados_do_audio.py",
-          "line": 55
         }
       ]
     },
@@ -38382,6 +38422,47 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/feeds",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 950
+        },
+        {
+          "file": "curadoria/canario.py",
+          "line": 62
+        },
+        {
+          "file": "curadoria/capturador.py",
+          "line": 585
+        },
+        {
+          "file": "curadoria/escrever_contratos.py",
+          "line": 121
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 63
+        },
+        {
+          "file": "curadoria/validar_contratos.py",
+          "line": 219
+        },
+        {
+          "file": "tests/test_importar_do_coletor.py",
+          "line": 38
+        },
+        {
+          "file": "tests/test_legacy_recheck.py",
+          "line": 35
+        },
+        {
+          "file": "tests/test_youtube_pelo_scrap.py",
+          "line": 43
+        }
+      ]
+    },
+    {
       "endpoint": "https://ex.it/news",
       "usado_por": [
         {
@@ -38419,6 +38500,47 @@
         {
           "file": "tests/test_retirada_por_decisao.py",
           "line": 49
+        }
+      ]
+    },
+    {
+      "endpoint": "https://it.linkedin.com/company",
+      "usado_por": [
+        {
+          "file": "curadoria/test_capturador.py",
+          "line": 69
+        },
+        {
+          "file": "curadoria/test_correr_lote.py",
+          "line": 31
+        },
+        {
+          "file": "curadoria/test_regua_social.py",
+          "line": 22
+        },
+        {
+          "file": "curadoria/test_soc_onda2_social.py",
+          "line": 203
+        },
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 399
+        },
+        {
+          "file": "tests/test_comunicacao.py",
+          "line": 78
+        },
+        {
+          "file": "tests/test_prova_de_post_de_pessoa.py",
+          "line": 70
+        },
+        {
+          "file": "tests/test_regua_social_por_provas.py",
+          "line": 210
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 100
         }
       ]
     },
@@ -38497,76 +38619,105 @@
       ]
     },
     {
-      "endpoint": "https://www.youtube.com/feeds",
+      "endpoint": "https://www.linkedin.com/in",
       "usado_por": [
         {
-          "file": "curadoria/canario.py",
-          "line": 62
+          "file": "curadoria/test_soc_onda2_social.py",
+          "line": 94
         },
         {
-          "file": "curadoria/capturador.py",
-          "line": 585
+          "file": "leis/social_matriz.py",
+          "line": 924
         },
         {
-          "file": "curadoria/escrever_contratos.py",
-          "line": 121
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 58
         },
         {
-          "file": "curadoria/test_soc2_curator_youtube.py",
-          "line": 63
+          "file": "tests/test_d24_video_de_pessoa.py",
+          "line": 119
         },
         {
-          "file": "curadoria/validar_contratos.py",
-          "line": 219
+          "file": "tests/test_desbloquear_social.py",
+          "line": 44
         },
         {
-          "file": "tests/test_importar_do_coletor.py",
+          "file": "tests/test_prova_de_post_de_pessoa.py",
+          "line": 58
+        },
+        {
+          "file": "tests/test_seguir_pesquisadores.py",
+          "line": 59
+        },
+        {
+          "file": "tests/test_social_por_url_achado.py",
           "line": 38
-        },
-        {
-          "file": "tests/test_legacy_recheck.py",
-          "line": 35
-        },
-        {
-          "file": "tests/test_youtube_pelo_scrap.py",
-          "line": 43
         }
       ]
     },
     {
-      "endpoint": "https://it.linkedin.com/company",
+      "endpoint": "https://www.linkedin.com/posts",
       "usado_por": [
         {
-          "file": "curadoria/test_capturador.py",
-          "line": 69
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 1422
         },
         {
-          "file": "curadoria/test_correr_lote.py",
-          "line": 31
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 56
         },
         {
-          "file": "curadoria/test_regua_social.py",
-          "line": 22
+          "file": "tests/test_d24_video_de_pessoa.py",
+          "line": 30
         },
         {
-          "file": "curadoria/test_soc_onda2_social.py",
-          "line": 203
-        },
-        {
-          "file": "regras/comunicacao_identidade.py",
-          "line": 399
-        },
-        {
-          "file": "tests/test_comunicacao.py",
-          "line": 78
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 153
         },
         {
           "file": "tests/test_prova_de_post_de_pessoa.py",
-          "line": 70
+          "line": 14
+        },
+        {
+          "file": "tests/test_seguir_pesquisadores.py",
+          "line": 60
+        },
+        {
+          "file": "tests/test_social_por_url_achado.py",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.linkedin.com/feed",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 1437
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 207
+        },
+        {
+          "file": "tests/test_d24_video_de_pessoa.py",
+          "line": 137
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 152
+        },
+        {
+          "file": "tests/test_regua_social_por_provas.py",
+          "line": 206
         },
         {
           "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
-          "line": 100
+          "line": 35
+        },
+        {
+          "file": "tests/test_social_por_url_achado.py",
+          "line": 55
         }
       ]
     },
@@ -38575,7 +38726,7 @@
       "usado_por": [
         {
           "file": "coleta/adaptador_youtube.py",
-          "line": 382
+          "line": 390
         },
         {
           "file": "coleta/youtube_oficial.py",
@@ -38732,85 +38883,31 @@
       ]
     },
     {
-      "endpoint": "https://www.linkedin.com/posts",
+      "endpoint": "https://www.instagram.com/%s",
       "usado_por": [
         {
-          "file": "coleta/adaptador_linkedin.py",
-          "line": 1422
+          "file": "coleta/instagram_diario.py",
+          "line": 374
         },
         {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 56
+          "file": "coleta/instagram_janela.py",
+          "line": 680
         },
         {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 30
+          "file": "coleta/social_por_url_achado.py",
+          "line": 291
         },
         {
-          "file": "tests/test_linkedin_op_01_operacional.py",
-          "line": 153
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 265
         },
         {
-          "file": "tests/test_prova_de_post_de_pessoa.py",
-          "line": 14
+          "file": "provas/canario_reels_instagram.py",
+          "line": 110
         },
         {
-          "file": "tests/test_seguir_pesquisadores.py",
-          "line": 60
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "curadoria/test_soc_onda2_social.py",
-          "line": 94
-        },
-        {
-          "file": "leis/social_matriz.py",
-          "line": 924
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 58
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 119
-        },
-        {
-          "file": "tests/test_prova_de_post_de_pessoa.py",
-          "line": 58
-        },
-        {
-          "file": "tests/test_seguir_pesquisadores.py",
-          "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/feed",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_linkedin.py",
-          "line": 1437
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 207
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 137
-        },
-        {
-          "file": "tests/test_linkedin_op_01_operacional.py",
-          "line": 152
-        },
-        {
-          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
-          "line": 35
+          "file": "tests/test_regua_social_por_provas.py",
+          "line": 123
         }
       ]
     },
@@ -38865,6 +38962,31 @@
       ]
     },
     {
+      "endpoint": "https://www.crea.gov.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 293
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 353
+        },
+        {
+          "file": "curadoria/test_travao_sementes.py",
+          "line": 95
+        },
+        {
+          "file": "tests/test_desbloquear_social.py",
+          "line": 45
+        },
+        {
+          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
+          "line": 116
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.cia.it',timeout=5)",
       "usado_por": [
         {
@@ -38894,7 +39016,7 @@
       "usado_por": [
         {
           "file": "coleta/adaptador_youtube.py",
-          "line": 657
+          "line": 665
         },
         {
           "file": "coleta/youtube_janela.py",
@@ -38928,27 +39050,6 @@
         {
           "file": "superficie/rede.py",
           "line": 83
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/%s",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 374
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 680
-        },
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 265
-        },
-        {
-          "file": "provas/canario_reels_instagram.py",
-          "line": 110
         }
       ]
     },
@@ -38991,27 +39092,6 @@
         {
           "file": "scripts/regua_t2/recolher_boletins.py",
           "line": 66
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.crea.gov.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 293
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 353
-        },
-        {
-          "file": "curadoria/test_travao_sementes.py",
-          "line": 95
-        },
-        {
-          "file": "tests/test_soc_tempo_publicacao_e_lugar.py",
-          "line": 116
         }
       ]
     },
@@ -39142,6 +39222,27 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/watch?v=%s",
+      "usado_por": [
+        {
+          "file": "provas/a_legenda_e_o_audio_do_youtube.py",
+          "line": 91
+        },
+        {
+          "file": "tests/test_as_duas_portas_do_scrap.py",
+          "line": 413
+        },
+        {
+          "file": "tests/test_cadeia_do_audio_offline.py",
+          "line": 148
+        },
+        {
+          "file": "tests/test_youtube_feed_sem_chave.py",
+          "line": 37
+        }
+      ]
+    },
+    {
       "endpoint": "https://youtu.be/X'",
       "usado_por": [
         {
@@ -39233,28 +39334,11 @@
           "line": 89
         }
       ]
-    },
-    {
-      "endpoint": "https://www.regione.calabria.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 193
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 936
-        },
-        {
-          "file": "curadoria/test_discovery_sementes.py",
-          "line": 24
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 855,
+  "ENDPOINTS_FOUND": 860,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 815,
+  "ENDPOINTS_TRUNCATED": 820,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -39272,15 +39356,15 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 855,
+    "endpoints": 860,
     "endpoints_published": 40,
-    "endpoints_truncated": 815,
+    "endpoints_truncated": 820,
     "candidates": 1199,
-    "coletores": 64,
+    "coletores": 65,
     "coletores_com_data": 20,
     "coletores_com_lugar": 41,
     "coletores_que_separam_fonte_do_fato": 24,
-    "coletores_que_registam_descarte": 20,
+    "coletores_que_registam_descarte": 21,
     "corridas_registadas": 108,
     "observacoes_registadas": 521,
     "fontes_ja_coletadas": 4,

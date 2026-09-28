@@ -15,34 +15,37 @@ RAIZ = pathlib.Path(__file__).resolve().parents[1]
 ALVO = RAIZ / "curadoria" / "regua_social.py"
 TESTE = RAIZ / "tests" / "test_d36_envelope_equivalente.py"
 
+# ⚠️ AJUSTE DECLARADO (SOCIAL-ATE-A-SALA, 27/09): a regua deixou de ter a tabela de PARES
+# de fases (`FASES_EQUIVALENTES`) e passou a julgar so as PROVAS (`provas_sociais`). As nove
+# mutacoes sao as MESMAS nove perguntas de antes, apontadas ao texto novo — nenhuma saiu.
 MUTACOES = [
-    ("M1 · nenhuma equivalencia declarada (a chave do par morre)",
-     '    ("canal-youtube", "audio-youtube"): (',
-     '    ("canal-youtube", "fase_que_nao_existe"): ('),
+    ("M1 · a conta do contrato YouTube deixa de ser lida",
+     '    if aq.get("CHANNEL_ID"):\n        return "YOUTUBE", str(aq["CHANNEL_ID"])',
+     '    if False:\n        return "YOUTUBE", str(aq["CHANNEL_ID"])'),
     ("M2 · tira a prova do CANAL DE ORIGEM",
-     '        "CANAL_DE_ORIGEM",',
-     '        "_PROVA_DO_CANAL_APAGADA",'),
+     "    if not contas:\n        falta.append(",
+     "    if False:\n        falta.append("),
     ("M3 · tira a prova da DATA DE PUBLICACAO",
-     '        "DATA_DE_PUBLICACAO",',
-     '        "_PROVA_DA_DATA_APAGADA",'),
+     "    if pub is None:\n        falta.append(",
+     "    if False:\n        falta.append("),
     ("M4 · tira a prova da AUTORIZACAO DO DONO",
-     '        "AUTORIZACAO_DO_DONO",',
-     '        "_PROVA_DA_AUTORIZACAO_APAGADA",'),
-    ("M5 · tira a prova da LIGACAO CANAL-VIDEO-AUDIO",
-     '        "LIGACAO_CANAL_VIDEO_AUDIO",',
-     '        "_PROVA_DA_LIGACAO_APAGADA",'),
+     '    if _primeiro(ob, CAMPOS_DA_AUTORIZACAO) != "SIM":\n        falta.append(',
+     "    if False:\n        falta.append("),
+    ("M5 · tira a prova da LIGACAO CANAL-VIDEO-AUDIO (a midia)",
+     "    if midia is None:",
+     "    if False:"),
     ("M6 · excecao generica: qualquer fase satisfaz qualquer contrato",
      "        if falta:",
      "        if False:"),
     ("M7 · a ligacao deixa de conferir o canal contra o do contrato",
-     '            elif ob.get("CHANNEL_ID") != canal_do_contrato:',
-     "            elif False:"),
+     "    elif contas and contas != {conta}:",
+     "    elif False:"),
     ("M8 · a data deixa de exigir precisao declarada",
-     '            elif not ob.get("PUBLISHED_AT_PRECISION"):',
-     "            elif False:"),
+     "    elif _primeiro(ob, CAMPOS_DA_PRECISAO) is None:",
+     "    elif False:"),
     ("M9 · o som guardado deixa de ter de nomear o video",
-     '            elif video and video not in str(ob.get("AUDIO_REFERENCE") or ""):',
-     "            elif False:"),
+     '    elif pubid is not None and str(pubid) not in str(_valor(ob, midia[2]) or ""):',
+     "    elif False:"),
 ]
 
 

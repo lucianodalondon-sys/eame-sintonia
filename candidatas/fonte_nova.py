@@ -212,6 +212,58 @@ def recusar(url: str, motivo: str):
     return None
 
 
+# SOCIAL-ATE-A-SALA (27/09): o dono ja liberou o que a D15 barrava — D22 (Reel publico por
+# URL directa), D23 (video de pagina publica de ORGANIZACAO no LinkedIn), D24 (video de
+# PESSOA do agro), D106 (comentarios IG/LI, citada pelo coordenador; o texto nao esta neste
+# repositorio). Cada tipo so sai do POLICY_BLOCK pelas decisoes que o cobrem.
+DECISOES_QUE_DESBLOQUEIAM = {
+    "INSTAGRAM": frozenset({"D22", "D106"}),
+    "LINKEDIN": frozenset({"D23", "D24", "D106"}),
+}
+
+
+def desbloquear_por_decisao(candidata_id: str, decisoes, platform_policy_status: str,
+                            platform_policy_prova: dict, quem: str,
+                            owner_authorized: str = "SIM") -> tuple[dict | None, str]:
+    """POLICY_BLOCK -> CANDIDATA, pela decisao do dono ESCRITA na linha. → (linha, o que fez).
+
+    NAO apaga nada: o motivo do bloqueio e a prova dos termos ficam; o desbloqueio entra AO
+    LADO, com as decisoes, OWNER_AUTHORIZED e a politica da plataforma MEDIDA. As duas frases
+    convivem — o dono autoriza, a plataforma continua a proibir (PLATFORM_POLICY_STATUS).
+    Fail-closed: sem decisao que cubra o tipo, sem OWNER_AUTHORIZED=SIM ou sem a politica
+    medida, nada muda. Idempotente: uma candidata ja desbloqueada devolve-se como esta.
+    """
+    decisoes = sorted({str(x).strip().upper() for x in (decisoes or []) if str(x).strip()})
+    d = carregar()
+    c = next((x for x in d["CANDIDATAS"] if x.get("CANDIDATA_ID") == candidata_id), None)
+    if c is None:
+        return None, "candidata %s desconhecida na fila" % candidata_id
+    if c.get("DESBLOQUEIO") and c.get("ESTADO") != "POLICY_BLOCK":
+        return c, "JA_DESBLOQUEADA"
+    if c.get("ESTADO") != "POLICY_BLOCK":
+        return c, "NAO_ESTA_EM_POLICY_BLOCK (%s): nada a desfazer" % c.get("ESTADO")
+    cobre = DECISOES_QUE_DESBLOQUEIAM.get(c.get("TIPO"), frozenset())
+    if not decisoes or not set(decisoes) <= cobre:
+        raise ValueError("decisoes %s nao cobrem o tipo %s (cobrem: %s)"
+                         % (decisoes, c.get("TIPO"), sorted(cobre)))
+    if owner_authorized != "SIM":
+        raise ValueError("OWNER_AUTHORIZED tem de ser SIM para desfazer um POLICY_BLOCK")
+    if not str(platform_policy_status or "").strip() or not platform_policy_prova:
+        raise ValueError("PLATFORM_POLICY_STATUS medido (com a prova) e obrigatorio ao lado da autorizacao")
+    if not str(quem or "").strip():
+        raise ValueError("quem desbloqueia e obrigatorio")
+    c["DESBLOQUEIO"] = {"DE": "POLICY_BLOCK", "PARA": "CANDIDATA", "DECISOES": decisoes,
+                        "OWNER_AUTHORIZED": "SIM", "PLATFORM_POLICY_STATUS": platform_policy_status,
+                        "PLATFORM_POLICY_PROVA": platform_policy_prova, "QUEM": quem.strip(),
+                        "QUANDO": date.today().isoformat()}
+    c.setdefault("HISTORICO_DE_ESTADO", []).append(
+        {"DE": "POLICY_BLOCK", "PARA": "CANDIDATA", "PORQUE": "decisoes do dono %s" % ", ".join(decisoes),
+         "QUANDO": date.today().isoformat(), "QUEM": quem.strip()})
+    c["ESTADO"] = "CANDIDATA"
+    gravar(d)
+    return c, "DESBLOQUEADA"
+
+
 def gravar(d: dict) -> None:
     FILA.parent.mkdir(parents=True, exist_ok=True)
     d["CANDIDATAS"].sort(key=lambda c: (c["TIPO"], c["PAIS"], c["NOME"]))
