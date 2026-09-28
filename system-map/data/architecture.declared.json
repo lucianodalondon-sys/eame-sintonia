@@ -4971,7 +4971,7 @@
    "territory": "Z-ACOES",
    "kind": "engine",
    "icon": "⚙",
-   "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao. V1A (2026-09-23): coleta/retrato_html.mjs e o gemeo Node do detector curadoria/retrato_html.py (retrato + V1 + gate), enxertado de aquisicao-detalhe-v1; a paridade pagina a pagina vive em tests/test_v1a_v1_ligada.py.",
+   "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao. DERIVACAO-ESTRUTURA (2026-09-28): `limpar()` passou a dar quebra de linha nas etiquetas de BLOCO (RAW 2272: 1 -> 80 linhas), a REGUA entrou na receita (`TEXT_RULE` + `TEXT_RULE_PROBE_SHA256`, versao 3), e `tempo_de_publicacao` ganhou, DEPOIS dos cinco niveis da D61, o nivel estreito `DIV.content-date` irmao de `content-category` (data italiana DD mmm AAAA, precisao DIA, nunca FACT_TIME); o replay antes x depois do acervo vive em `provas/derivacao_estrutura/`. V1A (2026-09-23): coleta/retrato_html.mjs e o gemeo Node do detector curadoria/retrato_html.py (retrato + V1 + gate), enxertado de aquisicao-detalhe-v1; a paridade pagina a pagina vive em tests/test_v1a_v1_ligada.py.",
    "why_here": "A peca que converte HTML em texto existia nesta arvore desde antes e tinha ZERO chamadores em producao: 46 observacoes reais paravam em DERIVED com MISSING_ROUTE. CAPABILITY EXISTS != EDGE EXISTS. Declarar a capacidade tambem nao bastava — o `SUPPORTS` do executor de PDF viveu um ano sem leitores. O que liga e o nome na lista `coleta/ingresso.py::_DONOS_DA_DERIVACAO`.",
    "departments": [
     "ENGENHARIA"
@@ -4981,7 +4981,9 @@
     "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
     "coleta/retrato_html.mjs",
     "tests/dados/c2-juiz/*.html",
-    "coleta/extratores_de_texto.py"
+    "coleta/extratores_de_texto.py",
+    "provas/derivacao_estrutura/*.py",
+    "tests/fixtures/canario_1149/*.html"
    ],
    "views": [
     "audit",

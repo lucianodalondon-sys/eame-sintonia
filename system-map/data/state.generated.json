@@ -1884,6 +1884,7 @@
       "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md",
       "docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md",
+      "docs/sintonia-scrap/KNOW-HOW-DERIVACAO-ESTRUTURA.md",
       "docs/sintonia-scrap/NIGHT-SHIFT-01-MADRUGADA-DE-HARDENING.md",
       "docs/sintonia-scrap/SCRAP-EVOLUCAO-P6-NAVEGADOR-REAL.md",
       "docs/sintonia-scrap/SCRAP-FLOW-01-CAMINHO-CANONICO.md",
@@ -3059,6 +3060,8 @@
       "provas/cortesia_red_team.mjs",
       "provas/coverage.py",
       "provas/demanda_de_dados_da_italia.py",
+      "provas/derivacao_estrutura/mutar.py",
+      "provas/derivacao_estrutura/replay_acervo.py",
       "provas/derived_artifact_no_postgres.py",
       "provas/ensaio_canonico_de_capacidade.py",
       "provas/ensaio_do_texto_na_collection.py",
@@ -3916,6 +3919,7 @@
       "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+      "tests/fixtures/canario_1149/RAW-2272.html",
       "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json",
       "tests/fixtures/it_t4_001/PROD_FTS_6_20260914.csv",
@@ -4070,6 +4074,7 @@
       "tests/test_d37_campos_de_politica.py",
       "tests/test_data_do_fato.py",
       "tests/test_dedup_video_social.py",
+      "tests/test_derivacao_estrutura.py",
       "tests/test_desbloquear_social.py",
       "tests/test_edicoes_do_registro.py",
       "tests/test_egresso_consenso.py",
@@ -4798,10 +4803,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
-    "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-    "GENERATED_AT": "2026-09-28T05:29:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a"
+    "BRANCH": "claude/derivacao-estrutura-v1-girw5u",
+    "HEAD": "ea38e75d4952ca138eb6de25c07c7e050bd58747",
+    "GENERATED_AT": "2026-09-28T15:52:51+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3b83401fa1d21e534586a42b26a34c8f992141176cf0e3afae0e67850bbf0789"
   },
   "FAMILIES": [
     {
@@ -46440,7 +46445,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/executor_texto_de_html.py:744",
+          "coleta/executor_texto_de_html.py:920",
           "coleta/executor_texto_de_pdf.py:309",
           "coleta/executor_transcricao_midia.py:303",
           "guarda/memoria_descartavel.py:43"
@@ -47435,15 +47440,16 @@
         "papel": "NAO SEI",
         "listas": [
           "CAPACIDADE",
+          "MESES_IT",
           "NOMES_DA_PUBLICACAO",
           "TIPOS_QUE_PUBLICAM",
           "_DIAS_IT",
           "_NUM",
           "_RELATIVAS"
         ],
-        "palavras": 77,
+        "palavras": 104,
         "por_lingua": {},
-        "sem_marca_de_lingua": 77,
+        "sem_marca_de_lingua": 104,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -47950,7 +47956,7 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -47971,9 +47977,11 @@
         "coleta/texto_fonte.py"
       ],
       "file_count": 9,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/texto_fonte.py"
+      ],
       "produces": [
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json"
       ],
@@ -48011,13 +48019,14 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "BLOCOS",
           "ENDPOINTS",
           "LANGS",
           "SINONIMOS"
         ],
-        "palavras": 47,
+        "palavras": 61,
         "por_lingua": {},
-        "sem_marca_de_lingua": 47,
+        "sem_marca_de_lingua": 61,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -72784,6 +72793,7 @@
         "tests/test_d37_campos_de_politica.py",
         "tests/test_data_do_fato.py",
         "tests/test_dedup_video_social.py",
+        "tests/test_derivacao_estrutura.py",
         "tests/test_desbloquear_social.py",
         "tests/test_edicoes_do_registro.py",
         "tests/test_egresso_consenso.py",
@@ -72993,7 +73003,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 341,
+      "file_count": 342,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -73382,6 +73392,7 @@
           "QUEM_FALA_DE_RAW_ASSET",
           "QUINZE",
           "RECADO",
+          "RECEITAS_POR_VERSAO",
           "RECUSA",
           "RELIGADOS",
           "REND",
@@ -73405,6 +73416,7 @@
           "VALIDA",
           "VALORES",
           "VAZIO",
+          "VENENOS",
           "VERBOS_DE_CALCULO",
           "VOCABULARIO_DA_COLLECTION",
           "WAV",
@@ -73412,13 +73424,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 2233,
+        "palavras": 2319,
         "por_lingua": {
           "IT": 12,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 2216,
+        "sem_marca_de_lingua": 2302,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -74064,6 +74076,7 @@
         "tests/fixtures/ARESTAS/so_comentario.py",
         "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
         "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+        "tests/fixtures/canario_1149/RAW-2272.html",
         "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
         "tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json",
         "tests/fixtures/it_t4_001/PROD_FTS_6_20260914.csv",
@@ -104799,7 +104812,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 744,
+          "line": 920,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -104990,7 +105003,7 @@
       "evidence": [
         {
           "file": "tests/test_a_receita_tem_versao.py",
-          "line": 28,
+          "line": 29,
           "snippet": "from guarda.preservar_derivado import hash_dos_parametros  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-TESTES",
@@ -108735,7 +108748,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 84,
+          "line": 85,
           "snippet": "from coleta.texto_fonte import limpar  # noqa: E402 — O DONO ÚNICO DA EXTRAÇÃO",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -126529,7 +126542,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 26 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 27 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_artefato_tempo_do_fato.py",
@@ -126660,6 +126673,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_derivacao_estrutura.py",
+          "line": 32,
+          "snippet": "import fato_do_texto as FT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_estudo_chaves.py",
           "line": 23,
           "snippet": "import boletim_do_campo as BC  # noqa: E402",
@@ -126695,22 +126724,6 @@
           "file": "tests/test_estudo_chaves.py",
           "line": 219,
           "snippet": "import fato_local as FL",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
-            "FROM": "C-LUGAR-COLETA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_extrator_evento_v2.py",
-          "line": 18,
-          "snippet": "import fato_do_texto as FT  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -133498,7 +133511,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 179 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 180 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -174189,8 +174202,12 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2271,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/derivacao_estrutura/mutar.py",
+    "provas/derivacao_estrutura/replay_acervo.py",
+    "tests/fixtures/canario_1149/RAW-2272.html"
+  ],
+  "UNCLAIMED_FILES_COUNT": 2275,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174441,7 +174458,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 285,
+      "PECAS_EM_DESACORDO": 286,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -174458,17 +174475,17 @@
   ],
   "COUNTS": {
     "components": 312,
-    "components_proven": 33,
-    "components_pending": 271,
+    "components_proven": 32,
+    "components_pending": 272,
     "components_broken": 0,
     "components_unknown": 8,
     "edges": 1913,
     "edges_proven": 1844,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4205,
-    "files_covered": 1934,
-    "files_code_unclaimed": 0,
+    "files_tracked": 4210,
+    "files_covered": 1935,
+    "files_code_unclaimed": 3,
     "roles_proven": 207,
     "roles_declared_only": 10,
     "roles_unknown": 95,

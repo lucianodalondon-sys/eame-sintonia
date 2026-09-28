@@ -1,0 +1,89 @@
+{
+ "MUTANTES": {
+  "M1_B1_revertido": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_derivacao_estrutura.py",
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_derivacao_estrutura.py",
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M2_regua_muda_sem_versao": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M3_versao_nao_subiu": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M4_regua_fora_da_receita": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M5_B2_qualquer_classe_date": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_derivacao_estrutura.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_derivacao_estrutura.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M6_B2_sem_irmao_categoria": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_derivacao_estrutura.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_derivacao_estrutura.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M7_B2_data_em_qualquer_parte_do_valor": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_derivacao_estrutura.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_derivacao_estrutura.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M8_B2_mais_de_um_campo_fica_o_primeiro": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_derivacao_estrutura.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_derivacao_estrutura.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  }
+ },
+ "MORTOS": 8,
+ "DE": 8,
+ "ORIGINAIS_REPOSTOS": true
+}

@@ -244,7 +244,7 @@ def main(argv=None):
         "O_QUE_E": "replay offline antes x depois da DERIVACAO-ESTRUTURA (B1 limpar + B2 content-date)",
         "BASE": BASE, "EXECUTOR_BASE_DE": origem, "COPIA_LITERAL_CONFERIDA": conferir_copia(),
         "EXECUTOR_VERSION_DEPOIS": DEPOIS.EXECUTOR_VERSION,
-        "ARMAZEM": os.path.abspath(a.armazem), "INICIO_UTC": t0.isoformat(),
+        "ARMAZEM": a.armazem, "INICIO_UTC": t0.isoformat(),
         "SEGUNDOS": round((datetime.datetime.now(datetime.timezone.utc) - t0).total_seconds(), 1),
         "RESUMO": resumo, "PAGINAS": linhas,
     }

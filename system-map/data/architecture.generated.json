@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
-    "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-    "GENERATED_AT": "2026-09-28T05:29:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a"
+    "BRANCH": "claude/derivacao-estrutura-v1-girw5u",
+    "HEAD": "ea38e75d4952ca138eb6de25c07c7e050bd58747",
+    "GENERATED_AT": "2026-09-28T15:52:51+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3b83401fa1d21e534586a42b26a34c8f992141176cf0e3afae0e67850bbf0789"
   },
   "FILES": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "path": ".gitattributes",
-      "sha": "81498309781b6dd12ccda52d77c81286ef6d10ea",
+      "sha": "87e3d0f9e5b5a847d0e50502a4e29a7e254e0db2",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -2474,7 +2474,7 @@
     },
     {
       "path": "coleta/executor_texto_de_html.py",
-      "sha": "2197b7ac28ddf1211e95a308b305c9ad4bd04b07",
+      "sha": "9ee3ee788ca04dd93415db8af2ac6baa675d189b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2838,7 +2838,7 @@
     },
     {
       "path": "coleta/texto_fonte.py",
-      "sha": "6181dd80bb943829ceeec0ef583763ed8edf0884",
+      "sha": "3e1be43fe030b0aa8d06ea9f9fb4a5fd3660d77d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13001,6 +13001,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/KNOW-HOW-DERIVACAO-ESTRUTURA.md",
+      "sha": "11e05d25d4f1b5f8e27e489a45f7850264d5634e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/NIGHT-SHIFT-01-MADRUGADA-DE-HARDENING.md",
       "sha": "08be5db11271110d2ac4d1cbc0dba3fb9beb4081",
       "ext": ".md",
@@ -21023,6 +21030,20 @@
       "code_dir": true
     },
     {
+      "path": "provas/derivacao_estrutura/mutar.py",
+      "sha": "05a681a69734a39bd10edf8c838aba0311906c56",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/derivacao_estrutura/replay_acervo.py",
+      "sha": "19c2db1e8d5e0589c0fe92fff732029c7b2413cc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/derived_artifact_no_postgres.py",
       "sha": "18b0d15887832962dfcf85866dba109c734f3820",
       "ext": ".py",
@@ -26896,6 +26917,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/fixtures/canario_1149/RAW-2272.html",
+      "sha": "04f19db048f20d109a7797773c969c34fa376284",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "sha": "c979c2ae47b027c1095585a28c09d49e07e3670f",
       "ext": ".json",
@@ -27184,7 +27212,7 @@
     },
     {
       "path": "tests/test_a_receita_tem_versao.py",
-      "sha": "e2315e16f2d099d519bc0e6fc605b77f90a94836",
+      "sha": "5fefe5b5b938b1c467600e12e4b3b44c0117c2b1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27969,6 +27997,13 @@
     {
       "path": "tests/test_dedup_video_social.py",
       "sha": "f8b86d189b37099a0f81c23e8522b47430096c4a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_derivacao_estrutura.py",
+      "sha": "856914579135b0122a8f65dd742c3f326d7206ef",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -32884,7 +32919,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 84,
+        "line": 85,
         "snippet": "from coleta.texto_fonte import limpar  # noqa: E402 — O DONO ÚNICO DA EXTRAÇÃO"
       }
     },
@@ -32895,7 +32930,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 861,
+        "line": 1037,
         "snippet": "f = os.path.join(RAIZ, \"curadoria\", \"retrato_html.py\")"
       }
     },
@@ -32906,7 +32941,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 744,
+        "line": 920,
         "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
       }
     },
@@ -71433,6 +71468,138 @@
       }
     },
     {
+      "from_file": "provas/derivacao_estrutura/mutar.py",
+      "to_file": "coleta/executor_texto_de_html.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/mutar.py",
+        "line": 19,
+        "snippet": "EXECUTOR = RAIZ / \"coleta\" / \"executor_texto_de_html.py\""
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/mutar.py",
+      "to_file": "coleta/texto_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/mutar.py",
+        "line": 18,
+        "snippet": "LIMPAR = RAIZ / \"coleta\" / \"texto_fonte.py\""
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/mutar.py",
+      "to_file": "tests/test_a_receita_tem_versao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/mutar.py",
+        "line": 20,
+        "snippet": "TESTES = [\"tests/test_derivacao_estrutura.py\", \"tests/test_a_receita_tem_versao.py\","
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/mutar.py",
+      "to_file": "tests/test_a_rota_do_html.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/mutar.py",
+        "line": 22,
+        "snippet": "\"tests/test_a_rota_do_html.py\"]"
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/mutar.py",
+      "to_file": "tests/test_derivacao_estrutura.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/mutar.py",
+        "line": 20,
+        "snippet": "TESTES = [\"tests/test_derivacao_estrutura.py\", \"tests/test_a_receita_tem_versao.py\","
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/mutar.py",
+      "to_file": "tests/test_leitor_data_youtube.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/mutar.py",
+        "line": 21,
+        "snippet": "\"tests/test_tempo_e_lugar_da_publicacao.py\", \"tests/test_leitor_data_youtube.py\","
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/mutar.py",
+      "to_file": "tests/test_tempo_e_lugar_da_publicacao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/mutar.py",
+        "line": 21,
+        "snippet": "\"tests/test_tempo_e_lugar_da_publicacao.py\", \"tests/test_leitor_data_youtube.py\","
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/replay_acervo.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/replay_acervo.py",
+        "line": 55,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/replay_acervo.py",
+      "to_file": "coleta/executor_texto_de_html.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/replay_acervo.py",
+        "line": 61,
+        "snippet": "FICHEIRO_EXECUTOR = \"coleta/executor_texto_de_html.py\""
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/replay_acervo.py",
+      "to_file": "coleta/texto_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/replay_acervo.py",
+        "line": 57,
+        "snippet": "from coleta.texto_fonte import limpar as limpar_depois  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/replay_acervo.py",
+      "to_file": "coleta/texto_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/replay_acervo.py",
+        "line": 62,
+        "snippet": "FICHEIRO_LIMPAR = \"coleta/texto_fonte.py\""
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/replay_acervo.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/replay_acervo.py",
+        "line": 58,
+        "snippet": "import fato_do_texto as FT  # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/derived_artifact_no_postgres.py",
       "to_file": "guarda/preservar_coleta.py",
       "type": "IMPORTS",
@@ -89864,7 +90031,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_a_receita_tem_versao.py",
-        "line": 28,
+        "line": 29,
         "snippet": "from guarda.preservar_derivado import hash_dos_parametros  # noqa: E402"
       }
     },
@@ -98754,6 +98921,39 @@
         "file": "tests/test_dedup_video_social.py",
         "line": 23,
         "snippet": "with open(os.path.join(RAIZ, \"tests\", \"dados\", \"videos-partilhados-arpa-ispra.json\"), encoding=\"utf-8\") as _f:"
+      }
+    },
+    {
+      "from_file": "tests/test_derivacao_estrutura.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_derivacao_estrutura.py",
+        "line": 29,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_derivacao_estrutura.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_derivacao_estrutura.py",
+        "line": 32,
+        "snippet": "import fato_do_texto as FT  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_derivacao_estrutura.py",
+      "to_file": "tests/fixtures/canario_1149/RAW-2272.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_derivacao_estrutura.py",
+        "line": 40,
+        "snippet": "with open(RAW_2272, \"rb\") as fh:"
       }
     },
     {
@@ -112539,10 +112739,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4205,
-    "files_readable": 1766,
-    "files_code_dir": 2181,
-    "file_edges": 7494,
+    "files_tracked": 4210,
+    "files_readable": 1770,
+    "files_code_dir": 2185,
+    "file_edges": 7509,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
