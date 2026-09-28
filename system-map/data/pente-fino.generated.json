@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T23:36:38+00:00",
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217",
+    "GENERATED_AT": "2026-09-28T01:08:58+00:00",
+    "HEAD": "cf3d76fd72be6eaaf00c52488a794a38f13726f2",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5",
-    "FICHEIROS_NA_IMPRESSAO": 4266,
+    "SOURCE_TREE_FINGERPRINT": "a01b6d45d3e5262aa439f4f2c739f32464e93545d51a4cc5bfc929fbdc2af4ad",
+    "FICHEIROS_NA_IMPRESSAO": 4272,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -153,13 +153,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5",
+        "VERSAO": "a01b6d45d3e5262aa439f4f2c739f32464e93545d51a4cc5bfc929fbdc2af4ad",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 21,
-    "INPUTS_DIGEST": "9c07e24d33b2b74970a8100a6d42ad53ab06d0f5d239dd72658fa79f43b6243a",
+    "INPUTS_DIGEST": "f8a39befb74140e76b615fc015e3161cd4fab40eca2f965452fdeb338552efdf",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -296,18 +296,6 @@
       "estado": "yellow"
     },
     {
-      "id": "C-CONTADOR-24H",
-      "nome": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir",
-      "zona": "· os executores",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 2,
-      "estado": "yellow"
-    },
-    {
       "id": "V-HTTP",
       "nome": "PEDIDO HTTP DIRETO",
       "zona": "· IT · SCRAP — os canais",
@@ -371,6 +359,18 @@
       "id": "C-REFERENCIA-CADENCIA",
       "nome": "A cadencia da referencia — quando se volta a fonte",
       "zona": "· as reguas que carimbam",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-CORTESIA-ADAPTATIVA",
+      "nome": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -738,6 +738,18 @@
       "respostas": 3,
       "ficheiros": 6,
       "estado": "green"
+    },
+    {
+      "id": "C-CONTADOR-24H",
+      "nome": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 2,
+      "estado": "yellow"
     },
     {
       "id": "C-IT-CONTRATOS",
@@ -1173,10 +1185,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 84,
+    "pecas_da_coleta": 85,
     "respondem_as_quatro": 26,
-    "respondem_a_tres": 41,
-    "respondem_a_duas": 14,
+    "respondem_a_tres": 43,
+    "respondem_a_duas": 13,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }
