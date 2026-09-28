@@ -4555,9 +4555,11 @@
     "INTELIGENCIA"
    ],
    "what": "Abre uma corrida identificada sobre itens JA LIDOS da Sala de Espera, guarda pergunta, entradas, versao de regras, de codigo e da Biblia, inicio, fim, estado e erro — e fecha. O portao G0 pergunta se da para saber sobre quem o item fala, de onde veio e quando o facto aconteceu; quando nao da, produz INTELLIGENCE_REQUIREMENT e para. Nao produz achado, oportunidade nem pontuacao.",
-   "why_here": "C-INT-PILOT-01, a primeira missao que a §32 da Biblia autoriza. O RUN_ID deriva do pedido e das ENTRADAS, nunca do relogio — sem isso REUSED deixa de ser detetavel, e INT-LAW-054 exige que o reuso seja PROVADO. Ela NAO sabe abrir a Sala de Espera, e e de proposito: quem sabe abrir a Sala consegue, um dia, decidir enche-la. Corrida real sobre um item real: DONE · NO_ANALYTIC_OUTPUT_YET · 0 sinais · 1 requisito · 0 coletores.",
+   "why_here": "C-INT-PILOT-01, a primeira missao que a §32 da Biblia autoriza. O RUN_ID deriva do pedido e das ENTRADAS, nunca do relogio — sem isso REUSED deixa de ser detetavel, e INT-LAW-054 exige que o reuso seja PROVADO. Ela NAO sabe abrir a Sala de Espera, e e de proposito: quem sabe abrir a Sala consegue, um dia, decidir enche-la. Corrida real sobre um item real: DONE · NO_ANALYTIC_OUTPUT_YET · 0 sinais · 1 requisito · 0 coletores. PRECO-NO-MOTOR (Diretoria 28/09): com precos=, a corrida le a vista sala_de_espera_precos (migration 038) e so liga a linha ao MESMO item por (run_id, ordem) + o mesmo RAW_SHA256 + citacao no corpo do artigo (motor/preco_do_item.py, gates P0..P10); o objeto de mercado (CAP-MKT como contexto, MARKET_STAGE NAO SEI) nasce na corrida e o pote so o transporta. motor/corrida_sobre_a_copia.py corre-a sobre a copia so-leitura da Sala.",
    "files": [
-    "motor/corrida_da_inteligencia.py"
+    "motor/corrida_da_inteligencia.py",
+    "motor/preco_do_item.py",
+    "motor/corrida_sobre_a_copia.py"
    ]
   },
   {

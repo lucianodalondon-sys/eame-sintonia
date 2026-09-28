@@ -67,6 +67,10 @@ from fato_local import MES_NUM                  # noqa: E402
 # D12 · D16 (INDEPENDENCIA-V1): o grafo de dependencia tem UM dono, e nao e esta
 # corrida. Ela so o consulta sobre os sinais que produziu.
 import grafo_de_dependencia as GD               # noqa: E402
+# PRECO-NO-MOTOR (Diretoria 28/09): a linha de preco da Sala (vista
+# `sala_de_espera_precos`, migration 038) entra pela corrida e so pelo MESMO item
+# — (run_id, ordem) + os mesmos bytes do RAW. Os gates vivem num ficheiro so.
+import preco_do_item as PR                      # noqa: E402
 
 CONTRATO = "CORRIDA_DA_INTELLIGENCE/v1"
 #: ⚠️ G0/v2 (INT-CONSERTOS-EXP, D1-D4/D6). A v1 aceitava como ancora de tempo
@@ -224,7 +228,8 @@ def versao_do_codigo() -> str:
     return hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16]
 
 
-def identidade_da_corrida(request_id: str, itens: list, universo: dict | None = None) -> str:
+def identidade_da_corrida(request_id: str, itens: list, universo: dict | None = None,
+                          precos: list | None = None) -> str:
     """`RUN_ID` derivado do pedido e das ENTRADAS, nunca do relogio.
 
     Com o relogio dentro, duas corridas da mesma pergunta sobre o mesmo item
@@ -244,7 +249,12 @@ def identidade_da_corrida(request_id: str, itens: list, universo: dict | None = 
                         # iguais aos da R3 davam o mesmo IR sobre um corte com +100
                         # (INT-LAW-041/054: reuso so com o MESMO universo).
                         "UNIVERSE": universo,
-                        "INPUTS": [referencia_do_item(i) for i in itens]},
+                        "INPUTS": [referencia_do_item(i) for i in itens],
+                        # PRECO-NO-MOTOR · as linhas de preco sao ENTRADA: outra linha, outra
+                        # corrida. So entram na conta quando a corrida as recebe.
+                        **({"PRECOS": [PR.referencia_da_linha(p) for p in precos],
+                            "PRECO_RULESET": PR.PRECO_RULESET_VERSION}
+                           if precos is not None else {})},
                        ensure_ascii=False, sort_keys=True)
     return "IR-" + hashlib.sha256(corpo.encode("utf-8")).hexdigest()[:20]
 
@@ -538,18 +548,24 @@ def dependencia(vistas: list) -> dict:
 
 
 def correr(pergunta: str, itens: list, request_id: str = "",
-           ja_corridas: dict | None = None, universo: dict | None = None) -> dict:
+           ja_corridas: dict | None = None, universo: dict | None = None,
+           precos: list | None = None, armazem=None, referencia=None) -> dict:
     """Abre uma corrida, consome os itens, e devolve o LIVRO dela.
 
     `ja_corridas` e o que torna `REUSED` provavel em vez de declarado: se a
     mesma pergunta sobre a mesma materia ja correu, devolve-se a corrida
     anterior marcada — nunca uma corrida nova com outro nome.
+
+    `precos` (PRECO-NO-MOTOR): as linhas da vista `sala_de_espera_precos` do
+    MESMO corte; `armazem`: a pasta dos bytes do RAW (relidos contra o sha);
+    `referencia`: a referencia ADAMA aberta pela porta (D123). Sem `precos`, o
+    livro e exatamente o de antes.
     """
     if not pergunta or not pergunta.strip():
         raise LeiViolada("uma corrida sem pergunta nao e uma corrida")
     request_id = request_id or ("IQ-" + hashlib.sha256(
         pergunta.encode("utf-8")).hexdigest()[:16])
-    run_id = identidade_da_corrida(request_id, itens, universo)
+    run_id = identidade_da_corrida(request_id, itens, universo, precos)
 
     anterior = (ja_corridas or {}).get(run_id)
     if anterior is not None:
@@ -714,6 +730,31 @@ def correr(pergunta: str, itens: list, request_id: str = "",
         for d in livro["DEPENDENCIA"]["GERAL"]["DOCUMENT_DUPLICATES"]:
             for c in d["COLAPSADAS"]:
                 por_id[c]["DUPLICATA_DE"] = d["MANTIDA"]
+
+        # ── PRECO-NO-MOTOR · a linha de preco do MESMO item vira objeto AQUI ──
+        # So quando a corrida recebe `precos` (a vista `sala_de_espera_precos`
+        # do mesmo corte). Cada linha passa pelos gates P0..P10 de
+        # `preco_do_item`: ligada por (run_id, ordem) a UM item desta corrida,
+        # com os mesmos bytes do RAW e a citacao no corpo DO artigo. O que
+        # falha fica em PRECOS_RECUSADOS com o motivo — nunca some, nunca vira
+        # objeto por aproximacao. O objeto sai pronto para o pote: o pote so o
+        # transporta (ITENS_POR_FERRAMENTA.market).
+        if precos is not None:
+            mercado = PR.precos_da_corrida(precos, itens, run_id, livro["LINEAGE"],
+                                           intervalo_do_tempo, armazem=armazem)
+            import porta_da_referencia as PORTA          # noqa: PLC0415 (D123: a ligacao so pela porta)
+            for o in mercado["OBJETOS"]:
+                o["LIGACAO_ADAMA"] = PORTA.ligacao_adama(referencia, {
+                    "CULTURA": o["CHAVES"]["CULTURA_LITERAL"],
+                    "VEM_DE": {"CULTURA": "sala_de_espera_precos.cultura_literal"}})
+            livro["PRECOS"] = {
+                "PRECO_RULESET_VERSION": PR.PRECO_RULESET_VERSION, "LEI": PR.LEI,
+                "LINHAS_RECEBIDAS": len(precos), "OBJETOS": len(mercado["OBJETOS"]),
+                "RECUSADOS": mercado["RECUSADOS"], "DUPLICADOS": mercado["DUPLICADOS"],
+                "ARMAZEM_CONFERIDO": armazem is not None,
+            }
+            livro["OBJETOS_DE_MERCADO"] = mercado["OBJETOS"]
+            livro["ITENS_POR_FERRAMENTA"] = {"market": mercado["OBJETOS"]}
 
         livro["RESULT_STATE"] = "DONE"
         livro["INTAKE"].update({
