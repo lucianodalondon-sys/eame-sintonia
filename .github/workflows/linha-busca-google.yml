@@ -21,8 +21,10 @@
 #
 # O SEGREDO
 # ---------
-# SÓ `secrets.YOUTUBE_DATA_API_KEY`, escrito FIXO (nenhum SUPABASE_*). Um `secrets[...]` pelo nome faria o
-# GitHub entregar TODOS os secrets do repositório ao runner — por isso não há. Entra só nos passos 2, 3 e 4,
+# SÓ `secrets.YOUTUBE_DATA_API_KEY`, escrito FIXO (nenhum SUPABASE_*). Um acesso ao contexto `secrets` com o
+# NOME vindo de input/pedido (índice dinâmico) faria o GitHub entregar TODOS os secrets do repositório ao
+# runner e deixaria um pedido errado mandar outra chave ao Google — por isso não há (contrato:
+# tests/test_contrato_workflows_sem_secret_dinamico.py). Entra só nos passos 2, 3 e 4,
 # pelo ambiente, e nunca é impresso (a tesoura `api_oficial.redigir` + a máscara do Actions).
 #
 # COMO SE DISPARA
