@@ -22,7 +22,8 @@ sys.path.insert(0, os.path.join(RAIZ, "motor"))
 import porta_da_referencia as PORTA  # noqa: E402
 
 CORRIDAS = ("tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
-            "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json")
+            "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+           "tests/fixtures/pote/CORRIDA-SINTETICA-PUBLICA-SOZINHO.json")
 
 
 def ligacao_sintetica() -> dict:
