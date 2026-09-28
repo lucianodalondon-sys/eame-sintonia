@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
-    "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-    "GENERATED_AT": "2026-09-28T05:29:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a"
+    "BRANCH": "claude/c6-repetido-dedup-doc-9eqszm",
+    "HEAD": "ce677612dca5dcd79d06662525997eacf0c12c98",
+    "GENERATED_AT": "2026-09-28T17:09:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "c55642ecb7935c431a3e859228efa8868d07b83074a384fb5cf7f03a93fa502e"
   },
   "FILES": [
     {
@@ -270,6 +270,13 @@
     {
       "path": "BUSCA-NO-ACTIONS.md",
       "sha": "825af096d994cf6bd6a24ba00b19d80528f52b1b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "C6-REPETIDO.md",
+      "sha": "15be911e07eef7ebc0a481fe52a538adce5cfa6e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -20694,6 +20701,48 @@
       "code_dir": true
     },
     {
+      "path": "provas/c6_repetido/BATERIA-BASE-e2413970.json",
+      "sha": "9c6720f29bdf87a79a00faf8d4d915a10514cf0b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/c6_repetido/BATERIA-DEPOIS-59199ff3.json",
+      "sha": "69fd67d54851d3571073c90e05437a9784d0e0d1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/c6_repetido/MUTACAO-C6.json",
+      "sha": "a988ebdd8979f9d41bad1fe3ca8f9b53df4c4d00",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/c6_repetido/PROVA-SQL-C6.json",
+      "sha": "515915e026164ff358fa27f3fefda9f7c97970b6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/c6_repetido/mutacao_c6.py",
+      "sha": "75b31f7a07c3f33ea5ae8457a035844ea303d8a4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/c6_repetido/prova_sql_c6.py",
+      "sha": "457164e5adab9c509cf024e743e78ebc81579c26",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/canario_d23_linkedin_video.py",
       "sha": "c23de2ae3ddb35486221677e7837916234b6839e",
       "ext": ".py",
@@ -24958,7 +25007,7 @@
     },
     {
       "path": "scripts/micro_coleta/micro_coleta.py",
-      "sha": "acf9801afa3fec2300dc339a9decabcb28b66f32",
+      "sha": "6da69771ed93278af1fae22c7acc06181d39a312",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27673,6 +27722,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_c6_repetido.py",
+      "sha": "62af265f05724b781639e7f3eb16b92e50ebe4d4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_c7_lugar_do_fato.py",
       "sha": "42112b070bf28a7176c13aff8fba24798f94337e",
       "ext": ".py",
@@ -28486,7 +28542,7 @@
     },
     {
       "path": "tests/test_micro_coleta_instrumento.py",
-      "sha": "a302bc8f8cf1bf34a79bb66d59c4616c20854972",
+      "sha": "4d606b4b136204667a4edb5bd11a7433a0cda015",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -69684,6 +69740,72 @@
       }
     },
     {
+      "from_file": "provas/c6_repetido/mutacao_c6.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/c6_repetido/mutacao_c6.py",
+        "line": 18,
+        "snippet": "ALVO = \"scripts/micro_coleta/micro_coleta.py\""
+      }
+    },
+    {
+      "from_file": "provas/c6_repetido/prova_sql_c6.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/c6_repetido/prova_sql_c6.py",
+        "line": 30,
+        "snippet": "import _gavetas                          # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/c6_repetido/prova_sql_c6.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/c6_repetido/prova_sql_c6.py",
+        "line": 31,
+        "snippet": "import admissao                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/c6_repetido/prova_sql_c6.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/c6_repetido/prova_sql_c6.py",
+        "line": 32,
+        "snippet": "import sala_de_espera as espera          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/c6_repetido/prova_sql_c6.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/c6_repetido/prova_sql_c6.py",
+        "line": 42,
+        "snippet": "E = carregar(\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")"
+      }
+    },
+    {
+      "from_file": "provas/c6_repetido/prova_sql_c6.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/c6_repetido/prova_sql_c6.py",
+        "line": 43,
+        "snippet": "MC = carregar(\"micro_coleta\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")"
+      }
+    },
+    {
       "from_file": "provas/canario_d23_linkedin_video.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -95897,6 +96019,17 @@
       }
     },
     {
+      "from_file": "tests/test_c6_repetido.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c6_repetido.py",
+        "line": 27,
+        "snippet": "\"micro_coleta_c6\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_c7_lugar_do_fato.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -103427,7 +103560,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_micro_coleta_instrumento.py",
-        "line": 312,
+        "line": 314,
         "snippet": "(led / \"runs.ndjson\").write_text(\"\".join(json.dumps(x) + \"\\n\" for x in linhas),"
       }
     },
@@ -112539,10 +112672,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4205,
-    "files_readable": 1766,
-    "files_code_dir": 2181,
-    "file_edges": 7494,
+    "files_tracked": 4213,
+    "files_readable": 1769,
+    "files_code_dir": 2188,
+    "file_edges": 7501,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

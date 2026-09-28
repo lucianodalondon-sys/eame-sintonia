@@ -23,6 +23,7 @@
       "BLOQUEADAS-DESTRAVAR.md",
       "BOLETIM-POR-SECAO.md",
       "BUSCA-NO-ACTIONS.md",
+      "C6-REPETIDO.md",
       "CAP-WIN.md",
       "CASCO-CLIENT-DEMO.md",
       "CASCO-LEITURA.md",
@@ -3012,6 +3013,12 @@
       "provas/busca_no_actions/MUTANTES.json",
       "provas/busca_no_actions/mutantes_busca_actions.py",
       "provas/c2_juiz_mutacao.py",
+      "provas/c6_repetido/BATERIA-BASE-e2413970.json",
+      "provas/c6_repetido/BATERIA-DEPOIS-59199ff3.json",
+      "provas/c6_repetido/MUTACAO-C6.json",
+      "provas/c6_repetido/PROVA-SQL-C6.json",
+      "provas/c6_repetido/mutacao_c6.py",
+      "provas/c6_repetido/prova_sql_c6.py",
       "provas/canario_d23_linkedin_video.py",
       "provas/canario_d24_reel_de_pessoa.py",
       "provas/canario_d24_video_de_pessoa.py",
@@ -4027,6 +4034,7 @@
       "tests/test_c4h_ponte_de_midia.py",
       "tests/test_c5_transcript_gate.py",
       "tests/test_c6_especie_do_texto.py",
+      "tests/test_c6_repetido.py",
       "tests/test_c7_lugar_do_fato.py",
       "tests/test_c8_convergencia.py",
       "tests/test_c9_idioma.py",
@@ -4798,10 +4806,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
-    "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-    "GENERATED_AT": "2026-09-28T05:29:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a"
+    "BRANCH": "claude/c6-repetido-dedup-doc-9eqszm",
+    "HEAD": "ce677612dca5dcd79d06662525997eacf0c12c98",
+    "GENERATED_AT": "2026-09-28T17:09:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "c55642ecb7935c431a3e859228efa8868d07b83074a384fb5cf7f03a93fa502e"
   },
   "FAMILIES": [
     {
@@ -55352,9 +55360,9 @@
           "VARIAVEIS_DA_SALA",
           "_PALAVRAS"
         ],
-        "palavras": 132,
+        "palavras": 144,
         "por_lingua": {},
-        "sem_marca_de_lingua": 132,
+        "sem_marca_de_lingua": 144,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -72741,6 +72749,7 @@
         "tests/test_c4h_ponte_de_midia.py",
         "tests/test_c5_transcript_gate.py",
         "tests/test_c6_especie_do_texto.py",
+        "tests/test_c6_repetido.py",
         "tests/test_c7_lugar_do_fato.py",
         "tests/test_c8_convergencia.py",
         "tests/test_c9_idioma.py",
@@ -72993,7 +73002,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 341,
+      "file_count": 342,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -135168,12 +135177,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 13 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_bc4_armazem_e_pais.py",
           "line": 36,
           "snippet": "\"micro_coleta_bc4\", os.path.join(RAIZ, \"scripts\", \"micro_coleta\", \"micro_coleta.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c6_repetido.py",
+          "line": 27,
+          "snippet": "\"micro_coleta_c6\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
             "FROM": "C-MICRO-COLETA-INSTRUMENTO",
@@ -135333,22 +135358,6 @@
         {
           "file": "tests/test_sala_dedup_por_document_key.py",
           "line": 38,
-          "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
-            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_sala_idempotente_por_documento.py",
-          "line": 35,
           "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
@@ -168824,7 +168833,7 @@
         },
         {
           "file": "tests/test_micro_coleta_instrumento.py",
-          "line": 312,
+          "line": 314,
           "snippet": "(led / \"runs.ndjson\").write_text(\"\".join(json.dumps(x) + \"\\n\" for x in linhas),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
@@ -174189,8 +174198,11 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2271,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/c6_repetido/mutacao_c6.py",
+    "provas/c6_repetido/prova_sql_c6.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 2278,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174466,9 +174478,9 @@
     "edges_proven": 1844,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4205,
-    "files_covered": 1934,
-    "files_code_unclaimed": 0,
+    "files_tracked": 4213,
+    "files_covered": 1935,
+    "files_code_unclaimed": 2,
     "roles_proven": 207,
     "roles_declared_only": 10,
     "roles_unknown": 95,

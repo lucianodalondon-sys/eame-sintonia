@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-28T05:31:27+00:00",
-  "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-  "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
+  "GENERATED_AT": "2026-09-28T17:11:07+00:00",
+  "HEAD": "ce677612dca5dcd79d06662525997eacf0c12c98",
+  "BRANCH": "claude/c6-repetido-dedup-doc-9eqszm",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a",
-  "FICHEIROS_NA_IMPRESSAO": 4353,
+  "SOURCE_TREE_FINGERPRINT": "c55642ecb7935c431a3e859228efa8868d07b83074a384fb5cf7f03a93fa502e",
+  "FICHEIROS_NA_IMPRESSAO": 4361,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -5242,7 +5242,7 @@
    {
     "PATH": "scripts/micro_coleta/micro_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "acf9801afa3fec2300dc339a9decabcb28b66f32",
+    "VERSAO": "6da69771ed93278af1fae22c7acc06181d39a312",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5543,14 +5543,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a",
+    "VERSAO": "c55642ecb7935c431a3e859228efa8868d07b83074a384fb5cf7f03a93fa502e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a",
+    "VERSAO": "c55642ecb7935c431a3e859228efa8868d07b83074a384fb5cf7f03a93fa502e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6458,6 +6458,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_c6_repetido.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "62af265f05724b781639e7f3eb16b92e50ebe4d4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_c7_lugar_do_fato.py",
     "PAPEL": "FONTE",
     "VERSAO": "42112b070bf28a7176c13aff8fba24798f94337e",
@@ -7272,7 +7279,7 @@
    {
     "PATH": "tests/test_micro_coleta_instrumento.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a302bc8f8cf1bf34a79bb66d59c4616c20854972",
+    "VERSAO": "4d606b4b136204667a4edb5bd11a7433a0cda015",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8215,8 +8222,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1168,
-  "INPUTS_DIGEST": "4a6df3f300293f209b65cba5caa28d123c0d41334156d37e3f9a8ec7f1ddc587",
+  "INPUTS_COUNT": 1169,
+  "INPUTS_DIGEST": "e00bcde2152b82689aff0618f42f751493c62bcf6485ddd15d4d16266790f94f",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8242,15 +8249,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 640,
+  "DOCUMENTOS_LIDOS": 641,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e0a3cba6a775d4e1891f0c59eb9a36ca8337a8abdeea012f1a34362c5f3b7b0d",
-  "SEMANTIC_HASH": "c52fddeb942d7e98b40be15efe8dd26cca0f53947271d6f8079585e7f7044600"
+  "MEASUREMENT_HASH": "610d1d80ecec9b8f3bd41b6f827625098b91cdea0ec97de23e48466e13d64552",
+  "SEMANTIC_HASH": "5ab212d7f014d6b1bb69d397b2527298d884a3f90d2aa719f2950000dcfd4c78"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -42096,6 +42103,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_c6_repetido.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_c9_idioma.py",
       "LINHA": 19,
       "SUPPORTS": "YES",
@@ -42170,14 +42185,6 @@
      {
       "FICHEIRO": "tests/test_sala_dedup_por_document_key.py",
       "LINHA": 38,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_sala_idempotente_por_documento.py",
-      "LINHA": 35,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
@@ -61405,7 +61412,7 @@
      },
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 312,
+      "LINHA": 314,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
@@ -63989,6 +63996,7 @@
    "C-PROVA-AGRO-FRONTEIRA",
    "C-PROVA-COMENTARIOS",
    "C-PROVA-CORTESIA",
+   "C-PROVA-INT-R7",
    "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-SALA-ITALIANA",
@@ -65220,6 +65228,7 @@
     "provas/a_fase_10_entra_no_acervo.py",
     "provas/a_porta_cli_liga_o_banco.py",
     "provas/a_sala_sobrevive_ao_processo.py",
+    "provas/c6_repetido/prova_sql_c6.py",
     "provas/inventario_esperado.py",
     "provas/linha_busca_raw_no_postgres_descartavel.py",
     "provas/migracao_033_ensaio_copia.py",
@@ -70078,6 +70087,8 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/c6_repetido/mutacao_c6.py",
+    "provas/c6_repetido/prova_sql_c6.py",
     "provas/chave_problema/ensaio_033_descartavel.py",
     "provas/int_r7/export_numa_copia_descartavel.py",
     "provas/migracao_033_ensaio_copia.py",
@@ -70085,6 +70096,7 @@
     "provas/migracao_036_ensaio_copia.py",
     "provas/tempo_e_lugar_replay.py",
     "tests/test_bc4_armazem_e_pais.py",
+    "tests/test_c6_repetido.py",
     "tests/test_c9_idioma.py",
     "tests/test_ensaio_offline_micro.py",
     "tests/test_micro_coleta_instrumento.py",
@@ -70112,6 +70124,7 @@
     "__future__",
     "collections",
     "datetime",
+    "derived_artifact",
     "ex",
     "leis",
     "pathlib",
@@ -72507,7 +72520,9 @@
     "provas/porta_unica_referencia/mutantes.py",
     "tests/test_motor_das_capacidades.py"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "C6-REPETIDO.md"
+   ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
@@ -75877,6 +75892,7 @@
     "tests/test_c4h_ponte_de_midia.py",
     "tests/test_c5_transcript_gate.py",
     "tests/test_c6_especie_do_texto.py",
+    "tests/test_c6_repetido.py",
     "tests/test_c7_lugar_do_fato.py",
     "tests/test_c8_convergencia.py",
     "tests/test_c9_idioma.py",
