@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
-    "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-    "GENERATED_AT": "2026-09-28T05:29:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a"
+    "BRANCH": "lucianodalondon-sys/scrap-s1s2-portas-v1",
+    "HEAD": "01da5e3b2a2b52c4e00f6b005f625fbfa380638b",
+    "GENERATED_AT": "2026-09-28T09:30:57-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3e596032d39f6891e21a6d3ab7d33b9a616143f014f3205a53802dbb13b35f0f"
   },
   "FILES": [
     {
@@ -2383,7 +2383,7 @@
     },
     {
       "path": "coleta/corpus_pesquisador.py",
-      "sha": "782195bb69f038c09746f9d93538ac56df553347",
+      "sha": "3ae2de180f2d2d89a73d0ceb269713eb3351b40c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12329,6 +12329,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/S1S2-PORTAS-DA-COLETA-CONTINUA.md",
+      "sha": "f9f47c3e2baf95f22e8ed019ffa6ad0bd087d9f0",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
       "sha": "bb3013c947f09f67021363422ce8be259eb462bb",
       "ext": ".md",
@@ -13170,7 +13177,7 @@
     },
     {
       "path": "ferramentas/big_collection/coleta_continua.py",
-      "sha": "92345f8bfb250d5a1bd0dc19e0da2883e7aa98c1",
+      "sha": "09c8422f09e211c3ddfbfc2f1e0cba94765ec50a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27814,7 +27821,7 @@
     },
     {
       "path": "tests/test_coleta_continua.py",
-      "sha": "601e84929652157a9b89e7281af0533fa7eb12c3",
+      "sha": "c426a04160b369b2b296476595e8c622ef78f8ab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28409,7 +28416,7 @@
     },
     {
       "path": "tests/test_lote8_juncoes.py",
-      "sha": "3d375536f1c30efeba27c8fe7e5ea31a77ea42d5",
+      "sha": "0c15c81a62bbf03a04e1ca18e737387a41800603",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -32582,6 +32589,17 @@
     },
     {
       "from_file": "coleta/corpus_pesquisador.py",
+      "to_file": "coleta/teto_da_onda.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/corpus_pesquisador.py",
+        "line": 236,
+        "snippet": "import teto_da_onda as teto                                     # noqa: PLC0415 — o dono do freio"
+      }
+    },
+    {
+      "from_file": "coleta/corpus_pesquisador.py",
       "to_file": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -32598,7 +32616,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
-        "line": 729,
+        "line": 739,
         "snippet": "json.dump(corpo2, open(DIRETORIO, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
@@ -32609,7 +32627,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
-        "line": 735,
+        "line": 745,
         "snippet": "c = json.load(open(DEST, encoding='utf-8'))"
       }
     },
@@ -32620,7 +32638,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
-        "line": 653,
+        "line": 663,
         "snippet": "json.dump(corpo, open(DEST, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
@@ -32631,7 +32649,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
-        "line": 251,
+        "line": 261,
         "snippet": "d = json.load(open(FONTE, encoding='utf-8'))"
       }
     },
@@ -45507,6 +45525,17 @@
     },
     {
       "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "coleta/corpus_pesquisador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 118,
+        "snippet": "\"RESERVA_EM\": [{\"FICHEIRO\": \"coleta/corpus_pesquisador.py\", \"CHAMADA\": \"teto.reservar(\"}]},"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
       "to_file": "coleta/cortesia_adaptativa.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -45523,7 +45552,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 98,
+        "line": 108,
         "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\"},"
       }
     },
@@ -45534,8 +45563,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 100,
-        "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 110,
+        "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\","
       }
     },
     {
@@ -45545,8 +45574,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 102,
-        "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 114,
+        "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\","
       }
     },
     {
@@ -45562,13 +45591,24 @@
     },
     {
       "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 112,
+        "snippet": "\"RESERVA_EM\": [{\"FICHEIRO\": \"coleta/scrap_http.py\", \"CHAMADA\": \"teto.reservar(\"}]},"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
       "to_file": "coleta/teto_da_onda.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 104,
-        "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 120,
+        "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\","
       }
     },
     {
@@ -45578,7 +45618,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 339,
+        "line": 381,
         "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)"
       }
     },
@@ -45611,8 +45651,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 106,
-        "snippet": "\"TRANSPORTE\": \"coleta/seguir.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 126,
+        "snippet": "\"TRANSPORTE\": \"ferramentas/seguir_pesquisadores/seguir.py\","
       }
     },
     {
@@ -45622,7 +45662,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 301,
+        "line": 343,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),"
       }
     },
@@ -97251,6 +97291,17 @@
     },
     {
       "from_file": "tests/test_coleta_continua.py",
+      "to_file": "coleta/teto_da_onda.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_coleta_continua.py",
+        "line": 463,
+        "snippet": "l = {\"LINHA\": \"Z\", \"TRANSPORTE\": \"coleta/teto_da_onda.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_coleta_continua.py",
       "to_file": "data/collection-ledger/italy/runs.ndjson",
       "type": "READS",
       "payload": "artefacto",
@@ -97267,7 +97318,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_coleta_continua.py",
-        "line": 667,
+        "line": 683,
         "snippet": "f = RAIZ / \"ferramentas\" / \"big_collection\" / \"onda4\" / \"ENSAIO-COLETA-CONTINUA.json\""
       }
     },
@@ -102382,8 +102433,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_lote8_juncoes.py",
-        "line": 152,
+        "line": 155,
         "snippet": "self.assertTrue((RAIZ / \"coleta\" / \"linha_busca.py\").exists())"
+      }
+    },
+    {
+      "from_file": "tests/test_lote8_juncoes.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_lote8_juncoes.py",
+        "line": 159,
+        "snippet": "self.assertEqual(m[\"PROVA_EM\"], \"coleta/scrap_http.py\", m)"
       }
     },
     {
@@ -112539,10 +112601,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4205,
+    "files_tracked": 4206,
     "files_readable": 1766,
     "files_code_dir": 2181,
-    "file_edges": 7494,
+    "file_edges": 7499,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
