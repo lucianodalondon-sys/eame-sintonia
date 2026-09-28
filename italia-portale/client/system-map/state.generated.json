@@ -3183,7 +3183,15 @@
       "provas/lote7_integra/MUTACAO-JUNCOES-LOTE5-d0e0901.txt",
       "provas/lote7_integra/MUTACAO-LOTE7.txt",
       "provas/lote7_integra/medir_grao_na_porta.py",
+      "provas/lote8_integra/BATERIA-BASE-b273660.json",
+      "provas/lote8_integra/BATERIA-DEPOIS-609a471.json",
+      "provas/lote8_integra/BATERIA-DEPOIS-7641675.json",
       "provas/lote8_integra/MUTACAO-JUNCOES-LOTE8.json",
+      "provas/lote8_integra/MUTACAO-SUITES-LOTE8.txt",
+      "provas/lote8_integra/NODE-BASE-b273660.json",
+      "provas/lote8_integra/NODE-DEPOIS-609a471.json",
+      "provas/lote8_integra/NODE-DEPOIS-7641675.json",
+      "provas/lote8_integra/bateria_node_por_nome.py",
       "provas/lote8_integra/mutacao_lote8.py",
       "provas/maestro-social/ENSAIO-037.json",
       "provas/medir_admission_t3_atual.py",
@@ -4774,9 +4782,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/lote8-integra-zobt7p",
-    "HEAD": "a8db4c3e57bf674db2d53771cfddc055eb7a81c1",
-    "GENERATED_AT": "2026-09-28T01:14:10+00:00",
-    "SOURCE_TREE_FINGERPRINT": "872e690dca76bd9df3a948c673feebc8ed79eaff49e97c1ad8122c6c82b8f5eb"
+    "HEAD": "af72895d88fffa72c51d73e6a40836aa02d99b3b",
+    "GENERATED_AT": "2026-09-28T02:03:15+00:00",
+    "SOURCE_TREE_FINGERPRINT": "653b8595b2dc7650791dc12c65845312541c125d29173ba73c0a2e9592136a12"
   },
   "FAMILIES": [
     {
@@ -43620,7 +43628,7 @@
         "PROVA": [
           "pacote/acervo_na_intelligence.py:83",
           "pedido/receitas.py:658",
-          "provas/porta_unica_referencia/mutantes.py:40",
+          "provas/porta_unica_referencia/mutantes.py:42",
           "tests/mutacao_concorrencia_meta.py:23"
         ],
         "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -49383,7 +49391,7 @@
           "motor/motor_das_capacidades.py:78",
           "provas/_mutantes_cap_sci.py:18",
           "provas/int_r7/mutantes.py:22",
-          "provas/porta_unica_referencia/mutantes.py:79"
+          "provas/porta_unica_referencia/mutantes.py:81"
         ],
         "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -60011,7 +60019,15 @@
         "provas/lote6_integra/BATERIA-RAMO.json",
         "provas/lote6_integra/MUTACAO-JUNCAO.json",
         "provas/lote6_integra/mutacao_juncao.py",
+        "provas/lote8_integra/BATERIA-BASE-b273660.json",
+        "provas/lote8_integra/BATERIA-DEPOIS-609a471.json",
+        "provas/lote8_integra/BATERIA-DEPOIS-7641675.json",
         "provas/lote8_integra/MUTACAO-JUNCOES-LOTE8.json",
+        "provas/lote8_integra/MUTACAO-SUITES-LOTE8.txt",
+        "provas/lote8_integra/NODE-BASE-b273660.json",
+        "provas/lote8_integra/NODE-DEPOIS-609a471.json",
+        "provas/lote8_integra/NODE-DEPOIS-7641675.json",
+        "provas/lote8_integra/bateria_node_por_nome.py",
         "provas/lote8_integra/mutacao_lote8.py",
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
@@ -60071,7 +60087,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 115,
+      "file_count": 123,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -63595,7 +63611,8 @@
       "outbound": [],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 1,
+        "ESPANHA": 1
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -63623,12 +63640,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 12 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED_WHY": "le 13 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 12 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 13 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -63637,6 +63654,7 @@
         "_gavetas.py",
         "build/ITALY-REALITY-HANDOFF-V2/COMMERCIAL-CATALOG.json",
         "coleta/concorrencia_meta.py",
+        "data/samples/ES-T4-001/eppo-dictionary.json",
         "docs/intelligence/r7/CRUZAMENTOS-MAX.json",
         "fontes/adama_referencia.py",
         "leis/boletim_do_campo.py",
@@ -76512,7 +76530,7 @@
       "evidence": [
         {
           "file": "provas/porta_unica_referencia/mutantes.py",
-          "line": 91,
+          "line": 93,
           "snippet": "(\"C1 a checagem confirma sempre\", \"fontes/adama_referencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-IT--READS-->C-PROVA-PORTA-REFERENCIA",
@@ -95445,7 +95463,7 @@
       "evidence": [
         {
           "file": "provas/porta_unica_referencia/mutantes.py",
-          "line": 40,
+          "line": 42,
           "snippet": "(\"L3 concorrencia_meta le o CSV do Ministero\", \"coleta/concorrencia_meta.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-META--READS-->C-PROVA-PORTA-REFERENCIA",
@@ -99566,7 +99584,7 @@
       "evidence": [
         {
           "file": "provas/porta_unica_referencia/mutantes.py",
-          "line": 36,
+          "line": 38,
           "snippet": "(\"L2 cruzamentos_max volta a ler os pares do leitor\", \"motor/cruzamentos_max.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CRUZAMENTOS-MAX--READS-->C-PROVA-PORTA-REFERENCIA",
@@ -111513,7 +111531,7 @@
       "evidence": [
         {
           "file": "provas/porta_unica_referencia/mutantes.py",
-          "line": 79,
+          "line": 81,
           "snippet": "(\"F5 cap_sci ignora o frescor\", \"motor/capacidade_cientifica.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CAP-SCI--READS-->C-PROVA-PORTA-REFERENCIA",
@@ -111876,7 +111894,7 @@
       "evidence": [
         {
           "file": "provas/porta_unica_referencia/mutantes.py",
-          "line": 32,
+          "line": 34,
           "snippet": "(\"L1 cap_win abre o PORTFOLIO por fora\", \"motor/cap_win.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CAP-WIN--READS-->C-PROVA-PORTA-REFERENCIA",
@@ -114176,7 +114194,7 @@
       "evidence": [
         {
           "file": "provas/porta_unica_referencia/mutantes.py",
-          "line": 55,
+          "line": 57,
           "snippet": "(\"E3 o motor abre a porta duas vezes (WIN numa edicao, SCI noutra)\", \"motor/motor_das_capacidades.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-PORTA-REFERENCIA",
@@ -125280,7 +125298,7 @@
       "evidence": [
         {
           "file": "provas/porta_unica_referencia/mutantes.py",
-          "line": 44,
+          "line": 46,
           "snippet": "(\"L4 boletim le o COMMERCIAL-CATALOG\", \"leis/boletim_do_campo.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-PORTA-REFERENCIA",
@@ -173123,8 +173141,8 @@
     "edges_proven": 1826,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4180,
-    "files_covered": 1910,
+    "files_tracked": 4188,
+    "files_covered": 1918,
     "files_code_unclaimed": 0,
     "roles_proven": 205,
     "roles_declared_only": 10,

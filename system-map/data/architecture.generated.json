@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/lote8-integra-zobt7p",
-    "HEAD": "a8db4c3e57bf674db2d53771cfddc055eb7a81c1",
-    "GENERATED_AT": "2026-09-28T01:14:10+00:00",
-    "SOURCE_TREE_FINGERPRINT": "872e690dca76bd9df3a948c673feebc8ed79eaff49e97c1ad8122c6c82b8f5eb"
+    "HEAD": "af72895d88fffa72c51d73e6a40836aa02d99b3b",
+    "GENERATED_AT": "2026-09-28T02:03:15+00:00",
+    "SOURCE_TREE_FINGERPRINT": "653b8595b2dc7650791dc12c65845312541c125d29173ba73c0a2e9592136a12"
   },
   "FILES": [
     {
@@ -542,7 +542,7 @@
     },
     {
       "path": "LOTE8-INTEGRA.md",
-      "sha": "43c542d737f0dd9e289cf8642a1273e408e05e02",
+      "sha": "0c0059f91830f46b0b39778b7bc330b1ead79955",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -21891,10 +21891,66 @@
       "code_dir": true
     },
     {
-      "path": "provas/lote8_integra/MUTACAO-JUNCOES-LOTE8.json",
-      "sha": "5abd882142ef35ef448ce12194f5b337358d6bde",
+      "path": "provas/lote8_integra/BATERIA-BASE-b273660.json",
+      "sha": "9ebe4fe86648aeca942b74e1fd24ec6b3a557493",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote8_integra/BATERIA-DEPOIS-609a471.json",
+      "sha": "85f8b6344732071cb0abab2616bbaafcc385df9a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote8_integra/BATERIA-DEPOIS-7641675.json",
+      "sha": "94497590046702e06fe892e1141cd872448956b9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote8_integra/MUTACAO-JUNCOES-LOTE8.json",
+      "sha": "7923619e692523b037916dac67e2af1fdf799466",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote8_integra/MUTACAO-SUITES-LOTE8.txt",
+      "sha": "8ce4a338ad4f91bb0e5f576a753b258990af6aab",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote8_integra/NODE-BASE-b273660.json",
+      "sha": "09192c550551ad70abb0d213c81096a39a78f8b7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote8_integra/NODE-DEPOIS-609a471.json",
+      "sha": "5c2f35948fea89921d758164393ffd7c32ce38d5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote8_integra/NODE-DEPOIS-7641675.json",
+      "sha": "1541e152a77a54b3f10e71c60adc5a5ec24dabe6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/lote8_integra/bateria_node_por_nome.py",
+      "sha": "a5c83209eb289c6f22ed230b770a7ada422768af",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -22326,7 +22382,7 @@
     },
     {
       "path": "provas/porta_unica_referencia/mutantes.py",
-      "sha": "416a481c3b64fdc2c225850c03128f1ebc0c4bd3",
+      "sha": "3a9a9a49bd4bac7420610870fd14ea1a0860f21e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -77270,7 +77326,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/porta_unica_referencia/mutantes.py",
-        "line": 47,
+        "line": 49,
         "snippet": "\"    open(os.path.join(motor, 'COMMERCIAL-CATALOG.json'))\\n\"),"
       }
     },
@@ -77281,8 +77337,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/porta_unica_referencia/mutantes.py",
-        "line": 40,
+        "line": 42,
         "snippet": "(\"L3 concorrencia_meta le o CSV do Ministero\", \"coleta/concorrencia_meta.py\","
+      }
+    },
+    {
+      "from_file": "provas/porta_unica_referencia/mutantes.py",
+      "to_file": "data/samples/ES-T4-001/eppo-dictionary.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/porta_unica_referencia/mutantes.py",
+        "line": 30,
+        "snippet": "\"data/samples/ES-T4-001/eppo-dictionary.json\")"
       }
     },
     {
@@ -77292,7 +77359,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/porta_unica_referencia/mutantes.py",
-        "line": 91,
+        "line": 93,
         "snippet": "(\"C1 a checagem confirma sempre\", \"fontes/adama_referencia.py\","
       }
     },
@@ -77303,7 +77370,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/porta_unica_referencia/mutantes.py",
-        "line": 44,
+        "line": 46,
         "snippet": "(\"L4 boletim le o COMMERCIAL-CATALOG\", \"leis/boletim_do_campo.py\","
       }
     },
@@ -77314,7 +77381,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/porta_unica_referencia/mutantes.py",
-        "line": 32,
+        "line": 34,
         "snippet": "(\"L1 cap_win abre o PORTFOLIO por fora\", \"motor/cap_win.py\","
       }
     },
@@ -77325,7 +77392,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/porta_unica_referencia/mutantes.py",
-        "line": 79,
+        "line": 81,
         "snippet": "(\"F5 cap_sci ignora o frescor\", \"motor/capacidade_cientifica.py\","
       }
     },
@@ -77336,7 +77403,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/porta_unica_referencia/mutantes.py",
-        "line": 36,
+        "line": 38,
         "snippet": "(\"L2 cruzamentos_max volta a ler os pares do leitor\", \"motor/cruzamentos_max.py\","
       }
     },
@@ -77347,7 +77414,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/porta_unica_referencia/mutantes.py",
-        "line": 55,
+        "line": 57,
         "snippet": "(\"E3 o motor abre a porta duas vezes (WIN numa edicao, SCI noutra)\", \"motor/motor_das_capacidades.py\","
       }
     },
@@ -77369,7 +77436,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/porta_unica_referencia/mutantes.py",
-        "line": 43,
+        "line": 45,
         "snippet": "\"CSV = os.path.join(RAIZ, 'data', 'samples', 'PROD_FTS_6_20260914.csv')\\n\"),"
       }
     },
@@ -111671,10 +111738,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4180,
-    "files_readable": 1757,
-    "files_code_dir": 2158,
-    "file_edges": 7431,
+    "files_tracked": 4188,
+    "files_readable": 1758,
+    "files_code_dir": 2166,
+    "file_edges": 7432,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

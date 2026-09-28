@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a8db4c3e57bf674db2d53771cfddc055eb7a81c1
+HEAD_DA_MEDICAO  af72895d88fffa72c51d73e6a40836aa02d99b3b
 BRANCH           claude/lote8-integra-zobt7p
-GERADO_EM        2026-09-28T01:14:10+00:00
+GERADO_EM        2026-09-28T02:03:15+00:00
 CARDS            126
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -82,7 +82,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | DESENVOLVIMENTO_MERCADO · MARKETING · INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | pacote/acervo_na_intelligence.py:83; pedido/receitas.py:658; provas/porta_unica_referencia/mutantes.py:40 |
+| **prova de quem ativa** | pacote/acervo_na_intelligence.py:83; pedido/receitas.py:658; provas/porta_unica_referencia/mutantes.py:42 |
 | **porquê** | estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/samples/CONCORRENCIA-META/PAGINAS-META-IT-V1.json`, `ferramentas/meta_biblioteca.py` |
