@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  93d5a2cc44022bc361d67abf05fd55933931c107
-BRANCH           claude/single-reference-gateway-hhhj7t
-GERADO_EM        2026-09-27T21:40:15+00:00
+HEAD_DA_MEDICAO  2df3ad916d16dd3a3037192d1f20b408dc3ecfdb
+BRANCH           claude/adama-linking-gateway-a2fewj
+GERADO_EM        2026-09-27T23:52:57+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1371,7 +1371,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-COLETA-PUBLICA.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/comunicacao_concorrenza.py:73; motor/porta_da_referencia.py:65; motor/v21_ingest.py:266 |
+| **prova de quem ativa** | coleta/comunicacao_concorrenza.py:73; motor/porta_da_referencia.py:66; motor/v21_ingest.py:266 |
 | **porquê** | estas pecas importam-na — C-COLETA-PUBLICA · C-INT-PORTA-REFERENCIA · C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json`, `data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json` |

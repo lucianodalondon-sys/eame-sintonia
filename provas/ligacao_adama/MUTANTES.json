@@ -1,0 +1,399 @@
+{
+ "MUTANTES": [
+  {
+   "MUTANTE": "O1 o gerador do pote aceita objeto sem LIGACAO_ADAMA",
+   "ALVOS": [
+    "pacote/pote_intelligence_casco.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama",
+    "tests.test_pote_v2_unico",
+    "tests.test_pote_intelligence_casco"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_F1_objeto_sem_ligacao_e_recusado"
+   ]
+  },
+  {
+   "MUTANTE": "O2 conferir_pote deixa passar pote com objeto sem ligacao",
+   "ALVOS": [
+    "pacote/pote_intelligence_casco.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_F3_o_validador_reprova_pote_com_objeto_sem_ligacao"
+   ]
+  },
+  {
+   "MUTANTE": "O3 o schema deixa de exigir LIGACAO_ADAMA",
+   "ALVOS": [
+    "docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.schema.json"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama",
+    "tests.test_pote_v2_unico"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_F5_o_contrato_diz_a_revisao"
+   ]
+  },
+  {
+   "MUTANTE": "O4 o motor emite janela sem ligacao",
+   "ALVOS": [
+    "motor/motor_das_capacidades.py"
+   ],
+   "TESTES": [
+    "tests.test_motor_das_capacidades"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B1_um_run_id_para_tudo",
+    "test_B2_todo_ready_atravessa_e_ninguem_some",
+    "test_B3_a_mesma_entrada_da_a_mesma_corrida",
+    "test_C1_estudos_vao_a_cap_sci_e_o_resto_a_cap_win",
+    "test_C2_nenhum_estudo_numa_janela",
+    "test_C3_estudo_fora_da_cap_win_nao_pede_par_em_campo",
+    "test_C4_boletim_nao_e_julgado_como_estudo",
+    "test_C5_a_classe_declarada_pela_fonte_nao_decide",
+    "test_C6_os_estudos_dizem_o_que_nao_sao",
+    "test_D4_regiao_da_fonte_vira_not_possible_e_pede_a_regiao",
+    "test_D5_afiliacao_nao_vira_local_do_estudo",
+    "test_D6_o_original_nao_muda_no_livro",
+    "test_D7_regiao_sustentada_passa",
+    "test_E1_toda_chave_do_contrato_tem_procedencia",
+    "test_E2_a_procedencia_da_janela_e_por_item",
+    "test_E3_a_procedencia_do_estudo_e_o_campo_do_fato",
+    "test_E4_rede_nao_declarada_da_independencia_nao_sei",
+    "test_F1_cada_objeto_traz_os_dois_blocos",
+    "test_F2_o_juizo_nao_esta_no_bloco_da_fonte",
+    "test_F3_o_estudo_separa_o_fato_da_forca",
+    "test_F4_as_relacoes_separam_fonte_e_interpretacao",
+    "test_G10_territorios_diferentes_nao_sao_mudanca_no_tempo",
+    "test_G11_mesma_recomendacao_nao_e_mudanca",
+    "test_G1_mesma_redacao_em_tres_territorios_e_uma_instituicao",
+    "test_G2_a_mesma_redacao_nao_soma_originador",
+    "test_G3_territorio_nao_sustentado_da_aplicacoes_nao_sei",
+    "test_G4_limites_diferentes_sao_divergent_unresolved",
+    "test_G5_limites_iguais_nao_divergem",
+    "test_G6_sem_numero_nao_ha_divergencia_inventada",
+    "test_G7_divergent_nunca_deixa_agir_agora",
+    "test_G8_mudanca_de_recomendacao_e_temporal_change_e_nao_prova_o_campo",
+    "test_G9_tempos_que_se_tocam_nao_sao_antes_e_depois",
+    "test_P1_intelligence_run_id_no_topo",
+    "test_P2_prova_com_url_e_published_at_e_fact_time_da_corrida",
+    "test_P3_so_especies_que_nao_prometem_mais",
+    "test_P4_o_futuro_vai_para_o_radar_futuro",
+    "test_P5_o_rendimento_vem_da_lineage",
+    "test_P5b_o_motor_nao_cunha_document_id",
+    "test_P5c_evidencia_sem_g0_fica_fora_da_prova_e_a_vista",
+    "test_P5d_futuro_com_outra_falta_nao_vai_ao_radar_futuro",
+    "test_Q0_a_saida_verdadeira_passa",
+    "test_Q1_estudo_numa_janela",
+    "test_Q2_chave_sem_entity_source",
+    "test_Q3_published_at_nao_e_fact_time",
+    "test_Q4_oportunidade_nunca",
+    "test_Q5_leitura_proibida",
+    "test_Q6_run_id_fora_do_topo",
+    "test_Q7_prova_fora_da_lineage_ou_bloqueada",
+    "test_Q8_ignorancia_escondida",
+    "test_R1_janela_arif_apol",
+    "test_R2_estudos"
+   ]
+  },
+  {
+   "MUTANTE": "O5 a voz sai sem ligacao",
+   "ALVOS": [
+    "motor/voce_dal_campo.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_G3_voce_preco_boletim_concorrencia"
+   ]
+  },
+  {
+   "MUTANTE": "F1 a CAP-WIN monta a ligacao a mao",
+   "ALVOS": [
+    "motor/cap_win.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A1_nenhum_ficheiro_fora_da_porta_define_ou_sela_a_ligacao"
+   ]
+  },
+  {
+   "MUTANTE": "F2 cruzamentos_max sela a sua propria ligacao",
+   "ALVOS": [
+    "motor/cruzamentos_max.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A1_nenhum_ficheiro_fora_da_porta_define_ou_sela_a_ligacao"
+   ]
+  },
+  {
+   "MUTANTE": "F3 o boletim deixa de chamar a porta (dict proprio)",
+   "ALVOS": [
+    "leis/boletim_do_campo.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A2_cada_consumidor_chama_a_porta",
+    "test_G3_voce_preco_boletim_concorrencia"
+   ]
+  },
+  {
+   "MUTANTE": "F4 a porta nao confere o selo",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A3_o_selo_apanha_a_ligacao_mexida_fora_da_porta",
+    "test_A4_uma_ligacao_feita_a_mao_com_a_forma_certa_reprova",
+    "test_I2_ligacao_fora_da_porta_nao_pede_bula"
+   ]
+  },
+  {
+   "MUTANTE": "F5 a fila aceita ligacao sem selo",
+   "ALVOS": [
+    "motor/fila_bulas_a_ler.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_I2_ligacao_fora_da_porta_nao_pede_bula"
+   ]
+  },
+  {
+   "MUTANTE": "F6 a porta aceita texto livre como chave",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_H1_a_porta_nao_le_texto"
+   ]
+  },
+  {
+   "MUTANTE": "K1 registo da vitrine conta como ativo",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C5_registo_revogado_nao_volta_pela_vitrine",
+    "test_D2_substancia_sem_registo_ativo_com_a_composicao_toda_lida",
+    "test_D3_com_todas_as_bulas_lidas_a_porta_pode_dizer"
+   ]
+  },
+  {
+   "MUTANTE": "K2 conferir_ligacao aceita autorizado vindo do catalogo",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C2_produto_so_no_catalogo_nao_vira_autorizado"
+   ]
+  },
+  {
+   "MUTANTE": "D1 a porta autoriza por DECLARACAO_DE_PRODUTO",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C3_declaracao_de_produto_fica_a_confirmar"
+   ]
+  },
+  {
+   "MUTANTE": "D2 conferir_ligacao aceita autorizado so por declaracao",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C3_declaracao_de_produto_fica_a_confirmar"
+   ]
+  },
+  {
+   "MUTANTE": "D3 D117 ignorado: autoriza com a edicao >= 30 dias",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C4_d117_aos_30_dias_nada_sai_autorizado"
+   ]
+  },
+  {
+   "MUTANTE": "I1 a trava diz que a ligacao e fonte independente",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E1_nao_prova_pressao_nem_demanda_e_nao_e_fonte",
+    "test_E2_prova_da_referencia_nao_atravessa_o_pote",
+    "test_F3_o_validador_reprova_pote_com_objeto_sem_ligacao",
+    "test_F4_edicoes_misturadas_num_pote_reprovam",
+    "test_G1_cruzamentos_max_itens_commitados"
+   ]
+  },
+  {
+   "MUTANTE": "I2 o pote aceita a referencia como prova do objeto",
+   "ALVOS": [
+    "pacote/pote_intelligence_casco.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E2_prova_da_referencia_nao_atravessa_o_pote"
+   ]
+  },
+  {
+   "MUTANTE": "I3 a ligacao deixa de dizer que nao prova pressao nem demanda",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E1_nao_prova_pressao_nem_demanda_e_nao_e_fonte",
+    "test_E2_prova_da_referencia_nao_atravessa_o_pote",
+    "test_F3_o_validador_reprova_pote_com_objeto_sem_ligacao",
+    "test_F4_edicoes_misturadas_num_pote_reprovam",
+    "test_G1_cruzamentos_max_itens_commitados"
+   ]
+  },
+  {
+   "MUTANTE": "S1 bulas por ler e a porta diz que nao ha produto",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B5_bula_nao_lida_fica_a_confirmar_e_entra_na_fila",
+    "test_D1_com_bulas_por_ler_nunca_se_diz_que_nao_ha",
+    "test_D4_adama_sem_produto_sem_ter_lido_reprova"
+   ]
+  },
+  {
+   "MUTANTE": "S2 composicao incompleta e a porta diz que nao ha",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D5_composicao_incompleta_nao_autoriza_dizer_que_nao_ha"
+   ]
+  },
+  {
+   "MUTANTE": "S3 conferir_ligacao aceita ADAMA_SEM_PRODUTO com bulas por ler",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D4_adama_sem_produto_sem_ter_lido_reprova"
+   ]
+  },
+  {
+   "MUTANTE": "S4 conferir_ligacao aceita ADAMA_SEM_PRODUTO sem referencia lida",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D4_adama_sem_produto_sem_ter_lido_reprova"
+   ]
+  },
+  {
+   "MUTANTE": "S5 varias culturas e um problema saem autorizados",
+   "ALVOS": [
+    "motor/porta_da_referencia.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B8_varias_culturas_e_um_problema_nao_autoriza"
+   ]
+  },
+  {
+   "MUTANTE": "E1 o pote aceita ligacoes de duas edicoes",
+   "ALVOS": [
+    "pacote/pote_intelligence_casco.py"
+   ],
+   "TESTES": [
+    "tests.test_ligacao_adama"
+   ],
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_F4_edicoes_misturadas_num_pote_reprovam"
+   ]
+  }
+ ],
+ "MORTOS": 25,
+ "TOTAL": 25
+}
