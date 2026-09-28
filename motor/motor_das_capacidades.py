@@ -594,7 +594,9 @@ def _objeto_da_janela(j: dict, ctx: dict, rels: list) -> tuple:
     obj = {"OBJETO_ID": "R7-" + j["CROP_WINDOW_ID"], "ESPECIE": SINAL,
            "ESTADO": ESTADO_TRANSPORTAVEL, "CHAVES": chaves, "PROVA": provas,
            "PORQUE": " · ".join(porque + ([j["READING"]] if j["READING"] else [])),
-           "CONTRADIZ": contradiz, "INCERTEZA": incerteza}
+           "CONTRADIZ": contradiz, "INCERTEZA": incerteza,
+           # D123: a ligacao que a CAP-WIN recebeu da porta — transportada, nunca recalculada
+           "LIGACAO_ADAMA": j["LIGACAO_ADAMA"]}
     return obj, None
 
 
@@ -652,7 +654,9 @@ def _objeto_do_estudo(e: dict, sci: dict, ctx: dict) -> tuple:
            "CONTRADIZ": ("; ".join("%s %s contradiz %s" % (r["MOLECULA"], r["DIRECAO"], ",".join(r["CONTRADICAO_COM"]))
                                    for r in contra) or None),
            "INCERTEZA": ("falta: " + ", ".join(e["APLICABILIDADE"]["FALTA"])
-                         if e["APLICABILIDADE"]["FALTA"] else None)}
+                         if e["APLICABILIDADE"]["FALTA"] else None),
+           # D123: a ligacao que a CAP-SCI recebeu da porta — transportada, nunca recalculada
+           "LIGACAO_ADAMA": e["LIGACAO_ADAMA"]}
     return obj, None
 
 
@@ -692,7 +696,11 @@ def _objeto_do_futuro(f: dict, ctx: dict) -> tuple:
             "ESPECIE": FUTURO, "ESTADO": ESTADO_TRANSPORTAVEL, "CHAVES": chaves,
             "PROVA": [_prova(ready, linha, ctx["RAW"])],
             "PORQUE": "facto presente sobre o futuro (G0 bloqueou so por FACT_TIME depois da captura)",
-            "CONTRADIZ": None, "INCERTEZA": None}, None
+            "CONTRADIZ": None, "INCERTEZA": None,
+            # D123: pela porta, com a cultura/problema da JANELA_DECLARADA (so com procedencia)
+            "LIGACAO_ADAMA": PORTA.ligacao_adama(ctx["REF"], {
+                "CULTURA": ent["CROP_ID"]["VALOR"], "PROBLEMA": ent["ISSUE_ID"]["VALOR"],
+                "VEM_DE": {"CULTURA": "JANELA_DECLARADA.CULTURA", "PROBLEMA": "JANELA_DECLARADA.PROBLEMA"}})}, None
 
 
 def _rendimentos(livro: dict, ctx: dict, objetos: dict) -> tuple:
@@ -741,7 +749,9 @@ def _rendimentos(livro: dict, ctx: dict, objetos: dict) -> tuple:
         out.append({"OBJETO_ID": oid, "ESPECIE": RENDIMENTO, "ESTADO": ESTADO_TRANSPORTAVEL,
                     "CHAVES": chaves,
                     "PROVA": [_prova(ctx["READY"][str(l["ITEM_ID"])], l, ctx["RAW"]) for l in com_doc],
-                    "PORQUE": "rendimento da fonte nesta corrida", "CONTRADIZ": None, "INCERTEZA": None})
+                    "PORQUE": "rendimento da fonte nesta corrida", "CONTRADIZ": None, "INCERTEZA": None,
+                    # D123: rendimento de fonte nao tem cultura nem substancia: NAO_SEI dito pela porta
+                    "LIGACAO_ADAMA": PORTA.ligacao_adama(ctx["REF"], {"VEM_DE": {}})})
     return out, nao_vao
 
 
@@ -786,7 +796,7 @@ def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None =
     win = WIN.julgar(livro, itens_win, hoje, fora=para_win, referencia=ref)
     sci = SCI.julgar(livro, ready_cap, ref, triados_fora=para_sci)
 
-    ctx = {"RUN_ID": run_id, "RAW": entrada["RAW"], "D112": d112, "JANELA": janelas,
+    ctx = {"RUN_ID": run_id, "RAW": entrada["RAW"], "D112": d112, "JANELA": janelas, "REF": ref,
            "READY": {str(p["ITEM_ID"]): p for p in prontos},
            "LINHA": {str(l["ITEM_ID"]): l for l in livro["LINEAGE"]}}
     objetos = {"windows": [], "science": [], "future": []}
@@ -895,6 +905,9 @@ def conferir_saida(saida: dict) -> list:
                     v.append("%s/%s: %s com valor e sem procedencia (D112b)" % (comp, oid, k))
             if not o.get("PROVA"):
                 v.append("%s/%s: objeto sem prova" % (comp, oid))
+            # D123: todo objeto leva a ligacao ADAMA, e ela tem de ter saido da porta
+            for x in PORTA.conferir_ligacao(o.get("LIGACAO_ADAMA")):
+                v.append("%s/%s: %s" % (comp, oid, x))
             for p in o.get("PROVA") or []:
                 for k in ("ITEM_ID", "CORRIDA_UPSTREAM", "RAW_OBSERVATION_ID", "SOURCE_ID",
                           "DOCUMENT_ID", "URL", "PUBLICADO_EM", "PUBLISHED_AT", "COLHIDO_EM", "FACT_TIME"):

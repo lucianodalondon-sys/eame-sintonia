@@ -1,0 +1,3240 @@
+{
+ "SCHEMA": "FILA_BULAS_A_LER/v1",
+ "MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE",
+ "GERADO_POR": "motor/fila_bulas_a_ler.py",
+ "NAO_COLETA": true,
+ "TETO_POR_DOMINIO_24H": 5,
+ "TETO_QUEM_APLICA": "a Coleta (coleta/espera_por_dominio.py, D38); a fila so propoe LOTE_24H por host",
+ "EDICOES_DA_REFERENCIA": [
+  "PROD_FTS_6_20260831"
+ ],
+ "FATOS_LIDOS": 2188,
+ "LIGACOES_RECUSADAS": [],
+ "ORDEM": "1) ADAMA, mais fatos a pedir primeiro · 2) concorrentes por substancia (hoje NAO SEI)",
+ "ADAMA": [
+  {
+   "ORDEM": 1,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "018089",
+   "PRODUTO": "AVASTEL",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-050f6cf24afb",
+    "URL": "https://www.adama.com/italia/it/media/6766/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 526,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 2,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "008401",
+   "PRODUTO": "FINESSOX",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 3,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "008601",
+   "PRODUTO": "FOLPAN 80 WDG",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-02c094763d41",
+    "URL": "https://www.adama.com/italia/it/media/491/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 4,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "010587",
+   "PRODUTO": "FOLPAN SC",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 5,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "011501",
+   "PRODUTO": "PARIFOL",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 6,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "013012",
+   "PRODUTO": "FOLVIT 80 WDG",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 7,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "013585",
+   "PRODUTO": "SOLOFOL",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 8,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "014862",
+   "PRODUTO": "SOLOFOL AP",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 9,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "016152",
+   "PRODUTO": "SEEDRON",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-030593658fe2",
+    "URL": "https://www.adama.com/italia/it/media/291/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 10,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "016749",
+   "PRODUTO": "FOLPAN ENERGY",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-a8c474f91499",
+    "URL": "https://www.adama.com/italia/it/media/5416/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 11,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017111",
+   "PRODUTO": "FLOVINE",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 12,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017311",
+   "PRODUTO": "VINIFOL WDG",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 13,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017752",
+   "PRODUTO": "STAVENTO",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-915a78d6b66c",
+    "URL": "https://www.adama.com/italia/it/media/4226/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 0,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 525,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 14,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "011794",
+   "PRODUTO": "PRESSING 500",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 523,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 15,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "016218",
+   "PRODUTO": "DICURAN PLUS",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 523,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 16,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "018111",
+   "PRODUTO": "ARRODIM",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-3f2af50e277b",
+    "URL": "https://www.adama.com/italia/it/media/5491/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 523,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 17,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "014093",
+   "PRODUTO": "ANTARKTIS",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 2,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 522,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 18,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "015740",
+   "PRODUTO": "VINETO",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 2,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 522,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 19,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "015909",
+   "PRODUTO": "PYXIDES WG",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 2,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 522,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 20,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "016616",
+   "PRODUTO": "VALLEY",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-7c41399ef6c5",
+    "URL": "https://www.adama.com/italia/it/media/791/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 521,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 21,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017319",
+   "PRODUTO": "FOXPRO",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 2,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 521,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 22,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017662",
+   "PRODUTO": "BIFENIX",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 2,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 521,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 23,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "008929",
+   "PRODUTO": "TOPIK 240 EC",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 3,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 24,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "010063",
+   "PRODUTO": "TOPIK 80 EC",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 3,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 25,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "013332",
+   "PRODUTO": "VIP",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 3,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 26,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "013736",
+   "PRODUTO": "TRACE",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 3,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 27,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "013807",
+   "PRODUTO": "RAVENAS",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 3,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 28,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "014693",
+   "PRODUTO": "VIP 80 EC",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 4,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 29,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "014694",
+   "PRODUTO": "CELIO 80 EC",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 4,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 30,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "014728",
+   "PRODUTO": "CELIO",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 4,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 31,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "015316",
+   "PRODUTO": "HAWK",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 4,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 32,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "015847",
+   "PRODUTO": "MAKURI",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 4,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 33,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "016084",
+   "PRODUTO": "BREVIS",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-2a89a95059b3",
+    "URL": "https://www.adama.com/italia/it/media/801/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 34,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "016575",
+   "PRODUTO": "TRIMMER 50 WG",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-23474c6e9f55",
+    "URL": "https://www.adama.com/italia/it/media/571/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 35,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "016697",
+   "PRODUTO": "CINDER",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 5,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 36,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "016823",
+   "PRODUTO": "ACTIVUS 40 SC",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 5,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 37,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017094",
+   "PRODUTO": "ANTHEM EKO",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 5,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 38,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017116",
+   "PRODUTO": "ACTIVUS ME",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-20318a623857",
+    "URL": "https://www.adama.com/italia/it/media/546/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 1,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 39,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017123",
+   "PRODUTO": "AVANA",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 5,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 40,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017398",
+   "PRODUTO": "DOMITREL 400 CS",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 5,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 41,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017658",
+   "PRODUTO": "PRESTIGAN ME",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 6,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 42,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017659",
+   "PRODUTO": "ACTIGAN ME",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 6,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 43,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017660",
+   "PRODUTO": "ACTIGAN EKO",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 6,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 44,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017661",
+   "PRODUTO": "PRESTIGAN EKO",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 6,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 45,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017663",
+   "PRODUTO": "KORAL 50 WG",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 6,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 46,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017664",
+   "PRODUTO": "KIKKO 50 WG",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 7,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 47,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "018176",
+   "PRODUTO": "EDAPTIS",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-72b76b5a222c",
+    "URL": "https://www.adama.com/italia/it/media/5941/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 2,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 48,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "018644",
+   "PRODUTO": "MEZAYO",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 7,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 49,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "018814",
+   "PRODUTO": "GOLTIX TOP",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-2b983e67d758",
+    "URL": "https://www.adama.com/italia/it/media/4416/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 2,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 520,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura",
+    "registo ADAMA com a substancia e bula nao lida: diz em que culturas a substancia esta autorizada"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 50,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "009783",
+   "PRODUTO": "MAGNATE 500 EC",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 7,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 51,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "013402",
+   "PRODUTO": "LUMA-KL",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 7,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 52,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "014380",
+   "PRODUTO": "CLORMET",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 7,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 53,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "015235",
+   "PRODUTO": "MOMENTUM",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 8,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 54,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "015592",
+   "PRODUTO": "TAIFUN JARDIN",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 8,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 55,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017335",
+   "PRODUTO": "MOVER",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 8,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 56,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017337",
+   "PRODUTO": "VANGUARD",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 8,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 57,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017852",
+   "PRODUTO": "POWERFILM",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-fba9de903f63",
+    "URL": "https://www.adama.com/italia/it/media/5531/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 2,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 58,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "017898",
+   "PRODUTO": "RIMENSIS",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 8,
+   "ESTADO_DA_LEITURA": "TABELA_NAO_LOCALIZADA",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 59,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "018156",
+   "PRODUTO": "APYZA WG",
+   "BULA": {
+    "DOCUMENT_ID": "ADAMA-DOC-b5c6746585c3",
+    "URL": "https://www.adama.com/italia/it/media/5496/download?attachment"
+   },
+   "HOST": "www.adama.com",
+   "LOTE_24H": 2,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 60,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "018165",
+   "PRODUTO": "APYZA 500 WG",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 9,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  },
+  {
+   "ORDEM": 61,
+   "EMPRESA": "ADAMA",
+   "REGISTRO": "018202",
+   "PRODUTO": "ETHOSAT SC",
+   "BULA": {
+    "DOCUMENT_ID": "NAO SEI",
+    "URL": "NAO SEI"
+   },
+   "HOST": "NAO SEI",
+   "LOTE_24H": 9,
+   "ESTADO_DA_LEITURA": "TABELA_SEM_PAR",
+   "N_FATOS_QUE_PEDEM": 519,
+   "FATOS_EXEMPLO": [
+    "PAR:IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc#0",
+    "PAR:IT-T3-2026-09-20-110656-6e4ffc27a86c5269#0",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#2",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#20",
+    "PAR:LINHA-BUSCA-RAW-20260927T152708#21"
+   ],
+   "PORQUE": [
+    "bula ativa nao lida: pode autorizar o par",
+    "bula ativa nao lida: pode autorizar tambem",
+    "bula ativa nao lida: pode nomear a cultura"
+   ],
+   "CULTURAS_PERGUNTADAS": [
+    "CROP_APPLE",
+    "CROP_BARLEY",
+    "CROP_CITRUS",
+    "CROP_DURUM_WHEAT",
+    "CROP_GRAPEVINE",
+    "CROP_KIWI",
+    "CROP_MAIZE",
+    "CROP_OLIVE",
+    "CROP_PEACH",
+    "CROP_PEAR",
+    "CROP_POTATO",
+    "CROP_RICE",
+    "CROP_SOFT_WHEAT",
+    "CROP_SOYBEAN",
+    "CROP_STONE_FRUIT",
+    "CROP_SUGAR_BEET",
+    "CROP_TOMATO",
+    "CROP_VEGETABLES",
+    "CROP_WHEAT_GENERIC",
+    "olivo",
+    "vite"
+   ]
+  }
+ ],
+ "CONCORRENTES": [
+  {
+   "SUBSTANCIA": "TAUFLUVALINATE",
+   "N_FATOS_QUE_PEDEM": 8,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "FLUXAPYROXAD",
+   "N_FATOS_QUE_PEDEM": 7,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "AZOXYSTROBIN",
+   "N_FATOS_QUE_PEDEM": 6,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "FLUDIOXONIL",
+   "N_FATOS_QUE_PEDEM": 6,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "FOLPET",
+   "N_FATOS_QUE_PEDEM": 6,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "CAPTAN",
+   "N_FATOS_QUE_PEDEM": 5,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "FLUAZINAM",
+   "N_FATOS_QUE_PEDEM": 5,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "CLETHODIM",
+   "N_FATOS_QUE_PEDEM": 4,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "DIFLUFENICAN",
+   "N_FATOS_QUE_PEDEM": 4,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "PROPAQUIZAFOP",
+   "N_FATOS_QUE_PEDEM": 4,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "BUPIRIMATE",
+   "N_FATOS_QUE_PEDEM": 3,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "CHLORANTRANILIPROLE",
+   "N_FATOS_QUE_PEDEM": 3,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "FENPROPIDIN",
+   "N_FATOS_QUE_PEDEM": 3,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "PIRIMICARB",
+   "N_FATOS_QUE_PEDEM": 3,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "BIFENOX",
+   "N_FATOS_QUE_PEDEM": 2,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "CYMOXANIL",
+   "N_FATOS_QUE_PEDEM": 2,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "IMAZAMOX",
+   "N_FATOS_QUE_PEDEM": 2,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "CLODINAFOP",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "DICAMBA",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "FLORASULAM",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "FLUROXYPYR",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "LAMBDACYHALOTHRIN",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "MESOTRIONE",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "METALAXYLM",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "METAMITRON",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "NICOSULFURON",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "PENDIMETHALIN",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "PINOXADEN",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "SULCOTRIONE",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  },
+  {
+   "SUBSTANCIA": "TRIBENURON",
+   "N_FATOS_QUE_PEDEM": 1,
+   "ESTADO": "NAO SEI",
+   "PORQUE": "a edicao da referencia so traz registos ADAMA (lacuna 3): o cadastro concorrente desta substancia nao esta na casa — pede-se o cadastro, nao uma bula"
+  }
+ ],
+ "LOTES_POR_HOST": {
+  "NAO SEI": 10,
+  "www.adama.com": 3
+ }
+}

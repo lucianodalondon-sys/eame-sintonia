@@ -596,5 +596,53 @@ class I_Grao(_Copia):
             self.assertEqual(lit, [], "%s reescreve os niveis que autorizam: linhas %s" % (rel, lit))
 
 
+class J_Lote8LigacaoHerdaOGrao(unittest.TestCase):
+    """LOTE8-INTEGRA: a LIGACAO-ADAMA (D123) nasceu sem ver a regra do grao (LOTE7) e reescrevia
+    NIVEIS_QUE_AUTORIZAM/DECLARACAO_DE_PRODUTO dentro da porta. Uma segunda atribuicao rebinda o
+    global: a linha do dono ficava morta. A regra tem UM dono, e a ligacao le-a dele."""
+
+    VEM = {"CULTURA": "teste", "PROBLEMA": "teste"}
+
+    def test_J1_uma_atribuicao_so_na_porta(self):
+        arv = ast.parse((RAIZ / "motor" / "porta_da_referencia.py").read_text(encoding="utf-8"))
+        for nome in ("NIVEIS_QUE_AUTORIZAM", "DECLARACAO_DE_PRODUTO", "LINHA_DA_TABELA", "BLOCO_DA_CULTURA"):
+            linhas = [n.lineno for n in arv.body if isinstance(n, (ast.Assign, ast.AnnAssign))
+                      for t in (n.targets if isinstance(n, ast.Assign) else [n.target])
+                      if isinstance(t, ast.Name) and t.id == nome]
+            self.assertEqual(len(linhas), 1, "%s atribuido %d vezes na porta (linhas %s): dois donos da "
+                                             "regra do grao" % (nome, len(linhas), linhas))
+
+    def test_J2_mudar_o_dono_muda_a_ligacao(self):
+        ref = P.abrir(hoje=HOJE)
+        bloco = P.ligacao_adama(ref, {"CULTURA": "MELO", "PROBLEMA": "CECIDOMIA", "VEM_DE": self.VEM})
+        linha = P.ligacao_adama(ref, {"CULTURA": "PESCO", "PROBLEMA": "AFIDI", "VEM_DE": self.VEM})
+        self.assertEqual(bloco["ESTADO"], P.AUTORIZADO_BULA_LIDA)
+        self.assertEqual(linha["ESTADO"], P.AUTORIZADO_BULA_LIDA)
+        dono = P.NIVEIS_QUE_AUTORIZAM
+        try:
+            P.NIVEIS_QUE_AUTORIZAM = (P.LINHA_DA_TABELA,)   # o dono estreita a regra
+            bloco2 = P.ligacao_adama(ref, {"CULTURA": "MELO", "PROBLEMA": "CECIDOMIA", "VEM_DE": self.VEM})
+            linha2 = P.ligacao_adama(ref, {"CULTURA": "PESCO", "PROBLEMA": "AFIDI", "VEM_DE": self.VEM})
+            self.assertEqual(P.autorizacao_do_uso({"LINK_LEVEL": P.BLOCO_DA_CULTURA}, P.FRESCA)[0],
+                             P.A_CONFIRMAR)
+        finally:
+            P.NIVEIS_QUE_AUTORIZAM = dono
+        self.assertEqual(bloco2["ESTADO"], P.A_CONFIRMAR, "a ligacao nao seguiu o dono da regra do grao")
+        self.assertEqual(linha2["ESTADO"], P.AUTORIZADO_BULA_LIDA)
+
+    def test_J3_ligacao_e_autorizados_concordam(self):
+        """Todo par cultura x alvo da edicao: a ligacao so diz AUTORIZADO_BULA_LIDA quando
+        `autorizados` (a regra do grao) diz AUTORIZADO_NA_BULA_LIDA — e vice-versa."""
+        ref = P.abrir(hoje=HOJE)
+        pares = sorted({(u["CROP_ON_LABEL"], u["TARGET_ON_LABEL"]) for u in P.livro(ref, "AUTHORIZED-USES")})
+        self.assertGreater(len(pares), 100)
+        for c, a in pares[::7]:
+            lig = P.ligacao_adama(ref, {"CULTURA": c, "PROBLEMA": a, "VEM_DE": self.VEM})
+            aut = P.autorizados(ref, c, a)
+            self.assertEqual(lig["ESTADO"] == P.AUTORIZADO_BULA_LIDA,
+                             aut["ESTADO"] == P.AUTORIZADO_NA_BULA_LIDA,
+                             "%s x %s: ligacao %s, autorizados %s" % (c, a, lig["ESTADO"], aut["ESTADO"]))
+
+
 if __name__ == "__main__":
     unittest.main()

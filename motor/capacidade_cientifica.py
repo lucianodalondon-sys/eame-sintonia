@@ -616,6 +616,9 @@ def da_porta(ref: dict) -> dict:
     return {"ESTADO": "LIDA", "PASTA": ref["PASTA"],
             "SHA256": {n: ref["REGISTRO"]["SHA256"][n] for n in LIVROS_DA_CAP_SCI},
             "CARIMBO": ref["CARIMBO"],
+            # LIGACAO-ADAMA (D123): a referencia inteira, como a porta a abriu — so para
+            # `PORTA.ligacao_adama`; a CAP-SCI continua a ler so os quatro livros acima.
+            "PORTA_ABERTA": ref,
             **{n: PORTA.livro(ref, n) for n in LIVROS_DA_CAP_SCI}}
 
 
@@ -703,6 +706,17 @@ def ligar_ao_produto(e: dict, ref: dict) -> dict:
                            "resultado do produto."))
 
 
+def ligacao_do_estudo(e: dict, ref: dict) -> dict:
+    """D123: a ligacao ADAMA do estudo, pela porta. Chaves = as que o FATO declarou."""
+    mol = e.get("MOLECULA")
+    return PORTA.ligacao_adama(ref.get("PORTA_ABERTA", ref) if isinstance(ref, dict) else ref, {
+        "CULTURA": e.get("CULTURA"), "PROBLEMA": e.get("PROBLEMA"),
+        "SUBSTANCIA": mol if isinstance(mol, list) else [],
+        "VEM_DE": {"CULTURA": "READY.FATO.CULTURA (CAP-SCI.ler_chave)",
+                   "PROBLEMA": "READY.FATO.PROBLEMA (CAP-SCI.ler_chave)",
+                   "SUBSTANCIA": "READY.FATO.MOLECULA (CAP-SCI.ler_chave)"}})
+
+
 # ═════════════════════════════════════════════════════════════════════════
 # A CAPACIDADE — sobre o livro da corrida
 # ═════════════════════════════════════════════════════════════════════════
@@ -746,6 +760,10 @@ def julgar(livro: dict, itens: list, referencia: dict | None = None,
                              USO_EXIGIDO, "fora da LINEAGE da corrida")})
             continue
         estudos.append(julgar_estudo(it))
+    # LIGACAO-ADAMA (D123): todo estudo leva a ligacao a bula e ao portfolio, calculada
+    # SO pela porta, com as chaves que o FATO do READY declarou (nunca do texto).
+    for e in estudos:
+        e["LIGACAO_ADAMA"] = ligacao_do_estudo(e, ref)
 
     grupos = independencia(estudos)
     ligacoes = [ligar_ao_produto(e, ref) for e in estudos

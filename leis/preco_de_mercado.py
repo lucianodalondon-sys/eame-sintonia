@@ -331,7 +331,34 @@ def _porque_do_comentario(t: str) -> str:
     return "COMENTARIO_DE_MERCADO"
 
 
+def _porta():
+    """`motor/porta_da_referencia.py`, importada so quando preciso (a leitura do preco continua pura)."""
+    motor = str(Path(__file__).resolve().parents[1] / "motor")
+    if motor not in sys.path:
+        sys.path.insert(0, motor)
+    import porta_da_referencia as PORTA   # noqa: PLC0415
+    return PORTA
+
+
+def _ligacao(PORTA, referencia, cultura) -> dict:
+    return PORTA.ligacao_adama(referencia, {
+        "CULTURA": cultura,
+        "VEM_DE": {"CULTURA": "OBSERVACAO.CULTURA (preco_de_mercado, vocabulario regua_italia)"}})
+
+
+def com_ligacao_adama(resultado: dict, referencia: dict) -> dict:
+    """D123: a ligacao ADAMA de cada observacao com a porta JA ABERTA por quem chama.
+
+    `precos_do_texto` so recebe o texto (nada da publicacao nem da coleta entra por la), e por
+    isso sai com a ligacao NAO_SEI · FALTA=REFERENCIA; quem tem a porta aberta chama isto."""
+    PORTA = _porta()
+    for o in resultado.get("OBSERVACOES") or []:
+        o["LIGACAO_ADAMA"] = _ligacao(PORTA, referencia, o.get("CULTURA"))
+    return resultado
+
+
 def precos_do_texto(texto: str) -> dict:
+    PORTA = _porta()
     obs, comentarios, recusados, comps = [], [], [], []
     for f in frases(texto):
         spans_comp, spans_pub = comparacoes_e_publicacao(f)
@@ -395,6 +422,9 @@ def precos_do_texto(texto: str) -> dict:
             un = _unidade(m.group("u"))
             o["UNIDADE"] = "%s/%s" % (o["MOEDA"], un) if un != NAO_SEI else NAO_SEI
             o["SERIE"] = _serie(o)
+            # LIGACAO-ADAMA (D123): a cultura que ESTA observacao ja leu (vocabulario regua_italia)
+            # sem a porta aberta aqui: NAO_SEI com FALTA=REFERENCIA (com_ligacao_adama liga-a)
+            o["LIGACAO_ADAMA"] = _ligacao(PORTA, None, cultura)
             obs.append(o)
         # o resto da frase: comentario de mercado, separado do preco. Frase sem preco so conta se for frase
         # (>= PALAVRAS_MINIMAS): menu e titulo («Prezzi e tariffe», «Mercato cerealicolo») nao sao comentario.

@@ -771,6 +771,14 @@ def produtos_adama(ref: dict, crop: str, issue: str) -> dict:
     return r
 
 
+def ligacao_da_janela(ref: dict, crop, issue) -> dict:
+    """D123: a ligacao ADAMA da janela, PELA PORTA. Cultura e problema sao o par em campo
+    que a JANELA_DECLARADA da Collection trouxe (par_em_campo), nunca lidos do texto."""
+    return PORTA.ligacao_adama(ref, {"CULTURA": crop, "PROBLEMA": issue,
+                                     "VEM_DE": {"CULTURA": "JANELA_DECLARADA.CULTURA (CAP-WIN.par_em_campo)",
+                                                "PROBLEMA": "JANELA_DECLARADA.PROBLEMA (CAP-WIN.par_em_campo)"}})
+
+
 def julgar(livro: dict, itens: list, hoje: date, n_dias: int = N_DIAS_CURRENT,
            fora: dict | None = None, referencia: dict | None = None) -> dict:
     """A CAP-WIN sobre UMA corrida G0/v4. `hoje` e obrigatorio: quem pergunta
@@ -821,6 +829,10 @@ def julgar(livro: dict, itens: list, hoje: date, n_dias: int = N_DIAS_CURRENT,
     ref = referencia if referencia is not None else PORTA.abrir(hoje=hoje)
     for j in janelas:
         j["PRODUTOS_ADAMA"] = produtos_adama(ref, j["CROP_ID"], j["ISSUE_ID"])
+        j["LIGACAO_ADAMA"] = ligacao_da_janela(ref, j["CROP_ID"], j["ISSUE_ID"])
+    for n in nao_possivel:
+        # sem par em campo nao ha cultura com procedencia: a porta diz NAO_SEI e porque
+        n["LIGACAO_ADAMA"] = PORTA.ligacao_adama(ref, {"VEM_DE": {}})
     return {
         "SCHEMA": VERSAO, "CAPABILITY": CAPACIDADE,
         "INTELLIGENCE_RUN_ID": run_id, "RULESET_VERSION": livro.get("RULESET_VERSION"),

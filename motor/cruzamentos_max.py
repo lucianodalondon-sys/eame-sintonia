@@ -397,6 +397,7 @@ class Referencia:
                    cadastro, None, date.fromisoformat(ed["DATA_DA_EDICAO"]),
                    cadastro_id="IT-T4-001:" + ed["EDICAO"], tem_mercado=False, carimbo=PORTA.carimbo(ref))
         self.product_id = pid
+        self.porta = ref     # LIGACAO-ADAMA (D123): a referencia como a porta a abriu
         return self
 
     @property
@@ -1009,7 +1010,35 @@ def analisar(analise: dict, ref: Referencia, livro=None) -> dict:
         if r["FINAL"] == CONFIRMED_YES or (r["FINAL"] == YES_A_CONFIRMAR and r.get("CONFIRMACAO")):
             d = _data(r["CONFIRMACAO"]["DATA_DO_BOLETIM"])
             r["COMPETITIVE_SET"] = competitive_set([r["SUBSTANCIA"]], d, ref)
+    # LIGACAO-ADAMA (D123): todo cruzamento e todo par leva a ligacao da porta.
+    for r in refeitos:
+        r["LIGACAO_ADAMA"] = ligacao_do_cruzamento(ref, r)
+    for pm in pms:
+        pm["LIGACAO_ADAMA"] = ligacao_do_par(ref, pm["PAR_DO_BOLETIM"])
     return {"REFEITOS": refeitos, "PORTFOLIO": pms, "CONTAGENS": contar(refeitos, pms)}
+
+
+# ── LIGACAO-ADAMA (D123): calculada SO pela porta; aqui so se dizem as chaves e de onde vem ──
+def ligacao_do_cruzamento(ref: Referencia, r: dict) -> dict:
+    """A substancia citada e a chave do cruzamento. A cultura do boletim e lista do DOCUMENTO
+    (ENTITY_SOURCE = DOCUMENT, D112) e a ligada no troco e interpretacao nossa: nenhuma entra."""
+    return PORTA.ligacao_adama(getattr(ref, "porta", None), {
+        "SUBSTANCIA": r.get("SUBSTANCIA"),
+        "VEM_DE": {"SUBSTANCIA": "CRUZAMENTO.SUBSTANCIA (a substancia citada no troco do boletim)"}})
+
+
+def ligacao_do_par(ref: Referencia, pb: dict) -> dict:
+    """O par cultura x praga da MESMA seccao do boletim (PARES_POR_SECAO da Collection)."""
+    return PORTA.ligacao_adama(getattr(ref, "porta", None), {
+        "CULTURA": pb.get("CULTURA"), "PROBLEMA": pb.get("PRAGA"),
+        "VEM_DE": {"CULTURA": "READY.PROBLEMA.SECOES (par por seccao)",
+                   "PROBLEMA": "READY.PROBLEMA.SECOES (par por seccao)"}})
+
+
+def ligacao_do_competitive_set(ref: Referencia, p: dict) -> dict:
+    return PORTA.ligacao_adama(getattr(ref, "porta", None), {
+        "SUBSTANCIA": p.get("SUBSTANCIA_EM_COMUM"),
+        "VEM_DE": {"SUBSTANCIA": "COMPETITIVE_SET.SUBSTANCIA_EM_COMUM (cadastro)"}})
 
 
 def contar(refeitos, pms) -> dict:
@@ -1078,7 +1107,7 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
                     "PORQUE": f"{r['FINAL']}: {conf['MOTIVO']}. Rotulo: "
                               f"{(p['CULTURA_NO_ROTULO_PROVA'] or [{}])[0].get('EVIDENCIA')}",
                     "INCERTEZA": conf["REGRA_DE_ENTRADA"],
-                    "CONTRADIZ": NAO_SEI})
+                    "CONTRADIZ": NAO_SEI, "LIGACAO_ADAMA": r["LIGACAO_ADAMA"]})
         else:
             portfolio.append({
                 "OBJETO_ID": _oid(r["OBJETO_ID"]), "ESPECIE": "CROSSING", "ESTADO": ESTADO_TRANSPORTAVEL,
@@ -1087,7 +1116,7 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
                 "PROVA": [_prova(r)],
                 "PORQUE": f"{r['FINAL']}: {conf.get('MOTIVO') or r['MOTIVO']}",
                 "INCERTEZA": "ausencia NA NOSSA LEITURA de rotulos (cobertura " + str(ref.cobertura) + ")",
-                "CONTRADIZ": NAO_SEI})
+                "CONTRADIZ": NAO_SEI, "LIGACAO_ADAMA": r["LIGACAO_ADAMA"]})
         cs = r.get("COMPETITIVE_SET")
         if cs:
             competitors += _objetos_cs(cs, r, canon_cultura(conf.get("CULTURA")) or NAO_SEI, ref)
@@ -1108,7 +1137,7 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
                            "PAR_DO_BOLETIM": f"{pb['CULTURA']} x {pb['PRAGA']}"},
                 "PROVA": prova, "PORQUE": f"{pm['ESTADO']}: {pm['MOTIVO']}",
                 "INCERTEZA": "o rotulo cobre o par; o boletim nao recomendou produto nenhum",
-                "CONTRADIZ": NAO_SEI})
+                "CONTRADIZ": NAO_SEI, "LIGACAO_ADAMA": pm["LIGACAO_ADAMA"]})
         if pm.get("COMPETITIVE_SET"):
             competitors += _objetos_cs(pm["COMPETITIVE_SET"], dict(pb, OBJETO_ID=pb["SALA_CHAVE"],
                                                                     RAW_OBSERVATION_ID=_raw(res, pb)),
@@ -1138,7 +1167,7 @@ def _objetos_cs(cs, origem, crop_cs, ref):
             "PORQUE": f"COMPETITIVE_SET: registo {p['NUM_REGISTRAZIONE']} ({p['STATO']}) com "
                       f"{', '.join(p['SUBSTANCIA_EM_COMUM'])}, valido em {cs['DATA_DE_REFERENCIA']}",
             "INCERTEZA": "grao = substancia: a cultura x alvo no rotulo deste concorrente NAO SEI",
-            "CONTRADIZ": NAO_SEI})
+            "CONTRADIZ": NAO_SEI, "LIGACAO_ADAMA": ligacao_do_competitive_set(ref, p)})
     return out
 
 

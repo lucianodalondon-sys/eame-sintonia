@@ -5975,7 +5975,7 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy. POTE-V2-UNICO (27/09): e o contrato UNICO (docs/intelligence/pote-v2/CONTRATO-POTE-V2.md + schema ao lado + validar_pote_v2.py = forma do schema e lei de conferir_pote). INTELLIGENCE_RUN_ID no topo (em CABECALHO so por leitura declarada em LEITURA_DE_COMPATIBILIDADE); cada PROVA com URL e PUBLISHED_AT, ou NAO SEI com a base, G0 e ADMITIDA_POR; ENTITY_SOURCE/LOCATION_SOURCE (D112; o lugar da fonte nunca vira lugar do facto). P7: RENDIMENTO_DE_FONTE e resultado honesto (NAO / NAO_TRATAR_AGORA / NO_DEFENSIBLE_ACTION_YET) nao dependem de FACT_TIME (USO_EXIGE_TEMPO); proveniencia continua obrigatoria. P8: no Polso, MERCADO.LEITURA = SERIE_MEDIDA so com >= 2 pontos na mesma unidade; um ponto e SINAL_SOLTO, e afirmar mudanca sem serie e recusado.",
+   "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy. POTE-V2-UNICO (27/09): e o contrato UNICO (docs/intelligence/pote-v2/CONTRATO-POTE-V2.md + schema ao lado + validar_pote_v2.py = forma do schema e lei de conferir_pote). INTELLIGENCE_RUN_ID no topo (em CABECALHO so por leitura declarada em LEITURA_DE_COMPATIBILIDADE); cada PROVA com URL e PUBLISHED_AT, ou NAO SEI com a base, G0 e ADMITIDA_POR; ENTITY_SOURCE/LOCATION_SOURCE (D112; o lugar da fonte nunca vira lugar do facto). P7: RENDIMENTO_DE_FONTE e resultado honesto (NAO / NAO_TRATAR_AGORA / NO_DEFENSIBLE_ACTION_YET) nao dependem de FACT_TIME (USO_EXIGE_TEMPO); proveniencia continua obrigatoria. P8: no Polso, MERCADO.LEITURA = SERIE_MEDIDA so com >= 2 pontos na mesma unidade; um ponto e SINAL_SOLTO, e afirmar mudanca sem serie e recusado. LIGACAO-ADAMA (D123, revisao anotada REVISAO_DO_CONTRATO = v2 + LIGACAO_ADAMA/v1): todo objeto leva LIGACAO_ADAMA calculada pela porta (motor/porta_da_referencia.py); o gerador recusa SEM_LIGACAO_ADAMA, LIGACAO_ADAMA_FORA_DA_PORTA (selo/lei de conferir_ligacao) e REFERENCIA_NAO_E_FONTE_INDEPENDENTE, e conferir_pote reprova ligacoes de edicoes diferentes num pote. Payload v1: a porta diz NAO_SEI/REFERENCIA.",
    "why_here": "POTE-UNICO (D95/D96, 2026-09-27). O casco lia uma inteligencia congelada (snapshot 07/09) e demo; a ponte v1 nao tinha especie nem vaga para Radar Futuro (P2/P5), Registro/Archivio (P3), e o portal nao a lia. INT-LAW-023/280: transporta, nao cruza, nao promove, nao muda especie, nao calcula rendimento. 45 testes (tests/test_pote_intelligence_casco.py + tests/test_pote_no_casco.mjs, fixture SINTETICA declarada em tests/fixtures/pote/). POTE-V2-UNICO: o bot emitia um R5 com o id em CABECALHO e o gerador ce775ff5 recusava-o; o R6 aprovado recusava o «nao» da APOL e deixava 3 de 47 fontes no Registro (P7), e o Polso lia sinal solto como mudanca (P8). +38 testes em tests/test_pote_v2_unico.py; numa fixture SINTETICA equivalente a R6, 45 das 46 recusas voltam (provas/pote_v2/medir_recusas_r6.py).",
    "files": [
     "pacote/pote_intelligence_casco.py",
@@ -6015,8 +6015,8 @@
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
-   "what": "Le a casa da referencia ADAMA e devolve duas metades que nunca se somam: REGISTRO (autorizacao do Ministero: registos, usos autorizados, leitura de cada bula, substancias, doses, documentos) e CATALOGO (vitrine da ADAMA Italia). Cada metade com EDICAO, DATA_DA_EDICAO, ULTIMA_CHECAGEM_OK, ESTADO_FRESCOR (D117: 14 dias -> PODE_ESTAR_DESATUALIZADO; 30 -> AUTORIZACAO_A_CONFIRMAR) e o sha256 de cada livro. Edicao misturada = NAO SEI inteira. Responde autorizados(cultura, alvo), por_substancia, por_alvo so do REGISTRO; bula nao lida = A_CONFIRMAR, nunca «nao autoriza». GRAO DO USO (LOTE7-INTEGRA, LAB PESQUISA-CRUZAMENTOS F.2-1): autorizacao_do_uso e a regra unica — so LINK_LEVEL LINHA_DA_TABELA ou BLOCO_DA_CULTURA sai AUTORIZADO; DECLARACAO_DE_PRODUTO (cultura e alvo em listas separadas do rotulo) e nivel ausente = A_CONFIRMAR; a CAP-SCI e o cruzamentos-max herdam-na daqui (NIVEIS_QUE_AUTORIZAM). Nao escreve, nao copia a tabela, nao cunha id.",
-   "why_here": "D116 do dono: bulas e portfolio sao UMA biblioteca de referencia versionada, e toda capacidade que fala de produto consulta a MESMA edicao. Medido antes: a CAP-SCI lia a casa direto, o cruzamentos-max lia outra copia (os pares do leitor e o CSV de 07/09, outra edicao), e cap_win, concorrencia_meta e boletim nao liam nada. Vive em motor/ porque LER e trabalho da inteligencia; o construtor (fontes/adama_referencia.py) continua o unico que escreve. tests/test_porta_unica_referencia.py reprova quem ler por fora.",
+   "what": "Le a casa da referencia ADAMA e devolve duas metades que nunca se somam: REGISTRO (autorizacao do Ministero: registos, usos autorizados, leitura de cada bula, substancias, doses, documentos) e CATALOGO (vitrine da ADAMA Italia). Cada metade com EDICAO, DATA_DA_EDICAO, ULTIMA_CHECAGEM_OK, ESTADO_FRESCOR (D117: 14 dias -> PODE_ESTAR_DESATUALIZADO; 30 -> AUTORIZACAO_A_CONFIRMAR) e o sha256 de cada livro. Edicao misturada = NAO SEI inteira. Responde autorizados(cultura, alvo), por_substancia, por_alvo so do REGISTRO; bula nao lida = A_CONFIRMAR, nunca «nao autoriza». GRAO DO USO (LOTE7-INTEGRA, LAB PESQUISA-CRUZAMENTOS F.2-1): autorizacao_do_uso e a regra unica — so LINK_LEVEL LINHA_DA_TABELA ou BLOCO_DA_CULTURA sai AUTORIZADO; DECLARACAO_DE_PRODUTO (cultura e alvo em listas separadas do rotulo) e nivel ausente = A_CONFIRMAR; a CAP-SCI e o cruzamentos-max herdam-na daqui (NIVEIS_QUE_AUTORIZAM). Nao escreve, nao copia a tabela, nao cunha id. LIGACAO-ADAMA (D123): e tambem o UNICO sitio que calcula a LIGACAO_ADAMA de um fato — ligacao_adama(ref, chaves {CULTURA, PROBLEMA, SUBSTANCIA, VEM_DE}) -> AUTORIZADO_BULA_LIDA (cultura e alvo na mesma linha/bloco de bula lida) | A_CONFIRMAR | SO_CULTURA | ADAMA_SEM_PRODUTO (so com leitura completa) | NAO_SEI (FALTA), com PRODUTOS_ADAMA, CONCORRENTES_MESMA_SUBSTANCIA, BULAS_A_LER, o carimbo da edicao, as travas INT-LAW-145/076/D116 e um SELO; conferir_ligacao e a lei que o pote e a fila aplicam.",
+   "why_here": "D116 do dono: bulas e portfolio sao UMA biblioteca de referencia versionada, e toda capacidade que fala de produto consulta a MESMA edicao. Medido antes: a CAP-SCI lia a casa direto, o cruzamentos-max lia outra copia (os pares do leitor e o CSV de 07/09, outra edicao), e cap_win, concorrencia_meta e boletim nao liam nada. Vive em motor/ porque LER e trabalho da inteligencia; o construtor (fontes/adama_referencia.py) continua o unico que escreve. tests/test_porta_unica_referencia.py reprova quem ler por fora. D123 (27/09): todo fato da Intelligence ligado a bula e ao portfolio, calculado SO pela porta; tests/test_ligacao_adama.py varre os consumidores e reprova ligacao feita fora dela.",
    "files": [
     "motor/porta_da_referencia.py"
    ]
@@ -6038,6 +6038,43 @@
    "files": [
     "provas/porta_unica_referencia/mutantes.py",
     "provas/lote7_integra/*"
+   ]
+  },
+  {
+   "id": "C-INT-FILA-BULAS",
+   "name": "A fila BULAS_A_LER — que bulas os fatos pedem para ler",
+   "icon": "☰",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Le qualquer JSON com objetos que levam LIGACAO_ADAMA, so aceita ligacao que passa em conferir_ligacao (selo da porta), e escreve FILA_BULAS_A_LER/v1: bulas ADAMA primeiro (mais fatos a pedir primeiro), depois as substancias que pedem o cadastro concorrente (hoje NAO SEI, lacuna 3), com LOTE_24H proposto por host (5 por lote). Deterministica, sem rede. Nao coleta.",
+   "why_here": "D123 + D117 item 2 (27/09): os fatos dizem que bulas faltam ler; a Coleta consome a fila dentro do teto por dominio, que continua a aplicar (coleta/espera_por_dominio.py, D38). A fila medida vive em docs/intelligence/ligacao-adama/FILA-BULAS-A-LER.json.",
+   "files": [
+    "motor/fila_bulas_a_ler.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-LIGACAO-ADAMA",
+   "name": "LIGACAO-ADAMA: medicao, fixtures ligadas e mutacao",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "medir.py: a ligacao sobre os dados reais offline (86 cruzamentos + 14 pares da R7, 9 sinais, acervo de 2080 itens do objeto git de organize-collection-system) -> MEDICAO.json e a fila. ligar_fixtures.py: ajuste DECLARADO das corridas sinteticas do pote (ligacao NAO_SEI/REFERENCIA dada pela porta). mutantes.py: planta 24 defeitos numa copia da arvore (objeto sem ligacao aceito, ligacao fora da porta, catalogo e DECLARACAO_DE_PRODUTO a autorizar, D117 ignorado, ligacao como fonte independente, ADAMA_SEM_PRODUTO sem ter lido, edicoes misturadas) e sai 1 se algum sobreviver.",
+   "why_here": "Prova que D123 morde: 24/24 mortos a 2026-09-27 (provas/ligacao_adama/MUTANTES.json). Relatorio LIGACAO-ADAMA.md.",
+   "files": [
+    "provas/ligacao_adama/*"
    ]
   },
   {

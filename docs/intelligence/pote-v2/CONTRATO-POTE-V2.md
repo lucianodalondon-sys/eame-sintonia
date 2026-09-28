@@ -100,6 +100,26 @@ Todo objeto de `market` leva `MERCADO{LEITURA, PORQUE, PONTOS, UNIDADE, SERIE}`:
 Um objeto que **afirme** `MUDANCA_DE_MERCADO` sem série medida é recusado
 (`SINAL_SOLTO_NAO_E_MUDANCA_DE_MERCADO`). `MUDANCA_DE_MERCADO` não é campo do pote.
 
+## 5b · LIGACAO_ADAMA — revisão anotada `v2 + LIGACAO_ADAMA/v1 (D123, 2026-09-27)`
+
+D123 do dono (27/09): «todo fato do sintonia tem que estar linkado a bula e ao portfolio senão nada faz
+sentido». **Mudança mínima**: o nome do contrato continua `POTE_INTELLIGENCE_CASCO/v2` (o casco lê-o assim);
+o cabeçalho ganha `REVISAO_DO_CONTRATO`, e **todo objeto** ganha `LIGACAO_ADAMA`.
+
+- A ligação é calculada **só** por `motor/porta_da_referencia.py` → `ligacao_adama(ref, chaves)`, com o
+  carimbo da edição (`EDICAO_REGISTRO`, `DATA_DA_EDICAO_REGISTRO`, `ULTIMA_CHECAGEM_OK`, `ESTADO_FRESCOR`,
+  `IMPRESSAO_DOS_LIVROS`/sha256) e um `SELO`. O pote **transporta**; nunca a calcula para um objeto da corrida.
+- `ESTADO` ∈ `AUTORIZADO_BULA_LIDA` · `A_CONFIRMAR` · `SO_CULTURA` · `ADAMA_SEM_PRODUTO` · `NAO_SEI`
+  (com `FALTA` ⊂ `CULTURA|PROBLEMA|SUBSTANCIA|REFERENCIA`); `PRODUTOS_ADAMA[]`, `CONCORRENTES_MESMA_SUBSTANCIA[]`,
+  `BULAS_A_LER[]`; travas `NAO_PROVA = [PRESSAO_DE_CAMPO, DEMANDA]` (INT-LAW-145),
+  `CONTA_COMO_FONTE_INDEPENDENTE = false` (INT-LAW-076), `CATALOGO_E_AUTORIZACAO = false` (D116).
+- Recusas novas no gerador: `SEM_LIGACAO_ADAMA` · `LIGACAO_ADAMA_FORA_DA_PORTA` (selo ou lei de
+  `PORTA.conferir_ligacao`) · `REFERENCIA_NAO_E_FONTE_INDEPENDENTE` (prova do objeto com `SOURCE_ID` da própria
+  referência, IT-T4-001/IT-T9-008). `conferir_pote` reprova também ligações de **edições diferentes** num pote.
+- Entrada `PAYLOAD_V1`: a v1 não transportava ligação nem referência — a porta diz `NAO_SEI · FALTA=REFERENCIA`.
+
+Relatório: [`LIGACAO-ADAMA.md`](../../../LIGACAO-ADAMA.md).
+
 ## 6 · O casco
 
 Um só carregador (`sintonia-pote-casco.js`), que só pede `sintonia-pote.js` com `?pote=local`. Com o pote,

@@ -1,0 +1,32 @@
+diff --git a/BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md b/BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md
+index db1111ef..4f287639 100644
+--- a/BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md
++++ b/BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md
+@@ -811,6 +811,27 @@ Não chamar solução sem relação cultura × alvo provada.
+ 
+ Autorização/portfolio/label contextualizam; não criam sinal de campo/demanda.
+ 
++## INT-LAW-303 — Todo objeto da Intelligence carrega LIGACAO_ADAMA (D123)
++
++> PROPOSTA (missão LIGACAO-ADAMA, 27/09/2026) — `LAW_STATUS: PROPOSTA`, `IMPLEMENTATION_STATUS: IMPLEMENTADA NO RAMO claude/adama-linking-gateway-a2fewj`.
++> D123 do dono: «todo fato do sintonia tem que estar linkado à bula e ao portfolio, senão nada faz sentido».
++
++Todo objeto que a Intelligence emite (sinal, janela, estudo, voz, preço, cruzamento, par, facto futuro,
++rendimento de fonte) leva `LIGACAO_ADAMA`, e o pote recusa o que chega sem ela.
++
++- **Uma porta calcula.** A ligação sai só de `motor/porta_da_referencia.py` → `ligacao_adama(ref, chaves)`,
++  selada, com o carimbo da edição (EDICAO, DATA_DA_EDICAO, ULTIMA_CHECAGEM_OK, ESTADO_FRESCOR, sha256 dos
++  livros). Consumidor transporta; nunca calcula (INT-LAW-282: lógica em duas tools é lógica sem dono).
++- **As chaves vêm da Collection**, cada uma com `VEM_DE`. A porta não lê texto; chave sem procedência não conta.
++- **Estados:** `AUTORIZADO_BULA_LIDA` (cultura E alvo na mesma linha/bloco de bula lida: `LINHA_DA_TABELA` ou
++  `BLOCO_DA_CULTURA`) · `A_CONFIRMAR` (bula não lida, só `DECLARACAO_DE_PRODUTO`, ou edição ≥ 30 dias sem
++  checagem — D117) · `SO_CULTURA` (fato sem problema) · `ADAMA_SEM_PRODUTO` (a porta leu tudo o que o grão
++  pede e não há produto: lacuna de portfólio) · `NAO_SEI` com `FALTA = CULTURA | PROBLEMA | SUBSTANCIA | REFERENCIA`.
++- **Travas:** a ligação não prova pressão de campo nem demanda (INT-LAW-145); não conta como fonte
++  independente (INT-LAW-076); catálogo comercial não é autorização (D116); sem bula lida nunca `AUTORIZADO`.
++- **Concorrentes** só por substância (o cadastro não dá cultura). **BULAS_A_LER** alimenta a fila da Coleta
++  (D117 item 2), que aplica o teto por domínio.
++
+ ## INT-LAW-146 — DAILY_COLLECTION_VALUE ≠ DAILY_INTELLIGENCE_VALUE
+ 
+ Cadência da Collection não determina cadência de Intelligence.
