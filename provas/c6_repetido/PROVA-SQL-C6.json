@@ -1,0 +1,94 @@
+{
+ "PG_BIN": "/usr/lib/postgresql/16/bin",
+ "CASOS": {
+  "REAL_58_1243": {
+   "PASSA": true,
+   "SIM_FORA_DA_SALA": [],
+   "FUNDIDO_POR_DOCUMENTO": [
+    "derived:2->derived:1"
+   ],
+   "FUNDIDO_POR_ITEM": [],
+   "SIM_FORA_DA_SALA_PORQUE": {},
+   "JA_NA_SALA": 1,
+   "PARCELAS": {
+    "POUSOU_NAS_DUAS_CORRIDAS": 0,
+    "FUNDIDO_POR_ITEM": 0,
+    "FUNDIDO_POR_DOCUMENTO": 1
+   }
+  },
+  "MESMO_DOC_OUTRO_UNIVERSO": {
+   "PASSA": false,
+   "SIM_FORA_DA_SALA": [
+    "derived:4"
+   ],
+   "FUNDIDO_POR_DOCUMENTO": [],
+   "FUNDIDO_POR_ITEM": [],
+   "SIM_FORA_DA_SALA_PORQUE": {
+    "derived:4": "MESMO_DOCUMENTO_OUTRO_UNIVERSO (livro T7, Sala T5)"
+   },
+   "JA_NA_SALA": 0,
+   "PARCELAS": {
+    "POUSOU_NAS_DUAS_CORRIDAS": 0,
+    "FUNDIDO_POR_ITEM": 0,
+    "FUNDIDO_POR_DOCUMENTO": 0
+   }
+  },
+  "RAW_NAO_FORWARD_IDENTIFIED": {
+   "PASSA": false,
+   "SIM_FORA_DA_SALA": [
+    "derived:5"
+   ],
+   "FUNDIDO_POR_DOCUMENTO": [],
+   "FUNDIDO_POR_ITEM": [],
+   "SIM_FORA_DA_SALA_PORQUE": {
+    "derived:5": "NAO_POUSOU"
+   },
+   "JA_NA_SALA": 0,
+   "PARCELAS": {
+    "POUSOU_NAS_DUAS_CORRIDAS": 0,
+    "FUNDIDO_POR_ITEM": 0,
+    "FUNDIDO_POR_DOCUMENTO": 0
+   }
+  },
+  "SIM_NAO_POUSOU": {
+   "PASSA": false,
+   "SIM_FORA_DA_SALA": [
+    "derived:6"
+   ],
+   "FUNDIDO_POR_DOCUMENTO": [],
+   "FUNDIDO_POR_ITEM": [],
+   "SIM_FORA_DA_SALA_PORQUE": {
+    "derived:6": "NAO_POUSOU"
+   },
+   "JA_NA_SALA": 0,
+   "PARCELAS": {
+    "POUSOU_NAS_DUAS_CORRIDAS": 0,
+    "FUNDIDO_POR_ITEM": 0,
+    "FUNDIDO_POR_DOCUMENTO": 0
+   }
+  }
+ },
+ "MIGRATIONS": {
+  "CODIGO": 0,
+  "PASS": 34
+ },
+ "POUSOS": {
+  "R20": {
+   "ESTADO": "PASSED",
+   "INSERIDAS": 1
+  },
+  "R28": {
+   "ESTADO": "REUSED",
+   "INSERIDAS": 0,
+   "JA_NA_SALA_POR_OUTRA_CORRIDA": 1
+  }
+ },
+ "IDS": {
+  "derived58": "derived:1",
+  "derived1243": "derived:2",
+  "raw166": 1,
+  "raw2375": 3
+ },
+ "NAO_PROVADO_COM_CHAVE": "RECUSADO_PELO_ESQUEMA forward_sem_prova_nao_finge_chave",
+ "VEREDITO": "PASS"
+}

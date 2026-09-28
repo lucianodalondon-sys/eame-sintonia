@@ -273,6 +273,8 @@ class TestRelatorioComFixture(unittest.TestCase):
                         ["2", "IT-X-1", "text/html", "XX/capa.html", "8", "11", "t", "R1", "", "XX/it.txt"]]
             if "count(distinct s.run_id)" in s:
                 return self.duplicados
+            if "from derived_artifact d" in s or "select s.item_id, s.universo, s.run_id" in s:
+                return []                                  # C6-REPETIDO: nada fundido
             if "from sala_de_espera" in s:
                 return [[sala_item, "1", "IT-X-1", "NAO SEI", "NAO SEI", "t", "R1", cadeia]]
             raise AssertionError(s)

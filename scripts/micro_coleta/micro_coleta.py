@@ -545,6 +545,81 @@ def contadores_do_coletor(run_ids: list[str], pasta: Path | None = None) -> dict
             "SKIPPED_KNOWN": somas.get("SKIPPED_KNOWN", 0), "LEDGER": str(p)}
 
 
+# ── C6-REPETIDO: O SIM QUE A SALA FUNDIU NAO E BYPASS ──────────────────────
+# ⚠️ Medido na Sala real (28/09, ciclo 26, IT-T5-025): a coleta continua parou
+# em C6_BYPASS porque derived:1243 tem SIM no livro e nao esta na Sala. Mas o
+# bruto dele (raw 2375) e FORWARD_IDENTIFIED com o MESMO (source_id,
+# document_key) do raw 166, cujo derived:58 esta na Sala desde 20/09, no mesmo
+# universo T5. A Sala fundiu CERTO pela DEDUP-DOC (admissao/sala_de_espera.py,
+# o «ja esta?» pelo DOCUMENTO); o C6 so conhecia o item_id.
+#
+#     FUNDIDO_POR_ITEM       mesmo item_id, mesmo universo, outra corrida
+#     FUNDIDO_POR_DOCUMENTO  o bruto e o da linha da Sala sao FORWARD_IDENTIFIED,
+#                            mesmo (source_id, document_key), mesmo universo,
+#                            outra corrida — a condicao do SQL da Sala, igual
+#     SIM_FORA_DA_SALA       o resto. So este reprova.
+#
+# O SQL faz so o que e JUNCAO (mesmo source_id e document_key, outra corrida);
+# a pergunta vem SEM os filtros de identidade e de universo, e quem os aplica e
+# o Python, aqui: «NAO SEI qual documento» nunca funde (reprova como
+# antes), e o motivo de nao fundir fica escrito ao lado.
+FORWARD_IDENTIFIED = "FORWARD_IDENTIFIED"
+
+
+def fusoes_na_sala(itens: list[str], por_item: dict, run_ids: list[str], consulta=sql) -> dict:
+    """Dos SIM que nao pousaram nesta corrida: quais a Sala fundiu, e com que linha."""
+    out = {"POR_ITEM": {}, "POR_DOCUMENTO": {}, "NAO_FUNDIDO_PORQUE": {}}
+    num = {i: int(i.split(":", 1)[1]) for i in itens if re.fullmatch(r"derived:\d+", i)}
+    if not num:
+        return out
+    em = _em(run_ids)
+    lista_itens = ",".join(f"'derived:{n}'" for n in sorted(num.values()))
+    lista_ids = ",".join(str(n) for n in sorted(num.values()))
+
+    def universo(i):
+        return str(por_item.get(i, {}).get("universo") or "").strip()
+
+    for l in consulta(
+            "select s.item_id, s.universo, s.run_id from sala_de_espera s"
+            f" where s.item_id in ({lista_itens}) and s.run_id not in ({em})"
+            " order by s.run_id, s.item_id"):
+        i, uni, run = l[0], l[1], l[2]
+        if i in num and i not in out["POR_ITEM"] and universo(i) and uni == universo(i):
+            out["POR_ITEM"][i] = {"COMO": "FUNDIDO_POR_ITEM", "SALA_ITEM": i,
+                                  "SALA_RUN_ID": run, "UNIVERSO": uni}
+
+    motivos: dict = {}
+    for l in consulta(
+            "select 'derived:' || d.id, re.id, coalesce(re.identity_state,''),"
+            " coalesce(re.source_id,''), coalesce(re.document_key,''),"
+            " s.item_id, s.run_id, s.universo, rs.id, coalesce(rs.identity_state,'')"
+            " from derived_artifact d"
+            " join raw_asset re on re.id = d.raw_asset_id"
+            " join raw_asset rs on rs.source_id = re.source_id and rs.document_key = re.document_key"
+            " join sala_de_espera s on s.raw_observation_id = rs.id"
+            f" where d.id in ({lista_ids}) and s.run_id not in ({em})"
+            " order by d.id, s.run_id, s.item_id"):
+        i = l[0]
+        if i not in num or i in out["POR_ITEM"] or i in out["POR_DOCUMENTO"]:
+            continue
+        (raw, est, src, chave, s_item, s_run, s_uni, s_raw, s_est) = l[1:10]
+        if est != FORWARD_IDENTIFIED:
+            motivos[i] = f"IDENTIDADE_NAO_PROVADA raw {raw} identity_state={est or 'NULL'}"
+        elif s_est != FORWARD_IDENTIFIED:
+            motivos.setdefault(i, f"LINHA_DA_SALA_SEM_IDENTIDADE_PROVADA raw {s_raw} identity_state={s_est or 'NULL'}")
+        elif not universo(i) or s_uni != universo(i):
+            motivos.setdefault(i, f"MESMO_DOCUMENTO_OUTRO_UNIVERSO (livro {universo(i) or 'NAO SEI'}, Sala {s_uni})")
+        else:
+            out["POR_DOCUMENTO"][i] = {"COMO": "FUNDIDO_POR_DOCUMENTO", "SALA_ITEM": s_item,
+                                       "SALA_RUN_ID": s_run, "UNIVERSO": s_uni, "RAW": raw,
+                                       "SALA_RAW": s_raw, "SOURCE_ID": src, "DOCUMENT_KEY": chave}
+            motivos.pop(i, None)
+    for i in num:
+        if i not in out["POR_ITEM"] and i not in out["POR_DOCUMENTO"]:
+            out["NAO_FUNDIDO_PORQUE"][i] = motivos.get(i, "NAO_POUSOU")
+    return out
+
+
 def relatorio(run_ids: list[str], *, corridas: list | None = None,
               consulta=sql, livro: Path = LIVRO, armazem: Path | None = None,
               saida: Path | None = None, ledger: Path | None = None) -> dict:
@@ -611,8 +686,11 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
         por_fonte[o[1]][v] += 1
 
     sala_sem_sim = [s[0] for s in sala if por_item.get(s[0], {}).get("resultado") != "SIM"]
-    sim_fora_da_sala = [i for i, d in por_item.items()
-                        if d["resultado"] == "SIM" and i not in {s[0] for s in sala}]
+    sim_nao_pousou = [i for i, d in por_item.items()
+                      if d["resultado"] == "SIM" and i not in {s[0] for s in sala}]
+    fundidos = fusoes_na_sala(sim_nao_pousou, por_item, run_ids, consulta)
+    sim_fora_da_sala = [i for i in sim_nao_pousou
+                        if i not in fundidos["POR_ITEM"] and i not in fundidos["POR_DOCUMENTO"]]
     fact_time_unknown = sum(1 for s in sala if s[3] in (AUSENCIA, "", "UNKNOWN"))
     fact_loc_unknown = sum(1 for s in sala if s[4] in (AUSENCIA, "", "UNKNOWN"))
     fact_time_fabricado = sum(1 for s in sala if s[3] and s[3] == s[5])
@@ -656,8 +734,17 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
             "FACT_LOCATION_UNKNOWN": fact_loc_unknown,
             "FACT_TIME_IGUAL_A_CAPTURED_AT": fact_time_fabricado,
             "PASSA": fact_time_fabricado == 0},
+        # C6-REPETIDO (28/09): um SIM que a Sala FUNDIU com a linha que ja la
+        # estava nao e bypass. So o SIM que nao pousou E nao foi fundido reprova.
+        # Os fundidos ficam listados com a linha da Sala que os recebeu (prova).
         "C6_ZERO_BYPASS": {
             "SALA_SEM_SIM_NO_LIVRO": sala_sem_sim, "SIM_FORA_DA_SALA": sim_fora_da_sala,
+            "FUNDIDO_POR_ITEM": [f"{i}->{p['SALA_ITEM']}" for i, p in fundidos["POR_ITEM"].items()],
+            "FUNDIDO_POR_DOCUMENTO": [f"{i}->{p['SALA_ITEM']}"
+                                      for i, p in fundidos["POR_DOCUMENTO"].items()],
+            "PROVA_DA_FUSAO": {**fundidos["POR_ITEM"], **fundidos["POR_DOCUMENTO"]},
+            "SIM_FORA_DA_SALA_PORQUE": {i: fundidos["NAO_FUNDIDO_PORQUE"].get(i, "NAO_POUSOU")
+                                        for i in sim_fora_da_sala},
             "PASSA": not sala_sem_sim and not sim_fora_da_sala},
         "C7_PROPORCAO_POR_FONTE_E_CLASSE": {
             "POR_FONTE": por_fonte,
@@ -721,8 +808,19 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
                          "TENTATIVAS_POR_RESULTADO": motivos,
                          "TENTATIVAS": falhadas[:200],
                          "COLETOR": contadores_do_coletor(run_ids, ledger),
-                         "SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA": len(ja_na_sala),
-                         "SALA_DUPLICADOS_EXEMPLOS": [x[0] for x in ja_na_sala][:20]},
+                         # C6-REPETIDO (28/09) — MUDANCA DECLARADA: antes so
+                         # contava o item que pousou nas DUAS corridas (item_id).
+                         # Agora conta tambem o SIM que a Sala fundiu com a linha
+                         # de outra corrida (pelo item ou pelo DOCUMENTO) e por
+                         # isso nao pousou. As tres parcelas vao ao lado.
+                         "SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA":
+                             len(ja_na_sala) + len(fundidos["POR_ITEM"]) + len(fundidos["POR_DOCUMENTO"]),
+                         "SALA_JA_NA_SALA_PARCELAS": {
+                             "POUSOU_NAS_DUAS_CORRIDAS": len(ja_na_sala),
+                             "FUNDIDO_POR_ITEM": len(fundidos["POR_ITEM"]),
+                             "FUNDIDO_POR_DOCUMENTO": len(fundidos["POR_DOCUMENTO"])},
+                         "SALA_DUPLICADOS_EXEMPLOS": ([x[0] for x in ja_na_sala] + list(fundidos["POR_ITEM"])
+                                                      + list(fundidos["POR_DOCUMENTO"]))[:20]},
            "PASSOU": sum(1 for c in C.values() if c["PASSA"]), "DE": len(C),
            "LEI": "so SELECT; default_transaction_read_only=on na ligacao"}
     if saida:
