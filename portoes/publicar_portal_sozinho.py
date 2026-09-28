@@ -603,9 +603,16 @@ def ligar_playwright(destino: Path) -> bool:
     return True
 
 
+def telas_a_fotografar(contrato: dict) -> list:
+    """Toda tela que alguma conferencia le: as do pote, a porta, as fora das rotas e as redirecionadas."""
+    T = contrato["TELAS"]
+    return (T["DO_POTE"] + T["PORTA"] + list(T["FORA_DAS_ROTAS"])
+            + [t for t in (T.get("REDIRECIONADAS") or {}) if t not in T["FORA_DAS_ROTAS"]])
+
+
 def fotografar(base_url: str, saida: Path, ferramentas: Path, contrato: dict) -> dict | None:
     """Corre o fotografo (node) sobre `base_url`. Devolve o CONTAGENS.json, ou None se nem isso nasceu."""
-    telas = contrato["TELAS"]["DO_POTE"] + contrato["TELAS"]["PORTA"] + list(contrato["TELAS"]["FORA_DAS_ROTAS"])
+    telas = telas_a_fotografar(contrato)
     saida.mkdir(parents=True, exist_ok=True)
     rc, txt = correr(["node", str(ferramentas / "fotografar_portal.mjs"), "--base", base_url, "--saida", str(saida),
                       "--telas", ",".join(telas)], ferramentas, 900)

@@ -303,6 +303,15 @@ class P1_AsTelas(unittest.TestCase):
         del self.C["TELAS"]["casa"]
         self.assertIn("C5_REDIRECIONADA_CASA", ids(self.conf()))
 
+    def test_o_fotografo_visita_toda_tela_que_uma_conferencia_le(self):
+        """Medido no preview de 28/09 18:45: a casa saiu de FORA_DAS_ROTAS e o fotografo deixou de a visitar —
+        a conferencia reprovou por «nao medido». Uma tela conferida tem de estar na lista do fotografo."""
+        telas = P.telas_a_fotografar(CONTRATO)
+        for t in list(CONTRATO["TELAS"].get("REDIRECIONADAS") or {}) + list(CONTRATO["TELAS"]["FORA_DAS_ROTAS"]):
+            self.assertIn(t, telas)
+        self.assertIn("casa", telas)
+        self.assertEqual(len(telas), len(set(telas)))
+
     def test_o_vercel_json_redireciona_a_casa_para_a_porta(self):
         """A regra que a Vercel aplica e a que o contrato espera — um so destino, lido dos dois lados."""
         r = {x["source"]: x["destination"] for x in P.redirecionamentos(RAIZ / "vercel.json")}
