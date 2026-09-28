@@ -1,6 +1,6 @@
 {
- "MUTANTES": 26,
- "MORTOS": 26,
+ "MUTANTES": 31,
+ "MORTOS": 31,
  "RESULTADOS": [
   {
    "MUTANTE": "a tesoura nao corta pelo valor",
@@ -130,6 +130,31 @@
   {
    "MUTANTE": "o piloto pede sem o sha",
    "FICHEIRO": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "volta o secrets[...] da producao (so o contrato)",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "volta o secrets[...] da producao (testes da linha)",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "o CX volta a vir de secret",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "toJSON(secrets) entra no runner",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "o contrato fica cego para secrets[",
+   "FICHEIRO": "tests/test_contrato_workflows_sem_secret_dinamico.py",
    "ESTADO": "MORTO"
   }
  ]

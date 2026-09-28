@@ -16,6 +16,8 @@ import tempfile
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PY = sys.executable
 T = [PY, "-m", "unittest", "test_busca_no_actions"]
+TC = [PY, "-m", "unittest", "test_contrato_workflows_sem_secret_dinamico"]      # so o contrato, sozinho
+TT = T + ["test_contrato_workflows_sem_secret_dinamico"]
 API, LB, PA, WF, CP = ("ferramentas/linha_busca/api_oficial.py", "coleta/linha_busca.py",
                        "ferramentas/linha_busca/pedido_actions.py", ".github/workflows/linha-busca-google.yml",
                        "ferramentas/linha_busca/comentarios_piloto_d106.py")
@@ -99,6 +101,22 @@ MUTANTES = [
     ('o piloto pede sem o sha', CP,
      'SHA256=hashlib.sha256(corpo).hexdigest()',
      'SHA256=None', T, "tests"),
+    # --- PORTA PARA A PRODUCAO (claude/busca-secret-fixo-v1): a forma que estava no ar tem de morrer ---
+    ('volta o secrets[...] da producao (so o contrato)', WF,
+     "          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}\n          SINTONIA_GOOGLE_CSE_CX: ${{ steps.pedido.outputs.cx }}\n          PYTHONUTF8: '1'\n        run: python3 coleta/linha_busca.py --diagnosticar-cse",
+     "          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets[steps.pedido.outputs.segredo_da_chave] }}\n          SINTONIA_GOOGLE_CSE_CX: ${{ steps.pedido.outputs.cx }}\n          PYTHONUTF8: '1'\n        run: python3 coleta/linha_busca.py --diagnosticar-cse", TC, "tests"),
+    ('volta o secrets[...] da producao (testes da linha)', WF,
+     "          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}\n          SINTONIA_GOOGLE_CSE_CX: ${{ steps.pedido.outputs.cx }}\n          PYTHONUTF8: '1'\n        run: python3 coleta/linha_busca.py --diagnosticar-cse",
+     "          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets[steps.pedido.outputs.segredo_da_chave] }}\n          SINTONIA_GOOGLE_CSE_CX: ${{ steps.pedido.outputs.cx }}\n          PYTHONUTF8: '1'\n        run: python3 coleta/linha_busca.py --diagnosticar-cse", T, "tests"),
+    ('o CX volta a vir de secret', WF,
+     "          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}\n          SINTONIA_GOOGLE_CSE_CX: ${{ steps.pedido.outputs.cx }}\n          PYTHONUTF8: '1'\n        run: python3 coleta/linha_busca.py --diagnosticar-cse",
+     "          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}\n          SINTONIA_GOOGLE_CSE_CX: ${{ secrets[steps.pedido.outputs.segredo_do_cx] }}\n          PYTHONUTF8: '1'\n        run: python3 coleta/linha_busca.py --diagnosticar-cse", TT, "tests"),
+    ('toJSON(secrets) entra no runner', WF,
+     "          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}\n",
+     "          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}\n          TUDO: ${{ toJSON(secrets) }}\n", TC, "tests"),
+    ('o contrato fica cego para secrets[', "tests/test_contrato_workflows_sem_secret_dinamico.py",
+     'r"\\bsecrets\\s*\\[", re.I',
+     'r"\\bsecrets\\s*\\[\\[", re.I', TC, "tests"),
 ]
 
 
