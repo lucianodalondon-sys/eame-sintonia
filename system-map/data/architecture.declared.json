@@ -2607,6 +2607,8 @@
     "TETO-ADAPTATIVO.md",
     "TETO-ADAPTATIVO-REBASE.md",
     "provas/teto_adaptativo/*",
+    "CANARIO-1149.md",
+    "provas/canario_1149/*",
     "provas/integra_noite/mutacao_lote5_integra.py"
    ],
    "views": [
@@ -3611,7 +3613,7 @@
    "territory": "Z-ADMISSAO",
    "kind": "engine",
    "icon": "⌛",
-   "what": "O dono unico da fila onde a unidade READY pousa. O backend canonico e PostgreSQL (public.sala_de_espera, migration 031): uma transacao por pouso, trava por CORRIDA com pg_advisory_xact_lock que morre com a transacao, retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e a fila WAITING -> CONSUMED sem apagar a linha. O backend de FICHEIRO (data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json, escrita atomica por fsync + os.replace) continua atras do MESMO dono e esta declarado NAO CANONICO: ele nao sobrevive ao fim do job, e foi isso que bloqueou a primeira coleta real italiana. Desde a migration 033 (MIGRACAO-SALA, D68) corrige SEM apagar: rever() so acrescenta em sala_de_espera_revisao (o banco recusa UPDATE/DELETE), ler_atual() le a vista sala_de_espera_atual (ultima revisao, senao o original), e admissao/reprocessar_tempo_lugar.py refaz o tempo e o lugar do acervo pela porta, sem rede. admissao/reprocessar_estudos_chaves.py refaz SO a janela_declarada dos estudos T5 a partir do texto guardado (entrada JSON item_id/texto/published_at) e DEVOLVE as revisoes no formato de rever(), sem abrir o banco: quem aplica e o coordenador. admissao/reprocessar_problema.py (CHAVE-PROBLEMA) le uma COPIA exportada da vista sala_de_espera_atual e devolve, a seco, a janela ATUAL com SO a chave PROBLEMA trocada (contrato PROBLEMA/v1), idempotente; --aplicar escreve so pela porta rever(), exige a Sala canonica e recusa revisoes de outra versao do codigo. Sem migracao: a 033 ja guarda a quinta chave e ja reve janela_declarada.",
+   "what": "O dono unico da fila onde a unidade READY pousa. O backend canonico e PostgreSQL (public.sala_de_espera, migration 031): uma transacao por pouso, trava por CORRIDA com pg_advisory_xact_lock que morre com a transacao, retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e a fila WAITING -> CONSUMED sem apagar a linha. O backend de FICHEIRO (data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json, escrita atomica por fsync + os.replace) continua atras do MESMO dono e esta declarado NAO CANONICO: ele nao sobrevive ao fim do job, e foi isso que bloqueou a primeira coleta real italiana. Desde a migration 033 (MIGRACAO-SALA, D68) corrige SEM apagar: rever() so acrescenta em sala_de_espera_revisao (o banco recusa UPDATE/DELETE), ler_atual() le a vista sala_de_espera_atual (ultima revisao, senao o original), e admissao/reprocessar_tempo_lugar.py refaz o tempo e o lugar do acervo pela porta, sem rede. admissao/reprocessar_estudos_chaves.py refaz SO a janela_declarada dos estudos T5 a partir do texto guardado (entrada JSON item_id/texto/published_at) e DEVOLVE as revisoes no formato de rever(), sem abrir o banco: quem aplica e o coordenador. admissao/reprocessar_problema.py (CHAVE-PROBLEMA) le uma COPIA exportada da vista sala_de_espera_atual e devolve, a seco, a janela ATUAL com SO a chave PROBLEMA trocada (contrato PROBLEMA/v1), idempotente; --aplicar escreve so pela porta rever(), exige a Sala canonica e recusa revisoes de outra versao do codigo. Sem migracao: a 033 ja guarda a quinta chave e ja reve janela_declarada. admissao/reprocessar_um_item.py (CANARIO-1149, D129) reve UM item so (--item), pela mesma estrada de reprocessar_tempo_lugar (publicacao, lugar do facto, completude, evidencia e janela), SECO por omissao; --aplicar exige curadoria/PARAR.flag, o recibo do backup com PROVA_VALE, a Sala canonica, a mesma versao do codigo e o mesmo texto na mesma linha, e escreve so pela porta rever(). Sem o livro do coletor, fact_time e source_location nao se reveem.",
    "why_here": "A escrita vivia dentro do orquestrador, e isso contradizia a COL-LAW-012: o orquestrador CONTROLA, nao transporta dado. Enquanto a unica escrita estivesse no control plane, a rota forward nao tinha como pousar a unidade sem escrever uma SEGUNDA. ONE CONCEPT -> ONE OWNER.",
    "departments": [
     "ENGENHARIA"
@@ -3622,7 +3624,8 @@
     "admissao/video_na_sala.py",
     "admissao/versao_do_documento.py",
     "admissao/reprocessar_estudos_chaves.py",
-    "admissao/reprocessar_problema.py"
+    "admissao/reprocessar_problema.py",
+    "admissao/reprocessar_um_item.py"
    ],
    "views": [
     "audit",
