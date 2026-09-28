@@ -3656,6 +3656,10 @@
               <span style="font-size:10px;color:#8F8886">especie dita por {{ o.especieDe }}</span>
             </div>
             <sc-if value="{{ o.eFuturo }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;font-weight:700;letter-spacing:0.06em;color:#FFFFFF">{{ o.aviso }}</div></sc-if>
+            <!-- D125 · POTES-UM-CARTAO (v2.1): o selo do DELTA, o GRUPO e a resposta sao ESCRITOS pela Intelligence; o casco so os mostra. -->
+            <sc-if value="{{ o.temDelta }}" hint-placeholder-val="{{ false }}"><div data-pote-delta="{{ o.mudanca }}" style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:#FFFFFF;word-break:break-word">{{ o.delta }} · {{ o.fecho }}</div></sc-if>
+            <sc-if value="{{ o.temResposta }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#C9C3C1">{{ o.resposta.k }} <b style="color:{{ o.resposta.color }}">{{ o.resposta.v }}</b></div></sc-if>
+            <sc-if value="{{ o.temGrupo }}" hint-placeholder-val="{{ false }}"><div data-pote-grupo="1" style="font-size:10.5px;color:#8F8886;word-break:break-word">{{ pote.L.gruppo }} · {{ o.grupo }}</div></sc-if>
             <!-- POTE-V2-UNICO · P8: no Polso, serie medida ou sinal solto — um ponto nunca e «variazione». P7: uso sem tempo dito. -->
             <sc-if value="{{ o.temMercado }}" hint-placeholder-val="{{ false }}"><div data-pote-mercado="{{ o.eSerie }}" style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:#F5B317;word-break:break-word">{{ o.mercado }}</div></sc-if>
             <sc-if value="{{ o.semTempo }}" hint-placeholder-val="{{ false }}"><div data-pote-sem-tempo="1" style="font-size:11px;color:#F5B317">{{ o.avisoTempo }} · {{ o.resultado.k }} <b style="color:{{ o.resultado.color }}">{{ o.resultado.v }}</b></div></sc-if>
@@ -3672,6 +3676,7 @@
           </div>
         </sc-for>
       </div>
+      <sc-if value="{{ pote.temSairam }}" hint-placeholder-val="{{ false }}"><div data-pote-sairam="1" style="display:flex;flex-direction:column;gap:3px"><div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ pote.L.usciti }}</div><sc-for list="{{ pote.sairam }}" as="g" hint-placeholder-count="1"><div style="font-size:10.5px;color:#C9C3C1;word-break:break-word">{{ g.t }}</div></sc-for></div></sc-if>
       <sc-if value="{{ pote.temLacunas }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:3px"><div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ pote.L.lacune }}</div><sc-for list="{{ pote.lacunas }}" as="g" hint-placeholder-count="1"><div style="font-size:10.5px;color:#C9C3C1;word-break:break-word">{{ g.t }}</div></sc-for></div></sc-if>
     </div>
     </sc-if>

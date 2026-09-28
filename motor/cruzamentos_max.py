@@ -63,6 +63,9 @@ from ponte_intelligence_casco import NAO_SEI, MARCA, ESTADO_TRANSPORTAVEL   # no
 # referencia. Este motor lia IT-ROTULOS-PARES.json e o CSV PROD_FTS_6_20260907 (OUTRA edicao)
 # direto; deixou de ler. O que a edicao nao tem fica LACUNA declarada (ver LACUNAS abaixo).
 import porta_da_referencia as PORTA                           # noqa: E402  (motor/)
+# D125 · POTES-UM-CARTAO: a identidade da PERGUNTA (IDENT-v1) e o vocabulario unico v1 tem um dono cada.
+import identidade_do_cruzamento as IDENT                      # noqa: E402  (motor/)
+import vocabulario_unico as VOCAB                             # noqa: E402  (motor/)
 
 # ── O VOCABULARIO DO LEITOR DE ROTULOS — COPIA GUARDADA POR TESTE ────────────
 # O motor NAO importa codigo da coleta (system-map/tests/test_system_map.py:
@@ -1051,8 +1054,10 @@ def _oid(*partes) -> str:
     return "XMAX-" + hashlib.sha256("|".join(str(p) for p in partes).encode()).hexdigest()[:16]
 
 
-def itens_do_pote(res: dict, ref: Referencia) -> dict:
-    """ITENS_POR_FERRAMENTA no contrato de entrada do pote v2 (pacote/pote_intelligence_casco.py).
+def _objetos_por_link(res: dict, ref: Referencia) -> dict:
+    """UM objeto por LINK (boletim x resposta), como antes da D125 — com o ID legado XMAX- (vira ALIAS).
+
+    `itens_do_pote` junta-os por PERGUNTA. Contrato de entrada do pote v2 (pacote/pote_intelligence_casco.py).
 
     ESPECIE = CROSSING (nenhum destes objetos e SINAL nem OPORTUNIDADE). O estado viaja em CHAVES e, por
     o compartimento portfolio nao ter vaga para ele, sai em FORA_DO_CONTRATO com o nome e o valor.
@@ -1065,6 +1070,7 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
         base_chaves = {"CROP_ID": NAO_SEI, "TARGET_ID": NAO_SEI, "ACTIVE_INGREDIENT_ID": r["SUBSTANCIA"],
                        "CROSSING_STATE": r["FINAL"], "CRUZAMENTO": "ROTULO_X_SUBSTANCIA_CITADA_NO_BOLETIM"}
         confirmam = [p for p in conf.get("PRODUTOS") or [] if p["CONFIRMA"]]
+        inicio = len(portfolio)
         if confirmam:
             for p in confirmam:
                 portfolio.append({
@@ -1088,13 +1094,22 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
                 "PORQUE": f"{r['FINAL']}: {conf.get('MOTIVO') or r['MOTIVO']}",
                 "INCERTEZA": "ausencia NA NOSSA LEITURA de rotulos (cobertura " + str(ref.cobertura) + ")",
                 "CONTRADIZ": NAO_SEI})
+        # D125 · a PERGUNTA deste link (F1: IT x substancia x cultura). A cultura e a do cabecalho que a
+        # confirmacao leu, ou a UNICA ligada a substancia no troco; senao NAO SEI -> NAO_SEI@<documento>.
+        ligadas = r.get("CULTURAS_LIGADAS_NO_TROCO") or []
+        cult = conf.get("CULTURA") if not IDENT._ign(conf.get("CULTURA")) else (ligadas[0] if len(ligadas) == 1 else None)
+        key_f1 = IDENT.crossing_key(IDENT.F1, {"JURISDICAO": "IT", "AI": IDENT.slot_ai(r["SUBSTANCIA"]),
+                                               "CROP": VOCAB.cultura(cult)}, _doc_do_link(r))
+        for o in portfolio[inicio:]:
+            o.update(CROSSING_KEY=key_f1, FAMILIA=IDENT.F1, _F1=(r["SUBSTANCIA"], cult))
         cs = r.get("COMPETITIVE_SET")
         if cs:
-            competitors += _objetos_cs(cs, r, canon_cultura(conf.get("CULTURA")) or NAO_SEI, ref)
+            competitors += _marcar_cs(_objetos_cs(cs, r, canon_cultura(conf.get("CULTURA")) or NAO_SEI, ref), key_f1)
     for pm in res["PORTFOLIO"]:
         pb = pm["PAR_DO_BOLETIM"]
         prova = [_prova(dict(pb, RAW_OBSERVATION_ID=_raw(res, pb)))]
         validos = [p for p in pm["PRODUTOS"] if p["REGISTO_VALIDO"] == "SIM"]
+        inicio = len(portfolio)
         for p in validos or [None]:
             portfolio.append({
                 "OBJETO_ID": _oid("PM", pb["SALA_CHAVE"], pb["CULTURA"], pb["PRAGA"], p and p["REGISTRATION_ID"]),
@@ -1109,11 +1124,91 @@ def itens_do_pote(res: dict, ref: Referencia) -> dict:
                 "PROVA": prova, "PORQUE": f"{pm['ESTADO']}: {pm['MOTIVO']}",
                 "INCERTEZA": "o rotulo cobre o par; o boletim nao recomendou produto nenhum",
                 "CONTRADIZ": NAO_SEI})
+        # D125 · a PERGUNTA do PM (F2: IT x cultura x praga) — sem boletim, sem lugar, sem edicao: os 13
+        # boletins de OLIVO x mosca da oliveira sao 13 PROVAS de UMA pergunta.
+        key_f2 = IDENT.crossing_key(IDENT.F2, {"JURISDICAO": "IT", "CROP": VOCAB.cultura(pb["CULTURA"]),
+                                               "TARGET": VOCAB.praga(pb["PRAGA"])}, _doc_do_link(pb))
+        for o in portfolio[inicio:]:
+            o.update(CROSSING_KEY=key_f2, FAMILIA=IDENT.F2)
         if pm.get("COMPETITIVE_SET"):
-            competitors += _objetos_cs(pm["COMPETITIVE_SET"], dict(pb, OBJETO_ID=pb["SALA_CHAVE"],
-                                                                    RAW_OBSERVATION_ID=_raw(res, pb)),
-                                       pm["CROP_ID"], ref)
+            competitors += _marcar_cs(_objetos_cs(pm["COMPETITIVE_SET"], dict(pb, OBJETO_ID=pb["SALA_CHAVE"],
+                                                                               RAW_OBSERVATION_ID=_raw(res, pb)),
+                                                  pm["CROP_ID"], ref), key_f2)
     return {"portfolio": portfolio, "competitors": competitors}
+
+
+def _doc_do_link(x) -> str:
+    """O documento de um link, para o NAO_SEI@<documento> (INT-LAW-097): DOCUMENT_ID, senao URL, senao a
+    chave da Sala — o que a Coleta entregou, nunca cunhado aqui."""
+    for campo, marca in (("DOCUMENT_ID", "DOC:"), ("URL", "URL:"), ("SALA_CHAVE", "ITEM:")):
+        if not IDENT._ign(x.get(campo)):
+            return marca + str(x[campo])
+    return "ITEM:" + NAO_SEI
+
+
+def _marcar_cs(objs, key_origem):
+    """F3: a pergunta e IT x substancia x REGISTO — o boletim-gatilho SAI do ID e vira REFERENCIA (CONTEXTO)."""
+    for o in objs:
+        c = o["CHAVES"]
+        o.update(CROSSING_KEY=IDENT.crossing_key(IDENT.F3, {
+            "JURISDICAO": "IT", "AI": "+".join(sorted(IDENT.slot_ai(s) for s in c["SUBSTANCIA_EM_COMUM"])) or None,
+            "REGISTRO": str(c["T4_REGISTRATION_EVIDENCE_ID"]).split(":")[-1]}, _doc_do_link(o["PROVA"][0])),
+            FAMILIA=IDENT.F3, REFERENCIAS=[{"CROSSING_ID": IDENT.crossing_id(key_origem), "PAPEL": "CONTEXTO"}])
+    return objs
+
+
+def avaliar_rotulo(substancia, cultura, ref: Referencia) -> dict:
+    """F1 · a RESPOSTA da pergunta «o rotulo ADAMA autoriza a substancia S na cultura C, na Italia?».
+
+    So o lado do ROTULO (AI x CROP x edicao da referencia) — nunca o «melhor link» (defeito 2 da POC do LAB,
+    IDENTIDADE-CRUZAMENTO §3). SIM_PROVADO · SIM_A_CONFIRMAR · NAO (ausencia NA NOSSA LEITURA) · NAO SEI.
+    """
+    base = {"EDICAO": ref.cadastro_id, "CULTURA": cultura or NAO_SEI}
+    if IDENT._ign(cultura):
+        return dict(base, RESPOSTA=NAO_SEI, MOTIVO="cultura NAO SEI: a pergunta nao tem chave completa")
+    regs = sorted(r for r, l in ref.cadastro.items() if l and e_adama(l) and tem_substancia(l, substancia))
+    if not regs:
+        return dict(base, RESPOSTA=NAO_SEI, MOTIVO="nenhum registo ADAMA com a substancia nesta edicao")
+    cob = cobertura_da_cultura(cultura, regs, ref)
+    if cob["PROVAS"]:
+        val = sorted({validade(ref.cadastro.get(p["REGISTRATION_ID"]), ref.data_do_cadastro, ref.data_do_cadastro,
+                               ref.cadastro_id)["VALIDO"] for p in cob["PROVAS"]})
+        if "SIM" in val and not ref.autorizacao_a_confirmar:
+            return dict(base, RESPOSTA="SIM_PROVADO", MOTIVO="rotulo lido com a cultura e registo valido na edicao",
+                        REGISTOS=sorted({p["REGISTRATION_ID"] for p in cob["PROVAS"]}))
+        return dict(base, RESPOSTA="SIM_A_CONFIRMAR", REGISTOS=sorted({p["REGISTRATION_ID"] for p in cob["PROVAS"]}),
+                    MOTIVO="rotulo lido com a cultura; a validade do registo nao se prova nesta edicao (LACUNA-2) "
+                           "ou a edicao nao e conferida ha >= 30 dias (D117)")
+    lidos = [r for r in regs if str(ref.leitura(r)).startswith("LIDO")]
+    if lidos and set(cob["MOTIVOS"]) <= {"OUTRA_CULTURA", "CULTURA_FORA_DA_ZONA_DA_CULTURA"} and canon_cultura(cultura):
+        return dict(base, RESPOSTA="NAO", MOTIVO="nenhum rotulo lido tem a cultura (ausencia NA NOSSA LEITURA)")
+    return dict(base, RESPOSTA=NAO_SEI, MOTIVO="rotulo nao lido, cultura fora do vocabulario ou grao nao provado: "
+                                             + json.dumps(cob["MOTIVOS"], sort_keys=True))
+
+
+def itens_do_pote(res: dict, ref: Referencia) -> dict:
+    """ITENS_POR_FERRAMENTA no contrato de entrada do pote — D125: UM objeto por PERGUNTA.
+
+    Os objetos por link (`_objetos_por_link`) sao juntados pela CROSSING_KEY (IDENT-v1): OBJETO_ID = XQ-,
+    os XMAX- antigos em ALIAS (INT-LAW-216), uma PROVA por documento, e a RESPOSTA da F1 pelo ROTULO.
+    ESPECIE = CROSSING (nenhum destes objetos e SINAL nem OPORTUNIDADE).
+    """
+    por_link = _objetos_por_link(res, ref)
+
+    def resposta(c):
+        f1 = c.get("_F1")
+        if not f1:
+            return None
+        av = avaliar_rotulo(f1[0], f1[1], ref)
+        c["RESPOSTA_DO_ROTULO"] = av
+        return av["RESPOSTA"]
+    out = {}
+    for comp, objs in por_link.items():
+        cartoes = IDENT.consolidar(objs, resposta)
+        for c in cartoes:
+            c.pop("_F1", None)
+        out[comp] = cartoes
+    return out
 
 
 def _raw(res, pb):

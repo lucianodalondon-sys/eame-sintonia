@@ -7,6 +7,7 @@
     python3 pacote/pote_cruzamentos_max.py --entrada ENTRADA-DO-POTE-R7.json --saida POTE-XMAX.json
     python3 pacote/pote_cruzamentos_max.py --entrada ENTRADA-DO-POTE-R7.json \\
             --saida italia-portale/client/sintonia-pote.js [--livro LIVRO-R7.json] [--so-cruzamentos]
+            [--v21] [--anterior POTE-PUBLICADO.json]      # D125: um cartao por pergunta + DELTA
 
 POR QUE PRECISA DO COORDENADOR
 ------------------------------
@@ -138,6 +139,17 @@ def main(argv=None) -> int:
     corrida = montar_corrida(json.loads(Path(entrada).read_text(encoding="utf-8")), analise["_ITENS"],
                              analise["LIDO_SOBRE_A_ARVORE"], "--so-cruzamentos" in argv)
     pote = POTE.adaptar(corrida)
+    # D125 · --v21 [--anterior POTE-PUBLICADO]: um cartao por pergunta, o compartimento so com IDS, e o
+    # DELTA contra o pote anterior PUBLICADO (opcao A). Sem --anterior: ANTERIOR = NENHUM (tudo NOVO).
+    if "--v21" in argv or "--anterior" in argv:
+        ant, sha = POTE.ler_anterior_do_disco(arg("--anterior")) if arg("--anterior") else (None, None)
+        pote = POTE.v21_do_v2(pote, ant, sha)
+        texto = POTE.como_js(pote) if destino.suffix == ".js" else json.dumps(pote, ensure_ascii=False, indent=1) + "\n"
+        destino.write_text(texto, encoding="utf-8")
+        print(f"{POTE.MARCA} · {POTE.CONTRATO_V21} · corrida {pote['INTELLIGENCE_RUN_ID']} (base {corrida['CORRIDA_BASE']})")
+        print(f"  cartoes {pote['CONTAGEM_DE_CARTOES']} · DELTA {pote['DELTA_CONTAGEM']} · anterior {pote['ANTERIOR']}")
+        print(f"  conferir_pote: {len(POTE.conferir_pote(pote))} violacoes -> {destino}")
+        return 0
     texto = POTE.como_js(pote) if destino.suffix == ".js" else json.dumps(pote, ensure_ascii=False, indent=1) + "\n"
     destino.write_text(texto, encoding="utf-8")
     n = {k: len(e["OBJETOS"]) for k, e in pote["COMPARTIMENTOS"].items() if e["OBJETOS"]}

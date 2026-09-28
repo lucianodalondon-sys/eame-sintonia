@@ -67,6 +67,8 @@ from fato_local import MES_NUM                  # noqa: E402
 # D12 · D16 (INDEPENDENCIA-V1): o grafo de dependencia tem UM dono, e nao e esta
 # corrida. Ela so o consulta sobre os sinais que produziu.
 import grafo_de_dependencia as GD               # noqa: E402
+# D125 · POTES-UM-CARTAO: a identidade do sinal (SG2) tem UM dono, a regra IDENT-v1.
+import identidade_do_cruzamento as IDENT        # noqa: E402
 
 CONTRATO = "CORRIDA_DA_INTELLIGENCE/v1"
 #: ⚠️ G0/v2 (INT-CONSERTOS-EXP, D1-D4/D6). A v1 aceitava como ancora de tempo
@@ -637,11 +639,29 @@ def correr(pergunta: str, itens: list, request_id: str = "",
                 # nome so — a duplicata ficava invisivel em vez de marcada.
                 evid = item.get("TEMPO_LUGAR_EVIDENCIA")
                 evid = evid if isinstance(evid, dict) else {}
+                # ⚠️ D125 · POTES-UM-CARTAO (ordem §11.3 passo 2, INT-LAW-096/216): o
+                # SG- de cima prendia o ID a CORRIDA e a POSICAO — 0/10 sinais tinham
+                # o mesmo ID de R6 para R7. O SG2 e o da OBSERVACAO (documento, RAW,
+                # FACT_TIME) e sobrevive a corrida seguinte. O SG- antigo NAO e apagado:
+                # vai para ALIAS. A duplicata (o mesmo documento lido 2x) continua
+                # com nome proprio — o desempate e o ITEM_ID, nunca o run.
+                legado = "SG-" + hashlib.sha256(
+                    (run_id + "|" + str(ref["ITEM_ID"]) + "|"
+                     + str(ref["RAW_OBSERVATION_ID"]) + "|"
+                     + str(len(livro["SIGNALS"]))).encode()).hexdigest()[:16]
+                sg2 = IDENT.sg2_id(IDENT.evidencia(item), ref["RAW_OBSERVATION_ID"], item.get("FACT_TIME"))
+                ja = {s["SIGNAL_ID"] for s in livro["SIGNALS"]}
+                if sg2 in ja:
+                    sg2 = IDENT.sg2_id(IDENT.evidencia(item) + "#" + str(ref["ITEM_ID"]),
+                                       ref["RAW_OBSERVATION_ID"], item.get("FACT_TIME"))
+                n = 2
+                while sg2 in ja:
+                    sg2 = IDENT.sg2_id(IDENT.evidencia(item) + "#" + str(ref["ITEM_ID"]) + "#" + str(n),
+                                       ref["RAW_OBSERVATION_ID"], item.get("FACT_TIME"))
+                    n += 1
                 livro["SIGNALS"].append({
-                    "SIGNAL_ID": "SG-" + hashlib.sha256(
-                        (run_id + "|" + str(ref["ITEM_ID"]) + "|"
-                         + str(ref["RAW_OBSERVATION_ID"]) + "|"
-                         + str(len(livro["SIGNALS"]))).encode()).hexdigest()[:16],
+                    "SIGNAL_ID": sg2,
+                    "ALIAS": [legado],
                     "ITEM_ID": ref["ITEM_ID"],
                     "RAW_OBSERVATION_ID": ref["RAW_OBSERVATION_ID"],
                     "SOURCE_ID": ref["SOURCE_ID"],

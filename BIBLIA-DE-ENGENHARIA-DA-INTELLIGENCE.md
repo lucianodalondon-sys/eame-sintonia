@@ -2,10 +2,10 @@
 
 ```text
 BIBLE_ID = SINTONIA-INTELLIGENCE-BIBLE
-VERSION = V0.4
+VERSION = V0.5
 STATUS = CANONICAL
 DATE = 2026-09-13
-REVISED = 2026-09-14
+REVISED = 2026-09-28
 PROMOTED = 2026-09-14
 IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_GATES_UPSTREAM
 ```
@@ -22,6 +22,11 @@ IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_
 > **V0.4 (2026-09-27 · D112) acrescenta duas leis à secção 7** — `INT-LAW-078` e
 > `INT-LAW-079`, as relações entre afirmações que o gold humano da Puglia exigiu —
 > e não altera nenhuma outra. A fronteira de implementação é a mesma.
+
+> **V0.5 (2026-09-28 · D125 · POTES-UM-CARTAO) acrescenta seis leis** — `INT-LAW-096`
+> a `099` à secção 9 e `INT-LAW-215`/`216` à secção 20 — com o texto aprovado pelo
+> dono («potes, aprovo», 27/09 ~21:40) a partir de `docs/lab/IDENTIDADE-CRUZAMENTO.md`
+> §11.2, mais os quatro pontos D125 do coordenador. **Zero leis alteradas.**
 
 > Esta é a **Bíblia de Engenharia da Intelligence**, não um relatório, backlog, handoff, design de portal ou prova de implementação.
 >
@@ -605,6 +610,50 @@ Gate epistemológico/segurança falho não é compensado por pontos.
 
 Causalidade exige contrato/prova mais forte.
 
+## INT-LAW-096 — Identidade do crossing é a pergunta declarada
+
+O `CROSSING_ID` deriva de `FAMILIA/versão + chaves canônicas da pergunta` (INT-LAW-090), em ordem fixa por
+família. Origem, documento, run, posição e edição da referência **não** entram. A mesma pergunta em N corridas é
+um `CROSSING_ID`. Identidade não é reuso: cada corrida reavalia (INT-LAW-054).
+
+```text
+CROSSING_ID       = XQ-sha(CROSSING_KEY)        a pergunta — persiste entre corridas
+EVIDENCE_LINK_ID  = XL-sha(CROSSING_KEY|DOC)    pergunta × documento — idempotente
+AVALIACAO_ID      = XA-sha(CROSSING_ID|RUN)     a resposta daquela corrida — só aqui entra o run
+```
+
+## INT-LAW-097 — NÃO SEI não junta
+
+Chave indispensável ausente ou ambígua vira `NAO_SEI@<documento>`. Dois NÃO SEI nunca produzem a mesma
+identidade. Resolver a chave depois cria link novo e registra `SUBSTITUIDO_POR`, nunca renomeia (INT-LAW-224).
+
+## INT-LAW-098 — Prova é link idempotente sobre o documento
+
+A evidência é o documento (`raw_document_key`; na falta, hash do conteúdo entregue pela Coleta). O mesmo
+documento lido N vezes é um link. A independência conta originadores (INT-LAW-071/092).
+
+## INT-LAW-099 — O estado é função, a avaliação é por corrida
+
+`ESTADO = f(links válidos, edição da referência, relógio, versão da regra, versão do vocabulário)`. A edição nova
+da referência (D116) é **nova avaliação** do mesmo crossing, não crossing novo. A mesma origem mudando no tempo =
+`TEMPORAL_CHANGE_IN_RECOMMENDATION` (INT-LAW-079). No crossing rótulo × substância, o estado é o do **rótulo**,
+nunca o do «melhor link»: a qualidade de cada link fica no link.
+
+### D125 — um cartão por pergunta, vários potes (dono, 27/09 ~21:40: «potes, aprovo»)
+
+1. Um fato/documento pode alimentar **vários potes** ao mesmo tempo (Label/Portfolio, Oportunidade, Futuro,
+   Agenda, Concorrência, Vozes).
+2. O fato atualiza **uma vez** e todos os potes que o usam mudam juntos na mesma corrida: os dependentes são
+   reavaliados com `CAUSA = PAI_MUDOU(<id>)`.
+3. Teste obrigatório: **1 documento novo que toca 3 potes = 0 cartões repetidos** e os 3 potes com o mesmo
+   carimbo/motivo.
+4. **Nenhum pote guarda cópia do cartão, só o ID.** A prova conta 1 vez (fecho por EVIDÊNCIA/ORIGINADOR).
+
+```text
+UM CARTAO != UMA COPIA POR POTE
+PARECE A MESMA PERGUNTA != E A MESMA PERGUNTA   (a chave decide, nunca a semelhanca)
+```
+
 ---
 
 # 10. TEMPO E GEOGRAFIA
@@ -1013,6 +1062,17 @@ Distinguir erro de fonte, normalização, lógica, modelo, input ou interpretaç
 ## INT-LAW-213 — Outcome posterior não reescreve julgamento passado
 
 Serve para calibrar futuras análises.
+
+## INT-LAW-215 — Delta entre corridas é da Intelligence
+
+Todo pote aponta o pote anterior publicado (`RUN_ID + SHA256`) e declara por objeto
+`NOVO | FORTALECEU | MUDOU_ESTADO | ENFRAQUECEU | SEM_REVISAO`. `SAIU` exige causa. Ausência numa corrida parcial
+não é saída. O casco mostra, não calcula (D125).
+
+## INT-LAW-216 — ID legado vira alias
+
+IDs de esquemas anteriores (`XC-`, `XMAX-`, `SG-`, `FUT-`) nunca são reescritos nem apagados. Viram `ALIAS` do link
+ou da pergunta, com mapa reconferível. Fusão com estados divergentes para e sobe ao dono.
 
 ## INT-LAW-214 — Calibração usa ground truth legítimo
 

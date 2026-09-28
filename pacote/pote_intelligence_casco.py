@@ -9,6 +9,8 @@
     CONTRATO POTE_INTELLIGENCE_CASCO/v2
 
     python3 pacote/pote_intelligence_casco.py <entrada.json> <saida.json|sintonia-pote.js>
+    python3 pacote/pote_intelligence_casco.py <entrada.json> <saida> --v21 [--anterior POTE-PUBLICADO.json]
+                                              # D125: um cartao por pergunta + DELTA contra o publicado
     python3 -m unittest tests.test_pote_intelligence_casco -v
 
 A PERGUNTA QUE ESTE FICHEIRO RESPONDE, E MAIS NENHUMA
@@ -55,6 +57,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -69,8 +72,18 @@ import ponte_intelligence_casco as V1                  # noqa: E402
 from ponte_intelligence_casco import (                 # noqa: E402
     NAO_SEI, MARCA, ESTADO_TRANSPORTAVEL, CAMPOS_DA_PROVA, CORRIDA_SEM_SAIDA,
     CORRIDA_VAZIA, LeiViolada, e_ignorancia)
+# D125 · POTES-UM-CARTAO: a identidade, o fecho e o DELTA sao da INTELLIGENCE (INT-LAW-215). O pote
+# chama o codigo dela e transporta; nao ha aqui uma segunda regra de identidade.
+import identidade_do_cruzamento as IDENT              # noqa: E402  (motor/)
 
 CONTRATO = "POTE_INTELLIGENCE_CASCO/v2"
+#: D125 · a v2.1: um CARTAO por pergunta em CARTOES, e cada compartimento guarda SO os IDS.
+CONTRATO_V21 = "POTE_INTELLIGENCE_CASCO/v2.1"
+#: Campos de identidade que a Intelligence escreve no objeto e o pote TRANSPORTA como vieram.
+CAMPOS_DE_IDENTIDADE = ("CROSSING_KEY", "FAMILIA", "ALIAS", "ID_PROVISORIO", "LINKS", "CONTAGENS", "RESPOSTA",
+                        "RESPOSTA_DITA_POR", "RESPOSTA_DO_ROTULO", "FUSAO_DIVERGENTE", "ESTADOS_DOS_LINKS",
+                        "GRUPO", "REFERENCIAS", "REGRA_DE_IDENTIDADE", "VOCABULARIO", "RELACAO",
+                        "HISTORICO_DE_ESTADO")
 NOME_DO_GLOBAL = "SINTONIA_POTE"
 #: O unico sitio dentro do portal onde o pote pode ser escrito: fora do Git
 #: (italia-portale/client/.gitignore) e fora do deploy (.vercelignore), como os
@@ -417,6 +430,10 @@ def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica
         v = _lido(o, c)
         if v is not None:
             out[c] = _valor(v)
+    # D125 · a identidade da pergunta viaja como a Intelligence a escreveu (o pote nao a calcula).
+    for c in CAMPOS_DE_IDENTIDADE:
+        if c in o:
+            out[c] = o[c]
     lugar = dadas.get("FACT_LOCATION")
     if not e_ignorancia(lugar) and "LOCATION_SOURCE" not in out:
         out["LOCATION_SOURCE"] = NAO_SEI
@@ -714,6 +731,8 @@ def conferir_pote(pote: dict) -> list:
     v = []
     if not isinstance(pote, dict):
         return ["pote nao e objeto"]
+    if pote.get("SCHEMA") == CONTRATO_V21:
+        return conferir_pote_v21(pote)
     if pote.get("SCHEMA") != CONTRATO:
         v.append(f"SCHEMA nao e {CONTRATO}")
     if pote.get("MARCA") != MARCA or pote.get("NAO_PARA_CLIENTE") is not True:
@@ -814,10 +833,268 @@ def conferir_pote(pote: dict) -> list:
     return v
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# D125 · POTE_INTELLIGENCE_CASCO/v2.1 — UM CARTAO POR PERGUNTA (POTES-UM-CARTAO)
+# ═════════════════════════════════════════════════════════════════════════════
+#
+#   CARTOES        { ID: cartao }      o UNICO sitio onde um cartao existe. Nenhum compartimento guarda
+#                                      copia: cada um guarda so os IDS (D125.4). O Arquivo deixa de repetir.
+#   COMPARTIMENTOS { comp: {..., IDS} } o mesmo cartao pode estar em VARIOS (D125.1); muda uma vez e
+#                                      todos mudam juntos, porque e o MESMO cartao (D125.2).
+#   ANTERIOR       {INTELLIGENCE_RUN_ID, POTE_SHA256} do pote anterior PUBLICADO | "NENHUM" (opcao A)
+#   DELTA          por cartao: NOVO | FORTALECEU | MUDOU_ESTADO | ENFRAQUECEU | SEM_REVISAO, com CAUSA e
+#                  GATILHO. SAIU so com causa (SAIRAM); ausencia sem causa e SEM_REVISAO (NAO_REVISTOS).
+#   REFERENCIAS    [{CROSSING_ID, AVALIACAO_ID, PAPEL}] — Finding/Oportunidade/Futuro/Agenda/Concorrencia/
+#                  Vozes/Label apontam o cartao de que dependem; so para baixo (DAG).
+#   FECHO          a prova conta 1 vez: evidencias do cartao e dos que ele referencia, por documento e
+#                  por originador — nunca a soma dos filhos.
+#
+# Quem calcula identidade, fecho e DELTA e motor/identidade_do_cruzamento.py (a Intelligence). Aqui so se
+# junta o que tem o MESMO ID, se transporta e se confere.
+
+_POR_COMP_SO = ("COMPARTIMENTO", "CHAVES_NAO_SEI", "MERCADO")
+
+
+def _mesma_prova(a, b) -> bool:
+    k = lambda o: sorted(json.dumps(p, sort_keys=True, ensure_ascii=False) for p in o.get("PROVA") or [])  # noqa: E731
+    return k(a) == k(b)
+
+
+def _juntar(membros: list) -> dict:
+    """Os objetos do MESMO ID (em um ou mais compartimentos) -> um cartao."""
+    base = membros[0]
+    if len({m.get("ESPECIE") for m in membros}) != 1:
+        raise LeiViolada("o ID %s chega com especies diferentes: um cartao tem UMA especie" % base["OBJETO_ID"])
+    consolidado = False
+    if all(_mesma_prova(base, m) for m in membros[1:]):
+        c = dict(base)
+    elif any("LINKS" in m for m in membros):
+        raise LeiViolada("o ID %s chega duas vezes com provas diferentes e ja consolidado pela Intelligence: "
+                         "o pote nao escolhe um" % base["OBJETO_ID"])
+    else:
+        # esquema anterior: varios links da MESMA pergunta (ex.: 13 PM de OLIVO x mosca) — quem junta e a
+        # Intelligence (IDENT.consolidar), com o estado de cada link no link.
+        c = IDENT.consolidar(membros)[0]
+        consolidado = True
+    chaves, fora = {}, {}
+    for m in membros:
+        for k, v in (m.get("CHAVES") or {}).items():
+            if k not in chaves or (chaves[k] == NAO_SEI and v != NAO_SEI):
+                chaves[k] = v
+        fora.update(m.get("FORA_DO_CONTRATO") or {})
+    if consolidado:
+        chaves = c["CHAVES"]      # a juncao da Intelligence: valores diferentes ficam todos, a vista
+    c["CHAVES"] = chaves
+    c["FORA_DO_CONTRATO"] = {k: v for k, v in fora.items() if k not in chaves}
+    for k in _POR_COMP_SO:
+        c.pop(k, None)
+    merc = next((m.get("MERCADO") for m in membros if m.get("COMPARTIMENTO") == "market"), None)
+    if merc is not None:
+        c["MERCADO"] = merc
+    c["COMPARTIMENTOS"] = sorted({m["COMPARTIMENTO"] for m in membros}, key=list(COMPARTIMENTOS).index)
+    return c
+
+
+def v21_do_v2(pote: dict, anterior: dict | None = None, anterior_sha256: str | None = None,
+              causas_de_saida: dict | None = None, conferir: bool = True) -> dict:
+    """Um pote v2 (ja conferido) -> o pote v2.1. `anterior` = o pote anterior PUBLICADO (v2 ou v2.1) e o
+    sha256 dos BYTES dele — o DELTA e contra ele (opcao A). `conferir=False` so para MEDIR um pote antigo
+    que a lei de hoje ja nao aprova (fica dito em ENTRADA)."""
+    if pote.get("SCHEMA") != CONTRATO:
+        raise LeiViolada("v21_do_v2 recebe um pote %s" % CONTRATO)
+    if anterior is not None and (e_ignorancia(anterior_sha256) or not re.fullmatch(r"[0-9a-f]{64}", str(anterior_sha256))):
+        raise LeiViolada("ANTERIOR sem o SHA256 dos bytes do pote publicado: o DELTA nao tem base")
+    run = pote["INTELLIGENCE_RUN_ID"]
+    grupos, ordem, ids_por_comp = {}, [], {}
+    for comp, e in pote["COMPARTIMENTOS"].items():
+        ids_por_comp[comp] = []
+        for o in e.get("OBJETOS") or []:
+            o = dict(o)
+            ident = IDENT.identificar(o)
+            if ident["OBJETO_ID"] != o["OBJETO_ID"] or ident.get("CROSSING_KEY"):
+                o.update(ident)
+            oid = o["OBJETO_ID"]
+            if oid not in grupos:
+                grupos[oid] = []
+                ordem.append(oid)
+            grupos[oid].append(o)
+            if oid not in ids_por_comp[comp]:
+                ids_por_comp[comp].append(oid)
+    cartoes = {oid: _juntar(grupos[oid]) for oid in ordem}
+    alias = {a: oid for oid, c in cartoes.items() for a in c.get("ALIAS") or []}
+    for oid, c in cartoes.items():
+        c["AVALIACAO_ID"] = IDENT.avaliacao_id(oid, run)
+        c.setdefault("ALIAS", [])
+        c.setdefault("ID_PROVISORIO", True)
+        c.setdefault("REGRA_DE_IDENTIDADE", IDENT.REGRA)
+        c.setdefault("VOCABULARIO", IDENT.VOCAB.carimbo())
+        c.setdefault("CONTAGENS", IDENT.contar_provas(c.get("PROVA")))
+        if not c.get("GRUPO") and IDENT.grupo(c.get("CROSSING_KEY"), c.get("PROVA")):
+            c["GRUPO"] = IDENT.grupo(c.get("CROSSING_KEY"), c.get("PROVA"))
+    for c in cartoes.values():
+        refs = []
+        for r in c.get("REFERENCIAS") or []:
+            alvo = alias.get(r.get("CROSSING_ID"), r.get("CROSSING_ID"))
+            refs.append({"CROSSING_ID": alvo, "PAPEL": r.get("PAPEL"),
+                         "AVALIACAO_ID": (cartoes.get(alvo) or {}).get("AVALIACAO_ID", NAO_SEI)})
+        if "REFERENCIAS" in c:
+            c["REFERENCIAS"] = refs
+    ant = IDENT.ler_anterior(anterior, anterior_sha256) if anterior is not None else None
+    info = IDENT.delta(cartoes, ant, causas_de_saida, corrida_parcial=pote.get("RESULT_STATE") != "DONE")
+    comps = {}
+    for comp, e in pote["COMPARTIMENTOS"].items():
+        e = {k: v for k, v in e.items() if k != "OBJETOS"}
+        e["IDS"] = ids_por_comp[comp]
+        e["UNIVERSO"] = dict(e["UNIVERSO"], OBJETOS=len(e["IDS"]),
+                             LEITURA="IDS de cartoes desta corrida (o cartao vive em CARTOES, uma vez); zero aqui "
+                                     "nao prova ausencia no mundo")
+        comps[comp] = e
+    out = {k: v for k, v in pote.items() if k != "COMPARTIMENTOS"}
+    out.update({
+        "SCHEMA": CONTRATO_V21, "ENTRADA": pote.get("ENTRADA") if conferir else "POTE_V2_SO_MEDICAO",
+        "REGRA_DE_IDENTIDADE": IDENT.REGRA, "VOCABULARIO": IDENT.VOCAB.carimbo(),
+        "ANTERIOR": info["ANTERIOR"], "DELTA_CONTAGEM": info["DELTA_CONTAGEM"],
+        "SAIRAM": info["SAIRAM"], "NAO_REVISTOS": info["NAO_REVISTOS"],
+        "CONTAGEM_DE_CARTOES": {"LUGARES_NOS_COMPARTIMENTOS": sum(len(x) for x in ids_por_comp.values()),
+                                "CARTOES_DISTINTOS": len(cartoes)},
+        "LEI": pote.get("LEI", "") + " · D125: um cartao por pergunta; o compartimento guarda o ID, nunca a copia; "
+               "o casco mostra DELTA/GRUPO, nao os calcula (INT-LAW-215)",
+        "COMPARTIMENTOS": comps, "CARTOES": cartoes,
+    })
+    return _conferido(out) if conferir else out
+
+
+def adaptar_v21(corrida: dict, anterior: dict | None = None, anterior_sha256: str | None = None,
+                causas_de_saida: dict | None = None) -> dict:
+    """O livro de uma corrida -> o pote v2.1 (passa pela lei v2 inteira antes, compartimento a compartimento)."""
+    return v21_do_v2(adaptar(corrida), anterior, anterior_sha256, causas_de_saida)
+
+
+def materializar(pote: dict) -> dict:
+    """A vista v2 de um pote v2.1: cada compartimento com o cartao RESOLVIDO pelo ID (e as CHAVES do
+    contrato dele). Serve a lei v2 (e ao casco); nao e um pote que se guarde — seria a copia proibida."""
+    v2 = {k: v for k, v in pote.items() if k not in ("CARTOES",)}
+    v2["SCHEMA"] = CONTRATO
+    cartoes = pote.get("CARTOES") or {}
+    comps = {}
+    for comp, e in (pote.get("COMPARTIMENTOS") or {}).items():
+        e2 = {k: v for k, v in e.items() if k != "IDS"}
+        objs = []
+        contrato = (COMPARTIMENTOS.get(comp) or {}).get("CHAVES") or ()
+        for oid in e.get("IDS") or []:
+            c = cartoes.get(oid)
+            if not isinstance(c, dict):
+                continue
+            o = {k: v for k, v in c.items() if k not in ("COMPARTIMENTOS", "MERCADO")}
+            o["COMPARTIMENTO"] = comp
+            dadas = c.get("CHAVES") or {}
+            o["CHAVES"] = {k: dadas.get(k, NAO_SEI) for k in contrato}
+            o["CHAVES_NAO_SEI"] = [k for k in contrato if o["CHAVES"][k] == NAO_SEI]
+            o["FORA_DO_CONTRATO"] = dict(c.get("FORA_DO_CONTRATO") or {},
+                                         **{k: v for k, v in dadas.items() if k not in contrato})
+            if comp == "market" and "MERCADO" in c:
+                o["MERCADO"] = c["MERCADO"]
+            objs.append(o)
+        e2["OBJETOS"] = objs
+        comps[comp] = e2
+    v2["COMPARTIMENTOS"] = comps
+    return v2
+
+
+def conferir_pote_v21(pote: dict) -> list:
+    """O portao de saida da v2.1: a lei v2 inteira sobre a vista materializada + a lei D125."""
+    v = []
+    cartoes = pote.get("CARTOES")
+    comps = pote.get("COMPARTIMENTOS")
+    if not isinstance(cartoes, dict) or not isinstance(comps, dict):
+        return ["v2.1 sem CARTOES ou sem COMPARTIMENTOS"]
+    run = pote.get("INTELLIGENCE_RUN_ID")
+    lugares = {}
+    for comp, e in comps.items():
+        if "OBJETOS" in e:
+            v.append(f"{comp}: COPIA_NO_POTE — na v2.1 o compartimento guarda so IDS (D125.4)")
+        ids = e.get("IDS")
+        if not isinstance(ids, list):
+            v.append(f"{comp}: sem IDS")
+            continue
+        if len(ids) != len(set(ids)):
+            v.append(f"{comp}: ID repetido no compartimento")
+        for oid in ids:
+            if oid not in cartoes:
+                v.append(f"{comp}/{oid}: ID sem cartao em CARTOES")
+            lugares.setdefault(oid, set()).add(comp)
+        if (e.get("UNIVERSO") or {}).get("OBJETOS") != len(ids):
+            v.append(f"{comp}: UNIVERSO.OBJETOS nao e o numero de IDS")
+    nomes = {}
+    for oid, c in cartoes.items():
+        if not isinstance(c, dict) or c.get("OBJETO_ID") != oid:
+            v.append(f"CARTOES/{oid}: a chave nao e o OBJETO_ID do cartao")
+            continue
+        if set(c.get("COMPARTIMENTOS") or []) != lugares.get(oid, set()):
+            v.append(f"{oid}: COMPARTIMENTOS do cartao nao batem com os IDS dos compartimentos")
+        if not lugares.get(oid):
+            v.append(f"{oid}: cartao que nenhum compartimento mostra")
+        for n in [oid] + list(c.get("ALIAS") or []):
+            if n in nomes and nomes[n] != oid:
+                v.append(f"{oid}: o nome {n} ja e de {nomes[n]} — a mesma pergunta com dois cartoes")
+            nomes[n] = oid
+        k = c.get("CROSSING_KEY")
+        if k is not None and oid != IDENT.crossing_id(k):
+            v.append(f"{oid}: OBJETO_ID nao e XQ-sha(CROSSING_KEY)")
+        if c.get("AVALIACAO_ID") != IDENT.avaliacao_id(oid, run):
+            v.append(f"{oid}: AVALIACAO_ID nao e desta corrida")
+        if not isinstance(c.get("ALIAS"), list) or not isinstance(c.get("ID_PROVISORIO"), bool):
+            v.append(f"{oid}: sem ALIAS (lista) ou ID_PROVISORIO")
+        d = c.get("DELTA")
+        if not isinstance(d, dict) or d.get("MUDANCA") not in IDENT.MUDANCAS or e_ignorancia(d.get("CAUSA")):
+            v.append(f"{oid}: DELTA ausente, invalido ou sem CAUSA")
+        try:
+            f = IDENT.fecho(oid, cartoes)
+            if (c.get("FECHO") or {}).get("EVIDENCIAS") != f["EVIDENCIAS"] \
+                    or (c.get("FECHO") or {}).get("N_ORIGINADORES") != f["N_ORIGINADORES"]:
+                v.append(f"{oid}: FECHO nao e o fecho das provas (a prova conta 1 vez)")
+        except (ValueError, KeyError) as erro:
+            v.append(f"{oid}: {erro}")
+        if "GRUPO" in c and e_ignorancia(c["GRUPO"]):
+            v.append(f"{oid}: GRUPO vazio")
+    v += IDENT.conferir_referencias(cartoes)
+    ant = pote.get("ANTERIOR")
+    if ant == "NENHUM":
+        if any((c.get("DELTA") or {}).get("MUDANCA") != IDENT.NOVO for c in cartoes.values() if isinstance(c, dict)):
+            v.append("ANTERIOR = NENHUM e ha cartao que nao e NOVO")
+    elif not (isinstance(ant, dict) and not e_ignorancia(ant.get("INTELLIGENCE_RUN_ID"))
+              and re.fullmatch(r"[0-9a-f]{64}", str(ant.get("POTE_SHA256")))):
+        v.append("ANTERIOR tem de ser NENHUM ou {INTELLIGENCE_RUN_ID, POTE_SHA256}")
+    cont = {m: 0 for m in IDENT.MUDANCAS}
+    for c in cartoes.values():
+        m = ((c or {}).get("DELTA") or {}).get("MUDANCA")
+        if m in cont:
+            cont[m] += 1
+    cont[IDENT.SEM_REVISAO] += len(pote.get("NAO_REVISTOS") or [])
+    cont[IDENT.SAIU] = len(pote.get("SAIRAM") or [])
+    if pote.get("DELTA_CONTAGEM") != cont:
+        v.append(f"DELTA_CONTAGEM nao bate com os cartoes: {pote.get('DELTA_CONTAGEM')} != {cont}")
+    for s_ in pote.get("SAIRAM") or []:
+        if e_ignorancia((s_ or {}).get("CAUSA")):
+            v.append(f"SAIU sem causa: {s_}")
+        if (s_ or {}).get("CROSSING_ID") in cartoes:
+            v.append(f"SAIU e continua nos CARTOES: {s_.get('CROSSING_ID')}")
+    for s_ in pote.get("NAO_REVISTOS") or []:
+        if (s_ or {}).get("MUDANCA") != IDENT.SEM_REVISAO:
+            v.append(f"ausente sem causa tem de ser SEM_REVISAO: {s_}")
+    n = pote.get("CONTAGEM_DE_CARTOES") or {}
+    if n.get("CARTOES_DISTINTOS") != len(cartoes) or \
+            n.get("LUGARES_NOS_COMPARTIMENTOS") != sum(len(e.get("IDS") or []) for e in comps.values()):
+        v.append("CONTAGEM_DE_CARTOES nao bate")
+    if pote.get("ENTRADA") != "POTE_V2_SO_MEDICAO":
+        v += ["v2: " + x for x in conferir_pote(materializar(pote))]
+    return v
+
+
 def como_js(pote: dict) -> str:
     """O pote na forma que o casco carrega: `window.SINTONIA_POTE`."""
     return ("/* GERADO por pacote/pote_intelligence_casco.py — " + MARCA + ".\n"
-            "   " + CONTRATO + " · corrida " + str(pote["INTELLIGENCE_RUN_ID"]) + ".\n"
+            "   " + str(pote.get("SCHEMA", CONTRATO)) + " · corrida " + str(pote["INTELLIGENCE_RUN_ID"]) + ".\n"
             "   FORA DO GIT E DO DEPLOY. Nao e para cliente. Nao editar a mao. */\n"
             "window." + NOME_DO_GLOBAL + " = "
             + json.dumps(pote, ensure_ascii=False, indent=1) + ";\n")
@@ -842,8 +1119,33 @@ def ler_entrada(dado: dict) -> dict:
     return adaptar(dado)
 
 
+def ler_anterior_do_disco(caminho):
+    """(pote, sha256 dos BYTES) do pote anterior PUBLICADO (.json ou o .js do casco). Opcao A do DELTA."""
+    b = Path(caminho).read_bytes()
+    texto = b.decode("utf-8")
+    marca = "window." + NOME_DO_GLOBAL + " = "
+    if marca in texto:
+        texto = texto[texto.find(marca) + len(marca):].rstrip().rstrip(";")
+    return json.loads(texto), IDENT.impressao_do_pote(b)
+
+
+def _opcoes_v21(argv):
+    """`--v21` e `--anterior <pote publicado>` (D125). Devolve (argv sem elas, v21?, anterior, sha)."""
+    argv = list(argv)
+    v21 = "--v21" in argv
+    anterior = sha = None
+    if "--anterior" in argv:
+        i = argv.index("--anterior")
+        anterior, sha = ler_anterior_do_disco(argv[i + 1])
+        del argv[i:i + 2]
+        v21 = True
+    argv = [a for a in argv if a != "--v21"]
+    return argv, v21, anterior, sha
+
+
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
+    argv, v21, anterior, sha = _opcoes_v21(argv)
     if len(argv) != 2:
         print(__doc__.strip().split("\n\n")[0])
         print("\n  uso: python3 pacote/pote_intelligence_casco.py <corrida.json|payload-v1.json> "
@@ -856,8 +1158,14 @@ def main(argv=None) -> int:
               "(fora do Git e do deploy).")
         return 3
     pote = ler_entrada(dado)
+    if v21:
+        pote = v21_do_v2(pote, anterior, sha)
     texto = como_js(pote) if destino.suffix == ".js" else json.dumps(pote, ensure_ascii=False, indent=1) + "\n"
     destino.write_text(texto, encoding="utf-8")
+    if v21:
+        print(f"{MARCA} · {CONTRATO_V21} · corrida {pote['INTELLIGENCE_RUN_ID']} · {pote['CONTAGEM_DE_CARTOES']} · "
+              f"DELTA {pote['DELTA_CONTAGEM']} · {len(pote['RECUSADOS'])} recusados -> {destino}")
+        return 0
     n = sum(len(e["OBJETOS"]) for e in pote["COMPARTIMENTOS"].values())
     vazios = sum(1 for e in pote["COMPARTIMENTOS"].values() if not e["OBJETOS"])
     print(f"{MARCA} · {CONTRATO} · corrida {pote['INTELLIGENCE_RUN_ID']} · {n} objetos · "

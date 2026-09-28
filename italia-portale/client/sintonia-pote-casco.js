@@ -14,7 +14,12 @@
 
    O QUE ESTA LEITURA NAO FAZ (INT-LAW-023 / INT-LAW-280): nao cruza, nao ordena por relevancia (a ordem e
    a do pote), nao completa NAO SEI, nao muda especie, nao escolhe compartimento — le VISTAS_DO_CASCO do
-   proprio pote. So FILTER, EXPLAIN e RENDER. */
+   proprio pote. So FILTER, EXPLAIN e RENDER.
+
+   D125 · POTES-UM-CARTAO (contrato v2.1): o pote guarda cada cartao UMA vez (CARTOES) e o compartimento so
+   os IDS. Este leitor RESOLVE o ID no cartao (a vista v2 de sempre) e MOSTRA o DELTA (NOVO / FORTALECEU /
+   MUDOU_ESTADO / ENFRAQUECEU / SEM_REVISAO, com a CAUSA), o GRUPO e a lista SAIRAM que a Intelligence
+   escreveu. Nao compara potes, nao calcula delta, nao agrupa (INT-LAW-215 · INT-LAW-023). */
 window.SINTONIA_POTE = window.SINTONIA_POTE || null;
 /* POTE-V2-UNICO (D97): pedido o pote, a tela so mostra o pote. Se ele nao chegar, cada ferramenta diz
    NAO SEI (pote nao carregado) — o snapshot e a demo NAO voltam para tapar o buraco. */
@@ -30,6 +35,7 @@ window.SINTONIA_POTE_PEDIDO = window.SINTONIA_POTE_PEDIDO || false;
 
 window.SINTONIA_POTE_CASCO = (function () {
   var CONTRATO = 'POTE_INTELLIGENCE_CASCO/v2';
+  var CONTRATO_V21 = 'POTE_INTELLIGENCE_CASCO/v2.1';
   var MARCA = 'EXPERIMENTAL · NAO_PARA_CLIENTE';
   var NAO_SEI = 'NAO SEI';
   var DOZE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors', 'science',
@@ -59,7 +65,9 @@ window.SINTONIA_POTE_CASCO = (function () {
       origem: 'da dove viene (Sala d\'attesa, solo come prova)', ammessa: 'ammessa per',
       senzaTempo: 'tempo del fatto NON ancorato — uso che non richiede tempo', risultato: 'risultato',
       serie: 'SERIE MISURATA', punti: 'punti', unita: 'stessa unità', solto: 'SEGNALE ISOLATO — NON è una variazione di mercato',
-      assente: 'POTE NON CARICATO', assenteTesto: 'è stato chiesto il pote (?pote=local) ma sintonia-pote.js non è arrivato: niente snapshot, niente demo al suo posto.'
+      assente: 'POTE NON CARICATO', assenteTesto: 'è stato chiesto il pote (?pote=local) ma sintonia-pote.js non è arrivato: niente snapshot, niente demo al suo posto.',
+      delta: 'rispetto alla corsa precedente', causa: 'causa', gruppo: 'GRUPPO (solo presentazione)', risposta: 'risposta',
+      prove: 'documenti', fonti: 'originatori', usciti: 'USCITI (con causa)', anteriore: 'corsa precedente'
     },
     en: {
       faixa: 'EXPERIMENTAL · NOT FOR THE CLIENT — Intelligence pot: this view shows ONLY the run below',
@@ -73,7 +81,9 @@ window.SINTONIA_POTE_CASCO = (function () {
       origem: 'where it came from (Waiting Room, only as proof)', ammessa: 'admitted by',
       senzaTempo: 'fact time NOT anchored — use that does not need time', risultato: 'result',
       serie: 'MEASURED SERIES', punti: 'points', unita: 'same unit', solto: 'ISOLATED SIGNAL — NOT a market change',
-      assente: 'POT NOT LOADED', assenteTesto: 'the pot was requested (?pote=local) but sintonia-pote.js did not arrive: no snapshot, no demo in its place.'
+      assente: 'POT NOT LOADED', assenteTesto: 'the pot was requested (?pote=local) but sintonia-pote.js did not arrive: no snapshot, no demo in its place.',
+      delta: 'against the previous run', causa: 'cause', gruppo: 'GROUP (presentation only)', risposta: 'answer',
+      prove: 'documents', fonti: 'originators', usciti: 'LEFT (with cause)', anteriore: 'previous run'
     }
   };
 
@@ -95,10 +105,41 @@ window.SINTONIA_POTE_CASCO = (function () {
 
   /* O portao do casco: so o que torna a leitura IMPOSSIVEL ou DESONESTA. A lei inteira e de
      `conferir_pote` em pacote/pote_intelligence_casco.py, que corre antes de o pote nascer. */
-  function conferir(p) {
-    var v = [];
+  /* D125 · v2.1 -> a vista de sempre: cada ID do compartimento RESOLVIDO no cartao, com as CHAVES do
+     contrato do compartimento (CONTRATO_CHAVES, escrito pelo pote). Resolver nao e calcular: nada e juntado,
+     contado nem escolhido aqui. Copia no compartimento ou ID sem cartao = o pote reprova. */
+  function resolver(p) {
+    if (!p || typeof p !== 'object' || p.SCHEMA !== CONTRATO_V21) return { pote: p, v: [] };
+    var v = [], C = p.COMPARTIMENTOS || {}, K = p.CARTOES || {}, out = {};
+    Object.keys(p).forEach(function (k) { if (k !== 'CARTOES' && k !== 'COMPARTIMENTOS') out[k] = p[k]; });
+    out.SCHEMA = CONTRATO;
+    out.COMPARTIMENTOS = {};
+    Object.keys(C).forEach(function (k) {
+      var e = C[k] || {}, e2 = {};
+      Object.keys(e).forEach(function (x) { if (x !== 'IDS') e2[x] = e[x]; });
+      if (e.OBJETOS) v.push(k + ': copia do cartao no compartimento (v2.1 guarda so IDS)');
+      var contrato = Array.isArray(e.CONTRATO_CHAVES) ? e.CONTRATO_CHAVES : [];
+      e2.OBJETOS = (e.IDS || []).map(function (id) {
+        var c = K[id];
+        if (!c) { v.push(k + '/' + id + ': ID sem cartao'); return null; }
+        var o = {};
+        Object.keys(c).forEach(function (x) { o[x] = c[x]; });
+        var ch = {};
+        contrato.forEach(function (x) { ch[x] = (c.CHAVES || {})[x] === undefined ? NAO_SEI : c.CHAVES[x]; });
+        o.CHAVES = ch;
+        if (k !== 'market') delete o.MERCADO;
+        return o;
+      }).filter(function (o) { return !!o; });
+      out.COMPARTIMENTOS[k] = e2;
+    });
+    return { pote: out, v: v };
+  }
+
+  function conferir(p0) {
+    var r = resolver(p0), p = r.pote;
+    var v = r.v.slice();
     if (!p || typeof p !== 'object') return ['o pote nao e objeto'];
-    if (p.SCHEMA !== CONTRATO) v.push('SCHEMA ' + txt(p.SCHEMA) + ' nao e ' + CONTRATO);
+    if (p.SCHEMA !== CONTRATO) v.push('SCHEMA ' + txt(p.SCHEMA) + ' nao e ' + CONTRATO + ' nem ' + CONTRATO_V21);
     if (p.MARCA !== MARCA || p.NAO_PARA_CLIENTE !== true) v.push('pote sem a marca ' + MARCA);
     if (!p.INTELLIGENCE_RUN_ID || ns(p.INTELLIGENCE_RUN_ID)) v.push('pote sem INTELLIGENCE_RUN_ID');
     var C = p.COMPARTIMENTOS;
@@ -180,7 +221,15 @@ window.SINTONIA_POTE_CASCO = (function () {
       ? T.serie + ' · ' + (m.SERIE || []).length + ' ' + T.punti + ' · ' + T.unita + ' ' + txt(m.UNIDADE) + ' · ' +
         (m.SERIE || []).map(function (q) { return txt(q.PERIOD) + ' ' + txt(q.PRICE); }).join(' | ')
       : T.solto + ' · ' + txt(m.PORQUE));
+    var d = o.DELTA || null, f = o.FECHO || null;
     return {
+      /* D125 · so o que a Intelligence escreveu: MUDANCA, de->para, CAUSA, as evidencias novas ditas. */
+      temDelta: !!d, mudanca: d ? txt(d.MUDANCA) : '',
+      delta: !d ? '' : txt(d.MUDANCA) + ' · ' + T.delta + ' · ' + txt(d.ESTADO_DE) + ' → ' + txt(d.ESTADO_PARA) +
+        ' · ' + T.causa + ' ' + txt(d.CAUSA) + ((d.EVIDENCIAS_NOVAS || []).length ? ' · + ' + (d.EVIDENCIAS_NOVAS || []).join(' · ') : ''),
+      temGrupo: typeof o.GRUPO === 'string' && o.GRUPO.length > 0, grupo: txt(o.GRUPO),
+      temResposta: o.RESPOSTA !== undefined, resposta: par(T.risposta, o.RESPOSTA),
+      fecho: !f ? '' : T.prove + ' ' + txt(f.N_EVIDENCIAS_DOCUMENTO) + ' · ' + T.fonti + ' ' + txt(f.N_ORIGINADORES),
       id: txt(o.OBJETO_ID), especie: txt(o.ESPECIE), especieDe: txt(o.ESPECIE_DITA_POR),
       eFuturo: o.ESPECIE === 'FATO_PRESENTE_SOBRE_O_FUTURO', aviso: o.ESPECIE === 'FATO_PRESENTE_SOBRE_O_FUTURO' ? T.futuro : '',
       badgeBg: st.bg, badgeInk: st.ink, edge: st.edge, traco: st.traco, marca: txt(o.MARCA),
@@ -202,7 +251,7 @@ window.SINTONIA_POTE_CASCO = (function () {
       /* Sem pote e sem pedido: o casco fica como estava. Pedido e nao chegou: NAO SEI, sem legado. */
       var pedido = typeof window !== 'undefined' && window.SINTONIA_POTE_PEDIDO === true;
       if (!pedido || FERRAMENTAS.indexOf(ROTA[view] || view) < 0) return null;
-      return { ativo: true, recusado: false, recusa: '', faixa: T.faixa, L: T, temComp: false,
+      return { ativo: true, recusado: false, recusa: '', faixa: T.faixa, L: T, temComp: false, sairam: [], temSairam: false,
         run: [par(T.corsa, null)], comp: {}, vazio: true, vazioTitulo: NAO_SEI + ' · ' + T.assente,
         vazioTexto: T.assenteTesto, objetos: [], lacunas: [], temLacunas: false };
     }
@@ -212,17 +261,25 @@ window.SINTONIA_POTE_CASCO = (function () {
          atual — a vista diz porque. So nas rotas que uma ferramenta tem. */
       var alvo = ROTA[view] || view;
       if (FERRAMENTAS.indexOf(alvo) < 0) return null;
-      return { ativo: true, recusado: true, recusa: T.rifiuto + ' ' + falhas.slice(0, 6).join(' · '), faixa: T.faixa,
+      return { ativo: true, recusado: true, recusa: T.rifiuto + ' ' + falhas.slice(0, 6).join(' · '), faixa: T.faixa, sairam: [], temSairam: false,
         run: [], comp: {}, temComp: false, vazio: false, objetos: [], lacunas: [], temLacunas: false, L: T };
     }
+    var p21 = p;
+    p = resolver(p).pote;
     var k = compartimentoDaVista(p, view);
     if (!k) return null;
     var e = p.COMPARTIMENTOS[k];
+    var ehV21 = p21.SCHEMA === CONTRATO_V21;
+    var ant = p21.ANTERIOR;
     var objs = (e.OBJETOS || []).map(function (o) { return objeto(o, T); });
     return {
       ativo: true, recusado: false, recusa: '', faixa: T.faixa, L: T, temComp: true,
       run: [par(T.corsa, p.INTELLIGENCE_RUN_ID), par(T.head, p.SOURCE_HEAD), par(T.corte, p.CORTE),
-        par(T.sint, p.CORRIDA_SINTETICA), par('RESULT_STATE', p.RESULT_STATE)],
+        par(T.sint, p.CORRIDA_SINTETICA), par('RESULT_STATE', p.RESULT_STATE)].concat(!ehV21 ? [] : [
+        par(T.anteriore, ant && typeof ant === 'object' ? ant.INTELLIGENCE_RUN_ID + ' · sha256 ' + String(ant.POTE_SHA256).slice(0, 12) : ant),
+        par('DELTA', p21.DELTA_CONTAGEM)]),
+      sairam: (ehV21 ? (p21.SAIRAM || []) : []).map(function (s) { return { t: txt(s.CROSSING_ID) + ' · ' + txt(s.ESTADO_DE) + ' · ' + T.causa + ' ' + txt(s.CAUSA) }; }),
+      temSairam: ehV21 && (p21.SAIRAM || []).length > 0,
       comp: { codigo: k, nome: txt(e.NOME_IT), estado: txt(e.ESTADO), n: objs.length,
         leitura: T.oggetti + ' · ' + txt((e.UNIVERSO || {}).LEITURA),
         recusados: (e.RECUSADOS_AQUI || 0) + ' ' + T.rifiutati, especies: (e.ESPECIES_ADMITIDAS || []).join(' · ') },
@@ -232,6 +289,6 @@ window.SINTONIA_POTE_CASCO = (function () {
     };
   }
 
-  return { CONTRATO: CONTRATO, MARCA: MARCA, conferir: conferir, compartimentoDaVista: compartimentoDaVista, vm: vm,
-    serieMedida: serieMedida };
+  return { CONTRATO: CONTRATO, CONTRATO_V21: CONTRATO_V21, MARCA: MARCA, conferir: conferir, resolver: resolver,
+    compartimentoDaVista: compartimentoDaVista, vm: vm, serieMedida: serieMedida };
 })();

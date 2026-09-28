@@ -1,0 +1,38 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "POTE_INTELLIGENCE_CASCO-v2.1",
+ "title": "POTE_INTELLIGENCE_CASCO/v2.1 — um cartao por pergunta (D125, POTES-UM-CARTAO)",
+ "description": "O que a v2.1 ACRESCENTA a v2. A forma v2 continua a valer sobre a vista materializada (pacote/pote_intelligence_casco.py:materializar); a LEI e conferir_pote_v21. Dono: pacote/pote_intelligence_casco.py; identidade/fecho/DELTA: motor/identidade_do_cruzamento.py.",
+ "type": "object",
+ "required": ["SCHEMA", "REGRA_DE_IDENTIDADE", "VOCABULARIO", "ANTERIOR", "DELTA_CONTAGEM", "SAIRAM", "NAO_REVISTOS", "CONTAGEM_DE_CARTOES", "COMPARTIMENTOS", "CARTOES"],
+ "properties": {
+  "SCHEMA": {"const": "POTE_INTELLIGENCE_CASCO/v2.1"},
+  "REGRA_DE_IDENTIDADE": {"const": "IDENT-v1"},
+  "VOCABULARIO": {"type": "string", "minLength": 1},
+  "DELTA_CONTAGEM": {"type": "object", "required": ["NOVO", "FORTALECEU", "MUDOU_ESTADO", "ENFRAQUECEU", "SEM_REVISAO", "SAIU"]},
+  "SAIRAM": {"type": "array", "items": {"type": "object", "required": ["CROSSING_ID", "ESTADO_DE", "CAUSA"], "properties": {"CAUSA": {"type": "string", "minLength": 1}}}},
+  "NAO_REVISTOS": {"type": "array", "items": {"type": "object", "required": ["CROSSING_ID", "ESTADO_DE", "MUDANCA", "PORQUE"], "properties": {"MUDANCA": {"const": "SEM_REVISAO"}}}},
+  "CONTAGEM_DE_CARTOES": {"type": "object", "required": ["LUGARES_NOS_COMPARTIMENTOS", "CARTOES_DISTINTOS"]},
+  "COMPARTIMENTOS": {"type": "object", "additionalProperties": {"type": "object", "required": ["IDS"], "not": {"required": ["OBJETOS"]}, "properties": {"IDS": {"type": "array", "items": {"type": "string", "minLength": 1}}}}},
+  "CARTOES": {"type": "object", "additionalProperties": {"$ref": "#/$defs/cartao"}}
+ },
+ "$defs": {
+  "cartao": {
+   "type": "object",
+   "required": ["OBJETO_ID", "ESPECIE", "COMPARTIMENTOS", "ALIAS", "ID_PROVISORIO", "AVALIACAO_ID", "DELTA", "FECHO", "CONTAGENS", "PROVA"],
+   "not": {"required": ["COMPARTIMENTO"]},
+   "properties": {
+    "COMPARTIMENTOS": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "ALIAS": {"type": "array", "items": {"type": "string"}},
+    "ID_PROVISORIO": {"type": "boolean"},
+    "CROSSING_KEY": {"type": "string", "minLength": 1},
+    "GRUPO": {"type": "string", "minLength": 1},
+    "DELTA": {"type": "object", "required": ["MUDANCA", "ESTADO_DE", "ESTADO_PARA", "EVIDENCIAS_NOVAS", "EVIDENCIAS_REVOGADAS", "CAUSA", "GATILHO"],
+     "properties": {"MUDANCA": {"enum": ["NOVO", "FORTALECEU", "MUDOU_ESTADO", "ENFRAQUECEU", "SEM_REVISAO"]}, "CAUSA": {"type": "string", "minLength": 1}}},
+    "REFERENCIAS": {"type": "array", "items": {"type": "object", "required": ["CROSSING_ID", "AVALIACAO_ID", "PAPEL"],
+     "properties": {"PAPEL": {"enum": ["APOIA", "CONTRADIZ", "NAO_CONFERIVEL", "CONTEXTO"]}}}},
+    "FECHO": {"type": "object", "required": ["EVIDENCIAS", "N_EVIDENCIAS_DOCUMENTO", "N_ORIGINADORES"]}
+   }
+  }
+ }
+}

@@ -85,6 +85,7 @@ import lugar_do_fato as LUGAR                    # noqa: E402
 # (leis/afirmacao_da_fonte.RELACOES / CONTRADICTION_STATUS): cada relacao deste motor diz tambem a
 # palavra da lei, calculada pelas regras da lei — nao a reescreve.
 import afirmacao_da_fonte as AFIRMACAO           # noqa: E402
+import identidade_do_cruzamento as IDENT         # noqa: E402  (D125: FUT2 sem run)
 
 NAO_SEI = CI.NAO_SEI
 CONTRATO_DA_ENTRADA = "ENTRADA_DO_MOTOR_DAS_CAPACIDADES/v1"
@@ -682,9 +683,16 @@ def _objeto_do_futuro(f: dict, ctx: dict) -> tuple:
                                                     "PRESENTE sobre o futuro, nao uma oportunidade"}}
     chaves = {k: ent[k]["VALOR"] for k in CHAVES_DO_POTE["future"]}
     chaves.update(fora)
-    return {"OBJETO_ID": "R7-FUT-" + hashlib.sha256((ctx["RUN_ID"] + "|" + str(iid)).encode()).hexdigest()[:16],
+    prova = _prova(ready, linha, ctx["RAW"])
+    # D125 · POTES-UM-CARTAO (ordem §11.3 passo 2): o R7-FUT- prendia o ID a CORRIDA. O FUT2 e o do
+    # facto (ISSUE x lugar x horizonte; sem ISSUE, documento x RAW x horizonte) e sobrevive a corrida
+    # seguinte. O antigo NAO e apagado: vai para ALIAS (INT-LAW-216).
+    legado = "R7-FUT-" + hashlib.sha256((ctx["RUN_ID"] + "|" + str(iid)).encode()).hexdigest()[:16]
+    return {"OBJETO_ID": IDENT.fut2_id(chaves.get("ISSUE_ID"), chaves.get("FACT_LOCATION"), chaves.get("FACT_TIME"),
+                                        IDENT.evidencia(prova), prova.get("RAW_OBSERVATION_ID")),
+            "ALIAS": [legado],
             "ESPECIE": FUTURO, "ESTADO": ESTADO_TRANSPORTAVEL, "CHAVES": chaves,
-            "PROVA": [_prova(ready, linha, ctx["RAW"])],
+            "PROVA": [prova],
             "PORQUE": "facto presente sobre o futuro (G0 bloqueou so por FACT_TIME depois da captura)",
             "CONTRADIZ": None, "INCERTEZA": None}, None
 

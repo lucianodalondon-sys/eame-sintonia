@@ -95,9 +95,18 @@ def forma(dado, schema: dict | None = None, raiz: dict | None = None, onde: str 
     return v
 
 
+SCHEMA_V21 = SCHEMA.with_name("POTE_INTELLIGENCE_CASCO-v2.1.schema.json")
+
+
 def validar(pote) -> list:
-    """FORMA + LEI. Lista vazia = passa."""
-    v = forma(pote)
+    """FORMA + LEI. Lista vazia = passa.
+
+    D125 · v2.1: a forma v2 sobre a vista MATERIALIZADA (cada ID resolvido no seu compartimento) + a forma
+    do que a v2.1 acrescenta (docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.1.schema.json) + a lei."""
+    if isinstance(pote, dict) and pote.get("SCHEMA") == P.CONTRATO_V21:
+        v = forma(P.materializar(pote)) + forma(pote, json.loads(SCHEMA_V21.read_text(encoding="utf-8")))
+    else:
+        v = forma(pote)
     return v + [f"LEI: {x}" for x in P.conferir_pote(pote)]
 
 
@@ -130,6 +139,12 @@ def main(argv=None) -> int:
     if v:
         print(f"REPROVA · {len(v)} violacao(oes) · {P.CONTRATO}")
         return 1
+    if pote.get("SCHEMA") == P.CONTRATO_V21:
+        n = pote["CONTAGEM_DE_CARTOES"]
+        print(f"PASSA · {P.CONTRATO_V21} · corrida {pote['INTELLIGENCE_RUN_ID']} · {n['CARTOES_DISTINTOS']} cartoes em "
+              f"{n['LUGARES_NOS_COMPARTIMENTOS']} lugares · DELTA {pote['DELTA_CONTAGEM']} · anterior "
+              f"{pote['ANTERIOR'] if pote['ANTERIOR'] == 'NENHUM' else pote['ANTERIOR']['INTELLIGENCE_RUN_ID']}")
+        return 0
     n = sum(len(e["OBJETOS"]) for e in pote["COMPARTIMENTOS"].values())
     print(f"PASSA · {P.CONTRATO} · corrida {pote['INTELLIGENCE_RUN_ID']} · {n} objetos · "
           f"{len(pote['RECUSADOS'])} recusados · compatibilidade lida: {len(pote['LEITURA_DE_COMPATIBILIDADE'])}")
