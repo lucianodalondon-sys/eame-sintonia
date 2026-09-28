@@ -1,6 +1,10 @@
 {
   "outputDirectory": "italia-portale/client",
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/casa", "destination": "/accesso", "permanent": false },
+    { "source": "/casa.html", "destination": "/accesso", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -53,6 +53,7 @@ import tempfile
 import threading
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -393,6 +394,23 @@ def conferir_telas(contagens: dict, pote: dict, sha: str, contrato: dict, rotulo
             nav.append(f"{t}: barra nao medida")
     L.append(linha(f"{rotulo}_D122_BARRA_CONTA_O_POTE", not nav, sorted(set(nav))[:15] or ["cada voz da barra conta o compartimento do pote"]))
 
+    # redirecionadas: pagina legada fora do casco canonico, que o endereco manda para a entrada canonica
+    # (contrato: TELAS.REDIRECIONADAS). BLOQUEIA: ficar no endereco antigo, ou mostrar um dos 43/44 antigos.
+    for t, r in (contrato["TELAS"].get("REDIRECIONADAS") or {}).items():
+        m = telas.get(t) or {}
+        final = urllib.parse.urlsplit(str(m.get("URL_FINAL") or "")).path
+        para = str(r.get("PARA") or "")
+        erros_r = []
+        if m.get("HTTP") != 200:
+            erros_r.append(f"{t}: HTTP {m.get('HTTP')} no fim do redirect")
+        if not para or final not in (para, para + ".html"):
+            erros_r.append(f"{t}: ficou em {final or 'NAO MEDIDO'}, devia ir para {para}")
+        for c in ("LEGADO_43_VISIVEIS", "LEGADO_44_VISIVEIS"):
+            if m.get(c) != 0:
+                erros_r.append(f"{t}: {c} = {m.get(c)}")
+        L.append(linha(f"{rotulo}_REDIRECIONADA_{t.upper()}", not erros_r, erros_r or
+                       [f"{t}: o endereco antigo leva a {para}, e nenhum dos 43/44 antigos aparece"]))
+
     # fora das rotas: medido e fotografado, dito — nao bloqueia (contrato: TELAS.FORA_DAS_ROTAS)
     for t, porque in contrato["TELAS"]["FORA_DAS_ROTAS"].items():
         m = telas.get(t) or {}
@@ -481,10 +499,42 @@ def conferencias_do_codigo(copia: Path, contrato: dict) -> list:
 
 
 # ── O SERVIDOR LOCAL (a copia montada, e o anfitriao do ENSAIO) ─────────────
-def _handler(raiz_fn):
+def redirecionamentos(vercel_json) -> list:
+    """Os `redirects` de um vercel.json, como a Vercel os le: [{source, destination, permanent}]. So caminho
+    EXATO (e o unico uso no repositorio). Sem ficheiro ou sem a chave = lista vazia: nada e redirecionado."""
+    try:
+        v = json.loads(Path(vercel_json).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    return [r for r in (v.get("redirects") or [])
+            if isinstance(r, dict) and isinstance(r.get("source"), str) and isinstance(r.get("destination"), str)]
+
+
+def _handler(raiz_fn, redirs_fn=None):
     class H(http.server.SimpleHTTPRequestHandler):
         def log_message(self, *a):
             pass
+
+        def _redirecionar(self) -> bool:
+            """Como na Vercel, o redirect vem ANTES do ficheiro: um caminho redirecionado nunca serve o ficheiro,
+            mesmo que ele exista na pasta (a casa.html continua no Git e na build)."""
+            caminho = self.path.split("?", 1)[0].split("#", 1)[0]
+            for r in (redirs_fn() if redirs_fn else []):
+                if caminho == r["source"]:
+                    self.send_response(308 if r.get("permanent") else 307)
+                    self.send_header("Location", r["destination"])
+                    self.send_header("Content-Length", "0")
+                    self.end_headers()
+                    return True
+            return False
+
+        def do_GET(self):
+            if not self._redirecionar():
+                super().do_GET()
+
+        def do_HEAD(self):
+            if not self._redirecionar():
+                super().do_HEAD()
 
         def translate_path(self, caminho):
             base = Path(raiz_fn())
@@ -509,11 +559,11 @@ def _handler(raiz_fn):
 class Servidor:
     """Serve uma pasta (ou a pasta que `raiz_fn()` disser a cada pedido) em 127.0.0.1, porta livre."""
 
-    def __init__(self, raiz_fn):
+    def __init__(self, raiz_fn, redirs_fn=None):
         with socket.socket() as s:
             s.bind(("127.0.0.1", 0))
             self.porta = s.getsockname()[1]
-        self.srv = http.server.ThreadingHTTPServer(("127.0.0.1", self.porta), _handler(raiz_fn))
+        self.srv = http.server.ThreadingHTTPServer(("127.0.0.1", self.porta), _handler(raiz_fn, redirs_fn))
         self.t = threading.Thread(target=self.srv.serve_forever, daemon=True)
         self.t.start()
         self.url = f"http://127.0.0.1:{self.porta}"
@@ -614,7 +664,9 @@ class EnsaioLocal(Implantador):
         self.pasta = Path(pasta)
         (self.pasta / "deployments").mkdir(parents=True, exist_ok=True)
         self.alias = self.pasta / "ALIAS"
-        self.srv = Servidor(lambda: self.pasta / "deployments" / (self._alias() or "__nenhum__"))
+        # os redirects do vercel.json da copia implantada, guardado FORA da pasta servida
+        self.srv = Servidor(lambda: self.pasta / "deployments" / (self._alias() or "__nenhum__"),
+                            lambda: redirecionamentos(self.pasta / "deployments" / f"{self._alias()}.vercel.json"))
 
     def _alias(self):
         return self.alias.read_text(encoding="utf-8").strip() if self.alias.exists() else None
@@ -634,6 +686,8 @@ class EnsaioLocal(Implantador):
     def implantar(self, copia, prod):
         ident = "ensaio-" + _dt.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
         shutil.copytree(Path(copia) / "italia-portale" / "client", self.pasta / "deployments" / ident)
+        if (Path(copia) / "vercel.json").exists():
+            shutil.copy2(Path(copia) / "vercel.json", self.pasta / "deployments" / f"{ident}.vercel.json")
         self.alias.write_text(ident, encoding="utf-8")
         return {"ID": ident, "URL": self.srv.url}
 
@@ -774,7 +828,8 @@ class Publicador:
         return conferir_comando("C1_BUILD_COM_O_POTE (npm run build)", ["npm", "run", "build"], copia, self.c, 1800)
 
     def conferir_montagem(self, copia, ferr, pote, sha, pasta):
-        srv = Servidor(lambda: Path(copia) / "italia-portale" / "client")
+        srv = Servidor(lambda: Path(copia) / "italia-portale" / "client",
+                       lambda: redirecionamentos(Path(copia) / "vercel.json"))
         try:
             cont = fotografar(srv.url, pasta, ferr, self.c)
         finally:
