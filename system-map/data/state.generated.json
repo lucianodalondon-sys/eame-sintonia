@@ -4807,9 +4807,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/c6-repetido-dedup-doc-9eqszm",
-    "HEAD": "8014b937745318c77be36d2dbfd2978220f2e067",
-    "GENERATED_AT": "2026-09-28T17:11:14+00:00",
-    "SOURCE_TREE_FINGERPRINT": "c55642ecb7935c431a3e859228efa8868d07b83074a384fb5cf7f03a93fa502e"
+    "HEAD": "b3de69442ba53a3600fbc2e6f0a6edb19b7508f1",
+    "GENERATED_AT": "2026-09-28T17:12:58+00:00",
+    "SOURCE_TREE_FINGERPRINT": "30d2bd4220ff0bf423c9aad89d11cafe44f29ac17221bd33753d90f94589d30d"
   },
   "FAMILIES": [
     {
@@ -60198,6 +60198,7 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "C6-REPETIDO.md",
         "CHAVE-PROBLEMA.md",
         "LOTE6-INTEGRA.md",
         "LOTE7-INTEGRA.md",
@@ -60226,6 +60227,12 @@
         "provas/benchmark_tematico.py",
         "provas/bluesky_trial_ao_vivo.py",
         "provas/c2_juiz_mutacao.py",
+        "provas/c6_repetido/BATERIA-BASE-e2413970.json",
+        "provas/c6_repetido/BATERIA-DEPOIS-59199ff3.json",
+        "provas/c6_repetido/MUTACAO-C6.json",
+        "provas/c6_repetido/PROVA-SQL-C6.json",
+        "provas/c6_repetido/mutacao_c6.py",
+        "provas/c6_repetido/prova_sql_c6.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/censo_executavel_da_v1.py",
@@ -60332,7 +60339,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 133,
+      "file_count": 140,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -60533,12 +60540,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1918,
+        "palavras": 1932,
         "por_lingua": {
           "PT": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 1914,
+        "sem_marca_de_lingua": 1928,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -60841,6 +60848,7 @@
         "regras/sensor_coleta.py",
         "scripts/lugar_fato/gold_puglia.py",
         "scripts/micro_coleta/ensaio_offline.py",
+        "scripts/micro_coleta/micro_coleta.py",
         "supabase/desfazer/033_desfazer.sql",
         "supabase/desfazer/034_desfazer.sql",
         "supabase/desfazer/036_desfazer.sql",
@@ -78697,7 +78705,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 26 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 27 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
@@ -78860,9 +78868,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "provas/candidatos_tematicos.py",
-          "line": 146,
-          "snippet": "import admissao as adm",
+          "file": "provas/c6_repetido/prova_sql_c6.py",
+          "line": 31,
+          "snippet": "import admissao                          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-ADMISSAO",
@@ -78876,9 +78884,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "provas/censo_corpus_rotulado_admission.py",
-          "line": 39,
-          "snippet": "import admissao as adm  # noqa: E402",
+          "file": "provas/candidatos_tematicos.py",
+          "line": 146,
+          "snippet": "import admissao as adm",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-ADMISSAO",
@@ -131171,7 +131179,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Provas da coleta canonica. Provado por 43 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Provas da coleta canonica. Provado por 44 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -131350,9 +131358,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "provas/candidatos_tematicos.py",
-          "line": 37,
-          "snippet": "import _gavetas  # noqa: E402,F401",
+          "file": "provas/c6_repetido/prova_sql_c6.py",
+          "line": 30,
+          "snippet": "import _gavetas                          # noqa: E402,F401",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-MAPA-TESTES",
@@ -135043,8 +135051,56 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Provas da coleta canonica. Provado por 8 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/c6_repetido/mutacao_c6.py",
+          "line": 18,
+          "snippet": "ALVO = \"scripts/micro_coleta/micro_coleta.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/c6_repetido/prova_sql_c6.py",
+          "line": 42,
+          "snippet": "E = carregar(\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/c6_repetido/prova_sql_c6.py",
+          "line": 43,
+          "snippet": "MC = carregar(\"micro_coleta\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/chave_problema/ensaio_033_descartavel.py",
           "line": 35,
@@ -156068,7 +156124,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 12 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
@@ -156167,6 +156223,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "provas/c6_repetido/prova_sql_c6.py",
+          "line": 32,
+          "snippet": "import sala_de_espera as espera          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "provas/chave_problema/ensaio_033_descartavel.py",
           "line": 42,
           "snippet": "import reprocessar_problema as RP  # noqa: E402",
@@ -156234,22 +156306,6 @@
           "file": "provas/o_censo_da_sala_de_espera.py",
           "line": 53,
           "snippet": "import sala_de_espera as espera                      # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
-            "FROM": "C-SALA-DE-ESPERA",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/o_pedido_t4_atravessa.py",
-          "line": 51,
-          "snippet": "import sala_de_espera as espera                     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-SALA-DE-ESPERA",
@@ -174198,11 +174254,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/c6_repetido/mutacao_c6.py",
-    "provas/c6_repetido/prova_sql_c6.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 2278,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 2271,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174479,8 +174532,8 @@
     "edges_unknown": 69,
     "business_edges": 4,
     "files_tracked": 4213,
-    "files_covered": 1935,
-    "files_code_unclaimed": 2,
+    "files_covered": 1942,
+    "files_code_unclaimed": 0,
     "roles_proven": 207,
     "roles_declared_only": 10,
     "roles_unknown": 95,
