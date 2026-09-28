@@ -98,15 +98,29 @@ M16 CSE e YouTube juntos, M17 YouTube, M18 NÃO SEI a começar alto, M19 API pub
 ligada / sem contar reservas / sem ordem / sem B / sem S (M24–M28), linha sem onda entra no ciclo (M29),
 PESQUISADORES no caminho errado (M30), porta que tapa outro domínio (M09), resposta/falha não registada (M11/M12).
 
-**Bateria Python por nome** (`provas/int_r7/bateria_por_nome.py`, rede fechada, `git archive` dos dois lados) —
-__BATERIA__
+**Bateria Python por nome** (`provas/int_r7/bateria_por_nome.py`, rede fechada, `git archive` dos dois lados, 3
+trabalhadores):
+
+| | módulos | testes | falhas por nome |
+|---|---|---|---|
+| base `e24139702` | 332 | 7507 | 148 |
+| 1.ª passagem `43da7cf` | 333 | 7535 | 150 → **2 novas** |
+| final | __FINAL__ |
+
+As 2 novas da 1.ª passagem eram testes que afirmavam a premissa antiga, e foram atualizados (declarado abaixo):
+`test_lote8_juncoes.test_JL2_busca_existe_e_nao_reserva_fica_a_espera_pelo_motivo_certo` exigia BUSCA em
+`ESPERA_LIGACAO SEM_RESERVA_24H` — exatamente o defeito desta missão; `test_t6_para_sala.Consulta2` corria a rede
+CIÊNCIA sem livro (agora nada sai sem livro). Os JSON estão em `provas/linhas_no_contador/BATERIA-*.json`.
 
 **Testes mudados (declarado):** `test_coleta_continua.test_ligacao_medida_no_codigo_desta_arvore` esperava as quatro
 linhas **desligadas**; agora espera SITES/BUSCA/CIÊNCIA/SOCIAL ligadas pela sonda e PESQUISADORES não, com o porquê.
 `test_a_ligacao_e_a_chamada_nao_o_nome` (o texto ligava) virou `test_a_ligacao_e_o_comportamento_nao_o_texto` (o texto
 **não** liga) — mais estrito. `test_pesquisadores_t6.RodadaComRedeFalsa` passou a correr com um livro temporário
 (sem livro, agora, nada sai — novo teste `test_sem_livro_nenhum_pedido_sai`) e ganhou
-`test_cada_pedido_tem_reserva_e_resposta_no_livro`. Nenhuma asserção afrouxada.
+`test_cada_pedido_tem_reserva_e_resposta_no_livro`. `test_t6_para_sala.Consulta2` idem (livro temporário).
+`test_lote8_juncoes.test_JL2_…_fica_a_espera_pelo_motivo_certo` virou `test_JL2_busca_existe_e_esta_ligada_pela_sonda_nas_duas_rotas`
+(BUSCA ligada, com as rotas PÁGINA e API medidas). Nenhuma asserção afrouxada: onde se esperava «desligada», espera-se
+agora «ligada», com a medida.
 
 **System Map:** `correr_a_cadeia.py REGERAR` → `VALIDAR` = __MAPA__
 

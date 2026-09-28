@@ -148,11 +148,14 @@ class J_Linhas(unittest.TestCase):
         m = CC.medir_ligacao(self._linha("SITES"))
         self.assertTrue(m["LIGADA"], m["PORQUE"])
 
-    def test_JL2_busca_existe_e_nao_reserva_fica_a_espera_pelo_motivo_certo(self):
+    def test_JL2_busca_existe_e_esta_ligada_pela_sonda_nas_duas_rotas(self):
+        """LINHAS-NO-CONTADOR (28/09): antes, a BUSCA ficava ESPERA_LIGACAO SEM_RESERVA_24H porque a ligacao se media
+        pelo TEXTO — o defeito medido na producao. Agora mede-se pelo comportamento: as duas rotas (paginas e API
+        oficial de busca) reservam no livro antes de cada pedido."""
         self.assertTrue((RAIZ / "coleta" / "linha_busca.py").exists())
         m = CC.medir_ligacao(self._linha("BUSCA"))
-        self.assertFalse(m["LIGADA"])
-        self.assertTrue(m["PORQUE"].startswith("SEM_RESERVA_24H"), m["PORQUE"])
+        self.assertTrue(m["LIGADA"], m["PORQUE"])
+        self.assertEqual(sorted(m["MEDIDO"]), ["API", "PAGINA"])
 
 
 if __name__ == "__main__":

@@ -169,9 +169,18 @@ class Consulta2(unittest.TestCase):
                 return {'message': {'items': []}}, None
             return {'group': []}, None
         T6.CP._get = falso
+        # LINHAS-NO-CONTADOR (28/09): a rede da linha CIENCIA pede pela porta do contador multicanal; sem o livro
+        # da cortesia nada sai (tests/test_pesquisadores_t6.py::test_sem_livro_nenhum_pedido_sai). A mecanica corre
+        # com um livro temporario, como a coleta continua da a todas as linhas.
+        self._livro_antes = os.environ.get('SINTONIA_CORTESIA_LIVRO')
+        os.environ['SINTONIA_CORTESIA_LIVRO'] = os.path.join(self.dir, 'LIVRO-CORTESIA.ndjson')
 
     def tearDown(self):
         T6.CP._get = self._get
+        if self._livro_antes is None:
+            os.environ.pop('SINTONIA_CORTESIA_LIVRO', None)
+        else:
+            os.environ['SINTONIA_CORTESIA_LIVRO'] = self._livro_antes
         shutil.rmtree(self.dir, ignore_errors=True)
 
     def test_nome_e_instituicao_ambiguo_nao_funde_e_teto(self):
