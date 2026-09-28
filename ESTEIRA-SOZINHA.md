@@ -13,7 +13,7 @@ COMMITS   de83e54 · dbd9860 · a6fe6df · 7c704e2  (a entrega anterior, rebasea
           35aa769  FECHO: porta que falha · retenção · READ_ONLY em qualquer SO · harness CRLF
           c1ce36c  mapa regerado  (+ este relatório e o mapa de novo: SHA final no fim da entrega)
 TESTES    tests/test_esteira_sozinha.py 47/47 + tests/test_harness_mutacao_esteira.py 1/1
-          bateria inteira por NOME, a2aa73f × ramo: ver §5
+          bateria inteira por NOME, a2aa73f × c1ce36c: 0 falhas novas (§5)
 MUTAÇÃO   44/44 mortos em LF · 44/44 com os alvos em CRLF e o teste de shebang desligado (Windows simulado)
 E2E       PASS num PostgreSQL 16 descartável, agora com a porta a falhar de verdade (Sala morta) e a poda
 MAPA      REGERAR → VALIDAR = SYSTEM_MAP_CHECK=PASS · --conferir-carimbo = IGUAL
@@ -123,19 +123,19 @@ Os mutantes simulam: duas corridas sobrepostas (Intelligence e passagem), Admiss
 
 ## 5 · Testes — antes/depois, pelo NOME
 
-`provas/integra_noite/bateria_inteira_por_nome.py`, com rede fechada, base `b273660` × ramo `b3993b8` (código final + mapa):
+**FECHO (28/09):** `provas/integra_noite/bateria_inteira_por_nome.py`, com rede fechada. Base **`a2aa73f`** (a produção) × ramo **`c1ce36c`** (rebase + fecho + mapa):
 
-| | base `b273660` | ramo `b3993b8` |
+| | base `a2aa73f` | ramo `c1ce36c` |
 |---|---|---|
-| ficheiros de teste | 411 | 412 (+`tests/test_esteira_sozinha.py`, 36/36) |
-| testes corridos | 7.940 | 7.976 |
-| ficheiros vermelhos | 77 | 77 (os mesmos) |
-| falhas por nome | 338 | 338 |
-| **falhas novas / sumidas** | | **0 / 0** |
+| ficheiros de teste | 421 | 423 (+`tests/test_esteira_sozinha.py` 47/47, +`tests/test_harness_mutacao_esteira.py` 1/1) |
+| testes corridos | 8.184 | 8.232 |
+| ficheiros vermelhos | 76 | 76 (os mesmos, nenhum mudou de cor) |
+| falhas por nome | 337 | 336 |
+| **falhas novas / sumidas** | | **0 / 1** |
 
-Os resultados estão em `provas/esteira_sozinha/BATERIA-ANTES-b273660.json` e `BATERIA-DEPOIS-b3993b8.json`. Na comparação, os **números dentro do texto** de cada falha foram normalizados. `test_cadeia_declara_io::o_MEDIDO_VARRE_declarado_bate_com_a_corrida` já falha na base e escreve no próprio nome quantos ficheiros o scanner mediu, e a árvore ganhou ficheiros. É a mesma falha, com outra contagem.
-A **primeira** bateria `depois` (`b253c65`) apanhou uma falha nova real: `a_coleta_nao_conversa_com_o_motor_as_centenas`. Ela foi consertada mudando o gatilho de gaveta, e o teste não foi mexido (§2).
-Os 3 vermelhos de `curadoria/test_supervisor.py` (tasklist/wmic do Windows) já falham igual na base.
+A que **sumiu** é `test_o_controle_separa_lei_de_mencao::test_MN_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore`. Ela mede se o mapa commitado é o ponto fixo da árvore: no ramo o mapa foi regerado pela cadeia, e na base não estava. Não foi mexida.
+Na comparação, os números dentro do texto de cada falha foram normalizados, com o mesmo método de antes. Resultados: `provas/esteira_sozinha/BATERIA-ANTES-a2aa73f.json` e `BATERIA-DEPOIS-c1ce36c.json`.
+As baterias da entrega anterior (`b273660` × `b3993b8`: 0 novas / 0 sumidas) ficam guardadas em `BATERIA-ANTES-b273660.json` e `BATERIA-DEPOIS-b3993b8.json`.
 
 ## 6 · SINTONIA-Italy-ForwardOnly — deve existir? (proposta; nada apagado)
 
