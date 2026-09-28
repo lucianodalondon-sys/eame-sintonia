@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-28T00:14:29+00:00",
-  "HEAD": "0b69eccc09d874353984d3c2f0074f2ba2680b2f",
+  "GENERATED_AT": "2026-09-28T01:03:58+00:00",
+  "HEAD": "c3ebff790ebb87313d7065329926a37ddea15e88",
   "BRANCH": "claude/social-at-sala-7wu107",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "274d9ac72ec1d3da9c332d0bb45d784f81c999db2717077b2854b12241fe132a",
-  "FICHEIROS_NA_IMPRESSAO": 4096,
+  "SOURCE_TREE_FINGERPRINT": "7febb7bfb2cf1fb518bbefaba14a3831a4e49f543c3097bbd7a94c4e575b0e66",
+  "FICHEIROS_NA_IMPRESSAO": 4099,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -748,7 +748,7 @@
    {
     "PATH": "coleta/social_por_url_achado.py",
     "PAPEL": "FONTE",
-    "VERSAO": "ed2a35267f4fd7079a88215bc24a91927d5c0e96",
+    "VERSAO": "fa4738d9cbb66cf80809e8a8d89b848b6837798d",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5123,14 +5123,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "274d9ac72ec1d3da9c332d0bb45d784f81c999db2717077b2854b12241fe132a",
+    "VERSAO": "7febb7bfb2cf1fb518bbefaba14a3831a4e49f543c3097bbd7a94c4e575b0e66",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "274d9ac72ec1d3da9c332d0bb45d784f81c999db2717077b2854b12241fe132a",
+    "VERSAO": "7febb7bfb2cf1fb518bbefaba14a3831a4e49f543c3097bbd7a94c4e575b0e66",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7621,7 +7621,7 @@
    }
   ],
   "INPUTS_COUNT": 1083,
-  "INPUTS_DIGEST": "c6a4a051dc487cc29f78c4472c7001e786b05d8a2d5825e8bd047146f609d755",
+  "INPUTS_DIGEST": "c6073d4c585b138e6b205b4dd560f8d9b5998ea28a4baead28b805b20aba74dd",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -7647,15 +7647,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 605,
+  "DOCUMENTOS_LIDOS": 606,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e0644416ba6bcc4d6566e6387e786da30a594b9d2427d80e3b926f102037ab07",
-  "SEMANTIC_HASH": "62813b673931b1bfc340506cafe6b74cb2cb825c41fb3524a2de54c31654dac9"
+  "MEASUREMENT_HASH": "1bfe35565d5b800e227f4eb5c02a01864f8ae3cba092120e8a71cf53864d2e96",
+  "SEMANTIC_HASH": "0e11cac0e2f543b18946b8151c26f3ad1daeeb0a7040f409425c2190c1e03c67"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -15277,28 +15277,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-T2-BOLETINS",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-SOCIAL-POR-URL-ACHADO",
-    "FROM": "C-CENSO-UNIFICACAO",
-    "TO": "C-SOCIAL-POR-URL-ACHADO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "coleta/social_por_url_achado.py",
-      "LINHA": 122,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-SOCIAL-POR-URL-ACHADO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -41303,7 +41281,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/social_por_url_achado.py",
-      "LINHA": 314,
+      "LINHA": 124,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-SOCIAL-POR-URL-ACHADO",
@@ -41501,28 +41479,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-ROTAS-REAIS",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PORTA-FONTE--READS-->C-SOCIAL-POR-URL-ACHADO",
-    "FROM": "C-PORTA-FONTE",
-    "TO": "C-SOCIAL-POR-URL-ACHADO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "coleta/social_por_url_achado.py",
-      "LINHA": 124,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-SOCIAL-POR-URL-ACHADO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -54861,28 +54817,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-TESTES--READS-->C-SOCIAL-POR-URL-ACHADO",
-    "FROM": "C-TESTES",
-    "TO": "C-SOCIAL-POR-URL-ACHADO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "coleta/social_por_url_achado.py",
-      "LINHA": 123,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-SOCIAL-POR-URL-ACHADO",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-TESTES--WRITES-->C-ADAMA-REFERENCE",
     "FROM": "C-TESTES",
     "TO": "C-ADAMA-REFERENCE",
@@ -57195,12 +57129,12 @@
     ]
    }
   ],
-  "COUNT": 1618
+  "COUNT": 1615
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 218,
   "CARTOES_AUDITADOS": 218,
-  "ARESTAS_RELACIONADAS": 1618,
+  "ARESTAS_RELACIONADAS": 1615,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -57495,6 +57429,7 @@
    "C-RECONCILIAR-BYTES-BC4",
    "C-SAUDE-FONTE",
    "C-SEGUIR-PESQUISADORES",
+   "C-SOCIAL-POR-URL-ACHADO",
    "C-SUPERFICIE-SCRAP-V1"
   ],
   "NINGUEM_CORRE": [
@@ -57669,8 +57604,8 @@
    "CODE": 276,
    "CONTROL": 87,
    "DATA": 31,
-   "PROOF": 566,
-   "READ": 369,
+   "PROOF": 565,
+   "READ": 367,
    "RULE": 269,
    "WRITE": 20
   },
@@ -59218,7 +59153,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 10,
-   "SAEM": 23,
+   "SAEM": 22,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -63232,6 +63167,7 @@
    "DOCUMENTADO_COMO_CLI": [
     "LOTE3-SOCIAL.md",
     "MAESTRO-SOCIAL.md",
+    "SOCIAL-ATE-A-SALA.md",
     "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md",
     "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md"
    ],
@@ -63843,7 +63779,7 @@
     "pathlib"
    ],
    "ENTRAM": 1,
-   "SAEM": 13,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -67993,7 +67929,9 @@
    "SO_MEDEM_ESTE": [
     "provas/_mutantes_social_ate_a_sala.py"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "SOCIAL-ATE-A-SALA.md"
+   ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
@@ -68004,12 +67942,11 @@
     "datetime",
     "pathlib"
    ],
-   "ENTRAM": 5,
+   "ENTRAM": 2,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
-    "PROOF",
-    "READ"
+    "PROOF"
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
@@ -68766,7 +68703,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 240,
-   "SAEM": 42,
+   "SAEM": 41,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

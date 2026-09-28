@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/social-at-sala-7wu107",
-    "HEAD": "0b69eccc09d874353984d3c2f0074f2ba2680b2f",
-    "GENERATED_AT": "2026-09-28T00:11:55+00:00",
-    "SOURCE_TREE_FINGERPRINT": "274d9ac72ec1d3da9c332d0bb45d784f81c999db2717077b2854b12241fe132a"
+    "HEAD": "c3ebff790ebb87313d7065329926a37ddea15e88",
+    "GENERATED_AT": "2026-09-28T00:15:19+00:00",
+    "SOURCE_TREE_FINGERPRINT": "7febb7bfb2cf1fb518bbefaba14a3831a4e49f543c3097bbd7a94c4e575b0e66"
   },
   "FILES": [
     {
@@ -1047,6 +1047,13 @@
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
       "sha": "c17d6ad898e924883af3a2e0ff2605311429ea19",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "SOCIAL-ATE-A-SALA.md",
+      "sha": "28dbfcffbf070592c5c56c5c95f4065dfda54a8a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2565,7 +2572,7 @@
     },
     {
       "path": "coleta/social_por_url_achado.py",
-      "sha": "ed2a35267f4fd7079a88215bc24a91927d5c0e96",
+      "sha": "fa4738d9cbb66cf80809e8a8d89b848b6837798d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21506,6 +21513,20 @@
       "code_dir": true
     },
     {
+      "path": "provas/social_sala/bateria-base-18461b9.json",
+      "sha": "911804e79bf5bfe535d07fd57bbb9bc588f3c01d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/social_sala/bateria-ramo-c3ebff79.json",
+      "sha": "186219765ef62cb6b6d0cedb063042a00f1bca3b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/superficie_do_scrap_v1.py",
       "sha": "d14e60a30ea7f8f2e576282bb79c6c32d7f0d860",
       "ext": ".py",
@@ -32675,46 +32696,13 @@
     },
     {
       "from_file": "coleta/social_por_url_achado.py",
-      "to_file": "candidatas/FONTES-CANDIDATAS.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "coleta/social_por_url_achado.py",
-        "line": 124,
-        "snippet": "\"FILA\": _ler(raiz / \"candidatas\" / \"FONTES-CANDIDATAS.json\")}"
-      }
-    },
-    {
-      "from_file": "coleta/social_por_url_achado.py",
       "to_file": "candidatas/fonte_nova.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_por_url_achado.py",
-        "line": 314,
+        "line": 124,
         "snippet": "import fonte_nova as FN                                          # noqa: PLC0415"
-      }
-    },
-    {
-      "from_file": "coleta/social_por_url_achado.py",
-      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "coleta/social_por_url_achado.py",
-        "line": 123,
-        "snippet": "\"ALLOC\": _ler(raiz / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\"),"
-      }
-    },
-    {
-      "from_file": "coleta/social_por_url_achado.py",
-      "to_file": "curadoria/italy_contracts_curator.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "coleta/social_por_url_achado.py",
-        "line": 122,
-        "snippet": "return {\"CONTRATOS\": _ler(raiz / \"curadoria\" / \"italy_contracts_curator.json\"),"
       }
     },
     {
@@ -103962,10 +103950,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3948,
+    "files_tracked": 3951,
     "files_readable": 1648,
-    "files_code_dir": 1978,
-    "file_edges": 6881,
+    "files_code_dir": 1980,
+    "file_edges": 6878,
     "escritas_em_pasta": 91,
     "declared_missing_here": 0
   },

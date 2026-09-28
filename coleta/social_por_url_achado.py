@@ -113,15 +113,17 @@ def falta_na_proveniencia(p: dict | None) -> list[str]:
 
 
 # ── os livros (lidos; a escrita so pela porta) ─────────────────────────────────────────────
-def _ler(p: Path) -> dict:
-    return json.loads(Path(p).read_text(encoding="utf-8")) if Path(p).exists() else {}
+def livros() -> dict:
+    """Os livros de identidade da MESMA arvore (nunca os de outra: os CAND-ids colidem).
 
-
-def livros(raiz: Path = RAIZ) -> dict:
-    """Os livros de identidade da MESMA arvore (nunca os de outra: os CAND-ids colidem)."""
-    return {"CONTRATOS": _ler(raiz / "curadoria" / "italy_contracts_curator.json"),
-            "ALLOC": _ler(raiz / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json"),
-            "FILA": _ler(raiz / "candidatas" / "FONTES-CANDIDATAS.json")}
+    O livro de contratos e o registo de alocacao sao do CURATOR, e quem diz onde moram e o leitor
+    dele (`curadoria/rota_do_scrap_youtube`): a `coleta/` nao conhece o nome desses ficheiros
+    (lei de `tests/test_integracao_04a_curator.py` — o registo da curadoria nao e configuracao da coleta).
+    """
+    sys.path.insert(0, str(RAIZ / "curadoria"))
+    import fonte_nova as FN                                          # noqa: PLC0415
+    import rota_do_scrap_youtube as RSY                              # noqa: PLC0415
+    return {"CONTRATOS": RSY._ler(RSY.LIVRO), "ALLOC": RSY._ler(RSY.ALLOCATION), "FILA": FN.carregar()}
 
 
 def _sid_da_candidata(cid: str, alloc: dict) -> str | None:
