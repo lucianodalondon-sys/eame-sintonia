@@ -11,7 +11,7 @@ CORRECAO            FEITA   ferramentas/big_collection/coleta_continua.py (so es
 TESTES              58/58   tests/test_coleta_continua.py (8 novos: classe ColetaOciosa)
 MUTACAO             35/35   provas/COLETA-CONTINUA-MUTACAO.json (M30..M35 novos, todos MORTOS)
 ENSAIO A SECO       ANTES 0 fontes (NADA_ELEGIVEL) · DEPOIS 49 fontes (RESTO_SO_DOMINIOS_FECHADOS)
-BATERIA POR NOME    ver EVIDÊNCIA §5
+BATERIA POR NOME    337 herdadas · 0 consertadas · 0 novas · 0 sumidos (§5)
 SYSTEM MAP          regerado pela cadeia; VALIDAR = PASS; --conferir-carimbo no relatório de entrega
 ```
 
@@ -117,7 +117,28 @@ nova. Cadeia: `correr_a_cadeia.py REGERAR` → `CADEIA=OK`; `VALIDAR` → `SYSTE
 
 ### 5. Bateria inteira por nome, antes × depois
 
-BATERIA_PLACEHOLDER
+Executor `provas/integra_noite/bateria_inteira_por_nome.py` (rede fechada, cópia limpa de cada commit por
+`git archive`; Linux, Python 3.11): base `fd8c9469` × ramo `ad9e59b0`
+(`provas/COLETA-OCIOSA-BATERIA-base-fd8c946.json` / `…-ramo-ad9e59b.json`).
+
+```
+$ python3 provas/integra_noite/bateria_inteira_por_nome.py <copia-base> BATERIA-base.json 3
+424 ficheiros 338 falhas por nome 77 vermelhos
+$ python3 provas/integra_noite/bateria_inteira_por_nome.py <copia-ramo> BATERIA-ramo.json 2
+424 ficheiros 338 falhas por nome 77 vermelhos
+```
+
+| | base fd8c9469 | ramo ad9e59b0 |
+|---|---|---|
+| ficheiros de teste | 424 | 424 |
+| testes corridos | 8.271 | 8.279 (+8: `ColetaOciosa`) |
+| ficheiros vermelhos | 77 | 77 (os mesmos) |
+| falhas por nome | 338 | 338 |
+
+**337 herdadas · 0 consertadas · 0 novas · 0 sumidos** (nenhum ficheiro corre menos testes que na base). A
+única falha cujo texto mudou é a herdada `test_cadeia_declara_io.py · o_MEDIDO_VARRE_declarado_bate_com_a_corrida`:
+só o número de ficheiros varridos (4207 → 4210, os 3 ficheiros novos); com os números normalizados é a mesma.
+`tests/test_coleta_continua.py` no ramo: 58 corridos, 0 falhas.
 
 ## PROBLEMA
 
