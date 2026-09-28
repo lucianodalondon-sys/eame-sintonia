@@ -31,6 +31,8 @@ import { promisify } from "node:util";
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, appendFileSync, rmSync, rmdirSync, renameSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { pathToFileURL, fileURLToPath } from "node:url";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 // ⚠️ `./italy_contracts.mjs` NAO EXISTE AQUI desde a mudanca para gavetas: os
 // contratos moraram sempre em `regras/`. O Python ganhou `_gavetas.py` para
 // resolver os nomes curtos; o lado Node ficou com os imports da pasta unica, e
@@ -259,12 +261,12 @@ function cortesiaDoAmbiente() {
 }
 // Estado de UMA corrida. `executarRodada()` recomeca-o, como faz a `REDE.total`.
 const CORTESIA = { cfg: CORTESIA_PADRAO, robots: new Map(), porHost: new Map(), porDominio: new Map(),
-                   ultimo: new Map(), pedidos: { ROBOTS: 0, FONTE: 0 }, recusas: [] };
+                   ultimo: new Map(), pedidos: { ROBOTS: 0, FONTE: 0, ROBOTS_DO_LIVRO_24H: 0, CONDICIONAL_ENVIADO: 0, NAO_MODIFICADO_304: 0 }, recusas: [] };
 function reiniciarCortesia() {
   CORTESIA.cfg = cortesiaDoAmbiente();
   CORTESIA.robots = new Map(); CORTESIA.porHost = new Map(); CORTESIA.porDominio = new Map();
   CORTESIA.ultimo = new Map();
-  CORTESIA.pedidos = { ROBOTS: 0, FONTE: 0 }; CORTESIA.recusas = [];
+  CORTESIA.pedidos = { ROBOTS: 0, FONTE: 0, ROBOTS_DO_LIVRO_24H: 0, CONDICIONAL_ENVIADO: 0, NAO_MODIFICADO_304: 0 }; CORTESIA.recusas = [];
 }
 const dormir = ms => new Promise(r => setTimeout(r, ms));
 
@@ -495,7 +497,11 @@ const esgotado24h = host => {
   return gasto24h(lerReservas24h(f), dominio24h(host), Date.now() / 1000) >= CORTESIA.cfg.TETO_POR_HOST;
 };
 export const motivoDoTeto = () => (livro24h() ? "TETO_24H" : livroDaOnda() ? "TETO_DOMINIO" : "TETO_POR_HOST");
-async function umaIda(url, host, tipo, crawlDelay) {
+// `condicional` (FEED-LIGADO, 27/09): { cabecalhos: [...] } — os validadores a mandar (If-None-Match /
+// If-Modified-Since) — e o pedido passa a trazer de volta ETag e Last-Modified da resposta. O pedido
+// condicional e UM PEDIDO: sai por aqui, reserva no livro de 24 h e conta no teto como outro qualquer,
+// responda 200 ou 304.
+async function umaIda(url, host, tipo, crawlDelay, condicional = null) {
   const minimo = Math.max(CORTESIA.cfg.PAUSA_S, crawlDelay || 0) * 1000;
   host = siteDe(host);
   const ultimo = CORTESIA.ultimo.get(host);
@@ -542,22 +548,44 @@ async function umaIda(url, host, tipo, crawlDelay) {
     //
     // ⚠️ `-L` SAIU DE PROPOSITO (ver o bloco da cortesia): quem segue o salto e
     // `baixar()`, que pede licenca ao robots do destino antes de ir.
-    const { stdout } = await run("curl", ["-sS", "--max-time", "90", "-A", UA,
-      "-H", `Accept-Language: ${ROTA_NAVEGADOR.ACCEPT_LANGUAGE}`, "-o", "-",
-      "-w", "\\n__S__%{http_code}\\t%{content_type}\\t%{redirect_url}", url],
-      { maxBuffer: 128e6, encoding: "buffer" });
-    const s = stdout.toString("latin1");
-    const k = s.lastIndexOf("\n__S__");
-    const reboque = (k < 0 ? "" : s.slice(k + 6)).split("\t");
-    // O reboque tem TRES campos: codigo, especie e destino do salto. Nenhum traz
-    // tabulacao. AUSENTE CONTINUA AUSENTE: um servidor que nao declara tipo devolve
-    // vazio aqui, e vazio vira `null` — nunca uma especie adivinhada pelo nome.
-    return { buf: stdout.subarray(0, k < 0 ? stdout.length : k), status: Number(reboque[0]),
-             contentType: (reboque[1] || "").trim().split(";")[0].trim() || null,
-             destino: (reboque[2] || "").trim() || null };
+    // Os cabecalhos da resposta vao para um ficheiro so quando o pedido e condicional: e o unico caso
+    // em que alguem os le. `-D` e o de todas as versoes do curl (`%header{}` so existe desde a 7.84, e
+    // a versao do curl da maquina de producao e NAO SEI).
+    const cab = condicional ? join(tmpdir(), `sintonia-cab-${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2)}.txt`) : null;
+    const extra = condicional ? [...(condicional.cabecalhos || []).flatMap((h) => ["-H", h]), "-D", cab] : [];
+    try {
+      const { stdout } = await run("curl", ["-sS", "--max-time", "90", "-A", UA,
+        "-H", `Accept-Language: ${ROTA_NAVEGADOR.ACCEPT_LANGUAGE}`, ...extra, "-o", "-",
+        "-w", "\\n__S__%{http_code}\\t%{content_type}\\t%{redirect_url}", url],
+        { maxBuffer: 128e6, encoding: "buffer" });
+      const s = stdout.toString("latin1");
+      const k = s.lastIndexOf("\n__S__");
+      const reboque = (k < 0 ? "" : s.slice(k + 6)).split("\t");
+      // O reboque tem TRES campos: codigo, especie e destino do salto. Nenhum traz
+      // tabulacao. AUSENTE CONTINUA AUSENTE: um servidor que nao declara tipo devolve
+      // vazio aqui, e vazio vira `null` — nunca uma especie adivinhada pelo nome.
+      return { buf: stdout.subarray(0, k < 0 ? stdout.length : k), status: Number(reboque[0]),
+               contentType: (reboque[1] || "").trim().split(";")[0].trim() || null,
+               destino: (reboque[2] || "").trim() || null,
+               ...(cab ? { validadores: validadoresDaResposta(cab) } : {}) };
+    } finally {
+      if (cab) rmSync(cab, { force: true });
+    }
   } finally {
     CORTESIA.ultimo.set(host, Date.now());
   }
+}
+
+// ── OS VALIDADORES DA RESPOSTA (ETag, Last-Modified) ───────────────────────────────────────────────
+// O ficheiro do `-D` pode ter mais de um bloco (o «200 Connection established» de um proxy vem antes):
+// vale o ULTIMO, que e o do servidor. Sem cabecalho, `null` — ausente continua ausente.
+export function validadoresDaResposta(caminho) {
+  let t = "";
+  try { t = readFileSync(caminho, "latin1"); } catch { return { ETAG: null, LAST_MODIFIED: null }; }
+  const blocos = t.split(/\r?\n\r?\n/).filter((b) => /^HTTP\//.test(b.trim()));
+  const ultimo = blocos.at(-1) || "";
+  const ler = (nome) => { const m = ultimo.match(new RegExp(`^${nome}\\s*:\\s*(.+?)\\s*$`, "im")); return m ? m[1] : null; };
+  return { ETAG: ler("etag"), LAST_MODIFIED: ler("last-modified") };
 }
 // O teto pergunta pelo DOMINIO REGISTAVEL: o desta corrida e, havendo livro da
 // onda, o da onda inteira (que ja inclui o desta corrida). Vale o maior.
@@ -595,10 +623,79 @@ async function robotsDaOrigem(origem) {
     const corpo = r.buf.toString("utf8").trimStart().toLowerCase();
     if (corpo.startsWith("<!doctype") || corpo.startsWith("<html"))
       return { estado: "ILEGIVEL", origemLida, porque: "o robots.txt veio em HTML — nao afirmamos permissao que nao lemos" };
-    const grupos = lerRobots(r.buf.toString("utf8"));
-    return { estado: "LIDO", origemLida, grupos, crawlDelay: grupoQueVale(grupos)?.crawlDelay ?? null, porque: "robots.txt lido" };
+    const texto = r.buf.toString("utf8");
+    const grupos = lerRobots(texto);
+    return { estado: "LIDO", origemLida, grupos, crawlDelay: grupoQueVale(grupos)?.crawlDelay ?? null,
+             sitemaps: sitemapsDoRobots(texto), texto, porque: "robots.txt lido" };
   }
   return { estado: "ILEGIVEL", porque: `robots.txt com mais de ${CORTESIA.cfg.MAX_SALTOS} redireccionamentos` };
+}
+
+// ── SITEMAP DE GRACA (FEED-LIGADO, 27/09) ──────────────────────────────────────────────────────────
+// O robots.txt ja e pedido; as linhas `Sitemap:` vinham nele e eram deitadas fora. Guardam-se (no
+// resumo da corrida, por origem) para se MEDIR quantos sites declaram sitemap. NAO e estrategia nova:
+// nenhum pedido sai por causa delas. So se declara estrategia depois de caso medido.
+export function sitemapsDoRobots(txt) {
+  const fora = [];
+  for (const bruta of String(txt ?? "").split(/\r\n|\r|\n/)) {
+    const m = bruta.replace(/#.*$/, "").trim().match(/^sitemap\s*:\s*(\S+)$/i);
+    if (m && !fora.includes(m[1])) fora.push(m[1]);
+  }
+  return fora;
+}
+
+// ── O ROBOTS UMA VEZ POR DOMINIO POR 24 H (FEED-LIGADO, 27/09) ─────────────────────────────────────
+// MEDIDO (coordenador): cada fonte da onda e um processo, e cada processo pedia o robots outra vez —
+// no cia.it isso custou 1 documento do teto de 5. O robots lido fica ao lado do livro de 24 h
+// (`<SINTONIA_TETO_24H>.robots.json`, o mesmo directorio, o mesmo relogio de 24 h) e o processo seguinte
+// le-o em vez de o pedir.
+//
+//     O QUE SE REUSA: so o que foi LIDO (o texto inteiro, relido pelo mesmo leitor) e o AUSENTE (404/410,
+//     a regra da casa: sem ficheiro nao ha proibicao — `scrap_http._carregar_robots`).
+//     O QUE NUNCA SE REUSA: ILEGIVEL e INDISPONIVEL (volta a pedir-se na corrida seguinte, e nesta a
+//     porta continua fechada), entrada velha (> 24 h), entrada sem texto, livro que nao se le.
+//
+//     UM LIVRO QUE NAO SE LE, OU UMA ENTRADA QUE NAO SE ENTENDE, NAO E PERMISSAO: E UM PEDIDO AO ROBOTS.
+//
+// Sem livro de 24 h (SINTONIA_TETO_24H vazio) nada se guarda entre corridas: vale o de sempre, uma vez
+// por origem e por corrida. O livro das reservas NAO muda de forma (o gemeo Python reescreve-o so com
+// RESERVAS[]); por isso o robots vive num ficheiro irmao, e nao dentro dele.
+const livroRobots24h = () => (livro24h() ? `${livro24h()}.robots.json` : null);
+export function robotsDoLivro24h(origem, { agora = Date.now() / 1000 } = {}) {
+  const f = livroRobots24h();
+  if (!f) return null;
+  let d;
+  try { d = JSON.parse(readFileSync(f, "utf8")); } catch { return null; }
+  const e = d && d.ROBOTS && d.ROBOTS[origem];
+  if (!e || !(Number(e.EM) > agora - JANELA_24H_S)) return null;
+  const quando = new Date(Number(e.EM) * 1000).toISOString();
+  if (e.ESTADO === "AUSENTE" && typeof e.PORQUE === "string")
+    return { estado: "AUSENTE", origemLida: e.ORIGEM_LIDA || null, doLivro24h: quando, porque: `${e.PORQUE} (livro de 24 h, lido em ${quando})` };
+  if (e.ESTADO === "LIDO" && typeof e.TEXTO === "string") {
+    const grupos = lerRobots(e.TEXTO);
+    return { estado: "LIDO", origemLida: e.ORIGEM_LIDA || null, grupos, crawlDelay: grupoQueVale(grupos)?.crawlDelay ?? null,
+             sitemaps: sitemapsDoRobots(e.TEXTO), texto: e.TEXTO, doLivro24h: quando,
+             porque: `robots.txt lido em ${quando} (livro de 24 h; nao re-pedido)` };
+  }
+  return null;
+}
+function guardarRobots24h(origens, rb, { agora = Date.now() / 1000 } = {}) {
+  const f = livroRobots24h();
+  if (!f || rb.doLivro24h || !["LIDO", "AUSENTE"].includes(rb.estado)) return;
+  let d = {};
+  try { d = JSON.parse(readFileSync(f, "utf8")); } catch { d = {}; }
+  const R = (d && typeof d.ROBOTS === "object" && d.ROBOTS) || {};
+  for (const [o, e] of Object.entries(R)) if (!(Number(e?.EM) > agora - 2 * JANELA_24H_S)) delete R[o];
+  for (const o of origens) if (o)
+    R[o] = { ESTADO: rb.estado, EM: agora, ORIGEM_LIDA: rb.origemLida || null, PORQUE: rb.porque,
+             ...(rb.estado === "LIDO" ? { TEXTO: rb.texto } : {}) };
+  // rename por cima: dois processos a escrever ao mesmo tempo perdem, no pior caso, uma entrada — e
+  // uma entrada perdida e um robots pedido outra vez, nunca uma permissao a mais.
+  // Nao conseguir escrever o livro nao para a corrida: o robots desta corrida ja foi lido; o processo
+  // seguinte so o pede outra vez.
+  const tmp = `${f}.${process.pid}.tmp`;
+  try { writeFileSync(tmp, JSON.stringify({ ROBOTS: R })); renameSync(tmp, f); }
+  catch { rmSync(tmp, { force: true }); }
 }
 
 // A licenca para UM endereco: teto, robots (lido uma vez por origem), teto outra vez.
@@ -609,8 +706,14 @@ async function licenca(url) {
   if (tetoAtingido(host)) return { recusado: motivoDoTeto(), porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos ao dominio ${orcamentoDe(host)} ${livroDaOnda() ? "nesta onda" : "nesta corrida"}` };
   let rb = CORTESIA.robots.get(u.origin);
   if (!rb) {
-    rb = await robotsDaOrigem(u.origin);
-    if (rb.recusado) return rb;
+    // FEED-LIGADO: primeiro o livro de 24 h (outro processo da onda ja o leu); so depois a rede.
+    rb = robotsDoLivro24h(u.origin);
+    if (rb) CORTESIA.pedidos.ROBOTS_DO_LIVRO_24H++;
+    else {
+      rb = await robotsDaOrigem(u.origin);
+      if (rb.recusado) return rb;
+      guardarRobots24h([u.origin, rb.origemLida], rb);
+    }
     // INDISPONIVEL nao fica em cache (a regra de scrap_http.permitido).
     // Guarda-se para a origem pedida E para a origem cujo ficheiro se leu no fim
     // dos saltos (a mesma, quase sempre). Uma so instrucao, de proposito: duas
@@ -627,7 +730,60 @@ async function licenca(url) {
   return { host, crawlDelay: rb.crawlDelay ?? null };
 }
 
-async function baixar(url, tentativas = 2) {
+// ── O PEDIDO CONDICIONAL (FEED-LIGADO, 27/09) ──────────────────────────────────────────────────────
+// ⚠️ MEDIDO ANTES DE ESCREVER: o ETag NAO era guardado. `regras/incrementalidade.mjs:241-244` ja o
+// dizia («o coletor nunca os pediu, nunca os gravou») e este ficheiro tinha zero ocorrencias de ETag.
+//
+// Guarda-se agora, mas NAO no livro de observacoes, e isso e a decisao: `memoriaDosDetalhes()` le
+// `HTTP_ETAG` do livro e, havendo-o, `decidirSobreDetalhe()` devolve REVALIDATE com a razao
+// CONDITIONAL_REQUEST_AVAILABLE — toda materia conhecida passava a ser revisitada em toda corrida, e
+// cada 304 gasta um lugar do teto. Isso e o contrario do que se pediu (mais documentos com o MESMO teto).
+//
+//     O VALIDADOR SO SERVE A UM PEDIDO QUE JA IA ACONTECER: o indice/feed (revisitado sempre, por lei)
+//     e a materia que a regra ja mandou revalidar por outra razao. Nunca cria uma ida.
+//
+// A copia (bytes + ETag + Last-Modified da ultima resposta 200) vive em
+// `<ITALY_OPS_ROOT>/data/collection-cache/italy/http/`. Um 304 devolve essa copia, marcada `deCache304`,
+// e SO se o sha256 dela bater com o que ficou escrito — copia trocada nao passa por boa.
+// O 304 E UM PEDIDO: saiu por `umaIda()`, reservou no livro de 24 h e contou no teto.
+const CACHE_HTTP = `${RAIZ}/data/collection-cache/italy/http`;
+const caminhoDoCache = (url) => `${CACHE_HTTP}/${sha(Buffer.from(url, "utf8")).slice(0, 32)}`;
+export function lerCacheHttp(url) {
+  const base = caminhoDoCache(url);
+  try {
+    const m = JSON.parse(readFileSync(`${base}.json`, "utf8"));
+    if (m.URL !== url || !(m.ETAG || m.LAST_MODIFIED)) return null;
+    return m;
+  } catch { return null; }
+}
+function bytesDoCache(url, m) {
+  try {
+    const b = readFileSync(`${caminhoDoCache(url)}.bin`);
+    return sha(b) === m.BYTES_SHA256 ? b : null;
+  } catch { return null; }
+}
+function gravarCacheHttp(url, r) {
+  const v = r.validadores || {};
+  if (r.status !== 200 || !r.buf?.length || !(v.ETAG || v.LAST_MODIFIED)) return;
+  // Uma copia que nao se consegue escrever e so uma copia a menos: a proxima ida pede inteiro.
+  try {
+    mkdirSync(CACHE_HTTP, { recursive: true });
+    const base = caminhoDoCache(url);
+    writeFileSync(`${base}.bin`, r.buf);
+    writeFileSync(`${base}.json`, JSON.stringify({ URL: url, ETAG: v.ETAG, LAST_MODIFIED: v.LAST_MODIFIED,
+      BYTES_SHA256: sha(r.buf), CONTENT_TYPE: r.contentType ?? null, EM: agora() }));
+  } catch { esquecerCacheHttp(url); }
+}
+function esquecerCacheHttp(url) {
+  const base = caminhoDoCache(url);
+  rmSync(`${base}.json`, { force: true }); rmSync(`${base}.bin`, { force: true });
+}
+export function cabecalhosCondicionais(m) {
+  if (!m) return [];
+  return [...(m.ETAG ? [`If-None-Match: ${m.ETAG}`] : []), ...(m.LAST_MODIFIED ? [`If-Modified-Since: ${m.LAST_MODIFIED}`] : [])];
+}
+
+async function baixar(url, tentativas = 2, { condicional = false } = {}) {
   let atual = url, foiARede = false;
   for (let salto = 0; salto <= CORTESIA.cfg.MAX_SALTOS; salto++) {
     const lic = await licenca(atual);
@@ -644,8 +800,29 @@ async function baixar(url, tentativas = 2) {
       if (i > 1 && tetoAtingido(lic.host))
         return { erro: `CORTESIA ${motivoDoTeto()}: retentativa recusada, teto de ${CORTESIA.cfg.TETO_POR_HOST} esgotado`, status: 0, tentativas: i - 1, recusado: motivoDoTeto(), foiARede, retry_permitido: false };
       try {
-        r = await umaIda(atual, lic.host, "FONTE", lic.crawlDelay);
+        // So o endereco PEDIDO leva validador (um salto e outro endereco, com outra copia).
+        const copia = condicional && atual === url ? lerCacheHttp(url) : null;
+        r = await umaIda(atual, lic.host, "FONTE", lic.crawlDelay,
+                         condicional ? { cabecalhos: cabecalhosCondicionais(copia) } : null);
         r.tentativas = i;
+        if (copia) CORTESIA.pedidos.CONDICIONAL_ENVIADO++;
+        if (condicional && atual === url) {
+          if (r.status === 304) {
+            CORTESIA.pedidos.NAO_MODIFICADO_304++;
+            const b = copia ? bytesDoCache(url, copia) : null;
+            if (!b) {
+              // 304 sem copia que se possa provar: nao se inventa o corpo. A copia sai, e a proxima
+              // corrida pede inteiro. O pedido ja foi gasto e conta — e isso fica dito no erro.
+              esquecerCacheHttp(url);
+              return { erro: `HTTP 304 sem copia verificavel de ${url} — o pedido contou no teto; a proxima corrida pede inteiro`,
+                       status: 304, tentativas: i, foiARede, retry_permitido: false };
+            }
+            const { destino, validadores, ...resto } = r;
+            return { ...resto, buf: b, status: 200, contentType: copia.CONTENT_TYPE ?? null, foiARede,
+                     deCache304: true, HTTP_STATUS_REAL: 304, COPIA_DE: copia.EM };
+          }
+          gravarCacheHttp(url, r);
+        }
       } catch (e) {
         if (e.code === "TETO_24H")
           return { erro: `CORTESIA TETO_24H: ${e.message}`, status: 0, tentativas: i, recusado: "TETO_24H", foiARede, retry_permitido: false };
@@ -664,6 +841,12 @@ async function baixar(url, tentativas = 2) {
     return { ...resposta, foiARede, ...(atual !== url ? { URL_FINAL: atual } : {}) };
   }
   return { erro: `mais de ${CORTESIA.cfg.MAX_SALTOS} redireccionamentos a partir de ${url}`, status: 0, tentativas: 1, foiARede, retry_permitido: false };
+}
+
+// O corpo do feed guarda-se com um nome que o diz: `<materia>.body-from-feed.html`. Continua a acabar em
+// `.html` (e HTML), mas quem ler o armazem sem o livro ve que nao e a pagina.
+export function nomeDoCorpoDoFeed(nome) {
+  return String(nome || "documento.html").replace(/\.html?$/i, "") + ".body-from-feed.html";
 }
 
 // ---------- cadencia ----------
@@ -708,7 +891,9 @@ export async function alvosDe(sourceId, classificar = null) {
     return { erro: `COLETADO_POR_OUTRO_EXECUTOR: ${cp.EXECUTOR}/${cp.FASE} — este motor nao colhe ${sourceId}` };
   }
   if (c && c.ACQUISITION) {
-    return await alvosDoContrato(sourceId, c, { buscar: baixar, adapters: ADAPTERS, classificar });
+    // O indice/feed revisita-se sempre (decidirSobreIndice): e o pedido que o validador serve.
+    const buscar = (u) => baixar(u, 2, { condicional: true });
+    return await alvosDoContrato(sourceId, c, { buscar, adapters: ADAPTERS, classificar });
   }
   switch (sourceId) {
     case "IT-T3-005":
@@ -976,7 +1161,10 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     DETAIL_DEFERRED_BY_COURTESY: 0, DISCOVERY_NOT_REQUESTED_BY_COURTESY: 0,
     COURTESY_REFUSALS: {}, ROBOTS_REQUESTS: 0,
     // Quantas vezes a segunda defesa impediu o livro de mentir.
-    VOLATILE_ONLY_NOT_CHANGED: 0 };
+    VOLATILE_ONLY_NOT_CHANGED: 0,
+    // FEED-LIGADO (27/09): documentos cujo texto veio no feed — ZERO pedidos cada um. Nao entram em
+    // DETAIL_REQUESTS (nao sao idas); o robots reusado do livro de 24 h e o 304 contam-se ao lado.
+    BODY_FROM_FEED: 0, ROBOTS_FROM_24H_BOOK: 0, CONDITIONAL_SENT: 0, NOT_MODIFIED_304: 0 };
   const detalhes = [];
   // ⚠️ A MEMORIA CONSTROI-SE UMA VEZ, ANTES DA CORRIDA, e nao se actualiza a
   // meio de proposito: uma corrida decide com o que o livro sabia quando ela
@@ -1101,7 +1289,9 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
           COLLECTION_RUN_STARTED_AT: STARTED_AT });
         continue;
       }
-      if (penduradaNestaFonte) {
+      // FEED-LIGADO: o item cujo texto completo veio no feed nao bate a porta — nao ha pedido a adiar.
+      const doFeed = alvo.corpoDoFeed || null;
+      if (penduradaNestaFonte && !doFeed) {
         cont.DETAIL_DEFERRED_AFTER_TIMEOUT++;
         detalhes.push({ RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: alvo.url,
           DECISAO: "DEFERRED_AFTER_TIMEOUT",
@@ -1140,8 +1330,14 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       //
       //     UM MEDIDOR QUE SO CONTA A REDE REAL NAO MEDE
       //     UMA CORRIDA SEM REDE. CONTA-SE O TRANSPORTE, VENHA DE ONDE VIER.
-      if (forcarBuf) REDE.total++;
-      const r = forcarBuf ? { buf: forcarBuf(sourceId, alvo), status: 200, tentativas: 1 } : await baixar(alvo.url);
+      if (forcarBuf && !doFeed) REDE.total++;
+      // ── O CORPO QUE VEIO NO FEED (FEED-LIGADO, 27/09) ─────────────────────────────────────────────
+      // Zero pedidos: os bytes sao o <content:encoded> do item, tal como o feed os trouxe (so sem o
+      // invólucro do XML). NAO E A PAGINA — vai rotulado BODY_FROM_FEED, com o nome do ficheiro a dize-lo
+      // tambem. A materia que o livro manda REVALIDAR leva o validador guardado (pedido condicional).
+      const r = doFeed ? { buf: Buffer.from(doFeed.CORPO, "utf8"), status: 200, tentativas: 0 }
+        : forcarBuf ? { buf: forcarBuf(sourceId, alvo), status: 200, tentativas: 1 }
+        : await baixar(alvo.url, 2, { condicional: decisao.DECISAO === "REVALIDATE" });
       // ── A MATERIA QUE A CORTESIA NAO DEIXOU PEDIR ──────────────────────────
       // Robots proibe o caminho, robots ilegivel/indisponivel, teto do site
       // esgotado: o pedido NAO saiu. Nao e observacao (nao vai ao livro), nao e
@@ -1157,7 +1353,8 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
           COLLECTION_RUN_STARTED_AT: STARTED_AT });
         continue;
       }
-      contarIda();
+      if (doFeed) cont.BODY_FROM_FEED++;
+      else contarIda();
       const CAPTURED_AT = agora();
 
       if (r.erro || r.status !== 200 || !r.buf?.length) {
@@ -1171,7 +1368,9 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       const sig = assinatura(r.buf);
       const esperado = c.EXPECTED_SIGNATURE === "%PDF" ? "PDF" : c.EXPECTED_SIGNATURE === "<" ? "HTML" : c.EXPECTED_SIGNATURE === "PK" ? "ZIP" : null;
       const csvOk = !esperado ? String(r.buf.subarray(0, 400)).includes(String(c.EXPECTED_SIGNATURE)) : true;
-      if ((esperado && sig !== esperado) || !csvOk) {
+      // A assinatura do contrato e a da PAGINA; o corpo do feed e um recorte de HTML que pode comecar
+      // por texto. Nao se lhe pede a assinatura da pagina — e por isso ele nunca se diz pagina.
+      if (!doFeed && ((esperado && sig !== esperado) || !csvOk)) {
         saudeFonte = "FAILED";
         const obs = { RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: alvo.url, DOCUMENT_ID: null, RAW_SHA256: sha(r.buf), HEALTH_STATE: "FAILED", OBSERVATION_RESULT: "BYTE_VALIDATION_FAILED", motivo: `esperava ${esperado || c.EXPECTED_SIGNATURE}, chegou ${sig} — HTTP 200 nao salva isto`, CAPTURED_AT, COLLECTION_RUN_STARTED_AT: STARTED_AT };
         gravar(obs); detalhes.push(obs); continue;
@@ -1284,7 +1483,8 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       // agora?»; `RAW_PATH` passa a responder «onde estao os bytes?». Sao duas
       // perguntas. `guardarRaw` ja era idempotente: se o ficheiro esta la,
       // devolve o sitio e nao escreve.
-      const g = guardarRaw(sourceId, ident.DOCUMENT_ID, DOCUMENT_VERSION_ID, alvo.nome, r.buf);
+      const nomeRaw = doFeed ? nomeDoCorpoDoFeed(alvo.nome) : alvo.nome;
+      const g = guardarRaw(sourceId, ident.DOCUMENT_ID, DOCUMENT_VERSION_ID, nomeRaw, r.buf);
       const rawCriado = g.criado, rawDir = g.dir;
       if (g.criado) cont.RAW_OBJECTS_CREATED++;
 
@@ -1357,7 +1557,20 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         // honesta, e nao um tipo fabricado para uma corrida sem rede.
         CONTENT_TYPE: r.contentType ?? null,
         SOURCE_DATE: ident.SOURCE_DATE, SOURCE_DATE_ISO: ident.SOURCE_DATE_ISO,
-        FACT_TIME: ident.FACT_TIME ?? "UNKNOWN",
+        // O corpo do feed nunca data o facto: a data que o acompanha e a de publicacao, nivel indice.
+        FACT_TIME: doFeed ? "UNKNOWN" : (ident.FACT_TIME ?? "UNKNOWN"),
+        // ── O QUE ESTES BYTES SAO (FEED-LIGADO) ───────────────────────────────────────────────────
+        // Presente SO no corpo do feed: `RAW_EVIDENCE_STATE` e o vocabulario da casa para dizer que
+        // especie de evidencia esta no RAW (COL-LAW-007: RAW != DERIVADO). O corpo do feed NAO e
+        // RAW_PRESERVED da pagina: e o recorte que a fonte publicou no feed.
+        ...(doFeed ? {
+          RAW_EVIDENCE_STATE: "BODY_FROM_FEED",
+          BODY_FROM_FEED: { CAMPO: doFeed.CAMPO, FEED_URL: doFeed.FEED_URL, FEED_SHA256: doFeed.FEED_SHA256,
+                            ...(doFeed.FEED_304 ? { FEED_304: true } : {}),
+                            NAO_E_A_PAGINA: "o texto veio no feed; a pagina da materia nao foi pedida" },
+        } : {}),
+        // O pedido condicional que voltou 304: os bytes sao a copia guardada da ultima resposta 200.
+        ...(r.deCache304 ? { HTTP_STATUS_REAL: 304, HTTP_304_COPIA_DE: r.COPIA_DE } : {}),
         // D61/D62: data de emissao, periodo e area DECLARADOS PELO BOLETIM, cada um com a base — so
         // quando o contrato os declara (os nomes sao os da fronteira: coleta/ingresso.py). NAO SEI com
         // o porque quando o boletim nao os diz; o documento segue na mesma.
@@ -1382,7 +1595,7 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         HEALTH_STATE: parseErro && saudeFonte === "FAILED" ? "FAILED" : parseErro ? "DEGRADED" : "HEALTHY",
         CADENCE_STATE: cad.CADENCE_STATE, EXPECTED_NEXT_UPDATE: cad.EXPECTED_NEXT_UPDATE,
         DECLARED_FREQUENCY: c.DECLARED_FREQUENCY, OBSERVED_FREQUENCY: c.OBSERVED_FREQUENCY,
-        RAW_OBJECT_CREATED: rawCriado, RAW_PATH: rawDir ? `${rawDir}/${alvo.nome}` : null,
+        RAW_OBJECT_CREATED: rawCriado, RAW_PATH: rawDir ? `${rawDir}/${nomeRaw}` : null,
         RAW_PRESERVED_BEFORE_PARSE: true,
         // ── O QUE A SEGUNDA DEFESA VIU, quando teve o que comparar ─────────
         // Condicional, como `RESOLVED_STRUCTURED_TARGET`: estes campos so
@@ -1434,6 +1647,9 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   // nenhuma e o numero e zero — o que tambem e verdade.
   cont.INDEX_REQUESTS = Math.max(0, REDE.total - cont.DETAIL_REQUESTS);
   cont.ROBOTS_REQUESTS = CORTESIA.pedidos.ROBOTS;
+  cont.ROBOTS_FROM_24H_BOOK = CORTESIA.pedidos.ROBOTS_DO_LIVRO_24H;
+  cont.CONDITIONAL_SENT = CORTESIA.pedidos.CONDICIONAL_ENVIADO;
+  cont.NOT_MODIFIED_304 = CORTESIA.pedidos.NAO_MODIFICADO_304;
   const resumo = {
     RUN_ID, STARTED_AT, FINISHED_AT,
     IS_BASELINE: primeira,
@@ -1450,7 +1666,11 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     CORTESIA: forcarBuf ? "NAO_SE_APLICA" : {
       PAUSA_MINIMA_S: CORTESIA.cfg.PAUSA_S, TETO_POR_HOST: CORTESIA.cfg.TETO_POR_HOST,
       MAX_SALTOS: CORTESIA.cfg.MAX_SALTOS, EXCECOES: [...EXCECOES_DE_CORTESIA],
-      ROBOTS: Object.fromEntries([...CORTESIA.robots].map(([o, r]) => [o, { ESTADO: r.estado, CRAWL_DELAY: r.crawlDelay ?? null, PORQUE: r.porque }])),
+      ROBOTS: Object.fromEntries([...CORTESIA.robots].map(([o, r]) => [o, { ESTADO: r.estado, CRAWL_DELAY: r.crawlDelay ?? null, PORQUE: r.porque,
+        // FEED-LIGADO: as linhas `Sitemap:` que o robots ja trazia (so medida; nenhum pedido sai por elas)
+        // e de onde veio o robots desta corrida (pedido agora, ou o livro de 24 h).
+        ...(r.estado === "LIDO" ? { SITEMAPS: r.sitemaps || [] } : {}),
+        ORIGEM: r.doLivro24h ? `LIVRO_24H (${r.doLivro24h})` : "PEDIDO_NESTA_CORRIDA" }])),
       // Chave = o SITE (host sem `www.`), a mesma do teto e da pausa.
       PEDIDOS_POR_HOST: Object.fromEntries(CORTESIA.porHost),
       // D38: o teto conta-se por dominio registavel; com livro da onda, pela onda inteira.

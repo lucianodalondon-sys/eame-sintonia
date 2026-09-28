@@ -368,7 +368,7 @@
    "views": [
     "acervo"
    ],
-   "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte. Desde a FECHAR-ONDA2-B (25/09) o nome FISICO da pasta de cada documento vem de `nome_da_pasta.mjs`: igual ao de sempre quando serve; com `* ? \" < > |` ou mais de 255 bytes, percent-encoding reversivel + 12 hex do sha256 do DOCUMENT_ID — o DOCUMENT_ID no livro nao muda (na 2.a onda o `?redirect=%2F` da IT-T2-050 dava mkdir ENOENT). E o RETORNO.json do executor so diz SUCCESS quando o coletor nao falhou: com falha e FAILED (nada chegou) ou PARTIAL (algo chegou). Desde a REFERENCIA-MANUTENCAO (27/09) o corredor agendado aplica a CADENCIA do contrato (regras/cadencia_da_referencia.mjs) DEPOIS do portao de admissao, perguntando a ultima checagem ok a leis/frescor_da_referencia.py; quem nao declara cadencia continua a ser colhida todo dia.",
+   "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte. Desde a FECHAR-ONDA2-B (25/09) o nome FISICO da pasta de cada documento vem de `nome_da_pasta.mjs`: igual ao de sempre quando serve; com `* ? \" < > |` ou mais de 255 bytes, percent-encoding reversivel + 12 hex do sha256 do DOCUMENT_ID — o DOCUMENT_ID no livro nao muda (na 2.a onda o `?redirect=%2F` da IT-T2-050 dava mkdir ENOENT). E o RETORNO.json do executor so diz SUCCESS quando o coletor nao falhou: com falha e FAILED (nada chegou) ou PARTIAL (algo chegou). Desde a REFERENCIA-MANUTENCAO (27/09) o corredor agendado aplica a CADENCIA do contrato (regras/cadencia_da_referencia.mjs) DEPOIS do portao de admissao, perguntando a ultima checagem ok a leis/frescor_da_referencia.py; quem nao declara cadencia continua a ser colhida todo dia. FEED-LIGADO (27/09): o item cujo texto completo vem no feed (content:encoded) entra SEM pedido, rotulado RAW_EVIDENCE_STATE=BODY_FROM_FEED (nao e a pagina; o executor nao o le como pagina), com PUBLISHED_AT do feed e FACT_TIME UNKNOWN; o teto D40 de 3 so conta materias a PEDIR. O robots lido vale 24 h para os processos seguintes (`<SINTONIA_TETO_24H>.robots.json`, so LIDO e AUSENTE; ILEGIVEL, entrada sem texto ou livro ilegivel = pede-se outra vez, nunca permissao) e as linhas Sitemap: ficam no resumo (so medida). O indice/feed e a materia que ja ia ser revalidada levam If-None-Match/If-Modified-Since da copia guardada em data/collection-cache; o 304 conta no teto e no livro de 24 h. O ETag NAO vai ao livro de observacoes (ligaria a razao CONDITIONAL_REQUEST_AVAILABLE e revisitaria tudo).",
    "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
    "departments": [
     "INTELIGENCIA",
@@ -467,7 +467,7 @@
     "acervo",
     "audit"
    ],
-   "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA. Desde a REFERENCIA-MANUTENCAO (D116/D117, 27/09) IT-T4-001 declara CADENCIA (semanal na terca, retenta quarta e quinta) e ENDPOINTS_DE_REFERENCIA.ETICHETTE (bulas, rotacao ate 3/dia no teto do dominio); IT-T9-008 declara ENDPOINTS_DE_REFERENCIA.CATALOGO (portfolio, mensal + extraordinaria). Os executores das bulas e do catalogo ficam declarados como NAO LIGADOS.",
+   "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA. Desde a REFERENCIA-MANUTENCAO (D116/D117, 27/09) IT-T4-001 declara CADENCIA (semanal na terca, retenta quarta e quinta) e ENDPOINTS_DE_REFERENCIA.ETICHETTE (bulas, rotacao ate 3/dia no teto do dominio); IT-T9-008 declara ENDPOINTS_DE_REFERENCIA.CATALOGO (portfolio, mensal + extraordinaria). Os executores das bulas e do catalogo ficam declarados como NAO LIGADOS. FEED-LIGADO (27/09): uma linha da tabela onboarded pode declarar FEED_DISCOVERY — a entrada passa a ser o feed (FEED_URL) e o INDEX_URL fica so para a regra V1 da capa e o plano da onda. `regras/ligar_feeds.py` troca a aquisicao SO de linhas que ja existem (nunca cria contrato: isso e da ponte com portao e canario), guarda a ACQUISITION_ANTERIOR para `--desfazer`, e com `--conferir-feeds` le os corpos medidos com rede pelo motor verdadeiro e preve documentos/dia. O pacote dos 13 feeds medidos pelo coordenador e `regras/FEED-LIGADO-PACOTE.json` (IT-T5-186 fica de fora: o feed e de um evento).",
    "why_here": "Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.",
    "departments": [
     "ENGENHARIA",
@@ -486,7 +486,9 @@
     "regras/feed_discovery_test.mjs",
     "regras/ROTA-NAVEGADOR.json",
     "regras/identidade_do_motor_cli.mjs",
-    "regras/boletim_data_local_test.mjs"
+    "regras/boletim_data_local_test.mjs",
+    "regras/ligar_feeds.py",
+    "regras/FEED-LIGADO-PACOTE.json"
    ]
   },
   {
@@ -5212,7 +5214,12 @@
     "provas/teto_dominio_mutacao.py",
     "provas/TETO-DOMINIO-MUTACAO.json",
     "provas/onda_web_mutacao.py",
-    "provas/ONDA-WEB-MUTACAO.json"
+    "provas/ONDA-WEB-MUTACAO.json",
+    "provas/scrap_evolucao/feed_ligado_local.mjs",
+    "provas/scrap_evolucao/mutantes_feed_ligado.py",
+    "provas/scrap_evolucao/MUTANTES-FEED-LIGADO.json",
+    "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+    "provas/scrap_evolucao/SITEMAP-NO-ACERVO.json"
    ]
   },
   {

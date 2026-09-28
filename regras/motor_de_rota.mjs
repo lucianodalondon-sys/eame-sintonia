@@ -400,6 +400,41 @@ function isoOuNada(texto) {
   return Number.isFinite(t) ? new Date(t).toISOString() : null;
 }
 export const CAMPOS_DE_DATA_DO_FEED = Object.freeze(["pubDate", "dc:date", "published"]);
+
+// ── O CORPO QUE O PRÓPRIO FEED TRAZ (FEED-LIGADO, 27/09) ─────────────────────────────────────────────
+// Medido pelo coordenador com rede (27/09): 179 de 489 itens (36,6%) dos 13 feeds trazem o TEXTO COMPLETO
+// em <content:encoded> (mediana ~3.000 caracteres). Esse texto já chegou no pedido do feed: ir buscar a
+// matéria outra vez gasta um lugar do teto para trazer o que já está na mão.
+//
+//     O CORPO DO FEED NÃO É A PÁGINA. É o que a fonte pôs no feed, rotulado BODY_FROM_FEED.
+//
+// Só se tira a camada do XML (o invólucro CDATA ou as entidades do XML que escondem o HTML). O HTML de
+// dentro fica como veio: nada se limpa, nada se apaga (a peça C saiu da coleta). RSS: <content:encoded>;
+// Atom: <content> com type="html"/"xhtml" (o `type="text"` e o `src=` não são o corpo em HTML).
+// <description>/<summary> NÃO contam: no WordPress são o resumo, e resumo não é texto completo.
+export const CAMPO_DO_CORPO_NO_FEED = Object.freeze({ RSS: "content:encoded", ATOM: "content" });
+function desembrulharXml(t) {
+  // Cada troço CDATA fica literal; o que está fora dele tem as entidades do XML desfeitas. É o que um
+  // leitor de XML entregaria — e o WordPress parte «]]>» em dois CDATA, por isso não chega um só.
+  let fora = "";
+  for (const m of String(t).matchAll(/<!\[CDATA\[([\s\S]*?)\]\]>|((?:(?!<!\[CDATA\[)[\s\S])+)/g)) {
+    if (m[1] !== undefined) fora += m[1];
+    else fora += m[2].replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'")
+      .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+      .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))).replace(/&amp;/g, "&");
+  }
+  return fora;
+}
+function corpoDoItem(bloco, rss) {
+  const re = rss ? /<content:encoded\b[^>]*>([\s\S]*?)<\/content:encoded>/i
+                 : /<content\b([^>]*)>([\s\S]*?)<\/content>/i;
+  const m = bloco.match(re);
+  if (!m) return null;
+  if (!rss && !/\btype\s*=\s*["'](?:x?html)["']/i.test(m[1])) return null;
+  const corpo = desembrulharXml(rss ? m[1] : m[2]);
+  return corpo.trim() ? corpo : null;
+}
+
 export function itensDoFeed(xml, base) {
   const out = [];
   for (const m of String(xml).matchAll(RE_ITEM_DO_FEED)) {
@@ -420,7 +455,10 @@ export function itensDoFeed(xml, base) {
     }
     let url;
     try { url = new URL(href, base).href; } catch { continue; }
-    out.push({ url, titulo: dentroDoItem(bloco, "title"), campoData: campo, dataTexto: texto, publicado: isoOuNada(texto) });
+    const rss = m[1].toLowerCase() === "item";
+    const corpo = corpoDoItem(bloco, rss);
+    out.push({ url, titulo: dentroDoItem(bloco, "title"), campoData: campo, dataTexto: texto, publicado: isoOuNada(texto),
+               ...(corpo ? { corpo, campoCorpo: rss ? CAMPO_DO_CORPO_NO_FEED.RSS : CAMPO_DO_CORPO_NO_FEED.ATOM } : {}) });
   }
   return out;
 }
@@ -709,6 +747,9 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
       return { erro: "EMPTY_LIST — o feed nao anuncia nenhum item do proprio site" };
     }
     const porUrl = new Map(itens.map((it) => [it.url, it]));
+    // A impressao dos bytes do feed tal como chegaram: o corpo de um item e um recorte DELES, e quem o
+    // guardar diz de que resposta saiu.
+    const feedSha = createHash("sha256").update(f.buf).digest("hex");
     // O que o feed diz de cada item viaja no alvo: o titulo (LINK_TEXT, como o DA-13) e a data de
     // publicacao NIVEL INDICE — que o coletor so escreve se o contrato nao a declarar por outra via.
     const comFeed = (as) => {
@@ -720,14 +761,40 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
           VALOR: it.publicado, TEXTO: it.dataTexto, CAMPO: it.campoData,
           BASE: `FEED ${it.campoData} em ${aq.FEED_URL} — data de publicacao declarada pela fonte, nivel indice; nunca FACT_TIME`,
         } : { VALOR: null, BASE: `NAO SEI: o item do feed ${aq.FEED_URL} nao declara ${CAMPOS_DE_DATA_DO_FEED.join("/")}` };
+        // FEED-LIGADO: o item que traz o texto completo NAO pede a materia — o corpo viaja no alvo, com o
+        // rotulo e a origem. Quem o guarda (o coletor) e que diz BODY_FROM_FEED no livro.
+        if (it.corpo) a.corpoDoFeed = { CORPO: it.corpo, CAMPO: it.campoCorpo, FEED_URL: aq.FEED_URL, FEED_SHA256: feedSha,
+                                        ...(f.deCache304 ? { FEED_304: true } : {}) };
       }
       return as;
     };
-    const urls = itens.map((it) => it.url);
     const nomeDe = (url) => nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE);
-    if (typeof classificar === "function") return comFeed(escolherAlvosD40(urls, classificar, nomeDe));
+    // ── O TETO CONTA PEDIDOS, E O ITEM COM CORPO NAO PEDE NADA ─────────────────────────────────────
+    // D40 corta em 3 MATERIAS A PEDIR (robots + feed + 3 = 5, D38). O item cujo texto ja veio no feed nao
+    // bate a porta, e por isso nao ocupa um desses 3 lugares: vai a parte, sem corte (o feed ja e o
+    // limite — o WordPress poe 10). O livro continua a mandar nele: o CONHECIDO nao volta a entrar.
+    const comCorpo = itens.filter((it) => it.corpo).map((it) => it.url);
+    const semCorpo = itens.filter((it) => !it.corpo).map((it) => it.url);
+    if (typeof classificar === "function") {
+      const aPedir = escolherAlvosD40(semCorpo, classificar, nomeDe);
+      let conhecidos = 0, listas = 0;
+      const doFeed = [];
+      for (const url of comCorpo) {
+        if (ePaginaDeLista(url)) { listas++; continue; }
+        if (classificar(url) === "CONHECIDO") { conhecidos++; continue; }
+        doFeed.push({ url, nome: nomeDe(url) });
+      }
+      const alvos = [...doFeed, ...aPedir];
+      const d = aPedir.D40;
+      Object.defineProperty(alvos, "D40", { value: {
+        NO_INDICE: itens.length, LISTAS_RECUSADAS: d.LISTAS_RECUSADAS + listas,
+        CONHECIDOS_SALTADOS: d.CONHECIDOS_SALTADOS + conhecidos, NOVOS: d.NOVOS, REVISITAS: d.REVISITAS,
+        ESCOLHIDOS: alvos.length, A_PEDIR: aPedir.length, CORPO_DO_FEED: doFeed.length,
+        VAZIO_HONESTO: alvos.length === 0 } });
+      return comFeed(alvos);
+    }
     const limite = Number.isInteger(aq.MAX_TARGETS) ? aq.MAX_TARGETS : ALVOS_POR_FONTE_D40;
-    return comFeed(urls.slice(0, limite).map((url) => ({ url, nome: nomeDe(url) })));
+    return comFeed([...comCorpo, ...semCorpo.slice(0, limite)].map((url) => ({ url, nome: nomeDe(url) })));
   }
 
   // CUSTOM_ADAPTER — o contrato NOMEIA; o registry resolve. O despachador
