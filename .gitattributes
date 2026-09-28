@@ -51,3 +51,5 @@ tests/dados/leitor-data-yt/** -text
 # SHA-256 do raw_asset da Sala; sem -text o autocrlf mudava os bytes e o teste caia.
 tests/dados/c2-juiz/** -text
 tests/dados/lugar_v2/** -text
+# DERIVACAO-ESTRUTURA (28/09): o RAW 2272 real (sha256 f2158520...) — byte a byte, sem CRLF.
+tests/fixtures/canario_1149/** -text -diff

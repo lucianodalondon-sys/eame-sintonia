@@ -81,6 +81,7 @@ import _gavetas  # noqa: E402,F401
 import artefato as art  # noqa: E402
 import proveniencia as pv  # noqa: E402
 
+from coleta import texto_fonte as _texto_fonte  # noqa: E402 — a régua, para a receita
 from coleta.texto_fonte import limpar  # noqa: E402 — O DONO ÚNICO DA EXTRAÇÃO
 
 # ── A FICHA DE CAPACIDADE ───────────────────────────────────────────────────
@@ -93,7 +94,16 @@ EXECUTOR_ID = "texto-de-html"
 # voltar a mudar a receita sem subir isto.
 #
 #     RECEITA NOVA = VERSAO NOVA.
-EXECUTOR_VERSION = "2"
+#
+# ⚠️ "3" DESDE 28/09 (DERIVACAO-ESTRUTURA). `limpar()` passou a dar `\n` nas
+# etiquetas de bloco (antes achatava a pagina numa linha so: RAW 2272, 1 -> 80
+# linhas). O TEXTO muda, e ate aqui a receita NAO mudava com ele: a receita
+# dizia quem extrai, nunca como. Agora a REGUA entra na receita (`receita()`:
+# `TEXT_RULE` + `TEXT_RULE_PROBE_SHA256`), e o derivado achatado ("2") e o
+# estruturado ("3") do mesmo RAW nunca tem a mesma identidade.
+#
+#     REGUA NOVA = RECEITA NOVA = VERSAO NOVA.
+EXECUTOR_VERSION = "3"
 PIPELINE_VERSION = "1"
 
 #: As espécies exactas que esta ponte abre.
@@ -298,6 +308,146 @@ BASE_ITEMPROP = "meta itemprop datePublished"
 BASE_INDICE = "INDICE"
 ORDEM_DA_PUBLICACAO = (BASE_JSON_LD, BASE_META, BASE_TIME, BASE_ITEMPROP, BASE_INDICE)
 
+# ── O NÍVEL ESTREITO: DIV.content-date AO LADO DE content-category (28/09) ──
+#
+# Medido no RAW 2272 (CREA, derived:1149): a página escreve a publicação só
+# aqui, e os cinco níveis de cima calam-se todos —
+#
+#     <div class="content-metadata">
+#       <div class="content-category">COMUNICATO STAMPA</div> &nbsp;…&nbsp;
+#       <div class="content-date"> 22 giu 2026 </div>
+#     </div>
+#
+# ⚠️ POR QUE ESTREITO, E NÃO «CLASSE COM date» (parecer do Scrap Engineer, §3,
+# medido em 463 páginas): uma regra larga casa em 218 delas, com veneno lá
+# dentro — «2 settimane fa» (relativo, D62), «Data di aggiornamento» (rótulo),
+# três datas da barra lateral «últimos artigos» (o defeito do IT-T7-021),
+# «15/09/2026» (ambíguo), a data de um EVENTO. Por isso este nível lê SÓ:
+#
+#   1. um `div` cuja classe TEM o token `content-date` (token, não substring),
+#   2. filho DIRECTO de um `div` `content-metadata`,
+#   3. que tenha, como irmão directo, um `div` `content-category`;
+#   4. e o valor INTEIRO tem de ser uma data completa `DD mmm AAAA` em italiano
+#      (`normalizar_data_italiana`); qualquer outra coisa é NAO SEI com porquê;
+#   5. mais de um campo destes na página = NAO SEI (não se escolhe).
+#
+# ⚠️ SÓ FALA DEPOIS DOS CINCO. Fica FORA de `ORDEM_DA_PUBLICACAO` (a ordem da
+# D61) e entra no fim: onde qualquer nível de cima responde, este nem é lido —
+# nenhum valor que já se lia muda. PRECISÃO = DIA (o campo não escreve hora).
+# E, como os outros, NUNCA vira FACT_TIME.
+BASE_CONTENT_DATE = "DIV.content-date (irmão de content-category)"
+ORDEM_COMPLETA = ORDEM_DA_PUBLICACAO + (BASE_CONTENT_DATE,)
+
+#: Os meses italianos, por extenso e abreviados, como a prosa os escreve.
+MESES_IT = {
+    "gen": 1, "genn": 1, "gennaio": 1,
+    "feb": 2, "febb": 2, "febbraio": 2,
+    "mar": 3, "marzo": 3,
+    "apr": 4, "aprile": 4,
+    "mag": 5, "maggio": 5,
+    "giu": 6, "giugno": 6,
+    "lug": 7, "luglio": 7,
+    "ago": 8, "agosto": 8,
+    "set": 9, "sett": 9, "settembre": 9,
+    "ott": 10, "ottobre": 10,
+    "nov": 11, "novembre": 11,
+    "dic": 12, "dicembre": 12,
+}
+_RE_DATA_IT = re.compile(
+    r"^(\d{1,2})\s+(%s)\.?\s+(\d{4})$"
+    % "|".join(sorted(MESES_IT, key=len, reverse=True)), re.I)
+
+
+def normalizar_data_italiana(valor) -> tuple:
+    """«22 giu 2026» → `("2026-06-22", "DIA")`; qualquer outra coisa → `(None, porque)`.
+
+    A régua de prosa italiana, estreita de propósito: o valor INTEIRO tem de
+    ser dia · mês (12 meses, abreviado com ou sem ponto, ou por extenso) · ano
+    de quatro algarismos. Espaços e `&nbsp;` à volta toleram-se. Relativo
+    («2 settimane fa»), rótulo («Data di…»), intervalo, dia da semana à frente,
+    data numérica — tudo `None`. D62 continua de pé: nada relativo vira data.
+    """
+    s = re.sub(r"[\s\xa0]+", " ", html.unescape(str(valor or ""))).strip()
+    m = _RE_DATA_IT.match(s)
+    if not m:
+        return None, "nao e data completa DD mmm AAAA em italiano: %r" % s[:40]
+    d, mes, a = int(m.group(1)), MESES_IT[m.group(2).lower()], int(m.group(3))
+    try:
+        dia = datetime.date(a, mes, d)
+    except ValueError:
+        return None, "data impossivel: %r" % s[:40]
+    return dia.isoformat(), "DIA"
+
+
+def _classes(attrs) -> set:
+    for nome, v in attrs:
+        if nome == "class":
+            return set(str(v or "").split())
+    return set()
+
+
+def _campo_da_data(classes) -> bool:
+    return "content-date" in classes
+
+
+def _campo_da_categoria(classes) -> bool:
+    return "content-category" in classes
+
+
+def _campos_content_date(texto: str) -> tuple:
+    """(valores dos campos que passam na estrutura, notas do que ficou de fora).
+
+    Só `div`s contam para a árvore: `<br>`, `<img>` e companhia não fecham, e
+    contá-los partiria a profundidade. Um `div` por fechar no fim da página não
+    é avaliado (não se adivinha onde acabava).
+    """
+    from html.parser import HTMLParser  # noqa: PLC0415 — biblioteca padrão
+
+    valores, notas = [], []
+
+    class _Leitor(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.pilha = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag != "div":
+                return
+            self.pilha.append({"classes": _classes(attrs), "texto": [],
+                               "filhos": []})
+
+        def handle_data(self, data):
+            for f in self.pilha:
+                if _campo_da_data(f["classes"]) or _campo_da_categoria(f["classes"]):
+                    f["texto"].append(data)
+
+        def handle_endtag(self, tag):
+            if tag != "div" or not self.pilha:
+                return
+            f = self.pilha.pop()
+            if self.pilha:
+                self.pilha[-1]["filhos"].append(f)
+            if _campo_da_data(f["classes"]) and not (
+                    self.pilha and "content-metadata" in self.pilha[-1]["classes"]):
+                notas.append("content-date fora de content-metadata: ignorado")
+            if "content-metadata" not in f["classes"]:
+                return
+            datas = [x for x in f["filhos"] if _campo_da_data(x["classes"])]
+            cats = [x for x in f["filhos"] if _campo_da_categoria(x["classes"])]
+            if not datas:
+                return
+            if not cats:
+                notas.append("content-date sem irmão content-category: ignorado")
+                return
+            for x in datas:
+                valores.append("".join(x["texto"]))
+
+    try:
+        _Leitor().feed(texto)
+    except Exception as e:                                       # noqa: BLE001
+        notas.append("HTML nao lido: %s" % type(e).__name__)
+    return valores, notas
+
 _RE_LD = re.compile(
     r"<script[^>]*type\s*=\s*[\"']application/ld\+json[\"'][^>]*>(.*?)</script>",
     re.I | re.S)
@@ -487,6 +637,23 @@ def tempo_de_publicacao(dados, data_no_indice=None) -> dict:
         return {"VALOR": iso, "BASE": base, "PRECISAO": prec,
                 "ORIGINAL": original,
                 "PORQUE": "; ".join(viu + ["%s: %s" % (base, original)])}
+
+    # ── o nível estreito: SÓ É LIDO AQUI, depois de os cinco se calarem ──
+    brutas, notas = _campos_content_date(texto)
+    brutas = [" ".join(b.split()) for b in brutas]
+    if not brutas:
+        viu.append("%s: ausente" % BASE_CONTENT_DATE + (
+            " (%s)" % "; ".join(sorted(set(notas))) if notas else ""))
+    elif len(brutas) > 1:
+        viu.append("%s: AMBIGUO, %d campos (%s)" % (
+            BASE_CONTENT_DATE, len(brutas), ", ".join(repr(b[:30]) for b in brutas[:4])))
+    else:
+        iso, prec = normalizar_data_italiana(brutas[0])
+        if iso:
+            return {"VALOR": iso, "BASE": BASE_CONTENT_DATE, "PRECISAO": prec,
+                    "ORIGINAL": brutas[0],
+                    "PORQUE": "; ".join(viu + ["%s: %s" % (BASE_CONTENT_DATE, brutas[0])])}
+        viu.append("%s: %s" % (BASE_CONTENT_DATE, prec))
     return {"VALOR": art.NAO_SEI, "BASE": art.NAO_SEI, "PRECISAO": art.NAO_SEI,
             "ORIGINAL": art.NAO_SEI,
             "PORQUE": "NAO SEI — " + "; ".join(viu)}
@@ -715,6 +882,13 @@ def receita():
     Um so sitio: `derivar_um` usa-a para escrever e `coleta/extratores_de_texto.py`
     para re-extrair (D79). Mudar isto sem subir `EXECUTOR_VERSION` reprova em
     `tests/test_a_receita_tem_versao.py`.
+
+    ⚠️ A REGUA DE EXTRACAO E RECEITA (DERIVACAO-ESTRUTURA, 28/09). `TEXT_OWNER`
+    diz QUEM extrai; `TEXT_RULE` diz COMO (o nome que o dono da extracao da a
+    regua), e `TEXT_RULE_PROBE_SHA256` e o sha256 do que `limpar()` devolve
+    para a SONDA fixa do dono. Mudar o COMPORTAMENTO de `limpar()` move a
+    impressao, logo o `parameters_hash`, logo reprova o teste da receita ate a
+    versao subir. O mesmo RAW, por duas reguas, nunca da a mesma identidade.
     """
     return {
         "TEXT_KIND": TEXT_KIND,
@@ -722,6 +896,8 @@ def receita():
         "TEXT_BASIS": TEXT_BASIS,
         "DERIVATION_METHOD": METODO,
         "TEXT_OWNER": CAPACIDADE["TEXT_OWNER"],
+        "TEXT_RULE": _texto_fonte.REGUA,
+        "TEXT_RULE_PROBE_SHA256": _texto_fonte.impressao_da_regua(),
     }
 
 

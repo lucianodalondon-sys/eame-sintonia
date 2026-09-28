@@ -61,16 +61,76 @@ def _pdf(dados):
     return re.sub(r'\s+', ' ', txt).strip() or '[PDF sem texto extraível — pode ser imagem]'
 
 
+# ── A ESTRUTURA DE BLOCO SOBREVIVE À LIMPEZA (DERIVACAO-ESTRUTURA, 28/09) ────
+# Até aqui TODA etiqueta virava espaço. Medido no RAW 2272 (CREA, derived:1149):
+# 186 `</div>`, 28 `<p>`, 9 `<h2>` — e o texto derivado saía com UMA linha de
+# 8 988 caracteres, menu, data, título e corpo colados. Quem lê por linha a
+# jusante (`leis/fato_do_texto.py::corpo`) ficava cego: corpo = 0 caracteres.
+#
+# Uma etiqueta de BLOCO significa «aqui acaba uma linha»; passa a dar `\n`. As
+# outras (inline: `a`, `span`, `b`, `em`…) continuam a dar espaço, como antes.
+# Sem biblioteca nova e sem segundo extrator: é a mesma `limpar()`.
+#
+#     O HTML JÁ DIZ ONDE ACABA A LINHA. APAGAR ISSO NÃO É LIMPAR, É ACHATAR.
+BLOCOS = ('p', 'div', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'tr',
+          'td', 'th', 'section', 'article', 'header', 'footer', 'nav', 'aside',
+          'blockquote', 'pre', 'ul', 'ol', 'table', 'dd', 'dt', 'figure',
+          'figcaption', 'main', 'form', 'hr')
+_RE_BLOCO = re.compile(r'</?(?:%s)\b[^>]*>' % '|'.join(BLOCOS), re.I)
+
+#: A RÉGUA DE EXTRAÇÃO, com nome. Entra na receita do derivado
+#: (`executor_texto_de_html.receita`) junto com a impressão da SONDA abaixo.
+#:
+#: ⚠️ O ALGORITMO TEM DE ESTAR NA IDENTIDADE DO DERIVADO. Antes desta mudança a
+#: receita dizia só QUEM extrai (`TEXT_OWNER`), nunca COMO: mudar `limpar()`
+#: mudava o texto e deixava a receita igual — o derivado achatado e o
+#: estruturado do mesmo RAW ficariam os dois `texto-de-html` "2".
+REGUA = 'limpar/2 (etiquetas de bloco -> quebra de linha)'
+
+#: Um HTML pequeno e FIXO que exercita tudo o que `limpar()` decide: cada
+#: etiqueta de bloco, inline, script/style, comentário, entidades, `&nbsp;`,
+#: maiúsculas, atributos, espaços e linhas vazias. O sha256 do que `limpar()`
+#: devolve para ela é a impressão da régua: qualquer mudança de COMPORTAMENTO
+#: move-a (e reprova `tests/test_a_receita_tem_versao.py` até a versão subir);
+#: mexer num comentário, não.
+#:
+#:     ⛔ NÃO SE EDITA ESTA SONDA SEM SUBIR `EXECUTOR_VERSION`.
+SONDA = (
+    b'<!doctype html><html><head><title>Sonda &amp; r\xc3\xa9gua</title>'
+    b'<style>.x{color:red}</style><script>var a = "<p>nao</p>";</script></head>'
+    b'<BODY class="b"><!-- comentario --><header>Cabe<b>\xc3\xa7a</b>lho</header>'
+    b'<nav><ul><li><a href="/a">Um</a></li><li>Dois</li></ul></nav><main><article>'
+    b'<h1>T1</h1><h2>T2</h2><h3>T3</h3><h4>T4</h4><h5>T5</h5><h6>T6</h6>'
+    b'<div class="content-metadata"><div class="content-category">CAT</div>'
+    b'&nbsp;<span>-</span>&nbsp;<div class="content-date"> 22 giu 2026 </div></div>'
+    b'<section><p>Primeira   frase\t com  <em>\xc3\xaanfase</em> e <strong>for\xc3\xa7a</strong>.</p>'
+    b'<P ALIGN="x">Segunda<br>quebra<br/>outra<BR />fim</p></section>'
+    b'<blockquote>cita</blockquote><pre>pre   formatado</pre><hr>'
+    b'<table><tr><th>h1</th><th>h2</th></tr><tr><td>c1</td><td>c2</td></tr></table>'
+    b'<ol><li>um</li></ol><dl><dt>termo</dt><dd>def</dd></dl>'
+    b'<figure>img<figcaption>legenda</figcaption></figure><form>campo</form>'
+    b'<aside>lado</aside></article></main>\n\n\n<footer>&copy; rodap&eacute; &lt;x&gt;'
+    b'</footer><param name="p"><thead>th</thead><pa>x</pa></BODY></html>'
+)
+
+
 def limpar(dados, ctype=''):
     if 'pdf' in ctype.lower() or dados[:5] == b'%PDF-':
         return _pdf(dados)
     t = dados.decode('utf-8', errors='replace')
     t = re.sub(r'<(script|style)\b.*?</\1>', ' ', t, flags=re.S | re.I)
+    t = _RE_BLOCO.sub('\n', t)
     t = re.sub(r'<[^>]+>', ' ', t)
     t = html.unescape(t)
     t = re.sub(r'[ \t\xa0]+', ' ', t)
     t = re.sub(r'\n\s*\n+', '\n', t)
     return '\n'.join(l.strip() for l in t.split('\n') if l.strip())
+
+
+def impressao_da_regua():
+    """sha256 do que `limpar()` devolve para a `SONDA`. Comportamento, não código."""
+    import hashlib
+    return hashlib.sha256(limpar(SONDA, 'text/html').encode('utf-8')).hexdigest()
 
 
 def main():
