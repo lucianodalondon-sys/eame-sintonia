@@ -10,8 +10,8 @@ descartável criado e destruído na hora.
 ```
 C6_FALSO_ALARME_58_1243        CORRIGIDO NO CÓDIGO (PASS no caso reconstruído, banco falso E esquema real)
 FRONTEIRAS (reprovam)          outro universo · identidade não provada · SIM que não pousou · SALA_SEM_SIM
-MUTAÇÃO                        __MUT__
-BATERIA POR NOME               __BAT__
+MUTAÇÃO                        10/10 mortos
+BATERIA POR NOME               0 sumidas · 1 nova antes da regeração = o carimbo do System Map (re-medida depois: ver §4)
 SYSTEM MAP                     regerado pela cadeia no commit final; --conferir-carimbo: ver relato do commit final
 INSTALADO                      NÃO (decisão do coordenador; nada a migrar — só Python, só SELECT)
 ```
@@ -116,7 +116,26 @@ Saída em `provas/c6_repetido/MUTACAO-C6.json`.
 
 ### 4 · Bateria por nome — `provas/int_r7/bateria_por_nome.py`, rede fechada, 3 trabalhadores, worktrees limpas
 
-__BATERIA__
+| | módulos | testes | falhas por nome |
+|---|---|---|---|
+| base `e24139702` | 332 | 7507 | 125 |
+| depois `59199ff3` (código, **antes** de regerar o mapa) | 333 | 7521 | 126 |
+
+```
+$ python3 provas/int_r7/bateria_por_nome.py --comparar BATERIA-BASE-e2413970.json BATERIA-DEPOIS-59199ff3.json
+ANTES   modulos=332 testes=7507 falhas=125
+DEPOIS  modulos=333 testes=7521 falhas=126
+NOVAS   1 ['test_o_controle_separa_lei_de_mencao.test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore']
+SUMIDAS 0 []
+MODULOS_SUMIDOS [] · MÓDULOS NOVOS ['test_c6_repetido'] · MÓDULOS COM MENOS TESTES [] 
+```
+
+**Sumidos: 0** (nenhum módulo sumiu, nenhum módulo corre menos testes; +14 = os do `test_c6_repetido`).
+A **única nova** é o `M5_o_ponto_fixo…`, que chama `impressao_da_arvore.py --conferir-carimbo`: o código mudou e o
+mapa ainda não tinha sido regerado — é o portão a fazer o seu trabalho, não uma regressão. Re-medido **depois** de
+regerar pela cadeia, no commit final (ver o relato desse commit). As 2 falhas de `test_micro_coleta_instrumento`
+(`test_fica_fora_da_3b…`, `test_relatorio_e_dados_da_3b…`) já estavam na base e continuam iguais.
+Ficheiros: `provas/c6_repetido/BATERIA-BASE-e2413970.json`, `BATERIA-DEPOIS-59199ff3.json`.
 
 ## PROBLEMA
 
