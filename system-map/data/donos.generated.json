@@ -31,6 +31,7 @@
     "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql"
    ],
    "LEEM": [
+    "admissao/passagem_para_a_sala.py",
     "coleta/comunicacao_coleta.py",
     "coleta/comunicacao_medir.py",
     "coleta/derivacao_forward.py",
@@ -41,10 +42,9 @@
     "coleta/sensor_canal_identidade.py",
     "coleta/youtube_oficial.py",
     "ferramentas/big_collection/ensaio_rodada.py",
-    "ferramentas/reel_transcricao.py",
-    "guarda/banco_operacional.py"
+    "ferramentas/reel_transcricao.py"
    ],
-   "QUANTOS_LEEM": 39,
+   "QUANTOS_LEEM": 40,
    "INSTRUMENTOS_QUE_CITAM": 72,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -197,6 +197,7 @@
    ],
    "LEEM": [
     "_gavetas.py",
+    "admissao/passagem_para_a_sala.py",
     "admissao/reprocessar_estudos_chaves.py",
     "admissao/video_na_sala.py",
     "candidatas/italy_profiles.mjs",
@@ -206,18 +207,18 @@
     "coleta/comunicacao_concorrenza.py",
     "coleta/comunicacao_medir.py",
     "coleta/corpus_pesquisador.py",
-    "coleta/derivacao_forward.py",
-    "coleta/eu_regulatorio_executor.py"
+    "coleta/derivacao_forward.py"
    ],
-   "QUANTOS_LEEM": 245,
-   "INSTRUMENTOS_QUE_CITAM": 285,
+   "QUANTOS_LEEM": 247,
+   "INSTRUMENTOS_QUE_CITAM": 288,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "ORQUESTRADOR",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "19 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "21 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
+    "admissao/passagem_para_a_sala.py",
     "admissao/sala_de_espera.py",
     "coleta/italy_executor.py",
     "coleta/linha_busca.py",
@@ -232,6 +233,7 @@
     "medidas/corrida_canonica.py",
     "medidas/corrida_sem_rede.py",
     "medidas/mutacao_v1a.py",
+    "motor/gatilho_da_inteligencia.py",
     "orquestrador/orquestrador.py",
     "scripts/micro_coleta/ensaio_offline.py",
     "scripts/micro_coleta/micro_coleta.py",
@@ -253,7 +255,7 @@
     "coleta/scrap_colheita.py"
    ],
    "QUANTOS_LEEM": 39,
-   "INSTRUMENTOS_QUE_CITAM": 131,
+   "INSTRUMENTOS_QUE_CITAM": 132,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -416,7 +418,7 @@
   {
    "CONCEITO": "HISTORY",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "9 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "10 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "coleta/it/edicoes_do_registro.py",
     "coleta/scrap_colheita.py",
@@ -425,10 +427,12 @@
     "ferramentas/maestro_social/maestro_social.py",
     "medidas/corrida_canonica.py",
     "medidas/padrao_da_coleta.py",
+    "medidas/vigia_da_esteira.py",
     "scripts/micro_coleta/ensaio_offline.py",
     "scripts/micro_coleta/micro_rede_real.py"
    ],
    "LEEM": [
+    "admissao/passagem_para_a_sala.py",
     "admissao/reprocessar_tempo_lugar.py",
     "coleta/italy_executor.py",
     "coleta/italy_pilot_collect.mjs",
@@ -439,11 +443,10 @@
     "medidas/duas_portas_reprocessa.py",
     "medidas/incrementalidade_prova.mjs",
     "medidas/paridade_replay.mjs",
-    "medidas/recollection_censo.mjs",
-    "medidas/ultima_milha.py"
+    "medidas/recollection_censo.mjs"
    ],
-   "QUANTOS_LEEM": 18,
-   "INSTRUMENTOS_QUE_CITAM": 33,
+   "QUANTOS_LEEM": 19,
+   "INSTRUMENTOS_QUE_CITAM": 34,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {

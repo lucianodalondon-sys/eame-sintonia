@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T23:36:38+00:00",
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217",
+    "GENERATED_AT": "2026-09-28T00:55:52+00:00",
+    "HEAD": "1144e6ec0e8df4f6048b6300d8f1ec5e43e20694",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5",
-    "FICHEIROS_NA_IMPRESSAO": 4266,
+    "SOURCE_TREE_FINGERPRINT": "5896b69017de7d7511f3e93e660f41fe96c862b8e1ea2ed410b2effbef246f8e",
+    "FICHEIROS_NA_IMPRESSAO": 4274,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -153,13 +153,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5",
+        "VERSAO": "5896b69017de7d7511f3e93e660f41fe96c862b8e1ea2ed410b2effbef246f8e",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 21,
-    "INPUTS_DIGEST": "9c07e24d33b2b74970a8100a6d42ad53ab06d0f5d239dd72658fa79f43b6243a",
+    "INPUTS_DIGEST": "068addbc992d4bc2f74bf8d16e1282f21606032fe47e54a49571c5053acf5826",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -413,6 +413,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-ESTEIRA-PASSAGEM",
+      "nome": "A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA)",
+      "zona": "4 · A PORTA DE ADMISSAO",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
       "estado": "yellow"
     },
     {
@@ -1173,9 +1185,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 84,
+    "pecas_da_coleta": 85,
     "respondem_as_quatro": 26,
-    "respondem_a_tres": 41,
+    "respondem_a_tres": 42,
     "respondem_a_duas": 14,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0

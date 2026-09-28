@@ -188,6 +188,7 @@
     "admissao": [
       "admissao/admissao.py",
       "admissao/idioma.py",
+      "admissao/passagem_para_a_sala.py",
       "admissao/reprocessar_estudos_chaves.py",
       "admissao/reprocessar_tempo_lugar.py",
       "admissao/sala_de_espera.py",
@@ -2749,6 +2750,7 @@
       "medidas/source_health.py",
       "medidas/test_corrida_canonica.py",
       "medidas/ultima_milha.py",
+      "medidas/vigia_da_esteira.py",
       "medidas/voz.py"
     ],
     "motor": [
@@ -2758,6 +2760,7 @@
       "motor/consolidar_leque.py",
       "motor/corrida_da_inteligencia.py",
       "motor/cruzamentos_max.py",
+      "motor/gatilho_da_inteligencia.py",
       "motor/grafo_de_dependencia.py",
       "motor/matriz_recorte.py",
       "motor/motor_das_capacidades.py",
@@ -3025,6 +3028,10 @@
       "provas/es/freeze_es.py",
       "provas/especie_do_texto_auditoria.py",
       "provas/espinha_da_intelligence.py",
+      "provas/esteira_sozinha/ENSAIO-PONTA-A-PONTA.json",
+      "provas/esteira_sozinha/MUTANTES.json",
+      "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+      "provas/esteira_sozinha/mutantes.py",
       "provas/estudos_chaves/MUTACAO-ESTUDOS-CHAVES.json",
       "provas/estudos_chaves/mutacao_estudos_chaves.py",
       "provas/fechar_ground_truth_t3.py",
@@ -3997,6 +4004,7 @@
       "tests/test_espinha_da_intelligence.py",
       "tests/test_esqueleto_scientifica.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
+      "tests/test_esteira_sozinha.py",
       "tests/test_estradas_it.py",
       "tests/test_estudo_chaves.py",
       "tests/test_evidence.py",
@@ -4236,8 +4244,8 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "22 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-EVIDENCE-V1.json · LIFECYCLE-LEDGER-V1.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py … e mais 14",
+      "titulo": "21 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-EVIDENCE-V1.json · LIFECYCLE-LEDGER-V1.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py … e mais 13",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "curadoria/CATALOGO-PROVA-V1.json",
@@ -4711,10 +4719,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote7-integra-grain-rule-37g8vv",
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217",
-    "GENERATED_AT": "2026-09-27T23:28:34+00:00",
-    "SOURCE_TREE_FINGERPRINT": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5"
+    "BRANCH": "claude/autonomous-pipeline-6s66x9",
+    "HEAD": "1144e6ec0e8df4f6048b6300d8f1ec5e43e20694",
+    "GENERATED_AT": "2026-09-28T00:54:32+00:00",
+    "SOURCE_TREE_FINGERPRINT": "5896b69017de7d7511f3e93e660f41fe96c862b8e1ea2ed410b2effbef246f8e"
   },
   "FAMILIES": [
     {
@@ -4742,7 +4750,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 125
+      "count": 127
     },
     {
       "id": "F-ESPERA",
@@ -4770,7 +4778,7 @@
         "Z-LINEAGE",
         "Z-INT-LEI"
       ],
-      "count": 27
+      "count": 28
     },
     {
       "id": "F-GOVERNANCA",
@@ -4785,7 +4793,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 122
+      "count": 123
     },
     {
       "id": "F-ENTREGA",
@@ -5000,7 +5008,7 @@
       "y": 190,
       "w": 1235,
       "h": 10988,
-      "count": 32
+      "count": 33
     },
     {
       "id": "Z-ADMISSAO",
@@ -5015,7 +5023,7 @@
       "y": 190,
       "w": 405,
       "h": 10988,
-      "count": 2
+      "count": 3
     },
     {
       "id": "Z-ESPERA",
@@ -5046,7 +5054,7 @@
       "y": 190,
       "w": 1235,
       "h": 10988,
-      "count": 19
+      "count": 20
     },
     {
       "id": "Z-LINEAGE",
@@ -5157,7 +5165,7 @@
       "y": 190,
       "w": 1235,
       "h": 10988,
-      "count": 101
+      "count": 102
     },
     {
       "id": "Z-REFERENCIA",
@@ -5708,6 +5716,7 @@
         "C-DIAGNOSTICO-SALA",
         "C-DUAS-PORTAS-MEDIDORES",
         "C-ELEGIBILIDADE-COMENTARIO",
+        "C-ESTEIRA-PASSAGEM",
         "C-ESTRADA-PDF",
         "C-INT-ARBITRAGEM",
         "C-IT-EDICOES-DO-REGISTRO",
@@ -42289,6 +42298,10 @@
         "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CONTRATO-TELEMETRIA",
         "C-DETECTOR-CAPA-GABARITO",
+        "C-ESTEIRA-GATILHO-INTELLIGENCE",
+        "C-ESTEIRA-PASSAGEM",
+        "C-ESTEIRA-VIGIA",
+        "C-MAPA-TESTES",
         "C-ONDA-WEB",
         "C-PORTA-FONTE",
         "C-PROVA-PARIDADE",
@@ -42312,6 +42325,7 @@
         "C-ORDENS-63",
         "C-PACOTE-ONDA3",
         "C-PONTE-ONBOARD",
+        "C-PROVA-ESTEIRA-SOZINHA",
         "C-PROVA-JANELA-FORMAS",
         "C-PROVA-T2-BOLETINS",
         "C-SUPERFICIE-SCRAP-V1",
@@ -42323,13 +42337,13 @@
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [
-        "curadoria/italy_contracts_curator.json"
+        "curadoria/italy_contracts_curator.json",
+        "curadoria/supervisor.py"
       ],
       "parado_na_coleta": [
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
         "curadoria/red_team_telemetria.py",
         "curadoria/status_live.py",
-        "curadoria/supervisor.py",
         "curadoria/test_discovery.py",
         "curadoria/test_painel_pergunta_ao_so.py",
         "curadoria/test_supervisor.py"
@@ -45903,6 +45917,7 @@
         "C-COLETA-BASE",
         "C-DETECTOR-CAPA-GABARITO",
         "C-DONO-DO-DERIVADO",
+        "C-ESTEIRA-GATILHO-INTELLIGENCE",
         "C-INGRESSO",
         "C-PERSISTENCIA-DA-PORTA-CLI",
         "C-PROVA-CANARIO-D23-LINKEDIN",
@@ -45997,7 +46012,7 @@
           "coleta/coleta_checkpoint.py:46",
           "coleta/ingresso.py:84"
         ],
-        "PORQUE": "estas pecas importam-na — C-ADMISSAO · C-COLETA-BASE · C-DETECTOR-CAPA-GABARITO · C-DONO-DO-DERIVADO · C-INGRESSO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ADMISSAO · C-COLETA-BASE · C-DETECTOR-CAPA-GABARITO · C-DONO-DO-DERIVADO · C-ESTEIRA-GATILHO-INTELLIGENCE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 9485,
       "y": 682
@@ -46617,6 +46632,279 @@
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 22510,
+      "y": 1970
+    },
+    {
+      "id": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "name": "O gatilho da Intelligence (D90-5), pelo servico",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Chamado pelo supervisor a cada volta; pergunta a Sala (so SELECT, de 5 em 5 min) quantos READY pousaram depois da ultima tentativa. Corre com 10 novos OU com 1 novo que ja espera 4 h. Trinco (sala_de_espera._Trava) impede duas corridas sobrepostas. A corrida e o motor que ja existe: backup da Sala reposto numa copia descartavel (PROVA_VALE), export read-only da copia exactamente como o RUNBOOK-R7 (motor/r7_export_da_copia.sql, READ_ONLY=on conferido), motor_das_capacidades.rodar, pote_intelligence_casco.ler_entrada, e o fiscal validar_pote_v2 sobre o ficheiro candidato: so PASSA sobe para italia-portale/client/sintonia-pote.js (os.replace); reprovado fica guardado com as violacoes. Recuo de 30 min depois de falha.",
+      "why_here": "A Intelligence corria a mao (R6/R7). O gatilho nao escreve outro motor: chama o motor, o gerador e o fiscal que ja existem, e obedece ao fiscal — no ensaio real o pote saiu reprovado (ENTITY_SOURCE objeto no motor, string no contrato v2) e nao subiu.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⏱",
+      "views": [
+        "audit",
+        "generator",
+        "infra",
+        "opportunity"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "motor/gatilho_da_inteligencia.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-DONO-DA-ESCRITA",
+        "C-INT-MOTOR-CAPACIDADES",
+        "C-MAPA-TESTES",
+        "C-POTE-INT-CASCO",
+        "C-SALA-DE-ESPERA"
+      ],
+      "outbound": [
+        "C-CENSO-UNIFICACAO",
+        "C-PROVA-ESTEIRA-SOZINHA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "motor/r7_export_da_copia.sql"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "curadoria/supervisor.py:765",
+          "provas/esteira_sozinha/ensaio_ponta_a_ponta.py:131",
+          "provas/esteira_sozinha/mutantes.py:21",
+          "tests/test_esteira_sozinha.py:27"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 15500,
+      "y": 360
+    },
+    {
+      "id": "C-ESTEIRA-PASSAGEM",
+      "name": "A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA)",
+      "territory": "Z-ADMISSAO",
+      "kind": "engine",
+      "what": "Chamada pelo supervisor a cada volta. Le os livros de corridas (arvore + ITALY_OPS_ROOT) e, para cada corrida RECONCILIADA (fechada no livro e com observacoes no livro das observacoes) que ainda nao passou pela porta (nenhuma decisao com corrida = RUN_ID, nem passagem registada), leva a colheita a porta canonica: italy_executor.colher refaz o envelope e orquestrador --so-a-porta --colheita-da-corrida corre RAW -> DERIVED -> Admission -> sala_de_espera.pousar, com o pedido de micro_coleta.comando (o mesmo da rodada). Antes de gravar: backup provado (provar_backup_da_sala.provar, PROVA_VALE), um so escritor (sala_de_espera._Trava), PARAR.flag e precondicoes da Sala. Nao passa, e diz porque: universo sem regua na admissao (T8, T12 -> NAO_SE_APLICA garantido), corrida com varias fontes (a porta pergunta UM universo), corrida aberta, e o passado antes de PAS_DESDE.",
+      "why_here": "ESTEIRA-SOZINHA (28/09/2026): a rodada R03 gravou raw +5 e Sala +0. A porta ja corre dentro da rodada (orquestrador.py:1169-1211); o +0 vem do veredito — a Rodada 3 do plano e IT-T8-021 + IT-T7-135, e T8 nao tem regua — da dedup ou de uma queda no pousar. Faltava quem garantisse que toda corrida fechada atravessa a porta uma vez, e quem dissesse porque uma nao atravessa.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⇥",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "admissao/passagem_para_a_sala.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-IT-PRESERVAR",
+        "C-MAPA-TESTES",
+        "C-SALA-DE-ESPERA"
+      ],
+      "outbound": [
+        "C-CENSO-UNIFICACAO",
+        "C-PROVA-ESTEIRA-SOZINHA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "PRINCIPAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/collection-ledger/italy/runs.ndjson"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "curadoria/supervisor.py:764",
+          "provas/esteira_sozinha/ensaio_ponta_a_ponta.py:130",
+          "provas/esteira_sozinha/mutantes.py:20",
+          "tests/test_esteira_sozinha.py:28"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 13260,
+      "y": 682
+    },
+    {
+      "id": "C-ESTEIRA-VIGIA",
+      "name": "O vigia da esteira — ESTEIRA-SAUDE.json de hora a hora",
+      "territory": "Z-MEDIDAS",
+      "kind": "scanner",
+      "what": "De hora a hora (chamado pelo supervisor, ou a mao) le a ultima vez que cada etapa andou — fonte (batimento do worker), coleta (FINISHED_AT dos livros), agendador (runs.log da tarefa ForwardOnly), passagem, Sala (max pousado_em, so SELECT), Intelligence, pote, portal (mtime do pote no casco) — e escreve curadoria/ESTEIRA-SAUDE.json com ALERTA quando uma passa de N horas (N declarado por etapa em ETAPAS) ou quando nao se sabe quando andou. Portal publico: NAO SEI (medir e rede). Nao barra nem conserta nada.",
+      "why_here": "Ninguem dizia ao coordenador que etapa estava parada: a tarefa ForwardOnly ficou 14 dias com a trava orfa a devolver 0. Marca que nao se le e NAO SEI em alerta — o vigia calado e o unico erro que ele nao pode cometer.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "👁",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "medidas/vigia_da_esteira.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-PRESERVAR",
+        "C-MAPA-TESTES"
+      ],
+      "outbound": [
+        "C-CENSO-UNIFICACAO",
+        "C-PROVA-ESTEIRA-SOZINHA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ETAPAS"
+        ],
+        "palavras": 13,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 13,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: le artefato e nao escreve nenhum: olha e da nota",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/collection-ledger/italy/logs/runs.log",
+        "data/collection-ledger/italy/runs.ndjson"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "curadoria/supervisor.py:766",
+          "provas/esteira_sozinha/ensaio_ponta_a_ponta.py:132",
+          "provas/esteira_sozinha/mutantes.py:22",
+          "tests/test_esteira_sozinha.py:29"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 11725,
       "y": 1970
     },
     {
@@ -47859,7 +48147,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 1970
     },
     {
@@ -47948,7 +48236,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 1970
     },
     {
@@ -48845,8 +49133,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
-      "y": 360
+      "x": 14670,
+      "y": 682
     },
     {
       "id": "C-INT-ARBITRAGEM",
@@ -49182,7 +49470,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 682
     },
     {
@@ -49281,7 +49569,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 682
     },
     {
@@ -49496,8 +49784,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
-      "y": 682
+      "x": 14670,
+      "y": 1004
     },
     {
       "id": "C-INT-CORRIDA",
@@ -49602,7 +49890,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES · C-PONTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 1004
     },
     {
@@ -49795,7 +50083,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 1004
     },
     {
@@ -50084,8 +50372,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CAP-WIN · C-INT-CORRIDA · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
-      "y": 1004
+      "x": 14670,
+      "y": 1326
     },
     {
       "id": "C-INT-MODELO",
@@ -50301,6 +50589,7 @@
         "C-LUGAR-COLETA"
       ],
       "outbound": [
+        "C-ESTEIRA-GATILHO-INTELLIGENCE",
         "C-PROVA-COLETA",
         "C-PROVA-INT-R7",
         "C-PROVA-PORTA-REFERENCIA",
@@ -50349,23 +50638,18 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
-        "QUEM": [
-          "C-PROVA-COLETA",
-          "C-PROVA-INT-R7",
-          "C-PROVA-PORTA-REFERENCIA",
-          "C-TESTES"
-        ],
-        "PLANO": "CODE",
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
         "PROVA": [
+          "motor/gatilho_da_inteligencia.py:59",
+          "motor/gatilho_da_inteligencia.py:73",
           "provas/int_r7/export_numa_copia_descartavel.py:37",
-          "provas/int_r7/export_numa_copia_descartavel.py:47",
-          "provas/lote6_integra/mutacao_juncao.py:24",
-          "provas/porta_unica_referencia/mutantes.py:55"
+          "provas/int_r7/export_numa_copia_descartavel.py:47"
         ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+        "PORQUE": "estas pecas importam-na — C-ESTEIRA-GATILHO-INTELLIGENCE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 1326
     },
     {
@@ -50535,7 +50819,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COLETA-META · C-CRUZAMENTOS-MAX · C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 1326
     },
     {
@@ -51661,6 +51945,7 @@
       "produces": [],
       "inbound": [
         "C-ASK-SINTONIA",
+        "C-PROVA-ESTEIRA-SOZINHA",
         "C-TESTES"
       ],
       "outbound": [
@@ -51668,6 +51953,8 @@
         "C-CAPA-MATERIA",
         "C-CENSO-IDENTIDADE-IT",
         "C-CORRIDA-CANONICA",
+        "C-ESTEIRA-PASSAGEM",
+        "C-ESTEIRA-VIGIA",
         "C-ESTRADAS-IT",
         "C-INTEGRA-ONDA2",
         "C-IT-COLETA",
@@ -51682,6 +51969,7 @@
         "C-PROVA-BOLETINS-DATA-LOCAL",
         "C-PROVA-COLETA",
         "C-PROVA-CORTESIA",
+        "C-PROVA-ESTEIRA-SOZINHA",
         "C-PROVA-JANELA-FORMAS",
         "C-PROVA-PARIDADE",
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -51736,12 +52024,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "admissao/passagem_para_a_sala.py:76",
           "coleta/it/edicoes_do_registro.py:431",
           "coleta/italy_executor.py:88",
-          "coleta/scrap_colheita.py:905",
-          "ferramentas/big_collection/bc5_big_collection.py:39"
+          "coleta/scrap_colheita.py:905"
         ],
-        "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-INTEGRA-ONDA2 · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-BIG-COLLECTION-CONDUTOR-BC5 · C-CAPA-MATERIA · C-CORRIDA-CANONICA · C-ESTEIRA-PASSAGEM · C-ESTEIRA-VIGIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 9070,
       "y": 1326
@@ -52252,8 +52540,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12555,
-      "y": 1970
+      "x": 11725,
+      "y": 2292
     },
     {
       "id": "C-LEGACY-99",
@@ -54069,6 +54357,7 @@
         "C-CENSO-EXECUTORES",
         "C-CENSO-OBSERVABILIDADE",
         "C-CENSO-TOPOLOGIA",
+        "C-CENSO-UNIFICACAO",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-META",
@@ -54083,6 +54372,9 @@
         "C-DUAS-PORTAS-MEDIDORES",
         "C-ELEGIBILIDADE-COMENTARIO",
         "C-ESPECIE-DO-TEXTO",
+        "C-ESTEIRA-GATILHO-INTELLIGENCE",
+        "C-ESTEIRA-PASSAGEM",
+        "C-ESTEIRA-VIGIA",
         "C-ESTRADA-PDF",
         "C-ESTRADAS-IT",
         "C-EU-REGULATORIO-COLETA",
@@ -54132,6 +54424,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-COMENTARIOS",
         "C-PROVA-ENCANAMENTO",
+        "C-PROVA-ESTEIRA-SOZINHA",
         "C-PROVA-EXECUTOR-CONTA",
         "C-PROVA-FALA-QUALIDADE",
         "C-PROVA-FORWARD-CONTA",
@@ -54811,13 +55104,14 @@
           "COORTE_G1",
           "FILTROS",
           "M",
+          "PG_BIN",
           "TABELAS",
           "VARIAVEIS_DA_SALA",
           "_PALAVRAS"
         ],
-        "palavras": 132,
+        "palavras": 138,
         "por_lingua": {},
-        "sem_marca_de_lingua": 132,
+        "sem_marca_de_lingua": 138,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -54918,7 +55212,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2292
     },
     {
@@ -55006,7 +55300,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 2292
     },
     {
@@ -55126,8 +55420,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12555,
-      "y": 2292
+      "x": 11725,
+      "y": 2614
     },
     {
       "id": "C-NAVEGADOR",
@@ -55515,7 +55809,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-ONDA3 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2614
     },
     {
@@ -56184,7 +56478,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 2614
     },
     {
@@ -57723,6 +58017,7 @@
         "C-PONTE-INT-CASCO"
       ],
       "outbound": [
+        "C-ESTEIRA-GATILHO-INTELLIGENCE",
         "C-POTE-CRUZAMENTOS-MAX",
         "C-PROVA-INT-R7",
         "C-PROVA-POTE-CASCO",
@@ -57780,12 +58075,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "motor/gatilho_da_inteligencia.py:60",
           "pacote/pote_cruzamentos_max.py:50",
           "provas/_mutantes_pote_casco.py:24",
-          "provas/int_r7/aceite_pelo_gerador.py:33",
-          "provas/int_r7/aceite_pelo_gerador.py:24"
+          "provas/int_r7/aceite_pelo_gerador.py:33"
         ],
-        "PORQUE": "estas pecas importam-na — C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ESTEIRA-GATILHO-INTELLIGENCE · C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 17325,
       "y": 1004
@@ -60950,6 +61245,119 @@
       "y": 6156
     },
     {
+      "id": "C-PROVA-ESTEIRA-SOZINHA",
+      "name": "As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "ensaio_ponta_a_ponta.py copia a arvore, sobe um PostgreSQL 16 descartavel com a cadeia de migrations, e corre os tres passos do servico sobre corridas REAIS do livro do repositorio (bytes em data/collection-store): passagem com backup PROVA_VALE e a porta canonica (Sala 0 -> 6), segunda escritora recusada, gatilho que espera e corre as +4 h, segunda corrida recusada, pote que o fiscal reprova e nao sobe, vigia que escreve. mutantes.py planta 26 defeitos (duas corridas sobrepostas, Admission sem backup, gatilho sem delta, vigia calado, PARAR ignorado, pote reprovado sobe...) e exige que tests/test_esteira_sozinha.py reprove cada um.",
+      "why_here": "A prova vive fora da peca que prova. Sem rede: a coleta e a que o repositorio ja guarda, e o ensaio diz-o.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "🧬",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+        "provas/esteira_sozinha/mutantes.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CENSO-UNIFICACAO",
+        "C-ESTEIRA-GATILHO-INTELLIGENCE",
+        "C-ESTEIRA-PASSAGEM",
+        "C-ESTEIRA-VIGIA",
+        "C-IT-PRESERVAR",
+        "C-MAPA-TESTES",
+        "C-SALA-DE-ESPERA"
+      ],
+      "outbound": [
+        "C-IT-PRESERVAR"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MUTANTES"
+        ],
+        "palavras": 55,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 55,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/collection-ledger/italy/runs.ndjson",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "escreve data/collection-ledger/italy/runs.ndjson, e C-BIG-COLLECTION-CONDUTOR-BC5 le isso: entrega trabalho a peca seguinte",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve data/collection-ledger/italy/runs.ndjson, e C-BIG-COLLECTION-CONDUTOR-BC5 le isso: entrega trabalho a peca seguinte) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "admissao/passagem_para_a_sala.py",
+        "curadoria/supervisor.py",
+        "data/collection-ledger/italy/runs.ndjson",
+        "medidas/vigia_da_esteira.py",
+        "motor/gatilho_da_inteligencia.py",
+        "provas/esteira_sozinha/ENSAIO-PONTA-A-PONTA.json",
+        "provas/esteira_sozinha/MUTANTES.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 23340,
+      "y": 6156
+    },
+    {
       "id": "C-PROVA-EXECUTOR-CONTA",
       "name": "A prova de que o executor se conta",
       "territory": "Z-PROVA",
@@ -61026,8 +61434,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 6156
+      "x": 22510,
+      "y": 6478
     },
     {
       "id": "C-PROVA-FALA-QUALIDADE",
@@ -61145,7 +61553,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6478
     },
     {
@@ -61240,7 +61648,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6478
     },
     {
@@ -61339,8 +61747,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 6478
+      "x": 22510,
+      "y": 6800
     },
     {
       "id": "C-PROVA-GATE-1D",
@@ -61427,7 +61835,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6800
     },
     {
@@ -61523,7 +61931,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6800
     },
     {
@@ -61638,8 +62046,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 6800
+      "x": 22510,
+      "y": 7122
     },
     {
       "id": "C-PROVA-JANELA-FORMAS",
@@ -61807,7 +62215,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7122
     },
     {
@@ -61912,7 +62320,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7122
     },
     {
@@ -62003,8 +62411,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 7122
+      "x": 22510,
+      "y": 7444
     },
     {
       "id": "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -62116,7 +62524,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7444
     },
     {
@@ -62254,7 +62662,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7444
     },
     {
@@ -62368,8 +62776,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 7444
+      "x": 22510,
+      "y": 7766
     },
     {
       "id": "C-PROVA-O-RAW-FALA",
@@ -62456,7 +62864,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7766
     },
     {
@@ -62606,7 +63014,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7766
     },
     {
@@ -62713,8 +63121,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 7766
+      "x": 22510,
+      "y": 8088
     },
     {
       "id": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -62829,7 +63237,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8088
     },
     {
@@ -62929,7 +63337,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8088
     },
     {
@@ -63046,8 +63454,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 8088
+      "x": 22510,
+      "y": 8410
     },
     {
       "id": "C-PROVA-POTE-CASCO",
@@ -63181,7 +63589,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8410
     },
     {
@@ -63277,7 +63685,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8410
     },
     {
@@ -63378,8 +63786,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 8410
+      "x": 22510,
+      "y": 8732
     },
     {
       "id": "C-PROVA-RETRY-DO-SCRAP",
@@ -63467,7 +63875,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8732
     },
     {
@@ -63589,7 +63997,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8732
     },
     {
@@ -63692,8 +64100,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 8732
+      "x": 22510,
+      "y": 9054
     },
     {
       "id": "C-PROVA-ROTAS-REAIS",
@@ -63843,7 +64251,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9054
     },
     {
@@ -63941,7 +64349,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9054
     },
     {
@@ -64054,8 +64462,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9054
+      "x": 22510,
+      "y": 9376
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -64165,7 +64573,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9376
     },
     {
@@ -64327,7 +64735,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-SCRAP-GUARDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9376
     },
     {
@@ -64426,8 +64834,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 9376
+      "x": 22510,
+      "y": 9698
     },
     {
       "id": "C-PROVA-TETO-DOMINIO",
@@ -64551,7 +64959,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9698
     },
     {
@@ -64639,7 +65047,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9698
     },
     {
@@ -64723,8 +65131,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 9698
+      "x": 22510,
+      "y": 10020
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -64820,7 +65228,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10020
     },
     {
@@ -64954,7 +65362,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10020
     },
     {
@@ -65173,8 +65581,8 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 12555,
-      "y": 2614
+      "x": 11725,
+      "y": 2936
     },
     {
       "id": "C-READY",
@@ -65337,8 +65745,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 10020
+      "x": 22510,
+      "y": 10342
     },
     {
       "id": "C-RECEITAS",
@@ -65626,7 +66034,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-DESBLOQUEIO-PACOTE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 2936
     },
     {
@@ -65728,7 +66136,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 2936
     },
     {
@@ -65844,7 +66252,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10342
     },
     {
@@ -66019,7 +66427,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10342
     },
     {
@@ -66349,8 +66757,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 12555,
-      "y": 2936
+      "x": 11725,
+      "y": 3258
     },
     {
       "id": "C-REGRESSAO-NAVEGADOR",
@@ -66427,8 +66835,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 23340,
-      "y": 10342
+      "x": 22510,
+      "y": 10664
     },
     {
       "id": "C-REGUA-T1-JANELA",
@@ -66595,7 +67003,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 3258
     },
     {
@@ -66791,7 +67199,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T1-JANELA · C-SCRAP-GUARDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 3258
     },
     {
@@ -66878,8 +67286,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 12555,
-      "y": 3258
+      "x": 11725,
+      "y": 3580
     },
     {
       "id": "C-RELEVANCIA",
@@ -67203,7 +67611,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
+      "x": 12140,
       "y": 3580
     },
     {
@@ -67293,7 +67701,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10664
     },
     {
@@ -67644,11 +68052,14 @@
       ],
       "outbound": [
         "C-DUAS-PORTAS-MEDIDORES",
+        "C-ESTEIRA-GATILHO-INTELLIGENCE",
+        "C-ESTEIRA-PASSAGEM",
         "C-INT-ESPINHA",
         "C-IT-EDICOES-DO-REGISTRO",
         "C-LINHA-BUSCA",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-ESTEIRA-SOZINHA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-GATE-1D",
         "C-PROVA-INT-R7",
@@ -67745,7 +68156,7 @@
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
       "x": 13260,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -67830,7 +68241,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-EDICOES-DO-REGISTRO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 12140,
+      "x": 12555,
       "y": 3580
     },
     {
@@ -68742,7 +69153,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10664
     },
     {
@@ -69325,8 +69736,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 10664
+      "x": 22510,
+      "y": 10986
     },
     {
       "id": "C-SUPABASE",
@@ -69671,7 +70082,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10986
     },
     {
@@ -71756,6 +72167,7 @@
         "tests/test_espinha_da_intelligence.py",
         "tests/test_esqueleto_scientifica.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
+        "tests/test_esteira_sozinha.py",
         "tests/test_estradas_it.py",
         "tests/test_estudo_chaves.py",
         "tests/test_evidence.py",
@@ -71951,7 +72363,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 329,
+      "file_count": 330,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -72035,6 +72447,9 @@
         "C-DONO-DO-DERIVADO",
         "C-ELEGIBILIDADE-COMENTARIO",
         "C-ESPECIE-DO-TEXTO",
+        "C-ESTEIRA-GATILHO-INTELLIGENCE",
+        "C-ESTEIRA-PASSAGEM",
+        "C-ESTEIRA-VIGIA",
         "C-ESTRADA-PDF",
         "C-ESTRADAS-IT",
         "C-EU-REGULATORIO-COLETA",
@@ -72549,6 +72964,7 @@
         "curadoria/ponte_candidatas.py",
         "curadoria/ready_split.py",
         "curadoria/retrato_html.py",
+        "curadoria/supervisor.py",
         "curadoria/worker.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
@@ -73018,7 +73434,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10986
     },
     {
@@ -73326,8 +73742,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-ACHADO · C-PRECO-DE-MERCADO · C-V21-FONTES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15500,
-      "y": 1326
+      "x": 14670,
+      "y": 1648
     },
     {
       "id": "C-V21-COMERCIAL",
@@ -73551,7 +73967,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 1648
     },
     {
@@ -73659,7 +74075,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 1648
     },
     {
@@ -73816,8 +74232,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
-      "y": 1648
+      "x": 14670,
+      "y": 1970
     },
     {
       "id": "C-V21-FONTES",
@@ -73931,7 +74347,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 1970
     },
     {
@@ -74134,7 +74550,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15085,
+      "x": 15500,
       "y": 1970
     },
     {
@@ -74240,8 +74656,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 15500,
-      "y": 1970
+      "x": 14670,
+      "y": 2292
     },
     {
       "id": "C-VOCI-DAL-CAMPO",
@@ -74352,7 +74768,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 14670,
+      "x": 15085,
       "y": 2292
     },
     {
@@ -76942,6 +77358,41 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-ESTEIRA-PASSAGEM",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "admissao/passagem_para_a_sala.py",
+          "line": 69,
+          "snippet": "import admissao as adm                           # noqa: E402 — a regua (PERGUNTAS_DO_UNIVERSO)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-ESTEIRA-PASSAGEM",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-ESTEIRA-PASSAGEM",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-ESTRADA-PDF",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -77267,7 +77718,7 @@
       "evidence": [
         {
           "file": "scripts/micro_coleta/ensaio_offline.py",
-          "line": 367,
+          "line": 370,
           "snippet": "\"ADMISSION_NAO\": {\"VALOR\": adm.get(\"NAO\", 0), \"PECA\": \"admissao/admissao.py\", \"ROTA\": \"READ_BY_INSTRUMENT\"},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -85602,7 +86053,7 @@
       "evidence": [
         {
           "file": "scripts/micro_coleta/ensaio_offline.py",
-          "line": 195,
+          "line": 198,
           "snippet": "r = subprocess.run([shutil.which(\"bash\") or \"bash\", \"motor/cadeia_canonica.sh\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CADEIA-V21--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -89170,6 +89621,41 @@
     },
     {
       "from": "C-CENSO-UNIFICACAO",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo das lanes antes de unificar alimenta As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/mutantes.py",
+          "line": 23,
+          "snippet": "SUP = \"curadoria/supervisor.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-UNIFICACAO",
       "to": "C-PROVA-JANELA-FORMAS",
       "type": "READS",
       "payload": "artefacto",
@@ -89297,12 +89783,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo das lanes antes de unificar alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Censo das lanes antes de unificar alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canario_rotas_contrato_certo.py",
           "line": 45,
           "snippet": "f = raiz / \"curadoria\" / \"italy_contracts_curator.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
+            "FROM": "C-CENSO-UNIFICACAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_esteira_sozinha.py",
+          "line": 386,
+          "snippet": "mock.patch.object(sys, \"argv\", [\"supervisor.py\"]):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-TESTES",
             "FROM": "C-CENSO-UNIFICACAO",
@@ -100774,6 +101276,41 @@
     },
     {
       "from": "C-DONO-DA-ESCRITA",
+      "to": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/gatilho_da_inteligencia.py",
+          "line": 146,
+          "snippet": "from guarda.cliente_postgres import resolver_psql       # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "FROM": "C-DONO-DA-ESCRITA",
+            "TO": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
       "to": "C-INGRESSO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -103139,6 +103676,426 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "to": "C-CENSO-UNIFICACAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O gatilho da Intelligence (D90-5), pelo servico tem o seu codigo importado por Censo das lanes antes de unificar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/supervisor.py",
+          "line": 765,
+          "snippet": "import gatilho_da_inteligencia as GI        # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-GATILHO-INTELLIGENCE--IMPORTS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O gatilho da Intelligence (D90-5), pelo servico tem o seu codigo importado por As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+          "line": 131,
+          "snippet": "import gatilho_da_inteligencia as GI",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-GATILHO-INTELLIGENCE--IMPORTS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O gatilho da Intelligence (D90-5), pelo servico alimenta As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/mutantes.py",
+          "line": 21,
+          "snippet": "GI = \"motor/gatilho_da_inteligencia.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-GATILHO-INTELLIGENCE--READS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O gatilho da Intelligence (D90-5), pelo servico tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_esteira_sozinha.py",
+          "line": 27,
+          "snippet": "import gatilho_da_inteligencia as GI             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-GATILHO-INTELLIGENCE--IMPORTS-->C-TESTES",
+            "FROM": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-PASSAGEM",
+      "to": "C-CENSO-UNIFICACAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA) tem o seu codigo importado por Censo das lanes antes de unificar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/supervisor.py",
+          "line": 764,
+          "snippet": "import passagem_para_a_sala as PAS          # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-PASSAGEM--IMPORTS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ESTEIRA-PASSAGEM",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-PASSAGEM",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA) tem o seu codigo importado por As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+          "line": 130,
+          "snippet": "import passagem_para_a_sala as PAS",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-PASSAGEM--IMPORTS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-ESTEIRA-PASSAGEM",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-PASSAGEM",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA) alimenta As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/mutantes.py",
+          "line": 20,
+          "snippet": "PAS = \"admissao/passagem_para_a_sala.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-PASSAGEM--READS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-ESTEIRA-PASSAGEM",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-PASSAGEM",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA) tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_esteira_sozinha.py",
+          "line": 28,
+          "snippet": "import passagem_para_a_sala as PAS               # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-PASSAGEM--IMPORTS-->C-TESTES",
+            "FROM": "C-ESTEIRA-PASSAGEM",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-VIGIA",
+      "to": "C-CENSO-UNIFICACAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O vigia da esteira — ESTEIRA-SAUDE.json de hora a hora tem o seu codigo importado por Censo das lanes antes de unificar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/supervisor.py",
+          "line": 766,
+          "snippet": "import vigia_da_esteira as VIG              # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-VIGIA--IMPORTS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-ESTEIRA-VIGIA",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-VIGIA",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O vigia da esteira — ESTEIRA-SAUDE.json de hora a hora tem o seu codigo importado por As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+          "line": 132,
+          "snippet": "import vigia_da_esteira as VIG",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-VIGIA--IMPORTS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-ESTEIRA-VIGIA",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-VIGIA",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O vigia da esteira — ESTEIRA-SAUDE.json de hora a hora alimenta As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/mutantes.py",
+          "line": 22,
+          "snippet": "VIG = \"medidas/vigia_da_esteira.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-VIGIA--READS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-ESTEIRA-VIGIA",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ESTEIRA-VIGIA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O vigia da esteira — ESTEIRA-SAUDE.json de hora a hora tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_esteira_sozinha.py",
+          "line": 29,
+          "snippet": "import vigia_da_esteira as VIG                   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ESTEIRA-VIGIA--IMPORTS-->C-TESTES",
+            "FROM": "C-ESTEIRA-VIGIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -112071,6 +113028,76 @@
     },
     {
       "from": "C-INT-MOTOR-CAPACIDADES",
+      "to": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/gatilho_da_inteligencia.py",
+          "line": 59,
+          "snippet": "import motor_das_capacidades as M                # noqa: E402 — o motor que ja existe",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-MOTOR-CAPACIDADES",
+      "to": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 alimenta O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/gatilho_da_inteligencia.py",
+          "line": 73,
+          "snippet": "SQL_EXPORT = RAIZ / \"motor\" / \"r7_export_da_copia.sql\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-MOTOR-CAPACIDADES",
       "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -119230,6 +120257,76 @@
     },
     {
       "from": "C-IT-PRESERVAR",
+      "to": "C-ESTEIRA-PASSAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "admissao/passagem_para_a_sala.py",
+          "line": 76,
+          "snippet": "LIVRO_DAS_CORRIDAS = Path(\"data\") / \"collection-ledger\" / \"italy\" / \"runs.ndjson\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-ESTEIRA-PASSAGEM",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-ESTEIRA-PASSAGEM",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-ESTEIRA-VIGIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta O vigia da esteira — ESTEIRA-SAUDE.json de hora a hora. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/vigia_da_esteira.py",
+          "line": 106,
+          "snippet": "p = r / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-ESTEIRA-VIGIA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-ESTEIRA-VIGIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
       "to": "C-ESTRADAS-IT",
       "type": "READS",
       "payload": "artefacto",
@@ -119600,7 +120697,7 @@
       "evidence": [
         {
           "file": "scripts/micro_coleta/ensaio_offline.py",
-          "line": 93,
+          "line": 96,
           "snippet": "led = raiz / \"data\" / \"collection-ledger\" / \"italy\" / \"observations.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -119616,7 +120713,7 @@
         },
         {
           "file": "scripts/micro_coleta/ensaio_offline.py",
-          "line": 539,
+          "line": 542,
           "snippet": "[r for r in ler_ndjson(led / \"runs.ndjson\") if r.get(\"RUN_ID\") in ids2],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -120037,6 +121134,41 @@
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-CORTESIA",
             "FROM": "C-IT-PRESERVAR",
             "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+          "line": 89,
+          "snippet": "livro = arvore / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -121139,7 +122271,7 @@
       "evidence": [
         {
           "file": "scripts/micro_coleta/ensaio_offline.py",
-          "line": 475,
+          "line": 478,
           "snippet": "lanc = [sys.executable, \"medidas/corrida_sem_rede.py\", f\"--saida={medida}\", \"--\"] + cmd[2:]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -124759,6 +125891,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-CENSO-UNIFICACAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por Censo das lanes antes de unificar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/supervisor.py",
+          "line": 763,
+          "snippet": "import _gavetas  # noqa: F401,PLC0415 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-COLETA-BASE",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -125342,6 +126509,111 @@
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ESPECIE-DO-TEXTO",
             "FROM": "C-MAPA-TESTES",
             "TO": "C-ESPECIE-DO-TEXTO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/gatilho_da_inteligencia.py",
+          "line": 56,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-ESTEIRA-PASSAGEM",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "admissao/passagem_para_a_sala.py",
+          "line": 67,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ESTEIRA-PASSAGEM",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-ESTEIRA-PASSAGEM",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-ESTEIRA-VIGIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por O vigia da esteira — ESTEIRA-SAUDE.json de hora a hora. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/vigia_da_esteira.py",
+          "line": 43,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-ESTEIRA-VIGIA",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-ESTEIRA-VIGIA",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -127578,6 +128850,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+          "line": 114,
+          "snippet": "import _gavetas  # noqa: F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-PROVA-EXECUTOR-CONTA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -129537,7 +130844,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 170 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 171 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -140353,6 +141660,57 @@
     },
     {
       "from": "C-POTE-INT-CASCO",
+      "to": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "motor/gatilho_da_inteligencia.py",
+          "line": 60,
+          "snippet": "import pote_intelligence_casco as P              # noqa: E402 — o gerador do pote",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "motor/gatilho_da_inteligencia.py",
+          "line": 61,
+          "snippet": "import validar_pote_v2 as VP                     # noqa: E402 — o fiscal do pote",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-POTE-INT-CASCO",
       "to": "C-POTE-CRUZAMENTOS-MAX",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -144168,6 +145526,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-ESTEIRA-SOZINHA",
+      "to": "C-IT-PRESERVAR",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao escreve em Guardar com impressao digital. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+          "line": 92,
+          "snippet": "livro.write_text(\"\\n\".join(linhas) + \"\\n\", encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-ESTEIRA-SOZINHA--WRITES-->C-IT-PRESERVAR",
+            "FROM": "C-PROVA-ESTEIRA-SOZINHA",
+            "TO": "C-IT-PRESERVAR",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "WRITE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -150995,6 +152388,76 @@
     },
     {
       "from": "C-SALA-DE-ESPERA",
+      "to": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por O gatilho da Intelligence (D90-5), pelo servico. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/gatilho_da_inteligencia.py",
+          "line": 58,
+          "snippet": "import sala_de_espera as espera                  # noqa: E402 — dono da trava",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-ESTEIRA-PASSAGEM",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "admissao/passagem_para_a_sala.py",
+          "line": 70,
+          "snippet": "import sala_de_espera as espera                  # noqa: E402 — dono da trava",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-ESTEIRA-PASSAGEM",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-ESTEIRA-PASSAGEM",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
       "to": "C-INT-ESPINHA",
       "type": "ALIMENTA",
       "kind": "expected",
@@ -151455,6 +152918,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-ESTEIRA-SOZINHA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+          "line": 133,
+          "snippet": "import sala_de_espera as espera",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-ESTEIRA-SOZINHA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-ESTEIRA-SOZINHA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -152132,7 +153630,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 22 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 23 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -152231,6 +153729,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_esteira_sozinha.py",
+          "line": 26,
+          "snippet": "import sala_de_espera as espera                  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_estudo_chaves.py",
           "line": 26,
           "snippet": "import reprocessar_estudos_chaves as RE  # noqa: E402",
@@ -152298,22 +153812,6 @@
           "file": "tests/test_migracao_033_sala.py",
           "line": 29,
           "snippet": "import sala_de_espera as espera          # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
-            "FROM": "C-SALA-DE-ESPERA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_o_censo_da_sala_de_espera.py",
-          "line": 30,
-          "snippet": "import sala_de_espera as espera                # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
             "FROM": "C-SALA-DE-ESPERA",
@@ -168573,7 +170071,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2251,
+  "UNCLAIMED_FILES_COUNT": 2253,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -168644,6 +170142,14 @@
         "C-TESTES"
       ],
       "owner_elected": "C-CENSO-UNIFICACAO"
+    },
+    {
+      "file": "data/collection-ledger/italy/runs.ndjson",
+      "written_by": [
+        "C-PROVA-ESTEIRA-SOZINHA",
+        "C-TESTES"
+      ],
+      "owner_elected": "C-IT-PRESERVAR"
     },
     {
       "file": "regras/italy_contracts_onboarded.json",
@@ -168823,7 +170329,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 278,
+      "PECAS_EM_DESACORDO": 282,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -168835,26 +170341,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 305
+      "TOTAL_DE_PECAS": 309
     }
   ],
   "COUNTS": {
-    "components": 305,
+    "components": 309,
     "components_proven": 33,
-    "components_pending": 264,
+    "components_pending": 268,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1835,
-    "edges_proven": 1766,
+    "edges": 1865,
+    "edges_proven": 1796,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4118,
-    "files_covered": 1867,
+    "files_tracked": 4126,
+    "files_covered": 1873,
     "files_code_unclaimed": 0,
-    "roles_proven": 203,
+    "roles_proven": 206,
     "roles_declared_only": 9,
-    "roles_unknown": 93,
-    "roles_conflict": 54,
+    "roles_unknown": 94,
+    "roles_conflict": 55,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
     "concept_owner_single": 2,
