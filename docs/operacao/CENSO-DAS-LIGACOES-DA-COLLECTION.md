@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  629be5772a2e8092f8cd82b91068bea29cdb8cec
+HEAD_DA_MEDICAO  191086ce97027c941d3e7f1accbcd168f4a46d83
 BRANCH           claude/feed-discovery-italy-sources-hr8vlb
-GERADO_EM        2026-09-28T00:32:30+00:00
+GERADO_EM        2026-09-28T00:37:21+00:00
 CARDS            119
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
