@@ -80,7 +80,7 @@ print(hashlib.sha256(json.dumps(corpo,ensure_ascii=False,sort_keys=True,separato
 print(p['PRODUCED_BY']['CONTENT_SHA256'])
 `, tmp], { encoding: 'utf8' });
 fs.unlinkSync(tmp);
-const [recalc, declarado] = String(py.stdout || '').trim().split('\n');
+const [recalc, declarado] = String(py.stdout || '').trim().split(/\r?\n/).map((l) => l.trim()); // Windows: o print do python sai com CRLF
 if (py.status !== 0 || !recalc) {
   ok('SELO · o payload e byte a byte o que a ferramenta selou', false,
     'NAO MEDIDO — python3 indisponivel', [String(py.stderr || '').slice(0, 200)]);
