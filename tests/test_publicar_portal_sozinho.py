@@ -60,6 +60,39 @@ def contrato_aprovado():
     return c
 
 
+class ArmazemDeProva:
+    """Os bytes do arquivo original, em memoria. So `ler` — a unica pergunta que o publicador faz."""
+    def __init__(self, bytes_por_lugar):
+        self.b = dict(bytes_por_lugar)
+
+    def ler(self, caminho):
+        if caminho not in self.b:
+            raise FileNotFoundError(caminho)
+        return self.b[caminho]
+
+
+def pote_liberado():
+    """O pote nao sintetico com as tres coisas da liberacao: cada objeto LIBERADO_PARA_CLIENTE, cada prova com
+    o sha e o endereco do RAW. Devolve (pote, armazem com os bytes, veredito do LAB para este pote)."""
+    p = pote_nao_sintetico()
+    reg = CONTRATO["REGRA_DE_PROMOCAO"]
+    campo, valor = reg["LIBERACAO_POR_OBJETO"]["CAMPO"], reg["LIBERACAO_POR_OBJETO"]["VALOR_QUE_LIBERA"]
+    sha_c, lugar_c = reg["RAW_NO_ARMAZEM"]["CAMPOS_DA_PROVA"]
+    bytes_ = {}
+    for _, o in P._objetos(p):
+        o[campo] = valor
+        for pr in o["PROVA"]:
+            lugar = f"raw/{pr['RAW_OBSERVATION_ID']}.html"
+            bytes_.setdefault(lugar, f"<html>{pr['RAW_OBSERVATION_ID']}</html>".encode("utf-8"))
+            pr[sha_c], pr[lugar_c] = P.hashlib.sha256(bytes_[lugar]).hexdigest(), lugar
+    ver = {"POTE_SHA256": P.sha_do_pote(p), "VEREDITO": "APROVADO", "PREVIEW": "preview-de-prova",
+           "CRITERIO": "criterio-de-prova", "QUANDO": "2026-09-28"}
+    return p, ArmazemDeProva(bytes_), ver
+
+
+LIBERACAO = ["C0_LIBERADO_PARA_CLIENTE", "C0_VEREDITO_DO_LAB", "C0_RAW_CONFERIDO_NO_ARMAZEM"]
+
+
 def contagens_boas(pote, sha, contrato=CONTRATO):
     """O CONTAGENS.json que o fotografo escreveria para um portal que obedece."""
     esp = P.contagem_esperada(pote, contrato)
@@ -89,19 +122,88 @@ class P0_OPote(unittest.TestCase):
         L = P.conferir_pote(POTE_ENSAIO, contrato_aprovado(), "producao")
         self.assertIn("C0_NADA_DA_DEMO", ids(L))
 
-    def test_experimental_sem_o_dono_nao_vai_a_producao(self):
-        self.assertEqual(CONTRATO["REGRA_DE_PROMOCAO"]["ESTADO"], "AGUARDA_DONO",
-                         "a regra de promocao nasce a espera do dono — so ele a aprova")
-        L = P.conferir_pote(pote_nao_sintetico(), CONTRATO, "producao")
-        self.assertEqual(ids(L), ["C0_PROMOCAO"])
+    def test_a_regra_esta_aprovada_pelo_dono_com_as_seis_condicoes(self):
+        prom = CONTRATO["REGRA_DE_PROMOCAO"]
+        self.assertEqual(prom["ESTADO"], "APROVADA_PELO_DONO")
+        self.assertEqual(prom["APROVADA_EM"], "2026-09-28")
+        self.assertEqual([c["N"] for c in prom["AS_SEIS_CONDICOES"]], [1, 2, 3, 4, 5, 6])
+        self.assertIn("NAO_PARA_CLIENTE", prom["TEXTO_DO_DONO"])
+        conf = {c["ID"] for c in CONTRATO["CONFERENCIAS"]}
+        self.assertTrue(set(LIBERACAO) <= conf, "as tres conferencias da liberacao estao escritas na lei")
 
-    def test_aprovada_pelo_dono_e_corrida_real_passa_em_producao(self):
-        self.assertEqual(ids(P.conferir_pote(pote_nao_sintetico(), contrato_aprovado(), "producao")), [])
+    def test_experimental_nao_liberado_e_recusado_em_producao_mesmo_com_o_sim_do_dono(self):
+        # O CASO QUE O DONO PROIBIU: pote EXPERIMENTAL · NAO_PARA_CLIENTE, regra aprovada, corrida real.
+        L = P.conferir_pote(pote_nao_sintetico(), CONTRATO, "producao")
+        self.assertEqual(ids(L), LIBERACAO, L)
+
+    def test_liberado_com_lab_e_raw_conferido_passa_em_producao(self):
+        p, arm, ver = pote_liberado()
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", ver, arm)), [])
+
+    def test_sem_o_sim_do_dono_nem_o_liberado_passa(self):
+        p, arm, ver = pote_liberado()
+        c = copy.deepcopy(CONTRATO)
+        c["REGRA_DE_PROMOCAO"]["ESTADO"] = "AGUARDA_DONO"
+        self.assertEqual(ids(P.conferir_pote(p, c, "producao", ver, arm)), ["C0_PROMOCAO"])
 
     def test_aprovacao_sem_nome_nem_data_nao_vale(self):
+        p, arm, ver = pote_liberado()
         c = contrato_aprovado()
         c["REGRA_DE_PROMOCAO"]["APROVADA_POR"] = None
-        self.assertIn("C0_PROMOCAO", ids(P.conferir_pote(pote_nao_sintetico(), c, "producao")))
+        self.assertIn("C0_PROMOCAO", ids(P.conferir_pote(p, c, "producao", ver, arm)))
+
+    def test_um_objeto_nao_liberado_recusa_o_pote_inteiro(self):
+        p, arm, ver = pote_liberado()
+        o = next(o for _, o in P._objetos(p))
+        o["LIBERACAO"] = "NAO_PARA_CLIENTE"
+        ver["POTE_SHA256"] = P.sha_do_pote(p)
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", ver, arm)), ["C0_LIBERADO_PARA_CLIENTE"])
+
+    def test_a_marca_do_pote_nao_libera_os_objetos(self):
+        p = pote_nao_sintetico()
+        p["MARCA"], p["LIBERACAO"] = "LIBERADO_PARA_CLIENTE", "LIBERADO_PARA_CLIENTE"
+        self.assertIn("C0_LIBERADO_PARA_CLIENTE", ids(P.conferir_pote(p, CONTRATO, "producao")))
+
+    def test_veredito_do_lab_ausente_de_outro_pote_ou_reprovado(self):
+        p, arm, ver = pote_liberado()
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", None, arm)), ["C0_VEREDITO_DO_LAB"])
+        outro = dict(ver, POTE_SHA256="0" * 64)
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", outro, arm)), ["C0_VEREDITO_DO_LAB"])
+        reprovado = dict(ver, VEREDITO="REPROVADO")
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", reprovado, arm)), ["C0_VEREDITO_DO_LAB"])
+        sem_criterio = dict(ver, CRITERIO="NAO SEI")
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", sem_criterio, arm)), ["C0_VEREDITO_DO_LAB"])
+
+    def test_raw_que_nao_bate_no_armazem(self):
+        p, arm, ver = pote_liberado()
+        lugar = next(iter(arm.b))
+        arm.b[lugar] = b"outro byte"                       # o arquivo mudou no armazem
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", ver, arm)), ["C0_RAW_CONFERIDO_NO_ARMAZEM"])
+        del arm.b[lugar]                                   # o arquivo sumiu
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", ver, arm)), ["C0_RAW_CONFERIDO_NO_ARMAZEM"])
+
+    def test_prova_sem_sha_do_raw(self):
+        p, arm, ver = pote_liberado()
+        next(o for _, o in P._objetos(p))["PROVA"][0]["RAW_SHA256"] = "NAO SEI"
+        ver["POTE_SHA256"] = P.sha_do_pote(p)
+        self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", ver, arm)), ["C0_RAW_CONFERIDO_NO_ARMAZEM"])
+
+    def test_producao_sem_armazem_declarado_bloqueia(self):
+        p, _, ver = pote_liberado()
+        antes = P.os.environ.pop("SINTONIA_ARMAZEM_RAIZ", None)
+        try:
+            L = P.conferir_pote(p, CONTRATO, "producao", ver, None)
+        finally:
+            if antes is not None:
+                P.os.environ["SINTONIA_ARMAZEM_RAIZ"] = antes
+        self.assertEqual(ids(L), ["C0_RAW_CONFERIDO_NO_ARMAZEM"])
+
+    def test_em_preview_a_liberacao_so_avisa(self):
+        # o LAB precisa do preview para dar o veredito: em preview as tres viram NOTA, nao bloqueiam
+        L = P.conferir_pote(pote_nao_sintetico(), CONTRATO, "preview")
+        self.assertEqual(ids(L), [])
+        self.assertEqual(sorted(l["ID"] for l in L if l.get("NOTA") and "em producao ESTA" in l["NOTA"]),
+                         sorted(LIBERACAO))
 
     def test_d123_oportunidade_sem_bula(self):
         L = P.conferir_pote(POTE_SEM_BULA, CONTRATO, "ensaio")
