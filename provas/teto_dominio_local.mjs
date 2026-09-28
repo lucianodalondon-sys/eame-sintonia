@@ -35,6 +35,9 @@ const GV = "rr1---sn-x.googlevideo.com";
 const NOMES = ["cia.test", "www.cia.test", "sub.cia.test", "outro.test", GV];
 process.env.NO_PROXY = process.env.no_proxy = ["127.0.0.1", "localhost", ...NOMES].join(",");
 for (const k of ["SINTONIA_PAUSA_POR_HOST_S", "SINTONIA_TETO_POR_HOST", "SINTONIA_TETO_ONDA"]) delete process.env[k];
+// D124 (dono, 27/09) — AJUSTE DECLARADO: o 5 fixo deixou de ser a omissao (o teto e o orcamento vigente
+// da politica adaptativa). Esta prova mede a MECANICA do teto por dominio com o teto MANUAL declarado de 5.
+process.env.SINTONIA_TETO_POR_HOST = "5";
 process.env.SINTONIA_PAUSA_POR_HOST_S = "0";   // a pausa tem prova propria; aqui mede-se o teto
 
 const enchimento = "<p>" + "Testo dell'articolo. ".repeat(80) + "</p>";

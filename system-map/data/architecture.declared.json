@@ -5216,7 +5216,7 @@
   },
   {
    "id": "C-PROVA-TETO-DOMINIO",
-   "name": "A prova INDEPENDENTE do teto D38 — pedidos por dominio registavel, pela onda inteira",
+   "name": "A prova INDEPENDENTE do teto por dominio — nunca passou do orcamento vigente, recuou no sinal (D124)",
    "territory": "Z-PROVA",
    "kind": "proof",
    "icon": "✓",
@@ -5224,7 +5224,7 @@
     "audit",
     "diagnostic"
    ],
-   "what": "Le o livro de corridas do coletor (CORTESIA.PEDIDOS_POR_HOST, escrito pelo transporte), junta os hosts por dominio registavel com uma regra propria (sem Public Suffix List; sufixo em falta junta mais, nunca menos) e soma a ONDA inteira: 0=PASS, 1=FAIL (dominio acima de 5), 2=NAO_SEI (corrida da onda sem linha no livro — nunca conta zero). Modo --plano: confere o que um plano de onda PREVE (onda_web --so-plano), reagrupando pelo dominio desta prova e conferindo o dominio de cada fonte pelo INDEX_URL dos contratos (json + mjs lidos como texto). A corrida que rebenta a meio (FECHAR-ONDA2) tambem escreve a sua linha com os PEDIDOS_POR_HOST: `corrida_abortada_local.mjs` prova-o contra um servidor local, e mostra a prova a fechar com a linha e a dar NAO_SEI sem ela. Desde a PROVA-TETO-SOCIAL (25/09) as corridas do Scrap (LinkedIn/YouTube) tambem escrevem a sua linha: `scrap_http` conta cada pedido que sai e o `yt-dlp` entra pelo `--print-traffic`; o que ninguem conseguiu contar vai como PEDIDOS_NAO_CONTADOS (NAO_SEI). E `googlevideo.com` paga no orcamento de `youtube.com` (D41). Mutacao em `_mutantes_prova_teto_social.py` (18/18).",
+   "what": "Le o livro de corridas do coletor (CORTESIA.PEDIDOS_POR_HOST, escrito pelo transporte), junta os hosts por dominio registavel com uma regra propria (sem Public Suffix List; sufixo em falta junta mais, nunca menos) e soma a ONDA inteira: 0=PASS, 1=FAIL (dominio acima do orcamento vigente — D124: ja nao 5 fixo; --teto N = manual), 2=NAO_SEI (corrida da onda sem linha no livro — nunca conta zero). Modo --plano: confere o que um plano de onda PREVE (onda_web --so-plano), reagrupando pelo dominio desta prova e conferindo o dominio de cada fonte pelo INDEX_URL dos contratos (json + mjs lidos como texto). A corrida que rebenta a meio (FECHAR-ONDA2) tambem escreve a sua linha com os PEDIDOS_POR_HOST: `corrida_abortada_local.mjs` prova-o contra um servidor local, e mostra a prova a fechar com a linha e a dar NAO_SEI sem ela. Desde a PROVA-TETO-SOCIAL (25/09) as corridas do Scrap (LinkedIn/YouTube) tambem escrevem a sua linha: `scrap_http` conta cada pedido que sai e o `yt-dlp` entra pelo `--print-traffic`; o que ninguem conseguiu contar vai como PEDIDOS_NAO_CONTADOS (NAO_SEI). E `googlevideo.com` paga no orcamento de `youtube.com` (D41). Mutacao em `_mutantes_prova_teto_social.py` (18/18). D124: --cortesia <livro> reproduz o livro da cortesia adaptativa reserva a reserva (reserva durante pausa de 24 h, antes do Retry-After, rajada no mesmo dominio, pausa minima, acima do teto de seguranca, acima do orcamento vigente) e cruza com o livro de corridas (nenhum pedido sem reserva).",
    "why_here": "PROVA-TETO (25/09/2026): na 1.a onda cia.it levou 16 pedidos (5 fontes, teto por corrida). A ONDA2-G3 mudou o disjuntor para contar por dominio na onda (D38); esta prova mede o mesmo por outro caminho, para ser usada depois do MICRO e da 2.a onda. 1.a onda: FAIL cia.it=16; plano integrado da 2.a onda: PASS (80 previstos, maximo 5).",
    "departments": [
     "ENGENHARIA"
@@ -5298,7 +5298,7 @@
    "views": [
     "infra"
    ],
-   "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos.",
+   "what": "Corre a onda uma fonte de cada vez pela porta canonica (micro_coleta.correr). Le a coorte do lugar oficial (COORTE-BIG-COLLECTION-V1.json no commit), confere disco = commit, sha256 declarado e ESTADO=CONGELADA; nomeia um livro do teto por onda (SINTONIA_TETO_ONDA) que o transporte soma por dominio registavel; a fonte de dominio esgotado salta com TETO_DOMINIO (nao e FAILED); disjuntor por dominio + os 7 da BC5; --so-plano sem rede reparte o teto e preve os pedidos. D124: o teto de cada dominio e o orcamento vigente da politica adaptativa (onda_web.teto_do_dominio; rodadas e maestro perguntam-lhe); a janela de 24 h (D79) so se liga com --janela-24h; antes de cada rodada, fontes de dominio sem orcamento AGORA ficam ADIADAS (TETO_ADAPTATIVO).",
    "why_here": "ONDA2-PLANO mediu cia.it com 16 pedidos numa onda (5 fontes, teto por corrida) e o disparador da BC5 a ler a coorte de C:\bc fora do Git. D38: 5 por dominio na onda inteira.",
    "departments": [
     "ENGENHARIA"
@@ -5810,15 +5810,15 @@
   },
   {
    "id": "C-CONTADOR-24H",
-   "name": "O contador multicanal atomico de 24 h (D90) — reservar antes de pedir",
+   "name": "O contador multicanal atomico (D90), agora ADAPTATIVO (D124) — reservar antes de pedir",
    "territory": "Z-ACOES",
    "kind": "library",
    "icon": "▤",
    "views": [
     "infra"
    ],
-   "what": "reserva_24h.py: reservar(dominio, qtd, run_id, linha) -> RESERVADO | ADIADO_ATE | FAIL | UNKNOWN, numa janela movel de 24 h no livro SINTONIA_TETO_24H, sob o mesmo trinco (directorio <livro>.trinco) do transporte Node; sem livro devolve FAIL e nao se pede.",
-   "why_here": "CONTADOR-24H (D90, lote 4 da INTEGRA-NOITE): a pergunta e a escrita do teto passam a ser um passo so, partilhado por todas as linhas de rede. Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa.",
+   "what": "reserva_24h.py: FACHADA do dono unico da politica (coleta/cortesia_adaptativa.py): reservar(host, 1, run_id, linha) -> RESERVADO | ADIADO_ATE | FAIL | UNKNOWN no livro da cortesia (SINTONIA_CORTESIA_LIVRO; SINTONIA_TETO_24H e sinonimo), sob o trinco <livro>.trinco partilhado com o transporte Node; 1 pedido de cada vez por dominio, orcamento vigente (nao mais 5 fixo); sem livro devolve FAIL e nao se pede. dominio_registavel.py: QUEM paga o pedido (dominio registavel + D41); o TETO_D38 saiu daqui (D124).",
+   "why_here": "CONTADOR-24H (D90, lote 4 da INTEGRA-NOITE): a pergunta e a escrita do teto passam a ser um passo so, partilhado por todas as linhas de rede. Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa. D124 (dono, 27/09): o 5 fixo deixou de ser a regra; o contador passou a fachada da cortesia adaptativa.",
    "departments": [
     "ENGENHARIA"
    ],
@@ -5828,15 +5828,36 @@
    ]
   },
   {
+   "id": "C-CORTESIA-ADAPTATIVA",
+   "name": "A cortesia adaptativa (D124) — o teto por dominio sobe sem sinal, recua no sinal, e avisa o Scrap Engineer",
+   "territory": "Z-ACOES",
+   "kind": "library",
+   "icon": "▤",
+   "views": [
+    "infra",
+    "collection-strategy"
+   ],
+   "what": "O UNICO dono da politica do teto por dominio. orcamento_do_dominio(host) diz quantos pedidos cabem agora; reservar(host, run_id, linha) pergunta e escreve num passo so, sob o trinco (1 pedido de cada vez por dominio, pausa minima ou Crawl-delay, limite global de dominios em paralelo); registrar_resposta(host, status, headers) mede o sinal de resistencia (429, 503, 403 novo, Retry-After, pagina de desafio, timeouts em serie, queda de bytes na mesma URL). O estado de cada dominio DERIVA de um livro append-only (ndjson) pela mesma dobra em Python e no gemeo .mjs: SITE comeca em 40/24 h, dobra por janela limpa e usada ate 640; o sinal corta para metade (minimo 5) e cumpre o Retry-After; 2 sinais em 24 h = pausa de 24 h. Classes e numeros em regras/POLITICA-CORTESIA-ADAPTATIVA.json (PLATAFORMA_GRANDE; API_COM_LIMITE_PUBLICADO usa o limite publicado, citado e marcado NAO_CONFERIDO). Recuo, pausa, teto de seguranca/limite publicado esgotado e rendimento baixo gravam um bilhete em ALERTAS-SCRAP-ENGINEER.ndjson; --pergunta monta PERGUNTA-SCRAP-ENGINEER-<data>.txt (texto, sem LLM).",
+   "why_here": "D124 (dono, 27/09 ~21:30): o 5/dominio/24h (D7 teste -> D38/D41 -> D79 -> D86) nunca foi medido e travava a coleta (rodadas adiadas 24 h, ~1 video/dia). O limite passa a ser o das ferramentas, e o unico freio e o sinal de resistencia medido. Os sitios que tinham o 5 (transporte, contador 24 h, freio da onda, onda_web, rodadas, maestro, T6, prova-teto, D40) perguntam agora a esta peca.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/cortesia_adaptativa.py",
+    "coleta/cortesia_adaptativa.mjs",
+    "regras/POLITICA-CORTESIA-ADAPTATIVA.json"
+   ]
+  },
+  {
    "id": "C-PROVA-CONTADOR-24H",
-   "name": "A prova adversarial do contador de 24 h",
+   "name": "A prova adversarial do contador (D90) adaptativo (D124), contra um servidor local",
    "territory": "Z-PROVA",
    "kind": "proof",
    "icon": "⊢",
    "views": [
     "audit"
    ],
-   "what": "contador_24h_local.mjs: servidor local que conta os pedidos, executores concorrentes (contador_24h_executor.mjs, Node; e um Python com reserva_24h.py) a partilhar so o livro de 24 h, rede externa fechada. contador_24h_mutacao.py: desliga cada peca do contador numa copia (git archive) e exige que tests/test_contador_24h.py reprove.",
+   "what": "contador_24h_local.mjs: servidor local que conta os pedidos e quantos estao EM CURSO ao mesmo tempo por dominio, e responde 200/404/429+Retry-After/503/pagina de desafio/robots ilegivel; executores concorrentes (contador_24h_executor.mjs, Node; e um Python com cortesia_adaptativa.py) a partilhar so o livro da cortesia, com uma copia da politica em escala pequena, rede externa fechada: 1 de cada vez, orcamento, recuo no 429, pausa de 24 h em 2 sinais, sobe depois de um dia limpo, robots ilegivel nao e permissao. contador_24h_mutacao.py: planta cada defeito (sem recuo, Retry-After ignorado, rajada, robots ilegivel = permissao, contador nao atomico e outros) numa copia (git archive) e exige que tests/test_cortesia_adaptativa.py ou tests/test_contador_24h.py reprove.",
    "why_here": "CONTADOR-24H (D90, lote 4). Declarada na verificacao do lote 4 (LOTE4-VERIFICAR.md) porque o codigo entrou sem peca no mapa.",
    "departments": [
     "ENGENHARIA"
@@ -6311,6 +6332,26 @@
    ],
    "files": [
     "provas/mutacao_referencia_manutencao.py"
+   ]
+  },
+  {
+   "id": "C-MATERIA-PRIMA-POR-DIA",
+   "name": "Materia-prima por dia — documentos novos e itens novos na Sala, por dia e por linha (D124)",
+   "territory": "Z-MEDIDAS",
+   "kind": "scanner",
+   "icon": "⌕",
+   "views": [
+    "collection-strategy",
+    "audit"
+   ],
+   "what": "So leitura, sem rede: soma NEW_DOCUMENTS do livro de corridas por dia UTC e por linha, os itens novos na Sala (SALA_DEPOIS - SALA_ANTES) dos estados das ondas (ONDA-WEB-ESTADO / MAESTRO-SOCIAL-ESTADO), e os pedidos do livro da cortesia adaptativa (ou do livro de corridas, dito como tal); documento por pedido. O que nao foi medido sai NAO SEI, nunca zero.",
+   "why_here": "D124 item 4: a metrica do dono e materia-prima por dia, nao pedidos gastos. Medir nao e filtrar: o painel nao barra nada.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "medidas/materia_prima_por_dia.py"
    ]
   }
  ],

@@ -140,5 +140,28 @@ class OPlano(unittest.TestCase):
         self.assertEqual(ind, {"IT-T2-032": "https://www.arpal.liguria.it/", "IT-T10-018": "https://www.myfruit.it/news"})
 
 
+
+# ── D124 (dono, 27/09 ~21:30) — AJUSTE DECLARADO ─────────────────────────────────────────
+# O 5 fixo por dominio deixou de ser a regra: o teto e o ORCAMENTO VIGENTE da politica adaptativa
+# (`coleta/cortesia_adaptativa.py`, SITE comeca em 40). Estes testes provam a MECANICA (repartir,
+# contar, travar, provar) e continuam a faze-lo com o teto MANUAL declarado SINTONIA_TETO_POR_HOST=5,
+# que o codigo continua a respeitar. Nenhuma asserção foi afrouxada: o numero passou a ser declarado.
+_TETO_ANTES = None
+
+
+def setUpModule():
+    global _TETO_ANTES
+    import os as _os
+    _TETO_ANTES = _os.environ.get("SINTONIA_TETO_POR_HOST")
+    _os.environ["SINTONIA_TETO_POR_HOST"] = "5"
+
+
+def tearDownModule():
+    import os as _os
+    if _TETO_ANTES is None:
+        _os.environ.pop("SINTONIA_TETO_POR_HOST", None)
+    else:
+        _os.environ["SINTONIA_TETO_POR_HOST"] = _TETO_ANTES
+
 if __name__ == "__main__":
     unittest.main(verbosity=1)
