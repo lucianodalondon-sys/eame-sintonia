@@ -182,3 +182,22 @@ barrando **todos** eles. Ele achava 20 arquivos antigos com coisas que parecem s
 pasta do usuário deste computador, e duas chaves públicas de sites (um mapa, um botão de acessibilidade).
 Anotei os 20 na lista oficial de "já conhecidos", cada um com o motivo. O detector continua barrando qualquer
 senha nova. A limpeza de verdade desses 20 fica para outra tarefa.
+
+
+## 9 · Porta para a produção (`claude/busca-secret-fixo-v1`, 28/09)
+
+A produção (`servico-20260923-0923 @ e2413970`) tinha integrado a versão ANTERIOR deste workflow
+(`e56b79c7`, via LOTE5): `workflow_dispatch` + push no ramo `disparo-linha-busca-google`, com
+`${{ secrets[steps.pedido.outputs.segredo_da_chave] }}` e `secrets[steps.pedido.outputs.segredo_do_cx]` — o
+NOME do secret vinha do pedido. Latente (nenhum dos dois gatilhos existia), mas no ar.
+
+- Os 4 commits do conserto (`69f77acb`, `74393a15`, `43ea7586`, `569d690e`) foram aplicados por cherry-pick sobre
+  `e2413970`, sem conflito. O que a produção tinha de mais novo nestes 9 ficheiros — o teste de junção do LOTE5
+  `test_juncao_lote5_o_erro_da_busca_sai_sem_a_chave` (`71fb9714`) — ficou.
+- Contrato novo, para TODOS os workflows: `tests/test_contrato_workflows_sem_secret_dinamico.py` — nenhum
+  `secrets[` (índice dinâmico) nem `toJSON(secrets)` em `.github/workflows/`. Na produção, o contrato acusa
+  as 4 linhas (104, 105, 112, 113) de `linha-busca-google.yml`; aqui, zero.
+- Mutação: 31 de 31 mortos, com 5 novos — «volta o `secrets[...]` da produção» (morto pelo contrato sozinho
+  e pelos testes da linha), «o CX volta a vir de secret», «`toJSON(secrets)` entra», «o contrato fica cego».
+- A frase declarada do mapa (`architecture.declared.json`) deixou de dizer «dispatch ou push no ramo de disparo».
+- Não se disparou nada: nenhum push para `busca-no-actions-v1` nem para `disparo-linha-busca-google`.
