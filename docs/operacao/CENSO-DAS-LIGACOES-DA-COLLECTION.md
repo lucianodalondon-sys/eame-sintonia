@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  cf3d76fd72be6eaaf00c52488a794a38f13726f2
+HEAD_DA_MEDICAO  b7f7f3bde1d6cd03b48e1f091b961fa15e8c6f16
 BRANCH           claude/adaptive-collection-ceiling-i3n4jh
-GERADO_EM        2026-09-28T01:05:24+00:00
+GERADO_EM        2026-09-28T01:33:39+00:00
 CARDS            127
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
