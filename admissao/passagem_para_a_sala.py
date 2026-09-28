@@ -45,6 +45,15 @@ AS TRAVAS
     BACKUP        `provar_backup_da_sala.provar` ANTES de gravar; sem PROVA_VALE nao se grava nada.
     PARAR         `curadoria/PARAR.flag` antes de tudo e entre corridas.
     PRECONDICOES  `micro_coleta.precondicoes()`: Sala POSTGRES, DSN, psql, armazem.
+    FALHA DA PORTA  (FECHO, 28/09) a porta que sai com CODIGO != 0, sem a linha `CORRIDA <STATUS> ·
+                  <RUN>`, ou que rebenta, NAO passou: a corrida NAO entra em PAS_PASSAGENS, fica em
+                  PAS_FALHAS com a causa e o numero de tentativas, PAS_ULTIMA_FALHA_EM anda (recuo de
+                  RECUO para a passagem inteira) e a propria corrida so volta a ser tentada depois de
+                  RECUO x 2^(tentativas-1), ate RECUO_MAXIMO. Antes, um SalaIndisponivel ficava
+                  «PASSOU» com STATUS «NAO SEI» e nunca mais se tentava.
+    RETENCAO      o backup de cada passagem (~50 MB: o dump e o Postgres descartavel `pg/`) e podado
+                  por `provar_backup_da_sala.podar` DEPOIS da passagem, dentro da trava: ficam as
+                  GUARDAR_BACKUPS ultimas e a ultima com PROVA_VALE; a da passagem em curso nunca sai.
     PASSADO       na primeira volta grava-se PAS_DESDE = agora: o historico nao atravessa sozinho
                   (59 corridas no livro do repo). Levar o passado e decisao do coordenador:
                   `--desde=AAAA-MM-DDTHH:MM:SSZ`.
@@ -77,11 +86,14 @@ LIVRO_DAS_CORRIDAS = Path("data") / "collection-ledger" / "italy" / "runs.ndjson
 ASSENTAR = timedelta(minutes=2)          # corrida fechada ha menos disto pode ainda estar a escrever
 INTERVALO = timedelta(minutes=5)
 RECUO = timedelta(minutes=30)
+RECUO_MAXIMO = timedelta(hours=6)
+NAO_SEI_CODIGO = "NAO SEI"                # a porta rebentou antes de devolver um codigo
 GUARDAR_PASSAGENS = 500
+GUARDAR_BACKUPS = 3
 
-(PASSAR, JA_PASSOU, SEM_OBSERVACOES, VARIAS_FONTES, SEM_REGUA, ABERTA, ANTES_DO_DESDE) = (
+(PASSAR, JA_PASSOU, SEM_OBSERVACOES, VARIAS_FONTES, SEM_REGUA, ABERTA, ANTES_DO_DESDE, EM_RECUO) = (
     "PASSAR", "JA_PASSOU_PELA_PORTA", "SEM_OBSERVACOES", "VARIAS_FONTES",
-    "SEM_REGUA_NO_UNIVERSO", "AINDA_ABERTA", "ANTES_DO_DESDE")
+    "SEM_REGUA_NO_UNIVERSO", "AINDA_ABERTA", "ANTES_DO_DESDE", "RECUO_DEPOIS_DE_FALHA_DA_PORTA")
 
 
 def _agora() -> datetime:
@@ -109,6 +121,19 @@ def raizes_dos_livros() -> list[Path]:
     if ops and Path(ops).resolve() != RAIZ.resolve():
         out.append(Path(ops))
     return out
+
+
+def recuo_da_corrida(falha: dict) -> timedelta:
+    """RECUO, RECUO x 2, RECUO x 4 ... ate RECUO_MAXIMO: uma corrida que a porta recusa sempre nao
+    faz um backup de meia em meia hora para sempre."""
+    n = max(1, int(falha.get("TENTATIVAS") or 1))
+    return min(RECUO * (2 ** min(n - 1, 16)), RECUO_MAXIMO)
+
+
+def passou_pela_porta(recibo: dict) -> bool:
+    """So passou quem a porta devolveu com CODIGO 0 E a linha `CORRIDA <STATUS> · <RUN>`.
+    Codigo diferente de zero, ou saida que nao se le, e FALHA — nunca «passou com NAO SEI»."""
+    return recibo.get("CODIGO") == 0 and recibo.get("CORRIDA_DA_PORTA") not in (None, "NAO SEI")
 
 
 def corridas_do_livro(raizes: list[Path]) -> list[dict]:
@@ -147,6 +172,7 @@ def planear(estado: dict, agora: datetime, raizes: list[Path] | None = None,
     observacoes = observacoes or _observacoes
     desde = _quando(estado.get("PAS_DESDE"))
     feitas = estado.get("PAS_PASSAGENS") or {}
+    falhas = estado.get("PAS_FALHAS") or {}
     julgadas = ja_julgadas(livro)
     passar, fica = [], []
     for c in corridas_do_livro(raizes or raizes_dos_livros()):
@@ -161,6 +187,13 @@ def planear(estado: dict, agora: datetime, raizes: list[Path] | None = None,
         if run in julgadas:
             fica.append({**c, "PORQUE": JA_PASSOU})
             continue
+        falhou = falhas.get(run)
+        if falhou:
+            quando = _quando(falhou.get("EM"))
+            if quando and agora - quando < recuo_da_corrida(falhou):
+                fica.append({**c, "PORQUE": EM_RECUO, "TENTATIVAS": falhou.get("TENTATIVAS"),
+                             "ABRE_EM": (quando + recuo_da_corrida(falhou)).isoformat()})
+                continue
         fontes = sorted({o.get("SOURCE_ID") for o in observacoes(run, c["RAIZ"]) if o.get("SOURCE_ID")})
         if not fontes:
             fica.append({**c, "PORQUE": SEM_OBSERVACOES})
@@ -211,7 +244,7 @@ def passar_uma(linha: dict, lancar=None, livro: Path = adm.LIVRO) -> dict:
 def passar_se_devido(estado: dict, *, agora: datetime | None = None, raizes=None, livro: Path = adm.LIVRO,
                      observacoes=None, backup=None, lancar=None, precondicoes=None,
                      parar: Path = PARAR, trinco: Path = TRINCO, pasta: Path = PASTA,
-                     forcar: bool = False) -> dict:
+                     forcar: bool = False, podar=None) -> dict:
     """Uma volta da passagem. Devolve o que fez; guarda em `estado` as marcas (PAS_*)."""
     agora = agora or _agora()
     if parar.exists():
@@ -242,27 +275,67 @@ def passar_se_devido(estado: dict, *, agora: datetime | None = None, raizes=None
         return {"ACCAO": "PRECONDICOES", "FALTA": falta}
     try:
         with espera._Trava(str(trinco)):
-            b = (backup or backup_padrao)(pasta / agora.strftime("%Y%m%dT%H%M%SZ") / "backup")
-            if not b.get("PROVA_VALE"):
-                estado["PAS_ULTIMA_FALHA_EM"] = agora.isoformat()
-                return {"ACCAO": "BACKUP_NAO_VALE", "PORQUE": "sem PROVA_VALE nao se grava na Sala",
-                        "PENDENTES": len(plano["PASSAR"])}
-            feitas = estado.setdefault("PAS_PASSAGENS", {})
-            recibos = []
-            for linha in plano["PASSAR"]:
-                if parar.exists():
-                    break
-                r = passar_uma(linha, lancar, livro)
-                r["EM"] = agora.isoformat()
-                feitas[linha["RUN_ID"]] = r
-                recibos.append(r)
-            for velho in list(feitas)[:-GUARDAR_PASSAGENS]:
-                del feitas[velho]
-            estado["PAS_ULTIMA_PASSAGEM_EM"] = agora.isoformat()
-            return {"ACCAO": "PASSOU", "BACKUP": b.get("DUMP"), "CORRIDAS": recibos,
-                    "PARADO_POR_FLAG": parar.exists()}
+            em_curso = pasta / agora.strftime("%Y%m%dT%H%M%SZ")
+            try:
+                return _passar(estado, plano, agora, em_curso, livro, backup, lancar, parar)
+            finally:
+                # Dentro da trava (um escritor) e DEPOIS do trabalho: a passagem em curso nunca sai.
+                try:
+                    estado["PAS_ULTIMA_PODA"] = (podar or podar_padrao)(pasta, em_curso)
+                except Exception as e:  # noqa: BLE001 — a poda nao desfaz a passagem; fica escrita
+                    estado["PAS_ULTIMA_PODA"] = {"ERRO": repr(e)[:300]}
     except espera.EsperaOcupada:
         return {"ACCAO": "OCUPADO", "PORQUE": "outra passagem esta a escrever"}
+
+
+def podar_padrao(pasta: Path, em_curso: Path) -> dict:
+    sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
+    import provar_backup_da_sala as PB                          # noqa: PLC0415
+    return PB.podar(pasta, em_curso, guardar=GUARDAR_BACKUPS)
+
+
+def _passar(estado, plano, agora, em_curso, livro, backup, lancar, parar) -> dict:
+    b = (backup or backup_padrao)(em_curso / "backup")
+    if not b.get("PROVA_VALE"):
+        estado["PAS_ULTIMA_FALHA_EM"] = agora.isoformat()
+        return {"ACCAO": "BACKUP_NAO_VALE", "PORQUE": "sem PROVA_VALE nao se grava na Sala",
+                "PENDENTES": len(plano["PASSAR"])}
+    feitas = estado.setdefault("PAS_PASSAGENS", {})
+    falhas = estado.setdefault("PAS_FALHAS", {})
+    recibos, falharam = [], []
+    for linha in plano["PASSAR"]:
+        if parar.exists():
+            break
+        run = linha["RUN_ID"]
+        try:
+            r = passar_uma(linha, lancar, livro)
+        except Exception as e:  # noqa: BLE001 — a porta que rebenta tambem nao passou
+            r = {"COLHEITA_DA_CORRIDA": run, "FONTE": linha.get("FONTE"), "CODIGO": NAO_SEI_CODIGO,
+                 "STATUS": "NAO SEI", "CORRIDA_DA_PORTA": "NAO SEI", "ERRO": repr(e)[-300:]}
+        r["EM"] = agora.isoformat()
+        recibos.append(r)
+        if passou_pela_porta(r):
+            feitas[run] = r
+            falhas.pop(run, None)
+        else:
+            antes = falhas.get(run) or {}
+            falhas[run] = {"EM": agora.isoformat(), "TENTATIVAS": int(antes.get("TENTATIVAS") or 0) + 1,
+                           "CODIGO": r.get("CODIGO"), "STATUS": r.get("STATUS"),
+                           "CAUSA": (r.get("ERRO") or "").strip()[-300:]
+                           or "porta sem a linha CORRIDA (saida: %r)" % (r.get("SAIDA") or "")[-200:]}
+            falharam.append(run)
+    for velho in list(feitas)[:-GUARDAR_PASSAGENS]:
+        del feitas[velho]
+    for velho in list(falhas)[:-GUARDAR_PASSAGENS]:
+        del falhas[velho]
+    if len(recibos) > len(falharam):
+        estado["PAS_ULTIMA_PASSAGEM_EM"] = agora.isoformat()
+    if falharam:
+        estado["PAS_ULTIMA_FALHA_EM"] = agora.isoformat()
+    accao = "FALHOU" if falharam and len(falharam) == len(recibos) else (
+        "PASSOU_COM_FALHAS" if falharam else "PASSOU")
+    return {"ACCAO": accao, "BACKUP": b.get("DUMP"), "CORRIDAS": recibos, "FALHARAM": falharam,
+            "PARADO_POR_FLAG": parar.exists()}
 
 
 def main(argv=None) -> int:

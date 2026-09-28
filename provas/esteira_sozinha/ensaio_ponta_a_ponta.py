@@ -21,6 +21,15 @@ O QUE E DE ENSAIO (dito para ninguem ler isto como prova de producao)
     o estado e o pote escrevem-se la.
   * O «AGORA» da Intelligence e declarado: primeiro agora (espera), depois agora + 4 h (a regra).
   * PASSADO: o ensaio poe PAS_DESDE antes das corridas de 21/09, como o coordenador faria com --desde.
+  * FECHO 28/09 — A PORTA QUE FALHA: a primeira passagem real corre com a porta a ver uma Sala MORTA
+    (SINTONIA_SALA_DSN numa porta fechada SO no subprocesso da porta; o backup ve a Sala viva). Tem de
+    dar FALHOU, nada em PAS_PASSAGENS, a causa em PAS_FALHAS; a passagem seguinte (agora + RECUO + 1
+    min, a Sala de volta) leva as mesmas corridas e a Sala sobe.
+    So falha quem precisava da Sala: uma corrida sem SIM (so NAO/NAO_SEI) nao pousa nada e passa.
+    Cada tentativa deixa o seu RAW e a sua collection_run no armazem (os bytes deduplicam-se no
+    storage_object): e o rasto verdadeiro da tentativa, nao lixo.
+  * FECHO 28/09 — A RETENCAO: o ensaio declara GUARDAR_BACKUPS = 1 para a poda ter o que podar em
+    duas passagens; a da falha perde o pesado (pg/, dump), a em curso fica inteira.
   * Como root o postgres recusa arrancar: initdb/pg_ctl correm por `runuser -u postgres`.
 
 Sem Postgres (SINTONIA_PG_BIN ou `pg_config --bindir`): sai 4 e NAO SEI — nunca PASS.
@@ -138,7 +147,31 @@ def dentro(saida: Path, t: Path) -> int:
         # 2 · A PASSAGEM (primeiro com a trava presa por outro escritor: tem de recusar)
         with espera._Trava(str(PAS.TRINCO)):
             out["PASSOS"]["2a_PASSAGEM_COM_OUTRO_ESCRITOR"] = PAS.passar_se_devido(estado, forcar=True)["ACCAO"]
-        p = PAS.passar_se_devido(estado, forcar=True)
+        PAS.GUARDAR_BACKUPS = 1
+
+        def porta_com_a_sala_morta(cmd):
+            viva = os.environ["SINTONIA_SALA_DSN"]
+            os.environ["SINTONIA_SALA_DSN"] = "postgresql://postgres@127.0.0.1:9/sala_morta?connect_timeout=2"
+            try:
+                return PAS.lancar_padrao(cmd)
+            finally:
+                os.environ["SINTONIA_SALA_DSN"] = viva
+        t0 = datetime.now(timezone.utc)
+        f = PAS.passar_se_devido(estado, agora=t0, forcar=True, lancar=porta_com_a_sala_morta)
+        pasta_da_falha = PAS.PASTA / t0.strftime("%Y%m%dT%H%M%SZ")
+        out["PASSOS"]["2a2_PORTA_COM_A_SALA_MORTA"] = {
+            "ACCAO": f["ACCAO"], "FALHARAM": f.get("FALHARAM"),
+            "CODIGOS": {c.get("COLHEITA_DA_CORRIDA"): c.get("CODIGO") for c in f.get("CORRIDAS", [])},
+            "EM_PAS_PASSAGENS": sorted(estado.get("PAS_PASSAGENS") or {}),
+            "PAS_FALHAS": {k: {"TENTATIVAS": v["TENTATIVAS"], "CAUSA": v["CAUSA"][-160:]}
+                           for k, v in (estado.get("PAS_FALHAS") or {}).items()},
+            "PAS_ULTIMA_FALHA_EM": estado.get("PAS_ULTIMA_FALHA_EM"),
+            "SALA": foto()["sala_de_espera"]}
+        out["PASSOS"]["2a3_LOGO_A_SEGUIR_RECUO"] = PAS.passar_se_devido(
+            estado, agora=t0 + timedelta(minutes=6))["ACCAO"]
+        t1 = t0 + PAS.RECUO + timedelta(minutes=1)
+        p = PAS.passar_se_devido(estado, agora=t1, forcar=True)
+        pasta_em_curso = PAS.PASTA / t1.strftime("%Y%m%dT%H%M%SZ")
         out["PASSOS"]["2b_PASSAGEM"] = {"ACCAO": p["ACCAO"], "BACKUP_PROVA_VALE": bool(p.get("BACKUP")),
                                         "PLANO": estado.get("PAS_ULTIMO_PLANO"),
                                         "CORRIDAS": [{k: c.get(k) for k in ("COLHEITA_DA_CORRIDA", "FONTE",
@@ -148,7 +181,18 @@ def dentro(saida: Path, t: Path) -> int:
                                                      for c in p.get("CORRIDAS", [])]}
         depois = foto()
         out["PASSOS"]["2c_ARMAZEM_E_SALA_DEPOIS"] = depois
-        out["PASSOS"]["2d_DE_NOVO_NAO_REPETE"] = PAS.passar_se_devido(estado, forcar=True)["ACCAO"]
+        out["PASSOS"]["2d_DE_NOVO_NAO_REPETE"] = PAS.passar_se_devido(estado, agora=t1, forcar=True)["ACCAO"]
+
+        def bytes_de(x: Path) -> int:
+            return sum(q.stat().st_size for q in x.rglob("*") if q.is_file()) if x.exists() else 0
+        out["PASSOS"]["2e_RETENCAO"] = {
+            "PODA": estado.get("PAS_ULTIMA_PODA"),
+            "FALHA_PG_EXISTE": (pasta_da_falha / "backup" / "pg").exists(),
+            "FALHA_DUMP_EXISTE": (pasta_da_falha / "backup" / "SALA-ANTES-DA-MICRO.dump").exists(),
+            "FALHA_RECIBO_EXISTE": (pasta_da_falha / "backup" / "PROVA-BACKUP-SALA.json").exists(),
+            "EM_CURSO_DUMP_EXISTE": (pasta_em_curso / "backup" / "SALA-ANTES-DA-MICRO.dump").exists(),
+            "EM_CURSO_PG_EXISTE": (pasta_em_curso / "backup" / "pg").exists(),
+            "BYTES_EM_CURSO": bytes_de(pasta_em_curso), "BYTES_DA_FALHA_DEPOIS": bytes_de(pasta_da_falha)}
 
         # 3 · A INTELLIGENCE: agora (espera ou corre, pela regra) e agora + 4 h
         agora = datetime.now(timezone.utc)
@@ -176,7 +220,22 @@ def dentro(saida: Path, t: Path) -> int:
         P = out["PASSOS"]
         sala_subiu = depois["sala_de_espera"] > P["1_ARMAZEM_E_SALA_ANTES"]["sala_de_espera"]
         pote = P["3c_GATILHO_4H"]
+        F, R = P["2a2_PORTA_COM_A_SALA_MORTA"], P["2e_RETENCAO"]
+        # A T10 tem SIM -> precisa da Sala -> tem de FALHAR. A T7 so tem NAO/NAO_SEI: a porta decide,
+        # escreve o livro e nao pousa nada, logo passa mesmo com a Sala morta — e isso e verdade, nao defeito.
+        t10 = CORRIDAS[0]
+        falha_certa = (F["ACCAO"] in ("FALHOU", "PASSOU_COM_FALHAS") and t10 in (F["FALHARAM"] or [])
+                       and t10 not in F["EM_PAS_PASSAGENS"] and set(F["PAS_FALHAS"]) == set(F["FALHARAM"])
+                       and not set(F["FALHARAM"]) & set(F["EM_PAS_PASSAGENS"])
+                       and F["PAS_ULTIMA_FALHA_EM"] and F["SALA"] == P["1_ARMAZEM_E_SALA_ANTES"]["sala_de_espera"]
+                       and P["2a3_LOGO_A_SEGUIR_RECUO"] == "RECUO_DEPOIS_DE_FALHA"
+                       and set(F["FALHARAM"]) <= set(estado.get("PAS_PASSAGENS") or {})
+                       and not estado.get("PAS_FALHAS"))
+        retencao_certa = (not R["FALHA_PG_EXISTE"] and not R["FALHA_DUMP_EXISTE"] and R["FALHA_RECIBO_EXISTE"]
+                          and R["EM_CURSO_DUMP_EXISTE"] and R["EM_CURSO_PG_EXISTE"])
+        out["FALHA_DA_PORTA_CERTA"], out["RETENCAO_CERTA"] = bool(falha_certa), bool(retencao_certa)
         ok = (P["2a_PASSAGEM_COM_OUTRO_ESCRITOR"] == "OCUPADO" and p["ACCAO"] == "PASSOU" and sala_subiu
+              and falha_certa and retencao_certa
               and P["2d_DE_NOVO_NAO_REPETE"] == "NADA_A_PASSAR"
               and P["3b_DUAS_CORRIDAS_SOBREPOSTAS"] == "OCUPADO"
               and pote.get("ACCAO") in ("POTE_SUBIU", "POTE_NAO_SUBIU")

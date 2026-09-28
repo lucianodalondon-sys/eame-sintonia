@@ -105,6 +105,63 @@ def provar(dsn_real: str, saida: Path, *, com_a_copia=None, ler_real_do_ficheiro
     return resultado
 
 
+#: O que pesa numa pasta de backup (~50 MB): o Postgres descartavel ja descido e o dump. O recibo
+#: PROVA-BACKUP-SALA.json (poucos KB) fica sempre — a prova de que houve backup nao se apaga.
+PESADO = ("pg", "SALA-ANTES-DA-MICRO.dump")
+#: A copia exportada pela Intelligence (TEM TEXTO DA SALA) pesa e envelhece como o backup.
+PESADO_AO_LADO = ("EXPORT-DA-COPIA.json",)
+
+
+def _prova_vale(corrida: Path) -> bool:
+    try:
+        return json.loads((corrida / "backup" / "PROVA-BACKUP-SALA.json").read_text(
+            encoding="utf-8")).get("PROVA_VALE") is True
+    except (OSError, ValueError, AttributeError):
+        return False
+
+
+def podar(raiz: Path, em_curso: Path, guardar: int = 3) -> dict:
+    """RETENCAO DECLARADA dos backups da esteira (ESTEIRA-SOZINHA, FECHO 28/09).
+
+    `raiz` tem uma pasta por corrida (`AAAAMMDDTHHMMSSZ/`, com `backup/` dentro). FICAM inteiras:
+      1. a corrida EM CURSO — sempre, mesmo que o nome nao seja o mais novo;
+      2. as `guardar` mais novas (pelo nome, que e a hora UTC);
+      3. a mais nova cujo recibo diz PROVA_VALE — o ultimo rollback que se provou que volta.
+    As outras perdem so o PESADO (`backup/pg`, o dump, o export da copia); o recibo fica.
+    Nada fora de `raiz` e tocado; um caminho que nao seja pasta de corrida e ignorado."""
+    import shutil                                                   # noqa: PLC0415
+    raiz, em_curso = Path(raiz), Path(em_curso)
+    if not raiz.is_dir():
+        return {"PODADAS": [], "FICAM": [], "BYTES_LIBERTADOS": 0}
+    corridas = sorted((p for p in raiz.iterdir() if p.is_dir() and (p / "backup").is_dir()),
+                      key=lambda p: p.name)
+    ficam = {p.resolve() for p in corridas[-guardar:]} if guardar > 0 else set()
+    ficam.add(em_curso.resolve())
+    vale = next((p for p in reversed(corridas) if _prova_vale(p)), None)
+    if vale is not None:
+        ficam.add(vale.resolve())
+    podadas, libertados = [], 0
+    for p in corridas:
+        if p.resolve() in ficam:
+            continue
+        alvos = [p / "backup" / n for n in PESADO] + [p / n for n in PESADO_AO_LADO]
+        tirou = False
+        for a in alvos:
+            if not a.exists():
+                continue
+            if a.is_dir():
+                libertados += sum(f.stat().st_size for f in a.rglob("*") if f.is_file())
+                shutil.rmtree(a, ignore_errors=True)
+            else:
+                libertados += a.stat().st_size
+                a.unlink()
+            tirou = True
+        if tirou:
+            podadas.append(p.name)
+    return {"PODADAS": podadas, "FICAM": sorted(Path(p).name for p in ficam),
+            "ULTIMA_PROVA_VALE": vale.name if vale else None, "BYTES_LIBERTADOS": libertados}
+
+
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     saida = next((Path(a.split("=", 1)[1]) for a in argv if a.startswith("--saida=")),

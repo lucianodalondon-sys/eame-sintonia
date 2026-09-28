@@ -7,6 +7,11 @@ originais sempre (sem `git checkout`) e confere no fim que cada ficheiro voltou 
     python3 provas/esteira_sozinha/mutantes.py        # grava provas/esteira_sozinha/MUTANTES.json
 
 Um mutante que sobrevive e um teste que falta, nao um mutante mau.
+
+CRLF (FECHO 28/09): com `core.autocrlf=true` (Windows) os ficheiros vem com CRLF e os alvos de varias
+linhas (escritos com \n) nao batiam -> ALVO_NAO_UNICO (0). `aplicar()` procura sobre o texto em LF e
+devolve o mutante com as quebras de linha ORIGINAIS do ficheiro; o restauro continua a ser os bytes
+originais, conferidos por SHA-256.
 """
 import hashlib
 import json
@@ -21,22 +26,23 @@ PAS = "admissao/passagem_para_a_sala.py"
 GI = "admissao/gatilho_da_inteligencia.py"
 VIG = "medidas/vigia_da_esteira.py"
 SUP = "curadoria/supervisor.py"
+PB = "scripts/micro_coleta/provar_backup_da_sala.py"
 
 #: (id, ficheiro, o defeito que finge, texto original, texto mutante)
 MUTANTES = [
  # ── duas corridas sobrepostas ──
  ("E1", GI, "Intelligence sem trinco: duas corridas ao mesmo tempo",
-  "        with espera._Trava(str(trinco)):\n            return _correr(",
-  "        with open(os.devnull):\n            return _correr("),
+  "        with espera._Trava(str(trinco)):\n            pasta_corrida = ",
+  "        with open(os.devnull):\n            pasta_corrida = "),
  ("E2", PAS, "passagem sem trinco: dois escritores na Sala",
-  "        with espera._Trava(str(trinco)):\n            b = (",
-  "        with open(os.devnull):\n            b = ("),
+  "        with espera._Trava(str(trinco)):\n            em_curso = ",
+  "        with open(os.devnull):\n            em_curso = "),
  # ── Admission sem backup ──
  ("E3", PAS, "Admission grava sem PROVA_VALE",
-  "            if not b.get(\"PROVA_VALE\"):", "            if False:"),
+  "    if not b.get(\"PROVA_VALE\"):", "    if False:"),
  ("E4", PAS, "Admission nem chama o backup",
-  "            b = (backup or backup_padrao)(pasta / agora.strftime(\"%Y%m%dT%H%M%SZ\") / \"backup\")",
-  "            b = {\"PROVA_VALE\": True}"),
+  "    b = (backup or backup_padrao)(em_curso / \"backup\")",
+  "    b = {\"PROVA_VALE\": True}"),
  # ── gatilho sem delta / regra torta ──
  ("E5", GI, "gatilho corre sem delta",
   "    if n <= 0:\n        return {\"DECISAO\": ESPERAR, \"PORQUE\": \"SEM_DELTA\"}",
@@ -86,6 +92,46 @@ MUTANTES = [
  ("E25", SUP, "a esteira liga-se em qualquer _loop (testes escrevem na Sala)",
   "    passos_da_esteira = _passos_da_esteira() if esteira else ()",
   "    passos_da_esteira = _passos_da_esteira()"),
+ # ── FECHO 28/09: a porta que falha, a retencao, e o READ_ONLY em qualquer SO ──
+ ("E27", PAS, "porta falha (CODIGO!=0) e e marcada passada", "        if passou_pela_porta(r):",
+  "        if True:"),
+ ("E28", PAS, "passou = qualquer recibo (ignora CODIGO e a linha CORRIDA)",
+  "    return recibo.get(\"CODIGO\") == 0 and recibo.get(\"CORRIDA_DA_PORTA\") not in (None, \"NAO SEI\")",
+  "    return True"),
+ ("E29", PAS, "falha da porta nao grava PAS_ULTIMA_FALHA_EM (sem recuo: loop apertado)",
+  "    if falharam:\n        estado[\"PAS_ULTIMA_FALHA_EM\"]", "    if False:\n        estado[\"PAS_ULTIMA_FALHA_EM\"]"),
+ ("E30", PAS, "a falha nao fica registada com a causa",
+  "            falhas[run] = {\"EM\": agora.isoformat(),", "            {\"EM\": agora.isoformat(),"),
+ ("E31", PAS, "corrida falhada nunca volta a ser tentada",
+  "            falhas.pop(run, None)\n        else:", "            falhas.pop(run, None)\n        else:\n            feitas[run] = r"),
+ ("E32", PAS, "sem recuo por corrida", "            if quando and agora - quando < recuo_da_corrida(falhou):",
+  "            if False:"),
+ ("E33", PAS, "recuo por corrida sem teto", "    return min(RECUO * (2 ** min(n - 1, 16)), RECUO_MAXIMO)",
+  "    return RECUO * (2 ** min(n - 1, 16))"),
+ ("E34", PAS, "porta que rebenta derruba a volta (e nao fica registada)",
+  "        except Exception as e:  # noqa: BLE001 — a porta que rebenta tambem nao passou",
+  "        except ZeroDivisionError as e:  # noqa"),
+ ("E35", PB, "retencao apaga o backup em curso", "    ficam.add(em_curso.resolve())", "    pass"),
+ ("E36", PB, "retencao apaga a ultima PROVA_VALE", "        ficam.add(vale.resolve())", "        pass"),
+ ("E37", PB, "retencao apaga o recibo (a prova de que houve backup)",
+  "PESADO = (\"pg\", \"SALA-ANTES-DA-MICRO.dump\")",
+  "PESADO = (\"pg\", \"SALA-ANTES-DA-MICRO.dump\", \"PROVA-BACKUP-SALA.json\")"),
+ ("E38", PB, "retencao nao poda nada (o disco cresce)", "        if p.resolve() in ficam:\n            continue",
+  "        if True:\n            continue"),
+ ("E39", PB, "retencao guarda N-1", "    ficam = {p.resolve() for p in corridas[-guardar:]} if guardar > 0 else set()",
+  "    ficam = {p.resolve() for p in corridas[-guardar + 1:]} if guardar > 1 else set()"),
+ ("E40", PAS, "a passagem nao poda", "                    estado[\"PAS_ULTIMA_PODA\"] = (podar or podar_padrao)(pasta, em_curso)",
+  "                    estado[\"PAS_ULTIMA_PODA\"] = {}"),
+ ("E41", GI, "a Intelligence nao poda",
+  "                    estado[\"INT_ULTIMA_PODA\"] = (podar or podar_padrao)(pasta, pasta_corrida)",
+  "                    estado[\"INT_ULTIMA_PODA\"] = {}"),
+ ("E42", GI, "a poda da Intelligence corre ANTES da corrida (leva a em curso)",
+  "            try:\n                return _correr(estado, agora, delta, d, copia, motor, subir, parar, pasta_corrida)",
+  "            (podar or podar_padrao)(pasta, pasta_corrida)\n            try:\n"
+  "                return _correr(estado, agora, delta, d, copia, motor, subir, parar, pasta_corrida)"),
+ ("E43", GI, "export sem a transacao so-leitura no comando",
+  "\"-c\", \"begin transaction read only\", ", ""),
+ ("E44", VIG, "o vigia cala a porta que falha", "    if falhas:\n        alertas.append(", "    if False:\n        alertas.append("),
  ("E26", SUP, "um passo que rebenta derruba o supervisor",
   "            except Exception as e:  # noqa: BLE001 — o supervisor nao morre por isto\n"
   "                _anotar({\"EVENTO\": \"ESTEIRA_ERRO\"",
@@ -96,6 +142,19 @@ MUTANTES = [
 
 def sha(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
+
+
+def aplicar(original: bytes, velho: str, novo: str) -> tuple[bytes | None, int]:
+    """-> (os bytes do mutante, quantas vezes o alvo aparece). O alvo procura-se no texto com as
+    quebras normalizadas para LF; o mutante escreve-se com as quebras ORIGINAIS (CRLF fica CRLF)."""
+    texto = original.decode("utf-8")
+    crlf = "\r\n" in texto
+    lf = texto.replace("\r\n", "\n") if crlf else texto
+    n = lf.count(velho)
+    if n != 1:
+        return None, n
+    mutado = lf.replace(velho, novo)
+    return (mutado.replace("\n", "\r\n") if crlf else mutado).encode("utf-8"), 1
 
 
 def main() -> int:
@@ -111,13 +170,12 @@ def main() -> int:
     for mid, f, finge, velho, novo in MUTANTES:
         p = RAIZ / f
         original = p.read_bytes()
-        texto = original.decode("utf-8")
-        n = texto.count(velho)
+        mutado, n = aplicar(original, velho, novo)
         if n != 1:
             out["MUTANTES"].append({"ID": mid, "FICHEIRO": f, "FINGE": finge, "ESTADO": "ALVO_NAO_UNICO (%d)" % n})
             continue
         try:
-            p.write_bytes(texto.replace(velho, novo).encode("utf-8"))
+            p.write_bytes(mutado)
             r = subprocess.run([sys.executable, "-m", "unittest", TESTE], cwd=RAIZ, capture_output=True,
                                text=True, timeout=600)
             quem = [l.split("(")[0].replace("FAIL: ", "").replace("ERROR: ", "").strip()

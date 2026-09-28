@@ -170,7 +170,50 @@ class TestVoltaDoGatilho(_Pasta):
         exe.chmod(0o755)
         return str(exe)
 
-    @unittest.skipIf(os.name == "nt", "psql falso em shebang")
+    def _run_falso(self, read_only, visto):
+        """subprocess.run de mentira, IGUAL em Windows e Linux: escreve no `-o` o export que o banco
+        diria, e guarda o comando e o ambiente para se conferir a transacao so-leitura."""
+        def run(cmd, **kw):
+            visto.update(cmd=cmd, env=kw.get("env") or {})
+            Path(cmd[cmd.index("-o") + 1]).write_text(json.dumps({"READ_ONLY": read_only, "LINHAS": []}),
+                                                      encoding="utf-8")
+            return mock.Mock(returncode=0, stderr="", stdout="")
+        return run
+
+    def test_export_so_serve_com_read_only_on_em_qualquer_so(self):
+        # FECHO 28/09: o mutante E12 sobrevivia no Windows porque a unica prova era um psql em shebang.
+        visto = {}
+        with mock.patch.object(GI.subprocess, "run", self._run_falso("on", visto)):
+            self.assertEqual(GI.exportar("postgresql://x@h/y", self.d / "e.json", "psql")["READ_ONLY"], "on")
+        self.assertIn("begin transaction read only", visto["cmd"])
+        self.assertIn("default_transaction_read_only=on", visto["env"]["PGOPTIONS"])
+        self.assertEqual(visto["cmd"][-1], "postgresql://x@h/y")          # o DSN por ultimo (RUNBOOK-R7 §2)
+        for mau in ("off", None, "ON"):
+            with mock.patch.object(GI.subprocess, "run", self._run_falso(mau, {})), \
+                 self.assertRaises(RuntimeError, msg=repr(mau)):
+                GI.exportar("postgresql://x@h/y", self.d / "e2.json", "psql")
+
+    def test_a_poda_da_intelligence_corre_depois_e_poupa_a_corrida_em_curso(self):
+        vistos = {}
+
+        def copia(pasta):
+            vistos["copia"] = pasta
+            return json.loads(EXPORT_R7.read_text(encoding="utf-8"))
+
+        def podar(pasta, em_curso):
+            vistos.setdefault("podar", []).append((pasta, em_curso, (em_curso / "MOTOR.json").exists()))
+            return {"PODADAS": []}
+        est = {}
+        GI.correr_se_devido(est, agora=AGORA, consulta=_consulta(12, "2026-09-28 01:00:00+00",
+                                                                 "2026-09-28 11:00:00+00"),
+                            copia=copia, motor=lambda *a: json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8")),
+                            subir=lambda s, pasta, parar: {"SUBIU": False}, parar=self.parar,
+                            trinco=self.trinco, pasta=self.d / "esteira", podar=podar)
+        # UMA poda, DEPOIS do motor (MOTOR.json ja escrito), e com a corrida em curso protegida
+        self.assertEqual(vistos["podar"], [(self.d / "esteira", vistos["copia"], True)])
+        self.assertEqual(est["INT_ULTIMA_PODA"], {"PODADAS": []})
+
+    @unittest.skipIf(os.name == "nt", "psql falso em shebang (a prova independente do SO e a de cima)")
     def test_export_so_serve_com_read_only_on(self):
         self.assertEqual(GI.exportar("postgresql://x@127.0.0.1/y", self.d / "e.json",
                                      self._psql_falso("on"))["READ_ONLY"], "on")
@@ -192,6 +235,21 @@ def _livro_das_corridas(raiz: Path, corridas):
     p = raiz / PAS.LIVRO_DAS_CORRIDAS
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text("".join(json.dumps(c) + "\n" for c in corridas), encoding="utf-8")
+
+
+def _run_do(cmd) -> str:
+    return next(a.split("=", 1)[1] for a in cmd if a.startswith("--colheita-da-corrida="))
+
+
+def _porta(lancados, codigo=0, erro=""):
+    """Uma porta de mentira: guarda o RUN_ID pedido e responde como o orquestrador responde."""
+    def lancar(cmd):
+        run = _run_do(cmd)
+        lancados.append(run)
+        if codigo:
+            return {"CODIGO": codigo, "SAIDA": "", "ERRO": erro}
+        return {"CODIGO": 0, "SAIDA": "... CORRIDA SUCCESS · PORTA-%s\n" % run, "ERRO": ""}
+    return lancar
 
 
 class TestPassagem(_Pasta):
@@ -216,13 +274,14 @@ class TestPassagem(_Pasta):
     def _obs(self, run, _raiz):
         return [{"SOURCE_ID": s} for s in self.obs.get(run, [])]
 
-    def _volta(self, backup, lancar, **kw):
-        with mock.patch.object(PAS, "passar_uma",
-                               side_effect=lambda l, lanc, livro: dict(lanc(l), COLHEITA_DA_CORRIDA=l["RUN_ID"])):
-            return PAS.passar_se_devido(self.estado, agora=AGORA, raizes=[self.d], livro=self.livro,
+    def _volta(self, backup, lancar, agora=AGORA, **kw):
+        # A passar_uma VERDADEIRA (le a saida da porta); so o envelope (colher) e a porta (lancar) sao dublos.
+        with mock.patch("coleta.italy_executor.colher", return_value={"OBSERVACOES_DESTA_CORRIDA": 1}):
+            return PAS.passar_se_devido(self.estado, agora=agora, raizes=[self.d], livro=self.livro,
                                         observacoes=self._obs, backup=backup, lancar=lancar,
                                         precondicoes=lambda: [], parar=self.parar, trinco=self.trinco,
                                         pasta=self.d / "p", **kw)
+
 
     def test_o_plano_diz_porque_cada_uma_fica(self):
         p = PAS.planear(self.estado, AGORA, [self.d], self.livro, self._obs)
@@ -248,19 +307,17 @@ class TestPassagem(_Pasta):
 
     def test_com_prova_vale_passa_uma_vez_e_so_uma(self):
         lancados = []
-        r = self._volta(lambda p: {"PROVA_VALE": True, "DUMP": "x.dump"},
-                        lambda l: lancados.append(l["RUN_ID"]) or {"CODIGO": 0})
+        r = self._volta(lambda p: {"PROVA_VALE": True, "DUMP": "x.dump"}, _porta(lancados))
         self.assertEqual(r["ACCAO"], "PASSOU", r)
         self.assertEqual(lancados, ["R-T3"])
-        r2 = self._volta(lambda p: {"PROVA_VALE": True}, lambda l: lancados.append(l["RUN_ID"]) or {},
-                         forcar=True)
+        r2 = self._volta(lambda p: {"PROVA_VALE": True}, _porta(lancados), forcar=True)
         self.assertEqual(r2["ACCAO"], "NADA_A_PASSAR")
         self.assertEqual(lancados, ["R-T3"])
 
     def test_o_backup_vem_antes_da_escrita(self):
         ordem = []
         self._volta(lambda p: ordem.append("BACKUP") or {"PROVA_VALE": True},
-                    lambda l: ordem.append("PORTA") or {})
+                    lambda cmd: ordem.append("PORTA") or _porta([])(cmd))
         self.assertEqual(ordem, ["BACKUP", "PORTA"])
 
     def test_um_so_escritor(self):
@@ -288,6 +345,125 @@ class TestPassagem(_Pasta):
         mc = PAS._mc()
         self.assertEqual(visto["cmd"], mc.comando("IT-T3-010") + ["--so-a-porta", "--colheita-da-corrida=R-T3"])
         self.assertEqual(r["CORRIDA_DA_PORTA"], "IT-T3-NOVA")
+
+    # ── FECHO 28/09: a porta que falha NAO passou ──
+    def test_porta_que_falha_nao_passou_fica_com_a_causa_e_volta_depois_do_recuo(self):
+        # O defeito medido pelo verificador: CODIGO 1 (SalaIndisponivel) ficava «PASSOU» e nunca voltava.
+        vale = lambda p: {"PROVA_VALE": True}
+        lancados = []
+        r = self._volta(vale, _porta(lancados, codigo=1, erro="SalaIndisponivel: connection refused"))
+        self.assertEqual(r["ACCAO"], "FALHOU", r)
+        self.assertEqual(r["FALHARAM"], ["R-T3"])
+        self.assertNotIn("R-T3", self.estado.get("PAS_PASSAGENS", {}))
+        f = self.estado["PAS_FALHAS"]["R-T3"]
+        self.assertEqual((f["TENTATIVAS"], f["CODIGO"]), (1, 1))
+        self.assertIn("SalaIndisponivel", f["CAUSA"])
+        self.assertEqual(self.estado["PAS_ULTIMA_FALHA_EM"], AGORA.isoformat())
+        self.assertNotIn("PAS_ULTIMA_PASSAGEM_EM", self.estado)
+        # sem loop apertado: dentro do recuo nao se tenta (nem backup, nem porta)
+        r = self._volta(lambda p: self.fail("backup dentro do recuo"), lambda c: self.fail("porta"),
+                        agora=AGORA + timedelta(minutes=10))
+        self.assertEqual(r["ACCAO"], "RECUO_DEPOIS_DE_FALHA", r)
+        # passado o recuo, a MESMA corrida volta a ser tentada, e desta vez passa
+        r = self._volta(vale, _porta(lancados), agora=AGORA + timedelta(minutes=31))
+        self.assertEqual(r["ACCAO"], "PASSOU", r)
+        self.assertEqual(lancados, ["R-T3", "R-T3"])
+        self.assertIn("R-T3", self.estado["PAS_PASSAGENS"])
+        self.assertNotIn("R-T3", self.estado["PAS_FALHAS"])
+
+    def test_porta_com_codigo_zero_mas_sem_a_linha_corrida_nao_passou(self):
+        r = self._volta(lambda p: {"PROVA_VALE": True}, lambda cmd: {"CODIGO": 0, "SAIDA": "???", "ERRO": ""})
+        self.assertEqual(r["ACCAO"], "FALHOU", r)
+        self.assertIn("R-T3", self.estado["PAS_FALHAS"])
+        self.assertNotIn("R-T3", self.estado.get("PAS_PASSAGENS", {}))
+
+    def test_porta_que_rebenta_fica_registada_e_nao_derruba_a_volta(self):
+        def rebenta(cmd):
+            raise RuntimeError("SalaIndisponivel")
+        r = self._volta(lambda p: {"PROVA_VALE": True}, rebenta)
+        self.assertEqual(r["ACCAO"], "FALHOU", r)
+        self.assertIn("SalaIndisponivel", self.estado["PAS_FALHAS"]["R-T3"]["CAUSA"])
+
+    def test_recuo_por_corrida_cresce_e_tem_teto(self):
+        self.assertEqual(PAS.recuo_da_corrida({"TENTATIVAS": 1}), PAS.RECUO)
+        self.assertEqual(PAS.recuo_da_corrida({"TENTATIVAS": 3}), PAS.RECUO * 4)
+        self.assertEqual(PAS.recuo_da_corrida({"TENTATIVAS": 99}), PAS.RECUO_MAXIMO)
+        # a corrida em recuo fica no plano, a vista, com o porque
+        self.estado["PAS_FALHAS"] = {"R-T3": {"EM": (AGORA - timedelta(minutes=40)).isoformat(),
+                                              "TENTATIVAS": 2}}
+        p = PAS.planear(self.estado, AGORA, [self.d], self.livro, self._obs)
+        self.assertEqual(p["PASSAR"], [])
+        self.assertIn(("R-T3", PAS.EM_RECUO), [(x["RUN_ID"], x["PORQUE"]) for x in p["FICA"]])
+        p = PAS.planear(self.estado, AGORA + timedelta(minutes=21), [self.d], self.livro, self._obs)
+        self.assertEqual([x["RUN_ID"] for x in p["PASSAR"]], ["R-T3"])
+
+    def test_a_poda_corre_depois_e_nunca_leva_o_backup_em_curso(self):
+        # cinco passagens antigas, cada uma com ~o seu backup; a em curso escreve o dela.
+        # (nomes MAIS NOVOS que a em curso: a em curso fica por ser a em curso, nao por ser a mais nova)
+        for i in range(5):
+            _backup_falso(self.d / "p" / ("20261001T0%d0000Z" % i), prova_vale=False)
+
+        def backup(pasta):
+            _backup_falso(pasta.parent, prova_vale=True)
+            return {"PROVA_VALE": True, "DUMP": str(pasta / "SALA-ANTES-DA-MICRO.dump")}
+        r = self._volta(backup, _porta([]))
+        self.assertEqual(r["ACCAO"], "PASSOU", r)
+        em_curso = self.d / "p" / AGORA.strftime("%Y%m%dT%H%M%SZ")
+        self.assertTrue((em_curso / "backup" / "SALA-ANTES-DA-MICRO.dump").exists())
+        self.assertTrue((em_curso / "backup" / "pg").is_dir())
+        poda = self.estado["PAS_ULTIMA_PODA"]
+        self.assertEqual(sorted(poda["PODADAS"]), ["20261001T000000Z", "20261001T010000Z"])
+
+
+def _backup_falso(corrida: Path, prova_vale: bool, bytes_pg: int = 4096):
+    b = corrida / "backup"
+    (b / "pg" / "base").mkdir(parents=True, exist_ok=True)
+    (b / "pg" / "base" / "1").write_bytes(b"x" * bytes_pg)
+    (b / "SALA-ANTES-DA-MICRO.dump").write_bytes(b"d" * 100)
+    (b / "PROVA-BACKUP-SALA.json").write_text(json.dumps({"PROVA_VALE": prova_vale}), encoding="utf-8")
+    (corrida / "EXPORT-DA-COPIA.json").write_text("{}", encoding="utf-8")
+
+
+# ── RETENCAO DOS BACKUPS (FECHO 28/09) ───────────────────────────────────────
+class TestRetencao(_Pasta):
+    def setUp(self):
+        super().setUp()
+        sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
+        import provar_backup_da_sala as PB
+        self.PB = PB
+        self.nomes = ["20260920T000000Z", "20260921T000000Z", "20260922T000000Z", "20260923T000000Z",
+                      "20260924T000000Z", "20260925T000000Z", "20260926T000000Z"]
+        for n in self.nomes:
+            _backup_falso(self.d / n, prova_vale=(n == "20260921T000000Z"))
+        (self.d / "LIXO-QUE-NAO-E-CORRIDA").mkdir()
+        (self.d / "LIXO-QUE-NAO-E-CORRIDA" / "f").write_text("fica", encoding="utf-8")
+
+    def _inteira(self, n):
+        return (self.d / n / "backup" / "pg").is_dir() and (self.d / n / "backup" / "SALA-ANTES-DA-MICRO.dump").exists()
+
+    def test_ficam_as_n_ultimas_a_ultima_prova_vale_e_a_em_curso(self):
+        r = self.PB.podar(self.d, self.d / "20260920T000000Z", guardar=3)
+        ficam = {"20260920T000000Z", "20260921T000000Z", "20260924T000000Z", "20260925T000000Z",
+                 "20260926T000000Z"}
+        for n in self.nomes:
+            self.assertEqual(self._inteira(n), n in ficam, n)
+            # o recibo nunca sai: a prova de que houve backup fica
+            self.assertTrue((self.d / n / "backup" / "PROVA-BACKUP-SALA.json").exists(), n)
+        self.assertFalse((self.d / "20260922T000000Z" / "EXPORT-DA-COPIA.json").exists())
+        self.assertEqual(sorted(r["PODADAS"]), ["20260922T000000Z", "20260923T000000Z"])
+        self.assertEqual(r["ULTIMA_PROVA_VALE"], "20260921T000000Z")
+        self.assertGreater(r["BYTES_LIBERTADOS"], 2 * 4096)
+        self.assertEqual((self.d / "LIXO-QUE-NAO-E-CORRIDA" / "f").read_text(encoding="utf-8"), "fica")
+
+    def test_o_disco_fica_limitado_volta_apos_volta(self):
+        for n in self.nomes:
+            self.PB.podar(self.d, self.d / n, guardar=3)
+        inteiras = [n for n in self.nomes if self._inteira(n)]
+        self.assertEqual(inteiras, ["20260921T000000Z", "20260924T000000Z", "20260925T000000Z",
+                                    "20260926T000000Z"])
+
+    def test_pasta_que_nao_existe_nao_rebenta(self):
+        self.assertEqual(self.PB.podar(self.d / "nao-ha", self.d / "x")["PODADAS"], [])
 
 
 # ── VIGIA ────────────────────────────────────────────────────────────────────
@@ -318,6 +494,13 @@ class TestVigia(_Pasta):
         m["intelligence"] = lambda: 1 / 0
         r = VIG.medir(AGORA, m, {})
         self.assertIn("intelligence", [a["ETAPA"] for a in r["ALERTAS"]])
+
+    def test_porta_que_falha_e_alerta_mesmo_com_a_passagem_a_andar(self):
+        est = {"PAS_FALHAS": {"R-1": {"CAUSA": "SalaIndisponivel", "TENTATIVAS": 2}}}
+        r = VIG.medir(AGORA, self._marcas(), est)
+        self.assertTrue(r["ALERTA"])
+        a = [x for x in r["ALERTAS"] if x["ESTADO"] == VIG.FALHA_NA_PORTA]
+        self.assertEqual(a[0]["CAUSAS"], {"R-1": "SalaIndisponivel"})
 
     def test_a_montante(self):
         r = VIG.medir(AGORA, self._marcas(sala=100, intelligence=100), {})

@@ -41,6 +41,15 @@ AS TRAVAS
     PARAR      `curadoria/PARAR.flag` antes de medir e antes de subir.
     RECUO      falhou (copia nao vale, motor rebentou)? nao se tenta outra vez antes de RECUO.
     MEDIDA     a Sala e perguntada no maximo de INTERVALO_DE_MEDIDA em INTERVALO_DE_MEDIDA.
+    RETENCAO   (FECHO, 28/09) cada corrida deixa ~50 MB (backup, Postgres descartavel, export da
+               copia). `provar_backup_da_sala.podar` corre DEPOIS da corrida, dentro do trinco:
+               ficam as GUARDAR_BACKUPS ultimas e a ultima com PROVA_VALE; a em curso nunca sai.
+
+O POTE DE HOJE NAO SOBE, E ISSO NAO SE MUDA AQUI
+------------------------------------------------
+    O motor escreve ENTITY_SOURCE como OBJETO (D112) e o contrato POTE_INTELLIGENCE_CASCO-v2 pede
+    STRING. O fiscal reprova e o gatilho obedece: POTE_REPROVADO, nada sobe. Quem decide o contrato
+    e o dono do pote (pedido ja feito); nem o motor nem o schema se tocam na esteira.
 """
 from __future__ import annotations
 
@@ -64,6 +73,7 @@ LIMIAR_NOVOS = 10
 ESPERA_MAXIMA = timedelta(hours=4)
 RECUO = timedelta(minutes=30)
 INTERVALO_DE_MEDIDA = timedelta(minutes=5)
+GUARDAR_BACKUPS = 3
 
 CURADORIA = RAIZ / "curadoria"
 PARAR = CURADORIA / "PARAR.flag"
@@ -215,7 +225,7 @@ def subir_o_pote(saida_motor: dict, destino: Path = POTE_NO_CASCO, pasta: Path =
 # ── 4 · uma volta ────────────────────────────────────────────────────────────
 def correr_se_devido(estado: dict, *, agora: datetime | None = None, consulta=None, copia=None,
                      motor=None, subir=None, parar: Path = PARAR, trinco: Path = TRINCO,
-                     pasta: Path = PASTA, forcar_medida: bool = False) -> dict:
+                     pasta: Path = PASTA, forcar_medida: bool = False, podar=None) -> dict:
     """Uma volta do gatilho. Devolve o que fez; guarda em `estado` as marcas (INT_*)."""
     agora = agora or _agora()
     if parar.exists():
@@ -234,13 +244,26 @@ def correr_se_devido(estado: dict, *, agora: datetime | None = None, consulta=No
         return {"ACCAO": "ESPERA" if d["DECISAO"] == ESPERAR else "NAO_SEI", **delta, **d}
     try:
         with espera._Trava(str(trinco)):
-            return _correr(estado, agora, delta, d, copia, motor, subir, parar, pasta)
+            pasta_corrida = pasta / agora.strftime("%Y%m%dT%H%M%SZ")
+            try:
+                return _correr(estado, agora, delta, d, copia, motor, subir, parar, pasta_corrida)
+            finally:
+                # Dentro do trinco e DEPOIS da corrida: a corrida em curso nunca e podada.
+                try:
+                    estado["INT_ULTIMA_PODA"] = (podar or podar_padrao)(pasta, pasta_corrida)
+                except Exception as e:  # noqa: BLE001 — a poda nao desfaz a corrida; fica escrita
+                    estado["INT_ULTIMA_PODA"] = {"ERRO": repr(e)[:300]}
     except espera.EsperaOcupada:
         return {"ACCAO": "OCUPADO", "PORQUE": "outra corrida da Intelligence esta a decorrer"}
 
 
-def _correr(estado, agora, delta, d, copia, motor, subir, parar, pasta) -> dict:
-    pasta_corrida = pasta / agora.strftime("%Y%m%dT%H%M%SZ")
+def podar_padrao(pasta: Path, em_curso: Path) -> dict:
+    sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
+    import provar_backup_da_sala as PB                          # noqa: PLC0415
+    return PB.podar(pasta, em_curso, guardar=GUARDAR_BACKUPS)
+
+
+def _correr(estado, agora, delta, d, copia, motor, subir, parar, pasta_corrida) -> dict:
     estado["INT_ULTIMA_TENTATIVA_EM"] = agora.isoformat()
     try:
         export = (copia or copia_provada)(pasta_corrida)

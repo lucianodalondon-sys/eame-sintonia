@@ -27,6 +27,10 @@ AS ETAPAS, ONDE SE LE «ANDOU», E O N DE CADA UMA (declarado — mude aqui, e s
     SEM MARCA NAO E «ESTA TUDO BEM». Uma etapa cuja marca nao se consegue ler fica NAO SEI e
     entra nos ALERTAS. O vigia calado e o unico erro que ele nao pode cometer.
 
+A PORTA QUE FALHA TAMBEM E ALERTA (FECHO, 28/09): a passagem pode andar de 5 em 5 minutos e a porta
+recusar sempre (Sala indisponivel). PAS_FALHAS nao vazio entra nos ALERTAS como FALHA_NA_PORTA, com
+a causa de cada corrida — andar nao e passar.
+
 Uma etapa parada com a de cima tambem parada leva `CAUSA_PROVAVEL = A_MONTANTE`: a Sala nao anda
 se a coleta nao anda. E ajuda de leitura, nao silencia o alerta.
 """
@@ -61,7 +65,7 @@ ETAPAS = (
     ("pote", 24, "intelligence"),
     ("portal", 24, "pote"),
 )
-ANDANDO, PARADA = "ANDANDO", "PARADA"
+ANDANDO, PARADA, FALHA_NA_PORTA = "ANDANDO", "PARADA", "FALHA_NA_PORTA"
 
 
 def _quando(v) -> datetime | None:
@@ -197,6 +201,10 @@ def medir(agora: datetime | None = None, marcas: dict | None = None, estado_sup:
                             "HORAS_PARADA": linha.get("HORAS_PARADA", NAO_SEI),
                             "CAUSA_PROVAVEL": linha.get("CAUSA_PROVAVEL")})
         etapas[nome] = linha
+    falhas = estado_sup.get("PAS_FALHAS") or {}
+    if falhas:
+        alertas.append({"ETAPA": "passagem", "ESTADO": FALHA_NA_PORTA, "CORRIDAS": len(falhas),
+                        "CAUSAS": {run: f.get("CAUSA") for run, f in list(falhas.items())[-10:]}})
     etapas["portal_publico"] = {"ULTIMA_VEZ": NAO_SEI, "ESTADO": NAO_SEI,
                                 "LIDO_DE": "deploy publico (D126): medir e rede, e o vigia nao sai"}
     return {"SCHEMA": "ESTEIRA-SAUDE/v1", "MEDIDO_EM": agora.isoformat(),

@@ -1,4 +1,5 @@
 {
+ "CONDICOES": "copia da arvore com os 6 ficheiros-alvo (passagem, gatilho, vigia, supervisor, provar_backup, test_esteira_sozinha) convertidos para CRLF (como autocrlf=true no Windows) e o teste do psql em shebang DESLIGADO (skipIf(True), como no Windows). O harness antigo dava ALVO_NAO_UNICO (0) em 16 alvos de varias linhas; E12/E43 (READ_ONLY) morrem pela prova independente do SO.",
  "TESTE": "tests.test_esteira_sozinha",
  "BASE_VERDE": true,
  "MUTANTES": [
@@ -111,7 +112,6 @@
    "FINGE": "export sem READ_ONLY=on serve",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
-    "test_export_so_serve_com_read_only_on",
     "test_export_so_serve_com_read_only_on_em_qualquer_so"
    ]
   },
