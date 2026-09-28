@@ -7,6 +7,7 @@
           [--max-fontes=N] [--paralelo] [--janela-24h]   (D124: a janela D79 so se ligada)
     py ferramentas/big_collection/coleta_continua.py --servico   (os mesmos) [--intervalo-min=30]
     py ferramentas/big_collection/coleta_continua.py --ensaio-a-seco (os mesmos) [--agora=<ISO>]   0 rede, 0 Sala
+          [--estado-continua=<copia de COLETA-CONTINUA-ESTADO.json>]  (senao: as feitas do disparador)
     py ferramentas/big_collection/coleta_continua.py --estado  --base=<pasta>
     py ferramentas/big_collection/coleta_continua.py --rearmar --base=<pasta> --porque="<quem leu e o que viu>"
 
@@ -24,6 +25,13 @@ O QUE MUDA: a unidade e a FONTE. A cada ciclo escolhe-se, pela ORDEM DO PLANO (a
     esta em pausa de 24 h nem em Retry-After;
   · somando TODAS as linhas do ciclo e o gasto de 24 h, nenhum dominio passa do orcamento vigente.
 Fonte de dominio fechado ESPERA (com a hora em que abre); as outras seguem. O FREIO NAO MUDA.
+
+COLETA-OCIOSA (28/09, ciclo 30 medido: NADA_ELEGIVEL, 46/61 feitas, as 15 que faltavam todas edagricole.it em
+TETO_24H 36/40 ate 29/09 11:12Z): a passagem so recomecava com TODAS as candidatas feitas, e um dominio fechado
+segurava a linha ~16 h. Agora, se nada corre e TODO o resto espera so por dominio que abre com o tempo
+(`ABREM_COM_O_TEMPO`), abre-se nova passagem (MOTIVO RESTO_SO_DOMINIOS_FECHADOS, com a lista das que ficaram a
+espera) para os dominios abertos; as que esperavam nao contam como feitas e entram quando o dominio abrir.
+Sinal de resistencia (PAUSA_24H/RETRY_AFTER) ou outra razao: continua a esperar como antes.
 
 D124-REBASE (verificador independente, 28/09): este ficheiro usava `rodadas.TETO` e `reserva_24h._ler/gasto/
 ate_quando`, que a D124 removeu — `import coleta_continua` rebentava e a tarefa SINTONIA-COLETA-CONTINUA
@@ -256,6 +264,23 @@ def escolher(candidatas: list, *, feitas, ultima: dict, reservas: list, agora_ut
     return {"CORREM": correm, "ESPERAM": esperam}
 
 
+# COLETA-OCIOSA (28/09, ciclo 30): o que falta na passagem espera SO por dominio fechado que ABRE SOZINHO com
+# o relogio (orcamento/teto de 24 h, teto no ciclo, janela D79). Os sinais de resistencia (PAUSA_24H,
+# RETRY_AFTER), MAX_FONTES_NO_CICLO ou qualquer outra razao NAO entram: o resto continua a esperar como antes.
+ABREM_COM_O_TEMPO = ("TETO_24H", "TETO_NO_CICLO", "JANELA_24H")
+MOTIVO_PASSAGEM_OCIOSA = "RESTO_SO_DOMINIOS_FECHADOS"
+
+
+def resto_so_dominios_fechados(e: dict) -> bool:
+    """Puro. True = nada corre e TODAS as que faltam esperam por DOMINIO_FECHADO, e so por razoes de
+    ABREM_COM_O_TEMPO. Entao a passagem esta esgotada PARA ESTE CICLO (as que esperam nao contam como feitas)."""
+    if e["CORREM"] or not e["ESPERAM"]:
+        return False
+    return all(x.get("PORQUE") == "DOMINIO_FECHADO" and x.get("DOMINIOS_FECHADOS")
+               and all(f.get("PORQUE") in ABREM_COM_O_TEMPO for f in x["DOMINIOS_FECHADOS"].values())
+               for x in e["ESPERAM"])
+
+
 def proximo_a_abrir(esperam: list) -> dict | None:
     """O proximo dominio fechado a abrir, e quantas fontes ele solta."""
     abre = {}
@@ -470,11 +495,32 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
             continue
         e = escolher(cands, feitas=feitas, ultima=ultima, reservas=reservas, agora_utc=agora_u,
                      orcamento=orcamento, max_fontes=max_fontes, janela_h=janela_h)
+        nova = None
+        if resto_so_dominios_fechados(e):
+            # COLETA-OCIOSA: um dominio fechado por orcamento nao segura a linha inteira. Nova passagem para os
+            # dominios ABERTOS, com o MESMO escolher (teto, orcamento do ciclo, janela intactos); as que esperavam
+            # nao sao feitas nesta passagem, logo entram quando o dominio abrir. So se abre se ALGO corre.
+            orc2 = dict(orcamento)
+            e2 = escolher(cands, feitas=[], ultima=ultima, reservas=reservas, agora_utc=agora_u,
+                          orcamento=orc2, max_fontes=max_fontes, janela_h=janela_h)
+            if e2["CORREM"]:
+                ln = estado.setdefault("LINHAS", {}).setdefault(nome, {})
+                a_espera = [{"SOURCE_ID": x["SOURCE_ID"], "ABRE_EM": x["ABRE_EM"],
+                             "DOMINIOS_FECHADOS": x["DOMINIOS_FECHADOS"]} for x in e["ESPERAM"]]
+                nova = {"PASSAGEM": ln.get("PASSAGEM", 1) + 1, "MOTIVO": MOTIVO_PASSAGEM_OCIOSA,
+                        "FEITAS_NA_ANTERIOR": len(set(feitas)), "FICARAM_A_ESPERA": a_espera}
+                ln.update(PASSAGEM=nova["PASSAGEM"], FEITAS_NA_PASSAGEM=[], ABERTA_POR=MOTIVO_PASSAGEM_OCIOSA,
+                          A_ESPERA_AO_ABRIR=[x["SOURCE_ID"] for x in a_espera], ABERTA_NO_CICLO=reg["CICLO"])
+                orcamento.clear()
+                orcamento.update(orc2)
+                e = e2
         escolha[nome] = e["CORREM"]
         reg["ESPERAM"] += [dict(x, LINHA=nome) for x in e["ESPERAM"]]
         reg["LINHAS"][nome] = {"ESTADO": "A_CORRER" if e["CORREM"] else "NADA_ELEGIVEL",
                                "FONTES": [c["SOURCE_ID"] for c in e["CORREM"]],
                                "PEDIDOS_PREVISTOS": sum(c["PREVISTOS"] for c in e["CORREM"])}
+        if nova:
+            reg["LINHAS"][nome]["PASSAGEM_NOVA"] = nova
     reg["ORCAMENTO_DO_CICLO"] = orcamento
     reg["PROXIMO_A_ABRIR"] = proximo_a_abrir(reg["ESPERAM"])
     correm = {n: fs for n, fs in escolha.items() if fs}
@@ -671,6 +717,8 @@ def main(argv=None) -> int:
         # 0 rede, 0 Sala, 0 robo: so o agendador, com as feitas do disparador e os livros de hoje
         ag = datetime.fromisoformat(arg["agora"]).astimezone(timezone.utc) if arg.get("agora") else None
         e = {"LINHAS": {"SITES": {"FEITAS_NA_PASSAGEM": feitas_das_rodadas(er)}}}
+        if arg.get("estado-continua"):                             # COLETA-OCIOSA: a COPIA do estado vivo
+            e = {"LINHAS": json.loads(Path(arg["estado-continua"]).read_text(encoding="utf-8")).get("LINHAS") or {}}
         tmp = base / "_ensaio"
         tmp.mkdir(parents=True, exist_ok=True)
         (tmp / ESTADO_F).write_text(json.dumps(e), encoding="utf-8")

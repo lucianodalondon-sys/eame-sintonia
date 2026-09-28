@@ -631,6 +631,230 @@ class RoboDeFontes(Base):
         self.assertEqual(self.ciclo(self.sites(["IT-T5-080"]))["PARA"], "ROBO_NAO_SEI")
 
 
+# ── 4b. COLETA-OCIOSA (28/09, ciclo 30): um dominio fechado nao segura a passagem da linha ─
+import ensaio_coleta_continua as ECC  # noqa: E402 — o plano commitado da 4.a onda (a tabela do documento)
+
+EDAG = "edagricole.it"
+FALTA_ABRIR_S = 15 * 3600 + 22 * 60 + 10          # ciclo 30: 28/09 15:50 local -> ABRE_EM 29/09 11:12:10Z
+
+
+class OndaDoLivro:
+    """A onda sem HTTP: cada pedido e uma RESERVA no livro da cortesia (o mesmo codigo do transporte) e a
+    resposta registada; sem reserva, o pedido nao sai. Conta por dominio em CONTAGEM."""
+
+    def __init__(self, ledger, sala, por_fonte):
+        self.ledger, self.sala, self.por_fonte, self.chamadas = ledger, sala, por_fonte, []
+
+    def __call__(self, sha, fontes, pasta, historico, retomar):
+        self.chamadas.append(list(fontes))
+        pasta.mkdir(parents=True, exist_ok=True)
+        estado = {"FONTES": [], "PAROU": None, "SALA_INICIO": self.sala.foto()}
+        for s in fontes:
+            f = self.por_fonte[s]
+            host = f["DOMINIOS"][0]
+            rid = "%s-%s-%s" % (s.rsplit("-", 1)[0], datetime.now(timezone.utc).strftime("%Y-%m-%d-%H%M%S"),
+                                secrets.token_hex(8))
+            feitos = 0
+            for _ in range(int(f["PREVISTOS"])):
+                if R24.reservar(host, 1, run_id=rid, linha="TESTE")["ESTADO"] != "RESERVADO":
+                    break
+                CA.registrar_resposta(host, 200, {}, run_id=rid, linha="TESTE")
+                feitos += 1
+            CONTAGEM[host] = CONTAGEM.get(host, 0) + feitos
+            with open(self.ledger, "a", encoding="utf-8") as h:
+                h.write(json.dumps({"RUN_ID": rid, "CORTESIA": {"PEDIDOS_POR_HOST": {host: feitos}}}) + "\n")
+            if feitos:
+                self.sala.grava(rid)
+            estado["FONTES"].append({"SOURCE_ID": s, "CORREU": feitos > 0, "RUN_ID": rid,
+                                     "PEDIDOS_POR_DOMINIO": {R.PT.dominio_registavel(host): feitos}})
+        estado["SALA_FIM"] = self.sala.foto()
+        (pasta / "ONDA-WEB-ESTADO.json").write_text(json.dumps(estado), encoding="utf-8")
+        return 0
+
+
+class ColetaOciosa(Base):
+    """O caso medido do ciclo 30, reconstruido: plano da 4.a onda (64 fontes, 15 edagricole.it), PASSAGEM 2 com
+    TODAS as outras feitas, e edagricole.it com GASTO_24H 36 / ORCAMENTO_24H 40 (o orcamento vigente D124, sem
+    teto manual) ate daqui a 15h22m10s. Cada fonte edagricole quer 5: nenhuma cabe."""
+
+    def setUp(self):
+        super().setUp()
+        self.teto_antes = os.environ.pop("SINTONIA_TETO_POR_HOST", None)   # o orcamento vigente, como no vivo
+        self.plano = ECC.plano_do_documento()
+        self.por_fonte = {f["SOURCE_ID"]: f for r in self.plano["RODADAS"] for f in r["FONTES"]}
+        self.edag = [s for s, f in self.por_fonte.items() if EDAG in f["DOMINIOS"]]
+        self.outras = [s for s in self.por_fonte if s not in self.edag]
+        self.onda = OndaDoLivro(self.ledger, self.sala, self.por_fonte)
+        self.cands = {"SITES": C.candidatas_do_plano(self.plano)}
+        (self.base / C.ESTADO_F).write_text(json.dumps({"N_CICLO": 29, "PAROU": None, "LINHAS": {"SITES": {
+            "PASSAGEM": 2, "FEITAS_NA_PASSAGEM": list(self.outras)}}}), encoding="utf-8")
+        self.t0 = datetime.now(timezone.utc).timestamp() - (24 * 3600 - FALTA_ABRIR_S)
+        self.eventos([{"TIPO": "RESERVA", "DOMINIO": EDAG, "HOST": EDAG, "EM": self.t0 + 10 * i, "RUN_ID": "R%d" % i,
+                       "LINHA": "SITES"} for i in range(36)] +
+                     [{"TIPO": "RESPOSTA", "DOMINIO": EDAG, "EM": self.t0 + 10 * i + 5, "STATUS": 200, "SINAIS": [],
+                       "RUN_ID": "R%d" % i, "LINHA": "SITES"} for i in range(36)])
+
+    def tearDown(self):
+        if self.teto_antes is not None:
+            os.environ["SINTONIA_TETO_POR_HOST"] = self.teto_antes
+        super().tearDown()
+
+    def eventos(self, ev):
+        with open(self.livro24, "a", encoding="utf-8") as h:
+            for e in ev:
+                h.write(json.dumps(e) + "\n")
+
+    def envelhecer(self, s):
+        """O relogio anda `s` segundos: cada evento do livro fica `s` mais velho."""
+        ev = CA.ler_eventos(self.livro24)
+        self.livro24.write_text("".join(json.dumps(dict(e, EM=float(e["EM"]) - s)) + "\n" for e in ev), encoding="utf-8")
+
+    def gasto(self, dom):
+        return CA.dobrar_eventos(CA.ler_eventos(self.livro24), dom, datetime.now(timezone.utc).timestamp())
+
+    def test_reconstrucao_e_o_ciclo_30(self):
+        """A foto de partida: 15 a faltar, todas edagricole.it, 36/40."""
+        self.assertEqual((len(self.edag), len(self.outras)), (15, 49))
+        e = self.gasto(EDAG)
+        self.assertEqual((e["GASTO_24H"], e["ORCAMENTO_24H"]), (36, 40))
+
+    def test_caso_real_abre_passagem_para_os_dominios_abertos(self):
+        r = self.ciclo(self.cands, janela_h=None)
+        self.assertIsNone(r["PARA"], r)
+        s = r["LINHAS"]["SITES"]
+        self.assertEqual(s["ESTADO"], "A_CORRER")
+        self.assertEqual(s["FONTES"], self.outras)                     # pela ordem do plano, todas cabem
+        self.assertFalse(set(s["FONTES"]) & set(self.edag))
+        self.assertNotIn(EDAG, CONTAGEM)                               # o dominio fechado nao e visitado
+        self.assertTrue(CONTAGEM)
+        nova = s["PASSAGEM_NOVA"]
+        self.assertEqual((nova["PASSAGEM"], nova["MOTIVO"], nova["FEITAS_NA_ANTERIOR"]),
+                         (3, "RESTO_SO_DOMINIOS_FECHADOS", 49))
+        esp = {x["SOURCE_ID"]: x for x in nova["FICARAM_A_ESPERA"]}
+        self.assertEqual(sorted(esp), sorted(self.edag))
+        abre = datetime.fromtimestamp(self.t0 + 24 * 3600, timezone.utc).isoformat(timespec="seconds")
+        for x in esp.values():
+            self.assertEqual(x["DOMINIOS_FECHADOS"][EDAG]["PORQUE"], "TETO_24H")
+            self.assertEqual(x["ABRE_EM"], abre)
+        self.assertEqual(sorted(x["SOURCE_ID"] for x in r["ESPERAM"]), sorted(self.edag))
+        est = C.ler_estado(self.base)["LINHAS"]["SITES"]
+        self.assertEqual(est["PASSAGEM"], 3)
+        self.assertEqual(est["ABERTA_POR"], "RESTO_SO_DOMINIOS_FECHADOS")
+        self.assertEqual(sorted(est["A_ESPERA_AO_ABRIR"]), sorted(self.edag))
+        self.assertEqual(est["FEITAS_NA_PASSAGEM"], self.outras)       # as que esperam NAO contam como feitas
+        self.assertFalse(set(est["FEITAS_NA_PASSAGEM"]) & set(self.edag))
+        for d, n in _por_dominio(CONTAGEM).items():                     # nenhum dominio passa do orcamento
+            self.assertLessEqual(self.gasto(d)["GASTO_24H"], self.gasto(d)["ORCAMENTO_24H"], d)
+        self.assertEqual(r["PROVA_TETO_CICLO"]["ESTADO"], "PASS")
+        orc = {}
+        for s_ in self.outras:                                          # o orcamento do ciclo e o da passagem nova
+            for d in {CA.dominio(x) for x in self.por_fonte[s_]["DOMINIOS"]}:
+                orc[d] = orc.get(d, 0) + self.por_fonte[s_]["PREVISTOS"]
+        self.assertEqual(r["ORCAMENTO_DO_CICLO"], orc)
+        self.assertEqual(self.robo.eventos, ["PARAR", "TIRAR_FLAG", "LANCAR"])
+
+    def test_as_que_esperavam_entram_quando_abre_em_passa_e_o_teto_manda(self):
+        self.ciclo(self.cands, janela_h=None)
+        CONTAGEM.clear()
+        # 1 min antes de ABRE_EM: edagricole ainda fechado. As 49 estao feitas na PASSAGEM 3, o resto e so
+        # edagricole em TETO_24H -> abre-se a PASSAGEM 4, e as outras voltam SO ate ao orcamento de 24 h delas
+        # (DECLARADO em COLETA-OCIOSA.md: e o preco da regra; o teto de cada dominio e o freio).
+        self.envelhecer(FALTA_ABRIR_S - 60)
+        r = self.ciclo(self.cands, janela_h=None)
+        self.assertIsNone(r["PARA"], r)
+        self.assertEqual(r["LINHAS"]["SITES"]["PASSAGEM_NOVA"]["PASSAGEM"], 4)
+        self.assertNotIn(EDAG, CONTAGEM)
+        for d in _por_dominio(CONTAGEM):
+            e = self.gasto(d)
+            self.assertLessEqual(e["GASTO_24H"], e["ORCAMENTO_24H"], d)
+        fechadas_por_orcamento = [x["SOURCE_ID"] for x in r["ESPERAM"] if x["SOURCE_ID"] not in self.edag]
+        self.assertTrue(fechadas_por_orcamento)                         # ex.: crea.gov.it 25 + 25 > 40
+        feitas4 = list(r["LINHAS"]["SITES"]["CORRERAM"])
+        CONTAGEM.clear()
+        # 1 min depois de ABRE_EM: saem 6 das 36 reservas. O orcamento VIGENTE e o que a cortesia diz (D124: a
+        # janela de 36/40 usada pode dobra-lo) — cabem EXATAMENTE (orcamento - gasto) // 5 fontes, nem uma a mais.
+        self.envelhecer(120)
+        e0 = self.gasto(EDAG)
+        cabem = min(15, (e0["ORCAMENTO_24H"] - e0["GASTO_24H"]) // 5)
+        self.assertGreaterEqual(cabem, 1)
+        self.assertLess(cabem, 15)                                      # o teto ainda deixa fontes a espera
+        r = self.ciclo(self.cands, janela_h=None)
+        self.assertIsNone(r["PARA"], r)
+        self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], self.edag[:cabem])
+        self.assertNotIn("PASSAGEM_NOVA", r["LINHAS"]["SITES"])        # algo corre: a passagem segue
+        self.assertEqual(CONTAGEM, {EDAG: 5 * cabem})
+        e = self.gasto(EDAG)
+        self.assertLessEqual(e["GASTO_24H"], e["ORCAMENTO_24H"])
+        self.assertEqual(e["GASTO_24H"], e0["GASTO_24H"] + 5 * cabem)
+        self.assertTrue(set(self.edag[cabem:]) <= {x["SOURCE_ID"] for x in r["ESPERAM"]})
+        est = C.ler_estado(self.base)["LINHAS"]["SITES"]
+        self.assertEqual(est["PASSAGEM"], 4)
+        self.assertEqual(est["FEITAS_NA_PASSAGEM"], feitas4 + self.edag[:cabem])
+
+    def test_freio_de_resistencia_continua_a_esperar(self):
+        """RETRY_AFTER (sinal do site) em edagricole.it: NAO e so orcamento — nada muda, a linha espera."""
+        self.eventos([{"TIPO": "RESPOSTA", "DOMINIO": EDAG, "EM": datetime.now(timezone.utc).timestamp() - 60,
+                       "STATUS": 429, "SINAIS": ["HTTP_429"], "RETRY_AFTER_S": 16 * 3600, "RUN_ID": "RX",
+                       "LINHA": "SITES"}])
+        r = self.ciclo(self.cands, janela_h=None)
+        self.assertIsNone(r["PARA"], r)
+        self.assertEqual(r["LINHAS"]["SITES"]["ESTADO"], "NADA_ELEGIVEL")
+        self.assertNotIn("PASSAGEM_NOVA", r["LINHAS"]["SITES"])
+        self.assertEqual({x["DOMINIOS_FECHADOS"][EDAG]["PORQUE"] for x in r["ESPERAM"]}, {"RETRY_AFTER"})
+        self.assertEqual(C.ler_estado(self.base)["LINHAS"]["SITES"]["PASSAGEM"], 2)
+        self.assertEqual(CONTAGEM, {})
+        self.assertEqual(self.robo.eventos, [])
+
+    def test_um_so_do_resto_em_resistencia_segura_a_passagem(self):
+        """14 edagricole em TETO_24H + 1 fonte de outro dominio em PAUSA/RETRY: nao e 'so dominios fechados'."""
+        cia = next(s for s in self.outras if "cia.it" in self.por_fonte[s]["DOMINIOS"])
+        est = json.loads((self.base / C.ESTADO_F).read_text(encoding="utf-8"))
+        est["LINHAS"]["SITES"]["FEITAS_NA_PASSAGEM"].remove(cia)
+        (self.base / C.ESTADO_F).write_text(json.dumps(est), encoding="utf-8")
+        self.eventos([{"TIPO": "RESPOSTA", "DOMINIO": "cia.it", "EM": datetime.now(timezone.utc).timestamp() - 60,
+                       "STATUS": 503, "SINAIS": ["HTTP_503"], "RETRY_AFTER_S": 3600, "RUN_ID": "RY", "LINHA": "SITES"}])
+        r = self.ciclo(self.cands, janela_h=None)
+        self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], [])
+        self.assertNotIn("PASSAGEM_NOVA", r["LINHAS"]["SITES"])
+        self.assertEqual(C.ler_estado(self.base)["LINHAS"]["SITES"]["PASSAGEM"], 2)
+        self.assertEqual(CONTAGEM, {})
+
+    def test_sem_dominio_aberto_nao_abre_passagem(self):
+        """Tudo fechado (as feitas tambem): abrir passagem nao traria nada — PASSAGEM fica, nada corre."""
+        agora = datetime.now(timezone.utc).timestamp()
+        doms = {d for s in self.outras for d in self.por_fonte[s]["DOMINIOS"]}
+        self.eventos([{"TIPO": "RESERVA", "DOMINIO": CA.dominio(d), "HOST": d, "EM": agora - 3600 + i, "RUN_ID": "Z",
+                       "LINHA": "SITES"} for d in doms for i in range(40)])
+        r = self.ciclo(self.cands, janela_h=None)
+        self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], [])
+        self.assertNotIn("PASSAGEM_NOVA", r["LINHAS"]["SITES"])
+        self.assertEqual(C.ler_estado(self.base)["LINHAS"]["SITES"]["PASSAGEM"], 2)
+        self.assertEqual(CONTAGEM, {})
+
+    def test_a_seco_mostra_a_passagem_nova_sem_escrever(self):
+        antes = (self.base / C.ESTADO_F).read_text(encoding="utf-8")
+        r = self.ciclo(self.cands, janela_h=None, pecas={"ram": lambda: 9.0}, a_seco=True)
+        self.assertEqual(r["LINHAS"]["SITES"]["FONTES"], self.outras)
+        self.assertEqual(r["LINHAS"]["SITES"]["PASSAGEM_NOVA"]["MOTIVO"], "RESTO_SO_DOMINIOS_FECHADOS")
+        self.assertEqual((self.base / C.ESTADO_F).read_text(encoding="utf-8"), antes)
+        self.assertEqual(CONTAGEM, {})
+
+    def test_regra_pura(self):
+        f = {"PORQUE": "DOMINIO_FECHADO", "DOMINIOS_FECHADOS": {"a.it": {"PORQUE": "TETO_24H"}}}
+        self.assertTrue(C.resto_so_dominios_fechados({"CORREM": [], "ESPERAM": [f]}))
+        for porque in ("TETO_NO_CICLO", "JANELA_24H"):
+            self.assertTrue(C.resto_so_dominios_fechados(
+                {"CORREM": [], "ESPERAM": [dict(f, DOMINIOS_FECHADOS={"a.it": {"PORQUE": porque}})]}))
+        self.assertFalse(C.resto_so_dominios_fechados({"CORREM": [{"SOURCE_ID": "x"}], "ESPERAM": [f]}))
+        self.assertFalse(C.resto_so_dominios_fechados({"CORREM": [], "ESPERAM": []}))
+        for porque in ("PAUSA_24H", "RETRY_AFTER"):
+            self.assertFalse(C.resto_so_dominios_fechados(
+                {"CORREM": [], "ESPERAM": [f, dict(f, DOMINIOS_FECHADOS={"a.it": {"PORQUE": "TETO_24H"},
+                                                                          "b.it": {"PORQUE": porque}})]}))
+        self.assertFalse(C.resto_so_dominios_fechados(
+            {"CORREM": [], "ESPERAM": [f, {"PORQUE": "MAX_FONTES_NO_CICLO", "ABRE_EM": None}]}))
+
+
 # ── 5. o livro de ciclos ─────────────────────────────────────────────────────
 class LivroDeCiclos(Base):
     def test_o_livro_diz_o_que_aconteceu(self):

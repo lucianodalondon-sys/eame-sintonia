@@ -59,6 +59,16 @@ MUTANTES = [
      'if "reserva" not in f.read_text(encoding="utf-8", errors="replace"):'),
     ("M28_ERRO_NAO_PARA", ALVO, 'para = "ERRO_NO_CICLO: %r" % (ex,)', "para = None"),
     ("M29_INTERRUPTOR_IGNORADO", ALVO, "if (base / DESLIGAR_F).exists():", "if False:"),
+    # COLETA-OCIOSA (28/09): a passagem nova quando o resto e SO dominio fechado que abre com o tempo
+    ("M30_SEM_A_CONDICAO_SO_DOMINIO_FECHADO", ALVO, '    return all(x.get("PORQUE") == "DOMINIO_FECHADO"',
+     '    return True or all(x.get("PORQUE") == "DOMINIO_FECHADO"'),
+    ("M31_RESISTENCIA_CONTA_COMO_FECHADO", ALVO,
+     '               and all(f.get("PORQUE") in ABREM_COM_O_TEMPO for f in x["DOMINIOS_FECHADOS"].values())\n', "\n"),
+    ("M32_SEM_PASSAGEM_NOVA", ALVO, "if resto_so_dominios_fechados(e):", "if False:"),
+    ("M33_PASSAGEM_ABERTA_SEM_NADA_A_CORRER", ALVO, 'if e2["CORREM"]:', "if True:"),
+    ("M34_AS_QUE_ESPERAM_CONTAM_COMO_FEITAS", ALVO, "ln.update(PASSAGEM=nova[\"PASSAGEM\"], FEITAS_NA_PASSAGEM=[],",
+     "ln.update(PASSAGEM=nova[\"PASSAGEM\"], FEITAS_NA_PASSAGEM=[x[\"SOURCE_ID\"] for x in e[\"ESPERAM\"]],"),
+    ("M35_ORCAMENTO_DA_PASSAGEM_NOVA_PERDIDO", ALVO, "                orcamento.update(orc2)\n", ""),
 ]
 
 
