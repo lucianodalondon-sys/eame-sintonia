@@ -5983,6 +5983,43 @@
    ]
   },
   {
+   "id": "C-ACERVO-NA-INTELLIGENCE",
+   "name": "O acervo antigo pelas capacidades da Intelligence, ate ao pote v2",
+   "territory": "Z-PACOTE",
+   "kind": "engine",
+   "icon": "⇢",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Le docs/intelligence/acervo/ENTRADA-INTELLIGENCE-ACERVO.json (2.080 itens ja coletados) e, pelo ID, o registo de origem em italia-portale/client/italy-handoff-v21.js (so leitura, sha256 conferido contra a ENTRADA). Monta o READY de cada item (tempo do facto por uma tabela declarada; publicacao nunca e tempo do facto salvo onde o facto E publicar; captura pelo dia real ou por limite provado: publicacao / inicio do facto observado, e o commit git da origem; FACT_LOCATION sempre NAO SEI, D112) e corre as capacidades QUE JA EXISTEM numa corrida so: motor_das_capacidades (G0/v4 + CAP-WIN + CAP-SCI + facto futuro + rendimento), concorrencia_meta.adama_no_anuncio pela porta (concorrente so por substancia, SINAL, nunca oportunidade), voce_dal_campo (CAP-FIELD) e a serie do Polso (P8, ler_serie do pote). Gera o POTE v2 da corrida ACERVO (docs/intelligence/acervo/corrida-acervo/POTE-ACERVO.json, validado por validar_pote_v2) e o RESUMO por tipo. IDs PROVISORIO (D119); COMPOSTO_DE nao usado (nao existe no contrato). Nao escreve no casco.",
+   "why_here": "ACERVO-NA-INTELLIGENCE (D115/D97, 2026-09-27): o acervo antigo e real e passa pela Intelligence antes do casco. Vive em pacote/ como pacote/rete_voci_dati.py: orquestra e adapta leitura, nao julga (em motor/ importar coleta/ seria mais uma travessia COLETA->INTELIGENCIA). Declara dois defeitos medidos e nao consertados aqui: SOURCE_ID com «API» derruba a corrida G0 inteira (7 itens ficam FORA_DA_CORRIDA, contados), e o mapa CHAVES.ENTITY_SOURCE do motor reprova no schema do contrato unico (viaja como ENTITY_SOURCE_POR_CHAVE, leitura de compatibilidade declarada). tests/test_acervo_na_intelligence.py.",
+   "files": [
+    "pacote/acervo_na_intelligence.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-ACERVO-NA-INTELLIGENCE",
+   "name": "Mutacao do acervo na Intelligence",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Planta 18 defeitos numa copia da arvore (sem .git) em pasta temporaria (o repo nao e tocado): anuncio vira OPORTUNIDADE ou entra no Radar, cultura do anuncio afirmada, concorrente ligado pelo alvo, anuncio sem tempo sem G0; preco anterior vira ponto da serie, variacao vira MUDANCA_DE_MERCADO, serie mistura unidades; pais da fonte e alcance do anuncio viram lugar do facto; publicacao da ciencia vira tempo do facto, data do pacote vira limite da captura, inicio do facto vira limite para todo tipo, URL ambigua escolhida; ID deixa de ser PROVISORIO, ENTITY_SOURCE cru ao pote, fora-da-corrida em silencio, Archivio com recusados. Corre tests/test_acervo_na_intelligence.py e sai 1 se algum sobreviver.",
+   "why_here": "Prova que os testes do acervo apanham o que a missao proibe. Resultado em provas/acervo_na_intelligence/MUTANTES.json.",
+   "files": [
+    "provas/acervo_na_intelligence/mutantes.py"
+   ]
+  },
+  {
    "id": "C-PROVA-POTE-CASCO",
    "name": "Mutacao do pote unico e da leitura no casco",
    "territory": "Z-PROVA",

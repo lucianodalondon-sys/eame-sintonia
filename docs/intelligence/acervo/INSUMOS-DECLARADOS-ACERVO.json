@@ -1,0 +1,323 @@
+{
+ "SCHEMA": "INSUMOS_DECLARADOS_ACERVO/v1",
+ "O_QUE_E": "a referencia oficial (classe b) que ja esta no repositorio, declarada como INSUMO da Intelligence R7/R8. Aponta; nao copia.",
+ "LEI": "insumo nao e objeto do casco: no pote so aparece como objeto referenciado / procedencia de um cruzamento da Intelligence",
+ "GERADO_POR": "pacote/acervo_inventario.mjs",
+ "INSUMOS": [
+  {
+   "ID": "italy-handoff-v21.js::productRelationships",
+   "FICHEIRO": "italia-portale/client/italy-handoff-v21.js",
+   "CONJUNTO": "productRelationships",
+   "N": 5402,
+   "FICHEIRO_SHA256": "96e0e721a3f7a6ce79f73aa5fe2a70c309a6abb0a5370a9424a7eeaeee40056b",
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 5402,
+    "DE": 5402,
+    "MIN": "2026-08-15",
+    "MAX": "2040-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "JUNCAO": [
+    "REGISTRATION_NUMBER",
+    "PRODUCT_NAME",
+    "CROP_ON_LABEL",
+    "CROP_IDS",
+    "TARGET_ON_LABEL",
+    "TARGET_KIND",
+    "ISSUE_IDS",
+    "LINK_STRENGTH"
+   ],
+   "PERGUNTA": "o produto ADAMA serve para esta praga nesta cultura? (portfolio ADAMA × cultura × alvo, pelo rotulo)",
+   "LEITORES_EXISTENTES": [
+    "motor/v21_crossings.py:59",
+    "motor/v21_oportunidades.py:398",
+    "italia-portale/client/italy-app-model.js:1663"
+   ]
+  },
+  {
+   "ID": "italy-handoff-v21.js::productsRegulatory",
+   "FICHEIRO": "italia-portale/client/italy-handoff-v21.js",
+   "CONJUNTO": "productsRegulatory",
+   "N": 163,
+   "FICHEIRO_SHA256": "96e0e721a3f7a6ce79f73aa5fe2a70c309a6abb0a5370a9424a7eeaeee40056b",
+   "DATA_DO_DADO": {
+    "CAMPO": "EXPIRY",
+    "COM_VALOR": 163,
+    "DE": 163,
+    "MIN": "2026-08-15",
+    "MAX": "2041-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "JUNCAO": [
+    "REGISTRATION_NUMBER",
+    "NAME",
+    "ACTIVE_INGREDIENTS",
+    "STATUS",
+    "EXPIRY",
+    "AUTHORIZATION_HOLDER"
+   ],
+   "PERGUNTA": "que produtos ADAMA estao autorizados hoje, com que substancia, ate quando",
+   "LEITORES_EXISTENTES": [
+    "motor/v21_adama_registro_validar.py:85",
+    "motor/v21_oportunidades.py:453",
+    "italia-portale/client/italy-app-model.js:1715"
+   ]
+  },
+  {
+   "ID": "italy-handoff-v21.js::productActiveIngredients",
+   "FICHEIRO": "italia-portale/client/italy-handoff-v21.js",
+   "CONJUNTO": "productActiveIngredients",
+   "N": 203,
+   "FICHEIRO_SHA256": "96e0e721a3f7a6ce79f73aa5fe2a70c309a6abb0a5370a9424a7eeaeee40056b",
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 203,
+    "DE": 203,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "JUNCAO": [
+    "PRODUCT_ID",
+    "REGISTRATION_NUMBER",
+    "ACTIVE_INGREDIENT_ID",
+    "ACTIVE_INGREDIENT"
+   ],
+   "PERGUNTA": "a ponte produto × substancia: liga o cruzamento por substancia (o que a R7 faz) ao produto ADAMA",
+   "LEITORES_EXISTENTES": [
+    "motor/v21_oportunidades.py:383"
+   ]
+  },
+  {
+   "ID": "italy-handoff-v21.js::activeIngredients",
+   "FICHEIRO": "italia-portale/client/italy-handoff-v21.js",
+   "CONJUNTO": "activeIngredients",
+   "N": 53,
+   "FICHEIRO_SHA256": "96e0e721a3f7a6ce79f73aa5fe2a70c309a6abb0a5370a9424a7eeaeee40056b",
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 53,
+    "DE": 53,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "JUNCAO": [
+    "ID",
+    "NAME",
+    "NORMALIZED_NAME",
+    "HRAC",
+    "FRAC",
+    "IRAC",
+    "EU_STATE",
+    "EU_EXPIRATION_OF_APPROVAL"
+   ],
+   "PERGUNTA": "modo de acao e estado UE da substancia (resistencia, rotacao, preparacao regulatoria)",
+   "LEITORES_EXISTENTES": [
+    "motor/v21_oportunidades.py:383"
+   ]
+  },
+  {
+   "ID": "italy-handoff-v21.js::regulatoryFutureFacts",
+   "FICHEIRO": "italia-portale/client/italy-handoff-v21.js",
+   "CONJUNTO": "regulatoryFutureFacts",
+   "N": 47,
+   "FICHEIRO_SHA256": "96e0e721a3f7a6ce79f73aa5fe2a70c309a6abb0a5370a9424a7eeaeee40056b",
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 47,
+    "DE": 47,
+    "MIN": "2026-09-30",
+    "MAX": "2039-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "JUNCAO": [
+    "ACTIVE_INGREDIENT_ID",
+    "EU_EXPIRATION_OF_APPROVAL",
+    "ITALIAN_REGISTRATIONS"
+   ],
+   "PERGUNTA": "que substancias ADAMA tem data europeia a frente (data regulatoria NAO vira janela agronomica)",
+   "LEITORES_EXISTENTES": [
+    "motor/v21_oportunidades.py:384"
+   ]
+  },
+  {
+   "ID": "italy-handoff-v21.js::productsCommercial",
+   "FICHEIRO": "italia-portale/client/italy-handoff-v21.js",
+   "CONJUNTO": "productsCommercial",
+   "N": 51,
+   "FICHEIRO_SHA256": "96e0e721a3f7a6ce79f73aa5fe2a70c309a6abb0a5370a9424a7eeaeee40056b",
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 51,
+    "DE": 51,
+    "MIN": "2026-09-02",
+    "MAX": "2026-09-02",
+    "SEM_DATA_EM": {}
+   },
+   "JUNCAO": [
+    "MATCHED_REGULATORY_ID",
+    "REGISTRATION_NUMBER_ON_PAGE",
+    "NAME",
+    "CATALOG_STATUS"
+   ],
+   "PERGUNTA": "o produto autorizado existe no catalogo para vender? (autorizacao nao e catalogo)",
+   "LEITORES_EXISTENTES": [
+    "motor/v21_crossings.py:66",
+    "motor/v21_comercial.py:185"
+   ]
+  },
+  {
+   "ID": "italy-handoff-v21.js::cropEconomics",
+   "FICHEIRO": "italia-portale/client/italy-handoff-v21.js",
+   "CONJUNTO": "cropEconomics",
+   "N": 2978,
+   "FICHEIRO_SHA256": "96e0e721a3f7a6ce79f73aa5fe2a70c309a6abb0a5370a9424a7eeaeee40056b",
+   "DATA_DO_DADO": {
+    "CAMPO": "REFERENCE_DATE",
+    "COM_VALOR": 2976,
+    "DE": 2978,
+    "MIN": "2024-01-10",
+    "MAX": "2026-12-31",
+    "SEM_DATA_EM": {}
+   },
+   "JUNCAO": [
+    "CROP_IDS",
+    "GEOGRAPHY_CODE",
+    "YEAR",
+    "INDICATOR",
+    "VALUE",
+    "UNIT"
+   ],
+   "PERGUNTA": "peso economico da cultura na regiao (contexto, nunca prioridade sozinho)",
+   "LEITORES_EXISTENTES": [
+    "motor/v21_crossings.py:56"
+   ]
+  },
+  {
+   "ID": "italy-handoff-v21.js::resistance",
+   "FICHEIRO": "italia-portale/client/italy-handoff-v21.js",
+   "CONJUNTO": "resistance",
+   "N": 34,
+   "FICHEIRO_SHA256": "96e0e721a3f7a6ce79f73aa5fe2a70c309a6abb0a5370a9424a7eeaeee40056b",
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 34,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {
+     "REFERENCE_DATE": 12
+    }
+   },
+   "JUNCAO": [
+    "SPECIES",
+    "CROP_IDS",
+    "ISSUE_IDS",
+    "MECHANISM",
+    "REGIONS"
+   ],
+   "PERGUNTA": "ha resistencia documentada ao modo de acao deste produto nesta cultura?",
+   "LEITORES_EXISTENTES": [
+    "motor/v21_crossings.py:60",
+    "guarda/importar_italia.py:210"
+   ]
+  },
+  {
+   "ID": "italy-catalog.js::ITEMS",
+   "FICHEIRO": "italia-portale/client/italy-catalog.js",
+   "CONJUNTO": "ITEMS",
+   "N": 44,
+   "FICHEIRO_SHA256": "6c14ee564589538f558f444cc41fc05da695aa966683a56443dbf024cbfefc90",
+   "DATA_DO_DADO": {
+    "CAMPO": "expiry",
+    "COM_VALOR": 41,
+    "DE": 44,
+    "MIN": "2026-08-31",
+    "MAX": "2041-10-31",
+    "SEM_DATA_EM": {}
+   },
+   "JUNCAO": [
+    "reg",
+    "name",
+    "matchState"
+   ],
+   "PERGUNTA": "catalogo comercial ADAMA com o estado da ligacao ao registro",
+   "LEITORES_EXISTENTES": []
+  },
+  {
+   "ID": "italy-ingested.js::LINKS",
+   "FICHEIRO": "italia-portale/client/italy-ingested.js",
+   "CONJUNTO": "LINKS",
+   "N": 219,
+   "FICHEIRO_SHA256": "68191efda3da681f7697e068eda97b53f21dde579734995484c54ce7ce17c42d",
+   "DATA_DO_DADO": {
+    "CAMPO": "NAO SEI",
+    "COM_VALOR": 0,
+    "DE": 219,
+    "MIN": "NAO SEI",
+    "MAX": "NAO SEI",
+    "SEM_DATA_EM": {}
+   },
+   "JUNCAO": [
+    "reg",
+    "crop",
+    "target",
+    "doses",
+    "maxApp",
+    "interval"
+   ],
+   "PERGUNTA": "dose, numero maximo e intervalo do rotulo por par cultura × alvo",
+   "LEITORES_EXISTENTES": []
+  }
+ ],
+ "INSUMOS_FORA_DO_PORTAL": [
+  {
+   "ID": "registro-completo-ministero",
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv",
+   "O_QUE_E": "o registro INTEIRO do Ministero della Salute (todos os titulares, nao so ADAMA), snapshot 07/09/2026",
+   "JUNCAO": [
+    "num_registrazione",
+    "ragione_sociale",
+    "sostanze_attive",
+    "attivita",
+    "stato_amministrativo",
+    "data_scadenza_autorizzazione"
+   ],
+   "PERGUNTA": "concorrentes registados com a MESMA SUBSTANCIA ATIVA / a mesma atividade",
+   "LIMITE": "o registro nao traz cultura × alvo: «concorrentes registados para o MESMO ALVO» e NAO SEI com o que esta no repo — exige os rotulos dos concorrentes, que nao estao aqui (e nao se coleta nesta missao)",
+   "FICHEIRO_SHA256": "9cd4d156369facf186b40727d96ef5253b3aef93e9e08deae8ac8082c1de5a48",
+   "LEITORES_EXISTENTES": [
+    "fontes/adama_it_intelligence.py:12"
+   ]
+  },
+  {
+   "ID": "label-intelligence-usos",
+   "FICHEIRO": "italia-portale/client/italy-label-intelligence.js",
+   "O_QUE_E": "os usos (cultura × alvo) que a Label Intelligence leu, com o estado de prova de cada par — saida de ferramenta (classe a), consumivel como insumo",
+   "JUNCAO": [
+    "products[].reg",
+    "products[].actives",
+    "products[].uses[].crop",
+    "products[].uses[].target",
+    "products[].uses[].proof"
+   ],
+   "PERGUNTA": "o rotulo ADAMA lido autoriza a substancia nesta cultura? (a pergunta dos 86 cruzamentos da R7)",
+   "LIMITE": "a R7 ja cruza por substancia com CULTURAS_NO_ROTULO; de que ficheiro a R7 leu esse portfolio NAO SEI (o motor nao esta neste repo)",
+   "FICHEIRO_SHA256": "9407742792c1103e1ea10972aaf546431250d3c69427df0d97a7683d31becf07",
+   "LEITORES_EXISTENTES": [
+    "italia-portale/audit/etichette-gate.mjs:55",
+    "pacote/pote_ferramenta_label.py:9"
+   ]
+  }
+ ],
+ "REFERENCIA_SEM_DECLARACAO_DE_USO": [
+  "italy-handoff-v21.js::publicChannels",
+  "italy-handoff-v21.js::regulatoryFuture",
+  "italy-handoff-v21.js::researchers",
+  "italy-handoff-v21.js::sources",
+  "italy-ingested.js::CROPS",
+  "italy-ingested.js::PEOPLE"
+ ]
+}
