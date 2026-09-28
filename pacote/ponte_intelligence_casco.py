@@ -131,10 +131,15 @@ FERRAMENTAS = {
 #: EXP-D78) — duas portas para a mesma fronteira, e a escolha e do dono. Esta
 #: ponte nao escreve no formato dela: nao tem a EMENDA nem a chave
 #: <run_id>#<ordem>, e preenche-las seria fabricar.
-VISTAS_QUE_NAO_SAO_FERRAMENTA = {
-    "sala": "vista de operacao da Sala, com contrato proprio CASCO_ENTRADA_INTELLIGENCE_EXPERIMENTAL/1",
-    "painel": "painel de operacao so de leitura (D78)",
-}
+#:
+#: CASCO-HOJE-MINIMO-HONESTO (27/09) · AJUSTE DECLARADO: o casco que vai ao ar e o da linha do
+#: release (merge declarado em CASCO-HOJE.md §1), e ele NAO abre `sala` nem `painel` — D97: o casco
+#: nao le a Sala. A declaracao que dizia o contrario deixou de ser verdade nesta arvore; a prova que a
+#: guarda (test_G1 / test_A4) continua igual e continua a reprovar uma vista nova sem declaracao.
+#: Se as vistas de operacao voltarem ao casco, voltam para aqui:
+#:     "sala":   "vista de operacao da Sala, com contrato proprio CASCO_ENTRADA_INTELLIGENCE_EXPERIMENTAL/1"
+#:     "painel": "painel de operacao so de leitura (D78)"
+VISTAS_QUE_NAO_SAO_FERRAMENTA = {}
 
 
 class LeiViolada(Exception):

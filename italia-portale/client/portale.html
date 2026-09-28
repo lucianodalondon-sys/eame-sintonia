@@ -4309,7 +4309,9 @@ class Component extends DCLogic {
       }
     }
     /* CASCO-REAL: a faixa «QUESTA SCHERMATA LEGGE» descreve o legado; com o pote, quem fala e o pote. */
-    if (pv || v.temLegadoFechado) v.pvShow = false;
+    /* #etichette como produto de ferramenta: a faixa dela diz de onde vem (snapshot, selo, frescor); a faixa
+       antiga «QUESTA SCHERMATA LEGGE» repetia-o com uma cor fora da paleta ADAMA (brandwell BW1). */
+    if (pv || v.temLegadoFechado || v.temLabelFerramenta) v.pvShow = false;
     return this._potePublicado(v, W, P, LI);
   }
 

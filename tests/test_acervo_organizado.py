@@ -298,8 +298,15 @@ class D_AuditoriaD97(unittest.TestCase):
         self.assertEqual(A['OBJETOS']['FORA_DA_INTELLIGENCE_OU_SEM_PROVA'], [])
         self.assertEqual(A['CRUZAMENTOS']['POR_DESTINO'],
                          {'OBJETO_DO_POTE': 2, 'RECUSADO_PELO_POTE': 80, 'AUSENTE_DO_POTE': 4})
-        self.assertEqual(len(A['CRUZAMENTOS']['SEM_A_PROVA_QUE_O_POTE_EXIGE']), 84)
-        self.assertIn('search', [r['ROTA'] for r in A['ROTAS']['ROTAS_DE_LEGADO_COM_O_POTE']])
+        # AJUSTE DECLARADO (missao CASCO-HOJE-MINIMO-HONESTO, item 9): esta auditoria registava a violacao
+        # (84 cruzamentos sem a prova do pote NA TELA, a busca e 12 detalhes a desenhar o legado). A missao
+        # fechou-a: os 84 continuam contados, na aba «rifiutati», e a tela principal tem 0 sem prova.
+        self.assertEqual(A['OBJETOS']['DISTINTOS'], 25)
+        self.assertEqual(len(A['CRUZAMENTOS']['SEM_A_PROVA_QUE_O_POTE_EXIGE']), 0)
+        self.assertEqual(A['CRUZAMENTOS']['DESENHADOS'], 2)
+        self.assertEqual(A['CRUZAMENTOS']['NA_ABA_RIFIUTATI'], 84)
+        self.assertEqual(A['ROTAS']['ROTAS_DE_LEGADO_COM_O_POTE'], [])
+        self.assertEqual(A['SEM_POTE']['ROTAS_DE_LEGADO_SEM_POTE'], [])
 
 
 if __name__ == '__main__':
