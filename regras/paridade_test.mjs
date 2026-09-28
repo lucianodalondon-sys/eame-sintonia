@@ -271,11 +271,15 @@ t("italy_pilot_collect.mjs importa a normalizacao de conteudo", () => {
 });
 
 t("a DECISAO vem ANTES do download, e nao depois", () => {
+  // AJUSTE DECLARADO (LOTE8-INTEGRA): o FEED-LIGADO (GET condicional, aprovado no lote 8) passou a
+  // chamar `await baixar(alvo.url, 2, { condicional: ... })` e a ancora antiga `await baixar(alvo.url)`
+  // deixou de existir — o teste reprovava por texto, com a regra intacta. A ancora passa a ser o
+  // prefixo da chamada, e a regra fica MAIS forte: TODA chamada que baixa o alvo vem depois da decisao.
   const iDecisao = fonte.indexOf("decidirSobreDetalhe(alvo.url");
-  const iBaixar = fonte.indexOf("await baixar(alvo.url)");
+  const iBaixar = [...fonte.matchAll(/await baixar\(alvo\.url\b/g)].map((m) => m.index);
   assert.ok(iDecisao > 0, "nao ha decisao sobre o alvo");
-  assert.ok(iBaixar > 0, "nao ha download do alvo");
-  assert.ok(iDecisao < iBaixar,
+  assert.ok(iBaixar.length > 0, "nao ha download do alvo");
+  assert.ok(iBaixar.every((i) => iDecisao < i),
     "a decisao esta DEPOIS do download: isso e dedup pos-download, nao incrementalidade");
 });
 

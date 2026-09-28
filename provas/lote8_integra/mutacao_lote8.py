@@ -28,6 +28,7 @@ T_ACERVO = ["-m", "unittest", "tests.test_lote8_juncoes.J_Acervo", "tests.test_a
 T_BUSCA = ["-m", "unittest", "tests.test_lote8_juncoes.J_Busca"]
 T_LINHAS = ["-m", "unittest", "tests.test_lote8_juncoes.J_Linhas"]
 T_P6 = ["node", "tests/test_pote_no_casco.mjs"]
+T_PARIDADE = ["node", "regras/paridade_test.mjs"]
 
 ANC_FALTAS = 'FALTAS = ("CULTURA", "PROBLEMA", "SUBSTANCIA", "REFERENCIA")\n'
 
@@ -59,6 +60,13 @@ MUTANTES = [
      r'instagram\.com/([A-Za-z0-9_.]+/)?(p|reel|reels|tv)/', r'instagram\.com/(p|reel|reels|tv)/', T_BUSCA, None),
     ("L1_linha_entra_so_por_o_ficheiro_existir", "ferramentas/big_collection/coleta_continua.py",
      'if linha["CHAMADA"] not in f.read_text(encoding="utf-8", errors="replace"):', 'if False:', T_LINHAS, None),
+    ("D1_download_do_alvo_antes_da_decisao", "coleta/italy_pilot_collect.mjs",
+     "      const decisao = decidirSobreDetalhe(alvo.url, {",
+     "      await baixar(alvo.url); const decisao = decidirSobreDetalhe(alvo.url, {", T_PARIDADE, None),
+    ("D2_download_condicional_antes_da_decisao", "coleta/italy_pilot_collect.mjs",
+     "      const decisao = decidirSobreDetalhe(alvo.url, {",
+     "      await baixar(alvo.url, 2, { condicional: true }); const decisao = decidirSobreDetalhe(alvo.url, {",
+     T_PARIDADE, None),
     ("P6_volta_ao_split_por_LF_com_checkout_CRLF", "tests/test_pote_no_casco.mjs",
      "'.vercelignore'), 'utf8').split(/\\r?\\n/);", "'.vercelignore'), 'utf8').split('\\n');", T_P6, "CRLF_VERCELIGNORE"),
 ]
@@ -76,7 +84,7 @@ def correr(pasta, testes):
     cmd = testes if testes[0] == "node" else [sys.executable] + testes
     r = subprocess.run(cmd, cwd=pasta, env=env, capture_output=True, text=True, encoding="utf-8",
                        errors="replace", timeout=1800)
-    return r.returncode, (r.stderr + r.stdout)[-800:]
+    return r.returncode, r.stderr + r.stdout
 
 
 def preparar(pasta, preparo):
@@ -105,7 +113,7 @@ def main():
             desfaz()
             out["SEM_MUTANTE"][chave] = cod
             if cod != 0:
-                raise SystemExit("a copia limpa nao passa em %s — o ataque nao tem base:\n%s" % (chave, cauda))
+                raise SystemExit("a copia limpa nao passa em %s — o ataque nao tem base:\n%s" % (chave, cauda[-2000:]))
         for nome, alvo, de, para, testes, preparo in MUTANTES:
             f = os.path.join(base, alvo)
             orig = open(f, encoding="utf-8", newline="").read()
@@ -119,9 +127,10 @@ def main():
                 desfaz()
                 open(f, "w", encoding="utf-8", newline="").write(orig)
             morto = cod != 0
-            m = re.findall(r"^(?:FAIL|ERROR): (\w+)", cauda, re.M) or re.findall(r"FAIL: ([^\n]+)", cauda)
+            m = sorted(set(re.findall(r"^(?:FAIL|ERROR): (\w+)", cauda, re.M) + re.findall(r"^FAIL: (P\d+[^\n]*)", cauda, re.M) + re.findall(r"^\s*FALHA (.+)$", cauda, re.M)
+                           + re.findall(r"^(\w*Error): ", cauda, re.M)))
             out["MUTANTES"].append({"MUTANTE": nome, "ALVO": alvo, "MORTO": morto, "CODIGO": cod,
-                                    "APANHADO_POR": m[:5], "CAUDA": None if morto else cauda})
+                                    "APANHADO_POR": m[:8], "CAUDA": None if morto else cauda[-800:]})
             print(nome, "MORTO" if morto else "SOBREVIVEU", m[:3], flush=True)
     finally:
         shutil.rmtree(base, ignore_errors=True)
