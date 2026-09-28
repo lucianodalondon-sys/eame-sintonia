@@ -1,0 +1,73 @@
+{
+ "MUTANTES": [
+  {
+   "MUTANTE": "M1 gatilho aceita producao",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_producao_e_recusada_antes_do_publicador (tests.test_publicar_preview_da_pasta.G2_SoPreview.test_producao_e_recusada_antes_do_publicador)"
+   ]
+  },
+  {
+   "MUTANTE": "M2 nao confere o sha de cada linha",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_byte_trocado_depois_da_soma (tests.test_publicar_preview_da_pasta.G1_Incompleta.test_byte_trocado_depois_da_soma)"
+   ]
+  },
+  {
+   "MUTANTE": "M3 aceita SHA256SUMS a meio",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_sha256sums_a_meio (tests.test_publicar_preview_da_pasta.G1_Incompleta.test_sha256sums_a_meio)",
+    "FAIL: test_a_completa_mais_recente_vence_e_a_incompleta_nao_conta (tests.test_publicar_preview_da_pasta.G3_ARaiz.test_a_completa_mais_recente_vence_e_a_incompleta_nao_conta)"
+   ]
+  },
+  {
+   "MUTANTE": "M4 pote fora da soma passa",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "ERROR: test_pote_para_cliente_fora_da_soma (tests.test_publicar_preview_da_pasta.G1_Incompleta.test_pote_para_cliente_fora_da_soma)"
+   ]
+  },
+  {
+   "MUTANTE": "M5 sha do manifesto ignorado",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_sha_do_manifesto_diferente_do_ficheiro (tests.test_publicar_preview_da_pasta.G1_Incompleta.test_sha_do_manifesto_diferente_do_ficheiro)"
+   ]
+  },
+  {
+   "MUTANTE": "M6 servidor local ignora o redirect",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_o_servidor_local_cumpre_o_redirect_antes_do_ficheiro (tests.test_publicar_portal_sozinho.P1_AsTelas.test_o_servidor_local_cumpre_o_redirect_antes_do_ficheiro)"
+   ]
+  },
+  {
+   "MUTANTE": "M7 casa que abre passa na conferencia",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_casa_nao_medida_bloqueia (tests.test_publicar_portal_sozinho.P1_AsTelas.test_casa_nao_medida_bloqueia)",
+    "FAIL: test_casa_que_ainda_abre_bloqueia (tests.test_publicar_portal_sozinho.P1_AsTelas.test_casa_que_ainda_abre_bloqueia)",
+    "FAIL: test_casa_redirecionada_para_outro_sitio_bloqueia (tests.test_publicar_portal_sozinho.P1_AsTelas.test_casa_redirecionada_para_outro_sitio_bloqueia)"
+   ]
+  },
+  {
+   "MUTANTE": "M8 vercel.json sem o redirect da casa",
+   "FICHEIRO": "vercel.json",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_o_vercel_json_redireciona_a_casa_para_a_porta (tests.test_publicar_portal_sozinho.P1_AsTelas.test_o_vercel_json_redireciona_a_casa_para_a_porta)"
+   ]
+  }
+ ],
+ "MORTOS": 8,
+ "TOTAL": 8
+}
