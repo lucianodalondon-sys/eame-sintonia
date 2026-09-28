@@ -69,7 +69,8 @@ def contagens_boas(pote, sha, contrato=CONTRATO):
     for t in contrato["TELAS"]["DO_POTE"]:
         T[t] = {"HTTP": 200, "POTE_NA_TELA": True, "POTE_OBJETOS": esp.get(t), "POTE_RECUSADO": False, "MARCA": True,
                 "LEGADO_CARTOES": 0, "LEGADO_43_UNIVERSO": 43, "LEGADO_43_VISIVEIS": 0, "LEGADO_44_UNIVERSO": 44,
-                "LEGADO_44_VISIVEIS": 0, "NAV": dict(nav), "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True}}
+                "LEGADO_44_VISIVEIS": 0, "OGGI_LEGADO": False, "NAV": dict(nav),
+                "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True}}
     T["accesso"] = {"HTTP": 200, "LEGADO_CARTOES": 0, "LEGADO_43_VISIVEIS": 0, "LEGADO_44_VISIVEIS": 0, "LEGADO_43_UNIVERSO": 43}
     T["casa"] = {"HTTP": 200, "LEGADO_43_VISIVEIS": 43, "LEGADO_44_VISIVEIS": 44}
     return {"MEDICAO_COMPLETA": True, "TELAS": T}
@@ -142,7 +143,7 @@ class P0_OPote(unittest.TestCase):
 
     def test_o_sha_e_do_conteudo_e_nao_da_ordem(self):
         a = P.sha_do_pote(POTE_ENSAIO)
-        b = P.sha_do_pote(json.loads(json.dumps(POTE_ENSAIO, sort_keys=False)))
+        b = P.sha_do_pote(dict(reversed(list(POTE_ENSAIO.items()))))
         self.assertEqual(a, b)
         p = copy.deepcopy(POTE_ENSAIO)
         p["CORTE"] = "outro"
@@ -203,6 +204,13 @@ class P1_AsTelas(unittest.TestCase):
         self.C = contagens_boas(POTE_ENSAIO, self.sha)
         self.C["TELAS"]["accesso"]["LEGADO_CARTOES"] = 3
         self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()))
+
+    def test_d122_a_caixa_oggi_do_legado(self):
+        self.C["TELAS"]["windows"]["OGGI_LEGADO"] = True
+        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()))
+        self.C = contagens_boas(POTE_ENSAIO, self.sha)
+        del self.C["TELAS"]["windows"]["OGGI_LEGADO"]
+        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()), "nao medida nao e escondida")
 
     def test_d122_detector_que_nao_mediu_nao_vale_zero(self):
         self.C["TELAS"]["meeting"]["LEGADO_43_UNIVERSO"] = 0
@@ -427,6 +435,15 @@ class P3_OCaminhoInteiro(unittest.TestCase):
         imp = self.anfitriao()
         self.assertEqual(self.publicar(imp, pote=pote_nao_sintetico(), modo="producao"), P.BLOQUEADO)
 
+    def test_envelope_no_ar_cujo_sha_nao_e_o_do_pote_nao_conta(self):
+        imp = self.anfitriao()
+        p = copy.deepcopy(POTE_ENSAIO)
+        p["CORTE"] = "outro"
+        env = P.envelope(p, P.sha_do_pote(POTE_ENSAIO), CONTRATO, "ensaio", "x")   # SHA de outro pote
+        (self.d / "host" / "deployments" / imp.atual()["ID"] / "sintonia-pote-publicado.js").write_text(
+            P.js_do_envelope(env), encoding="utf-8")
+        self.assertEqual(P.sha_no_ar(imp.url_no_ar()), (200, "ENVELOPE_INCOERENTE"))
+
     def test_deriva_no_ar_e_alertada(self):
         imp = self.anfitriao()
         self.publicar(imp)
@@ -533,6 +550,8 @@ class P4_OCasco(unittest.TestCase):
         self.assertIn("'isField'];", html, "a rota field tambem cede ao pote")
         self.assertEqual(html.count("count: poteConta("), 3)
         self.assertEqual(html.count('data-nav-view="{{ n.view }}"'), 3)
+        self.assertIn('<sc-if value="{{ oggiDoLegado }}"', html)
+        self.assertIn("oggiDoLegado: !(typeof window !== 'undefined' && window.SINTONIA_POTE_PEDIDO === true),", html)
 
 
 # ── P5 · fora do Git e do deploy ─────────────────────────────────────────────

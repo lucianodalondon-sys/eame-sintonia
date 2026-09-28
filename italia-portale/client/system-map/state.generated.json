@@ -2605,6 +2605,7 @@
       "italia-portale/client/meeting-surface.js",
       "italia-portale/client/portale.html",
       "italia-portale/client/sintonia-pote-casco.js",
+      "italia-portale/client/sintonia-pote-publicado.js",
       "italia-portale/client/support.js",
       "italia-portale/client/upstream/IT-FUTURO-HANDOFF-LINHA-B-V1.json",
       "italia-portale/client/upstream/IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json",
@@ -2834,7 +2835,10 @@
       "pedido/receitas.py"
     ],
     "portoes": [
+      "portoes/PUBLICACAO-AUTOMATICA.json",
       "portoes/build_portal.py",
+      "portoes/fotografar_portal.mjs",
+      "portoes/publicar_portal_sozinho.py",
       "portoes/site_v21_ingest.py"
     ],
     "prototype": [
@@ -3859,8 +3863,10 @@
       "tests/fixtures/pesquisadores_t6/orcid-0000-0003-3719-2520-works.json",
       "tests/fixtures/ponte_onboard_17_contratos.json",
       "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
+      "tests/fixtures/pote/CORRIDA-SINTETICA-PUBLICA-SOZINHO.json",
       "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
       "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+      "tests/fixtures/pote/POTE-SINTETICO-PUBLICA-SOZINHO.json",
       "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
       "tests/fixtures/pote/POTE-SINTETICO.json",
       "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
@@ -4120,6 +4126,7 @@
       "tests/test_prova_teto_social.py",
       "tests/test_proveniencia.py",
       "tests/test_psql_argv.py",
+      "tests/test_publicar_portal_sozinho.py",
       "tests/test_qualidade_t3.py",
       "tests/test_quarentena_naosei.py",
       "tests/test_quatro_chaves.py",
@@ -4198,8 +4205,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 939 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 939 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 940 ficheiros (91%) · ESPANHA 76 ficheiros (7%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 940 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -4712,9 +4719,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/portal-auto-publish-1f67wu",
-    "HEAD": "b273660b66c1d693aadeb60c5bf8e82d0b066b62",
-    "GENERATED_AT": "2026-09-27T23:37:56+00:00",
-    "SOURCE_TREE_FINGERPRINT": "635115270bf9fe5ab240c95455ef2e11a45f97f8eac8ac81f8b0794df7c01459"
+    "HEAD": "c7e711c6928cc6c91797dc72bd2cc5aa4106e6b7",
+    "GENERATED_AT": "2026-09-28T01:01:39+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e5e91449c699562b0d11557462b5539d42bcb6ca1f43a32e1e541702f235deae"
   },
   "FAMILIES": [
     {
@@ -6335,8 +6342,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 884",
-        "desses, mostrados aqui: 40 (ficam de fora 844)"
+        "enderecos que o codigo realmente chama: 885",
+        "desses, mostrados aqui: 40 (ficam de fora 845)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -39338,7 +39345,8 @@
         "C-V21-FONTES"
       ],
       "outbound": [
-        "C-PORTAO-BUILD"
+        "C-PORTAO-BUILD",
+        "C-PUBLICA-SOZINHO"
       ],
       "paises": {},
       "paises_dado": {
@@ -39434,9 +39442,10 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "italia-portale/audit/casa-gate.mjs:32"
+          "italia-portale/audit/casa-gate.mjs:32",
+          "portoes/publicar_portal_sozinho.py:344"
         ],
-        "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-PUBLICA-SOZINHO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 18030,
       "y": 682
@@ -53603,6 +53612,7 @@
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
+        "C-PUBLICA-SOZINHO",
         "C-TESTES"
       ],
       "paises": {},
@@ -54154,6 +54164,7 @@
         "C-PROVA-T2-BOLETINS",
         "C-PROVA-T6-ATRAVESSA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+        "C-PUBLICA-SOZINHO",
         "C-RASTRO",
         "C-RECALL-PORTA-IT",
         "C-RECEITAS",
@@ -57380,9 +57391,10 @@
         "italia-portale/client/italy-sala-leitura.js",
         "italia-portale/client/italy-v21.js",
         "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
       ],
-      "file_count": 7,
+      "file_count": 8,
       "status": "PENDING",
       "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -57395,6 +57407,8 @@
         "C-ADAMA-REFERENCE",
         "C-LASTMILE",
         "C-PORTAL-DADOS",
+        "C-PUBLICA-SOZINHO",
+        "C-TESTES",
         "C-V21-FONTES"
       ],
       "outbound": [
@@ -57407,6 +57421,7 @@
         "C-PORTAL-DADOS",
         "C-PORTAO-BUILD",
         "C-PROVA-POTE-CASCO",
+        "C-PUBLICA-SOZINHO",
         "C-TELA-ARCHIVE",
         "C-TELA-FIELD",
         "C-TESTES",
@@ -57540,7 +57555,8 @@
         "lineage_stale"
       ],
       "outbound": [
-        "C-AUDIT-GERAL"
+        "C-AUDIT-GERAL",
+        "C-PUBLICA-SOZINHO"
       ],
       "paises": {},
       "paises_dado": {},
@@ -57597,9 +57613,10 @@
         "PLANO": null,
         "PROVA": [
           "italia-portale/audit/checks.mjs:13",
-          "italia-portale/audit/checks.mjs:13"
+          "italia-portale/audit/checks.mjs:13",
+          "portoes/publicar_portal_sozinho.py:381"
         ],
-        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-PUBLICA-SOZINHO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 18445,
       "y": 1004
@@ -57726,6 +57743,7 @@
         "C-POTE-CRUZAMENTOS-MAX",
         "C-PROVA-INT-R7",
         "C-PROVA-POTE-CASCO",
+        "C-PUBLICA-SOZINHO",
         "C-TESTES"
       ],
       "paises": {},
@@ -57781,11 +57799,11 @@
         "PLANO": null,
         "PROVA": [
           "pacote/pote_cruzamentos_max.py:50",
+          "portoes/publicar_portal_sozinho.py:64",
           "provas/_mutantes_pote_casco.py:24",
-          "provas/int_r7/aceite_pelo_gerador.py:33",
-          "provas/int_r7/aceite_pelo_gerador.py:24"
+          "provas/int_r7/aceite_pelo_gerador.py:33"
         ],
-        "PORQUE": "estas pecas importam-na — C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-POTE-CRUZAMENTOS-MAX · C-PUBLICA-SOZINHO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 17325,
       "y": 1004
@@ -63195,7 +63213,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "gray",
       "icon": "✓",
       "views": [
         "audit",
@@ -63205,8 +63223,8 @@
       "family": "F-GOVERNANCA",
       "files": [],
       "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com provas/portal_publica_sozinho/*. Conferido tambem no disco: nao esta la.",
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add provas/portal_publica_sozinho/*` e regerar. ISTO NAO E «nao existe».",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -65147,7 +65165,7 @@
         "LIDERANCA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "⇪",
       "views": [
         "audit",
@@ -65155,49 +65173,97 @@
       ],
       "lane": "official",
       "family": "F-ENTREGA",
-      "files": [],
-      "file_count": 0,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add portoes/PUBLICACAO-AUTOMATICA.json portoes/fotografar_portal.mjs portoes/publicar_portal_sozinho.py` e regerar. ISTO NAO E «nao existe».",
+      "files": [
+        "portoes/PUBLICACAO-AUTOMATICA.json",
+        "portoes/fotografar_portal.mjs",
+        "portoes/publicar_portal_sozinho.py"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
-      "outbound": [],
+      "inbound": [
+        "C-AUDIT-GERAL",
+        "C-MAPA-DEPLOY",
+        "C-MAPA-TESTES",
+        "C-PORTAL-MODELO",
+        "C-PORTAO-BUILD",
+        "C-POTE-INT-CASCO"
+      ],
+      "outbound": [
+        "C-PORTAL-MODELO",
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "L",
+          "R"
+        ],
+        "palavras": 22,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 22,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "italia-portale/client/sintonia-pote-publicado.js",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "nenhum ficheiro rastreado reivindicado por esta peca",
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "portoes/publicar_portal_sozinho.py abre ligacao de rede: vai buscar dado fora da arvore",
       "OWNER": "ENGENHARIA · LIDERANCA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
+      "consumes": [
+        "italia-portale/audit/build-gate.mjs",
+        "italia-portale/audit/deploy-surface.mjs",
+        "italia-portale/audit/run.mjs",
+        "italia-portale/client/sintonia-pote-publicado.js",
+        "package.json",
+        "portoes/PUBLICACAO-AUTOMATICA.json",
+        "portoes/fotografar_portal.mjs",
+        "system-map/CANONICAL-PUBLICATION.json"
+      ],
+      "consumes_plane": "CODE",
       "DECLARED": "YES",
-      "CODE": "UNKNOWN",
+      "CODE": "YES",
       "OBSERVED": "UNKNOWN",
       "OBSERVED_EVIDENCE": [],
-      "PROVEN": "UNKNOWN",
-      "PROVEN_PLANE": null,
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_publicar_portal_sozinho.py:37"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 18030,
       "y": 1326
@@ -70312,6 +70378,7 @@
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
       ],
       "consumes_plane": "CODE",
@@ -70437,6 +70504,7 @@
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
       ],
       "consumes_plane": "CODE",
@@ -70556,6 +70624,7 @@
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
       ],
       "consumes_plane": "CODE",
@@ -71326,6 +71395,7 @@
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
       ],
       "consumes_plane": "CODE",
@@ -71439,6 +71509,7 @@
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
         "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "italia-portale/client/support.js"
       ],
       "consumes_plane": "CODE",
@@ -72011,6 +72082,7 @@
         "tests/test_prova_teto_social.py",
         "tests/test_proveniencia.py",
         "tests/test_psql_argv.py",
+        "tests/test_publicar_portal_sozinho.py",
         "tests/test_qualidade_t3.py",
         "tests/test_quarentena_naosei.py",
         "tests/test_quatro_chaves.py",
@@ -72084,7 +72156,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 329,
+      "file_count": 330,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -72261,6 +72333,7 @@
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-PROVA-TETO-DOMINIO",
+        "C-PUBLICA-SOZINHO",
         "C-RASTRO",
         "C-RECEITAS",
         "C-RECEITAS-PROPOSTA",
@@ -72324,6 +72397,7 @@
         "C-PACOTE-CAMADAS",
         "C-PORTA-FONTE",
         "C-PORTAL-DADOS",
+        "C-PORTAL-MODELO",
         "C-PRECO-DE-MERCADO",
         "C-PROVA-ADAMA-REFERENCE",
         "C-PROVA-COLETA",
@@ -72876,6 +72950,8 @@
         "italia-portale/client/italy-app-model.js",
         "italia-portale/client/italy-v21.js",
         "italia-portale/client/meeting-intelligence-snapshot.json",
+        "italia-portale/client/sintonia-pote-casco.js",
+        "italia-portale/client/sintonia-pote-publicado.js",
         "know-how/daily/2026-09-10.md",
         "leis/adama_relevance.py",
         "leis/afirmacao_da_fonte.py",
@@ -73113,6 +73189,7 @@
         "tests/fixtures/pote/CORRIDA-SINTETICA-POTE.json",
         "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
         "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+        "tests/fixtures/pote/POTE-SINTETICO-PUBLICA-SOZINHO.json",
         "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
         "tests/fixtures/pote/POTE-SINTETICO.json",
         "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
@@ -83335,6 +83412,57 @@
       "OBSERVED": "UNKNOWN",
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-PUBLICA-SOZINHO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal alimenta O portal publica sozinho (D126). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "portoes/publicar_portal_sozinho.py",
+          "line": 344,
+          "snippet": "if \"audit/run.mjs\" in texto and rc not in (None,):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
+            "FROM": "C-AUDIT-GERAL",
+            "TO": "C-PUBLICA-SOZINHO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "portoes/publicar_portal_sozinho.py",
+          "line": 382,
+          "snippet": "conferir_comando(\"C2_DEPLOY_SURFACE\", [\"node\", \"italia-portale/audit/deploy-surface.mjs\"], copia, contrato, 600)]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
+            "FROM": "C-AUDIT-GERAL",
+            "TO": "C-PUBLICA-SOZINHO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -123796,6 +123924,41 @@
     },
     {
       "from": "C-MAPA-DEPLOY",
+      "to": "C-PUBLICA-SOZINHO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta O portal publica sozinho (D126). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "portoes/publicar_portal_sozinho.py",
+          "line": 67,
+          "snippet": "CANONICO_PATH = RAIZ / \"system-map\" / \"CANONICAL-PUBLICATION.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-PUBLICA-SOZINHO",
+            "FROM": "C-MAPA-DEPLOY",
+            "TO": "C-PUBLICA-SOZINHO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-DEPLOY",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -128743,6 +128906,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-PUBLICA-SOZINHO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map tem o seu codigo importado por O portal publica sozinho (D126). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "portoes/publicar_portal_sozinho.py",
+          "line": 62,
+          "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PUBLICA-SOZINHO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PUBLICA-SOZINHO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -129670,7 +129868,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 170 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 171 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -140007,6 +140205,41 @@
     },
     {
       "from": "C-PORTAL-MODELO",
+      "to": "C-PUBLICA-SOZINHO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta O portal publica sozinho (D126). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "portoes/publicar_portal_sozinho.py",
+          "line": 474,
+          "snippet": "req = urllib.request.Request(base_url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-PUBLICA-SOZINHO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAL-MODELO",
       "to": "C-TELA-ARCHIVE",
       "type": "FEEDS",
       "payload": "dado",
@@ -140041,7 +140274,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 6 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Rete Commerciale di Campo. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -140125,6 +140358,22 @@
         },
         {
           "file": "italia-portale/client/portale.html",
+          "line": 82,
+          "snippet": "<script src=\"sintonia-pote-publicado.js\"></script>",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TELA-FIELD",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "italia-portale/client/portale.html",
           "line": 83,
           "snippet": "<script src=\"sintonia-pote-casco.js\"></script>",
           "ASSERTION_SUPPORTED": {
@@ -140156,12 +140405,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_demanda_de_dados_da_italia.py",
           "line": 303,
           "snippet": "self.assertIn(\"italy-v21.js\", fonte)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_publicar_portal_sozinho.py",
+          "line": 158,
+          "snippet": "stub = (RAIZ / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_publicar_portal_sozinho.py",
+          "line": 459,
+          "snippet": "const LEITOR = fs.readFileSync(path.join(CL, 'sintonia-pote-casco.js'), 'utf8');",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
             "FROM": "C-PORTAL-MODELO",
@@ -140397,6 +140678,41 @@
             "EDGE_ID": "C-PORTAO-BUILD--READS-->C-AUDIT-GERAL",
             "FROM": "C-PORTAO-BUILD",
             "TO": "C-AUDIT-GERAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTAO-BUILD",
+      "to": "C-PUBLICA-SOZINHO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Portao da build alimenta O portal publica sozinho (D126). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "portoes/publicar_portal_sozinho.py",
+          "line": 381,
+          "snippet": "L = [conferir_comando(\"C1_BUILD_GATE\", [\"node\", \"italia-portale/audit/build-gate.mjs\"], copia, contrato, 600),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAO-BUILD--READS-->C-PUBLICA-SOZINHO",
+            "FROM": "C-PORTAO-BUILD",
+            "TO": "C-PUBLICA-SOZINHO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -140665,6 +140981,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-POTE-INT-CASCO",
+      "to": "C-PUBLICA-SOZINHO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por O portal publica sozinho (D126). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "portoes/publicar_portal_sozinho.py",
+          "line": 64,
+          "snippet": "import validar_pote_v2 as V2  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-PUBLICA-SOZINHO",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-PUBLICA-SOZINHO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -146311,6 +146662,76 @@
         }
       ],
       "categoria": "WRITE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PUBLICA-SOZINHO",
+      "to": "C-PORTAL-MODELO",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portal publica sozinho (D126) escreve em Modelo de aplicacao do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "portoes/publicar_portal_sozinho.py",
+          "line": 671,
+          "snippet": "(Path(copia) / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
+            "FROM": "C-PUBLICA-SOZINHO",
+            "TO": "C-PORTAL-MODELO",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "WRITE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PUBLICA-SOZINHO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portal publica sozinho (D126) tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_publicar_portal_sozinho.py",
+          "line": 37,
+          "snippet": "import publicar_portal_sozinho as P  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PUBLICA-SOZINHO--IMPORTS-->C-TESTES",
+            "FROM": "C-PUBLICA-SOZINHO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -163127,6 +163548,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-AUDIT-GERAL",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Demais auditorias do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_publicar_portal_sozinho.py",
+          "line": 256,
+          "snippet": "(Path(d) / \"italia-portale\" / \"audit\" / \"run.mjs\").write_text(",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-AUDIT-GERAL",
+            "FROM": "C-TESTES",
+            "TO": "C-AUDIT-GERAL",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-AUTORIZACAO-DE-GASTO",
       "type": "WRITES",
       "payload": "artefacto",
@@ -164043,6 +164499,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-PORTAL-MODELO",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Modelo de aplicacao do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_publicar_portal_sozinho.py",
+          "line": 285,
+          "snippet": "(d / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(STUB, encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-MODELO",
+            "FROM": "C-TESTES",
+            "TO": "C-PORTAL-MODELO",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -168706,7 +169197,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2251,
+  "UNCLAIMED_FILES_COUNT": 2253,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -168777,6 +169268,14 @@
         "C-TESTES"
       ],
       "owner_elected": "C-CENSO-UNIFICACAO"
+    },
+    {
+      "file": "italia-portale/client/sintonia-pote-publicado.js",
+      "written_by": [
+        "C-PUBLICA-SOZINHO",
+        "C-TESTES"
+      ],
+      "owner_elected": "C-PORTAL-MODELO"
     },
     {
       "file": "regras/italy_contracts_onboarded.json",
@@ -168956,7 +169455,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 278,
+      "PECAS_EM_DESACORDO": 279,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -168974,19 +169473,19 @@
   "COUNTS": {
     "components": 307,
     "components_proven": 33,
-    "components_pending": 264,
-    "components_broken": 1,
+    "components_pending": 265,
+    "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1835,
-    "edges_proven": 1766,
+    "edges": 1845,
+    "edges_proven": 1776,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4118,
-    "files_covered": 1867,
+    "files_tracked": 4125,
+    "files_covered": 1872,
     "files_code_unclaimed": 0,
-    "roles_proven": 203,
+    "roles_proven": 204,
     "roles_declared_only": 10,
-    "roles_unknown": 94,
+    "roles_unknown": 93,
     "roles_conflict": 54,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,
