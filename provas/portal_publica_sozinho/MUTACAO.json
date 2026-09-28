@@ -1,0 +1,324 @@
+{
+ "HEAD": "d63121db0a0d6627263ff9c79aff9447f9c8596e",
+ "MORTOS": 43,
+ "TOTAL": 44,
+ "MUTANTES": [
+  {
+   "MUTANTE": "M01 pote invalido: o validador v2 e ignorado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_que_o_validador_v2_reprova"
+   ]
+  },
+  {
+   "MUTANTE": "M02 prova sem DOCUMENT_ID aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_objeto_sem_prova_ate_ao_documento"
+   ]
+  },
+  {
+   "MUTANTE": "M03 D123 desligada",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_d123_oportunidade_sem_bula",
+    "test_d123_oportunidade_sem_produto"
+   ]
+  },
+  {
+   "MUTANTE": "M04 D123 esquece a bula",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_d123_oportunidade_sem_bula"
+   ]
+  },
+  {
+   "MUTANTE": "M05 D122 aceita evento sem data",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_d122_evento_sem_data"
+   ]
+  },
+  {
+   "MUTANTE": "M06 dado cru: chave proibida aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_dado_cru_chave_e_texto_longo"
+   ]
+  },
+  {
+   "MUTANTE": "M07 dado cru: texto longo aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_dado_cru_chave_e_texto_longo"
+   ]
+  },
+  {
+   "MUTANTE": "M08 demo vai a producao",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sintetico_nunca_vai_a_producao"
+   ]
+  },
+  {
+   "MUTANTE": "M09 promocao sem o dono",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_aprovacao_sem_nome_nem_data_nao_vale",
+    "test_experimental_sem_o_dono_nao_vai_a_producao"
+   ]
+  },
+  {
+   "MUTANTE": "M10 aprovacao sem nome vale",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_aprovacao_sem_nome_nem_data_nao_vale"
+   ]
+  },
+  {
+   "MUTANTE": "M11 o sha do pote depende da ordem",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_segundo_pote_guarda_o_primeiro_como_anterior",
+    "test_o_sha_e_do_conteudo_e_nao_da_ordem"
+   ]
+  },
+  {
+   "MUTANTE": "M12 pagina sem a contagem: contagem ignorada",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pagina_sem_a_contagem"
+   ]
+  },
+  {
+   "MUTANTE": "M13 tela sem o pote aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pagina_sem_a_contagem"
+   ]
+  },
+  {
+   "MUTANTE": "M14 SHA servido ignorado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sha_servido_nao_e_o_do_pote"
+   ]
+  },
+  {
+   "MUTANTE": "M15 D122: legado visivel ignorado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_d122_legado_visivel"
+   ]
+  },
+  {
+   "MUTANTE": "M16 D122: detector vazio vale zero",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_d122_detector_que_nao_mediu_nao_vale_zero"
+   ]
+  },
+  {
+   "MUTANTE": "M17 D122: barra com o numero antigo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_d122_a_barra_com_o_numero_antigo"
+   ]
+  },
+  {
+   "MUTANTE": "M18 medicao incompleta autoriza",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_medicao_incompleta_nao_autoriza"
+   ]
+  },
+  {
+   "MUTANTE": "M19 envelope no ar incoerente aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_envelope_no_ar_cujo_sha_nao_e_o_do_pote_nao_conta"
+   ]
+  },
+  {
+   "MUTANTE": "M20 gate falhado: vermelho novo do release aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_vermelho_novo_reprova"
+   ]
+  },
+  {
+   "MUTANTE": "M21 release que nao chegou ao fim aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_corrida_que_nao_chegou_ao_fim_reprova"
+   ]
+  },
+  {
+   "MUTANTE": "M22 release ilegivel nao reprova",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_release_ilegivel_reprova"
+   ]
+  },
+  {
+   "MUTANTE": "M23 instalar o browser vira conferencia",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_lido_do_workflow_e_nao_copiado"
+   ]
+  },
+  {
+   "MUTANTE": "M24 comando que falha passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_comando_que_falha_reprova",
+    "test_corrida_que_nao_chegou_ao_fim_reprova",
+    "test_so_o_vermelho_herdado_e_declarado_passa",
+    "test_vermelho_novo_reprova"
+   ]
+  },
+  {
+   "MUTANTE": "M25 gate do pote falhado e ainda assim publica",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_invalido_nao_vai_ao_ar"
+   ]
+  },
+  {
+   "MUTANTE": "M26 gate do codigo falhado e ainda assim publica",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_conferencia_do_codigo_falhada_nao_vai_ao_ar"
+   ]
+  },
+  {
+   "MUTANTE": "M27 republica o que ja esta no ar",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_mesmo_pote_no_ar_nao_se_republica"
+   ]
+  },
+  {
+   "MUTANTE": "M28 producao pelo anfitriao de ensaio",
+   "ESTADO": "VIVO",
+   "APANHADO_POR": []
+  },
+  {
+   "MUTANTE": "M29 rollback que nao roda: nunca se chama a volta",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pagina_no_ar_sem_contagem_volta_sozinha_e_avisa"
+   ]
+  },
+  {
+   "MUTANTE": "M30 rollback provado so pelo SHA",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_rollback_que_nao_roda_e_alerta_critico"
+   ]
+  },
+  {
+   "MUTANTE": "M31 reverteu sem ALERTA",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pagina_no_ar_sem_contagem_volta_sozinha_e_avisa",
+    "test_rollback_que_nao_roda_e_alerta_critico"
+   ]
+  },
+  {
+   "MUTANTE": "M32 deriva no ar sem ALERTA",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_deriva_no_ar_e_alertada"
+   ]
+  },
+  {
+   "MUTANTE": "M33 o revertido vira a ULTIMA publicacao",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pagina_no_ar_sem_contagem_volta_sozinha_e_avisa",
+    "test_rollback_que_nao_roda_e_alerta_critico"
+   ]
+  },
+  {
+   "MUTANTE": "M34 o casco ignora o pote publicado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_barra_conta_o_pote",
+    "test_field_mostra_o_porque_do_pote_e_nao_a_demo",
+    "test_o_pote_publicado_e_lido_e_pedido",
+    "test_pote_publicado_que_reprova_e_nao_sei_na_barra"
+   ]
+  },
+  {
+   "MUTANTE": "M35 o publicado atropela o ?pote=local",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_local_vence"
+   ]
+  },
+  {
+   "MUTANTE": "M36 pote que reprova devolve a barra ao legado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_publicado_que_reprova_e_nao_sei_na_barra"
+   ]
+  },
+  {
+   "MUTANTE": "M37 field volta a mostrar a demo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_field_mostra_o_porque_do_pote_e_nao_a_demo"
+   ]
+  },
+  {
+   "MUTANTE": "M38 a barra conta o pote na sala",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_barra_conta_o_pote"
+   ]
+  },
+  {
+   "MUTANTE": "M39 a barra volta ao numero antigo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_portal_carrega_o_lugar_antes_do_leitor"
+   ]
+  },
+  {
+   "MUTANTE": "M40 field fora da precedencia",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_portal_carrega_o_lugar_antes_do_leitor"
+   ]
+  },
+  {
+   "MUTANTE": "M41 o portal nao carrega o pote publicado",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_portal_carrega_o_lugar_antes_do_leitor"
+   ]
+  },
+  {
+   "MUTANTE": "M42 o registo entra no Git",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_registo_nunca_entra_no_git_nem_sobe"
+   ]
+  },
+  {
+   "MUTANTE": "M43 D122: a caixa «oggi» do legado aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_d122_a_caixa_oggi_do_legado"
+   ]
+  },
+  {
+   "MUTANTE": "M44 a caixa «oggi» fica com o pote",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_portal_carrega_o_lugar_antes_do_leitor"
+   ]
+  }
+ ]
+}

@@ -318,6 +318,9 @@ ANSI = re.compile(r"\x1b\[[0-9;]*m")
 
 
 def correr(cmd, cwd, timeout=2400, env=None):
+    if isinstance(cmd, list) and cmd and shutil.which(cmd[0]):
+        # no Windows `npm` e `npm.cmd`: sem isto o subprocess nao o acha e a conferencia morre por ferramenta
+        cmd = [shutil.which(cmd[0])] + cmd[1:]
     try:
         p = subprocess.run(cmd, cwd=str(cwd), capture_output=True, text=True, encoding="utf-8", errors="replace",
                            timeout=timeout, env=env, shell=isinstance(cmd, str))
@@ -453,7 +456,11 @@ def ligar_playwright(destino: Path) -> bool:
     nm.mkdir(parents=True, exist_ok=True)
     alvo = nm / "playwright-core"
     if not alvo.exists():
-        alvo.symlink_to(pw)
+        try:
+            alvo.symlink_to(pw, target_is_directory=True)
+        except OSError:
+            # Windows sem modo de programador nao cria symlink: copia-se (e so a copia montada, descartavel)
+            shutil.copytree(pw, alvo)
     return True
 
 

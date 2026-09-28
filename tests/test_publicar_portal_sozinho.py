@@ -354,8 +354,8 @@ class P3_OCaminhoInteiro(unittest.TestCase):
         self.imps.append(imp)
         return imp
 
-    def publicar(self, imp, pote=POTE_ENSAIO, modo="ensaio", **kw):
-        pub = PublicadorDeProva(CONTRATO, imp, self.reg, modo, espera_no_ar=1)
+    def publicar(self, imp, pote=POTE_ENSAIO, modo="ensaio", contrato=CONTRATO, **kw):
+        pub = PublicadorDeProva(contrato, imp, self.reg, modo, espera_no_ar=1)
         for k, v in kw.items():
             setattr(pub, k, v)
         return pub.publicar(pote, origem="teste")
@@ -432,8 +432,13 @@ class P3_OCaminhoInteiro(unittest.TestCase):
         self.assertFalse(self.registos()[-1]["VOLTA"]["PROVADA"])
 
     def test_producao_nunca_pelo_anfitriao_de_ensaio(self):
+        # tudo o resto em ordem (corrida real, promocao aprovada): so a regra do modo pode barrar
         imp = self.anfitriao()
-        self.assertEqual(self.publicar(imp, pote=pote_nao_sintetico(), modo="producao"), P.BLOQUEADO)
+        antes = imp.atual()["ID"]
+        self.assertEqual(self.publicar(imp, pote=pote_nao_sintetico(), modo="producao", contrato=contrato_aprovado()),
+                         P.BLOQUEADO)
+        self.assertEqual(imp.atual()["ID"], antes)
+        self.assertEqual([l["ID"] for l in self.registos()[-1]["CONFERENCIAS"] if not l["PASS"]], ["MODO"])
 
     def test_envelope_no_ar_cujo_sha_nao_e_o_do_pote_nao_conta(self):
         imp = self.anfitriao()
