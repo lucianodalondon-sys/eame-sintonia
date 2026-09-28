@@ -1,0 +1,254 @@
+{
+ "TESTE": "tests.test_esteira_sozinha",
+ "BASE_VERDE": true,
+ "MUTANTES": [
+  {
+   "ID": "E1",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "Intelligence sem trinco: duas corridas ao mesmo tempo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_duas_corridas_sobrepostas_a_segunda_fica_ocupada"
+   ]
+  },
+  {
+   "ID": "E2",
+   "FICHEIRO": "admissao/passagem_para_a_sala.py",
+   "FINGE": "passagem sem trinco: dois escritores na Sala",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_um_so_escritor"
+   ]
+  },
+  {
+   "ID": "E3",
+   "FICHEIRO": "admissao/passagem_para_a_sala.py",
+   "FINGE": "Admission grava sem PROVA_VALE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sem_prova_vale_nada_se_grava"
+   ]
+  },
+  {
+   "ID": "E4",
+   "FICHEIRO": "admissao/passagem_para_a_sala.py",
+   "FINGE": "Admission nem chama o backup",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_backup_vem_antes_da_escrita",
+    "test_sem_prova_vale_nada_se_grava"
+   ]
+  },
+  {
+   "ID": "E5",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "gatilho corre sem delta",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sem_delta_espera",
+    "test_sem_delta_o_motor_nao_corre"
+   ]
+  },
+  {
+   "ID": "E6",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "limiar de 10 vira 1",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_nove_recentes_esperam"
+   ]
+  },
+  {
+   "ID": "E7",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "4 h viram nada",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_nove_recentes_esperam"
+   ]
+  },
+  {
+   "ID": "E8",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "delta nao medido vira zero (ESPERAR em vez de NAO SEI)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_delta_nao_medido_e_nao_sei_e_nao_zero"
+   ]
+  },
+  {
+   "ID": "E9",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "a marca nao anda: a mesma Sala corre para sempre",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_pote_valido_sobe_e_a_marca_anda"
+   ]
+  },
+  {
+   "ID": "E10",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "sem recuo depois de falha (a copia refaz-se de 15 em 15 s)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_recuo_depois_de_falha"
+   ]
+  },
+  {
+   "ID": "E11",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "pote reprovado sobe",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_motor_verdadeiro_sobre_o_export_r7_e_o_fiscal_decide",
+    "test_pote_reprovado_nao_sobe"
+   ]
+  },
+  {
+   "ID": "E12",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "export sem READ_ONLY=on serve",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_export_so_serve_com_read_only_on"
+   ]
+  },
+  {
+   "ID": "E13",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "copia sem PROVA_VALE corre o motor na mesma",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_copia_sem_prova_vale_nao_corre_o_motor"
+   ]
+  },
+  {
+   "ID": "E14",
+   "FICHEIRO": "motor/gatilho_da_inteligencia.py",
+   "FINGE": "gatilho ignora PARAR.flag",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_parar_flag_nao_mede_nem_corre"
+   ]
+  },
+  {
+   "ID": "E15",
+   "FICHEIRO": "admissao/passagem_para_a_sala.py",
+   "FINGE": "passagem ignora PARAR.flag",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_parar_flag"
+   ]
+  },
+  {
+   "ID": "E16",
+   "FICHEIRO": "admissao/passagem_para_a_sala.py",
+   "FINGE": "universo sem regua vai a porta (NAO_SE_APLICA garantido)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_com_prova_vale_passa_uma_vez_e_so_uma",
+    "test_o_backup_vem_antes_da_escrita",
+    "test_o_plano_diz_porque_cada_uma_fica"
+   ]
+  },
+  {
+   "ID": "E17",
+   "FICHEIRO": "admissao/passagem_para_a_sala.py",
+   "FINGE": "corrida ja levada passa outra vez",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_com_prova_vale_passa_uma_vez_e_so_uma"
+   ]
+  },
+  {
+   "ID": "E18",
+   "FICHEIRO": "admissao/passagem_para_a_sala.py",
+   "FINGE": "o passado atravessa sozinho na primeira volta",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_primeira_volta_nao_leva_o_passado"
+   ]
+  },
+  {
+   "ID": "E19",
+   "FICHEIRO": "admissao/passagem_para_a_sala.py",
+   "FINGE": "corrida com varias fontes vai a porta com UM universo",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_com_prova_vale_passa_uma_vez_e_so_uma",
+    "test_o_backup_vem_antes_da_escrita",
+    "test_o_plano_diz_porque_cada_uma_fica"
+   ]
+  },
+  {
+   "ID": "E20",
+   "FICHEIRO": "medidas/vigia_da_esteira.py",
+   "FINGE": "NAO SEI deixa de ser alerta",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_marca_ilegivel_nao_e_silencio",
+    "test_marca_que_rebenta_nao_e_silencio"
+   ]
+  },
+  {
+   "ID": "E21",
+   "FICHEIRO": "medidas/vigia_da_esteira.py",
+   "FINGE": "o vigia nunca alerta",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_de_hora_a_hora_e_escreve_o_ficheiro",
+    "test_etapa_alem_de_n_horas_alerta"
+   ]
+  },
+  {
+   "ID": "E22",
+   "FICHEIRO": "medidas/vigia_da_esteira.py",
+   "FINGE": "marca que rebenta vira «andou agora»",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_marca_que_rebenta_nao_e_silencio"
+   ]
+  },
+  {
+   "ID": "E23",
+   "FICHEIRO": "medidas/vigia_da_esteira.py",
+   "FINGE": "o vigia nao escreve",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_de_hora_a_hora_e_escreve_o_ficheiro"
+   ]
+  },
+  {
+   "ID": "E24",
+   "FICHEIRO": "curadoria/supervisor.py",
+   "FINGE": "o servico nao chama a esteira",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_servico_chama_os_tres_passos_pela_ordem",
+    "test_passo_que_rebenta_nao_derruba_o_supervisor"
+   ]
+  },
+  {
+   "ID": "E25",
+   "FICHEIRO": "curadoria/supervisor.py",
+   "FINGE": "a esteira liga-se em qualquer _loop (testes escrevem na Sala)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sem_esteira_nada_corre"
+   ]
+  },
+  {
+   "ID": "E26",
+   "FICHEIRO": "curadoria/supervisor.py",
+   "FINGE": "um passo que rebenta derruba o supervisor",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_passo_que_rebenta_nao_derruba_o_supervisor"
+   ]
+  }
+ ],
+ "MORTOS": 26,
+ "TOTAL": 26,
+ "RESTAURADOS_IGUAIS": true,
+ "ESTADO": "PASS"
+}

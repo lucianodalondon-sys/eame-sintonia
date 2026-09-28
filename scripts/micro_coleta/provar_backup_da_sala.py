@@ -36,20 +36,45 @@ def comando_de_backup(dsn: str, ficheiro: Path) -> list[str]:
             "--no-owner", "--no-privileges", "-f", str(ficheiro), dsn]
 
 
-def main(argv=None) -> int:
-    argv = sys.argv[1:] if argv is None else argv
-    saida = next((Path(a.split("=", 1)[1]) for a in argv if a.startswith("--saida=")),
-                 Path(os.environ.get("TEMP", "/tmp")) / ("prova-backup-sala-" +
-                                                         datetime.now().strftime("%Y%m%d-%H%M%S")))
+def _pg(nome: str) -> str:
+    return str(E.PG_BIN / (nome + ".exe" if os.name == "nt" else nome))
+
+
+def _fotografia_de(dsn: str | None) -> dict:
+    """A fotografia (so SELECT) de UMA base, sem deixar o ambiente mudado para quem vem depois.
+
+    ⚠️ ESTEIRA-SOZINHA (28/09): ate aqui a prova apagava SINTONIA_SALA_DSN do ambiente e nao o
+    repunha. Numa linha de comando isso nao se via; dentro do servico (que chama `provar`), a
+    escrita seguinte na Sala perdia o endereco. O valor de antes volta sempre."""
+    antes = os.environ.get("SINTONIA_SALA_DSN")
+    try:
+        if dsn is None:
+            os.environ.pop("SINTONIA_SALA_DSN", None)        # a leitura real vem do SALA_DSN.txt
+        else:
+            os.environ["SINTONIA_SALA_DSN"] = dsn
+        return E.fotografia()
+    finally:
+        if antes is None:
+            os.environ.pop("SINTONIA_SALA_DSN", None)
+        else:
+            os.environ["SINTONIA_SALA_DSN"] = antes
+
+
+def provar(dsn_real: str, saida: Path, *, com_a_copia=None, ler_real_do_ficheiro: bool = True) -> dict:
+    """O backup da Sala e a prova de que ele volta. -> o resultado, com PROVA_VALE.
+
+    `com_a_copia(url)`: chamado SO com PROVA_VALE, enquanto a copia restaurada ainda esta de pe (a
+    esteira le a Intelligence dali, nunca da Sala: RUNBOOK-R7 §1). O que ele devolve fica em
+    `COM_A_COPIA`. `ler_real_do_ficheiro=False`: a fotografia da Sala real usa `dsn_real` em vez
+    do SALA_DSN.txt (o servico ja tem o endereco no ambiente)."""
     saida.mkdir(parents=True, exist_ok=True)
-    dsn_real = MC._dsn()
-    os.environ.pop("SINTONIA_SALA_DSN", None)            # a leitura real vem do SALA_DSN.txt
-    foto_real_antes = E.fotografia()
+    real = None if ler_real_do_ficheiro else dsn_real
+    foto_real_antes = _fotografia_de(real)
     dump = saida / "SALA-ANTES-DA-MICRO.dump"
     r = subprocess.run(comando_de_backup(dsn_real, dump), capture_output=True, text=True,
                        encoding="utf-8", errors="replace")
-    foto_real_depois = E.fotografia()
-    lista = subprocess.run([str(E.PG_BIN / "pg_restore.exe"), "-l", str(dump)],
+    foto_real_depois = _fotografia_de(real)
+    lista = subprocess.run([_pg("pg_restore"), "-l", str(dump)],
                            capture_output=True, text=True, encoding="utf-8", errors="replace")
     base = E.Base(saida / "pg")
     resultado = {"QUANDO": E.agora(), "DUMP": str(dump), "PG_DUMP_CODIGO": r.returncode,
@@ -65,16 +90,27 @@ def main(argv=None) -> int:
                         "-w", "start"], check=True, stdin=subprocess.DEVNULL,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         resultado["RESTAURO"] = base.restaurar(dump)
-        os.environ["SINTONIA_SALA_DSN"] = base.url
-        resultado["COPIA_RESTAURADA"] = E.fotografia()
+        resultado["COPIA_RESTAURADA"] = _fotografia_de(base.url)
         resultado["IGUAL_A_SALA_REAL"] = resultado["COPIA_RESTAURADA"] == foto_real_antes
+        resultado["PROVA_VALE"] = (r.returncode == 0 and not resultado["SALA_REAL_MUDOU_DURANTE_O_DUMP"]
+                                   and resultado.get("IGUAL_A_SALA_REAL") is True)
+        if resultado["PROVA_VALE"] and com_a_copia is not None:
+            resultado["COM_A_COPIA"] = com_a_copia(base.url)
     finally:
-        os.environ.pop("SINTONIA_SALA_DSN", None)
         base.descer()
-    resultado["PROVA_VALE"] = (r.returncode == 0 and not resultado["SALA_REAL_MUDOU_DURANTE_O_DUMP"]
-                               and resultado.get("IGUAL_A_SALA_REAL") is True)
-    (saida / "PROVA-BACKUP-SALA.json").write_text(json.dumps(resultado, ensure_ascii=False, indent=1),
-                                                  encoding="utf-8")
+    resultado.setdefault("PROVA_VALE", False)
+    (saida / "PROVA-BACKUP-SALA.json").write_text(
+        json.dumps({k: v for k, v in resultado.items() if k != "COM_A_COPIA"}, ensure_ascii=False,
+                   indent=1, default=str), encoding="utf-8")
+    return resultado
+
+
+def main(argv=None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    saida = next((Path(a.split("=", 1)[1]) for a in argv if a.startswith("--saida=")),
+                 Path(os.environ.get("TEMP", "/tmp")) / ("prova-backup-sala-" +
+                                                         datetime.now().strftime("%Y%m%d-%H%M%S")))
+    resultado = provar(MC._dsn(), saida)
     print(json.dumps({k: resultado[k] for k in ("PG_DUMP_CODIGO", "BYTES", "INDICE_TEM_SALA_DE_ESPERA",
                                                   "SALA_REAL_MUDOU_DURANTE_O_DUMP", "IGUAL_A_SALA_REAL",
                                                   "PROVA_VALE") if k in resultado},

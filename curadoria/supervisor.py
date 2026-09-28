@@ -613,19 +613,21 @@ def uma_volta_sup(
 # ---------------------------------------------------------------------------
 
 def supervisionar(pausa_worker: float = 1.0,
-                  poll: float = SUPERVISOR_POLL_S, revalidar_legacy: bool = False) -> int:
+                  poll: float = SUPERVISOR_POLL_S, revalidar_legacy: bool = False,
+                  esteira: bool = False) -> int:
     lock_fd = _adquirir_lock()
     if lock_fd is None:
         print("SUPERVISOR ja em execucao (lock valido). A sair.")
         return 1
 
     try:
-        return _loop(pausa_worker, poll, revalidar_legacy=revalidar_legacy)
+        return _loop(pausa_worker, poll, revalidar_legacy=revalidar_legacy, esteira=esteira)
     finally:
         _libertar_lock(lock_fd)
 
 
-def _loop(pausa_worker: float, poll: float, revalidar_legacy: bool = False) -> int:
+def _loop(pausa_worker: float, poll: float, revalidar_legacy: bool = False,
+          esteira: bool = False) -> int:
     # ⚠️ PASSOS QUE ESCREVEM NO LIVRO OU VAO A REDE SO O SERVICO OS LIGA (`main()`).
     # Medido a 25/09 08:01Z (PROVA-ROTA-CICLO): um gancho ligado por omissao fez os
     # testes que correm este `_loop` lancar canarios reais. O re-check das READY_LEGACY
@@ -684,6 +686,25 @@ def _loop(pausa_worker: float, poll: float, revalidar_legacy: bool = False) -> i
             _anotar({"EVENTO": "ONBOARDING", **r})
             _gravar_estado(estado)
 
+    # ⚠️ ESTEIRA-SOZINHA (28/09/2026): a passagem armazem -> Sala, o gatilho da Intelligence e o
+    # vigia sao PASSOS DESTE SERVICO, nao um segundo orquestrador. Escrevem na Sala e no casco,
+    # entao — pela regra de cima — so o servico os liga (`main()`); quem chama `_loop` sem
+    # `esteira=True` (os testes) nao os corre. Cada passo tem a sua trava, respeita PARAR.flag e
+    # devolve o que fez; um erro fica no diario e NAO derruba o supervisor.
+    passos_da_esteira = _passos_da_esteira() if esteira else ()
+
+    def _hook_esteira():
+        for nome, passo in passos_da_esteira:
+            try:
+                r = passo(estado)
+            except Exception as e:  # noqa: BLE001 — o supervisor nao morre por isto
+                _anotar({"EVENTO": "ESTEIRA_ERRO", "PASSO": nome, "ERRO": repr(e)[:300]})
+                continue
+            if r.get("ACCAO") not in ("NADA", "PARAR_FLAG"):
+                _anotar({"EVENTO": "ESTEIRA", "PASSO": nome, **r})
+        if passos_da_esteira:
+            _gravar_estado(estado)
+
     try:
         while True:
             accao, estado, proc = uma_volta_sup(estado, proc, pausa_worker,
@@ -709,6 +730,7 @@ def _loop(pausa_worker: float, poll: float, revalidar_legacy: bool = False) -> i
             if revalidar_legacy:
                 _hook_revalidar_legacy()
             _hook_onboarding()
+            _hook_esteira()
 
             print("SUPERVISOR: %s (restarts=%d)" % (
                 accao, estado.get("RESTARTS_TOTAL", 0)), flush=True)
@@ -730,6 +752,21 @@ def _loop(pausa_worker: float, poll: float, revalidar_legacy: bool = False) -> i
             estado["WORKER_PID"] = None
             estado["SUPERVISOR_STATE"] = "STOPPED"
             _gravar_estado(estado)
+
+
+def _passos_da_esteira() -> tuple:
+    """Os tres passos da ESTEIRA-SOZINHA, pela ordem do dado: Sala, Intelligence, vigia.
+
+    Cada um vive na gaveta do que e (admissao/, motor/, medidas/); aqui so se chamam."""
+    if str(RAIZ) not in sys.path:
+        sys.path.insert(0, str(RAIZ))
+    import _gavetas  # noqa: F401,PLC0415 — poe as gavetas do processo no caminho
+    import passagem_para_a_sala as PAS          # noqa: PLC0415
+    import gatilho_da_inteligencia as GI        # noqa: PLC0415
+    import vigia_da_esteira as VIG              # noqa: PLC0415
+    return (("PASSAGEM", PAS.passar_se_devido),
+            ("INTELLIGENCE", GI.correr_se_devido),
+            ("VIGIA", VIG.vigiar_se_devido))
 
 
 # ---------------------------------------------------------------------------
@@ -891,6 +928,8 @@ def main() -> int:
     ap.add_argument("--poll",  type=float, default=SUPERVISOR_POLL_S)
     ap.add_argument("--sem-revalidar-legacy", action="store_true",
                     help="Nao re-medir READY_LEGACY no ciclo (LEGACY-99 C)")
+    ap.add_argument("--sem-esteira", action="store_true",
+                    help="Nao correr a passagem para a Sala, o gatilho da Intelligence e o vigia")
     ap.add_argument("--estado", action="store_true",
                     help="Mostrar estado actual e sair")
     a = ap.parse_args()
@@ -901,7 +940,8 @@ def main() -> int:
 
     print("SUPERVISOR DO SOURCE CURATOR — PID=%d  arrancou=%s"
           % (os.getpid(), _agora()), flush=True)
-    return supervisionar(a.pausa, a.poll, revalidar_legacy=not a.sem_revalidar_legacy)
+    return supervisionar(a.pausa, a.poll, revalidar_legacy=not a.sem_revalidar_legacy,
+                         esteira=not a.sem_esteira)
 
 
 if __name__ == "__main__":

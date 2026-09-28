@@ -4671,6 +4671,83 @@
    ]
   },
   {
+   "id": "C-ESTEIRA-PASSAGEM",
+   "name": "A passagem armazem -> Sala, pelo servico (ESTEIRA-SOZINHA)",
+   "territory": "Z-ADMISSAO",
+   "kind": "engine",
+   "icon": "⇥",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Chamada pelo supervisor a cada volta. Le os livros de corridas (arvore + ITALY_OPS_ROOT) e, para cada corrida RECONCILIADA (fechada no livro e com observacoes no livro das observacoes) que ainda nao passou pela porta (nenhuma decisao com corrida = RUN_ID, nem passagem registada), leva a colheita a porta canonica: italy_executor.colher refaz o envelope e orquestrador --so-a-porta --colheita-da-corrida corre RAW -> DERIVED -> Admission -> sala_de_espera.pousar, com o pedido de micro_coleta.comando (o mesmo da rodada). Antes de gravar: backup provado (provar_backup_da_sala.provar, PROVA_VALE), um so escritor (sala_de_espera._Trava), PARAR.flag e precondicoes da Sala. Nao passa, e diz porque: universo sem regua na admissao (T8, T12 -> NAO_SE_APLICA garantido), corrida com varias fontes (a porta pergunta UM universo), corrida aberta, e o passado antes de PAS_DESDE.",
+   "why_here": "ESTEIRA-SOZINHA (28/09/2026): a rodada R03 gravou raw +5 e Sala +0. A porta ja corre dentro da rodada (orquestrador.py:1169-1211); o +0 vem do veredito — a Rodada 3 do plano e IT-T8-021 + IT-T7-135, e T8 nao tem regua — da dedup ou de uma queda no pousar. Faltava quem garantisse que toda corrida fechada atravessa a porta uma vez, e quem dissesse porque uma nao atravessa.",
+   "files": [
+    "admissao/passagem_para_a_sala.py"
+   ]
+  },
+  {
+   "id": "C-ESTEIRA-GATILHO-INTELLIGENCE",
+   "name": "O gatilho da Intelligence (D90-5), pelo servico",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "icon": "⏱",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Chamado pelo supervisor a cada volta; pergunta a Sala (so SELECT, de 5 em 5 min) quantos READY pousaram depois da ultima tentativa. Corre com 10 novos OU com 1 novo que ja espera 4 h. Trinco (sala_de_espera._Trava) impede duas corridas sobrepostas. A corrida e o motor que ja existe: backup da Sala reposto numa copia descartavel (PROVA_VALE), export read-only da copia exactamente como o RUNBOOK-R7 (motor/r7_export_da_copia.sql, READ_ONLY=on conferido), motor_das_capacidades.rodar, pote_intelligence_casco.ler_entrada, e o fiscal validar_pote_v2 sobre o ficheiro candidato: so PASSA sobe para italia-portale/client/sintonia-pote.js (os.replace); reprovado fica guardado com as violacoes. Recuo de 30 min depois de falha.",
+   "why_here": "A Intelligence corria a mao (R6/R7). O gatilho nao escreve outro motor: chama o motor, o gerador e o fiscal que ja existem, e obedece ao fiscal — no ensaio real o pote saiu reprovado (ENTITY_SOURCE objeto no motor, string no contrato v2) e nao subiu.",
+   "files": [
+    "motor/gatilho_da_inteligencia.py"
+   ]
+  },
+  {
+   "id": "C-ESTEIRA-VIGIA",
+   "name": "O vigia da esteira — ESTEIRA-SAUDE.json de hora a hora",
+   "territory": "Z-MEDIDAS",
+   "kind": "scanner",
+   "icon": "👁",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "De hora a hora (chamado pelo supervisor, ou a mao) le a ultima vez que cada etapa andou — fonte (batimento do worker), coleta (FINISHED_AT dos livros), agendador (runs.log da tarefa ForwardOnly), passagem, Sala (max pousado_em, so SELECT), Intelligence, pote, portal (mtime do pote no casco) — e escreve curadoria/ESTEIRA-SAUDE.json com ALERTA quando uma passa de N horas (N declarado por etapa em ETAPAS) ou quando nao se sabe quando andou. Portal publico: NAO SEI (medir e rede). Nao barra nem conserta nada.",
+   "why_here": "Ninguem dizia ao coordenador que etapa estava parada: a tarefa ForwardOnly ficou 14 dias com a trava orfa a devolver 0. Marca que nao se le e NAO SEI em alerta — o vigia calado e o unico erro que ele nao pode cometer.",
+   "files": [
+    "medidas/vigia_da_esteira.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-ESTEIRA-SOZINHA",
+   "name": "As provas da ESTEIRA-SOZINHA — ponta a ponta num Postgres descartavel e mutacao",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "🧬",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "ensaio_ponta_a_ponta.py copia a arvore, sobe um PostgreSQL 16 descartavel com a cadeia de migrations, e corre os tres passos do servico sobre corridas REAIS do livro do repositorio (bytes em data/collection-store): passagem com backup PROVA_VALE e a porta canonica (Sala 0 -> 6), segunda escritora recusada, gatilho que espera e corre as +4 h, segunda corrida recusada, pote que o fiscal reprova e nao sobe, vigia que escreve. mutantes.py planta 26 defeitos (duas corridas sobrepostas, Admission sem backup, gatilho sem delta, vigia calado, PARAR ignorado, pote reprovado sobe...) e exige que tests/test_esteira_sozinha.py reprove cada um.",
+   "why_here": "A prova vive fora da peca que prova. Sem rede: a coleta e a que o repositorio ja guarda, e o ensaio diz-o.",
+   "files": [
+    "provas/esteira_sozinha/ensaio_ponta_a_ponta.py",
+    "provas/esteira_sozinha/mutantes.py"
+   ]
+  },
+  {
    "id": "C-PROVA-INT-R7",
    "name": "As provas da INT-R7-CAPS — gerador de verdade, copia descartavel, mutacao, bateria por nome",
    "territory": "Z-PROVA",
