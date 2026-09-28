@@ -239,9 +239,10 @@ def conferir_veredito_do_lab(pote: dict, prom: dict, veredito):
         falta.append(f"VEREDITO = {veredito.get('VEREDITO')!r} (precisa APROVADO)")
     if veredito.get("POTE_SHA256") != sha:
         falta.append(f"veredito de outro pote: {str(veredito.get('POTE_SHA256'))[:12]} != {sha[:12]}")
-    for c in ("PREVIEW", "CRITERIO"):
-        if not _sabido(veredito.get(c)):
-            falta.append(f"veredito sem {c}")
+    if not _sabido(veredito.get("PREVIEW")):
+        falta.append("veredito sem PREVIEW")
+    if not (isinstance(veredito.get("CRITERIO"), str) and re.fullmatch(r"[0-9a-f]{64}", veredito["CRITERIO"])):
+        falta.append(f"CRITERIO nao e o sha256 do criterio congelado do LAB (= {veredito.get('CRITERIO')!r})")
     return ("C0_VEREDITO_DO_LAB", not falta,
             falta or [f"LAB APROVADO para o pote {sha[:12]} · preview {veredito['PREVIEW']} · criterio {veredito['CRITERIO']}"])
 
@@ -730,9 +731,10 @@ class Publicador:
     sao metodos, para a prova as poder trocar sem mexer na decisao."""
 
     def __init__(self, contrato, implantador: Implantador, registro: Path, modo: str, arvore: str = "HEAD",
-                 espera_no_ar: int = 180, veredito_lab=None, armazem=None):
+                 espera_no_ar: int = 180, veredito_lab=None, armazem=None, veredito_arquivo=None):
         self.c, self.imp, self.registro, self.modo, self.arvore = contrato, implantador, Path(registro), modo, arvore
         self.veredito_lab, self.armazem = veredito_lab, armazem
+        self.veredito_arquivo = veredito_arquivo   # {"ARQUIVO": caminho, "SHA256": sha dos bytes do ficheiro}
         self.espera = espera_no_ar
         self.tmp = None
 
@@ -799,7 +801,11 @@ class Publicador:
         R = {"D126": "portal publica sozinho", "MODO": self.modo, "IMPLANTADOR": self.imp.nome,
              "POTE": {"ORIGEM": origem, "POTE_SHA256": sha, "INTELLIGENCE_RUN_ID": pote.get("INTELLIGENCE_RUN_ID"),
                       "CONTAGENS": {k: len((e or {}).get("OBJETOS") or []) for k, e in (pote.get("COMPARTIMENTOS") or {}).items()}},
-             "INICIO": agora.isoformat(timespec="seconds"), "CONFERENCIAS": [], "AVISOS": []}
+             "INICIO": agora.isoformat(timespec="seconds"), "CONFERENCIAS": [], "AVISOS": [],
+             "VEREDITO_DO_LAB": dict(self.veredito_arquivo or {"ARQUIVO": None, "SHA256": None},
+                                     POTE_SHA256=(self.veredito_lab or {}).get("POTE_SHA256"),
+                                     VEREDITO=(self.veredito_lab or {}).get("VEREDITO"),
+                                     CRITERIO=(self.veredito_lab or {}).get("CRITERIO"))}
         ultima_p = self.registro / "ULTIMA-PUBLICACAO.json"
         ultima = json.loads(ultima_p.read_text(encoding="utf-8")) if ultima_p.exists() else None
 
@@ -932,7 +938,11 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     try:
         pote = ler_pote(a.pote)
-        veredito = json.loads(Path(a.veredito_lab).read_text(encoding="utf-8")) if a.veredito_lab else None
+        veredito, veredito_arquivo = None, None
+        if a.veredito_lab:
+            vb = Path(a.veredito_lab).read_bytes()
+            veredito = json.loads(vb.decode("utf-8"))
+            veredito_arquivo = {"ARQUIVO": str(a.veredito_lab), "SHA256": hashlib.sha256(vb).hexdigest()}
     except (OSError, ValueError) as e:
         print(f"ILEGIVEL: {e}")
         return USO
@@ -945,7 +955,7 @@ def main(argv=None) -> int:
         imp = VercelCLI(prod=(a.modo == "producao"))
     try:
         return Publicador(contrato, imp, Path(a.registro), a.modo, a.arvore,
-                          veredito_lab=veredito).publicar(pote, origem=str(a.pote))
+                          veredito_lab=veredito, veredito_arquivo=veredito_arquivo).publicar(pote, origem=str(a.pote))
     finally:
         imp.fechar()
 
