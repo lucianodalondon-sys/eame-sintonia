@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  443430efcf4c53c7409f8e8bacd644cb11005db5
+HEAD_DA_MEDICAO  3b97d3e845daea9fa4343c71de3d7b8189240014
 BRANCH           claude/reroute-d56-admission-gjuys1
-GERADO_EM        2026-09-28T02:43:56+00:00
+GERADO_EM        2026-09-28T03:01:48+00:00
 CARDS            126
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

@@ -3285,6 +3285,9 @@
       "provas/red_team_persistencia_operacional.py",
       "provas/red_team_wiring_youtube.py",
       "provas/reel_fala_qualidade.py",
+      "provas/reroute_d56/BATERIA-BASE-a2aa73f.json",
+      "provas/reroute_d56/BATERIA-DEPOIS-1b6b373.json",
+      "provas/reroute_d56/BATERIA-DEPOIS-443430e.json",
       "provas/reroute_d56/LEITURA-NOVOS-SIM-D56.json",
       "provas/reroute_d56/MUTACAO-REROUTE-D56.json",
       "provas/reroute_d56/NOVOS-SIM-D56.json",
@@ -4793,9 +4796,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/reroute-d56-admission-gjuys1",
-    "HEAD": "443430efcf4c53c7409f8e8bacd644cb11005db5",
-    "GENERATED_AT": "2026-09-28T02:43:56+00:00",
-    "SOURCE_TREE_FINGERPRINT": "0a83e7888d19cdcae50731032fad3f2ea7d2ec71f85900c66f2e62a7bffb3c5d"
+    "HEAD": "3b97d3e845daea9fa4343c71de3d7b8189240014",
+    "GENERATED_AT": "2026-09-28T03:01:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "7c8a4b827c49c32f6f9e81dfb025c2f8a42a06c8481ae7db58cdf287ecb80d1b"
   },
   "FAMILIES": [
     {
@@ -60084,6 +60087,9 @@
         "provas/red_team_da_release_v1.py",
         "provas/red_team_persistencia_operacional.py",
         "provas/red_team_wiring_youtube.py",
+        "provas/reroute_d56/BATERIA-BASE-a2aa73f.json",
+        "provas/reroute_d56/BATERIA-DEPOIS-1b6b373.json",
+        "provas/reroute_d56/BATERIA-DEPOIS-443430e.json",
         "provas/reroute_d56/LEITURA-NOVOS-SIM-D56.json",
         "provas/reroute_d56/MUTACAO-REROUTE-D56.json",
         "provas/reroute_d56/NOVOS-SIM-D56.json",
@@ -60106,7 +60112,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 129,
+      "file_count": 132,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -60307,12 +60313,12 @@
           "_TIPOS_ARTIGO",
           "_USO_APIFY"
         ],
-        "palavras": 1934,
+        "palavras": 1935,
         "por_lingua": {
           "PT": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 1930,
+        "sem_marca_de_lingua": 1931,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -86253,7 +86259,7 @@
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
-          "line": 727,
+          "line": 731,
           "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-BIBLIA--READS-->C-PROVA-COLETA",
@@ -110206,7 +110212,7 @@
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
-          "line": 79,
+          "line": 83,
           "snippet": "(\"coleta/ingresso.py\", \"def para_a_porta(\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-PROVA-COLETA",
@@ -130574,7 +130580,7 @@
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
-          "line": 727,
+          "line": 731,
           "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--READS-->C-PROVA-COLETA",
@@ -137010,8 +137016,8 @@
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
-          "line": 74,
-          "snippet": "(\"orquestrador/orquestrador.py\", \"adm.decidir(x, universo, corrida=run_id)\",",
+          "line": 76,
+          "snippet": "(\"orquestrador/orquestrador.py\", \"adm.decidir_todas(x, universo, corrida=run_id)\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-PROVA-COLETA",
             "FROM": "C-ORQUESTRADOR",
@@ -153732,7 +153738,7 @@
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
-          "line": 76,
+          "line": 80,
           "snippet": "(\"coleta/rota_forward_documento.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTA-M2--READS-->C-PROVA-COLETA",
@@ -173439,8 +173445,8 @@
     "edges_proven": 1828,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4199,
-    "files_covered": 1928,
+    "files_tracked": 4202,
+    "files_covered": 1931,
     "files_code_unclaimed": 0,
     "roles_proven": 205,
     "roles_declared_only": 10,
