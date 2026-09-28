@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/derivacao-estrutura-v1-girw5u",
-    "HEAD": "ea38e75d4952ca138eb6de25c07c7e050bd58747",
-    "GENERATED_AT": "2026-09-28T15:52:51+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3b83401fa1d21e534586a42b26a34c8f992141176cf0e3afae0e67850bbf0789"
+    "HEAD": "66e81d0d872fed666daa872897be460ca3ab0f8f",
+    "GENERATED_AT": "2026-09-28T16:01:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8b42b146d4e638cd2beeda7c29302bea12610df986b2077dd59d6d84c6e4d0cf"
   },
   "FILES": [
     {
@@ -382,6 +382,13 @@
     {
       "path": "DEPOIS-DO-PORTAL.md",
       "sha": "bdf3477ab8fe95b282e877dacec54fc0a3f19e42",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "DERIVACAO-ESTRUTURA.md",
+      "sha": "accaf40e2d7c472f68148d521a1eac7dbe6fdf70",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -21030,6 +21037,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/derivacao_estrutura/MUTACAO-DERIVACAO-ESTRUTURA.json",
+      "sha": "c2eb7502ecfa6dc7c1622113b86587090c64faf9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/derivacao_estrutura/mutar.py",
       "sha": "05a681a69734a39bd10edf8c838aba0311906c56",
       "ext": ".py",
@@ -21037,8 +21051,15 @@
       "code_dir": true
     },
     {
+      "path": "provas/derivacao_estrutura/replay-arvore-216/REPLAY-DERIVACAO-ESTRUTURA.json",
+      "sha": "0d5c790d5c9c47999f27742cdd6e4e45d99b63bb",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/derivacao_estrutura/replay_acervo.py",
-      "sha": "19c2db1e8d5e0589c0fe92fff732029c7b2413cc",
+      "sha": "6494c52ae835ed938924142ee85763306a6fad33",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26267,7 +26288,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "940148ded4e8a9036196ca5c35d78328176895a0",
+      "sha": "dc7a22ee0fc3c61346e08d3bb7c2ed60ce798d95",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -71600,6 +71621,28 @@
       }
     },
     {
+      "from_file": "provas/derivacao_estrutura/replay_acervo.py",
+      "to_file": "provas/derivacao_estrutura/replay-arvore-216/REPLAY-DERIVACAO-ESTRUTURA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/replay_acervo.py",
+        "line": 252,
+        "snippet": "destino = os.path.join(a.saida, \"REPLAY-DERIVACAO-ESTRUTURA.json\")"
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/replay_acervo.py",
+      "to_file": "provas/derivacao_estrutura/replay-arvore-216/REPLAY-DERIVACAO-ESTRUTURA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/replay_acervo.py",
+        "line": 253,
+        "snippet": "with open(destino, \"w\", encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
       "from_file": "provas/derived_artifact_no_postgres.py",
       "to_file": "guarda/preservar_coleta.py",
       "type": "IMPORTS",
@@ -112739,10 +112782,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4210,
+    "files_tracked": 4213,
     "files_readable": 1770,
-    "files_code_dir": 2185,
-    "file_edges": 7509,
+    "files_code_dir": 2187,
+    "file_edges": 7511,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

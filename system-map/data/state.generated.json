@@ -39,6 +39,7 @@
       "DEDUP-DOC.md",
       "DEDUP-INSTALAR.md",
       "DEPOIS-DO-PORTAL.md",
+      "DERIVACAO-ESTRUTURA.md",
       "ESTUDOS-CHAVES.md",
       "EXTRATOR-EVENTO-V2.md",
       "EXTRATORES-V2-JUNTOS.md",
@@ -3060,7 +3061,9 @@
       "provas/cortesia_red_team.mjs",
       "provas/coverage.py",
       "provas/demanda_de_dados_da_italia.py",
+      "provas/derivacao_estrutura/MUTACAO-DERIVACAO-ESTRUTURA.json",
       "provas/derivacao_estrutura/mutar.py",
+      "provas/derivacao_estrutura/replay-arvore-216/REPLAY-DERIVACAO-ESTRUTURA.json",
       "provas/derivacao_estrutura/replay_acervo.py",
       "provas/derived_artifact_no_postgres.py",
       "provas/ensaio_canonico_de_capacidade.py",
@@ -4804,9 +4807,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/derivacao-estrutura-v1-girw5u",
-    "HEAD": "ea38e75d4952ca138eb6de25c07c7e050bd58747",
-    "GENERATED_AT": "2026-09-28T15:52:51+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3b83401fa1d21e534586a42b26a34c8f992141176cf0e3afae0e67850bbf0789"
+    "HEAD": "66e81d0d872fed666daa872897be460ca3ab0f8f",
+    "GENERATED_AT": "2026-09-28T16:01:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8b42b146d4e638cd2beeda7c29302bea12610df986b2077dd59d6d84c6e4d0cf"
   },
   "FAMILIES": [
     {
@@ -47371,7 +47374,7 @@
       "name": "Executor · texto a partir de HTML",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao. V1A (2026-09-23): coleta/retrato_html.mjs e o gemeo Node do detector curadoria/retrato_html.py (retrato + V1 + gate), enxertado de aquisicao-detalhe-v1; a paridade pagina a pagina vive em tests/test_v1a_v1_ligada.py.",
+      "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao. DERIVACAO-ESTRUTURA (2026-09-28): `limpar()` passou a dar quebra de linha nas etiquetas de BLOCO (RAW 2272: 1 -> 80 linhas), a REGUA entrou na receita (`TEXT_RULE` + `TEXT_RULE_PROBE_SHA256`, versao 3), e `tempo_de_publicacao` ganhou, DEPOIS dos cinco niveis da D61, o nivel estreito `DIV.content-date` irmao de `content-category` (data italiana DD mmm AAAA, precisao DIA, nunca FACT_TIME); o replay antes x depois do acervo e a mutacao vivem em `provas/derivacao_estrutura/` (peca C-PROVA-ROTA-DO-HTML). V1A (2026-09-23): coleta/retrato_html.mjs e o gemeo Node do detector curadoria/retrato_html.py (retrato + V1 + gate), enxertado de aquisicao-detalhe-v1; a paridade pagina a pagina vive em tests/test_v1a_v1_ligada.py.",
       "why_here": "A peca que converte HTML em texto existia nesta arvore desde antes e tinha ZERO chamadores em producao: 46 observacoes reais paravam em DERIVED com MISSING_ROUTE. CAPABILITY EXISTS != EDGE EXISTS. Declarar a capacidade tambem nao bastava — o `SUPPORTS` do executor de PDF viveu um ano sem leitores. O que liga e o nome na lista `coleta/ingresso.py::_DONOS_DA_DERIVACAO`.",
       "departments": [
         "ENGENHARIA"
@@ -47398,11 +47401,12 @@
         "tests/dados/c2-juiz/raw-1523.html",
         "tests/dados/c2-juiz/raw-1533.html",
         "tests/dados/c2-juiz/raw-1558.html",
-        "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html"
+        "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
+        "tests/fixtures/canario_1149/RAW-2272.html"
       ],
-      "file_count": 12,
+      "file_count": 13,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 13 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -47998,6 +48002,7 @@
         "C-IMPORTAR",
         "C-LASTMILE-MEDIDORES",
         "C-LUGAR-COLETA",
+        "C-PROVA-ROTA-DO-HTML",
         "C-PROVA-ROTAS-REAIS",
         "C-RECEITAS",
         "C-RECORRENCIA",
@@ -53557,6 +53562,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-LIGACAO-ADAMA",
         "C-PROVA-PORTA-REFERENCIA",
+        "C-PROVA-ROTA-DO-HTML",
         "C-RECEITAS",
         "C-SALA-DE-ESPERA",
         "C-TESTES",
@@ -64398,20 +64404,27 @@
         "provas/RED-TEAM-DUAS-PORTAS-V1.json",
         "provas/a_rota_do_html_atravessa.py",
         "provas/a_rota_do_html_nao_vai_a_rede.py",
+        "provas/derivacao_estrutura/mutar.py",
+        "provas/derivacao_estrutura/replay_acervo.py",
         "provas/red_team_duas_portas.py"
       ],
-      "file_count": 4,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "provas/derivacao_estrutura/replay-arvore-216/REPLAY-DERIVACAO-ESTRUTURA.json"
+      ],
       "inbound": [
         "C-ADMISSAO",
         "C-DONO-DA-ESCRITA",
         "C-EXECUTOR-TEXTO-HTML",
+        "C-FONTES-EU",
         "C-INGRESSO",
         "C-LASTMILE-MEDIDORES",
-        "C-MAPA-TESTES"
+        "C-LUGAR-COLETA",
+        "C-MAPA-TESTES",
+        "C-TESTES"
       ],
       "outbound": [],
       "paises": {},
@@ -64423,9 +64436,9 @@
           "CANARIO",
           "MUTANTES"
         ],
-        "palavras": 104,
+        "palavras": 133,
         "por_lingua": {},
-        "sem_marca_de_lingua": 104,
+        "sem_marca_de_lingua": 133,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -64447,6 +64460,12 @@
         {
           "onde": "GIT",
           "file": "provas/RED-TEAM-DUAS-PORTAS-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/derivacao_estrutura/replay-arvore-216/REPLAY-DERIVACAO-ESTRUTURA.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -64474,9 +64493,16 @@
         "admissao/admissao.py",
         "coleta/executor_texto_de_html.py",
         "coleta/ingresso.py",
+        "coleta/texto_fonte.py",
         "provas/RED-TEAM-DUAS-PORTAS-V1.json",
         "provas/a_rota_do_html_atravessa.py",
-        "provas/a_rota_do_html_nao_vai_a_rede.py"
+        "provas/a_rota_do_html_nao_vai_a_rede.py",
+        "provas/derivacao_estrutura/replay-arvore-216/REPLAY-DERIVACAO-ESTRUTURA.json",
+        "tests/test_a_receita_tem_versao.py",
+        "tests/test_a_rota_do_html.py",
+        "tests/test_derivacao_estrutura.py",
+        "tests/test_leitor_data_youtube.py",
+        "tests/test_tempo_e_lugar_da_publicacao.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -73261,6 +73287,7 @@
         "C-PROVA-PONTE-CASCO",
         "C-PROVA-POTE-CASCO",
         "C-PROVA-REFERENCIA-MANUTENCAO",
+        "C-PROVA-ROTA-DO-HTML",
         "C-PROVA-ROTAS-REAIS",
         "C-REGRESSAO-NAVEGADOR",
         "C-SALA-DE-ESPERA",
@@ -106749,8 +106776,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de HTML alimenta As provas da rota do HTML. Provado por 1 linha de codigo.",
+      "reason": "Executor · texto a partir de HTML alimenta As provas da rota do HTML. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/derivacao_estrutura/mutar.py",
+          "line": 19,
+          "snippet": "EXECUTOR = RAIZ / \"coleta\" / \"executor_texto_de_html.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/derivacao_estrutura/replay_acervo.py",
+          "line": 61,
+          "snippet": "FICHEIRO_EXECUTOR = \"coleta/executor_texto_de_html.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/red_team_duas_portas.py",
           "line": 44,
@@ -106940,7 +106999,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de HTML alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Executor · texto a partir de HTML alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_conserto_regua.py",
@@ -106962,6 +107021,22 @@
           "file": "tests/test_c2_juiz.py",
           "line": 153,
           "snippet": "js = (\"import('./coleta/retrato_html.mjs').then(m=>{const fs=require('fs');\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_derivacao_estrutura.py",
+          "line": 40,
+          "snippet": "with open(RAW_2272, \"rb\") as fh:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-TESTES",
             "FROM": "C-EXECUTOR-TEXTO-HTML",
@@ -108869,6 +108944,92 @@
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "C-PROVA-ROTA-DO-HTML",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ler as bases oficiais da Europa tem o seu codigo importado por As provas da rota do HTML. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/derivacao_estrutura/replay_acervo.py",
+          "line": 57,
+          "snippet": "from coleta.texto_fonte import limpar as limpar_depois  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-FONTES-EU",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "C-PROVA-ROTA-DO-HTML",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ler as bases oficiais da Europa alimenta As provas da rota do HTML. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/derivacao_estrutura/mutar.py",
+          "line": 18,
+          "snippet": "LIMPAR = RAIZ / \"coleta\" / \"texto_fonte.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTES-EU--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-FONTES-EU",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/derivacao_estrutura/replay_acervo.py",
+          "line": 62,
+          "snippet": "FICHEIRO_LIMPAR = \"coleta/texto_fonte.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-FONTES-EU--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-FONTES-EU",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -126338,6 +126499,41 @@
     },
     {
       "from": "C-LUGAR-COLETA",
+      "to": "C-PROVA-ROTA-DO-HTML",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por As provas da rota do HTML. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/derivacao_estrutura/replay_acervo.py",
+          "line": 58,
+          "snippet": "import fato_do_texto as FT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-LUGAR-COLETA",
       "to": "C-RECEITAS",
       "type": "READS",
       "payload": "artefacto",
@@ -132115,7 +132311,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por As provas da rota do HTML. Provado por 2 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por As provas da rota do HTML. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_rota_do_html_atravessa.py",
@@ -132137,6 +132333,22 @@
           "file": "provas/a_rota_do_html_nao_vai_a_rede.py",
           "line": 46,
           "snippet": "import _gavetas                                      # noqa: E402,F401,PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/derivacao_estrutura/replay_acervo.py",
+          "line": 55,
+          "snippet": "import _gavetas  # noqa: E402,F401",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-ROTA-DO-HTML",
             "FROM": "C-MAPA-TESTES",
@@ -169783,6 +169995,105 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-PROVA-ROTA-DO-HTML",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta As provas da rota do HTML. Provado por 5 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/derivacao_estrutura/mutar.py",
+          "line": 20,
+          "snippet": "TESTES = [\"tests/test_derivacao_estrutura.py\", \"tests/test_a_receita_tem_versao.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/derivacao_estrutura/mutar.py",
+          "line": 20,
+          "snippet": "TESTES = [\"tests/test_derivacao_estrutura.py\", \"tests/test_a_receita_tem_versao.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/derivacao_estrutura/mutar.py",
+          "line": 21,
+          "snippet": "\"tests/test_tempo_e_lugar_da_publicacao.py\", \"tests/test_leitor_data_youtube.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/derivacao_estrutura/mutar.py",
+          "line": 21,
+          "snippet": "\"tests/test_tempo_e_lugar_da_publicacao.py\", \"tests/test_leitor_data_youtube.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/derivacao_estrutura/mutar.py",
+          "line": 22,
+          "snippet": "\"tests/test_a_rota_do_html.py\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-PROVA-ROTAS-REAIS",
       "type": "READS",
       "payload": "artefacto",
@@ -174202,12 +174513,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/derivacao_estrutura/mutar.py",
-    "provas/derivacao_estrutura/replay_acervo.py",
-    "tests/fixtures/canario_1149/RAW-2272.html"
-  ],
-  "UNCLAIMED_FILES_COUNT": 2275,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 2274,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174479,13 +174786,13 @@
     "components_pending": 272,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1913,
-    "edges_proven": 1844,
+    "edges": 1917,
+    "edges_proven": 1848,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4210,
-    "files_covered": 1935,
-    "files_code_unclaimed": 3,
+    "files_tracked": 4213,
+    "files_covered": 1939,
+    "files_code_unclaimed": 0,
     "roles_proven": 207,
     "roles_declared_only": 10,
     "roles_unknown": 95,

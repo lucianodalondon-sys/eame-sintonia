@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ea38e75d4952ca138eb6de25c07c7e050bd58747
+HEAD_DA_MEDICAO  66e81d0d872fed666daa872897be460ca3ab0f8f
 BRANCH           claude/derivacao-estrutura-v1-girw5u
-GERADO_EM        2026-09-28T15:52:51+00:00
+GERADO_EM        2026-09-28T16:01:25+00:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -302,10 +302,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/executor_texto_de_html.py`, `coleta/extratores_de_texto.py`, `coleta/retrato_html.mjs`, `tests/dados/c2-juiz/raw-1495.html`, `tests/dados/c2-juiz/raw-1501.html` _(e mais 7)_ |
+| **peça real** | `coleta/executor_texto_de_html.py`, `coleta/extratores_de_texto.py`, `coleta/retrato_html.mjs`, `tests/dados/c2-juiz/raw-1495.html`, `tests/dados/c2-juiz/raw-1501.html` _(e mais 8)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 13 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | admissao/reprocessar_tempo_lugar.py:59; coleta/italy_executor.py:247; coleta/linha_busca.py:131 |
 | **porquê** | estas pecas importam-na — C-DETECTOR-CAPA-GABARITO · C-IT-COLETA · C-IT-CONTRATOS · C-LEITOR-DATA-YT · C-LINHA-BUSCA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
@@ -388,13 +388,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json`, `data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json`, `supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql` |
 | **o que sai · dado** | C-SUPABASE |
 | **o que sai · ficheiros** | `data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json` |
-| **arestas no mapa** | entram 5 · saem 12 |
-| **arestas provadas** | entram 4 · saem 12 |
+| **arestas no mapa** | entram 5 · saem 14 |
+| **arestas provadas** | entram 4 · saem 14 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 16 · NÃO SEI 1 |
+| **prova das ligações** | CODE 18 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 

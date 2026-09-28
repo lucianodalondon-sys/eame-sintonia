@@ -17,10 +17,10 @@ vermelho = elo 3), o parecer do SCRAP ENGINEER (`resp-scrap-1149-derivacao.txt`,
 | B1 · régua na receita + versão | **FEITO** — `EXECUTOR_VERSION` 2 → **3**; `receita()` ganha `TEXT_RULE` + `TEXT_RULE_PROBE_SHA256`; `test_a_receita_tem_versao` reprova `limpar()` mudada sem versão (mutação provada). |
 | B2 · PUBLISHED_AT estreito | **FEITO** — nível `DIV.content-date (irmão de content-category)`, só depois dos cinco da D61, data italiana `DD mmm AAAA`, PRECISAO = DIA, nunca FACT_TIME. |
 | RAW 2272 | 1 → **80** linhas · corpo() vivo 0 → **7 705** car. · PUBLISHED_AT NAO SEI → **2026-06-22 DIA** — os três números do parecer, batidos. |
-| Bateria por nome | __BATERIA__ |
+| Bateria por nome | **0 sumidos**, 38 nomes novos (todos verdes), 0 pioras próprias — o único nome que mudou (`test_M5_o_ponto_fixo…`) mede se o mapa foi regerado e estava vermelho só no commit anterior à cadeia; ver §2. |
 | Mutação | **8/8 mortos**, cada um no teste esperado; originais repostos. |
 | Replay do acervo (463) | **script entregue, NÃO corrido aqui** (o armazém real não está na nuvem). Corrido sobre os 216 HTML versionados na árvore: controlo negativo PASSA. |
-| System Map | regerado pela cadeia; `VALIDAR` __VALIDAR__; carimbo __CARIMBO__ |
+| System Map | regerado pela cadeia (`correr_a_cadeia.py REGERAR`); `VALIDAR` → `SYSTEM_MAP_CHECK=PASS`; `--conferir-carimbo` depois do commit final → ver §5 e a mensagem de entrega. |
 | Fora do escopo | não tocados: `admissao/`, `leis/fato_do_texto.py` (`corpo()`), `leis/boletim_do_campo.py`, gazetteer, PROBLEMA/v1, claim/ontologia, Intelligence, pote, casco. Nada reaproveitado de `claude/canario-1149-first-review-3llkwl`. |
 
 ---
@@ -44,7 +44,7 @@ vermelho = elo 3), o parecer do SCRAP ENGINEER (`resp-scrap-1149-derivacao.txt`,
 
 **Provas**: `tests/test_derivacao_estrutura.py` (36 testes), `tests/test_a_receita_tem_versao.py` (+2),
 `provas/derivacao_estrutura/{mutar.py, replay_acervo.py}`, `tests/fixtures/canario_1149/RAW-2272.html` (+ `.gitattributes`
-`-text -diff`, para o Windows não lhe meter CRLF). Mapa: 3 ficheiros novos declarados em `C-EXECUTOR-TEXTO-HTML`.
+`-text -diff`, para o Windows não lhe meter CRLF). Mapa: a fixture declarada em `C-EXECUTOR-TEXTO-HTML`, os dois scripts em `C-PROVA-ROTA-DO-HTML` (Z-PROVA — o validador reprovou-os na gaveta `coleta/`, P2).
 
 ### Onde me afastei do parecer (medido e explicado)
 
@@ -71,10 +71,61 @@ vermelho = elo 3), o parecer do SCRAP ENGINEER (`resp-scrap-1149-derivacao.txt`,
 
 ```
 $ python3 medir2272.py <worktree e24139702> tests/fixtures/canario_1149/RAW-2272.html
-__ANTES__
+ARVORE base EXECUTOR_VERSION 2
+RAW sha256 f2158520f2362956756e31864406962e68ce6632206a4ce56e078e826a953d01 bytes 82925
+LINHAS 1 CHARS 8988 CORPO_CHARS 0 CORPO_PALAVRAS 0
+00 'Xylella fastidiosa: dalla ricerca CREA n'
+PUBLISHED_AT NAO SEI | BASE NAO SEI | PRECISAO NAO SEI
+PORQUE NAO SEI — JSON-LD datePublished: ausente; meta article:published_time: ausente; <time datetime>: ausente; meta itemprop datePublished: ausente; INDICE: ausente
+CONTRATO {"PUBLISHED_AT_BASIS": "NAO SEI — JSON-LD datePublished: ausente; meta article:published_time: ausente; <time datetime>: ausente; meta itemprop datePublished: ausente; INDICE: ausente", "PUBLISHED_AT_PRECISION": "NAO SEI"}
 
 $ python3 medir2272.py <este ramo> tests/fixtures/canario_1149/RAW-2272.html
-__DEPOIS__
+ARVORE eame-sintonia EXECUTOR_VERSION 3
+RAW sha256 f2158520f2362956756e31864406962e68ce6632206a4ce56e078e826a953d01 bytes 82925
+LINHAS 80 CHARS 8972 CORPO_CHARS 7705 CORPO_PALAVRAS 1045
+00 'Xylella fastidiosa: dalla ricerca CREA n'
+01 'Xylella fastidiosa: dalla ricerca CREA n'
+02 "Ministero dell'agricoltura, della sovran"
+03 'Amministrazione Trasparente'
+04 'Selettore lingua'
+05 'IT'
+06 'EN'
+07 'rss_feed'
+08 'Seguici su -->'
+09 'Barra di ricerca'
+10 'Menù di navigazione'
+11 'Il CREA keyboard_arrow_down'
+12 'Conosci il CREA Organi Direzione General'
+13 'Organigramma Amministrazione Documento d'
+14 'CUG - Comitato Unico di Garanzia URP - U'
+15 'Centri di ricerca keyboard_arrow_down'
+16 'Agricoltura e Ambiente Alimenti e Nutriz'
+17 'Ingegneria e Trasformazioni Agroalimenta'
+18 'VAI ALLA SEZIONE'
+19 'Cosa fa il CREA keyboard_arrow_down'
+20 'Le grandi sfide del CREA Attività istitu'
+21 'Banche Dati Biblioteche Osservatorio Inn'
+22 'Gare e Concorsi keyboard_arrow_down'
+23 'Bandi di gara e contratti'
+24 'Bandi di concorso'
+25 'Media & Eventi keyboard_arrow_down'
+26 'Notizie Comunicati Stampa Rassegna Stamp'
+27 'Eventi CREAFuturo CREA Tube Media kit'
+28 'Richiesta logo e patrocinio'
+29 'Personale keyboard_arrow_down'
+30 'Profilo ricercatore'
+31 'Aggregatore Risorse'
+32 'COMUNICATO STAMPA'
+33 'remove'
+34 '22 giu 2026'
+35 'Xylella fastidiosa: dalla ricerca CREA n'
+36 'Presentati i primi risultati dei progett'
+37 'Condividi'
+38 'share'
+39 'Dalla diagnosi precoce alle nuove variet'
+PUBLISHED_AT 2026-06-22 | BASE DIV.content-date (irmão de content-category) | PRECISAO DIA
+PORQUE JSON-LD datePublished: ausente; meta article:published_time: ausente; <time datetime>: ausente; meta itemprop datePublished: ausente; INDICE: ausente; DIV.content-date (irmão de content-category): 22 giu 2026
+CONTRATO {"PUBLISHED_AT": "2026-06-22", "PUBLISHED_AT_BASIS": "DIV.content-date (irmão de content-category)", "PUBLISHED_AT_PRECISION": "DIA"}
 ```
 
 Esperado pelo parecer: 1 → ~80 linhas; corpo 0 → ~7 705; PUBLISHED_AT NAO SEI → 2026-06-22 DIA. **Medido: 1 → 80;
@@ -106,8 +157,18 @@ test_quarentena_naosei ............. Ran 22 tests  OK
 worktree limpa de `e24139702` e noutra do commit deste ramo, comparadas teste a teste:
 
 ```
-__BATERIA_DETALHE__
+base  e24139702 : 7203 nomes · ok 6819 · skipped 270 · FAIL 79 · ERROR 30 · expected failure 1 · módulos sem -v 4 (RC=0)   26 min
+ramo  ea38e75d  : 7241 nomes · ok 6856 · skipped 270 · FAIL 80 · ERROR 30 · expected failure 1 · módulos sem -v 4 (RC=0)
+SUMIDOS 0 · NOVOS 38 (tests.test_derivacao_estrutura 36 + tests.test_a_receita_tem_versao 2), todos ok
+PIORA 1: tests.test_o_controle_separa_lei_de_mencao…test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore  ok -> FAIL
+MELHORA 0
 ```
+
+A única piora é `test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore`: ela corre `impressao_da_arvore --conferir-carimbo`
+e o commit medido (`ea38e75d`) tinha fontes novas **sem** o mapa regerado — `CARIMBO_COMMITADO 3b83401f…` ≠ `ARVORE_COMMITADA
+fb5d889b…`. É exactamente o que ela deve apanhar; fica verde com o mapa regerado no commit final (reconferido depois do
+commit — mensagem de entrega). As 79 FAIL + 30 ERROR restantes são as mesmas, por nome, da base (ex.: `test_P5_apontar_a_canonica…`,
+vermelho no vivo por `SALA_DE_CONTROLE_ATUAL` / `UNREGISTERED_CANONICAL_DOCUMENT`, que esta missão não toca).
 
 **Mutação** (`python3 -B provas/derivacao_estrutura/mutar.py` → `provas/derivacao_estrutura/MUTACAO-DERIVACAO-ESTRUTURA.json`):
 
@@ -191,8 +252,20 @@ DIV.content-date (irmão de content-category), "22 giu 2026"]`, `CONTROLO_NEGATI
 ### 5 · System Map
 
 ```
-__MAPA__
+$ python3 system-map/scripts/correr_a_cadeia.py REGERAR     → CADEIA=OK · REGERAR
+$ python3 system-map/scripts/correr_a_cadeia.py VALIDAR     (1.ª vez)
+  FAIL  P9_CODIGO_DECLARADO  provas/derivacao_estrutura/{mutar,replay_acervo}.py, tests/fixtures/canario_1149/RAW-2272.html
+  → declarados em system-map/data/architecture.declared.json
+$ … VALIDAR (2.ª vez)
+  FAIL  P2_PASTA_BATE_COM_MAPA  provas/derivacao_estrutura/*.py esta em provas/ e a peca «Executor · texto a partir de HTML» mora em coleta/
+  → os scripts passaram para C-PROVA-ROTA-DO-HTML (Z-PROVA); a fixture ficou em C-EXECUTOR-TEXTO-HTML
+$ … REGERAR → CADEIA=OK · VALIDAR → SYSTEM_MAP_CHECK=PASS · o mapa corresponde ao repositorio · CADEIA=OK · VALIDAR
+$ python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo   (depois do commit final)
+  → resultado na mensagem de entrega: este ficheiro é FONTE, e escrever aqui o carimbo moveria a impressão que ele mede.
 ```
+
+Estado das peças tocadas: `C-EXECUTOR-TEXTO-HTML` PENDING (já era); `C-FONTES-EU` **PROVEN → PENDING** (dona de
+`coleta/texto_fonte.py`, que mudou depois de declarado — ver PROBLEMA 2). Não recarimbei (`--stamp` carimba a árvore inteira).
 
 ### 6 · KNOW-HOW
 
