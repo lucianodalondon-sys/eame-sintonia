@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-28T21:42:05+00:00",
-  "HEAD": "b685a7e3115cbc5d6e77831ab4610d0e859eeb0a",
+  "GENERATED_AT": "2026-09-28T22:19:13+00:00",
+  "HEAD": "be1c0165d180967cc3ca41a0d5c13fdb843b49ab",
   "BRANCH": "claude/l3-radar-original-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a5d74bf688dc4463a84a196b0224601762bcb68c7cc4b228f9b58d6888373dc9",
+  "SOURCE_TREE_FINGERPRINT": "de6a6da1cfbaa049a06cd80b8d42c4e367b2ab0de7353c5e66bda195dd9cb9f9",
   "FICHEIROS_NA_IMPRESSAO": 4371,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2981,7 +2981,7 @@
    {
     "PATH": "portoes/publicar_portal_sozinho.py",
     "PAPEL": "FONTE",
-    "VERSAO": "ae120ac72480dcecbe142adee577cf82b6211175",
+    "VERSAO": "839dad2ac00c659f5ee9e21d35a7706a659094b5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5571,14 +5571,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a5d74bf688dc4463a84a196b0224601762bcb68c7cc4b228f9b58d6888373dc9",
+    "VERSAO": "de6a6da1cfbaa049a06cd80b8d42c4e367b2ab0de7353c5e66bda195dd9cb9f9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a5d74bf688dc4463a84a196b0224601762bcb68c7cc4b228f9b58d6888373dc9",
+    "VERSAO": "de6a6da1cfbaa049a06cd80b8d42c4e367b2ab0de7353c5e66bda195dd9cb9f9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7713,7 +7713,7 @@
    {
     "PATH": "tests/test_publicar_portal_sozinho.py",
     "PAPEL": "FONTE",
-    "VERSAO": "f7c37578f73e9ae7aebf8facb069ae3b8e20e01a",
+    "VERSAO": "63775a079a392710a142f8e460b42edcf99ef824",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8258,7 +8258,7 @@
    }
   ],
   "INPUTS_COUNT": 1174,
-  "INPUTS_DIGEST": "5a363f858c98ccca5029d4dc977ac4579fc026da9e5b3199b7978bb2b1d5208b",
+  "INPUTS_DIGEST": "8682a7c645a2b117602577a7ad4f0aad5599f3fab0382100967f37cea275d7f1",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8284,15 +8284,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 641,
+  "DOCUMENTOS_LIDOS": 642,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "ccc5fbfd7b06cc3b10badb637a3a426c230de1ab28f173a152a0d780cb02c6ad",
-  "SEMANTIC_HASH": "dcb2bcff3b2588d9f2c25afbe7d27d3514a90d3c2f0521a3b04c6ea7becbd70d"
+  "MEASUREMENT_HASH": "54d5a625645e0fbac81338cf7729dc252cff5b59b7606c9ef9e1c2531006120f",
+  "SEMANTIC_HASH": "6fab37d0865f3558dd2033a68d51f6b755c3cd4f90a53ee1d9ce137ba0ed8024"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -46704,7 +46704,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
-      "LINHA": 311,
+      "LINHA": 320,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-CASCO--READS-->C-TESTES",
@@ -47152,7 +47152,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "portoes/publicar_portal_sozinho.py",
-      "LINHA": 620,
+      "LINHA": 627,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
@@ -47260,7 +47260,7 @@
      },
      {
       "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
-      "LINHA": 627,
+      "LINHA": 636,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
@@ -51072,7 +51072,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "portoes/publicar_portal_sozinho.py",
-      "LINHA": 823,
+      "LINHA": 830,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
@@ -61367,7 +61367,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "portoes/publicar_portal_sozinho.py",
-      "LINHA": 689,
+      "LINHA": 696,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PUBLICA-SOZINHO",
@@ -61573,7 +61573,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
-      "LINHA": 411,
+      "LINHA": 420,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-AUDIT-GERAL",
@@ -61945,7 +61945,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
-      "LINHA": 319,
+      "LINHA": 328,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-CASCO",
@@ -61967,7 +61967,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
-      "LINHA": 440,
+      "LINHA": 449,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-MODELO",

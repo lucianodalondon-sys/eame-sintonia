@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "b685a7e3115cbc5d6e77831ab4610d0e859eeb0a",
-    "GENERATED_AT": "2026-09-28T17:58:27-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a5d74bf688dc4463a84a196b0224601762bcb68c7cc4b228f9b58d6888373dc9"
+    "HEAD": "be1c0165d180967cc3ca41a0d5c13fdb843b49ab",
+    "GENERATED_AT": "2026-09-28T19:13:38-03:00",
+    "SOURCE_TREE_FINGERPRINT": "de6a6da1cfbaa049a06cd80b8d42c4e367b2ab0de7353c5e66bda195dd9cb9f9"
   },
   "FILES": [
     {
@@ -19708,7 +19708,7 @@
     },
     {
       "path": "portoes/publicar_portal_sozinho.py",
-      "sha": "ae120ac72480dcecbe142adee577cf82b6211175",
+      "sha": "839dad2ac00c659f5ee9e21d35a7706a659094b5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21846,6 +21846,20 @@
       "sha": "c8bf85f4283cee321fde692c3d98db2d3725dc68",
       "ext": ".mjs",
       "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l3/DESTINO-DOS-2-FATOS.md",
+      "sha": "764f1b5a9c3a00023e5bdc03f7db1ea82ce83137",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l3/MUTACAO-L3.json",
+      "sha": "36ab67c7eb175a4a7fc62a57900fd6c8f9fd4c2b",
+      "ext": ".json",
+      "readable": false,
       "code_dir": true
     },
     {
@@ -29004,7 +29018,7 @@
     },
     {
       "path": "tests/test_publicar_portal_sozinho.py",
-      "sha": "f7c37578f73e9ae7aebf8facb069ae3b8e20e01a",
+      "sha": "63775a079a392710a142f8e460b42edcf99ef824",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -64555,7 +64569,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 620,
+        "line": 627,
         "snippet": "req = urllib.request.Request(base_url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\","
       }
     },
@@ -64566,7 +64580,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 823,
+        "line": 830,
         "snippet": "(Path(copia) / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text("
       }
     },
@@ -64632,7 +64646,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 689,
+        "line": 696,
         "snippet": "if (Path(copia) / \"vercel.json\").exists():"
       }
     },
@@ -107609,7 +107623,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 411,
+        "line": 420,
         "snippet": "(Path(d) / \"italia-portale\" / \"audit\" / \"run.mjs\").write_text("
       }
     },
@@ -107620,7 +107634,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 311,
+        "line": 320,
         "snippet": "self.assertEqual(r.get(\"/casa.html\"), para)"
       }
     },
@@ -107631,7 +107645,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 319,
+        "line": 328,
         "snippet": "(d / \"casa.html\").write_text(\"CASA-LEGADA\", encoding=\"utf-8\")"
       }
     },
@@ -107642,7 +107656,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 627,
+        "line": 636,
         "snippet": "const LEITOR = fs.readFileSync(path.join(CL, 'sintonia-pote-casco.js'), 'utf8');"
       }
     },
@@ -107664,7 +107678,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 440,
+        "line": 449,
         "snippet": "(d / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(STUB, encoding=\"utf-8\")"
       }
     },
@@ -107708,7 +107722,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 308,
+        "line": 317,
         "snippet": "r = {x[\"source\"]: x[\"destination\"] for x in P.redirecionamentos(RAIZ / \"vercel.json\")}"
       }
     },
@@ -107719,7 +107733,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 321,
+        "line": 330,
         "snippet": "(d / \"vercel.json\").write_text(json.dumps({\"redirects\": ["
       }
     },
@@ -113102,9 +113116,9 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4221,
+    "files_tracked": 4223,
     "files_readable": 1774,
-    "files_code_dir": 2196,
+    "files_code_dir": 2198,
     "file_edges": 7535,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
