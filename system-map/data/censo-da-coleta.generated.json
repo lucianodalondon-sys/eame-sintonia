@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-27T23:35:49+00:00",
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217",
+    "GENERATED_AT": "2026-09-28T01:03:25+00:00",
+    "HEAD": "4f2fe539fc0b6abed6d1145f0ecda4ec3c3e0502",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5",
-    "FICHEIROS_NA_IMPRESSAO": 4266,
+    "SOURCE_TREE_FINGERPRINT": "e3e930a1983fb81e73b43e0e819c8a09c5597031219cb1a4094144bdf7062daf",
+    "FICHEIROS_NA_IMPRESSAO": 4327,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "6763157c8c9a392c27a0e8bfe0ce1e4d2a34fac3",
+        "VERSAO": "4b7cd7c2f72d6b6ed77bd93563cd6512f2205b84",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -27,7 +27,14 @@
       {
         "PATH": "admissao/reprocessar_estudos_chaves.py",
         "PAPEL": "FONTE",
-        "VERSAO": "a14737a255303597b0a30c81f173979717950eb9",
+        "VERSAO": "32f17b67d1aa2bdfca27617e07dd8c9458ed6ae1",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/reprocessar_problema.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ffbddc4548d3a4f78f39d2a9724187630cfafd31",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -69,7 +76,7 @@
       {
         "PATH": "candidatas/fonte_nova.py",
         "PAPEL": "FONTE",
-        "VERSAO": "2617154069d64d58a51bf8cea4c5e1c378a9200e",
+        "VERSAO": "03f239bb3b56654592d8220f2d755a4252896c3d",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -167,7 +174,7 @@
       {
         "PATH": "coleta/adaptador_youtube.py",
         "PAPEL": "FONTE",
-        "VERSAO": "88dcb425731f4cab3be6974eac461d2047f59dbb",
+        "VERSAO": "8560a65da3dc80a46260c5fffe4580fd9cdc2575",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -230,7 +237,7 @@
       {
         "PATH": "coleta/concorrencia_meta.py",
         "PAPEL": "FONTE",
-        "VERSAO": "dc01f3b0791cfd1776b3be1becdb9d9441287eab",
+        "VERSAO": "b157f11a410e07505a00046285ae242dad32ec94",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -405,7 +412,7 @@
       {
         "PATH": "coleta/italy_executor.py",
         "PAPEL": "FONTE",
-        "VERSAO": "e5ed8433b37268c185cf73c7e38b32d5a8d8dce9",
+        "VERSAO": "670330c2c0779ab5210ca926563c5644c6157697",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -419,7 +426,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "23849cfdaaeac955281413fc55a8560fab14cecf",
+        "VERSAO": "7cfc8e7b98cec28fb3298a8b185b123d5cb976bb",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -440,7 +447,7 @@
       {
         "PATH": "coleta/linha_busca.py",
         "PAPEL": "FONTE",
-        "VERSAO": "e48bd6a4450aa4ac0fab391ca36f5f4eeda354e7",
+        "VERSAO": "c4631c1273ab57c4614c497554a2244a16996d1a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -627,6 +634,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "coleta/social_por_url_achado.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ed2a35267f4fd7079a88215bc24a91927d5c0e96",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "coleta/social_rotas.py",
         "PAPEL": "FONTE",
         "VERSAO": "f40bd755257ee701332952df74599c900d993a0a",
@@ -718,9 +732,23 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "ferramentas/big_collection/coleta_continua.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "b7eea9329ee759c2baf39fa135d5f9a957de958f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "ferramentas/big_collection/coorte_unica.py",
         "PAPEL": "FONTE",
         "VERSAO": "ae6e99ada092ba8943b4419679295af05f0a78b5",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/big_collection/ensaio_coleta_continua.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "66e11ac05db731f0dd91082d5debe7a052969a85",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1581,7 +1609,7 @@
       {
         "PATH": "regras/feed_discovery_test.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "63acb02b2790e52effd2f3727d69044f475fc867",
+        "VERSAO": "6dd0447c2be39344cbd8c9ae92b294e991cf4a5c",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1616,7 +1644,7 @@
       {
         "PATH": "regras/italy_contracts.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "2470d45710e7ff7d3246ace94433ee98e7a9c108",
+        "VERSAO": "d56965edc8a77e25dfeb776fd6e5c7a5d899bf48",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1642,6 +1670,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "regras/ligar_feeds.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "d08d989d0932a96c4d161017967776e1a117ccc4",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "regras/meta_identidade.py",
         "PAPEL": "FONTE",
         "VERSAO": "6334e2e2da1e351c272caaf4b958b404c5f31592",
@@ -1651,7 +1686,7 @@
       {
         "PATH": "regras/motor_de_rota.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "fd1551016255c78541a35aa6247878eaa73262fb",
+        "VERSAO": "e3bc6d32b52b9f155b77a3e68428621fdb66e229",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1712,8 +1747,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 243,
-    "INPUTS_DIGEST": "9e60b87a4c4ccc540251123fca591d4d10a48f51280343a6a7a745b26355801a",
+    "INPUTS_COUNT": 248,
+    "INPUTS_DIGEST": "2eb581716d4b377f7fb5f6badba2b82d0a234fe11bfb63f94c8534dca24a3928",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1814,7 +1849,7 @@
     {
       "ficheiro": "candidatas/fonte_nova.py",
       "gaveta": "candidatas",
-      "linhas": 280,
+      "linhas": 332,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1832,6 +1867,7 @@
       "chamado_por": [
         "candidatas/decidir_fila_italia.py",
         "coleta/linha_busca.py",
+        "coleta/social_por_url_achado.py",
         "ferramentas/seguir_pesquisadores/listas_oficiais.py",
         "ferramentas/seguir_pesquisadores/orcid_lote.py",
         "ferramentas/seguir_pesquisadores/seguir.py",
@@ -2211,6 +2247,26 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/big_collection/coleta_continua.py",
+      "gaveta": "ferramentas",
+      "linhas": 625,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/big_collection/ensaio_coleta_continua.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/big_collection/coorte_unica.py",
       "gaveta": "ferramentas",
       "linhas": 137,
@@ -2229,6 +2285,22 @@
         "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
         "ferramentas/onda3_pacote/medida-bc/ensaio_bc.sh"
       ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/big_collection/ensaio_coleta_continua.py",
+      "gaveta": "ferramentas",
+      "linhas": 172,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
       "no_ci": false
     },
     {
@@ -2302,6 +2374,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "ferramentas/big_collection/coleta_continua.py",
+        "ferramentas/big_collection/ensaio_coleta_continua.py",
         "ferramentas/big_collection/ensaio_rodada.py"
       ],
       "no_ci": false
@@ -3882,10 +3956,11 @@
     {
       "ficheiro": "coleta/adaptador_youtube.py",
       "gaveta": "coleta",
-      "linhas": 964,
+      "linhas": 1146,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
+        "LINKEDIN",
         "YOUTUBE"
       ],
       "ferramentas": [
@@ -4103,7 +4178,7 @@
     {
       "ficheiro": "coleta/concorrencia_meta.py",
       "gaveta": "coleta",
-      "linhas": 591,
+      "linhas": 597,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -4643,7 +4718,7 @@
     {
       "ficheiro": "coleta/italy_executor.py",
       "gaveta": "coleta",
-      "linhas": 725,
+      "linhas": 729,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -4683,7 +4758,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 1521,
+      "linhas": 1741,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -4704,6 +4779,7 @@
         "coleta/reserva_24h.py",
         "coleta/retrato_html.mjs",
         "coleta/teto_da_onda.py",
+        "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/big_collection/onda_web.py",
         "pedido/receitas.py",
         "regras/contratos_de_fonte.py",
@@ -4756,7 +4832,7 @@
     {
       "ficheiro": "coleta/linha_busca.py",
       "gaveta": "coleta",
-      "linhas": 456,
+      "linhas": 459,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -4765,14 +4841,18 @@
         "LINKEDIN",
         "YOUTUBE"
       ],
-      "ferramentas": [],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
-        "coleta/linha_busca_raw.py"
+        "coleta/linha_busca_raw.py",
+        "coleta/social_por_url_achado.py",
+        "ferramentas/big_collection/coleta_continua.py"
       ],
       "no_ci": true
     },
@@ -4899,8 +4979,10 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "admissao/reprocessar_estudos_chaves.py",
+        "admissao/reprocessar_problema.py",
         "coleta/lista_mestra_mur.py",
         "coleta/pesquisadores_t6_executor.py",
+        "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/t6_para_sala/antes_depois_extratores.py",
         "ferramentas/t6_para_sala/medir_modelos_resistencia.py",
         "pedido/receitas.py"
@@ -4974,7 +5056,8 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/dominio_registavel.py",
-        "coleta/italy_pilot_collect.mjs"
+        "coleta/italy_pilot_collect.mjs",
+        "ferramentas/big_collection/coleta_continua.py"
       ],
       "no_ci": false
     },
@@ -4994,6 +5077,7 @@
       "chamado_por": [
         "admissao/admissao.py",
         "regras/identidade_do_motor_cli.mjs",
+        "regras/ligar_feeds.py",
         "regras/motor_de_rota.mjs"
       ],
       "no_ci": false
@@ -5359,6 +5443,25 @@
       "no_ci": true
     },
     {
+      "ficheiro": "coleta/social_por_url_achado.py",
+      "gaveta": "coleta",
+      "linhas": 390,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
       "linhas": 410,
@@ -5470,6 +5573,7 @@
         "coleta/italy_pilot_collect.mjs",
         "coleta/scrap_colheita.py",
         "coleta/scrap_http.py",
+        "ferramentas/big_collection/coleta_continua.py",
         "ferramentas/maestro_social/maestro_social.py",
         "ferramentas/youtube_transcrever.py",
         "ferramentas/yt_dlp_com_freio.py"
@@ -5762,7 +5866,7 @@
     {
       "ficheiro": "regras/feed_discovery_test.mjs",
       "gaveta": "regras",
-      "linhas": 117,
+      "linhas": 183,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -5849,7 +5953,7 @@
     {
       "ficheiro": "regras/italy_contracts.mjs",
       "gaveta": "regras",
-      "linhas": 763,
+      "linhas": 769,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -5875,7 +5979,8 @@
         "pedido/receitas.py",
         "regras/cadencia_da_referencia.mjs",
         "regras/contratos_de_fonte.py",
-        "regras/italy_pilot_guards.mjs"
+        "regras/italy_pilot_guards.mjs",
+        "regras/ligar_feeds.py"
       ],
       "no_ci": false
     },
@@ -5930,6 +6035,22 @@
       "no_ci": false
     },
     {
+      "ficheiro": "regras/ligar_feeds.py",
+      "gaveta": "regras",
+      "linhas": 213,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "regras/meta_identidade.py",
       "gaveta": "regras",
       "linhas": 132,
@@ -5951,7 +6072,7 @@
     {
       "ficheiro": "regras/motor_de_rota.mjs",
       "gaveta": "regras",
-      "linhas": 882,
+      "linhas": 949,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -5963,7 +6084,8 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/italy_pilot_collect.mjs",
-        "coleta/texto_de_pdf.mjs"
+        "coleta/texto_de_pdf.mjs",
+        "regras/ligar_feeds.py"
       ],
       "no_ci": false
     },
@@ -6150,7 +6272,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 2490,
+      "linhas": 2534,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -6167,6 +6289,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "admissao/reprocessar_estudos_chaves.py",
+        "admissao/reprocessar_problema.py",
         "admissao/reprocessar_tempo_lugar.py",
         "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
@@ -6175,7 +6298,8 @@
         "coleta/linha_busca.py",
         "coleta/rota_forward_documento.py",
         "ferramentas/reel_transcricao.py",
-        "pedido/elegibilidade_comentario.py"
+        "pedido/elegibilidade_comentario.py",
+        "regras/ligar_feeds.py"
       ],
       "no_ci": true
     },
@@ -6200,7 +6324,7 @@
     {
       "ficheiro": "admissao/reprocessar_estudos_chaves.py",
       "gaveta": "admissao",
-      "linhas": 156,
+      "linhas": 160,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -6211,6 +6335,24 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "admissao/reprocessar_problema.py",
+      "gaveta": "admissao",
+      "linhas": 190,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "admissao/admissao.py"
+      ],
       "no_ci": false
     },
     {
@@ -6250,6 +6392,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "admissao/reprocessar_problema.py",
         "admissao/reprocessar_tempo_lugar.py",
         "coleta/it/edicoes_do_registro.py",
         "coleta/linha_busca_raw.py",
@@ -6635,13 +6778,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 243,
-    "pontos_de_entrada": 173,
+    "ficheiros_de_codigo": 248,
+    "pontos_de_entrada": 178,
     "executores_que_saem_para_fora": 32,
-    "sem_chamador_e_fora_do_ci": 111,
+    "sem_chamador_e_fora_do_ci": 114,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 142,
-    "deitam_fora_alguma_coisa": 54,
+    "escrevem_ficheiro": 147,
+    "deitam_fora_alguma_coisa": 55,
     "deitam_fora_SEM_escrever_o_motivo": 5,
     "ficheiros_com_decisao_escondida": 5,
     "decisoes_escondidas_ao_todo": 5
@@ -6667,7 +6810,9 @@
       "fontes/adama_referencia.py",
       "ferramentas/apify_pool.py",
       "ferramentas/big_collection/bc5_big_collection.py",
+      "ferramentas/big_collection/coleta_continua.py",
       "ferramentas/big_collection/coorte_unica.py",
+      "ferramentas/big_collection/ensaio_coleta_continua.py",
       "ferramentas/big_collection/ensaio_rodada.py",
       "ferramentas/big_collection/onda_web.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
@@ -6790,6 +6935,7 @@
       "coleta/scrap_colheita.py",
       "coleta/sensor_canal_identidade.py",
       "coleta/social_persistencia.py",
+      "coleta/social_por_url_achado.py",
       "coleta/social_scrap.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
@@ -6803,6 +6949,7 @@
       "regras/comunicacao_universo.py",
       "regras/contratos_de_fonte.py",
       "regras/italy_source_health.mjs",
+      "regras/ligar_feeds.py",
       "regras/proveniencia.py",
       "regras/rotulos_censo.py",
       "regras/sensor_coleta.py",
@@ -6810,6 +6957,7 @@
       "admissao/admissao.py",
       "admissao/idioma.py",
       "admissao/reprocessar_estudos_chaves.py",
+      "admissao/reprocessar_problema.py",
       "admissao/reprocessar_tempo_lugar.py",
       "admissao/sala_de_espera.py",
       "guarda/catalogo_importar.py",
@@ -6871,6 +7019,7 @@
       "fontes/adama_it_labels.py",
       "fontes/adama_it_qa.py",
       "ferramentas/big_collection/bc5_big_collection.py",
+      "ferramentas/big_collection/ensaio_coleta_continua.py",
       "ferramentas/big_collection/ensaio_rodada.py",
       "ferramentas/big_collection/reconciliar_bytes_bc4.py",
       "ferramentas/c9/c9-testes.sh",
@@ -6950,6 +7099,7 @@
       "coleta/regulatorio_importar.py",
       "coleta/ropf_pre_requisito.py",
       "coleta/sensor_canal_identidade.py",
+      "coleta/social_por_url_achado.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
       "coleta/universo_ciencia_it.py",
@@ -6960,6 +7110,7 @@
       "regras/incrementalidade_test.mjs",
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
+      "regras/ligar_feeds.py",
       "regras/paridade_test.mjs",
       "regras/rotulos_censo.py",
       "admissao/reprocessar_estudos_chaves.py",

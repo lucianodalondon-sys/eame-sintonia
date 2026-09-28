@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217"
+    "HEAD": "4f2fe539fc0b6abed6d1145f0ecda4ec3c3e0502"
   },
   "VOCABULARIOS": [
     {
@@ -1264,6 +1264,7 @@
       "CONSUMERS": [
         ".github/workflows/banco-descartavel.yml",
         "admissao/reprocessar_estudos_chaves.py",
+        "admissao/reprocessar_problema.py",
         "admissao/reprocessar_tempo_lugar.py",
         "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
@@ -1311,6 +1312,8 @@
         "provas/canario_reels_instagram.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
+        "provas/chave_problema/ensaio_033_descartavel.py",
+        "provas/chave_problema/mutacao_chave_problema.py",
         "provas/ensaio_do_texto_na_collection.py",
         "provas/ensaio_scrap_para_a_collection.py",
         "provas/espinha_da_intelligence.py",
@@ -1337,6 +1340,7 @@
         "provas/tempo_e_lugar_replay.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
+        "regras/ligar_feeds.py",
         "scripts/diagnostico_sala/ler_os_76.py",
         "scripts/diagnostico_sala/onde_casou.py",
         "scripts/lugar_fato/mutar_boletim_por_secao.py",
@@ -1376,6 +1380,7 @@
         "tests/test_cadeia_do_audio_offline.py",
         "tests/test_candidatos_tematicos.py",
         "tests/test_censo_corpus_rotulado_admission.py",
+        "tests/test_chave_problema.py",
         "tests/test_col_e7_contrato_do_texto.py",
         "tests/test_concorrencia_meta.py",
         "tests/test_d1_detector_d14.py",
