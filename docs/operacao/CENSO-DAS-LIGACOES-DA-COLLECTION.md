@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e24139702b8216ad54127cf63a14b550bcd4aeab
+HEAD_DA_MEDICAO  6f0468a97ebac5c10ba267aa0a6e24373c6b356e
 BRANCH           lucianodalondon-sys/scrap-guarda-falso-positivo-v2
-GERADO_EM        2026-09-28T05:31:33Z
+GERADO_EM        2026-09-28T11:43:20-03:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -2650,7 +2650,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe teste que exercita isto.  Mas ha 30 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | guarda/social_guarda.py:288; scripts/regua_t1/medir_aperto_site.py:20; tests/test_a_regra_de_t2.py:128 |
+| **prova de quem ativa** | guarda/social_guarda.py:335; scripts/regua_t1/medir_aperto_site.py:20; tests/test_a_regra_de_t2.py:128 |
 | **porquê** | estas pecas importam-na — C-REGUA-T1-JANELA · C-SCRAP-GUARDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `admissao/admissao.py`, `admissao/idioma.py`, `curadoria/CATALOGO-PROVA-V1.json` |

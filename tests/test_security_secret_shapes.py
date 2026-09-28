@@ -34,7 +34,7 @@ class FormasDeSegredo(unittest.TestCase):
     def _casa(self, texto):
         for nome, padrao in guarda.CONTEUDO_PROIBIDO:
             m = padrao.search(texto)
-            if m and guarda._valor_e_segredo(m.group(0)) \
+            if m and guarda._valor_e_segredo(m.group(0), texto, m) \
                     and not guarda._linha_declara_falso(texto, m.start()):
                 return nome
         return None
@@ -159,22 +159,25 @@ class FormasDeSegredo(unittest.TestCase):
                       "    return CP._get(url)\n", "    \"\"\"docstring\"\"\"")
         self._ignora(linha, "o valor e a CONCATENACAO de um pedaco de codigo, nao um literal")
 
-    def test_concatenacao_sem_limite_de_linhas(self):
-        """O que distingue CÓDIGO de LITERAL, sem depender de quantas linhas.
+    # ── PARIDADE COM A PRODUÇÃO: DOIS FALSOS POSITIVOS QUE JÁ EXISTIAM ────
+    # A primeira versão desta cura prometia calar estas duas formas. Era
+    # promessa a mais: MEDIDO contra a produção (`e24139702`), ela acusa as
+    # duas. Alargar a exclusão para as calar seria exactamente a regressão que
+    # o coordenador proíbe — deixar passar o que o detector de hoje apanha.
+    #
+    #     UM FALSO POSITIVO ANTIGO NÃO SE CONSERTA DE CARONA NUMA MISSÃO
+    #     QUE PEDIU OUTRA COISA. Conserta-se a pedido próprio, com a guarda
+    #     antiga como juiz — que é o que estes dois testes fixam.
+    #
+    # Ficam registados, e não escondidos: se alguém os quiser calar um dia,
+    # o sítio é aqui, e o preço é dizer por que razão já não é regressão.
+    def test_chamada_no_valor_e_apanhada_como_na_producao(self):
+        self._pega("sessionid=" + monta("os.environ.", "get('SINTONIA_SID')"),
+                   "sessionid")
 
-        O valor começa por `+`: é uma expressão, por muito longe que a aspa
-        seguinte esteja. A exclusão não olha a distância — olha o começo.
-        """
-        linha = monta("k = '&api", "_key=', valor_real_do_segredo_que_nao_e_codigo")
-        self._ignora(linha, "o valor comeca por concatenacao")
-
-    def test_chamada_no_valor_nao_e_segredo(self):
-        self._ignora("sessionid=" + monta("os.environ.", "get('SINTONIA_SID')"),
-                     "o valor e uma CHAMADA, nao um literal")
-
-    def test_f_string_nao_e_segredo(self):
-        self._ignora("sessionid=" + monta("f\"{token_", "da_sessao}\""),
-                     "f-string interpola em tempo de execucao: nao carrega valor")
+    def test_f_string_e_apanhada_como_na_producao(self):
+        self._pega("sessionid=" + monta("f\"{token_", "da_sessao}\""),
+                   "sessionid")
 
     # ── E O ALCANCE CONTINUA INTEIRO ──────────────────────────────────────
     # A fixture é FALSA e declara-se falsa NO PRÓPRIO VALOR (`isto_nao_e_segredo`),
@@ -201,6 +204,44 @@ class FormasDeSegredo(unittest.TestCase):
         """
         texto = monta("api", "_key='", "Ab1Cd2Ef3Gh4Ij5K", "'")
         self._pega(texto, "chave de API")
+
+    # ── A GUARDA ANTIGA É O JUÍZ: NADA PODE ESCAPAR QUE ELA APANHAVA ──────
+    # A primeira versão desta cura reconhecia a FORMA do código e absolvia
+    # tudo o que começasse por `+`, por `nome(` ou por `f"`. Medido contra a
+    # guarda anterior, caso a caso, isso deixava escapar CINCO formas que ela
+    # apanhava. Reconhecer a forma não chegava — era preciso reconhecer a
+    # SITUAÇÃO: a aspa consumida é de FECHO, ou abre mesmo um valor?
+    #
+    #     UM SEGREDO QUE COMECA POR `+` CONTINUA A SER UM SEGREDO.
+    #     EM BASE64, `+` É TÃO COMUM COMO QUALQUER OUTRA LETRA.
+    #
+    # Estes cinco são a lista, um a um. Se algum voltar a escapar, a cura
+    # alargou outra vez.
+    def test_segredo_que_comeca_por_mais(self):
+        self._pega(monta("api", '_key="', "+Ab1Cd2Ef3Gh4Ij5K", '"'), "chave de API")
+
+    def test_segredo_com_parenteses_no_valor(self):
+        self._pega(monta("api", '_key="', "abc(def)ghijkl", '"'), "chave de API")
+
+    def test_segredo_com_nome_e_parentese(self):
+        self._pega("sessionid=" + monta("token", "(abc123456)"), "sessionid")
+
+    def test_valor_que_so_parece_f_string(self):
+        self._pega("sessionid=" + monta('f"', "nao_isto", '"'), "sessionid")
+
+    def test_segredo_partido_em_linhas_comecando_por_mais(self):
+        self._pega(monta("api", '_key="', "+Ab1Cd2Ef3Gh4Ij5K", "\n", "resto_do_segredo", '"'),
+                   "chave de API")
+
+    def test_a_concatenacao_continua_calada(self):
+        """O contraponto: o falso positivo de produção TEM de continuar calado.
+
+        Sem esta, os cinco acima poderiam ser "curados" desligando a exclusão —
+        e aí a guarda voltava a gritar sobre código legítimo.
+        """
+        linha = monta("url += '&api", "_key=' + urllib.parse.", "quote(chave)\n",
+                      "    return CP._get(url)\n", "    \"\"\"docstring\"\"\"")
+        self._ignora(linha, "a aspa consumida FECHA o nome; o valor e codigo")
 
 
 class ArvoreReal(unittest.TestCase):

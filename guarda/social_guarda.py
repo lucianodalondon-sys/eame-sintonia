@@ -207,13 +207,60 @@ _E_CODIGO = re.compile(
     r'|[fF][rR]?["\']'                 # f-string: f"{token}"
     r')')
 
+# ── MAS RECONHECER CÓDIGO NÃO BASTA. FALTAVA A CONDIÇÃO. ────────────────────
+# Medido contra a guarda ANTERIOR, caso a caso, e a primeira versão desta cura
+# FOI REPROVADA POR ELA: cinco formas que o detector antigo apanhava passavam a
+# escapar. A mais grave, porque é plausível:
+#
+#     api_key="+Ab1Cd2Ef3Gh4Ij5K"      um segredo a começar por `+`
+#                                      (base64 começa por + com frequência)
+#     password="abc(def)ghijkl"        um segredo com parêntese
+#     sessionid=f"nao_isto"            um valor que só PARECE f-string
+#
+# Todas começam por `+`, por `nome(` ou por `f"` — exactamente as três famílias
+# que `_E_CODIGO` reconhece. Reconhecer a FORMA não chegava; era preciso
+# reconhecer a SITUAÇÃO. E a situação tem nome:
+#
+#     A ASPA QUE O PADRÃO CONSUMIU FECHA UM LITERAL ANTERIOR?
+#
+# Se fecha, o «valor» é código que vem depois — o falso positivo verdadeiro.
+# Se ABRE, o valor é mesmo um literal, e nenhuma forma o pode absolver.
+#
+# Como se sabe: conta-se as aspas desde o início da linha até à aspa consumida.
+# Ímpar = já estávamos dentro de um literal, logo esta fecha-o.
+#
+#     `api_key = "SEGREDO"`   → zero aspas antes → PAR → literal. Apanhado.
+#     `url += '&api_key='`    → uma aspa antes  → ÍMPAR → fecha. Espúrio.
+#
+# A exclusão só dispara quando as DUAS coisas valem: a aspa é de fecho E o
+# valor parece código. Assim as cinco formas acima continuam apanhadas, e o
+# falso positivo de produção continua calado.
+_CITACAO_DO_PADRAO = re.compile(r'[:=]\s*(["\'])')
 
-def _valor_e_segredo(trecho):
-    """O padrão casou. Mas o VALOR é um segredo ou é uma referência a um?"""
+
+def _citacao_espuria(texto, m):
+    """A aspa consumida pelo padrão é de FECHO? (ímpares antes = sim)"""
+    c = _CITACAO_DO_PADRAO.search(m.group(0))
+    if not c:
+        return False
+    pos = m.start() + c.start(1)
+    ini = texto.rfind('\n', 0, pos) + 1
+    return (texto.count("'", ini, pos) % 2 == 1
+            or texto.count('"', ini, pos) % 2 == 1)
+
+
+def _valor_e_segredo(trecho, texto=None, m=None):
+    """O padrão casou. Mas o VALOR é um segredo ou é uma referência a um?
+
+    `texto` e `m` são o contexto do casamento. Sem eles a exclusão de código
+    NÃO dispara — e o silêncio por omissão é o lado certo para o qual falhar:
+    a guarda volta a acusar, e alguém olha. O contrário é que seria grave.
+    """
     corte = re.split(r'[:=]', trecho, 1)
     valor = corte[1] if len(corte) > 1 else trecho
     valor = re.sub(r'(?i)^\s*(bearer|basic)\s+', '', valor.strip())
-    if _E_CODIGO.match(valor):
+    if texto is not None and m is not None \
+            and _E_CODIGO.match(valor) and _citacao_espuria(texto, m):
         return False
     return not _NAO_E_SEGREDO.match(valor)
 
@@ -333,7 +380,8 @@ def varrer(caminhos, rotulo):
             continue
         for nome, padrao in CONTEUDO_PROIBIDO:
             m = padrao.search(texto)
-            if m and _valor_e_segredo(m.group(0)) and not _linha_declara_falso(texto, m.start()):
+            if m and _valor_e_segredo(m.group(0), texto, m) \
+                    and not _linha_declara_falso(texto, m.start()):
                 linha = texto[:m.start()].count('\n') + 1
                 achados.append((rotulo, '%s:%d' % (rel, linha), nome,
                                 # O trecho NUNCA é impresso. Dizer QUE achou e
