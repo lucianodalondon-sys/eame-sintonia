@@ -174,9 +174,12 @@ def admitir(dados: bytes, media_type: str, url: str, fonte: dict, r: dict, sha: 
 # D94.1-b; o LinkedIn so por URL de POST publico, medido 08:40): vai para POSTS-PARA-O-SCRAP. Nenhum dos dois
 # faz da PLATAFORMA (linkedin.com, x.com...) uma candidata.
 import re as _re                                                      # noqa: E402
+# LOTE8-INTEGRA: o Reel tambem vem na forma instagram.com/<conta>/reel/<codigo> (a do transcritor e a que
+# social_por_url_achado le). Sem a conta opcional no molde ele caia em PERFIL_SOCIAL -> PISTAS-DE-CONTA e
+# nunca chegava ao Scrap. Medido na juncao (tests/test_lote8_juncoes.py::J_Busca).
 
 POSTS = _re.compile(r"(linkedin\.com/(posts|feed/update|pulse)/|(//|\.)(x|twitter)\.com/[^/]+/status/\d+|"
-                    r"instagram\.com/(p|reel|reels|tv)/|facebook\.com/.+/(posts|videos)/|fb\.watch/|"
+                    r"instagram\.com/([A-Za-z0-9_.]+/)?(p|reel|reels|tv)/|facebook\.com/.+/(posts|videos)/|fb\.watch/|"
                     r"youtube\.com/(watch|shorts/)|youtu\.be/|tiktok\.com/@[^/]+/video/)", _re.I)
 PLATAFORMAS = _re.compile(r"(^|\.)(linkedin\.com|x\.com|twitter\.com|instagram\.com|facebook\.com|fb\.watch|"
                           r"youtube\.com|youtu\.be|tiktok\.com|threads\.net|bsky\.app)$", _re.I)
