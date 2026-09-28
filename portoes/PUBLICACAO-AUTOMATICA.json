@@ -1,0 +1,101 @@
+{
+  "SCHEMA": "sintonia.publicacao-automatica/1",
+  "DECISAO": {
+    "ID": "D126",
+    "QUANDO": "2026-09-27 ~21:40",
+    "TEXTO_DO_DONO": "portal publica sozinho",
+    "O_QUE_SUBSTITUI": "para o casco, a regra «nada publicado sem mostrar antes/depois ao dono»: o portal existente publica sozinho quando TODAS as conferencias automaticas passam, e cada publicacao guarda antes/depois para o dono ver depois.",
+    "O_QUE_CONTINUA": [
+      "so saida da Intelligence (D97/D115)",
+      "D122 e D123 aplicadas",
+      "nada de dado cru",
+      "o portal existente — nao se reconstroi"
+    ],
+    "NOTA": "D97, D115, D122, D123 e D125 nao estao escritas no repositorio: as regras abaixo seguem o resumo delas no pedido da missao PORTAL-PUBLICA-SOZINHO."
+  },
+  "DONO_DA_LEI": "portoes/publicar_portal_sozinho.py",
+
+  "AUTORIDADE_DE_DEPLOY": {
+    "MEDIDO": [
+      "system-map/CANONICAL-PUBLICATION.json: CANONICAL_DEPLOY_OWNER = release/canonical, publicado pela integracao Git da Vercel (projeto sintonia-eame-preview). A promocao manual pelo CLI e o caminho de recurso declarado ali (NOTA_SOBRE_A_AUTORIDADE: «um rollback, por exemplo»).",
+      "o pote NAO pode viajar pelo Git: o repositorio e publico, sintonia-pote.js tem dado real e esta no .gitignore e no .vercelignore. Um pote commitado em release/canonical ficava no historico publico PARA SEMPRE, mesmo depois de um rollback."
+    ],
+    "DECLARADO": [
+      "CODIGO do portal: continua release/canonical -> integracao Git da Vercel. Nada muda.",
+      "POTE: vai ao ar pelo CLI da Vercel, a partir da maquina do coordenador (onde o pote ja vive), numa build PRE-CONSTRUIDA (`vercel build` + `vercel deploy --prebuilt`) de uma copia montada da arvore. E o mesmo projeto e a mesma autoridade (a Vercel); muda so por onde o ficheiro chega.",
+      "CONSEQUENCIA, DITA: um merge novo em release/canonical implanta pela integracao Git uma build SEM o pote (o lugar diz null) e o portal volta ao legado. A proxima corrida do publicador MEDE isso no ar (o SHA servido nao e o do pote) e republica, com AVISO de deriva no registo. Decidir se o merge em release/canonical deve chamar o publicador e do dono."
+    ],
+    "COMANDOS_VERCEL": {
+      "ATUAL": "vercel inspect <CANONICAL_HOST>",
+      "PUXAR": "vercel pull --yes --environment=<production|preview>",
+      "CONSTRUIR": "vercel build [--prod]",
+      "IMPLANTAR": "vercel deploy --prebuilt [--prod]",
+      "VOLTAR": "vercel rollback <deployment-id>",
+      "ESTADO": "NAO_TESTADO_NESTA_MAQUINA — o CLI da Vercel nao esta instalado no contentor da missao e nao ha credencial. O caminho inteiro foi ensaiado com o implantador de ENSAIO (local), que obedece a mesma interface."
+    }
+  },
+
+  "POTE_NO_DEPLOY": {
+    "LUGAR": "italia-portale/client/sintonia-pote-publicado.js",
+    "GLOBAL": "SINTONIA_POTE_PUBLICADO",
+    "CONTRATO_DO_ENVELOPE": "SINTONIA_POTE_PUBLICADO/1",
+    "NO_GIT": "so o lugar, com null. O envelope e escrito SO na copia montada, nunca no repositorio.",
+    "SHA": "POTE_SHA256 = sha256 do JSON canonico do pote (chaves ordenadas, UTF-8, sem espacos). E gravado no envelope, no registo da publicacao e em ULTIMA-PUBLICACAO.json; a conferencia depois de publicado le-o DO QUE ESTA NO AR."
+  },
+
+  "REGRA_DE_PROMOCAO": {
+    "PORQUE": "Todo pote v2 nasce EXPERIMENTAL · NAO_PARA_CLIENTE (o gerador e o leitor do casco exigem a marca). A D126 manda publicar sozinho; a missao manda que NADA marcado EXPERIMENTAL va a producao sem regra explicita de promocao. Esta e essa regra, escrita — e fica AGUARDANDO o dono.",
+    "ESTADO": "AGUARDA_DONO",
+    "ESTADOS_POSSIVEIS": ["AGUARDA_DONO", "APROVADA_PELO_DONO"],
+    "APROVADA_POR": null,
+    "APROVADA_EM": null,
+    "COMO_O_DONO_APROVA": "trocar ESTADO para APROVADA_PELO_DONO e preencher APROVADA_POR e APROVADA_EM, num commit. Fica no diff.",
+    "A_REGRA": "Um pote marcado EXPERIMENTAL · NAO_PARA_CLIENTE e PROMOVIDO a producao quando, e so quando: (1) esta regra esta APROVADA_PELO_DONO; (2) a corrida nao e sintetica (CORRIDA_SINTETICA != true, nenhum id SINT-/DEMO); (3) TODAS as conferencias de CONFERENCIAS passam na mesma corrida do publicador. A marca NAO e apagada do pote: o SHA publicado e o do pote que a Intelligence escreveu, e a faixa EXPERIMENTAL continua visivel no casco ate o dono decidir outra coisa.",
+    "ENSAIO_E_PREVIEW": "Nao sao publicacao ao cliente: correm todas as conferencias, e a promocao aparece no registo como AGUARDA_DONO (nao bloqueia). Um pote sintetico so pode ir a ensaio ou preview, nunca a producao."
+  },
+
+  "CONFERENCIAS": [
+    {"ID": "C0_POTE", "O_QUE": "o pote: forma e lei v2 (validar_pote_v2), promocao, D122 (evento so com data), D123 (caso -> produto -> bula), nenhum objeto sem prova, nada de dado cru, nada da demo", "ONDE": "no pote, antes de montar"},
+    {"ID": "C1_BUILD_GATE", "O_QUE": "a proveniencia do artefacto V2.1 (a validacao v2.1 do pacote servido)", "COMANDO": ["node", "italia-portale/audit/build-gate.mjs"], "ONDE": "na copia montada"},
+    {"ID": "C2_DEPLOY_SURFACE", "O_QUE": "a superficie publica: o que sobe e o que se serve", "COMANDO": ["node", "italia-portale/audit/deploy-surface.mjs"], "ONDE": "na copia montada"},
+    {"ID": "C3_RELEASE", "O_QUE": "os tres jobs do portao do release (proveniencia, System Map, os 73 portoes do portal), lidos do workflow — nao copiados", "FONTE": ".github/workflows/portao-do-release.yml em RELEASE_REF", "ONDE": "na copia montada, ANTES de o envelope ser escrito: e o portao do CODIGO, e os 73 portoes medem o casco sem pote"},
+    {"ID": "C5_MONTAGEM", "O_QUE": "a copia montada COM o pote, aberta num navegador: cada tela desenha o seu compartimento com a contagem do pote, a barra conta o pote, nenhum dos 43/44 antigos (D122), a marca, e o SHA do envelope", "ONDE": "servida localmente, antes de implantar"},
+    {"ID": "C6_NO_AR", "O_QUE": "a mesma conferencia de C5, no endereco que ficou no ar, depois de publicar — e o SHA servido e o do pote", "ONDE": "no endereco publicado; se reprovar, volta sozinho a versao anterior e grava ALERTA"}
+  ],
+  "RELEASE_REF": "origin/release/canonical",
+  "PASSOS_DE_FERRAMENTA_DO_RELEASE": {
+    "o browser que os portoes usam": "instalar o browser nao e conferencia. O publicador exige playwright-core resolvivel e liga-o na copia montada; se faltar, reprova e diz qual falta."
+  },
+  "VERMELHOS_HERDADOS_DO_RELEASE": {
+    "PORQUE": "INHERITED RED != NEW DEPLOY REGRESSION (system-map/CANONICAL-PUBLICATION.json). So vale para os portoes do portal (run.mjs), por NOME, e so os medidos aqui. Um vermelho novo reprova; um herdado que deixou de falhar aparece no registo.",
+    "N1": "Nav counts match the active normalized collections — medido FAIL na base b273660 (servico-20260923-0923) antes desta missao: 72/73."
+  },
+
+  "TELAS": {
+    "DO_POTE": ["inicio", "meeting", "radarfuturo", "future", "archive", "windows", "market", "voices", "competitors", "science", "portfolio", "etichette", "sources", "field"],
+    "PORTA": ["accesso"],
+    "FORA_DAS_ROTAS": {
+      "casa": "casa.html nao e alcancavel por nenhuma rota do portal (portale.html o diz), mas responde por URL direto e mostra os 43 e os 44 antigos. Mexer nela e decisao do dono (o portao VIEW_READS_ONLY_ITALY_CASA proibe que ela leia o pote). MEDIDA e FOTOGRAFADA em cada publicacao, com AVISO no registo; nao bloqueia."
+    },
+    "ROTA_PARA_COMPARTIMENTO_SEM_VISTA": {"field": "field"},
+    "ROTAS_SINONIMAS": {"radar": "meeting", "msignals": "meeting", "mradar": "meeting"}
+  },
+
+  "NADA_DE_DADO_CRU": {
+    "CHAVES_PROIBIDAS": ["RAW", "RAW_TEXT", "RAW_HTML", "RAW_PAYLOAD", "HTML", "BODY", "CORPO", "TEXTO_BRUTO", "CONTEUDO_BRUTO", "FULL_TEXT", "TEXTO_COMPLETO", "TRANSCRICAO_COMPLETA", "PAYLOAD", "BRUTO"],
+    "MAIOR_TEXTO": 4000,
+    "PORQUE_O_LIMITE": "um valor de texto com mais de 4000 caracteres ja nao e uma leitura: e o documento. O pote leva ids e a prova ate ao RAW, nunca o RAW."
+  },
+  "NADA_DA_DEMO": {
+    "PREFIXOS_DE_ID": ["SINT-", "DEMO-", "DEMO_"],
+    "CAMPO": "CORRIDA_SINTETICA"
+  },
+
+  "REGISTRO": {
+    "PASTA": "PUBLICACOES",
+    "NO_GIT": "NUNCA — tem fotos e o pote com dado real (.gitignore e .vercelignore)",
+    "POR_PUBLICACAO": "PUBLICACOES/<AAAA-MM-DD>/<HHMMSS>-<sha8>/: REGISTO.json, ANTES/ e DEPOIS/ (fotos + CONTAGENS.json), MONTAGEM/ (a conferencia C5), POTE-PUBLICADO.js e POTE-ANTERIOR.js com os SHA",
+    "ULTIMA": "PUBLICACOES/ULTIMA-PUBLICACAO.json — o pote no ar, com SHA; e o ANTERIOR do DELTA da D125",
+    "ALERTAS": "PUBLICACOES/ALERTAS.jsonl — uma linha por ALERTA (reversao, reversao que falhou, deriva)"
+  }
+}

@@ -1990,7 +1990,8 @@
     "italia-portale/client/italy-v21.js",
     "italia-portale/client/support.js",
     "italia-portale/client/italy-sala-leitura.js",
-    "italia-portale/client/sintonia-pote-casco.js"
+    "italia-portale/client/sintonia-pote-casco.js",
+    "italia-portale/client/sintonia-pote-publicado.js"
    ],
    "views": [],
    "icon": "▣"
@@ -2048,6 +2049,27 @@
     "audit"
    ],
    "icon": "⛨"
+  },
+  {
+   "id": "C-PUBLICA-SOZINHO",
+   "name": "O portal publica sozinho (D126)",
+   "territory": "Z-PORTOES",
+   "kind": "gate",
+   "what": "Quando sai um pote novo da Intelligence, monta o portal EXISTENTE com ele numa copia da arvore (git worktree) e corre TODAS as conferencias: C0 o pote (forma+lei v2 pelo validar_pote_v2, D122 evento so com data, D123 caso->produto->bula, nenhum objeto sem prova, nada de dado cru, nada da demo, e a promocao de um pote EXPERIMENTAL so com a regra aprovada pelo dono), C1 build-gate, C2 deploy-surface, C3 os tres jobs do portao do release LIDOS de release/canonical, C5 a copia com o pote num navegador (contagem por tela = a do pote, sem os 43/44 antigos, a barra conta o pote, SHA certo). So se tudo passa implanta (ensaio local, preview ou producao pelo CLI da Vercel com build pre-construida), confere NO AR (C6) e, se reprovar, volta sozinho ao deployment anterior, prova a volta e grava ALERTA. Cada publicacao guarda em PUBLICACOES/ (fora do Git) fotos e contagens antes/depois, o pote publicado e o anterior com SHA; ULTIMA-PUBLICACAO.json e o ANTERIOR do DELTA da D125.",
+   "why_here": "D126 (dono, 27/09 ~21:40): «portal publica sozinho». O pote tem dado real e o repositorio e publico: nao pode viajar pelo Git. O envelope conferido e escrito so na copia implantada (o lugar no Git, italia-portale/client/sintonia-pote-publicado.js, diz null). A lei vive em portoes/PUBLICACAO-AUTOMATICA.json; o CLI da Vercel nao foi testado nesta missao (sem CLI nem credencial no contentor) — o caminho inteiro foi ensaiado com o anfitriao local.",
+   "departments": [
+    "ENGENHARIA",
+    "LIDERANCA"
+   ],
+   "files": [
+    "portoes/publicar_portal_sozinho.py",
+    "portoes/fotografar_portal.mjs",
+    "portoes/PUBLICACAO-AUTOMATICA.json"
+   ],
+   "views": [
+    "audit"
+   ],
+   "icon": "⇪"
   },
   {
    "id": "C-AUDIT-HARNESS",
@@ -6150,6 +6172,24 @@
     "tests/test_pote_no_casco.mjs",
     "provas/pote_v2/*"
    ]
+  },
+  {
+   "id": "C-PROVA-PUBLICA-SOZINHO",
+   "name": "Mutacao do publicador que publica sozinho",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "what": "Planta defeitos no publicador (portoes/publicar_portal_sozinho.py), no leitor do casco e no portale.html, numa copia da arvore (git worktree temporario — o repo nao e tocado), e corre tests/test_publicar_portal_sozinho.py: pote invalido que passa, D122/D123 desligadas, objeto sem prova, dado cru, demo em producao, promocao sem o dono, contagem da tela ignorada, legado visivel ignorado, SHA no ar ignorado, vermelho novo do release aceite, rollback que nao roda dado por provado, o casco que ignora o pote publicado, a barra que volta ao numero antigo. Sai 1 se algum sobreviver. E o registo do ensaio completo (anfitriao local, todas as conferencias reais).",
+   "why_here": "Prova que os testes do publicador apanham o que ele jura nao fazer (missao PORTAL-PUBLICA-SOZINHO, D126).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/portal_publica_sozinho/*"
+   ],
+   "views": [
+    "audit"
+   ],
+   "icon": "✓"
   },
   {
    "id": "C-INT-PORTA-REFERENCIA",

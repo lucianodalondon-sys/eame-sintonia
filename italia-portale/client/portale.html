@@ -77,6 +77,9 @@
      dados. O pote vive em sintonia-pote.js, GERADO por pacote/pote_intelligence_casco.py a partir de UMA corrida:
      fora do Git e do deploy, e so pedido com ?pote=local. Com ele, cada ferramenta desenha o seu compartimento
      COM PRECEDENCIA sobre o snapshot e a demo; sem ele, nada muda. -->
+<!-- D126 (PORTAL-PUBLICA-SOZINHO): o pote PUBLICADO. No Git e so o lugar (null); o publicador
+     (portoes/publicar_portal_sozinho.py) escreve o envelope conferido na copia que implanta. -->
+<script src="sintonia-pote-publicado.js"></script>
 <script src="sintonia-pote-casco.js"></script>
 <style>
   html, body { margin:0; padding:0; background:#110E0D; }
@@ -183,7 +186,7 @@
     <div style="display:flex;flex-direction:column;gap:2px">
       <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;color:#8F8886;padding:0 8px 6px">INTELLIGENCE</div>
       <sc-for list="{{ nav }}" as="n" hint-placeholder-count="10">
-        <div onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
+        <div data-nav-view="{{ n.view }}" onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
           <span style="width:6px;height:6px;border-radius:50%;background:{{ n.dot }};flex:0 0 6px"></span>
           <span style="font-size:12.5px;font-weight:{{ n.weight }};color:{{ n.color }};flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ n.label }}">{{ n.label }}</span>
           <span style="font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ n.count }}</span>
@@ -191,7 +194,7 @@
       </sc-for>
       <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;color:#F5B317;padding:0 8px 6px">{{ t.navEvidenceGroup }}</div>
             <sc-for list="{{ navEvidence }}" as="n" hint-placeholder-count="8">
-        <div onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
+        <div data-nav-view="{{ n.view }}" onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
           <span style="width:6px;height:6px;border-radius:50%;background:{{ n.dot }};flex:0 0 6px"></span>
           <span style="font-size:12.5px;font-weight:{{ n.weight }};color:{{ n.color }};flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ n.label }}">{{ n.label }}</span>
           <span style="font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ n.count }}</span>
@@ -201,7 +204,7 @@
       <div style="display:flex;flex-direction:column;gap:2px;padding-top:10px;margin-top:6px;border-top:1px solid rgba(255,255,255,0.08)">
         <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;color:#F5B317;padding:0 8px 6px">{{ t.navIntegrations }}</div>
         <sc-for list="{{ navIntegrationItems }}" as="n" hint-placeholder-count="1">
-        <div onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
+        <div data-nav-view="{{ n.view }}" onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
           <span style="width:6px;height:6px;border-radius:50%;background:{{ n.dot }};flex:0 0 6px"></span>
           <span style="font-size:12.5px;font-weight:{{ n.weight }};color:{{ n.color }};flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ n.label }}">{{ n.label }}</span>
           <span style="font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ n.count }}</span>
@@ -4058,7 +4061,7 @@ class Component extends DCLogic {
      compartimento reclama (sala, painel, detalhes), devolve null — e o casco
      fica exatamente como estava. */
   static FLAGS_DO_LEGADO = ['isMeeting', 'isRadarFuturo', 'isFuture', 'isArchive', 'isWindows', 'isMarket',
-    'isVoices', 'isCompetitors', 'isScience', 'isPortfolio', 'isEtichette', 'isSources'];
+    'isVoices', 'isCompetitors', 'isScience', 'isPortfolio', 'isEtichette', 'isSources', 'isField'];
   _poteTemPrecedencia(v) {
     const W = (typeof window !== 'undefined') ? window : {};
     const P = W.SINTONIA_POTE_CASCO || null;
@@ -5917,13 +5920,29 @@ class Component extends DCLogic {
        il proprietario non c'e: scrivere 44 a mano farebbe una seconda verita,
        e una seconda verita e quella che non cambia quando il motore cambia. */
     const CASA_RF = (window.ITALY_CASA && window.ITALY_CASA.RADAR_FUTURO) || null;
+    /* ══ D122 · COM O POTE, O CONTADOR E DO POTE ══════════════════════════
+       A vista ja desenhava so o pote; a barra ao lado continuava a escrever
+       os 43 e os 44 de antes. Medido no navegador: a rota sem nenhum caso
+       antigo, e a voz dela com o numero antigo ao lado.
+
+           UMA TELA SO DO POTE COM O CONTADOR DO LEGADO SAO DUAS VERDADES.
+
+       `contagemDaVista` (sintonia-pote-casco.js) devolve null sem pote
+       pedido — e o contador fica o de sempre —, o numero de objetos do
+       compartimento da rota com pote valido, e NAO SEI no resto. */
+    const PC_ = window.SINTONIA_POTE_CASCO || null;
+    const poteConta = (view, legado) => {
+      const x = PC_ && PC_.contagemDaVista ? PC_.contagemDaVista(window.SINTONIA_POTE || null, view) : null;
+      return x === null ? legado : x;
+    };
     /* Il nome resta del suo proprietario; qui cambia solo la CASSA, perche in
        questa barra tutte le voci sono in maiuscoletto iniziale e una sola voce
        in maiuscole griderebbe. La cassa e presentazione, non un secondo nome. */
     const navRadarFuturo = {
+      view: 'radarfuturo',
       label: String(mtL('casaRadarName') || '').toLowerCase()
         .replace(/(^|[\s·-])([a-zà-ÿ])/g, (m0, a, b) => a + b.toUpperCase()),
-      count: (CASA_RF && typeof CASA_RF.RENDERIZAVEIS === 'number') ? CASA_RF.RENDERIZAVEIS : '',
+      count: poteConta('radarfuturo', (CASA_RF && typeof CASA_RF.RENDERIZAVEIS === 'number') ? CASA_RF.RENDERIZAVEIS : ''),
       /* ══ O RADAR FUTURO DEIXA DE SER OUTRA PAGINA ═════════════════════
          `casa.html` tem identidade visual propria — outra grelha, outra escala,
          outro cabecalho — e um leitor que salta para la sente que saiu do
@@ -5960,7 +5979,7 @@ class Component extends DCLogic {
        dalla barra perche la casa e adesso la PRIMA PAGINA — ripeterla qui era
        stampare due volte lo stesso numero. */
     const STRUMENTI = ['meeting', 'portfolio'];
-    const navRow = (n) => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; };
+    const navRow = (n) => { const on = activeOf[s.view] === n[0]; return { view: n[0], label: n[1], count: poteConta(n[0], n[2]), go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; };
     const nav = navDef.filter(n => STRUMENTI.includes(n[0])).map(navRow);
     /* Il Radar Futuro e EVIDENZA, non uno strumento, e adesso APRE l'evidenza:
        e la popolazione che regge le opportunita di domani, e l'unica porta
@@ -6056,7 +6075,7 @@ class Component extends DCLogic {
         cumpridos: (I.criteriosCumpridos || []).join(' '), emFalta: (I.criteriosEmFalta || []).join(' '), travaProva: pv(I.prova),
         emenda: I.emenda, defeitos, defeitosProva: pv(I.fonteDosDefeitos), falta };
     })();
-    const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
+    const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { view: n[0], label: n[1], count: poteConta(n[0], n[2]), go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     // ---- case · opportunity detail
     /* §2 · The detail must open the SAME entity the card opened. The 29 legacy
        presentation cases are a DEMO_SCENARIO collection and they REUSE the real

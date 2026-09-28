@@ -26,6 +26,16 @@ window.SINTONIA_POTE_PEDIDO = window.SINTONIA_POTE_PEDIDO || false;
       document.write('<script src="sintonia-pote.js"><\/script>');
     }
   } catch (e) { /* sem location: fica null */ }
+  /* D126 · PORTAL-PUBLICA-SOZINHO: o pote PUBLICADO (sintonia-pote-publicado.js, escrito so na copia que o
+     publicador implanta) e lido como o `?pote=local` — pedido, e com a mesma lei. O local vence: quem o pede
+     na maquina quer ver o seu. Envelope sem POTE (o `null` do Git) = nada muda. */
+  try {
+    var PUB = window.SINTONIA_POTE_PUBLICADO;
+    if (!window.SINTONIA_POTE && !window.SINTONIA_POTE_PEDIDO && PUB && typeof PUB === 'object' && PUB.POTE) {
+      window.SINTONIA_POTE = PUB.POTE;
+      window.SINTONIA_POTE_PEDIDO = true;
+    }
+  } catch (e) { /* envelope ilegivel: fica como estava, e o publicador reprova no navegador */ }
 })();
 
 window.SINTONIA_POTE_CASCO = (function () {
@@ -39,7 +49,13 @@ window.SINTONIA_POTE_CASCO = (function () {
   var ROTA = { radar: 'meeting', msignals: 'meeting', mradar: 'meeting' };
   /* As rotas que sao ferramenta (as que um compartimento le). Conhecimento do casco. */
   var FERRAMENTAS = ['meeting', 'radarfuturo', 'future', 'windows', 'market', 'voices', 'competitors', 'science',
-    'portfolio', 'etichette', 'archive', 'sources'];
+    'portfolio', 'etichette', 'archive', 'sources', 'field'];
+  /* D126 · a rota do casco que NENHUMA vista do pote reclama, mas cujo compartimento o pote traz com o mesmo
+     nome e VAZIO pelo porque dele (`field`: CASCO_SEM_CONTRATO_DE_INTELLIGENCE). Com o pote pedido, essa rota
+     desenha esse compartimento — o porque do pote — e nao a demo (D97: so a saida da Intelligence).
+     Conhecimento do casco (que rota e essa), nao escolha de compartimento para um objeto: o pote nao poe
+     objeto nenhum ali. */
+  var SO_O_PORQUE = { field: 'field' };
   /* Copias de leitura das listas do contrato (dono: pacote/pote_intelligence_casco.py). */
   var ADMITIDA = ['G0_PASSOU', 'FUTURO_POR_DESENHO', 'USO_SEM_TEMPO', 'PONTE_V1'];
   var HONESTOS = ['NAO', 'NAO_TRATAR_AGORA', 'NO_DEFENSIBLE_ACTION_YET'];
@@ -156,6 +172,28 @@ window.SINTONIA_POTE_CASCO = (function () {
     return null;
   }
 
+  /* O compartimento de uma rota SO_O_PORQUE, se o pote o traz vazio e com o porque. Com objeto dentro, nao:
+     o pote nao o deu a vista nenhuma, e o casco nao o desenha por conta propria. */
+  function soOPorque(p, view) {
+    var c = SO_O_PORQUE[ROTA[view] || view];
+    var e = c && p && p.COMPARTIMENTOS ? p.COMPARTIMENTOS[c] : null;
+    return e && !(e.OBJETOS || []).length && e.PORQUE_VAZIO ? c : null;
+  }
+
+  /* D122/D126 · o CONTADOR de uma voz da navegacao. `null` = o pote nao foi pedido, ou a rota nao e
+     ferramenta (sala, painel): o casco conta como contava. Pedido e ausente, ou pote que reprova = NAO SEI
+     (o numero do legado nao volta para a barra). Pote valido = quantos objetos o compartimento dessa rota
+     traz (so contar: nao filtra, nao pesa), e NAO SEI numa ferramenta que o pote nao le. */
+  function contagemDaVista(p, view) {
+    var pedido = typeof window !== 'undefined' && window.SINTONIA_POTE_PEDIDO === true;
+    if (!p && !pedido) return null;
+    if (FERRAMENTAS.indexOf(ROTA[view] || view) < 0) return null;
+    if (!p || conferir(p).length) return NAO_SEI;
+    var k = compartimentoDaVista(p, view) || soOPorque(p, view);
+    if (!k) return NAO_SEI;
+    return (p.COMPARTIMENTOS[k].OBJETOS || []).length;
+  }
+
   function linkSeguro(u) { return typeof u === 'string' && /^https?:\/\//i.test(u); }
 
   function objeto(o, T) {
@@ -216,6 +254,7 @@ window.SINTONIA_POTE_CASCO = (function () {
         run: [], comp: {}, temComp: false, vazio: false, objetos: [], lacunas: [], temLacunas: false, L: T };
     }
     var k = compartimentoDaVista(p, view);
+    if (!k) k = soOPorque(p, view);
     if (!k) return null;
     var e = p.COMPARTIMENTOS[k];
     var objs = (e.OBJETOS || []).map(function (o) { return objeto(o, T); });
@@ -233,5 +272,5 @@ window.SINTONIA_POTE_CASCO = (function () {
   }
 
   return { CONTRATO: CONTRATO, MARCA: MARCA, conferir: conferir, compartimentoDaVista: compartimentoDaVista, vm: vm,
-    serieMedida: serieMedida };
+    serieMedida: serieMedida, contagemDaVista: contagemDaVista };
 })();

@@ -1,0 +1,356 @@
+{
+ "_AVISO": "DADO SINTETICO DECLARADO — copia de CORRIDA-SINTETICA-POTE.json para o ensaio do PORTAL-PUBLICA-SOZINHO (D126): a unica mudanca e SINT-OP-1 trazer AUTHORIZATION_EVIDENCE_ID (o caminho caso -> produto -> bula da D123). Todo id comeca por SINT-, SINTETICA = true; nada daqui e real, e um pote sintetico NUNCA vai a producao (o publicador recusa).",
+ "SCHEMA": "CORRIDA_DA_INTELLIGENCE/v2-SINTETICA",
+ "SINTETICA": true,
+ "INTELLIGENCE_RUN_ID": "SINT-IR-PUBLICA-0001",
+ "SOURCE_HEAD": "SINT-0000000000000000000000000000000000000000",
+ "CORTE": "2026-09-27T00:00:00+00:00",
+ "RESULT_STATE": "DONE",
+ "LINEAGE": [
+  {
+   "ITEM_ID": "SINT-ITEM-1",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-1",
+   "SOURCE_ID": "SINT-SRC-1",
+   "G0": "PASSOU",
+   "G0_FALTA": [],
+   "URL": "https://sint.example/boletim-1",
+   "PUBLICADO_EM": "2026-09-20",
+   "COLHIDO_EM": "2026-09-21"
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-2",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-2",
+   "SOURCE_ID": "SINT-SRC-2",
+   "G0": "PASSOU",
+   "G0_FALTA": []
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-3",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-3",
+   "SOURCE_ID": "SINT-SRC-3",
+   "G0": "PASSOU",
+   "G0_FALTA": []
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-4",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-4",
+   "SOURCE_ID": "SINT-SRC-3",
+   "G0": "PASSOU",
+   "G0_FALTA": []
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-5",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-5",
+   "SOURCE_ID": "SINT-SRC-5",
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA"
+   ],
+   "URL": "https://sint.example/decreto-2027",
+   "PUBLICADO_EM": "2026-09-15",
+   "COLHIDO_EM": "2026-09-16"
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-6",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-6",
+   "SOURCE_ID": "SINT-SRC-6",
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "SOURCE_ID",
+    "FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA"
+   ]
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-7",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-7",
+   "SOURCE_ID": "SINT-SRC-7",
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "FACT_TIME:CAPTURA_DESCONHECIDA_FUTURO_NAO_EXCLUIDO"
+   ]
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-8",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-8",
+   "SOURCE_ID": "SINT-SRC-8",
+   "G0": "PASSOU",
+   "G0_FALTA": [],
+   "URL": "javascript:alert(1)"
+  }
+ ],
+ "SIGNALS": [],
+ "REQUIREMENTS": [
+  {
+   "REQUIREMENT_ID": "SINT-REQ-1",
+   "MISSING_FACT_OR_KEY": [
+    "FACT_TIME:SEM_BASE"
+   ]
+  }
+ ],
+ "GAPS": [
+  {
+   "FERRAMENTA": "market",
+   "GAP": "SINT: nenhum preco com unidade nesta corrida"
+  }
+ ],
+ "ITENS_POR_FERRAMENTA": {
+  "meeting": [
+   {
+    "OBJETO_ID": "SINT-OP-1",
+    "ESPECIE": "OPORTUNIDADE",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "CROP_ID": "SINT-vite",
+     "ISSUE_ID": "SINT-peronospora",
+     "REGION_ID": "SINT-veneto",
+     "ADAMA_PRODUCT_ID": "SINT-PROD-1",
+     "SCORE_INVENTADO": 99,
+     "AUTHORIZATION_EVIDENCE_ID": "SINT-BULA-1"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-1",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-1",
+      "SOURCE_ID": "SINT-SRC-1",
+      "DOCUMENT_ID": "SINT-DOC-1"
+     }
+    ],
+    "PORQUE": "SINT: <script>alert('porque')</script> boletim cita pressao"
+   },
+   {
+    "OBJETO_ID": "SINT-SG-2",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "CROP_ID": "SINT-vite"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-2",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-2",
+      "SOURCE_ID": "SINT-SRC-2",
+      "DOCUMENT_ID": "SINT-DOC-2"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-FUT-NO-MEETING",
+    "ESPECIE": "FATO_PRESENTE_SOBRE_O_FUTURO",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {},
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-5",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-5",
+      "SOURCE_ID": "SINT-SRC-5",
+      "DOCUMENT_ID": "SINT-DOC-5"
+     }
+    ]
+   }
+  ],
+  "future": [
+   {
+    "OBJETO_ID": "SINT-FUT-1",
+    "ESPECIE": "FATO_PRESENTE_SOBRE_O_FUTURO",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "CROP_ID": "SINT-mais",
+     "FACT_TIME": "2027-03",
+     "FACT_TIME_BASIS": "SINT: o decreto diz marco de 2027",
+     "FACT_LOCATION": "SINT-Lombardia"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-5",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-5",
+      "SOURCE_ID": "SINT-SRC-5",
+      "DOCUMENT_ID": "SINT-DOC-5"
+     }
+    ],
+    "PORQUE": "SINT: decreto publicado hoje fixa uma data de 2027"
+   },
+   {
+    "OBJETO_ID": "SINT-OP-NO-FUTURO",
+    "ESPECIE": "OPORTUNIDADE",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {},
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-1",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-1",
+      "SOURCE_ID": "SINT-SRC-1",
+      "DOCUMENT_ID": "SINT-DOC-1"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-FUT-SEM-FONTE",
+    "ESPECIE": "FATO_PRESENTE_SOBRE_O_FUTURO",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {},
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-6",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-6",
+      "SOURCE_ID": "SINT-SRC-6",
+      "DOCUMENT_ID": "SINT-DOC-6"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-FUT-CAPTURA",
+    "ESPECIE": "FATO_PRESENTE_SOBRE_O_FUTURO",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {},
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-7",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-7",
+      "SOURCE_ID": "SINT-SRC-7",
+      "DOCUMENT_ID": "SINT-DOC-7"
+     }
+    ]
+   }
+  ],
+  "windows": [
+   {
+    "SIGNAL_ID": "SINT-SG-3",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "CROP_ID": "SINT-olivo",
+     "FACT_LOCATION": "SINT-Puglia"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-3",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-3",
+      "SOURCE_ID": "SINT-SRC-3",
+      "DOCUMENT_ID": "SINT-DOC-3",
+      "PUBLICADO_EM": "2026-09-10",
+      "FACT_TIME": "2026-09-07/2026-09-13"
+     }
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "OBJETO_ID": "SINT-REND-3",
+    "ESPECIE": "RENDIMENTO_DE_FONTE",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "SOURCE_ID": "SINT-SRC-3",
+     "ITENS_LIDOS": 2,
+     "ITENS_QUE_PASSARAM_G0": 2,
+     "OBJETOS_PRODUZIDOS": 1
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-3",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-3",
+      "SOURCE_ID": "SINT-SRC-3",
+      "DOCUMENT_ID": "SINT-DOC-3"
+     },
+     {
+      "ITEM_ID": "SINT-ITEM-4",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-4",
+      "SOURCE_ID": "SINT-SRC-3",
+      "DOCUMENT_ID": "SINT-DOC-4"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-REND-MISTO",
+    "ESPECIE": "RENDIMENTO_DE_FONTE",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "SOURCE_ID": "SINT-SRC-3"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-3",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-3",
+      "SOURCE_ID": "SINT-SRC-3",
+      "DOCUMENT_ID": "SINT-DOC-3"
+     },
+     {
+      "ITEM_ID": "SINT-ITEM-1",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-1",
+      "SOURCE_ID": "SINT-SRC-1",
+      "DOCUMENT_ID": "SINT-DOC-1"
+     }
+    ]
+   }
+  ],
+  "archive": [
+   {
+    "OBJETO_ID": "SINT-SG-2",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {
+     "CROP_ID": "SINT-vite"
+    },
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-2",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-2",
+      "SOURCE_ID": "SINT-SRC-2",
+      "DOCUMENT_ID": "SINT-DOC-2"
+     }
+    ]
+   },
+   {
+    "OBJETO_ID": "SINT-SG-8",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {},
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-8",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-8",
+      "SOURCE_ID": "SINT-SRC-8",
+      "DOCUMENT_ID": "SINT-DOC-8"
+     }
+    ]
+   }
+  ],
+  "field": [
+   {
+    "OBJETO_ID": "SINT-FIELD-1",
+    "ESPECIE": "SINAL",
+    "ESTADO": "EXPERIMENTAL_CANDIDATE",
+    "CHAVES": {},
+    "PROVA": [
+     {
+      "ITEM_ID": "SINT-ITEM-2",
+      "CORRIDA_UPSTREAM": "SINT-UP-A",
+      "RAW_OBSERVATION_ID": "SINT-RAW-2",
+      "SOURCE_ID": "SINT-SRC-2",
+      "DOCUMENT_ID": "SINT-DOC-2"
+     }
+    ]
+   }
+  ]
+ }
+}
