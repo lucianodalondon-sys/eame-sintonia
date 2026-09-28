@@ -39,6 +39,9 @@ RECEITAS_POR_VERSAO = {
     # DERIVACAO-ESTRUTURA (28/09): `limpar()` passa a dar `\n` nas etiquetas de
     # bloco, e a REGUA (nome + impressao da sonda) entra na receita. Hash inteiro.
     ("texto-de-html", "3"): "b467ba0da5ee4754c8da839b48d1b162749819ebf369563f00d731001697ce06",
+    # DERIVACAO-ESTRUTURA-V2 (28/09): `limpar/3` — uma passagem, etiqueta nenhuma
+    # atravessa outro «<» (o «</» orfao do balsamico engolia titulo e subtitulo).
+    ("texto-de-html", "4"): "bb811cae3e7cf42991338477ce97679c22a0736662e526cf65ad0414c21ab48a",
     ("texto-de-pdf", "1"): VAZIA,
 }
 
@@ -99,6 +102,31 @@ class AReceitaTemVersao(unittest.TestCase):
                          "a regua mudou e a receita nao: o derivado achatado e o estruturado "
                          "teriam a mesma identidade")
         self.assertNotEqual(h, hash_dos_parametros(html.receita()))
+
+    def test_voltar_a_limpar_de_duas_passagens_sem_subir_a_versao_reprova(self):
+        # Mutacao em memoria: a `limpar/2` (bloco numa passagem, o resto noutra — a do
+        # «</» orfao que engolia o titulo) no lugar da atual, com a versao "4".
+        original = texto_fonte.limpar
+
+        def duas_passagens(dados, ctype=""):
+            import html as _h
+            import re as _re
+            t = dados.decode("utf-8", errors="replace")
+            t = _re.sub(r"<(script|style)\b.*?</\1>", " ", t, flags=_re.S | _re.I)
+            t = _re.sub(r"</?(?:%s)\b[^>]*>" % "|".join(texto_fonte.BLOCOS), "\n", t, flags=_re.I)
+            t = _re.sub(r"<[^>]+>", " ", t)
+            t = _h.unescape(t)
+            t = _re.sub(r"[ \t\xa0]+", " ", t)
+            t = _re.sub(r"\n\s*\n+", "\n", t)
+            return "\n".join(l.strip() for l in t.split("\n") if l.strip())
+
+        try:
+            texto_fonte.limpar = duas_passagens
+            h = hash_dos_parametros(html.receita())
+        finally:
+            texto_fonte.limpar = original
+        self.assertFalse(h.startswith(RECEITAS_POR_VERSAO[(html.EXECUTOR_ID, html.EXECUTOR_VERSION)]),
+                         "a sonda nao distingue a regua 2 da 3: o caso do «</» orfao saiu dela")
 
     def test_o_registo_cobre_os_dois_extratores_de_texto(self):
         self.assertEqual(set(ext.registo()), {html.EXECUTOR_ID, pdf.EXECUTOR_ID})

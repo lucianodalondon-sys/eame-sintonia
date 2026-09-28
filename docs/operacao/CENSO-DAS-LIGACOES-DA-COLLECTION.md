@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  66e81d0d872fed666daa872897be460ca3ab0f8f
-BRANCH           claude/derivacao-estrutura-v1-girw5u
-GERADO_EM        2026-09-28T16:01:25+00:00
+HEAD_DA_MEDICAO  1aa4beb921b3f7f2ebdb37f003a1ede069392e54
+BRANCH           claude/derivacao-estrutura-v2-d76w9o
+GERADO_EM        2026-09-28T16:35:15+00:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -302,10 +302,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/executor_texto_de_html.py`, `coleta/extratores_de_texto.py`, `coleta/retrato_html.mjs`, `tests/dados/c2-juiz/raw-1495.html`, `tests/dados/c2-juiz/raw-1501.html` _(e mais 8)_ |
+| **peça real** | `coleta/executor_texto_de_html.py`, `coleta/extratores_de_texto.py`, `coleta/retrato_html.mjs`, `tests/dados/c2-juiz/raw-1495.html`, `tests/dados/c2-juiz/raw-1501.html` _(e mais 10)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 13 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | admissao/reprocessar_tempo_lugar.py:59; coleta/italy_executor.py:247; coleta/linha_busca.py:131 |
 | **porquê** | estas pecas importam-na — C-DETECTOR-CAPA-GABARITO · C-IT-COLETA · C-IT-CONTRATOS · C-LEITOR-DATA-YT · C-LINHA-BUSCA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
@@ -1698,7 +1698,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/executor_texto_de_html.py:920; coleta/executor_texto_de_pdf.py:309; coleta/executor_transcricao_midia.py:303 |
+| **prova de quem ativa** | coleta/executor_texto_de_html.py:926; coleta/executor_texto_de_pdf.py:309; coleta/executor_transcricao_midia.py:303 |
 | **porquê** | estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-HTML · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |

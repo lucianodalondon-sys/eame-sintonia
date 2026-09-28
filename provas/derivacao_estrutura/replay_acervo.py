@@ -10,6 +10,11 @@ Para cada página HTML guardada no armazém (`<armazem>/**/OBSERVATION/*.html`),
 
 e, para os dois textos, o `corpo()` VIVO (`leis/fato_do_texto.py`, não mexido).
 
+MEDIDA DE CONTEÚDO (V2): por página, `PALAVRAS_PERDIDAS_DO_TEXTO` = palavras de conteúdo
+(>= 4 letras) do `corpo()` ANTES que não aparecem em NENHUM lugar do TEXTO DEPOIS; no
+RESUMO, `PAGINAS_COM_PERDA_NO_TEXTO` e `MELHORARAM / IGUAIS / PIORARAM` (critério escrito
+em `CRITERIO_DO_VEREDITO`).
+
     py provas/derivacao_estrutura/replay_acervo.py --armazem <pasta> --saida <pasta>
 
 SÓ LEITURA. SEM REDE. NADA ESCRITO FORA DE `--saida`:
@@ -148,6 +153,23 @@ _RE_DATA_PROSA = re.compile(
     % "|".join(sorted(DEPOIS.MESES_IT, key=len, reverse=True)), re.I)
 
 
+#: MEDIDA DE CONTEÚDO (a do coordenador, 28/09 — DERIVACAO-ESTRUTURA-V2). Não é tamanho:
+#: é «palavra de conteúdo que o leitor via e deixou de existir». Palavra de conteúdo =
+#: sequência de 4 ou mais LETRAS (sem algarismo nem `_`), comparada em minúsculas.
+_RE_PALAVRA_DE_CONTEUDO = re.compile(r"[^\W\d_]{4,}")
+CRITERIO_DO_VEREDITO = (
+    "PIOROU = alguma palavra de conteudo (>=4 letras, minusculas) do corpo() ANTES nao aparece "
+    "em NENHUM lugar do TEXTO DEPOIS (perdeu conteudo do TEXTO, nao so do corpo); "
+    "MELHOROU = nao piorou e o corpo() DEPOIS tem palavras de conteudo que o corpo() ANTES nao "
+    "tinha (o filtro por linha passou a ver texto que ja existia); IGUAL = o resto. Palavra que sai "
+    "do corpo() mas continua no TEXTO nao e piora desta mudanca: e o filtro do elo 4, contada a parte "
+    "em PAGINAS_EM_QUE_SO_O_CORPO_LARGA_PALAVRAS.")
+
+
+def _palavras_de_conteudo(t):
+    return {w.lower() for w in _RE_PALAVRA_DE_CONTEUDO.findall(t)}
+
+
 def _datas_em_prosa(t):
     return {" ".join(m.group(0).lower().split()) for m in _RE_DATA_PROSA.finditer(t)}
 
@@ -158,6 +180,10 @@ def medir(caminho, base_mod):
     antes, depois = limpar_antes(dados, "text/html"), limpar_depois(dados, "text/html")
     ca, cd = FT.corpo(antes), FT.corpo(depois)
     pa, pd = base_mod.tempo_de_publicacao(dados), DEPOIS.tempo_de_publicacao(dados)
+    wca, wcd, wtd = _palavras_de_conteudo(ca), _palavras_de_conteudo(cd), _palavras_de_conteudo(depois)
+    perdidas = sorted(wca - wtd)
+    ganho_no_corpo = sorted(wcd - wca)
+    veredito = "PIOROU" if perdidas else ("MELHOROU" if ganho_no_corpo else "IGUAL")
     return {
         "LINHAS_ANTES": len(antes.split("\n")) if antes else 0,
         "LINHAS_DEPOIS": len(depois.split("\n")) if depois else 0,
@@ -169,6 +195,10 @@ def medir(caminho, base_mod):
         "PUBLISHED_AT_PRECISAO_DEPOIS": pd["PRECISAO"],
         "PUBLISHED_AT_ORIGINAL_DEPOIS": pd["ORIGINAL"],
         "PORQUE_DEPOIS": pd["PORQUE"][-240:],
+        "PALAVRAS_PERDIDAS_DO_TEXTO": perdidas,
+        "PALAVRAS_QUE_SO_SAEM_DO_CORPO": sorted((wca - wcd) & wtd),
+        "PALAVRAS_NOVAS_NO_CORPO": len(ganho_no_corpo),
+        "VEREDITO": veredito,
         "DATAS_EM_PROSA_QUE_SAEM_DO_CORPO": sorted(_datas_em_prosa(ca) - _datas_em_prosa(cd)),
         "DATAS_EM_PROSA_QUE_ENTRAM_NO_CORPO": sorted(_datas_em_prosa(cd) - _datas_em_prosa(ca)),
     }
@@ -202,6 +232,17 @@ def resumir(linhas):
         "CORPO_MENOS_DE_%d_PALAVRAS_DEPOIS" % PALAVRAS_MINIMAS_DO_CORPO: sorted(
             (k, v["CORPO_PALAVRAS_ANTES"], v["CORPO_PALAVRAS_DEPOIS"]) for k, v in ok.items()
             if v["CORPO_PALAVRAS_DEPOIS"] < PALAVRAS_MINIMAS_DO_CORPO),
+        # MEDIDA DE CONTEUDO: tem de ficar so lixo de servidor, ou vazio
+        "PAGINAS_COM_PERDA_NO_TEXTO": sorted(
+            (k, v["PALAVRAS_PERDIDAS_DO_TEXTO"]) for k, v in ok.items()
+            if v["PALAVRAS_PERDIDAS_DO_TEXTO"]),
+        "CRITERIO_DO_VEREDITO": CRITERIO_DO_VEREDITO,
+        "MELHORARAM": sum(1 for v in ok.values() if v["VEREDITO"] == "MELHOROU"),
+        "IGUAIS": sum(1 for v in ok.values() if v["VEREDITO"] == "IGUAL"),
+        "PIORARAM": sum(1 for v in ok.values() if v["VEREDITO"] == "PIOROU"),
+        # alarme para o ELO 4: palavra que continua no TEXTO mas o corpo() larga
+        "PAGINAS_EM_QUE_SO_O_CORPO_LARGA_PALAVRAS": sum(
+            1 for v in ok.values() if v["PALAVRAS_QUE_SO_SAEM_DO_CORPO"]),
         "PUBLISHED_AT_RESPONDIA_ANTES": len(respondia),
         "PUBLISHED_AT_MUDA_ENTRE_AS_QUE_RESPONDIAM": muda,           # TEM DE SER []
         "PUBLISHED_AT_PERDE": perde,                                  # TEM DE SER []
@@ -241,7 +282,8 @@ def main(argv=None):
             linhas[k] = {"ERRO": "%s: %s" % (type(e).__name__, str(e)[:200])}
     resumo = resumir(linhas)
     fora = {
-        "O_QUE_E": "replay offline antes x depois da DERIVACAO-ESTRUTURA (B1 limpar + B2 content-date)",
+        "O_QUE_E": "replay offline antes x depois da DERIVACAO-ESTRUTURA (B1 limpar + B2 content-date) "
+                   "+ V2 (limpar/3: etiqueta nao atravessa outro <) + medida de CONTEUDO",
         "BASE": BASE, "EXECUTOR_BASE_DE": origem, "COPIA_LITERAL_CONFERIDA": conferir_copia(),
         "EXECUTOR_VERSION_DEPOIS": DEPOIS.EXECUTOR_VERSION,
         "ARMAZEM": a.armazem, "INICIO_UTC": t0.isoformat(),

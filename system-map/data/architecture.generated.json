@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/derivacao-estrutura-v1-girw5u",
-    "HEAD": "66e81d0d872fed666daa872897be460ca3ab0f8f",
-    "GENERATED_AT": "2026-09-28T16:01:25+00:00",
-    "SOURCE_TREE_FINGERPRINT": "8b42b146d4e638cd2beeda7c29302bea12610df986b2077dd59d6d84c6e4d0cf"
+    "BRANCH": "claude/derivacao-estrutura-v2-d76w9o",
+    "HEAD": "1aa4beb921b3f7f2ebdb37f003a1ede069392e54",
+    "GENERATED_AT": "2026-09-28T16:35:15+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e73682d2d771e1c8b945552d284ac3fb00f8cc3e26e79e58ed02c189f4e9db08"
   },
   "FILES": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "path": ".gitattributes",
-      "sha": "87e3d0f9e5b5a847d0e50502a4e29a7e254e0db2",
+      "sha": "02ea2ff20113e08c3c9c7c49e4b20041a488a719",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -382,6 +382,13 @@
     {
       "path": "DEPOIS-DO-PORTAL.md",
       "sha": "bdf3477ab8fe95b282e877dacec54fc0a3f19e42",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "DERIVACAO-ESTRUTURA-V2.md",
+      "sha": "93b33f39f66947976cd081170130750e85656a29",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2481,7 +2488,7 @@
     },
     {
       "path": "coleta/executor_texto_de_html.py",
-      "sha": "9ee3ee788ca04dd93415db8af2ac6baa675d189b",
+      "sha": "b547b5535e52d40b287e0d35eb4e8d7c5c46abb4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2845,7 +2852,7 @@
     },
     {
       "path": "coleta/texto_fonte.py",
-      "sha": "3e1be43fe030b0aa8d06ea9f9fb4a5fd3660d77d",
+      "sha": "7e522375a47667349e22a1b4b81637cf0957c53b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21038,28 +21045,35 @@
     },
     {
       "path": "provas/derivacao_estrutura/MUTACAO-DERIVACAO-ESTRUTURA.json",
-      "sha": "c2eb7502ecfa6dc7c1622113b86587090c64faf9",
+      "sha": "02222aa3afdc9725bb2667bf2a4265f65fca723d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/derivacao_estrutura/mutar.py",
-      "sha": "05a681a69734a39bd10edf8c838aba0311906c56",
+      "sha": "91042e990a5d638e598313d890db9b29a9d35a9e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/derivacao_estrutura/nao_e_regra_de_site.py",
+      "sha": "2f10e6bb722482056e09fba2ead20ba3811d73a5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "provas/derivacao_estrutura/replay-arvore-216/REPLAY-DERIVACAO-ESTRUTURA.json",
-      "sha": "0d5c790d5c9c47999f27742cdd6e4e45d99b63bb",
+      "sha": "8917f28975a9a65526c64e7f665f3248169ed806",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/derivacao_estrutura/replay_acervo.py",
-      "sha": "6494c52ae835ed938924142ee85763306a6fad33",
+      "sha": "bfc4422b06b349e1b88d297521db5f51f8209f9e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26288,7 +26302,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "dc7a22ee0fc3c61346e08d3bb7c2ed60ce798d95",
+      "sha": "46528b3ca0bf632ea6644716ba7cc5775daf0966",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26938,6 +26952,20 @@
       "code_dir": true
     },
     {
+      "path": "tests/fixtures/balsamico_orfao/filiera-del-vino.recorte.html",
+      "sha": "43d631d725fca6cbd8184189d7b715d73e8d9063",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/balsamico_orfao/mixology.recorte.html",
+      "sha": "696ab3acf017231e3db45e459737656893d691ba",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/fixtures/canario_1149/RAW-2272.html",
       "sha": "04f19db048f20d109a7797773c969c34fa376284",
       "ext": ".html",
@@ -27233,7 +27261,7 @@
     },
     {
       "path": "tests/test_a_receita_tem_versao.py",
-      "sha": "5fefe5b5b938b1c467600e12e4b3b44c0117c2b1",
+      "sha": "44c976efdaea6528b4f54ace1951a949c33af548",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28024,7 +28052,14 @@
     },
     {
       "path": "tests/test_derivacao_estrutura.py",
-      "sha": "856914579135b0122a8f65dd742c3f326d7206ef",
+      "sha": "9292ed845d8567b4be62559e89c078ff2d4dd832",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_derivacao_estrutura_v2.py",
+      "sha": "b1bbc02db9808669ab14ed3b463d42fa07248941",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -32951,7 +32986,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 1037,
+        "line": 1043,
         "snippet": "f = os.path.join(RAIZ, \"curadoria\", \"retrato_html.py\")"
       }
     },
@@ -32962,7 +32997,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 920,
+        "line": 926,
         "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
       }
     },
@@ -71528,7 +71563,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/derivacao_estrutura/mutar.py",
-        "line": 22,
+        "line": 23,
         "snippet": "\"tests/test_a_rota_do_html.py\"]"
       }
     },
@@ -71545,12 +71580,23 @@
     },
     {
       "from_file": "provas/derivacao_estrutura/mutar.py",
-      "to_file": "tests/test_leitor_data_youtube.py",
+      "to_file": "tests/test_derivacao_estrutura_v2.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "provas/derivacao_estrutura/mutar.py",
         "line": 21,
+        "snippet": "\"tests/test_derivacao_estrutura_v2.py\","
+      }
+    },
+    {
+      "from_file": "provas/derivacao_estrutura/mutar.py",
+      "to_file": "tests/test_leitor_data_youtube.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derivacao_estrutura/mutar.py",
+        "line": 22,
         "snippet": "\"tests/test_tempo_e_lugar_da_publicacao.py\", \"tests/test_leitor_data_youtube.py\","
       }
     },
@@ -71561,7 +71607,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/derivacao_estrutura/mutar.py",
-        "line": 21,
+        "line": 22,
         "snippet": "\"tests/test_tempo_e_lugar_da_publicacao.py\", \"tests/test_leitor_data_youtube.py\","
       }
     },
@@ -71572,7 +71618,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/derivacao_estrutura/replay_acervo.py",
-        "line": 55,
+        "line": 60,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -71583,7 +71629,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/derivacao_estrutura/replay_acervo.py",
-        "line": 61,
+        "line": 66,
         "snippet": "FICHEIRO_EXECUTOR = \"coleta/executor_texto_de_html.py\""
       }
     },
@@ -71594,7 +71640,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/derivacao_estrutura/replay_acervo.py",
-        "line": 57,
+        "line": 62,
         "snippet": "from coleta.texto_fonte import limpar as limpar_depois  # noqa: E402"
       }
     },
@@ -71605,7 +71651,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/derivacao_estrutura/replay_acervo.py",
-        "line": 62,
+        "line": 67,
         "snippet": "FICHEIRO_LIMPAR = \"coleta/texto_fonte.py\""
       }
     },
@@ -71616,7 +71662,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/derivacao_estrutura/replay_acervo.py",
-        "line": 58,
+        "line": 63,
         "snippet": "import fato_do_texto as FT  # noqa: E402"
       }
     },
@@ -71627,7 +71673,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/derivacao_estrutura/replay_acervo.py",
-        "line": 252,
+        "line": 294,
         "snippet": "destino = os.path.join(a.saida, \"REPLAY-DERIVACAO-ESTRUTURA.json\")"
       }
     },
@@ -71638,7 +71684,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/derivacao_estrutura/replay_acervo.py",
-        "line": 253,
+        "line": 295,
         "snippet": "with open(destino, \"w\", encoding=\"utf-8\") as fh:"
       }
     },
@@ -99000,6 +99046,28 @@
       }
     },
     {
+      "from_file": "tests/test_derivacao_estrutura_v2.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_derivacao_estrutura_v2.py",
+        "line": 29,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_derivacao_estrutura_v2.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_derivacao_estrutura_v2.py",
+        "line": 31,
+        "snippet": "import fato_do_texto as FT  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_desbloquear_social.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -112782,10 +112850,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4213,
-    "files_readable": 1770,
-    "files_code_dir": 2187,
-    "file_edges": 7511,
+    "files_tracked": 4218,
+    "files_readable": 1774,
+    "files_code_dir": 2191,
+    "file_edges": 7514,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

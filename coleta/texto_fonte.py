@@ -76,7 +76,34 @@ BLOCOS = ('p', 'div', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'tr',
           'td', 'th', 'section', 'article', 'header', 'footer', 'nav', 'aside',
           'blockquote', 'pre', 'ul', 'ol', 'table', 'dd', 'dt', 'figure',
           'figcaption', 'main', 'form', 'hr')
-_RE_BLOCO = re.compile(r'</?(?:%s)\b[^>]*>' % '|'.join(BLOCOS), re.I)
+_RE_BLOCO = re.compile(r'</?(?:%s)\b' % '|'.join(BLOCOS), re.I)
+
+# ── UMA ETIQUETA NÃO ATRAVESSA OUTRO «<» (DERIVACAO-ESTRUTURA-V2, 28/09) ──────
+# A régua 2 fazia DUAS passagens: primeiro o bloco virava `\n`, depois o resto
+# `<[^>]+>` virava espaço. Medido no balsâmico (IT-T7-042, 30 páginas na árvore,
+# 14 no armazém): `…ES</a></</div></div>…`. A 1.ª passagem trocava `</div>` por
+# `\n` e o «</» órfão ficava sem o seu «>»; a 2.ª engolia dali até o PRÓXIMO «>»
+# — 328 caracteres, atravessando linhas, título e subtítulo do artigo.
+#
+# Agora é UMA passagem: cada etiqueta é `<…>` SEM outro «<» dentro, começada
+# por letra, `/`, `!` ou `?` (como no leitor do navegador), e decide-se
+# ali mesmo se é bloco (`\n`) ou inline (espaço). Não há passagem anterior que
+# abra buraco, então uma etiqueta também não atravessa quebra de linha criada
+# por bloco. Exceção medida: dentro de `<!--` o «<» não abre etiqueta (é
+# conteúdo do comentário), e o comentário acaba no primeiro «>», como sempre
+# acabou — tratá-lo inteiro até `-->` apagaria texto que a `limpar()` sempre mostrou
+# (71/216 páginas da árvore), e isso é outra mudança.
+#
+# O «<» de marcação que sobra sem «>» (`</`, `<!--`, `<!`, `<?`) vira espaço até
+# o próximo branco; um «<» diante de espaço ou algarismo é texto e fica.
+#
+#     UMA ETIQUETA QUE ENGOLE OUTRA NÃO É ETIQUETA, É BURACO.
+_RE_ETIQUETA = re.compile(r'<!--[^>]*>|<[A-Za-z/!?][^<>]*>')
+_RE_ORFAO = re.compile(r'<[/!?][^\s<>]*')
+
+
+def _etiqueta(m):
+    return '\n' if _RE_BLOCO.match(m.group(0)) else ' '
 
 #: A RÉGUA DE EXTRAÇÃO, com nome. Entra na receita do derivado
 #: (`executor_texto_de_html.receita`) junto com a impressão da SONDA abaixo.
@@ -85,7 +112,8 @@ _RE_BLOCO = re.compile(r'</?(?:%s)\b[^>]*>' % '|'.join(BLOCOS), re.I)
 #: receita dizia só QUEM extrai (`TEXT_OWNER`), nunca COMO: mudar `limpar()`
 #: mudava o texto e deixava a receita igual — o derivado achatado e o
 #: estruturado do mesmo RAW ficariam os dois `texto-de-html` "2".
-REGUA = 'limpar/2 (etiquetas de bloco -> quebra de linha)'
+REGUA = ('limpar/3 (uma passagem: etiqueta sem outro < dentro; bloco -> quebra de '
+         'linha; < de marcacao orfao -> espaco)')
 
 #: Um HTML pequeno e FIXO que exercita tudo o que `limpar()` decide: cada
 #: etiqueta de bloco, inline, script/style, comentário, entidades, `&nbsp;`,
@@ -110,7 +138,12 @@ SONDA = (
     b'<ol><li>um</li></ol><dl><dt>termo</dt><dd>def</dd></dl>'
     b'<figure>img<figcaption>legenda</figcaption></figure><form>campo</form>'
     b'<aside>lado</aside></article></main>\n\n\n<footer>&copy; rodap&eacute; &lt;x&gt;'
-    b'</footer><param name="p"><thead>th</thead><pa>x</pa></BODY></html>'
+    b'</footer><param name="p"><thead>th</thead><pa>x</pa>'
+    # régua 3: o «</» órfão do balsâmico, um comentário com bloco dentro, um «<»
+    # que é texto, um `<!` e um `<?` sem fecho, e o «<» órfão antes de um inline
+    b'<ul><li><a href="/es">ES</a></</div></div>\r\n<div class="t">TITOLO</div>'
+    b'<h2>sottotitolo</h2><!-- <div class="x"> -->dopo<p>se a < 5 e b >= 2</p>'
+    b'<p>x <!doctype y <? z</p><p>resto </<b>grassetto</b></p></BODY></html>'
 )
 
 
@@ -119,8 +152,8 @@ def limpar(dados, ctype=''):
         return _pdf(dados)
     t = dados.decode('utf-8', errors='replace')
     t = re.sub(r'<(script|style)\b.*?</\1>', ' ', t, flags=re.S | re.I)
-    t = _RE_BLOCO.sub('\n', t)
-    t = re.sub(r'<[^>]+>', ' ', t)
+    t = _RE_ETIQUETA.sub(_etiqueta, t)
+    t = _RE_ORFAO.sub(' ', t)
     t = html.unescape(t)
     t = re.sub(r'[ \t\xa0]+', ' ', t)
     t = re.sub(r'\n\s*\n+', '\n', t)

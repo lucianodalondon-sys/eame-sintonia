@@ -4,11 +4,13 @@
    "ESTADO": "MORTO",
    "VERMELHOS": [
     "tests/test_derivacao_estrutura.py",
-    "tests/test_a_receita_tem_versao.py"
+    "tests/test_a_receita_tem_versao.py",
+    "tests/test_derivacao_estrutura_v2.py"
    ],
    "ESPERADOS_VERMELHOS": [
     "tests/test_derivacao_estrutura.py",
-    "tests/test_a_receita_tem_versao.py"
+    "tests/test_a_receita_tem_versao.py",
+    "tests/test_derivacao_estrutura_v2.py"
    ],
    "ESPERADOS_CUMPRIDOS": true
   },
@@ -38,6 +40,43 @@
     "tests/test_a_receita_tem_versao.py"
    ],
    "ESPERADOS_VERMELHOS": [
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M9_V2_duas_passagens": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_derivacao_estrutura.py",
+    "tests/test_a_receita_tem_versao.py",
+    "tests/test_derivacao_estrutura_v2.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_derivacao_estrutura_v2.py",
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M10_V2_etiqueta_atravessa_menor": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_a_receita_tem_versao.py",
+    "tests/test_derivacao_estrutura_v2.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_derivacao_estrutura_v2.py",
+    "tests/test_a_receita_tem_versao.py"
+   ],
+   "ESPERADOS_CUMPRIDOS": true
+  },
+  "M11_V2_orfao_fica": {
+   "ESTADO": "MORTO",
+   "VERMELHOS": [
+    "tests/test_a_receita_tem_versao.py",
+    "tests/test_derivacao_estrutura_v2.py"
+   ],
+   "ESPERADOS_VERMELHOS": [
+    "tests/test_derivacao_estrutura_v2.py",
     "tests/test_a_receita_tem_versao.py"
    ],
    "ESPERADOS_CUMPRIDOS": true
@@ -83,7 +122,7 @@
    "ESPERADOS_CUMPRIDOS": true
   }
  },
- "MORTOS": 8,
- "DE": 8,
+ "MORTOS": 11,
+ "DE": 11,
  "ORIGINAIS_REPOSTOS": true
 }

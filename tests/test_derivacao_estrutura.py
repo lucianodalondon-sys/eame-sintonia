@@ -98,7 +98,12 @@ class B1AEstruturaDeBlocoSobrevive(unittest.TestCase):
     def test_raw_2272_sai_com_estrutura(self):
         t = tf.limpar(_raw(), "text/html")
         linhas = t.split("\n")
-        self.assertEqual(len(linhas), 80)
+        # 80 com a `limpar/2`; 82 com a `limpar/3` (DERIVACAO-ESTRUTURA-V2): os dois
+        # `<!--<div class="extension">PDF</div>-->` dos anexos. A régua 2 apagava o
+        # `-->` porque a etiqueta atravessava a quebra de bloco — o mesmo buraco do
+        # balsâmico; a 3 devolve o que a `limpar()` sempre deu ali («… .pdf PDF» / «-->»).
+        # O `corpo()` é o mesmo: 7 705 caracteres nas duas.
+        self.assertEqual(len(linhas), 82)
         self.assertEqual(linhas[32], "COMUNICATO STAMPA")
         self.assertEqual(linhas[34], "22 giu 2026")
         self.assertTrue(linhas[35].startswith("Xylella fastidiosa: dalla ricerca CREA"))

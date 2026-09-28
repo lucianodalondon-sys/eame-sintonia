@@ -103,7 +103,13 @@ EXECUTOR_ID = "texto-de-html"
 # estruturado ("3") do mesmo RAW nunca tem a mesma identidade.
 #
 #     REGUA NOVA = RECEITA NOVA = VERSAO NOVA.
-EXECUTOR_VERSION = "3"
+#
+# ⚠️ "4" DESDE 28/09 (DERIVACAO-ESTRUTURA-V2). A regua 2 fazia duas passagens,
+# e um «</» orfao (`…</a></</div>…`, balsamico IT-T7-042) engolia titulo e
+# subtitulo do artigo. A regua 3 (`limpar/3`) faz UMA passagem em que etiqueta
+# nenhuma atravessa outro «<». Medido: nas 216 paginas da arvore o texto "4" e
+# o de antes da "3", letra a letra, a menos de espacos e quebras de linha.
+EXECUTOR_VERSION = "4"
 PIPELINE_VERSION = "1"
 
 #: As espécies exactas que esta ponte abre.

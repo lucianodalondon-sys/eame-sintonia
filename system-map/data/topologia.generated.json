@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-28T16:33:59+00:00",
-  "HEAD": "66e81d0d872fed666daa872897be460ca3ab0f8f",
-  "BRANCH": "claude/derivacao-estrutura-v1-girw5u",
+  "GENERATED_AT": "2026-09-28T17:50:26+00:00",
+  "HEAD": "1aa4beb921b3f7f2ebdb37f003a1ede069392e54",
+  "BRANCH": "claude/derivacao-estrutura-v2-d76w9o",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "8b42b146d4e638cd2beeda7c29302bea12610df986b2077dd59d6d84c6e4d0cf",
-  "FICHEIROS_NA_IMPRESSAO": 4361,
+  "SOURCE_TREE_FINGERPRINT": "e73682d2d771e1c8b945552d284ac3fb00f8cc3e26e79e58ed02c189f4e9db08",
+  "FICHEIROS_NA_IMPRESSAO": 4366,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -489,7 +489,7 @@
    {
     "PATH": "coleta/executor_texto_de_html.py",
     "PAPEL": "FONTE",
-    "VERSAO": "9ee3ee788ca04dd93415db8af2ac6baa675d189b",
+    "VERSAO": "b547b5535e52d40b287e0d35eb4e8d7c5c46abb4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -853,7 +853,7 @@
    {
     "PATH": "coleta/texto_fonte.py",
     "PAPEL": "FONTE",
-    "VERSAO": "3e1be43fe030b0aa8d06ea9f9fb4a5fd3660d77d",
+    "VERSAO": "7e522375a47667349e22a1b4b81637cf0957c53b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3674,14 +3674,21 @@
    {
     "PATH": "provas/derivacao_estrutura/mutar.py",
     "PAPEL": "FONTE",
-    "VERSAO": "05a681a69734a39bd10edf8c838aba0311906c56",
+    "VERSAO": "91042e990a5d638e598313d890db9b29a9d35a9e",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/derivacao_estrutura/nao_e_regra_de_site.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "2f10e6bb722482056e09fba2ead20ba3811d73a5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
     "PATH": "provas/derivacao_estrutura/replay_acervo.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6494c52ae835ed938924142ee85763306a6fad33",
+    "VERSAO": "bfc4422b06b349e1b88d297521db5f51f8209f9e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -5557,14 +5564,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8b42b146d4e638cd2beeda7c29302bea12610df986b2077dd59d6d84c6e4d0cf",
+    "VERSAO": "e73682d2d771e1c8b945552d284ac3fb00f8cc3e26e79e58ed02c189f4e9db08",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8b42b146d4e638cd2beeda7c29302bea12610df986b2077dd59d6d84c6e4d0cf",
+    "VERSAO": "e73682d2d771e1c8b945552d284ac3fb00f8cc3e26e79e58ed02c189f4e9db08",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5984,7 +5991,7 @@
    {
     "PATH": "tests/test_a_receita_tem_versao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "5fefe5b5b938b1c467600e12e4b3b44c0117c2b1",
+    "VERSAO": "44c976efdaea6528b4f54ace1951a949c33af548",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6775,7 +6782,14 @@
    {
     "PATH": "tests/test_derivacao_estrutura.py",
     "PAPEL": "FONTE",
-    "VERSAO": "856914579135b0122a8f65dd742c3f326d7206ef",
+    "VERSAO": "9292ed845d8567b4be62559e89c078ff2d4dd832",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_derivacao_estrutura_v2.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "b1bbc02db9808669ab14ed3b463d42fa07248941",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8236,8 +8250,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1171,
-  "INPUTS_DIGEST": "12045497dc8eae905815c2dedb1cd4c23d2007be00d5a7328d8a2f4b4da6f437",
+  "INPUTS_COUNT": 1173,
+  "INPUTS_DIGEST": "741af1aca72da98b9eaa0162cf93dfdb17c4cd7d038464cbdc0032d63c49e342",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8263,15 +8277,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 642,
+  "DOCUMENTOS_LIDOS": 643,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "100625f7df30f054d0d5e3d7687e3bb1d2db3d502bc7ba0d3ec69b6fd7b92ae1",
-  "SEMANTIC_HASH": "e48c578bb91557c47216d36a380ddd94161a84a1d82661dd1341afe6df059ad0"
+  "MEASUREMENT_HASH": "6ab277cb6f3615ee5aa5d5495cb92bef6bffb3b3c753673b098408a87239d326",
+  "SEMANTIC_HASH": "a593fe88fb5f84e0b7182a0d5dccec5619acf400f15c3a3ca97b308f5a3f3825"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -24787,7 +24801,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/executor_texto_de_html.py",
-      "LINHA": 920,
+      "LINHA": 926,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -25887,7 +25901,7 @@
      },
      {
       "FICHEIRO": "provas/derivacao_estrutura/replay_acervo.py",
-      "LINHA": 61,
+      "LINHA": 66,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-ROTA-DO-HTML",
@@ -27089,7 +27103,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/derivacao_estrutura/replay_acervo.py",
-      "LINHA": 57,
+      "LINHA": 62,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-FONTES-EU--IMPORTS-->C-PROVA-ROTA-DO-HTML",
@@ -27207,7 +27221,7 @@
      },
      {
       "FICHEIRO": "provas/derivacao_estrutura/replay_acervo.py",
-      "LINHA": 62,
+      "LINHA": 67,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-FONTES-EU--READS-->C-PROVA-ROTA-DO-HTML",
@@ -36940,7 +36954,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/derivacao_estrutura/replay_acervo.py",
-      "LINHA": 58,
+      "LINHA": 63,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-PROVA-ROTA-DO-HTML",
@@ -37033,6 +37047,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_derivacao_estrutura_v2.py",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_estudo_chaves.py",
       "LINHA": 23,
       "SUPPORTS": "YES",
@@ -37043,14 +37065,6 @@
      {
       "FICHEIRO": "tests/test_estudo_chaves.py",
       "LINHA": 25,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_estudo_chaves.py",
-      "LINHA": 219,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
@@ -40212,7 +40226,7 @@
      },
      {
       "FICHEIRO": "provas/derivacao_estrutura/replay_acervo.py",
-      "LINHA": 55,
+      "LINHA": 60,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-ROTA-DO-HTML",
@@ -61026,7 +61040,7 @@
      },
      {
       "FICHEIRO": "provas/derivacao_estrutura/mutar.py",
-      "LINHA": 21,
+      "LINHA": 22,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
@@ -61035,6 +61049,14 @@
      {
       "FICHEIRO": "provas/derivacao_estrutura/mutar.py",
       "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/derivacao_estrutura/mutar.py",
+      "LINHA": 23,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
@@ -67837,6 +67859,8 @@
     "tests/dados/c2-juiz/raw-1533.html",
     "tests/dados/c2-juiz/raw-1558.html",
     "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
+    "tests/fixtures/balsamico_orfao/filiera-del-vino.recorte.html",
+    "tests/fixtures/balsamico_orfao/mixology.recorte.html",
     "tests/fixtures/canario_1149/RAW-2272.html"
    ],
    "CHAMADORES_DE_RUNTIME": [],
@@ -73378,6 +73402,7 @@
     "provas/a_rota_do_html_atravessa.py",
     "provas/a_rota_do_html_nao_vai_a_rede.py",
     "provas/derivacao_estrutura/mutar.py",
+    "provas/derivacao_estrutura/nao_e_regra_de_site.py",
     "provas/derivacao_estrutura/replay_acervo.py",
     "provas/red_team_duas_portas.py"
    ],
@@ -73389,6 +73414,7 @@
     "provas/voci_dal_campo/mutar.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
+    "DERIVACAO-ESTRUTURA-V2.md",
     "DERIVACAO-ESTRUTURA.md"
    ],
    "E_ENTRYPOINT": false,
@@ -76121,6 +76147,7 @@
     "tests/test_data_do_fato.py",
     "tests/test_dedup_video_social.py",
     "tests/test_derivacao_estrutura.py",
+    "tests/test_derivacao_estrutura_v2.py",
     "tests/test_desbloquear_social.py",
     "tests/test_edicoes_do_registro.py",
     "tests/test_egresso_consenso.py",

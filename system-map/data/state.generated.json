@@ -39,6 +39,7 @@
       "DEDUP-DOC.md",
       "DEDUP-INSTALAR.md",
       "DEPOIS-DO-PORTAL.md",
+      "DERIVACAO-ESTRUTURA-V2.md",
       "DERIVACAO-ESTRUTURA.md",
       "ESTUDOS-CHAVES.md",
       "EXTRATOR-EVENTO-V2.md",
@@ -3063,6 +3064,7 @@
       "provas/demanda_de_dados_da_italia.py",
       "provas/derivacao_estrutura/MUTACAO-DERIVACAO-ESTRUTURA.json",
       "provas/derivacao_estrutura/mutar.py",
+      "provas/derivacao_estrutura/nao_e_regra_de_site.py",
       "provas/derivacao_estrutura/replay-arvore-216/REPLAY-DERIVACAO-ESTRUTURA.json",
       "provas/derivacao_estrutura/replay_acervo.py",
       "provas/derived_artifact_no_postgres.py",
@@ -3922,6 +3924,8 @@
       "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+      "tests/fixtures/balsamico_orfao/filiera-del-vino.recorte.html",
+      "tests/fixtures/balsamico_orfao/mixology.recorte.html",
       "tests/fixtures/canario_1149/RAW-2272.html",
       "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "tests/fixtures/estudos_chaves/ESTUDOS-SINTETICOS.json",
@@ -4078,6 +4082,7 @@
       "tests/test_data_do_fato.py",
       "tests/test_dedup_video_social.py",
       "tests/test_derivacao_estrutura.py",
+      "tests/test_derivacao_estrutura_v2.py",
       "tests/test_desbloquear_social.py",
       "tests/test_edicoes_do_registro.py",
       "tests/test_egresso_consenso.py",
@@ -4806,10 +4811,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/derivacao-estrutura-v1-girw5u",
-    "HEAD": "66e81d0d872fed666daa872897be460ca3ab0f8f",
-    "GENERATED_AT": "2026-09-28T16:01:25+00:00",
-    "SOURCE_TREE_FINGERPRINT": "8b42b146d4e638cd2beeda7c29302bea12610df986b2077dd59d6d84c6e4d0cf"
+    "BRANCH": "claude/derivacao-estrutura-v2-d76w9o",
+    "HEAD": "1aa4beb921b3f7f2ebdb37f003a1ede069392e54",
+    "GENERATED_AT": "2026-09-28T16:35:15+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e73682d2d771e1c8b945552d284ac3fb00f8cc3e26e79e58ed02c189f4e9db08"
   },
   "FAMILIES": [
     {
@@ -46448,7 +46453,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/executor_texto_de_html.py:920",
+          "coleta/executor_texto_de_html.py:926",
           "coleta/executor_texto_de_pdf.py:309",
           "coleta/executor_transcricao_midia.py:303",
           "guarda/memoria_descartavel.py:43"
@@ -47374,7 +47379,7 @@
       "name": "Executor · texto a partir de HTML",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao. DERIVACAO-ESTRUTURA (2026-09-28): `limpar()` passou a dar quebra de linha nas etiquetas de BLOCO (RAW 2272: 1 -> 80 linhas), a REGUA entrou na receita (`TEXT_RULE` + `TEXT_RULE_PROBE_SHA256`, versao 3), e `tempo_de_publicacao` ganhou, DEPOIS dos cinco niveis da D61, o nivel estreito `DIV.content-date` irmao de `content-category` (data italiana DD mmm AAAA, precisao DIA, nunca FACT_TIME); o replay antes x depois do acervo e a mutacao vivem em `provas/derivacao_estrutura/` (peca C-PROVA-ROTA-DO-HTML). V1A (2026-09-23): coleta/retrato_html.mjs e o gemeo Node do detector curadoria/retrato_html.py (retrato + V1 + gate), enxertado de aquisicao-detalhe-v1; a paridade pagina a pagina vive em tests/test_v1a_v1_ligada.py.",
+      "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao. DERIVACAO-ESTRUTURA (2026-09-28): `limpar()` passou a dar quebra de linha nas etiquetas de BLOCO (RAW 2272: 1 -> 80 linhas), a REGUA entrou na receita (`TEXT_RULE` + `TEXT_RULE_PROBE_SHA256`, versao 3), e `tempo_de_publicacao` ganhou, DEPOIS dos cinco niveis da D61, o nivel estreito `DIV.content-date` irmao de `content-category` (data italiana DD mmm AAAA, precisao DIA, nunca FACT_TIME); o replay antes x depois do acervo e a mutacao vivem em `provas/derivacao_estrutura/` (peca C-PROVA-ROTA-DO-HTML). DERIVACAO-ESTRUTURA-V2 (2026-09-28): `limpar/3` faz UMA passagem em que etiqueta nenhuma atravessa outro `<` — o `</` orfao do balsamico (IT-T7-042) ja nao engole titulo e subtitulo; versao 4; nas 216 paginas da arvore o texto e o de antes da versao 3 a menos de espacos e quebras. V1A (2026-09-23): coleta/retrato_html.mjs e o gemeo Node do detector curadoria/retrato_html.py (retrato + V1 + gate), enxertado de aquisicao-detalhe-v1; a paridade pagina a pagina vive em tests/test_v1a_v1_ligada.py.",
       "why_here": "A peca que converte HTML em texto existia nesta arvore desde antes e tinha ZERO chamadores em producao: 46 observacoes reais paravam em DERIVED com MISSING_ROUTE. CAPABILITY EXISTS != EDGE EXISTS. Declarar a capacidade tambem nao bastava — o `SUPPORTS` do executor de PDF viveu um ano sem leitores. O que liga e o nome na lista `coleta/ingresso.py::_DONOS_DA_DERIVACAO`.",
       "departments": [
         "ENGENHARIA"
@@ -47402,11 +47407,13 @@
         "tests/dados/c2-juiz/raw-1533.html",
         "tests/dados/c2-juiz/raw-1558.html",
         "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
+        "tests/fixtures/balsamico_orfao/filiera-del-vino.recorte.html",
+        "tests/fixtures/balsamico_orfao/mixology.recorte.html",
         "tests/fixtures/canario_1149/RAW-2272.html"
       ],
-      "file_count": 13,
+      "file_count": 15,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 13 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -64405,10 +64412,11 @@
         "provas/a_rota_do_html_atravessa.py",
         "provas/a_rota_do_html_nao_vai_a_rede.py",
         "provas/derivacao_estrutura/mutar.py",
+        "provas/derivacao_estrutura/nao_e_regra_de_site.py",
         "provas/derivacao_estrutura/replay_acervo.py",
         "provas/red_team_duas_portas.py"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -64434,11 +64442,12 @@
         "papel": "NAO SEI",
         "listas": [
           "CANARIO",
-          "MUTANTES"
+          "MUTANTES",
+          "TESTES"
         ],
-        "palavras": 133,
+        "palavras": 149,
         "por_lingua": {},
-        "sem_marca_de_lingua": 133,
+        "sem_marca_de_lingua": 149,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -64501,6 +64510,7 @@
         "tests/test_a_receita_tem_versao.py",
         "tests/test_a_rota_do_html.py",
         "tests/test_derivacao_estrutura.py",
+        "tests/test_derivacao_estrutura_v2.py",
         "tests/test_leitor_data_youtube.py",
         "tests/test_tempo_e_lugar_da_publicacao.py"
       ],
@@ -72820,6 +72830,7 @@
         "tests/test_data_do_fato.py",
         "tests/test_dedup_video_social.py",
         "tests/test_derivacao_estrutura.py",
+        "tests/test_derivacao_estrutura_v2.py",
         "tests/test_desbloquear_social.py",
         "tests/test_edicoes_do_registro.py",
         "tests/test_egresso_consenso.py",
@@ -73029,7 +73040,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 342,
+      "file_count": 343,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -73451,13 +73462,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 2319,
+        "palavras": 2320,
         "por_lingua": {
           "IT": 12,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 2302,
+        "sem_marca_de_lingua": 2303,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -104839,7 +104850,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_html.py",
-          "line": 920,
+          "line": 926,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-HTML",
@@ -106796,7 +106807,7 @@
         },
         {
           "file": "provas/derivacao_estrutura/replay_acervo.py",
-          "line": 61,
+          "line": 66,
           "snippet": "FICHEIRO_EXECUTOR = \"coleta/executor_texto_de_html.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-ROTA-DO-HTML",
@@ -108963,7 +108974,7 @@
       "evidence": [
         {
           "file": "provas/derivacao_estrutura/replay_acervo.py",
-          "line": 57,
+          "line": 62,
           "snippet": "from coleta.texto_fonte import limpar as limpar_depois  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-FONTES-EU--IMPORTS-->C-PROVA-ROTA-DO-HTML",
@@ -109014,7 +109025,7 @@
         },
         {
           "file": "provas/derivacao_estrutura/replay_acervo.py",
-          "line": 62,
+          "line": 67,
           "snippet": "FICHEIRO_LIMPAR = \"coleta/texto_fonte.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-FONTES-EU--READS-->C-PROVA-ROTA-DO-HTML",
@@ -126509,7 +126520,7 @@
       "evidence": [
         {
           "file": "provas/derivacao_estrutura/replay_acervo.py",
-          "line": 58,
+          "line": 63,
           "snippet": "import fato_do_texto as FT  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-PROVA-ROTA-DO-HTML",
@@ -126738,7 +126749,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 27 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 28 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_artefato_tempo_do_fato.py",
@@ -126885,6 +126896,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_derivacao_estrutura_v2.py",
+          "line": 31,
+          "snippet": "import fato_do_texto as FT  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-LUGAR-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_estudo_chaves.py",
           "line": 23,
           "snippet": "import boletim_do_campo as BC  # noqa: E402",
@@ -126904,22 +126931,6 @@
           "file": "tests/test_estudo_chaves.py",
           "line": 25,
           "snippet": "import estudo_chaves as EC  # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
-            "FROM": "C-LUGAR-COLETA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_estudo_chaves.py",
-          "line": 219,
-          "snippet": "import fato_local as FL",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-LUGAR-COLETA",
@@ -132347,7 +132358,7 @@
         },
         {
           "file": "provas/derivacao_estrutura/replay_acervo.py",
-          "line": 55,
+          "line": 60,
           "snippet": "import _gavetas  # noqa: E402,F401",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-ROTA-DO-HTML",
@@ -133723,7 +133734,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 180 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 181 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -170001,7 +170012,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes alimenta As provas da rota do HTML. Provado por 5 linhas de codigo.",
+      "reason": "Suite de testes alimenta As provas da rota do HTML. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/derivacao_estrutura/mutar.py",
@@ -170038,7 +170049,7 @@
         {
           "file": "provas/derivacao_estrutura/mutar.py",
           "line": 21,
-          "snippet": "\"tests/test_tempo_e_lugar_da_publicacao.py\", \"tests/test_leitor_data_youtube.py\",",
+          "snippet": "\"tests/test_derivacao_estrutura_v2.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
             "FROM": "C-TESTES",
@@ -170053,7 +170064,7 @@
         },
         {
           "file": "provas/derivacao_estrutura/mutar.py",
-          "line": 21,
+          "line": 22,
           "snippet": "\"tests/test_tempo_e_lugar_da_publicacao.py\", \"tests/test_leitor_data_youtube.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
@@ -170070,6 +170081,22 @@
         {
           "file": "provas/derivacao_estrutura/mutar.py",
           "line": 22,
+          "snippet": "\"tests/test_tempo_e_lugar_da_publicacao.py\", \"tests/test_leitor_data_youtube.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-ROTA-DO-HTML",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/derivacao_estrutura/mutar.py",
+          "line": 23,
           "snippet": "\"tests/test_a_rota_do_html.py\"]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTA-DO-HTML",
@@ -174514,7 +174541,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2274,
+  "UNCLAIMED_FILES_COUNT": 2275,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174790,8 +174817,8 @@
     "edges_proven": 1848,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4213,
-    "files_covered": 1939,
+    "files_tracked": 4218,
+    "files_covered": 1943,
     "files_code_unclaimed": 0,
     "roles_proven": 207,
     "roles_declared_only": 10,

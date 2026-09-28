@@ -18,24 +18,41 @@ RAIZ = Path(__file__).resolve().parents[2]
 LIMPAR = RAIZ / "coleta" / "texto_fonte.py"
 EXECUTOR = RAIZ / "coleta" / "executor_texto_de_html.py"
 TESTES = ["tests/test_derivacao_estrutura.py", "tests/test_a_receita_tem_versao.py",
+          "tests/test_derivacao_estrutura_v2.py",
           "tests/test_tempo_e_lugar_da_publicacao.py", "tests/test_leitor_data_youtube.py",
           "tests/test_a_rota_do_html.py"]
 
 #: nome -> (ficheiro, trecho original, trecho mutante, testes que TÊM de ficar vermelhos)
 MUTANTES = {
     # B1 revertido: as etiquetas de bloco voltam a dar espaço (a limpar() antiga)
-    "M1_B1_revertido": (LIMPAR, "    t = _RE_BLOCO.sub('\\n', t)\n", "",
-                        ["tests/test_derivacao_estrutura.py", "tests/test_a_receita_tem_versao.py"]),
+    "M1_B1_revertido": (LIMPAR, "    return '\\n' if _RE_BLOCO.match(m.group(0)) else ' '\n",
+                        "    return ' '\n",
+                        ["tests/test_derivacao_estrutura.py", "tests/test_a_receita_tem_versao.py",
+                         "tests/test_derivacao_estrutura_v2.py"]),
     # B1 parcial: `td`/`th` deixam de ser bloco — a régua muda e a versão não
     "M2_regua_muda_sem_versao": (LIMPAR, "          'td', 'th', 'section',", "          'section',",
                                  ["tests/test_a_receita_tem_versao.py"]),
     # a subida de versão revertida
-    "M3_versao_nao_subiu": (EXECUTOR, 'EXECUTOR_VERSION = "3"', 'EXECUTOR_VERSION = "2"',
+    "M3_versao_nao_subiu": (EXECUTOR, 'EXECUTOR_VERSION = "4"', 'EXECUTOR_VERSION = "3"',
                             ["tests/test_a_receita_tem_versao.py"]),
     # a régua sai da receita
     "M4_regua_fora_da_receita": (
         EXECUTOR, '        "TEXT_RULE_PROBE_SHA256": _texto_fonte.impressao_da_regua(),\n', "",
         ["tests/test_a_receita_tem_versao.py"]),
+    # V2 revertido: a limpar/2 de duas passagens (o «</» órfão engole título e subtítulo)
+    "M9_V2_duas_passagens": (
+        LIMPAR, "    t = _RE_ETIQUETA.sub(_etiqueta, t)\n    t = _RE_ORFAO.sub(' ', t)\n",
+        "    t = re.sub(r'</?(?:%s)\\b[^>]*>' % '|'.join(BLOCOS), '\\n', t, flags=re.I)\n"
+        "    t = re.sub(r'<[^>]+>', ' ', t)\n",
+        ["tests/test_derivacao_estrutura_v2.py", "tests/test_a_receita_tem_versao.py"]),
+    # V2 relaxado: a etiqueta volta a poder atravessar outro «<» (mas numa passagem só)
+    "M10_V2_etiqueta_atravessa_menor": (
+        LIMPAR, "_RE_ETIQUETA = re.compile(r'<!--[^>]*>|<[A-Za-z/!?][^<>]*>')",
+        "_RE_ETIQUETA = re.compile(r'<!--[^>]*>|<[^>]+>')",
+        ["tests/test_derivacao_estrutura_v2.py", "tests/test_a_receita_tem_versao.py"]),
+    # V2 relaxado: o «<» de marcação órfão fica como texto
+    "M11_V2_orfao_fica": (LIMPAR, "    t = _RE_ORFAO.sub(' ', t)\n", "",
+                          ["tests/test_derivacao_estrutura_v2.py", "tests/test_a_receita_tem_versao.py"]),
     # B2 relaxado: qualquer classe com «date»
     "M5_B2_qualquer_classe_date": (
         EXECUTOR, '    return "content-date" in classes',
