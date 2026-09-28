@@ -1,0 +1,136 @@
+{
+ "QUANDO": "2026-09-28T00:52:19.258399+00:00",
+ "CORRIDAS_DA_COLETA": [
+  "IT-T10-2026-09-21-192602-b9c48c5e22f8a0a0",
+  "IT-T7-2026-09-21-193046-344a587db4870ed8",
+  "OPS_forward-only-live_20260922185447_a9d037"
+ ],
+ "PASSOS": {
+  "0_MIGRATIONS": {
+   "CODIGO": 0,
+   "PASS": 34
+  },
+  "1_ARMAZEM_E_SALA_ANTES": {
+   "sala_de_espera": 0,
+   "raw_asset": 0,
+   "storage_object": 0,
+   "derived_artifact": 0,
+   "collection_run": 0
+  },
+  "2a_PASSAGEM_COM_OUTRO_ESCRITOR": "OCUPADO",
+  "2b_PASSAGEM": {
+   "ACCAO": "PASSOU",
+   "BACKUP_PROVA_VALE": true,
+   "PLANO": {
+    "EM": "2026-09-28T00:52:22.174456+00:00",
+    "PASSAR": 2,
+    "FICA_POR_PORQUE": {
+     "VARIAS_FONTES": 1
+    },
+    "SEM_REGUA": []
+   },
+   "CORRIDAS": [
+    {
+     "COLHEITA_DA_CORRIDA": "IT-T10-2026-09-21-192602-b9c48c5e22f8a0a0",
+     "FONTE": "IT-T10-018",
+     "UNIVERSO": "T10",
+     "OBSERVACOES": 30,
+     "STATUS": "SUCCESS",
+     "CORRIDA_DA_PORTA": "IT-T10-2026-09-28-005224-017257b1b73a0021",
+     "POR_RESULTADO": {
+      "NAO_SEI": 14,
+      "NAO": 10,
+      "SIM": 6
+     },
+     "CODIGO": 0,
+     "ERRO": ""
+    },
+    {
+     "COLHEITA_DA_CORRIDA": "IT-T7-2026-09-21-193046-344a587db4870ed8",
+     "FONTE": "IT-T7-043",
+     "UNIVERSO": "T7",
+     "OBSERVACOES": 2,
+     "STATUS": "SUCCESS",
+     "CORRIDA_DA_PORTA": "IT-T7-2026-09-28-005232-41d6605ebbb50d34",
+     "POR_RESULTADO": {
+      "NAO_SEI": 1,
+      "NAO": 1
+     },
+     "CODIGO": 0,
+     "ERRO": ""
+    }
+   ]
+  },
+  "2c_ARMAZEM_E_SALA_DEPOIS": {
+   "sala_de_espera": 6,
+   "raw_asset": 32,
+   "storage_object": 32,
+   "derived_artifact": 32,
+   "collection_run": 2
+  },
+  "2d_DE_NOVO_NAO_REPETE": "NADA_A_PASSAR",
+  "3a_GATILHO_AGORA": {
+   "ACCAO": "ESPERA",
+   "DECISAO": "ESPERAR",
+   "PORQUE": "POUCOS_E_RECENTES (6 novos)",
+   "NOVOS": 6
+  },
+  "3b_DUAS_CORRIDAS_SOBREPOSTAS": "OCUPADO",
+  "3c_GATILHO_4H": {
+   "ACCAO": "POTE_NAO_SUBIU",
+   "GATILHO": "NOVO_A_ESPERA_HA_4H (6 novos)",
+   "SUBIU": false,
+   "PORQUE": "POTE_REPROVADO",
+   "CORRIDA": "IR-6ddb48d06ae5660b270c",
+   "VIOLACOES": 1,
+   "PRIMEIRAS": [
+    "$.COMPARTIMENTOS.sources.OBJETOS[0].ENTITY_SOURCE: devia ser string"
+   ]
+  },
+  "3d_POTE_NO_CASCO_EXISTE": false,
+  "3e_SEM_DELTA_DEPOIS": "SEM_DELTA",
+  "4_VIGIA": {
+   "ACCAO": "ESCREVEU",
+   "ALERTA": true,
+   "ETAPAS": {
+    "fonte": [
+     "NAO SEI",
+     "NAO SEI"
+    ],
+    "coleta": [
+     "PARADA",
+     "2026-09-22T18:58:26.031000+00:00"
+    ],
+    "agendador": [
+     "NAO SEI",
+     "NAO SEI"
+    ],
+    "passagem": [
+     "ANDANDO",
+     "2026-09-28T00:52:33.897450+00:00"
+    ],
+    "sala": [
+     "ANDANDO",
+     "2026-09-28T00:52:32.504585+00:00"
+    ],
+    "intelligence": [
+     "ANDANDO",
+     "2026-09-28T04:52:33.911275+00:00"
+    ],
+    "pote": [
+     "NAO SEI",
+     "NAO SEI"
+    ],
+    "portal": [
+     "NAO SEI",
+     "NAO SEI"
+    ],
+    "portal_publico": [
+     "NAO SEI",
+     "NAO SEI"
+    ]
+   }
+  }
+ },
+ "ESTADO": "PASS"
+}
