@@ -16,7 +16,7 @@ PRECISÃO (todas as réguas a promover)                          20/32 = 62,5 % 
 PRECISÃO (o que promove hoje: T1 T2 T3 T10)                    18/18 no livro · 20/20 com o acervo — DENTRO da amostra
 TESTES test_reroute_d56                                        22/22 (5 contra Postgres 16 descartável)
 MUTAÇÃO                                                        20/20 mortos (1.ª volta 18/20 → testes apertados)
-BATERIA POR NOME                                               ver §6
+BATERIA POR NOME                                               base 132 falhas → depois 132 · NOVAS 0 (1.ª volta: 4 novas, corrigidas)
 ```
 
 ---
@@ -185,8 +185,18 @@ Código: `REROUTE_ENTRA_NA_SALA = False` (volta a só anotar) ou `git revert`.
 
 ## 6 · Provas
 
-- Bateria por nome (`provas/int_r7/bateria_por_nome.py`, rede fechada, Postgres descartável disponível):
-  ver `provas/reroute_d56/BATERIA-*.json` e o relatório final da missão.
+- **Bateria por nome** (`provas/int_r7/bateria_por_nome.py`, rede fechada, Postgres 16 descartável disponível
+  nas duas voltas, worktrees limpas): base `a2aa73f` 330 módulos · 7.412 testes · **132** falhas; depois
+  `443430e` 331 · 7.430 · 136 — **4 NOVAS**, apanhadas pelo nome e corrigidas:
+  - `test_migracao_033_sala.test_z_desfazer_e_subir_de_novo`: o `033_desfazer.sql` não conseguia largar
+    `sala_de_espera_atual` porque a vista 038 depende dela → o desfazer da 033 passa a largar a 038 primeiro.
+  - `test_medir_admission_t3_atual` (3): a prova lê o elo literal `adm.decidir(x, universo, …)` no
+    orquestrador → **elo ajustado, DECLARADO** (`decidir_todas`, e um elo novo para o `decidir` do pedido).
+  Depois `1b6b373` (os 5 módulos tocados re-corridos por nome e juntos ao JSON — declarado): 331 · 7.434 ·
+  **132 · NOVAS 0 · SUMIDAS 0**. `provas/reroute_d56/BATERIA-BASE-a2aa73f.json`, `…-DEPOIS-443430e.json`,
+  `…-DEPOIS-1b6b373.json`. O Postgres descartável só correu porque, NESTE contentor, `initdb`/`pg_ctl`
+  recusam root: pus um *shim* de ambiente em `~/orca/pgtmp/pgsql/bin` (fora do repositório) que os corre
+  como o utilizador `postgres`.
 - System Map: `correr_a_cadeia.py REGERAR` + `VALIDAR` → `SYSTEM_MAP_CHECK=PASS`;
   `impressao_da_arvore.py --conferir-carimbo` → `IGUAL` (depois do commit). Peças declaradas: `C-ADMISSAO`,
   `C-SALA-DE-ESPERA` (+ `admissao/reprocessar_reroute.py`), `C-PROVA-COLETA` (+ `provas/reroute_d56/*`).
