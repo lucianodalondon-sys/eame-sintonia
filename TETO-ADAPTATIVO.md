@@ -112,7 +112,33 @@ py provas/prova_teto_dominio.py --cortesia %SINTONIA_CORTESIA_LIVRO%          # 
 
 ## 5 · Provas
 
-RESULTADOS_AQUI
+**Bateria inteira por nome** (`provas/int_r7/bateria_por_nome.py`, rede fechada):
+
+| | módulos | testes | falhas por nome |
+|---|---|---|---|
+| base `b273660` | 320 | 7190 | 131 |
+| depois `16d784e` | 321 | 7239 | 131 |
+
+**Novas: 0. Sumidas: 0.** JSON: `provas/teto_adaptativo/BATERIA-BASE-b273660.json`, `…/BATERIA-DEPOIS-16d784e.json`.
+Medida intermédia, dita: sobre `009412f` houve **51 novas** — todos os testes que prendiam o 5
+(onda_web, rodadas, freio_social, maestro, T6, prova-teto, teto_dominio, feed) + o M5 do mapa por regerar.
+Ajuste **declarado** (bloco «D124 — AJUSTE DECLARADO» em cada ficheiro): provam a mesma mecânica com o
+teto **manual** `SINTONIA_TETO_POR_HOST=5`, que o código continua a respeitar; nenhuma asserção afrouxada.
+`tests/test_contador_24h.py` reescrito com docstring citando a D124 (era «5 passam»; agora 40 e 1 de cada vez).
+
+Novos: `tests/test_cortesia_adaptativa.py` (sobe, recua, sinais, 1 de cada vez, livro, alertas, 16 processos
+→ 1 passa, Python×Node, paridade da dobra e dos sinais, prova-teto, painel). Ensaio local
+`provas/contador_24h_local.mjs`: **21/21**. Fora da bateria: `regras/*_test.mjs` iguais à base
+(`italy_contract_test` 343/82 nos dois lados).
+
+**Mutação** (`provas/contador_24h_mutacao.py`, cópia por `git archive`): **20/20 mortos** —
+os cinco da missão em Python e Node (sem recuo, Retry-After ignorado, rajada no mesmo domínio, robots
+ilegível = permissão, contador não atômico) + dobrar sem prova de uso, sem teto de segurança, pausa mínima
+ignorada, 2 sinais sem pausa, transporte que não regista/não reserva, livro ilegível lido como vazio, 429 e
+desafio que não são sinal, prova-teto cega ao Retry-After, sem alerta. `provas/CONTADOR-24H-MUTACAO.json`.
+
+**System Map:** `correr_a_cadeia.py REGERAR` → `VALIDAR` = `SYSTEM_MAP_CHECK=PASS`; peças novas
+`C-CORTESIA-ADAPTATIVA` e `C-MATERIA-PRIMA-POR-DIA`; `--conferir-carimbo` = IGUAL.
 
 ## EM PALAVRAS SIMPLES
 
