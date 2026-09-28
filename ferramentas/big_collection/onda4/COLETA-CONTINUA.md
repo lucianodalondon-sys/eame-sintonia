@@ -1,5 +1,7 @@
 # COLETA-CONTINUA — a coleta como SERVIÇO do vivo, agendada por FONTE (D86)
 
+> ⚠️ **D124 (dono, 27/09) — LOTE8-INTEGRA:** o teto fixo **5 pedidos/domínio/24 h deixou de ser regra**. Nasceu como tamanho de um teste (D7), nunca foi medido contra site nenhum; a regra passa a ser teto ADAPTATIVO com freio pelo SINAL medido do site (429, 403 novo, 503, Retry-After, desafio), em construção por outra equipe (`nuvem-teto-adaptativo-v1`). Até lá o 5 fica no código como **FREIO TEMPORÁRIO** (bot Luciano) — não reescrito neste lote. Onde este documento diz «o teto», leia «o freio temporário». Ver `SINTONIA-EAME-KNOW-HOW.md` §222.
+
 Missão COLETA-CONTINUA-SERVICO (27/09). Ramo `claude/coleta-continua-servico-dm3efk`, sobre a produção
 `18461b92`. **Sem rede, sem Sala, nada instalado, nenhum livro vivo tocado.**
 

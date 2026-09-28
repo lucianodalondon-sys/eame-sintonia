@@ -10,6 +10,10 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
+**Última atualização material:** 2026-09-27 — **§222** (27/09, D124 · D125 · D126, decisões do dono real depois de medições do coordenador): o «5 pedidos por domínio» nunca foi medido contra site nenhum e deixa de ser regra — teto ADAPTATIVO, o freio é o SINAL medido do site; motor pronto ≠ matéria-prima na Sala (medir pela ponta); «agendado» prova-se no agendador e no livro de corridas; identidade do cruzamento = a pergunta, um fato alimenta vários potes que mudam juntos; publicação automática com rollback. **Antes, §221** (R1, reparo de contratos) e **§198**.
+**Passo anterior — CUMPRIDO (2026-09-28):** LOTE8-INTEGRA — um lote de integração sobre a produção `b273660b6` (coleta contínua, FEED-LIGADO, social até a Sala, contrato PROBLEMA, LIGAÇÃO-ADAMA, acervo pela Intelligence), merge aditivo ramo a ramo, bateria por nome 0 novas, mutação, mapa regerado pela cadeia. Dono canónico: `LOTE8-INTEGRA.md`. Nada instalado.
+**Próximo passo autorizado (2026-09-28):** o coordenador instala o LOTE8 no vivo pelo checklist de `LOTE8-INTEGRA.md` §7 (robô parado, backup, ff-only, LIVROS_IGUAIS, testes nomeados, religar) e liga a coleta contínua no Agendador em modo CANÁRIO — 1 ciclo, VPN IT, backup com PROVA_VALE, PROVA-TETO. O 5/domínio/24 h fica como **FREIO TEMPORÁRIO** (D124) até o teto adaptativo (`nuvem-teto-adaptativo-v1`) chegar.
+
 **Última atualização material:** 2026-09-23 — **§198** (REELS-FUNCIONANDO, bloco 7, `scrap-portas-v1`): a medição também é uma peça — base de comparação sem `.git` dá verde falso (`git ls-files` responde zero); uma corrida de teste reescreveu um artefacto rastreado (`RUN-MANIFEST.json`) e isso apareceu como 23 falhas novas; a gaveta não rastreada `data/raw/REEL-MIDIA` faz a prova correr em vez de saltar (900 s vs 11 s); e depois da D22 a prova que não mede a plataforma não pode pagar pela rede — os metadados declaram-se no fixture. `NEW_FAILURES_BY_NAME = 0` medido por nome contra `6ea92f6a`. **Antes, §197:** a D22 autorizou a coleta de REELS do Instagram por URL directa, sem login, sem conta e sem rota paga; a matriz passou a `OWNER_AUTHORIZED=SIM` com `PLATFORM_POLICY_STATUS=DISALLOWED` e a rota ganhou o limite `PUBLIC_REEL_BY_URL_ONLY`; canário real 3/3 ponta a ponta, US$ 0. **Antes, §196:** as duas portas do Scrap.
 **Última atualização material:** 2026-09-23 — **§198** (LINKEDIN-VIDEOS · D24: o VÍDEO de uma PESSOA do agro passou a ser adquirido pelo Scrap com autorização ESCRITA do dono, e a medição mostrou que a porta da pessoa é DUAS — o perfil responde 999/authwall e não se contorna, e a página do POST público responde 200 e é por ali que o vídeo se lê; 1 MP4 e 1 legenda reais, US$ 0, dois egressos concordando, e o que fica declarado: a metade italiana não foi encontrada na amostra, a fase nas DUAS portas ainda não existe, e a tela de pessoas nomeadas continua do dono dela, a revisão jurídica). **Antes, §196** (SCRAP-PORTAS-V1, `origin/unificacao-v1` @ `77077dee` → branch `scrap-portas-v1` @ `f5c49473`): as DUAS PORTAS do SCRAP passaram a ter prova uma contra a outra (`tests/test_as_duas_portas_do_scrap.py`, 25 provas) e as duas passaram a consultar a MESMA lei (`leis/social_matriz.py::decisao`). Fechado o `CHECK` que não perguntava à lei (SOC1: `CAN_COLLECT_NOW` no Instagram enquanto a matriz dizia `ROUTE_NOT_ALLOWED`), a recusa datada de `yt-alvos|yt-transcrever` («a matriz nao declara capacidade de BYTES para YOUTUBE» — falso desde 2026-09-19) e as oito fases que existiam no PEDIDO sem porta operacional. O `DOCUMENT_ID` que o contrato declara passou a ser materializado pelo dono do contrato (`IT-T8-001` → `AGRONOTIZIE:YT:{VIDEO_ID}`), fail-closed em quatro casos. A cadeia do som está provada offline ponta a ponta — YouTube audio → RAW → DERIVED (texto pelo dono único do ASR) → ingresso → Admissão com a régua multilingue — em `tests/test_cadeia_do_audio_offline.py` (11 provas, `NETWORK_CALLS = 0`, `ASR_REAL = NOT_RUN`). Decisões do dono aplicadas: **D19** (Instagram `POLICY_BLOCK`; as três fases do Reel CONSTRUÍDAS e RECUSADAS pela matriz) e **D20** (metadados da Data API com prazo de 30 dias, `RENEW_OR_DELETE`). **Antes, §140**, que fecha os dois blockers deixados pelo §139: `import fcntl` no topo de `ferramentas/reel_transcricao.py` (10 módulos de tests/ não carregavam em Windows) e `tests/test_comunicacao.py` a rebentar no import porque `comunicacao_universo.montar()` devolvia um universo VAZIO sem `data/samples/COMPETITOR-CROSSWALK.json` (ficheiro que nunca esteve no Git) — e a linha de comando ESCREVIA esse vazio por cima do universo versionado. Cura A: o cadeado do lote passou a ser o mesmo da admissão (flock em POSIX, msvcrt LK_NBLCK sem teto em Windows), BLOQUEANTE e entre processos, provado com processos filhos. Cura B: sem crosswalk (ou ilegível, ou todo a zero) `CrosswalkIndisponivel`, exit 2, ZERO mutação em disco; o teste passa uma fixture sintética por `montar(caminho=...)`. Resultado medido em processos novos (py 3.12 + PyYAML por PYTHONPATH, Windows): `TestLoader.errors = []`, `TEST_COUNT_CURRENT` = `4.759` DERIVADO, `--sync` reescreveu 8 documentos, dois `--check` com `DRIFT = 0`; sem PyYAML continua NOT_MEASURABLE (falha fechada). Suíte inteira comparada pelo nome: NEW_FAILURES = 0 · NEW_ERRORS = 0 · 20 nomes saíram do vermelho. Red team 0 blockers. `MANUAL_METRIC_STAMP_BLOCKER = CLOSED` · `METRIC_STABILITY_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO` (trunk 9d6dcbbd intocado) · `BIG_COLLECTION = NÃO AUTORIZADA`. O PROMPT continua a dizer «721 testes» (decisão do dono; test_handoff segue vermelho por isso). **Antes, §139** (ver o aviso no fim desta linha). **§138**: o primeiro `COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK` deu **FAIL** (candidato `d37cb192`, trunk `9d6dcbbd` **intocado**) por DOIS blockers que não são do fluxo: um carimbo `<!--M:TEST_COUNT_CURRENT-->` digitado à mão fora do dono (`4414`, commit `8cf2a272`) e um teste que ainda exigia o contrato antigo `psql -c` quando o runtime manda o SQL por stdin com `-f -`. Fecho cirúrgico nesta secção: o dono corrido (8 documentos → `4.478`, drift zero) e o teste alinhado ao contrato real (red team 20 mutantes / 20 mortos; independente do psql da máquina). `INTEGRATION_BLOCKERS_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO`. Achado novo, NÃO corrigido, entregue à coordenação: `test_canonico` e `test_handoff` exigem o número SEM ponto de milhar e o dono escreve COM ponto — é esse conflito que levou alguém a digitar `4414`. `BIG_COLLECTION = NÃO AUTORIZADA`. **⚠️ CORRIGIDO PELO §139 (2026-09-17, mesmo dia):** a verificação independente derrubou o `INTEGRATION_BLOCKERS_FIX = PASS` — o «drift zero» do §138 era de UM ambiente; noutro processo o dono media `4.521` e o drift eram 9 ficheiros. A causa está provada (dois módulos com `import yaml`, 45 casos − 2 fantasmas = 43) e o dono passou a falhar fechado: qualquer módulo de `tests/` que não carregue ⇒ `TEST_COUNT_CURRENT = NOT_MEASURABLE` e `--sync` recusa. Nesta máquina a suíte NUNCA carrega inteira (10 módulos por `fcntl`, 1 por amostra que nunca esteve no Git) — logo `INTEGRATION_BLOCKERS_FIX = FAIL` até um ambiente completo medir e sincronizar. **⚠️ FECHADO PELO §140 (2026-09-17, mesmo dia):** as duas curas foram feitas, a suíte carrega inteira com PyYAML e a contagem foi medida, sincronizada e conferida em processos novos.
 **§134 (2026-09-17):** o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
@@ -22489,3 +22493,55 @@ volta, 1 reparo por fonte, e não faz discovery enquanto houver reparo pendente.
 
     UMA REGRA QUE REABRE O QUE O WORKER FECHA SÓ VALE COM O WORKER QUE A ESCREVEU.
 
+---
+
+# §222 · 27/09 — O DIA EM QUE O LIMITE, O CARTÃO E A PUBLICAÇÃO MUDARAM DE DONO
+
+> Registado no LOTE8-INTEGRA (28/09/2026). **Quem decidiu:** o dono real (D124, D125, D126), depois de medições do
+> coordenador. Nada disto é delegado.
+
+## 1 · Um número de prudência vira lei se ninguém o reler (D124)
+
+O «5 pedidos por domínio» nasceu como tamanho de um TESTE (D7, 23/09: robots + página + 3 matérias), virou regra por site
+(D38), ganhou orçamento compartilhado YouTube+googlevideo depois do incidente de 164 pedidos em 10 min (D41) e ganhou
+janela de 24 h (D79). A D86 manteve. **Nunca foi medido contra site nenhum.** Efeito medido em 27/09: rodadas 4–15
+presas 24 h porque edagricole.it (17 fontes) gastou 5; YouTube ≈ 1 vídeo/dia; 0,4–0,6 documento por pedido.
+
+**Lição:** todo limite numérico tem de carregar de onde veio e se foi medido. Limite não medido = hipótese, e o dono
+decide. O dono decidiu: teto ADAPTATIVO até o limite da ferramenta; o freio é o SINAL medido do site (429, 403 novo,
+503, Retry-After, desafio), não um número fixo; ao bater no limite, o Scrap Engineer é avisado para estudar.
+
+    LIMITE SEM ORIGEM E SEM MEDIDA É HIPÓTESE — E HIPÓTESE QUEM DECIDE É O DONO.
+
+> Enquanto o teto adaptativo não chega (outra equipe, `nuvem-teto-adaptativo-v1`), o 5 continua no código como
+> **FREIO TEMPORÁRIO** (bot Luciano, LOTE8-INTEGRA) — escrito assim, não como lei.
+
+## 2 · Motor pronto ≠ matéria-prima na Sala
+
+O Scrap sabia capturar Reel+transcrição, vídeo de org no LinkedIn e áudio do YouTube (PROVEN, US$ 0) e a Sala tinha
+**0** itens sociais. O Scrapling deixou o leitor de feed pronto e **nenhuma** das 898 fontes estava ligada a ele.
+
+**Lição:** medir capacidade pela ponta (itens na Sala por dia), nunca pelo relatório da capacidade. Procurar sempre o
+último elo não ligado: bloqueio antigo não desfeito (94 contas POLICY_BLOCK apesar de D22–D24/D106), régua que reprova
+pelo NOME da fase, chave que só vive num runner desligado, comando pronto que ninguém correu.
+
+    A CAPACIDADE MEDE-SE NA SALA, NÃO NO RELATÓRIO DA CAPACIDADE.
+
+## 3 · «Agendado» se prova no agendador e no livro de corridas
+
+O resumo dizia «coleta agendada»; medido: não havia agendamento; a tarefa antiga `SINTONIA-Italy-ForwardOnly` devolve
+resultado 0 de hora em hora e o último registro de coleta é 23/09.
+
+**Lição:** resultado 0 do agendador ≠ coleta feita.
+
+## 4 · Identidade do cruzamento = a pergunta (D119 → D125)
+
+0/47 IDs estáveis entre R6 e R7; 13 cartões para uma pergunta. Aprovado: CROSSING_ID pela pergunta; documento é prova
+(conta 1 vez); NÃO SEI não junta; edição da bula reavalia, não cria cartão; DELTA no pote; o casco só mostra. O dono
+acrescentou: **um fato alimenta vários potes (Label, Oportunidade, Futuro, Agenda, Concorrência, Vozes) e todos mudam
+juntos; nenhum pote guarda cópia.**
+
+## 5 · Publicação automática (D126)
+
+O portal passa a publicar sozinho quando todas as conferências automáticas passam, guardando antes/depois e o pote
+anterior com SHA (base do DELTA). Rollback automático se a conferência pós-publicação falhar.

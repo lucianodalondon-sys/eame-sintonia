@@ -1,5 +1,7 @@
 # CONTADOR-24H — o contador multicanal atómico (D90, prioridade 1 da COLETA-CONTINUA)
 
+> ⚠️ **D124 (dono, 27/09) — LOTE8-INTEGRA:** o teto fixo **5 pedidos/domínio/24 h deixou de ser regra**. Nasceu como tamanho de um teste (D7), nunca foi medido contra site nenhum; a regra passa a ser teto ADAPTATIVO com freio pelo SINAL medido do site (429, 403 novo, 503, Retry-After, desafio), em construção por outra equipe (`nuvem-teto-adaptativo-v1`). Até lá o 5 fica no código como **FREIO TEMPORÁRIO** (bot Luciano) — não reescrito neste lote. Onde este documento diz «o teto», leia «o freio temporário». Ver `SINTONIA-EAME-KNOW-HOW.md` §222.
+
 Estudo do bot Luciano (D90, `auditoria-madrugada/ESTUDO-ORQUESTRACAO-24H-LUCIANO.md` §2.2): «não encontrei prova de
 uma **reserva atómica compartilhada** entre todas as linhas… até a reserva global passar num teste concorrente…
 apenas uma linha de rede ativa por vez». Ramo `contador-24h-v1`, sobre o vivo `dc0de726`. Sem rede, nada

@@ -1,5 +1,7 @@
 # FEED-LIGADO — o feed substitui o índice, sem mudar o teto 5/domínio/24 h
 
+> ⚠️ **D124 (dono, 27/09) — LOTE8-INTEGRA:** o teto fixo **5 pedidos/domínio/24 h deixou de ser regra**. Nasceu como tamanho de um teste (D7), nunca foi medido contra site nenhum; a regra passa a ser teto ADAPTATIVO com freio pelo SINAL medido do site (429, 403 novo, 503, Retry-After, desafio), em construção por outra equipe (`nuvem-teto-adaptativo-v1`). Até lá o 5 fica no código como **FREIO TEMPORÁRIO** (bot Luciano) — não reescrito neste lote. Onde este documento diz «o teto», leia «o freio temporário». Ver `SINTONIA-EAME-KNOW-HOW.md` §222.
+
 > Missão do Scrap Engineer (27/09, respostas 1–4). Base: produção `18461b92d`.
 > Ramo: `claude/feed-discovery-italy-sources-hr8vlb`. **Offline**: nenhum site visitado, nenhum livro vivo
 > editado. O que muda a produção é **um pacote + um comando** para o coordenador (§4).
