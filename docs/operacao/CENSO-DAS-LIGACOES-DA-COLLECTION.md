@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  1a712e90cc83cd435cbe13dca75ca90c272aa7af
+HEAD_DA_MEDICAO  f7c2ad5c594afb32664b8327af01a493d415e54e
 BRANCH           casco-e2e-v1
-GERADO_EM        2026-09-28T09:47:00-03:00
+GERADO_EM        2026-09-28T10:45:36-03:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1679,13 +1679,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 29 |
-| **arestas provadas** | entram 1 · saem 29 |
+| **arestas no mapa** | entram 1 · saem 30 |
+| **arestas provadas** | entram 1 · saem 30 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 30 |
+| **prova das ligações** | CODE 31 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
