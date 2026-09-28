@@ -44,18 +44,45 @@
   },
 
   "REGRA_DE_PROMOCAO": {
-    "PORQUE": "Todo pote v2 nasce EXPERIMENTAL · NAO_PARA_CLIENTE (o gerador e o leitor do casco exigem a marca). A D126 manda publicar sozinho; a missao manda que NADA marcado EXPERIMENTAL va a producao sem regra explicita de promocao. Esta e essa regra, escrita — e fica AGUARDANDO o dono.",
-    "ESTADO": "AGUARDA_DONO",
+    "PORQUE": "Todo pote v2 nasce EXPERIMENTAL · NAO_PARA_CLIENTE (o gerador e o leitor do casco exigem a marca). A D126 manda publicar sozinho. A decisao do dono de 28/09 diz o limite: a maquina segue sozinha DEPOIS que o contrato de liberacao foi cumprido — e isso NAO autoriza publicar material experimental ou NAO_PARA_CLIENTE.",
+    "ESTADO": "APROVADA_PELO_DONO",
     "ESTADOS_POSSIVEIS": ["AGUARDA_DONO", "APROVADA_PELO_DONO"],
-    "APROVADA_POR": null,
-    "APROVADA_EM": null,
-    "COMO_O_DONO_APROVA": "trocar ESTADO para APROVADA_PELO_DONO e preencher APROVADA_POR e APROVADA_EM, num commit. Fica no diff.",
-    "A_REGRA": "Um pote marcado EXPERIMENTAL · NAO_PARA_CLIENTE e PROMOVIDO a producao quando, e so quando: (1) esta regra esta APROVADA_PELO_DONO; (2) a corrida nao e sintetica (CORRIDA_SINTETICA != true, nenhum id SINT-/DEMO); (3) TODAS as conferencias de CONFERENCIAS passam na mesma corrida do publicador. A marca NAO e apagada do pote: o SHA publicado e o do pote que a Intelligence escreveu, e a faixa EXPERIMENTAL continua visivel no casco ate o dono decidir outra coisa.",
-    "ENSAIO_E_PREVIEW": "Nao sao publicacao ao cliente: correm todas as conferencias, e a promocao aparece no registo como AGUARDA_DONO (nao bloqueia). Um pote sintetico so pode ir a ensaio ou preview, nunca a producao."
+    "APROVADA_POR": "Luciano (dono) — mensagem na sala SINTONIA DIRETORIA, decisao 1 «D126 / PUBLICACAO: SIM»",
+    "APROVADA_EM": "2026-09-28",
+    "TEXTO_DO_DONO": "Se o objeto estiver LIBERADO_PARA_CLIENTE pela Intelligence; todos os gates automaticos passarem; o LAB aprovar o preview pelos criterios ja fixados; a prova levar corretamente ate o arquivo original; nao houver lei, seguranca, contrato ou inconsistencia vermelha; e a publicacao seguir a porta canonica correta: PODE PROMOVER PARA PRODUCAO SEM ME CHAMAR NOVAMENTE. Se qualquer uma dessas condicoes falhar: NAO publica. Nao interpretem isso como autorizacao para publicar material experimental ou NAO_PARA_CLIENTE.",
+    "A_REGRA": "Em PRODUCAO o publicador so publica quando as SEIS condicoes do dono passam NA MESMA CORRIDA; qualquer uma que falhe, ou que nao se consiga medir, BLOQUEIA (fail-closed). A aprovacao do dono NAO promove a marca EXPERIMENTAL do pote: quem libera e a Intelligence, OBJETO POR OBJETO. Um objeto sem a marca de liberacao nunca vai a producao, qualquer que seja a marca do pote.",
+    "AS_SEIS_CONDICOES": [
+      {"N": 1, "O_QUE": "cada objeto LIBERADO_PARA_CLIENTE pela Intelligence (a marca do OBJETO, nunca a do pote)", "CONFERENCIA": "C0_LIBERADO_PARA_CLIENTE"},
+      {"N": 2, "O_QUE": "todos os gates automaticos passam", "CONFERENCIA": "C0_* (forma e lei v2, prova, D122, D123, dado cru, demo), C1_BUILD_GATE, C2_DEPLOY_SURFACE, C3_RELEASE, C5_MONTAGEM, C6_NO_AR"},
+      {"N": 3, "O_QUE": "o LAB aprovou o preview DESTE MESMO pote (o SHA do pote no veredito e o SHA do pote a publicar)", "CONFERENCIA": "C0_VEREDITO_DO_LAB"},
+      {"N": 4, "O_QUE": "a prova leva ate o arquivo original: cada PROVA traz o sha do RAW e o endereco, e o byte e LIDO DE NOVO no armazem e o sha recalculado bate", "CONFERENCIA": "C0_RAW_CONFERIDO_NO_ARMAZEM"},
+      {"N": 5, "O_QUE": "nenhuma lei, seguranca, contrato ou inconsistencia vermelha", "CONFERENCIA": "todo FAIL de qualquer conferencia bloqueia; so o vermelho herdado declarado em VERMELHOS_HERDADOS_DO_RELEASE (por NOME) passa"},
+      {"N": 6, "O_QUE": "a porta canonica correta: producao so pelo implantador que publica de verdade (Vercel --prod, AUTORIDADE_DE_DEPLOY), com alvo de volta conhecido", "CONFERENCIA": "MODO, ANTES_ALVO_DE_VOLTA"}
+    ],
+    "LIBERACAO_POR_OBJETO": {
+      "CAMPO": "LIBERACAO",
+      "VALOR_QUE_LIBERA": "LIBERADO_PARA_CLIENTE",
+      "ESTADO_DO_NOME": "PROVISORIO — a Intelligence ainda passa o nome e o formato do campo (Diretoria, 28/09). Enquanto nenhum objeto o trouxer, TODO pote real e recusado em producao: o lado seguro.",
+      "POTE_COM_OBJETO_NAO_LIBERADO": "o pote inteiro e RECUSADO em producao. O publicador nao filtra nem reescreve o pote (o SHA publicado tem de ser o que a Intelligence escreveu): quem decide o que vai ao cliente e a Intelligence."
+    },
+    "VEREDITO_DO_LAB": {
+      "COMO_CHEGA": "--veredito-lab <ficheiro JSON>",
+      "FORMA": {"POTE_SHA256": "o sha do pote aprovado (sha_do_pote)", "VEREDITO": "APROVADO", "PREVIEW": "o endereco ou id do preview avaliado", "CRITERIO": "id/hash do criterio congelado do LAB", "QUANDO": "data"},
+      "ESTADO_DA_FORMA": "PROVISORIO — CONTRATO NECESSARIO com o LAB. Veredito ausente, ilegivel, de outro pote, sem PREVIEW ou sem CRITERIO = BLOQUEIA."
+    },
+    "RAW_NO_ARMAZEM": {
+      "CAMPOS_DA_PROVA": ["RAW_SHA256", "RAW_STORAGE_PATH"],
+      "ARMAZEM": "guarda/preservar_coleta.py ArmazemLocal na raiz SINTONIA_ARMAZEM_RAIZ (a mesma porta que escreveu os bytes)",
+      "ESTADO_DOS_NOMES": "PROVISORIO — a Sala guarda sha256 e storage_path; o pote ainda nao os copia (a Intelligence corrige no gerador, Diretoria 28/09). Raiz nao declarada, byte ausente ou sha diferente = BLOQUEIA."
+    },
+    "ENSAIO_E_PREVIEW": "Nao sao publicacao ao cliente: correm todas as conferencias; as tres da liberacao (C0_LIBERADO_PARA_CLIENTE, C0_VEREDITO_DO_LAB, C0_RAW_CONFERIDO_NO_ARMAZEM) aparecem como NOTA e nao bloqueiam — o LAB precisa do preview para dar o veredito. Um pote sintetico so pode ir a ensaio ou preview, nunca a producao."
   },
 
   "CONFERENCIAS": [
     {"ID": "C0_POTE", "O_QUE": "o pote: forma e lei v2 (validar_pote_v2), promocao, D122 (evento so com data), D123 (caso -> produto -> bula), nenhum objeto sem prova, nada de dado cru, nada da demo", "ONDE": "no pote, antes de montar"},
+    {"ID": "C0_LIBERADO_PARA_CLIENTE", "O_QUE": "condicao 1 do dono: TODO objeto do pote tem LIBERACAO = LIBERADO_PARA_CLIENTE (marca de cada objeto, dada pela Intelligence). Pote sem objetos, ou com um objeto sem a marca, reprova em producao", "ONDE": "no pote, antes de montar"},
+    {"ID": "C0_VEREDITO_DO_LAB", "O_QUE": "condicao 3 do dono: o veredito do LAB e APROVADO e o POTE_SHA256 dele e o sha deste pote", "ONDE": "no ficheiro --veredito-lab, antes de montar"},
+    {"ID": "C0_RAW_CONFERIDO_NO_ARMAZEM", "O_QUE": "condicao 4 do dono: para cada PROVA, o byte em RAW_STORAGE_PATH e lido no armazem e o sha256 recalculado e RAW_SHA256", "ONDE": "no armazem (SINTONIA_ARMAZEM_RAIZ), antes de montar"},
     {"ID": "C1_BUILD_GATE", "O_QUE": "a proveniencia do artefacto V2.1 (a validacao v2.1 do pacote servido)", "COMANDO": ["node", "italia-portale/audit/build-gate.mjs"], "ONDE": "na copia montada"},
     {"ID": "C2_DEPLOY_SURFACE", "O_QUE": "a superficie publica: o que sobe e o que se serve", "COMANDO": ["node", "italia-portale/audit/deploy-surface.mjs"], "ONDE": "na copia montada"},
     {"ID": "C3_RELEASE", "O_QUE": "os tres jobs do portao do release (proveniencia, System Map, os 73 portoes do portal), lidos do workflow — nao copiados", "FONTE": ".github/workflows/portao-do-release.yml em RELEASE_REF", "ONDE": "na copia montada, ANTES de o envelope ser escrito: e o portao do CODIGO, e os 73 portoes medem o casco sem pote"},

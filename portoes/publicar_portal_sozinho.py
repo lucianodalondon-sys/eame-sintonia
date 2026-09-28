@@ -108,8 +108,11 @@ def linha(ident, ok, detalhe, nota=None):
     return d
 
 
-def conferir_pote(pote: dict, contrato: dict, modo: str) -> list:
-    """C0 — o pote, antes de montar seja o que for. Devolve linhas; qualquer FAIL bloqueia."""
+def conferir_pote(pote: dict, contrato: dict, modo: str, veredito_lab=None, armazem=None) -> list:
+    """C0 — o pote, antes de montar seja o que for. Devolve linhas; qualquer FAIL bloqueia.
+
+    veredito_lab: o dict do veredito do LAB (ou None). armazem: a porta do armazem com os bytes do RAW
+    (guarda/preservar_coleta.Armazem) ou None — em producao, None = a da raiz SINTONIA_ARMAZEM_RAIZ."""
     L = []
     # 1 · a forma e a lei do contrato unico (o validador do pote v2 — schema + conferir_pote)
     v = V2.validar(pote)
@@ -198,7 +201,92 @@ def conferir_pote(pote: dict, contrato: dict, modo: str) -> list:
     else:
         L.append(linha("C0_PROMOCAO", True, [f"regra de promocao {prom.get('ESTADO')}"],
                        nota=f"{modo}: nao e publicacao ao cliente; em producao a regra tem de estar APROVADA_PELO_DONO"))
+
+    # 8-10 · as tres conferencias da liberacao (decisao do dono de 28/09 — REGRA_DE_PROMOCAO.AS_SEIS_CONDICOES)
+    for ident, ok, det in (conferir_liberacao(pote, prom),
+                           conferir_veredito_do_lab(pote, prom, veredito_lab),
+                           conferir_raw_no_armazem(pote, prom, armazem, modo)):
+        if modo == "producao":
+            L.append(linha(ident, ok, det))
+        else:
+            L.append(linha(ident, True, det, nota=None if ok else
+                           f"{modo}: nao e publicacao ao cliente — em producao ESTA conferencia reprova"))
     return L
+
+
+# ── A LIBERACAO (decisao do dono, 28/09) ─────────────────────────────────────
+def conferir_liberacao(pote: dict, prom: dict):
+    """Condicao 1: cada OBJETO traz a marca de liberacao da Intelligence. A marca do pote nao conta."""
+    reg = prom["LIBERACAO_POR_OBJETO"]
+    campo, valor = reg["CAMPO"], reg["VALOR_QUE_LIBERA"]
+    objs = list(_objetos(pote))
+    if not objs:
+        return "C0_LIBERADO_PARA_CLIENTE", False, ["pote sem objetos: nada a liberar"]
+    nao = [f"{k}/{o.get('OBJETO_ID')}: {campo} = {o.get(campo, 'ausente')!r}" for k, o in objs
+           if o.get(campo) != valor]
+    return ("C0_LIBERADO_PARA_CLIENTE", not nao,
+            nao[:12] + ([f"... e mais {len(nao) - 12}"] if len(nao) > 12 else []) if nao
+            else [f"{len(objs)} de {len(objs)} objetos {campo} = {valor}"])
+
+
+def conferir_veredito_do_lab(pote: dict, prom: dict, veredito):
+    """Condicao 3: o LAB aprovou o preview DESTE pote (o SHA dele e o deste pote)."""
+    if not isinstance(veredito, dict):
+        return "C0_VEREDITO_DO_LAB", False, ["sem veredito do LAB (--veredito-lab)"]
+    sha = sha_do_pote(pote)
+    falta = []
+    if veredito.get("VEREDITO") != "APROVADO":
+        falta.append(f"VEREDITO = {veredito.get('VEREDITO')!r} (precisa APROVADO)")
+    if veredito.get("POTE_SHA256") != sha:
+        falta.append(f"veredito de outro pote: {str(veredito.get('POTE_SHA256'))[:12]} != {sha[:12]}")
+    for c in ("PREVIEW", "CRITERIO"):
+        if not _sabido(veredito.get(c)):
+            falta.append(f"veredito sem {c}")
+    return ("C0_VEREDITO_DO_LAB", not falta,
+            falta or [f"LAB APROVADO para o pote {sha[:12]} · preview {veredito['PREVIEW']} · criterio {veredito['CRITERIO']}"])
+
+
+def _armazem_da_raiz():
+    from guarda.preservar_coleta import ArmazemLocal, VARIAVEL_DA_RAIZ  # noqa: E402 — so em producao
+    raiz = (os.environ.get(VARIAVEL_DA_RAIZ) or "").strip()
+    if not raiz:
+        raise RuntimeError(f"{VARIAVEL_DA_RAIZ} nao declarada: nao sei onde esta o armazem")
+    return ArmazemLocal(raiz)
+
+
+def conferir_raw_no_armazem(pote: dict, prom: dict, armazem, modo: str):
+    """Condicao 4: cada PROVA leva ao arquivo original — o byte e LIDO no armazem e o sha256 recalculado bate."""
+    sha_c, lugar_c = prom["RAW_NO_ARMAZEM"]["CAMPOS_DA_PROVA"]
+    provas = [(k, o, p) for k, o in _objetos(pote) for p in (o.get("PROVA") or [])]
+    if not provas:
+        return "C0_RAW_CONFERIDO_NO_ARMAZEM", False, ["nenhuma prova para conferir"]
+    if armazem is None and modo == "producao":
+        try:
+            armazem = _armazem_da_raiz()
+        except Exception as e:  # noqa: BLE001 — fail-closed
+            return "C0_RAW_CONFERIDO_NO_ARMAZEM", False, [str(e)]
+    mal, vistos = [], {}
+    for k, o, p in provas:
+        onde = f"{k}/{o.get('OBJETO_ID')}"
+        sha, lugar = (p or {}).get(sha_c), (p or {}).get(lugar_c)
+        if not (isinstance(sha, str) and re.fullmatch(r"[0-9a-f]{64}", sha)):
+            mal.append(f"{onde}: prova sem {sha_c} (= {sha!r})")
+            continue
+        if not _sabido(lugar):
+            mal.append(f"{onde}: prova sem {lugar_c}")
+            continue
+        if armazem is None:
+            mal.append(f"{onde}: armazem nao disponivel neste modo — nao conferido")
+            continue
+        if lugar not in vistos:
+            try:
+                vistos[lugar] = hashlib.sha256(armazem.ler(lugar)).hexdigest()
+            except Exception as e:  # noqa: BLE001 — byte ausente = nao prova
+                vistos[lugar] = f"ILEGIVEL ({type(e).__name__})"
+        if vistos[lugar] != sha:
+            mal.append(f"{onde}: {lugar} no armazem da {vistos[lugar][:16]} != {sha_c} {sha[:16]}")
+    return ("C0_RAW_CONFERIDO_NO_ARMAZEM", not mal,
+            mal[:12] or [f"{len(provas)} provas, {len(vistos)} arquivos originais relidos no armazem, sha256 bate"])
 
 
 def envelope(pote: dict, sha: str, contrato: dict, modo: str, arvore: str) -> dict:
@@ -642,8 +730,9 @@ class Publicador:
     sao metodos, para a prova as poder trocar sem mexer na decisao."""
 
     def __init__(self, contrato, implantador: Implantador, registro: Path, modo: str, arvore: str = "HEAD",
-                 espera_no_ar: int = 180):
+                 espera_no_ar: int = 180, veredito_lab=None, armazem=None):
         self.c, self.imp, self.registro, self.modo, self.arvore = contrato, implantador, Path(registro), modo, arvore
+        self.veredito_lab, self.armazem = veredito_lab, armazem
         self.espera = espera_no_ar
         self.tmp = None
 
@@ -726,7 +815,7 @@ class Publicador:
             return fim("BLOQUEADO", BLOQUEADO)
 
         # C0 — o pote
-        L0 = conferir_pote(pote, self.c, self.modo)
+        L0 = conferir_pote(pote, self.c, self.modo, self.veredito_lab, self.armazem)
         R["CONFERENCIAS"] += L0
         _imprimir(L0)
         if _falhou(L0):
@@ -839,9 +928,11 @@ def main(argv=None) -> int:
     ap.add_argument("--arvore", default="HEAD", help="o codigo a publicar (ref do git)")
     ap.add_argument("--registro", default=str(RAIZ / "PUBLICACOES"))
     ap.add_argument("--host-ensaio", default=None, help="pasta do anfitriao local do ensaio")
+    ap.add_argument("--veredito-lab", default=None, help="o veredito do LAB para ESTE pote (JSON) — exigido em producao")
     a = ap.parse_args(argv)
     try:
         pote = ler_pote(a.pote)
+        veredito = json.loads(Path(a.veredito_lab).read_text(encoding="utf-8")) if a.veredito_lab else None
     except (OSError, ValueError) as e:
         print(f"ILEGIVEL: {e}")
         return USO
@@ -853,7 +944,8 @@ def main(argv=None) -> int:
     else:
         imp = VercelCLI(prod=(a.modo == "producao"))
     try:
-        return Publicador(contrato, imp, Path(a.registro), a.modo, a.arvore).publicar(pote, origem=str(a.pote))
+        return Publicador(contrato, imp, Path(a.registro), a.modo, a.arvore,
+                          veredito_lab=veredito).publicar(pote, origem=str(a.pote))
     finally:
         imp.fechar()
 
