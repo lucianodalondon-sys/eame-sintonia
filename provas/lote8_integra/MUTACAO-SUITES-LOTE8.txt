@@ -1,0 +1,106 @@
+# LOTE8-INTEGRA · suites de mutacao dos ramos + lote7 tocadas (worktree 7641675; porta_unica e social refeitas em 4bc57cd)
+=== coleta_continua :: python3 provas/coleta_continua_mutacao.py
+RC=0 coleta_continua
+M28_ERRO_NAO_PARA MORTO
+M29_INTERRUPTOR_IGNORADO MORTO
+COLETA_CONTINUA_MUTACAO · mortos=29 de 29
+=== feed_ligado :: python3 provas/scrap_evolucao/mutantes_feed_ligado.py
+RC=0 feed_ligado
+MORTO       PREVISAO: o item com corpo tambem cabe nos 3 do teto
+MORTO       CONTRATO: a entrada de uma linha de feed continua a ser o INDEX_URL
+MORTOS 21/21
+=== social_ate_a_sala :: python3 provas/_mutantes_social_ate_a_sala.py
+RC=0 social_ate_a_sala
+  A9 --aplicar sem --copia deixa escrever                      MORTA
+
+MUTACOES 37 · MORTAS 37 · SOBREVIVENTES 0 · LIVROS VIVOS MUDADOS 0
+=== d36 :: python3 provas/_mutantes_d36_equivalencia.py
+RC=0 d36
+  M9 · o som guardado deixa de ter de nomear o video               MORTA
+
+MUTACOES 9 · MORTAS 9 · SOBREVIVENTES 0
+=== chave_problema :: python3 provas/chave_problema/mutacao_chave_problema.py --saida=/tmp/cp.json
+RC=0 chave_problema
+M15 MORTO test_E3_mesmo_codigo_duas_vezes_nao_repete
+M16 MORTO test_E6_aplicar_exige_a_canonica_a_mesma_versao_e_so_usa_rever
+16/16 MORTOS
+=== ligacao_adama :: python3 provas/ligacao_adama/mutantes.py /tmp/la.json
+RC=0 ligacao_adama
+E1 o pote aceita ligacoes de duas edicoes: MORTO  <- test_F4_edicoes_misturadas_num_pote_reprovam
+
+MUTACAO: 25/25 mortos · vivos 0 · nao aplicados 0
+=== acervo :: python3 provas/acervo_na_intelligence/mutantes.py /tmp/ac.json
+RC=0 acervo
+I4 o Archivio guarda tambem o que o pote recusou: MORTO  <- test_A5_o_pote_commitado_e_o_que_a_arvore_regera, test_A9_o_archivio_so_guarda_o_que_atravessou
+
+MUTACAO: 18/18 mortos · vivos 0 · nao aplicados 0
+=== porta_unica :: python3 provas/porta_unica_referencia/mutantes.py
+RC=2 porta_unica
+
+FAILED (errors=1)
+
+=== cruzamentos_max :: python3 provas/_mutantes_cruzamentos_max.py
+RC=0 cruzamentos_max
+K3 --so-cruzamentos leva os objetos da R7: MORTO  <- test_H7_objetos_da_r7_mantidos_salvo_so_cruzamentos
+
+MUTACAO: 31/31 mortos · vivos 0 · nao aplicados 0
+=== pote_v2 :: python3 provas/pote_v2/mutantes_pote_v2_unico.py
+RC=0 pote_v2
+K6 portal: o leitor so e chamado com pote (o «pedido e ausente» cai no legado): MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+
+MUTACAO: 25/25 mortos · vivos 0 · nao aplicados 0
+=== pote_casco :: python3 provas/_mutantes_pote_casco.py
+RC=0 pote_casco
+H3 o bloco do pote sem a faixa EXPERIMENTAL: MORTO · 1 testes caem · test_L1_o_casco_desenha_o_pote_com_precedencia_e_sem_regra_de_cruzamento
+
+MUTACAO: 29/29 mortos · vivos 0 · nao aplicados 0
+=== busca_actions :: python3 provas/busca_no_actions/mutantes_busca_actions.py
+RC=0 busca_actions
+MORTO       o push dispara no ramo de codigo
+MORTO       input direto num run
+MORTOS 17/17
+=== scrap_evolucao :: python3 provas/scrap_evolucao/mutantes_scrap_evolucao.py
+RC=0 scrap_evolucao
+MORTO       P6: validador aceita pagina desenhada sem rotulo
+MORTO       P6: qualquer fonte pode pedir
+MORTOS 26/26
+FIM
+
+=== porta_unica + social refeitas em 4bc57cd
+base: verde na copia
+L1 cap_win abre o PORTFOLIO por fora: MORTO  <- test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas, test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora
+L2 cruzamentos_max volta a ler os pares do leitor: MORTO  <- test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas, test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora
+L3 concorrencia_meta le o CSV do Ministero: MORTO  <- test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas, test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora
+L4 boletim le o COMMERCIAL-CATALOG: MORTO  <- test_A1_ninguem_le_por_fora_alem_das_excecoes_declaradas, test_A2_nenhum_religado_esta_nas_excecoes_nem_le_por_fora, test_B5_boletim, test_I4_os_consumidores_herdam_da_porta
+E1 a porta aceita livros de edicoes diferentes: MORTO  <- test_C1_um_livro_de_outra_edicao_derruba_a_referencia_inteira, test_C2_duas_fotos_correntes
+E2 a porta aceita o catalogo misturado: MORTO  <- test_C3_catalogo_misturado
+E3 o motor abre a porta duas vezes (WIN numa edicao, SCI noutra): MORTO  <- test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades
+K1 registo na vitrine conta como autorizado: MORTO  <- test_D1_na_vitrine_com_registo_inativo_nao_e_autorizado
+K2 os livros do catalogo entram na metade do registo: MORTO  <- test_D3_as_metades_nao_se_misturam
+F1 os 30 dias nao existem: MORTO  <- test_E1_os_tres_degraus_do_d117, test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_E5_cap_sci_marca_a_ligacao_a_confirmar, test_E6_cruzamentos_nao_confirma_com_referencia_velha
+F2 os 14 dias nao existem: MORTO  <- test_E1_os_tres_degraus_do_d117, test_E4_aos_14_a_resposta_sai_com_aviso
+F3 a resposta ignora o frescor: MORTO  <- test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada
+F4 frescor contado da data do ficheiro, e nao da checagem: MORTO  <- test_E1_os_tres_degraus_do_d117, test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_E4_aos_14_a_resposta_sai_com_aviso, test_E5_cap_sci_marca_a_ligacao_a_confirmar
+F5 cap_sci ignora o frescor: MORTO  <- test_E5_cap_sci_marca_a_ligacao_a_confirmar
+F6 cruzamentos confirma com referencia velha: MORTO  <- test_E6_cruzamentos_nao_confirma_com_referencia_velha
+F7 sem data de checagem = fresca: MORTO  <- test_E2_sem_data_de_checagem_e_a_confirmar
+B1 bula nao lida some (vira «nao»): MORTO  <- test_G1_sem_uso_lido_e_com_bula_ativa_nao_lida_e_a_confirmar
+C1 a checagem confirma sempre: MORTO  <- test_F3_bruto_divergente_nao_confirma
+C2 o carimbo nao e o sha do livro: MORTO  <- test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades, test_H1_o_carimbo_e_o_sha_do_ficheiro, test_H2_mexer_num_livro_muda_a_impressao
+C3 cap_win nao carimba a edicao: MORTO  <- test_B2_cap_win_carimba_e_responde_produtos, test_B3_motor_usa_UMA_referencia_para_as_duas_capacidades
+G1 a declaracao de produto entra nos niveis que autorizam: MORTO  <- test_I1_a_regra_unica, test_I2_nenhum_autorizado_da_porta_vem_de_declaracao, test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque, test_I4_os_consumidores_herdam_da_porta
+G2 a regra ignora o nivel de ligacao: MORTO  <- test_I1_a_regra_unica, test_I2_nenhum_autorizado_da_porta_vem_de_declaracao, test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque, test_I4_os_consumidores_herdam_da_porta
+G3 nivel ausente autoriza: MORTO  <- test_I1_a_regra_unica
+G4 autorizados: qualquer uso lido vira SIM: MORTO  <- test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_I2_nenhum_autorizado_da_porta_vem_de_declaracao, test_I3_par_so_de_declaracao_sai_a_confirmar_com_o_porque, test_I4_os_consumidores_herdam_da_porta
+G5 por_alvo: registo nasce autorizado: MORTO  <- test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_I4_os_consumidores_herdam_da_porta, test_I5_por_alvo_so_diz_cultura_na_bula_quando_o_grao_une
+G6 por_alvo: cultura so declarada conta como cultura na bula: MORTO  <- test_I5_por_alvo_so_diz_cultura_na_bula_quando_o_grao_une
+G7 a regra ignora o frescor (D117): MORTO  <- test_E3_aos_30_dias_nenhuma_autorizacao_sai_afirmada, test_E5_cap_sci_marca_a_ligacao_a_confirmar, test_I1_a_regra_unica
+G8 cap_sci faz o seu proprio SIM (qualquer uso): MORTO  <- test_E5_cap_sci_marca_a_ligacao_a_confirmar, test_I4_os_consumidores_herdam_da_porta
+G9 cruzamentos_max reescreve os niveis com a declaracao: MORTO  <- test_I6_a_regra_mora_so_na_porta
+
+MUTACAO: 29/29 mortos · vivos 0 · nao aplicados 0
+  A7 sem politica medida desbloqueia na mesma                  MORTA
+  A8 a pessoa leva a decisao da organizacao                    MORTA
+  A9 --aplicar sem --copia deixa escrever                      MORTA
+
+MUTACOES 37 · MORTAS 37 · SOBREVIVENTES 0 · LIVROS VIVOS MUDADOS 0

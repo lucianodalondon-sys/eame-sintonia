@@ -108,7 +108,39 @@ JSON: `provas/lote8_integra/BATERIA-BASE-b273660.json`, `…/BATERIA-DEPOIS-7641
 
 ## 5 · Mutação
 
-MUTACAO
+**Junções** — `provas/lote8_integra/mutacao_lote8.py` sobre `609a471` → `MUTACAO-JUNCOES-LOTE8.json`: **14/14 MORTOS**,
+cada um pelo teste certo:
+
+| mutante | apanhado por |
+|---|---|
+| G1 a ligação redefine o grão (igual) · G2 (com DECLARAÇÃO) · G3 lista própria de níveis | `J1` · `C3`+`J1` · `J2` |
+| A1 acervo sem a porta no ctx · A2 concorrente sem ligação · A3 mercado com ligação à mão · A4 voz sem a porta · A5 arquivo perde a ligação | `KeyError`/`C9` · `A5`/`B1` · `JA1` · `JA2` · `A5` |
+| B1 busca sem a conta no Reel | `JB1`, `JB2` |
+| L1 linha entra só por o ficheiro existir | `JL2` |
+| D1/D2 download (simples/condicional) antes da decisão | paridade «a DECISAO vem ANTES do download» |
+| S1 a coleta volta a ler o registo do curador | `test_a_pasta_coleta_nao_tem_executor_para_o_feed` |
+| P6 volta ao `split('\n')` com checkout CRLF | `P6 sintonia-pote.js esta no .gitignore … .vercelignore` |
+
+**Suítes próprias dos ramos e as do lote 7 que tocam peças mexidas** (árvore integrada; log em
+`provas/lote8_integra/MUTACAO-SUITES-LOTE8.txt`) — **0 VIVOS**:
+
+| peça | suíte | resultado |
+|---|---|---|
+| coleta contínua | `provas/coleta_continua_mutacao.py` | **29/29** |
+| FEED-LIGADO | `provas/scrap_evolucao/mutantes_feed_ligado.py` | **21/21** |
+| social até a Sala | `provas/_mutantes_social_ate_a_sala.py` | **37/37** (livros vivos mudados 0; refeita no código final) |
+| D36 (ajuste do social) | `provas/_mutantes_d36_equivalencia.py` | **9/9** |
+| PROBLEMA/v1 | `provas/chave_problema/mutacao_chave_problema.py` | **16/16** |
+| LIGAÇÃO-ADAMA | `provas/ligacao_adama/mutantes.py` | **25/25** |
+| acervo | `provas/acervo_na_intelligence/mutantes.py` | **18/18** |
+| porta única + grão (lote 7) | `provas/porta_unica_referencia/mutantes.py` | **29/29** (em `4bc57cd`, depois da J8; antes a cópia limpa reprovava — RC=2, sem veredito) |
+| cruzamentos-max | `provas/_mutantes_cruzamentos_max.py` | **31/31** |
+| pote v2 único | `provas/pote_v2/mutantes_pote_v2_unico.py` | **25/25** |
+| pote no casco | `provas/_mutantes_pote_casco.py` | **29/29** |
+| busca no Actions (linha-busca mexida) | `provas/busca_no_actions/mutantes_busca_actions.py` | **17/17** |
+| scrap-evolução (coletor mexido) | `provas/scrap_evolucao/mutantes_scrap_evolucao.py` | **26/26** |
+
+Total: **14 + 312 = 326 mortos, 0 vivos.**
 
 ## 6 · System Map
 
@@ -193,4 +225,20 @@ se liga com `py regras/ligar_feeds.py --aplicar` (FEED-LIGADO.md §4; ele escrev
 
 ## EM PALAVRAS SIMPLES
 
-EM_PALAVRAS
+Juntei numa árvore só, em cima do que está a rodar hoje, as seis entregas aprovadas: a coleta que anda **fonte a
+fonte** em vez de turma a turma, o **feed** que traz notícias inteiras sem gastar visita, o caminho das **redes
+sociais até a Sala**, a **praga como chave** da coleta, a **etiqueta da bula ADAMA** em todo fato, e o **acervo
+antigo** passando pela Inteligência (nada dele vai direto ao portal).
+
+Cada entrega tinha sido testada sozinha. Juntas, conferi oito encaixes; seis precisavam de conserto: a etiqueta da bula tinha
+reescrito por cima a regra do «grão» (quem mandava deixou de mandar — voltou a haver um dono só); o acervo quebrava
+porque agora todo fato precisa da etiqueta (pus a etiqueta, feita pela porta oficial; todos dizem «não sei» porque
+falta a cultura); a busca mandava um tipo de endereço de Reel para o lugar errado; o social lia um caderno que é do
+curador (agora pergunta ao curador); e dois testes/ferramentas tinham âncoras velhas. Corrigi também o teste P6 que
+falhava no Windows por causa do fim de linha — o defeito era do teste, não da regra.
+
+Resultado: nenhum teste que passava passou a falhar (Python e Node, comparados pelo nome). Estraguei o código de
+326 jeitos de propósito e os testes pegaram os 326. O limite de 5 visitas por site continua no código, mas agora
+escrito como **freio temporário** (decisão do dono, D124), até o teto adaptativo chegar. A CNR continua no plano —
+é decisão sua. **Nada foi instalado:** o checklist do §7 é para o coordenador, e a coleta contínua liga-se primeiro
+em **canário de 1 ciclo** (§7b).
