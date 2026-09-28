@@ -1,0 +1,198 @@
+{
+ "DATASET": "REPLAY-REROUTE-D56-V1",
+ "SO_LEITURA": true,
+ "VERSAO_DA_REGRA": "10",
+ "VERSAO_DO_REROUTE": "1",
+ "REROUTE_ENTRA_NA_SALA": true,
+ "LIVRO": {
+  "DECISOES": 1243,
+  "SEM_TEXTO_NO_REPO": 600,
+  "DOCUMENTOS_COM_TEXTO": 193,
+  "PARES_DOCUMENTO_PEDIDO": 236,
+  "SALA": {
+   "ANTES": {
+    "LINHAS_NA_SALA": 19,
+    "DOCUMENTOS_DISTINTOS": 19,
+    "POR_UNIVERSO": {
+     "T5": 2,
+     "T10": 17
+    }
+   },
+   "DEPOIS": {
+    "ITENS_NA_SALA": 25,
+    "GAVETAS": 37,
+    "ITENS_COM_MAIS_DE_UMA_GAVETA": 7,
+    "POR_GAVETA": {
+     "T1": 7,
+     "T2": 8,
+     "T3": 3,
+     "T5": 2,
+     "T10": 17
+    }
+   },
+   "SIM_PERDIDOS": []
+  },
+  "REROUTE_POR_UNIVERSO": {
+   "T1": {
+    "NAO": 58,
+    "NAO_SEI": 73,
+    "SIM": 14
+   },
+   "T2": {
+    "NAO": 90,
+    "SIM": 15,
+    "NAO_SEI": 40
+   },
+   "T3": {
+    "NAO": 101,
+    "NAO_SEI": 38,
+    "SIM": 6
+   },
+   "T4": {
+    "NAO_SEI": 50,
+    "NAO": 95
+   },
+   "T5": {
+    "NAO": 80,
+    "NAO_SEI": 58
+   },
+   "T6": {
+    "NAO_SE_APLICA": 145
+   },
+   "T7": {
+    "NAO": 48,
+    "NAO_SEI": 57
+   },
+   "T8": {
+    "NAO_SE_APLICA": 145
+   },
+   "T9": {
+    "NAO": 37,
+    "NAO_SEI": 108
+   },
+   "T10": {
+    "NAO": 40,
+    "NAO_SEI": 7
+   },
+   "T11": {
+    "NAO_SE_APLICA": 145
+   },
+   "T12": {
+    "NAO_SE_APLICA": 145
+   }
+  },
+  "PEDIDO_PAROU_NUM_PORTAO": {
+   "origem": 72,
+   "materia": 19
+  },
+  "APERTOS_DO_REROUTE": {
+   "CORPO_NAO_SEPARAVEL|T1": 17,
+   "CORPO_NAO_SEPARAVEL|T2": 17,
+   "CORPO_NAO_SEPARAVEL|T3": 17,
+   "CORPO_NAO_SEPARAVEL|T4": 17,
+   "CORPO_NAO_SEPARAVEL|T5": 17,
+   "CORPO_NAO_SEPARAVEL|T7": 17,
+   "CORPO_NAO_SEPARAVEL|T9": 17,
+   "REROUTE_REGUA_SEM_MEDIDA|T4": 8,
+   "REROUTE_REGUA_SEM_MEDIDA|T5": 9,
+   "T9_SEM_CONCORRENTE_NOMEADO|T9": 28
+  },
+  "PEDIDOS_QUE_SO_ENTRAM_POR_REROUTE": 13,
+  "NOVOS_SIM": 18
+ },
+ "ACERVO_INTEIRO_HIPOTESE": {
+  "PERGUNTA": "cada documento versionado pedido pelo territorio da SUA fonte (IT-T7-... -> T7), e reencaminhado pela D56. NAO e o que o livro fez; e o tamanho da materia.",
+  "DOCUMENTOS": 223,
+  "SALA": {
+   "ANTES": {
+    "LINHAS_NA_SALA": 38,
+    "DOCUMENTOS_DISTINTOS": 38,
+    "POR_UNIVERSO": {
+     "T2": 4,
+     "T3": 4,
+     "T5": 2,
+     "T10": 28
+    }
+   },
+   "DEPOIS": {
+    "ITENS_NA_SALA": 40,
+    "GAVETAS": 51,
+    "ITENS_COM_MAIS_DE_UMA_GAVETA": 8,
+    "POR_GAVETA": {
+     "T1": 7,
+     "T2": 10,
+     "T3": 4,
+     "T5": 2,
+     "T10": 28
+    }
+   },
+   "SIM_PERDIDOS": []
+  },
+  "REROUTE_POR_UNIVERSO": {
+   "T1": {
+    "NAO": 78,
+    "NAO_SEI": 108,
+    "SIM": 7
+   },
+   "T2": {
+    "NAO": 120,
+    "SIM": 6,
+    "NAO_SEI": 63
+   },
+   "T3": {
+    "NAO": 137,
+    "NAO_SEI": 52
+   },
+   "T4": {
+    "NAO_SEI": 71,
+    "NAO": 122
+   },
+   "T5": {
+    "NAO": 108,
+    "NAO_SEI": 83
+   },
+   "T6": {
+    "NAO_SE_APLICA": 193
+   },
+   "T7": {
+    "NAO_SEI": 48,
+    "NAO": 46
+   },
+   "T8": {
+    "NAO_SE_APLICA": 193
+   },
+   "T9": {
+    "NAO": 42,
+    "NAO_SEI": 151
+   },
+   "T10": {
+    "NAO": 92,
+    "NAO_SEI": 17
+   },
+   "T11": {
+    "NAO_SE_APLICA": 193
+   },
+   "T12": {
+    "NAO_SE_APLICA": 193
+   }
+  },
+  "PEDIDO_PAROU_NUM_PORTAO": {
+   "materia": 30
+  },
+  "APERTOS_DO_REROUTE": {
+   "CORPO_NAO_SEPARAVEL|T1": 28,
+   "CORPO_NAO_SEPARAVEL|T2": 28,
+   "CORPO_NAO_SEPARAVEL|T3": 28,
+   "CORPO_NAO_SEPARAVEL|T4": 28,
+   "CORPO_NAO_SEPARAVEL|T5": 28,
+   "CORPO_NAO_SEPARAVEL|T7": 28,
+   "CORPO_NAO_SEPARAVEL|T9": 28,
+   "REROUTE_REGUA_SEM_MEDIDA|T4": 7,
+   "REROUTE_REGUA_SEM_MEDIDA|T5": 12,
+   "REROUTE_REGUA_SEM_MEDIDA|T7": 1,
+   "T9_SEM_CONCORRENTE_NOMEADO|T9": 40
+  },
+  "PEDIDOS_QUE_SO_ENTRAM_POR_REROUTE": 2,
+  "NOVOS_SIM": 13
+ }
+}

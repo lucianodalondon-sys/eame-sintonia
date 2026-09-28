@@ -768,25 +768,46 @@ def pela_porta(itens: list, universo: str, run_id: str, armazem=None) -> dict:
             # ela responde ERRO — que NAO e rejeicao. `erro_de_leitura` e o
             # campo que a propria admissao ja usa para isto.
             prontos.append(dict(x, erro_de_leitura=str(ex)))
-    decisoes = [adm.decidir(x, universo, corrida=run_id) for x in prontos]
+    # ── D56 · O REROUTE: o item pronto e perguntado a TODAS as reguas ───────
+    # `decidir_todas` devolve a decisao do PEDIDO (`decidir`, tal e qual) e, se o
+    # item passou os portoes de prontidao, uma por cada outro universo do Atlas.
+    # TODAS vao para o livro; a Sala recebe UM READY por item (a gaveta da linha,
+    # `principal`) e as outras gavetas aprovadas ao lado (`gavetas_para_a_sala`).
+    por_item = [adm.decidir_todas(x, universo, corrida=run_id) for x in prontos]
+    decisoes = [ds[0] for ds in por_item]          # as do PEDIDO: o recibo de sempre
     itens = prontos
-    if decisoes:
-        adm.escrever(decisoes)
+    if por_item:
+        adm.escrever([d for ds in por_item for d in ds])
 
-    aceites = []
-    for x, d in zip(itens, decisoes):
-        if d.resultado == adm.SIM:
-            aceites.append(adm.pronto_para_inteligencia(x, d))
+    aceites, gavetas = [], {}
+    so_por_reroute = com_gaveta_extra = 0
+    for x, ds in zip(itens, por_item):
+        d = adm.principal(ds)
+        if d is None:
+            continue
+        ready = adm.pronto_para_inteligencia(x, d)
+        aceites.append(ready)
+        g = adm.gavetas_para_a_sala(ds)
+        if g:
+            gavetas[ready["ITEM_ID"]] = g
+        so_por_reroute += d is not ds[0]
+        com_gaveta_extra += len(g) > 1
     # A ESCRITA E DO DONO DA ESPERA. Aqui so se diz o que foi admitido.
     # D79 (DEDUP-PARA-INSTALAR): quem pousa entrega ao decisor de versoes o armazem
     # (para ler o RAW anterior) e os extratores (para o re-extrair). Sem eles, «o
     # extrator mudou» e sempre NAO SEI. Import tardio: so quem pousa o carrega.
     from coleta.extratores_de_texto import registo as _extratores
-    recibo = espera.pousar(run_id, aceites, armazem=armazem, extratores=_extratores())
+    recibo = espera.pousar(run_id, aceites, armazem=armazem, extratores=_extratores(),
+                           gavetas=gavetas)
 
     conta: dict = {}
     for d in decisoes:
         conta[d.resultado] = conta.get(d.resultado, 0) + 1
+    reroute: dict = {}
+    for ds in por_item:
+        for d in ds[1:]:
+            reroute.setdefault(d.universo, {}).setdefault(d.resultado, 0)
+            reroute[d.universo][d.resultado] += 1
     # ── QUANTOS DOS JULGADOS TRAZIAM O CARIMBO DA PORTA ────────────────────
     # Sem este numero, mandar a lista ORIGINAL a admissao em vez da que saiu do
     # ingresso e uma troca invisivel: as duas tem o mesmo tamanho, os mesmos
@@ -820,6 +841,13 @@ def pela_porta(itens: list, universo: str, run_id: str, armazem=None) -> dict:
         for c in f["AUSENTES"]:
             ausentes[c] = ausentes.get(c, 0) + 1
     return {"itens": len(itens), "por_resultado": conta, "prontos": len(aceites),
+            # D56: o que as outras reguas disseram, e o que isso mudou na Sala
+            "REROUTE": {"LIGADO": adm.REROUTE_ENTRA_NA_SALA,
+                        "NA_SALA_D130": sorted(adm.REROUTE_NA_SALA_D130),
+                        "POR_UNIVERSO": {u: reroute[u] for u in sorted(reroute)},
+                        "ITENS_SO_POR_REROUTE": so_por_reroute,
+                        "ITENS_COM_GAVETA_EXTRA": com_gaveta_extra,
+                        "GAVETAS_NOVAS_NA_SALA": recibo.get("GAVETAS_NOVAS", 0)},
             "ficheiro": recibo["FICHEIRO"] or "",
             "espera": recibo["ESTADO"],
             "FRONTEIRA": {

@@ -302,6 +302,57 @@ def _conferir_unidades(unidades):
                              % (i, u["ESTADO"]))
 
 
+# ── D56 · AS GAVETAS DE UM ITEM (REROUTE-D56, 28/09) ─────────────────────
+# Um item que deu SIM em varios universos e UMA linha na Sala; as outras gavetas
+# aprovadas apontam para ela em `sala_de_espera_gaveta` (033), sem texto, sem
+# bytes e sem proveniencia. O READY NAO muda: `UNIVERSO` continua a ser a gaveta
+# da LINHA, e a impressao da corrida continua a assinar so os READY — as gavetas
+# so ACRESCENTAM, e acrescentar a mesma gaveta duas vezes nao escreve nada.
+#
+#     UM DOCUMENTO, UMA LINHA. VARIAS PERGUNTAS, VARIAS GAVETAS.
+#
+# `gavetas` = {ITEM_ID: [{UNIVERSO, PONTUACAO, MOTIVO}]}, construido por
+# `admissao.gavetas_para_a_sala()` — TODAS as aprovadas, a da linha incluida.
+CAMPOS_DA_GAVETA = ("UNIVERSO", "PONTUACAO", "MOTIVO")
+
+
+def _conferir_gavetas(unidades, gavetas):
+    """{ITEM_ID: [gaveta]} conferido contra as unidades, ou {}. Levanta se nao bate."""
+    if not gavetas:
+        return {}
+    por_item = {u["ITEM_ID"]: u for u in unidades}
+    fora = {}
+    for item_id, lista in gavetas.items():
+        if item_id not in por_item:
+            raise ValueError("gaveta para um item que nao esta nesta corrida: %r" % (item_id,))
+        vistos = set()
+        for g in lista:
+            if set(g) != set(CAMPOS_DA_GAVETA):
+                raise ValueError("gaveta de %r nao tem a forma %s: %r"
+                                 % (item_id, CAMPOS_DA_GAVETA, sorted(g)))
+            if not str(g["UNIVERSO"]).strip() or not str(g["MOTIVO"]).strip():
+                raise ValueError("gaveta de %r sem universo ou sem motivo" % (item_id,))
+            if not isinstance(g["PONTUACAO"], int) or isinstance(g["PONTUACAO"], bool) \
+                    or g["PONTUACAO"] < 1:
+                raise ValueError("gaveta de %r com pontuacao %r: tem de ser inteiro >= 1"
+                                 % (item_id, g["PONTUACAO"]))
+            if g["UNIVERSO"] in vistos:
+                raise ValueError("gaveta %s repetida para %r" % (g["UNIVERSO"], item_id))
+            vistos.add(g["UNIVERSO"])
+        if lista and por_item[item_id]["UNIVERSO"] not in vistos:
+            raise ValueError("as gavetas de %r nao incluem a da linha (%s): quem as monta e "
+                             "admissao.gavetas_para_a_sala()"
+                             % (item_id, por_item[item_id]["UNIVERSO"]))
+        if lista:
+            fora[item_id] = [dict(g) for g in lista]
+    return fora
+
+
+def caminho_das_gavetas(run_id: str) -> str:
+    """A morada das gavetas desta corrida NO BACKEND DE FICHEIRO (ao lado da corrida)."""
+    return caminho_da_corrida(run_id)[:-len(".json")] + ".gavetas.json"
+
+
 # ═════════════════════════════════════════════════════════════════════════
 # BACKEND · FICHEIRO — a V1, preservada, e NÃO canónica
 # ═════════════════════════════════════════════════════════════════════════
@@ -435,22 +486,58 @@ class _Ficheiro(object):
         with io.open(caminho, encoding="utf-8") as f:
             return json.load(f)
 
-    def pousar(self, run_id, unidades, armazem=None, extratores=None):
+    def pousar(self, run_id, unidades, armazem=None, extratores=None, gavetas=None):
         caminho = caminho_da_corrida(run_id)
         corpo = _corpo(run_id, unidades)
         with _Trava(caminho):
             if os.path.isfile(caminho):
                 with io.open(caminho, encoding="utf-8") as f:
                     anterior = f.read()
-                if anterior == corpo:
-                    return JA_ESTAVA
-                raise ConflitoDeCorrida(
-                    "%s: %s ja existe com conteudo DIFERENTE. NAO foi escrito "
-                    "nada — o estado anterior fica intacto. Uma corrida nao "
-                    "pode contar duas historias."
-                    % (RUN_ID_CONFLICT, self.morada(run_id)))
-            _escrever_atomico(caminho, corpo)
-        return POUSOU
+                if anterior != corpo:
+                    raise ConflitoDeCorrida(
+                        "%s: %s ja existe com conteudo DIFERENTE. NAO foi escrito "
+                        "nada — o estado anterior fica intacto. Uma corrida nao "
+                        "pode contar duas historias."
+                        % (RUN_ID_CONFLICT, self.morada(run_id)))
+                estado = JA_ESTAVA
+            else:
+                _escrever_atomico(caminho, corpo)
+                estado = POUSOU
+            novas = self._juntar_gavetas(run_id, unidades, gavetas or {})
+        self.ultimo_recibo = {"GAVETAS_NOVAS": novas}
+        return POUSOU if novas else estado
+
+    def _juntar_gavetas(self, run_id, unidades, gavetas):
+        """D56 no ficheiro: so acrescenta. A gaveta da linha nao se escreve (e a linha)."""
+        if not gavetas:
+            return 0
+        caminho = caminho_das_gavetas(run_id)
+        ja = []
+        if os.path.isfile(caminho):
+            with io.open(caminho, encoding="utf-8") as f:
+                ja = json.load(f)["GAVETAS"]
+        tem = {(g["ITEM_ID"], g["UNIVERSO"]) for g in ja}
+        novas = []
+        for i, u in enumerate(unidades):
+            for g in gavetas.get(u["ITEM_ID"], []):
+                k = (u["ITEM_ID"], g["UNIVERSO"])
+                if g["UNIVERSO"] == u["UNIVERSO"] or k in tem:
+                    continue
+                tem.add(k)
+                novas.append({"ORDEM": i, "ITEM_ID": u["ITEM_ID"], "ORIGEM": u["UNIVERSO"],
+                              "UNIVERSO": g["UNIVERSO"], "PONTUACAO": g["PONTUACAO"],
+                              "MOTIVO": g["MOTIVO"]})
+        if novas:
+            _escrever_atomico(caminho, json.dumps({"RUN_ID": run_id, "GAVETAS": ja + novas},
+                                                  ensure_ascii=False, indent=2) + "\n")
+        return len(novas)
+
+    def ler_gavetas(self, run_id):
+        caminho = caminho_das_gavetas(run_id)
+        if not os.path.isfile(caminho):
+            return []
+        with io.open(caminho, encoding="utf-8") as f:
+            return json.load(f)["GAVETAS"]
 
     def listar_pendentes(self, limite=None):
         """⚠️ O FICHEIRO NÃO SABE DIZER «PENDENTE».
@@ -714,7 +801,7 @@ class _Postgres(object):
         return {"RUN_ID": run_id, "ITENS": itens}
 
     # ── pousar ──────────────────────────────────────────────────────────
-    def pousar(self, run_id, unidades, armazem=None, extratores=None):
+    def pousar(self, run_id, unidades, armazem=None, extratores=None, gavetas=None):
         """Decide e escreve DENTRO DA MESMA TRANSAÇÃO.
 
         ⚠️ LER PRIMEIRO E ESCREVER DEPOIS, EM DUAS VIAGENS, É UMA CORRIDA.
@@ -754,6 +841,11 @@ class _Postgres(object):
                                  % sorted(set(por_nome) ^ set(COLUNAS_ESCRITAS)))
             colunas = [por_nome[n] for n in COLUNAS_ESCRITAS]
             valores.append("(" + ", ".join(colunas) + ")")
+        # D56: as gavetas de cada unidade, pela ORDEM dela nesta corrida
+        valores_gaveta = ["(%d, %s, %d, %s)" % (i, _lit(g["UNIVERSO"]), g["PONTUACAO"],
+                                               _lit(g["MOTIVO"]))
+                          for i, u in enumerate(unidades)
+                          for g in (gavetas or {}).get(u["ITEM_ID"], [])]
         # ⚠️ A INTERPOLAÇÃO AQUI É `str.format`, E NÃO `%`. O corpo plpgsql usa
         # `%` como marcador do `raise exception`, e um `%` do Python em cima
         # disso fez a primeira versão rebentar antes de chegar ao banco:
@@ -768,13 +860,21 @@ class _Postgres(object):
         #     O MESMO DOCUMENTO NA MESMA VERSÃO = A MESMA LINHA.
         #     VERSÃO NOVA = LINHA NOVA. NUNCA SE APAGA A ANTIGA.
         #
-        # A identidade é (item_id, universo): `derived:<n>` é o derivado, que a
-        # régua da 022 já deduplica pelos bytes (bytes novos = derivado novo =
-        # versão nova); o universo entra porque o mesmo documento reencaminhado
-        # (D2, REROUTE) a outra pergunta é outra entrada. A observação nova não
-        # se perde: fica em raw_asset e na participação na derivação — só não
-        # volta à fila da Inteligência. Uma segunda trava, GLOBAL e sempre
-        # depois da da corrida, serializa a pergunta «já está?» entre corridas.
+        # A identidade é o item_id: `derived:<n>` é o derivado, que a régua da
+        # 022 já deduplica pelos bytes (bytes novos = derivado novo = versão
+        # nova). A observação nova não se perde: fica em raw_asset e na
+        # participação na derivação — só não volta à fila da Inteligência. Uma
+        # segunda trava, GLOBAL e sempre depois da da corrida, serializa a
+        # pergunta «já está?» entre corridas.
+        #
+        # ⚠️ D56 (REROUTE-D56, 28/09): O UNIVERSO SAIU DA IDENTIDADE. Até aqui
+        # «o mesmo documento reencaminhado (D2) a outra pergunta é outra
+        # entrada» — uma segunda LINHA, com o mesmo texto e a mesma
+        # proveniência. A D56 manda o contrário: «UM item canónico ligado a
+        # TODAS as gavetas aprovadas (sem duplicar bytes nem proveniência)». O
+        # mesmo item / documento noutro universo já não ganha linha: o universo
+        # dele pousa em `sala_de_espera_gaveta`, a apontar para a linha que lá
+        # está (abaixo, depois do insert).
         #
         # ⚠️ DEDUP-DOC (25/09): O DERIVADO NÃO É O DOCUMENTO. Medido na Sala real:
         # 4 páginas com o MESMO endereço e o MESMO texto ganharam 2.ª linha porque
@@ -792,27 +892,32 @@ class _Postgres(object):
         script = """
 create temporary table _recibo (resultado text) on commit drop;
 create temporary table _entrada (like public.sala_de_espera including defaults) on commit drop;
+create temporary table _gaveta_entrada (ordem integer, universo text, pontuacao integer,
+                                        motivo text) on commit drop;
+{gavetas_insert}
 do $sala$
 declare
   ja char(64);
   n integer;
   total integer;
+  ng integer;
+  estado text;
 begin
   perform pg_advisory_xact_lock(hashtext({run}));
   perform pg_advisory_xact_lock(hashtext('sala_de_espera:identidade'));
   select corrida_sha256 into ja
     from public.sala_de_espera where run_id = {run} limit 1;
+  insert into _entrada
+    ({colunas})
+  values {valores};
   if ja is null then
-    insert into _entrada
-      ({colunas})
-    values {valores};
     select count(*) into total from _entrada;
     insert into public.sala_de_espera
       ({colunas})
     select {colunas}
       from _entrada e
      where not exists (select 1 from public.sala_de_espera s
-                        where s.item_id = e.item_id and s.universo = e.universo
+                        where s.item_id = e.item_id
                           and s.run_id <> e.run_id)
        and not exists (select 1
                          from public.raw_asset re
@@ -824,39 +929,74 @@ begin
                            on s.raw_observation_id = rs.id
                         where re.id = e.raw_observation_id
                           and re.identity_state = 'FORWARD_IDENTIFIED'
-                          and s.universo = e.universo
                           and s.run_id <> e.run_id)
        and not exists (select 1
                          from _entrada e2
                          join public.raw_asset r2 on r2.id = e2.raw_observation_id
                          join public.raw_asset re on re.id = e.raw_observation_id
                         where e2.ordem < e.ordem
-                          and e2.universo = e.universo
                           and re.identity_state = 'FORWARD_IDENTIFIED'
                           and r2.identity_state = 'FORWARD_IDENTIFIED'
                           and r2.source_id = re.source_id
                           and r2.document_key = re.document_key);
     get diagnostics n = row_count;
     if n > 0 then
-      insert into _recibo values ('{pousou}:' || n || ':' || (total - n));
+      estado := '{pousou}:' || n || ':' || (total - n);
     else
-      insert into _recibo values ('{ja_estava}:0:' || total);
+      estado := '{ja_estava}:0:' || total;
     end if;
 {versoes}
   elsif ja = {sha} then
-    insert into _recibo values ('{ja_estava}:0:-1');
+    estado := '{ja_estava}:0:-1';
   else
     raise exception
       '{conflito}: a corrida % ja pousou conteudo DIFERENTE (impressao %, agora %). NAO foi escrito nada.',
       {run}, ja, {sha};
   end if;
+  -- D56: cada gaveta aprovada aponta para a LINHA do documento — a desta corrida,
+  -- ou a que ja la estava por outra (o mesmo item, ou o mesmo documento pela
+  -- identidade provada). A gaveta da propria linha nao se escreve: e a linha. So
+  -- acrescenta; a mesma gaveta outra vez nao escreve nada (retry incluido).
+  insert into public.sala_de_espera_gaveta
+    (run_id, ordem, universo, origem, pontuacao, motivo)
+  select distinct on (c.run_id, c.ordem, g.universo)
+         c.run_id, c.ordem, g.universo, c.universo, g.pontuacao, g.motivo
+    from _gaveta_entrada g
+    join _entrada e on e.ordem = g.ordem
+    cross join lateral (
+      select s.run_id, s.ordem, s.universo
+        from public.sala_de_espera s
+       where s.item_id = e.item_id
+          or s.raw_observation_id in (
+               select rs.id
+                 from public.raw_asset re
+                 join public.raw_asset rs
+                   on rs.identity_state = 'FORWARD_IDENTIFIED'
+                  and rs.source_id = re.source_id
+                  and rs.document_key = re.document_key
+                where re.id = e.raw_observation_id
+                  and re.identity_state = 'FORWARD_IDENTIFIED')
+       order by s.pousado_em, s.run_id, s.ordem
+       limit 1) c
+   where g.universo <> c.universo
+     and not exists (select 1 from public.sala_de_espera_gaveta x
+                      where x.run_id = c.run_id and x.ordem = c.ordem
+                        and x.universo = g.universo)
+   order by c.run_id, c.ordem, g.universo, g.pontuacao desc;
+  get diagnostics ng = row_count;
+  if ng > 0 and split_part(estado, ':', 1) = '{ja_estava}' then
+    estado := '{pousou}' || substr(estado, length('{ja_estava}') + 1);
+  end if;
+  insert into _recibo values (estado || ':' || ng);
 end
 $sala$;
 select resultado from _recibo;
 """.format(run=_lit(run_id), valores=", ".join(valores),
            colunas=", ".join(COLUNAS_ESCRITAS),
            sha=_lit(impressao), pousou=POUSOU, ja_estava=JA_ESTAVA,
-           conflito=RUN_ID_CONFLICT, versoes=versoes_sql)
+           conflito=RUN_ID_CONFLICT, versoes=versoes_sql,
+           gavetas_insert=("insert into _gaveta_entrada values %s;" % ", ".join(valores_gaveta)
+                           if valores_gaveta else ""))
         codigo, saida, erro = self._executar(script)
         if codigo != 0:
             if RUN_ID_CONFLICT in erro:
@@ -866,20 +1006,22 @@ select resultado from _recibo;
             raise SalaIndisponivel(erro.strip() or "psql falhou sem dizer porque")
         partes = (saida or "").strip().split(":")
         estado = partes[0]
-        if estado not in (POUSOU, JA_ESTAVA) or len(partes) != 3:
+        # 4 partes desde a D56 (a 4.a = gavetas novas); 3 e o recibo de antes dela
+        if estado not in (POUSOU, JA_ESTAVA) or len(partes) not in (3, 4):
             raise SalaIndisponivel(
                 "o banco nao devolveu recibo legivel: %r" % saida)
         # -1 = retry da mesma corrida: nao se volta a perguntar item a item.
         self.ultimo_recibo = {"INSERIDAS": int(partes[1]),
                               "JA_NA_SALA_POR_OUTRA_CORRIDA": (None if partes[2] == "-1"
-                                                               else int(partes[2]))}
+                                                               else int(partes[2])),
+                              "GAVETAS_NOVAS": int(partes[3]) if len(partes) == 4 else 0}
         return estado
 
     # ── 036 · D79: o mesmo documento com conteudo NOVO e uma VERSAO ──────
     def _planear_versoes(self, run_id, unidades, armazem, extratores):
         """(sql, relato). Para cada unidade cujo DOCUMENTO ja esta na Sala por
         outra corrida (mesma regra do dedup: source_id + document_key,
-        FORWARD_IDENTIFIED, mesmo universo), pergunta a `versao_do_documento`
+        FORWARD_IDENTIFIED — desde a D56 em qualquer universo), pergunta a `versao_do_documento`
         se o conteudo mudou DE VERDADE. So MUDOU vira SQL; NAO_SEI fica no relato.
 
         ⚠️ SE A 036 NAO ESTA APLICADA, NAO HA VERSOES — e o relato di-lo. O
@@ -907,10 +1049,9 @@ select resultado from _recibo;
                 " and rs.source_id = re.source_id and rs.document_key = re.document_key "
                 "join public.sala_de_espera s on s.raw_observation_id = rs.id "
                 "where re.id = %(obs)d and re.identity_state = 'FORWARD_IDENTIFIED' "
-                "  and s.universo = %(uni)s and s.run_id <> %(run)s "
+                "  and s.run_id <> %(run)s "
                 "order by s.pousado_em, s.run_id, s.ordem limit 1"
-                % {"item": _lit(u["ITEM_ID"]), "obs": int(obs),
-                   "uni": _lit(u["UNIVERSO"]), "run": _lit(run_id)})
+                % {"item": _lit(u["ITEM_ID"]), "obs": int(obs), "run": _lit(run_id)})
             if not doc:
                 continue                         # documento novo: e linha, nao versao
             d_run, d_ordem, d_item, ultimo, ja_conhecido = doc[0].split(self.SEP)
@@ -1051,6 +1192,73 @@ select resultado from _recibo;
             u["TEMPO_LUGAR_EVIDENCIA"] = json.loads(u["TEMPO_LUGAR_EVIDENCIA"])
             itens.append(u)
         return {"RUN_ID": run_id, "ITENS": itens}
+
+    def ler_gavetas(self, run_id):
+        """D56: as gavetas extra das linhas desta corrida (a da linha e a propria linha)."""
+        nomes = ("ORDEM", "ITEM_ID", "ORIGEM", "UNIVERSO", "PONTUACAO", "MOTIVO")
+        fora = []
+        for l in self._consultar(
+                "select g.ordem, s.item_id, g.origem, g.universo, g.pontuacao, g.motivo "
+                "from public.sala_de_espera_gaveta g join public.sala_de_espera s "
+                "on s.run_id = g.run_id and s.ordem = g.ordem where g.run_id = %s "
+                "order by g.ordem, g.universo" % _lit(run_id)):
+            u = dict(zip(nomes, l.split(self.SEP)))
+            u["ORDEM"], u["PONTUACAO"] = int(u["ORDEM"]), int(u["PONTUACAO"])
+            fora.append(u)
+        return fora
+
+    def acrescentar_gavetas(self, linhas):
+        """D56 · o reprocesso da Sala que ja existe: gavetas para LINHAS que ja la estao.
+
+        So INSERT em `sala_de_espera_gaveta`, e so se a linha existe E o universo dela e
+        a ORIGEM que o seco leu (se mudou entretanto, nao se escreve: conta como
+        ORIGEM_NAO_BATE). A mesma gaveta outra vez nao escreve nada.
+        """
+        if not linhas:
+            return {"INSERIDAS": 0, "JA_ESTAVAM": 0, "ORIGEM_NAO_BATE": 0}
+        valores = ", ".join("(%s, %d, %s, %s, %d, %s)" % (
+            _lit(l["RUN_ID"]), int(l["ORDEM"]), _lit(l["ORIGEM"]), _lit(l["UNIVERSO"]),
+            int(l["PONTUACAO"]), _lit(l["MOTIVO"])) for l in linhas)
+        script = """
+create temporary table _recibo (resultado text) on commit drop;
+create temporary table _g (run_id text, ordem integer, origem text, universo text,
+                           pontuacao integer, motivo text) on commit drop;
+insert into _g values {valores};
+do $gav$
+declare
+  n integer;
+  nao_bate integer;
+  total integer;
+begin
+  perform pg_advisory_xact_lock(hashtext('sala_de_espera:identidade'));
+  select count(*) into total from _g;
+  select count(*) into nao_bate from _g
+   where not exists (select 1 from public.sala_de_espera s
+                      where s.run_id = _g.run_id and s.ordem = _g.ordem
+                        and s.universo = _g.origem);
+  insert into public.sala_de_espera_gaveta (run_id, ordem, universo, origem, pontuacao, motivo)
+  select g.run_id, g.ordem, g.universo, g.origem, g.pontuacao, g.motivo
+    from _g g
+    join public.sala_de_espera s
+      on s.run_id = g.run_id and s.ordem = g.ordem and s.universo = g.origem
+   where g.universo <> g.origem
+     and not exists (select 1 from public.sala_de_espera_gaveta x
+                      where x.run_id = g.run_id and x.ordem = g.ordem
+                        and x.universo = g.universo);
+  get diagnostics n = row_count;
+  insert into _recibo values (n || ':' || (total - n - nao_bate) || ':' || nao_bate);
+end
+$gav$;
+select resultado from _recibo;
+""".format(valores=valores)
+        codigo, saida, erro = self._executar(script)
+        if codigo != 0:
+            raise SalaIndisponivel(erro.strip() or "psql falhou sem dizer porque")
+        partes = (saida or "").strip().split(":")
+        if len(partes) != 3:
+            raise SalaIndisponivel("o banco nao devolveu recibo legivel: %r" % saida)
+        return {"INSERIDAS": int(partes[0]), "JA_ESTAVAM": int(partes[1]),
+                "ORIGEM_NAO_BATE": int(partes[2])}
 
     def linhas_para_revisao(self):
         """Todas as linhas, pela vista, com o sha256 do bruto (para o livro)."""
@@ -1221,7 +1429,8 @@ def ler(run_id: str):
     return backend().ler(run_id)
 
 
-def pousar(run_id: str, unidades: list, *, armazem=None, extratores=None) -> dict:
+def pousar(run_id: str, unidades: list, *, armazem=None, extratores=None,
+           gavetas=None) -> dict:
     """A unidade pronta pousa na espera. Devolve o que ACONTECEU, não o pedido.
 
         POUSOU     escreveu-se agora
@@ -1241,9 +1450,13 @@ def pousar(run_id: str, unidades: list, *, armazem=None, extratores=None) -> dic
                 "BACKEND": b.NOME, "CANONICO": b.CANONICO,
                 "PORQUE": "nenhuma unidade admitida: nao ha o que pousar"}
     _conferir_unidades(unidades)
+    gavetas = _conferir_gavetas(unidades, gavetas)
     b.ultimo_recibo = None
     b.ultimas_versoes = []
-    estado = b.pousar(run_id, unidades, armazem=armazem, extratores=extratores)
+    # D56: so quem traz gavetas as passa — um backend antigo continua a ser chamado
+    # como sempre foi.
+    extra = {"gavetas": gavetas} if gavetas else {}
+    estado = b.pousar(run_id, unidades, armazem=armazem, extratores=extratores, **extra)
     morada = b.morada(run_id)
     # So o Postgres (canonico) sabe dizer quantas ja estavam por outra corrida;
     # o ficheiro (prova offline) guarda a corrida inteira e diz NAO SEI.
@@ -1265,6 +1478,8 @@ def pousar(run_id: str, unidades: list, *, armazem=None, extratores=None) -> dic
             # D79: o que se decidiu sobre versoes (MUDOU entrou no caderno 036;
             # IGUAL nao entrou; NAO_SEI nao entrou e fica aqui declarado).
             "VERSOES": list(getattr(b, "ultimas_versoes", None) or []),
+            # D56: gavetas extra acrescentadas agora (a da linha nao conta: e a linha)
+            "GAVETAS_NOVAS": recibo.get("GAVETAS_NOVAS", 0),
             "BACKEND": b.NOME, "CANONICO": b.CANONICO,
             "PORQUE": porque}
 
@@ -1283,6 +1498,21 @@ def rever(run_id: str, ordem: int, revisoes: list, *, extrator: str,
 def ler_atual(run_id: str):
     """A corrida pela vista `sala_de_espera_atual` (ultima revisao, senao o original)."""
     return backend().ler_atual(run_id)
+
+
+def acrescentar_gavetas(linhas: list) -> dict:
+    """D56: gavetas para linhas que JA estao na Sala (reprocesso). So a Sala canonica."""
+    b = backend()
+    if not hasattr(b, "acrescentar_gavetas"):
+        raise SalaIndisponivel("o backend %s nao acrescenta gavetas a linhas antigas: use o "
+                               "backend canonico" % b.NOME)
+    return b.acrescentar_gavetas(linhas)
+
+
+def ler_gavetas(run_id: str) -> list:
+    """D56: as gavetas EXTRA das linhas desta corrida — [{ORDEM, ITEM_ID, ORIGEM, UNIVERSO,
+    PONTUACAO, MOTIVO}]. A gaveta da linha e a coluna `universo` da propria linha."""
+    return backend().ler_gavetas(run_id)
 
 
 def linhas_para_revisao():

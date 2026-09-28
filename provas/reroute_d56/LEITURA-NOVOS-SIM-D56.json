@@ -1,0 +1,719 @@
+{
+ "DATASET": "LEITURA-NOVOS-SIM-D56-V1",
+ "QUEM_LEU": "modelo (Claude)",
+ "VALIDADO_POR_HUMANO": "NAO",
+ "O_QUE_FOI_LIDO": "os novos SIM do replay com TODAS as reguas a promover (antes da regra 4); cada um pelo trecho do corpo e pelo titulo/URL",
+ "LIDOS": 40,
+ "NAO_LIDOS": 0,
+ "PRECISAO_LIVRO_TODAS_AS_REGUAS": {
+  "N": 32,
+  "VERDADEIRO": 20,
+  "FALSO": 9,
+  "DISCUTIVEL": 3,
+  "ESTRITA": 0.625,
+  "LARGA": 0.719
+ },
+ "PRECISAO_LIVRO_SO_O_QUE_PROMOVE_HOJE": {
+  "N": 18,
+  "VERDADEIRO": 18,
+  "FALSO": 0,
+  "DISCUTIVEL": 0,
+  "ESTRITA": 1.0,
+  "LARGA": 1.0
+ },
+ "PRECISAO_TUDO_O_QUE_PROMOVE_HOJE": {
+  "N": 20,
+  "VERDADEIRO": 20,
+  "FALSO": 0,
+  "DISCUTIVEL": 0,
+  "ESTRITA": 1.0,
+  "LARGA": 1.0
+ },
+ "POR_UNIVERSO": {
+  "T1": {
+   "VERDADEIRO": 7
+  },
+  "T2": {
+   "VERDADEIRO": 10
+  },
+  "T3": {
+   "VERDADEIRO": 3
+  },
+  "T4": {
+   "VERDADEIRO": 1,
+   "FALSO": 6
+  },
+  "T5": {
+   "DISCUTIVEL": 4,
+   "FALSO": 7,
+   "VERDADEIRO": 1
+  },
+  "T7": {
+   "VERDADEIRO": 1
+  }
+ },
+ "LINHAS": [
+  {
+   "CHAVE": "042a1c27d12a|T5",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T10-018",
+   "URL_OU_FICHEIRO": "https://www.myfruit.it/news/etichette-compostabili-sinclair-punta-sui-consumatori",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "studio",
+    "sperimentazione"
+   ],
+   "TRECHO": "quanto osservato direttamente da Sinclair presso la propria clientela a livello globale. Uno studio condotto negli Stati Uniti nel 2023 dal Composting Consortium e dal Biodegradable Products",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "estudo de consumidores sobre rotulos compostaveis (Composting Consortium): e estudo, mas de embalagem, nao de ciencia agronomica",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "0be2d204c98a|T1",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T2-002",
+   "URL_OU_FICHEIRO": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_24.pdf",
+   "UNIVERSO": "T1",
+   "PALAVRAS": [
+    "fenologia",
+    "fioritura",
+    "difesa integrata",
+    "infestazione"
+   ],
+   "TRECHO": "www.venetoagricoltura.org/newsletter/bollettino-colture-erbacee Dai Servizi Fitosanitari - settore olivicolo - Fenologia: inolizione – inizio invaiatura. Mosca delle olive (Bactrocera oleae): il monitoraggio della settimana evidenzia una pressione",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim agrometeo ARPAV: «Fenologia: inolizione – inizio invaiatura», mosca da oliveira",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "0be2d204c98a|T2",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T2-002",
+   "URL_OU_FICHEIRO": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_24.pdf",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "evapotraspirazione",
+    "anticiclone"
+   ],
+   "TRECHO": "Agrometeo… Informa Zona 24 Alto Polesine N° 54 02/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale Torna ad espandersi un promontorio anticiclonico con aria calda; per il Veneto le condizioni sono generalmente stabili con parecchi spazi di",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim agrometeo ARPAV: previsao, temperatura, evapotranspiracao + fenologia",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "0c2723e66201|T1",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-002",
+   "URL_OU_FICHEIRO": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf",
+   "UNIVERSO": "T1",
+   "PALAVRAS": [
+    "fenologia",
+    "fioritura",
+    "difesa integrata",
+    "soglia di intervento",
+    "infestazione"
+   ],
+   "TRECHO": "FITOSANITARIO DELLA PROVINCIA DI SALERNO Pubblicazione di orientamento e consulenza per la difesa integrata delle colture che, sulla base dei risultati della rete di monitoraggio, fornisce informazioni",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim fitossanitario de Salerno: soglia di intervento, infestazione, citrinos",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "0c2723e66201|T2",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-002",
+   "URL_OU_FICHEIRO": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "irrigazione"
+   ],
+   "TRECHO": "FITOSANITARIO DELLA PROVINCIA DI SALERNO Pubblicazione di orientamento e consulenza per la difesa integrata delle colture che, sulla base dei risultati della rete di monitoraggio, fornisce informazioni",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim fitossanitario de Salerno: dados agrometeo + defesa integrada",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "0c2723e66201|T3",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-002",
+   "URL_OU_FICHEIRO": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf",
+   "UNIVERSO": "T3",
+   "PALAVRAS": [
+    "fungo",
+    "larva",
+    "sintoma",
+    "malattia",
+    "insetto",
+    "infestazione",
+    "avversita",
+    "trappola"
+   ],
+   "TRECHO": "su foglie e frutti con particolare attenzione alla parte alta delle piante. Utilizzare trappole specifiche con feromone di aggregazione. Installare le trappole ai bordi dell’appezzamento a distanza di 20-30 m. tra loro Fisico: applicare reti anti-insetto monofila o monoblocco con chiusura, anticipando i primi spostamenti dell’insetto Chimico:",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim fitossanitario de Salerno: pragas, armadilhas, afideos",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "0c2723e66201|T4",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-002",
+   "URL_OU_FICHEIRO": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf",
+   "UNIVERSO": "T4",
+   "PALAVRAS": [
+    "decreto",
+    "etichetta"
+   ],
+   "TRECHO": "(Punto A.3 del Piano nazionale sull’uso sostenibile dei prodotti fitosanitari - Articolo 12 del decreto legislativo n.150/2012) Il controllo funzionale periodico delle attrezzature utilizzate",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "deroga temporanea + «etichetta del formulato commerciale autorizzato», D.Lgs 150/2012",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "1ae8fd198f05|T2",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T10-018",
+   "URL_OU_FICHEIRO": "https://www.myfruit.it/news/pere-conference-il-belgio-guarda-allitalia",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "temperatura",
+    "siccita",
+    "gelata",
+    "irrigazione"
+   ],
+   "TRECHO": "innovazione specializzato nella gestione post-raccolta di frutta e verdura. Ann Schenk Se con una temperatura di 9,5 gradi la raccolta inizia intorno a metà settembre, con 12 gradi si anticipa anche di",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "pera Conference: temperatura, seca, rega, geada na floracao — clima com ligacao a cultura",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "1ae8fd198f05|T5",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T10-018",
+   "URL_OU_FICHEIRO": "https://www.myfruit.it/news/pere-conference-il-belgio-guarda-allitalia",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "ricerca",
+    "sperimentazione"
+   ],
+   "TRECHO": "cambiamenti climatici in atto, che ovviamente anche in Belgio si stanno facendo sentire con forza. Sperimentazione e ricerca “La pera Conference presenta caratteristiche molto importanti. È, prima di tutto, un frutto",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "so o intertitulo «Sperimentazione e ricerca» num artigo de comercio",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "1dcf9b087958|T4",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T7-017",
+   "URL_OU_FICHEIRO": "https://www.riuniteciv.com/news-e-eventi/cantine-riunite-civ-premiate-al-concorso-internazionale-citta-del-vino-2025/",
+   "UNIVERSO": "T4",
+   "PALAVRAS": [
+    "ministero",
+    "etichetta"
+   ],
+   "TRECHO": "enologici italiani, promosso dall’Associazione Nazionale Città del Vino e riconosciuto dal Ministero dell’Agricoltura, della Sovranità alimentare e delle Foreste. Il concorso, giunto alla XXII",
+   "ROTULO": "FALSO",
+   "PORQUE": "premio de cantina: «riconosciuto dal Ministero» + «ogni singola etichetta» (marca)",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "3d3c1bc0e963|T1",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T2-002",
+   "URL_OU_FICHEIRO": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_09.pdf",
+   "UNIVERSO": "T1",
+   "PALAVRAS": [
+    "fenologia",
+    "fioritura",
+    "difesa integrata",
+    "infestazione"
+   ],
+   "TRECHO": "www.venetoagricoltura.org/newsletter/bollettino-colture-erbacee Dai Servizi Fitosanitari - settore olivicolo - Fenologia: inolizione – inizio invaiatura. Mosca delle olive (Bactrocera oleae): il monitoraggio della settimana evidenzia una pressione",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim agrometeo ARPAV (zona 9): fenologia da oliveira",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "3d3c1bc0e963|T2",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T2-002",
+   "URL_OU_FICHEIRO": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_09.pdf",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "evapotraspirazione",
+    "anticiclone"
+   ],
+   "TRECHO": "Agrometeo… Informa Zona 9 Medio Polesine N° 54 02/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale Torna ad espandersi un promontorio anticiclonico con aria calda; per il Veneto le condizioni sono generalmente stabili con parecchi spazi di",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim agrometeo ARPAV (zona 9): previsao e evapotranspiracao",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "59da05274359|T1",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-010",
+   "URL_OU_FICHEIRO": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+   "UNIVERSO": "T1",
+   "PALAVRAS": [
+    "fioritura",
+    "difesa integrata",
+    "soglia di intervento",
+    "infestazione",
+    "trattamento fitosanitario"
+   ],
+   "TRECHO": "complessivamente sotto controllo; non si sono rilevate raggiungimenti o superamenti della soglia di intervento con pochissime punture fertili e ancora un basso numero di individui riscontrati sulle trappole",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim da mosca da oliveira APOL: soglia di intervento, trattamento fitosanitario",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "59da05274359|T2",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-010",
+   "URL_OU_FICHEIRO": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "gelata",
+    "grandine",
+    "perturbazione"
+   ],
+   "TRECHO": "complessivamente sotto controllo; non si sono rilevate raggiungimenti o superamenti della soglia di intervento con pochissime punture fertili e ancora un basso numero di individui riscontrati sulle trappole",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim APOL: perturbacao e chuva que favorecem a mosca",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "59da05274359|T3",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-010",
+   "URL_OU_FICHEIRO": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+   "UNIVERSO": "T3",
+   "PALAVRAS": [
+    "larva",
+    "malattia",
+    "insetto",
+    "avversita",
+    "trappole"
+   ],
+   "TRECHO": "intervento con pochissime punture fertili e ancora un basso numero di individui riscontrati sulle trappole a feromoni installate. Da metà della prossima settimana si verificherà un cambio meteo a causa",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim APOL: armadilhas, insecto, adversidades",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "611ccec87e65|T5",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T7-042",
+   "URL_OU_FICHEIRO": "https://www.consorziobalsamico.it/news-blog/il-consorzio-tutela-aceto-balsamico-di-modena-igp-tra-gli-organizzatori-della-ix-edizione-di-ms-food-day/",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "ricerca",
+    "universita"
+   ],
+   "TRECHO": "principali appuntamenti scientifici dedicati all’innovazione nell’analisi degli alimenti e riunisce ricercatori, università, enti di controllo, laboratori e imprese per confrontarsi sui più recenti sviluppi in materia",
+   "ROTULO": "FALSO",
+   "PORQUE": "consorcio do balsamico num dia de analise de alimentos: evento, nao ciencia agronomica",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "8a76f4ffef3f|T5",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T10-018",
+   "URL_OU_FICHEIRO": "https://www.myfruit.it/news/gruppo-vege-lancia-la-nona-edizione-di-noi-amiamo-la-scuola",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "ricerca",
+    "universita"
+   ],
+   "TRECHO": "supporto della Rete ITAsf , rete di scuole riconosciuta dal m inistero dell'Istruzione, dell'Università e della Ricerca , ed è rivolta agli iIstituti comprensivi, scuole statali e paritarie di primo e secondo grado,",
+   "ROTULO": "FALSO",
+   "PORQUE": "programa escolar: «Ministero dell'Istruzione, dell'Università e della Ricerca» (nome)",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "8c13500d4350|T1",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T2-002",
+   "URL_OU_FICHEIRO": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_16.pdf",
+   "UNIVERSO": "T1",
+   "PALAVRAS": [
+    "fenologia",
+    "fioritura",
+    "difesa integrata",
+    "infestazione"
+   ],
+   "TRECHO": "Indice di Fienagione Stazione di Illasi Dai Servizi Fitosanitari - settore olivicolo - Fenologia: inolizione – inizio invaiatura. Mosca delle olive (Bactrocera oleae): il monitoraggio della settimana evidenzia una pressione stabile. Le temperature",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim agrometeo ARPAV (zona 16): fenologia da oliveira",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "8c13500d4350|T2",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T2-002",
+   "URL_OU_FICHEIRO": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_16.pdf",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "evapotraspirazione",
+    "anticiclone"
+   ],
+   "TRECHO": "Agrometeo… Informa Zona 16 Val d'Illasi Alpone N° 54 03/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale L'estensione dell'Anticiclone Subtropicale Africano verso le nostre latitudini persisterà almeno fino a lunedì. Le",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim agrometeo ARPAV (zona 16): anticiclone, temperatura",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "995614babca7|T5",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T10-018",
+   "URL_OU_FICHEIRO": "https://www.myfruit.it/news/certificazioni-e-ppwr-il-settore-tedesco-lancia-lallarme",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "rivista",
+    "articolo",
+    "convegno"
+   ],
+   "TRECHO": "burocratico , con costi enormi, complessità incontrollabile e benefici aggiuntivi dubbi. Il convegno annuale della Dfhv ( l'Associazione tedesca del commercio ortofrutticolo, ndr ) a Düsseldorf, quest'anno in concomitanza con il congresso sull'imballaggio re:think packaging della rivista Fruchthandel Magazin , ha messo a nudo il problema senza mezzi termini: un numero sempre maggiore",
+   "ROTULO": "FALSO",
+   "PORQUE": "certificacoes/PPWR: «convegno», «rivista», «articolo» de uma revista de comercio",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "9d41e259ea98|T5",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T10-018",
+   "URL_OU_FICHEIRO": "https://www.myfruit.it/news/banane-eti-mette-sotto-esame-il-prezzo-della-gdo",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "studio",
+    "ricerca",
+    "pubblicazione"
+   ],
+   "TRECHO": "Trading Initiative (ETI) dedicato alle pratiche di acquisto nella filiera della banana. Lo studio in sintesi Lo studio, pubblicato il 15 settembre 2026, nasce per approfondire un aspetto finora",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "estudo da ETI sobre compras de banana no retalho: estudo de mercado, nao agronomico",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "a4399fac5c1f|T4",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T7-017",
+   "URL_OU_FICHEIRO": "https://www.riuniteciv.com/news-e-eventi/cantine-riunite-civ-premiate-al-concorso-internazionale-citta-del-vino-2025/",
+   "UNIVERSO": "T4",
+   "PALAVRAS": [
+    "ministero",
+    "etichetta"
+   ],
+   "TRECHO": "enologici italiani, promosso dall’Associazione Nazionale Città del Vino e riconosciuto dal Ministero dell’Agricoltura, della Sovranità alimentare e delle Foreste. Il concorso, giunto alla XXII",
+   "ROTULO": "FALSO",
+   "PORQUE": "premio de cantina (outra versao da pagina): Ministero + etichetta de marca",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "ac2312c3c186|T5",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T7-033",
+   "URL_OU_FICHEIRO": "https://www.chianticlassico.com/news/chianti-classico-collection-2026-2/",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "ricerca",
+    "pubblicazione"
+   ],
+   "TRECHO": "proteggere ambiente e territorio, ha finito per rappresentare una pietra miliare nella storia della ricerca scientifica vitivinicola europea. Ha avuto una durata di 16 anni suddivisi in tre cicli, durante",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "Chianti Classico: projeto de investigacao vitivinicola de 16 anos, publicacao dos resultados",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "b218369bd0ce|T5",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T7-042",
+   "URL_OU_FICHEIRO": "https://www.consorziobalsamico.it/news-blog/il-consorzio-tutela-aceto-balsamico-di-modena-igp-tra-gli-organizzatori-della-ix-edizione-di-ms-food-day/",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "ricerca",
+    "universita"
+   ],
+   "TRECHO": "principali appuntamenti scientifici dedicati all’innovazione nell’analisi degli alimenti e riunisce ricercatori, università, enti di controllo, laboratori e imprese per confrontarsi sui più recenti sviluppi in materia",
+   "ROTULO": "FALSO",
+   "PORQUE": "consorcio do balsamico num dia de analise de alimentos (outra versao)",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "def7e3219a46|T4",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T7-042",
+   "URL_OU_FICHEIRO": "https://www.consorziobalsamico.it/news-blog/ddl-coltiva-italia-federvini-e-consorzio-tutela-aceto-balsamico-di-modena-plaudono-allemendamento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti/",
+   "UNIVERSO": "T4",
+   "PALAVRAS": [
+    "ministero",
+    "etichetta"
+   ],
+   "TRECHO": "denominazione” prosegue Ponti “Ringraziamo le Istituzioni, il Ministro Lollobrigida e i suoi uffici al Ministero dell’agricoltura in primis, unitamente al Parlamento, a partire dalla Commissione agricoltura",
+   "ROTULO": "FALSO",
+   "PORQUE": "DdL Coltiva Italia: rotulagem do vinagre e politica (T12), nao registo fitossanitario",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "e612807928b5|T1",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-008",
+   "URL_OU_FICHEIRO": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+   "UNIVERSO": "T1",
+   "PALAVRAS": [
+    "fenologia",
+    "fioritura",
+    "soglia di intervento",
+    "infestazione",
+    "trattamento fitosanitario"
+   ],
+   "TRECHO": "settembre 2026 Pag. 7 Agenzia regionale per le attività irrigue e forestali Situazione Fenologica: Accrescimento frutti. Situazione Fitosanitaria: Presenza di malattie fungine e rogna -",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "notiziario agrometeo Puglia: situazione fenologica, soglia di infestazione",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "e612807928b5|T2",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-008",
+   "URL_OU_FICHEIRO": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "ondata di calore",
+    "stress idrico",
+    "eventi estremi",
+    "irrigazione",
+    "saccatura",
+    "nuvolosita"
+   ],
+   "TRECHO": "sinottico euro atlantico mostra il ﬂusso perturbato che scorre intorno al 45°N delimitato da una saccatura estesa dalla Groenlandia meridionale, dove è posizionato un primo minimo, ﬁno al nord Atlantico,",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "notiziario agrometeo Puglia: saccatura, nuvolosidade, onda de calor",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "e612807928b5|T3",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-008",
+   "URL_OU_FICHEIRO": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+   "UNIVERSO": "T3",
+   "PALAVRAS": [
+    "fungo",
+    "larva",
+    "sintoma",
+    "parassita",
+    "malattia",
+    "insetto",
+    "infestazione",
+    "fitopatolog"
+   ],
+   "TRECHO": "(Otiorhynchus cribricollis). Sporadiche catture di mosca dell'olivo (Bactrocera oleae) nelle trappole a feromoni. Programma di Difesa: Nei giovani impianti, per il controllo dell'oziorrinco,",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "notiziario agrometeo Puglia: capturas, oziorrinco, peronospora",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "e612807928b5|T4",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T3-008",
+   "URL_OU_FICHEIRO": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+   "UNIVERSO": "T4",
+   "PALAVRAS": [
+    "ministero",
+    "autorizzazione",
+    "etichetta"
+   ],
+   "TRECHO": "intervenire celermente con prodotti ﬁtosanitari dotati di attività bloccante, utilizzando dosi di etichetta e curando una buona bagnatura della vegetazione. Oidio, prestare attenzione alle foglie e",
+   "ROTULO": "FALSO",
+   "PORQUE": "notiziario: «dosi di etichetta», dados do Ministero, «autorizzazione scritta» (copyright)",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "f88c89d73d6a|T1",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T2-002",
+   "URL_OU_FICHEIRO": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_01.pdf",
+   "UNIVERSO": "T1",
+   "PALAVRAS": [
+    "fenologia",
+    "fioritura",
+    "difesa integrata",
+    "infestazione"
+   ],
+   "TRECHO": "di Fienagione Stazione di Conegliano Dai Servizi Fitosanitari - settore olivicolo - Fenologia: inolizione – inizio invaiatura. Mosca delle olive (Bactrocera oleae): il monitoraggio della settimana evidenzia una pressione stabile. Le temperature",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim agrometeo ARPAV (zona 1): fenologia da oliveira",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "f88c89d73d6a|T2",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T2-002",
+   "URL_OU_FICHEIRO": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_01.pdf",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "evapotraspirazione",
+    "anticiclone"
+   ],
+   "TRECHO": "Agrometeo… Informa Zona 1 Vittorio Veneto-Conegliano N° 54 03/09/26 Il tempo previsto nei prossimi giorni Evoluzione Generale L'estensione dell'Anticiclone Subtropicale Africano verso le nostre latitudini persisterà almeno fino a lunedì. Le",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "boletim agrometeo ARPAV (zona 1): anticiclone, temperatura",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "fc54e7375f78|T4",
+   "AMOSTRA": "LIVRO",
+   "SOURCE_ID": "IT-T7-042",
+   "URL_OU_FICHEIRO": "https://www.consorziobalsamico.it/news-blog/ddl-coltiva-italia-federvini-e-consorzio-tutela-aceto-balsamico-di-modena-plaudono-allemendamento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti/",
+   "UNIVERSO": "T4",
+   "PALAVRAS": [
+    "ministero",
+    "etichetta"
+   ],
+   "TRECHO": "denominazione” prosegue Ponti “Ringraziamo le Istituzioni, il Ministro Lollobrigida e i suoi uffici al Ministero dell’agricoltura in primis, unitamente al Parlamento, a partire dalla Commissione agricoltura",
+   "ROTULO": "FALSO",
+   "PORQUE": "DdL Coltiva Italia (outra versao): rotulagem do vinagre, politica",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "03aadc9a2d0f|T2",
+   "AMOSTRA": "ACERVO_INTEIRO",
+   "SOURCE_ID": "IT-T10-018",
+   "URL_OU_FICHEIRO": "https://www.myfruit.it/news/pere-conference-il-belgio-guarda-allitalia",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "temperatura",
+    "siccita",
+    "gelata",
+    "irrigazione"
+   ],
+   "TRECHO": "innovazione specializzato nella gestione post-raccolta di frutta e verdura. Ann Schenk Se con una temperatura di 9,5 gradi la raccolta inizia intorno a metà settembre, con 12 gradi si anticipa anche di",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "pera Conference (outra versao): clima com ligacao a cultura",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "03aadc9a2d0f|T5",
+   "AMOSTRA": "ACERVO_INTEIRO",
+   "SOURCE_ID": "IT-T10-018",
+   "URL_OU_FICHEIRO": "https://www.myfruit.it/news/pere-conference-il-belgio-guarda-allitalia",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "ricerca",
+    "sperimentazione"
+   ],
+   "TRECHO": "cambiamenti climatici in atto, che ovviamente anche in Belgio si stanno facendo sentire con forza. Sperimentazione e ricerca “La pera Conference presenta caratteristiche molto importanti. È, prima di tutto, un frutto",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "pera Conference (outra versao): so o intertitulo «Sperimentazione e ricerca»",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "0704ca5347f2|T5",
+   "AMOSTRA": "ACERVO_INTEIRO",
+   "SOURCE_ID": "IT-T10-018",
+   "URL_OU_FICHEIRO": "https://www.myfruit.it/news/certificazioni-e-ppwr-il-settore-tedesco-lancia-lallarme",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "rivista",
+    "articolo",
+    "convegno"
+   ],
+   "TRECHO": "burocratico , con costi enormi, complessità incontrollabile e benefici aggiuntivi dubbi. Il convegno annuale della Dfhv ( l'Associazione tedesca del commercio ortofrutticolo, ndr ) a Düsseldorf, quest'anno in concomitanza con il congresso sull'imballaggio re:think packaging della rivista Fruchthandel Magazin , ha messo a nudo il problema senza mezzi termini: un numero sempre maggiore",
+   "ROTULO": "FALSO",
+   "PORQUE": "certificacoes/PPWR (outra versao): revista de comercio",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "0c2723e66201|T5",
+   "AMOSTRA": "ACERVO_INTEIRO",
+   "SOURCE_ID": "IT-T3-002",
+   "URL_OU_FICHEIRO": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "articolo",
+    "pubblicazione"
+   ],
+   "TRECHO": "FITOSANITARIO REGIONALE SICUREZZA ALIMENTARE BOLLETTINO FITOSANITARIO DELLA PROVINCIA DI SALERNO Pubblicazione di orientamento e consulenza per la difesa integrata delle colture che, sulla base dei risultati",
+   "ROTULO": "FALSO",
+   "PORQUE": "boletim de Salerno: «Pubblicazione di orientamento», «Articolo 12 del decreto»",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "2e488a8232ba|T2",
+   "AMOSTRA": "ACERVO_INTEIRO",
+   "SOURCE_ID": "IT-T3-005",
+   "URL_OU_FICHEIRO": "https://www.terretruria.it/monitoraggio",
+   "UNIVERSO": "T2",
+   "PALAVRAS": [
+    "pioggia",
+    "temperatura",
+    "umidita del suolo",
+    "irrigazione",
+    "perturbazione"
+   ],
+   "TRECHO": "soci/clienti Monitoraggio della mosca dell'olivo a cura del Servizio Agronomico CLIMA: Le elevate temperature che si sono verificate in modo continuativo hanno contribuito a mantenere sotto controllo i voli e l'infestazione attiva in molti dei punti monitorati, ma hanno comportanto anche fenomeni di cascola importanti",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "Terre Etruria: temperaturas, rega, humidade do solo + mosca da oliveira",
+   "PROMOVE_HOJE": true
+  },
+  {
+   "CHAVE": "2e488a8232ba|T7",
+   "AMOSTRA": "ACERVO_INTEIRO",
+   "SOURCE_ID": "IT-T3-005",
+   "URL_OU_FICHEIRO": "https://www.terretruria.it/monitoraggio",
+   "UNIVERSO": "T7",
+   "PALAVRAS": [
+    "cooperativa",
+    "agronomi",
+    "servizio agronomico"
+   ],
+   "TRECHO": "Contatti Punti Vendita e Magazzini Lavora con noi Bilancio di Sostenibilità Eventi / News La Cooperativa Informa Canale Video Cooperazione in Agricoltura Corsi Contributi e Sponsorizzazioni I 20",
+   "ROTULO": "VERDADEIRO",
+   "PORQUE": "Terre Etruria: monitorizacao pelo Servico Agronomico da cooperativa (o trecho leva menu)",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "aee361a99812|T5",
+   "AMOSTRA": "ACERVO_INTEIRO",
+   "SOURCE_ID": "IT-T7-042",
+   "URL_OU_FICHEIRO": "https://www.consorziobalsamico.it/news-blog/il-consorzio-tutela-aceto-balsamico-di-modena-igp-tra-gli-organizzatori-della-ix-edizione-di-ms-food-day/",
+   "UNIVERSO": "T5",
+   "PALAVRAS": [
+    "ricerca",
+    "universita"
+   ],
+   "TRECHO": "principali appuntamenti scientifici dedicati all’innovazione nell’analisi degli alimenti e riunisce ricercatori, università, enti di controllo, laboratori e imprese per confrontarsi sui più recenti sviluppi in materia",
+   "ROTULO": "FALSO",
+   "PORQUE": "consorcio do balsamico num dia de analise de alimentos (outra versao)",
+   "PROMOVE_HOJE": false
+  },
+  {
+   "CHAVE": "dc0b2b288d37|T4",
+   "AMOSTRA": "ACERVO_INTEIRO",
+   "SOURCE_ID": "IT-T7-042",
+   "URL_OU_FICHEIRO": "https://www.consorziobalsamico.it/news-blog/ddl-coltiva-italia-federvini-e-consorzio-tutela-aceto-balsamico-di-modena-plaudono-allemendamento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti/",
+   "UNIVERSO": "T4",
+   "PALAVRAS": [
+    "ministero",
+    "etichetta"
+   ],
+   "TRECHO": "denominazione” prosegue Ponti “Ringraziamo le Istituzioni, il Ministro Lollobrigida e i suoi uffici al Ministero dell’agricoltura in primis, unitamente al Parlamento, a partire dalla Commissione agricoltura",
+   "ROTULO": "FALSO",
+   "PORQUE": "DdL Coltiva Italia (outra versao): politica",
+   "PROMOVE_HOJE": false
+  }
+ ]
+}

@@ -1,0 +1,225 @@
+{
+ "DATASET": "MUTACAO-REROUTE-D56-V1",
+ "TESTE": "tests.test_reroute_d56",
+ "COPIA_LIMPA": "OK",
+ "SALTOS_NA_COPIA_LIMPA": 0,
+ "MUTANTES": 20,
+ "MORTOS": 20,
+ "RESULTADOS": [
+  {
+   "ID": "M01",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "o SIM de outro universo nao da item: so o pedido entra (a D56 desligada em silencio)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_1_um_item_duas_gavetas_a_vista_e_o_atual",
+    "test_2_retry_e_outra_corrida_nao_duplicam",
+    "test_sim_em_dois_universos_e_um_item_com_duas_gavetas",
+    "test_um_ready_uma_gaveta_extra_e_o_livro_com_tudo",
+    "test_universo_sem_regua_e_nao_se_aplica_so_para_ele"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1, errors=4)"
+  },
+  {
+   "ID": "M02",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "o MENU conta: o reroute julga a pagina inteira",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_o_menu_nao_conta",
+    "test_pagina_sem_corpo_separavel_fica_nao_sei"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=2)"
+  },
+  {
+   "ID": "M03",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "SIM sem trecho passa",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_regua_sem_medida_nao_promove_e_fica_no_livro_com_trecho",
+    "test_todo_sim_do_reroute_traz_trecho_com_os_termos"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=2)"
+  },
+  {
+   "ID": "M04",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "pedido sem regua cala TODOS os universos (NSA deixa de ser so dele)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_universo_sem_regua_e_nao_se_aplica_so_para_ele"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M05",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "item parado num portao de prontidao e perguntado as outras reguas",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_item_parado_num_portao_nao_e_perguntado_a_mais_nada"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M06",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "T9 sem concorrente nomeado (comunicacao de cantina vira concorrencia)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_nao_em_todos_e_zero_item",
+    "test_t9_pede_concorrente_nomeado"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=2)"
+  },
+  {
+   "ID": "M07",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "as reguas sem medida (T4, T5 — 1/6 e 1/8 no replay) passam a promover",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_regua_sem_medida_nao_promove_e_fica_no_livro_com_trecho",
+    "test_t9_pede_concorrente_nomeado"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=2)"
+  },
+  {
+   "ID": "M08",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "o reroute volta a casar pedaco de palavra («revista» dentro de «prevista»)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_o_termo_tem_de_comecar_palavra_no_reroute"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M09",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "o inicio de palavra e ignorado dentro da regua",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_o_termo_tem_de_comecar_palavra_no_reroute"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M10",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "a gaveta da linha nao viaja: o documento ja na Sala perde a gaveta deste pedido",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_1_um_item_duas_gavetas_a_vista_e_o_atual",
+    "test_2_retry_e_outra_corrida_nao_duplicam",
+    "test_3_o_documento_ja_na_sala_noutro_universo_ganha_a_gaveta_do_pedido",
+    "test_chave_desligada_so_anota",
+    "test_pedido_sim_fica_a_linha_e_as_outras_sao_gavetas",
+    "test_sim_em_dois_universos_e_um_item_com_duas_gavetas"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=3, errors=4)"
+  },
+  {
+   "ID": "M11",
+   "FICHEIRO": "admissao/sala_de_espera.py",
+   "PORQUE": "o universo volta a identidade: o mesmo item noutro universo ganha 2.a LINHA",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_3_o_documento_ja_na_sala_noutro_universo_ganha_a_gaveta_do_pedido"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M12",
+   "FICHEIRO": "admissao/sala_de_espera.py",
+   "PORQUE": "a gaveta da propria linha e escrita (a Sala recusa: universo = origem)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_1_um_item_duas_gavetas_a_vista_e_o_atual",
+    "test_2_retry_e_outra_corrida_nao_duplicam",
+    "test_3_o_documento_ja_na_sala_noutro_universo_ganha_a_gaveta_do_pedido"
+   ],
+   "ULTIMA_LINHA": "FAILED (errors=3)"
+  },
+  {
+   "ID": "M13",
+   "FICHEIRO": "admissao/sala_de_espera.py",
+   "PORQUE": "FICHEIRO: reprocessar repete a gaveta",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_um_ready_uma_gaveta_extra_e_o_livro_com_tudo"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M14",
+   "FICHEIRO": "admissao/sala_de_espera.py",
+   "PORQUE": "POSTGRES: o retry tenta a mesma gaveta outra vez",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_2_retry_e_outra_corrida_nao_duplicam"
+   ],
+   "ULTIMA_LINHA": "FAILED (errors=1)"
+  },
+  {
+   "ID": "M15",
+   "FICHEIRO": "admissao/sala_de_espera.py",
+   "PORQUE": "o reprocesso escreve gaveta numa linha cuja origem mudou",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_4_o_reprocesso_da_sala_que_ja_existe"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M16",
+   "FICHEIRO": "orquestrador/orquestrador.py",
+   "PORQUE": "pela_porta ignora o reroute (so o pedido pousa)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_um_ready_uma_gaveta_extra_e_o_livro_com_tudo"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M17",
+   "FICHEIRO": "orquestrador/orquestrador.py",
+   "PORQUE": "o livro so guarda o pedido: as decisoes dos outros universos perdem-se",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_um_ready_uma_gaveta_extra_e_o_livro_com_tudo"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M18",
+   "FICHEIRO": "admissao/reprocessar_reroute.py",
+   "PORQUE": "--aplicar escreve com o robo a correr (sem PARAR.flag)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_as_tres_travas_do_aplicar"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M19",
+   "FICHEIRO": "admissao/reprocessar_reroute.py",
+   "PORQUE": "--aplicar escreve sem backup PROVA_VALE",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_as_tres_travas_do_aplicar"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M20",
+   "FICHEIRO": "admissao/reprocessar_reroute.py",
+   "PORQUE": "o seco da gaveta a um universo que ja e LINHA de outra copia do documento",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_seco_e_deterministico_e_nao_repete_a_linha_de_outra_copia"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  }
+ ]
+}

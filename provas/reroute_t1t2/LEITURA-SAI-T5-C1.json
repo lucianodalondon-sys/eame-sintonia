@@ -1,0 +1,1486 @@
+{
+ "LEITURA": "LEITURA-SAI-T5-C1",
+ "QUEM_LEU": "agente da missao REROUTE-T1T2 (modelo)",
+ "HUMAN_REVIEW": "NOT_DONE (D110)",
+ "LINHAS_QUE_SAEM": 57,
+ "ROTULOS_DO_QUE_SAI_POR_LEITURA": {
+  "CORPO_ESTRITO": {
+   "DISCUTIVEL": 10,
+   "NAO": 31,
+   "UTIL": 16
+  },
+  "CORPO_SENAO_INTEIRO": {
+   "DISCUTIVEL": 10,
+   "NAO": 31,
+   "UTIL": 7
+  },
+  "TEXTO_INTEIRO": {
+   "DISCUTIVEL": 10,
+   "NAO": 31,
+   "UTIL": 7
+  }
+ },
+ "UTIL_PERDIDO_TEXTO_INTEIRO": [
+  {
+   "ITEM": "derived:58",
+   "PORQUE": "projeto INNOFLORENERG (floricultura sustentavel, Sant'Anna): agro, sem cultura da lista",
+   "MOTIVO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5": [
+    [
+     "studio",
+     "ricerca",
+     "universita",
+     "istituto",
+     "pubblicazione",
+     "sperimentazione"
+    ],
+    [
+     "studio",
+     "ricerca",
+     "universita",
+     "istituto",
+     "pubblicazione",
+     "sperimentazione"
+    ]
+   ]
+  },
+  {
+   "ITEM": "derived:128",
+   "PORQUE": "INNOFLORENERG (outra copia do mesmo projeto)",
+   "MOTIVO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5": [
+    [
+     "studio",
+     "ricerca",
+     "universita",
+     "istituto",
+     "pubblicazione",
+     "sperimentazione"
+    ],
+    [
+     "studio",
+     "ricerca",
+     "universita",
+     "istituto",
+     "pubblicazione",
+     "sperimentazione"
+    ]
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.1017/s0007485319000075",
+   "PORQUE": "Trichoderma e silica na defesa da videira contra insetos",
+   "MOTIVO": "T5 C1-v1 (inicio de palavra)",
+   "PALAVRAS_T5": [
+    [
+     "doi",
+     "field trial"
+    ],
+    [
+     "field trial"
+    ]
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.30574/gscarr.2020.4.2.0059",
+   "PORQUE": "zeolitos na protecao do tomateiro",
+   "MOTIVO": "T5 C1-v1 (inicio de palavra)",
+   "PALAVRAS_T5": [
+    [
+     "article",
+     "experiment"
+    ],
+    [
+     "experiment"
+    ]
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.35948/geo/geoinfo/32130_3540",
+   "PORQUE": "resistencia de Diabrotica ao milho Bt (EUA)",
+   "MOTIVO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5": [
+    [
+     "studio",
+     "ricerca",
+     "rivista"
+    ],
+    [
+     "studio",
+     "ricerca",
+     "rivista"
+    ]
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.5281/zenodo.4319469",
+   "PORQUE": "zeolitos no tomateiro (outra copia do mesmo artigo)",
+   "MOTIVO": "T5 C1-v1 (inicio de palavra)",
+   "PALAVRAS_T5": [
+    [
+     "article",
+     "experiment"
+    ],
+    [
+     "experiment"
+    ]
+   ]
+  },
+  {
+   "ITEM": "derived:1244",
+   "PORQUE": "INNOFLORENERG em ingles (floricultura)",
+   "MOTIVO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5": [
+    [
+     "study",
+     "research",
+     "university",
+     "institute",
+     "publication",
+     "experiment"
+    ],
+    [
+     "study",
+     "research",
+     "university",
+     "institute",
+     "publication",
+     "experiment"
+    ]
+   ]
+  }
+ ],
+ "ITENS": [
+  {
+   "ITEM": "derived:23",
+   "SOURCE_ID": "IT-T5-012",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "livro de testemunhos de ex-alunos de Agraria (Pisa); nao e estudo nem assunto de campo",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "universita"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "universita"
+   ]
+  },
+  {
+   "ITEM": "derived:24",
+   "SOURCE_ID": "IT-T5-014",
+   "ROTULO": "NAO",
+   "PORQUE": "linhas-guia de internacionalizacao de cursos",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "universita"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "universita"
+   ]
+  },
+  {
+   "ITEM": "derived:25",
+   "SOURCE_ID": "IT-T5-016",
+   "ROTULO": "NAO",
+   "PORQUE": "interface do repositorio AIR (docentes)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:26",
+   "SOURCE_ID": "IT-T5-018",
+   "ROTULO": "NAO",
+   "PORQUE": "politica de acesso aberto da Universidade de Bolonha",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "revista",
+    "studio",
+    "ricerca",
+    "rivista",
+    "universita",
+    "pubblicazione",
+    "sperimentazione",
+    "tesi"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "rivista",
+    "universita",
+    "pubblicazione",
+    "sperimentazione",
+    "tesi"
+   ]
+  },
+  {
+   "ITEM": "derived:27",
+   "SOURCE_ID": "IT-T5-019",
+   "ROTULO": "NAO",
+   "PORQUE": "guia do arquivo institucional de Padua",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "doi",
+    "orcid",
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "doi",
+    "orcid",
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:28",
+   "SOURCE_ID": "IT-T5-020",
+   "ROTULO": "NAO",
+   "PORQUE": "manual do 'desktop prodotti' (UniTo)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "rivista",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "rivista",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:29",
+   "SOURCE_ID": "IT-T5-022",
+   "ROTULO": "NAO",
+   "PORQUE": "call for papers sobre learning outcomes (educacao)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "research",
+    "journal",
+    "article",
+    "publication"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "research",
+    "journal",
+    "article",
+    "publication"
+   ]
+  },
+  {
+   "ITEM": "derived:30",
+   "SOURCE_ID": "IT-T5-026",
+   "ROTULO": "NAO",
+   "PORQUE": "selecao de tutores para estudantes com deficiencia",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "revista",
+    "studio",
+    "ricerca",
+    "universita",
+    "pubblicazione",
+    "tesi"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:31",
+   "SOURCE_ID": "IT-T5-029",
+   "ROTULO": "NAO",
+   "PORQUE": "plano operativo do departamento de biotecnologias (Verona), administrativo",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "revista",
+    "studio",
+    "ricerca",
+    "universita",
+    "pubblicazione",
+    "tesi"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:56",
+   "SOURCE_ID": "IT-T5-015",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "workshop IBBR-CNR (biociencias e biorrecursos): evento, pagina quase toda menu",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:57",
+   "SOURCE_ID": "IT-T5-024",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "summer school LCA de sistemas zootecnicos: agro (pecuaria), mas curso; o LAB citou-o",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita",
+    "tesi"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita",
+    "tesi"
+   ]
+  },
+  {
+   "ITEM": "derived:58",
+   "SOURCE_ID": "IT-T5-025",
+   "ROTULO": "UTIL",
+   "PORQUE": "projeto INNOFLORENERG (floricultura sustentavel, Sant'Anna): agro, sem cultura da lista",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione",
+    "sperimentazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione",
+    "sperimentazione"
+   ]
+  },
+  {
+   "ITEM": "derived:59",
+   "SOURCE_ID": "IT-T5-027",
+   "ROTULO": "NAO",
+   "PORQUE": "pagina de departamento de Padua, so menu",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:60",
+   "SOURCE_ID": "IT-T5-028",
+   "ROTULO": "NAO",
+   "PORQUE": "delegados de departamento",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca"
+   ]
+  },
+  {
+   "ITEM": "derived:61",
+   "SOURCE_ID": "IT-T5-030",
+   "ROTULO": "NAO",
+   "PORQUE": "cibermafias (policia postal)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita"
+   ]
+  },
+  {
+   "ITEM": "derived:62",
+   "SOURCE_ID": "IT-T5-033",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "dia internacional do desperdicio alimentar (Agro-Alimentari, Bolonha): evento",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita",
+    "istituto",
+    "tesi"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita",
+    "istituto",
+    "tesi"
+   ]
+  },
+  {
+   "ITEM": "derived:56",
+   "SOURCE_ID": "IT-T5-015",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "workshop IBBR-CNR (biociencias e biorrecursos): evento, pagina quase toda menu",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:126",
+   "SOURCE_ID": "IT-T5-017",
+   "ROTULO": "NAO",
+   "PORQUE": "FAQ do repositorio FLORE",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "doi",
+    "orcid",
+    "ricerca",
+    "rivista",
+    "articolo",
+    "universita",
+    "pubblicazione",
+    "convegno"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "doi",
+    "orcid",
+    "ricerca",
+    "rivista",
+    "articolo",
+    "universita",
+    "pubblicazione",
+    "convegno"
+   ]
+  },
+  {
+   "ITEM": "derived:57",
+   "SOURCE_ID": "IT-T5-024",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "summer school LCA de sistemas zootecnicos: agro (pecuaria), mas curso; o LAB citou-o",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita",
+    "tesi"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita",
+    "tesi"
+   ]
+  },
+  {
+   "ITEM": "derived:128",
+   "SOURCE_ID": "IT-T5-025",
+   "ROTULO": "UTIL",
+   "PORQUE": "INNOFLORENERG (outra copia do mesmo projeto)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione",
+    "sperimentazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione",
+    "sperimentazione"
+   ]
+  },
+  {
+   "ITEM": "derived:129",
+   "SOURCE_ID": "IT-T5-027",
+   "ROTULO": "NAO",
+   "PORQUE": "pagina de departamento de Padua, so menu (outra copia)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:60",
+   "SOURCE_ID": "IT-T5-028",
+   "ROTULO": "NAO",
+   "PORQUE": "delegados de departamento",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca"
+   ]
+  },
+  {
+   "ITEM": "derived:130",
+   "SOURCE_ID": "IT-T5-030",
+   "ROTULO": "NAO",
+   "PORQUE": "cibermafias (outra copia)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita"
+   ]
+  },
+  {
+   "ITEM": "derived:62",
+   "SOURCE_ID": "IT-T5-033",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "dia internacional do desperdicio alimentar (Agro-Alimentari, Bolonha): evento",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita",
+    "istituto",
+    "tesi"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita",
+    "istituto",
+    "tesi"
+   ]
+  },
+  {
+   "ITEM": "derived:142",
+   "SOURCE_ID": "IT-T5-039",
+   "ROTULO": "NAO",
+   "PORQUE": "aulas e exames, Agraria Napoles (administrativo)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita"
+   ]
+  },
+  {
+   "ITEM": "derived:143",
+   "SOURCE_ID": "IT-T5-049",
+   "ROTULO": "NAO",
+   "PORQUE": "avisos de exames, Catania (administrativo)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:794",
+   "SOURCE_ID": "IT-T5-049",
+   "ROTULO": "NAO",
+   "PORQUE": "kit contra ansiedade de exames",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:795",
+   "SOURCE_ID": "IT-T5-049",
+   "ROTULO": "NAO",
+   "PORQUE": "welcome day",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:796",
+   "SOURCE_ID": "IT-T5-049",
+   "ROTULO": "NAO",
+   "PORQUE": "avisos de aulas",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:918",
+   "SOURCE_ID": "IT-T5-090",
+   "ROTULO": "NAO",
+   "PORQUE": "eventos das sociedades cientificas (Istat)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "rivista",
+    "universita",
+    "istituto",
+    "convegno"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "rivista",
+    "universita",
+    "istituto",
+    "convegno"
+   ]
+  },
+  {
+   "ITEM": "derived:964",
+   "SOURCE_ID": "IT-T5-167",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "CREA curso de analise sensorial do mel (apicultura): agro, mas curso",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:963",
+   "SOURCE_ID": "IT-T5-167",
+   "ROTULO": "NAO",
+   "PORQUE": "CREA 'Infrastrutture di ricerca': pagina de menu",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca"
+   ]
+  },
+  {
+   "ITEM": "derived:968",
+   "SOURCE_ID": "IT-T5-185",
+   "ROTULO": "NAO",
+   "PORQUE": "ENEA: noite dos investigadores",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita"
+   ]
+  },
+  {
+   "ITEM": "derived:966",
+   "SOURCE_ID": "IT-T5-185",
+   "ROTULO": "NAO",
+   "PORQUE": "ENEA: radiacao UV em Lampedusa",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca"
+   ]
+  },
+  {
+   "ITEM": "derived:967",
+   "SOURCE_ID": "IT-T5-185",
+   "ROTULO": "NAO",
+   "PORQUE": "ENEA: premio inovadores responsaveis",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita"
+   ]
+  },
+  {
+   "ITEM": "derived:1018",
+   "SOURCE_ID": "IT-T5-056",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "CREA e INRAE reforcam o eixo cientifico agroalimentar: institucional",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "istituto"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "istituto"
+   ]
+  },
+  {
+   "ITEM": "derived:1019",
+   "SOURCE_ID": "IT-T5-056",
+   "ROTULO": "UTIL",
+   "PORQUE": "CREA: colecao cientifica internacional sobre viticultura sustentavel",
+   "SAI_EM": [
+    "CORPO_ESTRITO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "SIM",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "rivista",
+    "tesi"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "rivista"
+   ]
+  },
+  {
+   "ITEM": "derived:1022",
+   "SOURCE_ID": "IT-T5-186",
+   "ROTULO": "NAO",
+   "PORQUE": "ENEA: meetings internacionais",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita"
+   ]
+  },
+  {
+   "ITEM": "derived:1024",
+   "SOURCE_ID": "IT-T5-186",
+   "ROTULO": "NAO",
+   "PORQUE": "ENEA: workshop DAPHNE de modelos atmosfericos",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "convegno"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "convegno"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.1002/jsfa.11814",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "fungicidas naturais contra mildio da videira",
+   "SAI_EM": [
+    "CORPO_ESTRITO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "SIM",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "study",
+    "journal"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "study",
+    "journal"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.1002/ps.6860",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "Plasmopara viticola, estrategias sustentaveis",
+   "SAI_EM": [
+    "CORPO_ESTRITO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "SIM",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "study",
+    "research"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "study",
+    "research"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.1002/ps.8140",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "biocontrolo de Botrytis na vinha",
+   "SAI_EM": [
+    "CORPO_ESTRITO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "SIM",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "study",
+    "experiment"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "study",
+    "experiment"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.1017/s0007485319000075",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "Trichoderma e silica na defesa da videira contra insetos",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5 C1-v1 (inicio de palavra)",
+   "MOTIVO_CORPO_ESTRITO": "T5 C1-v1 (inicio de palavra)",
+   "PALAVRAS_T5_ANTES": [
+    "doi",
+    "field trial"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "field trial"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.1055/s-0045-1814921",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "vesiculas extracelulares planta-fungo",
+   "SAI_EM": [
+    "CORPO_ESTRITO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "SIM",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "study",
+    "research",
+    "article",
+    "university",
+    "publication"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "study",
+    "research",
+    "article",
+    "university",
+    "publication"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.1055/s-0045-1814968",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "Salvia contra patogenos de plantas",
+   "SAI_EM": [
+    "CORPO_ESTRITO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "SIM",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "article",
+    "publication"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "article",
+    "publication"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.1093/jxb/erac286",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "DISCUTIVEL",
+   "PORQUE": "fenotipagem de plantas (producao de culturas em geral)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "research",
+    "publication"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "research",
+    "publication"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.1094/phyto-04-26-0103-r",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "videira e fitoplasma da flavescencia dourada",
+   "SAI_EM": [
+    "CORPO_ESTRITO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "SIM",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "study",
+    "research",
+    "article",
+    "experiment"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "study",
+    "research",
+    "article",
+    "experiment"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.30574/gscarr.2020.4.2.0059",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "zeolitos na protecao do tomateiro",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5 C1-v1 (inicio de palavra)",
+   "MOTIVO_CORPO_ESTRITO": "T5 C1-v1 (inicio de palavra)",
+   "PALAVRAS_T5_ANTES": [
+    "article",
+    "experiment"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "experiment"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.30574/ijsra.2023.9.2.0637",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "zeolito na protecao da videira",
+   "SAI_EM": [
+    "CORPO_ESTRITO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "SIM",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "research",
+    "article",
+    "experiment"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "research",
+    "article",
+    "experiment"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.35948/geo/geoinfo/32130_3540",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "resistencia de Diabrotica ao milho Bt (EUA)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "studio",
+    "ricerca",
+    "rivista"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "studio",
+    "ricerca",
+    "rivista"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.5194/egusphere-egu22-10511",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "drones para pragas e doencas em macieira e vinha",
+   "SAI_EM": [
+    "CORPO_ESTRITO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "SIM",
+   "MOTIVO_CORPO_ESTRITO": "T5_CORPO_NAO_SEPARAVEL",
+   "PALAVRAS_T5_ANTES": [
+    "study",
+    "experiment"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "study",
+    "experiment"
+   ]
+  },
+  {
+   "ITEM": "https://doi.org/10.5281/zenodo.4319469",
+   "SOURCE_ID": "EU-T5-001",
+   "ROTULO": "UTIL",
+   "PORQUE": "zeolitos no tomateiro (outra copia do mesmo artigo)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5 C1-v1 (inicio de palavra)",
+   "MOTIVO_CORPO_ESTRITO": "T5 C1-v1 (inicio de palavra)",
+   "PALAVRAS_T5_ANTES": [
+    "article",
+    "experiment"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "experiment"
+   ]
+  },
+  {
+   "ITEM": "derived:1129",
+   "SOURCE_ID": "IT-T5-187",
+   "ROTULO": "NAO",
+   "PORQUE": "ENEA: previsao de correntes marinhas para a America's Cup",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "istituto"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "istituto"
+   ]
+  },
+  {
+   "ITEM": "derived:1242",
+   "SOURCE_ID": "IT-T5-025",
+   "ROTULO": "NAO",
+   "PORQUE": "Fitto com estudantes (educacao civica)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:1244",
+   "SOURCE_ID": "IT-T5-025",
+   "ROTULO": "UTIL",
+   "PORQUE": "INNOFLORENERG em ingles (floricultura)",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "study",
+    "research",
+    "university",
+    "institute",
+    "publication",
+    "experiment"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "study",
+    "research",
+    "university",
+    "institute",
+    "publication",
+    "experiment"
+   ]
+  },
+  {
+   "ITEM": "derived:1245",
+   "SOURCE_ID": "IT-T5-025",
+   "ROTULO": "NAO",
+   "PORQUE": "novos socios dos Lincei",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione"
+   ]
+  },
+  {
+   "ITEM": "derived:1246",
+   "SOURCE_ID": "IT-T5-025",
+   "ROTULO": "NAO",
+   "PORQUE": "Internet Festival 2026",
+   "SAI_EM": [
+    "CORPO_ESTRITO",
+    "CORPO_SENAO_INTEIRO",
+    "TEXTO_INTEIRO"
+   ],
+   "MOTIVO_TEXTO_INTEIRO": "T5_SEM_ASSUNTO_AGRO",
+   "MOTIVO_CORPO_ESTRITO": "T5_SEM_ASSUNTO_AGRO",
+   "PALAVRAS_T5_ANTES": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione",
+    "tesi"
+   ],
+   "PALAVRAS_T5_INICIO": [
+    "ricerca",
+    "universita",
+    "istituto",
+    "pubblicazione"
+   ]
+  }
+ ]
+}

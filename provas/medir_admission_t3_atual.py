@@ -71,8 +71,12 @@ CADEIA = [
      "a funcao que decide o tema"),
     ("admissao/admissao.py", "def decidir(",
      "a porta: prontidao primeiro, tema depois"),
-    ("orquestrador/orquestrador.py", "adm.decidir(x, universo, corrida=run_id)",
+    # ⚠️ ELO AJUSTADO, DECLARADO (REROUTE-D56, 28/09): o orquestrador passou a chamar
+    # `decidir_todas` (D56), que chama `decidir` para o pedido tal e qual — o elo seguinte.
+    ("orquestrador/orquestrador.py", "adm.decidir_todas(x, universo, corrida=run_id)",
      "o orquestrador corre a porta sobre a colheita"),
+    ("admissao/admissao.py", "d0 = decidir(item, pedido, corrida=corrida)",
+     "D56: a decisao do PEDIDO e a de sempre (decidir), antes do reroute"),
     ("coleta/rota_forward_documento.py",
      "admissao.decidir(item, universo, corrida=run_id)",
      "a rota de documento corre a porta"),

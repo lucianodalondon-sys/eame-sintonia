@@ -1,0 +1,191 @@
+{
+ "DATASET": "MUTACAO-REROUTE-T1T2-V1",
+ "TESTE": "tests.test_reroute_t1t2_d130 tests.test_reroute_d56",
+ "COPIA_LIMPA": "OK",
+ "SALTOS_NA_COPIA_LIMPA": 0,
+ "MUTANTES": 16,
+ "MORTOS": 16,
+ "RESULTADOS": [
+  {
+   "ID": "D01",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "T3 entra na Sala por reroute (o ramo antigo)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_1_um_item_duas_gavetas_a_vista_e_o_atual",
+    "test_2_retry_e_outra_corrida_nao_duplicam",
+    "test_a_sala_que_ja_existe_so_ganha_gavetas_t1_t2",
+    "test_nenhum_sim_de_reroute_fora_do_escopo_chega_a_sala_venha_de_onde_vier",
+    "test_o_escopo_e_exactamente_clima_e_cultura",
+    "test_sim_em_dois_universos_e_um_item_com_duas_gavetas"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=10)"
+  },
+  {
+   "ID": "D02",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "T10 entra na Sala por reroute",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_a_sala_que_ja_existe_so_ganha_gavetas_t1_t2",
+    "test_nenhum_sim_de_reroute_fora_do_escopo_chega_a_sala_venha_de_onde_vier",
+    "test_o_escopo_e_exactamente_clima_e_cultura",
+    "test_so_t3_e_so_t10_por_reroute_nao_pousam_e_ficam_no_livro",
+    "test_t3_e_t10_anotam_com_regra_motivo_e_trecho"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=5)"
+  },
+  {
+   "ID": "D03",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "o escopo volta a ser a regua medida (T1, T2, T3, T10)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [],
+   "ULTIMA_LINHA": "NameError: name 'REROUTE_PROMOVE' is not defined"
+  },
+  {
+   "ID": "D04",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "julgar_reroute deixa de anotar: T3/T10 dizem SIM",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_a_sala_que_ja_existe_so_ganha_gavetas_t1_t2",
+    "test_sim_em_dois_universos_e_um_item_com_duas_gavetas",
+    "test_so_t3_e_so_t10_por_reroute_nao_pousam_e_ficam_no_livro",
+    "test_t3_e_t10_anotam_com_regra_motivo_e_trecho"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=4)"
+  },
+  {
+   "ID": "D05",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "a segunda trava cai: uma SIM fora do escopo chega a Sala",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_nenhum_sim_de_reroute_fora_do_escopo_chega_a_sala_venha_de_onde_vier"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "D06",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "fora do escopo vira NAO (rejeicao) em vez de anotar",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_sim_em_dois_universos_e_um_item_com_duas_gavetas",
+    "test_t3_e_t10_anotam_com_regra_motivo_e_trecho"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=2)"
+  },
+  {
+   "ID": "D07",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "a anotacao perde o trecho",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_t3_e_t10_anotam_com_regra_motivo_e_trecho"
+   ],
+   "ULTIMA_LINHA": "FAILED (errors=1)"
+  },
+  {
+   "ID": "D08",
+   "FICHEIRO": "admissao/reprocessar_reroute.py",
+   "PORQUE": "o reprocesso da gaveta ao que so foi anotado",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_a_sala_que_ja_existe_so_ganha_gavetas_t1_t2"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  },
+  {
+   "ID": "D09",
+   "FICHEIRO": "orquestrador/orquestrador.py",
+   "PORQUE": "pela_porta pousa o que a regua disse SIM mesmo anotado",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_so_t3_e_so_t10_por_reroute_nao_pousam_e_ficam_no_livro",
+    "test_um_ready_uma_gaveta_extra_e_o_livro_com_tudo"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1, errors=1)"
+  },
+  {
+   "ID": "T01",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "a regua T5 C1 ligada por omissao (antes de o dono ver o replay)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_a_chave_esta_desligada_por_omissao_e_o_pedido_nao_muda",
+    "test_ligada_so_muda_o_t5"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=2)"
+  },
+  {
+   "ID": "T02",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "C1 sem inicio de palavra: «tesi» dentro de «attesi» volta a contar",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_ligada_o_termo_tem_de_comecar_palavra",
+    "test_os_22_de_28_09_batem_com_o_codigo"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=2)"
+  },
+  {
+   "ID": "T03",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "C1 sem assunto agro: a ENEA volta a entrar",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_ligada_ciencia_sem_cultura_nem_praga_fica_nao_sei",
+    "test_ligada_o_termo_agro_no_menu_nao_conta",
+    "test_os_22_de_28_09_batem_com_o_codigo"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=3)"
+  },
+  {
+   "ID": "T04",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "o termo agro do MENU conta",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_ligada_o_termo_agro_no_menu_nao_conta",
+    "test_ligada_pagina_html_sem_corpo_fica_nao_sei",
+    "test_os_22_de_28_09_batem_com_o_codigo"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=3)"
+  },
+  {
+   "ID": "T05",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "pagina HTML sem corpo cai para o texto inteiro (menu) em silencio",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_ligada_pagina_html_sem_corpo_fica_nao_sei",
+    "test_os_22_de_28_09_batem_com_o_codigo"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=2)"
+  },
+  {
+   "ID": "T06",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "com assunto agro, C1 rejeita (NAO) em vez de admitir",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_ligada_ciencia_sem_cultura_nem_praga_fica_nao_sei",
+    "test_ligada_o_termo_agro_no_menu_nao_conta",
+    "test_os_22_de_28_09_batem_com_o_codigo"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=3)"
+  },
+  {
+   "ID": "T07",
+   "FICHEIRO": "admissao/admissao.py",
+   "PORQUE": "C1 escorrega para outro universo (T3)",
+   "ESTADO": "MORTO",
+   "TESTES_QUE_APANHARAM": [
+    "test_ligada_so_muda_o_t5"
+   ],
+   "ULTIMA_LINHA": "FAILED (failures=1)"
+  }
+ ]
+}

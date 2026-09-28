@@ -12,6 +12,11 @@
 --     psql -X -v ON_ERROR_STOP=1 --single-transaction -f supabase/desfazer/033_desfazer.sql <DSN>
 -- ═══════════════════════════════════════════════════════════════════════
 
+-- REROUTE-D56 (28/09): a vista da 038 le `sala_de_espera_atual` e `sala_de_espera_gaveta`;
+-- desfazer a 033 leva-a primeiro (sem ela o drop da vista abaixo e recusado).
+drop view if exists public.sala_de_espera_por_gaveta;
+delete from public.schema_migracao where versao = '038';
+
 drop view if exists public.sala_de_espera_atual;
 
 drop trigger if exists sala_de_espera_revisao_nao_muda on public.sala_de_espera_revisao;

@@ -176,11 +176,25 @@ class ASalaNaoRepeteODocumentoPelaChave(unittest.TestCase):
         self.assertEqual(a["INSERIDAS"], 1)
         self.assertEqual(self.contar(["derived:801", "derived:802"]), 1)
 
-    # ── outro universo continua a ser outra entrada (REROUTE, D2) ───────
-    def test_R_mesmo_documento_em_outro_universo_entra(self):
+    # ── outro universo: UMA linha, e a gaveta nova aponta para ela (D56) ─
+    # ⚠️ AJUSTE DECLARADO (REROUTE-D56, 28/09). Este teste dizia «outro universo
+    # continua a ser outra entrada (REROUTE, D2)» e esperava INSERIDAS = 1 — uma
+    # segunda LINHA com o mesmo documento. A D56 (bot Luciano, 25/09 09:05) manda o
+    # contrario: «UM item canónico ligado a TODAS as gavetas aprovadas (sem duplicar
+    # bytes nem proveniência)». O documento `news/b` ja esta na Sala (teste B, T5):
+    # em T7 ele NAO ganha linha; o T7 pousa em `sala_de_espera_gaveta`.
+    def test_R_mesmo_documento_em_outro_universo_fica_uma_linha_com_duas_gavetas(self):
         r1 = self.bruto("D16", "IT-T5-030", "IT-T5-030:URL:news/b", sha="f")
-        b = espera.pousar("D16", [self.unidade("derived:901", r1, "IT-T5-030", universo="T7")])
-        self.assertEqual(b["INSERIDAS"], 1)
+        u = self.unidade("derived:901", r1, "IT-T5-030", universo="T7")
+        g = {"derived:901": [{"UNIVERSO": "T7", "PONTUACAO": 2, "MOTIVO": "teste D56"}]}
+        b = espera.pousar("D16", [u], gavetas=g)
+        self.assertEqual((b["INSERIDAS"], b["GAVETAS_NOVAS"]), (0, 1))
+        self.assertEqual(self.contar(["derived:201", "derived:202", "derived:901"]), 1)
+        self.assertEqual(self.sql("select g.universo || ':' || g.origem from sala_de_espera_gaveta g "
+                                  "join sala_de_espera s using (run_id, ordem) "
+                                  "where s.item_id = 'derived:201'").strip(), "T7:T5")
+        # e repetir nao escreve nada
+        self.assertEqual(espera.pousar("D16", [u], gavetas=g)["GAVETAS_NOVAS"], 0)
 
     # ══ D79 · VERSÕES (036) ══════════════════════════════════════════════
     RECEITA = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
