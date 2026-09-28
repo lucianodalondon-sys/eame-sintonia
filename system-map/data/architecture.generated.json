@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote7-integra-grain-rule-37g8vv",
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217",
-    "GENERATED_AT": "2026-09-27T23:28:34+00:00",
-    "SOURCE_TREE_FINGERPRINT": "85092322625f89d8a975e021ca2a6ccd67eeb6cb71d5ee8b0d0a86d40c3a45e5"
+    "BRANCH": "claude/porta-sala-rende-k4gunr",
+    "HEAD": "71e2ff58b46be4019ed08ad3776b0e8394d1fcb7",
+    "GENERATED_AT": "2026-09-28T01:45:31+00:00",
+    "SOURCE_TREE_FINGERPRINT": "731c708a364ddbbae658b9544617536e726ffca7fe4d988c9cb51060e0085671"
   },
   "FILES": [
     {
@@ -646,6 +646,13 @@
       "code_dir": false
     },
     {
+      "path": "PORTA-DA-SALA-RENDE.md",
+      "sha": "b67b87d7b9808ffe07fb19a936deb20eae0e7ef9",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "PORTA-UNICA-REFERENCIA.md",
       "sha": "c72e1759fa73eaeeac0cfa8877f6eceae53d5b28",
       "ext": ".md",
@@ -1214,7 +1221,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "6763157c8c9a392c27a0e8bfe0ce1e4d2a34fac3",
+      "sha": "8fd15211b266a340569c79342fa344f2681e6238",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24565,6 +24572,41 @@
       "code_dir": true
     },
     {
+      "path": "scripts/porta_sala_rende/AMOSTRA-LIDA-V1.json",
+      "sha": "b6758b56916728ea539c7359ec0b2f796b8c8493",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/porta_sala_rende/MUTACAO-PORTA-SALA-RENDE-V1.json",
+      "sha": "72eaa65c8ab6fa0ea071c2c111ebe949dc52ef72",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/porta_sala_rende/REPLAY-PORTA-SALA-RENDE-V1.json",
+      "sha": "32e325248db58f06f3adfd54067b7afb3c374e62",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/porta_sala_rende/mutar_porta_sala_rende.py",
+      "sha": "097fafb8815e02419f3c33f904ec72d78d4bfcf1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+      "sha": "0a8913bc9c5856e17cbd71c49a44967b878bea26",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/receitas/ROTULOS-LD2.json",
       "sha": "a58a11d55cb63e8da62cbdf1b69e431f0b43c6cb",
       "ext": ".json",
@@ -25728,7 +25770,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f92f2df7af2f1020429a2795f23ca69dd9bd097b",
+      "sha": "10ed0f4425f675fdbd95c531bc6ab3d149d4fa9d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28184,6 +28226,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_porta_sala_rende.py",
+      "sha": "0c0cef85040134f9a40e4123ea920efb9eb74f2a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_porta_unica_referencia.py",
       "sha": "705aabf935043c5cde1be187f143acc29a15a875",
       "ext": ".py",
@@ -30372,7 +30421,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 1514,
+        "line": 1770,
         "snippet": "_sp = _iu.spec_from_file_location(\"admissao_idioma\", Path(__file__).resolve().parent / \"idioma.py\")"
       }
     },
@@ -30416,7 +30465,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2091,
+        "line": 2347,
         "snippet": "import boletim_do_campo as BC                                  # noqa: PLC0415"
       }
     },
@@ -30427,7 +30476,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2125,
+        "line": 2381,
         "snippet": "import estudo_chaves as EC                                     # noqa: PLC0415"
       }
     },
@@ -30438,7 +30487,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2070,
+        "line": 2326,
         "snippet": "import fato_do_texto as FT                                     # noqa: PLC0415"
       }
     },
@@ -81956,6 +82005,116 @@
       }
     },
     {
+      "from_file": "scripts/porta_sala_rende/mutar_porta_sala_rende.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/mutar_porta_sala_rende.py",
+        "line": 55,
+        "snippet": "orig = open(F, encoding=\"utf-8\", newline=\"\").read()"
+      }
+    },
+    {
+      "from_file": "scripts/porta_sala_rende/mutar_porta_sala_rende.py",
+      "to_file": "admissao/admissao.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/mutar_porta_sala_rende.py",
+        "line": 68,
+        "snippet": "open(F, \"w\", encoding=\"utf-8\", newline=\"\").write(orig.replace(a, b))"
+      }
+    },
+    {
+      "from_file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+        "line": 34,
+        "snippet": "import _gavetas  # noqa: E402,F401 — as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+        "line": 36,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+      "to_file": "coleta/texto_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+        "line": 37,
+        "snippet": "from coleta.texto_fonte import limpar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+        "line": 66,
+        "snippet": "f = raiz / \"data\" / \"collection-ledger\" / \"italy\" / \"observations.ndjson\""
+      }
+    },
+    {
+      "from_file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+        "line": 82,
+        "snippet": "reg = raiz / \"data\" / \"derivados\" / \"REGISTO-DE-ARTEFATOS.json\""
+      }
+    },
+    {
+      "from_file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+        "line": 155,
+        "snippet": "livro = livro or json.loads((RAIZ / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+      "to_file": "scripts/porta_sala_rende/REPLAY-PORTA-SALA-RENDE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+        "line": 40,
+        "snippet": "SAIDA = AQUI / \"REPLAY-PORTA-SALA-RENDE-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+      "to_file": "scripts/porta_sala_rende/REPLAY-PORTA-SALA-RENDE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/porta_sala_rende/replay_porta_sala_rende.py",
+        "line": 262,
+        "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\","
+      }
+    },
+    {
       "from_file": "scripts/receitas/censo_e_proposta.py",
       "to_file": "curadoria/PROPOSTA-RECEITAS-V1.json",
       "type": "READS",
@@ -102328,6 +102487,28 @@
       }
     },
     {
+      "from_file": "tests/test_porta_sala_rende.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_sala_rende.py",
+        "line": 20,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_sala_rende.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_porta_sala_rende.py",
+        "line": 22,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_porta_unica_referencia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -108803,6 +108984,13 @@
         "constante": "F"
       }
     ],
+    "scripts/porta_sala_rende/mutar_porta_sala_rende.py": [
+      {
+        "pasta": "admissao",
+        "line": 77,
+        "constante": "F"
+      }
+    ],
     "scripts/regua_t1/mutar_regua_t1.py": [
       {
         "pasta": "admissao",
@@ -108924,11 +109112,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4118,
-    "files_readable": 1727,
-    "files_code_dir": 2110,
-    "file_edges": 7222,
-    "escritas_em_pasta": 94,
+    "files_tracked": 4125,
+    "files_readable": 1730,
+    "files_code_dir": 2116,
+    "file_edges": 7234,
+    "escritas_em_pasta": 95,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

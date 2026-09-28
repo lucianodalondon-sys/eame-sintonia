@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "d0e09017266a4c7ff29aa8ee1c2f7013c198d217"
+    "HEAD": "71e2ff58b46be4019ed08ad3776b0e8394d1fcb7"
   },
   "VOCABULARIOS": [
     {
@@ -1342,6 +1342,8 @@
         "scripts/lugar_fato/mutar_boletim_por_secao.py",
         "scripts/micro_coleta/ensaio_offline.py",
         "scripts/micro_coleta/micro_coleta.py",
+        "scripts/porta_sala_rende/mutar_porta_sala_rende.py",
+        "scripts/porta_sala_rende/replay_porta_sala_rende.py",
         "scripts/regua_t1/selecionar_cega.py",
         "scripts/regua_t2/medir_regua_t2.py",
         "scripts/regua_t2/medir_via_agrometeo.py",
@@ -1395,6 +1397,7 @@
         "tests/test_pacote_de_revisao_t3.py",
         "tests/test_periodo_e_chaves.py",
         "tests/test_politica_nao_sei.py",
+        "tests/test_porta_sala_rende.py",
         "tests/test_quarentena_naosei.py",
         "tests/test_quatro_chaves.py",
         "tests/test_quatro_chaves_na_sala.py",
