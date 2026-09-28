@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
-    "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-    "GENERATED_AT": "2026-09-28T05:29:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a"
+    "BRANCH": "claude/canario-1149-first-review-3llkwl",
+    "HEAD": "3f36ead9d8dac9393220922bc5243ed774d560d4",
+    "GENERATED_AT": "2026-09-28T14:07:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "19309b3ed954a0d226b9dcae525c67f6590ed169d48c638eccfe7e6b7fc82ecb"
   },
   "FILES": [
     {
@@ -270,6 +270,13 @@
     {
       "path": "BUSCA-NO-ACTIONS.md",
       "sha": "825af096d994cf6bd6a24ba00b19d80528f52b1b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "CANARIO-1149.md",
+      "sha": "3d5d91aa2cb3949a41a147bbc85f818682ed3205",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1291,7 +1298,14 @@
     },
     {
       "path": "admissao/reprocessar_tempo_lugar.py",
-      "sha": "ccaa4fc58fe6d835fc2615d2891e0542fa3110ed",
+      "sha": "1962131830f571f81451a461a973af351f4bce52",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "admissao/reprocessar_um_item.py",
+      "sha": "1a6ed979829d526e6b2dca2ede526aee33bee67c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2474,7 +2488,7 @@
     },
     {
       "path": "coleta/executor_texto_de_html.py",
-      "sha": "2197b7ac28ddf1211e95a308b305c9ad4bd04b07",
+      "sha": "f815aa6967300decf66efad708a49d46d12064ad",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2565,7 +2579,7 @@
     },
     {
       "path": "coleta/italy_executor.py",
-      "sha": "670330c2c0779ab5210ca926563c5644c6157697",
+      "sha": "7231ee2170d6d6e5e7a4b741842c9f526acfc48c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2649,7 +2663,7 @@
     },
     {
       "path": "coleta/pesquisadores_t6.py",
-      "sha": "a1d9ab7d352443e95fc248b2472c5640d27eb69a",
+      "sha": "a6ee16831b93618f104935b06aee5d2cb5fcd8a0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11804,6 +11818,34 @@
       "code_dir": false
     },
     {
+      "path": "docs/lab-insumos/canario-1149/CANARIO-ATUAL.md",
+      "sha": "f2dc695396de8a40fb45e6d367fa1bce277ccbe5",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/lab-insumos/canario-1149/LINHA-DA-SALA.json",
+      "sha": "a77a8075f59c547265c24b7e0ae7e1d472ab7b43",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/lab-insumos/canario-1149/MOTOR-COPIA-20260928.json",
+      "sha": "6d4a671cfb50f3bf5d20468bb7635d5298920685",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/lab-insumos/canario-1149/TEXTO-DA-SALA.txt",
+      "sha": "666f1bc57e3842a41599d2fbd18cbfde5f18df43",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/nuvem/nuvem-boletim-por-secao-v1-MERGES.txt",
       "sha": "1d9c09395bc69e60f30aacb43999e0efe1647068",
       "ext": ".txt",
@@ -18427,7 +18469,7 @@
     },
     {
       "path": "leis/boletim_do_campo.py",
-      "sha": "c87e5d0ee57bcade95bd48cae45f656f175cf21a",
+      "sha": "264ac7a994a581340b298059039dfe64a7bb558b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18455,7 +18497,7 @@
     },
     {
       "path": "leis/estudo_chaves.py",
-      "sha": "467183bcb37d76a694c0bbf6ab0b39a6d6e0a5f6",
+      "sha": "4a34b194bb3c62b8cd00517812d33d55e70e509d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18476,7 +18518,7 @@
     },
     {
       "path": "leis/fato_do_texto.py",
-      "sha": "7d9b5dc2767268705a3c6c05e06b6e427687deb3",
+      "sha": "b66522dc19f029b9f98511717c01ce6b44ab6006",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20689,6 +20731,97 @@
     {
       "path": "provas/c2_juiz_mutacao.py",
       "sha": "b0a2ffacbe408dc53c38b2f4ef2ecdec558e79f2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/BATERIA-BASE-f952966.json",
+      "sha": "2c003baeb7ec37c012c9e2926c0302609ad6e4a9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/BATERIA-DEPOIS-3f36ead.json",
+      "sha": "11edaee845e6fb8fb8b1aae22c4c2f577077b09c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/ENSAIO-1149.json",
+      "sha": "ec08bb5e5aa52799873678c622dda9e85a65ba65",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/EXPORT-ANTES.json",
+      "sha": "d00114552fed2371491c8cd4046d18a5da086522",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/EXPORT-DEPOIS.json",
+      "sha": "049e68a50566cb0a9b55d25fe79ecb6ffb3c05c1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/MOTOR-ANTES.json",
+      "sha": "c7739dfb946d640e5916117e99a26b42ba268785",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/MOTOR-DEPOIS.json",
+      "sha": "1a60e97ee4ad492e817e58ba26f448e737f8325f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/MUTACAO-1149.json",
+      "sha": "715d8f36a37659ebf38acc8bd7a0760bdcb226fc",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/POTE-ANTES.json",
+      "sha": "4ae7030f2d9c0a8a1b5885ed81e04f464214a0ed",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/POTE-DEPOIS.json",
+      "sha": "87f8c56527efb08c8fc672a49ddda82887a89bd1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/REVISOES-SECO.json",
+      "sha": "01af87adb645b8a678dde134a5d57b79c5b84f08",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/ensaio_descartavel.py",
+      "sha": "ec28933e872fd17bd0ded7972928522187976a71",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/canario_1149/mutacao_1149.py",
+      "sha": "b45eca77f9cb06dff5cacb8bcc6fca2fdc27b98d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26246,7 +26379,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "940148ded4e8a9036196ca5c35d78328176895a0",
+      "sha": "019914ee823faade5fed6c9bd68482fa79767ec4",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -27717,6 +27850,13 @@
     {
       "path": "tests/test_canais_presos_no_feed.py",
       "sha": "a96d55dc4ed0116280787832335b2e788ebbc9e8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_canario_1149.py",
+      "sha": "ed32316a72074e120ebe388b5a26ef932c679576",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -31426,6 +31566,61 @@
       }
     },
     {
+      "from_file": "admissao/reprocessar_um_item.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_um_item.py",
+        "line": 47,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_um_item.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_um_item.py",
+        "line": 49,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_um_item.py",
+      "to_file": "admissao/reprocessar_problema.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_um_item.py",
+        "line": 50,
+        "snippet": "import reprocessar_problema as RP  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_um_item.py",
+      "to_file": "admissao/reprocessar_tempo_lugar.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_um_item.py",
+        "line": 51,
+        "snippet": "import reprocessar_tempo_lugar as RTL  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "admissao/reprocessar_um_item.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/reprocessar_um_item.py",
+        "line": 151,
+        "snippet": "import sala_de_espera as espera   # noqa: PLC0415 — o seco nunca abre o banco"
+      }
+    },
+    {
       "from_file": "admissao/sala_de_espera.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -32895,7 +33090,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 861,
+        "line": 947,
         "snippet": "f = os.path.join(RAIZ, \"curadoria\", \"retrato_html.py\")"
       }
     },
@@ -32906,7 +33101,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_html.py",
-        "line": 744,
+        "line": 830,
         "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
       }
     },
@@ -33544,7 +33739,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 247,
+        "line": 249,
         "snippet": "import executor_texto_de_html as H                    # noqa: PLC0415"
       }
     },
@@ -33566,7 +33761,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 645,
+        "line": 651,
         "snippet": "r = subprocess.run([sys.executable, os.path.join(\"curadoria\", \"collection_gate.py\"),"
       }
     },
@@ -33599,7 +33794,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 274,
+        "line": 278,
         "snippet": "import contratos_de_fonte as cf                         # noqa: PLC0415"
       }
     },
@@ -34204,7 +34399,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/pesquisadores_t6.py",
-        "line": 318,
+        "line": 322,
         "snippet": "import cortesia_adaptativa as CA                                   # noqa: PLC0415 — o dono unico (D124)"
       }
     },
@@ -34215,7 +34410,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/pesquisadores_t6.py",
-        "line": 623,
+        "line": 627,
         "snippet": "with open(ATLAS, encoding='utf-8') as h:"
       }
     },
@@ -55390,7 +55585,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 700,
+        "line": 705,
         "snippet": "import normalize_agro as NA      # noqa: PLC0415"
       }
     },
@@ -55401,7 +55596,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 785,
+        "line": 830,
         "snippet": "import porta_da_referencia as PORTA   # noqa: PLC0415"
       }
     },
@@ -55654,7 +55849,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/estudo_chaves.py",
-        "line": 180,
+        "line": 189,
         "snippet": "import admissao as ADM                           # noqa: PLC0415"
       }
     },
@@ -55665,7 +55860,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/estudo_chaves.py",
-        "line": 167,
+        "line": 176,
         "snippet": "import pesquisadores_t6 as T6                    # noqa: PLC0415 — o lexico T6 (ingles/cientifico)"
       }
     },
@@ -55676,7 +55871,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/estudo_chaves.py",
-        "line": 155,
+        "line": 164,
         "snippet": "import afirmacao_da_fonte as AF                  # noqa: PLC0415 — dono de ENTITY_SOURCES (D112)"
       }
     },
@@ -55687,7 +55882,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/estudo_chaves.py",
-        "line": 173,
+        "line": 182,
         "snippet": "import boletim_do_campo as BC                    # noqa: PLC0415 — o vocabulario de pragas"
       }
     },
@@ -55698,7 +55893,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/estudo_chaves.py",
-        "line": 227,
+        "line": 236,
         "snippet": "import fato_local as FL                      # noqa: PLC0415 — o gazetteer (so se LE)"
       }
     },
@@ -69681,6 +69876,215 @@
         "file": "provas/c2_juiz_mutacao.py",
         "line": 58,
         "snippet": "r = subprocess.run([sys.executable, \"tests/test_c2_juiz.py\"], cwd=pasta, env=env, capture_output=True,"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 34,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "admissao/reprocessar_um_item.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 189,
+        "snippet": "seco = correr([\"admissao/reprocessar_um_item.py\", \"--entrada\", str(tmp / \"export-antes.json\"),"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "docs/lab-insumos/canario-1149/LINHA-DA-SALA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 38,
+        "snippet": "LINHA = RAIZ / \"docs\" / \"lab-insumos\" / \"canario-1149\" / \"LINHA-DA-SALA.json\""
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "guarda/banco_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 35,
+        "snippet": "import banco_descartavel as BD  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 102,
+        "snippet": "r = subprocess.run([\"bash\", \"motor/cadeia_canonica.sh\", \"migrations\", self.url()], cwd=str(RAIZ),"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 250,
+        "snippet": "m = correr([\"motor/motor_das_capacidades.py\", str(tmp / (\"export-%s.json\" % nome)), \"--hoje\", hoje,"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "motor/r7_export_da_copia.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 136,
+        "snippet": "sql = (RAIZ / \"motor\" / \"r7_export_da_copia.sql\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 252,
+        "snippet": "p = correr([\"pacote/pote_intelligence_casco.py\", str(tmp / (\"motor-%s.json\" % nome)),"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "provas/canario_1149/ENSAIO-1149.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 271,
+        "snippet": "(saida / \"ENSAIO-1149.json\").write_text(json.dumps(res, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/ensaio_descartavel.py",
+      "to_file": "provas/canario_1149/REVISOES-SECO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/ensaio_descartavel.py",
+        "line": 267,
+        "snippet": "shutil.copy(tmp / \"revisoes.json\", saida / \"REVISOES-SECO.json\")"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/mutacao_1149.py",
+      "to_file": "admissao/reprocessar_tempo_lugar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/mutacao_1149.py",
+        "line": 24,
+        "snippet": "\"admissao/reprocessar_tempo_lugar.py\""
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/mutacao_1149.py",
+      "to_file": "admissao/reprocessar_um_item.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/mutacao_1149.py",
+        "line": 23,
+        "snippet": "EC, T6, R1, RTL = \"leis/estudo_chaves.py\", \"coleta/pesquisadores_t6.py\", \"admissao/reprocessar_um_item.py\", \\"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/mutacao_1149.py",
+      "to_file": "coleta/executor_texto_de_html.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/mutacao_1149.py",
+        "line": 21,
+        "snippet": "FT, H, EX, BC = \"leis/fato_do_texto.py\", \"coleta/executor_texto_de_html.py\", \"coleta/italy_executor.py\", \\"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/mutacao_1149.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/mutacao_1149.py",
+        "line": 21,
+        "snippet": "FT, H, EX, BC = \"leis/fato_do_texto.py\", \"coleta/executor_texto_de_html.py\", \"coleta/italy_executor.py\", \\"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/mutacao_1149.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/mutacao_1149.py",
+        "line": 23,
+        "snippet": "EC, T6, R1, RTL = \"leis/estudo_chaves.py\", \"coleta/pesquisadores_t6.py\", \"admissao/reprocessar_um_item.py\", \\"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/mutacao_1149.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/mutacao_1149.py",
+        "line": 22,
+        "snippet": "\"leis/boletim_do_campo.py\""
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/mutacao_1149.py",
+      "to_file": "leis/estudo_chaves.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/mutacao_1149.py",
+        "line": 23,
+        "snippet": "EC, T6, R1, RTL = \"leis/estudo_chaves.py\", \"coleta/pesquisadores_t6.py\", \"admissao/reprocessar_um_item.py\", \\"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/mutacao_1149.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/mutacao_1149.py",
+        "line": 21,
+        "snippet": "FT, H, EX, BC = \"leis/fato_do_texto.py\", \"coleta/executor_texto_de_html.py\", \"coleta/italy_executor.py\", \\"
+      }
+    },
+    {
+      "from_file": "provas/canario_1149/mutacao_1149.py",
+      "to_file": "provas/canario_1149/MUTACAO-1149.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_1149/mutacao_1149.py",
+        "line": 114,
+        "snippet": "with open(os.path.join(RAIZ, \"provas\", \"canario_1149\", \"MUTACAO-1149.json\"), \"w\", encoding=\"utf-8\","
       }
     },
     {
@@ -96359,6 +96763,105 @@
       }
     },
     {
+      "from_file": "tests/test_canario_1149.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_canario_1149.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_canario_1149.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_canario_1149.py",
+        "line": 25,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_canario_1149.py",
+      "to_file": "admissao/reprocessar_um_item.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_canario_1149.py",
+        "line": 173,
+        "snippet": "import reprocessar_um_item as R1"
+      }
+    },
+    {
+      "from_file": "tests/test_canario_1149.py",
+      "to_file": "coleta/executor_texto_de_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_canario_1149.py",
+        "line": 29,
+        "snippet": "import executor_texto_de_html as H  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_canario_1149.py",
+      "to_file": "docs/lab-insumos/canario-1149/LINHA-DA-SALA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_canario_1149.py",
+        "line": 33,
+        "snippet": "with open(os.path.join(INSUMOS, \"LINHA-DA-SALA.json\"), encoding=\"utf-8\") as _fh:"
+      }
+    },
+    {
+      "from_file": "tests/test_canario_1149.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_canario_1149.py",
+        "line": 26,
+        "snippet": "import afirmacao_da_fonte as AF  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_canario_1149.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_canario_1149.py",
+        "line": 27,
+        "snippet": "import boletim_do_campo as BC  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_canario_1149.py",
+      "to_file": "leis/estudo_chaves.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_canario_1149.py",
+        "line": 28,
+        "snippet": "import estudo_chaves as EC  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_canario_1149.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_canario_1149.py",
+        "line": 30,
+        "snippet": "import fato_do_texto as FT  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_canario_rotas_contrato_certo.py",
       "to_file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
       "type": "READS",
@@ -112539,10 +113042,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4205,
-    "files_readable": 1766,
-    "files_code_dir": 2181,
-    "file_edges": 7494,
+    "files_tracked": 4225,
+    "files_readable": 1770,
+    "files_code_dir": 2196,
+    "file_edges": 7527,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

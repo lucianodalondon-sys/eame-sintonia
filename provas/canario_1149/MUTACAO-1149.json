@@ -1,0 +1,180 @@
+{
+ "REF": "3d150cc",
+ "TESTES": "-m unittest tests.test_canario_1149",
+ "MUTANTES": [
+  {
+   "MUTANTE": "M01_ACHATADA_NAO_SE_PARTE",
+   "ALVO": "leis/fato_do_texto.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C1_o_texto_real_e_uma_linha_so_e_tem_corpo",
+    "test_C4_o_porque_do_lugar_deixa_de_dizer_sem_corpo",
+    "test_R2_so_campos_revisiveis_e_nunca_os_do_livro",
+    "test_R6_aplicar_escreve_so_pela_porta_rever"
+   ]
+  },
+  {
+   "MUTANTE": "M02_DUAS_DATAS_NAO_SAO_AMBIGUAS",
+   "ALVO": "coleta/executor_texto_de_html.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_P3_duas_datas_diferentes_sao_ambiguas"
+   ]
+  },
+  {
+   "MUTANTE": "M03_SECCAO_NO_PLURAL_CONTA",
+   "ALVO": "coleta/executor_texto_de_html.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_P2_menu_e_rodape_nao_contam"
+   ]
+  },
+  {
+   "MUTANTE": "M04_O_TEXTO_GANHA_AO_METADADO",
+   "ALVO": "coleta/executor_texto_de_html.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_P6_o_metadado_da_pagina_continua_a_ganhar"
+   ]
+  },
+  {
+   "MUTANTE": "M05_O_EXECUTOR_NAO_PASSA_O_TEXTO",
+   "ALVO": "coleta/italy_executor.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_R1_resumo_do_item",
+    "test_R2_so_campos_revisiveis_e_nunca_os_do_livro",
+    "test_R6_aplicar_escreve_so_pela_porta_rever"
+   ]
+  },
+  {
+   "MUTANTE": "M06_O_REPROCESSO_NAO_PASSA_O_TEXTO",
+   "ALVO": "admissao/reprocessar_tempo_lugar.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_R1_resumo_do_item",
+    "test_R2_so_campos_revisiveis_e_nunca_os_do_livro",
+    "test_R6_aplicar_escreve_so_pela_porta_rever"
+   ]
+  },
+  {
+   "MUTANTE": "M07_HOSPEDEIRO_NAO_SE_CONFERE",
+   "ALVO": "leis/boletim_do_campo.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_N4_parassiti_delle_piante_continua_problema"
+   ]
+  },
+  {
+   "MUTANTE": "M08_AGENTE_CONTA_COMO_PROBLEMA",
+   "ALVO": "leis/boletim_do_campo.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_N1_texto_real_da_xylella_e_o_nematoide_como_agente",
+    "test_N2_pagina_achatada_nao_e_titulo_nem_base_inteira",
+    "test_N5_agente_contra_uma_praga_do_vocabulario",
+    "test_N7_regra_geral_no_boletim",
+    "test_R1_resumo_do_item"
+   ]
+  },
+  {
+   "MUTANTE": "M09_AGENTE_ATRAVESSA_PONTUACAO",
+   "ALVO": "leis/boletim_do_campo.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_N6_titulo_com_dois_pontos_nao_vira_agente"
+   ]
+  },
+  {
+   "MUTANTE": "M10_PAGINA_ACHATADA_E_TITULO",
+   "ALVO": "leis/boletim_do_campo.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_N2_pagina_achatada_nao_e_titulo_nem_base_inteira"
+   ]
+  },
+  {
+   "MUTANTE": "M11_AREA_DE_DESLIGADA",
+   "ALVO": "leis/estudo_chaves.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_L1_texto_real_da_salento_zona_local_do_estudo",
+    "test_R1_resumo_do_item"
+   ]
+  },
+  {
+   "MUTANTE": "M12_SELEZIONATO_NAO_E_ESTUDO",
+   "ALVO": "leis/estudo_chaves.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_L1_texto_real_da_salento_zona_local_do_estudo",
+    "test_R1_resumo_do_item"
+   ]
+  },
+  {
+   "MUTANTE": "M13_SALENTO_VIRA_PUGLIA",
+   "ALVO": "coleta/pesquisadores_t6.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_L1_texto_real_da_salento_zona_local_do_estudo",
+    "test_L2_salento_nao_vira_puglia",
+    "test_R1_resumo_do_item"
+   ]
+  },
+  {
+   "MUTANTE": "M14_LUGAR_SEM_VERBO_DE_ESTUDO",
+   "ALVO": "leis/estudo_chaves.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_L3_sem_verbo_de_estudo_nao_conta",
+    "test_N4_parassiti_delle_piante_continua_problema"
+   ]
+  },
+  {
+   "MUTANTE": "M15_SEM_LIVRO_TUDO_SE_REVE",
+   "ALVO": "admissao/reprocessar_um_item.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_R2_so_campos_revisiveis_e_nunca_os_do_livro",
+    "test_R6_aplicar_escreve_so_pela_porta_rever"
+   ]
+  },
+  {
+   "MUTANTE": "M16_APLICAR_SEM_PARAR_FLAG",
+   "ALVO": "admissao/reprocessar_um_item.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_R4_aplicar_recusa_sem_parar_flag_e_sem_prova_vale"
+   ]
+  },
+  {
+   "MUTANTE": "M17_APLICAR_SEM_PROVA_VALE",
+   "ALVO": "admissao/reprocessar_um_item.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_R4_aplicar_recusa_sem_parar_flag_e_sem_prova_vale"
+   ]
+  },
+  {
+   "MUTANTE": "M18_APLICAR_SEM_CONFERIR_O_TEXTO",
+   "ALVO": "admissao/reprocessar_um_item.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_R5_aplicar_recusa_texto_diferente"
+   ]
+  },
+  {
+   "MUTANTE": "M19_MAIS_DE_UM_ITEM",
+   "ALVO": "admissao/reprocessar_um_item.py",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_R3_so_um_item"
+   ]
+  }
+ ],
+ "SEM_MUTANTE": {
+  "CODIGO": 0,
+  "FALHAS": []
+ },
+ "RESUMO": "19/19 mortos"
+}

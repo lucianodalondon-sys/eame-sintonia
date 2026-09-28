@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3fc6d76df52ddab5919075594ca99e26757ef509
-BRANCH           claude/adaptive-ceiling-rebase-3ghtm0
-GERADO_EM        2026-09-28T05:29:39+00:00
+HEAD_DA_MEDICAO  3f36ead9d8dac9393220922bc5243ed774d560d4
+BRANCH           claude/canario-1149-first-review-3llkwl
+GERADO_EM        2026-09-28T14:07:57+00:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -207,7 +207,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/italy_pilot_collect.mjs:42; coleta/pesquisadores_t6.py:318; coleta/reserva_24h.py:29 |
+| **prova de quem ativa** | coleta/italy_pilot_collect.mjs:42; coleta/pesquisadores_t6.py:322; coleta/reserva_24h.py:29 |
 | **porquê** | estas pecas importam-na — C-CONTADOR-24H · C-IT-COLETA · C-MATERIA-PRIMA-POR-DIA · C-ONDA-WEB · C-PESQUISADORES-T6 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `regras/POLITICA-CORTESIA-ADAPTATIVA.json` |
@@ -307,7 +307,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | admissao/reprocessar_tempo_lugar.py:59; coleta/italy_executor.py:247; coleta/linha_busca.py:131 |
+| **prova de quem ativa** | admissao/reprocessar_tempo_lugar.py:59; coleta/italy_executor.py:249; coleta/linha_busca.py:131 |
 | **porquê** | estas pecas importam-na — C-DETECTOR-CAPA-GABARITO · C-IT-COLETA · C-IT-CONTRATOS · C-LEITOR-DATA-YT · C-LINHA-BUSCA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/retrato_html.py` |
@@ -704,10 +704,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `admissao/reprocessar_estudos_chaves.py`, `admissao/reprocessar_problema.py`, `admissao/reprocessar_tempo_lugar.py`, `admissao/sala_de_espera.py`, `admissao/versao_do_documento.py` _(e mais 1)_ |
+| **peça real** | `admissao/reprocessar_estudos_chaves.py`, `admissao/reprocessar_problema.py`, `admissao/reprocessar_tempo_lugar.py`, `admissao/reprocessar_um_item.py`, `admissao/sala_de_espera.py` _(e mais 2)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
 | **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:484 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
@@ -1698,7 +1698,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/executor_texto_de_html.py:744; coleta/executor_texto_de_pdf.py:309; coleta/executor_transcricao_midia.py:303 |
+| **prova de quem ativa** | coleta/executor_texto_de_html.py:830; coleta/executor_texto_de_pdf.py:309; coleta/executor_transcricao_midia.py:303 |
 | **porquê** | estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-HTML · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
