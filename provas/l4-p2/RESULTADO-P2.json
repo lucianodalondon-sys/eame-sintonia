@@ -1,0 +1,4482 @@
+{
+ "SCHEMA": "L4_P2_USOS_SEM_DATA/v1",
+ "MISSAO": "L4-P2-USOS-SEM-DATA (D144, 28/09/2026) — SO LEITURA/MEDICAO",
+ "SOURCE_HEAD": "fd8c94698adc6ffb5f6cf810ced178ed4c732e97",
+ "HOJE_DECLARADO": "2026-09-28",
+ "RULESET_DA_CORRIDA": "G0/v4",
+ "G0_INTOCADO": {
+  "IMPRESSOES_ANTES": {
+   "motor/corrida_da_inteligencia.py": "059040d861ed91cc01568b930c7ce1119da543a326bbb7ebc19873906226efda",
+   "motor/motor_das_capacidades.py": "aebf78bdb5cd3a5314b4391dd9ab5dedcf6f5408921d719b4a43a259b25edb87",
+   "motor/capacidade_cientifica.py": "360f8e34b8bc6b3fa7f9022b49fa30be2deb522220274a511ae5820d78233aaa",
+   "motor/cap_win.py": "c84d9e65a31a05faae3ba06601bea9bfd64e33a63a7399c5482660ba9b3fa9ec",
+   "pacote/pote_intelligence_casco.py": "4a33cb642d7f2be9449ad0c656e4e1b5445b8b4e7800955b276195a4b8062387"
+  },
+  "IMPRESSOES_DEPOIS": {
+   "motor/corrida_da_inteligencia.py": "059040d861ed91cc01568b930c7ce1119da543a326bbb7ebc19873906226efda",
+   "motor/motor_das_capacidades.py": "aebf78bdb5cd3a5314b4391dd9ab5dedcf6f5408921d719b4a43a259b25edb87",
+   "motor/capacidade_cientifica.py": "360f8e34b8bc6b3fa7f9022b49fa30be2deb522220274a511ae5820d78233aaa",
+   "motor/cap_win.py": "c84d9e65a31a05faae3ba06601bea9bfd64e33a63a7399c5482660ba9b3fa9ec",
+   "pacote/pote_intelligence_casco.py": "4a33cb642d7f2be9449ad0c656e4e1b5445b8b4e7800955b276195a4b8062387"
+  },
+  "IGUAIS": true,
+  "PORQUE": "o patch do DEPOIS_P2 vive em memoria; nenhum ficheiro de motor/ leis/ pacote/ foi escrito"
+ },
+ "ITEM_1_PONTOS_CONFIRMADOS_NO_HEAD": [
+  {
+   "ONDE": "motor/corrida_da_inteligencia.py:155",
+   "PROCURADO": "O QUE A FALTA DE TEMPO BLOQUEIA",
+   "LINHA_LIDA": "#: ⚠️ G0/v4 · O QUE A FALTA DE TEMPO BLOQUEIA — e so isto (INT-LAW-091: a chave",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    155
+   ]
+  },
+  {
+   "ONDE": "motor/corrida_da_inteligencia.py:158",
+   "PROCURADO": "USOS_QUE_EXIGEM_TEMPO = (",
+   "LINHA_LIDA": "USOS_QUE_EXIGEM_TEMPO = (",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    158
+   ]
+  },
+  {
+   "ONDE": "motor/corrida_da_inteligencia.py:169",
+   "PROCURADO": "USOS_SEM_TEMPO = (",
+   "LINHA_LIDA": "USOS_SEM_TEMPO = (",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    169
+   ]
+  },
+  {
+   "ONDE": "motor/corrida_da_inteligencia.py:170",
+   "PROCURADO": "EVIDENCIA_NAVEGAVEL",
+   "LINHA_LIDA": "\"EVIDENCIA_NAVEGAVEL\",        # Evidence View: o item existe e prova-se ate ao RAW",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    170,
+    724
+   ]
+  },
+  {
+   "ONDE": "motor/corrida_da_inteligencia.py:171",
+   "PROCURADO": "CROSSING_SEM_CHAVE_TIME",
+   "LINHA_LIDA": "\"CROSSING_SEM_CHAVE_TIME\",    # ex.: substancia x rotulo (cultura, alvo, pais)",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    171
+   ]
+  },
+  {
+   "ONDE": "motor/corrida_da_inteligencia.py:172",
+   "PROCURADO": "LEITURA_ATEMPORAL_DE_CAPACIDADE",
+   "LINHA_LIDA": "\"LEITURA_ATEMPORAL_DE_CAPACIDADE\",  # ex.: CAP-SCI le o estudo; CAP-LABEL le o uso",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    172
+   ]
+  },
+  {
+   "ONDE": "motor/corrida_da_inteligencia.py:177",
+   "PROCURADO": "def estado_temporal(",
+   "LINHA_LIDA": "def estado_temporal(item: dict, falta: list) -> dict:",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    177
+   ]
+  },
+  {
+   "ONDE": "motor/corrida_da_inteligencia.py:206",
+   "PROCURADO": "USOS_DISPONIVEIS",
+   "LINHA_LIDA": "\"USOS_DISPONIVEIS\": ([] if prov_falta else",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    206,
+    724
+   ]
+  },
+  {
+   "ONDE": "motor/motor_das_capacidades.py:521",
+   "PROCURADO": "def _admite(",
+   "LINHA_LIDA": "def _admite(linha: dict, especie: str) -> bool:",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    521
+   ]
+  },
+  {
+   "ONDE": "motor/motor_das_capacidades.py:522",
+   "PROCURADO": "so G0 = PASSOU prova",
+   "LINHA_LIDA": "\"\"\"A regra de prova do pote v2 (herdada da ponte v1): so G0 = PASSOU prova;",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    522
+   ]
+  },
+  {
+   "ONDE": "motor/motor_das_capacidades.py:526",
+   "PROCURADO": "return linha.get(\"G0\") == \"PASSOU\"",
+   "LINHA_LIDA": "return linha.get(\"G0\") == \"PASSOU\"",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    526
+   ]
+  },
+  {
+   "ONDE": "motor/motor_das_capacidades.py:606",
+   "PROCURADO": "if not _admite(linha, SINAL):",
+   "LINHA_LIDA": "if not _admite(linha, SINAL):",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    606
+   ]
+  },
+  {
+   "ONDE": "pacote/pote_intelligence_casco.py:193",
+   "PROCURADO": "So USO_SEM_TEMPO admite",
+   "LINHA_LIDA": "#: Como uma prova foi admitida. So USO_SEM_TEMPO admite um item que G0 bloqueou",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    193
+   ]
+  },
+  {
+   "ONDE": "pacote/pote_intelligence_casco.py:195",
+   "PROCURADO": "USO_SEM_TEMPO",
+   "LINHA_LIDA": "ADMITIDA = (\"G0_PASSOU\", \"FUTURO_POR_DESENHO\", \"USO_SEM_TEMPO\", \"PONTE_V1\")",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    193,
+    195,
+    389,
+    803
+   ]
+  },
+  {
+   "ONDE": "pacote/pote_intelligence_casco.py:320",
+   "PROCURADO": "def _admite_para(",
+   "LINHA_LIDA": "def _admite_para(especie, o=None):",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    320
+   ]
+  },
+  {
+   "ONDE": "pacote/pote_intelligence_casco.py:326",
+   "PROCURADO": "if e.get(\"G0\") == \"PASSOU\"",
+   "LINHA_LIDA": "if e.get(\"G0\") == \"PASSOU\":",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    326,
+    336
+   ]
+  },
+  {
+   "ONDE": "pacote/pote_intelligence_casco.py:340",
+   "PROCURADO": "return V1.g0_passou",
+   "LINHA_LIDA": "return V1.g0_passou",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    340
+   ]
+  },
+  {
+   "ONDE": "montar_r9.py:230",
+   "PROCURADO": "LIVRO[\"SIGNALS\"]",
+   "LINHA_LIDA": "for s in LIVRO[\"SIGNALS\"]:",
+   "CONFIRMA": "SIM",
+   "ESTA_NAS_LINHAS": [
+    230
+   ],
+   "FICHEIRO": "C:\\Users\\London1\\sintonia-sala-italia\\intelligence-experimental\\PARA-O-CASCO-R9\\montar_r9.py",
+   "SHA256": "fe93a435e70d3312955403a4f4d7d1e6f71031917ca9337334753f734f090347"
+  }
+ ],
+ "CORTE": {
+  "FICHEIRO": "C:\\Users\\London1\\sintonia-sala-italia\\intelligence-experimental\\EXPD78-R9-20260928T155047Z\\copia\\SALA_ATUAL.json",
+  "SHA256": "00cb7cb0eb689402c38f0fe2859ed75071162523e7a3eb2fd7b7e366108e73d2",
+  "LINHAS_NO_FICHEIRO": 275,
+  "ITEM_ID_DISTINTOS": 269,
+  "ITEM_ID_REPETIDOS": [
+   "derived:56",
+   "derived:57",
+   "derived:6",
+   "derived:60",
+   "derived:62",
+   "derived:66"
+  ],
+  "LINHAS_FORA_POR_ITEM_ID_REPETIDO": [
+   {
+    "ORDEM_NO_FICHEIRO": 3,
+    "ITEM_ID": "derived:6",
+    "RUN_ID": "IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc",
+    "ORDEM": 0
+   },
+   {
+    "ORDEM_NO_FICHEIRO": 29,
+    "ITEM_ID": "derived:56",
+    "RUN_ID": "IT-T5-2026-09-20-192508-6a134eecf66c22a3",
+    "ORDEM": 0
+   },
+   {
+    "ORDEM_NO_FICHEIRO": 31,
+    "ITEM_ID": "derived:57",
+    "RUN_ID": "IT-T5-2026-09-20-192653-3059d44865de3771",
+    "ORDEM": 0
+   },
+   {
+    "ORDEM_NO_FICHEIRO": 34,
+    "ITEM_ID": "derived:60",
+    "RUN_ID": "IT-T5-2026-09-20-192753-50b3827b5360b47a",
+    "ORDEM": 0
+   },
+   {
+    "ORDEM_NO_FICHEIRO": 36,
+    "ITEM_ID": "derived:62",
+    "RUN_ID": "IT-T5-2026-09-20-192843-147a52f842d703b2",
+    "ORDEM": 0
+   },
+   {
+    "ORDEM_NO_FICHEIRO": 41,
+    "ITEM_ID": "derived:66",
+    "RUN_ID": "IT-T9-2026-09-20-193058-ff56ab6f5e532dc1",
+    "ORDEM": 0
+   }
+  ],
+  "PORQUE_NAO_SAO_275": "motor_das_capacidades.rodar l.769-770 recusa ITEM_ID repetido; 275 linhas trazem 269 ITEM_ID (6 documentos duas vezes). Nada foi renomeado: a 2.a linha de cada repetido fica fora, e esta listada."
+ },
+ "PROVA_DAS_275_LINHAS": {
+  "ACEITOU_275": false,
+  "TIPO": "LeiViolada",
+  "PORQUE": "ITEM_ID repetido no corte: nao serve de endereco da prova"
+ },
+ "R9_PARA_COMPARAR": {
+  "LIVRO": "C:\\Users\\London1\\sintonia-sala-italia\\intelligence-experimental\\EXPD78-R9-20260928T155047Z\\saida\\LIVRO-IR-56c79b0c78fc3fa1e747.json",
+  "INTELLIGENCE_RUN_ID": "IR-56c79b0c78fc3fa1e747",
+  "NOTA": "o RUN_ID desta medicao NAO pode ser o da R9: o RUN_ID leva o CODE_VERSION do motor (corrida_da_inteligencia.identidade_da_corrida) e o universo, e aqui o codigo e o do HEAD e o universo tem 269 linhas. O CORTE (sha256 da copia) e o mesmo."
+ },
+ "ITEM_3_CAPACIDADES_PEDIDAS": {
+  "CIENCIA": {
+   "NOME_REAL": "compartimento `science` («Intelligence Scientifica»); capacidade `CAP-SCI` (motor/capacidade_cientifica.py:65)",
+   "EXISTE": "SIM",
+   "N_ANTES": 0
+  },
+  "ESTUDO": {
+   "NOME_REAL": "a especie de objeto `ANALYTIC_JUDGMENT/ESTUDO`, dentro de `science` (motor/motor_das_capacidades.py:642); o julgamento vive em CAP_SCI.ESTUDOS",
+   "EXISTE": "SIM",
+   "N_ANTES": 0
+  },
+  "CONHECIMENTO": {
+   "NOME_REAL": "NAO SEI",
+   "EXISTE": "NAO EXISTE",
+   "PORQUE": "nenhuma capacidade, compartimento nem especie deste motor se chama CONHECIMENTO. A palavra e do LAB (CONTRAPROVA-TEMPORAL.md l.145: «CONHECIMENTO_SEM_FACT_TIME»), e o equivalente em codigo e o uso `LEITURA_ATEMPORAL_DE_CAPACIDADE` (corrida_da_inteligencia.py:172) — um USO, nao um compartimento",
+   "ENCONTRADO_NO_POTE": []
+  },
+  "FICHA_TECNICA": {
+   "NOME_REAL": "NAO SEI",
+   "EXISTE": "NAO EXISTE neste motor",
+   "PORQUE": "o compartimento mais proximo e `portfolio` («Portafoglio / Etichette», pote_intelligence_casco.py) lido pela CAP-LABEL, e o motor das capacidades NAO o alimenta: CHAVES_DO_POTE (motor_das_capacidades.py:144-151) so tem windows, science, future e sources",
+   "ENCONTRADO_NO_POTE": [
+    "etichette",
+    "portfolio"
+   ]
+  }
+ },
+ "ITEM_3_TABELA": {
+  "ANTES": {
+   "POR_COMPARTIMENTO": {
+    "windows": {
+     "USO_DO_G0": "CAP-WIN",
+     "OBJETOS": 0,
+     "ITENS_NA_PROVA": 0,
+     "OBJETO_IDS": [],
+     "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+     "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+    },
+    "science": {
+     "USO_DO_G0": "LEITURA_ATEMPORAL_DE_CAPACIDADE",
+     "OBJETOS": 0,
+     "ITENS_NA_PROVA": 0,
+     "OBJETO_IDS": [],
+     "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+     "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+    },
+    "future": {
+     "USO_DO_G0": "CAP-FUT",
+     "OBJETOS": 9,
+     "ITENS_NA_PROVA": 9,
+     "OBJETO_IDS": [
+      "R7-FUT-25c50005652742b8",
+      "R7-FUT-5796b62e17b7da08",
+      "R7-FUT-ab188c43ce50c021",
+      "R7-FUT-ac5b7bf6036f7893",
+      "R7-FUT-b9b975473028ca58",
+      "R7-FUT-c3f579b5e677c471",
+      "R7-FUT-cd9ac9e6e0c0e26e",
+      "R7-FUT-f77905f346f8c727",
+      "R7-FUT-faf4b5c50f97162d"
+     ],
+     "ITENS_NA_PROVA_SEM_G0_PASSOU": [
+      "derived:1022",
+      "derived:1063",
+      "derived:1163",
+      "derived:130",
+      "derived:56",
+      "derived:61",
+      "derived:62",
+      "derived:921",
+      "derived:928"
+     ],
+     "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+    },
+    "sources": {
+     "USO_DO_G0": "EVIDENCIA_NAVEGAVEL",
+     "OBJETOS": 6,
+     "ITENS_NA_PROVA": 12,
+     "OBJETO_IDS": [
+      "R7-SRC-113ce14fada56582",
+      "R7-SRC-30b6bb75650bacb5",
+      "R7-SRC-34f05ada8f9e8b30",
+      "R7-SRC-3a18941c3dd3f948",
+      "R7-SRC-4bec7b7b77b6d6e4",
+      "R7-SRC-914d0d046ab6841f"
+     ],
+     "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+     "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+    }
+   },
+   "CAP_WIN": {
+    "JANELAS": 0,
+    "POR_RESULT": {},
+    "ACT_NOW_JANELAS": [],
+    "ACT_NOW_OBJETOS_NO_POTE": []
+   },
+   "CAP_SCI": {
+    "ITENS": 269,
+    "JULGADOS": 0,
+    "FORA": 269
+   },
+   "SINAIS_DO_LIVRO": 21,
+   "NAO_ENVIADOS_AO_POTE": 73,
+   "NAO_ENVIADOS_POR_MOTIVO": {
+    "sources/RENDIMENTO_SEM_PROVA": 73
+   }
+  },
+  "DEPOIS_P2": {
+   "POR_COMPARTIMENTO": {
+    "windows": {
+     "USO_DO_G0": "CAP-WIN",
+     "OBJETOS": 0,
+     "ITENS_NA_PROVA": 0,
+     "OBJETO_IDS": [],
+     "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+     "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+    },
+    "science": {
+     "USO_DO_G0": "LEITURA_ATEMPORAL_DE_CAPACIDADE",
+     "OBJETOS": 0,
+     "ITENS_NA_PROVA": 0,
+     "OBJETO_IDS": [],
+     "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+     "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+    },
+    "future": {
+     "USO_DO_G0": "CAP-FUT",
+     "OBJETOS": 9,
+     "ITENS_NA_PROVA": 9,
+     "OBJETO_IDS": [
+      "R7-FUT-25c50005652742b8",
+      "R7-FUT-5796b62e17b7da08",
+      "R7-FUT-ab188c43ce50c021",
+      "R7-FUT-ac5b7bf6036f7893",
+      "R7-FUT-b9b975473028ca58",
+      "R7-FUT-c3f579b5e677c471",
+      "R7-FUT-cd9ac9e6e0c0e26e",
+      "R7-FUT-f77905f346f8c727",
+      "R7-FUT-faf4b5c50f97162d"
+     ],
+     "ITENS_NA_PROVA_SEM_G0_PASSOU": [
+      "derived:1022",
+      "derived:1063",
+      "derived:1163",
+      "derived:130",
+      "derived:56",
+      "derived:61",
+      "derived:62",
+      "derived:921",
+      "derived:928"
+     ],
+     "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+    },
+    "sources": {
+     "USO_DO_G0": "EVIDENCIA_NAVEGAVEL",
+     "OBJETOS": 6,
+     "ITENS_NA_PROVA": 12,
+     "OBJETO_IDS": [
+      "R7-SRC-113ce14fada56582",
+      "R7-SRC-30b6bb75650bacb5",
+      "R7-SRC-34f05ada8f9e8b30",
+      "R7-SRC-3a18941c3dd3f948",
+      "R7-SRC-4bec7b7b77b6d6e4",
+      "R7-SRC-914d0d046ab6841f"
+     ],
+     "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+     "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+    }
+   },
+   "CAP_WIN": {
+    "JANELAS": 0,
+    "POR_RESULT": {},
+    "ACT_NOW_JANELAS": [],
+    "ACT_NOW_OBJETOS_NO_POTE": []
+   },
+   "CAP_SCI": {
+    "ITENS": 269,
+    "JULGADOS": 0,
+    "FORA": 269
+   },
+   "SINAIS_DO_LIVRO": 21,
+   "NAO_ENVIADOS_AO_POTE": 73,
+   "NAO_ENVIADOS_POR_MOTIVO": {
+    "sources/RENDIMENTO_SEM_PROVA": 73
+   }
+  }
+ },
+ "PROVA_DE_QUE_O_PATCH_DISPARA": {
+  "ADMITIDOS_PELA_REGRA_ORIGINAL": 21,
+  "ADMITIDOS_PELO_P2_NO_USO_ATEMPORAL": 269,
+  "ABERTOS_PELO_P2": 248,
+  "O_PATCH_DISPARA": "SIM",
+  "PORQUE_IMPORTA": "se o patch nao disparasse, um P2_RECUPERA = 0 nao media nada: mediria o patch a nao existir"
+ },
+ "ITEM_4_TESTE": {
+  "ACT_NOW_NAO_AUMENTOU_INCORRETAMENTE": "PASS",
+  "CLAUSULAS_CONFERIDAS": 15,
+  "CLAUSULAS_DE_SAIDA": 10,
+  "CLAUSULAS_DE_REGRA": 5,
+  "FALHAS": []
+ },
+ "ITEM_5_MUTANTE": {
+  "O_QUE_O_MUTANTE_MUDA": "o mesmo patch, com `CAP-WIN` tambem na lista de usos abertos: a janela passa a aceitar item bloqueado so pelo tempo — exactamente o que o P2 promete NAO fazer",
+  "RESULTADO_DO_TESTE": "FAIL",
+  "O_TESTE_REPROVA_O_MUTANTE": "SIM",
+  "CLAUSULAS_QUE_O_APANHARAM": [
+   "o patch abriu o uso CAP-WIN, que EXIGE tempo"
+  ],
+  "FALHAS": [
+   {
+    "CLAUSULA": "o patch abriu o uso CAP-WIN, que EXIGE tempo",
+    "ANTES": [],
+    "DEPOIS_P2": [
+     "derived:1",
+     "derived:1018",
+     "derived:1019",
+     "derived:1021",
+     "derived:1022",
+     "derived:1024",
+     "derived:1054",
+     "derived:1055",
+     "derived:1056",
+     "derived:1058",
+     "derived:1060",
+     "derived:1061",
+     "derived:1062",
+     "derived:1063",
+     "derived:1066",
+     "derived:1067",
+     "derived:1080",
+     "derived:1101",
+     "derived:1108",
+     "derived:1109",
+     "derived:1110",
+     "derived:1111",
+     "derived:1114",
+     "derived:1115",
+     "derived:1128",
+     "derived:1130",
+     "derived:1142",
+     "derived:1144",
+     "derived:1145",
+     "derived:1146",
+     "derived:1148",
+     "derived:1149",
+     "derived:1151",
+     "derived:1152",
+     "derived:1153",
+     "derived:1160",
+     "derived:1161",
+     "derived:1162",
+     "derived:1163",
+     "derived:1166",
+     "derived:1167",
+     "derived:1172",
+     "derived:1174",
+     "derived:1178",
+     "derived:1179",
+     "derived:1183",
+     "derived:1185",
+     "derived:1204",
+     "derived:1206",
+     "derived:1207",
+     "derived:1224",
+     "derived:1242",
+     "derived:1244",
+     "derived:1245",
+     "derived:1246",
+     "derived:126",
+     "derived:128",
+     "derived:129",
+     "derived:130",
+     "derived:131",
+     "derived:132",
+     "derived:133",
+     "derived:134",
+     "derived:142",
+     "derived:143",
+     "derived:147",
+     "derived:149",
+     "derived:20",
+     "derived:22",
+     "derived:23",
+     "derived:24",
+     "derived:25",
+     "derived:26",
+     "derived:27",
+     "derived:28",
+     "derived:29",
+     "derived:30",
+     "derived:31",
+     "derived:56",
+     "derived:57",
+     "derived:58",
+     "derived:59",
+     "derived:6",
+     "derived:60",
+     "derived:61",
+     "derived:62",
+     "derived:63",
+     "derived:64",
+     "derived:65",
+     "derived:66",
+     "derived:766",
+     "derived:767",
+     "derived:768",
+     "derived:769",
+     "derived:772",
+     "derived:794",
+     "derived:795",
+     "derived:796",
+     "derived:834",
+     "derived:835",
+     "derived:841",
+     "derived:87",
+     "derived:909",
+     "derived:910",
+     "derived:915",
+     "derived:919",
+     "derived:921",
+     "derived:928",
+     "derived:929",
+     "derived:952",
+     "derived:962",
+     "derived:963",
+     "derived:964",
+     "derived:966",
+     "derived:967",
+     "derived:968",
+     "derived:978",
+     "derived:985",
+     "derived:991",
+     "derived:busca-031b2d670cec1887",
+     "derived:busca-055c69670730ad9f",
+     "derived:busca-0610ecaec8bc3f7b",
+     "derived:busca-1dae6e1c89f007b8",
+     "derived:busca-2ac588219c1d17b9",
+     "derived:busca-2e480f62adcc2446",
+     "derived:busca-3316e9e31e357b55",
+     "derived:busca-392fbc9f70c55093",
+     "derived:busca-43b74d4bcdf11a25",
+     "derived:busca-4a84529ca678ac06",
+     "derived:busca-51840211adf97597",
+     "derived:busca-5c06c7feaf3846fd",
+     "derived:busca-5d359d072c7634f5",
+     "derived:busca-5d43598d863faa9d",
+     "derived:busca-65e1cf45e2f85ff0",
+     "derived:busca-7451caf82c35fdc9",
+     "derived:busca-7470b9568b1382cf",
+     "derived:busca-74dd5877c26835d7",
+     "derived:busca-85c288a9cd8b4d5c",
+     "derived:busca-8d9b4eee2b9959aa",
+     "derived:busca-9092d98a22ea9afe",
+     "derived:busca-97a09bf885e5324c",
+     "derived:busca-a18d7cd47bdfe1c4",
+     "derived:busca-c0e3cdb939da6efd",
+     "derived:busca-c5037556347e9b45",
+     "derived:busca-d0536d4ce7c99deb",
+     "derived:busca-d7838c774da0c09a",
+     "derived:busca-ec8f4ae920c59c48",
+     "derived:busca-ed6112bff24a8e5b",
+     "https://doi.org/10.1002/arch.21655",
+     "https://doi.org/10.1002/jsfa.11814",
+     "https://doi.org/10.1002/ps.6860",
+     "https://doi.org/10.1002/ps.8140",
+     "https://doi.org/10.1007/s10340-025-01961-8",
+     "https://doi.org/10.1007/s10658-020-02085-8",
+     "https://doi.org/10.1007/s11356-020-09279-x",
+     "https://doi.org/10.1007/s11356-024-33980-w",
+     "https://doi.org/10.1007/s41348-024-00867-4",
+     "https://doi.org/10.1007/s42161-023-01310-7",
+     "https://doi.org/10.1016/j.biocontrol.2026.106095",
+     "https://doi.org/10.1016/j.cropro.2020.105324",
+     "https://doi.org/10.1016/j.cropro.2023.106375",
+     "https://doi.org/10.1016/j.dib.2025.112165",
+     "https://doi.org/10.1016/j.fbr.2021.11.003",
+     "https://doi.org/10.1016/j.jenvman.2022.115365",
+     "https://doi.org/10.1016/j.jnc.2024.126558",
+     "https://doi.org/10.1016/j.plaphe.2026.100272",
+     "https://doi.org/10.1016/j.virusres.2026.199780",
+     "https://doi.org/10.1017/s0007485319000075",
+     "https://doi.org/10.1051/bioconf/20236801001",
+     "https://doi.org/10.1055/s-0045-1814921",
+     "https://doi.org/10.1055/s-0045-1814968",
+     "https://doi.org/10.1079/cabireviews.2026.0016",
+     "https://doi.org/10.1080/09583157.2019.1566953",
+     "https://doi.org/10.1093/biomethods/bpad042",
+     "https://doi.org/10.1093/ee/nvad089",
+     "https://doi.org/10.1093/femsec/fiag082",
+     "https://doi.org/10.1093/jxb/erac286",
+     "https://doi.org/10.1093/jxb/erae346",
+     "https://doi.org/10.1093/plphys/kiae640",
+     "https://doi.org/10.1094/pdis-09-22-2064-re",
+     "https://doi.org/10.1094/pdis-11-24-2480-re",
+     "https://doi.org/10.1094/phyto-04-26-0103-r",
+     "https://doi.org/10.1101/2020.01.15.898700",
+     "https://doi.org/10.1109/metroagrifor55389.2022.9965133",
+     "https://doi.org/10.1109/tafe.2024.3451888",
+     "https://doi.org/10.1111/aab.12627",
+     "https://doi.org/10.1111/mpp.70273",
+     "https://doi.org/10.1111/ppa.70236",
+     "https://doi.org/10.20870/oeno-one.2021.55.2.4556",
+     "https://doi.org/10.20870/oeno-one.2025.59.3.9330",
+     "https://doi.org/10.20870/oeno-one.2026.60.1.9516",
+     "https://doi.org/10.20944/preprints202401.2208.v1",
+     "https://doi.org/10.20944/preprints202501.1854.v1",
+     "https://doi.org/10.2903/sp.efsa.2025.en-9567",
+     "https://doi.org/10.30574/gscarr.2020.4.2.0059",
+     "https://doi.org/10.30574/gscarr.2023.16.3.0357",
+     "https://doi.org/10.30574/gscbps.2024.29.1.0353",
+     "https://doi.org/10.30574/ijsra.2023.9.2.0637",
+     "https://doi.org/10.3389/finsc.2026.1847113",
+     "https://doi.org/10.3389/fpls.2020.01202",
+     "https://doi.org/10.3389/fpls.2022.887674",
+     "https://doi.org/10.3389/fpls.2022.930954",
+     "https://doi.org/10.3389/fpls.2023.1154370",
+     "https://doi.org/10.3389/fpls.2023.1242240",
+     "https://doi.org/10.3389/fpls.2023.1288408",
+     "https://doi.org/10.3389/fpls.2024.1498848",
+     "https://doi.org/10.3389/fpls.2024.1502485",
+     "https://doi.org/10.3389/fpls.2024.1536460",
+     "https://doi.org/10.3389/fpls.2025.1674937",
+     "https://doi.org/10.3389/fpls.2025.1696789",
+     "https://doi.org/10.3389/fpls.2025.1748111",
+     "https://doi.org/10.3389/fsufs.2025.1749163",
+     "https://doi.org/10.3390/agriculture16141491",
+     "https://doi.org/10.3390/agronomy12071528",
+     "https://doi.org/10.3390/agronomy13010021",
+     "https://doi.org/10.3390/agronomy15102342",
+     "https://doi.org/10.3390/agronomy15122703",
+     "https://doi.org/10.3390/agronomy16020201",
+     "https://doi.org/10.3390/insects13070627",
+     "https://doi.org/10.3390/insects14030270",
+     "https://doi.org/10.3390/insects15040224",
+     "https://doi.org/10.3390/insects16020213",
+     "https://doi.org/10.3390/insects17010083",
+     "https://doi.org/10.3390/jof11070527",
+     "https://doi.org/10.3390/microbiolres17020032",
+     "https://doi.org/10.3390/microorganisms10020200",
+     "https://doi.org/10.3390/microorganisms7120662",
+     "https://doi.org/10.3390/plants10040718",
+     "https://doi.org/10.3390/su12051900",
+     "https://doi.org/10.3390/su15032837",
+     "https://doi.org/10.3390/toxins14070422",
+     "https://doi.org/10.35948/geo/geoinfo/32130_3540",
+     "https://doi.org/10.3897/bull.insectology.195590",
+     "https://doi.org/10.5194/egusphere-egu22-10511",
+     "https://doi.org/10.5194/egusphere-egu24-10773",
+     "https://doi.org/10.5194/egusphere-egu25-5890",
+     "https://doi.org/10.5194/egusphere-egu25-981",
+     "https://doi.org/10.5281/zenodo.18937396",
+     "https://doi.org/10.5281/zenodo.18937397",
+     "https://doi.org/10.5281/zenodo.19700229",
+     "https://doi.org/10.5281/zenodo.19700230",
+     "https://doi.org/10.5281/zenodo.2789594",
+     "https://doi.org/10.5281/zenodo.2789595",
+     "https://doi.org/10.5281/zenodo.4319469",
+     "https://doi.org/10.5281/zenodo.6685094",
+     "https://doi.org/10.5281/zenodo.6685095",
+     "https://doi.org/10.54574/rjpp.14.11",
+     "https://openalex.org/W7165708282"
+    ],
+    "ENTROU_NO_DEPOIS": [
+     "derived:1",
+     "derived:1018",
+     "derived:1019",
+     "derived:1021",
+     "derived:1022",
+     "derived:1024",
+     "derived:1054",
+     "derived:1055",
+     "derived:1056",
+     "derived:1058",
+     "derived:1060",
+     "derived:1061",
+     "derived:1062",
+     "derived:1063",
+     "derived:1066",
+     "derived:1067",
+     "derived:1080",
+     "derived:1101",
+     "derived:1108",
+     "derived:1109",
+     "derived:1110",
+     "derived:1111",
+     "derived:1114",
+     "derived:1115",
+     "derived:1128",
+     "derived:1130",
+     "derived:1142",
+     "derived:1144",
+     "derived:1145",
+     "derived:1146",
+     "derived:1148",
+     "derived:1149",
+     "derived:1151",
+     "derived:1152",
+     "derived:1153",
+     "derived:1160",
+     "derived:1161",
+     "derived:1162",
+     "derived:1163",
+     "derived:1166",
+     "derived:1167",
+     "derived:1172",
+     "derived:1174",
+     "derived:1178",
+     "derived:1179",
+     "derived:1183",
+     "derived:1185",
+     "derived:1204",
+     "derived:1206",
+     "derived:1207",
+     "derived:1224",
+     "derived:1242",
+     "derived:1244",
+     "derived:1245",
+     "derived:1246",
+     "derived:126",
+     "derived:128",
+     "derived:129",
+     "derived:130",
+     "derived:131",
+     "derived:132",
+     "derived:133",
+     "derived:134",
+     "derived:142",
+     "derived:143",
+     "derived:147",
+     "derived:149",
+     "derived:20",
+     "derived:22",
+     "derived:23",
+     "derived:24",
+     "derived:25",
+     "derived:26",
+     "derived:27",
+     "derived:28",
+     "derived:29",
+     "derived:30",
+     "derived:31",
+     "derived:56",
+     "derived:57",
+     "derived:58",
+     "derived:59",
+     "derived:6",
+     "derived:60",
+     "derived:61",
+     "derived:62",
+     "derived:63",
+     "derived:64",
+     "derived:65",
+     "derived:66",
+     "derived:766",
+     "derived:767",
+     "derived:768",
+     "derived:769",
+     "derived:772",
+     "derived:794",
+     "derived:795",
+     "derived:796",
+     "derived:834",
+     "derived:835",
+     "derived:841",
+     "derived:87",
+     "derived:909",
+     "derived:910",
+     "derived:915",
+     "derived:919",
+     "derived:921",
+     "derived:928",
+     "derived:929",
+     "derived:952",
+     "derived:962",
+     "derived:963",
+     "derived:964",
+     "derived:966",
+     "derived:967",
+     "derived:968",
+     "derived:978",
+     "derived:985",
+     "derived:991",
+     "derived:busca-031b2d670cec1887",
+     "derived:busca-055c69670730ad9f",
+     "derived:busca-0610ecaec8bc3f7b",
+     "derived:busca-1dae6e1c89f007b8",
+     "derived:busca-2ac588219c1d17b9",
+     "derived:busca-2e480f62adcc2446",
+     "derived:busca-3316e9e31e357b55",
+     "derived:busca-392fbc9f70c55093",
+     "derived:busca-43b74d4bcdf11a25",
+     "derived:busca-4a84529ca678ac06",
+     "derived:busca-51840211adf97597",
+     "derived:busca-5c06c7feaf3846fd",
+     "derived:busca-5d359d072c7634f5",
+     "derived:busca-5d43598d863faa9d",
+     "derived:busca-65e1cf45e2f85ff0",
+     "derived:busca-7451caf82c35fdc9",
+     "derived:busca-7470b9568b1382cf",
+     "derived:busca-74dd5877c26835d7",
+     "derived:busca-85c288a9cd8b4d5c",
+     "derived:busca-8d9b4eee2b9959aa",
+     "derived:busca-9092d98a22ea9afe",
+     "derived:busca-97a09bf885e5324c",
+     "derived:busca-a18d7cd47bdfe1c4",
+     "derived:busca-c0e3cdb939da6efd",
+     "derived:busca-c5037556347e9b45",
+     "derived:busca-d0536d4ce7c99deb",
+     "derived:busca-d7838c774da0c09a",
+     "derived:busca-ec8f4ae920c59c48",
+     "derived:busca-ed6112bff24a8e5b",
+     "https://doi.org/10.1002/arch.21655",
+     "https://doi.org/10.1002/jsfa.11814",
+     "https://doi.org/10.1002/ps.6860",
+     "https://doi.org/10.1002/ps.8140",
+     "https://doi.org/10.1007/s10340-025-01961-8",
+     "https://doi.org/10.1007/s10658-020-02085-8",
+     "https://doi.org/10.1007/s11356-020-09279-x",
+     "https://doi.org/10.1007/s11356-024-33980-w",
+     "https://doi.org/10.1007/s41348-024-00867-4",
+     "https://doi.org/10.1007/s42161-023-01310-7",
+     "https://doi.org/10.1016/j.biocontrol.2026.106095",
+     "https://doi.org/10.1016/j.cropro.2020.105324",
+     "https://doi.org/10.1016/j.cropro.2023.106375",
+     "https://doi.org/10.1016/j.dib.2025.112165",
+     "https://doi.org/10.1016/j.fbr.2021.11.003",
+     "https://doi.org/10.1016/j.jenvman.2022.115365",
+     "https://doi.org/10.1016/j.jnc.2024.126558",
+     "https://doi.org/10.1016/j.plaphe.2026.100272",
+     "https://doi.org/10.1016/j.virusres.2026.199780",
+     "https://doi.org/10.1017/s0007485319000075",
+     "https://doi.org/10.1051/bioconf/20236801001",
+     "https://doi.org/10.1055/s-0045-1814921",
+     "https://doi.org/10.1055/s-0045-1814968",
+     "https://doi.org/10.1079/cabireviews.2026.0016",
+     "https://doi.org/10.1080/09583157.2019.1566953",
+     "https://doi.org/10.1093/biomethods/bpad042",
+     "https://doi.org/10.1093/ee/nvad089",
+     "https://doi.org/10.1093/femsec/fiag082",
+     "https://doi.org/10.1093/jxb/erac286",
+     "https://doi.org/10.1093/jxb/erae346",
+     "https://doi.org/10.1093/plphys/kiae640",
+     "https://doi.org/10.1094/pdis-09-22-2064-re",
+     "https://doi.org/10.1094/pdis-11-24-2480-re",
+     "https://doi.org/10.1094/phyto-04-26-0103-r",
+     "https://doi.org/10.1101/2020.01.15.898700",
+     "https://doi.org/10.1109/metroagrifor55389.2022.9965133",
+     "https://doi.org/10.1109/tafe.2024.3451888",
+     "https://doi.org/10.1111/aab.12627",
+     "https://doi.org/10.1111/mpp.70273",
+     "https://doi.org/10.1111/ppa.70236",
+     "https://doi.org/10.20870/oeno-one.2021.55.2.4556",
+     "https://doi.org/10.20870/oeno-one.2025.59.3.9330",
+     "https://doi.org/10.20870/oeno-one.2026.60.1.9516",
+     "https://doi.org/10.20944/preprints202401.2208.v1",
+     "https://doi.org/10.20944/preprints202501.1854.v1",
+     "https://doi.org/10.2903/sp.efsa.2025.en-9567",
+     "https://doi.org/10.30574/gscarr.2020.4.2.0059",
+     "https://doi.org/10.30574/gscarr.2023.16.3.0357",
+     "https://doi.org/10.30574/gscbps.2024.29.1.0353",
+     "https://doi.org/10.30574/ijsra.2023.9.2.0637",
+     "https://doi.org/10.3389/finsc.2026.1847113",
+     "https://doi.org/10.3389/fpls.2020.01202",
+     "https://doi.org/10.3389/fpls.2022.887674",
+     "https://doi.org/10.3389/fpls.2022.930954",
+     "https://doi.org/10.3389/fpls.2023.1154370",
+     "https://doi.org/10.3389/fpls.2023.1242240",
+     "https://doi.org/10.3389/fpls.2023.1288408",
+     "https://doi.org/10.3389/fpls.2024.1498848",
+     "https://doi.org/10.3389/fpls.2024.1502485",
+     "https://doi.org/10.3389/fpls.2024.1536460",
+     "https://doi.org/10.3389/fpls.2025.1674937",
+     "https://doi.org/10.3389/fpls.2025.1696789",
+     "https://doi.org/10.3389/fpls.2025.1748111",
+     "https://doi.org/10.3389/fsufs.2025.1749163",
+     "https://doi.org/10.3390/agriculture16141491",
+     "https://doi.org/10.3390/agronomy12071528",
+     "https://doi.org/10.3390/agronomy13010021",
+     "https://doi.org/10.3390/agronomy15102342",
+     "https://doi.org/10.3390/agronomy15122703",
+     "https://doi.org/10.3390/agronomy16020201",
+     "https://doi.org/10.3390/insects13070627",
+     "https://doi.org/10.3390/insects14030270",
+     "https://doi.org/10.3390/insects15040224",
+     "https://doi.org/10.3390/insects16020213",
+     "https://doi.org/10.3390/insects17010083",
+     "https://doi.org/10.3390/jof11070527",
+     "https://doi.org/10.3390/microbiolres17020032",
+     "https://doi.org/10.3390/microorganisms10020200",
+     "https://doi.org/10.3390/microorganisms7120662",
+     "https://doi.org/10.3390/plants10040718",
+     "https://doi.org/10.3390/su12051900",
+     "https://doi.org/10.3390/su15032837",
+     "https://doi.org/10.3390/toxins14070422",
+     "https://doi.org/10.35948/geo/geoinfo/32130_3540",
+     "https://doi.org/10.3897/bull.insectology.195590",
+     "https://doi.org/10.5194/egusphere-egu22-10511",
+     "https://doi.org/10.5194/egusphere-egu24-10773",
+     "https://doi.org/10.5194/egusphere-egu25-5890",
+     "https://doi.org/10.5194/egusphere-egu25-981",
+     "https://doi.org/10.5281/zenodo.18937396",
+     "https://doi.org/10.5281/zenodo.18937397",
+     "https://doi.org/10.5281/zenodo.19700229",
+     "https://doi.org/10.5281/zenodo.19700230",
+     "https://doi.org/10.5281/zenodo.2789594",
+     "https://doi.org/10.5281/zenodo.2789595",
+     "https://doi.org/10.5281/zenodo.4319469",
+     "https://doi.org/10.5281/zenodo.6685094",
+     "https://doi.org/10.5281/zenodo.6685095",
+     "https://doi.org/10.54574/rjpp.14.11",
+     "https://openalex.org/W7165708282"
+    ],
+    "SAIU_NO_DEPOIS": []
+   }
+  ],
+  "ACT_NOW_NO_MUTANTE": [],
+  "ACT_NOW_NO_ANTES": [],
+  "WINDOWS_NO_MUTANTE": 0,
+  "WINDOWS_NO_ANTES": 0,
+  "CLAUSULAS_DE_SAIDA_APANHARAM": [],
+  "CLAUSULAS_DE_REGRA_APANHARAM": [
+   "o patch abriu o uso CAP-WIN, que EXIGE tempo"
+  ],
+  "RESSALVA": "neste corte as clausulas de SAIDA sozinhas NAO apanhariam o mutante: a CAP-WIN produz ZERO janelas por falta de REGIAO_DO_FATO sustentada (D112a), e a CAP-WIN ainda tem uma SEGUNDA tranca de tempo (cap_win.py:459: sem TEMPORAL_STATE = ANCORADO o estado nao e CURRENT, e o W8 do ACT_NOW exige CURRENT). Por isso o teste tem clausula de REGRA: pergunta ao proprio patch se ele abriu um uso que exige tempo. As duas familias de clausula estao separadas em cima, e diz-se qual apanhou o mutante."
+ },
+ "ITEM_6_LAB": {
+  "FICHEIRO_AB": "C:\\Users\\London1\\AppData\\Local\\hermes\\profiles\\sintonia-lab\\lab\\estudos\\2026-09-28-AUDITORIA-CEGA-275\\AB-DETECCAO-V1.json",
+  "SHA256_AB": "e9ad50616f072ab047804caf3b73a6c7e2972e9b434b2d3900190fb58353f97e",
+  "SHA256_CONTRAPROVA": "aa1e862d10fda95b0e7f7ee7d4bb314093d17a24f743b7b4c260afdd969e7f43",
+  "REGISTOS_AB": 115,
+  "AB_NAO_DETECTADOS_REGISTOS": 100,
+  "AB_NAO_DETECTADOS_ITEM_IDS": [
+   "derived:1",
+   "derived:1054",
+   "derived:1060",
+   "derived:1066",
+   "derived:1080",
+   "derived:1149",
+   "derived:1152",
+   "derived:6",
+   "derived:66",
+   "derived:766",
+   "derived:768",
+   "derived:772",
+   "derived:834",
+   "derived:841",
+   "derived:929",
+   "derived:952",
+   "derived:991",
+   "derived:busca-031b2d670cec1887",
+   "derived:busca-0610ecaec8bc3f7b",
+   "derived:busca-1dae6e1c89f007b8",
+   "derived:busca-2ac588219c1d17b9",
+   "derived:busca-2e480f62adcc2446",
+   "derived:busca-3316e9e31e357b55",
+   "derived:busca-392fbc9f70c55093",
+   "derived:busca-43b74d4bcdf11a25",
+   "derived:busca-4a84529ca678ac06",
+   "derived:busca-51840211adf97597",
+   "derived:busca-5c06c7feaf3846fd",
+   "derived:busca-5d359d072c7634f5",
+   "derived:busca-5d43598d863faa9d",
+   "derived:busca-65e1cf45e2f85ff0",
+   "derived:busca-7451caf82c35fdc9",
+   "derived:busca-7470b9568b1382cf",
+   "derived:busca-74dd5877c26835d7",
+   "derived:busca-85c288a9cd8b4d5c",
+   "derived:busca-8d9b4eee2b9959aa",
+   "derived:busca-9092d98a22ea9afe",
+   "derived:busca-97a09bf885e5324c",
+   "derived:busca-a18d7cd47bdfe1c4",
+   "derived:busca-c0e3cdb939da6efd",
+   "derived:busca-c5037556347e9b45",
+   "derived:busca-d0536d4ce7c99deb",
+   "derived:busca-d7838c774da0c09a",
+   "derived:busca-ec8f4ae920c59c48",
+   "derived:busca-ed6112bff24a8e5b",
+   "https://doi.org/10.1002/arch.21655",
+   "https://doi.org/10.1002/jsfa.11814",
+   "https://doi.org/10.1002/ps.6860",
+   "https://doi.org/10.1002/ps.8140",
+   "https://doi.org/10.1007/s10340-025-01961-8",
+   "https://doi.org/10.1007/s10658-020-02085-8",
+   "https://doi.org/10.1007/s11356-020-09279-x",
+   "https://doi.org/10.1007/s11356-024-33980-w",
+   "https://doi.org/10.1007/s41348-024-00867-4",
+   "https://doi.org/10.1007/s42161-023-01310-7",
+   "https://doi.org/10.1016/j.biocontrol.2026.106095",
+   "https://doi.org/10.1016/j.cropro.2020.105324",
+   "https://doi.org/10.1016/j.cropro.2023.106375",
+   "https://doi.org/10.1016/j.fbr.2021.11.003",
+   "https://doi.org/10.1016/j.jenvman.2022.115365",
+   "https://doi.org/10.1017/s0007485319000075",
+   "https://doi.org/10.1051/bioconf/20236801001",
+   "https://doi.org/10.1079/cabireviews.2026.0016",
+   "https://doi.org/10.1093/femsec/fiag082",
+   "https://doi.org/10.1094/pdis-09-22-2064-re",
+   "https://doi.org/10.1094/pdis-11-24-2480-re",
+   "https://doi.org/10.1094/phyto-04-26-0103-r",
+   "https://doi.org/10.1109/metroagrifor55389.2022.9965133",
+   "https://doi.org/10.1111/aab.12627",
+   "https://doi.org/10.1111/ppa.70236",
+   "https://doi.org/10.20870/oeno-one.2025.59.3.9330",
+   "https://doi.org/10.20870/oeno-one.2026.60.1.9516",
+   "https://doi.org/10.20944/preprints202401.2208.v1",
+   "https://doi.org/10.20944/preprints202501.1854.v1",
+   "https://doi.org/10.2903/sp.efsa.2025.en-9567",
+   "https://doi.org/10.30574/gscbps.2024.29.1.0353",
+   "https://doi.org/10.30574/ijsra.2023.9.2.0637",
+   "https://doi.org/10.3389/fpls.2023.1154370",
+   "https://doi.org/10.3389/fpls.2023.1288408",
+   "https://doi.org/10.3389/fpls.2024.1498848",
+   "https://doi.org/10.3389/fpls.2025.1674937",
+   "https://doi.org/10.3390/agriculture16141491",
+   "https://doi.org/10.3390/agronomy12071528",
+   "https://doi.org/10.3390/agronomy15122703",
+   "https://doi.org/10.3390/agronomy16020201",
+   "https://doi.org/10.3390/insects14030270",
+   "https://doi.org/10.3390/insects15040224",
+   "https://doi.org/10.3390/insects16020213",
+   "https://doi.org/10.3390/insects17010083",
+   "https://doi.org/10.3390/jof11070527",
+   "https://doi.org/10.3390/microorganisms10020200",
+   "https://doi.org/10.3390/su12051900",
+   "https://doi.org/10.3390/su15032837",
+   "https://doi.org/10.3390/toxins14070422",
+   "https://doi.org/10.5194/egusphere-egu24-10773",
+   "https://doi.org/10.5194/egusphere-egu25-5890",
+   "https://doi.org/10.5281/zenodo.2789594",
+   "https://doi.org/10.5281/zenodo.2789595"
+  ],
+  "ARTIGOS_EU_T5_001_REGUA": 53,
+  "OS_69_ITEM_IDS": [
+   "derived:1060",
+   "derived:1149",
+   "derived:1152",
+   "derived:66",
+   "derived:busca-031b2d670cec1887",
+   "derived:busca-3316e9e31e357b55",
+   "derived:busca-43b74d4bcdf11a25",
+   "derived:busca-4a84529ca678ac06",
+   "derived:busca-51840211adf97597",
+   "derived:busca-65e1cf45e2f85ff0",
+   "derived:busca-85c288a9cd8b4d5c",
+   "derived:busca-9092d98a22ea9afe",
+   "derived:busca-a18d7cd47bdfe1c4",
+   "derived:busca-c0e3cdb939da6efd",
+   "derived:busca-c5037556347e9b45",
+   "derived:busca-ed6112bff24a8e5b",
+   "https://doi.org/10.1002/arch.21655",
+   "https://doi.org/10.1002/jsfa.11814",
+   "https://doi.org/10.1002/ps.6860",
+   "https://doi.org/10.1002/ps.8140",
+   "https://doi.org/10.1007/s10340-025-01961-8",
+   "https://doi.org/10.1007/s10658-020-02085-8",
+   "https://doi.org/10.1007/s11356-020-09279-x",
+   "https://doi.org/10.1007/s11356-024-33980-w",
+   "https://doi.org/10.1007/s41348-024-00867-4",
+   "https://doi.org/10.1007/s42161-023-01310-7",
+   "https://doi.org/10.1016/j.biocontrol.2026.106095",
+   "https://doi.org/10.1016/j.cropro.2020.105324",
+   "https://doi.org/10.1016/j.cropro.2023.106375",
+   "https://doi.org/10.1016/j.fbr.2021.11.003",
+   "https://doi.org/10.1016/j.jenvman.2022.115365",
+   "https://doi.org/10.1017/s0007485319000075",
+   "https://doi.org/10.1051/bioconf/20236801001",
+   "https://doi.org/10.1079/cabireviews.2026.0016",
+   "https://doi.org/10.1093/femsec/fiag082",
+   "https://doi.org/10.1094/pdis-09-22-2064-re",
+   "https://doi.org/10.1094/pdis-11-24-2480-re",
+   "https://doi.org/10.1094/phyto-04-26-0103-r",
+   "https://doi.org/10.1109/metroagrifor55389.2022.9965133",
+   "https://doi.org/10.1111/aab.12627",
+   "https://doi.org/10.1111/ppa.70236",
+   "https://doi.org/10.20870/oeno-one.2025.59.3.9330",
+   "https://doi.org/10.20870/oeno-one.2026.60.1.9516",
+   "https://doi.org/10.20944/preprints202401.2208.v1",
+   "https://doi.org/10.20944/preprints202501.1854.v1",
+   "https://doi.org/10.2903/sp.efsa.2025.en-9567",
+   "https://doi.org/10.30574/gscbps.2024.29.1.0353",
+   "https://doi.org/10.30574/ijsra.2023.9.2.0637",
+   "https://doi.org/10.3389/fpls.2023.1154370",
+   "https://doi.org/10.3389/fpls.2023.1288408",
+   "https://doi.org/10.3389/fpls.2024.1498848",
+   "https://doi.org/10.3389/fpls.2025.1674937",
+   "https://doi.org/10.3390/agriculture16141491",
+   "https://doi.org/10.3390/agronomy12071528",
+   "https://doi.org/10.3390/agronomy15122703",
+   "https://doi.org/10.3390/agronomy16020201",
+   "https://doi.org/10.3390/insects14030270",
+   "https://doi.org/10.3390/insects15040224",
+   "https://doi.org/10.3390/insects16020213",
+   "https://doi.org/10.3390/insects17010083",
+   "https://doi.org/10.3390/jof11070527",
+   "https://doi.org/10.3390/microorganisms10020200",
+   "https://doi.org/10.3390/su12051900",
+   "https://doi.org/10.3390/su15032837",
+   "https://doi.org/10.3390/toxins14070422",
+   "https://doi.org/10.5194/egusphere-egu24-10773",
+   "https://doi.org/10.5194/egusphere-egu25-5890",
+   "https://doi.org/10.5281/zenodo.2789594",
+   "https://doi.org/10.5281/zenodo.2789595"
+  ],
+  "OS_69_RECONSTRUIDOS": 69,
+  "OS_69_CONFERE": "SIM",
+  "PORQUE_269_E_NAO_275": "o AB do LAB tem 115 registos sobre 113 ITEM_ID (o mesmo documento rotulado duas vezes); o cruzamento e por ITEM_ID"
+ },
+ "ITEM_6_RECUPERADOS": {
+  "P2_RECUPERA": 0,
+  "P2_RECUPERA_OBJETOS": 0,
+  "LISTA": [],
+  "DOS_100_AB": [],
+  "DOS_100_AB_N": 0,
+  "DOS_69_N": 0,
+  "DOS_69": [],
+  "DOS_69_QUE_FICAM_DE_FORA": [
+   "derived:1060",
+   "derived:1149",
+   "derived:1152",
+   "derived:66",
+   "derived:busca-031b2d670cec1887",
+   "derived:busca-3316e9e31e357b55",
+   "derived:busca-43b74d4bcdf11a25",
+   "derived:busca-4a84529ca678ac06",
+   "derived:busca-51840211adf97597",
+   "derived:busca-65e1cf45e2f85ff0",
+   "derived:busca-85c288a9cd8b4d5c",
+   "derived:busca-9092d98a22ea9afe",
+   "derived:busca-a18d7cd47bdfe1c4",
+   "derived:busca-c0e3cdb939da6efd",
+   "derived:busca-c5037556347e9b45",
+   "derived:busca-ed6112bff24a8e5b",
+   "https://doi.org/10.1002/arch.21655",
+   "https://doi.org/10.1002/jsfa.11814",
+   "https://doi.org/10.1002/ps.6860",
+   "https://doi.org/10.1002/ps.8140",
+   "https://doi.org/10.1007/s10340-025-01961-8",
+   "https://doi.org/10.1007/s10658-020-02085-8",
+   "https://doi.org/10.1007/s11356-020-09279-x",
+   "https://doi.org/10.1007/s11356-024-33980-w",
+   "https://doi.org/10.1007/s41348-024-00867-4",
+   "https://doi.org/10.1007/s42161-023-01310-7",
+   "https://doi.org/10.1016/j.biocontrol.2026.106095",
+   "https://doi.org/10.1016/j.cropro.2020.105324",
+   "https://doi.org/10.1016/j.cropro.2023.106375",
+   "https://doi.org/10.1016/j.fbr.2021.11.003",
+   "https://doi.org/10.1016/j.jenvman.2022.115365",
+   "https://doi.org/10.1017/s0007485319000075",
+   "https://doi.org/10.1051/bioconf/20236801001",
+   "https://doi.org/10.1079/cabireviews.2026.0016",
+   "https://doi.org/10.1093/femsec/fiag082",
+   "https://doi.org/10.1094/pdis-09-22-2064-re",
+   "https://doi.org/10.1094/pdis-11-24-2480-re",
+   "https://doi.org/10.1094/phyto-04-26-0103-r",
+   "https://doi.org/10.1109/metroagrifor55389.2022.9965133",
+   "https://doi.org/10.1111/aab.12627",
+   "https://doi.org/10.1111/ppa.70236",
+   "https://doi.org/10.20870/oeno-one.2025.59.3.9330",
+   "https://doi.org/10.20870/oeno-one.2026.60.1.9516",
+   "https://doi.org/10.20944/preprints202401.2208.v1",
+   "https://doi.org/10.20944/preprints202501.1854.v1",
+   "https://doi.org/10.2903/sp.efsa.2025.en-9567",
+   "https://doi.org/10.30574/gscbps.2024.29.1.0353",
+   "https://doi.org/10.30574/ijsra.2023.9.2.0637",
+   "https://doi.org/10.3389/fpls.2023.1154370",
+   "https://doi.org/10.3389/fpls.2023.1288408",
+   "https://doi.org/10.3389/fpls.2024.1498848",
+   "https://doi.org/10.3389/fpls.2025.1674937",
+   "https://doi.org/10.3390/agriculture16141491",
+   "https://doi.org/10.3390/agronomy12071528",
+   "https://doi.org/10.3390/agronomy15122703",
+   "https://doi.org/10.3390/agronomy16020201",
+   "https://doi.org/10.3390/insects14030270",
+   "https://doi.org/10.3390/insects15040224",
+   "https://doi.org/10.3390/insects16020213",
+   "https://doi.org/10.3390/insects17010083",
+   "https://doi.org/10.3390/jof11070527",
+   "https://doi.org/10.3390/microorganisms10020200",
+   "https://doi.org/10.3390/su12051900",
+   "https://doi.org/10.3390/su15032837",
+   "https://doi.org/10.3390/toxins14070422",
+   "https://doi.org/10.5194/egusphere-egu24-10773",
+   "https://doi.org/10.5194/egusphere-egu25-5890",
+   "https://doi.org/10.5281/zenodo.2789594",
+   "https://doi.org/10.5281/zenodo.2789595"
+  ],
+  "POR_COMPARTIMENTO": {}
+ },
+ "ITEM_6_ONDE_MORRE_CADA_UM": {
+  "ITENS_CRUZADOS": 98,
+  "FORA_DESTE_CORTE": [],
+  "RESUMO_POR_PORTAO": {
+   "TRIAGEM + LUGAR": 98
+  },
+  "O_P2_MUDA": {
+   "NAO": 98
+  },
+  "LINHAS": [
+   {
+    "ITEM_ID": "derived:1",
+    "SOURCE_ID": "IT-T3-010",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:1054",
+    "SOURCE_ID": "IT-T7-163",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:1060",
+    "SOURCE_ID": "IT-T9-011",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:1066",
+    "SOURCE_ID": "IT-T10-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:1080",
+    "SOURCE_ID": "IT-T3-023",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:1149",
+    "SOURCE_ID": "IT-T5-111",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:1152",
+    "SOURCE_ID": "IT-T5-113",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:6",
+    "SOURCE_ID": "IT-T3-002",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:66",
+    "SOURCE_ID": "IT-T9-011",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:766",
+    "SOURCE_ID": "IT-T10-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:768",
+    "SOURCE_ID": "IT-T10-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:772",
+    "SOURCE_ID": "IT-T10-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:834",
+    "SOURCE_ID": "IT-T10-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:841",
+    "SOURCE_ID": "IT-T10-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:929",
+    "SOURCE_ID": "IT-T10-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:952",
+    "SOURCE_ID": "IT-T2-034",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME:SEM_ANO"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:991",
+    "SOURCE_ID": "IT-T10-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-031b2d670cec1887",
+    "SOURCE_ID": "CAND-1234",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-0610ecaec8bc3f7b",
+    "SOURCE_ID": "CAND-1210",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-1dae6e1c89f007b8",
+    "SOURCE_ID": "CAND-1213",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-2ac588219c1d17b9",
+    "SOURCE_ID": "CAND-1209",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-2e480f62adcc2446",
+    "SOURCE_ID": "CAND-1207",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-3316e9e31e357b55",
+    "SOURCE_ID": "CAND-1236",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-392fbc9f70c55093",
+    "SOURCE_ID": "CAND-1209",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-43b74d4bcdf11a25",
+    "SOURCE_ID": "CAND-1240",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-4a84529ca678ac06",
+    "SOURCE_ID": "CAND-1231",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-51840211adf97597",
+    "SOURCE_ID": "CAND-1239",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-5c06c7feaf3846fd",
+    "SOURCE_ID": "CAND-1209",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME:SEM_ANO"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-5d359d072c7634f5",
+    "SOURCE_ID": "CAND-1210",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-5d43598d863faa9d",
+    "SOURCE_ID": "CAND-1228",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME:SEM_ANO"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-65e1cf45e2f85ff0",
+    "SOURCE_ID": "CAND-1229",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-7451caf82c35fdc9",
+    "SOURCE_ID": "CAND-1205",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME:SEM_ANO"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-7470b9568b1382cf",
+    "SOURCE_ID": "CAND-1206",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-74dd5877c26835d7",
+    "SOURCE_ID": "CAND-1223",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-85c288a9cd8b4d5c",
+    "SOURCE_ID": "CAND-1241",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-8d9b4eee2b9959aa",
+    "SOURCE_ID": "IT-T12-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-9092d98a22ea9afe",
+    "SOURCE_ID": "CAND-1212",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-97a09bf885e5324c",
+    "SOURCE_ID": "CAND-1213",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-a18d7cd47bdfe1c4",
+    "SOURCE_ID": "CAND-1236",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-c0e3cdb939da6efd",
+    "SOURCE_ID": "CAND-1217",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-c5037556347e9b45",
+    "SOURCE_ID": "CAND-1227",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME:SEM_ANO"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-d0536d4ce7c99deb",
+    "SOURCE_ID": "CAND-1252",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-d7838c774da0c09a",
+    "SOURCE_ID": "IT-T12-018",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.FACT_LOCATION não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-ec8f4ae920c59c48",
+    "SOURCE_ID": "CAND-1221",
+    "NOS_69": false,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "derived:busca-ed6112bff24a8e5b",
+    "SOURCE_ID": "IT-T3-049",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1002/arch.21655",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1002/jsfa.11814",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1002/ps.6860",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1002/ps.8140",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1007/s10340-025-01961-8",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1007/s10658-020-02085-8",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1007/s11356-020-09279-x",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1007/s11356-024-33980-w",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1007/s41348-024-00867-4",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1007/s42161-023-01310-7",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1016/j.biocontrol.2026.106095",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1016/j.cropro.2020.105324",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1016/j.cropro.2023.106375",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1016/j.fbr.2021.11.003",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1016/j.jenvman.2022.115365",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1017/s0007485319000075",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1051/bioconf/20236801001",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1079/cabireviews.2026.0016",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1093/femsec/fiag082",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1094/pdis-09-22-2064-re",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1094/pdis-11-24-2480-re",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1094/phyto-04-26-0103-r",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1109/metroagrifor55389.2022.9965133",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1111/aab.12627",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1111/ppa.70236",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.20870/oeno-one.2025.59.3.9330",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.20870/oeno-one.2026.60.1.9516",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.20944/preprints202401.2208.v1",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.20944/preprints202501.1854.v1",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.2903/sp.efsa.2025.en-9567",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.30574/gscbps.2024.29.1.0353",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.30574/ijsra.2023.9.2.0637",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3389/fpls.2023.1154370",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3389/fpls.2023.1288408",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3389/fpls.2024.1498848",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3389/fpls.2025.1674937",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/agriculture16141491",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/agronomy12071528",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/agronomy15122703",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/agronomy16020201",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/insects14030270",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/insects15040224",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/insects16020213",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/insects17010083",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/jof11070527",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/microorganisms10020200",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/su12051900",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/su15032837",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.3390/toxins14070422",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.5194/egusphere-egu24-10773",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.5194/egusphere-egu25-5890",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "D112: sem sustentacao explicita da fonte — origem ITEM.TEXTO (TITULO + RESUMO DO ESTUDO), ESTUDO-CHAVES-V1 não sustenta lugar do fato",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.5281/zenodo.2789594",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.5281/zenodo.2789595",
+    "SOURCE_ID": "EU-T5-001",
+    "NOS_69": true,
+    "NOS_100_AB": true,
+    "G0": "BLOQUEADO_EM_G0",
+    "G0_FALTA": [
+     "FACT_TIME"
+    ],
+    "BLOQUEADO_SO_PELO_TEMPO": true,
+    "USOS_DISPONIVEIS": [
+     "EVIDENCIA_NAVEGAVEL",
+     "CROSSING_SEM_CHAVE_TIME",
+     "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+    ],
+    "E_ESTUDO": false,
+    "PORQUE_A_TRIAGEM": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica",
+    "REGIAO_DO_FATO_SUSTENTADA": false,
+    "PORQUE_A_REGIAO": "valor NAO SEI",
+    "PORTAO_QUE_SEGURA": "TRIAGEM + LUGAR: nao e estudo (nao vai a CAP-SCI) e a janela nao tem REGIAO_DO_FATO sustentada (D112a) — nao ha janela para admitir",
+    "O_P2_MUDA_ESTE": "NAO"
+   }
+  ]
+ },
+ "PORQUE_A_CIENCIA_E_ZERO": {
+  "ITENS": 269,
+  "FATO_POR_TIPO": {
+   "texto: 'NAO_SE_APLICA'": 269
+  },
+  "ITENS_QUE_A_TRIAGEM_CHAMA_ESTUDO": 0,
+  "ITENS_CUJO_ITEM_ID_JA_E_UM_DOI": 99,
+  "EXEMPLOS": [
+   {
+    "ITEM_ID": "https://doi.org/10.1002/arch.21655",
+    "SOURCE_ID": "EU-T5-001",
+    "FATO": "NAO_SE_APLICA",
+    "E_ESTUDO": false,
+    "PORQUE": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1002/jsfa.11814",
+    "SOURCE_ID": "EU-T5-001",
+    "FATO": "NAO_SE_APLICA",
+    "E_ESTUDO": false,
+    "PORQUE": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica"
+   },
+   {
+    "ITEM_ID": "https://doi.org/10.1002/ps.6860",
+    "SOURCE_ID": "EU-T5-001",
+    "FATO": "NAO_SE_APLICA",
+    "E_ESTUDO": false,
+    "PORQUE": "o FATO nao declara DOI, TRIAL_ID nem especie cientifica"
+   }
+  ],
+  "LEITURA": "a CAP-SCI julga 0 estudos porque a triagem (e_estudo) nao acha identidade de estudo em nenhum item. Os artigos cientificos trazem o DOI no proprio ITEM_ID, e o envelope FATO deles diz «NAO_SE_APLICA» — e o FATO e o unico sitio onde `e_estudo` olha. Este portao esta ANTES do `_admite`, e por isso o P2 nao lhe chega."
+ },
+ "P2_CAUSA_REGRESSAO_ACT_NOW": "NAO",
+ "MEDIDO_E_NAO_APLICADO": {
+  "SOURCES_RENDIMENTO": {
+   "PORQUE": "`_rendimentos` (motor_das_capacidades.py:718) nao passa por `_admite`: conta `G0 == PASSOU` a mao. O patch do P2 nao o alcanca, e mudar aquela contagem mudava um FACTO (quantos passaram G0), nao um uso. Fica MEDIDO.",
+   "FONTES_SEM_NENHUM_G0_PASSOU_MAS_COM_PROVENIENCIA_COMPLETA": 66,
+   "FONTES": [
+    "CAND-1206",
+    "CAND-1207",
+    "CAND-1209",
+    "CAND-1210",
+    "CAND-1212",
+    "CAND-1213",
+    "CAND-1217",
+    "CAND-1221",
+    "CAND-1223",
+    "CAND-1227",
+    "CAND-1228",
+    "CAND-1229",
+    "CAND-1231",
+    "CAND-1236",
+    "CAND-1239",
+    "CAND-1240",
+    "CAND-1241",
+    "CAND-1243",
+    "CAND-1252",
+    "EU-T5-001",
+    "IT-T10-022",
+    "IT-T12-018",
+    "IT-T2-006",
+    "IT-T2-034",
+    "IT-T3-002",
+    "IT-T3-010",
+    "IT-T3-023",
+    "IT-T3-049",
+    "IT-T5-009",
+    "IT-T5-011",
+    "IT-T5-012",
+    "IT-T5-014",
+    "IT-T5-015",
+    "IT-T5-016",
+    "IT-T5-017",
+    "IT-T5-018",
+    "IT-T5-019",
+    "IT-T5-020",
+    "IT-T5-022",
+    "IT-T5-024",
+    "IT-T5-025",
+    "IT-T5-026",
+    "IT-T5-027",
+    "IT-T5-028",
+    "IT-T5-029",
+    "IT-T5-030",
+    "IT-T5-033",
+    "IT-T5-034",
+    "IT-T5-035",
+    "IT-T5-036",
+    "IT-T5-039",
+    "IT-T5-049",
+    "IT-T5-056",
+    "IT-T5-111",
+    "IT-T5-113",
+    "IT-T5-160",
+    "IT-T5-167",
+    "IT-T5-185",
+    "IT-T7-013",
+    "IT-T7-033",
+    "IT-T7-041",
+    "IT-T7-103",
+    "IT-T7-163",
+    "IT-T9-009",
+    "IT-T9-011",
+    "IT-T9-021"
+   ],
+   "O_QUE_A_LEI_DO_POTE_DIZ": "pote_intelligence_casco.uso_exige_tempo: especie RENDIMENTO nao exige tempo — logo estas fontes tambem seriam recuperaveis por um P2 mais largo"
+  }
+ },
+ "MODOS": {
+  "ANTES": {
+   "MODO": "ANTES",
+   "USOS_ABERTOS": [],
+   "ERRO": null,
+   "IMPRESSOES_IGUAIS_ANTES_E_DEPOIS": true,
+   "LEITURA": {
+    "INTELLIGENCE_RUN_ID": "IR-117885247a6f3266e164",
+    "ITENS_NA_CORRIDA": 269,
+    "INTAKE": {
+     "RECEBIDOS": 269,
+     "DESCARTADOS_ANTES_DO_LIVRO": 0,
+     "NO_LIVRO": 269,
+     "POR_TEMPORAL_STATE": {
+      "ANCORADO": 21,
+      "FUTURO_EM_RELACAO_A_CAPTURA": 9,
+      "UNKNOWN_WINDOW": 239
+     },
+     "SEM_PROVENIENCIA": 0,
+     "COM_USO_SEM_TEMPO": 269
+    },
+    "SINAIS_DO_LIVRO": 21,
+    "SINAL_IDS": [
+     "SG-0a38fa1b026059c4",
+     "SG-14025b09211087a0",
+     "SG-1da859f5d02f23c9",
+     "SG-28866c341e7f5ef0",
+     "SG-29c30c8e50eddb4c",
+     "SG-3451ee8745bfb8c7",
+     "SG-3a97b4eb051a48b3",
+     "SG-70b61cfce4ffc449",
+     "SG-774aeeebecd536b2",
+     "SG-8eedf60378151ecc",
+     "SG-99ed20c09a444865",
+     "SG-b4095ef2e586da57",
+     "SG-bf29e39afc6eef68",
+     "SG-c5e452e966bfc593",
+     "SG-dcfea623c77cec83",
+     "SG-e75ba1650c9cef2f",
+     "SG-ea8d8dcd7cefc4dd",
+     "SG-ebe474705abbfe2d",
+     "SG-ef4f106d963149ed",
+     "SG-fbc9bcceadf7322e",
+     "SG-fe2d5b8283adab6f"
+    ],
+    "ITENS_COM_G0_PASSOU": [
+     "derived:11",
+     "derived:1129",
+     "derived:1181",
+     "derived:21",
+     "derived:7",
+     "derived:762",
+     "derived:764",
+     "derived:836",
+     "derived:839",
+     "derived:911",
+     "derived:918",
+     "derived:920",
+     "derived:busca-1807bb3212f8763d",
+     "derived:busca-3ae87b2ee6c08d80",
+     "derived:busca-8598e5dc2a8d0966",
+     "derived:busca-8bacf075d875e735",
+     "derived:busca-c46e3779fcf0f7cc",
+     "derived:busca-c788a591bf3ca8de",
+     "derived:busca-cddc9cc97af3b407",
+     "derived:busca-d2085270e5c8f61e",
+     "derived:busca-d6f1236a1340b8bd"
+    ],
+    "FACTOS_SOBRE_O_FUTURO_NO_LIVRO": 9,
+    "POR_COMPARTIMENTO": {
+     "windows": {
+      "USO_DO_G0": "CAP-WIN",
+      "OBJETOS": 0,
+      "ITENS_NA_PROVA": 0,
+      "ITENS": [],
+      "OBJETO_IDS": [],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     },
+     "science": {
+      "USO_DO_G0": "LEITURA_ATEMPORAL_DE_CAPACIDADE",
+      "OBJETOS": 0,
+      "ITENS_NA_PROVA": 0,
+      "ITENS": [],
+      "OBJETO_IDS": [],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     },
+     "future": {
+      "USO_DO_G0": "CAP-FUT",
+      "OBJETOS": 9,
+      "ITENS_NA_PROVA": 9,
+      "ITENS": [
+       "derived:1022",
+       "derived:1063",
+       "derived:1163",
+       "derived:130",
+       "derived:56",
+       "derived:61",
+       "derived:62",
+       "derived:921",
+       "derived:928"
+      ],
+      "OBJETO_IDS": [
+       "R7-FUT-25c50005652742b8",
+       "R7-FUT-5796b62e17b7da08",
+       "R7-FUT-ab188c43ce50c021",
+       "R7-FUT-ac5b7bf6036f7893",
+       "R7-FUT-b9b975473028ca58",
+       "R7-FUT-c3f579b5e677c471",
+       "R7-FUT-cd9ac9e6e0c0e26e",
+       "R7-FUT-f77905f346f8c727",
+       "R7-FUT-faf4b5c50f97162d"
+      ],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [
+       "derived:1022",
+       "derived:1063",
+       "derived:1163",
+       "derived:130",
+       "derived:56",
+       "derived:61",
+       "derived:62",
+       "derived:921",
+       "derived:928"
+      ],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     },
+     "sources": {
+      "USO_DO_G0": "EVIDENCIA_NAVEGAVEL",
+      "OBJETOS": 6,
+      "ITENS_NA_PROVA": 12,
+      "ITENS": [
+       "derived:11",
+       "derived:1129",
+       "derived:1181",
+       "derived:21",
+       "derived:7",
+       "derived:762",
+       "derived:764",
+       "derived:836",
+       "derived:839",
+       "derived:911",
+       "derived:918",
+       "derived:920"
+      ],
+      "OBJETO_IDS": [
+       "R7-SRC-113ce14fada56582",
+       "R7-SRC-30b6bb75650bacb5",
+       "R7-SRC-34f05ada8f9e8b30",
+       "R7-SRC-3a18941c3dd3f948",
+       "R7-SRC-4bec7b7b77b6d6e4",
+       "R7-SRC-914d0d046ab6841f"
+      ],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     }
+    },
+    "OBJETOS": {
+     "R7-FUT-25c50005652742b8": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:56"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-5796b62e17b7da08": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:61"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-ac5b7bf6036f7893": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:62"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-c3f579b5e677c471": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:130"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-b9b975473028ca58": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:921"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-ab188c43ce50c021": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:928"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-f77905f346f8c727": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:1022"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-faf4b5c50f97162d": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:1063"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-cd9ac9e6e0c0e26e": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:1163"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-4bec7b7b77b6d6e4": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:762",
+       "derived:764",
+       "derived:836",
+       "derived:839",
+       "derived:911",
+       "derived:920"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-914d0d046ab6841f": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:11",
+       "derived:7"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-113ce14fada56582": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:21"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-30b6bb75650bacb5": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:918"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-34f05ada8f9e8b30": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:1181"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-3a18941c3dd3f948": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:1129"
+      ],
+      "RESULT": "NAO SEI"
+     }
+    },
+    "CAP_WIN": {
+     "JANELAS": 0,
+     "POR_RESULT": {},
+     "ACT_NOW_JANELAS": [],
+     "ACT_NOW_OBJETOS_NO_POTE": []
+    },
+    "CAP_SCI": {
+     "ITENS": 269,
+     "JULGADOS": 0,
+     "FORA": 269,
+     "ESTUDOS_JULGADOS": []
+    },
+    "NAO_ENVIADOS_AO_POTE": 73,
+    "NAO_ENVIADOS_POR_MOTIVO": {
+     "sources/RENDIMENTO_SEM_PROVA": 73
+    }
+   }
+  },
+  "DEPOIS_P2": {
+   "MODO": "DEPOIS_P2",
+   "USOS_ABERTOS": [
+    "LEITURA_ATEMPORAL_DE_CAPACIDADE"
+   ],
+   "ERRO": null,
+   "IMPRESSOES_IGUAIS_ANTES_E_DEPOIS": true,
+   "LEITURA": {
+    "INTELLIGENCE_RUN_ID": "IR-117885247a6f3266e164",
+    "ITENS_NA_CORRIDA": 269,
+    "INTAKE": {
+     "RECEBIDOS": 269,
+     "DESCARTADOS_ANTES_DO_LIVRO": 0,
+     "NO_LIVRO": 269,
+     "POR_TEMPORAL_STATE": {
+      "ANCORADO": 21,
+      "FUTURO_EM_RELACAO_A_CAPTURA": 9,
+      "UNKNOWN_WINDOW": 239
+     },
+     "SEM_PROVENIENCIA": 0,
+     "COM_USO_SEM_TEMPO": 269
+    },
+    "SINAIS_DO_LIVRO": 21,
+    "SINAL_IDS": [
+     "SG-0a38fa1b026059c4",
+     "SG-14025b09211087a0",
+     "SG-1da859f5d02f23c9",
+     "SG-28866c341e7f5ef0",
+     "SG-29c30c8e50eddb4c",
+     "SG-3451ee8745bfb8c7",
+     "SG-3a97b4eb051a48b3",
+     "SG-70b61cfce4ffc449",
+     "SG-774aeeebecd536b2",
+     "SG-8eedf60378151ecc",
+     "SG-99ed20c09a444865",
+     "SG-b4095ef2e586da57",
+     "SG-bf29e39afc6eef68",
+     "SG-c5e452e966bfc593",
+     "SG-dcfea623c77cec83",
+     "SG-e75ba1650c9cef2f",
+     "SG-ea8d8dcd7cefc4dd",
+     "SG-ebe474705abbfe2d",
+     "SG-ef4f106d963149ed",
+     "SG-fbc9bcceadf7322e",
+     "SG-fe2d5b8283adab6f"
+    ],
+    "ITENS_COM_G0_PASSOU": [
+     "derived:11",
+     "derived:1129",
+     "derived:1181",
+     "derived:21",
+     "derived:7",
+     "derived:762",
+     "derived:764",
+     "derived:836",
+     "derived:839",
+     "derived:911",
+     "derived:918",
+     "derived:920",
+     "derived:busca-1807bb3212f8763d",
+     "derived:busca-3ae87b2ee6c08d80",
+     "derived:busca-8598e5dc2a8d0966",
+     "derived:busca-8bacf075d875e735",
+     "derived:busca-c46e3779fcf0f7cc",
+     "derived:busca-c788a591bf3ca8de",
+     "derived:busca-cddc9cc97af3b407",
+     "derived:busca-d2085270e5c8f61e",
+     "derived:busca-d6f1236a1340b8bd"
+    ],
+    "FACTOS_SOBRE_O_FUTURO_NO_LIVRO": 9,
+    "POR_COMPARTIMENTO": {
+     "windows": {
+      "USO_DO_G0": "CAP-WIN",
+      "OBJETOS": 0,
+      "ITENS_NA_PROVA": 0,
+      "ITENS": [],
+      "OBJETO_IDS": [],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     },
+     "science": {
+      "USO_DO_G0": "LEITURA_ATEMPORAL_DE_CAPACIDADE",
+      "OBJETOS": 0,
+      "ITENS_NA_PROVA": 0,
+      "ITENS": [],
+      "OBJETO_IDS": [],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     },
+     "future": {
+      "USO_DO_G0": "CAP-FUT",
+      "OBJETOS": 9,
+      "ITENS_NA_PROVA": 9,
+      "ITENS": [
+       "derived:1022",
+       "derived:1063",
+       "derived:1163",
+       "derived:130",
+       "derived:56",
+       "derived:61",
+       "derived:62",
+       "derived:921",
+       "derived:928"
+      ],
+      "OBJETO_IDS": [
+       "R7-FUT-25c50005652742b8",
+       "R7-FUT-5796b62e17b7da08",
+       "R7-FUT-ab188c43ce50c021",
+       "R7-FUT-ac5b7bf6036f7893",
+       "R7-FUT-b9b975473028ca58",
+       "R7-FUT-c3f579b5e677c471",
+       "R7-FUT-cd9ac9e6e0c0e26e",
+       "R7-FUT-f77905f346f8c727",
+       "R7-FUT-faf4b5c50f97162d"
+      ],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [
+       "derived:1022",
+       "derived:1063",
+       "derived:1163",
+       "derived:130",
+       "derived:56",
+       "derived:61",
+       "derived:62",
+       "derived:921",
+       "derived:928"
+      ],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     },
+     "sources": {
+      "USO_DO_G0": "EVIDENCIA_NAVEGAVEL",
+      "OBJETOS": 6,
+      "ITENS_NA_PROVA": 12,
+      "ITENS": [
+       "derived:11",
+       "derived:1129",
+       "derived:1181",
+       "derived:21",
+       "derived:7",
+       "derived:762",
+       "derived:764",
+       "derived:836",
+       "derived:839",
+       "derived:911",
+       "derived:918",
+       "derived:920"
+      ],
+      "OBJETO_IDS": [
+       "R7-SRC-113ce14fada56582",
+       "R7-SRC-30b6bb75650bacb5",
+       "R7-SRC-34f05ada8f9e8b30",
+       "R7-SRC-3a18941c3dd3f948",
+       "R7-SRC-4bec7b7b77b6d6e4",
+       "R7-SRC-914d0d046ab6841f"
+      ],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     }
+    },
+    "OBJETOS": {
+     "R7-FUT-25c50005652742b8": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:56"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-5796b62e17b7da08": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:61"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-ac5b7bf6036f7893": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:62"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-c3f579b5e677c471": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:130"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-b9b975473028ca58": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:921"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-ab188c43ce50c021": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:928"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-f77905f346f8c727": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:1022"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-faf4b5c50f97162d": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:1063"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-cd9ac9e6e0c0e26e": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:1163"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-4bec7b7b77b6d6e4": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:762",
+       "derived:764",
+       "derived:836",
+       "derived:839",
+       "derived:911",
+       "derived:920"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-914d0d046ab6841f": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:11",
+       "derived:7"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-113ce14fada56582": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:21"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-30b6bb75650bacb5": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:918"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-34f05ada8f9e8b30": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:1181"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-3a18941c3dd3f948": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:1129"
+      ],
+      "RESULT": "NAO SEI"
+     }
+    },
+    "CAP_WIN": {
+     "JANELAS": 0,
+     "POR_RESULT": {},
+     "ACT_NOW_JANELAS": [],
+     "ACT_NOW_OBJETOS_NO_POTE": []
+    },
+    "CAP_SCI": {
+     "ITENS": 269,
+     "JULGADOS": 0,
+     "FORA": 269,
+     "ESTUDOS_JULGADOS": []
+    },
+    "NAO_ENVIADOS_AO_POTE": 73,
+    "NAO_ENVIADOS_POR_MOTIVO": {
+     "sources/RENDIMENTO_SEM_PROVA": 73
+    }
+   }
+  },
+  "MUTANTE_ACT_NOW": {
+   "MODO": "MUTANTE_ACT_NOW",
+   "USOS_ABERTOS": [
+    "LEITURA_ATEMPORAL_DE_CAPACIDADE",
+    "CAP-WIN"
+   ],
+   "ERRO": null,
+   "IMPRESSOES_IGUAIS_ANTES_E_DEPOIS": true,
+   "LEITURA": {
+    "INTELLIGENCE_RUN_ID": "IR-117885247a6f3266e164",
+    "ITENS_NA_CORRIDA": 269,
+    "INTAKE": {
+     "RECEBIDOS": 269,
+     "DESCARTADOS_ANTES_DO_LIVRO": 0,
+     "NO_LIVRO": 269,
+     "POR_TEMPORAL_STATE": {
+      "ANCORADO": 21,
+      "FUTURO_EM_RELACAO_A_CAPTURA": 9,
+      "UNKNOWN_WINDOW": 239
+     },
+     "SEM_PROVENIENCIA": 0,
+     "COM_USO_SEM_TEMPO": 269
+    },
+    "SINAIS_DO_LIVRO": 21,
+    "SINAL_IDS": [
+     "SG-0a38fa1b026059c4",
+     "SG-14025b09211087a0",
+     "SG-1da859f5d02f23c9",
+     "SG-28866c341e7f5ef0",
+     "SG-29c30c8e50eddb4c",
+     "SG-3451ee8745bfb8c7",
+     "SG-3a97b4eb051a48b3",
+     "SG-70b61cfce4ffc449",
+     "SG-774aeeebecd536b2",
+     "SG-8eedf60378151ecc",
+     "SG-99ed20c09a444865",
+     "SG-b4095ef2e586da57",
+     "SG-bf29e39afc6eef68",
+     "SG-c5e452e966bfc593",
+     "SG-dcfea623c77cec83",
+     "SG-e75ba1650c9cef2f",
+     "SG-ea8d8dcd7cefc4dd",
+     "SG-ebe474705abbfe2d",
+     "SG-ef4f106d963149ed",
+     "SG-fbc9bcceadf7322e",
+     "SG-fe2d5b8283adab6f"
+    ],
+    "ITENS_COM_G0_PASSOU": [
+     "derived:11",
+     "derived:1129",
+     "derived:1181",
+     "derived:21",
+     "derived:7",
+     "derived:762",
+     "derived:764",
+     "derived:836",
+     "derived:839",
+     "derived:911",
+     "derived:918",
+     "derived:920",
+     "derived:busca-1807bb3212f8763d",
+     "derived:busca-3ae87b2ee6c08d80",
+     "derived:busca-8598e5dc2a8d0966",
+     "derived:busca-8bacf075d875e735",
+     "derived:busca-c46e3779fcf0f7cc",
+     "derived:busca-c788a591bf3ca8de",
+     "derived:busca-cddc9cc97af3b407",
+     "derived:busca-d2085270e5c8f61e",
+     "derived:busca-d6f1236a1340b8bd"
+    ],
+    "FACTOS_SOBRE_O_FUTURO_NO_LIVRO": 9,
+    "POR_COMPARTIMENTO": {
+     "windows": {
+      "USO_DO_G0": "CAP-WIN",
+      "OBJETOS": 0,
+      "ITENS_NA_PROVA": 0,
+      "ITENS": [],
+      "OBJETO_IDS": [],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     },
+     "science": {
+      "USO_DO_G0": "LEITURA_ATEMPORAL_DE_CAPACIDADE",
+      "OBJETOS": 0,
+      "ITENS_NA_PROVA": 0,
+      "ITENS": [],
+      "OBJETO_IDS": [],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     },
+     "future": {
+      "USO_DO_G0": "CAP-FUT",
+      "OBJETOS": 9,
+      "ITENS_NA_PROVA": 9,
+      "ITENS": [
+       "derived:1022",
+       "derived:1063",
+       "derived:1163",
+       "derived:130",
+       "derived:56",
+       "derived:61",
+       "derived:62",
+       "derived:921",
+       "derived:928"
+      ],
+      "OBJETO_IDS": [
+       "R7-FUT-25c50005652742b8",
+       "R7-FUT-5796b62e17b7da08",
+       "R7-FUT-ab188c43ce50c021",
+       "R7-FUT-ac5b7bf6036f7893",
+       "R7-FUT-b9b975473028ca58",
+       "R7-FUT-c3f579b5e677c471",
+       "R7-FUT-cd9ac9e6e0c0e26e",
+       "R7-FUT-f77905f346f8c727",
+       "R7-FUT-faf4b5c50f97162d"
+      ],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [
+       "derived:1022",
+       "derived:1063",
+       "derived:1163",
+       "derived:130",
+       "derived:56",
+       "derived:61",
+       "derived:62",
+       "derived:921",
+       "derived:928"
+      ],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     },
+     "sources": {
+      "USO_DO_G0": "EVIDENCIA_NAVEGAVEL",
+      "OBJETOS": 6,
+      "ITENS_NA_PROVA": 12,
+      "ITENS": [
+       "derived:11",
+       "derived:1129",
+       "derived:1181",
+       "derived:21",
+       "derived:7",
+       "derived:762",
+       "derived:764",
+       "derived:836",
+       "derived:839",
+       "derived:911",
+       "derived:918",
+       "derived:920"
+      ],
+      "OBJETO_IDS": [
+       "R7-SRC-113ce14fada56582",
+       "R7-SRC-30b6bb75650bacb5",
+       "R7-SRC-34f05ada8f9e8b30",
+       "R7-SRC-3a18941c3dd3f948",
+       "R7-SRC-4bec7b7b77b6d6e4",
+       "R7-SRC-914d0d046ab6841f"
+      ],
+      "ITENS_NA_PROVA_SEM_G0_PASSOU": [],
+      "ITENS_QUE_A_REGRA_ORIGINAL_NAO_ADMITIA": []
+     }
+    },
+    "OBJETOS": {
+     "R7-FUT-25c50005652742b8": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:56"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-5796b62e17b7da08": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:61"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-ac5b7bf6036f7893": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:62"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-c3f579b5e677c471": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:130"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-b9b975473028ca58": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:921"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-ab188c43ce50c021": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:928"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-f77905f346f8c727": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:1022"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-faf4b5c50f97162d": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:1063"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-FUT-cd9ac9e6e0c0e26e": {
+      "COMPARTIMENTO": "future",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "FACTO_PRESENTE_SOBRE_O_FUTURO (corrida G0/v4, D14)",
+      "ITENS": [
+       "derived:1163"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-4bec7b7b77b6d6e4": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:762",
+       "derived:764",
+       "derived:836",
+       "derived:839",
+       "derived:911",
+       "derived:920"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-914d0d046ab6841f": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:11",
+       "derived:7"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-113ce14fada56582": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:21"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-30b6bb75650bacb5": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:918"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-34f05ada8f9e8b30": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:1181"
+      ],
+      "RESULT": "NAO SEI"
+     },
+     "R7-SRC-3a18941c3dd3f948": {
+      "COMPARTIMENTO": "sources",
+      "CAPACIDADE": "NAO SEI",
+      "ESPECIE_DO_MOTOR": "RENDIMENTO_DE_FONTE",
+      "ITENS": [
+       "derived:1129"
+      ],
+      "RESULT": "NAO SEI"
+     }
+    },
+    "CAP_WIN": {
+     "JANELAS": 0,
+     "POR_RESULT": {},
+     "ACT_NOW_JANELAS": [],
+     "ACT_NOW_OBJETOS_NO_POTE": []
+    },
+    "CAP_SCI": {
+     "ITENS": 269,
+     "JULGADOS": 0,
+     "FORA": 269,
+     "ESTUDOS_JULGADOS": []
+    },
+    "NAO_ENVIADOS_AO_POTE": 73,
+    "NAO_ENVIADOS_POR_MOTIVO": {
+     "sources/RENDIMENTO_SEM_PROVA": 73
+    }
+   }
+  }
+ }
+}
