@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ba3c87258ad75c088152d7a16210a21a5c43ef9f
+HEAD_DA_MEDICAO  8921819b5f4c1291f6b3aa24bf6cc6b32c46755b
 BRANCH           claude/idle-passage-collection-hgkfrc
-GERADO_EM        2026-09-28T19:14:33+00:00
+GERADO_EM        2026-09-28T19:38:38+00:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

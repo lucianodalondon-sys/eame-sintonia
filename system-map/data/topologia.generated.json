@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-28T19:26:45+00:00",
-  "HEAD": "ba3c87258ad75c088152d7a16210a21a5c43ef9f",
+  "GENERATED_AT": "2026-09-28T19:40:32+00:00",
+  "HEAD": "8921819b5f4c1291f6b3aa24bf6cc6b32c46755b",
   "BRANCH": "claude/idle-passage-collection-hgkfrc",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "432ee45ea5af6db5674aa47354cf8252b53a4f65d52f8ffa6d10fde2d587834f",
-  "FICHEIROS_NA_IMPRESSAO": 4363,
+  "SOURCE_TREE_FINGERPRINT": "72759c8f13abfa3376eb5cea4ec25acacb93fcf69c42629928650ad724ba4dd7",
+  "FICHEIROS_NA_IMPRESSAO": 4364,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -5564,14 +5564,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "432ee45ea5af6db5674aa47354cf8252b53a4f65d52f8ffa6d10fde2d587834f",
+    "VERSAO": "72759c8f13abfa3376eb5cea4ec25acacb93fcf69c42629928650ad724ba4dd7",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "432ee45ea5af6db5674aa47354cf8252b53a4f65d52f8ffa6d10fde2d587834f",
+    "VERSAO": "72759c8f13abfa3376eb5cea4ec25acacb93fcf69c42629928650ad724ba4dd7",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8244,7 +8244,7 @@
    }
   ],
   "INPUTS_COUNT": 1172,
-  "INPUTS_DIGEST": "0890e1f15bbeacc6188a3070712546f07cf7a2ad9de3c8a12d5b775f883be3b8",
+  "INPUTS_DIGEST": "5d8845d79c990087d4dad51b9554add69188351041a342e92e7813c7936d68cb",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8270,15 +8270,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 641,
+  "DOCUMENTOS_LIDOS": 642,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "1970a88df03d779b42ac8cf0c369c280b8d990f8de05a3eaaeacb4ada5c63117",
-  "SEMANTIC_HASH": "4daff1ce0176816a060db9dc0b888426e8e8e2c733ebf769193b7af945b18a64"
+  "MEASUREMENT_HASH": "e60f926c81e1c098d64eba41a885dc7c38c57d5f032c9b594657c6e006bdfe5b",
+  "SEMANTIC_HASH": "682ea2c4379b69160ced21f9be04281fcffb1a469cd406a07e780374bf68f8b3"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -70374,6 +70374,7 @@
     "LOTE3-SOCIAL.md",
     "MAESTRO-SOCIAL.md",
     "TETO-ADAPTATIVO.md",
+    "ferramentas/big_collection/onda4/COLETA-OCIOSA.md",
     "ferramentas/big_collection/onda4/DISPARADOR-RODADAS.md",
     "ferramentas/big_collection/onda4/ORDEM-RENDIMENTO-ONDA4.md"
    ],
@@ -72027,7 +72028,8 @@
     "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
     "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
     "docs/operacao/MEDICAO-DA-REGRA-T2.md",
-    "docs/operacao/T3-SAMPLING-FRAME-V1.md"
+    "docs/operacao/T3-SAMPLING-FRAME-V1.md",
+    "ferramentas/big_collection/onda4/COLETA-OCIOSA.md"
    ],
    "E_ENTRYPOINT": true,
    "ALCANCADO_POR_CORRIDA": true,
@@ -76282,6 +76284,7 @@
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
+    "ferramentas/big_collection/onda4/COLETA-OCIOSA.md",
     "ferramentas/onda3_pacote/RELATORIO-E-PLANO-ONDA3.md",
     "ferramentas/onda3_pacote/v2/RELATORIO-E-PLANO-ONDA3-V2.md"
    ],
