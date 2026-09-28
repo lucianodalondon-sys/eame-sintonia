@@ -62,7 +62,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 ### O contrato de cada fonte italiana
 
-13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA.
+13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA. FEED-LIGADO (27/09): uma linha da tabela onboarded pode declarar FEED_DISCOVERY — a entrada passa a ser o feed (FEED_URL) e o INDEX_URL fica so para a regra V1 da capa e o plano da onda. `regras/ligar_feeds.py` troca a aquisicao SO de linhas que ja existem (nunca cria contrato: isso e da ponte com portao e canario), guarda a ACQUISITION_ANTERIOR para `--desfazer`, e com `--conferir-feeds` le os corpos medidos com rede pelo motor verdadeiro e preve documentos/dia. O pacote dos 13 feeds medidos pelo coordenador e `regras/FEED-LIGADO-PACOTE.json` (IT-T5-186 fica de fora: o feed e de um evento).
 
 *Por que existe:* Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.
 
@@ -70,6 +70,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 |---|---|
 | estado | PENDING — o sistema importa esta lei em runtime para decidir: C-CAPA-MATERIA, C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md` |
+| onde vive | `regras/FEED-LIGADO-PACOTE.json` |
 | onde vive | `regras/ROTA-NAVEGADOR.json` |
 | onde vive | `regras/boletim_data_local_test.mjs` |
 | onde vive | `regras/contratos_de_fonte.py` |
@@ -80,6 +81,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 | onde vive | `regras/italy_pilot_guards.mjs` |
 | onde vive | `regras/italy_scheduling_guards.mjs` |
 | onde vive | `regras/italy_source_health.mjs` |
+| onde vive | `regras/ligar_feeds.py` |
 | onde vive | `regras/motor_de_rota.mjs` |
 | onde vive | `regras/motor_de_rota_test.mjs` |
 

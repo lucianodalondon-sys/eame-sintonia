@@ -3099,12 +3099,17 @@
       "provas/scrap_evolucao/CANARIO-STEALTH-R1.json",
       "provas/scrap_evolucao/FEEDS-NO-ACERVO.json",
       "provas/scrap_evolucao/LINKS-NO-ACERVO.json",
+      "provas/scrap_evolucao/MUTANTES-FEED-LIGADO.json",
       "provas/scrap_evolucao/MUTANTES.json",
       "provas/scrap_evolucao/RAM-NAVEGADOR.json",
+      "provas/scrap_evolucao/SITEMAP-NO-ACERVO.json",
       "provas/scrap_evolucao/comparar_links_no_acervo.py",
+      "provas/scrap_evolucao/feed_ligado_local.mjs",
       "provas/scrap_evolucao/medir_feeds_com_rede.py",
       "provas/scrap_evolucao/medir_feeds_no_acervo.py",
       "provas/scrap_evolucao/medir_ram_navegador.py",
+      "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+      "provas/scrap_evolucao/mutantes_feed_ligado.py",
       "provas/scrap_evolucao/mutantes_scrap_evolucao.py",
       "provas/so_a_colheita_atravessa.py",
       "provas/social-micro-prep/onda-descartavel.txt",
@@ -3198,6 +3203,7 @@
       "referencia/adama/SOURCE-ID-MAP.json"
     ],
     "regras": [
+      "regras/FEED-LIGADO-PACOTE.json",
       "regras/ROTA-NAVEGADOR.json",
       "regras/boletim_data_local_test.mjs",
       "regras/comunicacao_identidade.py",
@@ -3214,6 +3220,7 @@
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
       "regras/italy_source_health.mjs",
+      "regras/ligar_feeds.py",
       "regras/meta_identidade.py",
       "regras/motor_de_rota.mjs",
       "regras/motor_de_rota_test.mjs",
@@ -3839,6 +3846,7 @@
       "tests/test_fato_do_texto.py",
       "tests/test_fechar_ground_truth_t3.py",
       "tests/test_feed_discovery.py",
+      "tests/test_feed_ligado.py",
       "tests/test_fila_italia_decisoes.py",
       "tests/test_fonte_atravessa.py",
       "tests/test_fonte_do_atlas_alocacao.py",
@@ -4057,16 +4065,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "22 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-EVIDENCE-V1.json · LIFECYCLE-LEDGER-V1.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py … e mais 14",
+      "titulo": "21 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · LIFECYCLE-LEDGER-V1.json · LIFECYCLE-QUEUE-V1.json · RED-TEAM-TELEMETRIA-V1.json · red_team_telemetria.py · status_live.py … e mais 13",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "curadoria/CATALOGO-PROVA-V1.json",
         "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/GABARITO-T2-T12-V3.json",
-        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
         "curadoria/LIFECYCLE-LEDGER-V1.json",
-        "curadoria/LIFECYCLE-QUEUE-V1.json"
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/RED-TEAM-TELEMETRIA-V1.json"
       ]
     },
     {
@@ -4532,10 +4540,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/feed-discovery-italy-sources-hr8vlb",
+    "HEAD": "f149dc62d42a117cbd774276f9e347b58b3f0919",
+    "GENERATED_AT": "2026-09-28T00:06:33+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6925eb0c0c053124a2594344e623b519fbaa9b59362829e30381be25b1072d74"
   },
   "FAMILIES": [
     {
@@ -6050,8 +6058,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 855",
-        "desses, mostrados aqui: 40 (ficam de fora 815)"
+        "enderecos que o codigo realmente chama: 864",
+        "desses, mostrados aqui: 40 (ficam de fora 824)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -13600,6 +13608,15 @@
             "SOURCE_LOCATION"
           ],
           "separa_fonte_do_fato": true,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "regras/ligar_feeds.py",
+          "como_se_chama": "regras/ligar_feeds.py",
+          "carimba_data": [],
+          "carimba_lugar": [],
+          "separa_fonte_do_fato": false,
           "leis_que_obedece": [],
           "regista_descarte": []
         },
@@ -45001,6 +45018,7 @@
         "C-DESBLOQUEIO-PACOTE",
         "C-LEGACY-99",
         "C-ORDENS-63",
+        "C-PROVA-CORTESIA",
         "C-RECEITAS-PROPOSTA",
         "C-REPARO-MEDICAO",
         "C-TESTES"
@@ -45010,9 +45028,10 @@
         "ITALIA": 5
       },
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
+      "entregue_a_inteligencia": [
+        "curadoria/LIFECYCLE-EVIDENCE-V1.json"
+      ],
       "parado_na_coleta": [
-        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
         "curadoria/LIFECYCLE-LEDGER-V1.json"
       ],
       "vocabulario": {
@@ -46490,7 +46509,7 @@
         "PLANO": null,
         "PROVA": [
           "admissao/reprocessar_tempo_lugar.py:59",
-          "coleta/italy_executor.py:243",
+          "coleta/italy_executor.py:247",
           "coleta/rota_forward_documento.py:506",
           "ferramentas/leitor_data_yt/mutar_leitor.py:9"
         ],
@@ -49735,7 +49754,7 @@
       "name": "Colher as fontes italianas",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte. Desde a FECHAR-ONDA2-B (25/09) o nome FISICO da pasta de cada documento vem de `nome_da_pasta.mjs`: igual ao de sempre quando serve; com `* ? \" < > |` ou mais de 255 bytes, percent-encoding reversivel + 12 hex do sha256 do DOCUMENT_ID — o DOCUMENT_ID no livro nao muda (na 2.a onda o `?redirect=%2F` da IT-T2-050 dava mkdir ENOENT). E o RETORNO.json do executor so diz SUCCESS quando o coletor nao falhou: com falha e FAILED (nada chegou) ou PARTIAL (algo chegou).",
+      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental. Desde a A5 (23/09) o transporte do coletor (`baixar()` em italy_pilot_collect.mjs) e o dono da cortesia: le o robots.txt de cada origem uma vez por corrida (e de novo em cada salto de redireccionamento), espera no minimo 1 s entre pedidos ao mesmo host (ou o Crawl-delay, se maior) e corta aos 5 pedidos por SITE (host sem `www.`) por corrida (D7). O que a cortesia recusa nao vai ao livro: fica contado no resumo, com o motivo, e volta a ser pedido na corrida seguinte. Desde a FECHAR-ONDA2-B (25/09) o nome FISICO da pasta de cada documento vem de `nome_da_pasta.mjs`: igual ao de sempre quando serve; com `* ? \" < > |` ou mais de 255 bytes, percent-encoding reversivel + 12 hex do sha256 do DOCUMENT_ID — o DOCUMENT_ID no livro nao muda (na 2.a onda o `?redirect=%2F` da IT-T2-050 dava mkdir ENOENT). E o RETORNO.json do executor so diz SUCCESS quando o coletor nao falhou: com falha e FAILED (nada chegou) ou PARTIAL (algo chegou). FEED-LIGADO (27/09): o item cujo texto completo vem no feed (content:encoded) entra SEM pedido, rotulado RAW_EVIDENCE_STATE=BODY_FROM_FEED (nao e a pagina; o executor nao o le como pagina), com PUBLISHED_AT do feed e FACT_TIME UNKNOWN; o teto D40 de 3 so conta materias a PEDIR. O robots lido vale 24 h para os processos seguintes (`<SINTONIA_TETO_24H>.robots.json`, so LIDO e AUSENTE; ILEGIVEL, entrada sem texto ou livro ilegivel = pede-se outra vez, nunca permissao) e as linhas Sitemap: ficam no resumo (so medida). O indice/feed e a materia que ja ia ser revalidada levam If-None-Match/If-Modified-Since da copia guardada em data/collection-cache; o 304 conta no teto e no livro de 24 h. O ETag NAO vai ao livro de observacoes (ligaria a razao CONDITIONAL_REQUEST_AVAILABLE e revisitaria tudo).",
       "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
       "departments": [
         "INTELIGENCIA",
@@ -49984,7 +50003,7 @@
       "name": "O contrato de cada fonte italiana",
       "territory": "Z-REGRAS",
       "kind": "contract",
-      "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA.",
+      "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA. FEED-LIGADO (27/09): uma linha da tabela onboarded pode declarar FEED_DISCOVERY — a entrada passa a ser o feed (FEED_URL) e o INDEX_URL fica so para a regra V1 da capa e o plano da onda. `regras/ligar_feeds.py` troca a aquisicao SO de linhas que ja existem (nunca cria contrato: isso e da ponte com portao e canario), guarda a ACQUISITION_ANTERIOR para `--desfazer`, e com `--conferir-feeds` le os corpos medidos com rede pelo motor verdadeiro e preve documentos/dia. O pacote dos 13 feeds medidos pelo coordenador e `regras/FEED-LIGADO-PACOTE.json` (IT-T5-186 fica de fora: o feed e de um evento).",
       "why_here": "Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.",
       "departments": [
         "ENGENHARIA",
@@ -50001,6 +50020,7 @@
       "family": "F-COLETA",
       "files": [
         "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+        "regras/FEED-LIGADO-PACOTE.json",
         "regras/ROTA-NAVEGADOR.json",
         "regras/boletim_data_local_test.mjs",
         "regras/contratos_de_fonte.py",
@@ -50011,10 +50031,11 @@
         "regras/italy_pilot_guards.mjs",
         "regras/italy_scheduling_guards.mjs",
         "regras/italy_source_health.mjs",
+        "regras/ligar_feeds.py",
         "regras/motor_de_rota.mjs",
         "regras/motor_de_rota_test.mjs"
       ],
-      "file_count": 13,
+      "file_count": 15,
       "status": "PENDING",
       "status_reason": "o sistema importa esta lei em runtime para decidir: C-CAPA-MATERIA, C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -50035,7 +50056,8 @@
         "C-IT-PRESERVAR",
         "C-LEITORES",
         "C-PACOTE-ONDA3",
-        "C-PROVA-CORTESIA"
+        "C-PROVA-CORTESIA",
+        "C-TESTES"
       ],
       "outbound": [
         "C-CANARIO-ROTAS-ELEGIVEIS",
@@ -50066,7 +50088,7 @@
         "ITALIA": 6
       },
       "paises_dado": {
-        "ITALIA": 48
+        "ITALIA": 49
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -50117,6 +50139,7 @@
         "ferramentas/ods_peek.mjs",
         "provas/italy_accounting.mjs",
         "provas/italy_pilot_negativos.mjs",
+        "regras/FEED-LIGADO-PACOTE.json",
         "regras/incrementalidade.mjs",
         "regras/italy_contracts.mjs",
         "regras/italy_contracts_onboarded.json",
@@ -50241,7 +50264,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/italy_pilot_collect.mjs:59",
+          "coleta/italy_pilot_collect.mjs:61",
           "medidas/incrementalidade_prova.mjs:22",
           "medidas/recollection_relatorio.mjs:17",
           "provas/boletins_data_local/testes_por_nome.py:53"
@@ -50341,7 +50364,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/italy_pilot_collect.mjs:60",
+          "coleta/italy_pilot_collect.mjs:62",
           "medidas/paridade_replay.mjs:24",
           "medidas/recollection_censo.mjs:31",
           "provas/boletins_data_local/testes_por_nome.py:54"
@@ -58475,20 +58498,26 @@
         "provas/cortesia_red_team.mjs",
         "provas/feed_local.mjs",
         "provas/onda_web_mutacao.py",
+        "provas/scrap_evolucao/MUTANTES-FEED-LIGADO.json",
+        "provas/scrap_evolucao/SITEMAP-NO-ACERVO.json",
         "provas/scrap_evolucao/comparar_links_no_acervo.py",
+        "provas/scrap_evolucao/feed_ligado_local.mjs",
         "provas/scrap_evolucao/medir_feeds_com_rede.py",
         "provas/scrap_evolucao/medir_feeds_no_acervo.py",
         "provas/scrap_evolucao/medir_ram_navegador.py",
+        "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+        "provas/scrap_evolucao/mutantes_feed_ligado.py",
         "provas/scrap_evolucao/mutantes_scrap_evolucao.py",
         "provas/teto_dominio_local.mjs",
         "provas/teto_dominio_mutacao.py"
       ],
-      "file_count": 14,
+      "file_count": 19,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-DETECTOR-CAPA-GABARITO",
         "C-IT-COLETA",
         "C-IT-CONTRATOS",
         "C-IT-PRESERVAR",
@@ -58505,17 +58534,19 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 9
+        "ITALIA": 14
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "FEED_LIGADO",
+          "LIVROS",
           "MUTANTES"
         ],
-        "palavras": 131,
+        "palavras": 179,
         "por_lingua": {},
-        "sem_marca_de_lingua": 131,
+        "sem_marca_de_lingua": 179,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -58528,6 +58559,12 @@
         {
           "onde": "GIT",
           "file": "curadoria/colher_prova_territorio.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/scrap_evolucao/SITEMAP-NO-ACERVO.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
@@ -58559,10 +58596,13 @@
       "OWNER_CONFLICT": null,
       "consumes": [
         "coleta/espera_por_dominio.py",
+        "coleta/italy_executor.py",
         "coleta/italy_pilot_collect.mjs",
         "coleta/rota_navegador.py",
         "coleta/scrap_capacidades.py",
         "coleta/scrap_http.py",
+        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+        "curadoria/LISTAGENS-PROVADAS-V1.json",
         "curadoria/canario.py",
         "curadoria/colher_prova_territorio.py",
         "data/collection-ledger/italy/observations.ndjson",
@@ -58571,10 +58611,13 @@
         "provas/cortesia_http_local.mjs",
         "provas/feed_local.mjs",
         "provas/scrap_evolucao/FEEDS-NO-ACERVO.json",
+        "provas/scrap_evolucao/feed_ligado_local.mjs",
         "provas/teto_dominio_local.mjs",
         "regras/feed_discovery_test.mjs",
         "regras/italy_contracts.mjs",
-        "regras/motor_de_rota.mjs"
+        "regras/ligar_feeds.py",
+        "regras/motor_de_rota.mjs",
+        "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -69013,6 +69056,7 @@
         "tests/test_fato_do_texto.py",
         "tests/test_fechar_ground_truth_t3.py",
         "tests/test_feed_discovery.py",
+        "tests/test_feed_ligado.py",
         "tests/test_fila_italia_decisoes.py",
         "tests/test_fonte_atravessa.py",
         "tests/test_fonte_do_atlas_alocacao.py",
@@ -69187,7 +69231,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 312,
+      "file_count": 313,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -69402,6 +69446,7 @@
         "C-ESTRADAS-IT",
         "C-FONTE-DO-ATLAS",
         "C-INTEGRA-ONDA2",
+        "C-IT-CONTRATOS",
         "C-IT-PRESERVAR",
         "C-LEITOR-DATA-YT",
         "C-LUGAR-V2",
@@ -69430,7 +69475,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ITALIA": 69,
+        "ITALIA": 73,
         "ESPANHA": 42,
         "EUROPA": 2
       },
@@ -69503,6 +69548,7 @@
           "GAVETAS_DE_RUNTIME",
           "HISTORICOS",
           "HTML",
+          "HTML_AQ",
           "IDENT",
           "IMPLEMENTACOES",
           "INSTALADORES",
@@ -69558,13 +69604,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 1908,
+        "palavras": 1917,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1896,
+        "sem_marca_de_lingua": 1905,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -69586,6 +69632,14 @@
             "file": "tests/test_estradas_it.py",
             "line": 54,
             "snippet": "escreve em MODELO"
+          }
+        },
+        {
+          "pasta": "data/samples/IT-SOURCE-SAMPLES/IT-T1-001",
+          "prova": {
+            "file": "tests/test_feed_ligado.py",
+            "line": 118,
+            "snippet": "escreve em f"
           }
         },
         {
@@ -70025,6 +70079,9 @@
         "provas/qualidade_t3.py",
         "provas/recollection_http_local.mjs",
         "provas/red_team_adama_referencia.py",
+        "provas/scrap_evolucao/feed_ligado_local.mjs",
+        "provas/scrap_evolucao/medir_feeds_com_rede.py",
+        "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
         "provas/social-qualificar/medir_yt_dlp_offline.py",
         "provas/superficie_do_scrap_v1.py",
         "provas/teto_dominio_local.mjs",
@@ -70041,6 +70098,7 @@
         "referencia/adama/REGISTRATIONS.json",
         "referencia/adama/SNAPSHOTS.json",
         "referencia/adama/SOURCE-ID-MAP.json",
+        "regras/FEED-LIGADO-PACOTE.json",
         "regras/ROTA-NAVEGADOR.json",
         "regras/comunicacao_identidade.py",
         "regras/comunicacao_universo.py",
@@ -70048,6 +70106,7 @@
         "regras/feed_discovery_test.mjs",
         "regras/italy_contracts.mjs",
         "regras/italy_contracts_onboarded.json",
+        "regras/ligar_feeds.py",
         "regras/meta_identidade.py",
         "regras/motor_de_rota.mjs",
         "regras/proveniencia.py",
@@ -72114,7 +72173,7 @@
         "contas publicas mapeadas neste canal: 14",
         "dessas, autorizadas a coletar: 7",
         "acoes da coleta que nomeiam este canal: 3",
-        "prova: coleta/italy_pilot_collect.mjs:435",
+        "prova: coleta/italy_pilot_collect.mjs:437",
         "prova: coleta/youtube_janela.py:70",
         "prova: coleta/adaptador_youtube.py:39"
       ],
@@ -72200,7 +72259,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "coleta/youtube_janela.py:492",
-          "coleta/italy_pilot_collect.mjs:78"
+          "coleta/italy_pilot_collect.mjs:80"
         ],
         "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
       },
@@ -78367,7 +78426,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 953,
+          "line": 1138,
           "snippet": "const out = (await run(PY, [fileURLToPath(new URL(\"../superficie/rede.py\", import.meta.url)), \"--egresso\"], { encoding: \"utf8\", timeout: 90000 })).stdout;",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-IT-COLETA",
@@ -83235,12 +83294,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta O contrato de cada fonte italiana. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "regras/italy_contracts.mjs",
           "line": 584,
           "snippet": "readFileSync(new URL(\"./italy_contracts_onboarded.json\", import.meta.url), \"utf8\"));",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CAPA-MATERIA--READS-->C-IT-CONTRATOS",
+            "FROM": "C-CAPA-MATERIA",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "regras/ligar_feeds.py",
+          "line": 46,
+          "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CAPA-MATERIA--READS-->C-IT-CONTRATOS",
             "FROM": "C-CAPA-MATERIA",
@@ -83662,8 +83737,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Capa no lugar de materia (1.a onda) — diagnostico, filtro de pagina institucional e previsao do MICRO alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_feed_ligado.py",
+          "line": 162,
+          "snippet": "sha_antes = hashlib.sha256(open(tab, \"rb\").read()).hexdigest()",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CAPA-MATERIA--READS-->C-TESTES",
+            "FROM": "C-CAPA-MATERIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_integracao_04a_curator.py",
           "line": 34,
@@ -95734,6 +95825,57 @@
     },
     {
       "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-PROVA-CORTESIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+          "line": 31,
+          "snippet": "(\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"PROVAS\", lambda x: (x.get(\"DADOS\") or {}).get(\"ROBOTS\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+          "line": 34,
+          "snippet": "(\"scripts/detector_capa/MANIFESTO-RECOLHA-V1.json\", \"REGISTO\", lambda x: x.get(\"ROBOTS\"), lambda x: None, 120),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
       "to": "C-RECEITAS-PROPOSTA",
       "type": "READS",
       "payload": "artefacto",
@@ -99703,7 +99845,7 @@
       "evidence": [
         {
           "file": "coleta/italy_executor.py",
-          "line": 243,
+          "line": 247,
           "snippet": "import executor_texto_de_html as H                    # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-COLETA",
@@ -99719,7 +99861,7 @@
         },
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 42,
+          "line": 44,
           "snippet": "import { textoVisivel } from \"./retrato_html.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-COLETA",
@@ -99754,7 +99896,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 42,
+          "line": 44,
           "snippet": "import { textoVisivel } from \"./retrato_html.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -108833,7 +108975,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 6 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cortesia_http_local.mjs",
@@ -108871,6 +109013,54 @@
           "file": "provas/feed_local.mjs",
           "line": 54,
           "snippet": "const M = await import(\"../coleta/italy_pilot_collect.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+          "line": 82,
+          "snippet": "const M = await import(\"../../coleta/italy_pilot_collect.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+          "line": 24,
+          "snippet": "COL = \"coleta/italy_pilot_collect.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+          "line": 42,
+          "snippet": "(\"ROTULO: o executor le o corpo do feed como pagina\", \"coleta/italy_executor.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-CORTESIA",
             "FROM": "C-IT-COLETA",
@@ -109499,7 +109689,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -109537,6 +109727,22 @@
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
           "line": 362,
           "snippet": "import italy_executor as adapter",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_feed_ligado.py",
+          "line": 204,
+          "snippet": "import italy_executor as E",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-IT-COLETA",
@@ -109614,7 +109820,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 17 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_tempo_e_lugar.py",
@@ -109713,6 +109919,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_feed_ligado.py",
+          "line": 189,
+          "snippet": "js = (\"import('./coleta/italy_pilot_collect.mjs').then(m=>console.log(JSON.stringify(\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_fontes_explicitas_no_coletor.py",
           "line": 39,
           "snippet": "COLETOR = os.path.join(RAIZ, \"coleta\", \"italy_pilot_collect.mjs\")",
@@ -109780,22 +110002,6 @@
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 149,
           "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\",",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
-            "FROM": "C-IT-COLETA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_o_pedido_nao_mente.py",
-          "line": 88,
-          "snippet": "self.assertIn(\"italy_executor.py\", r[\"COMANDO\"])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
             "FROM": "C-IT-COLETA",
@@ -110479,7 +110685,7 @@
       "evidence": [
         {
           "file": "coleta/italy_executor.py",
-          "line": 270,
+          "line": 274,
           "snippet": "import contratos_de_fonte as cf                         # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
@@ -110495,7 +110701,7 @@
         },
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 38,
+          "line": 40,
           "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
@@ -110511,7 +110717,7 @@
         },
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 41,
+          "line": 43,
           "snippet": "import { alvosDoContrato, identidadeDoContrato } from \"../regras/motor_de_rota.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
@@ -110562,7 +110768,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 38,
+          "line": 40,
           "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -110572,7 +110778,7 @@
         },
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 41,
+          "line": 43,
           "snippet": "import { alvosDoContrato, identidadeDoContrato } from \"../regras/motor_de_rota.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -110582,7 +110788,7 @@
         },
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 81,
+          "line": 83,
           "snippet": "const ROTA_NAVEGADOR = JSON.parse(readFileSync(new URL(\"../regras/ROTA-NAVEGADOR.json\", import.meta.url), \"utf8\"));",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-COLETA",
@@ -111039,7 +111245,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 5 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cortesia_http_local.mjs",
@@ -111061,6 +111267,86 @@
           "file": "provas/feed_local.mjs",
           "line": 55,
           "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+          "line": 83,
+          "snippet": "const { CONTRACTS } = await import(\"../../regras/italy_contracts.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+          "line": 22,
+          "snippet": "T_FEED = [\"node\", \"regras/feed_discovery_test.mjs\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+          "line": 25,
+          "snippet": "MOTOR = \"regras/motor_de_rota.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+          "line": 71,
+          "snippet": "(\"INSTALADOR: cria a linha que falta na tabela\", \"regras/ligar_feeds.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+          "line": 79,
+          "snippet": "(\"CONTRATO: a entrada de uma linha de feed continua a ser o INDEX_URL\", \"regras/italy_contracts.mjs\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-CORTESIA",
             "FROM": "C-IT-CONTRATOS",
@@ -111646,7 +111932,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -111684,6 +111970,54 @@
           "file": "tests/test_feed_discovery.py",
           "line": 25,
           "snippet": "r = _node(\"regras/feed_discovery_test.mjs\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_feed_ligado.py",
+          "line": 35,
+          "snippet": "LF = _modulo(\"ligar_feeds\", \"regras/ligar_feeds.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_feed_ligado.py",
+          "line": 149,
+          "snippet": "with open(os.path.join(RAIZ, \"regras\", \"FEED-LIGADO-PACOTE.json\"), encoding=\"utf-8\") as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_feed_ligado.py",
+          "line": 170,
+          "snippet": "r = _node([\"-e\", js, \"file://\" + os.path.join(tmp, \"regras\", \"italy_contracts.mjs\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
             "FROM": "C-IT-CONTRATOS",
@@ -111780,22 +112114,6 @@
           "file": "tests/test_tempo_e_lugar_da_publicacao.py",
           "line": 294,
           "snippet": "os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")).as_uri()))",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
-            "FROM": "C-IT-CONTRATOS",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_tempo_e_lugar_da_publicacao.py",
-          "line": 453,
-          "snippet": "for f in (\"coleta/executor_texto_de_html.py\", \"regras/contratos_de_fonte.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
             "FROM": "C-IT-CONTRATOS",
@@ -111919,7 +112237,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 59,
+          "line": 61,
           "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-COLETA",
@@ -111954,7 +112272,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 59,
+          "line": 61,
           "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -112492,7 +112810,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 60,
+          "line": 62,
           "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-COLETA",
@@ -112527,7 +112845,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 60,
+          "line": 62,
           "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -113891,7 +114209,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 3 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta A cortesia dentro do coletor — robots, pausa e teto provados pelo curl. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/cortesia_http_local.mjs",
@@ -113929,6 +114247,22 @@
           "file": "provas/scrap_evolucao/comparar_links_no_acervo.py",
           "line": 51,
           "snippet": "with open(obs, encoding=\"utf-8\") as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-CORTESIA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-CORTESIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+          "line": 98,
+          "snippet": "const obsDe = (run) => readFileSync(join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\"), \"utf8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-CORTESIA",
             "FROM": "C-IT-PRESERVAR",
@@ -122175,7 +122509,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 161 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 162 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -124428,7 +124762,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 78,
+          "line": 80,
           "snippet": "// A cara do pedido tem UM dono (SCRAP-EVOLUCAO-V1, 26/09): regras/ROTA-NAVEGADOR.json, lida tambem pelos",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -135814,7 +136148,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A cortesia dentro do coletor — robots, pausa e teto provados pelo curl alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_cortesia_no_transporte.py",
@@ -135836,6 +136170,54 @@
           "file": "tests/test_feed_discovery.py",
           "line": 33,
           "snippet": "r = _node(\"provas/feed_local.mjs\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
+            "FROM": "C-PROVA-CORTESIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_feed_ligado.py",
+          "line": 56,
+          "snippet": "r = _node([\"provas/scrap_evolucao/feed_ligado_local.mjs\"])",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
+            "FROM": "C-PROVA-CORTESIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_feed_ligado.py",
+          "line": 147,
+          "snippet": "med = _modulo(\"medir_feeds_com_rede\", \"provas/scrap_evolucao/medir_feeds_com_rede.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
+            "FROM": "C-PROVA-CORTESIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_feed_ligado.py",
+          "line": 186,
+          "snippet": "MS = _modulo(\"medir_sitemap_no_acervo\", \"provas/scrap_evolucao/medir_sitemap_no_acervo.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-CORTESIA--READS-->C-TESTES",
             "FROM": "C-PROVA-CORTESIA",
@@ -154185,6 +154567,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-IT-CONTRATOS",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_feed_ligado.py",
+          "line": 171,
+          "snippet": "\"file://\" + os.path.join(tmp, \"regras\", \"motor_de_rota.mjs\"), json.dumps(ligadas)])",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-IT-CONTRATOS",
+            "FROM": "C-TESTES",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-IT-PRESERVAR",
       "type": "WRITES",
       "payload": "artefacto",
@@ -158554,7 +158971,7 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 435,
+          "line": 437,
           "snippet": "// googlevideo.com gasta de youtube.com, D41). Python e Node excluem-se pelo trinco.",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -158864,7 +159281,8 @@
       "file": "regras/motor_de_rota.mjs",
       "written_by": [
         "C-CAPA-MATERIA",
-        "C-PROVA-CORTESIA"
+        "C-PROVA-CORTESIA",
+        "C-TESTES"
       ],
       "owner_elected": "C-IT-CONTRATOS"
     },
@@ -159050,12 +159468,12 @@
     "components_pending": 241,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1686,
-    "edges_proven": 1619,
+    "edges": 1688,
+    "edges_proven": 1621,
     "edges_unknown": 67,
     "business_edges": 4,
-    "files_tracked": 3939,
-    "files_covered": 1755,
+    "files_tracked": 3947,
+    "files_covered": 1763,
     "files_code_unclaimed": 0,
     "roles_proven": 193,
     "roles_declared_only": 9,

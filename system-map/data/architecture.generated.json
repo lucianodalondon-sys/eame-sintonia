@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/lote4-final-integration-l02r5q",
-    "HEAD": "75c7f80fedc483f4dfca8e9258ca69a9e60e62f0",
-    "GENERATED_AT": "2026-09-27T17:37:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d425164eac5979241c3f63d9b9734d8334caab6b201dccc70854c855a0627388"
+    "BRANCH": "claude/feed-discovery-italy-sources-hr8vlb",
+    "HEAD": "f149dc62d42a117cbd774276f9e347b58b3f0919",
+    "GENERATED_AT": "2026-09-28T00:06:33+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6925eb0c0c053124a2594344e623b519fbaa9b59362829e30381be25b1072d74"
   },
   "FILES": [
     {
@@ -2355,7 +2355,7 @@
     },
     {
       "path": "coleta/italy_executor.py",
-      "sha": "e5ed8433b37268c185cf73c7e38b32d5a8d8dce9",
+      "sha": "670330c2c0779ab5210ca926563c5644c6157697",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2369,7 +2369,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "23849cfdaaeac955281413fc55a8560fab14cecf",
+      "sha": "a3b9c29a161b1d6dfa872b79c4427d05b3d7238c",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -21303,6 +21303,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/scrap_evolucao/MUTANTES-FEED-LIGADO.json",
+      "sha": "15ec0d1fd4bb5ddb70d5321b25956dce56d88968",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/scrap_evolucao/MUTANTES.json",
       "sha": "9644b25897a514ff11081383c9838afd09ae662e",
       "ext": ".json",
@@ -21317,9 +21324,23 @@
       "code_dir": true
     },
     {
+      "path": "provas/scrap_evolucao/SITEMAP-NO-ACERVO.json",
+      "sha": "bae1dad7e7e53c2fc9924adb934fceb1548d31c3",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/scrap_evolucao/comparar_links_no_acervo.py",
       "sha": "dff94352f3e76bbb02d4b079fcdc295823f61007",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/scrap_evolucao/feed_ligado_local.mjs",
+      "sha": "04a54ad5f8b88dd4c1c9c4427b889404a3571179",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -21340,6 +21361,20 @@
     {
       "path": "provas/scrap_evolucao/medir_ram_navegador.py",
       "sha": "28af2a60cfca6dbc78e28c925c8d3b070efc596a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+      "sha": "4ddf19a0833149c9e8e2587523080980b3fae4e8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+      "sha": "4490fccbe15991eced47690f0f346b9a2b0252d1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21968,6 +22003,13 @@
       "code_dir": false
     },
     {
+      "path": "regras/FEED-LIGADO-PACOTE.json",
+      "sha": "9f264bb96fe71ed13350f44602ca6d05e4b1f634",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "regras/ROTA-NAVEGADOR.json",
       "sha": "2e8961c696c53f2be2e8cd338b37936c1fe0ea3d",
       "ext": ".json",
@@ -22011,7 +22053,7 @@
     },
     {
       "path": "regras/feed_discovery_test.mjs",
-      "sha": "63acb02b2790e52effd2f3727d69044f475fc867",
+      "sha": "6dd0447c2be39344cbd8c9ae92b294e991cf4a5c",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -22046,7 +22088,7 @@
     },
     {
       "path": "regras/italy_contracts.mjs",
-      "sha": "0399e3175fd7dcde6fd030ffafb1b5b9fb511ef3",
+      "sha": "ec8d5762c26b63dd27fd81f2405399f0d9d40639",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -22080,6 +22122,13 @@
       "code_dir": true
     },
     {
+      "path": "regras/ligar_feeds.py",
+      "sha": "d08d989d0932a96c4d161017967776e1a117ccc4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "regras/meta_identidade.py",
       "sha": "6334e2e2da1e351c272caaf4b958b404c5f31592",
       "ext": ".py",
@@ -22088,7 +22137,7 @@
     },
     {
       "path": "regras/motor_de_rota.mjs",
-      "sha": "fd1551016255c78541a35aa6247878eaa73262fb",
+      "sha": "e3bc6d32b52b9f155b77a3e68428621fdb66e229",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -24664,7 +24713,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e63baf949631281955e19224243f29533f74a425",
+      "sha": "02046b2604e5f4bc11b92494e293b1fd1f0c1f7a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26352,6 +26401,13 @@
     {
       "path": "tests/test_feed_discovery.py",
       "sha": "322b5ae1fa708d1f2b5153d2e6cabe7f098e6cb4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_feed_ligado.py",
+      "sha": "aeb65d0f4add5531d3cd1d14aa7a27cb3b18685b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -31286,7 +31342,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 243,
+        "line": 247,
         "snippet": "import executor_texto_de_html as H                    # noqa: PLC0415"
       }
     },
@@ -31308,7 +31364,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 641,
+        "line": 645,
         "snippet": "r = subprocess.run([sys.executable, os.path.join(\"curadoria\", \"collection_gate.py\"),"
       }
     },
@@ -31341,7 +31397,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 270,
+        "line": 274,
         "snippet": "import contratos_de_fonte as cf                         # noqa: PLC0415"
       }
     },
@@ -31352,7 +31408,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 61,
+        "line": 63,
         "snippet": "import { pastaDoDocumento } from \"./nome_da_pasta.mjs\";"
       }
     },
@@ -31363,7 +31419,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 61,
+        "line": 63,
         "snippet": "import { pastaDoDocumento } from \"./nome_da_pasta.mjs\";"
       }
     },
@@ -31374,7 +31430,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 42,
+        "line": 44,
         "snippet": "import { textoVisivel } from \"./retrato_html.mjs\";"
       }
     },
@@ -31385,7 +31441,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 42,
+        "line": 44,
         "snippet": "import { textoVisivel } from \"./retrato_html.mjs\";"
       }
     },
@@ -31396,7 +31452,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 43,
+        "line": 45,
         "snippet": "import { textoDePdf } from \"./texto_de_pdf.mjs\";"
       }
     },
@@ -31407,7 +31463,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 43,
+        "line": 45,
         "snippet": "import { textoDePdf } from \"./texto_de_pdf.mjs\";"
       }
     },
@@ -31418,7 +31474,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 715,
+        "line": 900,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -31429,7 +31485,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 81,
+        "line": 83,
         "snippet": "const ROTA_NAVEGADOR = JSON.parse(readFileSync(new URL(\"../regras/ROTA-NAVEGADOR.json\", import.meta.url), \"utf8\"));"
       }
     },
@@ -31440,7 +31496,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 59,
+        "line": 61,
         "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";"
       }
     },
@@ -31451,7 +31507,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 59,
+        "line": 61,
         "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";"
       }
     },
@@ -31462,7 +31518,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 38,
+        "line": 40,
         "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
       }
     },
@@ -31473,7 +31529,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 38,
+        "line": 40,
         "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
       }
     },
@@ -31484,7 +31540,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 41,
+        "line": 43,
         "snippet": "import { alvosDoContrato, identidadeDoContrato } from \"../regras/motor_de_rota.mjs\";"
       }
     },
@@ -31495,7 +31551,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 41,
+        "line": 43,
         "snippet": "import { alvosDoContrato, identidadeDoContrato } from \"../regras/motor_de_rota.mjs\";"
       }
     },
@@ -31506,7 +31562,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 60,
+        "line": 62,
         "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";"
       }
     },
@@ -31517,7 +31573,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 60,
+        "line": 62,
         "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";"
       }
     },
@@ -31528,7 +31584,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 953,
+        "line": 1138,
         "snippet": "const out = (await run(PY, [fileURLToPath(new URL(\"../superficie/rede.py\", import.meta.url)), \"--egresso\"], { encoding: \"utf8\", timeout: 90000 })).stdout;"
       }
     },
@@ -74070,6 +74126,39 @@
       }
     },
     {
+      "from_file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+        "line": 82,
+        "snippet": "const M = await import(\"../../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+        "line": 98,
+        "snippet": "const obsDe = (run) => readFileSync(join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\"), \"utf8\")"
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+        "line": 83,
+        "snippet": "const { CONTRACTS } = await import(\"../../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
       "from_file": "provas/scrap_evolucao/medir_feeds_com_rede.py",
       "to_file": "coleta/rota_navegador.py",
       "type": "IMPORTS",
@@ -74089,6 +74178,127 @@
         "file": "provas/scrap_evolucao/medir_feeds_com_rede.py",
         "line": 39,
         "snippet": "def feeds(caminho=os.path.join(AQUI, \"FEEDS-NO-ACERVO.json\")) -> dict:"
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+        "line": 31,
+        "snippet": "(\"curadoria/LIFECYCLE-EVIDENCE-V1.json\", \"PROVAS\", lambda x: (x.get(\"DADOS\") or {}).get(\"ROBOTS\"),"
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+      "to_file": "curadoria/LISTAGENS-PROVADAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+        "line": 33,
+        "snippet": "(\"curadoria/LISTAGENS-PROVADAS-V1.json\", \"RESULTADOS\", lambda x: x.get(\"ROBOTS\"), lambda x: x.get(\"PROVADO_EM\"), 100),"
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+      "to_file": "provas/scrap_evolucao/SITEMAP-NO-ACERVO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+        "line": 97,
+        "snippet": "with open(saida, \"w\", encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+      "to_file": "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+        "line": 34,
+        "snippet": "(\"scripts/detector_capa/MANIFESTO-RECOLHA-V1.json\", \"REGISTO\", lambda x: x.get(\"ROBOTS\"), lambda x: None, 120),"
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+        "line": 42,
+        "snippet": "(\"ROTULO: o executor le o corpo do feed como pagina\", \"coleta/italy_executor.py\","
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+        "line": 24,
+        "snippet": "COL = \"coleta/italy_pilot_collect.mjs\""
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+      "to_file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+        "line": 21,
+        "snippet": "T_LOCAL = [\"node\", \"provas/scrap_evolucao/feed_ligado_local.mjs\"]"
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+      "to_file": "regras/feed_discovery_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+        "line": 22,
+        "snippet": "T_FEED = [\"node\", \"regras/feed_discovery_test.mjs\"]"
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+        "line": 79,
+        "snippet": "(\"CONTRATO: a entrada de uma linha de feed continua a ser o INDEX_URL\", \"regras/italy_contracts.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+      "to_file": "regras/ligar_feeds.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+        "line": 71,
+        "snippet": "(\"INSTALADOR: cria a linha que falta na tabela\", \"regras/ligar_feeds.py\","
+      }
+    },
+    {
+      "from_file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/scrap_evolucao/mutantes_feed_ligado.py",
+        "line": 25,
+        "snippet": "MOTOR = \"regras/motor_de_rota.mjs\""
       }
     },
     {
@@ -75860,6 +76070,39 @@
         "file": "regras/italy_source_health.mjs",
         "line": 14,
         "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/ligar_feeds.py",
+      "to_file": "regras/FEED-LIGADO-PACOTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/ligar_feeds.py",
+        "line": 47,
+        "snippet": "PACOTE = RAIZ / \"regras\" / \"FEED-LIGADO-PACOTE.json\""
+      }
+    },
+    {
+      "from_file": "regras/ligar_feeds.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/ligar_feeds.py",
+        "line": 46,
+        "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
+      "from_file": "regras/ligar_feeds.py",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/ligar_feeds.py",
+        "line": 140,
+        "snippet": "js = (\"import('./regras/motor_de_rota.mjs').then(async m=>{const fs=await import('node:fs');\""
       }
     },
     {
@@ -92253,6 +92496,127 @@
       }
     },
     {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 25,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 204,
+        "snippet": "import italy_executor as E"
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 189,
+        "snippet": "js = (\"import('./coleta/italy_pilot_collect.mjs').then(m=>console.log(JSON.stringify(\""
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "provas/scrap_evolucao/feed_ligado_local.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 56,
+        "snippet": "r = _node([\"provas/scrap_evolucao/feed_ligado_local.mjs\"])"
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "provas/scrap_evolucao/medir_feeds_com_rede.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 147,
+        "snippet": "med = _modulo(\"medir_feeds_com_rede\", \"provas/scrap_evolucao/medir_feeds_com_rede.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "provas/scrap_evolucao/medir_sitemap_no_acervo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 186,
+        "snippet": "MS = _modulo(\"medir_sitemap_no_acervo\", \"provas/scrap_evolucao/medir_sitemap_no_acervo.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "regras/FEED-LIGADO-PACOTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 149,
+        "snippet": "with open(os.path.join(RAIZ, \"regras\", \"FEED-LIGADO-PACOTE.json\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 170,
+        "snippet": "r = _node([\"-e\", js, \"file://\" + os.path.join(tmp, \"regras\", \"italy_contracts.mjs\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 162,
+        "snippet": "sha_antes = hashlib.sha256(open(tab, \"rb\").read()).hexdigest()"
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "regras/ligar_feeds.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 35,
+        "snippet": "LF = _modulo(\"ligar_feeds\", \"regras/ligar_feeds.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_feed_ligado.py",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_feed_ligado.py",
+        "line": 171,
+        "snippet": "\"file://\" + os.path.join(tmp, \"regras\", \"motor_de_rota.mjs\"), json.dumps(ligadas)])"
+      }
+    },
+    {
       "from_file": "tests/test_fila_italia_decisoes.py",
       "to_file": "candidatas/FONTES-CANDIDATAS.json",
       "type": "READS",
@@ -103450,6 +103814,13 @@
         "constante": "MODELO"
       }
     ],
+    "tests/test_feed_ligado.py": [
+      {
+        "pasta": "data/samples/IT-SOURCE-SAMPLES/IT-T1-001",
+        "line": 118,
+        "constante": "f"
+      }
+    ],
     "tests/test_runtime_so_deixa_passar_colheita.py": [
       {
         "pasta": "orquestrador",
@@ -103459,11 +103830,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 3939,
-    "files_readable": 1641,
-    "files_code_dir": 1971,
-    "file_edges": 6841,
-    "escritas_em_pasta": 91,
+    "files_tracked": 3947,
+    "files_readable": 1646,
+    "files_code_dir": 1979,
+    "file_edges": 6869,
+    "escritas_em_pasta": 92,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
