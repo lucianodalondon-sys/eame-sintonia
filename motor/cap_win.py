@@ -76,14 +76,17 @@ from datetime import date, timedelta
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-if str(RAIZ / "motor") not in sys.path:
-    sys.path.insert(0, str(RAIZ / "motor"))
+for _g in ("motor", "leis"):
+    if str(RAIZ / _g) not in sys.path:
+        sys.path.insert(0, str(RAIZ / _g))
 
 import corrida_da_inteligencia as CI            # noqa: E402
 import grafo_de_dependencia as GD               # noqa: E402
 # PORTA-UNICA-REFERENCIA (D116): «que produto ADAMA a bula autoriza para esta
 # cultura x problema?» e perguntado a porta, na MESMA edicao das outras capacidades.
 import porta_da_referencia as PORTA             # noqa: E402
+# CHAVE-PROBLEMA: o contrato PROBLEMA/v1 (a forma da chave que a Collection declara).
+import afirmacao_da_fonte as AF                 # noqa: E402
 
 # ⚠️ O vocabulario vem da CORRIDA, que ja o le da espinha. Importar a espinha
 # daqui era runtime a importar `provas/` por nome nu — e
@@ -386,9 +389,11 @@ def aberta_agora(tipo, oracao, estagio) -> tuple:
 # ══════════════════════════════════════════════════════════════════════════
 #: As chaves vem de `JANELA_DECLARADA` (migration 033: CULTURA, REGIAO_DO_FATO,
 #: FASE, JANELA — cada uma com VALOR, VEIO_DE e BASE).
-#: ⚠️ `PROBLEMA` NAO EXISTE no contrato 033. E o requisito `CROP_ISSUE_EM_CAMPO`
-#: do desenho (R5): o nome esta aqui PROPOSTO, e ate a Collection o declarar
-#: todo item real sai NOT_POSSIBLE — que e a verdade de hoje.
+#: CHAVE-PROBLEMA (27/09): o `PROBLEMA` passou a ter contrato — `PROBLEMA/v1`, dono
+#: `leis/afirmacao_da_fonte.py` — e le-se SO por ele (`AF.problema_da_chave`): UM nome
+#: canonico, VEIO_DE TEXT/SECTION_HEADER/DOCUMENT_TITLE e a BASE literal, conferida
+#: contra o TEXTO do item. Lista, bloco fora do contrato, base que o texto nao tem, ou
+#: NAO SEI: sem par, NOT_POSSIBLE — a Intelligence nao refaz a chave a partir do texto.
 CHAVES_DO_PAR = {"CROP_ID": "CULTURA", "ISSUE_ID": "PROBLEMA",
                  "REGION_ID": "REGIAO_DO_FATO"}
 CHAVE_DA_FASE = "FASE"
@@ -419,7 +424,11 @@ def par_em_campo(item: dict) -> tuple:
     jd = item.get("JANELA_DECLARADA") or {}
     par, falta = {}, []
     for chave, campo in CHAVES_DO_PAR.items():
-        v, base = _declarado(jd, campo)
+        if campo == "PROBLEMA":
+            v, base = AF.problema_da_chave(jd.get(campo) if isinstance(jd, dict) else None,
+                                           texto=str(item.get("TEXTO") or ""))
+        else:
+            v, base = _declarado(jd, campo)
         if v is None:
             falta.append(f"JANELA_DECLARADA.{campo}: {base}")
         else:

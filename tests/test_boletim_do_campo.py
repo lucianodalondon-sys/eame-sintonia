@@ -204,9 +204,16 @@ class APortaLevaAsChavesDoBoletim(unittest.TestCase):
         self.assertEqual(["actinidia", "agrumi"], j["CULTURA"]["VALOR"])
         self.assertIn("boletim", j["CULTURA"]["BASE"])
         self.assertEqual(["ingrossamento frutto", "ripresa vegetativa"], j["FASE"]["VALOR"])
-        self.assertEqual(["mosca della frutta"], [p for p in j["PROBLEMA"]["VALOR"] if p.startswith("mosca")])
+        # CHAVE-PROBLEMA (27/09) — AJUSTE DECLARADO: o PROBLEMA saiu no contrato PROBLEMA/v1. Os nomes que o
+        # boletim cita (antes a lista do VALOR) estao em CANDIDATOS; o VALOR e UM nome. Salerno so cita UMA
+        # praga nao ausente (a cimice esta «Non Presente»): e ela.
+        candidatos = [c["NOME"] for c in j["PROBLEMA"]["CANDIDATOS"]]
+        self.assertEqual(["mosca della frutta"], [p for p in candidatos if p.startswith("mosca")])
         self.assertIn("cimice asiatica", j["PROBLEMA"]["AUSENTES"])
-        self.assertNotIn("cimice asiatica", j["PROBLEMA"]["VALOR"])     # ausente nunca e valor
+        self.assertNotIn("cimice asiatica", candidatos)     # ausente nunca e valor
+        self.assertEqual("mosca della frutta", j["PROBLEMA"]["VALOR"])
+        self.assertEqual("TEXT", j["PROBLEMA"]["VEIO_DE"])
+        self.assertEqual((True, "conforme PROBLEMA/v1"), BC.AF.problema_conforme(j["PROBLEMA"], SALERNO))
         pares = {s["CULTURA"]: [p["NOME"] for p in s["PROBLEMAS"]] for s in j["PROBLEMA"]["SECOES"]}
         self.assertIn("mosca della frutta", pares["agrumi"])
         # a porta leva tambem a FORMA como o boletim a escreve (o NOME e o da lista MESMO_PROBLEMA)

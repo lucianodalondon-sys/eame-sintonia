@@ -19,6 +19,7 @@ for p in ("", "leis", "admissao", "coleta"):
     sys.path.insert(0, os.path.join(RAIZ, p) if p else RAIZ)
 import _gavetas  # noqa: E402,F401
 import admissao as adm  # noqa: E402
+import afirmacao_da_fonte as AF  # noqa: E402
 import boletim_do_campo as BC  # noqa: E402
 import afirmacao_da_fonte as AF  # noqa: E402
 import estudo_chaves as EC  # noqa: E402
@@ -190,7 +191,10 @@ class SoOUniversoDeEstudo(unittest.TestCase):
         j = adm.janela_para_o_ready({"texto": POR_ID["SINT-02"]["texto"], "published_at": "2023-11-15"},
                                     _decisao("T5"))
         self.assertEqual(["olivo"], j["CULTURA"]["VALOR"])
-        self.assertEqual(["mosca dell'olivo"], j["PROBLEMA"]["VALOR"])
+        # CHAVE-PROBLEMA — AJUSTE DECLARADO: contrato PROBLEMA/v1, UM nome (antes, a lista com um nome)
+        self.assertEqual("mosca dell'olivo", j["PROBLEMA"]["VALOR"])
+        self.assertEqual((True, "conforme PROBLEMA/v1"),
+                         AF.problema_conforme(j["PROBLEMA"], POR_ID["SINT-02"]["texto"]))
         self.assertEqual(["Lecce"], j["REGIAO_DO_FATO"]["VALOR"])
         self.assertEqual(2, j["PRECISAO"]["CHAVES_COM_VALOR"])
         for c in adm.QUATRO_CHAVES:        # a forma que a trava da 033 exige
@@ -252,7 +256,15 @@ class OReprocessoDevolveRevisoesENaoGrava(unittest.TestCase):
             self.assertEqual("janela_declarada", r["CAMPO"])
             v = json.loads(r["VALOR"])
             self.assertEqual(r["VALOR"], json.dumps(v, ensure_ascii=False, sort_keys=True))
-            self.assertEqual(POR_ID[it["ITEM_ID"]]["ESPERADO"], {k: v[k]["VALOR"] for k in CHAVES})
+            # CHAVE-PROBLEMA (27/09) — AJUSTE DECLARADO: o PROBLEMA saiu no contrato PROBLEMA/v1. Os nomes
+            # que o estudo cita estao em CANDIDATOS (a mesma lista de antes); o VALOR e UM nome, ou NAO SEI
+            # quando ha mais de um (D112). A lista esperada continua a mesma, e o VALOR passa a ser conferido.
+            esperado = POR_ID[it["ITEM_ID"]]["ESPERADO"]
+            lido = {k: v[k]["VALOR"] for k in CHAVES}
+            lido["PROBLEMA"] = [c["NOME"] for c in v["PROBLEMA"]["CANDIDATOS"]] or "NAO SEI"
+            self.assertEqual(esperado, lido)
+            unico = esperado["PROBLEMA"][0] if len(esperado["PROBLEMA"]) == 1 and esperado["PROBLEMA"] != "NAO SEI" else "NAO SEI"
+            self.assertEqual(unico, v["PROBLEMA"]["VALOR"], it["ITEM_ID"])
 
     def test_mesmo_codigo_duas_vezes_nao_repete(self):
         a = RE.reprocessar(ITENS)
@@ -266,7 +278,11 @@ class OReprocessoDevolveRevisoesENaoGrava(unittest.TestCase):
         c = RE.reprocessar(ITENS)["CONTA"]
         esp = {k: sum(1 for i in ITENS if i["ESPERADO"][k] != "NAO SEI") for k in CHAVES}
         self.assertEqual(esp["CULTURA"], c["COM_CULTURA"])
-        self.assertEqual(esp["PROBLEMA"], c["COM_PROBLEMA"])
+        # CHAVE-PROBLEMA — AJUSTE DECLARADO: COM_PROBLEMA conta o VALOR do contrato PROBLEMA/v1 (UM nome);
+        # o estudo que nomeia dois problemas fica NAO SEI e e contado a parte, em PROBLEMA_SO_CANDIDATOS.
+        um = sum(1 for i in ITENS if i["ESPERADO"]["PROBLEMA"] != "NAO SEI" and len(i["ESPERADO"]["PROBLEMA"]) == 1)
+        self.assertEqual(um, c["COM_PROBLEMA"])
+        self.assertEqual(esp["PROBLEMA"] - um, c["PROBLEMA_SO_CANDIDATOS"])
         self.assertEqual(esp["REGIAO_DO_FATO"], c["COM_REGIAO_DO_ESTUDO"])
         self.assertEqual(1, c["SO_FORMAS_AMBIGUAS"])
 

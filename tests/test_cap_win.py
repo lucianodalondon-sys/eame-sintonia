@@ -25,6 +25,7 @@ for p in (RAIZ, RAIZ / "motor", RAIZ / "provas", RAIZ / "leis"):
     if str(p) not in sys.path:
         sys.path.insert(0, str(p))
 
+import afirmacao_da_fonte as AF                        # noqa: E402
 import cap_win as W                                    # noqa: E402
 import corrida_da_inteligencia as CI                   # noqa: E402
 
@@ -37,9 +38,32 @@ def _campo(valor, base="SINTETICO · declarado em campo pela Collection"):
     return {"VALOR": valor, "BASE": base, "VEIO_DE": "SINTETICO"}
 
 
+def _problema(valor, forma=None):
+    """CHAVE-PROBLEMA (27/09) — AJUSTE DECLARADO: o PROBLEMA declarado pela Collection sai no
+    contrato PROBLEMA/v1 (`leis/afirmacao_da_fonte.py`): UM nome, o trecho LITERAL que o contem e
+    onde esta escrito. Antes daqui a fixture dizia VEIO_DE = SINTETICO e o nome nao estava no texto;
+    o contrato recusa isso (seria praga inferida), por isso `_amarrar_problema` escreve o nome no item."""
+    if valor == "NAO SEI":
+        return {"CONTRATO": AF.CONTRATO_PROBLEMA, "VALOR": "NAO SEI", "VEIO_DE": "NAO SEI",
+                "BASE": "NAO SEI", "PORQUE": "SINTETICO: a Collection nao declarou o problema"}
+    forma = forma or valor
+    return {"CONTRATO": AF.CONTRATO_PROBLEMA, "VALOR": valor, "VEIO_DE": "TEXT", "BASE": forma,
+            "FORMA": forma, "CODIGO": {"SISTEMA": "NOME_CANONICO", "VALOR": valor,
+                                       "TABELA": "SINTETICO"}}
+
+
+def _amarrar_problema(it):
+    """Se o nome declarado nao esta escrito no texto, ele vai como 1.a linha (o titulo): DOCUMENT_TITLE."""
+    p = it["JANELA_DECLARADA"]["PROBLEMA"]
+    if p["VALOR"] != "NAO SEI" and p["BASE"] not in str(it.get("TEXTO") or ""):
+        it["TEXTO"] = p["BASE"] + "\n" + str(it.get("TEXTO") or "")
+        p["VEIO_DE"] = "DOCUMENT_TITLE"
+    return it
+
+
 def jd(cultura="CROP_OLIVE", problema="ISSUE_OLIVE_FLY", regiao="IT-PUG",
-       fase=None, subarea=None, rede=None, origem=None):
-    d = {"CULTURA": _campo(cultura), "PROBLEMA": _campo(problema),
+       fase=None, subarea=None, rede=None, origem=None, forma_do_problema=None):
+    d = {"CULTURA": _campo(cultura), "PROBLEMA": _problema(problema, forma_do_problema),
          "REGIAO_DO_FATO": _campo(regiao),
          "FASE": _campo(fase) if fase else _campo("NAO SEI", "NAO SEI"),
          "JANELA": _campo("NAO SEI", "NAO SEI")}
@@ -54,12 +78,12 @@ def jd(cultura="CROP_OLIVE", problema="ISSUE_OLIVE_FLY", regiao="IT-PUG",
 
 def item(iid, texto, url, fact="2026-09-20/2026-09-24", captura="2026-09-25T10:00:00Z",
          sid=None, **kw_jd):
-    return {"MARCA": S, "ITEM_ID": iid, "RAW_OBSERVATION_ID": "RAW-" + iid,
-            "SOURCE_ID": sid or ("SRC-" + url.split("/")[2]), "URL": url,
-            "CAPTURED_AT": captura, "PUBLISHED_AT": "2026-09-25",
-            "FACT_TIME": fact,
-            "FACT_TIME_BASIS": "SINTETICO" if fact != "NAO SEI" else "NAO SEI",
-            "TEXTO": texto, "JANELA_DECLARADA": jd(**kw_jd)}
+    return _amarrar_problema({"MARCA": S, "ITEM_ID": iid, "RAW_OBSERVATION_ID": "RAW-" + iid,
+                              "SOURCE_ID": sid or ("SRC-" + url.split("/")[2]), "URL": url,
+                              "CAPTURED_AT": captura, "PUBLISHED_AT": "2026-09-25",
+                              "FACT_TIME": fact,
+                              "FACT_TIME_BASIS": "SINTETICO" if fact != "NAO SEI" else "NAO SEI",
+                              "TEXTO": texto, "JANELA_DECLARADA": jd(**kw_jd)})
 
 
 def rodar(itens, hoje=HOJE):
@@ -80,7 +104,10 @@ def corte(cenario):
             x["JANELA_DECLARADA"] = jd(cultura="NAO SEI", problema="NAO SEI",
                                        regiao="NAO SEI")
         else:
-            x["JANELA_DECLARADA"] = jd(subarea=extra.get("SUBAREA"))
+            # o nome ja esta escrito em todo item do corte («Mosca delle olive, ...»)
+            x["JANELA_DECLARADA"] = jd(subarea=extra.get("SUBAREA"),
+                                       forma_do_problema="Mosca delle olive")
+            _amarrar_problema(x)
             if cenario == "DEPOIS_DOS_REQUISITOS" and "FACT_TIME" in extra:
                 x["FACT_TIME"] = extra["FACT_TIME"]
                 x["FACT_TIME_BASIS"] = extra["FACT_TIME_BASIS"]

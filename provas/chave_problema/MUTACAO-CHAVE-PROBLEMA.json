@@ -1,0 +1,195 @@
+{
+ "TESTE": "tests.test_chave_problema",
+ "LIMPA": "OK",
+ "MUTANTES": [
+  {
+   "ID": "M01",
+   "FICHEIRO": "leis/boletim_do_campo.py",
+   "DEFEITO": "a praga do CABECALHO vira praga do TRECHO (VEIO_DE = TEXT sem o nome na frase)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B2_praga_do_cabecalho_nao_vira_praga_do_trecho",
+    "test_B4_no_cabecalho_e_no_texto_a_base_e_a_do_texto_e_as_duas_ficam_a_vista",
+    "test_E2_a_conta_diz_o_que_sai_de_NAO_SEI"
+   ],
+   "FIM": "FAILED (failures=3)"
+  },
+  {
+   "ID": "M02",
+   "FICHEIRO": "leis/boletim_do_campo.py",
+   "DEFEITO": "OUTRA PRAGA NO MEIO: com duas pragas no item fica a primeira (D112 violada)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B5_duas_pragas_no_item_e_NAO_SEI_com_os_candidatos",
+    "test_D5_sem_problema_continua_NOT_POSSIBLE",
+    "test_E2_a_conta_diz_o_que_sai_de_NAO_SEI"
+   ],
+   "FIM": "FAILED (failures=3)"
+  },
+  {
+   "ID": "M03",
+   "FICHEIRO": "leis/boletim_do_campo.py",
+   "DEFEITO": "SINONIMO NAO UNIFICADO: as formas da mesma mosca contam como pragas diferentes (D111)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B1_nome_na_frase_e_TEXT_com_o_trecho_literal_e_o_EPPO_escrito",
+    "test_B2_praga_do_cabecalho_nao_vira_praga_do_trecho",
+    "test_B3_nome_so_no_titulo_e_DOCUMENT_TITLE",
+    "test_B5_duas_pragas_no_item_e_NAO_SEI_com_os_candidatos",
+    "test_B6_cinco_nomes_da_mesma_mosca_sao_uma_praga",
+    "test_B7_praga_ausente_nunca_e_valor",
+    "test_B8_nada_por_semelhanca",
+    "test_C1_boletim_T3_sai_no_contrato_e_a_porta_e_o_reprocesso_dao_o_mesmo",
+    "test_D1_a_chave_do_produtor_vira_ISSUE_ID",
+    "test_D3_a_chave_de_outro_texto_nao_serve",
+    "test_D4_ponta_a_ponta_o_boletim_ganha_janela",
+    "test_D6_o_motor_le_o_problema_do_futuro_pelo_mesmo_contrato",
+    "test_E2_a_conta_diz_o_que_sai_de_NAO_SEI"
+   ],
+   "FIM": "FAILED (failures=13)"
+  },
+  {
+   "ID": "M04",
+   "FICHEIRO": "leis/boletim_do_campo.py",
+   "DEFEITO": "INFERENCIA POR SEMELHANCA: o codigo EPPO passa a vir do nome mais parecido (COL-LAW-034)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B1_nome_na_frase_e_TEXT_com_o_trecho_literal_e_o_EPPO_escrito",
+    "test_B6_cinco_nomes_da_mesma_mosca_sao_uma_praga",
+    "test_B8_nada_por_semelhanca",
+    "test_E2_a_conta_diz_o_que_sai_de_NAO_SEI"
+   ],
+   "FIM": "FAILED (failures=3, errors=1)"
+  },
+  {
+   "ID": "M05",
+   "FICHEIRO": "leis/boletim_do_campo.py",
+   "DEFEITO": "INFERENCIA POR SEMELHANCA: uma forma parecida («Bactrocera olea») passa a ser mencao",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B8_nada_por_semelhanca"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M06",
+   "FICHEIRO": "leis/afirmacao_da_fonte.py",
+   "DEFEITO": "o leitor aceita PROBLEMA fora do contrato (a forma antiga, VEIO_DE livre)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A6_sem_contrato_nao_e_chave"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M07",
+   "FICHEIRO": "leis/afirmacao_da_fonte.py",
+   "DEFEITO": "o leitor nao confere a BASE contra o texto (praga inferida passa)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A4_base_que_o_texto_nao_tem_e_praga_inferida",
+    "test_D2_sem_chave_nao_ha_par_mesmo_com_a_praga_no_texto",
+    "test_D3_a_chave_de_outro_texto_nao_serve"
+   ],
+   "FIM": "FAILED (failures=3)"
+  },
+  {
+   "ID": "M08",
+   "FICHEIRO": "leis/afirmacao_da_fonte.py",
+   "DEFEITO": "o leitor aceita LISTA como valor (a CAP-WIN colava nomes num ISSUE_ID)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_A2_lista_nunca_e_valor"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M09",
+   "FICHEIRO": "motor/cap_win.py",
+   "DEFEITO": "a CAP-WIN volta a ler o PROBLEMA sem contrato",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D2_sem_chave_nao_ha_par_mesmo_com_a_praga_no_texto",
+    "test_D3_a_chave_de_outro_texto_nao_serve"
+   ],
+   "FIM": "FAILED (failures=2)"
+  },
+  {
+   "ID": "M10",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "DEFEITO": "o motor (objeto do futuro) volta a ler o PROBLEMA sem contrato",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_D6_o_motor_le_o_problema_do_futuro_pelo_mesmo_contrato"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M11",
+   "FICHEIRO": "leis/boletim_do_campo.py",
+   "DEFEITO": "praga marcada AUSENTE vira valor",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B7_praga_ausente_nunca_e_valor",
+    "test_E2_a_conta_diz_o_que_sai_de_NAO_SEI"
+   ],
+   "FIM": "FAILED (failures=2)"
+  },
+  {
+   "ID": "M12",
+   "FICHEIRO": "leis/boletim_do_campo.py",
+   "DEFEITO": "o TITULO deixa de ser DOCUMENT_TITLE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_B3_nome_so_no_titulo_e_DOCUMENT_TITLE"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M13",
+   "FICHEIRO": "admissao/admissao.py",
+   "DEFEITO": "a porta volta a escrever o PROBLEMA dos boletins fora do contrato",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_C1_boletim_T3_sai_no_contrato_e_a_porta_e_o_reprocesso_dao_o_mesmo",
+    "test_E1_so_a_chave_PROBLEMA_muda",
+    "test_E2_a_conta_diz_o_que_sai_de_NAO_SEI",
+    "test_E3_mesmo_codigo_duas_vezes_nao_repete",
+    "test_E6_aplicar_exige_a_canonica_a_mesma_versao_e_so_usa_rever",
+    "test_E7_linha_de_comando_seco"
+   ],
+   "FIM": "FAILED (failures=1, errors=5)"
+  },
+  {
+   "ID": "M14",
+   "FICHEIRO": "admissao/reprocessar_problema.py",
+   "DEFEITO": "o reprocesso apaga as outras chaves da janela atual",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E1_so_a_chave_PROBLEMA_muda"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M15",
+   "FICHEIRO": "admissao/reprocessar_problema.py",
+   "DEFEITO": "o reprocesso repete a revisao com o mesmo codigo (deixa de ser idempotente)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E3_mesmo_codigo_duas_vezes_nao_repete"
+   ],
+   "FIM": "FAILED (failures=1)"
+  },
+  {
+   "ID": "M16",
+   "FICHEIRO": "admissao/reprocessar_problema.py",
+   "DEFEITO": "--aplicar grava revisoes de outro codigo (o que se reviu a seco nao e o que se aplica)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_E6_aplicar_exige_a_canonica_a_mesma_versao_e_so_usa_rever"
+   ],
+   "FIM": "FAILED (failures=1)"
+  }
+ ],
+ "RESUMO": "16/16 MORTOS"
+}
