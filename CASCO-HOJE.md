@@ -81,11 +81,65 @@ acceso dal proprietario». Não há parâmetro de endereço: um visitante não c
 
 ## 4 · Testes — antes × depois, pelo nome
 
-@@TESTES@@
+Base = `60ee56b2` (worktree limpa). Final = esta branch (worktree limpa em `86bf292c` para a bateria inteira; os
+consertos seguintes, re-medidos na árvore final). Mesma máquina, Chromium local (`/opt/pw-browsers`), playwright-core
+1.56 instalado **fora** do repositório (nada entrou no Git). A linha de serviço trouxe ~250 testes Python que a base
+não tinha: esses comparam-se com a **ponta de hhhj7t** (`c551062b`), a base deles.
+
+| bateria | base | final |
+|---|---|---|
+| `tests/test_casco_hoje.mjs` (novo) | — | **48/48** |
+| `tests/test_pote_publicado.mjs` | 58/58 (61 com o merge de japwor: Q2 reprovava) | **67/67** |
+| `tests/test_pote_no_casco.mjs` | 93/93 | 93/93 |
+| `audit/casco/d97-auditoria.mjs` | sai 1 (84 cruzamentos sem prova na tela, 13 rotas de legado) | **sai 0** (0 · 0 · 0 · 0) |
+| PP1 `audit/casco/pote-publicado-browser.mjs` | 11/11 | **13/13** |
+| `audit/run.mjs` (corredor do CI) | 73 PASS · B2 FAIL · W2, O1 N/M | **igual por nome** (B2 = `deployment.generated.json`, nasce no `npm run build`) |
+| 84 portões `audit/*.mjs` + `audit/casco/*.mjs` por ficheiro | 39 com saída ≠ 0 | os **mesmos 39** por nome (`brandwell` passou por 0→1→0: conserto abaixo) + `sala-leitura`/`painel-operacao` da linha de serviço saem 2 = «uso:» (são geradores com argumentos, não portões) |
+| `tests/*.py` presentes na base (69) | 10 falham | **7 das 10 continuam**, 3 passaram (`test_coleta_externa`, `test_comunicacao`, `test_portao`); **6 passam a falhar** (`test_canonico`, `test_metricas`, `test_migrations`, `test_o9_caminho_instrumentado`, `test_social_sessao`, `test_youtube_oficial`) — ver abaixo |
+| `tests/*.py` novos (vindos do merge, ~246) | — | contra hhhj7t: **0 falhas novas** depois dos consertos, fora a causa única dos pares (abaixo) |
+| `system-map/tests` | 1 falha (`test_system_map`) | as reprovações são as **mesmas por nome** que na ponta de hhhj7t (`test_system_map` 11, `test_reconciliacao_do_universo` 5, `test_ordem_por_dependencia` 1, `test_quatro_planos` 1); `test_cadeia_declara_io` **consertado** (reprovava lá também); `test_base_da_auditoria` ver abaixo |
+
+**Consertados no caminho, apanhados pela comparação por nome**
+
+- `brandwell BW1`: a faixa antiga «QUESTA SCHERMATA LEGGE» reaparecia em #etichette com `#7BE0A6` (fora da paleta
+  ADAMA). Com o produto de ferramenta, a proveniência é dita pela faixa dele; a antiga esconde-se (`portale.html`).
+- `test_ponte_intelligence_casco G1` / `test_pote_intelligence_casco A4`: o módulo da ponte declarava que o casco abre
+  `#sala`/`#painel`; o casco que vai ao ar não as abre. Ajustada a **declaração** (`pacote/ponte_intelligence_casco.py`,
+  `VISTAS_QUE_NAO_SAO_FERRAMENTA = {}`, com o texto antigo em comentário), não o teste.
+- `test_acervo_organizado`: `AUDITORIA-D97-R7.json` e `INSUMOS-DECLARADOS-ACERVO.json` regerados pelos seus geradores
+  (o segundo só mudou números de linha do motor, efeito do merge); `test_os_numeros_da_auditoria` ajustado de forma
+  **DECLARADA** (item 9: a violação que ela registava foi fechada).
+- `test_cadeia_declara_io`: `MEDIDO_VARRE` com os valores medidos (árvore juntada: 4044 rastreados, não 1726) e as
+  leituras reais declaradas (`CENSO_DAS_ESTRADAS_IT`: `leis/*`, `motor/*`, `docs/fontes/*`; `CENSO_DA_TOPOLOGIA`: `*.js`).
+
+**Ajustes DECLARADOS de testes (citando a missão)** — nenhum com uma asserção de conteúdo a menos:
+`test_pote_publicado` Q2 (o gerador veio com o merge ordenado; a lei «só este pote vai ao ar» passa a medir-se no
+`outputDirectory`), Q3/Q5/Q11 (#etichette é produto de ferramenta), Q4 (2 na tela + 84 na aba, as mesmas provas sobre a
+união, +4 provas novas), Q7 (25 distintos · 2 no pote · menu da Label 166 · Radar Futuro 0), Q9 (a linha «incroci»
+conta o pote carregado); PP1 (idem); `d97-auditoria.mjs` (mede a tela, reconhece a busca no pote e o produto de
+ferramenta, +medida 4: pote ausente); `drive.mjs` (quem pede `semPotePublicado` liga as bandeiras do dono pela página).
+Nomes que por isso mudaram na lista: 9 (Q2, Q3×2, Q4×4, Q7, e um Q8 do japwor).
+
+**O que NÃO consegui pôr verde, e porquê**
+
+| falha | porquê | o que resolve |
+|---|---|---|
+| `test_adama_referencia` (3 erros) e `test_porta_unica_referencia` (sai 1) | **conflito semântico entre as duas linhas, em DADO**: `data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json` só mudou nesta linha (5402 pares, V2.1 `8b35a8fa`); o construtor da referência (`fontes/adama_referencia.py:368`) foi escrito contra a edição de 2030 pares e **recusa** colar citações a pares diferentes. A porta (leitura) continua a funcionar — o carimbo na tela vem dela | reconstruir a referência numa edição nova (a missão de manutenção que a própria porta nomeia, `nuvem-referencia-manutencao-v1`). Não o fiz: é dado novo |
+| `test_canonico`, `test_metricas`, `test_migrations`, `test_o9_caminho_instrumentado`, `test_social_sessao`, `test_youtube_oficial` | passavam na base; falham **idênticos, pelo nome e pela mensagem**, na ponta de hhhj7t — vêm com a linha de serviço | a linha de serviço (fora desta missão) |
+| `test_base_da_auditoria · FUNCTIONAL_COLLECTION_DIFF_FROM_BASE_e_zero` | busquei a ref que ele pede (`claude/sala-persistente-preflight-real-v1`) e ele passou a medir: a árvore juntada tem código funcional da linha do release (workflows) que a base da coleção não tem. Na ponta de hhhj7t reprovava por CANNOT_MEASURE | é efeito direto do merge ordenado; decisão do dono sobre qual é a «base da auditoria» desta branch |
 
 ## 5 · Mutação
 
-@@MUTACAO@@
+22 defeitos plantados, um de cada vez, numa worktree descartável (o repositório não foi tocado); morto = algum de
+`test_casco_hoje.mjs`, `test_pote_publicado.mjs`, `d97-auditoria.mjs` sai ≠ 0. **22/22 mortos.** Lista, âncoras e quem
+apanhou cada um: `docs/casco/CASCO-HOJE-MUTACAO.json`.
+
+Entre eles os três que a missão pede: **religar o legado** (M01 V2.1 por omissão, M02 ITFC, M21/M22 legado com o pote
+sem bandeira, M09 busca, M10 detalhes, M11 pote ausente → demo, M17 `#msignals`), **somar gavetas** (M03, M16 barra a
+contar 86) e **mostrar recusado** (M04 os 86 na tela, M05 aba rifiutati por omissão). E ainda: data do carimbo escrita
+a mão (M06), carimbo sem frescor (M07), sem PROVVISORIO (M08), radar sem a sonda (M12), futuro sem a Agenda (M13, M19),
+selo da Label que não confere (M14), «autorizzato» no uso declarado pelo produto (M15), carimbo pelo relógio (M18),
+cruzamentos por cima da ferramenta (M20).
 
 ## 6 · Mapa
 
@@ -111,4 +165,11 @@ que a missão mandou juntar; o coordenador decide se o empurra assim.
 
 ## EM PALAVRAS SIMPLES
 
-@@SIMPLES@@
+O portal passa a mostrar só o que a Inteligência aprovou nesta rodada. No Portafoglio ficam os 2 cruzamentos que
+têm prova completa; os outros 84 não somem, vão para uma aba «rejeitados» com o motivo de cada um. A Label
+Intelligence volta, mas dizendo o que é: o produto de uma ferramenta, com a data do registro (31/08) e o aviso de que
+pode estar desatualizado. O Radar diz «0 oportunidades defensáveis» e mostra porquê, com o exemplo da oliveira e da
+mosca. O Radar Futuro separa o que é de agronomia (nada, hoje) da agenda de eventos. A busca e as fichas antigas não
+aparecem mais — o dono pode ligá-las de volta com uma chave, e elas voltam carimbadas «legado 07/09». Se o pote não
+carregar, a tela diz «não sei» em vez de mostrar a demonstração. Juntar a linha de serviço trouxe a porta das datas,
+mas também 9 testes que já estavam vermelhos lá (6 Python, 3 do mapa) e um conflito de dados na referência que só uma edição nova resolve.
