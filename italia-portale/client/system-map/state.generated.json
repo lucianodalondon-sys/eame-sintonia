@@ -3178,6 +3178,8 @@
       "provas/janela_formas/cjs/provas_d46_js.py",
       "provas/janela_formas/julgar_paginas_boletim.py",
       "provas/janela_formas/pagina_boletim_local.mjs",
+      "provas/l1_governanca/MUTANTES-EXCECAO-PREVIEW.json",
+      "provas/l1_governanca/mutantes_excecao_preview.py",
       "provas/ligacao_adama/MEDICAO.json",
       "provas/ligacao_adama/MUTANTES.json",
       "provas/ligacao_adama/ligar_fixtures.py",
@@ -4089,6 +4091,7 @@
       "tests/test_estudo_chaves.py",
       "tests/test_evidence.py",
       "tests/test_evolucao.py",
+      "tests/test_excecao_preview_e2e.py",
       "tests/test_execucao_standalone.py",
       "tests/test_extrator_evento_v2.py",
       "tests/test_extrator_lugar_v2.py",
@@ -4806,10 +4809,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/c6-repetido-dedup-doc-9eqszm",
-    "HEAD": "b3de69442ba53a3600fbc2e6f0a6edb19b7508f1",
-    "GENERATED_AT": "2026-09-28T17:12:58+00:00",
-    "SOURCE_TREE_FINGERPRINT": "30d2bd4220ff0bf423c9aad89d11cafe44f29ac17221bd33753d90f94589d30d"
+    "BRANCH": "claude/l1-governanca-preview-v1",
+    "HEAD": "1d8ad324813550e6ed4c361fa51e434856730d5f",
+    "GENERATED_AT": "2026-09-28T17:52:45-03:00",
+    "SOURCE_TREE_FINGERPRINT": "09b043e92251d77b418a3b7cd9d4a0831ef14f70644225e158280c1170416389"
   },
   "FAMILIES": [
     {
@@ -47137,7 +47140,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_das_estradas_it.py",
-            "line": 924,
+            "line": 927,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -54061,6 +54064,7 @@
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
+        "C-SCRAP-LEIS",
         "C-TESTES"
       ],
       "paises": {},
@@ -58318,6 +58322,7 @@
         "C-PROVA-INT-R7",
         "C-PROVA-LIGACAO-ADAMA",
         "C-PROVA-POTE-CASCO",
+        "C-SCRAP-LEIS",
         "C-TESTES"
       ],
       "paises": {},
@@ -58372,12 +58377,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "leis/fundacao_da_coleta.py:217",
           "pacote/acervo_na_intelligence.py:84",
           "pacote/pote_cruzamentos_max.py:50",
-          "provas/_mutantes_pote_casco.py:24",
-          "provas/int_r7/aceite_pelo_gerador.py:33"
+          "provas/_mutantes_pote_casco.py:24"
         ],
-        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-POTE-CRUZAMENTOS-MAX · C-SCRAP-LEIS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 16910,
       "y": 1326
@@ -65495,8 +65500,8 @@
       "name": "A prova de que a trava morde",
       "territory": "Z-PROVA",
       "kind": "engine",
-      "what": "Viola a trava da inteligência de propósito das duas maneiras possíveis — mexer num artefato congelado, e escrever inteligência nova ao lado — exige que ela reprove nas duas, desfaz e confere que a worktree ficou limpa.",
-      "why_here": "Uma trava que passa sempre é indistinguível de uma trava desligada. Sem esta peça, «os testes da trava passam» não distingue uma trava que funciona de uma que nunca morde.",
+      "what": "Viola a trava da inteligência de propósito das duas maneiras possíveis — mexer num artefato congelado, e escrever inteligência nova ao lado — exige que ela reprove nas duas, desfaz e confere que a worktree ficou limpa. D140: provas/l1_governanca/mutantes_excecao_preview.py estraga, uma de cada vez, 23 linhas da guarda da exceção PREVIEW_E2E em leis/fundacao_da_coleta.py (vazamento para produção e para o host canónico, escopo que alarga, Sala que se escreve, consumido_em, objeto não liberado, D140 fora do diário, âmbito exato ignorado, exceção removida) e exige que tests/test_excecao_preview_e2e.py reprove em todas.",
+      "why_here": "Uma trava que passa sempre é indistinguível de uma trava desligada. Sem esta peça, «os testes da trava passam» não distingue uma trava que funciona de uma que nunca morde. E uma exceção só no papel contradiz a guarda: os mutantes provam que a exceção D140 é estreita NA MÁQUINA, não só no contrato.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -65510,24 +65515,46 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/l1_governanca/mutantes_excecao_preview.py",
         "provas/trava_da_inteligencia_morde.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CENSO-CONGELAMENTO"
+        "C-CENSO-CONGELAMENTO",
+        "C-SCRAP-LEIS"
       ],
       "outbound": [
-        "C-CENSO-CONGELAMENTO"
+        "C-CENSO-CONGELAMENTO",
+        "C-SCRAP-LEIS"
       ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MUTANTES"
+        ],
+        "palavras": 47,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 47,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [
+        {
+          "pasta": "leis",
+          "prova": {
+            "file": "provas/l1_governanca/mutantes_excecao_preview.py",
+            "line": 118,
+            "snippet": "escreve em ALVO"
+          }
+        },
         {
           "pasta": "motor",
           "prova": {
@@ -65537,9 +65564,18 @@
           }
         }
       ],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "leis/fundacao_da_coleta.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M6_ESCREVE_NUMA_PASTA",
@@ -65547,13 +65583,14 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve na pasta motor (provas/trava_da_inteligencia_morde.py:97): produz dado",
+      "ROLE_EVIDENCE": "escreve na pasta leis (provas/l1_governanca/mutantes_excecao_preview.py:118): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
         "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+        "leis/fundacao_da_coleta.py",
         "system-map/scripts/censo_do_congelamento.py"
       ],
       "consumes_plane": "CODE",
@@ -69140,7 +69177,10 @@
       "produces": [],
       "inbound": [
         "C-COLETA-INSTAGRAM",
-        "C-PROVA-COLETA"
+        "C-MAPA-DEPLOY",
+        "C-POTE-INT-CASCO",
+        "C-PROVA-COLETA",
+        "C-PROVA-TRAVA-MORDE"
       ],
       "outbound": [
         "C-APIFY-POOL",
@@ -69162,6 +69202,7 @@
         "C-PROVA-COMENTARIOS",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTAS-REAIS",
+        "C-PROVA-TRAVA-MORDE",
         "C-RASTRO",
         "C-ROTA-M2",
         "C-SCRAP-GUARDA",
@@ -69176,22 +69217,25 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "AMBITO_EXATO",
           "AREAS_CONGELADAS",
           "AUTH_MODE_DA_CLASSE",
           "CAPACIDADES",
           "CLASSES",
+          "CONFERENCIAS_QUE_PASSAM",
           "ESTADOS",
           "LIMITES",
           "MATRIZ",
           "MOTIVOS_PAGOS",
           "QUOTA_METODO",
+          "_DEGRAU_DO_CRITERIO",
           "_POR_ESTADO",
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 598,
+        "palavras": 622,
         "por_lingua": {},
-        "sem_marca_de_lingua": 598,
+        "sem_marca_de_lingua": 622,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -69216,12 +69260,15 @@
       "OWNER_CONFLICT": null,
       "consumes": [
         "coleta/instagram_janela.py",
+        "docs/decisoes/DIARIO-DE-DECISOES.md",
         "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
+        "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
         "docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md",
         "docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md",
         "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
         "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md",
-        "docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md"
+        "docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md",
+        "system-map/CANONICAL-PUBLICATION.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -72812,6 +72859,7 @@
         "tests/test_estudo_chaves.py",
         "tests/test_evidence.py",
         "tests/test_evolucao.py",
+        "tests/test_excecao_preview_e2e.py",
         "tests/test_execucao_standalone.py",
         "tests/test_extrator_evento_v2.py",
         "tests/test_extrator_lugar_v2.py",
@@ -73010,7 +73058,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 342,
+      "file_count": 343,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -127555,6 +127603,41 @@
     },
     {
       "from": "C-MAPA-DEPLOY",
+      "to": "C-SCRAP-LEIS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta As leis do SCRAP — a taxonomia canonica da falha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/fundacao_da_coleta.py",
+          "line": 119,
+          "snippet": "PUBLICACAO = os.path.join(RAIZ, 'system-map', 'CANONICAL-PUBLICATION.json')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-SCRAP-LEIS",
+            "FROM": "C-MAPA-DEPLOY",
+            "TO": "C-SCRAP-LEIS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-DEPLOY",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -133515,7 +133598,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 179 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 180 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -145189,13 +145272,48 @@
     },
     {
       "from": "C-POTE-INT-CASCO",
+      "to": "C-SCRAP-LEIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por As leis do SCRAP — a taxonomia canonica da falha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/fundacao_da_coleta.py",
+          "line": 217,
+          "snippet": "import validar_pote_v2  # noqa: PLC0415 — so quem pede para atravessar paga o import",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-SCRAP-LEIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-POTE-INT-CASCO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_acervo_na_intelligence.py",
@@ -145233,6 +145351,22 @@
           "file": "tests/test_cruzamentos_max.py",
           "line": 23,
           "snippet": "import pote_intelligence_casco as POTE       # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_excecao_preview_e2e.py",
+          "line": 35,
+          "snippet": "import pote_intelligence_casco as P  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
             "FROM": "C-POTE-INT-CASCO",
@@ -151072,6 +151206,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-TRAVA-MORDE",
+      "to": "C-SCRAP-LEIS",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a trava morde escreve em As leis do SCRAP — a taxonomia canonica da falha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/l1_governanca/mutantes_excecao_preview.py",
+          "line": 118,
+          "snippet": "with open(ALVO, \"wb\") as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-TRAVA-MORDE--WRITES-->C-SCRAP-LEIS",
+            "FROM": "C-PROVA-TRAVA-MORDE",
+            "TO": "C-SCRAP-LEIS",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "WRITE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -160340,6 +160509,41 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-PROVA-TRAVA-MORDE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta A prova de que a trava morde. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/l1_governanca/mutantes_excecao_preview.py",
+          "line": 100,
+          "snippet": "with open(ALVO, \"rb\") as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-TRAVA-MORDE",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-TRAVA-MORDE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -160796,7 +161000,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 61 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 62 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -161171,7 +161375,7 @@
         },
         {
           "file": "tests/test_trava_da_inteligencia.py",
-          "line": 275,
+          "line": 298,
           "snippet": "self.assertEqual(v[\"FUNDACAO_DONO\"], \"leis/fundacao_da_coleta.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -174255,7 +174459,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2271,
+  "UNCLAIMED_FILES_COUNT": 2272,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174527,12 +174731,12 @@
     "components_pending": 271,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1913,
-    "edges_proven": 1844,
+    "edges": 1917,
+    "edges_proven": 1848,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4213,
-    "files_covered": 1942,
+    "files_tracked": 4216,
+    "files_covered": 1944,
     "files_code_unclaimed": 0,
     "roles_proven": 207,
     "roles_declared_only": 10,
