@@ -13,9 +13,10 @@
 //
 //   C1  robots proibe o caminho de UMA materia  -> 0 pedidos a ela; a outra vem; robots lido 1 vez
 //   C2  robots proibe o indice                  -> 0 pedidos ao indice; fonte UNKNOWN; nada no livro
-//   C3  pausa por omissao (1,0 s)               -> intervalo medido no servidor >= 1 s
+//   C3  pausa por omissao (a da classe SITE)    -> intervalo medido no servidor >= 5 s (D124)
 //   C4  pausa configurada (2 s) e Crawl-delay 3 -> >= 2 s; e o Crawl-delay manda quando e maior
-//   C5  teto por omissao (5, D7)                -> 6 materias anunciadas, 5 pedidos no servidor
+//   C4c Crawl-delay 7 SEM pausa declarada       -> >= 7 s: o Crawl-delay manda sobre a pausa da classe (5 s)
+//   C5  teto SEM livro (SEM_LIVRO = MINIMO 5)   -> 6 materias anunciadas, 5 pedidos no servidor
 //   C6  teto configurado (3)                    -> 3 pedidos
 //   C7  robots ilegivel (HTML, 500)             -> so o robots e pedido
 //   C8  robots indisponivel (ligacao cortada)   -> so o robots; e NAO fica em cache
@@ -29,6 +30,20 @@ import { mkdtempSync, rmSync, readFileSync, existsSync, writeFileSync } from "no
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import assert from "node:assert/strict";
+
+// ── D124 (dono, 27/09) — AJUSTE DECLARADO (D124-REBASE, 28/09) ─────────────────────────────────────────
+// A pausa por omissao deixou de ser 1 s e o teto por omissao deixou de ser o 5 da D7: os dois vem da
+// POLITICA ADAPTATIVA (`regras/POLITICA-CORTESIA-ADAPTATIVA.json`). Sem livro (esta prova corre sem livro)
+// o teto por corrida e o SEM_LIVRO da politica (o MINIMO da classe SITE = 5) e a pausa e a da classe SITE
+// (5 s). C3 passa a exigir a pausa da CLASSE, lida do JSON (nao um numero escrito aqui); C4b declara a
+// pausa de 1 s que quer vencer com o Crawl-delay 3; C5/C5b/C13 medem o mesmo 5 — agora o SEM_LIVRO,
+// dito no resumo (TETO_ADAPTATIVO). Nenhuma asserção afrouxada: os limiares sairam do codigo para a politica.
+// E acrescenta-se C4c: Crawl-delay MAIOR do que a pausa da classe (o mutante «crawl-delay ignorado em
+// umaIda» sobrevivia porque o Crawl-delay 3 do C4b era menor do que os 5 s da classe).
+const POLITICA = JSON.parse(readFileSync(new URL("../regras/POLITICA-CORTESIA-ADAPTATIVA.json", import.meta.url), "utf8"));
+const PAUSA_SITE_S = POLITICA.CLASSES.SITE.PAUSA_MINIMA_S;
+const TETO_SEM_LIVRO = POLITICA.CLASSES.SITE.MINIMO_24H;
+assert.equal(POLITICA.SEM_LIVRO.TETO_POR_CORRIDA, "MINIMO_24H");
 
 const RAIZ = mkdtempSync(join(tmpdir(), "cortesia-http-"));
 process.env.ITALY_OPS_ROOT = RAIZ;
@@ -170,11 +185,12 @@ try {
   ROBOTS = { modo: "404" };
   INDICE = ["tre-a", "tre-b"];
   const c3 = await rodada("C3"); anota("C3", c3);
-  t("C3: robots + indice + 2 materias, cada pedido >= 1,0 s depois do anterior", () => {
+  t(`C3: robots + indice + 2 materias, cada pedido >= ${PAUSA_SITE_S} s (a pausa da classe SITE) depois do anterior`, () => {
     assert.equal(c3.feitos.length, 4, JSON.stringify(c3.caminhos));
     const iv = intervalos(c3.feitos);
-    assert.ok(iv.every(ms => ms >= 990), `intervalos ${JSON.stringify(iv)} ms`);
-    assert.equal(c3.resumo.CORTESIA.PAUSA_MINIMA_S, 1);
+    assert.ok(PAUSA_SITE_S >= 1, "a classe SITE tem pausa");
+    assert.ok(iv.every(ms => ms >= PAUSA_SITE_S * 1000 - 10), `intervalos ${JSON.stringify(iv)} ms`);
+    assert.equal(c3.resumo.CORTESIA.PAUSA_MINIMA_S, null, "sem pausa declarada no ambiente: vale a da politica");
   });
 
   console.log("\n══ C4 · a pausa configurada, e o Crawl-delay ════════════════════");
@@ -187,24 +203,38 @@ try {
     assert.ok(iv.every(ms => ms >= 1990), `intervalos ${JSON.stringify(iv)} ms`);
     assert.equal(c4.resumo.CORTESIA.PAUSA_MINIMA_S, 2);
   });
-  delete process.env.SINTONIA_PAUSA_POR_HOST_S;
+  process.env.SINTONIA_PAUSA_POR_HOST_S = "1";           // D124: a pausa de 1 s que o Crawl-delay vence, declarada
   ROBOTS = { modo: "texto", texto: "User-agent: *\nCrawl-delay: 3\nDisallow: /privato/\n" };
   INDICE = ["cinque-a"];
   const c4b = await rodada("C4b"); anota("C4b", c4b);
+  delete process.env.SINTONIA_PAUSA_POR_HOST_S;
   t("C4b: Crawl-delay 3 no robots manda sobre a pausa de 1 s (depois de o ler)", () => {
     const iv = intervalos(c4b.feitos);
     assert.equal(c4b.feitos.length, 3, JSON.stringify(c4b.caminhos));
     assert.ok(iv.every(ms => ms >= 2990), `intervalos ${JSON.stringify(iv)} ms`);
     assert.equal(c4b.resumo.CORTESIA.ROBOTS[BASE].CRAWL_DELAY, 3);
   });
+  ROBOTS = { modo: "texto", texto: "User-agent: *\nCrawl-delay: 7\nDisallow: /privato/\n" };
+  INDICE = ["cinque-c"];
+  const c4c = await rodada("C4c"); anota("C4c", c4c);
+  t(`C4c: Crawl-delay 7 MAIOR do que a pausa da classe (${PAUSA_SITE_S} s) manda: cada intervalo >= 7 s`, () => {
+    assert.ok(7 > PAUSA_SITE_S, "o caso so prova alguma coisa se o Crawl-delay for maior do que a pausa da classe");
+    const iv = intervalos(c4c.feitos);
+    assert.equal(c4c.feitos.length, 3, JSON.stringify(c4c.caminhos));
+    assert.ok(iv.every(ms => ms >= 6990), `intervalos ${JSON.stringify(iv)} ms`);
+    assert.equal(c4c.resumo.CORTESIA.ROBOTS[BASE].CRAWL_DELAY, 7);
+  });
 
   console.log("\n══ C5 · o teto por omissao (5 pedidos por site, D7) ═════════════");
   ROBOTS = { modo: "404" };
   INDICE = ["sei-a", "sei-b", "sei-c", "sei-d", "sei-e", "sei-f"];
   const c5 = await rodada("C5"); anota("C5", c5);
-  t("C5: 6 materias anunciadas, o servidor recebe EXACTAMENTE 5 pedidos", () => {
-    assert.equal(c5.feitos.length, 5, JSON.stringify(c5.caminhos));
-    assert.equal(c5.resumo.CORTESIA.TETO_POR_HOST, 5);
+  t("C5: 6 materias anunciadas, o servidor recebe EXACTAMENTE 5 pedidos (SEM_LIVRO)", () => {
+    assert.equal(TETO_SEM_LIVRO, 5);
+    assert.equal(c5.feitos.length, TETO_SEM_LIVRO, JSON.stringify(c5.caminhos));
+    assert.equal(c5.resumo.CORTESIA.TETO_POR_HOST, null, "nenhum teto manual declarado");
+    assert.equal(c5.resumo.CORTESIA.TETO_ADAPTATIVO.LIVRO, null);
+    assert.deepEqual(Object.values(c5.resumo.CORTESIA.TETO_ADAPTATIVO.POR_DOMINIO), [TETO_SEM_LIVRO]);
     assert.equal(c5.resumo.CORTESIA.PEDIDOS_POR_HOST["127.0.0.1"], 5);
   });
   t("C5: as 3 que ficaram de fora sao adiadas pelo teto, fora do livro", () => {
@@ -303,7 +333,7 @@ try {
   });
   t("C13: a pausa vale entre os dois nomes do mesmo site", () => {
     const iv = intervalos(c13.feitos);
-    assert.ok(iv.every(ms => ms >= 990), `intervalos ${JSON.stringify(iv)} ms`);
+    assert.ok(iv.every(ms => ms >= PAUSA_SITE_S * 1000 - 10), `intervalos ${JSON.stringify(iv)} ms`);
   });
 
   console.log("\n══ C11 · o leitor do robots, sem rede ═══════════════════════════");

@@ -6,6 +6,10 @@ O metodo e o de `provas/rodadas_mutacao.py`: a copia sai de `git archive <ref>` 
 cada mutante troca UM trecho exacto de `ferramentas/big_collection/coleta_continua.py`; um trecho que nao
 exista uma vez so falha alto. MORTO = `tests/test_coleta_continua.py` reprova ou sai com codigo != 0.
 Resultado em `provas/COLETA-CONTINUA-MUTACAO.json`.
+
+D124-REBASE (28/09): M01, M02, M04 e M17 tinham como ancora o texto do codigo de antes da cortesia adaptativa
+(`teto` fixo, janela sempre ligada). As ancoras passaram a ser as do codigo portado — o MESMO defeito plantado
+no mesmo sitio (janela ignorada, +1 no teto do ciclo, orcamento nao partilhado, teto de 24 h ignorado).
 """
 import io
 import json
@@ -22,11 +26,11 @@ ALVO = "ferramentas/big_collection/coleta_continua.py"
 TESTE = "tests/test_coleta_continua.py"
 MUTANTES = [
     # os cinco pedidos da missao
-    ("M01_DOMINIO_BLOQUEADO_PASSA", ALVO, "if v and agora_utc < v + timedelta(hours=janela_h):", "if False:"),
-    ("M02_TETO_6_NO_CICLO", ALVO, "if orcamento.get(dd, 0) + p > teto:", "if orcamento.get(dd, 0) + p > teto + 1:"),
+    ("M01_DOMINIO_BLOQUEADO_PASSA", ALVO, "if janela_h and v and agora_utc < v + timedelta(hours=janela_h):", "if False:"),
+    ("M02_TETO_6_NO_CICLO", ALVO, "if g + orcamento.get(dd, 0) + p > nivel:", "if g + orcamento.get(dd, 0) + p > nivel + 1:"),
     ("M03_PORTAO_IT_PULADO", ALVO, 'if not reg["EGRESSO_ANTES"].get("PASSA"):', "if False:"),
-    ("M04_DUAS_LINHAS_SEM_ORCAMENTO_PARTILHADO", ALVO, "orcamento=orcamento, max_fontes=max_fontes)",
-     "orcamento={}, max_fontes=max_fontes)"),
+    ("M04_DUAS_LINHAS_SEM_ORCAMENTO_PARTILHADO", ALVO, "orcamento=orcamento, max_fontes=max_fontes, janela_h=janela_h)",
+     "orcamento={}, max_fontes=max_fontes, janela_h=janela_h)"),
     ("M05_ROBO_DEIXADO_PARADO", ALVO, "                robo.lancar()\n", ""),
     # o resto das guardas
     ("M06_ROBO_PARADO_QUANDO_O_CICLO_PARA", ALVO, "    finally:\n        if parei:", "    finally:\n        if parei and para is None:"),
@@ -40,7 +44,7 @@ MUTANTES = [
     ("M14_RAM_IGNORADA", ALVO, "if ram < RAM_MINIMA_GB:", "if False:"),
     ("M15_RAM_NAO_SEI_PASSA", ALVO, 'if ram is None:\n        return fim("RAM_NAO_SEI")', "if ram is None:\n        ram = 99.0"),
     ("M16_BACKUP_IGNORADO", ALVO, 'if not reg["BACKUP"].get("PROVA_VALE"):', "if False:"),
-    ("M17_TETO_24H_IGNORADO", ALVO, "if g + p > teto:", "if False:"),
+    ("M17_TETO_24H_IGNORADO", ALVO, "if g + p > nivel:", "if False:"),
     ("M18_LIVRO_24H_ILEGIVEL_VIRA_VAZIO", ALVO, '        return fim("LIVRO_24H_NAO_SEI", ERRO=str(ex)[:300])', "        reservas = []"),
     ("M19_PARADO_NAO_FICA_PARADO", ALVO, 'if estado.get("PAROU") and not a_seco:', "if False:"),
     ("M20_LINHA_NAO_LIGADA_CORRE", ALVO, 'if not lig["LIGADA"]:', "if False:"),

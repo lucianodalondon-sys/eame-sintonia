@@ -120,8 +120,12 @@ class ARegra(Base):
         self.assertEqual(self.livro.read_text(encoding="utf-8"), "{nao e json")
 
     def test_json_valido_de_outro_formato_e_unknown(self):
-        """Um livro que e JSON mas nao e o livro da cortesia (o JSON antigo de 24 h, outro ficheiro) NAO e vazio."""
-        for conteudo in ('{"PEDIDOS_POR_DOMINIO": {"cia.it": 5}}', '{"RESERVAS": []}'):
+        """Um livro que e JSON mas nao e o livro da cortesia (outro ficheiro, ou o D90 malformado) NAO e vazio.
+
+        D124-REBASE — AJUSTE DECLARADO (verificador independente, 28/09): '{"RESERVAS": []}' saiu desta lista.
+        E o formato do livro VIVO da D90 (TETO-24H.json da coleta continua): bem formado, le-se e migra-se
+        (tests/test_teto_adaptativo_rebase.py::OLivroAntigo). O D90 MALFORMADO continua UNKNOWN e fica no lugar."""
+        for conteudo in ('{"PEDIDOS_POR_DOMINIO": {"cia.it": 5}}', '{"RESERVAS": 3}'):
             self.livro.write_text(conteudo, encoding="utf-8")
             self.assertEqual(self.res()["ESTADO"], "UNKNOWN", conteudo)
             self.assertIsNone(R.gasto_24h("cia.it"))

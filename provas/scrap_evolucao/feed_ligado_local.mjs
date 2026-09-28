@@ -35,6 +35,20 @@ for (const k of ["SINTONIA_TETO_POR_HOST", "SINTONIA_TETO_ONDA"]) delete process
 process.env.SINTONIA_PAUSA_POR_HOST_S = "0";
 const LIVRO24 = join(RAIZ, "TETO-24H.json");
 process.env.SINTONIA_TETO_24H = LIVRO24;
+// ── D124 (dono, 27/09) — AJUSTE DECLARADO (D124-REBASE, 28/09) ─────────────────────────────────────────
+// O livro de 24 h passou a ser o da CORTESIA ADAPTATIVA (ndjson de eventos; o orcamento do dominio e o
+// vigente da politica, SITE comeca em 40, e a reserva respeita a pausa minima da classe). Esta prova mede
+// que o 304 CONTA no orcamento de 24 h e que o teto fecha: fa-lo com o orcamento INICIAL de 5 declarado numa
+// copia da politica (e a pausa da classe a 0, como SINTONIA_PAUSA_POR_HOST_S=0 ja fazia no transporte), e
+// conta as RESERVAS lendo os eventos. Nenhuma asserção afrouxada: o 5 passou a ser declarado aqui.
+{
+  const pol = JSON.parse(readFileSync(new URL("../../regras/POLITICA-CORTESIA-ADAPTATIVA.json", import.meta.url), "utf8"));
+  pol.CLASSES.SITE.ORCAMENTO_INICIAL_24H = 5;
+  pol.CLASSES.SITE.PAUSA_MINIMA_S = 0;
+  writeFileSync(join(RAIZ, "POLITICA-CORTESIA-5.json"), JSON.stringify(pol));
+  process.env.SINTONIA_CORTESIA_POLITICA = join(RAIZ, "POLITICA-CORTESIA-5.json");
+  delete process.env.SINTONIA_CORTESIA_LIVRO;
+}
 
 const PEDIDOS = [];                 // { host, url, inm }
 let PORTA = 0, VERSAO_DO_FEED = 1;
@@ -98,8 +112,8 @@ const ligar = (sid, host) => {
 const obsDe = (run) => readFileSync(join(RAIZ, "data/collection-ledger/italy/observations.ndjson"), "utf8")
   .split("\n").filter(Boolean).map((l) => JSON.parse(l)).filter((o) => o.RUN_ID === run && o.SOURCE_URL);
 const doHost = (h, de = 0) => PEDIDOS.slice(de).filter((p) => p.host === h);
-const reservas = (dom) => JSON.parse(readFileSync(LIVRO24, "utf8")).RESERVAS.filter((r) => r.DOMINIO === dom)
-  .reduce((a, r) => a + Number(r.QTD), 0);
+const reservas = (dom) => readFileSync(LIVRO24, "utf8").split(/\r?\n/).filter(Boolean).map((l) => JSON.parse(l))
+  .filter((e) => e.TIPO === "RESERVA" && e.DOMINIO === dom).length;           // D124: eventos, um por pedido
 
 try {
   ligar(FONTE, HOST); ligar(FONTE_MAU, HOST_MAU); ligar(FONTE_SUJO, HOST_SUJO);

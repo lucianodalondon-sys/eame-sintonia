@@ -251,7 +251,12 @@ class OLivro(Base):
         self.assertEqual(CA.reservar("cia.it", run_id="r", linha="S", agora=T0)["ESTADO"], "RESERVADO")
 
     def test_livro_ilegivel_e_unknown_e_nao_escreve(self):
-        for conteudo in ("{nao e json\n", '{"RESERVAS": []}\n', '{"TIPO": "RESERVA"}\n'):
+        # D124-REBASE — AJUSTE DECLARADO (verificador independente, 28/09): '{"RESERVAS": []}' era dado aqui
+        # como ilegivel, e e o formato do livro VIVO da D90 (TETO-24H.json da coleta continua) — lido assim, toda
+        # a reserva dava UNKNOWN e a coleta parava. O livro D90 BEM FORMADO le-se e migra-se
+        # (tests/test_teto_adaptativo_rebase.py::OLivroAntigo); o D90 MALFORMADO continua ilegivel, e e ele que
+        # fica aqui no lugar.
+        for conteudo in ("{nao e json\n", '{"RESERVAS": 3}\n', '{"TIPO": "RESERVA"}\n'):
             self.livro.write_text(conteudo, encoding="utf-8")
             self.assertEqual(CA.reservar("cia.it", run_id="r", linha="S")["ESTADO"], "UNKNOWN", conteudo)
             self.assertEqual(CA.registrar_resposta("cia.it", 429, run_id="r", linha="S")["ESTADO"], "UNKNOWN")

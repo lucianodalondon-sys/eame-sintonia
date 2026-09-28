@@ -9,6 +9,18 @@ antes/depois. O modo DESOBEDECE ignora o livro: e o transporte avariado que a PR
 O robo e um falso com vida propria (vivo/parado) e a flag num ficheiro temporario.
 
     py tests/test_coleta_continua.py
+
+D124 (dono, 27/09) — AJUSTE DECLARADO (D124-REBASE, 28/09): o 5 fixo e a janela D79 deixaram de ser a regra
+(o teto de cada dominio e o ORCAMENTO VIGENTE da cortesia adaptativa; a janela so com --janela-24h), e o
+contador de 24 h passou a ser 1 pedido de cada vez (a reserva so fecha com a RESPOSTA registada). Estes testes
+provam a MECANICA do agendador (esperar, repartir, somar as linhas, provar, parar) e continuam a faze-lo:
+  · com o teto MANUAL declarado SINTONIA_TETO_POR_HOST=5, que o servico continua a respeitar;
+  · com a janela LIGADA de proposito (`janela_h=24` no helper `ciclo`), como `--janela-24h` a liga;
+  · com a onda falsa a REGISTAR a resposta de cada pedido (`cortesia_adaptativa.registrar_resposta`),
+    como o transporte real faz desde a D124, e com a pausa minima da classe a 0 numa copia da politica
+    (a pausa e medida em tests/test_cortesia_adaptativa.py e provas/cortesia_http_local.mjs, nao aqui).
+Nenhuma asserção foi afrouxada. O comportamento SEM estes ajustes (orcamento vigente, janela desligada,
+livro D90 migrado, sonda da linha SITES) esta em tests/test_teto_adaptativo_rebase.py.
 """
 import http.server
 import json
@@ -29,7 +41,35 @@ import coleta_continua as C  # noqa: E402
 import rodadas as R  # noqa: E402
 
 R24 = C.R24
+CA = C.CA
 CONTAGEM: dict = {}
+_AMBIENTE_ANTES: dict = {}
+
+
+def setUpModule():
+    """D124 — AJUSTE DECLARADO (ver o cabecalho): teto manual 5 e a pausa minima da classe a 0."""
+    for k in ("SINTONIA_TETO_POR_HOST", "SINTONIA_CORTESIA_POLITICA", "SINTONIA_CORTESIA_LIVRO"):
+        _AMBIENTE_ANTES[k] = os.environ.get(k)
+    os.environ["SINTONIA_TETO_POR_HOST"] = "5"
+    os.environ.pop("SINTONIA_CORTESIA_LIVRO", None)
+    pol = json.loads(CA.POLITICA_F.read_text(encoding="utf-8"))
+    for c in ("SITE", "PLATAFORMA_GRANDE"):
+        pol["CLASSES"][c]["PAUSA_MINIMA_S"] = 0
+    f = Path(tempfile.mkdtemp(prefix="coleta-continua-pol-")) / "POLITICA.json"
+    f.write_text(json.dumps(pol), encoding="utf-8")
+    os.environ["SINTONIA_CORTESIA_POLITICA"] = str(f)
+
+
+def tearDownModule():
+    pf = os.environ.get("SINTONIA_CORTESIA_POLITICA")
+    for k, v in _AMBIENTE_ANTES.items():
+        if v is None:
+            os.environ.pop(k, None)
+        else:
+            os.environ[k] = v
+    if pf:
+        shutil.rmtree(Path(pf).parent, ignore_errors=True)
+    CA.politica(recarregar=True)
 
 
 class _Servidor(http.server.BaseHTTPRequestHandler):
@@ -125,6 +165,8 @@ class OndaFalsa:
                     break                                  # o transporte: sem reserva, o pedido nao sai
                 rq = urllib.request.Request("http://127.0.0.1:%d/" % PORTA, headers={"Host": host})
                 SEM_PROXY.open(rq, timeout=10).read()
+                if not self.desobedece:                    # D124: o transporte regista a resposta (fecha a reserva)
+                    CA.registrar_resposta(host, 200, {}, run_id=rid, linha="TESTE")
                 feitos += 1
             d = R.PT.dominio_registavel(host)
             livro[d] = livro.get(d, 0) + feitos
@@ -192,6 +234,7 @@ class Base(unittest.TestCase):
         self.livro24 = self.tmp / "TETO-24H.json"
         self.env_antes = os.environ.get("SINTONIA_TETO_24H")
         os.environ["SINTONIA_TETO_24H"] = str(self.livro24)
+        os.environ.pop("SINTONIA_CORTESIA_LIVRO", None)            # D124: o ciclo anterior deixou-o no ambiente
         self.sala = Sala()
         self.onda = OndaFalsa(self.ledger, self.sala)
         self.robo = Robo(self.tmp / "PARAR.flag")
@@ -199,6 +242,7 @@ class Base(unittest.TestCase):
         self.ram = 12.0
 
     def tearDown(self):
+        os.environ.pop("SINTONIA_CORTESIA_LIVRO", None)
         if self.env_antes is None:
             os.environ.pop("SINTONIA_TETO_24H", None)
         else:
@@ -218,6 +262,7 @@ class Base(unittest.TestCase):
     def ciclo(self, cands, pecas=None, **kw):
         kw.setdefault("livro_24h", self.livro24)
         kw.setdefault("ligacao", _ligada)
+        kw.setdefault("janela_h", 24)                              # D124: a janela D79 LIGADA de proposito
         return C.ciclo(self.base, SHA, cands, pecas=pecas or self.pecas(), **kw)
 
     def sites(self, *rodadas):
@@ -334,11 +379,12 @@ class AgendadorPorFonte(Base):
         onda = self.onda
 
         def espia(*a):
-            visto.append(os.environ.get("SINTONIA_TETO_24H"))
+            visto.append((os.environ.get("SINTONIA_TETO_24H"), os.environ.get("SINTONIA_CORTESIA_LIVRO")))
             return onda(*a)
         r = self.ciclo(self.sites(["IT-T5-080"]), pecas=self.pecas(onda=espia))
         self.assertIsNone(r["PARA"], r)
-        self.assertEqual(visto, [str(self.livro24)])
+        # D124: os DOIS nomes (o novo manda no livro da cortesia; so o antigo partia o contador em dois)
+        self.assertEqual(visto, [(str(self.livro24), str(self.livro24))])
         self.assertEqual(_por_dominio(CONTAGEM), {"crea.test": 5})
 
     def test_feitas_do_disparador_por_rodada(self):

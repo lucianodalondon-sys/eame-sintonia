@@ -27,15 +27,15 @@ MOTOR = "regras/motor_de_rota.mjs"
 MUTANTES = [
     # ── os quatro da missao ────────────────────────────────────────────────────────────────────────
     ("TETO: o pedido ao feed nao conta (nem no livro de 24 h, nem no dominio)", COL,
-     "  if (livro24h()) {\n    const r = reservar24h(host, 1);",
-     "  if (livro24h() && !/\\/feed\\/?$/.test(url)) {\n    const r = reservar24h(host, 1);", T_LOCAL, "."),
+     "  if (livro24h()) {\n    let r;",                     # D124-REBASE: a ancora do codigo novo, o mesmo sitio
+     "  if (livro24h() && !/\\/feed\\/?$/.test(url)) {\n    let r;", T_LOCAL, "."),
     ("ROTULO: o corpo do feed sai rotulado como pagina (RAW_PRESERVED)", COL,
      'RAW_EVIDENCE_STATE: "BODY_FROM_FEED",', 'RAW_EVIDENCE_STATE: "RAW_PRESERVED",', T_LOCAL, "."),
     ("ROBOTS: ILEGIVEL passa a ser permissao", COL,
      '  if (rb.estado === "ILEGIVEL") return { recusado: "ROBOTS_ILEGIVEL", porque: rb.porque };\n', "", T_LOCAL, "."),
     ("TETO: o pedido condicional (o que volta 304) nao reserva no livro de 24 h", COL,
-     "  if (livro24h()) {\n    const r = reservar24h(host, 1);",
-     "  if (livro24h() && !condicional?.cabecalhos?.length) {\n    const r = reservar24h(host, 1);", T_LOCAL, "."),
+     "  if (livro24h()) {\n    let r;",                     # D124-REBASE: a ancora do codigo novo, o mesmo sitio
+     "  if (livro24h() && !condicional?.cabecalhos?.length) {\n    let r;", T_LOCAL, "."),
     # ── o resto das regras novas ───────────────────────────────────────────────────────────────────
     ("ROTULO: o ficheiro do corpo do feed tem nome de pagina", COL,
      "const nomeRaw = doFeed ? nomeDoCorpoDoFeed(alvo.nome) : alvo.nome;", "const nomeRaw = alvo.nome;", T_LOCAL, "."),
@@ -51,8 +51,8 @@ MUTANTES = [
      "  const re = rss ? /<content:encoded\\b[^>]*>([\\s\\S]*?)<\\/content:encoded>/i",
      "  const re = rss ? /<(?:content:encoded|description)\\b[^>]*>([\\s\\S]*?)<\\/(?:content:encoded|description)>/i", T_FEED, "."),
     ("D40: o item com corpo ocupa um dos 3 lugares de pedido", MOTOR,
-     "const aPedir = escolherAlvosD40(semCorpo, classificar, nomeDe);",
-     "const aPedir = escolherAlvosD40([...comCorpo, ...semCorpo], classificar, nomeDe);", T_FEED, "."),
+     "const aPedir = escolherAlvosD40(semCorpo, classificar, nomeDe, alvosPorFonte);",   # D124-REBASE: + alvosPorFonte
+     "const aPedir = escolherAlvosD40([...comCorpo, ...semCorpo], classificar, nomeDe, alvosPorFonte);", T_FEED, "."),
     ("LIVRO: o item com corpo ja conhecido volta a entrar", MOTOR,
      '        if (classificar(url) === "CONHECIDO") { conhecidos++; continue; }\n', "", T_FEED, "."),
     ("SITEMAP: as linhas Sitemap: deitadas fora", COL,

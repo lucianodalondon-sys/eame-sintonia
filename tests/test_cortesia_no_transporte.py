@@ -5,7 +5,11 @@ curl) contra um servidor HTTP em 127.0.0.1, sem rede externa. Quem conta os
 pedidos e o servidor. A prova morre com codigo != 0 se uma verificacao falhar;
 o red team (`provas/cortesia_red_team.mjs`) mostra que desligar cada guarda a mata.
 
-~2 minutos: a pausa minima de 1 s por host e medida a serio, nao simulada.
+~5 minutos: a pausa minima por host e medida a serio, nao simulada.
+
+D124 (dono, 27/09) — AJUSTE DECLARADO (D124-REBASE, 28/09): a pausa por omissao e o teto sem livro
+passaram a ser os da POLITICA ADAPTATIVA (classe SITE: 5 s; SEM_LIVRO: o MINIMO da classe, 5). A prova
+le-os do JSON e acrescenta o C4c (Crawl-delay 7 > 5 s da classe); o limiar de passagens sobe de 30 para 31.
 """
 import os
 import re
@@ -28,7 +32,7 @@ class TestCortesiaNoTransporte(unittest.TestCase):
         self.assertIsNotNone(m, r.stdout[-2000:] + r.stderr[-2000:])
         self.assertEqual(m.group(2), "0", r.stdout[-3000:])
         # Vazio nao passa: a prova tem de ter verificado alguma coisa.
-        self.assertGreaterEqual(int(m.group(1)), 30, r.stdout[-3000:])
+        self.assertGreaterEqual(int(m.group(1)), 31, r.stdout[-3000:])
         self.assertEqual(r.returncode, 0, r.stdout[-3000:])
 
 

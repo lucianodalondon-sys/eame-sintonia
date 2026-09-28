@@ -13,8 +13,10 @@ MUTANTES = [
     ("o portao do Scrap nao reserva", "coleta/scrap_http.py",
      "            teto.reservar(host, url=req.full_url, quem='scrap_http')\n",
      "            pass\n"),
+    # D124-REBASE: a guarda passou a estar em DOIS sitios (a leitura antes de reservar e a escrita sob o
+    # trinco), os dois contra `t_dom`; o mesmo defeito («o 6.o passa») planta-se no teto que os dois leem.
     ("o 6.o passa (>= vira >)", "coleta/teto_da_onda.py",
-     "            if gasto >= teto():\n", "            if gasto > teto():\n"),
+     "    t_dom = teto(host)\n", "    t_dom = teto(host) + 1\n"),
     ("D41 esquecida no Scrap", "coleta/teto_da_onda.py",
      'MESMO_ORCAMENTO = {"googlevideo.com": "youtube.com"}\n', "MESMO_ORCAMENTO = {}\n"),
     ("o yt-dlp corre sem freio", "ferramentas/yt_dlp_com_freio.py",
@@ -43,7 +45,7 @@ MUTANTES = [
      '    if aq.get("FASE") == "video-linkedin" and teto_linkedin is not None:\n',
      '    if False:\n'),
     ("C2: a rodada diz que cabe sempre", "curadoria/plano_onda_social.py",
-     '                     "CABE_NO_TETO": all(v <= TETO_D38 for v in prev.values())})\n',
+     '                     "CABE_NO_TETO": all(v <= teto_do_dominio(d) for d, v in prev.items())})\n',   # D124-REBASE
      '                     "CABE_NO_TETO": True})\n'),
 ]
 
