@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-28T05:31:27+00:00",
-  "HEAD": "3fc6d76df52ddab5919075594ca99e26757ef509",
-  "BRANCH": "claude/adaptive-ceiling-rebase-3ghtm0",
+  "GENERATED_AT": "2026-09-28T12:51:47+00:00",
+  "HEAD": "1a712e90cc83cd435cbe13dca75ca90c272aa7af",
+  "BRANCH": "casco-e2e-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a",
-  "FICHEIROS_NA_IMPRESSAO": 4353,
+  "SOURCE_TREE_FINGERPRINT": "c044b7a7d911511839605e06755320dabb068e9f3fd621e0812e83495476500c",
+  "FICHEIROS_NA_IMPRESSAO": 4367,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2162,7 +2162,14 @@
    {
     "PATH": "italia-portale/client/sintonia-pote-casco.js",
     "PAPEL": "FONTE",
-    "VERSAO": "0d1a3dbbb423905dc4d37a5b12810407778f0c23",
+    "VERSAO": "5c107d4f1c709cfe675f924edd2868d03b3888fe",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "italia-portale/client/sintonia-pote-publicado.js",
+    "PAPEL": "FONTE",
+    "VERSAO": "c6694d36703a47d2ae1a7a44c0d0528b3d7357d6",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5543,14 +5550,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a",
+    "VERSAO": "c044b7a7d911511839605e06755320dabb068e9f3fd621e0812e83495476500c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "1aa073c0b2e865de750c5a131859af6bf5834e3108804e28029e79c47729239a",
+    "VERSAO": "c044b7a7d911511839605e06755320dabb068e9f3fd621e0812e83495476500c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7683,6 +7690,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_publicar_portal_sozinho.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0d22ab71b5075cec2c15d69d0de566226b057586",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_qualidade_t3.py",
     "PAPEL": "FONTE",
     "VERSAO": "9bd38faaa9aab770f69be801dac3019290806bb2",
@@ -8215,8 +8229,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1168,
-  "INPUTS_DIGEST": "4a6df3f300293f209b65cba5caa28d123c0d41334156d37e3f9a8ec7f1ddc587",
+  "INPUTS_COUNT": 1170,
+  "INPUTS_DIGEST": "ac4b02844c47a3eb3663f7b58358add5ba91700575219307f92efae23f0c080c",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8242,15 +8256,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 640,
+  "DOCUMENTOS_LIDOS": 641,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e0a3cba6a775d4e1891f0c59eb9a36ca8337a8abdeea012f1a34362c5f3b7b0d",
-  "SEMANTIC_HASH": "c52fddeb942d7e98b40be15efe8dd26cca0f53947271d6f8079585e7f7044600"
+  "MEASUREMENT_HASH": "b2d861497f61757bed164beba36181d3066e5bc2fd6a2d9bd17441a549e29fb6",
+  "SEMANTIC_HASH": "722abcc23100ec26c4310831e7477914732dde16763da4453dd666675d143463"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13495,6 +13509,36 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
       "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
+    "FROM": "C-AUDIT-GERAL",
+    "TO": "C-PUBLICA-SOZINHO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+      "LINHA": 347,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+      "LINHA": 385,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -40042,6 +40086,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-PUBLICA-SOZINHO",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-PROVA-PUBLICA-SOZINHO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/portal_publica_sozinho/ensaio.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-PUBLICA-SOZINHO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-RETRY-DO-SCRAP",
     "FROM": "C-MAPA-TESTES",
     "TO": "C-PROVA-RETRY-DO-SCRAP",
@@ -40307,6 +40373,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PUBLICA-SOZINHO",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-PUBLICA-SOZINHO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+      "LINHA": 62,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PUBLICA-SOZINHO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -46917,6 +47005,66 @@
     ]
    },
    {
+    "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-PUBLICA-SOZINHO",
+    "FROM": "C-PORTAL-MODELO",
+    "TO": "C-PROVA-PUBLICA-SOZINHO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/portal_publica_sozinho/ensaio.py",
+      "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-PUBLICA-SOZINHO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/portal_publica_sozinho/mutantes.py",
+      "LINHA": 26,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-PUBLICA-SOZINHO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/portal_publica_sozinho/mutantes.py",
+      "LINHA": 95,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PROVA-PUBLICA-SOZINHO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
+    "FROM": "C-PORTAL-MODELO",
+    "TO": "C-PUBLICA-SOZINHO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+      "LINHA": 481,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
     "FROM": "C-PORTAL-MODELO",
     "TO": "C-TELA-FIELD",
@@ -46970,7 +47118,15 @@
      },
      {
       "FICHEIRO": "italia-portale/client/portale.html",
-      "LINHA": 80,
+      "LINHA": 82,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "italia-portale/client/portale.html",
+      "LINHA": 83,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TELA-FIELD",
@@ -46993,6 +47149,22 @@
      {
       "FICHEIRO": "tests/test_a_demanda_de_dados_da_italia.py",
       "LINHA": 303,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
+      "LINHA": 158,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
+      "LINHA": 464,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
@@ -50203,6 +50375,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PROVA-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
+    "FROM": "C-PROVA-PUBLICA-SOZINHO",
+    "TO": "C-PORTAL-MODELO",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "WRITE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/portal_publica_sozinho/ensaio.py",
+      "LINHA": 52,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROVA-ROTA-M2-ATRAVESSA--READS-->C-CENSO-EXECUTORES",
     "FROM": "C-PROVA-ROTA-M2-ATRAVESSA",
     "TO": "C-CENSO-EXECUTORES",
@@ -50646,6 +50840,50 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-VOCI-DAL-CAMPO--WRITES-->C-VOCI-DAL-CAMPO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PUBLICA-SOZINHO--IMPORTS-->C-TESTES",
+    "FROM": "C-PUBLICA-SOZINHO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
+      "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PUBLICA-SOZINHO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
+    "FROM": "C-PUBLICA-SOZINHO",
+    "TO": "C-PORTAL-MODELO",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "WRITE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+      "LINHA": 678,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -61108,6 +61346,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--WRITES-->C-AUDIT-GERAL",
+    "FROM": "C-TESTES",
+    "TO": "C-AUDIT-GERAL",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
+      "LINHA": 256,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-AUDIT-GERAL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--WRITES-->C-AUTORIZACAO-DE-GASTO",
     "FROM": "C-TESTES",
     "TO": "C-AUTORIZACAO-DE-GASTO",
@@ -61453,6 +61713,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PORTA-FONTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-MODELO",
+    "FROM": "C-TESTES",
+    "TO": "C-PORTAL-MODELO",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
+      "LINHA": 285,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-MODELO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -63674,12 +63956,12 @@
     ]
    }
   ],
-  "COUNT": 1810
+  "COUNT": 1820
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 236,
   "CARTOES_AUDITADOS": 236,
-  "ARESTAS_RELACIONADAS": 1810,
+  "ARESTAS_RELACIONADAS": 1820,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -64190,10 +64472,10 @@
    "CODE": 325,
    "CONTROL": 90,
    "DATA": 30,
-   "PROOF": 646,
-   "READ": 407,
+   "PROOF": 651,
+   "READ": 410,
    "RULE": 292,
-   "WRITE": 20
+   "WRITE": 22
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
@@ -64877,7 +65159,8 @@
     "system-map/scripts/censo_cards_sensores.py",
     "system-map/scripts/censo_do_congelamento.py",
     "system-map/scripts/generate_system_map.py",
-    "tests/test_adama_referencia.py"
+    "tests/test_adama_referencia.py",
+    "tests/test_publicar_portal_sozinho.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "CASCO-LEITURA.md",
@@ -64902,8 +65185,8 @@
     "the",
     "unrendered"
    ],
-   "ENTRAM": 17,
-   "SAEM": 2,
+   "ENTRAM": 18,
+   "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -69866,6 +70149,7 @@
    "DOCUMENTADO_COMO_CLI": [
     "AGENTS.md",
     "BIBLIA-CANONICA-DA-COLETA.md",
+    "PORTAL-PUBLICA-SOZINHO.md",
     "handoff/SYSTEM-MAP-FRESHNESS-V1.md",
     "system-map/README.md"
    ],
@@ -69881,7 +70165,7 @@
     "pente_fino_da_coleta"
    ],
    "ENTRAM": 29,
-   "SAEM": 127,
+   "SAEM": 129,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -70959,6 +71243,7 @@
     "italia-portale/client/italy-sala-leitura.js",
     "italia-portale/client/italy-v21.js",
     "italia-portale/client/sintonia-pote-casco.js",
+    "italia-portale/client/sintonia-pote-publicado.js",
     "italia-portale/client/support.js"
    ],
    "CHAMADORES_DE_RUNTIME": [
@@ -70967,11 +71252,14 @@
    "SO_MEDEM_ESTE": [
     "provas/_mutantes_pote_casco.py",
     "provas/demanda_de_dados_da_italia.py",
+    "provas/portal_publica_sozinho/ensaio.py",
+    "provas/portal_publica_sozinho/mutantes.py",
     "provas/pote_v2/mutantes_pote_v2_unico.py",
     "system-map/scripts/scan_casco.py",
     "system-map/scripts/scan_repo.py",
     "tests/test_a_demanda_de_dados_da_italia.py",
     "tests/test_pote_no_casco.mjs",
+    "tests/test_publicar_portal_sozinho.py",
     "tests/test_relevance_priority_sobrecarga.py",
     "tests/test_security_ratchet.py"
    ],
@@ -71069,10 +71357,12 @@
     "withered",
     "working"
    ],
-   "ENTRAM": 4,
-   "SAEM": 13,
+   "ENTRAM": 7,
+   "SAEM": 15,
    "CATEGORIAS_QUE_ENTRAM": [
-    "READ"
+    "PROOF",
+    "READ",
+    "WRITE"
    ],
    "CATEGORIAS_QUE_SAEM": [
     "DATA",
@@ -72505,6 +72795,7 @@
     "provas/independencia/mutantes.py",
     "provas/ligacao_adama/mutantes.py",
     "provas/porta_unica_referencia/mutantes.py",
+    "provas/portal_publica_sozinho/mutantes.py",
     "tests/test_motor_das_capacidades.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -73038,7 +73329,8 @@
     "provas/cap_win/mutantes.py",
     "provas/independencia/mutantes.py",
     "provas/int_r7/mutantes.py",
-    "provas/ligacao_adama/mutantes.py"
+    "provas/ligacao_adama/mutantes.py",
+    "provas/portal_publica_sozinho/mutantes.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -76052,6 +76344,7 @@
     "tests/test_prova_teto_social.py",
     "tests/test_proveniencia.py",
     "tests/test_psql_argv.py",
+    "tests/test_publicar_portal_sozinho.py",
     "tests/test_qualidade_t3.py",
     "tests/test_quarentena_naosei.py",
     "tests/test_quatro_chaves.py",
@@ -76164,6 +76457,7 @@
     "provas/onda_web_mutacao.py",
     "provas/os_portoes_da_collection.py",
     "provas/porta_unica_referencia/mutantes.py",
+    "provas/portal_publica_sozinho/mutantes.py",
     "provas/pote_v2/mutantes_pote_v2_unico.py",
     "provas/preservar_coleta_no_postgres.py",
     "provas/rastro_no_postgres.py",
@@ -76293,8 +76587,8 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 273,
-   "SAEM": 47,
+   "ENTRAM": 274,
+   "SAEM": 49,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
