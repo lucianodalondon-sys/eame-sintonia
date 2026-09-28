@@ -1,0 +1,60 @@
+{
+ "DATASET": "LAB-ROTULOS-MISSAO07-V1",
+ "QUEM_LEU": "LAB (modelo claude-opus-5-5), sozinho, ANTES de abrir as respostas dos motores",
+ "HUMAN_REVIEW": "NOT_DONE (D110: leitura de modelo nao e revisao humana)",
+ "CRITERIO": "CRITERIO-ROTULO-V1.md sha256 2e5f491f81641693b0c6228c2888e9e5a99b324c04af62c2ef8b13a0a2baf43e",
+ "SALA_HOJE": {
+  "derived:1146": {"src": "IT-T5-111 CREA", "AGRO": "DISCUTIVEL", "GAVETA_T5": "FALSO", "PORQUE": "Notte dei Ricercatori: divulgacao ao publico (alimentacao/agricultura), nao e estudo"},
+  "derived:1160": {"src": "IT-T5-056 CREA", "AGRO": "DISCUTIVEL", "GAVETA_T5": "FALSO", "PORQUE": "MESMO texto que 1146 (mesmo hash), outra URL/fonte: duplicado"},
+  "derived:1142": {"src": "IT-T5-111 CREA", "AGRO": "UTIL", "GAVETA_T5": "UTIL", "PORQUE": "cocciniglia tartaruga do pinheiro, 1a soltura experimental de antagonista; fitossanitario (EPPO, servicos fitossanitarios); tambem T3"},
+  "derived:1149": {"src": "IT-T5-111 CREA", "AGRO": "UTIL", "GAVETA_T5": "UTIL", "PORQUE": "Xylella/oliveira, resultados de projetos; tambem T3. Entrou por 'tesi' dentro de 'attesi'"},
+  "derived:1148": {"src": "IT-T5-111 CREA", "AGRO": "UTIL", "GAVETA_T5": "DISCUTIVEL", "PORQUE": "CREA na Macfrut (feira tecnica agro, D62 evento tecnico); nao e estudo"},
+  "derived:1144": {"src": "IT-T5-111 CREA", "AGRO": "DISCUTIVEL", "GAVETA_T5": "FALSO", "PORQUE": "nomeacao de diretores (institucional)"},
+  "derived:1145": {"src": "IT-T5-111 CREA", "AGRO": "UTIL", "GAVETA_T5": "DISCUTIVEL", "PORQUE": "Plano Nacional Sementes Biologicas + estufa; entrou por 'revista' dentro de 'prevista'"},
+  "derived:1151": {"src": "IT-T5-113 CREA", "AGRO": "DISCUTIVEL", "GAVETA_T5": "UTIL", "PORQUE": "cardo-mariano (planta medicinal/cultura industrial), quimiotipos/genoma: ciencia, agro lateral"},
+  "derived:1153": {"src": "IT-T5-113 CREA", "AGRO": "DISCUTIVEL", "GAVETA_T5": "FALSO", "PORQUE": "Notte dei Ricercatori no CREA DC Firenze: divulgacao (com demonstracoes fitossanitarias)"},
+  "derived:1152": {"src": "IT-T5-113 CREA", "AGRO": "UTIL", "GAVETA_T5": "UTIL", "PORQUE": "congresso de acarologia: agroecossistemas e defesa de culturas"},
+  "derived:1174": {"src": "IT-T5-185 ENEA", "AGRO": "NAO", "GAVETA_T5": "FALSO", "PORQUE": "FAIRMODE qualidade do ar (Copenhague)"},
+  "derived:1166": {"src": "IT-T5-185 ENEA", "AGRO": "NAO", "GAVETA_T5": "FALSO", "PORQUE": "ecodesign / economia circular industrial"},
+  "derived:1167": {"src": "IT-T5-185 ENEA", "AGRO": "DISCUTIVEL", "GAVETA_T5": "FALSO", "PORQUE": "viveiro florestal e clima (silvicultura, nao agricultura)"},
+  "derived:1163": {"src": "IT-T5-185 ENEA", "AGRO": "NAO", "GAVETA_T5": "FALSO", "PORQUE": "Conferencia Nacional Polar"},
+  "derived:1179": {"src": "IT-T5-185 ENEA", "AGRO": "NAO", "GAVETA_T5": "FALSO", "PORQUE": "workshop qualidade do ar na Italia"},
+  "derived:1161": {"src": "IT-T5-185 ENEA", "AGRO": "NAO", "GAVETA_T5": "FALSO", "PORQUE": "radiacao ionizante / meduloblastoma (NanoInnovation)"},
+  "derived:1162": {"src": "IT-T5-185 ENEA", "AGRO": "NAO", "GAVETA_T5": "FALSO", "PORQUE": "biomedicina espacial, radiacao cosmica no cerebro"},
+  "derived:1178": {"src": "IT-T5-185 ENEA", "AGRO": "DISCUTIVEL", "GAVETA_T5": "FALSO", "PORQUE": "Research Week UniBa: pesquisa generica, etiqueta Agroalimentare"},
+  "derived:1172": {"src": "IT-T5-185 ENEA", "AGRO": "DISCUTIVEL", "GAVETA_T5": "FALSO", "PORQUE": "INNOVA EXPO Lecce: feira de inovacao generica, etiqueta Agroalimentare"},
+  "derived:1181": {"src": "IT-T5-186 ENEA", "AGRO": "NAO", "GAVETA_T5": "FALSO", "PORQUE": "ICOS carbono, CO2 ar-mar"},
+  "derived:1185": {"src": "IT-T5-186 ENEA", "AGRO": "NAO", "GAVETA_T5": "FALSO", "PORQUE": "NanoInnovation 2026 (nanotecnologia)"},
+  "derived:1183": {"src": "IT-T5-186 ENEA", "AGRO": "NAO", "GAVETA_T5": "FALSO", "PORQUE": "webinar comunicar sustentabilidade / ecodesign"},
+  "derived:1206": {"src": "IT-T10-022 zootecnica", "AGRO": "UTIL", "GAVETA_T10": "DISCUTIVEL", "PORQUE": "FEFAC x Sindiracoes (racao): cooperacao/regulatorio, comercio so de passagem"},
+  "derived:1207": {"src": "IT-T10-022 zootecnica", "AGRO": "UTIL", "GAVETA_T10": "UTIL", "PORQUE": "Indonesia: racao, preco do frango, importacao de farelo de soja"},
+  "derived:1204": {"src": "IT-T10-022 zootecnica", "AGRO": "UTIL", "GAVETA_T10": "UTIL", "PORQUE": "Indonesia: exportacao de frango"}
+ },
+ "REROUTE_SIM": {
+  "derived:1189": {"U": "T10", "ROTULO": "UTIL", "PORQUE": "leite: custo 58 c x preco pago 49 c (Cia Veneto)"},
+  "derived:1187": {"U": "T10", "ROTULO": "UTIL", "PORQUE": "Cia Calabria: custos, precos na origem, preco minimo, importacao extra-UE"}
+ },
+ "REROUTE_RETIDO": {
+  "derived:1191": {"U": "T5", "ROTULO": "FALSO", "PORQUE": "convegno de Donne in Campo (graos/seguranca alimentar), nao e ciencia"},
+  "derived:1193": {"U": "T5", "ROTULO": "FALSO", "PORQUE": "convegno sobre mulheres rurais"},
+  "derived:1192": {"U": "T5", "ROTULO": "FALSO", "PORQUE": "assembleia/aliancas de Donne in Campo"},
+  "derived:1197": {"U": "T5", "ROTULO": "FALSO", "PORQUE": "assembleia nacional Donne in Campo"},
+  "derived:1198": {"U": "T7", "ROTULO": "DISCUTIVEL", "PORQUE": "Invitalia visita Melinda (consorcio de cooperativas); investimento, nao assistencia tecnica"}
+ },
+ "AMOSTRA_NAO": {
+  "derived:1199": {"DEVIA_ENTRAR": "SIM", "ONDE": "T1/T10 (avela: area, producao, clima extremo)", "PAROU_EM": "materia (QUARENTENA D11)"},
+  "derived:1200": {"DEVIA_ENTRAR": "NAO", "PORQUE": "festa gastronomica"},
+  "derived:1202": {"DEVIA_ENTRAR": "DISCUTIVEL", "PORQUE": "desperdicio alimentar (consumo)"},
+  "derived:1203": {"DEVIA_ENTRAR": "NAO", "PORQUE": "e-commerce de empresa"},
+  "derived:1195": {"DEVIA_ENTRAR": "SIM", "ONDE": "T10/T12 (dados Ismea do biologico, evento Masaf)", "PAROU_EM": "pedido T7 = NAO; reroute nenhuma gaveta"},
+  "derived:1190": {"DEVIA_ENTRAR": "NAO", "PORQUE": "eleicao interna de associacao"},
+  "derived:1188": {"DEVIA_ENTRAR": "NAO", "PORQUE": "itinerario gastronomico de festival"},
+  "derived:1205": {"DEVIA_ENTRAR": "SIM", "ONDE": "T4 (regras UE para granjas grandes, IED 2.0)", "PAROU_EM": "corpo nao separavel; T4 so 1 palavra"},
+  "derived:1134": {"DEVIA_ENTRAR": "SIM", "ONDE": "T4/T12 (registo obrigatorio de tratamentos 2026)", "PAROU_EM": "T12 sem regua; texto so a pergunta (paywall)"},
+  "derived:1140": {"DEVIA_ENTRAR": "SIM", "ONDE": "T12 (PAC, sancao de rotacao)", "PAROU_EM": "T12 sem regua"},
+  "derived:1157": {"DEVIA_ENTRAR": "SIM", "ONDE": "T5/evento tecnico (SOIL Date CREA+Coldiretti)", "PAROU_EM": "pedido T5 NAO_SEI; reroute corpo nao separavel"},
+  "derived:1143": {"DEVIA_ENTRAR": "DISCUTIVEL", "PORQUE": "maquinas para trigo no Egito (cooperacao)"},
+  "derived:1173": {"DEVIA_ENTRAR": "NAO", "PORQUE": "compositos/energia"},
+  "derived:1177": {"DEVIA_ENTRAR": "DISCUTIVEL", "PORQUE": "qualidade da agua / seguranca alimentar (SPECTRA)"}
+ }
+}
