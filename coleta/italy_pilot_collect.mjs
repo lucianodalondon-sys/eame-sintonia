@@ -686,7 +686,7 @@ function guardarRobots24h(origens, rb, { agora = Date.now() / 1000 } = {}) {
   try { d = JSON.parse(readFileSync(f, "utf8")); } catch { d = {}; }
   const R = (d && typeof d.ROBOTS === "object" && d.ROBOTS) || {};
   for (const [o, e] of Object.entries(R)) if (!(Number(e?.EM) > agora - 2 * JANELA_24H_S)) delete R[o];
-  for (const o of origens)
+  for (const o of origens) if (o)
     R[o] = { ESTADO: rb.estado, EM: agora, ORIGEM_LIDA: rb.origemLida || null, PORQUE: rb.porque,
              ...(rb.estado === "LIDO" ? { TEXTO: rb.texto } : {}) };
   // rename por cima: dois processos a escrever ao mesmo tempo perdem, no pior caso, uma entrada — e
@@ -712,7 +712,7 @@ async function licenca(url) {
     else {
       rb = await robotsDaOrigem(u.origin);
       if (rb.recusado) return rb;
-      guardarRobots24h([...new Set([u.origin, rb.origemLida].filter(Boolean))], rb);
+      guardarRobots24h([u.origin, rb.origemLida], rb);
     }
     // INDISPONIVEL nao fica em cache (a regra de scrap_http.permitido).
     // Guarda-se para a origem pedida E para a origem cujo ficheiro se leu no fim
