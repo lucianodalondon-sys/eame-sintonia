@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-28T01:04:53+00:00",
-  "HEAD": "4f2fe539fc0b6abed6d1145f0ecda4ec3c3e0502",
+  "GENERATED_AT": "2026-09-28T01:16:26+00:00",
+  "HEAD": "a8db4c3e57bf674db2d53771cfddc055eb7a81c1",
   "BRANCH": "claude/lote8-integra-zobt7p",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "e3e930a1983fb81e73b43e0e819c8a09c5597031219cb1a4094144bdf7062daf",
-  "FICHEIROS_NA_IMPRESSAO": 4327,
+  "SOURCE_TREE_FINGERPRINT": "872e690dca76bd9df3a948c673feebc8ed79eaff49e97c1ad8122c6c82b8f5eb",
+  "FICHEIROS_NA_IMPRESSAO": 4328,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -790,7 +790,7 @@
    {
     "PATH": "coleta/social_por_url_achado.py",
     "PAPEL": "FONTE",
-    "VERSAO": "ed2a35267f4fd7079a88215bc24a91927d5c0e96",
+    "VERSAO": "78e282e63c0fcee6d4669616e8de3fa5ee300e60",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3954,7 +3954,7 @@
    {
     "PATH": "provas/lote8_integra/mutacao_lote8.py",
     "PAPEL": "FONTE",
-    "VERSAO": "4f794ed53bbbed6e6d3f1c94e6fb709a8c743a94",
+    "VERSAO": "0fd9fe749eeedd8138432c501ef7adddec94d1bc",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -4927,7 +4927,7 @@
    {
     "PATH": "regras/paridade_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "d9d722293b2694e72f05198ae9366ac55bcfaac4",
+    "VERSAO": "5f61cd3568d454bdf2d8b6334db306c18d20c4f4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5494,14 +5494,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e3e930a1983fb81e73b43e0e819c8a09c5597031219cb1a4094144bdf7062daf",
+    "VERSAO": "872e690dca76bd9df3a948c673feebc8ed79eaff49e97c1ad8122c6c82b8f5eb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e3e930a1983fb81e73b43e0e819c8a09c5597031219cb1a4094144bdf7062daf",
+    "VERSAO": "872e690dca76bd9df3a948c673feebc8ed79eaff49e97c1ad8122c6c82b8f5eb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8153,7 +8153,7 @@
    }
   ],
   "INPUTS_COUNT": 1159,
-  "INPUTS_DIGEST": "0cd32d01be42fe54a9bb9e408e8072c046567c62d3c0b870b836cb297ff550ab",
+  "INPUTS_DIGEST": "bd11e3bdc33dcaf51d292063365e37ef25952f5874c682d2bd9d645a04790eef",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8186,8 +8186,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "5de131819be0d910b065e8ec0cd3d8bf30dcacd1663356e9881d193b20b5ce4c",
-  "SEMANTIC_HASH": "58cf40810c03dcf5dc1cfd3e903abbdcc6d823c5efc9472c1a0801b26d324492"
+  "MEASUREMENT_HASH": "fe00af653603244bf2b73ecde4ff62ffe07c405133f71175641820bf3f2e5485",
+  "SEMANTIC_HASH": "133207c197f0955416d78351632dd1f60c3184bab72429409605d54e3f1cb2ad"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -16545,28 +16545,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-T2-BOLETINS",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-SOCIAL-POR-URL-ACHADO",
-    "FROM": "C-CENSO-UNIFICACAO",
-    "TO": "C-SOCIAL-POR-URL-ACHADO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "coleta/social_por_url_achado.py",
-      "LINHA": 122,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-SOCIAL-POR-URL-ACHADO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -31677,6 +31655,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/lote8_integra/mutacao_lote8.py",
+      "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/so_a_colheita_atravessa.py",
       "LINHA": 124,
       "SUPPORTS": "YES",
@@ -34187,6 +34173,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-COLETA",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/lote8_integra/mutacao_lote8.py",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-PARIDADE",
     "FROM": "C-IT-NORMALIZACAO",
     "TO": "C-PROVA-PARIDADE",
@@ -35592,7 +35600,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/paridade_test.mjs",
-      "LINHA": 302,
+      "LINHA": 306,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-IT-NORMALIZACAO",
@@ -35892,7 +35900,7 @@
      },
      {
       "FICHEIRO": "provas/lote8_integra/mutacao_lote8.py",
-      "LINHA": 58,
+      "LINHA": 59,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-PROVA-COLETA",
@@ -42184,7 +42192,7 @@
      },
      {
       "FICHEIRO": "provas/lote8_integra/mutacao_lote8.py",
-      "LINHA": 60,
+      "LINHA": 61,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
@@ -45661,7 +45669,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/social_por_url_achado.py",
-      "LINHA": 314,
+      "LINHA": 319,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTA-FONTE--IMPORTS-->C-SOCIAL-POR-URL-ACHADO",
@@ -45859,28 +45867,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-ROTAS-REAIS",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PORTA-FONTE--READS-->C-SOCIAL-POR-URL-ACHADO",
-    "FROM": "C-PORTA-FONTE",
-    "TO": "C-SOCIAL-POR-URL-ACHADO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "coleta/social_por_url_achado.py",
-      "LINHA": 124,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PORTA-FONTE--READS-->C-SOCIAL-POR-URL-ACHADO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -58469,6 +58455,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-SOCIAL-POR-URL-ACHADO--READS-->C-PROVA-COLETA",
+    "FROM": "C-SOCIAL-POR-URL-ACHADO",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/lote8_integra/mutacao_lote8.py",
+      "LINHA": 70,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SOCIAL-POR-URL-ACHADO--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-SOCIAL-POR-URL-ACHADO--READS-->C-PROVA-ROTAS-REAIS",
     "FROM": "C-SOCIAL-POR-URL-ACHADO",
     "TO": "C-PROVA-ROTAS-REAIS",
@@ -60336,28 +60344,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-SEGUIR-PESQUISADORES",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-TESTES--READS-->C-SOCIAL-POR-URL-ACHADO",
-    "FROM": "C-TESTES",
-    "TO": "C-SOCIAL-POR-URL-ACHADO",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "coleta/social_por_url_achado.py",
-      "LINHA": 123,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-SOCIAL-POR-URL-ACHADO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -63017,12 +63003,12 @@
     ]
    }
   ],
-  "COUNT": 1793
+  "COUNT": 1792
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 234,
   "CARTOES_AUDITADOS": 234,
-  "ARESTAS_RELACIONADAS": 1793,
+  "ARESTAS_RELACIONADAS": 1792,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -63297,6 +63283,7 @@
    "C-VOCI-DAL-CAMPO"
   ],
   "SO_CLI_DOCUMENTADO": [
+   "C-ACERVO-NA-INTELLIGENCE",
    "C-AUDIT-GERAL",
    "C-BLOQUEADAS-DESTRAVAR",
    "C-CANAIS-41",
@@ -63313,6 +63300,7 @@
    "C-ELEGIBILIDADE-COMENTARIO",
    "C-ESTRADAS-IT",
    "C-IT-INCREMENTALIDADE",
+   "C-IT-NORMALIZACAO",
    "C-LASTMILE",
    "C-LASTMILE-MEDIDORES",
    "C-LEITOR-DATA-YT",
@@ -63529,8 +63517,8 @@
    "CODE": 317,
    "CONTROL": 90,
    "DATA": 31,
-   "PROOF": 637,
-   "READ": 406,
+   "PROOF": 638,
+   "READ": 404,
    "RULE": 292,
    "WRITE": 20
   },
@@ -63565,7 +63553,9 @@
     "provas/acervo_na_intelligence/mutantes.py",
     "provas/lote8_integra/mutacao_lote8.py"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "LOTE8-INTEGRA.md"
+   ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
@@ -65177,7 +65167,7 @@
     "telemetria_do_curador"
    ],
    "ENTRAM": 10,
-   "SAEM": 24,
+   "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -67905,6 +67895,7 @@
     "provas/feed_local.mjs",
     "provas/italy_pilot_negativos.mjs",
     "provas/janela_formas/pagina_boletim_local.mjs",
+    "provas/lote8_integra/mutacao_lote8.py",
     "provas/mutacao_referencia_manutencao.py",
     "provas/nome_da_pasta_windows.mjs",
     "provas/o_cutover_nao_vaza.py",
@@ -68084,6 +68075,7 @@
     "BIBLIA-CANONICA-DA-COLETA.md",
     "FEED-LIGADO.md",
     "INTEGRA-NOITE-LOTE1.md",
+    "LOTE8-INTEGRA.md",
     "RELATORIO-CAPA-MATERIA.md",
     "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
     "ferramentas/integra_onda2/PLANO-INSTALACAO-INTEGRA-ONDA2.md",
@@ -68216,23 +68208,27 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/boletins_data_local/testes_por_nome.py",
+    "provas/lote8_integra/mutacao_lote8.py",
     "provas/paridade_red_team.mjs",
     "provas/recollection_red_team.mjs",
     "provas/recollection_red_team_estrito.mjs"
    ],
-   "DOCUMENTADO_COMO_CLI": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "LOTE8-INTEGRA.md"
+   ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 4,
-   "SAEM": 11,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
+    "PROOF",
     "RULE"
    ],
    "PORQUE_SOZINHO": null,
@@ -70149,7 +70145,7 @@
     "pathlib"
    ],
    "ENTRAM": 1,
-   "SAEM": 14,
+   "SAEM": 13,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -70967,6 +70963,7 @@
     "provas/lote6_integra/BATERIA-RAMO.json",
     "provas/lote6_integra/MUTACAO-JUNCAO.json",
     "provas/lote6_integra/mutacao_juncao.py",
+    "provas/lote8_integra/MUTACAO-JUNCOES-LOTE8.json",
     "provas/lote8_integra/mutacao_lote8.py",
     "provas/medir_admission_t3_atual.py",
     "provas/medir_source_id_wiring_gap.py",
@@ -71215,7 +71212,7 @@
     "unnest",
     "urllib"
    ],
-   "ENTRAM": 102,
+   "ENTRAM": 104,
    "SAEM": 23,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -73272,7 +73269,8 @@
     "provas/mutacao_referencia_manutencao.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "LOTE7-INTEGRA.md"
+    "LOTE7-INTEGRA.md",
+    "LOTE8-INTEGRA.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -74657,7 +74655,8 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
-    "provas/_mutantes_social_ate_a_sala.py"
+    "provas/_mutantes_social_ate_a_sala.py",
+    "provas/lote8_integra/mutacao_lote8.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -74670,12 +74669,11 @@
     "datetime",
     "pathlib"
    ],
-   "ENTRAM": 5,
-   "SAEM": 2,
+   "ENTRAM": 2,
+   "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
-    "PROOF",
-    "READ"
+    "PROOF"
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
@@ -75471,7 +75469,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 269,
-   "SAEM": 47,
+   "SAEM": 46,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

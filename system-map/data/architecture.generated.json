@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/lote8-integra-zobt7p",
-    "HEAD": "4f2fe539fc0b6abed6d1145f0ecda4ec3c3e0502",
-    "GENERATED_AT": "2026-09-28T01:02:57+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e3e930a1983fb81e73b43e0e819c8a09c5597031219cb1a4094144bdf7062daf"
+    "HEAD": "a8db4c3e57bf674db2d53771cfddc055eb7a81c1",
+    "GENERATED_AT": "2026-09-28T01:14:10+00:00",
+    "SOURCE_TREE_FINGERPRINT": "872e690dca76bd9df3a948c673feebc8ed79eaff49e97c1ad8122c6c82b8f5eb"
   },
   "FILES": [
     {
@@ -542,7 +542,7 @@
     },
     {
       "path": "LOTE8-INTEGRA.md",
-      "sha": "05e7fd571b00af754de54e8db50741fb649435a3",
+      "sha": "43c542d737f0dd9e289cf8642a1273e408e05e02",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2761,7 +2761,7 @@
     },
     {
       "path": "coleta/social_por_url_achado.py",
-      "sha": "ed2a35267f4fd7079a88215bc24a91927d5c0e96",
+      "sha": "78e282e63c0fcee6d4669616e8de3fa5ee300e60",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -3741,7 +3741,7 @@
     },
     {
       "path": "curadoria/desbloquear_social.py",
-      "sha": "9cab086ebfd1a13b401491635587e894d38245cd",
+      "sha": "149dcdff634d40349bbed50e89f7497e3f77831e",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -21891,8 +21891,15 @@
       "code_dir": true
     },
     {
+      "path": "provas/lote8_integra/MUTACAO-JUNCOES-LOTE8.json",
+      "sha": "5abd882142ef35ef448ce12194f5b337358d6bde",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/lote8_integra/mutacao_lote8.py",
-      "sha": "4f794ed53bbbed6e6d3f1c94e6fb709a8c743a94",
+      "sha": "0fd9fe749eeedd8138432c501ef7adddec94d1bc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23488,7 +23495,7 @@
     },
     {
       "path": "regras/paridade_test.mjs",
-      "sha": "d9d722293b2694e72f05198ae9366ac55bcfaac4",
+      "sha": "5f61cd3568d454bdf2d8b6334db306c18d20c4f4",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -34875,46 +34882,13 @@
     },
     {
       "from_file": "coleta/social_por_url_achado.py",
-      "to_file": "candidatas/FONTES-CANDIDATAS.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "coleta/social_por_url_achado.py",
-        "line": 124,
-        "snippet": "\"FILA\": _ler(raiz / \"candidatas\" / \"FONTES-CANDIDATAS.json\")}"
-      }
-    },
-    {
-      "from_file": "coleta/social_por_url_achado.py",
       "to_file": "candidatas/fonte_nova.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_por_url_achado.py",
-        "line": 314,
+        "line": 319,
         "snippet": "import fonte_nova as FN                                          # noqa: PLC0415"
-      }
-    },
-    {
-      "from_file": "coleta/social_por_url_achado.py",
-      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "coleta/social_por_url_achado.py",
-        "line": 123,
-        "snippet": "\"ALLOC\": _ler(raiz / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\"),"
-      }
-    },
-    {
-      "from_file": "coleta/social_por_url_achado.py",
-      "to_file": "curadoria/italy_contracts_curator.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "coleta/social_por_url_achado.py",
-        "line": 122,
-        "snippet": "return {\"CONTRATOS\": _ler(raiz / \"curadoria\" / \"italy_contracts_curator.json\"),"
       }
     },
     {
@@ -36602,13 +36576,35 @@
     },
     {
       "from_file": "curadoria/desbloquear_social.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/desbloquear_social.py",
+        "line": 58,
+        "snippet": "\"FILA\": ler(raiz / \"candidatas\" / \"FONTES-CANDIDATAS.json\")}"
+      }
+    },
+    {
+      "from_file": "curadoria/desbloquear_social.py",
       "to_file": "candidatas/fonte_nova.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/desbloquear_social.py",
-        "line": 72,
+        "line": 83,
         "snippet": "import fonte_nova as FN"
+      }
+    },
+    {
+      "from_file": "curadoria/desbloquear_social.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/desbloquear_social.py",
+        "line": 57,
+        "snippet": "\"ALLOC\": ler(raiz / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\"),"
       }
     },
     {
@@ -36618,8 +36614,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/desbloquear_social.py",
-        "line": 80,
+        "line": 91,
         "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/desbloquear_social.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/desbloquear_social.py",
+        "line": 56,
+        "snippet": "return {\"CONTRATOS\": ler(raiz / \"curadoria\" / \"italy_contracts_curator.json\"),"
       }
     },
     {
@@ -36629,7 +36636,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/desbloquear_social.py",
-        "line": 82,
+        "line": 93,
         "snippet": "import lifecycle as LC"
       }
     },
@@ -36640,7 +36647,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/desbloquear_social.py",
-        "line": 125,
+        "line": 136,
         "snippet": "import worker as W"
       }
     },
@@ -72990,13 +72997,35 @@
     },
     {
       "from_file": "provas/lote8_integra/mutacao_lote8.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote8_integra/mutacao_lote8.py",
+        "line": 63,
+        "snippet": "(\"D1_download_do_alvo_antes_da_decisao\", \"coleta/italy_pilot_collect.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/lote8_integra/mutacao_lote8.py",
       "to_file": "coleta/linha_busca.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "provas/lote8_integra/mutacao_lote8.py",
-        "line": 58,
+        "line": 59,
         "snippet": "(\"B1_busca_sem_a_conta_no_reel\", \"coleta/linha_busca.py\","
+      }
+    },
+    {
+      "from_file": "provas/lote8_integra/mutacao_lote8.py",
+      "to_file": "coleta/social_por_url_achado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote8_integra/mutacao_lote8.py",
+        "line": 70,
+        "snippet": "(\"S1_coleta_volta_a_ler_o_registo_do_curador\", \"coleta/social_por_url_achado.py\","
       }
     },
     {
@@ -73006,7 +73035,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/lote8_integra/mutacao_lote8.py",
-        "line": 60,
+        "line": 61,
         "snippet": "(\"L1_linha_entra_so_por_o_ficheiro_existir\", \"ferramentas/big_collection/coleta_continua.py\","
       }
     },
@@ -73030,6 +73059,39 @@
         "file": "provas/lote8_integra/mutacao_lote8.py",
         "line": 25,
         "snippet": "ACERVO = \"pacote/acervo_na_intelligence.py\""
+      }
+    },
+    {
+      "from_file": "provas/lote8_integra/mutacao_lote8.py",
+      "to_file": "provas/lote8_integra/MUTACAO-JUNCOES-LOTE8.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote8_integra/mutacao_lote8.py",
+        "line": 23,
+        "snippet": "SAIDA = os.path.join(RAIZ, \"provas\", \"lote8_integra\", \"MUTACAO-JUNCOES-LOTE8.json\")"
+      }
+    },
+    {
+      "from_file": "provas/lote8_integra/mutacao_lote8.py",
+      "to_file": "provas/lote8_integra/MUTACAO-JUNCOES-LOTE8.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote8_integra/mutacao_lote8.py",
+        "line": 144,
+        "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\") as h:"
+      }
+    },
+    {
+      "from_file": "provas/lote8_integra/mutacao_lote8.py",
+      "to_file": "regras/paridade_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/lote8_integra/mutacao_lote8.py",
+        "line": 31,
+        "snippet": "T_PARIDADE = [\"node\", \"regras/paridade_test.mjs\"]"
       }
     },
     {
@@ -81619,7 +81681,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 302,
+        "line": 306,
         "snippet": "const { replay } = await import(\"../medidas/paridade_replay.mjs\");"
       }
     },
@@ -111355,7 +111417,7 @@
     "provas/lote8_integra/mutacao_lote8.py": [
       {
         "pasta": "provas/lote8_integra",
-        "line": 130,
+        "line": 144,
         "constante": "SAIDA"
       }
     ],
@@ -111609,10 +111671,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4179,
+    "files_tracked": 4180,
     "files_readable": 1757,
-    "files_code_dir": 2157,
-    "file_edges": 7426,
+    "files_code_dir": 2158,
+    "file_edges": 7431,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
