@@ -289,6 +289,8 @@ def conferir_telas(contagens: dict, pote: dict, sha: str, contrato: dict, rotulo
                 leg.append(f"{t}: {c} = {m.get(c)}")
         if t in contrato["TELAS"]["DO_POTE"] and not m.get("LEGADO_43_UNIVERSO"):
             leg.append(f"{t}: o universo dos 43 nao foi lido — o detector nao mediu")
+        if t in contrato["TELAS"]["DO_POTE"] and m.get("OGGI_LEGADO") is not False:
+            leg.append(f"{t}: a caixa «oggi» do pacote de 02/09 continua na barra (ou nao foi medida)")
     L.append(linha(f"{rotulo}_D122_LEGADO_ESCONDIDO", not leg, leg[:15] or ["nenhum dos 43 nem dos 44 antigos nas telas do portal"]))
 
     # D122 — a barra conta o pote (o numero do legado nao fica ao lado)

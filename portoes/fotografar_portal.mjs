@@ -81,6 +81,8 @@ const MEDIR = (conhecidos) => {
     POTE_RECUSADO: !!document.querySelector('[data-pote-recusado]'),
     MARCA: !!document.querySelector('[data-view="pote"] [data-marca]'),
     LEGADO_CARTOES: document.querySelectorAll('[data-meeting-case],[data-case],[data-itfc]').length,
+    /* a caixa «oggi» da barra (as janelas do pacote de 02/09) */
+    OGGI_LEGADO: !!document.querySelector('[data-oggi-legado]'),
     /* o contador de cada voz da barra, pela rota que ela abre (data-nav-view) */
     NAV: [...document.querySelectorAll('[data-nav-view]')].reduce((a, n) => {
       const v = n.getAttribute('data-nav-view'); const spans = n.querySelectorAll('span');
@@ -115,21 +117,20 @@ for (const tela of TELAS) {
       await page.waitForSelector('[data-view="pote"],[data-meeting-case],[data-case],main,body', { timeout: 15000 }).catch(() => {});
     }
     await page.waitForTimeout(900);
-    /* Rota que o endereco nao abre (o casco so aceita as de primeiro nivel): clica-se a voz da barra que a
-       abre. Se nem essa existir, mede-se o que abriu — e a contagem diz o resto. */
+    /* O endereco so abre as rotas de primeiro nivel, e uma que ele nao aceite fica com o fragmento certo e
+       a vista errada (medido: #field desenhava o radar). Por isso, havendo voz da barra para a tela, CLICA-SE
+       nela — e o caminho do leitor. Se nem essa existir, mede-se o que abriu, e a contagem diz o resto. */
+    let clicou = false;
     if (!PAGINAS[tela]) {
-      const h = await page.evaluate(() => location.hash);
-      if (h !== '#' + tela) {
-        const clicou = await page.evaluate((t) => { const n = document.querySelector('[data-nav-view="' + t + '"]');
-          if (!n) return false; n.click(); return true; }, tela);
-        if (clicou) await page.waitForTimeout(900);
-      }
+      clicou = await page.evaluate((t) => { const n = document.querySelector('[data-nav-view="' + t + '"]');
+        if (!n) return false; n.click(); return true; }, tela);
+      if (clicou) await page.waitForTimeout(900);
     }
     const medido = await page.evaluate(MEDIR, conhecidos);
     const { IDS, ...m } = medido;
     if (IDS && IDS.ids43.length && !conhecidos) conhecidos = IDS;
     await page.screenshot({ path: path.join(SAIDA, `${tela}.png`), fullPage: false });
-    res.TELAS[tela] = { URL: url, HTTP: status, ...m, ERROS_JS: erros.slice(antes) };
+    res.TELAS[tela] = { URL: url, HTTP: status, CLICOU_NA_BARRA: clicou, ...m, ERROS_JS: erros.slice(antes) };
     if (status !== 200) falhou = true;
   } catch (e) {
     res.TELAS[tela] = { URL: url, HTTP: null, NAO_CONSEGUI_MEDIR: String(e.message || e).slice(0, 300) };
