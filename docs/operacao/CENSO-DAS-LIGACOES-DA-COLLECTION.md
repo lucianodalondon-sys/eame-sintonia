@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  35aa7694d30fce7d49cd1f9cf1f6fd661cb5d432
+HEAD_DA_MEDICAO  586c9eacb510e1e9f6c037c26c8d783cf31640d8
 BRANCH           claude/autonomous-pipeline-closure-rebase-h6fxjn
-GERADO_EM        2026-09-28T04:55:37+00:00
+GERADO_EM        2026-09-28T05:53:38+00:00
 CARDS            129
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
