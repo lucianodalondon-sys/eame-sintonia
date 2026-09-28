@@ -1,0 +1,239 @@
+{
+ "QUANDO": "2026-09-28T23:47:19.286533+00:00",
+ "BASE_DA_ARVORE": "ver git rev-parse HEAD no relatorio",
+ "PASSOS": {
+  "0_MIGRATIONS": {
+   "CODIGO": 0,
+   "PASS": 34
+  },
+  "1_SEMEAR": {
+   "SINT-R7-SALA-1": {
+    "ESTADO": "PASSED",
+    "INSERIDAS": 5
+   },
+   "SINT-R7-SALA-T6": {
+    "ESTADO": "PASSED",
+    "INSERIDAS": 3
+   },
+   "L2-REPETIDO-2026-09-28": {
+    "ESTADO": "PASSED",
+    "INSERIDAS": 1
+   },
+   "L2-ITEM-NOVO-2026-09-28-10": {
+    "ESTADO": "PASSED",
+    "INSERIDAS": 1
+   }
+  },
+  "1_ITEM_ID_REPETIDO_NA_VISTA": [
+   [
+    "SINT-R7-APOL-38-BRLE#0",
+    "2"
+   ]
+  ],
+  "2_DOIS_DISPAROS_TRINCO": {
+   "ACCAO": "OCUPADO",
+   "SALA_IGUAL": true,
+   "COPIA_FEITA": false
+  },
+  "3_ITEM_NOVO_DISPARA": {
+   "ACCAO": "POTE_NAO_SUBIU",
+   "GATILHO": "DEZ_OU_MAIS_NOVOS (10)",
+   "SUBIU": false,
+   "PORQUE": "POTE_REPROVADO",
+   "CORRIDA": "IR-5347cebb903af8380ea5",
+   "VIOLACOES": 7,
+   "PRIMEIRAS": [
+    "$.COMPARTIMENTOS.future.OBJETOS[0].ENTITY_SOURCE: devia ser string",
+    "$.COMPARTIMENTOS.windows.OBJETOS[0].ENTITY_SOURCE: devia ser string",
+    "$.COMPARTIMENTOS.science.OBJETOS[0].ENTITY_SOURCE: devia ser string",
+    "$.COMPARTIMENTOS.science.OBJETOS[1].ENTITY_SOURCE: devia ser string",
+    "$.COMPARTIMENTOS.sources.OBJETOS[0].ENTITY_SOURCE: devia ser string",
+    "$.COMPARTIMENTOS.sources.OBJETOS[1].ENTITY_SOURCE: devia ser string",
+    "$.COMPARTIMENTOS.sources.OBJETOS[2].ENTITY_SOURCE: devia ser string"
+   ],
+   "CORTE": {
+    "LINHAS_NO_EXPORT": 10,
+    "LINHAS_NO_CORTE": 9,
+    "DEFEITO_NA_SALA": true,
+    "ITEM_ID_REPETIDO": [
+     "SINT-R7-APOL-38-BRLE#0"
+    ],
+    "REPETIDO_SEM_HORA_LEGIVEL": [],
+    "ITEM_ID_SEM_IDENTIDADE": 0
+   }
+  },
+  "3_SALA_IGUAL_ANTES_E_DEPOIS": true,
+  "3_SALA": {
+   "LINHAS": 10,
+   "CONSUMIDO_EM_PREENCHIDO": 0,
+   "MD5": "f0c136d8fd7a367cece06a0efd14107e",
+   "REVISOES": 10
+  },
+  "3_ESTADO": {
+   "INT_MARCA": "2026-09-28T23:48:07.164005+00:00",
+   "INT_ULTIMA_CORRIDA_EM": "2026-09-28T23:48:07.587156+00:00",
+   "INT_ULTIMA_CORRIDA_ID": "IR-5347cebb903af8380ea5",
+   "INT_ULTIMO_POTE": {
+    "SUBIU": false,
+    "PORQUE": "POTE_REPROVADO",
+    "CORRIDA": "IR-5347cebb903af8380ea5",
+    "VIOLACOES": 7
+   },
+   "INT_ULTIMO_CORTE": {
+    "LINHAS_NO_EXPORT": 10,
+    "LINHAS_NO_CORTE": 9,
+    "DEFEITO_NA_SALA": true,
+    "ITEM_ID_REPETIDO": [
+     "SINT-R7-APOL-38-BRLE#0"
+    ],
+    "REPETIDO_SEM_HORA_LEGIVEL": [],
+    "ITEM_ID_SEM_IDENTIDADE": 0
+   }
+  },
+  "3_MOTOR": {
+   "CORRIDA": "IR-5347cebb903af8380ea5",
+   "OBJETOS": {
+    "windows": 1,
+    "science": 3,
+    "future": 1,
+    "sources": 3
+   },
+   "CRUZAMENTOS_D112_RELACOES": 4,
+   "JANELAS_CAP_WIN": 1,
+   "ESTUDOS_CAP_SCI": 3
+  },
+  "3_COPIA": {
+   "PROVA_VALE": true,
+   "IGUAL_A_SALA_REAL": true,
+   "EXPORT_READ_ONLY": "on",
+   "EXPORT_ORIGEM": "copia local da Sala · base sala_italia",
+   "EXPORT_LINHAS": 10
+  },
+  "3_POTE_REPROVADO_GUARDADO": [
+   "POTE-REPROVADO-IR-5347cebb903af8380ea5.js"
+  ],
+  "3_CASCO_SEM_POTE": true,
+  "4_SEM_ITEM_NOVO": {
+   "ACCAO": "ESPERA",
+   "PORQUE": "SEM_DELTA",
+   "SALA_IGUAL": true
+  },
+  "5_SEMEAR_NOVO": {
+   "L2-ITEM-NOVO-2026-09-28": {
+    "ESTADO": "PASSED",
+    "INSERIDAS": 1
+   }
+  },
+  "5_ITEM_NOVO": {
+   "RECENTE": {
+    "ACCAO": "ESPERA",
+    "PORQUE": "POUCOS_E_RECENTES (1 novos)",
+    "SALA_IGUAL": true
+   },
+   "COM_4H": {
+    "ACCAO": "POTE_NAO_SUBIU",
+    "GATILHO": "NOVO_A_ESPERA_HA_4H (1 novos)",
+    "SUBIU": false,
+    "PORQUE": "POTE_REPROVADO",
+    "VIOLACOES": 7
+   },
+   "COM_4H_SALA_IGUAL": true
+  },
+  "6_CMD_LE_SALA_DSN_TXT": {
+   "CODIGO": 0,
+   "MEDIDO": {
+    "NOVOS": 11,
+    "MAIS_VELHO_EM": "2026-09-28T23:48:03.595140+00:00",
+    "MAIS_NOVO_EM": "2026-09-28T23:48:24.962915+00:00",
+    "DESDE": null,
+    "DECISAO": "CORRER",
+    "PORQUE": "DEZ_OU_MAIS_NOVOS (11)"
+   },
+   "DSN_NA_SAIDA": false,
+   "SENHA_OU_PORTA_NA_SAIDA": false
+  },
+  "7_MOTOR_DUBLE_POTE_APROVADO": {
+   "AVISO": "motor DUBLE (corrida sintetica valida): prova o caminho da subida, NAO o motor real",
+   "ACCAO": "POTE_SUBIU",
+   "SUBIU": true,
+   "SALA_IGUAL": true,
+   "ENTREGA": [
+    "MANIFESTO.json",
+    "POTE.json",
+    "SHA256SUMS.txt"
+   ],
+   "SHA256SUMS_BATE": true,
+   "MANIFESTO": {
+    "INTELLIGENCE_RUN_ID": "SINT-IR-V2U-0001",
+    "RESULT_STATE": "DONE",
+    "CORRIDA_SINTETICA": true,
+    "SOURCE_HEAD": "SINT-1111111111111111111111111111111111111111",
+    "CORTE": "2026-09-27T00:00:00+00:00",
+    "GERADO_EM": "2026-09-28T23:48:57.815704+00:00",
+    "GERADO_POR": "admissao/gatilho_da_inteligencia.py (L2-DISPARADOR)",
+    "POTE": {
+     "ARQUIVO": "POTE.json",
+     "SHA256_ARQUIVO": "f52e8d80d70f2bb85f79dee0bb81f35259f90d0e476aae909f76830df4c8277d",
+     "CONTRATO": "POTE_INTELLIGENCE_CASCO/v2"
+    },
+    "VALIDAR_POTE_V2": "PASSA",
+    "CORTE_VIGENTE": {
+     "LINHAS_NO_EXPORT": 12,
+     "LINHAS_NO_CORTE": 11,
+     "DEFEITO_NA_SALA": true
+    }
+   },
+   "SINTONIA_POTE_JS": true
+  },
+  "8_VIGIA": {
+   "ALERTA": true,
+   "ALERTAS": [
+    [
+     "fonte",
+     "NAO SEI"
+    ],
+    [
+     "coleta",
+     "PARADA"
+    ],
+    [
+     "agendador",
+     "NAO SEI"
+    ],
+    [
+     "portal",
+     "NAO SEI"
+    ],
+    [
+     "sala",
+     "DEFEITO_NA_SALA"
+    ]
+   ]
+  },
+  "9_SALA_FINAL": {
+   "LINHAS": 12,
+   "CONSUMIDO_EM_PREENCHIDO": 0,
+   "MD5": "444d9277e0389434efea0fdb19309968",
+   "REVISOES": 12
+  }
+ },
+ "CONFERE": {
+  "MIGRATIONS": true,
+  "DEFEITO_PLANTADO_NA_VISTA": true,
+  "TRINCO": true,
+  "DISPAROU_E_O_MOTOR_CORREU": true,
+  "CORTE_VIGENTE_DECLARADO": true,
+  "COPIA_READ_ONLY": true,
+  "O_FISCAL_MANDA": true,
+  "SEM_DELTA": true,
+  "NOVO_RECENTE_ESPERA_E_COM_4H_DISPARA": true,
+  "SALA_NUNCA_MUDOU_NUM_DISPARO": true,
+  "CONSUMIDO_EM_NUNCA": true,
+  "CMD_LE_SALA_DSN_TXT": true,
+  "POTE_APROVADO_CHEGA_A_ENTREGA": true,
+  "VIGIA_DIZ_O_DEFEITO": true
+ },
+ "DISPARADOR_INTELLIGENCE": "PASS",
+ "POTE_NOVO_GERADO_SEM_MAO_HUMANA": "FAIL: o motor real gerou o pote sem mao humana, e o fiscal o REPROVOU (7 violacoes; primeiras: ['$.COMPARTIMENTOS.future.OBJETOS[0].ENTITY_SOURCE: devia ser string', '$.COMPARTIMENTOS.windows.OBJETOS[0].ENTITY_SOURCE: devia ser string'])",
+ "ESTADO": "PASS"
+}

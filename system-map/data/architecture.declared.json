@@ -908,7 +908,7 @@
     "audit",
     "collection-strategy"
    ],
-   "what": "O comando unico da micro-coleta. `plano` pergunta ao collection_gate no instante, confere contrato, receita web e a frase que o orquestrador vai montar — sem rede. `correr` e a unica porta para a rede: exige autorizacao do dono, as quatro variaveis da Sala e egresso IT medido antes e depois de cada corrida, e corre pela porta canonica (orquestrador -> italy_executor). `relatorio` so faz SELECT com default_transaction_read_only e mede sete criterios de passagem.",
+   "what": "O comando unico da micro-coleta. `plano` pergunta ao collection_gate no instante, confere contrato, receita web e a frase que o orquestrador vai montar — sem rede. `correr` e a unica porta para a rede: exige autorizacao do dono, as quatro variaveis da Sala e egresso IT medido antes e depois de cada corrida, e corre pela porta canonica (orquestrador -> italy_executor). `relatorio` so faz SELECT com default_transaction_read_only e mede sete criterios de passagem. provar_backup_da_sala.provar (L2-DISPARADOR, portado da ESTEIRA-SOZINHA 28/09) e a prova do backup como funcao, que devolve SINTONIA_SALA_DSN ao ambiente e entrega a copia viva a quem pede (com_a_copia); provar_backup_da_sala.podar e a retencao declarada dos backups do disparador: por pasta de corrida, fica inteira a em curso, as N mais novas e a mais nova com PROVA_VALE; as outras perdem so o pesado (pg/, dump, export da copia) e guardam o recibo.",
    "why_here": "As duas micro-coletas de 21/09 falharam por egresso BR, frase sem apelido, falta de receita e fonte de marca — e nenhuma tinha um relatorio que o dissesse sozinho. Nao repete regra nenhuma: importa o gate, o juiz de capa e a regua.",
    "departments": [
     "ENGENHARIA",
@@ -4673,6 +4673,64 @@
    "files": [
     "motor/motor_das_capacidades.py",
     "motor/r7_export_da_copia.sql"
+   ]
+  },
+  {
+   "id": "C-L2-DISPARADOR-INTELLIGENCE",
+   "name": "O disparador da Intelligence (D90-5, D140) — so le a Sala",
+   "territory": "Z-ADMISSAO",
+   "kind": "engine",
+   "icon": "⏱",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Uma volta por chamada (--uma-volta), chamada pelo Agendador de Tarefas por um .cmd que le SALA_DSN.txt no arranque (set /p; sem setx; a DSN nunca se imprime). Pergunta a Sala (so SELECT, pelo cliente so-leitura da coleta, de 5 em 5 min) quantos READY pousaram depois da ultima tentativa; corre com 10 novos OU com 1 novo que ja espera 4 h, senao SEM_DELTA / POUCOS_E_RECENTES. Dois trincos (sala_de_espera._Trava): um impede duas corridas, outro impede duas voltas de ler e gravar o estado (curadoria/ESTEIRA-INTELLIGENCE-ESTADO.json) ao mesmo tempo. A corrida e o motor que ja existe: backup da Sala reposto numa copia descartavel (PROVA_VALE), export read-only DA COPIA como o RUNBOOK-R7 (motor/r7_export_da_copia.sql, READ_ONLY=on conferido) mais a hora de pouso de cada linha, CORTE VIGENTE (uma linha por ITEM_ID, a de pousado_em mais recente; ITEM_ID repetido, sem identidade ou sem hora legivel sai do corte e e DECLARADO em CORTE-VIGENTE.json, no estado e no vigia — a Sala real tem derived:6/56/57/60/62/66 em duas linhas e o motor recusa o corte inteiro), motor_das_capacidades.rodar, pote_intelligence_casco.ler_entrada, e o fiscal validar_pote_v2 sobre o ficheiro candidato: so PASSA vai para a entrega (curadoria/esteira/intelligence/PARA-O-CASCO/: POTE.json + MANIFESTO.json + SHA256SUMS.txt, trocada inteira) e para italia-portale/client/sintonia-pote.js; reprovado fica guardado com as violacoes. Nunca chama pousar/rever/retirar e nunca escreve consumido_em (retirar da fila e outra decisao, D140). Recuo de 30 min depois de falha; depois de cada corrida, dentro do trinco, a poda dos backups. ENTITY_SOURCE objeto (motor) x string (schema do pote v2) fica como esta: bloqueio do dono do pote; o disparador continua a recusar.",
+   "why_here": "L2-DISPARADOR-INTELLIGENCE (D140, 28/09/2026): o dono pediu o disparador automatico SOMENTE-LEITURA que a TRAVA permite. Nao e um disparador novo: e o gatilho da ESTEIRA-SOZINHA (f85b4138a) portado seletivamente para cima da producao fd8c94698 — sem a passagem armazem -> Sala (escreve na Sala, e a coleta continua da producao ja leva cada corrida pela porta) e sem o gancho no supervisor (o supervisor nao tem a DSN; o metodo do dono e o .cmd do coleta_continua). Mora em admissao/, ao lado do dono da Sala: decide QUANDO a espera acaba e entrega uma COPIA ao motor; nao analisa nada. No motor/ ele faria o motor abrir a Sala (test_system_map::a_coleta_nao_conversa_com_o_motor_as_centenas).",
+   "files": [
+    "admissao/gatilho_da_inteligencia.py"
+   ]
+  },
+  {
+   "id": "C-ESTEIRA-VIGIA",
+   "name": "O vigia da esteira — ESTEIRA-SAUDE.json",
+   "territory": "Z-MEDIDAS",
+   "kind": "scanner",
+   "icon": "👁",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Chamado pelo mesmo .cmd do disparador, depois da volta (ou a mao). Le a ultima vez que cada etapa andou — fonte (batimento do worker), coleta (FINISHED_AT dos livros), agendador (runs.log da tarefa ForwardOnly), Sala (max pousado_em, so SELECT), Intelligence e pote (estado do disparador), portal (mtime do pote no casco) — e escreve curadoria/ESTEIRA-SAUDE.json com ALERTA quando uma passa de N horas (N declarado por etapa em ETAPAS) ou quando nao se sabe quando andou. Portal publico: NAO SEI (medir e rede). DEFEITO_NA_SALA quando o ultimo corte do disparador tirou linhas (ITEM_ID repetido, sem identidade, sem hora). Nao barra nem conserta nada.",
+   "why_here": "Portado da ESTEIRA-SOZINHA sem a etapa passagem (que nao foi portada). Ninguem dizia ao coordenador que etapa estava parada; marca que nao se le e NAO SEI em alerta — o vigia calado e o unico erro que ele nao pode cometer.",
+   "files": [
+    "medidas/vigia_da_esteira.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-L2-DISPARADOR",
+   "name": "As provas do L2-DISPARADOR — Postgres descartavel e mutacao",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "🧬",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "ensaio_disparador.py sobe um PostgreSQL descartavel com a cadeia de migrations, semeia a fixture SINTETICA do R7 pelos donos da Sala (pousar/rever) com o defeito ITEM_ID repetido plantado, e corre a volta agendada de verdade: trinco preso -> OCUPADO sem copia; 10 novos -> dispara (copia PROVA_VALE, export READ_ONLY, corte vigente declarado, motor real, fiscal); sem novo -> SEM_DELTA; 1 novo recente espera e com 4 h dispara; um .cmd real le SALA_DSN.txt com set /p e mede sem imprimir a DSN; um motor DUBLE (declarado) prova que um pote aprovado chega a entrega com sha; a impressao da Sala (md5 das linhas, revisoes, consumido_em) e igual antes e depois de cada disparo. mutantes.py planta 41 defeitos (escreve na Sala, marca consumido_em, sem trinco, pote invalido publicado, corte torto, DSN impressa, vigia calado, retencao) e exige que tests/test_disparador_intelligence.py reprove cada um; tests/test_harness_mutacao_l2.py confere cada alvo em LF e CRLF.",
+   "why_here": "A prova vive fora da peca que prova. Sem rede e sem a Sala real: o banco e descartavel e o ensaio diz-o.",
+   "files": [
+    "provas/l2/ensaio_disparador.py",
+    "provas/l2/mutantes.py"
    ]
   },
   {

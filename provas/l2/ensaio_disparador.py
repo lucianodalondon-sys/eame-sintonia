@@ -14,8 +14,14 @@ O QUE E REAL (o mesmo codigo que o agendador chama)
 O QUE E DE ENSAIO (dito para ninguem ler isto como prova de producao)
   * A «Sala» e o banco descartavel, semeado com a fixture SINTETICA de tests/dados/int-r7 pelos DONOS
     (`sala_de_espera.pousar` e `rever`), como `provas/int_r7/export_numa_copia_descartavel.py`.
-  * O defeito (a) e PLANTADO: a linha 0 da fixture pousa outra vez por uma segunda corrida (o mesmo
-    ITEM_ID em duas linhas da vista — como derived:6/56/57/60/62/66 na Sala real).
+  * O defeito (a) e PLANTADO: a linha 0 da fixture pousa outra vez por uma segunda corrida, NOUTRO
+    universo (o mesmo ITEM_ID em duas linhas da vista — como derived:6/56/57/60/62/66 na Sala real).
+    Noutro universo porque `pousar` ja recusa o mesmo ITEM_ID no MESMO universo vindo de outra corrida
+    (lido no SQL de `pousar`: `not exists (... s.item_id = e.item_id and s.universo = e.universo and
+    s.run_id <> e.run_id)`, admissao/sala_de_espera.py). Como os 6 da Sala real la
+    chegaram (universos diferentes, ou antes da trava do C6): NAO SEI daqui.
+  * Os itens novos (passos 5 e 7) levam document_key novo: com o da fixture, a Sala os funde (C6).
+  * A janela pousa com as quatro chaves em NAO SEI (JANELA_NAO_MEDIDA) e a da fixture entra por `rever`.
   * O «agora» das voltas e declarado (agora, +10 min, +20 min, +4 h 30).
   * Passo 7 usa um MOTOR DUBLE (a corrida sintetica valida de tests/fixtures/pote) para provar que um
     pote APROVADO chega a entrega com sha. Esta dito no resultado: nao e o motor real.
@@ -48,6 +54,7 @@ import sala_de_espera as espera            # noqa: E402
 import motor_das_capacidades as M          # noqa: E402
 import gatilho_da_inteligencia as GI       # noqa: E402
 import vigia_da_esteira as VIG             # noqa: E402
+import admissao as ADM                     # noqa: E402  (admissao/admissao.py: JANELA_NAO_MEDIDA)
 
 _spec = importlib.util.spec_from_file_location("ensaio_offline", RAIZ / "scripts" / "micro_coleta" / "ensaio_offline.py")
 E = importlib.util.module_from_spec(_spec)
@@ -97,15 +104,22 @@ def semear(base, env, fx, linhas, run_extra=None):
         assert r.returncode == 0, r.stderr
     por_run = {}
     for reg, l in zip(entrada["ITENS"], linhas):
-        por_run.setdefault(l["run_id"], []).append((l["ordem"], dict(reg["READY"], CORRIDA=l["run_id"]),
+        # A janela pousa como o dono pousa o que nao mediu (as quatro chaves em NAO SEI: a trava
+        # janela_declara_as_quatro_chaves da 033); a da fixture entra depois como REVISAO, pelo `rever`.
+        por_run.setdefault(l["run_id"], []).append((l["ordem"], dict(reg["READY"], CORRIDA=l["run_id"],
+                                                                     JANELA_DECLARADA=ADM.JANELA_NAO_MEDIDA),
                                                     l["janela_declarada"]))
     recibos = {}
     for run, us in por_run.items():
         us.sort(key=lambda x: x[0])
         recibo = espera.pousar(run, [u for _o, u, _j in us])
         recibos[run] = {k: recibo[k] for k in recibo if k in ("ESTADO", "INSERIDAS")}
-        for (_o, u, jd), linha in zip(us, espera.ler_atual(run)["ITENS"]):
-            if isinstance(jd, dict):
+        # Pelo ITEM_ID, nao pela posicao: a Sala funde itens do mesmo documento na mesma corrida (C6;
+        # na fixture, SINT-R7-ARIF-38#0 e #1 partilham o raw 9003), e a posicao desalinharia a janela.
+        pousadas = {str(x["ITEM_ID"]): x for x in espera.ler_atual(run)["ITENS"]}
+        for _o, u, jd in us:
+            linha = pousadas.get(str(u["ITEM_ID"]))
+            if linha is not None and isinstance(jd, dict):
                 espera.rever(run, linha["ORDEM"], [{"CAMPO": "janela_declarada",
                                                     "VALOR": json.dumps(jd, ensure_ascii=False, sort_keys=True),
                                                     "BASE": "SINTETICO · fixture INT-R7-CAPS"}],
@@ -142,8 +156,13 @@ def correr(saida: Path) -> dict:
 
         # 1 · a Sala: a fixture + o defeito (a) plantado (a linha 0 pousa outra vez por outra corrida)
         P["1_SEMEAR"] = semear(base, env, fx, fx["LINHAS"])
-        rep = dict(fx["LINHAS"][0], run_id=REPETIDA, ordem=1)
+        rep = dict(fx["LINHAS"][0], run_id=REPETIDA, ordem=1, universo=fx["LINHAS"][0]["universo"] + "-OUTRA-GAVETA")
         P["1_SEMEAR"].update(semear(base, env, fx, [rep]))
+        # a Sala funde uma das 9 linhas da fixture (mesmo documento, C6): um decimo item, com documento
+        # proprio, para a regra dos 10 novos ser a que dispara no passo 3
+        dez = dict(fx["LINHAS"][3], run_id=NOVA + "-10", ordem=1, item_id="L2-NOVO-10", raw_observation_id=990010,
+                   raw_document_key="L2-DOC-NOVO-10")
+        P["1_SEMEAR"].update(semear(base, env, fx, [dez]))
         vista = _psql(base, env, "select item_id, count(*) from sala_de_espera_atual group by 1 having count(*) > 1")
         P["1_ITEM_ID_REPETIDO_NA_VISTA"] = [l.split("|") for l in vista.stdout.split() if l]
 
@@ -198,7 +217,8 @@ def correr(saida: Path) -> dict:
         P["4_SEM_ITEM_NOVO"] = {"ACCAO": r4.get("ACCAO"), "PORQUE": r4.get("PORQUE"), "SALA_IGUAL": igual4}
 
         # 5 · um item novo (outra corrida, ITEM_ID novo): recente espera; com 4 h, dispara
-        nova = dict(fx["LINHAS"][1], run_id=NOVA, ordem=1, item_id="L2-NOVO-1", raw_observation_id=990001)
+        nova = dict(fx["LINHAS"][1], run_id=NOVA, ordem=1, item_id="L2-NOVO-1", raw_observation_id=990001,
+                    raw_document_key="L2-DOC-NOVO-1")
         P["5_SEMEAR_NOVO"] = semear(base, env, fx, [nova])
         r5a, igual5a, _ = uma(agora + timedelta(minutes=20))
         r5b, igual5b, _ = uma(datetime.now(timezone.utc) + timedelta(hours=4, minutes=30))
@@ -229,7 +249,8 @@ def correr(saida: Path) -> dict:
             P["6_CMD_LE_SALA_DSN_TXT"] = "NAO SEI: .cmd so no Windows"
 
         # 7 · MOTOR DUBLE: um pote que o fiscal APROVA chega a entrega com sha (o caminho da subida)
-        item7 = dict(fx["LINHAS"][2], run_id=NOVA + "-7", ordem=1, item_id="L2-NOVO-7", raw_observation_id=990007)
+        item7 = dict(fx["LINHAS"][2], run_id=NOVA + "-7", ordem=1, item_id="L2-NOVO-7", raw_observation_id=990007,
+                     raw_document_key="L2-DOC-NOVO-7")
         semear(base, env, fx, [item7])
         duble = json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8"))
         with mock.patch.object(GI, "correr_o_motor", lambda *a: duble):
@@ -289,7 +310,7 @@ def correr(saida: Path) -> dict:
         return out
     except Exception:  # noqa: BLE001
         import traceback
-        out["ESTADO"], out["ERRO"] = "FAIL", traceback.format_exc()[-3000:]
+        out["ESTADO"], out["ERRO"] = "FAIL", traceback.format_exc()[-12000:]
         return out
     finally:
         os.environ.clear()
