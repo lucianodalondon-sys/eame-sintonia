@@ -7,7 +7,7 @@ Medido na 2.ª passagem do ensaio offline (A2/A3): uma matéria revalidada e igu
 A trava da Sala era por corrida, não por documento.
 
     O MESMO DOCUMENTO NA MESMA VERSÃO = A MESMA LINHA.
-    VERSÃO NOVA = LINHA NOVA. REENCAMINHADO A OUTRO UNIVERSO = OUTRA ENTRADA.
+    VERSÃO NOVA = LINHA NOVA. REENCAMINHADO A OUTRO UNIVERSO = OUTRA GAVETA (D56).
 
 Um Postgres descartável (binários de ~/orca/pgtmp) numa porta livre, com as
 migrations pela cadeia canónica. Sem esses binários, SALTA e diz porquê:
@@ -113,10 +113,26 @@ class ASalaNaoRepeteODocumento(unittest.TestCase):
         self.assertEqual(d["ESTADO"], espera.JA_ESTAVA)
         self.assertEqual(self.linhas(), antes)
 
-    def test_4_o_mesmo_documento_reencaminhado_a_outro_universo_entra(self):
-        e = espera.pousar("R4", [self.unidade("derived:1", universo="T7")])
-        self.assertEqual((e["ESTADO"], e["INSERIDAS"]), (espera.POUSOU, 1))
-        self.assertIn(("R4", "derived:1", "T7"), self.linhas())
+    # ⚠️ AJUSTE DECLARADO (REROUTE-D56, 28/09). Este teste chamava-se «o mesmo
+    # documento reencaminhado a outro universo entra» e esperava uma 2.a LINHA
+    # (R4, derived:1, T7). A D56 (bot Luciano, 25/09 09:05): «UM item canónico
+    # ligado a TODAS as gavetas aprovadas (sem duplicar bytes nem proveniência)».
+    # Agora: nenhuma linha nova; o T7 pousa como gaveta da linha que ja la esta.
+    def test_4_o_mesmo_documento_reencaminhado_a_outro_universo_ganha_gaveta_e_nao_linha(self):
+        antes = self.linhas()
+        g = {"derived:1": [{"UNIVERSO": "T7", "PONTUACAO": 3, "MOTIVO": "teste D56"}]}
+        e = espera.pousar("R4", [self.unidade("derived:1", universo="T7")], gavetas=g)
+        self.assertEqual((e["ESTADO"], e["INSERIDAS"], e["GAVETAS_NOVAS"]),
+                         (espera.POUSOU, 0, 1))
+        self.assertEqual(self.linhas(), antes)
+        r = subprocess.run([self.base.exe("psql"), "-X", "-At", "-F", "|", "-c",
+                            "select run_id, universo, origem, pontuacao from sala_de_espera_gaveta",
+                            self.base.url], capture_output=True, text=True, check=True)
+        self.assertEqual(r.stdout.split(), ["R1|T7|T5|3"])
+        # sem gavetas (quem chama como antes da D56): nada se escreve, nada se duplica
+        f = espera.pousar("R4", [self.unidade("derived:1", universo="T7")])
+        self.assertEqual((f["INSERIDAS"], f["GAVETAS_NOVAS"]), (0, 0))
+        self.assertEqual(self.linhas(), antes)
 
     def test_5_nenhum_documento_aparece_duas_vezes_no_mesmo_universo(self):
         espera.pousar("R5", [self.unidade("derived:2"), self.unidade("derived:3"),

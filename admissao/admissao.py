@@ -804,6 +804,13 @@ def _casa(termo: str, texto_dobrado: str) -> bool:
     return False
 
 
+def _no_inicio_de_palavra(termo: str, texto_dobrado: str) -> bool:
+    """O termo esta no texto a COMECAR uma palavra (a direita pode continuar: raiz)."""
+    import re
+    f = _dobrar(termo)
+    return bool(f) and re.search(r"(?<![a-z0-9])" + re.escape(f), texto_dobrado) is not None
+
+
 def _formas_que_casam(termo: str, texto_dobrado: str) -> list:
     """QUAIS formas do conceito casam como palavra inteira — a mesma regra de `_casa`."""
     import re
@@ -816,7 +823,8 @@ def _formas_que_casam(termo: str, texto_dobrado: str) -> list:
     return achadas
 
 
-def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
+def _do_universo(item: dict, universo: str, palavras: list, lingua: str | None = None,
+                 inicio_de_palavra: bool = False) -> tuple:
     """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
 
     A LEI CANONICA QUE ESTA FUNCAO VIOLAVA
@@ -861,7 +869,10 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     texto = _dobrar(" ".join(str(item.get(k) or "") for k in
                              ("texto", "title", "nome", "topics", "crops", "resumo")))
     # D3: a mesma regua, na lingua do texto. it/pt/NAO SEI: nada muda.
-    lingua = _lingua_do_item(item)
+    # D56: o REROUTE julga so o CORPO, mas a lingua mede-se no item inteiro (medido
+    # na PORTA-DA-SALA-RENDE: um artigo italiano medido so no corpo saiu «en»). Quem
+    # nao passa `lingua` continua exactamente como antes.
+    lingua = _lingua_do_item(item) if lingua is None else lingua
     reguas = PERGUNTAS_DO_UNIVERSO
     if lingua in IDIOMAS_SEM_REGUA:
         return NAO_SEI, (f"IDIOMA_NAO_SUPORTADO:{lingua} — o texto esta em «{lingua}» e esta "
@@ -872,6 +883,10 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
         palavras = PERGUNTAS_EN.get(universo, [])
     if universo in PALAVRA_INTEIRA:
         achadas = [p.split("|")[0] for p in palavras if _casa(p, texto)]
+    elif inicio_de_palavra:
+        # D56: so o REROUTE pede isto — o termo tem de COMECAR uma palavra (a raiz continua
+        # a valer para a direita: `fitopatolog` casa `fitopatologia`). Ver `julgar_reroute`.
+        achadas = [p for p in palavras if _no_inicio_de_palavra(p, texto)]
     else:
         achadas = [p for p in palavras if _dobrar(p) in texto]
     if universo in CULTURA_OBRIGATORIA:
@@ -1569,6 +1584,324 @@ def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
     return Decisao(item=nome_do_item,
                    universo=universo, resultado=r, regra="pertence ao universo",
                    motivo=motivo, evidencia=ev, corrida=corrida)
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# D56 · O REROUTE NA PORTA — UM ITEM, VARIAS GAVETAS (REROUTE-D56, 28/09)
+# ═════════════════════════════════════════════════════════════════════════
+# D56 (bot Luciano, 25/09 09:05), verbatim: «B + (i): implementar o REROUTE na
+# Admissão para todas as fontes; se o item der SIM em vários universos, UM item
+# canónico ligado a TODAS as gavetas aprovadas (sem duplicar bytes nem
+# proveniência), com pontuação e motivo de cada decisão.»
+#
+# MEDIDO (PORTA-DA-SALA-RENDE §1d/§3e): a materia nao entrava por PERGUNTA ERRADA,
+# nao por regua. 49% da amostra lida era util para OUTRO universo, e o livro nunca
+# lho perguntou, porque «o universo vem do pedido».
+#
+#     O PEDIDO ESCOLHE O QUE SE COLHE. NAO ESCOLHE O QUE O DOCUMENTO E.
+#
+# O QUE MUDA, E O QUE NAO MUDA
+#   · `decidir()` NAO MUDOU: o par (item, universo do PEDIDO) e julgado byte a byte
+#     como antes, e fica no livro com a marca PEDIDO.
+#   · So o documento PRONTO (passou todos os portoes de prontidao do seu estagio:
+#     legivel, origem, linhagem, identidade, materia) e perguntado aos outros
+#     universos. Quem parou num portao nao e perguntado a mais nada: o portao e do
+#     ITEM, nao do universo.
+#   · Cada par (item, outro universo) tem decisao, regra (`reroute D56`), motivo,
+#     pontuacao e o TRECHO do texto que a sustenta. Todas ficam no livro — as SIM e
+#     as outras (D61-D64: nunca se descarta por faltar dado).
+#   · Universo sem regua escrita = NAO_SE_APLICA SO para ele; os outros continuam.
+#
+# A REGUA DO REROUTE E A MESMA, MAIS APERTADA — e nunca mais larga:
+#   1 · julga-se o CORPO e nao a pagina: numa pagina HTML (quem traz retrato do
+#       detector) o texto julgado e `leis/fato_do_texto.corpo()` — sem menu,
+#       cabecalho, rodape nem manchetes vizinhas. Nao ha extrator novo. Corpo com
+#       menos de CORPO_MINIMO_DO_REROUTE caracteres -> NAO_SEI (CORPO_NAO_SEPARAVEL):
+#       sem corpo separavel nao se sabe se a palavra estava no menu.
+#           O MENU DO SITE NAO E O ASSUNTO DA PAGINA.
+#   2 · nenhum SIM sem TRECHO do corpo onde os termos estao (SEM_TRECHO -> NAO_SEI).
+#   2b· nos universos que ainda casam por pedaco de palavra (T3, T4, T5, T7, T9, T10), o
+#       termo tem de COMECAR uma palavra. Medido no replay deste lote (NOVOS-SIM-D56, antes
+#       do aperto): `revista` (pt) casava dentro de «pREVISTA» e `tesi` dentro de «sinTESI»
+#       e «ipoTESI» — 3 SIM de T5 so por isso. E a mesma familia de `prova` dentro de
+#       «apPROVAzione». A raiz continua a valer para a direita (`fitopatolog`).
+#   3 · T9 (COMPETITORS, Atlas) pede um CONCORRENTE NOMEADO no corpo. Medido na
+#       PORTA-DA-SALA-RENDE: os 56 SIM hipoteticos de T9 eram sobretudo comunicacao de
+#       cantina (`evento`, `prodotto`, `campagna`). O evento de uma cantina nao e o
+#       concorrente da ADAMA.
+#   4 · SO PROMOVE quem tem regua MEDIDA contra gabarito ou leitura (REROUTE_PROMOVE).
+#       Medido no replay deste lote (provas/reroute_d56/LEITURA-NOVOS-SIM-D56.json, 32
+#       novos SIM do livro lidos um a um, rotulo de modelo): T1 7/7, T2 8/8, T3 3/3 — e
+#       T4 1/6 («riconosciuto dal Ministero» + «ogni singola etichetta» de uma cantina),
+#       T5 1/8 («Ministero dell'Istruzione, dell'Università e della Ricerca», o «convegno»
+#       de uma revista de comercio). O documento que chega por reroute veio de uma fonte
+#       escolhida para OUTRA coisa, e ali uma palavra de uma lista curta e ruido. O SIM
+#       dessas reguas fica no livro como NAO_SEI (REROUTE_REGUA_SEM_MEDIDA), com trecho —
+#       e a fila seguinte a medir. ⚠️ A escolha de T4/T5 foi feita DENTRO desta amostra.
+#   A pergunta do PEDIDO nao ganha nenhum destes apertos: mudar a regua do pedido e
+#   outra decisao (PORTA-DA-SALA-RENDE §5), com outra medicao.
+#
+# E A SALA: UM ITEM, NAO UM POR GAVETA. `principal()` escolhe a gaveta da LINHA (o
+# pedido, se deu SIM; senao a de maior pontuacao); as outras SIM viajam em
+# `gavetas_para_a_sala()` e pousam em `sala_de_espera_gaveta` (033), apontando para
+# a mesma linha — sem copiar texto, bytes, proveniencia nem document_key.
+#
+# ⚠️ D66 (dono, depois da D56): «o REROUTE so anota» (`REROUTE_ENTRA_NA_SALA =
+# False`, citado na 033). Esta missao (27/09, «precisamos de muita materia prima»)
+# manda implementar a D56. A chave fica AQUI, a vista: False = o livro anota tudo e
+# a Sala so recebe o PEDIDO, como antes.
+REROUTE_ENTRA_NA_SALA = True
+VERSAO_DO_REROUTE = "1"
+REGRA_DO_REROUTE = "reroute D56"
+REGRA_DA_PERTENCA = "pertence ao universo"
+PAPEL_PEDIDO, PAPEL_REROUTE = "PEDIDO", "REROUTE"
+#: WHY 200: e o limiar que a PORTA-DA-SALA-RENDE mediu para `MOLDURA_NAO_SEPARAVEL`
+#: (28 de 216 paginas minificadas dao corpo vazio). Abaixo disso o corpo nao e texto
+#: bastante para separar menu de materia.
+CORPO_MINIMO_DO_REROUTE = 200
+TRECHO_RAIO = 90
+TRECHOS_MAXIMOS = 3
+MOTIVO_MAXIMO_NA_GAVETA = 700
+# T9 · os concorrentes que o Atlas NOMEIA (docs/fontes/ATLAS-DE-FONTES-EAME.md, linha
+# de T9: «BASF, Bayer, Syngenta, Corteva, FMC, UPL, Nufarm») e as empresas de protecao
+# e nutricao das fichas IT-T9 do Atlas (009 Cifo, 010 Serbios, 011 Koppert, 012 CBC
+# Biogard, 013 Certis Belchim, 020 Sipcam). FICARAM DE FORA, declarado: ADAMA (IT-T9-008,
+# e a casa, nao o concorrente); Conserve Italia, CAI e FreshPlaza (cooperativa,
+# distribuidor e jornal — nao concorrentes); SCAM (IT-T9-019: o nome e tambem uma
+# palavra inglesa corrente). Palavra inteira, por conceito.
+# As reguas com medicao contra gabarito/leitura nesta casa: T1 (gabarito T1-V1), T2
+# (T2-V1/V2), T3 (gabarito humano, v3 x v4, 36 documentos), T10 (85 documentos reais lidos).
+# T4, T5, T7, T9: sem gabarito — e o replay D56 mediu T4 1/6 e T5 1/8. Ligar um universo e
+# acrescenta-lo aqui, com a medicao ao lado.
+REROUTE_PROMOVE = frozenset({"T1", "T2", "T3", "T10"})
+CONCORRENTES_T9 = ("basf", "bayer", "syngenta", "corteva", "fmc", "upl", "nufarm",
+                   "cifo", "serbios", "koppert", "biogard", "certis|belchim", "sipcam")
+
+
+def universos_da_porta() -> tuple:
+    """Os universos do Atlas (dono: `leis/territorios.py`), na ordem do Atlas."""
+    from leis import territorios  # noqa: PLC0415 — le o Atlas; so quem reencaminha paga
+    return tuple(territorios.CANONICOS)
+
+
+def _texto_do_reroute(item: dict) -> tuple:
+    """(texto julgado ou None, como foi obtido). HTML -> o CORPO; o resto -> o texto."""
+    inteiro = " ".join(str(item.get(k) or "") for k in
+                       ("texto", "title", "nome", "topics", "crops", "resumo")).strip()
+    # pagina HTML = traz retrato do detector (a estrada) OU o bruto e `text/html` (a linha
+    # que ja esta na Sala, relida pelo reprocesso: la o retrato nao viaja, o media_type sim)
+    html = item.get("retrato_do_detector") or str(item.get("media_type") or "").lower().startswith(
+        "text/html")
+    if not html:
+        return inteiro, ("TEXTO_INTEIRO: sem retrato do detector nem media_type HTML (nao e "
+                         "pagina HTML) — nao ha menu de site a tirar")
+    from leis import fato_do_texto as _ft  # noqa: PLC0415 — o dono do corpo, sem copia
+    corpo = _ft.corpo(str(item.get("texto") or ""))
+    if len(corpo.strip()) < CORPO_MINIMO_DO_REROUTE:
+        return None, ("CORPO_NAO_SEPARAVEL: a pagina HTML nao deu corpo separavel do menu "
+                      "(%d caracteres < %d). Sem corpo nao se sabe se a palavra estava no menu "
+                      "— fica NAO_SEI, nao entra e nao e rejeitada."
+                      % (len(corpo.strip()), CORPO_MINIMO_DO_REROUTE))
+    return corpo, "CORPO: leis/fato_do_texto.corpo() — sem menu, cabecalho, rodape nem vizinhos"
+
+
+def _dobrado_com_mapa(texto: str) -> tuple:
+    """(texto dobrado, posicao original de cada caracter dobrado)."""
+    dob, mapa = [], []
+    for i, ch in enumerate(texto):
+        for d in _dobrar(ch):
+            dob.append(d)
+            mapa.append(i)
+    return "".join(dob), mapa
+
+
+def _conceitos(universo: str, lingua: str) -> list:
+    """[(formas, palavra_inteira)] — o que a regua do universo le, com as ancoras."""
+    en = lingua == "en"
+    inteira = universo in PALAVRA_INTEIRA
+    fora = [(str(p).split("|") if inteira else [p], inteira)
+            for p in (PERGUNTAS_EN if en else PERGUNTAS_DO_UNIVERSO).get(universo, [])]
+    anc = (ANCORAS_EN if en else ANCORAS).get(universo)
+    if anc:
+        fora += [(p.split("|"), True) for p in anc["FORTES"]]
+        fora.append((anc["AGROMETEO"].split("|"), True))
+    cult = (CULTURA_OBRIGATORIA_EN if en else CULTURA_OBRIGATORIA).get(universo)
+    if cult:
+        fora.append((cult.split("|"), True))
+    return fora
+
+
+def _trechos(texto: str, universo: str, lingua: str) -> list:
+    """Onde, no texto julgado, estao os termos da regua. → [{trecho, termos}].
+
+    O trecho sai do texto ORIGINAL (acentos e maiusculas como estao), a volta da
+    primeira ocorrencia de cada conceito que casou. Nunca do menu: o texto que chega
+    aqui e o que foi julgado (o corpo, numa pagina HTML).
+    """
+    import re
+    dob, mapa = _dobrado_com_mapa(texto)
+    achados = []
+    for formas, inteira in _conceitos(universo, lingua):
+        for forma in formas:
+            f = _dobrar(forma)
+            if not f:
+                continue
+            m = (re.search(r"(?<![a-z0-9])" + re.escape(f) + r"(?![a-z0-9])", dob) if inteira
+                 else re.search(r"(?<![a-z0-9])" + re.escape(f), dob))
+            if m:
+                achados.append((mapa[m.start()], mapa[m.end() - 1] + 1, f))
+                break
+    achados.sort()
+    janelas = []
+    for ini, fim, termo in achados:
+        a, b = max(0, ini - TRECHO_RAIO), min(len(texto), fim + TRECHO_RAIO)
+        while a > 0 and not texto[a - 1].isspace():        # nao corta palavra ao meio
+            a -= 1
+        while b < len(texto) and not texto[b].isspace():
+            b += 1
+        if janelas and a <= janelas[-1]["b"]:
+            janelas[-1]["b"] = max(janelas[-1]["b"], b)
+            janelas[-1]["termos"].append(termo)
+        else:
+            janelas.append({"a": a, "b": b, "termos": [termo]})
+    return [{"trecho": " ".join(texto[j["a"]:j["b"]].split()), "termos": j["termos"]}
+            for j in janelas[:TRECHOS_MAXIMOS]]
+
+
+def _concorrentes_nomeados(texto: str) -> list:
+    d = _dobrar(texto)
+    return [c.split("|")[0] for c in CONCORRENTES_T9 if _casa(c, d)]
+
+
+def pontuacao(decisao: Decisao) -> int:
+    """Quantos sinais distintos sustentam a decisao (>= 1 num SIM). A regua ja os conta."""
+    ev = decisao.evidencia or {}
+    n = ev.get("sinais")
+    if not isinstance(n, int):
+        n = len(ev.get("palavras") or []) + len(ev.get("ancoras") or [])
+    return max(int(n), 1)
+
+
+def julgar_reroute(item: dict, universo: str, lingua: str | None = None) -> tuple:
+    """O par (item PRONTO, universo que o pedido NAO perguntou). → (resultado, motivo, evidencia).
+
+    A mesma regua de `_do_universo`, sobre o CORPO, e so SIM com trecho (e, em T9,
+    com um concorrente nomeado). Nunca mais larga do que a do pedido.
+    """
+    palavras = PERGUNTAS_DO_UNIVERSO.get(universo, [])
+    if not palavras:
+        return NAO_SE_APLICA, (
+            f"nao ha regra escrita do que conta como «{universo}». Sem regra esta porta "
+            f"nao inventa uma — e isto vale SO para «{universo}»: os outros universos "
+            f"continuam a ser perguntados (D56)."), {"sem_regua": True}
+    texto, como = _texto_do_reroute(item)
+    ev = {"texto_julgado": como}
+    if texto is None:
+        return NAO_SEI, como, ev
+    lingua = _lingua_do_item(item) if lingua is None else lingua
+    r, motivo, e = _do_universo({"texto": texto}, universo, palavras, lingua=lingua,
+                                inicio_de_palavra=True)
+    ev.update(e)
+    if r != SIM:
+        return r, motivo, ev
+    trechos = _trechos(texto, universo, lingua)
+    ev["trechos"] = trechos
+    if not trechos:
+        return NAO_SEI, ("SEM_TRECHO: a regua deu SIM mas nao se achou no texto julgado o "
+                         "trecho que o sustenta. SIM sem trecho nao entra (D56)."), ev
+    if universo == "T9":
+        nomes = _concorrentes_nomeados(texto)
+        ev["concorrentes"] = nomes
+        if not nomes:
+            return NAO_SEI, (
+                "T9_SEM_CONCORRENTE_NOMEADO: fala de %s, mas T9 e COMPETITORS (Atlas) e o "
+                "corpo nao nomeia nenhum concorrente. O evento ou o produto de quem publica "
+                "nao e o concorrente — fica NAO_SEI, nao entra e nao e rejeitado."
+                % ", ".join((e.get("palavras") or [])[:3])), ev
+    if universo not in REROUTE_PROMOVE:
+        ev["sim_da_regua"] = True
+        return NAO_SEI, (
+            "REROUTE_REGUA_SEM_MEDIDA: a regua de «%s» deu SIM no corpo, com trecho (%s), mas "
+            "ainda nao tem precisao medida para documentos reencaminhados (replay D56: T4 1/6, "
+            "T5 1/8). Fica no livro com o trecho — nao entra e nao e rejeitado."
+            % (universo, ", ".join((e.get("palavras") or [])[:3]))), ev
+    return SIM, "%s — no corpo, com trecho" % motivo, ev
+
+
+def decidir_todas(item: dict, pedido: str, corrida: str = "NAO SEI") -> list:
+    """D56: a decisao do PEDIDO (`decidir`, tal e qual) e, se o item esta PRONTO, uma
+    decisao por cada outro universo do Atlas. → [Decisao], a do pedido primeiro."""
+    d0 = decidir(item, pedido, corrida=corrida)
+    d0.evidencia = dict(d0.evidencia, d56={"papel": PAPEL_PEDIDO, "pedido": pedido,
+                                           "versao_do_reroute": VERSAO_DO_REROUTE})
+    fora = [d0]
+    if d0.regra != REGRA_DA_PERTENCA:
+        # parou num portao de prontidao: o portao e do ITEM, e nao se pergunta mais nada
+        return fora
+    lingua = _lingua_do_item(item)
+    for u in universos_da_porta():
+        if u == pedido:
+            continue
+        r, motivo, ev = julgar_reroute(item, u, lingua)
+        d = Decisao(
+            item=d0.item, universo=u, resultado=r, regra=REGRA_DO_REROUTE, motivo=motivo,
+            evidencia=dict(ev, d56={"papel": PAPEL_REROUTE, "pedido": pedido,
+                                    "versao_do_reroute": VERSAO_DO_REROUTE,
+                                    "portoes": "os do PEDIDO, na mesma corrida (%s)" % d0.regra}),
+            corrida=corrida)
+        if r == SIM:
+            d.evidencia["pontuacao"] = pontuacao(d)
+        fora.append(d)
+    return fora
+
+
+def _ordem_no_atlas(universo: str) -> int:
+    try:
+        return universos_da_porta().index(universo)
+    except ValueError:
+        return len(universos_da_porta())
+
+
+def principal(decisoes: list):
+    """A decisao que da a LINHA da Sala, ou None. O pedido, se deu SIM; senao (e so com
+    `REROUTE_ENTRA_NA_SALA`) a SIM de maior pontuacao, e no empate a primeira do Atlas."""
+    if not decisoes:
+        return None
+    if decisoes[0].resultado == SIM:
+        return decisoes[0]
+    if not REROUTE_ENTRA_NA_SALA:
+        return None
+    sims = [d for d in decisoes[1:] if d.resultado == SIM]
+    if not sims:
+        return None
+    return sorted(sims, key=lambda d: (-pontuacao(d), _ordem_no_atlas(d.universo)))[0]
+
+
+def gavetas_para_a_sala(decisoes: list) -> list:
+    """TODAS as gavetas aprovadas do item, a da linha primeiro. → [{UNIVERSO, PONTUACAO, MOTIVO}].
+
+    A da linha vai tambem, e nao por redundancia: se o documento JA esta na Sala por
+    outra corrida, noutro universo, a linha nao se repete — e a gaveta deste pedido
+    passa a apontar para a linha que la esta (a Sala decide, na mesma transaccao).
+    Sem texto, sem bytes, sem proveniencia. O motivo leva a regra, a versao, o
+    pedido e o primeiro trecho.
+    """
+    p = principal(decisoes)
+    if p is None:
+        return []
+    pedido = decisoes[0].universo
+    outras = [] if not REROUTE_ENTRA_NA_SALA else sorted(
+        (d for d in decisoes if d.resultado == SIM and d is not p),
+        key=lambda d: _ordem_no_atlas(d.universo))
+    fora = []
+    for d in [p] + outras:
+        trechos = (d.evidencia or {}).get("trechos") or []
+        motivo = "%s v%s (reroute v%s) · PEDIDO=%s · %s%s" % (
+            d.regra, d.versao, VERSAO_DO_REROUTE, pedido, d.motivo,
+            (" · trecho: «%s»" % trechos[0]["trecho"]) if trechos else "")
+        fora.append({"UNIVERSO": d.universo, "PONTUACAO": pontuacao(d),
+                     "MOTIVO": motivo[:MOTIVO_MAXIMO_NA_GAVETA]})
+    return fora
 
 
 class LivroIlegivel(Exception):

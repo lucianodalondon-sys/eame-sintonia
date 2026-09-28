@@ -2465,7 +2465,7 @@
    "territory": "Z-ADMISSAO",
    "kind": "gate",
    "icon": "⊞",
-   "what": "Decide, por par (item, universo), se entra: SIM, NAO, NAO_SEI, NAO_SE_APLICA ou ERRO — e escreve o motivo, a regra, a versao e a prova no livro de decisoes. CHAVE-PROBLEMA (27/09): a janela_declarada leva a chave PROBLEMA no contrato PROBLEMA/v1 (admissao.problema_da_chave — boletins T2/T3 e estudos T5; os outros universos dizem NAO SEI com o porque).",
+   "what": "Decide, por par (item, universo), se entra: SIM, NAO, NAO_SEI, NAO_SE_APLICA ou ERRO — e escreve o motivo, a regra, a versao e a prova no livro de decisoes. CHAVE-PROBLEMA (27/09): a janela_declarada leva a chave PROBLEMA no contrato PROBLEMA/v1 (admissao.problema_da_chave — boletins T2/T3 e estudos T5; os outros universos dizem NAO SEI com o porque). REROUTE-D56 (28/09): o documento PRONTO e perguntado a TODAS as reguas (decidir_todas: o PEDIDO tal e qual + um par por cada outro universo do Atlas, todos no livro); o reroute julga o CORPO (sem menu), so da SIM com trecho, T9 pede concorrente nomeado e so promove quem tem regua medida (REROUTE_PROMOVE); principal() escolhe a gaveta da linha e gavetas_para_a_sala() as outras.",
    "why_here": "So um ficheiro em toda a coleta decidia relevancia, para cinco veiculos. O caminho era colher, carimbar e guardar tudo — sem peneira.",
    "departments": [
     "ENGENHARIA"
@@ -2595,6 +2595,7 @@
     "provas/chave_problema/ENSAIO-033-CHAVE-PROBLEMA.json",
     "provas/chave_problema/BATERIA-BASE-c551062.json",
     "provas/chave_problema/BATERIA-DEPOIS.json",
+    "provas/reroute_d56/*",
     "CHAVE-PROBLEMA.md",
     "provas/lote6_integra/mutacao_juncao.py",
     "provas/lote6_integra/MUTACAO-JUNCAO.json",
@@ -3608,7 +3609,7 @@
    "territory": "Z-ADMISSAO",
    "kind": "engine",
    "icon": "⌛",
-   "what": "O dono unico da fila onde a unidade READY pousa. O backend canonico e PostgreSQL (public.sala_de_espera, migration 031): uma transacao por pouso, trava por CORRIDA com pg_advisory_xact_lock que morre com a transacao, retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e a fila WAITING -> CONSUMED sem apagar a linha. O backend de FICHEIRO (data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json, escrita atomica por fsync + os.replace) continua atras do MESMO dono e esta declarado NAO CANONICO: ele nao sobrevive ao fim do job, e foi isso que bloqueou a primeira coleta real italiana. Desde a migration 033 (MIGRACAO-SALA, D68) corrige SEM apagar: rever() so acrescenta em sala_de_espera_revisao (o banco recusa UPDATE/DELETE), ler_atual() le a vista sala_de_espera_atual (ultima revisao, senao o original), e admissao/reprocessar_tempo_lugar.py refaz o tempo e o lugar do acervo pela porta, sem rede. admissao/reprocessar_estudos_chaves.py refaz SO a janela_declarada dos estudos T5 a partir do texto guardado (entrada JSON item_id/texto/published_at) e DEVOLVE as revisoes no formato de rever(), sem abrir o banco: quem aplica e o coordenador. admissao/reprocessar_problema.py (CHAVE-PROBLEMA) le uma COPIA exportada da vista sala_de_espera_atual e devolve, a seco, a janela ATUAL com SO a chave PROBLEMA trocada (contrato PROBLEMA/v1), idempotente; --aplicar escreve so pela porta rever(), exige a Sala canonica e recusa revisoes de outra versao do codigo. Sem migracao: a 033 ja guarda a quinta chave e ja reve janela_declarada.",
+   "what": "O dono unico da fila onde a unidade READY pousa. O backend canonico e PostgreSQL (public.sala_de_espera, migration 031): uma transacao por pouso, trava por CORRIDA com pg_advisory_xact_lock que morre com a transacao, retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e a fila WAITING -> CONSUMED sem apagar a linha. O backend de FICHEIRO (data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json, escrita atomica por fsync + os.replace) continua atras do MESMO dono e esta declarado NAO CANONICO: ele nao sobrevive ao fim do job, e foi isso que bloqueou a primeira coleta real italiana. Desde a migration 033 (MIGRACAO-SALA, D68) corrige SEM apagar: rever() so acrescenta em sala_de_espera_revisao (o banco recusa UPDATE/DELETE), ler_atual() le a vista sala_de_espera_atual (ultima revisao, senao o original), e admissao/reprocessar_tempo_lugar.py refaz o tempo e o lugar do acervo pela porta, sem rede. admissao/reprocessar_estudos_chaves.py refaz SO a janela_declarada dos estudos T5 a partir do texto guardado (entrada JSON item_id/texto/published_at) e DEVOLVE as revisoes no formato de rever(), sem abrir o banco: quem aplica e o coordenador. admissao/reprocessar_problema.py (CHAVE-PROBLEMA) le uma COPIA exportada da vista sala_de_espera_atual e devolve, a seco, a janela ATUAL com SO a chave PROBLEMA trocada (contrato PROBLEMA/v1), idempotente; --aplicar escreve so pela porta rever(), exige a Sala canonica e recusa revisoes de outra versao do codigo. Sem migracao: a 033 ja guarda a quinta chave e ja reve janela_declarada. REROUTE-D56 (28/09): um item com SIM em varios universos e UMA linha; as outras gavetas pousam em sala_de_espera_gaveta (033 C) pela mesma transacao do pousar, e o mesmo item/documento noutro universo ja nao ganha linha (o universo saiu da identidade). A 038 so cria a vista sala_de_espera_por_gaveta (uma linha por item x gaveta); sala_de_espera_atual nao muda. admissao/reprocessar_reroute.py da as gavetas as linhas que ja estao na Sala: seco por omissao; --aplicar so com backup PROVA_VALE, curadoria/PARAR.flag e a mesma versao do codigo, e so INSERT.",
    "why_here": "A escrita vivia dentro do orquestrador, e isso contradizia a COL-LAW-012: o orquestrador CONTROLA, nao transporta dado. Enquanto a unica escrita estivesse no control plane, a rota forward nao tinha como pousar a unidade sem escrever uma SEGUNDA. ONE CONCEPT -> ONE OWNER.",
    "departments": [
     "ENGENHARIA"
@@ -3619,7 +3620,8 @@
     "admissao/video_na_sala.py",
     "admissao/versao_do_documento.py",
     "admissao/reprocessar_estudos_chaves.py",
-    "admissao/reprocessar_problema.py"
+    "admissao/reprocessar_problema.py",
+    "admissao/reprocessar_reroute.py"
    ],
    "views": [
     "audit",
