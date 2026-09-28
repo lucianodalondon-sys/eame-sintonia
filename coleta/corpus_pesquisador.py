@@ -223,16 +223,28 @@ def _texto(s):
     return re.sub(r'\s+', ' ', s.lower())
 
 
+# LINHAS-NO-CONTADOR: o que a ULTIMA resposta mediu (codigo e cabecalhos), por fio, para a linha CIENCIA
+# levar ao livro da cortesia o sinal de resistencia (429, 503, Retry-After). `_get` continua a nao levantar.
+import threading as _threading                                   # noqa: E402
+ULTIMA = _threading.local()
+
+
 def _get(url, headers=None):
     """→ (json, None) ou (None, motivo). NUNCA levanta: FALHA DE FONTE != ZERO."""
     h = {'User-Agent': 'SintoniaEAME (mailto:%s)' % MAILTO, 'Accept': 'application/json'}
     h.update(headers or {})
+    ULTIMA.__dict__.clear()
     try:
         with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=90) as r:
+            ULTIMA.status, ULTIMA.cabecalhos = r.status, dict(r.headers.items())
             return json.loads(r.read().decode('utf-8')), None
     except urllib.error.HTTPError as e:
+        ULTIMA.status, ULTIMA.cabecalhos = e.code, dict(e.headers.items()) if e.headers else {}
         return None, 'HTTP %d' % e.code
     except Exception as e:                                       # noqa: BLE001
+        if not hasattr(ULTIMA, 'status'):          # a resposta chegou e o corpo e que nao se leu: o codigo fica
+            ULTIMA.status = 0
+        ULTIMA.falha = '%s %s' % (type(e).__name__, e)
         return None, type(e).__name__
 
 

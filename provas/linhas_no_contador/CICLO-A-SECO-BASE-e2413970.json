@@ -1,0 +1,825 @@
+{
+ "CICLO": 1,
+ "INICIO": "2026-09-28T11:40:09+00:00",
+ "AGORA_UTC": "2026-09-28T11:40:09+00:00",
+ "A_SECO": true,
+ "PARA": null,
+ "LINHAS": {
+  "BUSCA": {
+   "ESTADO": "ESPERA_LIGACAO",
+   "PORQUE": "SEM_RESERVA_24H: coleta/linha_busca.py nao chama reserva_24h.reservar( (CONTADOR-24H.md)",
+   "FONTES": []
+  },
+  "CIENCIA": {
+   "ESTADO": "ESPERA_LIGACAO",
+   "PORQUE": "SEM_RESERVA_24H: coleta/pesquisadores_t6.py nao chama reserva_24h.reservar( (CONTADOR-24H.md)",
+   "FONTES": []
+  },
+  "SOCIAL": {
+   "ESTADO": "ESPERA_LIGACAO",
+   "PORQUE": "SEM_RESERVA_24H: coleta/teto_da_onda.py nao chama reserva_24h.reservar( (CONTADOR-24H.md)",
+   "FONTES": []
+  },
+  "PESQUISADORES": {
+   "ESTADO": "ESPERA_LIGACAO",
+   "PORQUE": "TRANSPORTE_NAO_EXISTE_NESTA_ARVORE: coleta/seguir.py",
+   "FONTES": []
+  },
+  "SITES": {
+   "ESTADO": "A_CORRER",
+   "FONTES": [
+    "IT-T10-018",
+    "IT-T10-021",
+    "IT-T10-022",
+    "IT-T12-024",
+    "IT-T12-117"
+   ],
+   "PEDIDOS_PREVISTOS": 19
+  }
+ },
+ "ESPERAM": [
+  {
+   "SOURCE_ID": "IT-T12-129",
+   "DOMINIO": "regione.sicilia.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "regione.sicilia.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T12-130",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T12-131",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T12-137",
+   "DOMINIO": "psrn.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "psrn.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-006",
+   "DOMINIO": "arpacampania.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "arpacampania.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-032",
+   "DOMINIO": "arpal.liguria.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "arpal.liguria.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "DOMINIO": "arpa.marche.it",
+   "PREVISTOS": 2,
+   "DOMINIOS": [
+    "arpa.marche.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-037",
+   "DOMINIO": "arpat.toscana.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "arpat.toscana.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-050",
+   "DOMINIO": "arpacampania.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "arpacampania.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "DOMINIO": "arpae.it",
+   "PREVISTOS": 2,
+   "DOMINIOS": [
+    "arpae.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-145",
+   "DOMINIO": "arpa.veneto.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "arpa.veneto.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T2-146",
+   "DOMINIO": "arpa.veneto.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "arpa.veneto.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-023",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-025",
+   "DOMINIO": "santannapisa.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "santannapisa.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-056",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-080",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-111",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-113",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-160",
+   "DOMINIO": "cnr.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "cnr.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-167",
+   "DOMINIO": "crea.gov.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "crea.gov.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-185",
+   "DOMINIO": "enea.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "enea.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-186",
+   "DOMINIO": "enea.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "enea.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T5-187",
+   "DOMINIO": "enea.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "enea.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "DOMINIO": "riuniteciv.com",
+   "PREVISTOS": 2,
+   "DOMINIOS": [
+    "riuniteciv.com"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-019",
+   "DOMINIO": "confagricoltura.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "confagricoltura.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "DOMINIO": "etvilloresi.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "etvilloresi.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "DOMINIO": "chianticlassico.com",
+   "PREVISTOS": 2,
+   "DOMINIOS": [
+    "chianticlassico.com"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "DOMINIO": "consorziobalsamico.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "consorziobalsamico.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "DOMINIO": "federchimica.it",
+   "PREVISTOS": 2,
+   "DOMINIOS": [
+    "federchimica.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-048",
+   "DOMINIO": "caiagromec.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "caiagromec.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-049",
+   "DOMINIO": "copagri.org",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "copagri.org"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-103",
+   "DOMINIO": "confcooperative.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "confcooperative.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-112",
+   "DOMINIO": "cia.it",
+   "PREVISTOS": 3,
+   "DOMINIOS": [
+    "cia.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-117",
+   "DOMINIO": "caf-cia.it",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "caf-cia.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-118",
+   "DOMINIO": "cia.it",
+   "PREVISTOS": 3,
+   "DOMINIOS": [
+    "cia.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-121",
+   "DOMINIO": "cia.it",
+   "PREVISTOS": 3,
+   "DOMINIOS": [
+    "cia.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-123",
+   "DOMINIO": "cia.it",
+   "PREVISTOS": 3,
+   "DOMINIOS": [
+    "cia.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-125",
+   "DOMINIO": "cia-puglia.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "cia-puglia.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-135",
+   "DOMINIO": "cia.it",
+   "PREVISTOS": 4,
+   "DOMINIOS": [
+    "cia.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-139",
+   "DOMINIO": "florovivaistiitaliani.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "florovivaistiitaliani.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-141",
+   "DOMINIO": "ciatoscana.eu",
+   "PREVISTOS": 2,
+   "DOMINIOS": [
+    "ciatoscana.eu"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-163",
+   "DOMINIO": "casalasco.com",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "casalasco.com"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T7-172",
+   "DOMINIO": "georgofili.info",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "georgofili.info"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-021",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-022",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-024",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-028",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-029",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-062",
+   "DOMINIO": "uniss.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "uniss.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T9-009",
+   "DOMINIO": "cifo.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "cifo.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T9-011",
+   "DOMINIO": "koppert.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "koppert.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T9-021",
+   "DOMINIO": "indire.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "indire.it"
+   ],
+   "RODADA_DO_PLANO": 1,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-030",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 2,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-034",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 2,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-039",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 2,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-040",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 2,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-041",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 2,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-042",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 2,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  },
+  {
+   "SOURCE_ID": "IT-T8-051",
+   "DOMINIO": "edagricole.it",
+   "PREVISTOS": 5,
+   "DOMINIOS": [
+    "edagricole.it"
+   ],
+   "RODADA_DO_PLANO": 2,
+   "CLASSE_PRIORIDADE": null,
+   "LINHA": "SITES",
+   "PORQUE": "MAX_FONTES_NO_CICLO",
+   "ABRE_EM": null
+  }
+ ],
+ "RUN_IDS": [],
+ "RAM_LIVRE_GB": 5.0,
+ "JANELA_24H": null,
+ "TETO_VEM_DE": "orcamento vigente (D124)",
+ "ORCAMENTO_DO_CICLO": {
+  "myfruit.it": 5,
+  "imagelinenetwork.com": 2,
+  "zootecnicainternational.com": 2,
+  "regione.veneto.it": 5,
+  "calabriaimpresa.eu": 5
+ },
+ "PROXIMO_A_ABRIR": null,
+ "FIM": "2026-09-28T11:40:09+00:00",
+ "FIM_UTC": "2026-09-28T11:40:09+00:00",
+ "NADA_A_CORRER": false,
+ "_COMO": "py ferramentas/big_collection/coleta_continua.py --ensaio-a-seco --base=<tmp> --sha256=eb7b6ab7... --plano=<RODADAS-SO-PLANO.json de rodadas.py --so-plano> --teto-24h=<livro vazio> --max-fontes=5 (0 rede, 0 Sala; a ligacao de cada linha MEDIDA pelas sondas desta arvore)"
+}

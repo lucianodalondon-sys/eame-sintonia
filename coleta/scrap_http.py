@@ -439,6 +439,20 @@ class TetoDoDominio(RotaNaoPermitida):
     `RotaBloqueada`, que quer dizer que a plataforma nos barrou."""
 
 
+def _crawl_delay(url):
+    """LINHAS-NO-CONTADOR: o Crawl-delay do robots.txt JA LIDO deste host para o nosso agente (None se nao ha
+    ou ainda nao se leu). Nao pede nada: le a memoria do portao."""
+    p = urllib.parse.urlsplit(url)
+    rp, estado = _ROBOTS.get('%s://%s' % (p.scheme, p.netloc), (None, None))
+    if estado != 'LIDO' or rp is None:
+        return None
+    try:
+        v = rp.crawl_delay(AGENTE)
+    except Exception:                                             # noqa: BLE001
+        return None
+    return float(v) if v is not None else None
+
+
 class _ContaCadaPedido(urllib.request.BaseHandler):
     """Pre-processador: corre uma vez por pedido que sai, saltos incluidos.
 
@@ -454,7 +468,7 @@ class _ContaCadaPedido(urllib.request.BaseHandler):
         import teto_da_onda as teto                                # noqa: PLC0415
         host = urllib.parse.urlsplit(req.full_url).hostname
         try:
-            teto.reservar(host, url=req.full_url, quem='scrap_http')
+            teto.reservar(host, url=req.full_url, quem='scrap_http', crawl_delay_s=_crawl_delay(req.full_url))
         except teto.TetoDaOnda as e:
             raise TetoDoDominio('%s · %s' % (e, req.full_url)) from e
         contar_pedido(host)
@@ -499,6 +513,18 @@ _esp.loader.exec_module(EPD)
 EsperaPorDominio = EPD.EsperaPorDominio
 
 ESPERA = EsperaPorDominio(base=PAUSA_ENTRE_CHAMADAS, dormir=lambda s: time.sleep(s))
+
+
+def _falha_ao_livro(url, e):
+    """LINHAS-NO-CONTADOR: o pedido reservado que NAO teve resposta (rede caiu, tempo esgotado) tambem vai ao
+    livro da cortesia — fecha o «um de cada vez» sem esperar o LEASE, e o TIMEOUT conta para a serie."""
+    import teto_da_onda as teto                                    # noqa: PLC0415
+    t = ('%s %s' % (type(e).__name__, e)).lower()
+    try:
+        teto.registrar_resposta(urllib.parse.urlsplit(url).hostname, 0, None, url=url,
+                                marcas=['TIMEOUT'] if 'timed out' in t or 'timeout' in t else [])
+    except Exception:                                             # noqa: BLE001 — o erro original e o que sobe
+        pass
 
 
 def _respirar(url, resposta):
@@ -557,6 +583,7 @@ def buscar(url, *, aceitar_json=True):
         raise
     except Exception as e:
         resposta['erro'] = '%s: %s' % (type(e).__name__, e)
+        _falha_ao_livro(url, e)
         raise RotaBloqueada('%s em %s' % (type(e).__name__, url))
     finally:
         _respirar(url, resposta)
@@ -608,6 +635,7 @@ def buscar_bytes(url, *, aceitar='*/*', cabecalhos=None):
         raise
     except Exception as e:                                            # noqa: BLE001
         resposta['erro'] = '%s: %s' % (type(e).__name__, e)
+        _falha_ao_livro(url, e)
         raise RotaBloqueada('%s em %s' % (type(e).__name__, url))
     finally:
         _respirar(url, resposta)

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """PESQUISADORES-T6: as consultas, o teto, a unidade do contrato T6, a deduplicacao, a prova
 da pessoa e a regra do QUALIFY. Tudo SEM REDE (o transporte e trocado por um que falha)."""
+import json
 import os
 import sys
 import unittest
@@ -222,11 +223,36 @@ class RodadaComRedeFalsa(unittest.TestCase):
                 return {'message': {'items': []}}, None
             return {'group': []}, None
         T6.CP._get = falso
+        # LINHAS-NO-CONTADOR (28/09): a linha CIENCIA pede pela porta do contador multicanal — sem o livro da
+        # cortesia nao ha contador e nada sai (ver test_sem_livro_nenhum_pedido_sai). A mecanica abaixo corre
+        # com um livro temporario, o mesmo que a coleta continua da a todas as linhas.
+        self._livro_antes = os.environ.get('SINTONIA_CORTESIA_LIVRO')
+        os.environ['SINTONIA_CORTESIA_LIVRO'] = os.path.join(self.dir, 'LIVRO-CORTESIA.ndjson')
 
     def tearDown(self):
         import shutil
         T6.CP._get = self._get
+        if self._livro_antes is None:
+            os.environ.pop('SINTONIA_CORTESIA_LIVRO', None)
+        else:
+            os.environ['SINTONIA_CORTESIA_LIVRO'] = self._livro_antes
         shutil.rmtree(self.dir, ignore_errors=True)
+
+    def test_sem_livro_nenhum_pedido_sai(self):
+        """LINHAS-NO-CONTADOR: sem SINTONIA_CORTESIA_LIVRO a reserva e FAIL e o transporte NAO e chamado."""
+        os.environ.pop('SINTONIA_CORTESIA_LIVRO', None)
+        r = T6.rodada_com_rede(1, self.dir, pausa=0)
+        self.assertEqual(self.pedidos, [])
+        self.assertEqual(r['PEDIDOS'], {'api.openalex.org': 0, 'api.crossref.org': 0, 'pub.orcid.org': 0})
+        self.assertTrue(r['NAO_PEDIDOS'][0]['PORQUE'].startswith('NAO_PEDIDO FAIL'), r['NAO_PEDIDOS'])
+
+    def test_cada_pedido_tem_reserva_e_resposta_no_livro(self):
+        T6.rodada_com_rede(1, self.dir, pausa=0)
+        ev = [json.loads(l) for l in open(os.environ['SINTONIA_CORTESIA_LIVRO'], encoding='utf-8') if l.strip()]
+        for dom, n in (('openalex.org', 5), ('crossref.org', 1), ('orcid.org', 5)):
+            self.assertEqual(sum(1 for e in ev if e['DOMINIO'] == dom and e['TIPO'] == 'RESERVA'), n, dom)
+            self.assertEqual(sum(1 for e in ev if e['DOMINIO'] == dom and e['TIPO'] == 'RESPOSTA'), n, dom)
+        self.assertEqual({e['LINHA'] for e in ev}, {'CIENCIA'})
 
     def test_cinco_por_dominio_e_a_segunda_rodada_continua(self):
         r1 = T6.rodada_com_rede(1, self.dir, pausa=0)

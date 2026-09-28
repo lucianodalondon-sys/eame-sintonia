@@ -53,8 +53,9 @@ O LIVRO DE CICLOS (`<base>/CICLOS.ndjson`), uma linha por ciclo: quando, por lin
 os documentos novos, a Sala antes/depois, as que esperam e o proximo dominio a abrir.
 
 AS LINHAS (D86-b/c): cada uma com o seu contador; TODAS partilham o orcamento do dominio no ciclo e o livro
-de 24 h. So corre uma linha LIGADA ao contador multicanal (a chamada de reserva medida no transporte dela);
-as outras ficam ESPERA_LIGACAO, com o ficheiro onde falta a linha (CONTADOR-24H.md). A ordem das linhas roda
+de 24 h. So corre uma linha LIGADA ao contador multicanal (medida pela SONDA do transporte dela: o que ele FAZ
+contra um servidor local, nunca o texto); as outras ficam ESPERA_LIGACAO, com o porque medido. Uma linha LIGADA
+sem executor de ciclo (so a SITES tem a onda web) fica LIGADA_SEM_ONDA (LINHAS-NO-CONTADOR.md). A ordem das linhas roda
 de ciclo para ciclo. `--paralelo` corre as ondas das linhas ao mesmo tempo (o orcamento ja foi repartido, e
 o livro de 24 h reserva cada pedido sob trinco).
 
@@ -87,23 +88,27 @@ CICLOS_F = "CICLOS.ndjson"
 DESLIGAR_F = "PARAR-COLETA.flag"
 TRINCO_F = "COLETA-CONTINUA.trinco"
 
-# ── as linhas (D86-b): o transporte de cada uma e a CHAMADA que prova que ela reserva no livro de 24 h ─
-# LIGADA e MEDIDA no codigo (a chamada existe no ficheiro), nunca declarada. Sem ela, a linha NAO corre:
-# «ate cada linha estar ligada a este livro, so UMA linha de rede de cada vez» (CONTADOR-24H.md).
-# D124-REBASE: a SITES tem SONDA — a ligacao mede-se pelo que o transporte FAZ (contra um servidor local,
-# sem rede), e nao pelo texto da chamada: a D124 mudou `reservar24h(host, 1)` para `reservar24h(host, 1, {...})`
-# e o texto deixava a linha em ESPERA_LIGACAO com o transporte ligado (verificador independente, 28/09).
+# ── as linhas (D86-b): o transporte de cada uma e a SONDA que prova que ela reserva no livro de 24 h ──
+# LIGADA e MEDIDA pelo COMPORTAMENTO do transporte (contra um servidor local, sem rede), nunca declarada e nunca
+# pelo texto. Sem SONDA, a linha NAO corre: «ate cada linha estar ligada a este livro, so UMA linha de rede de
+# cada vez». D124-REBASE: a SITES ganhou a sonda Node. LINHAS-NO-CONTADOR (28/09, medido na producao, ciclo 20:
+# BUSCA/CIENCIA/SOCIAL em ESPERA_LIGACAO pelo TEXTO `reserva_24h.reservar(`, PESQUISADORES num caminho que nao
+# existe): as quatro passam a ter a sonda Python (`sonda_ligacao_linhas.py`: cada rota num processo, casos A/B/S).
+# "ONDA": o executor que a coleta continua sabe correr para a linha. So a SITES tem (onda_web.py). Uma linha
+# LIGADA sem ONDA fica LIGADA_SEM_ONDA, com o porque — ligar ao contador nao inventa executor nem candidatas.
+SONDA_LINHAS = "ferramentas/big_collection/sonda_ligacao_linhas.py"
 LINHAS = [
     {"LINHA": "SITES", "FAMILIA": "sites e boletins (T2/T3/T5/T7/T8/T9/T10/T12), pela coorte congelada",
-     "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs"},
-    {"LINHA": "BUSCA", "FAMILIA": "paginas de busca (linha_busca)",
-     "TRANSPORTE": "coleta/linha_busca.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs",
+     "ONDA": "ferramentas/big_collection/onda_web.py"},
+    {"LINHA": "BUSCA", "FAMILIA": "paginas de busca (linha_busca: paginas por scrap_http, API oficial de busca)",
+     "TRANSPORTE": "coleta/linha_busca.py", "SONDA": SONDA_LINHAS},
     {"LINHA": "CIENCIA", "FAMILIA": "APIs cientificas OpenAlex/Crossref/ORCID (excecao de robots D91)",
-     "TRANSPORTE": "coleta/pesquisadores_t6.py", "CHAMADA": "reserva_24h.reservar("},
-    {"LINHA": "SOCIAL", "FAMILIA": "YouTube/social (so o que o freio social ja libera)",
-     "TRANSPORTE": "coleta/teto_da_onda.py", "CHAMADA": "reserva_24h.reservar("},
-    {"LINHA": "PESQUISADORES", "FAMILIA": "paginas de pesquisadores T6",
-     "TRANSPORTE": "coleta/seguir.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/pesquisadores_t6.py", "SONDA": SONDA_LINHAS},
+    {"LINHA": "SOCIAL", "FAMILIA": "YouTube/social (so o que o freio social e a matriz ja liberam)",
+     "TRANSPORTE": "coleta/scrap_http.py", "SONDA": SONDA_LINHAS},
+    {"LINHA": "PESQUISADORES", "FAMILIA": "paginas de pesquisadores T6 (seguir-pesquisadores, D85/D90 3.4)",
+     "TRANSPORTE": "ferramentas/seguir_pesquisadores/seguir.py", "SONDA": SONDA_LINHAS},
 ]
 
 
@@ -111,12 +116,15 @@ def agora_iso() -> str:
     return datetime.now().astimezone().isoformat(timespec="seconds")
 
 
-def sondar_ligacao(linha: dict, raiz: Path = RAIZ, timeout_s: float = 120.0) -> dict:
-    """A SONDA do transporte (so para linhas com "SONDA"): corre-o contra um servidor LOCAL com um livro da
-    cortesia temporario e mede. {"LIGADA": bool, "PORQUE": texto, "MEDIDO": {...}}. Falha da sonda = NAO LIGADA."""
+def sondar_ligacao(linha: dict, raiz: Path = RAIZ, timeout_s: float = 600.0) -> dict:
+    """A SONDA do transporte: corre-o contra um servidor LOCAL com um livro da cortesia temporario e mede.
+    {"LIGADA": bool, "PORQUE": texto, "MEDIDO": {...}}. Falha da sonda = NAO LIGADA. `.mjs` = a sonda Node da
+    SITES (--transporte=); `.py` = a sonda Python das outras linhas (--linha= --raiz=: mede as rotas DESTA arvore)."""
     sonda, transporte = raiz / linha["SONDA"], raiz / linha["TRANSPORTE"]
+    cmd = ([sys.executable, str(sonda), "--linha=" + linha["LINHA"], "--raiz=" + str(raiz)]
+           if str(sonda).endswith(".py") else ["node", str(sonda), "--transporte=" + str(transporte)])
     try:
-        r = subprocess.run(["node", str(sonda), "--transporte=" + str(transporte)], cwd=raiz, capture_output=True,
+        r = subprocess.run(cmd, cwd=raiz, capture_output=True,
                            text=True, encoding="utf-8", errors="replace", timeout=timeout_s,
                            env={k: v for k, v in os.environ.items() if not k.startswith("SINTONIA_")})
         ultima = (r.stdout.strip().splitlines() or [""])[-1]
@@ -130,17 +138,17 @@ def sondar_ligacao(linha: dict, raiz: Path = RAIZ, timeout_s: float = 120.0) -> 
 
 
 def medir_ligacao(linha: dict, raiz: Path = RAIZ) -> dict:
-    """{"LIGADA": bool, "PORQUE": texto}: o transporte da linha existe E reserva no livro de 24 h.
-    Com "SONDA": medido pelo comportamento. Sem ela: a chamada tem de estar no codigo (medida de texto)."""
+    """{"LIGADA": bool, "PORQUE": texto}: o transporte da linha existe E reserva no livro de 24 h, MEDIDO pelo
+    comportamento (a SONDA). Sem sonda nao ha medida, e sem medida a linha nao corre: nenhum texto no ficheiro
+    (`reserva_24h.reservar(`) liga uma linha (LINHAS-NO-CONTADOR: o texto pode estar morto, ou faltar a um
+    transporte que reserva por outro caminho)."""
     f = raiz / linha["TRANSPORTE"]
     if not f.exists():
         return {"LIGADA": False, "PORQUE": "TRANSPORTE_NAO_EXISTE_NESTA_ARVORE: %s" % linha["TRANSPORTE"]}
-    if linha.get("SONDA"):
-        return sondar_ligacao(linha, raiz)
-    if linha["CHAMADA"] not in f.read_text(encoding="utf-8", errors="replace"):
-        return {"LIGADA": False, "PORQUE": "SEM_RESERVA_24H: %s nao chama %s (CONTADOR-24H.md)"
-                % (linha["TRANSPORTE"], linha["CHAMADA"])}
-    return {"LIGADA": True, "PORQUE": "%s chama %s" % (linha["TRANSPORTE"], linha["CHAMADA"])}
+    if not linha.get("SONDA"):
+        return {"LIGADA": False, "PORQUE": "SEM_SONDA: %s nao tem medida de comportamento (texto nao liga)"
+                % linha["TRANSPORTE"]}
+    return sondar_ligacao(linha, raiz)
 
 
 def ordem_das_linhas(nomes: list, n_ciclo: int) -> list:
@@ -457,7 +465,7 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
     orcamento: dict = {}
     escolha = {}
     for nome in ordem_das_linhas(list(candidatas_por_linha), reg["CICLO"]):
-        lig = ligacao(next((l for l in LINHAS if l["LINHA"] == nome), {"LINHA": nome, "TRANSPORTE": "?", "CHAMADA": "?"}))
+        lig = ligacao(next((l for l in LINHAS if l["LINHA"] == nome), {"LINHA": nome, "TRANSPORTE": "?"}))
         feitas = ((estado.get("LINHAS") or {}).get(nome) or {}).get("FEITAS_NA_PASSAGEM") or []
         cands = candidatas_por_linha[nome]
         if cands and all(c["SOURCE_ID"] in set(feitas) for c in cands) and not a_seco:
@@ -467,6 +475,15 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
             ln["FEITAS_NA_PASSAGEM"] = []
         if not lig["LIGADA"]:
             reg["LINHAS"][nome] = {"ESTADO": "ESPERA_LIGACAO", "PORQUE": lig["PORQUE"], "FONTES": []}
+            continue
+        decl = next((l for l in LINHAS if l["LINHA"] == nome), None)
+        if decl is not None and not decl.get("ONDA"):
+            # LINHAS-NO-CONTADOR: ligada ao contador (medido), mas a coleta continua so corre a onda web. Correr a
+            # onda web com fontes de outra linha seria mentir sobre o executor: fica parada, com o porque.
+            reg["LINHAS"][nome] = {"ESTADO": "LIGADA_SEM_ONDA", "LIGACAO": lig["PORQUE"], "FONTES": [],
+                                   "PORQUE": "LIGADA ao contador multicanal (sonda), mas SEM ONDA NO CICLO: a coleta "
+                                             "continua so sabe correr onda_web.py (a linha SITES); %s nao tem executor "
+                                             "de ciclo nem candidatas no plano (%d)" % (decl["TRANSPORTE"], len(cands))}
             continue
         e = escolher(cands, feitas=feitas, ultima=ultima, reservas=reservas, agora_utc=agora_u,
                      orcamento=orcamento, max_fontes=max_fontes, janela_h=janela_h)

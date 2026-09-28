@@ -43,16 +43,47 @@ def redigir(texto, env=None) -> str:
     return _RE_KEY.sub(lambda m: m.group(1) + "=***", t)
 
 
-def pedir(url: str, cabecalhos: dict | None = None, timeout: float = TIMEOUT) -> tuple[int, bytes, str]:
-    """→ (http, corpo, erro). O corpo do erro volta tambem: e nele que o Google diz o porque."""
+def _pedir_um(url: str, cabecalhos: dict | None, timeout: float) -> tuple:
+    """→ (http, corpo, erro, cabecalhos da resposta, marcas)."""
     req = urllib.request.Request(url, headers=dict(cabecalhos or {}, Accept="application/json"))
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
-            return r.status, r.read(2_000_000), ""
+            return r.status, r.read(2_000_000), "", dict(r.headers.items()), []
     except urllib.error.HTTPError as e:
-        return e.code, (e.read(2_000_000) if e.fp else b""), "HTTP %d" % e.code
+        return (e.code, (e.read(2_000_000) if e.fp else b""), "HTTP %d" % e.code,
+                dict(e.headers.items()) if e.headers else {}, [])
     except Exception as e:                                               # noqa: BLE001
-        return 0, b"", redigir("%s: %s" % (type(e).__name__, e))
+        t = "%s %s" % (type(e).__name__, e)
+        return 0, b"", redigir("%s: %s" % (type(e).__name__, e)), {}, (["TIMEOUT"] if "timed out" in t.lower()
+                                                                        or "timeout" in t.lower() else [])
+
+
+def pedir(url: str, cabecalhos: dict | None = None, timeout: float = TIMEOUT) -> tuple[int, bytes, str]:
+    """→ (http, corpo, erro). O corpo do erro volta tambem: e nele que o Google diz o porque.
+
+    LINHAS-NO-CONTADOR (28/09): com o livro da cortesia (SINTONIA_CORTESIA_LIVRO — a coleta continua da-o a
+    todas as linhas), o pedido passa pela porta do contador multicanal (`coleta/reserva_24h.pedir`): reserva
+    ANTES no orcamento da ROTA (Custom Search: o limite publicado, 100/dia), e a resposta vai ao livro. Sem
+    RESERVADO nao sai: volta (0, b"", "NAO_PEDIDO ..."). Sem livro (o GitHub Actions, BUSCA-NO-ACTIONS) fica o
+    que era: quem manda e a QUOTA_DIA por corrida (`linha_busca --buscar --n`)."""
+    import sys                                                            # noqa: PLC0415
+    from pathlib import Path                                              # noqa: PLC0415
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "coleta"))
+    import cortesia_adaptativa as CA                                      # noqa: PLC0415
+    if not CA.livro():
+        return _pedir_um(url, cabecalhos, timeout)[:3]
+    import reserva_24h as R24                                             # noqa: PLC0415 — a porta unica
+    caixa = {}
+
+    def fazer():
+        caixa["R"] = _pedir_um(url, cabecalhos, timeout)
+        http, corpo, _, cab, marcas = caixa["R"]
+        return http, cab, corpo, marcas
+    r, res = R24.pedir(url, fazer, run_id=os.environ.get("SINTONIA_RUN_ID") or "BUSCA-%d" % os.getpid(),
+                       linha=os.environ.get("SINTONIA_LINHA") or "BUSCA")
+    if res is None:
+        return 0, b"", redigir("NAO_PEDIDO %s: %s" % (r["ESTADO"], r.get("MOTIVO") or r.get("PORQUE") or ""))
+    return caixa["R"][:3]
 
 
 # ── o passo 0 ───────────────────────────────────────────────────────────────────────────────────

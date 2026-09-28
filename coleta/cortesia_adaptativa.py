@@ -52,6 +52,7 @@ import os
 import re
 import sys
 import time
+import urllib.parse
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
@@ -95,6 +96,20 @@ def dominio(host: str) -> str:
     return politica()["MESMO_ORCAMENTO"].get(d, d)
 
 
+def dominio_do_pedido(host: str, url: str | None = None) -> str:
+    """LINHAS-NO-CONTADOR: o nome do orcamento que PAGA o pedido. O dominio (`dominio`), salvo onde a politica
+    separa ROTAS com limites publicados diferentes no mesmo dominio (googleapis.com: Custom Search != YouTube
+    Data): ai o 1.o prefixo do caminho do `url` que casa da o nome. Sem `url`, o dominio inteiro."""
+    d = dominio(host)
+    rotas = (politica()["CLASSES"]["API_COM_LIMITE_PUBLICADO"].get("ROTAS") or {}).get(d)
+    if url and isinstance(rotas, list):
+        caminho = urllib.parse.urlsplit(str(url)).path or "/"
+        for prefixo, nome in rotas:
+            if caminho.startswith(prefixo):
+                return nome
+    return d
+
+
 def classe_de(dom: str, pol: dict | None = None) -> tuple:
     """(nome da classe, parametros: INICIAL, TETO_DE_SEGURANCA, MINIMO, PAUSA_MINIMA_S, DOBRA)."""
     pol = pol or politica()
@@ -102,9 +117,12 @@ def classe_de(dom: str, pol: dict | None = None) -> tuple:
     api = c["API_COM_LIMITE_PUBLICADO"]
     if dom in api["DOMINIOS"]:
         a = api["DOMINIOS"][dom]
-        return "API_COM_LIMITE_PUBLICADO", {"INICIAL": a["ORCAMENTO_24H"], "TETO": a["ORCAMENTO_24H"],
+        # LINHAS-NO-CONTADOR: com limite diario publicado, ORCAMENTO_24H (fixo); sem ele (NAO_SEI), comeca no
+        # ORCAMENTO_INICIAL_24H (o minimo seguro) e so dobra ate ao TETO_DE_SEGURANCA_24H que o ritmo permite.
+        ini = a.get("ORCAMENTO_INICIAL_24H", a.get("ORCAMENTO_24H"))
+        return "API_COM_LIMITE_PUBLICADO", {"INICIAL": ini, "TETO": a.get("TETO_DE_SEGURANCA_24H", ini),
                                             "MINIMO": api["MINIMO_24H"], "PAUSA_S": a["PAUSA_MINIMA_S"],
-                                            "DOBRA": bool(api["DOBRA"])}
+                                            "DOBRA": bool(a.get("DOBRA", api["DOBRA"]))}
     nome = "PLATAFORMA_GRANDE" if dom in c["PLATAFORMA_GRANDE"]["DOMINIOS"] else "SITE"
     k = c[nome]
     return nome, {"INICIAL": k["ORCAMENTO_INICIAL_24H"], "TETO": k["TETO_DE_SEGURANCA_24H"],
@@ -437,14 +455,15 @@ def teto_sem_livro(host: str) -> int:
 
 
 def reservar(host: str, *, run_id: str, linha: str, crawl_delay_s: float | None = None,
-             agora: float | None = None) -> dict:
-    """Pergunta e escreve num so passo, sob o trinco. Nunca levanta: devolve o estado."""
+             agora: float | None = None, url: str | None = None) -> dict:
+    """Pergunta e escreve num so passo, sob o trinco. Nunca levanta: devolve o estado.
+    `url` (LINHAS-NO-CONTADOR): so muda o orcamento onde a politica separa ROTAS (`dominio_do_pedido`)."""
     f = livro()
     base = {"DOMINIO": None, "RUN_ID": run_id, "LINHA": linha}
     if f is None:
         return dict(base, ESTADO="FAIL", PORQUE="%s vazio: sem contador partilhado nao se pede" % ENV_LIVRO)
     try:
-        dom = dominio(host)
+        dom = dominio_do_pedido(host, url)
     except Exception as ex:                                        # noqa: BLE001
         return dict(base, ESTADO="FAIL", PORQUE="host invalido: %s" % ex)
     base["DOMINIO"] = dom
@@ -496,12 +515,12 @@ def reservar(host: str, *, run_id: str, linha: str, crawl_delay_s: float | None 
 
 
 def reservar_ou_esperar(host: str, *, run_id: str, linha: str, crawl_delay_s: float | None = None,
-                        espera_max_s: float = 180.0, dormir=time.sleep) -> dict:
+                        espera_max_s: float = 180.0, dormir=time.sleep, url: str | None = None) -> dict:
     """Como `reservar`, mas uma espera CURTA (um de cada vez, pausa minima, limite global) espera-se
     em vez de desistir. Orcamento esgotado, Retry-After e pausa de 24 h NUNCA se esperam aqui."""
     fim = time.time() + espera_max_s
     while True:
-        r = reservar(host, run_id=run_id, linha=linha, crawl_delay_s=crawl_delay_s)
+        r = reservar(host, run_id=run_id, linha=linha, crawl_delay_s=crawl_delay_s, url=url)
         if r["ESTADO"] != "ADIADO_ATE" or r.get("MOTIVO") not in ESPERA_CURTA or r["ATE"] > fim:
             return r
         dormir(max(0.01, r["ATE"] - time.time()))
@@ -519,7 +538,7 @@ def registrar_resposta(host: str, status, headers=None, *, sinais=(), marcas=(),
            [m for m in marcas if m not in pol["SINAIS"]["MARCAS"]]
     if fora:
         return dict(base, ESTADO="FAIL", PORQUE="sinal/marca fora do vocabulario: %s" % fora)
-    dom = dominio(host)
+    dom = dominio_do_pedido(host, url)
     try:
         with _Trinco(f):
             ev = ler_eventos(f)

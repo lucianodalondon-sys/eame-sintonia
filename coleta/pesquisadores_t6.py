@@ -742,10 +742,55 @@ def _estado(saida):
                                               'ORCID_FEITOS': [], 'RODADAS': []}
 
 
+LINHA_DO_CONTADOR = 'CIENCIA'
+NAO_PEDIDO = 'NAO_PEDIDO'
+
+
+def _get_no_contador(url):
+    """LINHAS-NO-CONTADOR (28/09): O pedido da linha CIENCIA, pela porta do contador multicanal
+    (`coleta/reserva_24h.pedir`: o MESMO livro da cortesia da linha SITES). Reserva ANTES; sem RESERVADO nao se
+    pede e volta (None, 'NAO_PEDIDO ...'); o pedido e o `CP._get` de sempre; o codigo/cabecalhos/falha que ele
+    mediu vao ao livro (sinal de resistencia -> recuo). Sem livro (SINTONIA_CORTESIA_LIVRO) nao ha contador:
+    FAIL, e nao se pede."""
+    import reserva_24h as R24                                          # noqa: PLC0415 — a porta unica (D90/D124)
+    caixa = {}
+
+    def fazer():
+        d, err = CP._get(url)
+        caixa['R'] = (d, err)
+        u = CP.ULTIMA.__dict__
+        if 'status' in u:
+            st, cab = u['status'], u.get('cabecalhos') or {}
+        else:                                  # um _get que nao mediu (substituido): o que o texto diz
+            m = re.match(r'HTTP (\d+)', err or '')
+            st, cab = (200 if d is not None else int(m.group(1)) if m else 0), {}
+        falha = u.get('falha') or ('' if d is not None or (err or '').startswith('HTTP') else err or '')
+        marcas = ['TIMEOUT'] if 'timeout' in falha.lower() or 'timed out' in falha.lower() else []
+        return st, cab, None, marcas
+    r, res = R24.pedir(url, fazer, run_id=os.environ.get('SINTONIA_RUN_ID') or 'CIENCIA-%d' % os.getpid(),
+                       linha=os.environ.get('SINTONIA_LINHA') or LINHA_DO_CONTADOR)
+    if res is None:
+        return None, '%s %s: %s' % (NAO_PEDIDO, r['ESTADO'], r.get('MOTIVO') or r.get('PORQUE') or '')
+    return caixa['R']
+
+
+def _nao_pedido(err, registo, dom, url):
+    """O contador disse que nao (ADIADO_ATE/FAIL/UNKNOWN): nada saiu, nao conta como pedido; o dominio para."""
+    if not str(err or '').startswith(NAO_PEDIDO):
+        return False
+    registo.setdefault('NAO_PEDIDOS', []).append({'DOMINIO': dom, 'URL': url.split('api_key=')[0], 'PORQUE': err})
+    return True
+
+
+def pedir_para_sonda(url):
+    """A SONDA da linha (ferramentas/big_collection/sonda_ligacao_linhas.py): UM pedido pelo caminho real."""
+    return _get_no_contador(url)
+
+
 def _pedir(url, chave=None):
     if chave:                                  # so se o dono tiver chave do OpenAlex
         url += '&api_key=' + urllib.parse.quote(chave)
-    return CP._get(url)
+    return _get_no_contador(url)
 
 
 def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
@@ -774,6 +819,8 @@ def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
     # A · OpenAlex
     for q in [q for q in consultas() if q['PAR'] not in est['OPENALEX_PARES_FEITOS']][:teto['api.openalex.org']]:
         d, err = _pedir(q['URL'], chave_openalex)
+        if _nao_pedido(err, registo, 'api.openalex.org', q['URL']):
+            break
         ok, porque = resposta_valida(d) if d is not None else (False, err)
         anotar('api.openalex.org', 'openalex-%s.json' % q['PAR'].replace(' x ', '-'), d, ok, porque,
                {'PAR': q['PAR'], 'CONTAGEM_DECLARADA': d.get('meta', {}).get('count') if ok else None,
@@ -790,7 +837,9 @@ def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
                     if u['DOI'] != NAO_SEI and u['DOI'] not in est['CROSSREF_DOIS_FEITOS'])
     for i in range(0, min(len(faltam), teto['api.crossref.org'] * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
         lote = faltam[i:i + DOIS_POR_PEDIDO_CROSSREF]
-        d, err = CP._get(url_crossref(lote))
+        d, err = _get_no_contador(url_crossref(lote))
+        if _nao_pedido(err, registo, 'api.crossref.org', url_crossref(lote)):
+            break
         ok = isinstance(d, dict) and isinstance((d.get('message') or {}).get('items'), list)
         anotar('api.crossref.org', 'crossref-r%d-%d.json' % (n, i // DOIS_POR_PEDIDO_CROSSREF + 1), d, ok,
                '' if ok else (err or 'sem message.items'), {'DOIS_PEDIDOS': len(lote)})
@@ -801,7 +850,9 @@ def rodada_com_rede(n, saida, pausa=PAUSA, chave_openalex=None):
 
     # C · ORCID (alfabetico: nao e ranking)
     for p in [g for g in gente if g['ORCID'] != NAO_SEI and g['ORCID'] not in est['ORCID_FEITOS']][:teto['pub.orcid.org']]:
-        d, err = CP._get(ORCID_WORKS % p['ORCID'])
+        d, err = _get_no_contador(ORCID_WORKS % p['ORCID'])
+        if _nao_pedido(err, registo, 'pub.orcid.org', ORCID_WORKS % p['ORCID']):
+            break
         ok = isinstance(d, dict) and 'group' in d
         anotar('pub.orcid.org', 'orcid-%s-works.json' % p['ORCID'], d, ok, '' if ok else (err or 'sem group'),
                {'ORCID': p['ORCID']})
@@ -936,6 +987,8 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
     falta_procurar = [(p, i) for p, i in PESSOAS_CONSULTA2 if p not in est['PESSOAS']]
     for p, i in falta_procurar[:teto['api.openalex.org']]:
         d, err = _pedir(url_autores(p), chave_openalex)
+        if _nao_pedido(err, registo, 'api.openalex.org', url_autores(p)):
+            break
         ok, porque = resposta_valida(d) if d is not None else (False, err)
         anotar('api.openalex.org', 'autores-%s.json' % _slug_nome(p), d, ok, porque)
         if not ok:
@@ -946,6 +999,8 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
         prontas = [p for p, r in est['PESSOAS'].items() if r['IDS'] and p not in est['OBRAS_FEITAS']]
         for p in prontas[:teto['api.openalex.org']]:
             d, err = _pedir(url_obras_de(est['PESSOAS'][p]['IDS']), chave_openalex)
+            if _nao_pedido(err, registo, 'api.openalex.org', url_obras_de(est['PESSOAS'][p]['IDS'])):
+                break
             ok, porque = resposta_valida(d) if d is not None else (False, err)
             anotar('api.openalex.org', 'openalex-PESSOA-%s.json' % _slug_nome(p), d, ok, porque)
             if not ok:
@@ -955,7 +1010,9 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
         orcids = sorted({c['ORCID'] for r in est['PESSOAS'].values() for c in r['CANDIDATOS']
                          if c['ORCID'] != NAO_SEI} - set(est['ORCID_FEITOS']))
         for o in orcids[:teto['pub.orcid.org']]:
-            d, err = CP._get(ORCID_WORKS % o)
+            d, err = _get_no_contador(ORCID_WORKS % o)
+            if _nao_pedido(err, registo, 'pub.orcid.org', ORCID_WORKS % o):
+                break
             ok = isinstance(d, dict) and 'group' in d
             anotar('pub.orcid.org', 'orcid-%s-works.json' % o, d, ok, '' if ok else (err or 'sem group'))
             if not ok:
@@ -966,7 +1023,9 @@ def rodada_consulta2(n, saida, pausa=PAUSA, chave_openalex=None):
         faltam = sorted(u['DOI'] for u in us if u['DOI'] != NAO_SEI and u['DOI'] not in est['CROSSREF_DOIS_FEITOS'])
         for k in range(0, min(len(faltam), teto['api.crossref.org'] * DOIS_POR_PEDIDO_CROSSREF), DOIS_POR_PEDIDO_CROSSREF):
             lote = faltam[k:k + DOIS_POR_PEDIDO_CROSSREF]
-            d, err = CP._get(url_crossref(lote))
+            d, err = _get_no_contador(url_crossref(lote))
+            if _nao_pedido(err, registo, 'api.crossref.org', url_crossref(lote)):
+                break
             ok = isinstance(d, dict) and isinstance((d.get('message') or {}).get('items'), list)
             anotar('api.crossref.org', 'crossref-c2-r%d-%d.json' % (n, k // DOIS_POR_PEDIDO_CROSSREF + 1), d, ok,
                    '' if ok else (err or 'sem message.items'))

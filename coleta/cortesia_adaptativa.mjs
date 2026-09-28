@@ -32,8 +32,11 @@ export function classeDe(dom, pol = politica()) {
   const c = pol.CLASSES, api = c.API_COM_LIMITE_PUBLICADO;
   if (Object.prototype.hasOwnProperty.call(api.DOMINIOS, dom)) {
     const a = api.DOMINIOS[dom];
-    return ["API_COM_LIMITE_PUBLICADO", { INICIAL: a.ORCAMENTO_24H, TETO: a.ORCAMENTO_24H, MINIMO: api.MINIMO_24H,
-                                          PAUSA_S: a.PAUSA_MINIMA_S, DOBRA: !!api.DOBRA }];
+    // LINHAS-NO-CONTADOR (gemeo de `classe_de`): com limite diario publicado, ORCAMENTO_24H fixo; sem ele (NAO_SEI),
+    // comeca no ORCAMENTO_INICIAL_24H (o minimo seguro) e so dobra ate ao TETO_DE_SEGURANCA_24H.
+    const ini = a.ORCAMENTO_INICIAL_24H ?? a.ORCAMENTO_24H;
+    return ["API_COM_LIMITE_PUBLICADO", { INICIAL: ini, TETO: a.TETO_DE_SEGURANCA_24H ?? ini, MINIMO: api.MINIMO_24H,
+                                          PAUSA_S: a.PAUSA_MINIMA_S, DOBRA: !!(a.DOBRA ?? api.DOBRA) }];
   }
   const nome = c.PLATAFORMA_GRANDE.DOMINIOS.includes(dom) ? "PLATAFORMA_GRANDE" : "SITE";
   const k = c[nome];

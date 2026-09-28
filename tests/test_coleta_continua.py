@@ -446,19 +446,25 @@ class Linhas(Base):
         self.assertEqual(_por_dominio(CONTAGEM), {"x.test": 3})
 
     def test_ligacao_medida_no_codigo_desta_arvore(self):
+        """LINHAS-NO-CONTADOR (28/09): medido pela SONDA de cada linha nesta arvore — SITES, BUSCA, CIENCIA e
+        SOCIAL reservam no livro antes de cada pedido; PESQUISADORES (seguir.py, contador proprio) nao."""
         m = {l["LINHA"]: C.medir_ligacao(l) for l in C.LINHAS}
-        self.assertTrue(m["SITES"]["LIGADA"], m["SITES"])
-        for n in ("BUSCA", "CIENCIA", "SOCIAL", "PESQUISADORES"):
-            self.assertFalse(m[n]["LIGADA"], (n, m[n]))
+        for n in ("SITES", "BUSCA", "CIENCIA", "SOCIAL"):
+            self.assertTrue(m[n]["LIGADA"], (n, m[n]))
+            self.assertTrue(m[n]["PORQUE"].startswith("SONDA:"), (n, m[n]))
+        self.assertFalse(m["PESQUISADORES"]["LIGADA"], m["PESQUISADORES"])
+        self.assertIn("0 reservas no livro", m["PESQUISADORES"]["PORQUE"])
 
-    def test_a_ligacao_e_a_chamada_nao_o_nome(self):
+    def test_a_ligacao_e_o_comportamento_nao_o_texto(self):
+        """Antes: a linha ligava-se se o ficheiro tivesse `reserva_24h.reservar(`. O texto nao prova nada (pode
+        estar morto): sem SONDA a linha NAO liga, com o texto la ou nao."""
         d = self.tmp / "coleta"
         d.mkdir()
-        (d / "t.py").write_text("# fala de reserva_24h mas nao chama\n", encoding="utf-8")
-        l = {"LINHA": "Z", "TRANSPORTE": "coleta/t.py", "CHAMADA": "reserva_24h.reservar("}
-        self.assertFalse(C.medir_ligacao(l, self.tmp)["LIGADA"])
         (d / "t.py").write_text("import reserva_24h\nr = reserva_24h.reservar(h, 1, run_id=x, linha='Z')\n", encoding="utf-8")
-        self.assertTrue(C.medir_ligacao(l, self.tmp)["LIGADA"])
+        l = {"LINHA": "Z", "TRANSPORTE": "coleta/t.py", "CHAMADA": "reserva_24h.reservar("}
+        m = C.medir_ligacao(l, self.tmp)
+        self.assertFalse(m["LIGADA"], m)
+        self.assertIn("SEM_SONDA", m["PORQUE"])
 
 
 # ── 3. os portoes: PARA sozinho, e fica PARADO ───────────────────────────────
