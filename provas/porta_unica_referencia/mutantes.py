@@ -25,7 +25,9 @@ COPIAR = ("_gavetas.py", "motor", "leis", "coleta", "fontes", "pacote", "provas"
           "ferramentas", "admissao", "guarda", "medidas", "pedido", "portoes", "superficie", "orquestrador",
           "candidatas", "referencia", "research/adama-italy-product-intelligence-deep",
           "build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip", "data/samples/IT-SOURCE-SAMPLES/IT-T4-001",
-          "data/samples/IT-ROTULOS", "data/samples/IT-DOSE-ROTULO", "docs/intelligence/r7")
+          "data/samples/IT-ROTULOS", "data/samples/IT-DOSE-ROTULO", "docs/intelligence/r7",
+          # LOTE8-INTEGRA: o contrato PROBLEMA/v1 (CHAVE-PROBLEMA) le a tabela EPPO nos testes da porta
+          "data/samples/ES-T4-001/eppo-dictionary.json")
 
 M = [
     # ── leitura direta (a varredura) ─────────────────────────────────────────
