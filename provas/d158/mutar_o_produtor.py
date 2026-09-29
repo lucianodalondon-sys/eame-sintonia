@@ -46,7 +46,7 @@ BATERIA = "tests/test_o_produtor_de_afirmacoes.py"
 #: (nome, ficheiro, o que estava la, o que passa a estar)
 MUTANTES = [
     ("TRECHO_DEIXA_DE_SER_O_TEXTO", "leis/afirmacao_do_documento.py",
-     '"TRECHO_LITERAL": span,', '"TRECHO_LITERAL": span.strip(),'),
+     '                "TRECHO_LITERAL": span,', '                "TRECHO_LITERAL": span[1:],'),
     ("ID_NAO_OLHA_O_OFFSET", "leis/afirmacao_do_documento.py",
      'str(int(inicio)), str(int(fim)), str(trecho)])',
      'str(trecho)])'),
@@ -102,7 +102,7 @@ MUTANTES = [
      '"EVIDENCE_SPAN": {"INICIO": a, "FIM": b, "TRECHO": span[1:], "SHA256": sha_do_trecho(span)},'),
     ("A_CLASSE_SAI_DO_VOCABULARIO_FECHADO", "leis/afirmacao_do_documento.py",
      '        return {"VALOR": marcas[0], "MARCAS": marcas,',
-     '        return {"VALOR": "+".join(marcas), "MARCAS": marcas,'),
+     '        return {"VALOR": "CLASSE_" + marcas[0], "MARCAS": marcas,'),
     ("A_CLASSE_ESCOLHE_UMA_DE_DUAS", "leis/afirmacao_do_documento.py",
      '    if len(marcas) > 1:', '    if False:'),
     ("MEMORIA_RESPONDE_A_TODOS", "leis/boletim_do_campo.py",

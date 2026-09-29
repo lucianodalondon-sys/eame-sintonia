@@ -1,0 +1,239 @@
+{
+ "ARVORE": "54997f74058a6137bba5297b7724240fcf9ee33b",
+ "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
+ "SEM_MUTACAO": {
+  "CODIGO": 0,
+  "VERDE": true,
+  "CAUDA": "a_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 52 tests in 1.388s\n\nOK"
+ },
+ "MUTANTES": [
+  {
+   "NOME": "TRECHO_DEIXA_DE_SER_O_TEXTO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "ID_NAO_OLHA_O_OFFSET",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_outro_offset_da_outro_id (__main__.OIdentificador.test_outro_offset_da_outro_id)"
+   ]
+  },
+  {
+   "NOME": "ID_NAO_OLHA_O_BYTE_DO_RAW",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_outro_raw_da_outro_id (__main__.OIdentificador.test_outro_raw_da_outro_id)"
+   ]
+  },
+  {
+   "NOME": "CONFERENCIA_NAO_COMPARA_O_TRECHO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "CONFERENCIA_NAO_OLHA_O_RAW_SHA256",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_documento_alterado_reprova (__main__.TestesNegativos.test_documento_alterado_reprova)"
+   ]
+  },
+  {
+   "NOME": "CONFERENCIA_NAO_OLHA_O_BASIS",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "QUALQUER_PAPEL_E_FACTO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_so_acontecimento_vira_fact_time (__main__.AFronteiraDaCollection.test_so_acontecimento_vira_fact_time)",
+    "FAIL: test_ato_e_mercado_tem_papel_proprio (__main__.TestesNegativos.test_ato_e_mercado_tem_papel_proprio)",
+    "FAIL: test_publicacao_nao_e_fato (__main__.TestesNegativos.test_publicacao_nao_e_fato)",
+    "FAIL: test_validade_nao_e_fato (__main__.TestesNegativos.test_validade_nao_e_fato)"
+   ]
+  },
+  {
+   "NOME": "EDICAO_VIRA_ACONTECIMENTO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_periodo_da_edicao_nao_e_fato (__main__.TestesNegativos.test_periodo_da_edicao_nao_e_fato)"
+   ]
+  },
+  {
+   "NOME": "FUTURO_VIRA_ACONTECIMENTO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "D147_SEM_A_CONDICAO_DO_CONCORRENTE",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_dois_periodos_no_mesmo_cabecalho_ficam_nao_sei (__main__.TestesNegativos.test_dois_periodos_no_mesmo_cabecalho_ficam_nao_sei)"
+   ]
+  },
+  {
+   "NOME": "D147_SEM_O_PAPEL_DO_CABECALHO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_validade_nao_e_fato (__main__.TestesNegativos.test_validade_nao_e_fato)"
+   ]
+  },
+  {
+   "NOME": "D147_SEM_A_RECUSA_DO_CONSELHO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_conselho_nao_herda_a_data_da_seccao (__main__.TestesNegativos.test_conselho_nao_herda_a_data_da_seccao)"
+   ]
+  },
+  {
+   "NOME": "D149_NAO_COMPARA_IMPRESSO_COM_A_CONTA",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_data_ambigua_fica_nao_sei (__main__.TestesNegativos.test_data_ambigua_fica_nao_sei)"
+   ]
+  },
+  {
+   "NOME": "DESDOBRAR_ACEITA_TUDO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "A_VIRGULA_QUE_EMENDA_DEIXA_DE_CORTAR",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_virgula_que_emenda_duas_frases_corta (__main__.ONDE_UMA_FRASE_ACABA.test_a_virgula_que_emenda_duas_frases_corta)"
+   ]
+  },
+  {
+   "NOME": "FACT_TIME_VIRA_A_PUBLICACAO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar (__main__.OContratoDeConsumoDaIntelligence.test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar)",
+    "FAIL: test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao)"
+   ]
+  },
+  {
+   "NOME": "FACT_LOCATION_VIRA_O_LUGAR_DA_FONTE",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_local_inexistente_fica_nao_sei (__main__.TestesNegativos.test_local_inexistente_fica_nao_sei)"
+   ]
+  },
+  {
+   "NOME": "SPAN_SEM_O_NOME_NO_TRECHO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_conferencia_recusa_span_com_nome_fora_do_trecho (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_span_com_nome_fora_do_trecho)",
+    "FAIL: test_a_conferencia_aprova_o_que_o_produtor_produz (__main__.TrechoEProva.test_a_conferencia_aprova_o_que_o_produtor_produz)"
+   ]
+  },
+  {
+   "NOME": "O_PRODUTOR_ESCREVE_LIBERADO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_produtor_nao_decide_nada_disso (__main__.AFronteiraDaCollection.test_o_produtor_nao_decide_nada_disso)",
+    "FAIL: test_o_produtor_nunca_escreve_liberacao (__main__.OContratoDeConsumoDaIntelligence.test_o_produtor_nunca_escreve_liberacao)",
+    "FAIL: test_a_conferencia_aprova_o_que_o_produtor_produz (__main__.TrechoEProva.test_a_conferencia_aprova_o_que_o_produtor_produz)"
+   ]
+  },
+  {
+   "NOME": "CLAIM_ID_DEIXA_DE_SER_O_ASSERTION_ID",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_claim_id_e_assertion_id_sao_o_mesmo_valor (__main__.OContratoDeConsumoDaIntelligence.test_claim_id_e_assertion_id_sao_o_mesmo_valor)",
+    "FAIL: test_a_conferencia_aprova_o_que_o_produtor_produz (__main__.TrechoEProva.test_a_conferencia_aprova_o_que_o_produtor_produz)"
+   ]
+  },
+  {
+   "NOME": "EVIDENCE_SPAN_NAO_BATE_COM_O_TEXTO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_evidence_span_e_literal_e_confere (__main__.OContratoDeConsumoDaIntelligence.test_o_evidence_span_e_literal_e_confere)",
+    "FAIL: test_a_conferencia_aprova_o_que_o_produtor_produz (__main__.TrechoEProva.test_a_conferencia_aprova_o_que_o_produtor_produz)"
+   ]
+  },
+  {
+   "NOME": "A_CLASSE_SAI_DO_VOCABULARIO_FECHADO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "A_CLASSE_ESCOLHE_UMA_DE_DUAS",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_classe_com_duas_marcas_fica_nao_sei (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_com_duas_marcas_fica_nao_sei)"
+   ]
+  },
+  {
+   "NOME": "MEMORIA_RESPONDE_A_TODOS",
+   "FICHEIRO": "leis/boletim_do_campo.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "ERROR: test_a_classe_do_facto_observado_e_alerta_evento (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_do_facto_observado_e_alerta_evento)",
+    "ERROR: test_a_conferencia_recusa_claim_sem_identidade (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_claim_sem_identidade)",
+    "ERROR: test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base)",
+    "ERROR: test_a_conferencia_recusa_quem_escreveu_liberacao (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_quem_escreveu_liberacao)",
+    "ERROR: test_a_conferencia_recusa_span_com_nome_fora_do_trecho (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_span_com_nome_fora_do_trecho)",
+    "ERROR: test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar (__main__.OContratoDeConsumoDaIntelligence.test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar)"
+   ]
+  }
+ ],
+ "TOTAL": 24,
+ "MORTOS": 18,
+ "SOBREVIVENTES": [
+  "TRECHO_DEIXA_DE_SER_O_TEXTO",
+  "CONFERENCIA_NAO_COMPARA_O_TRECHO",
+  "CONFERENCIA_NAO_OLHA_O_BASIS",
+  "FUTURO_VIRA_ACONTECIMENTO",
+  "DESDOBRAR_ACEITA_TUDO",
+  "A_CLASSE_SAI_DO_VOCABULARIO_FECHADO"
+ ]
+}

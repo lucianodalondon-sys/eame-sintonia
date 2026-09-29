@@ -24,6 +24,7 @@ import re
 import subprocess
 import sys
 import unittest
+from datetime import date
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for _p in (RAIZ, os.path.join(RAIZ, 'leis'), os.path.join(RAIZ, 'admissao')):
@@ -225,6 +226,39 @@ class TestesNegativos(unittest.TestCase):
         v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='0' * 64)
         self.assertTrue(any('documento alterado' in x for x in v), v)
 
+    def test_o_trecho_diferente_de_texto_inicio_fim_reprova_por_isso(self):
+        """A violacao tem de ser ESTA, e nao outra que passe por ela.
+
+        Achado pela mutacao: com a comparacao desligada, a mensagem do EVIDENCE_SPAN
+        continha «TRECHO_LITERAL» e o teste antigo dava-se por satisfeito."""
+        af = json.loads(json.dumps(_produzir(BOLETIM)[0]))
+        af['TRECHO_LITERAL'] = af['TRECHO_LITERAL'][1:]
+        v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='f' * 64)
+        self.assertTrue(any('nao e texto[' in x for x in v), v)
+
+    def test_o_basis_do_tempo_fora_do_sitio_reprova(self):
+        af = json.loads(json.dumps(_que_diz(_produzir(BOLETIM), 'Le grandinate sono state osservate')))
+        af['FACT_TIME_ROLE']['BASIS'] = dict(af['FACT_TIME_ROLE']['BASIS'], INICIO=0, FIM=5)
+        v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='f' * 64)
+        self.assertTrue(any('BASIS do FACT_TIME' in x for x in v), v)
+
+    def test_um_periodo_futuro_nunca_tem_o_papel_de_acontecimento(self):
+        """A regra sozinha, sem depender da marca de futuro na frase."""
+        papel, porque = TA.papel_do_periodo('SEZIONE DAL 21-09-2026 AL 27-09-2026',
+                                            date(2026, 9, 21), date(2026, 9, 27), date(2026, 9, 16))
+        self.assertEqual(papel, TA.PREVISAO)
+        self.assertNotIn(TA.PREVISAO, TA.PAPEL_QUE_E_FACTO)
+
+    def test_a_seccao_futura_nao_da_data_a_um_facto_sem_marca_de_futuro(self):
+        """O trecho nao escreve «previsto» nenhum: quem o barra e o calendario, nao a palavra."""
+        t = ("Bollettino n. 11\n"
+             "\f"
+             "SEZIONE DAL 21-09-2026 AL 27-09-2026\n"
+             "Le grandinate sono state osservate in provincia di Cuneo con danni ai frutteti.\n")
+        af = _que_diz(_produzir(t), 'Le grandinate sono state osservate')
+        self.assertIsNotNone(af)
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+
     def test_texto_alterado_desloca_a_ancora_e_reprova(self):
         af = _produzir(BOLETIM)[0]
         v = AD.conferir_afirmacao(af, 'XXXX' + BOLETIM, raw_sha256='f' * 64)
@@ -325,7 +359,10 @@ class ALeituraDoCabecalhoDobrado(unittest.TestCase):
                          'SEZIONE Dal 07-09-2026')
 
     def test_nao_desdobra_texto_normal(self):
-        for l in ('La settimana scorsa e iniziata', 'SEZIONE Dal 07-09-2026', 'aa bb', ''):
+        for l in ('La settimana scorsa e iniziata', 'SEZIONE Dal 07-09-2026', 'aa bb', '',
+                  # todos os pedacos com comprimento PAR, e nenhum dobrado: a regra tem de
+                  # olhar os PARES de caracteres, nao so o comprimento (achado pela mutacao)
+                  'ANNO 2026 DATA TEST'):
             self.assertIsNone(TA.desdobrar(l), l)
 
     def test_o_periodo_dobrado_e_o_mesmo_periodo(self):
