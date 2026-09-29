@@ -405,6 +405,13 @@ class TestEntrega(_Pasta):
                          hashlib.sha256((self.entrega / "POTE.json").read_bytes()).hexdigest())
         self.assertEqual(GI.VP.validar(pote), [])
 
+    def test_a_entrega_e_lf_e_o_sha256sums_le_se_com_a_ferramenta_padrao(self):
+        TestVoltaDoGatilho._volta(self, {})
+        for n in ("POTE.json", "MANIFESTO.json", "SHA256SUMS.txt"):
+            self.assertNotIn(b"\r", (self.entrega / n).read_bytes(), n)
+        for linha in (self.entrega / "SHA256SUMS.txt").read_bytes().split(b"\n")[:-1]:
+            self.assertRegex(linha.decode("ascii"), r"^[0-9a-f]{64} \*(POTE|MANIFESTO)\.json$")
+
     def test_a_entrega_troca_se_inteira(self):
         self.entrega.mkdir(parents=True)
         (self.entrega / "SOBRA-DE-OUTRA.json").write_text("{}", encoding="utf-8")

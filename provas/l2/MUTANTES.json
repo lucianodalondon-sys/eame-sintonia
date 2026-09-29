@@ -95,8 +95,6 @@
    "FINGE": "pote reprovado vai para a entrega (o fiscal e ignorado)",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
-    "test_o_candidato_que_o_fiscal_le_ja_vem_convertido",
-    "test_o_motor_verdadeiro_sobre_o_export_r7_e_o_fiscal_decide",
     "test_pote_reprovado_nao_sobe_e_a_entrega_nao_muda"
    ]
   },
@@ -106,7 +104,6 @@
    "FINGE": "pote reprovado vai para a entrega (antes do fiscal)",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
-    "test_o_motor_verdadeiro_sobre_o_export_r7_e_o_fiscal_decide",
     "test_pote_reprovado_nao_sobe_e_a_entrega_nao_muda"
    ]
   },
@@ -147,10 +144,10 @@
    "FINGE": "o mapa do motor e achatado em texto",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
-    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor",
-    "test_o_candidato_que_o_fiscal_le_ja_vem_convertido",
-    "test_o_mapa_nunca_se_achata_nem_se_escolhe_uma_entrada",
-    "test_valor_da_lei_fica_e_o_resto_vira_unknown"
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei",
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
    ]
   },
   {
@@ -159,10 +156,10 @@
    "FINGE": "escolhe-se uma entrada do mapa",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
-    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor",
-    "test_o_candidato_que_o_fiscal_le_ja_vem_convertido",
-    "test_o_mapa_nunca_se_achata_nem_se_escolhe_uma_entrada",
-    "test_valor_da_lei_fica_e_o_resto_vira_unknown"
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei",
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
    ]
   },
   {
@@ -177,12 +174,13 @@
   {
    "ID": "L46",
    "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
-   "FINGE": "o pote e montado sem a conversao",
+   "FINGE": "o mapa do motor chega ao pote (montado sem a conversao)",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
-    "test_o_candidato_que_o_fiscal_le_ja_vem_convertido",
-    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor",
-    "test_entity_source_e_o_bloqueio_medido_do_pote"
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei",
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
    ]
   },
   {
@@ -192,6 +190,120 @@
    "ESTADO": "MORTO",
    "APANHADO_POR": [
     "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
+   ]
+  },
+  {
+   "ID": "L48",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita qualquer texto em ENTITY_SOURCE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova"
+   ]
+  },
+  {
+   "ID": "L49",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita o mapa do motor",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova",
+    "test_o_mapa_do_motor_reprova_no_gerador_e_convertido_passa_no_fiscal"
+   ]
+  },
+  {
+   "ID": "L50",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita «NAO SEI» em ENTITY_SOURCE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova"
+   ]
+  },
+  {
+   "ID": "L51",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita o valor da R9 manual (fora da lei)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova"
+   ]
+  },
+  {
+   "ID": "L52",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita ENTITY_SOURCE vazio",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova"
+   ]
+  },
+  {
+   "ID": "L53",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o gerador traduz UNKNOWN para «NAO SEI» (segundo vocabulario)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei",
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
+   ]
+  },
+  {
+   "ID": "L54",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal deixa de conferir ENTITY_SOURCE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_que_nao_e_da_lei_reprova",
+    "test_o_mapa_do_motor_reprova_no_gerador_e_convertido_passa_no_fiscal"
+   ]
+  },
+  {
+   "ID": "L55",
+   "FICHEIRO": "motor/r7_export_da_copia.sql",
+   "FINGE": "o export nao le o sha256 do raw_asset",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_export_le_o_byte_do_raw_asset"
+   ]
+  },
+  {
+   "ID": "L56",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "FINGE": "a prova calcula o sha a partir do texto da Sala (nao veio do raw_asset)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei",
+    "test_sem_o_byte_no_export_a_prova_diz_nao_sei"
+   ]
+  },
+  {
+   "ID": "L57",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "FINGE": "o motor nao le a coluna raw_sha256 do export",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei"
+   ]
+  },
+  {
+   "ID": "L58",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o gerador deixa cair o byte da prova",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei"
+   ]
+  },
+  {
+   "ID": "L59",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "o fiscal aceita qualquer RAW_SHA256",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset"
    ]
   },
   {
@@ -461,8 +573,8 @@
   }
  ],
  "PORTAL_IGUAL_NO_FIM": true,
- "MORTOS": 47,
- "TOTAL": 47,
+ "MORTOS": 59,
+ "TOTAL": 59,
  "RESTAURADOS_IGUAIS": true,
  "ESTADO": "PASS"
 }

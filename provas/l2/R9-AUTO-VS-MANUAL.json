@@ -95,7 +95,10 @@
   "REPETIDO_SEM_HORA_LEGIVEL": {},
   "ITEM_ID_SEM_IDENTIDADE": 0
  },
- "N38_NO_CORTE": true,
+ "ITENS_DO_ORACULO": [
+  "derived:11"
+ ],
+ "ITENS_DO_ORACULO_NO_CORTE": true,
  "MOTOR": {
   "CORRIDA": "IR-5b31893628a09b10b232",
   "RESULT_STATE": "DONE",
@@ -112,29 +115,8 @@
  "MOTOR_SOBRE_O_N38": {
   "OBJETOS": [
    {
-    "COMP": "future",
-    "ID": "R7-FUT-5c8f373bbd66cec8",
-    "ESPECIE": "FATO_PRESENTE_SOBRE_O_FUTURO",
-    "FACT_TIME": "5-7 ottobre 2026",
-    "FACT_LOCATION": "NAO SEI"
-   },
-   {
     "COMP": "sources",
     "ID": "R7-SRC-503889df882a753d",
-    "ESPECIE": "RENDIMENTO_DE_FONTE",
-    "FACT_TIME": null,
-    "FACT_LOCATION": null
-   },
-   {
-    "COMP": "sources",
-    "ID": "R7-SRC-ad2ad3332c215baf",
-    "ESPECIE": "RENDIMENTO_DE_FONTE",
-    "FACT_TIME": null,
-    "FACT_LOCATION": null
-   },
-   {
-    "COMP": "sources",
-    "ID": "R7-SRC-98d3015faa406556",
     "ESPECIE": "RENDIMENTO_DE_FONTE",
     "FACT_TIME": null,
     "FACT_LOCATION": null
@@ -156,16 +138,11 @@
    "sources": 6
   },
   "ENTITY_SOURCE_CONVERTIDOS": 15,
-  "VIOLACOES": 15,
-  "PRIMEIRAS": [
-   "LEI: future/R7-FUT-05fbe8d350ab7880: ENTITY_SOURCE esconde a ignorancia",
-   "LEI: future/R7-FUT-e34f6c8e7e6f746f: ENTITY_SOURCE esconde a ignorancia",
-   "LEI: future/R7-FUT-74a3754fae5e5443: ENTITY_SOURCE esconde a ignorancia",
-   "LEI: future/R7-FUT-e15bbdb13112dc7d: ENTITY_SOURCE esconde a ignorancia",
-   "LEI: future/R7-FUT-3154af7d92328223: ENTITY_SOURCE esconde a ignorancia"
-  ],
+  "VIOLACOES": 0,
+  "PRIMEIRAS": [],
   "CAMPOS_DE_LIBERACAO": [],
-  "PROVAS_COM_RAW_SHA256": 0,
+  "PROVAS_COM_RAW_SHA256": 21,
+  "PROVAS_COM_RAW_SHA256_NAO_SEI": 0,
   "PROVAS": 21,
   "PROVAS_COM_TRECHO": 0
  },

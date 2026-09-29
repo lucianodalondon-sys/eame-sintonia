@@ -64,8 +64,8 @@ MUTANTES = [
  ("L10", GI, "pote reprovado vai para a entrega (o fiscal e ignorado)", "    if violacoes:\n        guardado = ",
   "    if False:\n        guardado = "),
  ("L11", GI, "pote reprovado vai para a entrega (antes do fiscal)",
-  "    candidato.write_text(json.dumps(pote, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")\n",
-  "    candidato.write_text(json.dumps(pote, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")\n"
+  "    candidato.write_text(json.dumps(pote, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")\n",
+  "    candidato.write_text(json.dumps(pote, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")\n"
   "    entregar(candidato, pote, entrega, corte)\n"),
  ("L12", GI, "SHA256SUMS com o sha errado", "    (nova / \"SHA256SUMS.txt\").write_text(\"\".join(\"%s *%s\\n\" % (_sha256(nova / n), n)",
   "    (nova / \"SHA256SUMS.txt\").write_text(\"\".join(\"%s *%s\\n\" % (_sha256(nova / \"POTE.json\"), n)"),
@@ -91,6 +91,11 @@ MUTANTES = [
  ("L47", GI, "a conversao estraga a saida do motor (sem copia)",
   "    entrada = json.loads(json.dumps(saida_motor, ensure_ascii=False, default=list))",
   "    entrada = saida_motor"),
+ ("L60", GI, "a entrega volta a sair com o fim de linha do sistema (CRLF no Windows quebra o sha256sum -c)",
+  "                                                 for n in (\"POTE.json\", \"MANIFESTO.json\")), encoding=\"utf-8\",\n"
+  "                                         newline=\"\\n\")",
+  "                                                 for n in (\"POTE.json\", \"MANIFESTO.json\")), encoding=\"utf-8\",\n"
+  "                                         newline=\"\\r\\n\")"),
  # ── D-GER-1 · o fiscal do pote: ENTITY_SOURCE so com o vocabulario da COL-LAW-221 ──
  ("L48", POTE, "o fiscal aceita qualquer texto em ENTITY_SOURCE",
   "                if not (isinstance(es, str) and es in ENTITY_SOURCES):",

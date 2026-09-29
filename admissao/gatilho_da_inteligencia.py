@@ -377,10 +377,12 @@ def entregar(candidato: Path, pote: dict, entrega: Path, corte: dict | None = No
         "CORTE_VIGENTE": {k: (corte or {}).get(k, NAO_SEI)
                           for k in ("LINHAS_NO_EXPORT", "LINHAS_NO_CORTE", "DEFEITO_NA_SALA")},
     }
+    # LF sempre, tambem no Windows: o SHA256SUMS le-se com `sha256sum -c`, e um \r colava-se ao nome do ficheiro.
     (nova / "MANIFESTO.json").write_text(json.dumps(manifesto, ensure_ascii=False, indent=1) + "\n",
-                                         encoding="utf-8")
+                                         encoding="utf-8", newline="\n")
     (nova / "SHA256SUMS.txt").write_text("".join("%s *%s\n" % (_sha256(nova / n), n)
-                                                 for n in ("POTE.json", "MANIFESTO.json")), encoding="utf-8")
+                                                 for n in ("POTE.json", "MANIFESTO.json")), encoding="utf-8",
+                                         newline="\n")
     velha = entrega.with_name(entrega.name + ".velha")
     shutil.rmtree(velha, ignore_errors=True)
     if entrega.exists():
@@ -398,7 +400,7 @@ def subir_o_pote(saida_motor: dict, pasta: Path = PASTA, parar: Path = PARAR,
     run = pote.get("INTELLIGENCE_RUN_ID", NAO_SEI)
     pasta.mkdir(parents=True, exist_ok=True)
     candidato = pasta / ".POTE.candidato.json"
-    candidato.write_text(json.dumps(pote, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    candidato.write_text(json.dumps(pote, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     # O fiscal le o FICHEIRO que vai para a entrega, e nao o dicionario em memoria: o que se confere
     # e o que se entrega, byte a byte.
     violacoes = VP.validar(VP.ler_ficheiro(candidato))

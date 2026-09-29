@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 """O FUNIL DA R9 — onde o caminho automatico perde os itens (D156). So MEDE; nao muda nada.
 
-    py provas/l2/funil_r9.py [--r9=<pasta intelligence-experimental>]  ->  provas/l2/FUNIL-R9.json
+    py provas/l2/funil_r9.py [--r9=<pasta intelligence-experimental>] [--entregar=<pasta PARA-O-CASCO fora do Git>]
+                                                                     ->  provas/l2/FUNIL-R9.json
 
 Sobre os bytes exatos da Sala da R9 (sha conferido), corre o caminho oficial do gatilho (cortar_vigente ->
 motor_das_capacidades.rodar -> montar_o_pote -> validar_pote_v2) e conta, portao a portao, quantos itens passam:
@@ -103,6 +104,16 @@ def main(argv=None) -> int:
            "ITENS_DO_ORACULO": {}}
     for iid in itens_do_oraculo(base):
         out["ITENS_DO_ORACULO"][iid] = seguir(saida, iid)
+    # A ENTREGA, pela funcao oficial do gatilho (subir_o_pote): so em PARA-O-CASCO/, fora do Git (tem dado real).
+    destino = next((Path(x.split("=", 1)[1]) for x in argv if x.startswith("--entregar=")), None)
+    if destino is not None:
+        import tempfile
+        with tempfile.TemporaryDirectory(prefix="l2-funil-") as t:
+            r = GI.subir_o_pote(saida, Path(t) / "corrida", Path(t) / "PARAR.flag", entrega=destino, corte=corte)
+        out["ENTREGA"] = {k: r.get(k) for k in ("SUBIU", "PORQUE", "CORRIDA", "VIOLACOES", "ENTREGA",
+                                               "ENTITY_SOURCE_CONVERTIDOS")}
+        if r.get("SUBIU"):
+            out["ENTREGA"]["SHA256SUMS"] = (destino / "SHA256SUMS.txt").read_text(encoding="utf-8").splitlines()
     SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8")
     print(json.dumps(out, ensure_ascii=False, indent=1, default=str)[:9000])
     return 0
