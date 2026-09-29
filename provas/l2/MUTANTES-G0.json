@@ -1,0 +1,144 @@
+{
+ "TESTE": "tests.test_g0_da_afirmacao",
+ "BASE_VERDE": true,
+ "MUTANTES": [
+  {
+   "ID": "G1",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "o G0 da afirmacao usa o FACT_TIME do item",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_motor_confere_a_prova_da_afirmacao_pela_entrada_dela",
+    "test_prova_de_afirmacao_nao_e_admitida_pelo_g0_do_item_nem_o_inverso",
+    "test_a_mesma_afirmacao_duas_vezes_conta_uma",
+    "test_data_futura_em_relacao_a_captura_bloqueia"
+   ]
+  },
+  {
+   "ID": "G2",
+   "FICHEIRO": "pacote/pote_intelligence_casco.py",
+   "FINGE": "prova de afirmacao admitida pelo G0 do item (pote)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_prova_de_afirmacao_nao_e_admitida_pelo_g0_do_item_nem_o_inverso",
+    "test_o_pote_admite_as_duas_pelo_g0_delas_e_passa_no_fiscal"
+   ]
+  },
+  {
+   "ID": "G3",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "afirmacao com RAW_SHA256 diferente do item aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_raw_sha256_diferente_do_item_e_recusada"
+   ]
+  },
+  {
+   "ID": "G4",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "TRECHO que nao bate com o texto aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_trecho_que_nao_bate_com_o_texto_e_recusada"
+   ]
+  },
+  {
+   "ID": "G5",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "PAPEL != ACONTECIMENTO com FACT_TIME aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_papel_que_nao_e_acontecimento_com_fact_time_bloqueia"
+   ]
+  },
+  {
+   "ID": "G6",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "ORIGEM LITERAL com BASIS fora do trecho aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_literal_com_basis_fora_do_trecho_bloqueia"
+   ]
+  },
+  {
+   "ID": "G7",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "RELATIVO_D63 servindo ACT_NOW",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_relativo_d63_passa_mas_nunca_serve_act_now"
+   ]
+  },
+  {
+   "ID": "G8",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "afirmacao duplicada contada duas vezes",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_mesma_afirmacao_duas_vezes_conta_uma"
+   ]
+  },
+  {
+   "ID": "G9",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "FINGE": "REGION_ID cunhado a partir do lugar",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_region_id_fica_nao_sei_e_nao_e_cunhado_do_lugar"
+   ]
+  },
+  {
+   "ID": "G10",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "FINGE": "sem AFIRMACOES.json o pote muda (archive vazio aparece)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_saida_e_o_pote_sem_afirmacoes_sao_os_de_antes"
+   ]
+  },
+  {
+   "ID": "G11",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "FINGE": "FACT_TIME := PUBLISHED_AT no objeto da afirmacao",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_cada_afirmacao_sai_com_o_seu_tempo_e_o_g0_do_item_continua_bloqueado",
+    "test_fact_time_do_objeto_e_o_da_afirmacao_nunca_a_publicacao"
+   ]
+  },
+  {
+   "ID": "G12",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "afirmacao sem CLAIM_ID aceite",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_sem_claim_id_e_recusada"
+   ]
+  },
+  {
+   "ID": "G13",
+   "FICHEIRO": "motor/motor_das_capacidades.py",
+   "FINGE": "prova de afirmacao admitida pelo G0 do item (conferencia do motor)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_motor_confere_a_prova_da_afirmacao_pela_entrada_dela",
+    "test_prova_de_afirmacao_nao_e_admitida_pelo_g0_do_item_nem_o_inverso",
+    "test_a_mesma_afirmacao_duas_vezes_conta_uma",
+    "test_relativo_d63_passa_mas_nunca_serve_act_now"
+   ]
+  },
+  {
+   "ID": "G14",
+   "FICHEIRO": "pacote/ponte_intelligence_casco.py",
+   "FINGE": "a entrada da afirmacao entra no indice do ITEM (os dois G0 misturados)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_prova_de_afirmacao_nao_e_admitida_pelo_g0_do_item_nem_o_inverso"
+   ]
+  }
+ ],
+ "MORTOS": 14,
+ "TOTAL": 14,
+ "RESTAURADOS_IGUAIS": true,
+ "ESTADO": "PASS"
+}

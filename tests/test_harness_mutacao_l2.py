@@ -31,6 +31,19 @@ class TestHarnessDeMutacaoL2(unittest.TestCase):
             self.assertNotEqual(m_lf, lf, mid)
             self.assertEqual(m_crlf, m_lf.replace(b"\n", b"\r\n"), mid)
 
+    def test_os_alvos_do_g0_da_afirmacao_tambem(self):
+        spec = importlib.util.spec_from_file_location("mutantes_g0_l2", RAIZ / "provas" / "l2" / "mutantes_g0.py")
+        mg = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mg)
+        for mid, f, _finge, velho, novo in mg.MUTANTES:
+            lf = (RAIZ / f).read_bytes().replace(b"
+", b"
+")
+            self.assertEqual(self.MU.aplicar(lf, velho, novo)[1], 1, mid)
+            self.assertEqual(self.MU.aplicar(lf.replace(b"
+", b"
+"), velho, novo)[1], 1, mid)
+
     def test_os_ids_nao_se_repetem(self):
         ids = [m[0] for m in self.MU.MUTANTES]
         self.assertEqual(len(ids), len(set(ids)))
