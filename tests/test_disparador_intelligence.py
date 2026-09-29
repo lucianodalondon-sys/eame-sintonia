@@ -573,7 +573,7 @@ class TestFiscalEntitySource(_Pasta):
         pote = self._pote_valido()
         mapa = {"CROP_ID": {"VALOR": "x", "ENTITY_SOURCE": "SPAN", "POR_ITEM": []}}
         achatado = "POR_CHAVE — CROP_ID:SPAN; REGION_ID:NAO SEI"
-        fora_da_lei = "TRECHO_DA_" + "AFIRMACAO"       # o valor da R9 manual: entrada RECUSADA, nao regra
+        fora_da_lei = "TRECHO_DA_AFIRMACAO"            # o valor da R9 manual: entrada RECUSADA, nao regra
         for mau in (mapa, "NAO SEI", achatado, fora_da_lei, "", "?", None, ["SPAN"], "span"):
             viol = GI.VP.validar(self._com(pote, mau))
             self.assertTrue(any("ENTITY_SOURCE fora da COL-LAW-221" in v for v in viol), (mau, viol))

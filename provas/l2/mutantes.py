@@ -108,7 +108,7 @@ MUTANTES = [
   "                if not (isinstance(es, str) and es in ENTITY_SOURCES + (NAO_SEI,)):"),
  ("L51", POTE, "o fiscal aceita o valor da R9 manual (fora da lei)",
   "                if not (isinstance(es, str) and es in ENTITY_SOURCES):",
-  "                if not (isinstance(es, str) and es in ENTITY_SOURCES + (\"TRECHO_DA_\" \"AFIRMACAO\",)):"),
+  "                if not (isinstance(es, str) and es in ENTITY_SOURCES + (\"TRECHO_DA_AFIRMACAO\",)):"),
  ("L52", POTE, "o fiscal aceita ENTITY_SOURCE vazio",
   "                if not (isinstance(es, str) and es in ENTITY_SOURCES):",
   "                if not (isinstance(es, str) and es in ENTITY_SOURCES + (\"\",)):"),
