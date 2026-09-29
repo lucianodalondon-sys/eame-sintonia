@@ -1118,12 +1118,29 @@ class R4_AuditorDec120851(Base):
             m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, veredito=v)))
             self.assertIn("so PASS ou FAIL", m)
 
-    def test_K3_detalhe_que_contradiz_o_PASS(self):
-        for d in ("REJEITADO: E3 falhou", "rejeitada", "elo E2 FALHOU", "falha no bruto", "FAIL parcial",
-                  "partial failure"):
-            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+    def test_K3b_o_detalhe_e_texto_nao_verificado_e_nao_decide(self):
+        """DECISAO DO COORDENADOR (K3b, 29/09): quem decide e VEREDITO == 'PASS' E os
+        sete ELOS a PASS/OK. O VEREDITO_DETALHE e texto nao verificado — nao salva um
+        FAIL nem derruba um PASS com os elos todos bons. A lista negra de palavras que
+        havia antes deixava sempre passar a proxima grafia; foi retirada de proposito."""
+        for d in ("REJEITADO: E3 falhou", "reprovado no elo 3", "NAO PASSOU", "tudo conferido"):
+            pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
                 self.entrada(self.pote, VEREDITO_DETALHE=d))))
-            self.assertIn("VEREDITO_DETALHE", m)
+            self.assertTrue(pode, "o detalhe %r decidiu: %s" % (d, motivo))
+            self.assertIn("VEREDITO_DETALHE: texto nao verificado", motivo.split("ALEGADO")[1])
+        # palavras boas nao salvam um FAIL, nem um elo falhado
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            self.entrada(self.pote, "FAIL", VEREDITO_DETALHE="tudo conferido, aprovado"))))
+        elos = {"E%d" % k: "PASS" for k in range(1, 8)}
+        elos["E3"] = "FALHOU"
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            self.entrada(self.pote, ELOS=elos, VEREDITO_DETALHE="tudo conferido"))))
+
+    def test_K3b_esta_escrito_na_lei(self):
+        with open(os.path.join(RAIZ, "leis", "fundacao_da_coleta.py"), encoding="utf-8") as f:
+            texto = f.read()
+        self.assertIn("VEREDITO_DETALHE e TEXTO NAO VERIFICADO", texto)
+        self.assertNotIn("('rejeit', 'falh', 'fail')", texto)
 
     def test_K4_PASS_exige_os_sete_elos_a_PASS_ou_OK(self):
         base = {"E%d" % k: "PASS" for k in range(1, 8)}
@@ -1151,6 +1168,89 @@ class R4_AuditorDec120851(Base):
         verificado, alegado = motivo.split("VERIFICADO: ")[1].split(" · ALEGADO (nao conta como prova): ")
         self.assertNotIn("LAB_ORIGIN", verificado)
         self.assertIn("LAB_ORIGIN=sintonia-lab declarado", alegado)
+
+
+class R5_AuditorVerif337dc53d4(Base):
+    """AUDITOR (VERIF-L1-337dc53d4) + decisao do coordenador: V4d e V3c."""
+
+    def agora_mais(self, **delta):
+        from datetime import datetime, timedelta, timezone
+        return (datetime.now(timezone.utc) + timedelta(**delta)).isoformat()
+
+    # ── V4d: um FAIL escondido atras de uma grafia diferente do nome ────────
+    def _pass_antigo_e_fail_recente(self, nome_do_fail, conteudo=None):
+        p = self._pasta_nova()
+        velho = self.lab_json(self.entrada(self.pote, "PASS", DATA_UTC=self.agora_mais(hours=-2)), pasta=p)
+        corpo = conteudo if conteudo is not None else json.dumps(
+            self.entrada(self.pote, "FAIL", DATA_UTC=self.agora_mais(hours=-1)))
+        self._gravar(corpo, self._pasta_nova(), nome_do_fail)
+        return velho
+
+    def test_V4d_ctl_o_FAIL_recente_com_o_nome_certo_derruba(self):
+        velho = self._pass_antigo_e_fail_recente(self.nome_deste_par(versao=2))
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=velho))
+        self.assertIn("mais recente", m)
+
+    def test_V4d_o_FAIL_recente_com_grafia_anomala_poe_o_par_em_FAIL(self):
+        base = self.nome_deste_par(versao=2)[:-len(".json")]
+        for nome in (base + ".JSON", base + ".json.bak", base.upper() + ".json", " " + base + ".json",
+                     base + "-copia.json", "copia-de-" + base + ".json"):
+            velho = self._pass_antigo_e_fail_recente(nome)
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=velho))
+            self.assertIn("nome fora do formato real", m, nome)
+            self.setUp()
+
+    def test_V4d_o_par_citado_so_pelo_conteudo_num_nome_qualquer(self):
+        velho = self._pass_antigo_e_fail_recente("notas-do-lab.json")
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=velho))
+        self.assertIn("nome fora do formato real", m)
+
+    def test_V4d_o_par_citado_pelo_nome_mesmo_sem_json_valido(self):
+        velho = self._pass_antigo_e_fail_recente(self.nome_deste_par()[:-5] + ".txt", conteudo="FAIL, em texto")
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=velho))
+        self.assertIn("nome fora do formato real", m)
+
+    def test_V4d_ficheiros_de_outros_pares_na_arvore_nao_atrapalham(self):
+        outro = copy.deepcopy(self.pote)
+        outro["INTELLIGENCE_RUN_ID"] = "IR-outra-corrida"
+        self.lab_para(outro)
+        self._gravar("notas soltas do LAB", self._pasta_nova(), "LEIA-ME.txt")
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
+        self.assertTrue(pode, motivo)
+
+    # ── V3c: o futuro nao entra na ordenacao ─────────────────────────────────
+    def _pass_e_fail(self, delta_do_pass):
+        p = self._pasta_nova()
+        v = self.lab_json(self.entrada(self.pote, "PASS", DATA_UTC=self.agora_mais(**delta_do_pass)), pasta=p)
+        self.lab_json(self.entrada(self.pote, "FAIL", DATA_UTC=self.agora_mais(minutes=-1)), pasta=p, versao=2)
+        return v
+
+    def test_V3c_ctl_PASS_mais_antigo_que_o_FAIL_recusa(self):
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self._pass_e_fail({"minutes": -2})))
+
+    def test_V3c_PASS_dentro_da_tolerancia_nao_vence_um_FAIL(self):
+        for delta in ({"minutes": 4}, {"minutes": 4, "seconds": 59}, {"seconds": 5}):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self._pass_e_fail(delta)))
+            self.assertIn("no futuro", m)
+            self.setUp()
+
+    def test_V3c_uma_versao_irma_no_futuro_poe_o_par_em_FAIL(self):
+        p = self._pasta_nova()
+        bom = self.lab_json(self.entrada(self.pote, "PASS", DATA_UTC=self.agora_mais(minutes=-5)), pasta=p)
+        self.lab_json(self.entrada(self.pote, "FAIL", DATA_UTC=self.agora_mais(minutes=2)), pasta=p, versao=2)
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=bom))
+        self.assertIn("no futuro", m)
+
+    def test_V3c_a_tolerancia_so_salva_a_propria_prova_quando_e_a_unica(self):
+        so = self.lab_json(self.entrada(self.pote, DATA_UTC=self.agora_mais(minutes=2)))
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=so))
+        self.assertTrue(pode, motivo)
+        self.setUp()
+        fora = self.lab_json(self.entrada(self.pote, DATA_UTC=self.agora_mais(minutes=6)))
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=fora))
+        self.setUp()
+        sem_fuso = self.lab_json(self.entrada(self.pote, DATA_UTC="2099-01-01T00:00:00"))
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=sem_fuso))
 
 
 if __name__ == "__main__":

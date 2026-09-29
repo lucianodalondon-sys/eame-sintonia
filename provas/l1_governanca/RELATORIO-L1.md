@@ -65,7 +65,7 @@ subpasta = recusa (caminho resolvido, prefixo de diretório).
 - **V3b:** `DATA_UTC` mais de 5 min no futuro = inválida = FAIL.
 - **K1:** lista FECHADA de chaves na prova (as 12 do formato real); desconhecida = recusa.
 - **K2:** `VEREDITO` exato `PASS`|`FAIL`; chave com «rejeit» em qualquer caixa e nível = recusa.
-- **K3:** `VEREDITO=PASS` com `VEREDITO_DETALHE` que diga rejeit/falh/fail = recusa.
+- **K3:** (substituído na rodada 5 por K3b: o detalhe não decide.)
 - **K4:** `VEREDITO=PASS` exige `ELOS` E1..E7 todos `PASS` ou `OK`; qualquer outro valor = recusa.
 - `LAB_ORIGIN` saiu da linha VERIFICADO e está em ALEGADO.
 - Mutantes: 84/84, com o sha da lei atual.
@@ -77,6 +77,21 @@ subpasta = recusa (caminho resolvido, prefixo de diretório).
   `LIMITE_…` e `test_LAB_ORIGIN_sai_como_alegado…`).
 - Suposição declarada: os valores de `ELOS` são textos `PASS`/`OK`; se o LAB os escrever como
   objetos, a guarda recusa (falha fechado) — confirmar com o LAB.
+
+### Rodada 5 (VERIF-L1-337dc53d4 + decisão do coordenador, DA reversível)
+
+- **V4d:** a busca percorre TODOS os ficheiros da árvore do LAB. Um ficheiro com o nome do
+  formato real do par é versão; qualquer outro que cite o par — pelo nome (qualquer caixa,
+  `.JSON`, `.json.bak`, prefixos/sufixos) ou pelo conteúdo (mesmo `POTE_SHA256` e `RUN_ID`) —
+  é anomalia e põe o par inteiro em FAIL.
+- **V3c:** uma versão com `DATA_UTC` depois de agora nunca entra na ordenação: o par inteiro
+  FAIL. A tolerância de 300 s só impede que a PRÓPRIA prova do pedido seja inválida por
+  relógio, e só quando é a única do par — nunca para vencer outra.
+- **K3b:** `VEREDITO_DETALHE` é **texto não verificado** e saiu da decisão (a lista negra
+  rejeit/falh/fail foi retirada). Quem decide é `VEREDITO == 'PASS'` E os sete `ELOS`
+  E1..E7 a `PASS`/`OK`. Escrito na lei e mostrado no motivo como ALEGADO. Consequência
+  assumida: uma prova com `VEREDITO=PASS`, elos todos PASS e detalhe «reprovado» PASSA — os
+  casos K3/K3b dos scripts do auditor que esperam recusa ficam em desacordo por decisão.
 
 **LIMITE_CONHECIDO:** `AUTORIA_DO_LAB = DECLARADA` (LAB_ORIGIN + pasta), **não**
 provada criptograficamente — neste PC todos os agentes correm como o mesmo

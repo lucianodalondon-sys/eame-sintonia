@@ -368,22 +368,17 @@ def _versao_do_nome(nome, sha_canonico, run_id):
     return None
 
 
-def _data_utc(valor, agora=None):
-    """DATA_UTC em ISO -> datetime com fuso (sem fuso = UTC). None se ausente, invalida
-    ou mais de TOLERANCIA_DO_RELOGIO_S no futuro (V3b: um PASS datado em 2099 nao
-    pode congelar o par contra um FAIL de hoje)."""
-    from datetime import datetime, timedelta, timezone
+def _data_utc(valor):
+    """DATA_UTC em ISO -> datetime com fuso (sem fuso = UTC). None se ausente ou
+    invalida. O futuro NAO se decide aqui: decide-se na ordenacao das versoes (V3c)."""
+    from datetime import datetime, timezone
     if not isinstance(valor, str) or not valor.strip():
         return None
     try:
         d = datetime.fromisoformat(valor.strip().replace('Z', '+00:00'))
     except ValueError:
         return None
-    d = d if d.tzinfo else d.replace(tzinfo=timezone.utc)
-    agora = agora or datetime.now(timezone.utc)
-    if d > agora + timedelta(seconds=TOLERANCIA_DO_RELOGIO_S):
-        return None
-    return d
+    return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
 
 
 def _tem_marca_de_rejeicao(x):
@@ -396,21 +391,37 @@ def _tem_marca_de_rejeicao(x):
 
 
 def _provas_do_par(pastas_do_lab, sha_canonico, run_id):
-    """V4a/V4b: TODAS as provas do par em TODA a arvore das pastas do LAB (recursivo)
-    — a busca nao depende da pasta que o pedido escolheu."""
-    achadas = []
+    """-> (versoes, anomalias). TODOS os ficheiros de TODA a arvore das pastas do LAB
+    (recursivo), e nao so os que tem o nome certo.
+
+    V4a/V4b: a busca nao depende da pasta que o pedido escolheu. V4d (decisao do
+    coordenador, 29/09): nem da grafia do nome. Um ficheiro com o nome do formato
+    real deste par e uma versao (o conteudo confere-se a seguir). Qualquer OUTRO
+    ficheiro que cite este par — pelo nome (qualquer caixa, .JSON, .json.bak…) ou
+    pelo conteudo (JSON com o mesmo POTE_SHA256 e RUN_ID) — e uma ANOMALIA, e uma
+    anomalia poe o par inteiro em FAIL: um FAIL escondido atras de uma grafia
+    diferente nao pode deixar passar um PASS antigo."""
+    base = nome_da_prova_do_lab(sha_canonico, run_id)[:-len('.json')].casefold()
+    versoes, anomalias = {}, {}
     for raiz in pastas_do_lab or []:
         r = _caminho(raiz)
         if not r or not os.path.isdir(r):
             continue
         for pasta, _subs, nomes in os.walk(r):
             for nome in nomes:
+                caminho = os.path.realpath(os.path.join(pasta, nome))
+                chave = os.path.normcase(caminho)
                 if _versao_do_nome(nome, sha_canonico, run_id) is not None:
-                    achadas.append(os.path.join(pasta, nome))
-    unicos = {}
-    for a in achadas:
-        unicos.setdefault(os.path.normcase(os.path.realpath(a)), os.path.realpath(a))
-    return [unicos[k] for k in sorted(unicos)]
+                    versoes.setdefault(chave, caminho)
+                    continue
+                cita = base in nome.casefold()
+                if not cita and os.path.getsize(caminho) <= _TAMANHO_MAXIMO_DA_PROVA:
+                    v = _ler_prova(caminho)
+                    cita = (isinstance(v, dict) and v.get('POTE_SHA256') == sha_canonico
+                            and v.get('RUN_ID') == str(run_id))
+                if cita:
+                    anomalias.setdefault(chave, caminho)
+    return [versoes[k] for k in sorted(versoes)], [anomalias[k] for k in sorted(anomalias)]
 
 
 def _ler_prova(f):
@@ -437,12 +448,15 @@ def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote
     'sintonia-lab' (e nao o produtor), VEREDITO so PASS|FAIL e tem de ser PASS,
     ENVELOPE_HASH igual ao do pote quando o pote tem envelope (senao
     'NAO_EXISTE_NO_POTE_PUBLICADO'). So as chaves do formato real (K1); marca de
-    rejeicao em qualquer caixa = recusa (K2); PASS contradito pelo detalhe (K3) ou
-    com um elo E1..E7 que nao e PASS/OK (K4) = recusa. Com varias versoes do mesmo
-    par, em TODA a arvore do LAB (V4), vale a MAIS RECENTE pelo DATA_UTC DE DENTRO
-    do JSON — nunca pela ordem do nome ('-10' vem antes de '-2' no alfabeto).
-    Empate de DATA_UTC = FAIL; DATA_UTC ausente, invalida ou no futuro (V3b) =
-    FAIL. Um FAIL recente derruba um PASS antigo, esteja onde estiver.
+    rejeicao numa CHAVE, em qualquer caixa = recusa (K2); PASS com um elo E1..E7
+    que nao e PASS/OK = recusa (K4). VEREDITO_DETALHE e texto nao verificado e NAO
+    entra na decisao (K3b). Com varias versoes do mesmo par, em TODA a arvore do
+    LAB (V4), vale a MAIS RECENTE pelo DATA_UTC DE DENTRO do JSON — nunca pela ordem
+    do nome ('-10' vem antes de '-2' no alfabeto). Ficheiro que cita o par com nome
+    anomalo = FAIL (V4d). Empate de DATA_UTC = FAIL; ausente ou invalida = FAIL;
+    qualquer versao depois de agora = FAIL (V3c; a tolerancia de 5 min so salva a
+    propria prova quando e a unica). Um FAIL recente derruba um PASS antigo,
+    esteja onde estiver.
 
     Isto NAO prova autoria (LIMITE_CONHECIDO): prova o vinculo ao pote e a corrida."""
     if not isinstance(lab, dict):
@@ -478,10 +492,10 @@ def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote
         return 'LAB_ORIGIN e o proprio produtor do pote'
     if obj.get('VEREDITO') not in ('PASS', 'FAIL'):
         return 'a prova do LAB tem VEREDITO=%r (so PASS ou FAIL)' % obj.get('VEREDITO')
+    # K3b (decisao do coordenador, 29/09): VEREDITO_DETALHE e TEXTO NAO VERIFICADO e
+    # nao entra na decisao — uma lista negra de palavras deixava sempre passar a
+    # proxima grafia. Quem decide e VEREDITO == 'PASS' E os sete ELOS a PASS/OK.
     if obj.get('VEREDITO') == 'PASS':
-        detalhe = str(obj.get('VEREDITO_DETALHE') or '').casefold()
-        if any(p in detalhe for p in ('rejeit', 'falh', 'fail')):
-            return 'VEREDITO=PASS contradito pelo VEREDITO_DETALHE (%r)' % obj.get('VEREDITO_DETALHE')
         elos = obj.get('ELOS')
         if not isinstance(elos, dict) or any(e not in elos for e in ELOS_DA_PROVA):
             return 'VEREDITO=PASS sem os elos E1..E7 todos'
@@ -494,16 +508,31 @@ def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote
     if _versao_do_nome(os.path.basename(f), sha_canonico, run_id) is None:
         return 'o nome da prova nao e %s[-N]' % nome_da_prova_do_lab(sha_canonico, run_id)[:-len('.json')]
     # as versoes do MESMO par em TODA a arvore do LAB: vale a mais recente pelo DATA_UTC
+    from datetime import datetime, timedelta, timezone
+    caminhos, anomalias = _provas_do_par(pastas_do_lab, sha_canonico, run_id)
+    if anomalias:
+        return ('%d ficheiro(s) do LAB citam este par com nome fora do formato real (%s): o par inteiro FAIL'
+                % (len(anomalias), ', '.join(os.path.basename(a) for a in anomalias[:3])))
     versoes = []
-    for caminho in _provas_do_par(pastas_do_lab, sha_canonico, run_id):
+    for caminho in caminhos:
         nome = os.path.basename(caminho)
         v = _ler_prova(caminho)
         quando = _data_utc(v.get('DATA_UTC')) if isinstance(v, dict) else None
         if quando is None:
-            return 'a versao %s da prova deste par tem DATA_UTC ausente, invalida ou no futuro: FAIL' % nome
+            return 'a versao %s da prova deste par tem DATA_UTC ausente ou invalida: FAIL' % nome
         if not isinstance(v, dict) or v.get('POTE_SHA256') != sha_canonico or v.get('RUN_ID') != str(run_id):
             return 'a versao %s tem o nome deste par e o conteudo de outro: FAIL' % nome
         versoes.append((quando, caminho, v))
+    # V3c: uma versao datada depois de AGORA nunca entra na ordenacao — o par inteiro
+    # FAIL. A tolerancia do relogio so serve para a PROPRIA prova do pedido, quando
+    # ela e a unica do par; nunca para vencer outra.
+    agora = datetime.now(timezone.utc)
+    futuras = [(q, c) for q, c, _v in versoes if q > agora]
+    sozinha = (len(versoes) == 1 and os.path.normcase(versoes[0][1]) == os.path.normcase(os.path.realpath(f)))
+    for q, c in futuras:
+        if not (sozinha and q <= agora + timedelta(seconds=TOLERANCIA_DO_RELOGIO_S)):
+            return 'a versao %s deste par tem DATA_UTC no futuro (%s): o par inteiro FAIL' % (
+                os.path.basename(c), q.isoformat())
     ultima = max(q for q, _c, _v in versoes)
     no_topo = [(c, v) for q, c, v in versoes if q == ultima]
     if len(no_topo) > 1:
@@ -770,9 +799,10 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     if problema:
         return False, '%s · %s' % (BLOQUEIO, problema)
     verificado.append('LAB: %s e a prova MAIS RECENTE (DATA_UTC) do par (POTE_SHA256, RUN_ID) deste pote em '
-                      'toda a arvore do LAB, sha256 fixado, VEREDITO=PASS coerente com ELOS e detalhe, '
-                      'ENVELOPE_HASH conferido' % os.path.basename(lab['ONDE']))
+                      'toda a arvore do LAB (sem anomalias nem datas no futuro), sha256 fixado, VEREDITO=PASS e '
+                      'ELOS E1..E7 a PASS/OK, ENVELOPE_HASH conferido' % os.path.basename(lab['ONDE']))
     alegado.append('o CONTEUDO da prova reversa do LAB (nao e relido aqui)')
+    alegado.append('VEREDITO_DETALHE: texto nao verificado, fora da decisao (K3b)')
     alegado.append('o AUTOR da prova do LAB: LAB_ORIGIN=%s declarado; AUTORIA_DO_LAB=DECLARADA (LAB_ORIGIN + pasta), '
                    'AUTORIA_PROVADA=false (todos os agentes correm como o mesmo utilizador Windows)' % LAB_ORIGIN)
     violacoes = validar(pote)
