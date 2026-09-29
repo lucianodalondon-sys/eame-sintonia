@@ -2,10 +2,12 @@
  "DATASET": "ELO-RAW-SALA",
  "CICLO": "C:\\Users\\London1\\orca\\pgtmp\\religa-canario\\CICLO",
  "DSN_MEDIDO": true,
- "CAPTURAS": 8,
+ "CAPTURAS": 11,
+ "JULGADAS": 8,
  "CONTA": {
   "ANTES_DO_RAW": 21,
-  "ADMISSION_RECUSOU": 8
+  "ADMISSION_RECUSOU": 8,
+  "PRESERVADA_SEM_JULGAMENTO": 3
  },
  "VEREDITO": "ELO_INTEIRO: nenhuma captura se perdeu entre o RAW e a Sala. Onde a Sala ficou vazia, foi a Admission a julgar e a dizer que nao — com motivo escrito, item a item.",
  "ITENS": [
@@ -69,58 +71,94 @@
    "LINHA": "INSTAGRAM",
    "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/CONTAS-V1#SYNGENTA|IT|INSTAGRAM",
    "URL": "https://www.instagram.com/reel/C-FanW_CYMz/",
-   "SHA256": "4a79eef76f610e34",
-   "RAW_OBSERVATION_ID": 85,
-   "PASSAGEM": "72fff55e",
+   "SHA256": "b025f5c4480e41f6",
+   "RAW_OBSERVATION_ID": 88,
+   "PASSAGEM": "5bf06fa8",
    "PERGUNTAS": [
     {
      "UNIVERSO": "T9",
-     "RESULTADO": "NAO_SEI",
-     "MOTIVO": "QUARENTENA (D11): o detector nao sabe se isto e materia ou pagina de entrada. Nao entra na Sala; nada se apaga; sai so por regra provada (replay) ou por decisao humana registada",
+     "RESULTADO": "NAO",
+     "MOTIVO": "nao fala de «T9», e fala claramente de outro universo (T5: ricerca). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
      "CARIMBO": null
     }
    ],
    "ONDE_PAROU": "ADMISSION_RECUSOU",
    "QUEM_PAROU": "ADMISSION",
-   "MOTIVO": "T9=NAO_SEI: QUARENTENA (D11): o detector nao sabe se isto e materia ou pagina de entrada. Nao entra na Sala; nada se apaga; sai so por regra provada (replay) ou p"
+   "MOTIVO": "T9=NAO: nao fala de «T9», e fala claramente de outro universo (T5: ricerca). Isto e um NAO com prova a favor — nao a simples falta de uma palavra."
+  },
+  {
+   "LINHA": "INSTAGRAM",
+   "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/CONTAS-V1#SYNGENTA|IT|INSTAGRAM",
+   "URL": "https://www.instagram.com/reel/C-FanW_CYMz/",
+   "SHA256": "bacbf35bab7adc55",
+   "RAW_OBSERVATION_ID": 89,
+   "PASSAGEM": "bd43239c",
+   "PERGUNTAS": [],
+   "ONDE_PAROU": "PRESERVADA_SEM_JULGAMENTO",
+   "QUEM_PAROU": null,
+   "MOTIVO": "bytes de ORIGEM do Reel: preservados como observacao; a unidade julgada e o registo de metadados"
   },
   {
    "LINHA": "INSTAGRAM",
    "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/CONTAS-V1#BAYER|IT|INSTAGRAM",
    "URL": "https://www.instagram.com/reel/DcNkh7LCW4u/",
-   "SHA256": "605777ac353b72f6",
-   "RAW_OBSERVATION_ID": 86,
-   "PASSAGEM": "893a0077",
+   "SHA256": "cedb68be50b37c62",
+   "RAW_OBSERVATION_ID": 90,
+   "PASSAGEM": "3c494109",
    "PERGUNTAS": [
     {
      "UNIVERSO": "T9",
      "RESULTADO": "NAO_SEI",
-     "MOTIVO": "QUARENTENA (D11): o detector nao sabe se isto e materia ou pagina de entrada. Nao entra na Sala; nada se apaga; sai so por regra provada (replay) ou por decisao humana registada",
+     "MOTIVO": "IDIOMA_NAO_SUPORTADO:de — o texto esta em «de» e esta porta nao tem regua nessa lingua. NAO_SEI dito, nao fingido.",
      "CARIMBO": null
     }
    ],
    "ONDE_PAROU": "ADMISSION_RECUSOU",
    "QUEM_PAROU": "ADMISSION",
-   "MOTIVO": "T9=NAO_SEI: QUARENTENA (D11): o detector nao sabe se isto e materia ou pagina de entrada. Nao entra na Sala; nada se apaga; sai so por regra provada (replay) ou p"
+   "MOTIVO": "T9=NAO_SEI: IDIOMA_NAO_SUPORTADO:de — o texto esta em «de» e esta porta nao tem regua nessa lingua. NAO_SEI dito, nao fingido."
+  },
+  {
+   "LINHA": "INSTAGRAM",
+   "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/CONTAS-V1#BAYER|IT|INSTAGRAM",
+   "URL": "https://www.instagram.com/reel/DcNkh7LCW4u/",
+   "SHA256": "91d99ea034bba18a",
+   "RAW_OBSERVATION_ID": 91,
+   "PASSAGEM": "b2fc519c",
+   "PERGUNTAS": [],
+   "ONDE_PAROU": "PRESERVADA_SEM_JULGAMENTO",
+   "QUEM_PAROU": null,
+   "MOTIVO": "bytes de ORIGEM do Reel: preservados como observacao; a unidade julgada e o registo de metadados"
   },
   {
    "LINHA": "INSTAGRAM",
    "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/CONTAS-V1#BAYER|IT|INSTAGRAM",
    "URL": "https://www.instagram.com/reel/DZ9ygDrCwzu/",
-   "SHA256": "808ff8a74f697166",
-   "RAW_OBSERVATION_ID": 87,
-   "PASSAGEM": "7071b63b",
+   "SHA256": "5628dc2c03c2a853",
+   "RAW_OBSERVATION_ID": 92,
+   "PASSAGEM": "ebf5d343",
    "PERGUNTAS": [
     {
      "UNIVERSO": "T9",
-     "RESULTADO": "NAO_SEI",
-     "MOTIVO": "QUARENTENA (D11): o detector nao sabe se isto e materia ou pagina de entrada. Nao entra na Sala; nada se apaga; sai so por regra provada (replay) ou por decisao humana registada",
+     "RESULTADO": "NAO",
+     "MOTIVO": "nao fala de «T9», e fala claramente de outro universo (T5: ricerca). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
      "CARIMBO": null
     }
    ],
    "ONDE_PAROU": "ADMISSION_RECUSOU",
    "QUEM_PAROU": "ADMISSION",
-   "MOTIVO": "T9=NAO_SEI: QUARENTENA (D11): o detector nao sabe se isto e materia ou pagina de entrada. Nao entra na Sala; nada se apaga; sai so por regra provada (replay) ou p"
+   "MOTIVO": "T9=NAO: nao fala de «T9», e fala claramente de outro universo (T5: ricerca). Isto e um NAO com prova a favor — nao a simples falta de uma palavra."
+  },
+  {
+   "LINHA": "INSTAGRAM",
+   "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/CONTAS-V1#BAYER|IT|INSTAGRAM",
+   "URL": "https://www.instagram.com/reel/DZ9ygDrCwzu/",
+   "SHA256": "429857306a9bec29",
+   "RAW_OBSERVATION_ID": 93,
+   "PASSAGEM": "65a13e12",
+   "PERGUNTAS": [],
+   "ONDE_PAROU": "PRESERVADA_SEM_JULGAMENTO",
+   "QUEM_PAROU": null,
+   "MOTIVO": "bytes de ORIGEM do Reel: preservados como observacao; a unidade julgada e o registo de metadados"
   },
   {
    "LINHA": "INSTAGRAM",

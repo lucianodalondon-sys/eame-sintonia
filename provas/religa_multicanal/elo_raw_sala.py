@@ -82,6 +82,13 @@ def medir(ciclo: Path, dsn: str | None) -> dict:
                     # ⚠️ AQUI SIM: a captura foi colhida e NAO recebeu observacao no banco.
                     r.update(ONDE_PAROU="ELO_PARTIDO", QUEM_PAROU="ESCRITA_DO_RAW",
                              MOTIVO="a captura nao recebeu RAW_OBSERVATION_ID do banco")
+                elif rel.get("ESTADO") == "PRESERVADA_SEM_JULGAMENTO":
+                    # ⚠️ NAO E ELO PARTIDO: e uma captura que foi preservada DE PROPOSITO sem ser
+                    # julgada — os bytes de origem de um Reel, cuja unidade julgada e o registo.
+                    # Chamar-lhe defeito faria uma decisao de desenho parecer um cano roto, e era
+                    # exactamente isso que este medidor existe para distinguir.
+                    r.update(ONDE_PAROU="PRESERVADA_SEM_JULGAMENTO", QUEM_PAROU=None,
+                             MOTIVO=rel.get("PORQUE"))
                 elif not decisoes:
                     r.update(ONDE_PAROU="ELO_PARTIDO", QUEM_PAROU="ADMISSION_NAO_CORREU",
                              MOTIVO="tem RAW no banco e nenhuma decisao foi registada")
@@ -110,6 +117,8 @@ def medir(ciclo: Path, dsn: str | None) -> dict:
                 "ELO_PARTIDO em %d captura(s): ver QUEM_PAROU em cada uma." % partidos)
     return {"DATASET": "ELO-RAW-SALA", "CICLO": str(ciclo), "DSN_MEDIDO": bool(dsn),
             "CAPTURAS": len([x for x in linhas if x["ONDE_PAROU"] != "ANTES_DO_RAW"]),
+            "JULGADAS": len([x for x in linhas
+                             if x["ONDE_PAROU"] in ("ADMISSION_RECUSOU", "CHEGOU")]),
             "CONTA": conta, "VEREDITO": veredito, "ITENS": linhas}
 
 
