@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3c2cab88d2cc69265e623780e0aa5307e8057c38
+HEAD_DA_MEDICAO  4ffe4829a323dddc7f1da8fc902eb91796dfeb4f
 BRANCH           claude/l2-disparador-v1
-GERADO_EM        2026-09-28T23:05:28-03:00
+GERADO_EM        2026-09-29T09:03:34-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1698,7 +1698,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | admissao/admissao.py:73; admissao/gatilho_da_inteligencia.py:193; admissao/sala_de_espera.py:89 |
+| **prova de quem ativa** | admissao/admissao.py:73; admissao/gatilho_da_inteligencia.py:192; admissao/sala_de_espera.py:89 |
 | **porquê** | estas pecas importam-na — C-ADMISSAO · C-COLETA-BASE · C-DETECTOR-CAPA-GABARITO · C-DONO-DO-DERIVADO · C-INGRESSO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |

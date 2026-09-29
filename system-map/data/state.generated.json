@@ -3182,14 +3182,18 @@
       "provas/janela_formas/cjs/provas_d46_js.py",
       "provas/janela_formas/julgar_paginas_boletim.py",
       "provas/janela_formas/pagina_boletim_local.mjs",
+      "provas/l2/BATERIA-BASE-852ec0f-g.json",
       "provas/l2/BATERIA-BASE-852ec0f.json",
+      "provas/l2/BATERIA-DEPOIS-e72917d.json",
       "provas/l2/BATERIA-DEPOIS-e76f695.json",
       "provas/l2/ENSAIO-DISPARADOR.json",
+      "provas/l2/FUNIL-R9.json",
       "provas/l2/MUTANTES.json",
       "provas/l2/PARA-O-CASCO.md",
       "provas/l2/R9-AUTO-VS-MANUAL.json",
       "provas/l2/R9-AUTO-VS-MANUAL.md",
       "provas/l2/ensaio_disparador.py",
+      "provas/l2/funil_r9.py",
       "provas/l2/mutantes.py",
       "provas/l2/r9_auto_vs_manual.py",
       "provas/ligacao_adama/MEDICAO.json",
@@ -4824,9 +4828,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l2-disparador-v1",
-    "HEAD": "3c2cab88d2cc69265e623780e0aa5307e8057c38",
-    "GENERATED_AT": "2026-09-28T23:05:28-03:00",
-    "SOURCE_TREE_FINGERPRINT": "46eab16acf396cc136b297c04fe7d0d0b163308b085ca0b6c11ea83064072713"
+    "HEAD": "4ffe4829a323dddc7f1da8fc902eb91796dfeb4f",
+    "GENERATED_AT": "2026-09-29T09:03:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a6f14037f14ab8b551452eab05f2d133664c5921b61476ac5e05d43b98871a5e"
   },
   "FAMILIES": [
     {
@@ -6084,6 +6088,7 @@
         "C-INT-MOTOR-CAPACIDADES",
         "C-L2-DISPARADOR-INTELLIGENCE",
         "C-LUGAR-COLETA",
+        "C-POTE-INT-CASCO",
         "C-PROVA-COLETA",
         "C-SALA-DE-ESPERA",
         "C-TESTES"
@@ -46368,7 +46373,7 @@
         "PLANO": null,
         "PROVA": [
           "admissao/admissao.py:73",
-          "admissao/gatilho_da_inteligencia.py:193",
+          "admissao/gatilho_da_inteligencia.py:192",
           "admissao/sala_de_espera.py:89",
           "coleta/coleta_checkpoint.py:46"
         ],
@@ -50827,7 +50832,7 @@
       "name": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida. CHAVE-PROBLEMA (27/09): o objeto do futuro le o ISSUE_ID pelo mesmo contrato PROBLEMA/v1 que a CAP-WIN.",
+      "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida. CHAVE-PROBLEMA (27/09): o objeto do futuro le o ISSUE_ID pelo mesmo contrato PROBLEMA/v1 que a CAP-WIN. D-GER-2 (diretiva do Intelligence owner, 29/09): o export read-only (r7_export_da_copia.sql) le tambem raw_asset.sha256 e storage_path no mesmo left join, e cada PROVA leva RAW_SHA256 / RAW_STORAGE_PATH — os do banco, ou NAO SEI; nunca calculados do texto, da URL ou do disco.",
       "why_here": "Missao INT-R7-CAPS: juntar CAP-WIN e CAP-SCI no motor sem duplicar leis nem contadores (uma corrida, um RUN_ID) e preparar a rodada 7 (RUNBOOK-R7.md). Conflitos resolvidos pelo significado: URL/DOCUMENT_ID nao sao READY (vem do RAW); JANELA_DECLARADA nao esta em CAMPOS_READY (viaja ao lado, so a CAP-WIN a le); boletim nao e estudo e estudo nao e janela. Nao abre a Sala, nao cunha identidade, nao produz OPORTUNIDADE. EXPERIMENTAL / NAO_PARA_CLIENTE.",
       "departments": [
         "ENGENHARIA",
@@ -50880,9 +50885,9 @@
           "COLUNAS_DO_RAW",
           "_CAMPO_DA_JANELA"
         ],
-        "palavras": 41,
+        "palavras": 45,
         "por_lingua": {},
-        "sem_marca_de_lingua": 41,
+        "sem_marca_de_lingua": 45,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -50917,8 +50922,8 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "admissao/gatilho_da_inteligencia.py:102",
-          "admissao/gatilho_da_inteligencia.py:120",
+          "admissao/gatilho_da_inteligencia.py:101",
+          "admissao/gatilho_da_inteligencia.py:119",
           "pacote/acervo_na_intelligence.py:79",
           "provas/chave_problema/mutacao_chave_problema.py:48"
         ],
@@ -52504,7 +52509,7 @@
       "name": "O disparador da Intelligence (D90-5, D140) — so le a Sala",
       "territory": "Z-ADMISSAO",
       "kind": "engine",
-      "what": "Uma volta por chamada (--uma-volta), chamada pelo Agendador de Tarefas por um .cmd que le SALA_DSN.txt no arranque (set /p; sem setx; a DSN nunca se imprime). Pergunta a Sala (so SELECT, pelo cliente so-leitura da coleta, de 5 em 5 min) quantos READY pousaram depois da ultima tentativa; corre com 10 novos OU com 1 novo que ja espera 4 h, senao SEM_DELTA / POUCOS_E_RECENTES. Dois trincos (sala_de_espera._Trava): um impede duas corridas, outro impede duas voltas de ler e gravar o estado (curadoria/ESTEIRA-INTELLIGENCE-ESTADO.json) ao mesmo tempo. A corrida e o motor que ja existe: backup da Sala reposto numa copia descartavel (PROVA_VALE), export read-only DA COPIA como o RUNBOOK-R7 (motor/r7_export_da_copia.sql, READ_ONLY=on conferido) mais a hora de pouso de cada linha, CORTE VIGENTE (uma linha por ITEM_ID, a de pousado_em mais recente; ITEM_ID repetido, sem identidade ou sem hora legivel sai do corte e e DECLARADO em CORTE-VIGENTE.json, no estado e no vigia — a Sala real tem derived:6/56/57/60/62/66 em duas linhas e o motor recusa o corte inteiro), motor_das_capacidades.rodar, montar_o_pote (o gerador do dono pote_intelligence_casco.ler_entrada e, so aqui, ENTITY_SOURCE = valor da lei COL-LAW-221 senao UNKNOWN — decisao do Intelligence owner D142; o mapa do motor nunca se achata nem se escolhe uma entrada), e o fiscal validar_pote_v2 sobre o ficheiro candidato na pasta da corrida: so PASSA vai para a entrega (curadoria/esteira/intelligence/PARA-O-CASCO/: POTE.json + MANIFESTO.json + SHA256SUMS.txt, trocada inteira). A ENTREGA E A FRONTEIRA: o disparador nunca escreve sob italia-portale/ — quem le a entrega e publica e o casco (correcao do coordenador, 28/09). Reprovado fica guardado com as violacoes. Nunca chama pousar/rever/retirar e nunca escreve consumido_em (retirar da fila e outra decisao, D140). Recuo de 30 min depois de falha; depois de cada corrida, dentro do trinco, a poda dos backups. Medido: com a conversao, o fiscal reprova UNKNOWN como «ENTITY_SOURCE esconde a ignorancia» (so NAO SEI e ignorancia escrita) — conflito de leis no pote, decisao do dono do pote; o disparador obedece ao fiscal. D152: codigo pronto, NAO agendado, NAO instalado.",
+      "what": "Uma volta por chamada (--uma-volta), chamada pelo Agendador de Tarefas por um .cmd que le SALA_DSN.txt no arranque (set /p; sem setx; a DSN nunca se imprime). Pergunta a Sala (so SELECT, pelo cliente so-leitura da coleta, de 5 em 5 min) quantos READY pousaram depois da ultima tentativa; corre com 10 novos OU com 1 novo que ja espera 4 h, senao SEM_DELTA / POUCOS_E_RECENTES. Dois trincos (sala_de_espera._Trava): um impede duas corridas, outro impede duas voltas de ler e gravar o estado (curadoria/ESTEIRA-INTELLIGENCE-ESTADO.json) ao mesmo tempo. A corrida e o motor que ja existe: backup da Sala reposto numa copia descartavel (PROVA_VALE), export read-only DA COPIA como o RUNBOOK-R7 (motor/r7_export_da_copia.sql, READ_ONLY=on conferido) mais a hora de pouso de cada linha, CORTE VIGENTE (uma linha por ITEM_ID, a de pousado_em mais recente; ITEM_ID repetido, sem identidade ou sem hora legivel sai do corte e e DECLARADO em CORTE-VIGENTE.json, no estado e no vigia — a Sala real tem derived:6/56/57/60/62/66 em duas linhas e o motor recusa o corte inteiro), motor_das_capacidades.rodar, montar_o_pote (o gerador do dono pote_intelligence_casco.ler_entrada e, so aqui, ENTITY_SOURCE = valor da lei COL-LAW-221 senao UNKNOWN — decisao do Intelligence owner D142; o mapa do motor nunca se achata nem se escolhe uma entrada), e o fiscal validar_pote_v2 sobre o ficheiro candidato na pasta da corrida: so PASSA vai para a entrega (curadoria/esteira/intelligence/PARA-O-CASCO/: POTE.json + MANIFESTO.json + SHA256SUMS.txt, trocada inteira). A ENTREGA E A FRONTEIRA: o disparador nunca escreve sob italia-portale/ — quem le a entrega e publica e o casco (correcao do coordenador, 28/09). Reprovado fica guardado com as violacoes. Nunca chama pousar/rever/retirar e nunca escreve consumido_em (retirar da fila e outra decisao, D140). Recuo de 30 min depois de falha; depois de cada corrida, dentro do trinco, a poda dos backups. A conversao D142 corre ANTES do gerador (que ja confere a COL-LAW-221 ao montar); com o fiscal D-GER-1, o pote do motor real e valido (Sala da R9: 15 objetos, 0 violacoes; RAW_SHA256 do banco 21/21). A entrega e escrita em LF (sha256sum -c). D152: codigo pronto, NAO agendado, NAO instalado.",
       "why_here": "L2-DISPARADOR-INTELLIGENCE (D140, 28/09/2026): o dono pediu o disparador automatico SOMENTE-LEITURA que a TRAVA permite. Nao e um disparador novo: e o gatilho da ESTEIRA-SOZINHA (f85b4138a) portado seletivamente para cima da producao fd8c94698 — sem a passagem armazem -> Sala (escreve na Sala, e a coleta continua da producao ja leva cada corrida pela porta) e sem o gancho no supervisor (o supervisor nao tem a DSN; o metodo do dono e o .cmd do coleta_continua). Mora em admissao/, ao lado do dono da Sala: decide QUANDO a espera acaba e entrega uma COPIA ao motor; nao analisa nada. No motor/ ele faria o motor abrir a Sala (test_system_map::a_coleta_nao_conversa_com_o_motor_as_centenas).",
       "departments": [
         "ENGENHARIA",
@@ -52584,7 +52589,7 @@
           "provas/l2/ensaio_disparador.py:58",
           "provas/l2/mutantes.py:27",
           "tests/test_disparador_intelligence.py:34",
-          "tests/test_disparador_intelligence.py:374"
+          "tests/test_disparador_intelligence.py:371"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -57651,7 +57656,7 @@
         "PROVA": [
           "motor/cruzamentos_max.py:61",
           "pacote/pote_cruzamentos_max.py:51",
-          "pacote/pote_intelligence_casco.py:68",
+          "pacote/pote_intelligence_casco.py:69",
           "provas/_mutantes_ponte_casco.py:23"
         ],
         "PORQUE": "estas pecas importam-na — C-CRUZAMENTOS-MAX · C-POTE-CRUZAMENTOS-MAX · C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -58505,7 +58510,7 @@
       "name": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta",
       "territory": "Z-PACOTE",
       "kind": "engine",
-      "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy. POTE-V2-UNICO (27/09): e o contrato UNICO (docs/intelligence/pote-v2/CONTRATO-POTE-V2.md + schema ao lado + validar_pote_v2.py = forma do schema e lei de conferir_pote). INTELLIGENCE_RUN_ID no topo (em CABECALHO so por leitura declarada em LEITURA_DE_COMPATIBILIDADE); cada PROVA com URL e PUBLISHED_AT, ou NAO SEI com a base, G0 e ADMITIDA_POR; ENTITY_SOURCE/LOCATION_SOURCE (D112; o lugar da fonte nunca vira lugar do facto). P7: RENDIMENTO_DE_FONTE e resultado honesto (NAO / NAO_TRATAR_AGORA / NO_DEFENSIBLE_ACTION_YET) nao dependem de FACT_TIME (USO_EXIGE_TEMPO); proveniencia continua obrigatoria. P8: no Polso, MERCADO.LEITURA = SERIE_MEDIDA so com >= 2 pontos na mesma unidade; um ponto e SINAL_SOLTO, e afirmar mudanca sem serie e recusado. LIGACAO-ADAMA (D123, revisao anotada REVISAO_DO_CONTRATO = v2 + LIGACAO_ADAMA/v1): todo objeto leva LIGACAO_ADAMA calculada pela porta (motor/porta_da_referencia.py); o gerador recusa SEM_LIGACAO_ADAMA, LIGACAO_ADAMA_FORA_DA_PORTA (selo/lei de conferir_ligacao) e REFERENCIA_NAO_E_FONTE_INDEPENDENTE, e conferir_pote reprova ligacoes de edicoes diferentes num pote. Payload v1: a porta diz NAO_SEI/REFERENCIA.",
+      "what": "Contrato POTE_INTELLIGENCE_CASCO/v2. Pega no livro de UMA corrida da Intelligence (ou num payload PONTE_INTELLIGENCE_CASCO/v1 ja pronto) e devolve UM pote com INTELLIGENCE_RUN_ID, SOURCE_HEAD e CORTE, e doze compartimentos (meeting, future=Radar Futuro, windows, market, voices, competitors, science, portfolio+etichette, archive, sources=Registro delle fonti, field, casa). Cada objeto leva ESPECIE (SINAL, FATO_PRESENTE_SOBRE_O_FUTURO, CROSSING, FINDING, OPORTUNIDADE, RENDIMENTO_DE_FONTE) e PROVA ate ao RAW (ITEM_ID -> RAW_OBSERVATION_ID -> SOURCE_ID -> DOCUMENT_ID + URL + datas, NAO SEI por extenso). Compartimento vazio diz o porque (CASCO_SEM_CONTRATO_DE_INTELLIGENCE / SEM_OBJETOS_NESTA_CORRIDA / CORRIDA_<estado> / ENTRADA_V1_SEM_VAGA). O facto sobre o futuro bloqueado em G0 SO por FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA vai ao Radar Futuro como especie propria, nunca como oportunidade. A regra de prova e a da ponte v1 (chamada, nao copiada). Escreve sintonia-pote.js (window.SINTONIA_POTE) so em italia-portale/client/, fora do Git e do deploy. POTE-V2-UNICO (27/09): e o contrato UNICO (docs/intelligence/pote-v2/CONTRATO-POTE-V2.md + schema ao lado + validar_pote_v2.py = forma do schema e lei de conferir_pote). INTELLIGENCE_RUN_ID no topo (em CABECALHO so por leitura declarada em LEITURA_DE_COMPATIBILIDADE); cada PROVA com URL e PUBLISHED_AT, ou NAO SEI com a base, G0 e ADMITIDA_POR; ENTITY_SOURCE/LOCATION_SOURCE (D112; o lugar da fonte nunca vira lugar do facto). P7: RENDIMENTO_DE_FONTE e resultado honesto (NAO / NAO_TRATAR_AGORA / NO_DEFENSIBLE_ACTION_YET) nao dependem de FACT_TIME (USO_EXIGE_TEMPO); proveniencia continua obrigatoria. P8: no Polso, MERCADO.LEITURA = SERIE_MEDIDA so com >= 2 pontos na mesma unidade; um ponto e SINAL_SOLTO, e afirmar mudanca sem serie e recusado. LIGACAO-ADAMA (D123, revisao anotada REVISAO_DO_CONTRATO = v2 + LIGACAO_ADAMA/v1): todo objeto leva LIGACAO_ADAMA calculada pela porta (motor/porta_da_referencia.py); o gerador recusa SEM_LIGACAO_ADAMA, LIGACAO_ADAMA_FORA_DA_PORTA (selo/lei de conferir_ligacao) e REFERENCIA_NAO_E_FONTE_INDEPENDENTE, e conferir_pote reprova ligacoes de edicoes diferentes num pote. Payload v1: a porta diz NAO_SEI/REFERENCIA. D-GER-1 (diretiva do Intelligence owner, 29/09): conferir_pote aceita em ENTITY_SOURCE SO o vocabulario da COL-LAW-221 (leis/afirmacao_da_fonte.ENTITY_SOURCES, importado do dono), UNKNOWN incluido como ignorancia declarada pela lei; «NAO SEI», «?», vazio, null, mapa e texto fora da lei reprovam; o gerador ja nao traduz ENTITY_SOURCE para NAO SEI. LOCATION_SOURCE mantem a regra de antes. Efeito medido: o acervo (ENTITY_SOURCE achatado «POR_CHAVE — ...») e a fixture CORRIDA-SINTETICA-V2-UNICO (texto fora da lei) passam a reprovar — defeitos listados na ENTREGA-L2-GERADOR, nao corrigidos aqui. D-GER-2: cada PROVA leva RAW_SHA256 / RAW_STORAGE_PATH vindos da prova do motor (ou NAO SEI), e o fiscal so aceita sha256 de 64 hex.",
       "why_here": "POTE-UNICO (D95/D96, 2026-09-27). O casco lia uma inteligencia congelada (snapshot 07/09) e demo; a ponte v1 nao tinha especie nem vaga para Radar Futuro (P2/P5), Registro/Archivio (P3), e o portal nao a lia. INT-LAW-023/280: transporta, nao cruza, nao promove, nao muda especie, nao calcula rendimento. 45 testes (tests/test_pote_intelligence_casco.py + tests/test_pote_no_casco.mjs, fixture SINTETICA declarada em tests/fixtures/pote/). POTE-V2-UNICO: o bot emitia um R5 com o id em CABECALHO e o gerador ce775ff5 recusava-o; o R6 aprovado recusava o «nao» da APOL e deixava 3 de 47 fontes no Registro (P7), e o Polso lia sinal solto como mudanca (P8). +38 testes em tests/test_pote_v2_unico.py; numa fixture SINTETICA equivalente a R6, 45 das 46 recusas voltam (provas/pote_v2/medir_recusas_r6.py).",
       "departments": [
         "ENGENHARIA",
@@ -58531,6 +58536,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-AFIRMACAO-DA-FONTE",
         "C-INT-PORTA-REFERENCIA",
         "C-MAPA-TESTES",
         "C-PONTE-INT-CASCO"
@@ -58540,6 +58546,7 @@
         "C-L2-DISPARADOR-INTELLIGENCE",
         "C-POTE-CRUZAMENTOS-MAX",
         "C-PROVA-INT-R7",
+        "C-PROVA-L2-DISPARADOR",
         "C-PROVA-LIGACAO-ADAMA",
         "C-PROVA-POTE-CASCO",
         "C-TESTES"
@@ -58596,7 +58603,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "admissao/gatilho_da_inteligencia.py:103",
+          "admissao/gatilho_da_inteligencia.py:102",
           "pacote/acervo_na_intelligence.py:84",
           "pacote/pote_cruzamentos_max.py:50",
           "provas/_mutantes_pote_casco.py:24"
@@ -62826,7 +62833,7 @@
       "name": "As provas do L2-DISPARADOR — Postgres descartavel e mutacao",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "ensaio_disparador.py sobe um PostgreSQL descartavel com a cadeia de migrations, semeia a fixture SINTETICA do R7 pelos donos da Sala (pousar/rever) com o defeito ITEM_ID repetido plantado, e corre a volta agendada de verdade: trinco preso -> OCUPADO sem copia; 10 novos -> dispara (copia PROVA_VALE, export READ_ONLY, corte vigente declarado, motor real, fiscal); sem novo -> SEM_DELTA; 1 novo recente espera e com 4 h dispara; um .cmd real le SALA_DSN.txt com set /p e mede sem imprimir a DSN; um motor DUBLE (declarado, ENTITY_SOURCE da lei) prova que um pote aprovado chega a entrega com sha; italia-portale/ fotografado igual no fim; a impressao da Sala (md5 das linhas, revisoes, consumido_em) e igual antes e depois de cada disparo. mutantes.py planta 47 defeitos (escreve na Sala, marca consumido_em, sem trinco, pote invalido entregue, escrita sob italia-portale/, ENTITY_SOURCE achatado/escolhido/fora da lei, corte torto, DSN impressa, vigia calado, retencao) e exige que tests/test_disparador_intelligence.py reprove cada um; tests/test_harness_mutacao_l2.py confere cada alvo em LF e CRLF. r9_auto_vs_manual.py (D151/D152) corre o caminho oficial do gatilho sobre os bytes exatos da Sala da R9 (sha conferido) e compara com o oraculo PARA-O-CASCO-R9 (so lido): OBJETOS_LIBERADOS_AUTO=0, causa = nao ha produtor de afirmacao por objeto (COL-LAW-202 ABSENT).",
+      "what": "ensaio_disparador.py sobe um PostgreSQL descartavel com a cadeia de migrations, semeia a fixture SINTETICA do R7 pelos donos da Sala (pousar/rever) com o defeito ITEM_ID repetido plantado, e corre a volta agendada de verdade: trinco preso -> OCUPADO sem copia; 10 novos -> dispara (copia PROVA_VALE, export READ_ONLY, corte vigente declarado, motor real, fiscal); sem novo -> SEM_DELTA; 1 novo recente espera e com 4 h dispara; um .cmd real le SALA_DSN.txt com set /p e mede sem imprimir a DSN; um motor DUBLE (declarado, ENTITY_SOURCE da lei) prova que um pote aprovado chega a entrega com sha; italia-portale/ fotografado igual no fim; a impressao da Sala (md5 das linhas, revisoes, consumido_em) e igual antes e depois de cada disparo. mutantes.py planta 47 defeitos (escreve na Sala, marca consumido_em, sem trinco, pote invalido entregue, escrita sob italia-portale/, ENTITY_SOURCE achatado/escolhido/fora da lei, corte torto, DSN impressa, vigia calado, retencao) e exige que tests/test_disparador_intelligence.py reprove cada um; tests/test_harness_mutacao_l2.py confere cada alvo em LF e CRLF. r9_auto_vs_manual.py (D151/D152) corre o caminho oficial do gatilho sobre os bytes exatos da Sala da R9 (sha conferido) e compara com o oraculo PARA-O-CASCO-R9 (so lido): OBJETOS_LIBERADOS_AUTO=0, causa = nao ha produtor de afirmacao por objeto (COL-LAW-202 ABSENT). funil_r9.py (D156) conta portao a portao (corte, G0, triagem, CAP-WIN e o porque, CAP-SCI, objetos, pote, fiscal), segue os itens que o oraculo liberou pela PROVA dele (nenhum ID fixo) e, com --entregar, faz a entrega oficial fora do Git. mutantes.py: 60 defeitos, incluindo o fiscal D-GER-1 (L48-L54), o byte da prova D-GER-2 (L55-L59) e a entrega em CRLF (L60).",
       "why_here": "A prova vive fora da peca que prova. Sem rede e sem a Sala real: o banco e descartavel e o ensaio diz-o.",
       "departments": [
         "ENGENHARIA"
@@ -62842,14 +62849,16 @@
       "family": "F-GOVERNANCA",
       "files": [
         "provas/l2/ensaio_disparador.py",
+        "provas/l2/funil_r9.py",
         "provas/l2/mutantes.py",
         "provas/l2/r9_auto_vs_manual.py"
       ],
-      "file_count": 3,
+      "file_count": 4,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [
+        "provas/l2/FUNIL-R9.json",
         "provas/l2/R9-AUTO-VS-MANUAL.json"
       ],
       "inbound": [
@@ -62859,6 +62868,7 @@
         "C-L2-DISPARADOR-INTELLIGENCE",
         "C-MAPA-TESTES",
         "C-MICRO-COLETA-INSTRUMENTO",
+        "C-POTE-INT-CASCO",
         "C-SALA-DE-ESPERA"
       ],
       "outbound": [],
@@ -62870,9 +62880,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 95,
+        "palavras": 117,
         "por_lingua": {},
-        "sem_marca_de_lingua": 95,
+        "sem_marca_de_lingua": 117,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -62882,6 +62892,12 @@
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/l2/FUNIL-R9.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "provas/l2/R9-AUTO-VS-MANUAL.json",
@@ -62905,7 +62921,11 @@
       "consumes": [
         "admissao/gatilho_da_inteligencia.py",
         "medidas/vigia_da_esteira.py",
+        "motor/motor_das_capacidades.py",
+        "motor/r7_export_da_copia.sql",
+        "pacote/pote_intelligence_casco.py",
         "provas/l2/ENSAIO-DISPARADOR.json",
+        "provas/l2/FUNIL-R9.json",
         "provas/l2/MUTANTES.json",
         "provas/l2/R9-AUTO-VS-MANUAL.json",
         "scripts/micro_coleta/ensaio_offline.py",
@@ -80975,7 +80995,7 @@
       "evidence": [
         {
           "file": "admissao/gatilho_da_inteligencia.py",
-          "line": 105,
+          "line": 104,
           "snippet": "from afirmacao_da_fonte import ENTITY_SOURCES as LEI_221   # noqa: E402 — COL-LAW-221 (dono: leis/)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-L2-DISPARADOR-INTELLIGENCE",
@@ -81072,6 +81092,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AFIRMACAO-DA-FONTE",
+      "to": "C-POTE-INT-CASCO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins tem o seu codigo importado por O pote unico: uma corrida da Intelligence, um compartimento por ferramenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/pote_intelligence_casco.py",
+          "line": 77,
+          "snippet": "from afirmacao_da_fonte import ENTITY_SOURCES           # noqa: E402  (leis/: dono do vocabulario COL-LAW-221)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-POTE-INT-CASCO",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-POTE-INT-CASCO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -81245,7 +81300,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_cap_win.py",
@@ -81267,6 +81322,22 @@
           "file": "tests/test_chave_problema.py",
           "line": 30,
           "snippet": "import afirmacao_da_fonte as AF  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-TESTES",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_disparador_intelligence.py",
+          "line": 582,
+          "snippet": "import afirmacao_da_fonte as AF",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-TESTES",
             "FROM": "C-AFIRMACAO-DA-FONTE",
@@ -103670,7 +103741,7 @@
       "evidence": [
         {
           "file": "admissao/gatilho_da_inteligencia.py",
-          "line": 193,
+          "line": 192,
           "snippet": "from guarda.cliente_postgres import resolver_psql       # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-L2-DISPARADOR-INTELLIGENCE",
@@ -115448,7 +115519,7 @@
       "evidence": [
         {
           "file": "admissao/gatilho_da_inteligencia.py",
-          "line": 102,
+          "line": 101,
           "snippet": "import motor_das_capacidades as M                # noqa: E402 — o motor que ja existe",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-L2-DISPARADOR-INTELLIGENCE",
@@ -115483,7 +115554,7 @@
       "evidence": [
         {
           "file": "admissao/gatilho_da_inteligencia.py",
-          "line": 120,
+          "line": 119,
           "snippet": "SQL_EXPORT = RAIZ / \"motor\" / \"r7_export_da_copia.sql\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-L2-DISPARADOR-INTELLIGENCE",
@@ -115651,11 +115722,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 2 linhas de codigo.",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 tem o seu codigo importado por As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
           "line": 57,
+          "snippet": "import motor_das_capacidades as M          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-PROVA-L2-DISPARADOR",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-PROVA-L2-DISPARADOR",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/l2/funil_r9.py",
+          "line": 27,
           "snippet": "import motor_das_capacidades as M          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-PROVA-L2-DISPARADOR",
@@ -115687,6 +115774,57 @@
         }
       ],
       "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-MOTOR-CAPACIDADES",
+      "to": "C-PROVA-L2-DISPARADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 alimenta As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/l2/mutantes.py",
+          "line": 31,
+          "snippet": "MOT = \"motor/motor_das_capacidades.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-L2-DISPARADOR",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-PROVA-L2-DISPARADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/l2/mutantes.py",
+          "line": 32,
+          "snippet": "SQL = \"motor/r7_export_da_copia.sql\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-L2-DISPARADOR",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-PROVA-L2-DISPARADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -116273,7 +116411,7 @@
       "evidence": [
         {
           "file": "pacote/pote_intelligence_casco.py",
-          "line": 75,
+          "line": 76,
           "snippet": "import porta_da_referencia as PORTA                    # noqa: E402  (motor/)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-POTE-INT-CASCO",
@@ -125125,11 +125263,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O disparador da Intelligence (D90-5, D140) — so le a Sala tem o seu codigo importado por As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 2 linhas de codigo.",
+      "reason": "O disparador da Intelligence (D90-5, D140) — so le a Sala tem o seu codigo importado por As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
           "line": 58,
+          "snippet": "import gatilho_da_inteligencia as GI       # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--IMPORTS-->C-PROVA-L2-DISPARADOR",
+            "FROM": "C-L2-DISPARADOR-INTELLIGENCE",
+            "TO": "C-PROVA-L2-DISPARADOR",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/l2/funil_r9.py",
+          "line": 28,
           "snippet": "import gatilho_da_inteligencia as GI       # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--IMPORTS-->C-PROVA-L2-DISPARADOR",
@@ -125250,7 +125404,7 @@
       "evidence": [
         {
           "file": "tests/test_disparador_intelligence.py",
-          "line": 374,
+          "line": 371,
           "snippet": "texto = (RAIZ / \"admissao\" / \"gatilho_da_inteligencia.py\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--READS-->C-TESTES",
@@ -130721,7 +130875,7 @@
       "evidence": [
         {
           "file": "admissao/gatilho_da_inteligencia.py",
-          "line": 99,
+          "line": 98,
           "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-L2-DISPARADOR-INTELLIGENCE",
@@ -131775,7 +131929,7 @@
       "evidence": [
         {
           "file": "pacote/pote_intelligence_casco.py",
-          "line": 63,
+          "line": 64,
           "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
@@ -132708,11 +132862,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 2 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
           "line": 55,
+          "snippet": "import _gavetas                            # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-L2-DISPARADOR",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PROVA-L2-DISPARADOR",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/l2/funil_r9.py",
+          "line": 26,
           "snippet": "import _gavetas                            # noqa: E402,F401",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-L2-DISPARADOR",
@@ -143140,7 +143310,7 @@
       "evidence": [
         {
           "file": "pacote/pote_intelligence_casco.py",
-          "line": 68,
+          "line": 69,
           "snippet": "import ponte_intelligence_casco as V1                  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-POTE-INT-CASCO",
@@ -146065,7 +146235,7 @@
       "evidence": [
         {
           "file": "admissao/gatilho_da_inteligencia.py",
-          "line": 103,
+          "line": 102,
           "snippet": "import pote_intelligence_casco as P              # noqa: E402 — o gerador do pote",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-L2-DISPARADOR-INTELLIGENCE",
@@ -146081,7 +146251,7 @@
         },
         {
           "file": "admissao/gatilho_da_inteligencia.py",
-          "line": 104,
+          "line": 103,
           "snippet": "import validar_pote_v2 as VP                     # noqa: E402 — o fiscal do pote",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-L2-DISPARADOR-INTELLIGENCE",
@@ -146192,6 +146362,41 @@
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-INT-R7",
             "FROM": "C-POTE-INT-CASCO",
             "TO": "C-PROVA-INT-R7",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-POTE-INT-CASCO",
+      "to": "C-PROVA-L2-DISPARADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta alimenta As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/l2/mutantes.py",
+          "line": 30,
+          "snippet": "POTE = \"pacote/pote_intelligence_casco.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-L2-DISPARADOR",
+            "FROM": "C-POTE-INT-CASCO",
+            "TO": "C-PROVA-L2-DISPARADOR",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -157198,7 +157403,7 @@
       "evidence": [
         {
           "file": "admissao/gatilho_da_inteligencia.py",
-          "line": 101,
+          "line": 100,
           "snippet": "import sala_de_espera as espera                  # noqa: E402 — dono da trava",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-L2-DISPARADOR-INTELLIGENCE",
@@ -175500,7 +175705,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2278,
+  "UNCLAIMED_FILES_COUNT": 2280,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -175772,12 +175977,12 @@
     "components_pending": 274,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1935,
-    "edges_proven": 1866,
+    "edges": 1938,
+    "edges_proven": 1869,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4230,
-    "files_covered": 1952,
+    "files_tracked": 4234,
+    "files_covered": 1954,
     "files_code_unclaimed": 0,
     "roles_proven": 209,
     "roles_declared_only": 11,
