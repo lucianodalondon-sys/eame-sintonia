@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a61356bae11f9acdf5446731cec966774a4260d3
+HEAD_DA_MEDICAO  9d19d9b2545c3bb109349e62c5478cf74576a7cf
 BRANCH           claude/l3-radar-original-v1
-GERADO_EM        2026-09-29T08:27:46-03:00
+GERADO_EM        2026-09-29T09:22:23-03:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
