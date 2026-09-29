@@ -1555,13 +1555,42 @@ está intacta. Fecharam-se duas coisas que faltavam à prova dela:
 - **Autor:** DONO REAL (Luciano). Chegou à missão L1-GOVERNANCA-PREVIEW pela nota do
   coordenador.
 - **Estado:** DECIDIDO (dono).
-- **Texto literal, tal como chegou:**
+- **Fonte do texto:** `C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md`, secção
+  «## D141 · DONO REAL (28/09 ~20:37, colado) — CORREÇÃO DE ESTADO DO LOOP», linha 909 (fora do
+  Git; sha256 do ficheiro no momento da cópia `3f3c71019af37c33e0c5ad422b7106ccb60b66c303ca6670b574a5aea10534c2`).
+  Indicada pelo coordenador em 28/09 e conferida contra o ficheiro antes de copiar.
+- **Texto literal da decisão (as duas primeiras linhas e a do canário, copiadas da fonte):**
 
-  > «LOOP_VIVO_REPETIVEL so PASS com os 9 requisitos.»
+  > - LOOP_E2E_MANUAL = PASS; LOOP_VIVO_REPETIVEL = FAIL até os 9 requisitos: automação instalada;
+  >   item NOVO pós-instalação; entra sozinho na Sala; dispara Intelligence sem operador; nova
+  >   corrida/pote; Casco recebe sem transporte humano; preview atualiza sozinho; LAB segue o item
+  >   até a fonte; ninguém copiou JSON/moveu arquivo/disparou etapa.
+  > - EXCEÇÃO E2E CONTROLADA EM PREVIEW = AUTORIZADA (intelligence-owner e casco-owner não esperam
+  >   nova decisão). PRODUÇÃO bloqueada. PUBLICAR NO ENDEREÇO OFICIAL AGORA = NÃO (antes:
+  >   LAB_PROVOU, LOOP_VIVO_REPETIVEL, CASCO_ORIGINAL_CONSUMINDO_DADO_REAL,
+  >   SEM_CONFUSAO_DEMO_VS_LIVE).
+  > - Canário da repetibilidade: PRIMEIRO item novo elegível pós-automação; registar SOURCE,
+  >   COLLECTION_TIME, SALA_ID, INTELLIGENCE_RUN, POTE, CASCO_DESTINATION, PREVIEW_TIME,
+  >   LAB_VERDICT.
 
-- ⚠️ **NÃO SEI quais são os 9 requisitos.** A lista não veio no texto que chegou a esta missão, e
-  por isso **não** é reconstruída aqui — escrevê-la de memória seria inventar a lei. Até a lista
-  literal do dono ser acrescentada a esta entrada, a consequência é uma só: nenhum
-  `LOOP_VIVO_REPETIVEL = PASS` pode ser declarado, porque não há contra o que conferir.
+  A secção da fonte tem mais linhas (os 2 objetos R9 são FATOS e não oportunidades; casa.html;
+  PRONTO.txt; auditoria 275→2; responsabilidades). Ficam na fonte: não são sobre a TRAVA nem
+  sobre o loop, e esta entrada não as parafraseia.
+
+- **Os 9 requisitos, numerados** (a mesma lista, na forma em que o coordenador a enviou):
+  1. automação instalada;
+  2. item NOVO pós-instalação;
+  3. entra sozinho na Sala;
+  4. dispara Intelligence sem operador;
+  5. nova corrida/pote;
+  6. Casco recebe sem transporte humano;
+  7. preview atualiza sozinho;
+  8. LAB segue o item até a fonte;
+  9. ninguém copiou JSON / moveu arquivo / disparou etapa.
+- **Consequência:** `LOOP_VIVO_REPETIVEL = FAIL` até os nove serem provados **no mesmo item**
+  novo, e esse item é o canário acima. Nenhum requisito vale por analogia ou por outro item.
+- **Correção desta entrada (28/09):** a primeira versão dizia «NÃO SEI quais são os 9
+  requisitos», porque a lista não tinha chegado a esta missão. Chegou pela resposta do
+  coordenador; o NÃO SEI foi substituído pelo texto literal da fonte.
 - **O que a D141 não muda:** a D140 (a exceção PREVIEW_E2E continua estreita e revogável) e
   `COLLECTION_FOUNDATION_CLOSED = NAO`.
