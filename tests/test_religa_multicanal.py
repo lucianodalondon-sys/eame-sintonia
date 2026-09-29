@@ -700,6 +700,72 @@ def test_armadilha_run_id_nao_inventa_territorio():
 # ══════════════════════════════════════════════════════════════════════════════
 # D157 + LAB · NAO SE RE-PEDE O QUE JA SE COLHEU, E A SALA NAO REPETE O CONTEUDO
 # ══════════════════════════════════════════════════════════════════════════════
+def _html_de_reel(caption="Difesa del vigneto dalla peronospora in campo", conta="bayer_italia"):
+    return ('<html><head>'
+            '<meta property="og:title" content="Bayer Italia no Instagram">'
+            '<meta property="og:description" content="%s">'
+            '</head><body><script>{"owner":{"username":"%s"},'
+            '"taken_at_timestamp":1789000000,"caption":"%s"}</script></body></html>'
+            % (caption, conta, caption))
+
+
+def test_o_reel_entra_como_registo_de_metadados_e_nao_como_pagina():
+    """Decisao do coordenador (29/09): a unidade do Reel e o REGISTO, como o YouTube ja faz. A pagina
+    do Reel e HTML, logo ganhava retrato do detector, e o juiz de capa/materia respondia QUARENTENA a
+    uma pergunta que nao se aplica — um Reel nao e materia nem pagina de entrada."""
+    import onda_linha as OL
+    b = leitor(_html_de_reel())
+    c = OL.colher_alvo("INSTAGRAM", {"URL": "https://www.instagram.com/reel/DcNkh7LCW4u/",
+                                     "CONTA": "bayer_italia"}, b)
+    assert c["MEDIA_TYPE"] == "application/json", "a unidade tem de ser o registo, nao a pagina"
+    r = c["REGISTO"]
+    assert r["NATIVE_ID"] == "DcNkh7LCW4u"
+    assert r["ACCOUNT"] == "bayer_italia"
+    assert r["PLATFORM"] == "INSTAGRAM"
+    assert "peronospora" in (r["CAPTION"] or "")
+    assert r["PUBLISHED_AT"], "a data sai do documento, nunca do nosso relogio"
+    assert r["FONTE_SHA256"], "o registo aponta para os bytes de onde saiu"
+    assert r["ROBOTS_STATUS"] == "DISALLOW" and r["OWNER_AUTHORIZED"] == "SIM"
+
+
+def test_a_pagina_do_reel_continua_preservada_como_observacao():
+    """Preservar nao e admitir. A pagina e a prova do que a plataforma serviu, e nao se deita fora
+    por o item julgado ser outro — duas capturas, DUAS observacoes (COL-LAW-204/311)."""
+    import onda_linha as OL
+    c = OL.colher_alvo("INSTAGRAM", {"URL": "https://www.instagram.com/reel/DcNkh7LCW4u/"},
+                       leitor(_html_de_reel()))
+    fonte = c["_FONTE"]
+    assert fonte["MEDIA_TYPE"] == "text/html"
+    assert fonte["ADMITIR"] is False
+    assert b"<html>" in fonte["BYTES"]
+    assert fonte["PEDIDOS"] == 0, "a pagina ja veio no mesmo pedido: nao se pede outra vez"
+
+
+def test_armadilha_o_registo_do_reel_nao_leva_pela_frente_o_juiz_de_capa():
+    """⚠️ O registo passa a ser julgado pelo UNIVERSO, e NAO pela capa. E isto NAO declara que «social
+    nao passa pelo juiz»: e o tipo da unidade que mudou, nao a lei da Admission."""
+    import onda_linha as OL
+    reg = OL.admitir(json.dumps({"PLATFORM": "INSTAGRAM", "CAPTION":
+                                 "In campo con l agricoltore: difesa del vigneto, potatura e raccolto. " * 3
+                                 }).encode("utf-8"),
+                     "application/json", "https://www.instagram.com/reel/X/", "CAND-1", "T8",
+                     "sha", "2026-09-29T00:00:00Z", "R")
+    assert reg["REGRA"] != "materia", "o juiz de capa foi aplicado a um registo: %s" % reg["MOTIVO"]
+    assert "QUARENTENA" not in (reg["MOTIVO"] or "")
+
+
+def test_armadilha_a_materia_comum_em_html_continua_a_passar_pelo_juiz_de_capa():
+    """⚠️ A CONTRAPROVA, e ela e obrigatoria: se o juiz de capa deixasse de correr para HTML, esta
+    correccao teria trocado um defeito por outro maior — uma pagina de entrada entraria como materia."""
+    import onda_linha as OL
+    import executor_texto_de_html as H
+    pagina = ("<html><body>" + "<a href='/x'>link</a>" * 80 + "</body></html>").encode("utf-8")
+    assert H._retrato(pagina), "o detector tem de olhar para HTML"
+    d = OL.admitir(pagina, "text/html", "https://exemplo.it/indice", "IT-T3-001", "T3",
+                   "sha", "2026-09-29T00:00:00Z", "R")
+    assert d["REGRA"] == "materia", "o juiz de capa deixou de correr sobre HTML: %s" % d["REGRA"]
+
+
 def test_armadilha_a_d22_abre_o_reel_e_nao_o_dominio():
     """⚠️ `autorizacao_do_dono` limita HOST, nao CAMINHO. Com o host aberto, o perfil e o /embed/ da
     conta passavam pela MESMA porta — e a D22 abre o REEL POR URL DIRECTA; a CONTA continua

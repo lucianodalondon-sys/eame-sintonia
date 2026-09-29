@@ -286,8 +286,29 @@ def colher_alvo(linha: str, a: dict, buscar) -> dict:
         r = RM.instagram_reel(url=a["URL"], buscar=buscar)
         if r.get("ERRO"):
             return r
-        return {"BYTES": r["BYTES"], "URL": r["URL_PUBLICA"], "URL_PEDIDA": r["URL"],
-                "MEDIA_TYPE": "text/html", "PEDIDOS": r["PEDIDOS"], "ROTA": r["ROTA"]}
+        # ⚠️ A UNIDADE DO REEL E O REGISTO, E NAO A PAGINA — a mesma forma que o YouTube ja usa.
+        #
+        # A pagina do Reel e HTML, logo ganhava retrato do detector, e o juiz de capa/materia respondia
+        # QUARENTENA (D11) a uma pergunta que nao se aplica: um Reel nao e uma materia nem uma pagina de
+        # entrada. Medido no canario de 29/09 — 3 Reels com RAW e 0 na Sala, todos por capa.
+        #
+        #     A PAGINA CONTINUA A SER JULGADA COMO PAGINA. O QUE MUDA E QUE A UNIDADE DO REEL
+        #     NAO E A PAGINA. E isto NAO declara que «social nao passa pelo juiz»: uma pagina de
+        #     materia comum continua a passar por ele, como sempre.
+        html = r["BYTES"]
+        registo = RM.instagram_metadados_do_reel(
+            html.decode("utf-8", "replace"), url=r["URL_PUBLICA"], native_id=r["NATIVE_ID"],
+            conta=(a or {}).get("CONTA"))
+        registo["FONTE_SHA256"] = hashlib.sha256(html).hexdigest()   # a pagina de onde isto saiu
+        return {"BYTES": json.dumps(registo, ensure_ascii=False, sort_keys=True).encode("utf-8"),
+                "URL": r["URL_PUBLICA"], "MEDIA_TYPE": "application/json",
+                "PEDIDOS": r["PEDIDOS"], "ROTA": r["ROTA"], "REGISTO": registo,
+                # A PAGINA ORIGINAL continua preservada como observacao — e a prova do que a
+                # plataforma serviu, e ela NAO se deita fora por o item ser outro.
+                "_FONTE": {"BYTES": html, "URL": r["URL_PUBLICA"], "MEDIA_TYPE": "text/html",
+                           "ROTA": r["ROTA"], "PEDIDOS": 0, "ADMITIR": False,
+                           "PORQUE_NAO_ADMITIR": ("bytes de ORIGEM do Reel: preservados como observacao; "
+                                                  "a unidade julgada e o registo de metadados")}}
     if linha == "LINKEDIN":
         # ⚠️ O post individual NAO se pede: `FETCH_POST` esta ROUTE_NOT_ALLOWED na matriz e continua
         # fechado. O que existe e o que a PAGINA PUBLICA ja serviu na descoberta — o texto publico do
@@ -564,6 +585,13 @@ def para_a_sala(linha: str, cand: dict, colhidos: list, corrida: str, *, persist
             l["ESTADO"] = "SEM_RAW_CANONICO"                       # nao se pousa sem linhagem
             relato.append(l)
             continue
+        if c.get("ADMITIR") is False:
+            # PRESERVADA, COM LINHAGEM, E NAO JULGADA. Preservar nao e admitir: esta observacao e a
+            # prova dos bytes que a plataforma serviu, e a unidade que responde as perguntas e outra.
+            l["ESTADO"] = "PRESERVADA_SEM_JULGAMENTO"
+            l["PORQUE"] = c.get("PORQUE_NAO_ADMITIR")
+            relato.append(l)
+            continue
         decisoes = admitir_pedidos(c["BYTES"], f["MEDIA_TYPE"], f["SOURCE_URL"],
                                    cand.get("SOURCE_ID") or "SEM_SOURCE_ID",
                                    cand.get("UNIVERSOS_DO_PEDIDO") or [],
@@ -723,6 +751,11 @@ def correr(linha: str, candidatas: list, saida: Path, *, max_alvos=None, pousar=
             c["_DESCOBERTA"] = d
             c["_ALVO"] = a
             colhidos.append(c)
+            # A captura de ORIGEM, quando a rota a separa do item: duas capturas, DUAS observacoes
+            # (COL-LAW-204/311) — e so uma delas e julgada.
+            fonte = c.pop("_FONTE", None)
+            if fonte:
+                colhidos.append(dict(fonte, _DESCOBERTA=d, _ALVO=a))
             anotar_visto(saida.parent, linha, a.get("URL"), corrida)
             with open(raw_jsonl, "a", encoding="utf-8") as fh:
                 fh.write(json.dumps({"SHA256": hashlib.sha256(c["BYTES"]).hexdigest(), "SOURCE_URL": c["URL"],

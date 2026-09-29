@@ -278,6 +278,61 @@ def instagram_reels_da_conta(*, handle, buscar, max_alvos=None):
             "REELS_NA_PAGINA": len(codigos)}
 
 
+# ── OS METADADOS DE UM REEL ───────────────────────────────────────────────────────────────────────────
+# A mesma forma que o YouTube ja usa: guarda-se o que a pagina DECLARA sobre o item, e nao a pagina.
+# `PUBLISHED_AT` sai do proprio documento — nunca do nosso relogio.
+RE_IG_DESC = re.compile(r'"(?:edge_media_to_caption".*?"text"|caption)"\s*:\s*"((?:[^"\\]|\\.)*)"', re.S)
+RE_IG_OG_DESC = re.compile(r'<meta[^>]+property="og:description"[^>]+content="([^"]*)"')
+RE_IG_OG_TITULO = re.compile(r'<meta[^>]+property="og:title"[^>]+content="([^"]*)"')
+RE_IG_DONO = re.compile(r'"owner"\s*:\s*\{[^{}]*?"username"\s*:\s*"([A-Za-z0-9._]{1,30})"')
+RE_IG_DATA = re.compile(r'"taken_at_timestamp"\s*:\s*(\d{9,12})')
+RE_IG_DATA_ISO = re.compile(r'<meta[^>]+property="[^"]*(?:published_time|uploadDate)"[^>]+content="(\d{4}-\d{2}-\d{2})')
+
+
+def _sem_escape(v):
+    try:
+        return json.loads('"%s"' % v)
+    except ValueError:
+        return v
+
+
+def instagram_metadados_do_reel(html, *, url, native_id, conta=None) -> dict:
+    """O REGISTO do Reel, lido do HTML que a propria pagina serviu. Puro, zero rede.
+
+    ⚠️ O QUE NAO ESTA NA PAGINA FICA `None`, E ISSO E A VERDADE — nao se completa com o que seria
+    plausivel. Um campo inventado num registo estruturado e pior do que um campo vazio: ele parece
+    medido."""
+    t = str(html or "")
+    cap = RE_IG_DESC.search(t) or RE_IG_OG_DESC.search(t)
+    tit = RE_IG_OG_TITULO.search(t)
+    dono = RE_IG_DONO.search(t)
+    data = RE_IG_DATA.search(t)
+    iso = RE_IG_DATA_ISO.search(t)
+    quando = None
+    if data:
+        import datetime
+        quando = datetime.datetime.fromtimestamp(int(data.group(1)),
+                                                 datetime.timezone.utc).strftime("%Y-%m-%d")
+    elif iso:
+        quando = iso.group(1)
+    return {
+        "PLATFORM": "INSTAGRAM",
+        "NATIVE_ID": native_id,
+        "URL": url,
+        "ACCOUNT": (dono.group(1) if dono else None) or conta,
+        "PUBLISHED_AT": quando,                       # do documento, nunca do nosso relogio
+        "TITLE": _sem_escape(tit.group(1)) if tit else None,
+        "CAPTION": _sem_escape(cap.group(1)) if cap else None,
+        "TRANSCRICAO": None,                          # a rota local existe e NAO corre aqui: fica declarada
+        "TRANSCRICAO_PORQUE_NAO": "rota local (faster-whisper) nao corrida nesta colheita",
+        "ROTA": ROTA_IG_REEL,
+        "DECISAO_DO_DONO": DECISAO_DO_DONO_IG,
+        "OWNER_AUTHORIZED": "SIM",
+        "PLATFORM_POLICY_STATUS": "DISALLOWED",
+        "ROBOTS_STATUS": "DISALLOW",
+    }
+
+
 def instagram_reel(*, url, buscar, autorizar=True):
     """UM Reel por URL DIRECTA (D22, citada acima). → {"BYTES", "URL", "NATIVE_ID", "ROTA", rasto} ou {"ERRO"}.
 
