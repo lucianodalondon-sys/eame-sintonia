@@ -9,7 +9,8 @@
 Herdado do harness da ESTEIRA-SOZINHA (provas/esteira_sozinha/mutantes.py em f85b4138a): o mesmo
 `aplicar()` que aguenta CRLF, e os mutantes do gatilho, do vigia e da retencao que continuam a valer
 aqui. Novos (D140): o disparador que ESCREVE na Sala, que MARCA consumido_em, sem trinco (da corrida e
-da volta), o pote invalido PUBLICADO (pelo sintonia-pote.js e pela entrega), o corte vigente torto, a
+da volta), o pote invalido ENTREGUE, o disparador que escreve sob italia-portale/ (a fronteira: a
+Intelligence para na entrega), o ENTITY_SOURCE achatado/escolhido/fora da lei, o corte vigente torto, a
 DSN que aparece no resultado. Um mutante que sobrevive e um teste que falta, nao um mutante mau.
 Os testes correm com -B (sem .pyc): um mutante do mesmo tamanho nao engana o cache.
 """
@@ -56,17 +57,37 @@ MUTANTES = [
   "        return {\"ACCAO\": \"OCUPADO\", \"PORQUE\": \"outra volta do disparador esta a decorrer\"}",
   "        gravar_estado({}, estado_em)\n"
   "        return {\"ACCAO\": \"OCUPADO\", \"PORQUE\": \"outra volta do disparador esta a decorrer\"}"),
- # ── o pote invalido publicado ──
- ("L10", GI, "pote reprovado sobe (sintonia-pote.js)", "    if violacoes:\n        pasta.mkdir(",
-  "    if False:\n        pasta.mkdir("),
- ("L11", GI, "pote reprovado vai para a entrega do casco (antes do fiscal)",
-  "    candidato.write_text(P.como_js(pote), encoding=\"utf-8\")\n",
-  "    candidato.write_text(P.como_js(pote), encoding=\"utf-8\")\n    entregar(pote, entrega, corte)\n"),
+ # ── o pote invalido entregue, e a fronteira (a Intelligence para na entrega) ──
+ ("L10", GI, "pote reprovado vai para a entrega (o fiscal e ignorado)", "    if violacoes:\n        guardado = ",
+  "    if False:\n        guardado = "),
+ ("L11", GI, "pote reprovado vai para a entrega (antes do fiscal)",
+  "    candidato.write_text(json.dumps(pote, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")\n",
+  "    candidato.write_text(json.dumps(pote, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")\n"
+  "    entregar(candidato, pote, entrega, corte)\n"),
  ("L12", GI, "SHA256SUMS com o sha errado", "    (nova / \"SHA256SUMS.txt\").write_text(\"\".join(\"%s *%s\\n\" % (_sha256(nova / n), n)",
   "    (nova / \"SHA256SUMS.txt\").write_text(\"\".join(\"%s *%s\\n\" % (_sha256(nova / \"POTE.json\"), n)"),
  ("L13", GI, "a entrega nao se troca inteira (sobra de outra entrega fica)",
   "    if entrega.exists():\n        os.replace(entrega, velha)\n    os.replace(nova, entrega)",
   "    entrega.mkdir(parents=True, exist_ok=True)\n    for f in nova.iterdir():\n        os.replace(f, entrega / f.name)"),
+ ("L42", GI, "o disparador escreve sob italia-portale/ (publica ele mesmo no casco)",
+  "    os.replace(nova, entrega)\n",
+  "    os.replace(nova, entrega)\n"
+  "    shutil.copyfile(entrega / \"POTE.json\", RAIZ / \"italia-portale\" / \"client\" / \".l2-mutante-pote.json\")\n"),
+ # ── ENTITY_SOURCE no ponto de montagem (decisao do Intelligence owner) ──
+ ("L43", GI, "o mapa do motor e achatado em texto",
+  "    return v if isinstance(v, str) and v in LEI_221 else \"UNKNOWN\"",
+  "    return json.dumps(v, sort_keys=True) if isinstance(v, dict) else (v if isinstance(v, str) and v in LEI_221 else \"UNKNOWN\")"),
+ ("L44", GI, "escolhe-se uma entrada do mapa",
+  "    return v if isinstance(v, str) and v in LEI_221 else \"UNKNOWN\"",
+  "    return next(iter(v.values())).get(\"ENTITY_SOURCE\", \"UNKNOWN\") if isinstance(v, dict) and v else (v if isinstance(v, str) and v in LEI_221 else \"UNKNOWN\")"),
+ ("L45", GI, "texto fora do vocabulario da lei passa",
+  "    return v if isinstance(v, str) and v in LEI_221 else \"UNKNOWN\"",
+  "    return v if isinstance(v, str) else \"UNKNOWN\""),
+ ("L46", GI, "o pote e montado sem a conversao",
+  "                o[\"ENTITY_SOURCE\"] = novo\n", "                pass\n"),
+ ("L47", GI, "a conversao estraga a saida do motor (sem copia)",
+  "    pote = json.loads(json.dumps(P.ler_entrada(saida_motor), ensure_ascii=False))",
+  "    pote = P.ler_entrada(saida_motor)\n    saida_motor[\"ENTITY_SOURCE_MEXIDO\"] = True"),
  # ── o corte vigente (defeito ITEM_ID repetido) ──
  ("L14", GI, "o corte nao se aplica: o motor recebe o ITEM_ID repetido",
   "        export, corte = cortar_vigente(export)\n", "        corte = cortar_vigente(export)[1]\n"),
@@ -157,9 +178,14 @@ def _correr_teste():
                           text=True, encoding="utf-8", errors="replace", timeout=900, env=env)
 
 
+def _portal() -> set:
+    return {q for q in (RAIZ / "italia-portale").rglob("*") if q.is_file()}
+
+
 def main() -> int:
     ficheiros = sorted({m[1] for m in MUTANTES})
     antes = {f: sha(RAIZ / f) for f in ficheiros}
+    portal = _portal()          # um mutante da fronteira (L42) escreve sob italia-portale/: limpa-se o que ele criou
     base = _correr_teste()
     out = {"TESTE": TESTE, "BASE_VERDE": base.returncode == 0, "MUTANTES": []}
     if base.returncode:
@@ -184,11 +210,17 @@ def main() -> int:
                                     "ESTADO": "MORTO" if r.returncode else "SOBREVIVEU", "APANHADO_POR": quem[:4]})
         finally:
             p.write_bytes(original)
+            sobra = sorted(str(q.relative_to(RAIZ)) for q in _portal() - portal)
+            for q in sobra:
+                (RAIZ / q).unlink(missing_ok=True)
+            if sobra:
+                out["MUTANTES"][-1]["LIMPOU_SOB_ITALIA_PORTALE"] = sobra
         print(mid, out["MUTANTES"][-1]["ESTADO"], finge, flush=True)
     depois = {f: sha(RAIZ / f) for f in ficheiros}
+    out["PORTAL_IGUAL_NO_FIM"] = _portal() == portal
     mortos = sum(1 for m in out["MUTANTES"] if m["ESTADO"] == "MORTO")
     out.update({"MORTOS": mortos, "TOTAL": len(MUTANTES), "RESTAURADOS_IGUAIS": antes == depois,
-                "ESTADO": "PASS" if mortos == len(MUTANTES) and antes == depois else "FAIL"})
+                "ESTADO": "PASS" if mortos == len(MUTANTES) and antes == depois and out["PORTAL_IGUAL_NO_FIM"] else "FAIL"})
     SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print("MORTOS %d/%d · restaurados iguais: %s" % (mortos, len(MUTANTES), antes == depois))
     return 0 if out["ESTADO"] == "PASS" else 1

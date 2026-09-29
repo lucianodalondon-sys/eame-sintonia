@@ -44,14 +44,26 @@ class _Pasta(unittest.TestCase):
         self.d = Path(tempfile.mkdtemp(prefix="disparador-"))
         self.parar = self.d / "PARAR.flag"
         self.trinco = self.d / "TRINCO"
-        self.destino = self.d / "client" / "sintonia-pote.js"
         self.entrega = self.d / "esteira" / "PARA-O-CASCO"
 
     def tearDown(self):
         shutil.rmtree(self.d, ignore_errors=True)
 
     def _subir(self):
-        return lambda s, pasta, parar: GI.subir_o_pote(s, self.destino, pasta, parar, entrega=self.entrega)
+        return lambda s, pasta, parar: GI.subir_o_pote(s, pasta, parar, entrega=self.entrega)
+
+
+def _corrida_da_lei():
+    """DUBLE do motor: a corrida sintetica valida de tests/fixtures/pote com o ENTITY_SOURCE do unico
+    objeto que o traz trocado por um valor da lei COL-LAW-221 (DOCUMENT_TITLE). Sem a troca, a conversao
+    da decisao do owner poe UNKNOWN e o fiscal de hoje reprova («esconde a ignorancia»): e isso que o
+    bloqueio mede. Com a troca, prova-se o caminho da SUBIDA ate a entrega."""
+    c = json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8"))
+    for objs in (c.get("ITENS_POR_FERRAMENTA") or {}).values():
+        for o in objs if isinstance(objs, list) else [objs]:
+            if isinstance(o, dict) and "ENTITY_SOURCE" in o:
+                o["ENTITY_SOURCE"] = "DOCUMENT_TITLE"
+    return c
 
 
 def _consulta(n, velho=None, novo=None):
@@ -123,7 +135,7 @@ class TestVoltaDoGatilho(_Pasta):
         def motor(exp, hoje, head):
             chamadas["motor"] += 1
             chamadas["export_do_motor"] = exp
-            return json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8"))
+            return _corrida_da_lei()
 
         subir = kw.pop("subir", self._subir())
         r = GI.correr_se_devido(estado, agora=AGORA, consulta=_consulta(n, "2026-09-28 01:00:00+00",
@@ -142,25 +154,25 @@ class TestVoltaDoGatilho(_Pasta):
         est = {}
         r, ch = self._volta(est)
         self.assertEqual(r["ACCAO"], "POTE_SUBIU", r)
-        self.assertTrue(self.destino.exists())
+        self.assertTrue((self.entrega / "POTE.json").exists())
         self.assertEqual(est["INT_MARCA"], "2026-09-28T11:00:00+00:00")
         self.assertEqual(est["INT_ULTIMA_SUBIDA_EM"], AGORA.isoformat())
-        self.assertFalse((self.destino.parent / ".sintonia-pote.candidato.js").exists())
+        self.assertEqual(list((self.d / "esteira").rglob(".POTE.candidato.json")), [])
 
     def test_pote_reprovado_nao_sobe_e_a_entrega_nao_muda(self):
-        self.destino.parent.mkdir(parents=True)
-        self.destino.write_text("window.SINTONIA_POTE = {\"ANTIGO\": 1};", encoding="utf-8")
         self.entrega.mkdir(parents=True)
         (self.entrega / "POTE.json").write_text("{\"ANTIGO\": 1}", encoding="utf-8")
-        antes = (self.destino.read_bytes(), (self.entrega / "POTE.json").read_bytes())
+        antes = (self.entrega / "POTE.json").read_bytes()
         est = {}
         with mock.patch.object(GI.VP, "validar", return_value=["LEI: violacao plantada"]):
             r, _ = self._volta(est)
         self.assertEqual(r["ACCAO"], "POTE_NAO_SUBIU", r)
         self.assertEqual(r["PORQUE"], "POTE_REPROVADO")
-        self.assertEqual((self.destino.read_bytes(), (self.entrega / "POTE.json").read_bytes()), antes)
+        self.assertEqual((self.entrega / "POTE.json").read_bytes(), antes)
+        self.assertEqual(sorted(p.name for p in self.entrega.iterdir()), ["POTE.json"])
         self.assertNotIn("INT_ULTIMA_SUBIDA_EM", est)
-        self.assertFalse((self.destino.parent / ".sintonia-pote.candidato.js").exists())
+        self.assertEqual(list((self.d / "esteira").rglob(".POTE.candidato.json")), [])
+        self.assertTrue(Path(r["GUARDADO_EM"]).exists())
 
     def test_duas_corridas_sobrepostas_a_segunda_fica_ocupada(self):
         with espera._Trava(str(self.trinco)):
@@ -239,7 +251,7 @@ class TestVoltaDoGatilho(_Pasta):
         est = {}
         GI.correr_se_devido(est, agora=AGORA, consulta=_consulta(12, "2026-09-28 01:00:00+00",
                                                                  "2026-09-28 11:00:00+00"),
-                            copia=copia, motor=lambda *a: json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8")),
+                            copia=copia, motor=lambda *a: _corrida_da_lei(),
                             subir=lambda s, pasta, parar: {"SUBIU": False}, parar=self.parar,
                             trinco=self.trinco, pasta=self.d / "esteira", podar=podar)
         self.assertEqual(vistos["podar"], [(self.d / "esteira", vistos["copia"], True)])
@@ -248,19 +260,24 @@ class TestVoltaDoGatilho(_Pasta):
     def test_o_motor_verdadeiro_sobre_o_export_r7_e_o_fiscal_decide(self):
         # O motor e o gerador de HOJE: o que o fiscal disser, o gatilho obedece.
         saida = GI.correr_o_motor(json.loads(EXPORT_R7.read_text(encoding="utf-8")), AGORA.date(), "TESTE")
-        r = GI.subir_o_pote(saida, self.destino, self.d / "p", self.parar, entrega=self.entrega)
-        viol = GI.VP.validar(GI.P.ler_entrada(saida))
+        r = GI.subir_o_pote(saida, self.d / "p", self.parar, entrega=self.entrega)
+        viol = GI.VP.validar(GI.montar_o_pote(saida)[0])
         self.assertEqual(r["SUBIU"], not viol)
-        self.assertEqual(self.destino.exists(), not viol)
         self.assertEqual(self.entrega.exists(), not viol)
 
-    def test_entity_source_objeto_e_o_bloqueio_medido_do_pote(self):
-        # BLOQUEIO declarado (nao consertado aqui): o motor escreve ENTITY_SOURCE objeto, o schema pede texto.
-        # Se isto mudar, o relatorio L2 e o PARA-O-CASCO.md estao desatualizados: releia-os.
+    def test_entity_source_e_o_bloqueio_medido_do_pote(self):
+        # BLOQUEIO declarado (nao consertado aqui). Sem a conversao: «devia ser string» (mapa do motor x
+        # schema). Com a conversao da decisao do owner (mapa -> UNKNOWN): «esconde a ignorancia» (o fiscal
+        # so aceita «NAO SEI»). Se isto mudar, L2-DISPARADOR.md e PARA-O-CASCO.md estao desatualizados.
         saida = GI.correr_o_motor(json.loads(EXPORT_R7.read_text(encoding="utf-8")), AGORA.date(), "TESTE")
-        viol = GI.VP.validar(json.loads(json.dumps(GI.P.ler_entrada(saida))))
-        self.assertTrue(viol)
-        self.assertTrue(all("ENTITY_SOURCE" in v for v in viol), viol)
+        antes = GI.VP.validar(json.loads(json.dumps(GI.P.ler_entrada(saida))))
+        self.assertTrue(antes)
+        self.assertTrue(all("ENTITY_SOURCE: devia ser string" in v for v in antes), antes)
+        pote, n = GI.montar_o_pote(saida)
+        depois = GI.VP.validar(pote)
+        self.assertEqual(n, len(antes))
+        self.assertEqual(len(depois), len(antes))
+        self.assertTrue(all("ENTITY_SOURCE esconde a ignorancia" in v for v in depois), depois)
 
 
 # ── O CORTE VIGENTE: ITEM_ID repetido na Sala ────────────────────────────────
@@ -343,7 +360,7 @@ class TestSoLeASala(_Pasta):
             c = _consulta(12, "2026-09-28 01:00:00+00", "2026-09-28 11:00:00+00")
             r = GI.correr_se_devido({}, agora=AGORA, consulta=c,
                                     copia=lambda p: json.loads(EXPORT_R7.read_text(encoding="utf-8")),
-                                    motor=lambda *a: json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8")),
+                                    motor=lambda *a: _corrida_da_lei(),
                                     subir=self._subir(), parar=self.parar, trinco=self.trinco,
                                     pasta=self.d / "esteira")
             vistos = c.sqls
@@ -390,9 +407,6 @@ class TestEntrega(_Pasta):
         self.assertEqual(man["POTE"]["SHA256_ARQUIVO"],
                          hashlib.sha256((self.entrega / "POTE.json").read_bytes()).hexdigest())
         self.assertEqual(GI.VP.validar(pote), [])
-        # o pote do casco e o da entrega sao o MESMO pote
-        js = self.destino.read_text(encoding="utf-8")
-        self.assertEqual(json.loads(js[js.index("= ") + 2:].rstrip().rstrip(";")), pote)
 
     def test_a_entrega_troca_se_inteira(self):
         self.entrega.mkdir(parents=True)
@@ -406,7 +420,7 @@ class TestEntrega(_Pasta):
         import subprocess
         for caminho in ("curadoria/esteira/intelligence/PARA-O-CASCO/POTE.json",
                         "curadoria/ESTEIRA-INTELLIGENCE-ESTADO.json", "curadoria/ESTEIRA-INTELLIGENCE-VOLTA.lock",
-                        "italia-portale/client/.sintonia-pote.candidato.js"):
+                        "curadoria/esteira/intelligence/20260928T120000Z/.POTE.candidato.json"):
             r = subprocess.run(["git", "check-ignore", "-q", caminho], cwd=RAIZ)
             self.assertEqual(r.returncode, 0, "o git nao ignora %s" % caminho)
 
@@ -458,6 +472,80 @@ class TestUmaVolta(_Pasta):
             with mock.patch.object(GI, "uma_volta", return_value={"ACCAO": accao}), \
                  mock.patch("builtins.print"):
                 self.assertEqual(GI.main(["--uma-volta"]), codigo, accao)
+
+
+# ── A FRONTEIRA: a Intelligence para na entrega; o portal e do casco ─────────
+def _foto_do_portal():
+    base = RAIZ / "italia-portale"
+    return {str(p.relative_to(base)): (p.stat().st_size, p.stat().st_mtime_ns)
+            for p in base.rglob("*") if p.is_file()}
+
+
+class TestFronteira(_Pasta):
+    def test_o_codigo_do_disparador_nao_aponta_para_o_portal(self):
+        texto = (RAIZ / "admissao" / "gatilho_da_inteligencia.py").read_text(encoding="utf-8")
+        codigo = texto.split('"""', 2)[2]
+        for proibido in ("italia-portale", "sintonia-pote", "POTE_NO_CASCO", "como_js"):
+            self.assertNotIn(proibido, codigo, proibido)
+
+    def test_uma_volta_pelo_caminho_padrao_nao_escreve_sob_italia_portale(self):
+        antes = _foto_do_portal()
+        with mock.patch.object(GI, "ENTREGA", self.entrega):
+            r = GI.correr_se_devido({}, agora=AGORA, consulta=_consulta(12, "2026-09-28 01:00:00+00",
+                                                                        "2026-09-28 11:00:00+00"),
+                                    copia=lambda p: json.loads(EXPORT_R7.read_text(encoding="utf-8")),
+                                    motor=lambda *a: _corrida_da_lei(),
+                                    parar=self.parar, trinco=self.trinco, pasta=self.d / "esteira")
+        depois = _foto_do_portal()
+        novos = sorted(set(depois) - set(antes))
+        for n in novos:                               # um mutante que escreva ali nao deixa lixo na arvore
+            (RAIZ / "italia-portale" / n).unlink(missing_ok=True)
+        self.assertEqual(r["ACCAO"], "POTE_SUBIU", r)
+        self.assertTrue((self.entrega / "POTE.json").exists())
+        self.assertEqual(novos, [], "o disparador escreveu sob italia-portale/")
+        self.assertEqual({k: v for k, v in depois.items() if k in antes}, antes,
+                         "o disparador mexeu num ficheiro sob italia-portale/")
+
+
+# ── ENTITY_SOURCE no ponto de montagem do pote (decisao do Intelligence owner, 28/09) ──
+class TestEntitySourceNoPote(_Pasta):
+    def test_valor_da_lei_fica_e_o_resto_vira_unknown(self):
+        for v in ("SPAN", "PARAGRAPH_CONTEXT", "SECTION_TITLE", "DOCUMENT_TITLE", "UNKNOWN"):
+            self.assertEqual(GI.entity_source_da_lei(v), v)
+        for v in ({"CROP_ID": {"VALOR": "olivo", "ENTITY_SOURCE": "SPAN", "POR_ITEM": []}},
+                  "TRECHO_DA_AFIRMACAO", "NAO SEI", None, ["SPAN"], "span"):
+            self.assertEqual(GI.entity_source_da_lei(v), "UNKNOWN", repr(v))
+
+    def test_o_mapa_nunca_se_achata_nem_se_escolhe_uma_entrada(self):
+        # mesmo com TODAS as entradas do mapa a dizer SPAN, o pote diz UNKNOWN: escolher seria inventar
+        mapa = {"CROP_ID": {"VALOR": "olivo", "ENTITY_SOURCE": "SPAN"},
+                "ISSUE_ID": {"VALOR": "x", "ENTITY_SOURCE": "SPAN"}}
+        self.assertEqual(GI.entity_source_da_lei(mapa), "UNKNOWN")
+
+    def test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor(self):
+        saida = GI.correr_o_motor(json.loads(EXPORT_R7.read_text(encoding="utf-8")), AGORA.date(), "TESTE")
+        copia = json.loads(json.dumps(saida))
+        cru = json.loads(json.dumps(GI.P.ler_entrada(saida)))
+        pote, n = GI.montar_o_pote(saida)
+        self.assertEqual(saida, copia)                          # o mapa continua inteiro no motor
+        self.assertGreater(n, 0)
+        for comp, e in pote["COMPARTIMENTOS"].items():
+            for o, c in zip(e["OBJETOS"], cru["COMPARTIMENTOS"][comp]["OBJETOS"]):
+                if "ENTITY_SOURCE" in c:
+                    self.assertIsInstance(c["ENTITY_SOURCE"], dict)
+                    self.assertEqual(o["ENTITY_SOURCE"], "UNKNOWN")
+                self.assertEqual({k: v for k, v in o.items() if k != "ENTITY_SOURCE"},
+                                 {k: v for k, v in c.items() if k != "ENTITY_SOURCE"})
+
+    def test_o_candidato_que_o_fiscal_le_ja_vem_convertido(self):
+        saida = GI.correr_o_motor(json.loads(EXPORT_R7.read_text(encoding="utf-8")), AGORA.date(), "TESTE")
+        r = GI.subir_o_pote(saida, self.d / "p", self.parar, entrega=self.entrega)
+        self.assertFalse(r["SUBIU"])
+        self.assertGreater(r["ENTITY_SOURCE_CONVERTIDOS"], 0)
+        guardado = json.loads(Path(r["GUARDADO_EM"]).read_text(encoding="utf-8"))
+        vistos = [o["ENTITY_SOURCE"] for e in guardado["COMPARTIMENTOS"].values() for o in e["OBJETOS"]
+                  if "ENTITY_SOURCE" in o]
+        self.assertTrue(vistos and set(vistos) <= set(GI.LEI_221), vistos)
 
 
 # ── RETENCAO DOS BACKUPS ─────────────────────────────────────────────────────

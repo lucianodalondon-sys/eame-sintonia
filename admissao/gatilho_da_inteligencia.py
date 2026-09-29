@@ -48,12 +48,15 @@ O QUE ELE CHAMA — O MOTOR QUE JA EXISTE, NAO OUTRO
                PGOPTIONS=default_transaction_read_only, `begin transaction read only`. READ_ONLY
                tem de voltar `on`, senao o export nao serve.
     3 motor    `motor/motor_das_capacidades.rodar` (G0/v4 + CAP-WIN + CAP-SCI).
-    4 pote     `pacote/pote_intelligence_casco.ler_entrada` -> candidato ao lado do destino.
+    4 pote     `montar_o_pote`: `pacote/pote_intelligence_casco.ler_entrada` e a conversao explicita
+               do ENTITY_SOURCE (valor da lei COL-LAW-221, senao UNKNOWN; o mapa do motor nunca se
+               achata nem se escolhe uma entrada) -> candidato na pasta da corrida.
     5 fiscal   `pacote/validar_pote_v2.validar` sobre o FICHEIRO candidato (forma + lei).
-               REPROVADO -> nao sobe: o candidato vai para a pasta da esteira, com as violacoes.
-               PASSA -> primeiro a entrega `curadoria/esteira/intelligence/PARA-O-CASCO/`
-               (POTE.json + MANIFESTO.json + SHA256SUMS.txt, a pasta troca-se inteira), depois
-               `os.replace` para `italia-portale/client/sintonia-pote.js` (atomico).
+               REPROVADO -> nao sobe: fica POTE-REPROVADO-<RUN>.json na pasta da corrida.
+               PASSA -> a entrega `curadoria/esteira/intelligence/PARA-O-CASCO/` (POTE.json +
+               MANIFESTO.json + SHA256SUMS.txt, a pasta troca-se inteira). E A FRONTEIRA: o
+               disparador PARA na entrega. Quem a le e publica na tela e o casco (casco-owner);
+               este ficheiro nunca escreve sob a arvore do portal (correcao do coordenador, 28/09).
                Formato e lugar: provas/l2/PARA-O-CASCO.md.
     «cruzamentos»  sao os que ESTE motor produz (D112 RELACOES, janelas CAP-WIN x estudos CAP-SCI).
                `pacote/pote_cruzamentos_max.py` NAO entra: le docs/intelligence/r7/ANALISE-R7.json
@@ -75,9 +78,12 @@ AS TRAVAS
 
 O POTE DE HOJE NAO SOBE, E ISSO NAO SE MUDA AQUI
 ------------------------------------------------
-    O motor escreve ENTITY_SOURCE como OBJETO (D112) e o contrato POTE_INTELLIGENCE_CASCO-v2 pede
-    STRING. O fiscal reprova e o gatilho obedece: POTE_REPROVADO, nada sobe. Quem decide o contrato
-    e o dono do pote (pedido ja feito); nem o motor nem o schema se tocam na esteira.
+    O motor escreve ENTITY_SOURCE como MAPA (D112) e o contrato POTE_INTELLIGENCE_CASCO-v2 pede
+    STRING. A decisao do Intelligence owner (28/09) e aplicada em `montar_o_pote`: mapa -> UNKNOWN,
+    salvo valor da lei COL-LAW-221. Medido: todo objeto do motor traz o mapa, logo todos viram
+    UNKNOWN — e o fiscal le UNKNOWN como «ENTITY_SOURCE esconde a ignorancia» (so «NAO SEI» e a
+    ignorancia escrita). O pote continua REPROVADO e nada vai para a entrega. Nem o motor, nem o
+    schema, nem o fiscal se tocam aqui: isso e do dono do pote.
 """
 from __future__ import annotations
 
@@ -96,6 +102,7 @@ import sala_de_espera as espera                  # noqa: E402 — dono da trava
 import motor_das_capacidades as M                # noqa: E402 — o motor que ja existe
 import pote_intelligence_casco as P              # noqa: E402 — o gerador do pote
 import validar_pote_v2 as VP                     # noqa: E402 — o fiscal do pote
+from afirmacao_da_fonte import ENTITY_SOURCES as LEI_221   # noqa: E402 — COL-LAW-221 (dono: leis/)
 
 LIMIAR_NOVOS = 10
 ESPERA_MAXIMA = timedelta(hours=4)
@@ -109,7 +116,6 @@ TRINCO = CURADORIA / "ESTEIRA-INTELLIGENCE"          # a trava e TRINCO + ".lock
 TRINCO_DA_VOLTA = CURADORIA / "ESTEIRA-INTELLIGENCE-VOLTA"   # --uma-volta: ler/gravar o estado a uma mao
 ESTADO = CURADORIA / "ESTEIRA-INTELLIGENCE-ESTADO.json"      # runtime (curadoria/.gitignore)
 PASTA = CURADORIA / "esteira" / "intelligence"       # runtime, fora do Git (curadoria/.gitignore)
-POTE_NO_CASCO = RAIZ / "italia-portale" / "client" / "sintonia-pote.js"
 ENTREGA = PASTA / "PARA-O-CASCO"                     # POTE.json + MANIFESTO.json + SHA256SUMS.txt
 SQL_EXPORT = RAIZ / "motor" / "r7_export_da_copia.sql"
 PGOPTIONS_SO_LEITURA = "-c default_transaction_read_only=on -c standard_conforming_strings=on"
@@ -307,22 +313,52 @@ def correr_o_motor(export: dict, hoje: date, source_head: str) -> dict:
     return M.rodar(M.entrada_do_export(export), hoje, source_head)
 
 
-# ── 3 · o pote: candidato, fiscal, e so entao sobe ───────────────────────────
+# ── 3 · o pote: montar, candidato, fiscal, e so entao a entrega ─────────────
 def _sha256(p: Path) -> str:
     import hashlib                                              # noqa: PLC0415
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
 
-def entregar(pote: dict, entrega: Path, corte: dict | None = None) -> dict:
-    """A entrega ao casco (provas/l2/PARA-O-CASCO.md): POTE.json + MANIFESTO.json + SHA256SUMS.txt.
+def entity_source_da_lei(v) -> str:
+    """ENTITY_SOURCE no pote (decisao do Intelligence owner, 28/09): o valor da lei COL-LAW-221 quando
+    o bloco o tiver; senao UNKNOWN. O MAPA do motor (D112: {chave: {VALOR, ENTITY_SOURCE, POR_ITEM}})
+    NAO se achata em texto e NAO se escolhe uma entrada dele: vira UNKNOWN. O mapa continua inteiro
+    em MOTOR.json, na pasta da corrida. Um texto fora do vocabulario da lei tambem vira UNKNOWN."""
+    return v if isinstance(v, str) and v in LEI_221 else "UNKNOWN"
 
-    So se chama com um pote que o fiscal APROVOU. A pasta nasce ao lado e troca-se inteira: o casco
-    nunca ve meia entrega (sha que nao bate / ficheiro que falta = tela vazia, do lado dele)."""
+
+def montar_o_pote(saida_motor: dict) -> tuple[dict, int]:
+    """O PONTO DE MONTAGEM do pote do disparador: o gerador do dono (`ler_entrada`) e, depois dele,
+    a conversao explicita do ENTITY_SOURCE de cada objeto. -> (pote, quantos objetos convertidos).
+
+    ⚠️ So aqui, e nao no gerador partilhado: la, o acervo ja escreve ENTITY_SOURCE achatado em texto
+    e ha teste que o exige (tests/test_acervo_na_intelligence.py::test_B11); mudar o gerador para
+    todos e decisao do dono do pote. O fiscal (validar_pote_v2) NAO muda: hoje ele reprova
+    «ENTITY_SOURCE esconde a ignorancia» porque le UNKNOWN como ignorancia fora de «NAO SEI»
+    (pacote/pote_intelligence_casco.py::conferir_pote) — e isso fica escrito, nao contornado."""
+    pote = json.loads(json.dumps(P.ler_entrada(saida_motor), ensure_ascii=False))
+    n = 0
+    for e in (pote.get("COMPARTIMENTOS") or {}).values():
+        for o in e.get("OBJETOS") or []:
+            if "ENTITY_SOURCE" in o:
+                novo = entity_source_da_lei(o["ENTITY_SOURCE"])
+                n += novo != o["ENTITY_SOURCE"]
+                o["ENTITY_SOURCE"] = novo
+    return pote, n
+
+
+def entregar(candidato: Path, pote: dict, entrega: Path, corte: dict | None = None) -> dict:
+    """A entrega (provas/l2/PARA-O-CASCO.md): POTE.json + MANIFESTO.json + SHA256SUMS.txt. E A
+    FRONTEIRA DA INTELLIGENCE: o disparador para aqui. Quem le a entrega e publica na tela e o casco
+    (casco-owner); este ficheiro nunca escreve sob a arvore do portal.
+
+    So se chama com um pote que o fiscal APROVOU; POTE.json sao os bytes do candidato que o fiscal
+    leu. A pasta nasce ao lado e troca-se inteira: nunca ha meia entrega."""
     import shutil                                               # noqa: PLC0415
     nova = entrega.with_name(entrega.name + ".nova")
     shutil.rmtree(nova, ignore_errors=True)
     nova.mkdir(parents=True)
-    (nova / "POTE.json").write_text(json.dumps(pote, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    shutil.copyfile(candidato, nova / "POTE.json")
     manifesto = {
         "INTELLIGENCE_RUN_ID": pote.get("INTELLIGENCE_RUN_ID", NAO_SEI),
         "RESULT_STATE": pote.get("RESULT_STATE", NAO_SEI),
@@ -350,31 +386,30 @@ def entregar(pote: dict, entrega: Path, corte: dict | None = None) -> dict:
     return manifesto
 
 
-def subir_o_pote(saida_motor: dict, destino: Path | None = None, pasta: Path = PASTA,
-                 parar: Path = PARAR, entrega: Path | None = None, corte: dict | None = None) -> dict:
-    # Os destinos leem-se na CHAMADA (nao na definicao): o ensaio aponta-os para uma pasta temporaria.
-    destino, entrega = destino or POTE_NO_CASCO, entrega or ENTREGA
-    pote = P.ler_entrada(saida_motor)
+def subir_o_pote(saida_motor: dict, pasta: Path = PASTA, parar: Path = PARAR,
+                 entrega: Path | None = None, corte: dict | None = None) -> dict:
+    # A entrega le-se na CHAMADA (nao na definicao): o ensaio aponta-a para uma pasta temporaria.
+    entrega = entrega or ENTREGA
+    pote, convertidos = montar_o_pote(saida_motor)
     run = pote.get("INTELLIGENCE_RUN_ID", NAO_SEI)
-    destino.parent.mkdir(parents=True, exist_ok=True)
-    candidato = destino.parent / ".sintonia-pote.candidato.js"
-    candidato.write_text(P.como_js(pote), encoding="utf-8")
-    # O fiscal le o FICHEIRO que vai subir, e nao o dicionario em memoria: o que se confere e o
-    # que se publica, byte a byte.
+    pasta.mkdir(parents=True, exist_ok=True)
+    candidato = pasta / ".POTE.candidato.json"
+    candidato.write_text(json.dumps(pote, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    # O fiscal le o FICHEIRO que vai para a entrega, e nao o dicionario em memoria: o que se confere
+    # e o que se entrega, byte a byte.
     violacoes = VP.validar(VP.ler_ficheiro(candidato))
+    base = {"CORRIDA": run, "ENTITY_SOURCE_CONVERTIDOS": convertidos}
     if violacoes:
-        pasta.mkdir(parents=True, exist_ok=True)
-        guardado = pasta / ("POTE-REPROVADO-%s.js" % run)
+        guardado = pasta / ("POTE-REPROVADO-%s.json" % run)
         os.replace(candidato, guardado)
-        return {"SUBIU": False, "PORQUE": "POTE_REPROVADO", "CORRIDA": run,
-                "VIOLACOES": len(violacoes), "PRIMEIRAS": violacoes[:10], "GUARDADO_EM": str(guardado)}
+        return dict(base, SUBIU=False, PORQUE="POTE_REPROVADO", VIOLACOES=len(violacoes),
+                    PRIMEIRAS=violacoes[:10], GUARDADO_EM=str(guardado))
     if parar.exists():
         candidato.unlink(missing_ok=True)
-        return {"SUBIU": False, "PORQUE": "PARAR_FLAG_ANTES_DE_SUBIR", "CORRIDA": run}
-    # Primeiro a entrega com sha (se ela falhar, o pote do casco nao muda), depois o sintonia-pote.js.
-    entregar(pote, entrega, corte)
-    os.replace(candidato, destino)
-    return {"SUBIU": True, "CORRIDA": run, "DESTINO": str(destino), "ENTREGA": str(entrega)}
+        return dict(base, SUBIU=False, PORQUE="PARAR_FLAG_ANTES_DE_SUBIR")
+    entregar(candidato, pote, entrega, corte)
+    candidato.unlink(missing_ok=True)
+    return dict(base, SUBIU=True, ENTREGA=str(entrega))
 
 
 # ── 4 · uma volta ────────────────────────────────────────────────────────────

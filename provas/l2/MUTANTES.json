@@ -21,7 +21,7 @@
     "test_a_volta_leva_o_corte_ao_motor_e_declara_o_defeito",
     "test_a_entrega_troca_se_inteira",
     "test_pote_aprovado_entrega_os_tres_ficheiros_e_os_sha_batem",
-    "test_a_poda_da_intelligence_corre_depois_e_poupa_a_corrida_em_curso"
+    "test_uma_volta_pelo_caminho_padrao_nao_escreve_sob_italia_portale"
    ]
   },
   {
@@ -92,9 +92,10 @@
   {
    "ID": "L10",
    "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
-   "FINGE": "pote reprovado sobe (sintonia-pote.js)",
+   "FINGE": "pote reprovado vai para a entrega (o fiscal e ignorado)",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
+    "test_o_candidato_que_o_fiscal_le_ja_vem_convertido",
     "test_o_motor_verdadeiro_sobre_o_export_r7_e_o_fiscal_decide",
     "test_pote_reprovado_nao_sobe_e_a_entrega_nao_muda"
    ]
@@ -102,7 +103,7 @@
   {
    "ID": "L11",
    "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
-   "FINGE": "pote reprovado vai para a entrega do casco (antes do fiscal)",
+   "FINGE": "pote reprovado vai para a entrega (antes do fiscal)",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
     "test_o_motor_verdadeiro_sobre_o_export_r7_e_o_fiscal_decide",
@@ -125,6 +126,72 @@
    "ESTADO": "MORTO",
    "APANHADO_POR": [
     "test_a_entrega_troca_se_inteira"
+   ]
+  },
+  {
+   "ID": "L42",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o disparador escreve sob italia-portale/ (publica ele mesmo no casco)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_codigo_do_disparador_nao_aponta_para_o_portal",
+    "test_uma_volta_pelo_caminho_padrao_nao_escreve_sob_italia_portale"
+   ],
+   "LIMPOU_SOB_ITALIA_PORTALE": [
+    "italia-portale\\client\\.l2-mutante-pote.json"
+   ]
+  },
+  {
+   "ID": "L43",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o mapa do motor e achatado em texto",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor",
+    "test_o_candidato_que_o_fiscal_le_ja_vem_convertido",
+    "test_o_mapa_nunca_se_achata_nem_se_escolhe_uma_entrada",
+    "test_valor_da_lei_fica_e_o_resto_vira_unknown"
+   ]
+  },
+  {
+   "ID": "L44",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "escolhe-se uma entrada do mapa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor",
+    "test_o_candidato_que_o_fiscal_le_ja_vem_convertido",
+    "test_o_mapa_nunca_se_achata_nem_se_escolhe_uma_entrada",
+    "test_valor_da_lei_fica_e_o_resto_vira_unknown"
+   ]
+  },
+  {
+   "ID": "L45",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "texto fora do vocabulario da lei passa",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_valor_da_lei_fica_e_o_resto_vira_unknown"
+   ]
+  },
+  {
+   "ID": "L46",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "o pote e montado sem a conversao",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_o_candidato_que_o_fiscal_le_ja_vem_convertido",
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor",
+    "test_entity_source_e_o_bloqueio_medido_do_pote"
+   ]
+  },
+  {
+   "ID": "L47",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a conversao estraga a saida do motor (sem copia)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
    ]
   },
   {
@@ -393,8 +460,9 @@
    ]
   }
  ],
- "MORTOS": 41,
- "TOTAL": 41,
+ "PORTAL_IGUAL_NO_FIM": true,
+ "MORTOS": 47,
+ "TOTAL": 47,
  "RESTAURADOS_IGUAIS": true,
  "ESTADO": "PASS"
 }

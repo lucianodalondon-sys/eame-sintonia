@@ -1,5 +1,5 @@
 {
- "QUANDO": "2026-09-28T23:47:19.286533+00:00",
+ "QUANDO": "2026-09-29T00:38:55.392711+00:00",
  "BASE_DA_ARVORE": "ver git rev-parse HEAD no relatorio",
  "PASSOS": {
   "0_MIGRATIONS": {
@@ -40,16 +40,16 @@
    "GATILHO": "DEZ_OU_MAIS_NOVOS (10)",
    "SUBIU": false,
    "PORQUE": "POTE_REPROVADO",
-   "CORRIDA": "IR-5347cebb903af8380ea5",
+   "CORRIDA": "IR-840de8303a5ad8de717d",
    "VIOLACOES": 7,
    "PRIMEIRAS": [
-    "$.COMPARTIMENTOS.future.OBJETOS[0].ENTITY_SOURCE: devia ser string",
-    "$.COMPARTIMENTOS.windows.OBJETOS[0].ENTITY_SOURCE: devia ser string",
-    "$.COMPARTIMENTOS.science.OBJETOS[0].ENTITY_SOURCE: devia ser string",
-    "$.COMPARTIMENTOS.science.OBJETOS[1].ENTITY_SOURCE: devia ser string",
-    "$.COMPARTIMENTOS.sources.OBJETOS[0].ENTITY_SOURCE: devia ser string",
-    "$.COMPARTIMENTOS.sources.OBJETOS[1].ENTITY_SOURCE: devia ser string",
-    "$.COMPARTIMENTOS.sources.OBJETOS[2].ENTITY_SOURCE: devia ser string"
+    "LEI: future/R7-FUT-5a361d1d5c93f7bb: ENTITY_SOURCE esconde a ignorancia",
+    "LEI: windows/R7-CW-2fc036ed07a0849b: ENTITY_SOURCE esconde a ignorancia",
+    "LEI: science/R7-SCI-426486379aba21ce: ENTITY_SOURCE esconde a ignorancia",
+    "LEI: science/R7-SCI-5a4bf26c0d54b8d5: ENTITY_SOURCE esconde a ignorancia",
+    "LEI: sources/R7-SRC-4b33dc312fe3689e: ENTITY_SOURCE esconde a ignorancia",
+    "LEI: sources/R7-SRC-0f7440ff99cd9a0b: ENTITY_SOURCE esconde a ignorancia",
+    "LEI: sources/R7-SRC-234ea93d0e2a1bf3: ENTITY_SOURCE esconde a ignorancia"
    ],
    "CORTE": {
     "LINHAS_NO_EXPORT": 10,
@@ -66,17 +66,17 @@
   "3_SALA": {
    "LINHAS": 10,
    "CONSUMIDO_EM_PREENCHIDO": 0,
-   "MD5": "f0c136d8fd7a367cece06a0efd14107e",
+   "MD5": "dfb1cdc553a82df4aa148b1096ac9f5a",
    "REVISOES": 10
   },
   "3_ESTADO": {
-   "INT_MARCA": "2026-09-28T23:48:07.164005+00:00",
-   "INT_ULTIMA_CORRIDA_EM": "2026-09-28T23:48:07.587156+00:00",
-   "INT_ULTIMA_CORRIDA_ID": "IR-5347cebb903af8380ea5",
+   "INT_MARCA": "2026-09-29T00:39:53.899249+00:00",
+   "INT_ULTIMA_CORRIDA_EM": "2026-09-29T00:39:54.568480+00:00",
+   "INT_ULTIMA_CORRIDA_ID": "IR-840de8303a5ad8de717d",
    "INT_ULTIMO_POTE": {
     "SUBIU": false,
     "PORQUE": "POTE_REPROVADO",
-    "CORRIDA": "IR-5347cebb903af8380ea5",
+    "CORRIDA": "IR-840de8303a5ad8de717d",
     "VIOLACOES": 7
    },
    "INT_ULTIMO_CORTE": {
@@ -91,7 +91,7 @@
    }
   },
   "3_MOTOR": {
-   "CORRIDA": "IR-5347cebb903af8380ea5",
+   "CORRIDA": "IR-840de8303a5ad8de717d",
    "OBJETOS": {
     "windows": 1,
     "science": 3,
@@ -109,10 +109,8 @@
    "EXPORT_ORIGEM": "copia local da Sala · base sala_italia",
    "EXPORT_LINHAS": 10
   },
-  "3_POTE_REPROVADO_GUARDADO": [
-   "POTE-REPROVADO-IR-5347cebb903af8380ea5.js"
-  ],
-  "3_CASCO_SEM_POTE": true,
+  "3_POTE_REPROVADO_GUARDADO": [],
+  "3_ENTREGA_VAZIA": true,
   "4_SEM_ITEM_NOVO": {
    "ACCAO": "ESPERA",
    "PORQUE": "SEM_DELTA",
@@ -143,8 +141,8 @@
    "CODIGO": 0,
    "MEDIDO": {
     "NOVOS": 11,
-    "MAIS_VELHO_EM": "2026-09-28T23:48:03.595140+00:00",
-    "MAIS_NOVO_EM": "2026-09-28T23:48:24.962915+00:00",
+    "MAIS_VELHO_EM": "2026-09-29T00:39:49.268411+00:00",
+    "MAIS_NOVO_EM": "2026-09-29T00:40:19.421912+00:00",
     "DESDE": null,
     "DECISAO": "CORRER",
     "PORQUE": "DEZ_OU_MAIS_NOVOS (11)"
@@ -169,11 +167,11 @@
     "CORRIDA_SINTETICA": true,
     "SOURCE_HEAD": "SINT-1111111111111111111111111111111111111111",
     "CORTE": "2026-09-27T00:00:00+00:00",
-    "GERADO_EM": "2026-09-28T23:48:57.815704+00:00",
+    "GERADO_EM": "2026-09-29T00:41:02.812737+00:00",
     "GERADO_POR": "admissao/gatilho_da_inteligencia.py (L2-DISPARADOR)",
     "POTE": {
      "ARQUIVO": "POTE.json",
-     "SHA256_ARQUIVO": "f52e8d80d70f2bb85f79dee0bb81f35259f90d0e476aae909f76830df4c8277d",
+     "SHA256_ARQUIVO": "14e707cf51382652ee606de73f9f1e5d7b7d1a14884ae36b5a40c048a8963c23",
      "CONTRATO": "POTE_INTELLIGENCE_CASCO/v2"
     },
     "VALIDAR_POTE_V2": "PASSA",
@@ -183,7 +181,7 @@
      "DEFEITO_NA_SALA": true
     }
    },
-   "SINTONIA_POTE_JS": true
+   "ENTITY_SOURCE_CONVERTIDOS": 0
   },
   "8_VIGIA": {
    "ALERTA": true,
@@ -210,10 +208,11 @@
     ]
    ]
   },
+  "9_PORTAL_IGUAL": true,
   "9_SALA_FINAL": {
    "LINHAS": 12,
    "CONSUMIDO_EM_PREENCHIDO": 0,
-   "MD5": "444d9277e0389434efea0fdb19309968",
+   "MD5": "4088dbf78f8a73aa761bf7ae253d4dfe",
    "REVISOES": 12
   }
  },
@@ -225,6 +224,7 @@
   "CORTE_VIGENTE_DECLARADO": true,
   "COPIA_READ_ONLY": true,
   "O_FISCAL_MANDA": true,
+  "NADA_ESCRITO_SOB_ITALIA_PORTALE": true,
   "SEM_DELTA": true,
   "NOVO_RECENTE_ESPERA_E_COM_4H_DISPARA": true,
   "SALA_NUNCA_MUDOU_NUM_DISPARO": true,
@@ -234,6 +234,6 @@
   "VIGIA_DIZ_O_DEFEITO": true
  },
  "DISPARADOR_INTELLIGENCE": "PASS",
- "POTE_NOVO_GERADO_SEM_MAO_HUMANA": "FAIL: o motor real gerou o pote sem mao humana, e o fiscal o REPROVOU (7 violacoes; primeiras: ['$.COMPARTIMENTOS.future.OBJETOS[0].ENTITY_SOURCE: devia ser string', '$.COMPARTIMENTOS.windows.OBJETOS[0].ENTITY_SOURCE: devia ser string'])",
+ "POTE_NOVO_GERADO_SEM_MAO_HUMANA": "FAIL: o motor real gerou o pote sem mao humana, e o fiscal o REPROVOU (7 violacoes; primeiras: ['LEI: future/R7-FUT-5a361d1d5c93f7bb: ENTITY_SOURCE esconde a ignorancia', 'LEI: windows/R7-CW-2fc036ed07a0849b: ENTITY_SOURCE esconde a ignorancia'])",
  "ESTADO": "PASS"
 }

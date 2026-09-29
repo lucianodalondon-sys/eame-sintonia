@@ -23,8 +23,11 @@ O QUE E DE ENSAIO (dito para ninguem ler isto como prova de producao)
   * Os itens novos (passos 5 e 7) levam document_key novo: com o da fixture, a Sala os funde (C6).
   * A janela pousa com as quatro chaves em NAO SEI (JANELA_NAO_MEDIDA) e a da fixture entra por `rever`.
   * O «agora» das voltas e declarado (agora, +10 min, +20 min, +4 h 30).
-  * Passo 7 usa um MOTOR DUBLE (a corrida sintetica valida de tests/fixtures/pote) para provar que um
-    pote APROVADO chega a entrega com sha. Esta dito no resultado: nao e o motor real.
+  * Passo 7 usa um MOTOR DUBLE (a corrida sintetica valida de tests/fixtures/pote, com o ENTITY_SOURCE
+    do unico objeto que o traz trocado por DOCUMENT_TITLE, um valor da lei COL-LAW-221) para provar que
+    um pote APROVADO chega a entrega com sha. Esta dito no resultado: nao e o motor real.
+  * A FRONTEIRA (correcao do coordenador, 28/09): o disparador PARA na entrega PARA-O-CASCO. O ensaio
+    fotografa italia-portale/ inteiro no inicio e no fim: tem de estar igual.
   * Tudo escreve numa pasta temporaria; a arvore e o casco verdadeiros nao sao tocados.
 
 A SALA NUNCA MUDA POR CAUSA DO DISPARADOR: antes e depois de cada disparo tira-se a impressao da Sala
@@ -81,6 +84,12 @@ def impressao(base, env) -> dict:
                          "(select count(*) from sala_de_espera_revisao)")
     n, consumidos, md5, rev = r.stdout.strip().split("|")
     return {"LINHAS": int(n), "CONSUMIDO_EM_PREENCHIDO": int(consumidos), "MD5": md5, "REVISOES": int(rev)}
+
+
+def foto_do_portal() -> dict:
+    """Todo ficheiro sob italia-portale/ (tamanho e mtime): a fronteira e a Intelligence parar na entrega."""
+    b = RAIZ / "italia-portale"
+    return {str(q.relative_to(b)): (q.stat().st_size, q.stat().st_mtime_ns) for q in b.rglob("*") if q.is_file()}
 
 
 def semear(base, env, fx, linhas, run_extra=None):
@@ -167,8 +176,8 @@ def correr(saida: Path) -> dict:
         P["1_ITEM_ID_REPETIDO_NA_VISTA"] = [l.split("|") for l in vista.stdout.split() if l]
 
         kw = dict(parar=t / "PARAR.flag", trinco=t / "ESTEIRA-INTELLIGENCE", pasta=t / "esteira")
-        GI.POTE_NO_CASCO = t / "client" / "sintonia-pote.js"
         GI.ENTREGA = t / "esteira" / "PARA-O-CASCO"
+        portal_antes = foto_do_portal()
         estado_em, volta = t / "ESTADO.json", t / "ESTEIRA-INTELLIGENCE-VOLTA"
 
         def uma(agora, **mais):
@@ -210,7 +219,7 @@ def correr(saida: Path) -> dict:
                         "EXPORT_READ_ONLY": exp.get("READ_ONLY"), "EXPORT_ORIGEM": exp.get("ORIGEM"),
                         "EXPORT_LINHAS": len(exp.get("LINHAS") or [])}
         P["3_POTE_REPROVADO_GUARDADO"] = sorted(p.name for p in ult.glob("POTE-REPROVADO-*.js"))
-        P["3_CASCO_SEM_POTE"] = not GI.POTE_NO_CASCO.exists() and not GI.ENTREGA.exists()
+        P["3_ENTREGA_VAZIA"] = not GI.ENTREGA.exists()
 
         # 4 · sem item novo -> SEM_DELTA
         r4, igual4, _ = uma(agora + timedelta(minutes=10))
@@ -252,7 +261,13 @@ def correr(saida: Path) -> dict:
         item7 = dict(fx["LINHAS"][2], run_id=NOVA + "-7", ordem=1, item_id="L2-NOVO-7", raw_observation_id=990007,
                      raw_document_key="L2-DOC-NOVO-7")
         semear(base, env, fx, [item7])
+        # o duble: a corrida sintetica valida com o ENTITY_SOURCE do unico objeto que o traz trocado por um
+        # valor da lei COL-LAW-221 (sem isso a conversao da decisao do owner poe UNKNOWN e o fiscal reprova)
         duble = json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8"))
+        for objs in (duble.get("ITENS_POR_FERRAMENTA") or {}).values():
+            for o in objs if isinstance(objs, list) else [objs]:
+                if isinstance(o, dict) and "ENTITY_SOURCE" in o:
+                    o["ENTITY_SOURCE"] = "DOCUMENT_TITLE"
         with mock.patch.object(GI, "correr_o_motor", lambda *a: duble):
             r7, igual7, _ = uma(datetime.now(timezone.utc) + timedelta(hours=9))
         man = json.loads((GI.ENTREGA / "MANIFESTO.json").read_text(encoding="utf-8")) if GI.ENTREGA.exists() else {}
@@ -266,7 +281,7 @@ def correr(saida: Path) -> dict:
                                             "ACCAO": r7.get("ACCAO"), "SUBIU": r7.get("SUBIU"), "SALA_IGUAL": igual7,
                                             "ENTREGA": sorted(p.name for p in GI.ENTREGA.iterdir()) if GI.ENTREGA.exists() else [],
                                             "SHA256SUMS_BATE": bate, "MANIFESTO": man,
-                                            "SINTONIA_POTE_JS": GI.POTE_NO_CASCO.exists()}
+                                            "ENTITY_SOURCE_CONVERTIDOS": r7.get("ENTITY_SOURCE_CONVERTIDOS")}
 
         # 8 · o vigia
         saude = t / "ESTEIRA-SAUDE.json"
@@ -275,6 +290,7 @@ def correr(saida: Path) -> dict:
         P["8_VIGIA"] = {"ALERTA": rel["ALERTA"], "ALERTAS": [(a["ETAPA"], a["ESTADO"]) for a in rel["ALERTAS"]]}
 
         imp_final = impressao(base, env)
+        P["9_PORTAL_IGUAL"] = foto_do_portal() == portal_antes
         P["9_SALA_FINAL"] = imp_final
         corte = P["3_ITEM_NOVO_DISPARA"].get("CORTE") or {}
         ok = {
@@ -287,7 +303,8 @@ def correr(saida: Path) -> dict:
                                        == [fx["LINHAS"][0]["item_id"]]
                                        and corte.get("LINHAS_NO_EXPORT") - corte.get("LINHAS_NO_CORTE") == 1,
             "COPIA_READ_ONLY": P["3_COPIA"]["PROVA_VALE"] is True and P["3_COPIA"]["EXPORT_READ_ONLY"] == "on",
-            "O_FISCAL_MANDA": (r3.get("SUBIU") is True) == (not P["3_CASCO_SEM_POTE"]),
+            "O_FISCAL_MANDA": (r3.get("SUBIU") is True) == (not P["3_ENTREGA_VAZIA"]),
+            "NADA_ESCRITO_SOB_ITALIA_PORTALE": P["9_PORTAL_IGUAL"],
             "SEM_DELTA": P["4_SEM_ITEM_NOVO"]["PORQUE"] == "SEM_DELTA",
             "NOVO_RECENTE_ESPERA_E_COM_4H_DISPARA": (P["5_ITEM_NOVO"]["RECENTE"]["ACCAO"] == "ESPERA"
                                                     and r5b.get("GATILHO", "").startswith("NOVO_A_ESPERA_HA_4H")),
