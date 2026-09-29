@@ -115,9 +115,9 @@
   {"ID": "N214-ticino-cabecalho", "FONTE": "derived:busca-2ac58821 CAND-1209",
    "TEXTO": "Servizio fitosanitario 6501 Bellinzona Bollettino fitosanitario n. 20/2026 1 di 3 26.05.2026 VITICOLTURA SITUAZIONE GENERALE La settimana appena trascorsa (18-24.05) e stata caratterizzata da tempo soleggiato e dai rilievi non risultano infezioni.",
    "PUB": null,
-   "ESPERADO": {"TIPO": "FACT_TIME", "VALOR": "SEM_ANO-05-18/SEM_ANO-05-24", "PRECISAO": "INTERVAL"},
+   "ESPERADO": {"TIPO": "FACT_TIME", "VALOR": "2026-05-18/2026-05-24", "PRECISAO": "INTERVAL"},
    "TEMPOS": [{"TIPO": "PUBLICATION_TIME", "VALOR": "2026-05-26"}],
-   "PORQUE": "dd.mm.aaaa e «(18-24.05)»: duas formas que o vivo nao lia"},
+   "PORQUE": "dd.mm.aaaa e «(18-24.05)»: duas formas que o vivo nao lia. VOLTA 2: esperado MUDADO de SEM_ANO para 2026 por causa da D147 itens 1 e 2 — o cabecalho «n. 20/2026 ... 26.05.2026» e inequivoco da mesma edicao, entao o ano governa a afirmacao e a precisao e INTERVALO de dias, com os dois trechos citados. A expectativa antiga (SEM_ANO) era minha, escrita antes de a regra do dono estar implementada; nao veio de gabarito nenhum."},
 
   {"ID": "N227-piogge-5-e-6", "FONTE": "derived:busca-5d43598d CAND-1228",
    "TEXTO": "Testimoni non trattati che avevano sviluppato foglie recettive in seguito alle piogge del 5 e 6 maggio.",

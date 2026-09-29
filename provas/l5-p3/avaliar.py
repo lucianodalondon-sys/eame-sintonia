@@ -154,6 +154,8 @@ def proposto(caso):
                  "; ".join("%s=%s" % (d["VALOR"], d["PORQUE"][:40]) for d in r["DESCARTADOS"][:4]),
         "TODOS": {t: [x["VALOR"] for x in r[t]] for t in TP.TIPOS},
         "SEM_ANO": bool(e and e["SEM_ANO"]),
+        "ANO_COM_BASE": bool(e and e.get("ANO_BASIS")),
+        "ANO_PROCEDENCIA": (e or {}).get("PROCEDENCIA_DO_ANO"),
     }
 
 
@@ -223,8 +225,16 @@ def mede(casos, correr, nome):
                     criticos.append("precisao %s onde o texto so da %s"
                                     % (s["PRECISAO"], caso["PRECISAO"] or _precisao_do_valor(esperado_val)))
                 elif TP.SEM_ANO in esperado_val and TP.SEM_ANO not in str(s["VALOR"]):
-                    r["PRECISAO_INVENTADA"] += 1
-                    criticos.append("ano «%s» onde o texto nao da ano" % str(s["VALOR"])[:4])
+                    # Um ano COMPOSTO do cabecalho do mesmo documento, com os dois trechos
+                    # citados e a procedencia escrita, nao e ano inventado (D147 itens 1-2):
+                    # o texto da o ano, noutro sitio, e a saida diz onde. Sem essa base, e
+                    # invencao e conta como critico.
+                    if s.get("ANO_COM_BASE"):
+                        criticos.append("ano «%s» composto do cabecalho (nao invencao): %s"
+                                        % (str(s["VALOR"])[:4], s.get("ANO_PROCEDENCIA")))
+                    else:
+                        r["PRECISAO_INVENTADA"] += 1
+                        criticos.append("ano «%s» onde o texto nao da ano" % str(s["VALOR"])[:4])
         if not acertou:
             criticos.append("esperado %s=%s, saiu %s=%s" % (esperado_tipo or "NADA", esperado_val or "NAO SEI",
                                                             s["TIPO"] or "NADA", s["VALOR"] or "NAO SEI"))

@@ -27,6 +27,22 @@ O QUE MUDA em relacao ao vivo
    corpo e devolvia NAO SEI. Aqui o corpo e o texto todo quando nao ha linhas.
 6. Um limite ganho por raciocinio («o achado e anterior a publicacao») sai em
    LIMITES_INFERIDOS, marcado INFERENCIA=True, e nunca no valor de FACT_TIME.
+
+VOLTA 2 (D147 + D150) — o que mudou depois da prova as cegas
+------------------------------------------------------------
+A 1.a candidata (117799143) tirou 0/20. As causas vieram do coordenador, sem gabarito:
+· o ano do cabecalho passou a ser o que o dono decidiu (`_ano_governante`): cabecalho
+  inequivoco da MESMA edicao, ano que governa a afirmacao, nenhum ano concorrente, os
+  dois trechos citados e a procedencia escrita. A janela de 40 letras da 1.a versao
+  desapareceu — lia qualquer ano perto, incluindo o de outro assunto.
+· «ano sozinho nunca data observacao» FOI RETIRADA: contrariava a D147 item 3. Um ano
+  economico atribuido ao facto («fechou 2025») e FACT_TIME com precisao ANO. So o ano
+  HISTORICO de OUTRO facto («per la prima volta nel 2004») continua barrado.
+· cabecalho com as letras dobradas pelo PDF passa a ser lido (`_colapsa_duplicadas`).
+· relativa de SEMANA ancora no periodo IMPRESSO do proprio boletim (D63/D149), com a
+  composicao registada — antes so a publicacao provada ancorava.
+· quem procura o ATO ligado a afirmacao e a interface: o extrator devolve todos, e
+  `provas/l5-p3/interface.py` so deixa passar o que a afirmacao usa (era DATA_INVENTADA).
 """
 from __future__ import annotations
 
@@ -145,6 +161,31 @@ _RE_MERCADO = re.compile(
 # e «raccolto» nao contam aqui: eles estao dentro da propria expressao de safra.
 _RE_MERCADO_FORTE = re.compile(
     r"prezz|quotazion|mercat|euro\s*/?\s*kg|€|rilevazion|panel|borsa|ingrosso|listino|fatturat|export")
+# A safra que vem depois de uma destas nao encabeca nada: qualifica uma cotacao ou e
+# termo de comparacao («nella settimana 38 il prezzo», «in linea con la campagna 2024»).
+_RE_QUALIFICA_COTACAO = re.compile(
+    r"(?:rispetto|confronto|in\s+linea\s+con|nell[ao]|ne[il]|dell[ao]|de[il]|con\s+l[ao]|contro|vs\.?|"
+    r"pari\s+a|come\s+(?:nel|nella))\s*(?:l[ao'’]?\s*)?$""", re.I)
+# O ano HISTORICO de OUTRO facto — a unica coisa que continua a barrar um ano sozinho.
+# «rilevata per la prima volta in Europa nel 2004» data a primeira detecao, nao o que
+# este documento relata.
+_RE_HISTORICO_DE_OUTRO = re.compile(
+    r"(?<![a-z])(?:per\s+la\s+prima\s+volta|prima\s+(?:segnalazione|comparsa|rilevazione)|"
+    r"storicamente|risal(?:e|iva)\s+a|nel\s+passato|gia\s+nel|fin\s+dagli\s+anni|"
+    r"fu\s+(?:individuat|rilevat|segnalat|introdott))")
+# A ASSINATURA de quem escreve: «Di Giuseppe Francesco Sportelli 13 Settembre 2026».
+# Vai contra o texto ORIGINAL (com maiusculas), porque e a maiuscula do nome que a
+# distingue de um «di» qualquer.
+_RE_ASSINATURA = re.compile(
+    r"(?:(?<![A-Za-z])[Dd]i|(?<![A-Za-z])[Dd]a|A\s+cura\s+di|Redazione|Autore)\s+"
+    r"(?:[A-ZÀ-Ý][\w'’À-ÿ]+\s+){1,3}$")
+# Uma afirmacao SEM acontecimento datavel: conhecimento geral, biologia, definicao.
+# Serve para separar NAO_EXISTE (nao ha o que datar) de NAO_SEI (houve, nao diz quando).
+_RE_DEFINICAO = re.compile(
+    r"(?<![a-z])(?:e\s+un[ao]?\b|sono\s+(?:insetti|funghi|batteri|acari|specie)|"
+    r"si\s+tratta\s+di|la\s+specie|il\s+ciclo|si\s+nutre|puo\s+causare|in\s+generale|"
+    r"di\s+solito|normalmente|caratteristic|descrizion|biologia|morfologia|appartiene|"
+    r"si\s+riproduce|le\s+larve|gli\s+adulti|preferisce|predilige|si\s+consiglia)")
 # FACTO: o acontecimento no campo. Lista do vivo MAIS as ancoras que faltavam
 # (medidas pelo LAB: «segnalazione», «situazione ... al», «effettuato», «catture»).
 _RE_FACTO = re.compile(
@@ -323,25 +364,133 @@ def _limites_da_oracao(low, ini, fim):
     return a, min([x for x in bs if x >= 0] + [len(low)])
 
 
-def _ano_do_cabecalho(low, alvo, ini, fim):
-    """O ano de 4 algarismos ESCRITO no MESMO documento, a <=40 letras da expressao e
-    dentro da mesma oracao, e SO quando e INEQUIVOCO — um unico ano nessa janela.
+_RE_ANO = re.compile(r"(?<!\d)((?:19|20)\d{2})(?!\d)")
+_RE_TOKEN = re.compile(r"\S+")
 
-    D147: e este o unico caminho por onde um ano entra num valor que a expressao nao
-    escreveu, e sai marcado ORIGEM=CABECALHO com OS DOIS TRECHOS (o da expressao e o
-    do ano). Havendo dois anos diferentes na janela, ou nenhum: o ano fica NAO SEI.
-    A publicacao e a coleta nunca completam o ano.
+# R2 item 8 · titulo de secao vindo de PDF chega com cada letra dobrada (efeito do
+# negrito): «SSIITTUUAAZZIIOONNEE», «22002266». Um ano dobrado nao casa com padrao
+# nenhum, e o cabecalho ficava sem ano.
+def _colapsa_duplicadas(token: str) -> str:
+    """«SSIITTUUAAZZIIOONNEE» -> «SITUAZIONE». So colapsa quando TODOS os caracteres do
+    token vem em pares — «settimana», que tem um «tt» legitimo, nao casa, porque o «s»
+    nao vem dobrado. Nao se aplica ao texto inteiro: so a leitura do cabecalho passa
+    por aqui, e o trecho citado continua a ser o original."""
+    if len(token) < 6 or len(token) % 2:
+        return token
+    if all(token[i] == token[i + 1] for i in range(0, len(token), 2)):
+        return token[::2]
+    return token
+
+
+# (a) o cabecalho tem de ser inequivocamente de UMA edicao: sem uma destas marcas, nao
+# se aceita ano nenhum dele.
+_RE_CABECALHO_DE_EDICAO = re.compile(
+    r"(?<![a-z])(?:bollettino|comunicato|notiziario|avviso|nota\b|report|newsletter|"
+    r"n[.°]\s*\d|del\s+\d|aggiornato|settimana|edizione|anno\s+\d)")
+# ATOS citados no meio do texto trazem anos de OUTRO assunto («D.lgs 14 agosto 2012»):
+# esses nao tornam o cabecalho ambiguo, porque nao datam afirmacao nenhuma daqui.
+LIMITE_DO_CABECALHO = 600
+
+
+LETRAS_DE_PROSA = 80      # uma linha desta largura ja e corpo, nao cabecalho
+
+
+def _fim_do_cabecalho(alvo: str) -> int:
+    """Onde acaba o cabecalho: na primeira linha de PROSA.
+
+    Cabecalho e linha curta («Bollettino fitosanitario n. 17/2026 del 04.05.2026»,
+    «VITICOLTURA»); corpo e linha larga. Contar «as primeiras cinco linhas» punha o
+    corpo dentro do cabecalho num documento de tres linhas — medido a correr isto.
+    Texto sem quebras de linha: as primeiras LIMITE_DO_CABECALHO letras.
+    """
+    t = str(alvo or "")
+    if "\n" not in t.strip():
+        # Texto achatado numa linha (o caso dos PDFs, 123/275 na copia da Sala): o
+        # cabecalho nao pode ser o documento todo, senao nenhuma afirmacao esta «abaixo»
+        # dele e a regra do ano nunca corre. Toma-se o inicio: nunca mais de 40% do
+        # texto, nunca mais de LIMITE_DO_CABECALHO letras.
+        return int(min(LIMITE_DO_CABECALHO, max(120, len(t) * 0.4))) if t else 0
+    p = 0
+    for l in t.splitlines(keepends=True):
+        if len(l.strip()) >= LETRAS_DE_PROSA or p >= LIMITE_DO_CABECALHO:
+            break
+        p += len(l)
+    return min(p, LIMITE_DO_CABECALHO)
+
+
+def _cabecalho_legivel(low, fim_cab):
+    """O cabecalho com os tokens dobrados pelo PDF desdobrados, SO para procurar as
+    marcas de edicao. «BBOOLLLLEETTTTIINNOO» -> «bollettino». Nao devolve offsets: quem
+    precisa de offset usa `_anos_em`, que anda token a token no original."""
+    return " ".join(_colapsa_duplicadas(m.group(0)) for m in _RE_TOKEN.finditer(low[:fim_cab]))
+
+
+def _anos_em(low, alvo, a, b):
+    """Os anos escritos entre `a` e `b`, token a token, tambem quando o token vem com as
+    letras dobradas pelo PDF. Devolve (ano, offset_no_original, expressao_original)."""
+    fora = []
+    for m in _RE_TOKEN.finditer(low[a:b]):
+        tok = m.group(0)
+        for cand in (tok, _colapsa_duplicadas(tok)):
+            achou = _RE_ANO.search(cand)
+            if achou:
+                p = a + m.start()
+                fora.append((achou.group(1), p, alvo[p:a + m.end()]))
+                break
+    return fora
+
+
+def _ano_governante(low, alvo, ini, fim):
+    """D147 (R2 item 2) · o ano que GOVERNA esta afirmacao, quando a expressao nao o
+    escreve. Cinco condicoes, todas obrigatorias:
+
+      (a) o cabecalho e inequivocamente de UMA edicao (tem marca de boletim/edicao);
+      (b) o ano governa a afirmacao — a afirmacao esta no corpo dessa mesma edicao;
+      (c) nenhum OUTRO ano pode datar A MESMA afirmacao: nem na oracao da afirmacao,
+          nem entre o cabecalho e ela (ano de outra seccao ou de outro assunto mata a
+          leitura; anos de ATOS citados nao contam, porque nao datam nada daqui);
+      (d) os dois trechos ficam citados — o da afirmacao e o do ano;
+      (e) a procedencia registra que dia/mes vem da afirmacao e o ano do cabecalho.
+
+    Nao e mais a janela de 40 letras da primeira versao: essa lia qualquer ano perto,
+    incluindo o de outro assunto. Ano nao inequivoco -> None, e o valor fica SEM_ANO.
     """
     a, b = _limites_da_oracao(low, ini, fim)
-    ja, jb = max(a, ini - 40), min(b, fim + 40)
-    achados = [m for m in re.finditer(r"(?<!\d)((?:19|20)\d{2})(?!\d)", low[ja:jb])]
-    anos = {m.group(1) for m in achados}
-    if len(anos) != 1:
-        return None, None
-    m = achados[0]
-    p = ja + m.start()
-    return m.group(1), {"TRECHO": re.sub(r"\s+", " ", alvo[max(0, p - 60):p + 60]).strip(),
-                        "OFFSET": p, "EXPRESSAO": alvo[p:ja + m.end()]}
+    # (c) na propria afirmacao
+    na_oracao = [x for x in _anos_em(low, alvo, a, b) if not (ini <= x[1] < fim)]
+    distintos = {x[0] for x in na_oracao}
+    if len(distintos) > 1:
+        return None, None, "AMBIGUO: mais de um ano pode datar esta afirmacao"
+    if len(distintos) == 1:
+        ano, p, expr = na_oracao[0]
+        return ano, _basis_do_ano(alvo, p, expr), (
+            "dia/mes da afirmacao; ano escrito na MESMA afirmacao («%s»)" % expr)
+    # sem ano na afirmacao: o cabecalho da mesma edicao
+    fim_cab = _fim_do_cabecalho(alvo)
+    if ini < fim_cab:
+        return None, None, "a expressao esta no proprio cabecalho: nao ha cabecalho acima dela"
+    if not _RE_CABECALHO_DE_EDICAO.search(_cabecalho_legivel(low, fim_cab)):
+        return None, None, "(a) o cabecalho nao se identifica como edicao: ano NAO SEI"
+    no_cab = _anos_em(low, alvo, 0, fim_cab)
+    distintos_cab = {x[0] for x in no_cab}
+    if len(distintos_cab) != 1:
+        return None, None, ("(a) o cabecalho nao traz um ano inequivoco (%s): ano NAO SEI"
+                            % (", ".join(sorted(distintos_cab)) or "nenhum"))
+    ano = next(iter(distintos_cab))
+    # (c) nenhum outro ano entre o cabecalho e a afirmacao — tirando os anos de ATOS
+    for outro, p, _ in _anos_em(low, alvo, fim_cab, a):
+        if outro != ano and not _RE_ATO.search(low[max(0, p - 80):p]):
+            return None, None, ("(c) ha outro ano (%s) entre o cabecalho e a afirmacao: "
+                                "ano NAO SEI" % outro)
+    _, p, expr = no_cab[0]
+    return ano, _basis_do_ano(alvo, p, expr), (
+        "dia/mes da afirmacao; ano do CABECALHO da mesma edicao («%s»), inequivoco" % expr)
+
+
+def _basis_do_ano(alvo, p, expr):
+    """(d) o segundo trecho: onde o ano esta escrito, com o seu offset."""
+    return {"TRECHO": re.sub(r"\s+", " ", alvo[max(0, p - 60):p + 60]).strip(),
+            "OFFSET": p, "EXPRESSAO": expr}
 
 
 def _publicacao_provada(pub_iso, basis):
@@ -350,6 +499,59 @@ def _publicacao_provada(pub_iso, basis):
     if not pub_iso or not basis:
         return False
     return not str(basis).strip().upper().startswith(("NAO SEI", "NÃO SEI", "UNKNOWN", "NOT_KNOWN"))
+
+
+_SEMANA_PASSADA = ("la settimana scorsa", "la settimana appena trascorsa", "nei giorni scorsi")
+_SEMANA_ATUAL = ("questa settimana", "la settimana in corso")
+
+
+def _conta_relativa_pela_edicao(expr, periodo):
+    """D63/D149 (R2 item 9) · uma relativa de SEMANA ancorada no periodo IMPRESSO do
+    MESMO boletim e leitura valida — «questa settimana» num boletim que imprime
+    «settimana 39 dal 22/09/2026 al 29/09/2026» e essa semana, sem precisar da
+    publicacao. A composicao fica registada (que periodo foi usado, e como).
+
+    Devolve (valor, inicio, fim, precisao, composicao) ou None.
+    """
+    if not periodo:
+        return None
+    e = re.sub(r"\s+", " ", _fold(expr)).strip()
+    if e not in _SEMANA_PASSADA + _SEMANA_ATUAL:
+        return None
+    ini, fim, prec = periodo["VALOR_INICIO"], periodo["VALOR_FIM"], periodo["PRECISAO"]
+    if SEM_ANO in str(ini):
+        return None                      # periodo sem ano nao ancora nada
+    passada = e in _SEMANA_PASSADA
+    if prec == WEEK:
+        m = re.match(r"^(\d{4})-W(\d{2})$", str(ini))
+        if not m:
+            return None
+        ano, n = int(m.group(1)), int(m.group(2))
+        if passada:
+            n -= 1
+            if n < 1:
+                ano, n = ano - 1, 52
+        v = _val_semana(str(ano), n)
+        alcance = (v, v)
+    else:
+        try:
+            d1, d2 = date.fromisoformat(str(ini)[:10]), date.fromisoformat(str(fim)[:10])
+        except ValueError:
+            return None
+        if passada:
+            d1, d2 = d1 - timedelta(days=7), d2 - timedelta(days=7)
+        alcance = (d1.isoformat(), d2.isoformat())
+        v = "%s/%s" % alcance
+    composicao = {
+        "ANCORA": "PERIODO_DA_EDICAO",
+        "PERIODO_IMPRESSO": periodo["VALOR"],
+        "PERIODO_BASIS": {"TRECHO": periodo["BASIS"]["TRECHO"],
+                          "OFFSET": periodo["BASIS"]["OFFSET"],
+                          "EXPRESSAO": periodo["BASIS"]["EXPRESSAO"]},
+        "CONTA": ("a semana ANTERIOR ao periodo impresso" if passada
+                  else "o proprio periodo impresso"),
+    }
+    return v, alcance[0], alcance[1], (WEEK if prec == WEEK else INTERVAL), composicao
 
 
 def _conta_relativa(expr, pub_provada):
@@ -436,10 +638,12 @@ def _com_ano(valor, v_ini, v_fim, ano):
 
 
 # ── tipar: a que acontecimento a data pertence ───────────────────────────────
-def _tipo_e_porque(low, ini, fim, valor, precisao, ano, pub_iso, contrato, origem=None):
+def _tipo_e_porque(low, ini, fim, valor, precisao, ano, pub_iso, contrato, origem=None,
+                   assinatura=False):
     """Devolve (TIPO ou None, MOTIVO). None = descartada, com o motivo escrito."""
     antes = low[max(0, ini - JANELA_ANTES):ini]
     largo = low[max(0, ini - 220):ini]
+    fim_cab = max(_fim_do_cabecalho(low), 200)
     frase = _oracao(low, ini, fim)
     depois = low[fim:fim + 60]
 
@@ -459,16 +663,18 @@ def _tipo_e_porque(low, ini, fim, valor, precisao, ano, pub_iso, contrato, orige
         # provada, e sai com ORIGEM=RELATIVO_D63 — e essa nao cai aqui, senao «oggi»
         # (que por construcao da o dia da publicacao) nunca poderia datar nada.
         return PUBLICATION_TIME, "carimbo da publicacao (igual ao published_at)"
-    if contrato == "EDICAO" and ini < 800:
+    if contrato == "EDICAO" and ini < fim_cab:
         if precisao in (INTERVAL, WEEK):
             return PERIODO_DA_EDICAO, "a fonte declara EDICAO e o cabecalho traz um periodo"
         if precisao == DAY:
             return PUBLICATION_TIME, "a fonte declara EDICAO no cabecalho"
+    if assinatura:
+        return PUBLICATION_TIME, "assinatura do autor/redacao com data: carimbo de publicacao"
     if _RE_PUBLICACAO.search(antes) or _RE_EDICAO.search(largo):
         if not _RE_FACTO.search(antes[-50:]):
             return PUBLICATION_TIME, "edicao / assinatura / «pubblicato» / «aggiornato al»"
     # 3 · a janela de VALIDADE
-    if contrato == "VALIDADE" and precisao in (DAY, INTERVAL, WEEK) and ini < 800:
+    if contrato == "VALIDADE" and precisao in (DAY, INTERVAL, WEEK) and ini < fim_cab:
         return VALIDITY_TIME, "a fonte declara VALIDADE no cabecalho"
     if _RE_VALIDADE.search(antes) or (precisao == INTERVAL and _RE_VALIDADE.search(frase)):
         return VALIDITY_TIME, "janela declarada de validade / prazo / deroga"
@@ -494,23 +700,37 @@ def _tipo_e_porque(low, ini, fim, valor, precisao, ano, pub_iso, contrato, orige
         return None, "DEPOIS_DA_PUBLICACAO: nao pode ser um facto ja acontecido"
     # 5 · mercado
     if precisao == SEASON:
-        # «La siccita del 2025/26» e um acontecimento com precisao de safra; «in linea
-        # con la campagna 2024, prezzi a 2,80 euro/kg» e periodo de mercado. Quem decide
-        # e a pista da frase, nao a forma da data.
+        # D147 item 3 · a safra que ENCABECA a afirmacao e o tempo do facto que ela
+        # afirma: «La campagna 2026 registra prezzi in calo del 12%» — o facto (os precos
+        # cairam) e daquela campanha, com precisao de ano. MARKET_PERIOD e para a safra
+        # que QUALIFICA uma cotacao ou serve de comparacao: «nella settimana 38 il prezzo
+        # e…», «in linea con la campagna 2024». Quem separa e o papel na frase, nao a
+        # presenca da palavra «prezzo».
+        a_or, _ = _limites_da_oracao(low, ini, fim)
+        encabeca = (ini - a_or) <= 25 and not _RE_QUALIFICA_COTACAO.search(antes[-25:])
         resto = frase.replace(low[ini:fim], " ")
+        if encabeca:
+            return FACT_TIME, "safra que encabeca a afirmacao: e o tempo do facto afirmado (ANO)"
         if not _RE_MERCADO_FORTE.search(resto) and perto is not None and perto <= DISTANCIA_DA_ANCORA:
             return FACT_TIME, "acontecimento com precisao de safra, ancora a %d letras" % perto
-        return MARKET_PERIOD, "safra / campanha: e o ciclo, nao um acontecimento datado"
+        return MARKET_PERIOD, "safra que qualifica cotacao / comparacao: periodo de mercado"
     if precisao == WEEK and _RE_MERCADO.search(frase):
         return MARKET_PERIOD, "semana de rilevacao de preco"
     # 6 · o facto, so com ancora PERTO
     d = perto
     if d is not None and d <= DISTANCIA_DA_ANCORA:
         if precisao == YEAR:
-            # Um ano sozinho nunca data uma observacao de campo: nos 5 casos medidos
-            # pelo LAB («2013», «2016», «2004», «2025», «campagna 2024») era sempre
-            # outra coisa — inicio de monitoramento, historico, preco de referencia.
-            return None, "ANO_SOZINHO_NAO_DATA_OBSERVACAO: precisao grossa demais para um facto"
+            # D147 item 3 (R2): «fechou 2025», «em 2025 …» E facto, com precisao ANO,
+            # quando o conteudo atribui o facto aquele ano. A regra da 1.a versao («ano
+            # sozinho nunca data observacao») contrariava a decisao do dono e foi
+            # retirada. Continua proibido o que o dono manteve proibido: ano de NOME de
+            # norma (acima, NOME_DE_PROGRAMA), campanha citada de passagem (MARKET_PERIOD),
+            # ano de comparacao (acima) e o ano HISTORICO de OUTRO facto — este ultimo
+            # e o que esta guarda apanha.
+            if _RE_HISTORICO_DE_OUTRO.search(frase):
+                return None, ("ANO_HISTORICO_DE_OUTRO_FACTO: «prima volta / risale a / "
+                              "storicamente» data outro acontecimento, nao este")
+            return FACT_TIME, "ano atribuido ao facto pelo conteudo, ancora a %d letras" % d
         return FACT_TIME, "ancora de acontecimento a %d letras" % d
     return None, "SEM_ANCORA_DE_ACONTECIMENTO_PERTO: data solta"
 
@@ -573,8 +793,9 @@ def tempos_do_texto(texto: str, published_at: str | None = None, *,
     contrato = (contrato_da_fonte or "").strip().upper() or None
 
     achados = {t: [] for t in TIPOS}
-    descartados, ocupado = [], []
+    descartados, ocupado, pendentes = [], [], []
 
+    # ── 1.a passagem · as datas escritas ────────────────────────────────────
     for nome, rx in SUPERFICIES:
         for m in rx.finditer(low):
             ini, fim = m.start(), m.end()
@@ -584,39 +805,75 @@ def tempos_do_texto(texto: str, published_at: str | None = None, *,
             if not lido:
                 continue
             valor, v_ini, v_fim, precisao, ano = lido
-            ano_origem = "EXPRESSAO" if ano else None
-            origem, ano_basis = LITERAL, None
             if precisao == NAO_SEI:
-                # RELATIVA (D63): so conta ancorada em publicacao PROVADA, e sai sempre
-                # marcada RELATIVO_D63 — nunca se faz passar por data escrita.
-                conta = _conta_relativa(valor, pub_provada)
-                if not conta:
-                    reg = _registo(alvo, ini, fim, valor, valor, valor, NAO_SEI, None,
-                                   "NAO ESCRITO", RELATIVO_D63, None, nome,
-                                   "EXPRESSAO_RELATIVA sem publicacao provada: nao se conta (D63)", m)
-                    ocupado.append((ini, fim))
-                    descartados.append(reg)
-                    continue
-                valor, v_ini, v_fim, precisao = conta
-                ano, ano_origem, origem = valor[:4], "PUBLICACAO_PROVADA", RELATIVO_D63
-                ano_basis = "publicacao provada %s (%s)" % (pub_provada, published_at_basis or "base declarada")
+                # RELATIVA: fica para a 2.a passagem — pode ancorar no periodo IMPRESSO
+                # da edicao (R2 item 9), e esse ainda nao foi lido.
+                ocupado.append((ini, fim))
+                pendentes.append((nome, m, ini, fim, valor))
+                continue
+            ano_origem = "EXPRESSAO" if ano else None
+            origem, ano_basis, procedencia = LITERAL, None, None
             if ano is None and precisao in (WEEK, DAY, MONTH, INTERVAL):
-                # «settimana 39/2026, effettuata oggi 22 settembre»: o ano esta ESCRITO
-                # na mesma frase, a 40 letras. Le-lo ali NAO e inventa-lo — e o que o
-                # texto diz. O ano da publicacao continua proibido: so entra ano que
-                # aparece no texto, e fica marcado em ANO_ORIGEM='FRASE_A_40_LETRAS'.
-                ano, ano_basis = _ano_do_cabecalho(low, alvo, ini, fim)
+                ano, ano_basis, procedencia = _ano_governante(low, alvo, ini, fim)
                 if ano:
                     ano_origem, origem = "MESMO_DOCUMENTO_INEQUIVOCO", CABECALHO
                     valor, v_ini, v_fim = _com_ano(valor, v_ini, v_fim, ano)
             ocupado.append((ini, fim))
-            tipo, porque = _tipo_e_porque(low, ini, fim, valor, precisao, ano, pub_iso, contrato, origem)
+            assinatura = bool(_RE_ASSINATURA.search(alvo[max(0, ini - 70):ini]))
+            tipo, porque = _tipo_e_porque(low, ini, fim, valor, precisao, ano, pub_iso,
+                                          contrato, origem, assinatura)
             reg = _registo(alvo, ini, fim, valor, v_ini, v_fim, precisao, ano,
                            ano_origem, origem, ano_basis, nome, porque, m)
+            if procedencia:
+                reg["PROCEDENCIA_DO_ANO"] = procedencia      # (e) da D147
             if tipo is None:
                 descartados.append(reg)
             else:
                 achados[tipo].append(reg)
+
+    # ── 2.a passagem · as relativas, agora que o periodo da edicao e conhecido ──
+    periodo = _periodo_impresso(achados[PERIODO_DA_EDICAO])
+    for nome, m, ini, fim, valor in pendentes:
+        conta = _conta_relativa_pela_edicao(valor, periodo)
+        composicao = None
+        if conta:
+            v, v_ini, v_fim, precisao, composicao = conta
+            ano_basis = {"TRECHO": composicao["PERIODO_BASIS"]["TRECHO"],
+                         "OFFSET": composicao["PERIODO_BASIS"]["OFFSET"],
+                         "EXPRESSAO": composicao["PERIODO_BASIS"]["EXPRESSAO"]}
+            procedencia = ("expressao relativa «%s» composta com o periodo IMPRESSO da "
+                           "edicao (%s): %s" % (valor, composicao["PERIODO_IMPRESSO"],
+                                                composicao["CONTA"]))
+            ano_origem = "PERIODO_DA_EDICAO"
+        else:
+            conta = _conta_relativa(valor, pub_provada)
+            if not conta:
+                reg = _registo(alvo, ini, fim, valor, valor, valor, NAO_SEI, None,
+                               "NAO ESCRITO", RELATIVO_D63, None, nome,
+                               "EXPRESSAO_RELATIVA sem ancora: nem periodo impresso da "
+                               "edicao nem publicacao provada (D63)", m)
+                descartados.append(reg)
+                continue
+            v, v_ini, v_fim, precisao = conta
+            ano_basis = {"TRECHO": "publicacao provada %s · base «%s»"
+                                   % (pub_provada, published_at_basis or "declarada"),
+                         "OFFSET": None, "EXPRESSAO": pub_provada}
+            procedencia = ("expressao relativa «%s» contada a partir da publicacao PROVADA %s"
+                           % (valor, pub_provada))
+            ano_origem = "PUBLICACAO_PROVADA"
+        assinatura = bool(_RE_ASSINATURA.search(alvo[max(0, ini - 70):ini]))
+        tipo, porque = _tipo_e_porque(low, ini, fim, v, precisao, str(v)[:4], pub_iso,
+                                      contrato, RELATIVO_D63, assinatura)
+        reg = _registo(alvo, ini, fim, v, v_ini, v_fim, precisao, str(v)[:4],
+                       ano_origem, RELATIVO_D63, ano_basis, nome, porque, m)
+        reg["PROCEDENCIA_DO_ANO"] = procedencia
+        if composicao:
+            reg["COMPOSICAO"] = composicao
+            reg["ORIGEM_DETALHE"] = "RELATIVO_EDICAO_D149"
+        if tipo is None:
+            descartados.append(reg)
+        else:
+            achados[tipo].append(reg)
 
     for t in TIPOS:
         achados[t].sort(key=lambda r: r["BASIS"]["OFFSET"])
@@ -632,6 +889,26 @@ def tempos_do_texto(texto: str, published_at: str | None = None, *,
         "PUBLISHED_AT": pub_iso or NAO_SEI,
         "LEI": "PUBLISHED_AT nunca preenche FACT_TIME; ano ausente fica SEM_ANO",
     }
+
+
+def _periodo_impresso(periodos):
+    """O periodo que a edicao IMPRIME, para ancorar as relativas de semana (R2 item 9).
+    Prefere-se o que tem ano: sem ano nao ancora nada."""
+    com_ano = [p for p in periodos if SEM_ANO not in str(p["VALOR_INICIO"])]
+    return com_ano[0] if com_ano else None
+
+
+def acontecimento_datavel(frase: str) -> bool:
+    """Ha nesta afirmacao um acontecimento que POSSA ter data? (R2 item 5)
+
+    Serve para separar dois silencios que hoje sao o mesmo e nao sao a mesma coisa:
+      NAO_EXISTE  conhecimento geral, biologia, definicao, conselho — nada a datar;
+      NAO_SEI     aconteceu (ha verbo/palavra de acontecimento), o texto nao diz quando.
+    """
+    low = _fold(frase or "")
+    if _RE_FACTO.search(low):
+        return True
+    return not (_RE_DEFINICAO.search(low) or len(low.strip()) < 15)
 
 
 _PESO_PRECISAO = {INTERVAL: 0, DAY: 1, WEEK: 2, MONTH: 3, SEASON: 4, YEAR: 5}

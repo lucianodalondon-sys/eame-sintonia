@@ -69,6 +69,14 @@ def _vazio(estado, porque=None):
     return d
 
 
+def _basis_do_ano(b):
+    """R2 item 4 · `ANO_BASIS` chegava como TEXTO quando ORIGEM=RELATIVO_D63 e o
+    `dict(...)` rebentava. Agora aceita as duas formas e devolve sempre um dict."""
+    if isinstance(b, dict):
+        return dict(b)
+    return {"TRECHO": str(b), "OFFSET": None, "EXPRESSAO": str(b)}
+
+
 def _campo(reg, deslocamento=0):
     """Um registo da proposta traduzido para a forma da interface."""
     d = {
@@ -85,10 +93,97 @@ def _campo(reg, deslocamento=0):
     if reg["PRECISAO"] == TP.INTERVAL:
         d["INICIO"], d["FIM"] = reg["VALOR_INICIO"], reg["VALOR_FIM"]
     if reg.get("ANO_BASIS"):
-        b = dict(reg["ANO_BASIS"])
-        b["OFFSET"] = b["OFFSET"] + deslocamento
+        b = _basis_do_ano(reg["ANO_BASIS"])
+        if isinstance(b.get("OFFSET"), int):
+            b["OFFSET"] = b["OFFSET"] + deslocamento
         d["ANO_BASIS"] = b
+    for extra in ("PROCEDENCIA_DO_ANO", "COMPOSICAO", "ORIGEM_DETALHE", "ANO_ORIGEM"):
+        if reg.get(extra):
+            d[extra] = reg[extra]
     return d
+
+
+# ── R2 item 7 · o contrato da fonte tem de CHEGAR a logica ───────────────────
+_ALIAS_CONTRATO = ("CONTRATO_DA_FONTE", "CONTRATO", "TIPO_DE_DATA_DA_FONTE",
+                   "CONTRATO_DE_DATA", "DATA_DA_FONTE", "TIPO_DE_DATA", "contrato_da_fonte")
+_VALOR_CONTRATO = {
+    "VALIDADE": "VALIDADE", "VALIDITA": "VALIDADE", "VALIDITY": "VALIDADE", "VALIDITÀ": "VALIDADE",
+    "EDICAO": "EDICAO", "EDIÇÃO": "EDICAO", "EDIZIONE": "EDICAO", "EDITION": "EDICAO",
+    "PUBLICACAO": "PUBLICACAO", "PUBLICAÇÃO": "PUBLICACAO", "PUBLICATION": "PUBLICACAO",
+}
+
+
+def contrato_da_entrada(entrada: dict):
+    """O que a fonte declara sobre a data do topo, venha com o nome que vier.
+    VALIDADE → o periodo do topo e VALIDITY. EDICAO → PERIODO_DA_EDICAO, nunca validade."""
+    for k in _ALIAS_CONTRATO:
+        v = (entrada or {}).get(k)
+        if v:
+            return _VALOR_CONTRATO.get(str(v).strip().upper(), str(v).strip().upper())
+    return None
+
+
+# ── R2 item 1 · o ato tem de estar LIGADO a afirmacao ────────────────────────
+_RE_REFERENCIA_A_ATO = re.compile(
+    r"(?:decret|determin|delibera|ordinanz|circolar|d\.?lgs|legge|reg(?:olamento)?\.?\s*(?:ue|ce)|"
+    r"n[.°]\s*\d+|sopra\s+richiamat|citat[oa]|predett[oa]|suddett[oa])", re.I)
+
+
+def _ato_referido_na_afirmacao(regs, afirmacao):
+    """Um ato fora da afirmacao só lhe pertence quando a afirmacao o REFERE
+    explicitamente («la sopra richiamata Determinazione», «il decreto n. 9818»). Sem
+    referencia, atribuir-lho seria inventar a data — foi o DATA_INVENTADA medido."""
+    if not _RE_REFERENCIA_A_ATO.search(afirmacao or ""):
+        return []
+    numeros = set(re.findall(r"n[.°]\s*(\d+)", afirmacao or "", re.I))
+    if numeros:
+        ligados = [x for x in regs
+                   if numeros & set(re.findall(r"n[.°]\s*(\d+)", x["BASIS"]["TRECHO"], re.I))]
+        return ligados[:1]
+    # referencia sem numero: so vale se houver UM unico ato no documento
+    return regs[:1] if len(regs) == 1 else []
+
+
+# ── R2 item 5 · NAO_EXISTE nao e NAO_SEI ─────────────────────────────────────
+# A pista de que a AFIRMACAO invoca aquele tipo de tempo. Sem pista, o tipo nao existe
+# nela; com pista e sem conseguir determinar, e NAO_SEI.
+_PISTA_DO_TIPO = {
+    "ACT_TIME": _RE_REFERENCIA_A_ATO,
+    "VALIDITY_TIME": re.compile(r"valid|scadenz|prorog|deroga|entro\s|fino\s+a|autorizzazion", re.I),
+    "MARKET_PERIOD": re.compile(r"prezz|quotazion|mercat|euro|listino|rilevazion|campagna|annata|"
+                                r"stagione|raccolt|borsa|ingrosso", re.I),
+    "PERIODO_DA_EDICAO": re.compile(r"bollettino|settimana|edizione|periodo|riferimento", re.I),
+}
+_NOME_DO_TIPO = {"ACT_TIME": "ato", "VALIDITY_TIME": "validade",
+                 "MARKET_PERIOD": "periodo de mercado", "PERIODO_DA_EDICAO": "periodo de edicao"}
+def _ausencia(tipo, regs_no_documento, afirmacao):
+    """NAO_SEI = aconteceu e o texto nao diz quando. NAO_EXISTE = nao ha o que datar.
+
+    Para FACT_TIME decide a afirmacao: sem palavra de acontecimento (conhecimento geral,
+    biologia, definicao, conselho) nao existe facto para datar. Para os outros tipos
+    decide o documento: se nao ha ato/validade/mercado nenhum, esse tempo NAO EXISTE;
+    se ha mas nao esta ligado a esta afirmacao, e NAO SEI.
+    """
+    if tipo == "FACT_TIME":
+        if not TP.acontecimento_datavel(afirmacao):
+            return _vazio(NAO_EXISTE, "a afirmacao nao relata acontecimento datavel "
+                                      "(conhecimento geral, biologia, definicao ou conselho)")
+        return _vazio(NAO_SEI, "houve acontecimento nesta afirmacao, mas o texto nao escreve quando")
+    # Nos outros tipos decide a AFIRMACAO, nao o documento: se ela nem fala de ato /
+    # validade / mercado / edicao, esse tempo NAO EXISTE nela — ter um ato noutro paragrafo
+    # nao torna esta afirmacao indeterminada, torna-a sem ato. Só quando a afirmacao
+    # invoca a coisa e nao se consegue dizer qual e que fica NAO_SEI.
+    pista = _PISTA_DO_TIPO.get(tipo)
+    invoca = bool(pista and pista.search(afirmacao or ""))
+    if not invoca:
+        return _vazio(NAO_EXISTE, "a afirmacao nao invoca %s (ha %d no documento, de outras "
+                                  "afirmacoes)" % (_NOME_DO_TIPO.get(tipo, tipo),
+                                                   len(regs_no_documento)))
+    if not regs_no_documento:
+        return _vazio(NAO_EXISTE, "o documento nao tem tempo deste tipo")
+    return _vazio(NAO_SEI, "a afirmacao invoca %s, mas ha %d no documento e nenhum se liga a "
+                           "ela sem inventar" % (_NOME_DO_TIPO.get(tipo, tipo),
+                                                 len(regs_no_documento)))
 
 
 # ── o alvo: a afirmacao que o golden aponta ──────────────────────────────────
@@ -130,11 +225,12 @@ def extrair_proposto(entrada: dict, alvo: dict) -> dict:
     texto = str(entrada.get("TEXTO") or "")
     pub = entrada.get("PUBLISHED_AT_DA_SALA")
     basis = entrada.get("PUBLISHED_AT_BASIS_DA_SALA")
+    contrato = contrato_da_entrada(entrada)
     r = TP.tempos_do_texto(texto, pub, published_at_basis=basis,
-                           contrato_da_fonte=entrada.get("CONTRATO_DA_FONTE"),
-                           usar_corpo=False)
+                           contrato_da_fonte=contrato, usar_corpo=False)
     a_ini, a_fim, como = _span_do_alvo(entrada, alvo)
     o_ini, o_fim = _oracao_do_alvo(texto, a_ini, a_fim)
+    afirmacao = texto[o_ini:o_fim]
 
     def dentro(reg, i, f):
         o = reg["BASIS"]["OFFSET"]
@@ -143,16 +239,21 @@ def extrair_proposto(entrada: dict, alvo: dict) -> dict:
     fora = {}
     for t in TIPOS:
         regs = r.get(t, [])
-        # a afirmacao-alvo manda: primeiro o que esta DENTRO dela, depois o que esta na
-        # mesma oracao; o resto do documento so vale para PUBLICACAO e EDICAO, que sao
-        # do documento inteiro por natureza.
-        escolha = [x for x in regs if dentro(x, a_ini, a_fim)] or \
-                  [x for x in regs if dentro(x, o_ini, o_fim)]
-        alcance = "ALVO" if any(dentro(x, a_ini, a_fim) for x in regs) else "ORACAO_DO_ALVO"
-        if not escolha and t in ("PUBLICATION_TIME", "PERIODO_DA_EDICAO", "ACT_TIME"):
+        no_alvo = [x for x in regs if dentro(x, a_ini, a_fim)]
+        na_oracao = [x for x in regs if dentro(x, o_ini, o_fim)]
+        escolha = no_alvo or na_oracao
+        alcance = "ALVO" if no_alvo else "ORACAO_DO_ALVO"
+        # R2 item 1 · ACT_TIME NUNCA vem do documento inteiro: um ato de OUTRA afirmacao
+        # atribuido a esta e data inventada. Ou esta ligado ao alvo (mesma oracao ou
+        # referencia explicita na oracao), ou nao sai.
+        if not escolha and t == "ACT_TIME":
+            escolha = _ato_referido_na_afirmacao(regs, afirmacao)
+            alcance = "REFERENCIA_EXPLICITA_NA_AFIRMACAO" if escolha else alcance
+        # publicacao e periodo da edicao SAO do documento inteiro por natureza
+        if not escolha and t in ("PUBLICATION_TIME", "PERIODO_DA_EDICAO"):
             escolha, alcance = regs, "DOCUMENTO"
         if not escolha:
-            fora[t] = _vazio(NAO_SEI, "nenhum tempo deste tipo na afirmacao-alvo")
+            fora[t] = _ausencia(t, regs, afirmacao)
             continue
         if t == "FACT_TIME":
             melhor = TP._escolher_facto(escolha)
@@ -163,8 +264,25 @@ def extrair_proposto(entrada: dict, alvo: dict) -> dict:
         fora[t]["ALCANCE"] = alcance
         if outros:
             fora[t]["OUTROS_NO_DOCUMENTO"] = outros
-    if fora["PUBLICATION_TIME"]["VALOR"] == NAO_SEI and not pub:
-        fora["PUBLICATION_TIME"] = _vazio(NAO_EXISTE, "o documento nao traz carimbo de publicacao")
+    # R2 item 6 · o metadado da ENTRADA e base admissivel para PUBLICATION_TIME (nunca
+    # para FACT). Entra so quando o texto nao deu carimbo nenhum, e diz de onde vem.
+    if fora["PUBLICATION_TIME"]["VALOR"] in (NAO_SEI, NAO_EXISTE) and pub:
+        provada = bool(FT.publicacao_provada(pub, basis))
+        fora["PUBLICATION_TIME"] = {
+            "VALOR": str(pub)[:10], "PRECISAO": "DIA",
+            "BASIS": {"TRECHO": "PUBLISHED_AT_DA_SALA «%s» · base «%s»" % (pub, basis or NAO_SEI),
+                      "OFFSET": None, "FIM": None, "EXPRESSAO": str(pub)[:10]},
+            "ORIGEM": "METADADO_DA_ENTRADA",
+            "ANO": str(pub)[:4],
+            "PROVADA": provada,
+            "PORQUE": ("metadado de publicacao da Sala, com base declarada: admissivel para "
+                       "PUBLICATION_TIME, proibido para FACT_TIME" if provada else
+                       "metadado de publicacao SEM base provada: fica a vista, nao ancora relativa"),
+        }
+    elif fora["PUBLICATION_TIME"]["VALOR"] == NAO_SEI and not pub:
+        fora["PUBLICATION_TIME"] = _vazio(NAO_EXISTE, "o documento nao traz carimbo de publicacao "
+                                                      "e a entrada nao trouxe metadado")
+    fora["_CONTRATO_DA_FONTE_APLICADO"] = contrato or "NENHUM"
     fora["_ALVO"] = {"COMO": como, "OFFSET": a_ini, "FIM": a_fim,
                      "TRECHO": texto[a_ini:a_fim][:300]}
     fora["_LIMITES_INFERIDOS"] = r["LIMITES_INFERIDOS"]

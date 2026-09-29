@@ -6,38 +6,28 @@ Could not find platform independent libraries <prefix>
 ..........................ssssssss................................ [ 79%]
 ............................................................... [ 93%]
 ..............................                                           [100%]
-442 passed, 8 skipped, 156 subtests passed in 83.41s (0:01:23)
+442 passed, 8 skipped, 156 subtests passed in 78.96s (0:01:18)
 == corrida COM_PROPOSTA ==
 
 [L5-P3] tempo_do_fato trocado pela PROPOSTA em 2 modulos; canario ['4 settembre 2026', '4 settembre 2026'] -> ['dal 1 al 4 settembre 2026', 'dal 1 al 4 settembre 2026']
 ........................................................................ [ 16%]
-...FF........................................................................................... [ 37%]
-............................................................F....F......................................................... [ 64%]
-.....................FF...ssssssss...........F.................... [ 79%]
+...F............................................................................................ [ 37%]
+............................................................F.............................................................. [ 64%]
+......................F...ssssssss...........F.................... [ 79%]
 ............................................................... [ 93%]
 ..............................                                           [100%]
 =========================== short test summary info ===========================
 FAILED tests/test_boletim_do_campo.py::OAnoDeComparacao::test_a_campanha_de_comparacao_que_vem_primeiro_nao_vence
-FAILED tests/test_boletim_do_campo.py::OAnoDeComparacao::test_ano_de_comparacao_nao_e_data_do_facto
-SUBFAILED[SINT-EVENTO-COM-ANO-PROPRIO] tests/test_data_do_fato.py::TestDataDoFatoFixture::test_cada_caso_da_o_fact_time_esperado
-SUBFAILED[SINT-EVENTO-COM-ANO-PROPRIO] tests/test_data_do_fato.py::TestDataDoFatoFixture::test_evento_com_data_propria_continua_a_passar
 FAILED tests/test_extrator_evento_v2.py::OFuturoNaoEFactoOcorrido::test_alerta_com_previsao_nao_e_facto
-FAILED tests/test_extrator_evento_v2.py::OFuturoNaoEFactoOcorrido::test_real_a_marca_de_futuro_tem_de_estar_perto_da_data
-FAILED tests/test_fato_do_texto.py::TestCoordenacao2509::test_ancora_dentro_de_outra_palavra_nao_amarra
 FAILED tests/test_fato_do_texto.py::TestCoordenacao2509::test_exame_adiado_nao_e_tempo_do_facto
 FAILED tests/test_lugar_do_fato.py::TestOsBacktests::test_italia_a_data_de_publicacao_nao_vira_tempo_do_fato
-9 failed, 435 passed, 8 skipped, 154 subtests passed in 69.52s (0:01:09)
+4 failed, 438 passed, 8 skipped, 156 subtests passed in 78.65s (0:01:18)
 
 BASE           450 testes, 442 passaram
-COM_PROPOSTA   450 testes, 433 passaram
-REGRESSOES     9
+COM_PROPOSTA   450 testes, 438 passaram
+REGRESSOES     4
   - tests/test_boletim_do_campo.py::OAnoDeComparacao::test_a_campanha_de_comparacao_que_vem_primeiro_nao_vence (failed)
-  - tests/test_boletim_do_campo.py::OAnoDeComparacao::test_ano_de_comparacao_nao_e_data_do_facto (failed)
-  - tests/test_data_do_fato.py::TestDataDoFatoFixture::test_cada_caso_da_o_fact_time_esperado (failed)
-  - tests/test_data_do_fato.py::TestDataDoFatoFixture::test_evento_com_data_propria_continua_a_passar (failed)
   - tests/test_extrator_evento_v2.py::OFuturoNaoEFactoOcorrido::test_alerta_com_previsao_nao_e_facto (failed)
-  - tests/test_extrator_evento_v2.py::OFuturoNaoEFactoOcorrido::test_real_a_marca_de_futuro_tem_de_estar_perto_da_data (failed)
-  - tests/test_fato_do_texto.py::TestCoordenacao2509::test_ancora_dentro_de_outra_palavra_nao_amarra (failed)
   - tests/test_fato_do_texto.py::TestCoordenacao2509::test_exame_adiado_nao_e_tempo_do_facto (failed)
   - tests/test_lugar_do_fato.py::TestOsBacktests::test_italia_a_data_de_publicacao_nao_vira_tempo_do_fato (failed)
 CURADOS        0
