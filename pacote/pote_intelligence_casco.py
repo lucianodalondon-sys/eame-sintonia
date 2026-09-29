@@ -55,6 +55,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -73,6 +74,7 @@ from ponte_intelligence_casco import (                 # noqa: E402
 # D123 (LIGACAO-ADAMA): a ligacao a bula e ao portfolio e calculada SO pela porta; o pote
 # confere o SELO dela e recusa objeto sem ligacao. Nunca a calcula para um objeto da corrida.
 import porta_da_referencia as PORTA                    # noqa: E402  (motor/)
+from afirmacao_da_fonte import ENTITY_SOURCES           # noqa: E402  (leis/: dono do vocabulario COL-LAW-221)
 
 CONTRATO = "POTE_INTELLIGENCE_CASCO/v2"
 #: Revisao anotada do contrato (mudanca minima): o nome continua v2 — o casco le-o assim —,
@@ -177,6 +179,10 @@ CAMPOS_DA_PROVA_V2 = ("URL", "PUBLISHED_AT", "COLHIDO_EM", "FACT_TIME")
 #: valor e NAO SEI — porque nao ha valor. NAO SEI sem base e um buraco, nao uma
 #: resposta.
 CAMPOS_COM_BASE = ("URL", "PUBLISHED_AT")
+#: D-GER-2 (diretiva do Intelligence owner, 29/09): a identidade do BYTE da prova, lida do raw_asset no export
+#: read-only (motor/r7_export_da_copia.sql). O do banco, ou NAO SEI — nunca calculado do texto, da URL ou do disco.
+CAMPOS_DO_BYTE = ("RAW_SHA256", "RAW_STORAGE_PATH")
+_SHA256_DO_BANCO = re.compile(r"[0-9a-f]{64}")
 #: Nomes que a ENTRADA pode usar para o mesmo campo (leitura, nunca escrita).
 LER_NA_ENTRADA = {"URL": ("URL", "SOURCE_URL"),
                   "PUBLISHED_AT": ("PUBLISHED_AT", "PUBLICADO_EM", "PUBLICATION_TIME"),
@@ -376,6 +382,9 @@ def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
             dita = p.get(c + "_BASE")
             out[c + "_BASE"] = base or (dita if not e_ignorancia(dita) else
                                         f"NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem {c}")
+    # D-GER-2: a identidade do byte, como o motor a leu do raw_asset. So da propria prova; sem ela, NAO SEI.
+    for c in CAMPOS_DO_BYTE:
+        out[c] = _valor(p.get(c))
     # De onde veio, e como foi admitida: a Sala aparece so aqui, como prova.
     g0 = sorted({str(e.get("G0")) for e in batem})
     out["G0"] = "|".join(g0) if g0 else NAO_SEI
@@ -425,7 +434,9 @@ def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica
     for c in CAMPOS_DE_ORIGEM:
         v = _lido(o, c)
         if v is not None:
-            out[c] = _valor(v)
+            # D-GER-1: ENTITY_SOURCE viaja TAL COMO VEIO — UNKNOWN e a ignorancia canonica da COL-LAW-221
+            # e nao se traduz para «NAO SEI» (seria um segundo vocabulario). Quem julga e conferir_pote.
+            out[c] = v if c == "ENTITY_SOURCE" else _valor(v)
     lugar = dadas.get("FACT_LOCATION")
     if not e_ignorancia(lugar) and "LOCATION_SOURCE" not in out:
         out["LOCATION_SOURCE"] = NAO_SEI
@@ -797,6 +808,14 @@ def conferir_pote(pote: dict) -> list:
                     for k in CAMPOS_COM_BASE:
                         if p.get(k) == NAO_SEI and e_ignorancia(p.get(k + "_BASE")):
                             v.append(f"{comp}/{oid}: prova com {k} NAO SEI sem a base (porque nao ha {k})")
+                    # D-GER-2: o byte da prova e o do raw_asset (sha256 do banco: 64 hex) ou NAO SEI, nunca outra coisa.
+                    for k in CAMPOS_DO_BYTE:
+                        if k not in p or p[k] == NAO_SEI:
+                            continue
+                        if e_ignorancia(p[k]):
+                            v.append(f"{comp}/{oid}: prova esconde {k}")
+                        elif k == "RAW_SHA256" and not _SHA256_DO_BANCO.fullmatch(str(p[k])):
+                            v.append(f"{comp}/{oid}: prova com RAW_SHA256 que nao e o sha256 do raw_asset ({str(p[k])[:20]!r})")
                     adm = p.get("ADMITIDA_POR")
                     if adm not in ADMITIDA:
                         v.append(f"{comp}/{oid}: prova sem ADMITIDA_POR valido ({adm!r})")
@@ -822,8 +841,15 @@ def conferir_pote(pote: dict) -> list:
             ls = o.get("LOCATION_SOURCE")
             if not e_ignorancia(ls) and normal(ls) in LOCATION_SOURCE_PROIBIDA:
                 v.append(f"{comp}/{oid}: LOCATION_SOURCE = {ls} (o lugar da fonte nao e o lugar do facto)")
+            # D-GER-1 (diretiva do Intelligence owner, 29/09): ENTITY_SOURCE so com o vocabulario da COL-LAW-221,
+            # importado do dono (leis/afirmacao_da_fonte.ENTITY_SOURCES). UNKNOWN e a ignorancia declarada pela lei;
+            # «NAO SEI», «?», vazio, null, mapa e qualquer texto fora da lei REPROVAM. LOCATION_SOURCE: regra de antes.
+            if "ENTITY_SOURCE" in o:
+                es = o["ENTITY_SOURCE"]
+                if not (isinstance(es, str) and es in ENTITY_SOURCES):
+                    v.append(f"{comp}/{oid}: ENTITY_SOURCE fora da COL-LAW-221: {str(es)[:60]!r}")
             for c in CAMPOS_DE_ORIGEM:
-                if c in o and e_ignorancia(o[c]) and o[c] != NAO_SEI:
+                if c != "ENTITY_SOURCE" and c in o and e_ignorancia(o[c]) and o[c] != NAO_SEI:
                     v.append(f"{comp}/{oid}: {c} esconde a ignorancia")
             lugar = (o.get("CHAVES") or {}).get("FACT_LOCATION") if isinstance(o.get("CHAVES"), dict) else None
             if e_ignorancia(lugar):

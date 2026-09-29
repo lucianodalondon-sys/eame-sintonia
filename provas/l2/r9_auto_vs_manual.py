@@ -34,7 +34,6 @@ import gatilho_da_inteligencia as GI       # noqa: E402
 R9_PADRAO = Path(r"C:/Users/London1/sintonia-sala-italia/intelligence-experimental")
 HOJE = date(2026, 9, 28)                   # o dia da R9 (LIVRO START 2026-09-28T15:59:39+00:00)
 SAIDA = AQUI.parent / "R9-AUTO-VS-MANUAL.json"
-N38 = ("derived:11", "IT-T3-2026-09-20-110656-6e4ffc27a86c5269")
 
 
 def sha(p: Path) -> str:
@@ -65,7 +64,12 @@ def main(argv=None) -> int:
     out["CORTE"] = {k: corte[k] for k in ("LINHAS_NO_EXPORT", "LINHAS_NO_CORTE", "DEFEITO_NA_SALA",
                                           "ITEM_ID_REPETIDO", "REPETIDO_SEM_HORA_LEGIVEL")}
     out["CORTE"]["ITEM_ID_SEM_IDENTIDADE"] = len(corte["ITEM_ID_SEM_IDENTIDADE"])
-    out["N38_NO_CORTE"] = any(l["item_id"] == N38[0] and l["run_id"] == N38[1] for l in limpo["LINHAS"])
+    pc0 = json.loads((oraculo / "POTE-R9-PARA_CLIENTE.json").read_text(encoding="utf-8"))
+    alvos = sorted({(p["ITEM_ID"], p["CORRIDA_UPSTREAM"]) for e in pc0["COMPARTIMENTOS"].values()
+                    for o in e["OBJETOS"] if o.get("LIBERACAO") == "LIBERADO_PARA_CLIENTE" for p in o["PROVA"]})
+    out["ITENS_DO_ORACULO"] = [a[0] for a in alvos]
+    out["ITENS_DO_ORACULO_NO_CORTE"] = all(any(l["item_id"] == i and l["run_id"] == r for l in limpo["LINHAS"])
+                                           for i, r in alvos)
 
     # 2 · o motor oficial (o mesmo do gatilho)
     try:
@@ -80,17 +84,19 @@ def main(argv=None) -> int:
                         "NAO_ENVIADOS_AO_POTE": len(saida.get("NAO_ENVIADOS_AO_POTE") or []),
                         "RELACOES_D112": len(saida["D112"]["RELACOES"]),
                         "SINAIS_NO_LIVRO": len(saida["CORRIDA"].get("SIGNALS") or [])}
-        # o que o motor oficial fez com o item do N38 (derived:11)
+        # o que o motor oficial fez com os itens que o oraculo liberou (lidos da PROVA dele, nenhum ID fixo)
+        ids = {a[0] for a in alvos}
+
         def toca_n38(o):
-            return N38[0] in json.dumps(o.get("PROVA") or o, ensure_ascii=False)
+            return any(p.get("ITEM_ID") in ids for p in o.get("PROVA") or [])
         out["MOTOR_SOBRE_O_N38"] = {
             "OBJETOS": [{"COMP": c, "ID": o.get("OBJETO_ID") or o.get("ID"), "ESPECIE": o.get("ESPECIE"),
                          "FACT_TIME": (o.get("CHAVES") or {}).get("FACT_TIME", o.get("FACT_TIME")),
                          "FACT_LOCATION": (o.get("CHAVES") or {}).get("FACT_LOCATION", o.get("FACT_LOCATION"))}
                         for c, v in objs.items() for o in v if toca_n38(o)],
             "SINAIS_DO_LIVRO": [{k: s.get(k) for k in ("SIGNAL_ID", "FACT_TIME", "FACT_TIME_BASIS", "FACT_LOCATION")}
-                                for s in saida["CORRIDA"].get("SIGNALS") or [] if s.get("ITEM_ID") == N38[0]],
-            "NAO_ENVIADOS": [x for x in saida.get("NAO_ENVIADOS_AO_POTE") or [] if N38[0] in json.dumps(x)][:5]}
+                                for s in saida["CORRIDA"].get("SIGNALS") or [] if s.get("ITEM_ID") in ids],
+            "NAO_ENVIADOS": [x for x in saida.get("NAO_ENVIADOS_AO_POTE") or [] if x.get("ITEM_ID") in ids][:5]}
         pote, conv = GI.montar_o_pote(saida)
         viol = GI.VP.validar(pote)
         prova = [p for e in pote["COMPARTIMENTOS"].values() for o in e["OBJETOS"] for p in o.get("PROVA") or []]
@@ -99,7 +105,8 @@ def main(argv=None) -> int:
                                "CAMPOS_DE_LIBERACAO": sorted({k for e in pote["COMPARTIMENTOS"].values()
                                                              for o in e["OBJETOS"] for k in o
                                                              if k in ("LIBERACAO", "CONFERENCIA_DE_LIBERACAO")}),
-                               "PROVAS_COM_RAW_SHA256": sum(1 for p in prova if p.get("RAW_SHA256")),
+                               "PROVAS_COM_RAW_SHA256": sum(1 for p in prova if p.get("RAW_SHA256") not in (None, "", "NAO SEI")),
+                               "PROVAS_COM_RAW_SHA256_NAO_SEI": sum(1 for p in prova if p.get("RAW_SHA256") == "NAO SEI"),
                                "PROVAS": len(prova),
                                "PROVAS_COM_TRECHO": sum(1 for p in prova if p.get("TRECHO_DA_AFIRMACAO"))}
 

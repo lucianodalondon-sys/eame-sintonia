@@ -27,6 +27,9 @@ TESTE = "tests.test_disparador_intelligence"
 GI = "admissao/gatilho_da_inteligencia.py"
 VIG = "medidas/vigia_da_esteira.py"
 PB = "scripts/micro_coleta/provar_backup_da_sala.py"
+POTE = "pacote/pote_intelligence_casco.py"
+MOT = "motor/motor_das_capacidades.py"
+SQL = "motor/r7_export_da_copia.sql"
 
 #: (id, ficheiro, o defeito que finge, texto original, texto mutante)
 MUTANTES = [
@@ -83,11 +86,47 @@ MUTANTES = [
  ("L45", GI, "texto fora do vocabulario da lei passa",
   "    return v if isinstance(v, str) and v in LEI_221 else \"UNKNOWN\"",
   "    return v if isinstance(v, str) else \"UNKNOWN\""),
- ("L46", GI, "o pote e montado sem a conversao",
-  "                o[\"ENTITY_SOURCE\"] = novo\n", "                pass\n"),
+ ("L46", GI, "o mapa do motor chega ao pote (montado sem a conversao)",
+  "                    dono[\"ENTITY_SOURCE\"] = novo\n", "                    pass\n"),
  ("L47", GI, "a conversao estraga a saida do motor (sem copia)",
-  "    pote = json.loads(json.dumps(P.ler_entrada(saida_motor), ensure_ascii=False))",
-  "    pote = P.ler_entrada(saida_motor)\n    saida_motor[\"ENTITY_SOURCE_MEXIDO\"] = True"),
+  "    entrada = json.loads(json.dumps(saida_motor, ensure_ascii=False, default=list))",
+  "    entrada = saida_motor"),
+ # ── D-GER-1 · o fiscal do pote: ENTITY_SOURCE so com o vocabulario da COL-LAW-221 ──
+ ("L48", POTE, "o fiscal aceita qualquer texto em ENTITY_SOURCE",
+  "                if not (isinstance(es, str) and es in ENTITY_SOURCES):",
+  "                if not isinstance(es, str):"),
+ ("L49", POTE, "o fiscal aceita o mapa do motor",
+  "                if not (isinstance(es, str) and es in ENTITY_SOURCES):",
+  "                if not (isinstance(es, dict) or (isinstance(es, str) and es in ENTITY_SOURCES)):"),
+ ("L50", POTE, "o fiscal aceita «NAO SEI» em ENTITY_SOURCE",
+  "                if not (isinstance(es, str) and es in ENTITY_SOURCES):",
+  "                if not (isinstance(es, str) and es in ENTITY_SOURCES + (NAO_SEI,)):"),
+ ("L51", POTE, "o fiscal aceita o valor da R9 manual (fora da lei)",
+  "                if not (isinstance(es, str) and es in ENTITY_SOURCES):",
+  "                if not (isinstance(es, str) and es in ENTITY_SOURCES + (\"TRECHO_DA_\" \"AFIRMACAO\",)):"),
+ ("L52", POTE, "o fiscal aceita ENTITY_SOURCE vazio",
+  "                if not (isinstance(es, str) and es in ENTITY_SOURCES):",
+  "                if not (isinstance(es, str) and es in ENTITY_SOURCES + (\"\",)):"),
+ ("L53", POTE, "o gerador traduz UNKNOWN para «NAO SEI» (segundo vocabulario)",
+  "            out[c] = v if c == \"ENTITY_SOURCE\" else _valor(v)",
+  "            out[c] = _valor(v)"),
+ ("L54", POTE, "o fiscal deixa de conferir ENTITY_SOURCE",
+  "            if \"ENTITY_SOURCE\" in o:\n                es = o[\"ENTITY_SOURCE\"]",
+  "            if False:\n                es = o[\"ENTITY_SOURCE\"]"),
+ # ── D-GER-2 · RAW_SHA256 / RAW_STORAGE_PATH: os do raw_asset, ou NAO SEI ──
+ ("L55", SQL, "o export nao le o sha256 do raw_asset",
+  "         r.sha256             as raw_sha256,\n", ""),
+ ("L56", MOT, "a prova calcula o sha a partir do texto da Sala (nao veio do raw_asset)",
+  "        \"RAW_SHA256\": _v(r.get(\"RAW_SHA256\")),",
+  "        \"RAW_SHA256\": hashlib.sha256(str(ready.get(\"TEXTO\")).encode()).hexdigest(),"),
+ ("L57", MOT, "o motor nao le a coluna raw_sha256 do export",
+  "                  \"raw_sha256\": \"RAW_SHA256\", \"raw_storage_path\": \"RAW_STORAGE_PATH\"}",
+  "                  \"raw_storage_path\": \"RAW_STORAGE_PATH\"}"),
+ ("L58", POTE, "o gerador deixa cair o byte da prova",
+  "        out[c] = _valor(p.get(c))", "        out[c] = NAO_SEI"),
+ ("L59", POTE, "o fiscal aceita qualquer RAW_SHA256",
+  "                        elif k == \"RAW_SHA256\" and not _SHA256_DO_BANCO.fullmatch(str(p[k])):",
+  "                        elif False:"),
  # ── o corte vigente (defeito ITEM_ID repetido) ──
  ("L14", GI, "o corte nao se aplica: o motor recebe o ITEM_ID repetido",
   "        export, corte = cortar_vigente(export)\n", "        corte = cortar_vigente(export)[1]\n"),

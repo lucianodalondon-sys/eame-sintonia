@@ -153,7 +153,9 @@ CHAVES_DO_POTE = {
 #: O export traz a vista `sala_de_espera_atual` (o que a Intelligence le,
 #: migration 033) e tres colunas do `raw_asset` pelo RAW_OBSERVATION_ID.
 COLUNAS_DO_RAW = {"raw_source_url": "URL", "raw_document_key": "DOCUMENT_ID",
-                  "raw_document_key_basis": "DOCUMENT_ID_BASIS"}
+                  "raw_document_key_basis": "DOCUMENT_ID_BASIS",
+                  # D-GER-2: a identidade do byte, do raw_asset (o do banco, ou NAO SEI)
+                  "raw_sha256": "RAW_SHA256", "raw_storage_path": "RAW_STORAGE_PATH"}
 
 
 class LeiViolada(Exception):
@@ -511,6 +513,9 @@ def _prova(ready: dict, linha: dict, raw: dict) -> dict:
         "SOURCE_ID": ready.get("SOURCE_ID"),
         "DOCUMENT_ID": _v(r.get("DOCUMENT_ID")),
         "URL": _v(r.get("URL")),
+        # D-GER-2: o byte da prova, como o raw_asset o guardou. Sem ele, NAO SEI.
+        "RAW_SHA256": _v(r.get("RAW_SHA256")),
+        "RAW_STORAGE_PATH": _v(r.get("RAW_STORAGE_PATH")),
         "PUBLICADO_EM": pub,
         "PUBLISHED_AT": pub,
         "COLHIDO_EM": _v(ready.get("CAPTURED_AT")),

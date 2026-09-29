@@ -76,14 +76,13 @@ AS TRAVAS
                copia). `provar_backup_da_sala.podar` corre DEPOIS da corrida, dentro do trinco:
                ficam as GUARDAR_BACKUPS ultimas e a ultima com PROVA_VALE; a em curso nunca sai.
 
-O POTE DE HOJE NAO SOBE, E ISSO NAO SE MUDA AQUI
-------------------------------------------------
-    O motor escreve ENTITY_SOURCE como MAPA (D112) e o contrato POTE_INTELLIGENCE_CASCO-v2 pede
-    STRING. A decisao do Intelligence owner (28/09) e aplicada em `montar_o_pote`: mapa -> UNKNOWN,
-    salvo valor da lei COL-LAW-221. Medido: todo objeto do motor traz o mapa, logo todos viram
-    UNKNOWN — e o fiscal le UNKNOWN como «ENTITY_SOURCE esconde a ignorancia» (so «NAO SEI» e a
-    ignorancia escrita). O pote continua REPROVADO e nada vai para a entrega. Nem o motor, nem o
-    schema, nem o fiscal se tocam aqui: isso e do dono do pote.
+ENTITY_SOURCE — DUAS DECISOES DO INTELLIGENCE OWNER
+---------------------------------------------------
+    D142 (28/09): no pote, ENTITY_SOURCE = valor da lei COL-LAW-221 quando o bloco o tiver, senao UNKNOWN;
+    o MAPA do motor (D112) nunca se achata nem se escolhe uma entrada -> `montar_o_pote`, antes do gerador.
+    D-GER-1 (29/09): o fiscal (`conferir_pote`) aceita em ENTITY_SOURCE SO o vocabulario da COL-LAW-221,
+    UNKNOWN incluido; «NAO SEI», mapa e texto fora da lei reprovam. Antes, UNKNOWN reprovava como
+    «esconde a ignorancia» e nenhum pote do motor passava.
 """
 from __future__ import annotations
 
@@ -328,23 +327,28 @@ def entity_source_da_lei(v) -> str:
 
 
 def montar_o_pote(saida_motor: dict) -> tuple[dict, int]:
-    """O PONTO DE MONTAGEM do pote do disparador: o gerador do dono (`ler_entrada`) e, depois dele,
-    a conversao explicita do ENTITY_SOURCE de cada objeto. -> (pote, quantos objetos convertidos).
+    """O PONTO DE MONTAGEM do pote do disparador. -> (pote, quantos objetos convertidos).
+
+    ENTITY_SOURCE de cada objeto do motor passa por `entity_source_da_lei` ANTES do gerador do dono
+    (`ler_entrada`): o gerador ja confere o pote ao montar (D-GER-1: fora da COL-LAW-221 reprova), e o MAPA
+    do motor nunca e um valor da lei. O objeto e lido onde o gerador o le (no objeto, ou em CHAVES).
+    A saida do motor NAO muda (copia): o mapa inteiro fica em MOTOR.json, na pasta da corrida.
 
     ⚠️ So aqui, e nao no gerador partilhado: la, o acervo ja escreve ENTITY_SOURCE achatado em texto
-    e ha teste que o exige (tests/test_acervo_na_intelligence.py::test_B11); mudar o gerador para
-    todos e decisao do dono do pote. O fiscal (validar_pote_v2) NAO muda: hoje ele reprova
-    «ENTITY_SOURCE esconde a ignorancia» porque le UNKNOWN como ignorancia fora de «NAO SEI»
-    (pacote/pote_intelligence_casco.py::conferir_pote) — e isso fica escrito, nao contornado."""
-    pote = json.loads(json.dumps(P.ler_entrada(saida_motor), ensure_ascii=False))
+    (tests/test_acervo_na_intelligence.py::test_B11), e isso agora reprova no fiscal — defeito do acervo,
+    medido e listado, nao corrigido nesta tarefa (diretiva do Intelligence owner D-GER-1)."""
+    entrada = json.loads(json.dumps(saida_motor, ensure_ascii=False, default=list))
     n = 0
-    for e in (pote.get("COMPARTIMENTOS") or {}).values():
-        for o in e.get("OBJETOS") or []:
-            if "ENTITY_SOURCE" in o:
-                novo = entity_source_da_lei(o["ENTITY_SOURCE"])
-                n += novo != o["ENTITY_SOURCE"]
-                o["ENTITY_SOURCE"] = novo
-    return pote, n
+    for objs in (entrada.get("ITENS_POR_FERRAMENTA") or {}).values():
+        for o in objs if isinstance(objs, list) else [objs]:
+            if not isinstance(o, dict):
+                continue
+            for dono in (o, o.get("CHAVES") if isinstance(o.get("CHAVES"), dict) else {}):
+                if "ENTITY_SOURCE" in dono:
+                    novo = entity_source_da_lei(dono["ENTITY_SOURCE"])
+                    n += novo != dono["ENTITY_SOURCE"]
+                    dono["ENTITY_SOURCE"] = novo
+    return P.ler_entrada(entrada), n
 
 
 def entregar(candidato: Path, pote: dict, entrega: Path, corte: dict | None = None) -> dict:

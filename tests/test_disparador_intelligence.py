@@ -265,19 +265,16 @@ class TestVoltaDoGatilho(_Pasta):
         self.assertEqual(r["SUBIU"], not viol)
         self.assertEqual(self.entrega.exists(), not viol)
 
-    def test_entity_source_e_o_bloqueio_medido_do_pote(self):
-        # BLOQUEIO declarado (nao consertado aqui). Sem a conversao: «devia ser string» (mapa do motor x
-        # schema). Com a conversao da decisao do owner (mapa -> UNKNOWN): «esconde a ignorancia» (o fiscal
-        # so aceita «NAO SEI»). Se isto mudar, L2-DISPARADOR.md e PARA-O-CASCO.md estao desatualizados.
+    def test_o_mapa_do_motor_reprova_no_gerador_e_convertido_passa_no_fiscal(self):
+        # D-GER-1: o mapa do motor (D112) nao e valor da COL-LAW-221 -> o gerador do dono recusa-o ao montar.
+        # D142 no ponto de montagem (mapa -> UNKNOWN) -> o fiscal aceita UNKNOWN. Pote do motor REAL valido.
         saida = GI.correr_o_motor(json.loads(EXPORT_R7.read_text(encoding="utf-8")), AGORA.date(), "TESTE")
-        antes = GI.VP.validar(json.loads(json.dumps(GI.P.ler_entrada(saida))))
-        self.assertTrue(antes)
-        self.assertTrue(all("ENTITY_SOURCE: devia ser string" in v for v in antes), antes)
+        with self.assertRaises(GI.P.LeiViolada) as ctx:
+            GI.P.ler_entrada(json.loads(json.dumps(saida)))
+        self.assertIn("ENTITY_SOURCE fora da COL-LAW-221", str(ctx.exception))
         pote, n = GI.montar_o_pote(saida)
-        depois = GI.VP.validar(pote)
-        self.assertEqual(n, len(antes))
-        self.assertEqual(len(depois), len(antes))
-        self.assertTrue(all("ENTITY_SOURCE esconde a ignorancia" in v for v in depois), depois)
+        self.assertGreater(n, 0)
+        self.assertEqual(GI.VP.validar(pote), [])
 
 
 # ── O CORTE VIGENTE: ITEM_ID repetido na Sala ────────────────────────────────
@@ -525,27 +522,114 @@ class TestEntitySourceNoPote(_Pasta):
     def test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor(self):
         saida = GI.correr_o_motor(json.loads(EXPORT_R7.read_text(encoding="utf-8")), AGORA.date(), "TESTE")
         copia = json.loads(json.dumps(saida))
-        cru = json.loads(json.dumps(GI.P.ler_entrada(saida)))
+        mapas = sum(1 for objs in saida["ITENS_POR_FERRAMENTA"].values() for o in objs
+                    for dono in (o, o.get("CHAVES") or {}) if isinstance(dono.get("ENTITY_SOURCE"), dict))
         pote, n = GI.montar_o_pote(saida)
         self.assertEqual(saida, copia)                          # o mapa continua inteiro no motor
-        self.assertGreater(n, 0)
-        for comp, e in pote["COMPARTIMENTOS"].items():
-            for o, c in zip(e["OBJETOS"], cru["COMPARTIMENTOS"][comp]["OBJETOS"]):
-                if "ENTITY_SOURCE" in c:
-                    self.assertIsInstance(c["ENTITY_SOURCE"], dict)
-                    self.assertEqual(o["ENTITY_SOURCE"], "UNKNOWN")
-                self.assertEqual({k: v for k, v in o.items() if k != "ENTITY_SOURCE"},
-                                 {k: v for k, v in c.items() if k != "ENTITY_SOURCE"})
+        self.assertGreater(mapas, 0)
+        self.assertEqual(n, mapas)                              # so os mapas mudaram, um a um
+        vistos = [o["ENTITY_SOURCE"] for e in pote["COMPARTIMENTOS"].values() for o in e["OBJETOS"]
+                  if "ENTITY_SOURCE" in o]
+        self.assertTrue(vistos and set(vistos) == {"UNKNOWN"}, vistos)
 
     def test_o_candidato_que_o_fiscal_le_ja_vem_convertido(self):
         saida = GI.correr_o_motor(json.loads(EXPORT_R7.read_text(encoding="utf-8")), AGORA.date(), "TESTE")
         r = GI.subir_o_pote(saida, self.d / "p", self.parar, entrega=self.entrega)
-        self.assertFalse(r["SUBIU"])
+        self.assertTrue(r["SUBIU"], r)
         self.assertGreater(r["ENTITY_SOURCE_CONVERTIDOS"], 0)
-        guardado = json.loads(Path(r["GUARDADO_EM"]).read_text(encoding="utf-8"))
-        vistos = [o["ENTITY_SOURCE"] for e in guardado["COMPARTIMENTOS"].values() for o in e["OBJETOS"]
+        entregue = json.loads((self.entrega / "POTE.json").read_text(encoding="utf-8"))
+        vistos = [o["ENTITY_SOURCE"] for e in entregue["COMPARTIMENTOS"].values() for o in e["OBJETOS"]
                   if "ENTITY_SOURCE" in o]
         self.assertTrue(vistos and set(vistos) <= set(GI.LEI_221), vistos)
+
+
+# ── D-GER-1 · o fiscal do pote: ENTITY_SOURCE so com o vocabulario da COL-LAW-221 ────────────────
+class TestFiscalEntitySource(_Pasta):
+    def _pote_valido(self):
+        saida = GI.correr_o_motor(json.loads(EXPORT_R7.read_text(encoding="utf-8")), AGORA.date(), "TESTE")
+        pote, _ = GI.montar_o_pote(saida)
+        self.assertEqual(GI.VP.validar(pote), [])
+        return pote
+
+    def _com(self, pote, valor):
+        p = json.loads(json.dumps(pote))
+        alvo = next(o for e in p["COMPARTIMENTOS"].values() for o in e["OBJETOS"] if "ENTITY_SOURCE" in o)
+        alvo["ENTITY_SOURCE"] = valor
+        return p
+
+    def test_todo_valor_da_lei_passa_unknown_incluido(self):
+        pote = self._pote_valido()
+        for v in GI.LEI_221:
+            self.assertEqual(GI.VP.validar(self._com(pote, v)), [], v)
+
+    def test_o_que_nao_e_da_lei_reprova(self):
+        pote = self._pote_valido()
+        mapa = {"CROP_ID": {"VALOR": "x", "ENTITY_SOURCE": "SPAN", "POR_ITEM": []}}
+        achatado = "POR_CHAVE — CROP_ID:SPAN; REGION_ID:NAO SEI"
+        fora_da_lei = "TRECHO_DA_" + "AFIRMACAO"       # o valor da R9 manual: entrada RECUSADA, nao regra
+        for mau in (mapa, "NAO SEI", achatado, fora_da_lei, "", "?", None, ["SPAN"], "span"):
+            viol = GI.VP.validar(self._com(pote, mau))
+            self.assertTrue(any("ENTITY_SOURCE fora da COL-LAW-221" in v for v in viol), (mau, viol))
+
+    def test_o_vocabulario_vem_do_dono_e_nao_de_uma_copia(self):
+        import afirmacao_da_fonte as AF
+        self.assertIs(GI.P.ENTITY_SOURCES, AF.ENTITY_SOURCES)
+
+    def test_location_source_mantem_a_regra_de_antes(self):
+        pote = self._pote_valido()
+        p = json.loads(json.dumps(pote))
+        o = next(o for e in p["COMPARTIMENTOS"].values() for o in e["OBJETOS"])
+        o["LOCATION_SOURCE"] = "UNKNOWN"                        # para LOCATION_SOURCE, UNKNOWN esconde (como antes)
+        self.assertTrue(any("LOCATION_SOURCE esconde a ignorancia" in v for v in GI.VP.validar(p)))
+        o["LOCATION_SOURCE"] = "NAO SEI"
+        self.assertFalse(any("LOCATION_SOURCE" in v for v in GI.VP.validar(p)))
+
+
+# ── D-GER-2 · RAW_SHA256 e RAW_STORAGE_PATH na PROVA: os do raw_asset, ou NAO SEI ────────────────
+class TestByteDaProva(_Pasta):
+    def _export_com_byte(self):
+        exp = json.loads(EXPORT_R7.read_text(encoding="utf-8"))
+        for l in exp["LINHAS"]:                                  # o que o export novo leria do raw_asset
+            l["raw_sha256"] = hashlib.sha256(("raw-%s" % l["raw_observation_id"]).encode()).hexdigest()
+            l["raw_storage_path"] = "XX/sint/%s.bin" % l["raw_observation_id"]
+        exp["LINHAS"][0]["raw_sha256"] = None                    # um raw_asset sem sha: NAO SEI
+        exp["LINHAS"][0]["raw_storage_path"] = None
+        return exp
+
+    def test_o_export_le_o_byte_do_raw_asset(self):
+        sql = GI.SQL_EXPORT.read_text(encoding="utf-8")
+        self.assertIn("r.sha256             as raw_sha256", sql)
+        self.assertIn("r.storage_path       as raw_storage_path", sql)
+        self.assertIn("left join public.raw_asset r on r.id = a.raw_observation_id", sql)
+
+    def test_cada_prova_leva_o_sha_do_banco_ou_nao_sei(self):
+        exp = self._export_com_byte()
+        do_banco = {str(l["raw_observation_id"]): (l["raw_sha256"], l["raw_storage_path"]) for l in exp["LINHAS"]}
+        saida = GI.correr_o_motor(exp, AGORA.date(), "TESTE")
+        pote, _ = GI.montar_o_pote(saida)
+        self.assertEqual(GI.VP.validar(pote), [])
+        provas = [p for e in pote["COMPARTIMENTOS"].values() for o in e["OBJETOS"] for p in o["PROVA"]]
+        self.assertTrue(provas)
+        for p in provas:
+            sha, cam = do_banco[str(p["RAW_OBSERVATION_ID"])]
+            self.assertEqual(p["RAW_SHA256"], sha or "NAO SEI", p["RAW_OBSERVATION_ID"])
+            self.assertEqual(p["RAW_STORAGE_PATH"], cam or "NAO SEI", p["RAW_OBSERVATION_ID"])
+
+    def test_sem_o_byte_no_export_a_prova_diz_nao_sei(self):
+        saida = GI.correr_o_motor(json.loads(EXPORT_R7.read_text(encoding="utf-8")), AGORA.date(), "TESTE")
+        pote, _ = GI.montar_o_pote(saida)
+        for e in pote["COMPARTIMENTOS"].values():
+            for o in e["OBJETOS"]:
+                for p in o["PROVA"]:
+                    self.assertEqual((p["RAW_SHA256"], p["RAW_STORAGE_PATH"]), ("NAO SEI", "NAO SEI"))
+
+    def test_o_fiscal_reprova_sha_que_nao_e_do_raw_asset(self):
+        saida = GI.correr_o_motor(self._export_com_byte(), AGORA.date(), "TESTE")
+        pote, _ = GI.montar_o_pote(saida)
+        for mau in ("sha-do-texto", "ABC", hashlib.md5(b"x").hexdigest(), "", None):
+            p = json.loads(json.dumps(pote))
+            next(o for e in p["COMPARTIMENTOS"].values() for o in e["OBJETOS"])["PROVA"][0]["RAW_SHA256"] = mau
+            self.assertTrue(any("RAW_SHA256" in v for v in GI.VP.validar(p)), mau)
 
 
 # ── RETENCAO DOS BACKUPS ─────────────────────────────────────────────────────
