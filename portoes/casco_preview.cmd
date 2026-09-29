@@ -20,6 +20,13 @@ rem O PATH de uma tarefa agendada NAO e o do terminal: a cadeia do mapa usa `tr`
 rem Medido 29/09 11:46: sem usr\bin o C3 reprovou (git ls-files -z ^| tr ... saiu 255). O portao barrou; nada foi ao ar.
 rem usr\bin vai no FIM: la ha um find/sort do Unix que, a frente, taparia os do Windows.
 set "PATH=%SINTONIA_CASCO%\venv\Scripts;%ProgramFiles%\nodejs;%APPDATA%\npm;%ProgramFiles%\Git\cmd;%PATH%;%ProgramFiles%\Git\mingw64\bin;%ProgramFiles%\Git\usr\bin"
+rem Numa tarefa agendada a variavel chama-se «Path»; no terminal, «PATH». Medido 29/09 (tarefa descartavel): um
+rem ambiente copiado com PATH novo fica com as DUAS chaves (Path e PATH). O vercel build falhou na tarefa com
+rem «spawn cmd.exe ENOENT» e funcionou no terminal; a unica diferenca medida e esta. Uma chave so, PATH:
+set "_P=%PATH%"
+set "Path="
+set "PATH=%_P%"
+set "_P="
 set "PYTHONUTF8=1"
 set "PYTHONUNBUFFERED=1"
 set "PYTHONDONTWRITEBYTECODE=1"
