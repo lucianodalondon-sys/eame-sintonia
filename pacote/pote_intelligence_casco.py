@@ -174,7 +174,9 @@ DA_V1 = {"future": "archive", "radarfuturo": "future", "etichette": "portfolio"}
 #: atravessar (a v1 nao os pedia), mas nunca viajam em branco: sem valor, NAO SEI.
 #: POTE-V2-UNICO: a publicacao chama-se PUBLISHED_AT no contrato (o nome que a
 #: missao escreveu); PUBLICADO_EM e PUBLICATION_TIME so se LEEM na entrada.
-CAMPOS_DA_PROVA_V2 = ("URL", "PUBLISHED_AT", "COLHIDO_EM", "FACT_TIME")
+#: D-GER-2 / D-GER-1-MIG (29/09): RAW_SHA256 e RAW_STORAGE_PATH entram no contrato da prova (schema: required);
+#: vem SO da propria prova (o motor le-os do raw_asset), nunca da LINEAGE — sem eles, NAO SEI.
+CAMPOS_DA_PROVA_V2 = ("URL", "PUBLISHED_AT", "COLHIDO_EM", "FACT_TIME", "RAW_SHA256", "RAW_STORAGE_PATH")
 #: URL e PUBLISHED_AT levam sempre a BASE: de onde veio o valor, ou — quando o
 #: valor e NAO SEI — porque nao ha valor. NAO SEI sem base e um buraco, nao uma
 #: resposta.
@@ -186,7 +188,8 @@ _SHA256_DO_BANCO = re.compile(r"[0-9a-f]{64}")
 #: Nomes que a ENTRADA pode usar para o mesmo campo (leitura, nunca escrita).
 LER_NA_ENTRADA = {"URL": ("URL", "SOURCE_URL"),
                   "PUBLISHED_AT": ("PUBLISHED_AT", "PUBLICADO_EM", "PUBLICATION_TIME"),
-                  "COLHIDO_EM": ("COLHIDO_EM",), "FACT_TIME": ("FACT_TIME",)}
+                  "COLHIDO_EM": ("COLHIDO_EM",), "FACT_TIME": ("FACT_TIME",),
+                  "RAW_SHA256": ("RAW_SHA256",), "RAW_STORAGE_PATH": ("RAW_STORAGE_PATH",)}
 
 # ── P7 · O QUE EXIGE TEMPO, E O QUE NAO ──────────────────────────────────────
 #: Um resultado honesto nao afirma nada no tempo: diz que nao, ou que ainda nao
@@ -374,7 +377,7 @@ def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
     for c in CAMPOS_DA_PROVA_V2:
         v, nome = _da_entrada(p, c)
         base = f"PROVA.{nome}" if nome else None
-        if v is None and len(batem) == 1:
+        if v is None and len(batem) == 1 and c not in CAMPOS_DO_BYTE:     # o byte: so da propria prova
             v, nome = _da_entrada(batem[0], c)
             base = f"LINEAGE.{nome}" if nome else None
         out[c] = _valor(v)
@@ -382,9 +385,6 @@ def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
             dita = p.get(c + "_BASE")
             out[c + "_BASE"] = base or (dita if not e_ignorancia(dita) else
                                         f"NAO_VEIO: nem a prova nem a entrada unica da LINEAGE trazem {c}")
-    # D-GER-2: a identidade do byte, como o motor a leu do raw_asset. So da propria prova; sem ela, NAO SEI.
-    for c in CAMPOS_DO_BYTE:
-        out[c] = _valor(p.get(c))
     # De onde veio, e como foi admitida: a Sala aparece so aqui, como prova.
     g0 = sorted({str(e.get("G0")) for e in batem})
     out["G0"] = "|".join(g0) if g0 else NAO_SEI
