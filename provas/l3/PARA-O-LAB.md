@@ -21,7 +21,7 @@ entra no Git (as fotos e o registo ficam em `%TEMP%`, fora do repositorio, como 
 | codigo servido | `c7671ff7eef9f767016dce326fa03f6d9f572016` (ramo `claude/l3-radar-original-v1`) |
 | envelope no ar | `/sintonia-pote-publicado.js` → `POTE_SHA256 = 276b490fd698c46188f4f5ec1a04de79503b0fc11c6ec82c5ea29fa833b87feb` (C6_NO_AR_SHA = PASS) |
 | no DOM | `[data-pote-compartimento="windows"]`, `[data-pote-objeto="AF-2cc19f200815fa06"]`, `[data-pote-objeto="AF-11c9e6b6ee8caa6e"]`; em cada prova `[data-pote-trecho]` (o trecho literal) e `[data-pote-raw]` (RAW sha256 + caminho) |
-| fotos e contagens | `%TEMP%\l3-pub6-09-28403-334445-276b490f\DEPOIS\` (debug-intelligence-pot.png, CONTAGENS.json) · `REGISTO.json` na mesma pasta |
+| fotos e contagens | `%TEMP%/l3-pub/2026-09-28/222403-334445-276b490f/DEPOIS/` (debug-intelligence-pot.png, CONTAGENS.json) · `REGISTO.json` na mesma pasta |
 | publicado por | `portoes/publicar_preview_da_pasta.py --raiz …/intelligence-experimental --modo preview` → `publicar_portal_sozinho.py` (C0..C6 todas PASS) |
 
 ## 2 · POTE
