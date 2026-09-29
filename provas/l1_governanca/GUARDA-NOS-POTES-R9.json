@@ -1,33 +1,36 @@
 {
- "O_QUE_E": "a guarda D140 aplicada aos potes REAIS da R9 (fora do Git, so leitura). A prova do LAB foi SIMULADA como PASS so para exercitar o resto da guarda; sem ela real, a guarda recusa.",
+ "O_QUE_E": "a guarda D140, depois do red team e do auditor (29/09), aplicada aos potes REAIS da R9 (fora do Git, so leitura). Nenhuma prova foi simulada nesta versao.",
+ "GUARDA_NO_COMMIT": "b380c451277f49751488a1ee9b5602385327d479",
  "POTE_PARA_CLIENTE": {
-  "FICHEIRO": "C:/Users/London1/sintonia-sala-italia/intelligence-experimental/PARA-O-CASCO-R9/POTE-R9-PARA_CLIENTE.json",
+  "FICHEIRO": "C:/Users/London1/sintonia-sala-italia/intelligence-experimental/PARA-O-CASCO-R9\\POTE-R9-PARA_CLIENTE.json",
   "SHA256": "9aa916e328845c8c10b17a6c392c3ac9b23279f105e4a1e5e07d3aae1bc8d963"
  },
  "POTE_EXPERIMENTAL": {
-  "FICHEIRO": "C:/Users/London1/sintonia-sala-italia/intelligence-experimental/PARA-O-CASCO-R9/POTE-R9-EXPERIMENTAL.json",
+  "FICHEIRO": "C:/Users/London1/sintonia-sala-italia/intelligence-experimental/PARA-O-CASCO-R9\\POTE-R9-EXPERIMENTAL.json",
   "SHA256": "f208be60b8ba3604b708d1832212a34d0aa212c561b80af6320e572c9e099f72"
  },
+ "COPIA_DA_SALA_ACHADA_NA_PASTA_R9": "NAO SEI — nenhum ficheiro da pasta R9 tem o sha256 que o CORTE do pote cita",
+ "PROVA_DO_LAB": "NAO EXISTE ainda (o LAB nao entregou a prova reversa deste pote)",
+ "C8_DE_CADA_OBJETO_DO_POTE_PARA_CLIENTE": [
+  {
+   "OBJETO_ID": "AF-2cc19f200815fa06",
+   "C8_DECISAO_REGISTADA": null,
+   "C8_MOTIVO": "C8 nao comeca por um ID de decisao (Dnnn): texto livre nao e autorizacao"
+  },
+  {
+   "OBJETO_ID": "AF-11c9e6b6ee8caa6e",
+   "C8_DECISAO_REGISTADA": null,
+   "C8_MOTIVO": "C8 nao comeca por um ID de decisao (Dnnn): texto livre nao e autorizacao"
+  }
+ ],
  "CASOS": {
   "R9_PARA_CLIENTE_no_preview_local": {
-   "PASSA": true,
-   "MOTIVO": "EXCECAO PREVIEW_E2E (D140) · 2 objeto(s) liberado(s) para BUILD_LOCAL na branch claude/l3-radar-original-v1 · COLLECTION_FOUNDATION_CLOSED continua NAO"
-  },
-  "R9_PARA_CLIENTE_no_host_canonico": {
    "PASSA": false,
-   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · sintonia-eame-preview.vercel.app e o endereco do produto, nao um preview"
-  },
-  "R9_PARA_CLIENTE_em_release_canonical": {
-   "PASSA": false,
-   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · branch 'release/canonical' e de producao (ou nao dita)"
+   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · READ_ONLY sem prova: falta a copia/snapshot da Sala"
   },
   "R9_EXPERIMENTAL_no_preview_local": {
    "PASSA": false,
-   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · 3 objeto(s) nao liberado(s), o pote inteiro fica: windows/SG-a5d48c8cb6f73f24 sem LIBERACAO=LIBERADO_PARA_CLIENTE"
-  },
-  "R9_PARA_CLIENTE_sem_prova_do_LAB": {
-   "PASSA": false,
-   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · sem a prova reversa do LAB (VEREDITO=PASS e onde esta)"
+   "MOTIVO": "INTELLIGENCE_IMPLEMENTATION_BLOCKED · READ_ONLY sem prova: falta a copia/snapshot da Sala"
   }
  }
 }

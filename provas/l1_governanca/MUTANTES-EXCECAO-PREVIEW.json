@@ -1,9 +1,9 @@
 {
  "ALVO": "leis/fundacao_da_coleta.py",
- "SHA256_DO_ALVO": "df49577550b6b60e797c9e93f0e0e1d3b44aa12870d281848f8d55364f48925a",
+ "SHA256_DO_ALVO": "ae72e7b81172e5bf1b83e79f9478006fb88b8211d68a03bc1645178f5f7daf52",
  "SUITE": "tests.test_excecao_preview_e2e",
- "MUTANTES": 25,
- "MORTOS": 25,
+ "MUTANTES": 59,
+ "MORTOS": 59,
  "DESFEITO_E_CONFERIDO": true,
  "RESULTADOS": [
   {
@@ -28,9 +28,9 @@
    "PERGUNTA": "b",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_b_branch_de_promocao_e_recusada",
     "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado",
-    "test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO"
+    "test_L04_L05_L06_branch_de_producao_por_grafia",
+    "test_arvore_real_em_producao_recusa"
    ]
   },
   {
@@ -40,7 +40,8 @@
    "MORTO_POR": [
     "test_b_o_host_canonico_e_recusado_mesmo_com_preview_no_nome",
     "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado",
-    "test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO"
+    "test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO",
+    "test_L02_host_canonico_com_espaco"
    ]
   },
   {
@@ -73,7 +74,8 @@
    "PERGUNTA": "b",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_b_numa_branch_de_producao_nenhum_artefato_e_autorizado"
+    "test_b_numa_branch_de_producao_nenhum_artefato_e_autorizado",
+    "test_L12_L13_L14_artefatos_em_branch_de_producao_por_grafia"
    ]
   },
   {
@@ -94,11 +96,11 @@
    ]
   },
   {
-   "MUTANTE": "M11_sem_decisao_do_dono_passa",
-   "PERGUNTA": "c",
+   "MUTANTE": "M11_c8_falhou_em_qualquer_caixa_passa",
+   "PERGUNTA": "auditor-L10",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_c_sem_decisao_do_dono_recusa"
+    "test_L10_c8_falhou_em_qualquer_caixa_e_em_qualquer_sitio"
    ]
   },
   {
@@ -134,11 +136,15 @@
    ]
   },
   {
-   "MUTANTE": "M16_sem_prova_reversa_do_lab",
+   "MUTANTE": "M16_prova_do_lab_nem_conferida",
    "PERGUNTA": "d",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_d_sem_prova_reversa_do_lab_e_recusado"
+    "test_lab_adulterado_depois_de_fixado_recusa",
+    "test_lab_com_a_corrida_so_como_pedaco_de_outra_recusa",
+    "test_lab_com_sha_fixado_errado_ou_sem_sha_recusa",
+    "test_lab_de_outra_corrida_recusa",
+    "test_lab_fora_das_pastas_do_lab_recusa"
    ]
   },
   {
@@ -146,7 +152,9 @@
    "PERGUNTA": "e",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_e_sem_a_d140_no_diario_recusa"
+    "test_e_sem_a_d140_no_diario_recusa",
+    "test_L11_d140_marcada_revogada_no_diario",
+    "test_L11_d140_so_conta_como_cabecalho_numa_linha_propria"
    ]
   },
   {
@@ -158,7 +166,7 @@
    ]
   },
   {
-   "MUTANTE": "M19_revogada_vale",
+   "MUTANTE": "M19_revogada_no_contrato_vale",
    "PERGUNTA": "e",
    "ESTADO": "MORTO",
    "MORTO_POR": [
@@ -178,6 +186,18 @@
    ]
   },
   {
+   "MUTANTE": "M21_excecao_removida_da_guarda",
+   "PERGUNTA": "f",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado",
+    "test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO"
+   ]
+  },
+  {
    "MUTANTE": "M22_ambito_exato_ignorado",
    "PERGUNTA": "e",
    "ESTADO": "MORTO",
@@ -187,10 +207,10 @@
   },
   {
    "MUTANTE": "M23_consumido_em_aceite",
-   "PERGUNTA": "d",
+   "PERGUNTA": "auditor-L08",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_d_consumido_em_fica_fora"
+    "test_L08_consumido_em_dentro_do_pote"
    ]
   },
   {
@@ -210,15 +230,289 @@
    ]
   },
   {
-   "MUTANTE": "M21_excecao_removida_da_guarda",
-   "PERGUNTA": "f",
+   "MUTANTE": "M26_redteam_lab_inexistente_aceite",
+   "PERGUNTA": "red-team-1",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_f_pedido_de_preview_completo_atravessa",
-    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
-    "test_PREVIEW_PODE_RECEBER_SIM",
-    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado",
-    "test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO"
+    "test_redteam_lab_forjado_ficheiro_inexistente"
+   ]
+  },
+  {
+   "MUTANTE": "M27_lab_sem_veredito_pass_aceite",
+   "PERGUNTA": "red-team-1",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_redteam_lab_que_diz_fail_ou_ambiguo"
+   ]
+  },
+  {
+   "MUTANTE": "M28_lab_que_nao_cita_o_pote_aceite",
+   "PERGUNTA": "red-team-1",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_lab_que_cita_o_ficheiro_do_pote_passa_so_se_o_ficheiro_e_este_pote",
+    "test_redteam_lab_que_existe_mas_nao_cita_este_pote"
+   ]
+  },
+  {
+   "MUTANTE": "M29_lab_ambiguo_lido_pela_primeira_linha",
+   "PERGUNTA": "red-team-1",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_redteam_lab_que_diz_fail_ou_ambiguo"
+   ]
+  },
+  {
+   "MUTANTE": "M30_redteam_c8_texto_livre_aceite",
+   "PERGUNTA": "red-team-2",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c8_com_decisao_que_nao_esta_no_diario",
+    "test_c8_com_decisao_revogada_ou_que_nao_e_do_dono",
+    "test_c8_que_cita_a_decisao_no_meio_do_texto_nao_casa",
+    "test_redteam_c8_texto_livre"
+   ]
+  },
+  {
+   "MUTANTE": "M31_c8_revogado_aceite",
+   "PERGUNTA": "red-team-2",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c8_com_decisao_revogada_ou_que_nao_e_do_dono"
+   ]
+  },
+  {
+   "MUTANTE": "M32_c8_que_nao_e_do_dono_aceite",
+   "PERGUNTA": "red-team-2",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c8_com_decisao_revogada_ou_que_nao_e_do_dono"
+   ]
+  },
+  {
+   "MUTANTE": "M33_c8_com_id_no_meio_do_texto",
+   "PERGUNTA": "red-team-2",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c8_que_cita_a_decisao_no_meio_do_texto_nao_casa"
+   ]
+  },
+  {
+   "MUTANTE": "M34_redteam_read_only_sem_copia",
+   "PERGUNTA": "red-team-3",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_redteam_read_only_declarado_sem_prova"
+   ]
+  },
+  {
+   "MUTANTE": "M35_copia_inexistente_aceite",
+   "PERGUNTA": "red-team-3",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_copia_que_nao_existe_ou_cujo_sha_nao_bate"
+   ]
+  },
+  {
+   "MUTANTE": "M36_sha_da_copia_nao_conferido",
+   "PERGUNTA": "red-team-3",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_copia_da_sala_adulterada_com_o_sha_original_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M37_pote_nao_ligado_a_copia",
+   "PERGUNTA": "red-team-3",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_copia_verdadeira_mas_o_pote_nao_foi_feito_dela"
+   ]
+  },
+  {
+   "MUTANTE": "M38_entrada_na_sala_viva_aceite",
+   "PERGUNTA": "red-team-3",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_entrada_que_aponta_a_sala_viva_e_recusada"
+   ]
+  },
+  {
+   "MUTANTE": "M39_corte_sem_read_only_aceite",
+   "PERGUNTA": "red-team-3",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_corte_do_pote_que_diz_que_nao_era_read_only"
+   ]
+  },
+  {
+   "MUTANTE": "M40_branch_real_diferente_aceite",
+   "PERGUNTA": "adendo",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_branch_declarada_diferente_da_real_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M41_branch_nao_medida_vira_prova",
+   "PERGUNTA": "adendo",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_branch_real_que_nao_se_mede_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M43_deployment_mudo_aceite",
+   "PERGUNTA": "adendo",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_host_que_nao_responde_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M45_deployment_de_outra_branch_aceite",
+   "PERGUNTA": "adendo",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L07_branch_main_que_o_deployment_nao_confirma",
+    "test_host_cujo_deployment_e_de_producao_ou_de_outra_branch_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M46_consumido_em_so_no_topo",
+   "PERGUNTA": "auditor-L08",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L08_consumido_em_dentro_do_pote"
+   ]
+  },
+  {
+   "MUTANTE": "M47_d140_revogada_no_diario_vale",
+   "PERGUNTA": "auditor-L11",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L11_d140_marcada_revogada_no_diario"
+   ]
+  },
+  {
+   "MUTANTE": "M48_d140_citada_no_meio_do_texto_vale",
+   "PERGUNTA": "auditor-L11",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L11_d140_so_conta_como_cabecalho_numa_linha_propria"
+   ]
+  },
+  {
+   "MUTANTE": "M49_branch_sem_normalizar",
+   "PERGUNTA": "auditor-L04-06",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L04_L05_L06_branch_de_producao_por_grafia",
+    "test_L12_L13_L14_artefatos_em_branch_de_producao_por_grafia",
+    "test_arvore_real_em_producao_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M50_branch_sem_tirar_prefixos",
+   "PERGUNTA": "auditor-L04-05",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L04_L05_L06_branch_de_producao_por_grafia",
+    "test_L12_L13_L14_artefatos_em_branch_de_producao_por_grafia",
+    "test_arvore_real_em_producao_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M51_branch_sem_casefold",
+   "PERGUNTA": "auditor-L06",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L04_L05_L06_branch_de_producao_por_grafia",
+    "test_L12_L13_L14_artefatos_em_branch_de_producao_por_grafia",
+    "test_arvore_real_em_producao_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M52_host_que_nao_e_nome_limpo_aceite",
+   "PERGUNTA": "auditor-L01-03",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L03_host_nao_vercel_com_sufixo_no_caminho"
+   ]
+  },
+  {
+   "MUTANTE": "M53_host_sem_normalizar",
+   "PERGUNTA": "auditor-L02",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L02_host_canonico_com_espaco"
+   ]
+  },
+  {
+   "MUTANTE": "M54_host_vercel_nao_conferido",
+   "PERGUNTA": "auditor-L03",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L03_host_nao_vercel_com_sufixo_no_caminho"
+   ]
+  },
+  {
+   "MUTANTE": "M55_chave_desconhecida_no_topo_ignorada",
+   "PERGUNTA": "auditor-L09",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L09_chave_desconhecida_no_pedido_e_recusada"
+   ]
+  },
+  {
+   "MUTANTE": "M56_chave_desconhecida_por_dentro_ignorada",
+   "PERGUNTA": "auditor-L09",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_L09_chave_desconhecida_no_pedido_e_recusada"
+   ]
+  },
+  {
+   "MUTANTE": "M57_lab_de_outra_corrida_aceite",
+   "PERGUNTA": "adendo-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_lab_com_a_corrida_so_como_pedaco_de_outra_recusa",
+    "test_lab_de_outra_corrida_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M58_lab_fora_da_pasta_do_lab_aceite",
+   "PERGUNTA": "adendo-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_lab_fora_das_pastas_do_lab_recusa",
+    "test_na_trava_real_as_pastas_do_lab_nao_incluem_a_pasta_dos_testes"
+   ]
+  },
+  {
+   "MUTANTE": "M59_lab_na_pasta_do_pote_aceite",
+   "PERGUNTA": "adendo-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_lab_na_pasta_do_proprio_pote_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M60_lab_sem_sha_fixado_aceite",
+   "PERGUNTA": "adendo-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_lab_adulterado_depois_de_fixado_recusa",
+    "test_lab_com_sha_fixado_errado_ou_sem_sha_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M61_corrida_casada_como_pedaco",
+   "PERGUNTA": "adendo-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_lab_com_a_corrida_so_como_pedaco_de_outra_recusa"
    ]
   }
  ]
