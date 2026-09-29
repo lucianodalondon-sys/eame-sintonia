@@ -30,6 +30,7 @@ PB = "scripts/micro_coleta/provar_backup_da_sala.py"
 POTE = "pacote/pote_intelligence_casco.py"
 MOT = "motor/motor_das_capacidades.py"
 SQL = "motor/r7_export_da_copia.sql"
+FIX = "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json"
 
 #: (id, ficheiro, o defeito que finge, texto original, texto mutante)
 MUTANTES = [
@@ -118,6 +119,8 @@ MUTANTES = [
  ("L54", POTE, "o fiscal deixa de conferir ENTITY_SOURCE",
   "            if \"ENTITY_SOURCE\" in o:\n                es = o[\"ENTITY_SOURCE\"]",
   "            if False:\n                es = o[\"ENTITY_SOURCE\"]"),
+ ("L61", FIX, "D-GER-1-MIG: a fixture do dono volta a texto livre em ENTITY_SOURCE",
+  "    \"ENTITY_SOURCE\": \"UNKNOWN\",", "    \"ENTITY_SOURCE\": \"SINT: registro nacional das culturas\","),
  # ── D-GER-2 · RAW_SHA256 / RAW_STORAGE_PATH: os do raw_asset, ou NAO SEI ──
  ("L55", SQL, "o export nao le o sha256 do raw_asset",
   "         r.sha256             as raw_sha256,\n", ""),
@@ -127,8 +130,9 @@ MUTANTES = [
  ("L57", MOT, "o motor nao le a coluna raw_sha256 do export",
   "                  \"raw_sha256\": \"RAW_SHA256\", \"raw_storage_path\": \"RAW_STORAGE_PATH\"}",
   "                  \"raw_storage_path\": \"RAW_STORAGE_PATH\"}"),
- ("L58", POTE, "o gerador deixa cair o byte da prova",
-  "        out[c] = _valor(p.get(c))", "        out[c] = NAO_SEI"),
+ ("L58", POTE, "o gerador deixa cair o byte da prova (nao o le da prova do motor)",
+  "                  \"RAW_SHA256\": (\"RAW_SHA256\",), \"RAW_STORAGE_PATH\": (\"RAW_STORAGE_PATH\",)}",
+  "                  \"RAW_SHA256\": (), \"RAW_STORAGE_PATH\": ()}"),
  ("L59", POTE, "o fiscal aceita qualquer RAW_SHA256",
   "                        elif k == \"RAW_SHA256\" and not _SHA256_DO_BANCO.fullmatch(str(p[k])):",
   "                        elif False:"),

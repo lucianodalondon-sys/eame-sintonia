@@ -54,16 +54,10 @@ class _Pasta(unittest.TestCase):
 
 
 def _corrida_da_lei():
-    """DUBLE do motor: a corrida sintetica valida de tests/fixtures/pote com o ENTITY_SOURCE do unico
-    objeto que o traz trocado por um valor da lei COL-LAW-221 (DOCUMENT_TITLE). Sem a troca, a conversao
-    da decisao do owner poe UNKNOWN e o fiscal de hoje reprova («esconde a ignorancia»): e isso que o
-    bloqueio mede. Com a troca, prova-se o caminho da SUBIDA ate a entrega."""
-    c = json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8"))
-    for objs in (c.get("ITENS_POR_FERRAMENTA") or {}).values():
-        for o in objs if isinstance(objs, list) else [objs]:
-            if isinstance(o, dict) and "ENTITY_SOURCE" in o:
-                o["ENTITY_SOURCE"] = "DOCUMENT_TITLE"
-    return c
+    """DUBLE do motor: a corrida sintetica valida do dono do pote (tests/fixtures/pote), TAL COMO ESTA.
+    D-GER-1-MIG (29/09): o ENTITY_SOURCE dela passou a UNKNOWN, valor da COL-LAW-221 — ja nao se troca
+    nada aqui. Se a fixture voltar a texto livre, o gerador recusa-a e estes testes caem (mutante L61)."""
+    return json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8"))
 
 
 def _consulta(n, velho=None, novo=None):
@@ -577,6 +571,14 @@ class TestFiscalEntitySource(_Pasta):
         for mau in (mapa, "NAO SEI", achatado, fora_da_lei, "", "?", None, ["SPAN"], "span"):
             viol = GI.VP.validar(self._com(pote, mau))
             self.assertTrue(any("ENTITY_SOURCE fora da COL-LAW-221" in v for v in viol), (mau, viol))
+
+    def test_a_fixture_do_dono_passa_no_fiscal_tal_como_esta(self):
+        # D-GER-1-MIG: a corrida sintetica do dono do pote, sem nenhuma troca, monta um pote que o fiscal aprova
+        c = json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8"))
+        vistos = [o.get("ENTITY_SOURCE") for objs in c["ITENS_POR_FERRAMENTA"].values()
+                  for o in (objs if isinstance(objs, list) else [objs]) if "ENTITY_SOURCE" in o]
+        self.assertTrue(vistos and set(vistos) <= set(GI.LEI_221), vistos)
+        self.assertEqual(GI.VP.validar(GI.P.ler_entrada(c)), [])
 
     def test_o_vocabulario_vem_do_dono_e_nao_de_uma_copia(self):
         import afirmacao_da_fonte as AF

@@ -233,8 +233,11 @@ class B_AsLeisNoPote(unittest.TestCase):
     def test_B11_entity_source_por_chave_viaja_inteiro(self):
         for comp in ("competitors", "future", "sources"):
             for o in objetos(self.pote, comp):
-                self.assertEqual(o["ENTITY_SOURCE"], A.ENTITY_SOURCE_TEXTO)
+                # D-GER-1-MIG: no objeto, o valor da COL-LAW-221; o mapa inteiro ao lado, e EXIGIDO
+                self.assertEqual(o["ENTITY_SOURCE"], "UNKNOWN")
                 porch = o["FORA_DO_CONTRATO"]["ENTITY_SOURCE_POR_CHAVE"]
+                self.assertIsInstance(porch, dict)
+                self.assertTrue(porch, (o["OBJETO_ID"], "sem o mapa de procedencia"))
                 for k, v in o["CHAVES"].items():
                     self.assertEqual(porch[k]["VALOR"], v, (o["OBJETO_ID"], k))
 

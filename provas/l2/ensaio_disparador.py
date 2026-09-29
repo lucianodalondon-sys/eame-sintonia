@@ -23,9 +23,8 @@ O QUE E DE ENSAIO (dito para ninguem ler isto como prova de producao)
   * Os itens novos (passos 5 e 7) levam document_key novo: com o da fixture, a Sala os funde (C6).
   * A janela pousa com as quatro chaves em NAO SEI (JANELA_NAO_MEDIDA) e a da fixture entra por `rever`.
   * O «agora» das voltas e declarado (agora, +10 min, +20 min, +4 h 30).
-  * Passo 7 usa um MOTOR DUBLE (a corrida sintetica valida de tests/fixtures/pote, com o ENTITY_SOURCE
-    do unico objeto que o traz trocado por DOCUMENT_TITLE, um valor da lei COL-LAW-221) para provar que
-    um pote APROVADO chega a entrega com sha. Esta dito no resultado: nao e o motor real.
+  * Passo 7 usa um MOTOR DUBLE (a corrida sintetica valida de tests/fixtures/pote, tal como esta) para
+    provar que um pote APROVADO chega a entrega com sha. Esta dito no resultado: nao e o motor real.
   * A FRONTEIRA (correcao do coordenador, 28/09): o disparador PARA na entrega PARA-O-CASCO. O ensaio
     fotografa italia-portale/ inteiro no inicio e no fim: tem de estar igual.
   * Tudo escreve numa pasta temporaria; a arvore e o casco verdadeiros nao sao tocados.
@@ -274,13 +273,8 @@ def correr(saida: Path) -> dict:
         item7 = dict(fx["LINHAS"][2], run_id=NOVA + "-7", ordem=1, item_id="L2-NOVO-7", raw_observation_id=990007,
                      raw_document_key="L2-DOC-NOVO-7")
         semear(base, env, fx, [item7])
-        # o duble: a corrida sintetica valida com o ENTITY_SOURCE do unico objeto que o traz trocado por um
-        # valor da lei COL-LAW-221 (sem isso a conversao da decisao do owner poe UNKNOWN e o fiscal reprova)
+        # o duble: a corrida sintetica valida do dono do pote, tal como esta (D-GER-1-MIG: ENTITY_SOURCE UNKNOWN)
         duble = json.loads(CORRIDA_VALIDA.read_text(encoding="utf-8"))
-        for objs in (duble.get("ITENS_POR_FERRAMENTA") or {}).values():
-            for o in objs if isinstance(objs, list) else [objs]:
-                if isinstance(o, dict) and "ENTITY_SOURCE" in o:
-                    o["ENTITY_SOURCE"] = "DOCUMENT_TITLE"
         with mock.patch.object(GI, "correr_o_motor", lambda *a: duble):
             r7, igual7, _ = uma(datetime.now(timezone.utc) + timedelta(hours=9))
         man = json.loads((GI.ENTREGA / "MANIFESTO.json").read_text(encoding="utf-8")) if GI.ENTREGA.exists() else {}
