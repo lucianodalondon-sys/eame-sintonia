@@ -40,7 +40,14 @@
     "GLOBAL": "SINTONIA_POTE_PUBLICADO",
     "CONTRATO_DO_ENVELOPE": "SINTONIA_POTE_PUBLICADO/1",
     "NO_GIT": "so o lugar, com null. O envelope e escrito SO na copia montada, nunca no repositorio.",
-    "SHA": "POTE_SHA256 = sha256 do JSON canonico do pote (chaves ordenadas, UTF-8, sem espacos). E gravado no envelope, no registo da publicacao e em ULTIMA-PUBLICACAO.json; a conferencia depois de publicado le-o DO QUE ESTA NO AR."
+    "SHA": "POTE_SHA256 = sha256 do JSON canonico do pote (chaves ordenadas, UTF-8, sem espacos). E gravado no envelope, no registo da publicacao e em ULTIMA-PUBLICACAO.json; a conferencia depois de publicado le-o DO QUE ESTA NO AR.",
+    "DOIS_SHA_DO_MESMO_POTE": {
+      "PORQUE": "descoberta do LAB (29/09, PROVA-REVERSA-PRONTA.md): com o conteudo identico, o sha do FICHEIRO e o sha CANONICO sao diferentes (R9: ficheiro 9aa916e3…, canonico 276b490f…). Cada um diz-se pelo nome.",
+      "POTE_SHA256_CANONICO": "sha256 do JSON canonico (sort_keys, separadores compactos, UTF-8). E o POTE_SHA256 do envelope no ar e o que a prova reversa compara no ar.",
+      "POTE_SHA256_FICHEIRO": "sha256 dos bytes do POTE.json entregue. E o SHA256_ARQUIVO do MANIFESTO e o que o SHA256SUMS.txt confere na pasta.",
+      "NO_MANIFESTO": "o MANIFESTO da entrega traz SHA256_ARQUIVO; recomenda-se tambem SHA256_CANONICO (a entrega de teste tests/entrega_de_teste.py ja o traz; o MANIFESTO-R9 ja o trazia). Pedido a Intelligence (L2): acrescentar SHA256_CANONICO ao MANIFESTO.json do disparador.",
+      "PREVIEW_ATUAL": "a cada deployment do preview a rodada grava os dois em PREVIEW-ATUAL.json (URL, DEPLOYMENT_ID, POTE_SHA256_CANONICO, POTE_SHA256_FICHEIRO)"
+    }
   },
 
   "REGRA_DE_PROMOCAO": {

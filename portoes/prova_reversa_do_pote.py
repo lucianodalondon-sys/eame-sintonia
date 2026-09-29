@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 """A PROVA REVERSA DO POTE, PARA O LAB — D156 (criterio do Casco owner, item F).
 
-    python3 portoes/prova_reversa_do_pote.py --url <preview> [--pasta <PARA-O-CASCO>] [--armazem <raiz>] [--saida <pasta>]
+    python3 portoes/prova_reversa_do_pote.py [--url <preview>] [--pasta <PARA-O-CASCO>] [--armazem <raiz>] [--saida <pasta>]
+
+Sem --url, le a URL do ultimo preview em PREVIEW-ATUAL.json (--preview-atual; a tarefa SINTONIA-CASCO-PREVIEW grava-o
+a cada deployment). O SHA no ar comparado e o CANONICO (JSON com chaves ordenadas, compacto) — nao o sha do ficheiro.
 
 Um comando que o LAB corre sozinho quando chegar o pote LIVE, e que tambem prova o vazio legitimo (Radar LIVE = 0):
 
@@ -128,12 +131,20 @@ def provar(pasta: Path, url: str, armazem, saida: Path, rede: bool = False, dom=
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Prova reversa do pote no preview (D156, item F).")
-    ap.add_argument("--url", required=True, help="o endereco do preview (deployment)")
+    ap.add_argument("--url", default=None, help="o endereco do preview (deployment); sem ele, o de --preview-atual")
+    ap.add_argument("--preview-atual", default=str(Path.home() / "auditoria-madrugada" / "PREVIEW-ATUAL.json"))
     ap.add_argument("--pasta", default=str(G.ENTREGA))
     ap.add_argument("--armazem", default=os.environ.get("SINTONIA_ARMAZEM_RAIZ"))
     ap.add_argument("--saida", default=None)
     ap.add_argument("--rede", action="store_true", help="visita a URL da fonte (HEAD)")
     a = ap.parse_args(argv)
+    if not a.url:
+        try:
+            a.url = json.loads(Path(a.preview_atual).read_text(encoding="utf-8"))["URL"]
+            print(f"  URL lida de {a.preview_atual}: {a.url}")
+        except (OSError, ValueError, KeyError) as e:
+            print(f"sem --url e sem PREVIEW-ATUAL legivel ({e})")
+            return 4
     if not a.url.startswith("http"):
         print("--url tem de ser http(s)")
         return 4

@@ -50,7 +50,10 @@ def entregar(destino: Path, pote_bytes: bytes, caso: str = "demo") -> dict:
            "SOURCE_HEAD": pote.get("SOURCE_HEAD"), "CORTE": pote.get("CORTE"),
            "GERADO_EM": agora.strftime("%Y-%m-%dT%H:%M:%SZ"),
            "GERADO_POR": "tests/entrega_de_teste.py (D156, entrega de TESTE, caso %s)" % caso,
-           "POTE": {"ARQUIVO": "POTE.json", "SHA256_ARQUIVO": _sha(pote_bytes), "CONTRATO": "POTE_INTELLIGENCE_CASCO/v2"},
+           "POTE": {"ARQUIVO": "POTE.json", "SHA256_ARQUIVO": _sha(pote_bytes),
+                    "SHA256_CANONICO": _sha(json.dumps(pote, sort_keys=True, ensure_ascii=False,
+                                                       separators=(",", ":")).encode("utf-8")),
+                    "CONTRATO": "POTE_INTELLIGENCE_CASCO/v2"},
            "VALIDAR_POTE_V2": "PASSA"}
     mb = (json.dumps(man, ensure_ascii=False, indent=1) + "\n").encode("utf-8")
     (nova / "MANIFESTO.json").write_bytes(mb)
