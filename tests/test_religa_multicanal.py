@@ -137,6 +137,46 @@ def test_youtube_sem_transporte_recusa_e_nao_inventa_um():
     assert "SEM_TRANSPORTE" in r["ERRO"]
 
 
+def _pagina_video(**kw):
+    d = {"videoDetails": {"videoId": "x", "title": kw.get("title", "Peronospora della vite"),
+                          "lengthSeconds": "60"},
+         "shortDescription": kw.get("desc", "Difesa del vigneto, fungicidi e peronospora."),
+         "author": "Terra e Vita", "publishDate": "2026-09-01", "keywords": ["vite", "peronospora"]}
+    return json.dumps(d, separators=kw.get("sep", (",", ":")))
+
+
+def test_youtube_metadados_saem_da_pagina_publica_do_video():
+    """O oembed so traz titulo e autor; com isso a Admission nao consegue julgar o universo (medido no
+    canario: «so uma palavra de T7 aparece»). A pagina /watch traz a descricao, e o robots aprova-a."""
+    b = leitor(_pagina_video())
+    r = RM.youtube_metadados_do_video(url="https://www.youtube.com/watch?v=x", buscar=b)
+    assert r["REGISTO"]["DESCRIPTION"].startswith("Difesa del vigneto")
+    assert r["REGISTO"]["PUBLISHED_AT"] == "2026-09-01"
+    assert r["MEDIA_TYPE"] == "application/json", "guarda-se o REGISTO, nao a pagina"
+    assert b.chamadas == ["https://www.youtube.com/watch?v=x"]
+
+
+def test_youtube_metadados_leem_json_minificado_e_formatado():
+    """O YouTube serve minificado. Um molde que so casasse com essa forma partiria em silencio no dia em
+    que a pagina viesse formatada — e o sintoma soaria a problema da fonte."""
+    for sep in ((",", ":"), (", ", ": ")):
+        r = RM.youtube_metadados_do_video(url="https://www.youtube.com/watch?v=x",
+                                          buscar=leitor(_pagina_video(sep=sep)))
+        assert r["REGISTO"]["TITLE"] == "Peronospora della vite"
+
+
+def test_youtube_metadados_nao_cortam_aspas_dentro_do_texto():
+    """Cortar no primeiro `"` perderia metade de qualquer descricao que cite alguem."""
+    r = RM.youtube_metadados_do_video(url="https://www.youtube.com/watch?v=x",
+                                      buscar=leitor(_pagina_video(title='a "difesa" integrata')))
+    assert r["REGISTO"]["TITLE"] == 'a "difesa" integrata'
+
+
+def test_youtube_video_sem_titulo_nem_descricao_e_erro_com_nome():
+    r = RM.youtube_metadados_do_video(url="https://www.youtube.com/watch?v=x", buscar=leitor("{}"))
+    assert "REGISTO" not in r and "nao declarou titulo nem descricao" in r["ERRO"]
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # INSTAGRAM — Reel por URL directa (D22) e listagem /embed/ (provada 23/09)
 # ══════════════════════════════════════════════════════════════════════════════

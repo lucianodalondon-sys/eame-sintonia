@@ -135,16 +135,14 @@ def colher_alvo(linha: str, a: dict, buscar) -> dict:
     """Os bytes de UM alvo, pela porta. → {"BYTES", "URL", "MEDIA_TYPE", "PEDIDOS"} ou {"ERRO"}."""
     import rotas_multicanal as RM                                  # noqa: PLC0415
     if linha == "YOUTUBE":
-        # FETCH_VIDEO_METADATA `youtube:oembed` = PROVED na matriz social, 0 USD, sem chave.
+        # METADADOS/DESCRICAO, como a missao manda — da pagina publica do video, que o robots APROVA.
         # A transcricao NAO entra aqui: `yt-dlp:public_audio` esta PROVED mas e PROCESSO FILHO, e o
-        # registo de rotas desta casa proibe processo filho. Metadados/descricao, como a missao manda.
-        o = "https://www.youtube.com/oembed?url=%s&format=json" % urllib.parse.quote(a["URL"], safe="")
-        r = buscar(o, "application/json")
-        if r.get("ERRO") or r.get("STATUS") != 200:
-            return {"ERRO": "oembed nao respondeu 200 (status %s%s)" % (r.get("STATUS") or 0,
-                    ", " + r["ERRO"] if r.get("ERRO") else ""), "PEDIDOS": 1, "URL": o}
-        return {"BYTES": r["BYTES"], "URL": a["URL"], "URL_PEDIDA": o, "MEDIA_TYPE": "application/json",
-                "PEDIDOS": 1, "ROTA": "youtube:oembed"}
+        # registo de rotas desta casa proibe processo filho. Fica declarado como capacidade por ligar.
+        r = RM.youtube_metadados_do_video(url=a["URL"], buscar=buscar)
+        if r.get("ERRO"):
+            return r
+        return {"BYTES": r["BYTES"], "URL": r["URL"], "MEDIA_TYPE": r["MEDIA_TYPE"],
+                "PEDIDOS": r["PEDIDOS"], "ROTA": r["ROTA"], "REGISTO": r["REGISTO"]}
     if linha == "INSTAGRAM":
         r = RM.instagram_reel(url=a["URL"], buscar=buscar)
         if r.get("ERRO"):

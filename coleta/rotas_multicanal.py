@@ -123,6 +123,71 @@ def youtube_videos_do_canal(*, channel_id, buscar, max_alvos=None):
             "IDENTIDADE_CONFERIDA": channel_id, "VIDEOS_NA_PAGINA": len(ids)}
 
 
+# ── OS METADADOS DE UM VIDEO ──────────────────────────────────────────────────────────────────────────
+# O `oembed` responde 200, e 0 USD, e traz TITULO e AUTOR — e mais nada. Medido no canario de 29/09: com
+# so isso, a Admission respondeu NAO_SEI ao universo em 3 de 5 videos («so uma palavra de T7 aparece»), e
+# tinha razao: duas linhas de texto nao chegam para dizer de que assunto e um video.
+#
+#     A ROTA FUNCIONAR NAO E A COLHEITA SERVIR. Bytes que chegam e texto que nao dá para julgar sao uma
+#     colheita que passa nos gates e nao alimenta ninguem.
+#
+# A pagina `/watch?v=` traz a DESCRICAO inteira, e o portao de robots da casa APROVA-A (medido: PERMITIDO,
+# ao contrario de `/feeds/videos.xml`). Custa o mesmo 1 pedido que o oembed. E o que se guarda e um
+# REGISTO DE METADADOS (application/json), nao a pagina: assim a pergunta «isto e capa ou materia?», que e
+# para paginas de noticia, nao se aplica a um video — que nao e nem uma nem outra.
+# O JSON vem embutido no HTML: le-se cada campo pelo seu nome, com o escape do JSON preservado
+# (`(?:[^"\\]|\\.)*` aceita `\"` dentro do valor) e desfeito depois por `_desescapar`. Cortar no primeiro
+# `"` perderia metade de qualquer descricao que cite alguem.
+# O YouTube serve o JSON MINIFICADO, mas os moldes toleram espaco a volta dos dois pontos: um molde que
+# so casa com a forma minificada parte em silencio no dia em que a pagina vier formatada, e o sintoma
+# seria «o video nao declarou titulo» — que soa a problema da fonte e e problema nosso.
+_TXT = r'\s*:\s*"((?:[^"\\]|\\.)*)"'
+RE_YT_TITULO = re.compile(r'"videoDetails"\s*:\s*\{(?:[^{}]|\{[^{}]*\})*?"title"' + _TXT)
+RE_YT_DESC = re.compile(r'"shortDescription"' + _TXT)
+RE_YT_AUTOR = re.compile(r'"author"' + _TXT)
+RE_YT_DATA = re.compile(r'"(?:publishDate|uploadDate)"\s*:\s*"(\d{4}-\d{2}-\d{2})')
+RE_YT_KEYWORDS = re.compile(r'"keywords"\s*:\s*\[([^\]]*)\]')
+
+
+def _desescapar(v):
+    try:
+        return json.loads('"%s"' % v)
+    except ValueError:
+        return v
+
+
+def youtube_metadados_do_video(*, url, buscar):
+    """Os metadados publicos de UM video, da pagina `/watch` (robots PERMITE). → {"REGISTO", "BYTES", ...}.
+
+    Nao guarda a pagina: guarda o que ela DECLARA sobre o video. `PUBLISHED_AT` sai do proprio documento —
+    nunca do nosso relogio."""
+    if not callable(buscar):
+        return {"ERRO": "SEM_TRANSPORTE: esta rota nao inventa transporte", "PEDIDOS": 0}
+    r = buscar(url)
+    if r.get("ERRO") or r.get("STATUS") != 200:
+        return {"ERRO": "a pagina do video nao respondeu 200 (status %s%s)"
+                % (r.get("STATUS") or 0, ", " + r["ERRO"] if r.get("ERRO") else ""),
+                "PEDIDOS": 1, "URL": url, "QUEM_DISSE_NAO": r.get("QUEM_DISSE_NAO")}
+    html = (r.get("BYTES") or b"").decode("utf-8", "replace")
+    t, d = RE_YT_TITULO.search(html), RE_YT_DESC.search(html)
+    a, q = RE_YT_AUTOR.search(html), RE_YT_DATA.search(html)
+    kw = RE_YT_KEYWORDS.search(html)
+    registo = {
+        "TITLE": _desescapar(t.group(1)) if t else None,
+        "DESCRIPTION": _desescapar(d.group(1)) if d else None,
+        "AUTHOR": _desescapar(a.group(1)) if a else None,
+        "PUBLISHED_AT": q.group(1) if q else None,          # do documento, nunca do nosso relogio
+        "KEYWORDS": [_desescapar(x.strip().strip('"')) for x in kw.group(1).split(",")][:40] if kw else [],
+        "URL": url, "ROTA": "youtube:pagina-publica-do-video",
+    }
+    if not (registo["TITLE"] or registo["DESCRIPTION"]):
+        return {"ERRO": "a pagina do video respondeu 200 e nao declarou titulo nem descricao",
+                "PEDIDOS": 1, "URL": url}
+    return {"REGISTO": registo, "BYTES": json.dumps(registo, ensure_ascii=False, sort_keys=True).encode("utf-8"),
+            "URL": url, "MEDIA_TYPE": "application/json", "PEDIDOS": 1,
+            "ROTA": "youtube:pagina-publica-do-video"}
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # INSTAGRAM — o Reel por URL directa, e a listagem por /embed/ da conta
 # ══════════════════════════════════════════════════════════════════════════════
