@@ -377,6 +377,12 @@ class P1_AsTelas(unittest.TestCase):
         self.C["TELAS"][CONTRATO["TELAS"]["DEBUG"]["TELA"]]["POTE_RECUSADO"] = True
         self.assertIn("C5_DEBUG_TEM_O_POTE_INTEIRO", ids(self.conf()))
 
+    def test_tela_com_erro_de_pintura_reprova(self):
+        """D156: medido 29/09 12:36 — #future abriu com renderVals() e o modelo null. A segunda tentativa decide;
+        se ela tambem falha, reprova."""
+        self.C["TELAS"]["future"]["ERRO_DE_PINTURA"] = True
+        self.assertIn("C5_CLIENTE_SEM_CAMADA_TECNICA", ids(self.conf()))
+
     def test_camada_tecnica_na_tela_do_cliente(self):
         """D152: a faixa EXPERIMENTAL e o pote so no debug. Na tela do cliente, reprova."""
         self.C["TELAS"]["windows"].update(POTE_NA_TELA=True, MARCA=True, POTE_OBJETOS=2)
