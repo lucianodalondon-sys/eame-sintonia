@@ -46,7 +46,7 @@
         "COMO_A_GUARDA_LE_ISTO": "leis/fundacao_da_coleta.py → excecao_vigente exige estes seis valores LITERAIS. Mudar qualquer um deles (para alargar ou para outra coisa) nao alarga a excecao: invalida-a, e a guarda volta a bloquear tudo."
       },
       "ESCOPO": {
-        "DESTINO": "SO o preview do Casco original: build local, ou deployment de preview da Vercel de uma branch que NAO e de promocao.",
+        "DESTINO": "SO o preview do Casco original: build local, ou deployment de preview da Vercel de uma branch que NAO e de promocao. MEDIDO em runtime (adendo do red team 29/09): build local = a branch real do git/build tem de ser a declarada; preview da Vercel = o proprio deployment tem de responder system-map/deployment.generated.json com SOURCE_BRANCH igual a declarada e fora de producao. Nao respondeu = recusa. PARA_CLIENTE nao se mede: sai como ALEGADO e so restringe.",
         "DESTINOS_TIPO": [
           "BUILD_LOCAL",
           "VERCEL_PREVIEW"
@@ -59,14 +59,22 @@
         ]
       },
       "ENTRADA": {
-        "SALA": "SO leitura, por copia/snapshot READ_ONLY. Nunca a Sala real diretamente, nunca escrita.",
+        "SALA": "SO leitura, por copia/snapshot READ_ONLY. Nunca a Sala real diretamente, nunca escrita. PROVA exigida pela guarda (red team 29/09): SNAPSHOT.FICHEIRO existe, o sha256 dele bate com SNAPSHOT.SHA256, esse sha aparece no CORTE do pote, e nada no pedido nem no CORTE aponta a Sala viva (porta 54330, DSN do ambiente, Supabase).",
         "TIPO": "SALA_COPIA_READ_ONLY"
       },
       "SAIDA": {
         "SO": "objetos com LIBERACAO = LIBERADO_PARA_CLIENTE (contrato de liberacao por objeto v2.2: C1..C7 = PASSOU e C8 = decisao do dono), LIBERADO_POR = INTELLIGENCE, da mesma corrida, num pote que passa todos os gates do pote v2 (pacote/validar_pote_v2.py: forma + conferir_pote).",
         "UM_OBJETO_NAO_LIBERADO_RECUSA_O_POTE_INTEIRO": "a guarda nao filtra nem reescreve o pote — o contrato v2.2 proibe filtrar depois de a Intelligence escrever."
       },
-      "PROVA": "OBRIGATORIA: prova reversa do LAB (TELA → POTE → INTELLIGENCE → SALA → RAW → FONTE) com VEREDITO = PASS e o sitio onde esta. Sem ela, a guarda recusa.",
+      "PROVA": "OBRIGATORIA: prova reversa do LAB (TELA → POTE → INTELLIGENCE → SALA → RAW → FONTE). A guarda (red team 29/09) exige que PROVA_REVERSA_DO_LAB.ONDE seja um ficheiro que EXISTE, diz VEREDITO=PASS numa linha propria (ou em JSON) sem contradicao, e cita o sha256 deste pote (canonico, ou do ficheiro POTE_FICHEIRO que diz o mesmo pote). O conteudo da prova e ALEGADO para a guarda: le-o o LAB e o auditor.",
+      "BLOQUEIO_DE_POLITICA_C8": {
+        "ESTADO": "BLOQUEIO_DE_POLITICA",
+        "O_QUE_E": "o contrato de liberacao v2.2 (fora do Git, dono Intelligence) exige C8_DECISAO_DO_DONO em cada objeto. A guarda (red team 29/09) so aceita C8 que COMECE por um ID de decisao (Dnnn) escrito neste diario, do dono e nao revogado — texto livre nunca casa.",
+        "O_QUE_ISTO_CAUSA_HOJE": "os 2 objetos da R9 citam em C8 uma ordem do dono dada na sala SINTONIA DIRETORIA (28/09), que nao tem ID no diario. Pela guarda nova, a R9 e RECUSADA. Nao se aceita o texto livre para a deixar passar.",
+        "PORQUE_E_DE_POLITICA": "um C8 humano POR OBJETO nao deixa o loop vivo acontecer (D141 requisito 9: ninguem dispara etapa). Uma decisao registada pode cobrir muitos objetos, por criterio — mas hoje nenhuma decisao do diario cobre a liberacao de itens NOVOS.",
+        "O_QUE_FALTA": "decisao do dono, registada neste diario com ID, que diga que objetos a Intelligence pode liberar sem humano a cada item (o criterio), ou que confirme o C8 humano por objeto — e nesse caso LOOP_VIVO_REPETIVEL fica bloqueado por politica, nao por codigo.",
+        "QUEM_DECIDE": "o dono. Nao e decisao desta missao."
+      },
       "CRITERIOS_A_N_E_ESTA_EXCECAO": {
         "OBRIGATORIOS_PARA_O_PREVIEW": [
           "L"

@@ -110,9 +110,21 @@ def pode_implementar_inteligencia():
 #     A EXCECAO NAO TOCA EM COLLECTION_FOUNDATION_CLOSED.
 #     pode_implementar_inteligencia() continua a dizer NAO.
 #
-# O que a guarda NAO consegue provar sozinha, e por isso pede declarado no
-# pedido: que a copia da Sala e mesmo READ_ONLY, e que a prova do LAB diz o que
-# diz. Ela recusa quem nao declara; nao verifica o conteudo dessas duas.
+# ⚠️ RED TEAM DO BOT LUCIANO (29/09, sobre 7f3dc857c): a primeira versao
+# aceitava TEXTO onde devia exigir PROVA — um ONDE do LAB para um ficheiro que
+# nao existia, um C8 com qualquer frase, e READ_ONLY = True so dito. Os tres
+# passavam. Agora cada um e CONFERIDO:
+#
+#     LAB   o ficheiro existe, diz VEREDITO=PASS numa linha propria, e cita o
+#           sha256 DESTE pote (do dict canonico, ou do ficheiro do pote);
+#     C8    comeca por um ID de decisao (Dnnn) escrito no diario, do dono, e
+#           nao revogado — texto livre nao casa com nada;
+#     SALA  a copia existe, o sha256 dela bate, o pote diz que foi feito DELA
+#           (o sha aparece no CORTE), e nada no pedido aponta a Sala viva.
+#
+# O que continua a nao se provar aqui: que o conteudo do relatorio do LAB e
+# VERDADEIRO. A guarda prova que ele existe e fala deste pote; ler a prova
+# reversa e trabalho do LAB e do auditor.
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TRAVA = os.path.join(RAIZ, 'docs', 'operacao', 'TRAVA-DA-INTELIGENCIA.json')
 DIARIO = os.path.join(RAIZ, 'docs', 'decisoes', 'DIARIO-DE-DECISOES.md')
@@ -132,6 +144,13 @@ CONFERENCIAS_QUE_PASSAM = ('C1_PROVA_DO_ARQUIVO', 'C2_DATA_PROPRIA', 'C3_LUGAR_P
                            'C4_LIGACAO_ADAMA', 'C5_SEM_DUPLICADO',
                            'C6_ESPECIE_DO_COMPARTIMENTO', 'C7_SO_SAIDA_DA_INTELLIGENCE')
 DECISAO_DO_DONO = 'C8_DECISAO_DO_DONO'
+#: A Sala VIVA, como a casa a escreve (BIG-COLLECTION-RUNBOOK.md, RUN-MANIFEST):
+#: nenhum pedido pode apontar para ela. Os DSN do ambiente tambem contam.
+SALA_VIVA_PORTAS = ('54330',)
+SALA_VIVA_ENV = ('SINTONIA_SALA_DSN', 'SUPABASE_DB_URL')
+SALA_VIVA_HOSTS = ('supabase.co', 'supabase.com')
+_CAMPOS_DE_LIGACAO = ('DSN', 'HOST', 'PORTA', 'PORT', 'URL', 'MORADA', 'ORIGEM')
+_TAMANHO_MAXIMO_DA_PROVA = 20 * 1024 * 1024
 #: O ambito exato da D140, como o coordenador o pediu escrito. A guarda LE-o no
 #: contrato e exige-o literal: um valor diferente nao alarga — invalida.
 AMBITO_EXATO = {'DESTINO': 'SO_PREVIEW', 'SALA_LEITURA': 'SO_COPIA_READ_ONLY',
@@ -188,7 +207,228 @@ def artefatos_autorizados(trava, diario, publicacao, ramos=()):
             if isinstance(a, dict) and a.get('PATH') and len(str(a.get('GIT_BLOB_SHA') or '')) == 40}
 
 
-def _objetos_nao_liberados(pote):
+def _sha256_ficheiro(caminho):
+    import hashlib
+    h = hashlib.sha256()
+    with open(caminho, 'rb') as f:
+        for bloco in iter(lambda: f.read(1 << 20), b''):
+            h.update(bloco)
+    return h.hexdigest()
+
+
+def sha256_do_pote(pote):
+    """O sha256 do pote CANONICO: JSON com chaves ordenadas, sem espacos, UTF-8.
+    Nao depende de como o ficheiro foi escrito — so do que o pote diz."""
+    import hashlib
+    import json
+    return hashlib.sha256(json.dumps(pote, sort_keys=True, ensure_ascii=False,
+                                     separators=(',', ':')).encode('utf-8')).hexdigest()
+
+
+def _caminho(rel):
+    if not isinstance(rel, str) or not rel.strip():
+        return None
+    return rel if os.path.isabs(rel) else os.path.join(RAIZ, rel)
+
+
+def _ler_pote_do_ficheiro(caminho):
+    import json
+    with open(caminho, encoding='utf-8') as f:
+        texto = f.read()
+    if caminho.endswith('.js'):
+        i = texto.find('= ')
+        texto = texto[i + 2:].rstrip().rstrip(';') if i >= 0 else texto
+    return json.loads(texto)
+
+
+def _shas_que_nomeiam_o_pote(pedido, pote):
+    """O sha canonico, e o sha do ficheiro do pote SE esse ficheiro diz o mesmo pote."""
+    shas = {sha256_do_pote(pote)}
+    f = _caminho(pedido.get('POTE_FICHEIRO'))
+    if f and os.path.isfile(f):
+        try:
+            if _ler_pote_do_ficheiro(f) == pote:
+                shas.add(_sha256_ficheiro(f))
+        except (OSError, ValueError):
+            pass
+    return shas
+
+
+def conferir_prova_do_lab(lab, shas_do_pote):
+    """-> motivo da recusa, ou None. O ONDE tem de ser um ficheiro que existe,
+    que diz VEREDITO=PASS numa linha propria (ou em JSON) e cita este pote."""
+    import json
+    import re
+    if not isinstance(lab, dict):
+        return 'sem a prova reversa do LAB'
+    f = _caminho(lab.get('ONDE'))
+    if not f or not os.path.isfile(f):
+        return 'a prova do LAB %r nao existe' % lab.get('ONDE')
+    if os.path.getsize(f) > _TAMANHO_MAXIMO_DA_PROVA:
+        return 'a prova do LAB e grande demais para ser lida'
+    try:
+        with open(f, encoding='utf-8') as h:
+            texto = h.read()
+    except (OSError, UnicodeDecodeError) as e:
+        return 'a prova do LAB nao se le: %s' % e
+    try:
+        obj = json.loads(texto)
+        veredito = obj.get('VEREDITO') if isinstance(obj, dict) else None
+    except ValueError:
+        linhas = re.findall(r'^[\s>*|#\-]*VEREDITO[*\s]*[=:][*\s`]*([A-Z_]+)', texto, re.M)
+        veredito = linhas[0] if len(set(linhas)) == 1 else ('AMBIGUO' if linhas else None)
+    if veredito != 'PASS':
+        return 'a prova do LAB nao diz VEREDITO=PASS (diz %r)' % veredito
+    if not any(s in texto.lower() for s in shas_do_pote):
+        return 'a prova do LAB nao cita o sha256 deste pote'
+    return None
+
+
+def _secoes_do_diario(diario):
+    """{ 'D140': texto da seccao } — so as seccoes `## Dnnn ·` / `## Dnnn —`."""
+    import re
+    secoes, atual, linhas = {}, None, []
+    for linha in diario.splitlines():
+        if linha.startswith('## '):
+            if atual:
+                secoes[atual] = '\n'.join(linhas)
+            m = re.match(r'## (D\d{2,4})\s*[·—-]', linha)
+            atual, linhas = (m.group(1) if m else None), [linha]
+        elif atual:
+            linhas.append(linha)
+    if atual:
+        secoes[atual] = '\n'.join(linhas)
+    return secoes
+
+
+def decisao_registada(c8, diario):
+    """-> (ID, None) se o C8 comeca por uma decisao do DONO escrita no diario e
+    nao revogada; senao (None, motivo). Texto livre nunca casa."""
+    import re
+    m = re.match(r'\s*(D\d{2,4})\b', str(c8 or ''))
+    if not m:
+        return None, 'C8 nao comeca por um ID de decisao (Dnnn): texto livre nao e autorizacao'
+    ident = m.group(1)
+    sec = _secoes_do_diario(diario).get(ident)
+    if sec is None:
+        return None, 'a decisao %s nao esta registada no diario' % ident
+    if re.search(r'\*\*Estado:\*\*\s*REVOGAD', sec) or re.search(r'\bREVOGA\s+%s\b' % ident, diario):
+        return None, 'a decisao %s foi revogada' % ident
+    if not re.search(r'\bdono\b', sec, re.I):
+        return None, 'a decisao %s nao e do dono' % ident
+    return ident, None
+
+
+def _aponta_a_sala_viva(valor):
+    v = str(valor or '').lower()
+    if not v:
+        return False
+    if any(':' + p in v or v == p for p in SALA_VIVA_PORTAS):
+        return True
+    if any(h in v for h in SALA_VIVA_HOSTS):
+        return True
+    return any(os.environ.get(n) and os.environ[n].strip().lower() in v for n in SALA_VIVA_ENV)
+
+
+def _valores(x):
+    if isinstance(x, dict):
+        for v in x.values():
+            yield from _valores(v)
+    elif isinstance(x, list):
+        for v in x:
+            yield from _valores(v)
+    else:
+        yield x
+
+
+def conferir_entrada(ent, pote):
+    """-> motivo da recusa, ou None. READ_ONLY nao se diz: prova-se com a copia."""
+    if not isinstance(ent, dict) or ent.get('TIPO') != ENTRADA_READ_ONLY or ent.get('READ_ONLY') is not True:
+        return 'a Sala so entra por copia/snapshot READ_ONLY'
+    for k in _CAMPOS_DE_LIGACAO:
+        if _aponta_a_sala_viva(ent.get(k)):
+            return 'a entrada aponta para a Sala VIVA (%s): so a copia entra' % k
+    snap = ent.get('SNAPSHOT')
+    if not isinstance(snap, dict):
+        return 'READ_ONLY sem prova: falta a copia/snapshot da Sala'
+    f = _caminho(snap.get('FICHEIRO'))
+    declarado = str(snap.get('SHA256') or '').lower()
+    if not f or not os.path.isfile(f):
+        return 'READ_ONLY sem prova: a copia/snapshot da Sala nao existe'
+    if len(declarado) != 64 or _sha256_ficheiro(f) != declarado:
+        return 'o sha256 da copia da Sala nao bate com o declarado'
+    corte = pote.get('CORTE')
+    if not isinstance(corte, dict) or declarado not in {str(v).lower() for v in _valores(corte)}:
+        return 'o pote nao diz que foi feito desta copia (o sha256 nao esta no CORTE)'
+    ro = corte.get('TRANSACTION_READ_ONLY')
+    if ro is not None and not str(ro).lower().startswith('on'):
+        return 'o CORTE do pote diz TRANSACTION_READ_ONLY=%r' % ro
+    if any(_aponta_a_sala_viva(v) for v in _valores(corte)):
+        return 'o CORTE do pote aponta para a Sala VIVA'
+    return None
+
+
+class Verificador:
+    """O que a guarda consegue ver com os PROPRIOS olhos, em runtime.
+
+    ADENDO DO RED TEAM (29/09): BRANCH, HOST e PARA_CLIENTE eram ALEGACOES do
+    pedido. O que se consegue medir mede-se aqui; o resto sai no motivo como
+    ALEGADO e nao conta como prova. Os testes trocam esta classe por uma falsa
+    (sem rede, sem git); a guarda nao muda."""
+
+    ENV_DO_RAMO = ('VERCEL_GIT_COMMIT_REF', 'GITHUB_HEAD_REF', 'GITHUB_REF_NAME')
+
+    def ramo_real(self):
+        """A branch em que ESTA arvore corre: a do build (Vercel/CI) ou a do git."""
+        for k in self.ENV_DO_RAMO:
+            if os.environ.get(k):
+                return os.environ[k]
+        import subprocess
+        try:
+            r = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=RAIZ,
+                               capture_output=True, text=True, timeout=20)
+        except (OSError, subprocess.SubprocessError):
+            return None
+        ramo = r.stdout.strip() if r.returncode == 0 else ''
+        return ramo if ramo and ramo != 'HEAD' else None
+
+    def deployment(self, host):
+        """O que o PROPRIO deployment diz de si (system-map/deployment.generated.json,
+        que nasce no build). None se nao responder — e ai nada esta provado."""
+        import json
+        import urllib.request
+        try:
+            with urllib.request.urlopen('https://%s/system-map/deployment.generated.json' % host,
+                                        timeout=15) as r:
+                return json.loads(r.read().decode('utf-8'))
+        except Exception:  # noqa: BLE001 — qualquer falha = nao verificado
+            return None
+
+
+def conferir_destino(d, ramo, publicacao, verificar):
+    """-> (motivo da recusa ou None, [verificado]). A branch e o host medem-se."""
+    if d.get('TIPO') == 'BUILD_LOCAL':
+        real = verificar.ramo_real()
+        if not real:
+            return 'a branch real nao se consegue medir: BRANCH fica ALEGADA e nao prova nada', []
+        if ramo_de_producao(real, publicacao):
+            return 'a arvore real corre na branch de producao %s' % real, []
+        if real != ramo:
+            return 'branch declarada %r, branch real %r' % (ramo, real), []
+        return None, ['BRANCH=%s (medida no git/build)' % real]
+    dep = verificar.deployment(d.get('HOST'))
+    if not isinstance(dep, dict):
+        return ('o deployment %s nao respondeu: HOST e BRANCH ficam ALEGADOS e nao provam nada'
+                % d.get('HOST')), []
+    src = dep.get('SOURCE_BRANCH')
+    if not src or ramo_de_producao(src, publicacao):
+        return 'o deployment %s diz SOURCE_BRANCH=%r' % (d.get('HOST'), src), []
+    if src != ramo:
+        return 'branch declarada %r, o deployment diz %r' % (ramo, src), []
+    return None, ['HOST=%s respondeu SOURCE_BRANCH=%s (Vercel)' % (d.get('HOST'), src)]
+
+
+def _objetos_nao_liberados(pote, diario):
     """Os objetos do pote que o contrato de liberacao v2.2 nao deixa sair."""
     run = pote.get('INTELLIGENCE_RUN_ID')
     maus, n = [], 0
@@ -204,6 +444,8 @@ def _objetos_nao_liberados(pote):
                 maus.append(oid + ' com conferencia C1..C7 que nao PASSOU')
             elif not c8.strip() or c8.startswith('FALHOU'):
                 maus.append(oid + ' sem ' + DECISAO_DO_DONO)
+            elif decisao_registada(c8, diario)[0] is None:
+                maus.append(oid + ': ' + decisao_registada(c8, diario)[1])
             elif o.get('LIBERADO_POR') != 'INTELLIGENCE' or o.get('LIBERADO_NA_CORRIDA') != run:
                 maus.append(oid + ' nao liberado pela Intelligence nesta corrida')
     return maus, n
@@ -218,11 +460,12 @@ def _validar_pote_v2(pote):
     return validar_pote_v2.validar(pote)
 
 
-def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_pote_v2):
+def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_pote_v2, verificar=None):
     """-> (pode, motivo). O padrao e NAO. So o caminho do preview declarado passa.
 
     pedido = {OPERACAO, DESTINO: {TIPO, BRANCH, HOST, PARA_CLIENTE},
-              ENTRADA: {TIPO, READ_ONLY}, POTE, PROVA_REVERSA_DO_LAB: {VEREDITO, ONDE}}"""
+              ENTRADA: {TIPO, READ_ONLY, SNAPSHOT: {FICHEIRO, SHA256}},
+              POTE, POTE_FICHEIRO?, PROVA_REVERSA_DO_LAB: {VEREDITO, ONDE}}"""
     if pedido.get('OPERACAO') != PUBLICAR_NO_PREVIEW:
         return False, '%s · operacao %r: a Sala nunca se escreve por aqui, e a excecao so publica no preview' % (
             BLOQUEIO, pedido.get('OPERACAO'))
@@ -250,29 +493,44 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
         return False, '%s · build local com host publico %r' % (BLOQUEIO, host)
     if d.get('TIPO') == 'VERCEL_PREVIEW' and not (host and str(host).endswith('.vercel.app')):
         return False, '%s · preview da Vercel sem host de deployment' % BLOQUEIO
-    ent = pedido.get('ENTRADA') or {}
-    if ent.get('TIPO') != ENTRADA_READ_ONLY or ent.get('READ_ONLY') is not True:
-        return False, '%s · a Sala so entra por copia/snapshot READ_ONLY' % BLOQUEIO
-    lab = pedido.get('PROVA_REVERSA_DO_LAB') or {}
-    if lab.get('VEREDITO') != 'PASS' or not str(lab.get('ONDE') or '').strip():
-        return False, '%s · sem a prova reversa do LAB (VEREDITO=PASS e onde esta)' % BLOQUEIO
+    problema, verificado = conferir_destino(d, ramo, publicacao, verificar or Verificador())
+    if problema:
+        return False, '%s · %s' % (BLOQUEIO, problema)
+    alegado = ['PARA_CLIENTE=False (intencao do pedido: so restringe, nao abre nada)']
     pote = pedido.get('POTE')
     if not isinstance(pote, dict):
         return False, '%s · sem pote' % BLOQUEIO
+    problema = conferir_entrada(pedido.get('ENTRADA'), pote)
+    if problema:
+        return False, '%s · %s' % (BLOQUEIO, problema)
+    verificado.append('COPIA DA SALA sha256=%s existe, bate e o CORTE do pote cita-a'
+                      % str(pedido['ENTRADA']['SNAPSHOT']['SHA256'])[:16])
+    alegado.append('TRANSACTION_READ_ONLY dentro do CORTE (dito pelo motor que fez a copia)')
+    lab = pedido.get('PROVA_REVERSA_DO_LAB')
+    if not isinstance(lab, dict) or lab.get('VEREDITO') != 'PASS':
+        return False, '%s · sem a prova reversa do LAB (VEREDITO=PASS e onde esta)' % BLOQUEIO
+    problema = conferir_prova_do_lab(lab, _shas_que_nomeiam_o_pote(pedido, pote))
+    if problema:
+        return False, '%s · %s' % (BLOQUEIO, problema)
+    verificado.append('LAB: %s existe, diz VEREDITO=PASS e cita o sha256 do pote' % lab['ONDE'])
+    alegado.append('o CONTEUDO da prova reversa do LAB (nao e relido aqui)')
     violacoes = validar(pote)
     if violacoes:
         return False, '%s · o pote reprova nos gates do pote v2: %s' % (BLOQUEIO, violacoes[0])
-    maus, n = _objetos_nao_liberados(pote)
+    maus, n = _objetos_nao_liberados(pote, diario)
     if n == 0:
         return False, '%s · pote sem objeto liberado: nada a publicar' % BLOQUEIO
     if maus:
         return False, '%s · %d objeto(s) nao liberado(s), o pote inteiro fica: %s' % (BLOQUEIO, len(maus), maus[0])
     if 'OBJETOS_LIBERADOS' in pote and pote['OBJETOS_LIBERADOS'] != n:
         return False, '%s · OBJETOS_LIBERADOS=%r e o pote traz %d' % (BLOQUEIO, pote['OBJETOS_LIBERADOS'], n)
+    verificado.append('C8: cada objeto cita decisao do dono registada e nao revogada')
     return True, ('EXCECAO %s (%s) · %d objeto(s) liberado(s) para %s na branch %s · '
-                  'COLLECTION_FOUNDATION_CLOSED continua %s' % (
+                  'COLLECTION_FOUNDATION_CLOSED continua %s · VERIFICADO: %s · '
+                  'ALEGADO (nao conta como prova): %s' % (
                       EXCECAO_PREVIEW, AUTORIDADE_PREVIEW, n, d['TIPO'], ramo,
-                      'SIM' if COLLECTION_FOUNDATION_CLOSED else 'NAO'))
+                      'SIM' if COLLECTION_FOUNDATION_CLOSED else 'NAO',
+                      '; '.join(verificado), '; '.join(alegado)))
 
 
 # ── OS 14 CRITERIOS A..N, MEDIDOS — E NAO DIGITADOS ─────────────────────────
