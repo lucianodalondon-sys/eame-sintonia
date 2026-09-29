@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  37ca629aeafecff2abb0cc57f05adeb2c66c761f
+HEAD_DA_MEDICAO  3c2cab88d2cc69265e623780e0aa5307e8057c38
 BRANCH           claude/l2-disparador-v1
-GERADO_EM        2026-09-28T22:07:40-03:00
+GERADO_EM        2026-09-28T23:05:28-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
