@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "lucianodalondon-sys/integra-busca-sobre-fd8c946",
-    "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
-    "GENERATED_AT": "2026-09-28T21:26:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82"
+    "BRANCH": "claude/l2-disparador-v1",
+    "HEAD": "37ca629aeafecff2abb0cc57f05adeb2c66c761f",
+    "GENERATED_AT": "2026-09-28T22:07:40-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6f3e45d7b109383230808008fa9b56a130f7a18cfee8313752958d4de37357d0"
   },
   "FILES": [
     {
@@ -487,6 +487,13 @@
     {
       "path": "INTEGRA-NOITE-LOTE4.md",
       "sha": "738550cbf60ccb361fce5cb8a43b28bae5f382cb",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "L2-DISPARADOR.md",
+      "sha": "a93226f3030371a597d56d403b06833b5de0c7cf",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1271,6 +1278,13 @@
     {
       "path": "admissao/admissao.py",
       "sha": "4b7cd7c2f72d6b6ed77bd93563cd6512f2205b84",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "admissao/gatilho_da_inteligencia.py",
+      "sha": "0ffa8b846f1ebcf140a6b415dda1ee171737a6f4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2915,7 +2929,7 @@
     },
     {
       "path": "curadoria/.gitignore",
-      "sha": "22b4e471116906402f51e181b0c27ae0f4112623",
+      "sha": "3424439d1ffefd3eb8c725621b34c131047a22b3",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -19140,6 +19154,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/vigia_da_esteira.py",
+      "sha": "cb6b13639a317973b68c80696152a78db6a5d21c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "medidas/voz.py",
       "sha": "0208fe739bd7ad1ac0ed7f5fa6d106112a42bdf0",
       "ext": ".py",
@@ -21859,6 +21880,62 @@
       "path": "provas/janela_formas/pagina_boletim_local.mjs",
       "sha": "c8bf85f4283cee321fde692c3d98db2d3725dc68",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l2/ENSAIO-DISPARADOR.json",
+      "sha": "32ca754915ef3c3f1623a93272c4796607e72a5e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l2/MUTANTES.json",
+      "sha": "d8b4b68994a6321966ec05a67ec703dfbe060bfe",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l2/PARA-O-CASCO.md",
+      "sha": "cba50bef5e84420ce906dcd3874d9d79b8a9f89d",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l2/R9-AUTO-VS-MANUAL.json",
+      "sha": "db09d75649b0995738c598ce940cb329e361da9d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l2/R9-AUTO-VS-MANUAL.md",
+      "sha": "d33bd36d113a72c4acf71a9cdaa1f99c39b0bdb7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l2/ensaio_disparador.py",
+      "sha": "3df403a31e26c72625280bff2248e8a6eeed9587",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l2/mutantes.py",
+      "sha": "dd8e156a53177fb85d40619c5e79da5473fa514e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l2/r9_auto_vs_manual.py",
+      "sha": "39181bca3f93b98463dff8b4063bb8b5741871ae",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -25000,7 +25077,7 @@
     },
     {
       "path": "scripts/micro_coleta/ensaio_offline.py",
-      "sha": "6eaa340dc8c882f289f8e8b2441e96901fec56d0",
+      "sha": "1a0c0434d26f27d6a52a09a1166f96a78a95fddc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25035,7 +25112,7 @@
     },
     {
       "path": "scripts/micro_coleta/provar_backup_da_sala.py",
-      "sha": "0fb475127ef2f991437a0dd4e9abf6cbd56d5d1a",
+      "sha": "63aaf70c3b74d36a2535af33d8cc1425190a6d40",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26302,7 +26379,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "658277e308ffda719a44d809a0320213d18f05c7",
+      "sha": "2a5e042ef6f05c1de61b0d4ebc5bd444a99a1650",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28051,6 +28128,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_disparador_intelligence.py",
+      "sha": "1b562a4e99a21df332422c954cdb913f5e00e341",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_edicoes_do_registro.py",
       "sha": "2791ee9b25efc2924c9ec1c4b60e3e0267d180ea",
       "ext": ".py",
@@ -28291,6 +28375,13 @@
     {
       "path": "tests/test_handoff.py",
       "sha": "b2197fdfed76ff936528e09196975cc6db4e282f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_harness_mutacao_l2.py",
+      "sha": "d5abdd6cafe0cc480bdf3c7d576751bdd8795284",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -31130,6 +31221,94 @@
         "file": "admissao/admissao.py",
         "line": 2070,
         "snippet": "import fato_do_texto as FT                                     # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 99,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 101,
+        "snippet": "import sala_de_espera as espera                  # noqa: E402 — dono da trava"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "guarda/cliente_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 193,
+        "snippet": "from guarda.cliente_postgres import resolver_psql       # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 105,
+        "snippet": "from afirmacao_da_fonte import ENTITY_SOURCES as LEI_221   # noqa: E402 — COL-LAW-221 (dono: leis/)"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 102,
+        "snippet": "import motor_das_capacidades as M                # noqa: E402 — o motor que ja existe"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "motor/r7_export_da_copia.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 120,
+        "snippet": "SQL_EXPORT = RAIZ / \"motor\" / \"r7_export_da_copia.sql\""
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 103,
+        "snippet": "import pote_intelligence_casco as P              # noqa: E402 — o gerador do pote"
+      }
+    },
+    {
+      "from_file": "admissao/gatilho_da_inteligencia.py",
+      "to_file": "pacote/validar_pote_v2.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/gatilho_da_inteligencia.py",
+        "line": 104,
+        "snippet": "import validar_pote_v2 as VP                     # noqa: E402 — o fiscal do pote"
       }
     },
     {
@@ -58501,6 +58680,39 @@
       }
     },
     {
+      "from_file": "medidas/vigia_da_esteira.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/vigia_da_esteira.py",
+        "line": 48,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "medidas/vigia_da_esteira.py",
+      "to_file": "data/collection-ledger/italy/logs/runs.log",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/vigia_da_esteira.py",
+        "line": 127,
+        "snippet": "p = Path(ops) / \"data\" / \"collection-ledger\" / \"italy\" / \"logs\" / \"runs.log\""
+      }
+    },
+    {
+      "from_file": "medidas/vigia_da_esteira.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/vigia_da_esteira.py",
+        "line": 110,
+        "snippet": "p = r / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\""
+      }
+    },
+    {
       "from_file": "motor/cadeia_canonica.sh",
       "to_file": "guarda/sql_conferir.py",
       "type": "RUNS",
@@ -73131,6 +73343,215 @@
       }
     },
     {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 55,
+        "snippet": "import _gavetas                            # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 60,
+        "snippet": "import admissao as ADM                     # noqa: E402  (admissao/admissao.py: JANELA_NAO_MEDIDA)"
+      }
+    },
+    {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 58,
+        "snippet": "import gatilho_da_inteligencia as GI       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 56,
+        "snippet": "import sala_de_espera as espera            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "medidas/vigia_da_esteira.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 59,
+        "snippet": "import vigia_da_esteira as VIG             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 57,
+        "snippet": "import motor_das_capacidades as M          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "provas/l2/ENSAIO-DISPARADOR.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 68,
+        "snippet": "SAIDA = AQUI.parent / \"ENSAIO-DISPARADOR.json\""
+      }
+    },
+    {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 62,
+        "snippet": "_spec = importlib.util.spec_from_file_location(\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")"
+      }
+    },
+    {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 66,
+        "snippet": "FIXTURE = RAIZ / \"tests\" / \"dados\" / \"int-r7\" / \"SINTETICO-R7-SALA-EXPORT.json\""
+      }
+    },
+    {
+      "from_file": "provas/l2/ensaio_disparador.py",
+      "to_file": "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/ensaio_disparador.py",
+        "line": 67,
+        "snippet": "CORRIDA_VALIDA = RAIZ / \"tests\" / \"fixtures\" / \"pote\" / \"CORRIDA-SINTETICA-V2-UNICO.json\""
+      }
+    },
+    {
+      "from_file": "provas/l2/mutantes.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/mutantes.py",
+        "line": 27,
+        "snippet": "GI = \"admissao/gatilho_da_inteligencia.py\""
+      }
+    },
+    {
+      "from_file": "provas/l2/mutantes.py",
+      "to_file": "medidas/vigia_da_esteira.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/mutantes.py",
+        "line": 28,
+        "snippet": "VIG = \"medidas/vigia_da_esteira.py\""
+      }
+    },
+    {
+      "from_file": "provas/l2/mutantes.py",
+      "to_file": "provas/l2/MUTANTES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/mutantes.py",
+        "line": 25,
+        "snippet": "SAIDA = Path(__file__).resolve().parent / \"MUTANTES.json\""
+      }
+    },
+    {
+      "from_file": "provas/l2/mutantes.py",
+      "to_file": "scripts/micro_coleta/provar_backup_da_sala.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/mutantes.py",
+        "line": 29,
+        "snippet": "PB = \"scripts/micro_coleta/provar_backup_da_sala.py\""
+      }
+    },
+    {
+      "from_file": "provas/l2/r9_auto_vs_manual.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/l2/r9_auto_vs_manual.py",
+        "line": 30,
+        "snippet": "import _gavetas                            # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/l2/r9_auto_vs_manual.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/l2/r9_auto_vs_manual.py",
+        "line": 32,
+        "snippet": "import gatilho_da_inteligencia as GI       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/l2/r9_auto_vs_manual.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/l2/r9_auto_vs_manual.py",
+        "line": 31,
+        "snippet": "import motor_das_capacidades as M          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/l2/r9_auto_vs_manual.py",
+      "to_file": "provas/l2/R9-AUTO-VS-MANUAL.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/r9_auto_vs_manual.py",
+        "line": 36,
+        "snippet": "SAIDA = AQUI.parent / \"R9-AUTO-VS-MANUAL.json\""
+      }
+    },
+    {
+      "from_file": "provas/l2/r9_auto_vs_manual.py",
+      "to_file": "provas/l2/R9-AUTO-VS-MANUAL.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l2/r9_auto_vs_manual.py",
+        "line": 133,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "provas/ligacao_adama/ligar_fixtures.py",
       "to_file": "motor/porta_da_referencia.py",
       "type": "IMPORTS",
@@ -84005,7 +84426,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 367,
+        "line": 370,
         "snippet": "\"ADMISSION_NAO\": {\"VALOR\": adm.get(\"NAO\", 0), \"PECA\": \"admissao/admissao.py\", \"ROTA\": \"READ_BY_INSTRUMENT\"},"
       }
     },
@@ -84016,7 +84437,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 93,
+        "line": 96,
         "snippet": "led = raiz / \"data\" / \"collection-ledger\" / \"italy\" / \"observations.ndjson\""
       }
     },
@@ -84027,7 +84448,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 539,
+        "line": 542,
         "snippet": "[r for r in ler_ndjson(led / \"runs.ndjson\") if r.get(\"RUN_ID\") in ids2],"
       }
     },
@@ -84038,7 +84459,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 570,
+        "line": 573,
         "snippet": "print(\"escrito:\", saida / \"ENSAIO-OFFLINE.json\", flush=True)"
       }
     },
@@ -84049,7 +84470,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 568,
+        "line": 571,
         "snippet": "(saida / \"ENSAIO-OFFLINE.json\").write_text(json.dumps(resultado, ensure_ascii=False, indent=1,"
       }
     },
@@ -84060,7 +84481,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 514,
+        "line": 517,
         "snippet": "livro=arvore / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\","
       }
     },
@@ -84071,7 +84492,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 475,
+        "line": 478,
         "snippet": "lanc = [sys.executable, \"medidas/corrida_sem_rede.py\", f\"--saida={medida}\", \"--\"] + cmd[2:]"
       }
     },
@@ -84082,7 +84503,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 195,
+        "line": 198,
         "snippet": "r = subprocess.run([shutil.which(\"bash\") or \"bash\", \"motor/cadeia_canonica.sh\","
       }
     },
@@ -99003,6 +99424,83 @@
       }
     },
     {
+      "from_file": "tests/test_disparador_intelligence.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_disparador_intelligence.py",
+        "line": 31,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_disparador_intelligence.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_disparador_intelligence.py",
+        "line": 34,
+        "snippet": "import gatilho_da_inteligencia as GI             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_disparador_intelligence.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_disparador_intelligence.py",
+        "line": 374,
+        "snippet": "texto = (RAIZ / \"admissao\" / \"gatilho_da_inteligencia.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "tests/test_disparador_intelligence.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_disparador_intelligence.py",
+        "line": 33,
+        "snippet": "import sala_de_espera as espera                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_disparador_intelligence.py",
+      "to_file": "medidas/vigia_da_esteira.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_disparador_intelligence.py",
+        "line": 35,
+        "snippet": "import vigia_da_esteira as VIG                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_disparador_intelligence.py",
+      "to_file": "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_disparador_intelligence.py",
+        "line": 39,
+        "snippet": "EXPORT_R7 = RAIZ / \"tests\" / \"dados\" / \"int-r7\" / \"SINTETICO-R7-SALA-EXPORT.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_disparador_intelligence.py",
+      "to_file": "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_disparador_intelligence.py",
+        "line": 38,
+        "snippet": "CORRIDA_VALIDA = RAIZ / \"tests\" / \"fixtures\" / \"pote\" / \"CORRIDA-SINTETICA-V2-UNICO.json\""
+      }
+    },
+    {
       "from_file": "tests/test_edicoes_do_registro.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -112752,10 +113250,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4215,
-    "files_readable": 1771,
-    "files_code_dir": 2190,
-    "file_edges": 7507,
+    "files_tracked": 4228,
+    "files_readable": 1778,
+    "files_code_dir": 2202,
+    "file_edges": 7544,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

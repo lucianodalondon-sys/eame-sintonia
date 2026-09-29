@@ -2,18 +2,25 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-29T00:51:42+00:00",
-    "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
+    "GENERATED_AT": "2026-09-29T01:09:59+00:00",
+    "HEAD": "37ca629aeafecff2abb0cc57f05adeb2c66c761f",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82",
-    "FICHEIROS_NA_IMPRESSAO": 4363,
+    "SOURCE_TREE_FINGERPRINT": "6f3e45d7b109383230808008fa9b56a130f7a18cfee8313752958d4de37357d0",
+    "FICHEIROS_NA_IMPRESSAO": 4376,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
         "VERSAO": "4b7cd7c2f72d6b6ed77bd93563cd6512f2205b84",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "admissao/gatilho_da_inteligencia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "0ffa8b846f1ebcf140a6b415dda1ee171737a6f4",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1775,8 +1782,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 252,
-    "INPUTS_DIGEST": "7ae5a5ae10df7d4cb602265a148a04e9cdd485435e9626b70164c3dadf3914d1",
+    "INPUTS_COUNT": 253,
+    "INPUTS_DIGEST": "7e652fd0487fdf86f17497a1fd8426f5f3af1aa39a543b0517770008b106faba",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -6423,6 +6430,22 @@
       "no_ci": true
     },
     {
+      "ficheiro": "admissao/gatilho_da_inteligencia.py",
+      "gaveta": "admissao",
+      "linhas": 565,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "admissao/idioma.py",
       "gaveta": "admissao",
       "linhas": 91,
@@ -6511,6 +6534,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "admissao/gatilho_da_inteligencia.py",
         "admissao/reprocessar_problema.py",
         "admissao/reprocessar_tempo_lugar.py",
         "coleta/it/edicoes_do_registro.py",
@@ -6626,6 +6650,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "admissao/gatilho_da_inteligencia.py",
         "admissao/sala_de_espera.py",
         "coleta/coleta_checkpoint.py",
         "guarda/memoria_postgres.py"
@@ -6897,13 +6922,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 252,
-    "pontos_de_entrada": 181,
+    "ficheiros_de_codigo": 253,
+    "pontos_de_entrada": 182,
     "executores_que_saem_para_fora": 32,
-    "sem_chamador_e_fora_do_ci": 114,
+    "sem_chamador_e_fora_do_ci": 115,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 150,
-    "deitam_fora_alguma_coisa": 55,
+    "escrevem_ficheiro": 151,
+    "deitam_fora_alguma_coisa": 56,
     "deitam_fora_SEM_escrever_o_motivo": 5,
     "ficheiros_com_decisao_escondida": 5,
     "decisoes_escondidas_ao_todo": 5
@@ -7077,6 +7102,7 @@
       "regras/sensor_coleta.py",
       "regras/sensor_medir.py",
       "admissao/admissao.py",
+      "admissao/gatilho_da_inteligencia.py",
       "admissao/idioma.py",
       "admissao/reprocessar_estudos_chaves.py",
       "admissao/reprocessar_problema.py",
@@ -7235,6 +7261,7 @@
       "regras/ligar_feeds.py",
       "regras/paridade_test.mjs",
       "regras/rotulos_censo.py",
+      "admissao/gatilho_da_inteligencia.py",
       "admissao/reprocessar_estudos_chaves.py",
       "admissao/video_na_sala.py",
       "guarda/banco_operacional.py",
