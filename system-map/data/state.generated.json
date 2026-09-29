@@ -2866,7 +2866,9 @@
     "portoes": [
       "portoes/PUBLICACAO-AUTOMATICA.json",
       "portoes/build_portal.py",
+      "portoes/casco_preview.cmd",
       "portoes/fotografar_portal.mjs",
+      "portoes/prova_reversa_do_pote.py",
       "portoes/publicar_portal_sozinho.py",
       "portoes/publicar_preview_da_pasta.py",
       "portoes/site_v21_ingest.py"
@@ -3921,6 +3923,7 @@
       "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
       "tests/dados/social-sala/YT-METADADOS-3CANAIS.json",
       "tests/dados/videos-partilhados-arpa-ispra.json",
+      "tests/entrega_de_teste.py",
       "tests/es/test_adama_es_gate.py",
       "tests/es/test_adama_es_import_rules.py",
       "tests/fixtures/ARESTAS/README.md",
@@ -3952,8 +3955,10 @@
       "tests/fixtures/pote/CORRIDA-SINTETICA-PUBLICA-SOZINHO.json",
       "tests/fixtures/pote/CORRIDA-SINTETICA-R6-EQUIVALENTE.json",
       "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+      "tests/fixtures/pote/CORRIDA-SINTETICA-VAZIA.json",
       "tests/fixtures/pote/POTE-SINTETICO-PUBLICA-SOZINHO.json",
       "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
+      "tests/fixtures/pote/POTE-SINTETICO-VAZIO.json",
       "tests/fixtures/pote/POTE-SINTETICO.json",
       "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
       "tests/fixtures/yt-raw-minimo.json",
@@ -4216,6 +4221,7 @@
       "tests/test_prontidao_social_v1.py",
       "tests/test_proposta_catalogo.py",
       "tests/test_prova_de_post_de_pessoa.py",
+      "tests/test_prova_reversa_do_pote.py",
       "tests/test_prova_teto_dominio.py",
       "tests/test_prova_teto_social.py",
       "tests/test_proveniencia.py",
@@ -4818,9 +4824,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "3488af0dd38275488197b28421e001977d820630",
-    "GENERATED_AT": "2026-09-28T23:06:47-03:00",
-    "SOURCE_TREE_FINGERPRINT": "64b9b5d031b180b4635a11fda3a2f9a90d4fd82d9363fb1b5b10593d17653cf3"
+    "HEAD": "b74dce8dcd1d4d0d8f16c327c2a393a4c2ad659b",
+    "GENERATED_AT": "2026-09-29T07:58:10-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a8496a5ea5fc6b57912b3753d94c1a8691fbe21de37e83de7de1afa0320bc6ab"
   },
   "FAMILIES": [
     {
@@ -6557,8 +6563,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 906",
-        "desses, mostrados aqui: 40 (ficam de fora 866)"
+        "enderecos que o codigo realmente chama: 908",
+        "desses, mostrados aqui: 40 (ficam de fora 868)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -39688,7 +39694,7 @@
         "PLANO": null,
         "PROVA": [
           "italia-portale/audit/casa-gate.mjs:32",
-          "portoes/publicar_portal_sozinho.py:495"
+          "portoes/publicar_portal_sozinho.py:513"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-PUBLICA-SOZINHO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -57771,7 +57777,7 @@
         "PROVA": [
           "italia-portale/audit/casa-gate.mjs:582",
           "italia-portale/client/portale.html:275",
-          "tests/test_publicar_portal_sozinho.py:333"
+          "tests/test_publicar_portal_sozinho.py:335"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -58214,7 +58220,7 @@
         "PROVA": [
           "italia-portale/audit/checks.mjs:13",
           "italia-portale/audit/checks.mjs:13",
-          "portoes/publicar_portal_sozinho.py:532"
+          "portoes/publicar_portal_sozinho.py:550"
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-PUBLICA-SOZINHO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -66148,7 +66154,7 @@
       "name": "O portal publica sozinho (D126)",
       "territory": "Z-PORTOES",
       "kind": "gate",
-      "what": "Quando sai um pote novo da Intelligence, monta o portal EXISTENTE com ele numa copia da arvore (git worktree) e corre TODAS as conferencias: C0 o pote (forma+lei v2 pelo validar_pote_v2, D122 evento so com data, D123 caso->produto->bula, nenhum objeto sem prova, nada de dado cru, nada da demo, e a promocao de um pote EXPERIMENTAL so com a regra aprovada pelo dono), C1 build-gate, C2 deploy-surface, C3 os tres jobs do portao do release LIDOS de release/canonical, C5 a copia com o pote num navegador (contagem por tela = a do pote, sem os 43/44 antigos, a barra conta o pote, SHA certo). So se tudo passa implanta (ensaio local, preview ou producao pelo CLI da Vercel com build pre-construida), confere NO AR (C6) e, se reprovar, volta sozinho ao deployment anterior, prova a volta e grava ALERTA. Cada publicacao guarda em PUBLICACOES/ (fora do Git) fotos e contagens antes/depois, o pote publicado e o anterior com SHA; ULTIMA-PUBLICACAO.json e o ANTERIOR do DELTA da D125. O GATILHO (portoes/publicar_preview_da_pasta.py, correcao do dono 28/09) so chama o publicador quando a pasta de entrega da Intelligence esta COMPLETA pelo sinal que ela ja escreve (SHA256SUMS.txt confere byte a byte, lista um MANIFESTO, e o manifesto aponta um pote PARA_CLIENTE listado com o mesmo sha) e so em ensaio ou preview: producao e recusada no gatilho. Por omissao le a ENTREGA da Intelligence curadoria/esteira/intelligence/PARA-O-CASCO/ (POTE.json + MANIFESTO.json + SHA256SUMS.txt, forma L2 `POTE` ou forma R9 `POTES.PARA_CLIENTE`, RESULT_STATE DONE/REUSED), e o que vai ao publicador e uma COPIA congelada do pote com o sha medido outra vez (a pasta troca-se inteira e pode mudar no meio). A casa.html (legado fora do casco) e redirecionada para /accesso pelo vercel.json; o servidor local cumpre o mesmo redirect e C5/C6 BLOQUEIAM se a casa ainda abrir. D151/D152 (dono, 29/09): o cliente ve o casco ORIGINAL; o pote inteiro so na rota interna #debug-intelligence-pot (/debug/intelligence-pot redireciona); Radar e Radar Futuro com uma linha LIVE (contagem do compartimento + corrida + corte) e o que ja mostravam SEPARADO como SNAPSHOT com a data do pacote. C5/C6: DEBUG_TEM_O_POTE_INTEIRO, CLIENTE_SEM_CAMADA_TECNICA, LIVE_CONTA_O_POTE, D152_NADA_MISTURADO, BARRA_CONTA_O_LIVE (substituem as tres D122).",
+      "what": "Quando sai um pote novo da Intelligence, monta o portal EXISTENTE com ele numa copia da arvore (git worktree) e corre TODAS as conferencias: C0 o pote (forma+lei v2 pelo validar_pote_v2, D122 evento so com data, D123 caso->produto->bula, nenhum objeto sem prova, nada de dado cru, nada da demo, e a promocao de um pote EXPERIMENTAL so com a regra aprovada pelo dono), C1 build-gate, C2 deploy-surface, C3 os tres jobs do portao do release LIDOS de release/canonical, C5 a copia com o pote num navegador (contagem por tela = a do pote, sem os 43/44 antigos, a barra conta o pote, SHA certo). So se tudo passa implanta (ensaio local, preview ou producao pelo CLI da Vercel com build pre-construida), confere NO AR (C6) e, se reprovar, volta sozinho ao deployment anterior, prova a volta e grava ALERTA. Cada publicacao guarda em PUBLICACOES/ (fora do Git) fotos e contagens antes/depois, o pote publicado e o anterior com SHA; ULTIMA-PUBLICACAO.json e o ANTERIOR do DELTA da D125. O GATILHO (portoes/publicar_preview_da_pasta.py, correcao do dono 28/09) so chama o publicador quando a pasta de entrega da Intelligence esta COMPLETA pelo sinal que ela ja escreve (SHA256SUMS.txt confere byte a byte, lista um MANIFESTO, e o manifesto aponta um pote PARA_CLIENTE listado com o mesmo sha) e so em ensaio ou preview: producao e recusada no gatilho. Por omissao le a ENTREGA da Intelligence curadoria/esteira/intelligence/PARA-O-CASCO/ (POTE.json + MANIFESTO.json + SHA256SUMS.txt, forma L2 `POTE` ou forma R9 `POTES.PARA_CLIENTE`, RESULT_STATE DONE/REUSED), e o que vai ao publicador e uma COPIA congelada do pote com o sha medido outra vez (a pasta troca-se inteira e pode mudar no meio). A casa.html (legado fora do casco) e redirecionada para /accesso pelo vercel.json; o servidor local cumpre o mesmo redirect e C5/C6 BLOQUEIAM se a casa ainda abrir. D151/D152 (dono, 29/09): o cliente ve o casco ORIGINAL; o pote inteiro so na rota interna #debug-intelligence-pot (/debug/intelligence-pot redireciona); Radar e Radar Futuro com uma linha LIVE (contagem do compartimento + corrida + corte) e o que ja mostravam SEPARADO como SNAPSHOT com a data do pacote. C5/C6: DEBUG_TEM_O_POTE_INTEIRO, CLIENTE_SEM_CAMADA_TECNICA, LIVE_CONTA_O_POTE, D152_NADA_MISTURADO, BARRA_CONTA_O_LIVE (substituem as tres D122). D156 (29/09): a RODADA do gatilho corre SOZINHA na tarefa agendada do Windows SINTONIA-CASCO-PREVIEW (portoes/casco_preview.cmd, a cada 10 min): bandeira PARAR, trava de instancia unica, so publica quando a assinatura de MANIFESTO/SHA256SUMS muda e confere; entrega invalida mantem o ULTIMO BOM no ar e o motivo vai no envelope (ENTREGA) e so o debug o diz (conferencia ENTREGA_DITA_SO_NO_DEBUG). Um registo por rodada em RODADAS.ndjson (T0/T1). portoes/prova_reversa_do_pote.py e o comando do LAB: sha da pasta -> sha no ar -> DOM do debug -> PROVA -> byte no armazem -> fonte; prova tambem o vazio legitimo.",
       "why_here": "D126 (dono, 27/09 ~21:40): «portal publica sozinho». O pote tem dado real e o repositorio e publico: nao pode viajar pelo Git. O envelope conferido e escrito so na copia implantada (o lugar no Git, italia-portale/client/sintonia-pote-publicado.js, diz null). A lei vive em portoes/PUBLICACAO-AUTOMATICA.json; o CLI da Vercel nao foi testado nesta missao (sem CLI nem credencial no contentor) — o caminho inteiro foi ensaiado com o anfitriao local.",
       "departments": [
         "ENGENHARIA",
@@ -66165,13 +66171,15 @@
       "family": "F-ENTREGA",
       "files": [
         "portoes/PUBLICACAO-AUTOMATICA.json",
+        "portoes/casco_preview.cmd",
         "portoes/fotografar_portal.mjs",
+        "portoes/prova_reversa_do_pote.py",
         "portoes/publicar_portal_sozinho.py",
         "portoes/publicar_preview_da_pasta.py"
       ],
-      "file_count": 4,
+      "file_count": 6,
       "status": "PENDING",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -66195,12 +66203,13 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "DOZE",
           "L",
           "R"
         ],
-        "palavras": 28,
+        "palavras": 41,
         "por_lingua": {},
-        "sem_marca_de_lingua": 28,
+        "sem_marca_de_lingua": 41,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -66225,7 +66234,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "portoes/publicar_portal_sozinho.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "ROLE_EVIDENCE": "portoes/prova_reversa_do_pote.py abre ligacao de rede: vai buscar dado fora da arvore",
       "OWNER": "ENGENHARIA · LIDERANCA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -66259,7 +66268,7 @@
         "PROVA": [
           "provas/portal_publica_sozinho/ensaio.py:34",
           "provas/portal_publica_sozinho/mutantes.py:25",
-          "tests/test_publicar_portal_sozinho.py:39"
+          "tests/test_prova_reversa_do_pote.py:26"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -72934,6 +72943,7 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "tests/entrega_de_teste.py",
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
         "tests/fixtures/pesquisadores_t6/montar.py",
@@ -73195,6 +73205,7 @@
         "tests/test_prontidao_social_v1.py",
         "tests/test_proposta_catalogo.py",
         "tests/test_prova_de_post_de_pessoa.py",
+        "tests/test_prova_reversa_do_pote.py",
         "tests/test_prova_teto_dominio.py",
         "tests/test_prova_teto_social.py",
         "tests/test_proveniencia.py",
@@ -73278,7 +73289,7 @@
         "tests/test_youtube_piloto.py",
         "tests/test_yt_metadados_do_audio.py"
       ],
-      "file_count": 343,
+      "file_count": 345,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -73702,13 +73713,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 2233,
+        "palavras": 2240,
         "por_lingua": {
           "IT": 12,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 2216,
+        "sem_marca_de_lingua": 2223,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -74367,6 +74378,7 @@
         "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
         "tests/fixtures/pote/POTE-SINTETICO-PUBLICA-SOZINHO.json",
         "tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json",
+        "tests/fixtures/pote/POTE-SINTETICO-VAZIO.json",
         "tests/fixtures/pote/POTE-SINTETICO.json",
         "tests/fixtures/puglia/GOLD-FIXTURE-PUGLIA-V1.json",
         "tests/fixtures/yt-raw-minimo.json",
@@ -84962,7 +84974,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 495,
+          "line": 513,
           "snippet": "if \"audit/run.mjs\" in texto and rc not in (None,):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
@@ -84978,7 +84990,7 @@
         },
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 533,
+          "line": 551,
           "snippet": "conferir_comando(\"C2_DEPLOY_SURFACE\", [\"node\", \"italia-portale/audit/deploy-surface.mjs\"], copia, contrato, 600)]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
@@ -132977,8 +132989,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por O portal publica sozinho (D126). Provado por 1 linha de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por O portal publica sozinho (D126). Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "portoes/prova_reversa_do_pote.py",
+          "line": 37,
+          "snippet": "import _gavetas  # noqa: E402,F401",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PUBLICA-SOZINHO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-PUBLICA-SOZINHO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "portoes/publicar_portal_sozinho.py",
           "line": 63,
@@ -133984,7 +134012,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 181 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 182 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -143495,7 +143523,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 333,
+          "line": 335,
           "snippet": "self.assertEqual(r.get(\"/casa.html\"), para)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-CASCO--READS-->C-TESTES",
@@ -144965,11 +144993,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta O portal publica sozinho (D126). Provado por 1 linha de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta O portal publica sozinho (D126). Provado por 2 linhas de codigo.",
       "evidence": [
         {
+          "file": "portoes/prova_reversa_do_pote.py",
+          "line": 93,
+          "snippet": "passo(\"SHA_NO_AR\", \"PASS\" if s_ar == sha else \"FAIL\", {\"URL\": url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
+            "FROM": "C-PORTAL-MODELO",
+            "TO": "C-PUBLICA-SOZINHO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 669,
+          "line": 687,
           "snippet": "req = urllib.request.Request(base_url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
@@ -145179,7 +145223,7 @@
         },
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 277,
+          "line": 279,
           "snippet": "stub = (RAIZ / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
@@ -145195,7 +145239,7 @@
         },
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 687,
+          "line": 712,
           "snippet": "const LEITOR = fs.readFileSync(path.join(CL, 'sintonia-pote-casco.js'), 'utf8');",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
@@ -145461,7 +145505,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 532,
+          "line": 550,
           "snippet": "L = [conferir_comando(\"C1_BUILD_GATE\", [\"node\", \"italia-portale/audit/build-gate.mjs\"], copia, contrato, 600),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAO-BUILD--READS-->C-PUBLICA-SOZINHO",
@@ -151872,7 +151916,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 872,
+          "line": 891,
           "snippet": "(Path(copia) / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
@@ -151973,8 +152017,40 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O portal publica sozinho (D126) tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O portal publica sozinho (D126) tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_prova_reversa_do_pote.py",
+          "line": 26,
+          "snippet": "import prova_reversa_do_pote as PR  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PUBLICA-SOZINHO--IMPORTS-->C-TESTES",
+            "FROM": "C-PUBLICA-SOZINHO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_prova_reversa_do_pote.py",
+          "line": 27,
+          "snippet": "import publicar_portal_sozinho as P  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PUBLICA-SOZINHO--IMPORTS-->C-TESTES",
+            "FROM": "C-PUBLICA-SOZINHO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_publicar_portal_sozinho.py",
           "line": 39,
@@ -151993,7 +152069,7 @@
         },
         {
           "file": "tests/test_publicar_preview_da_pasta.py",
-          "line": 35,
+          "line": 36,
           "snippet": "import publicar_preview_da_pasta as G  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PUBLICA-SOZINHO--IMPORTS-->C-TESTES",
@@ -169157,7 +169233,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 471,
+          "line": 496,
           "snippet": "(Path(d) / \"italia-portale\" / \"audit\" / \"run.mjs\").write_text(",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-AUDIT-GERAL",
@@ -170173,7 +170249,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 341,
+          "line": 343,
           "snippet": "(d / \"casa.html\").write_text(\"CASA-LEGADA\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-CASCO",
@@ -170243,7 +170319,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 500,
+          "line": 525,
           "snippet": "(d / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(STUB, encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-MODELO",
@@ -170967,7 +171043,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 738,
+          "line": 756,
           "snippet": "if (Path(copia) / \"vercel.json\").exists():",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PUBLICA-SOZINHO",
@@ -175297,7 +175373,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2274,
+  "UNCLAIMED_FILES_COUNT": 2276,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -175582,8 +175658,8 @@
     "edges_proven": 1864,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4224,
-    "files_covered": 1950,
+    "files_tracked": 4230,
+    "files_covered": 1954,
     "files_code_unclaimed": 0,
     "roles_proven": 208,
     "roles_declared_only": 10,
