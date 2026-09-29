@@ -232,6 +232,13 @@ def _contexto_minimo(texto, secao, inicio, precisa: list) -> dict | None:
 #: quanto contexto antes do trecho se guarda quando ele e preciso (letras)
 JANELA_DO_CONTEXTO = 600
 
+#: Porque SUBJECT/PREDICATE/OBJECT saem NAO SEI: partir uma frase italiana em sujeito,
+#: predicado e objeto e um analisador sintatico, e a D158 autorizou a versao MINIMA e
+#: DETERMINISTICA. O campo esta presente, como o contrato de consumo exige, e a afirmacao
+#: inteira e o TRECHO LITERAL — que a Intelligence tem e pode citar.
+_SEM_SVO = ("o produtor minimo nao parte a frase em sujeito/predicado/objeto: isso seria um "
+            "analisador sintatico. A afirmacao e o EVIDENCE_SPAN literal, que viaja inteiro.")
+
 
 def _lugar(leitura: dict) -> dict:
     """O FACT_LOCATION da afirmacao, tal como a lei o devolveu — sem reescrever nada."""
@@ -246,9 +253,112 @@ def _lugar(leitura: dict) -> dict:
             "PONTO_NO_MAPA": bool(l_.get("PONTO_NO_MAPA"))}
 
 
-def _entidade(r: dict) -> dict:
-    return {"VALOR": r["VALOR"], "ENTITY_SOURCE": r["ENTITY_SOURCE"],
-            "PROVA": r.get("PROVA"), "MOTIVO": r.get("MOTIVO")}
+# ════════════════════════════════════════════════════════════════════════════
+# 2b · O CONTRATO DE CONSUMO DA INTELLIGENCE (D158)
+# ════════════════════════════════════════════════════════════════════════════
+# O dono da Intelligence escreveu o que aceita consumir
+# (`CONTRATO-CONSUMO-AFIRMACOES.md`, fora do Git). Duas coisas dele vivem aqui, porque sao
+# a FORMA da afirmacao e nao o juizo sobre ela:
+#
+#   · a CLASSE do claim (`CLAIM_KIND`), que decide QUE TEMPO a Intelligence vai exigir;
+#   · os campos que o produtor NUNCA escreve. Escrever um deles seria a Collection a
+#     decidir liberacao, e a afirmacao inteira e recusada com esse motivo.
+CLAIM_KINDS = ("ALERTA_EVENTO", "CIENCIA_FICHA", "PRECO", "REGULATORIO", "RECOMENDACAO")
+#: Escrever qualquer um destes = PRODUTOR_DECIDIU_LIBERACAO, e a afirmacao nao viaja.
+CAMPOS_PROIBIDOS = ("LIBERADO", "LIBERACAO", "LIBERADO_POR", "LIBERADO_NA_CORRIDA",
+                    "CONFERENCIA_DE_LIBERACAO", "NAO_PARA_CLIENTE", "ESPECIE", "USO",
+                    "RELEVANCIA", "OPORTUNIDADE", "LIGACAO_ADAMA", "RECOMENDACAO",
+                    "PRIORIDADE", "PRODUTO", "SCORE")
+
+# A superficie de cada classe. Nao e saber agronomico nem comercial: e a palavra com que a
+# propria fonte diz de que tipo e a frase. As marcas administrativas sao as da interface do
+# tempo (`tempo_da_afirmacao`), lidas de la — nao ha segunda lista.
+_RE_PRECO = re.compile(
+    r"(?<![a-zà-ÿ])(?:prezz|quotazion|listin|mercuriale|€|\d+[,.]\d+\s*(?:€|euro)|"
+    r"(?:€|euro)\s*\d|al\s+kg|/\s*kg|al\s+quintale|al\s+litro)", re.I)
+_RE_ESTUDO = re.compile(r"(?:\b10\.\d{4,9}/\S+|\bdoi\b|\bnct\d{6,}\b|\btrial\s+(?:id|n)|"
+                        r"\bsperimentazion|\bprova\s+sperimentale)", re.I)
+
+
+def classe_do_claim(span: str, tempo: dict) -> dict:
+    """A CLASSE do claim, no vocabulario fechado do contrato de consumo.
+
+    A regra e a mesma da D112 para duas pragas: quando o trecho traz a marca de DUAS
+    classes, escolher uma seria inferir — sai NAO SEI, com as duas marcas escritas.
+    ALERTA_EVENTO nao tem marca propria: e o que sobra quando a fonte prende uma data de
+    ACONTECIMENTO ao que ela conta, e por isso nao entra no conflito."""
+    marcas = []
+    if TA._MARCA_DE_ATO.search(span) or TA._MARCA_DE_VALIDADE.search(span):
+        marcas.append("REGULATORIO")
+    if _RE_PRECO.search(span) or TA._MARCA_DE_MERCADO.search(span):
+        marcas.append("PRECO")
+    if FT._RE_RECOMENDACAO.search(span):
+        marcas.append("RECOMENDACAO")
+    if _RE_ESTUDO.search(span):
+        marcas.append("CIENCIA_FICHA")
+    if len(marcas) > 1:
+        return {"VALOR": NAO_SEI, "MARCAS": marcas,
+                "PORQUE": "o trecho traz a marca de %d classes (%s); escolher uma seria inferir"
+                          % (len(marcas), ", ".join(marcas))}
+    if marcas:
+        return {"VALOR": marcas[0], "MARCAS": marcas, "PORQUE": "a marca da classe esta escrita no trecho"}
+    if tempo["PAPEL"] == TA.ACONTECIMENTO:
+        return {"VALOR": "ALERTA_EVENTO", "MARCAS": [],
+                "PORQUE": "a fonte prende uma data de ACONTECIMENTO ao que conta, e nao ha marca de outra classe"}
+    return {"VALOR": NAO_SEI, "MARCAS": [],
+            "PORQUE": "o trecho nao escreve marca de classe nenhuma e nao tem data de acontecimento"}
+
+
+def _nome_original(nome, span: str):
+    """A forma como o nome esta ESCRITO no trecho, quando esta LITERALMENTE la.
+
+    O nome que sai de `ler_afirmacao` ja vem NORMALIZADO pela tabela `MESMO_PROBLEMA`: o
+    texto pode escrever «mosca delle olive» e o valor ser «mosca dell'olivo». Quando as
+    duas formas nao coincidem, NOME_ORIGINAL fica NAO SEI — a forma escrita nao se
+    adivinha, e a que a Intelligence tem e o EVIDENCE_SPAN inteiro."""
+    m = re.search(re.escape(str(nome)), span, re.I)
+    return m.group(0) if m else NAO_SEI
+
+
+def _entidades(leitura: dict, span: str) -> list:
+    """As entidades da afirmacao, na forma do contrato de consumo: uma por nome, cada uma
+    com NOME_ORIGINAL, VALOR_NORMALIZADO e o ENTITY_SOURCE da COL-LAW-221."""
+    fora = []
+    for tipo, r in (("CULTURA", leitura["CULTURA"]), ("PRAGA_OU_DOENCA", leitura["PRAGAS"])):
+        valores = r["VALOR"] if isinstance(r["VALOR"], list) else []
+        if not valores:
+            fora.append({"TIPO": tipo, "NOME_ORIGINAL": NAO_SEI, "VALOR_NORMALIZADO": NAO_SEI,
+                         "ENTITY_SOURCE": r["ENTITY_SOURCE"], "PROVA": r.get("PROVA"),
+                         "PORQUE": r.get("MOTIVO") or "o trecho nao nomeia nenhuma"})
+            continue
+        for v in valores:
+            fora.append({"TIPO": tipo, "NOME_ORIGINAL": _nome_original(v, span),
+                         "VALOR_NORMALIZADO": v, "ENTITY_SOURCE": r["ENTITY_SOURCE"],
+                         "PROVA": r.get("PROVA"), "PORQUE": r.get("MOTIVO")})
+    return fora
+
+
+def _periodo_por_papel(tempo: dict, papel: str) -> dict:
+    """O periodo que a fonte marcou com ESTE papel, ou NAO SEI com o porque.
+
+    A Intelligence exige VALIDITY / MARKET_PERIOD / STUDY_PERIOD conforme a classe. O
+    produtor so os preenche quando a propria fonte lhes deu esse papel — nunca por classe."""
+    if tempo["PAPEL"] == papel:
+        return {"VALOR": tempo["VALOR"], "BASIS": tempo["BASIS"], "ORIGEM": tempo["ORIGEM"]}
+    return {"VALOR": NAO_SEI, "BASIS": None,
+            "PORQUE": "nenhum tempo deste trecho tem o papel %s (o que ha tem o papel %s)"
+                      % (papel, tempo["PAPEL"])}
+
+
+def produtor_versao() -> dict:
+    """QUEM extraiu, e com que regra (INT-LAW-052). O selo e o sha256 dos dois ficheiros
+    de lei que decidem — muda a regra, muda o selo."""
+    selo = {}
+    for nome in ("afirmacao_do_documento.py", "tempo_da_afirmacao.py"):
+        caminho = os.path.join(_AQUI, nome)
+        selo["leis/" + nome] = hashlib.sha256(open(caminho, "rb").read()).hexdigest()[:16]
+    return {"CONTRATO": CONTRATO, "DECISAO": "D158", "CODIGO": selo,
+            "LEITOR_TEMPORAL": TA.LEITOR_VIVO, "SEM_LLM": True}
 
 
 def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis=None,
@@ -262,6 +372,7 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
     prov = dict(proveniencia or {})
     publicacao = {"VALOR": published_at, "BASE": published_at_basis}
 
+    versao = produtor_versao()
     lidas, fora_do_corpo, sem_prova = [], 0, 0
     for s in secoes:
         for a, b in frases(t, s["INICIO"], s["FIM"]):
@@ -285,9 +396,22 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
             # trabalha sobre o texto limpo pela D19 (mesmo comprimento, logo mesmos
             # offsets); o TRECHO que viaja e o do ORIGINAL, que e o que a conferencia confere.
             _literal(tempo.get("BASIS"), original)
+            oid = assertion_id(prov.get("SOURCE_ID"), prov.get("RAW_SHA256"), a, b, span)
+            e_facto = tempo["PAPEL"] in TA.PAPEL_QUE_E_FACTO
+            fact_time = (tempo["VALOR"] if e_facto
+                         else (TA.NAO_EXISTE if tempo["VALOR"] == TA.NAO_EXISTE else NAO_SEI))
             af = {
                 "CONTRATO": CONTRATO,
-                "ASSERTION_ID": assertion_id(prov.get("SOURCE_ID"), prov.get("RAW_SHA256"), a, b, span),
+                # ── identidade e lineage (§1 do contrato de consumo) ───────────────
+                "CLAIM_ID": oid,
+                "ASSERTION_ID": oid,          # o MESMO valor, com o nome que a D158 usou
+                "ITEM_ID": prov.get("ITEM_ID", NAO_SEI),
+                "RAW_OBSERVATION_ID": prov.get("RAW_OBSERVATION_ID", NAO_SEI),
+                "RAW_SHA256": prov.get("RAW_SHA256", NAO_SEI),
+                "SOURCE_ID": prov.get("SOURCE_ID", NAO_SEI),
+                "PRODUTOR_VERSAO": versao,
+                "EVIDENCE_SPAN": {"INICIO": a, "FIM": b, "TRECHO": span, "SHA256": sha_do_trecho(span)},
+                # os mesmos tres valores, com os nomes que a D158 usou
                 "TRECHO_LITERAL": span,
                 "TRECHO_SHA256": sha_do_trecho(span),
                 "POSICAO": {"INICIO": a, "FIM": b,
@@ -297,21 +421,41 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
                                       "CABECALHO_FIM": s["CABECALHO_FIM"]},
                             "SECAO_TERRITORIAL": leitura["SECAO"]},
                 "CONTEXTO_MINIMO": _contexto_minimo(original, s, a, precisa),
-                "FACT_TIME": {"VALOR": tempo["VALOR"] if tempo["PAPEL"] in TA.PAPEL_QUE_E_FACTO
-                              else (TA.NAO_EXISTE if tempo["VALOR"] == TA.NAO_EXISTE else NAO_SEI),
-                              "PORQUE_NAO": None if tempo["PAPEL"] in TA.PAPEL_QUE_E_FACTO else tempo["PORQUE"]},
+                # ── conteudo (§1): o campo esta sempre; o valor pode ser NAO SEI ───
+                "CLAIM_KIND": classe_do_claim(span, tempo),
+                "SUBJECT": {"VALOR": NAO_SEI, "BASE": _SEM_SVO},
+                "PREDICATE": {"VALOR": NAO_SEI, "BASE": _SEM_SVO},
+                "OBJECT": {"VALOR": NAO_SEI, "BASE": _SEM_SVO},
+                "ENTIDADES": _entidades(leitura, span),
+                "FACT_TIME": {"VALOR": fact_time,
+                              "FACT_TIME_BASIS": tempo["BASIS"] if e_facto else None,
+                              "FACT_TIME_PRECISION": tempo["PRECISAO"] if e_facto else "NOT_KNOWN",
+                              "PORQUE_NAO": None if e_facto else tempo["PORQUE"]},
                 "FACT_TIME_ROLE": {"PAPEL": tempo["PAPEL"], "VALOR_LIDO": tempo["VALOR"],
                                    "ORIGEM": tempo["ORIGEM"], "BASIS": tempo["BASIS"],
                                    "PRECISAO": tempo["PRECISAO"], "PORQUE": tempo["PORQUE"],
                                    "COMPOSICAO": tempo.get("COMPOSICAO"),
                                    "LEITOR": tempo["LEITOR"],
                                    "PUBLICACAO_PROVADA": tempo["PUBLICACAO_PROVADA"]},
+                "VALIDITY": _periodo_por_papel(tempo, TA.VALIDADE),
+                "MARKET_PERIOD": _periodo_por_papel(tempo, TA.MARKET_PERIOD),
+                "STUDY_PERIOD": {"VALOR": NAO_SEI, "BASIS": None,
+                                 "PORQUE": "o produtor minimo nao le identidade de estudo no trecho; "
+                                           "quem a le e leis/estudo_chaves.py, ao nivel do item"},
+                "ACT_TIME": _periodo_por_papel(tempo, TA.ATO),
                 "FACT_LOCATION": _lugar(leitura),
-                "ENTIDADES": {"CULTURA": _entidade(leitura["CULTURA"]),
-                              "PRAGAS": _entidade(leitura["PRAGAS"])},
+                # ── AO LADO, nunca no lugar do FACT_TIME (§1) ──────────────────────
+                "PUBLISHED_AT": {"VALOR": prov.get("PUBLISHED_AT", NAO_SEI),
+                                 "BASE": prov.get("PUBLISHED_AT_BASIS", NAO_SEI),
+                                 "DE_ONDE": "copiado do item da Sala; nunca preenche FACT_TIME"},
+                "OBSERVED_AT": {"VALOR": prov.get("OBSERVED_AT", NAO_SEI),
+                                "DE_ONDE": "copiado do item da Sala; nunca preenche FACT_TIME"},
+                "COLLECTED_AT": {"VALOR": prov.get("COLHIDO_EM", NAO_SEI),
+                                 "DE_ONDE": "copiado do item da Sala; nunca preenche FACT_TIME"},
                 "PROVENIENCIA": prov,
                 "LEI": ("COL-LAW-202 · o trecho e a prova; a data so e do facto com o papel "
-                        "ACONTECIMENTO; publicacao nunca e FACT_TIME; NAO SEI e saida valida"),
+                        "ACONTECIMENTO; publicacao nunca e FACT_TIME; NAO SEI e saida valida. "
+                        "O produtor nao decide liberacao (CONTRATO-CONSUMO-AFIRMACOES §0)."),
             }
             if af["FACT_TIME"]["VALOR"] in (NAO_SEI, TA.NAO_EXISTE) and af["FACT_LOCATION"]["VALOR"] == NAO_SEI:
                 sem_prova += 1
@@ -331,14 +475,15 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
 #: os campos da Sala que viajam dentro da PROVENIENCIA de cada afirmacao
 CAMPOS_DA_PROVENIENCIA = ("ITEM_ID", "RUN_ID", "ORDEM", "SOURCE_ID", "UNIVERSO",
                           "RAW_OBSERVATION_ID", "RAW_SHA256", "RAW_STORAGE_PATH",
-                          "DOCUMENT_ID", "URL", "PUBLISHED_AT", "PUBLISHED_AT_BASIS", "COLHIDO_EM")
+                          "DOCUMENT_ID", "URL", "PUBLISHED_AT", "PUBLISHED_AT_BASIS",
+                          "OBSERVED_AT", "COLHIDO_EM")
 #: como cada um se chama na linha da Sala (`admissao/sala_de_espera.py`)
 _DA_SALA = {"ITEM_ID": "item_id", "RUN_ID": "run_id", "ORDEM": "ordem", "SOURCE_ID": "source_id",
             "UNIVERSO": "universo", "RAW_OBSERVATION_ID": "raw_observation_id",
             "RAW_SHA256": "raw_sha256", "RAW_STORAGE_PATH": "raw_storage_path",
             "DOCUMENT_ID": "raw_document_key", "URL": "raw_source_url",
             "PUBLISHED_AT": "published_at", "PUBLISHED_AT_BASIS": "published_at_basis",
-            "COLHIDO_EM": "raw_captured_at"}
+            "OBSERVED_AT": "observed_at", "COLHIDO_EM": "raw_captured_at"}
 
 
 def proveniencia_da_sala(linha: dict) -> dict:
@@ -377,6 +522,10 @@ def conferir_afirmacao(af: dict, texto: str, *, raw_sha256=None) -> list:
     v = []
     if not isinstance(af, dict) or af.get("CONTRATO") != CONTRATO:
         return ["fora do contrato %s" % CONTRATO]
+    # ── §0 do contrato de consumo: o produtor NUNCA decide liberacao ──────────
+    intrusos = sorted(set(CAMPOS_PROIBIDOS) & set(af))
+    if intrusos:
+        v.append("PRODUTOR_DECIDIU_LIBERACAO: %s nao e campo de uma afirmacao" % ", ".join(intrusos))
     t = str(texto or "")
     pos = af.get("POSICAO") or {}
     a, b = pos.get("INICIO"), pos.get("FIM")
@@ -413,13 +562,57 @@ def conferir_afirmacao(af: dict, texto: str, *, raw_sha256=None) -> list:
     if loc.get("VALOR") != NAO_SEI and loc.get("LOCATION_SOURCE") not in BC.LOCATION_SOURCES:
         v.append("FACT_LOCATION com valor e LOCATION_SOURCE %r fora da COL-LAW-032"
                  % (loc.get("LOCATION_SOURCE"),))
-    for nome in ("CULTURA", "PRAGAS"):
-        e = (af.get("ENTIDADES") or {}).get(nome) or {}
-        if e.get("ENTITY_SOURCE") not in AF.ENTITY_SOURCES:
-            v.append("%s com ENTITY_SOURCE %r fora da COL-LAW-221" % (nome, e.get("ENTITY_SOURCE")))
     ctx = af.get("CONTEXTO_MINIMO")
     if ctx and ctx.get("TRECHO") != t[ctx.get("INICIO", -1):ctx.get("FIM", -1)]:
         v.append("o CONTEXTO_MINIMO nao esta no texto onde diz estar")
+
+    # ── §1 do contrato de consumo: identidade, EVIDENCE_SPAN e classe ─────────
+    if af.get("CLAIM_ID") != af.get("ASSERTION_ID"):
+        v.append("CLAIM_ID e ASSERTION_ID sao nomes do MESMO valor, e nao batem")
+    span = af.get("EVIDENCE_SPAN")
+    if not isinstance(span, dict):
+        v.append("sem EVIDENCE_SPAN")
+    elif (span.get("INICIO"), span.get("FIM"), span.get("TRECHO")) != (a, b, trecho):
+        v.append("o EVIDENCE_SPAN nao e o mesmo trecho que TRECHO_LITERAL/POSICAO")
+    if not isinstance(af.get("PRODUTOR_VERSAO"), dict):
+        v.append("sem PRODUTOR_VERSAO: nao se sabe que codigo e que regra extrairam (INT-LAW-052)")
+    for c in ("ITEM_ID", "RAW_OBSERVATION_ID", "RAW_SHA256", "SOURCE_ID"):
+        if af.get(c) in (None, ""):
+            v.append("sem %s: sem prova ate ao RAW nao e evidencia" % c)
+    classe = (af.get("CLAIM_KIND") or {}).get("VALOR")
+    if classe not in CLAIM_KINDS and classe != NAO_SEI:
+        v.append("CLAIM_KIND %r fora do vocabulario fechado" % (classe,))
+    for c in ("SUBJECT", "PREDICATE", "OBJECT", "VALIDITY", "MARKET_PERIOD", "STUDY_PERIOD",
+              "PUBLISHED_AT", "OBSERVED_AT", "COLLECTED_AT"):
+        if not isinstance(af.get(c), dict) or "VALOR" not in af[c]:
+            v.append("sem o campo %s (a presenca e obrigatoria; o valor pode ser NAO SEI)" % c)
+
+    # ── a publicacao NUNCA e o tempo do facto, nem por coincidencia de valor ──
+    publicado = (af.get("PUBLISHED_AT") or {}).get("VALOR")
+    if ft not in (NAO_SEI, TA.NAO_EXISTE) and str(ft) == str(publicado):
+        origem = (af.get("FACT_TIME_ROLE") or {}).get("ORIGEM")
+        if origem not in TA.ORIGENS or not isinstance(basis, dict):
+            v.append("FACT_TIME igual a PUBLISHED_AT sem base textual propria")
+
+    # ── COL-LAW-221: SPAN exige o nome DENTRO do trecho ───────────────────────
+    # «Esta no trecho?» pergunta-se ao DONO da leitura (`boletim_do_campo`), com o mesmo
+    # vocabulario e a mesma dobra que ele usou para a ler. Refazer a pergunta com um
+    # casamento proprio criaria uma segunda leitura — e ela discordaria da lei: medido em
+    # 883 afirmacoes de 15 577, onde a forma escrita («mosca delle olive») nao e a forma
+    # normalizada («mosca dell'olivo») e um `find` ingenuo dizia que o nome nao estava la.
+    for e in af.get("ENTIDADES") or []:
+        if not isinstance(e, dict):
+            v.append("entidade que nao e objeto")
+            continue
+        if e.get("ENTITY_SOURCE") not in AF.ENTITY_SOURCES:
+            v.append("entidade com ENTITY_SOURCE %r fora da COL-LAW-221" % (e.get("ENTITY_SOURCE"),))
+            continue
+        nome = e.get("VALOR_NORMALIZADO")
+        ler = BC._culturas_em if e.get("TIPO") == "CULTURA" else BC._pragas_em
+        no_trecho = nome not in (None, NAO_SEI) and nome in ler(str(trecho or ""))
+        ok, porque = AF.procedencia_da_entidade(e["ENTITY_SOURCE"], nome_no_trecho=no_trecho)
+        if not ok:
+            v.append("entidade %r: COL-LAW-221 reprovou %s (%s)" % (nome, e["ENTITY_SOURCE"], porque))
     return v
 
 

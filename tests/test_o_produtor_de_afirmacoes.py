@@ -347,10 +347,11 @@ class AFronteiraDaCollection(unittest.TestCase):
 
     def test_o_vocabulario_vem_dos_donos_das_leis(self):
         for af in _produzir(BOLETIM):
-            self.assertIn(af['ENTIDADES']['CULTURA']['ENTITY_SOURCE'], AF.ENTITY_SOURCES)
-            self.assertIn(af['ENTIDADES']['PRAGAS']['ENTITY_SOURCE'], AF.ENTITY_SOURCES)
+            for e in af['ENTIDADES']:
+                self.assertIn(e['ENTITY_SOURCE'], AF.ENTITY_SOURCES)
             self.assertIn(af['FACT_LOCATION']['LOCATION_SOURCE'], BC.LOCATION_SOURCES)
             self.assertIn(af['FACT_TIME_ROLE']['PAPEL'], tuple(TA.PAPEIS) + (NAO_SEI,))
+            self.assertIn(af['CLAIM_KIND']['VALOR'], tuple(AD.CLAIM_KINDS) + (NAO_SEI,))
 
     def test_so_acontecimento_vira_fact_time(self):
         self.assertEqual(tuple(TA.PAPEL_QUE_E_FACTO), (TA.ACONTECIMENTO,))
@@ -394,6 +395,89 @@ def so_a_regra(caminho):
                 continue
             fora.append(tok.string)
     return '\n'.join(fora)
+
+
+class OContratoDeConsumoDaIntelligence(unittest.TestCase):
+    """O que o dono da Intelligence exige para consumir uma afirmacao (D158).
+
+    Fonte: `CONTRATO-CONSUMO-AFIRMACOES.md` (proposta do dono, fora do Git). Este ficheiro
+    nao a copia: mede o que ela pede."""
+
+    EXIGIDOS = ('CLAIM_ID', 'ITEM_ID', 'RAW_OBSERVATION_ID', 'RAW_SHA256', 'SOURCE_ID',
+                'PRODUTOR_VERSAO', 'EVIDENCE_SPAN', 'CLAIM_KIND', 'SUBJECT', 'PREDICATE',
+                'OBJECT', 'ENTIDADES', 'FACT_TIME', 'FACT_LOCATION', 'VALIDITY',
+                'MARKET_PERIOD', 'STUDY_PERIOD', 'PUBLISHED_AT', 'OBSERVED_AT', 'COLLECTED_AT')
+
+    def test_todos_os_campos_do_paragrafo_1_estao_presentes(self):
+        for af in _produzir(BOLETIM):
+            for c in self.EXIGIDOS:
+                self.assertIn(c, af, c)
+
+    def test_o_evidence_span_e_literal_e_confere(self):
+        for af in _produzir(BOLETIM):
+            s = af['EVIDENCE_SPAN']
+            self.assertEqual(s['TRECHO'], BOLETIM[s['INICIO']:s['FIM']])
+            self.assertEqual(s['TRECHO'], af['TRECHO_LITERAL'])
+
+    def test_claim_id_e_assertion_id_sao_o_mesmo_valor(self):
+        for af in _produzir(BOLETIM):
+            self.assertEqual(af['CLAIM_ID'], af['ASSERTION_ID'])
+
+    def test_o_produtor_versao_diz_que_regra_extraiu(self):
+        af = _produzir(BOLETIM)[0]
+        self.assertEqual(af['PRODUTOR_VERSAO']['DECISAO'], 'D158')
+        self.assertTrue(af['PRODUTOR_VERSAO']['CODIGO']['leis/afirmacao_do_documento.py'])
+        self.assertTrue(af['PRODUTOR_VERSAO']['SEM_LLM'])
+
+    def test_a_classe_do_facto_observado_e_alerta_evento(self):
+        af = _que_diz(_produzir(BOLETIM), 'Le grandinate sono state osservate')
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], 'ALERTA_EVENTO')
+
+    def test_a_classe_com_duas_marcas_fica_nao_sei(self):
+        """Marca de REGULATORIO e de PRECO no mesmo trecho: escolher uma seria inferir."""
+        r = AD.classe_do_claim('Il decreto fissa il prezzo di 12,50 euro al quintale per la campagna.',
+                               {'PAPEL': TA.ACONTECIMENTO})
+        self.assertEqual(r['VALOR'], NAO_SEI)
+        self.assertEqual(sorted(r['MARCAS']), ['PRECO', 'REGULATORIO'])
+
+    def test_o_produtor_nunca_escreve_liberacao(self):
+        for af in _produzir(BOLETIM):
+            for c in AD.CAMPOS_PROIBIDOS:
+                self.assertNotIn(c, af, c)
+
+    def test_a_conferencia_recusa_quem_escreveu_liberacao(self):
+        af = dict(_produzir(BOLETIM)[0])
+        af['LIBERACAO'] = 'LIBERADO_PARA_CLIENTE'
+        v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='f' * 64)
+        self.assertTrue(any('PRODUTOR_DECIDIU_LIBERACAO' in x for x in v), v)
+
+    def test_a_conferencia_recusa_span_com_nome_fora_do_trecho(self):
+        """COL-LAW-221: ENTITY_SOURCE = SPAN exige o nome DENTRO do EVIDENCE_SPAN."""
+        af = json.loads(json.dumps(_produzir(BOLETIM)[0]))
+        af['ENTIDADES'] = [{'TIPO': 'CULTURA', 'NOME_ORIGINAL': 'olivo',
+                            'VALOR_NORMALIZADO': 'olivo', 'ENTITY_SOURCE': 'SPAN'}]
+        v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='f' * 64)
+        self.assertTrue(any('COL-LAW-221' in x for x in v), v)
+
+    def test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base(self):
+        af = json.loads(json.dumps(_que_diz(_produzir(BOLETIM), 'Le grandinate sono state osservate')))
+        af['FACT_TIME']['VALOR'] = PUB[0]
+        af['FACT_TIME_ROLE']['ORIGEM'] = None
+        af['FACT_TIME_ROLE']['BASIS'] = None
+        v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='f' * 64)
+        self.assertTrue(any('PUBLISHED_AT' in x for x in v), v)
+
+    def test_a_conferencia_recusa_claim_sem_identidade(self):
+        for campo in ('ITEM_ID', 'RAW_SHA256', 'SOURCE_ID', 'RAW_OBSERVATION_ID'):
+            af = json.loads(json.dumps(_produzir(BOLETIM)[0]))
+            af[campo] = ''
+            v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='f' * 64)
+            self.assertTrue(any(campo in x for x in v), (campo, v))
+
+    def test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar(self):
+        for af in _produzir(BOLETIM):
+            self.assertEqual(af['PUBLISHED_AT']['VALOR'], PUB[0])
+            self.assertNotEqual(af['FACT_TIME']['VALOR'], PUB[0])
 
 
 class NadaDaR9NoCodigo(unittest.TestCase):

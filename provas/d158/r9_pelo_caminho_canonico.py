@@ -103,11 +103,19 @@ def _um(v):
     return NAO_SEI if v in (None, "", "UNKNOWN", TA.NAO_EXISTE) else v
 
 
+def _entidades_de(af: dict, tipo: str) -> dict:
+    """As entidades de UM tipo, juntas no formato que a chave do compartimento aceita."""
+    es = [e for e in (af.get("ENTIDADES") or []) if e.get("TIPO") == tipo]
+    nomes = [e["VALOR_NORMALIZADO"] for e in es if e.get("VALOR_NORMALIZADO") not in (None, NAO_SEI)]
+    fonte = next((e["ENTITY_SOURCE"] for e in es if e.get("ENTITY_SOURCE") != "UNKNOWN"), "UNKNOWN")
+    return {"VALOR": nomes, "ENTITY_SOURCE": fonte}
+
+
 def objeto_da_afirmacao(af: dict, ref) -> dict:
     """A afirmacao no contrato do compartimento. NADA e acrescentado ao que ela ja diz."""
     p = af["PROVENIENCIA"]
-    cultura = af["ENTIDADES"]["CULTURA"]
-    praga = af["ENTIDADES"]["PRAGAS"]
+    cultura = _entidades_de(af, "CULTURA")
+    praga = _entidades_de(af, "PRAGA_OU_DOENCA")
     prova = {"ITEM_ID": p["ITEM_ID"], "RAW_OBSERVATION_ID": p["RAW_OBSERVATION_ID"],
              "SOURCE_ID": p["SOURCE_ID"], "DOCUMENT_ID": p["DOCUMENT_ID"],
              "CORRIDA_UPSTREAM": p["RUN_ID"], "URL": p["URL"],
@@ -157,7 +165,7 @@ def com_entity_source_da_lei(o: dict, af: dict) -> dict:
     Serve para medir o conflito D-GER-1 (defeito #8): a lei da entidade escreve UNKNOWN, e
     o fiscal do pote deste ramo so aceita «NAO SEI» como ignorancia. Nao se contorna: mede-se."""
     r = dict(o)
-    r["ENTITY_SOURCE"] = af["ENTIDADES"]["CULTURA"]["ENTITY_SOURCE"]
+    r["ENTITY_SOURCE"] = _entidades_de(af, "CULTURA")["ENTITY_SOURCE"]
     return r
 
 
