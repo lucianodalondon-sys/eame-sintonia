@@ -356,7 +356,35 @@ def _da_entrada(p: dict, campo):
     return None, None
 
 
-def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
+def _afirmacoes_da_corrida(corrida: dict) -> dict:
+    """G0-POR-AFIRMACAO: CLAIM_ID -> a entrada DA AFIRMACAO na LINEAGE (as do item vivem noutro indice)."""
+    return {str(e["CLAIM_ID"]): e for e in corrida.get("LINEAGE") or []
+            if isinstance(e, dict) and "CLAIM_ID" in e}
+
+
+def _conferir_prova_da_afirmacao(o: dict, afirmacoes: dict):
+    """`(motivo, detalhe)` se a prova de uma AFIRMACAO nao aguenta; `None` se aguenta.
+
+    Admite-se pelo G0 DA AFIRMACAO (G0_DA_AFIRMACAO = PASSOU), nunca pelo G0 do item. A entrada tem de ser a do
+    mesmo CLAIM_ID, com o mesmo ITEM_ID, SOURCE_ID, RAW_OBSERVATION_ID e CORRIDA_UPSTREAM."""
+    for p in o.get("PROVA") or []:
+        falta = [c for c in CAMPOS_DA_PROVA if e_ignorancia(p.get(c))]
+        if falta:
+            return "PROVA_INCOMPLETA", "falta " + ", ".join(falta)
+        e = afirmacoes.get(str(p.get("CLAIM_ID")))
+        if e is None:
+            return "AFIRMACAO_FORA_DA_CORRIDA", f"CLAIM_ID {p.get('CLAIM_ID')} nao esta na LINEAGE da corrida"
+        cs = ("ITEM_ID", "SOURCE_ID", "RAW_OBSERVATION_ID") + (() if e_ignorancia(p.get("CORRIDA_UPSTREAM"))
+                                                               else ("CORRIDA_UPSTREAM",))
+        if any(str(e.get(c)) != str(p.get(c)) for c in cs):
+            return "PROVA_CONTRADIZ_A_AFIRMACAO", f"a prova de {p.get('CLAIM_ID')} nao e a da entrada dela"
+        if e.get("G0_DA_AFIRMACAO") != "PASSOU":
+            return ("AFIRMACAO_BLOQUEADA_EM_G0",
+                    f"CLAIM_ID {p.get('CLAIM_ID')}: {', '.join(e.get('G0_FALTA') or [])}")
+    return None
+
+
+def _prova_v2(p: dict, linhagem: dict, run_id, especie=None, afirmacoes=None) -> dict:
     """O elemento de prova como viaja: os campos da v1, os da v2, e a corrida.
 
     URL e datas vem da propria prova; se a prova nao os disser, da entrada da
@@ -370,8 +398,14 @@ def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
         chave = candidatas[0] if len(candidatas) == 1 else None
     else:
         chave = (str(up), str(p["ITEM_ID"]))
-    batem = [e for e in (linhagem.get(chave) or [])
-             if all(str(e.get(c)) == str(p[c]) for c in ("SOURCE_ID", "RAW_OBSERVATION_ID"))]
+    da_afirmacao = "CLAIM_ID" in p and afirmacoes is not None
+    if da_afirmacao:
+        # G0-POR-AFIRMACAO: a entrada que confirma a prova e a DA AFIRMACAO, e o G0 e o dela
+        e = afirmacoes.get(str(p["CLAIM_ID"]))
+        batem = [dict(e, G0=e.get("G0_DA_AFIRMACAO"))] if e else []
+    else:
+        batem = [e for e in (linhagem.get(chave) or [])
+                 if all(str(e.get(c)) == str(p[c]) for c in ("SOURCE_ID", "RAW_OBSERVATION_ID"))]
     out = {c: p[c] for c in CAMPOS_DA_PROVA}
     out["CORRIDA_UPSTREAM"] = _valor(up)
     for c in CAMPOS_DA_PROVA_V2:
@@ -397,10 +431,13 @@ def _prova_v2(p: dict, linhagem: dict, run_id, especie=None) -> dict:
     else:
         out["ADMITIDA_POR"] = "USO_SEM_TEMPO"
     out["INTELLIGENCE_RUN_ID"] = run_id
+    if da_afirmacao:
+        out["CLAIM_ID"] = p["CLAIM_ID"]
+        out["G0_DE"] = "AFIRMACAO"
     return out
 
 
-def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica) -> dict:
+def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica, afirmacoes=None) -> dict:
     """RENDER + EXPLAIN. Os valores sao os do objeto, ou NAO SEI."""
     contrato = COMPARTIMENTOS[comp]["CHAVES"]
     dadas = _dadas(o)
@@ -424,7 +461,7 @@ def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica
         # P7 · o uso diz se o tempo e preciso; o resultado honesto viaja dito.
         "RESULTADO": resultado_honesto(o) or NAO_SEI,
         "USO_EXIGE_TEMPO": uso_exige_tempo(especie, o),
-        "PROVA": [_prova_v2(p, linhagem, run_id, especie) for p in o["PROVA"]],
+        "PROVA": [_prova_v2(p, linhagem, run_id, especie, afirmacoes) for p in o["PROVA"]],
         "CORRIDA_SINTETICA": sintetica,
         # D123 · transportada como a porta a selou; o pote nao a recalcula
         "LIGACAO_ADAMA": o.get("LIGACAO_ADAMA"),
@@ -448,7 +485,7 @@ def _objeto(comp: str, o: dict, especie, especie_de, linhagem, run_id, sintetica
     return out
 
 
-def _conferir_objeto(comp, o, linhagem, vistos):
+def _conferir_objeto(comp, o, linhagem, vistos, afirmacoes=None):
     """`(motivo, detalhe)` se o objeto nao atravessa; `None` se atravessa."""
     if not isinstance(o, dict):
         return "ENTRADA_INVALIDA", ""
@@ -464,7 +501,15 @@ def _conferir_objeto(comp, o, linhagem, vistos):
     if especie not in admitidas:
         return ("ESPECIE_FORA_DO_COMPARTIMENTO",
                 f"{especie} nao cabe em {comp} (admite {', '.join(admitidas)}); o pote nao muda especie")
-    falha = V1.conferir_prova(o, linhagem, admite=_admite_para(especie, o))
+    provas = [p for p in (o.get("PROVA") or []) if isinstance(p, dict)]
+    de_afirmacao = [p for p in provas if "CLAIM_ID" in p]
+    if de_afirmacao and len(de_afirmacao) != len(provas):
+        return ("PROVA_MISTURA_ITEM_E_AFIRMACAO",
+                "um objeto prova-se OU por afirmacoes OU por itens; misturar deixaria um G0 decidir pelo outro")
+    if de_afirmacao:
+        falha = _conferir_prova_da_afirmacao(o, afirmacoes or {})
+    else:
+        falha = V1.conferir_prova(o, linhagem, admite=_admite_para(especie, o))
     if falha:
         return falha
     # P8 · afirmar mudanca de mercado sem SERIE medida e promover um ponto.
@@ -599,6 +644,7 @@ def adaptar(corrida: dict) -> dict:
         raise LeiViolada("corrida sem INTELLIGENCE_RUN_ID: um pote e de UMA corrida")
     estado = topo["RESULT_STATE"] or NAO_SEI
     linhagem = V1._linhagem_da_corrida(corrida)
+    afirmacoes = _afirmacoes_da_corrida(corrida)
     lacunas = V1._lacunas(corrida)
     sintetica = _sintetica(corrida)
     brutos = corrida.get("ITENS_POR_FERRAMENTA") or {}
@@ -629,13 +675,13 @@ def adaptar(corrida: dict) -> dict:
         else:
             vistos = set()
             for o in objs:
-                falha = _conferir_objeto(comp, o, linhagem, vistos)
+                falha = _conferir_objeto(comp, o, linhagem, vistos, afirmacoes)
                 if falha:
                     recusados.append(_recusa(comp, o, *falha))
                     continue
                 vistos.add(_id_do_objeto(o))
                 especie, de = _especie(o)
-                entrada["OBJETOS"].append(_objeto(comp, o, especie, de, linhagem, run_id, sintetica))
+                entrada["OBJETOS"].append(_objeto(comp, o, especie, de, linhagem, run_id, sintetica, afirmacoes))
         _vazio_ou_cheio(entrada, comp, estado)
         saida[comp] = entrada
     _fechar(saida, recusados)
