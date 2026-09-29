@@ -83,6 +83,9 @@ const MEDIR = (conhecidos) => {
     POTE_NA_TELA: !!document.querySelector('[data-view="pote"]'),
     COMPARTIMENTO: comp ? comp.getAttribute('data-pote-compartimento') : null,
     POTE_OBJETOS: document.querySelectorAll('[data-pote-objeto]').length,
+    POTE_IDS: [...document.querySelectorAll('[data-pote-objeto]')].map((n) => n.getAttribute('data-pote-objeto')),
+    ENTREGA_RECUSADA_NA_TELA: !!document.querySelector('[data-entrega-recusada]'),
+    LIVE_DEMO: (document.querySelector('[data-live-demo]') || { getAttribute: () => null }).getAttribute('data-live-demo'),
     POTE_VAZIO: !!document.querySelector('[data-pote-vazio]'),
     POTE_RECUSADO: !!document.querySelector('[data-pote-recusado]'),
     MARCA: !!document.querySelector('[data-view="pote"] [data-marca]'),
@@ -107,7 +110,7 @@ const MEDIR = (conhecidos) => {
     HASH: location.hash,
     ENVELOPE: PUB && typeof PUB === 'object'
       ? { CONTRATO: PUB.CONTRATO || null, POTE_SHA256: PUB.POTE_SHA256 || null, RUN: PUB.INTELLIGENCE_RUN_ID || null,
-          TEM_POTE: !!PUB.POTE }
+          TEM_POTE: !!PUB.POTE, ENTREGA_ESTADO: (PUB.ENTREGA && PUB.ENTREGA.ESTADO) || null }
       : null,
   };
 };

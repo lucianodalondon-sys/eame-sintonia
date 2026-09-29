@@ -114,11 +114,13 @@ def contagens_boas(pote, sha, contrato=CONTRATO):
                 "LEGADO_44_VISIVEIS": antigos if t == "radarfuturo" else 0,
                 "LEGADO_43_FORA": 0, "LEGADO_44_FORA": 0, "LEGADO_CARTOES_FORA": 0,
                 "LIVE_N": str(esp[t]) if viva else None, "SNAPSHOT_TITULO": viva,
-                "OGGI_LEGADO": False, "NAV": dict(nav), "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True}}
+                "OGGI_LEGADO": False, "NAV": dict(nav), "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True},
+                "ENTREGA_RECUSADA_NA_TELA": False}
     T[TL["DEBUG"]["TELA"]] = {"HTTP": 200, "POTE_NA_TELA": True, "MARCA": True, "POTE_RECUSADO": False,
-                              "POTE_OBJETOS": total, "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True}}
+                              "POTE_OBJETOS": total, "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True},
+                              "ENTREGA_RECUSADA_NA_TELA": False}
     T["accesso"] = {"HTTP": 200, "LEGADO_CARTOES": 0, "LEGADO_43_VISIVEIS": 0, "LEGADO_44_VISIVEIS": 0, "LEGADO_43_UNIVERSO": 43,
-                    "LEGADO_43_FORA": 0, "LEGADO_44_FORA": 0, "LEGADO_CARTOES_FORA": 0}
+                    "LEGADO_43_FORA": 0, "LEGADO_44_FORA": 0, "LEGADO_CARTOES_FORA": 0, "ENTREGA_RECUSADA_NA_TELA": False}
     T["casa"] = {"HTTP": 200, "URL_FINAL": "http://127.0.0.1:1/accesso", "LEGADO_43_VISIVEIS": 0, "LEGADO_44_VISIVEIS": 0}
     return {"MEDICAO_COMPLETA": True, "TELAS": T}
 
@@ -434,6 +436,29 @@ class P1_AsTelas(unittest.TestCase):
         self.C = contagens_boas(POTE_ENSAIO, self.sha)
         self.C["TELAS"]["meeting"]["NAV"]["windows"] = "29"
         self.assertNotIn("C5_BARRA_CONTA_O_LIVE", ids(self.conf()), "as outras vozes contam como o casco original")
+
+    def test_d156_recusa_dita_no_debug_e_so_la(self):
+        """B3: com a entrega RECUSADA o debug diz o motivo; tela de cliente nenhuma o diz."""
+        ent = {"ESTADO": "RECUSADA", "QUANDO": "2026-09-29T10:00:00Z", "MOTIVOS": ["POTE.json: sha256 diferente"]}
+        d = CONTRATO["TELAS"]["DEBUG"]["TELA"]
+        self.C["TELAS"][d]["ENTREGA_RECUSADA_NA_TELA"] = True
+        L = P.conferir_telas(self.C, POTE_ENSAIO, self.sha, CONTRATO, "C5", ent)
+        self.assertNotIn("C5_ENTREGA_DITA_SO_NO_DEBUG", ids(L))
+        self.C["TELAS"]["meeting"]["ENTREGA_RECUSADA_NA_TELA"] = True
+        self.assertIn("C5_ENTREGA_DITA_SO_NO_DEBUG", ids(P.conferir_telas(self.C, POTE_ENSAIO, self.sha, CONTRATO, "C5", ent)))
+
+    def test_d156_recusa_que_o_debug_nao_diz(self):
+        ent = {"ESTADO": "RECUSADA", "QUANDO": "x", "MOTIVOS": ["y"]}
+        self.assertIn("C5_ENTREGA_DITA_SO_NO_DEBUG", ids(P.conferir_telas(self.C, POTE_ENSAIO, self.sha, CONTRATO, "C5", ent)))
+
+    def test_d156_recusa_na_tela_sem_recusa_nenhuma(self):
+        self.C["TELAS"][CONTRATO["TELAS"]["DEBUG"]["TELA"]]["ENTREGA_RECUSADA_NA_TELA"] = True
+        self.assertIn("C5_ENTREGA_DITA_SO_NO_DEBUG", ids(self.conf()))
+
+    def test_d156_o_envelope_leva_a_entrega(self):
+        ent = {"ESTADO": "RECUSADA", "QUANDO": "x", "MOTIVOS": ["y"]}
+        self.assertEqual(P.envelope(POTE_ENSAIO, self.sha, CONTRATO, "preview", "0" * 40, ent)["ENTREGA"], ent)
+        self.assertNotIn("ENTREGA", P.envelope(POTE_ENSAIO, self.sha, CONTRATO, "preview", "0" * 40))
 
     def test_medicao_incompleta_nao_autoriza(self):
         self.C["MEDICAO_COMPLETA"] = False

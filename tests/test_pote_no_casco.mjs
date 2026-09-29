@@ -318,5 +318,32 @@ for (const [nome, mexer] of [
 prova('P10 o pote v2 unico sintetico passa no leitor',
   ler(montar(clone(POTE2)), 'market').recusado === false);
 
+/* ── P12 · D156: DEMO nunca passa por LIVE; a recusa da entrega so no debug (B3) ────────────── */
+{
+  const sint = montar(clone(POTE));
+  prova('P12 pote de teste (CORRIDA_SINTETICA=true): a linha diz DEMO, nunca LIVE',
+    POTE.CORRIDA_SINTETICA === true && sint.vals({ view: 'meeting', lang: 'it' }).poteLive.eDemo === true &&
+    /^DEMO/.test(sint.vals({ view: 'meeting', lang: 'it' }).poteLive.rotulo));
+  const real = clone(POTE); real.CORRIDA_SINTETICA = false;
+  const Mr = montar(real);
+  prova('P12 pote real: a linha diz LIVE', Mr.vals({ view: 'meeting', lang: 'it' }).poteLive.rotulo === 'LIVE' &&
+    Mr.vals({ view: 'meeting', lang: 'it' }).poteLive.eDemo === false);
+  const Me = montar(clone(POTE));
+  Me.ctx.SINTONIA_POTE_ENTREGA = { ESTADO: 'RECUSADA', QUANDO: '2026-09-29T10:00:00Z', MOTIVOS: ['POTE.json: sha256 diferente do SHA256SUMS.txt'] };
+  const dbg = Me.vals({ view: DEBUG, lang: 'it' }).poteDbg;
+  prova('P12 entrega recusada: o debug diz o motivo e que o ultimo bom continua',
+    dbg.temRecusa === true && /sha256 diferente/.test(dbg.recusaTexto) && /precedente/.test(dbg.recusaTexto) && dbg.comps.length > 0);
+  prova('P12 entrega recusada: nenhuma tela de cliente a diz (B3)',
+    ['meeting', 'radarfuturo', 'windows'].every((v) => { const x = Me.vals({ view: v, lang: 'it' });
+      return !x.poteLive.temRecusa && !x.poteVista; }) && !/poteLive\.recusaTexto/.test(HTML));
+  Me.ctx.SINTONIA_POTE_ENTREGA = { ESTADO: 'ACEITE' };
+  prova('P12 entrega aceite: nada a dizer', Me.vals({ view: DEBUG, lang: 'it' }).poteDbg.temRecusa === false);
+  const sb = vm.createContext({ document: { write: () => {} } });
+  sb.window = sb; sb.window.location = { search: '' };
+  sb.SINTONIA_POTE_PUBLICADO = { POTE: clone(POTE), ENTREGA: { ESTADO: 'RECUSADA', MOTIVOS: ['x'] } };
+  vm.runInContext(LEITOR, sb);
+  prova('P12 o carregador le a ENTREGA do envelope publicado', !!sb.SINTONIA_POTE_ENTREGA && sb.SINTONIA_POTE_ENTREGA.ESTADO === 'RECUSADA');
+}
+
 console.log(`\nPOTE NO CASCO: ${provas - falhas}/${provas} provas`);
 process.exit(falhas ? 1 : 0);

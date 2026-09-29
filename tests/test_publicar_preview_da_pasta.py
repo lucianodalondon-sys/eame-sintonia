@@ -30,6 +30,7 @@ from unittest import mock
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "portoes"))
 sys.path.insert(0, str(RAIZ))
+sys.path.insert(0, str(RAIZ / "tests"))
 import _gavetas  # noqa: E402,F401
 
 import publicar_preview_da_pasta as G  # noqa: E402
@@ -256,6 +257,163 @@ class G3_ARaiz(unittest.TestCase):
             self.assertEqual(len(todas), 3)
         finally:
             shutil.rmtree(d, ignore_errors=True)
+
+
+
+# ── G5 · a RODADA (D156): o que a tarefa agendada corre a cada 10 min ──────────
+import entrega_de_teste as ET  # noqa: E402  (tests/entrega_de_teste.py — a entrega pela forma canonica)
+
+VAZIO = RAIZ / "tests" / "fixtures" / "pote" / "POTE-SINTETICO-VAZIO.json"
+
+
+class PublicadorFalso:
+    """Anota cada chamada; devolve o rc que o teste mandar e um REGISTO minimo."""
+    def __init__(self, rcs=(0,)):
+        self.chamadas, self.rcs = [], list(rcs)
+
+    def __call__(self, pote, modo, registro, entrega, estado):
+        rc = self.rcs.pop(0) if self.rcs else 0
+        self.chamadas.append({"POTE": Path(pote), "SHA": hashlib.sha256(Path(pote).read_bytes()).hexdigest(),
+                              "MODO": modo, "ENTREGA": entrega})
+        reg = {"ESTADO": "PUBLICADO" if rc == 0 else "BLOQUEADO", "FIM": "2026-09-29T00:00:00",
+               "IMPLANTADO": {"ID": "dpl_falso%d" % len(self.chamadas), "URL": "https://falso.vercel.app"},
+               "CONFERENCIAS": [] if rc == 0 else [{"ID": "C0_POTE_V2_FORMA_E_LEI", "PASS": False}]}
+        return rc, reg
+
+
+class G5_ARodada(unittest.TestCase):
+    def setUp(self):
+        self.d = Path(tempfile.mkdtemp(prefix="teste-rodada-"))
+        self.entrega = self.d / "esteira" / "PARA-O-CASCO"
+        self.estado = self.d / "estado"
+
+    def tearDown(self):
+        shutil.rmtree(self.d, ignore_errors=True)
+
+    def rodar(self, pub, modo="preview"):
+        return G.rodada(self.entrega, self.estado, modo, publicar=pub)
+
+    def linhas(self):
+        return [json.loads(l) for l in (self.estado / "RODADAS.ndjson").read_text(encoding="utf-8").splitlines()]
+
+    def test_pote_novo_valido_publica_sozinho_e_depois_igual(self):
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        pub = PublicadorFalso()
+        r = self.rodar(pub)
+        self.assertEqual(r["DECISAO"], "PUBLICADA")
+        self.assertEqual(pub.chamadas[0]["MODO"], "preview")
+        self.assertIsNone(pub.chamadas[0]["ENTREGA"], "entrega aceite nao leva recusa")
+        self.assertEqual(pub.chamadas[0]["SHA"], _sha(FIX.read_bytes()))
+        self.assertTrue(r["T0"] and r["T1"] and r["DEPLOYMENT"]["ID"])
+        self.assertEqual(self.rodar(pub)["DECISAO"], "IGUAL")
+        self.assertEqual(len(pub.chamadas), 1, "MANIFESTO/SHA256SUMS iguais: nada acontece")
+        self.assertEqual([l["DECISAO"] for l in self.linhas()], ["PUBLICADA", "IGUAL"])
+
+    def _bom_e_depois(self, caso):
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        pub = PublicadorFalso()
+        self.rodar(pub)
+        ET.entregar(self.entrega, VAZIO.read_bytes(), caso)
+        r = self.rodar(pub)
+        return r, pub
+
+    def test_b1_sha_errado_mantem_o_ultimo_bom_e_diz_o_motivo(self):
+        r, pub = self._bom_e_depois("sha")
+        self.assertEqual(r["DECISAO"], "RECUSADA_DITA")
+        ch = pub.chamadas[-1]
+        self.assertEqual(ch["SHA"], _sha(FIX.read_bytes()), "o pote que volta ao ar e o ULTIMO BOM")
+        self.assertEqual(ch["ENTREGA"]["ESTADO"], "RECUSADA")
+        self.assertIn("sha256 diferente", " ".join(ch["ENTREGA"]["MOTIVOS"]))
+
+    def test_b1_ficheiro_em_falta(self):
+        for caso, pedaco in (("falta-pote", "listado e ausente"), ("falta-manifesto", "MANIFESTO")):
+            with self.subTest(caso=caso):
+                shutil.rmtree(self.d, ignore_errors=True)
+                r, pub = self._bom_e_depois(caso)
+                self.assertEqual(r["DECISAO"], "RECUSADA_DITA")
+                self.assertEqual(pub.chamadas[-1]["SHA"], _sha(FIX.read_bytes()))
+                self.assertIn(pedaco, " ".join(pub.chamadas[-1]["ENTREGA"]["MOTIVOS"]))
+
+    def test_b1_result_state_nao_final(self):
+        r, pub = self._bom_e_depois("estado")
+        self.assertEqual(r["DECISAO"], "RECUSADA_DITA")
+        self.assertEqual(pub.chamadas[-1]["SHA"], _sha(FIX.read_bytes()))
+        self.assertIn("RESULT_STATE", " ".join(pub.chamadas[-1]["ENTREGA"]["MOTIVOS"]))
+
+    def test_recusada_sem_ultimo_bom_nao_publica(self):
+        ET.entregar(self.entrega, FIX.read_bytes(), "sha")
+        pub = PublicadorFalso()
+        self.assertEqual(self.rodar(pub)["DECISAO"], "RECUSADA_SEM_ULTIMO_BOM")
+        self.assertEqual(pub.chamadas, [])
+
+    def test_c1_pote_vazio_e_legitimo(self):
+        ET.entregar(self.entrega, VAZIO.read_bytes(), "vazio")
+        pub = PublicadorFalso()
+        self.assertEqual(self.rodar(pub)["DECISAO"], "PUBLICADA")
+        self.assertEqual(pub.chamadas[0]["SHA"], _sha(VAZIO.read_bytes()))
+
+    def test_publicador_que_reprova_vira_recusa_com_o_motivo(self):
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        pub = PublicadorFalso([0, 1, 0])
+        self.rodar(pub)
+        ET.entregar(self.entrega, VAZIO.read_bytes(), "vazio")
+        r = self.rodar(pub)
+        self.assertEqual(r["DECISAO"], "RECUSADA_DITA")
+        self.assertEqual(pub.chamadas[-1]["SHA"], _sha(FIX.read_bytes()))
+        self.assertIn("C0_POTE_V2_FORMA_E_LEI", " ".join(pub.chamadas[-1]["ENTREGA"]["MOTIVOS"]))
+
+    def test_falha_do_transporte_tenta_de_novo_e_nao_gira_para_sempre(self):
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        pub = PublicadorFalso([0, 1, 1])
+        self.rodar(pub)
+        ET.entregar(self.entrega, FIX.read_bytes(), "sha")
+        self.assertEqual(self.rodar(pub)["DECISAO"], "RECUSADA_NAO_DITA")
+        self.assertEqual(self.rodar(pub)["DECISAO"], "RECUSADA_NAO_DITA")
+        self.assertEqual(self.rodar(pub)["DECISAO"], "IGUAL", "duas tentativas e desiste daquela assinatura")
+
+    def test_parar_desliga(self):
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        self.estado.mkdir(parents=True)
+        (self.estado / "PARAR").write_text("", encoding="utf-8")
+        pub = PublicadorFalso()
+        self.assertEqual(self.rodar(pub)["DECISAO"], "PARADO")
+        self.assertEqual(pub.chamadas, [])
+        (self.estado / "PARAR").unlink()
+        self.assertEqual(self.rodar(pub)["DECISAO"], "PUBLICADA")
+
+    def test_trava_de_instancia_unica(self):
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        self.estado.mkdir(parents=True)
+        (self.estado / "TRAVA.lock").write_text("123", encoding="utf-8")
+        pub = PublicadorFalso()
+        self.assertEqual(self.rodar(pub)["DECISAO"], "OCUPADO")
+        self.assertEqual(pub.chamadas, [])
+        velho = time.time() - G.TRAVA_VELHA_S - 10
+        os.utime(self.estado / "TRAVA.lock", (velho, velho))
+        r = self.rodar(pub)
+        self.assertEqual(r["DECISAO"], "PUBLICADA")
+        self.assertIn("TRAVA_VELHA_REMOVIDA_S", r)
+        self.assertFalse((self.estado / "TRAVA.lock").exists(), "a rodada solta a trava")
+
+    def test_entrega_ausente_nao_faz_nada(self):
+        pub = PublicadorFalso()
+        self.assertEqual(self.rodar(pub)["DECISAO"], "AUSENTE")
+        self.assertEqual(pub.chamadas, [])
+
+    def test_producao_recusada_na_rodada(self):
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        pub = PublicadorFalso()
+        self.assertEqual(self.rodar(pub, "producao")["DECISAO"], "RECUSADO_DESTINO")
+        self.assertEqual(pub.chamadas, [])
+        self.assertEqual(G.main(["--rodada", "--estado", str(self.estado), "--pasta", str(self.entrega),
+                                 "--modo", "producao"]), G.USO)
+
+    def test_a_entrega_de_teste_troca_a_pasta_inteira(self):
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        ET.entregar(self.entrega, VAZIO.read_bytes(), "vazio")
+        irmaos = [x.name for x in self.entrega.parent.iterdir() if x.is_dir()]
+        self.assertEqual(irmaos, ["PARA-O-CASCO"], "nada de meia pasta ao lado depois da troca")
+        self.assertTrue(G.conferir_pasta(self.entrega)["COMPLETA"])
 
 
 if __name__ == "__main__":

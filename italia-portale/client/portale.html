@@ -495,7 +495,7 @@
            corte; o que esta ferramenta ja mostrava continua abaixo, inteiro, rotulado SNAPSHOT com a data do
            proprio pacote. Nenhum numero de um lado entra no outro. -->
       <sc-if value="{{ temLive }}" hint-placeholder-val="{{ false }}">
-      <div data-live="1" style="border-radius:12px;border:1px solid rgba(0,152,69,0.45);background:#1C1817;padding:11px 15px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <div data-live="1" data-live-demo="{{ poteLive.eDemo }}" style="border-radius:12px;border:1px solid rgba(0,152,69,0.45);background:#1C1817;padding:11px 15px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
         <span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.14em;color:#00B152"><span style="width:7px;height:7px;border-radius:50%;background:#009845"></span>{{ poteLive.rotulo }}</span>
         <b data-live-n="{{ poteLive.n }}" style="font-size:22px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ poteLive.n }}</b>
         <span style="font-size:12px;color:#EDEAE9">{{ poteLive.texto }}</span>
@@ -2914,7 +2914,7 @@
            corte; o que esta ferramenta ja mostrava continua abaixo, inteiro, rotulado SNAPSHOT com a data do
            proprio pacote. Nenhum numero de um lado entra no outro. -->
       <sc-if value="{{ temLive }}" hint-placeholder-val="{{ false }}">
-      <div data-live="1" style="border-radius:12px;border:1px solid rgba(0,152,69,0.45);background:#1C1817;padding:11px 15px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <div data-live="1" data-live-demo="{{ poteLive.eDemo }}" style="border-radius:12px;border:1px solid rgba(0,152,69,0.45);background:#1C1817;padding:11px 15px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
         <span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-secondary);font-size:11px;font-weight:700;letter-spacing:0.14em;color:#00B152"><span style="width:7px;height:7px;border-radius:50%;background:#009845"></span>{{ poteLive.rotulo }}</span>
         <b data-live-n="{{ poteLive.n }}" style="font-size:22px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ poteLive.n }}</b>
         <span style="font-size:12px;color:#EDEAE9">{{ poteLive.texto }}</span>
@@ -3677,6 +3677,7 @@
       <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ pageTitle }}</h1>
         <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:var(--font-secondary);font-size:12px;color:#C9C3C1"><sc-for list="{{ poteDbg.run }}" as="r" hint-placeholder-count="5"><span>{{ r.k }} <b style="color:{{ r.color }}">{{ r.v }}</b></span></sc-for></div></div>
       <sc-if value="{{ poteDbg.recusado }}" hint-placeholder-val="{{ false }}"><div data-pote-recusado="1" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;font-size:12px;color:#F5B317">{{ poteDbg.recusa }}</div></sc-if>
+      <sc-if value="{{ poteDbg.temRecusa }}" hint-placeholder-val="{{ false }}"><div data-entrega-recusada="1" style="border-radius:12px;border:1px solid rgba(245,179,23,0.45);background:#1C1817;padding:9px 14px;font-size:12px;color:#F5B317;word-break:break-word">{{ poteDbg.recusaTexto }}</div></sc-if>
       <sc-if value="{{ poteDbg.assente }}" hint-placeholder-val="{{ false }}"><div data-pote-vazio="{{ poteDbg.assenteTitulo }}" style="border-radius:12px;border:1px solid rgba(245,179,23,0.4);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:4px"><div style="font-size:12px;font-weight:700;color:#F5B317">{{ poteDbg.assenteTitulo }}</div><div style="font-size:12px;color:#EDEAE9">{{ poteDbg.assenteTexto }}</div></div></sc-if>
       <sc-for list="{{ poteDbg.comps }}" as="pote" hint-placeholder-count="2">
       <div data-pote-compartimento="{{ pote.comp.codigo }}" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(255,255,255,0.10);padding-top:12px">

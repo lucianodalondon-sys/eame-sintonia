@@ -189,8 +189,111 @@
     "FAIL: test_debug_sem_o_pote_inteiro (tests.test_publicar_portal_sozinho.P1_AsTelas.test_debug_sem_o_pote_inteiro)",
     "FAIL: test_pote_recusado_no_debug (tests.test_publicar_portal_sozinho.P1_AsTelas.test_pote_recusado_no_debug)"
    ]
+  },
+  {
+   "MUTANTE": "M23 D156 rodada ignora PARAR",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_parar_desliga (tests.test_publicar_preview_da_pasta.G5_ARodada.test_parar_desliga)"
+   ]
+  },
+  {
+   "MUTANTE": "M24 D156 sem trava de instancia unica",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_trava_de_instancia_unica (tests.test_publicar_preview_da_pasta.G5_ARodada.test_trava_de_instancia_unica)"
+   ]
+  },
+  {
+   "MUTANTE": "M25 D156 publica mesmo com a assinatura igual",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_falha_do_transporte_tenta_de_novo_e_nao_gira_para_sempre (tests.test_publicar_preview_da_pasta.G5_ARodada.test_falha_do_transporte_tenta_de_novo_e_nao_gira_para_sempre)",
+    "FAIL: test_pote_novo_valido_publica_sozinho_e_depois_igual (tests.test_publicar_preview_da_pasta.G5_ARodada.test_pote_novo_valido_publica_sozinho_e_depois_igual)"
+   ]
+  },
+  {
+   "MUTANTE": "M26 D156 recusa sem dizer o motivo",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "ERROR: test_b1_ficheiro_em_falta (tests.test_publicar_preview_da_pasta.G5_ARodada.test_b1_ficheiro_em_falta) (caso='falta-pote')",
+    "ERROR: test_b1_ficheiro_em_falta (tests.test_publicar_preview_da_pasta.G5_ARodada.test_b1_ficheiro_em_falta) (caso='falta-manifesto')",
+    "ERROR: test_b1_result_state_nao_final (tests.test_publicar_preview_da_pasta.G5_ARodada.test_b1_result_state_nao_final)"
+   ]
+  },
+  {
+   "MUTANTE": "M27 D156 destino de producao aceite na rodada",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_producao_recusada_na_rodada (tests.test_publicar_preview_da_pasta.G5_ARodada.test_producao_recusada_na_rodada)"
+   ]
+  },
+  {
+   "MUTANTE": "M28 D156 debug sem o motivo da recusa",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P7 toda ligacao do bloco do pote resolve — poteDbg.temRecusa, poteDbg.recusaTexto",
+    "FAIL: P12 entrega recusada: o debug diz o motivo e que o ultimo bom continua",
+    "FAIL: P12 entrega aceite: nada a dizer"
+   ]
+  },
+  {
+   "MUTANTE": "M29 D156 DEMO dito como LIVE",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P12 pote de teste (CORRIDA_SINTETICA=true): a linha diz DEMO, nunca LIVE"
+   ]
+  },
+  {
+   "MUTANTE": "M30 D156 conferencia ENTREGA_DITA desligada",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_d156_recusa_dita_no_debug_e_so_la (tests.test_publicar_portal_sozinho.P1_AsTelas.test_d156_recusa_dita_no_debug_e_so_la)",
+    "FAIL: test_d156_recusa_na_tela_sem_recusa_nenhuma (tests.test_publicar_portal_sozinho.P1_AsTelas.test_d156_recusa_na_tela_sem_recusa_nenhuma)",
+    "FAIL: test_d156_recusa_que_o_debug_nao_diz (tests.test_publicar_portal_sozinho.P1_AsTelas.test_d156_recusa_que_o_debug_nao_diz)"
+   ]
+  },
+  {
+   "MUTANTE": "M31 D156 prova reversa finge o byte do sintetico",
+   "FICHEIRO": "portoes/prova_reversa_do_pote.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_pote_sintetico_nao_finge_o_byte (tests.test_prova_reversa_do_pote.A_ProvaReversa.test_pote_sintetico_nao_finge_o_byte)"
+   ]
+  },
+  {
+   "MUTANTE": "M32 D156 prova reversa nao compara o sha no ar",
+   "FICHEIRO": "portoes/prova_reversa_do_pote.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_sha_no_ar_diferente_reprova (tests.test_prova_reversa_do_pote.A_ProvaReversa.test_sha_no_ar_diferente_reprova)"
+   ]
+  },
+  {
+   "MUTANTE": "M33 D156 prova reversa aceita DOM diferente",
+   "FICHEIRO": "portoes/prova_reversa_do_pote.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_objeto_que_falta_no_dom_reprova (tests.test_prova_reversa_do_pote.A_ProvaReversa.test_objeto_que_falta_no_dom_reprova)"
+   ]
+  },
+  {
+   "MUTANTE": "M34 D156 vazio sem porque passa",
+   "FICHEIRO": "portoes/prova_reversa_do_pote.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_f2_vazio_sem_o_porque_nao_e_legitimo (tests.test_prova_reversa_do_pote.A_ProvaReversa.test_f2_vazio_sem_o_porque_nao_e_legitimo)"
+   ]
   }
  ],
- "MORTOS": 22,
- "TOTAL": 22
+ "MORTOS": 34,
+ "TOTAL": 34
 }

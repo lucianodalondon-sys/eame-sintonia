@@ -1,0 +1,112 @@
+{
+ "_AVISO": "SINTETICO DECLARADO (D156): a corrida CORRIDA-SINTETICA-PUBLICA-SOZINHO sem nenhum objeto — o pote VAZIO legitimo (zero liberado), gerado por pacote/pote_intelligence_casco.py.",
+ "SCHEMA": "CORRIDA_DA_INTELLIGENCE/v2-SINTETICA",
+ "SINTETICA": true,
+ "INTELLIGENCE_RUN_ID": "SINT-IR-VAZIO-0001",
+ "SOURCE_HEAD": "SINT-0000000000000000000000000000000000000000",
+ "CORTE": "2026-09-27T00:00:00+00:00",
+ "RESULT_STATE": "DONE",
+ "LINEAGE": [
+  {
+   "ITEM_ID": "SINT-ITEM-1",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-1",
+   "SOURCE_ID": "SINT-SRC-1",
+   "G0": "PASSOU",
+   "G0_FALTA": [],
+   "URL": "https://sint.example/boletim-1",
+   "PUBLICADO_EM": "2026-09-20",
+   "COLHIDO_EM": "2026-09-21"
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-2",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-2",
+   "SOURCE_ID": "SINT-SRC-2",
+   "G0": "PASSOU",
+   "G0_FALTA": []
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-3",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-3",
+   "SOURCE_ID": "SINT-SRC-3",
+   "G0": "PASSOU",
+   "G0_FALTA": []
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-4",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-4",
+   "SOURCE_ID": "SINT-SRC-3",
+   "G0": "PASSOU",
+   "G0_FALTA": []
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-5",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-5",
+   "SOURCE_ID": "SINT-SRC-5",
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA"
+   ],
+   "URL": "https://sint.example/decreto-2027",
+   "PUBLICADO_EM": "2026-09-15",
+   "COLHIDO_EM": "2026-09-16"
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-6",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-6",
+   "SOURCE_ID": "SINT-SRC-6",
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "SOURCE_ID",
+    "FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA"
+   ]
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-7",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-7",
+   "SOURCE_ID": "SINT-SRC-7",
+   "G0": "BLOQUEADO_EM_G0",
+   "G0_FALTA": [
+    "FACT_TIME:CAPTURA_DESCONHECIDA_FUTURO_NAO_EXCLUIDO"
+   ]
+  },
+  {
+   "ITEM_ID": "SINT-ITEM-8",
+   "CORRIDA_UPSTREAM": "SINT-UP-A",
+   "RAW_OBSERVATION_ID": "SINT-RAW-8",
+   "SOURCE_ID": "SINT-SRC-8",
+   "G0": "PASSOU",
+   "G0_FALTA": [],
+   "URL": "javascript:alert(1)"
+  }
+ ],
+ "SIGNALS": [],
+ "REQUIREMENTS": [
+  {
+   "REQUIREMENT_ID": "SINT-REQ-1",
+   "MISSING_FACT_OR_KEY": [
+    "FACT_TIME:SEM_BASE"
+   ]
+  }
+ ],
+ "GAPS": [
+  {
+   "FERRAMENTA": "market",
+   "GAP": "SINT: nenhum preco com unidade nesta corrida"
+  }
+ ],
+ "ITENS_POR_FERRAMENTA": {
+  "meeting": [],
+  "future": [],
+  "windows": [],
+  "sources": [],
+  "archive": [],
+  "field": []
+ }
+}
