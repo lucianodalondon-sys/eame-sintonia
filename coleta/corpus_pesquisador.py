@@ -224,9 +224,36 @@ def _texto(s):
 
 
 def _get(url, headers=None):
-    """→ (json, None) ou (None, motivo). NUNCA levanta: FALHA DE FONTE != ZERO."""
+    """→ (json, None) ou (None, motivo). NUNCA levanta: FALHA DE FONTE != ZERO.
+
+    RESERVA NO CONTADOR 24 h ANTES DO PEDIDO (D90/D124). Este e o UNICO ponto
+    por onde este modulo toca a rede, e por isso o unico lugar onde a reserva
+    pode ser feita sem se contar duas vezes.
+
+    Porque faltava (medido, 28/09): `pesquisadores_t6.py` chegava aqui por
+    `urlopen` CRU, sem passar pelo `coleta/teto_da_onda.py` — a linha CIENCIA
+    nunca gastou lugar no livro da cortesia, e o coletor continuo deixava-a em
+    ESPERA_LIGACAO. A sonda de comportamento (`provas/sonda_portas_da_coleta.py`,
+    uma linha por processo) mediu-a a consumir 0 eventos enquanto SOCIAL e BUSCA
+    consumiam 1 e 4.
+
+    A porta e a MESMA das outras linhas (`teto_da_onda.reservar`), e nao uma
+    segunda reserva paralela: uma capacidade, um caminho canonico medido. Sem
+    livro nomeado (testes, ensaio a seco) `reservar` devolve None e nao trava —
+    a suite continua hermética.
+    """
     h = {'User-Agent': 'SintoniaEAME (mailto:%s)' % MAILTO, 'Accept': 'application/json'}
     h.update(headers or {})
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import teto_da_onda as _teto                                # noqa: PLC0415 — a porta unica do contador
+        try:
+            _teto.reservar(urllib.parse.urlsplit(url).hostname or "", url=url,
+                           quem='corpus_pesquisador')
+        except _teto.TetoDaOnda as e:
+            return None, 'TETO: %s' % e
+    except ImportError:
+        pass                                                        # sem a porta instalada, nao se inventa uma reserva
     try:
         with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=90) as r:
             return json.loads(r.read().decode('utf-8')), None

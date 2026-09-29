@@ -96,12 +96,23 @@ TRINCO_F = "COLETA-CONTINUA.trinco"
 LINHAS = [
     {"LINHA": "SITES", "FAMILIA": "sites e boletins (T2/T3/T5/T7/T8/T9/T10/T12), pela coorte congelada",
      "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs"},
+    # D124-REBASE-2 (28/09): as tres linhas abaixo passaram a SONDA, pela mesma razao que a SITES.
+    # A reserva vive na PORTA (`coleta/scrap_http.py`, `coleta/teto_da_onda.py`,
+    # `coleta/corpus_pesquisador.py`), nao no ficheiro do transporte — e medir texto num ficheiro
+    # nao prova comportamento. Medido pela sonda, uma linha por processo:
+    #     SOCIAL  teto_da_onda.py       consome 1 reserva (ja reservava; o texto e que faltava)
+    #     BUSCA   linha_busca.py        consome 4 (robots + pagina, via scrap_http; ja reservava)
+    #     CIENCIA pesquisadores_t6.py   consumia 0 -> LIGADA em corpus_pesquisador._get
+    #     PESQUISADORES coleta/seguir.py transporte ausente desta arvore (nenhum ref do repo tem o ficheiro)
     {"LINHA": "BUSCA", "FAMILIA": "paginas de busca (linha_busca)",
-     "TRANSPORTE": "coleta/linha_busca.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/linha_busca.py", "CHAMADA": "reserva_24h.reservar(",
+     "SONDA": "ferramentas/big_collection/sonda_ligacao_linha.py"},
     {"LINHA": "CIENCIA", "FAMILIA": "APIs cientificas OpenAlex/Crossref/ORCID (excecao de robots D91)",
-     "TRANSPORTE": "coleta/pesquisadores_t6.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/pesquisadores_t6.py", "CHAMADA": "reserva_24h.reservar(",
+     "SONDA": "ferramentas/big_collection/sonda_ligacao_linha.py"},
     {"LINHA": "SOCIAL", "FAMILIA": "YouTube/social (so o que o freio social ja libera)",
-     "TRANSPORTE": "coleta/teto_da_onda.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/teto_da_onda.py", "CHAMADA": "reserva_24h.reservar(",
+     "SONDA": "ferramentas/big_collection/sonda_ligacao_linha.py"},
     {"LINHA": "PESQUISADORES", "FAMILIA": "paginas de pesquisadores T6",
      "TRANSPORTE": "coleta/seguir.py", "CHAMADA": "reserva_24h.reservar("},
 ]
@@ -115,8 +126,10 @@ def sondar_ligacao(linha: dict, raiz: Path = RAIZ, timeout_s: float = 120.0) -> 
     """A SONDA do transporte (so para linhas com "SONDA"): corre-o contra um servidor LOCAL com um livro da
     cortesia temporario e mede. {"LIGADA": bool, "PORQUE": texto, "MEDIDO": {...}}. Falha da sonda = NAO LIGADA."""
     sonda, transporte = raiz / linha["SONDA"], raiz / linha["TRANSPORTE"]
+    # A sonda pode ser Node (.mjs) ou Python (.py) — a escolha e pela extensao, e nao por uma lista de linhas.
+    corrida = ([sys.executable, str(sonda)] if sonda.suffix == ".py" else ["node", str(sonda)])
     try:
-        r = subprocess.run(["node", str(sonda), "--transporte=" + str(transporte)], cwd=raiz, capture_output=True,
+        r = subprocess.run(corrida + ["--transporte=" + str(transporte)], cwd=raiz, capture_output=True,
                            text=True, encoding="utf-8", errors="replace", timeout=timeout_s,
                            env={k: v for k, v in os.environ.items() if not k.startswith("SINTONIA_")})
         ultima = (r.stdout.strip().splitlines() or [""])[-1]
