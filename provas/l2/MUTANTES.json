@@ -270,6 +270,15 @@
    ]
   },
   {
+   "ID": "L61",
+   "FICHEIRO": "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+   "FINGE": "D-GER-1-MIG: a fixture do dono volta a texto livre em ENTITY_SOURCE",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_fixture_do_dono_passa_no_fiscal_tal_como_esta"
+   ]
+  },
+  {
    "ID": "L55",
    "FICHEIRO": "motor/r7_export_da_copia.sql",
    "FINGE": "o export nao le o sha256 do raw_asset",
@@ -300,7 +309,7 @@
   {
    "ID": "L58",
    "FICHEIRO": "pacote/pote_intelligence_casco.py",
-   "FINGE": "o gerador deixa cair o byte da prova",
+   "FINGE": "o gerador deixa cair o byte da prova (nao o le da prova do motor)",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
     "test_cada_prova_leva_o_sha_do_banco_ou_nao_sei"
@@ -582,8 +591,8 @@
   }
  ],
  "PORTAL_IGUAL_NO_FIM": true,
- "MORTOS": 60,
- "TOTAL": 60,
+ "MORTOS": 61,
+ "TOTAL": 61,
  "RESTAURADOS_IGUAIS": true,
  "ESTADO": "PASS"
 }
