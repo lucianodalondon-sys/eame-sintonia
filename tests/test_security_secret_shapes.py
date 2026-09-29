@@ -29,15 +29,21 @@ def monta(*partes):
     return "".join(partes)
 
 
+# Segredo INVENTADO, para as fixtures da tabela do verificador. Montado em
+# tempo de execucao pelo mesmo motivo que as outras formas deste ficheiro: este
+# ficheiro NAO esta em `PERMITIDOS`, e uma linha de 16 caracteres junto a
+# `api_key=` faria a guarda acusar a propria prova, para sempre.
+SEG = monta('Zq7', 'Rb2Wn5', 'Tk8Lm3P')
+
+
 class FormasDeSegredo(unittest.TestCase):
 
     def _casa(self, texto):
-        for nome, padrao in guarda.CONTEUDO_PROIBIDO:
-            m = padrao.search(texto)
-            if m and guarda._valor_e_segredo(m.group(0), texto, m) \
-                    and not guarda._linha_declara_falso(texto, m.start()):
-                return nome
-        return None
+        # Usa o MESMO laco da guarda (`_varre_texto`), e nao uma copia.
+        # A copia divergia: foi assim que os testes ficaram verdes enquanto a
+        # guarda deixava um ficheiro INTEIRO cego — o verificador apanhou-o.
+        nome, _ = guarda._varre_texto(texto)
+        return nome
 
     def _pega(self, texto, esperado):
         achado = self._casa(texto)
@@ -47,6 +53,66 @@ class FormasDeSegredo(unittest.TestCase):
 
     def _ignora(self, texto, porque):
         self.assertIsNone(self._casa(texto), f"falso positivo: {porque}")
+
+    # ── A TABELA DO VERIFICADOR INDEPENDENTE (VERIF-GUARDA-5e05963d3) ─────
+    # Oito formas que a candidata ANTERIOR deixava escapar, todas por a paridade
+    # de aspas cruas disparar pelo motivo errado — apostrofo em prosa, aspa
+    # escapada, aspa tripla, tipo de aspa trocado. E mais dois casos que exigem
+    # a CONTINUACAO da busca depois de um casamento perdoado.
+    #
+    #     A FORMA SEM A SITUACAO NAO BASTA — e a SITUACAO SEM A CONTINUACAO
+    #     TAMBEM NAO. Ficam os dois, porque os dois foram medidos.
+    def test_m2_tres_aspas_antes(self):
+        self._pega(monta("x = 'a'; y = 'b; api", "_key = '+", SEG, "'"), "chave de API")
+
+    def test_m3_apostrofo_dentro_de_aspa_dupla(self):
+        self._pega(monta('msg = "it\'s fine"; api', '_key = "+', SEG, '"'), "chave de API")
+
+    def test_m4_aspa_dupla_dentro_de_aspa_simples(self):
+        self._pega(monta('msg = \'a"b\'; api', '_key = "+', SEG, '"'), "chave de API")
+
+    def test_m5_aspa_escapada_antes(self):
+        self._pega(monta("msg = 'don\\'t'; api", '_key = "+', SEG, '"'), "chave de API")
+
+    def test_m6_prosa_com_apostrofo(self):
+        self._pega(monta("Don't forget: api", '_key="+', SEG, '"'), "chave de API")
+
+    def test_m6b_prosa_com_apostrofo_E_segredo_partido_em_linhas(self):
+        """O caso que obriga a VARREDURA DE LITERAIS a existir.
+
+        Medido: sem este, trocar a varredura pela contagem crua de aspas NAO
+        reprovava nada — os m2..m8 estavam protegidos pela condicao de linha, e
+        a varredura ficava sem prova. Aqui as duas condicoes se cruzam:
+
+            apostrofo em prosa (a contagem crua diz «impar, fecha»)
+            + valor que atravessa a linha (a condicao de linha aceita)
+            + valor com forma de codigo (o `+` do inicio)
+
+        A contagem crua absolve; a varredura de literais ve que a aspa consumida
+        e `"` dentro de um literal aberto com `'` — nao a que o fecha.
+        """
+        texto = monta("Don't forget: api", '_key = "+', "\n", SEG, '"')
+        self._pega(texto, "chave de API")
+
+    def test_m7_abertura_de_aspa_tripla(self):
+        self._pega(monta('s = """api', '_key = "+', SEG, '"'), "chave de API")
+
+    def test_m8_apostrofo_mais_chamada(self):
+        self._pega(monta('msg = "it\'s"; api', '_key = "quote(', SEG, ')"'), "chave de API")
+
+    def test_X_casamento_perdoado_nao_pode_cegar_o_ficheiro(self):
+        """O achado GRAVE: a espuria na 1a linha e o segredo real na 2a.
+
+        O primeiro casamento ENGOLIA o segredo verdadeiro dentro do proprio
+        espaco — por isso retomar depois da ASPA CONSUMIDA, e nao depois do
+        casamento, e o que decide se a guarda ve ou nao.
+        """
+        self._pega(monta("url += '&api", "_key=' + f(x)\n", "api", "_key = '", SEG, "'"),
+                   "chave de API")
+
+    def test_X_espuria_depois_do_segredo(self):
+        self._pega(monta("api", "_key = '", SEG, "'\nurl += '&api", "_key=' + f(x)"),
+                   "chave de API")
 
     # ── as formas que este projecto usa ───────────────────────────────────
     def test_chave_supabase(self):

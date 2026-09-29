@@ -236,17 +236,110 @@ _E_CODIGO = re.compile(
 # valor parece código. Assim as cinco formas acima continuam apanhadas, e o
 # falso positivo de produção continua calado.
 _CITACAO_DO_PADRAO = re.compile(r'[:=]\s*(["\'])')
+_TRIPLAS = ('"""', "'''")
+
+
+def _aspa_fecha_literal(linha, ate):
+    """Em `linha`, a aspa na posicao `ate` FECHA um literal aberto antes?
+
+    Varre os literais da linha a serio — tipo a tipo, com escape e aspa tripla.
+    Contar aspas cruas (a primeira versao) nao servia: nao sabia QUAL aspa abriu
+    o literal, nao descontava `\\'`, nao conhecia `\"\"\"`, e usava OU entre os
+    dois tipos — por isso um apostrofo em prosa (`Don't forget: api_key="..."`)
+    bastava para declarar o valor espurio e deixar passar a chave.
+
+    Se nao houver literal aberto em `ate`, a aspa ABRE um valor: nao e espuria.
+    """
+    i, aberto = 0, None
+    while i < ate:
+        c = linha[i]
+        if aberto:
+            if c == '\\':                 # escape so vale DENTRO de literal
+                i += 2
+                continue
+            if aberto in _TRIPLAS:
+                if linha.startswith(aberto, i):
+                    aberto = None
+                    i += 3
+                    continue
+            elif c == aberto:
+                aberto = None
+            i += 1
+            continue
+        if linha.startswith(_TRIPLAS[0], i) or linha.startswith(_TRIPLAS[1], i):
+            aberto = linha[i:i + 3]
+            i += 3
+            continue
+        if c in ('"', "'"):
+            aberto = c
+        i += 1
+    if not aberto:
+        return False
+    if aberto in _TRIPLAS:
+        return linha.startswith(aberto, ate)
+    return linha[ate] == aberto
+
+
+def _pos_da_citacao(texto, m):
+    """Posicao absoluta da aspa que o padrao consumiu, ou None."""
+    c = _CITACAO_DO_PADRAO.search(m.group(0))
+    if not c:
+        return None
+    return m.start() + c.start(1)
 
 
 def _citacao_espuria(texto, m):
-    """A aspa consumida pelo padrão é de FECHO? (ímpares antes = sim)"""
-    c = _CITACAO_DO_PADRAO.search(m.group(0))
-    if not c:
+    """A aspa consumida pelo padrao FECHA um literal que comecou antes."""
+    pos = _pos_da_citacao(texto, m)
+    if pos is None:
         return False
-    pos = m.start() + c.start(1)
     ini = texto.rfind('\n', 0, pos) + 1
-    return (texto.count("'", ini, pos) % 2 == 1
-            or texto.count('"', ini, pos) % 2 == 1)
+    fim = texto.find('\n', pos)
+    linha = texto[ini:fim if fim != -1 else len(texto)]
+    return _aspa_fecha_literal(linha, pos - ini)
+
+
+def _varre_texto(texto):
+    """O primeiro achado real de `texto`: (nome, posicao). Senao (None, None).
+
+    ⚠️ E AQUI QUE A GUARDA ESTAVA CEGA, em DOIS sitios, e os dois medidos pelo
+    verificador independente:
+
+    1. `search` julgava SO O PRIMEIRO CASAMENTO do ficheiro. Na producao tanto
+       fazia — ele era acusado e o ficheiro subia ao relatorio. Depois de existir
+       uma absolvicao, ele passou a ser perdoado e o padrao DESISTIA do ficheiro.
+
+           PERDOAR UM CASAMENTO NAO PODE PERDOAR O FICHEIRO.
+
+    2. Retomar DEPOIS DO CASAMENTO INTEIRO tambem nao serve: o casamento
+       atropelado ENGOLIU O SEGREDO VERDADEIRO dentro do seu proprio espaco.
+       Num ficheiro com `url += '&api_key=' + x` numa linha e `api_key = '<seg>'`
+       na seguinte, o primeiro casamento comeca na 1a linha e so termina na aspa
+       da 2a — o segredo fica DENTRO dele.
+
+           A PERGUNTA CERTA NAO E «ONDE ACABOU O CASAMENTO?».
+           E «ONDE ACABOU A ASPA QUE ELE CONSUMIU?».
+
+    Retoma-se entao logo apos a aspa consumida. Como a aspa esta sempre dentro
+    do casamento, a posicao avanca sempre pelo menos um caracter e o laco
+    termina. Custa mais procura; acusa mais; nunca menos.
+
+    Esta funcao e usada pela guarda E pelos testes, para que o teste meca o que
+    a guarda faz em vez de uma copia que diverge.
+    """
+    for nome, padrao in CONTEUDO_PROIBIDO:
+        pos = 0
+        while True:
+            m = padrao.search(texto, pos)
+            if not m:
+                break
+            if _valor_e_segredo(m.group(0), texto, m):
+                if _linha_declara_falso(texto, m.start()):
+                    break
+                return nome, m.start()
+            c = _pos_da_citacao(texto, m)
+            pos = (c + 1) if c is not None else (m.start() + 1)
+    return None, None
 
 
 def _valor_e_segredo(trecho, texto=None, m=None):
@@ -260,7 +353,8 @@ def _valor_e_segredo(trecho, texto=None, m=None):
     valor = corte[1] if len(corte) > 1 else trecho
     valor = re.sub(r'(?i)^\s*(bearer|basic)\s+', '', valor.strip())
     if texto is not None and m is not None \
-            and _E_CODIGO.match(valor) and _citacao_espuria(texto, m):
+            and _E_CODIGO.match(valor) and _citacao_espuria(texto, m) \
+            and '\n' in valor:
         return False
     return not _NAO_E_SEGREDO.match(valor)
 
@@ -378,17 +472,14 @@ def varrer(caminhos, rotulo):
                 texto = f.read()
         except OSError:
             continue
-        for nome, padrao in CONTEUDO_PROIBIDO:
-            m = padrao.search(texto)
-            if m and _valor_e_segredo(m.group(0), texto, m) \
-                    and not _linha_declara_falso(texto, m.start()):
-                linha = texto[:m.start()].count('\n') + 1
-                achados.append((rotulo, '%s:%d' % (rel, linha), nome,
-                                # O trecho NUNCA é impresso. Dizer QUE achou e
-                                # ONDE é suficiente para consertar; imprimir o
-                                # valor seria vazar no próprio log da guarda.
-                                'padrão encontrado — trecho não é exibido de propósito'))
-                break
+        nome, pos = _varre_texto(texto)
+        if nome is not None:
+            linha = texto[:pos].count('\n') + 1
+            achados.append((rotulo, '%s:%d' % (rel, linha), nome,
+                            # O trecho NUNCA é impresso. Dizer QUE achou e
+                            # ONDE é suficiente para consertar; imprimir o
+                            # valor seria vazar no próprio log da guarda.
+                            'padrão encontrado — trecho não é exibido de propósito'))
     return achados
 
 
