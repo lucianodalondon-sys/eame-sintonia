@@ -1,7 +1,7 @@
 {
- "_O_QUE_E": "O pedido do workflow linha-busca-google.yml quando disparado por PUSH (desta maquina o gh nao tem sessao). So NOMES de secret, nunca valores. 1.a corrida: so o diagnostico (1 chamada). Para buscar: SO_DIAGNOSTICO false e N (1..100).",
- "SEGREDO_DA_CHAVE": "YOUTUBE_DATA_API_KEY",
- "SEGREDO_DO_CX": "GOOGLE_CSE_CX",
+ "_O_QUE_E": "O pedido do workflow linha-busca-google.yml, que dispara por PUSH no proprio ramo (busca-no-actions-v1) quando este ficheiro ou o proprio yml mudam. Nenhum segredo aqui: a chave e sempre o secret YOUTUBE_DATA_API_KEY. CX = o ID PUBLICO do mecanismo de pesquisa (hoje nao existe; vazio = o diagnostico mede sem ele). SO_DIAGNOSTICO true = a busca nao corre. COMENTARIOS true = o piloto D106 (20 chamadas commentThreads.list).",
  "N": 4,
- "SO_DIAGNOSTICO": true
+ "SO_DIAGNOSTICO": true,
+ "COMENTARIOS": true,
+ "CX": ""
 }

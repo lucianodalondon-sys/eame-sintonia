@@ -6309,13 +6309,14 @@
    "kind": "library",
    "icon": "⚙",
    "views": [],
-   "what": "Gerador de consultas, tabela de motores, cliente da API oficial (quota declarada, tesoura da chave), pedido do Actions e as fixtures SINTETICAS das paginas e SERPs usadas pelos testes.",
+   "what": "Gerador de consultas, tabela de motores, cliente da API oficial (quota declarada, tesoura da chave), pedido do Actions, piloto de comentarios D106 (commentThreads.list, crus + sha256) e as fixtures SINTETICAS das paginas e SERPs usadas pelos testes.",
    "why_here": "O que a linha usa mas nao decide: mora em ferramentas/ para que o executor da linha nao carregue listas nem clientes.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
     "ferramentas/linha_busca/api_oficial.py",
+    "ferramentas/linha_busca/comentarios_piloto_d106.py",
     "ferramentas/linha_busca/consultas.py",
     "ferramentas/linha_busca/fazer_fixture_lote0.py",
     "ferramentas/linha_busca/motores.py",
@@ -6348,7 +6349,7 @@
    "kind": "workflow",
    "icon": "▶",
    "views": [],
-   "what": "Workflow linha-busca-google: dispatch ou push SO no ramo disparo-linha-busca-google; diagnostico da Custom Search JSON API (1 chamada, chave nunca impressa) e busca --sem-portao-it so para API oficial com quota. Paginas nao se colhem aqui.",
+   "what": "Workflow linha-busca-google: push SO no proprio ramo busca-no-actions-v1 (sem workflow_dispatch); SO secrets.YOUTUBE_DATA_API_KEY fixo, nunca secret escolhido por nome; CX (ID publico) vem do pedido; diagnostico da Custom Search JSON API (1 chamada, chave nunca impressa) e busca --sem-portao-it so para API oficial com quota. Paginas nao se colhem aqui.",
    "why_here": "A API nao precisa de saida italiana; a colheita de paginas continua presa ao portao IT na maquina do coordenador.",
    "departments": [
     "ENGENHARIA"

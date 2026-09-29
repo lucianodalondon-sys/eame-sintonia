@@ -2103,6 +2103,7 @@
       "ferramentas/leitor_data_yt/prever_acervo.py",
       "ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json",
       "ferramentas/linha_busca/api_oficial.py",
+      "ferramentas/linha_busca/comentarios_piloto_d106.py",
       "ferramentas/linha_busca/consultas.py",
       "ferramentas/linha_busca/fazer_fixture_lote0.py",
       "ferramentas/linha_busca/fixtures/busca-lote-0/PAGINAS.json",
@@ -3178,9 +3179,6 @@
       "provas/janela_formas/cjs/provas_d46_js.py",
       "provas/janela_formas/julgar_paginas_boletim.py",
       "provas/janela_formas/pagina_boletim_local.mjs",
-      "provas/l1_governanca/GUARDA-NOS-POTES-R9.json",
-      "provas/l1_governanca/MUTANTES-EXCECAO-PREVIEW.json",
-      "provas/l1_governanca/mutantes_excecao_preview.py",
       "provas/ligacao_adama/MEDICAO.json",
       "provas/ligacao_adama/MUTANTES.json",
       "provas/ligacao_adama/ligar_fixtures.py",
@@ -4071,6 +4069,7 @@
       "tests/test_conserto_regua.py",
       "tests/test_consumo_da_referencia_adama.py",
       "tests/test_contador_24h.py",
+      "tests/test_contrato_workflows_sem_secret_dinamico.py",
       "tests/test_corrida_abortada.py",
       "tests/test_cortesia_adaptativa.py",
       "tests/test_cortesia_no_transporte.py",
@@ -4092,7 +4091,6 @@
       "tests/test_estudo_chaves.py",
       "tests/test_evidence.py",
       "tests/test_evolucao.py",
-      "tests/test_excecao_preview_e2e.py",
       "tests/test_execucao_standalone.py",
       "tests/test_extrator_evento_v2.py",
       "tests/test_extrator_lugar_v2.py",
@@ -4810,10 +4808,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/l1-governanca-preview-v1",
-    "HEAD": "ff7cc21dfdcf16e9522da5754f26c047265e7a2b",
-    "GENERATED_AT": "2026-09-28T19:26:50-03:00",
-    "SOURCE_TREE_FINGERPRINT": "84eb04b186c57c14c91d2c2d69b1d49fdb1b7c4e569a0ae5ae61a582ea1b9994"
+    "BRANCH": "lucianodalondon-sys/integra-busca-sobre-fd8c946",
+    "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
+    "GENERATED_AT": "2026-09-28T21:26:16-03:00",
+    "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82"
   },
   "FAMILIES": [
     {
@@ -42806,7 +42804,7 @@
       "name": "Busca por API oficial no GitHub Actions",
       "territory": "Z-ENTRADA",
       "kind": "workflow",
-      "what": "Workflow linha-busca-google: dispatch ou push SO no ramo disparo-linha-busca-google; diagnostico da Custom Search JSON API (1 chamada, chave nunca impressa) e busca --sem-portao-it so para API oficial com quota. Paginas nao se colhem aqui.",
+      "what": "Workflow linha-busca-google: push SO no proprio ramo busca-no-actions-v1 (sem workflow_dispatch); SO secrets.YOUTUBE_DATA_API_KEY fixo, nunca secret escolhido por nome; CX (ID publico) vem do pedido; diagnostico da Custom Search JSON API (1 chamada, chave nunca impressa) e busca --sem-portao-it so para API oficial com quota. Paginas nao se colhem aqui.",
       "why_here": "A API nao precisa de saida italiana; a colheita de paginas continua presa ao portao IT na maquina do coordenador.",
       "departments": [
         "ENGENHARIA"
@@ -42877,7 +42875,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/linha-busca-google.yml · on: push, workflow_dispatch"
+          ".github/workflows/linha-busca-google.yml · on: push"
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
@@ -47141,7 +47139,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_das_estradas_it.py",
-            "line": 927,
+            "line": 924,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -53241,7 +53239,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/linha-busca-google.yml:107"
+          ".github/workflows/linha-busca-google.yml:80"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -53253,7 +53251,7 @@
       "name": "Ferramentas da LINHA-BUSCA (consultas, motores, API oficial)",
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
-      "what": "Gerador de consultas, tabela de motores, cliente da API oficial (quota declarada, tesoura da chave), pedido do Actions e as fixtures SINTETICAS das paginas e SERPs usadas pelos testes.",
+      "what": "Gerador de consultas, tabela de motores, cliente da API oficial (quota declarada, tesoura da chave), pedido do Actions, piloto de comentarios D106 (commentThreads.list, crus + sha256) e as fixtures SINTETICAS das paginas e SERPs usadas pelos testes.",
       "why_here": "O que a linha usa mas nao decide: mora em ferramentas/ para que o executor da linha nao carregue listas nem clientes.",
       "departments": [
         "ENGENHARIA"
@@ -53269,6 +53267,7 @@
       "family": "F-COLETA",
       "files": [
         "ferramentas/linha_busca/api_oficial.py",
+        "ferramentas/linha_busca/comentarios_piloto_d106.py",
         "ferramentas/linha_busca/consultas.py",
         "ferramentas/linha_busca/fazer_fixture_lote0.py",
         "ferramentas/linha_busca/fixtures/busca-lote-0/p01.html",
@@ -53293,9 +53292,9 @@
         "ferramentas/linha_busca/motores.py",
         "ferramentas/linha_busca/pedido_actions.py"
       ],
-      "file_count": 24,
+      "file_count": 25,
       "status": "PENDING",
-      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 24 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas ha 25 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -53320,16 +53319,18 @@
           "FAMILIAS_R3",
           "MESES",
           "MOTORES",
+          "PARAM_TUDO",
           "PARES",
           "PROBLEMA_IT",
-          "REGIOES"
+          "REGIOES",
+          "VIDEOS"
         ],
-        "palavras": 123,
+        "palavras": 143,
         "por_lingua": {
           "IT": 5,
           "ES": 2
         },
-        "sem_marca_de_lingua": 116,
+        "sem_marca_de_lingua": 136,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "ES": 2
@@ -53370,7 +53371,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/linha-busca-google.yml:98"
+          ".github/workflows/linha-busca-google.yml:71",
+          ".github/workflows/linha-busca-google.yml:100"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -54065,7 +54067,6 @@
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
-        "C-SCRAP-LEIS",
         "C-TESTES"
       ],
       "paises": {},
@@ -58323,7 +58324,6 @@
         "C-PROVA-INT-R7",
         "C-PROVA-LIGACAO-ADAMA",
         "C-PROVA-POTE-CASCO",
-        "C-SCRAP-LEIS",
         "C-TESTES"
       ],
       "paises": {},
@@ -58378,12 +58378,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "leis/fundacao_da_coleta.py:217",
           "pacote/acervo_na_intelligence.py:84",
           "pacote/pote_cruzamentos_max.py:50",
-          "provas/_mutantes_pote_casco.py:24"
+          "provas/_mutantes_pote_casco.py:24",
+          "provas/int_r7/aceite_pelo_gerador.py:33"
         ],
-        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-POTE-CRUZAMENTOS-MAX · C-SCRAP-LEIS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-POTE-CRUZAMENTOS-MAX — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 16910,
       "y": 1326
@@ -62755,7 +62755,8 @@
         "C-CADEIA-V21",
         "C-CI-LINHA-BUSCA",
         "C-LINHA-BUSCA",
-        "C-LINHA-BUSCA-FERRAMENTAS"
+        "C-LINHA-BUSCA-FERRAMENTAS",
+        "C-TESTES"
       ],
       "outbound": [
         "C-PROVA-COLETA"
@@ -62768,9 +62769,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 52,
+        "palavras": 92,
         "por_lingua": {},
-        "sem_marca_de_lingua": 52,
+        "sem_marca_de_lingua": 92,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -62787,12 +62788,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED_WHY": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: test` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 6 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 8 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -62802,8 +62803,10 @@
         "coleta/linha_busca.py",
         "coleta/linha_busca_raw.py",
         "ferramentas/linha_busca/api_oficial.py",
+        "ferramentas/linha_busca/comentarios_piloto_d106.py",
         "ferramentas/linha_busca/pedido_actions.py",
-        "motor/cadeia_canonica.sh"
+        "motor/cadeia_canonica.sh",
+        "tests/test_contrato_workflows_sem_secret_dinamico.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -65501,8 +65504,8 @@
       "name": "A prova de que a trava morde",
       "territory": "Z-PROVA",
       "kind": "engine",
-      "what": "Viola a trava da inteligência de propósito das duas maneiras possíveis — mexer num artefato congelado, e escrever inteligência nova ao lado — exige que ela reprove nas duas, desfaz e confere que a worktree ficou limpa. D140: provas/l1_governanca/mutantes_excecao_preview.py estraga, uma de cada vez, 23 linhas da guarda da exceção PREVIEW_E2E em leis/fundacao_da_coleta.py (vazamento para produção e para o host canónico, escopo que alarga, Sala que se escreve, consumido_em, objeto não liberado, D140 fora do diário, âmbito exato ignorado, exceção removida) e exige que tests/test_excecao_preview_e2e.py reprove em todas.",
-      "why_here": "Uma trava que passa sempre é indistinguível de uma trava desligada. Sem esta peça, «os testes da trava passam» não distingue uma trava que funciona de uma que nunca morde. E uma exceção só no papel contradiz a guarda: os mutantes provam que a exceção D140 é estreita NA MÁQUINA, não só no contrato.",
+      "what": "Viola a trava da inteligência de propósito das duas maneiras possíveis — mexer num artefato congelado, e escrever inteligência nova ao lado — exige que ela reprove nas duas, desfaz e confere que a worktree ficou limpa.",
+      "why_here": "Uma trava que passa sempre é indistinguível de uma trava desligada. Sem esta peça, «os testes da trava passam» não distingue uma trava que funciona de uma que nunca morde.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -65516,46 +65519,24 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
-        "provas/l1_governanca/mutantes_excecao_preview.py",
         "provas/trava_da_inteligencia_morde.py"
       ],
-      "file_count": 2,
+      "file_count": 1,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CENSO-CONGELAMENTO",
-        "C-SCRAP-LEIS"
+        "C-CENSO-CONGELAMENTO"
       ],
       "outbound": [
-        "C-CENSO-CONGELAMENTO",
-        "C-SCRAP-LEIS"
+        "C-CENSO-CONGELAMENTO"
       ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "MUTANTES"
-        ],
-        "palavras": 47,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 47,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [
-        {
-          "pasta": "leis",
-          "prova": {
-            "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-            "line": 118,
-            "snippet": "escreve em ALVO"
-          }
-        },
         {
           "pasta": "motor",
           "prova": {
@@ -65565,18 +65546,9 @@
           }
         }
       ],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "leis/fundacao_da_coleta.py",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M6_ESCREVE_NUMA_PASTA",
@@ -65584,14 +65556,13 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve na pasta leis (provas/l1_governanca/mutantes_excecao_preview.py:118): produz dado",
+      "ROLE_EVIDENCE": "escreve na pasta motor (provas/trava_da_inteligencia_morde.py:97): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
         "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
-        "leis/fundacao_da_coleta.py",
         "system-map/scripts/censo_do_congelamento.py"
       ],
       "consumes_plane": "CODE",
@@ -69137,7 +69108,7 @@
         "PROVA": [
           ".github/workflows/curator-youtube-handles.yml:64",
           ".github/workflows/curator-youtube-soc-onda2.yml:45",
-          ".github/workflows/linha-busca-google.yml:88",
+          ".github/workflows/linha-busca-google.yml:67",
           ".github/workflows/security-check.yml:58"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
@@ -69178,10 +69149,7 @@
       "produces": [],
       "inbound": [
         "C-COLETA-INSTAGRAM",
-        "C-MAPA-DEPLOY",
-        "C-POTE-INT-CASCO",
-        "C-PROVA-COLETA",
-        "C-PROVA-TRAVA-MORDE"
+        "C-PROVA-COLETA"
       ],
       "outbound": [
         "C-APIFY-POOL",
@@ -69203,7 +69171,6 @@
         "C-PROVA-COMENTARIOS",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTAS-REAIS",
-        "C-PROVA-TRAVA-MORDE",
         "C-RASTRO",
         "C-ROTA-M2",
         "C-SCRAP-GUARDA",
@@ -69218,25 +69185,22 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "AMBITO_EXATO",
           "AREAS_CONGELADAS",
           "AUTH_MODE_DA_CLASSE",
           "CAPACIDADES",
           "CLASSES",
-          "CONFERENCIAS_QUE_PASSAM",
           "ESTADOS",
           "LIMITES",
           "MATRIZ",
           "MOTIVOS_PAGOS",
           "QUOTA_METODO",
-          "_DEGRAU_DO_CRITERIO",
           "_POR_ESTADO",
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 622,
+        "palavras": 598,
         "por_lingua": {},
-        "sem_marca_de_lingua": 622,
+        "sem_marca_de_lingua": 598,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -69261,15 +69225,12 @@
       "OWNER_CONFLICT": null,
       "consumes": [
         "coleta/instagram_janela.py",
-        "docs/decisoes/DIARIO-DE-DECISOES.md",
         "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
-        "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
         "docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md",
         "docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md",
         "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
         "docs/sintonia-scrap/D23-LINKEDIN-ORG-VIDEO.md",
-        "docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md",
-        "system-map/CANONICAL-PUBLICATION.json"
+        "docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -72839,6 +72800,7 @@
         "tests/test_conserto_regua.py",
         "tests/test_consumo_da_referencia_adama.py",
         "tests/test_contador_24h.py",
+        "tests/test_contrato_workflows_sem_secret_dinamico.py",
         "tests/test_corrida_abortada.py",
         "tests/test_cortesia_adaptativa.py",
         "tests/test_cortesia_no_transporte.py",
@@ -72860,7 +72822,6 @@
         "tests/test_estudo_chaves.py",
         "tests/test_evidence.py",
         "tests/test_evolucao.py",
-        "tests/test_excecao_preview_e2e.py",
         "tests/test_execucao_standalone.py",
         "tests/test_extrator_evento_v2.py",
         "tests/test_extrator_lugar_v2.py",
@@ -73314,6 +73275,7 @@
         "C-PROVA-CONTADOR-24H",
         "C-PROVA-CRUZAMENTOS-MAX",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-LINHA-BUSCA",
         "C-PROVA-PONTE-CASCO",
         "C-PROVA-POTE-CASCO",
         "C-PROVA-REFERENCIA-MANUTENCAO",
@@ -73865,6 +73827,7 @@
         "ferramentas/cutover/passos_do_cutover.py",
         "ferramentas/fala_local.py",
         "ferramentas/instagram_transcrever.py",
+        "ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json",
         "ferramentas/linha_busca/fixtures/teste/serp-bing-SINTETICA.html",
         "ferramentas/linha_busca/fixtures/teste/serp-ddg-SINTETICA.html",
         "ferramentas/linha_busca/fixtures/teste/serp-google-SINTETICA.html",
@@ -91281,7 +91244,7 @@
       "evidence": [
         {
           "file": ".github/workflows/linha-busca-google.yml",
-          "line": 107,
+          "line": 80,
           "snippet": "run: python3 coleta/linha_busca.py --diagnosticar-cse --autorizado --sem-portao-it --saida=saida",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-LINHA-BUSCA",
@@ -91314,12 +91277,28 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Busca por API oficial no GitHub Actions manda rodar Ferramentas da LINHA-BUSCA (consultas, motores, API oficial). Provado por 1 linha de codigo.",
+      "reason": "Busca por API oficial no GitHub Actions manda rodar Ferramentas da LINHA-BUSCA (consultas, motores, API oficial). Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/linha-busca-google.yml",
-          "line": 98,
+          "line": 71,
           "snippet": "run: PYTHONUTF8=1 python3 ferramentas/linha_busca/pedido_actions.py >> \"$GITHUB_OUTPUT\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-LINHA-BUSCA-FERRAMENTAS",
+            "FROM": "C-CI-LINHA-BUSCA",
+            "TO": "C-LINHA-BUSCA-FERRAMENTAS",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/linha-busca-google.yml",
+          "line": 100,
+          "snippet": "run: python3 ferramentas/linha_busca/comentarios_piloto_d106.py --saida=saida",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-LINHA-BUSCA-FERRAMENTAS",
             "FROM": "C-CI-LINHA-BUSCA",
@@ -91355,8 +91334,8 @@
       "evidence": [
         {
           "file": "provas/busca_no_actions/mutantes_busca_actions.py",
-          "line": 20,
-          "snippet": "\"ferramentas/linha_busca/pedido_actions.py\", \".github/workflows/linha-busca-google.yml\")",
+          "line": 22,
+          "snippet": "\"ferramentas/linha_busca/pedido_actions.py\", \".github/workflows/linha-busca-google.yml\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
             "FROM": "C-CI-LINHA-BUSCA",
@@ -91390,7 +91369,7 @@
       "evidence": [
         {
           "file": ".github/workflows/linha-busca-google.yml",
-          "line": 88,
+          "line": 67,
           "snippet": "run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-SCRAP-GUARDA",
@@ -91421,12 +91400,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Busca por API oficial no GitHub Actions alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Busca por API oficial no GitHub Actions alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_busca_no_actions.py",
-          "line": 29,
+          "line": 30,
           "snippet": "WORKFLOW = RAIZ / \".github\" / \"workflows\" / \"linha-busca-google.yml\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-TESTES",
+            "FROM": "C-CI-LINHA-BUSCA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_contrato_workflows_sem_secret_dinamico.py",
+          "line": 43,
+          "snippet": "self.assertIn(os.path.join(PASTA, \"linha-busca-google.yml\"), workflows())",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-TESTES",
             "FROM": "C-CI-LINHA-BUSCA",
@@ -125191,7 +125186,7 @@
       "evidence": [
         {
           "file": ".github/workflows/linha-busca-google.yml",
-          "line": 118,
+          "line": 91,
           "snippet": "--consultas=data/derivados/LINHA-BUSCA/CONSULTAS.json --n=\"$N\" --saida=saida",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-CI-LINHA-BUSCA",
@@ -125365,8 +125360,8 @@
       "evidence": [
         {
           "file": "provas/busca_no_actions/mutantes_busca_actions.py",
-          "line": 19,
-          "snippet": "API, LB, PA, WF = (\"ferramentas/linha_busca/api_oficial.py\", \"coleta/linha_busca.py\",",
+          "line": 21,
+          "snippet": "API, LB, PA, WF, CP = (\"ferramentas/linha_busca/api_oficial.py\", \"coleta/linha_busca.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
             "FROM": "C-LINHA-BUSCA",
@@ -125515,7 +125510,7 @@
       "evidence": [
         {
           "file": "tests/test_busca_no_actions.py",
-          "line": 186,
+          "line": 187,
           "snippet": "rc = LB.main([\"linha_busca.py\", *args, \"--saida=%s\" % self.tmp])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
@@ -125531,7 +125526,7 @@
         },
         {
           "file": "tests/test_busca_no_actions.py",
-          "line": 197,
+          "line": 198,
           "snippet": "\"--consultas=%s\" % (RAIZ / \"data\" / \"derivados\" / \"LINHA-BUSCA\" / \"CONSULTAS.json\"), \"--n=3\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
@@ -125594,12 +125589,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ferramentas da LINHA-BUSCA (consultas, motores, API oficial) alimenta Provas da LINHA-BUSCA e da busca no Actions. Provado por 2 linhas de codigo.",
+      "reason": "Ferramentas da LINHA-BUSCA (consultas, motores, API oficial) alimenta Provas da LINHA-BUSCA e da busca no Actions. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/busca_no_actions/mutantes_busca_actions.py",
-          "line": 19,
-          "snippet": "API, LB, PA, WF = (\"ferramentas/linha_busca/api_oficial.py\", \"coleta/linha_busca.py\",",
+          "line": 21,
+          "snippet": "API, LB, PA, WF, CP = (\"ferramentas/linha_busca/api_oficial.py\", \"coleta/linha_busca.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
             "FROM": "C-LINHA-BUSCA-FERRAMENTAS",
@@ -125614,8 +125609,24 @@
         },
         {
           "file": "provas/busca_no_actions/mutantes_busca_actions.py",
-          "line": 20,
-          "snippet": "\"ferramentas/linha_busca/pedido_actions.py\", \".github/workflows/linha-busca-google.yml\")",
+          "line": 22,
+          "snippet": "\"ferramentas/linha_busca/pedido_actions.py\", \".github/workflows/linha-busca-google.yml\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
+            "FROM": "C-LINHA-BUSCA-FERRAMENTAS",
+            "TO": "C-PROVA-LINHA-BUSCA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/busca_no_actions/mutantes_busca_actions.py",
+          "line": 23,
+          "snippet": "\"ferramentas/linha_busca/comentarios_piloto_d106.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
             "FROM": "C-LINHA-BUSCA-FERRAMENTAS",
@@ -127585,41 +127596,6 @@
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-VALIDADOR",
             "FROM": "C-MAPA-DEPLOY",
             "TO": "C-MAPA-VALIDADOR",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "READ",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-MAPA-DEPLOY",
-      "to": "C-SCRAP-LEIS",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Publicador do System Map no deploy alimenta As leis do SCRAP — a taxonomia canonica da falha. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "leis/fundacao_da_coleta.py",
-          "line": 119,
-          "snippet": "PUBLICACAO = os.path.join(RAIZ, 'system-map', 'CANONICAL-PUBLICATION.json')",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-SCRAP-LEIS",
-            "FROM": "C-MAPA-DEPLOY",
-            "TO": "C-SCRAP-LEIS",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -133599,7 +133575,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 180 linhas de codigo.",
+      "reason": "Testes do System Map tem o seu codigo importado por Suite de testes. Provado por 179 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_import_rules.py",
@@ -145273,48 +145249,13 @@
     },
     {
       "from": "C-POTE-INT-CASCO",
-      "to": "C-SCRAP-LEIS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por As leis do SCRAP — a taxonomia canonica da falha. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "leis/fundacao_da_coleta.py",
-          "line": 217,
-          "snippet": "import validar_pote_v2  # noqa: PLC0415 — so quem pede para atravessar paga o import",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
-            "FROM": "C-POTE-INT-CASCO",
-            "TO": "C-SCRAP-LEIS",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-POTE-INT-CASCO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "O pote unico: uma corrida da Intelligence, um compartimento por ferramenta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_acervo_na_intelligence.py",
@@ -145352,22 +145293,6 @@
           "file": "tests/test_cruzamentos_max.py",
           "line": 23,
           "snippet": "import pote_intelligence_casco as POTE       # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
-            "FROM": "C-POTE-INT-CASCO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_excecao_preview_e2e.py",
-          "line": 35,
-          "snippet": "import pote_intelligence_casco as P  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
             "FROM": "C-POTE-INT-CASCO",
@@ -151207,41 +151132,6 @@
         }
       ],
       "categoria": "READ",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-PROVA-TRAVA-MORDE",
-      "to": "C-SCRAP-LEIS",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "raw_type": "WRITES",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que a trava morde escreve em As leis do SCRAP — a taxonomia canonica da falha. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-          "line": 118,
-          "snippet": "with open(ALVO, \"wb\") as f:",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-TRAVA-MORDE--WRITES-->C-SCRAP-LEIS",
-            "FROM": "C-PROVA-TRAVA-MORDE",
-            "TO": "C-SCRAP-LEIS",
-            "RELATION_TYPE": "WRITES",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "WRITE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -160510,41 +160400,6 @@
     },
     {
       "from": "C-SCRAP-LEIS",
-      "to": "C-PROVA-TRAVA-MORDE",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta A prova de que a trava morde. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-          "line": 100,
-          "snippet": "with open(ALVO, \"rb\") as f:",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-TRAVA-MORDE",
-            "FROM": "C-SCRAP-LEIS",
-            "TO": "C-PROVA-TRAVA-MORDE",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "RULE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-SCRAP-LEIS",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -161001,7 +160856,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 62 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 61 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
@@ -161376,7 +161231,7 @@
         },
         {
           "file": "tests/test_trava_da_inteligencia.py",
-          "line": 298,
+          "line": 275,
           "snippet": "self.assertEqual(v[\"FUNDACAO_DONO\"], \"leis/fundacao_da_coleta.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -169839,6 +169694,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-PROVA-LINHA-BUSCA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Provas da LINHA-BUSCA e da busca no Actions. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/busca_no_actions/mutantes_busca_actions.py",
+          "line": 117,
+          "snippet": "('o contrato fica cego para secrets[', \"tests/test_contrato_workflows_sem_secret_dinamico.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--READS-->C-PROVA-LINHA-BUSCA",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-LINHA-BUSCA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-PROVA-PONTE-CASCO",
       "type": "READS",
       "payload": "artefacto",
@@ -174460,7 +174350,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2273,
+  "UNCLAIMED_FILES_COUNT": 2271,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174732,11 +174622,11 @@
     "components_pending": 271,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1917,
-    "edges_proven": 1848,
+    "edges": 1914,
+    "edges_proven": 1845,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4217,
+    "files_tracked": 4215,
     "files_covered": 1944,
     "files_code_unclaimed": 0,
     "roles_proven": 207,

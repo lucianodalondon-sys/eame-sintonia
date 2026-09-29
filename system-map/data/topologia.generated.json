@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-28T23:26:23+00:00",
-  "HEAD": "ff7cc21dfdcf16e9522da5754f26c047265e7a2b",
-  "BRANCH": "claude/l1-governanca-preview-v1",
+  "GENERATED_AT": "2026-09-29T00:54:32+00:00",
+  "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
+  "BRANCH": "lucianodalondon-sys/integra-busca-sobre-fd8c946",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "84eb04b186c57c14c91d2c2d69b1d49fdb1b7c4e569a0ae5ae61a582ea1b9994",
-  "FICHEIROS_NA_IMPRESSAO": 4365,
+  "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82",
+  "FICHEIROS_NA_IMPRESSAO": 4363,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -97,7 +97,7 @@
    {
     "PATH": ".github/workflows/linha-busca-google.yml",
     "PAPEL": "FONTE",
-    "VERSAO": "38d958f42b3747cd806ba8ba0e4b953e523a80bc",
+    "VERSAO": "daf855bf75c55a8ad02f8b6bc7af665c695a59a8",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -1238,7 +1238,14 @@
    {
     "PATH": "ferramentas/linha_busca/api_oficial.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6ae19eb96a4d28f9ba877b97ecc71ef756b6b2f9",
+    "VERSAO": "33f2db440a3397f70007e2f1b6a3fd6a3caac50a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "9674866f81df060489ec148e0b117d5638bf86bc",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1266,7 +1273,7 @@
    {
     "PATH": "ferramentas/linha_busca/pedido_actions.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e2b3f2b99f5fe18592bb8d6738b43c9912b9b0fc",
+    "VERSAO": "eb8b8a37cc3b9ce6d70388eefdd44770035f827c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2295,7 +2302,7 @@
    {
     "PATH": "leis/fundacao_da_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "68a056c9282ece87cf8f82d41da3dff25ab98774",
+    "VERSAO": "e0ae0af152ed868a5f7c7fa9f915218eb82debdd",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3471,7 +3478,7 @@
    {
     "PATH": "provas/busca_no_actions/mutantes_busca_actions.py",
     "PAPEL": "FONTE",
-    "VERSAO": "5012f75c96e9090ae9c7f2f0d556006997c20c86",
+    "VERSAO": "8d221754b7fe8d68b2cdb4bb5ea82774acaebc68",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -5557,14 +5564,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "84eb04b186c57c14c91d2c2d69b1d49fdb1b7c4e569a0ae5ae61a582ea1b9994",
+    "VERSAO": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "84eb04b186c57c14c91d2c2d69b1d49fdb1b7c4e569a0ae5ae61a582ea1b9994",
+    "VERSAO": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5592,7 +5599,7 @@
    {
     "PATH": "system-map/scripts/censo_das_estradas_it.py",
     "PAPEL": "FONTE",
-    "VERSAO": "cb976afc2813c8dc4b5b4347fa6231b277613625",
+    "VERSAO": "3cd0b6fea72790db8decf4a8788ce532e0ee04a5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6201,7 +6208,7 @@
    {
     "PATH": "tests/test_busca_no_actions.py",
     "PAPEL": "FONTE",
-    "VERSAO": "d73b03f1983291fc6c6251d74529a7ade516d10b",
+    "VERSAO": "564ce52bf4ba6bda0392f3562294b3f5630bce97",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -6710,6 +6717,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_contrato_workflows_sem_secret_dinamico.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0c6ccd22d07b5a32ea8fa447f0c49d2b609b7250",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_corrida_abortada.py",
     "PAPEL": "FONTE",
     "VERSAO": "9eb41fe337ac0cf8d53bfcf8f9d81d710bbcf924",
@@ -6853,13 +6867,6 @@
     "PATH": "tests/test_evolucao.py",
     "PAPEL": "FONTE",
     "VERSAO": "7463f689e13fc5077e52b8f5275d2735de290702",
-    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
-    "LIDO_POR": "escreve_le() · open"
-   },
-   {
-    "PATH": "tests/test_excecao_preview_e2e.py",
-    "PAPEL": "FONTE",
-    "VERSAO": "51887a12572a31e684291225132fdd5dd124a79f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8105,7 +8112,7 @@
    {
     "PATH": "tests/test_trava_da_inteligencia.py",
     "PAPEL": "FONTE",
-    "VERSAO": "1f5376562a187f2f53ac37095e917c50da079044",
+    "VERSAO": "dfa2663131e60c56364c384aaa97e3acee2ae827",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8243,8 +8250,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1172,
-  "INPUTS_DIGEST": "dd0fc5f7bc39b578a3ff4a6637551815d5de8bf6a09c3f0a616a511d26134304",
+  "INPUTS_COUNT": 1173,
+  "INPUTS_DIGEST": "ec494bd74b700aba6ad194f50afa348f5b1d824a507932153fdd25ea1f2402d2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8277,8 +8284,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "3e03a5e5df2d2bc0db2b8638b05b614abbcab2a7e4b51ca9c17f173db9224ba5",
-  "SEMANTIC_HASH": "8a206d18de3b37b1f7ca3dd587024e3f3740678848594a4c11746407873bd9b1"
+  "MEASUREMENT_HASH": "e4d5d2d577488d059ec5384467dee6ca3f0d26f4460404f3b5566abe9c894f37",
+  "SEMANTIC_HASH": "0ce9f265eef49f4bc869ee3f39a1cd152e68bead6ae1d403985f9e14984f944e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -16928,7 +16935,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
-      "LINHA": 20,
+      "LINHA": 22,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
@@ -16950,7 +16957,15 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_busca_no_actions.py",
-      "LINHA": 29,
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_contrato_workflows_sem_secret_dinamico.py",
+      "LINHA": 43,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-TESTES",
@@ -16972,7 +16987,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": ".github/workflows/linha-busca-google.yml",
-      "LINHA": 107,
+      "LINHA": 80,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-LINHA-BUSCA",
@@ -16994,7 +17009,15 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": ".github/workflows/linha-busca-google.yml",
-      "LINHA": 98,
+      "LINHA": 71,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-LINHA-BUSCA-FERRAMENTAS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+      "LINHA": 100,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-LINHA-BUSCA-FERRAMENTAS",
@@ -17016,7 +17039,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": ".github/workflows/linha-busca-google.yml",
-      "LINHA": 88,
+      "LINHA": 67,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-LINHA-BUSCA--RUNS-->C-SCRAP-GUARDA",
@@ -36363,7 +36386,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": ".github/workflows/linha-busca-google.yml",
-      "LINHA": 118,
+      "LINHA": 91,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-CI-LINHA-BUSCA",
@@ -36445,7 +36468,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
-      "LINHA": 19,
+      "LINHA": 21,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
@@ -36483,7 +36506,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_busca_no_actions.py",
-      "LINHA": 186,
+      "LINHA": 187,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
@@ -36491,7 +36514,7 @@
      },
      {
       "FICHEIRO": "tests/test_busca_no_actions.py",
-      "LINHA": 197,
+      "LINHA": 198,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-TESTES",
@@ -36529,7 +36552,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
-      "LINHA": 19,
+      "LINHA": 21,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
@@ -36537,7 +36560,15 @@
      },
      {
       "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
-      "LINHA": 20,
+      "LINHA": 22,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
+      "LINHA": 23,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
@@ -37575,28 +37606,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-SCRAP-LEIS",
-    "FROM": "C-MAPA-DEPLOY",
-    "TO": "C-SCRAP-LEIS",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "READ",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "leis/fundacao_da_coleta.py",
-      "LINHA": 119,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-DEPLOY--READS-->C-SCRAP-LEIS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -47287,28 +47296,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
-    "FROM": "C-POTE-INT-CASCO",
-    "TO": "C-SCRAP-LEIS",
-    "RELATION_TYPE": "IMPORTS",
-    "CATEGORIA": "CODE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "leis/fundacao_da_coleta.py",
-      "LINHA": 217,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
     "FROM": "C-POTE-INT-CASCO",
     "TO": "C-TESTES",
@@ -47339,14 +47326,6 @@
      {
       "FICHEIRO": "tests/test_cruzamentos_max.py",
       "LINHA": 23,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_excecao_preview_e2e.py",
-      "LINHA": 35,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
@@ -50728,28 +50707,6 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-PROVA-TRAVA-MORDE--WRITES-->C-SCRAP-LEIS",
-    "FROM": "C-PROVA-TRAVA-MORDE",
-    "TO": "C-SCRAP-LEIS",
-    "RELATION_TYPE": "WRITES",
-    "CATEGORIA": "WRITE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "provas/l1_governanca/mutantes_excecao_preview.py",
-      "LINHA": 118,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-PROVA-TRAVA-MORDE--WRITES-->C-SCRAP-LEIS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -56494,28 +56451,6 @@
     ]
    },
    {
-    "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-TRAVA-MORDE",
-    "FROM": "C-SCRAP-LEIS",
-    "TO": "C-PROVA-TRAVA-MORDE",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "RULE",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "provas/l1_governanca/mutantes_excecao_preview.py",
-      "LINHA": 100,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-TRAVA-MORDE",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
     "EDGE_ID": "C-SCRAP-LEIS--READS-->C-SCRAP-SOCIAL",
     "FROM": "C-SCRAP-LEIS",
     "TO": "C-SCRAP-SOCIAL",
@@ -56647,7 +56582,7 @@
      },
      {
       "FICHEIRO": "tests/test_trava_da_inteligencia.py",
-      "LINHA": 298,
+      "LINHA": 275,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -60896,6 +60831,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--READS-->C-PROVA-LINHA-BUSCA",
+    "FROM": "C-TESTES",
+    "TO": "C-PROVA-LINHA-BUSCA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/busca_no_actions/mutantes_busca_actions.py",
+      "LINHA": 117,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PROVA-LINHA-BUSCA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--READS-->C-PROVA-PONTE-CASCO",
     "FROM": "C-TESTES",
     "TO": "C-PROVA-PONTE-CASCO",
@@ -63822,12 +63779,12 @@
     ]
    }
   ],
-  "COUNT": 1814
+  "COUNT": 1811
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 236,
   "CARTOES_AUDITADOS": 236,
-  "ARESTAS_RELACIONADAS": 1814,
+  "ARESTAS_RELACIONADAS": 1811,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -64336,13 +64293,13 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 326,
+   "CODE": 325,
    "CONTROL": 90,
    "DATA": 30,
-   "PROOF": 646,
-   "READ": 408,
-   "RULE": 293,
-   "WRITE": 21
+   "PROOF": 647,
+   "READ": 407,
+   "RULE": 292,
+   "WRITE": 20
   },
   "GAPS_NOMEADOS": [
    "READY_NUNCA_PRODUZIDO"
@@ -66058,7 +66015,8 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/busca_no_actions/mutantes_busca_actions.py",
-    "tests/test_busca_no_actions.py"
+    "tests/test_busca_no_actions.py",
+    "tests/test_contrato_workflows_sem_secret_dinamico.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": true,
@@ -69559,7 +69517,6 @@
     "tests/test_social_por_url_achado.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "BUSCA-NO-ACTIONS.md",
     "docs/operacao/LINHA-BUSCA.md"
    ],
    "E_ENTRYPOINT": true,
@@ -69601,6 +69558,7 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "ferramentas/linha_busca/api_oficial.py",
+    "ferramentas/linha_busca/comentarios_piloto_d106.py",
     "ferramentas/linha_busca/consultas.py",
     "ferramentas/linha_busca/fazer_fixture_lote0.py",
     "ferramentas/linha_busca/fixtures/busca-lote-0/p01.html",
@@ -69630,6 +69588,7 @@
    ],
    "SO_MEDEM_ESTE": [
     "provas/busca_no_actions/mutantes_busca_actions.py",
+    "tests/test_busca_no_actions.py",
     "tests/test_linha_busca.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -72800,7 +72759,7 @@
     "sala_de_espera",
     "storage_object"
    ],
-   "ENTRAM": 5,
+   "ENTRAM": 6,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -75088,7 +75047,6 @@
     "provas/comentarios_v1/medir_comentarios_linkedin.py",
     "provas/comentarios_v1/mutar.py",
     "provas/fluxo_no_seco.py",
-    "provas/l1_governanca/mutantes_excecao_preview.py",
     "provas/linkedin_local_first.py",
     "provas/mutacao_da_release_v1.py",
     "provas/o_fluxo_canonico_do_scrap.py",
@@ -75134,13 +75092,11 @@
     "channels",
     "the"
    ],
-   "ENTRAM": 5,
-   "SAEM": 31,
+   "ENTRAM": 2,
+   "SAEM": 30,
    "CATEGORIAS_QUE_ENTRAM": [
-    "CODE",
     "PROOF",
-    "READ",
-    "WRITE"
+    "READ"
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
@@ -76078,6 +76034,7 @@
     "tests/test_conserto_regua.py",
     "tests/test_consumo_da_referencia_adama.py",
     "tests/test_contador_24h.py",
+    "tests/test_contrato_workflows_sem_secret_dinamico.py",
     "tests/test_corrida_abortada.py",
     "tests/test_cortesia_adaptativa.py",
     "tests/test_cortesia_no_transporte.py",
@@ -76099,7 +76056,6 @@
     "tests/test_estudo_chaves.py",
     "tests/test_evidence.py",
     "tests/test_evolucao.py",
-    "tests/test_excecao_preview_e2e.py",
     "tests/test_execucao_standalone.py",
     "tests/test_extrator_evento_v2.py",
     "tests/test_extrator_lugar_v2.py",
@@ -76301,6 +76257,7 @@
    "CHAMADORES_DE_RUNTIME": [
     ".github/workflows/auditoria-live.yml",
     ".github/workflows/comunicacao-publica.yml",
+    ".github/workflows/linha-busca-google.yml",
     ".github/workflows/system-map.yml",
     "motor/cruzamentos_max.py",
     "motor/porta_da_referencia.py",
@@ -76316,6 +76273,7 @@
     "provas/a_fronteira_da_coleta.py",
     "provas/a_rota_m2_atravessa.py",
     "provas/acervo_na_intelligence/mutantes.py",
+    "provas/busca_no_actions/mutantes_busca_actions.py",
     "provas/c2_juiz_mutacao.py",
     "provas/chave_problema/mutacao_chave_problema.py",
     "provas/coleta_continua_mutacao.py",
@@ -76463,7 +76421,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 273,
-   "SAEM": 47,
+   "SAEM": 48,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
