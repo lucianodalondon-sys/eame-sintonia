@@ -1,0 +1,37 @@
+{
+ "DATASET": "BATERIA-POR-NOME-RELIGA",
+ "QUANDO": "2026-09-29T13:56:20",
+ "COMO": "bateria por nome, arvore ESTAVEL (mapa fechado, git status 0, armazem fora da arvore), contra um CLONE da base 852ec0f0b COM .git — uma base tirada por git archive mede por vazio os testes que leem o indice do Git",
+ "BASE": {
+  "REF": "852ec0f0b",
+  "FICHEIROS": 334,
+  "TESTES": 1758,
+  "CONTA": {
+   "OK": 1615,
+   "FAIL": 27,
+   "SEM_LEITURA": 113,
+   "ERROR": 3
+  }
+ },
+ "RAMO": {
+  "FICHEIROS": 336,
+  "TESTES": 1805,
+  "CONTA": {
+   "OK": 1662,
+   "FAIL": 27,
+   "SEM_LEITURA": 113,
+   "ERROR": 3
+  }
+ },
+ "FALHAS_NOVAS_MEDIDAS": [
+  "test_fundacao_da_coleta.py::test_o_portal_nao_ganhou_implementacao::test_o_portal_nao_ganhou_implementacao"
+ ],
+ "FALHAS_NOVAS_REAIS": 0,
+ "PORQUE": {
+  "test_o_portal_nao_ganhou_implementacao": "PRE-EXISTENTE, MEDIDO: com o ref de comparacao alcancavel no clone da base, o teste FALHA na base com os MESMOS 37 ficheiros de italia-portale/ fora de /system-map/. O OK anterior era vazio — o ref nao resolvia e o diff saia a zero."
+ },
+ "CURADAS": 1,
+ "SO_NO_RAMO": 47,
+ "SO_NA_BASE": 0,
+ "VEREDITO": "WEB_EXISTENTE_REGREDIU = NAO. FAIL 27=27 e ERROR 3=3 nos dois lados; 47 testes novos, 0 perdidos."
+}
