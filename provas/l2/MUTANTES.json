@@ -19,9 +19,9 @@
    "ESTADO": "MORTO",
    "APANHADO_POR": [
     "test_a_volta_leva_o_corte_ao_motor_e_declara_o_defeito",
+    "test_a_entrega_e_lf_e_o_sha256sums_le_se_com_a_ferramenta_padrao",
     "test_a_entrega_troca_se_inteira",
-    "test_pote_aprovado_entrega_os_tres_ficheiros_e_os_sha_batem",
-    "test_uma_volta_pelo_caminho_padrao_nao_escreve_sob_italia_portale"
+    "test_pote_aprovado_entrega_os_tres_ficheiros_e_os_sha_batem"
    ]
   },
   {
@@ -190,6 +190,15 @@
    "ESTADO": "MORTO",
    "APANHADO_POR": [
     "test_montar_o_pote_converte_so_o_entity_source_e_nao_mexe_na_saida_do_motor"
+   ]
+  },
+  {
+   "ID": "L60",
+   "FICHEIRO": "admissao/gatilho_da_inteligencia.py",
+   "FINGE": "a entrega volta a sair com o fim de linha do sistema (CRLF no Windows quebra o sha256sum -c)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_a_entrega_e_lf_e_o_sha256sums_le_se_com_a_ferramenta_padrao"
    ]
   },
   {
@@ -573,8 +582,8 @@
   }
  ],
  "PORTAL_IGUAL_NO_FIM": true,
- "MORTOS": 59,
- "TOTAL": 59,
+ "MORTOS": 60,
+ "TOTAL": 60,
  "RESTAURADOS_IGUAIS": true,
  "ESTADO": "PASS"
 }

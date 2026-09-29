@@ -220,6 +220,19 @@ def correr(saida: Path) -> dict:
                         "EXPORT_LINHAS": len(exp.get("LINHAS") or [])}
         P["3_POTE_REPROVADO_GUARDADO"] = sorted(p.name for p in ult.glob("POTE-REPROVADO-*.js"))
         P["3_ENTREGA_VAZIA"] = not GI.ENTREGA.exists()
+        # D-GER-2: o byte de cada prova entregue e o que o banco guardou no raw_asset (o ensaio semeia-o)
+        if GI.ENTREGA.exists():
+            pe = json.loads((GI.ENTREGA / "POTE.json").read_text(encoding="utf-8"))
+            byte = _psql(base, env, "select id || '|' || coalesce(sha256, '') || '|' || coalesce(storage_path, '') "
+                                    "from raw_asset")
+            do_banco = {int(x.split("|")[0]): x.split("|")[1:] for x in byte.stdout.split() if x}
+            provas = [q for e in pe["COMPARTIMENTOS"].values() for o in e["OBJETOS"] for q in o["PROVA"]]
+            P["3_BYTE_DA_PROVA"] = {
+                "PROVAS": len(provas),
+                "IGUAL_AO_RAW_ASSET": sum(1 for q in provas
+                                          if [q.get("RAW_SHA256"), q.get("RAW_STORAGE_PATH")]
+                                          == do_banco.get(int(q["RAW_OBSERVATION_ID"]))),
+                "NAO_SEI": sum(1 for q in provas if q.get("RAW_SHA256") == "NAO SEI")}
 
         # 4 · sem item novo -> SEM_DELTA
         r4, igual4, _ = uma(agora + timedelta(minutes=10))
@@ -310,6 +323,9 @@ def correr(saida: Path) -> dict:
                                                     and r5b.get("GATILHO", "").startswith("NOVO_A_ESPERA_HA_4H")),
             "SALA_NUNCA_MUDOU_NUM_DISPARO": all((igual2, igual3, igual4, igual5a, igual5b, igual7)),
             "CONSUMIDO_EM_NUNCA": imp_final["CONSUMIDO_EM_PREENCHIDO"] == 0,
+            "BYTE_DA_PROVA_E_O_DO_RAW_ASSET": ("3_BYTE_DA_PROVA" not in P) or (
+                P["3_BYTE_DA_PROVA"]["PROVAS"] > 0
+                and P["3_BYTE_DA_PROVA"]["IGUAL_AO_RAW_ASSET"] == P["3_BYTE_DA_PROVA"]["PROVAS"]),
             "CMD_LE_SALA_DSN_TXT": (not isinstance(P["6_CMD_LE_SALA_DSN_TXT"], dict))
                                    or (P["6_CMD_LE_SALA_DSN_TXT"]["CODIGO"] == 0
                                        and isinstance(P["6_CMD_LE_SALA_DSN_TXT"]["MEDIDO"].get("NOVOS"), int)
