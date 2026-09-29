@@ -408,6 +408,34 @@ class G5_ARodada(unittest.TestCase):
         self.assertEqual(G.main(["--rodada", "--estado", str(self.estado), "--pasta", str(self.entrega),
                                  "--modo", "producao"]), G.USO)
 
+    def test_preview_atual_diz_url_e_os_dois_sha(self):
+        """Pedido do LAB: o endereco do preview num ficheiro estavel, com os DOIS sha ditos pelo nome."""
+        import publicar_portal_sozinho as P
+        pa = self.d / "PREVIEW-ATUAL.json"
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        r = G.rodada(self.entrega, self.estado, "preview", publicar=PublicadorFalso(), preview_atual=pa)
+        atual = json.loads(pa.read_text(encoding="utf-8"))
+        self.assertEqual(r["PREVIEW_ATUAL"], atual)
+        self.assertEqual(atual["URL"], "https://falso.vercel.app")
+        self.assertEqual(atual["DEPLOYMENT_ID"], "dpl_falso1")
+        self.assertEqual(atual["POTE_SHA256_FICHEIRO"], _sha(FIX.read_bytes()))
+        self.assertEqual(atual["POTE_SHA256_CANONICO"], P.sha_do_pote(json.loads(FIX.read_text(encoding="utf-8"))))
+        self.assertNotEqual(atual["POTE_SHA256_CANONICO"], atual["POTE_SHA256_FICHEIRO"], "dois sha, ditos pelo nome")
+        self.assertEqual((atual["DEMO_OU_LIVE"], atual["ENTREGA"]), ("DEMO", "ACEITE"))
+        ET.entregar(self.entrega, FIX.read_bytes(), "estado")
+        G.rodada(self.entrega, self.estado, "preview", publicar=PublicadorFalso(), preview_atual=pa)
+        depois = json.loads(pa.read_text(encoding="utf-8"))
+        self.assertEqual(depois["ENTREGA"], "RECUSADA")
+        self.assertEqual(depois["POTE_SHA256_CANONICO"], atual["POTE_SHA256_CANONICO"], "o pote no ar e o ultimo bom")
+        self.assertIn("RESULT_STATE", " ".join(depois["MOTIVOS_DA_RECUSA"]))
+
+    def test_o_manifesto_de_teste_diz_os_dois_sha(self):
+        import publicar_portal_sozinho as P
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        m = json.loads((self.entrega / "MANIFESTO.json").read_text(encoding="utf-8"))["POTE"]
+        self.assertEqual(m["SHA256_ARQUIVO"], _sha(FIX.read_bytes()))
+        self.assertEqual(m["SHA256_CANONICO"], P.sha_do_pote(json.loads(FIX.read_text(encoding="utf-8"))))
+
     def test_a_entrega_de_teste_troca_a_pasta_inteira(self):
         ET.entregar(self.entrega, FIX.read_bytes(), "demo")
         ET.entregar(self.entrega, VAZIO.read_bytes(), "vazio")

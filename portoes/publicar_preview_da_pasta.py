@@ -63,6 +63,12 @@ E o que a tarefa agendada SINTONIA-CASCO-PREVIEW corre a cada 10 min (portoes/ca
 Cada rodada escreve uma linha em RODADAS.ndjson (T0 = hora do SHA256SUMS da entrega, T1 = fim da publicacao).
 Nunca producao: o modo e so ensaio/preview, e o CANONICAL_HOST nunca e destino (a regra da guarda L1).
 
+PREVIEW-ATUAL.json (pedido do LAB, 29/09): o pote so existe na URL do DEPLOYMENT (o CANONICAL_HOST da 404 para
+/sintonia-pote-publicado.js). A cada deployment novo a rodada grava, num ficheiro estavel (--preview-atual), a URL,
+o id, e os DOIS sha do pote — ditos pelo nome, porque sao diferentes com o mesmo conteudo:
+    POTE_SHA256_CANONICO   sha256 do JSON canonico (chaves ordenadas, compacto, UTF-8) = o POTE_SHA256 do envelope no ar
+    POTE_SHA256_FICHEIRO   sha256 dos bytes do POTE.json da entrega = o SHA256_ARQUIVO do MANIFESTO / SHA256SUMS
+
 SAIDAS: 0 publicado / nada a publicar / so conferir · 1 bloqueado pelo publicador · 4 uso errado ·
         5 nenhuma entrega completa, ou o pote mudou durante a leitura (nada foi chamado) · outros = os do publicador
 """
@@ -265,7 +271,26 @@ def _destino_proibido(modo: str) -> str | None:
     return None
 
 
-def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None) -> dict:
+def gravar_preview_atual(destino, reg: dict | None, pote: Path, sha_ficheiro: str, entrega: dict | None) -> dict | None:
+    """O endereco do preview que acabou de ir ao ar, num ficheiro estavel para o LAB. Escrita atomica."""
+    if not destino or not reg or not (reg.get("IMPLANTADO") or {}).get("URL"):
+        return None
+    import publicar_portal_sozinho as P  # noqa: PLC0415
+    dado = json.loads(Path(pote).read_text(encoding="utf-8"))
+    url = reg["IMPLANTADO"]["URL"].rstrip("/")
+    atual = {"URL": url, "DEPLOYMENT_ID": reg["IMPLANTADO"].get("ID"), "DEBUG": url + "/debug/intelligence-pot",
+             "POTE_SHA256_CANONICO": P.sha_do_pote(dado), "POTE_SHA256_FICHEIRO": sha_ficheiro,
+             "SHA_NO_AR_E_O": "POTE_SHA256_CANONICO (o envelope /sintonia-pote-publicado.js)",
+             "INTELLIGENCE_RUN_ID": dado.get("INTELLIGENCE_RUN_ID"),
+             "DEMO_OU_LIVE": "DEMO" if dado.get("CORRIDA_SINTETICA") is True else "LIVE",
+             "ENTREGA": (entrega or {}).get("ESTADO", "ACEITE"), "MOTIVOS_DA_RECUSA": (entrega or {}).get("MOTIVOS"),
+             "ARVORE": (reg.get("ARVORE") or {}).get("COMMIT"), "PUBLICADO_EM": reg.get("FIM"), "GRAVADO_EM": _agora(),
+             "PRODUCAO": "INTOCADA — so preview; o CANONICAL_HOST nao serve este pote"}
+    _escrever(Path(destino), atual)
+    return atual
+
+
+def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None, preview_atual=None) -> dict:
     """Uma volta do agendador. Devolve a linha que fica em RODADAS.ndjson."""
     estado = Path(estado)
     estado.mkdir(parents=True, exist_ok=True)
@@ -321,6 +346,7 @@ def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None) ->
             rc, reg = publicar(pote, modo, registro, None, estado)
             linha.update(RC=rc, DEPLOYMENT=(reg or {}).get("IMPLANTADO"), T1=(reg or {}).get("FIM"))
             if rc == 0:
+                linha["PREVIEW_ATUAL"] = gravar_preview_atual(preview_atual, reg, pote, c["SHA256_POTE"], None)
                 E.update(ULTIMA_ASSINATURA=ass, TENTATIVAS_DE=None, TENTATIVAS={},
                          ULTIMO_BOM={"SHA256_POTE_FICHEIRO": c["SHA256_POTE"], "POTE": str(pote),
                                      "INTELLIGENCE_RUN_ID": c["INTELLIGENCE_RUN_ID"],
@@ -340,6 +366,9 @@ def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None) ->
         rc, reg = publicar(Path(bom["POTE"]), modo, registro, dizer, estado)
         linha.update(RC=rc, DEPLOYMENT=(reg or {}).get("IMPLANTADO"), T1=(reg or {}).get("FIM"),
                      POTE_MANTIDO=bom.get("INTELLIGENCE_RUN_ID"))
+        if rc == 0:
+            linha["PREVIEW_ATUAL"] = gravar_preview_atual(preview_atual, reg, Path(bom["POTE"]),
+                                                          bom.get("SHA256_POTE_FICHEIRO"), dizer)
         tentativas[ass or "-"] = tentativas.get(ass or "-", 0) + 1
         if rc == 0 or tentativas[ass or "-"] >= TENTATIVAS_POR_ASSINATURA:
             E.update(ULTIMA_ASSINATURA=ass, TENTATIVAS_DE=None, TENTATIVAS={}, ULTIMA_ENTREGA=dizer)
@@ -366,6 +395,7 @@ def main(argv=None) -> int:
     ap.add_argument("--host-ensaio", default=None)
     ap.add_argument("--rodada", action="store_true", help="D156: uma volta do agendador (PARAR, trava, assinatura, registo)")
     ap.add_argument("--estado", default=None, help="a pasta de estado da rodada (ESTADO.json, RODADAS.ndjson, PARAR)")
+    ap.add_argument("--preview-atual", default=None, help="ficheiro estavel com a URL do ultimo preview (para o LAB)")
     a = ap.parse_args(argv)
     if a.modo not in MODOS_PERMITIDOS:
         print(f"RECUSADO: modo {a.modo!r}. Este gatilho so publica em {' / '.join(MODOS_PERMITIDOS)}; "
@@ -375,7 +405,7 @@ def main(argv=None) -> int:
         if not a.estado or a.raiz:
             print("uso: --rodada exige --estado <pasta> (e aceita --pasta; --raiz nao)")
             return USO
-        r = rodada(Path(a.pasta or ENTREGA), Path(a.estado), a.modo)
+        r = rodada(Path(a.pasta or ENTREGA), Path(a.estado), a.modo, preview_atual=a.preview_atual)
         print(json.dumps(r, ensure_ascii=False))
         return 0 if r["DECISAO"] not in ("RECUSADA_NAO_DITA",) else 1
     if not a.raiz:
