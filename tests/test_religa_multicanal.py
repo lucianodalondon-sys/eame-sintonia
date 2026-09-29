@@ -650,8 +650,10 @@ def test_armadilha_duas_urls_com_os_mesmos_bytes_preservam_duas_observacoes():
     def _preservar(run, artefatos, armazem, bytes_de, memoria=None):
         visto["artefatos"] = artefatos
         # o dono do RAW devolve UM par por artefato, com a alca que o chamador atou
-        return {"RUN_STATE": "OK", "OBSERVACOES_CONFERIDAS": [
-            {"RAW_OBSERVATION_ID": 100 + i, PC.PASSAGENS: [a[PC.PASSAGEM]]}
+        # a forma REAL do recibo: as alcas viajam em RAW_OBSERVATIONS, com o RUN_ID
+        return {"RUN_STATE": "OK", "RAW_OBSERVATIONS": [
+            {"RAW_OBSERVATION_ID": 100 + i, "RUN_ID": run["RUN_ID"], "SHA256": a["SHA256"],
+             PC.PASSAGENS: [a[PC.PASSAGEM]]}
             for i, a in enumerate(artefatos)]}
     real = PC.preservar
     PC.preservar = _preservar

@@ -538,12 +538,18 @@ def para_a_sala(linha: str, cand: dict, colhidos: list, corrida: str, *, persist
     bytes_por_alca = {a: c["BYTES"] for a, c in por_alca.items()}
     recibo = PC.preservar(run, fichas, armazem, lambda ob: bytes_por_alca[ob[PC.PASSAGEM]],
                           memoria=persistencia.memoria)
+    # ⚠️ O PAR VEM EM `RAW_OBSERVATIONS`, e cada observacao ja traz as ALCAS que lhe foram atadas.
+    # Eu lia `OBSERVACOES_CONFERIDAS` no topo do recibo, e ele vive DENTRO de
+    # `CONFERENCIA_POS_ESCRITA` — a leitura devolvia sempre vazio, e todas as capturas saiam
+    # `SEM_RAW_CANONICO`. Medido no canario: o elo partia-se aqui, calado.
+    #
+    #     UMA CHAVE QUE NAO EXISTE NAO DA ERRO: DA LISTA VAZIA, E A LISTA VAZIA PARECE «NADA ENTROU».
     ids = {}
-    for par in recibo.get("OBSERVACOES_CONFERIDAS") or []:
-        rid = par.get("RAW_OBSERVATION_ID")
-        if not isinstance(rid, int):
+    for obs in recibo.get("RAW_OBSERVATIONS") or []:
+        rid = obs.get("RAW_OBSERVATION_ID")
+        if not isinstance(rid, int) or obs.get("RUN_ID") != corrida:
             continue
-        for alca in par.get(PC.PASSAGENS) or []:
+        for alca in obs.get(PC.PASSAGENS) or []:
             ids[alca] = rid
     prontos, relato = [], []
     for f in fichas:
