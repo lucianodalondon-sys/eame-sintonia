@@ -108,10 +108,10 @@ TRINCO_F = "COLETA-CONTINUA.trinco"
 LINHAS = [
     {"LINHA": "SITES", "FAMILIA": "sites e boletins (T2/T3/T5/T7/T8/T9/T10/T12), pela coorte congelada",
      "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs"},
-    {"LINHA": "BUSCA", "FAMILIA": "paginas de busca (linha_busca)",
-     "TRANSPORTE": "coleta/linha_busca.py", "SONDA_PY": "BUSCA"},
+    {"LINHA": "BUSCA", "FAMILIA": "paginas de busca (linha_busca); D93: uma pagina por resultado",
+     "TRANSPORTE": "coleta/linha_busca.py", "SONDA_PY": "BUSCA", "EXECUTOR": "LINHA"},
     {"LINHA": "CIENCIA", "FAMILIA": "APIs cientificas OpenAlex/Crossref/ORCID (excecao de robots D91)",
-     "TRANSPORTE": "coleta/pesquisadores_t6.py", "SONDA_PY": "CIENCIA"},
+     "TRANSPORTE": "coleta/pesquisadores_t6.py", "SONDA_PY": "CIENCIA", "EXECUTOR": "LINHA"},
     {"LINHA": "YOUTUBE", "FAMILIA": "pagina publica do canal -> videos (rota gratuita, sem chave; D17.4)",
      "TRANSPORTE": "coleta/rotas_multicanal.py", "SONDA_PY": "YOUTUBE", "EXECUTOR": "LINHA"},
     {"LINHA": "INSTAGRAM", "FAMILIA": "Reel por URL directa (D22) e listagem /embed/ da conta (provada 23/09)",

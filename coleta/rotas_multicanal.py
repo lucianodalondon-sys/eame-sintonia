@@ -282,6 +282,7 @@ def instagram_reel(*, url, buscar):
 # «video coletado» seria contar como adquirido um endereco. O resultado honesto e aceitavel para esta
 # campanha e PASS_PARCIAL_COM_CAPACIDADE_DECLARADA.
 ROTA_LINKEDIN = "linkedin:pagina-publica-da-organizacao"
+ROTA_LEGENDA = "linkedin:data-captions-url"
 
 
 def linkedin_posts_da_organizacao(*, pagina_url, run_id, buscar, teto=None, country_scope="IT"):
@@ -346,6 +347,69 @@ def linkedin_posts_da_organizacao(*, pagina_url, run_id, buscar, teto=None, coun
             "SLUG": contexto.get("SLUG"), "PAGINA": pagina_url, "VIDEO_BYTES_ACQUIRED": False,
             "FETCH_POST": "ROUTE_NOT_ALLOWED (matriz social; nao se contorna)",
             "CARTOES_COM_VIDEO": contexto.get("CARTOES_COM_VIDEO")}
+
+
+def linkedin_legenda(*, caption_url, run_id, buscar):
+    """A LEGENDA NATIVA do video, pela rota `linkedin:data-captions-url` (PROVED na matriz, 0 USD).
+
+    AUTORIZADA (D156, coordenador, 29/09): «a D23 autoriza videos (e legenda/transcricao) de
+    organizacoes e a D24 de pessoas do agro». Ate aqui esta capacidade estava DESCOBERTA e nao ligada, e
+    era por isso que o item do LinkedIn chegava a Admission sem uma palavra de texto — o cartao publico
+    traz identidade e midia, nunca o texto do post.
+
+        O QUE O POST DIZ, DIZ-SE NO VIDEO. A legenda e o texto que existe.
+
+    A aquisicao e do `adaptador_linkedin`, que tem a rota, a autorizacao escrita e a medicao proprias —
+    nao se refaz aqui. → {"TEXTO", "FICHA"} ou {"ERRO"}."""
+    import adaptador_linkedin as LI                                # noqa: PLC0415
+    import scrap_http as http                                      # noqa: PLC0415
+    if not caption_url:
+        return {"ERRO": "SEM_CAPTION_URL: o cartao nao declarou legenda", "PEDIDOS": 0}
+
+    def texto_do_transporte(url):
+        r = buscar(url) if buscar is not None else None
+        if r is None:
+            return None                                            # o adaptador usa a porta dele
+        if isinstance(r, dict):
+            if r.get("ERRO"):
+                raise http.RotaBloqueada(r["ERRO"])
+            return r.get("BYTES") or b""
+        return r
+    try:
+        texto, ficha = LI.legenda_do_video(caption_url=caption_url, run_id=run_id,
+                                           transporte=texto_do_transporte if buscar else None)
+    except (http.RotaNaoPermitida, ValueError) as ex:
+        return {"ERRO": "%s: %s" % (type(ex).__name__, ex), "PEDIDOS": 0, "ROTA": ROTA_LEGENDA}
+    except http.RotaBloqueada as ex:
+        return {"ERRO": "ROTA_BLOQUEADA: %s" % ex, "PEDIDOS": 1, "ROTA": ROTA_LEGENDA,
+                "QUEM_DISSE_NAO": "PLATAFORMA"}
+    return {"TEXTO": limpar_legenda(texto), "BRUTO": texto, "FICHA": ficha, "PEDIDOS": 1,
+            "ROTA": ROTA_LEGENDA,
+            "FORMATO": (ficha or {}).get("FORMAT_MEASURED_IN_BYTES")}
+
+
+RE_SRT_TEMPO = re.compile(r"^\d{1,2}:\d{2}:\d{2}[.,]\d{1,3}\s*-->")
+RE_SRT_INDICE = re.compile(r"^\d+$")
+
+
+def limpar_legenda(bruto):
+    """O TEXTO de uma legenda SRT/WEBVTT: fora os numeros de linha, os tempos e os cabecalhos.
+
+    Guardam-se as duas coisas — o bruto (que e a prova do que a plataforma serviu) e o texto (que e o que
+    a Admission consegue ler). Uma legenda com os tempos pelo meio enche o texto de numeros que nao sao
+    da fonte, e e o julgamento que paga isso."""
+    fora, visto = [], None
+    for l in str(bruto or "").splitlines():
+        l = l.strip()
+        if not l or l in ("WEBVTT",) or RE_SRT_TEMPO.match(l) or RE_SRT_INDICE.match(l):
+            continue
+        if l.startswith(("NOTE ", "STYLE", "Kind:", "Language:")):
+            continue
+        if l == visto:                                             # a legenda repete a linha entre blocos
+            continue
+        visto = l
+        fora.append(l)
+    return " ".join(fora).strip()
 
 
 def _mp4_do_cartao(c):

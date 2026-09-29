@@ -358,7 +358,7 @@ def test_so_as_linhas_nao_web_usam_o_executor_proprio():
     """A SITES nao pode regredir: ela continua a correr pela onda web, com a coorte congelada."""
     import coleta_continua as CC
     por_linha = {l["LINHA"] for l in CC.LINHAS if l.get("EXECUTOR") == "LINHA"}
-    assert por_linha == {"YOUTUBE", "INSTAGRAM", "LINKEDIN"}
+    assert por_linha == {"YOUTUBE", "INSTAGRAM", "LINKEDIN", "BUSCA", "CIENCIA"}
     assert "SITES" not in por_linha
 
 

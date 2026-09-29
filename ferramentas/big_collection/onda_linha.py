@@ -59,8 +59,11 @@ ACTOR = {
     "YOUTUBE": "coleta/rotas_multicanal.py::youtube_videos_do_canal",
     "INSTAGRAM": "coleta/rotas_multicanal.py::instagram_reels_da_conta",
     "LINKEDIN": "coleta/rotas_multicanal.py::linkedin_posts_da_organizacao",
+    "BUSCA": "coleta/linha_busca.py::buscar_consultas",
+    "CIENCIA": "coleta/corpus_pesquisador.py::_get (OpenAlex works)",
 }
-PLATAFORMA = {"YOUTUBE": "YOUTUBE", "INSTAGRAM": "INSTAGRAM", "LINKEDIN": "LINKEDIN"}
+PLATAFORMA = {"YOUTUBE": "YOUTUBE", "INSTAGRAM": "INSTAGRAM", "LINKEDIN": "LINKEDIN",
+              "BUSCA": "HTTP direto", "CIENCIA": "HTTP direto"}
 TERRITORIO_POR_OMISSAO = "T9"
 
 
@@ -128,6 +131,47 @@ def alvos_da_fonte(linha: str, cand: dict, buscar, *, max_alvos=None) -> dict:
                 "PEDIDOS": r["PEDIDOS"], "ROTA": r["ROTA"], "URL": alvo.get("PAGINA"),
                 "RAW_DA_DESCOBERTA": None, "VIDEO_BYTES_ACQUIRED": False,
                 "FETCH_POST": r.get("FETCH_POST"), "CARTOES_COM_VIDEO": r.get("CARTOES_COM_VIDEO")}
+    if linha == "BUSCA":
+        # D93 (LINHA-BUSCA): a consulta vai ao motor e cada RESULTADO e um alvo — uma pagina por
+        # resultado. Quem sabe falar com os motores e `coleta/linha_busca.py`; nao se refaz aqui.
+        import linha_busca as LB                                    # noqa: PLC0415
+        motor = os.environ.get("SINTONIA_BUSCA_MOTOR") or "DUCKDUCKGO_HTML"
+        saida = Path(os.environ.get("SINTONIA_BUSCA_SAIDA") or ".")
+        q = {"CONSULTA_ID": cand.get("SOURCE_ID"), "CONSULTA": alvo.get("CONSULTA"),
+             "UNIVERSO": cand.get("UNIVERSO")}
+        try:
+            achados = LB.buscar_consultas(motor, [q], LB.transporte_real(saida), saida)
+        except Exception as ex:                                     # noqa: BLE001
+            return {"ERRO": "BUSCA: %s: %s" % (type(ex).__name__, str(ex)[:160]), "PEDIDOS": 1}
+        erro = next((x["ERRO"] for x in achados if x.get("ERRO")), None)
+        if erro:
+            return {"ERRO": "BUSCA: %s" % erro, "PEDIDOS": 1, "ROTA": "busca:%s" % motor}
+        alvos = [{"URL": x["URL"], "NOME": x.get("CONSULTA_ID"), "NATIVE_ID": x.get("SERP_SHA256"),
+                  "POSICAO": x.get("POSICAO"), "DESCOBERTO_POR": "ACHADO_POR_BUSCA",
+                  "CONSULTA": x.get("CONSULTA"), "MOTOR": x.get("MOTOR")}
+                 for x in achados if x.get("URL")]
+        return {"ALVOS": alvos[:max_alvos] if max_alvos else alvos, "PEDIDOS": 1,
+                "ROTA": "busca:%s" % motor, "RAW_DA_DESCOBERTA": None, "ALVOS_NA_PAGINA": len(alvos)}
+    if linha == "CIENCIA":
+        # A consulta do Curator tem a MESMA forma que `pesquisadores_t6.consultas()` monta: o filtro e de
+        # AFILIACAO italiana (a pessoa), nunca do lugar do estudo. Um pedido, uma pagina de obras.
+        import urllib.parse as U                                    # noqa: PLC0415
+        import corpus_pesquisador as CP                             # noqa: PLC0415
+        import pesquisadores_t6 as T6                               # noqa: PLC0415
+        filtro = alvo.get("FILTRO") or "institutions.country_code:it"
+        q = U.urlencode({"filter": "%s,from_publication_date:%s,title_and_abstract.search:%s"
+                         % (filtro, T6.DESDE, alvo.get("CONSULTA_OPENALEX") or ""),
+                         "per-page": T6.POR_PAGINA, "sort": "publication_date:desc",
+                         "select": T6.CAMPOS_OPENALEX, "mailto": CP.MAILTO})
+        url = T6.OPENALEX + "?" + q
+        d, erro = CP._get(url)
+        if erro:
+            return {"ERRO": "CIENCIA: %s" % erro, "PEDIDOS": 1, "URL": url, "ROTA": "openalex:works"}
+        obras = (d or {}).get("results") or []
+        alvos = [{"URL": w.get("id"), "NOME": (w.get("title") or "")[:60], "NATIVE_ID": w.get("id"),
+                  "DESCOBERTO_POR": "openalex:works", "OBRA": w} for w in obras if w.get("id")]
+        return {"ALVOS": alvos[:max_alvos] if max_alvos else alvos, "PEDIDOS": 1, "URL": url,
+                "ROTA": "openalex:works", "RAW_DA_DESCOBERTA": None, "ALVOS_NA_PAGINA": len(obras)}
     return {"ERRO": "LINHA_SEM_ROTA_NESTE_EXECUTOR: %s" % linha, "PEDIDOS": 0}
 
 
@@ -162,9 +206,56 @@ def colher_alvo(linha: str, a: dict, buscar) -> dict:
         registo["FETCH_POST"] = "ROUTE_NOT_ALLOWED (matriz social; o post individual nao se pede)"
         if not registo.get("URL_DO_POST") and not registo.get("NATIVE_ID"):
             return {"ERRO": "CARTAO_SEM_IDENTIDADE_DO_POST", "PEDIDOS": 0}
+        # A LEGENDA NATIVA (D156: a D23 autoriza «videos (e legenda/transcricao)» de organizacoes).
+        # E daqui que vem o TEXTO deste item: o cartao publico traz identidade e midia, NUNCA o texto do
+        # post. Sem legenda o item entra na mesma, com a ausencia DECLARADA — nao se inventa um texto.
+        pedidos = 0
+        if registo.get("CAPTION_URL"):
+            leg = RM.linkedin_legenda(caption_url=registo["CAPTION_URL"],
+                                      run_id=os.environ.get("SINTONIA_RUN_ID") or "LI", buscar=buscar)
+            pedidos += int(leg.get("PEDIDOS") or 0)
+            if leg.get("ERRO"):
+                registo["TEXTO_ORIGEM"] = "LEGENDA_NATIVA_LINKEDIN_FALHOU"
+                registo["TEXTO_PORQUE_NAO"] = leg["ERRO"][:200]
+            else:
+                registo["TEXTO"] = leg["TEXTO"]
+                registo["TEXTO_ORIGEM"] = "LEGENDA_NATIVA_LINKEDIN"
+                registo["TEXTO_FORMATO"] = leg.get("FORMATO")
+                registo["TEXTO_ROTA"] = leg["ROTA"]
+        else:
+            registo["TEXTO_ORIGEM"] = "SEM_LEGENDA_DECLARADA_NO_CARTAO"
         corpo = json.dumps(registo, ensure_ascii=False, sort_keys=True).encode("utf-8")
         return {"BYTES": corpo, "URL": a.get("URL_DO_POST"), "MEDIA_TYPE": "application/json",
-                "PEDIDOS": 0, "ROTA": "linkedin:descoberta-do-post-publico", "VIDEO_BYTES_ACQUIRED": False}
+                "PEDIDOS": pedidos, "ROTA": "linkedin:descoberta-do-post-publico",
+                "VIDEO_BYTES_ACQUIRED": False, "TEXTO_ORIGEM": registo.get("TEXTO_ORIGEM")}
+    if linha == "BUSCA":
+        # A pagina achada, pela MESMA porta (robots vivo, teto, contador).
+        r = buscar(a["URL"], "text/html,application/pdf,*/*;q=0.5")
+        if r.get("ERRO") or r.get("STATUS") != 200:
+            return {"ERRO": "a pagina achada nao respondeu 200 (status %s%s)"
+                    % (r.get("STATUS") or 0, ", " + r["ERRO"] if r.get("ERRO") else ""),
+                    "PEDIDOS": 1, "URL": a["URL"], "QUEM_DISSE_NAO": r.get("QUEM_DISSE_NAO")}
+        mt = (r.get("CONTENT_TYPE") or "text/html").split(";")[0].strip().lower()
+        return {"BYTES": r["BYTES"], "URL": a["URL"], "MEDIA_TYPE": mt, "PEDIDOS": 1,
+                "ROTA": "ACHADO_POR_BUSCA"}
+    if linha == "CIENCIA":
+        # A obra JA VEIO na resposta da consulta: nao se pede outra vez. Guarda-se o que o OpenAlex
+        # declarou — titulo, resumo (reconstruido do indice invertido), autores, data e DOI.
+        #
+        #     PEDIR DE NOVO O QUE JA SE TEM E GASTAR ORCAMENTO POR NADA.
+        import corpus_pesquisador as CP                             # noqa: PLC0415
+        w = a.get("OBRA") or {}
+        registo = {"OPENALEX_ID": w.get("id"), "DOI": w.get("doi"), "TITLE": w.get("title"),
+                   "PUBLISHED_AT": w.get("publication_date"), "TYPE": w.get("type"),
+                   "ABSTRACT": CP._resumo_do_indice(w.get("abstract_inverted_index")),
+                   "AUTHORS": [(x.get("author") or {}).get("display_name")
+                               for x in (w.get("authorships") or [])],
+                   "ROTA": "openalex:works", "TEXTO_ORIGEM": "OPENALEX_TITLE_E_ABSTRACT"}
+        if not (registo["TITLE"] or registo["ABSTRACT"]):
+            return {"ERRO": "OBRA_SEM_TITULO_NEM_RESUMO", "PEDIDOS": 0, "URL": w.get("id")}
+        return {"BYTES": json.dumps(registo, ensure_ascii=False, sort_keys=True).encode("utf-8"),
+                "URL": w.get("id"), "MEDIA_TYPE": "application/json", "PEDIDOS": 0,
+                "ROTA": "openalex:works"}
     return {"ERRO": "LINHA_SEM_COLHEITA: %s" % linha, "PEDIDOS": 0}
 
 

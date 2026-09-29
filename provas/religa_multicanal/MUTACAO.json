@@ -3,8 +3,7 @@
  "REF": "HEAD",
  "TOTAL": 34,
  "CONTA": {
-  "MORTO": 32,
-  "NAO_APLICOU": 2
+  "MORTO": 34
  },
  "MUTANTES": [
   {
@@ -93,8 +92,10 @@
   },
   {
    "MUTANTE": "M13_LI_VIDEO_DESCOBERTO_VIRA_ADQUIRIDO",
-   "ESTADO": "NAO_APLICOU",
-   "PORQUE": "ANCORA_AUSENTE em ferramentas/big_collection/onda_linha.py"
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
   },
   {
    "MUTANTE": "M14_LI_PEDE_O_POST_INDIVIDUAL",
@@ -105,8 +106,10 @@
   },
   {
    "MUTANTE": "M15_LI_CARTAO_VAZIO_VIRA_ITEM",
-   "ESTADO": "NAO_APLICOU",
-   "PORQUE": "ANCORA_AUSENTE em ferramentas/big_collection/onda_linha.py"
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (errors=1)"
   },
   {
    "MUTANTE": "M16_ALIMENTA_PELAS_LISTAS_EXCLUIDAS",
