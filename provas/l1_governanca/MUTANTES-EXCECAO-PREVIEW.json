@@ -1,9 +1,9 @@
 {
  "ALVO": "leis/fundacao_da_coleta.py",
- "SHA256_DO_ALVO": "ae72e7b81172e5bf1b83e79f9478006fb88b8211d68a03bc1645178f5f7daf52",
+ "SHA256_DO_ALVO": "cddb12adead1b169e8f48834f828b01395d10fba95368ab2938171e0fc529330",
  "SUITE": "tests.test_excecao_preview_e2e",
- "MUTANTES": 59,
- "MORTOS": 59,
+ "MUTANTES": 84,
+ "MORTOS": 84,
  "DESFEITO_E_CONFERIDO": true,
  "RESULTADOS": [
   {
@@ -136,18 +136,6 @@
    ]
   },
   {
-   "MUTANTE": "M16_prova_do_lab_nem_conferida",
-   "PERGUNTA": "d",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_lab_adulterado_depois_de_fixado_recusa",
-    "test_lab_com_a_corrida_so_como_pedaco_de_outra_recusa",
-    "test_lab_com_sha_fixado_errado_ou_sem_sha_recusa",
-    "test_lab_de_outra_corrida_recusa",
-    "test_lab_fora_das_pastas_do_lab_recusa"
-   ]
-  },
-  {
    "MUTANTE": "M17_d140_fora_do_diario_vale",
    "PERGUNTA": "e",
    "ESTADO": "MORTO",
@@ -235,31 +223,6 @@
    "ESTADO": "MORTO",
    "MORTO_POR": [
     "test_redteam_lab_forjado_ficheiro_inexistente"
-   ]
-  },
-  {
-   "MUTANTE": "M27_lab_sem_veredito_pass_aceite",
-   "PERGUNTA": "red-team-1",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_redteam_lab_que_diz_fail_ou_ambiguo"
-   ]
-  },
-  {
-   "MUTANTE": "M28_lab_que_nao_cita_o_pote_aceite",
-   "PERGUNTA": "red-team-1",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_lab_que_cita_o_ficheiro_do_pote_passa_so_se_o_ficheiro_e_este_pote",
-    "test_redteam_lab_que_existe_mas_nao_cita_este_pote"
-   ]
-  },
-  {
-   "MUTANTE": "M29_lab_ambiguo_lido_pela_primeira_linha",
-   "PERGUNTA": "red-team-1",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_redteam_lab_que_diz_fail_ou_ambiguo"
    ]
   },
   {
@@ -473,15 +436,6 @@
    ]
   },
   {
-   "MUTANTE": "M57_lab_de_outra_corrida_aceite",
-   "PERGUNTA": "adendo-LAB",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_lab_com_a_corrida_so_como_pedaco_de_outra_recusa",
-    "test_lab_de_outra_corrida_recusa"
-   ]
-  },
-  {
    "MUTANTE": "M58_lab_fora_da_pasta_do_lab_aceite",
    "PERGUNTA": "adendo-LAB",
    "ESTADO": "MORTO",
@@ -491,28 +445,290 @@
    ]
   },
   {
-   "MUTANTE": "M59_lab_na_pasta_do_pote_aceite",
-   "PERGUNTA": "adendo-LAB",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_lab_na_pasta_do_proprio_pote_recusa"
-   ]
-  },
-  {
    "MUTANTE": "M60_lab_sem_sha_fixado_aceite",
    "PERGUNTA": "adendo-LAB",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_lab_adulterado_depois_de_fixado_recusa",
     "test_lab_com_sha_fixado_errado_ou_sem_sha_recusa"
    ]
   },
   {
-   "MUTANTE": "M61_corrida_casada_como_pedaco",
-   "PERGUNTA": "adendo-LAB",
+   "MUTANTE": "M59_pote_do_produtor_na_pasta_do_lab_aceite",
+   "PERGUNTA": "LB5",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_lab_com_a_corrida_so_como_pedaco_de_outra_recusa"
+    "test_LB5_pote_do_produtor_em_subpasta_da_pasta_do_lab",
+    "test_lab_na_pasta_do_proprio_pote_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M16_prova_do_lab_nem_conferida",
+   "PERGUNTA": "d",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_LB1_prova_de_outro_pote_que_so_menciona_este",
+    "test_LB2_indice_com_varios_potes_nao_e_uma_prova",
+    "test_LB3_este_pote_citado_como_rejeitado",
+    "test_LB4_corrida_com_sufixo",
+    "test_LB4_sha_do_pote_com_caixa_ou_pedaco_diferente_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M27_versao_mais_recente_FAIL_aceite",
+   "PERGUNTA": "LB2/VER-a",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_um_FAIL_nao_precisa_de_elos_nem_de_detalhe_coerente_para_recusar",
+    "test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto",
+    "test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo"
+   ]
+  },
+  {
+   "MUTANTE": "M28_sha_do_pote_nao_comparado",
+   "PERGUNTA": "LB1",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_LB4_sha_do_pote_com_caixa_ou_pedaco_diferente_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M57_run_id_nao_comparado",
+   "PERGUNTA": "LB4",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_lab_de_outra_corrida_recusa"
+   ]
+  },
+  {
+   "MUTANTE": "M62_lab_origin_ignorado",
+   "PERGUNTA": "LB6",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_LB6_lab_origin_e_dado_e_tem_de_ser_sintonia_lab"
+   ]
+  },
+  {
+   "MUTANTE": "M63_lab_origin_igual_ao_produtor_aceite",
+   "PERGUNTA": "LB6",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_LB6_o_lab_nao_pode_ser_o_produtor_do_pote"
+   ]
+  },
+  {
+   "MUTANTE": "M64_texto_solto_volta_a_valer",
+   "PERGUNTA": "LB1",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto"
+   ]
+  },
+  {
+   "MUTANTE": "M65_lista_lida_pela_ultima_entrada",
+   "PERGUNTA": "LB2",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto"
+   ]
+  },
+  {
+   "MUTANTE": "M66_veredito_fora_de_PASS_FAIL_aceite",
+   "PERGUNTA": "formato-real",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_K2_veredito_exato_so_PASS_ou_FAIL",
+    "test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto"
+   ]
+  },
+  {
+   "MUTANTE": "M67_produtores_do_pote_esquecidos",
+   "PERGUNTA": "LB6",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_LB6_o_lab_nao_pode_ser_o_produtor_do_pote"
+   ]
+  },
+  {
+   "MUTANTE": "M68_envelope_nao_conferido",
+   "PERGUNTA": "formato-real",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_envelope_do_pote_tem_de_bater"
+   ]
+  },
+  {
+   "MUTANTE": "M69_envelope_do_pote_esquecido",
+   "PERGUNTA": "formato-real",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_envelope_do_pote_tem_de_bater"
+   ]
+  },
+  {
+   "MUTANTE": "M70_nome_da_prova_nao_conferido",
+   "PERGUNTA": "formato-real",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_o_nome_da_prova_tem_de_ser_o_do_formato_real"
+   ]
+  },
+  {
+   "MUTANTE": "M71_mais_recente_pela_ordem_do_nome",
+   "PERGUNTA": "VER-b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4_duas_copias_da_mesma_prova_sao_empate",
+    "test_V4a_copia_do_PASS_antigo_numa_pasta_irma",
+    "test_V4ctl_na_mesma_pasta_o_FAIL_recente_derruba_o_PASS",
+    "test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo",
+    "test_a_um_PASS_mais_novo_em_menos_2_vale_sobre_o_FAIL_antigo"
+   ]
+  },
+  {
+   "MUTANTE": "M72_empate_de_data_aceite",
+   "PERGUNTA": "VER-c",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4_duas_copias_da_mesma_prova_sao_empate",
+    "test_c_empate_de_data_e_FAIL"
+   ]
+  },
+  {
+   "MUTANTE": "M73_prova_antiga_vale_com_uma_mais_recente",
+   "PERGUNTA": "VER-a",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4a_copia_do_PASS_antigo_numa_pasta_irma",
+    "test_V4b_PASS_no_pai_e_FAIL_recente_numa_subpasta",
+    "test_V4ctl_na_mesma_pasta_o_FAIL_recente_derruba_o_PASS",
+    "test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo"
+   ]
+  },
+  {
+   "MUTANTE": "M75_versao_irma_de_outro_par_ignorada",
+   "PERGUNTA": "VER",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_versao_irma_com_o_nome_deste_par_e_conteudo_de_outro_e_FAIL"
+   ]
+  },
+  {
+   "MUTANTE": "M76_versao_menos_1_ou_menos_02_aceite",
+   "PERGUNTA": "formato-real",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_o_nome_da_prova_tem_de_ser_o_do_formato_real"
+   ]
+  },
+  {
+   "MUTANTE": "M77_nome_sem_distinguir_caixa",
+   "PERGUNTA": "formato-real",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_o_nome_da_prova_tem_de_ser_o_do_formato_real"
+   ]
+  },
+  {
+   "MUTANTE": "M78_data_utc_sem_validar",
+   "PERGUNTA": "VER-data",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_data_ausente_ou_invalida_e_FAIL"
+   ]
+  },
+  {
+   "MUTANTE": "M29_marca_de_rejeicao_ignorada",
+   "PERGUNTA": "K2",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_K2_marca_de_rejeicao_em_qualquer_caixa_e_nivel"
+   ]
+  },
+  {
+   "MUTANTE": "M74_versao_sem_data_ignorada_em_silencio",
+   "PERGUNTA": "VER-data",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_data_ausente_ou_invalida_e_FAIL",
+    "test_V3b_PASS_datado_no_futuro_nao_congela_o_par"
+   ]
+  },
+  {
+   "MUTANTE": "M79_rejeicao_so_em_maiusculas_e_no_topo",
+   "PERGUNTA": "K2",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_K2_marca_de_rejeicao_em_qualquer_caixa_e_nivel"
+   ]
+  },
+  {
+   "MUTANTE": "M80_chaves_da_prova_abertas",
+   "PERGUNTA": "K1",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_K1_chave_desconhecida_na_prova"
+   ]
+  },
+  {
+   "MUTANTE": "M81_detalhe_que_contradiz_o_PASS_aceite",
+   "PERGUNTA": "K3",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_K3_detalhe_que_contradiz_o_PASS"
+   ]
+  },
+  {
+   "MUTANTE": "M82_detalhe_sem_casefold",
+   "PERGUNTA": "K3",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_K3_detalhe_que_contradiz_o_PASS"
+   ]
+  },
+  {
+   "MUTANTE": "M83_elos_em_falta_aceites",
+   "PERGUNTA": "K4",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_K4_PASS_exige_os_sete_elos_a_PASS_ou_OK"
+   ]
+  },
+  {
+   "MUTANTE": "M84_so_FALHOU_conta_como_elo_mau",
+   "PERGUNTA": "K4",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_K4_PASS_exige_os_sete_elos_a_PASS_ou_OK"
+   ]
+  },
+  {
+   "MUTANTE": "M85_data_no_futuro_aceite",
+   "PERGUNTA": "V3b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V3b_PASS_datado_no_futuro_nao_congela_o_par",
+    "test_V3b_o_futuro_tem_tolerancia_de_5_minutos"
+   ]
+  },
+  {
+   "MUTANTE": "M86_versoes_so_na_pasta_do_pedido",
+   "PERGUNTA": "V4a",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4_duas_copias_da_mesma_prova_sao_empate",
+    "test_V4a_copia_do_PASS_antigo_numa_pasta_irma"
+   ]
+  },
+  {
+   "MUTANTE": "M87_versoes_sem_descer_nas_subpastas",
+   "PERGUNTA": "V4b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_a_atravessar_nao_mexe_na_fundacao",
+    "test_c_conferencia_falhada_recusa",
+    "test_c_contagem_de_liberados_que_mente_recusa",
+    "test_c_liberado_por_outra_corrida_recusa",
+    "test_c_objeto_nao_para_cliente_recusa_o_pote_inteiro"
    ]
   }
  ]

@@ -58,6 +58,26 @@ a regra do envelope não o apanha — confirmar com o dono do pote. `PASTAS_DO_L
 `C:/Users/London1/sintonia-lab-provas/`; o pote do produtor nessa pasta ou em
 subpasta = recusa (caminho resolvido, prefixo de diretório).
 
+### Rodada 4 (VERIF-L1-dec120851)
+
+- **V4a/V4b:** as versões do par procuram-se em TODA a árvore de `PASTAS_DO_LAB`
+  (recursivo), não na pasta que o pedido escolheu; duas cópias da mesma prova = empate = FAIL.
+- **V3b:** `DATA_UTC` mais de 5 min no futuro = inválida = FAIL.
+- **K1:** lista FECHADA de chaves na prova (as 12 do formato real); desconhecida = recusa.
+- **K2:** `VEREDITO` exato `PASS`|`FAIL`; chave com «rejeit» em qualquer caixa e nível = recusa.
+- **K3:** `VEREDITO=PASS` com `VEREDITO_DETALHE` que diga rejeit/falh/fail = recusa.
+- **K4:** `VEREDITO=PASS` exige `ELOS` E1..E7 todos `PASS` ou `OK`; qualquer outro valor = recusa.
+- `LAB_ORIGIN` saiu da linha VERIFICADO e está em ALEGADO.
+- Mutantes: 84/84, com o sha da lei atual.
+- Scripts de aceite do auditor: `contraprova_lab_l1_v2.py` 8/8; `ataque_lab_l1_v2.py` 24/26 —
+  os 2 restantes são por desenho: **V3** espera que uma prova datada de 2099 passe (contra a
+  regra 4 do coordenador) e **AUT1** corre depois de o próprio script plantar, na MESMA pasta
+  do LAB, um ficheiro com o nome deste par e o conteúdo de outro (LB1), que envenena o par em
+  toda a árvore (regra 3). Isolado, o AUT1 passa com `AUTORIA_PROVADA=false` (testes
+  `LIMITE_…` e `test_LAB_ORIGIN_sai_como_alegado…`).
+- Suposição declarada: os valores de `ELOS` são textos `PASS`/`OK`; se o LAB os escrever como
+  objetos, a guarda recusa (falha fechado) — confirmar com o LAB.
+
 **LIMITE_CONHECIDO:** `AUTORIA_DO_LAB = DECLARADA` (LAB_ORIGIN + pasta), **não**
 provada criptograficamente — neste PC todos os agentes correm como o mesmo
 utilizador Windows, e a pasta só impede reuso acidental e mistura. O que a guarda
