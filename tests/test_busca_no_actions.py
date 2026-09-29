@@ -23,6 +23,7 @@ sys.path.insert(0, str(RAIZ / "ferramentas" / "linha_busca"))
 import linha_busca as LB            # noqa: E402
 import api_oficial as API           # noqa: E402
 import pedido_actions as PA         # noqa: E402
+import comentarios_piloto_d106 as CP  # noqa: E402
 
 CHAVE = "CHAVE-FALSA-de-teste-0123456789abcdef"
 CX = "0123456789abcdef0:cxdeteste"
@@ -82,7 +83,7 @@ class B_ODiagnostico(unittest.TestCase):
         d = API.ler_diagnostico(*SEM_CX, com_cx=False)
         self.assertEqual((d["API_ATIVA"], d["CHAVE_PODE_USAR_A_API"], d["CX"]), ("SIM", "SIM", "OBRIGATORIO_E_AUSENTE"))
         self.assertIn("OBRIGATORIO (medido)", d["PORQUE"])
-        self.assertTrue(any("GOOGLE_CSE_CX" in p for p in API.o_que_o_dono_faz(d)))
+        self.assertTrue(any("PEDIDO-BUSCA-GOOGLE.json" in p for p in API.o_que_o_dono_faz(d)))
 
     def test_cx_dado_e_recusado(self):
         self.assertEqual(API.ler_diagnostico(*SEM_CX, com_cx=True)["CX"], "INVALIDO")
@@ -244,63 +245,69 @@ class E_OPedidoDoWorkflow(unittest.TestCase):
         p.write_text(json.dumps(d), encoding="utf-8")
         return p
 
-    def test_o_ficheiro_do_repositorio_e_valido_e_so_diagnostico(self):
-        p = PA.ler_pedido(env={})
-        self.assertEqual((p["SEGREDO_DA_CHAVE"], p["SEGREDO_DO_CX"], p["SO_DIAGNOSTICO"]),
-                         ("YOUTUBE_DATA_API_KEY", "GOOGLE_CSE_CX", True))
-
-    def test_nomes_que_nao_sao_nomes_de_secret_sao_recusados(self):
-        for mau in ("x; rm -rf /", "YOUTUBE_DATA_API_KEY }}", "github_token", "GITHUB_TOKEN", "", "A B"):
-            with self.assertRaises(PA.PedidoInvalido, msg=mau):
-                PA.ler_pedido(env={}, ficheiro=self._f({"SEGREDO_DA_CHAVE": mau, "SEGREDO_DO_CX": "GOOGLE_CSE_CX"}))
+    def test_o_ficheiro_do_repositorio_pede_diagnostico_e_comentarios_sem_cx(self):
+        p = PA.ler_pedido()
+        self.assertEqual((p["SO_DIAGNOSTICO"], p["COMENTARIOS"], p["CX"]), (True, True, ""))
 
     def test_n_so_de_1_a_100(self):
-        base = {"SEGREDO_DA_CHAVE": "K", "SEGREDO_DO_CX": "C"}
         for n in (0, 101, "muitos"):
             with self.assertRaises(PA.PedidoInvalido):
-                PA.ler_pedido(env={}, ficheiro=self._f(dict(base, N=n)))
-        self.assertEqual(PA.ler_pedido(env={}, ficheiro=self._f(dict(base, N=100)))["N"], 100)
+                PA.ler_pedido(self._f({"N": n}))
+        self.assertEqual(PA.ler_pedido(self._f({"N": 100}))["N"], 100)
 
-    def test_os_inputs_do_dispatch_e_as_saidas(self):
-        env = {"EVENTO": "workflow_dispatch", "IN_CHAVE": "YOUTUBE_DATA_API_KEY", "IN_CX": "GOOGLE_CSE_CX",
-               "IN_N": "10", "IN_SO_DIAG": "false"}
-        s = PA.saidas(PA.ler_pedido(env=env))
-        self.assertEqual(s, "segredo_da_chave=YOUTUBE_DATA_API_KEY\nsegredo_do_cx=GOOGLE_CSE_CX\nn=10\n"
-                            "so_diagnostico=false\n")
+    def test_cx_so_na_forma_de_um_id(self):
+        self.assertEqual(PA.ler_pedido(self._f({"CX": "0123456789abcdef0:abc_d-e"}))["CX"], "0123456789abcdef0:abc_d-e")
+        for mau in ("x; rm -rf /", "a b", "${{ secrets.SUPABASE_SECRET_KEY }}", "x" * 65):
+            with self.assertRaises(PA.PedidoInvalido, msg=mau):
+                PA.ler_pedido(self._f({"CX": mau}))
+
+    def test_as_saidas(self):
+        s = PA.saidas(PA.ler_pedido(self._f({"N": 10, "SO_DIAGNOSTICO": False, "COMENTARIOS": "false", "CX": "abc:1"})))
+        self.assertEqual(s, "n=10\nso_diagnostico=false\ncomentarios=false\ncx=abc:1\n")
 
 
 class F_OWorkflow(unittest.TestCase):
     def setUp(self):
         self.y = WORKFLOW.read_text(encoding="utf-8")
+        self.corpo = self.y.split("\non:")[1]                         # sem o cabecalho de comentarios
 
-    def test_a_chave_so_entra_nos_passos_2_e_3_e_so_por_env(self):
-        passos = re.split(r"\n      - ", self.y)
-        com_segredo = [p.splitlines()[0] for p in passos if "secrets[" in p]
-        self.assertEqual(len(com_segredo), 2, com_segredo)
-        self.assertTrue(com_segredo[0].startswith("name: 2 ") and com_segredo[1].startswith("name: 3 "), com_segredo)
-        for linha in self.y.splitlines():
-            if "secrets[" in linha:
-                self.assertRegex(linha.strip(), r"^SINTONIA_GOOGLE_CSE_(KEY|CX): \$\{\{ secrets\[steps\.pedido\.outputs\.")
+    def test_so_o_secret_do_youtube_e_escrito_fixo(self):
+        self.assertEqual(sorted(set(re.findall(r"secrets\.([A-Z0-9_]+)", self.corpo))), ["YOUTUBE_DATA_API_KEY"])
+        self.assertNotIn("secrets[", self.corpo)                       # pelo nome = TODOS os secrets no runner
+        self.assertNotIn("SUPABASE", self.corpo)
+        for linha in self.corpo.splitlines():
+            if "secrets." in linha:
+                self.assertRegex(linha.strip(), r"^(SINTONIA_GOOGLE_CSE_KEY|YOUTUBE_DATA_API_KEY): "
+                                                r"\$\{\{ secrets\.YOUTUBE_DATA_API_KEY \}\}$")
 
-    def test_nenhum_input_entra_direto_num_run(self):
-        corpo_dos_run = re.findall(r"run: (?:>-|\|)?\n?((?:\s{10,}.*\n?)+|.*)", self.y)
-        self.assertFalse([r for r in corpo_dos_run if "inputs." in r or "github.event" in r])
+    def test_a_chave_so_nos_passos_2_3_e_4(self):
+        passos = re.split(r"\n      - ", self.corpo)
+        com_segredo = [p.splitlines()[0] for p in passos if "secrets." in p]
+        self.assertEqual([c.split(" · ")[0] for c in com_segredo], ["name: 2", "name: 3", "name: 4"], com_segredo)
 
-    def test_sem_vpn_so_leitura_e_o_artifact_sai_sempre(self):
-        self.assertIn("runs-on: ubuntu-latest", self.y)
-        self.assertIn("permissions:\n  contents: read", self.y)
-        self.assertNotRegex(self.y.lower(), r"vpn\s*:|wireguard|openvpn")
-        self.assertRegex(self.y, r"if: always\(\)\n        uses: actions/upload-artifact@v4")
-        self.assertIn("--sem-portao-it", self.y)
-        self.assertIn("--motor=GOOGLE_CSE", self.y)
-        self.assertIn("default: 'YOUTUBE_DATA_API_KEY'", self.y)
-        self.assertNotIn("--colher", self.y.split("jobs:")[1])
+    def test_dispara_so_por_push_no_proprio_ramo_e_nos_proprios_ficheiros(self):
+        self.assertIn("  push:\n    branches: [busca-no-actions-v1]\n", self.corpo)
+        self.assertIn("- '.github/workflows/linha-busca-google.yml'", self.corpo)
+        self.assertIn("- 'ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json'", self.corpo)
+        self.assertNotIn("workflow_dispatch", self.corpo)
+        self.assertNotIn("pull_request", self.corpo)
 
-    def test_so_o_ramo_de_disparo_corre_a_busca(self):
-        # entregar/integrar esta linha (push de codigo) nunca pode gastar quota nem usar a chave por acidente
-        self.assertIn("branches: [disparo-linha-busca-google]", self.y)
-        for ramo in ("busca-no-actions-v1", "linha-busca-v1", "main", "servico-"):
-            self.assertNotRegex(self.y, r"branches: \[[^\]]*%s" % re.escape(ramo))
+    def test_sem_commit_so_leitura_so_artifact(self):
+        self.assertIn("permissions:\n  contents: read", self.corpo)
+        self.assertNotRegex(self.corpo, r"git (commit|push)|contents: write")
+        self.assertRegex(self.corpo, r"if: always\(\)\n        uses: actions/upload-artifact@v4")
+        self.assertIn("runs-on: ubuntu-latest", self.corpo)
+        self.assertNotRegex(self.corpo.lower(), r"self-hosted|vpn\s*:|wireguard|openvpn")
+        self.assertNotIn("--colher", self.corpo)
+
+    def test_diagnostico_e_comentarios_na_mesma_corrida(self):
+        self.assertIn("--diagnosticar-cse --autorizado --sem-portao-it", self.corpo)
+        self.assertIn("ferramentas/linha_busca/comentarios_piloto_d106.py --saida=saida", self.corpo)
+
+    def test_nenhum_input_nem_evento_entra_direto_num_run(self):
+        corpo_dos_run = re.findall(r"run: (?:>-|\|)?\n?((?:\s{10,}.*\n?)+|.*)", self.corpo)
+        self.assertEqual(len(corpo_dos_run), 7)          # passos 0,1,2,3,4,5,7 (o 6 e `uses`)
+        self.assertFalse([r for r in corpo_dos_run if "${{" in r])
 
     def test_o_yaml_e_valido_quando_ha_leitor(self):
         try:
@@ -309,8 +316,78 @@ class F_OWorkflow(unittest.TestCase):
             self.skipTest("PyYAML ausente neste Python")
         w = yaml.safe_load(self.y)
         passos = w["jobs"]["buscar"]["steps"]
-        self.assertEqual(passos[-1]["if"], "steps.diag.outcome == 'failure'")
-        self.assertTrue(passos[4]["continue-on-error"])
+        self.assertEqual(passos[-1]["if"], "steps.coment.outcome == 'failure'")
+        self.assertTrue(passos[4]["continue-on-error"] and passos[6]["continue-on-error"])
+        self.assertEqual(w[True]["push"]["branches"], ["busca-no-actions-v1"])   # «on» vira True no YAML 1.1
+
+
+class G_OPilotoDeComentarios(unittest.TestCase):
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="coment-d106-"))
+        self.addCleanup(shutil.rmtree, self.tmp, True)
+        self.pedidos = []
+
+    def _pedir(self, respostas):
+        def pedir(url, cab=None):
+            self.pedidos.append(url)
+            v = re.search(r"videoId=([^&]+)", url).group(1)
+            return respostas(v, url)
+        return pedir
+
+    def test_os_10_pais_do_12_e_as_duas_ordens(self):
+        self.assertEqual(CP.VIDEOS, ("soP-t7nvvq8", "F5uLnId6fJk", "w87w51fSWAw", "QGE7h4gztQ8", "R5FJWJkCbKI",
+                                     "5MNenAiGtlQ", "QmeVN7SNnMU", "2cF0yHZXiMs", "ioLYGSazexk", "ezRyN8vLVvc"))
+        self.assertEqual((CP.ORDENS, CP.TETO_CHAMADAS), (("relevance", "time"), 20))
+
+    def test_vinte_chamadas_cruas_com_sha256_e_sem_a_chave(self):
+        corpo = json.dumps({"pageInfo": {"totalResults": 3}, "nextPageToken": "X",
+                            "items": [{"snippet": {}, "replies": {"comments": [{}]}}] * 3}).encode()
+        vazio = json.dumps({"pageInfo": {"totalResults": 0}, "items": []}).encode()
+        doc = CP.colher(self.tmp, CHAVE, self._pedir(lambda v, u: (200, vazio if v in ("2cF0yHZXiMs", "ioLYGSazexk")
+                                                                         else corpo, "")))
+        self.assertEqual(len(self.pedidos), 20)
+        self.assertTrue(all("maxResults=100" in u and "part=snippet%2Creplies" in u for u in self.pedidos))
+        self.assertEqual(sum("order=relevance" in u for u in self.pedidos), 10)
+        self.assertEqual((doc["COM_200"], doc["ITENS_TOTAL"], len(doc["VIDEOS_COM_COMENTARIO"])), (20, 48, 8))
+        r0 = doc["RESPOSTAS"][0]
+        self.assertEqual(r0["SHA256"], __import__("hashlib").sha256((self.tmp / r0["FICHEIRO"]).read_bytes()).hexdigest())
+        self.assertEqual((r0["HA_MAIS_PAGINAS"], r0["RESPOSTAS_NOS_ITENS"]), (True, 3))   # nao se segue a pagina
+        self.assertNotIn(CHAVE, json.dumps(doc))
+        self.assertTrue(all("key=" not in r["PEDIDO_SEM_CHAVE"] for r in doc["RESPOSTAS"]))
+
+    def test_comentarios_desligados_num_video_nao_param_os_outros(self):
+        desl = json.dumps({"error": {"code": 403, "errors": [{"reason": "commentsDisabled"}],
+                                     "message": "The video identified by the videoId parameter has disabled comments."}}).encode()
+        doc = CP.colher(self.tmp, CHAVE, self._pedir(lambda v, u: (403, desl, "HTTP 403") if v == "soP-t7nvvq8"
+                                                     else (200, b'{"items": []}', "")))
+        self.assertEqual(len(self.pedidos), 20)
+        self.assertEqual(doc["RESPOSTAS"][0]["ERRO_RAZOES"], ["commentsDisabled"])
+        self.assertIsNone(doc["PAROU"])
+
+    def test_erro_da_chave_para_tudo_logo_na_primeira(self):
+        quota = json.dumps({"error": {"code": 403, "errors": [{"reason": "quotaExceeded"}],
+                                      "message": "quota key=%s" % CHAVE}}).encode()
+        doc = CP.colher(self.tmp, CHAVE, self._pedir(lambda v, u: (403, quota, "HTTP 403")))
+        self.assertEqual(len(self.pedidos), 1)
+        self.assertIn("quotaExceeded", doc["PAROU"])
+        self.assertEqual(sum(1 for r in doc["RESPOSTAS"] if r.get("NAO_PEDIDO")), 19)
+        self.assertNotIn(CHAVE, json.dumps(doc))
+
+    def test_sem_chave_nenhuma_chamada(self):
+        doc = CP.colher(self.tmp, None, self._pedir(lambda v, u: (200, b"{}", "")))
+        self.assertEqual((self.pedidos, doc["CHAMADAS"]), ([], 0))
+        self.assertIn("nenhuma chamada saiu", doc["PAROU"])
+
+    def test_main_grava_o_manifesto_sem_a_chave_e_sai_4_sem_200(self):
+        with mock.patch.dict(os.environ, {"YOUTUBE_DATA_API_KEY": CHAVE}), \
+             mock.patch.object(CP.API, "pedir", lambda u, c=None: (400, json.dumps(
+                 {"error": {"errors": [{"reason": "keyInvalid"}], "message": "bad %s" % CHAVE}}).encode(), "HTTP 400")), \
+             redirect_stdout(io.StringIO()) as out:
+            rc = CP.main(["--saida=%s" % self.tmp])
+        self.assertEqual(rc, 4)
+        m = (self.tmp / "COMENTARIOS-PILOTO-D106.json").read_text(encoding="utf-8")
+        self.assertNotIn(CHAVE, m + out.getvalue())
+        self.assertIn("keyInvalid", m)
 
 
 if __name__ == "__main__":

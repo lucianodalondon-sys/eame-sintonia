@@ -1,67 +1,46 @@
 # ═══════════════════════════════════════════════════════════════════════
-# LINHA-BUSCA · A BUSCA DO GOOGLE PELA API OFICIAL, NO ACTIONS (BUSCA-NO-ACTIONS, 27/09)
+# LINHA-BUSCA · GOOGLE PELA API OFICIAL + PILOTO DE COMENTÁRIOS D106, NO ACTIONS
+# (BUSCA-NO-ACTIONS, 27/09 — ajustado às 12:20 pela coordenação)
 # ═══════════════════════════════════════════════════════════════════════
 #
-# O QUE FAZ
-# ---------
+# O QUE FAZ, NUMA SÓ CORRIDA
+# --------------------------
 # 0. confere que nenhum segredo entrou no repositório (`guarda/social_guarda.py`);
-# 1. lê o PEDIDO (inputs do workflow_dispatch, ou `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json` no push):
-#    o NOME do secret da chave, o NOME do secret do CX, quantas consultas (N) e se é SÓ o diagnóstico;
-# 2. DIAGNÓSTICO — UMA chamada à Custom Search JSON API: a API está ativa neste projeto? a chave pode
-#    usá-la? há CX? (`coleta/linha_busca.py --diagnosticar-cse`). Grava DIAGNOSTICO.json com o que o dono
-#    tem de fazer, em palavras simples;
-# 3. só se o diagnóstico disser que dá, e o pedido não for «só diagnóstico»: BUSCA de N consultas
-#    (`--buscar --motor=GOOGLE_CSE`), das 473 de `data/derivados/LINHA-BUSCA/CONSULTAS.json`;
-# 4. publica DIAGNOSTICO.json + RESULTADOS.json (+ as respostas cruas em serp/) como artifact — SEMPRE.
+# 1. lê o PEDIDO (`ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json`): N, só-diagnóstico, comentários, CX;
+# 2. DIAGNÓSTICO da Custom Search JSON API — UMA chamada: a API está ativa neste projeto? a chave pode
+#    usá-la? há CX? (`coleta/linha_busca.py --diagnosticar-cse`) → DIAGNOSTICO.json;
+# 3. BUSCA de N consultas — só se o diagnóstico disser que dá E o pedido não for «só diagnóstico»;
+# 4. PILOTO DE COMENTÁRIOS (D106): `commentThreads.list` nos 10 vídeos pais do
+#    COMMENT-INTELLIGENCE-FASE1.md §12, order=relevance e order=time, maxResults 100, 1 página
+#    (20 chamadas = 20 unidades das 10 000 do dia) → a resposta CRUA de cada uma + sha256;
+# 5. resumo na página da corrida e TUDO como artifact (sempre). Nada se escreve no repositório.
 #
-# O que NÃO faz: não colhe página nenhuma. As páginas dos resultados colhem-se NESTA máquina do
-# coordenador, com a VPN IT, pelo `--colher` (robots vivo, teto por domínio). Aqui não há VPN, e a busca
-# por API não precisa de saída italiana.
+# A entrada na Sala (e a minimização da D106: sem perfil/avatar de quem comentou, comentário =
+# PUBLIC_ASSERTION) faz-se NA MÁQUINA DO COORDENADOR, pela porta canónica, a partir do artifact.
+# As páginas dos resultados da busca também se colhem lá, com a VPN IT (`--colher`).
 #
-# A CHAVE
-# -------
-# Por omissão, a `YOUTUBE_DATA_API_KEY` (resposta do dono, 27/09 11:28: o mesmo projeto Google Cloud).
-# Entra por `secrets`, SÓ nos passos 2 e 3, e nunca é impressa: todo o texto de erro passa pela tesoura
-# (`ferramentas/linha_busca/api_oficial.redigir`), e o Actions esconde os segredos no log.
-#
-# QUOTA
-# -----
-# Custom Search JSON API: 100 consultas/dia grátis. O diagnóstico gasta no máximo 1; `--n` é recusado
-# fora de 1..100. Duas corridas no mesmo dia somam-se na quota do Google — este workflow não as vê.
+# O SEGREDO
+# ---------
+# SÓ `secrets.YOUTUBE_DATA_API_KEY`, escrito FIXO (nenhum SUPABASE_*). Um acesso ao contexto `secrets` com o
+# NOME vindo de input/pedido (índice dinâmico) faria o GitHub entregar TODOS os secrets do repositório ao
+# runner e deixaria um pedido errado mandar outra chave ao Google — por isso não há (contrato:
+# tests/test_contrato_workflows_sem_secret_dinamico.py). Entra só nos passos 2, 3 e 4,
+# pelo ambiente, e nunca é impresso (a tesoura `api_oficial.redigir` + a máscara do Actions).
 #
 # COMO SE DISPARA
 # ---------------
-#   · `workflow_dispatch` (interface web ou `gh workflow run`), ou
-#   · um PUSH que mude `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json` no ramo de DISPARO
-#     `disparo-linha-busca-google` — é assim que se dispara desta máquina, onde o `gh` não tem sessão:
-#         git push origin HEAD:disparo-linha-busca-google
-#     Nenhum ramo de código dispara: entregar ou integrar esta linha não gasta quota nem usa a chave.
+# PUSH no próprio ramo `busca-no-actions-v1` que mude este ficheiro ou o pedido. `workflow_dispatch`
+# não serve: exige o ficheiro no ramo por omissão, e esse não se edita. Runner: `ubuntu-latest`
+# (os self-hosted estão desligados e fazem commit — não servem para isto).
 # ═══════════════════════════════════════════════════════════════════════
 name: linha-busca-google
 
 on:
-  workflow_dispatch:
-    inputs:
-      segredo_da_chave:
-        description: 'NOME do secret com a chave da API do Google'
-        default: 'YOUTUBE_DATA_API_KEY'
-        required: true
-      segredo_do_cx:
-        description: 'NOME do secret com o CX (ID do mecanismo de pesquisa)'
-        default: 'GOOGLE_CSE_CX'
-        required: true
-      n:
-        description: 'quantas consultas (1..100; quota grátis = 100/dia)'
-        default: '4'
-        required: true
-      so_diagnostico:
-        description: 'só o passo 0 (1 chamada)'
-        type: boolean
-        default: true
   push:
-    # SO um ramo de DISPARO: um push de codigo (entrega, integracao) nunca corre a busca por acidente.
-    branches: [disparo-linha-busca-google]
-    paths: ['ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json']
+    branches: [busca-no-actions-v1]
+    paths:
+      - '.github/workflows/linha-busca-google.yml'
+      - 'ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json'
 
 permissions:
   contents: read
@@ -87,51 +66,55 @@ jobs:
       - name: 0 · nenhum segredo entrou no repositório
         run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py
 
-      - name: 1 · o pedido (nomes de secret, N, só diagnóstico) — sem segredo nenhum
+      - name: 1 · o pedido (sem segredo nenhum)
         id: pedido
-        env:
-          EVENTO: ${{ github.event_name }}
-          IN_CHAVE: ${{ inputs.segredo_da_chave }}
-          IN_CX: ${{ inputs.segredo_do_cx }}
-          IN_N: ${{ inputs.n }}
-          IN_SO_DIAG: ${{ inputs.so_diagnostico }}
         run: PYTHONUTF8=1 python3 ferramentas/linha_busca/pedido_actions.py >> "$GITHUB_OUTPUT"
 
-      - name: 2 · diagnóstico (1 chamada; a chave só existe neste passo e no 3)
+      - name: 2 · diagnóstico da Custom Search (1 chamada)
         id: diag
         continue-on-error: true
         env:
-          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets[steps.pedido.outputs.segredo_da_chave] }}
-          SINTONIA_GOOGLE_CSE_CX: ${{ secrets[steps.pedido.outputs.segredo_do_cx] }}
+          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+          SINTONIA_GOOGLE_CSE_CX: ${{ steps.pedido.outputs.cx }}
           PYTHONUTF8: '1'
         run: python3 coleta/linha_busca.py --diagnosticar-cse --autorizado --sem-portao-it --saida=saida
 
       - name: 3 · busca (N consultas pela API oficial)
         if: steps.diag.outcome == 'success' && steps.pedido.outputs.so_diagnostico != 'true'
         env:
-          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets[steps.pedido.outputs.segredo_da_chave] }}
-          SINTONIA_GOOGLE_CSE_CX: ${{ secrets[steps.pedido.outputs.segredo_do_cx] }}
+          SINTONIA_GOOGLE_CSE_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+          SINTONIA_GOOGLE_CSE_CX: ${{ steps.pedido.outputs.cx }}
           N: ${{ steps.pedido.outputs.n }}
           PYTHONUTF8: '1'
         run: >-
           python3 coleta/linha_busca.py --buscar --autorizado --sem-portao-it --motor=GOOGLE_CSE
           --consultas=data/derivados/LINHA-BUSCA/CONSULTAS.json --n="$N" --saida=saida
 
-      - name: 4 · o relatório na página da corrida
+      - name: 4 · piloto de comentários D106 (20 chamadas commentThreads.list)
+        id: coment
+        if: steps.pedido.outputs.comentarios == 'true'
+        continue-on-error: true
+        env:
+          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+          PYTHONUTF8: '1'
+        run: python3 ferramentas/linha_busca/comentarios_piloto_d106.py --saida=saida
+
+      - name: 5 · o relatório na página da corrida
         if: always()
         run: PYTHONUTF8=1 python3 ferramentas/linha_busca/pedido_actions.py --resumo=saida >> "$GITHUB_STEP_SUMMARY"
 
-      - name: 5 · publicar DIAGNOSTICO.json e RESULTADOS.json
+      - name: 6 · publicar tudo como artifact (diagnóstico, resultados, comentários crus + sha256)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: linha-busca-google-${{ github.run_id }}
           path: saida/
           if-no-files-found: warn
-          retention-days: 30
+          # a resposta crua dos comentários traz nome/canal de quem comentou: o artifact vive pouco
+          retention-days: 7
 
-      - name: 6 · a corrida fica vermelha se a busca não é possível (o artifact já saiu)
-        if: steps.diag.outcome == 'failure'
+      - name: 7 · a corrida fica vermelha se o piloto de comentários falhou (o artifact já saiu)
+        if: steps.coment.outcome == 'failure'
         run: |
-          echo "BUSCA_IMPOSSIVEL: ver DIAGNOSTICO.json no artifact (o que o dono tem de fazer)"
+          echo "PILOTO_D106_FALHOU: ver COMENTARIOS-PILOTO-D106.json no artifact"
           exit 1
