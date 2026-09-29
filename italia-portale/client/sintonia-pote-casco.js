@@ -25,6 +25,10 @@ window.SINTONIA_POTE = window.SINTONIA_POTE || null;
 /* POTE-V2-UNICO (D97): pedido o pote, a tela so mostra o pote. Se ele nao chegar, cada ferramenta diz
    NAO SEI (pote nao carregado) — o snapshot e a demo NAO voltam para tapar o buraco. */
 window.SINTONIA_POTE_PEDIDO = window.SINTONIA_POTE_PEDIDO || false;
+/* D156 · CASCO CONSUMIDOR: o que o publicador diz da ULTIMA ENTREGA da Intelligence. Uma entrega recusada (sha
+   errado, ficheiro a faltar, RESULT_STATE nao final, conferencia que reprovou) NAO troca o pote no ar — o ultimo
+   pote bom continua —, mas a tela diz que a entrega nova foi recusada e porque. `null` = nada a dizer. */
+window.SINTONIA_POTE_ENTREGA = window.SINTONIA_POTE_ENTREGA || null;
 (function () {
   try {
     if (!window.SINTONIA_POTE && /[?&]pote=local(?:&|$)/.test(window.location.search)) {
@@ -37,6 +41,7 @@ window.SINTONIA_POTE_PEDIDO = window.SINTONIA_POTE_PEDIDO || false;
      na maquina quer ver o seu. Envelope sem POTE (o `null` do Git) = nada muda. */
   try {
     var PUB = window.SINTONIA_POTE_PUBLICADO;
+    if (PUB && typeof PUB === 'object' && PUB.ENTREGA && typeof PUB.ENTREGA === 'object') window.SINTONIA_POTE_ENTREGA = PUB.ENTREGA;
     if (!window.SINTONIA_POTE && !window.SINTONIA_POTE_PEDIDO && PUB && typeof PUB === 'object' && PUB.POTE) {
       window.SINTONIA_POTE = PUB.POTE;
       window.SINTONIA_POTE_PEDIDO = true;
@@ -87,7 +92,8 @@ window.SINTONIA_POTE_CASCO = (function () {
       assente: 'POTE NON CARICATO', assenteTesto: 'è stato chiesto il pote (?pote=local) ma sintonia-pote.js non è arrivato: niente snapshot, niente demo al suo posto.',
       trecho: 'affermazione (testo della fonte)', raw: 'RAW', live: 'LIVE', liveOgg: 'oggetti in questa corsa',
       liveTaglio: 'aggiornato al taglio della Sala', liveVuoto: 'nessun oggetto LIVE per questo strumento',
-      liveNaoSei: 'la corsa LIVE non è leggibile', snapshot: 'SNAPSHOT', snapshotTesto: 'non è la corsa LIVE'
+      liveNaoSei: 'la corsa LIVE non è leggibile', snapshot: 'SNAPSHOT', snapshotTesto: 'non è la corsa LIVE',
+      demo: 'DEMO · corsa di prova', recusada: 'ULTIMA CONSEGNA RIFIUTATA', mantida: 'resta la corsa buona precedente'
     },
     en: {
       faixa: 'EXPERIMENTAL · NOT FOR THE CLIENT — Intelligence pot: this view shows ONLY the run below',
@@ -104,7 +110,8 @@ window.SINTONIA_POTE_CASCO = (function () {
       assente: 'POT NOT LOADED', assenteTesto: 'the pot was requested (?pote=local) but sintonia-pote.js did not arrive: no snapshot, no demo in its place.',
       trecho: 'claim (source text)', raw: 'RAW', live: 'LIVE', liveOgg: 'objects in this run',
       liveTaglio: 'updated to the Waiting Room cut-off', liveVuoto: 'no LIVE object for this tool',
-      liveNaoSei: 'the LIVE run is not readable', snapshot: 'SNAPSHOT', snapshotTesto: 'not the LIVE run'
+      liveNaoSei: 'the LIVE run is not readable', snapshot: 'SNAPSHOT', snapshotTesto: 'not the LIVE run',
+      demo: 'DEMO · test run', recusada: 'LAST DELIVERY REFUSED', mantida: 'the previous good run stays'
     }
   };
 
@@ -251,6 +258,14 @@ window.SINTONIA_POTE_CASCO = (function () {
     };
   }
 
+  /* D156 · a recusa da ultima entrega, dita — nunca escondida, nunca no lugar do pote bom. */
+  function recusaDaEntrega(T) {
+    var E = typeof window !== 'undefined' ? window.SINTONIA_POTE_ENTREGA : null;
+    if (!E || E.ESTADO !== 'RECUSADA') return { temRecusa: false, recusaTexto: '' };
+    var mot = (E.MOTIVOS && E.MOTIVOS.length) ? E.MOTIVOS.map(txt).join(' · ') : NAO_SEI;
+    return { temRecusa: true, recusaTexto: T.recusada + ' · ' + txt(E.QUANDO) + ' · ' + mot + ' — ' + T.mantida };
+  }
+
   function cabecalho(p, T) {
     return [par(T.corsa, p.INTELLIGENCE_RUN_ID), par(T.head, p.SOURCE_HEAD), par(T.corte, p.CORTE),
       par(T.sint, p.CORRIDA_SINTETICA), par('RESULT_STATE', p.RESULT_STATE)];
@@ -276,8 +291,8 @@ window.SINTONIA_POTE_CASCO = (function () {
   function debug(p, view, lang) {
     if (view !== ROTA_DEBUG) return null;
     var T = L[lang === 'en' ? 'en' : 'it'];
-    var base = { ativo: true, faixa: T.faixa, L: T, recusado: false, recusa: '', assente: false, assenteTitulo: '',
-      assenteTexto: '', run: [], comps: [] };
+    var base = Object.assign({ ativo: true, faixa: T.faixa, L: T, recusado: false, recusa: '', assente: false, assenteTitulo: '',
+      assenteTexto: '', run: [], comps: [] }, recusaDaEntrega(T));
     if (!p) return Object.assign(base, { assente: true, assenteTitulo: NAO_SEI + ' · ' + T.assente,
       assenteTexto: T.assenteTesto, run: [par(T.corsa, null)] });
     var falhas = conferir(p);
@@ -293,8 +308,11 @@ window.SINTONIA_POTE_CASCO = (function () {
     var pedido = typeof window !== 'undefined' && window.SINTONIA_POTE_PEDIDO === true;
     if (ROTAS_LIVE.indexOf(alvo) < 0 || (!p && !pedido)) return null;
     var T = L[lang === 'en' ? 'en' : 'it'];
-    var nada = { ativo: true, legivel: false, n: NAO_SEI, rotulo: T.live, texto: T.liveNaoSei, run: NAO_SEI, quando: NAO_SEI,
-      L: T, snapshot: T.snapshot, snapshotTexto: T.snapshotTesto };
+    /* D156 · DEMO e LIVE nunca se confundem: um pote de teste (CORRIDA_SINTETICA = true) diz DEMO na linha. */
+    var demo = !!(p && p.CORRIDA_SINTETICA === true);
+    /* B3 (criterio do Casco owner): o motivo de uma entrega recusada vive SO no debug, nunca na tela do cliente. */
+    var nada = { ativo: true, legivel: false, n: NAO_SEI, rotulo: demo ? T.demo : T.live, eDemo: demo,
+      texto: T.liveNaoSei, run: NAO_SEI, quando: NAO_SEI, L: T, snapshot: T.snapshot, snapshotTexto: T.snapshotTesto };
     if (!p) return Object.assign(nada, { texto: T.assente });
     if (conferir(p).length) return nada;
     var k = compartimentoDaVista(p, view);

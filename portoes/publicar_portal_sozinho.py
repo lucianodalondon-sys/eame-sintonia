@@ -291,14 +291,19 @@ def conferir_raw_no_armazem(pote: dict, prom: dict, armazem, modo: str):
             mal[:12] or [f"{len(provas)} provas, {len(vistos)} arquivos originais relidos no armazem, sha256 bate"])
 
 
-def envelope(pote: dict, sha: str, contrato: dict, modo: str, arvore: str) -> dict:
+def envelope(pote: dict, sha: str, contrato: dict, modo: str, arvore: str, entrega: dict | None = None) -> dict:
+    """`entrega` (D156): o que o gatilho diz da ULTIMA entrega da Intelligence — {ESTADO: ACEITE|RECUSADA, QUANDO,
+    MOTIVOS}. Com RECUSADA o pote do envelope e o ultimo BOM (nao o recusado), e o casco diz o motivo so no debug."""
     prom = contrato["REGRA_DE_PROMOCAO"]
-    return {"CONTRATO": ENVELOPE, "POTE_SHA256": sha, "INTELLIGENCE_RUN_ID": pote.get("INTELLIGENCE_RUN_ID"),
+    env = {"CONTRATO": ENVELOPE, "POTE_SHA256": sha, "INTELLIGENCE_RUN_ID": pote.get("INTELLIGENCE_RUN_ID"),
             "MODO": modo, "ARVORE": arvore,
             "PUBLICADO_EM": _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "PROMOCAO": {"ESTADO": prom.get("ESTADO"), "APROVADA_POR": prom.get("APROVADA_POR"),
                          "REGRA": "portoes/PUBLICACAO-AUTOMATICA.json#REGRA_DE_PROMOCAO"},
             "POTE": pote}
+    if entrega:
+        env["ENTREGA"] = entrega
+    return env
 
 
 def js_do_envelope(env: dict) -> str:
@@ -339,7 +344,7 @@ def contagem_esperada(pote: dict, contrato: dict) -> dict:
     return esp
 
 
-def conferir_telas(contagens: dict, pote: dict, sha: str, contrato: dict, rotulo: str) -> list:
+def conferir_telas(contagens: dict, pote: dict, sha: str, contrato: dict, rotulo: str, entrega: dict | None = None) -> list:
     """C5/C6 — o que o navegador contou contra o que o pote diz. `contagens` e o CONTAGENS.json do fotografo.
 
     D151/D152 (dono, 29/09): o cliente ve o casco ORIGINAL. A camada tecnica do pote vive so na tela de DEBUG; as
@@ -434,6 +439,19 @@ def conferir_telas(contagens: dict, pote: dict, sha: str, contrato: dict, rotulo
                 nav.append(f"{t}: a barra diz {v}={m['NAV'][v]}, o LIVE e {esp.get(v)}")
     L.append(linha(f"{rotulo}_BARRA_CONTA_O_LIVE", not nav, sorted(set(nav))[:15] or
                    ["a voz do Radar e do Radar Futuro conta a corrida LIVE"]))
+
+    # D156 · B3 — a recusa da ultima entrega: dita no debug quando existe, NUNCA numa tela de cliente
+    recusada = bool(entrega) and entrega.get("ESTADO") == "RECUSADA"
+    er = []
+    if (telas.get(dt) or {}).get("ENTREGA_RECUSADA_NA_TELA") is not recusada:
+        er.append(f"{dt}: recusa na tela = {(telas.get(dt) or {}).get('ENTREGA_RECUSADA_NA_TELA')}, "
+                  f"a entrega {'foi' if recusada else 'nao foi'} recusada")
+    for t in T["DO_POTE"] + T["PORTA"]:
+        if (telas.get(t) or {}).get("ENTREGA_RECUSADA_NA_TELA") is not False:
+            er.append(f"{t}: o motivo de uma recusa aparece (ou nao foi medido) numa tela de cliente")
+    L.append(linha(f"{rotulo}_ENTREGA_DITA_SO_NO_DEBUG", not er, er[:15] or
+                   [("entrega RECUSADA dita no debug: " + " · ".join(map(str, entrega.get("MOTIVOS") or [])))
+                    if recusada else "nenhuma recusa a dizer; nenhuma tela a diz"]))
 
     # redirecionadas: pagina legada fora do casco canonico, que o endereco manda para a entrada canonica
     # (contrato: TELAS.REDIRECIONADAS). BLOQUEIA: ficar no endereco antigo, ou mostrar um dos 43/44 antigos.
@@ -834,11 +852,12 @@ class Publicador:
     sao metodos, para a prova as poder trocar sem mexer na decisao."""
 
     def __init__(self, contrato, implantador: Implantador, registro: Path, modo: str, arvore: str = "HEAD",
-                 espera_no_ar: int = 180, veredito_lab=None, armazem=None, veredito_arquivo=None):
+                 espera_no_ar: int = 180, veredito_lab=None, armazem=None, veredito_arquivo=None, entrega=None):
         self.c, self.imp, self.registro, self.modo, self.arvore = contrato, implantador, Path(registro), modo, arvore
         self.veredito_lab, self.armazem = veredito_lab, armazem
         self.veredito_arquivo = veredito_arquivo   # {"ARQUIVO": caminho, "SHA256": sha dos bytes do ficheiro}
         self.espera = espera_no_ar
+        self.entrega = entrega     # D156: o que o gatilho diz da ultima entrega (ou None)
         self.tmp = None
 
     # peças trocaveis --------------------------------------------------------
@@ -883,7 +902,7 @@ class Publicador:
             cont = fotografar(srv.url, pasta, ferr, self.c)
         finally:
             srv.fechar()
-        return conferir_telas(cont, pote, sha, self.c, "C5_MONTAGEM"), cont
+        return conferir_telas(cont, pote, sha, self.c, "C5_MONTAGEM", self.entrega), cont
 
     def conferir_no_ar(self, url, ferr, pote, sha, pasta):
         """C6 — espera o SHA certo no ar (o alias demora), e depois a mesma conferencia de C5."""
@@ -895,7 +914,7 @@ class Publicador:
             time.sleep(5)
         L = [linha("C6_NO_AR_SHA", s == sha, [f"{url}/sintonia-pote-publicado.js -> HTTP {st}, SHA {s}"])]
         cont = fotografar(url, pasta, ferr, self.c)
-        return L + conferir_telas(cont, pote, sha, self.c, "C6_NO_AR"), cont
+        return L + conferir_telas(cont, pote, sha, self.c, "C6_NO_AR", self.entrega), cont
 
     # a decisao ----------------------------------------------------------------
     def publicar(self, pote: dict, origem: str = "") -> int:
@@ -905,7 +924,7 @@ class Publicador:
         R = {"D126": "portal publica sozinho", "MODO": self.modo, "IMPLANTADOR": self.imp.nome,
              "POTE": {"ORIGEM": origem, "POTE_SHA256": sha, "INTELLIGENCE_RUN_ID": pote.get("INTELLIGENCE_RUN_ID"),
                       "CONTAGENS": {k: len((e or {}).get("OBJETOS") or []) for k, e in (pote.get("COMPARTIMENTOS") or {}).items()}},
-             "INICIO": agora.isoformat(timespec="seconds"), "CONFERENCIAS": [], "AVISOS": [],
+             "INICIO": agora.isoformat(timespec="seconds"), "CONFERENCIAS": [], "AVISOS": [], "ENTREGA": self.entrega,
              "VEREDITO_DO_LAB": dict(self.veredito_arquivo or {"ARQUIVO": None, "SHA256": None},
                                      POTE_SHA256=(self.veredito_lab or {}).get("POTE_SHA256"),
                                      VEREDITO=(self.veredito_lab or {}).get("VEREDITO"),
@@ -972,7 +991,7 @@ class Publicador:
                 return fim("BLOQUEADO", BLOQUEADO)
 
             # o envelope, a build, e C5 — a copia com o pote, num navegador
-            env = envelope(pote, sha, self.c, self.modo, commit)
+            env = envelope(pote, sha, self.c, self.modo, commit, self.entrega)
             self.escrever_envelope(copia, env)
             Lb = [self.construir(copia)]
             L5, cont5 = self.conferir_montagem(copia, ferr, pote, sha, reg / "MONTAGEM")
@@ -1039,6 +1058,8 @@ def main(argv=None) -> int:
     ap.add_argument("--registro", default=str(RAIZ / "PUBLICACOES"))
     ap.add_argument("--host-ensaio", default=None, help="pasta do anfitriao local do ensaio")
     ap.add_argument("--veredito-lab", default=None, help="o veredito do LAB para ESTE pote (JSON) — exigido em producao")
+    ap.add_argument("--entrega-json", default=None,
+                    help="D156: o que o gatilho diz da ultima entrega ({ESTADO, QUANDO, MOTIVOS}); so ensaio/preview")
     a = ap.parse_args(argv)
     try:
         pote = ler_pote(a.pote)
@@ -1047,6 +1068,7 @@ def main(argv=None) -> int:
             vb = Path(a.veredito_lab).read_bytes()
             veredito = json.loads(vb.decode("utf-8"))
             veredito_arquivo = {"ARQUIVO": str(a.veredito_lab), "SHA256": hashlib.sha256(vb).hexdigest()}
+        entrega = json.loads(Path(a.entrega_json).read_text(encoding="utf-8")) if a.entrega_json else None
     except (OSError, ValueError) as e:
         print(f"ILEGIVEL: {e}")
         return USO
@@ -1059,7 +1081,8 @@ def main(argv=None) -> int:
         imp = VercelCLI(prod=(a.modo == "producao"))
     try:
         return Publicador(contrato, imp, Path(a.registro), a.modo, a.arvore,
-                          veredito_lab=veredito, veredito_arquivo=veredito_arquivo).publicar(pote, origem=str(a.pote))
+                          veredito_lab=veredito, veredito_arquivo=veredito_arquivo,
+                          entrega=entrega).publicar(pote, origem=str(a.pote))
     finally:
         imp.fechar()
 

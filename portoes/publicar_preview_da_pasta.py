@@ -48,12 +48,28 @@ O QUE ISTO NAO FAZ
 - nao se agenda sozinho. «Automatico» = uma passagem idempotente sobre a raiz; quem a repete (o agendador
   da maquina) e decisao do coordenador. Uma pasta ja no ar da NADA_A_PUBLICAR pelo proprio publicador.
 
+A RODADA (D156, coordenador 29/09 — «o publicar_preview_da_pasta.py precisa rodar SOZINHO»)
+--------------------------------------------------------------------------------------------
+    python3 portoes/publicar_preview_da_pasta.py --rodada --estado <pasta> [--pasta <entrega>]
+
+E o que a tarefa agendada SINTONIA-CASCO-PREVIEW corre a cada 10 min (portoes/casco_preview.cmd). Uma rodada:
+  1. PARAR na pasta de estado          -> PARADO, nada acontece (a bandeira de desligar);
+  2. a TRAVA de instancia unica          -> se outra rodada corre, OCUPADO, nada acontece;
+  3. a ENTREGA nao existe                -> AUSENTE (a meio da troca, ou nunca entregue): nada;
+  4. a ASSINATURA (sha de SHA256SUMS.txt + MANIFESTO*.json) e a ja tratada -> IGUAL: nada;
+  5. COMPLETA -> publica no PREVIEW a copia congelada; se o publicador aceita, e o novo ULTIMO BOM;
+  6. INCOMPLETA, ou o publicador reprovou -> RECUSADA: o ULTIMO BOM volta ao ar com o motivo no envelope
+     (o casco o diz SO em /debug/intelligence-pot — B3), e o pote servido nao muda.
+Cada rodada escreve uma linha em RODADAS.ndjson (T0 = hora do SHA256SUMS da entrega, T1 = fim da publicacao).
+Nunca producao: o modo e so ensaio/preview, e o CANONICAL_HOST nunca e destino (a regra da guarda L1).
+
 SAIDAS: 0 publicado / nada a publicar / so conferir · 1 bloqueado pelo publicador · 4 uso errado ·
         5 nenhuma entrega completa, ou o pote mudou durante a leitura (nada foi chamado) · outros = os do publicador
 """
 from __future__ import annotations
 
 import argparse
+import datetime as _dt
 import hashlib
 import json
 import os
@@ -178,6 +194,166 @@ def escolher(raiz) -> tuple[dict | None, list]:
     return (max(completas, key=lambda c: c["QUANDO"]) if completas else None), todas
 
 
+# ── A RODADA (D156) ─────────────────────────────────────────────────────────
+TRAVA_VELHA_S = 3 * 3600          # uma publicacao demora ~30 min; 3 h sem soltar = processo morto
+TENTATIVAS_POR_ASSINATURA = 2     # uma falha do transporte tenta de novo; um vermelho fixo nao gira para sempre
+
+
+def _agora() -> str:
+    return _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def assinatura(pasta: Path) -> str | None:
+    """O sha do que a Intelligence assina: SHA256SUMS.txt + MANIFESTO*.json (nome e bytes). None = nada assinado."""
+    pasta = Path(pasta)
+    partes = sorted([pasta / SOMAS] + list(pasta.glob("MANIFESTO*.json")))
+    partes = [x for x in partes if x.is_file()]
+    if not partes:
+        return None
+    h = hashlib.sha256()
+    for x in partes:
+        h.update(x.name.encode() + b"\0" + x.read_bytes() + b"\0")
+    return h.hexdigest()
+
+
+def _ler(p: Path, vazio):
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return vazio
+
+
+def _escrever(p: Path, dado):
+    tmp = p.with_suffix(p.suffix + ".tmp")
+    tmp.write_text(json.dumps(dado, ensure_ascii=False, indent=1), encoding="utf-8")
+    os.replace(tmp, p)
+
+
+def _registo_mais_novo(registro: Path, desde: float):
+    """O REGISTO.json que o publicador escreveu nesta rodada (o mais novo depois de `desde`)."""
+    novos = [r for r in Path(registro).glob("*/*/REGISTO.json") if r.stat().st_mtime >= desde]
+    return max(novos, key=lambda r: r.stat().st_mtime) if novos else None
+
+
+def _publicar_de_verdade(pote: Path, modo: str, registro: Path, entrega: dict | None, estado: Path):
+    """-> (rc, REGISTO dict ou None). O publicador D126, tal e qual; so acrescenta o que se diz da entrega."""
+    import publicar_portal_sozinho as P  # noqa: PLC0415
+    args = ["--pote", str(pote), "--modo", modo, "--registro", str(registro)]
+    if entrega:
+        ej = estado / "ENTREGA-A-DIZER.json"
+        _escrever(ej, entrega)
+        args += ["--entrega-json", str(ej)]
+    inicio = _dt.datetime.now().timestamp() - 1
+    rc = P.main(args)
+    reg = _registo_mais_novo(registro, inicio)
+    return rc, (_ler(reg, None) if reg else None)
+
+
+def _motivos_do_publicador(reg: dict | None) -> list:
+    if not reg:
+        return ["o publicador nao deixou registo"]
+    maus = [l.get("ID") for l in reg.get("CONFERENCIAS") or [] if not l.get("PASS")]
+    return ["o publicador reprovou: " + ", ".join(maus)] if maus else ["o publicador acabou em " + str(reg.get("ESTADO"))]
+
+
+def _destino_proibido(modo: str) -> str | None:
+    """A regra da guarda L1 (leis/fundacao_da_coleta.py no ramo claude/l1-governanca-preview-v1): so preview, e o
+    endereco do produto (CANONICAL_HOST) nunca. Aqui o modo producao nao existe; o implantador do preview publica
+    num endereco de deployment, nunca no CANONICAL_HOST (VercelCLI.url_no_ar)."""
+    if modo not in MODOS_PERMITIDOS:
+        return f"modo {modo!r}: so {' / '.join(MODOS_PERMITIDOS)} — a producao continua bloqueada"
+    return None
+
+
+def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None) -> dict:
+    """Uma volta do agendador. Devolve a linha que fica em RODADAS.ndjson."""
+    estado = Path(estado)
+    estado.mkdir(parents=True, exist_ok=True)
+    publicar = publicar or _publicar_de_verdade
+    linha = {"INICIO": _agora(), "ENTREGA": str(entrega), "MODO": modo}
+
+    def fim(decisao, **extra):
+        linha.update(extra, DECISAO=decisao, FIM=_agora())
+        with open(estado / "RODADAS.ndjson", "a", encoding="utf-8") as f:
+            f.write(json.dumps(linha, ensure_ascii=False) + "\n")
+        return linha
+
+    proibido = _destino_proibido(modo)
+    if proibido:
+        return fim("RECUSADO_DESTINO", MOTIVOS=[proibido])
+    if (estado / "PARAR").exists():
+        return fim("PARADO", MOTIVOS=["bandeira PARAR presente: nada e publicado"])
+    trava = estado / "TRAVA.lock"
+    try:
+        fd = os.open(trava, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError:
+        idade = _dt.datetime.now().timestamp() - trava.stat().st_mtime
+        if idade < TRAVA_VELHA_S:
+            return fim("OCUPADO", MOTIVOS=[f"outra rodada corre ha {int(idade)} s"])
+        trava.unlink()
+        linha["TRAVA_VELHA_REMOVIDA_S"] = int(idade)
+        fd = os.open(trava, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    os.write(fd, f"{os.getpid()} {_agora()}".encode())
+    os.close(fd)
+    try:
+        E = _ler(estado / "ESTADO.json", {})
+        entrega = Path(entrega)
+        if not entrega.is_dir():
+            return fim("AUSENTE", MOTIVOS=["a pasta de entrega nao existe (a meio da troca, ou nunca entregue)"])
+        ass = assinatura(entrega)
+        linha["ASSINATURA"] = ass
+        somas = entrega / SOMAS
+        linha["T0"] = (_dt.datetime.fromtimestamp(somas.stat().st_mtime, _dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+                       if somas.is_file() else None)
+        if ass is not None and ass == E.get("ULTIMA_ASSINATURA"):
+            return fim("IGUAL")
+        tentativas = E.get("TENTATIVAS", {}) if E.get("TENTATIVAS_DE") == ass else {}
+        registro = estado / "PUBLICACOES"
+        c = conferir_pasta(entrega)
+        linha["CONFERENCIA"] = {"ESTADO": c["ESTADO"], "MOTIVOS": c["MOTIVOS"], "SHA256_POTE": c["SHA256_POTE"],
+                                "INTELLIGENCE_RUN_ID": c["INTELLIGENCE_RUN_ID"]}
+        motivos = list(c["MOTIVOS"])
+        if c["COMPLETA"]:
+            guardado = estado / "POTES" / c["SHA256_POTE"]
+            pote = congelar_pote(c, guardado)
+            if not pote:
+                return fim("MUDOU_DURANTE_A_LEITURA", MOTIVOS=["o pote mudou entre a conferencia e a copia: tenta na proxima"])
+            rc, reg = publicar(pote, modo, registro, None, estado)
+            linha.update(RC=rc, DEPLOYMENT=(reg or {}).get("IMPLANTADO"), T1=(reg or {}).get("FIM"))
+            if rc == 0:
+                E.update(ULTIMA_ASSINATURA=ass, TENTATIVAS_DE=None, TENTATIVAS={},
+                         ULTIMO_BOM={"SHA256_POTE_FICHEIRO": c["SHA256_POTE"], "POTE": str(pote),
+                                     "INTELLIGENCE_RUN_ID": c["INTELLIGENCE_RUN_ID"],
+                                     "DEPLOYMENT": (reg or {}).get("IMPLANTADO"), "QUANDO": (reg or {}).get("FIM")},
+                         ULTIMA_ENTREGA={"ESTADO": "ACEITE", "QUANDO": _agora(), "ASSINATURA": ass})
+                _escrever(estado / "ESTADO.json", E)
+                return fim("PUBLICADA")
+            motivos = _motivos_do_publicador(reg)
+        # RECUSADA: o pote servido NAO muda; o ultimo bom volta com o motivo (so o debug o diz)
+        dizer = {"ESTADO": "RECUSADA", "QUANDO": _agora(), "MOTIVOS": motivos[:6], "ASSINATURA": ass}
+        bom = E.get("ULTIMO_BOM") or {}
+        if not bom.get("POTE") or not Path(bom["POTE"]).is_file():
+            E.update(ULTIMA_ASSINATURA=ass, ULTIMA_ENTREGA=dizer)
+            _escrever(estado / "ESTADO.json", E)
+            return fim("RECUSADA_SEM_ULTIMO_BOM", MOTIVOS=motivos,
+                       NOTA="nada no ar a manter: o motivo fica so neste registo")
+        rc, reg = publicar(Path(bom["POTE"]), modo, registro, dizer, estado)
+        linha.update(RC=rc, DEPLOYMENT=(reg or {}).get("IMPLANTADO"), T1=(reg or {}).get("FIM"),
+                     POTE_MANTIDO=bom.get("INTELLIGENCE_RUN_ID"))
+        tentativas[ass or "-"] = tentativas.get(ass or "-", 0) + 1
+        if rc == 0 or tentativas[ass or "-"] >= TENTATIVAS_POR_ASSINATURA:
+            E.update(ULTIMA_ASSINATURA=ass, TENTATIVAS_DE=None, TENTATIVAS={}, ULTIMA_ENTREGA=dizer)
+        else:
+            E.update(TENTATIVAS_DE=ass, TENTATIVAS=tentativas)
+        _escrever(estado / "ESTADO.json", E)
+        return fim("RECUSADA_DITA" if rc == 0 else "RECUSADA_NAO_DITA", MOTIVOS=motivos)
+    finally:
+        try:
+            trava.unlink()
+        except OSError:
+            pass
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Gatilho do preview: pasta completa -> publicador D126.")
     g = ap.add_mutually_exclusive_group()
@@ -188,11 +364,20 @@ def main(argv=None) -> int:
     ap.add_argument("--registro", default=None)
     ap.add_argument("--arvore", default="HEAD")
     ap.add_argument("--host-ensaio", default=None)
+    ap.add_argument("--rodada", action="store_true", help="D156: uma volta do agendador (PARAR, trava, assinatura, registo)")
+    ap.add_argument("--estado", default=None, help="a pasta de estado da rodada (ESTADO.json, RODADAS.ndjson, PARAR)")
     a = ap.parse_args(argv)
     if a.modo not in MODOS_PERMITIDOS:
         print(f"RECUSADO: modo {a.modo!r}. Este gatilho so publica em {' / '.join(MODOS_PERMITIDOS)}; "
               "a producao continua bloqueada (correcao do dono 28/09) e nao passa por aqui.")
         return USO
+    if a.rodada:
+        if not a.estado or a.raiz:
+            print("uso: --rodada exige --estado <pasta> (e aceita --pasta; --raiz nao)")
+            return USO
+        r = rodada(Path(a.pasta or ENTREGA), Path(a.estado), a.modo)
+        print(json.dumps(r, ensure_ascii=False))
+        return 0 if r["DECISAO"] not in ("RECUSADA_NAO_DITA",) else 1
     if not a.raiz:
         todas = [conferir_pasta(a.pasta or ENTREGA)]
         escolhida = todas[0] if todas[0]["COMPLETA"] else None
