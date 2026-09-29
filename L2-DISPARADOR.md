@@ -229,3 +229,20 @@ Nenhuma superfície visual tocada. `ADAMA_DESIGN_SYSTEM_MATCH = NAO SE APLICA` (
 4. **Um defeito da Sala não trava mais o motor, mas continua à vista.** Alguns itens estão na Sala duas vezes, e o motor
    recusava tudo por causa deles. Agora o robô usa só a versão mais nova de cada item, e escreve num papel quais ficaram
    de fora. O boletim de saúde grita «defeito na Sala» enquanto eles lá estiverem.
+
+## 8 · GERADOR (diretiva do Intelligence owner, 29/09) — D-GER-1 e D-GER-2
+
+Entrega completa, com a tabela da diretiva: `C:/Users/London1/auditoria-madrugada/ENTREGA-L2-GERADOR.md`.
+
+- **D-GER-1** (`pacote/pote_intelligence_casco.py::conferir_pote`): `ENTITY_SOURCE` só com o vocabulário da COL-LAW-221,
+  importado do dono (`leis/afirmacao_da_fonte.ENTITY_SOURCES`), com `UNKNOWN` incluído. «NAO SEI», mapa, texto achatado,
+  `TRECHO_DA_AFIRMACAO`, vazio e `?` reprovam. O gerador já não traduz `ENTITY_SOURCE` para «NAO SEI». A conversão D142
+  (mapa → UNKNOWN) passou para **antes** do gerador (`montar_o_pote`).
+- **D-GER-2** (`motor/r7_export_da_copia.sql`, `motor/motor_das_capacidades.py`, gerador): `RAW_SHA256` e
+  `RAW_STORAGE_PATH` do `raw_asset` em cada PROVA, ou «NAO SEI». O fiscal só aceita sha de 64 hex.
+- **Sobre a Sala da R9:** pote do motor real **válido** (15 objetos, 0 violações), `RAW_SHA256` do banco em 21/21 provas,
+  **0 objetos liberados**. Ensaio no Postgres descartável 16/16, com `POTE_NOVO = PASS` e o byte da prova igual ao
+  `raw_asset` em 15/15. Mutação **60/60**. A entrega passou a ser escrita em LF (`sha256sum -c` falhava no Windows).
+- **Efeito medido (bateria contra `852ec0f0b`):** 37 falhas novas — 34 da fixture `CORRIDA-SINTETICA-V2-UNICO`
+  (texto fora da lei), 2 do acervo (texto achatado «POR_CHAVE»), 1 do ponto fixo do mapa (resolvido pela cadeia) e
+  1 que não reproduz sozinha (`test_a_regra_de_t2`). Não corrigidas aqui, por ordem da diretiva.
