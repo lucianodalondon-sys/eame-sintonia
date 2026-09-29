@@ -344,7 +344,7 @@ def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None, pr
             if not pote:
                 return fim("MUDOU_DURANTE_A_LEITURA", MOTIVOS=["o pote mudou entre a conferencia e a copia: tenta na proxima"])
             rc, reg = publicar(pote, modo, registro, None, estado)
-            linha.update(RC=rc, DEPLOYMENT=(reg or {}).get("IMPLANTADO"), T1=(reg or {}).get("FIM"))
+            linha.update(RC=rc, DEPLOYMENT=(reg or {}).get("IMPLANTADO"), T1=_agora(), FIM_DO_PUBLICADOR=(reg or {}).get("FIM"))
             if rc == 0:
                 linha["PREVIEW_ATUAL"] = gravar_preview_atual(preview_atual, reg, pote, c["SHA256_POTE"], None)
                 E.update(ULTIMA_ASSINATURA=ass, TENTATIVAS_DE=None, TENTATIVAS={},
@@ -364,7 +364,7 @@ def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None, pr
             return fim("RECUSADA_SEM_ULTIMO_BOM", MOTIVOS=motivos,
                        NOTA="nada no ar a manter: o motivo fica so neste registo")
         rc, reg = publicar(Path(bom["POTE"]), modo, registro, dizer, estado)
-        linha.update(RC=rc, DEPLOYMENT=(reg or {}).get("IMPLANTADO"), T1=(reg or {}).get("FIM"),
+        linha.update(RC=rc, DEPLOYMENT=(reg or {}).get("IMPLANTADO"), T1=_agora(), FIM_DO_PUBLICADOR=(reg or {}).get("FIM"),
                      POTE_MANTIDO=bom.get("INTELLIGENCE_RUN_ID"))
         if rc == 0:
             linha["PREVIEW_ATUAL"] = gravar_preview_atual(preview_atual, reg, Path(bom["POTE"]),

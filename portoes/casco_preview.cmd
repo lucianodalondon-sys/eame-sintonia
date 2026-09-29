@@ -16,7 +16,10 @@ setlocal
 if not defined SINTONIA_CASCO set "SINTONIA_CASCO=%USERPROFILE%\sintonia-casco-preview"
 if not exist "%SINTONIA_CASCO%\estado" mkdir "%SINTONIA_CASCO%\estado"
 if not defined SINTONIA_PREVIEW_ATUAL set "SINTONIA_PREVIEW_ATUAL=%USERPROFILE%\auditoria-madrugada\PREVIEW-ATUAL.json"
-set "PATH=%SINTONIA_CASCO%\venv\Scripts;%ProgramFiles%\nodejs;%APPDATA%\npm;%ProgramFiles%\Git\cmd;%PATH%"
+rem O PATH de uma tarefa agendada NAO e o do terminal: a cadeia do mapa usa `tr` e outras ferramentas do Git (usr\bin).
+rem Medido 29/09 11:46: sem usr\bin o C3 reprovou (git ls-files -z ^| tr ... saiu 255). O portao barrou; nada foi ao ar.
+rem usr\bin vai no FIM: la ha um find/sort do Unix que, a frente, taparia os do Windows.
+set "PATH=%SINTONIA_CASCO%\venv\Scripts;%ProgramFiles%\nodejs;%APPDATA%\npm;%ProgramFiles%\Git\cmd;%PATH%;%ProgramFiles%\Git\mingw64\bin;%ProgramFiles%\Git\usr\bin"
 set "PYTHONUTF8=1"
 set "PYTHONUNBUFFERED=1"
 set "PYTHONDONTWRITEBYTECODE=1"
