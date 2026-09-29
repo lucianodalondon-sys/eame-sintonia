@@ -2,11 +2,11 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-29T12:28:19+00:00",
-    "HEAD": "687f8e8cf07d6f28396bf6efa8d432875b91f5d1",
+    "GENERATED_AT": "2026-09-29T12:50:09+00:00",
+    "HEAD": "28733a1b7b190ec85e029a23c56bd69f93bf34a9",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "e78adcc30c48d5849f97569ed4614d3524a0d5a64fd43ad7a7b29331e0e2f364",
+    "SOURCE_TREE_FINGERPRINT": "694c6904d11b2dc3bc9e37f04bfe9baff5afdc81acbd0127081f00ff19049b15",
     "FICHEIROS_NA_IMPRESSAO": 4382,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
@@ -38230,7 +38230,7 @@
       "usado_por": [
         {
           "file": "coleta/rotas_multicanal.py",
-          "line": 237
+          "line": 275
         },
         {
           "file": "ferramentas/reel_transcricao.py",
@@ -38539,6 +38539,51 @@
       ]
     },
     {
+      "endpoint": "https://www.instagram.com/p",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 183
+        },
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 484
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 682
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 335
+        },
+        {
+          "file": "provas/_e2e01_janela_admissivel.py",
+          "line": 71
+        },
+        {
+          "file": "provas/_e2e02_janela_dois_posts.py",
+          "line": 37
+        },
+        {
+          "file": "provas/_flow01_janela_falsa.py",
+          "line": 21
+        },
+        {
+          "file": "tests/test_lote8_juncoes.py",
+          "line": 134
+        },
+        {
+          "file": "tests/test_religa_multicanal.py",
+          "line": 716
+        },
+        {
+          "file": "tests/test_scrap_flow01_caminho_canonico.py",
+          "line": 234
+        }
+      ]
+    },
+    {
       "endpoint": "https://%s/robots.txt",
       "usado_por": [
         {
@@ -38711,47 +38756,6 @@
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/p",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_coleta.py",
-          "line": 183
-        },
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 484
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 682
-        },
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 335
-        },
-        {
-          "file": "provas/_e2e01_janela_admissivel.py",
-          "line": 71
-        },
-        {
-          "file": "provas/_e2e02_janela_dois_posts.py",
-          "line": 37
-        },
-        {
-          "file": "provas/_flow01_janela_falsa.py",
-          "line": 21
-        },
-        {
-          "file": "tests/test_lote8_juncoes.py",
-          "line": 134
-        },
-        {
-          "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 234
-        }
-      ]
-    },
-    {
       "endpoint": "https://ex.it/news",
       "usado_por": [
         {
@@ -38883,7 +38887,7 @@
         },
         {
           "file": "coleta/rotas_multicanal.py",
-          "line": 228
+          "line": 266
         },
         {
           "file": "coleta/social_por_url_achado.py",
@@ -39517,9 +39521,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 918,
+  "ENDPOINTS_FOUND": 921,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 878,
+  "ENDPOINTS_TRUNCATED": 881,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -39537,9 +39541,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 918,
+    "endpoints": 921,
     "endpoints_published": 40,
-    "endpoints_truncated": 878,
+    "endpoints_truncated": 881,
     "candidates": 1199,
     "coletores": 71,
     "coletores_com_data": 23,

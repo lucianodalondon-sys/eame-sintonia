@@ -2,11 +2,11 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-29T12:11:48+00:00",
-    "HEAD": "993d54c36ceae2aa86191da5debe968e38b1d21a",
+    "GENERATED_AT": "2026-09-29T12:53:21+00:00",
+    "HEAD": "28733a1b7b190ec85e029a23c56bd69f93bf34a9",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "46a2d697c61e64884a1b8c2f5db898082b780a9656fb28a1c5a54c6d525cee5e",
+    "SOURCE_TREE_FINGERPRINT": "694c6904d11b2dc3bc9e37f04bfe9baff5afdc81acbd0127081f00ff19049b15",
     "FICHEIROS_NA_IMPRESSAO": 4382,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
@@ -153,13 +153,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "46a2d697c61e64884a1b8c2f5db898082b780a9656fb28a1c5a54c6d525cee5e",
+        "VERSAO": "694c6904d11b2dc3bc9e37f04bfe9baff5afdc81acbd0127081f00ff19049b15",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 21,
-    "INPUTS_DIGEST": "712643573c5490f15a22689136889b00c67fc82c56d0765441a858325a6c056f",
+    "INPUTS_DIGEST": "2722ddb3a739c41e704864607835a2790bd7ec7bd85dd870edf9b02579f496db",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -488,6 +488,30 @@
       "estado": "yellow"
     },
     {
+      "id": "C-REGUA-T8",
+      "nome": "A regua do universo T8 — a voz e a pratica do campo (CANDIDATA)",
+      "zona": "4 · A PORTA DE ADMISSAO",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 3,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-RELIGA-SONDA-DAS-LINHAS",
+      "nome": "A sonda da ligacao das linhas Python — uma linha por processo",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
       "id": "C-AS-FONTES",
       "nome": "AS FONTES",
       "zona": "· as fontes",
@@ -521,6 +545,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-RELIGA-ROTAS-MULTICANAL",
+      "nome": "As rotas publicas das linhas nao-web — YouTube, Instagram, LinkedIn",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 3,
       "estado": "yellow"
     },
     {
@@ -773,6 +809,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-RELIGA-EXECUTOR-POR-LINHA",
+      "nome": "O executor de ciclo das linhas nao-web, ate RAW e a Sala",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 2,
       "estado": "yellow"
     },
     {
@@ -1197,9 +1245,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 86,
+    "pecas_da_coleta": 90,
     "respondem_as_quatro": 26,
-    "respondem_a_tres": 45,
+    "respondem_a_tres": 49,
     "respondem_a_duas": 12,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
