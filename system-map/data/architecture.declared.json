@@ -1097,7 +1097,7 @@
    "views": [
     "audit"
    ],
-   "what": "Duas medicoes. (1) r9_pelo_caminho_canonico.py corre a MESMA Sala da corrida R9 pelo caminho oficial — produtor -> motor_das_capacidades -> pote_intelligence_casco -> validar_pote_v2, sem montar_r9.py — e compara com os dois objetos que a R9 escreveu a mao: trecho, RAW_SHA256, FACT_TIME, FACT_LOCATION, objeto a objeto. (2) mutar_o_produtor.py ataca uma garantia de cada vez numa copia por git archive e mede quantos mutantes a bateria mata. ⚠️ MEDICAO, nunca caminho de integracao: o harness escreve ESPECIE porque o contrato do pote a exige para um objeto atravessar, e o produtor nunca a escreve.",
+   "what": "Duas medicoes. (1) r9_pelo_caminho_canonico.py corre a MESMA Sala da corrida R9 pelo caminho oficial — produtor -> motor_das_capacidades -> pote_intelligence_casco -> validar_pote_v2, sem montar_r9.py — e compara com os dois objetos que a R9 escreveu a mao: trecho, RAW_SHA256, FACT_TIME, FACT_LOCATION, objeto a objeto. (2) mutar_o_produtor.py ataca uma garantia de cada vez numa copia por git archive e mede quantos mutantes a bateria mata. ⚠️ MEDICAO, nunca caminho de integracao: o harness escreve ESPECIE porque o contrato do pote a exige para um objeto atravessar, e o produtor nunca a escreve. (3) casos_do_red_team.py re-mede, um a um, os 16 itens da Sala que o red team provisorio D160 citou pelo NOME, e responde o que o produtor de hoje diz sobre cada um — para o proximo red team repetir a medicao sem confiar na palavra de ninguem. Nao ha gabarito escrito la: o que esta declarado sao os ITEM_ID que ele citou e a pergunta que ele fez.",
    "why_here": "D158 — «R9 reproduzida por codigo» e CANARIO DIAGNOSTICO, nunca meta de equivalencia: e proibido codificar IDs ou trechos da R9, e por isso a prova de que o produtor acha os trechos reais vive aqui, sobre a copia da Sala, e nao em constantes no codigo.",
    "departments": [
     "INTELIGENCIA"
@@ -1106,7 +1106,9 @@
     "provas/d158/r9_pelo_caminho_canonico.py",
     "provas/d158/mutar_o_produtor.py",
     "provas/d158/R9-PELO-CAMINHO-CANONICO.json",
-    "provas/d158/MUTACAO-PRODUTOR-V1.json"
+    "provas/d158/MUTACAO-PRODUTOR-V1.json",
+    "provas/d158/casos_do_red_team.py",
+    "provas/d158/CASOS-DO-RED-TEAM.json"
    ]
   },
   {
