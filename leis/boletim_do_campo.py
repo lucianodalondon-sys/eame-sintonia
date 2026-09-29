@@ -30,6 +30,43 @@ from __future__ import annotations
 import re
 import unicodedata
 
+# ── MEMORIA DE LEITURA (D158) ────────────────────────────────────────────────
+# `ler_afirmacao` releva o DOCUMENTO INTEIRO a cada trecho: `sem_vizinhos`, `secoes_
+# territoriais` e `_titulo_do_documento` percorrem as 62 mil letras de um boletim de novo
+# para cada frase. Com um trecho por frase (o produtor de afirmacoes, D158) isso passou a
+# ser 318 leituras do mesmo texto: 38 segundos para UM item. As tres funcoes sao PURAS —
+# mesmo texto, mesma resposta —, por isso guarda-se a ultima resposta de cada uma.
+# Isto NAO muda nenhuma regra: muda quantas vezes a mesma regra corre.
+MEMORIA_DE_LEITURA = 8          # quantas respostas ficam guardadas por funcao
+_MEMORIA = {}
+
+
+#: as respostas por LINHA sao muitas e pequenas; as por DOCUMENTO sao poucas e grandes
+MEMORIA_POR_LINHA = 4000
+
+
+def _com_memoria(fn=None, *, quantas=None):
+    """A mesma funcao, a responder do que ja leu quando a pergunta e a mesma."""
+    def _decorar(f):
+        guardadas = _MEMORIA.setdefault(f.__name__, {})
+        limite = quantas or MEMORIA_DE_LEITURA
+
+        def _envolta(*args):
+            if args in guardadas:
+                r = guardadas[args]
+            else:
+                if len(guardadas) >= limite:
+                    guardadas.clear()
+                r = guardadas[args] = f(*args)
+            return list(r) if isinstance(r, list) else r
+
+        _envolta.__name__ = f.__name__
+        _envolta.__doc__ = f.__doc__
+        _envolta.sem_memoria = f
+        return _envolta
+    return _decorar(fn) if fn is not None else _decorar
+
+
 # ── os vocabularios (declarados; medidos nos 5 T3 + 1 T2 da Sala e nos boletins do acervo) ─────────────
 # A cultura: o vocabulario da regua T1 (`admissao.CULTURA_OBRIGATORIA["T1"]`, copiado por nome para esta
 # funcao continuar pura) + as culturas que os boletins da Campania e da Puglia nomeiam e que a regua nao tem.
@@ -151,6 +188,7 @@ def _trecho(linha: str, ini: int, fim: int, n: int = 90) -> str:
     return re.sub(r"\s+", " ", linha[max(0, ini - n):fim + n]).strip()
 
 
+@_com_memoria(quantas=MEMORIA_POR_LINHA)
 def _cabecalho_de_cultura(linha: str) -> str | None:
     """A cultura que esta linha NOMEIA como cabecalho de secao, ou None."""
     d = _dobrar(linha).strip(" •·-–:;")
@@ -169,7 +207,7 @@ def _cabecalho_de_cultura(linha: str) -> str | None:
 
 
 def ler_boletim(texto: str) -> dict:
-    texto = _ft().sem_vizinhos(texto)        # D19: menu, barra lateral e manchetes vizinhas saem ANTES
+    texto = sem_vizinhos(texto)              # D19: menu, barra lateral e manchetes vizinhas saem ANTES
     linhas = [l for l in str(texto or "").splitlines()]
     secoes = [{"CULTURA": None, "LINHA": 0, "PROBLEMAS": [], "FASES": []}]
     for n, linha in enumerate(linhas):
@@ -309,6 +347,12 @@ PALAVRAS_DO_RODAPE = 20
 JANELA_DO_OUTRO_LADO = 400      # letras antes do corte onde se procuram os nomes «do outro lado» (so p/ o MOTIVO)
 
 
+@_com_memoria
+def sem_vizinhos(texto: str) -> str:
+    """`fato_do_texto.sem_vizinhos` (D19), com memoria de leitura. A regra e a do dono."""
+    return _ft().sem_vizinhos(texto)
+
+
 def _ft():
     """`leis/fato_do_texto.py` — dono de `sem_vizinhos` (D19) e do RODAPE; importado so quando preciso."""
     import os
@@ -351,6 +395,7 @@ def ler_cabecalho_territorial(cabecalho: str) -> dict:
     return dict(base, VALOR=resto.title(), PRECISAO="ZONA_DEFINIDA_PELA_FONTE")
 
 
+@_com_memoria
 def secoes_territoriais(texto: str) -> list:
     """As secoes TERRITORIAIS escritas no texto: [{"INICIO", "FIM", "CABECALHO", "VALOR", ...}].
     Um cabecalho que so existe na imagem da pagina NAO aparece aqui — e isso e a lei, nao uma falta."""
@@ -381,6 +426,7 @@ def secoes_territoriais(texto: str) -> list:
     return secoes
 
 
+@_com_memoria
 def _titulo_do_documento(texto: str, titulo: str | None) -> list:
     """Os titulos do documento: o dado + a linha curta de titulo REPETIDA (o topo de cada pagina)."""
     fora = []
@@ -548,7 +594,7 @@ def ler_afirmacao(texto: str, inicio: int, fim: int, *, titulo: str | None = Non
 
     `cabecalhos_visuais`: [{"ROTULO", "PAGINA"?, "INICIO"?, "FIM"?, "PROVA"?}] — cabecalhos que so existem na
     IMAGEM da pagina (medidos fora do texto). Viram CANDIDATO; nunca FACT_LOCATION."""
-    t = _ft().sem_vizinhos(texto)           # D19: menu, barra lateral e manchetes vizinhas saem ANTES
+    t = sem_vizinhos(texto)                 # D19: menu, barra lateral e manchetes vizinhas saem ANTES
     trecho = t[inicio:fim]
     todas = secoes_territoriais(t)
     secao = next((s for s in reversed(todas) if s["INICIO"] <= inicio < s["FIM"]), None)
@@ -766,7 +812,7 @@ def declarar_problema(texto: str, mencoes: list, *, titulo: str | None = None, l
 
 def problema_do_boletim(texto: str, *, titulo: str | None = None) -> dict:
     """O bloco PROBLEMA/v1 de um BOLETIM (T2/T3): as mencoes de `mencoes_do_boletim` no texto sem vizinhos."""
-    t = _ft().sem_vizinhos(texto)
+    t = sem_vizinhos(texto)
     return declarar_problema(t, mencoes_do_boletim(t), titulo=titulo,
                              ler="leis/boletim_do_campo.py::mencoes_do_boletim (secoes do boletim, D84)")
 

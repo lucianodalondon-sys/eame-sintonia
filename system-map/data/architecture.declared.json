@@ -1050,6 +1050,33 @@
    ]
   },
   {
+   "id": "C-PRODUTOR-AFIRMACOES",
+   "name": "O produtor de afirmacoes — de um DOCUMENTO para AFIRMACOES COM PROVA",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "✂",
+   "views": [
+    "audit"
+   ],
+   "what": "Le UM documento da Sala e devolve as AFIRMACOES dele: um trecho por frase de corpo, cada uma com ASSERTION_ID deterministico (SOURCE_ID + RAW_SHA256 + offset + trecho), TRECHO_LITERAL igual a texto[inicio:fim], a posicao (offset e seccao), o CONTEXTO_MINIMO quando o sentido depende dele, o FACT_TIME com o PAPEL da data (ACONTECIMENTO / VALIDADE / PUBLICACAO / PREVISAO / PERIODO_DA_EDICAO / ATO / MARKET_PERIOD), a ORIGEM (LITERAL / CABECALHO / RELATIVO_D63) e o BASIS com trecho e offset, o FACT_LOCATION com LOCATION_SOURCE, e a PROCEDENCIA ate ao RAW. `leis/tempo_da_afirmacao.py` e a INTERFACE do leitor temporal: o leitor do vivo (leis/fato_do_texto.py) fica atras dela, para o componente tipado da L5 poder entrar no lugar dele sem mexer em quem pergunta. `conferir_afirmacao` e o portao: trecho diferente de texto[inicio:fim], sha do trecho errado, RAW_SHA256 de outro documento, offset fora do texto, papel fora do vocabulario ou FACT_TIME com papel que nao e ACONTECIMENTO reprovam. `admissao/produtor_de_afirmacoes.py` corre isto sobre uma copia SO-LEITURA da Sala e escreve um artefato: nao abre banco, nao cria tabela nem migration, nao escreve na Sala.",
+   "why_here": "D158 — o dono autorizou a VERSAO MINIMA do produtor de afirmacoes na camada Collection/Admission prevista pela COL-LAW-202 (ARTIFACT -> CLAIM), que estava LAW_STATUS CANONICAL e IT ABSENT. Sem afirmacao, a Intelligence recebia o documento inteiro com a data e o lugar do documento inteiro, e os dois objetos da corrida R9 so existiram porque foram escritos a mao. Ele NAO decide relevancia, oportunidade, ligacao ADAMA, recomendacao, prioridade, liberacao nem significado: isso e da Intelligence e dos portoes depois dela (INT-LAW-030/031 · COL-LAW-201/202). Sem LLM, sem rede, sem banco. A parte nova, e so ela, e quem da o inicio/fim que leis/boletim_do_campo.ler_afirmacao sempre pediu (ate aqui era o gabarito, a mao), quem parte o documento em seccoes estruturais e quem le o periodo impresso num cabecalho nas duas formas que o leitor do vivo nao le — a numerica e a de letras dobradas do PDF.",
+   "departments": [
+    "INTELIGENCIA",
+    "TECNICO_CIENCIA"
+   ],
+   "files": [
+    "leis/afirmacao_do_documento.py",
+    "leis/tempo_da_afirmacao.py",
+    "admissao/produtor_de_afirmacoes.py",
+    "tests/test_o_produtor_de_afirmacoes.py",
+    "provas/d158/r9_pelo_caminho_canonico.py",
+    "provas/d158/mutar_o_produtor.py",
+    "PRODUTOR-DE-AFIRMACOES.md",
+    "provas/d158/R9-PELO-CAMINHO-CANONICO.json",
+    "provas/d158/MUTACAO-PRODUTOR-V1.json"
+   ]
+  },
+  {
    "id": "C-CONTRATO-CAMPOS",
    "name": "O que a coleta tem de trazer",
    "territory": "Z-MEDIDAS",
