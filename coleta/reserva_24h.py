@@ -53,6 +53,68 @@ def reservar(host: str, qtd: int = 1, *, run_id: str, linha: str, agora: float |
     return dict(_CA.reservar(host, run_id=run_id, linha=linha, crawl_delay_s=crawl_delay_s, agora=agora), QTD=1)
 
 
+# ── RELIGA-MULTICANAL (29/09) · A PORTA DE UM PEDIDO DE UMA LINHA PYTHON ────────────────────────────
+# Porte SEMANTICO de `claude/linhas-no-contador-yth7nl @2b257ca4f` (decisao do coordenador: fica UMA porta).
+#
+# As linhas BUSCA/CIENCIA/SOCIAL nunca corriam na coleta continua: o transporte delas pedia sem passar por
+# aqui. Esta e a porta unica (o MESMO livro, o MESMO trinco, a MESMA politica): reserva ANTES, pede so com
+# RESERVADO, e a resposta vai ao livro DEPOIS — e e na resposta que o SINAL de resistencia se mede.
+#
+#     RESERVAR SEM REGISTAR A RESPOSTA E MEIO CONTADOR: conta o que saiu e nao ve o site dizer «pare».
+#
+# O `scrap_http` (pedidos por urllib com o abridor instalado) chega ao MESMO livro por `teto_da_onda`.
+# `dentro_da_porta` existe para os dois caminhos nao reservarem DUAS VEZES o mesmo pedido.
+import threading as _threading                                     # noqa: E402
+_PORTA = _threading.local()
+
+
+def dentro_da_porta(host: str, url: str | None = None) -> bool:
+    """True quando ESTE fio esta dentro de `pedir` para o MESMO orcamento: o pedido ja foi reservado pela porta
+    e a resposta vai ser registada por ela. O abridor do `scrap_http` (via `teto_da_onda`) usa-o para nao
+    reservar duas vezes o mesmo pedido. Um salto para OUTRO orcamento nao esta coberto: reserva-se a parte."""
+    k = getattr(_PORTA, "orcamento", None)
+    try:
+        return k is not None and _CA.dominio_do_pedido(host, url) == k
+    except Exception:                                              # noqa: BLE001
+        return False
+
+
+def _marcas_da_falha(ex: BaseException) -> list:
+    import socket
+    txt = ("%s %s" % (type(ex).__name__, ex)).lower()
+    return ["TIMEOUT"] if isinstance(ex, (socket.timeout, TimeoutError)) or "timed out" in txt or "timeout" in txt else []
+
+
+def pedir(url: str, fazer, *, run_id: str, linha: str, crawl_delay_s: float | None = None,
+          espera_max_s: float = 180.0) -> tuple:
+    """(reserva, resultado). `fazer()` -> (status, cabecalhos, corpo[, marcas]) faz O pedido; so e chamado com
+    a reserva RESERVADO. resultado None = NAO se pediu (reserva["ESTADO"]/["MOTIVO"] dizem porque: ADIADO_ATE,
+    FAIL sem livro, UNKNOWN livro ilegivel). Se `fazer` levanta, a falha vai ao livro (o codigo HTTP do erro,
+    ou 0 com a marca TIMEOUT) e a excecao sobe. A espera CURTA (um de cada vez, pausa minima) espera-se;
+    orcamento esgotado, Retry-After e pausa de 24 h nunca."""
+    import urllib.parse
+    host = urllib.parse.urlsplit(url).hostname or ""
+    r = _CA.reservar_ou_esperar(host, run_id=run_id, linha=linha, crawl_delay_s=crawl_delay_s,
+                                espera_max_s=espera_max_s, url=url)
+    if r["ESTADO"] != "RESERVADO":
+        return r, None
+    _PORTA.orcamento = r["DOMINIO"]
+    try:
+        res = tuple(fazer())
+    except Exception as ex:                                        # noqa: BLE001 — regista e deixa subir
+        _PORTA.orcamento = None
+        cab = getattr(ex, "headers", None)
+        _CA.registrar_resposta(host, int(getattr(ex, "code", 0) or 0), dict(cab.items()) if cab else None,
+                               marcas=_marcas_da_falha(ex), url=url, run_id=run_id, linha=linha)
+        raise
+    _PORTA.orcamento = None
+    st, cab, corpo = res[:3]
+    marcas = list(res[3]) if len(res) > 3 else []
+    _CA.registrar_resposta(host, int(st or 0), dict(cab or {}), marcas=marcas, url=url, corpo=corpo,
+                           n_bytes=len(corpo) if corpo is not None else None, run_id=run_id, linha=linha)
+    return r, res
+
+
 def gasto_24h(host: str, agora: float | None = None) -> int | None:
     """So leitura (planeamento). None = livro ilegivel ou ausente."""
     if _CA.livro() is None:

@@ -231,10 +231,30 @@ class Sessao:
         }
 
 
-def _http(url):
+def _http_um(url):
     req = urllib.request.Request(url, headers={'Accept': 'application/json'})
     with urllib.request.urlopen(req, timeout=30) as r:
-        return json.loads(r.read().decode('utf-8', 'replace'))
+        corpo = r.read()
+        return r.status, dict(r.headers.items()), corpo
+
+
+def _http(url):
+    """RELIGA-MULTICANAL (porte de claude/linhas-no-contador-yth7nl, 29/09): com o livro da cortesia, o
+    pedido passa pela porta do contador multicanal (`coleta/reserva_24h.pedir`): reserva ANTES no orcamento
+    da ROTA (search.list: 100/dia; o resto: 10.000 unidades — o mesmo dominio, limites diferentes), e a
+    resposta (incluindo o 403/429 de quota) vai ao livro. Sem RESERVADO nao sai: levanta
+    `urllib.error.URLError('NAO_PEDIDO ...')` — a MESMA excecao de uma rede que nao respondeu, porque nada
+    saiu mesmo. Sem livro, o que era (os tetos POR EXECUCAO desta Sessao)."""
+    import cortesia_adaptativa as CA                                   # noqa: PLC0415
+    if not CA.livro():
+        return json.loads(_http_um(url)[2].decode('utf-8', 'replace'))
+    import reserva_24h as R24                                          # noqa: PLC0415 — a porta unica
+    r, res = R24.pedir(url, lambda: _http_um(url),
+                       run_id=os.environ.get('SINTONIA_RUN_ID') or 'SOCIAL-YT-%d' % os.getpid(),
+                       linha=os.environ.get('SINTONIA_LINHA') or 'SOCIAL')
+    if res is None:
+        raise urllib.error.URLError('NAO_PEDIDO %s: %s' % (r['ESTADO'], r.get('MOTIVO') or r.get('PORQUE') or ''))
+    return json.loads(res[2].decode('utf-8', 'replace'))
 
 
 # ══════════════════════════════════════════════════════════════════════════

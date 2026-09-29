@@ -149,7 +149,14 @@ def _trinco(f):
             time.sleep(0.025)
 
 
-def reservar(host, *, url=None, quem="scrap_http"):
+def _porta():
+    import sys                                                     # noqa: PLC0415
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import reserva_24h as R24                                      # noqa: PLC0415 — a porta das linhas Python
+    return R24
+
+
+def reservar(host, *, url=None, quem="scrap_http", crawl_delay_s=None):
     """Gasta um lugar do orcamento deste host ANTES do pedido sair.
 
     Sem livro nomeado: devolve None e nao trava (ver o cabecalho). Com livro: se o
@@ -159,6 +166,8 @@ def reservar(host, *, url=None, quem="scrap_http"):
     ca = _ca()
     if not f and not ca.livro():
         return None
+    if ca.livro() and _porta().dentro_da_porta(host, url):
+        return orcamento_de(host)                                  # RELIGA-MULTICANAL: a porta ja reservou
     orc = orcamento_de(host)
     t_dom = teto(host)
     if f and int(ler_livro(f).get(orc, 0)) >= t_dom:               # leitura: a onda ja esgotou, nem se reserva
@@ -166,8 +175,11 @@ def reservar(host, *, url=None, quem="scrap_http"):
                  "teto de %d pedidos ao dominio %s nesta onda" % (t_dom, orc))
     if ca.livro():
         # D124: a reserva no livro da cortesia (atomica, 1 de cada vez, pausa minima, orcamento de 24 h).
+        # RELIGA-MULTICANAL: o URL decide a ROTA onde a politica as separa (googleapis: CSE != YouTube), e o
+        # Crawl-delay do robots lido entra na pausa minima do dominio.
         r = ca.reservar_ou_esperar(host, run_id=os.environ.get("SINTONIA_RUN_ID") or "scrap-%d" % os.getpid(),
-                                   linha=os.environ.get("SINTONIA_LINHA") or quem)
+                                   linha=os.environ.get("SINTONIA_LINHA") or quem, url=url,
+                                   crawl_delay_s=crawl_delay_s)
         if r["ESTADO"] != "RESERVADO":
             _recusar(url, host, orc, r.get("GASTO_24H"), r.get("ORCAMENTO_24H"), quem,
                      "cortesia adaptativa: %s %s %s" % (r["ESTADO"], r.get("MOTIVO") or "", r.get("PORQUE") or ""),
@@ -199,12 +211,14 @@ def _recusar(url, host, orc, gasto, t_dom, quem, porque, motivo=MOTIVO):
     raise TetoDaOnda("%s: %s" % (motivo, porque))
 
 
-def registrar_resposta(host, status, headers=None, url=None, quem="scrap_http"):
+def registrar_resposta(host, status, headers=None, url=None, quem="scrap_http", marcas=()):
     """D124: com o livro da cortesia, a resposta vai la (fecha o «um de cada vez») com o que mediu."""
     ca = _ca()
     if not ca.livro():
         return None
-    return ca.registrar_resposta(host, status, dict(headers or {}), url=url,
+    if _porta().dentro_da_porta(host, url):
+        return None                                                # a porta regista a resposta dela
+    return ca.registrar_resposta(host, status, dict(headers or {}), url=url, marcas=list(marcas),
                                  run_id=os.environ.get("SINTONIA_RUN_ID") or "scrap-%d" % os.getpid(),
                                  linha=os.environ.get("SINTONIA_LINHA") or quem)
 

@@ -338,6 +338,16 @@ def transporte_real(saida: Path):
     return buscar
 
 
+def pedir_para_sonda(url: str, via: str = "PAGINA", saida: Path | None = None):
+    """A SONDA da linha (ferramentas/big_collection/sonda_ligacao_linhas.py): UM pedido pelo caminho REAL da
+    linha. PAGINA = `transporte_real` (scrap_http: robots vivo, teto_da_onda -> livro da cortesia); API = o
+    pedido das APIs oficiais de busca (`api_oficial.pedir`, porta do contador). Devolve o que o caminho
+    devolve — inclusive a excecao, que na sonda B e exactamente o que se quer ver."""
+    if via == "API":
+        return API.pedir(url)
+    return transporte_real(Path(saida) if saida else Path(os.environ.get("TMPDIR") or "."))(url)
+
+
 def buscar_consultas(motor: str, consultas: list, buscar, saida: Path) -> list:
     m = MO.MOTORES[motor]
     out = []

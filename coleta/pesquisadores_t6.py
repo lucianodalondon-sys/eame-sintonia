@@ -291,6 +291,13 @@ _INSTITUCIONAL = re.compile(r'(universit\w*|institut\w*|istituto|department|dipa
 
 
 # ═════════════════════════════════════════════ 1 · AS CONSULTAS E O TETO
+def pedir_para_sonda(url: str):
+    """A SONDA da linha CIENCIA (ferramentas/big_collection/sonda_ligacao_linhas.py): UM pedido pelo caminho
+    REAL da linha — `corpus_pesquisador._get`, que e o unico ponto por onde esta linha toca a rede e onde a
+    reserva no contador de 24 h foi ligada (RELIGA-MULTICANAL, 29/09). Devolve (json, motivo)."""
+    return CP._get(url)
+
+
 def consultas():
     """→ lista de {PAR, BUSCA, URL}. Uma consulta por par, so a primeira pagina."""
     out = []

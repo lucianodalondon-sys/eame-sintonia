@@ -93,18 +93,41 @@ TRINCO_F = "COLETA-CONTINUA.trinco"
 # D124-REBASE: a SITES tem SONDA — a ligacao mede-se pelo que o transporte FAZ (contra um servidor local,
 # sem rede), e nao pelo texto da chamada: a D124 mudou `reservar24h(host, 1)` para `reservar24h(host, 1, {...})`
 # e o texto deixava a linha em ESPERA_LIGACAO com o transporte ligado (verificador independente, 28/09).
+# RELIGA-MULTICANAL (D155, 29/09): a linha SOCIAL era UMA para tres plataformas com rotas, limites e
+# bloqueios DIFERENTES — e por isso nenhuma das tres podia ser declarada ligada ou bloqueada por si. Agora
+# cada canal e uma linha, com a sua rota provada e a sua sonda. A SITES nao muda (nao pode regredir).
+#
+# A SONDA_PY mede pelo COMPORTAMENTO, um processo por rota (`sonda_ligacao_linhas.py`): a medida de TEXTO
+# («o ficheiro contem reserva_24h.reservar(») deixava BUSCA, CIENCIA e SOCIAL em ESPERA_LIGACAO para
+# sempre, e de qualquer maneira nao provava nada — um texto pode estar morto.
+#
+#     ⚠️ UMA LINHA POR PROCESSO. `coleta/scrap_http.py` instala um abridor GLOBAL do urllib: medidas no
+#     MESMO processo, uma linha DESLIGADA aparece ligada por contagio da vizinha. Ja aconteceu, e foi
+#     assim que a CIENCIA apareceu a reservar sem estar ligada (2 eventos no mesmo processo, 0 em
+#     processo proprio). A ORDEM DOS IMPORTS NAO PODE SER O QUE LIGA UMA LINHA AO CONTADOR.
 LINHAS = [
     {"LINHA": "SITES", "FAMILIA": "sites e boletins (T2/T3/T5/T7/T8/T9/T10/T12), pela coorte congelada",
      "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs"},
     {"LINHA": "BUSCA", "FAMILIA": "paginas de busca (linha_busca)",
-     "TRANSPORTE": "coleta/linha_busca.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/linha_busca.py", "SONDA_PY": "BUSCA"},
     {"LINHA": "CIENCIA", "FAMILIA": "APIs cientificas OpenAlex/Crossref/ORCID (excecao de robots D91)",
-     "TRANSPORTE": "coleta/pesquisadores_t6.py", "CHAMADA": "reserva_24h.reservar("},
-    {"LINHA": "SOCIAL", "FAMILIA": "YouTube/social (so o que o freio social ja libera)",
-     "TRANSPORTE": "coleta/teto_da_onda.py", "CHAMADA": "reserva_24h.reservar("},
+     "TRANSPORTE": "coleta/pesquisadores_t6.py", "SONDA_PY": "CIENCIA"},
+    {"LINHA": "YOUTUBE", "FAMILIA": "pagina publica do canal -> videos (rota gratuita, sem chave; D17.4)",
+     "TRANSPORTE": "coleta/rotas_multicanal.py", "SONDA_PY": "YOUTUBE", "EXECUTOR": "LINHA"},
+    {"LINHA": "INSTAGRAM", "FAMILIA": "Reel por URL directa (D22) e listagem /embed/ da conta (provada 23/09)",
+     "TRANSPORTE": "coleta/rotas_multicanal.py", "SONDA_PY": "INSTAGRAM", "EXECUTOR": "LINHA"},
+    {"LINHA": "LINKEDIN", "FAMILIA": "pagina publica de ORGANIZACAO (D23); FETCH_POST continua fechado",
+     "TRANSPORTE": "coleta/rotas_multicanal.py", "SONDA_PY": "LINKEDIN", "EXECUTOR": "LINHA"},
     {"LINHA": "PESQUISADORES", "FAMILIA": "paginas de pesquisadores T6",
+     # PESQUISADORES_FIX (registado, NAO ligado): este caminho NAO EXISTE em ref nenhum deste repositorio
+     # (`git log --all -- coleta/seguir.py` -> vazio). O transporte real vive noutra gaveta,
+     # `ferramentas/seguir_pesquisadores/seguir.py`, responde SUBSTITUIDO -> orcid_lote e usa um contador
+     # PROPRIO de 5/24 h, FORA do livro da cortesia. Reapontar sem reconciliar os dois contadores poria
+     # DOIS livros na mesma janela de 24 h — exactamente o que a casa proibe. E decisao de dono; ver
+     # PESQUISADORES-FIX.md. Fica como esta, e a linha responde TRANSPORTE_NAO_EXISTE_NESTA_ARVORE.
      "TRANSPORTE": "coleta/seguir.py", "CHAMADA": "reserva_24h.reservar("},
 ]
+SONDA_LINHAS_PY = AQUI / "sonda_ligacao_linhas.py"
 
 
 def agora_iso() -> str:
@@ -129,6 +152,24 @@ def sondar_ligacao(linha: dict, raiz: Path = RAIZ, timeout_s: float = 120.0) -> 
     return {"LIGADA": True, "PORQUE": "SONDA: %s" % m.get("PORQUE"), "MEDIDO": m.get("MEDIDO")}
 
 
+def sondar_ligacao_py(linha: dict, raiz: Path = RAIZ, timeout_s: float = 420.0) -> dict:
+    """A SONDA das linhas PYTHON (`sonda_ligacao_linhas.py`), medida pelo COMPORTAMENTO do transporte real.
+
+    Ela propria corre UM PROCESSO POR ROTA — e isso nao e detalhe: com o abridor global do `scrap_http`
+    instalado, duas rotas no mesmo processo dao falso positivo. Falha da sonda = NAO LIGADA."""
+    try:
+        r = subprocess.run([sys.executable, str(SONDA_LINHAS_PY), "--linha=" + linha["SONDA_PY"],
+                            "--raiz=" + str(raiz)], cwd=raiz, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", timeout=timeout_s)
+        m = json.loads((r.stdout.strip().splitlines() or ["{}"])[-1])
+    except (OSError, ValueError, subprocess.TimeoutExpired) as ex:
+        return {"LIGADA": False, "PORQUE": "SONDA_PY_NAO_CORREU: %s: %s" % (linha["SONDA_PY"], str(ex)[:200])}
+    if not isinstance(m, dict) or m.get("LIGADA") is not True:
+        return {"LIGADA": False, "PORQUE": "SONDA_PY: %s" % (m.get("PORQUE") if isinstance(m, dict) else m),
+                "MEDIDO": m.get("MEDIDO") if isinstance(m, dict) else None}
+    return {"LIGADA": True, "PORQUE": "SONDA_PY: %s" % m.get("PORQUE"), "MEDIDO": m.get("MEDIDO")}
+
+
 def medir_ligacao(linha: dict, raiz: Path = RAIZ) -> dict:
     """{"LIGADA": bool, "PORQUE": texto}: o transporte da linha existe E reserva no livro de 24 h.
     Com "SONDA": medido pelo comportamento. Sem ela: a chamada tem de estar no codigo (medida de texto)."""
@@ -137,6 +178,8 @@ def medir_ligacao(linha: dict, raiz: Path = RAIZ) -> dict:
         return {"LIGADA": False, "PORQUE": "TRANSPORTE_NAO_EXISTE_NESTA_ARVORE: %s" % linha["TRANSPORTE"]}
     if linha.get("SONDA"):
         return sondar_ligacao(linha, raiz)
+    if linha.get("SONDA_PY"):
+        return sondar_ligacao_py(linha, raiz)
     if linha["CHAMADA"] not in f.read_text(encoding="utf-8", errors="replace"):
         return {"LIGADA": False, "PORQUE": "SEM_RESERVA_24H: %s nao chama %s (CONTADOR-24H.md)"
                 % (linha["TRANSPORTE"], linha["CHAMADA"])}
@@ -373,9 +416,23 @@ def comparar_sala(n: dict, sala_antes: dict | None, sala_depois: dict | None) ->
             "DELTA_SALA": delta, "NAO_BATE": nao_bate, "SEM_FOTO": falta, "DOCS_NOVOS": n.get("raw_asset")}
 
 
+def onda_linha_real(linha: str, candidatas: list, pasta: Path, max_alvos: int | None = None) -> int:
+    """A onda de uma linha nao-web, num processo seu. Processo separado DE PROPOSITO: o abridor global do
+    `scrap_http` e por processo, e duas linhas no mesmo processo partilhariam estado de transporte."""
+    pasta.mkdir(parents=True, exist_ok=True)
+    f = pasta / "CANDIDATAS.json"
+    f.write_text(json.dumps(candidatas, ensure_ascii=False, default=str), encoding="utf-8")
+    cmd = [sys.executable, str(AQUI / "onda_linha.py"), "--correr", "--linha=" + linha,
+           "--fontes=" + str(f), "--saida=" + str(pasta)]
+    if max_alvos:
+        cmd.append("--max-alvos=%d" % max_alvos)
+    return subprocess.run(cmd, cwd=RAIZ).returncode
+
+
 def pecas_reais() -> dict:
     return {"portao": R.portao_real, "onda": R.onda_real, "relatorio": R.relatorio_real, "ledger": R.ledger_real(),
-            "ram": ram_livre_gb_real, "backup": backup_real, "robo": RoboReal(), "reconciliar": reconciliar_real}
+            "ram": ram_livre_gb_real, "backup": backup_real, "robo": RoboReal(), "reconciliar": reconciliar_real,
+            "onda_linha": onda_linha_real}
 
 
 # ── 5. o estado e o livro de ciclos ──────────────────────────────────────────
@@ -536,7 +593,15 @@ def _ondas(base, sha, reg, correm, pecas, historico, livro_24h, paralelo, agora_
         os.environ["SINTONIA_CORTESIA_LIVRO"] = str(livro_24h)
     pastas = {n: base / ("CICLO-%04d" % reg["CICLO"]) / n for n in correm}
 
+    # RELIGA-MULTICANAL: o EXECUTOR E POR LINHA. Ate aqui `_ondas` chamava `onda_web.py` para TODAS as
+    # linhas — e a onda web so sabe correr fontes da coorte congelada, pelo `micro_coleta`. Era esse o
+    # buraco: capacidade existia, executor de ciclo nao. As linhas com EXECUTOR="LINHA" correm pelo seu
+    # (`onda_linha.py`), que escreve o MESMO ONDA-WEB-ESTADO.json — o ciclo continua a ler um so formato.
+    por_linha = {l["LINHA"] for l in LINHAS if l.get("EXECUTOR") == "LINHA"}
+
     def uma(n):
+        if n in por_linha:
+            return n, pecas.get("onda_linha", onda_linha_real)(n, correm[n], pastas[n])
         return n, pecas["onda"](sha, [c["SOURCE_ID"] for c in correm[n]], pastas[n], list(historico or []), False)
     if paralelo and len(correm) > 1:
         with ThreadPoolExecutor(len(correm)) as ex:
@@ -556,7 +621,23 @@ def _ondas(base, sha, reg, correm, pecas, historico, livro_24h, paralelo, agora_
         foi = [x for x in e.get("FONTES", []) if x.get("CORREU")]
         reg["LINHAS"][n].update(CODIGO_DA_ONDA=codigos[n], PASTA=str(pasta), RUN_IDS=ids, DISJUNTOR=e.get("PAROU"),
                                 CORRERAM=[x["SOURCE_ID"] for x in foi],
-                                PEDIDOS=sum(sum((x.get("PEDIDOS_POR_DOMINIO") or {}).values()) for x in foi))
+                                PEDIDOS=sum(sum((x.get("PEDIDOS_POR_DOMINIO") or {}).values())
+                                            for x in e.get("FONTES", [])))
+        # RELIGA-MULTICANAL: a observabilidade POR LINHA — o que o coordenador le sem abrir a pasta da onda.
+        # Os pedidos contam-se de TODAS as fontes, nao so das que correram: uma fonte que falhou DEPOIS de
+        # pedir gastou orcamento na mesma, e esconde-la aqui faria o ciclo parecer mais barato do que foi.
+        reg["LINHAS"][n].update(
+            FONTES_RECEBIDAS=len(e.get("FONTES", [])),
+            VISITADAS=len([x for x in e.get("FONTES", []) if (x.get("PEDIDOS_POR_DOMINIO") or {})]),
+            SUCESSOS=len(foi), FALHAS=len([x for x in e.get("FONTES", []) if x.get("STATUS") == "FAILED"]),
+            ALVOS_DESCOBERTOS=sum(int(x.get("ALVOS_DESCOBERTOS") or 0) for x in e.get("FONTES", [])),
+            RAW_GERADOS=sum(int(((x.get("RAW") or {}).get("OBSERVACOES")) or 0) for x in e.get("FONTES", [])),
+            ITENS_NA_SALA=sum(int(x.get("ITENS_NA_SALA") or 0) for x in e.get("FONTES", [])),
+            SEGUNDOS=sum(int(x.get("SEGUNDOS") or 0) for x in e.get("FONTES", [])),
+            CUSTO_USD=0.0,
+            PORQUE_FALHOU=[{"SOURCE_ID": x.get("SOURCE_ID"), "PORQUE": x.get("PORQUE_NAO_CORREU"),
+                            "QUEM_DISSE_NAO": x.get("QUEM_DISSE_NAO")}
+                           for x in e.get("FONTES", []) if x.get("STATUS") == "FAILED"])
         # linhas em paralelo: a Sala so cresce, logo o INICIO mais baixo e anterior a toda a escrita do ciclo
         # e o FIM mais alto e posterior a ela (tabela a tabela)
         sala_antes = _juntar(sala_antes, _sala_de(e, "SALA_INICIO"), min)
@@ -663,8 +744,21 @@ def main(argv=None) -> int:
     recibos = tuple(Path(x) for x in arg.get("recibos", "").split(",") if x)
     livro_24h = Path(arg["teto-24h"]) if arg.get("teto-24h") else None
     max_f = int(arg["max-fontes"]) if arg.get("max-fontes") else None
+    # RELIGA-MULTICANAL (D155): a ALIMENTACAO, opcao (a) — cada linha recebe as candidatas da saida do SEU
+    # proprio transporte/lista, com o campo LINHA. Ate aqui so a SITES recebia; as outras nasciam vazias e
+    # nunca corriam. Sem fila-mestra nova, sem scheduler novo: a mesma funcao `escolher`, o mesmo livro de
+    # 24 h, o mesmo orcamento por dominio partilhado entre as linhas do ciclo.
     cands = {l["LINHA"]: [] for l in LINHAS}
     cands["SITES"] = candidatas_do_plano(plano)
+    if arg.get("fontes-multicanal"):
+        import fontes_multicanal as FM                            # noqa: PLC0415 — o leitor da lista do Curator
+        extra = FM.candidatas_por_linha(Path(arg["fontes-multicanal"]),
+                                        com_pessoas="--com-pessoas" in argv)
+        for nome, lista in extra.items():
+            if nome == "SITES" and cands.get("SITES"):
+                continue                                          # a coorte congelada manda na SITES; nao se mistura
+            if nome in cands:
+                cands[nome] = lista
     kw = dict(historico=historico, livros=livros, recibos=recibos, livro_24h=livro_24h, max_fontes=max_f,
               paralelo="--paralelo" in argv, janela_h=24 if "--janela-24h" in argv else None)
     if "--ensaio-a-seco" in argv:

@@ -223,16 +223,73 @@ def _texto(s):
     return re.sub(r'\s+', ' ', s.lower())
 
 
+def _porta_do_contador():
+    """A porta unica do contador de 24 h (`coleta/reserva_24h.pedir`), ou None se nao estiver na arvore.
+    Nao se inventa uma reserva paralela: uma capacidade, um caminho canonico medido."""
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import reserva_24h as R24                                # noqa: PLC0415
+        return R24
+    except ImportError:
+        return None
+
+
 def _get(url, headers=None):
-    """→ (json, None) ou (None, motivo). NUNCA levanta: FALHA DE FONTE != ZERO."""
+    """→ (json, None) ou (None, motivo). NUNCA levanta: FALHA DE FONTE != ZERO.
+
+    RESERVA NO CONTADOR DE 24 h ANTES DO PEDIDO, E REGISTA A RESPOSTA DEPOIS (D90/D124).
+
+    Este e o UNICO ponto por onde este modulo toca a rede, e por isso o unico lugar onde a reserva pode
+    ser feita sem se contar duas vezes.
+
+    PORQUE FALTAVA (medido pelo Scrap, 28/09, e confirmado nesta missao): `pesquisadores_t6.py` chegava
+    aqui por `urlopen` CRU, sem passar pelo `coleta/teto_da_onda.py` — a linha CIENCIA nunca gastou lugar
+    no livro da cortesia, e o coletor continuo deixava-a em ESPERA_LIGACAO para sempre. A sonda por
+    comportamento, UMA LINHA POR PROCESSO, mediu-a a consumir 0 eventos enquanto SOCIAL e BUSCA consumiam
+    1 e 4.
+
+        ⚠️ A ARMADILHA QUE ESTA CORRECCAO NAO PODE REPETIR: `coleta/scrap_http.py` instala um abridor
+        GLOBAL do urllib. Num processo que o tenha importado, este `urlopen` cru JA reservava — por
+        contagio, nao por ligacao. Medir duas linhas no mesmo processo dava LIGADA a uma linha
+        desligada. A ORDEM DOS IMPORTS NAO PODE SER O QUE LIGA UMA LINHA AO CONTADOR.
+
+    Por isso a reserva aqui e EXPLICITA e pela porta unica (`reserva_24h.pedir`), que reserva antes e
+    regista a resposta depois — e e no registo da resposta que o 429/503/Retry-After vira SINAL e a
+    politica recua. Reservar sem registar seria meio contador. Se o abridor global tambem estiver
+    instalado, `dentro_da_porta` impede a segunda reserva do mesmo pedido.
+
+    Sem livro nomeado (testes, ensaio a seco) a porta devolve FAIL e NAO se pede — a linha falha fechada,
+    como a casa manda. Sem a porta na arvore, pede-se como antes (nao se inventa uma reserva).
+    """
     h = {'User-Agent': 'SintoniaEAME (mailto:%s)' % MAILTO, 'Accept': 'application/json'}
     h.update(headers or {})
-    try:
+
+    def _fazer():
         with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=90) as r:
-            return json.loads(r.read().decode('utf-8')), None
+            return getattr(r, 'status', 200), dict(r.headers.items()), r.read()
+
+    R24 = _porta_do_contador()
+    if R24 is None:
+        try:
+            _, _, corpo = _fazer()
+            return json.loads(corpo.decode('utf-8')), None
+        except urllib.error.HTTPError as e:
+            return None, 'HTTP %d' % e.code
+        except Exception as e:                                   # noqa: BLE001
+            return None, type(e).__name__
+    try:
+        reserva, res = R24.pedir(url, _fazer, run_id=os.environ.get('SINTONIA_RUN_ID') or 'ciencia-%d' % os.getpid(),
+                                 linha=os.environ.get('SINTONIA_LINHA') or 'CIENCIA')
     except urllib.error.HTTPError as e:
         return None, 'HTTP %d' % e.code
     except Exception as e:                                       # noqa: BLE001
+        return None, type(e).__name__
+    if res is None:
+        # NAO se pediu: o contador disse que nao. Isto nao e «a fonte nao respondeu» — e a nossa politica.
+        return None, 'CONTADOR_24H %s %s' % (reserva.get('ESTADO'), reserva.get('MOTIVO') or reserva.get('PORQUE') or '')
+    try:
+        return json.loads(res[2].decode('utf-8')), None
+    except ValueError as e:
         return None, type(e).__name__
 
 

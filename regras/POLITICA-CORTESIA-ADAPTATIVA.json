@@ -47,9 +47,29 @@
     "orcid.org": {"ORCAMENTO_24H": 2073600, "PAUSA_MINIMA_S": 0.05,
                   "LIMITE_PUBLICADO": "API publica: 24 pedidos por segundo, rajada 40 (teto diario anonimo: NAO SEI; 2073600 = 24/s x 86400 s, derivado)",
                   "CITA": "https://info.orcid.org/ufaqs/what-are-the-api-limits/"},
-    "googleapis.com": {"ORCAMENTO_24H": 10000, "PAUSA_MINIMA_S": 0.2,
-                       "LIMITE_PUBLICADO": "YouTube Data API v3: 10.000 unidades de quota por dia por projeto (uma listagem custa >= 1 unidade; uma busca custa 100): 10000 pedidos e o maximo possivel, nunca o provavel",
-                       "CITA": "https://developers.google.com/youtube/v3/getting-started#quota"}
+    "googleapis.com/customsearch": {"LIMITE_PUBLICADO_24H": 100, "ORCAMENTO_24H": 100, "PAUSA_MINIMA_S": 1,
+                       "LIMITE_PUBLICADO": "Custom Search JSON API: 100 consultas por dia gratis; acima disso e PAGO (rota paga: proibida) — 100 e o teto, nao o comeco",
+                       "FONTE_DO_NUMERO": "a pagina em CITA (de memoria; NAO_CONFERIDO nesta missao); o mesmo 100 ja vive em ferramentas/linha_busca/api_oficial.py QUOTA_DIA",
+                       "CITA": "https://developers.google.com/custom-search/v1/overview"},
+    "googleapis.com/youtube/search": {"LIMITE_PUBLICADO_24H": 100, "ORCAMENTO_24H": 100, "PAUSA_MINIMA_S": 0.2,
+                       "LIMITE_PUBLICADO": "YouTube Data API v3: search.list tem quota propria, 100 chamadas por dia por projeto (por omissao)",
+                       "FONTE_DO_NUMERO": "a pagina em CITA (de memoria; NAO_CONFERIDO nesta missao); o mesmo 100 ja vive em leis/social_matriz.py LIMITE_PADRAO_PROJETO['YOUTUBE']['SEARCH']",
+                       "CITA": "https://developers.google.com/youtube/v3/getting-started#quota"},
+    "googleapis.com/youtube": {"LIMITE_PUBLICADO_24H": 10000, "ORCAMENTO_24H": 10000, "PAUSA_MINIMA_S": 0.2,
+                       "LIMITE_PUBLICADO": "YouTube Data API v3: 10.000 unidades de quota por dia por projeto; cada metodo que esta casa usa fora da busca (channels/playlistItems/videos/commentThreads.list) custa 1 unidade — 10000 pedidos e o maximo possivel",
+                       "FONTE_DO_NUMERO": "a pagina em CITA (de memoria; NAO_CONFERIDO nesta missao); o mesmo 10000 ja vive em leis/social_matriz.py LIMITE_PADRAO_PROJETO['YOUTUBE']['GENERAL']",
+                       "CITA": "https://developers.google.com/youtube/v3/getting-started#quota"},
+    "googleapis.com": {"LIMITE_PUBLICADO_24H": "NAO_SEI", "ORCAMENTO_INICIAL_24H": 5, "TETO_DE_SEGURANCA_24H": 5,
+                       "DOBRA": false, "PAUSA_MINIMA_S": 1,
+                       "LIMITE_PUBLICADO": "outra API Google que nao e nenhuma das rotas acima: NAO SEI qual, logo NAO SEI o limite",
+                       "FONTE_DO_NUMERO": "NAO_SEI: fica no minimo seguro (MINIMO_24H) e nao dobra",
+                       "CITA": "https://developers.google.com/"}
+   },
+   "ROTAS": {
+    "PORQUE": "RELIGA-MULTICANAL (porte de claude/linhas-no-contador-yth7nl @2b257ca4f, 29/09): o YouTube Data e a Custom Search vivem no MESMO dominio (googleapis.com) e tem limites publicados DIFERENTES. Contados juntos, 10000 pedidos de busca cabiam num orcamento que o Google cobra depois das 100 gratis. O orcamento destas APIs e da ROTA: o 1.o prefixo do caminho que casa decide o nome do orcamento. Quem pede tem de dar o URL (reservar(url=...)); sem URL paga o dominio inteiro (googleapis.com: o minimo).",
+    "googleapis.com": [["/customsearch/", "googleapis.com/customsearch"],
+                       ["/youtube/v3/search", "googleapis.com/youtube/search"],
+                       ["/youtube/", "googleapis.com/youtube"]]
    }
   }
  },
