@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-29T02:18:45+00:00",
-  "HEAD": "5695b2ba0f8b47dfca68ec09a4fd2972dde2eb1e",
+  "GENERATED_AT": "2026-09-29T12:24:43+00:00",
+  "HEAD": "cb8f20bcf8934fab22891a8a3dce44b28fc7ca01",
   "BRANCH": "claude/l1-governanca-preview-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "9169462542275fd46e9c3249c9a9f35c6b46b67ef9a8032d29d6d3edd189664a",
-  "FICHEIROS_NA_IMPRESSAO": 4367,
+  "SOURCE_TREE_FINGERPRINT": "a988d429396ac752f7da7e53930538f62f4f41fa0f400cb3768a881987432d64",
+  "FICHEIROS_NA_IMPRESSAO": 4368,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2302,7 +2302,7 @@
    {
     "PATH": "leis/fundacao_da_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "6bedc147ba81053b665a5adbedf0451a10daafe5",
+    "VERSAO": "03485f6da82cba9e88438cc076062b37bbdd0a8e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5564,14 +5564,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9169462542275fd46e9c3249c9a9f35c6b46b67ef9a8032d29d6d3edd189664a",
+    "VERSAO": "a988d429396ac752f7da7e53930538f62f4f41fa0f400cb3768a881987432d64",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9169462542275fd46e9c3249c9a9f35c6b46b67ef9a8032d29d6d3edd189664a",
+    "VERSAO": "a988d429396ac752f7da7e53930538f62f4f41fa0f400cb3768a881987432d64",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6873,7 +6873,7 @@
    {
     "PATH": "tests/test_excecao_preview_e2e.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a6a35909f9b446317da1378fcbacd7c4a112469a",
+    "VERSAO": "e08212463bee6e20c12c5125bbba28e58a1c5bd6",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8258,7 +8258,7 @@
    }
   ],
   "INPUTS_COUNT": 1174,
-  "INPUTS_DIGEST": "dd7707183ce35588dd3c0c171438156803c44604a8667e5b20a9537b0d895dea",
+  "INPUTS_DIGEST": "e487ce9bba1c4f8be2a54ff8c6304eb2f5447aebe00ecd1ac5cbdbe50c0cfc46",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8284,15 +8284,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 641,
+  "DOCUMENTOS_LIDOS": 642,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "ec3864afb7ac50fd27b41bc236647e4482ce74599002476e0063093a41da205b",
-  "SEMANTIC_HASH": "d500a1341636f68b64723b8871a58debb76cd0aa522116e75da977b5c611273d"
+  "MEASUREMENT_HASH": "a01dd4722734407e0bcd52a2fa257f77506bd0bf8636e7dbea725debc24b644b",
+  "SEMANTIC_HASH": "421e6206795bdac622a8a7f2cb27e70747749ffe7852751f9224afef022649ab"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -37631,7 +37631,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "leis/fundacao_da_coleta.py",
-      "LINHA": 119,
+      "LINHA": 131,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-DEPLOY--READS-->C-SCRAP-LEIS",
@@ -47338,7 +47338,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "leis/fundacao_da_coleta.py",
-      "LINHA": 217,
+      "LINHA": 559,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
@@ -47384,7 +47384,7 @@
      },
      {
       "FICHEIRO": "tests/test_excecao_preview_e2e.py",
-      "LINHA": 35,
+      "LINHA": 38,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-TESTES",
@@ -50784,7 +50784,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/l1_governanca/mutantes_excecao_preview.py",
-      "LINHA": 124,
+      "LINHA": 246,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-TRAVA-MORDE--WRITES-->C-SCRAP-LEIS",
@@ -56545,7 +56545,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/l1_governanca/mutantes_excecao_preview.py",
-      "LINHA": 106,
+      "LINHA": 225,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-TRAVA-MORDE",
@@ -75193,8 +75193,10 @@
    "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
+    "_valores",
     "channels",
-    "the"
+    "the",
+    "urllib"
    ],
    "ENTRAM": 5,
    "SAEM": 31,

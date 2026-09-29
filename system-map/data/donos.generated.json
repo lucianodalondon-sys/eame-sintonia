@@ -217,7 +217,7 @@
   {
    "CONCEITO": "ORQUESTRADOR",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "19 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "20 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "admissao/sala_de_espera.py",
     "coleta/italy_executor.py",
@@ -229,6 +229,7 @@
     "ferramentas/maestro_social/maestro_social.py",
     "ferramentas/reel_transcricao.py",
     "guarda/memoria_postgres.py",
+    "leis/fundacao_da_coleta.py",
     "leis/relevancia_da_fonte.py",
     "medidas/corrida_canonica.py",
     "medidas/corrida_sem_rede.py",
@@ -253,7 +254,7 @@
     "coleta/rota_forward_documento.py",
     "coleta/scrap_colheita.py"
    ],
-   "QUANTOS_LEEM": 41,
+   "QUANTOS_LEEM": 40,
    "INSTRUMENTOS_QUE_CITAM": 133,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -283,13 +284,14 @@
   {
    "CONCEITO": "ROUTE_MODEL",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "6 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "7 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "coleta/adaptador_linkedin.py",
     "coleta/coleta_checkpoint.py",
     "coleta/executor_texto_de_pdf.py",
     "coleta/ingresso.py",
     "coleta/social_scrap.py",
+    "leis/fundacao_da_coleta.py",
     "medidas/rastro_da_coleta.py"
    ],
    "LEEM": [
@@ -299,14 +301,13 @@
     "coleta/rota_forward_documento.py",
     "coleta/scrap_executor.py",
     "coleta/scrap_fornecedores.py",
-    "leis/fundacao_da_coleta.py",
     "leis/telemetria.py",
     "medidas/corrida_instrumentada.py",
     "medidas/scanner_da_coleta.py",
     "orquestrador/orquestrador.py",
     "supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
    ],
-   "QUANTOS_LEEM": 12,
+   "QUANTOS_LEEM": 11,
    "INSTRUMENTOS_QUE_CITAM": 31,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
