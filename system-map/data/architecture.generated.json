@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "b74dce8dcd1d4d0d8f16c327c2a393a4c2ad659b",
-    "GENERATED_AT": "2026-09-29T07:58:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a8496a5ea5fc6b57912b3753d94c1a8691fbe21de37e83de7de1afa0320bc6ab"
+    "HEAD": "254488fd91e80591f72c3a55fecde0dc9c5542f5",
+    "GENERATED_AT": "2026-09-29T08:07:53-03:00",
+    "SOURCE_TREE_FINGERPRINT": "970206bd05efe1cbfc61d873db368338682d317ee192412083e804aa5bbecfcf"
   },
   "FILES": [
     {
@@ -19687,7 +19687,7 @@
     },
     {
       "path": "portoes/PUBLICACAO-AUTOMATICA.json",
-      "sha": "1ac1dde56c8d2c7faa5d6c752dc7ea388e33f881",
+      "sha": "322cced4201c31b06b6d898c5298340ec1047837",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19701,7 +19701,7 @@
     },
     {
       "path": "portoes/casco_preview.cmd",
-      "sha": "a8ec99144e982da4de07e83a8b02e91ae03fe5e9",
+      "sha": "febd8607777796b03699fb248ebbe39830d05ce1",
       "ext": ".cmd",
       "readable": false,
       "code_dir": true
@@ -19715,7 +19715,7 @@
     },
     {
       "path": "portoes/prova_reversa_do_pote.py",
-      "sha": "580cb9d72e9bc69764d977365388a72791018edd",
+      "sha": "f8c087876113467dbf49ff8cce5071a7a65492a8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19729,7 +19729,7 @@
     },
     {
       "path": "portoes/publicar_preview_da_pasta.py",
-      "sha": "6e06e3c4a2cd95997bcba320070473c0c75df361",
+      "sha": "0d0edc38735a2b7489403a99f883dad10a3ab3dc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26946,7 +26946,7 @@
     },
     {
       "path": "tests/entrega_de_teste.py",
-      "sha": "35e59e79c301474296622c91b3113c784a509d69",
+      "sha": "13c5d9ca486974ab3bfe01ba504b2c0453d24d8f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29074,7 +29074,7 @@
     },
     {
       "path": "tests/test_publicar_preview_da_pasta.py",
-      "sha": "a95ac9dd88afaaa976f5ee12b803bccc420a4bf7",
+      "sha": "4398e939c180a4d3b53cee428ccf03eda7a010c7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -64563,7 +64563,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "portoes/prova_reversa_do_pote.py",
-        "line": 37,
+        "line": 40,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -64574,7 +64574,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/prova_reversa_do_pote.py",
-        "line": 93,
+        "line": 96,
         "snippet": "passo(\"SHA_NO_AR\", \"PASS\" if s_ar == sha else \"FAIL\", {\"URL\": url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\","
       }
     },
@@ -64585,7 +64585,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/prova_reversa_do_pote.py",
-        "line": 55,
+        "line": 58,
         "snippet": "r = subprocess.run([\"node\", str(RAIZ / \"portoes\" / \"fotografar_portal.mjs\"), \"--base\", url, \"--saida\", str(saida),"
       }
     },
@@ -64596,7 +64596,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "portoes/prova_reversa_do_pote.py",
-        "line": 40,
+        "line": 43,
         "snippet": "import publicar_portal_sozinho as P  # noqa: E402"
       }
     },
@@ -64607,7 +64607,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "portoes/prova_reversa_do_pote.py",
-        "line": 39,
+        "line": 42,
         "snippet": "import publicar_preview_da_pasta as G  # noqa: E402"
       }
     },
@@ -64761,7 +64761,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "portoes/publicar_preview_da_pasta.py",
-        "line": 240,
+        "line": 246,
         "snippet": "import publicar_portal_sozinho as P  # noqa: PLC0415"
       }
     },
@@ -107942,6 +107942,17 @@
     },
     {
       "from_file": "tests/test_publicar_preview_da_pasta.py",
+      "to_file": "portoes/publicar_portal_sozinho.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_publicar_preview_da_pasta.py",
+        "line": 413,
+        "snippet": "import publicar_portal_sozinho as P"
+      }
+    },
+    {
+      "from_file": "tests/test_publicar_preview_da_pasta.py",
       "to_file": "portoes/publicar_preview_da_pasta.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -113333,7 +113344,7 @@
     "files_tracked": 4230,
     "files_readable": 1777,
     "files_code_dir": 2205,
-    "file_edges": 7550,
+    "file_edges": 7551,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

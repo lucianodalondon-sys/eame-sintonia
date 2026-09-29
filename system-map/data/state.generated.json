@@ -4824,9 +4824,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "b74dce8dcd1d4d0d8f16c327c2a393a4c2ad659b",
-    "GENERATED_AT": "2026-09-29T07:58:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a8496a5ea5fc6b57912b3753d94c1a8691fbe21de37e83de7de1afa0320bc6ab"
+    "HEAD": "254488fd91e80591f72c3a55fecde0dc9c5542f5",
+    "GENERATED_AT": "2026-09-29T08:07:53-03:00",
+    "SOURCE_TREE_FINGERPRINT": "970206bd05efe1cbfc61d873db368338682d317ee192412083e804aa5bbecfcf"
   },
   "FAMILIES": [
     {
@@ -132993,7 +132993,7 @@
       "evidence": [
         {
           "file": "portoes/prova_reversa_do_pote.py",
-          "line": 37,
+          "line": 40,
           "snippet": "import _gavetas  # noqa: E402,F401",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PUBLICA-SOZINHO",
@@ -144997,7 +144997,7 @@
       "evidence": [
         {
           "file": "portoes/prova_reversa_do_pote.py",
-          "line": 93,
+          "line": 96,
           "snippet": "passo(\"SHA_NO_AR\", \"PASS\" if s_ar == sha else \"FAIL\", {\"URL\": url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
@@ -152017,7 +152017,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O portal publica sozinho (D126) tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O portal publica sozinho (D126) tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_prova_reversa_do_pote.py",
@@ -152071,6 +152071,22 @@
           "file": "tests/test_publicar_preview_da_pasta.py",
           "line": 36,
           "snippet": "import publicar_preview_da_pasta as G  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PUBLICA-SOZINHO--IMPORTS-->C-TESTES",
+            "FROM": "C-PUBLICA-SOZINHO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_publicar_preview_da_pasta.py",
+          "line": 413,
+          "snippet": "import publicar_portal_sozinho as P",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PUBLICA-SOZINHO--IMPORTS-->C-TESTES",
             "FROM": "C-PUBLICA-SOZINHO",
