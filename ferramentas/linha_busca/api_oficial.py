@@ -25,7 +25,7 @@ import urllib.parse
 import urllib.request
 
 ENV_CHAVE, ENV_CX = "SINTONIA_GOOGLE_CSE_KEY", "SINTONIA_GOOGLE_CSE_CX"
-SEGREDOS = (ENV_CHAVE, ENV_CX, "SINTONIA_BRAVE_KEY")
+SEGREDOS = (ENV_CHAVE, ENV_CX, "SINTONIA_BRAVE_KEY", "YOUTUBE_DATA_API_KEY")
 ENDERECO_CSE = "https://www.googleapis.com/customsearch/v1"
 QUOTA_DIA = {"GOOGLE_CSE": 100}
 TIMEOUT = 30
@@ -157,8 +157,8 @@ def o_que_o_dono_faz(d: dict) -> list:
                       "(APIs e servicos > Biblioteca > Custom Search API > Ativar).")
     if d.get("CX") in ("AUSENTE", "OBRIGATORIO_E_AUSENTE", "INVALIDO", "NAO_SEI"):
         passos.append("Em programmablesearchengine.google.com, criar um mecanismo de busca (ou abrir o que ja "
-                      "existe), copiar o 'ID do mecanismo de pesquisa' (esse ID e o CX) e grava-lo no GitHub como secret "
-                      "GOOGLE_CSE_CX (Settings > Secrets and variables > Actions).")
+                      "existe), copiar o 'ID do mecanismo de pesquisa' (esse ID e o CX; nao e senha) e passa-lo a "
+                      "coordenacao, que o poe no campo CX de ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json.")
     if "clientes novos" in (d.get("PORQUE") or ""):
         passos.append("Confirmar com o Google se este projeto ainda pode usar a Custom Search JSON API; se nao, "
                       "a alternativa e outro motor oficial (ex.: Brave Search API) — decisao do dono.")

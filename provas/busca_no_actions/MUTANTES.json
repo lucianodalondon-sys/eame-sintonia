@@ -1,6 +1,6 @@
 {
- "MUTANTES": 17,
- "MORTOS": 17,
+ "MUTANTES": 31,
+ "MORTOS": 31,
  "RESULTADOS": [
   {
    "MUTANTE": "a tesoura nao corta pelo valor",
@@ -58,12 +58,7 @@
    "ESTADO": "MORTO"
   },
   {
-   "MUTANTE": "nome de secret livre",
-   "FICHEIRO": "ferramentas/linha_busca/pedido_actions.py",
-   "ESTADO": "MORTO"
-  },
-  {
-   "MUTANTE": "GITHUB_* aceite",
+   "MUTANTE": "CX com qualquer forma",
    "FICHEIRO": "ferramentas/linha_busca/pedido_actions.py",
    "ESTADO": "MORTO"
   },
@@ -78,13 +73,88 @@
    "ESTADO": "MORTO"
   },
   {
-   "MUTANTE": "o push dispara no ramo de codigo",
+   "MUTANTE": "secret pelo nome (entrega todos)",
    "FICHEIRO": ".github/workflows/linha-busca-google.yml",
    "ESTADO": "MORTO"
   },
   {
-   "MUTANTE": "input direto num run",
+   "MUTANTE": "um SUPABASE entra no runner",
    "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "dispara noutro ramo",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "workflow_dispatch de volta",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "permissao de escrita",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "comentarios fora da corrida",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "piloto so com uma ordem",
+   "FICHEIRO": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "piloto com menos de 100 por pagina",
+   "FICHEIRO": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "erro da chave nao para o piloto",
+   "FICHEIRO": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "comentarios desligados param tudo",
+   "FICHEIRO": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "sem chave o piloto chama na mesma",
+   "FICHEIRO": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "o piloto pede sem o sha",
+   "FICHEIRO": "ferramentas/linha_busca/comentarios_piloto_d106.py",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "volta o secrets[...] da producao (so o contrato)",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "volta o secrets[...] da producao (testes da linha)",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "o CX volta a vir de secret",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "toJSON(secrets) entra no runner",
+   "FICHEIRO": ".github/workflows/linha-busca-google.yml",
+   "ESTADO": "MORTO"
+  },
+  {
+   "MUTANTE": "o contrato fica cego para secrets[",
+   "FICHEIRO": "tests/test_contrato_workflows_sem_secret_dinamico.py",
    "ESTADO": "MORTO"
   }
  ]

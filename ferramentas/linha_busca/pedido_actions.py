@@ -4,9 +4,9 @@
     python3 ferramentas/linha_busca/pedido_actions.py            >> $GITHUB_OUTPUT   (le o pedido, escreve as saidas)
     python3 ferramentas/linha_busca/pedido_actions.py --resumo=saida >> $GITHUB_STEP_SUMMARY
 
-O pedido vem dos inputs do `workflow_dispatch` (ambiente EVENTO=workflow_dispatch, IN_*) ou, num push, do ficheiro
-PEDIDO-BUSCA-GOOGLE.json ao lado. Aqui so passam NOMES de secret — nunca o valor — e cada nome e conferido: so
-maiusculas, algarismos e `_` (o nome vai parar a uma expressao `secrets[...]`; texto livre ali seria uma porta).
+O pedido vem do ficheiro PEDIDO-BUSCA-GOOGLE.json ao lado (o workflow dispara por PUSH no proprio ramo). Nao passa
+segredo nenhum: a chave e sempre o secret YOUTUBE_DATA_API_KEY, escrito FIXO no workflow (coordenacao 12:20 — um
+`secrets[...]` pelo nome faria o GitHub entregar TODOS os secrets do repositorio ao runner).
 """
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
 PEDIDO = AQUI / "PEDIDO-BUSCA-GOOGLE.json"
-RE_NOME = re.compile(r"^[A-Z][A-Z0-9_]{0,99}$")
+RE_CX = re.compile(r"^[A-Za-z0-9:_-]{1,64}$")
 N_MAX = 100
 
 
@@ -26,19 +26,10 @@ class PedidoInvalido(ValueError):
     pass
 
 
-def ler_pedido(env=None, ficheiro: Path = PEDIDO) -> dict:
-    env = os.environ if env is None else env
-    if env.get("EVENTO") == "workflow_dispatch":
-        bruto = {"SEGREDO_DA_CHAVE": env.get("IN_CHAVE"), "SEGREDO_DO_CX": env.get("IN_CX"),
-                 "N": env.get("IN_N"), "SO_DIAGNOSTICO": env.get("IN_SO_DIAG")}
-    else:
-        bruto = json.loads(Path(ficheiro).read_text(encoding="utf-8"))
+def ler_pedido(ficheiro: Path = PEDIDO) -> dict:
+    """O pedido do ficheiro (o workflow dispara por PUSH no proprio ramo: nao ha inputs). So o que nao e segredo."""
+    bruto = json.loads(Path(ficheiro).read_text(encoding="utf-8"))
     out = {}
-    for k in ("SEGREDO_DA_CHAVE", "SEGREDO_DO_CX"):
-        v = str(bruto.get(k) or "").strip()
-        if not RE_NOME.match(v) or v.startswith("GITHUB_"):
-            raise PedidoInvalido("%s invalido: %r (so MAIUSCULAS, algarismos e _; nunca GITHUB_*)" % (k, v))
-        out[k] = v
     try:
         n = int(str(bruto.get("N", "4")).strip())
     except ValueError:
@@ -46,14 +37,21 @@ def ler_pedido(env=None, ficheiro: Path = PEDIDO) -> dict:
     if not 1 <= n <= N_MAX:
         raise PedidoInvalido("N=%d fora de 1..%d (quota gratis da Custom Search JSON API)" % (n, N_MAX))
     out["N"] = n
-    so = bruto.get("SO_DIAGNOSTICO", True)
-    out["SO_DIAGNOSTICO"] = so if isinstance(so, bool) else str(so).strip().lower() != "false"
+    for k, omissao in (("SO_DIAGNOSTICO", True), ("COMENTARIOS", True)):
+        v = bruto.get(k, omissao)
+        out[k] = v if isinstance(v, bool) else str(v).strip().lower() != "false"
+    # O CX e o ID PUBLICO do mecanismo de pesquisa (nao e senha: sem a chave nao serve). Hoje nao existe (medido
+    # pela coordenacao 12:20: nao ha secret de CX). Se o dono o criar, entra aqui — e so nesta forma.
+    cx = str(bruto.get("CX") or "").strip()
+    if cx and not RE_CX.match(cx):
+        raise PedidoInvalido("CX com forma inesperada: so letras, algarismos, «:», «_» e «-» (ate 64)")
+    out["CX"] = cx
     return out
 
 
 def saidas(p: dict) -> str:
-    return "\n".join(["segredo_da_chave=%s" % p["SEGREDO_DA_CHAVE"], "segredo_do_cx=%s" % p["SEGREDO_DO_CX"],
-                      "n=%d" % p["N"], "so_diagnostico=%s" % ("true" if p["SO_DIAGNOSTICO"] else "false")]) + "\n"
+    return "\n".join(["n=%d" % p["N"], "so_diagnostico=%s" % ("true" if p["SO_DIAGNOSTICO"] else "false"),
+                      "comentarios=%s" % ("true" if p["COMENTARIOS"] else "false"), "cx=%s" % p["CX"]]) + "\n"
 
 
 def resumo(pasta: Path) -> str:
@@ -72,6 +70,15 @@ def resumo(pasta: Path) -> str:
         linhas.append("| %s | %s |" % (nome, API.redigir(x.get(k))))
     linhas += ["", "**Porque:** %s" % API.redigir(x.get("PORQUE")), "", "**O que o dono tem de fazer:**"]
     linhas += ["%d. %s" % (i, API.redigir(p)) for i, p in enumerate(x.get("O_QUE_O_DONO_FAZ") or [], 1)]
+    c = Path(pasta) / "COMENTARIOS-PILOTO-D106.json"
+    if c.exists():
+        y = json.loads(c.read_text(encoding="utf-8"))
+        linhas += ["", "## Piloto de comentarios (D106)", "",
+                   "%d chamadas de %d · HTTP 200 em %d · %d threads · videos com comentario: %s" % (
+                       y.get("CHAMADAS", 0), y.get("TETO_CHAMADAS", 0), y.get("COM_200", 0), y.get("ITENS_TOTAL", 0),
+                       ", ".join(y.get("VIDEOS_COM_COMENTARIO") or []) or "nenhum")]
+        if y.get("PAROU"):
+            linhas.append("**Parou:** %s" % API.redigir(y["PAROU"]))
     r = Path(pasta) / "RESULTADOS.json"
     if r.exists():
         rs = json.loads(r.read_text(encoding="utf-8"))

@@ -1,58 +1,68 @@
 # BUSCA-NO-ACTIONS — a busca do Google pela API oficial, no GitHub Actions
 
-> Missão da coordenação (27/09 11:25), com a resposta do dono (11:28). Ramo `busca-no-actions-v1`, a partir de
+> Missão da coordenação (27/09 11:25), com a resposta do dono (11:28) e o ajuste das 12:20 (secrets medidos: não
+> há CX nem chave de CSE; runners locais desligados; + piloto de comentários D106). Ramo `busca-no-actions-v1`, a partir de
 > `linha-busca-v1 @ 99eebc26`, que já desce do vivo `2ef6fef8`. **Sem rede e sem ler segredo nenhum**: nenhuma
-> chamada ao Google saiu daqui, e o workflow **não correu**. PRONTO-SEM-MAPA: as peças da LINHA-BUSCA (esta
+> chamada ao Google saiu daqui, e o workflow **não correu** (o push é do coordenador, §2). PRONTO-SEM-MAPA: as peças da LINHA-BUSCA (esta
 > e a de partida) ainda não têm lugar no mapa, e isso fica para a integração.
 
-## 1 · O que ficou pronto
+## 1 · O que ficou pronto (versão das 12:20 da coordenação)
 
-| peça | o quê |
+Uma corrida só, em `ubuntu-latest`, sem VPN, **sem commit**: tudo sai como **artifact**.
+
+| passo | o quê |
 |---|---|
-| `.github/workflows/linha-busca-google.yml` | `workflow_dispatch` (inputs) **ou** push do pedido no ramo de disparo; `ubuntu-latest`, **sem VPN**; `permissions: contents: read` |
-| passo 0 | a guarda de segredos da casa (`guarda/social_guarda.py`) |
-| passo 1 | lê o pedido: os **NOMES** dos secrets (por omissão `YOUTUBE_DATA_API_KEY` e `GOOGLE_CSE_CX`), N, «só diagnóstico». Um nome que não seja `MAIÚSCULAS_E_ALGARISMOS` é recusado: não entra texto livre em `secrets[...]` |
-| passo 2 · **diagnóstico** | **UMA chamada** à Custom Search JSON API (`--diagnosticar-cse`). Diz: a API está ativa no projeto? a chave pode usá-la? há CX? e, se funcionar, de quantos sites vêm 10 resultados. Grava `DIAGNOSTICO.json` com **o que o dono tem de fazer**, em palavras simples |
-| passo 3 · busca | só se o diagnóstico disser que dá **e** o pedido não for «só diagnóstico»: `--buscar --motor=GOOGLE_CSE --n=N` sobre as 473 consultas de `data/derivados/LINHA-BUSCA/CONSULTAS.json` |
-| passos 4–6 | resumo na página da corrida; artifact `DIAGNOSTICO.json` + `RESULTADOS.json` + `serp/` **sempre**; a corrida fica vermelha se a busca não é possível (depois de o artifact sair) |
-| `ferramentas/linha_busca/api_oficial.py` | o pedido às APIs oficiais **sem robots** (D91: API pública oficial documentada segue os próprios termos) e **sem o teto de 5/domínio das páginas**. Quem manda é a **quota: 100 consultas/dia** (`--n` fora de 1..100 é recusado). E a **tesoura**: a chave e o CX saem de qualquer texto antes de ele ser gravado |
-| `coleta/linha_busca.py` | `--diagnosticar-cse`; e `--sem-portao-it`, que **só** vale para o diagnóstico e para `--buscar` com motor de API oficial. `--colher`, `--medir-motores` e os motores HTML recusam-no. **As páginas continuam a ser colhidas nesta máquina, com a VPN IT, pelo `--colher`** |
+| 0 | a guarda de segredos da casa (`guarda/social_guarda.py`) — ver §6 |
+| 1 | lê o pedido `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json`: N, só-diagnóstico, comentários, CX (opcional; é o ID **público** do mecanismo, não é segredo — hoje não existe) |
+| 2 · **diagnóstico** | **UMA chamada** à Custom Search JSON API (`--diagnosticar-cse`): a API está ativa? a chave pode usá-la? há CX? → `DIAGNOSTICO.json` com **o que o dono tem de fazer** |
+| 3 · busca | só se o diagnóstico disser que dá **e** o pedido não for «só diagnóstico» (hoje é: sem CX não há busca) |
+| 4 · **piloto de comentários D106** | `commentThreads.list` nos **10 vídeos pais do §12** (`soP-t7nvvq8, F5uLnId6fJk, w87w51fSWAw, QGE7h4gztQ8, R5FJWJkCbKI, 5MNenAiGtlQ, QmeVN7SNnMU, 2cF0yHZXiMs, ioLYGSazexk, ezRyN8vLVvc`), `order=relevance` **e** `order=time`, `maxResults=100`, `part=snippet,replies`, **1 página** (o `nextPageToken` fica anotado e não se segue). **20 chamadas = 20 unidades** das 10 000 do dia. Cada resposta **crua**, byte a byte, em `comentarios/<video>__<ordem>.json`, e o manifesto `COMENTARIOS-PILOTO-D106.json` com o **sha256** de cada uma, o pedido **sem a chave**, HTTP, itens, respostas, erro (redigido) |
+| 5–7 | resumo na página da corrida; **artifact sempre** (`retention-days: 7`); a corrida fica vermelha **se o piloto falhar** (depois de o artifact sair). O diagnóstico sem CX «falha» de propósito: isso **não** pinta a corrida de vermelho, só impede a busca |
 
-**A chave nunca é impressa.**
-- Entra só nos passos 2 e 3, pelo ambiente.
-- Todo erro passa pela tesoura, e o Actions esconde os segredos no log.
-- Os testes provam, com uma chave falsa, que ela não aparece em nenhum ficheiro nem em nenhuma saída.
+**O segredo:**
+- É **SÓ `secrets.YOUTUBE_DATA_API_KEY`**, escrito **fixo**, nos passos 2, 3 e 4. Nenhum `SUPABASE_*`.
+- Achado: a versão anterior buscava o secret **pelo nome** (`secrets[...]`), e **esse jeito faz o GitHub entregar
+  TODOS os secrets do repositório ao runner**, `SUPABASE_*` incluídos. Saiu. Há um teste e duas sabotagens que o
+  impedem de voltar.
+- A chave nunca é impressa: tesoura (`api_oficial.redigir`) + máscara do Actions. Os testes provam, com uma
+  chave falsa, que ela não fica em nenhum ficheiro nem em nenhuma saída.
 
-⚠️ As respostas cruas do Google (`serp/`) repetem o **CX**, porque o Google o devolve em `queries.request`. O CX
-não é uma senha: sem a chave, não serve para nada.
+**Os comentários são dado pessoal.** A resposta crua traz o nome e o canal de quem comentou (é assim que a API
+devolve). Por isso:
+- o artifact vive 7 dias;
+- a **minimização da D106** faz-se na entrada, aqui, pela porta canónica: sem perfil/avatar do comentarista,
+  comentário = PUBLIC_ASSERTION e nunca FACT, FACT_LOCATION só do pai.
+
+**Paradas do piloto:**
+- Um erro do vídeo (ex.: `commentsDisabled`) fica anotado, e o piloto segue para os outros.
+- Um erro da **chave ou do projeto** para as restantes chamadas, para não gastar quota à toa: quota, chave
+  inválida, API desligada, chave restrita.
 
 ## 2 · Como disparar (coordenador)
 
-Desta máquina o `gh` não tem sessão, então dispara-se por **push do pedido para o ramo de disparo**.
-**Nenhum ramo de código dispara**: entregar ou integrar esta linha não gasta quota nem usa a chave. Há um
-teste que o impede.
+O workflow dispara por **push no próprio ramo `busca-no-actions-v1`**, quando mudam o `.yml` ou o pedido
+(`workflow_dispatch` exigiria o ficheiro no `main`).
+
+**Eu NÃO fiz o push deste commit:** se o fizesse, a corrida partia sozinha e gastava as chamadas. O ramo no
+GitHub continua no commit anterior (`e56b79c7`, que não dispara nada).
 
 ```bash
-# a partir de uma copia do ramo busca-no-actions-v1 (o pedido ja vem em «so diagnostico», N=4)
-git push origin HEAD:disparo-linha-busca-google
+git -C C:/busca push origin busca-no-actions-v1
 ```
 
-- **1.ª corrida: só o diagnóstico (1 chamada).** Ler o `DIAGNOSTICO.json` no artifact, ou o resumo da corrida.
-- **Para buscar:**
-  - editar `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json` (`"SO_DIAGNOSTICO": false`, `"N": 4`);
-  - fazer commit e push para o mesmo ramo de disparo;
-  - depois baixar o `RESULTADOS.json` do artifact e colher as páginas aqui, com a VPN IT:
-    `py coleta/linha_busca.py --colher --autorizado --resultados=RESULTADOS.json --fila=<fila> --saida=<pasta>`.
-- ⚠️ **Precisa do workflow no GitHub:** o push do ramo de disparo só corre o workflow se o ficheiro já estiver
-  nesse commit. É o caso quando o ramo de disparo sai deste ramo.
-- ⚠️ **Não testado no GitHub:** não usei a sintaxe `secrets[steps.pedido.outputs.x]` (acesso ao secret pelo nome)
-  em nenhuma corrida real. O YAML foi validado pelo leitor (PyYAML) e pelos testes; **a 1.ª corrida é a prova**.
+- **Esse push dispara a 1.ª corrida:** 1 chamada de diagnóstico + 20 de comentários; a busca não corre.
+- **Depois, baixar o artifact** `linha-busca-google-<run_id>` (`gh run download`). A entrada dos comentários na
+  Sala faz-se aqui, pela porta canónica.
+- **Para correr de novo:** mudar o pedido (ex.: pôr o CX quando existir, `SO_DIAGNOSTICO: false`), fazer commit
+  e push no mesmo ramo.
+- ⚠️ **A 1.ª corrida é a prova do workflow no GitHub.** O YAML passou no leitor (PyYAML) e nos testes, mas nunca
+  correu lá.
 
 ## 3 · O CX é obrigatório?
 
 - **No código da casa: sim.** O motor `GOOGLE_CSE` (`motores.google_cse_pedido`) nem monta o pedido sem chave **e** CX.
 - **Na API: o diagnóstico MEDE-O** na 1.ª corrida.
-  - Sem o secret do CX, a chamada vai sem `cx`.
+  - Sem CX no pedido (hoje não há), a chamada vai sem `cx`.
   - O Google confere primeiro se a API está ligada e se a chave pode usá-la, e só depois os parâmetros.
   - Então um `400 INVALID_ARGUMENT` quer dizer duas coisas ao mesmo tempo: **a API está ligada, a chave pode, e
     o CX é obrigatório (medido)**.
@@ -90,7 +100,8 @@ O diagnóstico ajuda a ver:
    - em programmablesearchengine.google.com, criar um mecanismo, ou abrir um que já exista;
    - ver se a opção «pesquisar a web inteira» aparece (§4);
    - copiar o **ID do mecanismo de pesquisa** (esse é o CX);
-   - gravá-lo no GitHub em Settings › Secrets and variables › Actions › `GOOGLE_CSE_CX`.
+   - passá-lo à coordenação, que o põe no campo `CX` de `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json`
+     (o CX não é senha; o único secret usado é a chave).
 5. **Quota:** 100 consultas/dia são grátis. Passar disso é pago e exige faturação no projeto: **não ativar sem
    decisão do dono**.
 
@@ -124,49 +135,69 @@ destes 20 ficheiros não seria visto. A limpeza de verdade é outra missão:
 - nos relatórios de prova, decidir se se reescrevem ou se ficam.
 
 ## 7 · Provas
-- `tests/test_busca_no_actions.py`: **29 testes, OK**. O teste do YAML estrutural corre quando há PyYAML;
-  com o PyYAML do Python312, passou.
-  - Cobrem: a tesoura; os 9 formatos de resposta do Google; «uma chamada só»; «sem chave, nenhuma chamada»;
-    a linha de comando (quota, `--sem-portao-it` só para API, a API nunca pelo transporte das páginas, o portão
-    IT nunca chamado no Actions); o pedido (nomes recusados, N, `GITHUB_*`); e o workflow (segredo só nos passos
-    2 e 3, nenhum input direto num `run`, artifact sempre, só o ramo de disparo corre).
-- **Mutação: 17 de 17 mortos** (`provas/busca_no_actions/MUTANTES.json`). Cada regra nova foi estragada de
-  propósito, e algum teste acusou.
-- **Vizinhos:** 7 baterias, no ramo de partida e neste.
-  - `test_linha_busca` OK nos dois.
-  - Os vermelhos restantes (`test_security_secret_shapes` errors=2, `test_social_sessao` failures=1) são
-    **iguais** nos dois lados.
-  - **Nada piorou**; 2 testes melhoraram (§6).
+- `tests/test_busca_no_actions.py`: **37 testes, OK**. O do YAML estrutural corre com PyYAML; com o do
+  Python312, passou. Os testes cobrem:
+  - a tesoura e os formatos de erro do Google;
+  - «uma chamada só» no diagnóstico, e «sem chave, nenhuma chamada»;
+  - a linha de comando (quota; `--sem-portao-it` só para API; o portão IT nunca é chamado no Actions);
+  - o pedido (N, CX só com forma de ID);
+  - o workflow: só `secrets.YOUTUBE_DATA_API_KEY` fixo e só nos passos 2–4; nenhum `SUPABASE`; nenhum
+    `secrets[...]`; push só no próprio ramo e nos próprios ficheiros; sem `workflow_dispatch`; sem commit;
+    artifact sempre; nenhum `${{ }}` dentro de um `run`;
+  - o piloto: os 10 pais e as 2 ordens; 20 chamadas cruas com sha256; `commentsDisabled` não para os outros;
+    erro da chave para logo na 1.ª; sem chave, zero chamadas; a chave não fica no manifesto.
+- **Mutação: 26 de 26 mortos** (`provas/busca_no_actions/MUTANTES.json`), incluindo «secret pelo nome», «um
+  SUPABASE entra», «dispara noutro ramo», «permissão de escrita», «piloto só com uma ordem» e «erro da chave não
+  para».
+- **Vizinhos:** as mesmas 7 baterias, iguais teste a teste à rodada anterior. Essa já não tinha piorado nada face
+  ao ramo de partida (2 melhoraram, §6).
 
 ## EM PALAVRAS SIMPLES
 
-**O que fiz.** Deixei pronta uma "receita" no GitHub que faz buscas no Google pela porta oficial (a API), sem
-precisar da VPN italiana. As páginas que a busca encontrar continuam a ser baixadas aqui, com a VPN, como
-sempre. A chave do Google usada é a do YouTube, como o dono disse, e ela nunca aparece escrita em lugar
-nenhum.
+**O que fiz.** Deixei pronta uma "receita" no GitHub que, numa só rodada:
+1. pergunta **uma vez** ao Google se a busca pela porta oficial está ligada e se temos o "código do mecanismo de
+   busca" (CX);
+2. pede os comentários dos **10 vídeos** escolhidos para o piloto: 2 vezes cada, por "mais relevantes" e por "mais
+   recentes". São **20 pedidos**, do limite de 10 mil por dia;
+3. entrega tudo num pacote para baixar, com uma "impressão digital" (sha256) de cada resposta.
 
-**O primeiro passo é um teste de uma pergunta só.** Antes de gastar a cota de 100 buscas por dia, a receita
-faz **uma** chamada ao Google e descobre três coisas: a busca está ligada no projeto? a chave tem permissão? o
-"código do mecanismo de busca" (CX) existe? O resultado vem escrito em palavras simples, com a lista do que o
-dono precisa fazer.
+Nada é gravado no repositório. A entrada na Sala continua a ser feita aqui, pelo caminho de sempre.
 
-**O que o dono provavelmente vai ter de fazer.** No Google Cloud, no mesmo projeto da chave do YouTube:
-1. ligar a "Custom Search API";
-2. deixar a chave usar essa API, porque chaves do YouTube costumam estar travadas só para o YouTube;
-3. criar o mecanismo de busca e copiar o código dele (CX) para o GitHub.
+**A chave.** Só a chave do YouTube entra na receita, escrita pelo nome certo. Achei um detalhe perigoso na minha
+versão anterior: do jeito que eu pegava a chave, o GitHub entregaria **todas** as senhas do repositório à
+máquina da receita, inclusive as do banco de dados. Troquei, e há teste que impede de voltar. A chave nunca
+aparece escrita em lugar nenhum.
 
-Sem o CX não há busca.
+**Como disparar.** Não enviei esta versão ao GitHub, porque enviar já faria a receita rodar e gastar os
+pedidos. O coordenador envia com um comando e depois baixa o pacote.
 
-**O que eu não sei.** Não sei se o Google ainda deixa um mecanismo novo pesquisar "a web inteira". Tenho a
-lembrança, não confirmada, de que isso acabou para mecanismos novos, e de que a própria API deixou de aceitar
-clientes novos. Sem internet não consigo confirmar. O dono vê isso no painel do Google, e o teste de uma
-pergunta também dá uma pista.
+**O que já se sabe.** Não existe o código do mecanismo (CX), então a busca do Google não vai rodar. O teste de
+uma pergunta vai dizer exatamente o que falta. Os comentários não dependem disso: vão rodar.
+
+**Cuidado com privacidade.** As respostas cruas trazem o nome de quem comentou. O pacote se apaga sozinho
+em 7 dias, e a limpeza desses dados pessoais acontece na entrada da Sala, como a regra D106 manda.
 
 **Um problema que achei no caminho.** O "detector de senhas" que roda antes de todo robô do GitHub estava
 barrando **todos** eles. Ele achava 20 arquivos antigos com coisas que parecem senha, mas não são: o nome da
 pasta do usuário deste computador, e duas chaves públicas de sites (um mapa, um botão de acessibilidade).
-Anotei os 20 na lista oficial de "já conhecidos", cada um com o motivo. O detector volta a funcionar e
-continua barrando qualquer senha nova. A limpeza de verdade desses 20 fica para outra tarefa.
+Anotei os 20 na lista oficial de "já conhecidos", cada um com o motivo. O detector continua barrando qualquer
+senha nova. A limpeza de verdade desses 20 fica para outra tarefa.
 
-**Cuidado que tomei.** Do jeito que estava, a receita teria rodado sozinha quando eu enviasse o trabalho, e
-faria a chamada ao Google. Mudei: agora ela só roda quando o coordenador mandar, por um caminho próprio.
+
+## 9 · Porta para a produção (`claude/busca-secret-fixo-v1`, 28/09)
+
+A produção (`servico-20260923-0923 @ e2413970`) tinha integrado a versão ANTERIOR deste workflow
+(`e56b79c7`, via LOTE5): `workflow_dispatch` + push no ramo `disparo-linha-busca-google`, com
+`${{ secrets[steps.pedido.outputs.segredo_da_chave] }}` e `secrets[steps.pedido.outputs.segredo_do_cx]` — o
+NOME do secret vinha do pedido. Latente (nenhum dos dois gatilhos existia), mas no ar.
+
+- Os 4 commits do conserto (`69f77acb`, `74393a15`, `43ea7586`, `569d690e`) foram aplicados por cherry-pick sobre
+  `e2413970`, sem conflito. O que a produção tinha de mais novo nestes 9 ficheiros — o teste de junção do LOTE5
+  `test_juncao_lote5_o_erro_da_busca_sai_sem_a_chave` (`71fb9714`) — ficou.
+- Contrato novo, para TODOS os workflows: `tests/test_contrato_workflows_sem_secret_dinamico.py` — nenhum
+  `secrets[` (índice dinâmico) nem `toJSON(secrets)` em `.github/workflows/`. Na produção, o contrato acusa
+  as 4 linhas (104, 105, 112, 113) de `linha-busca-google.yml`; aqui, zero.
+- Mutação: 31 de 31 mortos, com 5 novos — «volta o `secrets[...]` da produção» (morto pelo contrato sozinho
+  e pelos testes da linha), «o CX volta a vir de secret», «`toJSON(secrets)` entra», «o contrato fica cego».
+- A frase declarada do mapa (`architecture.declared.json`) deixou de dizer «dispatch ou push no ramo de disparo».
+- Não se disparou nada: nenhum push para `busca-no-actions-v1` nem para `disparo-linha-busca-google`.
