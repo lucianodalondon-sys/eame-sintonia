@@ -4828,9 +4828,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lucianodalondon-sys/religa-multicanal-v1",
-    "HEAD": "336935a60cbc4f967a8c55947018be2012b456a0",
-    "GENERATED_AT": "2026-09-29T09:55:13-03:00",
-    "SOURCE_TREE_FINGERPRINT": "694c6904d11b2dc3bc9e37f04bfe9baff5afdc81acbd0127081f00ff19049b15"
+    "HEAD": "9a202e21848124e91c249039d14bd69248af1480",
+    "GENERATED_AT": "2026-09-29T11:29:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "57dd1e670df40f130eefaa3158a1fb3202ad3090853cf7df532242f14da97617"
   },
   "FAMILIES": [
     {
@@ -6570,8 +6570,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 921",
-        "desses, mostrados aqui: 40 (ficam de fora 881)"
+        "enderecos que o codigo realmente chama: 923",
+        "desses, mostrados aqui: 40 (ficam de fora 883)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -68324,7 +68324,7 @@
           "ferramentas/big_collection/coleta_continua.py:754",
           "ferramentas/big_collection/coleta_continua.py:425",
           "provas/religa_multicanal/mutacao.py:38",
-          "tests/test_religa_multicanal.py:798"
+          "tests/test_religa_multicanal.py:871"
         ],
         "PORQUE": "estas pecas importam-na — C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -70384,7 +70384,7 @@
           "ferramentas/big_collection/coleta_continua.py:128",
           "ferramentas/big_collection/sonda_ligacao_linhas.py:47",
           "provas/religa_multicanal/mutacao.py:131",
-          "tests/test_religa_multicanal.py:352"
+          "tests/test_religa_multicanal.py:359"
         ],
         "PORQUE": "estas pecas importam-na — C-ONDA-WEB · C-RELIGA-SONDA-DAS-LINHAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -76571,7 +76571,7 @@
         "dessas, autorizadas a coletar: 0",
         "acoes da coleta que nomeiam este canal: 2",
         "prova: coleta/comunicacao_coleta.py:198",
-        "prova: coleta/rotas_multicanal.py:346"
+        "prova: coleta/rotas_multicanal.py:401"
       ],
       "status_reason": "2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -80662,7 +80662,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 439,
+          "line": 460,
           "snippet": "import admissao as adm                                          # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -97878,7 +97878,7 @@
       "evidence": [
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 389,
+          "line": 396,
           "snippet": "import reserva_24h as R24",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-TESTES",
@@ -100762,7 +100762,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 516,
+          "line": 523,
           "snippet": "import corpus_pesquisador as CP",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORPUS--IMPORTS-->C-TESTES",
@@ -101307,7 +101307,7 @@
       "evidence": [
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 443,
+          "line": 450,
           "snippet": "import cortesia_adaptativa as CA",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-TESTES",
@@ -107955,7 +107955,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 440,
+          "line": 461,
           "snippet": "import executor_texto_de_html as H                              # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -107971,7 +107971,7 @@
         },
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 441,
+          "line": 462,
           "snippet": "import extratores_de_texto as XT                                # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -108107,7 +108107,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de HTML tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Executor · texto a partir de HTML tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_rota_do_html.py",
@@ -108129,6 +108129,22 @@
           "file": "tests/test_conserto_regua.py",
           "line": 25,
           "snippet": "import executor_texto_de_html as EX  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TEXTO-HTML",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_religa_multicanal.py",
+          "line": 768,
+          "snippet": "import executor_texto_de_html as H",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-TESTES",
             "FROM": "C-EXECUTOR-TEXTO-HTML",
@@ -119880,7 +119896,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 442,
+          "line": 463,
           "snippet": "import italy_executor as ex                                     # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -140038,7 +140054,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 443,
+          "line": 464,
           "snippet": "import orquestrador as ORQ                                      # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -152582,7 +152598,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 557,
+          "line": 564,
           "snippet": "import prova_teto_dominio as PT",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-TESTES",
@@ -156318,7 +156334,7 @@
       "evidence": [
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 798,
+          "line": 871,
           "snippet": "fonte = open(RAIZ / \"ferramentas\" / \"big_collection\" / \"onda_linha.py\", encoding=\"utf-8\").read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RELIGA-EXECUTOR-POR-LINHA--READS-->C-TESTES",
@@ -159056,7 +159072,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 616,
+          "line": 644,
           "snippet": "import sala_de_espera as SE                                # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -165333,7 +165349,7 @@
         },
         {
           "file": "coleta/rotas_multicanal.py",
-          "line": 352,
+          "line": 407,
           "snippet": "import adaptador_linkedin as LI                                # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-RELIGA-ROTAS-MULTICANAL",
@@ -166482,7 +166498,7 @@
       "evidence": [
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 352,
+          "line": 359,
           "snippet": "assert p[\"TRANSPORTE\"] == \"coleta/seguir.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-TESTES",
@@ -170198,7 +170214,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 692,
+          "line": 699,
           "snippet": "import territorios as TERR",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TERRITORIOS--IMPORTS-->C-TESTES",
@@ -176294,7 +176310,7 @@
       "evidence": [
         {
           "file": "coleta/rotas_multicanal.py",
-          "line": 346,
+          "line": 401,
           "snippet": "def linkedin_posts_da_organizacao(*, pagina_url, run_id, buscar, teto=None, country_scope=\"IT\"):",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
