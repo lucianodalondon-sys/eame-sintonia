@@ -1,9 +1,9 @@
 {
  "ALVO": "leis/fundacao_da_coleta.py",
- "SHA256_DO_ALVO": "afd70d258d3578780922cf8bf8c8e6d23b75c80133a990a979ac6979b2f24730",
+ "SHA256_DO_ALVO": "df49577550b6b60e797c9e93f0e0e1d3b44aa12870d281848f8d55364f48925a",
  "SUITE": "tests.test_excecao_preview_e2e",
- "MUTANTES": 23,
- "MORTOS": 23,
+ "MUTANTES": 25,
+ "MORTOS": 25,
  "DESFEITO_E_CONFERIDO": true,
  "RESULTADOS": [
   {
@@ -28,7 +28,9 @@
    "PERGUNTA": "b",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_b_branch_de_promocao_e_recusada"
+    "test_b_branch_de_promocao_e_recusada",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado",
+    "test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO"
    ]
   },
   {
@@ -36,7 +38,9 @@
    "PERGUNTA": "b",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_b_o_host_canonico_e_recusado_mesmo_com_preview_no_nome"
+    "test_b_o_host_canonico_e_recusado_mesmo_com_preview_no_nome",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado",
+    "test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO"
    ]
   },
   {
@@ -52,7 +56,8 @@
    "PERGUNTA": "b",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_b_para_cliente_verdadeiro_ou_nao_dito_e_recusado"
+    "test_b_para_cliente_verdadeiro_ou_nao_dito_e_recusado",
+    "test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO"
    ]
   },
   {
@@ -189,12 +194,31 @@
    ]
   },
   {
+   "MUTANTE": "M24_o_codigo_passa_a_conhecer_producao",
+   "PERGUNTA": "b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_b_o_contrato_nao_ensina_a_guarda_a_aceitar_producao"
+   ]
+  },
+  {
+   "MUTANTE": "M25_destino_ilegivel_vira_vazio",
+   "PERGUNTA": "b",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_PRODUCAO_PODE_RECEBER_NAO_fail_closed_com_destino_estranho"
+   ]
+  },
+  {
    "MUTANTE": "M21_excecao_removida_da_guarda",
    "PERGUNTA": "f",
    "ESTADO": "MORTO",
    "MORTO_POR": [
     "test_f_pedido_de_preview_completo_atravessa",
-    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa"
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado",
+    "test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO"
    ]
   }
  ]

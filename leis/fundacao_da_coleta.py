@@ -232,7 +232,9 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     if e is None:
         return False, '%s · sem a excecao %s vigente (autoridade %s no diario, nao revogada)' % (
             BLOQUEIO, EXCECAO_PREVIEW, AUTORIDADE_PREVIEW)
-    d = pedido.get('DESTINO') or {}
+    d = pedido.get('DESTINO')
+    if not isinstance(d, dict):
+        return False, '%s · destino ilegivel %r: sem destino dito, nada sai' % (BLOQUEIO, d)
     tipos = set(DESTINOS_DO_PREVIEW) & set((e.get('ESCOPO') or {}).get('DESTINOS_TIPO') or [])
     if d.get('TIPO') not in tipos:
         return False, '%s · destino %r fora do escopo do preview' % (BLOQUEIO, d.get('TIPO'))

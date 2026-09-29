@@ -118,6 +118,75 @@ class F_OPreviewDeclaradoPassa(Base):
         self.recusa(self.pedido(), trava=self.sem_excecao())
 
 
+class G_PreviewSimProducaoNaoVazamentoZero(Base):
+    """D152 · o estado pedido pelo dono, provado na guarda que governa a execucao:
+
+        PREVIEW_PODE_RECEBER            = SIM
+        PRODUCAO_PODE_RECEBER           = NAO   (fail-closed, mesmo com pote LIBERADO)
+        VAZAMENTO_PREVIEW_PARA_PRODUCAO = 0
+    """
+
+    def _producao(self, d):
+        return (d.get("BRANCH") in self.publicacao["PROMOTION_AUTHORITY_BRANCHES"]
+                or d.get("HOST") == self.publicacao["CANONICAL_HOST"]
+                or d.get("PARA_CLIENTE") is not False
+                or d.get("TIPO") not in ("BUILD_LOCAL", "VERCEL_PREVIEW"))  # regua fixa, nao a do codigo
+
+    def test_PREVIEW_PODE_RECEBER_SIM(self):
+        for d in ({"TIPO": "BUILD_LOCAL", "HOST": None},
+                  {"TIPO": "BUILD_LOCAL", "HOST": "127.0.0.1"},
+                  {"TIPO": "VERCEL_PREVIEW", "HOST": "sintonia-eame-git-l3-x.vercel.app"}):
+            pode, motivo = self.atravessa(self.pedido(DESTINO=d))
+            self.assertTrue(pode, "PREVIEW_PODE_RECEBER = NAO para %s: %s" % (d, motivo))
+
+    def test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado(self):
+        # o pote do pedido tem TODOS os objetos LIBERADO_PARA_CLIENTE e passa o pote v2
+        self.assertTrue(self.atravessa(self.pedido())[0], "o pote de base tinha de estar liberado")
+        canon = self.publicacao["CANONICAL_HOST"]
+        for d in [{"TIPO": "VERCEL_PREVIEW", "BRANCH": r, "HOST": "x.vercel.app"}
+                  for r in self.publicacao["PROMOTION_AUTHORITY_BRANCHES"]] + [
+                  {"TIPO": "VERCEL_PREVIEW", "HOST": canon},
+                  {"TIPO": "BUILD_LOCAL", "HOST": canon},
+                  {"TIPO": "PRODUCAO", "HOST": canon},
+                  {"TIPO": "PRODUCAO"}, {"TIPO": "CLIENTE"},
+                  {"PARA_CLIENTE": True}, {"TIPO": None}, {"BRANCH": ""}]:
+            self.recusa(self.pedido(DESTINO=d))
+
+    def test_PRODUCAO_PODE_RECEBER_NAO_fail_closed_com_destino_estranho(self):
+        for destino in (None, {}, {"TIPO": "BUILD_LOCAL"}, "producao", []):
+            p = self.pedido()
+            p["DESTINO"] = destino
+            # recusar por REBENTAR nao conta: a recusa tem de ser dita, com o motivo
+            pode, motivo = self.atravessa(p)
+            self.assertFalse(pode, "destino %r deixou passar: %s" % (destino, motivo))
+            self.assertIn(lei.BLOQUEIO, motivo)
+            if not isinstance(destino, dict):
+                self.assertIn("destino ilegivel", motivo)
+
+    def test_VAZAMENTO_PREVIEW_PARA_PRODUCAO_ZERO(self):
+        """Todas as combinacoes de tipo x branch x host x para-cliente: nenhuma
+        que toque producao pode atravessar. O numero tem de ser 0."""
+        tipos = list(lei.DESTINOS_DO_PREVIEW) + ["PRODUCAO", "CLIENTE", None]
+        ramos = ["claude/l3-radar-original-v1", "main", None] + self.publicacao["PROMOTION_AUTHORITY_BRANCHES"]
+        hosts = [None, "localhost", "sintonia-eame-git-x.vercel.app", self.publicacao["CANONICAL_HOST"],
+                 "sintonia.example.com"]
+        vazamentos, preview_ok, total = [], 0, 0
+        for tipo in tipos:
+            for ramo in ramos:
+                for host in hosts:
+                    for cliente in (False, True, None):
+                        d = {"TIPO": tipo, "BRANCH": ramo, "HOST": host, "PARA_CLIENTE": cliente}
+                        total += 1
+                        pode, _ = self.atravessa(self.pedido(DESTINO=d))
+                        if pode and self._producao(d):
+                            vazamentos.append(d)
+                        preview_ok += bool(pode)
+        self.assertEqual(len(vazamentos), 0, "VAZAMENTO_PREVIEW_PARA_PRODUCAO = %d: %s"
+                         % (len(vazamentos), vazamentos[:3]))
+        self.assertGreater(preview_ok, 0, "zero vazamentos porque nada passa nao prova nada")
+        self.assertGreater(total, 100)
+
+
 class A_AExcecaoNaoFechaAFundacao(Base):
 
     def test_a_a_fundacao_continua_nao_fechada_nos_tres_sitios(self):
@@ -160,6 +229,22 @@ class A_AExcecaoNaoFechaAFundacao(Base):
         self.assertEqual(sorted(self.trava["QUAIS_NAO_SEI"]), por[lei.NAO_SEI])
         self.assertEqual(sorted(self.trava["QUAIS_FALTAM"]), sorted(por[lei.FAIL] + por[lei.NAO_SEI]))
         self.assertEqual(self.trava["COLLECTION_FOUNDATION_CLOSED"], "NAO")
+
+    def test_a_os_obrigatorios_do_preview_valem_hoje_e_producao_exige_os_14(self):
+        """D152: o que o preview exige tem de estar PASS na medicao; a producao
+        exige os catorze. Se um obrigatorio do preview cair, isto reprova."""
+        e = lei.excecao_vigente(self.trava, self.diario)
+        c = e["CRITERIOS_A_N_E_ESTA_EXCECAO"]
+        self.assertEqual(c["SO_PARA_PRODUCAO_E_PARA_FECHAR_A_FUNDACAO"], list("ABCDEFGHIJKLMN"))
+        with open(os.path.join(RAIZ, "system-map", "data", "estradas-it.generated.json"),
+                  encoding="utf-8") as f:
+            medido = json.load(f)["CRITERIOS_A_N"]
+        for k in c["OBRIGATORIOS_PARA_O_PREVIEW"]:
+            self.assertEqual(medido[k]["ESTADO"], lei.PASS,
+                             "o preview exige %s e a medicao diz %s" % (k, medido[k]))
+        # e nada disto conta criterio como cumprido
+        self.assertEqual(self.trava["COLLECTION_FOUNDATION_CLOSED"], "NAO")
+        self.assertNotIn("N", self.trava["QUAIS_JA_CUMPRIDOS"])
 
     def test_a_entrada_que_diz_que_fecha_a_fundacao_nao_vale(self):
         self.assertIsNone(lei.excecao_vigente(self.com_entrada(NAO_FECHA_A_FUNDACAO=False), self.diario))

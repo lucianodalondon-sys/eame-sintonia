@@ -76,6 +76,12 @@ MUTANTES = [
      ""),
     ("M23_consumido_em_aceite", "d",
      "if any(k in pedido for k in ('CONSUMIDO_EM', 'MARCAR_CONSUMIDO_EM')):", "if False:"),
+    ("M24_o_codigo_passa_a_conhecer_producao", "b",
+     "DESTINOS_DO_PREVIEW = ('BUILD_LOCAL', 'VERCEL_PREVIEW')",
+     "DESTINOS_DO_PREVIEW = ('BUILD_LOCAL', 'VERCEL_PREVIEW', 'PRODUCAO')"),
+    ("M25_destino_ilegivel_vira_vazio", "b",
+     "    if not isinstance(d, dict):\n        return False, '%s · destino ilegivel",
+     "    if not isinstance(d, dict):\n        d = {}\n    if False:\n        return False, '%s · destino ilegivel"),
     ("M21_excecao_removida_da_guarda", "f",
      "    return True, ('EXCECAO %s (%s)", "    return False, ('EXCECAO %s (%s)"),
 ]

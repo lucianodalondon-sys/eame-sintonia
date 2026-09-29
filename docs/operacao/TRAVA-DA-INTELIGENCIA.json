@@ -67,6 +67,20 @@
         "UM_OBJETO_NAO_LIBERADO_RECUSA_O_POTE_INTEIRO": "a guarda nao filtra nem reescreve o pote — o contrato v2.2 proibe filtrar depois de a Intelligence escrever."
       },
       "PROVA": "OBRIGATORIA: prova reversa do LAB (TELA → POTE → INTELLIGENCE → SALA → RAW → FONTE) com VEREDITO = PASS e o sitio onde esta. Sem ela, a guarda recusa.",
+      "CRITERIOS_A_N_E_ESTA_EXCECAO": {
+        "OBRIGATORIOS_PARA_O_PREVIEW": [
+          "L"
+        ],
+        "OBRIGATORIOS_PARA_O_PREVIEW_PORQUE": "L (UNKNOWN continua UNKNOWN) tem de valer JA: um preview que escondesse NAO SEI mostrava mentira. E medido PASS hoje e os gates do pote v2 o reforcam por objeto. Se a medicao de L cair, tests/test_excecao_preview_e2e.py reprova.",
+        "EXIGIDOS_POR_OBJETO_E_NAO_PELO_CRITERIO_GLOBAL": {
+          "C": "o RAW daquele objeto: C1_PROVA_DO_ARQUIVO (RAW_SHA256 relido) e a prova reversa do LAB ate a fonte. Nao e o criterio C global (toda classe de estrada com dono de RAW), que continua FAIL.",
+          "N": "a excecao nao descongela nada: ARTEFATOS_AUTORIZADOS vazio e os testes do congelamento intactos. Isto e RESPEITAR o N, nao cumpri-lo — o N continua FAIL por regra."
+        },
+        "SO_PARA_PRODUCAO_E_PARA_FECHAR_A_FUNDACAO": [
+          "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"
+        ],
+        "PORQUE_OS_OUTROS_NAO_GATEIAM_O_PREVIEW": "a D140 autoriza a excecao COM a fundacao aberta. Exigir A..N para o preview era exigir a fundacao fechada, e a excecao nao existiria. Nenhum criterio foi afrouxado nem dado por cumprido: os 14 continuam exigidos para producao, e a producao exige ainda LOOP_VIVO_REPETIVEL (D141) e as condicoes de publicacao."
+      },
       "ARTEFATOS_AUTORIZADOS": [],
       "ARTEFATOS_AUTORIZADOS_COMO": "cada artefato congelado que o preview precise de mudar, ou artefato novo de especie congelada, entra aqui com PATH e o GIT_BLOB_SHA novo exato — continua preso por sha, so muda de sha A para sha B. Vazio hoje: nenhum artefato foi autorizado. Numa branch de promocao esta lista e ignorada e o congelamento volta a ser o do manifesto.",
       "GUARDA_EXECUTAVEL": "leis/fundacao_da_coleta.py → excecao_vigente, pode_atravessar_a_trava, artefatos_autorizados",
