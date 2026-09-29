@@ -340,59 +340,100 @@ def contagem_esperada(pote: dict, contrato: dict) -> dict:
 
 
 def conferir_telas(contagens: dict, pote: dict, sha: str, contrato: dict, rotulo: str) -> list:
-    """C5/C6 — o que o navegador contou contra o que o pote diz. `contagens` e o CONTAGENS.json do fotografo."""
+    """C5/C6 — o que o navegador contou contra o que o pote diz. `contagens` e o CONTAGENS.json do fotografo.
+
+    D151/D152 (dono, 29/09): o cliente ve o casco ORIGINAL. A camada tecnica do pote vive so na tela de DEBUG; as
+    telas de cliente nao a mostram; Radar e Radar Futuro tem uma linha LIVE com a contagem do pote; o que ja
+    mostravam fica SO dentro de [data-snapshot]. Substitui as conferencias D122 (CONTAGEM_POR_TELA, LEGADO_ESCONDIDO,
+    BARRA_CONTA_O_POTE), que pediam o pote em toda tela."""
     esp = contagem_esperada(pote, contrato)
+    T = contrato["TELAS"]
     telas = (contagens or {}).get("TELAS") or {}
+    total = sum(len((e or {}).get("OBJETOS") or []) for e in (pote.get("COMPARTIMENTOS") or {}).values())
     L = []
     if not contagens or not contagens.get("MEDICAO_COMPLETA"):
         L.append(linha(f"{rotulo}_MEDIDO", False, ["o navegador nao mediu todas as telas — nao medir nao autoriza"]))
-    erros = []
-    for t in contrato["TELAS"]["DO_POTE"]:
+
+    def sha_servido(t, m, erros):
+        if (m.get("ENVELOPE") or {}).get("POTE_SHA256") != sha:
+            erros.append(f"{t}: SHA servido {(m.get('ENVELOPE') or {}).get('POTE_SHA256')} != {sha}")
+
+    # DEBUG — o pote inteiro, so ali
+    dt = T["DEBUG"]["TELA"]
+    d = telas.get(dt)
+    ed = []
+    if not d:
+        ed.append(f"{dt}: nao medida")
+    else:
+        if d.get("HTTP") != 200:
+            ed.append(f"{dt}: HTTP {d.get('HTTP')}")
+        if not d.get("POTE_NA_TELA") or not d.get("MARCA"):
+            ed.append(f"{dt}: a tela de debug nao desenha o pote com a faixa")
+        if d.get("POTE_RECUSADO"):
+            ed.append(f"{dt}: o casco recusou o pote")
+        if d.get("POTE_OBJETOS") != total:
+            ed.append(f"{dt}: {d.get('POTE_OBJETOS')} objetos na tela, o pote tem {total}")
+        sha_servido(dt, d, ed)
+    L.append(linha(f"{rotulo}_DEBUG_TEM_O_POTE_INTEIRO", not ed, ed[:15] or [f"{dt}: {total} objetos, SHA {sha[:12]}"]))
+
+    # CLIENTE — o casco original: nenhuma camada tecnica
+    ec = []
+    for t in T["DO_POTE"]:
         m = telas.get(t)
         if not m:
-            erros.append(f"{t}: nao medida")
+            ec.append(f"{t}: nao medida")
             continue
         if m.get("HTTP") != 200:
-            erros.append(f"{t}: HTTP {m.get('HTTP')}")
-        if not m.get("POTE_NA_TELA"):
-            erros.append(f"{t}: a tela nao desenha o pote")
-        if m.get("POTE_RECUSADO"):
-            erros.append(f"{t}: o casco recusou o pote")
-        if not m.get("MARCA"):
-            erros.append(f"{t}: sem a faixa do pote")
-        if t in esp and m.get("POTE_OBJETOS") != esp[t]:
-            erros.append(f"{t}: {m.get('POTE_OBJETOS')} objetos na tela, o pote tem {esp[t]}")
-        if t not in esp:
-            erros.append(f"{t}: o pote nao diz o que esta tela desenha")
-        env = m.get("ENVELOPE") or {}
-        if env.get("POTE_SHA256") != sha:
-            erros.append(f"{t}: SHA servido {env.get('POTE_SHA256')} != {sha}")
-    L.append(linha(f"{rotulo}_CONTAGEM_POR_TELA", not erros, erros[:15] or
-                   [f"{len(contrato['TELAS']['DO_POTE'])} telas, cada uma com a contagem do pote e o SHA {sha[:12]}"]))
+            ec.append(f"{t}: HTTP {m.get('HTTP')}")
+        if m.get("POTE_NA_TELA") is not False or m.get("MARCA") is not False:
+            ec.append(f"{t}: a camada tecnica do pote aparece na tela do cliente (ou nao foi medida)")
+        sha_servido(t, m, ec)
+    L.append(linha(f"{rotulo}_CLIENTE_SEM_CAMADA_TECNICA", not ec, ec[:15] or
+                   [f"{len(T['DO_POTE'])} telas de cliente: o casco original, sem a camada tecnica; SHA {sha[:12]}"]))
 
-    # D122 — nenhum dos 43/44 antigos, nem cartao de legado, em tela nenhuma do portal (porta incluida)
-    leg = []
-    for t in contrato["TELAS"]["DO_POTE"] + contrato["TELAS"]["PORTA"]:
+    # LIVE — a contagem do pote, so nas telas LIVE
+    el = []
+    for t in T["DO_POTE"]:
         m = telas.get(t) or {}
-        for c in ("LEGADO_43_VISIVEIS", "LEGADO_44_VISIVEIS", "LEGADO_CARTOES"):
+        if t in T["LIVE"]["TELAS"]:
+            if t not in esp:
+                el.append(f"{t}: o pote nao diz o que esta tela conta")
+            elif str(m.get("LIVE_N")) != str(esp[t]):
+                el.append(f"{t}: LIVE {m.get('LIVE_N')} na tela, o pote tem {esp[t]}")
+            if (m.get("LEGADO_43_VISIVEIS") or m.get("LEGADO_44_VISIVEIS")) and not m.get("SNAPSHOT_TITULO"):
+                el.append(f"{t}: casos antigos visiveis sem o rotulo SNAPSHOT")
+        elif m.get("LIVE_N") is not None:
+            el.append(f"{t}: linha LIVE numa tela que nao a tem")
+    L.append(linha(f"{rotulo}_LIVE_CONTA_O_POTE", not el, el[:15] or
+                   [f"LIVE {', '.join(f'{t}={esp.get(t)}' for t in T['LIVE']['TELAS'])}"]))
+
+    # NADA MISTURADO — caso antigo so dentro do SNAPSHOT; a caixa «oggi» do pacote de 02/09 fora da barra
+    em = []
+    for t in T["DO_POTE"] + T["PORTA"]:
+        m = telas.get(t) or {}
+        for c in ("LEGADO_43_FORA", "LEGADO_44_FORA", "LEGADO_CARTOES_FORA"):
             if m.get(c) != 0:
-                leg.append(f"{t}: {c} = {m.get(c)}")
-        if t in contrato["TELAS"]["DO_POTE"] and not m.get("LEGADO_43_UNIVERSO"):
-            leg.append(f"{t}: o universo dos 43 nao foi lido — o detector nao mediu")
-        if t in contrato["TELAS"]["DO_POTE"] and m.get("OGGI_LEGADO") is not False:
-            leg.append(f"{t}: a caixa «oggi» do pacote de 02/09 continua na barra (ou nao foi medida)")
-    L.append(linha(f"{rotulo}_D122_LEGADO_ESCONDIDO", not leg, leg[:15] or ["nenhum dos 43 nem dos 44 antigos nas telas do portal"]))
+                em.append(f"{t}: {c} = {m.get(c)}")
+        if t in T["DO_POTE"] and not m.get("LEGADO_43_UNIVERSO"):
+            em.append(f"{t}: o universo dos 43 nao foi lido — o detector nao mediu")
+        if t in T["DO_POTE"] and m.get("OGGI_LEGADO") is not False:
+            em.append(f"{t}: a caixa «oggi» do pacote de 02/09 continua na barra (ou nao foi medida)")
+    L.append(linha(f"{rotulo}_D152_NADA_MISTURADO", not em, em[:15] or
+                   ["nenhum caso antigo fora do SNAPSHOT, em tela nenhuma (porta incluida)"]))
 
-    # D122 — a barra conta o pote (o numero do legado nao fica ao lado)
+    # BARRA — a voz do Radar e do Radar Futuro conta como a linha LIVE
     nav = []
-    for t in contrato["TELAS"]["DO_POTE"]:
+    vivas = [v for v in T["LIVE"]["TELAS"] if v != "inicio"]
+    for t in T["DO_POTE"]:
         m = telas.get(t) or {}
-        for v, n in (m.get("NAV") or {}).items():
-            if v in esp and str(n) != str(esp[v]):
-                nav.append(f"{t}: a barra diz {v}={n}, o pote tem {esp[v]}")
         if not m.get("NAV"):
             nav.append(f"{t}: barra nao medida")
-    L.append(linha(f"{rotulo}_D122_BARRA_CONTA_O_POTE", not nav, sorted(set(nav))[:15] or ["cada voz da barra conta o compartimento do pote"]))
+            continue
+        for v in vivas:
+            if v in m["NAV"] and str(m["NAV"][v]) != str(esp.get(v)):
+                nav.append(f"{t}: a barra diz {v}={m['NAV'][v]}, o LIVE e {esp.get(v)}")
+    L.append(linha(f"{rotulo}_BARRA_CONTA_O_LIVE", not nav, sorted(set(nav))[:15] or
+                   ["a voz do Radar e do Radar Futuro conta a corrida LIVE"]))
 
     # redirecionadas: pagina legada fora do casco canonico, que o endereco manda para a entrada canonica
     # (contrato: TELAS.REDIRECIONADAS). BLOQUEIA: ficar no endereco antigo, ou mostrar um dos 43/44 antigos.
@@ -607,7 +648,8 @@ def telas_a_fotografar(contrato: dict) -> list:
     """Toda tela que alguma conferencia le: as do pote, a porta, as fora das rotas e as redirecionadas."""
     T = contrato["TELAS"]
     return (T["DO_POTE"] + T["PORTA"] + list(T["FORA_DAS_ROTAS"])
-            + [t for t in (T.get("REDIRECIONADAS") or {}) if t not in T["FORA_DAS_ROTAS"]])
+            + [t for t in (T.get("REDIRECIONADAS") or {}) if t not in T["FORA_DAS_ROTAS"]]
+            + [T["DEBUG"]["TELA"]])
 
 
 def fotografar(base_url: str, saida: Path, ferramentas: Path, contrato: dict) -> dict | None:

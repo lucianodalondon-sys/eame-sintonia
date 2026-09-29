@@ -7,17 +7,23 @@
    comeca por SINT-, SINTETICA = true. Nenhum valor dele e real, e ele nunca e escrito dentro do portal —
    entra no MESMO sandbox que o banco de provas do portal usa (italia-portale/audit/lib/harness.mjs).
 
+   D151/D152 (dono, 29/09) MUDOU A LEI DO P2/P5/P9: o cliente ve o casco ORIGINAL; a camada tecnica do pote vive SO
+   na rota interna #debug-intelligence-pot; Radar e Radar Futuro ganham uma linha LIVE (quantidade + corrida + corte)
+   e o que ja mostravam fica, SEPARADO, como SNAPSHOT. O que o LEITOR desenha de cada compartimento (P3, P4, P6, P8,
+   P10, P11) continua provado igual — lido do leitor (`ler`), que e o que o debug desenha.
+
    Prova que:
      P1  sem pote, NADA muda (cada vista desenha o legado, como antes);
-     P2  com pote, cada ferramenta desenha o SEU compartimento, e o legado apaga-se (precedencia);
+     P2  com pote: as rotas de cliente continuam o casco original; o debug desenha TODOS os compartimentos, na
+         ordem do contrato e dos objetos; so Radar e Radar Futuro tem a linha LIVE, com a contagem do pote;
      P3  vazio mostra o PORQUE; futuro tem forma propria e nunca a da oportunidade;
      P4  nenhuma regra de cruzamento: todo valor desenhado e o do pote ou NAO SEI, na ordem do pote;
-     P5  pote que reprova nao desenha nada, e o legado nao volta como se fosse atual;
+     P5  pote que reprova: o debug recusa e nao desenha nada; o LIVE diz NAO SEI (nunca um numero);
      P6  URL que nao e http(s) nao vira link; o pote fica fora do Git e do deploy;
      P7  toda ligacao {{ }} do bloco do pote resolve contra os valores reais;
    POTE-V2-UNICO (tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json, tambem SINTETICO):
      P8  no Polso, sinal solto nunca e «variazione»; so SERIE medida (>= 2 pontos, mesma unidade);
-     P9  pote pedido (?pote=local) e ausente: cada ferramenta diz NAO SEI, e o legado nao volta;
+     P9  pote pedido (?pote=local) e ausente: o debug e o LIVE dizem NAO SEI; o cliente continua o original;
      P10 o leitor recusa o que o contrato unico proibe (run id fora do topo, prova sem URL/PUBLISHED_AT, ...);
      P11 uso sem tempo dito, a Sala so como prova, URL NAO SEI com a base, D112 com o nome. */
 import fs from 'node:fs';
@@ -46,6 +52,10 @@ const ROTAS = {
   voices: ['isVoices', 'voices'], competitors: ['isCompetitors', 'competitors'], science: ['isScience', 'science'],
   portfolio: ['isPortfolio', 'portfolio'], etichette: ['isEtichette', 'portfolio'], sources: ['isSources', 'sources'],
 };
+
+/* O que o leitor desenha para uma rota (o compartimento dela) — e o bloco que o debug repete por compartimento. */
+const ler = (M, view, lang = 'it') => M.ctx.SINTONIA_POTE_CASCO.vm(M.ctx.SINTONIA_POTE, view, lang);
+const DEBUG = 'debug-intelligence-pot';
 
 function montar(pote) {
   const M = mount({});
@@ -76,39 +86,50 @@ function montar(pote) {
     JSON.stringify(pedidos('?pote=local')) === JSON.stringify(['<script src="sintonia-pote.js"><\/script>']));
 }
 
-/* ── P2 · com pote, precedencia ───────────────────────────────────────────── */
+/* ── P2 · com pote (D152): cliente original, debug com tudo, LIVE so nos dois radares ──────────── */
 const M = montar(clone(POTE));
 for (const lang of ['it', 'en']) for (const [v, [flag, comp]] of Object.entries(ROTAS)) {
   const x = M.vals({ view: v, lang });
-  prova(`P2 [${lang}] #${v} le o compartimento ${comp} e apaga o legado`,
-    x.poteVista === true && x[flag] === false && x.pote.comp.codigo === comp,
-    `poteVista=${x.poteVista} ${flag}=${x[flag]} comp=${x.pote.comp && x.pote.comp.codigo}`);
-  const e = POTE.COMPARTIMENTOS[comp];
-  prova(`P2 [${lang}] #${v} desenha os ${e.OBJETOS.length} objetos do pote, na ordem do pote`,
-    JSON.stringify(x.pote.objetos.map((o) => o.id)) === JSON.stringify(e.OBJETOS.map((o) => o.OBJETO_ID)));
+  prova(`P2 [${lang}] #${v} com pote continua o casco original (${flag}) e nao desenha o pote`,
+    x.poteVista === false && x[flag] === true, `poteVista=${x.poteVista} ${flag}=${x[flag]}`);
+  const r = ler(M, v, lang);
+  prova(`P2 [${lang}] o leitor diz que #${v} e o compartimento ${comp}, com os ${POTE.COMPARTIMENTOS[comp].OBJETOS.length} objetos na ordem do pote`,
+    r.comp.codigo === comp && JSON.stringify(r.objetos.map((o) => o.id)) === JSON.stringify(POTE.COMPARTIMENTOS[comp].OBJETOS.map((o) => o.OBJETO_ID)));
+  const live = ['meeting', 'radarfuturo'].includes(v);
+  prova(`P2 [${lang}] #${v} ${live ? 'TEM' : 'nao tem'} linha LIVE`, x.temLive === live);
+  if (live) prova(`P2 [${lang}] #${v} LIVE = a contagem do compartimento ${comp} no pote, com a corrida`,
+    x.poteLive.n === POTE.COMPARTIMENTOS[comp].OBJETOS.length && x.poteLive.run === POTE.INTELLIGENCE_RUN_ID && x.poteLive.legivel === true);
+}
+{
+  const d = M.vals({ view: DEBUG, lang: 'it' });
+  const doze = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors', 'science', 'portfolio', 'archive', 'sources', 'field', 'casa'];
+  prova('P2 a rota interna #debug-intelligence-pot desenha o pote e apaga as bandeiras de cliente',
+    d.poteVista === true && d.isMeeting === false && d.isWindows === false && d.temLive === false);
+  prova('P2 o debug desenha TODOS os compartimentos, na ordem do contrato',
+    JSON.stringify(d.poteDbg.comps.map((c) => c.comp.codigo)) === JSON.stringify(doze.filter((k) => POTE.COMPARTIMENTOS[k])));
+  prova('P2 o debug desenha todos os objetos do pote, na ordem do pote',
+    JSON.stringify(d.poteDbg.comps.flatMap((c) => c.objetos.map((o) => o.id))) ===
+    JSON.stringify(doze.flatMap((k) => ((POTE.COMPARTIMENTOS[k] || {}).OBJETOS || []).map((o) => o.OBJETO_ID))));
+  prova('P2 a faixa EXPERIMENTAL esta no debug', /EXPERIMENTAL/.test(d.poteDbg.faixa));
+  const run = Object.fromEntries(d.poteDbg.run.map((r) => [r.k, r.v]));
+  prova('P2 a corrida, o SOURCE_HEAD e o corte estao no topo do debug',
+    run.corsa === POTE.INTELLIGENCE_RUN_ID && run.SOURCE_HEAD === POTE.SOURCE_HEAD && run.taglio === POTE.CORTE);
+  prova('P2 o debug nao esta em voz nenhuma da barra', !/data-nav-view="debug/.test(HTML) && !/view: 'debug-intelligence-pot'/.test(HTML.replace(/\/\*[\s\S]*?\*\//g, '')));
 }
 for (const v of ['sala', 'painel', 'mcase', 'search']) {
   prova(`P2 #${v} nao e ferramenta: o pote nao a toma`, M.vals({ view: v, lang: 'it' }).poteVista === false);
 }
 for (const v of ['radar', 'msignals', 'mradar']) {
-  prova(`P2 a rota #${v} e o radar: le meeting`, M.vals({ view: v, lang: 'it' }).pote.comp.codigo === 'meeting');
-}
-prova('P2 a faixa EXPERIMENTAL esta em toda vista do pote',
-  Object.keys(ROTAS).every((v) => /EXPERIMENTAL/.test(M.vals({ view: v, lang: 'it' }).pote.faixa)));
-{
-  const x = M.vals({ view: 'meeting', lang: 'it' });
-  const run = Object.fromEntries(x.pote.run.map((r) => [r.k, r.v]));
-  prova('P2 a corrida, o SOURCE_HEAD e o corte estao no topo',
-    run.corsa === POTE.INTELLIGENCE_RUN_ID && run.SOURCE_HEAD === POTE.SOURCE_HEAD && run.taglio === POTE.CORTE);
+  prova(`P2 a rota #${v} e o radar: le meeting e tem LIVE`, ler(M, v).comp.codigo === 'meeting' && M.vals({ view: v, lang: 'it' }).temLive === true);
 }
 
 /* ── P3 · vazio com o porque; futuro != oportunidade ─────────────────────── */
 {
-  const mk = M.vals({ view: 'market', lang: 'it' }).pote;
+  const mk = ler(M, 'market', 'it');
   prova('P3 compartimento vazio diz o PORQUE (SEM_OBJETOS_NESTA_CORRIDA)',
     mk.vazio === true && /SEM_OBJETOS_NESTA_CORRIDA/.test(mk.vazioTitulo) && mk.vazioTexto.length > 10 && mk.objetos.length === 0);
-  const rf = M.vals({ view: 'radarfuturo', lang: 'it' }).pote;
-  const op = M.vals({ view: 'meeting', lang: 'it' }).pote;
+  const rf = ler(M, 'radarfuturo', 'it');
+  const op = ler(M, 'meeting', 'it');
   const fut = rf.objetos, opp = op.objetos.filter((o) => o.especie === 'OPORTUNIDADE');
   prova('P3 o Radar Futuro so desenha FATO_PRESENTE_SOBRE_O_FUTURO', fut.length > 0 && fut.every((o) => o.especie === 'FATO_PRESENTE_SOBRE_O_FUTURO' && o.eFuturo));
   prova('P3 o radar das oportunidades nao desenha futuro', op.objetos.every((o) => !o.eFuturo));
@@ -123,7 +144,7 @@ prova('P2 a faixa EXPERIMENTAL esta em toda vista do pote',
   for (const [comp, e] of Object.entries(POTE.COMPARTIMENTOS)) {
     const v = Object.entries(ROTAS).find(([, [, c]]) => c === comp);
     if (!v) continue;
-    const objs = M.vals({ view: v[0], lang: 'it' }).pote.objetos;
+    const objs = ler(M, v[0]).objetos;
     e.OBJETOS.forEach((o, i) => {
       for (const c of objs[i].chaves) {
         const orig = o.CHAVES[c.k];
@@ -137,7 +158,7 @@ prova('P2 a faixa EXPERIMENTAL esta em toda vista do pote',
   prova('P4 todo valor desenhado e o do pote (ou NAO SEI em destaque), sem chave inventada', ok, det);
   prova('P4 o leitor nao ordena, nao pontua, nao cruza (sem sort/score/rank no codigo)',
     !/\.sort\(|score|rank|relevan/i.test(LEITOR.replace(/\/\*[\s\S]*?\*\//g, '')));
-  const w = M.vals({ view: 'windows', lang: 'it' }).pote.objetos[0];
+  const w = ler(M, 'windows', 'it').objetos[0];
   prova('P4 FACT_LOCATION viaja como FACT_LOCATION (fora do contrato) e REGION_ID fica NAO SEI',
     w.fora.some((c) => c.k === 'FACT_LOCATION' && c.v === 'SINT-Puglia') &&
     w.chaves.some((c) => c.k === 'REGION_ID' && c.v === 'NAO SEI'));
@@ -156,17 +177,19 @@ for (const [nome, mexer] of [
 ]) {
   const pote = clone(POTE); mexer(pote);
   const R = montar(pote);
+  const d = R.vals({ view: DEBUG, lang: 'it' });
   const x = R.vals({ view: 'meeting', lang: 'it' });
-  prova(`P5 pote ${nome}: recusado, nada desenhado, legado apagado`,
-    x.poteVista === true && x.pote.recusado === true && x.pote.objetos.length === 0 && x.isMeeting === false);
+  prova(`P5 pote ${nome}: o debug recusa e nao desenha nada; o LIVE diz NAO SEI; o cliente continua o original`,
+    d.poteVista === true && d.poteDbg.recusado === true && d.poteDbg.comps.length === 0 &&
+    x.isMeeting === true && x.temLive === true && x.poteLive.n === 'NAO SEI' && x.poteLive.legivel === false);
 }
 
 /* ── P6 · URL e fronteira do Git ─────────────────────────────────────────── */
 {
-  const arq = M.vals({ view: 'archive', lang: 'it' }).pote.objetos;
+  const arq = ler(M, 'archive', 'it').objetos;
   const js = arq.find((o) => o.id === 'SINT-SG-8').provas[0];
   prova('P6 URL javascript: nao vira link', js.temUrl === false && js.url === '' && js.semUrl === true);
-  const op = M.vals({ view: 'meeting', lang: 'it' }).pote.objetos[0].provas[0];
+  const op = ler(M, 'meeting', 'it').objetos[0].provas[0];
   prova('P6 URL https vira link, com a prova ate ao DOCUMENT_ID',
     op.temUrl === true && /^https:/.test(op.url) && /ITEM_ID .* → RAW_OBSERVATION_ID .* → SOURCE_ID .* → DOCUMENT_ID /.test(op.cadeia));
   // LOTE8-INTEGRA: split por /\r?\n/. O .vercelignore nao tem `-text` no .gitattributes e, com
@@ -186,9 +209,10 @@ for (const [nome, mexer] of [
   const a = HTML.indexOf('<sc-if value="{{ poteVista }}"');
   const b = HTML.indexOf('<!-- ================= SALA', a);
   const bloco = HTML.slice(a, b);
-  const x = M.vals({ view: 'meeting', lang: 'it' });
-  const alias = { r: x.pote.run[0], o: x.pote.objetos[0], c: x.pote.objetos[0].chaves[0],
-    p: x.pote.objetos[0].provas[0], g: { t: '' } };
+  const x = M.vals({ view: DEBUG, lang: 'it' });
+  const comp = x.poteDbg.comps.find((c) => c.objetos.length);
+  const alias = { r: x.poteDbg.run[0], pote: comp, o: comp.objetos[0], c: comp.objetos[0].chaves[0],
+    p: comp.objetos[0].provas[0], g: { t: '' } };
   const soltas = [];
   for (const m of bloco.matchAll(/\{\{\s*([^}]+?)\s*\}\}/g)) {
     const expr = m[1];
@@ -200,6 +224,19 @@ for (const [nome, mexer] of [
   }
   prova('P7 toda ligacao do bloco do pote resolve', a > 0 && soltas.length === 0, soltas.join(', '));
   prova('P7 marca no bloco e em cada objeto', (bloco.match(/data-marca="1"/g) || []).length >= 2);
+  prova('P7 do objeto ate a prova: trecho e RAW no bloco', /data-pote-trecho/.test(bloco) && /data-pote-raw/.test(bloco));
+  const lv = M.vals({ view: 'meeting', lang: 'it' });
+  const la = HTML.indexOf('<div data-live="1"'), lb = HTML.indexOf('<div data-snapshot=', la);
+  const soltasLive = [];
+  for (const m of HTML.slice(la, lb + 200).matchAll(/\{\{\s*([^}]+?)\s*\}\}/g)) {
+    const [head, ...rest] = m[1].split('.');
+    let cur = lv[head];
+    for (const k of rest) cur = cur == null ? undefined : cur[k];
+    if (cur === undefined) soltasLive.push(m[1]);
+  }
+  prova('P7 toda ligacao da linha LIVE e do SNAPSHOT resolve (Radar)', la > 0 && soltasLive.length === 0, soltasLive.join(', '));
+  prova('P7 o SNAPSHOT tem a data do proprio pacote, nao escrita a mao',
+    /data-snapshot="\{\{ meetingMeta\.MEETING_CUTOFF \}\}"/.test(HTML) && /data-snapshot="\{\{ snapRF \}\}"/.test(HTML));
 }
 
 /* ── POTE-V2-UNICO · P8/P9/P10/P11 — o contrato unico no casco ─────────────────────────────────
@@ -207,7 +244,7 @@ for (const [nome, mexer] of [
 const POTE2 = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json'), 'utf8'));
 {
   const M2 = montar(clone(POTE2));
-  const mk = M2.vals({ view: 'market', lang: 'it' }).pote.objetos;
+  const mk = ler(M2, 'market', 'it').objetos;
   const por = (id) => mk.find((o) => o.id === id);
   prova('P8 preco solto: «SEGNALE ISOLATO — NON e una variazione di mercato»',
     por('SINT-MK-SOLTO').temMercado && !por('SINT-MK-SOLTO').eSerie && /SEGNALE ISOLATO — NON/.test(por('SINT-MK-SOLTO').mercado));
@@ -217,21 +254,21 @@ const POTE2 = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/PO
     por('SINT-MK-SERIE').eSerie && /SERIE MISURATA · 2 punti · stessa unità EUR\/t · 2026-W36 SINT-205 \| 2026-W37 SINT-210$/.test(por('SINT-MK-SERIE').mercado) &&
     !/%|\+|variazione di \d/.test(por('SINT-MK-SERIE').mercado));
   prova('P8 fora do Polso nao ha leitura de mercado',
-    M2.vals({ view: 'windows', lang: 'it' }).pote.objetos.every((o) => !o.temMercado));
+    ler(M2, 'windows', 'it').objetos.every((o) => !o.temMercado));
 
-  const pt = M2.vals({ view: 'portfolio', lang: 'it' }).pote.objetos.find((o) => o.id === 'SINT-CR-NAO');
+  const pt = ler(M2, 'portfolio', 'it').objetos.find((o) => o.id === 'SINT-CR-NAO');
   prova('P11 o «nao» sem tempo ancorado aparece, e diz que o uso nao pede tempo',
     pt && pt.semTempo === true && /NON ancorato/.test(pt.avisoTempo) && pt.resultado.v === 'NAO');
   prova('P11 a Sala aparece so como prova: de onde veio, G0 e como foi admitida',
     /Sala d'attesa, solo come prova.*ITEM_ID SINT-V-2 · G0 BLOQUEADO_EM_G0 · ammessa per USO_SEM_TEMPO/.test(pt.provas[0].origem));
-  const nd = M2.vals({ view: 'meeting', lang: 'it' }).pote.objetos.find((o) => o.id === 'SINT-ND-1');
+  const nd = ler(M2, 'meeting', 'it').objetos.find((o) => o.id === 'SINT-ND-1');
   prova('P11 URL NAO SEI mostra a base (porque nao ha URL)',
     nd && /^URL NAO SEI · NAO_VEIO/.test(nd.provas[0].urlTexto) && /pubblicato NAO SEI \(NAO_VEIO/.test(nd.provas[0].datas));
-  const w = M2.vals({ view: 'windows', lang: 'it' }).pote.objetos.find((o) => o.id === 'SINT-W-LUGAR');
+  const w = ler(M2, 'windows', 'it').objetos.find((o) => o.id === 'SINT-W-LUGAR');
   prova('P11 D112: ENTITY_SOURCE e LOCATION_SOURCE desenhados com o nome deles',
     w && w.origens.map((c) => c.k).join() === 'ENTITY_SOURCE,LOCATION_SOURCE' && w.origens[1].v === 'TEXTO_DO_BOLETIM');
   prova('P11 compartimento vazio diz NAO SEI e o porque',
-    /^NAO SEI · VUOTO · SEM_OBJETOS_NESTA_CORRIDA/.test(M2.vals({ view: 'voices', lang: 'it' }).pote.vazioTitulo));
+    /^NAO SEI · VUOTO · SEM_OBJETOS_NESTA_CORRIDA/.test(ler(M2, 'voices', 'it').vazioTitulo));
 }
 { /* P9 · pedido e nao chegou: NAO SEI em cada ferramenta, e o legado NAO volta */
   const R = montar();
@@ -239,13 +276,15 @@ const POTE2 = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/PO
   let ok = true, det = '';
   for (const [v, [flag]] of Object.entries(ROTAS)) {
     const x = R.vals({ view: v, lang: 'it' });
-    if (!(x.poteVista === true && x[flag] === false && x.pote.vazio === true && /^NAO SEI · POTE NON CARICATO/.test(x.pote.vazioTitulo) &&
-      x.pote.objetos.length === 0)) { ok = false; det = v; }
+    if (!(x.poteVista === false && x[flag] === true)) { ok = false; det = v; }
   }
-  prova('P9 pote pedido e ausente: cada ferramenta diz NAO SEI, sem snapshot nem demo', ok, det);
+  prova('P9 pote pedido e ausente: o cliente continua o casco original', ok, det);
+  const d = R.vals({ view: DEBUG, lang: 'it' });
+  prova('P9 pote pedido e ausente: o debug diz NAO SEI · POTE NON CARICATO', d.poteVista === true && d.poteDbg.assente === true &&
+    /^NAO SEI · POTE NON CARICATO/.test(d.poteDbg.assenteTitulo) && d.poteDbg.comps.length === 0);
+  prova('P9 pote pedido e ausente: o LIVE diz NAO SEI, nunca 0', R.vals({ view: 'meeting', lang: 'it' }).poteLive.n === 'NAO SEI');
   prova('P9 pote pedido e ausente: sala/painel/detalhes nao sao tomados', ['sala', 'painel', 'mcase'].every((v) => R.vals({ view: v, lang: 'it' }).poteVista === false));
-  const x = R.vals({ view: 'meeting', lang: 'it' });
-  prova('P9 a corrida ausente mostra-se NAO SEI', x.pote.run[0].v === 'NAO SEI');
+  prova('P9 a corrida ausente mostra-se NAO SEI', d.poteDbg.run[0].v === 'NAO SEI');
   const pedidos = [];
   const sb = vm.createContext({ document: { write: (s) => pedidos.push(s) } });
   sb.window = sb; sb.window.location = { search: '?pote=local' };
@@ -271,11 +310,13 @@ for (const [nome, mexer] of [
   ['sem run id no topo', (p) => { p.CABECALHO = { INTELLIGENCE_RUN_ID: p.INTELLIGENCE_RUN_ID }; delete p.INTELLIGENCE_RUN_ID; }],
 ]) {
   const pote = clone(POTE2); mexer(pote);
-  const x = montar(pote).vals({ view: 'market', lang: 'it' });
-  prova(`P10 pote com ${nome}: recusado, nada desenhado`, x.pote.recusado === true && x.pote.objetos.length === 0 && x.isMarket === false);
+  const Mx = montar(pote);
+  const r = ler(Mx, 'market');
+  prova(`P10 pote com ${nome}: recusado, nada desenhado (e o cliente continua o original)`,
+    r.recusado === true && r.objetos.length === 0 && Mx.vals({ view: 'market', lang: 'it' }).isMarket === true);
 }
 prova('P10 o pote v2 unico sintetico passa no leitor',
-  montar(clone(POTE2)).vals({ view: 'market', lang: 'it' }).pote.recusado === false);
+  ler(montar(clone(POTE2)), 'market').recusado === false);
 
 console.log(`\nPOTE NO CASCO: ${provas - falhas}/${provas} provas`);
 process.exit(falhas ? 1 : 0);

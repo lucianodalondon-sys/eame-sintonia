@@ -106,8 +106,91 @@
    "QUEM_MATOU": [
     "FAIL: test_o_fotografo_visita_toda_tela_que_uma_conferencia_le (tests.test_publicar_portal_sozinho.P1_AsTelas.test_o_fotografo_visita_toda_tela_que_uma_conferencia_le)"
    ]
+  },
+  {
+   "MUTANTE": "M14 D152 toda rota de cliente cede ao pote (debug em todo lado)",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P1 sem pote, #meeting desenha o legado (isMeeting)",
+    "FAIL: P1 sem pote, #radarfuturo desenha o legado (isRadarFuturo)",
+    "FAIL: P1 sem pote, #future desenha o legado (isFuture)"
+   ]
+  },
+  {
+   "MUTANTE": "M15 D152 LIVE com numero fixo",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P2 [it] #meeting LIVE = a contagem do compartimento meeting no pote, com a corrida",
+    "FAIL: P2 [it] #radarfuturo LIVE = a contagem do compartimento future no pote, com a corrida",
+    "FAIL: P2 [en] #meeting LIVE = a contagem do compartimento meeting no pote, com a corrida"
+   ]
+  },
+  {
+   "MUTANTE": "M16 D152 a barra conta o pote em toda voz",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_a_barra_conta_o_pote (tests.test_publicar_portal_sozinho.P4_OCasco.test_a_barra_conta_o_pote)"
+   ]
+  },
+  {
+   "MUTANTE": "M17 D152 SNAPSHOT do Radar sem a data do pacote",
+   "FICHEIRO": "italia-portale/client/portale.html",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P7 o SNAPSHOT tem a data do proprio pacote, nao escrita a mao"
+   ]
+  },
+  {
+   "MUTANTE": "M18 D152 conferencia do LIVE desligada",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_live_com_numero_que_nao_e_o_do_pote (tests.test_publicar_portal_sozinho.P1_AsTelas.test_live_com_numero_que_nao_e_o_do_pote)",
+    "FAIL: test_live_numa_tela_que_nao_o_tem (tests.test_publicar_portal_sozinho.P1_AsTelas.test_live_numa_tela_que_nao_o_tem)",
+    "FAIL: test_snapshot_sem_rotulo (tests.test_publicar_portal_sozinho.P1_AsTelas.test_snapshot_sem_rotulo)"
+   ]
+  },
+  {
+   "MUTANTE": "M19 D152 camada tecnica no cliente passa",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_camada_tecnica_na_tela_do_cliente (tests.test_publicar_portal_sozinho.P1_AsTelas.test_camada_tecnica_na_tela_do_cliente)",
+    "FAIL: test_sha_servido_nao_e_o_do_pote (tests.test_publicar_portal_sozinho.P1_AsTelas.test_sha_servido_nao_e_o_do_pote)",
+    "FAIL: test_tela_que_faltou (tests.test_publicar_portal_sozinho.P1_AsTelas.test_tela_que_faltou)"
+   ]
+  },
+  {
+   "MUTANTE": "M20 D152 caso antigo fora do snapshot passa",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_a_caixa_oggi_do_legado (tests.test_publicar_portal_sozinho.P1_AsTelas.test_a_caixa_oggi_do_legado)",
+    "FAIL: test_d152_caso_antigo_fora_do_snapshot (tests.test_publicar_portal_sozinho.P1_AsTelas.test_d152_caso_antigo_fora_do_snapshot)",
+    "FAIL: test_detector_que_nao_mediu_nao_vale_zero (tests.test_publicar_portal_sozinho.P1_AsTelas.test_detector_que_nao_mediu_nao_vale_zero)"
+   ]
+  },
+  {
+   "MUTANTE": "M21 D152 prova sem o trecho",
+   "FICHEIRO": "italia-portale/client/sintonia-pote-casco.js",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: P7 toda ligacao do bloco do pote resolve — p.trecho"
+   ]
+  },
+  {
+   "MUTANTE": "M22 D152 debug sem o pote inteiro passa",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_debug_sem_o_pote_inteiro (tests.test_publicar_portal_sozinho.P1_AsTelas.test_debug_sem_o_pote_inteiro)",
+    "FAIL: test_pote_recusado_no_debug (tests.test_publicar_portal_sozinho.P1_AsTelas.test_pote_recusado_no_debug)"
+   ]
   }
  ],
- "MORTOS": 13,
- "TOTAL": 13
+ "MORTOS": 22,
+ "TOTAL": 22
 }

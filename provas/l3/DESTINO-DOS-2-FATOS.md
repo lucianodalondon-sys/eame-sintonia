@@ -8,6 +8,13 @@ invente, nao mude o significado de nenhuma ferramenta.»
 DESTINO_CORRETO_DOS_2_FATOS_NO_CASCO = DESTINO_DE_PRODUTO_AINDA_NAO_DEFINIDO
 ```
 
+> **Adendo do coordenador (D152, 29/09), depois do red team:** `DESTINO_SEMANTICAMENTE_CORRETO = agrometConditions`
+> (familia do modelo, `italy-app-model.js:4290-4305` @ `27b9e674`). A familia **nao tem tela consumidora**: os 2 ficam
+> **sem card para o cliente**, so no debug (`/debug/intelligence-pot`). Nenhuma tela criada. O rotulo
+> `REGULATORY_FUTURE_FACT` (`portale.html:6585`) **nao** e usado para eles. O coordenador conferiu tambem que
+> `cropWindows` (`italy-app-model.js:1541-1600` @ `27b9e674`) exige CROP/ISSUE/datas/estadio/produto: Finestre
+> Colturali nao admite um sinal climatico sem cultura — confirma a tabela abaixo.
+
 Nenhum codigo foi escrito para os por em tela nenhuma. Nada foi revertido porque nada tinha sido escrito
 (a missao foi parada antes da primeira edicao; `git log` do ramo comeca em `9f20eeb23`).
 
