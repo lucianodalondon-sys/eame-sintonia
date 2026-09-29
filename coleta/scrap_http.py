@@ -624,7 +624,13 @@ def buscar_bytes(url, *, aceitar='*/*', cabecalhos=None):
             corpo = f.read()
             meta = {'STATUS': getattr(f, 'status', None),
                     'CONTENT_TYPE': f.headers.get('Content-Type'),
-                    'CONTENT_LENGTH': f.headers.get('Content-Length')}
+                    'CONTENT_LENGTH': f.headers.get('Content-Length'),
+                    # RELIGA-MULTICANAL (D157): ONDE SE ATERRISSOU, e nao onde se pediu.
+                    # Uma autorizacao do dono limita HOST; um redireccionamento para OUTRO CAMINHO do
+                    # mesmo host passava por ela sem ninguem ver. Quem restringe caminho precisa de
+                    # saber onde a ligacao acabou — e so o urlopen sabe.
+                    #     PEDIR UM ENDERECO NAO E CHEGAR A ELE.
+                    'URL_FINAL': getattr(f, 'url', None) or url}
             resposta['http'] = meta['STATUS']
     except urllib.error.HTTPError as e:
         resposta.update(http=e.code, retry_after=e.headers.get('Retry-After') if e.headers else None)

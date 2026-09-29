@@ -51,7 +51,7 @@ def transporte():
         try:
             corpo, meta = http.buscar_bytes(url, aceitar=aceitar)
             return {"STATUS": meta.get("STATUS"), "BYTES": corpo, "CONTENT_TYPE": meta.get("CONTENT_TYPE"),
-                    "ERRO": None}
+                    "URL_FINAL": meta.get("URL_FINAL") or url, "ERRO": None}
         except http.RotaNaoPermitida as ex:                        # a NOSSA politica (robots, teto, host)
             return {"STATUS": None, "BYTES": None, "ERRO": "ROTA_NAO_PERMITIDA: %s" % ex, "QUEM_DISSE_NAO": "NOS"}
         except http.RotaBloqueada as ex:                           # a PLATAFORMA
@@ -209,6 +209,44 @@ ROTA_IG_REEL = "instagram:reel-por-url-directa"
 RE_IG_SHORTCODE = re.compile(r"/reel/([A-Za-z0-9_-]{5,})")
 RE_IG_HANDLE = re.compile(r"^[A-Za-z0-9._]{1,30}$")
 
+# ── A DECISAO DO DONO QUE ATRAVESSA O ROBOTS, E ATE ONDE ELA VAI ──────────────────────────────────────
+# A D22 e uma DECISAO ESCRITA DO DONO, e esta peca CITA-A — nao a redige:
+#
+#     «a coleta de Reels do Instagram pelo Sintonia Scrap (por URL direta, sem login, sem conta [...])
+#      e AUTORIZADA pelo dono para a Big Collection, com o risco assumido pelo dono, tal como a D17.4
+#      fez com o YouTube (OWNER_AUTHORIZED = SIM; o eixo PLATFORM_POLICY_STATUS fica registado com o
+#      que for medido, nao se esconde)»
+#      — auditoria-madrugada/DECISOES-DONO-2026-09-23.md, D22, linhas 208-214
+#
+# A forma e a MESMA que a D23 ja usa no LinkedIn (`coleta/adaptador_linkedin.py`).
+#
+# ⚠️ E AQUI ELA E MAIS APERTADA DO QUE O MECANISMO, DE PROPOSITO.
+# `scrap_http.autorizacao_do_dono` limita HOST, nao CAMINHO. Com o host aberto, `/<conta>/` e
+# `/<conta>/embed/` passariam pela mesma porta — e a D22 abre o REEL POR URL DIRECTA, e so isso: a
+# CONTA continua POLICY_BLOCK pela D19. Por isso esta rota poe um filtro de CAMINHO por cima, e
+# confere tambem ONDE A LIGACAO ATERRISSOU (`URL_FINAL`): um redireccionamento para outro caminho do
+# mesmo host e RECUSA.
+#
+#     UMA AUTORIZACAO POR HOST NUMA DECISAO QUE FALA DE UMA PAGINA E LARGA DE MAIS.
+#     O QUE O DONO ABRIU FOI UM REEL, NAO UM DOMINIO.
+#
+# O que se mede fica no rasto e NAO se apaga: ROBOTS_STATUS=DISALLOW (o robots barra, e isso e um
+# facto), PLATFORM_POLICY_STATUS=DISALLOWED, OWNER_AUTHORIZED=SIM.
+DECISAO_DO_DONO_IG = "D22"
+AUTORIZACAO_ESCRITA_IG = (
+    "D22 · auditoria-madrugada/DECISOES-DONO-2026-09-23.md:208-214 · OWNER_AUTHORIZED=SIM · "
+    "PLATFORM_POLICY_STATUS=DISALLOWED MEDIDO · so REEL por URL directa, sem login e sem conta")
+HOSTS_IG = ("instagram.com", "www.instagram.com")
+RE_IG_CAMINHO_PERMITIDO = re.compile(r"^/reel/[A-Za-z0-9_-]{5,}/?$")
+
+
+def caminho_de_reel_permitido(url) -> bool:
+    """So `/reel/<code>/`. A conta, o perfil e o `/embed/` NAO — a D22 abre o Reel, e so ele."""
+    p = urllib.parse.urlsplit(str(url or ""))
+    if p.hostname and p.hostname.lower().lstrip(".") not in HOSTS_IG:
+        return False
+    return bool(RE_IG_CAMINHO_PERMITIDO.match(p.path or ""))
+
 
 def handle_do_endereco(url):
     """O handle na URL da conta. O Curator nem sempre o declara a parte (as CAND-* so trazem o endereco),
@@ -240,25 +278,45 @@ def instagram_reels_da_conta(*, handle, buscar, max_alvos=None):
             "REELS_NA_PAGINA": len(codigos)}
 
 
-def instagram_reel(*, url, buscar):
-    """UM Reel por URL DIRECTA (D22). → {"BYTES", "URL", "NATIVE_ID", "ROTA"} ou {"ERRO"}.
+def instagram_reel(*, url, buscar, autorizar=True):
+    """UM Reel por URL DIRECTA (D22, citada acima). → {"BYTES", "URL", "NATIVE_ID", "ROTA", rasto} ou {"ERRO"}.
 
-    A pagina `/embed/` do PROPRIO Reel e a que o canario de 23/09 usou: e publica, sem login e sem conta."""
+    `autorizar=False` corre SEM a decisao do dono — e ai o robots barra, como deve. Os testes usam-no
+    para provar que a porta so abre POR CAUSA da D22, e nao por si."""
     m = RE_IG_SHORTCODE.search(str(url or ""))
     if not m:
         return {"ERRO": "URL_NAO_E_REEL: a D22 abre o REEL por URL directa; %r nao e um /reel/" % (url,),
                 "PEDIDOS": 0}
     if not callable(buscar):
         return {"ERRO": "SEM_TRANSPORTE: esta rota nao inventa transporte", "PEDIDOS": 0}
-    alvo = "https://www.instagram.com/reel/%s/embed/" % m.group(1)
-    r = buscar(alvo)
+    # O alvo e MONTADO a partir do codigo: um `/embed/` ou um perfil que viesse no `url` nao sobrevive.
+    alvo = "https://www.instagram.com/reel/%s/" % m.group(1)
+    if not caminho_de_reel_permitido(alvo):
+        return {"ERRO": "CAMINHO_FORA_DA_D22: %s" % alvo, "PEDIDOS": 0}
+    rasto = {"ROTA": ROTA_IG_REEL, "DECISAO_DO_DONO": DECISAO_DO_DONO_IG,
+             "AUTORIZACAO_ATRAVESSADA": AUTORIZACAO_ESCRITA_IG, "OWNER_AUTHORIZED": "SIM",
+             "PLATFORM_POLICY_STATUS": "DISALLOWED", "ROBOTS_STATUS": "DISALLOW"}
+    import scrap_http as http                                      # noqa: PLC0415
+    if autorizar:
+        with http.autorizacao_do_dono(ROTA_IG_REEL, HOSTS_IG, decisao=AUTORIZACAO_ESCRITA_IG,
+                                      plataforma="INSTAGRAM"):
+            r = buscar(alvo)
+    else:
+        r = buscar(alvo)
     if r.get("ERRO") or r.get("STATUS") != 200:
-        return {"ERRO": "o Reel nao respondeu 200 (status %s%s)"
-                % (r.get("STATUS") or 0, ", " + r["ERRO"] if r.get("ERRO") else ""),
-                "PEDIDOS": 1, "URL": alvo, "QUEM_DISSE_NAO": r.get("QUEM_DISSE_NAO")}
-    return {"BYTES": r.get("BYTES"), "URL": alvo, "URL_PUBLICA": "https://www.instagram.com/reel/%s/" % m.group(1),
-            "NATIVE_ID": m.group(1), "ROTA": ROTA_IG_REEL, "PEDIDOS": 1,
-            "CONTENT_TYPE": r.get("CONTENT_TYPE") or "text/html"}
+        return dict(rasto, ERRO="o Reel nao respondeu 200 (status %s%s)"
+                    % (r.get("STATUS") or 0, ", " + r["ERRO"] if r.get("ERRO") else ""),
+                    PEDIDOS=1, URL=alvo, QUEM_DISSE_NAO=r.get("QUEM_DISSE_NAO"))
+    # ⚠️ ONDE A LIGACAO ATERRISSOU, e nao onde se pediu. Um 302 para `/<conta>/` ou para um ecra de
+    # login sai daqui como RECUSA — a D22 nao abre esses caminhos, e um redireccionamento nao e uma
+    # autorizacao nova.
+    final = r.get("URL_FINAL") or alvo
+    if not caminho_de_reel_permitido(final):
+        return dict(rasto, ERRO="REDIRECT_FORA_DA_D22: pedi %s e aterrissei em %s" % (alvo, final),
+                    PEDIDOS=1, URL=alvo, URL_FINAL=final)
+    return dict(rasto, BYTES=r.get("BYTES"), URL=alvo, URL_PUBLICA=alvo, URL_FINAL=final,
+                NATIVE_ID=m.group(1), PEDIDOS=1,
+                CONTENT_TYPE=r.get("CONTENT_TYPE") or "text/html")
 
 
 # ══════════════════════════════════════════════════════════════════════════════

@@ -191,18 +191,19 @@ def alvos_da_fonte(linha: str, cand: dict, buscar, *, max_alvos=None) -> dict:
                        "DESCOBERTO_POR": "CURATOR_REELS_JA_NO_REPOSITORIO",
                        "CONTA": alvo.get("HANDLE") or RM.handle_do_endereco(alvo.get("URL_DA_CONTA"))}
                       for u in (alvo.get("REELS_CONHECIDOS") or [])]
-        handle = alvo.get("HANDLE") or RM.handle_do_endereco(alvo.get("URL_DA_CONTA"))
-        r = RM.instagram_reels_da_conta(handle=handle, buscar=buscar, max_alvos=max_alvos)
-        if r.get("ERRO"):
-            # A listagem falhou; os Reels PROVADOS continuam a valer — e isso e um resultado, nao um erro.
-            if conhecidos:
-                return {"ALVOS": conhecidos, "PEDIDOS": r.get("PEDIDOS", 1), "ROTA": RM.ROTA_IG_REEL,
-                        "RAW_DA_DESCOBERTA": None, "LISTAGEM_FALHOU": r["ERRO"]}
-            return r
-        novos = [a for a in r["ALVOS"] if a["URL"] not in {c["URL"] for c in conhecidos}]
-        return {"ALVOS": conhecidos + novos, "PEDIDOS": r["PEDIDOS"], "ROTA": r["ROTA"], "URL": r.get("URL"),
-                "RAW_DA_DESCOBERTA": r.get("HTML"), "ALVOS_NA_PAGINA": r.get("REELS_NA_PAGINA"),
-                "REELS_CONHECIDOS": len(conhecidos)}
+        # ⚠️ SO_URL_DIRETA_SEM_LISTAGEM (red team D157). A D22 abre o REEL por URL directa, e so isso:
+        # a CONTA continua POLICY_BLOCK pela D19, e a listagem `/<conta>/embed/` NAO e pedida — nem
+        # quando o robots a deixasse passar. Os alvos sao os Reels que o Curator PROVOU, e mais nenhum.
+        #
+        #     AMPLIAR UMA AUTORIZACAO PORQUE ELA ESTAVA PERTO E COMO TRATA-LA COMO PERMISSAO GERAL.
+        if not conhecidos:
+            return {"ERRO": ("SEM_REEL_CONHECIDO: a D22 abre o Reel por URL directa e esta conta nao tem "
+                             "nenhum provado pelo Curator. A listagem da conta nao e pedida (D19)."),
+                    "PEDIDOS": 0, "ROTA": RM.ROTA_IG_REEL}
+        return {"ALVOS": conhecidos[:max_alvos] if max_alvos else conhecidos, "PEDIDOS": 0,
+                "ROTA": RM.ROTA_IG_REEL, "RAW_DA_DESCOBERTA": None,
+                "REELS_CONHECIDOS": len(conhecidos), "ROTA_LISTAGEM": "NAO_PEDIDA (D19)",
+                "DECISAO_DO_DONO": RM.DECISAO_DO_DONO_IG}
     if linha == "LINKEDIN":
         r = RM.linkedin_posts_da_organizacao(pagina_url=alvo.get("PAGINA"), run_id=cand.get("_RUN_ID") or "LI",
                                              buscar=buscar, teto=max_alvos)

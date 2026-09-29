@@ -700,6 +700,93 @@ def test_armadilha_run_id_nao_inventa_territorio():
 # ══════════════════════════════════════════════════════════════════════════════
 # D157 + LAB · NAO SE RE-PEDE O QUE JA SE COLHEU, E A SALA NAO REPETE O CONTEUDO
 # ══════════════════════════════════════════════════════════════════════════════
+def test_armadilha_a_d22_abre_o_reel_e_nao_o_dominio():
+    """⚠️ `autorizacao_do_dono` limita HOST, nao CAMINHO. Com o host aberto, o perfil e o /embed/ da
+    conta passavam pela MESMA porta — e a D22 abre o REEL POR URL DIRECTA; a CONTA continua
+    POLICY_BLOCK pela D19.
+
+        AMPLIAR UMA AUTORIZACAO PORQUE ELA ESTAVA PERTO E COMO TRATA-LA COMO PERMISSAO GERAL."""
+    ok = "https://www.instagram.com/reel/DcNkh7LCW4u/"
+    assert RM.caminho_de_reel_permitido(ok)
+    assert RM.caminho_de_reel_permitido(ok.rstrip("/"))
+    for recusado in (
+            "https://www.instagram.com/bayer_italia/",              # o perfil
+            "https://www.instagram.com/bayer_italia/embed/",        # a listagem da conta
+            "https://www.instagram.com/reel/DcNkh7LCW4u/embed/",    # o embed DO reel
+            "https://www.instagram.com/p/DcNkh7LCW4u/",             # um post que nao e reel
+            "https://www.instagram.com/accounts/login/",            # o ecra de login
+            "https://www.instagram.com/",
+            "https://exemplo.it/reel/DcNkh7LCW4u/"):                # outro host
+        assert not RM.caminho_de_reel_permitido(recusado), "a D22 nao abre %s" % recusado
+
+
+def test_a_rota_do_reel_cita_a_decisao_escrita_do_dono():
+    """A autorizacao tem de dizer QUEM decidiu e ONDE esta escrito — uma excepcao sem nome de quem a
+    autorizou e um bypass com outro nome, e e o proprio `scrap_http` que o diz."""
+    assert RM.DECISAO_DO_DONO_IG == "D22"
+    for pedaco in ("D22", "DECISOES-DONO-2026-09-23.md", "OWNER_AUTHORIZED=SIM",
+                   "PLATFORM_POLICY_STATUS=DISALLOWED"):
+        assert pedaco in RM.AUTORIZACAO_ESCRITA_IG, pedaco
+
+
+def test_o_rasto_do_reel_nao_esconde_que_o_robots_barra():
+    """O que se mede fica no rasto e NAO se apaga: o robots barra, e isso e um facto que viaja."""
+    b = leitor("<html>reel</html>")
+    r = RM.instagram_reel(url="https://www.instagram.com/reel/DcNkh7LCW4u/", buscar=b)
+    assert r["ROBOTS_STATUS"] == "DISALLOW"
+    assert r["PLATFORM_POLICY_STATUS"] == "DISALLOWED"
+    assert r["OWNER_AUTHORIZED"] == "SIM"
+    assert r["DECISAO_DO_DONO"] == "D22"
+    assert b.chamadas == ["https://www.instagram.com/reel/DcNkh7LCW4u/"], \
+        "pediu um caminho que a D22 nao abre: %s" % b.chamadas
+
+
+def test_armadilha_um_redirect_para_outro_caminho_e_recusa():
+    """⚠️ Um 302 para o perfil ou para um ecra de login e do MESMO host — a autorizacao por host
+    deixava-o passar. Um redireccionamento nao e uma autorizacao nova.
+
+        PEDIR UM ENDERECO NAO E CHEGAR A ELE."""
+    def buscar_que_redirige(url, aceitar=None):
+        return {"STATUS": 200, "BYTES": b"<html>login</html>", "ERRO": None,
+                "URL_FINAL": "https://www.instagram.com/accounts/login/"}
+    r = RM.instagram_reel(url="https://www.instagram.com/reel/DcNkh7LCW4u/", buscar=buscar_que_redirige)
+    assert "BYTES" not in r
+    assert "REDIRECT_FORA_DA_D22" in r["ERRO"]
+    assert r["ROBOTS_STATUS"] == "DISALLOW", "o rasto viaja mesmo na recusa"
+
+
+def test_o_embed_do_reel_e_montado_para_fora_mesmo_que_venha_na_url():
+    """Quem passar `/reel/<code>/embed/` recebe o REEL, nao o embed: o alvo e MONTADO do codigo."""
+    b = leitor("<html>reel</html>")
+    RM.instagram_reel(url="https://www.instagram.com/reel/DcNkh7LCW4u/embed/", buscar=b)
+    assert b.chamadas == ["https://www.instagram.com/reel/DcNkh7LCW4u/"]
+
+
+def test_a_conta_sem_reel_provado_nao_manda_listar_a_conta():
+    """SO_URL_DIRETA_SEM_LISTAGEM: sem Reel provado pelo Curator, a linha para — e NAO vai pedir a
+    pagina da conta para descobrir algum."""
+    import onda_linha as OL
+    b = leitor("<a href='/reel/XXXXX/'>x</a>")
+    cand = {"SOURCE_ID": "CAND-0078", "ALVO": {"HANDLE": "granapadano", "REELS_CONHECIDOS": []}}
+    r = OL.alvos_da_fonte("INSTAGRAM", cand, b)
+    assert "SEM_REEL_CONHECIDO" in r["ERRO"]
+    assert b.chamadas == [], "foi listar a conta: %s" % b.chamadas
+
+
+def test_a_linha_instagram_so_usa_os_reels_provados_pelo_curator():
+    import onda_linha as OL
+    b = leitor("<html>x</html>")
+    cand = {"SOURCE_ID": "COMPETITOR-X", "ALVO": {
+        "HANDLE": "bayer_italia",
+        "REELS_CONHECIDOS": ["https://www.instagram.com/reel/DcNkh7LCW4u/",
+                             "https://www.instagram.com/reel/DZ9ygDrCwzu/"]}}
+    r = OL.alvos_da_fonte("INSTAGRAM", cand, b)
+    assert [a["URL"] for a in r["ALVOS"]] == cand["ALVO"]["REELS_CONHECIDOS"]
+    assert r["PEDIDOS"] == 0, "a descoberta nao gasta pedido: os Reels ja eram conhecidos"
+    assert r["ROTA_LISTAGEM"] == "NAO_PEDIDA (D19)"
+    assert b.chamadas == []
+
+
 def test_armadilha_o_motor_de_busca_e_o_do_vivo_e_nao_um_nome_inventado():
     """⚠️ Eu tinha escrito «DUCKDUCKGO_HTML» por omissao; o dicionario do vivo chama-lhe `DDG_HTML`.
     As 5 consultas do canario morreram todas com KeyError, e o erro so apareceu na rede real."""
