@@ -115,8 +115,8 @@ def pode_implementar_inteligencia():
 # nao existia, um C8 com qualquer frase, e READ_ONLY = True so dito. Os tres
 # passavam. Agora cada um e CONFERIDO:
 #
-#     LAB   o ficheiro existe, diz VEREDITO=PASS numa linha propria, e cita o
-#           sha256 DESTE pote (do dict canonico, ou do ficheiro do pote);
+#     LAB   JSON numa pasta exclusiva do LAB; a entrada do par (POTE_SHA256,
+#           RUN_ID) deste pote diz VEREDITO=PASS e LAB_ORIGIN=sintonia-lab;
 #     C8    comeca por um ID de decisao (Dnnn) escrito no diario, do dono, e
 #           nao revogado — texto livre nao casa com nada;
 #     SALA  a copia existe, o sha256 dela bate, o pote diz que foi feito DELA
@@ -210,6 +210,23 @@ def _tem_consumido_em(x):
         return any(_tem_consumido_em(v) for v in x)
     return False
 _TAMANHO_MAXIMO_DA_PROVA = 20 * 1024 * 1024
+#: Quem pode assinar a prova reversa: o LAB, por identidade DECLARADA na propria
+#: entrada da prova (e, alem disso, por pasta exclusiva — PASTAS_DO_LAB).
+LAB_ORIGIN = 'sintonia-lab'
+#: ⚠️ LIMITE CONHECIDO (ponto do auditor, aceite pelo coordenador, 29/09): neste
+#: PC todos os agentes correm como o MESMO utilizador Windows. A pasta exclusiva
+#: NAO prova autoria — so impede reuso acidental e mistura. O que a guarda PROVA
+#: e o vinculo (POTE_SHA256, RUN_ID) por igualdade de campo, que impede prova de
+#: outro pote ou de outra corrida. Falsificacao deliberada por outro agente local
+#: fica fora do alcance desta guarda e e coberta pela auditoria independente.
+LIMITE_CONHECIDO = {
+    'AUTORIA_DO_LAB': 'DECLARADA',
+    'AUTORIA_PROVADA': False,
+    'COMO_SE_DECLARA': 'LAB_ORIGIN na entrada da prova + pasta PASTAS_DO_LAB',
+    'O_QUE_SE_PROVA': 'o vinculo (POTE_SHA256, RUN_ID) por igualdade de campo',
+    'FORA_DO_ALCANCE': 'falsificacao deliberada por outro agente local (mesmo utilizador Windows); '
+                       'coberta pela auditoria independente',
+}
 #: O ambito exato da D140, como o coordenador o pediu escrito. A guarda LE-o no
 #: contrato e exige-o literal: um valor diferente nao alarga — invalida.
 AMBITO_EXATO = {'DESTINO': 'SO_PREVIEW', 'SALA_LEITURA': 'SO_COPIA_READ_ONLY',
@@ -343,13 +360,25 @@ def _dentro_de(f, pastas):
     return False
 
 
-def conferir_prova_do_lab(lab, shas_do_pote, run_id=None, pastas_do_lab=(), pote_ficheiro=None):
-    """-> motivo da recusa, ou None. O ONDE tem de ser um ficheiro que existe,
-    numa PASTA DO LAB (outro autor, nao o produtor do pote), com o sha256 que o
-    pedido fixou, que diz VEREDITO=PASS numa linha propria (ou em JSON) e cita
-    ESTE pote (sha256) E ESTA corrida (INTELLIGENCE_RUN_ID)."""
+def conferir_prova_do_lab(lab, shas_do_pote, run_id=None, pastas_do_lab=(), pote_ficheiro=None,
+                          produtores=()):
+    """-> motivo da recusa, ou None.
+
+    ⚠️ AUDITOR (VERIF-L1-cb8f20bcf) + decisao do coordenador (29/09): a prova do
+    LAB e ESTRUTURADA (JSON) e compara-se por IGUALDADE DE CAMPO — nunca por
+    substring ou regex no texto. Antes, uma prova de OUTRO pote que so mencionava
+    este (LB1), um indice com um PASS global (LB2), este pote citado como
+    REJEITADO (LB3) e a corrida com sufixo '.anterior' (LB4) atravessavam.
+
+    A prova e um objeto, uma lista de objetos, ou {"ENTRADAS": [...]}. So contam
+    as entradas cujo par (POTE_SHA256, RUN_ID) e EXATAMENTE o deste pote; cada
+    uma tem de ter, no MESMO objeto, VEREDITO == 'PASS' e LAB_ORIGIN ==
+    'sintonia-lab' (e diferente do produtor do pote). POTE_REJEITADO com este
+    pote em qualquer entrada = recusa. O ficheiro vive numa pasta EXCLUSIVA do LAB,
+    e o pote do produtor nao pode estar nessa pasta nem em subpasta dela (LB5).
+
+    Isto NAO prova autoria (LIMITE_CONHECIDO): prova o vinculo ao pote e a corrida."""
     import json
-    import re
     if not isinstance(lab, dict):
         return 'sem a prova reversa do LAB'
     f = _caminho(lab.get('ONDE'))
@@ -357,9 +386,8 @@ def conferir_prova_do_lab(lab, shas_do_pote, run_id=None, pastas_do_lab=(), pote
         return 'a prova do LAB %r nao existe' % lab.get('ONDE')
     if not _dentro_de(f, pastas_do_lab):
         return 'a prova do LAB nao esta numa pasta do LAB (PASTAS_DO_LAB da excecao)'
-    if pote_ficheiro and os.path.normcase(os.path.dirname(os.path.realpath(f))) == \
-            os.path.normcase(os.path.dirname(os.path.realpath(pote_ficheiro))):
-        return 'a prova do LAB esta na pasta do proprio pote: o produtor nao prova a si mesmo'
+    if pote_ficheiro and _dentro_de(pote_ficheiro, pastas_do_lab):
+        return 'o pote do produtor esta dentro da pasta do LAB: o produtor nao prova a si mesmo'
     fixado = str(lab.get('SHA256') or '').lower()
     if len(fixado) != 64 or _sha256_ficheiro(f) != fixado:
         return 'o sha256 da prova do LAB nao bate com o fixado no pedido'
@@ -367,21 +395,39 @@ def conferir_prova_do_lab(lab, shas_do_pote, run_id=None, pastas_do_lab=(), pote
         return 'a prova do LAB e grande demais para ser lida'
     try:
         with open(f, encoding='utf-8') as h:
-            texto = h.read()
-    except (OSError, UnicodeDecodeError) as e:
-        return 'a prova do LAB nao se le: %s' % e
-    try:
-        obj = json.loads(texto)
-        veredito = obj.get('VEREDITO') if isinstance(obj, dict) else None
-    except ValueError:
-        linhas = re.findall(r'^[\s>*|#\-]*VEREDITO[*\s]*[=:][*\s`]*([A-Z_]+)', texto, re.M)
-        veredito = linhas[0] if len(set(linhas)) == 1 else ('AMBIGUO' if linhas else None)
-    if veredito != 'PASS':
-        return 'a prova do LAB nao diz VEREDITO=PASS (diz %r)' % veredito
-    if not any(s in texto.lower() for s in shas_do_pote):
-        return 'a prova do LAB nao cita o sha256 deste pote'
-    if not run_id or not re.search(r'(?<![\w-])%s(?![\w-])' % re.escape(str(run_id)), texto):
-        return 'a prova do LAB nao cita a corrida %r que fez este pote' % run_id
+            obj = json.load(h)
+    except (OSError, UnicodeDecodeError, ValueError):
+        return 'a prova do LAB nao e estruturada (JSON): texto solto nao prova nada'
+    if isinstance(obj, dict) and isinstance(obj.get('ENTRADAS'), list):
+        entradas = obj['ENTRADAS']
+    elif isinstance(obj, dict):
+        entradas = [obj]
+    elif isinstance(obj, list):
+        entradas = obj
+    else:
+        return 'a prova do LAB nao tem entradas'
+    if not all(isinstance(e, dict) for e in entradas):
+        return 'a prova do LAB tem entradas que nao sao objetos'
+    shas = {str(x).lower() for x in shas_do_pote}
+    for e in entradas:
+        rej = e.get('POTE_REJEITADO')
+        rejeitados = rej if isinstance(rej, list) else [rej]
+        if any(isinstance(r, str) and r.strip().lower() in shas for r in rejeitados):
+            return 'a prova do LAB diz POTE_REJEITADO para este pote'
+    deste = [e for e in entradas
+             if isinstance(e.get('POTE_SHA256'), str) and e['POTE_SHA256'].strip().lower() in shas
+             and isinstance(e.get('RUN_ID'), str) and run_id is not None and e['RUN_ID'] == str(run_id)]
+    if not deste:
+        return ('a prova do LAB nao tem nenhuma entrada com o par (POTE_SHA256, RUN_ID) deste pote '
+                '(corrida %r)' % run_id)
+    prod = {str(x).strip().casefold() for x in produtores if x}
+    for e in deste:
+        if e.get('VEREDITO') != 'PASS':
+            return 'a entrada do LAB deste pote diz VEREDITO=%r' % e.get('VEREDITO')
+        if e.get('LAB_ORIGIN') != LAB_ORIGIN:
+            return 'a entrada do LAB deste pote nao vem de %s (LAB_ORIGIN=%r)' % (LAB_ORIGIN, e.get('LAB_ORIGIN'))
+        if str(e.get('LAB_ORIGIN')).strip().casefold() in prod:
+            return 'LAB_ORIGIN e o proprio produtor do pote'
     return None
 
 
@@ -528,6 +574,16 @@ def conferir_destino(d, ramo, publicacao, verificar):
     return None, ['HOST=%s respondeu SOURCE_BRANCH=%s (Vercel)' % (host, src)]
 
 
+def _produtores_do_pote(pote):
+    """Quem produziu o pote, pelo que ele diz: o PRODUTOR do topo e o LIBERADO_POR
+    de cada objeto. O LAB nao pode ser nenhum deles."""
+    quem = {pote.get('PRODUTOR')}
+    for e in (pote.get('COMPARTIMENTOS') or {}).values():
+        for o in (e or {}).get('OBJETOS') or []:
+            quem.add(o.get('LIBERADO_POR'))
+    return {q for q in quem if isinstance(q, str) and q.strip()}
+
+
 def _objetos_nao_liberados(pote, diario):
     """Os objetos do pote que o contrato de liberacao v2.2 nao deixa sair."""
     run = pote.get('INTELLIGENCE_RUN_ID')
@@ -623,13 +679,15 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     if not isinstance(lab, dict) or lab.get('VEREDITO') != 'PASS':
         return False, '%s · sem a prova reversa do LAB (VEREDITO=PASS e onde esta)' % BLOQUEIO
     problema = conferir_prova_do_lab(lab, _shas_que_nomeiam_o_pote(pedido, pote), pote.get('INTELLIGENCE_RUN_ID'),
-                                     e.get('PASTAS_DO_LAB') or (), _caminho(pedido.get('POTE_FICHEIRO')))
+                                     e.get('PASTAS_DO_LAB') or (), _caminho(pedido.get('POTE_FICHEIRO')),
+                                     _produtores_do_pote(pote))
     if problema:
         return False, '%s · %s' % (BLOQUEIO, problema)
-    verificado.append('LAB: %s existe numa pasta do LAB, sha256 fixado, VEREDITO=PASS, cita o pote e a corrida'
-                      % lab['ONDE'])
+    verificado.append('LAB: %s (JSON) numa pasta exclusiva do LAB, sha256 fixado; a entrada do par '
+                      '(POTE_SHA256, RUN_ID) deste pote diz VEREDITO=PASS e LAB_ORIGIN=%s' % (lab['ONDE'], LAB_ORIGIN))
     alegado.append('o CONTEUDO da prova reversa do LAB (nao e relido aqui)')
-    alegado.append('o AUTOR da prova do LAB (verificado so pela pasta, nao por assinatura)')
+    alegado.append('o AUTOR da prova do LAB: AUTORIA_DO_LAB=DECLARADA (LAB_ORIGIN + pasta), AUTORIA_PROVADA=false '
+                   '(todos os agentes correm como o mesmo utilizador Windows)')
     violacoes = validar(pote)
     if violacoes:
         return False, '%s · o pote reprova nos gates do pote v2: %s' % (BLOQUEIO, violacoes[0])
@@ -643,7 +701,7 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     verificado.append('C8: cada objeto cita decisao do dono registada e nao revogada')
     return True, ('EXCECAO %s (%s) · %d objeto(s) liberado(s) para %s na branch %s · '
                   'COLLECTION_FOUNDATION_CLOSED continua %s · VERIFICADO: %s · '
-                  'ALEGADO (nao conta como prova): %s' % (
+                  'ALEGADO (nao conta como prova): %s · AUTORIA_PROVADA=false' % (
                       EXCECAO_PREVIEW, AUTORIDADE_PREVIEW, n, d['TIPO'], ramo,
                       'SIM' if COLLECTION_FOUNDATION_CLOSED else 'NAO',
                       '; '.join(verificado), '; '.join(alegado)))

@@ -35,13 +35,30 @@ o red team mostrou que três campos eram texto onde devia haver prova. Corrigido
 | `consumido_em` só no topo | em qualquer nível e em qualquer caixa, incluindo dentro do pote |
 | C8 `startswith('FALHOU')` | «falhou» em qualquer caixa e sítio = falha; C8 tem de COMEÇAR por uma decisão `Dnnn` do diário, do dono, não revogada |
 | D140 contava se a marca aparecesse | só como cabeçalho numa linha própria, e não revogada («REVOGADA — ## D140», «REVOGA D140», «D140 foi REVOGADA») |
-| LAB: `ONDE` qualquer texto | ficheiro que existe, numa pasta do LAB (não na do pote), sha256 fixado no pedido, `VEREDITO=PASS` sem contradição, cita o sha256 do pote E o `INTELLIGENCE_RUN_ID` |
+| LAB: `ONDE` qualquer texto | JSON numa pasta exclusiva do LAB, sha256 fixado no pedido; a entrada do par (`POTE_SHA256`, `RUN_ID`) diz `VEREDITO=PASS` e `LAB_ORIGIN=sintonia-lab` (rodada 3) |
 | `READ_ONLY = True` só dito | a cópia da Sala existe, o sha256 bate, o CORTE do pote cita-a, nada aponta a Sala viva (54330, DSN do ambiente, Supabase) |
 | branch/host alegados | medidos em runtime: branch real (git/build) igual à declarada; host de preview responde `deployment.generated.json` com `SOURCE_BRANCH` igual à declarada |
 
+### Rodada 3 (VERIF-L1-cb8f20bcf: LB1–LB6)
+
+A prova do LAB passou a ser JSON e compara-se por IGUALDADE DE CAMPO: só conta a
+entrada cujo par (`POTE_SHA256`, `RUN_ID`) é exatamente o deste pote, com
+`VEREDITO=PASS` e `LAB_ORIGIN=sintonia-lab` no mesmo objeto; `POTE_REJEITADO` com
+este pote = recusa; texto solto = recusa. `PASTAS_DO_LAB` passou a ser só
+`C:/Users/London1/sintonia-lab-provas/`; o pote do produtor nessa pasta ou em
+subpasta = recusa (caminho resolvido, prefixo de diretório).
+
+**LIMITE_CONHECIDO:** `AUTORIA_DO_LAB = DECLARADA` (LAB_ORIGIN + pasta), **não**
+provada criptograficamente — neste PC todos os agentes correm como o mesmo
+utilizador Windows, e a pasta só impede reuso acidental e mistura. O que a guarda
+PROVA é o vínculo (`POTE_SHA256`, `RUN_ID`), que impede prova de outro pote ou de
+outra corrida. Falsificação deliberada por outro agente local fica fora do alcance
+desta guarda e é coberta pela auditoria independente. A guarda diz isto no próprio
+resultado (`AUTORIA_PROVADA=false`), e um teste reprova se ela passar a dizer mais.
+
 O que continua ALEGADO e sai assim no motivo (não conta como prova):
 `PARA_CLIENTE=False` (só restringe), o CONTEÚDO da prova do LAB, o AUTOR da prova
-do LAB (verificado só pela pasta), `TRANSACTION_READ_ONLY` dentro do CORTE.
+do LAB (`AUTORIA_PROVADA=false`), `TRANSACTION_READ_ONLY` dentro do CORTE.
 
 ## Bloqueio de política (decisão do dono)
 
@@ -64,8 +81,8 @@ sem ID no diário.
   adendos, e um teste por pedido hostil do auditor (L01–L14).
 - Mutantes: `provas/l1_governanca/mutantes_excecao_preview.py` → 59 mutantes, um por
   verificação; resultado em `MUTANTES-EXCECAO-PREVIEW.json`. Funciona em LF e em CRLF.
-- Script do auditor (`ataque_guarda_l1_real.py`) contra um clone limpo:
-  `TOTAL=16 VAZAMENTOS=0`, controlos legítimos passam.
+- Scripts do auditor contra um clone limpo: `ataque_guarda_l1_real.py` e `ataque_lab_l1.py`
+  (resultados na entrega `auditoria-madrugada/ENTREGA-L1-R3.md`).
 
 ## Critérios A..N
 

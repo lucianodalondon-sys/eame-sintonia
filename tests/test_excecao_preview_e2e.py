@@ -147,12 +147,21 @@ class Base(unittest.TestCase):
             sha = hashlib.sha256(f.read()).hexdigest()
         return {"VEREDITO": "PASS", "ONDE": caminho, "SHA256": sha}
 
+    def lab_json(self, obj, pasta=None):
+        """Uma prova ESTRUTURADA do LAB (JSON) com este conteudo."""
+        return self.lab_de_texto(json.dumps(obj, ensure_ascii=False, indent=1), pasta)
+
+    def entrada(self, pote, veredito="PASS", run=None, **extra):
+        """A entrada do LAB para o par (POTE_SHA256, RUN_ID) deste pote."""
+        e = {"POTE_SHA256": lei.sha256_do_pote(pote),
+             "RUN_ID": pote.get("INTELLIGENCE_RUN_ID") if run is None else run,
+             "VEREDITO": veredito, "LAB_ORIGIN": lei.LAB_ORIGIN}
+        e.update(extra)
+        return e
+
     def lab_para(self, pote, veredito="PASS", run=None, pasta=None):
-        """Um relatorio do LAB que existe numa pasta do LAB, diz o veredito e cita
-        ESTE pote e a corrida dele."""
-        return self.lab_de_texto("# prova reversa (sintetica)\n\nVEREDITO=%s\nPOTE_SHA256=%s\nRUN=%s\n"
-                                 % (veredito, lei.sha256_do_pote(pote),
-                                    pote.get("INTELLIGENCE_RUN_ID") if run is None else run), pasta)
+        """Uma prova do LAB, numa pasta do LAB, com a entrada deste pote e desta corrida."""
+        return self.lab_json(self.entrada(pote, veredito, run), pasta)
 
     def atravessa(self, pedido, trava=None, diario=None, olhos=None):
         if pedido.pop("_LAB_DESTE_POTE", False) and isinstance(pedido.get("POTE"), dict):
@@ -496,23 +505,26 @@ class R_RedTeamDoBotLuciano(Base):
         outro = copy.deepcopy(self.pote)
         outro["INTELLIGENCE_RUN_ID"] = "IR-outra-corrida"
         m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(outro)))
-        self.assertIn("nao cita o sha256 deste pote", m)
+        self.assertIn("par (POTE_SHA256, RUN_ID)", m)
 
     def test_redteam_lab_que_diz_fail_ou_ambiguo(self):
         run = self.pote["INTELLIGENCE_RUN_ID"]
         sha = lei.sha256_do_pote(self.pote)
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, veredito="FAIL")))
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_de_texto(
-            "VEREDITO=PASS\nVEREDITO=FAIL\n%s %s\n" % (sha, run))))
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_de_texto(
-            "o pote ainda NAO tem VEREDITO=PASS\n%s %s\n" % (sha, run))))
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, veredito="FAIL")))
+        self.assertIn("VEREDITO", m)
+        # duas entradas para o MESMO par, uma PASS e uma FAIL: nao se escolhe a que convem
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            [self.entrada(self.pote), self.entrada(self.pote, veredito="FAIL")])))
+        # texto solto, mesmo com tudo la dentro, ja nao e prova
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_de_texto(
+            "VEREDITO=PASS\nPOTE_SHA256=%s\nRUN_ID=%s\nLAB_ORIGIN=sintonia-lab\n" % (sha, run))))
+        self.assertIn("nao e estruturada", m)
 
     def test_lab_que_cita_o_ficheiro_do_pote_passa_so_se_o_ficheiro_e_este_pote(self):
         f = self.escrever("POTE.json", json.dumps(self.pote, ensure_ascii=False, indent=1))
         with open(f, "rb") as h:
             sha_do_ficheiro = hashlib.sha256(h.read()).hexdigest()
-        lab = self.lab_de_texto("VEREDITO=PASS\nPOTE=%s\nRUN=%s\n"
-                                % (sha_do_ficheiro, self.pote["INTELLIGENCE_RUN_ID"]))
+        lab = self.lab_json(self.entrada(self.pote, POTE_SHA256=sha_do_ficheiro))
         pode, motivo = self.atravessa(self.pedido(POTE_FICHEIRO=f, PROVA_REVERSA_DO_LAB=lab))
         self.assertTrue(pode, motivo)
         outro = copy.deepcopy(self.pote)
@@ -762,6 +774,118 @@ class P_AProvaDoLabEDoLabEDestaCorrida(Base):
         adulterada = self.escrever("COPIA-ADULTERADA.json", '{"SALA": "mexida"}\n')
         m = self.recusa(self.pedido(ENTRADA={"SNAPSHOT": {"FICHEIRO": adulterada, "SHA256": self.sha_copia}}))
         self.assertIn("nao bate", m)
+
+
+class LB_AProvaDoLabEstruturadaPorIgualdadeDeCampo(Base):
+    """AUDITOR (VERIF-L1-cb8f20bcf) + decisao do coordenador: LB1–LB6. A prova do
+    LAB e JSON e compara-se por IGUALDADE DE CAMPO; um teste por caso."""
+
+    OUTRO_SHA = "f" * 64
+    OUTRA_RUN = "IR-OUTRA-RODADA-0001"
+
+    def setUp(self):
+        self.sha = lei.sha256_do_pote(self.pote)
+        self.run = self.pote["INTELLIGENCE_RUN_ID"]
+
+    def outra(self, **extra):
+        e = {"POTE_SHA256": self.OUTRO_SHA, "RUN_ID": self.OUTRA_RUN, "VEREDITO": "PASS",
+             "LAB_ORIGIN": lei.LAB_ORIGIN}
+        e.update(extra)
+        return e
+
+    def test_CTRL_prova_estruturada_deste_pote_passa(self):
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
+        self.assertTrue(pode, motivo)
+
+    def test_LB1_prova_de_outro_pote_que_so_menciona_este(self):
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.outra(
+            NOTA="comparado com o pote %s da rodada %s, que NAO foi verificado" % (self.sha, self.run)))))
+        # e o texto antigo do auditor, agora solto: tambem recusa
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_de_texto(
+            "VEREDITO=PASS\nPOTE_SHA256=%s\nRUN=%s\nNota: %s %s\n"
+            % (self.OUTRO_SHA, self.OUTRA_RUN, self.sha, self.run))))
+
+    def test_LB2_indice_com_varios_potes_e_um_veredito_global(self):
+        sem_veredito = self.entrada(self.pote)
+        sem_veredito.pop("VEREDITO")
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            {"VEREDITO": "PASS", "LAB_ORIGIN": lei.LAB_ORIGIN, "ENTRADAS": [self.outra(), sem_veredito]})))
+        # so a entrada DESTE par conta: com PASS nela, o indice serve
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            {"ENTRADAS": [self.outra(VEREDITO="FAIL"), self.entrada(self.pote)]})))
+        self.assertTrue(pode, motivo)
+
+    def test_LB3_este_pote_citado_como_rejeitado(self):
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            [self.outra(), {"POTE_REJEITADO": self.sha, "RUN_ID": self.run, "LAB_ORIGIN": lei.LAB_ORIGIN}])))
+        self.assertIn("POTE_REJEITADO", m)
+        # mesmo com uma entrada PASS deste par ao lado, a rejeicao manda
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            [self.entrada(self.pote), {"POTE_REJEITADO": [self.OUTRO_SHA, self.sha.upper()]}])))
+
+    def test_LB4_corrida_com_sufixo(self):
+        for run in (self.run + ".anterior", self.run + "-x", " " + self.run, self.run.lower()
+                    if self.run.lower() != self.run else self.run + " "):
+            self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, run=run)))
+
+    def test_LB4_sha_do_pote_so_como_pedaco_recusa(self):
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            self.entrada(self.pote, POTE_SHA256="x" + self.sha))))
+
+    def test_LB5_pote_do_produtor_em_subpasta_da_pasta_do_lab(self):
+        sub = os.path.join(self.pasta_lab, "produtor", "fundo")
+        os.makedirs(sub, exist_ok=True)
+        pf = os.path.join(sub, "POTE.json")
+        with open(pf, "w", encoding="utf-8") as h:
+            json.dump(self.pote, h)
+        m = self.recusa(self.pedido(POTE_FICHEIRO=pf, PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
+        self.assertIn("dentro da pasta do LAB", m)
+
+    def test_LB6_lab_origin_e_dado_e_tem_de_ser_sintonia_lab(self):
+        self.assertEqual(lei.LAB_ORIGIN, "sintonia-lab")
+        for origem in (None, "", "intelligence", "INTELLIGENCE", "Sintonia-Lab", "sintonia-lab "):
+            e = self.entrada(self.pote, LAB_ORIGIN=origem)
+            if origem is None:
+                e.pop("LAB_ORIGIN")
+            self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(e)))
+        # LAB_ORIGIN no topo do indice nao vale pela entrada: tem de estar no MESMO objeto
+        e = self.entrada(self.pote)
+        e.pop("LAB_ORIGIN")
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json({"LAB_ORIGIN": lei.LAB_ORIGIN, "ENTRADAS": [e]})))
+
+    def test_LB6_o_lab_nao_pode_ser_o_produtor_do_pote(self):
+        p = self.pedido()
+        p["POTE"]["PRODUTOR"] = lei.LAB_ORIGIN
+        m = self.recusa(p)
+        self.assertIn("produtor", m)
+
+    def test_pastas_do_lab_na_trava_real_sao_so_a_pasta_exclusiva(self):
+        e = lei.excecao_vigente(self.trava_real, self.diario_real)
+        self.assertEqual(e["PASTAS_DO_LAB"], ["C:/Users/London1/sintonia-lab-provas/"])
+
+
+class LIMITE_AGuardaNaoAfirmaMaisDoQueProva(Base):
+    """ADENDO (ponto do auditor, aceite): todos os agentes correm como o mesmo
+    utilizador Windows. A autoria do LAB e DECLARADA, nao provada. A guarda tem de
+    o dizer — e nunca dizer mais."""
+
+    def test_o_resultado_diz_autoria_provada_false(self):
+        pode, motivo = self.atravessa(self.pedido())
+        self.assertTrue(pode, motivo)
+        self.assertTrue(motivo.endswith("AUTORIA_PROVADA=false"), motivo[-80:])
+        self.assertNotIn("AUTORIA_PROVADA=true", motivo)
+        alegado = motivo.split("ALEGADO (nao conta como prova): ")[1]
+        self.assertIn("AUTORIA_DO_LAB=DECLARADA", alegado)
+        verificado = motivo.split("VERIFICADO: ")[1].split(" · ALEGADO")[0]
+        self.assertNotIn("AUTOR", verificado.upper().replace("AUTORIA_PROVADA", ""))
+
+    def test_o_limite_esta_na_lei_e_na_trava_com_os_mesmos_valores(self):
+        self.assertEqual(lei.LIMITE_CONHECIDO["AUTORIA_DO_LAB"], "DECLARADA")
+        self.assertIs(lei.LIMITE_CONHECIDO["AUTORIA_PROVADA"], False)
+        e = lei.excecao_vigente(self.trava_real, self.diario_real)
+        self.assertEqual(e["LIMITE_CONHECIDO"]["AUTORIA_DO_LAB"], "DECLARADA")
+        self.assertIs(e["LIMITE_CONHECIDO"]["AUTORIA_PROVADA"], False)
+        self.assertIn("(POTE_SHA256, RUN_ID)", e["LIMITE_CONHECIDO"]["O_QUE_A_GUARDA_PROVA"])
 
 
 if __name__ == "__main__":

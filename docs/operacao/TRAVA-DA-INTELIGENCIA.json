@@ -68,10 +68,17 @@
       },
       "PROVA": "OBRIGATORIA: prova reversa do LAB (TELA → POTE → INTELLIGENCE → SALA → RAW → FONTE). A guarda (red team 29/09) exige que PROVA_REVERSA_DO_LAB.ONDE seja um ficheiro que EXISTE, diz VEREDITO=PASS numa linha propria (ou em JSON) sem contradicao, e cita o sha256 deste pote (canonico, ou do ficheiro POTE_FICHEIRO que diz o mesmo pote). O conteudo da prova e ALEGADO para a guarda: le-o o LAB e o auditor.",
       "PASTAS_DO_LAB": [
-        "lab/",
-        "C:/Users/London1/auditoria-madrugada/"
+        "C:/Users/London1/sintonia-lab-provas/"
       ],
-      "PASTAS_DO_LAB_PORQUE": "adendo do red team (29/09): a prova reversa tem de vir de OUTRO autor, nao do produtor do pote. A guarda so aceita a prova dentro destas pastas, nunca na pasta do proprio pote, com o sha256 fixado no pedido, citando o sha256 do pote E o INTELLIGENCE_RUN_ID. O autor e verificado so pela pasta: sai como ALEGADO no motivo.",
+      "PASTAS_DO_LAB_PORQUE": "decisao tecnica do coordenador (29/09), depois de VERIF-L1-cb8f20bcf (LB5): a pasta do LAB e EXCLUSIVA do LAB. auditoria-madrugada/ saiu porque e partilhada (produtores tambem escrevem la) e 'lab/' saiu por nao ser exclusiva. A guarda recusa o pote do produtor nesta pasta ou em qualquer subpasta (caminho resolvido e prefixo de diretorio). A prova e JSON; conta so a entrada cujo par (POTE_SHA256, RUN_ID) e exatamente o deste pote, com VEREDITO=PASS e LAB_ORIGIN=sintonia-lab no mesmo objeto; POTE_REJEITADO com este pote = recusa. Se a pasta nao existir, nenhuma prova passa (falha fechado).",
+      "LIMITE_CONHECIDO": {
+        "AUTORIA_DO_LAB": "DECLARADA",
+        "AUTORIA_PROVADA": false,
+        "PORQUE": "ponto do auditor, aceite pelo coordenador (29/09): neste PC todos os agentes correm como o MESMO utilizador Windows. A pasta exclusiva do LAB NAO prova autoria — so impede reuso acidental e mistura.",
+        "O_QUE_A_GUARDA_PROVA": "o vinculo (POTE_SHA256, RUN_ID) por igualdade de campo, que impede usar a prova de outro pote ou de outra corrida.",
+        "FORA_DO_ALCANCE": "falsificacao deliberada por outro agente local; coberta pela auditoria independente, nao por esta guarda.",
+        "ONDE_A_GUARDA_O_DIZ": "leis/fundacao_da_coleta.py → LIMITE_CONHECIDO, e o motivo de cada travessia termina em AUTORIA_PROVADA=false"
+      },
       "BLOQUEIO_DE_POLITICA_C8": {
         "ESTADO": "BLOQUEIO_DE_POLITICA",
         "O_QUE_E": "o contrato de liberacao v2.2 (fora do Git, dono Intelligence) exige C8_DECISAO_DO_DONO em cada objeto. A guarda (red team 29/09) so aceita C8 que COMECE por um ID de decisao (Dnnn) escrito neste diario, do dono e nao revogado — texto livre nunca casa.",
