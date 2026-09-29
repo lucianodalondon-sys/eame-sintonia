@@ -152,3 +152,12 @@ data/samples/**/*.ogg
 .sintonia-libs/
 **/whisper-models/
 **/.cache/huggingface/
+
+# RELIGA-MULTICANAL (D155, 29/09): os BYTES do ensaio nao moram no Git.
+# O armazem do RAW e a raiz do repositorio por omissao (`SINTONIA_ARMAZEM_RAIZ` move-o), e um canario
+# corrido daqui deixava as observacoes colhidas em `IT/<fonte>/...`. Elas pertencem a Sala descartavel
+# e ao armazem, nao a historia do codigo:
+#
+#     O ACERVO NAO MORA NO GIT. Um repositorio que guarda o que a coleta trouxe deixa de saber dizer
+#     o que e codigo e o que e resultado.
+/IT/
