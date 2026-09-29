@@ -155,14 +155,18 @@ def colher_alvo(linha: str, a: dict, buscar) -> dict:
         # ⚠️ O post individual NAO se pede: `FETCH_POST` esta ROUTE_NOT_ALLOWED na matriz e continua
         # fechado. O que existe e o que a PAGINA PUBLICA ja serviu na descoberta — o texto publico do
         # cartao. Zero pedidos novos, e zero bytes de video.
-        texto = a.get("TEXTO_PUBLICO") or ""
-        corpo = json.dumps({"URL_DO_POST": a.get("URL_DO_POST"), "TEXTO_PUBLICO": texto,
-                            "URL_MP4_DESCOBERTA": a.get("URL_MP4_DESCOBERTA"),
-                            "VIDEO_BYTES_ACQUIRED": False}, ensure_ascii=False).encode("utf-8")
-        if not texto.strip():
-            return {"ERRO": "CARTAO_SEM_TEXTO_PUBLICO", "PEDIDOS": 0, "URL": a.get("URL_DO_POST")}
+        # A unidade do LinkedIn e A DESCOBERTA DO POST, com a midia DECLARADA pela pagina — nao o texto
+        # do post (o cartao publico nao o traz) e nao os bytes do video (nao se baixam).
+        registo = {k: a.get(k) for k in ("URL_DO_POST", "NATIVE_ID", "LIGACAO", "URL_MP4_DESCOBERTA",
+                                         "CAPTION_URL", "ASSET_URN", "DECLARED_LANGUAGE", "POSTER_URL",
+                                         "ASPECT_RATIO", "RENDICOES")}
+        registo["VIDEO_BYTES_ACQUIRED"] = False
+        registo["FETCH_POST"] = "ROUTE_NOT_ALLOWED (matriz social; o post individual nao se pede)"
+        if not registo.get("URL_DO_POST") and not registo.get("NATIVE_ID"):
+            return {"ERRO": "CARTAO_SEM_IDENTIDADE_DO_POST", "PEDIDOS": 0}
+        corpo = json.dumps(registo, ensure_ascii=False, sort_keys=True).encode("utf-8")
         return {"BYTES": corpo, "URL": a.get("URL_DO_POST"), "MEDIA_TYPE": "application/json",
-                "PEDIDOS": 0, "ROTA": "linkedin:texto-publico-do-cartao", "VIDEO_BYTES_ACQUIRED": False}
+                "PEDIDOS": 0, "ROTA": "linkedin:descoberta-do-post-publico", "VIDEO_BYTES_ACQUIRED": False}
     return {"ERRO": "LINHA_SEM_COLHEITA: %s" % linha, "PEDIDOS": 0}
 
 
@@ -205,10 +209,82 @@ def a_corrida(linha: str, corrida: str, cand: dict, descoberta: dict) -> dict:
                               % descoberta.get("ROTA")}
 
 
+def admitir(dados: bytes, media_type: str, url: str, source_id: str, universo: str, sha: str,
+            capturado: str, corrida: str, raw_asset_id: int = None) -> dict:
+    """A ADMISSION NORMAL para uma unidade destas linhas. A MESMA porta de `coleta/linha_busca.admitir`
+    (`admissao.decidir` sobre `item_documental_para_a_porta`) — o que muda e UMA coisa, e ela importa:
+
+    ⚠️ O RETRATO DO DETECTOR SO SE CALCULA PARA HTML.
+
+    `linha_busca.texto_de` devolve `"text/html"` para TUDO o que nao e PDF, porque a linha BUSCA so colhe
+    paginas. Usada tal e qual aqui, ela punha um `RETRATO_DO_DETECTOR` por cima do JSON do oembed de um
+    video — e o juiz de capa/materia, que pergunta «isto e materia ou e pagina de entrada?», respondia
+    QUARENTENA (D11) a uma pergunta que nao se aplica. Medido no canario de 29/09: 4 videos com RAW no
+    banco e 0 na Sala, todos com REGRA=materia.
+
+        UMA PERGUNTA FEITA A QUEM NAO A PODE RESPONDER NAO DA «NAO SEI»: DA UMA RECUSA COM AR DE MEDIDA.
+
+    A propria Admission ja diz isto (`admissao._e_materia`): «sem retrato do detector (nao e HTML): a
+    pergunta nao se aplica». Aqui so se deixa de fabricar o retrato onde ele nao existe. Nada do juizo
+    e contornado: para HTML o retrato vai, e o juiz decide como sempre.
+    """
+    import admissao as adm                                          # noqa: PLC0415
+    import executor_texto_de_html as H                              # noqa: PLC0415
+    import extratores_de_texto as XT                                # noqa: PLC0415
+    import italy_executor as ex                                     # noqa: PLC0415
+    import orquestrador as ORQ                                      # noqa: PLC0415
+    mt = (media_type or "").split(";")[0].strip().lower()
+    if mt == "application/json":
+        texto, especie = _texto_do_json(dados), "application/json"
+    elif dados[:5] == b"%PDF-" or "pdf" in mt:
+        texto, _, _ = XT._de_pdf(dados, "application/pdf")
+        texto, especie = texto or "", "application/pdf"
+    else:
+        t, estado, erro, _ = H.extrair(dados, mt or "text/html")
+        texto, especie = (t or ""), "text/html"
+    if not texto.strip():
+        return {"RESULTADO": "NAO_SEI", "REGRA": "legivel", "MOTIVO": "sem texto legivel (%s)" % especie,
+                "READY": None}
+    obs = {"SOURCE_ID": source_id, "SOURCE_URL": url, "CAPTURED_AT": capturado}
+    est = {"SOURCE_ID": source_id, "TEXTO": texto, "DERIVED_ARTIFACT_ID": "religa-%s" % sha[:16],
+           "RAW_ASSET_ID": raw_asset_id, "PARENT_SHA256": sha, "CAPTURED_AT": capturado,
+           "TEMPO_E_LUGAR": ex.tempo_e_lugar(obs, dados), "SOURCE_URL": url}
+    if especie == "text/html":
+        est["RETRATO_DO_DETECTOR"] = H._retrato(dados)              # so aqui a pergunta da capa se aplica
+    item = ORQ.item_documental_para_a_porta(est, source_id=source_id)
+    d = adm.decidir(item, universo, corrida=corrida)
+    out = {"RESULTADO": d.resultado, "REGRA": d.regra, "MOTIVO": d.motivo, "ITEM_ID": d.item, "READY": None}
+    if d.resultado == adm.SIM:
+        out["READY"] = adm.pronto_para_inteligencia(item, d)
+    return out
+
+
+def _texto_do_json(dados: bytes) -> str:
+    """O texto de um JSON de metadados (o oembed de um video: titulo + autor). Os VALORES de texto, pela
+    ordem em que vem — nao as chaves, que sao vocabulario da API e nao conteudo da fonte."""
+    try:
+        d = json.loads(dados.decode("utf-8", "replace"))
+    except ValueError:
+        return ""
+    fora = []
+
+    def anda(v):
+        if isinstance(v, str):
+            if v.strip() and not v.startswith(("http://", "https://", "<")):
+                fora.append(v.strip())
+        elif isinstance(v, dict):
+            for x in v.values():
+                anda(x)
+        elif isinstance(v, list):
+            for x in v:
+                anda(x)
+    anda(d)
+    return "\n".join(fora)
+
+
 def para_a_sala(linha: str, cand: dict, colhidos: list, corrida: str, *, persistencia, pousar: bool) -> dict:
     """PRESERVA -> ADMISSION com o RAW real -> Sala. Devolve o relato, sem levantar por item mau."""
     from guarda import preservar_coleta as PC                      # noqa: PLC0415
-    import linha_busca as LB                                       # noqa: PLC0415
     armazem = PC.ArmazemLocal(persistencia.raiz_do_armazem)
     capturado = _utc()
     fichas, por_sha = [], {}
@@ -237,10 +313,9 @@ def para_a_sala(linha: str, cand: dict, colhidos: list, corrida: str, *, persist
             l["ESTADO"] = "SEM_RAW_CANONICO"                       # nao se pousa sem linhagem
             relato.append(l)
             continue
-        a = LB.admitir(c["BYTES"], f["MEDIA_TYPE"], f["SOURCE_URL"],
-                       {"SOURCE_ID": cand.get("SOURCE_ID") or "SEM_SOURCE_ID"},
-                       {"UNIVERSO": cand.get("UNIVERSO") or "NAO SEI"}, f["SHA256"], capturado, corrida,
-                       raw_asset_id=rid)
+        a = admitir(c["BYTES"], f["MEDIA_TYPE"], f["SOURCE_URL"],
+                    cand.get("SOURCE_ID") or "SEM_SOURCE_ID", cand.get("UNIVERSO") or "NAO SEI",
+                    f["SHA256"], capturado, corrida, raw_asset_id=rid)
         l["ADMISSION"] = {k: a[k] for k in ("RESULTADO", "REGRA", "MOTIVO")}
         if a["READY"]:
             prontos.append(a["READY"])

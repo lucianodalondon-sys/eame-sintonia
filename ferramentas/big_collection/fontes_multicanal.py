@@ -67,6 +67,12 @@ def _dominio_de(url: str) -> str:
     return DR.dominio_registavel(h)
 
 
+def _territorio_do_source_id(sid):
+    """O territorio escrito no proprio SOURCE_ID (IT-T8-006 -> T8), ou None. Nao adivinha nada: so le."""
+    p = str(sid or "").split("-")
+    return p[1] if len(p) > 2 and p[1].startswith("T") and p[1][1:].isdigit() else None
+
+
 def _ler(f: Path) -> dict:
     d = json.loads(Path(f).read_text(encoding="utf-8"))
     if not isinstance(d, dict):
@@ -101,7 +107,8 @@ def _traduzir(linha: str, x: dict, n: int) -> dict | None:
         # A BUSCA nao tem dominio proprio: o dominio e o do motor, e quem o sabe e `coleta/linha_busca.py`.
         # Declarar um aqui seria adivinhar de quem e o orcamento.
         return {"SOURCE_ID": cid or "BUSCA-%03d" % n, "LINHA": linha, "DOMINIO": None, "DOMINIOS": [],
-                "PREVISTOS": p, "ALVO": {"CONSULTA": consulta, "UNIVERSO": x.get("UNIVERSO"),
+                "PREVISTOS": p, "UNIVERSO": x.get("UNIVERSO") or "NAO SEI",
+                "ALVO": {"CONSULTA": consulta, "UNIVERSO": x.get("UNIVERSO"),
                                          "PAR": x.get("PAR"), "JANELA": x.get("JANELA")},
                 "PROVENIENCIA": {"ORIGEM": x.get("ORIGEM"), "DECISAO": x.get("DECISAO_QUE_AUTORIZA")}}
     if linha == "CIENCIA":
@@ -109,7 +116,8 @@ def _traduzir(linha: str, x: dict, n: int) -> dict | None:
         if not sid or not x.get("CONSULTA_OPENALEX"):
             return None
         return {"SOURCE_ID": sid, "LINHA": linha, "DOMINIO": "openalex.org", "DOMINIOS": ["openalex.org"],
-                "PREVISTOS": p, "ALVO": {"CONSULTA_OPENALEX": x["CONSULTA_OPENALEX"], "FILTRO": x.get("FILTRO"),
+                "PREVISTOS": p, "UNIVERSO": _territorio_do_source_id(sid) or "NAO SEI",
+                "ALVO": {"CONSULTA_OPENALEX": x["CONSULTA_OPENALEX"], "FILTRO": x.get("FILTRO"),
                                          "ALVO_ID": x.get("ALVO_ID")},
                 "PROVENIENCIA": {"ORIGEM": x.get("ORIGEM"), "DECISAO": x.get("DECISAO_QUE_AUTORIZA")}}
 
@@ -117,8 +125,18 @@ def _traduzir(linha: str, x: dict, n: int) -> dict | None:
     if not url:
         return None
     dom = _dominio_de(url)
+    # O UNIVERSO da Admission E o TERRITORIO: `admissao.PERGUNTAS_DO_UNIVERSO` esta indexado por T1..T12,
+    # e o Curator declara o territorio de cada fonte. Sem ele a Admission recebia «NAO SEI» e respondia
+    # NAO_SE_APLICA a tudo — medido no canario de 29/09, 4 videos com RAW e 0 na Sala.
+    #
+    #     UM UNIVERSO QUE NAO SE DECLARA NAO E UM UNIVERSO LARGO: E UMA PERGUNTA SEM ASSUNTO.
+    #
+    # Onde o Curator nao o diz, le-se do proprio SOURCE_ID (IT-T8-006 -> T8); e onde nem isso existe,
+    # fica «NAO SEI», que e a verdade — e nao se inventa um territorio para a fonte passar.
     base = {"SOURCE_ID": x.get("SOURCE_ID"), "LINHA": linha, "DOMINIO": dom, "DOMINIOS": [dom],
             "PREVISTOS": p, "NOME": x.get("NOME"), "URL": url,
+            "TERRITORIO": x.get("TERRITORIO") or _territorio_do_source_id(x.get("SOURCE_ID")),
+            "UNIVERSO": x.get("TERRITORIO") or _territorio_do_source_id(x.get("SOURCE_ID")) or "NAO SEI",
             "PROVENIENCIA": {"ATLAS": x.get("ATLAS"), "ESTADO_NO_LIVRO": x.get("ESTADO_NO_LIVRO"),
                              "DECISAO": x.get("DECISAO_QUE_AUTORIZA"),
                              "LOCATION_SOURCE": x.get("LOCATION_SOURCE")}}

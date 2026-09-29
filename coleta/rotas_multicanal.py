@@ -254,15 +254,28 @@ def linkedin_posts_da_organizacao(*, pagina_url, run_id, buscar, teto=None, coun
     except http.RotaBloqueada as ex:
         return {"ERRO": "ROTA_BLOQUEADA: %s" % ex, "PEDIDOS": 1, "ROTA": ROTA_LINKEDIN,
                 "QUEM_DISSE_NAO": "PLATAFORMA"}
+    # ⚠️ O QUE A PAGINA PUBLICA SERVE, MEDIDO — E O QUE ELA NAO SERVE.
+    # `cartoes_com_video` le etiquetas `<video>`: ela devolve a IDENTIDADE do post e os METADADOS da
+    # midia (rendicoes, legenda, lingua declarada, capa). NAO devolve o texto do post — nao ha campo de
+    # texto no cartao, e inventar um a partir do que estivesse por perto seria atribuir a uma publicacao
+    # palavras que ela pode nao ter dito.
+    #
+    #     O QUE ESTA ROTA ENTREGA E A DESCOBERTA DO POST, COM A MIDIA DECLARADA. E isso, inteiro.
     achados = []
     for c in cartoes:
         achados.append({
-            "URL_DO_POST": c.get("URL_DO_POST") or c.get("POST_URL"),
-            "TEXTO_PUBLICO": c.get("TEXTO") or c.get("CAPTION"),
+            "URL_DO_POST": c.get("POST_URL"),
+            "NATIVE_ID": c.get("ACTIVITY_ID"),
+            "LIGACAO": c.get("LIGACAO"),
             # ⚠️ O NOME DIZ O QUE E: um ENDERECO descoberto, nao bytes tidos.
             "URL_MP4_DESCOBERTA": _mp4_do_cartao(c),
             "VIDEO_BYTES_ACQUIRED": False,
-            "NATIVE_ID": c.get("ACTIVITY_ID") or c.get("URN"),
+            "CAPTION_URL": c.get("CAPTION_URL"),
+            "ASSET_URN": c.get("ASSET_URN"),
+            "DECLARED_LANGUAGE": c.get("DECLARED_LANGUAGE"),
+            "POSTER_URL": c.get("POSTER_URL"),
+            "ASPECT_RATIO": c.get("ASPECT_RATIO"),
+            "RENDICOES": len(c.get("VIDEO_RENDICOES") or []),
         })
     return {"CARTOES": achados, "ROTA": ROTA_LINKEDIN, "PEDIDOS": contexto.get("PEDIDOS_TOTAIS", 1),
             "SLUG": contexto.get("SLUG"), "PAGINA": pagina_url, "VIDEO_BYTES_ACQUIRED": False,
@@ -271,18 +284,15 @@ def linkedin_posts_da_organizacao(*, pagina_url, run_id, buscar, teto=None, coun
 
 
 def _mp4_do_cartao(c):
-    """O endereco do MP4 progressivo que o cartao publico declara — ou None. NUNCA baixa nada."""
-    for k in ("URL_MP4", "MP4", "VIDEO_URL", "RENDICAO"):
-        v = c.get(k)
-        if isinstance(v, str) and ".mp4" in v:
-            return v
-        if isinstance(v, dict) and isinstance(v.get("URL"), str):
-            return v["URL"]
-    rend = c.get("RENDICOES") or c.get("DATA_SOURCES") or []
-    if isinstance(rend, list):
-        for r in rend:
-            if isinstance(r, dict) and isinstance(r.get("URL") or r.get("src"), str):
-                return r.get("URL") or r.get("src")
+    """O endereco do MP4 progressivo que o cartao publico declara (`data-sources`) — ou None.
+
+    NUNCA BAIXA NADA. Le o que a pagina ja serviu, e so isso."""
+    for r in (c.get("VIDEO_RENDICOES") or []):
+        if not isinstance(r, dict):
+            continue
+        u = r.get("URL") or r.get("src")
+        if isinstance(u, str) and u:
+            return u
     return None
 
 

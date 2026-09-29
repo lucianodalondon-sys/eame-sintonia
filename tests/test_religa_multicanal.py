@@ -174,19 +174,28 @@ def test_armadilha_linkedin_video_descoberto_nunca_conta_como_video_coletado():
     """⚠️ FETCH_VIDEO_BYTES = PROVED quer dizer «o URL do MP4 e DESCOBRIVEL», e NAO «os bytes foram
     baixados». Esta leitura ja enganou o relatorio uma vez."""
     import onda_linha as OL
-    a = {"URL_DO_POST": "https://www.linkedin.com/posts/x", "TEXTO_PUBLICO": "texto publico",
+    a = {"URL_DO_POST": "https://www.linkedin.com/posts/x", "NATIVE_ID": "7123456789012345678",
          "URL_MP4_DESCOBERTA": "https://dms.licdn.com/x.mp4", "VIDEO_BYTES_ACQUIRED": False}
     c = OL.colher_alvo("LINKEDIN", a, leitor("x"))
     guardado = json.loads(c["BYTES"].decode("utf-8"))
     assert guardado["VIDEO_BYTES_ACQUIRED"] is False
     assert guardado["URL_MP4_DESCOBERTA"].endswith(".mp4")
+    assert "ROUTE_NOT_ALLOWED" in guardado["FETCH_POST"]
     assert c["PEDIDOS"] == 0, "FETCH_POST esta ROUTE_NOT_ALLOWED: nao se pede o post individual"
 
 
-def test_linkedin_cartao_sem_texto_publico_nao_vira_item_vazio():
+def test_linkedin_le_o_mp4_do_data_sources_que_a_pagina_serviu():
+    """O endereco do MP4 vem do `data-sources` que a propria pagina publicou — nao se constroi."""
+    c = {"VIDEO_RENDICOES": [{"URL": "https://dms.licdn.com/a.mp4", "largura": 720}]}
+    assert RM._mp4_do_cartao(c) == "https://dms.licdn.com/a.mp4"
+    assert RM._mp4_do_cartao({"VIDEO_RENDICOES": []}) is None
+
+
+def test_linkedin_cartao_sem_identidade_do_post_nao_vira_item_vazio():
+    """Sem endereco NEM activity id nao ha post a que atar a observacao."""
     import onda_linha as OL
-    c = OL.colher_alvo("LINKEDIN", {"URL_DO_POST": "u", "TEXTO_PUBLICO": "   "}, leitor("x"))
-    assert "CARTAO_SEM_TEXTO_PUBLICO" in c["ERRO"]
+    c = OL.colher_alvo("LINKEDIN", {"URL_DO_POST": None, "NATIVE_ID": None}, leitor("x"))
+    assert "CARTAO_SEM_IDENTIDADE_DO_POST" in c["ERRO"]
 
 
 # ══════════════════════════════════════════════════════════════════════════════
