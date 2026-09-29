@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  4ffe4829a323dddc7f1da8fc902eb91796dfeb4f
+HEAD_DA_MEDICAO  bfd9f689ad04335d226ba44113b94b9a86b76e34
 BRANCH           claude/l2-disparador-v1
-GERADO_EM        2026-09-29T09:03:34-03:00
+GERADO_EM        2026-09-29T11:30:33-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -709,7 +709,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-L2-DISPARADOR, C-TESTES |
-| **prova de quem ativa** | provas/l2/ensaio_disparador.py:58; provas/l2/mutantes.py:27; tests/test_disparador_intelligence.py:34 _(plano CODE)_ |
+| **prova de quem ativa** | provas/l2/ensaio_disparador.py:57; provas/l2/mutantes.py:27; tests/test_disparador_intelligence.py:34 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `motor/r7_export_da_copia.sql` |
@@ -2325,7 +2325,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — tipo de peca sem regra de prova definida. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-L2-DISPARADOR, C-TESTES |
-| **prova de quem ativa** | provas/l2/ensaio_disparador.py:59; provas/l2/mutantes.py:28; tests/test_disparador_intelligence.py:35 _(plano CODE)_ |
+| **prova de quem ativa** | provas/l2/ensaio_disparador.py:58; provas/l2/mutantes.py:28; tests/test_disparador_intelligence.py:35 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/collection-ledger/italy/logs/runs.log`, `data/collection-ledger/italy/runs.ndjson` |

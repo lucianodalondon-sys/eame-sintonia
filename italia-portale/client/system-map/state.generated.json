@@ -3183,7 +3183,9 @@
       "provas/janela_formas/julgar_paginas_boletim.py",
       "provas/janela_formas/pagina_boletim_local.mjs",
       "provas/l2/BATERIA-BASE-852ec0f-g.json",
+      "provas/l2/BATERIA-BASE-852ec0f-m.json",
       "provas/l2/BATERIA-BASE-852ec0f.json",
+      "provas/l2/BATERIA-DEPOIS-d72a533.json",
       "provas/l2/BATERIA-DEPOIS-e72917d.json",
       "provas/l2/BATERIA-DEPOIS-e76f695.json",
       "provas/l2/ENSAIO-DISPARADOR.json",
@@ -4828,9 +4830,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l2-disparador-v1",
-    "HEAD": "4ffe4829a323dddc7f1da8fc902eb91796dfeb4f",
-    "GENERATED_AT": "2026-09-29T09:03:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a6f14037f14ab8b551452eab05f2d133664c5921b61476ac5e05d43b98871a5e"
+    "HEAD": "bfd9f689ad04335d226ba44113b94b9a86b76e34",
+    "GENERATED_AT": "2026-09-29T11:30:33-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6255d37147ef15fdb73bb142a20f558b053067b85b7f01417c3af5564fe0e8bc"
   },
   "FAMILIES": [
     {
@@ -47089,7 +47091,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "provas/l2/ensaio_disparador.py:59",
+          "provas/l2/ensaio_disparador.py:58",
           "provas/l2/mutantes.py:28",
           "tests/test_disparador_intelligence.py:35"
         ],
@@ -52586,10 +52588,10 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "provas/l2/ensaio_disparador.py:58",
+          "provas/l2/ensaio_disparador.py:57",
           "provas/l2/mutantes.py:27",
           "tests/test_disparador_intelligence.py:34",
-          "tests/test_disparador_intelligence.py:371"
+          "tests/test_disparador_intelligence.py:365"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -58557,6 +58559,7 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_DA_PROVA_V2",
           "COMPARTIMENTOS",
           "DA_V1",
           "LER_NA_ENTRADA",
@@ -58564,9 +58567,9 @@
           "PALAVRAS",
           "_CHAVES_T4"
         ],
-        "palavras": 155,
+        "palavras": 165,
         "por_lingua": {},
-        "sem_marca_de_lingua": 155,
+        "sem_marca_de_lingua": 165,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -62880,9 +62883,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 117,
+        "palavras": 116,
         "por_lingua": {},
-        "sem_marca_de_lingua": 117,
+        "sem_marca_de_lingua": 116,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -79504,7 +79507,7 @@
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
-          "line": 60,
+          "line": 59,
           "snippet": "import admissao as ADM                     # noqa: E402  (admissao/admissao.py: JANELA_NAO_MEDIDA)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-L2-DISPARADOR",
@@ -81336,7 +81339,7 @@
         },
         {
           "file": "tests/test_disparador_intelligence.py",
-          "line": 582,
+          "line": 584,
           "snippet": "import afirmacao_da_fonte as AF",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-TESTES",
@@ -106120,7 +106123,7 @@
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
-          "line": 59,
+          "line": 58,
           "snippet": "import vigia_da_esteira as VIG             # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ESTEIRA-VIGIA--IMPORTS-->C-PROVA-L2-DISPARADOR",
@@ -115726,7 +115729,7 @@
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
-          "line": 57,
+          "line": 56,
           "snippet": "import motor_das_capacidades as M          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-PROVA-L2-DISPARADOR",
@@ -125267,7 +125270,7 @@
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
-          "line": 58,
+          "line": 57,
           "snippet": "import gatilho_da_inteligencia as GI       # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--IMPORTS-->C-PROVA-L2-DISPARADOR",
@@ -125404,7 +125407,7 @@
       "evidence": [
         {
           "file": "tests/test_disparador_intelligence.py",
-          "line": 371,
+          "line": 365,
           "snippet": "texto = (RAIZ / \"admissao\" / \"gatilho_da_inteligencia.py\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--READS-->C-TESTES",
@@ -132866,7 +132869,7 @@
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
-          "line": 55,
+          "line": 54,
           "snippet": "import _gavetas                            # noqa: E402,F401",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-PROVA-L2-DISPARADOR",
@@ -136445,7 +136448,7 @@
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
-          "line": 62,
+          "line": 61,
           "snippet": "_spec = importlib.util.spec_from_file_location(\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-L2-DISPARADOR",
@@ -146723,7 +146726,7 @@
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 333,
+          "line": 338,
           "snippet": "for termo in (\"POTE_INTELLIGENCE_CASCO/v2\", \"pacote/pote_intelligence_casco.py\", \"pacote/validar_pote_v2.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -146739,7 +146742,7 @@
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 333,
+          "line": 338,
           "snippet": "for termo in (\"POTE_INTELLIGENCE_CASCO/v2\", \"pacote/pote_intelligence_casco.py\", \"pacote/validar_pote_v2.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -158006,7 +158009,7 @@
       "evidence": [
         {
           "file": "provas/l2/ensaio_disparador.py",
-          "line": 56,
+          "line": 55,
           "snippet": "import sala_de_espera as espera            # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-L2-DISPARADOR",
@@ -175705,7 +175708,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2280,
+  "UNCLAIMED_FILES_COUNT": 2282,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -175981,7 +175984,7 @@
     "edges_proven": 1869,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4234,
+    "files_tracked": 4236,
     "files_covered": 1954,
     "files_code_unclaimed": 0,
     "roles_proven": 209,
