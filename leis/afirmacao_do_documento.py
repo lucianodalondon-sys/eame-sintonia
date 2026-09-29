@@ -73,6 +73,23 @@ UNRESOLVED = BC.UNRESOLVED
 PREFIXO_DO_ID = "AF-"
 LETRAS_DO_ID = 24
 
+# ── COMO A CASA ESCREVE «NAO SEI» ────────────────────────────────────────────
+# O dono desta lista e `motor/corrida_da_inteligencia.PALAVRAS_DE_IGNORANCIA`. Esta copiada
+# por NOME para esta funcao continuar PURA (o mesmo que `boletim_do_campo` faz com o
+# vocabulario da regua T1), e `tests/test_o_produtor_de_afirmacoes.py` confere que as duas
+# sao iguais — se o dono acrescentar uma palavra e aqui nao, o teste reprova.
+PALAVRAS_DE_IGNORANCIA = (NAO_SEI, "NAO_SEI", "UNKNOWN", "NOT_KNOWN")
+
+
+def e_ignorancia(valor) -> bool:
+    """«NAO SEI» continua «NAO SEI», escreva-se como se escrever."""
+    if valor is None or valor == "":
+        return True
+    if not isinstance(valor, str):
+        return False
+    s = valor.strip().upper()
+    return s.startswith(PALAVRAS_DE_IGNORANCIA) or s in ("?", "-", "NONE", "NULL")
+
 
 # ════════════════════════════════════════════════════════════════════════════
 # 1 · AS SECCOES ESTRUTURAIS DO DOCUMENTO
@@ -135,9 +152,10 @@ def secao_de(secoes: list, pos: int) -> dict:
 _RE_FIM_DE_FRASE = re.compile(r"[.!?;](?=\s|$)")
 
 # ── A VIRGULA QUE EMENDA DUAS FRASES ─────────────────────────────────────────
-# Num texto tirado de PDF aparece o ponto que o compositor perdeu: «… sul Salento, Gli
-# accumuli settimanali …». Sem isto, DUAS afirmacoes diferentes viajam num trecho so — e um
-# trecho que mistura duas afirmacoes e uma prova pior, com ou sem R9.
+# Num texto tirado de PDF aparece o ponto que o compositor perdeu: «… nella zona, Gli
+# accumuli osservati …» (exemplo sintetico; o teste tem o dele). Sem isto, DUAS afirmacoes
+# diferentes viajam num trecho so — e um trecho que mistura duas afirmacoes e uma prova
+# pior, com ou sem R9.
 # A regra e estreita de proposito, e so ela: virgula + PALAVRA DE CLASSE FECHADA em
 # maiuscula + palavra em minuscula. A classe fechada (artigo, determinante, preposicao
 # articulada) nunca e nome proprio; a minuscula a seguir e a guarda que salva «La Spezia»,
@@ -181,11 +199,32 @@ def frases(texto: str, ini: int, fim: int):
             yield esquerda, direita
 
 
+# ── O BLOCO DE MENU QUE PASSA POR FRASE ──────────────────────────────────────
+# Medido pelo red team D160 (§1.9): 700 trechos com 3 ou mais quebras de linha. Numa pagina
+# web guardada, o menu e a lista de manchetes nao acabam em ponto nenhum — e a frase, que so
+# acaba em pontuacao, linha em branco, pagina ou cabecalho, engolia o bloco inteiro e
+# chamava-lhe corpo. Somadas, oito palavras curtas passam no teste das oito palavras.
+# A regra: com LINHAS_DO_BLOCO linhas ou mais, a MAIORIA tem de ser frase. Linha curta
+# (< PALAVRAS_MINIMAS palavras, a regra do vivo) e item de lista, nao oracao.
+LINHAS_DO_BLOCO = 3
+
+
+def e_bloco_de_linhas_curtas(frase: str) -> bool:
+    linhas = [l for l in str(frase or "").splitlines() if l.strip()]
+    if len(linhas) < LINHAS_DO_BLOCO:
+        return False
+    curtas = sum(1 for l in linhas if FT._palavras(l) < FT.PALAVRAS_MINIMAS)
+    return curtas > len(linhas) / 2
+
+
 def e_corpo(frase: str) -> bool:
     """A mesma pergunta que o vivo faz a cada linha (`fato_do_texto.corpo`): tem frase, e
-    nao e rodape nem institucional. Nao se reescreve a regra: leem-se as constantes do dono."""
+    nao e rodape nem institucional. Nao se reescreve a regra: leem-se as constantes do dono.
+    Mais a do bloco de linhas curtas, que o vivo nao precisava de fazer porque lia LINHA a
+    LINHA e este le FRASES, que atravessam linhas."""
     s = str(frase or "").strip()
-    return FT._palavras(s) >= FT.PALAVRAS_MINIMAS and not FT.RODAPE.search(s)
+    return (FT._palavras(s) >= FT.PALAVRAS_MINIMAS and not FT.RODAPE.search(s)
+            and not e_bloco_de_linhas_curtas(s))
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -253,21 +292,63 @@ def cobertura_do_gazetteer() -> dict:
     return dict(_COBERTURA)
 
 
-def _lugar(leitura: dict) -> dict:
+def _onde_esta_o_lugar(expressao, texto, inicio, fim, secao) -> dict | None:
+    """O OFFSET do lugar no documento (red team D160 §2.6): dentro do trecho quando o lugar
+    esta escrito la; no cabecalho territorial quando veio de la. Sem o achar, None — e o
+    `PORQUE` diz que a forma escrita nao e a forma normalizada.
+
+    A procura tolera espaco a mais e quebra de linha entre as palavras, porque e assim que
+    o texto de um PDF as escreve — e e essa tolerancia que permite VER que a expressao
+    atravessou uma linha (ver `_lugar`)."""
+    alvo = str(expressao or "").strip()
+    if not alvo:
+        return None
+    rx = re.compile(r"\s+".join(re.escape(p) for p in alvo.split()), re.I)
+    for a, b in ((inicio, fim), (secao.get("INICIO", 0), inicio)):
+        m = rx.search(texto[a:b])
+        if m:
+            achado = texto[a + m.start():a + m.end()]
+            return {"INICIO": a + m.start(), "FIM": a + m.end(), "TRECHO": achado,
+                    "DENTRO_DO_ALVO": (a, b) == (inicio, fim),
+                    "ATRAVESSA_LINHA": bool(re.search(r"[\r\n]", achado))}
+    return None
+
+
+def _lugar(leitura: dict, texto: str, inicio: int, fim: int, secao: dict) -> dict:
     """O FACT_LOCATION da afirmacao, tal como a lei o devolveu — sem reescrever nada.
 
     C2 do contrato de consumo: o lugar viaja SEMPRE com a PRECISAO (COUNTRY · REGION ·
     PROVINCE · MUNICIPALITY · ZONA_DEFINIDA_PELA_FONTE · NOT_KNOWN) e com a cobertura de
-    quem o leu, para que quem consome saiba o que a ausencia significa."""
+    quem o leu, para que quem consome saiba o que a ausencia significa. E com o OFFSET,
+    quando a forma escrita e a forma normalizada coincidem."""
     l_ = leitura["FACT_LOCATION"]
     valor = l_["VALOR"]
+    bruto = l_.get("LOCATION_EXPRESSION_RAW")
+    onde = _onde_esta_o_lugar(bruto, texto, inicio, fim, secao) if valor != UNRESOLVED else None
+    porque = l_.get("PORQUE")
+    # ── A EXPRESSAO QUE ATRAVESSA UMA LINHA NAO E UMA EXPRESSAO ──────────────
+    # Medido pelo red team D160 (§1.5): «zone cuscinetto Il monitoraggio» — a regra de zona
+    # do leitor vivo apanha ate 8 palavras a seguir a «zone», e ali elas saltaram de uma
+    # linha de TITULO para a frase seguinte. Duas metades de coisas diferentes nao sao o
+    # nome de um lugar. Isto NAO reescreve o leitor: recusa a leitura dele quando a prova
+    # que ele aponta nao e uma frase contigua no documento.
+    if onde and onde["ATRAVESSA_LINHA"]:
+        valor = UNRESOLVED
+        porque = ("a expressao do lugar atravessa uma quebra de linha («%s»): sao duas "
+                  "metades de linhas diferentes, nao o nome de um lugar"
+                  % re.sub(r"\s+", " ", onde["TRECHO"])[:80])
+        onde = None
     return {"VALOR": NAO_SEI if valor == UNRESOLVED else valor,
             "LOCATION_SOURCE": l_["LOCATION_SOURCE"],
             "PRECISAO": l_.get("PRECISAO") or "NOT_KNOWN",
-            "TRECHO": l_.get("LOCATION_EXPRESSION_RAW"),
+            "TRECHO": bruto,
+            "ONDE": onde,
+            "PORQUE_SEM_OFFSET": None if onde or valor == UNRESOLVED else
+                                 ("a forma ESCRITA nao e a forma normalizada (ex.: «barese» -> Bari); "
+                                  "o trecho que a prova esta em PROVA"),
             "PROVA": l_.get("PROVA"),
-            "PORQUE": l_.get("PORQUE"),
-            "PONTO_NO_MAPA": bool(l_.get("PONTO_NO_MAPA")),
+            "PORQUE": porque,
+            "PONTO_NO_MAPA": bool(l_.get("PONTO_NO_MAPA")) and valor != UNRESOLVED,
             "COBERTURA_DO_GAZETTEER": cobertura_do_gazetteer()}
 
 
@@ -301,10 +382,17 @@ _RE_ESTUDO = re.compile(r"(?:\b10\.\d{4,9}/\S+|\bdoi\b|\bnct\d{6,}\b|\btrial\s+(
 def classe_do_claim(span: str, tempo: dict) -> dict:
     """A CLASSE do claim, no vocabulario fechado do contrato de consumo.
 
-    A regra e a mesma da D112 para duas pragas: quando o trecho traz a marca de DUAS
-    classes, escolher uma seria inferir — sai NAO SEI, com as duas marcas escritas.
-    ALERTA_EVENTO nao tem marca propria: e o que sobra quando a fonte prende uma data de
-    ACONTECIMENTO ao que ela conta, e por isso nao entra no conflito."""
+    Duas regras, e so estas:
+
+    1. Quando o trecho traz a marca de DUAS classes, escolher uma seria inferir — sai
+       NAO SEI, com as duas marcas escritas. E a mesma regra da D112 para duas pragas.
+    2. ⚠️ ALERTA_EVENTO NAO E O QUE SOBRA. Foi assim na 1.a versao, e o red team D160 (§2.3)
+       mediu o estrago: 122 ALERTA_EVENTO, dos quais 9 eram eventos futuros, 3 eram janelas
+       de licenca e outros eram texto historico («nel 2003»). A classe manda a Intelligence
+       exigir FACT_TIME com ano e inicio <= captura, e uma classe dada por omissao empurra
+       a decisao dela por dentro. Agora ALERTA_EVENTO exige TRES coisas ao mesmo tempo:
+       o papel ACONTECIMENTO, o texto a prender a data a um acontecimento (a pergunta e do
+       leitor vivo, `_relativa_presa_ao_campo`), e o ano escrito. Faltando uma, NAO SEI."""
     marcas = []
     if TA._MARCA_DE_ATO.search(span) or TA._MARCA_DE_VALIDADE.search(span):
         marcas.append("REGULATORIO")
@@ -320,11 +408,18 @@ def classe_do_claim(span: str, tempo: dict) -> dict:
                           % (len(marcas), ", ".join(marcas))}
     if marcas:
         return {"VALOR": marcas[0], "MARCAS": marcas, "PORQUE": "a marca da classe esta escrita no trecho"}
-    if tempo["PAPEL"] == TA.ACONTECIMENTO:
-        return {"VALOR": "ALERTA_EVENTO", "MARCAS": [],
-                "PORQUE": "a fonte prende uma data de ACONTECIMENTO ao que conta, e nao ha marca de outra classe"}
-    return {"VALOR": NAO_SEI, "MARCAS": [],
-            "PORQUE": "o trecho nao escreve marca de classe nenhuma e nao tem data de acontecimento"}
+    faltas = []
+    if tempo.get("PAPEL") != TA.ACONTECIMENTO:
+        faltas.append("o papel da data e %s, nao ACONTECIMENTO" % tempo.get("PAPEL"))
+    if not FT._relativa_presa_ao_campo(span):
+        faltas.append("o texto nao prende a data a um acontecimento (nenhuma ancora do leitor vivo)")
+    if str(tempo.get("PRECISAO") or "").endswith("SEM_ANO") or tempo.get("ANO") == NAO_SEI:
+        faltas.append("a data nao escreve o ano")
+    if faltas:
+        return {"VALOR": NAO_SEI, "MARCAS": [],
+                "PORQUE": "sem marca de classe, e ALERTA_EVENTO nao e o que sobra: " + "; ".join(faltas)}
+    return {"VALOR": "ALERTA_EVENTO", "MARCAS": [],
+            "PORQUE": "papel ACONTECIMENTO, o texto prende a data a um acontecimento, e o ano esta escrito"}
 
 
 def _nome_original(nome, span: str):
@@ -403,7 +498,8 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
                 fora_do_corpo += 1
                 continue
             leitura = BC.ler_afirmacao(original, a, b, titulo=titulo)
-            tempo = TA.extrair_tempo(t, {"INICIO": a, "FIM": b, "SECAO": s, "PUBLICACAO": publicacao})
+            tempo = TA.extrair_tempo(t, {"INICIO": a, "FIM": b, "SECAO": s,
+                                         "PUBLICACAO": publicacao, "CAPTURA": prov.get("COLHIDO_EM")})
             precisa = []
             for nome, r in (("cultura", leitura["CULTURA"]), ("praga", leitura["PRAGAS"])):
                 if r["ENTITY_SOURCE"] not in (BC.SPAN, BC.UNKNOWN):
@@ -451,7 +547,9 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
                               "PORQUE_NAO": None if e_facto else tempo["PORQUE"]},
                 "FACT_TIME_ROLE": {"PAPEL": tempo["PAPEL"], "VALOR_LIDO": tempo["VALOR"],
                                    "ORIGEM": tempo["ORIGEM"], "BASIS": tempo["BASIS"],
-                                   "PRECISAO": tempo["PRECISAO"], "PORQUE": tempo["PORQUE"],
+                                   "PRECISAO": tempo["PRECISAO"],
+                                   "ANO": tempo.get("ANO") or (NAO_SEI if str(tempo["PRECISAO"]).endswith("SEM_ANO") else None),
+                                   "PORQUE": tempo["PORQUE"],
                                    "COMPOSICAO": tempo.get("COMPOSICAO"),
                                    "LEITOR": tempo["LEITOR"],
                                    "PUBLICACAO_PROVADA": tempo["PUBLICACAO_PROVADA"]},
@@ -461,7 +559,7 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
                                  "PORQUE": "o produtor minimo nao le identidade de estudo no trecho; "
                                            "quem a le e leis/estudo_chaves.py, ao nivel do item"},
                 "ACT_TIME": _periodo_por_papel(tempo, TA.ATO),
-                "FACT_LOCATION": _lugar(leitura),
+                "FACT_LOCATION": _lugar(leitura, original, a, b, s),
                 # ── AO LADO, nunca no lugar do FACT_TIME (§1) ──────────────────────
                 "PUBLISHED_AT": {"VALOR": prov.get("PUBLISHED_AT", NAO_SEI),
                                  "BASE": prov.get("PUBLISHED_AT_BASIS", NAO_SEI),
@@ -609,9 +707,14 @@ def conferir_afirmacao(af: dict, texto: str, *, raw_sha256=None) -> list:
         v.append("o EVIDENCE_SPAN nao e o mesmo trecho que TRECHO_LITERAL/POSICAO")
     if not isinstance(af.get("PRODUTOR_VERSAO"), dict):
         v.append("sem PRODUTOR_VERSAO: nao se sabe que codigo e que regra extrairam (INT-LAW-052)")
+    # §3 do contrato de consumo: «NAO SEI em identidade/lineage → RECUSA. Nao ha
+    # rebaixamento: sem prova ate ao RAW, nao e evidencia.» A 1.a versao so recusava o vazio,
+    # e uma linha da Sala sem `raw_sha256` passava com os quatro campos a dizer «NAO SEI»
+    # (medido pelo red team D160 §1.6-H: 0 casos na Sala da R9, mas a porta estava aberta).
     for c in ("ITEM_ID", "RAW_OBSERVATION_ID", "RAW_SHA256", "SOURCE_ID"):
-        if af.get(c) in (None, ""):
-            v.append("sem %s: sem prova ate ao RAW nao e evidencia" % c)
+        if e_ignorancia(af.get(c)):
+            v.append("%s = %r: NAO SEI na identidade RECUSA, nao rebaixa — sem prova ate ao "
+                     "RAW nao e evidencia" % (c, af.get(c)))
     classe = (af.get("CLAIM_KIND") or {}).get("VALOR")
     if classe not in CLAIM_KINDS and classe != NAO_SEI:
         v.append("CLAIM_KIND %r fora do vocabulario fechado" % (classe,))

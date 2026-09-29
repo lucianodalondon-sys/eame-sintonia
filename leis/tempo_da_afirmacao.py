@@ -104,9 +104,16 @@ ORIGENS_COM_BASIS_FORA_DO_TRECHO = (CABECALHO_D147, RELATIVA_ANCORADA_D149)
 # Palavras administrativas e comerciais do italiano. Nao sao saber agronomico nem
 # taxonomia: sao a palavra com que a propria fonte diz de que e a data. Uma data
 # sem nenhuma destas marcas nao ganha papel por elas — cai na regra do tempo.
+# ⚠️ As tres ultimas alternativas entraram pelo red team D160 §2.2: «impiego consentito a
+# partire dal 1 aprile 2026 fino al 29 luglio 2026» e uma JANELA DE USO, e saia como
+# ACONTECIMENTO em tres casos reais (`derived:busca-3ae87b2ee6c08d80`). Uma janela em que
+# uma coisa E PERMITIDA nunca e a data em que ela aconteceu.
 _MARCA_DE_VALIDADE = re.compile(
     r"(?<![a-zà-ÿ])(?:validit|valid[oa]\s+(?:dal|fino|da|al)|in\s+vigore|vigenza|scadenz|"
-    r"fino\s+al\s+termine|proroga\s+(?:al|fino))", re.I)
+    r"fino\s+al\s+termine|proroga\s+(?:al|fino)|"
+    r"(?:impiego|utilizzo|impieghi|uso)\s+(?:consentit|ammess|autorizzat)|"
+    r"(?:consentit[oi]|ammess[oi]|autorizzat[oi])\s+(?:a\s+partire\s+)?dal|"
+    r"vale\s+dal|decorre\s+dal|con\s+decorrenza)", re.I)
 _MARCA_DE_ATO = re.compile(
     r"(?<![a-zà-ÿ])(?:decreto|determina(?:zione)?|ordinanza|delibera(?:zione)?|d\.?\s?m\.?\s?n|"
     r"d\.?g\.?r\.?|circolare\s+n|legge\s+n|regolamento\s+\(?(?:ue|ce)\)?)", re.I)
@@ -278,6 +285,13 @@ def _precisao_do_periodo(p: dict) -> str:
     return "WEEK" if (p["FIM_DIA"] - p["INICIO_DIA"]).days <= 6 else "APPROXIMATE"
 
 
+def dia_da_captura(valor) -> date | None:
+    """O dia em que o documento foi colhido. NUNCA ancora uma data (D63): so recusa uma
+    data que venha DEPOIS dele, que e o que o G0 ja faz ao item inteiro."""
+    m = _RE_DIA_ISO.search(str(valor or ""))
+    return _dia(m.group(1), m.group(2), m.group(3)) if m else None
+
+
 def _basis(texto, trecho, dentro_de=None):
     """{'TRECHO', 'INICIO', 'FIM'} — onde o trecho esta no documento. Sem o achar, NAO SEI."""
     if not trecho:
@@ -298,26 +312,96 @@ def _do_vivo(span: str, published_at, published_at_basis) -> dict:
     return FT.campos_do_fato(span, published_at, published_at_basis)
 
 
-def _papel_do_vivo(c: dict, span: str, pub) -> tuple:
+# ── O FUTURO GRAMATICAL (red team D160 §2.1) ─────────────────────────────────
+# O `_RE_FUTURO` do vivo e uma lista de PALAVRAS («previsto», «domani», «attesa»). Ele nao
+# apanha o FUTURO DO VERBO, que em italiano se escreve na propria terminacao: «si terra»,
+# «colpira», «sara organizzata», «si svolgeranno». Medido pelo red team: 10 datas
+# posteriores a captura sairam como ACONTECIMENTO por causa disto.
+# A regra e MORFOLOGICA, nao uma lista: o futuro simples da 3.a pessoa acaba em «-rà» ou
+# «-ranno». O acento final e o que a torna segura em italiano — «città», «libertà» e «papà»
+# acabam em «-tà» e «-pà», nunca em «-rà». Exige-se raiz de 2+ letras para nao apanhar
+# «ranno» sozinho.
+_RE_FUTURO_DO_VERBO = re.compile(r"(?<![a-zà-ÿ])[a-zà-ÿ]{2,}(?:r[àa]\b|ranno\b)", re.I)
+#: as construcoes que anunciam sem verbo no futuro, medidas pelo red team
+_RE_ANUNCIO = re.compile(
+    r"(?<![a-zà-ÿ])(?:in\s+programma|fissat[oaie]\s+per|in\s+calendario|avr[àa]\s+luogo|"
+    r"si\s+terr|si\s+svolger|a\s+partire\s+da(?:l|lla)?\s+prossim)", re.I)
+
+
+def marca_futuro(span: str, valor: str) -> bool:
+    """O trecho anuncia o que ainda nao aconteceu, PERTO da data?
+
+    A pergunta e a do vivo (`fato_do_texto._futuro_perto`, com a janela dele); o que se
+    acrescenta sao as duas formas que a lista de palavras do vivo nao tem."""
+    if FT._RE_FUTURO.search(span) and FT._futuro_perto(span, valor):
+        return True
+    baixo, v = FL._baixo(span), FL._baixo(str(valor or ""))
+    i = baixo.find(v)
+    janela = (baixo[max(0, i - FT.JANELA_ANTES):i + len(v) + FT.JANELA_DEPOIS]
+              if i >= 0 else baixo)
+    return bool(_RE_FUTURO_DO_VERBO.search(janela) or _RE_ANUNCIO.search(janela))
+
+
+def _papel_do_vivo(c: dict, span: str, pub, captura=None) -> tuple:
     """(PAPEL, PORQUE) para o tempo que o vivo devolveu sobre o trecho."""
     valor = c["fact_time"]
     marca = papel_do_periodo(span, None, None, None)[0]
     if marca in (VALIDADE, ATO, MARKET_PERIOD, PUBLICACAO):
         return marca, "o proprio trecho escreve a marca do papel"
-    if FT._RE_FUTURO.search(span) and FT._futuro_perto(span, valor):
-        return PREVISAO, "o trecho marca futuro junto da data"
-    ini = _primeiro_dia(valor)
-    if pub is not None and ini is not None and ini > pub:
-        return PREVISAO, "a data e posterior a publicacao provada"
+    if marca_futuro(span, valor):
+        return PREVISAO, "o trecho anuncia o que ainda nao aconteceu, junto da data"
+    ini, sem_ano = primeiro_dia(valor)
+    if ini is not None:
+        if pub is not None and ini > pub:
+            return PREVISAO, "a data e posterior a publicacao provada"
+        # A DATA DEPOIS DA CAPTURA NAO PODE SER UM ACONTECIMENTO OBSERVADO. Isto nao e
+        # ancorar nada na coleta (a D63 proibe ancorar): e recusar. E a mesma regra que o
+        # G0 ja aplica ao item inteiro (`FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA`), feita
+        # agora por afirmacao.
+        if captura is not None and ini > captura:
+            return PREVISAO, "a data e posterior ao dia em que o documento foi colhido"
     return ACONTECIMENTO, "o leitor vivo prendeu a data a um acontecimento (kind %s)" % c["fact_time_kind"]
 
 
+# ── LER A DATA EM QUALQUER FORMA QUE O VIVO ESCREVA ──────────────────────────
+# O vivo devolve o valor COMO O TEXTO O ESCREVE: «2026-09-07/2026-09-13», mas tambem
+# «12 novembre 2026», «6-8 ottobre 2026», «18 febbraio» (sem ano), «16/09/2026».
+# Ler so o ISO foi o defeito medido: `_primeiro_dia` devolvia None e a comparacao com a
+# publicacao nunca acontecia. Isto NAO e um leitor de italiano novo — e a leitura do
+# NUMERO de um valor que o vivo ja leu, com a tabela de meses do dono dela (`fato_local`).
 _RE_DIA_ISO = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
+_RE_DIA_BARRA = re.compile(r"\b(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})\b")
+_RE_DIA_MES = re.compile(r"\b(\d{1,2})\s*(?:[-–]\s*\d{1,2}\s*)?(%s)(?:\s+(\d{4}))?\b"
+                         % "|".join(FL.MESES), re.I)
+_RE_SO_MES = re.compile(r"\b(%s)\s+(\d{4})\b" % "|".join(FL.MESES), re.I)
+_RE_SO_ANO = re.compile(r"\b((?:19|20)\d{2})\b")
 
 
-def _primeiro_dia(valor) -> date | None:
-    m = _RE_DIA_ISO.search(str(valor or ""))
-    return _dia(m.group(1), m.group(2), m.group(3)) if m else None
+def primeiro_dia(valor) -> tuple:
+    """(o primeiro dia do valor, sem_ano) — `(None, …)` quando nao ha dia nenhum.
+
+    `sem_ano` e True quando o texto escreve o dia e o mes e NAO escreve o ano: nesse caso
+    nao se inventa o ano (nem o da publicacao), e a precisao passa a dizer que ele falta."""
+    s = str(valor or "")
+    m = _RE_DIA_ISO.search(s)
+    if m:
+        return _dia(m.group(1), m.group(2), m.group(3)), False
+    m = _RE_DIA_BARRA.search(s)
+    if m:
+        return _dia(m.group(3), m.group(2), m.group(1)), False
+    m = _RE_DIA_MES.search(FL._baixo(s))
+    if m:
+        mes = FL.MES_NUM[m.group(2).lower()]
+        if m.group(3):
+            return _dia(m.group(3), mes, m.group(1)), False
+        return None, True
+    m = _RE_SO_MES.search(FL._baixo(s))
+    if m:
+        return _dia(m.group(2), FL.MES_NUM[m.group(1).lower()], 1), False
+    m = _RE_SO_ANO.search(s)
+    if m:
+        return _dia(m.group(1), 1, 1), False
+    return None, False
 
 
 def _ha_tempo_escrito(texto: str) -> bool:
@@ -435,6 +519,8 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
         INICIO, FIM    o trecho da afirmacao, em `texto`
         SECAO          {"INICIO", "FIM"} — o bloco que governa o trecho (opcional)
         PUBLICACAO     {"VALOR", "BASE"} — o published_at e a base dele (opcional)
+        CAPTURA        o dia em que o documento foi colhido (opcional). NAO ancora nada
+                       (a D63 proibe); serve so para RECUSAR uma data posterior a ele
 
     O valor sai em VALOR; NAO SEI quando ha tempo escrito mas nao se prova que e desta
     afirmacao; NAO_EXISTE quando nem o trecho nem a seccao escrevem tempo nenhum."""
@@ -443,7 +529,9 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
     secao = alvo.get("SECAO") or {"INICIO": 0, "FIM": len(texto)}
     publicacao = alvo.get("PUBLICACAO") or {}
     pub = FT.publicacao_provada(publicacao.get("VALOR"), publicacao.get("BASE"))
+    captura = dia_da_captura(alvo.get("CAPTURA"))
     base = {"LEITOR": LEITOR_VIVO, "PUBLICACAO_PROVADA": pub.isoformat() if pub else None,
+            "CAPTURA": captura.isoformat() if captura else None,
             "LEI": "D63 · D147 · D149 · D153; so ACONTECIMENTO e tempo do facto"}
 
     cab_doc = cabecalho_do_documento(texto)
@@ -452,7 +540,7 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
     # ── 1 · o que o LEITOR VIVO le no proprio trecho ───────────────────────
     c = _do_vivo(span, publicacao.get("VALOR"), publicacao.get("BASE"))
     if c["fact_time"] != NAO_SEI:
-        papel, porque = _papel_do_vivo(c, span, pub)
+        papel, porque = _papel_do_vivo(c, span, pub, captura)
         calculada = c["fact_time_calculo"] == FT.RELATIVA
         origem = RELATIVO_D63 if calculada else LITERAL
         trecho = c["fact_time_evidencia"] if calculada else _trecho_do_basis(c["fact_time_basis"])
@@ -476,8 +564,10 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
                                % (c["fact_time"], p["VALOR"]),
                         COMPOSICAO={"RELATIVA": c["fact_time_expressao"], "CONTA_DO_VIVO": c["fact_time"],
                                     "IMPRESSO": p["VALOR"], "TRECHO_DO_CABECALHO": p["BASIS"]["TRECHO"]})
+        _dia_lido, sem_ano = primeiro_dia(c["fact_time"])
+        precisao = c["fact_time_precision"] + ("+SEM_ANO" if sem_ano else "")
         return dict(base, PAPEL=papel, VALOR=c["fact_time"], ORIGEM=origem, BASIS=basis,
-                    PRECISAO=c["fact_time_precision"], PORQUE=porque,
+                    PRECISAO=precisao, ANO=NAO_SEI if sem_ano else None, PORQUE=porque,
                     BASE_DO_VIVO=c["fact_time_basis"][:400])
 
     # ── 2 · o trecho nao escreve a data: o CABECALHO da seccao pode governa-la (D147) ──

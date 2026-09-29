@@ -351,6 +351,205 @@ class AMemoriaDeLeitura(unittest.TestCase):
         self.assertEqual(BC.secoes_territoriais(t), BC.secoes_territoriais.sem_memoria(t))
 
 
+class OQueAindaNaoAconteceu(unittest.TestCase):
+    """D160 §2.1 e §2.3 — os defeitos que o red team mediu, cada um com o seu teste.
+
+    O caminho que falhava era o do LEITOR VIVO (uma data escrita no proprio trecho), nao o
+    do cabecalho: `_primeiro_dia` so lia «AAAA-MM-DD», e «12 novembre 2026» devolvia None."""
+
+    def test_a_data_le_se_em_qualquer_forma_que_o_vivo_escreva(self):
+        for valor, esperado, sem_ano in (
+                ('2026-09-07/2026-09-13', date(2026, 9, 7), False),
+                ('12 novembre 2026', date(2026, 11, 12), False),
+                ('6-8 ottobre 2026', date(2026, 10, 6), False),
+                ('16/09/2026', date(2026, 9, 16), False),
+                ('ottobre 2026', date(2026, 10, 1), False),
+                ('2003', date(2003, 1, 1), False),
+                ('18 febbraio', None, True)):
+            self.assertEqual(TA.primeiro_dia(valor), (esperado, sem_ano), valor)
+
+    def test_evento_futuro_com_data_por_extenso_nao_e_acontecimento(self):
+        """RT3: «si terrà il 12 novembre 2026», publicado a 16/09. Era ACONTECIMENTO."""
+        t = ("Il convegno regionale sulla difesa integrata si terrà il 12 novembre 2026 "
+             "presso la sede della Regione.\n")
+        af = _que_diz(_produzir(t), 'Il convegno regionale')
+        self.assertIsNotNone(af)
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.PREVISAO)
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+
+    def test_a_data_depois_da_publicacao_provada_nao_e_acontecimento(self):
+        papel, _ = TA._papel_do_vivo({'fact_time': '12 novembre 2026', 'fact_time_kind': 'EVENTO'},
+                                     'La riunione del 12 novembre 2026 in provincia di Cuneo.',
+                                     date(2026, 9, 16))
+        self.assertEqual(papel, TA.PREVISAO)
+
+    def test_a_data_depois_da_captura_nao_e_acontecimento(self):
+        """Sem publicacao provada, quem recusa e a captura — a mesma regra do G0, por
+        afirmacao. Isto NAO ancora nada na coleta (D63): so recusa."""
+        papel, porque = TA._papel_do_vivo(
+            {'fact_time': '30 settembre 2026', 'fact_time_kind': 'CAMPO'},
+            'La grandine osservata il 30 settembre 2026 in provincia di Cuneo.',
+            None, date(2026, 9, 25))
+        self.assertEqual(papel, TA.PREVISAO)
+        self.assertIn('colhido', porque)
+
+    def test_o_futuro_do_verbo_italiano_e_futuro(self):
+        for frase in ('La grandine colpirà la zona il 12 novembre 2026',
+                      'Le riunioni si terranno il 12 novembre 2026',
+                      'La giornata sarà organizzata il 12 novembre 2026',
+                      'Incontro in programma il 12 novembre 2026'):
+            self.assertTrue(TA.marca_futuro(frase, '12 novembre 2026'), frase)
+
+    def test_a_palavra_com_acento_que_nao_e_verbo_nao_e_futuro(self):
+        """«città», «libertà», «papà» acabam em -tà e -pà, nunca em -rà."""
+        for frase in ('La città di Cuneo il 12 novembre 2026',
+                      'La libertà di scelta il 12 novembre 2026'):
+            self.assertFalse(TA.marca_futuro(frase, '12 novembre 2026'), frase)
+
+    def test_janela_de_uso_permitido_e_validade_nao_facto(self):
+        """D160 §2.2, com a forma real medida em derived:busca-3ae87b2ee6c08d80."""
+        papel, _ = TA.papel_do_periodo(
+            'impiego consentito a partire dal 1 aprile 2026 fino al 29 luglio 2026',
+            None, None, None)
+        self.assertEqual(papel, TA.VALIDADE)
+        t = ("Per questo prodotto l'impiego consentito a partire dal 1 aprile 2026 fino al "
+             "29 luglio 2026 nelle aziende della provincia.\n")
+        for af in _produzir(t):
+            self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+
+    def test_as_tres_formas_de_validade_cada_uma_sozinha(self):
+        """Uma frase por FORMA, escolhida para que SO aquela alternativa a apanhe — senao
+        uma cobre a outra e o mutante da que falta sobrevive (foi o que aconteceu)."""
+        casos = {
+            # so «impiego consentito» (o «consentito» nao vem seguido de «dal»)
+            'impiego': "L'impiego consentito riguarda il periodo 01-03-2026 al 28-06-2026",
+            # so «autorizzato dal»
+            'autorizzato': 'Prodotto autorizzato dal 01-03-2026 al 28-06-2026',
+            # so «vale dal» / «decorre dal»
+            'vale': 'La deroga vale dal 01-03-2026 al 28-06-2026',
+            'decorre': 'Il termine decorre dal 01-03-2026 al 28-06-2026',
+        }
+        for nome, frase in casos.items():
+            self.assertEqual(TA.papel_do_periodo(frase, None, None, None)[0], TA.VALIDADE, nome)
+
+    def test_alerta_evento_nao_e_o_que_sobra(self):
+        """RT4: a classe exige as TRES coisas, e nao so o papel."""
+        semear = {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'DATE_EXACT', 'ANO': None}
+        # sem ancora de acontecimento no texto
+        r = AD.classe_do_claim('come scrissi, nel 2003, nella nota introduttiva del volume', semear)
+        self.assertEqual(r['VALOR'], NAO_SEI)
+        # papel que nao e ACONTECIMENTO
+        r = AD.classe_do_claim('La grandine osservata ha colpito i frutteti',
+                               {'PAPEL': TA.PREVISAO, 'PRECISAO': 'DATE_EXACT', 'ANO': None})
+        self.assertEqual(r['VALOR'], NAO_SEI)
+        # sem ano
+        r = AD.classe_do_claim('La grandine osservata ha colpito i frutteti',
+                               {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'DATE_EXACT+SEM_ANO',
+                                'ANO': NAO_SEI})
+        self.assertEqual(r['VALOR'], NAO_SEI)
+        # as tres juntas
+        r = AD.classe_do_claim('La grandine osservata ha colpito i frutteti', semear)
+        self.assertEqual(r['VALOR'], 'ALERTA_EVENTO')
+
+    def test_a_precisao_diz_quando_o_ano_falta(self):
+        t = ("La grandinata osservata il 18 febbraio ha colpito i frutteti della provincia "
+             "di Cuneo con danni diffusi.\n")
+        af = _que_diz(_produzir(t), 'La grandinata osservata')
+        self.assertIsNotNone(af)
+        self.assertTrue(af['FACT_TIME_ROLE']['PRECISAO'].endswith('SEM_ANO'),
+                        af['FACT_TIME_ROLE']['PRECISAO'])
+        self.assertEqual(af['FACT_TIME_ROLE']['ANO'], NAO_SEI)
+
+
+class AIdentidadeNaoSeRebaixa(unittest.TestCase):
+    """D160 §1.6-H · contrato de consumo §3: NAO SEI na identidade RECUSA."""
+
+    def test_o_vocabulario_de_ignorancia_e_o_do_dono(self):
+        """A copia local nao pode divergir de `motor/corrida_da_inteligencia`."""
+        sys.path.insert(0, os.path.join(RAIZ, 'motor'))
+        import corrida_da_inteligencia as CI      # noqa: PLC0415
+        self.assertEqual(AD.PALAVRAS_DE_IGNORANCIA, CI.PALAVRAS_DE_IGNORANCIA)
+
+    def test_nao_sei_na_identidade_recusa(self):
+        for campo in ('ITEM_ID', 'RAW_OBSERVATION_ID', 'RAW_SHA256', 'SOURCE_ID'):
+            for como in ('NAO SEI', 'UNKNOWN', 'NOT_KNOWN', ''):
+                af = json.loads(json.dumps(_produzir(BOLETIM)[0]))
+                af[campo] = como
+                v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='f' * 64)
+                self.assertTrue(any(campo in x for x in v), (campo, como, v))
+
+    def test_uma_linha_da_sala_sem_raw_nao_produz_afirmacao_que_passe(self):
+        """A porta que estava aberta: sem `raw_sha256`, `raw_observation_id` e `source_id`,
+        a afirmacao saia com NAO SEI nos tres e a conferencia devolvia []."""
+        linha = _linha(BOLETIM)
+        for c in ('raw_sha256', 'raw_observation_id', 'source_id'):
+            linha[c] = None
+        for af in AD.afirmacoes_do_item(linha)['AFIRMACOES']:
+            self.assertTrue(AD.conferir_afirmacao(af, BOLETIM), af['CLAIM_ID'])
+
+
+class OBlocoDeMenuNaoEUmaFrase(unittest.TestCase):
+    """D160 §1.9 · 700 trechos com 3+ quebras de linha: o menu de uma pagina web engolido
+    numa «frase» so, porque nenhuma daquelas linhas acaba em ponto."""
+
+    MENU = "Home\nNotizie\nTemi ambientali\nPubblicazioni\nContatti\nArea riservata\n"
+
+    def test_um_bloco_de_linhas_curtas_nao_e_corpo(self):
+        self.assertTrue(AD.e_bloco_de_linhas_curtas(self.MENU))
+        self.assertFalse(AD.e_corpo(self.MENU))
+
+    def test_um_paragrafo_de_verdade_continua_a_ser_corpo(self):
+        p = ("Le grandinate sono state osservate in provincia di Cuneo con danni diffusi\n"
+             "ai frutteti e alle colture orticole della zona pianeggiante.\n")
+        self.assertFalse(AD.e_bloco_de_linhas_curtas(p))
+        self.assertTrue(AD.e_corpo(p))
+
+    def test_o_menu_nao_vira_afirmacao(self):
+        for af in _produzir(self.MENU + BOLETIM):
+            self.assertNotIn('Area riservata', af['TRECHO_LITERAL'])
+
+
+class OLugarTemOffset(unittest.TestCase):
+    """D160 §2.6 · o lugar nao tinha onde, so o nome."""
+
+    def test_o_lugar_escrito_no_trecho_traz_o_offset(self):
+        af = _que_diz(_produzir(BOLETIM), 'Le grandinate sono state osservate')
+        onde = af['FACT_LOCATION']['ONDE']
+        self.assertIsNotNone(onde)
+        self.assertEqual(onde['TRECHO'], BOLETIM[onde['INICIO']:onde['FIM']])
+        self.assertTrue(onde['DENTRO_DO_ALVO'])
+
+    def test_a_expressao_que_atravessa_uma_linha_nao_e_um_lugar(self):
+        """D160 §1.5 · «zone cuscinetto» na linha de TITULO e «Il monitoraggio» na frase
+        seguinte davam o lugar «zone cuscinetto Il monitoraggio». Duas metades de linhas
+        diferentes nao sao o nome de um lugar."""
+        t = ("Bollettino n. 15\n"
+             "\f"
+             "SEZIONE DAL 07-09-2026 AL 13-09-2026\n"
+             "Monitoraggio nelle zone cuscinetto\n"
+             "Il monitoraggio degli adulti e stato eseguito dai tecnici della provincia.\n")
+        afs = [x for x in _produzir(t) if 'zone cuscinetto' in x['TRECHO_LITERAL']]
+        self.assertTrue(afs, 'o texto de prova nao produziu o trecho que atravessa a linha')
+        for af in afs:
+            loc = af['FACT_LOCATION']
+            self.assertEqual(loc['VALOR'], NAO_SEI, af['TRECHO_LITERAL'])
+            self.assertFalse(loc['PONTO_NO_MAPA'])
+            self.assertIn('atravessa uma quebra de linha', loc['PORQUE'] or '')
+
+    def test_nenhum_lugar_publicado_atravessa_uma_linha(self):
+        for af in _produzir(BOLETIM):
+            onde = af['FACT_LOCATION']['ONDE']
+            if onde:
+                self.assertFalse(onde['ATRAVESSA_LINHA'], onde)
+
+    def test_sem_offset_o_porque_esta_escrito(self):
+        """«barese» -> Bari: a forma escrita nao e a normalizada, e isso diz-se."""
+        for af in _produzir(BOLETIM):
+            loc = af['FACT_LOCATION']
+            if loc['VALOR'] != NAO_SEI and loc['ONDE'] is None:
+                self.assertTrue(loc['PORQUE_SEM_OFFSET'])
+
+
 class ALeituraDoCabecalhoDobrado(unittest.TestCase):
     """As letras dobradas do PDF — a regra, e o que ela recusa."""
 
