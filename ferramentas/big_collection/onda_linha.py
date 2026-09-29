@@ -45,7 +45,7 @@ from pathlib import Path
 AQUI = Path(__file__).resolve().parent
 RAIZ = AQUI.parents[1]
 sys.path.insert(0, str(RAIZ))
-sys.path.insert(0, str(RAIZ / "coleta"))
+import _gavetas  # noqa: E402,F401 — as gavetas do processo no caminho (`orquestrador` e um MODULO, nao a pasta)
 sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
 
 RULE_VERSION = "RELIGA-MULTICANAL/v1 (D155)"

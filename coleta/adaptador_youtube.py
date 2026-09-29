@@ -311,12 +311,33 @@ def youtube_resolver_canal(*, account_url, run_id, country_scope='IT',
 
 
 def resolver_canal(*, account_url, run_id, country_scope='IT', **kw):
-    """O papel `executa`: devolve (objetos, trace) ja no vocabulario do SCRAP."""
+    """O papel `executa`: devolve (objetos, trace) ja no vocabulario do SCRAP.
+
+    RELIGA-MULTICANAL (D155, 29/09) — A DECISAO DE ROTA DEIXOU DE SER DESTA FUNCAO.
+
+    Ate aqui este percurso declarava `pedido=API_OFICIAL`, e a API oficial respondia CREDENTIAL_MISSING:
+    a chave existe nos segredos do GitHub e NAO esta na maquina onde a coleta corre. Resultado medido: a
+    linha YouTube nunca colheu nada, e o motivo escrito era «falta credencial» — o que fazia parecer que
+    a rota exigia uma chave.
+
+        A API DO GOOGLE NAO E REQUISITO. A ROTA PUBLICA DO CANAL E GRATUITA, E ESTA PROVADA.
+
+    Quem decide a rota agora e o CONTRATO/a rota publica (`coleta/rotas_multicanal.youtube_videos_do_canal`,
+    e o adapter CANAL_PUBLICO_YOUTUBE_V1 do lado .mjs), e e por ela que a linha YOUTUBE da coleta continua
+    corre. Esta funcao continua a existir para RESOLVER IDENTIDADE de um endereco de conta — e, quando o
+    endereco ja traz o `UC...`, resolve-o com ZERO unidades de quota e sem tocar na API.
+
+    O percurso passa a declarar o que realmente se pediu: `ROTA_PUBLICA` quando o proprio endereco
+    resolveu, `API_OFICIAL` so quando se foi mesmo a API (handle/username, 1 unidade). Declarar
+    API_OFICIAL onde nao houve API e o que fazia o trace mentir sobre o custo.
+    """
     objetos, estado = youtube_resolver_canal(
         account_url=account_url, run_id=run_id, country_scope=country_scope, **kw)
-    p = forn.Percurso('youtube.channel.resolve', pedido=forn.API_OFICIAL)
-    p.degrau(forn.API_OFICIAL, estado.get('STATE'),
-             estado.get('WHY') or (objetos[0].get('RESOLVED_BY') if objetos else None))
+    por = (objetos[0].get('RESOLVED_BY') if objetos else None)
+    usou_api = por not in ('URL', None)
+    pedido = forn.API_OFICIAL if usou_api else forn.HTTP_PROPRIO
+    p = forn.Percurso('youtube.channel.resolve', pedido=pedido)
+    p.degrau(pedido, estado.get('STATE'), estado.get('WHY') or por)
     trace = p.selar(resultado=estado.get('STATE'))
     trace['ACCOUNT_URL'] = account_url
     trace['QUOTA_UNITS'] = sum(o.get('QUOTA_UNITS', 0) for o in objetos)
