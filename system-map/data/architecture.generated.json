@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "350cc3456c582777b77d048298e72dd84e8c8920",
-    "GENERATED_AT": "2026-09-28T21:38:01-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ba16044ef2231607b90d0835bfd2a2691d9b28ded39c29b5d686ad753149888c"
+    "HEAD": "df06be180f187c4563bf3e8d170bc70c3b1064c9",
+    "GENERATED_AT": "2026-09-28T22:16:06-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1ca7c3d10a6e2603186cfcba7a81b70365dafc0cb3313b6a3be487919df01e0d"
   },
   "FILES": [
     {
@@ -18147,14 +18147,14 @@
     },
     {
       "path": "italia-portale/client/portale.html",
-      "sha": "d368eaef7bae15c44952e791fb3b5d4d6424e406",
+      "sha": "e75d6054d56b939b173c54aac4610a9b3fcba75a",
       "ext": ".html",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "italia-portale/client/sintonia-pote-casco.js",
-      "sha": "5c107d4f1c709cfe675f924edd2868d03b3888fe",
+      "sha": "ff570d128796009851d254aaa4f972a21ac664d0",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -19687,7 +19687,7 @@
     },
     {
       "path": "portoes/PUBLICACAO-AUTOMATICA.json",
-      "sha": "7303816737118f1b2cf3317fcfd5a978d0582cc7",
+      "sha": "1ac1dde56c8d2c7faa5d6c752dc7ea388e33f881",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -19701,14 +19701,14 @@
     },
     {
       "path": "portoes/fotografar_portal.mjs",
-      "sha": "7ba739a8af17868abf881c45b7bf9ab6aadc6eac",
+      "sha": "465e24a7d9bc84f893195781bdf6a797e6e50758",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "portoes/publicar_portal_sozinho.py",
-      "sha": "839dad2ac00c659f5ee9e21d35a7706a659094b5",
+      "sha": "38353ece4be95ab3977a131dc16f650a8679788a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21850,14 +21850,14 @@
     },
     {
       "path": "provas/l3/DESTINO-DOS-2-FATOS.md",
-      "sha": "764f1b5a9c3a00023e5bdc03f7db1ea82ce83137",
+      "sha": "e01ae25b5dd42ebd2b8521407c12b88f6eca050e",
       "ext": ".md",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/l3/MUTACAO-L3.json",
-      "sha": "50d4ddc4ed9d4c2c763072d2a296c5b67a257bde",
+      "sha": "3b01dbcc0dff3143d1835a59e05f158c193443af",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26351,7 +26351,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e58ab3af0125173565f7792f772417392b13d28d",
+      "sha": "d439d0c58916109c10094f9e3886bcb88e3c54b2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28920,7 +28920,7 @@
     },
     {
       "path": "tests/test_pote_no_casco.mjs",
-      "sha": "bdb680840fba566451bd56c7fa0ca7aaa2a0a945",
+      "sha": "ffeb89575eca2dff630d6815a9bc8aa2170deada",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -29025,7 +29025,7 @@
     },
     {
       "path": "tests/test_publicar_portal_sozinho.py",
-      "sha": "63775a079a392710a142f8e460b42edcf99ef824",
+      "sha": "dc86840452f2a384799753e248565aa3b1b194e2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29571,7 +29571,7 @@
     },
     {
       "path": "vercel.json",
-      "sha": "5cf10948fe1afbb97ba31fa07d6f19a21b6f8942",
+      "sha": "ddd3a26dfb46ab9e49e71a1b9565d83795693484",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -64543,7 +64543,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 491,
+        "line": 532,
         "snippet": "L = [conferir_comando(\"C1_BUILD_GATE\", [\"node\", \"italia-portale/audit/build-gate.mjs\"], copia, contrato, 600),"
       }
     },
@@ -64554,7 +64554,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 492,
+        "line": 533,
         "snippet": "conferir_comando(\"C2_DEPLOY_SURFACE\", [\"node\", \"italia-portale/audit/deploy-surface.mjs\"], copia, contrato, 600)]"
       }
     },
@@ -64565,7 +64565,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 454,
+        "line": 495,
         "snippet": "if \"audit/run.mjs\" in texto and rc not in (None,):"
       }
     },
@@ -64576,7 +64576,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 627,
+        "line": 669,
         "snippet": "req = urllib.request.Request(base_url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\","
       }
     },
@@ -64587,7 +64587,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 830,
+        "line": 872,
         "snippet": "(Path(copia) / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text("
       }
     },
@@ -64598,7 +64598,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 585,
+        "line": 626,
         "snippet": "if (c / \"package.json\").exists():"
       }
     },
@@ -64653,7 +64653,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 696,
+        "line": 738,
         "snippet": "if (Path(copia) / \"vercel.json\").exists():"
       }
     },
@@ -106827,7 +106827,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_pote_no_casco.mjs",
-        "line": 27,
+        "line": 33,
         "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';"
       }
     },
@@ -106838,7 +106838,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_pote_no_casco.mjs",
-        "line": 27,
+        "line": 33,
         "snippet": "import { mount, CLIENT } from '../italia-portale/audit/lib/harness.mjs';"
       }
     },
@@ -106849,7 +106849,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_pote_no_casco.mjs",
-        "line": 31,
+        "line": 37,
         "snippet": "const LEITOR = fs.readFileSync(path.join(CLIENT, 'sintonia-pote-casco.js'), 'utf8');"
       }
     },
@@ -106860,7 +106860,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_pote_no_casco.mjs",
-        "line": 207,
+        "line": 244,
         "snippet": "const POTE2 = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/POTE-SINTETICO-V2-UNICO.json'), 'utf8'));"
       }
     },
@@ -106871,7 +106871,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_pote_no_casco.mjs",
-        "line": 30,
+        "line": 36,
         "snippet": "const POTE = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/POTE-SINTETICO.json'), 'utf8'));"
       }
     },
@@ -107619,7 +107619,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 36,
+        "line": 37,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -107630,7 +107630,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 420,
+        "line": 471,
         "snippet": "(Path(d) / \"italia-portale\" / \"audit\" / \"run.mjs\").write_text("
       }
     },
@@ -107641,7 +107641,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 320,
+        "line": 333,
         "snippet": "self.assertEqual(r.get(\"/casa.html\"), para)"
       }
     },
@@ -107652,7 +107652,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 328,
+        "line": 341,
         "snippet": "(d / \"casa.html\").write_text(\"CASA-LEGADA\", encoding=\"utf-8\")"
       }
     },
@@ -107663,7 +107663,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 636,
+        "line": 687,
         "snippet": "const LEITOR = fs.readFileSync(path.join(CL, 'sintonia-pote-casco.js'), 'utf8');"
       }
     },
@@ -107674,7 +107674,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 264,
+        "line": 277,
         "snippet": "stub = (RAIZ / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -107685,7 +107685,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 449,
+        "line": 500,
         "snippet": "(d / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(STUB, encoding=\"utf-8\")"
       }
     },
@@ -107696,7 +107696,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 38,
+        "line": 39,
         "snippet": "import publicar_portal_sozinho as P  # noqa: E402"
       }
     },
@@ -107707,7 +107707,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 41,
+        "line": 42,
         "snippet": "POTE_ENSAIO = json.loads((FIX / \"POTE-SINTETICO-PUBLICA-SOZINHO.json\").read_text(encoding=\"utf-8\"))"
       }
     },
@@ -107718,7 +107718,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 42,
+        "line": 43,
         "snippet": "POTE_SEM_BULA = json.loads((FIX / \"POTE-SINTETICO.json\").read_text(encoding=\"utf-8\"))"
       }
     },
@@ -107729,7 +107729,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 317,
+        "line": 330,
         "snippet": "r = {x[\"source\"]: x[\"destination\"] for x in P.redirecionamentos(RAIZ / \"vercel.json\")}"
       }
     },
@@ -107740,7 +107740,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 330,
+        "line": 343,
         "snippet": "(d / \"vercel.json\").write_text(json.dumps({\"redirects\": ["
       }
     },
