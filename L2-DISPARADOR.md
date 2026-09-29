@@ -243,6 +243,6 @@ Entrega completa, com a tabela da diretiva: `C:/Users/London1/auditoria-madrugad
 - **Sobre a Sala da R9:** pote do motor real **válido** (15 objetos, 0 violações), `RAW_SHA256` do banco em 21/21 provas,
   **0 objetos liberados**. Ensaio no Postgres descartável 16/16, com `POTE_NOVO = PASS` e o byte da prova igual ao
   `raw_asset` em 15/15. Mutação **60/60**. A entrega passou a ser escrita em LF (`sha256sum -c` falhava no Windows).
-- **Efeito medido (bateria contra `852ec0f0b`):** 37 falhas novas — 34 da fixture `CORRIDA-SINTETICA-V2-UNICO`
+- **Efeito medido (bateria contra `852ec0f0b`):** 37 falhas novas — 33 da fixture `CORRIDA-SINTETICA-V2-UNICO`
   (texto fora da lei), 2 do acervo (texto achatado «POR_CHAVE»), 1 do ponto fixo do mapa (resolvido pela cadeia) e
   1 que não reproduz sozinha (`test_a_regra_de_t2`). Não corrigidas aqui, por ordem da diretiva.
