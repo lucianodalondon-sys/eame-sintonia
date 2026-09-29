@@ -63,6 +63,11 @@ E o que a tarefa agendada SINTONIA-CASCO-PREVIEW corre a cada 10 min (portoes/ca
 Cada rodada escreve uma linha em RODADAS.ndjson (T0 = hora do SHA256SUMS da entrega, T1 = fim da publicacao).
 Nunca producao: o modo e so ensaio/preview, e o CANONICAL_HOST nunca e destino (a regra da guarda L1).
 
+LOCK-PESADO (regra da maquina partilhada, 24/09; coordenador 29/09): publicar e trabalho PESADO (a cadeia do mapa e
+os 73 portoes correm dentro de C3). Com --lock-pesado, a rodada so publica depois de CRIAR esse ficheiro (criacao
+exclusiva, com nome, PID e hora) e apaga-o no fim — so se ainda for o seu. Ficheiro de outra sessao = ESPERA_LOCK_PESADO:
+nada publicado, o estado nao muda, a rodada seguinte tenta outra vez.
+
 PREVIEW-ATUAL.json (pedido do LAB, 29/09): o pote so existe na URL do DEPLOYMENT (o CANONICAL_HOST da 404 para
 /sintonia-pote-publicado.js). A cada deployment novo a rodada grava, num ficheiro estavel (--preview-atual), a URL,
 o id, e os DOIS sha do pote — ditos pelo nome, porque sao diferentes com o mesmo conteudo:
@@ -290,11 +295,52 @@ def gravar_preview_atual(destino, reg: dict | None, pote: Path, sha_ficheiro: st
     return atual
 
 
-def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None, preview_atual=None) -> dict:
+MARCA_DO_LOCK = "SINTONIA-CASCO-PREVIEW (tarefa agendada da L3)"
+
+
+class LockOcupado(Exception):
+    """A LOCK-PESADO e de outra sessao."""
+
+
+def com_lock_pesado(lock, publicar):
+    """Embrulha `publicar`: pega a LOCK-PESADO antes, solta-a depois (so se ainda for a sua). Sem `lock`, nada muda."""
+    if not lock:
+        return publicar
+
+    def f(*args):
+        p = Path(lock)
+        try:
+            fd = os.open(p, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError:
+            try:
+                quem = p.read_text(encoding="utf-8", errors="replace")[:400]
+            except OSError:
+                quem = "ilegivel"
+            raise LockOcupado(quem)
+        texto = ("LOCK-PESADO — trabalho pesado nesta maquina, um de cada vez.\n\n"
+                 f"QUEM      {MARCA_DO_LOCK}\nDESDE     {_agora()}\nPID       {os.getpid()}\n"
+                 "O QUE     publicar o pote no PREVIEW (C3 corre a cadeia do mapa e os 73 portoes)\n"
+                 "NAO TOCA  producao (so --modo ensaio/preview)\n\nSOLTO-O no fim desta publicacao.\n")
+        os.write(fd, texto.encode("utf-8"))
+        os.close(fd)
+        try:
+            return publicar(*args)
+        finally:
+            try:
+                if MARCA_DO_LOCK in p.read_text(encoding="utf-8", errors="replace") and str(os.getpid()) in p.read_text(
+                        encoding="utf-8", errors="replace"):
+                    p.unlink()
+            except OSError:
+                pass
+    return f
+
+
+def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None, preview_atual=None,
+           lock_pesado=None) -> dict:
     """Uma volta do agendador. Devolve a linha que fica em RODADAS.ndjson."""
     estado = Path(estado)
     estado.mkdir(parents=True, exist_ok=True)
-    publicar = publicar or _publicar_de_verdade
+    publicar = com_lock_pesado(lock_pesado, publicar or _publicar_de_verdade)
     linha = {"INICIO": _agora(), "ENTREGA": str(entrega), "MODO": modo}
 
     def fim(decisao, **extra):
@@ -376,6 +422,9 @@ def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None, pr
             E.update(TENTATIVAS_DE=ass, TENTATIVAS=tentativas)
         _escrever(estado / "ESTADO.json", E)
         return fim("RECUSADA_DITA" if rc == 0 else "RECUSADA_NAO_DITA", MOTIVOS=motivos)
+    except LockOcupado as e:
+        return fim("ESPERA_LOCK_PESADO", MOTIVOS=["a LOCK-PESADO e de outra sessao: nada publicado, tenta na proxima rodada"],
+                   LOCK_DE=str(e)[:300])
     finally:
         try:
             trava.unlink()
@@ -396,6 +445,7 @@ def main(argv=None) -> int:
     ap.add_argument("--rodada", action="store_true", help="D156: uma volta do agendador (PARAR, trava, assinatura, registo)")
     ap.add_argument("--estado", default=None, help="a pasta de estado da rodada (ESTADO.json, RODADAS.ndjson, PARAR)")
     ap.add_argument("--preview-atual", default=None, help="ficheiro estavel com a URL do ultimo preview (para o LAB)")
+    ap.add_argument("--lock-pesado", default=None, help="o LOCK-PESADO.txt da maquina: pega antes de publicar, solta depois")
     a = ap.parse_args(argv)
     if a.modo not in MODOS_PERMITIDOS:
         print(f"RECUSADO: modo {a.modo!r}. Este gatilho so publica em {' / '.join(MODOS_PERMITIDOS)}; "
@@ -405,7 +455,8 @@ def main(argv=None) -> int:
         if not a.estado or a.raiz:
             print("uso: --rodada exige --estado <pasta> (e aceita --pasta; --raiz nao)")
             return USO
-        r = rodada(Path(a.pasta or ENTREGA), Path(a.estado), a.modo, preview_atual=a.preview_atual)
+        r = rodada(Path(a.pasta or ENTREGA), Path(a.estado), a.modo, preview_atual=a.preview_atual,
+                   lock_pesado=a.lock_pesado)
         print(json.dumps(r, ensure_ascii=False))
         return 0 if r["DECISAO"] not in ("RECUSADA_NAO_DITA",) else 1
     if not a.raiz:

@@ -16,6 +16,8 @@ setlocal
 if not defined SINTONIA_CASCO set "SINTONIA_CASCO=%USERPROFILE%\sintonia-casco-preview"
 if not exist "%SINTONIA_CASCO%\estado" mkdir "%SINTONIA_CASCO%\estado"
 if not defined SINTONIA_PREVIEW_ATUAL set "SINTONIA_PREVIEW_ATUAL=%USERPROFILE%\auditoria-madrugada\PREVIEW-ATUAL.json"
+rem Publicar e trabalho PESADO: a rodada pega a LOCK-PESADO da maquina antes, solta depois; de outro = espera.
+if not defined SINTONIA_LOCK_PESADO set "SINTONIA_LOCK_PESADO=%USERPROFILE%\auditoria-madrugada\LOCK-PESADO.txt"
 rem O PATH de uma tarefa agendada NAO e o do terminal: a cadeia do mapa usa `tr` e outras ferramentas do Git (usr\bin).
 rem Medido 29/09 11:46: sem usr\bin o C3 reprovou (git ls-files -z ^| tr ... saiu 255). O portao barrou; nada foi ao ar.
 rem usr\bin vai no FIM: la ha um find/sort do Unix que, a frente, taparia os do Windows.
@@ -31,5 +33,5 @@ set "PYTHONUTF8=1"
 set "PYTHONUNBUFFERED=1"
 set "PYTHONDONTWRITEBYTECODE=1"
 cd /d "%~dp0.."
-python3 portoes\publicar_preview_da_pasta.py --rodada --modo preview --estado "%SINTONIA_CASCO%\estado" --preview-atual "%SINTONIA_PREVIEW_ATUAL%" >> "%SINTONIA_CASCO%\estado\tarefa.log" 2>&1
+python3 portoes\publicar_preview_da_pasta.py --rodada --modo preview --estado "%SINTONIA_CASCO%\estado" --preview-atual "%SINTONIA_PREVIEW_ATUAL%" --lock-pesado "%SINTONIA_LOCK_PESADO%" >> "%SINTONIA_CASCO%\estado\tarefa.log" 2>&1
 endlocal

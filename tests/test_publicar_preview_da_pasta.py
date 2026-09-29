@@ -436,6 +436,51 @@ class G5_ARodada(unittest.TestCase):
         self.assertEqual(m["SHA256_ARQUIVO"], _sha(FIX.read_bytes()))
         self.assertEqual(m["SHA256_CANONICO"], P.sha_do_pote(json.loads(FIX.read_text(encoding="utf-8"))))
 
+    def test_lock_pesado_de_outra_sessao_espera(self):
+        """Regra da maquina: um pesado de cada vez. LOCK de outro = nada publicado, estado intacto, tenta depois."""
+        lock = self.d / "LOCK-PESADO.txt"
+        lock.write_text("QUEM outra bancada", encoding="utf-8")
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        pub = PublicadorFalso()
+        r = G.rodada(self.entrega, self.estado, "preview", publicar=pub, lock_pesado=lock)
+        self.assertEqual(r["DECISAO"], "ESPERA_LOCK_PESADO")
+        self.assertIn("outra bancada", r["LOCK_DE"])
+        self.assertEqual(pub.chamadas, [])
+        self.assertEqual(lock.read_text(encoding="utf-8"), "QUEM outra bancada", "o lock alheio nao e tocado")
+        lock.unlink()
+        r = G.rodada(self.entrega, self.estado, "preview", publicar=pub, lock_pesado=lock)
+        self.assertEqual(r["DECISAO"], "PUBLICADA", "a mesma entrega publica quando o lock solta")
+
+    def test_lock_pesado_pego_durante_e_solto_depois(self):
+        lock = self.d / "LOCK-PESADO.txt"
+        visto = {}
+
+        def pub(pote, modo, registro, entrega, estado):
+            visto["lock"] = lock.read_text(encoding="utf-8") if lock.exists() else None
+            return PublicadorFalso()(pote, modo, registro, entrega, estado)
+
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        self.assertEqual(G.rodada(self.entrega, self.estado, "preview", publicar=pub, lock_pesado=lock)["DECISAO"], "PUBLICADA")
+        self.assertIn(G.MARCA_DO_LOCK, visto["lock"] or "", "o lock existe DURANTE a publicacao, com o nome")
+        self.assertFalse(lock.exists(), "e e solto no fim")
+
+    def test_lock_pesado_solto_mesmo_quando_o_publicador_rebenta(self):
+        lock = self.d / "LOCK-PESADO.txt"
+
+        def rebenta(*a):
+            raise RuntimeError("falha a meio")
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+        with self.assertRaises(RuntimeError):
+            G.rodada(self.entrega, self.estado, "preview", publicar=rebenta, lock_pesado=lock)
+        self.assertFalse(lock.exists())
+        self.assertFalse((self.estado / "TRAVA.lock").exists())
+
+    def test_sem_publicacao_nao_pega_o_lock(self):
+        lock = self.d / "LOCK-PESADO.txt"
+        lock.write_text("QUEM outra bancada", encoding="utf-8")
+        pub = PublicadorFalso()
+        self.assertEqual(G.rodada(self.entrega, self.estado, "preview", publicar=pub, lock_pesado=lock)["DECISAO"], "AUSENTE")
+
     def test_a_entrega_de_teste_troca_a_pasta_inteira(self):
         ET.entregar(self.entrega, FIX.read_bytes(), "demo")
         ET.entregar(self.entrega, VAZIO.read_bytes(), "vazio")
