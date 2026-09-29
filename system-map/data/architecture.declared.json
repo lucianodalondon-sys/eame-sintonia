@@ -1067,11 +1067,44 @@
    "files": [
     "leis/afirmacao_do_documento.py",
     "leis/tempo_da_afirmacao.py",
-    "admissao/produtor_de_afirmacoes.py",
-    "tests/test_o_produtor_de_afirmacoes.py",
+    "PRODUTOR-DE-AFIRMACOES.md"
+   ]
+  },
+  {
+   "id": "C-PRODUTOR-AFIRMACOES-COMANDO",
+   "name": "O comando do produtor de afirmacoes — a lei corrida sobre uma copia da Sala",
+   "territory": "Z-ADMISSAO",
+   "kind": "tool",
+   "icon": "▶",
+   "views": [
+    "audit"
+   ],
+   "what": "Le uma copia SO-LEITURA da Sala de Espera (o mesmo export que a Intelligence faz), corre leis/afirmacao_do_documento.afirmacoes_do_item em cada linha e escreve UM artefato com as afirmacoes. Cada afirmacao e CONFERIDA contra o texto de onde saiu antes de ser escrita; a que nao passa fica em REPROVADAS, com o motivo. Nao abre banco, nao abre rede, nao cria tabela nem migration, e nao escreve na Sala.",
+   "why_here": "D158 — as afirmacoes tem de nascer de forma repetivel e sem infraestrutura nova. O artefato mora ao lado do item; onde elas passam a morar em definitivo (tabela da Sala ou export) e decisao do dono da Sala, e ainda nao foi tomada.",
+   "departments": [
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "admissao/produtor_de_afirmacoes.py"
+   ]
+  },
+  {
+   "id": "C-PROVA-PRODUTOR-AFIRMACOES",
+   "name": "A prova do produtor de afirmacoes — a R9 pelo caminho canonico, e os mutantes",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "🔬",
+   "views": [
+    "audit"
+   ],
+   "what": "Duas medicoes. (1) r9_pelo_caminho_canonico.py corre a MESMA Sala da corrida R9 pelo caminho oficial — produtor -> motor_das_capacidades -> pote_intelligence_casco -> validar_pote_v2, sem montar_r9.py — e compara com os dois objetos que a R9 escreveu a mao: trecho, RAW_SHA256, FACT_TIME, FACT_LOCATION, objeto a objeto. (2) mutar_o_produtor.py ataca uma garantia de cada vez numa copia por git archive e mede quantos mutantes a bateria mata. ⚠️ MEDICAO, nunca caminho de integracao: o harness escreve ESPECIE porque o contrato do pote a exige para um objeto atravessar, e o produtor nunca a escreve.",
+   "why_here": "D158 — «R9 reproduzida por codigo» e CANARIO DIAGNOSTICO, nunca meta de equivalencia: e proibido codificar IDs ou trechos da R9, e por isso a prova de que o produtor acha os trechos reais vive aqui, sobre a copia da Sala, e nao em constantes no codigo.",
+   "departments": [
+    "INTELIGENCIA"
+   ],
+   "files": [
     "provas/d158/r9_pelo_caminho_canonico.py",
     "provas/d158/mutar_o_produtor.py",
-    "PRODUTOR-DE-AFIRMACOES.md",
     "provas/d158/R9-PELO-CAMINHO-CANONICO.json",
     "provas/d158/MUTACAO-PRODUTOR-V1.json"
    ]

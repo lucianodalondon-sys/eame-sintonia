@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  7eb884192a10cca5f331e6cd84bd6348d9d796f1
-BRANCH           lucianodalondon-sys/integra-busca-sobre-fd8c946
-GERADO_EM        2026-09-28T21:26:16-03:00
-CARDS            128
+HEAD_DA_MEDICAO  517fad666d3daf12ecd4137f226d2574b7824e63
+BRANCH           lucianodalondon-sys/produtor-afirmacoes-v1
+GERADO_EM        2026-09-29T11:21:18-03:00
+CARDS            129
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -699,6 +699,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova das ligações** | CODE 59 · NÃO SEI 3 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
+
+### `C-PRODUTOR-AFIRMACOES-COMANDO` · O comando do produtor de afirmacoes — a lei corrida sobre uma copia da Sala
+
+| | |
+|---|---|
+| **peça real** | `admissao/produtor_de_afirmacoes.py` |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | INTELIGENCIA |
+| **status operacional** | yellow — tipo de peca sem regra de prova definida. |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
+| **prova de quem ativa** | tests/test_o_produtor_de_afirmacoes.py:610 _(plano CODE)_ |
+| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 1 · saem 1 |
+| **arestas provadas** | entram 1 · saem 1 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 2 |
+| **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
+| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-SALA-DE-ESPERA` · A Sala de Espera
 
@@ -3258,9 +3283,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
 OK                 45
 UNKNOWN            42
-SYSTEM_GAP         18
+SYSTEM_GAP         19
 TERMINAL           14
 EXTERNAL_ENTRY     7
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TOTAL              128
+TOTAL              129
 ```

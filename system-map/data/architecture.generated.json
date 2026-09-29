@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "lucianodalondon-sys/integra-busca-sobre-fd8c946",
-    "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
-    "GENERATED_AT": "2026-09-28T21:26:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82"
+    "BRANCH": "lucianodalondon-sys/produtor-afirmacoes-v1",
+    "HEAD": "517fad666d3daf12ecd4137f226d2574b7824e63",
+    "GENERATED_AT": "2026-09-29T11:21:18-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1811155c3ed291cc402eebf8b717c69941dbfcac93cd413a49552e8303e1c026"
   },
   "FILES": [
     {
@@ -716,6 +716,13 @@
       "code_dir": false
     },
     {
+      "path": "PRODUTOR-DE-AFIRMACOES.md",
+      "sha": "02913de48e33cbf197b3b8bc3802caf011b5ca34",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "sha": "42d1c565e91d0fd128c88a850eef040119f7219f",
       "ext": ".md",
@@ -1278,6 +1285,13 @@
     {
       "path": "admissao/idioma.py",
       "sha": "ee745685d7b75cc45399578660ab1db60a15c707",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "admissao/produtor_de_afirmacoes.py",
+      "sha": "55d59c55506538de6028e56afa4b53b4b92b5bb5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18412,6 +18426,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/afirmacao_do_documento.py",
+      "sha": "7aa8b3182025ce4cfe9c19f6c4b41e6b9b3eed4d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/aprender_com_a_fonte.py",
       "sha": "a291ef6d1fe97367c48b1b407d509f62db1a6e3d",
       "ext": ".py",
@@ -18441,7 +18462,7 @@
     },
     {
       "path": "leis/boletim_do_campo.py",
-      "sha": "c87e5d0ee57bcade95bd48cae45f656f175cf21a",
+      "sha": "e1b0c39424c7c96206370bbe5db95511871ccdce",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18603,6 +18624,13 @@
     {
       "path": "leis/telemetria.py",
       "sha": "edba06454f9e1fd7f0a2cc54f6d55db23a97ca97",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "leis/tempo_da_afirmacao.py",
+      "sha": "c6c82bfee93e3392d638b63bd6a803ec99d40d33",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21067,6 +21095,34 @@
     {
       "path": "provas/coverage.py",
       "sha": "08545f17174b1d8b6a2d85143f90b2ccee0e1ae1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/d158/MUTACAO-PRODUTOR-V1.json",
+      "sha": "53088f360b6fa5517b08eb3e107e65d83d61ddcb",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/d158/R9-PELO-CAMINHO-CANONICO.json",
+      "sha": "ad361bf62e81e05adac3000da14b46b4075b9ef4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/d158/mutar_o_produtor.py",
+      "sha": "fea3cf4626f8aada51bf3f7dafc787b7fad97171",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/d158/r9_pelo_caminho_canonico.py",
+      "sha": "4fb52667c42b35193c2ea97e63c1e4b10dc365d6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26302,7 +26358,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "658277e308ffda719a44d809a0320213d18f05c7",
+      "sha": "22998d9774c61aa7eb4299f966ae519cfcb5ca34",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28669,6 +28725,13 @@
     {
       "path": "tests/test_o_pedido_t4_atravessa.py",
       "sha": "dc989951167905a510be6f13cadcc588a1657dec",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_o_produtor_de_afirmacoes.py",
+      "sha": "b2a6e6c4b68d7c4d827d8899ac8363edec8506fc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -31130,6 +31193,17 @@
         "file": "admissao/admissao.py",
         "line": 2070,
         "snippet": "import fato_do_texto as FT                                     # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "admissao/produtor_de_afirmacoes.py",
+      "to_file": "leis/afirmacao_do_documento.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/produtor_de_afirmacoes.py",
+        "line": 43,
+        "snippet": "import afirmacao_do_documento as AD   # noqa: E402"
       }
     },
     {
@@ -55355,6 +55429,72 @@
       }
     },
     {
+      "from_file": "leis/afirmacao_do_documento.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/afirmacao_do_documento.py",
+        "line": 63,
+        "snippet": "import afirmacao_da_fonte as AF        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "leis/afirmacao_do_documento.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/afirmacao_do_documento.py",
+        "line": 665,
+        "snippet": "\"leis/boletim_do_campo.py::ler_afirmacao\", \"leis/afirmacao_da_fonte.py\"],"
+      }
+    },
+    {
+      "from_file": "leis/afirmacao_do_documento.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/afirmacao_do_documento.py",
+        "line": 64,
+        "snippet": "import boletim_do_campo as BC          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "leis/afirmacao_do_documento.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/afirmacao_do_documento.py",
+        "line": 65,
+        "snippet": "import fato_do_texto as FT             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "leis/afirmacao_do_documento.py",
+      "to_file": "leis/tempo_da_afirmacao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/afirmacao_do_documento.py",
+        "line": 66,
+        "snippet": "import tempo_da_afirmacao as TA        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "leis/afirmacao_do_documento.py",
+      "to_file": "leis/tempo_da_afirmacao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/afirmacao_do_documento.py",
+        "line": 375,
+        "snippet": "for nome in (\"afirmacao_do_documento.py\", \"tempo_da_afirmacao.py\"):"
+      }
+    },
+    {
       "from_file": "leis/artefato.py",
       "to_file": "leis/fato_do_texto.py",
       "type": "IMPORTS",
@@ -55449,7 +55589,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 274,
+        "line": 312,
         "snippet": "import afirmacao_da_fonte as AF     # noqa: PLC0415"
       }
     },
@@ -55460,7 +55600,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 319,
+        "line": 363,
         "snippet": "import fato_do_texto as FT          # noqa: PLC0415"
       }
     },
@@ -55471,7 +55611,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 275,
+        "line": 313,
         "snippet": "import lugar_do_fato as LF          # noqa: PLC0415"
       }
     },
@@ -55482,7 +55622,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 700,
+        "line": 746,
         "snippet": "import normalize_agro as NA      # noqa: PLC0415"
       }
     },
@@ -55493,7 +55633,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/boletim_do_campo.py",
-        "line": 785,
+        "line": 831,
         "snippet": "import porta_da_referencia as PORTA   # noqa: PLC0415"
       }
     },
@@ -56111,6 +56251,28 @@
         "file": "leis/telemetria.py",
         "line": 69,
         "snippet": "import falhas     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "leis/tempo_da_afirmacao.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/tempo_da_afirmacao.py",
+        "line": 60,
+        "snippet": "import fato_do_texto as FT      # noqa: E402  o leitor do VIVO — nao se reescreve aqui"
+      }
+    },
+    {
+      "from_file": "leis/tempo_da_afirmacao.py",
+      "to_file": "leis/fato_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/tempo_da_afirmacao.py",
+        "line": 61,
+        "snippet": "import fato_local as FL         # noqa: E402  quem le o italiano"
       }
     },
     {
@@ -71599,6 +71761,160 @@
         "file": "provas/cortesia_red_team.mjs",
         "line": 26,
         "snippet": "const PROVA = \"provas/cortesia_http_local.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/d158/mutar_o_produtor.py",
+      "to_file": "leis/afirmacao_do_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/d158/mutar_o_produtor.py",
+        "line": 48,
+        "snippet": "(\"TRECHO_DEIXA_DE_SER_O_TEXTO\", \"leis/afirmacao_do_documento.py\","
+      }
+    },
+    {
+      "from_file": "provas/d158/mutar_o_produtor.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/d158/mutar_o_produtor.py",
+        "line": 124,
+        "snippet": "(\"MEMORIA_RESPONDE_A_TODOS\", \"leis/boletim_do_campo.py\","
+      }
+    },
+    {
+      "from_file": "provas/d158/mutar_o_produtor.py",
+      "to_file": "leis/tempo_da_afirmacao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/d158/mutar_o_produtor.py",
+        "line": 63,
+        "snippet": "(\"QUALQUER_PAPEL_E_FACTO\", \"leis/tempo_da_afirmacao.py\","
+      }
+    },
+    {
+      "from_file": "provas/d158/mutar_o_produtor.py",
+      "to_file": "provas/d158/MUTACAO-PRODUTOR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/d158/mutar_o_produtor.py",
+        "line": 150,
+        "snippet": "ap.add_argument(\"--saida\", default=str(Path(__file__).resolve().parent / \"MUTACAO-PRODUTOR-V1.json\"))"
+      }
+    },
+    {
+      "from_file": "provas/d158/mutar_o_produtor.py",
+      "to_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/d158/mutar_o_produtor.py",
+        "line": 44,
+        "snippet": "BATERIA = \"tests/test_o_produtor_de_afirmacoes.py\""
+      }
+    },
+    {
+      "from_file": "provas/d158/r9_pelo_caminho_canonico.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/d158/r9_pelo_caminho_canonico.py",
+        "line": 62,
+        "snippet": "import _gavetas                                  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/d158/r9_pelo_caminho_canonico.py",
+      "to_file": "leis/afirmacao_do_documento.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/d158/r9_pelo_caminho_canonico.py",
+        "line": 63,
+        "snippet": "import afirmacao_do_documento as AD              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/d158/r9_pelo_caminho_canonico.py",
+      "to_file": "leis/tempo_da_afirmacao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/d158/r9_pelo_caminho_canonico.py",
+        "line": 64,
+        "snippet": "import tempo_da_afirmacao as TA                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/d158/r9_pelo_caminho_canonico.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/d158/r9_pelo_caminho_canonico.py",
+        "line": 65,
+        "snippet": "import motor_das_capacidades as MOTOR            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/d158/r9_pelo_caminho_canonico.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/d158/r9_pelo_caminho_canonico.py",
+        "line": 66,
+        "snippet": "import porta_da_referencia as PORTA              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/d158/r9_pelo_caminho_canonico.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/d158/r9_pelo_caminho_canonico.py",
+        "line": 67,
+        "snippet": "import pote_intelligence_casco as POTE           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/d158/r9_pelo_caminho_canonico.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/d158/r9_pelo_caminho_canonico.py",
+        "line": 264,
+        "snippet": "r = subprocess.run([sys.executable, \"pacote/pote_intelligence_casco.py\", str(p_ent), str(p_out)],"
+      }
+    },
+    {
+      "from_file": "provas/d158/r9_pelo_caminho_canonico.py",
+      "to_file": "pacote/validar_pote_v2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/d158/r9_pelo_caminho_canonico.py",
+        "line": 275,
+        "snippet": "val = subprocess.run([sys.executable, \"pacote/validar_pote_v2.py\", str(p_out)], cwd=str(RAIZ),"
+      }
+    },
+    {
+      "from_file": "provas/d158/r9_pelo_caminho_canonico.py",
+      "to_file": "provas/d158/R9-PELO-CAMINHO-CANONICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/d158/r9_pelo_caminho_canonico.py",
+        "line": 312,
+        "snippet": "ap.add_argument(\"--saida\", default=str(Path(__file__).resolve().parent / \"R9-PELO-CAMINHO-CANONICO.json\"))"
       }
     },
     {
@@ -104877,6 +105193,138 @@
       }
     },
     {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "admissao/produtor_de_afirmacoes.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 610,
+        "snippet": "'admissao/produtor_de_afirmacoes.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 36,
+        "snippet": "import afirmacao_da_fonte as AF                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/afirmacao_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 614,
+        "snippet": "'leis/afirmacao_da_fonte.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/afirmacao_do_documento.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 34,
+        "snippet": "import afirmacao_do_documento as AD            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/afirmacao_do_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 403,
+        "snippet": "for nome in ('afirmacao_do_documento.py', 'tempo_da_afirmacao.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/afirmacao_do_documento.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 398,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'afirmacao_do_documento.py'), encoding='utf-8').read()"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 37,
+        "snippet": "import boletim_do_campo as BC                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/boletim_do_campo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 613,
+        "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/fato_do_texto.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 613,
+        "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/fato_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 613,
+        "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/tempo_da_afirmacao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 35,
+        "snippet": "import tempo_da_afirmacao as TA                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "leis/tempo_da_afirmacao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 403,
+        "snippet": "for nome in ('afirmacao_do_documento.py', 'tempo_da_afirmacao.py'):"
+      }
+    },
+    {
       "from_file": "tests/test_o_raw_fala.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -112752,10 +113200,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4215,
-    "files_readable": 1771,
-    "files_code_dir": 2190,
-    "file_edges": 7507,
+    "files_tracked": 4224,
+    "files_readable": 1777,
+    "files_code_dir": 2198,
+    "file_edges": 7542,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
