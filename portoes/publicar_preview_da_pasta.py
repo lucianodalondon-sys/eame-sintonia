@@ -4,6 +4,7 @@
 «PUBLICACAO AUTOMATICA NO PREVIEW (autorizada: EXCECAO E2E CONTROLADA EM PREVIEW = AUTORIZADA; PRODUCAO
 continua bloqueada; ENDERECO OFICIAL = NAO). O Casco nao pode ler pasta incompleta.»
 
+    python3 portoes/publicar_preview_da_pasta.py --modo preview     # le a ENTREGA (curadoria/esteira/intelligence/PARA-O-CASCO)
     python3 portoes/publicar_preview_da_pasta.py --pasta <.../PARA-O-CASCO-R9> --modo preview
     python3 portoes/publicar_preview_da_pasta.py --raiz  <.../intelligence-experimental> --modo preview
     python3 portoes/publicar_preview_da_pasta.py --raiz  <...> --so-conferir      # diz o que faria
@@ -24,6 +25,18 @@ ultima coisa que o montador escreve (montar_r9.py) e o SHA256SUMS vem depois, co
                        o manifesto aponta um pote PARA_CLIENTE que o SHA256SUMS tambem lista,
                        e o sha do pote no manifesto e o sha do ficheiro.
 
+O manifesto vem em duas formas, as duas medidas: a da R9 (`POTES.PARA_CLIENTE.ARQUIVO`) e a do disparador da
+Intelligence L2 (`POTE.ARQUIVO`, um pote so — provas/l2/PARA-O-CASCO.md no ramo claude/l2-disparador-v1). Nas duas,
+`RESULT_STATE` tem de ser DONE ou REUSED.
+
+A ENTREGA (aviso do coordenador, 28/09): a Intelligence deixa de escrever italia-portale/client/sintonia-pote.js; a
+entrega e SO `curadoria/esteira/intelligence/PARA-O-CASCO/` (POTE.json + MANIFESTO.json + SHA256SUMS.txt), trocada
+INTEIRA por `os.replace`. E o default deste gatilho. Durante a troca a pasta pode nao existir: isso e INCOMPLETA.
+
+CONGELAR: o pote conferido e COPIADO para uma pasta temporaria e o sha e medido OUTRA VEZ na copia; e a copia que
+vai ao publicador. Sem isto a Intelligence podia trocar a pasta entre a conferencia e a leitura do publicador, e ia
+ao ar um pote que ninguem conferiu.
+
 Nada de PRONTO.txt: seria um protocolo paralelo a um sinal que ja existe. Qualquer falta = INCOMPLETA, e
 uma pasta incompleta nao e lida (nem o pote dela e aberto pelo publicador).
 
@@ -36,7 +49,7 @@ O QUE ISTO NAO FAZ
   da maquina) e decisao do coordenador. Uma pasta ja no ar da NADA_A_PUBLICAR pelo proprio publicador.
 
 SAIDAS: 0 publicado / nada a publicar / so conferir · 1 bloqueado pelo publicador · 4 uso errado ·
-        5 nenhuma pasta completa com pote PARA_CLIENTE (nada foi chamado) · outros = os do publicador
+        5 nenhuma entrega completa, ou o pote mudou durante a leitura (nada foi chamado) · outros = os do publicador
 """
 from __future__ import annotations
 
@@ -45,11 +58,16 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import sys
+import tempfile
 from pathlib import Path
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+RAIZ = Path(os.path.dirname(HERE))
+ENTREGA = RAIZ / "curadoria" / "esteira" / "intelligence" / "PARA-O-CASCO"
+ESTADOS_BONS = ("DONE", "REUSED")
 
 SOMAS = "SHA256SUMS.txt"
 LINHA_SOMA = re.compile(r"^([0-9a-f]{64}) [ *](.+)$")
@@ -113,11 +131,16 @@ def conferir_pasta(pasta) -> dict:
         M.append(f"{man_p.name} ilegivel: {e}")
         return out
     out["MANIFESTO"] = str(man_p)
-    pc = ((man.get("POTES") or {}).get("PARA_CLIENTE")) if isinstance(man, dict) else None
+    if not isinstance(man, dict) or man.get("RESULT_STATE") not in ESTADOS_BONS:
+        M.append(f"{man_p.name}: RESULT_STATE {man.get('RESULT_STATE') if isinstance(man, dict) else None} "
+                 f"nao e {' / '.join(ESTADOS_BONS)}")
+        return out
+    # forma L2 (um pote so: POTE) ou forma R9 (POTES.PARA_CLIENTE)
+    pc = man.get("POTE") if isinstance(man.get("POTE"), dict) else (man.get("POTES") or {}).get("PARA_CLIENTE")
     if not isinstance(pc, dict) or not pc.get("ARQUIVO"):
         # a pasta ESTA inteira (as somas conferem); so nao ha nada liberado para cliente nela
         out["ESTADO"] = "SEM_POTE_PARA_CLIENTE"
-        M.append(f"{man_p.name} nao aponta um pote PARA_CLIENTE (POTES.PARA_CLIENTE.ARQUIVO)")
+        M.append(f"{man_p.name} nao aponta um pote (POTE.ARQUIVO nem POTES.PARA_CLIENTE.ARQUIVO)")
         return out
     pote_p = (pasta / pc["ARQUIVO"]).resolve()
     if pote_p not in listados:
@@ -129,6 +152,17 @@ def conferir_pasta(pasta) -> dict:
     out.update(COMPLETA=True, ESTADO="COMPLETA", POTE=str(pote_p), SHA256_POTE=listados[pote_p],
                INTELLIGENCE_RUN_ID=man.get("INTELLIGENCE_RUN_ID"))
     return out
+
+
+def congelar_pote(c: dict, destino: Path) -> Path | None:
+    """Copia o pote conferido para `destino` e mede o sha OUTRA VEZ na copia. None = mudou desde a conferencia."""
+    destino.mkdir(parents=True, exist_ok=True)
+    copia = destino / Path(c["POTE"]).name
+    try:
+        shutil.copyfile(c["POTE"], copia)
+    except OSError:
+        return None
+    return copia if _sha(copia) == c["SHA256_POTE"] else None
 
 
 def escolher(raiz) -> tuple[dict | None, list]:
@@ -146,8 +180,8 @@ def escolher(raiz) -> tuple[dict | None, list]:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Gatilho do preview: pasta completa -> publicador D126.")
-    g = ap.add_mutually_exclusive_group(required=True)
-    g.add_argument("--pasta", help="uma pasta de entrega da Intelligence (PARA-O-CASCO-Rn)")
+    g = ap.add_mutually_exclusive_group()
+    g.add_argument("--pasta", help="uma pasta de entrega (default: a ENTREGA curadoria/esteira/intelligence/PARA-O-CASCO)")
     g.add_argument("--raiz", help="a pasta que contem as PARA-O-CASCO-*: escolhe a completa mais recente")
     ap.add_argument("--modo", default="preview", help="ensaio | preview (producao e recusada aqui)")
     ap.add_argument("--so-conferir", action="store_true", help="so diz o que faria; nao chama o publicador")
@@ -159,27 +193,35 @@ def main(argv=None) -> int:
         print(f"RECUSADO: modo {a.modo!r}. Este gatilho so publica em {' / '.join(MODOS_PERMITIDOS)}; "
               "a producao continua bloqueada (correcao do dono 28/09) e nao passa por aqui.")
         return USO
-    if a.pasta:
-        todas = [conferir_pasta(a.pasta)]
+    if not a.raiz:
+        todas = [conferir_pasta(a.pasta or ENTREGA)]
         escolhida = todas[0] if todas[0]["COMPLETA"] else None
     else:
         escolhida, todas = escolher(a.raiz)
     for c in todas:
         print(f"  {c['ESTADO']:21} {Path(c['PASTA']).name}" + ("" if c["COMPLETA"] else "  · " + " · ".join(c["MOTIVOS"][:3])))
     if not escolhida:
-        print("NADA_A_CHAMAR: nenhuma pasta completa com pote PARA_CLIENTE — o publicador nao foi chamado.")
+        print("NADA_A_CHAMAR: nenhuma entrega completa (pote conferido pelo MANIFESTO e pelo SHA256SUMS) — o publicador nao foi chamado; o que esta no ar nao muda.")
         return SEM_PASTA
     print(f"ESCOLHIDA {Path(escolhida['PASTA']).name} · {escolhida['INTELLIGENCE_RUN_ID']} · "
           f"pote {Path(escolhida['POTE']).name} sha256 {escolhida['SHA256_POTE'][:12]}")
     if a.so_conferir:
         return 0
-    import publicar_portal_sozinho as P  # so aqui: conferir uma pasta nao precisa do publicador
-    args = ["--pote", escolhida["POTE"], "--modo", a.modo, "--arvore", a.arvore]
-    if a.registro:
-        args += ["--registro", a.registro]
-    if a.host_ensaio:
-        args += ["--host-ensaio", a.host_ensaio]
-    return P.main(args)
+    gelo = Path(tempfile.mkdtemp(prefix="pote-congelado-"))
+    try:
+        pote = congelar_pote(escolhida, gelo)
+        if not pote:
+            print("MUDOU_DURANTE_A_LEITURA: o pote nao e o que foi conferido — o publicador nao foi chamado.")
+            return SEM_PASTA
+        import publicar_portal_sozinho as P  # so aqui: conferir uma pasta nao precisa do publicador
+        args = ["--pote", str(pote), "--modo", a.modo, "--arvore", a.arvore]
+        if a.registro:
+            args += ["--registro", a.registro]
+        if a.host_ensaio:
+            args += ["--host-ensaio", a.host_ensaio]
+        return P.main(args)
+    finally:
+        shutil.rmtree(gelo, ignore_errors=True)
 
 
 if __name__ == "__main__":

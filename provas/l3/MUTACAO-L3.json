@@ -66,8 +66,48 @@
    "QUEM_MATOU": [
     "FAIL: test_o_vercel_json_redireciona_a_casa_para_a_porta (tests.test_publicar_portal_sozinho.P1_AsTelas.test_o_vercel_json_redireciona_a_casa_para_a_porta)"
    ]
+  },
+  {
+   "MUTANTE": "M9 RESULT_STATE ignorado",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_result_state_ruim_nao_chama (tests.test_publicar_preview_da_pasta.G4_AEntregaDaL2.test_result_state_ruim_nao_chama)"
+   ]
+  },
+  {
+   "MUTANTE": "M10 congela sem medir de novo",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_pote_trocado_depois_da_conferencia_nao_vai (tests.test_publicar_preview_da_pasta.G4_AEntregaDaL2.test_pote_trocado_depois_da_conferencia_nao_vai)"
+   ]
+  },
+  {
+   "MUTANTE": "M11 publica a pasta viva e nao a copia",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_entrega_l2_completa_publica_a_copia_congelada (tests.test_publicar_preview_da_pasta.G4_AEntregaDaL2.test_entrega_l2_completa_publica_a_copia_congelada)"
+   ]
+  },
+  {
+   "MUTANTE": "M12 default deixa de ser a entrega",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_entrega_l2_completa_publica_a_copia_congelada (tests.test_publicar_preview_da_pasta.G4_AEntregaDaL2.test_entrega_l2_completa_publica_a_copia_congelada)"
+   ]
+  },
+  {
+   "MUTANTE": "M13 fotografo esquece as redirecionadas",
+   "FICHEIRO": "portoes/publicar_portal_sozinho.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_o_fotografo_visita_toda_tela_que_uma_conferencia_le (tests.test_publicar_portal_sozinho.P1_AsTelas.test_o_fotografo_visita_toda_tela_que_uma_conferencia_le)"
+   ]
   }
  ],
- "MORTOS": 8,
- "TOTAL": 8
+ "MORTOS": 13,
+ "TOTAL": 13
 }

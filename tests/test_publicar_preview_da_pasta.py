@@ -53,7 +53,7 @@ def montar_pasta(d: Path, nome="PARA-O-CASCO-RX", para_cliente=True, somas=True,
     if para_cliente:
         potes["PARA_CLIENTE"] = {"ARQUIVO": "POTE-RX-PARA_CLIENTE.json",
                                  "SHA256_ARQUIVO": sha_manifesto or _sha(pote), "OBJETOS_LIBERADOS": 2}
-    man = json.dumps({"INTELLIGENCE_RUN_ID": "IR-SINT-TESTE", "POTES": potes}).encode()
+    man = json.dumps({"INTELLIGENCE_RUN_ID": "IR-SINT-TESTE", "RESULT_STATE": "DONE", "POTES": potes}).encode()
     (p / "MANIFESTO-RX.json").write_bytes(man)
     if somas:
         linhas = []
@@ -65,6 +65,72 @@ def montar_pasta(d: Path, nome="PARA-O-CASCO-RX", para_cliente=True, somas=True,
         txt = "\n".join(linhas) + ("\n" if fim_de_linha else "")
         (p / G.SOMAS).write_bytes(txt.encode())
     return p
+
+
+def montar_entrega_l2(d: Path, estado="DONE") -> Path:
+    """A entrega do disparador L2 (provas/l2/PARA-O-CASCO.md, ramo claude/l2-disparador-v1): UM pote."""
+    p = d / "PARA-O-CASCO"
+    p.mkdir(parents=True)
+    pote = FIX.read_bytes()
+    (p / "POTE.json").write_bytes(pote)
+    man = json.dumps({"INTELLIGENCE_RUN_ID": "IR-SINT-L2", "RESULT_STATE": estado, "CORRIDA_SINTETICA": True,
+                      "POTE": {"ARQUIVO": "POTE.json", "SHA256_ARQUIVO": _sha(pote),
+                               "CONTRATO": "POTE_INTELLIGENCE_CASCO/v2"}, "VALIDAR_POTE_V2": "PASSA"}).encode()
+    (p / "MANIFESTO.json").write_bytes(man)
+    (p / G.SOMAS).write_bytes(f"{_sha(pote)} *POTE.json\n{_sha(man)} *MANIFESTO.json\n".encode())
+    return p
+
+
+class G4_AEntregaDaL2(unittest.TestCase):
+    """Aviso do coordenador 28/09: a Intelligence entrega SO em curadoria/esteira/intelligence/PARA-O-CASCO/."""
+    def setUp(self):
+        self.d = Path(tempfile.mkdtemp(prefix="teste-gatilho-"))
+
+    def tearDown(self):
+        shutil.rmtree(self.d, ignore_errors=True)
+
+    def chamar(self, argv, entrega):
+        with mock.patch.dict(sys.modules), mock.patch.object(G, "ENTREGA", entrega):
+            falso = mock.MagicMock()
+            falso.main.return_value = 0
+            sys.modules["publicar_portal_sozinho"] = falso
+            rc = G.main(argv)
+        return rc, falso
+
+    def test_o_default_e_a_entrega(self):
+        self.assertEqual(G.ENTREGA.relative_to(G.RAIZ).as_posix(), "curadoria/esteira/intelligence/PARA-O-CASCO")
+
+    def test_entrega_l2_completa_publica_a_copia_congelada(self):
+        p = montar_entrega_l2(self.d)
+        c = G.conferir_pasta(p)
+        self.assertTrue(c["COMPLETA"], c["MOTIVOS"])
+        rc, falso = self.chamar(["--modo", "preview"], p)
+        self.assertEqual(rc, 0)
+        args = falso.main.call_args[0][0]
+        enviado = Path(args[args.index("--pote") + 1])
+        self.assertEqual(enviado.name, "POTE.json")
+        self.assertNotEqual(enviado.parent.resolve(), p.resolve(), "o publicador le a copia congelada, nao a pasta viva")
+
+    def test_entrega_a_meio_da_troca_nao_chama(self):
+        rc, falso = self.chamar(["--modo", "preview"], self.d / "PARA-O-CASCO")   # entre os dois os.replace
+        self.assertEqual(rc, G.SEM_PASTA)
+        falso.main.assert_not_called()
+
+    def test_result_state_ruim_nao_chama(self):
+        p = montar_entrega_l2(self.d, estado="FAILED")
+        self.assertIn("RESULT_STATE", " ".join(G.conferir_pasta(p)["MOTIVOS"]))
+        rc, falso = self.chamar(["--modo", "preview"], p)
+        self.assertEqual(rc, G.SEM_PASTA)
+        falso.main.assert_not_called()
+
+    def test_pote_trocado_depois_da_conferencia_nao_vai(self):
+        p = montar_entrega_l2(self.d)
+        c = G.conferir_pasta(p)
+        self.assertTrue(c["COMPLETA"])
+        (p / "POTE.json").write_bytes(FIX.read_bytes() + b" ")   # a Intelligence trocou a pasta no meio
+        self.assertIsNone(G.congelar_pote(c, self.d / "gelo"))
+        # e sem troca, a copia congelada e aceite
+        self.assertIsNotNone(G.congelar_pote(G.conferir_pasta(montar_entrega_l2(self.d / "b")), self.d / "gelo2"))
 
 
 class G0_Completa(unittest.TestCase):
