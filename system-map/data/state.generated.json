@@ -4814,9 +4814,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l1-governanca-preview-v1",
-    "HEAD": "cb8f20bcf8934fab22891a8a3dce44b28fc7ca01",
-    "GENERATED_AT": "2026-09-29T08:42:32-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a988d429396ac752f7da7e53930538f62f4f41fa0f400cb3768a881987432d64"
+    "HEAD": "4d789dbc50a3bb63ebcebf95d0824085a68d639c",
+    "GENERATED_AT": "2026-09-29T11:50:21-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3670a4ffbfbe5044b12f44850289ad1b9dd68e1b2eed867df7ac9ebde2a7d176"
   },
   "FAMILIES": [
     {
@@ -58385,7 +58385,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "leis/fundacao_da_coleta.py:559",
+          "leis/fundacao_da_coleta.py:701",
           "pacote/acervo_na_intelligence.py:84",
           "pacote/pote_cruzamentos_max.py:50",
           "provas/_mutantes_pote_casco.py:24"
@@ -65550,9 +65550,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 149,
+        "palavras": 205,
         "por_lingua": {},
-        "sem_marca_de_lingua": 149,
+        "sem_marca_de_lingua": 205,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -65562,7 +65562,7 @@
           "pasta": "leis",
           "prova": {
             "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-            "line": 246,
+            "line": 321,
             "snippet": "escreve em ALVO"
           }
         },
@@ -65594,7 +65594,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve na pasta leis (provas/l1_governanca/mutantes_excecao_preview.py:246): produz dado",
+      "ROLE_EVIDENCE": "escreve na pasta leis (provas/l1_governanca/mutantes_excecao_preview.py:321): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -69232,11 +69232,13 @@
           "AREAS_CONGELADAS",
           "AUTH_MODE_DA_CLASSE",
           "CAPACIDADES",
+          "CHAVES_DA_PROVA_DO_LAB",
           "CHAVES_DO_PEDIDO",
           "CLASSES",
           "CONFERENCIAS_QUE_PASSAM",
           "ESTADOS",
           "LIMITES",
+          "LIMITE_CONHECIDO",
           "MATRIZ",
           "MOTIVOS_PAGOS",
           "QUOTA_METODO",
@@ -69246,9 +69248,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 635,
+        "palavras": 653,
         "por_lingua": {},
-        "sem_marca_de_lingua": 635,
+        "sem_marca_de_lingua": 653,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -127678,7 +127680,7 @@
       "evidence": [
         {
           "file": "leis/fundacao_da_coleta.py",
-          "line": 131,
+          "line": 132,
           "snippet": "PUBLICACAO = os.path.join(RAIZ, 'system-map', 'CANONICAL-PUBLICATION.json')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-SCRAP-LEIS",
@@ -145347,7 +145349,7 @@
       "evidence": [
         {
           "file": "leis/fundacao_da_coleta.py",
-          "line": 559,
+          "line": 701,
           "snippet": "import validar_pote_v2  # noqa: PLC0415 — so quem pede para atravessar paga o import",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
@@ -151290,7 +151292,7 @@
       "evidence": [
         {
           "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-          "line": 246,
+          "line": 321,
           "snippet": "with open(ALVO, \"wb\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-TRAVA-MORDE--WRITES-->C-SCRAP-LEIS",
@@ -160584,7 +160586,7 @@
       "evidence": [
         {
           "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-          "line": 225,
+          "line": 300,
           "snippet": "with open(ALVO, \"rb\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-TRAVA-MORDE",
