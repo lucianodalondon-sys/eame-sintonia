@@ -145,6 +145,13 @@ RE_IG_SHORTCODE = re.compile(r"/reel/([A-Za-z0-9_-]{5,})")
 RE_IG_HANDLE = re.compile(r"^[A-Za-z0-9._]{1,30}$")
 
 
+def handle_do_endereco(url):
+    """O handle na URL da conta. O Curator nem sempre o declara a parte (as CAND-* so trazem o endereco),
+    e pedir um campo que a lista nao tem faria 4 fontes boas falharem por formato. Medido no canario."""
+    p = [x for x in urllib.parse.urlsplit(str(url or "")).path.split("/") if x]
+    return p[0] if p and RE_IG_HANDLE.match(p[0]) else None
+
+
 def instagram_reels_da_conta(*, handle, buscar, max_alvos=None):
     """A DESCOBERTA pela pagina publica `/embed/` (D22; canario de 23/09). → {"ALVOS": [...]} ou {"ERRO"}.
 
@@ -220,10 +227,28 @@ def linkedin_posts_da_organizacao(*, pagina_url, run_id, buscar, teto=None, coun
     e uma proibicao que pergunta ao proibido ja fez um pedido a ele."""
     import adaptador_linkedin as LI                                # noqa: PLC0415
     import scrap_http as http                                      # noqa: PLC0415
+    # ⚠️ O TRANSPORTE DO ADAPTADOR FALA TEXTO, NAO O DICIONARIO DESTA CASA. `_buscar_texto` devolve o que
+    # o transporte devolver, e `cartoes_com_video` faz regex por cima — entregar-lhe o nosso dicionario
+    # rebentava com `expected string or bytes-like object, got 'dict'` DEPOIS de o pedido ja ter saido.
+    # Medido no canario de 29/09. Sem este tradutor, o pedido gasta orcamento e o resultado perde-se.
+    #
+    #     DOIS CONTRATOS DE TRANSPORTE, UM TRADUTOR EXPLICITO — nunca um dos dois a adivinhar o outro.
+    #
+    # `transporte=None` deixa o adaptador usar `scrap_http.buscar`, que e a MESMA porta: robots, teto e
+    # contador continuam todos la. Quem injecta (os testes) continua a poder passar o seu.
+    def texto(url):
+        r = buscar(url) if buscar is not None else None
+        if r is None:
+            return http.buscar(url, aceitar_json=False)
+        if isinstance(r, dict):
+            if r.get("ERRO"):
+                raise http.RotaBloqueada(r["ERRO"])
+            return (r.get("BYTES") or b"").decode("utf-8", "replace")
+        return r
     try:
         cartoes, contexto = LI.posts_com_video(pagina_url=pagina_url, run_id=run_id,
                                                country_scope=country_scope, teto=teto,
-                                               transporte=buscar)
+                                               transporte=texto)
     except (http.RotaNaoPermitida, ValueError) as ex:
         return {"ERRO": "%s: %s" % (type(ex).__name__, ex), "PEDIDOS": 0, "ROTA": ROTA_LINKEDIN}
     except http.RotaBloqueada as ex:

@@ -96,6 +96,18 @@ def test_armadilha_youtube_identidade_divergente_falha_fechado():
     assert "IDENTITY_MISMATCH" in r["ERRO"]
 
 
+def test_armadilha_youtube_pagina_sem_canonico_nao_passa_por_omissao():
+    """⚠️ Mutante M03: `bate = ... or canonical is None` — uma pagina SEM `<link rel=canonical>` passava a
+    aprovar qualquer canal. A ausencia de uma prova nao e prova: sem canonico E sem o canal declarado, a
+    identidade NAO foi conferida, e falha fechado."""
+    sem_canonico = '{"channelId":"%s","videoId":"aaaaaaaaaaa"}' % OUTRO
+    r = RM.youtube_videos_do_canal(channel_id=CANAL, buscar=leitor(sem_canonico))
+    assert "ALVOS" not in r and "IDENTITY_MISMATCH" in r["ERRO"]
+    # E nem sequer uma pagina vazia de identidade abre a porta.
+    r2 = RM.youtube_videos_do_canal(channel_id=CANAL, buscar=leitor('{"videoId":"aaaaaaaaaaa"}'))
+    assert "ALVOS" not in r2 and "IDENTITY_MISMATCH" in r2["ERRO"]
+
+
 def test_youtube_channel_id_malformado_e_recusado_antes_da_rede():
     b = leitor(pagina_yt(CANAL, ["aaaaaaaaaaa"]))
     for mau in (None, "", "agronotizie", "UC-curto", 7):
@@ -409,6 +421,29 @@ def test_a_porta_e_o_abridor_global_nao_reservam_duas_vezes_o_mesmo_pedido():
         assert visto["dentro"] is True
         assert visto["teto"] == "exemplo.it", "o teto devolveu o orcamento sem reservar de novo"
         assert R24.dentro_da_porta("exemplo.it", "https://exemplo.it/a") is False, "a porta ficou aberta"
+    finally:
+        t.fechar()
+
+
+def test_armadilha_a_porta_nao_tapa_um_salto_para_outro_dominio():
+    """⚠️ Mutante M30: `dentro_da_porta` a devolver True para QUALQUER dominio. Um redireccionamento para
+    outro dominio passaria a nao reservar nada — o orcamento do segundo dominio nunca seria gasto, e um
+    salto tornava-se uma porta lateral silenciosa.
+
+        A PORTA COBRE O PEDIDO QUE ELA RESERVOU, E SO ESSE."""
+    import reserva_24h as R24
+    t = _Temp()
+    try:
+        t.livro()
+        visto = {}
+
+        def fazer():
+            visto["mesmo"] = R24.dentro_da_porta("exemplo.it", "https://exemplo.it/a")
+            visto["outro"] = R24.dentro_da_porta("outro-sitio.it", "https://outro-sitio.it/b")
+            return 200, {}, b"ok"
+        R24.pedir("https://exemplo.it/a", fazer, run_id="R", linha="TESTE")
+        assert visto["mesmo"] is True
+        assert visto["outro"] is False, "um salto para outro dominio ficou coberto sem ter reservado"
     finally:
         t.fechar()
 

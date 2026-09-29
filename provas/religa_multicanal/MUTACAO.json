@@ -1,0 +1,247 @@
+{
+ "DATASET": "MUTACAO-RELIGA-MULTICANAL",
+ "REF": "HEAD",
+ "TOTAL": 34,
+ "CONTA": {
+  "MORTO": 32,
+  "SOBREVIVEU": 2
+ },
+ "MUTANTES": [
+  {
+   "MUTANTE": "M01_YT_NAO_CONFERE_A_IDENTIDADE",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M02_YT_IDENTIDADE_TOLERA_QUALQUER_CANAL",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M03_YT_IDENTIDADE_SO_PELO_CANONICO_AUSENTE",
+   "ESTADO": "SOBREVIVEU",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "PORQUE": "nenhum teste reprovou com o defeito plantado"
+  },
+  {
+   "MUTANTE": "M04_YT_ACEITA_CHANNEL_ID_MALFORMADO",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (errors=1)"
+  },
+  {
+   "MUTANTE": "M05_YT_ZERO_VIDEOS_PASSA_COMO_COLHEITA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M06_YT_ACEITA_STATUS_DIFERENTE_DE_200",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M07_YT_ROTA_PELO_FEED_BARRADO",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=2)"
+  },
+  {
+   "MUTANTE": "M08_YT_MAX_ALVOS_IGNORADO",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M09_YT_INVENTA_TRANSPORTE_QUANDO_FALTA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (errors=1)"
+  },
+  {
+   "MUTANTE": "M10_IG_ACEITA_A_CONTA_COMO_REEL",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (errors=1)"
+  },
+  {
+   "MUTANTE": "M11_IG_ZERO_REELS_VIRA_ERRO",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (errors=1)"
+  },
+  {
+   "MUTANTE": "M12_IG_LISTA_PELO_PERFIL_E_NAO_PELO_EMBED",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/rotas_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M13_LI_VIDEO_DESCOBERTO_VIRA_ADQUIRIDO",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M14_LI_PEDE_O_POST_INDIVIDUAL",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M15_LI_CARTAO_VAZIO_VIRA_ITEM",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (errors=1)"
+  },
+  {
+   "MUTANTE": "M16_ALIMENTA_PELAS_LISTAS_EXCLUIDAS",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/fontes_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=4)"
+  },
+  {
+   "MUTANTE": "M17_SOURCE_ID_AUSENTE_E_INVENTADO",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/fontes_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M18_YT_SEM_CHANNEL_ID_ENTRA_A_MESMA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/fontes_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=3)"
+  },
+  {
+   "MUTANTE": "M19_PESSOAS_DO_LINKEDIN_ENTRAM_SEMPRE",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/fontes_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M20_A_CANDIDATA_PERDE_A_LINHA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/fontes_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M21_REELS_PROVADOS_NAO_VIAJAM",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/fontes_multicanal.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M22_SITES_PASSA_A_USAR_O_EXECUTOR_DE_LINHA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M23_PESQUISADORES_REAPONTADA_SEM_RECONCILIAR",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M24_UM_CANAL_SAI_DA_CAMPANHA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=2)"
+  },
+  {
+   "MUTANTE": "M25_PORTA_PEDE_SEM_RESERVA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/reserva_24h.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=4)"
+  },
+  {
+   "MUTANTE": "M26_PORTA_IGNORA_O_ADIADO",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/reserva_24h.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=2)"
+  },
+  {
+   "MUTANTE": "M27_PORTA_RESERVA_DEPOIS_DO_PEDIDO",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/reserva_24h.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=4)"
+  },
+  {
+   "MUTANTE": "M28_PORTA_NAO_REGISTA_A_RESPOSTA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/reserva_24h.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=2)"
+  },
+  {
+   "MUTANTE": "M29_PORTA_NAO_REGISTA_A_FALHA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/reserva_24h.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M30_PORTA_TAPA_QUALQUER_DOMINIO",
+   "ESTADO": "SOBREVIVEU",
+   "FICHEIRO": "coleta/reserva_24h.py",
+   "PORQUE": "nenhum teste reprovou com o defeito plantado"
+  },
+  {
+   "MUTANTE": "M31_AS_DUAS_ROTAS_PARTILHAM_ORCAMENTO",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/cortesia_adaptativa.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M32_CIENCIA_PEDE_POR_FORA_DA_PORTA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/corpus_pesquisador.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=2)"
+  },
+  {
+   "MUTANTE": "M33_CIENCIA_CHAMA_A_FONTE_MORTA_DE_CONTADOR",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "coleta/corpus_pesquisador.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  },
+  {
+   "MUTANTE": "M34_RUN_ID_FORA_DO_FORMATO_DA_PROVA",
+   "ESTADO": "MORTO",
+   "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
+  }
+ ]
+}

@@ -104,9 +104,11 @@ def alvos_da_fonte(linha: str, cand: dict, buscar, *, max_alvos=None) -> dict:
         # listagem. A listagem por /embed/ (rota provada a 23/09) acrescenta o que a conta servir hoje.
         conhecidos = [{"URL": u, "NOME": (u.rstrip("/").rsplit("/", 1) or [""])[-1],
                        "NATIVE_ID": (u.rstrip("/").rsplit("/", 1) or [""])[-1],
-                       "DESCOBERTO_POR": "CURATOR_REELS_JA_NO_REPOSITORIO", "CONTA": alvo.get("HANDLE")}
+                       "DESCOBERTO_POR": "CURATOR_REELS_JA_NO_REPOSITORIO",
+                       "CONTA": alvo.get("HANDLE") or RM.handle_do_endereco(alvo.get("URL_DA_CONTA"))}
                       for u in (alvo.get("REELS_CONHECIDOS") or [])]
-        r = RM.instagram_reels_da_conta(handle=alvo.get("HANDLE"), buscar=buscar, max_alvos=max_alvos)
+        handle = alvo.get("HANDLE") or RM.handle_do_endereco(alvo.get("URL_DA_CONTA"))
+        r = RM.instagram_reels_da_conta(handle=handle, buscar=buscar, max_alvos=max_alvos)
         if r.get("ERRO"):
             # A listagem falhou; os Reels PROVADOS continuam a valer — e isso e um resultado, nao um erro.
             if conhecidos:
