@@ -9,20 +9,23 @@
 
 ## 1 · Onde o pote aparece
 
+> **CORREÇÃO DO COORDENADOR (28/09, medido em `624c49a77`): a FRONTEIRA.** A Intelligence **entrega** em
+> `PARA-O-CASCO/` e **para aí**. Quem lê a entrega e publica na tela é o **Casco** (bancada L3, casco-owner). O disparador
+> **não escreve nada** sob `italia-portale/` — nem `sintonia-pote.js`, nem candidato (teste e mutante L42 reprovam se voltar).
+
 | o quê | caminho (na árvore do serviço) | quando |
 |---|---|---|
-| o pote que o casco carrega | `italia-portale/client/sintonia-pote.js` (`window.SINTONIA_POTE = {...}`) | **só** se o fiscal `pacote/validar_pote_v2.py` disser PASSA |
-| a entrega com prova de integridade | `curadoria/esteira/intelligence/PARA-O-CASCO/` → `POTE.json` · `MANIFESTO.json` · `SHA256SUMS.txt` | a mesma condição; a pasta é trocada **inteira** (escreve-se ao lado e renomeia-se), nunca meia |
-| o pote reprovado (não é para o casco) | `curadoria/esteira/intelligence/<AAAAMMDDTHHMMSSZ>/POTE-REPROVADO-<RUN>.js` | quando o fiscal reprova; **não sobe** |
+| **a entrega** (o único ponto de contacto com o Casco) | `curadoria/esteira/intelligence/PARA-O-CASCO/` → `POTE.json` · `MANIFESTO.json` · `SHA256SUMS.txt` | **só** se o fiscal `pacote/validar_pote_v2.py` disser PASSA; a pasta é trocada **inteira** (escreve-se ao lado e renomeia-se), nunca meia |
+| o pote reprovado (não é para o Casco) | `curadoria/esteira/intelligence/<AAAAMMDDTHHMMSSZ>/POTE-REPROVADO-<RUN>.json` | quando o fiscal reprova; **não entra** na entrega |
 
-Os três ficam fora do Git (`italia-portale/client/.gitignore`, `curadoria/.gitignore`): têm dado real.
+Os dois ficam fora do Git (`curadoria/.gitignore`): têm dado real.
 
-**Um pote reprovado nunca substitui o último aprovado.** Se nunca houve pote aprovado, a pasta `PARA-O-CASCO/` não existe
-e `sintonia-pote.js` não existe. Pela regra do Casco, isso é **tela vazia**, nunca parcial.
+**Um pote reprovado nunca substitui o último aprovado.** Se nunca houve pote aprovado, a pasta `PARA-O-CASCO/` não existe.
+Pela regra do Casco, isso é **tela vazia**, nunca parcial.
 
 ## 2 · O formato — o pote v2 que já existe, sem campo novo
 
-- `POTE.json` = o pote **POTE_INTELLIGENCE_CASCO/v2**, byte a byte o mesmo objeto que vai em `sintonia-pote.js`.
+- `POTE.json` = o pote **POTE_INTELLIGENCE_CASCO/v2**, byte a byte o ficheiro que o fiscal leu (o candidato é copiado, não reescrito).
   Gerador: `pacote/pote_intelligence_casco.py` (`ler_entrada` → `adaptar`). Fiscal: `pacote/validar_pote_v2.py`
   (forma do schema `docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.schema.json` + lei `conferir_pote`).
 - Chaves do topo (medidas num pote gerado pelo motor sobre a fixture `tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json`):
@@ -54,11 +57,14 @@ Sha que não bate, ficheiro que falta ou `RESULT_STATE` fora de `DONE`/`REUSED` 
 
 ### ⚠️ Hoje o disparador NÃO entrega pote nenhum
 
-O motor escreve `ENTITY_SOURCE` como **objeto** (D112: `{VALOR, ENTITY_SOURCE, POR_ITEM}` por chave,
+O motor escreve `ENTITY_SOURCE` como **mapa** (D112: `{VALOR, ENTITY_SOURCE, POR_ITEM}` por chave,
 `motor/motor_das_capacidades.py:493-498`). O schema do pote pede **texto** (`POTE_INTELLIGENCE_CASCO-v2.schema.json:49`).
-Medido na fixture: **7 violações em 7 objetos, as 7 de `ENTITY_SOURCE`**. O fiscal reprova, e o disparador obedece:
-nada sobe, e o Casco continua a ver o último pote aprovado (ou tela vazia). Isto é **bloqueio do dono do pote**,
-não do Casco: o formato acima não muda quando for resolvido.
+Decisão do Intelligence owner (D142), aplicada no ponto de montagem do disparador (`montar_o_pote`): **valor da lei
+COL-LAW-221** (`SPAN|PARAGRAPH_CONTEXT|SECTION_TITLE|DOCUMENT_TITLE|UNKNOWN`) quando o bloco o tiver, **senão `UNKNOWN`**;
+o mapa nunca se achata nem se escolhe uma entrada. **Medido:** todo objeto do motor traz o mapa → todos viram `UNKNOWN` →
+o fiscal reprova **`ENTITY_SOURCE esconde a ignorancia`** (`pacote/pote_intelligence_casco.py:825-827`: só «NAO SEI» é
+ignorância escrita). Na fixture: 7/7; na Sala da R9: 15/15. Nada entra na entrega. Isto é **conflito de leis no pote**
+(decisão do dono do pote), não do Casco: o formato acima não muda quando for resolvido.
 
 ## 3 · As chaves do compartimento `meeting` (Radar delle Opportunità)
 
@@ -104,4 +110,6 @@ Medido em `C:\Users\London1\sintonia-sala-italia\intelligence-experimental\PARA-
 - O pote R9 **EXPERIMENTAL** (não é para cliente) tem mais um `windows`/`SINAL` (`SG-a5d48c8cb6f73f24`, **não** liberado:
   data e lugar do documento inteiro) e 2 objetos de `market`, que são de preço e não de clima.
 - Estes dois objetos vieram do `montar_r9.py`, **não** do disparador. O disparador corre o motor canônico, que hoje não
-  gera este objeto (e cujo pote é reprovado pelo `ENTITY_SOURCE`, §2).
+  gera este objeto (e cujo pote é reprovado pelo `ENTITY_SOURCE`, §2). Medido em `provas/l2/R9-AUTO-VS-MANUAL.md`:
+  sobre a mesma Sala da R9, o caminho automático libera **0** objetos. E, pelo adendo D152, o destino semântico destes 2
+  fatos é `agrometConditions` (sem tela consumidora): ficam **sem card** para o cliente.

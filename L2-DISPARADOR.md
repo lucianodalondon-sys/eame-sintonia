@@ -8,9 +8,11 @@
 > fd8c94698 — enxerto cego pode perder peças; DSN no arranque»*.
 
 ```
-ENSAIO     __ENSAIO__
-MUTAÇÃO    41/41 mortos · ficheiros restaurados byte a byte (provas/l2/MUTANTES.json)
-TESTES     tests/test_disparador_intelligence.py 53/53 · tests/test_harness_mutacao_l2.py 2/2
+ENSAIO     DISPARADOR_INTELLIGENCE = PASS (Postgres descartável, 15/15) · POTE_NOVO_GERADO_SEM_MAO_HUMANA = FAIL (ENTITY_SOURCE)
+MUTAÇÃO    47/47 mortos · ficheiros restaurados byte a byte · italia-portale/ igual no fim (provas/l2/MUTANTES.json)
+TESTES     tests/test_disparador_intelligence.py 59/59 · tests/test_harness_mutacao_l2.py 2/2
+R9        OBJETOS_LIBERADOS_AUTO = 0 (manual = 2) · GERADOR_CANONICO = FAIL — provas/l2/R9-AUTO-VS-MANUAL.md
+ESTADO    D152: código pronto, NÃO agendado, NÃO instalado. Isto prova o DISPARADOR, não o laço até à tela.
 BATERIA    __BATERIA__
 MAPA       __MAPA__
 ```
@@ -57,7 +59,7 @@ Agendador (a cada 30 min) -> disparador_intelligence.cmd  (set /p SINTONIA_SALA_
        trinco da corrida -> pg_dump da Sala -> cópia descartável (PROVA_VALE)
          -> export READ_ONLY da CÓPIA + hora de pouso de cada linha
          -> CORTE VIGENTE (§3) -> motor_das_capacidades -> pote v2 -> fiscal validar_pote_v2
-            PASSA:    PARA-O-CASCO\ (POTE.json + MANIFESTO.json + SHA256SUMS.txt) e sintonia-pote.js
+            PASSA:    PARA-O-CASCO\ (POTE.json + MANIFESTO.json + SHA256SUMS.txt) — e PARA aí (fronteira)
             REPROVA:  nada sobe; POTE-REPROVADO-<RUN>.js guardado com as violações
          -> poda dos backups velhos
        grava o estado -> sai
@@ -88,28 +90,78 @@ primeira que pousou), muda-se `cortar_vigente` e só ela.
 
 ## 4 · Bloqueio (b): ENTITY_SOURCE — o pote de hoje não passa no fiscal
 
-Medido na fixture: o motor gera o pote sem mão humana, e o fiscal **reprova com 7 violações, as 7 de `ENTITY_SOURCE`**
-(`$.COMPARTIMENTOS.<x>.OBJETOS[i].ENTITY_SOURCE: devia ser string`). O motor escreve um **objeto** por chave (D112:
-`{VALOR, ENTITY_SOURCE, POR_ITEM}`, `motor/motor_das_capacidades.py:493-498`); o schema pede **texto**
-(`docs/intelligence/pote-v2/POTE_INTELLIGENCE_CASCO-v2.schema.json:49`). Não mudei nem um nem outro.
+O motor escreve `ENTITY_SOURCE` como **mapa** por chave (D112: `{VALOR, ENTITY_SOURCE, POR_ITEM}`,
+`motor/motor_das_capacidades.py:493-498`); o schema pede **texto** (`POTE_INTELLIGENCE_CASCO-v2.schema.json:49`).
+Sem conversão, o fiscal reprova «devia ser string» (7/7 na fixture).
 
-**Proposta ao dono do pote (a menor correção, escolha dele):**
+**Decisão do Intelligence owner (D142), aplicada:** no pote, `ENTITY_SOURCE` = o valor da lei COL-LAW-221
+(`SPAN|PARAGRAPH_CONTEXT|SECTION_TITLE|DOCUMENT_TITLE|UNKNOWN`) quando o bloco o tiver, senão `UNKNOWN`; **proibido**
+achatar o mapa ou escolher uma entrada. Feito em `admissao/gatilho_da_inteligencia.py::montar_o_pote`, o ponto de
+montagem do pote **do disparador**, explícito e testado (`TestEntitySourceNoPote`, mutantes L43–L47). **Não** no gerador
+partilhado: lá o acervo já escreve `ENTITY_SOURCE` achatado e há teste que o exige
+(`tests/test_acervo_na_intelligence.py::test_B11`); mudar isso é do dono do pote. O mapa inteiro continua em `MOTOR.json`.
 
-- **(A) — 1 linha no schema:** `"ENTITY_SOURCE": {"type": ["string", "object"]}`. O contrato já diz «ENTITY_SOURCE? D112,
-  quando a Intelligence o diz», e o D112 do motor é o objeto. Custo: o casco mostra `ENTITY_SOURCE` com `par(c, o[c])`
-  (`italia-portale/client/sintonia-pote-casco.js:193`); um objeto ali aparece como objeto, e o Casco disse «nenhum campo
-  novo» — tem de aceitar a forma.
-- **(B) — no gerador do pote (`pacote/pote_intelligence_casco.py`, dono do pote):** achatar para texto na saída
-  (p.ex. `"CROP_ID:TRECHO_DA_AFIRMACAO; REGION_ID:NAO SEI"`) e levar o objeto em `FORA_DO_CONTRATO`. O schema e o casco
-  não mudam; é o que o pote R9 já faz (`ENTITY_SOURCE: "TRECHO_DA_AFIRMACAO"`, e passou no fiscal).
-
-Eu recomendaria (B): o Casco já aceitou o formato como está, e (B) não o obriga a nada.
+**Medido depois da conversão:** todo objeto do motor traz o mapa → todos viram `UNKNOWN` → o fiscal reprova
+**«ENTITY_SOURCE esconde a ignorancia»** (`pacote/pote_intelligence_casco.py:825-827`: só «NAO SEI» é ignorância
+escrita). Fixture 7/7, ensaio 7/7, Sala da R9 15/15. Nem o motor, nem o schema, nem o fiscal foram tocados:
+**`POTE_NOVO = FAIL`**, motivo = **conflito de duas leis no mesmo campo** (D142 manda `UNKNOWN`, `conferir_pote` recusa
+`UNKNOWN`). Quem decide é o dono do pote. (As propostas A/B da primeira versão deste relatório ficaram superadas pela D142.)
 
 ## 5 · Provas
 
-__PROVAS__
+### 5.1 · Ensaio num PostgreSQL descartável — `provas/l2/ensaio_disparador.py` → `provas/l2/ENSAIO-DISPARADOR.json`
 
-## 6 · Instalar (na máquina do bot; Windows)
+Banco novo numa porta livre, **34 migrations**, semeado com a fixture SINTÉTICA do R7 pelos **donos** da Sala (`pousar`,
+`rever`). O defeito (a) foi **plantado**: a linha `SINT-R7-APOL-38-BRLE#0` pousa outra vez por outra corrida, noutro
+universo (a Sala já recusa o mesmo ITEM_ID no mesmo universo vindo de outra corrida — lido no SQL de `pousar`). Sem rede.
+O caminho é a volta agendada de verdade (`uma_volta`).
+
+| passo | resultado medido |
+|---|---|
+| Sala semeada | 10 linhas na vista (a fixture tem 9; a Sala **fundiu** `SINT-R7-ARIF-38#1` com o `#0`, mesmo documento — C6), o repetido na vista: `SINT-R7-APOL-38-BRLE#0` × 2 |
+| **dois disparos**: o 2.º com o trinco da corrida preso | `OCUPADO`, **nenhuma cópia feita**, Sala igual |
+| **item novo → dispara** (10 novos) | `DEZ_OU_MAIS_NOVOS (10)` → cópia `PROVA_VALE`, igual à Sala, export `READ_ONLY=on` da **cópia** → corte vigente **10 → 9 linhas**, `ITEM_ID_REPETIDO = [SINT-R7-APOL-38-BRLE#0]` **declarado** → motor real correu (`IR-…`): windows 1 · science 3 · future 1 · sources 3; cruzamentos: 4 relações D112, 1 janela CAP-WIN, 3 estudos CAP-SCI → pote gerado → fiscal **REPROVA** (7 violações, as 7 `ENTITY_SOURCE`) → **nada sobe**; casco sem pote, entrega inexistente |
+| **sem item novo** | `SEM_DELTA` |
+| 1 item novo, recente | `POUCOS_E_RECENTES (1 novos)` — espera |
+| o mesmo, +4 h 30 | `NOVO_A_ESPERA_HA_4H (1 novos)` → corre → pote reprovado outra vez (7, `ENTITY_SOURCE`) |
+| **.cmd real** (`set /p SINTONIA_SALA_DSN=<SALA_DSN.txt`, ambiente sem nenhuma `SINTONIA_*`) → `--medir` | código 0, `NOVOS = 11`, `DECISAO = CORRER`; a DSN **não** aparece na saída (nem a porta) |
+| **motor DUBLÊ** (declarado: a corrida sintética válida de `tests/fixtures/pote`, com o `ENTITY_SOURCE` do único objeto que o traz trocado por `DOCUMENT_TITLE`, valor da lei) | `POTE_SUBIU`; `PARA-O-CASCO/` = `MANIFESTO.json`, `POTE.json`, `SHA256SUMS.txt`; os sha **batem** — o caminho da subida funciona quando o pote é válido |
+| **a fronteira** | `italia-portale/` fotografado inteiro (tamanho e mtime de cada ficheiro) no início e no fim do ensaio: **igual** |
+| vigia | escreveu; `ALERTA`: `sala DEFEITO_NA_SALA`, `coleta PARADA`, `fonte/agendador/portal NAO SEI` (é ensaio: sem worker, sem tarefa, sem pote aprovado) |
+| **a Sala em cada disparo** | impressão (md5 das linhas de `sala_de_espera`, n.º de revisões, n.º de `consumido_em`) **igual antes e depois dos 6 disparos**; `consumido_em` preenchido: **0** no fim |
+
+15 conferências, 15 verdes → `DISPARADOR_INTELLIGENCE = PASS`. `POTE_NOVO_GERADO_SEM_MAO_HUMANA = FAIL` (o motor gerou o
+pote sozinho; o fiscal reprovou-o por `ENTITY_SOURCE`, §4). **Isto prova o disparador, não o laço:** nenhum pote real
+chegou à entrega, e a R9 automática libera 0 objetos (`provas/l2/R9-AUTO-VS-MANUAL.md`).
+
+Dois tropeções do **ensaio** (não do disparador), corrigidos e ditos: (1) a fixture trazia a janela incompleta dentro do
+item e a trava `janela_declara_as_quatro_chaves` recusou o pouso — o ensaio passou a pousar com `JANELA_NAO_MEDIDA` e a
+janela da fixture entra por `rever`, como o dono faz; (2) o ensaio casava as revisões por posição, e a fusão do `#1`
+desalinhava-as — passou a casar pelo ITEM_ID.
+
+### 5.2 · Testes — `tests/test_disparador_intelligence.py` 53/53 · `tests/test_harness_mutacao_l2.py` 2/2
+
+Regra do gatilho (8), volta do gatilho (12, incluindo o **motor verdadeiro** sobre o export R7 e o bloqueio
+`ENTITY_SOURCE` medido), corte vigente (8, incluindo: o motor verdadeiro **recusa** o export com repetido e **aceita** o
+corte), só-lê-a-Sala (3: escritores trocados por dublês que rebentam; toda a SQL é `select`; o código não contém
+escritor nem `consumido_em`), entrega (3), volta agendada (5: sem DSN não corre e não a diz; a DSN nunca aparece no
+resultado nem no estado; duas voltas ao mesmo tempo — a segunda não grava), retenção (5), vigia (9).
+
+### 5.3 · Mutação — `provas/l2/mutantes.py` → `provas/l2/MUTANTES.json`: **47/47 mortos**, restaurados byte a byte
+
+Os quatro que a missão pediu: **escreve na Sala** (L1 `pousar`, L3 UPDATE pela consulta, L4/L5/L6 export sem as travas
+só-leitura), **marca consumido_em** (L2 `retirar`), **sem trinco** (L7 corrida, L8 volta, L9 volta ocupada que grava),
+**pote inválido entregue** (L10 fiscal ignorado, L11 entrega antes do fiscal, L12 sha errado, L13 entrega meia),
+**a fronteira** (L42 o disparador escreve sob `italia-portale/`; o harness limpa o que ele criou e confere o portal
+igual no fim), **ENTITY_SOURCE** (L43 mapa achatado, L44 escolhe uma entrada, L45 texto fora da lei passa, L46 sem
+conversão, L47 conversão que estraga a saída do motor). E mais:
+corte vigente torto (L14–L18), vigia que cala o defeito (L19), DSN no resultado (L20), sem DSN corre (L21), e os
+herdados da esteira (regra, recuo, cópia, PARAR, intervalo, poda, vigia, retenção: L22–L41). Testes com `-B` (sem `.pyc`).
+
+## 6 · Instalar — **NÃO FAZER AGORA (D152)**
+
+> Coordenador (D151/D152): o gatilho fica **pronto, NÃO agendado, NÃO instalado**. O que segue é só o registo de
+> **como** se instalaria quando o dono mandar.
 
 ```bat
 cd %USERPROFILE%\orca\workspaces\eame-sintonia\<arvore do servico>
@@ -143,8 +195,8 @@ A DSN só existe dentro desse processo (sem `setx`), e o disparador nunca a impr
 **Disco:** `curadoria\esteira\intelligence\` guarda no máximo ~4 backups inteiros (~50 MB cada); os velhos ficam só com o recibo.
 **Ler a saúde:** `curadoria\ESTEIRA-SAUDE.json` → `ALERTA`, `ALERTAS[]`, `ETAPAS{}`, `ULTIMO_DELTA_DA_INTELLIGENCE`, `ULTIMO_CORTE_DA_INTELLIGENCE`.
 
-**Hoje, instalado, o que acontece:** dispara quando houver material novo, faz a cópia, corre o motor, e o fiscal **reprova**
-o pote (§4). Nada sobe para o casco até o dono do pote decidir. O vigia mostra `pote` parado e `DEFEITO_NA_SALA` (os 6 repetidos).
+**Se fosse instalado hoje:** dispara quando houver material novo, faz a cópia, corre o motor, e o fiscal **reprova**
+o pote (§4). Nada entra na entrega até o dono do pote decidir. O vigia mostra `pote` parado e, se os 6 repetidos medidos pelo coordenador continuarem na Sala, `DEFEITO_NA_SALA`.
 
 ## 7 · Design
 
@@ -152,4 +204,19 @@ Nenhuma superfície visual tocada. `ADAMA_DESIGN_SYSTEM_MATCH = NAO SE APLICA` (
 
 ## EM PALAVRAS SIMPLES
 
-__SIMPLES__
+1. **Fiz o robô que liga a Intelligence sozinho.** A cada meia hora ele olha a Sala, só olhando: é como espiar pela
+   janela sem abrir a porta. Se chegaram 10 itens novos, ou se um item novo já espera há 4 horas, ele tira uma cópia da
+   Sala, roda o motor em cima da cópia e monta o pote. Ele nunca escreve na Sala e nunca marca nada como «usado».
+   Nunca rodam dois ao mesmo tempo. Provei com um banco de mentira: a Sala ficou igualzinha antes e depois de cada vez.
+2. **O pote que ele monta hoje é recusado pelo fiscal, e por isso nada é entregue.** Um campo (`ENTITY_SOURCE`, «de
+   onde veio o nome») vem do motor como uma caixinha com várias coisas dentro. A regra nova do dono manda escrever ali
+   «UNKNOWN» (não sei) quando não há um valor da lei. Fiz isso. Mas o fiscal do pote só aceita «não sei» escrito como
+   «NAO SEI», e chama «UNKNOWN» de ignorância escondida. São duas regras brigando no mesmo campo; quem desempata é o
+   dono do pote. Com um pote de exemplo que respeita as duas, a entrega chegou certa, com a conferência (sha) batendo.
+   E o robô **para na entrega**: quem põe na tela é o Casco, nunca ele. Não está ligado nem instalado (D152).
+3. **Medi a R9 sem a mão humana: 0 objetos, contra 2 feitos à mão.** As 2 frases do clima da R9 foram escritas por
+   uma pessoa dentro do script. Não existe ainda quem as ache sozinho no boletim — e isso é trabalho da Coleta, não da
+   Intelligence. Deixei escrito o menor passo (`provas/l2/R9-AUTO-VS-MANUAL.md`), sem construir.
+4. **Um defeito da Sala não trava mais o motor, mas continua à vista.** Alguns itens estão na Sala duas vezes, e o motor
+   recusava tudo por causa deles. Agora o robô usa só a versão mais nova de cada item, e escreve num papel quais ficaram
+   de fora. O boletim de saúde grita «defeito na Sala» enquanto eles lá estiverem.
