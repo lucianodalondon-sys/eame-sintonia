@@ -300,8 +300,26 @@
    "QUEM_MATOU": [
     "FAIL: test_tela_com_erro_de_pintura_reprova (tests.test_publicar_portal_sozinho.P1_AsTelas.test_tela_com_erro_de_pintura_reprova)"
    ]
+  },
+  {
+   "MUTANTE": "M36 D156 rodada ignora a LOCK-PESADO",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_lock_pesado_de_outra_sessao_espera (tests.test_publicar_preview_da_pasta.G5_ARodada.test_lock_pesado_de_outra_sessao_espera)",
+    "FAIL: test_lock_pesado_pego_durante_e_solto_depois (tests.test_publicar_preview_da_pasta.G5_ARodada.test_lock_pesado_pego_durante_e_solto_depois)"
+   ]
+  },
+  {
+   "MUTANTE": "M37 D156 LOCK-PESADO nunca solto",
+   "FICHEIRO": "portoes/publicar_preview_da_pasta.py",
+   "MORTO": true,
+   "QUEM_MATOU": [
+    "FAIL: test_lock_pesado_pego_durante_e_solto_depois (tests.test_publicar_preview_da_pasta.G5_ARodada.test_lock_pesado_pego_durante_e_solto_depois)",
+    "FAIL: test_lock_pesado_solto_mesmo_quando_o_publicador_rebenta (tests.test_publicar_preview_da_pasta.G5_ARodada.test_lock_pesado_solto_mesmo_quando_o_publicador_rebenta)"
+   ]
   }
  ],
- "MORTOS": 35,
- "TOTAL": 35
+ "MORTOS": 37,
+ "TOTAL": 37
 }
