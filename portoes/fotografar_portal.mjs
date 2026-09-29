@@ -71,6 +71,12 @@ const MEDIR = (conhecidos) => {
   if (corpo) corpo.querySelectorAll('script,template').forEach((n) => n.remove());
   const html = corpo ? corpo.outerHTML : '';
   const vistos = (ids) => ids.filter((id) => html.indexOf(id) >= 0);
+  /* D152 · o que fica FORA do SNAPSHOT: o mesmo corpo sem os [data-snapshot]. */
+  const fora = document.body ? document.body.cloneNode(true) : null;
+  if (fora) fora.querySelectorAll('script,template,[data-snapshot]').forEach((n) => n.remove());
+  const htmlFora = fora ? fora.outerHTML : '';
+  const vistosFora = (ids) => ids.filter((id) => htmlFora.indexOf(id) >= 0);
+  const liveN = document.querySelector('[data-live-n]');
   const comp = document.querySelector('[data-pote-compartimento]');
   const PUB = W.SINTONIA_POTE_PUBLICADO;
   return {
@@ -92,6 +98,11 @@ const MEDIR = (conhecidos) => {
     LEGADO_43_VISIVEIS: vistos(ids43).length,
     LEGADO_44_UNIVERSO: ids44.length,
     LEGADO_44_VISIVEIS: vistos(ids44).length,
+    LEGADO_43_FORA: vistosFora(ids43).length,
+    LEGADO_44_FORA: vistosFora(ids44).length,
+    LEGADO_CARTOES_FORA: fora ? fora.querySelectorAll('[data-meeting-case],[data-case],[data-itfc]').length : null,
+    LIVE_N: liveN ? liveN.getAttribute('data-live-n') : null,
+    SNAPSHOT_TITULO: !!document.querySelector('[data-snapshot-titulo]'),
     IDS: { ids43, ids44 },
     HASH: location.hash,
     ENVELOPE: PUB && typeof PUB === 'object'

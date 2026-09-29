@@ -10,8 +10,9 @@ O que se chama «pote real» num teste e o sintetico com os ids renomeados — c
 Prova que:
   P0  o pote: forma+lei v2, D122 (evento so com data), D123 (caso -> produto -> bula), nenhum objeto sem
       prova, nada de dado cru, nada da demo, e a promocao de um pote EXPERIMENTAL so com o dono;
-  P1  as telas: a contagem do navegador tem de ser a do pote, os 43/44 antigos escondidos, a barra conta o
-      pote, o SHA servido e o do pote; casa (legado fora do casco, correcao do dono 28/09) tem de acabar na
+  P1  as telas (D151/D152, dono 29/09): o pote INTEIRO so na tela de debug; as telas de cliente sem a camada
+      tecnica (casco original); Radar e Radar Futuro com a linha LIVE = a contagem do pote; nenhum caso antigo
+      fora do SNAPSHOT; a barra conta o LIVE; o SHA servido e o do pote; casa (legado fora do casco, correcao do dono 28/09) tem de acabar na
       porta /accesso, sem os 43/44 — senao BLOQUEIA; o redirect vem do vercel.json, e o servidor local o cumpre;
   P2  o portao do release e LIDO do workflow (nao copiado) e so o vermelho herdado e declarado passa;
   P3  o caminho inteiro, com o anfitriao local do ensaio: publica, nao publica o que reprova, nao
@@ -97,15 +98,27 @@ LIBERACAO = ["C0_LIBERADO_PARA_CLIENTE", "C0_VEREDITO_DO_LAB", "C0_RAW_CONFERIDO
 def contagens_boas(pote, sha, contrato=CONTRATO):
     """O CONTAGENS.json que o fotografo escreveria para um portal que obedece."""
     esp = P.contagem_esperada(pote, contrato)
-    nav = {v: str(n) for v, n in esp.items() if v != "inicio"}
+    TL = contrato["TELAS"]
+    vivas = [v for v in TL["LIVE"]["TELAS"] if v != "inicio"]
+    # a barra: o LIVE nas vozes vivas; nas outras, o numero do casco original (aqui um qualquer)
+    nav = {v: (str(esp[v]) if v in vivas else "7") for v in esp if v != "inicio"}
     nav.update(painel="", sala="")
+    total = sum(len(e.get("OBJETOS") or []) for e in pote["COMPARTIMENTOS"].values())
     T = {}
-    for t in contrato["TELAS"]["DO_POTE"]:
-        T[t] = {"HTTP": 200, "POTE_NA_TELA": True, "POTE_OBJETOS": esp.get(t), "POTE_RECUSADO": False, "MARCA": True,
-                "LEGADO_CARTOES": 0, "LEGADO_43_UNIVERSO": 43, "LEGADO_43_VISIVEIS": 0, "LEGADO_44_UNIVERSO": 44,
-                "LEGADO_44_VISIVEIS": 0, "OGGI_LEGADO": False, "NAV": dict(nav),
-                "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True}}
-    T["accesso"] = {"HTTP": 200, "LEGADO_CARTOES": 0, "LEGADO_43_VISIVEIS": 0, "LEGADO_44_VISIVEIS": 0, "LEGADO_43_UNIVERSO": 43}
+    for t in TL["DO_POTE"]:
+        viva = t in TL["LIVE"]["TELAS"]
+        antigos = 17 if t in ("inicio", "meeting") else (44 if t == "radarfuturo" else 0)
+        T[t] = {"HTTP": 200, "POTE_NA_TELA": False, "POTE_OBJETOS": 0, "POTE_RECUSADO": False, "MARCA": False,
+                "LEGADO_CARTOES": antigos, "LEGADO_43_UNIVERSO": 43,
+                "LEGADO_43_VISIVEIS": antigos if t in ("inicio", "meeting") else 0, "LEGADO_44_UNIVERSO": 44,
+                "LEGADO_44_VISIVEIS": antigos if t == "radarfuturo" else 0,
+                "LEGADO_43_FORA": 0, "LEGADO_44_FORA": 0, "LEGADO_CARTOES_FORA": 0,
+                "LIVE_N": str(esp[t]) if viva else None, "SNAPSHOT_TITULO": viva,
+                "OGGI_LEGADO": False, "NAV": dict(nav), "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True}}
+    T[TL["DEBUG"]["TELA"]] = {"HTTP": 200, "POTE_NA_TELA": True, "MARCA": True, "POTE_RECUSADO": False,
+                              "POTE_OBJETOS": total, "ENVELOPE": {"POTE_SHA256": sha, "TEM_POTE": True}}
+    T["accesso"] = {"HTTP": 200, "LEGADO_CARTOES": 0, "LEGADO_43_VISIVEIS": 0, "LEGADO_44_VISIVEIS": 0, "LEGADO_43_UNIVERSO": 43,
+                    "LEGADO_43_FORA": 0, "LEGADO_44_FORA": 0, "LEGADO_CARTOES_FORA": 0}
     T["casa"] = {"HTTP": 200, "URL_FINAL": "http://127.0.0.1:1/accesso", "LEGADO_43_VISIVEIS": 0, "LEGADO_44_VISIVEIS": 0}
     return {"MEDICAO_COMPLETA": True, "TELAS": T}
 
@@ -347,42 +360,80 @@ class P1_AsTelas(unittest.TestCase):
         finally:
             shutil.rmtree(d, ignore_errors=True)
 
-    def test_pagina_sem_a_contagem(self):
-        self.C["TELAS"]["market"]["POTE_OBJETOS"] = 5
-        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+    def test_debug_sem_o_pote_inteiro(self):
+        d = CONTRATO["TELAS"]["DEBUG"]["TELA"]
+        self.C["TELAS"][d]["POTE_OBJETOS"] -= 1
+        self.assertIn("C5_DEBUG_TEM_O_POTE_INTEIRO", ids(self.conf()))
         self.C = contagens_boas(POTE_ENSAIO, self.sha)
-        self.C["TELAS"]["meeting"]["POTE_NA_TELA"] = False
-        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+        self.C["TELAS"][d]["MARCA"] = False
+        self.assertIn("C5_DEBUG_TEM_O_POTE_INTEIRO", ids(self.conf()))
+        self.C = contagens_boas(POTE_ENSAIO, self.sha)
+        del self.C["TELAS"][d]
+        self.assertIn("C5_DEBUG_TEM_O_POTE_INTEIRO", ids(self.conf()))
 
-    def test_pote_recusado_na_tela(self):
-        self.C["TELAS"]["sources"]["POTE_RECUSADO"] = True
-        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+    def test_pote_recusado_no_debug(self):
+        self.C["TELAS"][CONTRATO["TELAS"]["DEBUG"]["TELA"]]["POTE_RECUSADO"] = True
+        self.assertIn("C5_DEBUG_TEM_O_POTE_INTEIRO", ids(self.conf()))
+
+    def test_camada_tecnica_na_tela_do_cliente(self):
+        """D152: a faixa EXPERIMENTAL e o pote so no debug. Na tela do cliente, reprova."""
+        self.C["TELAS"]["windows"].update(POTE_NA_TELA=True, MARCA=True, POTE_OBJETOS=2)
+        self.assertIn("C5_CLIENTE_SEM_CAMADA_TECNICA", ids(self.conf()))
+        self.C = contagens_boas(POTE_ENSAIO, self.sha)
+        del self.C["TELAS"]["market"]["MARCA"]
+        self.assertIn("C5_CLIENTE_SEM_CAMADA_TECNICA", ids(self.conf()), "nao medida nao e ausente")
 
     def test_sha_servido_nao_e_o_do_pote(self):
         self.C["TELAS"]["windows"]["ENVELOPE"]["POTE_SHA256"] = "0" * 64
-        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+        self.assertIn("C5_CLIENTE_SEM_CAMADA_TECNICA", ids(self.conf()))
 
-    def test_d122_legado_visivel(self):
-        self.C["TELAS"]["radarfuturo"]["LEGADO_44_VISIVEIS"] = 44
-        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()))
+    def test_live_com_numero_que_nao_e_o_do_pote(self):
+        self.C["TELAS"]["meeting"]["LIVE_N"] = "17"
+        self.assertIn("C5_LIVE_CONTA_O_POTE", ids(self.conf()))
         self.C = contagens_boas(POTE_ENSAIO, self.sha)
-        self.C["TELAS"]["accesso"]["LEGADO_CARTOES"] = 3
-        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()))
+        self.C["TELAS"]["radarfuturo"]["LIVE_N"] = None
+        self.assertIn("C5_LIVE_CONTA_O_POTE", ids(self.conf()))
 
-    def test_d122_a_caixa_oggi_do_legado(self):
+    def test_live_numa_tela_que_nao_o_tem(self):
+        self.C["TELAS"]["windows"]["LIVE_N"] = "2"
+        self.assertIn("C5_LIVE_CONTA_O_POTE", ids(self.conf()))
+
+    def test_snapshot_sem_rotulo(self):
+        self.C["TELAS"]["meeting"]["SNAPSHOT_TITULO"] = False
+        self.assertIn("C5_LIVE_CONTA_O_POTE", ids(self.conf()))
+
+    def test_d152_caso_antigo_fora_do_snapshot(self):
+        self.C["TELAS"]["radarfuturo"]["LEGADO_44_FORA"] = 44
+        self.assertIn("C5_D152_NADA_MISTURADO", ids(self.conf()))
+        self.C = contagens_boas(POTE_ENSAIO, self.sha)
+        self.C["TELAS"]["accesso"]["LEGADO_CARTOES_FORA"] = 3
+        self.assertIn("C5_D152_NADA_MISTURADO", ids(self.conf()))
+        self.C = contagens_boas(POTE_ENSAIO, self.sha)
+        del self.C["TELAS"]["meeting"]["LEGADO_43_FORA"]
+        self.assertIn("C5_D152_NADA_MISTURADO", ids(self.conf()), "nao medido nao e zero")
+
+    def test_d152_antigos_dentro_do_snapshot_passam(self):
+        """Os 17 e os 44 continuam visiveis — dentro do SNAPSHOT. Nao apagar historico real."""
+        self.assertEqual(self.C["TELAS"]["meeting"]["LEGADO_43_VISIVEIS"], 17)
+        self.assertEqual(ids(self.conf()), [])
+
+    def test_a_caixa_oggi_do_legado(self):
         self.C["TELAS"]["windows"]["OGGI_LEGADO"] = True
-        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()))
+        self.assertIn("C5_D152_NADA_MISTURADO", ids(self.conf()))
         self.C = contagens_boas(POTE_ENSAIO, self.sha)
         del self.C["TELAS"]["windows"]["OGGI_LEGADO"]
-        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()), "nao medida nao e escondida")
+        self.assertIn("C5_D152_NADA_MISTURADO", ids(self.conf()), "nao medida nao e escondida")
 
-    def test_d122_detector_que_nao_mediu_nao_vale_zero(self):
+    def test_detector_que_nao_mediu_nao_vale_zero(self):
         self.C["TELAS"]["meeting"]["LEGADO_43_UNIVERSO"] = 0
-        self.assertIn("C5_D122_LEGADO_ESCONDIDO", ids(self.conf()))
+        self.assertIn("C5_D152_NADA_MISTURADO", ids(self.conf()))
 
-    def test_d122_a_barra_com_o_numero_antigo(self):
+    def test_a_barra_do_radar_com_o_numero_antigo(self):
         self.C["TELAS"]["meeting"]["NAV"]["radarfuturo"] = "44"
-        self.assertIn("C5_D122_BARRA_CONTA_O_POTE", ids(self.conf()))
+        self.assertIn("C5_BARRA_CONTA_O_LIVE", ids(self.conf()))
+        self.C = contagens_boas(POTE_ENSAIO, self.sha)
+        self.C["TELAS"]["meeting"]["NAV"]["windows"] = "29"
+        self.assertNotIn("C5_BARRA_CONTA_O_LIVE", ids(self.conf()), "as outras vozes contam como o casco original")
 
     def test_medicao_incompleta_nao_autoriza(self):
         self.C["MEDICAO_COMPLETA"] = False
@@ -391,7 +442,7 @@ class P1_AsTelas(unittest.TestCase):
 
     def test_tela_que_faltou(self):
         del self.C["TELAS"]["science"]
-        self.assertIn("C5_CONTAGEM_POR_TELA", ids(self.conf()))
+        self.assertIn("C5_CLIENTE_SEM_CAMADA_TECNICA", ids(self.conf()))
 
 
 # ── P2 · o portao do release ─────────────────────────────────────────────────
@@ -483,7 +534,7 @@ class PublicadorDeProva(P.Publicador):
         cont = contagens_boas(pote, sha, self.c)
         if self.contagens_no_ar == "sem_contagem" or s != sha:
             for t in cont["TELAS"].values():
-                t.update(POTE_NA_TELA=False, POTE_OBJETOS=0, ENVELOPE=None)
+                t.update(POTE_NA_TELA=False, POTE_OBJETOS=0, ENVELOPE=None, LIVE_N=None)
         return L + P.conferir_telas(cont, pote, sha, self.c, "C6_NO_AR"), None
 
 
@@ -694,9 +745,11 @@ class P4_OCasco(unittest.TestCase):
     def test_a_barra_conta_o_pote(self):
         c = self.o["pub"]["conta"]
         esp = P.contagem_esperada(POTE_ENSAIO, CONTRATO)
-        for v in ("meeting", "radarfuturo", "future", "etichette", "field"):
+        for v in ("meeting", "radarfuturo"):
             self.assertEqual(c[v], esp[v], v)
         self.assertEqual(c["radar"], esp["meeting"])
+        for v in ("future", "etichette", "field"):
+            self.assertIsNone(c[v], f"D152: {v} conta como o casco original")
         self.assertIsNone(c["sala"])
         self.assertIsNone(c["painel"])
 

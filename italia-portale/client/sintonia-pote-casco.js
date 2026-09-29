@@ -12,6 +12,12 @@
    COM o pote, cada ferramenta desenha o SEU compartimento, e so ele: o snapshot de 07/09 e a demo deixam
    de aparecer nessa vista (precedencia). Compartimento vazio mostra o PORQUE que o pote escreveu.
 
+   D151/D152 (dono, 29/09): o CLIENTE ve o casco ORIGINAL. A camada tecnica do pote (esta leitura, a faixa
+   EXPERIMENTAL, as provas) vive SO na rota interna #debug-intelligence-pot (o endereco /debug/intelligence-pot
+   redireciona para la). As rotas de cliente nao cedem ao pote; so o Radar e o Radar Futuro mostram uma linha LIVE
+   (a quantidade do compartimento deles + a corrida + o corte), e o que ja estava la continua, SEPARADO, como
+   SNAPSHOT. FATO nao vira SINAL, SINAL nao vira OPORTUNIDADE: o casco nao escolhe compartimento.
+
    O QUE ESTA LEITURA NAO FAZ (INT-LAW-023 / INT-LAW-280): nao cruza, nao ordena por relevancia (a ordem e
    a do pote), nao completa NAO SEI, nao muda especie, nao escolhe compartimento — le VISTAS_DO_CASCO do
    proprio pote. So FILTER, EXPLAIN e RENDER. */
@@ -56,6 +62,9 @@ window.SINTONIA_POTE_CASCO = (function () {
      Conhecimento do casco (que rota e essa), nao escolha de compartimento para um objeto: o pote nao poe
      objeto nenhum ali. */
   var SO_O_PORQUE = { field: 'field' };
+  /* D152 · a rota interna da camada tecnica, e as rotas de cliente que mostram uma linha LIVE. */
+  var ROTA_DEBUG = 'debug-intelligence-pot';
+  var ROTAS_LIVE = ['meeting', 'radarfuturo'];
   /* Copias de leitura das listas do contrato (dono: pacote/pote_intelligence_casco.py). */
   var ADMITIDA = ['G0_PASSOU', 'FUTURO_POR_DESENHO', 'USO_SEM_TEMPO', 'PONTE_V1'];
   var HONESTOS = ['NAO', 'NAO_TRATAR_AGORA', 'NO_DEFENSIBLE_ACTION_YET'];
@@ -75,7 +84,10 @@ window.SINTONIA_POTE_CASCO = (function () {
       origem: 'da dove viene (Sala d\'attesa, solo come prova)', ammessa: 'ammessa per',
       senzaTempo: 'tempo del fatto NON ancorato — uso che non richiede tempo', risultato: 'risultato',
       serie: 'SERIE MISURATA', punti: 'punti', unita: 'stessa unità', solto: 'SEGNALE ISOLATO — NON è una variazione di mercato',
-      assente: 'POTE NON CARICATO', assenteTesto: 'è stato chiesto il pote (?pote=local) ma sintonia-pote.js non è arrivato: niente snapshot, niente demo al suo posto.'
+      assente: 'POTE NON CARICATO', assenteTesto: 'è stato chiesto il pote (?pote=local) ma sintonia-pote.js non è arrivato: niente snapshot, niente demo al suo posto.',
+      trecho: 'affermazione (testo della fonte)', raw: 'RAW', live: 'LIVE', liveOgg: 'oggetti in questa corsa',
+      liveTaglio: 'aggiornato al taglio della Sala', liveVuoto: 'nessun oggetto LIVE per questo strumento',
+      liveNaoSei: 'la corsa LIVE non è leggibile', snapshot: 'SNAPSHOT', snapshotTesto: 'non è la corsa LIVE'
     },
     en: {
       faixa: 'EXPERIMENTAL · NOT FOR THE CLIENT — Intelligence pot: this view shows ONLY the run below',
@@ -89,7 +101,10 @@ window.SINTONIA_POTE_CASCO = (function () {
       origem: 'where it came from (Waiting Room, only as proof)', ammessa: 'admitted by',
       senzaTempo: 'fact time NOT anchored — use that does not need time', risultato: 'result',
       serie: 'MEASURED SERIES', punti: 'points', unita: 'same unit', solto: 'ISOLATED SIGNAL — NOT a market change',
-      assente: 'POT NOT LOADED', assenteTesto: 'the pot was requested (?pote=local) but sintonia-pote.js did not arrive: no snapshot, no demo in its place.'
+      assente: 'POT NOT LOADED', assenteTesto: 'the pot was requested (?pote=local) but sintonia-pote.js did not arrive: no snapshot, no demo in its place.',
+      trecho: 'claim (source text)', raw: 'RAW', live: 'LIVE', liveOgg: 'objects in this run',
+      liveTaglio: 'updated to the Waiting Room cut-off', liveVuoto: 'no LIVE object for this tool',
+      liveNaoSei: 'the LIVE run is not readable', snapshot: 'SNAPSHOT', snapshotTesto: 'not the LIVE run'
     }
   };
 
@@ -187,7 +202,8 @@ window.SINTONIA_POTE_CASCO = (function () {
   function contagemDaVista(p, view) {
     var pedido = typeof window !== 'undefined' && window.SINTONIA_POTE_PEDIDO === true;
     if (!p && !pedido) return null;
-    if (FERRAMENTAS.indexOf(ROTA[view] || view) < 0) return null;
+    /* D152: so o Radar e o Radar Futuro contam a corrida LIVE; as outras vozes contam como o casco original. */
+    if (ROTAS_LIVE.indexOf(ROTA[view] || view) < 0) return null;
     if (!p || conferir(p).length) return NAO_SEI;
     var k = compartimentoDaVista(p, view) || soOPorque(p, view);
     if (!k) return NAO_SEI;
@@ -210,7 +226,10 @@ window.SINTONIA_POTE_CASCO = (function () {
         urlColor: ns(p.URL) ? '#F5B317' : '#8F8886',
         datas: T.pub + ' ' + txt(p.PUBLISHED_AT) + (ns(p.PUBLISHED_AT) ? ' (' + txt(p.PUBLISHED_AT_BASE) + ')' : '') +
           ' · ' + T.racc + ' ' + txt(p.COLHIDO_EM) + ' · ' + T.fatto + ' ' + txt(p.FACT_TIME),
-        origem: T.origem + ': ITEM_ID ' + txt(p.ITEM_ID) + ' · G0 ' + txt(p.G0) + ' · ' + T.ammessa + ' ' + txt(p.ADMITIDA_POR)
+        origem: T.origem + ': ITEM_ID ' + txt(p.ITEM_ID) + ' · G0 ' + txt(p.G0) + ' · ' + T.ammessa + ' ' + txt(p.ADMITIDA_POR),
+        /* D152 · do objeto ate a prova: o trecho literal e o arquivo original (sha + onde esta). Ausente = NAO SEI. */
+        trecho: T.trecho + ': ' + txt(p.TRECHO_DA_AFIRMACAO),
+        raw: T.raw + ' sha256 ' + txt(p.RAW_SHA256) + ' · ' + txt(p.RAW_STORAGE_PATH)
       };
     });
     var m = o.MERCADO || null;
@@ -230,6 +249,62 @@ window.SINTONIA_POTE_CASCO = (function () {
       resultado: par(T.risultato, o.RESULTADO),
       origens: ['ENTITY_SOURCE', 'LOCATION_SOURCE'].filter(function (c) { return c in o; }).map(function (c) { return par(c, o[c]); })
     };
+  }
+
+  function cabecalho(p, T) {
+    return [par(T.corsa, p.INTELLIGENCE_RUN_ID), par(T.head, p.SOURCE_HEAD), par(T.corte, p.CORTE),
+      par(T.sint, p.CORRIDA_SINTETICA), par('RESULT_STATE', p.RESULT_STATE)];
+  }
+
+  function desenhar(p, k, T) {
+    var e = p.COMPARTIMENTOS[k];
+    var objs = (e.OBJETOS || []).map(function (o) { return objeto(o, T); });
+    return {
+      ativo: true, recusado: false, recusa: '', faixa: T.faixa, L: T, temComp: true,
+      run: cabecalho(p, T),
+      comp: { codigo: k, nome: txt(e.NOME_IT), estado: txt(e.ESTADO), n: objs.length,
+        leitura: T.oggetti + ' · ' + txt((e.UNIVERSO || {}).LEITURA),
+        recusados: (e.RECUSADOS_AQUI || 0) + ' ' + T.rifiutati, especies: (e.ESPECIES_ADMITIDAS || []).join(' · ') },
+      vazio: objs.length === 0, vazioTitulo: NAO_SEI + ' · ' + T.vuoto + ' · ' + txt(e.PORQUE_VAZIO), vazioTexto: txt(e.PORQUE_TEXTO),
+      objetos: objs,
+      lacunas: (e.LACUNAS || []).map(function (g) { return { t: JSON.stringify(g) }; }), temLacunas: (e.LACUNAS || []).length > 0
+    };
+  }
+
+  /* D152 · a rota interna #debug-intelligence-pot: TODOS os compartimentos, na ordem do contrato. `null` fora dela.
+     Sem pote = NAO SEI (nada foi publicado nem chegou); reprovado = recusa, nada desenhado. */
+  function debug(p, view, lang) {
+    if (view !== ROTA_DEBUG) return null;
+    var T = L[lang === 'en' ? 'en' : 'it'];
+    var base = { ativo: true, faixa: T.faixa, L: T, recusado: false, recusa: '', assente: false, assenteTitulo: '',
+      assenteTexto: '', run: [], comps: [] };
+    if (!p) return Object.assign(base, { assente: true, assenteTitulo: NAO_SEI + ' · ' + T.assente,
+      assenteTexto: T.assenteTesto, run: [par(T.corsa, null)] });
+    var falhas = conferir(p);
+    if (falhas.length) return Object.assign(base, { recusado: true, recusa: T.rifiuto + ' ' + falhas.slice(0, 6).join(' · ') });
+    return Object.assign(base, { run: cabecalho(p, T),
+      comps: DOZE.filter(function (k) { return p.COMPARTIMENTOS[k]; }).map(function (k) { return desenhar(p, k, T); }) });
+  }
+
+  /* D152 · a linha LIVE de uma rota de cliente (Radar, Radar Futuro): so a QUANTIDADE do compartimento dessa rota,
+     a corrida e o corte. Nao desenha objeto nem prova (isso e do debug). `null` = sem pedido, ou rota sem LIVE. */
+  function live(p, view, lang) {
+    var alvo = ROTA[view] || view;
+    var pedido = typeof window !== 'undefined' && window.SINTONIA_POTE_PEDIDO === true;
+    if (ROTAS_LIVE.indexOf(alvo) < 0 || (!p && !pedido)) return null;
+    var T = L[lang === 'en' ? 'en' : 'it'];
+    var nada = { ativo: true, legivel: false, n: NAO_SEI, rotulo: T.live, texto: T.liveNaoSei, run: NAO_SEI, quando: NAO_SEI,
+      L: T, snapshot: T.snapshot, snapshotTexto: T.snapshotTesto };
+    if (!p) return Object.assign(nada, { texto: T.assente });
+    if (conferir(p).length) return nada;
+    var k = compartimentoDaVista(p, view);
+    if (!k) return nada;
+    var e = p.COMPARTIMENTOS[k];
+    var n = (e.OBJETOS || []).length;
+    var c = p.CORTE;
+    return Object.assign(nada, { legivel: true, n: n, run: txt(p.INTELLIGENCE_RUN_ID),
+      quando: txt(c && typeof c === 'object' ? c.COPIA_DA_SALA_EM : c),
+      texto: n ? T.liveOgg : T.liveVuoto + ' · ' + txt(e.PORQUE_VAZIO) });
   }
 
   /* A vista do pote para UMA rota do casco. `null` = esta rota nao le o pote (sem pote, ou rota que
@@ -256,21 +331,10 @@ window.SINTONIA_POTE_CASCO = (function () {
     var k = compartimentoDaVista(p, view);
     if (!k) k = soOPorque(p, view);
     if (!k) return null;
-    var e = p.COMPARTIMENTOS[k];
-    var objs = (e.OBJETOS || []).map(function (o) { return objeto(o, T); });
-    return {
-      ativo: true, recusado: false, recusa: '', faixa: T.faixa, L: T, temComp: true,
-      run: [par(T.corsa, p.INTELLIGENCE_RUN_ID), par(T.head, p.SOURCE_HEAD), par(T.corte, p.CORTE),
-        par(T.sint, p.CORRIDA_SINTETICA), par('RESULT_STATE', p.RESULT_STATE)],
-      comp: { codigo: k, nome: txt(e.NOME_IT), estado: txt(e.ESTADO), n: objs.length,
-        leitura: T.oggetti + ' · ' + txt((e.UNIVERSO || {}).LEITURA),
-        recusados: (e.RECUSADOS_AQUI || 0) + ' ' + T.rifiutati, especies: (e.ESPECIES_ADMITIDAS || []).join(' · ') },
-      vazio: objs.length === 0, vazioTitulo: NAO_SEI + ' · ' + T.vuoto + ' · ' + txt(e.PORQUE_VAZIO), vazioTexto: txt(e.PORQUE_TEXTO),
-      objetos: objs,
-      lacunas: (e.LACUNAS || []).map(function (g) { return { t: JSON.stringify(g) }; }), temLacunas: (e.LACUNAS || []).length > 0
-    };
+    return desenhar(p, k, T);
   }
 
   return { CONTRATO: CONTRATO, MARCA: MARCA, conferir: conferir, compartimentoDaVista: compartimentoDaVista, vm: vm,
-    serieMedida: serieMedida, contagemDaVista: contagemDaVista };
+    serieMedida: serieMedida, contagemDaVista: contagemDaVista, debug: debug, live: live, ROTA_DEBUG: ROTA_DEBUG,
+    ROTAS_LIVE: ROTAS_LIVE };
 })();
