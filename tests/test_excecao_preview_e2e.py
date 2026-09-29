@@ -1234,6 +1234,16 @@ class R5_AuditorVerif337dc53d4(Base):
             self.assertIn("no futuro", m)
             self.setUp()
 
+    def test_V3c_tolerancia_nao_deixa_PASS_futuro_vencer_FAIL_anterior(self):
+        # O FAIL e a versao 1; a prova pedida, PASS +4 min, e a versao 2.
+        # Tolerancia de relogio nao torna uma prova futura a mais recente.
+        p = self._pasta_nova()
+        self.lab_json(self.entrada(self.pote, "FAIL", DATA_UTC=self.agora_mais(minutes=-1)), pasta=p)
+        futuro = self.lab_json(self.entrada(self.pote, "PASS", DATA_UTC=self.agora_mais(minutes=4)),
+                               pasta=p, versao=2)
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=futuro))
+        self.assertIn("no futuro", m)
+
     def test_V3c_uma_versao_irma_no_futuro_poe_o_par_em_FAIL(self):
         p = self._pasta_nova()
         bom = self.lab_json(self.entrada(self.pote, "PASS", DATA_UTC=self.agora_mais(minutes=-5)), pasta=p)
