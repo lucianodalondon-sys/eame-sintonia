@@ -56,9 +56,10 @@ O modelo do casco ja tem a familia certa para isto — e ela esta vazia de propo
 
 ## Dois avisos para quem decide
 
-1. **O proprio pote poe os 2 no compartimento `windows`** (`VISTAS_DO_CASCO = ['windows']`). O leitor de debug do
-   casco segue isso (`sintonia-pote-casco.js:165-173`) e desenha-os na rota `#windows`, dentro da faixa
-   «EXPERIMENTAL · NOT FOR THE CLIENT» (`portale.html:3645`). Pela tabela de cima, esse compartimento tambem nao e o
+1. **O proprio pote poe os 2 no compartimento `windows`** (`VISTAS_DO_CASCO = ['windows']`). Desde a D152 o casco
+   so os desenha na rota interna `#debug-intelligence-pot` (`/debug/intelligence-pot`), dentro do bloco desse
+   compartimento e da faixa «EXPERIMENTAL · NOT FOR THE CLIENT»; a rota `#windows` do cliente e o casco original e
+   nao os mostra. Pela tabela de cima, esse compartimento tambem nao e o
    sentido certo para um fato de clima sem cultura. Quem escolhe o compartimento e a Intelligence
    (`pacote/pote_intelligence_casco.py`); o casco nao o muda (INT-LAW-023). Pergunta para a Intelligence.
 2. Para haver destino e preciso uma decisao de PRODUTO: ou uma vista original para «Condizioni agrometeo» (a

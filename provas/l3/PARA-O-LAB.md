@@ -4,24 +4,24 @@ Escrito em 28/09/2026 (missao L3, com a correcao do dono das ~20:37). So caminho
 entra no Git (as fotos e o registo ficam em `%TEMP%`, fora do repositorio, como manda
 `portoes/PUBLICACAO-AUTOMATICA.json` → REGISTRO.NO_GIT).
 
-## ⚠️ O que a tela e, e o que nao e
+## ⚠️ O que a tela e, e o que nao e (atualizado D152, 29/09)
 
-- Os 2 objetos da R9 **nao** estao no Opportunity Radar (decisao do dono: sao FATOS, nao oportunidades).
-- **Nao ha tela de produto para eles** — `DESTINO_DE_PRODUTO_AINDA_NAO_DEFINIDO` (ver `provas/l3/DESTINO-DOS-2-FATOS.md`).
-- A unica tela que os desenha e a de **DEBUG** do pote, na rota `#windows` (o compartimento que o proprio pote
-  escolheu), com a faixa «EXPERIMENTAL · NON PER IL CLIENTE». E essa que o LAB pode seguir para tras — como
-  prova do encadeamento, nao como aprovacao de uma tela de cliente.
+- Os 2 objetos da R9 **nao** estao no Opportunity Radar (sao FATOS). Radar LIVE = 0.
+- Destino semantico = familia `agrometConditions`, **sem tela de cliente** (adendo do coordenador D152).
+- A unica tela que os desenha e a rota **interna de debug** `/debug/intelligence-pot` → `/portale#debug-intelligence-pot`,
+  com a faixa «EXPERIMENTAL · NON PER IL CLIENTE», dentro do bloco do compartimento `windows` (escolhido pelo pote).
+  As telas de cliente sao o casco original e nao os mostram (conferido no ar: C6_NO_AR_CLIENTE_SEM_CAMADA_TECNICA).
 
 ## 1 · TELA (preview, NAO producao)
 
 | | |
 |---|---|
-| endereco | `https://sintonia-eame-preview-4r5pbg1pb-london-creative.vercel.app/portale#windows` |
-| deployment | `dpl_3c5B4sk4V8VVnCrdkVEofGpnPXSq` (preview, sem `--prod`) |
-| codigo servido | `55c260fe3a50e2a09e707bea2eceef7721932e2b` (ramo `claude/l3-radar-original-v1`) |
+| endereco | `https://sintonia-eame-preview-qae9eearx-london-creative.vercel.app/debug/intelligence-pot` (307 → `/portale#debug-intelligence-pot`) |
+| deployment | `dpl_J4gXk9bnLmiHAvwZtXhNnv9NVEaD` (preview, sem `--prod`) |
+| codigo servido | `c7671ff7eef9f767016dce326fa03f6d9f572016` (ramo `claude/l3-radar-original-v1`) |
 | envelope no ar | `/sintonia-pote-publicado.js` → `POTE_SHA256 = 276b490fd698c46188f4f5ec1a04de79503b0fc11c6ec82c5ea29fa833b87feb` (C6_NO_AR_SHA = PASS) |
-| no DOM | `[data-pote-compartimento="windows"]`, `[data-pote-objeto="AF-2cc19f200815fa06"]`, `[data-pote-objeto="AF-11c9e6b6ee8caa6e"]` |
-| fotos e contagens | `%TEMP%\l3-pub\2026-09-28\192107-131510-276b490f\DEPOIS\` (windows.png, CONTAGENS.json) · registo `REGISTO.json` na mesma pasta |
+| no DOM | `[data-pote-compartimento="windows"]`, `[data-pote-objeto="AF-2cc19f200815fa06"]`, `[data-pote-objeto="AF-11c9e6b6ee8caa6e"]`; em cada prova `[data-pote-trecho]` (o trecho literal) e `[data-pote-raw]` (RAW sha256 + caminho) |
+| fotos e contagens | `%TEMP%\l3-pub6-09-28403-334445-276b490f\DEPOIS\` (debug-intelligence-pot.png, CONTAGENS.json) · `REGISTO.json` na mesma pasta |
 | publicado por | `portoes/publicar_preview_da_pasta.py --raiz …/intelligence-experimental --modo preview` → `publicar_portal_sozinho.py` (C0..C6 todas PASS) |
 
 ## 2 · POTE
