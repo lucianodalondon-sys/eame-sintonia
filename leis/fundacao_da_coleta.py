@@ -150,6 +150,65 @@ SALA_VIVA_PORTAS = ('54330',)
 SALA_VIVA_ENV = ('SINTONIA_SALA_DSN', 'SUPABASE_DB_URL')
 SALA_VIVA_HOSTS = ('supabase.co', 'supabase.com')
 _CAMPOS_DE_LIGACAO = ('DSN', 'HOST', 'PORTA', 'PORT', 'URL', 'MORADA', 'ORIGEM')
+# ⚠️ AUDITOR (VERIF-L1-7f3dc857c, 29/09): 13 de 16 pedidos hostis atravessavam.
+# A guarda comparava TEXTO CRU (branch, host) e ignorava chaves que nao conhecia.
+# Agora: branch e host normalizados antes de comparar, e o pedido tem uma lista
+# FECHADA de chaves — chave desconhecida e recusa, nao silencio.
+CHAVES_DO_PEDIDO = ('OPERACAO', 'DESTINO', 'ENTRADA', 'POTE', 'POTE_FICHEIRO', 'PROVA_REVERSA_DO_LAB')
+CHAVES_DO_DESTINO = ('TIPO', 'BRANCH', 'HOST', 'PARA_CLIENTE')
+CHAVES_DA_ENTRADA = ('TIPO', 'READ_ONLY', 'SNAPSHOT') + _CAMPOS_DE_LIGACAO
+CHAVES_DO_SNAPSHOT = ('FICHEIRO', 'SHA256')
+CHAVES_DO_LAB = ('VEREDITO', 'ONDE', 'SHA256')
+_PREFIXOS_DE_RAMO = ('refs/heads/', 'refs/remotes/origin/', 'remotes/origin/', 'origin/')
+
+
+def normalizar_ramo(ramo):
+    """'refs/heads/Release/Canonical ' -> 'release/canonical'. None se nao ha ramo."""
+    if not isinstance(ramo, str):
+        return None
+    r = ramo.strip().casefold()
+    mudou = True
+    while mudou:
+        mudou = False
+        for pre in _PREFIXOS_DE_RAMO:
+            if r.startswith(pre):
+                r, mudou = r[len(pre):], True
+    return r or None
+
+
+def nome_do_host(host):
+    """-> (hostname normalizado, None) ou (None, motivo). So se aceita um NOME de
+    host limpo: esquema, caminho, porta, utilizador ou query sao recusados."""
+    from urllib.parse import urlsplit
+    if host is None:
+        return None, None
+    if not isinstance(host, str):
+        return None, 'host ilegivel %r' % (host,)
+    bruto = host.strip().casefold()
+    if not bruto:
+        return None, None
+    try:
+        partes = urlsplit(bruto if '://' in bruto else '//' + bruto)
+        nome = partes.hostname
+        porta = partes.port
+    except ValueError:
+        return None, 'host ilegivel %r' % host
+    if not nome or nome != bruto or porta is not None:
+        return None, 'host %r nao e um nome de host limpo (so o nome, sem esquema nem caminho)' % host
+    return nome, None
+
+
+def _chaves_estranhas(d, permitidas):
+    return sorted(k for k in d if k not in permitidas) if isinstance(d, dict) else []
+
+
+def _tem_consumido_em(x):
+    """consumido_em em QUALQUER nivel do pedido, e em qualquer caixa."""
+    if isinstance(x, dict):
+        return any('consumido_em' in str(k).casefold() or _tem_consumido_em(v) for k, v in x.items())
+    if isinstance(x, list):
+        return any(_tem_consumido_em(v) for v in x)
+    return False
 _TAMANHO_MAXIMO_DA_PROVA = 20 * 1024 * 1024
 #: O ambito exato da D140, como o coordenador o pediu escrito. A guarda LE-o no
 #: contrato e exige-o literal: um valor diferente nao alarga — invalida.
@@ -179,7 +238,7 @@ def excecao_vigente(trava, diario, ident=EXCECAO_PREVIEW):
     for e in trava.get('EXCECOES_CONTROLADAS') or []:
         if not isinstance(e, dict) or e.get('ID') != ident:
             continue
-        if e.get('AUTORIDADE') != AUTORIDADE_PREVIEW or MARCA_NO_DIARIO not in diario:
+        if e.get('AUTORIDADE') != AUTORIDADE_PREVIEW or not _d140_vigente_no_diario(diario):
             return None
         if e.get('REVOGADA') is not False or e.get('NAO_FECHA_A_FUNDACAO') is not True:
             return None
@@ -190,9 +249,30 @@ def excecao_vigente(trava, diario, ident=EXCECAO_PREVIEW):
     return None
 
 
+def _revogada_no_diario(ident, diario, secao=''):
+    """A decisao foi revogada? Pelo Estado da seccao, ou por uma frase que a
+    revoga por nome: «REVOGA D140», «D140 REVOGADA», «REVOGADA — ## D140 ·»."""
+    import re
+    if re.search(r'\*\*Estado:\*\*\s*REVOGAD', secao):
+        return True
+    n = re.escape(ident)
+    return bool(re.search(r'\bREVOGA\s+(a\s+)?%s\b' % n, diario, re.I)
+                or re.search(r'\bREVOGAD[AO]\b[^\w\n]{0,8}(##\s*)?%s\b' % n, diario, re.I)
+                or re.search(r'\b%s\b[^\w\n]{0,8}(foi\s+)?REVOGAD[AO]\b' % n, diario, re.I))
+
+
+def _d140_vigente_no_diario(diario):
+    """A D140 so conta com o CABECALHO exato numa linha propria e sem revogacao."""
+    if not any(linha.startswith(MARCA_NO_DIARIO) for linha in diario.splitlines()):
+        return False
+    return not _revogada_no_diario(AUTORIDADE_PREVIEW, diario,
+                                   _secoes_do_diario(diario).get(AUTORIDADE_PREVIEW, ''))
+
+
 def ramo_de_producao(ramo, publicacao):
-    """Uma branch de promocao e producao — a excecao nunca vale nela."""
-    return ramo in (publicacao.get('PROMOTION_AUTHORITY_BRANCHES') or [])
+    """Uma branch de promocao e producao — a excecao nunca vale nela. Compara-se
+    NORMALIZADO: refs/heads/, origin/ e a caixa nao fazem de producao outra coisa."""
+    return normalizar_ramo(ramo) in {normalizar_ramo(r) for r in publicacao.get('PROMOTION_AUTHORITY_BRANCHES') or []}
 
 
 def artefatos_autorizados(trava, diario, publicacao, ramos=()):
@@ -254,9 +334,20 @@ def _shas_que_nomeiam_o_pote(pedido, pote):
     return shas
 
 
-def conferir_prova_do_lab(lab, shas_do_pote):
+def _dentro_de(f, pastas):
+    real = os.path.normcase(os.path.realpath(f))
+    for p in pastas or []:
+        raiz = os.path.normcase(os.path.realpath(_caminho(p) or ''))
+        if raiz and os.path.isdir(raiz) and os.path.commonpath([real, raiz]) == raiz:
+            return True
+    return False
+
+
+def conferir_prova_do_lab(lab, shas_do_pote, run_id=None, pastas_do_lab=(), pote_ficheiro=None):
     """-> motivo da recusa, ou None. O ONDE tem de ser um ficheiro que existe,
-    que diz VEREDITO=PASS numa linha propria (ou em JSON) e cita este pote."""
+    numa PASTA DO LAB (outro autor, nao o produtor do pote), com o sha256 que o
+    pedido fixou, que diz VEREDITO=PASS numa linha propria (ou em JSON) e cita
+    ESTE pote (sha256) E ESTA corrida (INTELLIGENCE_RUN_ID)."""
     import json
     import re
     if not isinstance(lab, dict):
@@ -264,6 +355,14 @@ def conferir_prova_do_lab(lab, shas_do_pote):
     f = _caminho(lab.get('ONDE'))
     if not f or not os.path.isfile(f):
         return 'a prova do LAB %r nao existe' % lab.get('ONDE')
+    if not _dentro_de(f, pastas_do_lab):
+        return 'a prova do LAB nao esta numa pasta do LAB (PASTAS_DO_LAB da excecao)'
+    if pote_ficheiro and os.path.normcase(os.path.dirname(os.path.realpath(f))) == \
+            os.path.normcase(os.path.dirname(os.path.realpath(pote_ficheiro))):
+        return 'a prova do LAB esta na pasta do proprio pote: o produtor nao prova a si mesmo'
+    fixado = str(lab.get('SHA256') or '').lower()
+    if len(fixado) != 64 or _sha256_ficheiro(f) != fixado:
+        return 'o sha256 da prova do LAB nao bate com o fixado no pedido'
     if os.path.getsize(f) > _TAMANHO_MAXIMO_DA_PROVA:
         return 'a prova do LAB e grande demais para ser lida'
     try:
@@ -281,6 +380,8 @@ def conferir_prova_do_lab(lab, shas_do_pote):
         return 'a prova do LAB nao diz VEREDITO=PASS (diz %r)' % veredito
     if not any(s in texto.lower() for s in shas_do_pote):
         return 'a prova do LAB nao cita o sha256 deste pote'
+    if not run_id or not re.search(r'(?<![\w-])%s(?![\w-])' % re.escape(str(run_id)), texto):
+        return 'a prova do LAB nao cita a corrida %r que fez este pote' % run_id
     return None
 
 
@@ -312,7 +413,7 @@ def decisao_registada(c8, diario):
     sec = _secoes_do_diario(diario).get(ident)
     if sec is None:
         return None, 'a decisao %s nao esta registada no diario' % ident
-    if re.search(r'\*\*Estado:\*\*\s*REVOGAD', sec) or re.search(r'\bREVOGA\s+%s\b' % ident, diario):
+    if _revogada_no_diario(ident, diario, sec):
         return None, 'a decisao %s foi revogada' % ident
     if not re.search(r'\bdono\b', sec, re.I):
         return None, 'a decisao %s nao e do dono' % ident
@@ -407,25 +508,24 @@ class Verificador:
 
 def conferir_destino(d, ramo, publicacao, verificar):
     """-> (motivo da recusa ou None, [verificado]). A branch e o host medem-se."""
+    # A branch declarada ja foi recusada se e de producao (normalizada). Aqui so
+    # se exige que a MEDIDA seja igual a declarada — logo tambem nao e producao.
     if d.get('TIPO') == 'BUILD_LOCAL':
         real = verificar.ramo_real()
         if not real:
             return 'a branch real nao se consegue medir: BRANCH fica ALEGADA e nao prova nada', []
-        if ramo_de_producao(real, publicacao):
-            return 'a arvore real corre na branch de producao %s' % real, []
-        if real != ramo:
+        if normalizar_ramo(real) != normalizar_ramo(ramo):
             return 'branch declarada %r, branch real %r' % (ramo, real), []
         return None, ['BRANCH=%s (medida no git/build)' % real]
-    dep = verificar.deployment(d.get('HOST'))
+    host = nome_do_host(d.get('HOST'))[0]
+    dep = verificar.deployment(host)
     if not isinstance(dep, dict):
         return ('o deployment %s nao respondeu: HOST e BRANCH ficam ALEGADOS e nao provam nada'
-                % d.get('HOST')), []
+                % host), []
     src = dep.get('SOURCE_BRANCH')
-    if not src or ramo_de_producao(src, publicacao):
-        return 'o deployment %s diz SOURCE_BRANCH=%r' % (d.get('HOST'), src), []
-    if src != ramo:
-        return 'branch declarada %r, o deployment diz %r' % (ramo, src), []
-    return None, ['HOST=%s respondeu SOURCE_BRANCH=%s (Vercel)' % (d.get('HOST'), src)]
+    if normalizar_ramo(src) != normalizar_ramo(ramo):
+        return 'branch declarada %r, o deployment %s diz SOURCE_BRANCH=%r' % (ramo, host, src), []
+    return None, ['HOST=%s respondeu SOURCE_BRANCH=%s (Vercel)' % (host, src)]
 
 
 def _objetos_nao_liberados(pote, diario):
@@ -442,7 +542,7 @@ def _objetos_nao_liberados(pote, diario):
                 maus.append(oid + ' sem LIBERACAO=' + LIBERADO)
             elif any(c.get(k) != 'PASSOU' for k in CONFERENCIAS_QUE_PASSAM):
                 maus.append(oid + ' com conferencia C1..C7 que nao PASSOU')
-            elif not c8.strip() or c8.startswith('FALHOU'):
+            elif not c8.strip() or 'falhou' in c8.casefold():
                 maus.append(oid + ' sem ' + DECISAO_DO_DONO)
             elif decisao_registada(c8, diario)[0] is None:
                 maus.append(oid + ': ' + decisao_registada(c8, diario)[1])
@@ -469,8 +569,11 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     if pedido.get('OPERACAO') != PUBLICAR_NO_PREVIEW:
         return False, '%s · operacao %r: a Sala nunca se escreve por aqui, e a excecao so publica no preview' % (
             BLOQUEIO, pedido.get('OPERACAO'))
-    if any(k in pedido for k in ('CONSUMIDO_EM', 'MARCAR_CONSUMIDO_EM')):
+    if _tem_consumido_em(pedido):
         return False, '%s · consumido_em fica FORA da excecao (D140): outra decisao' % BLOQUEIO
+    estranhas = _chaves_estranhas(pedido, CHAVES_DO_PEDIDO)
+    if estranhas:
+        return False, '%s · chave(s) que a guarda nao conhece: %s — desconhecido e recusa' % (BLOQUEIO, estranhas)
     e = excecao_vigente(trava, diario)
     if e is None:
         return False, '%s · sem a excecao %s vigente (autoridade %s no diario, nao revogada)' % (
@@ -478,6 +581,13 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     d = pedido.get('DESTINO')
     if not isinstance(d, dict):
         return False, '%s · destino ilegivel %r: sem destino dito, nada sai' % (BLOQUEIO, d)
+    for nome, sub, perm in (('DESTINO', d, CHAVES_DO_DESTINO), ('ENTRADA', pedido.get('ENTRADA'), CHAVES_DA_ENTRADA),
+                            ('SNAPSHOT', (pedido.get('ENTRADA') or {}).get('SNAPSHOT')
+                             if isinstance(pedido.get('ENTRADA'), dict) else None, CHAVES_DO_SNAPSHOT),
+                            ('PROVA_REVERSA_DO_LAB', pedido.get('PROVA_REVERSA_DO_LAB'), CHAVES_DO_LAB)):
+        estranhas = _chaves_estranhas(sub, perm)
+        if estranhas:
+            return False, '%s · %s com chave(s) desconhecida(s): %s' % (BLOQUEIO, nome, estranhas)
     tipos = set(DESTINOS_DO_PREVIEW) & set((e.get('ESCOPO') or {}).get('DESTINOS_TIPO') or [])
     if d.get('TIPO') not in tipos:
         return False, '%s · destino %r fora do escopo do preview' % (BLOQUEIO, d.get('TIPO'))
@@ -486,12 +596,15 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     ramo = d.get('BRANCH')
     if not ramo or ramo_de_producao(ramo, publicacao):
         return False, '%s · branch %r e de producao (ou nao dita)' % (BLOQUEIO, ramo)
-    host = d.get('HOST')
-    if host and host == publicacao.get('CANONICAL_HOST'):
+    host, erro = nome_do_host(d.get('HOST'))
+    if erro:
+        return False, '%s · %s' % (BLOQUEIO, erro)
+    if host and host == nome_do_host(publicacao.get('CANONICAL_HOST'))[0]:
         return False, '%s · %s e o endereco do produto, nao um preview' % (BLOQUEIO, host)
     if d.get('TIPO') == 'BUILD_LOCAL' and host not in HOSTS_LOCAIS:
         return False, '%s · build local com host publico %r' % (BLOQUEIO, host)
-    if d.get('TIPO') == 'VERCEL_PREVIEW' and not (host and str(host).endswith('.vercel.app')):
+    if d.get('TIPO') == 'VERCEL_PREVIEW' and not (host and host.endswith('.vercel.app')
+                                                  and host != 'vercel.app'):
         return False, '%s · preview da Vercel sem host de deployment' % BLOQUEIO
     problema, verificado = conferir_destino(d, ramo, publicacao, verificar or Verificador())
     if problema:
@@ -509,11 +622,14 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     lab = pedido.get('PROVA_REVERSA_DO_LAB')
     if not isinstance(lab, dict) or lab.get('VEREDITO') != 'PASS':
         return False, '%s · sem a prova reversa do LAB (VEREDITO=PASS e onde esta)' % BLOQUEIO
-    problema = conferir_prova_do_lab(lab, _shas_que_nomeiam_o_pote(pedido, pote))
+    problema = conferir_prova_do_lab(lab, _shas_que_nomeiam_o_pote(pedido, pote), pote.get('INTELLIGENCE_RUN_ID'),
+                                     e.get('PASTAS_DO_LAB') or (), _caminho(pedido.get('POTE_FICHEIRO')))
     if problema:
         return False, '%s · %s' % (BLOQUEIO, problema)
-    verificado.append('LAB: %s existe, diz VEREDITO=PASS e cita o sha256 do pote' % lab['ONDE'])
+    verificado.append('LAB: %s existe numa pasta do LAB, sha256 fixado, VEREDITO=PASS, cita o pote e a corrida'
+                      % lab['ONDE'])
     alegado.append('o CONTEUDO da prova reversa do LAB (nao e relido aqui)')
+    alegado.append('o AUTOR da prova do LAB (verificado so pela pasta, nao por assinatura)')
     violacoes = validar(pote)
     if violacoes:
         return False, '%s · o pote reprova nos gates do pote v2: %s' % (BLOQUEIO, violacoes[0])

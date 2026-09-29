@@ -67,18 +67,22 @@ def _pote_liberado(sha_da_copia):
 class OlhosFalsos:
     """O Verificador da guarda, trocado: git e Vercel simulados, sem rede."""
 
-    def __init__(self, ramo=RAMO_REAL, deployments=None):
+    MUDOS = ("mudo.vercel.app",)
+
+    def __init__(self, ramo=RAMO_REAL, deployments=None, por_omissao=RAMO_REAL):
         self.ramo = ramo
-        self.deployments = {"sintonia-eame-git-l3-radar-x.vercel.app": RAMO_REAL,
-                            "sintonia-eame-git-l3-x.vercel.app": RAMO_REAL,
-                            "sintonia-eame-git-x.vercel.app": RAMO_REAL,
-                            "x.vercel.app": "release/canonical"} if deployments is None else deployments
+        self.por_omissao = por_omissao
+        self.deployments = {"x.vercel.app": "release/canonical"} if deployments is None else deployments
 
     def ramo_real(self):
         return self.ramo
 
     def deployment(self, host):
-        src = self.deployments.get(host)
+        """Host desconhecido responde a branch do preview: o pior caso, um
+        deployment que MENTE — a guarda tem de recusar pelo resto."""
+        if host is None or host in self.MUDOS:
+            return None
+        src = self.deployments.get(host, self.por_omissao)
         return None if src is None else {"SOURCE_BRANCH": src, "DEPLOYED_COMMIT": "0" * 40}
 
 
@@ -86,10 +90,18 @@ class Base(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.trava, diario, cls.publicacao = lei.carregar()
+        trava, diario, cls.publicacao = lei.carregar()
         cls.diario_real = diario
         cls.diario = diario + DECISAO_SINTETICA
         cls.pasta = tempfile.mkdtemp(prefix="l1-guarda-")
+        cls.pasta_lab = os.path.join(cls.pasta, "lab")
+        os.makedirs(cls.pasta_lab)
+        # a pasta do LAB dos testes entra SO na copia da trava que os testes usam
+        cls.trava_real = trava
+        cls.trava = copy.deepcopy(trava)
+        for e in cls.trava["EXCECOES_CONTROLADAS"]:
+            if e["ID"] == lei.EXCECAO_PREVIEW:
+                e["PASTAS_DO_LAB"] = list(e.get("PASTAS_DO_LAB") or []) + [cls.pasta_lab]
         cls.copia = os.path.join(cls.pasta, "COPIA-DA-SALA.json")
         with open(cls.copia, "w", encoding="utf-8") as f:
             f.write('{"SALA": "copia sintetica, READ_ONLY"}\n')
@@ -125,16 +137,26 @@ class Base(unittest.TestCase):
                 p[k] = v
         return p
 
-    def lab_para(self, pote, veredito="PASS"):
-        """Um relatorio do LAB que existe, diz o veredito e cita ESTE pote."""
+    def lab_de_texto(self, texto, pasta=None):
+        """Um ficheiro de prova do LAB com este texto; devolve o pedaco do pedido."""
         type(self).n_lab += 1
-        return self.escrever("LAB-%d.md" % self.n_lab,
-                             "# prova reversa (sintetica)\n\nVEREDITO=%s\nPOTE_SHA256=%s\n"
-                             % (veredito, lei.sha256_do_pote(pote)))
+        caminho = os.path.join(pasta or self.pasta_lab, "LAB-%d.md" % self.n_lab)
+        with open(caminho, "w", encoding="utf-8") as f:
+            f.write(texto)
+        with open(caminho, "rb") as f:
+            sha = hashlib.sha256(f.read()).hexdigest()
+        return {"VEREDITO": "PASS", "ONDE": caminho, "SHA256": sha}
+
+    def lab_para(self, pote, veredito="PASS", run=None, pasta=None):
+        """Um relatorio do LAB que existe numa pasta do LAB, diz o veredito e cita
+        ESTE pote e a corrida dele."""
+        return self.lab_de_texto("# prova reversa (sintetica)\n\nVEREDITO=%s\nPOTE_SHA256=%s\nRUN=%s\n"
+                                 % (veredito, lei.sha256_do_pote(pote),
+                                    pote.get("INTELLIGENCE_RUN_ID") if run is None else run), pasta)
 
     def atravessa(self, pedido, trava=None, diario=None, olhos=None):
         if pedido.pop("_LAB_DESTE_POTE", False) and isinstance(pedido.get("POTE"), dict):
-            pedido["PROVA_REVERSA_DO_LAB"] = {"VEREDITO": "PASS", "ONDE": self.lab_para(pedido["POTE"])}
+            pedido["PROVA_REVERSA_DO_LAB"] = self.lab_para(pedido["POTE"])
         return lei.pode_atravessar_a_trava(
             pedido, self.trava if trava is None else trava,
             self.diario if diario is None else diario, self.publicacao,
@@ -333,6 +355,8 @@ class B_ProducaoEClienteContinuamFechados(Base):
         e = [x for x in self.trava["EXCECOES_CONTROLADAS"] if x["ID"] == lei.EXCECAO_PREVIEW][0]
         t = self.com_entrada(ESCOPO=dict(e["ESCOPO"], DESTINOS_TIPO=["BUILD_LOCAL", "VERCEL_PREVIEW", "PRODUCAO"]))
         self.recusa(self.pedido(DESTINO={"TIPO": "PRODUCAO"}), trava=t)
+        # e mesmo com um host de deployment que responde a branch do preview
+        self.recusa(self.pedido(DESTINO={"TIPO": "PRODUCAO", "HOST": "sintonia-eame-git-x.vercel.app"}), trava=t)
 
     def test_b_build_local_com_host_publico_e_recusado(self):
         self.recusa(self.pedido(DESTINO={"HOST": "sintonia.example.com"}))
@@ -471,31 +495,30 @@ class R_RedTeamDoBotLuciano(Base):
     def test_redteam_lab_que_existe_mas_nao_cita_este_pote(self):
         outro = copy.deepcopy(self.pote)
         outro["INTELLIGENCE_RUN_ID"] = "IR-outra-corrida"
-        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB={"VEREDITO": "PASS", "ONDE": self.lab_para(outro)}))
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(outro)))
         self.assertIn("nao cita o sha256 deste pote", m)
 
     def test_redteam_lab_que_diz_fail_ou_ambiguo(self):
-        falha = self.lab_para(self.pote, veredito="FAIL")
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB={"VEREDITO": "PASS", "ONDE": falha}))
-        ambiguo = self.escrever("LAB-ambiguo.md", "VEREDITO=PASS\nVEREDITO=FAIL\n%s\n"
-                                % lei.sha256_do_pote(self.pote))
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB={"VEREDITO": "PASS", "ONDE": ambiguo}))
-        so_citado = self.escrever("LAB-citado.md", "o pote ainda NAO tem VEREDITO=PASS\n%s\n"
-                                  % lei.sha256_do_pote(self.pote))
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB={"VEREDITO": "PASS", "ONDE": so_citado}))
+        run = self.pote["INTELLIGENCE_RUN_ID"]
+        sha = lei.sha256_do_pote(self.pote)
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, veredito="FAIL")))
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_de_texto(
+            "VEREDITO=PASS\nVEREDITO=FAIL\n%s %s\n" % (sha, run))))
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_de_texto(
+            "o pote ainda NAO tem VEREDITO=PASS\n%s %s\n" % (sha, run))))
 
     def test_lab_que_cita_o_ficheiro_do_pote_passa_so_se_o_ficheiro_e_este_pote(self):
         f = self.escrever("POTE.json", json.dumps(self.pote, ensure_ascii=False, indent=1))
         with open(f, "rb") as h:
             sha_do_ficheiro = hashlib.sha256(h.read()).hexdigest()
-        lab = self.escrever("LAB-ficheiro.md", "VEREDITO=PASS\nPOTE=%s\n" % sha_do_ficheiro)
-        pode, motivo = self.atravessa(self.pedido(POTE_FICHEIRO=f,
-                                                  PROVA_REVERSA_DO_LAB={"VEREDITO": "PASS", "ONDE": lab}))
+        lab = self.lab_de_texto("VEREDITO=PASS\nPOTE=%s\nRUN=%s\n"
+                                % (sha_do_ficheiro, self.pote["INTELLIGENCE_RUN_ID"]))
+        pode, motivo = self.atravessa(self.pedido(POTE_FICHEIRO=f, PROVA_REVERSA_DO_LAB=lab))
         self.assertTrue(pode, motivo)
         outro = copy.deepcopy(self.pote)
         outro["INTELLIGENCE_RUN_ID"] = "IR-outra"
         g = self.escrever("POTE-outro.json", json.dumps(outro))
-        self.recusa(self.pedido(POTE_FICHEIRO=g, PROVA_REVERSA_DO_LAB={"VEREDITO": "PASS", "ONDE": lab}))
+        self.recusa(self.pedido(POTE_FICHEIRO=g, PROVA_REVERSA_DO_LAB=lab))
 
     # ── 2 · C8 texto livre ──────────────────────────────────────────────────
     def test_redteam_c8_texto_livre(self):
@@ -562,7 +585,10 @@ class V_OQueSeMedeNaoSeAlega(Base):
         self.assertIn("ALEGADA", m)
 
     def test_arvore_real_em_producao_recusa(self):
-        self.recusa(self.pedido(), olhos=OlhosFalsos(ramo="release/canonical"))
+        """Declarada e medida IGUAIS, e as duas de producao: nao ha desencontro que
+        salve — so a recusa da branch de producao."""
+        for ramo in ("release/canonical", "refs/heads/release/canonical", "RELEASE/CANONICAL"):
+            self.recusa(self.pedido(DESTINO={"BRANCH": ramo}), olhos=OlhosFalsos(ramo=ramo))
 
     def test_host_que_nao_responde_recusa(self):
         m = self.recusa(self.pedido(DESTINO={"TIPO": "VERCEL_PREVIEW", "HOST": "mudo.vercel.app"}))
@@ -570,7 +596,7 @@ class V_OQueSeMedeNaoSeAlega(Base):
 
     def test_host_cujo_deployment_e_de_producao_ou_de_outra_branch_recusa(self):
         self.recusa(self.pedido(DESTINO={"TIPO": "VERCEL_PREVIEW", "HOST": "x.vercel.app"}))
-        olhos = OlhosFalsos(deployments={"y.vercel.app": "claude/outra"})
+        olhos = OlhosFalsos(deployments={"y.vercel.app": "claude/outra"}, por_omissao=None)
         self.recusa(self.pedido(DESTINO={"TIPO": "VERCEL_PREVIEW", "HOST": "y.vercel.app"}), olhos=olhos)
 
     def test_o_motivo_separa_verificado_de_alegado(self):
@@ -596,6 +622,140 @@ class V_OQueSeMedeNaoSeAlega(Base):
         b = e["BLOQUEIO_DE_POLITICA_C8"]
         self.assertEqual(b["ESTADO"], "BLOQUEIO_DE_POLITICA")
         self.assertIn("decisao do dono", b["O_QUE_FALTA"].lower())
+
+
+class L_OsDezasseisPedidosHostisDoAuditor(Base):
+    """AUDITOR (VERIF-L1-7f3dc857c.md, criterio 3): 13 de 16 pedidos hostis
+    atravessavam. Um teste por caso, com o mesmo harness — todos tem de RECUSAR."""
+
+    def vercel(self, branch=None, host="sintonia-eame-git-l1-x.vercel.app"):
+        d = {"TIPO": "VERCEL_PREVIEW", "HOST": host}
+        if branch is not None:
+            d["BRANCH"] = branch
+        return self.pedido(DESTINO=d)
+
+    def test_CTRL_os_legitimos_continuam_a_passar(self):
+        for p in (self.pedido(), self.vercel()):
+            pode, motivo = self.atravessa(p)
+            self.assertTrue(pode, motivo)
+
+    def test_L01_host_canonico_com_https(self):
+        self.recusa(self.vercel(host="https://" + self.publicacao["CANONICAL_HOST"]))
+
+    def test_L02_host_canonico_com_espaco(self):
+        self.recusa(self.vercel(host=" " + self.publicacao["CANONICAL_HOST"]))
+        self.recusa(self.vercel(host=self.publicacao["CANONICAL_HOST"].upper()))
+
+    def test_L03_host_nao_vercel_com_sufixo_no_caminho(self):
+        for h in ("evil.com/.vercel.app", "evil.com?.vercel.app", "evil.com#.vercel.app",
+                  "user@evil.com/.vercel.app", "vercel.app", "x.vercel.app:443"):
+            self.recusa(self.vercel(host=h))
+
+    def test_L04_L05_L06_branch_de_producao_por_grafia(self):
+        prod = self.publicacao["PROMOTION_AUTHORITY_BRANCHES"][0]
+        for b in ("refs/heads/" + prod, "origin/" + prod, prod.upper(), " " + prod + " ",
+                  "refs/remotes/origin/" + prod):
+            self.recusa(self.vercel(branch=b))
+            self.recusa(self.pedido(DESTINO={"BRANCH": b}), olhos=OlhosFalsos(ramo=b))
+
+    def test_L07_branch_main_que_o_deployment_nao_confirma(self):
+        self.recusa(self.vercel(branch="main"))
+
+    def test_L08_consumido_em_dentro_do_pote(self):
+        p = self.pedido()
+        p["POTE"]["CONSUMIDO_EM"] = "2026-09-29"
+        self.recusa(p)
+        p = self.pedido()
+        list(p["POTE"]["COMPARTIMENTOS"].values())[0]["consumido_em"] = "x"
+        self.recusa(p)
+
+    def test_L09_chave_desconhecida_no_pedido_e_recusada(self):
+        for onde in (None, "DESTINO", "ENTRADA", "PROVA_REVERSA_DO_LAB"):
+            p = self.pedido()
+            alvo = p if onde is None else p[onde] if onde != "PROVA_REVERSA_DO_LAB" else None
+            if onde == "PROVA_REVERSA_DO_LAB":
+                p.pop("_LAB_DESTE_POTE")
+                p["PROVA_REVERSA_DO_LAB"] = dict(self.lab_para(p["POTE"]), ESCREVER=True)
+            else:
+                alvo["ESCREVER_NA_SALA"] = True
+            m = self.recusa(p)
+            self.assertIn("desconhecid", m)
+
+    def test_L10_c8_falhou_em_qualquer_caixa_e_em_qualquer_sitio(self):
+        for c8 in ("falhou", "FaLhOu: sem decisao", "D9001 · falhou: sem decisao"):
+            p = self.pedido()
+            for e in p["POTE"]["COMPARTIMENTOS"].values():
+                for o in e["OBJETOS"]:
+                    o["CONFERENCIA_DE_LIBERACAO"][lei.DECISAO_DO_DONO] = c8
+            self.recusa(p)
+
+    def test_L11_d140_marcada_revogada_no_diario(self):
+        for d in (self.diario.replace(lei.MARCA_NO_DIARIO, "REVOGADA — " + lei.MARCA_NO_DIARIO),
+                  self.diario + "\n- REVOGA D140 (sintetico)\n",
+                  self.diario + "\nD140 foi REVOGADA (sintetico)\n"):
+            self.assertIsNone(lei.excecao_vigente(self.trava, d))
+            self.recusa(self.pedido(), diario=d)
+
+    def test_L11_d140_so_conta_como_cabecalho_numa_linha_propria(self):
+        citada = self.diario.replace("\n" + lei.MARCA_NO_DIARIO, "\n> citada: " + lei.MARCA_NO_DIARIO)
+        self.assertNotIn("\n" + lei.MARCA_NO_DIARIO, citada)
+        self.assertIsNone(lei.excecao_vigente(self.trava, citada))
+        self.recusa(self.pedido(), diario=citada)
+
+    def test_L11_a_frase_revogavel_da_propria_d140_nao_a_revoga(self):
+        self.assertIsNotNone(lei.excecao_vigente(self.trava, self.diario_real))
+
+    def test_L12_L13_L14_artefatos_em_branch_de_producao_por_grafia(self):
+        prod = self.publicacao["PROMOTION_AUTHORITY_BRANCHES"][0]
+        t = self.com_entrada(ARTEFATOS_AUTORIZADOS=[{"PATH": "x/y.json", "GIT_BLOB_SHA": "a" * 40}])
+        for ramo in (prod, "refs/heads/" + prod, "origin/" + prod, prod.upper()):
+            self.assertEqual(lei.artefatos_autorizados(t, self.diario, self.publicacao, (ramo,)), {}, ramo)
+
+
+class P_AProvaDoLabEDoLabEDestaCorrida(Base):
+    """ADENDO DO RED TEAM (LAB): ligada ao pote E a corrida, de outro autor."""
+
+    def test_lab_de_outra_corrida_recusa(self):
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, run="IR-outra-corrida")))
+        self.assertIn("corrida", m)
+
+    def test_lab_com_a_corrida_so_como_pedaco_de_outra_recusa(self):
+        run = self.pote["INTELLIGENCE_RUN_ID"]
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, run=run + "-x")))
+
+    def test_lab_fora_das_pastas_do_lab_recusa(self):
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, pasta=self.pasta)))
+        self.assertIn("pasta do LAB", m)
+
+    def test_lab_na_pasta_do_proprio_pote_recusa(self):
+        f = os.path.join(self.pasta_lab, "POTE-no-lab.json")
+        with open(f, "w", encoding="utf-8") as h:
+            json.dump(self.pote, h)
+        m = self.recusa(self.pedido(POTE_FICHEIRO=f, PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
+        self.assertIn("produtor", m)
+
+    def test_lab_com_sha_fixado_errado_ou_sem_sha_recusa(self):
+        lab = self.lab_para(self.pote)
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=dict(lab, SHA256="0" * 64)))
+        sem = dict(lab)
+        sem.pop("SHA256")
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=sem))
+
+    def test_lab_adulterado_depois_de_fixado_recusa(self):
+        lab = self.lab_para(self.pote)
+        with open(lab["ONDE"], "a", encoding="utf-8") as h:
+            h.write("linha acrescentada depois\n")
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=lab))
+
+    def test_na_trava_real_as_pastas_do_lab_nao_incluem_a_pasta_dos_testes(self):
+        e = lei.excecao_vigente(self.trava_real, self.diario_real)
+        self.assertNotIn(self.pasta_lab, e.get("PASTAS_DO_LAB") or [])
+        self.recusa(self.pedido(), trava=self.trava_real)
+
+    def test_copia_da_sala_adulterada_com_o_sha_original_recusa(self):
+        adulterada = self.escrever("COPIA-ADULTERADA.json", '{"SALA": "mexida"}\n')
+        m = self.recusa(self.pedido(ENTRADA={"SNAPSHOT": {"FICHEIRO": adulterada, "SHA256": self.sha_copia}}))
+        self.assertIn("nao bate", m)
 
 
 if __name__ == "__main__":

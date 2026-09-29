@@ -67,6 +67,11 @@
         "UM_OBJETO_NAO_LIBERADO_RECUSA_O_POTE_INTEIRO": "a guarda nao filtra nem reescreve o pote — o contrato v2.2 proibe filtrar depois de a Intelligence escrever."
       },
       "PROVA": "OBRIGATORIA: prova reversa do LAB (TELA → POTE → INTELLIGENCE → SALA → RAW → FONTE). A guarda (red team 29/09) exige que PROVA_REVERSA_DO_LAB.ONDE seja um ficheiro que EXISTE, diz VEREDITO=PASS numa linha propria (ou em JSON) sem contradicao, e cita o sha256 deste pote (canonico, ou do ficheiro POTE_FICHEIRO que diz o mesmo pote). O conteudo da prova e ALEGADO para a guarda: le-o o LAB e o auditor.",
+      "PASTAS_DO_LAB": [
+        "lab/",
+        "C:/Users/London1/auditoria-madrugada/"
+      ],
+      "PASTAS_DO_LAB_PORQUE": "adendo do red team (29/09): a prova reversa tem de vir de OUTRO autor, nao do produtor do pote. A guarda so aceita a prova dentro destas pastas, nunca na pasta do proprio pote, com o sha256 fixado no pedido, citando o sha256 do pote E o INTELLIGENCE_RUN_ID. O autor e verificado so pela pasta: sai como ALEGADO no motivo.",
       "BLOQUEIO_DE_POLITICA_C8": {
         "ESTADO": "BLOQUEIO_DE_POLITICA",
         "O_QUE_E": "o contrato de liberacao v2.2 (fora do Git, dono Intelligence) exige C8_DECISAO_DO_DONO em cada objeto. A guarda (red team 29/09) so aceita C8 que COMECE por um ID de decisao (Dnnn) escrito neste diario, do dono e nao revogado — texto livre nunca casa.",
