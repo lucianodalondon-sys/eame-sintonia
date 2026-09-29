@@ -23,12 +23,25 @@ O CAMINHO, TODO ELE OFICIAL
 `PARA-O-CASCO-R9/montar_r9.py` NAO e importado, NAO e lido como entrada e NAO produz nada
 aqui. O oraculo entra so no fim, e so para COMPARAR: o pote que a R9 escreveu a mao.
 
-O QUE ESTE FICHEIRO NAO E
--------------------------
-Nao e produto. E uma MEDICAO. As duas decisoes que um harness tem de tomar — em que
-compartimento poisar um claim, e quais os claims que valem um objeto — estao aqui, e nao
-no produtor: a Collection nao decide liberacao (INT-LAW-030/031). Ligar o MOTOR a ler
-afirmacoes e o passo seguinte, e e da Intelligence.
+⚠️⚠️ O QUE ESTE FICHEIRO NAO E — LEIA ANTES DE O USAR PARA QUALQUER OUTRA COISA
+------------------------------------------------------------------------------
+NAO E PRODUTO. NAO E CAMINHO DE INTEGRACAO. E uma MEDICAO, e so isso, e nada daqui deve
+ser instalado, agendado nem chamado por outra peca.
+
+Este ficheiro escreve `ESPECIE = SINAL` e `ESPECIE_DITA_POR = INTELLIGENCE` nos objetos
+que monta. ISSO E DELE, NAO DO PRODUTOR. O produtor NUNCA escreve ESPECIE — «ESPECIE» esta
+em `afirmacao_do_documento.CAMPOS_PROIBIDOS`, e uma afirmacao que a traga e RECUSADA
+inteira com o motivo `PRODUTOR_DECIDIU_LIBERACAO`. Aqui ela existe porque o contrato do
+POTE a exige para um objeto atravessar, e a medicao precisa de um objeto para chegar ao
+fiscal. Num caminho de integracao a verdadeiro, quem diz a especie e a Intelligence.
+
+As TRES decisoes que este harness toma, e que o produtor nao toma:
+    · em que compartimento poisar um claim (`COMPARTIMENTO`);
+    · quais os claims que valem um objeto (`tem_prova_completa`);
+    · a ESPECIE e quem a disse (`objeto_da_afirmacao`).
+
+Ligar o MOTOR a ler afirmacoes e o passo seguinte, e e da INTELLIGENCE — o G0 e o motor
+nao sao tocados aqui, nem devem ser (CONTRATO-CONSUMO-AFIRMACOES §4 · INT-LAW-030/031).
 """
 from __future__ import annotations
 
@@ -130,6 +143,8 @@ def objeto_da_afirmacao(af: dict, ref) -> dict:
              "ANCORA_DA_SECAO": af["POSICAO"]["SECAO"]["CABECALHO"],
              "FACT_TIME_ROLE": {k: af["FACT_TIME_ROLE"][k] for k in ("PAPEL", "ORIGEM", "BASIS")},
              "FACT_LOCATION_TRECHO": af["FACT_LOCATION"]["TRECHO"]}
+    # ⚠️ ESPECIE e ESPECIE_DITA_POR sao DESTE HARNESS, nao da afirmacao: o contrato do pote
+    # exige-os para um objeto atravessar. O produtor nao os escreve (CAMPOS_PROIBIDOS).
     o = {"OBJETO_ID": af["ASSERTION_ID"], "ESPECIE": POTE.SINAL,
          "ESPECIE_DITA_POR": "INTELLIGENCE", "ESTADO": POTE.ESTADO_TRANSPORTAVEL,
          "CHAVES": {"CROP_ID": _um(cultura["VALOR"]), "ISSUE_ID": _um(praga["VALOR"]),

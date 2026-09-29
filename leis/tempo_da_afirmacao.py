@@ -82,10 +82,23 @@ PAPEIS = (ACONTECIMENTO, VALIDADE, PUBLICACAO, PREVISAO, PERIODO_DA_EDICAO, ATO,
 PAPEL_QUE_E_FACTO = (ACONTECIMENTO,)
 
 # ── DE ONDE VEIO O VALOR ─────────────────────────────────────────────────────
-LITERAL = "LITERAL"              # escrito dentro do proprio trecho da afirmacao
-CABECALHO = "CABECALHO"          # composto do cabecalho da seccao (D147: cinco condicoes)
-RELATIVO_D63 = "RELATIVO_D63"    # contado pelo vivo a partir de publicacao PROVADA
-ORIGENS = (LITERAL, CABECALHO, RELATIVO_D63)
+# QUATRO origens, e cada uma diz ONDE esta a prova. A distincao e do dono da Intelligence
+# (CONTRATO-CONSUMO-AFIRMACOES §5-B, condicao C1): a 1.a versao chamava LITERAL ao valor que
+# vinha do CABECALHO quando uma relativa do trecho batia com ele — e LITERAL, para quem
+# consome, promete que o BASIS esta DENTRO do trecho. Prometia o que nao cumpria.
+LITERAL = "LITERAL"
+#: escrito DENTRO do proprio trecho; o BASIS cai entre INICIO e FIM da afirmacao
+CABECALHO_D147 = "CABECALHO_D147"
+#: composto do cabecalho da seccao, com as cinco condicoes da D147 cumpridas
+RELATIVA_ANCORADA_D149 = "RELATIVA_ANCORADA_D149"
+#: o trecho escreve uma relativa («la settimana scorsa») e o cabecalho da seccao imprime o
+#: periodo; os dois dao o MESMO valor, e o impresso e a prova. O BASIS e o do CABECALHO —
+#: e por isso esta origem NAO se chama LITERAL.
+RELATIVO_D63 = "RELATIVO_D63"
+#: contado pelo leitor vivo a partir de publicacao PROVADA; o BASIS e o trecho da expressao
+ORIGENS = (LITERAL, CABECALHO_D147, RELATIVA_ANCORADA_D149, RELATIVO_D63)
+#: as origens cujo BASIS vive FORA do trecho da afirmacao. LITERAL nunca esta aqui.
+ORIGENS_COM_BASIS_FORA_DO_TRECHO = (CABECALHO_D147, RELATIVA_ANCORADA_D149)
 
 # ── o vocabulario que MARCA o papel, quando o papel esta escrito ─────────────
 # Palavras administrativas e comerciais do italiano. Nao sao saber agronomico nem
@@ -449,8 +462,8 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
         if calculada and len(impressos) == 1:
             p = impressos[0]
             if p["VALOR"] == c["fact_time"]:
-                return dict(base, PAPEL=papel, VALOR=p["VALOR"], ORIGEM=LITERAL, BASIS=p["BASIS"],
-                            PRECISAO=_precisao_do_periodo(p),
+                return dict(base, PAPEL=papel, VALOR=p["VALOR"], ORIGEM=RELATIVA_ANCORADA_D149,
+                            BASIS=p["BASIS"], PRECISAO=_precisao_do_periodo(p),
                             PORQUE="D149: a relativa «%s» bate com o periodo impresso do cabecalho, e o "
                                    "impresso e a prova" % c["fact_time_expressao"],
                             COMPOSICAO={"RELATIVA": c["fact_time_expressao"], "CONTA_DO_VIVO": c["fact_time"],
@@ -471,7 +484,7 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
     r = _compor_do_cabecalho(texto, alvo, secao, periodos, pub, span)
     if not r["CONDICOES"]:
         p = r["PERIODO"]
-        return dict(base, PAPEL=ACONTECIMENTO, VALOR=p["VALOR"], ORIGEM=CABECALHO, BASIS=p["BASIS"],
+        return dict(base, PAPEL=ACONTECIMENTO, VALOR=p["VALOR"], ORIGEM=CABECALHO_D147, BASIS=p["BASIS"],
                     PRECISAO=_precisao_do_periodo(p),
                     PORQUE="D147: as cinco condicoes cumpridas — o cabecalho da seccao governa a afirmacao",
                     COMPOSICAO={"TRECHO_DO_CABECALHO": p["BASIS"]["TRECHO"], "TRECHO_DO_ALVO": span,

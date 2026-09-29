@@ -83,7 +83,7 @@
   "ENTRADA": "ENTRADA-AFIRMACOES.json",
   "OBJETOS_NA_ENTRADA": 40,
   "POTE": "POTE-AFIRMACOES.json",
-  "POTE_SHA256": "53416fe9c44634821fa60a6e7d5761d188fcb344cf881343b4e2f5f96e896f68",
+  "POTE_SHA256": "7d0fc89dfb4003c6bfaab4263f66734b74bf94fc52afd5bb40f1b235689e2e37",
   "CONFERIR_POTE": "PASSA (0 violacoes)",
   "VALIDAR_POTE_V2": "PASSA",
   "OBJETOS_NO_POTE": 14,
@@ -197,7 +197,7 @@
   "ENTRADA": "ENTRADA-ENTITY-SOURCE-DA-LEI.json",
   "OBJETOS_NA_ENTRADA": 40,
   "POTE": "POTE-ENTITY-SOURCE-DA-LEI.json",
-  "POTE_SHA256": "a1004989303855552b9c9b9b603d53aac7b715f1a38826235ded757f1fef7b39",
+  "POTE_SHA256": "a5c805a9ab07ec84302e29295f814e786604a2321d0dd143c2da92d0d18eac59",
   "CONFERIR_POTE": "PASSA (0 violacoes)",
   "VALIDAR_POTE_V2": "PASSA",
   "OBJETOS_NO_POTE": 14,
@@ -356,7 +356,7 @@
      ],
      "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
      "FACT_TIME": "2026-09-07/2026-09-13",
-     "FACT_TIME_ORIGEM": "LITERAL",
+     "FACT_TIME_ORIGEM": "RELATIVA_ANCORADA_D149",
      "FACT_TIME_BASIS": {
       "TRECHO": "SSIITTUUAAZZIIOONNEE PPRREECCEEDDEENNTTEE DDaall 0077--0099--22002266 aall 1133--0099--22002266",
       "INICIO": 9141,
@@ -393,7 +393,7 @@
      ],
      "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
      "FACT_TIME": "2026-09-07/2026-09-13",
-     "FACT_TIME_ORIGEM": "CABECALHO",
+     "FACT_TIME_ORIGEM": "CABECALHO_D147",
      "FACT_TIME_BASIS": {
       "TRECHO": "SSIITTUUAAZZIIOONNEE PPRREECCEEDDEENNTTEE DDaall 0077--0099--22002266 aall 1133--0099--22002266",
       "INICIO": 9141,
@@ -439,7 +439,7 @@
      ],
      "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
      "FACT_TIME": "2026-09-07/2026-09-13",
-     "FACT_TIME_ORIGEM": "LITERAL",
+     "FACT_TIME_ORIGEM": "RELATIVA_ANCORADA_D149",
      "FACT_TIME_BASIS": {
       "TRECHO": "SSIITTUUAAZZIIOONNEE PPRREECCEEDDEENNTTEE DDaall 0077--0099--22002266 aall 1133--0099--22002266",
       "INICIO": 9141,
@@ -476,7 +476,7 @@
      ],
      "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
      "FACT_TIME": "2026-09-07/2026-09-13",
-     "FACT_TIME_ORIGEM": "CABECALHO",
+     "FACT_TIME_ORIGEM": "CABECALHO_D147",
      "FACT_TIME_BASIS": {
       "TRECHO": "SSIITTUUAAZZIIOONNEE PPRREECCEEDDEENNTTEE DDaall 0077--0099--22002266 aall 1133--0099--22002266",
       "INICIO": 9141,
@@ -541,7 +541,8 @@
   ],
   "ORIGENS_DO_TEMPO": {
    "LITERAL": 31,
-   "CABECALHO": 2,
+   "CABECALHO_D147": 2,
+   "RELATIVA_ANCORADA_D149": 0,
    "RELATIVO_D63": 1
   },
   "AMOSTRA": [
@@ -550,7 +551,7 @@
     "SOURCE_ID": "IT-T3-008",
     "TRECHO": "L'Italia in questo contesto rimaneva interessata direttamente dal promontorio nord africano e dall'avvezione di aria calda con conseguente persistenza di temperature ancora al di sopra della media del periodo ma associat",
     "FACT_TIME": "2026-08-31/2026-09-06",
-    "ORIGEM": "CABECALHO",
+    "ORIGEM": "CABECALHO_D147",
     "FACT_LOCATION": "Italia"
    },
    {
@@ -558,7 +559,7 @@
     "SOURCE_ID": "IT-T3-008",
     "TRECHO": "In questo contesto meteorologico sull'Italia le condizioni sono rimaste stabili, soprattutto al sud, dove il bel tempo è stato accompagnato da temperature ancora oltre la media del periodo.",
     "FACT_TIME": "2026-08-31/2026-09-06",
-    "ORIGEM": "CABECALHO",
+    "ORIGEM": "CABECALHO_D147",
     "FACT_LOCATION": "Italia"
    },
    {

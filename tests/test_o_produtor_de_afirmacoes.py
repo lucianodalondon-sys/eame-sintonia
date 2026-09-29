@@ -96,7 +96,7 @@ class TrechoEProva(unittest.TestCase):
         self.assertIsNotNone(af)
         self.assertEqual(af['FACT_TIME']['VALOR'], '2026-09-07/2026-09-13')
         self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
-        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.CABECALHO)
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.CABECALHO_D147)
         # D147/D153: os DOIS trechos ficam registados
         c = af['FACT_TIME_ROLE']['COMPOSICAO']
         self.assertIn('Dal 07-09-2026 al 13-09-2026', c['TRECHO_DO_CABECALHO'])
@@ -510,6 +510,80 @@ class OContratoDeConsumoDaIntelligence(unittest.TestCase):
             af[campo] = ''
             v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='f' * 64)
             self.assertTrue(any(campo in x for x in v), (campo, v))
+
+    # ── C1 · as quatro origens sao distinguiveis, e LITERAL promete o que cumpre ──
+    def test_as_quatro_origens_sao_distintas(self):
+        self.assertEqual(TA.ORIGENS, (TA.LITERAL, TA.CABECALHO_D147,
+                                      TA.RELATIVA_ANCORADA_D149, TA.RELATIVO_D63))
+        self.assertEqual(len(set(TA.ORIGENS)), 4)
+        self.assertNotIn(TA.LITERAL, TA.ORIGENS_COM_BASIS_FORA_DO_TRECHO)
+
+    def test_literal_exige_o_basis_dentro_do_trecho(self):
+        """Toda afirmacao com ORIGEM = LITERAL tem a prova entre INICIO e FIM."""
+        for af in _produzir(BOLETIM):
+            if af['FACT_TIME_ROLE']['ORIGEM'] == TA.LITERAL:
+                b, p = af['FACT_TIME_ROLE']['BASIS'], af['POSICAO']
+                self.assertTrue(p['INICIO'] <= b['INICIO'] and b['FIM'] <= p['FIM'],
+                                (b, p))
+
+    def test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho(self):
+        af = json.loads(json.dumps(_que_diz(_produzir(BOLETIM), 'Le grandinate sono state osservate')))
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.CABECALHO_D147)
+        af['FACT_TIME_ROLE']['ORIGEM'] = TA.LITERAL          # mentir sobre onde esta a prova
+        v = AD.conferir_afirmacao(af, BOLETIM, raw_sha256='f' * 64)
+        self.assertTrue(any('LITERAL promete a prova dentro do trecho' in x for x in v), v)
+
+    def test_a_relativa_ancorada_no_impresso_diz_o_proprio_nome(self):
+        """D149: o valor vem do cabecalho impresso, e por isso NAO se chama LITERAL."""
+        t = ("Bollettino n. 12\n"
+             "\f"
+             "SEZIONE DAL 07-09-2026 AL 13-09-2026\n"
+             "Le grandinate sono state osservate la settimana scorsa in provincia di Cuneo.\n")
+        af = _que_diz(_produzir(t), 'Le grandinate sono state osservate')
+        self.assertIsNotNone(af)
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.RELATIVA_ANCORADA_D149)
+        b, p = af['FACT_TIME_ROLE']['BASIS'], af['POSICAO']
+        self.assertFalse(p['INICIO'] <= b['INICIO'] and b['FIM'] <= p['FIM'])
+
+    # ── C2 · o lugar viaja com a precisao e com o limite de quem o leu ───────
+    def test_o_lugar_viaja_com_a_precisao_e_com_a_cobertura(self):
+        for af in _produzir(BOLETIM):
+            loc = af['FACT_LOCATION']
+            self.assertTrue(loc['PRECISAO'])
+            self.assertIn('MUNICIPALITIES', loc['COBERTURA_DO_GAZETTEER'])
+
+    def test_o_gazetteer_declara_que_nao_tem_municipios(self):
+        """O limite e do dono do gazetteer, e viaja com o lugar em vez de ficar escondido."""
+        c = AD.cobertura_do_gazetteer()
+        self.assertEqual(c['MUNICIPALITIES'], 0)
+        self.assertIn('ISTAT', c['MUNICIPALITIES_SOURCE'])
+
+    def test_nenhum_municipio_e_inventado(self):
+        """Um nome de comune que o gazetteer nao tem nao vira lugar, e nao vira precisao."""
+        t = ("Bollettino n. 13\n"
+             "\f"
+             "SEZIONE DAL 07-09-2026 AL 13-09-2026\n"
+             "Le grandinate sono state osservate a Xqzzyville con danni diffusi ai frutteti.\n")
+        af = _que_diz(_produzir(t), 'Le grandinate sono state osservate')
+        self.assertEqual(af['FACT_LOCATION']['VALOR'], NAO_SEI)
+        self.assertEqual(af['FACT_LOCATION']['PRECISAO'], 'NOT_KNOWN')
+
+    # ── C3 · nada do produtor escreve ESPECIE ────────────────────────────────
+    def test_o_produtor_nunca_escreve_especie(self):
+        self.assertIn('ESPECIE', AD.CAMPOS_PROIBIDOS)
+        for af in _produzir(BOLETIM):
+            self.assertNotIn('ESPECIE', json.dumps(af, ensure_ascii=False))
+
+    def test_a_classe_marcada_sai_no_vocabulario_fechado(self):
+        """Pela producao inteira, nao so pela funcao: um conselho sai RECOMENDACAO."""
+        t = ("Bollettino n. 14\n"
+             "\f"
+             "SEZIONE DAL 07-09-2026 AL 13-09-2026\n"
+             "Si consiglia di intervenire sulle piante colpite con i prodotti autorizzati.\n")
+        af = _que_diz(_produzir(t), 'Si consiglia')
+        self.assertIsNotNone(af)
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], 'RECOMENDACAO')
+        self.assertIn(af['CLAIM_KIND']['VALOR'], AD.CLAIM_KINDS)
 
     def test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar(self):
         for af in _produzir(BOLETIM):

@@ -1,18 +1,25 @@
 {
- "ARVORE": "54997f74058a6137bba5297b7724240fcf9ee33b",
+ "ARVORE": "b7da2808b4bebab19e8cd3ab0a09c4249d5147c3",
  "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
  "SEM_MUTACAO": {
   "CODIGO": 0,
   "VERDE": true,
-  "CAUDA": "a_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 52 tests in 1.388s\n\nOK"
+  "CAUDA": "a_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 56 tests in 0.913s\n\nOK"
  },
  "MUTANTES": [
   {
    "NOME": "TRECHO_DEIXA_DE_SER_O_TEXTO",
    "FICHEIRO": "leis/afirmacao_do_documento.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "ERROR: test_a_classe_do_facto_observado_e_alerta_evento (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_do_facto_observado_e_alerta_evento)",
+    "ERROR: test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base)",
+    "ERROR: test_o_basis_do_tempo_fora_do_sitio_reprova (__main__.TestesNegativos.test_o_basis_do_tempo_fora_do_sitio_reprova)",
+    "FAIL: test_o_evidence_span_e_literal_e_confere (__main__.OContratoDeConsumoDaIntelligence.test_o_evidence_span_e_literal_e_confere)",
+    "FAIL: test_a_virgula_que_emenda_duas_frases_corta (__main__.ONDE_UMA_FRASE_ACABA.test_a_virgula_que_emenda_duas_frases_corta)",
+    "FAIL: test_o_nome_proprio_com_artigo_nao_corta (__main__.ONDE_UMA_FRASE_ACABA.test_o_nome_proprio_com_artigo_nao_corta)"
+   ]
   },
   {
    "NOME": "ID_NAO_OLHA_O_OFFSET",
@@ -35,9 +42,11 @@
   {
    "NOME": "CONFERENCIA_NAO_COMPARA_O_TRECHO",
    "FICHEIRO": "leis/afirmacao_do_documento.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_trecho_diferente_de_texto_inicio_fim_reprova_por_isso (__main__.TestesNegativos.test_o_trecho_diferente_de_texto_inicio_fim_reprova_por_isso)"
+   ]
   },
   {
    "NOME": "CONFERENCIA_NAO_OLHA_O_RAW_SHA256",
@@ -51,9 +60,11 @@
   {
    "NOME": "CONFERENCIA_NAO_OLHA_O_BASIS",
    "FICHEIRO": "leis/afirmacao_do_documento.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_basis_do_tempo_fora_do_sitio_reprova (__main__.TestesNegativos.test_o_basis_do_tempo_fora_do_sitio_reprova)"
+   ]
   },
   {
    "NOME": "QUALQUER_PAPEL_E_FACTO",
@@ -64,6 +75,7 @@
     "FAIL: test_so_acontecimento_vira_fact_time (__main__.AFronteiraDaCollection.test_so_acontecimento_vira_fact_time)",
     "FAIL: test_ato_e_mercado_tem_papel_proprio (__main__.TestesNegativos.test_ato_e_mercado_tem_papel_proprio)",
     "FAIL: test_publicacao_nao_e_fato (__main__.TestesNegativos.test_publicacao_nao_e_fato)",
+    "FAIL: test_um_periodo_futuro_nunca_tem_o_papel_de_acontecimento (__main__.TestesNegativos.test_um_periodo_futuro_nunca_tem_o_papel_de_acontecimento)",
     "FAIL: test_validade_nao_e_fato (__main__.TestesNegativos.test_validade_nao_e_fato)"
    ]
   },
@@ -79,9 +91,12 @@
   {
    "NOME": "FUTURO_VIRA_ACONTECIMENTO",
    "FICHEIRO": "leis/tempo_da_afirmacao.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_seccao_futura_nao_da_data_a_um_facto_sem_marca_de_futuro (__main__.TestesNegativos.test_a_seccao_futura_nao_da_data_a_um_facto_sem_marca_de_futuro)",
+    "FAIL: test_um_periodo_futuro_nunca_tem_o_papel_de_acontecimento (__main__.TestesNegativos.test_um_periodo_futuro_nunca_tem_o_papel_de_acontecimento)"
+   ]
   },
   {
    "NOME": "D147_SEM_A_CONDICAO_DO_CONCORRENTE",
@@ -98,6 +113,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_a_seccao_futura_nao_da_data_a_um_facto_sem_marca_de_futuro (__main__.TestesNegativos.test_a_seccao_futura_nao_da_data_a_um_facto_sem_marca_de_futuro)",
     "FAIL: test_validade_nao_e_fato (__main__.TestesNegativos.test_validade_nao_e_fato)"
    ]
   },
@@ -122,9 +138,11 @@
   {
    "NOME": "DESDOBRAR_ACEITA_TUDO",
    "FICHEIRO": "leis/tempo_da_afirmacao.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_nao_desdobra_texto_normal (__main__.ALeituraDoCabecalhoDobrado.test_nao_desdobra_texto_normal)"
+   ]
   },
   {
    "NOME": "A_VIRGULA_QUE_EMENDA_DEIXA_DE_CORTAR",
@@ -227,13 +245,8 @@
   }
  ],
  "TOTAL": 24,
- "MORTOS": 18,
+ "MORTOS": 23,
  "SOBREVIVENTES": [
-  "TRECHO_DEIXA_DE_SER_O_TEXTO",
-  "CONFERENCIA_NAO_COMPARA_O_TRECHO",
-  "CONFERENCIA_NAO_OLHA_O_BASIS",
-  "FUTURO_VIRA_ACONTECIMENTO",
-  "DESDOBRAR_ACEITA_TUDO",
   "A_CLASSE_SAI_DO_VOCABULARIO_FECHADO"
  ]
 }

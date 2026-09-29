@@ -240,8 +240,25 @@ _SEM_SVO = ("o produtor minimo nao parte a frase em sujeito/predicado/objeto: is
             "analisador sintatico. A afirmacao e o EVIDENCE_SPAN literal, que viaja inteiro.")
 
 
+#: O que o gazetteer do vivo cobre HOJE. Lido do dono dele (`leis/fato_local.cobertura`),
+#: nunca copiado: o lugar viaja com a precisao E com o limite de quem o leu. Medido:
+#: MUNICIPALITIES = 0 — sem a lista oficial do ISTAT, um comune que nao seja capoluogo de
+#: provincia e INVISIVEL. Inventar o municipio a partir do texto seria fabricar identidade.
+_COBERTURA = {}
+
+
+def cobertura_do_gazetteer() -> dict:
+    if not _COBERTURA:
+        _COBERTURA.update(BC._ft().FL.cobertura())
+    return dict(_COBERTURA)
+
+
 def _lugar(leitura: dict) -> dict:
-    """O FACT_LOCATION da afirmacao, tal como a lei o devolveu — sem reescrever nada."""
+    """O FACT_LOCATION da afirmacao, tal como a lei o devolveu — sem reescrever nada.
+
+    C2 do contrato de consumo: o lugar viaja SEMPRE com a PRECISAO (COUNTRY · REGION ·
+    PROVINCE · MUNICIPALITY · ZONA_DEFINIDA_PELA_FONTE · NOT_KNOWN) e com a cobertura de
+    quem o leu, para que quem consome saiba o que a ausencia significa."""
     l_ = leitura["FACT_LOCATION"]
     valor = l_["VALOR"]
     return {"VALOR": NAO_SEI if valor == UNRESOLVED else valor,
@@ -250,7 +267,8 @@ def _lugar(leitura: dict) -> dict:
             "TRECHO": l_.get("LOCATION_EXPRESSION_RAW"),
             "PROVA": l_.get("PROVA"),
             "PORQUE": l_.get("PORQUE"),
-            "PONTO_NO_MAPA": bool(l_.get("PONTO_NO_MAPA"))}
+            "PONTO_NO_MAPA": bool(l_.get("PONTO_NO_MAPA")),
+            "COBERTURA_DO_GAZETTEER": cobertura_do_gazetteer()}
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -390,8 +408,8 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
             for nome, r in (("cultura", leitura["CULTURA"]), ("praga", leitura["PRAGAS"])):
                 if r["ENTITY_SOURCE"] not in (BC.SPAN, BC.UNKNOWN):
                     precisa.append("a %s veio de %s, fora do trecho" % (nome, r["ENTITY_SOURCE"]))
-            if tempo["ORIGEM"] == TA.CABECALHO:
-                precisa.append("a data veio do cabecalho da seccao, fora do trecho")
+            if tempo["ORIGEM"] in TA.ORIGENS_COM_BASIS_FORA_DO_TRECHO:
+                precisa.append("a data veio de %s: o BASIS esta fora do trecho" % tempo["ORIGEM"])
             # Tudo o que a afirmacao guarda e LITERAL do documento. O leitor temporal
             # trabalha sobre o texto limpo pela D19 (mesmo comprimento, logo mesmos
             # offsets); o TRECHO que viaja e o do ORIGINAL, que e o que a conferencia confere.
@@ -553,15 +571,30 @@ def conferir_afirmacao(af: dict, texto: str, *, raw_sha256=None) -> list:
     if ft not in (NAO_SEI, TA.NAO_EXISTE) and papel not in TA.PAPEL_QUE_E_FACTO:
         v.append("FACT_TIME com valor e papel %r: so ACONTECIMENTO e tempo do facto" % (papel,))
     basis = (af.get("FACT_TIME_ROLE") or {}).get("BASIS")
+    origem = (af.get("FACT_TIME_ROLE") or {}).get("ORIGEM")
     if ft not in (NAO_SEI, TA.NAO_EXISTE):
         if not isinstance(basis, dict):
             v.append("FACT_TIME com valor e sem BASIS")
         elif basis.get("TRECHO") != t[basis.get("INICIO", -1):basis.get("FIM", -1)]:
             v.append("o BASIS do FACT_TIME nao esta no texto onde diz estar")
+        elif origem not in TA.ORIGENS:
+            v.append("FACT_TIME com valor e ORIGEM %r fora do vocabulario" % (origem,))
+        # C1 do contrato de consumo: LITERAL promete que a prova esta DENTRO do trecho.
+        # Uma origem que va buscar o valor ao cabecalho tem de se chamar pelo nome dela.
+        elif origem == TA.LITERAL and not (a <= basis["INICIO"] and basis["FIM"] <= b):
+            v.append("ORIGEM = LITERAL com o BASIS em [%d:%d], fora do trecho [%d:%d]: "
+                     "LITERAL promete a prova dentro do trecho"
+                     % (basis["INICIO"], basis["FIM"], a, b))
     loc = af.get("FACT_LOCATION") or {}
     if loc.get("VALOR") != NAO_SEI and loc.get("LOCATION_SOURCE") not in BC.LOCATION_SOURCES:
         v.append("FACT_LOCATION com valor e LOCATION_SOURCE %r fora da COL-LAW-032"
                  % (loc.get("LOCATION_SOURCE"),))
+    # C2 do contrato de consumo: o lugar nunca viaja sem a precisao e sem a cobertura de
+    # quem o leu — quem consome tem de saber o que a ausencia de um municipio significa.
+    if not loc.get("PRECISAO"):
+        v.append("FACT_LOCATION sem PRECISAO")
+    if not isinstance(loc.get("COBERTURA_DO_GAZETTEER"), dict):
+        v.append("FACT_LOCATION sem a COBERTURA_DO_GAZETTEER de quem o leu")
     ctx = af.get("CONTEXTO_MINIMO")
     if ctx and ctx.get("TRECHO") != t[ctx.get("INICIO", -1):ctx.get("FIM", -1)]:
         v.append("o CONTEXTO_MINIMO nao esta no texto onde diz estar")
