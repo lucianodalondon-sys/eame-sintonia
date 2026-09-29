@@ -4,7 +4,7 @@
  "TOTAL": 34,
  "CONTA": {
   "MORTO": 32,
-  "SOBREVIVEU": 2
+  "NAO_APLICOU": 2
  },
  "MUTANTES": [
   {
@@ -12,20 +12,21 @@
    "ESTADO": "MORTO",
    "FICHEIRO": "coleta/rotas_multicanal.py",
    "APANHADO_POR": "tests.test_religa_multicanal",
-   "SINAL": "FAILED (failures=1)"
+   "SINAL": "FAILED (failures=2)"
   },
   {
    "MUTANTE": "M02_YT_IDENTIDADE_TOLERA_QUALQUER_CANAL",
    "ESTADO": "MORTO",
    "FICHEIRO": "coleta/rotas_multicanal.py",
    "APANHADO_POR": "tests.test_religa_multicanal",
-   "SINAL": "FAILED (failures=1)"
+   "SINAL": "FAILED (failures=2)"
   },
   {
    "MUTANTE": "M03_YT_IDENTIDADE_SO_PELO_CANONICO_AUSENTE",
-   "ESTADO": "SOBREVIVEU",
+   "ESTADO": "MORTO",
    "FICHEIRO": "coleta/rotas_multicanal.py",
-   "PORQUE": "nenhum teste reprovou com o defeito plantado"
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
   },
   {
    "MUTANTE": "M04_YT_ACEITA_CHANNEL_ID_MALFORMADO",
@@ -92,10 +93,8 @@
   },
   {
    "MUTANTE": "M13_LI_VIDEO_DESCOBERTO_VIRA_ADQUIRIDO",
-   "ESTADO": "MORTO",
-   "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
-   "APANHADO_POR": "tests.test_religa_multicanal",
-   "SINAL": "FAILED (failures=1)"
+   "ESTADO": "NAO_APLICOU",
+   "PORQUE": "ANCORA_AUSENTE em ferramentas/big_collection/onda_linha.py"
   },
   {
    "MUTANTE": "M14_LI_PEDE_O_POST_INDIVIDUAL",
@@ -106,10 +105,8 @@
   },
   {
    "MUTANTE": "M15_LI_CARTAO_VAZIO_VIRA_ITEM",
-   "ESTADO": "MORTO",
-   "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
-   "APANHADO_POR": "tests.test_religa_multicanal",
-   "SINAL": "FAILED (errors=1)"
+   "ESTADO": "NAO_APLICOU",
+   "PORQUE": "ANCORA_AUSENTE em ferramentas/big_collection/onda_linha.py"
   },
   {
    "MUTANTE": "M16_ALIMENTA_PELAS_LISTAS_EXCLUIDAS",
@@ -193,7 +190,7 @@
    "ESTADO": "MORTO",
    "FICHEIRO": "coleta/reserva_24h.py",
    "APANHADO_POR": "tests.test_religa_multicanal",
-   "SINAL": "FAILED (failures=4)"
+   "SINAL": "FAILED (failures=5)"
   },
   {
    "MUTANTE": "M28_PORTA_NAO_REGISTA_A_RESPOSTA",
@@ -211,9 +208,10 @@
   },
   {
    "MUTANTE": "M30_PORTA_TAPA_QUALQUER_DOMINIO",
-   "ESTADO": "SOBREVIVEU",
+   "ESTADO": "MORTO",
    "FICHEIRO": "coleta/reserva_24h.py",
-   "PORQUE": "nenhum teste reprovou com o defeito plantado"
+   "APANHADO_POR": "tests.test_religa_multicanal",
+   "SINAL": "FAILED (failures=1)"
   },
   {
    "MUTANTE": "M31_AS_DUAS_ROTAS_PARTILHAM_ORCAMENTO",

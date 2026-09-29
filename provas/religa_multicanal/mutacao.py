@@ -91,15 +91,16 @@ MUTANTES = [
      '    url = "https://www.instagram.com/%s/" % handle', T),
     # ── LINKEDIN: descoberto != adquirido ─────────────────────────────────────────────────────────
     ("M13_LI_VIDEO_DESCOBERTO_VIRA_ADQUIRIDO", OL,
-     '"VIDEO_BYTES_ACQUIRED": False}, ensure_ascii=False).encode("utf-8")',
-     '"VIDEO_BYTES_ACQUIRED": True}, ensure_ascii=False).encode("utf-8")', T),
+     '        registo["VIDEO_BYTES_ACQUIRED"] = False\n',
+     '        registo["VIDEO_BYTES_ACQUIRED"] = True\n', T),
     ("M14_LI_PEDE_O_POST_INDIVIDUAL", OL,
      '        return {"BYTES": corpo, "URL": a.get("URL_DO_POST"), "MEDIA_TYPE": "application/json",\n'
      '                "PEDIDOS": 0,',
      '        return {"BYTES": corpo, "URL": a.get("URL_DO_POST"), "MEDIA_TYPE": "application/json",\n'
      '                "PEDIDOS": 1,', T),
     ("M15_LI_CARTAO_VAZIO_VIRA_ITEM", OL,
-     "        if not texto.strip():\n", "        if False:\n", T),
+     '        if not registo.get("URL_DO_POST") and not registo.get("NATIVE_ID"):\n',
+     "        if False:\n", T),
     # ── A ALIMENTACAO ─────────────────────────────────────────────────────────────────────────────
     ("M16_ALIMENTA_PELAS_LISTAS_EXCLUIDAS", FM,
      '    "YOUTUBE": ["YOUTUBE"],', '    "YOUTUBE": ["YOUTUBE", "YOUTUBE_FORA"],', T),
