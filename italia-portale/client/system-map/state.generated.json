@@ -4824,9 +4824,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "9d19d9b2545c3bb109349e62c5478cf74576a7cf",
-    "GENERATED_AT": "2026-09-29T09:22:23-03:00",
-    "SOURCE_TREE_FINGERPRINT": "81e3cc104240cabc4e820eec9591f35b1577acad7ba04c8000da054bc2b0e831"
+    "HEAD": "b005b86067aeb7f6fee88fd98d7a64e30600fc3d",
+    "GENERATED_AT": "2026-09-29T10:23:48-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8819d736c87e376b8ed23167d9a119eacb0385665303aa61ad98b05cad67edab"
   },
   "FAMILIES": [
     {
@@ -39694,7 +39694,7 @@
         "PLANO": null,
         "PROVA": [
           "italia-portale/audit/casa-gate.mjs:32",
-          "portoes/publicar_portal_sozinho.py:513"
+          "portoes/publicar_portal_sozinho.py:515"
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-PUBLICA-SOZINHO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -58220,7 +58220,7 @@
         "PROVA": [
           "italia-portale/audit/checks.mjs:13",
           "italia-portale/audit/checks.mjs:13",
-          "portoes/publicar_portal_sozinho.py:550"
+          "portoes/publicar_portal_sozinho.py:552"
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-PUBLICA-SOZINHO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -84974,7 +84974,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 513,
+          "line": 515,
           "snippet": "if \"audit/run.mjs\" in texto and rc not in (None,):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
@@ -84990,7 +84990,7 @@
         },
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 551,
+          "line": 553,
           "snippet": "conferir_comando(\"C2_DEPLOY_SURFACE\", [\"node\", \"italia-portale/audit/deploy-surface.mjs\"], copia, contrato, 600)]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
@@ -145013,7 +145013,7 @@
         },
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 687,
+          "line": 689,
           "snippet": "req = urllib.request.Request(base_url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
@@ -145239,7 +145239,7 @@
         },
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 712,
+          "line": 718,
           "snippet": "const LEITOR = fs.readFileSync(path.join(CL, 'sintonia-pote-casco.js'), 'utf8');",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
@@ -145505,7 +145505,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 550,
+          "line": 552,
           "snippet": "L = [conferir_comando(\"C1_BUILD_GATE\", [\"node\", \"italia-portale/audit/build-gate.mjs\"], copia, contrato, 600),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTAO-BUILD--READS-->C-PUBLICA-SOZINHO",
@@ -151916,7 +151916,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 891,
+          "line": 893,
           "snippet": "(Path(copia) / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
@@ -169249,7 +169249,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 496,
+          "line": 502,
           "snippet": "(Path(d) / \"italia-portale\" / \"audit\" / \"run.mjs\").write_text(",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-AUDIT-GERAL",
@@ -170335,7 +170335,7 @@
       "evidence": [
         {
           "file": "tests/test_publicar_portal_sozinho.py",
-          "line": 525,
+          "line": 531,
           "snippet": "(d / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(STUB, encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-MODELO",
@@ -171059,7 +171059,7 @@
       "evidence": [
         {
           "file": "portoes/publicar_portal_sozinho.py",
-          "line": 756,
+          "line": 758,
           "snippet": "if (Path(copia) / \"vercel.json\").exists():",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PUBLICA-SOZINHO",

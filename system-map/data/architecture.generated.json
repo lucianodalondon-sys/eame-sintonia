@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "9d19d9b2545c3bb109349e62c5478cf74576a7cf",
-    "GENERATED_AT": "2026-09-29T09:22:23-03:00",
-    "SOURCE_TREE_FINGERPRINT": "81e3cc104240cabc4e820eec9591f35b1577acad7ba04c8000da054bc2b0e831"
+    "HEAD": "b005b86067aeb7f6fee88fd98d7a64e30600fc3d",
+    "GENERATED_AT": "2026-09-29T10:23:48-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8819d736c87e376b8ed23167d9a119eacb0385665303aa61ad98b05cad67edab"
   },
   "FILES": [
     {
@@ -19708,7 +19708,7 @@
     },
     {
       "path": "portoes/fotografar_portal.mjs",
-      "sha": "a206e9a0c19d08b97902568c8fa2a063dfa030c5",
+      "sha": "80319177946c55215921dd6a040afac963012d1c",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -19722,7 +19722,7 @@
     },
     {
       "path": "portoes/publicar_portal_sozinho.py",
-      "sha": "89a88e60be42efe2a12c3ac2c136b68f24b2c842",
+      "sha": "0819536706351b2f425855e410a31c15ce723fcf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21871,7 +21871,7 @@
     },
     {
       "path": "provas/l3/MUTACAO-L3.json",
-      "sha": "f567fdc28c17258789c04f68e5de7228e3ff3154",
+      "sha": "d5315eb35542e85b6f14dbfd1e7645820dd65a9b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -29067,7 +29067,7 @@
     },
     {
       "path": "tests/test_publicar_portal_sozinho.py",
-      "sha": "203e719960bf942ccb130ba9607c20457f981fd0",
+      "sha": "685c609f6f5dccd174e94405fb2be403fde9eb8a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -64640,7 +64640,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 550,
+        "line": 552,
         "snippet": "L = [conferir_comando(\"C1_BUILD_GATE\", [\"node\", \"italia-portale/audit/build-gate.mjs\"], copia, contrato, 600),"
       }
     },
@@ -64651,7 +64651,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 551,
+        "line": 553,
         "snippet": "conferir_comando(\"C2_DEPLOY_SURFACE\", [\"node\", \"italia-portale/audit/deploy-surface.mjs\"], copia, contrato, 600)]"
       }
     },
@@ -64662,7 +64662,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 513,
+        "line": 515,
         "snippet": "if \"audit/run.mjs\" in texto and rc not in (None,):"
       }
     },
@@ -64673,7 +64673,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 687,
+        "line": 689,
         "snippet": "req = urllib.request.Request(base_url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\","
       }
     },
@@ -64684,7 +64684,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 891,
+        "line": 893,
         "snippet": "(Path(copia) / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text("
       }
     },
@@ -64695,7 +64695,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 644,
+        "line": 646,
         "snippet": "if (c / \"package.json\").exists():"
       }
     },
@@ -64750,7 +64750,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 756,
+        "line": 758,
         "snippet": "if (Path(copia) / \"vercel.json\").exists():"
       }
     },
@@ -107815,7 +107815,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 496,
+        "line": 502,
         "snippet": "(Path(d) / \"italia-portale\" / \"audit\" / \"run.mjs\").write_text("
       }
     },
@@ -107848,7 +107848,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 712,
+        "line": 718,
         "snippet": "const LEITOR = fs.readFileSync(path.join(CL, 'sintonia-pote-casco.js'), 'utf8');"
       }
     },
@@ -107870,7 +107870,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 525,
+        "line": 531,
         "snippet": "(d / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(STUB, encoding=\"utf-8\")"
       }
     },

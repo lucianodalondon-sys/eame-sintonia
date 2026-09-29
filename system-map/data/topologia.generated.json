@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-29T12:26:58+00:00",
-  "HEAD": "9d19d9b2545c3bb109349e62c5478cf74576a7cf",
+  "GENERATED_AT": "2026-09-29T13:32:36+00:00",
+  "HEAD": "b005b86067aeb7f6fee88fd98d7a64e30600fc3d",
   "BRANCH": "claude/l3-radar-original-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "81e3cc104240cabc4e820eec9591f35b1577acad7ba04c8000da054bc2b0e831",
+  "SOURCE_TREE_FINGERPRINT": "8819d736c87e376b8ed23167d9a119eacb0385665303aa61ad98b05cad67edab",
   "FICHEIROS_NA_IMPRESSAO": 4378,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2974,7 +2974,7 @@
    {
     "PATH": "portoes/fotografar_portal.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "a206e9a0c19d08b97902568c8fa2a063dfa030c5",
+    "VERSAO": "80319177946c55215921dd6a040afac963012d1c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2988,7 +2988,7 @@
    {
     "PATH": "portoes/publicar_portal_sozinho.py",
     "PAPEL": "FONTE",
-    "VERSAO": "89a88e60be42efe2a12c3ac2c136b68f24b2c842",
+    "VERSAO": "0819536706351b2f425855e410a31c15ce723fcf",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5578,14 +5578,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "81e3cc104240cabc4e820eec9591f35b1577acad7ba04c8000da054bc2b0e831",
+    "VERSAO": "8819d736c87e376b8ed23167d9a119eacb0385665303aa61ad98b05cad67edab",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "81e3cc104240cabc4e820eec9591f35b1577acad7ba04c8000da054bc2b0e831",
+    "VERSAO": "8819d736c87e376b8ed23167d9a119eacb0385665303aa61ad98b05cad67edab",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7734,7 +7734,7 @@
    {
     "PATH": "tests/test_publicar_portal_sozinho.py",
     "PAPEL": "FONTE",
-    "VERSAO": "203e719960bf942ccb130ba9607c20457f981fd0",
+    "VERSAO": "685c609f6f5dccd174e94405fb2be403fde9eb8a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8279,7 +8279,7 @@
    }
   ],
   "INPUTS_COUNT": 1177,
-  "INPUTS_DIGEST": "85952a4bbaebe549e8f2a088ff00aba9da4253dd4427fe8dbe8e7de464bbd0f2",
+  "INPUTS_DIGEST": "f9efd5dd0de60e1b23afedd6329739ea5505ebe969b99f419632749c402343e9",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8312,8 +8312,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "4b9501bb0c56bf678ca861be33c030c495db5a06559d5cfa1ad255d5901226ae",
-  "SEMANTIC_HASH": "53d9f05f119d6e6e62ab279b5e1621b5c00f5ebb311d66bc468e44254065fc7f"
+  "MEASUREMENT_HASH": "8894c0c1324455be80e888be4412a8e592c76b14f0045a103f6191e5585ad133",
+  "SEMANTIC_HASH": "304a605d87a6d035c7d0e89450dfc01fc732a768e3afe8cfedeb5da206ee1432"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13577,7 +13577,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "portoes/publicar_portal_sozinho.py",
-      "LINHA": 513,
+      "LINHA": 515,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
@@ -13585,7 +13585,7 @@
      },
      {
       "FICHEIRO": "portoes/publicar_portal_sozinho.py",
-      "LINHA": 551,
+      "LINHA": 553,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AUDIT-GERAL--READS-->C-PUBLICA-SOZINHO",
@@ -47189,7 +47189,7 @@
      },
      {
       "FICHEIRO": "portoes/publicar_portal_sozinho.py",
-      "LINHA": 687,
+      "LINHA": 689,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-PUBLICA-SOZINHO",
@@ -47297,7 +47297,7 @@
      },
      {
       "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
-      "LINHA": 712,
+      "LINHA": 718,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAL-MODELO--READS-->C-TESTES",
@@ -47457,7 +47457,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "portoes/publicar_portal_sozinho.py",
-      "LINHA": 550,
+      "LINHA": 552,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PORTAO-BUILD--READS-->C-PUBLICA-SOZINHO",
@@ -51133,7 +51133,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "portoes/publicar_portal_sozinho.py",
-      "LINHA": 891,
+      "LINHA": 893,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PUBLICA-SOZINHO--WRITES-->C-PORTAL-MODELO",
@@ -61428,7 +61428,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "portoes/publicar_portal_sozinho.py",
-      "LINHA": 756,
+      "LINHA": 758,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-PUBLICA-SOZINHO",
@@ -61634,7 +61634,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
-      "LINHA": 496,
+      "LINHA": 502,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-AUDIT-GERAL",
@@ -62028,7 +62028,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_publicar_portal_sozinho.py",
-      "LINHA": 525,
+      "LINHA": 531,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PORTAL-MODELO",
