@@ -115,8 +115,9 @@ def pode_implementar_inteligencia():
 # nao existia, um C8 com qualquer frase, e READ_ONLY = True so dito. Os tres
 # passavam. Agora cada um e CONFERIDO:
 #
-#     LAB   JSON numa pasta exclusiva do LAB; a entrada do par (POTE_SHA256,
-#           RUN_ID) deste pote diz VEREDITO=PASS e LAB_ORIGIN=sintonia-lab;
+#     LAB   formato real do LAB: JSON numa pasta exclusiva, nome com o par, a
+#           versao mais recente (DATA_UTC) do par (POTE_SHA256, RUN_ID) diz
+#           VEREDITO=PASS e LAB_ORIGIN=sintonia-lab;
 #     C8    comeca por um ID de decisao (Dnnn) escrito no diario, do dono, e
 #           nao revogado — texto livre nao casa com nada;
 #     SALA  a copia existe, o sha256 dela bate, o pote diz que foi feito DELA
@@ -213,6 +214,8 @@ _TAMANHO_MAXIMO_DA_PROVA = 20 * 1024 * 1024
 #: Quem pode assinar a prova reversa: o LAB, por identidade DECLARADA na propria
 #: entrada da prova (e, alem disso, por pasta exclusiva — PASTAS_DO_LAB).
 LAB_ORIGIN = 'sintonia-lab'
+#: O que a prova diz quando o pote publicado nao tem envelope (formato real do LAB).
+ENVELOPE_INEXISTENTE = 'NAO_EXISTE_NO_POTE_PUBLICADO'
 #: ⚠️ LIMITE CONHECIDO (ponto do auditor, aceite pelo coordenador, 29/09): neste
 #: PC todos os agentes correm como o MESMO utilizador Windows. A pasta exclusiva
 #: NAO prova autoria — so impede reuso acidental e mistura. O que a guarda PROVA
@@ -328,29 +331,6 @@ def _caminho(rel):
     return rel if os.path.isabs(rel) else os.path.join(RAIZ, rel)
 
 
-def _ler_pote_do_ficheiro(caminho):
-    import json
-    with open(caminho, encoding='utf-8') as f:
-        texto = f.read()
-    if caminho.endswith('.js'):
-        i = texto.find('= ')
-        texto = texto[i + 2:].rstrip().rstrip(';') if i >= 0 else texto
-    return json.loads(texto)
-
-
-def _shas_que_nomeiam_o_pote(pedido, pote):
-    """O sha canonico, e o sha do ficheiro do pote SE esse ficheiro diz o mesmo pote."""
-    shas = {sha256_do_pote(pote)}
-    f = _caminho(pedido.get('POTE_FICHEIRO'))
-    if f and os.path.isfile(f):
-        try:
-            if _ler_pote_do_ficheiro(f) == pote:
-                shas.add(_sha256_ficheiro(f))
-        except (OSError, ValueError):
-            pass
-    return shas
-
-
 def _dentro_de(f, pastas):
     real = os.path.normcase(os.path.realpath(f))
     for p in pastas or []:
@@ -360,25 +340,68 @@ def _dentro_de(f, pastas):
     return False
 
 
-def conferir_prova_do_lab(lab, shas_do_pote, run_id=None, pastas_do_lab=(), pote_ficheiro=None,
-                          produtores=()):
-    """-> motivo da recusa, ou None.
+def nome_da_prova_do_lab(sha_canonico, run_id, versao=1):
+    """O nome que o LAB da a prova (formato real do LAB, 29/09):
+    PROVA-REVERSA_pote-<16 primeiros do sha canonico>_run-<RUN_ID>.json, e -2, -3
+    quando o mesmo par volta a ser provado (nunca sobrescreve)."""
+    base = 'PROVA-REVERSA_pote-%s_run-%s' % (str(sha_canonico)[:16], run_id)
+    return base + ('.json' if versao == 1 else '-%d.json' % versao)
 
-    ⚠️ AUDITOR (VERIF-L1-cb8f20bcf) + decisao do coordenador (29/09): a prova do
-    LAB e ESTRUTURADA (JSON) e compara-se por IGUALDADE DE CAMPO — nunca por
-    substring ou regex no texto. Antes, uma prova de OUTRO pote que so mencionava
-    este (LB1), um indice com um PASS global (LB2), este pote citado como
-    REJEITADO (LB3) e a corrida com sufixo '.anterior' (LB4) atravessavam.
 
-    A prova e um objeto, uma lista de objetos, ou {"ENTRADAS": [...]}. So contam
-    as entradas cujo par (POTE_SHA256, RUN_ID) e EXATAMENTE o deste pote; cada
-    uma tem de ter, no MESMO objeto, VEREDITO == 'PASS' e LAB_ORIGIN ==
-    'sintonia-lab' (e diferente do produtor do pote). POTE_REJEITADO com este
-    pote em qualquer entrada = recusa. O ficheiro vive numa pasta EXCLUSIVA do LAB,
-    e o pote do produtor nao pode estar nessa pasta nem em subpasta dela (LB5).
+def _versao_do_nome(nome, sha_canonico, run_id):
+    """1, 2, 3... se o nome e de uma prova DESTE par; None se nao e. Compara-se o
+    prefixo exato — um RUN_ID que acabe em '-0001' nao se confunde com versao."""
+    base = nome_da_prova_do_lab(sha_canonico, run_id)[:-len('.json')]
+    if nome == base + '.json':
+        return 1
+    if nome.startswith(base + '-') and nome.endswith('.json'):
+        meio = nome[len(base) + 1:-len('.json')]
+        if meio.isdigit() and int(meio) >= 2 and str(int(meio)) == meio:
+            return int(meio)
+    return None
+
+
+def _data_utc(valor):
+    """DATA_UTC em ISO -> datetime com fuso (sem fuso = UTC). None se ausente ou invalida."""
+    from datetime import datetime, timezone
+    if not isinstance(valor, str) or not valor.strip():
+        return None
+    try:
+        d = datetime.fromisoformat(valor.strip().replace('Z', '+00:00'))
+    except ValueError:
+        return None
+    return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
+
+
+def _ler_prova(f):
+    import json
+    try:
+        with open(f, encoding='utf-8') as h:
+            return json.load(h)
+    except (OSError, UnicodeDecodeError, ValueError):
+        return None
+
+
+def _envelope_do_pote(pote):
+    e = pote.get('ENVELOPE_HASH')
+    return e if isinstance(e, str) and e.strip() else None
+
+
+def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote_ficheiro=None,
+                          produtores=(), envelope=None):
+    """-> motivo da recusa, ou None. FORMATO REAL DO LAB (29/09), sem inventar outro.
+
+    Um objeto JSON por ficheiro, na pasta exclusiva do LAB, com o nome
+    PROVA-REVERSA_pote-<sha16>_run-<RUN_ID>[-N].json. A guarda compara por
+    IGUALDADE DE CAMPO: POTE_SHA256 (canonico) e RUN_ID deste pote, LAB_ORIGIN ==
+    'sintonia-lab' (e nao o produtor), VEREDITO so PASS|FAIL e tem de ser PASS,
+    ENVELOPE_HASH igual ao do pote quando o pote tem envelope (senao
+    'NAO_EXISTE_NO_POTE_PUBLICADO'). Com varias versoes do mesmo par, vale a MAIS
+    RECENTE pelo DATA_UTC DE DENTRO do JSON — nunca pela ordem do nome ('-10'
+    vem antes de '-2' no alfabeto). Empate de DATA_UTC = FAIL; DATA_UTC ausente ou
+    invalida = FAIL. Um FAIL recente derruba um PASS antigo.
 
     Isto NAO prova autoria (LIMITE_CONHECIDO): prova o vinculo ao pote e a corrida."""
-    import json
     if not isinstance(lab, dict):
         return 'sem a prova reversa do LAB'
     f = _caminho(lab.get('ONDE'))
@@ -393,41 +416,53 @@ def conferir_prova_do_lab(lab, shas_do_pote, run_id=None, pastas_do_lab=(), pote
         return 'o sha256 da prova do LAB nao bate com o fixado no pedido'
     if os.path.getsize(f) > _TAMANHO_MAXIMO_DA_PROVA:
         return 'a prova do LAB e grande demais para ser lida'
-    try:
-        with open(f, encoding='utf-8') as h:
-            obj = json.load(h)
-    except (OSError, UnicodeDecodeError, ValueError):
+    obj = _ler_prova(f)
+    if obj is None:
         return 'a prova do LAB nao e estruturada (JSON): texto solto nao prova nada'
-    if isinstance(obj, dict) and isinstance(obj.get('ENTRADAS'), list):
-        entradas = obj['ENTRADAS']
-    elif isinstance(obj, dict):
-        entradas = [obj]
-    elif isinstance(obj, list):
-        entradas = obj
-    else:
-        return 'a prova do LAB nao tem entradas'
-    if not all(isinstance(e, dict) for e in entradas):
-        return 'a prova do LAB tem entradas que nao sao objetos'
-    shas = {str(x).lower() for x in shas_do_pote}
-    for e in entradas:
-        rej = e.get('POTE_REJEITADO')
-        rejeitados = rej if isinstance(rej, list) else [rej]
-        if any(isinstance(r, str) and r.strip().lower() in shas for r in rejeitados):
-            return 'a prova do LAB diz POTE_REJEITADO para este pote'
-    deste = [e for e in entradas
-             if isinstance(e.get('POTE_SHA256'), str) and e['POTE_SHA256'].strip().lower() in shas
-             and isinstance(e.get('RUN_ID'), str) and run_id is not None and e['RUN_ID'] == str(run_id)]
-    if not deste:
-        return ('a prova do LAB nao tem nenhuma entrada com o par (POTE_SHA256, RUN_ID) deste pote '
-                '(corrida %r)' % run_id)
-    prod = {str(x).strip().casefold() for x in produtores if x}
-    for e in deste:
-        if e.get('VEREDITO') != 'PASS':
-            return 'a entrada do LAB deste pote diz VEREDITO=%r' % e.get('VEREDITO')
-        if e.get('LAB_ORIGIN') != LAB_ORIGIN:
-            return 'a entrada do LAB deste pote nao vem de %s (LAB_ORIGIN=%r)' % (LAB_ORIGIN, e.get('LAB_ORIGIN'))
-        if str(e.get('LAB_ORIGIN')).strip().casefold() in prod:
-            return 'LAB_ORIGIN e o proprio produtor do pote'
+    if not isinstance(obj, dict):
+        return 'a prova do LAB nao e UM objeto de prova (formato real do LAB)'
+    rej = obj.get('POTE_REJEITADO')
+    if any(isinstance(r, str) and r.strip().lower() == sha_canonico
+           for r in (rej if isinstance(rej, list) else [rej])):
+        return 'a prova do LAB diz POTE_REJEITADO para este pote'
+    if obj.get('POTE_SHA256') != sha_canonico or run_id is None or obj.get('RUN_ID') != str(run_id):
+        return ('a prova do LAB nao e do par (POTE_SHA256, RUN_ID) deste pote (corrida %r): diz (%r, %r)'
+                % (run_id, str(obj.get('POTE_SHA256'))[:16], obj.get('RUN_ID')))
+    if obj.get('LAB_ORIGIN') != LAB_ORIGIN:
+        return 'a prova nao vem de %s (LAB_ORIGIN=%r)' % (LAB_ORIGIN, obj.get('LAB_ORIGIN'))
+    if str(obj.get('LAB_ORIGIN')).strip().casefold() in {str(x).strip().casefold() for x in produtores if x}:
+        return 'LAB_ORIGIN e o proprio produtor do pote'
+    if obj.get('VEREDITO') not in ('PASS', 'FAIL'):
+        return 'a prova do LAB tem VEREDITO=%r (so PASS ou FAIL)' % obj.get('VEREDITO')
+    esperado = envelope or ENVELOPE_INEXISTENTE
+    if obj.get('ENVELOPE_HASH') != esperado:
+        return 'ENVELOPE_HASH da prova (%r) nao e o do pote (%r)' % (obj.get('ENVELOPE_HASH'), esperado)
+    if _versao_do_nome(os.path.basename(f), sha_canonico, run_id) is None:
+        return 'o nome da prova nao e %s[-N]' % nome_da_prova_do_lab(sha_canonico, run_id)[:-len('.json')]
+    # as versoes do MESMO par, na mesma pasta: vale a mais recente pelo DATA_UTC de dentro
+    pasta = os.path.dirname(f)
+    versoes = []
+    for nome in sorted(os.listdir(pasta)):
+        if _versao_do_nome(nome, sha_canonico, run_id) is None:
+            continue
+        caminho = os.path.join(pasta, nome)
+        v = _ler_prova(caminho)
+        quando = _data_utc(v.get('DATA_UTC')) if isinstance(v, dict) else None
+        if quando is None:
+            return 'a versao %s da prova deste par tem DATA_UTC ausente ou invalida: FAIL' % nome
+        if not isinstance(v, dict) or v.get('POTE_SHA256') != sha_canonico or v.get('RUN_ID') != str(run_id):
+            return 'a versao %s tem o nome deste par e o conteudo de outro: FAIL' % nome
+        versoes.append((quando, caminho, v))
+    ultima = max(q for q, _c, _v in versoes)
+    no_topo = [(c, v) for q, c, v in versoes if q == ultima]
+    if len(no_topo) > 1:
+        return 'empate de DATA_UTC entre %d provas deste par: FAIL (lado cauteloso)' % len(no_topo)
+    caminho, v = no_topo[0]
+    if os.path.normcase(os.path.realpath(caminho)) != os.path.normcase(os.path.realpath(f)):
+        return 'ha prova mais recente deste par (%s, VEREDITO=%r): a do pedido ja nao vale' % (
+            os.path.basename(caminho), v.get('VEREDITO'))
+    if obj.get('VEREDITO') != 'PASS':
+        return 'a prova mais recente deste par diz VEREDITO=%r' % obj.get('VEREDITO')
     return None
 
 
@@ -678,13 +713,14 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     lab = pedido.get('PROVA_REVERSA_DO_LAB')
     if not isinstance(lab, dict) or lab.get('VEREDITO') != 'PASS':
         return False, '%s · sem a prova reversa do LAB (VEREDITO=PASS e onde esta)' % BLOQUEIO
-    problema = conferir_prova_do_lab(lab, _shas_que_nomeiam_o_pote(pedido, pote), pote.get('INTELLIGENCE_RUN_ID'),
+    problema = conferir_prova_do_lab(lab, sha256_do_pote(pote), pote.get('INTELLIGENCE_RUN_ID'),
                                      e.get('PASTAS_DO_LAB') or (), _caminho(pedido.get('POTE_FICHEIRO')),
-                                     _produtores_do_pote(pote))
+                                     _produtores_do_pote(pote), _envelope_do_pote(pote))
     if problema:
         return False, '%s · %s' % (BLOQUEIO, problema)
-    verificado.append('LAB: %s (JSON) numa pasta exclusiva do LAB, sha256 fixado; a entrada do par '
-                      '(POTE_SHA256, RUN_ID) deste pote diz VEREDITO=PASS e LAB_ORIGIN=%s' % (lab['ONDE'], LAB_ORIGIN))
+    verificado.append('LAB: %s e a prova MAIS RECENTE (DATA_UTC) do par (POTE_SHA256, RUN_ID) deste pote, '
+                      'sha256 fixado, VEREDITO=PASS, LAB_ORIGIN=%s, ENVELOPE_HASH conferido'
+                      % (os.path.basename(lab['ONDE']), LAB_ORIGIN))
     alegado.append('o CONTEUDO da prova reversa do LAB (nao e relido aqui)')
     alegado.append('o AUTOR da prova do LAB: AUTORIA_DO_LAB=DECLARADA (LAB_ORIGIN + pasta), AUTORIA_PROVADA=false '
                    '(todos os agentes correm como o mesmo utilizador Windows)')

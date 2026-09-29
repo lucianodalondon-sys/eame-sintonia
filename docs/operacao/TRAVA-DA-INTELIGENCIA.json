@@ -70,7 +70,7 @@
       "PASTAS_DO_LAB": [
         "C:/Users/London1/sintonia-lab-provas/"
       ],
-      "PASTAS_DO_LAB_PORQUE": "decisao tecnica do coordenador (29/09), depois de VERIF-L1-cb8f20bcf (LB5): a pasta do LAB e EXCLUSIVA do LAB. auditoria-madrugada/ saiu porque e partilhada (produtores tambem escrevem la) e 'lab/' saiu por nao ser exclusiva. A guarda recusa o pote do produtor nesta pasta ou em qualquer subpasta (caminho resolvido e prefixo de diretorio). A prova e JSON; conta so a entrada cujo par (POTE_SHA256, RUN_ID) e exatamente o deste pote, com VEREDITO=PASS e LAB_ORIGIN=sintonia-lab no mesmo objeto; POTE_REJEITADO com este pote = recusa. Se a pasta nao existir, nenhuma prova passa (falha fechado).",
+      "PASTAS_DO_LAB_PORQUE": "decisao tecnica do coordenador (29/09), depois de VERIF-L1-cb8f20bcf (LB5): a pasta do LAB e EXCLUSIVA do LAB. auditoria-madrugada/ saiu porque e partilhada (produtores tambem escrevem la) e 'lab/' saiu por nao ser exclusiva. A guarda recusa o pote do produtor nesta pasta ou em qualquer subpasta (caminho resolvido e prefixo de diretorio). A prova segue o FORMATO REAL DO LAB: um objeto JSON por ficheiro PROVA-REVERSA_pote-<sha16>_run-<RUN_ID>[-N].json; a guarda compara por igualdade de campo POTE_SHA256 (canonico) e RUN_ID, exige VEREDITO=PASS (so PASS|FAIL), LAB_ORIGIN=sintonia-lab e ENVELOPE_HASH igual ao do pote (ou NAO_EXISTE_NO_POTE_PUBLICADO); com varias versoes do par vale a mais recente pelo DATA_UTC de dentro do JSON, empate ou data invalida = FAIL. Se a pasta nao existir, nenhuma prova passa (falha fechado).",
       "LIMITE_CONHECIDO": {
         "AUTORIA_DO_LAB": "DECLARADA",
         "AUTORIA_PROVADA": false,

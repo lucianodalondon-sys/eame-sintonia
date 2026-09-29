@@ -137,30 +137,55 @@ class Base(unittest.TestCase):
                 p[k] = v
         return p
 
-    def lab_de_texto(self, texto, pasta=None):
-        """Um ficheiro de prova do LAB com este texto; devolve o pedaco do pedido."""
+    def _pasta_nova(self):
+        """Cada prova numa subpasta propria da pasta do LAB: as versoes de um par so
+        se encontram quando o teste as poe juntas de proposito."""
         type(self).n_lab += 1
-        caminho = os.path.join(pasta or self.pasta_lab, "LAB-%d.md" % self.n_lab)
+        pasta = os.path.join(self.pasta_lab, "p%d" % self.n_lab)
+        os.makedirs(pasta)
+        return pasta
+
+    def _gravar(self, texto, pasta, nome):
+        caminho = os.path.join(pasta, nome)
+        self.assertFalse(os.path.exists(caminho), "o LAB nunca sobrescreve uma prova")
         with open(caminho, "w", encoding="utf-8") as f:
             f.write(texto)
         with open(caminho, "rb") as f:
             sha = hashlib.sha256(f.read()).hexdigest()
         return {"VEREDITO": "PASS", "ONDE": caminho, "SHA256": sha}
 
-    def lab_json(self, obj, pasta=None):
-        """Uma prova ESTRUTURADA do LAB (JSON) com este conteudo."""
-        return self.lab_de_texto(json.dumps(obj, ensure_ascii=False, indent=1), pasta)
+    def nome_deste_par(self, pote=None, versao=1):
+        pote = self.pote if pote is None else pote
+        return lei.nome_da_prova_do_lab(lei.sha256_do_pote(pote), pote["INTELLIGENCE_RUN_ID"], versao)
+
+    def lab_de_texto(self, texto, pasta=None, nome=None):
+        """Um ficheiro na pasta do LAB, com o nome da prova deste par, e este texto."""
+        return self._gravar(texto, pasta or self._pasta_nova(), nome or self.nome_deste_par())
 
     def entrada(self, pote, veredito="PASS", run=None, **extra):
-        """A entrada do LAB para o par (POTE_SHA256, RUN_ID) deste pote."""
-        e = {"POTE_SHA256": lei.sha256_do_pote(pote),
+        """Uma prova no FORMATO REAL do LAB (29/09) para este pote e esta corrida."""
+        e = {"LAB_ORIGIN": lei.LAB_ORIGIN, "DATA_UTC": "2026-09-29T10:00:00Z",
+             "POTE_SHA256": lei.sha256_do_pote(pote),
              "RUN_ID": pote.get("INTELLIGENCE_RUN_ID") if run is None else run,
-             "VEREDITO": veredito, "LAB_ORIGIN": lei.LAB_ORIGIN}
+             "ENVELOPE_HASH": lei.ENVELOPE_INEXISTENTE, "VEREDITO": veredito,
+             "VEREDITO_DETALHE": "sintetico dos testes da guarda",
+             "ELOS": {"E%d" % k: "PASSOU" for k in range(1, 8)},
+             "OBJETOS_PROVADOS": [], "SCRIPT": "tests/test_excecao_preview_e2e.py",
+             "SCRIPT_SHA256": "0" * 64, "BRUTO": []}
         e.update(extra)
         return e
 
+    def lab_json(self, obj, pasta=None, nome=None, versao=1):
+        """Grava a prova com o nome real do par que ELA diz (ou o nome dado)."""
+        if nome is None:
+            if isinstance(obj, dict) and isinstance(obj.get("POTE_SHA256"), str) and obj.get("RUN_ID"):
+                nome = lei.nome_da_prova_do_lab(obj["POTE_SHA256"], obj["RUN_ID"], versao)
+            else:
+                nome = self.nome_deste_par(versao=versao)
+        return self._gravar(json.dumps(obj, ensure_ascii=False, indent=1), pasta or self._pasta_nova(), nome)
+
     def lab_para(self, pote, veredito="PASS", run=None, pasta=None):
-        """Uma prova do LAB, numa pasta do LAB, com a entrada deste pote e desta corrida."""
+        """A prova real do LAB para este pote e esta corrida, numa subpasta nova."""
         return self.lab_json(self.entrada(pote, veredito, run), pasta)
 
     def atravessa(self, pedido, trava=None, diario=None, olhos=None):
@@ -504,33 +529,35 @@ class R_RedTeamDoBotLuciano(Base):
     def test_redteam_lab_que_existe_mas_nao_cita_este_pote(self):
         outro = copy.deepcopy(self.pote)
         outro["INTELLIGENCE_RUN_ID"] = "IR-outra-corrida"
-        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(outro)))
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            self.entrada(outro), nome=self.nome_deste_par())))
         self.assertIn("par (POTE_SHA256, RUN_ID)", m)
 
-    def test_redteam_lab_que_diz_fail_ou_ambiguo(self):
+    def test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto(self):
         run = self.pote["INTELLIGENCE_RUN_ID"]
         sha = lei.sha256_do_pote(self.pote)
         m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, veredito="FAIL")))
         self.assertIn("VEREDITO", m)
-        # duas entradas para o MESMO par, uma PASS e uma FAIL: nao se escolhe a que convem
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
             [self.entrada(self.pote), self.entrada(self.pote, veredito="FAIL")])))
-        # texto solto, mesmo com tudo la dentro, ja nao e prova
+        self.assertIn("UM objeto", m)
         m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_de_texto(
             "VEREDITO=PASS\nPOTE_SHA256=%s\nRUN_ID=%s\nLAB_ORIGIN=sintonia-lab\n" % (sha, run))))
         self.assertIn("nao e estruturada", m)
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, veredito="PASSOU")))
+        self.assertIn("so PASS ou FAIL", m)
 
-    def test_lab_que_cita_o_ficheiro_do_pote_passa_so_se_o_ficheiro_e_este_pote(self):
+    def test_lab_com_o_sha_do_ficheiro_em_vez_do_canonico_recusa(self):
+        """O LAB declara o sha CANONICO (sort_keys, compacto). O sha dos bytes de um
+        ficheiro do pote nao e esse, e ja nao se aceita como alternativa."""
         f = self.escrever("POTE.json", json.dumps(self.pote, ensure_ascii=False, indent=1))
         with open(f, "rb") as h:
             sha_do_ficheiro = hashlib.sha256(h.read()).hexdigest()
-        lab = self.lab_json(self.entrada(self.pote, POTE_SHA256=sha_do_ficheiro))
-        pode, motivo = self.atravessa(self.pedido(POTE_FICHEIRO=f, PROVA_REVERSA_DO_LAB=lab))
+        self.assertNotEqual(sha_do_ficheiro, lei.sha256_do_pote(self.pote))
+        self.recusa(self.pedido(POTE_FICHEIRO=f, PROVA_REVERSA_DO_LAB=self.lab_json(
+            self.entrada(self.pote, POTE_SHA256=sha_do_ficheiro), nome=self.nome_deste_par())))
+        pode, motivo = self.atravessa(self.pedido(POTE_FICHEIRO=f, PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
         self.assertTrue(pode, motivo)
-        outro = copy.deepcopy(self.pote)
-        outro["INTELLIGENCE_RUN_ID"] = "IR-outra"
-        g = self.escrever("POTE-outro.json", json.dumps(outro))
-        self.recusa(self.pedido(POTE_FICHEIRO=g, PROVA_REVERSA_DO_LAB=lab))
 
     # ── 2 · C8 texto livre ──────────────────────────────────────────────────
     def test_redteam_c8_texto_livre(self):
@@ -734,15 +761,19 @@ class P_AProvaDoLabEDoLabEDestaCorrida(Base):
     """ADENDO DO RED TEAM (LAB): ligada ao pote E a corrida, de outro autor."""
 
     def test_lab_de_outra_corrida_recusa(self):
-        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, run="IR-outra-corrida")))
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            self.entrada(self.pote, run="IR-outra-corrida"), nome=self.nome_deste_par())))
         self.assertIn("corrida", m)
 
     def test_lab_com_a_corrida_so_como_pedaco_de_outra_recusa(self):
         run = self.pote["INTELLIGENCE_RUN_ID"]
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, run=run + "-x")))
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            self.entrada(self.pote, run=run + "-x"), nome=self.nome_deste_par())))
 
     def test_lab_fora_das_pastas_do_lab_recusa(self):
-        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, pasta=self.pasta)))
+        fora = os.path.join(self.pasta, "fora-do-lab-%d" % self.n_lab)
+        os.makedirs(fora)
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, pasta=fora)))
         self.assertIn("pasta do LAB", m)
 
     def test_lab_na_pasta_do_proprio_pote_recusa(self):
@@ -777,8 +808,8 @@ class P_AProvaDoLabEDoLabEDestaCorrida(Base):
 
 
 class LB_AProvaDoLabEstruturadaPorIgualdadeDeCampo(Base):
-    """AUDITOR (VERIF-L1-cb8f20bcf) + decisao do coordenador: LB1–LB6. A prova do
-    LAB e JSON e compara-se por IGUALDADE DE CAMPO; um teste por caso."""
+    """AUDITOR (VERIF-L1-cb8f20bcf) + decisao do coordenador + FORMATO REAL DO LAB:
+    LB1–LB6. Um objeto JSON por prova, comparado por IGUALDADE DE CAMPO."""
 
     OUTRO_SHA = "f" * 64
     OUTRA_RUN = "IR-OUTRA-RODADA-0001"
@@ -788,49 +819,44 @@ class LB_AProvaDoLabEstruturadaPorIgualdadeDeCampo(Base):
         self.run = self.pote["INTELLIGENCE_RUN_ID"]
 
     def outra(self, **extra):
-        e = {"POTE_SHA256": self.OUTRO_SHA, "RUN_ID": self.OUTRA_RUN, "VEREDITO": "PASS",
-             "LAB_ORIGIN": lei.LAB_ORIGIN}
+        e = self.entrada(self.pote, POTE_SHA256=self.OUTRO_SHA, RUN_ID=self.OUTRA_RUN)
         e.update(extra)
         return e
 
-    def test_CTRL_prova_estruturada_deste_pote_passa(self):
+    def test_CTRL_prova_real_deste_pote_passa(self):
         pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
         self.assertTrue(pode, motivo)
 
     def test_LB1_prova_de_outro_pote_que_so_menciona_este(self):
         self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.outra(
-            NOTA="comparado com o pote %s da rodada %s, que NAO foi verificado" % (self.sha, self.run)))))
-        # e o texto antigo do auditor, agora solto: tambem recusa
+            VEREDITO_DETALHE="comparado com o pote %s da rodada %s, NAO verificado" % (self.sha, self.run)),
+            nome=self.nome_deste_par())))
         self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_de_texto(
             "VEREDITO=PASS\nPOTE_SHA256=%s\nRUN=%s\nNota: %s %s\n"
             % (self.OUTRO_SHA, self.OUTRA_RUN, self.sha, self.run))))
 
-    def test_LB2_indice_com_varios_potes_e_um_veredito_global(self):
-        sem_veredito = self.entrada(self.pote)
-        sem_veredito.pop("VEREDITO")
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
-            {"VEREDITO": "PASS", "LAB_ORIGIN": lei.LAB_ORIGIN, "ENTRADAS": [self.outra(), sem_veredito]})))
-        # so a entrada DESTE par conta: com PASS nela, o indice serve
-        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
-            {"ENTRADAS": [self.outra(VEREDITO="FAIL"), self.entrada(self.pote)]})))
-        self.assertTrue(pode, motivo)
+    def test_LB2_indice_com_varios_potes_nao_e_uma_prova(self):
+        for indice in ({"VEREDITO": "PASS", "LAB_ORIGIN": lei.LAB_ORIGIN,
+                        "ENTRADAS": [self.outra(), self.entrada(self.pote)]},
+                       [self.outra(), self.entrada(self.pote)]):
+            self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(indice, nome=self.nome_deste_par())))
 
     def test_LB3_este_pote_citado_como_rejeitado(self):
         m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
-            [self.outra(), {"POTE_REJEITADO": self.sha, "RUN_ID": self.run, "LAB_ORIGIN": lei.LAB_ORIGIN}])))
+            self.entrada(self.pote, POTE_REJEITADO=self.sha))))
         self.assertIn("POTE_REJEITADO", m)
-        # mesmo com uma entrada PASS deste par ao lado, a rejeicao manda
         self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
-            [self.entrada(self.pote), {"POTE_REJEITADO": [self.OUTRO_SHA, self.sha.upper()]}])))
+            self.outra(POTE_REJEITADO=[self.OUTRO_SHA, self.sha]), nome=self.nome_deste_par())))
 
     def test_LB4_corrida_com_sufixo(self):
-        for run in (self.run + ".anterior", self.run + "-x", " " + self.run, self.run.lower()
-                    if self.run.lower() != self.run else self.run + " "):
-            self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote, run=run)))
+        for run in (self.run + ".anterior", self.run + "-x", " " + self.run, self.run + " "):
+            self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+                self.entrada(self.pote, run=run), nome=self.nome_deste_par())))
 
-    def test_LB4_sha_do_pote_so_como_pedaco_recusa(self):
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
-            self.entrada(self.pote, POTE_SHA256="x" + self.sha))))
+    def test_LB4_sha_do_pote_com_caixa_ou_pedaco_diferente_recusa(self):
+        for sha in ("x" + self.sha, self.sha.upper(), self.sha + " ", self.sha[:63]):
+            self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+                self.entrada(self.pote, POTE_SHA256=sha), nome=self.nome_deste_par())))
 
     def test_LB5_pote_do_produtor_em_subpasta_da_pasta_do_lab(self):
         sub = os.path.join(self.pasta_lab, "produtor", "fundo")
@@ -848,10 +874,6 @@ class LB_AProvaDoLabEstruturadaPorIgualdadeDeCampo(Base):
             if origem is None:
                 e.pop("LAB_ORIGIN")
             self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(e)))
-        # LAB_ORIGIN no topo do indice nao vale pela entrada: tem de estar no MESMO objeto
-        e = self.entrada(self.pote)
-        e.pop("LAB_ORIGIN")
-        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json({"LAB_ORIGIN": lei.LAB_ORIGIN, "ENTRADAS": [e]})))
 
     def test_LB6_o_lab_nao_pode_ser_o_produtor_do_pote(self):
         p = self.pedido()
@@ -862,6 +884,108 @@ class LB_AProvaDoLabEstruturadaPorIgualdadeDeCampo(Base):
     def test_pastas_do_lab_na_trava_real_sao_so_a_pasta_exclusiva(self):
         e = lei.excecao_vigente(self.trava_real, self.diario_real)
         self.assertEqual(e["PASTAS_DO_LAB"], ["C:/Users/London1/sintonia-lab-provas/"])
+
+
+class VER_AsVersoesDoMesmoParDecidemSePelaData(Base):
+    """PRECISAO DO LAB: vale a prova MAIS RECENTE do par pelo DATA_UTC DE DENTRO do
+    JSON — nunca pela ordem do nome. Empate = FAIL. Data ausente/invalida = FAIL."""
+
+    def versao(self, pasta, n, data, veredito="PASS", **extra):
+        return self.lab_json(self.entrada(self.pote, veredito, DATA_UTC=data, **extra), pasta=pasta, versao=n)
+
+    def test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo(self):
+        pasta = self._pasta_nova()
+        antigo = self.versao(pasta, 1, "2026-09-29T08:00:00Z", "PASS")
+        novo = self.versao(pasta, 2, "2026-09-29T09:00:00Z", "FAIL")
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=antigo))
+        self.assertIn("mais recente", m)
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=novo))
+        self.assertIn("VEREDITO", m)
+
+    def test_a_um_PASS_mais_novo_em_menos_2_vale_sobre_o_FAIL_antigo(self):
+        pasta = self._pasta_nova()
+        self.versao(pasta, 1, "2026-09-29T08:00:00Z", "FAIL")
+        novo = self.versao(pasta, 2, "2026-09-29T09:00:00Z", "PASS")
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=novo))
+        self.assertTrue(pode, motivo)
+
+    def test_b_menos_10_contra_menos_2_decide_se_pela_data_e_nao_pelo_nome(self):
+        # no alfabeto, '-10' vem ANTES de '-2'; so a data decide
+        pasta = self._pasta_nova()
+        dez = self.versao(pasta, 10, "2026-09-29T11:00:00Z", "PASS")
+        self.versao(pasta, 2, "2026-09-29T10:00:00Z", "FAIL")
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=dez))
+        self.assertTrue(pode, motivo)
+        pasta = self._pasta_nova()
+        dez = self.versao(pasta, 10, "2026-09-29T10:00:00Z", "PASS")
+        self.versao(pasta, 2, "2026-09-29T11:00:00Z", "FAIL")
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=dez))
+
+    def test_b_fusos_diferentes_comparam_se_no_mesmo_instante(self):
+        pasta = self._pasta_nova()
+        self.versao(pasta, 1, "2026-09-29T09:30:00+00:00", "FAIL")
+        novo = self.versao(pasta, 2, "2026-09-29T07:00:00-03:00", "PASS")   # 10:00 UTC
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=novo))
+        self.assertTrue(pode, motivo)
+
+    def test_c_empate_de_data_e_FAIL(self):
+        pasta = self._pasta_nova()
+        um = self.versao(pasta, 1, "2026-09-29T10:00:00Z", "PASS")
+        self.versao(pasta, 2, "2026-09-29T10:00:00+00:00", "PASS")
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=um))
+        self.assertIn("empate", m)
+
+    def test_data_ausente_ou_invalida_e_FAIL(self):
+        for data in (None, "", "ontem", "2026-13-40T99:00:00Z", 1727600000):
+            e = self.entrada(self.pote, DATA_UTC=data)
+            if data is None:
+                e.pop("DATA_UTC")
+            self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(e)))
+        # e uma versao irma com data invalida tambem derruba a prova boa
+        pasta = self._pasta_nova()
+        boa = self.versao(pasta, 1, "2026-09-29T10:00:00Z", "PASS")
+        self.versao(pasta, 2, "sem-data", "PASS")
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=boa))
+
+    def test_versao_irma_com_o_nome_deste_par_e_conteudo_de_outro_e_FAIL(self):
+        pasta = self._pasta_nova()
+        boa = self.versao(pasta, 1, "2026-09-29T10:00:00Z", "PASS")
+        self.lab_json(self.entrada(self.pote, POTE_SHA256="f" * 64, DATA_UTC="2026-09-29T09:00:00Z"),
+                      pasta=pasta, nome=self.nome_deste_par(versao=2))
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=boa))
+
+    def test_o_nome_da_prova_tem_de_ser_o_do_formato_real(self):
+        for nome in ("LAB-1.json", "PROVA-REVERSA_pote-x_run-y.json", self.nome_deste_par()[:-5] + "-1.json",
+                     self.nome_deste_par()[:-5] + "-02.json", self.nome_deste_par()[:-5] + ".JSON"):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(self.pote), nome=nome)))
+            self.assertIn("nome da prova", m)
+
+    def test_run_id_que_acaba_em_numero_nao_se_confunde_com_versao(self):
+        # o RUN_ID sintetico acaba em '-0001': o nome '...-0001.json' e a versao 1
+        self.assertRegex(self.pote["INTELLIGENCE_RUN_ID"], r"-\d+$")
+        self.assertEqual(lei._versao_do_nome(self.nome_deste_par(), lei.sha256_do_pote(self.pote),
+                                             self.pote["INTELLIGENCE_RUN_ID"]), 1)
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
+        self.assertTrue(pode, motivo)
+
+    def test_envelope_do_pote_tem_de_bater(self):
+        p = self.pedido()
+        p["POTE"]["ENVELOPE_HASH"] = "e" * 64
+        p.pop("_LAB_DESTE_POTE")
+        p["PROVA_REVERSA_DO_LAB"] = self.lab_json(self.entrada(p["POTE"], ENVELOPE_HASH="e" * 64))
+        pode, motivo = self.atravessa(p)
+        self.assertTrue(pode, motivo)
+        for env in (lei.ENVELOPE_INEXISTENTE, "d" * 64, None):
+            q = self.pedido()
+            q["POTE"]["ENVELOPE_HASH"] = "e" * 64
+            q.pop("_LAB_DESTE_POTE")
+            q["PROVA_REVERSA_DO_LAB"] = self.lab_json(self.entrada(q["POTE"], ENVELOPE_HASH=env))
+            m = self.recusa(q)
+            self.assertIn("ENVELOPE_HASH", m)
+        # pote sem envelope: a prova tem de dizer que nao existe
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            self.entrada(self.pote, ENVELOPE_HASH="e" * 64))))
+        self.assertIn("ENVELOPE_HASH", m)
 
 
 class LIMITE_AGuardaNaoAfirmaMaisDoQueProva(Base):

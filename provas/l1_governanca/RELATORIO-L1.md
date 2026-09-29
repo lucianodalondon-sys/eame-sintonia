@@ -41,10 +41,20 @@ o red team mostrou que três campos eram texto onde devia haver prova. Corrigido
 
 ### Rodada 3 (VERIF-L1-cb8f20bcf: LB1–LB6)
 
-A prova do LAB passou a ser JSON e compara-se por IGUALDADE DE CAMPO: só conta a
-entrada cujo par (`POTE_SHA256`, `RUN_ID`) é exatamente o deste pote, com
-`VEREDITO=PASS` e `LAB_ORIGIN=sintonia-lab` no mesmo objeto; `POTE_REJEITADO` com
-este pote = recusa; texto solto = recusa. `PASTAS_DO_LAB` passou a ser só
+A prova do LAB segue o **formato real do LAB**: um objeto JSON por ficheiro,
+`PROVA-REVERSA_pote-<sha16>_run-<RUN_ID>[-N].json` (nunca sobrescreve), com
+`LAB_ORIGIN`, `DATA_UTC`, `POTE_SHA256` (canónico), `RUN_ID`, `ENVELOPE_HASH`,
+`VEREDITO` (só PASS|FAIL) e o resto. A guarda compara por IGUALDADE DE CAMPO o par
+(`POTE_SHA256`, `RUN_ID`), exige `VEREDITO=PASS`, `LAB_ORIGIN=sintonia-lab` (e não o
+produtor), `ENVELOPE_HASH` igual ao do pote (ou `NAO_EXISTE_NO_POTE_PUBLICADO`) e o
+nome do formato real. Com várias versões do mesmo par vale a MAIS RECENTE pelo
+`DATA_UTC` de dentro do JSON (nunca pela ordem do nome: `-10` vem antes de `-2`);
+empate, data ausente ou inválida = FAIL; um FAIL recente derruba um PASS antigo.
+Índice, lista, texto solto ou `POTE_REJEITADO` com este pote = recusa.
+
+NÃO SEI: o pote v2 de hoje não tem campo de envelope (nem o schema nem o pote R9).
+A guarda procura `ENVELOPE_HASH` no topo do pote; se o produtor usar outro nome,
+a regra do envelope não o apanha — confirmar com o dono do pote. `PASTAS_DO_LAB` passou a ser só
 `C:/Users/London1/sintonia-lab-provas/`; o pote do produtor nessa pasta ou em
 subpasta = recusa (caminho resolvido, prefixo de diretório).
 
