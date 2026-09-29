@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b3de69442ba53a3600fbc2e6f0a6edb19b7508f1
-BRANCH           claude/c6-repetido-dedup-doc-9eqszm
-GERADO_EM        2026-09-28T17:12:58+00:00
+HEAD_DA_MEDICAO  7eb884192a10cca5f331e6cd84bd6348d9d796f1
+BRANCH           lucianodalondon-sys/integra-busca-sobre-fd8c946
+GERADO_EM        2026-09-28T21:26:16-03:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -482,7 +482,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-LINHA-BUSCA |
-| **prova de quem ativa** | .github/workflows/linha-busca-google.yml:107 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/linha-busca-google.yml:80 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `coleta/linha_busca.py`, `curadoria/LIFECYCLE-LEDGER-V1.json`, `superficie/rede.py` |
@@ -865,7 +865,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **EXTERNO_EVENTO** — EXTERNO |
-| **prova de quem ativa** | .github/workflows/linha-busca-google.yml · on: push, workflow_dispatch _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/linha-busca-google.yml · on: push _(plano CODE)_ |
 | **porquê** | um acontecimento do repositorio acorda este botao. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/derivados/LINHA-BUSCA/CONSULTAS.json` |
@@ -1239,12 +1239,12 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `ferramentas/linha_busca/api_oficial.py`, `ferramentas/linha_busca/consultas.py`, `ferramentas/linha_busca/fazer_fixture_lote0.py`, `ferramentas/linha_busca/fixtures/busca-lote-0/p01.html`, `ferramentas/linha_busca/fixtures/busca-lote-0/p02.html` _(e mais 19)_ |
+| **peça real** | `ferramentas/linha_busca/api_oficial.py`, `ferramentas/linha_busca/comentarios_piloto_d106.py`, `ferramentas/linha_busca/consultas.py`, `ferramentas/linha_busca/fazer_fixture_lote0.py`, `ferramentas/linha_busca/fixtures/busca-lote-0/p01.html` _(e mais 20)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 24 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas ha 25 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-LINHA-BUSCA |
-| **prova de quem ativa** | .github/workflows/linha-busca-google.yml:98 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/linha-busca-google.yml:71; .github/workflows/linha-busca-google.yml:100 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `ferramentas/linha_busca/PEDIDO-BUSCA-GOOGLE.json` |
@@ -1873,7 +1873,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — esta no caminho: alguem o chama antes de publicar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-LINHA-BUSCA, C-SCRAP-ROTA, C-SECURITY-CHECK |
-| **prova de quem ativa** | .github/workflows/curator-youtube-handles.yml:64; .github/workflows/curator-youtube-soc-onda2.yml:45; .github/workflows/linha-busca-google.yml:88 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/curator-youtube-handles.yml:64; .github/workflows/curator-youtube-soc-onda2.yml:45; .github/workflows/linha-busca-google.yml:67 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `DEDUP-INSTALAR.md`, `coleta/instagram_janela.py`, `data/derivados/PERIODO-E-CHAVES/testes-ANTES.txt` |
