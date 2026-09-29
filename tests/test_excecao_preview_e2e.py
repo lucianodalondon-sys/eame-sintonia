@@ -650,6 +650,12 @@ class L_OsDezasseisPedidosHostisDoAuditor(Base):
         for h in ("evil.com/.vercel.app", "evil.com?.vercel.app", "evil.com#.vercel.app",
                   "user@evil.com/.vercel.app", "vercel.app", "x.vercel.app:443"):
             self.recusa(self.vercel(host=h))
+        # e um host de preview LEGITIMO escrito com esquema, caminho ou porta: so o
+        # nome limpo conta — a regra tem de morder sozinha, sem outra que a cubra
+        for h in ("https://sintonia-eame-git-l1-x.vercel.app", "sintonia-eame-git-l1-x.vercel.app/caminho",
+                  "sintonia-eame-git-l1-x.vercel.app:8443", "u@sintonia-eame-git-l1-x.vercel.app"):
+            m = self.recusa(self.vercel(host=h))
+            self.assertIn("nome de host limpo", m)
 
     def test_L04_L05_L06_branch_de_producao_por_grafia(self):
         prod = self.publicacao["PROMOTION_AUTHORITY_BRANCHES"][0]
