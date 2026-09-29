@@ -1,0 +1,878 @@
+{
+ "DATASET": "MEDICAO-REGUA-T8-V1",
+ "GABARITO": "GABARITO-T8-V1.json",
+ "REGUA": {
+  "IT_PT": [
+   "agricoltore|agricoltori|agricultor|agricultores",
+   "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural",
+   "in campo|nei campi|no campo|nos campos",
+   "coltivatore|coltivatori|viticoltore|viticoltori|frutticoltore|frutticoltori|olivicoltore|olivicoltori|produtor rural|produtores rurais",
+   "allevatore|allevatori|pecuarista|pecuaristas",
+   "raccolto|raccolti|colheita|colheitas",
+   "semina|semine|sementeira|plantio",
+   "potatura|poda",
+   "concimazione|concimi|fertilizzanti|adubacao|fertilizantes",
+   "irrigazione|irrigacao",
+   "ettaro|ettari|hectare|hectares",
+   "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares",
+   "trattore|trattori|trator|tratores",
+   "redditivita|costi di produzione|rentabilidade|custos de producao"
+  ],
+  "EN": [
+   "farmer|farmers",
+   "farm|farms",
+   "in the field|in the fields",
+   "grower|growers",
+   "harvest|harvests",
+   "sowing|planting",
+   "pruning",
+   "fertiliser|fertilizer|fertilisers|fertilizers",
+   "irrigation",
+   "hectare|hectares",
+   "vineyard|vineyards|orchard|orchards",
+   "tractor|tractors",
+   "yield|yields",
+   "livestock"
+  ],
+  "SINAIS_MINIMOS": 2,
+  "PALAVRA_INTEIRA": [
+   "T8"
+  ],
+  "TRANSVERSAIS": [
+   "T8"
+  ]
+ },
+ "SHA_NAO_CONFERE": [],
+ "T8": {
+  "MEDIDO_DENTRO_DA_AMOSTRA": true,
+  "OURO_SIM": 20,
+  "OURO_NAO": 28,
+  "TP": 10,
+  "FP": 3,
+  "FN": 10,
+  "PRECISAO": 0.769,
+  "RECALL": 0.5,
+  "CONTROLO_NEGATIVO": {
+   "NAO_DO_GABARITO": 28,
+   "QUE_ENTRARAM_COMO_SIM": 3
+  },
+  "MATRIZ_OURO_PARA_REGUA": {
+   "NAO->NAO": 16,
+   "NAO->NAO_SEI": 9,
+   "NAO->SIM": 3,
+   "NAO_SEI->NAO": 1,
+   "NAO_SEI->NAO_SEI": 3,
+   "NAO_SEI->SIM": 5,
+   "SIM->NAO": 2,
+   "SIM->NAO_SEI": 8,
+   "SIM->SIM": 10
+  },
+  "ITENS": [
+   {
+    "VIDEO_ID": "7Ps4g3juOIU",
+    "SOURCE_ID": "IT-T8-001",
+    "OURO": "SIM",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "semina|semine|sementeira|plantio"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "zaEk8LE6SOQ",
+    "SOURCE_ID": "IT-T8-001",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 2,
+    "PALAVRAS": [
+     "in campo|nei campi|no campo|nos campos",
+     "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "s-x7v5HkA4g",
+    "SOURCE_ID": "IT-T8-004",
+    "OURO": "SIM",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "universita"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "X35K1b5_B78",
+    "SOURCE_ID": "IT-T8-004",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 2,
+    "PALAVRAS": [
+     "in campo|nei campi|no campo|nos campos",
+     "trattore|trattori|trator|tratores"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "yE4F0bjcF9Y",
+    "SOURCE_ID": "IT-T8-004",
+    "OURO": "SIM",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "redditivita|costi di produzione|rentabilidade|custos de producao"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "393IJzPlR3s",
+    "SOURCE_ID": "IT-T12-007",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 3,
+    "PALAVRAS": [
+     "potatura|poda",
+     "ettaro|ettari|hectare|hectares",
+     "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "M3CsNbebgKY",
+    "SOURCE_ID": "IT-T12-007",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 2,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "N46ITiIO1-0",
+    "SOURCE_ID": "IT-T12-007",
+    "OURO": "NAO_SEI",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "AQ5u5u-_Jjg",
+    "SOURCE_ID": "IT-T9-014",
+    "OURO": "SIM",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "5sVJ_1GWcC0",
+    "SOURCE_ID": "IT-T9-014",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 4,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "irrigazione|irrigacao",
+     "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares",
+     "trattore|trattori|trator|tratores"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "7oV8gNuiWkg",
+    "SOURCE_ID": "IT-T9-016",
+    "OURO": "NAO_SEI",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "jZi30pzyACA",
+    "SOURCE_ID": "IT-T9-016",
+    "OURO": "SIM",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T9": [
+      "lancio",
+      "campagna",
+      "prodotto"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "mfuvbwmtPYk",
+    "SOURCE_ID": "IT-T9-016",
+    "OURO": "NAO_SEI",
+    "REGUA": "SIM",
+    "SINAIS": 2,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "raccolto|raccolti|colheita|colheitas"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "WSluFetdPxE",
+    "SOURCE_ID": "IT-T12-008",
+    "OURO": "SIM",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "-37WbH5uyY8",
+    "SOURCE_ID": "IT-T12-008",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 2,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "EWDM0gFy2v4",
+    "SOURCE_ID": "IT-T7-027",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 2,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "concimazione|concimi|fertilizzanti|adubacao|fertilizantes"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "mJRNkVEUbvE",
+    "SOURCE_ID": "IT-T7-026",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 4,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "in campo|nei campi|no campo|nos campos",
+     "concimazione|concimi|fertilizzanti|adubacao|fertilizantes",
+     "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "nuJVA-0IXIw",
+    "SOURCE_ID": "IT-T7-026",
+    "OURO": "NAO",
+    "REGUA": "SIM",
+    "SINAIS": 3,
+    "PALAVRAS": [
+     "in campo|nei campi|no campo|nos campos",
+     "irrigazione|irrigacao",
+     "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "cg8Ruvax0oE",
+    "SOURCE_ID": "IT-T7-026",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "istituto"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "IXmtJ5pF1nQ",
+    "SOURCE_ID": "IT-T12-016",
+    "OURO": "NAO",
+    "REGUA": "SIM",
+    "SINAIS": 2,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "tPHXkdGDS4M",
+    "SOURCE_ID": "IT-T7-028",
+    "OURO": "SIM",
+    "REGUA": "NAO_SEI",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "6fSh-wvRK4s",
+    "SOURCE_ID": "IT-T7-028",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 2,
+    "PALAVRAS": [
+     "in campo|nei campi|no campo|nos campos",
+     "raccolto|raccolti|colheita|colheitas"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "XpDD4QNPd3U",
+    "SOURCE_ID": "IT-T12-008",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T7": [
+      "consorzio"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "zDT7EZn769o",
+    "SOURCE_ID": "IT-T7-027",
+    "OURO": "NAO",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "raccolto|raccolti|colheita|colheitas"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "Ya6W2z8LgeE",
+    "SOURCE_ID": "IT-T5-048",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "ricerca"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "-e9q6VQ2tsc",
+    "SOURCE_ID": "IT-T2-026",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T9": [
+      "prodotto"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "uKaKjODTQco",
+    "SOURCE_ID": "IT-T2-027",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "revista"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "8nwl4ps_Bnk",
+    "SOURCE_ID": "IT-T2-027",
+    "OURO": "NAO",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "in campo|nei campi|no campo|nos campos"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "K2U3hK2kmFw",
+    "SOURCE_ID": "IT-T2-028",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T4": [
+      "ministero"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "P3u0sb70fl4",
+    "SOURCE_ID": "IT-T2-028",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "studio"
+     ],
+     "T9": [
+      "prodotto",
+      "novita"
+     ],
+     "T4": [
+      "bula"
+     ],
+     "T3": [
+      "sintoma",
+      "malattia",
+      "sintomo"
+     ],
+     "T10": [
+      "importazion"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "2s2FzjFgLUk",
+    "SOURCE_ID": "IT-T2-028",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "studio",
+      "ricerca",
+      "istituto",
+      "tesi"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "en5dq764hKs",
+    "SOURCE_ID": "IT-T12-015",
+    "OURO": "NAO",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "raccolto|raccolti|colheita|colheitas"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "hJ93XKhPdRs",
+    "SOURCE_ID": "IT-T12-015",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "study"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "7g3fKrp1F6E",
+    "SOURCE_ID": "IT-T12-015",
+    "OURO": "NAO",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "raccolto|raccolti|colheita|colheitas"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "pLXOoRW7q4I",
+    "SOURCE_ID": "IT-T12-010",
+    "OURO": "NAO",
+    "REGUA": "NAO_SEI",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "2G5acM0dBvQ",
+    "SOURCE_ID": "IT-T12-010",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "universita"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "hktVMpetyz8",
+    "SOURCE_ID": "IT-T5-050",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "doi",
+      "study",
+      "research",
+      "university"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "rKyOY-pfU7c",
+    "SOURCE_ID": "IT-T5-050",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "research",
+      "university"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "oM-SGXaqIs4",
+    "SOURCE_ID": "IT-T5-050",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "ricerca",
+      "universita"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "KTddK5xMmO0",
+    "SOURCE_ID": "IT-T7-037",
+    "OURO": "NAO",
+    "REGUA": "NAO_SEI",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": "de",
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "yGiKfcIXSnw",
+    "SOURCE_ID": "IT-T7-016",
+    "OURO": "NAO",
+    "REGUA": "NAO_SEI",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "WPDKBCn1E5M",
+    "SOURCE_ID": "IT-T7-035",
+    "OURO": "NAO_SEI",
+    "REGUA": "SIM",
+    "SINAIS": 7,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "in campo|nei campi|no campo|nos campos",
+     "raccolto|raccolti|colheita|colheitas",
+     "concimazione|concimi|fertilizzanti|adubacao|fertilizantes",
+     "irrigazione|irrigacao",
+     "ettaro|ettari|hectare|hectares",
+     "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "1eH49G366Ak",
+    "SOURCE_ID": "IT-T7-035",
+    "OURO": "NAO",
+    "REGUA": "SIM",
+    "SINAIS": 7,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural",
+     "in campo|nei campi|no campo|nos campos",
+     "coltivatore|coltivatori|viticoltore|viticoltori|frutticoltore|frutticoltori|olivicoltore|olivicoltori|produtor rural|produtores rurais",
+     "raccolto|raccolti|colheita|colheitas",
+     "ettaro|ettari|hectare|hectares",
+     "redditivita|costi di produzione|rentabilidade|custos de producao"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "XoizOODHOUE",
+    "SOURCE_ID": "IT-T7-035",
+    "OURO": "NAO_SEI",
+    "REGUA": "SIM",
+    "SINAIS": 9,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural",
+     "in campo|nei campi|no campo|nos campos",
+     "coltivatore|coltivatori|viticoltore|viticoltori|frutticoltore|frutticoltori|olivicoltore|olivicoltori|produtor rural|produtores rurais",
+     "raccolto|raccolti|colheita|colheitas",
+     "concimazione|concimi|fertilizzanti|adubacao|fertilizantes",
+     "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares",
+     "trattore|trattori|trator|tratores"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "_4snVpnEE_g",
+    "SOURCE_ID": "IT-T7-024",
+    "OURO": "SIM",
+    "REGUA": "SIM",
+    "SINAIS": 5,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural",
+     "in campo|nei campi|no campo|nos campos",
+     "semina|semine|sementeira|plantio",
+     "ettaro|ettari|hectare|hectares"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "XD5ZqROiK74",
+    "SOURCE_ID": "IT-T5-043",
+    "OURO": "NAO",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "concimazione|concimi|fertilizzanti|adubacao|fertilizantes"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "pMKCrkQRTx4",
+    "SOURCE_ID": "IT-T5-043",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "universita",
+      "tesi"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "HJD5rB2jTr0",
+    "SOURCE_ID": "IT-T5-037",
+    "OURO": "SIM",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "ettaro|ettari|hectare|hectares"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "7kccYeX7Iq8",
+    "SOURCE_ID": "IT-T7-018",
+    "OURO": "NAO_SEI",
+    "REGUA": "SIM",
+    "SINAIS": 3,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "in campo|nei campi|no campo|nos campos",
+     "ettaro|ettari|hectare|hectares"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "VH9y1FLXX8M",
+    "SOURCE_ID": "IT-T7-028",
+    "OURO": "SIM",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "YXJX_aFzvfU",
+    "SOURCE_ID": "IT-T7-018",
+    "OURO": "SIM",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "in campo|nei campi|no campo|nos campos"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "c2vz1GSt2o4",
+    "SOURCE_ID": "IT-T7-018",
+    "OURO": "NAO_SEI",
+    "REGUA": "SIM",
+    "SINAIS": 2,
+    "PALAVRAS": [
+     "agricoltore|agricoltori|agricultor|agricultores",
+     "redditivita|costi di produzione|rentabilidade|custos de producao"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "a430yU34_3c",
+    "SOURCE_ID": "IT-T7-024",
+    "OURO": "NAO_SEI",
+    "REGUA": "NAO_SEI",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": null
+   },
+   {
+    "VIDEO_ID": "knHDToHo6Rk",
+    "SOURCE_ID": "IT-T7-024",
+    "OURO": "NAO_SEI",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "ricerca"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "HJ1yp59oXF4",
+    "SOURCE_ID": "IT-T5-037",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "ricerca",
+      "istituto"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "TmU7X8BnUyI",
+    "SOURCE_ID": "IT-T5-037",
+    "OURO": "NAO",
+    "REGUA": "NAO",
+    "SINAIS": null,
+    "PALAVRAS": null,
+    "IDIOMA": null,
+    "OUTRO": {
+     "T5": [
+      "studio"
+     ],
+     "T3": [
+      "parassita"
+     ],
+     "T10": [
+      "importazion"
+     ]
+    }
+   },
+   {
+    "VIDEO_ID": "GtxKpkEiImo",
+    "SOURCE_ID": "IT-T12-016",
+    "OURO": "NAO",
+    "REGUA": "NAO_SEI",
+    "SINAIS": 1,
+    "PALAVRAS": [
+     "in campo|nei campi|no campo|nos campos"
+    ],
+    "IDIOMA": null,
+    "OUTRO": null
+   }
+  ]
+ },
+ "VIZINHOS": {
+  "BASE": "HEAD",
+  "UNIVERSOS": [
+   "T3",
+   "T4",
+   "T5",
+   "T7",
+   "T9",
+   "T10"
+  ],
+  "TEXTOS": 133,
+  "LOTE76_DIR": "C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\lote-76-v1\\NAO_SEI\\derivados",
+  "JULGAMENTOS": 798,
+  "IT_VERDICTS_CHANGED": 0,
+  "MUDANCAS": []
+ }
+}

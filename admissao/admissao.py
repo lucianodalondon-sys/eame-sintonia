@@ -790,8 +790,15 @@ SINAIS_MINIMOS = 2
 #     (medido: 0 vereditos vizinhos mudados, `MEDICAO-REGUA-T2-V1.json`).
 #
 #     FALAR DO TEMPO NAO E MUDAR DE ASSUNTO.
-PALAVRA_INTEIRA = frozenset({"T2", "T1"})
-TRANSVERSAIS = frozenset({"T2", "T1"})
+# RELIGA-MULTICANAL (D156): T8 entra nos dois conjuntos pela MESMA razao que T1 e T2 ja la estao —
+# a regua de T8 nasceu com fronteira de palavra e por conceito (formas separadas por «|»), e T8 e
+# TRANSVERSAL: «quem fala e o campo?» nao exclui «fala de praga?». Um video sobre a mosca da oliveira
+# e T3 E T8 ao mesmo tempo, e por isso um termo de T8 nunca serve de prova para dizer NAO a outro
+# universo. As reguas antigas nao mudam por T8 existir.
+#
+#     A VOZ DO CAMPO NAO E UM ASSUNTO: E QUEM FALA DO ASSUNTO.
+PALAVRA_INTEIRA = frozenset({"T2", "T1", "T8"})
+TRANSVERSAIS = frozenset({"T2", "T1", "T8"})
 
 
 def _casa(termo: str, texto_dobrado: str) -> bool:
@@ -963,6 +970,18 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
                      f"evidencia de ausencia, e por isso fica NAO_SEI."), {}
 
 
+#: O carimbo que toda decisao de T8 leva enquanto a regua for candidata (D156). Nao e um detalhe de
+#: relatorio: e o que impede alguem, daqui a um mes, de ler um SIM de T8 como se fosse um SIM validado.
+CARIMBO_T8 = {"REGUA_T8": "v1", "VALIDADO_POR_HUMANO": "NAO",
+              "MEDICAO": "recall 10/20 nos SIM; 3 falsos SIM em 28 negativos (scripts/regua_t8/)",
+              "ONDE_PODE_ENTRAR": "SO a Sala descartavel do canario, ate decisao do dono"}
+
+
+def carimbo_da_regua(universo: str) -> dict:
+    """O carimbo de uma regua que ainda nao foi validada por humano, ou {} quando nao ha nenhum."""
+    return dict(CARIMBO_T8) if universo == "T8" else {}
+
+
 # ── A PORTA TEM DE FALAR A LINGUA DO ITEM ──────────────────────────────────
 # Esta lista nasceu em PORTUGUES, e a porta decide sobre item ITALIANO. Medido
 # contra o unico texto italiano real desta arvore: **1 de 28** palavras aparecia
@@ -994,6 +1013,45 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
 #
 #     UMA CHAVE DE DICIONARIO TAMBEM E UMA DECLARACAO DE TAXONOMIA.
 PERGUNTAS_DO_UNIVERSO = {
+    # ⚠️ T8 E CANDIDATA EM CANARIO (RELIGA-MULTICANAL, D156, 29/09/2026).
+    # Portada SEMANTICAMENTE de `origin/youtube-regua-t8-v1 @b48a99ff0`, com o texto IGUAL ao do ramo.
+    # A medicao dela contra o gabarito (scripts/regua_t8/) diz o que ela ainda nao e:
+    #     recall 10/20 nos SIM  ·  3 falsos SIM em 28 negativos  ·  VALIDADO_POR_HUMANO = NAO
+    # Por isso toda decisao item-universo em T8 sai carimbada (`REGUA_T8`, `VALIDADO_POR_HUMANO`), e os
+    # itens que ela admite ficam SO na Sala descartavel do canario ate o dono decidir.
+    #
+    #     UMA REGUA QUE ACERTA METADE NAO E UMA REGUA ERRADA: E UMA REGUA QUE AINDA NAO FOI VALIDADA,
+    #     E A DIFERENCA TEM DE ESTAR ESCRITA EM CADA DECISAO QUE ELA ASSINA.
+    #
+    # DEFEITO VIZINHO, REGISTADO E NAO CORRIGIDO: o rodape «articolo» produz um falso NAO. E defeito de
+    # outra regua, e consertar de passagem seria mexer numa medicao que nao e desta missao.
+    # T8 · FARMERS & INFLUENCERS — a voz e a pratica do campo (YT2, 2026-09-23)
+    #
+    # Escrita DEPOIS do gabarito (scripts/regua_t8/GABARITO-T8-V1.json, 20 SIM /
+    # 28 NAO, commit 000ea1e0) e a partir do PROTOCOLO dele, nao do texto dos
+    # videos. Um termo = um conceito; as formas vao separadas por «|» e casam
+    # por PALAVRA INTEIRA (ver `PALAVRA_INTEIRA`). Nenhum repete T3/T5/T7/T10.
+    #
+    # ⚠️ FICARAM DE FORA ANTES DE MEDIR, com a razao de cada um:
+    #     raccolta  e tambem «recolha» (de residuos, de cereais no silo)
+    #     resa      e tambem o verbo («si e resa conto»)
+    #     campagna  e tambem campanha publicitaria — e ja e de T9
+    #     varieta   aparece em «varieta di piante autoctone», que nao e campo
+    "T8": ["agricoltore|agricoltori|agricultor|agricultores",
+           "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural",
+           "in campo|nei campi|no campo|nos campos",
+           "coltivatore|coltivatori|viticoltore|viticoltori|frutticoltore|frutticoltori|"
+           "olivicoltore|olivicoltori|produtor rural|produtores rurais",
+           "allevatore|allevatori|pecuarista|pecuaristas",
+           "raccolto|raccolti|colheita|colheitas",
+           "semina|semine|sementeira|plantio",
+           "potatura|poda",
+           "concimazione|concimi|fertilizzanti|adubacao|fertilizantes",
+           "irrigazione|irrigacao",
+           "ettaro|ettari|hectare|hectares",
+           "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares",
+           "trattore|trattori|trator|tratores",
+           "redditivita|costi di produzione|rentabilidade|custos de producao"],
     # T5 · SCIENCE — papers, estudos, trials, institutos
     #
     # ⚠️ `prova` SAIU, E A MEDICAO QUE O TIROU E O MELHOR ARGUMENTO DESTE
@@ -1297,6 +1355,12 @@ PERGUNTAS_DO_UNIVERSO = {
 #     dois sinais a uma palavra — a regra dos SINAIS_MINIMOS deixava de valer.
 # E, como no italiano, NENHUMA FORMA CABE DENTRO DE OUTRA DA MESMA LISTA.
 PERGUNTAS_EN = {
+    # T8 · os mesmos conceitos, em ingles (palavra inteira, formas por «|»)
+    "T8": ["farmer|farmers", "farm|farms", "in the field|in the fields",
+           "grower|growers", "harvest|harvests", "sowing|planting", "pruning",
+           "fertiliser|fertilizer|fertilisers|fertilizers", "irrigation",
+           "hectare|hectares", "vineyard|vineyards|orchard|orchards",
+           "tractor|tractors", "yield|yields", "livestock"],
     "T5": ["doi", "orcid",                                    # sem lingua
            "study", "research", "journal", "article", "university", "institute",
            "publication", "conference", "experiment", "field trial"],

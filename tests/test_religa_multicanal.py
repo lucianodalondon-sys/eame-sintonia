@@ -555,9 +555,208 @@ def test_o_run_id_da_linha_e_legivel_pela_prova_teto():
     import onda_linha as OL
     sys.path.insert(0, str(RAIZ / "provas"))
     import prova_teto_dominio as PT
-    for sid in ("IT-T8-004", "IT-T9-026", None):
+    # `None` saiu daqui de proposito: depois da D156 um SOURCE_ID sem territorio LEVANTA em vez de
+    # cair num T9 inventado — ver `test_armadilha_run_id_nao_inventa_territorio`.
+    for sid in ("IT-T8-004", "IT-T9-026"):
         r = OL.run_id(sid)
         assert PT.RE_RUN_ID.fullmatch(r), r
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# D156 · O UNIVERSO VEM DO PEDIDO — e o teste falha se ele vier da fonte
+# ══════════════════════════════════════════════════════════════════════════════
+def test_armadilha_o_universo_nunca_vem_do_source_id_nem_do_territorio():
+    """⚠️ A LEI QUE EU JA VIOLEI UMA VEZ NESTA MISSAO (`admissao/admissao.py`, pergunta do universo):
+
+        «o universo vem do PEDIDO — nunca da fonte, do territorio dela, da plataforma nem do conteudo»
+
+    Eu derivava o universo do TERRITORIO do Curator, e com isso um item recebia a regua de T8 sem que
+    ninguem tivesse perguntado nada sobre T8. Este teste falha se isso voltar."""
+    t = _Temp()
+    try:
+        f = Path(t.pasta) / "c.json"
+        f.write_text(json.dumps({"YOUTUBE": [
+            {"SOURCE_ID": "IT-T8-004", "URL": "https://www.youtube.com/channel/%s" % CANAL,
+             "NATIVE_ID": CANAL, "TERRITORIO": "T8"}]}), encoding="utf-8")
+        c = FM.candidatas_por_linha(f)["YOUTUBE"][0]
+        assert c["TERRITORIO"] == "T8", "o territorio e um facto do Curator e viaja"
+        assert c["UNIVERSOS_DO_PEDIDO"] == [], \
+            "o universo veio da fonte: nem o SOURCE_ID nem o TERRITORIO podem declara-lo"
+    finally:
+        t.fechar()
+
+
+def test_o_universo_declarado_no_pedido_viaja_com_a_origem():
+    t = _Temp()
+    try:
+        f = Path(t.pasta) / "c.json"
+        f.write_text(json.dumps({"YOUTUBE": [
+            {"SOURCE_ID": "IT-T8-004", "URL": "https://www.youtube.com/channel/%s" % CANAL,
+             "NATIVE_ID": CANAL, "TERRITORIO": "T8",
+             "UNIVERSOS_DO_PEDIDO": [{"UNIVERSO": "T8", "ORIGEM": "PEDIDO-X do coordenador, 29/09"},
+                                     {"UNIVERSO": "T3", "ORIGEM": "PEDIDO-X do coordenador, 29/09"},
+                                     {"UNIVERSO": "T5"}]}]}), encoding="utf-8")
+        u = FM.candidatas_por_linha(f)["YOUTUBE"][0]["UNIVERSOS_DO_PEDIDO"]
+        assert [x["UNIVERSO"] for x in u] == ["T8", "T3"], "o mesmo item leva DUAS perguntas"
+        assert all(x["ORIGEM"] for x in u)
+        assert "T5" not in [x["UNIVERSO"] for x in u], "declaracao sem origem nao e rastreavel: nao entra"
+    finally:
+        t.fechar()
+
+
+def test_sem_universo_declarado_a_porta_para_e_diz_porque():
+    import onda_linha as OL
+    d = OL.admitir_pedidos(b"{}", "application/json", "u", "IT-T8-004", [], "sha", "2026-09-29T00:00:00Z", "R")
+    assert len(d) == 1 and d[0]["RESULTADO"] == "UNIVERSO_NAO_DECLARADO"
+    assert d[0]["READY"] is None
+    assert "nao escolhe um" in d[0]["MOTIVO"]
+
+
+def test_a_regua_t8_e_candidata_e_carimba_cada_decisao():
+    """A regua T8 tem recall 10/20 e 3 falsos SIM em 28 negativos. Sem carimbo, daqui a um mes um SIM
+    de T8 le-se como um SIM validado."""
+    sys.path.insert(0, str(RAIZ / "admissao"))
+    import admissao as adm
+    assert "T8" in adm.PERGUNTAS_DO_UNIVERSO, "a regua T8 tem de estar portada"
+    c = adm.carimbo_da_regua("T8")
+    assert c["REGUA_T8"] == "v1" and c["VALIDADO_POR_HUMANO"] == "NAO"
+    assert adm.carimbo_da_regua("T7") == {}, "so a regua candidata leva carimbo"
+    assert "T8" in adm.TRANSVERSAIS, "T8 e transversal: nao exclui outro universo"
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# D156 · DUAS CAPTURAS DOS MESMOS BYTES SAO DUAS OBSERVACOES (COL-LAW-204/311)
+# ══════════════════════════════════════════════════════════════════════════════
+def test_armadilha_duas_urls_com_os_mesmos_bytes_preservam_duas_observacoes():
+    """⚠️ Este codigo descartava por sha256 ANTES de preservar, e casava o RAW_OBSERVATION_ID tambem
+    pelo sha. Dois enderecos que devolvam o MESMO byte sao duas OBSERVACOES do mundo, e nao uma: um
+    canal que republica o mesmo boletim em duas paginas perdia uma das duas, calado.
+
+        O SHA IDENTIFICA O CONTEUDO. NAO IDENTIFICA A OBSERVACAO."""
+    import onda_linha as OL
+    from guarda import preservar_coleta as PC
+    mesmos = b'{"TITLE":"o mesmo byte","DESCRIPTION":"identico"}'
+    colhidos = [{"BYTES": mesmos, "URL": "https://x.it/a", "MEDIA_TYPE": "application/json",
+                 "ROTA": "r", "_DESCOBERTA": {}},
+                {"BYTES": mesmos, "URL": "https://x.it/b", "MEDIA_TYPE": "application/json",
+                 "ROTA": "r", "_DESCOBERTA": {}}]
+    cand = {"SOURCE_ID": "IT-T9-001", "UNIVERSOS_DO_PEDIDO": []}
+    visto = {}
+
+    class _Persistencia:
+        raiz_do_armazem = str(RAIZ)
+        memoria = object()
+
+    def _preservar(run, artefatos, armazem, bytes_de, memoria=None):
+        visto["artefatos"] = artefatos
+        # o dono do RAW devolve UM par por artefato, com a alca que o chamador atou
+        return {"RUN_STATE": "OK", "OBSERVACOES_CONFERIDAS": [
+            {"RAW_OBSERVATION_ID": 100 + i, PC.PASSAGENS: [a[PC.PASSAGEM]]}
+            for i, a in enumerate(artefatos)]}
+    real = PC.preservar
+    PC.preservar = _preservar
+    try:
+        r = OL.para_a_sala("YOUTUBE", cand, colhidos, "IT-T9-2026-09-29-000000-0123456789abcdef",
+                           persistencia=_Persistencia(), pousar=False)
+    finally:
+        PC.preservar = real
+    assert len(visto["artefatos"]) == 2, "uma das duas capturas foi deitada fora antes de preservar"
+    assert {a["SHA256"] for a in visto["artefatos"]} == {visto["artefatos"][0]["SHA256"]}, \
+        "os bytes eram para ser os mesmos"
+    assert {a["SOURCE_URL"] for a in visto["artefatos"]} == {"https://x.it/a", "https://x.it/b"}
+    ids = [l["RAW_OBSERVATION_ID"] for l in r["RELATO"]]
+    assert sorted(ids) == [100, 101], "cada captura tem de receber o SEU id: %s" % ids
+    assert len({l["PASSAGEM"] for l in r["RELATO"]}) == 2, "as alcas tem de ser distintas"
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# D156 · O TERRITORIO NAO SE INVENTA
+# ══════════════════════════════════════════════════════════════════════════════
+def test_armadilha_run_id_nao_inventa_territorio():
+    """⚠️ Caia num T9 por omissao — e T9 e COMPETITORS, um universo real com dono. Uma corrida de uma
+    fonte sem territorio ficava carimbada como sendo de concorrentes, para sempre."""
+    import onda_linha as OL
+    for sem in (None, "", "CAND-0078", "COMPETITOR-PUBLIC-COMM/CONTAS-V1#BAYER|IT|INSTAGRAM"):
+        try:
+            r = OL.run_id(sem)
+            raise AssertionError("inventou um territorio para %r: %s" % (sem, r))
+        except OL.TerritorioNaoDeclarado as ex:
+            assert "TERRITORIO_NAO_DECLARADO" in str(ex)
+    # declarado: passa, e a prova continua a saber ler
+    sys.path.insert(0, str(RAIZ / "provas"))
+    import prova_teto_dominio as PT
+    assert PT.RE_RUN_ID.fullmatch(OL.run_id("CAND-0078", "T9"))
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# D157 + LAB · NAO SE RE-PEDE O QUE JA SE COLHEU, E A SALA NAO REPETE O CONTEUDO
+# ══════════════════════════════════════════════════════════════════════════════
+def test_armadilha_o_motor_de_busca_e_o_do_vivo_e_nao_um_nome_inventado():
+    """⚠️ Eu tinha escrito «DUCKDUCKGO_HTML» por omissao; o dicionario do vivo chama-lhe `DDG_HTML`.
+    As 5 consultas do canario morreram todas com KeyError, e o erro so apareceu na rede real."""
+    sys.path.insert(0, str(RAIZ))
+    import _gavetas  # noqa: F401
+    import motores as MO
+    import onda_linha as OL
+    import re as _re
+    fonte = open(RAIZ / "ferramentas" / "big_collection" / "onda_linha.py", encoding="utf-8").read()
+    m = _re.search(r'SINTONIA_BUSCA_MOTOR"\) or "([A-Z_]+)"', fonte)
+    assert m, "nao encontrei o motor por omissao"
+    assert m.group(1) in MO.MOTORES,         "o motor por omissao (%s) nao existe no vivo; existem: %s" % (m.group(1), sorted(MO.MOTORES))
+    # e um motor desconhecido tem de dizer QUAIS existem, em vez de rebentar com KeyError
+    import os as _os
+    _os.environ["SINTONIA_BUSCA_MOTOR"] = "NAO_EXISTE_ESTE"
+    try:
+        r = OL.alvos_da_fonte("BUSCA", {"SOURCE_ID": "Q1", "ALVO": {"CONSULTA": "x"}}, leitor("x"))
+        assert "MOTOR_DESCONHECIDO" in r["ERRO"] and "DDG_HTML" in r["ERRO"]
+    finally:
+        _os.environ.pop("SINTONIA_BUSCA_MOTOR", None)
+
+
+def test_a_sala_fica_com_a_variante_rica_do_mesmo_documento():
+    """As 7 variantes que o LAB contou NAO sao duplicados: sao o oEmbed (so titulo) e a pagina /watch
+    (com a descricao) do MESMO video. Apagar uma delas perderia informacao real; a Sala fica com a que
+    ve mais, e as outras continuam preservadas no RAW."""
+    import onda_linha as OL
+    pobre = {"ITEM_ID": "doc-1", "TEXTO": "Peronospora"}
+    rica = {"ITEM_ID": "doc-1", "TEXTO": "Peronospora della vite: difesa, fungicidi e strategia " * 4}
+    assert OL._riqueza(rica) > OL._riqueza(pobre)
+
+
+def test_o_alvo_ja_colhido_na_janela_nao_e_pedido_outra_vez():
+    """31 dos 45 RAW do canario (69%) eram o MESMO video regravado ate 6x. O desperdicio nao e o
+    ficheiro a mais: e o PEDIDO a mais, que gasta orcamento que uma fonte nova nao vai ter."""
+    import onda_linha as OL
+    t = _Temp()
+    try:
+        base = Path(t.pasta)
+        OL.anotar_visto(base, "YOUTUBE", "https://www.youtube.com/watch?v=aaaaaaaaaaa", "RUN-1")
+        v = OL.ler_vistos(base)
+        assert v[("YOUTUBE", "https://www.youtube.com/watch?v=aaaaaaaaaaa")]["RUN_ID"] == "RUN-1"
+        assert ("YOUTUBE", "https://www.youtube.com/watch?v=outro") not in v
+        assert ("LINKEDIN", "https://www.youtube.com/watch?v=aaaaaaaaaaa") not in v, \
+            "o livro e por LINHA e por alvo"
+        # fora da janela deixa de contar
+        assert OL.ler_vistos(base, janela_s=1, agora=__import__("time").time() + 10) == {}
+    finally:
+        t.fechar()
+
+
+def test_um_livro_de_vistos_estragado_nao_apaga_a_memoria():
+    """Uma linha ilegivel nao pode fazer o coletor esquecer tudo o que ja colheu — seria voltar a
+    pedir o mundo inteiro por causa de um byte."""
+    import onda_linha as OL
+    t = _Temp()
+    try:
+        base = Path(t.pasta)
+        OL.anotar_visto(base, "YOUTUBE", "https://x/1", "RUN-1")
+        with open(base / OL.VISTOS_F, "a", encoding="utf-8") as f:
+            f.write("{isto nao e json\n")
+        OL.anotar_visto(base, "YOUTUBE", "https://x/2", "RUN-2")
+        v = OL.ler_vistos(base)
+        assert len(v) == 2
+    finally:
+        t.fechar()
 
 
 # ══════════════════════════════════════════════════════════════════════════════

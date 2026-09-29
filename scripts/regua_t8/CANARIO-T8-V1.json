@@ -1,0 +1,146 @@
+{
+ "DATASET": "CANARIO-T8-V1",
+ "MISSAO": "YT2",
+ "BANCO": "Postgres descartavel novo por corrida (31 migrations), Sala em POSTGRES nesse banco; apagado no fim",
+ "EGRESSO": "IT Palermo (medido antes)",
+ "CANARIO_REAL": {
+  "VIDEO": "zaEk8LE6SOQ",
+  "COMANDO": "orquestrador/orquestrador.py colete agricultores --filtro fase=audio-youtube --filtro fonte=IT-T8-001 --filtro video=zaEk8LE6SOQ --filtro pais=IT --filtro universo=T8",
+  "HEAD_DA_ARVORE": "1cf257fc",
+  "SEGUNDOS": 37.2,
+  "RC": 0,
+  "SALA_ANTES": 0,
+  "SALA_DEPOIS": 1,
+  "DB": {
+   "collection_run": [
+    [
+     "IT-T8-2026-09-23-150830-1fe8bd379c34ac3e",
+     "concluida"
+    ]
+   ],
+   "raw_asset": [
+    [
+     "1",
+     "IT-T8-001",
+     "audio/wav",
+     "7809414",
+     "0167e22599b5fed72b534c60bc05c728341057b9def4dee7e18a4d7acca2ad95",
+     "t"
+    ]
+   ],
+   "derived_artifact": [
+    [
+     "1",
+     "1",
+     "TRANSCRIPTION",
+     "transcricao-de-midia",
+     "3026",
+     "73ca447a2b8bd373be57393daf0692110c650f081c0f34a4f9d7700b6eddd71c"
+    ]
+   ],
+   "etapas": [
+    [
+     "RAW",
+     "PASS"
+    ],
+    [
+     "DERIVED",
+     "PASS"
+    ]
+   ],
+   "sala_de_espera": [
+    [
+     "IT-T8-2026-09-23-150830-1fe8bd379c34ac3e",
+     "0",
+     "derived:1",
+     "1",
+     "T8",
+     "IT-T8-001",
+     "NAO SEI",
+     "NAO SEI",
+     "NAO SEI",
+     "2026-09-23T15:08:30Z",
+     "pertence ao universo v6",
+     "WAITING",
+     "Buongiorno, sono Paolo Beccari di EGREA Centro Studi, mi occupo di prove sperimentali su Scafoideus Titanus, insetto che negli ultimi anni è tornato in maniera "
+    ]
+   ]
+  },
+  "RESUMO_DA_CORRIDA": "CORRIDA SUCCESS · IT-T8-2026-09-23-150830-1fe8bd379c34ac3e\n  persistencia: DESCARTAVEL (127.0.0.1:65502/descartavel)\n  executor coleta/scrap_colheita.py @ e58c94b8\n  de 2026-09-23T15:08:30Z a 2026-09-23T15:08:44Z\n  ERRO (nao e rejeicao): Could not find platform independent libraries <prefix>\n  colheita encontrada: 1 item(ns)\n  pela porta de admissao: SIM 1\n  prontos para a inteligencia: 1 -> postgres:public.sala_de_espera?run_id=IT-T8-2026-09-23-150830-1fe8bd379c34ac3e\n",
+  "TEARDOWN": {
+   "PORTO_VIVO": false,
+   "CLUSTER_SOBROU": false
+  }
+ },
+ "CANARIO_REPROCESSO_SEM_REDE": {
+  "VIDEO": "X35K1b5_B78",
+  "COMANDO": "orquestrador/orquestrador.py colete agricultores --filtro fase=audio-youtube --filtro fonte=IT-T8-004 --filtro video=X35K1b5_B78 --filtro pais=IT --filtro universo=T8 --so-a-porta --colheita-da-corrida=IT-T8-2026-09-23-120047-fb436ee5bc19a094",
+  "HEAD_DA_ARVORE": "1cf257fc",
+  "SEGUNDOS": 33.1,
+  "RC": 0,
+  "SALA_ANTES": 0,
+  "SALA_DEPOIS": 1,
+  "DB": {
+   "collection_run": [
+    [
+     "IT-T8-2026-09-23-144747-c83c70b2a061c37e",
+     "concluida"
+    ]
+   ],
+   "raw_asset": [
+    [
+     "1",
+     "IT-T8-004",
+     "audio/wav",
+     "5803952",
+     "a0b01ab70d9e6ce1502e5b2351e9f64e84553b46b51944f960fb3e7056180c09",
+     "t"
+    ]
+   ],
+   "derived_artifact": [
+    [
+     "1",
+     "1",
+     "TRANSCRIPTION",
+     "transcricao-de-midia",
+     "2473",
+     "bf8b2d7715962c8f7631a3defd0dd427d9e54ccb806a803e76ddb5d93120d602"
+    ]
+   ],
+   "etapas": [
+    [
+     "RAW",
+     "PASS"
+    ],
+    [
+     "DERIVED",
+     "PASS"
+    ]
+   ],
+   "sala_de_espera": [
+    [
+     "IT-T8-2026-09-23-144747-c83c70b2a061c37e",
+     "0",
+     "derived:1",
+     "1",
+     "T8",
+     "IT-T8-004",
+     "NAO SEI",
+     "NAO SEI",
+     "NAO SEI",
+     "2026-09-23T14:47:47Z",
+     "pertence ao universo v6",
+     "WAITING",
+     "Un giorno sono Alexandro specialista di prodotto Trattori New Holland per il mercato Italia, siamo a bordo del nuovo T7 440XD questa nuova gamma di prodotto nas"
+    ]
+   ]
+  },
+  "RESUMO_DA_CORRIDA": "CORRIDA SUCCESS · IT-T8-2026-09-23-144747-c83c70b2a061c37e\n  persistencia: DESCARTAVEL (127.0.0.1:64311/descartavel)\n  executor coleta/scrap_colheita.py @ e58c94b8\n  de 2026-09-23T14:47:47Z a 2026-09-23T14:47:48Z\n  colheita encontrada: 1 item(ns)\n  NAO ENCONTREI O QUE ELE LARGOU: colheita reprocessada da corrida «IT-T8-2026-09-23-120047-fb436ee5bc19a094» pela corrida «IT-T8-2026-09-23-144747-c83c70b2a061c37e»\n  pela porta de admissao: SIM 1\n  prontos para a inteligencia: 1 -> postgres:public.sala_de_espera?run_id=IT-T8-2026-09-23-144747-c83c70b2a061c37e\n",
+  "TEARDOWN": {
+   "PORTO_VIVO": false,
+   "CLUSTER_SOBROU": false
+  },
+  "NOTA": "a 1.a tentativa de aquisicao nova levou «Sign in to confirm you are not a bot» (depois de ~80 descargas no dia); a cadeia foi provada primeiro pela porta de reprocesso sobre uma colheita do gabarito, e a aquisicao nova passou 22 min depois"
+ },
+ "TENTATIVA_BLOQUEADA": "IT-T8-2026-09-23-144357-c709f52cc688f160 · SOURCE_UNAVAILABLE · AUDIO_NAO_OBTIDO · Sign in to confirm you are not a bot"
+}

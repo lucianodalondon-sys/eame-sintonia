@@ -39,6 +39,7 @@ import os
 import sys
 import time
 import urllib.parse
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -49,6 +50,8 @@ import _gavetas  # noqa: E402,F401 — as gavetas do processo no caminho (`orque
 sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
 
 RULE_VERSION = "RELIGA-MULTICANAL/v1 (D155)"
+VISTOS_F = "ALVOS-JA-COLHIDOS.ndjson"
+JANELA_VISTO_S = 24 * 3600
 ESTADO_F = "ONDA-WEB-ESTADO.json"
 RAW_F = "RAW-LINHA.jsonl"
 LIVRO_F = "LIVRO-LINHA.jsonl"
@@ -64,7 +67,45 @@ ACTOR = {
 }
 PLATAFORMA = {"YOUTUBE": "YOUTUBE", "INSTAGRAM": "INSTAGRAM", "LINKEDIN": "LINKEDIN",
               "BUSCA": "HTTP direto", "CIENCIA": "HTTP direto"}
-TERRITORIO_POR_OMISSAO = "T9"
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# O QUE JA SE COLHEU — para nao se voltar a pedir
+# ══════════════════════════════════════════════════════════════════════════════
+# MEDIDO PELO LAB (29/09): 31 dos 45 RAW do canario (69%) eram o MESMO video ou post, regravado ate
+# SEIS vezes. Nenhuma dessas gravacoes estava errada — cada captura e uma observacao, e apaga-las
+# antes de preservar seria violar a D157. O que estava errado era voltar a PEDIR o mesmo alvo.
+#
+#     O DESPERDICIO NAO E O FICHEIRO A MAIS: E O PEDIDO A MAIS.
+#     Ele gasta orcamento de 24 h que uma fonte nova nao vai ter.
+#
+# Este livro e append-only, por LINHA e por ALVO, com o RUN_ID que o colheu. Quem ja foi colhido
+# dentro da janela nao e pedido outra vez: sai `VISTO_ANTES`, com a corrida anterior nomeada — que e
+# informacao, e nao um silencio.
+def ler_vistos(base: Path, janela_s: float = JANELA_VISTO_S, agora: float = None) -> dict:
+    """(LINHA, URL) -> {RUN_ID, EM} do que foi colhido dentro da janela. Ausente = {}."""
+    f = Path(base) / VISTOS_F
+    if not f.exists():
+        return {}
+    t = time.time() if agora is None else agora
+    fora = {}
+    for l in f.read_text(encoding="utf-8", errors="replace").splitlines():
+        if not l.strip():
+            continue
+        try:
+            e = json.loads(l)
+        except ValueError:
+            continue                                               # uma linha estragada nao apaga o livro
+        if float(e.get("EM") or 0) > t - janela_s:
+            fora[(e.get("LINHA"), e.get("URL"))] = {"RUN_ID": e.get("RUN_ID"), "EM": e.get("EM")}
+    return fora
+
+
+def anotar_visto(base: Path, linha: str, url: str, run_id: str, agora: float = None) -> None:
+    Path(base).mkdir(parents=True, exist_ok=True)
+    with open(Path(base) / VISTOS_F, "a", encoding="utf-8") as f:
+        f.write(json.dumps({"LINHA": linha, "URL": url, "RUN_ID": run_id,
+                            "EM": time.time() if agora is None else agora}, ensure_ascii=False) + "\n")
 
 
 def agora_iso() -> str:
@@ -75,13 +116,32 @@ def _utc() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+class TerritorioNaoDeclarado(ValueError):
+    """Nao ha territorio para carimbar esta corrida, e nao se inventa um."""
+
+
 def run_id(source_id: str | None, territorio: str | None = None) -> str:
     """O RUN_ID no formato que a PROVA-TETO le (`provas/prova_teto_dominio.RE_RUN_ID`):
-    (IT|XX)-T<n>-AAAA-MM-DD-HHMMSS-<16 hex>. Um formato proprio ficaria invisivel para a prova."""
+    (IT|XX)-T<n>-AAAA-MM-DD-HHMMSS-<16 hex>. Um formato proprio ficaria invisivel para a prova.
+
+    ⚠️ O TERRITORIO NAO SE INVENTA. Este codigo caia num T9 por omissao quando o SOURCE_ID nao o
+    trazia — e T9 e COMPETITORS, um universo real com dono. Uma corrida de uma fonte sem territorio
+    ficava carimbada como sendo de concorrentes, e a partir dai ninguem conseguia distinguir a que
+    foi mesmo de T9 da que so nao tinha territorio nenhum.
+
+        UM CARIMBO POR OMISSAO NAO E UM CARIMBO DESCONHECIDO: E UM CARIMBO ERRADO,
+        E ELE VIAJA COM A OBSERVACAO PARA SEMPRE.
+
+    Sem territorio declarado nem legivel no SOURCE_ID, levanta `TerritorioNaoDeclarado`. Quem chama
+    decide o que fazer com a fonte — o que NAO se faz e escolher um territorio por ela."""
     t = territorio
     if not t:
         p = str(source_id or "").split("-")
-        t = p[1] if len(p) > 2 and p[1].startswith("T") and p[1][1:].isdigit() else TERRITORIO_POR_OMISSAO
+        t = p[1] if len(p) > 2 and p[1].startswith("T") and p[1][1:].isdigit() else None
+    if not t:
+        raise TerritorioNaoDeclarado(
+            "TERRITORIO_NAO_DECLARADO: o SOURCE_ID %r nao traz territorio e nenhum foi declarado. "
+            "O RUN_ID carimba o territorio na observacao e ele nao se adivinha." % (source_id,))
     pais = "IT" if str(source_id or "").startswith("IT-") else "XX"
     quando = datetime.now(timezone.utc).strftime("%Y-%m-%d-%H%M%S")
     salga = hashlib.sha256(("%s|%s|%s" % (source_id, t, time.time())).encode("utf-8")).hexdigest()[:16]
@@ -135,7 +195,20 @@ def alvos_da_fonte(linha: str, cand: dict, buscar, *, max_alvos=None) -> dict:
         # D93 (LINHA-BUSCA): a consulta vai ao motor e cada RESULTADO e um alvo — uma pagina por
         # resultado. Quem sabe falar com os motores e `coleta/linha_busca.py`; nao se refaz aqui.
         import linha_busca as LB                                    # noqa: PLC0415
-        motor = os.environ.get("SINTONIA_BUSCA_MOTOR") or "DUCKDUCKGO_HTML"
+        import motores as MO                                        # noqa: PLC0415
+        # ⚠️ O NOME DO MOTOR E DO VIVO, E NAO UM QUE EU ACHE BONITO. Eu tinha escrito
+        # "DUCKDUCKGO_HTML" por omissao, e o dicionario do vivo chama-lhe `DDG_HTML`: as 5 consultas do
+        # canario morreram todas com KeyError, e o erro so apareceu na rede real.
+        #
+        #     UM NOME INVENTADO NUM DICIONARIO ALHEIO NAO DA «NAO ENCONTRADO»: DA KeyError,
+        #     e KeyError nao diz a ninguem qual era o nome certo.
+        #
+        # Por isso o motor desconhecido falha com a LISTA dos que existem, e o padrao e o 1.o motor
+        # sem chave do dono (rota HTML livre), lido do proprio dicionario.
+        motor = os.environ.get("SINTONIA_BUSCA_MOTOR") or "DDG_HTML"
+        if motor not in MO.MOTORES:
+            return {"ERRO": "MOTOR_DESCONHECIDO: %r. Os que existem: %s"
+                    % (motor, ", ".join(sorted(MO.MOTORES))), "PEDIDOS": 0}
         saida = Path(os.environ.get("SINTONIA_BUSCA_SAIDA") or ".")
         q = {"CONSULTA_ID": cand.get("SOURCE_ID"), "CONSULTA": alvo.get("CONSULTA"),
              "UNIVERSO": cand.get("UNIVERSO")}
@@ -298,6 +371,30 @@ def a_corrida(linha: str, corrida: str, cand: dict, descoberta: dict) -> dict:
                               % descoberta.get("ROTA")}
 
 
+def admitir_pedidos(dados: bytes, media_type: str, url: str, source_id: str, universos: list,
+                    sha: str, capturado: str, corrida: str, raw_asset_id: int = None) -> list:
+    """UMA DECISAO POR UNIVERSO PEDIDO (D156). → [{UNIVERSO, ORIGEM, RESULTADO, ..., READY}].
+
+    O mesmo item pode levar duas perguntas explicitas — T8 («quem fala e o campo?») e T3 («fala de
+    praga?») — e elas nao se anulam: T8 e TRANSVERSAL. Cada pergunta tem decisao propria, e a origem
+    da declaracao viaja com ela, para que se saiba mais tarde QUEM perguntou aquilo.
+
+    Sem universo declarado devolve UMA entrada `UNIVERSO_NAO_DECLARADO`. Isso PARA o item — e e o
+    estado certo: falta o pedido, nao falta a regua."""
+    if not universos:
+        return [{"UNIVERSO": None, "ORIGEM": None, "RESULTADO": "UNIVERSO_NAO_DECLARADO",
+                 "REGRA": "pertence ao universo", "READY": None,
+                 "MOTIVO": ("o universo vem do PEDIDO e nenhum foi declarado para esta fonte. Esta "
+                            "porta nao escolhe um, e nao o deriva do territorio nem da plataforma.")}]
+    fora = []
+    for u in universos:
+        d = admitir(dados, media_type, url, source_id, u["UNIVERSO"], sha, capturado, corrida,
+                    raw_asset_id=raw_asset_id)
+        d["UNIVERSO"], d["ORIGEM"] = u["UNIVERSO"], u.get("ORIGEM")
+        fora.append(d)
+    return fora
+
+
 def admitir(dados: bytes, media_type: str, url: str, source_id: str, universo: str, sha: str,
             capturado: str, corrida: str, raw_asset_id: int = None) -> dict:
     """A ADMISSION NORMAL para uma unidade destas linhas. A MESMA porta de `coleta/linha_busca.admitir`
@@ -343,6 +440,11 @@ def admitir(dados: bytes, media_type: str, url: str, source_id: str, universo: s
     item = ORQ.item_documental_para_a_porta(est, source_id=source_id)
     d = adm.decidir(item, universo, corrida=corrida)
     out = {"RESULTADO": d.resultado, "REGRA": d.regra, "MOTIVO": d.motivo, "ITEM_ID": d.item, "READY": None}
+    # O carimbo de uma regua que ainda nao foi validada por humano viaja COM a decisao — e nao so no
+    # relatorio. Sem ele, daqui a um mes um SIM de T8 le-se como um SIM validado.
+    carimbo = adm.carimbo_da_regua(universo) if hasattr(adm, "carimbo_da_regua") else {}
+    if carimbo:
+        out["CARIMBO_DA_REGUA"] = carimbo
     if d.resultado == adm.SIM:
         out["READY"] = adm.pronto_para_inteligencia(item, d)
     return out
@@ -371,55 +473,131 @@ def _texto_do_json(dados: bytes) -> str:
     return "\n".join(fora)
 
 
+def _riqueza(pronto: dict) -> int:
+    """Quanto conteudo esta unidade traz. E a medida que decide qual VARIANTE do mesmo documento vai
+    para a Sala — a que ve mais. Nao e qualidade nem relevancia: e quantidade de texto, que e a unica
+    coisa que se pode comparar entre duas vistas do mesmo documento sem julgar nenhuma."""
+    for k in ("TEXTO", "texto", "TEXT", "CONTEUDO"):
+        v = pronto.get(k)
+        if isinstance(v, str):
+            return len(v)
+    return len(json.dumps(pronto, ensure_ascii=False, default=str))
+
+
 def para_a_sala(linha: str, cand: dict, colhidos: list, corrida: str, *, persistencia, pousar: bool) -> dict:
     """PRESERVA -> ADMISSION com o RAW real -> Sala. Devolve o relato, sem levantar por item mau."""
     from guarda import preservar_coleta as PC                      # noqa: PLC0415
     armazem = PC.ArmazemLocal(persistencia.raiz_do_armazem)
     capturado = _utc()
-    fichas, por_sha = [], {}
+
+    # ⚠️ DUAS CAPTURAS DOS MESMOS BYTES SAO DUAS OBSERVACOES (COL-LAW-204/311).
+    #
+    # Este codigo descartava por `sha256` antes de preservar, e depois casava o `RAW_OBSERVATION_ID`
+    # tambem pelo `sha256`. Os dois passos estavam errados pela mesma razao: dois enderecos diferentes
+    # — ou o mesmo endereco em dois momentos — que devolvam o MESMO byte sao duas OBSERVACOES do mundo,
+    # e nao uma. Um canal que republica o mesmo boletim em duas paginas perdia uma das duas, calado; e
+    # com o casamento por sha, a que sobrevivesse podia receber o id da outra.
+    #
+    #     O SHA IDENTIFICA O CONTEUDO. NAO IDENTIFICA A OBSERVACAO.
+    #
+    # A ligacao certa ja existe nesta casa e e de TRANSPORTE, nao de descoberta: a ALCA (`PASSAGEM_ID`)
+    # que se ata a cada artefato e que `preservar()` devolve emparelhada com o id que o banco cunhou
+    # (`OBSERVACOES_CONFERIDAS`). E o mesmo metro que `coleta/ingresso.py` usa.
+    #
+    #     A PONTE NAO PROCURA A OBSERVACAO: ELA RECEBE-A.
+    fichas, por_alca = [], {}
     for c in colhidos:
-        f = artefato(linha, cand, c, capturado)
-        if f["SHA256"] in por_sha:
-            continue                                               # o mesmo byte nao entra duas vezes
-        por_sha[f["SHA256"]] = c
+        alca = uuid.uuid4().hex
+        f = dict(artefato(linha, cand, c, capturado), **{PC.PASSAGEM: alca})
+        por_alca[alca] = c
         fichas.append(f)
     if not fichas:
         return {"RAW": None, "PRONTOS": [], "ITENS": 0, "RELATO": []}
     run = a_corrida(linha, corrida, cand, colhidos[0].get("_DESCOBERTA") or {})
-    recibo = PC.preservar(run, fichas, armazem, lambda o: por_sha[o["SHA256"]]["BYTES"],
+    bytes_por_alca = {a: c["BYTES"] for a, c in por_alca.items()}
+    recibo = PC.preservar(run, fichas, armazem, lambda ob: bytes_por_alca[ob[PC.PASSAGEM]],
                           memoria=persistencia.memoria)
     ids = {}
-    for o in recibo.get("RAW_OBSERVATIONS") or []:
-        if o.get("RUN_ID") == corrida and isinstance(o.get("RAW_OBSERVATION_ID"), int):
-            ids.setdefault(o.get("SHA256"), o["RAW_OBSERVATION_ID"])
+    for par in recibo.get("OBSERVACOES_CONFERIDAS") or []:
+        rid = par.get("RAW_OBSERVATION_ID")
+        if not isinstance(rid, int):
+            continue
+        for alca in par.get(PC.PASSAGENS) or []:
+            ids[alca] = rid
     prontos, relato = [], []
     for f in fichas:
-        c = por_sha[f["SHA256"]]
-        rid = ids.get(f["SHA256"])
+        alca = f[PC.PASSAGEM]
+        c = por_alca[alca]
+        rid = ids.get(alca)
         l = {"SHA256": f["SHA256"], "URL": f["SOURCE_URL"], "SOURCE_ID": cand.get("SOURCE_ID"),
-             "SOURCE_STATUS": cand.get("SOURCE_STATUS"), "RAW_OBSERVATION_ID": rid, "ROTA": c.get("ROTA")}
+             "SOURCE_STATUS": cand.get("SOURCE_STATUS"), "RAW_OBSERVATION_ID": rid, "ROTA": c.get("ROTA"),
+             "PASSAGEM": alca, "TEXTO_ORIGEM": c.get("TEXTO_ORIGEM")}
         if rid is None:
             l["ESTADO"] = "SEM_RAW_CANONICO"                       # nao se pousa sem linhagem
             relato.append(l)
             continue
-        a = admitir(c["BYTES"], f["MEDIA_TYPE"], f["SOURCE_URL"],
-                    cand.get("SOURCE_ID") or "SEM_SOURCE_ID", cand.get("UNIVERSO") or "NAO SEI",
-                    f["SHA256"], capturado, corrida, raw_asset_id=rid)
-        l["ADMISSION"] = {k: a[k] for k in ("RESULTADO", "REGRA", "MOTIVO")}
-        if a["READY"]:
-            prontos.append(a["READY"])
-            l["ESTADO"] = "PRONTO_COM_RAW"
-        else:
-            l["ESTADO"] = "ADMISSION_%s" % a["RESULTADO"]
+        decisoes = admitir_pedidos(c["BYTES"], f["MEDIA_TYPE"], f["SOURCE_URL"],
+                                   cand.get("SOURCE_ID") or "SEM_SOURCE_ID",
+                                   cand.get("UNIVERSOS_DO_PEDIDO") or [],
+                                   f["SHA256"], capturado, corrida, raw_asset_id=rid)
+        l["ADMISSION"] = [{k: d.get(k) for k in ("UNIVERSO", "ORIGEM", "RESULTADO", "REGRA", "MOTIVO",
+                                                 "CARIMBO_DA_REGUA")} for d in decisoes]
+        aceites = [d for d in decisoes if d.get("READY")]
+        for d in aceites:
+            prontos.append(d["READY"])
+        l["ESTADO"] = ("PRONTO_COM_RAW" if aceites else
+                       "ADMISSION_" + "/".join(sorted({str(d["RESULTADO"]) for d in decisoes})))
         relato.append(l)
+    # ⚠️ TRES UNIDADES DIFERENTES, E SO UMA DELAS E DESPERDICIO.
+    #
+    # O LAB mediu no canario: 45 RAW = 21 SHA distintos = 14 DOCUMENTOS. Ler isso como «69% de
+    # duplicados» junta tres coisas que nao sao a mesma:
+    #
+    #     CAPTURAS                       45   toda captura e uma observacao e FICA (D157)
+    #     CAPTURAS_REPETIDAS_BYTES       24   o MESMO byte do MESMO alvo na MESMA janela  <- desperdicio
+    #     VARIANTES_DO_MESMO_DOCUMENTO    7   rendicoes DIFERENTES do mesmo documento     <- nao e duplicado
+    #     DOCUMENTOS                     14   o que a Intelligence tem mesmo para ler
+    #
+    # As 7 variantes sao o oEmbed (so titulo) e a pagina /watch (com a descricao inteira) do MESMO
+    # video: bytes diferentes, conteudo diferente, documento o mesmo. Apagar uma delas seria perder
+    # informacao real.
+    #
+    #     UMA VARIANTE POBRE E UMA VARIANTE RICA DO MESMO DOCUMENTO NAO SAO UM DUPLICADO:
+    #     SAO DUAS VISTAS, E UMA DELAS VE MAIS.
+    #
+    # Por isso a Sala fica com UM item por documento, e escolhe a variante RICA — a de conteudo mais
+    # completo. As outras continuam preservadas no RAW como observacoes do mesmo documento; nenhuma e
+    # apagada. O desperdicio ataca-se onde ele nasce, que e o PEDIDO repetido (ver `ler_vistos`).
+    por_item, ordem = {}, []
+    variantes_do_mesmo_doc = 0
+    for x in prontos:
+        iid = x.get("ITEM_ID")
+        if not iid:
+            ordem.append(x)
+            continue
+        if iid not in por_item:
+            por_item[iid] = x
+            ordem.append(iid)
+            continue
+        variantes_do_mesmo_doc += 1
+        if _riqueza(x) > _riqueza(por_item[iid]):
+            por_item[iid] = x                                      # a que ve mais fica
+    prontos = [por_item[x] if isinstance(x, str) else x for x in ordem]
     pousado = None
     if pousar and prontos:
         import sala_de_espera as SE                                # noqa: PLC0415
         SE.exigir_canonica()                                       # Sala canonica ou nada; nunca ficheiro
         pousado = SE.pousar(corrida, prontos)
-    return {"RAW": {"RUN_STATE": recibo.get("RUN_STATE"), "OBSERVACOES": len(ids)},
-            "PRONTOS": prontos, "ITENS": len({x["ITEM_ID"] for x in prontos}), "POUSADO": pousado,
-            "RELATO": relato}
+    # AS TRES UNIDADES, SEPARADAS — para que ninguem volte a ler «69% de duplicados» de uma soma que
+    # mistura recaptura do mesmo byte com variante do mesmo documento.
+    return {"RAW": {"RUN_STATE": recibo.get("RUN_STATE"), "OBSERVACOES": len(ids),
+                    "CAPTURAS": len(fichas),
+                    "SHA_DISTINTOS": len({f["SHA256"] for f in fichas}),
+                    "CAPTURAS_REPETIDAS_BYTES": len(fichas) - len({f["SHA256"] for f in fichas})},
+            "PRONTOS": prontos, "ITENS": len({x["ITEM_ID"] for x in prontos if x.get("ITEM_ID")}),
+            "DOCUMENTOS": len({x["ITEM_ID"] for x in prontos if x.get("ITEM_ID")}),
+            "VARIANTES_DO_MESMO_DOCUMENTO": variantes_do_mesmo_doc,
+            "POUSADO": pousado, "RELATO": relato}
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -449,10 +627,23 @@ def correr(linha: str, candidatas: list, saida: Path, *, max_alvos=None, pousar=
         (saida / ESTADO_F).write_text(json.dumps(estado, ensure_ascii=False, indent=1, default=str),
                                       encoding="utf-8")
     grava()
+    # O livro do que ja se colheu vive ACIMA da pasta da onda: uma onda nova nao pode nascer sem
+    # memoria do que a anterior ja trouxe — era exactamente assim que o mesmo video vinha seis vezes.
+    vistos = ler_vistos(saida.parent)
+    estado["ALVOS_JA_COLHIDOS_NA_JANELA"] = len(vistos)
     raw_jsonl, livro_jsonl = saida / RAW_F, saida / LIVRO_F
     for i, cand in enumerate(candidatas, 1):
         t0 = time.time()
-        corrida = run_id(cand.get("SOURCE_ID"))
+        try:
+            corrida = run_id(cand.get("SOURCE_ID"), cand.get("TERRITORIO"))
+        except TerritorioNaoDeclarado as ex:
+            estado["FONTES"].append({"N": i, "SOURCE_ID": cand.get("SOURCE_ID"), "HORA": agora_iso(),
+                                     "CORREU": False, "STATUS": "FAILED", "PORQUE_NAO_CORREU": str(ex),
+                                     "PEDIDOS_POR_DOMINIO": {}, "ALVOS_DESCOBERTOS": 0,
+                                     "ALVOS_COLHIDOS": 0, "SEGUNDOS": 0})
+            grava()
+            print("%02d %s %s FAILED %s" % (i, linha, cand.get("SOURCE_ID"), str(ex)[:110]), flush=True)
+            continue
         os.environ["SINTONIA_RUN_ID"] = corrida
         cand["_RUN_ID"] = corrida
         antes = foto()
@@ -478,7 +669,18 @@ def correr(linha: str, candidatas: list, saida: Path, *, max_alvos=None, pousar=
             if d.get(k) is not None:
                 linha_reg[k] = d[k]
         colhidos = []
+        repetidos = []
         for a in alvos[:max_alvos] if max_alvos else alvos:
+            ja = vistos.get((linha, a.get("URL")))
+            if ja:
+                # NAO se pede outra vez. Regista-se que ja se tinha, e com que corrida.
+                repetidos.append({"URL": a.get("URL"), "VISTO_ANTES_EM": ja["EM"],
+                                  "RUN_ID_ANTERIOR": ja["RUN_ID"]})
+                with open(livro_jsonl, "a", encoding="utf-8") as fh:
+                    fh.write(json.dumps({"ESTADO": "VISTO_ANTES", "URL": a.get("URL"), "LINHA": linha,
+                                         "RUN_ID_ANTERIOR": ja["RUN_ID"], "CORRIDA": corrida},
+                                        ensure_ascii=False) + "\n")
+                continue
             c = colher_alvo(linha, a, buscar)
             pedidos += int(c.get("PEDIDOS") or 0)
             if c.get("ERRO"):
@@ -489,6 +691,7 @@ def correr(linha: str, candidatas: list, saida: Path, *, max_alvos=None, pousar=
             c["_DESCOBERTA"] = d
             c["_ALVO"] = a
             colhidos.append(c)
+            anotar_visto(saida.parent, linha, a.get("URL"), corrida)
             with open(raw_jsonl, "a", encoding="utf-8") as fh:
                 fh.write(json.dumps({"SHA256": hashlib.sha256(c["BYTES"]).hexdigest(), "SOURCE_URL": c["URL"],
                                      "SOURCE_ID": cand.get("SOURCE_ID"), "MEDIA_TYPE": c.get("MEDIA_TYPE"),
@@ -499,6 +702,9 @@ def correr(linha: str, candidatas: list, saida: Path, *, max_alvos=None, pousar=
                                                           CONTA=a.get("CONTA"))},
                                     ensure_ascii=False) + "\n")
         linha_reg["ALVOS_COLHIDOS"] = len(colhidos)
+        linha_reg["ALVOS_VISTOS_ANTES"] = len(repetidos)
+        if repetidos:
+            linha_reg["VISTO_ANTES"] = repetidos
         linha_reg["PEDIDOS_POR_DOMINIO"] = {dom: pedidos} if dom else {}
         if colhidos and pousar:
             try:

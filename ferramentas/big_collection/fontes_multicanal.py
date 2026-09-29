@@ -67,6 +67,37 @@ def _dominio_de(url: str) -> str:
     return DR.dominio_registavel(h)
 
 
+def universos_do_pedido(x: dict) -> list:
+    """Os universos que o PEDIDO declara para esta fonte, cada um com a ORIGEM da declaracao.
+
+    ⚠️ O UNIVERSO VEM DO PEDIDO — nunca da fonte, do territorio dela, da plataforma nem do conteudo.
+    E a lei que a propria Admission escreve, e eu ja a violei uma vez nesta missao: derivei o universo
+    do TERRITORIO do Curator, e com isso um item recebia a regua de T8 sem que ninguem tivesse
+    perguntado nada sobre T8.
+
+        O TERRITORIO DIZ DE QUEM E A FONTE. O UNIVERSO DIZ O QUE SE PERGUNTOU.
+
+    O MESMO ITEM PODE LEVAR DUAS PERGUNTAS (D156): um video de um agricultor sobre a mosca da oliveira
+    e uma pergunta de T8 («quem fala e o campo?») E uma de T3 («fala de praga?»), cada uma com decisao
+    propria. Por isso isto devolve uma LISTA, e nao um valor.
+
+    Formas aceites na lista do Curator, todas com a origem a viajar junto:
+        "UNIVERSOS_DO_PEDIDO": [{"UNIVERSO": "T8", "ORIGEM": "<quem declarou, e onde>"}, ...]
+        "UNIVERSO_DO_PEDIDO":  "T8"     (com "ORIGEM_DO_PEDIDO" ao lado)
+
+    Sem declaracao rastreavel devolve [] — e a Admission responde UNIVERSO_NAO_DECLARADO, que PARA em
+    vez de adivinhar. Uma lista vazia aqui nao e um defeito: e o pedido que ainda nao existe.
+    """
+    fora = []
+    for u in (x.get("UNIVERSOS_DO_PEDIDO") or []):
+        if isinstance(u, dict) and u.get("UNIVERSO") and u.get("ORIGEM"):
+            fora.append({"UNIVERSO": str(u["UNIVERSO"]), "ORIGEM": str(u["ORIGEM"])})
+    u1, o1 = x.get("UNIVERSO_DO_PEDIDO"), x.get("ORIGEM_DO_PEDIDO")
+    if u1 and o1 and not any(f["UNIVERSO"] == str(u1) for f in fora):
+        fora.append({"UNIVERSO": str(u1), "ORIGEM": str(o1)})
+    return fora
+
+
 def _territorio_do_source_id(sid):
     """O territorio escrito no proprio SOURCE_ID (IT-T8-006 -> T8), ou None. Nao adivinha nada: so le."""
     p = str(sid or "").split("-")
@@ -107,7 +138,7 @@ def _traduzir(linha: str, x: dict, n: int) -> dict | None:
         # A BUSCA nao tem dominio proprio: o dominio e o do motor, e quem o sabe e `coleta/linha_busca.py`.
         # Declarar um aqui seria adivinhar de quem e o orcamento.
         return {"SOURCE_ID": cid or "BUSCA-%03d" % n, "LINHA": linha, "DOMINIO": None, "DOMINIOS": [],
-                "PREVISTOS": p, "UNIVERSO": x.get("UNIVERSO") or "NAO SEI",
+                "PREVISTOS": p, "UNIVERSOS_DO_PEDIDO": universos_do_pedido(x),
                 "ALVO": {"CONSULTA": consulta, "UNIVERSO": x.get("UNIVERSO"),
                                          "PAR": x.get("PAR"), "JANELA": x.get("JANELA")},
                 "PROVENIENCIA": {"ORIGEM": x.get("ORIGEM"), "DECISAO": x.get("DECISAO_QUE_AUTORIZA")}}
@@ -116,7 +147,7 @@ def _traduzir(linha: str, x: dict, n: int) -> dict | None:
         if not sid or not x.get("CONSULTA_OPENALEX"):
             return None
         return {"SOURCE_ID": sid, "LINHA": linha, "DOMINIO": "openalex.org", "DOMINIOS": ["openalex.org"],
-                "PREVISTOS": p, "UNIVERSO": _territorio_do_source_id(sid) or "NAO SEI",
+                "PREVISTOS": p, "UNIVERSOS_DO_PEDIDO": universos_do_pedido(x),
                 "ALVO": {"CONSULTA_OPENALEX": x["CONSULTA_OPENALEX"], "FILTRO": x.get("FILTRO"),
                                          "ALVO_ID": x.get("ALVO_ID")},
                 "PROVENIENCIA": {"ORIGEM": x.get("ORIGEM"), "DECISAO": x.get("DECISAO_QUE_AUTORIZA")}}
@@ -125,18 +156,26 @@ def _traduzir(linha: str, x: dict, n: int) -> dict | None:
     if not url:
         return None
     dom = _dominio_de(url)
-    # O UNIVERSO da Admission E o TERRITORIO: `admissao.PERGUNTAS_DO_UNIVERSO` esta indexado por T1..T12,
-    # e o Curator declara o territorio de cada fonte. Sem ele a Admission recebia «NAO SEI» e respondia
-    # NAO_SE_APLICA a tudo — medido no canario de 29/09, 4 videos com RAW e 0 na Sala.
+    # ⚠️ O UNIVERSO VEM DO PEDIDO — NUNCA DA FONTE, DO TERRITORIO DELA, DA PLATAFORMA NEM DO CONTEUDO.
     #
-    #     UM UNIVERSO QUE NAO SE DECLARA NAO E UM UNIVERSO LARGO: E UMA PERGUNTA SEM ASSUNTO.
+    # Eu tinha derivado o universo do TERRITORIO da fonte, e isso viola a lei que a propria Admission
+    # escreve (`admissao/admissao.py`, na pergunta do universo):
     #
-    # Onde o Curator nao o diz, le-se do proprio SOURCE_ID (IT-T8-006 -> T8); e onde nem isso existe,
-    # fica «NAO SEI», que e a verdade — e nao se inventa um territorio para a fonte passar.
+    #     «esta porta julga um par (item, universo), e o universo vem do PEDIDO — nunca da fonte, do
+    #      territorio dela, da plataforma nem do conteudo. Sem universo declarado nao ha pergunta:
+    #      esta porta nao escolhe uma.»
+    #
+    # O territorio diz DE QUEM E a fonte. O universo diz O QUE SE PERGUNTOU. Sao coisas diferentes, e
+    # confundi-las faz um pedido inexistente parecer respondido: o item recebia a regua de T8 sem que
+    # ninguem tivesse perguntado nada sobre T8.
+    #
+    # O TERRITORIO viaja na candidata porque e um facto do Curator sobre a fonte (e o RUN_ID carimba-o).
+    # O UNIVERSO fica por declarar ate o PEDIDO existir — e a Admission responde UNIVERSO_NAO_DECLARADO,
+    # que e a verdade e e accionavel: falta o pedido, nao falta a regua.
     base = {"SOURCE_ID": x.get("SOURCE_ID"), "LINHA": linha, "DOMINIO": dom, "DOMINIOS": [dom],
             "PREVISTOS": p, "NOME": x.get("NOME"), "URL": url,
             "TERRITORIO": x.get("TERRITORIO") or _territorio_do_source_id(x.get("SOURCE_ID")),
-            "UNIVERSO": x.get("TERRITORIO") or _territorio_do_source_id(x.get("SOURCE_ID")) or "NAO SEI",
+            "UNIVERSOS_DO_PEDIDO": universos_do_pedido(x),
             "PROVENIENCIA": {"ATLAS": x.get("ATLAS"), "ESTADO_NO_LIVRO": x.get("ESTADO_NO_LIVRO"),
                              "DECISAO": x.get("DECISAO_QUE_AUTORIZA"),
                              "LOCATION_SOURCE": x.get("LOCATION_SOURCE")}}
