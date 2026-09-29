@@ -118,35 +118,58 @@ const MEDIR = (conhecidos) => {
 const res = { BASE, LANG, MEDIDO_EM: new Date().toISOString(), TELAS: {} };
 let conhecidos = null;
 let falhou = false;
+/* D156 · as requisicoes que falharam, por tentativa. Medido 29/09 12:36 (tarefa agendada, maquina carregada):
+   #future abriu com «portale.renderVals(): Cannot read properties of null (reading 'CATEGORY_UI')» — o modelo nao
+   existia na primeira pintura — e nao se reproduziu em 6 tentativas depois. Sem esta lista a causa ficou NAO SEI. */
+const reqFalhadas = [];
+page.on('requestfailed', (q) => reqFalhadas.push(`${q.url().replace(BASE, '')} · ${(q.failure() || {}).errorText || '?'}`));
+page.on('response', (q) => { if (q.status() >= 400) reqFalhadas.push(`${q.url().replace(BASE, '')} · HTTP ${q.status()}`); });
+
+async function medirTela(tela, url) {
+  const antes = erros.length, antesReq = reqFalhadas.length;
+  /* Cada tela e um carregamento INTEIRO: mudar so o fragmento nao devolve resposta HTTP, e uma tela
+     sem resposta medida nao prova que foi servida. */
+  await page.goto('about:blank');
+  const r = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  const status = r ? r.status() : null;
+  if (!PAGINAS[tela]) {
+    await page.waitForSelector('[data-view="pote"],[data-meeting-case],[data-case],main,body', { timeout: 15000 }).catch(() => {});
+  }
+  await page.waitForTimeout(900);
+  /* O endereco so abre as rotas de primeiro nivel, e uma que ele nao aceite fica com o fragmento certo e
+     a vista errada (medido: #field desenhava o radar). Por isso, havendo voz da barra para a tela, CLICA-SE
+     nela — e o caminho do leitor. Se nem essa existir, mede-se o que abriu, e a contagem diz o resto. */
+  let clicou = false;
+  if (!PAGINAS[tela]) {
+    clicou = await page.evaluate((t) => { const n = document.querySelector('[data-nav-view="' + t + '"]');
+      if (!n) return false; n.click(); return true; }, tela);
+    if (clicou) await page.waitForTimeout(900);
+  }
+  const medido = await page.evaluate(MEDIR, conhecidos);
+  const erroDePintura = await page.evaluate(() => /renderVals\(\)/.test((document.body && document.body.innerText) || ''));
+  return { status, clicou, medido, erroDePintura, erros: erros.slice(antes), falhadas: reqFalhadas.slice(antesReq) };
+}
+
 for (const tela of TELAS) {
   const url = PAGINAS[tela] ? `${BASE}${PAGINAS[tela]}` : `${BASE}/portale#${tela}`;
-  const antes = erros.length;
   try {
-    /* Cada tela e um carregamento INTEIRO: mudar so o fragmento nao devolve resposta HTTP, e uma tela
-       sem resposta medida nao prova que foi servida. */
-    await page.goto('about:blank');
-    const r = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
-    const status = r ? r.status() : null;
-    if (!PAGINAS[tela]) {
-      await page.waitForSelector('[data-view="pote"],[data-meeting-case],[data-case],main,body', { timeout: 15000 }).catch(() => {});
+    let t = await medirTela(tela, url);
+    /* Uma tela que abriu com o erro de pintura mede-se UMA vez mais; a primeira fica no registo, inteira.
+       A medida que conta e a segunda — e se ela tambem falhar, ERRO_DE_PINTURA = true reprova (C5/C6). */
+    const tentativasFalhadas = [];
+    if (t.erroDePintura) {
+      await page.screenshot({ path: path.join(SAIDA, `${tela}-tentativa-1.png`), fullPage: false });
+      tentativasFalhadas.push({ ERRO_DE_PINTURA: true, ERROS_JS: t.erros, REQUISICOES_FALHADAS: t.falhadas });
+      t = await medirTela(tela, url);
     }
-    await page.waitForTimeout(900);
-    /* O endereco so abre as rotas de primeiro nivel, e uma que ele nao aceite fica com o fragmento certo e
-       a vista errada (medido: #field desenhava o radar). Por isso, havendo voz da barra para a tela, CLICA-SE
-       nela — e o caminho do leitor. Se nem essa existir, mede-se o que abriu, e a contagem diz o resto. */
-    let clicou = false;
-    if (!PAGINAS[tela]) {
-      clicou = await page.evaluate((t) => { const n = document.querySelector('[data-nav-view="' + t + '"]');
-        if (!n) return false; n.click(); return true; }, tela);
-      if (clicou) await page.waitForTimeout(900);
-    }
-    const medido = await page.evaluate(MEDIR, conhecidos);
-    const { IDS, ...m } = medido;
+    const { IDS, ...m } = t.medido;
     if (IDS && IDS.ids43.length && !conhecidos) conhecidos = IDS;
     await page.screenshot({ path: path.join(SAIDA, `${tela}.png`), fullPage: false });
     /* URL_FINAL: onde a pagina terminou depois dos redirects (a casa legada tem de acabar na porta). */
-    res.TELAS[tela] = { URL: url, URL_FINAL: page.url(), HTTP: status, CLICOU_NA_BARRA: clicou, ...m, ERROS_JS: erros.slice(antes) };
-    if (status !== 200) falhou = true;
+    res.TELAS[tela] = { URL: url, URL_FINAL: page.url(), HTTP: t.status, CLICOU_NA_BARRA: t.clicou, ...m,
+      ERRO_DE_PINTURA: t.erroDePintura, ERROS_JS: t.erros, REQUISICOES_FALHADAS: t.falhadas,
+      TENTATIVAS_FALHADAS: tentativasFalhadas };
+    if (t.status !== 200) falhou = true;
   } catch (e) {
     res.TELAS[tela] = { URL: url, HTTP: null, NAO_CONSEGUI_MEDIR: String(e.message || e).slice(0, 300) };
     falhou = true;

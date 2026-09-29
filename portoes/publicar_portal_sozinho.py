@@ -392,6 +392,8 @@ def conferir_telas(contagens: dict, pote: dict, sha: str, contrato: dict, rotulo
             ec.append(f"{t}: HTTP {m.get('HTTP')}")
         if m.get("POTE_NA_TELA") is not False or m.get("MARCA") is not False:
             ec.append(f"{t}: a camada tecnica do pote aparece na tela do cliente (ou nao foi medida)")
+        if m.get("ERRO_DE_PINTURA"):
+            ec.append(f"{t}: a tela abriu com erro de pintura (renderVals), mesmo na segunda tentativa")
         sha_servido(t, m, ec)
     L.append(linha(f"{rotulo}_CLIENTE_SEM_CAMADA_TECNICA", not ec, ec[:15] or
                    [f"{len(T['DO_POTE'])} telas de cliente: o casco original, sem a camada tecnica; SHA {sha[:12]}"]))
