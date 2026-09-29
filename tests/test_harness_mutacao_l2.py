@@ -36,13 +36,9 @@ class TestHarnessDeMutacaoL2(unittest.TestCase):
         mg = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mg)
         for mid, f, _finge, velho, novo in mg.MUTANTES:
-            lf = (RAIZ / f).read_bytes().replace(b"
-", b"
-")
+            lf = (RAIZ / f).read_bytes().replace(b"\r\n", b"\n")
             self.assertEqual(self.MU.aplicar(lf, velho, novo)[1], 1, mid)
-            self.assertEqual(self.MU.aplicar(lf.replace(b"
-", b"
-"), velho, novo)[1], 1, mid)
+            self.assertEqual(self.MU.aplicar(lf.replace(b"\n", b"\r\n"), velho, novo)[1], 1, mid)
 
     def test_os_ids_nao_se_repetem(self):
         ids = [m[0] for m in self.MU.MUTANTES]
