@@ -93,11 +93,11 @@ MUTANTES = [
     ("M13_LI_VIDEO_DESCOBERTO_VIRA_ADQUIRIDO", OL,
      '        registo["VIDEO_BYTES_ACQUIRED"] = False\n',
      '        registo["VIDEO_BYTES_ACQUIRED"] = True\n', T),
+    # `pedidos` conta SO a legenda (rota propria, D23). Somar 1 aqui seria pedir o post individual,
+    # que esta ROUTE_NOT_ALLOWED na matriz.
     ("M14_LI_PEDE_O_POST_INDIVIDUAL", OL,
-     '        return {"BYTES": corpo, "URL": a.get("URL_DO_POST"), "MEDIA_TYPE": "application/json",\n'
-     '                "PEDIDOS": 0,',
-     '        return {"BYTES": corpo, "URL": a.get("URL_DO_POST"), "MEDIA_TYPE": "application/json",\n'
-     '                "PEDIDOS": 1,', T),
+     '                "PEDIDOS": pedidos, "ROTA": "linkedin:descoberta-do-post-publico",',
+     '                "PEDIDOS": pedidos + 1, "ROTA": "linkedin:descoberta-do-post-publico",', T),
     ("M15_LI_CARTAO_VAZIO_VIRA_ITEM", OL,
      '        if not registo.get("URL_DO_POST") and not registo.get("NATIVE_ID"):\n',
      "        if False:\n", T),

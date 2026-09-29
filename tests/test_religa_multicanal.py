@@ -222,6 +222,13 @@ def test_armadilha_linkedin_video_descoberto_nunca_conta_como_video_coletado():
     assert guardado["URL_MP4_DESCOBERTA"].endswith(".mp4")
     assert "ROUTE_NOT_ALLOWED" in guardado["FETCH_POST"]
     assert c["PEDIDOS"] == 0, "FETCH_POST esta ROUTE_NOT_ALLOWED: nao se pede o post individual"
+    # e com legenda, o pedido e SO o da legenda — nunca o do post
+    a2 = dict(a, CAPTION_URL="https://dms.licdn.com/x.srt")
+    srt = "1\n00:00:01,000 --> 00:00:02,000\nciao a tutti\n"
+    c2 = OL.colher_alvo("LINKEDIN", a2, leitor(srt))
+    assert c2["PEDIDOS"] == 1, \
+        "1 pedido = SO a legenda; %s quer dizer que o post individual tambem foi pedido" % c2["PEDIDOS"]
+    assert json.loads(c2["BYTES"].decode("utf-8"))["TEXTO_ORIGEM"] == "LEGENDA_NATIVA_LINKEDIN"
 
 
 def test_linkedin_le_o_mp4_do_data_sources_que_a_pagina_serviu():
