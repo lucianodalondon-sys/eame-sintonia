@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "lucianodalondon-sys/integra-busca-sobre-fd8c946",
-    "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
-    "GENERATED_AT": "2026-09-28T21:26:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82"
+    "BRANCH": "claude/l1-governanca-preview-v1",
+    "HEAD": "5695b2ba0f8b47dfca68ec09a4fd2972dde2eb1e",
+    "GENERATED_AT": "2026-09-28T22:05:54-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9169462542275fd46e9c3249c9a9f35c6b46b67ef9a8032d29d6d3edd189664a"
   },
   "FILES": [
     {
@@ -11413,7 +11413,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "fa2f863ce87957ca9e71ab4317c11d3c22e748a7",
+      "sha": "647ec56cccd6181645e52bcea2cb6a38708bed10",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -12400,7 +12400,7 @@
     },
     {
       "path": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
-      "sha": "3cf19203ad5e0f3a0f274ef65358665e6c960193",
+      "sha": "ccdf453708b906149ea7730ffaa968dec1a510b6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -17405,7 +17405,7 @@
     },
     {
       "path": "italia-portale/audit/casco/painel-operacao.mjs",
-      "sha": "c92e117bca589caa17e7c288c2f842c94ba25e79",
+      "sha": "f0c9306774601b37d8731e8667603a3be6339d62",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -18518,7 +18518,7 @@
     },
     {
       "path": "leis/fundacao_da_coleta.py",
-      "sha": "e0ae0af152ed868a5f7c7fa9f915218eb82debdd",
+      "sha": "6bedc147ba81053b665a5adbedf0451a10daafe5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21859,6 +21859,27 @@
       "path": "provas/janela_formas/pagina_boletim_local.mjs",
       "sha": "c8bf85f4283cee321fde692c3d98db2d3725dc68",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l1_governanca/GUARDA-NOS-POTES-R9.json",
+      "sha": "14429981c0fc8e7999cd649573b5d2bbc78fee10",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l1_governanca/MUTANTES-EXCECAO-PREVIEW.json",
+      "sha": "e6e8e16dfb4e1a50c6bccbc68e76a313fea3c206",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l1_governanca/mutantes_excecao_preview.py",
+      "sha": "ada439592e581415c36ead379ba94dfdd0ffeaaf",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -26302,7 +26323,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "658277e308ffda719a44d809a0320213d18f05c7",
+      "sha": "8f7bce5b5cf54337ae6b7615dfb2ff0dc6ca25f1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -26428,7 +26449,7 @@
     },
     {
       "path": "system-map/scripts/censo_das_estradas_it.py",
-      "sha": "3cd0b6fea72790db8decf4a8788ce532e0ee04a5",
+      "sha": "cb976afc2813c8dc4b5b4347fa6231b277613625",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28121,6 +28142,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_excecao_preview_e2e.py",
+      "sha": "a6a35909f9b446317da1378fcbacd7c4a112469a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_execucao_standalone.py",
       "sha": "43293ab9fa3ac268886039ed5a8bbab935ee0bd1",
       "ext": ".py",
@@ -29368,7 +29396,7 @@
     },
     {
       "path": "tests/test_trava_da_inteligencia.py",
-      "sha": "dfa2663131e60c56364c384aaa97e3acee2ae827",
+      "sha": "1f5376562a187f2f53ac37095e917c50da079044",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -55851,6 +55879,17 @@
     },
     {
       "from_file": "leis/fundacao_da_coleta.py",
+      "to_file": "docs/decisoes/DIARIO-DE-DECISOES.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/fundacao_da_coleta.py",
+        "line": 150,
+        "snippet": "with open(DIARIO, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "leis/fundacao_da_coleta.py",
       "to_file": "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
       "type": "READS",
       "payload": "artefacto",
@@ -55858,6 +55897,39 @@
         "file": "leis/fundacao_da_coleta.py",
         "line": 42,
         "snippet": "MAPA = os.path.join('docs', 'operacao', 'MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md')"
+      }
+    },
+    {
+      "from_file": "leis/fundacao_da_coleta.py",
+      "to_file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/fundacao_da_coleta.py",
+        "line": 117,
+        "snippet": "TRAVA = os.path.join(RAIZ, 'docs', 'operacao', 'TRAVA-DA-INTELIGENCIA.json')"
+      }
+    },
+    {
+      "from_file": "leis/fundacao_da_coleta.py",
+      "to_file": "pacote/validar_pote_v2.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/fundacao_da_coleta.py",
+        "line": 217,
+        "snippet": "import validar_pote_v2  # noqa: PLC0415 — so quem pede para atravessar paga o import"
+      }
+    },
+    {
+      "from_file": "leis/fundacao_da_coleta.py",
+      "to_file": "system-map/CANONICAL-PUBLICATION.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/fundacao_da_coleta.py",
+        "line": 119,
+        "snippet": "PUBLICACAO = os.path.join(RAIZ, 'system-map', 'CANONICAL-PUBLICATION.json')"
       }
     },
     {
@@ -73128,6 +73200,28 @@
         "file": "provas/janela_formas/pagina_boletim_local.mjs",
         "line": 47,
         "snippet": "const { CONTRACTS } = await import(\"../../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/l1_governanca/mutantes_excecao_preview.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l1_governanca/mutantes_excecao_preview.py",
+        "line": 106,
+        "snippet": "with open(ALVO, \"rb\") as f:"
+      }
+    },
+    {
+      "from_file": "provas/l1_governanca/mutantes_excecao_preview.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l1_governanca/mutantes_excecao_preview.py",
+        "line": 124,
+        "snippet": "with open(ALVO, \"wb\") as f:"
       }
     },
     {
@@ -99520,6 +99614,50 @@
       }
     },
     {
+      "from_file": "tests/test_excecao_preview_e2e.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_excecao_preview_e2e.py",
+        "line": 31,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_excecao_preview_e2e.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_excecao_preview_e2e.py",
+        "line": 32,
+        "snippet": "import fundacao_da_coleta as lei  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_excecao_preview_e2e.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_excecao_preview_e2e.py",
+        "line": 35,
+        "snippet": "import pote_intelligence_casco as P  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_excecao_preview_e2e.py",
+      "to_file": "tests/fixtures/pote/CORRIDA-SINTETICA-V2-UNICO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_excecao_preview_e2e.py",
+        "line": 43,
+        "snippet": "with open(CORRIDA, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
       "from_file": "tests/test_execucao_standalone.py",
       "to_file": "leis/aprender_com_a_fonte.py",
       "type": "READS",
@@ -110999,7 +111137,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_trava_da_inteligencia.py",
-        "line": 336,
+        "line": 88,
         "snippet": "import _gavetas  # noqa: F401"
       }
     },
@@ -111021,7 +111159,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_trava_da_inteligencia.py",
-        "line": 337,
+        "line": 89,
         "snippet": "import fundacao_da_coleta as lei"
       }
     },
@@ -111032,7 +111170,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_trava_da_inteligencia.py",
-        "line": 275,
+        "line": 298,
         "snippet": "self.assertEqual(v[\"FUNDACAO_DONO\"], \"leis/fundacao_da_coleta.py\")"
       }
     },
@@ -112495,6 +112633,13 @@
         "constante": "PASTA"
       }
     ],
+    "provas/l1_governanca/mutantes_excecao_preview.py": [
+      {
+        "pasta": "leis",
+        "line": 124,
+        "constante": "ALVO"
+      }
+    ],
     "provas/lote8_integra/mutacao_lote8.py": [
       {
         "pasta": "provas/lote8_integra",
@@ -112669,7 +112814,7 @@
     "system-map/scripts/censo_das_estradas_it.py": [
       {
         "pasta": "system-map",
-        "line": 924,
+        "line": 927,
         "constante": "SAIDA"
       }
     ],
@@ -112752,11 +112897,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4215,
-    "files_readable": 1771,
-    "files_code_dir": 2190,
-    "file_edges": 7507,
-    "escritas_em_pasta": 96,
+    "files_tracked": 4219,
+    "files_readable": 1773,
+    "files_code_dir": 2194,
+    "file_edges": 7517,
+    "escritas_em_pasta": 97,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
