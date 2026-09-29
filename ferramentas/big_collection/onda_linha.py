@@ -51,6 +51,9 @@ sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
 
 RULE_VERSION = "RELIGA-MULTICANAL/v1 (D155)"
 VISTOS_F = "ALVOS-JA-COLHIDOS.ndjson"
+#: Linhas cujas fontes podem legitimamente nao ter territorio (uma consulta de busca nao e de um
+#: territorio; uma conta de dataset ainda nao tem ficha). Nas outras, a falta e defeito e PARA.
+SEM_TERRITORIO_E_NORMAL = frozenset({"BUSCA", "CIENCIA", "INSTAGRAM"})
 JANELA_VISTO_S = 24 * 3600
 ESTADO_F = "ONDA-WEB-ESTADO.json"
 RAW_F = "RAW-LINHA.jsonl"
@@ -120,7 +123,11 @@ class TerritorioNaoDeclarado(ValueError):
     """Nao ha territorio para carimbar esta corrida, e nao se inventa um."""
 
 
-def run_id(source_id: str | None, territorio: str | None = None) -> str:
+SEM_TERRITORIO = "T0"          # nao e um territorio: e a ausencia declarada de um (T1..T13 sao os reais)
+
+
+def run_id(source_id: str | None, territorio: str | None = None,
+           aceitar_sem_territorio: bool = False) -> str:
     """O RUN_ID no formato que a PROVA-TETO le (`provas/prova_teto_dominio.RE_RUN_ID`):
     (IT|XX)-T<n>-AAAA-MM-DD-HHMMSS-<16 hex>. Um formato proprio ficaria invisivel para a prova.
 
@@ -138,10 +145,24 @@ def run_id(source_id: str | None, territorio: str | None = None) -> str:
     if not t:
         p = str(source_id or "").split("-")
         t = p[1] if len(p) > 2 and p[1].startswith("T") and p[1][1:].isdigit() else None
-    if not t:
+    if not t and not aceitar_sem_territorio:
         raise TerritorioNaoDeclarado(
             "TERRITORIO_NAO_DECLARADO: o SOURCE_ID %r nao traz territorio e nenhum foi declarado. "
             "O RUN_ID carimba o territorio na observacao e ele nao se adivinha." % (source_id,))
+    if not t:
+        # ⚠️ T0 NAO E UM TERRITORIO: e a AUSENCIA declarada de um.
+        #
+        # Ha fontes que legitimamente nao tem territorio — uma consulta de busca, um alvo de dataset
+        # sem ficha. Recusa-las todas travaria tres linhas inteiras por uma questao de formato; e
+        # carimba-las com um territorio real (era T9, COMPETITORS) escrevia uma mentira que viaja com
+        # a observacao para sempre.
+        #
+        #     NAO_SEI DITO NUM LUGAR RESERVADO E HONESTO. NAO_SEI DISFARCADO DE T9 NAO E.
+        #
+        # T0 nao existe em `leis/territorios.TERRITORIOS` (T1..T13) e nao colide com nenhum. A corrida
+        # continua a ser LEGIVEL pela PROVA-TETO — o que importa, porque uma corrida que a prova nao ve
+        # e uma corrida que ninguem confere.
+        t = SEM_TERRITORIO
     pais = "IT" if str(source_id or "").startswith("IT-") else "XX"
     quando = datetime.now(timezone.utc).strftime("%Y-%m-%d-%H%M%S")
     salga = hashlib.sha256(("%s|%s|%s" % (source_id, t, time.time())).encode("utf-8")).hexdigest()[:16]
@@ -635,7 +656,11 @@ def correr(linha: str, candidatas: list, saida: Path, *, max_alvos=None, pousar=
     for i, cand in enumerate(candidatas, 1):
         t0 = time.time()
         try:
-            corrida = run_id(cand.get("SOURCE_ID"), cand.get("TERRITORIO"))
+            # A LINHA diz se a ausencia de territorio e normal nesta familia de fontes. Para SITES e
+            # YOUTUBE (fontes catalogadas) a falta e um defeito e para; para BUSCA, CIENCIA e as contas
+            # de dataset, e um facto — e entra como T0, declarado.
+            corrida = run_id(cand.get("SOURCE_ID"), cand.get("TERRITORIO"),
+                             aceitar_sem_territorio=linha in SEM_TERRITORIO_E_NORMAL)
         except TerritorioNaoDeclarado as ex:
             estado["FONTES"].append({"N": i, "SOURCE_ID": cand.get("SOURCE_ID"), "HORA": agora_iso(),
                                      "CORREU": False, "STATUS": "FAILED", "PORQUE_NAO_CORREU": str(ex),

@@ -686,6 +686,13 @@ def test_armadilha_run_id_nao_inventa_territorio():
     sys.path.insert(0, str(RAIZ / "provas"))
     import prova_teto_dominio as PT
     assert PT.RE_RUN_ID.fullmatch(OL.run_id("CAND-0078", "T9"))
+    # e a AUSENCIA declarada (T0) tambem e legivel pela prova — mas nao e um territorio real
+    import territorios as TERR
+    assert OL.SEM_TERRITORIO not in TERR.TERRITORIOS, "T0 nao pode colidir com um territorio real"
+    r = OL.run_id("CAND-0078", None, aceitar_sem_territorio=True)
+    assert PT.RE_RUN_ID.fullmatch(r) and "-T0-" in r
+    for real in ("T7", "T8", "T9"):
+        assert "-%s-" % real not in r, "a ausencia de territorio nao pode sair carimbada como %s" % real
 
 
 # ══════════════════════════════════════════════════════════════════════════════
