@@ -80,11 +80,21 @@ def main():
     ok, r = caso("ano economico -> FACT ANO", 3, T5,
                  "ha chiuso il 2025 con una produzione dimezzata dalla siccita", "2025", pub="2026-03-01")
     resultados.append(ok and r["FACT_TIME"]["PRECISAO"] == "ANO")
-    # o ano historico de OUTRO facto continua barrado
+    # O ano historico e CONDICIONAL, nao proibido (mudou na RODADA 3, item 1): se a
+    # afirmacao-alvo E a primeira detecao, 2004 e o tempo dela. A expectativa antiga
+    # (NAO_SEI) valia quando um ano historico era descartado sempre; deixou de valer
+    # quando o tempo passou a ser POR AFIRMACAO. Nao veio de gabarito nenhum.
     T6 = "La Xylella fastidiosa e stata rilevata per la prima volta in Europa nel 2004, in Puglia."
-    resultados.append(caso("ano historico de outro facto", 3, T6,
-                           "rilevata per la prima volta in Europa nel 2004", "NAO_SEI",
+    resultados.append(caso("historico E o alvo -> vale", 3, T6,
+                           "rilevata per la prima volta in Europa nel 2004", "2004",
                            pub="2026-09-01")[0])
+    # e o contra-caso, que e o que prova a regra: com OUTRA afirmacao como alvo, o mesmo
+    # 2004 nao lhe pertence.
+    T6b = ("La Xylella fastidiosa e stata rilevata per la prima volta in Europa nel 2004. "
+           "Nei frutteti della zona sono state riscontrate nuove infezioni sulle cultivar tardive.")
+    resultados.append(caso("historico NAO e o alvo -> nao vale", 3, T6b,
+                           "Nei frutteti della zona sono state riscontrate nuove infezioni",
+                           "NAO_SEI", pub="2026-09-01")[0])
 
     # C4 · a relativa ancorada na publicacao nao rebenta mais a interface
     T7 = "Ieri la grandinata ha colpito i vigneti della zona collinare della provincia."

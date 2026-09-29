@@ -256,14 +256,30 @@ def extrair_proposto(entrada: dict, alvo: dict) -> dict:
             fora[t] = _ausencia(t, regs, afirmacao)
             continue
         if t == "FACT_TIME":
-            melhor = TP._escolher_facto(escolha)
+            # R3 item 1 · uma data CONDICIONAL («fondata nel 1998», «avviata nel 2013», a
+            # data de um convegno) data OUTRA afirmacao — a menos que a afirmacao-alvo seja
+            # precisamente essa. Aqui sabe-se qual e o alvo: se a data cai DENTRO dele,
+            # a condicao esta cumprida e ela vale.
+            so_alvo = bool(no_alvo)
+            melhor = TP._escolher_facto(escolha, com_condicionais=so_alvo)
+            if melhor is None:                     # so havia condicionais, e fora do alvo
+                fora[t] = _vazio(NAO_SEI, "a unica data desta oracao data outra afirmacao: %s"
+                                 % (escolha[0].get("CONDICIONAL") or "")[:110])
+                continue
             outros = melhor.get("AMBIGUO")
+            if melhor.get("CONDICIONAL"):
+                fora_condicional = melhor["CONDICIONAL"]
+            else:
+                fora_condicional = None
         else:
             melhor, outros = escolha[0], [x["VALOR"] for x in escolha[1:]] or False
+            fora_condicional = None
         fora[t] = _campo(melhor)
         fora[t]["ALCANCE"] = alcance
         if outros:
             fora[t]["OUTROS_NO_DOCUMENTO"] = outros
+        if fora_condicional:
+            fora[t]["ACEITA_POR_SER_O_ALVO"] = fora_condicional
     # R2 item 6 · o metadado da ENTRADA e base admissivel para PUBLICATION_TIME (nunca
     # para FACT). Entra so quando o texto nao deu carimbo nenhum, e diz de onde vem.
     if fora["PUBLICATION_TIME"]["VALOR"] in (NAO_SEI, NAO_EXISTE) and pub:
