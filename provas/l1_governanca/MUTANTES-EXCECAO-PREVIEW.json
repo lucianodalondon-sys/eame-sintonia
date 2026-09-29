@@ -1,9 +1,9 @@
 {
  "ALVO": "leis/fundacao_da_coleta.py",
- "SHA256_DO_ALVO": "cddb12adead1b169e8f48834f828b01395d10fba95368ab2938171e0fc529330",
+ "SHA256_DO_ALVO": "438732d1a3c18d0bb72a41430691ccd303dd0c249f3cb31cfec1e6a5dc878385",
  "SUITE": "tests.test_excecao_preview_e2e",
- "MUTANTES": 84,
- "MORTOS": 84,
+ "MUTANTES": 87,
+ "MORTOS": 86,
  "DESFEITO_E_CONFERIDO": true,
  "RESULTADOS": [
   {
@@ -478,6 +478,7 @@
    "PERGUNTA": "LB2/VER-a",
    "ESTADO": "MORTO",
    "MORTO_POR": [
+    "test_K3b_o_detalhe_e_texto_nao_verificado_e_nao_decide",
     "test_um_FAIL_nao_precisa_de_elos_nem_de_detalhe_coerente_para_recusar",
     "test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto",
     "test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo"
@@ -580,8 +581,8 @@
     "test_V4_duas_copias_da_mesma_prova_sao_empate",
     "test_V4a_copia_do_PASS_antigo_numa_pasta_irma",
     "test_V4ctl_na_mesma_pasta_o_FAIL_recente_derruba_o_PASS",
-    "test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo",
-    "test_a_um_PASS_mais_novo_em_menos_2_vale_sobre_o_FAIL_antigo"
+    "test_V3c_ctl_PASS_mais_antigo_que_o_FAIL_recusa",
+    "test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo"
    ]
   },
   {
@@ -601,7 +602,8 @@
     "test_V4a_copia_do_PASS_antigo_numa_pasta_irma",
     "test_V4b_PASS_no_pai_e_FAIL_recente_numa_subpasta",
     "test_V4ctl_na_mesma_pasta_o_FAIL_recente_derruba_o_PASS",
-    "test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo"
+    "test_V3c_ctl_PASS_mais_antigo_que_o_FAIL_recusa",
+    "test_V4d_ctl_o_FAIL_recente_com_o_nome_certo_derruba"
    ]
   },
   {
@@ -645,15 +647,6 @@
    ]
   },
   {
-   "MUTANTE": "M74_versao_sem_data_ignorada_em_silencio",
-   "PERGUNTA": "VER-data",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_data_ausente_ou_invalida_e_FAIL",
-    "test_V3b_PASS_datado_no_futuro_nao_congela_o_par"
-   ]
-  },
-  {
    "MUTANTE": "M79_rejeicao_so_em_maiusculas_e_no_topo",
    "PERGUNTA": "K2",
    "ESTADO": "MORTO",
@@ -667,22 +660,6 @@
    "ESTADO": "MORTO",
    "MORTO_POR": [
     "test_K1_chave_desconhecida_na_prova"
-   ]
-  },
-  {
-   "MUTANTE": "M81_detalhe_que_contradiz_o_PASS_aceite",
-   "PERGUNTA": "K3",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_K3_detalhe_que_contradiz_o_PASS"
-   ]
-  },
-  {
-   "MUTANTE": "M82_detalhe_sem_casefold",
-   "PERGUNTA": "K3",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_K3_detalhe_que_contradiz_o_PASS"
    ]
   },
   {
@@ -702,24 +679,6 @@
    ]
   },
   {
-   "MUTANTE": "M85_data_no_futuro_aceite",
-   "PERGUNTA": "V3b",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_V3b_PASS_datado_no_futuro_nao_congela_o_par",
-    "test_V3b_o_futuro_tem_tolerancia_de_5_minutos"
-   ]
-  },
-  {
-   "MUTANTE": "M86_versoes_so_na_pasta_do_pedido",
-   "PERGUNTA": "V4a",
-   "ESTADO": "MORTO",
-   "MORTO_POR": [
-    "test_V4_duas_copias_da_mesma_prova_sao_empate",
-    "test_V4a_copia_do_PASS_antigo_numa_pasta_irma"
-   ]
-  },
-  {
    "MUTANTE": "M87_versoes_sem_descer_nas_subpastas",
    "PERGUNTA": "V4b",
    "ESTADO": "MORTO",
@@ -729,6 +688,78 @@
     "test_c_contagem_de_liberados_que_mente_recusa",
     "test_c_liberado_por_outra_corrida_recusa",
     "test_c_objeto_nao_para_cliente_recusa_o_pote_inteiro"
+   ]
+  },
+  {
+   "MUTANTE": "M74_versao_sem_data_ignorada_em_silencio",
+   "PERGUNTA": "VER-data",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_data_ausente_ou_invalida_e_FAIL"
+   ]
+  },
+  {
+   "MUTANTE": "M85_versao_no_futuro_aceite",
+   "PERGUNTA": "V3c",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V3b_PASS_datado_no_futuro_nao_congela_o_par",
+    "test_V3b_o_futuro_tem_tolerancia_de_5_minutos",
+    "test_V3c_PASS_dentro_da_tolerancia_nao_vence_um_FAIL",
+    "test_V3c_a_tolerancia_so_salva_a_propria_prova_quando_e_a_unica",
+    "test_V3c_uma_versao_irma_no_futuro_poe_o_par_em_FAIL"
+   ]
+  },
+  {
+   "MUTANTE": "M86_versoes_so_na_pasta_do_pedido",
+   "PERGUNTA": "V4a",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4_duas_copias_da_mesma_prova_sao_empate",
+    "test_V4a_copia_do_PASS_antigo_numa_pasta_irma",
+    "test_V4d_ctl_o_FAIL_recente_com_o_nome_certo_derruba",
+    "test_V4d_o_FAIL_recente_com_grafia_anomala_poe_o_par_em_FAIL",
+    "test_V4d_o_par_citado_pelo_nome_mesmo_sem_json_valido"
+   ]
+  },
+  {
+   "MUTANTE": "M88_tolerancia_ajuda_a_vencer_outra",
+   "PERGUNTA": "V3c",
+   "ESTADO": "SOBREVIVEU",
+   "MORTO_POR": []
+  },
+  {
+   "MUTANTE": "M89_futuro_da_propria_sem_teto",
+   "PERGUNTA": "V3c",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V3c_a_tolerancia_so_salva_a_propria_prova_quando_e_a_unica"
+   ]
+  },
+  {
+   "MUTANTE": "M90_anomalias_ignoradas",
+   "PERGUNTA": "V4d",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4d_o_FAIL_recente_com_grafia_anomala_poe_o_par_em_FAIL",
+    "test_V4d_o_par_citado_pelo_nome_mesmo_sem_json_valido",
+    "test_V4d_o_par_citado_so_pelo_conteudo_num_nome_qualquer"
+   ]
+  },
+  {
+   "MUTANTE": "M91_par_citado_pelo_nome_ignorado",
+   "PERGUNTA": "V4d",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4d_o_par_citado_pelo_nome_mesmo_sem_json_valido"
+   ]
+  },
+  {
+   "MUTANTE": "M92_par_citado_pelo_conteudo_ignorado",
+   "PERGUNTA": "V4d",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4d_o_par_citado_so_pelo_conteudo_num_nome_qualquer"
    ]
   }
  ]
