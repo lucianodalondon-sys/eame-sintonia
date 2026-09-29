@@ -855,8 +855,10 @@ class LB_AProvaDoLabEstruturadaPorIgualdadeDeCampo(Base):
 
     def test_LB4_sha_do_pote_com_caixa_ou_pedaco_diferente_recusa(self):
         for sha in ("x" + self.sha, self.sha.upper(), self.sha + " ", self.sha[:63]):
-            self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
                 self.entrada(self.pote, POTE_SHA256=sha), nome=self.nome_deste_par())))
+            # recusada pela regra CERTA — a igualdade do campo —, nao so pela das versoes
+            self.assertIn("par (POTE_SHA256, RUN_ID)", m)
 
     def test_LB5_pote_do_produtor_em_subpasta_da_pasta_do_lab(self):
         sub = os.path.join(self.pasta_lab, "produtor", "fundo")
