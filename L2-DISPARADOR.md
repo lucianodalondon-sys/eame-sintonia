@@ -3,7 +3,7 @@
 > **D140** (dono real, 28/09): *«Intelligence Owner constrói/conclui o disparador automático SOMENTE-LEITURA permitido pela
 > TRAVA: detectar material novo → snapshot/cópia segura da Sala → rodar motor → gerar cruzamentos → produzir pote
 > canônico. consumido_em é outra decisão — não misturar.»*
-> Ramo `claude/l2-disparador-v1`, sobre a produção **`fd8c94698`** (`origin/servico-20260923-0923`).
+> Ramo `claude/l2-disparador-v1`, nascido sobre a produção **`fd8c94698`** e juntado com a produção atual **`852ec0f0b`** (`origin/servico-20260923-0923`, §6-bis).
 > Red team: *«não criar outro disparador; integrar seletivamente a ESTEIRA sobre fd8c94698; f85b4138a NÃO é ancestral de
 > fd8c94698 — enxerto cego pode perder peças; DSN no arranque»*.
 
@@ -13,8 +13,8 @@ MUTAÇÃO    47/47 mortos · ficheiros restaurados byte a byte · italia-portale
 TESTES     tests/test_disparador_intelligence.py 59/59 · tests/test_harness_mutacao_l2.py 2/2
 R9        OBJETOS_LIBERADOS_AUTO = 0 (manual = 2) · GERADOR_CANONICO = FAIL — provas/l2/R9-AUTO-VS-MANUAL.md
 ESTADO    D152: código pronto, NÃO agendado, NÃO instalado. Isto prova o DISPARADOR, não o laço até à tela.
-BATERIA    __BATERIA__
-MAPA       __MAPA__
+BATERIA    por nome, base 852ec0f0b (produção atual) × ramo e76f695aa: 7.492 → 7.553 testes, 166 → 166 falhas · NOVAS 0 · SUMIDAS 0
+MAPA       REGERAR → VALIDAR = SYSTEM_MAP_CHECK=PASS · --conferir-carimbo = IGUAL (sobre a junção com 852ec0f0b)
 ```
 
 ---
@@ -166,10 +166,10 @@ herdados da esteira (regra, recuo, cópia, PARAR, intervalo, poda, vigia, reten�
 ```bat
 cd %USERPROFILE%\orca\workspaces\eame-sintonia\<arvore do servico>
 git fetch origin claude/l2-disparador-v1
-git rev-parse HEAD                    & rem tem de ser fd8c94698... (a producao de hoje)
+git rev-parse HEAD                    & rem tem de ser 852ec0f0b... (a producao de hoje)
 git merge-base --is-ancestor HEAD origin/claude/l2-disparador-v1 && echo FF_OK
 git merge --ff-only origin/claude/l2-disparador-v1
-rem Se o HEAD NAO for fd8c94698 (a producao andou), NAO force: e preciso outro rebase.
+rem Se o HEAD NAO for 852ec0f0b (a producao andou), NAO force: e preciso outra juncao.
 ```
 
 **O ficheiro de arranque** (fora do repo, como o `coleta_continua.cmd`): `%SI%\disparador_intelligence.cmd`
@@ -190,13 +190,22 @@ A DSN só existe dentro desse processo (sem `setx`), e o disparador nunca a impr
 **Conferir sem gravar nada:** `py admissao\gatilho_da_inteligencia.py --medir` (só SELECT: o delta e a decisão).
 **Ligar:** `schtasks /Create /TN "SINTONIA-DISPARADOR-INTELLIGENCE" /SC MINUTE /MO 30 /TR "%SI%\disparador_intelligence.cmd" /F`
 **Parar:** `curadoria\PARAR.flag` (para o disparador e o resto do serviço) · `schtasks /Change /TN "SINTONIA-DISPARADOR-INTELLIGENCE" /DISABLE`.
-**Desfazer:** `git reset --keep fd8c94698` + apagar a tarefa. Nenhum livro vivo nem a Sala são escritos pela instalação.
+**Desfazer:** `git reset --keep 852ec0f0b` + apagar a tarefa. Nenhum livro vivo nem a Sala são escritos pela instalação.
 **Códigos de saída de `--uma-volta`:** 0 feito/esperou · 1 cópia/motor falhou (recua 30 min) · 3 outra volta a decorrer · 4 falta a DSN.
 **Disco:** `curadoria\esteira\intelligence\` guarda no máximo ~4 backups inteiros (~50 MB cada); os velhos ficam só com o recibo.
 **Ler a saúde:** `curadoria\ESTEIRA-SAUDE.json` → `ALERTA`, `ALERTAS[]`, `ETAPAS{}`, `ULTIMO_DELTA_DA_INTELLIGENCE`, `ULTIMO_CORTE_DA_INTELLIGENCE`.
 
 **Se fosse instalado hoje:** dispara quando houver material novo, faz a cópia, corre o motor, e o fiscal **reprova**
 o pote (§4). Nada entra na entrega até o dono do pote decidir. O vigia mostra `pote` parado e, se os 6 repetidos medidos pelo coordenador continuarem na Sala, `DEFEITO_NA_SALA`.
+
+## 6-bis · Base: a produção andou (fd8c94698 → 852ec0f0b)
+
+A produção avançou durante a missão (V-BUSCA: `linha_busca` + mapa). Medido: `fd8c94698` é antepassado de `852ec0f0b`,
+e o único ficheiro que os dois lados mexeram é `system-map/data/architecture.declared.json`, em trechos diferentes.
+Juntei-a no ramo com um **merge** (`37ca629ae`, sem reescrever o que já estava publicado), regerei o mapa pela cadeia,
+e a bateria por nome foi medida **contra `852ec0f0b`**: `provas/l2/BATERIA-BASE-852ec0f.json` ×
+`provas/l2/BATERIA-DEPOIS-e76f695.json` → 0 novas, 0 sumidas (`provas/int_r7/bateria_por_nome.py`, rede fechada,
+3 trabalhadores, worktrees limpas). Instalar seria `merge --ff-only` sobre `852ec0f0b` — **mas não se instala (D152)**.
 
 ## 7 · Design
 
