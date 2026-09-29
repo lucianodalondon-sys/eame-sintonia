@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1"
+    "HEAD": "993d54c36ceae2aa86191da5debe968e38b1d21a"
   },
   "VOCABULARIOS": [
     {
@@ -1249,16 +1249,16 @@
       "OWNER": "admissao",
       "ROLE": "ADMISSAO",
       "O_QUE_E": "as palavras que decidem se o item pertence ao universo pedido",
-      "TOTAL_TERMS": 128,
+      "TOTAL_TERMS": 142,
       "POR_ESCOPO": {
-        "UNKNOWN": 63,
-        "IT_ONLY": 37,
+        "UNKNOWN": 76,
+        "IT_ONLY": 38,
         "PT_ONLY": 20,
         "SHARED_MULTILINGUAL": 6,
         "INTERNATIONAL": 2
       },
-      "CLASSIFIED": 65,
-      "UNKNOWN": 63,
+      "CLASSIFIED": 66,
+      "UNKNOWN": 76,
       "FECHA": true,
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
@@ -1274,6 +1274,8 @@
         "coleta/rota_forward_documento.py",
         "controle/censo_do_controle.py",
         "controle/red_team_do_controle.py",
+        "ferramentas/big_collection/fontes_multicanal.py",
+        "ferramentas/big_collection/onda_linha.py",
         "ferramentas/reel_transcricao.py",
         "leis/artefato.py",
         "leis/estudo_chaves.py",
@@ -1351,6 +1353,7 @@
         "scripts/regua_t2/medir_regua_t2.py",
         "scripts/regua_t2/medir_via_agrometeo.py",
         "scripts/regua_t2/mutar_regua_t2.py",
+        "scripts/regua_t8/medir_regua_t8.py",
         "system-map/scripts/censo_das_derivacoes.py",
         "system-map/scripts/censo_semantico_it.py",
         "system-map/scripts/generate_system_map.py",
@@ -1408,7 +1411,9 @@
         "tests/test_reel_transcricao_trava.py",
         "tests/test_regua_t1.py",
         "tests/test_regua_t2.py",
+        "tests/test_regua_t8.py",
         "tests/test_relevance_priority_sobrecarga.py",
+        "tests/test_religa_multicanal.py",
         "tests/test_sala_dedup_por_document_key.py",
         "tests/test_sala_duravel.py",
         "tests/test_sala_idempotente_por_documento.py",
@@ -1420,6 +1425,62 @@
         "tests/test_v1a_v1_ligada.py"
       ],
       "TERMOS": [
+        {
+          "termo": "agricoltore|agricoltori|agricultor|agricultores",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "in campo|nei campi|no campo|nos campos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "coltivatore|coltivatori|viticoltore|viticoltori|frutticoltore|frutticoltori|olivicoltore|olivicoltori|produtor rural|produtores rurais",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "allevatore|allevatori|pecuarista|pecuaristas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "raccolto|raccolti|colheita|colheitas",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "semina|semine|sementeira|plantio",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "potatura|poda",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "concimazione|concimi|fertilizzanti|adubacao|fertilizantes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "irrigazione|irrigacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ettaro|ettari|hectare|hectares",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "trattore|trattori|trator|tratores",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "redditivita|costi di produzione|rentabilidade|custos de producao",
+          "escopo": "UNKNOWN"
+        },
         {
           "termo": "doi",
           "escopo": "INTERNATIONAL"
@@ -1937,9 +1998,9 @@
   ],
   "COUNTS": {
     "vocabularios": 10,
-    "termos_ao_todo": 370,
+    "termos_ao_todo": 384,
     "por_papel": {
-      "ADMISSAO": 128,
+      "ADMISSAO": 142,
       "BUSCA": 68,
       "CLASSIFICACAO": 139,
       "EXTRACAO": 35

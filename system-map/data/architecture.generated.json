@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "lucianodalondon-sys/integra-busca-sobre-fd8c946",
-    "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
-    "GENERATED_AT": "2026-09-28T21:26:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82"
+    "BRANCH": "lucianodalondon-sys/religa-multicanal-v1",
+    "HEAD": "993d54c36ceae2aa86191da5debe968e38b1d21a",
+    "GENERATED_AT": "2026-09-29T08:50:43-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e78adcc30c48d5849f97569ed4614d3524a0d5a64fd43ad7a7b29331e0e2f364"
   },
   "FILES": [
     {
@@ -185,7 +185,7 @@
     },
     {
       "path": ".gitignore",
-      "sha": "b60444007e2f11d21fdd5ae2a0b1c319691c939f",
+      "sha": "df4837505614573c238ef5d2e660c4d5c6466b19",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -599,6 +599,13 @@
     {
       "path": "PERGUNTA-BOT-LUCIANO-ORDENS-63.md",
       "sha": "a72168cb85d594afccf1736c4bb8be1c944c0ccd",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "PESQUISADORES-FIX.md",
+      "sha": "5b0d1d6bdc738a1bfe9d5e693a85bfb67989210a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1270,7 +1277,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "4b7cd7c2f72d6b6ed77bd93563cd6512f2205b84",
+      "sha": "471dd6483b9be56b83b9662126300cb8a60c2cf9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2320,8 +2327,22 @@
     },
     {
       "path": "coleta/adaptador_youtube.py",
-      "sha": "8560a65da3dc80a46260c5fffe4580fd9cdc2575",
+      "sha": "0706092968e53ecf6e664d75ebf26fe4ae536d57",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/adaptadores_de_aquisicao.mjs",
+      "sha": "294aa13edb255bf5e8a9896a71fa040333465d95",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/adaptadores_de_aquisicao_test.mjs",
+      "sha": "e08d9366c39e4e880ff2ed6b2ffe0f85899eb58d",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -2390,7 +2411,7 @@
     },
     {
       "path": "coleta/corpus_pesquisador.py",
-      "sha": "782195bb69f038c09746f9d93538ac56df553347",
+      "sha": "369d3015ef86abe966e8ea764dff2b5bfa316e90",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2404,7 +2425,7 @@
     },
     {
       "path": "coleta/cortesia_adaptativa.py",
-      "sha": "843bae1f6da21088c5ed46ec28bca4010a6b4775",
+      "sha": "6f56562f2b46822ab5813925280a78e601a69e1d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2607,7 +2628,7 @@
     },
     {
       "path": "coleta/linha_busca.py",
-      "sha": "c4631c1273ab57c4614c497554a2244a16996d1a",
+      "sha": "e8426e11dc1e03f61ea22a873ec7be1591fabf6f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2656,7 +2677,7 @@
     },
     {
       "path": "coleta/pesquisadores_t6.py",
-      "sha": "a1d9ab7d352443e95fc248b2472c5640d27eb69a",
+      "sha": "8ec4ca0cffc817d32a8008d68de291611922195c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2684,7 +2705,7 @@
     },
     {
       "path": "coleta/reserva_24h.py",
-      "sha": "0c5522ceec60637cb46306453f5daf666b507f6e",
+      "sha": "0216cbeeebebf95ff16cb5779eaeae3eff49f91a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2713,6 +2734,13 @@
     {
       "path": "coleta/rota_navegador.py",
       "sha": "9668505962258defba4a79389914654d5e0c0a25",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/rotas_multicanal.py",
+      "sha": "adb215f5433fe3c913e68d10cae41a1ae56052f9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2761,7 +2789,7 @@
     },
     {
       "path": "coleta/scrap_http.py",
-      "sha": "64184a0c3dc606019e8ede57053174cd1978ad4e",
+      "sha": "8ae48839aeac7b86404d9a5dbb0d7330255ac5bc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2831,7 +2859,7 @@
     },
     {
       "path": "coleta/teto_da_onda.py",
-      "sha": "1af6fcf5e3e00489bb250a1d2bf9e6827e74242d",
+      "sha": "c74008bc2e189d4ebe9e41523ad262fb73c8f98c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -2866,7 +2894,7 @@
     },
     {
       "path": "coleta/youtube_oficial.py",
-      "sha": "21e5d6136163698f0e028b63388e12a786f6cb33",
+      "sha": "568286356787bf83fb51e3e1cb3e87bc0b31131f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6877,7 +6905,7 @@
     },
     {
       "path": "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
-      "sha": "61fdff9d6e41e5adf28080854a9ccc5ca904b8e5",
+      "sha": "f96fe4ee169a2b21b0f40bdd8d80af7ebc944b83",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -13177,7 +13205,7 @@
     },
     {
       "path": "ferramentas/big_collection/coleta_continua.py",
-      "sha": "92345f8bfb250d5a1bd0dc19e0da2883e7aa98c1",
+      "sha": "6a5c403634a061377ce0b5a631ab7a8fcdb4aabc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13255,6 +13283,13 @@
     {
       "path": "ferramentas/big_collection/ensaio_rodada.py",
       "sha": "6e739e0a710e83dff5348d287f1128d4e6514791",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/big_collection/fontes_multicanal.py",
+      "sha": "895c6bc74f5c2feefaceb1812b2be1b4ef0ef336",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13344,6 +13379,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/big_collection/onda_linha.py",
+      "sha": "c8f6dbcb163236173ae8ee47734ccf72def2399d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/big_collection/onda_web.py",
       "sha": "b0d68a98034acd42ea7da0399e42c039fdf72618",
       "ext": ".py",
@@ -13360,6 +13402,13 @@
     {
       "path": "ferramentas/big_collection/rodadas.py",
       "sha": "c3ca7a8777f881e3f3f457e51f44e865042625e5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "sha": "89a74b96b97069832f7d5e3fd5b6bebbdcb26f1a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14514,7 +14563,7 @@
     },
     {
       "path": "ferramentas/linha_busca/api_oficial.py",
-      "sha": "33f2db440a3397f70007e2f1b6a3fd6a3caac50a",
+      "sha": "ec6e26a8c8d7b7bb337aac56628874a49f2905ef",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22689,6 +22738,34 @@
       "code_dir": true
     },
     {
+      "path": "provas/religa_multicanal/ELO-RAW-SALA.json",
+      "sha": "27ecae039cf8397c2147f4ad881c407c4243cfa7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/religa_multicanal/MUTACAO.json",
+      "sha": "22308f121a961a74a3728aee76f96ddc760a7346",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/religa_multicanal/elo_raw_sala.py",
+      "sha": "80430f16b95fb451e5c5e0d724853aee9ccd96f4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/religa_multicanal/mutacao.py",
+      "sha": "93c29cc43207759ce7f7c0e653a002cc5cc95037",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/rls_censo_metadados.sql",
       "sha": "503192dfd1c8d28100c71428dd484b7dc000de50",
       "ext": ".sql",
@@ -23544,7 +23621,7 @@
     },
     {
       "path": "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
-      "sha": "52c3d4b9cd16749ac8bd38b5be8536319d18f90f",
+      "sha": "aa1829a48b5778f5c56b64986aea25bb4c66b7aa",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -25552,6 +25629,48 @@
       "code_dir": true
     },
     {
+      "path": "scripts/regua_t8/CANARIO-T8-V1.json",
+      "sha": "773660700f9e2da63304564d92af2e97a0a37801",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t8/GABARITO-T8-V1.json",
+      "sha": "600022b1bcfcb3e14db6276c9b64f48b58aeb920",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t8/MEDICAO-REGUA-T8-V1.json",
+      "sha": "ca992319f38a393cec1b81853dd88ffbf670a729",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t8/PROTOCOLO-GABARITO-T8.md",
+      "sha": "95fc68454671f8079d3b608ad50435d0515748ee",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t8/SELECAO-VIDEOS-T8.json",
+      "sha": "f30880a7325c50caf7f827effb1d30f41a37e6a7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/regua_t8/medir_regua_t8.py",
+      "sha": "92010743bd5c186a938a936e7117f6977fb3b0d4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA-SEM-FILTRO.json",
       "sha": "74ac29c2dceae8b3f3daf00cb4c1f5809ebcbff6",
       "ext": ".json",
@@ -26302,7 +26421,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "658277e308ffda719a44d809a0320213d18f05c7",
+      "sha": "f921baf55a29fe5371a56578936d47dad1bff58d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -29087,6 +29206,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_regua_t8.py",
+      "sha": "bc715121332ca5f3db250333e05136deda368828",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_relatorio_do_fluxo.py",
       "sha": "6ce0032ae5798cbb37aee401db51f905d370af92",
       "ext": ".py",
@@ -29096,6 +29222,13 @@
     {
       "path": "tests/test_relevance_priority_sobrecarga.py",
       "sha": "444da670945595bb81aa49f68aa8d92b4e4ea44f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_religa_multicanal.py",
+      "sha": "6f85be2f529e5bf115b35751a4ca61748801be4e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -31062,7 +31195,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 1514,
+        "line": 1578,
         "snippet": "_sp = _iu.spec_from_file_location(\"admissao_idioma\", Path(__file__).resolve().parent / \"idioma.py\")"
       }
     },
@@ -31106,7 +31239,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2091,
+        "line": 2155,
         "snippet": "import boletim_do_campo as BC                                  # noqa: PLC0415"
       }
     },
@@ -31117,7 +31250,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2125,
+        "line": 2189,
         "snippet": "import estudo_chaves as EC                                     # noqa: PLC0415"
       }
     },
@@ -31128,7 +31261,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 2070,
+        "line": 2134,
         "snippet": "import fato_do_texto as FT                                     # noqa: PLC0415"
       }
     },
@@ -32151,7 +32284,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 421,
+        "line": 442,
         "snippet": "import coletor as ct"
       }
     },
@@ -32162,7 +32295,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 488,
+        "line": 509,
         "snippet": "medida['IMPLEMENTACAO'] = 'coleta/coletor.py'"
       }
     },
@@ -32217,7 +32350,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 863,
+        "line": 884,
         "snippet": "import youtube_janela as jan    # noqa: PLC0415 — o dono da janela publica"
       }
     },
@@ -32239,7 +32372,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 404,
+        "line": 425,
         "snippet": "import apify_pool as ap"
       }
     },
@@ -32250,7 +32383,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 653,
+        "line": 674,
         "snippet": "import fala_local as fl"
       }
     },
@@ -32261,7 +32394,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 652,
+        "line": 673,
         "snippet": "import youtube_transcrever as ytv"
       }
     },
@@ -32272,7 +32405,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 729,
+        "line": 750,
         "snippet": "import social_matriz as mz                                       # noqa: PLC0415"
       }
     },
@@ -32283,8 +32416,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 803,
+        "line": 824,
         "snippet": "'AUTORIZACAO_DE': 'leis/social_matriz.py',"
+      }
+    },
+    {
+      "from_file": "coleta/adaptadores_de_aquisicao_test.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptadores_de_aquisicao_test.mjs",
+        "line": 12,
+        "snippet": "import { canalPublicoYoutube, ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/adaptadores_de_aquisicao_test.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/adaptadores_de_aquisicao_test.mjs",
+        "line": 12,
+        "snippet": "import { canalPublicoYoutube, ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
       }
     },
     {
@@ -32663,6 +32818,17 @@
     },
     {
       "from_file": "coleta/corpus_pesquisador.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/corpus_pesquisador.py",
+        "line": 231,
+        "snippet": "import reserva_24h as R24                                # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "coleta/corpus_pesquisador.py",
       "to_file": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -32679,7 +32845,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
-        "line": 729,
+        "line": 786,
         "snippet": "json.dump(corpo2, open(DIRETORIO, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
@@ -32690,7 +32856,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
-        "line": 735,
+        "line": 792,
         "snippet": "c = json.load(open(DEST, encoding='utf-8'))"
       }
     },
@@ -32701,7 +32867,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
-        "line": 653,
+        "line": 710,
         "snippet": "json.dump(corpo, open(DEST, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
@@ -32712,7 +32878,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
-        "line": 251,
+        "line": 308,
         "snippet": "d = json.load(open(FONTE, encoding='utf-8'))"
       }
     },
@@ -32734,7 +32900,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/cortesia_adaptativa.py",
-        "line": 62,
+        "line": 63,
         "snippet": "import dominio_registavel as _DR                                   # noqa: E402 — um so dono da regra do dominio"
       }
     },
@@ -32745,7 +32911,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/cortesia_adaptativa.py",
-        "line": 64,
+        "line": 65,
         "snippet": "POLITICA_F = RAIZ / \"regras\" / \"POLITICA-CORTESIA-ADAPTATIVA.json\""
       }
     },
@@ -34131,7 +34297,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/linha_busca.py",
-        "line": 377,
+        "line": 387,
         "snippet": "(saida / \"CONSULTAS.json\").write_text(json.dumps(qs, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -34285,7 +34451,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/pesquisadores_t6.py",
-        "line": 318,
+        "line": 325,
         "snippet": "import cortesia_adaptativa as CA                                   # noqa: PLC0415 — o dono unico (D124)"
       }
     },
@@ -34296,7 +34462,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/pesquisadores_t6.py",
-        "line": 623,
+        "line": 630,
         "snippet": "with open(ATLAS, encoding='utf-8') as h:"
       }
     },
@@ -34606,6 +34772,28 @@
         "file": "coleta/rota_navegador.py",
         "line": 149,
         "snippet": "s = importlib.util.spec_from_file_location(\"rede_egresso\", os.path.join(RAIZ, \"superficie\", \"rede.py\"))"
+      }
+    },
+    {
+      "from_file": "coleta/rotas_multicanal.py",
+      "to_file": "coleta/adaptador_linkedin.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rotas_multicanal.py",
+        "line": 294,
+        "snippet": "import adaptador_linkedin as LI                                # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "coleta/rotas_multicanal.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rotas_multicanal.py",
+        "line": 48,
+        "snippet": "import scrap_http as http                                      # noqa: PLC0415"
       }
     },
     {
@@ -35077,7 +35265,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_http.py",
-        "line": 496,
+        "line": 510,
         "snippet": "_esp = _ilu.spec_from_file_location(\"espera_por_dominio\", _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), \"espera_por_dominio.py\"))"
       }
     },
@@ -35088,7 +35276,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_http.py",
-        "line": 454,
+        "line": 468,
         "snippet": "import teto_da_onda as teto                                # noqa: PLC0415"
       }
     },
@@ -35577,6 +35765,17 @@
       }
     },
     {
+      "from_file": "coleta/teto_da_onda.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/teto_da_onda.py",
+        "line": 155,
+        "snippet": "import reserva_24h as R24                                      # noqa: PLC0415 — a porta das linhas Python"
+      }
+    },
+    {
       "from_file": "coleta/universo_ciencia_it.py",
       "to_file": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
       "type": "READS",
@@ -35649,8 +35848,30 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/youtube_oficial.py",
-        "line": 316,
+        "line": 336,
         "snippet": "import coleta_checkpoint as cc"
+      }
+    },
+    {
+      "from_file": "coleta/youtube_oficial.py",
+      "to_file": "coleta/cortesia_adaptativa.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/youtube_oficial.py",
+        "line": 248,
+        "snippet": "import cortesia_adaptativa as CA                                   # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "coleta/youtube_oficial.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/youtube_oficial.py",
+        "line": 251,
+        "snippet": "import reserva_24h as R24                                          # noqa: PLC0415 — a porta unica"
       }
     },
     {
@@ -45604,7 +45825,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 98,
+        "line": 110,
         "snippet": "\"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\"},"
       }
     },
@@ -45615,8 +45836,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 100,
-        "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 112,
+        "snippet": "\"TRANSPORTE\": \"coleta/linha_busca.py\", \"SONDA_PY\": \"BUSCA\", \"EXECUTOR\": \"LINHA\"},"
       }
     },
     {
@@ -45626,8 +45847,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 102,
-        "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 114,
+        "snippet": "\"TRANSPORTE\": \"coleta/pesquisadores_t6.py\", \"SONDA_PY\": \"CIENCIA\", \"EXECUTOR\": \"LINHA\"},"
       }
     },
     {
@@ -45643,13 +45864,13 @@
     },
     {
       "from_file": "ferramentas/big_collection/coleta_continua.py",
-      "to_file": "coleta/teto_da_onda.py",
+      "to_file": "coleta/rotas_multicanal.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 104,
-        "snippet": "\"TRANSPORTE\": \"coleta/teto_da_onda.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
+        "line": 116,
+        "snippet": "\"TRANSPORTE\": \"coleta/rotas_multicanal.py\", \"SONDA_PY\": \"YOUTUBE\", \"EXECUTOR\": \"LINHA\"},"
       }
     },
     {
@@ -45659,8 +45880,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 339,
+        "line": 382,
         "snippet": "subprocess.Popen([sys.executable, str(RAIZ / \"curadoria\" / \"supervisor.py\")], **kw)"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "ferramentas/big_collection/fontes_multicanal.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 754,
+        "snippet": "import fontes_multicanal as FM                            # noqa: PLC0415 — o leitor da lista do Curator"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "ferramentas/big_collection/onda_linha.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 425,
+        "snippet": "cmd = [sys.executable, str(AQUI / \"onda_linha.py\"), \"--correr\", \"--linha=\" + linha,"
       }
     },
     {
@@ -45672,6 +45915,17 @@
         "file": "ferramentas/big_collection/coleta_continua.py",
         "line": 78,
         "snippet": "import rodadas as R                                                # noqa: E402 — plano, janela, portao, onda, prova"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/coleta_continua.py",
+      "to_file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/coleta_continua.py",
+        "line": 130,
+        "snippet": "SONDA_LINHAS_PY = AQUI / \"sonda_ligacao_linhas.py\""
       }
     },
     {
@@ -45692,7 +45946,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 106,
+        "line": 128,
         "snippet": "\"TRANSPORTE\": \"coleta/seguir.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},"
       }
     },
@@ -45703,7 +45957,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/big_collection/coleta_continua.py",
-        "line": 301,
+        "line": 344,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\"),"
       }
     },
@@ -45906,6 +46160,138 @@
       }
     },
     {
+      "from_file": "ferramentas/big_collection/fontes_multicanal.py",
+      "to_file": "coleta/dominio_registavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/fontes_multicanal.py",
+        "line": 65,
+        "snippet": "import dominio_registavel as DR                                # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 49,
+        "snippet": "import _gavetas  # noqa: E402,F401 — as gavetas do processo no caminho (`orquestrador` e um MODULO, nao a pasta)"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 438,
+        "snippet": "import admissao as adm                                          # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 615,
+        "snippet": "import sala_de_espera as SE                                # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "coleta/corpus_pesquisador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 253,
+        "snippet": "import corpus_pesquisador as CP                             # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "coleta/executor_texto_de_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 439,
+        "snippet": "import executor_texto_de_html as H                              # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "coleta/extratores_de_texto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 440,
+        "snippet": "import extratores_de_texto as XT                                # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 441,
+        "snippet": "import italy_executor as ex                                     # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "coleta/linha_busca.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 218,
+        "snippet": "import linha_busca as LB                                    # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 254,
+        "snippet": "import pesquisadores_t6 as T6                               # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "coleta/rotas_multicanal.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 177,
+        "snippet": "import rotas_multicanal as RM                                  # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/onda_linha.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/onda_linha.py",
+        "line": 442,
+        "snippet": "import orquestrador as ORQ                                      # noqa: PLC0415"
+      }
+    },
+    {
       "from_file": "ferramentas/big_collection/onda_web.py",
       "to_file": "coleta/cortesia_adaptativa.py",
       "type": "IMPORTS",
@@ -46057,6 +46443,94 @@
         "file": "ferramentas/big_collection/rodadas.py",
         "line": 333,
         "snippet": "r = subprocess.run([sys.executable, str(RAIZ / \"superficie\" / \"rede.py\"), \"--portao-de-egresso\", \"IT\","
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+        "line": 65,
+        "snippet": "import _gavetas  # noqa: F401 — as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "to_file": "coleta/linha_busca.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+        "line": 44,
+        "snippet": "\"BUSCA\": [(\"PAGINA\", \"coleta/linha_busca.py\", \"pagina\"), (\"API\", \"coleta/linha_busca.py\", \"api\")],"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "to_file": "coleta/pesquisadores_t6.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+        "line": 45,
+        "snippet": "\"CIENCIA\": [(\"API\", \"coleta/pesquisadores_t6.py\", \"ciencia\")],"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "to_file": "coleta/rotas_multicanal.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+        "line": 52,
+        "snippet": "\"YOUTUBE\": [(\"ROTA_PUBLICA\", \"coleta/rotas_multicanal.py\", \"multicanal\")],"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+        "line": 46,
+        "snippet": "\"SOCIAL\": [(\"SCRAP_HTTP\", \"coleta/scrap_http.py\", \"scrap\"), (\"YOUTUBE_DATA\", \"coleta/youtube_oficial.py\", \"yt\")],"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+        "line": 46,
+        "snippet": "\"SOCIAL\": [(\"SCRAP_HTTP\", \"coleta/scrap_http.py\", \"scrap\"), (\"YOUTUBE_DATA\", \"coleta/youtube_oficial.py\", \"yt\")],"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "to_file": "ferramentas/seguir_pesquisadores/seguir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+        "line": 47,
+        "snippet": "\"PESQUISADORES\": [(\"SEGUIR\", \"ferramentas/seguir_pesquisadores/seguir.py\", \"seguir\")],"
+      }
+    },
+    {
+      "from_file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+      "to_file": "regras/POLITICA-CORTESIA-ADAPTATIVA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/big_collection/sonda_ligacao_linhas.py",
+        "line": 171,
+        "snippet": "pol = json.loads((raiz / \"regras\" / \"POLITICA-CORTESIA-ADAPTATIVA.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -47047,6 +47521,28 @@
         "file": "ferramentas/leitor_data_yt/prever_acervo.py",
         "line": 39,
         "snippet": "import orquestrador as ORQ  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/linha_busca/api_oficial.py",
+      "to_file": "coleta/cortesia_adaptativa.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/linha_busca/api_oficial.py",
+        "line": 73,
+        "snippet": "import cortesia_adaptativa as CA                                      # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "ferramentas/linha_busca/api_oficial.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/linha_busca/api_oficial.py",
+        "line": 76,
+        "snippet": "import reserva_24h as R24                                             # noqa: PLC0415 — a porta unica"
       }
     },
     {
@@ -79841,6 +80337,149 @@
       }
     },
     {
+      "from_file": "provas/religa_multicanal/elo_raw_sala.py",
+      "to_file": "provas/religa_multicanal/ELO-RAW-SALA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/elo_raw_sala.py",
+        "line": 122,
+        "snippet": "saida = Path(__file__).resolve().parent / \"ELO-RAW-SALA.json\""
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/elo_raw_sala.py",
+      "to_file": "provas/religa_multicanal/ELO-RAW-SALA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/elo_raw_sala.py",
+        "line": 123,
+        "snippet": "saida.write_text(json.dumps(doc, ensure_ascii=False, indent=1, default=str) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "coleta/corpus_pesquisador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 43,
+        "snippet": "CP = \"coleta/corpus_pesquisador.py\""
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "coleta/cortesia_adaptativa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 42,
+        "snippet": "CA = \"coleta/cortesia_adaptativa.py\""
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 126,
+        "snippet": "'     \"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\"},',"
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 41,
+        "snippet": "PORTA = \"coleta/reserva_24h.py\""
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "coleta/rotas_multicanal.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 37,
+        "snippet": "RM = \"coleta/rotas_multicanal.py\""
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "ferramentas/big_collection/coleta_continua.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 40,
+        "snippet": "CC = \"ferramentas/big_collection/coleta_continua.py\""
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "ferramentas/big_collection/fontes_multicanal.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 38,
+        "snippet": "FM = \"ferramentas/big_collection/fontes_multicanal.py\""
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "ferramentas/big_collection/onda_linha.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 39,
+        "snippet": "OL = \"ferramentas/big_collection/onda_linha.py\""
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "ferramentas/big_collection/sonda_ligacao_sites.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 126,
+        "snippet": "'     \"TRANSPORTE\": \"coleta/italy_pilot_collect.mjs\", \"SONDA\": \"ferramentas/big_collection/sonda_ligacao_sites.mjs\"},',"
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "ferramentas/seguir_pesquisadores/seguir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 131,
+        "snippet": "'     \"TRANSPORTE\": \"coleta/seguir.py\", \"CHAMADA\": \"reserva_24h.reservar(\"},',"
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/mutacao.py",
+      "to_file": "provas/religa_multicanal/MUTACAO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/mutacao.py",
+        "line": 225,
+        "snippet": "saida = os.path.join(os.path.dirname(os.path.abspath(__file__)), \"MUTACAO.json\")"
+      }
+    },
+    {
       "from_file": "provas/rodadas_mutacao.py",
       "to_file": "ferramentas/big_collection/rodadas.py",
       "type": "READS",
@@ -85503,6 +86142,61 @@
         "file": "scripts/regua_t2/recolher_boletins.py",
         "line": 34,
         "snippet": "_sp = importlib.util.spec_from_file_location(\"rede\", RAIZ / \"superficie\" / \"rede.py\")"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t8/medir_regua_t8.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/regua_t8/medir_regua_t8.py",
+        "line": 33,
+        "snippet": "import admissao as A  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t8/medir_regua_t8.py",
+      "to_file": "admissao/idioma.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t8/medir_regua_t8.py",
+        "line": 55,
+        "snippet": "open(os.path.join(d, \"idioma.py\"), \"w\", encoding=\"utf-8\").write(idi)"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t8/medir_regua_t8.py",
+      "to_file": "scripts/regua_t8/GABARITO-T8-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t8/medir_regua_t8.py",
+        "line": 73,
+        "snippet": "g = json.load(open(GAB, encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/regua_t8/medir_regua_t8.py",
+      "to_file": "scripts/regua_t8/MEDICAO-REGUA-T8-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t8/medir_regua_t8.py",
+        "line": 37,
+        "snippet": "SAIDA = AQUI / \"MEDICAO-REGUA-T8-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/regua_t8/medir_regua_t8.py",
+      "to_file": "scripts/regua_t8/MEDICAO-REGUA-T8-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/regua_t8/medir_regua_t8.py",
+        "line": 126,
+        "snippet": "json.dump(out, open(SAIDA, \"w\", encoding=\"utf-8\"), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -108375,6 +109069,17 @@
       }
     },
     {
+      "from_file": "tests/test_regua_t8.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_regua_t8.py",
+        "line": 18,
+        "snippet": "import admissao as A  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_relevance_priority_sobrecarga.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -108526,6 +109231,127 @@
         "file": "tests/test_relevance_priority_sobrecarga.py",
         "line": 277,
         "snippet": "\"research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md\")"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 707,
+        "snippet": "import _gavetas  # noqa: F401"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 619,
+        "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "coleta/corpus_pesquisador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 516,
+        "snippet": "import corpus_pesquisador as CP"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "coleta/cortesia_adaptativa.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 443,
+        "snippet": "import cortesia_adaptativa as CA"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "coleta/reserva_24h.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 389,
+        "snippet": "import reserva_24h as R24"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "coleta/rotas_multicanal.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 22,
+        "snippet": "import rotas_multicanal as RM                                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "coleta/teto_da_onda.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 459,
+        "snippet": "import teto_da_onda as T"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "ferramentas/big_collection/onda_linha.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 711,
+        "snippet": "fonte = open(RAIZ / \"ferramentas\" / \"big_collection\" / \"onda_linha.py\", encoding=\"utf-8\").read()"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "ferramentas/seguir_pesquisadores/seguir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 352,
+        "snippet": "assert p[\"TRANSPORTE\"] == \"coleta/seguir.py\""
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "leis/territorios.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 692,
+        "snippet": "import territorios as TERR"
+      }
+    },
+    {
+      "from_file": "tests/test_religa_multicanal.py",
+      "to_file": "provas/prova_teto_dominio.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_religa_multicanal.py",
+        "line": 557,
+        "snippet": "import prova_teto_dominio as PT"
       }
     },
     {
@@ -112752,10 +113578,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4215,
-    "files_readable": 1771,
-    "files_code_dir": 2190,
-    "file_edges": 7507,
+    "files_tracked": 4234,
+    "files_readable": 1782,
+    "files_code_dir": 2208,
+    "file_edges": 7570,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

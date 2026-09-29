@@ -6473,6 +6473,107 @@
    "files": [
     "medidas/materia_prima_por_dia.py"
    ]
+  },
+  {
+   "id": "C-RELIGA-ROTAS-MULTICANAL",
+   "name": "As rotas publicas das linhas nao-web — YouTube, Instagram, LinkedIn",
+   "territory": "Z-ACOES",
+   "kind": "code",
+   "icon": "🔌",
+   "views": [
+    "acervo",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "As rotas que a casa ja PROVOU, escritas uma vez, para a coleta continua poder correr as linhas nao-web no mesmo ciclo das SITES. YouTube: a pagina publica do canal, com a identidade lida do CANAL e nunca do item, e os metadados do video lidos da pagina /watch (que o robots aprova) em vez do oembed, que so traz titulo e autor. Instagram: o Reel por URL directa (D22) e a listagem /embed/ da conta. LinkedIn: a pagina publica de ORGANIZACAO (D23) e a legenda nativa do video, que e de onde vem o texto do item. Tudo pela porta unica `coleta/scrap_http.buscar_bytes`, com transporte INJECTADO.",
+   "why_here": "NADA AQUI INVENTA UMA ROTA: o que nao esta provado devolve erro com nome. E a identidade le-se do CANAL, nunca do item — uma guarda construida sobre o item compara `NA` com o pedido e nunca casa, ou e escrita para tolerar `NA` e APROVA SEMPRE: uma fechadura que nunca tranca. IDENTITY_MISMATCH e falha FECHADA. A ROTA FUNCIONAR NAO E A COLHEITA SERVIR.",
+   "files": [
+    "coleta/rotas_multicanal.py",
+    "coleta/adaptadores_de_aquisicao.mjs",
+    "coleta/adaptadores_de_aquisicao_test.mjs"
+   ]
+  },
+  {
+   "id": "C-RELIGA-EXECUTOR-POR-LINHA",
+   "name": "O executor de ciclo das linhas nao-web, ate RAW e a Sala",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "code",
+   "icon": "🚚",
+   "views": [
+    "acervo",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "A onda de uma linha nao-web: descobre os alvos pela rota provada, colhe pela mesma porta (robots vivo, portao de egresso, reserva de 24 h antes e resposta depois), preserva pelo dono do RAW numa corrida propria, passa cada unidade pela Admission NORMAL com o RAW_OBSERVATION_ID real, e poe os prontos na Sala canonica. Alimenta-se da lista do Source Curator, opcao (a): cada linha recebe as candidatas do seu proprio canal, com o campo LINHA e o universo declarado no PEDIDO.",
+   "why_here": "Era ESTE o buraco verdadeiro da coleta multicanal, e nao o contador de 24 h: `coleta_continua` dava candidatas so a SITES, e a onda web so sabe correr a coorte congelada pelo micro_coleta. Capacidade existia; EXECUTOR DE CICLO nao. Escreve o MESMO ONDA-WEB-ESTADO.json para o ciclo continuar a ler um so formato — duas formas para a mesma coisa obrigariam o ciclo a adivinhar de que linha veio cada ficheiro.",
+   "files": [
+    "ferramentas/big_collection/onda_linha.py",
+    "ferramentas/big_collection/fontes_multicanal.py"
+   ]
+  },
+  {
+   "id": "C-RELIGA-SONDA-DAS-LINHAS",
+   "name": "A sonda da ligacao das linhas Python — uma linha por processo",
+   "territory": "Z-FERRAMENTAS",
+   "kind": "proof",
+   "icon": "🩺",
+   "views": [
+    "acervo",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "Mede pelo COMPORTAMENTO do transporte real, contra um servidor local e zero rede externa, se cada linha esta mesmo ligada ao contador de 24 h: cada pedido que chega ao servidor tem uma RESERVA escrita ANTES e uma RESPOSTA registada DEPOIS; um dominio que o livro diz pausado nao recebe pedido nenhum; e um 429 e obedecido a 2.a chamada.",
+   "why_here": "⚠️ CADA ROTA NUM PROCESSO SEU. `coleta/scrap_http.py` instala um abridor GLOBAL do urllib: medidas no mesmo processo, uma linha DESLIGADA aparece LIGADA por contagio da vizinha — ja aconteceu, e foi assim que a CIENCIA apareceu a reservar sem estar ligada. A ORDEM DOS IMPORTS NAO PODE SER O QUE LIGA UMA LINHA AO CONTADOR. E mede-se o que o transporte FAZ, nunca um texto no ficheiro: um texto pode estar morto.",
+   "files": [
+    "ferramentas/big_collection/sonda_ligacao_linhas.py"
+   ]
+  },
+  {
+   "id": "C-RELIGA-PROVAS",
+   "name": "As provas da RELIGA-MULTICANAL — o elo RAW->Sala e o ataque dos mutantes",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "🔎",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "what": "`elo_raw_sala.py` segue CADA captura do canario e diz ONDE ela parou, distinguindo com prova «a Admission julgou e disse nao» (elo INTEIRO) de «a unidade perdeu-se entre os dois» (elo PARTIDO). `mutacao.py` planta 34 defeitos, um de cada vez, numa copia por `git archive`, e corre so os testes que os devem apanhar.",
+   "why_here": "A PERGUNTA NAO E «QUANTOS CHEGARAM». E «ONDE PARARAM, E QUEM OS PAROU» — contar itens nao distingue um juizo de um cano roto. E no ataque, uma ancora ausente OU ambigua falha alto: um mutante que nao muda nada nao prova nada, e um que passa despercebido conta como teste forte sem o ser.",
+   "files": [
+    "provas/religa_multicanal/elo_raw_sala.py",
+    "provas/religa_multicanal/mutacao.py"
+   ]
+  },
+  {
+   "id": "C-REGUA-T8",
+   "name": "A regua do universo T8 — a voz e a pratica do campo (CANDIDATA)",
+   "territory": "Z-ADMISSAO",
+   "kind": "code",
+   "icon": "🌾",
+   "views": [
+    "acervo"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "O gabarito, o protocolo e o medidor da regua de T8 (FARMERS & INFLUENCERS), portados de `origin/youtube-regua-t8-v1 @b48a99ff0` com o texto da regua IGUAL ao do ramo. Um termo e um CONCEITO, com as formas separadas por «|», e casa por PALAVRA INTEIRA; T8 e TRANSVERSAL — «quem fala e o campo?» nao exclui «fala de praga?».",
+   "why_here": "⚠️ E CANDIDATA, E ISSO TEM DE ESTAR ESCRITO EM CADA DECISAO QUE ELA ASSINA: recall 10/20 nos SIM e 3 falsos SIM em 28 negativos. UMA REGUA QUE ACERTA METADE NAO E UMA REGUA ERRADA: E UMA REGUA QUE AINDA NAO FOI VALIDADA. Cada decisao sai carimbada com REGUA_T8=v1 e VALIDADO_POR_HUMANO=NAO, e os itens que ela admite ficam so na Sala descartavel do canario ate o dono decidir.",
+   "files": [
+    "scripts/regua_t8/medir_regua_t8.py",
+    "scripts/regua_t8/GABARITO-T8-V1.json",
+    "scripts/regua_t8/PROTOCOLO-GABARITO-T8.md"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
