@@ -1,10 +1,10 @@
 {
- "ARVORE": "b7da2808b4bebab19e8cd3ab0a09c4249d5147c3",
+ "ARVORE": "86a147f9e369524f5939c51d87b49079811f5b36",
  "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
  "SEM_MUTACAO": {
   "CODIGO": 0,
   "VERDE": true,
-  "CAUDA": "a_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 56 tests in 0.913s\n\nOK"
+  "CAUDA": "a_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 65 tests in 1.304s\n\nOK"
  },
  "MUTANTES": [
   {
@@ -15,10 +15,10 @@
    "QUEM_O_MATOU": [
     "ERROR: test_a_classe_do_facto_observado_e_alerta_evento (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_do_facto_observado_e_alerta_evento)",
     "ERROR: test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base)",
+    "ERROR: test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho)",
+    "ERROR: test_nenhum_municipio_e_inventado (__main__.OContratoDeConsumoDaIntelligence.test_nenhum_municipio_e_inventado)",
     "ERROR: test_o_basis_do_tempo_fora_do_sitio_reprova (__main__.TestesNegativos.test_o_basis_do_tempo_fora_do_sitio_reprova)",
-    "FAIL: test_o_evidence_span_e_literal_e_confere (__main__.OContratoDeConsumoDaIntelligence.test_o_evidence_span_e_literal_e_confere)",
-    "FAIL: test_a_virgula_que_emenda_duas_frases_corta (__main__.ONDE_UMA_FRASE_ACABA.test_a_virgula_que_emenda_duas_frases_corta)",
-    "FAIL: test_o_nome_proprio_com_artigo_nao_corta (__main__.ONDE_UMA_FRASE_ACABA.test_o_nome_proprio_com_artigo_nao_corta)"
+    "FAIL: test_a_classe_marcada_sai_no_vocabulario_fechado (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_marcada_sai_no_vocabulario_fechado)"
    ]
   },
   {
@@ -169,6 +169,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_nenhum_municipio_e_inventado (__main__.OContratoDeConsumoDaIntelligence.test_nenhum_municipio_e_inventado)",
     "FAIL: test_local_inexistente_fica_nao_sei (__main__.TestesNegativos.test_local_inexistente_fica_nao_sei)"
    ]
   },
@@ -216,9 +217,11 @@
   {
    "NOME": "A_CLASSE_SAI_DO_VOCABULARIO_FECHADO",
    "FICHEIRO": "leis/afirmacao_do_documento.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_classe_marcada_sai_no_vocabulario_fechado (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_marcada_sai_no_vocabulario_fechado)"
+   ]
   },
   {
    "NOME": "A_CLASSE_ESCOLHE_UMA_DE_DUAS",
@@ -230,23 +233,83 @@
    ]
   },
   {
+   "NOME": "A_D149_CHAMA_SE_LITERAL",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_relativa_ancorada_no_impresso_diz_o_proprio_nome (__main__.OContratoDeConsumoDaIntelligence.test_a_relativa_ancorada_no_impresso_diz_o_proprio_nome)"
+   ]
+  },
+  {
+   "NOME": "O_CABECALHO_CHAMA_SE_LITERAL",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho)",
+    "FAIL: test_literal_exige_o_basis_dentro_do_trecho (__main__.OContratoDeConsumoDaIntelligence.test_literal_exige_o_basis_dentro_do_trecho)",
+    "FAIL: test_a_conferencia_aprova_o_que_o_produtor_produz (__main__.TrechoEProva.test_a_conferencia_aprova_o_que_o_produtor_produz)",
+    "FAIL: test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao)"
+   ]
+  },
+  {
+   "NOME": "A_CONFERENCIA_ACEITA_LITERAL_COM_BASIS_DE_FORA",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho)"
+   ]
+  },
+  {
+   "NOME": "O_LUGAR_VIAJA_SEM_PRECISAO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_nenhum_municipio_e_inventado (__main__.OContratoDeConsumoDaIntelligence.test_nenhum_municipio_e_inventado)",
+    "FAIL: test_o_lugar_viaja_com_a_precisao_e_com_a_cobertura (__main__.OContratoDeConsumoDaIntelligence.test_o_lugar_viaja_com_a_precisao_e_com_a_cobertura)",
+    "FAIL: test_a_conferencia_aprova_o_que_o_produtor_produz (__main__.TrechoEProva.test_a_conferencia_aprova_o_que_o_produtor_produz)"
+   ]
+  },
+  {
+   "NOME": "O_LUGAR_VIAJA_SEM_A_COBERTURA",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "ERROR: test_o_lugar_viaja_com_a_precisao_e_com_a_cobertura (__main__.OContratoDeConsumoDaIntelligence.test_o_lugar_viaja_com_a_precisao_e_com_a_cobertura)",
+    "FAIL: test_a_conferencia_aprova_o_que_o_produtor_produz (__main__.TrechoEProva.test_a_conferencia_aprova_o_que_o_produtor_produz)"
+   ]
+  },
+  {
+   "NOME": "O_PRODUTOR_ESCREVE_ESPECIE",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_produtor_nunca_escreve_especie (__main__.OContratoDeConsumoDaIntelligence.test_o_produtor_nunca_escreve_especie)",
+    "FAIL: test_o_produtor_nunca_escreve_liberacao (__main__.OContratoDeConsumoDaIntelligence.test_o_produtor_nunca_escreve_liberacao)",
+    "FAIL: test_a_conferencia_aprova_o_que_o_produtor_produz (__main__.TrechoEProva.test_a_conferencia_aprova_o_que_o_produtor_produz)"
+   ]
+  },
+  {
    "NOME": "MEMORIA_RESPONDE_A_TODOS",
    "FICHEIRO": "leis/boletim_do_campo.py",
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
     "ERROR: test_a_classe_do_facto_observado_e_alerta_evento (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_do_facto_observado_e_alerta_evento)",
+    "ERROR: test_a_classe_marcada_sai_no_vocabulario_fechado (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_marcada_sai_no_vocabulario_fechado)",
     "ERROR: test_a_conferencia_recusa_claim_sem_identidade (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_claim_sem_identidade)",
     "ERROR: test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base)",
-    "ERROR: test_a_conferencia_recusa_quem_escreveu_liberacao (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_quem_escreveu_liberacao)",
-    "ERROR: test_a_conferencia_recusa_span_com_nome_fora_do_trecho (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_span_com_nome_fora_do_trecho)",
-    "ERROR: test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar (__main__.OContratoDeConsumoDaIntelligence.test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar)"
+    "ERROR: test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho)",
+    "ERROR: test_a_conferencia_recusa_quem_escreveu_liberacao (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_quem_escreveu_liberacao)"
    ]
   }
  ],
- "TOTAL": 24,
- "MORTOS": 23,
- "SOBREVIVENTES": [
-  "A_CLASSE_SAI_DO_VOCABULARIO_FECHADO"
- ]
+ "TOTAL": 30,
+ "MORTOS": 30,
+ "SOBREVIVENTES": []
 }
