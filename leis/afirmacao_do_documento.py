@@ -422,6 +422,23 @@ def _lugar(leitura: dict, texto: str, inicio: int, fim: int, secao: dict) -> dic
     # prende qual facto. Havendo mais de um, nao escolhe. Foi exactamente aqui que a «Italia»
     # do facto de 2012 foi colada ao tempo do facto de 2004.
     escritos = expressoes_de_lugar(texto[inicio:fim])
+    # ── PROD-3 · A CONTAGEM TEM DE INCLUIR O LUGAR QUE FOI EMITIDO ────────────
+    # Medido pelo dono: `LUGARES_NO_TRECHO = 0` com `FACT_LOCATION = Ferrara`. O lugar veio de
+    # «ferrarese» — um ADJETIVO —, e o contador procura o nome do gazetteer («Ferrara»), que
+    # nao esta escrito ali. Nao houve vazamento (o G0 recusou por outra razao), mas:
+    #
+    #     UMA CONTAGEM DE ZERO AO LADO DE UM VALOR PRESENTE E UM ESTADO INCOERENTE,
+    #     E QUEM CONSOME NAO TEM COMO SABER QUAL DOS DOIS ACREDITAR.
+    #
+    # O lugar EMITIDO concorre sempre — e por definicao, porque e ele que vai viajar. Some-se
+    # a ele, se for o caso: isto so pode SUBIR a contagem, nunca descer, logo nao afrouxa a
+    # guarda dos concorrentes. A forma escrita dele fica em EXPRESSOES_DE_LUGAR como o leitor
+    # a leu, para que a diferenca «Ferrara» x «ferrarese» seja visivel em vez de escondida.
+    if valor != UNRESOLVED and not any(x["PLACE"] == valor for x in escritos):
+        escritos = escritos + [{"INICIO": None, "FIM": None, "PLACE": valor,
+                                "TRECHO": bruto if bruto else valor,
+                                "DE_ONDE": "emitido pelo leitor do lugar; a forma escrita nao "
+                                           "e o nome do gazetteer (ex.: «ferrarese» -> Ferrara)"}]
     motivo = None
     if valor != UNRESOLVED and len(escritos) > 1:
         motivo = LUGARES_CONCORRENTES
@@ -517,7 +534,10 @@ def classe_do_claim(span: str, tempo: dict) -> dict:
         faltas.append("o papel da data e %s, nao ACONTECIMENTO" % tempo.get("PAPEL"))
     if not FT._relativa_presa_ao_campo(span):
         faltas.append("o texto nao prende a data a um acontecimento (nenhuma ancora do leitor vivo)")
-    if str(tempo.get("PRECISAO") or "").endswith("SEM_ANO") or tempo.get("ANO") == NAO_SEI:
+    # PROD-3: pergunta-se tambem ao VALOR, e nao so a PRECISAO. Um mes sozinho («marzo») nao
+    # acendia o sinal `SEM_ANO`, e a classe saia ALERTA_EVENTO contra a regra escrita acima.
+    if (str(tempo.get("PRECISAO") or "").endswith("SEM_ANO") or tempo.get("ANO") == NAO_SEI
+            or TA.falta_o_ano(tempo.get("VALOR"))):
         faltas.append("a data nao escreve o ano")
     if faltas:
         return {"VALOR": NAO_SEI, "MARCAS": [],

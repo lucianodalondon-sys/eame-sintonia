@@ -148,9 +148,13 @@ MUTANTES = [
      '    if tempo.get("PAPEL") != TA.ACONTECIMENTO:', '    if False:'),
     ("A_CLASSE_NAO_EXIGE_A_ANCORA", "leis/afirmacao_do_documento.py",
      '    if not FT._relativa_presa_ao_campo(span):', '    if False:'),
+    # ⚠️ Este mutante atacava a linha inteira do ano. A PROD-3 partiu a condicao em duas
+    # metades (a PRECISAO/ANO e a pergunta ao VALOR) e o alvo antigo desapareceu — ficou
+    # NAO_APLICADO no pre-teste dos alvos. Agora ataca SO a primeira metade, e o
+    # PROD3_A_CLASSE_NAO_PERGUNTA_AO_VALOR ataca a segunda: duas garantias, dois ataques.
     ("A_CLASSE_NAO_EXIGE_O_ANO", "leis/afirmacao_do_documento.py",
-     '    if str(tempo.get("PRECISAO") or "").endswith("SEM_ANO") or tempo.get("ANO") == NAO_SEI:',
-     '    if False:'),
+     '    if (str(tempo.get("PRECISAO") or "").endswith("SEM_ANO") or tempo.get("ANO") == NAO_SEI',
+     '    if (False'),
     # A garantia e «uma janela de USO PERMITIDO nao e a data em que a coisa aconteceu».
     # Ela tem TRES formas escritas, e cada uma leva o seu mutante: uma so, a atacar a
     # primeira, sobrevivia por a segunda cobrir o mesmo texto de prova (medido).
@@ -211,6 +215,31 @@ MUTANTES = [
     # ── PROD-2 · a loja e mercado em toda a casa ─────────────────────────────
     ("PROD2_A_LOJA_VOLTA_A_NAO_SER_MERCADO", "leis/afirmacao_do_documento.py",
      ' or FT._RE_LOJA.search(span)', ''),
+    # ── PROD-3 · o mes sozinho nao tem ano, e a contagem nao pode ser incoerente ──
+    ("PROD3_A_CLASSE_NAO_PERGUNTA_AO_VALOR", "leis/afirmacao_do_documento.py",
+     '            or TA.falta_o_ano(tempo.get("VALOR"))):', '            or False):'),
+    ("PROD3_A_PRECISAO_NAO_DIZ_QUE_FALTA_O_ANO", "leis/tempo_da_afirmacao.py",
+     '        sem_ano = sem_ano or falta_o_ano(c["fact_time"])', '        pass'),
+    # `falta_o_ano` tem duas metades, e cada uma leva o seu mutante: se so o mes contasse, o
+    # «12 marzo» passava; se qualquer texto contasse, «in Toscana» dizia que lhe falta o ano.
+    ("PROD3_FALTA_O_ANO_IGNORA_O_MES_ESCRITO", "leis/tempo_da_afirmacao.py",
+     '    return bool(_RE_MES_ESCRITO.search(FL._baixo(s)) or re.search(r"\\d", s))',
+     '    return bool(re.search(r"\\d", s))'),
+    ("PROD3_FALTA_O_ANO_DIZ_SIM_A_QUALQUER_TEXTO", "leis/tempo_da_afirmacao.py",
+     '    if escreve_o_ano(s):\n        return False', '    if False:\n        return False'),
+    ("PROD3_A_CONTAGEM_IGNORA_O_LUGAR_EMITIDO", "leis/afirmacao_do_documento.py",
+     '    if valor != UNRESOLVED and not any(x["PLACE"] == valor for x in escritos):',
+     '    if False:'),
+    # ── PROD-4 · o ato citado pelo numero ────────────────────────────────────
+    # Uma alternativa por mutante: a lei da validade (D160 §2.2) mostrou que um mutante unico
+    # sobrevive quando outra alternativa apanha o mesmo texto de prova.
+    ("PROD4_A_MARCA_DE_ATO_SEM_RECANTE", "leis/tempo_da_afirmacao.py",
+     r'regolamento\s+\(?(?:ue|ce)\)?|recante|', r'regolamento\s+\(?(?:ue|ce)\)?|zzzrecante|'),
+    ("PROD4_A_MARCA_DE_ATO_SEM_N_DEL", "leis/tempo_da_afirmacao.py",
+     r'    r"n\.?\s*\d+\s+del(?![a-zà-ÿ])|lotta\s+obbligatoria)", re.I)',
+     r'    r"zzznumero\s+del|lotta\s+obbligatoria)", re.I)'),
+    ("PROD4_A_MARCA_DE_ATO_SEM_LOTTA_OBBLIGATORIA", "leis/tempo_da_afirmacao.py",
+     r'|lotta\s+obbligatoria)", re.I)', r'|zzzlotta\s+obbligatoria)", re.I)'),
 ]
 
 

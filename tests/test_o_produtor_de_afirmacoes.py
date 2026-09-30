@@ -1043,5 +1043,105 @@ class ALojaEMercadoEmTodaACasa(unittest.TestCase):
         self.assertEqual(classe['VALOR'], NAO_SEI)
 
 
+class OMesSozinhoNaoTemAno(unittest.TestCase):
+    """PROD-3 · a classe contra a regra do PROPRIO produtor (MEDICAO-CONJUNTA-BLK1 §PROD-3).
+
+    «il suo ciclo iniziava con la semina nel mese di marzo» (derived:21) saia com
+    CLAIM_KIND = ALERTA_EVENTO e sem ano — e a regra escrita no proprio `classe_do_claim` diz
+    «sem ano, NAO SEI». A regra estava certa; o SINAL que ela lia e que era cego.
+
+    O `sem_ano` do `primeiro_dia` so acende no caso «dia + mes sem ano». Um mes SOZINHO nao
+    casa nenhuma das duas expressoes, logo devolvia False — e False era lido como «tem ano»."""
+
+    TRECHO = 'Nel ferrarese il suo ciclo iniziava con la semina nel mese di marzo.'
+
+    def test_o_mes_sozinho_nao_da_ALERTA_EVENTO(self):
+        af = _produzir(self.TRECHO)[0]
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
+        self.assertNotEqual(af['CLAIM_KIND']['VALOR'], 'ALERTA_EVENTO')
+
+    def test_falta_o_ano_responde_pelo_VALOR(self):
+        """A pergunta passa a ser feita ao valor, com a mesma expressao que o le."""
+        for valor in ('marzo', 'nel mese di marzo', '12 marzo'):
+            self.assertTrue(TA.falta_o_ano(valor), valor)
+        for valor in ('2012', 'marzo 2012', '12 marzo 2012', '2026-09-07/2026-09-13'):
+            self.assertFalse(TA.falta_o_ano(valor), valor)
+
+    def test_um_texto_sem_tempo_nenhum_nao_diz_que_falta_o_ano(self):
+        """`falta_o_ano` nao pode virar «true por omissao»: sem mes e sem algarismo, nao ha
+        ano a faltar — ha ausencia de data, que e outra coisa e tem outro nome."""
+        for valor in ('', None, 'NAO SEI', 'in Toscana'):
+            self.assertFalse(TA.falta_o_ano(valor), repr(valor))
+
+    def test_A_CONTAGEM_NAO_PODE_SER_ZERO_COM_UM_LUGAR_PRESENTE(self):
+        """O estado incoerente que o dono apanhou: LUGARES_NO_TRECHO = 0 e FACT_LOCATION =
+        Ferrara, lido de «ferrarese». Quem consome nao tem como saber qual dos dois acreditar."""
+        af = _produzir(self.TRECHO)[0]
+        self.assertEqual(af['FACT_LOCATION']['VALOR'], 'Ferrara')
+        self.assertGreaterEqual(af['LUGARES_NO_TRECHO'], 1)
+        self.assertIn('Ferrara', [str(x) for x in af['FACT_LOCATION']['EXPRESSOES_DE_LUGAR']])
+
+    def test_a_coerencia_vale_em_TODA_a_producao(self):
+        """A regra em geral, e nao so neste trecho: valor presente => contagem >= 1. Zero com
+        valor e o estado que nao pode existir em nenhuma afirmacao."""
+        for texto in (self.TRECHO, BOLETIM,
+                      'La cimice ha colpito i frutteti in provincia di Cuneo nel 2012.',
+                      'Nel barese la raccolta e finita.',
+                      'La cimice asiatica e stata rilevata in Europa nel 2004 e in Italia nel 2012.'):
+            for af in _produzir(texto):
+                if af['FACT_LOCATION']['VALOR'] != NAO_SEI:
+                    self.assertGreaterEqual(af['LUGARES_NO_TRECHO'], 1,
+                                            '%s -> %s' % (af['TRECHO_LITERAL'][:50],
+                                                          af['FACT_LOCATION']['VALOR']))
+
+    def test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes(self):
+        """Somar o lugar emitido so pode SUBIR a contagem. O bloqueador continua a 3."""
+        af = _produzir('La cimice asiatica e stata rilevata in Europa per la prima volta nel '
+                       '2004 e in Italia nel 2012, in Emilia Romagna.')[0]
+        self.assertEqual(af['LUGARES_NO_TRECHO'], 3)
+        self.assertEqual(af['FACT_LOCATION']['VALOR'], NAO_SEI)
+
+
+class OAtoCitadoPeloNumero(unittest.TestCase):
+    """PROD-4 · um ATO classificado como acontecimento (MEDICAO-CONJUNTA-BLK1 §PROD-4).
+
+    «8810 del 24 aprile 2026, recante il Piano di azione … lotta obbligatoria … in Toscana»
+    e um ato e saia ALERTA_EVENTO. As palavras `decreto|determina|delibera` ja estavam na
+    marca — e NENHUMA esta naquele trecho. O que esta ali e a forma como um ato se CITA.
+
+    O dono exige isto fechado ANTES de a linha de busca passar a gravar DOCUMENT_ID: sem
+    isso, um ato entra no pote classificado como alerta de evento."""
+
+    TRECHO = ('8810 del 24 aprile 2026, recante il Piano di azione per la lotta obbligatoria '
+              'in Toscana.')
+
+    def test_o_ato_citado_pelo_numero_e_REGULATORIO(self):
+        af = _produzir(self.TRECHO, published_at='2026-05-10')[0]
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], 'REGULATORIO')
+        self.assertNotEqual(af['CLAIM_KIND']['VALOR'], 'ALERTA_EVENTO')
+
+    def test_cada_forma_de_citacao_sozinha(self):
+        """Uma frase por FORMA nova, para que a morte de um mutante nao seja coberta por
+        outra alternativa a apanhar o mesmo texto — foi o que aconteceu na validade (D160)."""
+        casos = {'recante': 'Il provvedimento recante il Piano regionale.',
+                 'n_del': 'Il n. 8810 del 24 aprile 2026 entra in vigore.',
+                 'lotta_obbligatoria': 'La lotta obbligatoria e stata disposta.'}
+        for nome, frase in casos.items():
+            self.assertTrue(TA._MARCA_DE_ATO.search(frase), nome)
+
+    def test_as_palavras_que_ja_existiam_continuam(self):
+        for palavra in ('decreto', 'determinazione', 'ordinanza', 'deliberazione'):
+            self.assertTrue(TA._MARCA_DE_ATO.search('Il %s regionale.' % palavra), palavra)
+
+    def test_a_marca_nova_nao_apanha_prosa_comum(self):
+        """`n. <numero> del` tem de exigir o numero: «del campo», «nel mese del raccolto» e
+        prosa, e uma marca que as apanhasse punha REGULATORIO em meia Sala."""
+        for frase in ('Il ciclo del campo inizia a marzo.',
+                      'Nel mese del raccolto la resa e maggiore.',
+                      'La cimice ha colpito i frutteti.',
+                      'Il numero delle trappole e aumentato.'):
+            self.assertIsNone(TA._MARCA_DE_ATO.search(frase), frase)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

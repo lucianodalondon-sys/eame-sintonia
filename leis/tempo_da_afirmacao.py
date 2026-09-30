@@ -117,9 +117,20 @@ _MARCA_DE_VALIDADE = re.compile(
     r"(?:impiego|utilizzo|impieghi|uso)\s+(?:consentit|ammess|autorizzat)|"
     r"(?:consentit[oi]|ammess[oi]|autorizzat[oi])\s+(?:a\s+partire\s+)?dal|"
     r"vale\s+dal|decorre\s+dal|con\s+decorrenza)", re.I)
+# ⚠️ PROD-4 · A FORMA DE CITACAO DE UM ATO NAO ESCREVE A PALAVRA «DECRETO».
+# O dono mediu-o em «8810 del 24 aprile 2026, recante il Piano di azione … lotta obbligatoria
+# … in Toscana»: um ATO que saia ALERTA_EVENTO. As palavras `decreto|determina|delibera` ja
+# estavam aqui — e nenhuma esta NAQUELE trecho. O que esta ali e a forma como um ato se CITA:
+# o numero, o «del <data>», e o «recante» que introduz o conteudo.
+#
+#     PROCURAR O NOME DO ATO E PERDER TODO O ATO QUE E CITADO PELO NUMERO.
+#
+# `recante` sozinho e marca forte (em italiano administrativo introduz o que o ato contem), e
+# `n. <numero> del` e a citacao curta. Acrescentado por ordem escrita do dono da Intelligence.
 _MARCA_DE_ATO = re.compile(
     r"(?<![a-zà-ÿ])(?:decreto|determina(?:zione)?|ordinanza|delibera(?:zione)?|d\.?\s?m\.?\s?n|"
-    r"d\.?g\.?r\.?|circolare\s+n|legge\s+n|regolamento\s+\(?(?:ue|ce)\)?)", re.I)
+    r"d\.?g\.?r\.?|circolare\s+n|legge\s+n|regolamento\s+\(?(?:ue|ce)\)?|recante|"
+    r"n\.?\s*\d+\s+del(?![a-zà-ÿ])|lotta\s+obbligatoria)", re.I)
 _MARCA_DE_MERCADO = re.compile(
     r"(?<![a-zà-ÿ])(?:rilevazion|listin|quotazion|campagna\s+(?:commerciale|\d)|annata\s+agraria|"
     r"settimana\s+di\s+rilevazione|borsa\s+merci|mercuriale)", re.I)
@@ -496,6 +507,37 @@ def _escreve_este_dia(escritos: list, valor) -> str | None:
     return None
 
 
+# ── O ANO, PERGUNTADO AO VALOR E NAO A PRECISAO (PROD-3) ─────────────────────
+# «il suo ciclo iniziava con la semina nel mese di marzo» saia com a classe ALERTA_EVENTO
+# SEM ANO — contra a regra do proprio produtor, que diz «sem ano, NAO SEI».
+#
+# A causa nao era a regra da classe: era o SINAL que ela lia. O `sem_ano` do `primeiro_dia`
+# so acende no caso «dia + mes sem ano» (`_RE_DIA_MES` com o grupo do ano vazio). Um mes
+# SOZINHO — «marzo» — nao casa o `_RE_DIA_MES` (falta-lhe o dia) nem o `_RE_SO_MES` (falta-lhe
+# o ano), logo `primeiro_dia` devolvia `(None, False)` e o «False» era lido como «tem ano».
+#
+#     UM SINAL QUE SO SABE DIZER «FALTA O ANO» EM UM DOS CASOS EM QUE ELE FALTA
+#     NAO E UM SINAL DE QUE FALTA O ANO.
+#
+# Agora pergunta-se ao VALOR se ele escreve um ano, com a mesma expressao que o le.
+_RE_MES_ESCRITO = re.compile(r"(?<![a-z])(?:%s)(?![a-z])" % "|".join(FL.MESES), re.I)
+
+
+def escreve_o_ano(valor) -> bool:
+    """O valor escreve um ano de quatro algarismos? (a mesma `_RE_SO_ANO` que o le)"""
+    return bool(_RE_SO_ANO.search(str(valor or "")))
+
+
+def falta_o_ano(valor) -> bool:
+    """O valor nomeia um mes (ou um dia) e NAO escreve o ano.
+
+    Nao se inventa o ano — nem o da publicacao (D63). O que se faz e DIZER que ele falta."""
+    s = str(valor or "")
+    if escreve_o_ano(s):
+        return False
+    return bool(_RE_MES_ESCRITO.search(FL._baixo(s)) or re.search(r"\d", s))
+
+
 def _ha_tempo_escrito(texto: str) -> bool:
     """Existe ALGUMA expressao de tempo no texto? Pergunta-se ao vivo, com o vocabulario dele."""
     baixo = FL._baixo(texto)
@@ -691,6 +733,7 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
                         CONCORRENTES=[x["TRECHO"] for x in escritos],
                         LIDO_PELO_VIVO=c["fact_time"])
         _dia_lido, sem_ano = primeiro_dia(c["fact_time"])
+        sem_ano = sem_ano or falta_o_ano(c["fact_time"])      # PROD-3: o mes sozinho tambem
         precisao = c["fact_time_precision"] + ("+SEM_ANO" if sem_ano else "")
         return dict(base, PAPEL=papel, VALOR=c["fact_time"], ORIGEM=origem, BASIS=basis,
                     PRECISAO=precisao, ANO=NAO_SEI if sem_ano else None, PORQUE=porque,
