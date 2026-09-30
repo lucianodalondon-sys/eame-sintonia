@@ -1,0 +1,42 @@
+C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\ferramentas\big_collection\coleta_continua.py:31: SyntaxWarning: invalid escape sequence '\T'
+  da cortesia, e o livro ANTIGO ({"RESERVAS": [...]}, `--teto-24h=%SI%\TETO-24H.json`) le-se e migra-se sozinho
+test_dono_com_pid_impossivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_com_pid_impossivel_nao_se_toca)
+SERVICO-TRINCO (30/09): o DONO que o servico escreve tem sempre um PID inteiro > 0. PID 0, negativo, ... ok
+test_dono_morto_e_sobra_e_o_servico_toma_o_trinco (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_morto_e_sobra_e_o_servico_toma_o_trinco) ... ok
+test_dono_vivo_continua_a_recusar (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_vivo_continua_a_recusar) ... ok
+test_dono_vivo_noutro_processo_continua_a_recusar (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_vivo_noutro_processo_continua_a_recusar) ... ok
+test_sem_dono_legivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_sem_dono_legivel_nao_se_toca) ... ok
+test_dono_morto_disputado_por_4_processos_tem_um_so_dono_em_cada_rodada (tests.test_coleta_continua.TrincoSobCorrida.test_dono_morto_disputado_por_4_processos_tem_um_so_dono_em_cada_rodada) ... ok
+test_acesso_negado_e_vivo (tests.test_coleta_continua.PidVivoNoWindows.test_acesso_negado_e_vivo) ... ok
+ok
+test_pid_que_ja_nao_existe_e_morto (tests.test_coleta_continua.PidVivoNoWindows.test_pid_que_ja_nao_existe_e_morto) ... ok
+test_trinco_de_dono_com_acesso_negado_e_recusado (tests.test_coleta_continua.PidVivoNoWindows.test_trinco_de_dono_com_acesso_negado_e_recusado) ... ok
+ok
+test_vivo_e_vivo (tests.test_coleta_continua.PidVivoNoWindows.test_vivo_e_vivo) ... ok
+test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) ... {"RECUSADO": "SAIDA_VAZIA", "SAIDA": ""}
+{"RECUSADO": "SAIDA_VAZIA", "SAIDA": "   "}
+{"RECUSADO": "SAIDA_E_A_RAIZ_DE_UM_DISCO", "SAIDA": "C:/"}
+{"RECUSADO": "SAIDA_E_A_RAIZ_DE_UM_DISCO", "SAIDA": "C:\\"}
+{"RECUSADO": "SAIDA_E_A_RAIZ_DE_UM_DISCO", "SAIDA": "/"}
+ok
+test_sobra_de_pg_e_limpa_antes_do_initdb_e_so_ela (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_sobra_de_pg_e_limpa_antes_do_initdb_e_so_ela) ... {"PG_DUMP_CODIGO": 0, "BYTES": 0, "INDICE_TEM_SALA_DE_ESPERA": true, "SALA_REAL_MUDOU_DURANTE_O_DUMP": false, "IGUAL_A_SALA_REAL": true, "PROVA_VALE": true}
+escrito: C:\Users\London1\AppData\Local\Temp\prova-backup-pg-4_olg1y6\CICLO-0101\backup\PROVA-BACKUP-SALA.json
+ok
+test_tomada_do_trinco_e_limpeza_do_pg_nao_se_tocam (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_tomada_do_trinco_e_limpeza_do_pg_nao_se_tocam)
+A pergunta do Scrap (ENTREGA-SCRAP-TRINCO): mexer no trinco afeta a limpeza de pg/? Medido aqui no ... {"PG_DUMP_CODIGO": 0, "BYTES": 0, "INDICE_TEM_SALA_DE_ESPERA": true, "SALA_REAL_MUDOU_DURANTE_O_DUMP": false, "IGUAL_A_SALA_REAL": true, "PROVA_VALE": true}
+escrito: C:\Users\London1\AppData\Local\Temp\prova-backup-pg-bxi0g_b0\COLETA-CONTINUA\CICLO-0101\backup\PROVA-BACKUP-SALA.json
+ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 20.154s
+
+OK
+
+=== tests/test_coleta_continua.py inteiro ===
+Ran 65 tests in 24.106s
+
+OK
+=== tests/test_ensaio_offline_micro.py ===
+Ran 15 tests in 1.939s
+
+OK

@@ -37,11 +37,25 @@ def comando_de_backup(dsn: str, ficheiro: Path) -> list[str]:
             "--no-owner", "--no-privileges", "-f", str(ficheiro), dsn]
 
 
+def saida_recusada(texto: str) -> str | None:
+    """A limpeza apaga <saida>/pg sem perguntar: com --saida vazia seria ./pg de onde se corre, com a raiz
+    de um disco seria C:/pg. Recusa-se antes de tocar em qualquer coisa (a Sala incluida)."""
+    if not texto.strip():
+        return "SAIDA_VAZIA"
+    p = Path(texto).resolve()
+    if p == Path(p.anchor):
+        return "SAIDA_E_A_RAIZ_DE_UM_DISCO"
+    return None
+
+
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
-    saida = next((Path(a.split("=", 1)[1]) for a in argv if a.startswith("--saida=")),
-                 Path(os.environ.get("TEMP", "/tmp")) / ("prova-backup-sala-" +
-                                                         datetime.now().strftime("%Y%m%d-%H%M%S")))
+    pedida = next((a.split("=", 1)[1] for a in argv if a.startswith("--saida=")), None)
+    if pedida is not None and saida_recusada(pedida):
+        print(json.dumps({"RECUSADO": saida_recusada(pedida), "SAIDA": pedida}, ensure_ascii=False), flush=True)
+        return 2
+    saida = Path(pedida) if pedida is not None else (
+        Path(os.environ.get("TEMP", "/tmp")) / ("prova-backup-sala-" + datetime.now().strftime("%Y%m%d-%H%M%S")))
     saida.mkdir(parents=True, exist_ok=True)
     dsn_real = MC._dsn()
     os.environ.pop("SINTONIA_SALA_DSN", None)            # a leitura real vem do SALA_DSN.txt

@@ -783,7 +783,7 @@ class TrincoSobCorrida(unittest.TestCase):
     N, RODADAS = 8, 20
     maxDiff = None
 
-    def test_dono_morto_disputado_por_4_processos_tem_um_so_dono_em_cada_rodada(self):
+    def test_dono_morto_disputado_por_8_processos_tem_um_so_dono_em_cada_rodada(self):
         pasta = Path(tempfile.mkdtemp(prefix="coleta-trinco-corrida-"))
         self.addCleanup(shutil.rmtree, pasta, True)
         procs = [subprocess.Popen([sys.executable, "-c", _CONCORRENTE, str(RAIZ / "ferramentas" / "big_collection")],

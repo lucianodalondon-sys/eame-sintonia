@@ -64,6 +64,8 @@ from __future__ import annotations
 
 import json
 import os
+import secrets
+import shutil
 import subprocess
 import sys
 import time
@@ -598,28 +600,92 @@ def _ondas(base, sha, reg, correm, pecas, historico, livro_24h, paralelo, agora_
 
 # ── 7. o servico ─────────────────────────────────────────────────────────────
 def _pid_vivo(pid: int) -> bool:
-    """O PID ainda existe? Serve so para separar conflito (outro servico a correr) de sobra de um ciclo morto."""
+    """O PID ainda existe? Serve so para separar conflito (outro servico a correr) de sobra de um ciclo morto.
+
+    Na duvida, VIVO: dar um vivo como morto poe dois servicos na mesma base; dar um morto como vivo so para.
+    No Windows um processo que saiu continua abrivel enquanto alguem segurar o handle dele (medido pelo
+    auditor a 30/09): morto e GetExitCodeProcess != 259 (STILL_ACTIVE). Se nem abre: erro 87 (nao ha
+    processo com este PID) = morto; outro erro — 5, ACESSO NEGADO: existe e nao nos deixa olhar — = vivo.
+    """
+    if not 0 < pid <= 0xFFFFFFFF:
+        return True
     if os.name == "nt":
         import ctypes
-        h = ctypes.windll.kernel32.OpenProcess(0x1000, False, int(pid))   # QUERY_LIMITED_INFORMATION
+        from ctypes import wintypes
+        k = ctypes.WinDLL("kernel32", use_last_error=True)
+        k.OpenProcess.restype = wintypes.HANDLE
+        k.OpenProcess.argtypes = (wintypes.DWORD, wintypes.BOOL, wintypes.DWORD)
+        k.GetExitCodeProcess.argtypes = (wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD))
+        k.CloseHandle.argtypes = (wintypes.HANDLE,)
+        h = k.OpenProcess(0x1000, False, pid)                              # QUERY_LIMITED_INFORMATION
         if not h:
-            return False
-        ctypes.windll.kernel32.CloseHandle(h)
-        return True
+            return ctypes.get_last_error() != 87
+        try:
+            codigo = wintypes.DWORD()
+            if not k.GetExitCodeProcess(h, ctypes.byref(codigo)):
+                return True
+            return codigo.value == 259
+        finally:
+            k.CloseHandle(h)
     try:
-        os.kill(int(pid), 0)
+        os.kill(pid, 0)
         return True
-    except OSError:
+    except ProcessLookupError:
         return False
+    except OSError:                                                    # EPERM: existe e e de outro utilizador
+        return True
 
 
 def _trinco_de_dono_morto(t: Path) -> bool:
-    """True so quando o DONO.json nomeia um PID que ja nao existe. Sem dono legivel nao se toca (pode ser conflito)."""
+    """True so quando o DONO.json nomeia um PID que ja nao existe. Sem dono legivel nao se toca (pode ser conflito).
+
+    O servico escreve sempre um PID inteiro > 0: 0, negativo, booleano ou texto e DONO corrompido, nao morte.
+    """
     try:
-        pid = int(json.loads((t / "DONO.json").read_text(encoding="utf-8"))["PID"])
+        pid = json.loads((t / "DONO.json").read_text(encoding="utf-8"))["PID"]
     except Exception:                                                  # noqa: BLE001 — sem dono, nao e sobra
         return False
+    if type(pid) is not int or pid <= 0:
+        return False
     return not _pid_vivo(pid)
+
+
+def _vez_de_tomar(base: Path):
+    """A vez de tomar um trinco morto: um trinco do SISTEMA num ficheiro ao lado (msvcrt/fcntl), que o sistema
+    solta sozinho se o processo morrer — um processo morto a meio da tomada nao prende a coleta. Devolve o
+    ficheiro aberto (a vez e minha) ou None (outro arranque esta a tomar o mesmo trinco agora)."""
+    f = open(base / (TRINCO_F + ".tomada"), "a+b")
+    try:
+        if os.name == "nt":
+            import msvcrt
+            f.seek(0)
+            msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
+        else:
+            import fcntl
+            fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        return f
+    except OSError:
+        f.close()
+        return None
+
+
+def _largar_a_vez(f) -> None:
+    try:
+        if os.name == "nt":
+            import msvcrt
+            f.seek(0)
+            msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+    finally:
+        f.close()
+
+
+def _escrever_dono(t: Path):
+    try:
+        (t / "DONO.json").write_text(json.dumps({"PID": os.getpid(), "DESDE": agora_iso()}), encoding="utf-8")
+        return t
+    except OSError:
+        shutil.rmtree(t, ignore_errors=True)                           # trinco sem dono prendia a base para sempre
+        return None
 
 
 def trinco(base: Path):
@@ -627,21 +693,40 @@ def trinco(base: Path):
 
     Trinco cujo dono morreu (kill, queda, ciclo interrompido) NAO e conflito — e sobra: liberta-se,
     senao a coleta fica parada para sempre a espera de um servico que ja nao existe.
+
+    SERVICO-TRINCO (30/09, auditor: 2-3 donos ao mesmo tempo em 12/20 rodadas no c38610e0c). A tomada:
+      1. so com a VEZ (_vez_de_tomar): dois arranques nunca tomam ao mesmo tempo;
+      2. com a vez, o dono e RELIDO: o que se leu antes dela pode ja ser o trinco novo de outro;
+      3. os.rename do trinco morto para um nome unico: sai inteiro, de uma vez (atomico); so depois mkdir,
+         que continua a decidir sozinho contra um arranque normal que chegue nesse instante.
+    trinco() nunca lanca: qualquer erro e None (nao e meu), nunca dois donos.
     """
     t = base / TRINCO_F
     try:
-        os.mkdir(t)
-    except FileExistsError:
+        try:
+            os.mkdir(t)
+            return _escrever_dono(t)
+        except FileExistsError:
+            pass
         if not _trinco_de_dono_morto(t):
             return None
+        vez = _vez_de_tomar(base)
+        if vez is None:
+            return None
+        morto = None
         try:
-            (t / "DONO.json").unlink(missing_ok=True)
-            os.rmdir(t)
+            if not _trinco_de_dono_morto(t):
+                return None
+            morto = base / ("%s.morto-%d-%s" % (TRINCO_F, os.getpid(), secrets.token_hex(4)))
+            os.rename(t, morto)
             os.mkdir(t)
-        except OSError:
-            return None                                                # nao consegui limpar: nao mexo
-    (t / "DONO.json").write_text(json.dumps({"PID": os.getpid(), "DESDE": agora_iso()}), encoding="utf-8")
-    return t
+            return _escrever_dono(t)
+        finally:
+            _largar_a_vez(vez)
+            if morto is not None:
+                shutil.rmtree(morto, ignore_errors=True)
+    except Exception:                                                  # noqa: BLE001 — nunca lanca; na duvida, nao e meu
+        return None
 
 
 def soltar(t: Path) -> None:
