@@ -4839,9 +4839,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/c8-auto-v1",
-    "HEAD": "01a0871d5b2e0c4533f12ceec4d129cadfc41fc3",
-    "GENERATED_AT": "2026-09-30T10:55:32-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b38b58f203a1e7986c762bb5081b5f7bdd16c87d527c75a9431bf5a8b9c59693"
+    "HEAD": "eecab57d3786c937be8f3c82b034700aad183c4b",
+    "GENERATED_AT": "2026-09-30T11:48:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9d2f19260f097aa19a7ed565866bef3a656267490b40d1e25fcd769239847aa1"
   },
   "FAMILIES": [
     {
@@ -50091,7 +50091,7 @@
         "PROVA": [
           "motor/cap_win.py:83",
           "motor/capacidade_cientifica.py:56",
-          "motor/g0_da_afirmacao.py:44",
+          "motor/g0_da_afirmacao.py:45",
           "pacote/acervo_na_intelligence.py:78"
         ],
         "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES · C-PONTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -50903,9 +50903,9 @@
           "TEMPO_DA_CLASSE",
           "_CAMPO_DA_JANELA"
         ],
-        "palavras": 85,
+        "palavras": 86,
         "por_lingua": {},
-        "sem_marca_de_lingua": 85,
+        "sem_marca_de_lingua": 86,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -114001,7 +114001,7 @@
       "evidence": [
         {
           "file": "motor/g0_da_afirmacao.py",
-          "line": 44,
+          "line": 45,
           "snippet": "import corrida_da_inteligencia as CI",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
@@ -116203,7 +116203,7 @@
       "evidence": [
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 406,
+          "line": 540,
           "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -116219,7 +116219,7 @@
         },
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 406,
+          "line": 540,
           "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -125725,7 +125725,7 @@
         },
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 407,
+          "line": 541,
           "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--READS-->C-TESTES",
@@ -143937,7 +143937,7 @@
       "evidence": [
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 407,
+          "line": 541,
           "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-TESTES",
@@ -147146,7 +147146,7 @@
       "evidence": [
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 406,
+          "line": 540,
           "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -147162,7 +147162,7 @@
         },
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 426,
+          "line": 560,
           "snippet": "NOME_DE_CAMPO_DO_CONTRATO = {\"TRECHO_DA_AFIRMACAO\": (\"pacote/liberacao_por_criterio.py\",)}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",

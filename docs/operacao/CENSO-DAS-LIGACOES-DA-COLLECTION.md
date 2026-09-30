@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  01a0871d5b2e0c4533f12ceec4d129cadfc41fc3
+HEAD_DA_MEDICAO  eecab57d3786c937be8f3c82b034700aad183c4b
 BRANCH           claude/c8-auto-v1
-GERADO_EM        2026-09-30T10:55:32-03:00
+GERADO_EM        2026-09-30T11:48:34-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
