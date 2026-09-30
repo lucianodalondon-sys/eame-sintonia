@@ -214,9 +214,8 @@ MUTANTES = [
     ("RT3_O_MOTIVO_NAO_VIAJA_NO_PAPEL", "leis/afirmacao_do_documento.py",
      '                                   "MOTIVO": tempo.get("MOTIVO"),', ''),
     # ── RT3 §2.D · o mes sozinho tem de acender o «sem ano» no primeiro_dia ──
-    ("RT3_PRIMEIRO_DIA_NAO_VE_O_MES_SOZINHO", "leis/tempo_da_afirmacao.py",
-     '    if _RE_MES_ESCRITO.search(FL._baixo(s)):\n        return None, True',
-     '    if False:\n        return None, True'),
+    ("RT3_PRIMEIRO_DIA_NAO_DIZ_SE_O_ANO_FALTA", "leis/tempo_da_afirmacao.py",
+     "    return None, falta_o_ano(s)", "    return None, False"),
     ("A_IDENTIDADE_NAO_SEI_PASSA", "leis/afirmacao_do_documento.py",
      '        if e_ignorancia(af.get(c)):\n            v.append("%s = %r: NAO SEI na identidade RECUSA',
      '        if af.get(c) in (None, ""):\n            v.append("%s = %r: NAO SEI na identidade RECUSA'),
@@ -268,8 +267,10 @@ MUTANTES = [
     # ── PROD-3 · o mes sozinho nao tem ano, e a contagem nao pode ser incoerente ──
     ("PROD3_A_CLASSE_NAO_PERGUNTA_AO_VALOR", "leis/afirmacao_do_documento.py",
      '            or TA.falta_o_ano(tempo.get("VALOR"))):', '            or False):'),
-    ("PROD3_A_PRECISAO_NAO_DIZ_QUE_FALTA_O_ANO", "leis/tempo_da_afirmacao.py",
-     '        sem_ano = sem_ano or falta_o_ano(c["fact_time"])', '        pass'),
+    # (O PROD3_A_PRECISAO_NAO_DIZ_QUE_FALTA_O_ANO saiu daqui: a linha que ele atacava era uma
+    #  SEGUNDA guarda sobre a mesma pergunta do ano, e foi apagada. Tres guardas a cobrirem-se
+    #  umas as outras deram tres mutantes sobreviventes — a saida foi juntar a guarda num sitio,
+    #  o `primeiro_dia`, e nao inventar um teste para cada camada.)
     # `falta_o_ano` tem duas metades, e cada uma leva o seu mutante: se so o mes contasse, o
     # «12 marzo» passava; se qualquer texto contasse, «in Toscana» dizia que lhe falta o ano.
     ("PROD3_FALTA_O_ANO_IGNORA_O_MES_ESCRITO", "leis/tempo_da_afirmacao.py",

@@ -486,15 +486,17 @@ def primeiro_dia(valor) -> tuple:
     m = _RE_SO_ANO.search(s)
     if m:
         return _dia(m.group(1), 1, 1), False
-    # ⚠️ RT3 §2.D · O MES SOZINHO TAMBEM NAO ESCREVE O ANO.
+    # ⚠️ RT3 §2.D · QUEM NAO ACHA DIA NENHUM AINDA TEM DE DIZER SE O ANO FALTA.
     # `primeiro_dia('luglio')` devolvia `(None, False)`, e o `False` era lido por quem chama
     # como «tem ano» — logo a classe dizia «o ano esta escrito» sobre «luglio», «marzo»,
     # «maggio» e «ottobre» (5 casos reais medidos pelo red team). O `_RE_DIA_MES` quer o dia e
-    # o `_RE_SO_MES` quer o ano; um mes sozinho nao casa nenhum dos dois e caia aqui, calado.
-    # Nao se inventa o ano (nem o da publicacao, D63): diz-se que ele FALTA.
-    if _RE_MES_ESCRITO.search(FL._baixo(s)):
-        return None, True
-    return None, False
+    # o `_RE_SO_MES` quer o ano; o que nao casa nenhum dos dois caia aqui, calado.
+    #
+    # A resposta vem do `falta_o_ano`, e ela e mais larga do que «e um mes sozinho»: apanha
+    # tambem «18/02» e «settimana 12» (medido). Ter a pergunta do ano em UM sitio e o que
+    # impede tres guardas de se cobrirem umas as outras — foi assim que tres mutantes
+    # sobreviveram nesta mesma familia, e a saida nao e inventar teste, e juntar a guarda.
+    return None, falta_o_ano(s)
 
 
 # ── QUANTOS TEMPOS O TRECHO ESCREVE (BLK-1, Intelligence owner) ──────────────
@@ -839,8 +841,10 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
                                   c["fact_time"]),
                         CONCORRENTES=[x["TRECHO"] for x in escritos],
                         LIDO_PELO_VIVO=c["fact_time"])
+        # O `primeiro_dia` ja responde pelo ano (ele proprio pergunta ao `falta_o_ano` quando
+        # nao acha dia). Perguntar aqui outra vez era uma SEGUNDA guarda sobre a mesma coisa,
+        # e uma segunda guarda sem teste proprio e um mutante que sobrevive — sobreviveu.
         _dia_lido, sem_ano = primeiro_dia(c["fact_time"])
-        sem_ano = sem_ano or falta_o_ano(c["fact_time"])      # PROD-3: o mes sozinho tambem
         precisao = c["fact_time_precision"] + ("+SEM_ANO" if sem_ano else "")
         # ⚠️ RT3 §7 · «+CALCULADA» AO LADO DE «LITERAL» SAO DUAS AFIRMACOES OPOSTAS.
         # O selo do vivo diz que o valor foi CONTADO; a origem LITERAL diz que ele estava

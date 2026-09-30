@@ -1096,6 +1096,39 @@ class OMesSozinhoNaoTemAno(unittest.TestCase):
         self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
         self.assertNotEqual(af['CLAIM_KIND']['VALOR'], 'ALERTA_EVENTO')
 
+    def test_o_primeiro_dia_diz_ELE_MESMO_que_o_ano_falta(self):
+        """RT3 §2.D · o contrato do `primeiro_dia`, fixado nele proprio.
+
+        ⚠️ ESTE TESTE E DE UM MUTANTE SOBREVIVENTE, e o terceiro da mesma familia. A pergunta
+        «o ano existe?» estava respondida em TRES sitios (aqui, na precisao do `extrair_tempo` e
+        na classe), e os tres cobriam-se uns aos outros: desligar qualquer um sozinho deixava os
+        outros a responder. Tres mutantes sobreviveram assim.
+
+            A SAIDA NAO FOI INVENTAR UM TESTE POR CAMADA: FOI JUNTAR A GUARDA NUM SITIO.
+
+        A segunda camada (no `extrair_tempo`) foi APAGADA — era redundante de verdade. Esta
+        ficou, porque `primeiro_dia` e quem LE a data, e quem le e quem tem de dizer o que falta.
+        E ela e mais larga do que «mes sozinho»: mede-se abaixo que apanha «18/02» tambem."""
+        self.assertEqual(TA.primeiro_dia('luglio'), (None, True))
+        self.assertEqual(TA.primeiro_dia('marzo'), (None, True))
+        self.assertEqual(TA.primeiro_dia('18/02'), (None, True))
+        # e nao mente sobre quem TEM ano
+        self.assertEqual(TA.primeiro_dia('marzo 2012')[1], False)
+        self.assertEqual(TA.primeiro_dia('2012')[1], False)
+        self.assertEqual(TA.primeiro_dia('in Toscana'), (None, False))
+
+    def test_a_classe_honra_a_PRECISAO_declarada_mesmo_com_valor_completo(self):
+        """RT3 · o caminho da PRECISAO na classe, isolado — o outro mutante sobrevivente.
+
+        Aqui o VALOR escreve o ano («2026-02-18») e a PRECISAO declara `+SEM_ANO`. A pergunta ao
+        valor nao pode responder (o ano esta lá); so a PRECISAO pode. Quem escreve a precisao e
+        o leitor do tempo, e a classe tem de acreditar nela em vez de a re-derivar."""
+        r = AD.classe_do_claim('La giornata tecnica si e svolta',
+                               {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'DATE_EXACT+SEM_ANO',
+                                'ANO': None, 'VALOR': '2026-02-18'})
+        self.assertEqual(r['VALOR'], NAO_SEI)
+        self.assertIn('nao escreve o ano', r['PORQUE'])
+
     def test_falta_o_ano_responde_pelo_VALOR(self):
         """A pergunta passa a ser feita ao valor, com a mesma expressao que o le."""
         for valor in ('marzo', 'nel mese di marzo', '12 marzo'):
