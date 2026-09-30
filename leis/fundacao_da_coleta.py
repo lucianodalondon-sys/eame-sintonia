@@ -403,8 +403,6 @@ def _nao_canonico(caminho):
     RUN_ID em texto (R6)."""
     import json
     try:
-        if os.path.getsize(caminho) > _TAMANHO_MAXIMO_DA_PROVA:
-            return 'grande demais'
         with open(caminho, 'rb') as h:
             bruto = h.read(_TAMANHO_MAXIMO_DA_PROVA + 1)
     except OSError:
