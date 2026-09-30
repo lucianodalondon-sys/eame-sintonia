@@ -14,6 +14,13 @@
     "NOTA": "D97, D115, D122, D123 e D125 nao estao escritas no repositorio: as regras abaixo seguem o resumo delas no pedido da missao PORTAL-PUBLICA-SOZINHO."
   },
   "DONO_DA_LEI": "portoes/publicar_portal_sozinho.py",
+  "ENTREGA_DA_TAREFA": {
+    "PASTA": "~/sintonia-sala-italia/intelligence-experimental/PARA-O-CASCO-AUTO",
+    "QUEM_LE": "a tarefa agendada SINTONIA-CASCO-PREVIEW (portoes/casco_preview.cmd -> publicar_preview_da_pasta.py --rodada, sem --pasta)",
+    "QUEM_ESCREVE": "a Intelligence C8-AUTO: pacote/liberacao_por_criterio.py --entrega <esta pasta> (ramo claude/c8-auto-v1)",
+    "PORQUE": "Coordenador 30/09: a publicacao de 12:48Z (jgnjqcm8a) leu PARA-O-CASCO-AUTO por um caminho escrito a mao no .cmd, com a worktree suja — conta como DIAGNOSTICO, nao como prova do elo Sala->Casco. A pasta passa a ser DECLARADA aqui, versionada, e o PREVIEW-ATUAL.ARVORE diz o commit que a declarou. `~` = a pasta do utilizador; um caminho relativo e da raiz do repositorio.",
+    "ARVORE_LIMPA": "a rodada mede `git status --porcelain` antes de publicar e escreve-o em RODADAS.ndjson (GIT_STATUS); worktree suja = RECUSADO_ARVORE_SUJA, nada publicado"
+  },
 
   "AUTORIDADE_DE_DEPLOY": {
     "MEDIDO": [
