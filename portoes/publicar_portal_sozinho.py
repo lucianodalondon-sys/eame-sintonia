@@ -291,6 +291,10 @@ def conferir_raw_no_armazem(pote: dict, prom: dict, armazem, modo: str):
             mal[:12] or [f"{len(provas)} provas, {len(vistos)} arquivos originais relidos no armazem, sha256 bate"])
 
 
+PROMOCAO_DEMO = ("DEMO - publicacao automatica de teste (D126 regra geral), "
+                 "sem aprovacao do dono para este pote")
+
+
 def envelope(pote: dict, sha: str, contrato: dict, modo: str, arvore: str, entrega: dict | None = None) -> dict:
     """`entrega` (D156): o que o gatilho diz da ULTIMA entrega da Intelligence — {ESTADO: ACEITE|RECUSADA, QUANDO,
     MOTIVOS}. Com RECUSADA o pote do envelope e o ultimo BOM (nao o recusado), e o casco diz o motivo so no debug."""
@@ -301,6 +305,11 @@ def envelope(pote: dict, sha: str, contrato: dict, modo: str, arvore: str, entre
             "PROMOCAO": {"ESTADO": prom.get("ESTADO"), "APROVADA_POR": prom.get("APROVADA_POR"),
                          "REGRA": "portoes/PUBLICACAO-AUTOMATICA.json#REGRA_DE_PROMOCAO"},
             "POTE": pote}
+    if pote.get("CORRIDA_SINTETICA") is True:
+        # D156 (item 5 do LAB): a aprovacao D126 do dono e a regra geral; um pote de TESTE nao foi aprovado por
+        # ninguem, e o envelope nao pode dize-lo aprovado.
+        env["PROMOCAO"] = {"ESTADO": "DEMO_SEM_APROVACAO_DO_DONO", "APROVADA_POR": None,
+                           "TEXTO": PROMOCAO_DEMO, "REGRA": "portoes/PUBLICACAO-AUTOMATICA.json#REGRA_DE_PROMOCAO"}
     if entrega:
         env["ENTREGA"] = entrega
     return env

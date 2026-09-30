@@ -328,6 +328,13 @@ prova('P10 o pote v2 unico sintetico passa no leitor',
   const Mr = montar(real);
   prova('P12 pote real: a linha diz LIVE', Mr.vals({ view: 'meeting', lang: 'it' }).poteLive.rotulo === 'LIVE' &&
     Mr.vals({ view: 'meeting', lang: 'it' }).poteLive.eDemo === false);
+  /* ressalva A-2 do Casco owner: a barra lateral tambem diz DEMO; com pote real, so o numero. */
+  const barra = (Mx) => { const x = Mx.vals({ view: 'meeting', lang: 'it' });
+    return x.nav.concat(x.navEvidence).filter((n) => ['meeting', 'radarfuturo'].includes(n.view)).map((n) => String(n.count)); };
+  const bs = barra(sint), br = barra(Mr);
+  prova('P12 pote de teste: Radar e Radar Futuro na barra dizem DEMO ao lado do numero',
+    bs.length === 2 && bs.every((c) => /^DEMO · \d+$/.test(c)), JSON.stringify(bs));
+  prova('P12 pote real: a barra so o numero, sem DEMO', br.length === 2 && br.every((c) => /^\d+$/.test(c)), JSON.stringify(br));
   const Me = montar(clone(POTE));
   Me.ctx.SINTONIA_POTE_ENTREGA = { ESTADO: 'RECUSADA', QUANDO: '2026-09-29T10:00:00Z', MOTIVOS: ['POTE.json: sha256 diferente do SHA256SUMS.txt'] };
   const dbg = Me.vals({ view: DEBUG, lang: 'it' }).poteDbg;
