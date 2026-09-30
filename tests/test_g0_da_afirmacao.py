@@ -44,12 +44,14 @@ def _span(frase: str) -> tuple:
     return a, a + len(frase)
 
 
-def _afirmacao(linha: dict, frase: str, data_txt: str, valor: str, lugar: str, **mudar) -> dict:
-    """Uma afirmacao na forma AFIRMACAO/v1 do produtor, tirada do TEXTO por regra (offsets calculados)."""
-    a, b = _span(frase)
-    ba = TEXTO.index(data_txt, a)
-    la = TEXTO.index(lugar, a)
-    trecho = TEXTO[a:b]
+def _afirmacao(linha: dict, frase: str, data_txt: str, valor: str, lugar: str, *, texto: str = TEXTO,
+               **mudar) -> dict:
+    """Uma afirmacao na forma AFIRMACAO/v1 do produtor, tirada do texto por regra (offsets calculados)."""
+    a = texto.index(frase)
+    b = a + len(frase)
+    ba = texto.index(data_txt, a)
+    la = texto.index(lugar, a)
+    trecho = texto[a:b]
     af = {
         "CONTRATO": "AFIRMACAO/v1",
         "CLAIM_ID": "AF-SINT-" + hashlib.sha256(trecho.encode()).hexdigest()[:12],
@@ -319,6 +321,49 @@ class TestConcorrentesBLK1(_Caso):
         self.assertEqual(e["G0_DA_AFIRMACAO"], "BLOQUEADO_EM_G0")
         self.assertIn("TEMPOS_CONCORRENTES:TEMPOS_NO_TRECHO=2", e["G0_FALTA"])
         self.assertEqual(self.archive(s), [])
+
+
+class TestConcorrenciaAdversarialComProvaCompleta(_Caso):
+    """RED TEAM (bot Luciano, 30/09): «recusado por falta de contagem» prova falha FECHADA, nao DISCRIMINACAO.
+    Aqui tudo o resto esta certo — item com DOCUMENT_ID valido, RAW_SHA256 do item, trecho que bate com o texto,
+    contagens PRESENTES — e a unica diferenca entre as duas afirmacoes e a concorrencia no trecho."""
+    EUROPA = "La specie e stata rilevata in Europa per la prima volta nel 2004 e in Italia nel 2012, in Emilia Romagna."
+
+    def setUp(self):
+        super().setUp()
+        texto = TEXTO + self.EUROPA + chr(10)
+        self.linha["texto"] = texto
+        # (a) o facto falso: o 2004 e da Europa, o lugar e da Italia (2012) -> «Italia 2004»
+        self.falsa = _afirmacao(self.linha, self.EUROPA, "2004", "2004", "Italia", texto=texto,
+                                TEMPOS_NO_TRECHO=2, LUGARES_NO_TRECHO=3)
+        # (b) o controle: 1 tempo e 1 lugar no trecho, o mesmo item, a mesma prova
+        self.legitima = _afirmacao(self.linha, "Il 3 settembre 2026 una grandinata ha colpito i vigneti a Bari.",
+                                   "3 settembre 2026", "2026-09-03", "Bari", texto=texto)
+
+    def test_o_item_tem_document_id_valido(self):
+        ready = next(i for i in M.entrada_do_export(self.exp)["ITENS"]
+                     if i["READY"]["ITEM_ID"] == self.linha["item_id"])
+        raw = M.entrada_do_export(self.exp)["RAW"][str(ready["READY"]["RAW_OBSERVATION_ID"])]
+        self.assertFalse(G0A._ign(G0A._valor(raw.get("DOCUMENT_ID"))))
+
+    def test_a_concorrencia_cai_no_g0_pelo_motivo_de_concorrencia_e_so_por_ele(self):
+        s = self.correr(self.falsa, self.legitima)
+        e = self.entrada_de(s, self.falsa["CLAIM_ID"])
+        self.assertEqual(e["G0_DA_AFIRMACAO"], "BLOQUEADO_EM_G0")
+        self.assertEqual(e["G0_FALTA"], ["LUGARES_CONCORRENTES:LUGARES_NO_TRECHO=3",
+                                         "TEMPOS_CONCORRENTES:TEMPOS_NO_TRECHO=2"])
+        self.assertEqual(s["CORRIDA"]["AFIRMACOES_RECUSADAS"], [])     # nao e recusa de proveniencia
+
+    def test_o_controle_legitimo_passa_e_chega_ao_pote_pelo_fiscal(self):
+        s = self.correr(self.falsa, self.legitima)
+        self.assertEqual(self.entrada_de(s, self.legitima["CLAIM_ID"])["G0_DA_AFIRMACAO"], "PASSOU")
+        pote, _ = GI.montar_o_pote(s)
+        self.assertEqual(GI.VP.validar(pote), [])
+        prova = [p for o in pote["COMPARTIMENTOS"]["archive"]["OBJETOS"] for p in o["PROVA"]]
+        self.assertEqual([p["CLAIM_ID"] for p in prova], [self.legitima["CLAIM_ID"]])
+        self.assertFalse(G0A._ign(prova[0]["DOCUMENT_ID"]))
+        # o fiscal nao recusou nada no archive (as recusas de outros compartimentos sao do export sintetico)
+        self.assertEqual([r for r in pote.get("RECUSADOS") or [] if r.get("COMPARTIMENTO") == "archive"], [])
 
 
 class TestAdmissaoNoPote(_Caso):

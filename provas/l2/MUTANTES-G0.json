@@ -10,8 +10,8 @@
    "APANHADO_POR": [
     "test_o_motor_confere_a_prova_da_afirmacao_pela_entrada_dela",
     "test_prova_de_afirmacao_nao_e_admitida_pelo_g0_do_item_nem_o_inverso",
-    "test_a_contagem_em_bloco_do_produtor_tambem_vale",
-    "test_contagem_ausente_ou_nao_inteira_recusa"
+    "test_a_concorrencia_cai_no_g0_pelo_motivo_de_concorrencia_e_so_por_ele",
+    "test_o_controle_legitimo_passa_e_chega_ao_pote_pelo_fiscal"
    ]
   },
   {
@@ -21,6 +21,7 @@
    "ESTADO": "MORTO",
    "APANHADO_POR": [
     "test_prova_de_afirmacao_nao_e_admitida_pelo_g0_do_item_nem_o_inverso",
+    "test_o_controle_legitimo_passa_e_chega_ao_pote_pelo_fiscal",
     "test_o_pote_admite_as_duas_pelo_g0_delas_e_passa_no_fiscal"
    ]
   },
@@ -123,8 +124,8 @@
    "APANHADO_POR": [
     "test_o_motor_confere_a_prova_da_afirmacao_pela_entrada_dela",
     "test_prova_de_afirmacao_nao_e_admitida_pelo_g0_do_item_nem_o_inverso",
-    "test_a_mesma_afirmacao_duas_vezes_conta_uma",
-    "test_relativo_d63_passa_mas_nunca_serve_act_now"
+    "test_a_concorrencia_cai_no_g0_pelo_motivo_de_concorrencia_e_so_por_ele",
+    "test_o_controle_legitimo_passa_e_chega_ao_pote_pelo_fiscal"
    ]
   },
   {
@@ -142,10 +143,10 @@
    "FINGE": "BLK-1: o G0 nao olha a contagem («Europa 2004 / Italia 2012 / Emilia Romagna» passa)",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
+    "test_a_concorrencia_cai_no_g0_pelo_motivo_de_concorrencia_e_so_por_ele",
+    "test_o_controle_legitimo_passa_e_chega_ao_pote_pelo_fiscal",
     "test_a_contagem_em_bloco_do_produtor_tambem_vale",
-    "test_contagem_ausente_ou_nao_inteira_recusa",
-    "test_contagem_zero_com_lugar_presente_e_incoerente",
-    "test_contagem_zero_com_tempo_literal_presente_e_incoerente"
+    "test_contagem_ausente_ou_nao_inteira_recusa"
    ]
   },
   {
@@ -154,10 +155,10 @@
    "FINGE": "BLK-1: tempos concorrentes aceites (so os lugares contam)",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
+    "test_a_concorrencia_cai_no_g0_pelo_motivo_de_concorrencia_e_so_por_ele",
     "test_a_contagem_em_bloco_do_produtor_tambem_vale",
     "test_contagem_ausente_ou_nao_inteira_recusa",
-    "test_contagem_zero_com_tempo_literal_presente_e_incoerente",
-    "test_europa_2004_italia_2012_emilia_romagna_cai_no_g0"
+    "test_contagem_zero_com_tempo_literal_presente_e_incoerente"
    ]
   },
   {
@@ -166,10 +167,10 @@
    "FINGE": "BLK-1: lugares concorrentes aceites (so os tempos contam)",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
+    "test_a_concorrencia_cai_no_g0_pelo_motivo_de_concorrencia_e_so_por_ele",
     "test_contagem_ausente_ou_nao_inteira_recusa",
     "test_contagem_zero_com_lugar_presente_e_incoerente",
-    "test_europa_2004_italia_2012_emilia_romagna_cai_no_g0",
-    "test_lugar_com_contagem_zero_e_incoerente_qualquer_que_seja_a_origem_do_tempo"
+    "test_europa_2004_italia_2012_emilia_romagna_cai_no_g0"
    ]
   },
   {
@@ -187,10 +188,10 @@
    "FINGE": "BLK-1: contagem > 2 em vez de > 1",
    "ESTADO": "MORTO",
    "APANHADO_POR": [
+    "test_a_concorrencia_cai_no_g0_pelo_motivo_de_concorrencia_e_so_por_ele",
     "test_a_contagem_em_bloco_do_produtor_tambem_vale",
     "test_europa_2004_italia_2012_emilia_romagna_cai_no_g0",
-    "test_pela_corrida_a_afirmacao_com_tempos_concorrentes_nao_chega_ao_archive",
-    "test_so_os_tempos_concorrentes_ja_recusam"
+    "test_pela_corrida_a_afirmacao_com_tempos_concorrentes_nao_chega_ao_archive"
    ]
   },
   {
