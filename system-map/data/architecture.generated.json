@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lucianodalondon-sys/religa-multicanal-v1",
-    "HEAD": "1fa7b0316f8749cfc7aa2fbdfc5134292454aa3a",
-    "GENERATED_AT": "2026-09-29T14:01:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ac24035e32199cae19170e11a6206f0d1c30c55e3d4e3b4efd87298c20c402da"
+    "HEAD": "b9d0c43d0817fad1bd8244d08c4beb6adb957827",
+    "GENERATED_AT": "2026-09-30T06:40:37-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0cfed57f26c5c6f61d562774cb9870df5c1434398b2d265e6183fbed13590aa9"
   },
   "FILES": [
     {
@@ -13380,7 +13380,7 @@
     },
     {
       "path": "ferramentas/big_collection/onda_linha.py",
-      "sha": "b5e10c77b7313cc04b95f3d6cc615b662234836d",
+      "sha": "02fc2b3a4a949b9e774486cd8dc499e254273b9f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22759,6 +22759,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/religa_multicanal/RECAPTURA.json",
+      "sha": "4c43d51ddc864d6c3f9e68e60ee961d7cbc012d2",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/religa_multicanal/elo_raw_sala.py",
       "sha": "f0d8749aceacf5f7e6d050d3f5908c6abc87b9ae",
       "ext": ".py",
@@ -22768,6 +22775,13 @@
     {
       "path": "provas/religa_multicanal/mutacao.py",
       "sha": "e56bff5683287cbbca05cde3aeb319b5f2668569",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/religa_multicanal/recaptura.py",
+      "sha": "ba609f57fd8e556d18456b6a73dab44a3ad302e8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29235,7 +29249,7 @@
     },
     {
       "path": "tests/test_religa_multicanal.py",
-      "sha": "1fbccca6c12bed9513a8c022105797d788bce9de",
+      "sha": "429617720e4933c4b524946d077e6d9952cc18bd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -46195,7 +46209,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/onda_linha.py",
-        "line": 460,
+        "line": 464,
         "snippet": "import admissao as adm                                          # noqa: PLC0415"
       }
     },
@@ -46206,7 +46220,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/onda_linha.py",
-        "line": 644,
+        "line": 648,
         "snippet": "import sala_de_espera as SE                                # noqa: PLC0415"
       }
     },
@@ -46228,7 +46242,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/onda_linha.py",
-        "line": 461,
+        "line": 465,
         "snippet": "import executor_texto_de_html as H                              # noqa: PLC0415"
       }
     },
@@ -46239,7 +46253,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/onda_linha.py",
-        "line": 462,
+        "line": 466,
         "snippet": "import extratores_de_texto as XT                                # noqa: PLC0415"
       }
     },
@@ -46250,7 +46264,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/onda_linha.py",
-        "line": 463,
+        "line": 467,
         "snippet": "import italy_executor as ex                                     # noqa: PLC0415"
       }
     },
@@ -46294,7 +46308,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/big_collection/onda_linha.py",
-        "line": 464,
+        "line": 468,
         "snippet": "import orquestrador as ORQ                                      # noqa: PLC0415"
       }
     },
@@ -80487,6 +80501,28 @@
       }
     },
     {
+      "from_file": "provas/religa_multicanal/recaptura.py",
+      "to_file": "provas/religa_multicanal/RECAPTURA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/recaptura.py",
+        "line": 165,
+        "snippet": "fora = Path(__file__).with_name(\"RECAPTURA.json\")"
+      }
+    },
+    {
+      "from_file": "provas/religa_multicanal/recaptura.py",
+      "to_file": "provas/religa_multicanal/RECAPTURA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/religa_multicanal/recaptura.py",
+        "line": 166,
+        "snippet": "fora.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "provas/rodadas_mutacao.py",
       "to_file": "ferramentas/big_collection/rodadas.py",
       "type": "READS",
@@ -109247,7 +109283,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 867,
+        "line": 871,
         "snippet": "import _gavetas  # noqa: F401"
       }
     },
@@ -109258,7 +109294,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 626,
+        "line": 630,
         "snippet": "import admissao as adm"
       }
     },
@@ -109269,7 +109305,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 523,
+        "line": 527,
         "snippet": "import corpus_pesquisador as CP"
       }
     },
@@ -109280,7 +109316,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 450,
+        "line": 454,
         "snippet": "import cortesia_adaptativa as CA"
       }
     },
@@ -109291,7 +109327,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 768,
+        "line": 772,
         "snippet": "import executor_texto_de_html as H"
       }
     },
@@ -109302,7 +109338,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 396,
+        "line": 400,
         "snippet": "import reserva_24h as R24"
       }
     },
@@ -109324,7 +109360,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 466,
+        "line": 470,
         "snippet": "import teto_da_onda as T"
       }
     },
@@ -109335,7 +109371,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 871,
+        "line": 875,
         "snippet": "fonte = open(RAIZ / \"ferramentas\" / \"big_collection\" / \"onda_linha.py\", encoding=\"utf-8\").read()"
       }
     },
@@ -109346,7 +109382,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 359,
+        "line": 363,
         "snippet": "assert p[\"TRANSPORTE\"] == \"coleta/seguir.py\""
       }
     },
@@ -109357,7 +109393,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 699,
+        "line": 703,
         "snippet": "import territorios as TERR"
       }
     },
@@ -109368,7 +109404,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_religa_multicanal.py",
-        "line": 564,
+        "line": 568,
         "snippet": "import prova_teto_dominio as PT"
       }
     },
@@ -113596,10 +113632,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4235,
-    "files_readable": 1782,
-    "files_code_dir": 2209,
-    "file_edges": 7571,
+    "files_tracked": 4237,
+    "files_readable": 1783,
+    "files_code_dir": 2211,
+    "file_edges": 7573,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

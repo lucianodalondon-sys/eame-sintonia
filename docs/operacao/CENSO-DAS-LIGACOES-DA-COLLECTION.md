@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  1fa7b0316f8749cfc7aa2fbdfc5134292454aa3a
+HEAD_DA_MEDICAO  b9d0c43d0817fad1bd8244d08c4beb6adb957827
 BRANCH           lucianodalondon-sys/religa-multicanal-v1
-GERADO_EM        2026-09-29T14:01:09-03:00
+GERADO_EM        2026-09-30T06:40:37-03:00
 CARDS            132
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

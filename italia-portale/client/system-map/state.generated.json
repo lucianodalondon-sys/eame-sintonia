@@ -3307,8 +3307,10 @@
       "provas/religa_multicanal/BATERIA-POR-NOME.json",
       "provas/religa_multicanal/ELO-RAW-SALA.json",
       "provas/religa_multicanal/MUTACAO.json",
+      "provas/religa_multicanal/RECAPTURA.json",
       "provas/religa_multicanal/elo_raw_sala.py",
       "provas/religa_multicanal/mutacao.py",
+      "provas/religa_multicanal/recaptura.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
       "provas/rodadas_mutacao.py",
@@ -4829,9 +4831,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lucianodalondon-sys/religa-multicanal-v1",
-    "HEAD": "1fa7b0316f8749cfc7aa2fbdfc5134292454aa3a",
-    "GENERATED_AT": "2026-09-29T14:01:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ac24035e32199cae19170e11a6206f0d1c30c55e3d4e3b4efd87298c20c402da"
+    "HEAD": "b9d0c43d0817fad1bd8244d08c4beb6adb957827",
+    "GENERATED_AT": "2026-09-30T06:40:37-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0cfed57f26c5c6f61d562774cb9870df5c1434398b2d265e6183fbed13590aa9"
   },
   "FAMILIES": [
     {
@@ -68325,7 +68327,7 @@
           "ferramentas/big_collection/coleta_continua.py:754",
           "ferramentas/big_collection/coleta_continua.py:425",
           "provas/religa_multicanal/mutacao.py:38",
-          "tests/test_religa_multicanal.py:871"
+          "tests/test_religa_multicanal.py:875"
         ],
         "PORQUE": "estas pecas importam-na — C-ONDA-WEB — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -70385,7 +70387,7 @@
           "ferramentas/big_collection/coleta_continua.py:128",
           "ferramentas/big_collection/sonda_ligacao_linhas.py:47",
           "provas/religa_multicanal/mutacao.py:131",
-          "tests/test_religa_multicanal.py:359"
+          "tests/test_religa_multicanal.py:363"
         ],
         "PORQUE": "estas pecas importam-na — C-ONDA-WEB · C-RELIGA-SONDA-DAS-LINHAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -80663,7 +80665,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 460,
+          "line": 464,
           "snippet": "import admissao as adm                                          # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -97879,7 +97881,7 @@
       "evidence": [
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 396,
+          "line": 400,
           "snippet": "import reserva_24h as R24",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-TESTES",
@@ -100763,7 +100765,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 523,
+          "line": 527,
           "snippet": "import corpus_pesquisador as CP",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORPUS--IMPORTS-->C-TESTES",
@@ -101308,7 +101310,7 @@
       "evidence": [
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 450,
+          "line": 454,
           "snippet": "import cortesia_adaptativa as CA",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-TESTES",
@@ -107956,7 +107958,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 461,
+          "line": 465,
           "snippet": "import executor_texto_de_html as H                              # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -107972,7 +107974,7 @@
         },
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 462,
+          "line": 466,
           "snippet": "import extratores_de_texto as XT                                # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -108144,7 +108146,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 768,
+          "line": 772,
           "snippet": "import executor_texto_de_html as H",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-TESTES",
@@ -119897,7 +119899,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 463,
+          "line": 467,
           "snippet": "import italy_executor as ex                                     # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -140055,7 +140057,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 464,
+          "line": 468,
           "snippet": "import orquestrador as ORQ                                      # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -152599,7 +152601,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 564,
+          "line": 568,
           "snippet": "import prova_teto_dominio as PT",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-TESTES",
@@ -156335,7 +156337,7 @@
       "evidence": [
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 871,
+          "line": 875,
           "snippet": "fonte = open(RAIZ / \"ferramentas\" / \"big_collection\" / \"onda_linha.py\", encoding=\"utf-8\").read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RELIGA-EXECUTOR-POR-LINHA--READS-->C-TESTES",
@@ -159073,7 +159075,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 644,
+          "line": 648,
           "snippet": "import sala_de_espera as SE                                # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -166499,7 +166501,7 @@
       "evidence": [
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 359,
+          "line": 363,
           "snippet": "assert p[\"TRANSPORTE\"] == \"coleta/seguir.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-TESTES",
@@ -170215,7 +170217,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 699,
+          "line": 703,
           "snippet": "import territorios as TERR",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TERRITORIOS--IMPORTS-->C-TESTES",
@@ -176591,8 +176593,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2276,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/religa_multicanal/recaptura.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 2278,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -176868,9 +176872,9 @@
     "edges_proven": 1884,
     "edges_unknown": 72,
     "business_edges": 4,
-    "files_tracked": 4235,
+    "files_tracked": 4237,
     "files_covered": 1959,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 1,
     "roles_proven": 210,
     "roles_declared_only": 11,
     "roles_unknown": 96,

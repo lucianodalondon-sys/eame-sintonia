@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-30T03:54:34+00:00",
-  "HEAD": "1fa7b0316f8749cfc7aa2fbdfc5134292454aa3a",
+  "GENERATED_AT": "2026-09-30T09:45:45+00:00",
+  "HEAD": "b9d0c43d0817fad1bd8244d08c4beb6adb957827",
   "BRANCH": "lucianodalondon-sys/religa-multicanal-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "ac24035e32199cae19170e11a6206f0d1c30c55e3d4e3b4efd87298c20c402da",
-  "FICHEIROS_NA_IMPRESSAO": 4383,
+  "SOURCE_TREE_FINGERPRINT": "0cfed57f26c5c6f61d562774cb9870df5c1434398b2d265e6183fbed13590aa9",
+  "FICHEIROS_NA_IMPRESSAO": 4385,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1021,7 +1021,7 @@
    {
     "PATH": "ferramentas/big_collection/onda_linha.py",
     "PAPEL": "FONTE",
-    "VERSAO": "b5e10c77b7313cc04b95f3d6cc615b662234836d",
+    "VERSAO": "02fc2b3a4a949b9e774486cd8dc499e254273b9f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5627,14 +5627,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ac24035e32199cae19170e11a6206f0d1c30c55e3d4e3b4efd87298c20c402da",
+    "VERSAO": "0cfed57f26c5c6f61d562774cb9870df5c1434398b2d265e6183fbed13590aa9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ac24035e32199cae19170e11a6206f0d1c30c55e3d4e3b4efd87298c20c402da",
+    "VERSAO": "0cfed57f26c5c6f61d562774cb9870df5c1434398b2d265e6183fbed13590aa9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7916,7 +7916,7 @@
    {
     "PATH": "tests/test_religa_multicanal.py",
     "PAPEL": "FONTE",
-    "VERSAO": "1fbccca6c12bed9513a8c022105797d788bce9de",
+    "VERSAO": "429617720e4933c4b524946d077e6d9952cc18bd",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8328,7 +8328,7 @@
    }
   ],
   "INPUTS_COUNT": 1184,
-  "INPUTS_DIGEST": "a11f31636433ba2cd11fcd14d72317421285a00bf15fb392ef76f5644738d6dd",
+  "INPUTS_DIGEST": "3cfe546fbb5b3c94ec23006754f6c30fe5d73272ae1c175b5a8929208c33562b",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8361,8 +8361,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "1019400b2949f5d40b484771034b1b43238dbaa7770a1ca34124b9c3ae8b742f",
-  "SEMANTIC_HASH": "cf437c27c91e417ee0d6b626bd60b27473dd384de5c211dd69a05c0cc237ed73"
+  "MEASUREMENT_HASH": "cf5ac42559e145e90ad84b9d2d66139fb5facdfc4586d591b667140c4675bd5b",
+  "SEMANTIC_HASH": "3766bcc796fbd3ed6f6f0a92d1babf10ac64fb8bf5225392bf4a9d3affd076fe"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10600,7 +10600,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
-      "LINHA": 460,
+      "LINHA": 464,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -20440,7 +20440,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_religa_multicanal.py",
-      "LINHA": 396,
+      "LINHA": 400,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-TESTES",
@@ -22062,7 +22062,7 @@
      },
      {
       "FICHEIRO": "tests/test_religa_multicanal.py",
-      "LINHA": 523,
+      "LINHA": 527,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CORPUS--IMPORTS-->C-TESTES",
@@ -22448,7 +22448,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_religa_multicanal.py",
-      "LINHA": 450,
+      "LINHA": 454,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-TESTES",
@@ -26152,7 +26152,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
-      "LINHA": 461,
+      "LINHA": 465,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -26160,7 +26160,7 @@
      },
      {
       "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
-      "LINHA": 462,
+      "LINHA": 466,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -26220,7 +26220,7 @@
      },
      {
       "FICHEIRO": "tests/test_religa_multicanal.py",
-      "LINHA": 768,
+      "LINHA": 772,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-TESTES",
@@ -32219,7 +32219,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
-      "LINHA": 463,
+      "LINHA": 467,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -44166,7 +44166,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
-      "LINHA": 464,
+      "LINHA": 468,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -51330,7 +51330,7 @@
      },
      {
       "FICHEIRO": "tests/test_religa_multicanal.py",
-      "LINHA": 564,
+      "LINHA": 568,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-TETO-DOMINIO--IMPORTS-->C-TESTES",
@@ -53512,7 +53512,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_religa_multicanal.py",
-      "LINHA": 871,
+      "LINHA": 875,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RELIGA-EXECUTOR-POR-LINHA--READS-->C-TESTES",
@@ -54941,7 +54941,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/onda_linha.py",
-      "LINHA": 644,
+      "LINHA": 648,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -59355,7 +59355,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_religa_multicanal.py",
-      "LINHA": 359,
+      "LINHA": 363,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-TESTES",
@@ -61363,7 +61363,7 @@
      },
      {
       "FICHEIRO": "tests/test_religa_multicanal.py",
-      "LINHA": 699,
+      "LINHA": 703,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TERRITORIOS--IMPORTS-->C-TESTES",
@@ -77634,6 +77634,7 @@
     "provas/raw_entre_jobs.py",
     "provas/red_team_adama_referencia.py",
     "provas/red_team_duas_portas.py",
+    "provas/religa_multicanal/recaptura.py",
     "provas/rodadas_mutacao.py",
     "provas/social_persistencia_no_postgres.py",
     "system-map/scripts/censo_do_armazem_it.py",

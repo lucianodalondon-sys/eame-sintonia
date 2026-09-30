@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-30T03:51:46+00:00",
-    "HEAD": "1fa7b0316f8749cfc7aa2fbdfc5134292454aa3a",
+    "GENERATED_AT": "2026-09-30T09:42:48+00:00",
+    "HEAD": "b9d0c43d0817fad1bd8244d08c4beb6adb957827",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "ac24035e32199cae19170e11a6206f0d1c30c55e3d4e3b4efd87298c20c402da",
-    "FICHEIROS_NA_IMPRESSAO": 4383,
+    "SOURCE_TREE_FINGERPRINT": "0cfed57f26c5c6f61d562774cb9870df5c1434398b2d265e6183fbed13590aa9",
+    "FICHEIROS_NA_IMPRESSAO": 4385,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -38164,6 +38164,10 @@
           "line": 34
         },
         {
+          "file": "provas/religa_multicanal/recaptura.py",
+          "line": 90
+        },
+        {
           "file": "provas/social-micro-prep/sala_social.py",
           "line": 35
         },
@@ -38481,7 +38485,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 334
+          "line": 338
         },
         {
           "file": "tests/test_seguir_pesquisadores.py",
@@ -38490,6 +38494,51 @@
         {
           "file": "tests/test_social_por_url_achado.py",
           "line": 38
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.linkedin.com/posts",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 1439
+        },
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 56
+        },
+        {
+          "file": "provas/religa_multicanal/recaptura.py",
+          "line": 49
+        },
+        {
+          "file": "tests/test_d24_video_de_pessoa.py",
+          "line": 30
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 153
+        },
+        {
+          "file": "tests/test_lote8_juncoes.py",
+          "line": 135
+        },
+        {
+          "file": "tests/test_prova_de_post_de_pessoa.py",
+          "line": 14
+        },
+        {
+          "file": "tests/test_religa_multicanal.py",
+          "line": 217
+        },
+        {
+          "file": "tests/test_seguir_pesquisadores.py",
+          "line": 60
+        },
+        {
+          "file": "tests/test_social_por_url_achado.py",
+          "line": 25
         }
       ]
     },
@@ -38575,7 +38624,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 789
+          "line": 793
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
@@ -38670,47 +38719,6 @@
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/posts",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_linkedin.py",
-          "line": 1439
-        },
-        {
-          "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 56
-        },
-        {
-          "file": "tests/test_d24_video_de_pessoa.py",
-          "line": 30
-        },
-        {
-          "file": "tests/test_linkedin_op_01_operacional.py",
-          "line": 153
-        },
-        {
-          "file": "tests/test_lote8_juncoes.py",
-          "line": 135
-        },
-        {
-          "file": "tests/test_prova_de_post_de_pessoa.py",
-          "line": 14
-        },
-        {
-          "file": "tests/test_religa_multicanal.py",
-          "line": 217
-        },
-        {
-          "file": "tests/test_seguir_pesquisadores.py",
-          "line": 60
-        },
-        {
-          "file": "tests/test_social_por_url_achado.py",
-          "line": 25
         }
       ]
     },
@@ -39168,7 +39176,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 452
+          "line": 456
         },
         {
           "file": "tests/test_youtube_oficial.py",
@@ -39432,7 +39440,7 @@
         },
         {
           "file": "tests/test_religa_multicanal.py",
-          "line": 451
+          "line": 455
         }
       ]
     },
