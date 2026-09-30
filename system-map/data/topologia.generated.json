@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-29T00:54:32+00:00",
-  "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
-  "BRANCH": "lucianodalondon-sys/integra-busca-sobre-fd8c946",
+  "GENERATED_AT": "2026-09-30T19:05:17+00:00",
+  "HEAD": "e2a50e6abcca8da0c4c40eef4f649fa9142f16e4",
+  "BRANCH": "lucianodalondon-sys/know-how-vivo-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82",
-  "FICHEIROS_NA_IMPRESSAO": 4363,
+  "SOURCE_TREE_FINGERPRINT": "e1cd76c3756a87fcfcba8d9c0cb1ca1f4ecd3da5520c582cf9d3951c94e95181",
+  "FICHEIROS_NA_IMPRESSAO": 4379,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -5564,14 +5564,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82",
+    "VERSAO": "e1cd76c3756a87fcfcba8d9c0cb1ca1f4ecd3da5520c582cf9d3951c94e95181",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82",
+    "VERSAO": "e1cd76c3756a87fcfcba8d9c0cb1ca1f4ecd3da5520c582cf9d3951c94e95181",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -8251,7 +8251,7 @@
    }
   ],
   "INPUTS_COUNT": 1173,
-  "INPUTS_DIGEST": "ec494bd74b700aba6ad194f50afa348f5b1d824a507932153fdd25ea1f2402d2",
+  "INPUTS_DIGEST": "c9e9617aa7ce82f00d7e3ec38942864bc1bd70fddb97635938964999b21f818d",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8284,8 +8284,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e4d5d2d577488d059ec5384467dee6ca3f0d26f4460404f3b5566abe9c894f37",
-  "SEMANTIC_HASH": "0ce9f265eef49f4bc869ee3f39a1cd152e68bead6ae1d403985f9e14984f944e"
+  "MEASUREMENT_HASH": "5ab849be05df248a95dde11c741de0c673f9579876c5571d3956392fccf5ea3d",
+  "SEMANTIC_HASH": "e774318e6b7d08ebf98c72adf114cd44d1379347f412108efaa27a4dd43a9bd3"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -41185,6 +41185,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-MAPA-TESTES--READS-->C-KNOW-HOW-VIVO",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-KNOW-HOW-VIVO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "know-how/vivo/knowhow.py",
+      "LINHA": 984,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--READS-->C-KNOW-HOW-VIVO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "know-how/vivo/test_knowhow.py",
+      "LINHA": 364,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--READS-->C-KNOW-HOW-VIVO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-MAPA-TESTES--READS-->C-MAPA-SCAN",
     "FROM": "C-MAPA-TESTES",
     "TO": "C-MAPA-SCAN",
@@ -63779,12 +63809,12 @@
     ]
    }
   ],
-  "COUNT": 1811
+  "COUNT": 1812
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 236,
   "CARTOES_AUDITADOS": 236,
-  "ARESTAS_RELACIONADAS": 1811,
+  "ARESTAS_RELACIONADAS": 1812,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -64296,7 +64326,7 @@
    "CODE": 325,
    "CONTROL": 90,
    "DATA": 30,
-   "PROOF": 647,
+   "PROOF": 648,
    "READ": 407,
    "RULE": 292,
    "WRITE": 20
@@ -69990,7 +70020,7 @@
     "pente_fino_da_coleta"
    ],
    "ENTRAM": 29,
-   "SAEM": 127,
+   "SAEM": 128,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

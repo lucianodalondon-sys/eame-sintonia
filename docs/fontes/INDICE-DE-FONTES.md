@@ -17,7 +17,7 @@ sabe buscar sozinha.
 |---|---|
 | fichas completas no atlas | **297** |
 | dessas, com contrato de busca escrito | **5** |
-| palavras de busca medidas no código | **103** em 34 grupos |
+| palavras de busca medidas no código | **143** em 56 grupos |
 | endereços que o código realmente chama | **905** |
 | desses, publicados no mapa | **40** (truncados: 865) |
 
@@ -420,6 +420,33 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 
 Na língua do país, sempre. Buscar em inglês devolve literatura
 internacional, não a conversa técnica local.
+
+### `know-how/vivo/knowhow.py:70` · 40 palavras
+
+| grupo | palavras |
+|---|---|
+| `arvore` | \barvores?\b · \bworktrees?\b |
+| `ramo` | \bramos?\b · \bbranch(es)?\b |
+| `ff` | \bff\b · \bfast.?forward\b |
+| `servico` | \bservico\b · \bproducao\b · \boperaciona(l|is)\b |
+| `instalacao` | \binstala(r|do|da|dos|das|cao|coes|ndo)?\b · \binstalou\b |
+| `data` | \bdatas?\b |
+| `publicacao` | \bpublicac(ao|oes)\b · \bpublished(_at|_time)?\b · \bpublication(_time)?\b |
+| `fact_time` | \bfact.?time\b · \bdata do fac?to\b · \btempo do fac?to\b · \bdata dos fac?tos\b |
+| `lugar` | \blugar(es)?\b · \bfact.?location\b · \bsource.?location\b · \blocal do fac?to\b |
+| `g0` | \bg0\b |
+| `produtor` | \bprodutor(es)?\b |
+| `c8` | \bc8\b |
+| `pote` | \bpotes?\b |
+| `preview` | \bpreview\b |
+| `mutante` | \bmutantes?\b · \bmutac(ao|oes)\b |
+| `teste` | \btestes?\b |
+| `lock` | \block\b · \block.?pesado\b · \btravas?\b |
+| `fonte` | \bfontes?\b |
+| `coorte` | \bcoortes?\b |
+| `canario` | \bcanari(o|os)\b |
+| `raw` | \braw\b · \bbrutos?\b |
+| `sala` | \bsala\b |
 
 ### `regras/rotulos_censo.py:48` · 35 palavras
 

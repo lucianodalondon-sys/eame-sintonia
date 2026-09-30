@@ -2666,7 +2666,23 @@
       "know-how/daily/2026-09-13-lei-comunicacao-humana.md",
       "know-how/daily/2026-09-13-persistencia-benchmark-engenharia-seguranca.md",
       "know-how/daily/2026-09-13-ready-address-and-admission-correction.md",
-      "know-how/daily/2026-09-13-system-map-g4-step-io.md"
+      "know-how/daily/2026-09-13-system-map-g4-step-io.md",
+      "know-how/vivo/INDICE.json",
+      "know-how/vivo/candidatos/KH-C1.json",
+      "know-how/vivo/candidatos/KH-C2.json",
+      "know-how/vivo/candidatos/KH-C3.json",
+      "know-how/vivo/conhecimento/KH-0001.json",
+      "know-how/vivo/eventos/MEM-LAB-20260928-01.json",
+      "know-how/vivo/eventos/MEM-LAB-20260928-02.json",
+      "know-how/vivo/eventos/MEM-LAB-20260928-03.json",
+      "know-how/vivo/eventos/MEM-LAB-20260930-01.json",
+      "know-how/vivo/eventos/MEM-LAB-20260930-03.json",
+      "know-how/vivo/eventos/MEM-LAB-20260930-04.json",
+      "know-how/vivo/eventos/MEM-LAB-20260930-05.json",
+      "know-how/vivo/knowhow.py",
+      "know-how/vivo/legado/SECOES.json",
+      "know-how/vivo/mutantes_knowhow.py",
+      "know-how/vivo/test_knowhow.py"
     ],
     "leis": [
       "leis/adama_relevance.py",
@@ -4500,6 +4516,164 @@
   ],
   "SEARCH_TERMS": [
     {
+      "file": "know-how/vivo/knowhow.py",
+      "line": 70,
+      "variavel": "TERMOS",
+      "grupos": [
+        {
+          "grupo": "arvore",
+          "palavras": [
+            "\\barvores?\\b",
+            "\\bworktrees?\\b"
+          ]
+        },
+        {
+          "grupo": "ramo",
+          "palavras": [
+            "\\bramos?\\b",
+            "\\bbranch(es)?\\b"
+          ]
+        },
+        {
+          "grupo": "ff",
+          "palavras": [
+            "\\bff\\b",
+            "\\bfast.?forward\\b"
+          ]
+        },
+        {
+          "grupo": "servico",
+          "palavras": [
+            "\\bservico\\b",
+            "\\bproducao\\b",
+            "\\boperaciona(l|is)\\b"
+          ]
+        },
+        {
+          "grupo": "instalacao",
+          "palavras": [
+            "\\binstala(r|do|da|dos|das|cao|coes|ndo)?\\b",
+            "\\binstalou\\b"
+          ]
+        },
+        {
+          "grupo": "data",
+          "palavras": [
+            "\\bdatas?\\b"
+          ]
+        },
+        {
+          "grupo": "publicacao",
+          "palavras": [
+            "\\bpublicac(ao|oes)\\b",
+            "\\bpublished(_at|_time)?\\b",
+            "\\bpublication(_time)?\\b"
+          ]
+        },
+        {
+          "grupo": "fact_time",
+          "palavras": [
+            "\\bfact.?time\\b",
+            "\\bdata do fac?to\\b",
+            "\\btempo do fac?to\\b",
+            "\\bdata dos fac?tos\\b"
+          ]
+        },
+        {
+          "grupo": "lugar",
+          "palavras": [
+            "\\blugar(es)?\\b",
+            "\\bfact.?location\\b",
+            "\\bsource.?location\\b",
+            "\\blocal do fac?to\\b"
+          ]
+        },
+        {
+          "grupo": "g0",
+          "palavras": [
+            "\\bg0\\b"
+          ]
+        },
+        {
+          "grupo": "produtor",
+          "palavras": [
+            "\\bprodutor(es)?\\b"
+          ]
+        },
+        {
+          "grupo": "c8",
+          "palavras": [
+            "\\bc8\\b"
+          ]
+        },
+        {
+          "grupo": "pote",
+          "palavras": [
+            "\\bpotes?\\b"
+          ]
+        },
+        {
+          "grupo": "preview",
+          "palavras": [
+            "\\bpreview\\b"
+          ]
+        },
+        {
+          "grupo": "mutante",
+          "palavras": [
+            "\\bmutantes?\\b",
+            "\\bmutac(ao|oes)\\b"
+          ]
+        },
+        {
+          "grupo": "teste",
+          "palavras": [
+            "\\btestes?\\b"
+          ]
+        },
+        {
+          "grupo": "lock",
+          "palavras": [
+            "\\block\\b",
+            "\\block.?pesado\\b",
+            "\\btravas?\\b"
+          ]
+        },
+        {
+          "grupo": "fonte",
+          "palavras": [
+            "\\bfontes?\\b"
+          ]
+        },
+        {
+          "grupo": "coorte",
+          "palavras": [
+            "\\bcoortes?\\b"
+          ]
+        },
+        {
+          "grupo": "canario",
+          "palavras": [
+            "\\bcanari(o|os)\\b"
+          ]
+        },
+        {
+          "grupo": "raw",
+          "palavras": [
+            "\\braw\\b",
+            "\\bbrutos?\\b"
+          ]
+        },
+        {
+          "grupo": "sala",
+          "palavras": [
+            "\\bsala\\b"
+          ]
+        }
+      ],
+      "total_palavras": 40
+    },
+    {
       "file": "regras/rotulos_censo.py",
       "line": 48,
       "variavel": "TERMOS",
@@ -4808,10 +4982,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "lucianodalondon-sys/integra-busca-sobre-fd8c946",
-    "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
-    "GENERATED_AT": "2026-09-28T21:26:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82"
+    "BRANCH": "lucianodalondon-sys/know-how-vivo-v1",
+    "HEAD": "e2a50e6abcca8da0c4c40eef4f649fa9142f16e4",
+    "GENERATED_AT": "2026-09-30T15:39:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e1cd76c3756a87fcfcba8d9c0cb1ca1f4ecd3da5520c582cf9d3951c94e95181"
   },
   "FAMILIES": [
     {
@@ -4882,7 +5056,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 124
+      "count": 125
     },
     {
       "id": "F-ENTREGA",
@@ -5254,7 +5428,7 @@
       "y": 190,
       "w": 1235,
       "h": 11310,
-      "count": 103
+      "count": 104
     },
     {
       "id": "Z-REFERENCIA",
@@ -6547,7 +6721,7 @@
         "dessas, a maquina sabe buscar sozinha: 5",
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
-        "palavras de busca medidas no codigo: 103",
+        "palavras de busca medidas no codigo: 143",
         "enderecos que o codigo realmente chama: 905",
         "desses, mostrados aqui: 40 (ficam de fora 865)"
       ],
@@ -52380,6 +52554,141 @@
       "y": 1326
     },
     {
+      "id": "C-KNOW-HOW-VIVO",
+      "name": "Know How vivo — a memoria do sistema (knowhow)",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "A camada nova do Know How, ao lado do SINTONIA-EAME-KNOW-HOW.md (que nao e tocado). Um comando, `knowhow`: registrar grava UM evento por ficheiro (MEMORY_EVENT/1, `open(..., 'x')`, nunca sobrescreve); consolidar julga cada CANDIDATO_A_KNOW_HOW pelas regras K1–K8 do dono e da ACTIVE, REFORCO, BLOQUEADO, CONFLITO_KNOW_HOW, CONFLITO_DE_AUTORIDADE ou RELACIONADO_A_AUTORIDADE, com o motivo por K; indexar regera legado/SECOES.json (inventario das seccoes do ficheiro de 1 MB) e INDICE.json; buscar devolve so os itens relevantes (ID, titulo, caminho:linhas, trecho). Os 7 eventos do LAB entraram tal como estavam.",
+      "why_here": "Ordem do dono de 30/09 (PROMOCAO AUTOMATICA POR CRITERIOS) e arquitetura unica do coordenador (KNOW-HOW-VIVO-ARQUITETURA-v1). Antes: um ficheiro de 22.547 linhas, escrito a mao por varios agentes, sem recuperacao por tema (grep manual) e sem regra de promocao. Vive em know-how/vivo/ porque a especificacao o pos la, e fica em PROVAS E MEDICAO porque provar e como o sistema sabe o que sabe: nada vira conhecimento ACTIVE sem origem, evidencia conferida e as oito regras. Esta no ramo know-how-vivo-v1; instalar na linha de servico e do coordenador.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "know-how/vivo/INDICE.json",
+        "know-how/vivo/candidatos/KH-C1.json",
+        "know-how/vivo/candidatos/KH-C2.json",
+        "know-how/vivo/candidatos/KH-C3.json",
+        "know-how/vivo/conhecimento/KH-0001.json",
+        "know-how/vivo/eventos/MEM-LAB-20260928-01.json",
+        "know-how/vivo/eventos/MEM-LAB-20260928-02.json",
+        "know-how/vivo/eventos/MEM-LAB-20260928-03.json",
+        "know-how/vivo/eventos/MEM-LAB-20260930-01.json",
+        "know-how/vivo/eventos/MEM-LAB-20260930-03.json",
+        "know-how/vivo/eventos/MEM-LAB-20260930-04.json",
+        "know-how/vivo/eventos/MEM-LAB-20260930-05.json",
+        "know-how/vivo/knowhow.py",
+        "know-how/vivo/legado/SECOES.json",
+        "know-how/vivo/mutantes_knowhow.py",
+        "know-how/vivo/test_knowhow.py"
+      ],
+      "file_count": 16,
+      "status": "PENDING",
+      "status_reason": "existe teste que exercita isto.  Mas ha 16 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-MAPA-TESTES"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "AGENTES_DECISORES",
+          "AREAS",
+          "AREA_POR_TAG",
+          "C1",
+          "C2",
+          "C3",
+          "COMANDOS",
+          "DATAS",
+          "ESPECIES",
+          "FORMA_DE_REGRA",
+          "LINGUAGENS_DE_CODIGO",
+          "MOMENTANEO",
+          "MUTANTES",
+          "NEGADORES",
+          "OBRIGATORIOS",
+          "ORDEM_K",
+          "REGRA_GERAL",
+          "RESULTADOS",
+          "SINONIMOS",
+          "TAGS_BASE",
+          "TERMOS"
+        ],
+        "palavras": 261,
+        "por_lingua": {
+          "PT": 4
+        },
+        "sem_marca_de_lingua": 257,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "know-how/vivo/knowhow.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "AGENTS.md",
+        "SINTONIA-EAME-KNOW-HOW.md",
+        "know-how/vivo/INDICE.json",
+        "know-how/vivo/conhecimento/KH-0001.json",
+        "know-how/vivo/knowhow.py",
+        "know-how/vivo/legado/SECOES.json",
+        "know-how/vivo/test_knowhow.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 23340,
+      "y": 2936
+    },
+    {
       "id": "C-LASTMILE",
       "name": "Ultima milha da entrega",
       "territory": "Z-PACOTE",
@@ -52917,8 +53226,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 2936
+      "x": 22510,
+      "y": 3258
     },
     {
       "id": "C-LEITOR-DATA-YT",
@@ -54021,7 +54330,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 3258
     },
     {
@@ -54125,7 +54434,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 3258
     },
     {
@@ -54301,8 +54610,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 3258
+      "x": 22510,
+      "y": 3580
     },
     {
       "id": "C-MAPA-SCAN",
@@ -54443,7 +54752,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 3580
     },
     {
@@ -54561,6 +54870,7 @@
         "C-INGRESSO",
         "C-IT-COLETA",
         "C-IT-EDICOES-DO-REGISTRO",
+        "C-KNOW-HOW-VIVO",
         "C-LASTMILE-MEDIDORES",
         "C-LEITOR-DATA-YT",
         "C-LINHA-BUSCA",
@@ -54800,7 +55110,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 3580
     },
     {
@@ -54900,8 +55210,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 3580
+      "x": 22510,
+      "y": 3902
     },
     {
       "id": "C-MATERIA-PRIMA-POR-DIA",
@@ -55095,7 +55405,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 3902
     },
     {
@@ -58752,7 +59062,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 3902
     },
     {
@@ -58857,8 +59167,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 3902
+      "x": 22510,
+      "y": 4224
     },
     {
       "id": "C-PROVA-AGRO-FRONTEIRA",
@@ -58950,7 +59260,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 4224
     },
     {
@@ -59031,7 +59341,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 4224
     },
     {
@@ -59102,8 +59412,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 4224
+      "x": 22510,
+      "y": 4546
     },
     {
       "id": "C-PROVA-AUTORIDADE-FONTE",
@@ -59193,7 +59503,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 4546
     },
     {
@@ -59310,7 +59620,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 4546
     },
     {
@@ -59509,8 +59819,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 4546
+      "x": 22510,
+      "y": 4868
     },
     {
       "id": "C-PROVA-CANARIO-D23-LINKEDIN",
@@ -59601,7 +59911,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 4868
     },
     {
@@ -59697,7 +60007,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 4868
     },
     {
@@ -59796,8 +60106,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 4868
+      "x": 22510,
+      "y": 5190
     },
     {
       "id": "C-PROVA-CANARIO-D24-YOUTUBE-PESSOA",
@@ -59888,7 +60198,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5190
     },
     {
@@ -59979,7 +60289,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 5190
     },
     {
@@ -60080,8 +60390,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 5190
+      "x": 22510,
+      "y": 5512
     },
     {
       "id": "C-PROVA-CAP-WIN",
@@ -60181,7 +60491,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5512
     },
     {
@@ -60911,7 +61221,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 5512
     },
     {
@@ -61054,8 +61364,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 5512
+      "x": 22510,
+      "y": 5834
     },
     {
       "id": "C-PROVA-CONTADOR-24H",
@@ -61169,7 +61479,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 5834
     },
     {
@@ -61343,7 +61653,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 5834
     },
     {
@@ -61440,8 +61750,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 5834
+      "x": 22510,
+      "y": 6156
     },
     {
       "id": "C-PROVA-CUTOVER",
@@ -61557,7 +61867,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6156
     },
     {
@@ -61647,7 +61957,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6156
     },
     {
@@ -61739,8 +62049,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 6156
+      "x": 22510,
+      "y": 6478
     },
     {
       "id": "C-PROVA-EXECUTOR-CONTA",
@@ -61819,7 +62129,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6478
     },
     {
@@ -61938,7 +62248,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6478
     },
     {
@@ -62033,8 +62343,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 6478
+      "x": 22510,
+      "y": 6800
     },
     {
       "id": "C-PROVA-FRONTEIRA",
@@ -62132,7 +62442,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 6800
     },
     {
@@ -62220,7 +62530,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 6800
     },
     {
@@ -62316,8 +62626,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 6800
+      "x": 22510,
+      "y": 7122
     },
     {
       "id": "C-PROVA-INT-R7",
@@ -62431,7 +62741,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7122
     },
     {
@@ -62537,12 +62847,6 @@
       "destino_prova": [
         {
           "onde": "GIT",
-          "file": "provas/janela_formas/cjs/INDICE.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
           "file": "provas/janela_formas/cjs/d46/RESULTADO-D46.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
@@ -62571,7 +62875,6 @@
         "coleta/italy_pilot_collect.mjs",
         "curadoria/italy_contracts_curator.json",
         "data/collection-ledger/italy/observations.ndjson",
-        "provas/janela_formas/cjs/INDICE.json",
         "provas/janela_formas/cjs/d46/custom.js",
         "provas/janela_formas/cjs/d46/extend_home.js",
         "provas/janela_formas/cjs/d46/pagina-bollettini.html",
@@ -62600,7 +62903,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7122
     },
     {
@@ -62719,8 +63022,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 7122
+      "x": 22510,
+      "y": 7444
     },
     {
       "id": "C-PROVA-LINHA-BUSCA",
@@ -62827,7 +63130,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7444
     },
     {
@@ -62918,7 +63221,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7444
     },
     {
@@ -63031,8 +63334,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 7444
+      "x": 22510,
+      "y": 7766
     },
     {
       "id": "C-PROVA-MAPA-NAO-MENTE",
@@ -63169,7 +63472,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 7766
     },
     {
@@ -63283,7 +63586,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 7766
     },
     {
@@ -63371,8 +63674,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 7766
+      "x": 22510,
+      "y": 8088
     },
     {
       "id": "C-PROVA-PARIDADE",
@@ -63521,7 +63824,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8088
     },
     {
@@ -63628,7 +63931,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8088
     },
     {
@@ -63744,8 +64047,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGUA-T2-JANELA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 23340,
-      "y": 8088
+      "x": 22510,
+      "y": 8410
     },
     {
       "id": "C-PROVA-PORTA-ITALIANA",
@@ -63844,7 +64147,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8410
     },
     {
@@ -63963,7 +64266,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8410
     },
     {
@@ -64101,8 +64404,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 8410
+      "x": 22510,
+      "y": 8732
     },
     {
       "id": "C-PROVA-RECOLLECTION",
@@ -64197,7 +64500,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 8732
     },
     {
@@ -64298,7 +64601,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 8732
     },
     {
@@ -64387,8 +64690,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 8732
+      "x": 22510,
+      "y": 9054
     },
     {
       "id": "C-PROVA-ROTA-DO-HTML",
@@ -64509,7 +64812,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9054
     },
     {
@@ -64612,7 +64915,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9054
     },
     {
@@ -64786,8 +65089,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 9054
+      "x": 22510,
+      "y": 9376
     },
     {
       "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
@@ -64884,7 +65187,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9376
     },
     {
@@ -64997,7 +65300,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9376
     },
     {
@@ -65108,8 +65411,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 9376
+      "x": 22510,
+      "y": 9698
     },
     {
       "id": "C-PROVA-T2-BOLETINS",
@@ -65270,7 +65573,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-SCRAP-GUARDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 9698
     },
     {
@@ -65369,7 +65672,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 9698
     },
     {
@@ -65496,8 +65799,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 23340,
-      "y": 9698
+      "x": 22510,
+      "y": 10020
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -65584,7 +65887,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10020
     },
     {
@@ -65668,7 +65971,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10020
     },
     {
@@ -65765,8 +66068,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 23340,
-      "y": 10020
+      "x": 22510,
+      "y": 10342
     },
     {
       "id": "C-PROVA-VOCI-DAL-CAMPO",
@@ -65899,7 +66202,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10342
     },
     {
@@ -66282,7 +66585,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10342
     },
     {
@@ -66789,8 +67092,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 10342
+      "x": 22510,
+      "y": 10664
     },
     {
       "id": "C-RECONCILIAR-BYTES-BC4",
@@ -66964,7 +67267,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10664
     },
     {
@@ -67372,7 +67675,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10664
     },
     {
@@ -68237,8 +68540,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 10664
+      "x": 22510,
+      "y": 10986
     },
     {
       "id": "C-ROTA-M2",
@@ -69695,7 +69998,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 10986
     },
     {
@@ -70282,7 +70585,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22925,
+      "x": 23340,
       "y": 10986
     },
     {
@@ -70726,8 +71029,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 23340,
-      "y": 10986
+      "x": 22510,
+      "y": 11308
     },
     {
       "id": "C-T6-PARA-SALA-MEDIDAS",
@@ -74139,7 +74442,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 22510,
+      "x": 22925,
       "y": 11308
     },
     {
@@ -129819,6 +130122,57 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-KNOW-HOW-VIVO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map alimenta Know How vivo — a memoria do sistema (knowhow). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "know-how/vivo/knowhow.py",
+          "line": 984,
+          "snippet": "agents = os.path.join(cfg.repo, \"AGENTS.md\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--READS-->C-KNOW-HOW-VIVO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-KNOW-HOW-VIVO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "know-how/vivo/test_knowhow.py",
+          "line": 364,
+          "snippet": "self.assertIn(\"AGENTS.md\", fontes)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--READS-->C-KNOW-HOW-VIVO",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-KNOW-HOW-VIVO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-LASTMILE-MEDIDORES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -174601,7 +174955,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 285,
+      "PECAS_EM_DESACORDO": 286,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -174613,25 +174967,25 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 312
+      "TOTAL_DE_PECAS": 313
     }
   ],
   "COUNTS": {
-    "components": 312,
+    "components": 313,
     "components_proven": 33,
-    "components_pending": 271,
+    "components_pending": 272,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1914,
-    "edges_proven": 1845,
+    "edges": 1915,
+    "edges_proven": 1846,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4215,
-    "files_covered": 1944,
+    "files_tracked": 4231,
+    "files_covered": 1960,
     "files_code_unclaimed": 0,
     "roles_proven": 207,
     "roles_declared_only": 10,
-    "roles_unknown": 95,
+    "roles_unknown": 96,
     "roles_conflict": 55,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 11,

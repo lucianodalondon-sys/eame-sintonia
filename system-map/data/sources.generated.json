@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-29T00:51:28+00:00",
-    "HEAD": "7eb884192a10cca5f331e6cd84bd6348d9d796f1",
+    "GENERATED_AT": "2026-09-30T19:01:36+00:00",
+    "HEAD": "e2a50e6abcca8da0c4c40eef4f649fa9142f16e4",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "126630b8200598d059617ecc9018f2cd0d79c5cb881c994dd7edce400d4b9c82",
-    "FICHEIROS_NA_IMPRESSAO": 4363,
+    "SOURCE_TREE_FINGERPRINT": "e1cd76c3756a87fcfcba8d9c0cb1ca1f4ecd3da5520c582cf9d3951c94e95181",
+    "FICHEIROS_NA_IMPRESSAO": 4379,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -35349,6 +35349,164 @@
   },
   "SEARCH_TERMS": [
     {
+      "file": "know-how/vivo/knowhow.py",
+      "line": 70,
+      "variavel": "TERMOS",
+      "grupos": [
+        {
+          "grupo": "arvore",
+          "palavras": [
+            "\\barvores?\\b",
+            "\\bworktrees?\\b"
+          ]
+        },
+        {
+          "grupo": "ramo",
+          "palavras": [
+            "\\bramos?\\b",
+            "\\bbranch(es)?\\b"
+          ]
+        },
+        {
+          "grupo": "ff",
+          "palavras": [
+            "\\bff\\b",
+            "\\bfast.?forward\\b"
+          ]
+        },
+        {
+          "grupo": "servico",
+          "palavras": [
+            "\\bservico\\b",
+            "\\bproducao\\b",
+            "\\boperaciona(l|is)\\b"
+          ]
+        },
+        {
+          "grupo": "instalacao",
+          "palavras": [
+            "\\binstala(r|do|da|dos|das|cao|coes|ndo)?\\b",
+            "\\binstalou\\b"
+          ]
+        },
+        {
+          "grupo": "data",
+          "palavras": [
+            "\\bdatas?\\b"
+          ]
+        },
+        {
+          "grupo": "publicacao",
+          "palavras": [
+            "\\bpublicac(ao|oes)\\b",
+            "\\bpublished(_at|_time)?\\b",
+            "\\bpublication(_time)?\\b"
+          ]
+        },
+        {
+          "grupo": "fact_time",
+          "palavras": [
+            "\\bfact.?time\\b",
+            "\\bdata do fac?to\\b",
+            "\\btempo do fac?to\\b",
+            "\\bdata dos fac?tos\\b"
+          ]
+        },
+        {
+          "grupo": "lugar",
+          "palavras": [
+            "\\blugar(es)?\\b",
+            "\\bfact.?location\\b",
+            "\\bsource.?location\\b",
+            "\\blocal do fac?to\\b"
+          ]
+        },
+        {
+          "grupo": "g0",
+          "palavras": [
+            "\\bg0\\b"
+          ]
+        },
+        {
+          "grupo": "produtor",
+          "palavras": [
+            "\\bprodutor(es)?\\b"
+          ]
+        },
+        {
+          "grupo": "c8",
+          "palavras": [
+            "\\bc8\\b"
+          ]
+        },
+        {
+          "grupo": "pote",
+          "palavras": [
+            "\\bpotes?\\b"
+          ]
+        },
+        {
+          "grupo": "preview",
+          "palavras": [
+            "\\bpreview\\b"
+          ]
+        },
+        {
+          "grupo": "mutante",
+          "palavras": [
+            "\\bmutantes?\\b",
+            "\\bmutac(ao|oes)\\b"
+          ]
+        },
+        {
+          "grupo": "teste",
+          "palavras": [
+            "\\btestes?\\b"
+          ]
+        },
+        {
+          "grupo": "lock",
+          "palavras": [
+            "\\block\\b",
+            "\\block.?pesado\\b",
+            "\\btravas?\\b"
+          ]
+        },
+        {
+          "grupo": "fonte",
+          "palavras": [
+            "\\bfontes?\\b"
+          ]
+        },
+        {
+          "grupo": "coorte",
+          "palavras": [
+            "\\bcoortes?\\b"
+          ]
+        },
+        {
+          "grupo": "canario",
+          "palavras": [
+            "\\bcanari(o|os)\\b"
+          ]
+        },
+        {
+          "grupo": "raw",
+          "palavras": [
+            "\\braw\\b",
+            "\\bbrutos?\\b"
+          ]
+        },
+        {
+          "grupo": "sala",
+          "palavras": [
+            "\\bsala\\b"
+          ]
+        }
+      ],
+      "total_palavras": 40
+    },
+    {
       "file": "regras/rotulos_censo.py",
       "line": 48,
       "variavel": "TERMOS",
@@ -39464,8 +39622,8 @@
       "PARCIAL": 27,
       "YELLOW": 85
     },
-    "search_term_groups": 34,
-    "search_terms": 103,
+    "search_term_groups": 56,
+    "search_terms": 143,
     "endpoints": 905,
     "endpoints_published": 40,
     "endpoints_truncated": 865,

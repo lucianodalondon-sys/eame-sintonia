@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  7eb884192a10cca5f331e6cd84bd6348d9d796f1
-BRANCH           lucianodalondon-sys/integra-busca-sobre-fd8c946
-GERADO_EM        2026-09-28T21:26:16-03:00
+HEAD_DA_MEDICAO  e2a50e6abcca8da0c4c40eef4f649fa9142f16e4
+BRANCH           lucianodalondon-sys/know-how-vivo-v1
+GERADO_EM        2026-09-30T15:39:07-03:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
