@@ -1,5 +1,5 @@
 {
- "REF": "389a8a0",
+ "REF": "bea084371",
  "MUTANTES": [
   {
    "MUTANTE": "M01_DOMINIO_BLOQUEADO_PASSA",
@@ -203,12 +203,68 @@
    "MORTO": true,
    "CODIGO": 1,
    "CAUDA": null
+  },
+  {
+   "MUTANTE": "M30_TOMADA_NAO_ATOMICA_DO_C38610E0C",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M31_TOMADA_SEM_VEZ",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M32_TOMADA_SEM_RELER_COM_A_VEZ",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M33_STILL_ACTIVE_259_IGNORADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M34_ACESSO_NEGADO_VIRA_MORTO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M35_PID_IMPOSSIVEL_TOMADO",
+   "ALVO": "ferramentas/big_collection/coleta_continua.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M36_SAIDA_VAZIA_ACEITE",
+   "ALVO": "scripts/micro_coleta/provar_backup_da_sala.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
+  },
+  {
+   "MUTANTE": "M37_SAIDA_RAIZ_ACEITE",
+   "ALVO": "scripts/micro_coleta/provar_backup_da_sala.py",
+   "MORTO": true,
+   "CODIGO": 1,
+   "CAUDA": null
   }
  ],
  "SEM_MUTANTE": {
   "CODIGO": 0,
-  "TESTES": 50
+  "TESTES": 66
  },
- "MORTOS": 29,
- "TOTAL": 29
+ "MORTOS": 37,
+ "TOTAL": 37
 }
