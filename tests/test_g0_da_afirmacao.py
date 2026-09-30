@@ -286,6 +286,32 @@ class TestConcorrentesBLK1(_Caso):
         self.assertEqual(self._europa(TEMPOS_NO_TRECHO={"VALOR": 1}, LUGARES_NO_TRECHO={"VALOR": 1}), (True, []))
         self.assertFalse(self._europa(TEMPOS_NO_TRECHO={"VALOR": 2}, LUGARES_NO_TRECHO=1)[0])
 
+    def test_contagem_zero_com_lugar_presente_e_incoerente(self):
+        # PROD-3: «ferrarese» -> FACT_LOCATION Ferrara, mas o contador dava 0. Zero ao lado de um valor e contradicao.
+        passou, falta = self._europa(TEMPOS_NO_TRECHO=1, LUGARES_NO_TRECHO=0)
+        self.assertEqual((passou, falta), (False, ["CONTAGEM_INCOERENTE:LUGARES_NO_TRECHO=0_COM_FACT_LOCATION"]))
+
+    def test_contagem_zero_com_tempo_literal_presente_e_incoerente(self):
+        passou, falta = self._europa(TEMPOS_NO_TRECHO=0, LUGARES_NO_TRECHO=1)
+        self.assertEqual((passou, falta), (False, ["CONTAGEM_INCOERENTE:TEMPOS_NO_TRECHO=0_COM_FACT_TIME"]))
+
+    def test_contagem_zero_com_o_valor_em_nao_sei_e_coerente(self):
+        _, falta = self._europa(TEMPOS_NO_TRECHO=1, LUGARES_NO_TRECHO=0, FACT_LOCATION={"VALOR": "NAO SEI"})
+        self.assertFalse([m for m in falta if m.startswith("CONTAGEM_INCOERENTE")])
+
+    def test_tempo_do_cabecalho_conta_zero_no_trecho_com_razao(self):
+        # CABECALHO_D147 compoe o tempo FORA do trecho (o caso derived:7 ARIF, TEMPOS 0 / LUGARES 1): nao e incoerente
+        for origem in ("CABECALHO_D147", "RELATIVA_ANCORADA_D149", "RELATIVO_D63"):
+            _, falta = self._europa(TEMPOS_NO_TRECHO=0, LUGARES_NO_TRECHO=1,
+                                    FACT_TIME_ROLE={"PAPEL": "ACONTECIMENTO", "ORIGEM": origem})
+            self.assertFalse([m for m in falta if m.startswith("CONTAGEM_INCOERENTE")], origem)
+
+    def test_lugar_com_contagem_zero_e_incoerente_qualquer_que_seja_a_origem_do_tempo(self):
+        # a excecao da origem e SO do tempo: o lugar emitido conta sempre (PROD-3)
+        _, falta = self._europa(TEMPOS_NO_TRECHO=0, LUGARES_NO_TRECHO=0,
+                                FACT_TIME_ROLE={"PAPEL": "ACONTECIMENTO", "ORIGEM": "CABECALHO_D147"})
+        self.assertIn("CONTAGEM_INCOERENTE:LUGARES_NO_TRECHO=0_COM_FACT_LOCATION", falta)
+
     def test_pela_corrida_a_afirmacao_com_tempos_concorrentes_nao_chega_ao_archive(self):
         af = dict(self.af1, TEMPOS_NO_TRECHO=2)
         s = self.correr(af)

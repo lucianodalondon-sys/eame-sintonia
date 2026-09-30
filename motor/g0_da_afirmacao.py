@@ -69,6 +69,10 @@ PROVENIENCIA_DA_AFIRMACAO = ("CLAIM_ID", "ITEM_ID", "RAW_OBSERVATION_ID", "SOURC
 CONCORRENTES = {"TEMPOS_NO_TRECHO": ("FACT_TIME", "TEMPOS_CONCORRENTES"),
                 "LUGARES_NO_TRECHO": ("FACT_LOCATION", "LUGARES_CONCORRENTES")}
 SEM_CONTAGEM = "PRODUTOR_SEM_CONTAGEM_DE_CONCORRENTES"
+#: §5-C · contagem 0 ao lado de um valor presente: o produtor contradiz-se e o G0 nao escolhe em qual acreditar.
+#: O tempo so e incoerente com ORIGEM LITERAL (a data esta escrita no trecho); CABECALHO_D147, RELATIVA_ANCORADA_D149
+#: e RELATIVO_D63 compoem o tempo FORA do trecho (cabecalho, ancora, publicacao) e contam 0 com razao.
+INCOERENTE = "CONTAGEM_INCOERENTE"
 
 
 def versao() -> str:
@@ -196,6 +200,9 @@ def _concorrentes(af: dict) -> list:
             falta.append("%s:%s" % (SEM_CONTAGEM, campo))
         elif n > 1 and not _ign(_valor(af.get(guarda))):
             falta.append("%s:%s=%d" % (motivo, campo, n))
+        elif n == 0 and not _ign(_valor(af.get(guarda))) and (
+                guarda != "FACT_TIME" or (af.get("FACT_TIME_ROLE") or {}).get("ORIGEM") == LITERAL):
+            falta.append("%s:%s=0_COM_%s" % (INCOERENTE, campo, guarda))
     return falta
 
 

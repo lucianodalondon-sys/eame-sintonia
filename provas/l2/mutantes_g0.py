@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""MUTACAO DO G0 POR AFIRMACAO — os 12 mutantes da DIRETIVA-G0-POR-AFIRMACAO (§2), dois a mais e os cinco do BLK-1 (§5-C, G15-G19); cada um tem de
+"""MUTACAO DO G0 POR AFIRMACAO — os 12 mutantes da DIRETIVA-G0-POR-AFIRMACAO (§2), dois a mais os cinco do BLK-1 (§5-C, G15-G19) e os tres da
+CONTAGEM_INCOERENTE (G20-G22); cada um tem de
 fazer `tests.test_g0_da_afirmacao` REPROVAR. O mesmo harness de provas/l2/mutantes.py (alvo unico em LF e em CRLF,
 restauro byte a byte conferido por SHA-256, testes com -B).
 
@@ -69,6 +70,12 @@ MUTANTES = [
   "            falta.append(\"%s:%s\" % (SEM_CONTAGEM, campo))", "            pass"),
  ("G19", G0, "BLK-1: contagem > 2 em vez de > 1",
   "        elif n > 1 and not", "        elif n > 2 and not"),
+ ("G20", G0, "contagem 0 com valor presente aceite (CONTAGEM_INCOERENTE desligada)",
+  "        elif n == 0 and not _ign(", "        elif False and not _ign("),
+ ("G21", G0, "CONTAGEM_INCOERENTE so para o tempo (o lugar com 0 passa)",
+  "                guarda != \"FACT_TIME\" or (", "                False or ("),
+ ("G22", G0, "CONTAGEM_INCOERENTE tambem para o tempo do cabecalho (mata o ARIF, derived:7)",
+  "(af.get(\"FACT_TIME_ROLE\") or {}).get(\"ORIGEM\") == LITERAL):", "True):"),
 ]
 
 

@@ -144,8 +144,8 @@
    "APANHADO_POR": [
     "test_a_contagem_em_bloco_do_produtor_tambem_vale",
     "test_contagem_ausente_ou_nao_inteira_recusa",
-    "test_europa_2004_italia_2012_emilia_romagna_cai_no_g0",
-    "test_pela_corrida_a_afirmacao_com_tempos_concorrentes_nao_chega_ao_archive"
+    "test_contagem_zero_com_lugar_presente_e_incoerente",
+    "test_contagem_zero_com_tempo_literal_presente_e_incoerente"
    ]
   },
   {
@@ -156,8 +156,8 @@
    "APANHADO_POR": [
     "test_a_contagem_em_bloco_do_produtor_tambem_vale",
     "test_contagem_ausente_ou_nao_inteira_recusa",
-    "test_europa_2004_italia_2012_emilia_romagna_cai_no_g0",
-    "test_pela_corrida_a_afirmacao_com_tempos_concorrentes_nao_chega_ao_archive"
+    "test_contagem_zero_com_tempo_literal_presente_e_incoerente",
+    "test_europa_2004_italia_2012_emilia_romagna_cai_no_g0"
    ]
   },
   {
@@ -167,8 +167,9 @@
    "ESTADO": "MORTO",
    "APANHADO_POR": [
     "test_contagem_ausente_ou_nao_inteira_recusa",
+    "test_contagem_zero_com_lugar_presente_e_incoerente",
     "test_europa_2004_italia_2012_emilia_romagna_cai_no_g0",
-    "test_so_os_lugares_concorrentes_ja_recusam"
+    "test_lugar_com_contagem_zero_e_incoerente_qualquer_que_seja_a_origem_do_tempo"
    ]
   },
   {
@@ -191,10 +192,39 @@
     "test_pela_corrida_a_afirmacao_com_tempos_concorrentes_nao_chega_ao_archive",
     "test_so_os_tempos_concorrentes_ja_recusam"
    ]
+  },
+  {
+   "ID": "G20",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "contagem 0 com valor presente aceite (CONTAGEM_INCOERENTE desligada)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_contagem_zero_com_lugar_presente_e_incoerente",
+    "test_contagem_zero_com_tempo_literal_presente_e_incoerente",
+    "test_lugar_com_contagem_zero_e_incoerente_qualquer_que_seja_a_origem_do_tempo"
+   ]
+  },
+  {
+   "ID": "G21",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "CONTAGEM_INCOERENTE so para o tempo (o lugar com 0 passa)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_lugar_com_contagem_zero_e_incoerente_qualquer_que_seja_a_origem_do_tempo"
+   ]
+  },
+  {
+   "ID": "G22",
+   "FICHEIRO": "motor/g0_da_afirmacao.py",
+   "FINGE": "CONTAGEM_INCOERENTE tambem para o tempo do cabecalho (mata o ARIF, derived:7)",
+   "ESTADO": "MORTO",
+   "APANHADO_POR": [
+    "test_tempo_do_cabecalho_conta_zero_no_trecho_com_razao"
+   ]
   }
  ],
- "MORTOS": 19,
- "TOTAL": 19,
+ "MORTOS": 22,
+ "TOTAL": 22,
  "RESTAURADOS_IGUAIS": true,
  "ESTADO": "PASS"
 }
