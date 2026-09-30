@@ -4820,9 +4820,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lucianodalondon-sys/produtor-afirmacoes-v1",
-    "HEAD": "d49b635d30a190206963ecee7f54f15f3553751a",
-    "GENERATED_AT": "2026-09-30T07:33:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f1f3bd5ec80c8d21cdc8dc8674d0b531516a637bae3924ec767cebe05157ff78"
+    "HEAD": "d0d05bf0eba48d66ea85cf6e8c06423a2c71a214",
+    "GENERATED_AT": "2026-09-30T13:20:59-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0cadf9527a335c24262c35d556e7d17fd98a47689e0eaac852cf3d2159e3df0e"
   },
   "FAMILIES": [
     {
@@ -58863,7 +58863,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "tests/test_o_produtor_de_afirmacoes.py:809"
+          "tests/test_o_produtor_de_afirmacoes.py:845"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -64349,7 +64349,9 @@
         "C-PRODUTOR-AFIRMACOES",
         "C-TESTES"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -64359,9 +64361,9 @@
           "CASOS",
           "MUTANTES"
         ],
-        "palavras": 193,
+        "palavras": 253,
         "por_lingua": {},
-        "sem_marca_de_lingua": 193,
+        "sem_marca_de_lingua": 253,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -64408,11 +64410,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_o_produtor_de_afirmacoes.py:1813"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 22510,
       "y": 8732
@@ -73516,6 +73522,7 @@
         "C-PROVA-PARIDADE",
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
         "C-PROVA-POTE-CASCO",
+        "C-PROVA-PRODUTOR-AFIRMACOES",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-PROVA-TETO-DOMINIO",
@@ -73706,6 +73713,7 @@
           "MARCAS_DA_R9",
           "MINIMOS",
           "MUR",
+          "NAO_SAO_FUTURO",
           "OBS",
           "OK",
           "ONDE",
@@ -73736,6 +73744,7 @@
           "ROTA_M2",
           "ROTULO_ITALIA",
           "RUNS",
+          "SAO_FUTURO",
           "SEIS",
           "SEM_BYTES",
           "SEM_DSN",
@@ -73760,13 +73769,13 @@
           "YT_LINHA",
           "_GAVETA_DE"
         ],
-        "palavras": 2272,
+        "palavras": 2290,
         "por_lingua": {
           "IT": 12,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 2255,
+        "sem_marca_de_lingua": 2273,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -74253,6 +74262,7 @@
         "provas/contador_24h_local.mjs",
         "provas/corrida_abortada_local.mjs",
         "provas/cortesia_http_local.mjs",
+        "provas/d158/mutar_o_produtor.py",
         "provas/demanda_de_dados_da_italia.py",
         "provas/espinha_da_intelligence.py",
         "provas/fechar_ground_truth_t3.py",
@@ -81049,7 +81059,7 @@
       "evidence": [
         {
           "file": "leis/afirmacao_do_documento.py",
-          "line": 898,
+          "line": 1071,
           "snippet": "\"leis/boletim_do_campo.py::ler_afirmacao\", \"leis/afirmacao_da_fonte.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PRODUTOR-AFIRMACOES",
@@ -81400,7 +81410,7 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 813,
+          "line": 849,
           "snippet": "'leis/afirmacao_da_fonte.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-TESTES",
@@ -113987,7 +113997,7 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 470,
+          "line": 478,
           "snippet": "import corrida_da_inteligencia as CI      # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
@@ -127006,7 +127016,7 @@
       "evidence": [
         {
           "file": "provas/d158/mutar_o_produtor.py",
-          "line": 179,
+          "line": 261,
           "snippet": "(\"MEMORIA_RESPONDE_A_TODOS\", \"leis/boletim_do_campo.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-PRODUTOR-AFIRMACOES",
@@ -127530,7 +127540,7 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 812,
+          "line": 848,
           "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -127546,7 +127556,7 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 812,
+          "line": 848,
           "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -127562,7 +127572,7 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 812,
+          "line": 848,
           "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -148100,7 +148110,7 @@
       "evidence": [
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 602,
+          "line": 610,
           "snippet": "for nome in ('afirmacao_do_documento.py', 'tempo_da_afirmacao.py'):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PRODUTOR-AFIRMACOES--READS-->C-TESTES",
@@ -148116,8 +148126,8 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 1031,
-          "snippet": "self.assertIn('FT._RE_LOJA.search(span)', open(caminho, encoding='utf-8').read())",
+          "line": 702,
+          "snippet": "self.assertIn('FT._RE_EVENTO.search(span)', open(caminho, encoding='utf-8').read())",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PRODUTOR-AFIRMACOES--READS-->C-TESTES",
             "FROM": "C-PRODUTOR-AFIRMACOES",
@@ -148151,7 +148161,7 @@
       "evidence": [
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 809,
+          "line": 845,
           "snippet": "'admissao/produtor_de_afirmacoes.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PRODUTOR-AFIRMACOES-COMANDO--READS-->C-TESTES",
@@ -151473,6 +151483,41 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
             "FROM": "C-PROVA-POTE-CASCO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-PRODUTOR-AFIRMACOES",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova do produtor de afirmacoes — a R9 pelo caminho canonico, e os mutantes alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o_produtor_de_afirmacoes.py",
+          "line": 1813,
+          "snippet": "caminho = os.path.join(RAIZ, 'provas', 'd158', 'mutar_o_produtor.py')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-PRODUTOR-AFIRMACOES--READS-->C-TESTES",
+            "FROM": "C-PROVA-PRODUTOR-AFIRMACOES",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -170470,7 +170515,7 @@
       "evidence": [
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 597,
+          "line": 605,
           "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'afirmacao_do_documento.py'), encoding='utf-8').read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-PRODUTOR-AFIRMACOES",
@@ -175796,8 +175841,8 @@
     "components_pending": 274,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1931,
-    "edges_proven": 1862,
+    "edges": 1932,
+    "edges_proven": 1863,
     "edges_unknown": 69,
     "business_edges": 4,
     "files_tracked": 4226,

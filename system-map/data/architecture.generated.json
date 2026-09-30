@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lucianodalondon-sys/produtor-afirmacoes-v1",
-    "HEAD": "d49b635d30a190206963ecee7f54f15f3553751a",
-    "GENERATED_AT": "2026-09-30T07:33:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f1f3bd5ec80c8d21cdc8dc8674d0b531516a637bae3924ec767cebe05157ff78"
+    "HEAD": "d0d05bf0eba48d66ea85cf6e8c06423a2c71a214",
+    "GENERATED_AT": "2026-09-30T13:20:59-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0cadf9527a335c24262c35d556e7d17fd98a47689e0eaac852cf3d2159e3df0e"
   },
   "FILES": [
     {
@@ -18427,7 +18427,7 @@
     },
     {
       "path": "leis/afirmacao_do_documento.py",
-      "sha": "5db5ccfd2dbc3797ea9df1697b6b52d3e4efa98e",
+      "sha": "d2a47e16983735c62ea839cc0b6c22f98da28120",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18630,7 +18630,7 @@
     },
     {
       "path": "leis/tempo_da_afirmacao.py",
-      "sha": "64cdfff7047a656caa15181b86494c222a753d5a",
+      "sha": "1858656dd7f78ce1baa197bb15a30687e95c7ea5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21101,21 +21101,21 @@
     },
     {
       "path": "provas/d158/CASOS-DO-RED-TEAM.json",
-      "sha": "a831899fc237efb6cb10c767eb6739543f706d3a",
+      "sha": "31ffdb20dfb0cd8df467ec4fa479379569d4a02c",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/d158/MUTACAO-PRODUTOR-V1.json",
-      "sha": "040fa06e52ef46964af75c7519968c9be4e1e8fc",
+      "sha": "ed207c808606d1d12f32b91481ba334e99ffeeb3",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/d158/R9-PELO-CAMINHO-CANONICO.json",
-      "sha": "d0cc9d9a67476c9683bf4681af8f454d1edf9981",
+      "sha": "2d9fa3bd170f6dc44d3b320fba00372b24f45599",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -21129,7 +21129,7 @@
     },
     {
       "path": "provas/d158/mutar_o_produtor.py",
-      "sha": "581fce573f937f2a0a932dd9ab781852fc493b78",
+      "sha": "3e3ad297a491e708c8bda0eaaf0c5f86a92ff865",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28745,7 +28745,7 @@
     },
     {
       "path": "tests/test_o_produtor_de_afirmacoes.py",
-      "sha": "bab7a583005b4cb07f8262ae411698832ce05f1c",
+      "sha": "4af71e6aca7eaa371468350f27baef318610eb51",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -55460,7 +55460,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/afirmacao_do_documento.py",
-        "line": 898,
+        "line": 1071,
         "snippet": "\"leis/boletim_do_campo.py::ler_afirmacao\", \"leis/afirmacao_da_fonte.py\"],"
       }
     },
@@ -55504,7 +55504,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/afirmacao_do_documento.py",
-        "line": 594,
+        "line": 756,
         "snippet": "for nome in (\"afirmacao_do_documento.py\", \"tempo_da_afirmacao.py\"):"
       }
     },
@@ -71828,7 +71828,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/d158/mutar_o_produtor.py",
-        "line": 179,
+        "line": 261,
         "snippet": "(\"MEMORIA_RESPONDE_A_TODOS\", \"leis/boletim_do_campo.py\","
       }
     },
@@ -71850,7 +71850,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/d158/mutar_o_produtor.py",
-        "line": 305,
+        "line": 415,
         "snippet": "ap.add_argument(\"--saida\", default=str(Path(__file__).resolve().parent / \"MUTACAO-PRODUTOR-V1.json\"))"
       }
     },
@@ -105246,7 +105246,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_produtor_de_afirmacoes.py",
-        "line": 809,
+        "line": 845,
         "snippet": "'admissao/produtor_de_afirmacoes.py')"
       }
     },
@@ -105268,7 +105268,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_produtor_de_afirmacoes.py",
-        "line": 813,
+        "line": 849,
         "snippet": "'leis/afirmacao_da_fonte.py')"
       }
     },
@@ -105290,8 +105290,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_produtor_de_afirmacoes.py",
-        "line": 1031,
-        "snippet": "self.assertIn('FT._RE_LOJA.search(span)', open(caminho, encoding='utf-8').read())"
+        "line": 702,
+        "snippet": "self.assertIn('FT._RE_EVENTO.search(span)', open(caminho, encoding='utf-8').read())"
       }
     },
     {
@@ -105301,7 +105301,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_produtor_de_afirmacoes.py",
-        "line": 597,
+        "line": 605,
         "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'afirmacao_do_documento.py'), encoding='utf-8').read()"
       }
     },
@@ -105323,7 +105323,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_produtor_de_afirmacoes.py",
-        "line": 812,
+        "line": 848,
         "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',"
       }
     },
@@ -105334,7 +105334,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_produtor_de_afirmacoes.py",
-        "line": 812,
+        "line": 848,
         "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',"
       }
     },
@@ -105345,7 +105345,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_produtor_de_afirmacoes.py",
-        "line": 812,
+        "line": 848,
         "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',"
       }
     },
@@ -105367,7 +105367,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_produtor_de_afirmacoes.py",
-        "line": 602,
+        "line": 610,
         "snippet": "for nome in ('afirmacao_do_documento.py', 'tempo_da_afirmacao.py'):"
       }
     },
@@ -105378,8 +105378,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_o_produtor_de_afirmacoes.py",
-        "line": 470,
+        "line": 478,
         "snippet": "import corrida_da_inteligencia as CI      # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_o_produtor_de_afirmacoes.py",
+      "to_file": "provas/d158/mutar_o_produtor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_produtor_de_afirmacoes.py",
+        "line": 1813,
+        "snippet": "caminho = os.path.join(RAIZ, 'provas', 'd158', 'mutar_o_produtor.py')"
       }
     },
     {
@@ -113261,7 +113272,7 @@
     "files_tracked": 4226,
     "files_readable": 1778,
     "files_code_dir": 2200,
-    "file_edges": 7546,
+    "file_edges": 7547,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

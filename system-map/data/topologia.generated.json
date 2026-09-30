@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-30T10:38:00+00:00",
-  "HEAD": "d49b635d30a190206963ecee7f54f15f3553751a",
+  "GENERATED_AT": "2026-09-30T16:33:56+00:00",
+  "HEAD": "d0d05bf0eba48d66ea85cf6e8c06423a2c71a214",
   "BRANCH": "lucianodalondon-sys/produtor-afirmacoes-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "f1f3bd5ec80c8d21cdc8dc8674d0b531516a637bae3924ec767cebe05157ff78",
+  "SOURCE_TREE_FINGERPRINT": "0cadf9527a335c24262c35d556e7d17fd98a47689e0eaac852cf3d2159e3df0e",
   "FICHEIROS_NA_IMPRESSAO": 4374,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2204,7 +2204,7 @@
    {
     "PATH": "leis/afirmacao_do_documento.py",
     "PAPEL": "FONTE",
-    "VERSAO": "5db5ccfd2dbc3797ea9df1697b6b52d3e4efa98e",
+    "VERSAO": "d2a47e16983735c62ea839cc0b6c22f98da28120",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2400,7 +2400,7 @@
    {
     "PATH": "leis/tempo_da_afirmacao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "64cdfff7047a656caa15181b86494c222a753d5a",
+    "VERSAO": "1858656dd7f78ce1baa197bb15a30687e95c7ea5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5585,14 +5585,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f1f3bd5ec80c8d21cdc8dc8674d0b531516a637bae3924ec767cebe05157ff78",
+    "VERSAO": "0cadf9527a335c24262c35d556e7d17fd98a47689e0eaac852cf3d2159e3df0e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f1f3bd5ec80c8d21cdc8dc8674d0b531516a637bae3924ec767cebe05157ff78",
+    "VERSAO": "0cadf9527a335c24262c35d556e7d17fd98a47689e0eaac852cf3d2159e3df0e",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7447,7 +7447,7 @@
    {
     "PATH": "tests/test_o_produtor_de_afirmacoes.py",
     "PAPEL": "FONTE",
-    "VERSAO": "bab7a583005b4cb07f8262ae411698832ce05f1c",
+    "VERSAO": "4af71e6aca7eaa371468350f27baef318610eb51",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8279,7 +8279,7 @@
    }
   ],
   "INPUTS_COUNT": 1177,
-  "INPUTS_DIGEST": "5e59eb78ff6c0cf80264d442640f248b244c0e8bcc49f733283bab6e3485c0ef",
+  "INPUTS_DIGEST": "d57fbe42c6d2b0b3e18f16c6884cfce87361352e9e45f85c84c3ada482fa8af5",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8312,8 +8312,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "17347634bf8d967248cddcf2b842b115f567a72292967b13773211f111798158",
-  "SEMANTIC_HASH": "e3602d52c12821b2402bd5f3b94d739db572d39b10f86a9dbf2897ab56dc50c4"
+  "MEASUREMENT_HASH": "657cbe771aa5709b7e5ef0caf82ab7aacb68f1a9a3be977c56b5e9198d2da913",
+  "SEMANTIC_HASH": "26beebdf78fa63cfee4d201fab91408a2550200d7806a5c437293e64ef5504c1"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -11421,7 +11421,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "leis/afirmacao_do_documento.py",
-      "LINHA": 898,
+      "LINHA": 1071,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PRODUTOR-AFIRMACOES",
@@ -11535,7 +11535,7 @@
      },
      {
       "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
-      "LINHA": 813,
+      "LINHA": 849,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-TESTES",
@@ -29563,7 +29563,7 @@
      },
      {
       "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
-      "LINHA": 470,
+      "LINHA": 478,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
@@ -37338,7 +37338,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/d158/mutar_o_produtor.py",
-      "LINHA": 179,
+      "LINHA": 261,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-PRODUTOR-AFIRMACOES",
@@ -37508,7 +37508,7 @@
      },
      {
       "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
-      "LINHA": 812,
+      "LINHA": 848,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -37516,7 +37516,7 @@
      },
      {
       "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
-      "LINHA": 812,
+      "LINHA": 848,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -37524,7 +37524,7 @@
      },
      {
       "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
-      "LINHA": 812,
+      "LINHA": 848,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -48773,7 +48773,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
-      "LINHA": 602,
+      "LINHA": 610,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PRODUTOR-AFIRMACOES--READS-->C-TESTES",
@@ -48781,7 +48781,7 @@
      },
      {
       "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
-      "LINHA": 1031,
+      "LINHA": 702,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PRODUTOR-AFIRMACOES--READS-->C-TESTES",
@@ -48803,7 +48803,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
-      "LINHA": 809,
+      "LINHA": 845,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PRODUTOR-AFIRMACOES-COMANDO--READS-->C-TESTES",
@@ -50697,6 +50697,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-POTE-CASCO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PROVA-PRODUTOR-AFIRMACOES--READS-->C-TESTES",
+    "FROM": "C-PROVA-PRODUTOR-AFIRMACOES",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
+      "LINHA": 1813,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-PRODUTOR-AFIRMACOES--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -62014,7 +62036,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_o_produtor_de_afirmacoes.py",
-      "LINHA": 597,
+      "LINHA": 605,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PRODUTOR-AFIRMACOES",
@@ -64239,12 +64261,12 @@
     ]
    }
   ],
-  "COUNT": 1825
+  "COUNT": 1826
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 238,
   "CARTOES_AUDITADOS": 238,
-  "ARESTAS_RELACIONADAS": 1825,
+  "ARESTAS_RELACIONADAS": 1826,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -64762,7 +64784,7 @@
    "CODE": 326,
    "CONTROL": 90,
    "DATA": 30,
-   "PROOF": 653,
+   "PROOF": 654,
    "READ": 407,
    "RULE": 299,
    "WRITE": 20
@@ -76972,7 +76994,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 276,
+   "ENTRAM": 277,
    "SAEM": 50,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

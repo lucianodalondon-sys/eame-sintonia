@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  d49b635d30a190206963ecee7f54f15f3553751a
+HEAD_DA_MEDICAO  d0d05bf0eba48d66ea85cf6e8c06423a2c71a214
 BRANCH           lucianodalondon-sys/produtor-afirmacoes-v1
-GERADO_EM        2026-09-30T07:33:07-03:00
+GERADO_EM        2026-09-30T13:20:59-03:00
 CARDS            129
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -709,7 +709,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — tipo de peca sem regra de prova definida. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
-| **prova de quem ativa** | tests/test_o_produtor_de_afirmacoes.py:809 _(plano CODE)_ |
+| **prova de quem ativa** | tests/test_o_produtor_de_afirmacoes.py:845 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
