@@ -304,7 +304,9 @@ def backup_real(pasta: Path) -> dict:
     f = pasta / "PROVA-BACKUP-SALA.json"
     d = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
     return {"PROVA_VALE": d.get("PROVA_VALE") is True and r.returncode == 0, "CODIGO": r.returncode,
-            "DUMP": d.get("DUMP"), "SALA_REAL_ANTES": d.get("SALA_REAL_ANTES")}
+            "DUMP": d.get("DUMP"), "SALA_REAL_ANTES": d.get("SALA_REAL_ANTES"),
+            # o motivo fica no registo: um PARA sem causa obriga a rearmar as cegas
+            "PROVA_SAIDA": (r.stdout or "")[-400:], "PROVA_ERRO": (r.stderr or "")[-400:]}
 
 
 def _supervisor():
@@ -595,13 +597,49 @@ def _ondas(base, sha, reg, correm, pecas, historico, livro_24h, paralelo, agora_
 
 
 # ── 7. o servico ─────────────────────────────────────────────────────────────
+def _pid_vivo(pid: int) -> bool:
+    """O PID ainda existe? Serve so para separar conflito (outro servico a correr) de sobra de um ciclo morto."""
+    if os.name == "nt":
+        import ctypes
+        h = ctypes.windll.kernel32.OpenProcess(0x1000, False, int(pid))   # QUERY_LIMITED_INFORMATION
+        if not h:
+            return False
+        ctypes.windll.kernel32.CloseHandle(h)
+        return True
+    try:
+        os.kill(int(pid), 0)
+        return True
+    except OSError:
+        return False
+
+
+def _trinco_de_dono_morto(t: Path) -> bool:
+    """True so quando o DONO.json nomeia um PID que ja nao existe. Sem dono legivel nao se toca (pode ser conflito)."""
+    try:
+        pid = int(json.loads((t / "DONO.json").read_text(encoding="utf-8"))["PID"])
+    except Exception:                                                  # noqa: BLE001 — sem dono, nao e sobra
+        return False
+    return not _pid_vivo(pid)
+
+
 def trinco(base: Path):
-    """Um servico de cada vez na mesma base: mkdir e atomico. Devolve o caminho ou None (outro a correr)."""
+    """Um servico de cada vez na mesma base: mkdir e atomico. Devolve o caminho ou None (outro a correr).
+
+    Trinco cujo dono morreu (kill, queda, ciclo interrompido) NAO e conflito — e sobra: liberta-se,
+    senao a coleta fica parada para sempre a espera de um servico que ja nao existe.
+    """
     t = base / TRINCO_F
     try:
         os.mkdir(t)
     except FileExistsError:
-        return None
+        if not _trinco_de_dono_morto(t):
+            return None
+        try:
+            (t / "DONO.json").unlink(missing_ok=True)
+            os.rmdir(t)
+            os.mkdir(t)
+        except OSError:
+            return None                                                # nao consegui limpar: nao mexo
     (t / "DONO.json").write_text(json.dumps({"PID": os.getpid(), "DESDE": agora_iso()}), encoding="utf-8")
     return t
 

@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -52,6 +53,11 @@ def main(argv=None) -> int:
     lista = subprocess.run([str(E.PG_BIN / "pg_restore.exe"), "-l", str(dump)],
                            capture_output=True, text=True, encoding="utf-8", errors="replace")
     base = E.Base(saida / "pg")
+    # Sobra de uma prova interrompida a meio (ciclo morto, kill, queda) nao pode travar esta:
+    # o initdb recusa uma pasta que ja existe e nao esta vazia, e um Postgres deixado de pe
+    # por um ciclo morto segura os ficheiros. Desce-se o que ficou e limpa-se antes de comecar.
+    base.descer()
+    shutil.rmtree(base.pasta, ignore_errors=True)
     resultado = {"QUANDO": E.agora(), "DUMP": str(dump), "PG_DUMP_CODIGO": r.returncode,
                  "PG_DUMP_ERRO": r.stderr[-300:], "BYTES": dump.stat().st_size if dump.exists() else 0,
                  "INDICE_TEM_SALA_DE_ESPERA": "sala_de_espera" in lista.stdout,
