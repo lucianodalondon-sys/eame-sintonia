@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  d0d05bf0eba48d66ea85cf6e8c06423a2c71a214
+HEAD_DA_MEDICAO  2c67a255f63f97f215e1058b862f957e58133fc0
 BRANCH           lucianodalondon-sys/produtor-afirmacoes-v1
-GERADO_EM        2026-09-30T13:20:59-03:00
+GERADO_EM        2026-09-30T18:11:30-03:00
 CARDS            129
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
