@@ -3,7 +3,7 @@
  "SHA256_DO_ALVO": "438732d1a3c18d0bb72a41430691ccd303dd0c249f3cb31cfec1e6a5dc878385",
  "SUITE": "tests.test_excecao_preview_e2e",
  "MUTANTES": 87,
- "MORTOS": 86,
+ "MORTOS": 87,
  "DESFEITO_E_CONFERIDO": true,
  "RESULTADOS": [
   {
@@ -707,7 +707,7 @@
     "test_V3b_o_futuro_tem_tolerancia_de_5_minutos",
     "test_V3c_PASS_dentro_da_tolerancia_nao_vence_um_FAIL",
     "test_V3c_a_tolerancia_so_salva_a_propria_prova_quando_e_a_unica",
-    "test_V3c_uma_versao_irma_no_futuro_poe_o_par_em_FAIL"
+    "test_V3c_tolerancia_nao_deixa_PASS_futuro_vencer_FAIL_anterior"
    ]
   },
   {
@@ -725,8 +725,10 @@
   {
    "MUTANTE": "M88_tolerancia_ajuda_a_vencer_outra",
    "PERGUNTA": "V3c",
-   "ESTADO": "SOBREVIVEU",
-   "MORTO_POR": []
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V3c_tolerancia_nao_deixa_PASS_futuro_vencer_FAIL_anterior"
+   ]
   },
   {
    "MUTANTE": "M89_futuro_da_propria_sem_teto",
