@@ -1,0 +1,393 @@
+{
+ "SALA_SHA256": "00cb7cb0eb689402c38f0fe2859ed75071162523e7a3eb2fd7b7e366108e73d2",
+ "AFIRMACOES": {
+  "FICHEIRO": "C:\\Users\\London1\\sintonia-sala-italia\\intelligence-experimental\\L2-G0-AFIRMACAO\\AFIRMACOES-R9-129a025.json",
+  "SHA256": "03a88387098146e24e3a2391f2f56c5fbee6571c043bc8ed34fd2eae67f27c46",
+  "CONTRATO": "AFIRMACOES_DA_SALA/v1",
+  "FUNIL_DO_PRODUTOR": {
+   "SECOES": 3560,
+   "FRASES_FORA_DO_CORPO": 28961,
+   "AFIRMACOES": 14844,
+   "COM_TEMPO_DO_FACTO": 82,
+   "COM_LUGAR_DO_FACTO": 1087,
+   "COM_TEMPO_E_LUGAR": 19,
+   "SEM_TEMPO_NEM_LUGAR": 13694,
+   "ITENS": 275,
+   "AFIRMACOES_CONFERIDAS": 14844,
+   "AFIRMACOES_REPROVADAS": 0
+  }
+ },
+ "ITENS_DO_ORACULO": [
+  "derived:11"
+ ],
+ "SEM_AFIRMACOES_POTE_SHA256": "db7e69048d60a087ba79ed511f16a60bd6a976ac1437b8fb1d83a285d3c4e9a8",
+ "SEM_AFIRMACOES_POTE_IGUAL": true,
+ "CRITERIO": {
+  "AFIRMACOES_COM_TEMPO_E_LUGAR": 19,
+  "PASSAM_G0_DA_AFIRMACAO": 8,
+  "CHEGAM_AO_POTE": 4,
+  "ANTES": "14 (medido pelo produtor com o G0 do ITEM: provas/d158/R9-PELO-CAMINHO-CANONICO.json)",
+  "FORA_DA_R9_CHEGAM_AO_POTE": "2 / 13",
+  "FORA_DA_R9_NUMERADOR": 2,
+  "FORA_DA_R9_DENOMINADOR": 13,
+  "R9_CANARIO_NO_POTE": "2 / 6 afirmacoes dos itens do oraculo",
+  "SINAL_DE_DOCUMENTO_INTEIRO_NO_POTE": 0,
+  "SEM_AFIRMACOES_POTE_IGUAL": true,
+  "VALIDAR_POTE_V2": "PASS",
+  "LIBERADOS": 0
+ },
+ "POR_QUE_NAO_PASSAM": {
+  "CLAIM_KIND:NAO_SEI": 10,
+  "FACT_TIME:SEM_ANO": 2
+ },
+ "INTAKE_DAS_AFIRMACOES": {
+  "RECEBIDAS": 14665,
+  "RECUSADAS": 0,
+  "DUPLICADAS": 1763,
+  "PASSARAM_G0": 164,
+  "BLOQUEADAS_EM_G0": 12738,
+  "SEM_ITEM_NO_CORTE": 179
+ },
+ "POTE": {
+  "OBJETOS": {
+   "future": 9,
+   "archive": 4,
+   "sources": 6
+  },
+  "VIOLACOES": [],
+  "RECUSADOS": {
+   "PROVA_INCOMPLETA": 4
+  },
+  "ENTITY_SOURCE_CONVERTIDOS": 23,
+  "INTELLIGENCE_RUN_ID": "IR-d5be491627140a01cf74"
+ },
+ "AFIRMACOES_COM_TEMPO_E_LUGAR": [
+  {
+   "CLAIM_ID": "AF-af3f82a3fd1c9a891671ea97",
+   "ITEM_ID": "derived:7",
+   "SOURCE_ID": "IT-T3-008",
+   "R9": false,
+   "FACT_TIME": "2026-08-31/2026-09-06",
+   "ORIGEM": "CABECALHO_D147",
+   "CLAIM_KIND": "ALERTA_EVENTO",
+   "FACT_LOCATION": "Italia",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "PASSOU",
+   "PORQUE": [],
+   "DUPLICATA_DE": null,
+   "NO_POTE": true,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-e91db3b38e250c2cddb0e9ab",
+   "ITEM_ID": "derived:7",
+   "SOURCE_ID": "IT-T3-008",
+   "R9": false,
+   "FACT_TIME": "2026-08-31/2026-09-06",
+   "ORIGEM": "CABECALHO_D147",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Italia",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-961f06dcb61f70e0962e4b3b",
+   "ITEM_ID": "derived:11",
+   "SOURCE_ID": "IT-T3-008",
+   "R9": true,
+   "FACT_TIME": "2026-09-07/2026-09-13",
+   "ORIGEM": "CABECALHO_D147",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Italia",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-05ed0dfd8be2c61183146900",
+   "ITEM_ID": "derived:11",
+   "SOURCE_ID": "IT-T3-008",
+   "R9": true,
+   "FACT_TIME": "2026-09-07/2026-09-13",
+   "ORIGEM": "CABECALHO_D147",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Italia",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-e66774c8f990effbad83a302",
+   "ITEM_ID": "derived:11",
+   "SOURCE_ID": "IT-T3-008",
+   "R9": true,
+   "FACT_TIME": "2026-09-07/2026-09-13",
+   "ORIGEM": "CABECALHO_D147",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Italia",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-af6707f01bb40a5b0ae97355",
+   "ITEM_ID": "derived:11",
+   "SOURCE_ID": "IT-T3-008",
+   "R9": true,
+   "FACT_TIME": "2026-09-07/2026-09-13",
+   "ORIGEM": "CABECALHO_D147",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Italia ; Campania",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-51b08a1eef21e67ee0ad423e",
+   "ITEM_ID": "derived:11",
+   "SOURCE_ID": "IT-T3-008",
+   "R9": true,
+   "FACT_TIME": "2026-09-07/2026-09-13",
+   "ORIGEM": "RELATIVA_ANCORADA_D149",
+   "CLAIM_KIND": "ALERTA_EVENTO",
+   "FACT_LOCATION": "Puglia",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "PASSOU",
+   "PORQUE": [],
+   "DUPLICATA_DE": null,
+   "NO_POTE": true,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-460fc828e9f2e626ec981945",
+   "ITEM_ID": "derived:11",
+   "SOURCE_ID": "IT-T3-008",
+   "R9": true,
+   "FACT_TIME": "2026-09-07/2026-09-13",
+   "ORIGEM": "CABECALHO_D147",
+   "CLAIM_KIND": "ALERTA_EVENTO",
+   "FACT_LOCATION": "Lecce",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "PASSOU",
+   "PORQUE": [],
+   "DUPLICATA_DE": null,
+   "NO_POTE": true,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-c38c6ae8b3abc6de42fa6716",
+   "ITEM_ID": "derived:21",
+   "SOURCE_ID": "IT-T5-010",
+   "R9": false,
+   "FACT_TIME": "marzo",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "ALERTA_EVENTO",
+   "FACT_LOCATION": "Ferrara",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "FACT_TIME:SEM_ANO"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-29adb57e56b336c67a837a26",
+   "ITEM_ID": "derived:911",
+   "SOURCE_ID": "IT-T10-018",
+   "R9": false,
+   "FACT_TIME": "2026-09-23",
+   "ORIGEM": "RELATIVO_D63",
+   "CLAIM_KIND": "ALERTA_EVENTO",
+   "FACT_LOCATION": "Firenze",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "PASSOU",
+   "PORQUE": [],
+   "DUPLICATA_DE": null,
+   "NO_POTE": true,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-584f99b05bdbb088a1eb8935",
+   "ITEM_ID": "derived:918",
+   "SOURCE_ID": "IT-T5-090",
+   "R9": false,
+   "FACT_TIME": "19-21 giugno 2013",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Milano ; Brescia ; Roma",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-265574cf29724f03358a425c",
+   "ITEM_ID": "derived:918",
+   "SOURCE_ID": "IT-T5-090",
+   "R9": false,
+   "FACT_TIME": "15 febbraio 2013",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Roma",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-7eae08dab970efb31d24b1da",
+   "ITEM_ID": "derived:918",
+   "SOURCE_ID": "IT-T5-090",
+   "R9": false,
+   "FACT_TIME": "14-15 febbraio 2013",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Milano ; Ferrara",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-2195212cae79b950aec75a12",
+   "ITEM_ID": "derived:1022",
+   "SOURCE_ID": "IT-T5-186",
+   "R9": false,
+   "FACT_TIME": "20 luglio 2026",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Roma",
+   "G0_DO_ITEM": "BLOQUEADO_EM_G0",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-eac271c7c768003b6d6944ac",
+   "ITEM_ID": "derived:busca-9092d98a22ea9afe",
+   "SOURCE_ID": "CAND-1212",
+   "R9": false,
+   "FACT_TIME": "2026",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "ALERTA_EVENTO",
+   "FACT_LOCATION": "Campania",
+   "G0_DO_ITEM": "BLOQUEADO_EM_G0",
+   "G0_DA_AFIRMACAO": "PASSOU",
+   "PORQUE": [],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": "PROVA_INCOMPLETA (falta DOCUMENT_ID)"
+  },
+  {
+   "CLAIM_ID": "AF-c48c23e1b62219e6ef8bf358",
+   "ITEM_ID": "derived:busca-1807bb3212f8763d",
+   "SOURCE_ID": "IT-T12-028",
+   "R9": false,
+   "FACT_TIME": "15 ottobre",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "NAO SEI",
+   "FACT_LOCATION": "Campania",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "BLOQUEADO_EM_G0",
+   "PORQUE": [
+    "CLAIM_KIND:NAO_SEI",
+    "FACT_TIME:SEM_ANO"
+   ],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": null
+  },
+  {
+   "CLAIM_ID": "AF-66ab9c48b0cbbcd891d428fe",
+   "ITEM_ID": "derived:busca-c788a591bf3ca8de",
+   "SOURCE_ID": "CAND-1230",
+   "R9": false,
+   "FACT_TIME": "24 aprile 2026",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "ALERTA_EVENTO",
+   "FACT_LOCATION": "Toscana",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "PASSOU",
+   "PORQUE": [],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": "PROVA_INCOMPLETA (falta DOCUMENT_ID)"
+  },
+  {
+   "CLAIM_ID": "AF-2b14dd6205dc1132330ce9da",
+   "ITEM_ID": "derived:busca-8bacf075d875e735",
+   "SOURCE_ID": "CAND-1234",
+   "R9": false,
+   "FACT_TIME": "2004",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "ALERTA_EVENTO",
+   "FACT_LOCATION": "Italia",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "PASSOU",
+   "PORQUE": [],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": "PROVA_INCOMPLETA (falta DOCUMENT_ID)"
+  },
+  {
+   "CLAIM_ID": "AF-0ebd5cac8a6e23f2766aa6b1",
+   "ITEM_ID": "derived:busca-8bacf075d875e735",
+   "SOURCE_ID": "CAND-1234",
+   "R9": false,
+   "FACT_TIME": "12 febbraio 2020",
+   "ORIGEM": "LITERAL",
+   "CLAIM_KIND": "ALERTA_EVENTO",
+   "FACT_LOCATION": "Piemonte ; Torino",
+   "G0_DO_ITEM": "PASSOU",
+   "G0_DA_AFIRMACAO": "PASSOU",
+   "PORQUE": [],
+   "DUPLICATA_DE": null,
+   "NO_POTE": false,
+   "RECUSA_NO_POTE": "PROVA_INCOMPLETA (falta DOCUMENT_ID)"
+  }
+ ]
+}

@@ -81,8 +81,11 @@ def main(argv=None) -> int:
     recusadas = {r["CLAIM_ID"]: r for r in livro.get("AFIRMACOES_RECUSADAS") or []}
     no_pote = {p["CLAIM_ID"] for c in pote["COMPARTIMENTOS"].values() for o in c["OBJETOS"]
                for p in o["PROVA"] if "CLAIM_ID" in p}
-    recusados_no_pote = {p.get("CLAIM_ID"): r.get("MOTIVO") for r in pote.get("RECUSADOS") or []
-                         for p in ((r.get("OBJETO") or {}).get("PROVA") or []) if isinstance(p, dict)}
+    # o fiscal devolve so OBJETO_ID/MOTIVO/DETALHE: o CLAIM_ID vem do objeto que o motor montou com esse id
+    claim_do_objeto = {o["OBJETO_ID"]: p["CLAIM_ID"] for o in s["ITENS_POR_FERRAMENTA"].get("archive") or []
+                       for p in o.get("PROVA") or [] if "CLAIM_ID" in p}
+    recusados_no_pote = {claim_do_objeto[r["OBJETO_ID"]]: "%s (%s)" % (r.get("MOTIVO"), r.get("DETALHE"))
+                         for r in pote.get("RECUSADOS") or [] if r.get("OBJETO_ID") in claim_do_objeto}
     alvo = [af for it in artefato["ITENS"] for af in it["AFIRMACOES"] if _com_tempo_e_lugar(af)]
     linhas = []
     for af in alvo:
