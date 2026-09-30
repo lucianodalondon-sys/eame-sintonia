@@ -1,0 +1,41 @@
+{
+ "ID": "MEM-LAB-20260930-04",
+ "DATA": "2026-09-30T10:18-03:00",
+ "AREA": "OPERACAO",
+ "TIPO": "DIVERGENCIA_DE_ARVORE",
+ "AGENTE_ORIGEM": "sintonia-lab (transcrito)",
+ "ESPECIE": "RELATO",
+ "FATO": "Scrap commitou c38610e0c direto na worktree de servico; o vivo roda c386 enquanto origin/servico continua 852ec; FF da L1 deixou de ser possivel.",
+ "EVIDENCIA": [
+  "auditoria-madrugada/HANDOFF-VIVO.md 30/09 10:18 e 10:31",
+  "VERIF-SERVICO-c38610e0c.md"
+ ],
+ "ARQUIVOS": [],
+ "COMMITS": [
+  "c38610e0c",
+  "852ec0f0b"
+ ],
+ "IMPACTO": "A arvore que roda nao e a arvore publicada; integracao futura exige recompor sem perda.",
+ "STATUS": "ABERTO",
+ "RESOLUCAO": null,
+ "CONFIANCA": "RELATO_DE_AGENTE (coordenador/auditor); LAB mediu so que o vivo esta em c38610e0c",
+ "ORIGEM_MEDIDA": false,
+ "RELACIONADOS": [
+  "MEM-LAB-20260930-03"
+ ],
+ "SCHEMA": "MEMORY_EVENT/1",
+ "TAGS": [
+  "arvore",
+  "servico",
+  "ff"
+ ],
+ "IMPORTADO_DE": {
+  "CAMINHO": "C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/EVENTOS-LAB.jsonl",
+  "LINHA": 6,
+  "SHA256_DA_LINHA": "66e1974e7cfd8168c849e99def0c46febbfb5243e0c78bd1e3954e7115f33310",
+  "ACRESCENTADO": [
+   "SCHEMA",
+   "TAGS"
+  ]
+ }
+}

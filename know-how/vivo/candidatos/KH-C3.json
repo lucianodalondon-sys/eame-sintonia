@@ -1,0 +1,269 @@
+{
+ "ID": "KH-C3",
+ "TITULO": "Data escrita no texto não é data do fato",
+ "TEXTO": "Data no texto ≠ data do fato: tipar publicação/validade/ato/evento antes de contar.",
+ "EVENTOS": [
+  "MEM-LAB-20260928-02",
+  "MEM-LAB-20260928-03"
+ ],
+ "PROPOSTO_POR": "sintonia-lab",
+ "FONTE_DO_TEXTO": "texto: C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/MAPA-E-CANDIDATOS.md §4 (KH-C3); titulo: C:/Users/London1/auditoria-madrugada/KNOW-HOW-VIVO-ARQUITETURA-v1.md §8.4",
+ "SCHEMA": "CANDIDATO_A_KNOW_HOW/1",
+ "K": {
+  "K1": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "2 evento(s) com origem, data e evidencia: MEM-LAB-20260928-02, MEM-LAB-20260928-03"
+  },
+  "K2": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "2 FATO_MEDIDO (MEM-LAB-20260928-02, MEM-LAB-20260928-03); especies: FATO_MEDIDO"
+  },
+  "K3": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "2 evidencia(s) forte(s); ex.: MEM-LAB-20260928-02: CAMINHO profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/contraprova/CONTRAPROVA-TEMPORAL.md → C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/contraprova/CONTRAPROVA-TEMPORAL.md",
+   "DETALHE": {
+    "MEM-LAB-20260928-02": [
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/contraprova/CONTRAPROVA-TEMPORAL.md",
+      "FORTE": true,
+      "PROVAS": [
+       "CAMINHO profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/contraprova/CONTRAPROVA-TEMPORAL.md → C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/contraprova/CONTRAPROVA-TEMPORAL.md"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     }
+    ],
+    "MEM-LAB-20260928-03": [
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "contraprova/CONTRAPROVA-TEMPORAL.md secao 2",
+      "FORTE": true,
+      "PROVAS": [
+       "CAMINHO contraprova/CONTRAPROVA-TEMPORAL.md → C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/contraprova/CONTRAPROVA-TEMPORAL.md"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     }
+    ]
+   }
+  },
+  "K4": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "sem marca de estado momentaneo"
+  },
+  "K5": {
+   "VEREDITO": "DUPLICADO",
+   "MOTIVO": "equivale a LEG-§49.2 «POR QUÊ — `FACT_TIME` nunca foi o bloqueio» (semelhanca 0.242 >= limiar 0.14)",
+   "ALVO": "LEG-§49.2",
+   "VIZINHOS": [
+    {
+     "ID": "LEG-§49.2",
+     "SEMELHANCA": 0.2418,
+     "TITULO": "POR QUÊ — `FACT_TIME` nunca foi o bloqueio"
+    },
+    {
+     "ID": "LEG-§8",
+     "SEMELHANCA": 0.209,
+     "TITULO": "LEIS OPERACIONAIS DA COLLECTION QUE NÃO PODEM SER ESQUECIDAS"
+    },
+    {
+     "ID": "LEG-§48.4",
+     "SEMELHANCA": 0.1902,
+     "TITULO": "PROVA — e a escada que ela revelou"
+    },
+    {
+     "ID": "LEG-§76.2",
+     "SEMELHANCA": 0.1811,
+     "TITULO": "E O ESTÁGIO NÃO VIAJAVA ATÉ À PORTA"
+    },
+    {
+     "ID": "LEG-§49.3",
+     "SEMELHANCA": 0.1561,
+     "TITULO": "A ARMADILHA, MEDIDA ANTES DE ESCREVER"
+    }
+   ]
+  },
+  "K6": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "nenhum KH ACTIVE sobre o mesmo alvo"
+  },
+  "K7": {
+   "VEREDITO": "COBERTO",
+   "MOTIVO": "ja coberto por AGENTS.md:703 «- publicação não vira *fact time*;»; BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:616 «FACT_TIME != PUBLICATION_TIME != OBSERVED_TIME != COLLECTED_TIME»; docs/intelligence/pote-v2/CONTRATO-POTE-V2.md:76 «No pote o nome é um só: `PUBLISHED_AT`. **A publicação nunca vira `FACT_TIME`.**»",
+   "AUTORIDADE": [
+    {
+     "FONTE": "AGENTS.md:703",
+     "ESQ": [
+      "publicacao"
+     ],
+     "DIR": [
+      "fact_time"
+     ],
+     "TEXTO": "- publicação não vira *fact time*;"
+    },
+    {
+     "FONTE": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:616",
+     "ESQ": [
+      "fact_time"
+     ],
+     "DIR": [
+      "publicacao"
+     ],
+     "TEXTO": "FACT_TIME != PUBLICATION_TIME != OBSERVED_TIME != COLLECTED_TIME"
+    },
+    {
+     "FONTE": "docs/intelligence/pote-v2/CONTRATO-POTE-V2.md:76",
+     "ESQ": [
+      "publicacao"
+     ],
+     "DIR": [
+      "fact_time"
+     ],
+     "TEXTO": "No pote o nome é um só: `PUBLISHED_AT`. **A publicação nunca vira `FACT_TIME`.**"
+    },
+    {
+     "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:276 (D29)",
+     "ESQ": [
+      "fact_time"
+     ],
+     "DIR": [
+      "publicacao"
+     ],
+     "TEXTO": "sem a qual ACT_NOW não existe). Leis que continuam: data de calendário ≠ janela agronómica; data regulatória ≠ janela; FACT_TIME ≠ PUBLICATION_TIME;"
+    },
+    {
+     "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:408 (D61)",
+     "ESQ": [
+      "fact_time"
+     ],
+     "DIR": [
+      "publicacao"
+     ],
+     "TEXTO": "\"consertar esses dados é prioridade nossa antes das próximas coletas; um fato não é relevante pra nós se não tiver data, local etc.\" ⇒ A 3.ª onda e a onda social ficam EM ESPERA até o conserto de temp"
+    },
+    {
+     "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:412 (D62)",
+     "ESQ": [
+      "publicacao"
+     ],
+     "DIR": [
+      "fact_time"
+     ],
+     "TEXTO": "2. PUBLICATION_TIME ≠ FACT_TIME. Desejável ter os dois; ter só um é OK. NUNCA reprovar/descartar um fato por lhe faltar dado (data, local…): quanto mais dados, mais precisão, mas nada é obrigatório. C"
+    },
+    {
+     "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:449 (D68)",
+     "ESQ": [
+      "data"
+     ],
+     "DIR": [
+      "publicacao"
+     ],
+     "TEXTO": "A lei 1 de leis/artefato.py reprova FACT_TIME == PUBLISHED_AT SALVO se NOTES.FACT_TIME_BASIS == 'PUBLISHED_AT_COM_PROVA' (saída que a própria lei prevê: 'se for mesmo o mesmo instante, tem de haver pr"
+    },
+    {
+     "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:1022 (D154)",
+     "ESQ": [
+      "publicacao"
+     ],
+     "DIR": [
+      "fact_time"
+     ],
+     "TEXTO": "- D153 (REDAÇÃO CORRIGIDA pelo red team do bot Luciano, 28/09 ~23:59, adotada pelo coordenador): «No GB20 o dono aceitou compor 25/03/2026 com o ano da linha de data da mesma notícia. Em outros casos,"
+    }
+   ]
+  },
+  "K8": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "forma de regra: imperativo «tipar», !=, antes de"
+  }
+ },
+ "RESULTADO": "RELACIONADO_A_AUTORIDADE",
+ "DECIDIDO_POR": "K7",
+ "CONSOLIDADO_EM": "2026-09-30T15:37:40-03:00",
+ "REGRA": "K1–K8 (KNOW-HOW-VIVO-ARQUITETURA-v1 §5); promocao sem mao humana",
+ "AUTORIDADE": [
+  {
+   "FONTE": "AGENTS.md:703",
+   "ESQ": [
+    "publicacao"
+   ],
+   "DIR": [
+    "fact_time"
+   ],
+   "TEXTO": "- publicação não vira *fact time*;"
+  },
+  {
+   "FONTE": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:616",
+   "ESQ": [
+    "fact_time"
+   ],
+   "DIR": [
+    "publicacao"
+   ],
+   "TEXTO": "FACT_TIME != PUBLICATION_TIME != OBSERVED_TIME != COLLECTED_TIME"
+  },
+  {
+   "FONTE": "docs/intelligence/pote-v2/CONTRATO-POTE-V2.md:76",
+   "ESQ": [
+    "publicacao"
+   ],
+   "DIR": [
+    "fact_time"
+   ],
+   "TEXTO": "No pote o nome é um só: `PUBLISHED_AT`. **A publicação nunca vira `FACT_TIME`.**"
+  },
+  {
+   "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:276 (D29)",
+   "ESQ": [
+    "fact_time"
+   ],
+   "DIR": [
+    "publicacao"
+   ],
+   "TEXTO": "sem a qual ACT_NOW não existe). Leis que continuam: data de calendário ≠ janela agronómica; data regulatória ≠ janela; FACT_TIME ≠ PUBLICATION_TIME;"
+  },
+  {
+   "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:408 (D61)",
+   "ESQ": [
+    "fact_time"
+   ],
+   "DIR": [
+    "publicacao"
+   ],
+   "TEXTO": "\"consertar esses dados é prioridade nossa antes das próximas coletas; um fato não é relevante pra nós se não tiver data, local etc.\" ⇒ A 3.ª onda e a onda social ficam EM ESPERA até o conserto de temp"
+  },
+  {
+   "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:412 (D62)",
+   "ESQ": [
+    "publicacao"
+   ],
+   "DIR": [
+    "fact_time"
+   ],
+   "TEXTO": "2. PUBLICATION_TIME ≠ FACT_TIME. Desejável ter os dois; ter só um é OK. NUNCA reprovar/descartar um fato por lhe faltar dado (data, local…): quanto mais dados, mais precisão, mas nada é obrigatório. C"
+  },
+  {
+   "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:449 (D68)",
+   "ESQ": [
+    "data"
+   ],
+   "DIR": [
+    "publicacao"
+   ],
+   "TEXTO": "A lei 1 de leis/artefato.py reprova FACT_TIME == PUBLISHED_AT SALVO se NOTES.FACT_TIME_BASIS == 'PUBLISHED_AT_COM_PROVA' (saída que a própria lei prevê: 'se for mesmo o mesmo instante, tem de haver pr"
+  },
+  {
+   "FONTE": "C:/Users/London1/auditoria-madrugada/DECISOES-DONO-2026-09-23.md:1022 (D154)",
+   "ESQ": [
+    "publicacao"
+   ],
+   "DIR": [
+    "fact_time"
+   ],
+   "TEXTO": "- D153 (REDAÇÃO CORRIGIDA pelo red team do bot Luciano, 28/09 ~23:59, adotada pelo coordenador): «No GB20 o dono aceitou compor 25/03/2026 com o ano da linha de data da mesma notícia. Em outros casos,"
+  }
+ ],
+ "ALVO": "AGENTS.md:703"
+}

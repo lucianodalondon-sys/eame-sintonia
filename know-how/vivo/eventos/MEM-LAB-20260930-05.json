@@ -1,0 +1,45 @@
+{
+ "ID": "MEM-LAB-20260930-05",
+ "DATA": "2026-09-30T17:00-03:00",
+ "AREA": "KNOW_HOW",
+ "TIPO": "COMPORTAMENTO_INESPERADO",
+ "AGENTE_ORIGEM": "sintonia-lab",
+ "ESPECIE": "FATO_MEDIDO",
+ "FATO": "O Know How canonico (SINTONIA-EAME-KNOW-HOW.md) na linha de servico tem 22.547 linhas / ~1 MB, ultima secao §222 (commit 6f0742731, 28/09); decisoes do dono ja passam de D160 e existe KNOW-HOW-PENDENTE-2709.md fora do Git. Cabecalho tem 5 linhas 'Ultima atualizacao material' concorrentes.",
+ "EVIDENCIA": [
+  "git show origin/servico-20260923-0923:SINTONIA-EAME-KNOW-HOW.md | wc -l",
+  "git log -1 -- SINTONIA-EAME-KNOW-HOW.md",
+  "ls auditoria-madrugada/KNOW-HOW-PENDENTE-2709.md"
+ ],
+ "ARQUIVOS": [
+  "SINTONIA-EAME-KNOW-HOW.md",
+  "know-how/",
+  "handoff/KNOW-HOW-DELTA-*.md"
+ ],
+ "COMMITS": [
+  "6f0742731"
+ ],
+ "IMPACTO": "Aprendizado de 28-30/09 (G0, produtor, C8, arvore) nao esta no Know How; documento grande demais para ser lido inteiro por agente.",
+ "STATUS": "ABERTO",
+ "RESOLUCAO": null,
+ "CONFIANCA": "GIT_MEDIDO",
+ "ORIGEM_MEDIDA": true,
+ "RELACIONADOS": [],
+ "SCHEMA": "MEMORY_EVENT/1",
+ "TAGS": [
+  "arvore",
+  "c8",
+  "g0",
+  "produtor",
+  "servico"
+ ],
+ "IMPORTADO_DE": {
+  "CAMINHO": "C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/EVENTOS-LAB.jsonl",
+  "LINHA": 7,
+  "SHA256_DA_LINHA": "fab89b4462aec349faaef125b175e91e58d31ba26e6aafaf19ba0df2292c6687",
+  "ACRESCENTADO": [
+   "SCHEMA",
+   "TAGS"
+  ]
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "ID": "MEM-LAB-20260930-01",
+ "DATA": "2026-09-30T13:20-03:00",
+ "AREA": "INTELLIGENCE",
+ "TIPO": "CONSERTO_SEM_GANHO",
+ "AGENTE_ORIGEM": "sintonia-lab",
+ "ESPECIE": "FATO_MEDIDO",
+ "FATO": "Com o produtor de afirmacoes mais novo (tempo por afirmacao), dos 100 itens bons perdidos na R9 foram recuperados 0; o pote continua com os mesmos 3 itens (derived:7, 11, 911).",
+ "EVIDENCIA": [
+  "profiles/sintonia-lab/lab/estudos/2026-09-30-REAUDIT-275/NOTA-RAPIDA.md",
+  "SALA_ATUAL.json sha 00cb7cb0...73d2",
+  "script Temp/lab-reaudit/reaudit2.py"
+ ],
+ "ARQUIVOS": [
+  "leis/afirmacao_do_documento.py",
+  "leis/tempo_da_afirmacao.py"
+ ],
+ "COMMITS": [
+  "94a07217e (origin/lucianodalondon-sys/produtor-afirmacoes-v1)"
+ ],
+ "IMPACTO": "Instalar o G0 por afirmacao sozinho nao muda o que chega ao cliente (3 -> 3).",
+ "CAUSA": "Datas com ano concorrente sao recusadas (regra anti-2004); 'settimana NN/AAAA' e '(dd-dd.mm)' nao lidas; conhecimento atemporal sem caminho ate o pote; busca sem DOCUMENT_ID.",
+ "STATUS": "ABERTO",
+ "RESOLUCAO": null,
+ "DONO": "coordenador -> produtor D158 / Intelligence owner / Scrap / L2",
+ "CONFIANCA": "RUNTIME_MEDIDO (execucao offline do codigo do ramo sobre copia da Sala)",
+ "ORIGEM_MEDIDA": true,
+ "RELACIONADOS": [
+  "MEM-LAB-20260928-01",
+  "MEM-LAB-20260930-03"
+ ],
+ "SCHEMA": "MEMORY_EVENT/1",
+ "TAGS": [
+  "pote",
+  "data",
+  "g0",
+  "instalacao",
+  "produtor"
+ ],
+ "IMPORTADO_DE": {
+  "CAMINHO": "C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/EVENTOS-LAB.jsonl",
+  "LINHA": 1,
+  "SHA256_DA_LINHA": "c61caab1821a21808393170bb4f19d1e6a1bcd01ee662a22c97cea1fbb309461",
+  "ACRESCENTADO": [
+   "SCHEMA",
+   "TAGS"
+  ]
+ }
+}

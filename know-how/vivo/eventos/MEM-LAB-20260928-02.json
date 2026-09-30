@@ -1,0 +1,38 @@
+{
+ "ID": "MEM-LAB-20260928-02",
+ "DATA": "2026-09-28T22:20-03:00",
+ "AREA": "LAB",
+ "TIPO": "ERRO_DO_PROPRIO_SENSOR_CORRIGIDO",
+ "AGENTE_ORIGEM": "sintonia-lab",
+ "ESPECIE": "FATO_MEDIDO",
+ "FATO": "O LAB disse que 28 itens tinham a data do fato escrita no texto; na contraprova, 14 eram publicacao/edicao/validade e 9 sem tempo do fato: so 15 reais.",
+ "EVIDENCIA": [
+  "profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/contraprova/CONTRAPROVA-TEMPORAL.md"
+ ],
+ "ARQUIVOS": [],
+ "COMMITS": [],
+ "IMPACTO": "Numero do LAB superestimou a perda de extracao em ~2x; outros agentes podiam ter construido sobre ele.",
+ "CAUSA": "Contagem de datas por regex sem tipar a data (publicacao x validade x fato).",
+ "STATUS": "RESOLVIDO",
+ "RESOLUCAO": "Contraprova publicada no mesmo dia; regra no skill do LAB: tipar cada data antes de dizer 'a data estava no texto'.",
+ "CONFIANCA": "RUNTIME_MEDIDO",
+ "ORIGEM_MEDIDA": true,
+ "RELACIONADOS": [
+  "MEM-LAB-20260928-01"
+ ],
+ "SCHEMA": "MEMORY_EVENT/1",
+ "TAGS": [
+  "data",
+  "fact_time",
+  "publicacao"
+ ],
+ "IMPORTADO_DE": {
+  "CAMINHO": "C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/EVENTOS-LAB.jsonl",
+  "LINHA": 3,
+  "SHA256_DA_LINHA": "7ba9b51ce745bf812b7f0d2a16364e95cfd39fef147b62dd734e03b094340753",
+  "ACRESCENTADO": [
+   "SCHEMA",
+   "TAGS"
+  ]
+ }
+}

@@ -1,0 +1,43 @@
+{
+ "ID": "MEM-LAB-20260930-03",
+ "DATA": "2026-09-30T12:40-03:00",
+ "AREA": "OPERACAO",
+ "TIPO": "PRONTO_EM_RAMO_NAO_OPERACIONAL",
+ "AGENTE_ORIGEM": "sintonia-lab",
+ "ESPECIE": "FATO_MEDIDO",
+ "FATO": "G0 por afirmacao (abbe46b6b), produtor (94a07217e) e C8-AUTO (92a0cef7b) NAO sao ancestrais da linha de servico origin/servico-20260923-0923 @852ec0f0b.",
+ "EVIDENCIA": [
+  "git merge-base --is-ancestor <sha> origin/servico-20260923-0923 -> falso (3/3), medido 30/09"
+ ],
+ "ARQUIVOS": [],
+ "COMMITS": [
+  "abbe46b6b",
+  "94a07217e",
+  "92a0cef7b",
+  "852ec0f0b"
+ ],
+ "IMPACTO": "Relatos de 'PASS_TECNICO' e 'IMPLEMENTADO' nao significam que o sistema que roda faz isso.",
+ "STATUS": "ABERTO",
+ "RESOLUCAO": null,
+ "CONFIANCA": "GIT_MEDIDO",
+ "ORIGEM_MEDIDA": true,
+ "RELACIONADOS": [
+  "MEM-LAB-20260930-04"
+ ],
+ "SCHEMA": "MEMORY_EVENT/1",
+ "TAGS": [
+  "servico",
+  "c8",
+  "g0",
+  "produtor"
+ ],
+ "IMPORTADO_DE": {
+  "CAMINHO": "C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/EVENTOS-LAB.jsonl",
+  "LINHA": 5,
+  "SHA256_DA_LINHA": "f0ac5a1bb45af939d2c02a803c0779c2ca0f22e853dfda2d866885f290eb61a9",
+  "ACRESCENTADO": [
+   "SCHEMA",
+   "TAGS"
+  ]
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "ID": "MEM-LAB-20260928-01",
+ "DATA": "2026-09-28T17:51-03:00",
+ "AREA": "INTELLIGENCE",
+ "TIPO": "REGRA_BLOQUEOU_COISA_BOA",
+ "AGENTE_ORIGEM": "sintonia-lab",
+ "ESPECIE": "FATO_MEDIDO",
+ "FATO": "Na R9, 100 dos 115 itens com potencial (A+B, rotulo cego do LAB) foram barrados por um unico motivo: FACT_TIME exigido do DOCUMENTO inteiro no G0; so 1 chegou ao cliente.",
+ "EVIDENCIA": [
+  "profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/RELATORIO.md",
+  "AB-DETECCAO-V1.json",
+  "HASHES-ANTES.txt (rotulos gravados antes de abrir o livro)"
+ ],
+ "ARQUIVOS": [
+  "motor/corrida_da_inteligencia.py:148,400-437,613",
+  "motor/motor_das_capacidades.py:521-526,606"
+ ],
+ "COMMITS": [
+  "fd8c94698 (producao na epoca)"
+ ],
+ "IMPACTO": "Valor da materia-prima descartado antes de ser lido por praga/cultura/lugar/produto.",
+ "STATUS": "PARCIAL",
+ "RESOLUCAO": "G0 por afirmacao construido (L2/produtor, 29-30/09), fora da producao; recuperacao medida = 0/100 (MEM-LAB-20260930-01).",
+ "CONFIANCA": "RUNTIME_MEDIDO + rotulo de UM leitor IA (nao gold set humano)",
+ "ORIGEM_MEDIDA": true,
+ "RELACIONADOS": [
+  "MEM-LAB-20260928-02"
+ ],
+ "SCHEMA": "MEMORY_EVENT/1",
+ "TAGS": [
+  "g0",
+  "fact_time",
+  "lugar",
+  "produtor",
+  "servico"
+ ],
+ "IMPORTADO_DE": {
+  "CAMINHO": "C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/EVENTOS-LAB.jsonl",
+  "LINHA": 2,
+  "SHA256_DA_LINHA": "ff42be7c56c03f95917bdc51d0cf64e8a2218a492db23db0100bb9cffc0362d5",
+  "ACRESCENTADO": [
+   "SCHEMA",
+   "TAGS"
+  ]
+ }
+}

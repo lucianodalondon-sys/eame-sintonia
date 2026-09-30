@@ -1,0 +1,41 @@
+{
+ "ID": "MEM-LAB-20260928-03",
+ "DATA": "2026-09-28T22:20-03:00",
+ "AREA": "INTELLIGENCE",
+ "TIPO": "ERRO_REAL",
+ "AGENTE_ORIGEM": "sintonia-lab",
+ "ESPECIE": "FATO_MEDIDO",
+ "FATO": "5 datas erradas passaram o G0 e viraram SINAL: derived:7 (semana de validade como fato), busca-d6f1236a ('campagna 2024'), busca-1807bb32 ('2016' historico), busca-c46e3779 ('2025/2026' nome do DPI), busca-8bacf075 ('2004' primeira deteccao na Europa).",
+ "EVIDENCIA": [
+  "contraprova/CONTRAPROVA-TEMPORAL.md secao 2"
+ ],
+ "ARQUIVOS": [
+  "leis/fato_local.py:622 (tempo_do_fato)"
+ ],
+ "COMMITS": [],
+ "IMPACTO": "Portao de tempo deixava passar lixo com data e barrava conteudo bom sem data.",
+ "STATUS": "RESOLVIDO_EM_RAMO",
+ "RESOLUCAO": "BLK-1 fechado 30/09 03:31 (produtor 8a30af51e + G0 abbe46b6b; mutantes 19/19) [H:HANDOFF-VIVO]; fora da producao (medido 30/09).",
+ "CONFIANCA": "RUNTIME_MEDIDO (erro) + RELATO_DE_AGENTE (conserto)",
+ "ORIGEM_MEDIDA": true,
+ "RELACIONADOS": [
+  "MEM-LAB-20260930-01"
+ ],
+ "SCHEMA": "MEMORY_EVENT/1",
+ "TAGS": [
+  "data",
+  "g0",
+  "mutante",
+  "produtor",
+  "servico"
+ ],
+ "IMPORTADO_DE": {
+  "CAMINHO": "C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/EVENTOS-LAB.jsonl",
+  "LINHA": 4,
+  "SHA256_DA_LINHA": "a79ae128513b0e9572fbf62ddd8ce875a5088fc5a79016ffb9b86dd6d04b214a",
+  "ACRESCENTADO": [
+   "SCHEMA",
+   "TAGS"
+  ]
+ }
+}

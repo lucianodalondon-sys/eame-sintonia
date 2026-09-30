@@ -1,0 +1,177 @@
+{
+ "ID": "KH-C2",
+ "TITULO": "Consertar o erro não garante recuperar o valor",
+ "TEXTO": "Consertar o erro não garante recuperar o valor; meça a recuperação no mesmo universo antes de instalar.",
+ "EVENTOS": [
+  "MEM-LAB-20260930-01",
+  "MEM-LAB-20260928-01",
+  "MEM-LAB-20260928-03"
+ ],
+ "PROPOSTO_POR": "coordenador",
+ "FONTE_DO_TEXTO": "C:/Users/London1/auditoria-madrugada/KNOW-HOW-VIVO-ARQUITETURA-v1.md §8.4 (frase do coordenador a partir do KH-C2 do LAB em C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/MAPA-E-CANDIDATOS.md §4)",
+ "SCHEMA": "CANDIDATO_A_KNOW_HOW/1",
+ "K": {
+  "K1": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "3 evento(s) com origem, data e evidencia: MEM-LAB-20260930-01, MEM-LAB-20260928-01, MEM-LAB-20260928-03"
+  },
+  "K2": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "3 FATO_MEDIDO (MEM-LAB-20260930-01, MEM-LAB-20260928-01, MEM-LAB-20260928-03); especies: FATO_MEDIDO"
+  },
+  "K3": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "8 evidencia(s) forte(s); ex.: MEM-LAB-20260930-01: CAMINHO profiles/sintonia-lab/lab/estudos/2026-09-30-REAUDIT-275/NOTA-RAPIDA.md → C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-REAUDIT-275/NOTA-RAPIDA.md",
+   "DETALHE": {
+    "MEM-LAB-20260930-01": [
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "profiles/sintonia-lab/lab/estudos/2026-09-30-REAUDIT-275/NOTA-RAPIDA.md",
+      "FORTE": true,
+      "PROVAS": [
+       "CAMINHO profiles/sintonia-lab/lab/estudos/2026-09-30-REAUDIT-275/NOTA-RAPIDA.md → C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-REAUDIT-275/NOTA-RAPIDA.md"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "SALA_ATUAL.json sha 00cb7cb0...73d2",
+      "FORTE": false,
+      "PROVAS": [],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": [
+       "nome solto SALA_ATUAL.json (sem pasta; nao conferido)"
+      ]
+     },
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "script Temp/lab-reaudit/reaudit2.py",
+      "FORTE": true,
+      "PROVAS": [
+       "CAMINHO Temp/lab-reaudit/reaudit2.py → C:/Users/London1/AppData/Local/Temp/lab-reaudit/reaudit2.py"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "COMMITS",
+      "ITEM": "94a07217e (origin/lucianodalondon-sys/produtor-afirmacoes-v1)",
+      "FORTE": true,
+      "PROVAS": [
+       "COMMIT 94a07217e"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     }
+    ],
+    "MEM-LAB-20260928-01": [
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/RELATORIO.md",
+      "FORTE": true,
+      "PROVAS": [
+       "CAMINHO profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/RELATORIO.md → C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/RELATORIO.md"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "AB-DETECCAO-V1.json",
+      "FORTE": true,
+      "PROVAS": [
+       "NOME AB-DETECCAO-V1.json → C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/AB-DETECCAO-V1.json"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "HASHES-ANTES.txt (rotulos gravados antes de abrir o livro)",
+      "FORTE": true,
+      "PROVAS": [
+       "NOME HASHES-ANTES.txt → C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/HASHES-ANTES.txt"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "COMMITS",
+      "ITEM": "fd8c94698 (producao na epoca)",
+      "FORTE": true,
+      "PROVAS": [
+       "COMMIT fd8c94698"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     }
+    ],
+    "MEM-LAB-20260928-03": [
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "contraprova/CONTRAPROVA-TEMPORAL.md secao 2",
+      "FORTE": true,
+      "PROVAS": [
+       "CAMINHO contraprova/CONTRAPROVA-TEMPORAL.md → C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-28-AUDITORIA-CEGA-275/contraprova/CONTRAPROVA-TEMPORAL.md"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     }
+    ]
+   }
+  },
+  "K4": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "sem marca de estado momentaneo"
+  },
+  "K5": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "nenhum equivalente: o mais proximo e LEG-§108.6 (0.129 < limiar 0.14)",
+   "VIZINHOS": [
+    {
+     "ID": "LEG-§108.6",
+     "SEMELHANCA": 0.1286,
+     "TITULO": "O QUE FICA"
+    },
+    {
+     "ID": "LEG-§104.3",
+     "SEMELHANCA": 0.1026,
+     "TITULO": "UM ERRO DE AMBIENTE CONHECIDO NÃO É «NÃO SEI»"
+    },
+    {
+     "ID": "LEG-§76.6",
+     "SEMELHANCA": 0.0752,
+     "TITULO": "CONSEQUÊNCIA"
+    },
+    {
+     "ID": "LEG-§59.8",
+     "SEMELHANCA": 0.0655,
+     "TITULO": "O QUE NÃO MUDOU"
+    },
+    {
+     "ID": "LEG-§15",
+     "SEMELHANCA": 0.0614,
+     "TITULO": "REPOSITÓRIO E DISCIPLINA DE BRANCH"
+    }
+   ]
+  },
+  "K6": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "nenhum KH ACTIVE sobre o mesmo alvo"
+  },
+  "K7": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "nenhuma regra de autoridade sobre os conceitos do candidato (instalacao); 9 regras lidas de 11 fontes"
+  },
+  "K8": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "forma de regra: imperativo «meca», nao garante, antes de"
+  }
+ },
+ "RESULTADO": "ACTIVE",
+ "DECIDIDO_POR": null,
+ "CONSOLIDADO_EM": "2026-09-30T15:37:33-03:00",
+ "REGRA": "K1–K8 (KNOW-HOW-VIVO-ARQUITETURA-v1 §5); promocao sem mao humana",
+ "KH": "KH-0001"
+}

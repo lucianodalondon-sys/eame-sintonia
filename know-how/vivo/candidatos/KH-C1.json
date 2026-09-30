@@ -1,0 +1,189 @@
+{
+ "ID": "KH-C1",
+ "TITULO": "Pronto no ramo não é funcionando",
+ "TEXTO": "Capacidade só é operacional quando está na árvore que roda E ligada ao consumidor; PASS_TECNICO em ramo não conta.",
+ "EVENTOS": [
+  "MEM-LAB-20260930-03",
+  "MEM-LAB-20260930-04"
+ ],
+ "PROPOSTO_POR": "sintonia-lab",
+ "FONTE_DO_TEXTO": "texto: C:/Users/London1/AppData/Local/hermes/profiles/sintonia-lab/lab/estudos/2026-09-30-KNOWHOW-MEMORIA/MAPA-E-CANDIDATOS.md §4 (KH-C1); titulo: C:/Users/London1/auditoria-madrugada/KNOW-HOW-VIVO-ARQUITETURA-v1.md §8.3",
+ "ALVO_PROPOSTO": [
+  "LEG-§222.2",
+  "LEG-§216"
+ ],
+ "SCHEMA": "CANDIDATO_A_KNOW_HOW/1",
+ "K": {
+  "K1": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "2 evento(s) com origem, data e evidencia: MEM-LAB-20260930-03, MEM-LAB-20260930-04"
+  },
+  "K2": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "1 FATO_MEDIDO (MEM-LAB-20260930-03); especies: FATO_MEDIDO, RELATO"
+  },
+  "K3": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "5 evidencia(s) forte(s); ex.: MEM-LAB-20260930-03: COMANDO git",
+   "DETALHE": {
+    "MEM-LAB-20260930-03": [
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "git merge-base --is-ancestor <sha> origin/servico-20260923-0923 -> falso (3/3), medido 30/09",
+      "FORTE": true,
+      "PROVAS": [
+       "COMANDO git"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "COMMITS",
+      "ITEM": "abbe46b6b",
+      "FORTE": true,
+      "PROVAS": [
+       "COMMIT abbe46b6b"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "COMMITS",
+      "ITEM": "94a07217e",
+      "FORTE": true,
+      "PROVAS": [
+       "COMMIT 94a07217e"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "COMMITS",
+      "ITEM": "92a0cef7b",
+      "FORTE": true,
+      "PROVAS": [
+       "COMMIT 92a0cef7b"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "COMMITS",
+      "ITEM": "852ec0f0b",
+      "FORTE": true,
+      "PROVAS": [
+       "COMMIT 852ec0f0b"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     }
+    ],
+    "MEM-LAB-20260930-04": [
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "auditoria-madrugada/HANDOFF-VIVO.md 30/09 10:18 e 10:31",
+      "FORTE": true,
+      "PROVAS": [
+       "CAMINHO auditoria-madrugada/HANDOFF-VIVO.md → C:/Users/London1/auditoria-madrugada/HANDOFF-VIVO.md"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "EVIDENCIA",
+      "ITEM": "VERIF-SERVICO-c38610e0c.md",
+      "FORTE": true,
+      "PROVAS": [
+       "COMMIT c38610e0c"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "COMMITS",
+      "ITEM": "c38610e0c",
+      "FORTE": true,
+      "PROVAS": [
+       "COMMIT c38610e0c"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     },
+     {
+      "CAMPO": "COMMITS",
+      "ITEM": "852ec0f0b",
+      "FORTE": true,
+      "PROVAS": [
+       "COMMIT 852ec0f0b"
+      ],
+      "INEXISTENTES": [],
+      "NAO_CONFERIDOS": []
+     }
+    ]
+   }
+  },
+  "K4": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "sem marca de estado momentaneo"
+  },
+  "K5": {
+   "VEREDITO": "DUPLICADO",
+   "MOTIVO": "equivale a LEG-§222.2 — alvo proposto por quem propos, conferido pela medida (0.148 >= limiar 0.14); o mais proximo sem pista e LEG-§87.5 (0.187)",
+   "ALVO": "LEG-§222.2",
+   "VIZINHOS": [
+    {
+     "ID": "LEG-§87.5",
+     "SEMELHANCA": 0.1874,
+     "TITULO": "UM WORKFLOW SÓ SE PROVA NO RAMO ONDE FOI ESCRITO"
+    },
+    {
+     "ID": "LEG-§222.2",
+     "SEMELHANCA": 0.148,
+     "TITULO": "Motor pronto ≠ matéria-prima na Sala"
+    },
+    {
+     "ID": "LEG-§102.4",
+     "SEMELHANCA": 0.1469,
+     "TITULO": "O `or` QUE QUASE ESCREVEU UMA FRASE FALSA"
+    },
+    {
+     "ID": "LEG-§34",
+     "SEMELHANCA": 0.1393,
+     "TITULO": "COMO FECHAR UMA MISSÃO"
+    },
+    {
+     "ID": "LEG-§110.3",
+     "SEMELHANCA": 0.1203,
+     "TITULO": "PROVA"
+    }
+   ],
+   "ALVO_PROPOSTO_CONFERIDO": [
+    {
+     "ID": "LEG-§222.2",
+     "SEMELHANCA": 0.148
+    },
+    {
+     "ID": "LEG-§216",
+     "SEMELHANCA": 0.0243
+    }
+   ]
+  },
+  "K6": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "nenhum KH ACTIVE sobre o mesmo alvo"
+  },
+  "K7": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "nenhuma regra de autoridade sobre os conceitos do candidato (arvore, ramo, servico); 9 regras lidas de 11 fontes"
+  },
+  "K8": {
+   "VEREDITO": "PASS",
+   "MOTIVO": "forma de regra: nao conta, so e operacional quando"
+  }
+ },
+ "RESULTADO": "REFORCO",
+ "DECIDIDO_POR": "K5",
+ "CONSOLIDADO_EM": "2026-09-30T15:37:26-03:00",
+ "REGRA": "K1–K8 (KNOW-HOW-VIVO-ARQUITETURA-v1 §5); promocao sem mao humana",
+ "ALVO": "LEG-§222.2"
+}
