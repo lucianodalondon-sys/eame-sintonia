@@ -466,6 +466,19 @@ class P1_AsTelas(unittest.TestCase):
         self.assertEqual(P.envelope(POTE_ENSAIO, self.sha, CONTRATO, "preview", "0" * 40, ent)["ENTREGA"], ent)
         self.assertNotIn("ENTREGA", P.envelope(POTE_ENSAIO, self.sha, CONTRATO, "preview", "0" * 40))
 
+    def test_d156_pote_demo_nao_se_diz_aprovado_pelo_dono(self):
+        """Item 5 do LAB: um pote de teste no ar nao leva a aprovacao D126 do dono como se fosse dele."""
+        self.assertIs(POTE_ENSAIO.get("CORRIDA_SINTETICA"), True)
+        prom = P.envelope(POTE_ENSAIO, self.sha, CONTRATO, "preview", "0" * 40)["PROMOCAO"]
+        self.assertEqual(prom["ESTADO"], "DEMO_SEM_APROVACAO_DO_DONO")
+        self.assertIsNone(prom["APROVADA_POR"])
+        self.assertNotIn("APROVADA_PELO_DONO", json.dumps(prom))
+        self.assertNotIn("PUBLICACAO: SIM", json.dumps(prom))
+        self.assertTrue(prom["TEXTO"].startswith("DEMO"))
+        real = dict(POTE_ENSAIO, CORRIDA_SINTETICA=False)
+        self.assertEqual(P.envelope(real, self.sha, CONTRATO, "preview", "0" * 40)["PROMOCAO"]["ESTADO"],
+                         CONTRATO["REGRA_DE_PROMOCAO"]["ESTADO"])
+
     def test_medicao_incompleta_nao_autoriza(self):
         self.C["MEDICAO_COMPLETA"] = False
         self.assertIn("C5_MEDIDO", ids(self.conf()))

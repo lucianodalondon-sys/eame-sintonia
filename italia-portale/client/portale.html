@@ -5981,7 +5981,10 @@ class Component extends DCLogic {
     const PC_ = window.SINTONIA_POTE_CASCO || null;
     const poteConta = (view, legado) => {
       const x = PC_ && PC_.contagemDaVista ? PC_.contagemDaVista(window.SINTONIA_POTE || null, view) : null;
-      return x === null ? legado : x;
+      /* D156 (ressalva A-2 do Casco owner): o numero de uma corrida de TESTE na barra diz DEMO ao lado,
+         senao quem so olha a barra le a contagem de um pote sintetico como se fosse a do real. */
+      const demo = typeof x === 'number' && PC_.eDemo && PC_.eDemo(window.SINTONIA_POTE || null);
+      return x === null ? legado : (demo ? 'DEMO · ' + x : x);
     };
     /* Il nome resta del suo proprietario; qui cambia solo la CASSA, perche in
        questa barra tutte le voci sono in maiuscoletto iniziale e una sola voce

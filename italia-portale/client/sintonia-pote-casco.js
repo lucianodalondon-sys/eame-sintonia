@@ -217,6 +217,9 @@ window.SINTONIA_POTE_CASCO = (function () {
     return (p.COMPARTIMENTOS[k].OBJETOS || []).length;
   }
 
+  /* D156 · um pote valido de TESTE (CORRIDA_SINTETICA = true). Pote recusado nao e DEMO nem LIVE: e NAO SEI. */
+  function eDemo(p) { return !!(p && p.CORRIDA_SINTETICA === true && !conferir(p).length); }
+
   function linkSeguro(u) { return typeof u === 'string' && /^https?:\/\//i.test(u); }
 
   function objeto(o, T) {
@@ -353,6 +356,6 @@ window.SINTONIA_POTE_CASCO = (function () {
   }
 
   return { CONTRATO: CONTRATO, MARCA: MARCA, conferir: conferir, compartimentoDaVista: compartimentoDaVista, vm: vm,
-    serieMedida: serieMedida, contagemDaVista: contagemDaVista, debug: debug, live: live, ROTA_DEBUG: ROTA_DEBUG,
+    serieMedida: serieMedida, contagemDaVista: contagemDaVista, eDemo: eDemo, debug: debug, live: live, ROTA_DEBUG: ROTA_DEBUG,
     ROTAS_LIVE: ROTAS_LIVE };
 })();
