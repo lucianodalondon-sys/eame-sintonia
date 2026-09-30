@@ -6,10 +6,10 @@
     "UNKNOWN nao e NO: nao ter prova nao e ter prova de que nao existe."
   ],
   "PROVENANCE": {
-    "HEAD": "709a1e20c3762f51b3288f12cd17d26c108b022e",
-    "BRANCH": "claude/system-map-current-collection-truth-v2",
-    "GENERATED_AT": "2026-09-14T13:36:05+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4591d7a4596e1c71d5a558107ef1d9743b056f18f768301df02ef5e0cd4a8dc8"
+    "HEAD": "c38610e0c4c5a5d6c1bdc12c325496821cc39a9b",
+    "BRANCH": "lucianodalondon-sys/servico-trinco-v1",
+    "GENERATED_AT": "2026-09-30T15:38:49+00:00",
+    "SOURCE_TREE_FINGERPRINT": "dd0287352091ef9edf8ecb6f2653357a8fbd442d57ada1cd3d154070f22e5d0b"
   },
   "CARIMBOS_NAO_COMPARAVEIS": [
     "HEAD",
@@ -20,21 +20,21 @@
     "PROVENANCE"
   ],
   "RESUMO": {
-    "ARESTAS_TOTAL": 910,
-    "LINHAS_PARTILHADAS": 76,
-    "LINHAS_PARTILHADAS_ENTRE_TIPOS": 38,
-    "ARESTAS_REVISTAS": 83,
-    "SUPPORTED": 62,
-    "AMBIGUOUS": 7,
-    "UNSUPPORTED": 14,
+    "ARESTAS_TOTAL": 1914,
+    "LINHAS_PARTILHADAS": 182,
+    "LINHAS_PARTILHADAS_ENTRE_TIPOS": 81,
+    "ARESTAS_REVISTAS": 223,
+    "SUPPORTED": 181,
+    "AMBIGUOUS": 27,
+    "UNSUPPORTED": 15,
     "SEM_PORQUE": [],
     "POR_DECISAO_E_TIPO": {
-      "AMBIGUOUS·READS": 7,
+      "AMBIGUOUS·READS": 27,
       "SUPPORTED·ALIMENTA": 2,
-      "SUPPORTED·IMPORTS": 10,
-      "SUPPORTED·READS": 31,
-      "SUPPORTED·RUNS": 19,
-      "UNSUPPORTED·ABRE_O_CANAL": 2,
+      "SUPPORTED·IMPORTS": 35,
+      "SUPPORTED·READS": 121,
+      "SUPPORTED·RUNS": 23,
+      "UNSUPPORTED·ABRE_O_CANAL": 3,
       "UNSUPPORTED·ENTREGA_A_LISTA": 4,
       "UNSUPPORTED·FEEDS": 8
     }
@@ -42,6 +42,14 @@
   "SENTINELA_APIFY": [
     {
       "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-FACEBOOK",
+      "RELATION_TYPE": "ABRE_O_CANAL",
+      "DECISION": "UNSUPPORTED",
+      "CODE_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "WHY": "`ABRE_O_CANAL` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-INSTAGRAM",
       "RELATION_TYPE": "ABRE_O_CANAL",
       "DECISION": "UNSUPPORTED",
       "CODE_AFTER": "UNKNOWN",
@@ -67,9 +75,269 @@
   ],
   "ARESTAS": [
     {
+      "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-PORTAL-MODELO",
+      "FROM": "C-ADAMA-REFERENCE",
+      "TO": "C-PORTAL-MODELO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/client/italy-v21.js",
+          "line": 5,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-PORTAL-MODELO",
+        "FROM": "C-ADAMA-REFERENCE",
+        "TO": "C-PORTAL-MODELO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-COLETA",
+      "FROM": "C-ADMISSAO",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/c2_juiz_mutacao.py",
+          "line": 24,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+          "line": 37,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/integra_noite/mutacao_da20.py",
+          "line": 10,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 68,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/mutacao_da_linhagem_do_ready.py",
+          "line": 27,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 831,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 487,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-COLETA",
+        "FROM": "C-ADMISSAO",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ADMISSAO--READS-->C-REGUA-T2-JANELA",
+      "FROM": "C-ADMISSAO",
+      "TO": "C-REGUA-T2-JANELA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/regua_t2/medir_regua_t2.py",
+          "line": 51,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/regua_t2/medir_regua_t2.py",
+          "line": 51,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/regua_t2/mutar_regua_t2.py",
+          "line": 39,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ADMISSAO--READS-->C-REGUA-T2-JANELA",
+        "FROM": "C-ADMISSAO",
+        "TO": "C-REGUA-T2-JANELA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ADMISSAO--READS-->C-SALA-DE-ESPERA",
+      "FROM": "C-ADMISSAO",
+      "TO": "C-SALA-DE-ESPERA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "admissao/reprocessar_estudos_chaves.py",
+          "line": 51,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 56,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_tempo_lugar.py",
+          "line": 58,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ADMISSAO--READS-->C-SALA-DE-ESPERA",
+        "FROM": "C-ADMISSAO",
+        "TO": "C-SALA-DE-ESPERA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PROVA-COLETA",
+      "FROM": "C-AFIRMACAO-DA-FONTE",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/lote6_integra/mutacao_juncao.py",
+          "line": 39,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 28,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 37,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PROVA-COLETA",
+        "FROM": "C-AFIRMACAO-DA-FONTE",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-SALA-DE-ESPERA",
+      "FROM": "C-AFIRMACAO-DA-FONTE",
+      "TO": "C-SALA-DE-ESPERA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 57,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-SALA-DE-ESPERA",
+        "FROM": "C-AFIRMACAO-DA-FONTE",
+        "TO": "C-SALA-DE-ESPERA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-FACEBOOK",
       "FROM": "C-APIFY-POOL",
       "TO": "V-FACEBOOK",
+      "RELATION_TYPE": "ABRE_O_CANAL",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`ABRE_O_CANAL` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-INSTAGRAM",
+      "FROM": "C-APIFY-POOL",
+      "TO": "V-INSTAGRAM",
       "RELATION_TYPE": "ABRE_O_CANAL",
       "RAW_TYPE_MEDIDO": null,
       "OLD_EVIDENCE": [
@@ -574,6 +842,11 @@
           "SUPPORTS": "YES"
         },
         {
+          "file": "italia-portale/audit/barras-de-busca.mjs",
+          "line": 22,
+          "SUPPORTS": "YES"
+        },
+        {
           "file": "italia-portale/audit/browser-deep.mjs",
           "line": 33,
           "SUPPORTS": "YES"
@@ -606,11 +879,6 @@
         {
           "file": "italia-portale/audit/cadeia-de-familias.mjs",
           "line": 53,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "italia-portale/audit/checks.mjs",
-          "line": 12,
           "SUPPORTS": "YES"
         }
       ],
@@ -684,6 +952,34 @@
         "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-PORTAO-BUILD",
         "FROM": "C-AUDIT-HARNESS",
         "TO": "C-PORTAO-BUILD",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-PROVA-POTE-CASCO",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-PROVA-POTE-CASCO",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_pote_no_casco.mjs",
+          "line": 27,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-PROVA-POTE-CASCO",
+        "FROM": "C-AUDIT-HARNESS",
+        "TO": "C-PROVA-POTE-CASCO",
         "RELATION_TYPE": "IMPORTS",
         "PLANE": "CODE"
       },
@@ -822,6 +1118,11 @@
           "SUPPORTS": "AMBIGUOUS"
         },
         {
+          "file": "italia-portale/audit/barras-de-busca.mjs",
+          "line": 22,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
           "file": "italia-portale/audit/browser-deep.mjs",
           "line": 33,
           "SUPPORTS": "AMBIGUOUS"
@@ -854,11 +1155,6 @@
         {
           "file": "italia-portale/audit/cadeia-de-familias.mjs",
           "line": 53,
-          "SUPPORTS": "AMBIGUOUS"
-        },
-        {
-          "file": "italia-portale/audit/checks.mjs",
-          "line": 12,
           "SUPPORTS": "AMBIGUOUS"
         }
       ],
@@ -926,6 +1222,44 @@
       "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
     },
     {
+      "EDGE_ID": "C-AUDIT-HARNESS--READS-->C-PROVA-POTE-CASCO",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-PROVA-POTE-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_pote_casco.py",
+          "line": 31,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 32,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_pote_no_casco.mjs",
+          "line": 27,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AUDIT-HARNESS--READS-->C-PROVA-POTE-CASCO",
+        "FROM": "C-AUDIT-HARNESS",
+        "TO": "C-PROVA-POTE-CASCO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-BIBLIA--READS-->C-PROVA-COLETA",
       "FROM": "C-BIBLIA",
       "TO": "C-PROVA-COLETA",
@@ -934,7 +1268,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "provas/medir_admission_t3_atual.py",
-          "line": 699,
+          "line": 727,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 25,
           "SUPPORTS": "YES"
         },
         {
@@ -952,6 +1291,313 @@
         "EDGE_ID": "C-BIBLIA--READS-->C-PROVA-COLETA",
         "FROM": "C-BIBLIA",
         "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-C9-INSTALAR--RUNS-->C-TESTES",
+      "FROM": "C-C9-INSTALAR",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/c9/c9-testes.sh",
+          "line": 7,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/c9/c9-testes.sh",
+          "line": 7,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/c9/c9-testes.sh",
+          "line": 7,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/c9/c9-testes.sh",
+          "line": 7,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-C9-INSTALAR--RUNS-->C-TESTES",
+        "FROM": "C-C9-INSTALAR",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
+      "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_micro_coleta_instrumento.py",
+          "line": 188,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_proposta_catalogo.py",
+          "line": 18,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_v1a_v1_ligada.py",
+          "line": 109,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
+        "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CAPA-MATERIA--READS-->C-COORTE-BIG-COLLECTION",
+      "FROM": "C-CAPA-MATERIA",
+      "TO": "C-COORTE-BIG-COLLECTION",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/big_collection/coorte_unica.py",
+          "line": 42,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CAPA-MATERIA--READS-->C-COORTE-BIG-COLLECTION",
+        "FROM": "C-CAPA-MATERIA",
+        "TO": "C-COORTE-BIG-COLLECTION",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CAPA-MATERIA--READS-->C-INTEGRA-ONDA2",
+      "FROM": "C-CAPA-MATERIA",
+      "TO": "C-INTEGRA-ONDA2",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 61,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/integra_onda2/prova_teto_micro.py",
+          "line": 38,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CAPA-MATERIA--READS-->C-INTEGRA-ONDA2",
+        "FROM": "C-CAPA-MATERIA",
+        "TO": "C-INTEGRA-ONDA2",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-COORTE-BIG-COLLECTION",
+      "FROM": "C-CENSO-UNIFICACAO",
+      "TO": "C-COORTE-BIG-COLLECTION",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/big_collection/coorte_unica.py",
+          "line": 42,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-COORTE-BIG-COLLECTION",
+        "FROM": "C-CENSO-UNIFICACAO",
+        "TO": "C-COORTE-BIG-COLLECTION",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+      "FROM": "C-CENSO-UNIFICACAO",
+      "TO": "C-LEGACY-99",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/legacy99v2/mutacao.py",
+          "line": 18,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v2/mutacao.py",
+          "line": 54,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v2/mutacao_ab.py",
+          "line": 62,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 23,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 104,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-LEGACY-99",
+        "FROM": "C-CENSO-UNIFICACAO",
+        "TO": "C-LEGACY-99",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
+      "FROM": "C-CENSO-UNIFICACAO",
+      "TO": "C-ORDENS-63",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "curadoria/retirar_por_decisao.py",
+          "line": 40,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/ordens_63/ensaio_d52.py",
+          "line": 29,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ORDENS-63",
+        "FROM": "C-CENSO-UNIFICACAO",
+        "TO": "C-ORDENS-63",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-ROTAS-REAIS",
+      "FROM": "C-CENSO-UNIFICACAO",
+      "TO": "C-PROVA-ROTAS-REAIS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-PROVA-ROTAS-REAIS",
+        "FROM": "C-CENSO-UNIFICACAO",
+        "TO": "C-PROVA-ROTAS-REAIS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
+      "FROM": "C-CI-LINHA-BUSCA",
+      "TO": "C-PROVA-LINHA-BUSCA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/busca_no_actions/mutantes_busca_actions.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CI-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
+        "FROM": "C-CI-LINHA-BUSCA",
+        "TO": "C-PROVA-LINHA-BUSCA",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },
@@ -982,27 +1628,27 @@
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 339,
+          "line": 451,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 340,
+          "line": 452,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 341,
+          "line": 453,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 356,
+          "line": 474,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_sala_duravel.py",
-          "line": 309,
+          "line": 336,
           "SUPPORTS": "YES"
         },
         {
@@ -1035,7 +1681,7 @@
       "OLD_EVIDENCE": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 341,
+          "line": 453,
           "SUPPORTS": "YES"
         }
       ],
@@ -1088,12 +1734,22 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 250,
+          "line": 270,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_cliente_postgres.py",
+          "line": 135,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_psql_argv.py",
+          "line": 248,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 324,
+          "line": 339,
           "SUPPORTS": "YES"
         },
         {
@@ -1166,12 +1822,45 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-PROVA-COMENTARIOS",
+      "FROM": "C-COLETA-INSTAGRAM",
+      "TO": "C-PROVA-COMENTARIOS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 16,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-PROVA-COMENTARIOS",
+        "FROM": "C-COLETA-INSTAGRAM",
+        "TO": "C-PROVA-COMENTARIOS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-TESTES",
       "FROM": "C-COLETA-INSTAGRAM",
       "TO": "C-TESTES",
       "RELATION_TYPE": "READS",
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_a_porta_cli_liga_o_banco.py",
+          "line": 274,
+          "SUPPORTS": "YES"
+        },
         {
           "file": "tests/test_c10_4c_janela_preservada.py",
           "line": 45,
@@ -1194,7 +1883,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 185,
+          "line": 281,
           "SUPPORTS": "YES"
         },
         {
@@ -1204,7 +1893,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 371,
+          "line": 386,
           "SUPPORTS": "YES"
         }
       ],
@@ -1224,12 +1913,65 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-COLETA-META--READS-->C-TESTES",
+      "FROM": "C-COLETA-META",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/mutacao_concorrencia_meta.py",
+          "line": 23,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/mutacao_concorrencia_meta.py",
+          "line": 67,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_concorrencia_meta.py",
+          "line": 275,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_ligacao_adama.py",
+          "line": 67,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_unica_referencia.py",
+          "line": 62,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-COLETA-META--READS-->C-TESTES",
+        "FROM": "C-COLETA-META",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-COLETA-PUBLICA--READS-->C-PROVA-COLETA",
       "FROM": "C-COLETA-PUBLICA",
       "TO": "C-PROVA-COLETA",
       "RELATION_TYPE": "READS",
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
+        {
+          "file": "provas/mutacao_concorrenza.py",
+          "line": 23,
+          "SUPPORTS": "YES"
+        },
         {
           "file": "provas/orcamento_financeiro.py",
           "line": 521,
@@ -1265,7 +2007,7 @@
         },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 470,
+          "line": 598,
           "SUPPORTS": "YES"
         },
         {
@@ -1348,6 +2090,155 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
+      "FROM": "C-COORTE-MICRO-FUNIL",
+      "TO": "C-DESBLOQUEIO-PACOTE",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+          "line": 218,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/desbloqueio/canario_desbloqueio.py",
+          "line": 58,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
+        "FROM": "C-COORTE-MICRO-FUNIL",
+        "TO": "C-DESBLOQUEIO-PACOTE",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-IT-COLETA",
+      "FROM": "C-CORTESIA-ADAPTATIVA",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 42,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-IT-COLETA",
+        "FROM": "C-CORTESIA-ADAPTATIVA",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-IT-COLETA",
+      "FROM": "C-CORTESIA-ADAPTATIVA",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 42,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-PROVA-COLETA",
+      "FROM": "C-CORTESIA-ADAPTATIVA",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/teto_adaptativo/mutacao_rebase.py",
+          "line": 28,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/teto_adaptativo/mutacao_rebase.py",
+          "line": 28,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CORTESIA-ADAPTATIVA--READS-->C-PROVA-COLETA",
+        "FROM": "C-CORTESIA-ADAPTATIVA",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CRUZAMENTOS-MAX--READS-->C-TESTES",
+      "FROM": "C-CRUZAMENTOS-MAX",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_ligacao_adama.py",
+          "line": 66,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_unica_referencia.py",
+          "line": 62,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CRUZAMENTOS-MAX--READS-->C-TESTES",
+        "FROM": "C-CRUZAMENTOS-MAX",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-DERIVACAO-FORWARD--ALIMENTA-->C-SCRAP-SOCIAL",
       "FROM": "C-DERIVACAO-FORWARD",
       "TO": "C-SCRAP-SOCIAL",
@@ -1376,6 +2267,249 @@
       "WHY": "a corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` deixou passagem nas duas etapas, e a aresta foi LIDA do banco — nao declarada."
     },
     {
+      "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+      "FROM": "C-DETECTOR-CAPA-GABARITO",
+      "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/prova_b2_ponte_em_copia.py",
+          "line": 34,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "medidas/prova_b2_ponte_em_copia.py",
+          "line": 34,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+        "FROM": "C-DETECTOR-CAPA-GABARITO",
+        "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-CENSO-UNIFICACAO",
+      "FROM": "C-DETECTOR-CAPA-GABARITO",
+      "TO": "C-CENSO-UNIFICACAO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "curadoria/test_supervisor.py",
+          "line": 59,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/cutover/medir_cutover.py",
+          "line": 117,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/cutover/passos_do_cutover.py",
+          "line": 103,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/unificacao/congelar_livros_do_servico.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/unificacao/unir_ledger.py",
+          "line": 31,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/unificacao/unir_livros_do_servico.py",
+          "line": 103,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-CENSO-UNIFICACAO",
+        "FROM": "C-DETECTOR-CAPA-GABARITO",
+        "TO": "C-CENSO-UNIFICACAO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-COORTE-BIG-COLLECTION",
+      "FROM": "C-DETECTOR-CAPA-GABARITO",
+      "TO": "C-COORTE-BIG-COLLECTION",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/big_collection/coorte_unica.py",
+          "line": 41,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/big_collection/coorte_unica.py",
+          "line": 41,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-COORTE-BIG-COLLECTION",
+        "FROM": "C-DETECTOR-CAPA-GABARITO",
+        "TO": "C-COORTE-BIG-COLLECTION",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
+      "FROM": "C-DETECTOR-CAPA-GABARITO",
+      "TO": "C-LEGACY-99",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/legacy99v2/mutacao.py",
+          "line": 53,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v2/mutacao.py",
+          "line": 54,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v2/mutacao_ab.py",
+          "line": 61,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v2/mutacao_ab.py",
+          "line": 62,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 103,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 104,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-LEGACY-99",
+        "FROM": "C-DETECTOR-CAPA-GABARITO",
+        "TO": "C-LEGACY-99",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ORDENS-63",
+      "FROM": "C-DETECTOR-CAPA-GABARITO",
+      "TO": "C-ORDENS-63",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/ordens_63/ensaio_d52.py",
+          "line": 29,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/ordens_63/gerar_d52.py",
+          "line": 27,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-ORDENS-63",
+        "FROM": "C-DETECTOR-CAPA-GABARITO",
+        "TO": "C-ORDENS-63",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-ROTAS-REAIS",
+      "FROM": "C-DETECTOR-CAPA-GABARITO",
+      "TO": "C-PROVA-ROTAS-REAIS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 20,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PROVA-ROTAS-REAIS",
+        "FROM": "C-DETECTOR-CAPA-GABARITO",
+        "TO": "C-PROVA-ROTAS-REAIS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
       "FROM": "C-DONO-DA-ESCRITA",
       "TO": "C-TESTES",
@@ -1383,13 +2517,33 @@
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
         {
-          "file": "tests/test_porta_de_producao.py",
-          "line": 235,
+          "file": "tests/test_a_porta_cli_liga_o_banco.py",
+          "line": 122,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_a_porta_cli_liga_o_banco.py",
+          "line": 343,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_cliente_postgres.py",
+          "line": 125,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_cliente_postgres.py",
+          "line": 135,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 241,
+          "line": 347,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 353,
           "SUPPORTS": "YES"
         },
         {
@@ -1408,13 +2562,18 @@
           "SUPPORTS": "YES"
         },
         {
-          "file": "tests/test_raw_observation_id_volta.py",
-          "line": 551,
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 701,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_psql_argv.py",
+          "line": 248,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 551,
+          "line": 572,
           "SUPPORTS": "YES"
         }
       ],
@@ -1434,32 +2593,160 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
-      "EDGE_ID": "C-ESTRADA-PDF--READS-->C-TESTES",
-      "FROM": "C-ESTRADA-PDF",
-      "TO": "C-TESTES",
+      "EDGE_ID": "C-ELEGIBILIDADE-COMENTARIO--READS-->C-PROVA-COMENTARIOS",
+      "FROM": "C-ELEGIBILIDADE-COMENTARIO",
+      "TO": "C-PROVA-COMENTARIOS",
       "RELATION_TYPE": "READS",
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
         {
-          "file": "tests/test_integracao_biblia.py",
-          "line": 158,
+          "file": "provas/comentarios_bateria/mutar_regras.py",
+          "line": 17,
           "SUPPORTS": "YES"
         },
         {
-          "file": "tests/test_lingua_da_porta.py",
-          "line": 238,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_red_team_estrada.py",
-          "line": 143,
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 15,
           "SUPPORTS": "YES"
         }
       ],
       "ASSERTION_SUPPORTED": {
-        "EDGE_ID": "C-ESTRADA-PDF--READS-->C-TESTES",
-        "FROM": "C-ESTRADA-PDF",
-        "TO": "C-TESTES",
+        "EDGE_ID": "C-ELEGIBILIDADE-COMENTARIO--READS-->C-PROVA-COMENTARIOS",
+        "FROM": "C-ELEGIBILIDADE-COMENTARIO",
+        "TO": "C-PROVA-COMENTARIOS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-COLETA",
+      "FROM": "C-EXECUTOR-TEXTO-HTML",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_executor.py",
+          "line": 247,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 46,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-COLETA",
+        "FROM": "C-EXECUTOR-TEXTO-HTML",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-CONTRATOS",
+      "FROM": "C-EXECUTOR-TEXTO-HTML",
+      "TO": "C-IT-CONTRATOS",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/identidade_do_motor_cli.mjs",
+          "line": 13,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-IT-CONTRATOS",
+        "FROM": "C-EXECUTOR-TEXTO-HTML",
+        "TO": "C-IT-CONTRATOS",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-IT-COLETA",
+      "FROM": "C-EXECUTOR-TEXTO-HTML",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 46,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-IT-CONTRATOS",
+      "FROM": "C-EXECUTOR-TEXTO-HTML",
+      "TO": "C-IT-CONTRATOS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/identidade_do_motor_cli.mjs",
+          "line": 13,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-SALA-DE-ESPERA",
+      "FROM": "C-EXECUTOR-TEXTO-HTML",
+      "TO": "C-SALA-DE-ESPERA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "admissao/reprocessar_tempo_lugar.py",
+          "line": 59,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-SALA-DE-ESPERA",
+        "FROM": "C-EXECUTOR-TEXTO-HTML",
+        "TO": "C-SALA-DE-ESPERA",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },
@@ -1500,6 +2787,779 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-INGRESSO--READS-->C-SALA-DE-ESPERA",
+      "FROM": "C-INGRESSO",
+      "TO": "C-SALA-DE-ESPERA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "admissao/reprocessar_tempo_lugar.py",
+          "line": 59,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INGRESSO--READS-->C-SALA-DE-ESPERA",
+        "FROM": "C-INGRESSO",
+        "TO": "C-SALA-DE-ESPERA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-INT-CAP-SCI--READS-->C-TESTES",
+      "FROM": "C-INT-CAP-SCI",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_ligacao_adama.py",
+          "line": 65,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_unica_referencia.py",
+          "line": 61,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INT-CAP-SCI--READS-->C-TESTES",
+        "FROM": "C-INT-CAP-SCI",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-INT-CAP-WIN--READS-->C-TESTES",
+      "FROM": "C-INT-CAP-WIN",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_ligacao_adama.py",
+          "line": 65,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_unica_referencia.py",
+          "line": 61,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INT-CAP-WIN--READS-->C-TESTES",
+        "FROM": "C-INT-CAP-WIN",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-INT-CORRIDA--READS-->C-PROVA-INDEPENDENCIA",
+      "FROM": "C-INT-CORRIDA",
+      "TO": "C-PROVA-INDEPENDENCIA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/independencia/mutantes.py",
+          "line": 10,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INT-CORRIDA--READS-->C-PROVA-INDEPENDENCIA",
+        "FROM": "C-INT-CORRIDA",
+        "TO": "C-PROVA-INDEPENDENCIA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-INT-CORRIDA--READS-->C-PROVA-PONTE-CASCO",
+      "FROM": "C-INT-CORRIDA",
+      "TO": "C-PROVA-PONTE-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_ponte_casco.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INT-CORRIDA--READS-->C-PROVA-PONTE-CASCO",
+        "FROM": "C-INT-CORRIDA",
+        "TO": "C-PROVA-PONTE-CASCO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-INT-ESPINHA--READS-->C-PROVA-PONTE-CASCO",
+      "FROM": "C-INT-ESPINHA",
+      "TO": "C-PROVA-PONTE-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_ponte_casco.py",
+          "line": 26,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INT-ESPINHA--READS-->C-PROVA-PONTE-CASCO",
+        "FROM": "C-INT-ESPINHA",
+        "TO": "C-PROVA-PONTE-CASCO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-INT-GRAFO-DEPENDENCIA--READS-->C-PROVA-INDEPENDENCIA",
+      "FROM": "C-INT-GRAFO-DEPENDENCIA",
+      "TO": "C-PROVA-INDEPENDENCIA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/independencia/mutantes.py",
+          "line": 10,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INT-GRAFO-DEPENDENCIA--READS-->C-PROVA-INDEPENDENCIA",
+        "FROM": "C-INT-GRAFO-DEPENDENCIA",
+        "TO": "C-PROVA-INDEPENDENCIA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-COLETA",
+      "FROM": "C-INT-MOTOR-CAPACIDADES",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 48,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/lote6_integra/mutacao_juncao.py",
+          "line": 24,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-COLETA",
+        "FROM": "C-INT-MOTOR-CAPACIDADES",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
+      "FROM": "C-INT-MOTOR-CAPACIDADES",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_ligacao_adama.py",
+          "line": 65,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_motor_das_capacidades.py",
+          "line": 581,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_motor_das_capacidades.py",
+          "line": 583,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_unica_referencia.py",
+          "line": 61,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
+        "FROM": "C-INT-MOTOR-CAPACIDADES",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-IT-CONTRATOS",
+      "FROM": "C-INTEGRA-ONDA2",
+      "TO": "C-IT-CONTRATOS",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 61,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-INTEGRA-ONDA2--RUNS-->C-IT-CONTRATOS",
+        "FROM": "C-INTEGRA-ONDA2",
+        "TO": "C-IT-CONTRATOS",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CATALOGO--IMPORTS-->C-IT-COLETA",
+      "FROM": "C-IT-CATALOGO",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 40,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CATALOGO--IMPORTS-->C-IT-COLETA",
+        "FROM": "C-IT-CATALOGO",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CATALOGO--IMPORTS-->C-IT-CONTRATOS",
+      "FROM": "C-IT-CATALOGO",
+      "TO": "C-IT-CONTRATOS",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/italy_scheduling_guards.mjs",
+          "line": 4,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CATALOGO--IMPORTS-->C-IT-CONTRATOS",
+        "FROM": "C-IT-CATALOGO",
+        "TO": "C-IT-CONTRATOS",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CATALOGO--READS-->C-IT-COLETA",
+      "FROM": "C-IT-CATALOGO",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_probe.mjs",
+          "line": 23,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 40,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CATALOGO--READS-->C-IT-COLETA",
+        "FROM": "C-IT-CATALOGO",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CATALOGO--READS-->C-IT-CONTRATOS",
+      "FROM": "C-IT-CATALOGO",
+      "TO": "C-IT-CONTRATOS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/italy_contract_test.mjs",
+          "line": 14,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "regras/italy_scheduling_guards.mjs",
+          "line": 4,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CATALOGO--READS-->C-IT-CONTRATOS",
+        "FROM": "C-IT-CATALOGO",
+        "TO": "C-IT-CONTRATOS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTAS",
+      "FROM": "C-IT-COLETA",
+      "TO": "C-IT-CONTAS",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 7,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/nome_da_pasta_windows.mjs",
+          "line": 26,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTAS",
+        "FROM": "C-IT-COLETA",
+        "TO": "C-IT-CONTAS",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTRATOS",
+      "FROM": "C-IT-COLETA",
+      "TO": "C-IT-CONTRATOS",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/identidade_do_motor_cli.mjs",
+          "line": 14,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "regras/italy_pilot_guards.mjs",
+          "line": 5,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTRATOS",
+        "FROM": "C-IT-COLETA",
+        "TO": "C-IT-CONTRATOS",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTAS",
+      "FROM": "C-IT-COLETA",
+      "TO": "C-IT-CONTAS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 7,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "provas/nome_da_pasta_windows.mjs",
+          "line": 26,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
+      "FROM": "C-IT-COLETA",
+      "TO": "C-IT-CONTRATOS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/identidade_do_motor_cli.mjs",
+          "line": 14,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "regras/italy_pilot_guards.mjs",
+          "line": 5,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "regras/italy_scheduling_guards.mjs",
+          "line": 12,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "regras/italy_scheduling_guards.mjs",
+          "line": 59,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "regras/motor_de_rota_test.mjs",
+          "line": 234,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
+        "FROM": "C-IT-COLETA",
+        "TO": "C-IT-CONTRATOS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "FROM": "C-IT-COLETA",
+      "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/boletins_data_local/boletim_pdf_local.mjs",
+          "line": 58,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/boletins_data_local/mutacao_d61.py",
+          "line": 18,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+        "FROM": "C-IT-COLETA",
+        "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
+      "FROM": "C-IT-COLETA",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 351,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 433,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 222,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/lote8_integra/mutacao_lote8.py",
+          "line": 63,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/so_a_colheita_atravessa.py",
+          "line": 124,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/tempo_e_lugar_replay.py",
+          "line": 127,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/teto_adaptativo/mutacao_rebase.py",
+          "line": 28,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/teto_adaptativo/transporte_rebase_local.mjs",
+          "line": 94,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
+        "FROM": "C-IT-COLETA",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-COLETA--READS-->C-SALA-DE-ESPERA",
+      "FROM": "C-IT-COLETA",
+      "TO": "C-SALA-DE-ESPERA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "admissao/reprocessar_tempo_lugar.py",
+          "line": 59,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-COLETA--READS-->C-SALA-DE-ESPERA",
+        "FROM": "C-IT-COLETA",
+        "TO": "C-SALA-DE-ESPERA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-CAPA-MATERIA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/capa_materia/medir_d40.mjs",
+          "line": 13,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/medir_d40.mjs",
+          "line": 14,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 11,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 12,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CAPA-MATERIA",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-CAPA-MATERIA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-CATALOGO",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-IT-CATALOGO",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "candidatas/italy_write_matrix.mjs",
+          "line": 2,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "candidatas/italy_write_matrix.mjs",
+          "line": 3,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-CATALOGO",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-IT-CATALOGO",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
       "FROM": "C-IT-CONTRATOS",
       "TO": "C-IT-COLETA",
@@ -1507,8 +3567,23 @@
       "RAW_TYPE_MEDIDO": "IMPORTS",
       "OLD_EVIDENCE": [
         {
+          "file": "coleta/italy_executor.py",
+          "line": 274,
+          "SUPPORTS": "YES"
+        },
+        {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 38,
+          "line": 40,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 45,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 41,
           "SUPPORTS": "YES"
         }
       ],
@@ -1528,6 +3603,281 @@
       "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-CONTAS",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-IT-CONTAS",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 8,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/nome_da_pasta_windows.mjs",
+          "line": 23,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/nome_da_pasta_windows.mjs",
+          "line": 24,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-CONTAS",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-IT-CONTAS",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-INCREMENTALIDADE",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-IT-INCREMENTALIDADE",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/recollection_test.mjs",
+          "line": 20,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-INCREMENTALIDADE",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-IT-INCREMENTALIDADE",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-RECOLLECTION-CENSO",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/recollection_censo.mjs",
+          "line": 32,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "medidas/recollection_relatorio.mjs",
+          "line": 16,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "medidas/recollection_topologia.mjs",
+          "line": 42,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-RECOLLECTION-CENSO",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-REFERENCIA-CADENCIA",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-REFERENCIA-CADENCIA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/cadencia_da_referencia_test.mjs",
+          "line": 9,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-REFERENCIA-CADENCIA",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-REFERENCIA-CADENCIA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-CAPA-MATERIA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/capa_materia/medir_d40.mjs",
+          "line": 13,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "scripts/capa_materia/medir_d40.mjs",
+          "line": 14,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_institucional.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 11,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 12,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "scripts/capa_materia/mutar_contratos.py",
+          "line": 39,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/mutar_d40.py",
+          "line": 35,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/mutar_d40.py",
+          "line": 43,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/mutar_filtro.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/mutar_filtro.py",
+          "line": 30,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/mutar_lista.py",
+          "line": 27,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/mutar_lista.py",
+          "line": 35,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CAPA-MATERIA",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-CAPA-MATERIA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-INTEGRA-ONDA2",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-INTEGRA-ONDA2",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 61,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/integra_onda2/prova_teto_micro.py",
+          "line": 39,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--READS-->C-INTEGRA-ONDA2",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-INTEGRA-ONDA2",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-CATALOGO",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-IT-CATALOGO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "candidatas/italy_write_matrix.mjs",
+          "line": 2,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "candidatas/italy_write_matrix.mjs",
+          "line": 3,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
       "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-COLETA",
       "FROM": "C-IT-CONTRATOS",
       "TO": "C-IT-COLETA",
@@ -1536,19 +3886,1160 @@
       "OLD_EVIDENCE": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 38,
+          "line": 40,
           "SUPPORTS": "AMBIGUOUS"
         },
         {
-          "file": "coleta/italy_recurrent_collect.mjs",
-          "line": 30,
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 45,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 85,
           "SUPPORTS": "YES"
+        },
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 41,
+          "SUPPORTS": "AMBIGUOUS"
         }
       ],
       "ASSERTION_SUPPORTED": {
         "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-COLETA",
         "FROM": "C-IT-CONTRATOS",
         "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-CONTAS",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-IT-CONTAS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 8,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "provas/nome_da_pasta_windows.mjs",
+          "line": 23,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "provas/nome_da_pasta_windows.mjs",
+          "line": 24,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-INCREMENTALIDADE",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-IT-INCREMENTALIDADE",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/recollection_test.mjs",
+          "line": 20,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/boletins_data_local/boletim_pdf_local.mjs",
+          "line": 59,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/boletins_data_local/mutacao_d61.py",
+          "line": 15,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/boletins_data_local/mutacao_d61.py",
+          "line": 18,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/boletins_data_local/testes_por_nome.py",
+          "line": 53,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/boletins_data_local/testes_por_nome.py",
+          "line": 53,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/boletins_data_local/testes_por_nome.py",
+          "line": 54,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/boletins_data_local/testes_por_nome.py",
+          "line": 57,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-RECOLLECTION-CENSO",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-RECOLLECTION-CENSO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/recollection_censo.mjs",
+          "line": 32,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "medidas/recollection_relatorio.mjs",
+          "line": 16,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "medidas/recollection_topologia.mjs",
+          "line": 42,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-REFERENCIA-CADENCIA",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-REFERENCIA-CADENCIA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/cadencia_da_referencia_test.mjs",
+          "line": 9,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-SALA-DE-ESPERA",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-SALA-DE-ESPERA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "admissao/reprocessar_tempo_lugar.py",
+          "line": 61,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_tempo_lugar.py",
+          "line": 62,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--READS-->C-SALA-DE-ESPERA",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-SALA-DE-ESPERA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-CAPA-MATERIA",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-CAPA-MATERIA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/capa_materia/medir_d40.mjs",
+          "line": 15,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 13,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-CAPA-MATERIA",
+        "FROM": "C-IT-INCREMENTALIDADE",
+        "TO": "C-CAPA-MATERIA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-COLETA",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 63,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-COLETA",
+        "FROM": "C-IT-INCREMENTALIDADE",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-CONTRATOS",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-IT-CONTRATOS",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/motor_de_rota_test.mjs",
+          "line": 22,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-CONTRATOS",
+        "FROM": "C-IT-INCREMENTALIDADE",
+        "TO": "C-IT-CONTRATOS",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-NORMALIZACAO",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-IT-NORMALIZACAO",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/paridade_test.mjs",
+          "line": 30,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-NORMALIZACAO",
+        "FROM": "C-IT-INCREMENTALIDADE",
+        "TO": "C-IT-NORMALIZACAO",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-LASTMILE-MEDIDORES",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-LASTMILE-MEDIDORES",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/incrementalidade_prova.mjs",
+          "line": 22,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "medidas/paridade_replay.mjs",
+          "line": 23,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-LASTMILE-MEDIDORES",
+        "FROM": "C-IT-INCREMENTALIDADE",
+        "TO": "C-LASTMILE-MEDIDORES",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-RECOLLECTION-CENSO",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-RECOLLECTION-CENSO",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/recollection_relatorio.mjs",
+          "line": 17,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "medidas/recollection_topologia.mjs",
+          "line": 43,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-RECOLLECTION-CENSO",
+        "FROM": "C-IT-INCREMENTALIDADE",
+        "TO": "C-RECOLLECTION-CENSO",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-CAPA-MATERIA",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-CAPA-MATERIA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/capa_materia/medir_d40.mjs",
+          "line": 15,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "scripts/capa_materia/medir_filtro_lista.mjs",
+          "line": 13,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-IT-COLETA",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 63,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-IT-CONTRATOS",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-IT-CONTRATOS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/motor_de_rota_test.mjs",
+          "line": 22,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-IT-NORMALIZACAO",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-IT-NORMALIZACAO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/paridade_test.mjs",
+          "line": 30,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-LASTMILE-MEDIDORES",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-LASTMILE-MEDIDORES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/incrementalidade_prova.mjs",
+          "line": 22,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "medidas/paridade_replay.mjs",
+          "line": 23,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/boletins_data_local/testes_por_nome.py",
+          "line": 53,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/boletins_data_local/testes_por_nome.py",
+          "line": 54,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+        "FROM": "C-IT-INCREMENTALIDADE",
+        "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-RECOLLECTION-CENSO",
+      "FROM": "C-IT-INCREMENTALIDADE",
+      "TO": "C-RECOLLECTION-CENSO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/recollection_relatorio.mjs",
+          "line": 17,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "medidas/recollection_topologia.mjs",
+          "line": 43,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-COLETA",
+      "FROM": "C-IT-NORMALIZACAO",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 64,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-COLETA",
+        "FROM": "C-IT-NORMALIZACAO",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-INCREMENTALIDADE",
+      "FROM": "C-IT-NORMALIZACAO",
+      "TO": "C-IT-INCREMENTALIDADE",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/recollection_test.mjs",
+          "line": 19,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-INCREMENTALIDADE",
+        "FROM": "C-IT-NORMALIZACAO",
+        "TO": "C-IT-INCREMENTALIDADE",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-LASTMILE-MEDIDORES",
+      "FROM": "C-IT-NORMALIZACAO",
+      "TO": "C-LASTMILE-MEDIDORES",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/paridade_replay.mjs",
+          "line": 24,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-LASTMILE-MEDIDORES",
+        "FROM": "C-IT-NORMALIZACAO",
+        "TO": "C-LASTMILE-MEDIDORES",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-RECOLLECTION-CENSO",
+      "FROM": "C-IT-NORMALIZACAO",
+      "TO": "C-RECOLLECTION-CENSO",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/recollection_censo.mjs",
+          "line": 31,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "medidas/recollection_diff.mjs",
+          "line": 17,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "medidas/recollection_familias.mjs",
+          "line": 11,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-RECOLLECTION-CENSO",
+        "FROM": "C-IT-NORMALIZACAO",
+        "TO": "C-RECOLLECTION-CENSO",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-IT-COLETA",
+      "FROM": "C-IT-NORMALIZACAO",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 64,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-IT-INCREMENTALIDADE",
+      "FROM": "C-IT-NORMALIZACAO",
+      "TO": "C-IT-INCREMENTALIDADE",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "regras/recollection_test.mjs",
+          "line": 19,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-LASTMILE-MEDIDORES",
+      "FROM": "C-IT-NORMALIZACAO",
+      "TO": "C-LASTMILE-MEDIDORES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/paridade_replay.mjs",
+          "line": 24,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+      "FROM": "C-IT-NORMALIZACAO",
+      "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/boletins_data_local/testes_por_nome.py",
+          "line": 54,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-BOLETINS-DATA-LOCAL",
+        "FROM": "C-IT-NORMALIZACAO",
+        "TO": "C-PROVA-BOLETINS-DATA-LOCAL",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-RECOLLECTION-CENSO",
+      "FROM": "C-IT-NORMALIZACAO",
+      "TO": "C-RECOLLECTION-CENSO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "medidas/recollection_censo.mjs",
+          "line": 31,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "medidas/recollection_diff.mjs",
+          "line": 17,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "medidas/recollection_familias.mjs",
+          "line": 11,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-IT-PRESERVAR--READS-->C-INTEGRA-ONDA2",
+      "FROM": "C-IT-PRESERVAR",
+      "TO": "C-INTEGRA-ONDA2",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 14,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 14,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-PRESERVAR--READS-->C-INTEGRA-ONDA2",
+        "FROM": "C-IT-PRESERVAR",
+        "TO": "C-INTEGRA-ONDA2",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-LINHA-BUSCA--READS-->C-PROVA-COLETA",
+      "FROM": "C-LINHA-BUSCA",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/integra_noite/mutacao_lote5_integra.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/integra_noite/mutacao_lote5_integra.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/lote8_integra/mutacao_lote8.py",
+          "line": 59,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-LINHA-BUSCA--READS-->C-PROVA-COLETA",
+        "FROM": "C-LINHA-BUSCA",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
+      "FROM": "C-LINHA-BUSCA",
+      "TO": "C-PROVA-LINHA-BUSCA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/busca_no_actions/mutantes_busca_actions.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/linha_busca_raw_na_copia_da_sala.py",
+          "line": 72,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/linha_busca_raw_no_postgres_descartavel.py",
+          "line": 125,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-LINHA-BUSCA--READS-->C-PROVA-LINHA-BUSCA",
+        "FROM": "C-LINHA-BUSCA",
+        "TO": "C-PROVA-LINHA-BUSCA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
+      "FROM": "C-LINHA-BUSCA-FERRAMENTAS",
+      "TO": "C-PROVA-LINHA-BUSCA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/busca_no_actions/mutantes_busca_actions.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/busca_no_actions/mutantes_busca_actions.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/busca_no_actions/mutantes_busca_actions.py",
+          "line": 23,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-LINHA-BUSCA-FERRAMENTAS--READS-->C-PROVA-LINHA-BUSCA",
+        "FROM": "C-LINHA-BUSCA-FERRAMENTAS",
+        "TO": "C-PROVA-LINHA-BUSCA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
+      "FROM": "C-LUGAR-COLETA",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/chave_problema/mutacao_chave_problema.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/estudos_chaves/mutacao_estudos_chaves.py",
+          "line": 23,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/lote6_integra/mutacao_juncao.py",
+          "line": 24,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/lote6_integra/mutacao_juncao.py",
+          "line": 24,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/lote6_integra/mutacao_juncao.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/mutacao_metodo_puglia.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-COLETA",
+        "FROM": "C-LUGAR-COLETA",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-LUGAR-COLETA--READS-->C-SALA-DE-ESPERA",
+      "FROM": "C-LUGAR-COLETA",
+      "TO": "C-SALA-DE-ESPERA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "admissao/reprocessar_estudos_chaves.py",
+          "line": 52,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_estudos_chaves.py",
+          "line": 52,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_estudos_chaves.py",
+          "line": 52,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 56,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 57,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 57,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 58,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_tempo_lugar.py",
+          "line": 60,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_tempo_lugar.py",
+          "line": 61,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-LUGAR-COLETA--READS-->C-SALA-DE-ESPERA",
+        "FROM": "C-LUGAR-COLETA",
+        "TO": "C-SALA-DE-ESPERA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
+      "FROM": "C-LUGAR-COLETA",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/mutacao_conserto_regua.py",
+          "line": 20,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_c7_lugar_do_fato.py",
+          "line": 225,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_data_do_fato.py",
+          "line": 20,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_estudo_chaves.py",
+          "line": 227,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_ligacao_adama.py",
+          "line": 67,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_unica_referencia.py",
+          "line": 62,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
+        "FROM": "C-LUGAR-COLETA",
+        "TO": "C-TESTES",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },
@@ -1569,12 +5060,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5329,
+          "line": 5411,
           "SUPPORTS": "YES"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5329,
+          "line": 5411,
           "SUPPORTS": "YES"
         }
       ],
@@ -1640,7 +5131,7 @@
       "OLD_EVIDENCE": [
         {
           "file": "provas/medir_admission_t3_atual.py",
-          "line": 699,
+          "line": 727,
           "SUPPORTS": "YES"
         },
         {
@@ -1653,6 +5144,204 @@
         "EDGE_ID": "C-MAPA-TESTES--READS-->C-PROVA-COLETA",
         "FROM": "C-MAPA-TESTES",
         "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-MAPA-TESTES--READS-->C-PROVA-PONTE-CASCO",
+      "FROM": "C-MAPA-TESTES",
+      "TO": "C-PROVA-PONTE-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_ponte_casco.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-MAPA-TESTES--READS-->C-PROVA-PONTE-CASCO",
+        "FROM": "C-MAPA-TESTES",
+        "TO": "C-PROVA-PONTE-CASCO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-MICRO-COLHEITA--READS-->C-TESTES",
+      "FROM": "C-MICRO-COLHEITA",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_v1a_v1_ligada.py",
+          "line": 109,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-MICRO-COLHEITA--READS-->C-TESTES",
+        "FROM": "C-MICRO-COLHEITA",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ONDA-WEB--READS-->C-LEGACY-99",
+      "FROM": "C-ONDA-WEB",
+      "TO": "C-LEGACY-99",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/legacy99v2/mutacao.py",
+          "line": 53,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v2/mutacao_ab.py",
+          "line": 61,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/legacy99v4/mutacao.py",
+          "line": 103,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ONDA-WEB--READS-->C-LEGACY-99",
+        "FROM": "C-ONDA-WEB",
+        "TO": "C-LEGACY-99",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ONDA-WEB--READS-->C-ORDENS-63",
+      "FROM": "C-ONDA-WEB",
+      "TO": "C-ORDENS-63",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/ordens_63/ensaio_d52.py",
+          "line": 29,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ONDA-WEB--READS-->C-ORDENS-63",
+        "FROM": "C-ONDA-WEB",
+        "TO": "C-ORDENS-63",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
+      "FROM": "C-ONDA-WEB",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/coleta_continua_mutacao.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/lote8_integra/mutacao_lote8.py",
+          "line": 61,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/rodadas_mutacao.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/teto_adaptativo/mutacao_rebase.py",
+          "line": 29,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/teto_adaptativo/mutacao_rebase.py",
+          "line": 29,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-COLETA",
+        "FROM": "C-ONDA-WEB",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-ROTAS-REAIS",
+      "FROM": "C-ONDA-WEB",
+      "TO": "C-PROVA-ROTAS-REAIS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ONDA-WEB--READS-->C-PROVA-ROTAS-REAIS",
+        "FROM": "C-ONDA-WEB",
+        "TO": "C-PROVA-ROTAS-REAIS",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },
@@ -1693,77 +5382,22 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
-      "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
+      "EDGE_ID": "C-ORQUESTRADOR--READS-->C-SALA-DE-ESPERA",
       "FROM": "C-ORQUESTRADOR",
-      "TO": "C-TESTES",
+      "TO": "C-SALA-DE-ESPERA",
       "RELATION_TYPE": "READS",
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
         {
-          "file": "tests/test_a_linhagem_do_ready.py",
-          "line": 26,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_a_operacao_aguenta_concorrencia.py",
-          "line": 114,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_a_ponte_do_derived.py",
-          "line": 33,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
-          "line": 23,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
-          "line": 27,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 146,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_c10_6e_runtime_pago.py",
-          "line": 164,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 239,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_italia_na_porta_canonica.py",
-          "line": 170,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_lingua_da_porta.py",
-          "line": 238,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_linkedin_op_01_operacional.py",
-          "line": 378,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_medir_admission_t3_atual.py",
-          "line": 56,
+          "file": "admissao/reprocessar_tempo_lugar.py",
+          "line": 60,
           "SUPPORTS": "YES"
         }
       ],
       "ASSERTION_SUPPORTED": {
-        "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
+        "EDGE_ID": "C-ORQUESTRADOR--READS-->C-SALA-DE-ESPERA",
         "FROM": "C-ORQUESTRADOR",
-        "TO": "C-TESTES",
+        "TO": "C-SALA-DE-ESPERA",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },
@@ -1784,12 +5418,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "pedido/receitas.py",
-          "line": 187,
+          "line": 390,
           "SUPPORTS": "YES"
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 1033,
           "SUPPORTS": "YES"
         }
       ],
@@ -1817,12 +5451,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "pedido/receitas.py",
-          "line": 80,
+          "line": 123,
           "SUPPORTS": "YES"
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 1033,
           "SUPPORTS": "YES"
         }
       ],
@@ -1850,12 +5484,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "pedido/receitas.py",
-          "line": 97,
+          "line": 140,
           "SUPPORTS": "YES"
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 1033,
           "SUPPORTS": "YES"
         },
         {
@@ -1888,12 +5522,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "pedido/receitas.py",
-          "line": 146,
+          "line": 254,
           "SUPPORTS": "YES"
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 1033,
           "SUPPORTS": "YES"
         }
       ],
@@ -1921,12 +5555,62 @@
       "OLD_EVIDENCE": [
         {
           "file": "pedido/receitas.py",
-          "line": 159,
+          "line": 188,
           "SUPPORTS": "YES"
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 1033,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 218,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 1033,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 267,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 1033,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 324,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 1033,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 340,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 1033,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 361,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 1033,
           "SUPPORTS": "YES"
         },
         {
@@ -1951,6 +5635,39 @@
       "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-PESQUISADORES-T6",
+      "FROM": "C-ORQUESTRADOR",
+      "TO": "C-PESQUISADORES-T6",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 105,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 1033,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-PESQUISADORES-T6",
+        "FROM": "C-ORQUESTRADOR",
+        "TO": "C-PESQUISADORES-T6",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
       "FROM": "C-ORQUESTRADOR",
       "TO": "C-ROTULOS",
@@ -1959,12 +5676,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "pedido/receitas.py",
-          "line": 132,
+          "line": 175,
           "SUPPORTS": "YES"
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 1033,
           "SUPPORTS": "YES"
         }
       ],
@@ -1992,12 +5709,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "pedido/receitas.py",
-          "line": 225,
+          "line": 428,
           "SUPPORTS": "YES"
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 1033,
           "SUPPORTS": "YES"
         }
       ],
@@ -2005,6 +5722,89 @@
         "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-SCRAP-COLHEITA",
         "FROM": "C-ORQUESTRADOR",
         "TO": "C-SCRAP-COLHEITA",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
+      "FROM": "C-PACOTE-ONDA3",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+          "line": 121,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+          "line": 121,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+          "line": 121,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+          "line": 121,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+          "line": 121,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3.sh",
+          "line": 121,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+          "line": 165,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+          "line": 165,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+          "line": 165,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+          "line": 165,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+          "line": 165,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/onda3_pacote/ensaio_onda3_v2.sh",
+          "line": 165,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PACOTE-ONDA3--RUNS-->C-TESTES",
+        "FROM": "C-PACOTE-ONDA3",
+        "TO": "C-TESTES",
         "RELATION_TYPE": "RUNS",
         "PLANE": "CODE"
       },
@@ -2043,6 +5843,128 @@
       "PROVEN_AFTER": "YES",
       "PROVEN_PLANE_AFTER": "OBSERVED",
       "WHY": "o recibo desta corrida nomeia as duas pontas na mesma travessia."
+    },
+    {
+      "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-SALA-DE-ESPERA",
+      "FROM": "C-PESQUISADORES-T6",
+      "TO": "C-SALA-DE-ESPERA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "admissao/reprocessar_estudos_chaves.py",
+          "line": 53,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 58,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PESQUISADORES-T6--READS-->C-SALA-DE-ESPERA",
+        "FROM": "C-PESQUISADORES-T6",
+        "TO": "C-SALA-DE-ESPERA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-PROVA-INT-R7",
+      "FROM": "C-PONTE-INT-CASCO",
+      "TO": "C-PROVA-INT-R7",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/int_r7/aceite_pelo_gerador.py",
+          "line": 24,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-PROVA-INT-R7",
+        "FROM": "C-PONTE-INT-CASCO",
+        "TO": "C-PROVA-INT-R7",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-PROVA-POTE-CASCO",
+      "FROM": "C-PONTE-INT-CASCO",
+      "TO": "C-PROVA-POTE-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/pote_v2/medir_recusas_r6.py",
+          "line": 98,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-PROVA-POTE-CASCO",
+        "FROM": "C-PONTE-INT-CASCO",
+        "TO": "C-PROVA-POTE-CASCO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-ROTAS-REAIS",
+      "FROM": "C-PORTA-FONTE",
+      "TO": "C-PROVA-ROTAS-REAIS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 16,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 20,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PORTA-FONTE--READS-->C-PROVA-ROTAS-REAIS",
+        "FROM": "C-PORTA-FONTE",
+        "TO": "C-PROVA-ROTAS-REAIS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
       "EDGE_ID": "C-PORTAL-DADOS--FEEDS-->C-TELA-ARCHIVE",
@@ -2332,6 +6254,242 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-INT-R7",
+      "FROM": "C-POTE-INT-CASCO",
+      "TO": "C-PROVA-INT-R7",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/int_r7/aceite_pelo_gerador.py",
+          "line": 24,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-INT-R7",
+        "FROM": "C-POTE-INT-CASCO",
+        "TO": "C-PROVA-INT-R7",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-POTE-CASCO",
+      "FROM": "C-POTE-INT-CASCO",
+      "TO": "C-PROVA-POTE-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_pote_casco.py",
+          "line": 24,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/pote_v2/medir_recusas_r6.py",
+          "line": 98,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 24,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-POTE-CASCO",
+        "FROM": "C-POTE-INT-CASCO",
+        "TO": "C-PROVA-POTE-CASCO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
+      "FROM": "C-POTE-INT-CASCO",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_ligacao_adama.py",
+          "line": 67,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_pote_intelligence_casco.py",
+          "line": 305,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_pote_v2_unico.py",
+          "line": 333,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_pote_v2_unico.py",
+          "line": 333,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
+        "FROM": "C-POTE-INT-CASCO",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PRECO-DE-MERCADO--READS-->C-TESTES",
+      "FROM": "C-PRECO-DE-MERCADO",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_ligacao_adama.py",
+          "line": 66,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PRECO-DE-MERCADO--READS-->C-TESTES",
+        "FROM": "C-PRECO-DE-MERCADO",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PROCEDENCIA--READS-->C-INTEGRA-ONDA2",
+      "FROM": "C-PROCEDENCIA",
+      "TO": "C-INTEGRA-ONDA2",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/integra_onda2/final/ensaio_integra.sh",
+          "line": 14,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PROCEDENCIA--READS-->C-INTEGRA-ONDA2",
+        "FROM": "C-PROCEDENCIA",
+        "TO": "C-INTEGRA-ONDA2",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-PROVA-COLETA",
+      "FROM": "C-PROVA-MAPA-NAO-MENTE",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/integra_noite/mutacao_lote5_integra.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-PROVA-COLETA",
+        "FROM": "C-PROVA-MAPA-NAO-MENTE",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PROVA-PARIDADE--READS-->C-CENSO-UNIFICACAO",
+      "FROM": "C-PROVA-PARIDADE",
+      "TO": "C-CENSO-UNIFICACAO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/unificacao/provar_em_copia.py",
+          "line": 111,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/unificacao/provar_em_copia.py",
+          "line": 111,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/unificacao/provar_em_copia.py",
+          "line": 112,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PROVA-PARIDADE--READS-->C-CENSO-UNIFICACAO",
+        "FROM": "C-PROVA-PARIDADE",
+        "TO": "C-CENSO-UNIFICACAO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-RECEITAS--READS-->C-TESTES",
       "FROM": "C-RECEITAS",
       "TO": "C-TESTES",
@@ -2340,7 +6498,7 @@
       "OLD_EVIDENCE": [
         {
           "file": "tests/test_linkedin_op_01_operacional.py",
-          "line": 377,
+          "line": 392,
           "SUPPORTS": "YES"
         }
       ],
@@ -2348,6 +6506,185 @@
         "EDGE_ID": "C-RECEITAS--READS-->C-TESTES",
         "FROM": "C-RECEITAS",
         "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
+      "FROM": "C-RECEITAS-PROPOSTA",
+      "TO": "C-DESBLOQUEIO-PACOTE",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+          "line": 218,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+          "line": 219,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
+          "line": 220,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "scripts/desbloqueio/canario_desbloqueio.py",
+          "line": 58,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
+        "FROM": "C-RECEITAS-PROPOSTA",
+        "TO": "C-DESBLOQUEIO-PACOTE",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+      "FROM": "C-RECEITAS-PROPOSTA",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_aplicar_desbloqueio.py",
+          "line": 33,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_k1_receitas.py",
+          "line": 96,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_k1_receitas.py",
+          "line": 96,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 18,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_ld2_aditamento.py",
+          "line": 66,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_receitas_proposta.py",
+          "line": 15,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_receitas_proposta.py",
+          "line": 66,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+        "FROM": "C-RECEITAS-PROPOSTA",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-REFERENCIA-CADENCIA--IMPORTS-->C-IT-COLETA",
+      "FROM": "C-REFERENCIA-CADENCIA",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 42,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-REFERENCIA-CADENCIA--IMPORTS-->C-IT-COLETA",
+        "FROM": "C-REFERENCIA-CADENCIA",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-REFERENCIA-CADENCIA--READS-->C-IT-COLETA",
+      "FROM": "C-REFERENCIA-CADENCIA",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 42,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-RELEVANCIA--READS-->C-PRECO-DE-MERCADO",
+      "FROM": "C-RELEVANCIA",
+      "TO": "C-PRECO-DE-MERCADO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-RELEVANCIA--READS-->C-PRECO-DE-MERCADO",
+        "FROM": "C-RELEVANCIA",
+        "TO": "C-PRECO-DE-MERCADO",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },
@@ -2444,6 +6781,34 @@
       "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa."
     },
     {
+      "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-PONTE-CASCO",
+      "FROM": "C-SALA-DE-ESPERA",
+      "TO": "C-PROVA-PONTE-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_ponte_casco.py",
+          "line": 26,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-PONTE-CASCO",
+        "FROM": "C-SALA-DE-ESPERA",
+        "TO": "C-PROVA-PONTE-CASCO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-TESTES",
       "FROM": "C-SCRAP-COLHEITA",
       "TO": "C-TESTES",
@@ -2452,12 +6817,17 @@
       "OLD_EVIDENCE": [
         {
           "file": "tests/test_linkedin_op_01_operacional.py",
-          "line": 377,
+          "line": 392,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_receita_web_t8_t9_t12.py",
+          "line": 33,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 115,
+          "line": 130,
           "SUPPORTS": "YES"
         }
       ],
@@ -2477,6 +6847,62 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-SCRAP-GUARDA--READS-->C-PROVA-ROTAS-REAIS",
+      "FROM": "C-SCRAP-GUARDA",
+      "TO": "C-PROVA-ROTAS-REAIS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/o_video_tem_consumidor.py",
+          "line": 249,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SCRAP-GUARDA--READS-->C-PROVA-ROTAS-REAIS",
+        "FROM": "C-SCRAP-GUARDA",
+        "TO": "C-PROVA-ROTAS-REAIS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-COMENTARIOS",
+      "FROM": "C-SCRAP-LEIS",
+      "TO": "C-PROVA-COMENTARIOS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 16,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-COMENTARIOS",
+        "FROM": "C-SCRAP-LEIS",
+        "TO": "C-PROVA-COMENTARIOS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-GUARDA",
       "FROM": "C-SCRAP-ROTA",
       "TO": "C-SCRAP-GUARDA",
@@ -2484,8 +6910,18 @@
       "RAW_TYPE_MEDIDO": "RUNS",
       "OLD_EVIDENCE": [
         {
+          "file": ".github/workflows/curator-youtube-handles.yml",
+          "line": 64,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": ".github/workflows/curator-youtube-soc-onda2.yml",
+          "line": 45,
+          "SUPPORTS": "YES"
+        },
+        {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 267,
+          "line": 277,
           "SUPPORTS": "YES"
         }
       ],
@@ -2513,12 +6949,12 @@
       "OLD_EVIDENCE": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 267,
+          "line": 277,
           "SUPPORTS": "YES"
         },
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 268,
+          "line": 278,
           "SUPPORTS": "YES"
         }
       ],
@@ -2566,6 +7002,92 @@
       "WHY": "a corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` deixou passagem nas duas etapas, e a aresta foi LIDA do banco — nao declarada."
     },
     {
+      "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COMENTARIOS",
+      "FROM": "C-SCRAP-SOCIAL",
+      "TO": "C-PROVA-COMENTARIOS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/comentarios_bateria/mutar_regras.py",
+          "line": 17,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/comentarios_bateria/mutar_regras.py",
+          "line": 17,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 15,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 15,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/comentarios_v1/mutar.py",
+          "line": 16,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COMENTARIOS",
+        "FROM": "C-SCRAP-SOCIAL",
+        "TO": "C-PROVA-COMENTARIOS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-ROTAS-REAIS",
+      "FROM": "C-SCRAP-SOCIAL",
+      "TO": "C-PROVA-ROTAS-REAIS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 17,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/o_video_tem_consumidor.py",
+          "line": 249,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/o_video_tem_consumidor.py",
+          "line": 250,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-ROTAS-REAIS",
+        "FROM": "C-SCRAP-SOCIAL",
+        "TO": "C-PROVA-ROTAS-REAIS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
       "FROM": "C-SCRAP-SOCIAL",
       "TO": "C-TESTES",
@@ -2573,13 +7095,33 @@
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
         {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 94,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 100,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 112,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_as_duas_portas_do_scrap.py",
+          "line": 544,
+          "SUPPORTS": "YES"
+        },
+        {
           "file": "tests/test_autoridade_da_fonte.py",
           "line": 145,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 301,
+          "line": 358,
           "SUPPORTS": "YES"
         },
         {
@@ -2610,26 +7152,6 @@
         {
           "file": "tests/test_c10_4c_rota_aposentada.py",
           "line": 327,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 289,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 355,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 248,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 348,
           "SUPPORTS": "YES"
         }
       ],
@@ -2743,7 +7265,7 @@
         },
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 437,
+          "line": 450,
           "SUPPORTS": "YES"
         },
         {
@@ -2791,12 +7313,12 @@
       "OLD_EVIDENCE": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 205,
+          "line": 294,
           "SUPPORTS": "YES"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 281,
+          "line": 382,
           "SUPPORTS": "YES"
         }
       ],
@@ -2824,22 +7346,22 @@
       "OLD_EVIDENCE": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 202,
+          "line": 291,
           "SUPPORTS": "YES"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 202,
+          "line": 291,
           "SUPPORTS": "YES"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 203,
+          "line": 292,
           "SUPPORTS": "YES"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 203,
+          "line": 292,
           "SUPPORTS": "YES"
         }
       ],
@@ -2867,12 +7389,12 @@
       "OLD_EVIDENCE": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 205,
+          "line": 294,
           "SUPPORTS": "YES"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 206,
+          "line": 295,
           "SUPPORTS": "YES"
         }
       ],
@@ -2900,12 +7422,12 @@
       "OLD_EVIDENCE": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 204,
+          "line": 293,
           "SUPPORTS": "YES"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 204,
+          "line": 293,
           "SUPPORTS": "YES"
         }
       ],
@@ -2933,12 +7455,12 @@
       "OLD_EVIDENCE": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 207,
+          "line": 296,
           "SUPPORTS": "YES"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 207,
+          "line": 296,
           "SUPPORTS": "YES"
         }
       ],
@@ -2966,7 +7488,7 @@
       "OLD_EVIDENCE": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 206,
+          "line": 295,
           "SUPPORTS": "YES"
         }
       ],
@@ -2986,12 +7508,273 @@
       "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-SOCIAL-POR-URL-ACHADO--READS-->C-PROVA-ROTAS-REAIS",
+      "FROM": "C-SOCIAL-POR-URL-ACHADO",
+      "TO": "C-PROVA-ROTAS-REAIS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 17,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SOCIAL-POR-URL-ACHADO--READS-->C-PROVA-ROTAS-REAIS",
+        "FROM": "C-SOCIAL-POR-URL-ACHADO",
+        "TO": "C-PROVA-ROTAS-REAIS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-TESTES--READS-->C-LEITOR-DATA-YT",
+      "FROM": "C-TESTES",
+      "TO": "C-LEITOR-DATA-YT",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "ferramentas/leitor_data_yt/mutar_leitor.py",
+          "line": 10,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "ferramentas/leitor_data_yt/mutar_leitor.py",
+          "line": 10,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-TESTES--READS-->C-LEITOR-DATA-YT",
+        "FROM": "C-TESTES",
+        "TO": "C-LEITOR-DATA-YT",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-TESTES--READS-->C-PRECO-DE-MERCADO",
+      "FROM": "C-TESTES",
+      "TO": "C-PRECO-DE-MERCADO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "scripts/polso_mercato/mutar_preco_de_mercado.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-TESTES--READS-->C-PRECO-DE-MERCADO",
+        "FROM": "C-TESTES",
+        "TO": "C-PRECO-DE-MERCADO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-TESTES--READS-->C-PROVA-CONTADOR-24H",
+      "FROM": "C-TESTES",
+      "TO": "C-PROVA-CONTADOR-24H",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/contador_24h_mutacao.py",
+          "line": 60,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/contador_24h_mutacao.py",
+          "line": 60,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-TESTES--READS-->C-PROVA-CONTADOR-24H",
+        "FROM": "C-TESTES",
+        "TO": "C-PROVA-CONTADOR-24H",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-TESTES--READS-->C-PROVA-PONTE-CASCO",
+      "FROM": "C-TESTES",
+      "TO": "C-PROVA-PONTE-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_ponte_casco.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/_mutantes_ponte_casco.py",
+          "line": 28,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-TESTES--READS-->C-PROVA-PONTE-CASCO",
+        "FROM": "C-TESTES",
+        "TO": "C-PROVA-PONTE-CASCO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+      "FROM": "C-TESTES",
+      "TO": "C-PROVA-POTE-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_pote_casco.py",
+          "line": 27,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/_mutantes_pote_casco.py",
+          "line": 28,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 29,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 29,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/pote_v2/mutantes_pote_v2_unico.py",
+          "line": 30,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-TESTES--READS-->C-PROVA-POTE-CASCO",
+        "FROM": "C-TESTES",
+        "TO": "C-PROVA-POTE-CASCO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTAS-REAIS",
+      "FROM": "C-TESTES",
+      "TO": "C-PROVA-ROTAS-REAIS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/_mutantes_d36_equivalencia.py",
+          "line": 16,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 18,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 18,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 19,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 19,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/_mutantes_social_ate_a_sala.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-TESTES--READS-->C-PROVA-ROTAS-REAIS",
+        "FROM": "C-TESTES",
+        "TO": "C-PROVA-ROTAS-REAIS",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-TRANSCRICAO--READS-->C-PROVA-COLETA",
       "FROM": "C-TRANSCRICAO",
       "TO": "C-PROVA-COLETA",
       "RELATION_TYPE": "READS",
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 414,
+          "SUPPORTS": "YES"
+        },
         {
           "file": "provas/portas_canonicas_no_postgres.py",
           "line": 42,
@@ -3031,18 +7814,23 @@
       "RAW_TYPE_MEDIDO": "READS",
       "OLD_EVIDENCE": [
         {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 146,
+          "SUPPORTS": "YES"
+        },
+        {
           "file": "tests/test_c10_1_source_id.py",
           "line": 182,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 490,
+          "line": 547,
           "SUPPORTS": "YES"
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 491,
+          "line": 548,
           "SUPPORTS": "YES"
         },
         {
@@ -3057,7 +7845,7 @@
         },
         {
           "file": "tests/test_c10_4b_um_caminho_so.py",
-          "line": 271,
+          "line": 298,
           "SUPPORTS": "YES"
         },
         {
@@ -3082,12 +7870,7 @@
         },
         {
           "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 264,
-          "SUPPORTS": "YES"
-        },
-        {
-          "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 349,
+          "line": 477,
           "SUPPORTS": "YES"
         }
       ],
@@ -3128,6 +7911,95 @@
         "EDGE_ID": "C-V21-FONTES--READS-->C-PORTAL-MODELO",
         "FROM": "C-V21-FONTES",
         "TO": "C-PORTAL-MODELO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-V21-INGEST--READS-->C-SALA-DE-ESPERA",
+      "FROM": "C-V21-INGEST",
+      "TO": "C-SALA-DE-ESPERA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "admissao/reprocessar_problema.py",
+          "line": 58,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-V21-INGEST--READS-->C-SALA-DE-ESPERA",
+        "FROM": "C-V21-INGEST",
+        "TO": "C-SALA-DE-ESPERA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-V21-OPORTUNIDADE--READS-->C-PROVA-INDEPENDENCIA",
+      "FROM": "C-V21-OPORTUNIDADE",
+      "TO": "C-PROVA-INDEPENDENCIA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/independencia/antes_e_depois_v21.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/independencia/mutantes.py",
+          "line": 10,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-V21-OPORTUNIDADE--READS-->C-PROVA-INDEPENDENCIA",
+        "FROM": "C-V21-OPORTUNIDADE",
+        "TO": "C-PROVA-INDEPENDENCIA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-VOCI-DAL-CAMPO--READS-->C-TESTES",
+      "FROM": "C-VOCI-DAL-CAMPO",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_ligacao_adama.py",
+          "line": 66,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-VOCI-DAL-CAMPO--READS-->C-TESTES",
+        "FROM": "C-VOCI-DAL-CAMPO",
+        "TO": "C-TESTES",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },

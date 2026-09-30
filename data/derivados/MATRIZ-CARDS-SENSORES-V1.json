@@ -3,12 +3,12 @@
   "O_QUE_ISTO_E": "A matriz CARD x SENSOR do SINTONIA, montada a partir dos censos que ja existem. Nenhum numero e medido aqui: cada um tem dono noutro ficheiro, e este junta-os para fazer a pergunta que nenhum deles fazia sozinho.",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_cards_sensores.py",
-    "GENERATED_AT": "2026-09-15T20:55:10+00:00",
-    "HEAD": "384df0357cf8c564206388c970ecd7ee72ea41e0",
+    "GENERATED_AT": "2026-09-30T15:37:51+00:00",
+    "HEAD": "c38610e0c4c5a5d6c1bdc12c325496821cc39a9b",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "9584e5735ea475ce1d5bffbce5f616b3b9cf1a1733090430c74ff6bfab1720c3",
-    "FICHEIROS_NA_IMPRESSAO": 2194,
+    "SOURCE_TREE_FINGERPRINT": "dd0287352091ef9edf8ecb6f2653357a8fbd442d57ada1cd3d154070f22e5d0b",
+    "FICHEIROS_NA_IMPRESSAO": 4363,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -67,13 +67,13 @@
       {
         "PATH": "system-map/data/sources.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "8964c64b90637a7a4c70c566087d6043c2c85cc912458c480178fa734592a7f0",
+        "VERSAO": "dd0287352091ef9edf8ecb6f2653357a8fbd442d57ada1cd3d154070f22e5d0b",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "ler() · json"
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "b1c03b8965bd3b6a0c70e58c673f2fc40c356772880bbfd00725e865a498bbc5",
+    "INPUTS_DIGEST": "339da79bbc9c0a1804e119f1fbcaaf492139d30ceda4ebfeecdfce6554a9b6a4",
     "INPUTS_AUSENTES": [],
     "LIDO_DE": [
       "casco.generated.json",
@@ -105,38 +105,47 @@
       "NAO SEI": 5,
       "REAL": 1
     },
-    "SENSORES_TOTAL": 75,
+    "SENSORES_TOTAL": 100,
     "SENSORES_POR_INSTRUMENTACAO": {
-      "NOT_APPLICABLE": 9,
-      "NOT_INSTRUMENTED": 61,
+      "NOT_APPLICABLE": 17,
+      "NOT_INSTRUMENTED": 78,
       "PARTIAL": 3,
       "INSTRUMENTED": 2
     },
     "SENSORES_COM_CORRIDA_PROVADA": 2,
-    "SENSORES_QUE_CORREM_OFFLINE": 46,
-    "FONTES_NO_ATLAS": 197,
+    "SENSORES_QUE_CORREM_OFFLINE": 59,
+    "FONTES_NO_ATLAS": 297,
     "FONTES_COM_CONTRATO": 5,
     "FONTES_JA_COLETADAS": 4,
-    "FONTES_NUNCA_COLETADAS": 197,
+    "FONTES_NUNCA_COLETADAS": 297,
     "FONTES_POR_PAIS": {
       "ESPANHA": 34,
       "EUROPA": 13,
       "FRANCA": 6,
-      "ITALIA": 144
+      "ITALIA": 244
     },
-    "CORRIDAS_NO_LEDGER": 28,
-    "OBSERVACOES_NO_LEDGER": 175,
+    "CORRIDAS_NO_LEDGER": 59,
+    "OBSERVACOES_NO_LEDGER": 521,
     "OBSERVACOES_POR_FONTE": {
-      "IT-T2-002": 136,
-      "IT-T2-004": 6,
-      "IT-T3-002": 2,
+      "IT-T10-018": 100,
+      "IT-T10-021": 1,
+      "IT-T10-022": 38,
+      "IT-T2-002": 140,
+      "IT-T2-004": 7,
+      "IT-T3-002": 3,
       "IT-T3-005": 6,
-      "IT-T3-008": 2,
-      "IT-T3-010": 21,
-      "IT-T4-001": 2
+      "IT-T3-008": 3,
+      "IT-T3-010": 22,
+      "IT-T4-001": 3,
+      "IT-T5-049": 13,
+      "IT-T7-017": 121,
+      "IT-T7-021": 1,
+      "IT-T7-033": 15,
+      "IT-T7-042": 41,
+      "IT-T7-043": 7
     },
-    "ARTEFATOS_DE_INTELIGENCIA_CONGELADOS": 75,
-    "CAMADAS_DO_PORTAL": 17,
+    "ARTEFATOS_DE_INTELIGENCIA_CONGELADOS": 89,
+    "CAMADAS_DO_PORTAL": 18,
     "CAMADAS_COM_GERADOR": 5,
     "ARESTAS_POR_CLASSE": {
       "BROKEN": 21,
@@ -153,13 +162,13 @@
     {
       "PROVA": "EXISTE",
       "PERGUNTA": "ha ficheiro?",
-      "SENSORES": 75,
+      "SENSORES": 100,
       "MEDIDO_POR": "system-map/data/executores.generated.json"
     },
     {
       "PROVA": "CORRE",
       "PERGUNTA": "e chamavel sem rede, sem pago, sem producao?",
-      "SENSORES": 46,
+      "SENSORES": 59,
       "MEDIDO_POR": "system-map/data/executores.generated.json"
     },
     {
@@ -692,7 +701,51 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "coleta/comunicacao_concorrenza.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "coleta/comunicacao_medir.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/concorrencia_meta.py",
       "GAVETA": "coleta",
       "PAPEIS": [
         "UNKNOWN"
@@ -723,6 +776,28 @@
       "EXISTE": true,
       "CORRE_OFFLINE": false,
       "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/cortesia_adaptativa.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
       "PAGO": false,
       "PRODUCAO": false,
       "RODOU_COM_PROVA": false,
@@ -802,6 +877,28 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "coleta/dominio_registavel.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "coleta/eppo_gd.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -818,6 +915,28 @@
       "PROVA": null,
       "MODO": null,
       "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/espera_por_dominio.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
@@ -868,6 +987,28 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "coleta/executor_texto_de_html.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": true,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "coleta/executor_texto_de_pdf.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -910,6 +1051,28 @@
       "PROVA": null,
       "MODO": null,
       "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": true,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/extratores_de_texto.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
       "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
@@ -1051,7 +1214,7 @@
       "SENSOR_ID": "coleta/instagram_janela.py",
       "GAVETA": "coleta",
       "PAPEIS": [
-        "EXECUTOR"
+        "UNKNOWN"
       ],
       "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
       "EXISTE": true,
@@ -1114,6 +1277,72 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "coleta/linha_busca.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/linha_busca_raw.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/lista_mestra_mur.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "coleta/mapa_regfi.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -1136,7 +1365,73 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "coleta/meta_anunciante.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "coleta/pdf_text.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/pesquisadores_t6.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/pesquisadores_t6_executor.py",
       "GAVETA": "coleta",
       "PAPEIS": [
         "UNKNOWN"
@@ -1202,6 +1497,28 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "coleta/reserva_24h.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "coleta/ropf_pre_requisito.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -1227,6 +1544,7 @@
       "SENSOR_ID": "coleta/rota_forward_documento.py",
       "GAVETA": "coleta",
       "PAPEIS": [
+        "ORCHESTRATOR",
         "TELEMETRY_EMITTER"
       ],
       "ESTADO_DE_INSTRUMENTACAO": "INSTRUMENTED",
@@ -1246,6 +1564,28 @@
       "TEM_PORTA": true,
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": true,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/rota_navegador.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
@@ -1493,6 +1833,28 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "coleta/social_por_url_achado.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "coleta/social_rotas.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -1576,6 +1938,28 @@
       "PROVA": null,
       "MODO": null,
       "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/teto_da_onda.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
@@ -1693,6 +2077,50 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "guarda/banco_descartavel.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "guarda/banco_operacional.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "guarda/catalogo_importar.py",
       "GAVETA": "guarda",
       "PAPEIS": [
@@ -1709,6 +2137,28 @@
       "PROVA": null,
       "MODO": null,
       "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "guarda/cliente_postgres.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
@@ -1738,6 +2188,28 @@
     },
     {
       "SENSOR_ID": "guarda/memoria_descartavel.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "PRESERVATION_OWNER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "guarda/memoria_postgres.py",
       "GAVETA": "guarda",
       "PAPEIS": [
         "PRESERVATION_OWNER"
@@ -1935,6 +2407,28 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "ferramentas/captura_xhr.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "ferramentas/cdp.py",
       "GAVETA": "ferramentas",
       "PAPEIS": [
@@ -2023,6 +2517,28 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "ferramentas/meta_biblioteca.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "ferramentas/navegador.py",
       "GAVETA": "ferramentas",
       "PAPEIS": [
@@ -2090,6 +2606,28 @@
       "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
+      "SENSOR_ID": "ferramentas/yt_dlp_com_freio.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
       "SENSOR_ID": "orquestrador/orquestrador.py",
       "GAVETA": "orquestrador",
       "PAPEIS": [
@@ -2106,6 +2644,28 @@
       "PROVA": null,
       "MODO": null,
       "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "orquestrador/persistencia.py",
+      "GAVETA": "orquestrador",
+      "PAPEIS": [
+        "CHECKPOINT_OWNER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
@@ -2317,6 +2877,7 @@
     "ITALY_MARKET": null,
     "ITALY_PDF": null,
     "ITALY_REAL": null,
+    "ITALY_SALA_LEITURA": null,
     "ITALY_SCIENCE": null,
     "MEETING_INTELLIGENCE": "superficie/it_casa_dados.py",
     "MEETING_LABELS": "superficie/it_casa_dados.py",
