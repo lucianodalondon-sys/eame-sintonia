@@ -261,10 +261,52 @@ def correr_a_bateria(raiz: Path):
     return r.returncode, ((r.stderr or "") + (r.stdout or ""))
 
 
+def conferir_os_alvos() -> list:
+    """OS ALVOS, ANTES DE A MEDICAO COMECAR. Devolve a lista dos que nao casam 1 vez.
+
+    ⚠️ ESTE PASSO NASCEU DE DOIS ATAQUES QUE NUNCA ACONTECERAM.
+    O `BLK1_HIFEN_DEIXA_DE_SER_ESPACO` trazia o apostrofo num literal RAW do Python, o
+    backslash ficou no texto e o alvo apareceu 0 vezes. O `A_CLASSE_NAO_EXIGE_O_ANO` perdeu o
+    alvo quando a PROD-3 partiu a condicao do ano em duas metades. Os dois sairam
+    NAO_APLICADO — que o laco ja conta como SOBREVIVENTE, e faz bem.
+
+        UM MUTANTE QUE NAO ENTRA NAO E UM MUTANTE MORTO:
+        E UMA GARANTIA QUE NINGUEM ATACOU, A CONTAR-SE COMO GARANTIA GUARDADA.
+
+    O laco descobria isto DEPOIS de copiar a arvore e correr a bateria, mutante a mutante.
+    Aqui descobre-se em um segundo, antes de gastar a medicao — e sobretudo antes de alguem
+    ler «MORTOS 53/54» e pensar que o 54.o e um buraco no codigo em vez de um erro de alvo.
+    """
+    fora = []
+    for nome, rel, de, _para in MUTANTES:
+        caminho = RAIZ / rel
+        n = caminho.read_text(encoding="utf-8").count(de) if caminho.exists() else -1
+        if n != 1:
+            fora.append({"NOME": nome, "FICHEIRO": rel,
+                         "VEZES": n, "PORQUE": "o ficheiro nao existe" if n < 0 else
+                                               "o texto a trocar aparece %d vezes (tem de ser 1)" % n})
+    return fora
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--saida", default=str(Path(__file__).resolve().parent / "MUTACAO-PRODUTOR-V1.json"))
+    ap.add_argument("--conferir-alvos", action="store_true",
+                    help="so confere que cada alvo casa 1 vez, e sai; nao mede nada")
     a = ap.parse_args(argv)
+
+    maus = conferir_os_alvos()
+    if a.conferir_alvos:
+        for m in maus:
+            print("ALVO_MAU %-45s %s" % (m["NOME"], m["PORQUE"]))
+        print("ALVOS %d · MAUS %d" % (len(MUTANTES), len(maus)))
+        return 1 if maus else 0
+    if maus:
+        print("ALVOS_MAUS=%d · a medicao NAO corre: %s"
+              % (len(maus), ", ".join(m["NOME"] for m in maus)), file=sys.stderr)
+        print("Corrija os alvos (py provas/d158/mutar_o_produtor.py --conferir-alvos) e repita. "
+              "Medir com um alvo morto conta um ataque que nunca aconteceu.", file=sys.stderr)
+        return 2
 
     base = Path(tempfile.mkdtemp(prefix="d158-mut-"))
     limpo = base / "limpo"
@@ -307,10 +349,15 @@ def main(argv=None) -> int:
     r["TOTAL"] = len(MUTANTES)
     r["MORTOS"] = mortos
     r["SOBREVIVENTES"] = [m["NOME"] for m in r["MUTANTES"] if m["ESTADO"] != "MORTO"]
+    r["ALVOS_CONFERIDOS"] = True
     Path(a.saida).write_text(json.dumps(r, ensure_ascii=False, indent=1), encoding="utf-8")
     shutil.rmtree(base, ignore_errors=True)
     print("MORTOS %d/%d · SOBREVIVENTES: %s" % (mortos, len(MUTANTES), r["SOBREVIVENTES"] or "nenhum"))
-    return 0
+    # ⚠️ ESTE ARNES DEVOLVIA 0 COM SOBREVIVENTES VIVOS.
+    # Um medidor que sai com sucesso quando a medicao corre — e nao quando ela PASSA — nao
+    # serve de portao: quem o chamasse num gancho ou num workflow lia verde por ter corrido.
+    # Agora o codigo de saida responde a pergunta que interessa.
+    return 1 if r["SOBREVIVENTES"] else 0
 
 
 if __name__ == "__main__":
