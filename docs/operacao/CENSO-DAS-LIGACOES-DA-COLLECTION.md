@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b9d0c43d0817fad1bd8244d08c4beb6adb957827
+HEAD_DA_MEDICAO  22bd1123fc4df087d1fab57bd7100230123a6d9f
 BRANCH           lucianodalondon-sys/religa-multicanal-v1
-GERADO_EM        2026-09-30T06:40:37-03:00
+GERADO_EM        2026-09-30T13:34:13-03:00
 CARDS            132
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -557,7 +557,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — tipo de peca sem regra de prova definida. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | ferramentas/big_collection/coleta_continua.py:116; ferramentas/big_collection/onda_linha.py:177; ferramentas/big_collection/sonda_ligacao_linhas.py:52 |
+| **prova de quem ativa** | ferramentas/big_collection/coleta_continua.py:116; ferramentas/big_collection/onda_linha.py:184; ferramentas/big_collection/sonda_ligacao_linhas.py:52 |
 | **porquê** | estas pecas importam-na — C-ONDA-WEB · C-RELIGA-EXECUTOR-POR-LINHA · C-RELIGA-SONDA-DAS-LINHAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | V-INSTAGRAM, V-LINKEDIN, V-YOUTUBE |
 | **o que entra · ficheiros** | `coleta/adaptadores_de_aquisicao.mjs` |

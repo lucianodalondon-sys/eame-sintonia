@@ -4831,9 +4831,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lucianodalondon-sys/religa-multicanal-v1",
-    "HEAD": "b9d0c43d0817fad1bd8244d08c4beb6adb957827",
-    "GENERATED_AT": "2026-09-30T06:40:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0cfed57f26c5c6f61d562774cb9870df5c1434398b2d265e6183fbed13590aa9"
+    "HEAD": "22bd1123fc4df087d1fab57bd7100230123a6d9f",
+    "GENERATED_AT": "2026-09-30T13:34:13-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a9accc6aab7d3a73fa1f0b93f81e30b133846f3e2e81606fe4ec56f0b9a399b5"
   },
   "FAMILIES": [
     {
@@ -6573,8 +6573,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 923",
-        "desses, mostrados aqui: 40 (ficam de fora 883)"
+        "enderecos que o codigo realmente chama: 924",
+        "desses, mostrados aqui: 40 (ficam de fora 884)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -68530,7 +68530,7 @@
         "PLANO": null,
         "PROVA": [
           "ferramentas/big_collection/coleta_continua.py:116",
-          "ferramentas/big_collection/onda_linha.py:177",
+          "ferramentas/big_collection/onda_linha.py:184",
           "ferramentas/big_collection/sonda_ligacao_linhas.py:52",
           "provas/religa_multicanal/mutacao.py:37"
         ],
@@ -80665,7 +80665,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 464,
+          "line": 495,
           "snippet": "import admissao as adm                                          # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -100644,7 +100644,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 254,
+          "line": 285,
           "snippet": "import corpus_pesquisador as CP                             # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORPUS--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -107958,7 +107958,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 465,
+          "line": 496,
           "snippet": "import executor_texto_de_html as H                              # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -107974,7 +107974,7 @@
         },
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 466,
+          "line": 497,
           "snippet": "import extratores_de_texto as XT                                # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -119899,7 +119899,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 467,
+          "line": 498,
           "snippet": "import italy_executor as ex                                     # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -126686,7 +126686,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 219,
+          "line": 226,
           "snippet": "import linha_busca as LB                                    # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LINHA-BUSCA--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -140057,7 +140057,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 468,
+          "line": 499,
           "snippet": "import orquestrador as ORQ                                      # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -143086,7 +143086,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 255,
+          "line": 286,
           "snippet": "import pesquisadores_t6 as T6                               # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PESQUISADORES-T6--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -156407,7 +156407,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 177,
+          "line": 184,
           "snippet": "import rotas_multicanal as RM                                  # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RELIGA-ROTAS-MULTICANAL--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
@@ -159075,7 +159075,7 @@
       "evidence": [
         {
           "file": "ferramentas/big_collection/onda_linha.py",
-          "line": 648,
+          "line": 679,
           "snippet": "import sala_de_espera as SE                                # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-RELIGA-EXECUTOR-POR-LINHA",
