@@ -1,10 +1,10 @@
 {
- "ARVORE": "6b8124800820e24d4edd8c94e2f957d94d4853a0",
+ "ARVORE": "c6bcc09e9fb80b5e936dc529011c0467efc27922",
  "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
  "SEM_MUTACAO": {
   "CODIGO": 0,
   "VERDE": true,
-  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 145 tests in 1.445s\n\nOK"
+  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 147 tests in 1.299s\n\nOK"
  },
  "MUTANTES": [
   {
@@ -420,9 +420,11 @@
   {
    "NOME": "A_CLASSE_NAO_EXIGE_O_ANO",
    "FICHEIRO": "leis/afirmacao_do_documento.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_classe_honra_a_PRECISAO_declarada_mesmo_com_valor_completo (__main__.OMesSozinhoNaoTemAno.test_a_classe_honra_a_PRECISAO_declarada_mesmo_com_valor_completo)"
+   ]
   },
   {
    "NOME": "A_VALIDADE_SEM_A_FORMA_IMPIEGO_CONSENTITO",
@@ -546,11 +548,14 @@
    ]
   },
   {
-   "NOME": "RT3_PRIMEIRO_DIA_NAO_VE_O_MES_SOZINHO",
+   "NOME": "RT3_PRIMEIRO_DIA_NAO_DIZ_SE_O_ANO_FALTA",
    "FICHEIRO": "leis/tempo_da_afirmacao.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_A_PRECISAO_DIZ_QUE_FALTA_O_ANO_NO_MES_SOZINHO (__main__.OMesSozinhoNaoTemAno.test_A_PRECISAO_DIZ_QUE_FALTA_O_ANO_NO_MES_SOZINHO)",
+    "FAIL: test_o_primeiro_dia_diz_ELE_MESMO_que_o_ano_falta (__main__.OMesSozinhoNaoTemAno.test_o_primeiro_dia_diz_ELE_MESMO_que_o_ano_falta)"
+   ]
   },
   {
    "NOME": "A_IDENTIDADE_NAO_SEI_PASSA",
@@ -732,20 +737,15 @@
    ]
   },
   {
-   "NOME": "PROD3_A_PRECISAO_NAO_DIZ_QUE_FALTA_O_ANO",
-   "FICHEIRO": "leis/tempo_da_afirmacao.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
-  },
-  {
    "NOME": "PROD3_FALTA_O_ANO_IGNORA_O_MES_ESCRITO",
    "FICHEIRO": "leis/tempo_da_afirmacao.py",
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
     "FAIL: test_A_CLASSE_PERGUNTA_AO_VALOR_MESMO_COM_A_PRECISAO_CALADA (__main__.OMesSozinhoNaoTemAno.test_A_CLASSE_PERGUNTA_AO_VALOR_MESMO_COM_A_PRECISAO_CALADA)",
-    "FAIL: test_falta_o_ano_responde_pelo_VALOR (__main__.OMesSozinhoNaoTemAno.test_falta_o_ano_responde_pelo_VALOR)"
+    "FAIL: test_A_PRECISAO_DIZ_QUE_FALTA_O_ANO_NO_MES_SOZINHO (__main__.OMesSozinhoNaoTemAno.test_A_PRECISAO_DIZ_QUE_FALTA_O_ANO_NO_MES_SOZINHO)",
+    "FAIL: test_falta_o_ano_responde_pelo_VALOR (__main__.OMesSozinhoNaoTemAno.test_falta_o_ano_responde_pelo_VALOR)",
+    "FAIL: test_o_primeiro_dia_diz_ELE_MESMO_que_o_ano_falta (__main__.OMesSozinhoNaoTemAno.test_o_primeiro_dia_diz_ELE_MESMO_que_o_ano_falta)"
    ]
   },
   {
@@ -826,12 +826,8 @@
    ]
   }
  ],
- "TOTAL": 80,
- "MORTOS": 77,
- "SOBREVIVENTES": [
-  "A_CLASSE_NAO_EXIGE_O_ANO",
-  "RT3_PRIMEIRO_DIA_NAO_VE_O_MES_SOZINHO",
-  "PROD3_A_PRECISAO_NAO_DIZ_QUE_FALTA_O_ANO"
- ],
+ "TOTAL": 79,
+ "MORTOS": 79,
+ "SOBREVIVENTES": [],
  "ALVOS_CONFERIDOS": true
 }

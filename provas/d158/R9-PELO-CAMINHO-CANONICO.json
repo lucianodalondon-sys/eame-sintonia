@@ -51,17 +51,17 @@
  "PRODUTOR": {
   "AFIRMACOES_GERADAS": 14665,
   "REPROVADAS_NA_CONFERENCIA": 0,
-  "COM_TEMPO_E_LUGAR_DO_FACTO": 8,
+  "COM_TEMPO_E_LUGAR_DO_FACTO": 7,
   "FUNIL": {
    "SECOES": 3498,
    "FRASES_FORA_DO_CORPO": 28679,
    "AFIRMACOES": 14665,
-   "COM_TEMPO_DO_FACTO": 65,
+   "COM_TEMPO_DO_FACTO": 58,
    "COM_LUGAR_DO_FACTO": 873,
-   "COM_TEMPO_E_LUGAR": 8,
-   "SEM_TEMPO_NEM_LUGAR": 13735
+   "COM_TEMPO_E_LUGAR": 7,
+   "SEM_TEMPO_NEM_LUGAR": 13741
   },
-  "ITENS_COM_AFIRMACAO_COM_PROVA": 6
+  "ITENS_COM_AFIRMACAO_COM_PROVA": 5
  },
  "MOTOR_OFICIAL": {
   "MODULO": "motor/motor_das_capacidades.py::rodar",
@@ -81,38 +81,26 @@
   "CODIGO": 0,
   "STDERR": "Could not find platform independent libraries <prefix>",
   "ENTRADA": "ENTRADA-AFIRMACOES.json",
-  "OBJETOS_NA_ENTRADA": 8,
+  "OBJETOS_NA_ENTRADA": 7,
   "POTE": "POTE-AFIRMACOES.json",
-  "POTE_SHA256": "757f3846f3b6ee36af7e2f9a31fa3bfa24ebbc1c29dfc5ca9b4a81aa124e0574",
+  "POTE_SHA256": "3b6e68701f80310252606ae6e31073dffc4cfc2b0c9759d9e20b8e17c4365c38",
   "CONFERIR_POTE": "PASSA (0 violacoes)",
   "VALIDAR_POTE_V2": "PASSA",
   "OBJETOS_NO_POTE": 7,
-  "RECUSADOS": [
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-c48c23e1b62219e6ef8bf358"
-   }
-  ]
+  "RECUSADOS": []
  },
  "MEDICAO_DO_CONFLITO_D_GER_1": {
   "GERADOR": "pacote/pote_intelligence_casco.py",
   "CODIGO": 0,
   "STDERR": "Could not find platform independent libraries <prefix>",
   "ENTRADA": "ENTRADA-ENTITY-SOURCE-DA-LEI.json",
-  "OBJETOS_NA_ENTRADA": 8,
+  "OBJETOS_NA_ENTRADA": 7,
   "POTE": "POTE-ENTITY-SOURCE-DA-LEI.json",
-  "POTE_SHA256": "01903e8c11c331610edaf681902ddf36c63d9e03450324d8af3781a9ec21259c",
+  "POTE_SHA256": "69a9039936bb7e2aa52e1caf1e656c744f4a2a1b242e036f1f69231a4fed8a73",
   "CONFERIR_POTE": "PASSA (0 violacoes)",
   "VALIDAR_POTE_V2": "PASSA",
   "OBJETOS_NO_POTE": 7,
-  "RECUSADOS": [
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-c48c23e1b62219e6ef8bf358"
-   }
-  ]
+  "RECUSADOS": []
  },
  "R9_MANUAL": {
   "FICHEIRO": "C:\\Users\\London1\\sintonia-sala-italia\\intelligence-experimental\\PARA-O-CASCO-R9\\POTE-R9-PARA_CLIENTE.json",
@@ -302,23 +290,21 @@
   ]
  },
  "CONTROLE_FORA_DA_R9": {
-  "AFIRMACOES_COM_PROVA_COMPLETA": 6,
+  "AFIRMACOES_COM_PROVA_COMPLETA": 5,
   "ITENS": [
    "derived:21",
    "derived:7",
    "derived:911",
-   "derived:918",
-   "derived:busca-1807bb3212f8763d"
+   "derived:918"
   ],
   "FONTES": [
    "IT-T10-018",
-   "IT-T12-028",
    "IT-T3-008",
    "IT-T5-010",
    "IT-T5-090"
   ],
   "ORIGENS_DO_TEMPO": {
-   "LITERAL": 4,
+   "LITERAL": 3,
    "CABECALHO_D147": 2,
    "RELATIVA_ANCORADA_D149": 0,
    "RELATIVO_D63": 0
@@ -363,14 +349,6 @@
     "FACT_TIME": "15 febbraio 2013",
     "ORIGEM": "LITERAL",
     "FACT_LOCATION": "Roma"
-   },
-   {
-    "ITEM_ID": "derived:busca-1807bb3212f8763d",
-    "SOURCE_ID": "IT-T12-028",
-    "TRECHO": "L’analisi dei dati del monitoraggio, svolto nel periodo 1° maggio - 15 ottobre di ogni anno, ha consentito di valutare la dinamica di popolazione del fitofago invasivo nel corso degli anni in Campania e identificare le a",
-    "FACT_TIME": "15 ottobre",
-    "ORIGEM": "LITERAL",
-    "FACT_LOCATION": "Campania"
    }
   ]
  },
