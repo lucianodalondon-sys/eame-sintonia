@@ -1534,197 +1534,264 @@ class OMotivoViajaNumCampo(unittest.TestCase):
         self.assertEqual(af['FACT_LOCATION']['MOTIVO'], AD.LUGARES_CONCORRENTES)
 
 
-class AClasseFatoObservadoEsperaOVocabulario(unittest.TestCase):
-    """DT-FATO-OBSERVADO (coordenador + red team, 30/09 ~11:45) — PREPARADO, NÃO IMPLEMENTADO.
+class AClasseObservacaoMedida5D(unittest.TestCase):
+    """CONTRATO §5-D · a classe `OBSERVACAO_MEDIDA`, versionada pelo dono do contrato.
 
-    A decisão criou a classe factual `FATO_OBSERVADO`, distinta de `ALERTA_EVENTO`, para o
-    facto **medido** no campo. Ela fecha a lacuna que o §5-C descobriu: o vocabulário tinha
-    cinco classes e nenhuma delas era «facto observado», e por isso a chuva medida caía em
-    `ALERTA_EVENTO` **por sobra**.
+    O §5-C fechou a sobra e **descobriu** uma lacuna: o vocabulário tinha cinco classes e
+    nenhuma delas era «alguém mediu e escreveu o número». A DT-FATO-OBSERVADO criou a classe e
+    o dono versionou-a. Este ficheiro testa **exatamente** o que ele versionou.
 
-    ⚠️ **A ORDEM É LEI AQUI, E NÃO É MINHA:** quem versiona o vocabulário (a classe, as marcas
-    aceites e o tempo exigido) é o **dono do contrato**, no `CONTRATO-CONSUMO-AFIRMACOES.md` e
-    no validador. O produtor **classifica depois**. Por isso estes testes estão escritos e
-    **estão a falhar**, de propósito, à espera dessa versão.
+        A MARCA É DUAS COISAS, NÃO UMA: QUEM MEDIU E QUANTO MEDIU.
+        UMA SÓ DELAS É CONVERSA SOBRE O TEMPO; AS DUAS SÃO UMA MEDIÇÃO.
 
-        CLASSIFICAR ANTES DE O VOCABULÁRIO EXISTIR SERIA O PRODUTOR A INVENTAR
-        A PALAVRA QUE A INTELLIGENCE VAI TER DE ACEITAR.
+    Textos **sintéticos**, como manda o cabeçalho deste ficheiro: as formas reais entram como
+    FORMA, nunca o trecho da R9."""
 
-    **Porque `expectedFailure` e não um teste vermelho simples.** Um teste vermelho deixa a
-    suíte vermelha, e uma suíte vermelha que *devia* estar vermelha é indistinguível de uma
-    regressão de verdade — foi exatamente o que me custou horas a separar nesta bancada. Com
-    `expectedFailure` a falha fica **declarada e contada**, e no dia em que alguém implementar
-    a classe o `unittest` passa a reportar **unexpected success**, que a bateria por nome lê
-    como **FAIL**. É um arame de tropeço, não um `skip`: `skip` é o que passa por vazio.
+    #: o controlo bom FORA da R9 que a DT pede — rede de estações, não boletim
+    CONTROLE_FORA_DA_R9 = ('Le piogge osservate il 12 aprile 2026 a Modena hanno registrato '
+                           '41,2 mm nelle stazioni della rete.')
+    COM_SCARTO = ('La grandinata osservata il 12 aprile 2026 a Cuneo ha registrato uno scarto '
+                  'di + 6°C sulle massime.')
 
-    As regras da DT que estes testes medem:
-      · §5-C mantém-se: sem marca **escrita** no `EVIDENCE_SPAN`, fica `NAO SEI`;
-      · a marca de medição é **textual, dentro do trecho, com offset**;
-      · `FACT_TIME` e `FACT_LOCATION` continuam exigidos, com posição;
-      · a âncora do campo do leitor vivo **não** conta como marca (a opção 2 foi recusada);
-      · **não** se adapta a regra para dar 2/2 no canário.
+    def _um(self, texto, **extra):
+        afs = _produzir(texto, published_at=extra.pop('published_at', '2026-05-10'), **extra)
+        self.assertEqual(len(afs), 1, 'o texto deste teste e UMA afirmacao: %d' % len(afs))
+        return afs[0]
 
-    Os textos aqui são **sintéticos**, como manda o cabeçalho deste ficheiro: as duas formas
-    reais que a DT cita («scarto climatico registrato», «accumuli … si sono registrati» + mm)
-    entram como FORMA, nunca como o trecho da R9.
-    """
-
-    #: o nome é fechado pelo dono do contrato; o produtor não o inventa
-    NOME_PROPOSTO = 'FATO_OBSERVADO'
-
-    MEDIDO_SCARTO = ('Lo scarto climatico registrato nella settimana scorsa e stato di + 6 °C '
-                     'sulle massime in provincia di Cuneo.')
-    MEDIDO_ACCUMULI = ('Gli accumuli settimanali si sono registrati in provincia di Asti '
-                       'rispettivamente con 46.8 mm e 32,8 mm.')
-    #: o controle bom FORA da R9 que a DT pede. ⚠️ Tem «osservate» E a medicao: a marca de
-    #: medicao SOZINHA nao ancora a data (medido — ver
-    #: test_a_marca_de_medicao_SOZINHA_nao_ancora_a_data).
-    MEDIDO_FORA_DA_R9 = ('Le piogge osservate il 12 aprile 2026 in provincia di Verona hanno '
-                         'registrato 12,4 mm.')
-    #: a frase do tipo ARIF: fala do tempo mas NÃO mede nada. A DT proíbe prometê-la.
-    SEM_MEDICAO = ("L'Italia in questo contesto rimaneva interessata dal promontorio nord "
-                   'africano il 12 aprile 2026.')
-
-    # ── o arame de tropeço: verde HOJE, vermelho no dia em que o dono versionar ──
-    def test_ARAME_o_vocabulario_ainda_NAO_tem_a_classe(self):
-        """Quando este teste reprovar, é porque o dono versionou o vocabulário — e aí é hora de
-        implementar e de tirar os `expectedFailure` abaixo.
-
-        Ele existe para que a espera seja **visível**. Uma decisão em espera sem arame de
-        tropeço é uma decisão esquecida."""
-        self.assertNotIn(self.NOME_PROPOSTO, AD.CLAIM_KINDS,
-                         'o dono versionou a classe: implemente a DT-FATO-OBSERVADO e retire '
-                         'os expectedFailure desta classe de testes')
+    def test_a_classe_esta_no_vocabulario_fechado(self):
+        self.assertIn('OBSERVACAO_MEDIDA', AD.CLAIM_KINDS)
         self.assertEqual(sorted(AD.CLAIM_KINDS),
-                         ['ALERTA_EVENTO', 'CIENCIA_FICHA', 'PRECO', 'RECOMENDACAO',
-                          'REGULATORIO'],
-                         'o vocabulário fechado mudou; confira a DT antes de seguir')
+                         ['ALERTA_EVENTO', 'CIENCIA_FICHA', 'OBSERVACAO_MEDIDA', 'PRECO',
+                          'RECOMENDACAO', 'REGULATORIO'],
+                         'o vocabulário fechado mudou; confira o §5-D antes de seguir')
 
-    def test_hoje_o_facto_medido_fica_NAO_SEI_e_isso_esta_correto(self):
-        """O estado de HOJE, medido e declarado — não é um defeito à espera de conserto.
-
-        Enquanto a classe não existir, `NAO SEI` é a resposta certa pelo §5-C. O que está
-        errado é a **lacuna do vocabulário**, não o produtor."""
-        for frase in (self.MEDIDO_SCARTO, self.MEDIDO_ACCUMULI, self.MEDIDO_FORA_DA_R9):
-            af = _produzir(frase, published_at='2026-05-10')[0]
-            self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI, frase[:50])
-            self.assertEqual(af['CLAIM_KIND']['MARCAS'], [], frase[:50])
-
-    def test_e_o_papel_e_o_lugar_do_facto_medido_JA_estao_certos(self):
-        """A parte que já funciona, e que a DT não pede para mexer: a data e o lugar do facto
-        medido já saem corretos. O que falta é só a etiqueta."""
-        af = _produzir(self.MEDIDO_FORA_DA_R9, published_at='2026-05-10')[0]
-        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
-        self.assertEqual(af['FACT_TIME']['VALOR'], '12 aprile 2026')
-        self.assertEqual(af['FACT_LOCATION']['VALOR'], 'Verona')
-        self.assertIsNotNone(af['FACT_LOCATION']['ONDE'])
-
-    def test_a_marca_de_medicao_SOZINHA_nao_ancora_a_data(self):
-        """⚠️ MEDIDO, e o dono precisa disto ANTES de versionar o vocabulário.
-
-        A DT diz que `FACT_TIME` e `FACT_LOCATION` continuam exigidos. Mas as duas formas que
-        ela nomeia como marca — «scarto climatico registrato» e «accumuli … si sono registrati»
-        — **não fazem o leitor vivo prender a data ao acontecimento**. Numa frase isolada com
-        data escrita, o papel sai `NAO SEI`:
-
-            «Lo scarto climatico registrato il 12 aprile 2026 …»        -> NAO SEI
-            «Gli accumuli si sono registrati il 12 aprile 2026 …»       -> NAO SEI
-            «Le piogge osservate il 12 aprile 2026 …»                   -> ACONTECIMENTO
-
-        Nos trechos reais da R9 o papel **era** `ACONTECIMENTO` — mas a data vinha do
-        **cabeçalho da secção** (`CABECALHO_D147` / `RELATIVA_ANCORADA_D149`), não de dentro do
-        trecho. Ou seja:
-
-            A CLASSE VAI DEPENDER DE UM CABEÇALHO QUE NEM TODA A FONTE TEM.
-
-        Onde não houver cabeçalho a governar, um facto medido com data escrita no próprio trecho
-        fica sem `FACT_TIME` e a classe não se aplica. Isto não é um defeito que a DT me tenha
-        pedido para corrigir (mexer na lista de âncoras é do leitor vivo, `fato_do_texto`), e
-        **não o corrigi**. Está medido aqui para a decisão do vocabulário ser tomada sabendo
-        quantas vezes a classe pode realmente disparar."""
-        so_marca = ('Lo scarto climatico registrato il 12 aprile 2026 in provincia di Verona '
-                    'e stato di + 6 gradi.')
-        af = _produzir(so_marca, published_at='2026-05-10')[0]
-        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], NAO_SEI)
-        self.assertEqual(af['FACT_LOCATION']['VALOR'], 'Verona')
-        # com a âncora do vivo ao lado da medição, a data prende
-        com_ancora = _produzir(self.MEDIDO_FORA_DA_R9, published_at='2026-05-10')[0]
-        self.assertEqual(com_ancora['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
-
-    # ── o que a DT manda, e que só passa depois de o dono versionar ──────────
-    @unittest.expectedFailure
     def test_A_MARCA_DE_MEDICAO_ESCRITA_DA_A_CLASSE(self):
-        """DT · «a marca de medição tem de ser textual, dentro do trecho e com offset»."""
-        for frase in (self.MEDIDO_SCARTO, self.MEDIDO_ACCUMULI, self.MEDIDO_FORA_DA_R9):
-            af = _produzir(frase, published_at='2026-05-10')[0]
-            self.assertEqual(af['CLAIM_KIND']['VALOR'], self.NOME_PROPOSTO, frase[:50])
+        for frase in (self.CONTROLE_FORA_DA_R9, self.COM_SCARTO):
+            af = self._um(frase)
+            self.assertEqual(af['CLAIM_KIND']['VALOR'], 'OBSERVACAO_MEDIDA', frase[:50])
+            self.assertEqual(af['CLAIM_KIND']['MARCAS'], ['OBSERVACAO_MEDIDA'], frase[:50])
 
-    @unittest.expectedFailure
-    def test_A_MARCA_VIAJA_COM_O_OFFSET_DENTRO_DO_TRECHO(self):
-        """DT · a marca não é um sim/não: ela diz ONDE está, como o lugar já faz.
+    def test_A_MARCA_VIAJA_COM_AS_DUAS_PARTES_E_O_OFFSET(self):
+        """§5-D · `CLAIM_KIND.MARCA_DE_MEDICAO = {VERBO, VALOR}`, cada um `{INICIO,FIM,TRECHO}`.
 
-        Sem offset, quem consome não pode conferir a prova — e uma classe sem prova conferível
-        é a mesma promessa vazia que o `LITERAL` com BASIS de fora já foi."""
-        af = _produzir(self.MEDIDO_SCARTO, published_at='2026-05-10')[0]
-        onde = af['CLAIM_KIND'].get('ONDE')
-        self.assertIsNotNone(onde, 'a marca de medição tem de trazer o offset')
+        O G0 confere três coisas, e o teste confere as mesmas: `texto[INICIO:FIM] == TRECHO`, a
+        posição **dentro** do `EVIDENCE_SPAN`, e o TRECHO no vocabulário."""
+        linha = _linha(self.CONTROLE_FORA_DA_R9, published_at='2026-05-10')
+        af = AD.afirmacoes_do_item(linha)['AFIRMACOES'][0]
+        m = af['CLAIM_KIND']['MARCA_DE_MEDICAO']
+        self.assertEqual(sorted(x for x in m if x != 'LEI'), ['VALOR', 'VERBO'])
         a, b = af['POSICAO']['INICIO'], af['POSICAO']['FIM']
-        self.assertLessEqual(a, onde['INICIO'])
-        self.assertLessEqual(onde['FIM'], b)
-        self.assertIn(onde['TRECHO'], af['TRECHO_LITERAL'])
+        for parte in ('VERBO', 'VALOR'):
+            p = m[parte]
+            self.assertEqual(linha['texto'][p['INICIO']:p['FIM']], p['TRECHO'], parte)
+            self.assertLessEqual(a, p['INICIO'], parte)
+            self.assertLessEqual(p['FIM'], b, parte)
+        self.assertEqual(m['VERBO']['TRECHO'].lower(), 'registrato')
+        self.assertEqual(m['VALOR']['TRECHO'].replace(' ', ''), '41,2mm')
 
-    def test_SEM_MEDICAO_NO_TRECHO_CONTINUA_NAO_SEI(self):
-        """DT · «NÃO prometer o ARIF: só entra se a prova do trecho o sustentar».
+    def test_o_offset_da_marca_e_ABSOLUTO_no_documento(self):
+        """Um offset relativo ao trecho passaria a 1.ª conferência do G0 e falharia a 2.ª — uma
+        prova que aponta para o sítio errado é pior do que nenhuma prova."""
+        recheio = 'Testo di apertura che non misura nulla e serve solo a empurrar o offset.\n'
+        linha = _linha(recheio + self.CONTROLE_FORA_DA_R9, published_at='2026-05-10')
+        af = _que_diz(AD.afirmacoes_do_item(linha)['AFIRMACOES'], 'Le piogge osservate')
+        m = af['CLAIM_KIND']['MARCA_DE_MEDICAO']
+        self.assertGreater(m['VERBO']['INICIO'], len(recheio) - 1,
+                           'o offset nao pode ser relativo ao trecho')
+        self.assertEqual(linha['texto'][m['VERBO']['INICIO']:m['VERBO']['FIM']],
+                         m['VERBO']['TRECHO'])
 
-        A frase fala do tempo e tem data e lugar — e **não mede nada**.
-
-        ⚠️ ESTE PASSA HOJE, e por isso NÃO leva `expectedFailure`. Eu tinha-o marcado como «a
-        falhar» e o `unittest` respondeu **unexpected success** — bem. Os controles NEGATIVOS
-        são verdes hoje (tudo é `NAO SEI`) e têm de **continuar** verdes depois da classe: são
-        eles que impedem `FATO_OBSERVADO` de virar a nova sobra. Marcá-los como falha esperada
-        seria pedir que passassem a classificar isto, que é o contrário do que a DT quer."""
-        af = _produzir(self.SEM_MEDICAO, published_at='2026-05-10')[0]
+    # ── os cinco ataques da DT, agora como testes ────────────────────────────
+    def test_DT1_sem_o_VERBO_nao_ha_classe(self):
+        af = self._um('Le piogge osservate il 12 aprile 2026 a Modena hanno dato 41,2 mm.')
         self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
-        self.assertNotEqual(af['CLAIM_KIND']['VALOR'], self.NOME_PROPOSTO)
+        self.assertNotIn('OBSERVACAO_MEDIDA', af['CLAIM_KIND']['MARCAS'])
 
-    def test_A_ANCORA_DO_CAMPO_NAO_CONTA_COMO_MARCA(self):
-        """DT · a opção (2) foi **recusada**. Uma frase que o leitor vivo prende ao campo, mas
-        que não escreve medição nenhuma, continua `NAO SEI`."""
-        af = _produzir('La grandinata osservata il 12 aprile 2026 ha colpito i frutteti di '
-                       'Cuneo.', published_at='2026-05-10')[0]
-        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
+    def test_DT1_sem_o_VALOR_nao_ha_classe(self):
+        af = self._um('Le piogge osservate il 12 aprile 2026 a Modena hanno registrato molto.')
         self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
+        self.assertNotIn('OBSERVACAO_MEDIDA', af['CLAIM_KIND']['MARCAS'])
 
-    @unittest.expectedFailure
-    def test_FATO_OBSERVADO_NAO_SE_MISTURA_COM_AS_OUTRAS_CLASSES(self):
-        """DT · «distinta de ALERTA_EVENTO e de sinal/oportunidade». Duas marcas no mesmo
-        trecho continuam a dar `NAO SEI` — escolher uma seria inferir."""
-        af = _produzir('Il convegno del 12 aprile 2026 a Verona: lo scarto climatico '
-                       'registrato e stato di + 6 °C.', published_at='2026-05-10')[0]
+    def test_DT1_percentagem_e_euro_NAO_sao_valor_medido(self):
+        """§5-D · «percentagem e euro NÃO contam; são de outras classes»."""
+        for unidade in ('41,2 %', '41,2 euro', '41,2 €'):
+            self.assertIsNone(AD._RE_VALOR_MEDIDO.search('hanno registrato %s a Modena' % unidade),
+                              unidade)
+        for unidade in ('41,2 mm', '6°C', '+ 6 °C', '1013 hPa', '12 km/h', '3 m/s', '5 cm'):
+            self.assertIsNotNone(AD._RE_VALOR_MEDIDO.search('registrato %s' % unidade), unidade)
+
+    def test_DT2_evento_no_mesmo_trecho_da_NAO_SEI(self):
+        """§5-D · `OBSERVACAO_MEDIDA:MARCA_DE_OUTRA_CLASSE`. Duas marcas: escolher seria inferir."""
+        af = self._um('Il convegno osservato il 12 aprile 2026 a Verona ha registrato 41,2 mm.')
         self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
         self.assertEqual(sorted(af['CLAIM_KIND']['MARCAS']),
-                         ['ALERTA_EVENTO', self.NOME_PROPOSTO])
+                         ['ALERTA_EVENTO', 'OBSERVACAO_MEDIDA'])
 
-    def test_a_classe_exige_FACT_TIME_E_FACT_LOCATION_com_posicao(self):
-        """DT · «FACT_TIME e FACT_LOCATION continuam exigidos, com posição»."""
-        af = _produzir('Lo scarto climatico registrato e stato di + 6 °C.')[0]
-        self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI,
-                         'sem tempo nem lugar, a marca de medicao sozinha nao da a classe')
+    def test_DT2_ato_regulatorio_no_mesmo_trecho_da_NAO_SEI(self):
+        af = self._um('Il decreto osservato il 12 aprile 2026 a Verona ha registrato 41,2 mm.')
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
+        self.assertIn('REGULATORIO', af['CLAIM_KIND']['MARCAS'])
+
+    def test_DT2_verbo_no_FUTURO_nao_e_uma_medicao_feita(self):
+        """§5-D · «o VERBO não vem precedido de auxiliar de futuro»."""
+        for frase in ('a Modena saranno registrati 41,2 mm',
+                      'a Modena verranno registrati 41,2 mm',
+                      'a Modena sarà registrato 41,2 mm'):
+            self.assertIsNone(AD.marca_de_medicao(frase, 0, len(frase)), frase)
+        feito = 'a Modena sono stati registrati 41,2 mm'
+        self.assertIsNotNone(AD.marca_de_medicao(feito, 0, len(feito)))
+
+    def test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe(self):
+        """§5-D · `FACT_LOCATION:ORIGEM_<x>_NAO_E_TEXT`. O lugar do cabeçalho é verdadeiro, mas
+        não é **desta frase** — e a classe promete que alguém mediu ALI."""
+        af = _que_diz(_produzir(BOLETIM), 'Le grandinate sono state osservate')
+        self.assertEqual(af['FACT_LOCATION']['LOCATION_SOURCE'], 'TEXT',
+                         'o boletim deste teste escreve o lugar no trecho; se mudar, o teste '
+                         'deixa de medir o que quer')
+        # e a razão, isolada na função que decide
+        self.assertIsNotNone(AD._lugar_sustenta_a_medicao(
+            {'VALOR': 'Cuneo', 'LOCATION_SOURCE': 'SECTION_HEADER', 'ONDE': None}))
+        self.assertIsNotNone(AD._lugar_sustenta_a_medicao(
+            {'VALOR': 'Cuneo', 'LOCATION_SOURCE': 'TEXT', 'ONDE': None}))
+        self.assertIsNotNone(AD._lugar_sustenta_a_medicao(
+            {'VALOR': 'Cuneo', 'LOCATION_SOURCE': 'TEXT',
+             'ONDE': {'DENTRO_DO_ALVO': False}}))
+        self.assertIsNone(AD._lugar_sustenta_a_medicao(
+            {'VALOR': 'Cuneo', 'LOCATION_SOURCE': 'TEXT',
+             'ONDE': {'DENTRO_DO_ALVO': True}}))
+
+    def test_DT4_sem_lugar_no_trecho_a_classe_diz_o_que_faltou(self):
+        """E o `PORQUE` tem de dizer que a medição **estava** escrita e foi o lugar que faltou —
+        senão quem lê conserta a coisa errada."""
+        af = self._um('Le piogge osservate il 12 aprile 2026 hanno registrato 41,2 mm.')
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
+        self.assertIn('marca de medicao esta escrita', af['CLAIM_KIND']['PORQUE'])
+
+    def test_DT5_Europa_2004_com_Italia_2012_nao_passa_pela_classe_nova(self):
+        """O BLK-1 aplicado à classe nova: a guarda dos concorrentes não se contorna."""
+        af = self._um('La cimice osservata in Europa nel 2004 e in Italia nel 2012 ha '
+                      'registrato 41,2 mm.')
+        self.assertEqual(af['TEMPOS_NO_TRECHO'], 2)
+        self.assertGreaterEqual(af['LUGARES_NO_TRECHO'], 2)
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
+
+    def test_DT3_a_classe_exige_o_ano_e_o_papel(self):
+        """§5-D · «as mesmas regras de ALERTA_EVENTO: ano escrito, início ≤ captura, uma das
+        quatro origens, sem concorrência»."""
+        sem_ano = self._um('Le piogge osservate a marzo a Modena hanno registrato 41,2 mm.')
+        self.assertEqual(sem_ano['CLAIM_KIND']['VALOR'], NAO_SEI)
+        futuro = self._um('A Modena le piogge previste il 12 aprile 2027 hanno registrato '
+                          '41,2 mm.', raw_captured_at='2026-05-20 11:07:15+00')
+        self.assertNotEqual(futuro['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
+        self.assertEqual(futuro['CLAIM_KIND']['VALOR'], NAO_SEI)
+
+    def test_a_ancora_do_campo_NAO_conta_como_marca(self):
+        """§5-D · «cultura, lugar ou "vigneti" nunca satisfazem VERBO nem VALOR»."""
+        af = self._um('La grandinata osservata il 12 aprile 2026 ha colpito i vigneti di Cuneo.')
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
+        self.assertEqual(af['CLAIM_KIND']['MARCAS'], [])
+
+    def test_o_vocabulario_NAO_se_alargou_por_conveniencia(self):
+        """§5-D · «se aparecer uma observação medida legítima com outro verbo ("caduti",
+        "misurazioni hanno dato"), ela fica NAO SEI até o dono do contrato decidir».
+
+        Este teste existe para que alargar a lista seja um ato **deliberado**, e não algo que
+        acontece porque um caso incomodava."""
+        for fora in ('caduti', 'misurazioni', 'gradi', 'osservato', 'rilevamento'):
+            self.assertIsNone(AD._RE_VERBO_DE_MEDICAO.search(fora), fora)
+        for dentro in ('registrato', 'registrati', 'rilevata', 'rilevate', 'misurato'):
+            self.assertIsNotNone(AD._RE_VERBO_DE_MEDICAO.search(dentro), dentro)
+
+    def test_LIMITE_MEDIDO_a_marca_sozinha_nao_ancora_a_data(self):
+        """⚠️ O LIMITE DA CLASSE, MEDIDO — e o dono precisa dele para saber quantas vezes ela
+        pode disparar.
+
+        As duas formas que a DT nomeia **não** fazem o leitor vivo prender a data:
+
+            «Lo scarto climatico registrato il 12 aprile 2026 …»   -> papel NAO SEI
+            «Il 12 aprile 2026 le stazioni hanno registrato 41,2 mm …» -> papel NAO SEI
+            «Le piogge osservate il 12 aprile 2026 … registrato …»  -> ACONTECIMENTO
+
+        Nos trechos reais da R9 o papel **era** ACONTECIMENTO porque a data vinha do CABEÇALHO
+        da secção. Ou seja: **a classe depende de um cabeçalho que nem toda a fonte tem**, ou de
+        uma palavra de observação ao lado da medição. Mexer na lista de âncoras é do leitor vivo
+        (`fato_do_texto`) e o §5-D não o pediu — **não o toquei**."""
+        so_marca = 'Il 12 aprile 2026 le stazioni hanno registrato 41,2 mm a Modena.'
+        af = self._um(so_marca)
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], NAO_SEI)
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
+        self.assertEqual(af['CLAIM_KIND']['MARCAS'], ['OBSERVACAO_MEDIDA'],
+                         'a marca esta escrita; o que falta e o tempo')
+        # com a âncora ao lado, dispara
+        self.assertEqual(self._um(self.CONTROLE_FORA_DA_R9)['CLAIM_KIND']['VALOR'],
+                         'OBSERVACAO_MEDIDA')
 
 
-class OsMutantesDaDTEstaoDeclaradosENaoEsquecidos(unittest.TestCase):
-    """DT-FATO-OBSERVADO §MUTANTES · os cinco ataques + o controle bom, **declarados antes de
-    existir código para atacar**.
+class OProdutorDizDeQueCommitSaiu(unittest.TestCase):
+    """Pedido do Intelligence owner (30/09): o artefato tem de dizer de que COMMIT saiu.
 
-    Um mutante não pode ser escrito contra código que não existe: ele sairia `NAO_APLICADO`, e
-    `NAO_APLICADO` não é um mutante morto — é um ataque que nunca aconteceu. Por isso eles
-    vivem em `MUTANTES_PENDENTES`, que o arnês **declara e conta** sem os correr.
+    O selo dos dois ficheiros já dizia QUE REGRA correu — e é a prova forte. Mas não dizia de
+    que commit, e isso custou: o dono do contrato teve de descobrir por **arqueologia no Git**
+    qual produtor gerou o artefato do C8, comparando o par de sha256 ao longo do ramo. Concluiu
+    que era a família `197641c2b`, não a que supunha.
 
-        UMA LISTA DE MUTANTES POR FAZER É DÍVIDA DECLARADA.
-        A MESMA LISTA ESQUECIDA É UMA GARANTIA QUE NINGUÉM VAI GUARDAR.
+        UM ARTEFATO QUE OBRIGA A ARQUEOLOGIA PARA SE SABER QUEM O FEZ
+        É UM ARTEFATO QUE VAI SER ATRIBUÍDO AO PRODUTOR ERRADO.
     """
 
-    def test_os_cinco_ataques_da_DT_mais_o_controle_estao_na_lista(self):
+    def test_o_commit_viaja_em_cada_afirmacao(self):
+        af = _produzir('La grandinata osservata il 18 febbraio 2026 ha colpito Cuneo.')[0]
+        git = af['PRODUTOR_VERSAO']['GIT']
+        self.assertIn('COMMIT', git)
+        self.assertIn('ARVORE_LIMPA', git)
+        self.assertTrue(git['PORQUE'])
+
+    def test_o_selo_dos_ficheiros_continua_la(self):
+        """O COMMIT **acrescenta**, não substitui: o selo é que prova que a regra é aquela."""
+        v = AD.produtor_versao()
+        self.assertEqual(sorted(v['CODIGO']),
+                         ['leis/afirmacao_do_documento.py', 'leis/tempo_da_afirmacao.py'])
+        for sha in v['CODIGO'].values():
+            self.assertEqual(len(sha), 16)
+
+    def test_o_SHA_NUNCA_viaja_sozinho_sem_dizer_se_a_arvore_estava_limpa(self):
+        """⚠️ Um SHA com a árvore suja **mente**: o código que correu não é o do commit. Por isso
+        `ARVORE_LIMPA` viaja sempre — um SHA sem essa ressalva parece prova e não é."""
+        git = AD.produtor_versao()['GIT']
+        if git['COMMIT'] != NAO_SEI:
+            self.assertIn(git['ARVORE_LIMPA'], (True, False, NAO_SEI))
+            self.assertEqual(len(git['COMMIT']), 40)
+        else:
+            self.assertIn('NAO SEI', str(git['ARVORE_LIMPA']))
+
+    def test_fora_de_um_repositorio_a_resposta_e_NAO_SEI(self):
+        """A mutação corre numa cópia por `git archive`, onde não há commit. Inventar um seria
+        pior do que dizer NAO SEI — e este teste prova que o caminho existe."""
+        import subprocess
+        self.assertIn('subprocess', open(os.path.join(RAIZ, 'leis',
+                                                      'afirmacao_do_documento.py'),
+                                         encoding='utf-8').read())
+        self.assertTrue(hasattr(AD, '_commit_do_codigo'))
+
+
+class OsMutantesDaDTSairamDaDividaEEntraramNaMedicao(unittest.TestCase):
+    """DT-FATO-OBSERVADO §MUTANTES · a dívida declarada, e o dia em que ela foi paga.
+
+    Enquanto a classe não existia, os seis ataques da DT viviam em `MUTANTES_PENDENTES`:
+    declarados, contados e impressos, **sem correr** — porque um mutante escrito contra código
+    que não existe sai `NAO_APLICADO`, e `NAO_APLICADO` não é um mutante morto.
+
+    O dono do contrato versionou o §5-D, a classe nasceu, e eles passaram para a lista que
+    corre. A lista de pendentes **fica**, vazia: ela é o sítio onde uma dívida destas se declara,
+    e apagá-la esconderia que o mecanismo existe.
+
+        UMA LISTA DE MUTANTES POR FAZER É DÍVIDA DECLARADA.
+        A MESMA LISTA APAGADA É UM MECANISMO QUE NINGUÉM VOLTA A USAR.
+    """
+
+    def _harness(self):
         import importlib.util
         caminho = os.path.join(RAIZ, 'provas', 'd158', 'mutar_o_produtor.py')
         spec = importlib.util.spec_from_file_location('_mut_dt', caminho)
@@ -1735,29 +1802,25 @@ class OsMutantesDaDTEstaoDeclaradosENaoEsquecidos(unittest.TestCase):
             spec.loader.exec_module(mod)
         finally:
             sys.argv = guardado
-        nomes = sorted(m[0] for m in mod.MUTANTES_PENDENTES)
-        self.assertEqual(nomes, sorted([
-            'DT_FO_1_RETIRAR_A_MARCA',
-            'DT_FO_2_TROCAR_POR_EVENTO_ATO_OU_CONGRESSO',
-            'DT_FO_3_TROCAR_O_TEMPO_PELA_PUBLICACAO',
-            'DT_FO_4_TROCAR_O_LUGAR_PELO_LUGAR_DA_FONTE',
-            'DT_FO_5_MISTURAR_EUROPA_2004_COM_ITALIA_2012',
-            'DT_FO_6_CONTROLE_BOM_FORA_DA_R9',
-        ]), 'a lista de mutantes pendentes da DT mudou sem passar por aqui')
+        return mod
 
-    def test_cada_pendente_diz_porque_ainda_nao_corre(self):
-        import importlib.util
-        caminho = os.path.join(RAIZ, 'provas', 'd158', 'mutar_o_produtor.py')
-        spec = importlib.util.spec_from_file_location('_mut_dt2', caminho)
-        mod = importlib.util.module_from_spec(spec)
-        guardado = sys.argv
-        sys.argv = ['mutar_o_produtor.py']
-        try:
-            spec.loader.exec_module(mod)
-        finally:
-            sys.argv = guardado
-        for nome, porque in ((m[0], m[-1]) for m in mod.MUTANTES_PENDENTES):
-            self.assertTrue(porque and len(porque) > 20, nome)
+    def test_a_divida_esta_paga(self):
+        self.assertEqual(self._harness().MUTANTES_PENDENTES, [],
+                         'ha mutantes por fazer: eles tem de estar declarados aqui, nao '
+                         'esquecidos')
+
+    def test_os_cinco_ataques_da_DT_estao_na_lista_QUE_CORRE(self):
+        nomes = [m[0] for m in self._harness().MUTANTES]
+        for prefixo in ('DT_FO_1a', 'DT_FO_1b', 'DT_FO_1c', 'DT_FO_2a', 'DT_FO_2b',
+                        'DT_FO_3', 'DT_FO_4a', 'DT_FO_4b', 'DT_FO_6a', 'DT_FO_6b'):
+            self.assertTrue(any(n.startswith(prefixo) for n in nomes),
+                            'falta o mutante %s da DT' % prefixo)
+
+    def test_o_mecanismo_da_divida_continua_a_existir(self):
+        """Se alguém apagar a lista, esta reprova — e a próxima dívida fica sem sítio."""
+        mod = self._harness()
+        self.assertTrue(hasattr(mod, 'MUTANTES_PENDENTES'))
+        self.assertIsInstance(mod.MUTANTES_PENDENTES, list)
 
 
 if __name__ == '__main__':

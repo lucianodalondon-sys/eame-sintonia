@@ -196,6 +196,39 @@ MUTANTES = [
      'r"deroga|stabilito\\s+dal|"', 'r"deroga|zzzstabilito\\s+dal|"'),
     ("RT3_A_MARCA_DE_ATO_SEM_SOSTITUITO", "leis/tempo_da_afirmacao.py",
      r'(?:e|è)\s+stat[oa]\s+sostituit)', r'zzzsostituit)'),
+    # ── CONTRATO §5-D · a classe OBSERVACAO_MEDIDA, e os cinco ataques da DT ──
+    # DT_FO_1 · retirar a marca (o bloco, o verbo e o valor: tres portas, tres mutantes)
+    ("DT_FO_1a_A_CLASSE_SEM_A_MARCA_ESCRITA", "leis/afirmacao_do_documento.py",
+     "    if marca and porque_o_lugar_nao_serve is None:\n        marcas.append(OBSERVACAO_MEDIDA)",
+     "    if porque_o_lugar_nao_serve is None:\n        marcas.append(OBSERVACAO_MEDIDA)"),
+    ("DT_FO_1b_O_VALOR_ACEITA_PERCENTAGEM_E_EURO", "leis/afirmacao_do_documento.py",
+     r'_UNIDADES_DE_MEDICAO = r"mm|millimetri|cm|°\s*C|hPa|km/h|m/s"',
+     r'_UNIDADES_DE_MEDICAO = r"mm|millimetri|cm|°\s*C|hPa|km/h|m/s|%|euro|€"'),
+    ("DT_FO_1c_O_VERBO_ACEITA_QUALQUER_PALAVRA", "leis/afirmacao_do_documento.py",
+     r'r"(?<![a-zà-ÿ])(?:registrat|rilevat|misurat)[aoie](?![a-zà-ÿ])", re.I)',
+     r'r"(?<![a-zà-ÿ])(?:registrat|rilevat|misurat|osservat|cadut)[aoie](?![a-zà-ÿ])", re.I)'),
+    # DT_FO_2 · o futuro a contar como medicao feita, e a troca por outra classe
+    ("DT_FO_2a_O_FUTURO_CONTA_COMO_MEDICAO_FEITA", "leis/afirmacao_do_documento.py",
+     "        if _RE_AUXILIAR_DE_FUTURO.search(antes):", "        if False:"),
+    ("DT_FO_2b_A_CLASSE_NOVA_NAO_EXIGE_TEMPO_NEM_ANO", "leis/afirmacao_do_documento.py",
+     '    EXIGEM_TEMPO = ("ALERTA_EVENTO", OBSERVACAO_MEDIDA)',
+     '    EXIGEM_TEMPO = ("ALERTA_EVENTO",)'),
+    # DT_FO_3 · o offset da marca a deixar de ser absoluto no documento
+    ("DT_FO_3_O_OFFSET_DA_MARCA_FICA_RELATIVO", "leis/afirmacao_do_documento.py",
+     '        verbo = {"INICIO": inicio + m.start(), "FIM": inicio + m.end(), "TRECHO": m.group(0)}',
+     '        verbo = {"INICIO": m.start(), "FIM": m.end(), "TRECHO": m.group(0)}'),
+    # DT_FO_4 · o lugar da fonte ou do cabecalho a sustentar a classe
+    ("DT_FO_4a_O_LUGAR_DO_CABECALHO_SUSTENTA_A_CLASSE", "leis/afirmacao_do_documento.py",
+     '    if lugar.get("LOCATION_SOURCE") != BC.TEXT:', '    if False:'),
+    ("DT_FO_4b_O_LUGAR_SEM_POSICAO_SUSTENTA_A_CLASSE", "leis/afirmacao_do_documento.py",
+     '    if not onde:\n        return "o lugar nao traz posicao (§5-D exige ONDE)"',
+     '    if False:\n        return "o lugar nao traz posicao (§5-D exige ONDE)"'),
+    # DT_FO_6 · o commit que o Intelligence owner pediu, e a ressalva que o torna honesto
+    ("DT_FO_6a_O_COMMIT_NAO_VIAJA_NO_ARTEFATO", "leis/afirmacao_do_documento.py",
+     '            "GIT": _commit_do_codigo(),', ''),
+    ("DT_FO_6b_O_SHA_VIAJA_SEM_DIZER_SE_A_ARVORE_ESTAVA_LIMPA", "leis/afirmacao_do_documento.py",
+     '        "ARVORE_LIMPA": (sujos == "") if (sha and sujos is not None) else NAO_SEI,',
+     '        "ARVORE_LIMPA": True,'),
     # ── RT3 §7 · a precisao nao pode contradizer a origem ────────────────────
     ("RT3_LITERAL_VOLTA_A_VIAJAR_COM_CALCULADA", "leis/tempo_da_afirmacao.py",
      '        if origem == LITERAL:\n            precisao = precisao.replace("+CALCULADA", "")',
@@ -342,29 +375,12 @@ def correr_a_bateria(raiz: Path):
 # Entao ficam AQUI: declarados, contados e impressos em cada corrida, fora do laco que mede.
 # `tests/test_o_produtor_de_afirmacoes.py::OsMutantesDaDTEstaoDeclaradosENaoEsquecidos`
 # reprova se alguem mexer nesta lista sem passar por lá.
-#: (nome, o que o ataque faz, porque ainda nao corre)
-MUTANTES_PENDENTES = [
-    ("DT_FO_1_RETIRAR_A_MARCA",
-     "a marca de medicao escrita deixa de ser exigida: a classe volta a ser dada por sobra",
-     "a marca de medicao ainda nao existe no codigo; espera a versao do vocabulario pelo dono"),
-    ("DT_FO_2_TROCAR_POR_EVENTO_ATO_OU_CONGRESSO",
-     "o facto medido sai como ALERTA_EVENTO, REGULATORIO ou congresso em vez da classe propria",
-     "as duas classes ainda nao coexistem; sem a classe nova nao ha troca para atacar"),
-    ("DT_FO_3_TROCAR_O_TEMPO_PELA_PUBLICACAO",
-     "o FACT_TIME do facto medido passa a ser o PUBLISHED_AT",
-     "o mutante irmao (FACT_TIME_VIRA_A_PUBLICACAO) ja existe e morre; este exige a classe "
-     "nova para provar que ela nao abre uma segunda porta ao mesmo defeito"),
-    ("DT_FO_4_TROCAR_O_LUGAR_PELO_LUGAR_DA_FONTE",
-     "o FACT_LOCATION do facto medido passa a ser o lugar declarado da fonte",
-     "idem: o irmao (FACT_LOCATION_VIRA_O_LUGAR_DA_FONTE) morre hoje, e este mede a porta nova"),
-    ("DT_FO_5_MISTURAR_EUROPA_2004_COM_ITALIA_2012",
-     "o BLK-1 aplicado a classe nova: dois tempos/lugares concorrentes e a classe a passar",
-     "a guarda dos concorrentes ja morre nos mutantes BLK1_*; este prova que a classe nova "
-     "nao a contorna"),
-    ("DT_FO_6_CONTROLE_BOM_FORA_DA_R9",
-     "um facto medido FORA da R9 que TEM de ser classificado (o controle positivo da DT)",
-     "nao e um ataque ao codigo, e um caso que so pode ser medido depois de a classe existir"),
-]
+# ✅ 30/09, DEPOIS: o dono do contrato versionou o §5-D e a classe existe. Os seis que estavam
+# aqui SAIRAM DA DIVIDA e entraram na lista que corre (procurar `DT_FO_`). A lista fica, vazia,
+# de proposito: ela e o sitio onde uma divida destas se declara, e apaga-la esconderia que o
+# mecanismo existe.
+#: (nome, o que o ataque faz, porque ainda nao corre) — vazia quando nao ha divida
+MUTANTES_PENDENTES = []
 
 
 def conferir_os_alvos() -> list:

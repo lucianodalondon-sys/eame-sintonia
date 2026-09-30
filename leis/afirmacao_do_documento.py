@@ -475,7 +475,10 @@ def _lugar(leitura: dict, texto: str, inicio: int, fim: int, secao: dict) -> dic
 #   · a CLASSE do claim (`CLAIM_KIND`), que decide QUE TEMPO a Intelligence vai exigir;
 #   · os campos que o produtor NUNCA escreve. Escrever um deles seria a Collection a
 #     decidir liberacao, e a afirmacao inteira e recusada com esse motivo.
-CLAIM_KINDS = ("ALERTA_EVENTO", "CIENCIA_FICHA", "PRECO", "REGULATORIO", "RECOMENDACAO")
+#: a classe do facto MEDIDO (contrato §5-D). O nome foi fechado pelo dono do contrato.
+OBSERVACAO_MEDIDA = "OBSERVACAO_MEDIDA"
+CLAIM_KINDS = ("ALERTA_EVENTO", "CIENCIA_FICHA", "PRECO", "REGULATORIO", "RECOMENDACAO",
+               OBSERVACAO_MEDIDA)
 #: Escrever qualquer um destes = PRODUTOR_DECIDIU_LIBERACAO, e a afirmacao nao viaja.
 CAMPOS_PROIBIDOS = ("LIBERADO", "LIBERACAO", "LIBERADO_POR", "LIBERADO_NA_CORRIDA",
                     "CONFERENCIA_DE_LIBERACAO", "NAO_PARA_CLIENTE", "ESPECIE", "USO",
@@ -492,7 +495,79 @@ _RE_ESTUDO = re.compile(r"(?:\b10\.\d{4,9}/\S+|\bdoi\b|\bnct\d{6,}\b|\btrial\s+(
                         r"\bsperimentazion|\bprova\s+sperimentale)", re.I)
 
 
-def classe_do_claim(span: str, tempo: dict) -> dict:
+# ── A MARCA DE MEDICAO (contrato §5-D, classe OBSERVACAO_MEDIDA) ─────────────
+# O §5-C fechou a sobra e DESCOBRIU uma lacuna: o vocabulario tinha cinco classes e nenhuma
+# delas era «alguem mediu e escreveu o numero». A chuva medida caia em ALERTA_EVENTO por nao
+# haver outro sitio. A DT-FATO-OBSERVADO criou a classe e o dono do contrato versionou-a no
+# §5-D — e este bloco escreve exactamente o que ele versionou, nem mais nem menos.
+#
+#     A MARCA E DUAS COISAS, NAO UMA: QUEM MEDIU E QUANTO MEDIU.
+#     UMA SO DELAS E CONVERSA SOBRE O TEMPO; AS DUAS SAO UMA MEDICAO.
+#
+# ⚠️ O VOCABULARIO NAO SE ALARGA AQUI. «caduti», «misurazioni hanno dato» e «gradi» ficam
+# FORA de proposito: o §5-D diz que aumentar a lista e decisao do dono do contrato, sempre com
+# um mutante novo. Alargar por conveniencia — para um caso passar — seria decidir no lugar dele.
+_RE_VERBO_DE_MEDICAO = re.compile(
+    r"(?<![a-zà-ÿ])(?:registrat|rilevat|misurat)[aoie](?![a-zà-ÿ])", re.I)
+#: o auxiliar de futuro ANTES do participio: «saranno registrati» nao e uma medicao feita
+_RE_AUXILIAR_DE_FUTURO = re.compile(
+    r"(?<![a-zà-ÿ])(?:saranno|verranno|sar[àa]|verr[àa])\s+(?:\w+\s+){0,2}$", re.I)
+#: numero + UNIDADE FISICA. Percentagem e euro NAO contam: sao de outras classes (§5-D).
+_UNIDADES_DE_MEDICAO = r"mm|millimetri|cm|°\s*C|hPa|km/h|m/s"
+_RE_VALOR_MEDIDO = re.compile(
+    r"[+\-−]?\s?\d+(?:[.,]\d+)?\s*(?:%s)(?![a-zà-ÿ])" % _UNIDADES_DE_MEDICAO, re.I)
+#: quantas letras antes do verbo se olham para achar o auxiliar de futuro
+JANELA_DO_AUXILIAR = 28
+
+
+def marca_de_medicao(texto: str, inicio: int, fim: int) -> dict | None:
+    """As DUAS partes da marca de medicao, com offset ABSOLUTO no documento, ou None.
+
+    O offset e absoluto de proposito: o G0 confere `texto[INICIO:FIM] == TRECHO` e que a
+    posicao cai DENTRO do EVIDENCE_SPAN. Uma marca com offset relativo ao trecho passaria a
+    primeira conferencia e falharia a segunda — e seria uma prova que aponta para o sitio
+    errado, que e pior do que nenhuma prova."""
+    span = texto[inicio:fim]
+    verbo = None
+    for m in _RE_VERBO_DE_MEDICAO.finditer(span):
+        antes = span[max(0, m.start() - JANELA_DO_AUXILIAR):m.start()]
+        if _RE_AUXILIAR_DE_FUTURO.search(antes):
+            continue                      # «saranno registrati»: ainda nao mediram nada
+        verbo = {"INICIO": inicio + m.start(), "FIM": inicio + m.end(), "TRECHO": m.group(0)}
+        break
+    if verbo is None:
+        return None
+    v = _RE_VALOR_MEDIDO.search(span)
+    if v is None:
+        return None                       # quem mediu sem dizer quanto nao escreveu a medicao
+    return {"VERBO": verbo,
+            "VALOR": {"INICIO": inicio + v.start(), "FIM": inicio + v.end(),
+                      "TRECHO": v.group(0)},
+            "LEI": "CONTRATO-CONSUMO-AFIRMACOES §5-D"}
+
+
+def _lugar_sustenta_a_medicao(lugar: dict | None) -> str | None:
+    """None se o lugar serve a classe; senao a razao pela qual nao serve (§5-D).
+
+    O §5-D exige `LOCATION_SOURCE = TEXT` **com posicao dentro do trecho**. Um lugar vindo do
+    cabecalho territorial e verdadeiro, mas nao e desta frase — e a classe promete que alguem
+    mediu ALI."""
+    if not lugar:
+        return "o trecho nao traz lugar"
+    if lugar.get("VALOR") == NAO_SEI:
+        return "o lugar do facto e NAO SEI"
+    if lugar.get("LOCATION_SOURCE") != BC.TEXT:
+        return ("o lugar veio de %s, nao do texto do trecho (§5-D exige LOCATION_SOURCE = TEXT)"
+                % lugar.get("LOCATION_SOURCE"))
+    onde = lugar.get("ONDE")
+    if not onde:
+        return "o lugar nao traz posicao (§5-D exige ONDE)"
+    if not onde.get("DENTRO_DO_ALVO"):
+        return "a posicao do lugar cai fora do trecho"
+    return None
+
+
+def classe_do_claim(span: str, tempo: dict, *, marca=None, lugar=None) -> dict:
     """A CLASSE do claim, no vocabulario fechado do contrato de consumo.
 
     Duas regras, e so estas:
@@ -537,15 +612,29 @@ def classe_do_claim(span: str, tempo: dict) -> dict:
     # evento. Mesmo caminho da PROD-2 com «punti vendita»: lê-se de lá, não se copia.
     if FT._RE_EVENTO.search(span):
         marcas.append("ALERTA_EVENTO")
+    # ── §5-D · a marca de medicao entra na MESMA lista das outras ─────────────
+    # De propósito: se o trecho trouxer medição E evento (ou ato, ou preço), sao DUAS marcas e a
+    # regra de sempre aplica-se — NAO SEI, porque escolher seria inferir. E isso e exactamente o
+    # `OBSERVACAO_MEDIDA:MARCA_DE_OUTRA_CLASSE` que o G0 recusa do outro lado.
+    porque_o_lugar_nao_serve = _lugar_sustenta_a_medicao(lugar)
+    if marca and porque_o_lugar_nao_serve is None:
+        marcas.append(OBSERVACAO_MEDIDA)
     if len(marcas) > 1:
         return {"VALOR": NAO_SEI, "MARCAS": marcas,
                 "PORQUE": "o trecho traz a marca de %d classes (%s); escolher uma seria inferir"
                           % (len(marcas), ", ".join(marcas))}
-    if marcas and marcas[0] != "ALERTA_EVENTO":
+    #: as classes que, tendo a marca escrita, EXIGEM ainda o papel e o ano (§5-D e §2)
+    EXIGEM_TEMPO = ("ALERTA_EVENTO", OBSERVACAO_MEDIDA)
+    if marcas and marcas[0] not in EXIGEM_TEMPO:
         return {"VALOR": marcas[0], "MARCAS": marcas, "PORQUE": "a marca da classe esta escrita no trecho"}
     faltas = []
     if not marcas:
         faltas.append("nenhuma marca de classe esta escrita no trecho (contrato §5-C)")
+        # ⚠️ §5-D · quando HA marca de medicao e ela nao chegou a entrar, o porque e do LUGAR.
+        # Dizer so «nenhuma marca» esconderia que a medicao esta escrita e o que faltou foi o
+        # lugar do trecho — e quem le tem de saber qual das duas coisas consertar.
+        if marca and porque_o_lugar_nao_serve:
+            faltas.append("a marca de medicao esta escrita, mas %s" % porque_o_lugar_nao_serve)
     if tempo.get("PAPEL") != TA.ACONTECIMENTO:
         faltas.append("o papel da data e %s, nao ACONTECIMENTO" % tempo.get("PAPEL"))
     # ⚠️ A ÂNCORA DO VIVO SAIU DESTA LISTA, E A RAZÃO É QUE ELA RESPONDE A OUTRA PERGUNTA.
@@ -562,7 +651,14 @@ def classe_do_claim(span: str, tempo: dict) -> dict:
         faltas.append("a data nao escreve o ano")
     if faltas:
         return {"VALOR": NAO_SEI, "MARCAS": marcas,
-                "PORQUE": "sem marca de classe, e ALERTA_EVENTO nao e o que sobra: " + "; ".join(faltas)}
+                "PORQUE": "a classe nao se da por sobra (§5-C): " + "; ".join(faltas)}
+    if marcas[0] == OBSERVACAO_MEDIDA:
+        return {"VALOR": OBSERVACAO_MEDIDA, "MARCAS": marcas,
+                "MARCA_DE_MEDICAO": marca,
+                "PORQUE": "o trecho escreve QUEM mediu («%s») e QUANTO («%s»), o lugar esta "
+                          "escrito no proprio trecho com posicao, o papel e ACONTECIMENTO e o "
+                          "ano esta escrito (§5-D)"
+                          % (marca["VERBO"]["TRECHO"], marca["VALOR"]["TRECHO"])}
     return {"VALOR": "ALERTA_EVENTO", "MARCAS": marcas,
             "PORQUE": "a marca de evento tecnico esta escrita no trecho, o papel e ACONTECIMENTO, "
                       "o texto prende a data a um acontecimento, e o ano esta escrito"}
@@ -609,14 +705,60 @@ def _periodo_por_papel(tempo: dict, papel: str) -> dict:
                       % (papel, tempo["PAPEL"])}
 
 
+# ── DE QUE COMMIT SAIU ESTE ARTEFATO (pedido do Intelligence owner, 30/09) ───
+# O selo dos dois ficheiros ja dizia QUE REGRA correu, e e a prova forte: muda a regra, muda o
+# selo. Mas ele nao diz DE QUE COMMIT, e isso custou caro: o dono do contrato teve de descobrir
+# por ARQUEOLOGIA no Git qual produtor gerou o artefato do C8 — comparou o par de sha256 ao
+# longo do ramo para concluir que era a familia 197641c2b, e nao a que ele supunha.
+#
+#     UM ARTEFATO QUE OBRIGA A ARQUEOLOGIA PARA SE SABER QUEM O FEZ
+#     E UM ARTEFATO QUE VAI SER ATRIBUIDO AO PRODUTOR ERRADO.
+#
+# ⚠️ O SHA SOZINHO MENTIRIA. Se a arvore estiver suja, o codigo que correu NAO e o do commit —
+# por isso ARVORE_LIMPA viaja ao lado, e viaja sempre. Um SHA sem essa ressalva e pior do que
+# nenhum: parece prova e nao e. E fora de um repositorio (a copia por `git archive`, onde a
+# mutacao corre) nao ha commit nenhum, e a resposta honesta e NAO SEI.
+_VERSAO = {}
+
+
+def _commit_do_codigo() -> dict:
+    """{COMMIT, ARVORE_LIMPA} do repositorio onde este codigo esta a correr, ou NAO SEI."""
+    if _VERSAO:
+        return dict(_VERSAO)
+    import subprocess
+    def _git(*args):
+        try:
+            r = subprocess.run(("git",) + args, cwd=_AQUI, capture_output=True, text=True,
+                               timeout=20)
+        except (OSError, subprocess.SubprocessError):
+            return None
+        return r.stdout.strip() if r.returncode == 0 else None
+    sha = _git("rev-parse", "HEAD")
+    sujos = _git("status", "--porcelain")
+    _VERSAO.update({
+        "COMMIT": sha or NAO_SEI,
+        "ARVORE_LIMPA": (sujos == "") if (sha and sujos is not None) else NAO_SEI,
+        "PORQUE": ("lido com git rev-parse HEAD no momento da producao; o COMMIT nao se pode "
+                   "escrever DENTRO do commit que o contem, entao ele nomeia o commit de onde "
+                   "o codigo FOI LIDO. Com ARVORE_LIMPA != True o codigo que correu pode nao "
+                   "ser o do commit, e quem consome tem de o saber"
+                   if sha else
+                   "fora de um repositorio git (por exemplo a copia por git archive): nao ha "
+                   "commit para nomear, e inventar um seria pior do que dizer NAO SEI"),
+    })
+    return dict(_VERSAO)
+
+
 def produtor_versao() -> dict:
     """QUEM extraiu, e com que regra (INT-LAW-052). O selo e o sha256 dos dois ficheiros
-    de lei que decidem — muda a regra, muda o selo."""
+    de lei que decidem — muda a regra, muda o selo — e o COMMIT diz de onde eles foram lidos."""
     selo = {}
     for nome in ("afirmacao_do_documento.py", "tempo_da_afirmacao.py"):
         caminho = os.path.join(_AQUI, nome)
-        selo["leis/" + nome] = hashlib.sha256(open(caminho, "rb").read()).hexdigest()[:16]
+        with open(caminho, "rb") as f:
+            selo["leis/" + nome] = hashlib.sha256(f.read()).hexdigest()[:16]
     return {"CONTRATO": CONTRATO, "DECISAO": "D158", "CODIGO": selo,
+            "GIT": _commit_do_codigo(),
             "LEITOR_TEMPORAL": TA.LEITOR_VIVO, "SEM_LLM": True}
 
 
@@ -657,6 +799,10 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
             # offsets); o TRECHO que viaja e o do ORIGINAL, que e o que a conferencia confere.
             _literal(tempo.get("BASIS"), original)
             lugar = _lugar(leitura, original, a, b, s)
+            # §5-D · o offset da marca e ABSOLUTO no documento, e por isso quem o calcula tem de
+            # ser quem conhece `a` e `b`. A `classe_do_claim` recebe-o pronto: uma funcao que so
+            # ve o trecho nao pode escrever um offset do documento sem o inventar.
+            marca = marca_de_medicao(original, a, b)
             oid = assertion_id(prov.get("SOURCE_ID"), prov.get("RAW_SHA256"), a, b, span)
             e_facto = tempo["PAPEL"] in TA.PAPEL_QUE_E_FACTO
             fact_time = (tempo["VALOR"] if e_facto
@@ -683,7 +829,7 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
                             "SECAO_TERRITORIAL": leitura["SECAO"]},
                 "CONTEXTO_MINIMO": _contexto_minimo(original, s, a, precisa),
                 # ── conteudo (§1): o campo esta sempre; o valor pode ser NAO SEI ───
-                "CLAIM_KIND": classe_do_claim(span, tempo),
+                "CLAIM_KIND": classe_do_claim(span, tempo, marca=marca, lugar=lugar),
                 # ── §5-C · a CONTAGEM viaja, para a Intelligence poder defender-se sem
                 # ler texto: ela recusa se a contagem for > 1 e o valor nao for NAO SEI, e
                 # recusa tambem se o campo faltar. Por isso ele esta SEMPRE presente.
