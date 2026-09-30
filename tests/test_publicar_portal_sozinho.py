@@ -475,9 +475,42 @@ class P1_AsTelas(unittest.TestCase):
         self.assertNotIn("APROVADA_PELO_DONO", json.dumps(prom))
         self.assertNotIn("PUBLICACAO: SIM", json.dumps(prom))
         self.assertTrue(prom["TEXTO"].startswith("DEMO"))
-        real = dict(POTE_ENSAIO, CORRIDA_SINTETICA=False)
-        self.assertEqual(P.envelope(real, self.sha, CONTRATO, "preview", "0" * 40)["PROMOCAO"]["ESTADO"],
+
+    def test_d156_cada_sinal_de_nao_cliente_sozinho_tira_a_aprovacao(self):
+        """Red team do bot (30/09): CORRIDA_SINTETICA, NAO_PARA_CLIENTE, MARCA ou SOURCE_HEAD SINT-, CADA UM SOZINHO,
+        e o envelope nunca diz APROVADA_PELO_DONO nem cita a D126 como aprovacao deste pote."""
+        limpo = dict(POTE_ENSAIO, CORRIDA_SINTETICA=False, NAO_PARA_CLIENTE=False, MARCA="LIBERADO_PARA_CLIENTE",
+                     SOURCE_HEAD="a5db06c4a094d569a329f7a3a135c17fdb130efb")
+        casos = {"CORRIDA_SINTETICA": {"CORRIDA_SINTETICA": True},
+                 "NAO_PARA_CLIENTE": {"NAO_PARA_CLIENTE": True},
+                 "MARCA EXPERIMENTAL": {"MARCA": "EXPERIMENTAL"},
+                 "MARCA NAO_PARA_CLIENTE": {"MARCA": "nao_para_cliente"},
+                 "MARCA completa": {"MARCA": "EXPERIMENTAL · NAO_PARA_CLIENTE"},
+                 "SOURCE_HEAD SINT-": {"SOURCE_HEAD": "SINT-0000"},
+                 "SOURCE_HEAD dict SINT-": {"SOURCE_HEAD": {"MOTOR": "SINT-0000"}}}
+        for nome, mexe in casos.items():
+            for sem_campo in (False, True):
+                with self.subTest(nome, limpo_sem_campos=sem_campo):
+                    base = dict(limpo)
+                    if sem_campo:     # o sinal sozinho, com os outros campos AUSENTES (nao so false)
+                        for k in ("CORRIDA_SINTETICA", "NAO_PARA_CLIENTE", "MARCA", "SOURCE_HEAD"):
+                            base.pop(k, None)
+                    prom = P.envelope(dict(base, **mexe), self.sha, CONTRATO, "preview", "0" * 40)["PROMOCAO"]
+                    self.assertNotIn("APROVADA_PELO_DONO", json.dumps(prom))
+                    self.assertNotIn("PUBLICACAO: SIM", json.dumps(prom))
+                    self.assertIsNone(prom["APROVADA_POR"])
+                    self.assertIn("sem aprovacao do dono para este pote", prom["TEXTO"])
+        # sem nenhum sinal, a regra geral continua dita (e so ai)
+        self.assertEqual(P.envelope(limpo, self.sha, CONTRATO, "preview", "0" * 40)["PROMOCAO"]["ESTADO"],
                          CONTRATO["REGRA_DE_PROMOCAO"]["ESTADO"])
+        self.assertEqual(P.sinais_de_nao_cliente(limpo), [])
+
+    def test_d156_o_pote_real_r9_tambem_nao_se_diz_aprovado(self):
+        """O R9 real e EXPERIMENTAL · NAO_PARA_CLIENTE com CORRIDA_SINTETICA false: nao e DEMO, e nao e aprovado."""
+        r9 = dict(POTE_ENSAIO, CORRIDA_SINTETICA=False, SOURCE_HEAD={"MOTOR": "a5db06c4"})
+        prom = P.envelope(r9, self.sha, CONTRATO, "preview", "0" * 40)["PROMOCAO"]
+        self.assertEqual(prom["ESTADO"], "NAO_PARA_CLIENTE_SEM_APROVACAO_DO_DONO")
+        self.assertFalse(prom["TEXTO"].startswith("DEMO"))
 
     def test_medicao_incompleta_nao_autoriza(self):
         self.C["MEDICAO_COMPLETA"] = False

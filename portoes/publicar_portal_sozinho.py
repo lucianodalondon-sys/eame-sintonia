@@ -293,6 +293,26 @@ def conferir_raw_no_armazem(pote: dict, prom: dict, armazem, modo: str):
 
 PROMOCAO_DEMO = ("DEMO - publicacao automatica de teste (D126 regra geral), "
                  "sem aprovacao do dono para este pote")
+PROMOCAO_NAO_CLIENTE = ("EXPERIMENTAL / NAO_PARA_CLIENTE - publicacao automatica em preview (D126 regra geral), "
+                        "sem aprovacao do dono para este pote")
+
+
+def sinais_de_nao_cliente(pote: dict) -> list:
+    """D156 (red team do bot, 30/09): QUALQUER um destes sinais tira ao pote a aprovacao do dono no envelope.
+    A aprovacao D126 e a regra geral; nunca se infere dela que ESTE pote foi aprovado."""
+    s = []
+    if pote.get("CORRIDA_SINTETICA") is True:
+        s.append("CORRIDA_SINTETICA=true")
+    if pote.get("NAO_PARA_CLIENTE") is True:
+        s.append("NAO_PARA_CLIENTE=true")
+    marca = str(pote.get("MARCA") or "").upper()
+    if "EXPERIMENTAL" in marca or "NAO_PARA_CLIENTE" in marca:
+        s.append("MARCA=" + str(pote.get("MARCA")))
+    head = pote.get("SOURCE_HEAD")
+    heads = list(head.values()) if isinstance(head, dict) else [head]
+    if any(isinstance(h, str) and h.upper().startswith("SINT-") for h in heads):
+        s.append("SOURCE_HEAD SINT-")
+    return s
 
 
 def envelope(pote: dict, sha: str, contrato: dict, modo: str, arvore: str, entrega: dict | None = None) -> dict:
@@ -305,11 +325,13 @@ def envelope(pote: dict, sha: str, contrato: dict, modo: str, arvore: str, entre
             "PROMOCAO": {"ESTADO": prom.get("ESTADO"), "APROVADA_POR": prom.get("APROVADA_POR"),
                          "REGRA": "portoes/PUBLICACAO-AUTOMATICA.json#REGRA_DE_PROMOCAO"},
             "POTE": pote}
-    if pote.get("CORRIDA_SINTETICA") is True:
-        # D156 (item 5 do LAB): a aprovacao D126 do dono e a regra geral; um pote de TESTE nao foi aprovado por
-        # ninguem, e o envelope nao pode dize-lo aprovado.
-        env["PROMOCAO"] = {"ESTADO": "DEMO_SEM_APROVACAO_DO_DONO", "APROVADA_POR": None,
-                           "TEXTO": PROMOCAO_DEMO, "REGRA": "portoes/PUBLICACAO-AUTOMATICA.json#REGRA_DE_PROMOCAO"}
+    sinais = sinais_de_nao_cliente(pote)
+    if sinais:
+        # D156 (item 5 do LAB + red team do bot): pote de teste ou nao-cliente nao foi aprovado por ninguem.
+        demo = pote.get("CORRIDA_SINTETICA") is True
+        env["PROMOCAO"] = {"ESTADO": "DEMO_SEM_APROVACAO_DO_DONO" if demo else "NAO_PARA_CLIENTE_SEM_APROVACAO_DO_DONO",
+                           "APROVADA_POR": None, "TEXTO": PROMOCAO_DEMO if demo else PROMOCAO_NAO_CLIENTE,
+                           "SINAIS": sinais, "REGRA": "portoes/PUBLICACAO-AUTOMATICA.json#REGRA_DE_PROMOCAO"}
     if entrega:
         env["ENTREGA"] = entrega
     return env
