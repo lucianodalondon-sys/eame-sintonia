@@ -261,7 +261,11 @@ def escrever_lista(pasta):
                        "REELS_JA_NO_REPOSITORIO": ["https://www.instagram.com/reel/DcNkh7LCW4u/"]}],
         "LINKEDIN": [{"SOURCE_ID": "IT-T9-026", "URL": "https://www.linkedin.com/company/x/",
                       "NATIVE_ID": "x"}],
-        "WEB": [{"SOURCE_ID": "IT-T5-185", "URL": "https://sostenibilita.enea.it/"}],
+        # IT-T3-045 (AMAP Marche) e nao a IT-T5-185: a ENEA esta SUSPENSA PELO DONO (D130) e
+        # entrou na lista WEB por erro do Curator, corrigido em 2026-09-30. Um SOURCE_ID suspenso
+        # num molde de teste nao coleta nada, mas e semente: alguem copia a linha para uma lista
+        # a valer. O molde nao guarda fonte que o dono mandou parar.
+        "WEB": [{"SOURCE_ID": "IT-T3-045", "URL": "https://www.amap.marche.it/"}],
         "BUSCA": [{"CONSULTA_ID": "Q0001", "CONSULTA": "bollettino vite", "UNIVERSO": "T3"}],
         "CIENCIA": [{"SOURCE_ID": "EU-T5-001", "CONSULTA_OPENALEX": "(grapevine)"}],
         "DIVERGENCIAS_FORA_DO_CANARIO": [{"ID": "IT-T9-021", "O_QUE": "didacta"}],
