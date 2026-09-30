@@ -675,6 +675,8 @@ def _largar_a_vez(f) -> None:
             import msvcrt
             f.seek(0)
             msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+    except OSError:
+        pass                                                           # fechar o ficheiro solta-a de qualquer modo
     finally:
         f.close()
 

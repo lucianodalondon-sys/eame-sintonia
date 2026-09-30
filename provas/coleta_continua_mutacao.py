@@ -59,6 +59,26 @@ MUTANTES = [
      'if "reserva" not in f.read_text(encoding="utf-8", errors="replace"):'),
     ("M28_ERRO_NAO_PARA", ALVO, 'para = "ERRO_NO_CICLO: %r" % (ex,)', "para = None"),
     ("M29_INTERRUPTOR_IGNORADO", ALVO, "if (base / DESLIGAR_F).exists():", "if False:"),
+    # SERVICO-TRINCO (30/09): pelo menos uma por regra nova do trinco e da prova de backup
+    ("M30_TOMADA_NAO_ATOMICA_DO_C38610E0C", ALVO,
+     "        vez = _vez_de_tomar(base)\n        if vez is None:\n            return None\n        morto = None\n"
+     "        try:\n            if not _trinco_de_dono_morto(t):\n                return None\n"
+     '            morto = base / ("%s.morto-%d-%s" % (TRINCO_F, os.getpid(), secrets.token_hex(4)))\n'
+     "            os.rename(t, morto)\n            os.mkdir(t)\n            return _escrever_dono(t)\n"
+     "        finally:\n            _largar_a_vez(vez)\n            if morto is not None:\n"
+     "                shutil.rmtree(morto, ignore_errors=True)\n",
+     '        (t / "DONO.json").unlink(missing_ok=True)\n        os.rmdir(t)\n        os.mkdir(t)\n'
+     "        return _escrever_dono(t)\n"),
+    ("M31_TOMADA_SEM_VEZ", ALVO, "            msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)\n", "            pass\n"),
+    ("M32_TOMADA_SEM_RELER_COM_A_VEZ", ALVO,
+     "            if not _trinco_de_dono_morto(t):\n                return None\n            morto = base",
+     "            morto = base"),
+    ("M33_STILL_ACTIVE_259_IGNORADO", ALVO, "            return codigo.value == 259\n", "            return True\n"),
+    ("M34_ACESSO_NEGADO_VIRA_MORTO", ALVO, "            return ctypes.get_last_error() != 87\n", "            return False\n"),
+    ("M35_PID_IMPOSSIVEL_TOMADO", ALVO, "    if type(pid) is not int or pid <= 0:\n        return False\n", ""),
+    ("M36_SAIDA_VAZIA_ACEITE", "scripts/micro_coleta/provar_backup_da_sala.py",
+     '    if not texto.strip():\n        return "SAIDA_VAZIA"\n', ""),
+    ("M37_SAIDA_RAIZ_ACEITE", "scripts/micro_coleta/provar_backup_da_sala.py", "    if p == Path(p.anchor):", "    if False:"),
 ]
 
 
