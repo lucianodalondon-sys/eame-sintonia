@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "381c3f5e087df3e4a7f1247b27fd0fdf18695c0f",
-    "GENERATED_AT": "2026-09-29T12:50:29-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e1f930ce1dbd795d7d0c399b31975ca2b92aef3ec8a6463bd5a9f6b457884342"
+    "HEAD": "0d726d501e0b995bc9dc5053cfefc21e0920227b",
+    "GENERATED_AT": "2026-09-30T04:50:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3441c0a2d37b7e8da482336389b7628eac08ce553110791ca5d143158caf7a7d"
   },
   "FILES": [
     {
@@ -18147,14 +18147,14 @@
     },
     {
       "path": "italia-portale/client/portale.html",
-      "sha": "c6b551554a1dbe102809824bbb62ca41b679d6e4",
+      "sha": "d394509f177b182a0ad3a1a9d146a2ffbaf33bca",
       "ext": ".html",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "italia-portale/client/sintonia-pote-casco.js",
-      "sha": "2212eb067c2277542e381465f687f989ec432f9c",
+      "sha": "700725a40620f1f48a5b71ad4aede9570178fb7d",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -19722,7 +19722,7 @@
     },
     {
       "path": "portoes/publicar_portal_sozinho.py",
-      "sha": "0819536706351b2f425855e410a31c15ce723fcf",
+      "sha": "592567116a4a3220fd7029f8ab1d8bca1e861da9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21877,10 +21877,31 @@
       "code_dir": true
     },
     {
+      "path": "provas/l3/MUTACAO-PROMOCAO-NAO-CLIENTE.json",
+      "sha": "29d5c27a029e1b227bd4282052f3f2ee6ad79d95",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/l3/PARA-O-LAB.md",
       "sha": "e7b8e07548c09a157e7a1a7bdc6ff3b558945f19",
       "ext": ".md",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l3/escapa-o-ataque-9wfbzk6ej/ESCAPA-O-ATAQUE.json",
+      "sha": "02300412de13e95fe4f80a08922ec39d7c6262f6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/l3/escapa_o_ataque.mjs",
+      "sha": "2dec6d61a9333990ee5b589bce553deadd57e269",
+      "ext": ".mjs",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -28955,7 +28976,7 @@
     },
     {
       "path": "tests/test_pote_no_casco.mjs",
-      "sha": "5ce006ed21765830136c81e3bda88739f36caba7",
+      "sha": "b1088ad5f5d837bae38d336586dff902dafc5ab0",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -29067,7 +29088,7 @@
     },
     {
       "path": "tests/test_publicar_portal_sozinho.py",
-      "sha": "685c609f6f5dccd174e94405fb2be403fde9eb8a",
+      "sha": "62ac01074fe776ad7ab8efbb1ffea0fbd65364b8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -64640,7 +64661,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 552,
+        "line": 583,
         "snippet": "L = [conferir_comando(\"C1_BUILD_GATE\", [\"node\", \"italia-portale/audit/build-gate.mjs\"], copia, contrato, 600),"
       }
     },
@@ -64651,7 +64672,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 553,
+        "line": 584,
         "snippet": "conferir_comando(\"C2_DEPLOY_SURFACE\", [\"node\", \"italia-portale/audit/deploy-surface.mjs\"], copia, contrato, 600)]"
       }
     },
@@ -64662,7 +64683,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 515,
+        "line": 546,
         "snippet": "if \"audit/run.mjs\" in texto and rc not in (None,):"
       }
     },
@@ -64673,7 +64694,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 689,
+        "line": 720,
         "snippet": "req = urllib.request.Request(base_url.rstrip(\"/\") + \"/sintonia-pote-publicado.js\","
       }
     },
@@ -64684,7 +64705,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 893,
+        "line": 924,
         "snippet": "(Path(copia) / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text("
       }
     },
@@ -64695,7 +64716,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 646,
+        "line": 677,
         "snippet": "if (c / \"package.json\").exists():"
       }
     },
@@ -64750,7 +64771,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "portoes/publicar_portal_sozinho.py",
-        "line": 758,
+        "line": 789,
         "snippet": "if (Path(copia) / \"vercel.json\").exists():"
       }
     },
@@ -73343,6 +73364,17 @@
         "file": "provas/janela_formas/pagina_boletim_local.mjs",
         "line": 47,
         "snippet": "const { CONTRACTS } = await import(\"../../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/l3/escapa_o_ataque.mjs",
+      "to_file": "provas/l3/escapa-o-ataque-9wfbzk6ej/ESCAPA-O-ATAQUE.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/l3/escapa_o_ataque.mjs",
+        "line": 53,
+        "snippet": "fs.writeFileSync(path.join(SAIDA, 'ESCAPA-O-ATAQUE.json'), JSON.stringify(r, null, 1) + '\\n');"
       }
     },
     {
@@ -107815,7 +107847,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 502,
+        "line": 548,
         "snippet": "(Path(d) / \"italia-portale\" / \"audit\" / \"run.mjs\").write_text("
       }
     },
@@ -107848,7 +107880,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 718,
+        "line": 764,
         "snippet": "const LEITOR = fs.readFileSync(path.join(CL, 'sintonia-pote-casco.js'), 'utf8');"
       }
     },
@@ -107870,7 +107902,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_publicar_portal_sozinho.py",
-        "line": 531,
+        "line": 577,
         "snippet": "(d / \"italia-portale\" / \"client\" / \"sintonia-pote-publicado.js\").write_text(STUB, encoding=\"utf-8\")"
       }
     },
@@ -113341,10 +113373,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4230,
-    "files_readable": 1777,
-    "files_code_dir": 2205,
-    "file_edges": 7551,
+    "files_tracked": 4233,
+    "files_readable": 1778,
+    "files_code_dir": 2208,
+    "file_edges": 7552,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
