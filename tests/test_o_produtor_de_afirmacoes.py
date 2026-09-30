@@ -433,23 +433,31 @@ class OQueAindaNaoAconteceu(unittest.TestCase):
             self.assertEqual(TA.papel_do_periodo(frase, None, None, None)[0], TA.VALIDADE, nome)
 
     def test_alerta_evento_nao_e_o_que_sobra(self):
-        """RT4: a classe exige as TRES coisas, e nao so o papel."""
-        semear = {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'DATE_EXACT', 'ANO': None}
-        # sem ancora de acontecimento no texto
-        r = AD.classe_do_claim('come scrissi, nel 2003, nella nota introduttiva del volume', semear)
-        self.assertEqual(r['VALOR'], NAO_SEI)
-        # papel que nao e ACONTECIMENTO
-        r = AD.classe_do_claim('La grandine osservata ha colpito i frutteti',
-                               {'PAPEL': TA.PREVISAO, 'PRECISAO': 'DATE_EXACT', 'ANO': None})
-        self.assertEqual(r['VALOR'], NAO_SEI)
-        # sem ano
-        r = AD.classe_do_claim('La grandine osservata ha colpito i frutteti',
-                               {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'DATE_EXACT+SEM_ANO',
-                                'ANO': NAO_SEI})
-        self.assertEqual(r['VALOR'], NAO_SEI)
-        # as tres juntas
+        """RT3 §2.D · agora sao QUATRO condicoes, e a PRIMEIRA e a marca escrita.
+
+        O contrato §5-C e literal: «quando NENHUMA marca de classe esta escrita, a classe e
+        NAO SEI, MESMO QUE o papel seja ACONTECIMENTO». A versao anterior deste teste exigia
+        tres coisas (papel + ancora do campo + ano) e nenhuma delas e uma marca de classe —
+        por isso ele passava sobre «La grandine osservata ha colpito i frutteti», que nao
+        escreve palavra de classe nenhuma."""
+        semear = {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'DATE_EXACT', 'ANO': None,
+                  'VALOR': '12 aprile 2026'}
+        COM_MARCA = 'La giornata tecnica si e svolta e la grandine ha colpito i frutteti'
+        # 1 · sem marca de classe nenhuma — e este e o caso que o §5-C fecha
         r = AD.classe_do_claim('La grandine osservata ha colpito i frutteti', semear)
+        self.assertEqual(r['VALOR'], NAO_SEI)
+        self.assertIn('nenhuma marca de classe', r['PORQUE'])
+        # 2 · papel que nao e ACONTECIMENTO
+        r = AD.classe_do_claim(COM_MARCA, dict(semear, PAPEL=TA.PREVISAO))
+        self.assertEqual(r['VALOR'], NAO_SEI)
+        # 3 · sem ano
+        r = AD.classe_do_claim(COM_MARCA, dict(semear, PRECISAO='DATE_EXACT+SEM_ANO',
+                                               ANO=NAO_SEI, VALOR='aprile'))
+        self.assertEqual(r['VALOR'], NAO_SEI)
+        # 4 · as quatro juntas
+        r = AD.classe_do_claim(COM_MARCA, semear)
         self.assertEqual(r['VALOR'], 'ALERTA_EVENTO')
+        self.assertEqual(r['MARCAS'], ['ALERTA_EVENTO'])
 
     def test_a_precisao_diz_quando_o_ano_falta(self):
         t = ("La grandinata osservata il 18 febbraio ha colpito i frutteti della provincia "
@@ -665,9 +673,37 @@ class OContratoDeConsumoDaIntelligence(unittest.TestCase):
         self.assertTrue(af['PRODUTOR_VERSAO']['CODIGO']['leis/afirmacao_do_documento.py'])
         self.assertTrue(af['PRODUTOR_VERSAO']['SEM_LLM'])
 
-    def test_a_classe_do_facto_observado_e_alerta_evento(self):
+    def test_o_facto_observado_SEM_marca_de_classe_fica_nao_sei(self):
+        """RT3 §2.D · o §5-C a valer sobre a producao inteira, e nao so sobre a funcao.
+
+        «Le grandinate sono state osservate in provincia di Cuneo» e um facto observado, com
+        papel ACONTECIMENTO e data do cabecalho — e NAO escreve palavra de classe nenhuma.
+        Antes saia ALERTA_EVENTO. O dono escreveu que nao pode.
+
+        ⚠️ O PRECO DISTO ESTA DECLARADO na entrega: os casos que o red team chamou «certos»
+        (chuva medida em derived:11) passam a NAO SEI. A classe fica mais pobre, e e o dono do
+        contrato que manda."""
         af = _que_diz(_produzir(BOLETIM), 'Le grandinate sono state osservate')
-        self.assertEqual(af['CLAIM_KIND']['VALOR'], 'ALERTA_EVENTO')
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], NAO_SEI)
+        self.assertEqual(af['CLAIM_KIND']['MARCAS'], [])
+
+    def test_o_evento_tecnico_escrito_e_ALERTA_EVENTO(self):
+        """E a marca existe: e a `FT._RE_EVENTO`, a mesma que o leitor do lugar usa para saber
+        se um lugar e lugar de evento. Le-se de la, nao se copia (o mesmo caminho da PROD-2)."""
+        for frase in ('La giornata tecnica si e svolta il 12 aprile 2026 in Emilia-Romagna.',
+                      'La fiera si e svolta il 12 aprile 2026 a Verona.',
+                      'Il convegno si e svolto il 12 aprile 2026 a Bologna.'):
+            af = _produzir(frase, published_at='2026-05-10')[0]
+            self.assertEqual(af['CLAIM_KIND']['VALOR'], 'ALERTA_EVENTO', frase)
+
+    def test_a_marca_de_evento_vem_do_leitor_vivo_e_nao_de_uma_copia(self):
+        caminho = os.path.join(RAIZ, 'leis', 'afirmacao_do_documento.py')
+        self.assertIn('FT._RE_EVENTO.search(span)', open(caminho, encoding='utf-8').read())
+        regra = so_a_regra(caminho)
+        for palavra in ('fier[ae]', 'convegn', 'open\s+day', 'giornat'):
+            self.assertNotIn(palavra, regra,
+                             'o vocabulario de evento foi copiado para o produtor: %s' % palavra)
 
     def test_a_classe_com_duas_marcas_fica_nao_sei(self):
         """Marca de REGULATORIO e de PRECO no mesmo trecho: escolher uma seria inferir."""
@@ -1102,7 +1138,7 @@ class OMesSozinhoNaoTemAno(unittest.TestCase):
 
     def test_a_classe_com_ano_escrito_continua_a_passar(self):
         """O contrapeso: a pergunta ao valor não pode recusar quem tem o ano."""
-        r = AD.classe_do_claim('La grandine osservata ha colpito i frutteti nel 2012',
+        r = AD.classe_do_claim('La giornata tecnica si e svolta nel 2012',
                                {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'YEAR',
                                 'ANO': None, 'VALOR': '2012'})
         self.assertEqual(r['VALOR'], 'ALERTA_EVENTO')
@@ -1235,6 +1271,234 @@ class OAtoCitadoPeloNumero(unittest.TestCase):
                       'La cimice ha colpito i frutteti.',
                       'Il numero delle trappole e aumentato.'):
             self.assertIsNone(TA._MARCA_DE_ATO.search(frase), frase)
+
+
+class OFalsoFuturoPelaTerminacaoRA(unittest.TestCase):
+    """RT3 §2.A · a regra do futuro dizia «futuro» para TUDO, e isto é uma regressão medida.
+
+    `_RE_FUTURO_DO_VERBO` aceitava `r[àa]` — com o `a` SEM acento — e `marca_futuro` aplicava-a
+    a `FL._baixo(span)`, que **tira** os acentos. O acento que o comentário diz tornar a regra
+    segura era destruído antes de a regra correr. Na Sala real, 4 afirmações de chuva MEDIDA
+    viraram PREVISAO por causa disto.
+
+        UM COMENTÁRIO QUE DESCREVE A REGRA CERTA POR CIMA DO CÓDIGO QUE FAZ OUTRA
+        É PIOR DO QUE NENHUM: ELE FAZ A REVISÃO PARAR DE PROCURAR.
+
+    Segundo defeito na mesma função: a janela cortava o texto a meio da palavra, e «duramente»
+    cortado virava «dura», com o `\b` a casar contra o corte.
+    """
+
+    NAO_SAO_FUTURO = [
+        ('peronospora', 'La peronospora è stata osservata nei vigneti il 3 settembre 2026',
+         '3 settembre 2026'),
+        ('temperatura', 'La temperatura media il 3 settembre 2026 era alta', '3 settembre 2026'),
+        ('ieri sera', 'Le capannine meteo ieri sera hanno registrato piogge con 27,4 mm',
+         'ieri sera'),
+        ('duramente (janela cortada)', 'Nel 2003 la siccità aveva colpito duramente i vigneti',
+         '2003'),
+        ('tiranno (não é verbo)', 'Il tiranno non è un verbo, il 3 settembre 2026',
+         '3 settembre 2026'),
+    ]
+    SAO_FUTURO = [
+        ('colpirà', 'La grandine colpirà i frutteti il 3 settembre 2026', '3 settembre 2026'),
+        ('svolgeranno', 'Il 3 settembre 2026 si svolgeranno le giornate tecniche',
+         '3 settembre 2026'),
+        ('verrà', 'Nel 2026, in 32 siti della rete verrà realizzato un monitoraggio', '2026'),
+        ('entro il prossimo', 'Le domande entro il prossimo 11 settembre, previa registrazione',
+         '11 settembre'),
+    ]
+
+    def test_as_quatro_palavras_em_ra_nao_sao_futuro(self):
+        for nome, frase, valor in self.NAO_SAO_FUTURO:
+            self.assertFalse(TA.marca_futuro(frase, valor), nome)
+
+    def test_o_futuro_de_verdade_continua_a_ser_futuro(self):
+        """O conserto não pode ser feito desligando a regra."""
+        for nome, frase, valor in self.SAO_FUTURO:
+            self.assertTrue(TA.marca_futuro(frase, valor), nome)
+
+    def test_o_acento_e_obrigatorio_na_propria_expressao(self):
+        """A regra tem de exigir o acento nela mesma, e não confiar em quem a chama."""
+        self.assertTrue(TA._RE_FUTURO_DO_VERBO.search('colpirà'))
+        self.assertIsNone(TA._RE_FUTURO_DO_VERBO.search('peronospora'))
+        self.assertIsNone(TA._RE_FUTURO_DO_VERBO.search('temperatura'))
+
+    def test_a_janela_nao_corta_palavra_ao_meio(self):
+        """A unidade é a FRASE da data, e uma frase não parte palavras."""
+        frase = TA.frase_do_valor('Nel 2003 la siccità aveva colpito duramente i vigneti', '2003')
+        self.assertIn('duramente', frase)
+
+    def test_o_futuro_de_OUTRA_frase_nao_conta(self):
+        """Mata o mutante RT12 do red team («a regra olha a frase toda em vez da janela»).
+
+        A unidade continua BOUNDED: um verbo no futuro noutra frase do mesmo trecho não fala
+        desta data. Se alguém trocar a frase pelo trecho inteiro, este teste reprova."""
+        t = ('La grandine ha colpito i frutteti il 3 settembre 2026, con danni diffusi ai '
+             'vigneti della provincia di Cuneo secondo i rilievi dei tecnici. Il modello '
+             'regionale indica che la grandine colpirà di nuovo le stesse zone.')
+        self.assertNotIn('colpirà', TA.frase_do_valor(t, '3 settembre 2026'))
+        self.assertFalse(TA.marca_futuro(t, '3 settembre 2026'))
+
+    def test_pela_producao_inteira_a_chuva_medida_continua_ACONTECIMENTO(self):
+        """O que o defeito custava na Sala real: uma chuva MEDIDA a virar previsão."""
+        af = _produzir('Le nostre capannine meteo ieri sera hanno registrato piogge con 27,4 mm '
+                       'nella zona.', published_at='2026-05-12',
+                       raw_captured_at='2026-05-20 11:07:15+00')[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
+        self.assertNotEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.PREVISAO)
+
+
+class OPapelQueOTextoEscreve(unittest.TestCase):
+    """RT3 §2.B e §2.C · formas que saíam ACONTECIMENTO e não são um dia em que algo aconteceu.
+
+    Uma frase por forma, para que a morte de um mutante não seja coberta por outra alternativa
+    a apanhar o mesmo texto de prova — a lição da lei da validade (D160 §2.2)."""
+
+    def test_a_janela_que_uma_agencia_torna_ativa_e_VALIDADE(self):
+        for frase in ("Dal 22 giugno al 14 settembre l'Agenzia rende attiva la fase di "
+                      'attenzione per gli incendi boschivi.',
+                      'Dal 22 giugno al 14 settembre vale la fase di preallarme regionale.'):
+            self.assertEqual(TA.papel_do_periodo(frase, None, None, None)[0], TA.VALIDADE, frase)
+
+    def test_di_ogni_anno_nao_e_um_dia_em_que_algo_aconteceu(self):
+        frase = 'Il monitoraggio, svolto nel periodo 1 maggio - 15 ottobre di ogni anno, prosegue.'
+        self.assertEqual(TA.papel_do_periodo(frase, None, None, None)[0], TA.VALIDADE)
+        af = _produzir(frase)[0]
+        self.assertNotEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
+
+    def test_entro_il_prossimo_e_um_prazo_logo_e_futuro(self):
+        """Sem ano escrito o calendário não podia recusar: `primeiro_dia` dá None e a
+        comparação com a publicação nunca acontece. Quem o apanha é a palavra."""
+        frase = 'Le domande si presentano entro il prossimo 11 settembre, previa registrazione.'
+        self.assertTrue(TA.marca_futuro(frase, '11 settembre'))
+        af = _produzir(frase, published_at='2026-09-07')[0]
+        self.assertNotEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
+
+    def test_os_tres_atos_que_nao_escrevem_a_palavra_decreto(self):
+        for frase in ('In data 6 agosto 2026 è stata concessa la deroga per il trattamento.',
+                      'Il calendario, come stabilito dal DPI 2025/2026, prevede i controlli.',
+                      "Dal 12 febbraio 2020 l'Osservatorio nazionale è stato sostituito."):
+            self.assertTrue(TA._MARCA_DE_ATO.search(frase), frase)
+            self.assertEqual(TA.papel_do_periodo(frase, None, None, None)[0], TA.ATO, frase)
+
+    def test_as_marcas_novas_nao_apanham_prosa_comum(self):
+        """Uma marca lassa punha REGULATORIO ou VALIDADE em meia Sala."""
+        for frase in ('La cimice ha colpito i frutteti in provincia di Cuneo.',
+                      'Il monitoraggio prosegue regolarmente ogni settimana.',
+                      'Ogni anno la resa aumenta.'):
+            self.assertEqual(TA.papel_do_periodo(frase, None, None, None)[0], TA.NAO_SEI, frase)
+
+
+class AsGuardasQueNenhumTesteFixava(unittest.TestCase):
+    """RT3 §5.5 · três mutantes do red team sobreviveram porque a guarda existia e **nenhum
+    teste a fixava**. RT5, RT6 e RT10.
+
+        UMA GUARDA SEM TESTE É UMA GUARDA QUE A PRÓXIMA REFATORAÇÃO APAGA EM SILÊNCIO.
+    """
+
+    SEM_PUBLICACAO = {'published_at': None, 'published_at_basis': None}
+
+    def test_RT5_a_captura_chega_ao_leitor_pela_producao_inteira(self):
+        """A regra da captura só era exercitada chamando `extrair_tempo` direto. O mutante RT5
+        põe `"CAPTURA": None` em `afirmacoes_do_item` e sobrevivia — a produção inteira deixava
+        de olhar o dia da coleta e ninguém dava por isso.
+
+        Sem publicação provada, a captura é a ÚNICA guarda contra uma data futura."""
+        af = _produzir('La grandinata osservata il 30 settembre 2026 ha colpito i frutteti di '
+                       'Cuneo.', raw_captured_at='2026-09-20 11:07:15+00',
+                       **self.SEM_PUBLICACAO)[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.PREVISAO)
+        self.assertIn('colhido', af['FACT_TIME_ROLE']['PORQUE'])
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+
+    def test_RT6_o_evento_do_PROPRIO_dia_da_coleta_e_acontecimento(self):
+        """O mutante RT6 troca `>` por `>=` na comparação com a captura: um evento do próprio
+        dia da coleta virava PREVISAO. Colher no dia em que aconteceu é o normal, não o
+        suspeito — quem recusa é o dia SEGUINTE."""
+        af = _produzir('La grandinata osservata il 20 settembre 2026 ha colpito i frutteti di '
+                       'Cuneo.', raw_captured_at='2026-09-20 11:07:15+00',
+                       **self.SEM_PUBLICACAO)[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
+        self.assertEqual(af['FACT_TIME']['VALOR'], '20 settembre 2026')
+
+    def test_RT10_a_conferencia_recusa_ORIGEM_fora_do_vocabulario(self):
+        """O mutante RT10 tira a lista de origens da conferência. A guarda existia; nenhum
+        teste a chamava, logo o mutante passava."""
+        linha = _linha('La grandinata osservata il 18 febbraio 2026 ha colpito i frutteti di '
+                       'Cuneo.')
+        af = AD.afirmacoes_do_item(linha)['AFIRMACOES'][0]
+        self.assertEqual(AD.conferir_afirmacao(af, linha['texto'],
+                                               raw_sha256=linha['raw_sha256']), [])
+        af['FACT_TIME_ROLE']['ORIGEM'] = 'ORIGEM_INVENTADA'
+        v = AD.conferir_afirmacao(af, linha['texto'], raw_sha256=linha['raw_sha256'])
+        self.assertTrue(v, 'a conferencia aceitou uma ORIGEM fora do vocabulario')
+        self.assertIn('fora do vocabulario', ' '.join(v))
+
+    def test_as_quatro_origens_do_vocabulario_sao_as_declaradas(self):
+        """O contrapeso: a guarda não pode recusar uma origem legítima."""
+        self.assertEqual(sorted(TA.ORIGENS),
+                         sorted([TA.LITERAL, TA.CABECALHO_D147, TA.RELATIVA_ANCORADA_D149,
+                                 TA.RELATIVO_D63]))
+
+
+class APrecisaoNaoContradizAOrigem(unittest.TestCase):
+    """RT3 §7 · «+CALCULADA» ao lado de «LITERAL» são duas afirmações opostas no mesmo objeto.
+
+    O selo do vivo diz que o valor foi CONTADO; a origem LITERAL diz que ele estava ESCRITO.
+    Depois da PROD-1 as duas apareciam juntas, e quem consome tinha de escolher em qual
+    acreditar. Quem manda é a ORIGEM, que é a decisão desta lei."""
+
+    def test_LITERAL_nunca_viaja_com_CALCULADA(self):
+        af = _produzir('Oggi, 12 novembre 2026, si e svolta la giornata tecnica.',
+                       published_at='2026-11-12', raw_captured_at='2026-11-20 11:07:15+00')[0]
+        fr = af['FACT_TIME_ROLE']
+        self.assertEqual(fr['ORIGEM'], TA.LITERAL)
+        self.assertNotIn('CALCULADA', fr['PRECISAO'])
+        self.assertNotIn('CALCULADA', af['FACT_TIME']['FACT_TIME_PRECISION'])
+
+    def test_a_relativa_continua_a_dizer_que_foi_calculada(self):
+        """Não se apaga o selo: ele é verdade quando a origem é RELATIVO_D63."""
+        af = _produzir('La settimana scorsa la cimice ha colpito i frutteti.',
+                       published_at='2026-11-12', raw_captured_at='2026-11-20 11:07:15+00')[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.RELATIVO_D63)
+        self.assertIn('CALCULADA', af['FACT_TIME_ROLE']['PRECISAO'])
+
+    def test_em_TODA_a_producao_LITERAL_e_CALCULADA_nunca_coexistem(self):
+        for texto in (BOLETIM, 'Oggi, 12 novembre 2026, la giornata tecnica.',
+                      'La raccolta si e svolta a marzo in provincia di Ferrara.'):
+            for af in _produzir(texto, raw_captured_at='2026-12-20 11:07:15+00'):
+                if af['FACT_TIME_ROLE']['ORIGEM'] == TA.LITERAL:
+                    self.assertNotIn('CALCULADA', af['FACT_TIME_ROLE']['PRECISAO'],
+                                     af['TRECHO_LITERAL'][:50])
+
+
+class OMotivoViajaNumCampo(unittest.TestCase):
+    """RT3 §5.2 · o MOTIVO do tempo tem de viajar num CAMPO, como já viaja no lugar.
+
+    Estava só dentro do texto do `PORQUE_NAO`, e ler um motivo por dentro de uma frase obriga
+    quem consome a fazer gramática para tomar uma decisão."""
+
+    BLOQUEADOR = ('La cimice asiatica e stata rilevata in Europa per la prima volta nel 2004 '
+                  'e in Italia nel 2012, in Emilia Romagna.')
+
+    def test_TEMPOS_CONCORRENTES_e_um_campo(self):
+        af = _produzir(self.BLOQUEADOR)[0]
+        self.assertEqual(af['FACT_TIME']['MOTIVO'], TA.TEMPOS_CONCORRENTES)
+        self.assertEqual(af['FACT_TIME_ROLE']['MOTIVO'], TA.TEMPOS_CONCORRENTES)
+
+    def test_o_campo_esta_presente_mesmo_sem_motivo(self):
+        """Um campo que só aparece quando há problema obriga quem consome a adivinhar a
+        ausência — a mesma razão das contagens."""
+        for texto in (self.BLOQUEADOR, BOLETIM,
+                      'La cimice ha colpito i frutteti in provincia di Cuneo nel 2012.'):
+            for af in _produzir(texto):
+                self.assertIn('MOTIVO', af['FACT_TIME'], af['TRECHO_LITERAL'][:40])
+                self.assertIn('MOTIVO', af['FACT_TIME_ROLE'], af['TRECHO_LITERAL'][:40])
+
+    def test_os_dois_lados_dizem_o_seu_motivo(self):
+        af = _produzir(self.BLOQUEADOR)[0]
+        self.assertEqual(af['FACT_TIME']['MOTIVO'], TA.TEMPOS_CONCORRENTES)
+        self.assertEqual(af['FACT_LOCATION']['MOTIVO'], AD.LUGARES_CONCORRENTES)
 
 
 if __name__ == '__main__':

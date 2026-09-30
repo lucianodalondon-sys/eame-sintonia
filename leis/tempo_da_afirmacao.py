@@ -116,7 +116,18 @@ _MARCA_DE_VALIDADE = re.compile(
     r"fino\s+al\s+termine|proroga\s+(?:al|fino)|"
     r"(?:impiego|utilizzo|impieghi|uso)\s+(?:consentit|ammess|autorizzat)|"
     r"(?:consentit[oi]|ammess[oi]|autorizzat[oi])\s+(?:a\s+partire\s+)?dal|"
-    r"vale\s+dal|decorre\s+dal|con\s+decorrenza)", re.I)
+    r"vale\s+dal|decorre\s+dal|con\s+decorrenza|"
+    # ⚠️ RT3 §2.C · A JANELA QUE UMA AGENCIA «TORNA ATIVA» NAO E O DIA EM QUE ALGO ACONTECEU.
+    # «Dal 22 giugno al 14 settembre, l'Agenzia … rende attiva … la fase di attenzione per gli
+    # incendi boschivi» saia ACONTECIMENTO «22 giugno» em 4 afirmacoes. Ninguem observou nada a
+    # 22 de junho: aquilo e a janela em que uma regra vale — que e o que VALIDADE quer dizer.
+    r"rende\s+attiv|fase\s+di\s+attenzione|fase\s+di\s+preallarme|stato\s+di\s+allerta|"
+    # «di ogni anno» diz que a janela SE REPETE todos os anos. Uma janela que se repete nao e
+    # um dia em que algo aconteceu. ⚠️ LIMITE DECLARADO: nao existe papel «RECORRENTE» neste
+    # vocabulario, e inventar um seria decidir vocabulario de toda a casa. VALIDADE e o papel
+    # mais proximo (a janela em que a regra se aplica) e, sobretudo, NAO e ACONTECIMENTO —
+    # que era o defeito. Se o dono quiser um papel proprio, e decisao dele.
+    r"di\s+ogni\s+anno)", re.I)
 # ⚠️ PROD-4 · A FORMA DE CITACAO DE UM ATO NAO ESCREVE A PALAVRA «DECRETO».
 # O dono mediu-o em «8810 del 24 aprile 2026, recante il Piano di azione … lotta obbligatoria
 # … in Toscana»: um ATO que saia ALERTA_EVENTO. As palavras `decreto|determina|delibera` ja
@@ -130,7 +141,14 @@ _MARCA_DE_VALIDADE = re.compile(
 _MARCA_DE_ATO = re.compile(
     r"(?<![a-zà-ÿ])(?:decreto|determina(?:zione)?|ordinanza|delibera(?:zione)?|d\.?\s?m\.?\s?n|"
     r"d\.?g\.?r\.?|circolare\s+n|legge\s+n|regolamento\s+\(?(?:ue|ce)\)?|recante|"
-    r"n\.?\s*\d+\s+del(?![a-zà-ÿ])|lotta\s+obbligatoria)", re.I)
+    r"n\.?\s*\d+\s+del(?![a-zà-ÿ])|lotta\s+obbligatoria|"
+    # ⚠️ RT3 §2.D · os tres atos que o red team mediu a sair ACONTECIMENTO, e nenhum deles
+    # escreve «decreto». Acrescentados por ordem escrita do coordenador (item 4).
+    r"deroga|stabilito\s+dal|"
+    # «è stato sostituito»: a substituicao de um orgao ou servico e um ato administrativo, e
+    # era o caso que a revisao anterior registou como «menos grave» e eu deixei aberto por nao
+    # ter autorizacao para mexer neste vocabulario. Agora tenho-a, por escrito.
+    r"(?:e|è)\s+stat[oa]\s+sostituit)", re.I)
 _MARCA_DE_MERCADO = re.compile(
     r"(?<![a-zà-ÿ])(?:rilevazion|listin|quotazion|campagna\s+(?:commerciale|\d)|annata\s+agraria|"
     r"settimana\s+di\s+rilevazione|borsa\s+merci|mercuriale)", re.I)
@@ -335,25 +353,75 @@ def _do_vivo(span: str, published_at, published_at_basis) -> dict:
 # «-ranno». O acento final e o que a torna segura em italiano — «città», «libertà» e «papà»
 # acabam em «-tà» e «-pà», nunca em «-rà». Exige-se raiz de 2+ letras para nao apanhar
 # «ranno» sozinho.
-_RE_FUTURO_DO_VERBO = re.compile(r"(?<![a-zà-ÿ])[a-zà-ÿ]{2,}(?:r[àa]\b|ranno\b)", re.I)
+# ⚠️ RT3 §2.A · A REGRA DIZIA «FUTURO» PARA TUDO, E O COMENTARIO ACIMA EXPLICA PORQUE NAO.
+# Ela aceitava `r[àa]`, com o `a` SEM acento, e o `marca_futuro` aplicava-a a `FL._baixo(span)`,
+# que TIRA os acentos. Ou seja: o acento que o comentario diz tornar a regra segura era
+# destruido antes de a regra correr. Medido: «peronospora», «temperatura», «ieri sera» e
+# «duramente» davam futuro — e na Sala real 4 afirmacoes de chuva MEDIDA viraram PREVISAO.
+#
+#     UM COMENTARIO QUE DESCREVE A REGRA CERTA POR CIMA DO CODIGO QUE FAZ OUTRA
+#     E PIOR DO QUE NENHUM: ELE FAZ A REVISAO PARAR DE PROCURAR.
+#
+# Agora o acento e OBRIGATORIO e a procura e feita no texto COM acentos. O `-ranno` fica sem
+# acento porque em italiano nao ha outra forma: o unico substantivo comum que acaba assim e
+# «tiranno», e esse sai por um olhar-atras de duas letras — um nome, nao uma lista.
+_RE_FUTURO_DO_VERBO = re.compile(r"(?<![a-zà-ÿ])[a-zà-ÿ]{2,}(?:rà\b|(?<!ti)ranno\b)", re.I)
 #: as construcoes que anunciam sem verbo no futuro, medidas pelo red team
 _RE_ANUNCIO = re.compile(
     r"(?<![a-zà-ÿ])(?:in\s+programma|fissat[oaie]\s+per|in\s+calendario|avr[àa]\s+luogo|"
-    r"si\s+terr|si\s+svolger|a\s+partire\s+da(?:l|lla)?\s+prossim)", re.I)
+    r"si\s+terr|si\s+svolger|a\s+partire\s+da(?:l|lla)?\s+prossim|"
+    # ⚠️ RT3 §2.B · «entro il prossimo 11 settembre, previa registrazione» saia ACONTECIMENTO.
+    # E um PRAZO, e um prazo e futuro. O calendario nao o apanhava: sem ano escrito o
+    # `primeiro_dia` devolve None e a comparacao com a publicacao nunca acontece. Quem o
+    # apanha e a palavra — «entro il prossimo» nao se diz de nada que ja passou.
+    r"entro\s+il\s+prossim|entro\s+la\s+prossim)", re.I)
+
+
+#: onde uma frase acaba. Exige espaco depois do ponto, para «20.09.2026» nao ser duas frases.
+_RE_FIM_DE_FRASE = re.compile(r"[.;!?]+\s|\n")
+
+
+def frase_do_valor(span: str, valor: str) -> str:
+    """A FRASE do trecho onde a data esta escrita.
+
+    ⚠️ RT3 §2.A, 2.º defeito: a versao anterior cortava uma JANELA de N LETRAS em volta da
+    data, e cortava A MEIO DE UMA PALAVRA. «…aveva colpito duramente…» virava «…colpito dura»,
+    e o `\\b` do fim da expressao casava contra o CORTE — «dura» passava por futuro.
+    Uma janela que corta palavras inventa palavras que o texto nao tem.
+
+    A unidade certa nao e um numero de letras: e a FRASE. Ela nao parte palavras, e e o que o
+    italiano usa para prender um verbo ao seu complemento. E continua BOUNDED — nao e o trecho
+    inteiro: um verbo no futuro NOUTRA frase do mesmo trecho nao fala desta data (e o mutante
+    RT12 do red team, que o teste `test_o_futuro_de_outra_frase_nao_conta` agora mata)."""
+    texto = str(span or "")
+    v = str(valor or "").lower()
+    i = texto.lower().find(v)
+    if i < 0 or not v:
+        return texto
+    a = 0
+    for m in _RE_FIM_DE_FRASE.finditer(texto):
+        if m.end() <= i:
+            a = m.end()
+        else:
+            break
+    b = len(texto)
+    for m in _RE_FIM_DE_FRASE.finditer(texto, i + len(v)):
+        b = m.start()
+        break
+    return texto[a:b]
 
 
 def marca_futuro(span: str, valor: str) -> bool:
-    """O trecho anuncia o que ainda nao aconteceu, PERTO da data?
+    """O trecho anuncia o que ainda nao aconteceu, na frase DA data?
 
     A pergunta e a do vivo (`fato_do_texto._futuro_perto`, com a janela dele); o que se
-    acrescenta sao as duas formas que a lista de palavras do vivo nao tem."""
+    acrescenta sao as duas formas que a lista de palavras do vivo nao tem — e procura-se no
+    texto COM acentos, porque e o acento que distingue o futuro «-rà» de qualquer palavra
+    acabada em «-ra»."""
     if FT._RE_FUTURO.search(span) and FT._futuro_perto(span, valor):
         return True
-    baixo, v = FL._baixo(span), FL._baixo(str(valor or ""))
-    i = baixo.find(v)
-    janela = (baixo[max(0, i - FT.JANELA_ANTES):i + len(v) + FT.JANELA_DEPOIS]
-              if i >= 0 else baixo)
-    return bool(_RE_FUTURO_DO_VERBO.search(janela) or _RE_ANUNCIO.search(janela))
+    frase = frase_do_valor(span, valor)
+    return bool(_RE_FUTURO_DO_VERBO.search(frase) or _RE_ANUNCIO.search(frase))
 
 
 def _papel_do_vivo(c: dict, span: str, pub, captura=None) -> tuple:
@@ -378,8 +446,11 @@ def _papel_do_vivo(c: dict, span: str, pub, captura=None) -> tuple:
 
 
 # ── LER A DATA EM QUALQUER FORMA QUE O VIVO ESCREVA ──────────────────────────
-# O vivo devolve o valor COMO O TEXTO O ESCREVE: «2026-09-07/2026-09-13», mas tambem
+# O vivo devolve o valor COMO O TEXTO O ESCREVE: um intervalo em ISO, mas tambem
 # «12 novembre 2026», «6-8 ottobre 2026», «18 febbraio» (sem ano), «16/09/2026».
+# (RT3 §4: este comentario citava uma data da corrida R9. O §5 do LAB manda ZERO mencoes
+#  dela no codigo de producao — mesmo em prosa —, e uma data de exemplo nao precisa de ser
+#  a dela para explicar a forma.)
 # Ler so o ISO foi o defeito medido: `_primeiro_dia` devolvia None e a comparacao com a
 # publicacao nunca acontecia. Isto NAO e um leitor de italiano novo — e a leitura do
 # NUMERO de um valor que o vivo ja leu, com a tabela de meses do dono dela (`fato_local`).
@@ -415,6 +486,14 @@ def primeiro_dia(valor) -> tuple:
     m = _RE_SO_ANO.search(s)
     if m:
         return _dia(m.group(1), 1, 1), False
+    # ⚠️ RT3 §2.D · O MES SOZINHO TAMBEM NAO ESCREVE O ANO.
+    # `primeiro_dia('luglio')` devolvia `(None, False)`, e o `False` era lido por quem chama
+    # como «tem ano» — logo a classe dizia «o ano esta escrito» sobre «luglio», «marzo»,
+    # «maggio» e «ottobre» (5 casos reais medidos pelo red team). O `_RE_DIA_MES` quer o dia e
+    # o `_RE_SO_MES` quer o ano; um mes sozinho nao casa nenhum dos dois e caia aqui, calado.
+    # Nao se inventa o ano (nem o da publicacao, D63): diz-se que ele FALTA.
+    if _RE_MES_ESCRITO.search(FL._baixo(s)):
+        return None, True
     return None, False
 
 
@@ -763,6 +842,13 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
         _dia_lido, sem_ano = primeiro_dia(c["fact_time"])
         sem_ano = sem_ano or falta_o_ano(c["fact_time"])      # PROD-3: o mes sozinho tambem
         precisao = c["fact_time_precision"] + ("+SEM_ANO" if sem_ano else "")
+        # ⚠️ RT3 §7 · «+CALCULADA» AO LADO DE «LITERAL» SAO DUAS AFIRMACOES OPOSTAS.
+        # O selo do vivo diz que o valor foi CONTADO; a origem LITERAL diz que ele estava
+        # ESCRITO. Depois da PROD-1 (a data escrita e LITERAL mesmo com «oggi» ao lado) as duas
+        # coisas apareciam juntas no mesmo campo, e quem consome tinha de escolher em qual
+        # acreditar. Quem manda e a ORIGEM, que e a decisao desta lei.
+        if origem == LITERAL:
+            precisao = precisao.replace("+CALCULADA", "")
         return dict(base, PAPEL=papel, VALOR=c["fact_time"], ORIGEM=origem, BASIS=basis,
                     PRECISAO=precisao, ANO=NAO_SEI if sem_ano else None, PORQUE=porque,
                     BASE_DO_VIVO=c["fact_time_basis"][:400])

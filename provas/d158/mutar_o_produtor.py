@@ -142,12 +142,27 @@ MUTANTES = [
     ("A_DATA_SO_SE_LE_EM_ISO", "leis/tempo_da_afirmacao.py",
      '    m = _RE_DIA_MES.search(FL._baixo(s))', '    m = None if True else _RE_DIA_MES.search(FL._baixo(s))'),
     ("O_FUTURO_DO_VERBO_DEIXA_DE_CONTAR", "leis/tempo_da_afirmacao.py",
-     '    return bool(_RE_FUTURO_DO_VERBO.search(janela) or _RE_ANUNCIO.search(janela))',
+     '    return bool(_RE_FUTURO_DO_VERBO.search(frase) or _RE_ANUNCIO.search(frase))',
      '    return False'),
+    # ── RT3 §2.A · os dois defeitos da regra do futuro, um mutante cada ──────
+    ("RT3_O_ACENTO_DEIXA_DE_SER_OBRIGATORIO", "leis/tempo_da_afirmacao.py",
+     '(?:rà\\b|(?<!ti)ranno\\b)', '(?:r[àa]\\b|(?<!ti)ranno\\b)'),
+    ("RT3_A_JANELA_VOLTA_A_CORTAR_PALAVRA", "leis/tempo_da_afirmacao.py",
+     '    frase = frase_do_valor(span, valor)',
+     '    _i = span.lower().find(str(valor or "").lower())\n'
+     '    frase = span[max(0, _i - FT.JANELA_ANTES):_i + FT.JANELA_DEPOIS] if _i >= 0 else span'),
+    ("RT12_O_FUTURO_OLHA_O_TRECHO_INTEIRO", "leis/tempo_da_afirmacao.py",
+     '    frase = frase_do_valor(span, valor)', '    frase = span'),
     ("RT4_ALERTA_EVENTO_SEM_ACONTECIMENTO", "leis/afirmacao_do_documento.py",
      '    if tempo.get("PAPEL") != TA.ACONTECIMENTO:', '    if False:'),
-    ("A_CLASSE_NAO_EXIGE_A_ANCORA", "leis/afirmacao_do_documento.py",
-     '    if not FT._relativa_presa_ao_campo(span):', '    if False:'),
+    # ── RT3 §2.D · a ancora do campo SAIU da classe (respondia a outra pergunta) e a MARCA
+    # ESCRITA entrou no lugar dela. O mutante segue a garantia, nao a linha antiga.
+    ("RT3_A_CLASSE_NAO_EXIGE_MARCA_ESCRITA", "leis/afirmacao_do_documento.py",
+     '    if not marcas:\n        faltas.append("nenhuma marca de classe esta escrita no trecho (contrato §5-C)")',
+     '    if False:\n        faltas.append("nenhuma marca de classe esta escrita no trecho (contrato §5-C)")'),
+    ("RT3_A_MARCA_DE_EVENTO_NAO_E_LIDA_DO_VIVO", "leis/afirmacao_do_documento.py",
+     '    if FT._RE_EVENTO.search(span):\n        marcas.append("ALERTA_EVENTO")',
+     '    if False:\n        marcas.append("ALERTA_EVENTO")'),
     # ⚠️ Este mutante atacava a linha inteira do ano. A PROD-3 partiu a condicao em duas
     # metades (a PRECISAO/ANO e a pergunta ao VALOR) e o alvo antigo desapareceu — ficou
     # NAO_APLICADO no pre-teste dos alvos. Agora ataca SO a primeira metade, e o
@@ -165,8 +180,43 @@ MUTANTES = [
      r'(?:consentit[oi]|ammess[oi]|autorizzat[oi])\s+(?:a\s+partire\s+)?dal|',
      r'(?:zzzconsentito)\s+dal|'),
     ("A_VALIDADE_SEM_A_FORMA_VALE_DAL", "leis/tempo_da_afirmacao.py",
-     'vale\\s+dal|decorre\\s+dal|con\\s+decorrenza)", re.I)',
-     'zzznuncacasa)", re.I)'),
+     'vale\\s+dal|decorre\\s+dal|con\\s+decorrenza|',
+     'zzznuncacasa|'),
+    # ── RT3 §2.C · as tres formas novas da VALIDADE, uma alternativa por mutante ──
+    ("RT3_A_VALIDADE_SEM_RENDE_ATTIVA", "leis/tempo_da_afirmacao.py",
+     'rende\\s+attiv|fase\\s+di\\s+attenzione|', 'zzzrende\\s+attiv|zzzfase|'),
+    ("RT3_A_VALIDADE_SEM_DI_OGNI_ANNO", "leis/tempo_da_afirmacao.py",
+     'di\\s+ogni\\s+anno)", re.I)', 'zzzdi\\s+ogni\\s+anno)", re.I)'),
+    ("RT3_O_PRAZO_ENTRO_IL_PROSSIMO_DEIXA_DE_SER_FUTURO", "leis/tempo_da_afirmacao.py",
+     'entro\\s+il\\s+prossim|entro\\s+la\\s+prossim)', 'zzzentro\\s+il\\s+prossim)'),
+    # ── RT3 §2.D · os tres atos que nao escrevem «decreto» ───────────────────
+    ("RT3_A_MARCA_DE_ATO_SEM_DEROGA", "leis/tempo_da_afirmacao.py",
+     'r"deroga|stabilito\\s+dal|"', 'r"zzzderoga|stabilito\\s+dal|"'),
+    ("RT3_A_MARCA_DE_ATO_SEM_STABILITO_DAL", "leis/tempo_da_afirmacao.py",
+     'r"deroga|stabilito\\s+dal|"', 'r"deroga|zzzstabilito\\s+dal|"'),
+    ("RT3_A_MARCA_DE_ATO_SEM_SOSTITUITO", "leis/tempo_da_afirmacao.py",
+     r'(?:e|è)\s+stat[oa]\s+sostituit)', r'zzzsostituit)'),
+    # ── RT3 §7 · a precisao nao pode contradizer a origem ────────────────────
+    ("RT3_LITERAL_VOLTA_A_VIAJAR_COM_CALCULADA", "leis/tempo_da_afirmacao.py",
+     '        if origem == LITERAL:\n            precisao = precisao.replace("+CALCULADA", "")',
+     '        if False:\n            precisao = precisao.replace("+CALCULADA", "")'),
+    ("RT3_A_PRECISAO_APAGA_CALCULADA_SEMPRE", "leis/tempo_da_afirmacao.py",
+     '        if origem == LITERAL:\n            precisao = precisao.replace("+CALCULADA", "")',
+     '        if True:\n            precisao = precisao.replace("+CALCULADA", "")'),
+    # ── RT3 §5.2 · o MOTIVO tem de viajar num campo, nos DOIS sitios ─────────
+    # ⚠️ O alvo deste inclui a linha SEGUINTE de proposito: a versao curta (30 espacos) e
+    # SUBSTRING da linha do FACT_TIME_ROLE (35 espacos) e casava 2 vezes — o pre-teste
+    # apanhou-o. Dois alvos parecidos precisam de ancora, nao de sorte.
+    ("RT3_O_MOTIVO_NAO_VIAJA_NO_FACT_TIME", "leis/afirmacao_do_documento.py",
+     '                              "MOTIVO": tempo.get("MOTIVO"),\n'
+     '                              "PORQUE_NAO": None if e_facto else tempo["PORQUE"]},',
+     '                              "PORQUE_NAO": None if e_facto else tempo["PORQUE"]},'),
+    ("RT3_O_MOTIVO_NAO_VIAJA_NO_PAPEL", "leis/afirmacao_do_documento.py",
+     '                                   "MOTIVO": tempo.get("MOTIVO"),', ''),
+    # ── RT3 §2.D · o mes sozinho tem de acender o «sem ano» no primeiro_dia ──
+    ("RT3_PRIMEIRO_DIA_NAO_VE_O_MES_SOZINHO", "leis/tempo_da_afirmacao.py",
+     '    if _RE_MES_ESCRITO.search(FL._baixo(s)):\n        return None, True',
+     '    if False:\n        return None, True'),
     ("A_IDENTIDADE_NAO_SEI_PASSA", "leis/afirmacao_do_documento.py",
      '        if e_ignorancia(af.get(c)):\n            v.append("%s = %r: NAO SEI na identidade RECUSA',
      '        if af.get(c) in (None, ""):\n            v.append("%s = %r: NAO SEI na identidade RECUSA'),
@@ -248,10 +298,10 @@ MUTANTES = [
     ("PROD4_A_MARCA_DE_ATO_SEM_RECANTE", "leis/tempo_da_afirmacao.py",
      r'regolamento\s+\(?(?:ue|ce)\)?|recante|', r'regolamento\s+\(?(?:ue|ce)\)?|zzzrecante|'),
     ("PROD4_A_MARCA_DE_ATO_SEM_N_DEL", "leis/tempo_da_afirmacao.py",
-     r'    r"n\.?\s*\d+\s+del(?![a-zà-ÿ])|lotta\s+obbligatoria)", re.I)',
-     r'    r"zzznumero\s+del|lotta\s+obbligatoria)", re.I)'),
+     r'r"n\.?\s*\d+\s+del(?![a-zà-ÿ])|lotta\s+obbligatoria|"',
+     r'r"zzznumero\s+del|lotta\s+obbligatoria|"'),
     ("PROD4_A_MARCA_DE_ATO_SEM_LOTTA_OBBLIGATORIA", "leis/tempo_da_afirmacao.py",
-     r'|lotta\s+obbligatoria)", re.I)', r'|zzzlotta\s+obbligatoria)", re.I)'),
+     r'|lotta\s+obbligatoria|"', r'|zzzlotta\s+obbligatoria|"'),
 ]
 
 

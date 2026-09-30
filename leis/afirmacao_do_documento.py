@@ -523,27 +523,49 @@ def classe_do_claim(span: str, tempo: dict) -> dict:
         marcas.append("RECOMENDACAO")
     if _RE_ESTUDO.search(span):
         marcas.append("CIENCIA_FICHA")
+    # ── RT3 §2.D · A MARCA DO EVENTO TÉCNICO, que a casa já lê ────────────────
+    # O §5-C do contrato é literal: «quando NENHUMA marca de classe está escrita, a classe é
+    # NAO SEI, mesmo que o papel seja ACONTECIMENTO». A versão anterior dava ALERTA_EVENTO sem
+    # marca nenhuma, desde que houvesse papel + âncora do vivo + ano — e a âncora do vivo é a
+    # do campo/lugar, não uma palavra de classe. O red team mediu 13 saídas erradas assim.
+    #
+    #     UMA CLASSE SEM MARCA ESCRITA É UMA CLASSE ADIVINHADA,
+    #     E O CONTRATO PROÍBE ADIVINHAR.
+    #
+    # A marca existe e é da casa: `FT._RE_EVENTO` (fiera, convegno, giornata tecnica, open day,
+    # «si terrà»…), a mesma lista que o leitor do lugar usa para saber se um lugar é lugar de
+    # evento. Mesmo caminho da PROD-2 com «punti vendita»: lê-se de lá, não se copia.
+    if FT._RE_EVENTO.search(span):
+        marcas.append("ALERTA_EVENTO")
     if len(marcas) > 1:
         return {"VALOR": NAO_SEI, "MARCAS": marcas,
                 "PORQUE": "o trecho traz a marca de %d classes (%s); escolher uma seria inferir"
                           % (len(marcas), ", ".join(marcas))}
-    if marcas:
+    if marcas and marcas[0] != "ALERTA_EVENTO":
         return {"VALOR": marcas[0], "MARCAS": marcas, "PORQUE": "a marca da classe esta escrita no trecho"}
     faltas = []
+    if not marcas:
+        faltas.append("nenhuma marca de classe esta escrita no trecho (contrato §5-C)")
     if tempo.get("PAPEL") != TA.ACONTECIMENTO:
         faltas.append("o papel da data e %s, nao ACONTECIMENTO" % tempo.get("PAPEL"))
-    if not FT._relativa_presa_ao_campo(span):
-        faltas.append("o texto nao prende a data a um acontecimento (nenhuma ancora do leitor vivo)")
+    # ⚠️ A ÂNCORA DO VIVO SAIU DESTA LISTA, E A RAZÃO É QUE ELA RESPONDE A OUTRA PERGUNTA.
+    # `FT._relativa_presa_ao_campo` pergunta «o texto prende a data a algo do CAMPO?». Era usada
+    # como prova de «isto é um evento» enquanto ALERTA_EVENTO era dado por SOBRA — um remendo
+    # (D160 §2.3) para tapar a ausência de marca. Agora a marca é OBRIGATÓRIA e `FT._RE_EVENTO`
+    # responde diretamente à pergunta certa. Manter as duas barrava «La giornata tecnica si è
+    # svolta il 12 aprile 2026» (medido): marca de evento escrita, e recusada por não falar do
+    # campo. Uma giornata tecnica não é um acontecimento do campo — e é um evento.
     # PROD-3: pergunta-se tambem ao VALOR, e nao so a PRECISAO. Um mes sozinho («marzo») nao
     # acendia o sinal `SEM_ANO`, e a classe saia ALERTA_EVENTO contra a regra escrita acima.
     if (str(tempo.get("PRECISAO") or "").endswith("SEM_ANO") or tempo.get("ANO") == NAO_SEI
             or TA.falta_o_ano(tempo.get("VALOR"))):
         faltas.append("a data nao escreve o ano")
     if faltas:
-        return {"VALOR": NAO_SEI, "MARCAS": [],
+        return {"VALOR": NAO_SEI, "MARCAS": marcas,
                 "PORQUE": "sem marca de classe, e ALERTA_EVENTO nao e o que sobra: " + "; ".join(faltas)}
-    return {"VALOR": "ALERTA_EVENTO", "MARCAS": [],
-            "PORQUE": "papel ACONTECIMENTO, o texto prende a data a um acontecimento, e o ano esta escrito"}
+    return {"VALOR": "ALERTA_EVENTO", "MARCAS": marcas,
+            "PORQUE": "a marca de evento tecnico esta escrita no trecho, o papel e ACONTECIMENTO, "
+                      "o texto prende a data a um acontecimento, e o ano esta escrito"}
 
 
 def _nome_original(nome, span: str):
@@ -674,8 +696,13 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
                 "FACT_TIME": {"VALOR": fact_time,
                               "FACT_TIME_BASIS": tempo["BASIS"] if e_facto else None,
                               "FACT_TIME_PRECISION": tempo["PRECISAO"] if e_facto else "NOT_KNOWN",
+                              # RT3 §5.2 · o MOTIVO tem de viajar num CAMPO, como ja viaja no
+                              # lugar. Estava so dentro do texto do PORQUE_NAO, e ler um motivo
+                              # por dentro de uma frase obriga quem consome a fazer gramatica.
+                              "MOTIVO": tempo.get("MOTIVO"),
                               "PORQUE_NAO": None if e_facto else tempo["PORQUE"]},
                 "FACT_TIME_ROLE": {"PAPEL": tempo["PAPEL"], "VALOR_LIDO": tempo["VALOR"],
+                                   "MOTIVO": tempo.get("MOTIVO"),
                                    "ORIGEM": tempo["ORIGEM"], "BASIS": tempo["BASIS"],
                                    "PRECISAO": tempo["PRECISAO"],
                                    "ANO": tempo.get("ANO") or (NAO_SEI if str(tempo["PRECISAO"]).endswith("SEM_ANO") else None),
