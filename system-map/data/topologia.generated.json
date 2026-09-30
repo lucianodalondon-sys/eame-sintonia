@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-30T04:14:47+00:00",
-  "HEAD": "db155dd7e05328f143e3ef622738635ab719b922",
+  "GENERATED_AT": "2026-09-30T08:57:43+00:00",
+  "HEAD": "d648731faa3ccaf209c76c18a153ed5441fdc055",
   "BRANCH": "claude/l2-disparador-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a70871b341a524d8e1158a5fe643d1334891adae35334231941d9c726008928b",
+  "SOURCE_TREE_FINGERPRINT": "1c7a5fe81696a6274069a501fff6c5c9602ffaa04b686a60aede344c11c0dfbb",
   "FICHEIROS_NA_IMPRESSAO": 4391,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2722,7 +2722,7 @@
    {
     "PATH": "motor/g0_da_afirmacao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "dcffa45df33b185ec6dbcb028eaf0f24f92a9284",
+    "VERSAO": "246cd76d5b05e0fb8ad69e7187af01b0a34953f4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -4038,7 +4038,7 @@
    {
     "PATH": "provas/l2/mutantes_g0.py",
     "PAPEL": "FONTE",
-    "VERSAO": "7cb6267bce2a3e2da021d4910674f87d67409fb0",
+    "VERSAO": "35848ed55a4a53814b93a700502ea432fc9b2fbf",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -5648,14 +5648,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a70871b341a524d8e1158a5fe643d1334891adae35334231941d9c726008928b",
+    "VERSAO": "1c7a5fe81696a6274069a501fff6c5c9602ffaa04b686a60aede344c11c0dfbb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a70871b341a524d8e1158a5fe643d1334891adae35334231941d9c726008928b",
+    "VERSAO": "1c7a5fe81696a6274069a501fff6c5c9602ffaa04b686a60aede344c11c0dfbb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7104,7 +7104,7 @@
    {
     "PATH": "tests/test_g0_da_afirmacao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "dfc5346a4db51e5cfc09f85190c746980dd6e738",
+    "VERSAO": "32f73717067666b8bec52f5872a155b086f16cce",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8356,7 +8356,7 @@
    }
   ],
   "INPUTS_COUNT": 1188,
-  "INPUTS_DIGEST": "82c5d76073ae88b5e6615dd5df6961e1eeb4bb1be7cd1750e9ecb4c7febce710",
+  "INPUTS_DIGEST": "617d3203b66227b34679c762ce0e6cb3cf313f60e9cfc5bb1632f2083f41d7f2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8389,8 +8389,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "298c756d01c9428e4cccd18428cdbb55147db25eaa492c51da6988177cec756a",
-  "SEMANTIC_HASH": "614222f5b9f77b9fd751bf6fc57a04f5332d6487c3504b36eeb105326c0026e4"
+  "MEASUREMENT_HASH": "c4be54609af0b8392cd9d79dc8c456d51216276604fa6980e149d9e28de422a8",
+  "SEMANTIC_HASH": "b71601dfe79bfd3d29b53cc47e81a2ff3d84f1d8409c7e3863d0462c01e9465e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -30801,7 +30801,7 @@
      },
      {
       "FICHEIRO": "provas/l2/mutantes_g0.py",
-      "LINHA": 22,
+      "LINHA": 23,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-L2-DISPARADOR",
@@ -30809,7 +30809,7 @@
      },
      {
       "FICHEIRO": "provas/l2/mutantes_g0.py",
-      "LINHA": 23,
+      "LINHA": 24,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-L2-DISPARADOR",
@@ -30875,7 +30875,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 267,
+      "LINHA": 405,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -30883,7 +30883,7 @@
      },
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 267,
+      "LINHA": 405,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -36549,7 +36549,7 @@
      },
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 268,
+      "LINHA": 406,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--READS-->C-TESTES",
@@ -47008,7 +47008,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/l2/mutantes_g0.py",
-      "LINHA": 25,
+      "LINHA": 26,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-PROVA-L2-DISPARADOR",
@@ -47060,7 +47060,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 268,
+      "LINHA": 406,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-TESTES",
@@ -48346,7 +48346,7 @@
      },
      {
       "FICHEIRO": "provas/l2/mutantes_g0.py",
-      "LINHA": 24,
+      "LINHA": 25,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-L2-DISPARADOR",
@@ -48436,7 +48436,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 267,
+      "LINHA": 405,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",

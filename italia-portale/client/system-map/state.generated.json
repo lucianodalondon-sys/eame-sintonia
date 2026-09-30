@@ -4837,9 +4837,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l2-disparador-v1",
-    "HEAD": "db155dd7e05328f143e3ef622738635ab719b922",
-    "GENERATED_AT": "2026-09-30T01:11:19-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a70871b341a524d8e1158a5fe643d1334891adae35334231941d9c726008928b"
+    "HEAD": "d648731faa3ccaf209c76c18a153ed5441fdc055",
+    "GENERATED_AT": "2026-09-30T05:53:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1c7a5fe81696a6274069a501fff6c5c9602ffaa04b686a60aede344c11c0dfbb"
   },
   "FAMILIES": [
     {
@@ -50895,13 +50895,14 @@
           "CHAVES_DO_POTE",
           "CLAIM_KINDS",
           "COLUNAS_DO_RAW",
+          "CONCORRENTES",
           "PROVENIENCIA_DA_AFIRMACAO",
           "TEMPO_DA_CLASSE",
           "_CAMPO_DA_JANELA"
         ],
-        "palavras": 79,
+        "palavras": 85,
         "por_lingua": {},
-        "sem_marca_de_lingua": 79,
+        "sem_marca_de_lingua": 85,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -62903,9 +62904,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 138,
+        "palavras": 159,
         "por_lingua": {},
-        "sem_marca_de_lingua": 138,
+        "sem_marca_de_lingua": 159,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -115907,7 +115908,7 @@
         },
         {
           "file": "provas/l2/mutantes_g0.py",
-          "line": 22,
+          "line": 23,
           "snippet": "G0 = \"motor/g0_da_afirmacao.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-L2-DISPARADOR",
@@ -115923,7 +115924,7 @@
         },
         {
           "file": "provas/l2/mutantes_g0.py",
-          "line": 23,
+          "line": 24,
           "snippet": "MOT = \"motor/motor_das_capacidades.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-L2-DISPARADOR",
@@ -116159,7 +116160,7 @@
       "evidence": [
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 267,
+          "line": 405,
           "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -116175,7 +116176,7 @@
         },
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 267,
+          "line": 405,
           "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -125630,7 +125631,7 @@
         },
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 268,
+          "line": 406,
           "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--READS-->C-TESTES",
@@ -143622,7 +143623,7 @@
       "evidence": [
         {
           "file": "provas/l2/mutantes_g0.py",
-          "line": 25,
+          "line": 26,
           "snippet": "PONTE = \"pacote/ponte_intelligence_casco.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-PROVA-L2-DISPARADOR",
@@ -143826,7 +143827,7 @@
       "evidence": [
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 268,
+          "line": 406,
           "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-TESTES",
@@ -146719,7 +146720,7 @@
         },
         {
           "file": "provas/l2/mutantes_g0.py",
-          "line": 24,
+          "line": 25,
           "snippet": "POTE = \"pacote/pote_intelligence_casco.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-PROVA-L2-DISPARADOR",
@@ -147019,7 +147020,7 @@
       "evidence": [
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 267,
+          "line": 405,
           "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",

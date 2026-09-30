@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l2-disparador-v1",
-    "HEAD": "db155dd7e05328f143e3ef622738635ab719b922",
-    "GENERATED_AT": "2026-09-30T01:11:19-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a70871b341a524d8e1158a5fe643d1334891adae35334231941d9c726008928b"
+    "HEAD": "d648731faa3ccaf209c76c18a153ed5441fdc055",
+    "GENERATED_AT": "2026-09-30T05:53:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1c7a5fe81696a6274069a501fff6c5c9602ffaa04b686a60aede344c11c0dfbb"
   },
   "FILES": [
     {
@@ -19218,7 +19218,7 @@
     },
     {
       "path": "motor/g0_da_afirmacao.py",
-      "sha": "dcffa45df33b185ec6dbcb028eaf0f24f92a9284",
+      "sha": "246cd76d5b05e0fb8ad69e7187af01b0a34953f4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21955,14 +21955,14 @@
     },
     {
       "path": "provas/l2/G0-AFIRMACAO-R9.json",
-      "sha": "c9f28bfd0bc68a3c685f2dc17ee9e70994e5b369",
+      "sha": "4d44f32648d1251d325169d25cbaf2eaeb20a890",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/l2/MUTANTES-G0.json",
-      "sha": "16c09fe36aaf9c58b900b7ab4e1d4c4de0c7bd7d",
+      "sha": "c872fe9310ffaa4c590a20af57667375f63ea9dd",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -22025,7 +22025,7 @@
     },
     {
       "path": "provas/l2/mutantes_g0.py",
-      "sha": "7cb6267bce2a3e2da021d4910674f87d67409fb0",
+      "sha": "35848ed55a4a53814b93a700502ea432fc9b2fbf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28444,7 +28444,7 @@
     },
     {
       "path": "tests/test_g0_da_afirmacao.py",
-      "sha": "dfc5346a4db51e5cfc09f85190c746980dd6e738",
+      "sha": "32f73717067666b8bec52f5872a155b086f16cce",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -73828,7 +73828,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/l2/mutantes_g0.py",
-        "line": 22,
+        "line": 23,
         "snippet": "G0 = \"motor/g0_da_afirmacao.py\""
       }
     },
@@ -73839,7 +73839,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/l2/mutantes_g0.py",
-        "line": 23,
+        "line": 24,
         "snippet": "MOT = \"motor/motor_das_capacidades.py\""
       }
     },
@@ -73850,7 +73850,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/l2/mutantes_g0.py",
-        "line": 25,
+        "line": 26,
         "snippet": "PONTE = \"pacote/ponte_intelligence_casco.py\""
       }
     },
@@ -73861,7 +73861,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/l2/mutantes_g0.py",
-        "line": 24,
+        "line": 25,
         "snippet": "POTE = \"pacote/pote_intelligence_casco.py\""
       }
     },
@@ -73872,7 +73872,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/l2/mutantes_g0.py",
-        "line": 20,
+        "line": 21,
         "snippet": "SAIDA = AQUI / \"MUTANTES-G0.json\""
       }
     },
@@ -73883,7 +73883,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/l2/mutantes_g0.py",
-        "line": 77,
+        "line": 96,
         "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
       }
     },
@@ -73894,7 +73894,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/l2/mutantes_g0.py",
-        "line": 17,
+        "line": 18,
         "snippet": "from mutantes import aplicar, sha  # noqa: E402"
       }
     },
@@ -101537,7 +101537,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 268,
+        "line": 406,
         "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")"
       }
     },
@@ -101559,7 +101559,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 267,
+        "line": 405,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -101581,7 +101581,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 267,
+        "line": 405,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -101592,7 +101592,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 268,
+        "line": 406,
         "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")"
       }
     },
@@ -101603,7 +101603,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 267,
+        "line": 405,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
