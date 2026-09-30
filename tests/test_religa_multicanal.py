@@ -969,6 +969,53 @@ def test_o_livro_distingue_sem_legenda_de_legenda_que_falhou():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# A GUARDA DA BUSCA — UM ENSAIO QUE DIZ «SEM REDE» TEM DE SER SEM REDE
+# ══════════════════════════════════════════════════════════════════════════════
+def test_a_busca_usa_o_transporte_injectado_e_nao_abre_ligacao_propria():
+    """⚠️ Este teste falharia antes da correcao de 30/09, e falharia INDO A REDE.
+
+    A linha BUSCA chamava `linha_busca.transporte_real()` sempre, e ignorava o `buscar` injectado.
+    Um ensaio «offline» ia ao DuckDuckGo a valer (medido: HTTP 403). O que se prova aqui e que o
+    leitor injectado E o unico transporte: se ele responder, ninguem mais e chamado."""
+    import onda_linha as OL
+    t = _Temp()
+    try:
+        # ⚠️ SINTONIA_BUSCA_SAIDA por omissao e a PASTA ACTUAL, e a linha escreve `serp/<sha>` com os
+        # bytes da SERP. Sem esta linha o teste suja a raiz do repo — aconteceu-me ao escrever isto.
+        os.environ["SINTONIA_BUSCA_SAIDA"] = str(t.pasta)
+        serp = '<html><a class="result__a" href="https://exemplo.test/bollettino-vite">b</a></html>'
+        b = leitor(serp)
+        cand = {"SOURCE_ID": "Q0001", "UNIVERSO": "T3", "ALVO": {"CONSULTA": "bollettino vite"}}
+        d = OL.alvos_da_fonte("BUSCA", cand, b)
+        assert len(b.chamadas) == 1, \
+            "o transporte injectado tinha de ser o unico chamado; foi %d vez(es)" % len(b.chamadas)
+        assert "duckduckgo" in b.chamadas[0], \
+            "o endereco do motor tem de ser montado por `motores` e PASSAR pelo leitor: %s" % b.chamadas[0]
+        assert d.get("ERRO") is None, d.get("ERRO")
+        # e o alvo sai da SERP DE MENTIRA — prova de que foi ela, e nao a rede, a responder
+        assert [a["URL"] for a in d["ALVOS"]] == ["https://exemplo.test/bollettino-vite"]
+        assert d["ALVOS"][0]["MOTOR"] == "DDG_HTML"
+        assert not (Path.cwd() / "serp").exists(), "a linha escreveu na arvore em vez da pasta do ensaio"
+    finally:
+        t.fechar()
+
+
+def test_o_leitor_injectado_da_busca_que_recusa_tem_erro_com_nome_proprio():
+    """«O leitor do ensaio recusou» nao e «o motor de busca recusou». Sem nome proprio, um relatorio
+    de corrida le uma pela outra."""
+    import onda_linha as OL
+    t = _Temp()
+    try:
+        os.environ["SINTONIA_BUSCA_SAIDA"] = str(t.pasta)
+        cand = {"SOURCE_ID": "Q0001", "UNIVERSO": "T3", "ALVO": {"CONSULTA": "bollettino vite"}}
+        d = OL.alvos_da_fonte("BUSCA", cand, leitor(erro="HTTP 403"))
+        assert d.get("ERRO"), "um leitor que recusa nao pode devolver alvos"
+        assert "RotaDeBuscaInjectadaRecusou" in d["ERRO"], d["ERRO"]
+    finally:
+        t.fechar()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # P3 — DUAS CORRIDAS SEGUIDAS NAO CRIAM RAW NOVO
 # ══════════════════════════════════════════════════════════════════════════════
 def test_duas_corridas_sobre_a_mesma_entrada_nao_criam_raw_novo():

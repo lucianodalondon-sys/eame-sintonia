@@ -123,6 +123,13 @@ class TerritorioNaoDeclarado(ValueError):
     """Nao ha territorio para carimbar esta corrida, e nao se inventa um."""
 
 
+class RotaDeBuscaInjectadaRecusou(RuntimeError):
+    """O transporte INJECTADO da BUSCA disse nao, e o erro dele tem nome proprio.
+
+    Existe para nao se confundir «o leitor do ensaio recusou» com «o motor de busca recusou». Sao
+    duas coisas diferentes e o relatorio de uma corrida nao deve ler uma pela outra."""
+
+
 SEM_TERRITORIO = "T0"          # nao e um territorio: e a ausencia declarada de um (T1..T13 sao os reais)
 
 
@@ -234,8 +241,32 @@ def alvos_da_fonte(linha: str, cand: dict, buscar, *, max_alvos=None) -> dict:
         saida = Path(os.environ.get("SINTONIA_BUSCA_SAIDA") or ".")
         q = {"CONSULTA_ID": cand.get("SOURCE_ID"), "CONSULTA": alvo.get("CONSULTA"),
              "UNIVERSO": cand.get("UNIVERSO")}
+        # ⚠️ GUARDA DA BUSCA — DOIS CONTRATOS DE TRANSPORTE, UM TRADUTOR EXPLICITO.
+        #
+        # Esta linha chamava `LB.transporte_real(saida)` SEMPRE, e por isso IGNORAVA o `buscar` que lhe
+        # fosse injectado. Medido em 30/09 a escrever a prova do P3: o medidor dizia «sem rede», passou
+        # um leitor local, e a corrida foi ao DuckDuckGo a valer e levou HTTP 403. Nada avisou.
+        #
+        #     UMA LINHA QUE IGNORA O TRANSPORTE INJECTADO NAO TEM ENSAIO OFFLINE:
+        #     tem ensaio que parece offline e vai a rede.
+        #
+        # A causa nao e descuido de quem injecta: sao DOIS CONTRATOS com o mesmo nome. O `buscar` desta
+        # casa devolve {"STATUS","BYTES","ERRO"}; o transporte dos motores devolve a TUPLA (corpo, meta)
+        # e recebe `cabecalhos` em vez de `aceitar`. Entregar um ao outro rebentava — ou, pior, calava.
+        # Por isso o tradutor e explicito e vive aqui, a vista, como o do LinkedIn (rotas_multicanal).
+        # O `meta` nao e lido por `buscar_consultas` (so o corpo), e vai declarado como injectado.
+        if buscar is not None:
+            def transporte(pedido, cabecalhos=None):
+                r = buscar(pedido)
+                if not isinstance(r, dict):
+                    return r                      # ja fala o contrato dos motores
+                if r.get("ERRO"):
+                    raise RotaDeBuscaInjectadaRecusou(str(r["ERRO"])[:200])
+                return (r.get("BYTES") or b""), {"STATUS": r.get("STATUS"), "TRANSPORTE": "INJECTADO"}
+        else:
+            transporte = LB.transporte_real(saida)
         try:
-            achados = LB.buscar_consultas(motor, [q], LB.transporte_real(saida), saida)
+            achados = LB.buscar_consultas(motor, [q], transporte, saida)
         except Exception as ex:                                     # noqa: BLE001
             return {"ERRO": "BUSCA: %s: %s" % (type(ex).__name__, str(ex)[:160]), "PEDIDOS": 1}
         erro = next((x["ERRO"] for x in achados if x.get("ERRO")), None)
