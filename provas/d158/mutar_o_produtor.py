@@ -196,6 +196,42 @@ MUTANTES = [
      'r"deroga|stabilito\\s+dal|"', 'r"deroga|zzzstabilito\\s+dal|"'),
     ("RT3_A_MARCA_DE_ATO_SEM_SOSTITUITO", "leis/tempo_da_afirmacao.py",
      r'(?:e|è)\s+stat[oa]\s+sostituit)', r'zzzsostituit)'),
+    # ── F1 (REAUDIT-275) · as duas formas impressas na prosa, e o menu que as escondia ──
+    ("F1_A_SEMANA_ISO_DEIXA_DE_SER_LIDA", "leis/tempo_da_afirmacao.py",
+     '    for m in _RE_SEMANA_ISO.finditer(span):', '    for m in []:'),
+    ("F1_O_INTERVALO_DE_DIAS_DEIXA_DE_SER_LIDO", "leis/tempo_da_afirmacao.py",
+     '    for m in _RE_DIA_DIA_MES.finditer(span):', '    for m in []:'),
+    # ⚠️ o ataque mais perigoso: inventar o ano quando o documento nao o escreve
+    ("F1_O_ANO_E_INVENTADO_QUANDO_O_DOCUMENTO_NAO_O_ESCREVE", "leis/tempo_da_afirmacao.py",
+     '        if ano_ctx is None:\n            continue', '        if False:\n            continue'),
+    ("F1_O_ANO_DO_DOCUMENTO_ESCOLHE_UM_DE_VARIOS", "leis/tempo_da_afirmacao.py",
+     '    return anos.pop() if len(anos) == 1 else None',
+     '    return min(anos) if anos else None'),
+    ("F1_O_ANO_LE_SE_NO_DOCUMENTO_INTEIRO", "leis/tempo_da_afirmacao.py",
+     '    limite = LETRAS_DA_ABERTURA if ate is None else min(LETRAS_DA_ABERTURA, int(ate))',
+     '    limite = len(str(texto or ""))'),
+    ("F1_A_SEMANA_QUE_NAO_EXISTE_PASSA", "leis/tempo_da_afirmacao.py",
+     '        except ValueError:\n            continue                           # semana 0 ou 54: o texto escreveu o que nao existe',
+     '        except ValueError:\n            a = b = date(ano, 1, 1)'),
+    ("F1_O_BASIS_DA_FORMA_FICA_RELATIVO", "leis/tempo_da_afirmacao.py",
+     '                     "BASIS": {"INICIO": inicio + m.start(), "FIM": inicio + m.end(),\n                               "TRECHO": m.group(0)}})\n    ano_ctx',
+     '                     "BASIS": {"INICIO": m.start(), "FIM": m.end(),\n                               "TRECHO": m.group(0)}})\n    ano_ctx'),
+    ("F1_A_GUARDA_DO_BLK1_NAO_VALE_NO_CAMINHO_NOVO", "leis/tempo_da_afirmacao.py",
+     '        if papel in PAPEL_QUE_E_FACTO and len(escritos) > 1:\n            return dict(base, PAPEL=NAO_SEI, VALOR=NAO_SEI, ORIGEM=None, BASIS=p["BASIS"],',
+     '        if False:\n            return dict(base, PAPEL=NAO_SEI, VALOR=NAO_SEI, ORIGEM=None, BASIS=p["BASIS"],'),
+    ("F1_DOIS_PERIODOS_IMPRESSOS_ESCOLHEM_UM", "leis/tempo_da_afirmacao.py",
+     '        if len(impressos_no_trecho) > 1:', '        if False:'),
+    ("F1_O_CONTADOR_NAO_VE_AS_FORMAS_NOVAS", "leis/tempo_da_afirmacao.py",
+     '_FORMAS_DE_DATA = ((_RE_SEMANA_ISO, False), (_RE_DIA_DIA_MES, False),\n                   (_RE_DIA_ISO, False),',
+     '_FORMAS_DE_DATA = ((_RE_DIA_ISO, False),'),
+    # o menu que engolia a frase seguinte
+    ("F1_O_MENU_VOLTA_A_ENGOLIR_A_FRASE_SEGUINTE", "leis/afirmacao_do_documento.py",
+     '        if len(corrida) >= LINHAS_DO_BLOCO:\n            fora += [corrida[0][0], corrida[-1][1]]',
+     '        if False:\n            fora += [corrida[0][0], corrida[-1][1]]'),
+    # ⚠️ e o outro lado: cortar em QUALQUER linha curta partiria prosa embrulhada de PDF
+    ("F1_CORTA_EM_QUALQUER_LINHA_CURTA_ISOLADA", "leis/afirmacao_do_documento.py",
+     '        if len(corrida) >= LINHAS_DO_BLOCO:\n            fora += [corrida[0][0], corrida[-1][1]]',
+     '        if len(corrida) >= 1:\n            fora += [corrida[0][0], corrida[-1][1]]'),
     # ── CONTRATO §5-D · a classe OBSERVACAO_MEDIDA, e os cinco ataques da DT ──
     # DT_FO_1 · retirar a marca (o bloco, o verbo e o valor: tres portas, tres mutantes)
     ("DT_FO_1a_A_CLASSE_SEM_A_MARCA_ESCRITA", "leis/afirmacao_do_documento.py",
@@ -262,9 +298,15 @@ MUTANTES = [
      '        def _envolta(*args):\n            if args in guardadas:',
      '        def _envolta(*args):\n            if guardadas:\n                return next(iter(guardadas.values()))\n            if args in guardadas:'),
     # ── BLK-1 · o bloqueador do Intelligence owner, e cada peca dele atacada ──
+    # ⚠️ Ancorado na linha SEGUINTE: a F1 criou uma segunda guarda com a MESMA condicao (uma no
+    # caminho do vivo, outra no do periodo impresso), e o alvo curto passou a casar 2 vezes. O
+    # pre-teste apanhou-o. Duas guardas iguais em caminhos diferentes precisam de ancora, e cada
+    # uma leva o seu mutante — esta e a do vivo (BASIS=basis); a da F1 usa BASIS=p["BASIS"].
     ("BLK1_DOIS_TEMPOS_ESCOLHEM_UM", "leis/tempo_da_afirmacao.py",
-     '        if papel in PAPEL_QUE_E_FACTO and len(escritos) > 1:',
-     '        if False:'),
+     '        if papel in PAPEL_QUE_E_FACTO and len(escritos) > 1:\n'
+     '            return dict(base, PAPEL=NAO_SEI, VALOR=NAO_SEI, ORIGEM=None, BASIS=basis,',
+     '        if False:\n'
+     '            return dict(base, PAPEL=NAO_SEI, VALOR=NAO_SEI, ORIGEM=None, BASIS=basis,'),
     ("BLK1_DOIS_LUGARES_ESCOLHEM_UM", "leis/afirmacao_do_documento.py",
      '    if valor != UNRESOLVED and len(escritos) > 1:', '    if False:'),
     # A contagem tem de VIAJAR: o dono recusa tambem quando o campo falta. Dois mutantes,

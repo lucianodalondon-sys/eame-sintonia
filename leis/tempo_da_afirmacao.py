@@ -224,6 +224,71 @@ def _dia(a, m, d) -> date | None:
         return None
 
 
+# ── F1 · DUAS FORMAS QUE VIVEM NA PROSA, NAO NO CABECALHO ────────────────────
+# A reauditoria dos 275 (LAB, 30/09) mediu RECUPERADOS = 0/100 e nomeou dois itens. Fui ver o
+# texto deles antes de escrever regra nenhuma, e o que encontrei muda onde a regra tem de morar:
+#
+#   derived:768   «…aggiornato alla settimana 38/2026, conferma un quadro…»
+#   busca-2ac58821 «La settimana appena trascorsa (18-24.05) è stata caratterizzata…»
+#
+# ⚠️ AS DUAS ESTAO DENTRO DE UMA FRASE DO CORPO, e `cabecalho_do_documento` devolve (0,0) nos
+# dois documentos. Ou seja: F1 NAO e a composicao por cabecalho (D147/D149) — e o caminho
+# LITERAL, com o BASIS dentro do proprio trecho. Ler estas formas no cabecalho nao apanharia
+# nenhum dos dois casos que o dono nomeou.
+_RE_SEMANA_ISO = re.compile(
+    r"(?<![\w/])settimana\s*n?\.?\s*(\d{1,2})\s*/\s*((?:19|20)\d{2})(?![\d/])", re.I)
+#: «(18-24.05)» — o intervalo de dias dentro de um mes, SEM ano. O ano vem do documento.
+_RE_DIA_DIA_MES = re.compile(r"\(\s*(\d{1,2})\s*[-–—]\s*(\d{1,2})\s*[./]\s*(\d{1,2})\s*\)")
+#: quantas letras do inicio do documento contam como o bloco de abertura, onde o ano se le
+LETRAS_DA_ABERTURA = 600
+
+
+def ano_do_documento(texto: str, ate: int | None = None) -> int | None:
+    """O ano ESCRITO no bloco de abertura do documento, ou None.
+
+    ⚠️ SO QUANDO HA UM SO. Se a abertura escrever dois anos diferentes, nao se escolhe — e a
+    mesma regra da condicao (1) da D147 («um cabecalho com dois periodos nao governa nada»).
+    Medido: a abertura do boletim de Ticino escreve «n. 20/2026» e «26.05.2026», os dois 2026;
+    a de um portal de noticias escreve 2024, 2025, 2026 e 2027, e ai nao ha ano do documento."""
+    limite = LETRAS_DA_ABERTURA if ate is None else min(LETRAS_DA_ABERTURA, int(ate))
+    anos = {int(m.group(1)) for m in _RE_SO_ANO.finditer(str(texto or "")[:limite])}
+    return anos.pop() if len(anos) == 1 else None
+
+
+def periodos_impressos_no_trecho(texto: str, inicio: int, fim: int) -> list:
+    """Os periodos das formas da F1 escritos DENTRO do trecho, com o BASIS e o offset.
+
+    Cada um: {INICIO_DIA, FIM_DIA, VALOR, FORMA, BASIS:{INICIO,FIM,TRECHO}}."""
+    span = str(texto or "")[inicio:fim]
+    fora = []
+    for m in _RE_SEMANA_ISO.finditer(span):
+        semana, ano = int(m.group(1)), int(m.group(2))
+        try:                                   # a semana ISO da o intervalo de segunda a domingo
+            a = date.fromisocalendar(ano, semana, 1)
+            b = date.fromisocalendar(ano, semana, 7)
+        except ValueError:
+            continue                           # semana 0 ou 54: o texto escreveu o que nao existe
+        fora.append({"INICIO_DIA": a, "FIM_DIA": b, "FORMA": "SEMANA_ISO",
+                     "VALOR": "%s/%s" % (a.isoformat(), b.isoformat()),
+                     "BASIS": {"INICIO": inicio + m.start(), "FIM": inicio + m.end(),
+                               "TRECHO": m.group(0)}})
+    ano_ctx = ano_do_documento(texto, inicio)
+    for m in _RE_DIA_DIA_MES.finditer(span):
+        if ano_ctx is None:
+            continue                           # ⚠️ sem ano do documento NAO se inventa o ano (D63)
+        d1, d2, mes = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        a, b = _dia(ano_ctx, mes, d1), _dia(ano_ctx, mes, d2)
+        if not (a and b and a <= b):
+            continue
+        fora.append({"INICIO_DIA": a, "FIM_DIA": b, "FORMA": "DIA_DIA_MES_COM_ANO_DO_DOCUMENTO",
+                     "VALOR": "%s/%s" % (a.isoformat(), b.isoformat()),
+                     "ANO_DO_DOCUMENTO": ano_ctx,
+                     "BASIS": {"INICIO": inicio + m.start(), "FIM": inicio + m.end(),
+                               "TRECHO": m.group(0)}})
+    fora.sort(key=lambda p: p["BASIS"]["INICIO"])
+    return fora
+
+
 def periodos_escritos(linha: str) -> list:
     """TODOS os periodos escritos NESTA linha. Sao todos porque DOIS periodos no mesmo
     cabecalho sao a condicao (1) da D147 a falhar: um cabecalho com duas datas nao governa
@@ -518,7 +583,14 @@ def primeiro_dia(valor) -> tuple:
 # NAO HA VOCABULARIO NOVO AQUI. Conta com as MESMAS cinco expressoes que o `primeiro_dia`
 # usa para ler, e na mesma ordem de prioridade. Uma segunda lista de formas de data ao lado
 # da primeira seria a segunda a ficar para tras.
-_FORMAS_DE_DATA = ((_RE_DIA_ISO, False), (_RE_DIA_BARRA, False),
+# ⚠️ F1 · AS FORMAS NOVAS ENTRAM AQUI TAMBEM, E A ORDEM IMPORTA.
+# `settimana 38/2026` e `(18-24.05)` vem PRIMEIRO porque sao mais longas do que o ano solto que
+# vive dentro delas: sem isto, «settimana 38/2026» era contada como o ano «2026» e a contagem
+# apontava para um pedaco da forma, nao para a forma.
+# E sem isto tambem voltava o estado incoerente que a PROD-3 fechou: um FACT_TIME presente com
+# TEMPOS_NO_TRECHO = 0, porque o contador nao via a forma que o leitor leu.
+_FORMAS_DE_DATA = ((_RE_SEMANA_ISO, False), (_RE_DIA_DIA_MES, False),
+                   (_RE_DIA_ISO, False), (_RE_DIA_BARRA, False),
                    (_RE_DIA_MES, True), (_RE_SO_MES, True), (_RE_SO_ANO, False))
 #: o que LIGA duas datas num SO periodo («dal 1 gennaio al 31 dicembre»). Deliberadamente
 #: CURTA: «e» ficou de fora, porque «nel 2004 e nel 2012» sao dois factos e «tra il 2004 e o
@@ -745,6 +817,11 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
     publicacao = alvo.get("PUBLICACAO") or {}
     pub = FT.publicacao_provada(publicacao.get("VALOR"), publicacao.get("BASE"))
     captura = dia_da_captura(alvo.get("CAPTURA"))
+    # ── F1 · as duas formas impressas na PROSA do trecho ─────────────────────
+    # Correm ANTES do leitor vivo porque sao MAIS ESPECIFICAS do que o que ele ve: em
+    # «settimana 38/2026» ele le o ano «2026» solto, e o ano solto perde a semana. Quem le mais
+    # nao pode ser vencido por quem le menos.
+    impressos_no_trecho = periodos_impressos_no_trecho(texto, ini, fim)
     escritos = expressoes_de_tempo(span)
     base = {"LEITOR": LEITOR_VIVO, "PUBLICACAO_PROVADA": pub.isoformat() if pub else None,
             "CAPTURA": captura.isoformat() if captura else None,
@@ -755,6 +832,40 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
 
     cab_doc = cabecalho_do_documento(texto)
     periodos = periodos_do_cabecalho(texto, secao["INICIO"], ini, pub, cabecalho_do_documento=cab_doc)
+
+    # ── 0 · F1 · o periodo IMPRESSO no proprio trecho ────────────────────────
+    if impressos_no_trecho:
+        if len(impressos_no_trecho) > 1:
+            return dict(base, PAPEL=NAO_SEI, VALOR=NAO_SEI, ORIGEM=None, BASIS=None,
+                        PRECISAO="NOT_KNOWN", MOTIVO=TEMPOS_CONCORRENTES,
+                        PORQUE="§5-C: o trecho escreve %d periodos impressos (%s) e o produtor "
+                               "nao tem como provar qual deles e o do facto"
+                               % (len(impressos_no_trecho),
+                                  ", ".join("«%s»" % p["BASIS"]["TRECHO"]
+                                            for p in impressos_no_trecho)),
+                        CONCORRENTES=[p["BASIS"]["TRECHO"] for p in impressos_no_trecho])
+        p = impressos_no_trecho[0]
+        papel, porque = papel_do_periodo(span, p["INICIO_DIA"], p["FIM_DIA"], pub)
+        # a mesma recusa pela CAPTURA que o caminho do vivo ja faz (D63: recusar, nunca ancorar)
+        if papel == ACONTECIMENTO and captura is not None and p["INICIO_DIA"] > captura:
+            papel, porque = PREVISAO, "o periodo comeca depois do dia em que o documento foi colhido"
+        # ⚠️ E A GUARDA DO BLK-1 TAMBEM VALE AQUI, senao a F1 abria uma porta ao lado dela.
+        # A forma impressa e MAIS ESPECIFICA do que um ano solto, e por isso ganha a leitura —
+        # mas «mais especifica» nao e «provadamente a do facto». Medido em derived:768: o trecho
+        # escreve TRES tempos. Se o papel saisse ACONTECIMENTO, escolher a forma impressa entre
+        # tres seria exactamente o par montado que o bloqueador BLK-1 existe para impedir.
+        # So morde o ACONTECIMENTO: um MARKET_PERIOD ou uma VALIDADE nao sao o tempo do facto.
+        if papel in PAPEL_QUE_E_FACTO and len(escritos) > 1:
+            return dict(base, PAPEL=NAO_SEI, VALOR=NAO_SEI, ORIGEM=None, BASIS=p["BASIS"],
+                        PRECISAO="NOT_KNOWN", MOTIVO=TEMPOS_CONCORRENTES,
+                        PORQUE="F1 · §5-C: o trecho escreve %d tempos (%s); a forma impressa "
+                               "«%s» e a mais especifica, mas isso nao prova que e a do facto"
+                               % (len(escritos), ", ".join("«%s»" % x["TRECHO"] for x in escritos),
+                                  p["BASIS"]["TRECHO"]),
+                        CONCORRENTES=[x["TRECHO"] for x in escritos])
+        return dict(base, PAPEL=papel, VALOR=p["VALOR"], ORIGEM=LITERAL, BASIS=p["BASIS"],
+                    PRECISAO=_precisao_do_periodo(p), PORQUE="F1 · %s (forma %s)" % (porque, p["FORMA"]),
+                    FORMA_IMPRESSA=p["FORMA"], ANO_DO_DOCUMENTO=p.get("ANO_DO_DOCUMENTO"))
 
     # ── 1 · o que o LEITOR VIVO le no proprio trecho ───────────────────────
     c = _do_vivo(span, publicacao.get("VALOR"), publicacao.get("BASE"))

@@ -1840,5 +1840,227 @@ class OsMutantesDaDTSairamDaDividaEEntraramNaMedicao(unittest.TestCase):
         self.assertIsInstance(mod.MUTANTES_PENDENTES, list)
 
 
+class AsDuasFormasImpressasNaProsa(unittest.TestCase):
+    """F1 (REAUDIT-275, ordem do dono 30/09) · «settimana NN/AAAA», «(dd-dd.mm)» e o ANO do
+    documento, com offsets.
+
+    ⚠️ ONDE A REGRA MORA NÃO ERA ÓBVIO, e fui ver o texto antes de a escrever. A ordem fala da
+    D147/D149 (a composição por cabeçalho), mas nos dois itens que o dono nomeou as formas estão
+    **dentro de uma frase do corpo**, e `cabecalho_do_documento` devolve `(0,0)` nos dois
+    documentos. Ler estas formas no cabeçalho não apanharia nenhum dos dois casos. Por isso elas
+    entram no caminho **LITERAL**, com o BASIS dentro do próprio trecho.
+
+    Textos sintéticos, como manda o cabeçalho deste ficheiro: as formas reais entram como FORMA,
+    nunca o trecho da R9."""
+
+    SEMANA = 'Il Report, aggiornato alla settimana 38/2026, conferma il quadro del mercato.'
+    #: ⚠️ A abertura tem de ser uma LINHA LONGA. A minha 1.ª versão usava duas linhas curtas
+    #: («Bollettino fitosanitario n. 20/2026» + «1 di 3 26.05.2026») e o próprio texto de teste
+    #: caía na regra do bloco de menu (2 curtas em 3 linhas), dando ZERO afirmações — o teste
+    #: reprovava por causa do cenário, não da regra que ele queria medir.
+    ABERTURA_COM_ANO = ('Il bollettino fitosanitario numero 20 dell anno 2026 e stato '
+                        'pubblicato dal servizio fitosanitario cantonale.\n')
+    DIA_DIA = 'La settimana appena trascorsa (18-24.05) e stata caratterizzata da sole.'
+
+    def test_a_semana_ISO_da_o_intervalo_de_segunda_a_domingo(self):
+        p = TA.periodos_impressos_no_trecho(self.SEMANA, 0, len(self.SEMANA))
+        self.assertEqual(len(p), 1)
+        self.assertEqual(p[0]['VALOR'], '2026-09-14/2026-09-20')
+        self.assertEqual(p[0]['FORMA'], 'SEMANA_ISO')
+        self.assertEqual(p[0]['BASIS']['TRECHO'], 'settimana 38/2026')
+
+    def test_a_semana_que_nao_existe_nao_da_data(self):
+        """Semana 0 e semana 54 não existem. O texto pode escrevê-las; o produtor não as lê."""
+        for mau in ('settimana 0/2026', 'settimana 54/2026', 'settimana 99/2026'):
+            frase = 'Il Report, aggiornato alla %s, conferma.' % mau
+            self.assertEqual(TA.periodos_impressos_no_trecho(frase, 0, len(frase)), [], mau)
+
+    def test_o_intervalo_de_dias_usa_o_ANO_DO_DOCUMENTO(self):
+        t = self.ABERTURA_COM_ANO + self.DIA_DIA
+        i = t.index('La settimana')
+        p = TA.periodos_impressos_no_trecho(t, i, len(t))
+        self.assertEqual(len(p), 1)
+        self.assertEqual(p[0]['VALOR'], '2026-05-18/2026-05-24')
+        self.assertEqual(p[0]['ANO_DO_DOCUMENTO'], 2026)
+        self.assertEqual(p[0]['BASIS']['TRECHO'], '(18-24.05)')
+
+    def test_SEM_ano_no_documento_NAO_se_inventa_o_ano(self):
+        """⚠️ A regra que impede a forma de fabricar datas: sem ano no documento, ela não sai.
+
+        Nem o ano da publicação, nem o da captura, nem o de hoje. É a D63 aplicada a uma forma
+        nova: o que não está escrito não se conta."""
+        t = 'Testo di apertura senza anno.\n' + self.DIA_DIA
+        self.assertEqual(TA.periodos_impressos_no_trecho(t, t.index('La settimana'), len(t)), [])
+
+    def test_com_DOIS_anos_na_abertura_nao_ha_ano_do_documento(self):
+        """A mesma regra da condição (1) da D147: um cabeçalho com duas datas não governa nada.
+
+        Medido: a abertura de um portal de notícias escreve 2024, 2025, 2026 e 2027 — ali não há
+        «o ano do documento», e escolher um seria inferir."""
+        self.assertEqual(TA.ano_do_documento('Report 2024 e 2025 a confronto.\n'), None)
+        self.assertEqual(TA.ano_do_documento('Bollettino n. 20/2026 del 26.05.2026\n'), 2026)
+        self.assertEqual(TA.ano_do_documento('Nessun anno qui.\n'), None)
+
+    def test_o_ano_le_se_so_na_ABERTURA_do_documento(self):
+        """Um ano escrito muito depois, no meio do corpo, não é o ano do documento."""
+        longe = 'Apertura senza anno.\n' + ('x' * TA.LETRAS_DA_ABERTURA) + '\nAnno 2026.\n'
+        self.assertIsNone(TA.ano_do_documento(longe))
+
+    def test_o_BASIS_da_forma_cai_DENTRO_do_trecho(self):
+        """A origem é LITERAL, e LITERAL promete a prova entre INICIO e FIM da afirmação."""
+        linha = _linha(self.ABERTURA_COM_ANO + self.DIA_DIA)
+        af = next((a for a in AD.afirmacoes_do_item(linha)['AFIRMACOES']
+                   if '(18-24.05)' in a['TRECHO_LITERAL']), None)
+        self.assertIsNotNone(af, 'a frase com a forma tem de ser uma afirmacao')
+        fr = af['FACT_TIME_ROLE']
+        self.assertEqual(fr['ORIGEM'], TA.LITERAL)
+        b = fr['BASIS']
+        self.assertEqual(linha['texto'][b['INICIO']:b['FIM']], b['TRECHO'])
+        self.assertLessEqual(af['POSICAO']['INICIO'], b['INICIO'])
+        self.assertLessEqual(b['FIM'], af['POSICAO']['FIM'])
+
+    def test_O_CONTADOR_VE_AS_FORMAS_NOVAS(self):
+        """⚠️ Sem isto voltava o estado incoerente que a PROD-3 fechou: um valor presente com
+        `TEMPOS_NO_TRECHO = 0`, porque o contador não via a forma que o leitor leu.
+
+        E a ordem importa: a forma vem antes do ano solto que vive **dentro** dela, senão
+        «settimana 38/2026» era contada como «2026» e a contagem apontava para um pedaço."""
+        self.assertEqual([x['TRECHO'] for x in TA.expressoes_de_tempo(self.SEMANA)],
+                         ['settimana 38/2026'])
+        self.assertEqual([x['TRECHO'] for x in TA.expressoes_de_tempo(self.DIA_DIA)],
+                         ['(18-24.05)'])
+
+    def test_a_guarda_do_BLK1_vale_TAMBEM_no_caminho_novo(self):
+        """⚠️ ESTE TESTE NASCEU DE UM BURACO QUE EU ABRI E ENCONTREI A MEDIR.
+
+        A forma impressa é **mais específica** do que um ano solto, e por isso ganha a leitura.
+        Mas «mais específica» não é «provadamente a do facto»: num trecho com três tempos,
+        escolher a forma impressa seria exactamente o par montado que o BLK-1 existe para
+        impedir. Só morde o ACONTECIMENTO — um MARKET_PERIOD ou uma VALIDADE não são o tempo do
+        facto e podem sair com concorrentes ao lado."""
+        t = ('La grandinata osservata nella settimana 38/2026 ha colpito i frutteti di Cuneo, '
+             'come nel 2024 e nel 2025.')
+        af = _produzir(t, published_at='2026-10-20',
+                       raw_captured_at='2026-10-25 11:07:15+00')[0]
+        self.assertGreater(af['TEMPOS_NO_TRECHO'], 1)
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+        self.assertEqual(af['FACT_TIME']['MOTIVO'], TA.TEMPOS_CONCORRENTES)
+
+    def test_a_forma_sozinha_com_publicacao_provada_da_o_periodo(self):
+        """O controle positivo: uma forma, publicação provada depois do período, e ele passa."""
+        t = 'La grandinata osservata nella settimana 38/2026 ha colpito i frutteti di Cuneo.'
+        af = _produzir(t, published_at='2026-10-20',
+                       raw_captured_at='2026-10-25 11:07:15+00')[0]
+        self.assertEqual(af['TEMPOS_NO_TRECHO'], 1)
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.ACONTECIMENTO)
+        self.assertEqual(af['FACT_TIME']['VALOR'], '2026-09-14/2026-09-20')
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.LITERAL)
+
+    def test_SEM_publicacao_provada_a_forma_nao_diz_se_ja_passou(self):
+        """D63 · sem publicação provada não se sabe se o período já passou. Sai `NAO SEI`.
+
+        ⚠️ Isto é o que **bloqueia** um dos dois itens que o dono nomeou na F1
+        (`busca-2ac58821`, com `published_at = NAO SEI`). A forma é lida, o BASIS fica no trecho
+        e o valor sai certo — mas o PAPEL não se resolve. Não é defeito da forma, e não afrouxei
+        a D63 para o número aparecer."""
+        t = 'La grandinata osservata nella settimana 38/2026 ha colpito i frutteti di Cuneo.'
+        af = _produzir(t, published_at=None, published_at_basis=None,
+                       raw_captured_at='2026-11-10 11:07:15+00')[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], NAO_SEI)
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.LITERAL)
+        self.assertEqual(af['FACT_TIME_ROLE']['BASIS']['TRECHO'], 'settimana 38/2026')
+
+    def test_a_forma_DEPOIS_da_captura_continua_a_ser_recusada(self):
+        """A recusa pela captura (D63: recusar, nunca ancorar) vale no caminho novo também.
+
+        ⚠️ Para a alcançar é preciso publicação provada **depois** do período (senão o papel já
+        sai `NAO SEI` antes) e captura **antes** dele. A minha 1.ª versão deste teste não punha
+        publicação nenhuma, logo nunca chegava à guarda: media outra coisa e passava a achar que
+        a media. Um teste que nunca alcança a linha que diz guardar é uma guarda sem teste."""
+        t = 'La grandinata osservata nella settimana 38/2026 ha colpito i frutteti di Cuneo.'
+        af = _produzir(t, published_at='2026-12-01',
+                       raw_captured_at='2026-01-10 11:07:15+00')[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], TA.PREVISAO)
+        self.assertIn('colhido', af['FACT_TIME_ROLE']['PORQUE'])
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+
+    def test_DOIS_periodos_impressos_no_mesmo_trecho_dao_NAO_SEI(self):
+        """Medido no boletim de Ticino: o trecho real escreve «(18-24.05)» e «(25-31.05)»."""
+        t = self.ABERTURA_COM_ANO + ('La settimana (18-24.05) e quella (25-31.05) sono state '
+                                     'caratterizzate da sole in provincia di Cuneo.')
+        af = next((a for a in _produzir(t) if '(18-24.05)' in a['TRECHO_LITERAL']), None)
+        self.assertIsNotNone(af, 'a frase com as duas formas tem de ser uma afirmacao')
+        self.assertEqual(af['TEMPOS_NO_TRECHO'], 2)
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+
+
+class OMenuQueEngoliaAFraseSeguinte(unittest.TestCase):
+    """F1 · o defeito que escondia a única frase de `derived:768` com a forma.
+
+    A nuvem de etiquetas de um site («2949 / Ortofrutta / 1168 / mele / …») não tem pontuação
+    nenhuma, logo a frase seguinte não tinha onde acabar: as duas coisas viravam UM pedaço, o
+    `e_bloco_de_linhas_curtas` julgava-o menu — e acertava, na maioria — e a prosa ia fora com o
+    menu.
+
+        UM MENU QUE ENGOLE A FRASE SEGUINTE NÃO FAZ SÓ LIXO PASSAR:
+        FAZ O CORPO DESAPARECER COM ELE.
+    """
+
+    MENU_E_PROSA = ('2949\nOrtofrutta\n1168\nmele\n1031\ningrosso\n872\nnocciole\n'
+                    'Il Report Planner, aggiornato alla settimana 38/2026, conferma un quadro '
+                    'già emerso nelle rilevazioni precedenti in provincia di Cuneo.\n')
+
+    def test_a_prosa_depois_do_menu_volta_a_ser_corpo(self):
+        af = _que_diz(_produzir(self.MENU_E_PROSA), 'Il Report Planner')
+        self.assertIsNotNone(af, 'a frase depois do menu tem de ser uma afirmacao')
+        self.assertIn('settimana 38/2026', af['TRECHO_LITERAL'])
+
+    def test_o_menu_continua_a_NAO_ser_corpo(self):
+        """O conserto não pode deixar o menu entrar: ele corta, não aprova."""
+        for af in _produzir(self.MENU_E_PROSA):
+            self.assertNotIn('Ortofrutta\n1168', af['TRECHO_LITERAL'])
+            self.assertNotIn('nocciole', af['TRECHO_LITERAL'])
+
+    def test_UMA_linha_curta_isolada_NAO_corta(self):
+        """⚠️ A distinção que torna isto seguro, e a razão de cortar só no fim de uma CORRIDA.
+
+        Num PDF a prosa vem embrulhada e uma linha curta sozinha é o **rabo** de uma frase.
+        Cortar ali partiria uma afirmação verdadeira em duas metades — o que é pior do que
+        deixar passar um menu, porque a prova fica pela metade."""
+        embrulhado = ('La grandinata osservata il 18 febbraio 2026 ha colpito i frutteti\n'
+                      'di Cuneo.\n')
+        af = _que_diz(_produzir(embrulhado), 'La grandinata')
+        self.assertIsNotNone(af)
+        self.assertIn('di Cuneo', af['TRECHO_LITERAL'],
+                      'a linha curta do fim e o rabo da frase, nao um item de lista')
+
+    def test_o_limite_de_curta_e_o_do_vivo_e_nao_um_numero_novo(self):
+        fonte = so_a_regra(os.path.join(RAIZ, 'leis', 'afirmacao_do_documento.py'))
+        self.assertIn('FT\n.\nPALAVRAS_MINIMAS', fonte)
+        self.assertIn('LINHAS_DO_BLOCO', fonte)
+
+    def test_UMA_linha_curta_em_tres_continua_a_ser_prosa(self):
+        """`LINHAS_DO_BLOCO` é 3: uma corrida precisa de três linhas curtas **seguidas**."""
+        uma = ('La grandinata osservata il 18 febbraio 2026 ha colpito i frutteti\n'
+               'con danni diffusi in tutta la provincia di Cuneo secondo i tecnici\n'
+               'di Cuneo.\n')
+        af = _que_diz(_produzir(uma), 'La grandinata')
+        self.assertIsNotNone(af)
+        self.assertIn('provincia di Cuneo', af['TRECHO_LITERAL'])
+
+    def test_LIMITE_JA_EXISTENTE_duas_curtas_em_tres_linhas_sao_julgadas_menu(self):
+        """⚠️ LIMITE QUE JÁ EXISTIA, MEDIDO AQUI PARA NÃO SER CONFUNDIDO COM O MEU CONSERTO.
+
+        `e_bloco_de_linhas_curtas` (D160 §1.9) julga menu qualquer bloco de 3+ linhas em que a
+        MAIORIA é curta. Num PDF, prosa embrulhada em três linhas com duas curtas é descartada —
+        e isso **não** é efeito do corte que eu acrescentei: é a regra do bloco, anterior a ele.
+        Medi as duas para que a próxima pessoa não me atribua este descarte, e para que ele fique
+        declarado em vez de invisível."""
+        duas = ('La grandinata osservata il 18 febbraio 2026 ha colpito\ni frutteti\n'
+                'di Cuneo.\n')
+        self.assertTrue(AD.e_bloco_de_linhas_curtas(duas))
+        self.assertEqual(_produzir(duas), [])
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

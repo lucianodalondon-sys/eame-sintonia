@@ -170,16 +170,45 @@ _RE_VIRGULA_QUE_EMENDA = re.compile(
 
 
 def _cortes_duros(texto: str, ini: int, fim: int) -> list:
-    """Onde uma frase nao pode atravessar: paragrafo, pagina e linha de cabecalho."""
-    fora, pos = [], 0
-    for linha in str(texto or "").splitlines(keepends=True):
+    """Onde uma frase nao pode atravessar: paragrafo, pagina, cabecalho e BLOCO DE MENU.
+
+    ⚠️ O BLOCO DE MENU NAO ACABA EM PONTO, E POR ISSO COLAVA-SE A FRASE SEGUINTE.
+    Medido na F1, em `derived:768`: a unica frase do documento que escreve «settimana 38/2026»
+    e prosa a valer — «Il Report Planner Uva …, aggiornato alla settimana 38/2026, conferma um
+    quadro…» — mas vinha precedida da nuvem de etiquetas do site («2949 / Ortofrutta / 1168 /
+    mele / 1031 / ingrosso / …»). Nenhuma daquelas linhas tem pontuacao, logo a frase nao tinha
+    onde acabar: as duas coisas viravam UM pedaco, o `e_bloco_de_linhas_curtas` julgava-o menu
+    (e acertava, na maioria) e a prosa ia fora com o menu.
+
+        UM MENU QUE ENGOLE A FRASE SEGUINTE NAO FAZ SO LIXO PASSAR:
+        FAZ O CORPO DESAPARECER COM ELE.
+
+    O corte e no FIM DE UMA CORRIDA de linhas curtas, nunca numa linha curta isolada — e essa
+    distincao e o que torna isto seguro. Num PDF a prosa vem embrulhada e uma linha curta
+    sozinha e o RABO de uma frase; cortar ali partiria uma afirmacao verdadeira em duas metades,
+    que e pior do que deixar passar um menu. Tres linhas curtas seguidas nao sao prosa embrulhada:
+    sao uma lista. O limite de «curta» e o do vivo (`FT.PALAVRAS_MINIMAS`), nao um numero novo.
+    """
+    t = str(texto or "")
+    fora, linhas, pos = [], [], 0
+    for linha in t.splitlines(keepends=True):
         a, b = pos, pos + len(linha)
         pos = b
+        crua = linha.rstrip("\r\n")
+        linhas.append((a, b, crua))
         if b <= ini or a >= fim:
             continue
-        crua = linha.rstrip("\r\n")
         if not crua.strip() or "\f" in crua or TA.e_cabecalho(crua.replace("\f", " ")):
             fora += [a, b]
+    # ── as fronteiras de cada CORRIDA de linhas curtas ───────────────────────
+    corrida = []
+    for a, b, crua in linhas + [(pos, pos, "")]:
+        if crua.strip() and FT._palavras(crua) < FT.PALAVRAS_MINIMAS:
+            corrida.append((a, b))
+            continue
+        if len(corrida) >= LINHAS_DO_BLOCO:
+            fora += [corrida[0][0], corrida[-1][1]]
+        corrida = []
     return sorted({x for x in fora if ini <= x <= fim})
 
 
