@@ -1,10 +1,10 @@
 {
- "ARVORE": "c6bcc09e9fb80b5e936dc529011c0467efc27922",
+ "ARVORE": "c8b13eafbaf27d267f8b8c6f9118f13569b36ac6",
  "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
  "SEM_MUTACAO": {
   "CODIGO": 0,
   "VERDE": true,
-  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 147 tests in 1.299s\n\nOK"
+  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 171 tests in 2.246s\n\nOK"
  },
  "MUTANTES": [
   {
@@ -13,12 +13,12 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "ERROR: test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe (__main__.AClasseObservacaoMedida5D.test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe)",
+    "ERROR: test_o_offset_da_marca_e_ABSOLUTO_no_documento (__main__.AClasseObservacaoMedida5D.test_o_offset_da_marca_e_ABSOLUTO_no_documento)",
     "ERROR: test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_fact_time_igual_a_publicacao_sem_base)",
     "ERROR: test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho)",
     "ERROR: test_nenhum_municipio_e_inventado (__main__.OContratoDeConsumoDaIntelligence.test_nenhum_municipio_e_inventado)",
-    "ERROR: test_o_facto_observado_SEM_marca_de_classe_fica_nao_sei (__main__.OContratoDeConsumoDaIntelligence.test_o_facto_observado_SEM_marca_de_classe_fica_nao_sei)",
-    "ERROR: test_o_lugar_escrito_no_trecho_traz_o_offset (__main__.OLugarTemOffset.test_o_lugar_escrito_no_trecho_traz_o_offset)",
-    "ERROR: test_o_basis_do_tempo_fora_do_sitio_reprova (__main__.TestesNegativos.test_o_basis_do_tempo_fora_do_sitio_reprova)"
+    "ERROR: test_o_facto_observado_SEM_marca_de_classe_fica_nao_sei (__main__.OContratoDeConsumoDaIntelligence.test_o_facto_observado_SEM_marca_de_classe_fica_nao_sei)"
    ]
   },
   {
@@ -242,6 +242,8 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_DT2_ato_regulatorio_no_mesmo_trecho_da_NAO_SEI (__main__.AClasseObservacaoMedida5D.test_DT2_ato_regulatorio_no_mesmo_trecho_da_NAO_SEI)",
+    "FAIL: test_DT2_evento_no_mesmo_trecho_da_NAO_SEI (__main__.AClasseObservacaoMedida5D.test_DT2_evento_no_mesmo_trecho_da_NAO_SEI)",
     "FAIL: test_a_classe_com_duas_marcas_fica_nao_sei (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_com_duas_marcas_fica_nao_sei)"
    ]
   },
@@ -392,6 +394,8 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_DT3_a_classe_exige_o_ano_e_o_papel (__main__.AClasseObservacaoMedida5D.test_DT3_a_classe_exige_o_ano_e_o_papel)",
+    "FAIL: test_LIMITE_MEDIDO_a_marca_sozinha_nao_ancora_a_data (__main__.AClasseObservacaoMedida5D.test_LIMITE_MEDIDO_a_marca_sozinha_nao_ancora_a_data)",
     "FAIL: test_alerta_evento_nao_e_o_que_sobra (__main__.OQueAindaNaoAconteceu.test_alerta_evento_nao_e_o_que_sobra)"
    ]
   },
@@ -401,8 +405,12 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
-    "FAIL: test_o_facto_observado_SEM_marca_de_classe_fica_nao_sei (__main__.OContratoDeConsumoDaIntelligence.test_o_facto_observado_SEM_marca_de_classe_fica_nao_sei)",
-    "FAIL: test_alerta_evento_nao_e_o_que_sobra (__main__.OQueAindaNaoAconteceu.test_alerta_evento_nao_e_o_que_sobra)"
+    "ERROR: test_DT1_sem_o_VALOR_nao_ha_classe (__main__.AClasseObservacaoMedida5D.test_DT1_sem_o_VALOR_nao_ha_classe)",
+    "ERROR: test_DT1_sem_o_VERBO_nao_ha_classe (__main__.AClasseObservacaoMedida5D.test_DT1_sem_o_VERBO_nao_ha_classe)",
+    "ERROR: test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe (__main__.AClasseObservacaoMedida5D.test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe)",
+    "ERROR: test_DT4_sem_lugar_no_trecho_a_classe_diz_o_que_faltou (__main__.AClasseObservacaoMedida5D.test_DT4_sem_lugar_no_trecho_a_classe_diz_o_que_faltou)",
+    "ERROR: test_a_ancora_do_campo_NAO_conta_como_marca (__main__.AClasseObservacaoMedida5D.test_a_ancora_do_campo_NAO_conta_como_marca)",
+    "ERROR: test_o_produtor_nao_decide_nada_disso (__main__.AFronteiraDaCollection.test_o_produtor_nao_decide_nada_disso)"
    ]
   },
   {
@@ -411,6 +419,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_DT2_evento_no_mesmo_trecho_da_NAO_SEI (__main__.AClasseObservacaoMedida5D.test_DT2_evento_no_mesmo_trecho_da_NAO_SEI)",
     "FAIL: test_a_marca_de_evento_vem_do_leitor_vivo_e_nao_de_uma_copia (__main__.OContratoDeConsumoDaIntelligence.test_a_marca_de_evento_vem_do_leitor_vivo_e_nao_de_uma_copia)",
     "FAIL: test_o_evento_tecnico_escrito_e_ALERTA_EVENTO (__main__.OContratoDeConsumoDaIntelligence.test_o_evento_tecnico_escrito_e_ALERTA_EVENTO)",
     "FAIL: test_a_classe_com_ano_escrito_continua_a_passar (__main__.OMesSozinhoNaoTemAno.test_a_classe_com_ano_escrito_continua_a_passar)",
@@ -509,6 +518,109 @@
    ]
   },
   {
+   "NOME": "DT_FO_1a_A_CLASSE_SEM_A_MARCA_ESCRITA",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "ERROR: test_DT1_sem_o_VALOR_nao_ha_classe (__main__.AClasseObservacaoMedida5D.test_DT1_sem_o_VALOR_nao_ha_classe)",
+    "ERROR: test_DT1_sem_o_VERBO_nao_ha_classe (__main__.AClasseObservacaoMedida5D.test_DT1_sem_o_VERBO_nao_ha_classe)",
+    "ERROR: test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe (__main__.AClasseObservacaoMedida5D.test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe)",
+    "ERROR: test_a_ancora_do_campo_NAO_conta_como_marca (__main__.AClasseObservacaoMedida5D.test_a_ancora_do_campo_NAO_conta_como_marca)",
+    "ERROR: test_o_produtor_nao_decide_nada_disso (__main__.AFronteiraDaCollection.test_o_produtor_nao_decide_nada_disso)",
+    "ERROR: test_o_vocabulario_vem_dos_donos_das_leis (__main__.AFronteiraDaCollection.test_o_vocabulario_vem_dos_donos_das_leis)"
+   ]
+  },
+  {
+   "NOME": "DT_FO_1b_O_VALOR_ACEITA_PERCENTAGEM_E_EURO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_DT1_percentagem_e_euro_NAO_sao_valor_medido (__main__.AClasseObservacaoMedida5D.test_DT1_percentagem_e_euro_NAO_sao_valor_medido)"
+   ]
+  },
+  {
+   "NOME": "DT_FO_1c_O_VERBO_ACEITA_QUALQUER_PALAVRA",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_A_MARCA_VIAJA_COM_AS_DUAS_PARTES_E_O_OFFSET (__main__.AClasseObservacaoMedida5D.test_A_MARCA_VIAJA_COM_AS_DUAS_PARTES_E_O_OFFSET)",
+    "FAIL: test_DT1_sem_o_VERBO_nao_ha_classe (__main__.AClasseObservacaoMedida5D.test_DT1_sem_o_VERBO_nao_ha_classe)",
+    "FAIL: test_o_vocabulario_NAO_se_alargou_por_conveniencia (__main__.AClasseObservacaoMedida5D.test_o_vocabulario_NAO_se_alargou_por_conveniencia)"
+   ]
+  },
+  {
+   "NOME": "DT_FO_2a_O_FUTURO_CONTA_COMO_MEDICAO_FEITA",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_DT2_verbo_no_FUTURO_nao_e_uma_medicao_feita (__main__.AClasseObservacaoMedida5D.test_DT2_verbo_no_FUTURO_nao_e_uma_medicao_feita)"
+   ]
+  },
+  {
+   "NOME": "DT_FO_2b_A_CLASSE_NOVA_NAO_EXIGE_TEMPO_NEM_ANO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "ERROR: test_A_MARCA_VIAJA_COM_AS_DUAS_PARTES_E_O_OFFSET (__main__.AClasseObservacaoMedida5D.test_A_MARCA_VIAJA_COM_AS_DUAS_PARTES_E_O_OFFSET)",
+    "ERROR: test_o_offset_da_marca_e_ABSOLUTO_no_documento (__main__.AClasseObservacaoMedida5D.test_o_offset_da_marca_e_ABSOLUTO_no_documento)",
+    "FAIL: test_DT3_a_classe_exige_o_ano_e_o_papel (__main__.AClasseObservacaoMedida5D.test_DT3_a_classe_exige_o_ano_e_o_papel)",
+    "FAIL: test_LIMITE_MEDIDO_a_marca_sozinha_nao_ancora_a_data (__main__.AClasseObservacaoMedida5D.test_LIMITE_MEDIDO_a_marca_sozinha_nao_ancora_a_data)"
+   ]
+  },
+  {
+   "NOME": "DT_FO_3_O_OFFSET_DA_MARCA_FICA_RELATIVO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_offset_da_marca_e_ABSOLUTO_no_documento (__main__.AClasseObservacaoMedida5D.test_o_offset_da_marca_e_ABSOLUTO_no_documento)"
+   ]
+  },
+  {
+   "NOME": "DT_FO_4a_O_LUGAR_DO_CABECALHO_SUSTENTA_A_CLASSE",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "DT_FO_4b_O_LUGAR_SEM_POSICAO_SUSTENTA_A_CLASSE",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "ERROR: test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe (__main__.AClasseObservacaoMedida5D.test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe)",
+    "ERROR: test_a_coerencia_do_TEMPO_vale_em_toda_a_producao (__main__.ATempoEmitidoTambemConta.test_a_coerencia_do_TEMPO_vale_em_toda_a_producao)",
+    "ERROR: test_A_CONTAGEM_NAO_PODE_SER_ZERO_COM_UM_LUGAR_PRESENTE (__main__.OMesSozinhoNaoTemAno.test_A_CONTAGEM_NAO_PODE_SER_ZERO_COM_UM_LUGAR_PRESENTE)",
+    "ERROR: test_a_coerencia_vale_em_TODA_a_producao (__main__.OMesSozinhoNaoTemAno.test_a_coerencia_vale_em_TODA_a_producao)",
+    "ERROR: test_o_mes_sozinho_nao_da_ALERTA_EVENTO (__main__.OMesSozinhoNaoTemAno.test_o_mes_sozinho_nao_da_ALERTA_EVENTO)"
+   ]
+  },
+  {
+   "NOME": "DT_FO_6a_O_COMMIT_NAO_VIAJA_NO_ARTEFATO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "ERROR: test_o_SHA_NUNCA_viaja_sozinho_sem_dizer_se_a_arvore_estava_limpa (__main__.OProdutorDizDeQueCommitSaiu.test_o_SHA_NUNCA_viaja_sozinho_sem_dizer_se_a_arvore_estava_limpa)",
+    "ERROR: test_o_commit_viaja_em_cada_afirmacao (__main__.OProdutorDizDeQueCommitSaiu.test_o_commit_viaja_em_cada_afirmacao)"
+   ]
+  },
+  {
+   "NOME": "DT_FO_6b_O_SHA_VIAJA_SEM_DIZER_SE_A_ARVORE_ESTAVA_LIMPA",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_SHA_NUNCA_viaja_sozinho_sem_dizer_se_a_arvore_estava_limpa (__main__.OProdutorDizDeQueCommitSaiu.test_o_SHA_NUNCA_viaja_sozinho_sem_dizer_se_a_arvore_estava_limpa)"
+   ]
+  },
+  {
    "NOME": "RT3_LITERAL_VOLTA_A_VIAJAR_COM_CALCULADA",
    "FICHEIRO": "leis/tempo_da_afirmacao.py",
    "ESTADO": "MORTO",
@@ -592,8 +704,12 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
-    "FAIL: test_o_lugar_escrito_no_trecho_traz_o_offset (__main__.OLugarTemOffset.test_o_lugar_escrito_no_trecho_traz_o_offset)",
-    "FAIL: test_sem_offset_o_porque_esta_escrito (__main__.OLugarTemOffset.test_sem_offset_o_porque_esta_escrito)"
+    "ERROR: test_A_MARCA_VIAJA_COM_AS_DUAS_PARTES_E_O_OFFSET (__main__.AClasseObservacaoMedida5D.test_A_MARCA_VIAJA_COM_AS_DUAS_PARTES_E_O_OFFSET)",
+    "ERROR: test_o_offset_da_marca_e_ABSOLUTO_no_documento (__main__.AClasseObservacaoMedida5D.test_o_offset_da_marca_e_ABSOLUTO_no_documento)",
+    "FAIL: test_A_MARCA_DE_MEDICAO_ESCRITA_DA_A_CLASSE (__main__.AClasseObservacaoMedida5D.test_A_MARCA_DE_MEDICAO_ESCRITA_DA_A_CLASSE)",
+    "FAIL: test_DT2_ato_regulatorio_no_mesmo_trecho_da_NAO_SEI (__main__.AClasseObservacaoMedida5D.test_DT2_ato_regulatorio_no_mesmo_trecho_da_NAO_SEI)",
+    "FAIL: test_DT2_evento_no_mesmo_trecho_da_NAO_SEI (__main__.AClasseObservacaoMedida5D.test_DT2_evento_no_mesmo_trecho_da_NAO_SEI)",
+    "FAIL: test_LIMITE_MEDIDO_a_marca_sozinha_nao_ancora_a_data (__main__.AClasseObservacaoMedida5D.test_LIMITE_MEDIDO_a_marca_sozinha_nao_ancora_a_data)"
    ]
   },
   {
@@ -602,12 +718,12 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "ERROR: test_o_offset_da_marca_e_ABSOLUTO_no_documento (__main__.AClasseObservacaoMedida5D.test_o_offset_da_marca_e_ABSOLUTO_no_documento)",
     "ERROR: test_LITERAL_continua_a_ter_o_BASIS_DENTRO_do_trecho (__main__.AOrigemDaDataEscrita.test_LITERAL_continua_a_ter_o_BASIS_DENTRO_do_trecho)",
     "ERROR: test_a_data_escrita_com_oggi_ao_lado_e_LITERAL (__main__.AOrigemDaDataEscrita.test_a_data_escrita_com_oggi_ao_lado_e_LITERAL)",
     "ERROR: test_a_relativa_PURA_continua_RELATIVO_D63 (__main__.AOrigemDaDataEscrita.test_a_relativa_PURA_continua_RELATIVO_D63)",
     "ERROR: test_LITERAL_nunca_viaja_com_CALCULADA (__main__.APrecisaoNaoContradizAOrigem.test_LITERAL_nunca_viaja_com_CALCULADA)",
-    "ERROR: test_a_relativa_continua_a_dizer_que_foi_calculada (__main__.APrecisaoNaoContradizAOrigem.test_a_relativa_continua_a_dizer_que_foi_calculada)",
-    "ERROR: test_em_TODA_a_producao_LITERAL_e_CALCULADA_nunca_coexistem (__main__.APrecisaoNaoContradizAOrigem.test_em_TODA_a_producao_LITERAL_e_CALCULADA_nunca_coexistem)"
+    "ERROR: test_a_relativa_continua_a_dizer_que_foi_calculada (__main__.APrecisaoNaoContradizAOrigem.test_a_relativa_continua_a_dizer_que_foi_calculada)"
    ]
   },
   {
@@ -617,6 +733,7 @@
    "CODIGO": 1,
    "QUEM_O_MATOU": [
     "ERROR: test_o_motivo_esta_escrito_nos_dois_lados (__main__.DoisFactosNumaFraseSo.test_o_motivo_esta_escrito_nos_dois_lados)",
+    "FAIL: test_DT5_Europa_2004_com_Italia_2012_nao_passa_pela_classe_nova (__main__.AClasseObservacaoMedida5D.test_DT5_Europa_2004_com_Italia_2012_nao_passa_pela_classe_nova)",
     "FAIL: test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador (__main__.ATempoEmitidoTambemConta.test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador)",
     "FAIL: test_o_bloqueador_nao_devolve_mais_o_par_falso (__main__.DoisFactosNumaFraseSo.test_o_bloqueador_nao_devolve_mais_o_par_falso)",
     "FAIL: test_TEMPOS_CONCORRENTES_e_um_campo (__main__.OMotivoViajaNumCampo.test_TEMPOS_CONCORRENTES_e_um_campo)",
@@ -641,12 +758,12 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "ERROR: test_DT5_Europa_2004_com_Italia_2012_nao_passa_pela_classe_nova (__main__.AClasseObservacaoMedida5D.test_DT5_Europa_2004_com_Italia_2012_nao_passa_pela_classe_nova)",
     "ERROR: test_a_coerencia_do_TEMPO_vale_em_toda_a_producao (__main__.ATempoEmitidoTambemConta.test_a_coerencia_do_TEMPO_vale_em_toda_a_producao)",
     "ERROR: test_a_relativa_continua_a_contar_ZERO_e_esta_certa (__main__.ATempoEmitidoTambemConta.test_a_relativa_continua_a_contar_ZERO_e_esta_certa)",
     "ERROR: test_o_cabecalho_D147_conta_ZERO_e_esta_certo (__main__.ATempoEmitidoTambemConta.test_o_cabecalho_D147_conta_ZERO_e_esta_certo)",
     "ERROR: test_o_mes_sozinho_LITERAL_conta_um (__main__.ATempoEmitidoTambemConta.test_o_mes_sozinho_LITERAL_conta_um)",
-    "ERROR: test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador (__main__.ATempoEmitidoTambemConta.test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador)",
-    "ERROR: test_as_duas_contagens_viajam_na_afirmacao (__main__.DoisFactosNumaFraseSo.test_as_duas_contagens_viajam_na_afirmacao)"
+    "ERROR: test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador (__main__.ATempoEmitidoTambemConta.test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador)"
    ]
   },
   {
@@ -655,12 +772,12 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "ERROR: test_DT5_Europa_2004_com_Italia_2012_nao_passa_pela_classe_nova (__main__.AClasseObservacaoMedida5D.test_DT5_Europa_2004_com_Italia_2012_nao_passa_pela_classe_nova)",
     "ERROR: test_as_duas_contagens_viajam_na_afirmacao (__main__.DoisFactosNumaFraseSo.test_as_duas_contagens_viajam_na_afirmacao)",
     "ERROR: test_um_tempo_e_um_lugar_continuam_a_passar (__main__.DoisFactosNumaFraseSo.test_um_tempo_e_um_lugar_continuam_a_passar)",
     "ERROR: test_A_CONTAGEM_NAO_PODE_SER_ZERO_COM_UM_LUGAR_PRESENTE (__main__.OMesSozinhoNaoTemAno.test_A_CONTAGEM_NAO_PODE_SER_ZERO_COM_UM_LUGAR_PRESENTE)",
     "ERROR: test_a_coerencia_vale_em_TODA_a_producao (__main__.OMesSozinhoNaoTemAno.test_a_coerencia_vale_em_TODA_a_producao)",
-    "ERROR: test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes (__main__.OMesSozinhoNaoTemAno.test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes)",
-    "FAIL: test_os_dois_campos_estao_em_TODAS_as_afirmacoes (__main__.DoisFactosNumaFraseSo.test_os_dois_campos_estao_em_TODAS_as_afirmacoes)"
+    "ERROR: test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes (__main__.OMesSozinhoNaoTemAno.test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes)"
    ]
   },
   {
@@ -688,6 +805,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_DT5_Europa_2004_com_Italia_2012_nao_passa_pela_classe_nova (__main__.AClasseObservacaoMedida5D.test_DT5_Europa_2004_com_Italia_2012_nao_passa_pela_classe_nova)",
     "FAIL: test_A_AREA_SUPRANACIONAL_CONTA_MAS_NUNCA_RESOLVE (__main__.DoisFactosNumaFraseSo.test_A_AREA_SUPRANACIONAL_CONTA_MAS_NUNCA_RESOLVE)",
     "FAIL: test_as_duas_contagens_viajam_na_afirmacao (__main__.DoisFactosNumaFraseSo.test_as_duas_contagens_viajam_na_afirmacao)",
     "FAIL: test_o_motivo_esta_escrito_nos_dois_lados (__main__.DoisFactosNumaFraseSo.test_o_motivo_esta_escrito_nos_dois_lados)",
@@ -742,6 +860,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_DT3_a_classe_exige_o_ano_e_o_papel (__main__.AClasseObservacaoMedida5D.test_DT3_a_classe_exige_o_ano_e_o_papel)",
     "FAIL: test_A_CLASSE_PERGUNTA_AO_VALOR_MESMO_COM_A_PRECISAO_CALADA (__main__.OMesSozinhoNaoTemAno.test_A_CLASSE_PERGUNTA_AO_VALOR_MESMO_COM_A_PRECISAO_CALADA)",
     "FAIL: test_A_PRECISAO_DIZ_QUE_FALTA_O_ANO_NO_MES_SOZINHO (__main__.OMesSozinhoNaoTemAno.test_A_PRECISAO_DIZ_QUE_FALTA_O_ANO_NO_MES_SOZINHO)",
     "FAIL: test_falta_o_ano_responde_pelo_VALOR (__main__.OMesSozinhoNaoTemAno.test_falta_o_ano_responde_pelo_VALOR)",
@@ -754,10 +873,12 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "ERROR: test_A_MARCA_VIAJA_COM_AS_DUAS_PARTES_E_O_OFFSET (__main__.AClasseObservacaoMedida5D.test_A_MARCA_VIAJA_COM_AS_DUAS_PARTES_E_O_OFFSET)",
+    "ERROR: test_o_offset_da_marca_e_ABSOLUTO_no_documento (__main__.AClasseObservacaoMedida5D.test_o_offset_da_marca_e_ABSOLUTO_no_documento)",
+    "FAIL: test_A_MARCA_DE_MEDICAO_ESCRITA_DA_A_CLASSE (__main__.AClasseObservacaoMedida5D.test_A_MARCA_DE_MEDICAO_ESCRITA_DA_A_CLASSE)",
+    "FAIL: test_LIMITE_MEDIDO_a_marca_sozinha_nao_ancora_a_data (__main__.AClasseObservacaoMedida5D.test_LIMITE_MEDIDO_a_marca_sozinha_nao_ancora_a_data)",
     "FAIL: test_o_evento_tecnico_escrito_e_ALERTA_EVENTO (__main__.OContratoDeConsumoDaIntelligence.test_o_evento_tecnico_escrito_e_ALERTA_EVENTO)",
-    "FAIL: test_a_classe_com_ano_escrito_continua_a_passar (__main__.OMesSozinhoNaoTemAno.test_a_classe_com_ano_escrito_continua_a_passar)",
-    "FAIL: test_falta_o_ano_responde_pelo_VALOR (__main__.OMesSozinhoNaoTemAno.test_falta_o_ano_responde_pelo_VALOR)",
-    "FAIL: test_alerta_evento_nao_e_o_que_sobra (__main__.OQueAindaNaoAconteceu.test_alerta_evento_nao_e_o_que_sobra)"
+    "FAIL: test_a_classe_com_ano_escrito_continua_a_passar (__main__.OMesSozinhoNaoTemAno.test_a_classe_com_ano_escrito_continua_a_passar)"
    ]
   },
   {
@@ -826,8 +947,12 @@
    ]
   }
  ],
- "TOTAL": 79,
- "MORTOS": 79,
- "SOBREVIVENTES": [],
- "ALVOS_CONFERIDOS": true
+ "TOTAL": 89,
+ "MORTOS": 88,
+ "SOBREVIVENTES": [
+  "DT_FO_4a_O_LUGAR_DO_CABECALHO_SUSTENTA_A_CLASSE"
+ ],
+ "ALVOS_CONFERIDOS": true,
+ "MUTANTES_PENDENTES": [],
+ "PORQUE_HA_PENDENTES": "DT-FATO-OBSERVADO: o dono do contrato versiona o vocabulario (classe, marcas aceites, tempo exigido) e o produtor classifica DEPOIS. Sem o codigo da classe, estes seis sairiam NAO_APLICADO — que nao e um mutante morto, e um ataque que nunca aconteceu."
 }

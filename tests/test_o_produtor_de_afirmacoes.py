@@ -1648,7 +1648,24 @@ class AClasseObservacaoMedida5D(unittest.TestCase):
         self.assertEqual(af['FACT_LOCATION']['LOCATION_SOURCE'], 'TEXT',
                          'o boletim deste teste escreve o lugar no trecho; se mudar, o teste '
                          'deixa de medir o que quer')
-        # e a razão, isolada na função que decide
+        # e a razão, isolada na função que decide.
+        #
+        # ⚠️ ESTE CASO NASCEU DE UM MUTANTE SOBREVIVENTE, e a lição repete-se pela quarta vez
+        # nesta bancada: o meu primeiro caso trazia DOIS defeitos ao mesmo tempo (origem errada
+        # **e** sem posição), e por isso a segunda guarda tapava a primeira — desligar a
+        # verificação da origem deixava a da posição a recusar, e o mutante `DT_FO_4a` sobrevivia.
+        #
+        #     UM CASO COM DOIS DEFEITOS NÃO TESTA NENHUM DOS DOIS:
+        #     TESTA APENAS QUE ALGUMA GUARDA REAGIU.
+        #
+        # Agora a origem errada vem com a posição PERFEITA, para que só ela possa recusar.
+        self.assertIsNotNone(AD._lugar_sustenta_a_medicao(
+            {'VALOR': 'Cuneo', 'LOCATION_SOURCE': 'SECTION_HEADER',
+             'ONDE': {'DENTRO_DO_ALVO': True, 'INICIO': 0, 'FIM': 5, 'TRECHO': 'Cuneo'}}),
+            'o lugar do cabecalho tem de ser recusado mesmo com a posicao perfeita')
+        self.assertIn('LOCATION_SOURCE = TEXT', AD._lugar_sustenta_a_medicao(
+            {'VALOR': 'Cuneo', 'LOCATION_SOURCE': 'SECTION_HEADER',
+             'ONDE': {'DENTRO_DO_ALVO': True, 'INICIO': 0, 'FIM': 5, 'TRECHO': 'Cuneo'}}))
         self.assertIsNotNone(AD._lugar_sustenta_a_medicao(
             {'VALOR': 'Cuneo', 'LOCATION_SOURCE': 'SECTION_HEADER', 'ONDE': None}))
         self.assertIsNotNone(AD._lugar_sustenta_a_medicao(
