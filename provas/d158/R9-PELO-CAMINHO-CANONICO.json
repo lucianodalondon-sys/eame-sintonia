@@ -51,17 +51,17 @@
  "PRODUTOR": {
   "AFIRMACOES_GERADAS": 14665,
   "REPROVADAS_NA_CONFERENCIA": 0,
-  "COM_TEMPO_E_LUGAR_DO_FACTO": 9,
+  "COM_TEMPO_E_LUGAR_DO_FACTO": 8,
   "FUNIL": {
    "SECOES": 3498,
    "FRASES_FORA_DO_CORPO": 28679,
    "AFIRMACOES": 14665,
-   "COM_TEMPO_DO_FACTO": 66,
-   "COM_LUGAR_DO_FACTO": 875,
-   "COM_TEMPO_E_LUGAR": 9,
-   "SEM_TEMPO_NEM_LUGAR": 13733
+   "COM_TEMPO_DO_FACTO": 65,
+   "COM_LUGAR_DO_FACTO": 873,
+   "COM_TEMPO_E_LUGAR": 8,
+   "SEM_TEMPO_NEM_LUGAR": 13735
   },
-  "ITENS_COM_AFIRMACAO_COM_PROVA": 7
+  "ITENS_COM_AFIRMACAO_COM_PROVA": 6
  },
  "MOTOR_OFICIAL": {
   "MODULO": "motor/motor_das_capacidades.py::rodar",
@@ -81,9 +81,9 @@
   "CODIGO": 0,
   "STDERR": "Could not find platform independent libraries <prefix>",
   "ENTRADA": "ENTRADA-AFIRMACOES.json",
-  "OBJETOS_NA_ENTRADA": 9,
+  "OBJETOS_NA_ENTRADA": 8,
   "POTE": "POTE-AFIRMACOES.json",
-  "POTE_SHA256": "f58c022008489272906643075afdc79e07fcdda4721776a8f2845db2fa802cf6",
+  "POTE_SHA256": "757f3846f3b6ee36af7e2f9a31fa3bfa24ebbc1c29dfc5ca9b4a81aa124e0574",
   "CONFERIR_POTE": "PASSA (0 violacoes)",
   "VALIDAR_POTE_V2": "PASSA",
   "OBJETOS_NO_POTE": 7,
@@ -92,11 +92,6 @@
     "PORQUE": null,
     "DETALHE": "falta DOCUMENT_ID",
     "OBJETO_ID": "AF-c48c23e1b62219e6ef8bf358"
-   },
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-66ab9c48b0cbbcd891d428fe"
    }
   ]
  },
@@ -105,9 +100,9 @@
   "CODIGO": 0,
   "STDERR": "Could not find platform independent libraries <prefix>",
   "ENTRADA": "ENTRADA-ENTITY-SOURCE-DA-LEI.json",
-  "OBJETOS_NA_ENTRADA": 9,
+  "OBJETOS_NA_ENTRADA": 8,
   "POTE": "POTE-ENTITY-SOURCE-DA-LEI.json",
-  "POTE_SHA256": "24d173692932c560e8bde7c1cea166f8c917abc4349e5191e35cca0db2cc4f4c",
+  "POTE_SHA256": "01903e8c11c331610edaf681902ddf36c63d9e03450324d8af3781a9ec21259c",
   "CONFERIR_POTE": "PASSA (0 violacoes)",
   "VALIDAR_POTE_V2": "PASSA",
   "OBJETOS_NO_POTE": 7,
@@ -116,11 +111,6 @@
     "PORQUE": null,
     "DETALHE": "falta DOCUMENT_ID",
     "OBJETO_ID": "AF-c48c23e1b62219e6ef8bf358"
-   },
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-66ab9c48b0cbbcd891d428fe"
    }
   ]
  },
@@ -312,17 +302,15 @@
   ]
  },
  "CONTROLE_FORA_DA_R9": {
-  "AFIRMACOES_COM_PROVA_COMPLETA": 7,
+  "AFIRMACOES_COM_PROVA_COMPLETA": 6,
   "ITENS": [
    "derived:21",
    "derived:7",
    "derived:911",
    "derived:918",
-   "derived:busca-1807bb3212f8763d",
-   "derived:busca-c788a591bf3ca8de"
+   "derived:busca-1807bb3212f8763d"
   ],
   "FONTES": [
-   "CAND-1230",
    "IT-T10-018",
    "IT-T12-028",
    "IT-T3-008",
@@ -330,7 +318,7 @@
    "IT-T5-090"
   ],
   "ORIGENS_DO_TEMPO": {
-   "LITERAL": 5,
+   "LITERAL": 4,
    "CABECALHO_D147": 2,
    "RELATIVA_ANCORADA_D149": 0,
    "RELATIVO_D63": 0
@@ -383,14 +371,6 @@
     "FACT_TIME": "15 ottobre",
     "ORIGEM": "LITERAL",
     "FACT_LOCATION": "Campania"
-   },
-   {
-    "ITEM_ID": "derived:busca-c788a591bf3ca8de",
-    "SOURCE_ID": "CAND-1230",
-    "TRECHO": "8810 del 24 aprile 2026 , recante il “Piano di azione con le misure di lotta obbligatoria contro la Flavescenza dorata della vite in Toscana” , si ricordano gli adempimenti previsti per il monitoraggio degli adulti di Sc",
-    "FACT_TIME": "24 aprile 2026",
-    "ORIGEM": "LITERAL",
-    "FACT_LOCATION": "Toscana"
    }
   ]
  },
