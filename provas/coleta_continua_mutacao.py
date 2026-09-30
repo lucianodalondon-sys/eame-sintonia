@@ -1,6 +1,6 @@
 """COLETA-CONTINUA · o ataque: cada guarda do agendador por fonte desligada, uma de cada vez, numa COPIA.
 
-    py provas/coleta_continua_mutacao.py [--ref=HEAD]
+    py provas/coleta_continua_mutacao.py [--ref=HEAD] [--lote=M30,M31,...]
 
 O metodo e o de `provas/rodadas_mutacao.py`: a copia sai de `git archive <ref>` (o repositorio nao e tocado);
 cada mutante troca UM trecho exacto de `ferramentas/big_collection/coleta_continua.py`; um trecho que nao
@@ -99,6 +99,12 @@ def correr(pasta):
 
 def main():
     ref = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--ref=")), "HEAD")
+    # --lote=M01,M02,... (SERVICO-TRINCO, 30/09): so estes mutantes, para correr em lotes quando a maquina
+    # nao aguenta a rodada inteira; o resultado vai para COLETA-CONTINUA-MUTACAO-LOTE-<primeiro>-<ultimo>.json
+    lote = next((a.split("=", 1)[1].split(",") for a in sys.argv[1:] if a.startswith("--lote=")), None)
+    mutantes = MUTANTES if lote is None else [m for m in MUTANTES if m[0].split("_")[0] in lote or m[0] in lote]
+    if lote is not None and len(mutantes) != len(lote):
+        raise SystemExit("LOTE_COM_NOMES_DESCONHECIDOS: pedidos %s, encontrados %s" % (lote, [m[0] for m in mutantes]))
     base = tempfile.mkdtemp(prefix="coleta-continua-mutacao-")
     out = {"REF": subprocess.run(["git", "-C", RAIZ, "rev-parse", "--short", ref], capture_output=True,
                                  text=True).stdout.strip(), "MUTANTES": []}
@@ -109,7 +115,7 @@ def main():
         out["SEM_MUTANTE"] = {"CODIGO": cod, "TESTES": n}
         if cod != 0:
             raise SystemExit("a copia limpa nao passa — o ataque nao tem base:\n" + cauda)
-        for nome, alvo, de, para in MUTANTES:
+        for nome, alvo, de, para in mutantes:
             pasta = os.path.join(base, nome)
             shutil.copytree(limpa, pasta)
             f = os.path.join(pasta, alvo)
@@ -131,7 +137,9 @@ def main():
         shutil.rmtree(base, ignore_errors=True)
     out["MORTOS"] = sum(1 for m in out["MUTANTES"] if m["MORTO"])
     out["TOTAL"] = len(out["MUTANTES"])
-    with open(os.path.join(RAIZ, "provas", "COLETA-CONTINUA-MUTACAO.json"), "w", encoding="utf-8") as h:
+    nome_f = ("COLETA-CONTINUA-MUTACAO.json" if lote is None else
+              "COLETA-CONTINUA-MUTACAO-LOTE-%s-%s.json" % (mutantes[0][0].split("_")[0], mutantes[-1][0].split("_")[0]))
+    with open(os.path.join(RAIZ, "provas", nome_f), "w", encoding="utf-8") as h:
         json.dump(out, h, ensure_ascii=False, indent=1)
     print("COLETA_CONTINUA_MUTACAO · mortos=%d de %d" % (out["MORTOS"], out["TOTAL"]))
     return 0 if out["MORTOS"] == out["TOTAL"] else 1
