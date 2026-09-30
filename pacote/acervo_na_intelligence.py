@@ -655,6 +655,10 @@ def arquivo(objetos: dict) -> list:
         for o in objetos.get(comp) or []:
             if o["ESPECIE"] not in PIC.COMPARTIMENTOS["archive"]["ESPECIES"]:
                 continue
+            if MOTOR._e_conhecimento(o):
+                # F2 (§5-E): o conhecimento sem tempo nao se arquiva — o Archivio e memoria DATADA, e arquiva-lo
+                # obrigava a inventar FACT_TIME (ou a vê-lo recusado la dentro, contado duas vezes)
+                continue
             ch = o["CHAVES"]
             chaves = {k: ch.get(k, NAO_SEI) for k in PIC.COMPARTIMENTOS["archive"]["CHAVES"]}
             if chaves["FACT_TIME"] == NAO_SEI and o["PROVA"]:

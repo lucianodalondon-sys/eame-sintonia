@@ -118,8 +118,11 @@ class A_CorridaInteira(unittest.TestCase):
         self.assertEqual(self.res["REFERENCIA_ADAMA"]["EDICAO_REGISTRO"], "PROD_FTS_6_20260831")
 
     def test_A9_o_archivio_so_guarda_o_que_atravessou(self):
+        # F2 (§5-E): o CONHECIMENTO sem tempo atravessa (science) mas nao se arquiva — o Archivio e memoria datada
+        conhecimento = {("science", o["OBJETO_ID"]) for o in objetos(self.pote, "science")
+                        if o.get("RESULTADO") == "NO_DEFENSIBLE_ACTION_YET" and not o["USO_EXIGE_TEMPO"]}
         atravessou = {(c, o["OBJETO_ID"]) for c in ("competitors", "market", "voices", "science",
-                                                     "windows", "future") for o in objetos(self.pote, c)}
+                                                     "windows", "future") for o in objetos(self.pote, c)} - conhecimento
         for o in objetos(self.pote, "archive"):
             self.assertIn((o["FORA_DO_CONTRATO"]["ARQUIVADO_DE"], o["OBJETO_ID"]), atravessou)
         self.assertEqual(self.pote["COMPARTIMENTOS"]["archive"]["RECUSADOS_AQUI"], 0)
@@ -217,11 +220,24 @@ class B_AsLeisNoPote(unittest.TestCase):
                     self.assertIn("NAO SEI", c)
 
     def test_B9_uso_exige_tempo(self):
+        # F2 (§5-E): a UNICA excecao e o CONHECIMENTO de estudo em science — uso sem tempo, RESULTADO honesto,
+        # FACT_TIME NAO SEI. Tudo o resto continua a exigir tempo.
         for comp in ("competitors", "future", "market", "voices", "science", "windows"):
             for o in objetos(self.pote, comp):
+                if comp == "science" and o.get("RESULTADO") == "NO_DEFENSIBLE_ACTION_YET" and not o["USO_EXIGE_TEMPO"]:
+                    for p in o["PROVA"]:
+                        self.assertEqual(p["ADMITIDA_POR"], "USO_SEM_TEMPO", o["OBJETO_ID"])
+                        self.assertEqual(p["FACT_TIME"], "NAO SEI", o["OBJETO_ID"])
+                    self.assertEqual(o["CHAVES"]["STUDY_PERIOD"], "NAO SEI", o["OBJETO_ID"])
+                    continue
                 self.assertTrue(o["USO_EXIGE_TEMPO"], o["OBJETO_ID"])
                 for p in o["PROVA"]:
                     self.assertIn(p["ADMITIDA_POR"], ("G0_PASSOU", "FUTURO_POR_DESENHO"))
+
+    def test_B9b_conhecimento_nunca_vai_ao_archivio(self):
+        for o in objetos(self.pote, "archive"):
+            self.assertNotEqual(o["FORA_DO_CONTRATO"].get("ARQUIVADO_DE") == "science"
+                                and o["CHAVES"].get("FACT_TIME") == "NAO SEI", True, o["OBJETO_ID"])
 
     def test_B10_todo_id_e_provisorio_e_sem_composto_de(self):
         for comp, e in self.pote["COMPARTIMENTOS"].items():
