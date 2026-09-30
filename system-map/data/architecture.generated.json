@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/l2-disparador-v1",
-    "HEAD": "6ac0b58ea867e39759e78a42dcf470a8512412d2",
-    "GENERATED_AT": "2026-09-30T08:52:15-03:00",
-    "SOURCE_TREE_FINGERPRINT": "191b14e6d965f0d44eba61db2007e27ac32d9c208a4f88c27ff953c6eb3229ad"
+    "BRANCH": "claude/c8-auto-v1",
+    "HEAD": "01a0871d5b2e0c4533f12ceec4d129cadfc41fc3",
+    "GENERATED_AT": "2026-09-30T10:55:32-03:00",
+    "SOURCE_TREE_FINGERPRINT": "b38b58f203a1e7986c762bb5081b5f7bdd16c87d527c75a9431bf5a8b9c59693"
   },
   "FILES": [
     {
@@ -19218,7 +19218,7 @@
     },
     {
       "path": "motor/g0_da_afirmacao.py",
-      "sha": "246cd76d5b05e0fb8ad69e7187af01b0a34953f4",
+      "sha": "cbe23c568461fde2234eb39db2308994f72ac9ff",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19239,7 +19239,7 @@
     },
     {
       "path": "motor/motor_das_capacidades.py",
-      "sha": "69f8e946a4ccb9b2665ad8c1c94702d1ee09cffe",
+      "sha": "6541c9ef20c76ed178b6a9fa35341e55be99cfe2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19576,6 +19576,13 @@
     {
       "path": "pacote/ler_saida_leque.py",
       "sha": "56e677e1815ce85db7053b3a8012bee953b89d12",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "pacote/liberacao_por_criterio.py",
+      "sha": "22ae0187e00c3779953e9eacb9f83bf2c9f9cc4d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26477,7 +26484,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "9ceb9dba098d8892b191d5d3164d9500480a9efb",
+      "sha": "9086b060e7b7af3a5c7b68b795371011a5fba75a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28444,7 +28451,7 @@
     },
     {
       "path": "tests/test_g0_da_afirmacao.py",
-      "sha": "32f73717067666b8bec52f5872a155b086f16cce",
+      "sha": "7beedd53930ccd4dbd4a0a169b78dc5764579749",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28599,6 +28606,13 @@
     {
       "path": "tests/test_leitores_depois_da_fase_10.py",
       "sha": "1b42a9935a480644011863e36c9f8125cb2d7abb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_liberacao_por_criterio.py",
+      "sha": "da9374e4b61fcd760e78cb8d54ccf757efbe8ecb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -62489,6 +62503,72 @@
         "file": "pacote/lastmile_relatorio.py",
         "line": 43,
         "snippet": "fontes = le('NEW-REAL-SOURCES.json')"
+      }
+    },
+    {
+      "from_file": "pacote/liberacao_por_criterio.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/liberacao_por_criterio.py",
+        "line": 45,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "pacote/liberacao_por_criterio.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/liberacao_por_criterio.py",
+        "line": 282,
+        "snippet": "import gatilho_da_inteligencia as GI                # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "pacote/liberacao_por_criterio.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/liberacao_por_criterio.py",
+        "line": 281,
+        "snippet": "import motor_das_capacidades as M                   # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "pacote/liberacao_por_criterio.py",
+      "to_file": "motor/porta_da_referencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/liberacao_por_criterio.py",
+        "line": 48,
+        "snippet": "import porta_da_referencia as PORTA      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pacote/liberacao_por_criterio.py",
+      "to_file": "pacote/pote_intelligence_casco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/liberacao_por_criterio.py",
+        "line": 46,
+        "snippet": "import pote_intelligence_casco as P      # noqa: E402 — gerador e fiscal do dono"
+      }
+    },
+    {
+      "from_file": "pacote/liberacao_por_criterio.py",
+      "to_file": "pacote/validar_pote_v2.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pacote/liberacao_por_criterio.py",
+        "line": 47,
+        "snippet": "import validar_pote_v2 as VP             # noqa: E402"
       }
     },
     {
@@ -101515,7 +101595,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 21,
+        "line": 22,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -101526,7 +101606,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 25,
+        "line": 26,
         "snippet": "import gatilho_da_inteligencia as GI             # noqa: E402"
       }
     },
@@ -101537,7 +101617,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 406,
+        "line": 407,
         "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")"
       }
     },
@@ -101548,7 +101628,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 24,
+        "line": 25,
         "snippet": "import g0_da_afirmacao as G0A                    # noqa: E402"
       }
     },
@@ -101559,7 +101639,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 405,
+        "line": 406,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -101570,7 +101650,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 23,
+        "line": 24,
         "snippet": "import motor_das_capacidades as M                # noqa: E402"
       }
     },
@@ -101581,8 +101661,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 405,
+        "line": 406,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_g0_da_afirmacao.py",
+      "to_file": "pacote/liberacao_por_criterio.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_g0_da_afirmacao.py",
+        "line": 426,
+        "snippet": "NOME_DE_CAMPO_DO_CONTRATO = {\"TRECHO_DA_AFIRMACAO\": (\"pacote/liberacao_por_criterio.py\",)}"
       }
     },
     {
@@ -101592,7 +101683,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 406,
+        "line": 407,
         "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")"
       }
     },
@@ -101603,7 +101694,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 405,
+        "line": 406,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -101614,7 +101705,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 28,
+        "line": 29,
         "snippet": "EXPORT_R7 = RAIZ / \"tests\" / \"dados\" / \"int-r7\" / \"SINTETICO-R7-SALA-EXPORT.json\""
       }
     },
@@ -102628,6 +102719,17 @@
         "file": "tests/test_leitores_depois_da_fase_10.py",
         "line": 38,
         "snippet": "from guarda.preservar_coleta import Memoria  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_liberacao_por_criterio.py",
+      "to_file": "pacote/liberacao_por_criterio.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_liberacao_por_criterio.py",
+        "line": 25,
+        "snippet": "import liberacao_por_criterio as L  # noqa: E402"
       }
     },
     {
@@ -113784,10 +113886,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4243,
-    "files_readable": 1783,
-    "files_code_dir": 2217,
-    "file_edges": 7583,
+    "files_tracked": 4245,
+    "files_readable": 1785,
+    "files_code_dir": 2219,
+    "file_edges": 7591,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

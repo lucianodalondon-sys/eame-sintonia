@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  6ac0b58ea867e39759e78a42dcf470a8512412d2
-BRANCH           claude/l2-disparador-v1
-GERADO_EM        2026-09-30T08:52:15-03:00
+HEAD_DA_MEDICAO  01a0871d5b2e0c4533f12ceec4d129cadfc41fc3
+BRANCH           claude/c8-auto-v1
+GERADO_EM        2026-09-30T10:55:32-03:00
 CARDS            130
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -708,22 +708,22 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-L2-DISPARADOR, C-TESTES |
-| **prova de quem ativa** | provas/l2/ensaio_disparador.py:57; provas/l2/mutantes.py:27; tests/test_disparador_intelligence.py:34 _(plano CODE)_ |
-| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | pacote/liberacao_por_criterio.py:282; provas/l2/ensaio_disparador.py:57; provas/l2/mutantes.py:27 |
+| **porquê** | estas pecas importam-na — C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `motor/r7_export_da_copia.sql` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 4 |
-| **arestas provadas** | entram 7 · saem 4 |
+| **arestas no mapa** | entram 7 · saem 5 |
+| **arestas provadas** | entram 7 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 11 |
+| **prova das ligações** | CODE 12 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
-| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-SALA-DE-ESPERA` · A Sala de Espera
 
@@ -3307,8 +3307,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 45
-UNKNOWN            42
-SYSTEM_GAP         20
+UNKNOWN            43
+SYSTEM_GAP         19
 TERMINAL           14
 EXTERNAL_ENTRY     7
 ALVO_SEM_ESCRITOR_MEDIDO 2
