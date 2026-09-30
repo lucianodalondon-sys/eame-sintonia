@@ -4828,9 +4828,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "7f09b08f328803cc14100776eaf5a88d80fe5628",
-    "GENERATED_AT": "2026-09-30T11:45:04-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4d3ba34a137df95ab90b3e4a39bfa01b8cc2a09e21735cc09c920de3ba638298"
+    "HEAD": "2a8e4db7b4e841a8330ffc80a7b300859367fc5b",
+    "GENERATED_AT": "2026-09-30T12:00:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "891f2c78cd083bc2db303fe0ac9b1bc31f243471bce6cdd7f573249a3d667ee5"
   },
   "FAMILIES": [
     {
@@ -49981,7 +49981,7 @@
         "PROVA": [
           "motor/cap_win.py:83",
           "motor/capacidade_cientifica.py:56",
-          "motor/motor_das_capacidades.py:76",
+          "motor/g0_da_afirmacao.py:44",
           "pacote/acervo_na_intelligence.py:78"
         ],
         "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-INT-CAP-SCI · C-INT-CAP-WIN · C-INT-MOTOR-CAPACIDADES · C-PONTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -50733,7 +50733,7 @@
       "name": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida. CHAVE-PROBLEMA (27/09): o objeto do futuro le o ISSUE_ID pelo mesmo contrato PROBLEMA/v1 que a CAP-WIN.",
+      "what": "Le o export read-only de uma COPIA da Sala (vista sala_de_espera_atual + raw_asset, motor/r7_export_da_copia.sql), separa READY | JANELA_DECLARADA | endereco do RAW, abre UMA corrida G0/v4 e da o mesmo livro as duas capacidades: tria pelo FATO (estudo declarado -> CAP-SCI; o resto -> CAP-WIN; estudo nunca vira incidencia de campo). Aplica a D112 do teste da Puglia: lugar do fato so com origem ESCRITO/CITADO (leis/lugar_do_fato), ENTITY_SOURCE em toda entidade, NAO SEI quando falta evidencia, DA_FONTE separado de INTERPRETACAO_DO_SISTEMA, MESMA_REDACAO (N aplicacoes / 1 instituicao), DIVERGENT (UNRESOLVED) e TEMPORAL_CHANGE (nao prova o campo). Sai no contrato de entrada do gerador do pote v2 @ ce775ff5 (INTELLIGENCE_RUN_ID no topo, prova com URL, DOCUMENT_ID do RAW e PUBLISHED_AT/PUBLICADO_EM), conferida por um portao proprio. Abre a porta da referencia UMA vez e da a MESMA edicao a CAP-WIN e a CAP-SCI; carimba REFERENCIA_ADAMA na saida. CHAVE-PROBLEMA (27/09): o objeto do futuro le o ISSUE_ID pelo mesmo contrato PROBLEMA/v1 que a CAP-WIN. D-GER-2 (diretiva do Intelligence owner, 29/09): o export read-only (r7_export_da_copia.sql) le tambem raw_asset.sha256 e storage_path no mesmo left join, e cada PROVA leva RAW_SHA256 / RAW_STORAGE_PATH — os do banco, ou NAO SEI; nunca calculados do texto, da URL ou do disco. (Trazido de 8a8317acf / claude/c8-auto-v1, 30/09.)",
       "why_here": "Missao INT-R7-CAPS: juntar CAP-WIN e CAP-SCI no motor sem duplicar leis nem contadores (uma corrida, um RUN_ID) e preparar a rodada 7 (RUNBOOK-R7.md). Conflitos resolvidos pelo significado: URL/DOCUMENT_ID nao sao READY (vem do RAW); JANELA_DECLARADA nao esta em CAMPOS_READY (viaja ao lado, so a CAP-WIN a le); boletim nao e estudo e estudo nao e janela. Nao abre a Sala, nao cunha identidade, nao produz OPORTUNIDADE. EXPERIMENTAL / NAO_PARA_CLIENTE.",
       "departments": [
         "ENGENHARIA",
@@ -50750,12 +50750,13 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
+        "motor/g0_da_afirmacao.py",
         "motor/motor_das_capacidades.py",
         "motor/r7_export_da_copia.sql"
       ],
-      "file_count": 2,
+      "file_count": 3,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -50780,13 +50781,18 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_PROIBIDOS",
           "CHAVES_DO_POTE",
+          "CLAIM_KINDS",
           "COLUNAS_DO_RAW",
+          "CONCORRENTES",
+          "PROVENIENCIA_DA_AFIRMACAO",
+          "TEMPO_DA_CLASSE",
           "_CAMPO_DA_JANELA"
         ],
-        "palavras": 51,
+        "palavras": 85,
         "por_lingua": {},
-        "sem_marca_de_lingua": 51,
+        "sem_marca_de_lingua": 85,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -113710,8 +113716,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2. Provado por 1 linha de codigo.",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "motor/g0_da_afirmacao.py",
+          "line": 44,
+          "snippet": "import corrida_da_inteligencia as CI",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-INT-MOTOR-CAPACIDADES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "motor/motor_das_capacidades.py",
           "line": 76,
@@ -175511,10 +175533,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "motor/g0_da_afirmacao.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 2277,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 2276,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -175800,8 +175820,8 @@
     "edges_unknown": 69,
     "business_edges": 4,
     "files_tracked": 4234,
-    "files_covered": 1957,
-    "files_code_unclaimed": 1,
+    "files_covered": 1958,
+    "files_code_unclaimed": 0,
     "roles_proven": 208,
     "roles_declared_only": 10,
     "roles_unknown": 96,
