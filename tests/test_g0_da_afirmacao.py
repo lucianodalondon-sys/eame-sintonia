@@ -68,6 +68,8 @@ def _afirmacao(linha: dict, frase: str, data_txt: str, valor: str, lugar: str, *
                           "INICIO": la},
         "ENTIDADES": [{"TIPO": "CULTURA", "NOME_ORIGINAL": "NAO SEI", "ENTITY_SOURCE": "UNKNOWN"}],
         "PUBLISHED_AT": {"VALOR": "2026-09-16"},
+        # §5-C · a contagem do produtor: cada frase do TEXTO tem um tempo e um lugar
+        "TEMPOS_NO_TRECHO": 1, "LUGARES_NO_TRECHO": 1,
     }
     for k, v in mudar.items():
         af[k] = v
@@ -226,6 +228,71 @@ class TestRecusaEBloqueio(_Caso):
         af = dict(self.af1, FACT_TIME=dict(self.af1["FACT_TIME"], VALOR="2026-12-03"))
         e = self.entrada_de(self.correr(af), af["CLAIM_ID"])
         self.assertIn("FACT_TIME:FUTURO_EM_RELACAO_A_CAPTURA", e["G0_FALTA"])
+
+
+class TestConcorrentesBLK1(_Caso):
+    """§5-C (BLK-1): mais de 1 tempo ou lugar no trecho e o valor nao e NAO SEI -> o G0 da afirmacao recusa.
+    O G0 le a CONTAGEM que o produtor declara; nao le o texto para isto."""
+    EUROPA = "La specie e stata rilevata in Europa per la prima volta nel 2004 e in Italia nel 2012, in Emilia Romagna."
+
+    def _europa(self, **mudar):
+        # a forma que o produtor 129a025 devolveu para CLAIM ...330ce9da: FACT_TIME 2004 + Italia (facto falso)
+        t, ba, la = self.EUROPA, self.EUROPA.index("2004"), self.EUROPA.index("Italia")
+        af = {"CLAIM_ID": "AF-SINT-EUROPA", "CLAIM_KIND": {"VALOR": "ALERTA_EVENTO"},
+              "EVIDENCE_SPAN": {"INICIO": 0, "FIM": len(t), "TRECHO": t},
+              "FACT_TIME": {"VALOR": "2004", "FACT_TIME_BASIS": {"TRECHO": "2004", "INICIO": ba, "FIM": ba + 4}},
+              "FACT_TIME_ROLE": {"PAPEL": "ACONTECIMENTO", "ORIGEM": "LITERAL"},
+              "FACT_LOCATION": {"VALOR": "Italia", "LOCATION_SOURCE": "TEXT", "INICIO": la},
+              "TEMPOS_NO_TRECHO": 2, "LUGARES_NO_TRECHO": 3}
+        af.update(mudar)
+        return G0A.portao_g0_da_afirmacao(af, {"CAPTURED_AT": "2026-09-20T10:00:00Z"}, t)
+
+    def test_europa_2004_italia_2012_emilia_romagna_cai_no_g0(self):
+        passou, falta = self._europa()
+        self.assertFalse(passou)
+        self.assertIn("TEMPOS_CONCORRENTES:TEMPOS_NO_TRECHO=2", falta)
+        self.assertIn("LUGARES_CONCORRENTES:LUGARES_NO_TRECHO=3", falta)
+
+    def test_controle_a_mesma_afirmacao_com_um_tempo_e_um_lugar_passa(self):
+        # a recusa acima vem SO da contagem: com 1 e 1 o resto do G0 passa
+        self.assertEqual(self._europa(TEMPOS_NO_TRECHO=1, LUGARES_NO_TRECHO=1), (True, []))
+
+    def test_so_os_tempos_concorrentes_ja_recusam(self):
+        passou, falta = self._europa(LUGARES_NO_TRECHO=1)
+        self.assertEqual((passou, falta), (False, ["TEMPOS_CONCORRENTES:TEMPOS_NO_TRECHO=2"]))
+
+    def test_so_os_lugares_concorrentes_ja_recusam(self):
+        passou, falta = self._europa(TEMPOS_NO_TRECHO=1)
+        self.assertEqual((passou, falta), (False, ["LUGARES_CONCORRENTES:LUGARES_NO_TRECHO=3"]))
+
+    def test_concorrentes_com_o_valor_ja_em_nao_sei_nao_sao_motivo(self):
+        # o produtor fez o que o §5-C manda (valor NAO SEI): nao ha valor de outro facto para recusar
+        _, falta = self._europa(TEMPOS_NO_TRECHO=1, FACT_LOCATION={"VALOR": "NAO SEI"})
+        self.assertNotIn("LUGARES_CONCORRENTES:LUGARES_NO_TRECHO=3", falta)
+
+    def test_contagem_ausente_ou_nao_inteira_recusa(self):
+        for mudar in ({"TEMPOS_NO_TRECHO": None}, {"TEMPOS_NO_TRECHO": "1"}, {"TEMPOS_NO_TRECHO": True},
+                      {"TEMPOS_NO_TRECHO": -1}):
+            passou, falta = self._europa(LUGARES_NO_TRECHO=1, **mudar)
+            self.assertEqual((passou, falta), (False, ["PRODUTOR_SEM_CONTAGEM_DE_CONCORRENTES:TEMPOS_NO_TRECHO"]),
+                             mudar)
+        af = dict(self.af1)
+        del af["LUGARES_NO_TRECHO"]
+        e = self.entrada_de(self.correr(af), af["CLAIM_ID"])
+        self.assertEqual(e["G0_DA_AFIRMACAO"], "BLOQUEADO_EM_G0")
+        self.assertIn("PRODUTOR_SEM_CONTAGEM_DE_CONCORRENTES:LUGARES_NO_TRECHO", e["G0_FALTA"])
+
+    def test_a_contagem_em_bloco_do_produtor_tambem_vale(self):
+        self.assertEqual(self._europa(TEMPOS_NO_TRECHO={"VALOR": 1}, LUGARES_NO_TRECHO={"VALOR": 1}), (True, []))
+        self.assertFalse(self._europa(TEMPOS_NO_TRECHO={"VALOR": 2}, LUGARES_NO_TRECHO=1)[0])
+
+    def test_pela_corrida_a_afirmacao_com_tempos_concorrentes_nao_chega_ao_archive(self):
+        af = dict(self.af1, TEMPOS_NO_TRECHO=2)
+        s = self.correr(af)
+        e = self.entrada_de(s, af["CLAIM_ID"])
+        self.assertEqual(e["G0_DA_AFIRMACAO"], "BLOQUEADO_EM_G0")
+        self.assertIn("TEMPOS_CONCORRENTES:TEMPOS_NO_TRECHO=2", e["G0_FALTA"])
+        self.assertEqual(self.archive(s), [])
 
 
 class TestAdmissaoNoPote(_Caso):

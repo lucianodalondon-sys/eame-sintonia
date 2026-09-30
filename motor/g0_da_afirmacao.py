@@ -63,6 +63,12 @@ TEMPO_DA_CLASSE = {"ALERTA_EVENTO": ("FACT_TIME",), "PRECO": ("MARKET_PERIOD",),
 CAMPOS_PROIBIDOS = ("LIBERADO", "LIBERACAO", "LIBERADO_POR", "LIBERADO_NA_CORRIDA", "CONFERENCIA_DE_LIBERACAO",
                     "NAO_PARA_CLIENTE", "ESPECIE", "USO")
 PROVENIENCIA_DA_AFIRMACAO = ("CLAIM_ID", "ITEM_ID", "RAW_OBSERVATION_ID", "SOURCE_ID", "RAW_SHA256")
+#: §5-C (BLK-1) · a contagem de concorrentes que o PRODUTOR declara (a Intelligence nao le o texto para isto):
+#: campo -> (o valor que ela guarda, o motivo da recusa). Contagem > 1 com valor != NAO SEI = recusa; sem contagem
+#: (ou nao inteira) = recusa com PRODUTOR_SEM_CONTAGEM_DE_CONCORRENTES.
+CONCORRENTES = {"TEMPOS_NO_TRECHO": ("FACT_TIME", "TEMPOS_CONCORRENTES"),
+                "LUGARES_NO_TRECHO": ("FACT_LOCATION", "LUGARES_CONCORRENTES")}
+SEM_CONTAGEM = "PRODUTOR_SEM_CONTAGEM_DE_CONCORRENTES"
 
 
 def versao() -> str:
@@ -176,7 +182,21 @@ def portao_g0_da_afirmacao(af: dict, item: dict, texto: str | None = None) -> tu
     outros = [c for c in exige if c != "FACT_TIME"]
     if outros and all(_ign(_valor(af.get(c))) for c in outros):
         falta.append("TEMPO_DA_CLASSE:%s" % "|".join(outros))                            # §2
+    falta += _concorrentes(af)                                                            # §5-C · BLK-1
     return (not falta), sorted(falta)
+
+
+def _concorrentes(af: dict) -> list:
+    """§5-C · mais de 1 tempo (ou lugar) no trecho e o valor nao e NAO SEI -> o valor pode ser de OUTRO facto
+    («Europa 2004 ... Italia 2012» saiu 2004 + Italia). Sem a contagem, o G0 nao sabe e recusa."""
+    falta = []
+    for campo, (guarda, motivo) in CONCORRENTES.items():
+        n = _valor(af.get(campo))
+        if isinstance(n, bool) or not isinstance(n, int) or n < 0:
+            falta.append("%s:%s" % (SEM_CONTAGEM, campo))
+        elif n > 1 and not _ign(_valor(af.get(guarda))):
+            falta.append("%s:%s=%d" % (motivo, campo, n))
+    return falta
 
 
 def _estado(af, passou, falta) -> dict:

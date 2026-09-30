@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""MUTACAO DO G0 POR AFIRMACAO — os 12 mutantes da DIRETIVA-G0-POR-AFIRMACAO (§2) e dois a mais; cada um tem de
+"""MUTACAO DO G0 POR AFIRMACAO — os 12 mutantes da DIRETIVA-G0-POR-AFIRMACAO (§2), dois a mais e os cinco do BLK-1 (§5-C, G15-G19); cada um tem de
 fazer `tests.test_g0_da_afirmacao` REPROVAR. O mesmo harness de provas/l2/mutantes.py (alvo unico em LF e em CRLF,
 restauro byte a byte conferido por SHA-256, testes com -B).
 
@@ -57,6 +57,18 @@ MUTANTES = [
   "                    if l.get(\"G0_DA_AFIRMACAO\") != \"PASSOU\":", "                    if l.get(\"G0_DO_ITEM\") != \"PASSOU\":"),
  ("G14", PONTE, "a entrada da afirmacao entra no indice do ITEM (os dois G0 misturados)",
   "        if isinstance(e, dict) and \"CLAIM_ID\" in e:\n            continue\n", ""),
+ # ── §5-C · BLK-1 (Intelligence owner, 30/09): tempos e lugares concorrentes no trecho ──
+ ("G15", G0, "BLK-1: o G0 nao olha a contagem («Europa 2004 / Italia 2012 / Emilia Romagna» passa)",
+  "    falta += _concorrentes(af)", "    pass"),
+ ("G16", G0, "BLK-1: tempos concorrentes aceites (so os lugares contam)",
+  "CONCORRENTES = {\"TEMPOS_NO_TRECHO\": (\"FACT_TIME\", \"TEMPOS_CONCORRENTES\"),\n                ",
+  "CONCORRENTES = {"),
+ ("G17", G0, "BLK-1: lugares concorrentes aceites (so os tempos contam)",
+  "                \"LUGARES_NO_TRECHO\": (\"FACT_LOCATION\", \"LUGARES_CONCORRENTES\")}", "                }"),
+ ("G18", G0, "BLK-1: contagem ausente aceite",
+  "            falta.append(\"%s:%s\" % (SEM_CONTAGEM, campo))", "            pass"),
+ ("G19", G0, "BLK-1: contagem > 2 em vez de > 1",
+  "        elif n > 1 and not", "        elif n > 2 and not"),
 ]
 
 
