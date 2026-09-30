@@ -324,6 +324,49 @@ def correr_a_bateria(raiz: Path):
     return r.returncode, ((r.stderr or "") + (r.stdout or ""))
 
 
+# ════════════════════════════════════════════════════════════════════════════
+# OS MUTANTES QUE AINDA NAO TEM CODIGO PARA ATACAR (DT-FATO-OBSERVADO)
+# ════════════════════════════════════════════════════════════════════════════
+# A DT-FATO-OBSERVADO (coordenador + red team, 30/09) criou a classe FATO_OBSERVADO e listou
+# cinco ataques que tem de morrer, mais um controle bom fora da R9. Mas quem versiona o
+# vocabulario e o DONO DO CONTRATO, e o produtor classifica DEPOIS — logo o codigo que estes
+# mutantes atacam ainda nao existe.
+#
+# Escrever um mutante contra codigo que nao existe da NAO_APLICADO, e NAO_APLICADO nao e um
+# mutante morto: e um ataque que nunca aconteceu. Ja aconteceu duas vezes nesta bancada, e a
+# segunda so foi vista porque o pre-teste dos alvos passou a existir.
+#
+#     UMA LISTA DE MUTANTES POR FAZER E DIVIDA DECLARADA.
+#     A MESMA LISTA ESQUECIDA E UMA GARANTIA QUE NINGUEM VAI GUARDAR.
+#
+# Entao ficam AQUI: declarados, contados e impressos em cada corrida, fora do laco que mede.
+# `tests/test_o_produtor_de_afirmacoes.py::OsMutantesDaDTEstaoDeclaradosENaoEsquecidos`
+# reprova se alguem mexer nesta lista sem passar por lá.
+#: (nome, o que o ataque faz, porque ainda nao corre)
+MUTANTES_PENDENTES = [
+    ("DT_FO_1_RETIRAR_A_MARCA",
+     "a marca de medicao escrita deixa de ser exigida: a classe volta a ser dada por sobra",
+     "a marca de medicao ainda nao existe no codigo; espera a versao do vocabulario pelo dono"),
+    ("DT_FO_2_TROCAR_POR_EVENTO_ATO_OU_CONGRESSO",
+     "o facto medido sai como ALERTA_EVENTO, REGULATORIO ou congresso em vez da classe propria",
+     "as duas classes ainda nao coexistem; sem a classe nova nao ha troca para atacar"),
+    ("DT_FO_3_TROCAR_O_TEMPO_PELA_PUBLICACAO",
+     "o FACT_TIME do facto medido passa a ser o PUBLISHED_AT",
+     "o mutante irmao (FACT_TIME_VIRA_A_PUBLICACAO) ja existe e morre; este exige a classe "
+     "nova para provar que ela nao abre uma segunda porta ao mesmo defeito"),
+    ("DT_FO_4_TROCAR_O_LUGAR_PELO_LUGAR_DA_FONTE",
+     "o FACT_LOCATION do facto medido passa a ser o lugar declarado da fonte",
+     "idem: o irmao (FACT_LOCATION_VIRA_O_LUGAR_DA_FONTE) morre hoje, e este mede a porta nova"),
+    ("DT_FO_5_MISTURAR_EUROPA_2004_COM_ITALIA_2012",
+     "o BLK-1 aplicado a classe nova: dois tempos/lugares concorrentes e a classe a passar",
+     "a guarda dos concorrentes ja morre nos mutantes BLK1_*; este prova que a classe nova "
+     "nao a contorna"),
+    ("DT_FO_6_CONTROLE_BOM_FORA_DA_R9",
+     "um facto medido FORA da R9 que TEM de ser classificado (o controle positivo da DT)",
+     "nao e um ataque ao codigo, e um caso que so pode ser medido depois de a classe existir"),
+]
+
+
 def conferir_os_alvos() -> list:
     """OS ALVOS, ANTES DE A MEDICAO COMECAR. Devolve a lista dos que nao casam 1 vez.
 
@@ -362,7 +405,10 @@ def main(argv=None) -> int:
     if a.conferir_alvos:
         for m in maus:
             print("ALVO_MAU %-45s %s" % (m["NOME"], m["PORQUE"]))
-        print("ALVOS %d · MAUS %d" % (len(MUTANTES), len(maus)))
+        print("ALVOS %d · MAUS %d · PENDENTES %d (DT-FATO-OBSERVADO, sem codigo para atacar)"
+              % (len(MUTANTES), len(maus), len(MUTANTES_PENDENTES)))
+        for nome, ataque, _porque in MUTANTES_PENDENTES:
+            print("   PENDENTE %-44s %s" % (nome, ataque))
         return 1 if maus else 0
     if maus:
         print("ALVOS_MAUS=%d · a medicao NAO corre: %s"
@@ -413,6 +459,15 @@ def main(argv=None) -> int:
     r["MORTOS"] = mortos
     r["SOBREVIVENTES"] = [m["NOME"] for m in r["MUTANTES"] if m["ESTADO"] != "MORTO"]
     r["ALVOS_CONFERIDOS"] = True
+    # A divida fica DENTRO da prova, e nao so no codigo: quem ler o JSON amanha ve que ha
+    # seis ataques por fazer e porque. Um numero de mortos sem a lista do que falta atacar
+    # conta a metade boa da historia.
+    r["MUTANTES_PENDENTES"] = [{"NOME": n, "ATAQUE": at, "PORQUE_NAO_CORRE": pq}
+                               for n, at, pq in MUTANTES_PENDENTES]
+    r["PORQUE_HA_PENDENTES"] = (
+        "DT-FATO-OBSERVADO: o dono do contrato versiona o vocabulario (classe, marcas aceites, "
+        "tempo exigido) e o produtor classifica DEPOIS. Sem o codigo da classe, estes seis "
+        "sairiam NAO_APLICADO — que nao e um mutante morto, e um ataque que nunca aconteceu.")
     Path(a.saida).write_text(json.dumps(r, ensure_ascii=False, indent=1), encoding="utf-8")
     shutil.rmtree(base, ignore_errors=True)
     print("MORTOS %d/%d · SOBREVIVENTES: %s" % (mortos, len(MUTANTES), r["SOBREVIVENTES"] or "nenhum"))
