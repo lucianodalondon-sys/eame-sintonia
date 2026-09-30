@@ -820,6 +820,41 @@ class TrincoSobCorrida(unittest.TestCase):
                          " | DONOS_POR_RODADA=%s | EXCECOES=%d" % (donos, len(excecoes)))
 
 
+class TrincoAtrasadoComAVez(unittest.TestCase):
+    """A VEZ, com o intervalo mais estreito posto a mao (SERVICO-TRINCO, 30/09).
+
+    O mutante M31 (tomada sem a vez) sobreviveu a corrida de 8 processos: com o dono relido logo antes do
+    rename, a janela e de microssegundos e a corrida nao a acerta. Aqui ela e aberta de proposito: o
+    arranque B rele o dono morto e, ANTES do rename de B, o arranque A faz uma tomada inteira. Sem a vez,
+    B renomeia o trinco NOVO de A e ficam os dois com o trinco (medido com o M31). Com a vez, A nem tenta.
+    Tudo no mesmo processo: o trinco do sistema (LockFile/flock) e por ficheiro aberto, e A abre o seu.
+    """
+
+    def test_arranque_atrasado_nao_rouba_o_trinco_novo_de_outro(self):
+        from unittest import mock
+        base = Path(tempfile.mkdtemp(prefix="coleta-trinco-atrasado-"))
+        self.addCleanup(shutil.rmtree, base, True)
+        t = base / C.TRINCO_F
+        t.mkdir()
+        (t / "DONO.json").write_text(json.dumps({"PID": TrincoDeDonoMorto._pid_morto(), "DESDE": "x"}), encoding="utf-8")
+        original = C._trinco_de_dono_morto
+        chamadas, de_a = [], []
+
+        def rele_e_deixa_a_passar(p):
+            morto = original(p)
+            chamadas.append(morto)
+            if len(chamadas) == 2:                      # B com o dono relido e ainda sem o rename: entra A
+                with mock.patch.object(C, "_trinco_de_dono_morto", original):
+                    de_a.append(C.trinco(base))
+            return morto
+        with mock.patch.object(C, "_trinco_de_dono_morto", rele_e_deixa_a_passar):
+            de_b = C.trinco(base)
+        self.assertEqual(len(de_a), 1, "premissa: B tinha de reler o dono antes do rename")
+        donos = [x for x in (de_a[0], de_b) if x is not None]
+        self.assertEqual(len(donos), 1, "dois arranques ficaram com o trinco (A=%r, B=%r)" % (de_a[0], de_b))
+        self.assertTrue((t / "DONO.json").exists())
+
+
 @unittest.skipUnless(os.name == "nt", "OpenProcess/GetExitCodeProcess sao do Windows")
 class PidVivoNoWindows(unittest.TestCase):
     """(d) no Windows um processo que SAIU continua abrivel enquanto alguem segurar o handle dele (o auditor
