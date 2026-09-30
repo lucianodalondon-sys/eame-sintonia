@@ -1,0 +1,17 @@
+{
+ "ALVO": "portoes/publicar_portal_sozinho.py · sinais_de_nao_cliente / envelope()['PROMOCAO']",
+ "PEDIDO": "red team do bot Luciano, 30/09: qualquer sinal de demo/nao-cliente => PROMOCAO nunca APROVADA_PELO_DONO",
+ "TESTES": "tests/test_publicar_portal_sozinho.py -k d156 (cada sinal sozinho, com os outros false E ausentes)",
+ "BASE": "7 passed, 14 subtests passed",
+ "MUTANTES": {
+  "M1_sem_CORRIDA_SINTETICA": "MORTO (2 failed)",
+  "M2_sem_NAO_PARA_CLIENTE": "MORTO (2 failed)",
+  "M3a_marca_sem_EXPERIMENTAL": "MORTO (2 failed)",
+  "M3b_marca_sem_NAO_PARA_CLIENTE": "MORTO (2 failed)",
+  "M3c_marca_sem_upper": "MORTO (2 failed)",
+  "M4_sem_SOURCE_HEAD_SINT": "MORTO (4 failed)",
+  "M4b_SOURCE_HEAD_dict_ignorado": "MORTO (2 failed)",
+  "M5_sem_o_ramo": "MORTO (16 failed)"
+ },
+ "RESULTADO": "8/8 mortos"
+}
