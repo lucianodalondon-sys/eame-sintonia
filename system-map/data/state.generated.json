@@ -3070,8 +3070,10 @@
       "provas/cortesia_http_local.mjs",
       "provas/cortesia_red_team.mjs",
       "provas/coverage.py",
+      "provas/d158/CASOS-DO-RED-TEAM.json",
       "provas/d158/MUTACAO-PRODUTOR-V1.json",
       "provas/d158/R9-PELO-CAMINHO-CANONICO.json",
+      "provas/d158/casos_do_red_team.py",
       "provas/d158/mutar_o_produtor.py",
       "provas/d158/r9_pelo_caminho_canonico.py",
       "provas/demanda_de_dados_da_italia.py",
@@ -4818,9 +4820,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "lucianodalondon-sys/produtor-afirmacoes-v1",
-    "HEAD": "517fad666d3daf12ecd4137f226d2574b7824e63",
-    "GENERATED_AT": "2026-09-29T11:21:18-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1811155c3ed291cc402eebf8b717c69941dbfcac93cd413a49552e8303e1c026"
+    "HEAD": "d49b635d30a190206963ecee7f54f15f3553751a",
+    "GENERATED_AT": "2026-09-30T07:33:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f1f3bd5ec80c8d21cdc8dc8674d0b531516a637bae3924ec767cebe05157ff78"
   },
   "FAMILIES": [
     {
@@ -58732,14 +58734,15 @@
           "CAMPOS_DA_PROVENIENCIA",
           "CAMPOS_PROIBIDOS",
           "CLAIM_KINDS",
+          "_AREAS_SUPRANACIONAIS",
           "_CLASSE_FECHADA",
           "_DA_SALA"
         ],
-        "palavras": 100,
+        "palavras": 132,
         "por_lingua": {
           "PT": 1
         },
-        "sem_marca_de_lingua": 99,
+        "sem_marca_de_lingua": 131,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -58780,8 +58783,8 @@
         "PLANO": null,
         "PROVA": [
           "admissao/produtor_de_afirmacoes.py:43",
-          "provas/d158/mutar_o_produtor.py:48",
-          "provas/d158/r9_pelo_caminho_canonico.py:63",
+          "provas/d158/casos_do_red_team.py:32",
+          "provas/d158/mutar_o_produtor.py:60",
           "tests/test_o_produtor_de_afirmacoes.py:34"
         ],
         "PORQUE": "estas pecas importam-na — C-PRODUTOR-AFIRMACOES-COMANDO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -58860,7 +58863,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "tests/test_o_produtor_de_afirmacoes.py:610"
+          "tests/test_o_produtor_de_afirmacoes.py:809"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -64325,12 +64328,14 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/d158/CASOS-DO-RED-TEAM.json",
         "provas/d158/MUTACAO-PRODUTOR-V1.json",
         "provas/d158/R9-PELO-CAMINHO-CANONICO.json",
+        "provas/d158/casos_do_red_team.py",
         "provas/d158/mutar_o_produtor.py",
         "provas/d158/r9_pelo_caminho_canonico.py"
       ],
-      "file_count": 4,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -64351,11 +64356,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CASOS",
           "MUTANTES"
         ],
-        "palavras": 122,
+        "palavras": 193,
         "por_lingua": {},
-        "sem_marca_de_lingua": 122,
+        "sem_marca_de_lingua": 193,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -64372,12 +64378,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED_WHY": "le 9 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 8 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 9 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -64388,6 +64394,7 @@
         "leis/tempo_da_afirmacao.py",
         "pacote/pote_intelligence_casco.py",
         "pacote/validar_pote_v2.py",
+        "provas/d158/CASOS-DO-RED-TEAM.json",
         "provas/d158/MUTACAO-PRODUTOR-V1.json",
         "provas/d158/R9-PELO-CAMINHO-CANONICO.json",
         "tests/test_o_produtor_de_afirmacoes.py"
@@ -81042,7 +81049,7 @@
       "evidence": [
         {
           "file": "leis/afirmacao_do_documento.py",
-          "line": 665,
+          "line": 898,
           "snippet": "\"leis/boletim_do_campo.py::ler_afirmacao\", \"leis/afirmacao_da_fonte.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-PRODUTOR-AFIRMACOES",
@@ -81393,7 +81400,7 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 614,
+          "line": 813,
           "snippet": "'leis/afirmacao_da_fonte.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--READS-->C-TESTES",
@@ -113880,7 +113887,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_primeira_corrida_da_inteligencia.py",
@@ -113966,6 +113973,22 @@
           "file": "tests/test_lote6_integra.py",
           "line": 42,
           "snippet": "import corrida_da_inteligencia as CI           # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_o_produtor_de_afirmacoes.py",
+          "line": 470,
+          "snippet": "import corrida_da_inteligencia as CI      # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CORRIDA--IMPORTS-->C-TESTES",
             "FROM": "C-INT-CORRIDA",
@@ -126983,7 +127006,7 @@
       "evidence": [
         {
           "file": "provas/d158/mutar_o_produtor.py",
-          "line": 124,
+          "line": 179,
           "snippet": "(\"MEMORIA_RESPONDE_A_TODOS\", \"leis/boletim_do_campo.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-PROVA-PRODUTOR-AFIRMACOES",
@@ -127507,7 +127530,7 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 613,
+          "line": 812,
           "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -127523,7 +127546,7 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 613,
+          "line": 812,
           "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -127539,7 +127562,7 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 613,
+          "line": 812,
           "snippet": "JA_EXISTIA = ('leis/boletim_do_campo.py', 'leis/fato_do_texto.py', 'leis/fato_local.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-TESTES",
@@ -147888,8 +147911,40 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O produtor de afirmacoes — de um DOCUMENTO para AFIRMACOES COM PROVA tem o seu codigo importado por A prova do produtor de afirmacoes — a R9 pelo caminho canonico, e os mutantes. Provado por 2 linhas de codigo.",
+      "reason": "O produtor de afirmacoes — de um DOCUMENTO para AFIRMACOES COM PROVA tem o seu codigo importado por A prova do produtor de afirmacoes — a R9 pelo caminho canonico, e os mutantes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/d158/casos_do_red_team.py",
+          "line": 32,
+          "snippet": "import afirmacao_do_documento as AD              # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PRODUTOR-AFIRMACOES--IMPORTS-->C-PROVA-PRODUTOR-AFIRMACOES",
+            "FROM": "C-PRODUTOR-AFIRMACOES",
+            "TO": "C-PROVA-PRODUTOR-AFIRMACOES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/d158/casos_do_red_team.py",
+          "line": 33,
+          "snippet": "import tempo_da_afirmacao as TA                  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PRODUTOR-AFIRMACOES--IMPORTS-->C-PROVA-PRODUTOR-AFIRMACOES",
+            "FROM": "C-PRODUTOR-AFIRMACOES",
+            "TO": "C-PROVA-PRODUTOR-AFIRMACOES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/d158/r9_pelo_caminho_canonico.py",
           "line": 63,
@@ -147943,7 +147998,7 @@
       "evidence": [
         {
           "file": "provas/d158/mutar_o_produtor.py",
-          "line": 48,
+          "line": 60,
           "snippet": "(\"TRECHO_DEIXA_DE_SER_O_TEXTO\", \"leis/afirmacao_do_documento.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PRODUTOR-AFIRMACOES--READS-->C-PROVA-PRODUTOR-AFIRMACOES",
@@ -147959,7 +148014,7 @@
         },
         {
           "file": "provas/d158/mutar_o_produtor.py",
-          "line": 63,
+          "line": 75,
           "snippet": "(\"QUALQUER_PAPEL_E_FACTO\", \"leis/tempo_da_afirmacao.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PRODUTOR-AFIRMACOES--READS-->C-PROVA-PRODUTOR-AFIRMACOES",
@@ -148045,7 +148100,7 @@
       "evidence": [
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 403,
+          "line": 602,
           "snippet": "for nome in ('afirmacao_do_documento.py', 'tempo_da_afirmacao.py'):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PRODUTOR-AFIRMACOES--READS-->C-TESTES",
@@ -148061,8 +148116,8 @@
         },
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 403,
-          "snippet": "for nome in ('afirmacao_do_documento.py', 'tempo_da_afirmacao.py'):",
+          "line": 1031,
+          "snippet": "self.assertIn('FT._RE_LOJA.search(span)', open(caminho, encoding='utf-8').read())",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PRODUTOR-AFIRMACOES--READS-->C-TESTES",
             "FROM": "C-PRODUTOR-AFIRMACOES",
@@ -148096,7 +148151,7 @@
       "evidence": [
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 610,
+          "line": 809,
           "snippet": "'admissao/produtor_de_afirmacoes.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PRODUTOR-AFIRMACOES-COMANDO--READS-->C-TESTES",
@@ -170415,7 +170470,7 @@
       "evidence": [
         {
           "file": "tests/test_o_produtor_de_afirmacoes.py",
-          "line": 398,
+          "line": 597,
           "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'afirmacao_do_documento.py'), encoding='utf-8').read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-PRODUTOR-AFIRMACOES",
@@ -170973,7 +171028,7 @@
       "evidence": [
         {
           "file": "provas/d158/mutar_o_produtor.py",
-          "line": 44,
+          "line": 56,
           "snippet": "BATERIA = \"tests/test_o_produtor_de_afirmacoes.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PROVA-PRODUTOR-AFIRMACOES",
@@ -175745,8 +175800,8 @@
     "edges_proven": 1862,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4224,
-    "files_covered": 1953,
+    "files_tracked": 4226,
+    "files_covered": 1955,
     "files_code_unclaimed": 0,
     "roles_proven": 208,
     "roles_declared_only": 10,
