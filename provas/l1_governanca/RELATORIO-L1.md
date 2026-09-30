@@ -75,8 +75,9 @@ subpasta = recusa (caminho resolvido, prefixo de diretório).
   do LAB, um ficheiro com o nome deste par e o conteúdo de outro (LB1), que envenena o par em
   toda a árvore (regra 3). Isolado, o AUT1 passa com `AUTORIA_PROVADA=false` (testes
   `LIMITE_…` e `test_LAB_ORIGIN_sai_como_alegado…`).
-- Suposição declarada: os valores de `ELOS` são textos `PASS`/`OK`; se o LAB os escrever como
-  objetos, a guarda recusa (falha fechado) — confirmar com o LAB.
+- ~~Suposição declarada: os valores de `ELOS` são textos `PASS`/`OK`~~ — **resolvida na rodada 6**
+  pelo CONTRATO-VEREDITO do LAB: `ELOS` é a medição crua; a decisão por elo está em
+  `JULGAMENTO_POR_ELO` (ver Rodada 6).
 
 ### Rodada 5 (VERIF-L1-337dc53d4 + decisão do coordenador, DA reversível)
 
@@ -104,6 +105,23 @@ subpasta = recusa (caminho resolvido, prefixo de diretório).
 - **H3:** `POTE_SHA256` em qualquer caixa (e `RUN_ID` em qualquer caixa) conta como citação.
 - Aceite: `ataque_r5.py` do auditor → TOTAL=18 VAZAMENTOS=0 (H0–H7 recusam; H8 recusa; B1–B3
   bloqueiam; controlos no início e no fim passam). Testes: classe `R6_AuditorVerif231c0a5b2`.
+
+- **Formato v3 do LAB (CONTRATO-VEREDITO, 30/09, `C:/Users/London1/sintonia-lab-docs/`):** a
+  prova oficial passou a `SCHEMA = PROVA_REVERSA/v3`, com 7 chaves novas na lista fechada
+  (`SCHEMA`, `POTE_SHA256_TIPO`, `VEREDITO_DETALHE_STATUS`, `JULGAMENTO_POR_ELO`, `JUIZ`,
+  `JUIZ_SHA256`, `PREVIEW`). A guarda só aceita a prova do script `prova_reversa_v3.py` e do juiz
+  `veredito.py` pelos **sha256 fixados na lei** (`8afd3bb3…` e `6facf91b…`, do `SHA256SUMS.txt` do
+  contrato); a v2 (34 PASS indevidos no teste do LAB) = FAIL. Script ou juiz novo do LAB = mudar
+  a lei (falha fechada, nunca por nome). PASS exige ≥ 1 objeto provado, `ELOS` (medição crua)
+  com E1..E7 — e só esses — em objeto, `JULGAMENTO_POR_ELO.PRE_CONDICOES_FALHAS == []` e
+  `JULGAMENTO_POR_ELO.ELOS` com E1..E7 — e só esses — a `ESTADO == 'OK'` (exato; `PASS`/`ok` não
+  passam). O juiz **não é re-executado**: confere-se o sha256 que a prova DECLARA (ALEGADO no
+  motivo). Os dois exemplos reais do LAB estão em `tests/dados/lab-v3/` (sha256 do contrato):
+  o PASS passa na conferência, o FAIL recusa.
+- **K3b mantida:** o juiz do LAB força FAIL quando `VEREDITO_DETALHE != "PASS"`; a guarda
+  continua a não ler o detalhe (decisão do coordenador). Os casos K3/K3b do auditor seguem em
+  desacordo por decisão. Opção para o coordenador: exigir `VEREDITO_DETALHE == "PASS"` (lista
+  branca, igual ao juiz) fecharia esse desacordo sem lista negra.
 
 **BLOQUEIO_POR_TERCEIROS (na lei e na TRAVA):** qualquer agente local pode BLOQUEAR todos os
 pares pondo um ficheiro alheio ou não canónico na árvore do LAB (B1–B3). É o lado seguro:

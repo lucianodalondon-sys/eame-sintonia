@@ -1,0 +1,352 @@
+{
+ "LAB_ORIGIN": "sintonia-lab",
+ "SCHEMA": "PROVA_REVERSA/v3",
+ "DATA_UTC": "2026-09-30T05:05:11Z",
+ "POTE_SHA256": "276b490fd698c46188f4f5ec1a04de79503b0fc11c6ec82c5ea29fa833b87feb",
+ "POTE_SHA256_TIPO": "CANONICO: sha256(json.dumps(pote, ensure_ascii=False, sort_keys=True, separators=(\",\",\":\")))",
+ "RUN_ID": "IR-56c79b0c78fc3fa1e747",
+ "ENVELOPE_HASH": "NAO_EXISTE_NO_POTE_PUBLICADO",
+ "VEREDITO": "FAIL",
+ "VEREDITO_DETALHE": "PASS",
+ "VEREDITO_DETALHE_STATUS": "TEXTO_NAO_VERIFICADO",
+ "JULGAMENTO_POR_ELO": {
+  "PRE_CONDICOES_FALHAS": [],
+  "ELOS": {
+   "E1": {
+    "ESTADO": "OK",
+    "MOTIVOS": []
+   },
+   "E3": {
+    "ESTADO": "OK",
+    "MOTIVOS": []
+   },
+   "E2": {
+    "ESTADO": "OK",
+    "MOTIVOS": []
+   },
+   "E4": {
+    "ESTADO": "OK",
+    "MOTIVOS": []
+   },
+   "E5": {
+    "ESTADO": "OK",
+    "MOTIVOS": []
+   },
+   "E6": {
+    "ESTADO": "OK",
+    "MOTIVOS": []
+   },
+   "E7": {
+    "ESTADO": "FALHA",
+    "MOTIVOS": [
+     "AF-2cc19f200815fa06#0: fonte 'NAO_MEDIDO (--sem-fonte-viva)'",
+     "AF-11c9e6b6ee8caa6e#0: fonte 'NAO_MEDIDO (--sem-fonte-viva)'"
+    ]
+   }
+  },
+  "DETALHE_TEXTO_NAO_VERIFICADO": "PASS"
+ },
+ "JUIZ": "veredito.py",
+ "JUIZ_SHA256": "6facf91bc221946cad865ccb187fc00f695054400b74667cb58b94d3a49dd6fb",
+ "PREVIEW": "https://sintonia-eame-preview-qae9eearx-london-creative.vercel.app",
+ "OBJETOS_PROVADOS": [
+  "AF-11c9e6b6ee8caa6e",
+  "AF-2cc19f200815fa06"
+ ],
+ "ELOS": {
+  "E1": {
+   "GERAL": {
+    "E1_PREVIEW_POTE_JS_HTTP": 200,
+    "E1_PORTALE_HTTP": 200
+   },
+   "POR_OBJETO": {
+    "AF-2cc19f200815fa06": {
+     "E1_ID_NO_HTML_SERVIDO": false
+    },
+    "AF-11c9e6b6ee8caa6e": {
+     "E1_ID_NO_HTML_SERVIDO": false
+    }
+   }
+  },
+  "E2": {
+   "GERAL": {},
+   "POR_OBJETO": {
+    "AF-2cc19f200815fa06": {
+     "E2_OBJETO_NO_POTE_NO_AR": true
+    },
+    "AF-11c9e6b6ee8caa6e": {
+     "E2_OBJETO_NO_POTE_NO_AR": true
+    }
+   }
+  },
+  "E3": {
+   "GERAL": {
+    "E3_SHA_CANONICO_DO_POTE_NO_AR_CONFERE": true,
+    "E3_POTE_NA_PASTA": {
+     "POTE-R9-PARA_CLIENTE.json": {
+      "SHA_DO_ARQUIVO": "9aa916e328845c8c10b17a6c392c3ac9b23279f105e4a1e5e07d3aae1bc8d963",
+      "CONTEUDO_IGUAL_AO_NO_AR": true
+     }
+    },
+    "E3_ARQUIVO_DO_POTE_NO_SHA256SUMS": true
+   },
+   "POR_OBJETO": {}
+  },
+  "E4": {
+   "GERAL": {},
+   "POR_OBJETO": {
+    "AF-2cc19f200815fa06": {
+     "PROVAS": [
+      {
+       "E4_EVIDENCIA": {
+        "TRECHOS": [
+         "TRECHO_DA_AFIRMACAO",
+         "TRECHO_DA_DATA",
+         "TRECHO_DO_LUGAR"
+        ],
+        "ITEM_ID": "derived:11",
+        "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
+        "RAW_STORAGE_PATH": "XX/it-t3-008/DOCUMENT/85cb86ebd6582997-ubddcacce8c34dc87-Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+        "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+        "OK": true
+       }
+      }
+     ]
+    },
+    "AF-11c9e6b6ee8caa6e": {
+     "PROVAS": [
+      {
+       "E4_EVIDENCIA": {
+        "TRECHOS": [
+         "TRECHO_DA_AFIRMACAO",
+         "TRECHO_DA_DATA",
+         "TRECHO_DO_LUGAR"
+        ],
+        "ITEM_ID": "derived:11",
+        "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
+        "RAW_STORAGE_PATH": "XX/it-t3-008/DOCUMENT/85cb86ebd6582997-ubddcacce8c34dc87-Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+        "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+        "OK": true
+       }
+      }
+     ]
+    }
+   }
+  },
+  "E5": {
+   "GERAL": {},
+   "POR_OBJETO": {
+    "AF-2cc19f200815fa06": {
+     "PROVAS": [
+      {
+       "E5_SALA": {
+        "RAW_SHA_IGUAL": true,
+        "CAMINHO_IGUAL": true,
+        "URL_IGUAL": true,
+        "SOURCE_ID": "IT-T3-008",
+        "RAW_OBSERVATION_ID": 36,
+        "LINHAS_NA_SALA": 1,
+        "TRECHOS": {
+         "TRECHO_DA_AFIRMACAO": "ok@12773",
+         "TRECHO_DA_DATA": "ok@9141",
+         "TRECHO_DO_LUGAR": "ok@12902"
+        }
+       }
+      }
+     ]
+    },
+    "AF-11c9e6b6ee8caa6e": {
+     "PROVAS": [
+      {
+       "E5_SALA": {
+        "RAW_SHA_IGUAL": true,
+        "CAMINHO_IGUAL": true,
+        "URL_IGUAL": true,
+        "SOURCE_ID": "IT-T3-008",
+        "RAW_OBSERVATION_ID": 36,
+        "LINHAS_NA_SALA": 1,
+        "TRECHOS": {
+         "TRECHO_DA_AFIRMACAO": "ok@13269",
+         "TRECHO_DA_DATA": "ok@9141",
+         "TRECHO_DO_LUGAR": "ok@13328"
+        }
+       }
+      }
+     ]
+    }
+   }
+  },
+  "E6": {
+   "GERAL": {},
+   "POR_OBJETO": {
+    "AF-2cc19f200815fa06": {
+     "PROVAS": [
+      {
+       "E6_RAW": {
+        "SHA_RECALCULADO_IGUAL": true,
+        "BYTES": 2724725,
+        "TRECHOS_NO_BRUTO": {
+         "TRECHO_DA_AFIRMACAO": "literal",
+         "TRECHO_DA_DATA": "desdobrado",
+         "TRECHO_DO_LUGAR": "literal"
+        }
+       }
+      }
+     ]
+    },
+    "AF-11c9e6b6ee8caa6e": {
+     "PROVAS": [
+      {
+       "E6_RAW": {
+        "SHA_RECALCULADO_IGUAL": true,
+        "BYTES": 2724725,
+        "TRECHOS_NO_BRUTO": {
+         "TRECHO_DA_AFIRMACAO": "literal",
+         "TRECHO_DA_DATA": "desdobrado",
+         "TRECHO_DO_LUGAR": "literal"
+        }
+       }
+      }
+     ]
+    }
+   }
+  },
+  "E7": {
+   "GERAL": {},
+   "POR_OBJETO": {
+    "AF-2cc19f200815fa06": {
+     "PROVAS": [
+      {
+       "E7_FONTE": "NAO_MEDIDO (--sem-fonte-viva)"
+      }
+     ]
+    },
+    "AF-11c9e6b6ee8caa6e": {
+     "PROVAS": [
+      {
+       "E7_FONTE": "NAO_MEDIDO (--sem-fonte-viva)"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "SCRIPT": "C:\\Users\\London1\\AppData\\Local\\hermes\\profiles\\sintonia-lab\\lab\\estudos\\2026-09-29-PROVA-REVERSA\\prova_reversa_v3.py",
+ "SCRIPT_SHA256": "8afd3bb351e26020951c63fb6285be3c0a4b62c792f5120e3e4c25ce8d02e99b",
+ "BRUTO": {
+  "PREVIEW": "https://sintonia-eame-preview-qae9eearx-london-creative.vercel.app",
+  "ELOS_GERAIS": {
+   "E1_PREVIEW_POTE_JS_HTTP": 200,
+   "POTE_SHA256_NO_AR": "276b490fd698c46188f4f5ec1a04de79503b0fc11c6ec82c5ea29fa833b87feb",
+   "INTELLIGENCE_RUN_ID": "IR-56c79b0c78fc3fa1e747",
+   "MODO": "preview",
+   "ARVORE": "c7671ff7eef9f767016dce326fa03f6d9f572016",
+   "PUBLICADO_EM": "2026-09-29T01:43:29Z",
+   "E1_PORTALE_HTTP": 200,
+   "N_OBJETOS_NO_POTE_PUBLICADO": 2,
+   "N_OBJETOS_PROVADOS": 2,
+   "E3_SHA_CANONICO_DO_POTE_NO_AR_CONFERE": true,
+   "E3_POTE_NA_PASTA": {
+    "POTE-R9-PARA_CLIENTE.json": {
+     "SHA_DO_ARQUIVO": "9aa916e328845c8c10b17a6c392c3ac9b23279f105e4a1e5e07d3aae1bc8d963",
+     "CONTEUDO_IGUAL_AO_NO_AR": true
+    }
+   },
+   "E3_ARQUIVO_DO_POTE_NO_SHA256SUMS": true,
+   "SALA": "cópia JSON C:/Users/London1/sintonia-sala-italia/intelligence-experimental/EXPD78-R9-20260928T155047Z/copia/SALA_ATUAL.json"
+  },
+  "OBJETOS": {
+   "AF-2cc19f200815fa06": {
+    "LIBERACAO": "LIBERADO_PARA_CLIENTE",
+    "LIBERADO_NA_CORRIDA": "IR-56c79b0c78fc3fa1e747",
+    "PROVAS": [
+     {
+      "E4_EVIDENCIA": {
+       "TRECHOS": [
+        "TRECHO_DA_AFIRMACAO",
+        "TRECHO_DA_DATA",
+        "TRECHO_DO_LUGAR"
+       ],
+       "ITEM_ID": "derived:11",
+       "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
+       "RAW_STORAGE_PATH": "XX/it-t3-008/DOCUMENT/85cb86ebd6582997-ubddcacce8c34dc87-Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+       "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+       "OK": true
+      },
+      "E5_SALA": {
+       "RAW_SHA_IGUAL": true,
+       "CAMINHO_IGUAL": true,
+       "URL_IGUAL": true,
+       "SOURCE_ID": "IT-T3-008",
+       "RAW_OBSERVATION_ID": 36,
+       "LINHAS_NA_SALA": 1,
+       "TRECHOS": {
+        "TRECHO_DA_AFIRMACAO": "ok@12773",
+        "TRECHO_DA_DATA": "ok@9141",
+        "TRECHO_DO_LUGAR": "ok@12902"
+       }
+      },
+      "E6_RAW": {
+       "SHA_RECALCULADO_IGUAL": true,
+       "BYTES": 2724725,
+       "TRECHOS_NO_BRUTO": {
+        "TRECHO_DA_AFIRMACAO": "literal",
+        "TRECHO_DA_DATA": "desdobrado",
+        "TRECHO_DO_LUGAR": "literal"
+       }
+      },
+      "E7_FONTE": "NAO_MEDIDO (--sem-fonte-viva)"
+     }
+    ],
+    "E1_ID_NO_HTML_SERVIDO": false,
+    "E2_OBJETO_NO_POTE_NO_AR": true
+   },
+   "AF-11c9e6b6ee8caa6e": {
+    "LIBERACAO": "LIBERADO_PARA_CLIENTE",
+    "LIBERADO_NA_CORRIDA": "IR-56c79b0c78fc3fa1e747",
+    "PROVAS": [
+     {
+      "E4_EVIDENCIA": {
+       "TRECHOS": [
+        "TRECHO_DA_AFIRMACAO",
+        "TRECHO_DA_DATA",
+        "TRECHO_DO_LUGAR"
+       ],
+       "ITEM_ID": "derived:11",
+       "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
+       "RAW_STORAGE_PATH": "XX/it-t3-008/DOCUMENT/85cb86ebd6582997-ubddcacce8c34dc87-Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+       "URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+       "OK": true
+      },
+      "E5_SALA": {
+       "RAW_SHA_IGUAL": true,
+       "CAMINHO_IGUAL": true,
+       "URL_IGUAL": true,
+       "SOURCE_ID": "IT-T3-008",
+       "RAW_OBSERVATION_ID": 36,
+       "LINHAS_NA_SALA": 1,
+       "TRECHOS": {
+        "TRECHO_DA_AFIRMACAO": "ok@13269",
+        "TRECHO_DA_DATA": "ok@9141",
+        "TRECHO_DO_LUGAR": "ok@13328"
+       }
+      },
+      "E6_RAW": {
+       "SHA_RECALCULADO_IGUAL": true,
+       "BYTES": 2724725,
+       "TRECHOS_NO_BRUTO": {
+        "TRECHO_DA_AFIRMACAO": "literal",
+        "TRECHO_DA_DATA": "desdobrado",
+        "TRECHO_DO_LUGAR": "literal"
+       }
+      },
+      "E7_FONTE": "NAO_MEDIDO (--sem-fonte-viva)"
+     }
+    ],
+    "E1_ID_NO_HTML_SERVIDO": false,
+    "E2_OBJETO_NO_POTE_NO_AR": true
+   }
+  },
+  "VEREDITO": "PASS"
+ }
+}

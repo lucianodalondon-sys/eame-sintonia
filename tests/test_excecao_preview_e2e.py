@@ -181,14 +181,20 @@ class Base(unittest.TestCase):
 
     def entrada(self, pote, veredito="PASS", run=None, **extra):
         """Uma prova no FORMATO REAL do LAB (29/09) para este pote e esta corrida."""
-        e = {"LAB_ORIGIN": lei.LAB_ORIGIN, "DATA_UTC": self.agora_utc(),
-             "POTE_SHA256": lei.sha256_do_pote(pote),
+        e = {"LAB_ORIGIN": lei.LAB_ORIGIN, "SCHEMA": lei.SCHEMA_DA_PROVA, "DATA_UTC": self.agora_utc(),
+             "POTE_SHA256": lei.sha256_do_pote(pote), "POTE_SHA256_TIPO": "CANONICO",
              "RUN_ID": pote.get("INTELLIGENCE_RUN_ID") if run is None else run,
              "ENVELOPE_HASH": lei.ENVELOPE_INEXISTENTE, "VEREDITO": veredito,
              "VEREDITO_DETALHE": "sintetico dos testes da guarda",
-             "ELOS": {"E%d" % k: "PASS" for k in range(1, 8)},
-             "OBJETOS_PROVADOS": [], "SCRIPT": "tests/test_excecao_preview_e2e.py",
-             "SCRIPT_SHA256": "0" * 64, "BRUTO": []}
+             "VEREDITO_DETALHE_STATUS": "TEXTO_NAO_VERIFICADO",
+             "JULGAMENTO_POR_ELO": {"PRE_CONDICOES_FALHAS": [],
+                                    "ELOS": {"E%d" % k: {"ESTADO": "OK", "MOTIVOS": []} for k in range(1, 8)}},
+             "JUIZ": lei.JUIZ_DO_LAB, "JUIZ_SHA256": lei.SHA_DO_JUIZ_DO_LAB,
+             "PREVIEW": "https://preview.invalid",
+             "ELOS": {"E%d" % k: {"GERAL": {}, "POR_OBJETO": {}} for k in range(1, 8)},
+             "OBJETOS_PROVADOS": ["AF-teste-0001"],
+             "SCRIPT": "C:\\lab\\estudos\\" + lei.SCRIPT_DO_LAB,
+             "SCRIPT_SHA256": lei.SHA_DO_SCRIPT_DO_LAB, "BRUTO": {}}
         e.update(extra)
         return e
 
@@ -1131,10 +1137,9 @@ class R4_AuditorDec120851(Base):
         # palavras boas nao salvam um FAIL, nem um elo falhado
         self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
             self.entrada(self.pote, "FAIL", VEREDITO_DETALHE="tudo conferido, aprovado"))))
-        elos = {"E%d" % k: "PASS" for k in range(1, 8)}
-        elos["E3"] = "FALHOU"
         self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
-            self.entrada(self.pote, ELOS=elos, VEREDITO_DETALHE="tudo conferido"))))
+            self.entrada(self.pote, JULGAMENTO_POR_ELO=self.julgamento(E3="FALHA"),
+                         VEREDITO_DETALHE="tudo conferido"))))
 
     def test_K3b_esta_escrito_na_lei(self):
         with open(os.path.join(RAIZ, "leis", "fundacao_da_coleta.py"), encoding="utf-8") as f:
@@ -1142,24 +1147,45 @@ class R4_AuditorDec120851(Base):
         self.assertIn("VEREDITO_DETALHE e TEXTO NAO VERIFICADO", texto)
         self.assertNotIn("('rejeit', 'falh', 'fail')", texto)
 
-    def test_K4_PASS_exige_os_sete_elos_a_PASS_ou_OK(self):
-        base = {"E%d" % k: "PASS" for k in range(1, 8)}
-        for elos in (dict(base, E3="FALHOU"), dict(base, E7="FAIL"), dict(base, E1="pass"),
-                     dict(base, E5="PASSOU"), dict(base, E8="FALHOU"), dict(base, E4=None)):
-            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(self.pote, ELOS=elos))))
+    def julgamento(self, pre=(), sem=(), **estados):
+        elos = {"E%d" % k: {"ESTADO": "OK", "MOTIVOS": []} for k in range(1, 8)}
+        for e, v in estados.items():
+            elos[e] = v if isinstance(v, dict) or v is None else {"ESTADO": v, "MOTIVOS": ["x"]}
+        for e in sem:
+            elos.pop(e)
+        return {"PRE_CONDICOES_FALHAS": list(pre), "ELOS": elos}
+
+    def test_K4_PASS_exige_o_JULGAMENTO_com_os_sete_elos_a_OK(self):
+        """v3 (CONTRATO-VEREDITO): o estado de cada elo e o do juiz, e so 'OK' passa."""
+        for j in (self.julgamento(E3="FALHA"), self.julgamento(E7="NAO_MEDIDO"), self.julgamento(E1="ok"),
+                  self.julgamento(E5="PASS"), self.julgamento(E3="NAO_SEI"), self.julgamento(E4=None),
+                  self.julgamento(E2="OK "), self.julgamento(E6={"MOTIVOS": []})):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+                self.entrada(self.pote, JULGAMENTO_POR_ELO=j))))
             self.assertIn("elo", m)
-        sem_e7 = dict(base)
-        sem_e7.pop("E7")
-        for elos in (sem_e7, {}, None, ["E1"]):
-            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(self.pote, ELOS=elos))))
+        for j in (self.julgamento(sem=("E7",)), self.julgamento(E8="OK"), {"PRE_CONDICOES_FALHAS": [], "ELOS": {}},
+                  {"PRE_CONDICOES_FALHAS": [], "ELOS": ["E1"]}):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+                self.entrada(self.pote, JULGAMENTO_POR_ELO=j))))
             self.assertIn("E1..E7", m)
-        ok = self.lab_json(self.entrada(self.pote, ELOS=dict(base, E2="OK", E6="OK")))
-        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=ok))
+        for j in (self.julgamento(pre=("RUN_ID ausente",)), {"ELOS": self.julgamento()["ELOS"]}, None, "OK"):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+                self.entrada(self.pote, JULGAMENTO_POR_ELO=j))))
+            self.assertIn("pre-condicoes", m)
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            self.entrada(self.pote, JULGAMENTO_POR_ELO=self.julgamento()))))
         self.assertTrue(pode, motivo)
+
+    def test_K4_a_medicao_crua_dos_elos_tem_de_existir(self):
+        sem_e7 = {"E%d" % k: {} for k in range(1, 7)}
+        texto = {"E%d" % k: "PASS" for k in range(1, 8)}
+        for elos in (sem_e7, {}, None, ["E1"], texto, dict(texto, E3={}), dict(sem_e7, E7={}, E8={})):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(self.pote, ELOS=elos))))
+            self.assertIn("medicao (objeto) dos elos", m)
 
     def test_um_FAIL_nao_precisa_de_elos_nem_de_detalhe_coerente_para_recusar(self):
         m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(
-            self.pote, "FAIL", ELOS={"E3": "FALHOU"}, VEREDITO_DETALHE="E3 falhou"))))
+            self.pote, "FAIL", ELOS={"E3": "FALHOU"}, JULGAMENTO_POR_ELO=None, VEREDITO_DETALHE="E3 falhou"))))
         self.assertIn("VEREDITO", m)
 
     def test_LAB_ORIGIN_sai_como_alegado_e_nao_como_verificado(self):
@@ -1378,6 +1404,82 @@ class R6_AuditorVerif231c0a5b2(Base):
         self.lab_para(outro)
         pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
         self.assertTrue(pode, motivo)
+
+
+class V3_ContratoDoVeredictoDoLab(Base):
+    """LAB (CONTRATO-VEREDITO, 30/09): so vale a prova do script prova_reversa_v3.py e
+    do juiz veredito.py, pelos sha256 fixados; a v2 deu 34 PASS indevidos = FAIL."""
+
+    EXEMPLOS = os.path.join(RAIZ, "tests", "dados", "lab-v3")
+
+    def test_v2_e_qualquer_outro_script_recusam(self):
+        for extra in ({"SCRIPT": "C:\\lab\\prova_reversa_v2.py"},
+                      {"SCRIPT_SHA256": "ddc39910" + "0" * 56},
+                      {"SCRIPT": "prova_reversa_v3.py.bak"},
+                      {"SCRIPT": None}, {"SCRIPT_SHA256": lei.SHA_DO_SCRIPT_DO_LAB.upper()}):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(self.pote, **extra))))
+            self.assertIn("script oficial", m)
+            self.assertIn("v2 ou outro = FAIL", m)
+
+    def test_o_script_vale_com_barra_de_qualquer_lado_e_sem_pasta(self):
+        for caminho in ("prova_reversa_v3.py", "/lab/prova_reversa_v3.py", "C:\\lab\\x\\prova_reversa_v3.py"):
+            pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+                self.entrada(self.pote, SCRIPT=caminho))))
+            self.assertTrue(pode, motivo)
+            self.setUp()
+
+    def test_juiz_e_schema_sao_os_oficiais(self):
+        for extra, texto in (({"JUIZ": "juiz_v2_reproduzido.py"}, "juiz oficial"),
+                             ({"JUIZ_SHA256": "0" * 64}, "juiz oficial"),
+                             ({"SCHEMA": "PROVA_REVERSA/v2"}, "PROVA_REVERSA/v3"),
+                             ({"SCHEMA": None}, "PROVA_REVERSA/v3")):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(self.pote, **extra))))
+            self.assertIn(texto, m)
+
+    def test_PASS_exige_pelo_menos_um_objeto_provado(self):
+        for objetos in ([], None, [""], [None], "AF-1"):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+                self.entrada(self.pote, OBJETOS_PROVADOS=objetos))))
+            self.assertIn("objeto provado", m)
+
+    def test_uma_prova_v2_no_formato_antigo_nao_passa(self):
+        v2 = self.entrada(self.pote)
+        for k in ("SCHEMA", "POTE_SHA256_TIPO", "VEREDITO_DETALHE_STATUS", "JULGAMENTO_POR_ELO",
+                  "JUIZ", "JUIZ_SHA256", "PREVIEW"):
+            v2.pop(k)
+        v2.update(ELOS={"E%d" % k: "PASS" for k in range(1, 8)}, SCRIPT="prova_reversa_v2.py",
+                  SCRIPT_SHA256="ddc39910" + "0" * 56)
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(v2)))
+
+    def _exemplo_do_lab(self, nome):
+        """Os dois exemplos REAIS do LAB (sha256 do SHA256SUMS.txt do contrato),
+        copiados byte a byte para uma arvore do LAB com o nome do formato real."""
+        with open(os.path.join(self.EXEMPLOS, nome), "rb") as f:
+            corpo = f.read()
+        obj = json.loads(corpo.decode("utf-8"))
+        caminho = os.path.join(self._pasta_nova(),
+                               lei.nome_da_prova_do_lab(obj["POTE_SHA256"], obj["RUN_ID"]))
+        with open(caminho, "wb") as f:
+            f.write(corpo)
+        lab = {"VEREDITO": "PASS", "ONDE": caminho, "SHA256": hashlib.sha256(corpo).hexdigest()}
+        return lei.conferir_prova_do_lab(lab, obj["POTE_SHA256"], obj["RUN_ID"], [self.pasta_lab],
+                                         envelope=None)
+
+    def test_os_exemplos_reais_do_LAB_estao_integros(self):
+        esperado = {"EXEMPLO-V3-COM-FONTE-VIVA-PASS.json":
+                    "fc7171cf686c6cc17c3d2de7d5af6636fa132ef2fd87f08bb31a62f493929640",
+                    "EXEMPLO-V3-SEM-FONTE-VIVA-FAIL.json":
+                    "63791debbe5df3f413b31b69e6b230c3ca05b63f3d66d1ed954f167cb65fef02"}
+        for nome, sha in esperado.items():
+            with open(os.path.join(self.EXEMPLOS, nome), "rb") as f:
+                self.assertEqual(hashlib.sha256(f.read()).hexdigest(), sha, nome)
+
+    def test_o_exemplo_real_PASS_do_LAB_passa_na_conferencia(self):
+        self.assertIsNone(self._exemplo_do_lab("EXEMPLO-V3-COM-FONTE-VIVA-PASS.json"))
+
+    def test_o_exemplo_real_FAIL_do_LAB_recusa_por_ser_FAIL(self):
+        m = self._exemplo_do_lab("EXEMPLO-V3-SEM-FONTE-VIVA-FAIL.json")
+        self.assertIn("VEREDITO='FAIL'", m)
 
 
 if __name__ == "__main__":

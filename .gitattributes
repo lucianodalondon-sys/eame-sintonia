@@ -51,3 +51,7 @@ tests/dados/leitor-data-yt/** -text
 # SHA-256 do raw_asset da Sala; sem -text o autocrlf mudava os bytes e o teste caia.
 tests/dados/c2-juiz/** -text
 tests/dados/lugar_v2/** -text
+
+# L1 R6: os 2 exemplos REAIS da prova v3 do LAB sao conferidos pelo SHA-256 do SHA256SUMS.txt
+# do CONTRATO-VEREDITO; sem -text o autocrlf mudava os bytes.
+tests/dados/lab-v3/** -text

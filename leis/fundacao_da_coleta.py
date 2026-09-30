@@ -217,10 +217,25 @@ LAB_ORIGIN = 'sintonia-lab'
 #: O que a prova diz quando o pote publicado nao tem envelope (formato real do LAB).
 ENVELOPE_INEXISTENTE = 'NAO_EXISTE_NO_POTE_PUBLICADO'
 #: AUDITOR (VERIF-L1-dec120851, K1): as chaves do formato real do LAB, e so estas.
+#: LAB (CONTRATO-VEREDITO, 30/09): o formato oficial passou a PROVA_REVERSA/v3 e traz
+#: mais 7 chaves (SCHEMA ... PREVIEW). A lista continua FECHADA.
 CHAVES_DA_PROVA_DO_LAB = ('LAB_ORIGIN', 'DATA_UTC', 'POTE_SHA256', 'RUN_ID', 'ENVELOPE_HASH', 'VEREDITO',
-                          'VEREDITO_DETALHE', 'ELOS', 'OBJETOS_PROVADOS', 'SCRIPT', 'SCRIPT_SHA256', 'BRUTO')
+                          'VEREDITO_DETALHE', 'ELOS', 'OBJETOS_PROVADOS', 'SCRIPT', 'SCRIPT_SHA256', 'BRUTO',
+                          'SCHEMA', 'POTE_SHA256_TIPO', 'VEREDITO_DETALHE_STATUS', 'JULGAMENTO_POR_ELO',
+                          'JUIZ', 'JUIZ_SHA256', 'PREVIEW')
 ELOS_DA_PROVA = tuple('E%d' % k for k in range(1, 8))
-ELO_QUE_PASSA = ('PASS', 'OK')
+#: v3: o estado de cada elo sai do juiz em JULGAMENTO_POR_ELO.ELOS.En.ESTADO, e so 'OK' passa
+#: (o juiz escreve 'OK' ou 'FALHA'). ELOS passou a ser a MEDICAO crua, nao a decisao.
+ELO_QUE_PASSA = ('OK',)
+#: So vale a prova do script oficial e do juiz oficial, pelo sha256 (CONTRATO-VEREDITO,
+#: SHA256SUMS.txt de sintonia-lab-docs, 30/09). A v2 deu 34 PASS indevidos no teste do
+#: contrato: prova da v2 = FAIL. Um script ou juiz novo do LAB exige mudar ESTA linha
+#: (falha fechada), nunca aceitar por nome.
+SCHEMA_DA_PROVA = 'PROVA_REVERSA/v3'
+SCRIPT_DO_LAB = 'prova_reversa_v3.py'
+SHA_DO_SCRIPT_DO_LAB = '8afd3bb351e26020951c63fb6285be3c0a4b62c792f5120e3e4c25ce8d02e99b'
+JUIZ_DO_LAB = 'veredito.py'
+SHA_DO_JUIZ_DO_LAB = '6facf91bc221946cad865ccb187fc00f695054400b74667cb58b94d3a49dd6fb'
 #: V3b: uma DATA_UTC mais de 5 min no futuro nao e data, e tentativa de congelar o par.
 TOLERANCIA_DO_RELOGIO_S = 300
 #: ⚠️ LIMITE CONHECIDO (ponto do auditor, aceite pelo coordenador, 29/09): neste
@@ -505,8 +520,10 @@ def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote
     'sintonia-lab' (e nao o produtor), VEREDITO so PASS|FAIL e tem de ser PASS,
     ENVELOPE_HASH igual ao do pote quando o pote tem envelope (senao
     'NAO_EXISTE_NO_POTE_PUBLICADO'). So as chaves do formato real (K1); marca de
-    rejeicao numa CHAVE, em qualquer caixa = recusa (K2); PASS com um elo E1..E7
-    que nao e PASS/OK = recusa (K4). VEREDITO_DETALHE e texto nao verificado e NAO
+    rejeicao numa CHAVE, em qualquer caixa = recusa (K2). v3 (CONTRATO-VEREDITO do
+    LAB, 30/09): SCHEMA PROVA_REVERSA/v3, script prova_reversa_v3.py e juiz
+    veredito.py pelos sha256 fixados (v2 = FAIL); PASS exige >=1 objeto provado,
+    PRE_CONDICOES_FALHAS vazio e JULGAMENTO_POR_ELO com E1..E7 a 'OK' (K4). VEREDITO_DETALHE e texto nao verificado e NAO
     entra na decisao (K3b). Com varias versoes do mesmo par, em TODA a arvore do
     LAB (V4), vale a MAIS RECENTE pelo DATA_UTC DE DENTRO do JSON — nunca pela ordem
     do nome ('-10' vem antes de '-2' no alfabeto). Ficheiro que cita o par com nome
@@ -550,14 +567,35 @@ def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote
         return 'LAB_ORIGIN e o proprio produtor do pote'
     if obj.get('VEREDITO') not in ('PASS', 'FAIL'):
         return 'a prova do LAB tem VEREDITO=%r (so PASS ou FAIL)' % obj.get('VEREDITO')
+    if obj.get('SCHEMA') != SCHEMA_DA_PROVA:
+        return 'a prova do LAB nao e %s (SCHEMA=%r)' % (SCHEMA_DA_PROVA, obj.get('SCHEMA'))
+    script = str(obj.get('SCRIPT') or '').replace('\\', '/').rsplit('/', 1)[-1]
+    if script != SCRIPT_DO_LAB or obj.get('SCRIPT_SHA256') != SHA_DO_SCRIPT_DO_LAB:
+        return ('a prova do LAB nao saiu do script oficial %s com o sha256 fixado (SCRIPT=%r, SCRIPT_SHA256=%r): '
+                'v2 ou outro = FAIL' % (SCRIPT_DO_LAB, script, str(obj.get('SCRIPT_SHA256'))[:16]))
+    if obj.get('JUIZ') != JUIZ_DO_LAB or obj.get('JUIZ_SHA256') != SHA_DO_JUIZ_DO_LAB:
+        return 'o veredito nao saiu do juiz oficial %s com o sha256 fixado (JUIZ=%r)' % (JUIZ_DO_LAB, obj.get('JUIZ'))
     # K3b (decisao do coordenador, 29/09): VEREDITO_DETALHE e TEXTO NAO VERIFICADO e
     # nao entra na decisao — uma lista negra de palavras deixava sempre passar a
     # proxima grafia. Quem decide e VEREDITO == 'PASS' E os sete ELOS a PASS/OK.
+    # v3 (CONTRATO-VEREDITO do LAB): PASS exige >=1 objeto provado, nenhuma
+    # pre-condicao falhada, e o JULGAMENTO do juiz com E1..E7 — e so esses — a 'OK'.
     if obj.get('VEREDITO') == 'PASS':
-        elos = obj.get('ELOS')
-        if not isinstance(elos, dict) or any(e not in elos for e in ELOS_DA_PROVA):
-            return 'VEREDITO=PASS sem os elos E1..E7 todos'
-        maus = sorted(k for k, v in elos.items() if v not in ELO_QUE_PASSA)
+        objetos = obj.get('OBJETOS_PROVADOS')
+        if (not isinstance(objetos, list) or not objetos
+                or any(not isinstance(o, str) or not o.strip() for o in objetos)):
+            return 'VEREDITO=PASS sem nenhum objeto provado (OBJETOS_PROVADOS)'
+        medidos = obj.get('ELOS')
+        if (not isinstance(medidos, dict) or set(medidos) != set(ELOS_DA_PROVA)
+                or any(not isinstance(v, dict) for v in medidos.values())):
+            return 'VEREDITO=PASS sem a medicao (objeto) dos elos E1..E7, e so desses (ELOS)'
+        julgamento = obj.get('JULGAMENTO_POR_ELO')
+        if not isinstance(julgamento, dict) or julgamento.get('PRE_CONDICOES_FALHAS') != []:
+            return 'VEREDITO=PASS com pre-condicoes falhadas ou sem JULGAMENTO_POR_ELO'
+        elos = julgamento.get('ELOS')
+        if not isinstance(elos, dict) or set(elos) != set(ELOS_DA_PROVA):
+            return 'VEREDITO=PASS sem os elos E1..E7 todos (e so esses) no JULGAMENTO_POR_ELO'
+        maus = sorted(k for k, v in elos.items() if not isinstance(v, dict) or v.get('ESTADO') not in ELO_QUE_PASSA)
         if maus:
             return 'VEREDITO=PASS com elo(s) que nao passaram: %s' % maus
     esperado = envelope or ENVELOPE_INEXISTENTE
@@ -861,9 +899,11 @@ def pode_atravessar_a_trava(pedido, trava, diario, publicacao, validar=_validar_
     if problema:
         return False, '%s · %s' % (BLOQUEIO, problema)
     verificado.append('LAB: %s e a prova MAIS RECENTE (DATA_UTC) do par (POTE_SHA256, RUN_ID) deste pote em '
-                      'toda a arvore do LAB (sem anomalias nem datas no futuro), sha256 fixado, VEREDITO=PASS e '
-                      'ELOS E1..E7 a PASS/OK, ENVELOPE_HASH conferido' % os.path.basename(lab['ONDE']))
-    alegado.append('o CONTEUDO da prova reversa do LAB (nao e relido aqui)')
+                      'toda a arvore do LAB (sem anomalias nem datas no futuro), sha256 fixado, %s do script %s e do '
+                      'juiz %s pelos sha256 fixados, VEREDITO=PASS, JULGAMENTO E1..E7 a OK sem pre-condicao '
+                      'falhada, >=1 objeto provado, ENVELOPE_HASH conferido' % (os.path.basename(lab['ONDE']), SCHEMA_DA_PROVA, SCRIPT_DO_LAB, JUIZ_DO_LAB))
+    alegado.append('o CONTEUDO da prova reversa do LAB (nao e relido aqui); o juiz nao e re-executado: '
+                   'confere-se o sha256 que a prova DECLARA para o script e o juiz')
     alegado.append('VEREDITO_DETALHE: texto nao verificado, fora da decisao (K3b)')
     alegado.append('o AUTOR da prova do LAB: LAB_ORIGIN=%s declarado; AUTORIA_DO_LAB=DECLARADA (LAB_ORIGIN + pasta), '
                    'AUTORIA_PROVADA=false (todos os agentes correm como o mesmo utilizador Windows)' % LAB_ORIGIN)
