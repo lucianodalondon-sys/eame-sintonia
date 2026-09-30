@@ -1,10 +1,10 @@
 {
- "ARVORE": "c8b13eafbaf27d267f8b8c6f9118f13569b36ac6",
+ "ARVORE": "07077bd89d540d0008c2f3b1a24fd55c8be196ec",
  "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
  "SEM_MUTACAO": {
   "CODIGO": 0,
   "VERDE": true,
-  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 171 tests in 2.246s\n\nOK"
+  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 171 tests in 1.792s\n\nOK"
  },
  "MUTANTES": [
   {
@@ -584,9 +584,11 @@
   {
    "NOME": "DT_FO_4a_O_LUGAR_DO_CABECALHO_SUSTENTA_A_CLASSE",
    "FICHEIRO": "leis/afirmacao_do_documento.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe (__main__.AClasseObservacaoMedida5D.test_DT4_lugar_do_CABECALHO_nao_sustenta_a_classe)"
+   ]
   },
   {
    "NOME": "DT_FO_4b_O_LUGAR_SEM_POSICAO_SUSTENTA_A_CLASSE",
@@ -948,10 +950,8 @@
   }
  ],
  "TOTAL": 89,
- "MORTOS": 88,
- "SOBREVIVENTES": [
-  "DT_FO_4a_O_LUGAR_DO_CABECALHO_SUSTENTA_A_CLASSE"
- ],
+ "MORTOS": 89,
+ "SOBREVIVENTES": [],
  "ALVOS_CONFERIDOS": true,
  "MUTANTES_PENDENTES": [],
  "PORQUE_HA_PENDENTES": "DT-FATO-OBSERVADO: o dono do contrato versiona o vocabulario (classe, marcas aceites, tempo exigido) e o produtor classifica DEPOIS. Sem o codigo da classe, estes seis sairiam NAO_APLICADO — que nao e um mutante morto, e um ataque que nunca aconteceu."
