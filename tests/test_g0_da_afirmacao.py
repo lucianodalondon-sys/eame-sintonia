@@ -11,6 +11,7 @@ da R9 aparece aqui. O artefato tem a forma AFIRMACOES_DA_SALA/v1 do produtor (ra
 import copy
 import hashlib
 import json
+import re
 import sys
 import unittest
 from datetime import date
@@ -413,9 +414,30 @@ class TestAntiOverfit(unittest.TestCase):
 
     def test_no_codigo_de_producao_so_o_que_ja_la_estava(self):
         for p in self.PROIBIDOS:
+            if p in self.NOME_DE_CAMPO_DO_CONTRATO:
+                continue                    # guarda propria abaixo: o VALOR proibe-se, o NOME de campo nao
             n = sum(f.read_text(encoding="utf-8", errors="replace").count(p)
                     for pasta in ("motor", "pacote", "admissao", "leis") for f in (RAIZ / pasta).rglob("*.py"))
             self.assertEqual(n, self.JA_NA_PRODUCAO.get(p, 0), p)
+
+    #: «TRECHO_DA_AFIRMACAO» e DUAS coisas. Como VALOR de ENTITY_SOURCE foi o erro da R9 manual (fora da COL-LAW-221)
+    #: e continua proibido em todo o codigo de producao. Como NOME de campo da PROVA e contrato lido pelo casco
+    #: (italia-portale/client/sintonia-pote-casco.js, p.TRECHO_DA_AFIRMACAO) e so o dono da liberacao o escreve.
+    NOME_DE_CAMPO_DO_CONTRATO = {"TRECHO_DA_AFIRMACAO": ("pacote/liberacao_por_criterio.py",)}
+    _VALOR_PROIBIDO = re.compile(r"""ENTITY_SOURCE["']?\s*[:=]\s*["']TRECHO_DA_AFIRMACAO""")
+
+    def test_trecho_da_afirmacao_nunca_e_valor_de_entity_source(self):
+        for pasta in ("motor", "pacote", "admissao", "leis"):
+            for f in (RAIZ / pasta).rglob("*.py"):
+                self.assertIsNone(self._VALOR_PROIBIDO.search(f.read_text(encoding="utf-8", errors="replace")),
+                                  "ENTITY_SOURCE = TRECHO_DA_AFIRMACAO em %s" % f)
+
+    def test_o_nome_de_campo_so_vive_no_dono(self):
+        for nome, donos in self.NOME_DE_CAMPO_DO_CONTRATO.items():
+            onde = sorted(str(f.relative_to(RAIZ)).replace("\\", "/")
+                          for pasta in ("motor", "pacote", "admissao", "leis") for f in (RAIZ / pasta).rglob("*.py")
+                          if nome in f.read_text(encoding="utf-8", errors="replace"))
+            self.assertEqual(onde, sorted(donos), nome)
 
 
 if __name__ == "__main__":

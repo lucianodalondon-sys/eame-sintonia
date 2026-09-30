@@ -297,6 +297,9 @@ def aplicar(livro: dict, registos: list, raw: dict, idx: dict) -> dict:
                 "LOCATION_SOURCE": lugar.get("LOCATION_SOURCE", NAO_SEI),
                 "FACT_LOCATION_PRECISAO": lugar.get("PRECISAO", NAO_SEI),
                 "FACT_LOCATION_TRECHO": lugar.get("TRECHO"),
+                # LAB E5 (30/09): a POSICAO do lugar, tal como o produtor a provou (ONDE = INICIO/FIM/TRECHO no texto).
+                # Passa-se, nao se recalcula: procurar o nome no texto daria a 1.a ocorrencia, nao a do facto.
+                "FACT_LOCATION_ONDE": lugar.get("ONDE") if isinstance(lugar.get("ONDE"), dict) else None,
                 "EVIDENCE_SPAN": af.get("EVIDENCE_SPAN"),
                 "ENTIDADES": af.get("ENTIDADES") or [],
                 "USOS_BLOQUEADOS": entrada["USOS_BLOQUEADOS"],

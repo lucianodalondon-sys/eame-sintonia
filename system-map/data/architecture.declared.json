@@ -6070,7 +6070,8 @@
    "why_here": "POTE-UNICO (D95/D96, 2026-09-27). O casco lia uma inteligencia congelada (snapshot 07/09) e demo; a ponte v1 nao tinha especie nem vaga para Radar Futuro (P2/P5), Registro/Archivio (P3), e o portal nao a lia. INT-LAW-023/280: transporta, nao cruza, nao promove, nao muda especie, nao calcula rendimento. 45 testes (tests/test_pote_intelligence_casco.py + tests/test_pote_no_casco.mjs, fixture SINTETICA declarada em tests/fixtures/pote/). POTE-V2-UNICO: o bot emitia um R5 com o id em CABECALHO e o gerador ce775ff5 recusava-o; o R6 aprovado recusava o «nao» da APOL e deixava 3 de 47 fontes no Registro (P7), e o Polso lia sinal solto como mudanca (P8). +38 testes em tests/test_pote_v2_unico.py; numa fixture SINTETICA equivalente a R6, 45 das 46 recusas voltam (provas/pote_v2/medir_recusas_r6.py).",
    "files": [
     "pacote/pote_intelligence_casco.py",
-    "pacote/validar_pote_v2.py"
+    "pacote/validar_pote_v2.py",
+    "pacote/liberacao_por_criterio.py"
    ]
   },
   {

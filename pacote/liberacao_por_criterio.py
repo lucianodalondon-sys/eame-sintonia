@@ -55,6 +55,9 @@ NS = "NAO SEI"
 CONFERENCIAS = ("C1_PROVA_DO_ARQUIVO", "C2_DATA_PROPRIA", "C3_LUGAR_PROPRIO", "C4_LIGACAO_ADAMA", "C5_SEM_DUPLICADO",
                 "C6_ESPECIE_DO_COMPARTIMENTO", "C7_SO_SAIDA_DA_INTELLIGENCE")
 ORIGENS_DE_DATA_PROPRIA = ("LITERAL", "CABECALHO_D147", "RELATIVA_ANCORADA_D149")
+#: LAB E5 (30/09): TRECHO_* = CITACAO literal do texto da Sala, cada uma com a sua posicao em SECAO (*_EM).
+#: Nenhum outro campo pode usar o prefixo — interpretacao do sistema tem outro nome (DATA_LEGIVEL_INTERPRETADA).
+TRECHOS_LITERAIS = {"TRECHO_DA_AFIRMACAO": "AFIRMACAO_EM", "TRECHO_DA_DATA": "DATA_EM", "TRECHO_DO_LUGAR": "LUGAR_EM"}
 
 
 def _como_se_le(linha: str) -> str:
@@ -133,9 +136,15 @@ def conferir_objeto(o: dict, comp: str, linhas: dict, armazem: Path | None, vist
 
     # C3
     trecho_lugar = fonte.get("FACT_LOCATION_TRECHO")
+    onde = fonte.get("FACT_LOCATION_ONDE") if isinstance(fonte.get("FACT_LOCATION_ONDE"), dict) else None
     if not span or not _sabido(trecho_lugar) or not _sabido((o.get("CHAVES") or {}).get("FACT_LOCATION")):
         c["C3_LUGAR_PROPRIO"] = "FALHOU: lugar do fato sem trecho proprio"
-    elif str(trecho_lugar) not in str(span.get("TRECHO")):
+    elif not onde or not isinstance(onde.get("INICIO"), int) or not isinstance(onde.get("FIM"), int):
+        # LAB E5 (30/09): lugar sem posicao nao se prova no texto («Puglia» 16x). O juiz nao afrouxa.
+        c["C3_LUGAR_PROPRIO"] = "FALHOU: lugar sem posicao (ONDE) provada pelo produtor"
+    elif texto[onde["INICIO"]:onde["FIM"]] != trecho_lugar or onde.get("TRECHO") != trecho_lugar:
+        c["C3_LUGAR_PROPRIO"] = "FALHOU: trecho do lugar nao esta literal no texto, na posicao declarada"
+    elif not (span["INICIO"] <= onde["INICIO"] and onde["FIM"] <= span["FIM"]):
         c["C3_LUGAR_PROPRIO"] = "FALHOU: trecho do lugar fora do trecho da afirmacao"
     elif o.get("LOCATION_SOURCE") in (None, "UNRESOLVED") and fora.get("LOCATION_SOURCE") in (None, "UNRESOLVED"):
         c["C3_LUGAR_PROPRIO"] = "FALHOU: LOCATION_SOURCE nao resolvido"
@@ -187,11 +196,16 @@ def liberar(pote: dict, linhas: dict, armazem: Path | None, run_id: str) -> tupl
                               "TRECHO_DA_DATA": fonte["FACT_TIME_BASIS"]["TRECHO"],
                               "TRECHO_DO_LUGAR": fonte["FACT_LOCATION_TRECHO"],
                               "SECAO": {"AFIRMACAO_EM": fonte["EVIDENCE_SPAN"]["INICIO"],
-                                        "DATA_EM": fonte["FACT_TIME_BASIS"]["INICIO"]}})
+                                        "DATA_EM": fonte["FACT_TIME_BASIS"]["INICIO"],
+                                        "LUGAR_EM": fonte["FACT_LOCATION_ONDE"]["INICIO"]}})
                     legivel = _como_se_le(p["TRECHO_DA_DATA"])
                     if legivel != p["TRECHO_DA_DATA"]:
-                        # o literal fica (C1/C2 conferem-no no texto); ao lado, como um humano o le (regra do dono)
-                        p["TRECHO_DA_DATA_LEGIVEL"] = legivel
+                        # LAB E5 (30/09): isto NAO e citacao — e o cabecalho desdobrado pela regra do dono. Todo campo
+                        # TRECHO_* e literal no texto da Sala na sua posicao; a leitura do sistema tem outro nome (D112 r4).
+                        p["DATA_LEGIVEL_INTERPRETADA"] = legivel
+                    naoliteral = [k for k in p if k.startswith("TRECHO_") and k not in TRECHOS_LITERAIS]
+                    if naoliteral:
+                        raise ValueError("campo TRECHO_ que nao e citacao literal: %s" % naoliteral)
             conf[o["OBJETO_ID"]] = dict(c, COMPARTIMENTO=comp, ESPECIE=o.get("ESPECIE"), LIBERACAO=o["LIBERACAO"])
     return pote, conf
 
