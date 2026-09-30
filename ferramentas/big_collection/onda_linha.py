@@ -343,7 +343,11 @@ def colher_alvo(linha: str, a: dict, buscar) -> dict:
         corpo = json.dumps(registo, ensure_ascii=False, sort_keys=True).encode("utf-8")
         return {"BYTES": corpo, "URL": a.get("URL_DO_POST"), "MEDIA_TYPE": "application/json",
                 "PEDIDOS": pedidos, "ROTA": "linkedin:descoberta-do-post-publico",
-                "VIDEO_BYTES_ACQUIRED": False, "TEXTO_ORIGEM": registo.get("TEXTO_ORIGEM")}
+                "VIDEO_BYTES_ACQUIRED": False, "TEXTO_ORIGEM": registo.get("TEXTO_ORIGEM"),
+                # O PORQUE viaja com a origem. «Falhou» sem motivo obriga a reabrir a corrida para saber
+                # o que a plataforma disse — e a corrida ja acabou.
+                "TEXTO_PORQUE_NAO": registo.get("TEXTO_PORQUE_NAO"),
+                "TEXTO_CARACTERES": len(registo.get("TEXTO") or "")}
     if linha == "BUSCA":
         # A pagina achada, pela MESMA porta (robots vivo, teto, contador).
         r = buscar(a["URL"], "text/html,application/pdf,*/*;q=0.5")
@@ -762,12 +766,36 @@ def correr(linha: str, candidatas: list, saida: Path, *, max_alvos=None, pousar=
                                      "SOURCE_ID": cand.get("SOURCE_ID"), "MEDIA_TYPE": c.get("MEDIA_TYPE"),
                                      "BYTES": len(c["BYTES"]), "CORRIDA": corrida, "LINHA": linha,
                                      "ROTA": c.get("ROTA"), "CAPTURED_AT": _utc(),
+                                     # DE ONDE VEIO O TEXTO DESTA CAPTURA — ou porque nao veio.
+                                     # Sem isto o artefacto nao responde «a legenda chegou ao item?», e
+                                     # o juiz a dizer «nao encontrei vocabulario» fica sem causa: pode
+                                     # ser post sem texto, legenda que falhou, ou cartao sem CAPTION_URL.
+                                     # Sao tres coisas diferentes e sem o campo parecem a mesma.
+                                     "TEXTO_ORIGEM": c.get("TEXTO_ORIGEM"),
+                                     "TEXTO_PORQUE_NAO": c.get("TEXTO_PORQUE_NAO"),
+                                     # QUANTO texto, e nao so se veio: uma legenda de 0 caracteres
+                                     # «chegou» e nao alimenta juiz nenhum. O numero separa as duas.
+                                     "TEXTO_CARACTERES": c.get("TEXTO_CARACTERES"),
                                      "PROVENIENCIA": dict(cand.get("PROVENIENCIA") or {},
                                                           DESCOBERTO_POR=a.get("DESCOBERTO_POR") or d.get("ROTA"),
                                                           CONTA=a.get("CONTA"))},
                                     ensure_ascii=False) + "\n")
         linha_reg["ALVOS_COLHIDOS"] = len(colhidos)
         linha_reg["ALVOS_VISTOS_ANTES"] = len(repetidos)
+        # DE ONDE VEIO O TEXTO, contado por origem. O juiz que responde NAO_SEI «sem vocabulario» tem
+        # aqui a causa, sem se reabrir a corrida: LEGENDA_NATIVA_LINKEDIN = chegou texto;
+        # LEGENDA_NATIVA_LINKEDIN_FALHOU = a plataforma negou (o motivo vai no livro, por captura);
+        # SEM_LEGENDA_DECLARADA_NO_CARTAO = o cartao publico nao trazia CAPTION_URL, logo nao ha texto
+        # a pedir. Ausente = a linha nao declara origem de texto (so o LINKEDIN a declara hoje).
+        origens = {}
+        for cl in colhidos:
+            o = cl.get("TEXTO_ORIGEM")
+            if o:
+                origens[o] = origens.get(o, 0) + 1
+        if origens:
+            linha_reg["TEXTO_ORIGEM_CONTA"] = origens
+            linha_reg["TEXTO_CARACTERES_TOTAL"] = sum(int(cl.get("TEXTO_CARACTERES") or 0)
+                                                      for cl in colhidos)
         if repetidos:
             linha_reg["VISTO_ANTES"] = repetidos
         linha_reg["PEDIDOS_POR_DOMINIO"] = {dom: pedidos} if dom else {}

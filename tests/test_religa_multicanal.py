@@ -933,6 +933,62 @@ def test_um_livro_de_vistos_estragado_nao_apaga_a_memoria():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# P2 — DE ONDE VEIO O TEXTO TEM DE FICAR ESCRITO NO LIVRO
+#
+# O revisor do SCRAP nao conseguiu medir «a legenda chegou ao juiz?» e a culpa era do artefacto, nao
+# dele: `colher_alvo` declarava `TEXTO_ORIGEM` e o livro do RAW deitava-o fora. O juiz respondia
+# NAO_SEI «sem vocabulario» e a corrida nao dizia se o post vinha sem texto, se a legenda falhou, ou
+# se o cartao nem tinha CAPTION_URL. Sao tres causas diferentes com o mesmo sintoma.
+# ══════════════════════════════════════════════════════════════════════════════
+def test_o_livro_do_raw_diz_de_onde_veio_o_texto_e_quanto():
+    """Com legenda: origem NATIVA e o numero de caracteres. Os dois, porque «chegou» com 0 caracteres
+    nao alimenta juiz nenhum."""
+    import onda_linha as OL
+    srt = "1\n00:00:01,000 --> 00:00:02,000\nciao a tutti\n"
+    a = {"URL_DO_POST": "https://www.linkedin.com/posts/x", "NATIVE_ID": "7123456789012345678",
+         "CAPTION_URL": "https://dms.licdn.com/x.srt"}
+    c = OL.colher_alvo("LINKEDIN", a, leitor(srt))
+    assert c["TEXTO_ORIGEM"] == "LEGENDA_NATIVA_LINKEDIN"
+    assert c["TEXTO_CARACTERES"] > 0, "legenda lida e 0 caracteres nao podem coexistir"
+    assert c.get("TEXTO_PORQUE_NAO") is None
+
+
+def test_o_livro_distingue_sem_legenda_de_legenda_que_falhou():
+    """Duas ausencias com nomes DIFERENTES. Sem isto, «o cartao nao oferecia legenda» e «a plataforma
+    negou a legenda» leem-se como a mesma coisa, e so uma delas e um problema nosso."""
+    import onda_linha as OL
+    base = {"URL_DO_POST": "https://www.linkedin.com/posts/x", "NATIVE_ID": "7123456789012345678"}
+    sem = OL.colher_alvo("LINKEDIN", base, leitor("x"))
+    assert sem["TEXTO_ORIGEM"] == "SEM_LEGENDA_DECLARADA_NO_CARTAO"
+    assert sem["TEXTO_CARACTERES"] == 0
+
+    falhou = OL.colher_alvo("LINKEDIN", dict(base, CAPTION_URL="https://dms.licdn.com/x.srt"),
+                            leitor(erro="HTTP 403"))
+    assert falhou["TEXTO_ORIGEM"] == "LEGENDA_NATIVA_LINKEDIN_FALHOU"
+    assert falhou["TEXTO_PORQUE_NAO"], "falhar sem motivo obriga a reabrir uma corrida que ja acabou"
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# P3 — DUAS CORRIDAS SEGUIDAS NAO CRIAM RAW NOVO
+# ══════════════════════════════════════════════════════════════════════════════
+def test_duas_corridas_sobre_a_mesma_entrada_nao_criam_raw_novo():
+    """O criterio do revisor, corrido a valer: sem rede, sem banco, duas passagens.
+
+    ⚠️ E `medir()` da prova que corre aqui, e nao uma copia dele. Uma copia seria uma segunda verdade
+    a divergir da primeira no dia em que alguem mexesse numa so."""
+    p = Path(__file__).resolve().parents[1] / "provas" / "religa_multicanal"
+    if str(p) not in sys.path:
+        sys.path.insert(0, str(p))
+    import recaptura as RC
+    r = RC.medir()
+    assert r["RAW_DEPOIS_DA_1"] >= 1, "prova que mede vazio nao prova nada: %s" % r["VEREDITO"]
+    assert r["RAW_NOVO_NA_2"] == 0, r["VEREDITO"]
+    assert r["BYTES_IGUAIS"] is True
+    assert r["PEDIDOS_POUPADOS_NA_2"] >= 1, "a 2.a corrida tem de poupar o pedido do alvo"
+    assert r["VEREDITO"].startswith("PASS"), r["VEREDITO"]
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # As funcoes soltas acima correm pelo unittest: uma classe que as recolhe pelo nome.
 # A bateria da casa (`_bateria_por_nome.py`) le `unittest`, nao `pytest`.
 # ══════════════════════════════════════════════════════════════════════════════

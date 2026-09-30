@@ -1,0 +1,32 @@
+{
+ "PROVA": "P3 · duas corridas seguidas sobre a MESMA entrada local",
+ "CRITERIO": "2 corridas seguidas nao criam RAW novo para bytes iguais",
+ "REDE": "NENHUMA — transporte local, bytes fixos",
+ "BANCO": "NENHUM — pousar=False",
+ "RC_CORRIDA_1": 0,
+ "RC_CORRIDA_2": 0,
+ "RAW_DEPOIS_DA_1": 1,
+ "RAW_DEPOIS_DA_2": 1,
+ "RAW_NOVO_NA_2": 0,
+ "SHA_DISTINTOS": 1,
+ "BYTES_IGUAIS": true,
+ "PEDIDOS_NA_1": 2,
+ "PEDIDOS_NA_2": 1,
+ "ALVOS_VISTOS_ANTES_NA_2": [
+  1
+ ],
+ "PEDIDOS_POUPADOS_NA_2": 1,
+ "PORQUE_SOBRA_1_PEDIDO": "a DESCOBERTA da pagina da organizacao. Sem ela nao se sabe que alvos existem hoje. A guarda e por ALVO, e o alvo nao foi pedido.",
+ "TEXTO_ORIGEM_NO_LIVRO": [
+  "LEGENDA_NATIVA_LINKEDIN"
+ ],
+ "TEXTO_CARACTERES_NO_LIVRO": [
+  48
+ ],
+ "VEREDITO": "PASS · a 2.a corrida nao criou RAW (0), marcou 1 alvo(s) VISTO_ANTES e baixou de 2 para 1 pedido(s): poupou o pedido do alvo e da legenda dele",
+ "O_QUE_ISTO_NAO_MEDE": [
+  "de-duplicacao de raw_asset por sha256 no banco: a guarda e por ALVO PEDIDO, nao por bytes",
+  "corridas fora da janela de 24 h, que VOLTAM a pedir — e isso e correcto",
+  "CAPTURAS_REPETIDAS_BYTES da onda, que e por FONTE e por CORRIDA, nao entre corridas"
+ ]
+}
