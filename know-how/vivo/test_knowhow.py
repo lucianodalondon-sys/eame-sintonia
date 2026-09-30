@@ -23,6 +23,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -587,6 +588,8 @@ class Indice(Base):
         sec = d["SECOES"]
         ids = [s["ID"] for s in sec]
         self.assertEqual(len(ids), len(set(ids)))
+        # «## 2026-09-09» e uma data dentro do §40, nao a seccao 2026.09
+        self.assertEqual([i for i in ids if not re.match(r"^LEG-§\d{1,3}(\.\d+)?$", i)], [])
         topo = [s for s in sec if "." not in s["ID"]]
         self.assertEqual(len(topo), 218)
         por_id = {s["ID"]: s for s in sec}
