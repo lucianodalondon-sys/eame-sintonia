@@ -1,10 +1,10 @@
 {
- "ARVORE": "8a30af51ec48774042280013350a4b5804709b65",
+ "ARVORE": "8fd985663062665af3462143faf6e3dc33d16a0b",
  "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
  "SEM_MUTACAO": {
   "CODIGO": 0,
   "VERDE": true,
-  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 104 tests in 1.045s\n\nOK"
+  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 104 tests in 1.061s\n\nOK"
  },
  "MUTANTES": [
   {
@@ -503,8 +503,12 @@
   {
    "NOME": "BLK1_HIFEN_DEIXA_DE_SER_ESPACO",
    "FICHEIRO": "leis/afirmacao_do_documento.py",
-   "ESTADO": "NAO_APLICADO",
-   "PORQUE": "o texto a trocar aparece 0 vezes (tem de aparecer 1)"
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_HIFEN_E_ESPACO_SAO_O_MESMO_LUGAR (__main__.DoisFactosNumaFraseSo.test_HIFEN_E_ESPACO_SAO_O_MESMO_LUGAR)",
+    "FAIL: test_o_mesmo_lugar_nomeado_duas_vezes_e_UM_lugar (__main__.DoisFactosNumaFraseSo.test_o_mesmo_lugar_nomeado_duas_vezes_e_UM_lugar)"
+   ]
   },
   {
    "NOME": "BLK1_A_AREA_SUPRANACIONAL_DEIXA_DE_CONTAR",
@@ -550,8 +554,6 @@
   }
  ],
  "TOTAL": 54,
- "MORTOS": 53,
- "SOBREVIVENTES": [
-  "BLK1_HIFEN_DEIXA_DE_SER_ESPACO"
- ]
+ "MORTOS": 54,
+ "SOBREVIVENTES": []
 }

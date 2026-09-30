@@ -51,17 +51,17 @@
  "PRODUTOR": {
   "AFIRMACOES_GERADAS": 14665,
   "REPROVADAS_NA_CONFERENCIA": 0,
-  "COM_TEMPO_E_LUGAR_DO_FACTO": 19,
+  "COM_TEMPO_E_LUGAR_DO_FACTO": 9,
   "FUNIL": {
    "SECOES": 3498,
    "FRASES_FORA_DO_CORPO": 28679,
    "AFIRMACOES": 14665,
-   "COM_TEMPO_DO_FACTO": 82,
-   "COM_LUGAR_DO_FACTO": 1076,
-   "COM_TEMPO_E_LUGAR": 19,
-   "SEM_TEMPO_NEM_LUGAR": 13526
+   "COM_TEMPO_DO_FACTO": 66,
+   "COM_LUGAR_DO_FACTO": 875,
+   "COM_TEMPO_E_LUGAR": 9,
+   "SEM_TEMPO_NEM_LUGAR": 13733
   },
-  "ITENS_COM_AFIRMACAO_COM_PROVA": 10
+  "ITENS_COM_AFIRMACAO_COM_PROVA": 7
  },
  "MOTOR_OFICIAL": {
   "MODULO": "motor/motor_das_capacidades.py::rodar",
@@ -81,23 +81,13 @@
   "CODIGO": 0,
   "STDERR": "Could not find platform independent libraries <prefix>",
   "ENTRADA": "ENTRADA-AFIRMACOES.json",
-  "OBJETOS_NA_ENTRADA": 19,
+  "OBJETOS_NA_ENTRADA": 9,
   "POTE": "POTE-AFIRMACOES.json",
-  "POTE_SHA256": "03ed408bcc311464fbef46e45ebd0d50a2986d88c75e49dc7cc551d4a5240bbe",
+  "POTE_SHA256": "f58c022008489272906643075afdc79e07fcdda4721776a8f2845db2fa802cf6",
   "CONFERIR_POTE": "PASSA (0 violacoes)",
   "VALIDAR_POTE_V2": "PASSA",
-  "OBJETOS_NO_POTE": 13,
+  "OBJETOS_NO_POTE": 7,
   "RECUSADOS": [
-   {
-    "PORQUE": null,
-    "DETALHE": "ITEM_ID derived:1022 tem G0 = ['BLOQUEADO_EM_G0']",
-    "OBJETO_ID": "AF-2195212cae79b950aec75a12"
-   },
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-eac271c7c768003b6d6944ac"
-   },
    {
     "PORQUE": null,
     "DETALHE": "falta DOCUMENT_ID",
@@ -107,16 +97,6 @@
     "PORQUE": null,
     "DETALHE": "falta DOCUMENT_ID",
     "OBJETO_ID": "AF-66ab9c48b0cbbcd891d428fe"
-   },
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-2b14dd6205dc1132330ce9da"
-   },
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-0ebd5cac8a6e23f2766aa6b1"
    }
   ]
  },
@@ -125,23 +105,13 @@
   "CODIGO": 0,
   "STDERR": "Could not find platform independent libraries <prefix>",
   "ENTRADA": "ENTRADA-ENTITY-SOURCE-DA-LEI.json",
-  "OBJETOS_NA_ENTRADA": 19,
+  "OBJETOS_NA_ENTRADA": 9,
   "POTE": "POTE-ENTITY-SOURCE-DA-LEI.json",
-  "POTE_SHA256": "b8c4ee618eae769decad0bd40498e4cbb2312c72ea3116e63604d927d90937b3",
+  "POTE_SHA256": "24d173692932c560e8bde7c1cea166f8c917abc4349e5191e35cca0db2cc4f4c",
   "CONFERIR_POTE": "PASSA (0 violacoes)",
   "VALIDAR_POTE_V2": "PASSA",
-  "OBJETOS_NO_POTE": 13,
+  "OBJETOS_NO_POTE": 7,
   "RECUSADOS": [
-   {
-    "PORQUE": null,
-    "DETALHE": "ITEM_ID derived:1022 tem G0 = ['BLOQUEADO_EM_G0']",
-    "OBJETO_ID": "AF-2195212cae79b950aec75a12"
-   },
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-eac271c7c768003b6d6944ac"
-   },
    {
     "PORQUE": null,
     "DETALHE": "falta DOCUMENT_ID",
@@ -151,16 +121,6 @@
     "PORQUE": null,
     "DETALHE": "falta DOCUMENT_ID",
     "OBJETO_ID": "AF-66ab9c48b0cbbcd891d428fe"
-   },
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-2b14dd6205dc1132330ce9da"
-   },
-   {
-    "PORQUE": null,
-    "DETALHE": "falta DOCUMENT_ID",
-    "OBJETO_ID": "AF-0ebd5cac8a6e23f2766aa6b1"
    }
   ]
  },
@@ -352,34 +312,28 @@
   ]
  },
  "CONTROLE_FORA_DA_R9": {
-  "AFIRMACOES_COM_PROVA_COMPLETA": 13,
+  "AFIRMACOES_COM_PROVA_COMPLETA": 7,
   "ITENS": [
-   "derived:1022",
    "derived:21",
    "derived:7",
    "derived:911",
    "derived:918",
    "derived:busca-1807bb3212f8763d",
-   "derived:busca-8bacf075d875e735",
-   "derived:busca-9092d98a22ea9afe",
    "derived:busca-c788a591bf3ca8de"
   ],
   "FONTES": [
-   "CAND-1212",
    "CAND-1230",
-   "CAND-1234",
    "IT-T10-018",
    "IT-T12-028",
    "IT-T3-008",
    "IT-T5-010",
-   "IT-T5-090",
-   "IT-T5-186"
+   "IT-T5-090"
   ],
   "ORIGENS_DO_TEMPO": {
-   "LITERAL": 10,
+   "LITERAL": 5,
    "CABECALHO_D147": 2,
    "RELATIVA_ANCORADA_D149": 0,
-   "RELATIVO_D63": 1
+   "RELATIVO_D63": 0
   },
   "AMOSTRA": [
    {
@@ -411,16 +365,8 @@
     "SOURCE_ID": "IT-T10-018",
     "TRECHO": "Questa l'estrema sintesi dell'Osservatorio Piccoli Frutti a Firenze che, oggi 23 settembre 2026, ha visitato 14 punti vendita di 14 insegne appartenenti a 9 gruppi della grande distribuzione .",
     "FACT_TIME": "2026-09-23",
-    "ORIGEM": "RELATIVO_D63",
-    "FACT_LOCATION": "Firenze"
-   },
-   {
-    "ITEM_ID": "derived:918",
-    "SOURCE_ID": "IT-T5-090",
-    "TRECHO": "III Conferenza italiana SIS sulle Metodologie per le Indagini Campionarie – Università degli Studi di Milano-Bicocca, Milano, 26-28 giugno 2013\nAdvances in Latent Variables – Methods, Models and Applications\nConvegno Int",
-    "FACT_TIME": "19-21 giugno 2013",
     "ORIGEM": "LITERAL",
-    "FACT_LOCATION": "Milano ; Brescia ; Roma"
+    "FACT_LOCATION": "Firenze"
    },
    {
     "ITEM_ID": "derived:918",
@@ -429,30 +375,6 @@
     "FACT_TIME": "15 febbraio 2013",
     "ORIGEM": "LITERAL",
     "FACT_LOCATION": "Roma"
-   },
-   {
-    "ITEM_ID": "derived:918",
-    "SOURCE_ID": "IT-T5-090",
-    "TRECHO": "Ricerche di opinione e di mercato\nConvegno ASA, ASSIRM e SIS – Università Cattolica del Sacro Cuore di Milano, Dipartimento di Scienze Statistiche, Milano 14-15 febbraio 2013\nIAERE First Annual Conference\nPrima Conferenz",
-    "FACT_TIME": "14-15 febbraio 2013",
-    "ORIGEM": "LITERAL",
-    "FACT_LOCATION": "Milano ; Ferrara"
-   },
-   {
-    "ITEM_ID": "derived:1022",
-    "SOURCE_ID": "IT-T5-186",
-    "TRECHO": "Leggi tutto su ENEA partecipa a \"NanoInnovation 2026\"\nPartecipazione alla 18th International Conference on Sustainable Energy and Environmental Protection\nda 20 Luglio 2026 a 23 Luglio 2026 La conferenza Sustainable Ener",
-    "FACT_TIME": "20 luglio 2026",
-    "ORIGEM": "LITERAL",
-    "FACT_LOCATION": "Roma"
-   },
-   {
-    "ITEM_ID": "derived:busca-9092d98a22ea9afe",
-    "SOURCE_ID": "CAND-1212",
-    "TRECHO": "Continua infatti anche nel 2026 da parte del Servizio Fitosanitario Regionale (SFR) della Campania la rete di monitoraggio di Halyomorpha halys, avviata nel 2020 con lo scopo di conoscere la biologia dell’insetto e forni",
-    "FACT_TIME": "2026",
-    "ORIGEM": "LITERAL",
-    "FACT_LOCATION": "Campania"
    },
    {
     "ITEM_ID": "derived:busca-1807bb3212f8763d",
@@ -469,26 +391,18 @@
     "FACT_TIME": "24 aprile 2026",
     "ORIGEM": "LITERAL",
     "FACT_LOCATION": "Toscana"
-   },
-   {
-    "ITEM_ID": "derived:busca-8bacf075d875e735",
-    "SOURCE_ID": "CAND-1234",
-    "TRECHO": "La sua presenza è stata rilevata in Europa per la prima volta nel 2004 e in Italia nel 2012, in Emilia Romagna.",
-    "FACT_TIME": "2004",
-    "ORIGEM": "LITERAL",
-    "FACT_LOCATION": "Italia"
    }
   ]
  },
  "CAMPOS_DE_ORIGEM_NO_POTE": {
   "AFIRMACOES": {
-   "ENTITY_SOURCE='<ausente>'": 11,
-   "LOCATION_SOURCE='TEXT'": 13,
+   "ENTITY_SOURCE='<ausente>'": 5,
+   "LOCATION_SOURCE='TEXT'": 7,
    "ENTITY_SOURCE='SECTION_TITLE'": 2
   },
   "ENTITY-SOURCE-DA-LEI": {
-   "ENTITY_SOURCE='NAO SEI'": 11,
-   "LOCATION_SOURCE='TEXT'": 13,
+   "ENTITY_SOURCE='NAO SEI'": 5,
+   "LOCATION_SOURCE='TEXT'": 7,
    "ENTITY_SOURCE='SECTION_TITLE'": 2
   }
  },
