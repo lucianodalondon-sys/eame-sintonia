@@ -248,6 +248,10 @@ def entregar(pote_cliente: dict, pote_todo: dict, conf: dict, entrega: Path, ext
                SOURCE_HEAD=pote_cliente.get("SOURCE_HEAD"), GERADO_EM=datetime.now(timezone.utc).isoformat(),
                GERADO_POR="pacote/liberacao_por_criterio.py (" + REGRA + ")",
                POTE={"ARQUIVO": "POTE.json", "SHA256_ARQUIVO": _sha(nova / "POTE.json"),
+                     # o sha do JSON canonico (chaves ordenadas, compacto, UTF-8): o POTE_SHA256 que o envelope leva
+                     # no ar e que a prova reversa compara (portoes/PUBLICACAO-AUTOMATICA.json -> NO_MANIFESTO)
+                     "SHA256_CANONICO": _sha_bytes(json.dumps(pote_cliente, sort_keys=True, ensure_ascii=False,
+                                                              separators=(",", ":")).encode("utf-8")),
                      "CONTRATO": pote_cliente.get("SCHEMA"), "OBJETOS_LIBERADOS": pote_cliente["OBJETOS_LIBERADOS"]},
                POTE_EXPERIMENTAL={"ARQUIVO": "POTE-EXPERIMENTAL.json", "SHA256_ARQUIVO": _sha(nova / "POTE-EXPERIMENTAL.json")},
                BLOQUEADOS=len(bloq), VALIDAR_POTE_V2="PASSA",

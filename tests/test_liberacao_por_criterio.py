@@ -121,5 +121,24 @@ class E5_TodoTrechoEhCitacaoNaSuaPosicao(Base):
         self.assertEqual(p["TRECHO_DA_DATA"], CAB)                 # o literal fica como esta
 
 
+class Manifesto_LevaOShaCanonico(Base):
+    def test_sha256_canonico_e_o_do_json_canonico_do_pote_escrito(self):
+        """O MANIFESTO leva SHA256_CANONICO = sha256(json.dumps(POTE, sort_keys, compacto, UTF-8)), o mesmo calculo
+        de portoes/publicar_portal_sozinho.sha_do_pote — o POTE_SHA256 do envelope no ar."""
+        import json
+        pote = {"SCHEMA": "POTE_INTELLIGENCE_CASCO/v2", "INTELLIGENCE_RUN_ID": "IR-SINT", "SOURCE_HEAD": "abc",
+                "RESULT_STATE": "DONE", "CORRIDA_SINTETICA": True, "OBJETOS_LIBERADOS": 0,
+                "COMPARTIMENTOS": {"archive": {"OBJETOS": []}}}
+        destino = Path(self.tmp.name) / "ENTREGA"
+        L.entregar(pote, pote, {}, destino, {})
+        man = json.loads((destino / "MANIFESTO.json").read_text(encoding="utf-8"))
+        escrito = json.loads((destino / "POTE.json").read_text(encoding="utf-8"))
+        canon = hashlib.sha256(json.dumps(escrito, sort_keys=True, ensure_ascii=False,
+                                          separators=(",", ":")).encode("utf-8")).hexdigest()
+        self.assertEqual(man["POTE"]["SHA256_CANONICO"], canon)
+        self.assertNotEqual(man["POTE"]["SHA256_CANONICO"], man["POTE"]["SHA256_ARQUIVO"])
+        self.assertEqual(man["SOURCE_HEAD"], "abc")
+
+
 if __name__ == "__main__":
     unittest.main()
