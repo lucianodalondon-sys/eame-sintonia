@@ -442,6 +442,25 @@ class TestObservacaoMedida5D(unittest.TestCase):
         af["CLAIM_KIND"]["MARCA_DE_MEDICAO"]["VALOR"]["INICIO"] += 1
         self.assertIn("MARCA_DE_MEDICAO:VALOR_NAO_ESTA_NO_TEXTO", G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)[1])
 
+    # ── LAB/L2 30/09 (D9/D10 sobreviviam): o LUGAR tem de ser o DESTA frase ────────────────────────
+    def test_M4c_lugar_cujo_onde_nao_bate_com_o_texto_morre(self):
+        # o produtor declara a posicao do lugar, mas o texto nessa posicao nao e o lugar
+        af, t = self.af()
+        af["FACT_LOCATION"]["ONDE"] = dict(af["FACT_LOCATION"]["ONDE"], INICIO=af["FACT_LOCATION"]["ONDE"]["INICIO"] + 1)
+        passou, falta = G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)
+        self.assertFalse(passou)
+        self.assertEqual(falta, ["FACT_LOCATION:NAO_ESTA_NO_TEXTO"])
+
+    def test_M4d_lugar_escrito_fora_do_trecho_morre(self):
+        # o lugar esta escrito no texto, mas noutra parte (aqui: o cabecalho) — nao e o lugar DESTA medicao
+        af, t = self.af()
+        c = t.index("stazioni")                           # 1.a ocorrencia: no CABECALHO, fora do EVIDENCE_SPAN
+        af["FACT_LOCATION"] = {"VALOR": "stazioni", "LOCATION_SOURCE": "TEXT",
+                               "ONDE": {"INICIO": c, "FIM": c + len("stazioni"), "TRECHO": "stazioni"}}
+        passou, falta = G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)
+        self.assertFalse(passou)
+        self.assertEqual(falta, ["FACT_LOCATION:FORA_DO_TRECHO"])
+
     def test_M2_evento_futuro_morre(self):
         frase = "Nella settimana saranno registrati 41,2 mm a Modena."
         passou, falta = self.g0(self.af(frase, verbo="registrati"))
