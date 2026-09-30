@@ -281,11 +281,18 @@ class PublicadorFalso:
         return rc, reg
 
 
+LIMPA = {"HEAD": "c" * 40, "GIT_STATUS": []}
+
+
 class G5_ARodada(unittest.TestCase):
     def setUp(self):
         self.d = Path(tempfile.mkdtemp(prefix="teste-rodada-"))
         self.entrega = self.d / "esteira" / "PARA-O-CASCO"
         self.estado = self.d / "estado"
+        # a worktree real deste teste pode estar suja a meio do trabalho: a arvore e medida em G6, aqui e limpa
+        self._arv = mock.patch.object(G, "_estado_da_arvore", return_value=LIMPA)
+        self._arv.start()
+        self.addCleanup(self._arv.stop)
 
     def tearDown(self):
         shutil.rmtree(self.d, ignore_errors=True)
@@ -487,6 +494,74 @@ class G5_ARodada(unittest.TestCase):
         irmaos = [x.name for x in self.entrega.parent.iterdir() if x.is_dir()]
         self.assertEqual(irmaos, ["PARA-O-CASCO"], "nada de meia pasta ao lado depois da troca")
         self.assertTrue(G.conferir_pasta(self.entrega)["COMPLETA"])
+
+
+class G6_AArvoreEAPastaDeclarada(unittest.TestCase):
+    """Coordenador 30/09 (jgnjqcm8a, 12:48Z): publicou com a worktree suja e com a pasta escrita a mao no .cmd."""
+    def setUp(self):
+        self.d = Path(tempfile.mkdtemp(prefix="teste-arvore-"))
+        self.addCleanup(shutil.rmtree, self.d, True)
+        self.entrega, self.estado = self.d / "PARA-O-CASCO", self.d / "estado"
+        ET.entregar(self.entrega, FIX.read_bytes(), "demo")
+
+    def rodar(self, arvore):
+        pub = PublicadorFalso()
+        with mock.patch.object(G, "_estado_da_arvore", **arvore):
+            return G.rodada(self.entrega, self.estado, "preview", publicar=pub), pub
+
+    def test_worktree_suja_nao_publica_e_fica_escrito(self):
+        suja = {"HEAD": "9" * 40, "GIT_STATUS": [" M portoes/casco_preview.cmd", "M  pacote/pote_intelligence_casco.py"]}
+        r, pub = self.rodar({"return_value": suja})
+        self.assertEqual(r["DECISAO"], "RECUSADO_ARVORE_SUJA")
+        self.assertEqual(pub.chamadas, [], "nada foi ao publicador")
+        self.assertEqual(r["GIT_STATUS"], suja["GIT_STATUS"])
+        self.assertNotIn("ULTIMA_ASSINATURA", json.loads((self.estado / "ESTADO.json").read_text(encoding="utf-8"))
+                         if (self.estado / "ESTADO.json").exists() else {}, "a mesma entrega tenta outra vez depois do commit")
+
+    def test_so_um_ficheiro_novo_nao_rastreado_ja_e_sujo(self):
+        r, pub = self.rodar({"return_value": {"HEAD": "9" * 40, "GIT_STATUS": ["?? portoes/novo.py"]}})
+        self.assertEqual((r["DECISAO"], pub.chamadas), ("RECUSADO_ARVORE_SUJA", []))
+
+    def test_arvore_que_nao_se_mede_nao_publica(self):
+        r, pub = self.rodar({"side_effect": RuntimeError("git status -> 128")})
+        self.assertEqual((r["DECISAO"], pub.chamadas), ("RECUSADO_ARVORE_SUJA", []))
+
+    def test_worktree_limpa_publica_e_a_rodada_diz_o_commit_e_o_status_vazio(self):
+        r, pub = self.rodar({"return_value": LIMPA})
+        self.assertEqual(r["DECISAO"], "PUBLICADA")
+        self.assertEqual((r["ARVORE"], r["GIT_STATUS"]), (LIMPA["HEAD"], []))
+        linha = json.loads((self.estado / "RODADAS.ndjson").read_text(encoding="utf-8").splitlines()[-1])
+        self.assertEqual(linha["GIT_STATUS"], [])
+
+    def test_a_medicao_real_da_arvore_le_o_git(self):
+        a = G._estado_da_arvore()
+        self.assertRegex(a["HEAD"], r"^[0-9a-f]{40}$")
+        self.assertIsInstance(a["GIT_STATUS"], list)
+
+    def test_a_pasta_da_tarefa_e_a_declarada_no_contrato(self):
+        c = json.loads((RAIZ / "portoes" / "PUBLICACAO-AUTOMATICA.json").read_text(encoding="utf-8"))
+        declarada = c["ENTREGA_DA_TAREFA"]["PASTA"]
+        self.assertEqual(G.entrega_declarada(), Path(os.path.expanduser(declarada)))
+        falso = self.d / "C.json"
+        falso.write_text(json.dumps({"ENTREGA_DA_TAREFA": {"PASTA": "curadoria/x"}}), encoding="utf-8")
+        self.assertEqual(G.entrega_declarada(falso), RAIZ / "curadoria" / "x", "relativo = da raiz do repositorio")
+        falso.write_text("{}", encoding="utf-8")
+        with self.assertRaises(ValueError):
+            G.entrega_declarada(falso)
+
+    def test_a_rodada_sem_pasta_le_a_declarada(self):
+        vistos = []
+        with mock.patch.object(G, "entrega_declarada", return_value=self.entrega),                 mock.patch.object(G, "rodada", side_effect=lambda p, *a, **k: vistos.append(p) or {"DECISAO": "IGUAL"}):
+            self.assertEqual(G.main(["--rodada", "--estado", str(self.estado)]), 0)
+        self.assertEqual(vistos, [self.entrega])
+
+    def test_o_cmd_da_tarefa_nao_escreve_pasta_nenhuma(self):
+        cmd = (RAIZ / "portoes" / "casco_preview.cmd").read_text(encoding="utf-8")
+        chamada = [l for l in cmd.splitlines() if "publicar_preview_da_pasta.py" in l and not l.lower().startswith("rem")]
+        self.assertEqual(len(chamada), 1)
+        self.assertNotIn("--pasta", chamada[0])
+        self.assertNotIn("--raiz", chamada[0])
+        self.assertNotRegex(chamada[0], r"PARA-O-CASCO")
 
 
 if __name__ == "__main__":

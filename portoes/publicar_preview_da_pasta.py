@@ -86,6 +86,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -94,6 +95,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 RAIZ = Path(os.path.dirname(HERE))
 ENTREGA = RAIZ / "curadoria" / "esteira" / "intelligence" / "PARA-O-CASCO"
+CONTRATO_JSON = RAIZ / "portoes" / "PUBLICACAO-AUTOMATICA.json"
 ESTADOS_BONS = ("DONE", "REUSED")
 
 SOMAS = "SHA256SUMS.txt"
@@ -335,6 +337,30 @@ def com_lock_pesado(lock, publicar):
     return f
 
 
+def entrega_declarada(contrato_json: Path = CONTRATO_JSON) -> Path:
+    """A pasta que a TAREFA le (coordenador, 30/09): declarada no contrato versionado
+    (PUBLICACAO-AUTOMATICA.json#ENTREGA_DA_TAREFA.PASTA), nunca escrita a mao no .cmd. Um caminho relativo e da
+    raiz do repositorio; `~` e a pasta do utilizador. Sem a declaracao = erro (fail-closed), nunca um palpite."""
+    d = json.loads(Path(contrato_json).read_text(encoding="utf-8")).get("ENTREGA_DA_TAREFA") or {}
+    pasta = d.get("PASTA")
+    if not isinstance(pasta, str) or not pasta.strip():
+        raise ValueError("PUBLICACAO-AUTOMATICA.json sem ENTREGA_DA_TAREFA.PASTA: a tarefa nao sabe o que ler")
+    p = Path(os.path.expanduser(pasta.strip()))
+    return p if p.is_absolute() else RAIZ / p
+
+
+def _estado_da_arvore() -> dict:
+    """{HEAD, GIT_STATUS}: o commit que o publicador vai montar e o `git status --porcelain` da worktree. A
+    publicacao de 30/09 12:48Z correu com a worktree SUJA e o PREVIEW-ATUAL dizia so o commit: proveniencia falsa."""
+    def git(*a):
+        r = subprocess.run(["git", *a], cwd=RAIZ, capture_output=True, text=True, encoding="utf-8", timeout=120)
+        if r.returncode != 0:
+            raise RuntimeError(f"git {' '.join(a)} -> {r.returncode}")
+        return r.stdout
+    return {"HEAD": git("rev-parse", "HEAD").strip(),
+            "GIT_STATUS": [l for l in git("status", "--porcelain", "--untracked-files=all").splitlines() if l.strip()]}
+
+
 def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None, preview_atual=None,
            lock_pesado=None) -> dict:
     """Uma volta do agendador. Devolve a linha que fica em RODADAS.ndjson."""
@@ -378,6 +404,16 @@ def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None, pr
                        if somas.is_file() else None)
         if ass is not None and ass == E.get("ULTIMA_ASSINATURA"):
             return fim("IGUAL")
+        # a arvore que vai ao ar tem de ser a commitada: worktree suja = nada publicado (e fica escrito)
+        try:
+            arv = _estado_da_arvore()
+        except Exception as e:  # noqa: BLE001 — sem medir, nao se publica
+            return fim("RECUSADO_ARVORE_SUJA", MOTIVOS=[f"nao consegui medir a arvore: {type(e).__name__}: {e}"[:300]])
+        linha["ARVORE"] = arv["HEAD"]
+        linha["GIT_STATUS"] = arv["GIT_STATUS"]
+        if arv["GIT_STATUS"]:
+            return fim("RECUSADO_ARVORE_SUJA", MOTIVOS=["a worktree tem mudancas nao commitadas: o que iria ao ar nao "
+                                                         "e o commit que o PREVIEW-ATUAL diria; commitar primeiro"])
         tentativas = E.get("TENTATIVAS", {}) if E.get("TENTATIVAS_DE") == ass else {}
         registro = estado / "PUBLICACOES"
         c = conferir_pasta(entrega)
@@ -435,7 +471,8 @@ def rodada(entrega: Path, estado: Path, modo: str = "preview", publicar=None, pr
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Gatilho do preview: pasta completa -> publicador D126.")
     g = ap.add_mutually_exclusive_group()
-    g.add_argument("--pasta", help="uma pasta de entrega (default: a ENTREGA curadoria/esteira/intelligence/PARA-O-CASCO)")
+    g.add_argument("--pasta", help="uma pasta de entrega (default: a ENTREGA curadoria/esteira/intelligence/PARA-O-CASCO; "
+                                   "com --rodada, a declarada em PUBLICACAO-AUTOMATICA.json#ENTREGA_DA_TAREFA)")
     g.add_argument("--raiz", help="a pasta que contem as PARA-O-CASCO-*: escolhe a completa mais recente")
     ap.add_argument("--modo", default="preview", help="ensaio | preview (producao e recusada aqui)")
     ap.add_argument("--so-conferir", action="store_true", help="so diz o que faria; nao chama o publicador")
@@ -455,7 +492,12 @@ def main(argv=None) -> int:
         if not a.estado or a.raiz:
             print("uso: --rodada exige --estado <pasta> (e aceita --pasta; --raiz nao)")
             return USO
-        r = rodada(Path(a.pasta or ENTREGA), Path(a.estado), a.modo, preview_atual=a.preview_atual,
+        try:
+            pasta = Path(a.pasta) if a.pasta else entrega_declarada()
+        except (OSError, ValueError) as e:
+            print(f"RECUSADO: {e}")
+            return USO
+        r = rodada(pasta, Path(a.estado), a.modo, preview_atual=a.preview_atual,
                    lock_pesado=a.lock_pesado)
         print(json.dumps(r, ensure_ascii=False))
         return 0 if r["DECISAO"] not in ("RECUSADA_NAO_DITA",) else 1
