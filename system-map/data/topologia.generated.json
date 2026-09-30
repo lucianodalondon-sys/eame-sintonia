@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-30T08:04:35+00:00",
-  "HEAD": "08e5c2eb7a5f8cbb9eb47e4a07352c1afb45a14d",
+  "GENERATED_AT": "2026-09-30T11:34:24+00:00",
+  "HEAD": "f3f6af605ec98f4197123d6401a42d416d0b211c",
   "BRANCH": "claude/l1-governanca-preview-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "6ff9ade4d783f4eb68bfce74b3e5f4414d4c7937d0850d0d46f7209465bf6526",
-  "FICHEIROS_NA_IMPRESSAO": 4370,
+  "SOURCE_TREE_FINGERPRINT": "36156cff9579193a11677887832b8097c5e04a6a25451fec7e4661e9a303dfff",
+  "FICHEIROS_NA_IMPRESSAO": 4371,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2302,7 +2302,7 @@
    {
     "PATH": "leis/fundacao_da_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "c30a49a2a59ba6646a4c38df891a6ccf110983c7",
+    "VERSAO": "eee598245dbe9a0db23bbcf37a0e3fc3e41326b5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5564,14 +5564,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6ff9ade4d783f4eb68bfce74b3e5f4414d4c7937d0850d0d46f7209465bf6526",
+    "VERSAO": "36156cff9579193a11677887832b8097c5e04a6a25451fec7e4661e9a303dfff",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6ff9ade4d783f4eb68bfce74b3e5f4414d4c7937d0850d0d46f7209465bf6526",
+    "VERSAO": "36156cff9579193a11677887832b8097c5e04a6a25451fec7e4661e9a303dfff",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6873,7 +6873,7 @@
    {
     "PATH": "tests/test_excecao_preview_e2e.py",
     "PAPEL": "FONTE",
-    "VERSAO": "5298b19fbfb4c9f5d1830c20e9286fb65ca5a857",
+    "VERSAO": "bff0b7b9c6a240f047672ad79e4d63be2bd353d4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8258,7 +8258,7 @@
    }
   ],
   "INPUTS_COUNT": 1174,
-  "INPUTS_DIGEST": "618e4c700bf3a12c7aba332d292d0e35c165d47c61c82db8eb16744e931543e3",
+  "INPUTS_DIGEST": "61b6954940952ae062dbfff09140086e0ed24a8781d9afe934c84fc9cc243bc2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8291,8 +8291,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0d5165246612f5d485ea9011d42e2dcc06983a44487d910a391ce9d94d95b40e",
-  "SEMANTIC_HASH": "9b99a32bb2d673ff20c67fede7b229b0c19766b9631c86ee07c0941a49a386b9"
+  "MEASUREMENT_HASH": "552b89ab43768df2501a47db02588714ce9e33aa547921aef955ed90d0c87d4d",
+  "SEMANTIC_HASH": "5a9d419f3dc95c24e769bc2d10c71d38945cf6a6efb4d74c683dd46cd4d2d594"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -47338,7 +47338,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "leis/fundacao_da_coleta.py",
-      "LINHA": 844,
+      "LINHA": 847,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
@@ -56653,7 +56653,7 @@
      },
      {
       "FICHEIRO": "tests/test_excecao_preview_e2e.py",
-      "LINHA": 1152,
+      "LINHA": 1154,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",

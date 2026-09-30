@@ -3916,6 +3916,7 @@
       "tests/dados/item-social-ispra-porta.json",
       "tests/dados/lab-v3/EXEMPLO-V3-COM-FONTE-VIVA-PASS.json",
       "tests/dados/lab-v3/EXEMPLO-V3-SEM-FONTE-VIVA-FAIL.json",
+      "tests/dados/lab-v3/PROVA-REAL-V31-SINT-IR-PUBLICA-0001-FAIL.json",
       "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
       "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
       "tests/dados/social-sala/YT-METADADOS-3CANAIS.json",
@@ -4816,9 +4817,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l1-governanca-preview-v1",
-    "HEAD": "08e5c2eb7a5f8cbb9eb47e4a07352c1afb45a14d",
-    "GENERATED_AT": "2026-09-30T04:59:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6ff9ade4d783f4eb68bfce74b3e5f4414d4c7937d0850d0d46f7209465bf6526"
+    "HEAD": "f3f6af605ec98f4197123d6401a42d416d0b211c",
+    "GENERATED_AT": "2026-09-30T08:28:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "36156cff9579193a11677887832b8097c5e04a6a25451fec7e4661e9a303dfff"
   },
   "FAMILIES": [
     {
@@ -58387,7 +58388,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "leis/fundacao_da_coleta.py:844",
+          "leis/fundacao_da_coleta.py:847",
           "pacote/acervo_na_intelligence.py:84",
           "pacote/pote_cruzamentos_max.py:50",
           "provas/_mutantes_pote_casco.py:24"
@@ -74143,6 +74144,7 @@
         "tests/dados/item-social-ispra-porta.json",
         "tests/dados/lab-v3/EXEMPLO-V3-COM-FONTE-VIVA-PASS.json",
         "tests/dados/lab-v3/EXEMPLO-V3-SEM-FONTE-VIVA-FAIL.json",
+        "tests/dados/lab-v3/PROVA-REAL-V31-SINT-IR-PUBLICA-0001-FAIL.json",
         "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
         "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
         "tests/dados/social-sala/YT-METADADOS-3CANAIS.json",
@@ -145353,7 +145355,7 @@
       "evidence": [
         {
           "file": "leis/fundacao_da_coleta.py",
-          "line": 844,
+          "line": 847,
           "snippet": "import validar_pote_v2  # noqa: PLC0415 — so quem pede para atravessar paga o import",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
@@ -161382,7 +161384,7 @@
         },
         {
           "file": "tests/test_excecao_preview_e2e.py",
-          "line": 1152,
+          "line": 1154,
           "snippet": "with open(os.path.join(RAIZ, \"leis\", \"fundacao_da_coleta.py\"), encoding=\"utf-8\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -174565,7 +174567,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2276,
+  "UNCLAIMED_FILES_COUNT": 2277,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174841,7 +174843,7 @@
     "edges_proven": 1849,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4222,
+    "files_tracked": 4223,
     "files_covered": 1946,
     "files_code_unclaimed": 0,
     "roles_proven": 207,
