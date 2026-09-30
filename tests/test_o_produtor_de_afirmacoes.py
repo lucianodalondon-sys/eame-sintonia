@@ -856,5 +856,192 @@ class NadaDaR9NoCodigo(unittest.TestCase):
                          'a lista das mencoes em prosa mudou: %s' % medido)
 
 
+class DoisFactosNumaFraseSo(unittest.TestCase):
+    """BLK-1 · o bloqueador do Intelligence owner (REVISAO-...-G0-AFIRMACAO §3).
+
+    A frase que ele encontrou nas RECUSADAS, e nao nas que passaram:
+
+        «rilevata in Europa per la prima volta nel 2004 e in Italia nel 2012, in Emilia Romagna»
+
+    O produtor devolvia FACT_TIME = 2004 e FACT_LOCATION = Italia. O texto diz o contrario:
+    2004 e a Europa; a Italia e 2012. Um par montado de dois factos diferentes e um facto
+    FALSO — e so nao chegou ao pote porque faltava DOCUMENT_ID. No dia em que a linha de
+    busca gravar DOCUMENT_ID, entrava."""
+
+    BLOQUEADOR = ('La cimice asiatica e stata rilevata in Europa per la prima volta nel 2004 '
+                  'e in Italia nel 2012, in Emilia Romagna.')
+
+    def _a(self, texto, **extra):
+        afs = _produzir(texto, **extra)
+        self.assertEqual(len(afs), 1, 'o texto deste teste e UMA afirmacao: %d' % len(afs))
+        return afs[0]
+
+    def test_o_bloqueador_nao_devolve_mais_o_par_falso(self):
+        af = self._a(self.BLOQUEADOR)
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+        self.assertEqual(af['FACT_LOCATION']['VALOR'], NAO_SEI)
+        self.assertNotEqual(af['FACT_TIME']['VALOR'], '2004')
+        self.assertNotEqual(af['FACT_LOCATION']['VALOR'], 'Italia')
+
+    def test_as_duas_contagens_viajam_na_afirmacao(self):
+        """§5-C: a Intelligence defende-se SEM LER TEXTO, e para isso precisa dos numeros."""
+        af = self._a(self.BLOQUEADOR)
+        self.assertEqual(af['TEMPOS_NO_TRECHO'], 2)
+        self.assertEqual(af['LUGARES_NO_TRECHO'], 3)
+
+    def test_os_dois_campos_estao_em_TODAS_as_afirmacoes(self):
+        """O dono recusa tambem quando o campo FALTA (PRODUTOR_SEM_CONTAGEM_DE_CONCORRENTES).
+        Um campo que aparece «quando ha problema» obriga quem consome a adivinhar a ausencia."""
+        for texto in (self.BLOQUEADOR, BOLETIM,
+                      'La cimice ha colpito i frutteti in provincia di Cuneo nel 2012.',
+                      'Il prodotto non e ancora disponibile.'):
+            for af in _produzir(texto):
+                self.assertIn('TEMPOS_NO_TRECHO', af, af['TRECHO_LITERAL'][:60])
+                self.assertIn('LUGARES_NO_TRECHO', af, af['TRECHO_LITERAL'][:60])
+                self.assertIsInstance(af['TEMPOS_NO_TRECHO'], int)
+                self.assertIsInstance(af['LUGARES_NO_TRECHO'], int)
+
+    def test_o_motivo_esta_escrito_nos_dois_lados(self):
+        af = self._a(self.BLOQUEADOR)
+        self.assertIn('§5-C', af['FACT_TIME']['PORQUE_NAO'])
+        self.assertEqual(af['FACT_LOCATION']['MOTIVO'], AD.LUGARES_CONCORRENTES)
+        self.assertIn('Europa', af['FACT_LOCATION']['PORQUE'])
+
+    def test_um_tempo_e_um_lugar_continuam_a_passar(self):
+        """A regra aperta o que e ambiguo; nao pode apagar o que e claro."""
+        af = self._a('La cimice ha colpito i frutteti in provincia di Cuneo nel 2012.')
+        self.assertEqual(af['TEMPOS_NO_TRECHO'], 1)
+        self.assertEqual(af['LUGARES_NO_TRECHO'], 1)
+        self.assertEqual(af['FACT_TIME']['VALOR'], '2012')
+        self.assertEqual(af['FACT_LOCATION']['VALOR'], 'Cuneo')
+
+    def test_o_INTERVALO_de_datas_e_UM_tempo_e_nao_dois(self):
+        """«dal X fino al Y» tem duas pontas DE PROPOSITO. Contar duas mataria a janela de
+        validade que o red team D160 §2.2 acabou de fazer nascer."""
+        self.assertEqual(TA.tempos_no_trecho(
+            'Impiego consentito dal 1 gennaio 2020 fino al 31 dicembre 2025.'), 1)
+        self.assertEqual(TA.tempos_no_trecho('Rilevazione della settimana 12/02/2020 - 18/02/2020.'), 1)
+
+    def test_a_mesma_data_escrita_duas_vezes_e_UMA_data(self):
+        self.assertEqual(TA.tempos_no_trecho('Nel 2012 e ancora nel 2012 la stessa cosa.'), 1)
+
+    def test_o_mesmo_lugar_nomeado_duas_vezes_e_UM_lugar(self):
+        self.assertEqual(AD.lugares_no_trecho('In Emilia-Romagna, e sempre in Emilia-Romagna.'), 1)
+
+    def test_HIFEN_E_ESPACO_SAO_O_MESMO_LUGAR(self):
+        """O gazetteer escreve «Emilia-Romagna» e o jornal escreve «Emilia Romagna». Sem esta
+        tolerancia o bloqueador contava 2 lugares em vez de 3 — e um concorrente que nao se
+        conta e uma guarda que nao dispara."""
+        self.assertEqual(AD.lugares_no_trecho('in Emilia Romagna'), 1)
+        self.assertEqual(AD.lugares_no_trecho('in Emilia-Romagna'), 1)
+
+    def test_A_AREA_SUPRANACIONAL_CONTA_MAS_NUNCA_RESOLVE(self):
+        """A assimetria que torna a lista segura: «Europa» pode fazer o lugar sair NAO SEI,
+        e NUNCA pode virar um FACT_LOCATION."""
+        self.assertEqual(AD.lugares_no_trecho('rilevata in Europa nel 2004'), 1)
+        for af in _produzir('Il fungo e stato rilevato in Europa nel 2004.'):
+            self.assertNotEqual(af['FACT_LOCATION']['VALOR'], 'Europa')
+
+    def test_o_limite_da_contagem_de_lugares_esta_declarado(self):
+        """Ele CONTA DE MENOS quando o gazetteer nao tem o nome, e isso fica escrito na
+        propria afirmacao em vez de ser uma surpresa para quem consome."""
+        af = self._a(self.BLOQUEADOR)
+        self.assertIn('MUNICIPALITIES = 0', af['FACT_LOCATION']['LIMITE_DA_CONTAGEM'])
+
+
+class AOrigemDaDataEscrita(unittest.TestCase):
+    """PROD-1 · «uma data escrita por extenso dentro do trecho e LITERAL, mesmo que venha
+    acompanhada de "oggi" ou "ieri"» (contrato §5-C, «Origem»).
+
+    RELATIVO_D63 promete a quem consome que o valor foi CALCULADO a partir da publicacao.
+    Prometia isso sobre uma data que estava ali, escrita, para ser lida.
+
+    ⚠️ A CAPTURA TEM DE VIR DEPOIS DO FACTO, e a primeira versao destes testes esqueceu-o: o
+    `_linha` colhe a 2026-09-20 e eu datei o facto em novembro, logo a D63 recusava-o por ser
+    posterior a colheita — e recusava bem. O teste media a regra errada."""
+
+    COLHIDO = '2026-11-20 11:07:15+00'
+
+    def test_a_data_escrita_com_oggi_ao_lado_e_LITERAL(self):
+        afs = _produzir('Oggi, 12 novembre 2026, si e svolta la giornata tecnica in Emilia-Romagna.',
+                        published_at='2026-11-12', raw_captured_at=self.COLHIDO)
+        af = afs[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.LITERAL)
+        self.assertNotEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.RELATIVO_D63)
+        self.assertEqual(af['FACT_TIME']['VALOR'], '2026-11-12')
+
+    def test_a_relativa_PURA_continua_RELATIVO_D63(self):
+        """O conserto nao pode engolir a origem que existe para ser dita: sem data escrita,
+        a conta a partir da publicacao continua a chamar-se pelo nome dela."""
+        afs = _produzir('La settimana scorsa la cimice ha colpito i frutteti.',
+                        published_at='2026-11-12', raw_captured_at=self.COLHIDO)
+        self.assertEqual(afs[0]['FACT_TIME_ROLE']['ORIGEM'], TA.RELATIVO_D63)
+
+    def test_LITERAL_continua_a_ter_o_BASIS_DENTRO_do_trecho(self):
+        """A condicao C1 do dono: LITERAL promete BASIS dentro do trecho. Mudar a origem sem
+        mudar a promessa seria trocar um rotulo errado por outro."""
+        afs = _produzir('Oggi, 12 novembre 2026, si e svolta la giornata tecnica.',
+                        published_at='2026-11-12', raw_captured_at=self.COLHIDO)
+        af = afs[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.LITERAL)
+        basis = af['FACT_TIME_ROLE']['BASIS']
+        self.assertIsNotNone(basis)
+        self.assertLessEqual(af['POSICAO']['INICIO'], basis['INICIO'])
+        self.assertLessEqual(basis['FIM'], af['POSICAO']['FIM'])
+
+    def test_compara_se_pelo_DIA_e_nao_pelo_texto(self):
+        """«12 novembre 2026» e «2026-11-12» sao a mesma data e nenhuma string contem a
+        outra. Comparar texto com texto nunca acertaria neste caso."""
+        escritos = TA.expressoes_de_tempo('Oggi, 12 novembre 2026, la giornata')
+        self.assertEqual(TA._escreve_este_dia(escritos, '2026-11-12'), '12 novembre 2026')
+        self.assertIsNone(TA._escreve_este_dia(escritos, '2020-01-01'))
+
+
+class ALojaEMercadoEmTodaACasa(unittest.TestCase):
+    """PROD-2 · «uma leitura ja estabelecida na casa prevalece sobre a omissao»
+    (contrato §5-C, «Classe»). Medido pelo dono em derived:911 (myfruit).
+
+    O `_RE_LOJA` do leitor vivo ja decidia MERCADO no lugar do fato desde o ensaio
+    IT-T10-018. A classe do claim lia a mesma frase e dizia ALERTA_EVENTO. Duas partes da
+    casa a discordar sobre a mesma frase e o defeito."""
+
+    def test_a_visita_a_pontos_de_venda_nao_e_ALERTA_EVENTO(self):
+        afs = _produzir('La visita ai punti vendita di Firenze si e svolta il 12 novembre 2026.',
+                        published_at='2026-11-20')
+        af = afs[0]
+        self.assertEqual(af['CLAIM_KIND']['VALOR'], 'PRECO')
+        self.assertNotEqual(af['CLAIM_KIND']['VALOR'], 'ALERTA_EVENTO')
+
+    def test_as_outras_palavras_de_loja_dizem_o_mesmo(self):
+        for palavra in ('punti di vendita', 'grande distribuzione', 'supermercati', 'ipermercati'):
+            classe = AD.classe_do_claim('Rilevazione nei %s della citta.' % palavra,
+                                        {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'DAY'})
+            self.assertEqual(classe['VALOR'], 'PRECO', palavra)
+
+    def test_a_marca_vem_do_leitor_vivo_e_nao_de_uma_segunda_lista(self):
+        """Se alguem REDEFINIR a lista de palavras de loja dentro do produtor, as duas
+        divergem no primeiro dia em que uma delas mudar.
+
+        Mede-se o CODIGO, nao a prosa: um comentario que cite «supermercati» para explicar
+        de onde vem a marca e documentacao, e a primeira versao deste teste reprovava por
+        causa do proprio comentario que escrevi acima. O que nao pode existir e um segundo
+        `re.compile` com o mesmo vocabulario."""
+        caminho = os.path.join(RAIZ, 'leis', 'afirmacao_do_documento.py')
+        # a chamada e CODIGO e le-se no ficheiro como esta escrita
+        self.assertIn('FT._RE_LOJA.search(span)', open(caminho, encoding='utf-8').read())
+        # o vocabulario e que nao pode ser redefinido — e ai a prosa nao conta
+        regra = so_a_regra(caminho)
+        self.assertNotIn('_RE_LOJA\n=', regra, 'o produtor redefiniu a marca de loja')
+        for palavra in ('punt[oi]', 'distribuzione', 'supermercat', 'ipermercat'):
+            self.assertNotIn(palavra, regra,
+                             'o vocabulario de loja foi copiado para o produtor: %s' % palavra)
+
+    def test_ALERTA_EVENTO_continua_a_nao_ser_o_que_sobra(self):
+        """O conserto do red team D160 §2.3 nao pode ser desfeito por este."""
+        classe = AD.classe_do_claim('Il monitoraggio prosegue regolarmente.',
+                                    {'PAPEL': 'NAO SEI', 'PRECISAO': 'NOT_KNOWN'})
+        self.assertEqual(classe['VALOR'], NAO_SEI)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

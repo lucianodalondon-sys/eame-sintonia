@@ -100,6 +100,9 @@ ORIGENS = (LITERAL, CABECALHO_D147, RELATIVA_ANCORADA_D149, RELATIVO_D63)
 #: as origens cujo BASIS vive FORA do trecho da afirmacao. LITERAL nunca esta aqui.
 ORIGENS_COM_BASIS_FORA_DO_TRECHO = (CABECALHO_D147, RELATIVA_ANCORADA_D149)
 
+#: o motivo com que o tempo sai NAO SEI por haver mais de um tempo no trecho (BLK-1)
+TEMPOS_CONCORRENTES = "TEMPOS_CONCORRENTES"
+
 # ── o vocabulario que MARCA o papel, quando o papel esta escrito ─────────────
 # Palavras administrativas e comerciais do italiano. Nao sao saber agronomico nem
 # taxonomia: sao a palavra com que a propria fonte diz de que e a data. Uma data
@@ -404,6 +407,95 @@ def primeiro_dia(valor) -> tuple:
     return None, False
 
 
+# ── QUANTOS TEMPOS O TRECHO ESCREVE (BLK-1, Intelligence owner) ──────────────
+# O BLOQUEADOR, na frase em que o dono o encontrou (CLAIM …330ce9da):
+#
+#     «rilevata in Europa per la prima volta nel 2004 e in Italia nel 2012, in Emilia Romagna»
+#
+# O produtor devolvia FACT_TIME = 2004 e FACT_LOCATION = Italia. O texto diz o contrario:
+# 2004 e a Europa; a Italia e 2012. Duas metades de factos DIFERENTES, colhidas como se
+# fossem um.
+#
+#     UM PAR TEMPO+LUGAR MONTADO DE DOIS FACTOS E UM FACTO FALSO,
+#     E UM FACTO FALSO E PIOR DO QUE NENHUM.
+#
+# A condicao 3 da D147 («o trecho nao escreve outro tempo concorrente») ja existia — mas so
+# era aplicada a composicao por CABECALHO. Ao valor LITERAL, lido no proprio trecho, nao era.
+# Esta funcao conta, e o `extrair_tempo` recusa.
+#
+# NAO HA VOCABULARIO NOVO AQUI. Conta com as MESMAS cinco expressoes que o `primeiro_dia`
+# usa para ler, e na mesma ordem de prioridade. Uma segunda lista de formas de data ao lado
+# da primeira seria a segunda a ficar para tras.
+_FORMAS_DE_DATA = ((_RE_DIA_ISO, False), (_RE_DIA_BARRA, False),
+                   (_RE_DIA_MES, True), (_RE_SO_MES, True), (_RE_SO_ANO, False))
+#: o que LIGA duas datas num SO periodo («dal 1 gennaio al 31 dicembre»). Deliberadamente
+#: CURTA: «e» ficou de fora, porque «nel 2004 e nel 2012» sao dois factos e «tra il 2004 e o
+#: 2012» e um periodo — e a mesma palavra. Ligar de MENOS conta tempos a MAIS, e contar a
+#: mais so produz NAO SEI. Ligar de mais produziria um facto.
+_RE_LIGA_UM_PERIODO = re.compile(
+    r"^\W*(?:al|all'|alla|ao|fino\s+al?|sino\s+al?|entro\s+il|[-–—/])\W*$", re.I)
+
+
+def expressoes_de_tempo(span: str) -> list:
+    """As expressoes de data ESCRITAS neste trecho, sem se sobreporem, da esquerda para a
+    direita. Um intervalo («dal X al Y») conta como UMA."""
+    texto = str(span or "")
+    baixo = FL._baixo(texto)
+    # O `_baixo` tira acentos por decomposicao; em quase todo o italiano o comprimento
+    # aguenta-se, mas uma ligadura tipografica encolhe-o. Nesse caso o offset deixaria de
+    # bater, e entao le-se o trecho da MESMA string onde ele foi procurado.
+    mesmo_tamanho = len(baixo) == len(texto)
+    achados, ocupado = [], []
+    for rx, em_baixo in _FORMAS_DE_DATA:
+        sobre = baixo if em_baixo else texto
+        for m in rx.finditer(sobre):
+            if any(m.start() < f and i < m.end() for i, f in ocupado):
+                continue                      # ja apanhado por uma forma mais longa
+            ocupado.append((m.start(), m.end()))
+            bruto = (texto if (mesmo_tamanho or not em_baixo) else sobre)[m.start():m.end()]
+            achados.append({"INICIO": m.start(), "FIM": m.end(), "TRECHO": bruto})
+    achados.sort(key=lambda x: x["INICIO"])
+    # ── juntar o que e UM periodo, e tirar a data repetida ────────────────────
+    juntos = []
+    for a in achados:
+        if juntos:
+            entre = texto[juntos[-1]["FIM"]:a["INICIO"]]
+            if _RE_LIGA_UM_PERIODO.match(entre):
+                juntos[-1] = dict(juntos[-1], FIM=a["FIM"],
+                                  TRECHO=texto[juntos[-1]["INICIO"]:a["FIM"]])
+                continue
+        juntos.append(a)
+    vistos, fora = set(), []
+    for a in juntos:
+        chave = re.sub(r"\s+", " ", FL._baixo(a["TRECHO"])).strip()
+        if chave in vistos:
+            continue                          # a mesma data escrita duas vezes e uma data
+        vistos.add(chave)
+        fora.append(a)
+    return fora
+
+
+def tempos_no_trecho(span: str) -> int:
+    """QUANTOS tempos distintos o trecho escreve. Viaja em cada afirmacao (contrato §5-C)."""
+    return len(expressoes_de_tempo(span))
+
+
+def _escreve_este_dia(escritos: list, valor) -> str | None:
+    """A expressao do trecho que da ESTE mesmo dia, ou None (PROD-1).
+
+    Compara-se pelo DIA a que cada forma se resolve, com o mesmo `primeiro_dia` que le o
+    valor — nunca por texto igual: «12 novembre 2026» e «2026-11-12» sao a mesma data e
+    nenhuma string das duas contem a outra."""
+    dia, _sem_ano = primeiro_dia(valor)
+    if dia is None:
+        return None
+    for x in escritos:
+        se_dia, _ = primeiro_dia(x["TRECHO"])
+        if se_dia == dia:
+            return x["TRECHO"]
+    return None
+
+
 def _ha_tempo_escrito(texto: str) -> bool:
     """Existe ALGUMA expressao de tempo no texto? Pergunta-se ao vivo, com o vocabulario dele."""
     baixo = FL._baixo(texto)
@@ -530,9 +622,13 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
     publicacao = alvo.get("PUBLICACAO") or {}
     pub = FT.publicacao_provada(publicacao.get("VALOR"), publicacao.get("BASE"))
     captura = dia_da_captura(alvo.get("CAPTURA"))
+    escritos = expressoes_de_tempo(span)
     base = {"LEITOR": LEITOR_VIVO, "PUBLICACAO_PROVADA": pub.isoformat() if pub else None,
             "CAPTURA": captura.isoformat() if captura else None,
-            "LEI": "D63 · D147 · D149 · D153; so ACONTECIMENTO e tempo do facto"}
+            "TEMPOS_NO_TRECHO": len(escritos),
+            "EXPRESSOES_DE_TEMPO": [x["TRECHO"] for x in escritos],
+            "LEI": "D63 · D147 · D149 · D153 · §5-C (tempos concorrentes); "
+                   "so ACONTECIMENTO e tempo do facto"}
 
     cab_doc = cabecalho_do_documento(texto)
     periodos = periodos_do_cabecalho(texto, secao["INICIO"], ini, pub, cabecalho_do_documento=cab_doc)
@@ -542,6 +638,20 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
     if c["fact_time"] != NAO_SEI:
         papel, porque = _papel_do_vivo(c, span, pub, captura)
         calculada = c["fact_time_calculo"] == FT.RELATIVA
+        # ── PROD-1 · a data ESCRITA no trecho e LITERAL, mesmo com «oggi» ao lado ──
+        # O dono (contrato §5-C, «Origem»): «Uma data escrita por extenso dentro do trecho e
+        # LITERAL, mesmo que venha acompanhada de "oggi" ou "ieri". O rotulo RELATIVO_D63 so
+        # vale quando o valor foi mesmo CALCULADO a partir da publicacao.»
+        #
+        # O vivo marca a leitura como RELATIVA quando ve a palavra relativa, mesmo que o
+        # valor que devolve venha da data escrita ao lado. RELATIVO_D63 promete a quem
+        # consome que o BASIS e a expressao relativa e que a conta partiu da publicacao —
+        # e prometia isso sobre uma data que estava ali, escrita, para ser lida.
+        if calculada and _escreve_este_dia(escritos, c["fact_time"]):
+            calculada = False
+            porque = ("%s · §5-C: a data esta ESCRITA no trecho («%s»), logo a origem e "
+                      "LITERAL e nao RELATIVO_D63 — o valor nao foi calculado da publicacao"
+                      % (porque, _escreve_este_dia(escritos, c["fact_time"])))
         origem = RELATIVO_D63 if calculada else LITERAL
         trecho = c["fact_time_evidencia"] if calculada else _trecho_do_basis(c["fact_time_basis"])
         basis = _basis(texto, trecho, (ini, fim)) or _basis(texto, span, (ini, fim))
@@ -564,6 +674,22 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
                                % (c["fact_time"], p["VALOR"]),
                         COMPOSICAO={"RELATIVA": c["fact_time_expressao"], "CONTA_DO_VIVO": c["fact_time"],
                                     "IMPRESSO": p["VALOR"], "TRECHO_DO_CABECALHO": p["BASIS"]["TRECHO"]})
+        # ── BLK-1 · dois tempos de ACONTECIMENTO no trecho: qual deles e o do facto? ──
+        # O produtor NAO TEM analisador de sintaxe: nao sabe dizer qual data prende qual
+        # facto. Entao, havendo mais de uma, nao escolhe — e nao escolher escreve-se NAO SEI.
+        # So morde o ACONTECIMENTO, que e o unico papel que vira FACT_TIME: uma janela de
+        # VALIDADE («dal … fino al …») tem duas pontas de proposito, e o intervalo ja conta
+        # como UMA em `expressoes_de_tempo`.
+        if papel in PAPEL_QUE_E_FACTO and len(escritos) > 1:
+            return dict(base, PAPEL=NAO_SEI, VALOR=NAO_SEI, ORIGEM=None, BASIS=basis,
+                        PRECISAO="NOT_KNOWN", MOTIVO=TEMPOS_CONCORRENTES,
+                        PORQUE="§5-C: o trecho escreve %d tempos (%s) e o produtor nao tem "
+                               "como provar qual deles e o do facto — o vivo leu «%s». "
+                               "Escolher seria inferir"
+                               % (len(escritos), ", ".join("«%s»" % x["TRECHO"] for x in escritos),
+                                  c["fact_time"]),
+                        CONCORRENTES=[x["TRECHO"] for x in escritos],
+                        LIDO_PELO_VIVO=c["fact_time"])
         _dia_lido, sem_ano = primeiro_dia(c["fact_time"])
         precisao = c["fact_time_precision"] + ("+SEM_ANO" if sem_ano else "")
         return dict(base, PAPEL=papel, VALOR=c["fact_time"], ORIGEM=origem, BASIS=basis,

@@ -292,6 +292,85 @@ def cobertura_do_gazetteer() -> dict:
     return dict(_COBERTURA)
 
 
+# ── QUANTOS LUGARES O TRECHO ESCREVE (BLK-1, Intelligence owner) ─────────────
+# O outro lado do bloqueador. Na frase «…in Europa … nel 2004 e in Italia nel 2012, in
+# Emilia Romagna», o lugar saia «Italia» — e a Italia e do facto de 2012, nao do de 2004.
+#
+# Conta-se com o GAZETTEER do leitor italiano (`fato_local.GAZETTEER`), que e o vocabulario
+# de lugares desta casa; nao nasce aqui uma segunda lista de toponimos. Duas diferencas
+# deliberadas em relacao ao `FL.mencoes`, e as duas so sabem contar MAIS:
+#
+#   1. HIFEN E ESPACO SAO A MESMA COISA. O gazetteer escreve «Emilia-Romagna» e o jornal
+#      escreve «Emilia Romagna». O `FL.mencoes` nao casa a segunda — medido. Para RESOLVER
+#      um lugar isso falha de menos e fica invisivel; para CONTAR concorrentes falha no
+#      sentido perigoso, porque um concorrente que nao se conta e uma guarda que nao dispara.
+#   2. AS AREAS SUPRANACIONAIS. O gazetteer cobre a Italia de proposito (20 regioes, 85
+#      provincias, 2 formas do pais) e por isso «Europa» nao esta la. Mas «rilevata in
+#      Europa» E um lugar concorrente da «Italia» na mesma frase.
+#
+# ⚠️ A ASSIMETRIA E O QUE TORNA ISTO SEGURO: esta lista so pode fazer o lugar sair NAO SEI.
+# Nunca RESOLVE um lugar, nunca escreve um FACT_LOCATION, nunca entra na PRECISAO. Um nome
+# a mais aqui custa uma afirmacao mais pobre; um nome a menos custaria um lugar falso.
+_AREAS_SUPRANACIONAIS = ("Europa", "Unione Europea", "Mediterraneo", "Africa", "Asia",
+                         "America", "Sud America", "Nord America", "Oceania",
+                         "Spagna", "Francia", "Grecia", "Germania", "Portogallo", "Turchia",
+                         "Paesi Bassi", "Olanda", "Belgio", "Svizzera", "Austria",
+                         "Slovenia", "Croazia", "Albania", "Romania", "Ungheria", "Cina",
+                         "Giappone", "Stati Uniti", "Israele", "Egitto", "Marocco", "Tunisia")
+#: ⚠️ LIMITE DECLARADO: o contador de lugares nao ve o que o gazetteer nao tem. Com
+#: `MUNICIPALITIES = 0`, duas comunas concorrentes na mesma frase contam ZERO, e a guarda
+#: nao dispara. Ele CONTA DE MENOS, e contar de menos e o lado em que ele falha.
+LIMITE_DO_CONTADOR_DE_LUGARES = (
+    "conta com o gazetteer (regioes, provincias, pais) mais as areas supranacionais "
+    "declaradas; comuna que nao seja capoluogo nao e contada — MUNICIPALITIES = 0")
+#: o motivo com que o lugar sai NAO SEI por haver mais de um lugar no trecho (BLK-1)
+LUGARES_CONCORRENTES = "LUGARES_CONCORRENTES"
+_LUGARES_RX = {}
+
+
+def _rx_do_lugar(nome: str):
+    """A expressao que casa ESTE nome com hifen OU espaco entre as palavras."""
+    if nome not in _LUGARES_RX:
+        partes = [re.escape(p) for p in re.split(r"[-\s']+", TA.FL._baixo(nome)) if p]
+        _LUGARES_RX[nome] = re.compile(r"(?<![0-9a-z])%s(?![0-9a-z])"
+                                       % r"[-\s']+".join(partes))
+    return _LUGARES_RX[nome]
+
+
+def expressoes_de_lugar(span: str) -> list:
+    """Os lugares ESCRITOS neste trecho, sem se sobreporem, da esquerda para a direita.
+
+    O nome mais longo ganha no mesmo ponto — «Emilia-Romagna» antes de «Romagna» —, que e a
+    mesma regra que o `FL.mencoes` usa, e pela mesma razao: substring acidental."""
+    texto = str(span or "")
+    baixo = TA.FL._baixo(texto)
+    if len(baixo) != len(texto):
+        baixo = texto.lower()                 # ligadura tipografica: os offsets mandam
+    nomes = sorted({n for n, _p in TA.FL.GAZETTEER} | set(_AREAS_SUPRANACIONAIS),
+                   key=lambda n: (-len(n), n))
+    achados, ocupado = [], []
+    for nome in nomes:
+        for m in _rx_do_lugar(nome).finditer(baixo):
+            if any(m.start() < f and i < m.end() for i, f in ocupado):
+                continue
+            ocupado.append((m.start(), m.end()))
+            achados.append({"INICIO": m.start(), "FIM": m.end(),
+                            "TRECHO": texto[m.start():m.end()], "PLACE": nome})
+    achados.sort(key=lambda x: x["INICIO"])
+    vistos, fora = set(), []
+    for a in achados:
+        if a["PLACE"] in vistos:
+            continue                          # o mesmo lugar nomeado duas vezes e um lugar
+        vistos.add(a["PLACE"])
+        fora.append(a)
+    return fora
+
+
+def lugares_no_trecho(span: str) -> int:
+    """QUANTOS lugares distintos o trecho escreve. Viaja em cada afirmacao (contrato §5-C)."""
+    return len(expressoes_de_lugar(span))
+
+
 def _onde_esta_o_lugar(expressao, texto, inicio, fim, secao) -> dict | None:
     """O OFFSET do lugar no documento (red team D160 §2.6): dentro do trecho quando o lugar
     esta escrito la; no cabecalho territorial quando veio de la. Sem o achar, None — e o
@@ -338,7 +417,24 @@ def _lugar(leitura: dict, texto: str, inicio: int, fim: int, secao: dict) -> dic
                   "metades de linhas diferentes, nao o nome de um lugar"
                   % re.sub(r"\s+", " ", onde["TRECHO"])[:80])
         onde = None
+    # ── BLK-1 · dois lugares no trecho: de qual deles e o facto? ──────────────
+    # A mesma razao do tempo: o produtor nao tem analisador de sintaxe e nao sabe qual lugar
+    # prende qual facto. Havendo mais de um, nao escolhe. Foi exactamente aqui que a «Italia»
+    # do facto de 2012 foi colada ao tempo do facto de 2004.
+    escritos = expressoes_de_lugar(texto[inicio:fim])
+    motivo = None
+    if valor != UNRESOLVED and len(escritos) > 1:
+        motivo = LUGARES_CONCORRENTES
+        porque = ("§5-C: o trecho escreve %d lugares (%s) e o produtor nao tem como provar "
+                  "de qual deles e o facto — a leitura dava «%s». Escolher seria inferir"
+                  % (len(escritos), ", ".join("«%s»" % x["TRECHO"] for x in escritos), valor))
+        valor = UNRESOLVED
+        onde = None
     return {"VALOR": NAO_SEI if valor == UNRESOLVED else valor,
+            "MOTIVO": motivo,
+            "LUGARES_NO_TRECHO": len(escritos),
+            "EXPRESSOES_DE_LUGAR": [x["TRECHO"] for x in escritos],
+            "LIMITE_DA_CONTAGEM": LIMITE_DO_CONTADOR_DE_LUGARES,
             "LOCATION_SOURCE": l_["LOCATION_SOURCE"],
             "PRECISAO": l_.get("PRECISAO") or "NOT_KNOWN",
             "TRECHO": bruto,
@@ -396,7 +492,15 @@ def classe_do_claim(span: str, tempo: dict) -> dict:
     marcas = []
     if TA._MARCA_DE_ATO.search(span) or TA._MARCA_DE_VALIDADE.search(span):
         marcas.append("REGULATORIO")
-    if _RE_PRECO.search(span) or TA._MARCA_DE_MERCADO.search(span):
+    # ── PROD-2 · a LOJA e mercado, e a casa ja o lia assim ────────────────────
+    # O dono (contrato §5-C, «Classe»): «Uma leitura ja estabelecida na casa (por exemplo,
+    # fato_do_texto.py "punti vendita" = MERCADO) prevalece sobre a omissao.»
+    # Medido por ele num item de um portal de fruta: uma visita a pontos de venda saia
+    # ALERTA_EVENTO. O `_RE_LOJA` do leitor vivo — «punti (di) vendita», «grande
+    # distribuzione», «supermercati», «ipermercati» — ja decide MERCADO no lugar do fato
+    # desde o ensaio IT-T10-018. Duas partes da casa a ler a mesma frase e a discordar e o
+    # defeito; a marca da classe passa a ser a MESMA que o lugar usa, lida de la.
+    if _RE_PRECO.search(span) or TA._MARCA_DE_MERCADO.search(span) or FT._RE_LOJA.search(span):
         marcas.append("PRECO")
     if FT._RE_RECOMENDACAO.search(span):
         marcas.append("RECOMENDACAO")
@@ -510,6 +614,7 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
             # trabalha sobre o texto limpo pela D19 (mesmo comprimento, logo mesmos
             # offsets); o TRECHO que viaja e o do ORIGINAL, que e o que a conferencia confere.
             _literal(tempo.get("BASIS"), original)
+            lugar = _lugar(leitura, original, a, b, s)
             oid = assertion_id(prov.get("SOURCE_ID"), prov.get("RAW_SHA256"), a, b, span)
             e_facto = tempo["PAPEL"] in TA.PAPEL_QUE_E_FACTO
             fact_time = (tempo["VALOR"] if e_facto
@@ -537,6 +642,11 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
                 "CONTEXTO_MINIMO": _contexto_minimo(original, s, a, precisa),
                 # ── conteudo (§1): o campo esta sempre; o valor pode ser NAO SEI ───
                 "CLAIM_KIND": classe_do_claim(span, tempo),
+                # ── §5-C · a CONTAGEM viaja, para a Intelligence poder defender-se sem
+                # ler texto: ela recusa se a contagem for > 1 e o valor nao for NAO SEI, e
+                # recusa tambem se o campo faltar. Por isso ele esta SEMPRE presente.
+                "TEMPOS_NO_TRECHO": tempo.get("TEMPOS_NO_TRECHO", 0),
+                "LUGARES_NO_TRECHO": lugar["LUGARES_NO_TRECHO"],
                 "SUBJECT": {"VALOR": NAO_SEI, "BASE": _SEM_SVO},
                 "PREDICATE": {"VALOR": NAO_SEI, "BASE": _SEM_SVO},
                 "OBJECT": {"VALOR": NAO_SEI, "BASE": _SEM_SVO},
@@ -559,7 +669,7 @@ def afirmacoes(texto: str, *, titulo=None, published_at=None, published_at_basis
                                  "PORQUE": "o produtor minimo nao le identidade de estudo no trecho; "
                                            "quem a le e leis/estudo_chaves.py, ao nivel do item"},
                 "ACT_TIME": _periodo_por_papel(tempo, TA.ATO),
-                "FACT_LOCATION": _lugar(leitura, original, a, b, s),
+                "FACT_LOCATION": lugar,
                 # ── AO LADO, nunca no lugar do FACT_TIME (§1) ──────────────────────
                 "PUBLISHED_AT": {"VALOR": prov.get("PUBLISHED_AT", NAO_SEI),
                                  "BASE": prov.get("PUBLISHED_AT_BASIS", NAO_SEI),

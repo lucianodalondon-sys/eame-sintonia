@@ -28,6 +28,18 @@ O que se ataca (uma linha por garantia):
    14  `desdobrar` aceita qualquer linha               — cabecalho inventado
    15  a virgula que emenda deixa de cortar            — duas afirmacoes num trecho so
    16  a memoria de leitura passa a responder a todos  — um documento responde por outro
+
+O BLOQUEADOR do Intelligence owner e os dois defeitos que ele mediu (§5-C do contrato):
+   17  dois tempos no trecho, escolhe um                — o par tempo+lugar volta a ser falso
+   18  dois lugares no trecho, escolhe um              — idem, pelo lado do lugar
+   19  a contagem de TEMPOS nao viaja                   — a Intelligence cega
+   20  a contagem de LUGARES nao viaja                  — idem
+   21  o intervalo passa a contar dois                  — a janela de validade morre
+   22  o hifen deixa de ser espaco                      — «Emilia Romagna» nao e contada
+   23  a area supranacional deixa de contar             — «Europa» nao concorre
+   24  a data escrita volta a ser RELATIVO_D63          — a origem mente
+   25  compara TEXTO em vez do DIA                      — «12 novembre 2026» != «2026-11-12»
+   26  a loja volta a nao ser mercado                   — a visita vira ALERTA_EVENTO
 """
 from __future__ import annotations
 
@@ -163,6 +175,41 @@ MUTANTES = [
     ("MEMORIA_RESPONDE_A_TODOS", "leis/boletim_do_campo.py",
      '        def _envolta(*args):\n            if args in guardadas:',
      '        def _envolta(*args):\n            if guardadas:\n                return next(iter(guardadas.values()))\n            if args in guardadas:'),
+    # ── BLK-1 · o bloqueador do Intelligence owner, e cada peca dele atacada ──
+    ("BLK1_DOIS_TEMPOS_ESCOLHEM_UM", "leis/tempo_da_afirmacao.py",
+     '        if papel in PAPEL_QUE_E_FACTO and len(escritos) > 1:',
+     '        if False:'),
+    ("BLK1_DOIS_LUGARES_ESCOLHEM_UM", "leis/afirmacao_do_documento.py",
+     '    if valor != UNRESOLVED and len(escritos) > 1:', '    if False:'),
+    # A contagem tem de VIAJAR: o dono recusa tambem quando o campo falta. Dois mutantes,
+    # um por campo — um so deixava o outro sem guarda.
+    ("BLK1_A_CONTAGEM_DE_TEMPOS_NAO_VIAJA", "leis/afirmacao_do_documento.py",
+     '                "TEMPOS_NO_TRECHO": tempo.get("TEMPOS_NO_TRECHO", 0),', ''),
+    ("BLK1_A_CONTAGEM_DE_LUGARES_NAO_VIAJA", "leis/afirmacao_do_documento.py",
+     '                "LUGARES_NO_TRECHO": lugar["LUGARES_NO_TRECHO"],', ''),
+    # O INTERVALO: se ele deixar de se juntar, «dal X fino al Y» conta 2 e a janela de
+    # validade do D160 §2.2 morre. A guarda e nos dois sentidos.
+    ("BLK1_O_INTERVALO_PASSA_A_CONTAR_DOIS", "leis/tempo_da_afirmacao.py",
+     '            if _RE_LIGA_UM_PERIODO.match(entre):', '            if False:'),
+    # O HIFEN: sem a tolerancia, «Emilia Romagna» nao e contada e o bloqueador volta a 2
+    # lugares. Foi a diferenca entre a guarda disparar e nao disparar — medido.
+    ("BLK1_HIFEN_DEIXA_DE_SER_ESPACO", "leis/afirmacao_do_documento.py",
+     r'        _LUGARES_RX[nome] = re.compile(r"(?<![0-9a-z])%s(?![0-9a-z])"' + '\n'
+     + r'                                       % r"[-\s\']+".join(partes))',
+     r'        _LUGARES_RX[nome] = re.compile(r"(?<![0-9a-z])%s(?![0-9a-z])"' + '\n'
+     + r'                                       % r" ".join(partes))'),
+    ("BLK1_A_AREA_SUPRANACIONAL_DEIXA_DE_CONTAR", "leis/afirmacao_do_documento.py",
+     '    nomes = sorted({n for n, _p in TA.FL.GAZETTEER} | set(_AREAS_SUPRANACIONAIS),',
+     '    nomes = sorted({n for n, _p in TA.FL.GAZETTEER},'),
+    # ── PROD-1 · a data escrita e LITERAL ────────────────────────────────────
+    ("PROD1_A_DATA_ESCRITA_VOLTA_A_SER_RELATIVA", "leis/tempo_da_afirmacao.py",
+     '        if calculada and _escreve_este_dia(escritos, c["fact_time"]):', '        if False:'),
+    ("PROD1_COMPARA_TEXTO_EM_VEZ_DO_DIA", "leis/tempo_da_afirmacao.py",
+     '        se_dia, _ = primeiro_dia(x["TRECHO"])\n        if se_dia == dia:',
+     '        if str(x["TRECHO"]) == str(valor):'),
+    # ── PROD-2 · a loja e mercado em toda a casa ─────────────────────────────
+    ("PROD2_A_LOJA_VOLTA_A_NAO_SER_MERCADO", "leis/afirmacao_do_documento.py",
+     ' or FT._RE_LOJA.search(span)', ''),
 ]
 
 
