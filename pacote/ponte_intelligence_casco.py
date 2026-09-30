@@ -170,6 +170,10 @@ def _linhagem_da_corrida(corrida: dict) -> dict:
     """
     out = {}
     for e in corrida.get("LINEAGE") or []:
+        # G0-POR-AFIRMACAO: uma entrada de AFIRMACAO (tem CLAIM_ID) nao e uma entrada do ITEM — a prova de um
+        # item nunca se admite pelo G0 de uma afirmacao dele, nem o inverso. Ela vive noutro indice (pote v2).
+        if isinstance(e, dict) and "CLAIM_ID" in e:
+            continue
         if isinstance(e, dict) and not e_ignorancia(e.get("ITEM_ID")):
             chave = (_chave_upstream(e.get("CORRIDA_UPSTREAM")), str(e["ITEM_ID"]))
             out.setdefault(chave, []).append(e)

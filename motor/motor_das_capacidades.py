@@ -74,6 +74,7 @@ for _g in ("motor", "leis"):
         sys.path.insert(0, str(RAIZ / _g))
 
 import corrida_da_inteligencia as CI            # noqa: E402
+import g0_da_afirmacao as G0A                    # noqa: E402  (DIRETIVA-G0-POR-AFIRMACAO: a unidade CLAIM)
 import cap_win as WIN                            # noqa: E402
 import capacidade_cientifica as SCI              # noqa: E402
 import porta_da_referencia as PORTA              # noqa: E402  (D116: uma edicao para as duas)
@@ -148,12 +149,17 @@ CHAVES_DO_POTE = {
     "future": ("CROP_ID", "ISSUE_ID", "REGION_ID", "FACT_LOCATION", "FACT_TIME",
                "FACT_TIME_BASIS"),
     "sources": ("SOURCE_ID", "ITENS_LIDOS", "ITENS_QUE_PASSARAM_G0", "OBJETOS_PRODUZIDOS"),
+    # G0-POR-AFIRMACAO: o archive so e alimentado quando ha afirmacoes (SINAL de uma afirmacao com tempo e
+    # lugar, sem capacidade que a leia). As chaves sao as do gerador do dono para o archive.
+    "archive": ("CROP_ID", "ISSUE_ID", "REGION_ID", "FACT_LOCATION", "FACT_TIME"),
 }
 
 #: O export traz a vista `sala_de_espera_atual` (o que a Intelligence le,
 #: migration 033) e tres colunas do `raw_asset` pelo RAW_OBSERVATION_ID.
 COLUNAS_DO_RAW = {"raw_source_url": "URL", "raw_document_key": "DOCUMENT_ID",
-                  "raw_document_key_basis": "DOCUMENT_ID_BASIS"}
+                  "raw_document_key_basis": "DOCUMENT_ID_BASIS",
+                  # D-GER-2: a identidade do byte, do raw_asset (o do banco, ou NAO SEI)
+                  "raw_sha256": "RAW_SHA256", "raw_storage_path": "RAW_STORAGE_PATH"}
 
 
 class LeiViolada(Exception):
@@ -511,6 +517,9 @@ def _prova(ready: dict, linha: dict, raw: dict) -> dict:
         "SOURCE_ID": ready.get("SOURCE_ID"),
         "DOCUMENT_ID": _v(r.get("DOCUMENT_ID")),
         "URL": _v(r.get("URL")),
+        # D-GER-2: o byte da prova, como o raw_asset o guardou. Sem ele, NAO SEI.
+        "RAW_SHA256": _v(r.get("RAW_SHA256")),
+        "RAW_STORAGE_PATH": _v(r.get("RAW_STORAGE_PATH")),
         "PUBLICADO_EM": pub,
         "PUBLISHED_AT": pub,
         "COLHIDO_EM": _v(ready.get("CAPTURED_AT")),
@@ -703,10 +712,58 @@ def _objeto_do_futuro(f: dict, ctx: dict) -> tuple:
                 "VEM_DE": {"CULTURA": "JANELA_DECLARADA.CULTURA", "PROBLEMA": "JANELA_DECLARADA.PROBLEMA"}})}, None
 
 
+def _afirmacao_vira_objeto(sg: dict) -> bool:
+    """Diretiva §1.5: afirmacao ALERTA_EVENTO com tempo E lugar -> SINAL. As outras ficam so no livro."""
+    return (sg.get("CLAIM_KIND") == "ALERTA_EVENTO" and not _ign(sg.get("FACT_TIME"))
+            and not _ign(sg.get("FACT_LOCATION")) and sg.get("LOCATION_SOURCE") in LUGAR.LOCATION_SOURCES
+            and sg.get("LOCATION_SOURCE") != LUGAR.UNRESOLVED)
+
+
+def _objeto_da_afirmacao(sg: dict, ctx: dict) -> dict:
+    """Um SINAL de UMA afirmacao que passou o SEU G0 -> objeto do archive (nenhuma capacidade a le ainda).
+
+    Tempo e lugar sao os DA AFIRMACAO (nunca os do documento, nunca a publicacao). REGION_ID fica NAO SEI: e uma
+    identidade do casco e nao se cunha a partir do nome do lugar. CROP_ID/ISSUE_ID ficam NAO SEI: as entidades da
+    afirmacao viajam ao lado, com a procedencia de cada uma, e nada as promove a chave aqui."""
+    iid, claim = str(sg["ITEM_ID"]), str(sg["CLAIM_ID"])
+    ready, linha = ctx["READY"][iid], ctx["AFIRMACAO"][claim]
+    de = [{"ITEM_ID": iid, "CLAIM_ID": claim}]
+    ent = {"CROP_ID": _entidade(NAO_SEI, "AFIRMACAO.ENTIDADES", de),
+           "ISSUE_ID": _entidade(NAO_SEI, "AFIRMACAO.ENTIDADES", de),
+           "REGION_ID": _entidade(NAO_SEI, "CASCO", de),
+           "FACT_LOCATION": _entidade(sg["FACT_LOCATION"], "AFIRMACAO.FACT_LOCATION", de),
+           "FACT_TIME": _entidade(sg["FACT_TIME"], "AFIRMACAO.FACT_TIME", de)}
+    fora = {"ESPECIE_DO_MOTOR": "SINAL DE AFIRMACAO (G0_DA_AFIRMACAO/v1)",
+            "ENTITY_SOURCE": ent,
+            "LOCATION_SOURCE": sg["LOCATION_SOURCE"],
+            "DA_FONTE": {"EVIDENCE_SPAN": sg.get("EVIDENCE_SPAN"), "FACT_TIME_BASIS": sg.get("FACT_TIME_BASIS"),
+                         "FACT_LOCATION_TRECHO": sg.get("FACT_LOCATION_TRECHO"), "ENTIDADES": sg.get("ENTIDADES")},
+            "INTERPRETACAO_DO_SISTEMA": {"CLAIM_KIND": sg.get("CLAIM_KIND"),
+                                         "FACT_TIME_ORIGEM": sg.get("FACT_TIME_ORIGEM"),
+                                         "FACT_TIME_PRECISION": sg.get("FACT_TIME_PRECISION"),
+                                         "FACT_LOCATION_PRECISAO": sg.get("FACT_LOCATION_PRECISAO"),
+                                         "USOS_BLOQUEADOS": sg.get("USOS_BLOQUEADOS"),
+                                         "LEITURA": "uma afirmacao da fonte, com o seu tempo e o seu lugar; "
+                                                    "nenhuma capacidade a le ainda (archive)"}}
+    chaves = {k: ent[k]["VALOR"] for k in CHAVES_DO_POTE["archive"]}
+    chaves.update(fora)
+    prova = dict(_prova(ready, linha, ctx["RAW"]), CLAIM_ID=claim)
+    return {"OBJETO_ID": "R7-SGA-" + hashlib.sha256((ctx["RUN_ID"] + "|" + claim).encode()).hexdigest()[:16],
+            "ESPECIE": SINAL, "ESTADO": ESTADO_TRANSPORTAVEL, "CHAVES": chaves,
+            "PROVA": [prova],
+            "PORQUE": "uma afirmacao do item %s com tempo e lugar proprios, que passou o G0 da afirmacao" % iid,
+            "CONTRADIZ": None, "INCERTEZA": "afirmacao de uma so fonte; contradicao NAO MEDIDA",
+            "LIGACAO_ADAMA": PORTA.ligacao_adama(ctx["REF"], {
+                "CULTURA": NAO_SEI, "PROBLEMA": NAO_SEI,
+                "VEM_DE": {"CULTURA": "AFIRMACAO.ENTIDADES", "PROBLEMA": "AFIRMACAO.ENTIDADES"}})}
+
+
 def _rendimentos(livro: dict, ctx: dict, objetos: dict) -> tuple:
     """RENDIMENTO_DE_FONTE contado da LINEAGE da corrida (nao se reconta nada)."""
     por_fonte, nao_vao = {}, []
     for l in livro["LINEAGE"]:
+        if "CLAIM_ID" in l:           # o rendimento conta ITENS lidos; uma afirmacao nao e um item a mais
+            continue
         por_fonte.setdefault(str(l.get("SOURCE_ID")), []).append(l)
     produzidos = {}
     for objs in objetos.values():
@@ -758,8 +815,14 @@ def _rendimentos(livro: dict, ctx: dict, objetos: dict) -> tuple:
 # ══════════════════════════════════════════════════════════════════════════
 # 6 · A RODADA
 # ══════════════════════════════════════════════════════════════════════════
-def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None = None) -> dict:
-    """UMA corrida, as duas capacidades, a saida para o pote v2 — conferida."""
+def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None = None,
+          afirmacoes: dict | None = None) -> dict:
+    """UMA corrida, as duas capacidades, a saida para o pote v2 — conferida.
+
+    `afirmacoes` (opcional, DIRETIVA-G0-POR-AFIRMACAO): o artefato AFIRMACOES_DA_SALA/v1 do produtor, da MESMA
+    copia da Sala. Com ele, cada afirmacao conferida passa pelo seu proprio G0 (`g0_da_afirmacao`), depois das
+    capacidades (que leem o livro do ITEM, e nao mudam), e as que passam com tempo e lugar viram SINAL no archive.
+    Sem ele, a corrida e byte a byte a de sempre: nada deste caminho corre, e a identidade nao muda."""
     if not isinstance(hoje, date):
         raise LeiViolada("sem HOJE declarado nao ha «agora»")
     _conferir_entrada(entrada)
@@ -768,8 +831,12 @@ def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None =
     ids = [str(p.get("ITEM_ID")) for p in prontos]
     if len(set(ids)) != len(ids):
         raise LeiViolada("ITEM_ID repetido no corte: nao serve de endereco da prova")
-    livro = CI.correr(PERGUNTA, prontos,
-                      universo={"ITENS_NO_CORTE": len(prontos), "CORTE": entrada.get("CORTE", NAO_SEI)})
+    universo = {"ITENS_NO_CORTE": len(prontos), "CORTE": entrada.get("CORTE", NAO_SEI)}
+    idx_af = None
+    if afirmacoes is not None:
+        # a entrada muda -> a identidade da corrida muda (reuso so com a MESMA materia, INT-LAW-054)
+        idx_af, universo["AFIRMACOES"] = G0A.indexar(afirmacoes)
+    livro = CI.correr(PERGUNTA, prontos, universo=universo)
     if livro["RESULT_STATE"] not in ("DONE", "REUSED"):
         raise LeiViolada("a corrida terminou em %s: %s" % (livro["RESULT_STATE"], livro["ERRORS"]))
     run_id = livro["INTELLIGENCE_RUN_ID"]
@@ -795,10 +862,14 @@ def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None =
     ref = referencia if referencia is not None else PORTA.abrir(hoje=hoje)
     win = WIN.julgar(livro, itens_win, hoje, fora=para_win, referencia=ref)
     sci = SCI.julgar(livro, ready_cap, ref, triados_fora=para_sci)
+    if idx_af is not None:
+        # DEPOIS das capacidades: elas leem o livro do ITEM, e esse nao muda (o G0 do item fica intacto)
+        G0A.aplicar(livro, registos, entrada["RAW"], idx_af)
 
     ctx = {"RUN_ID": run_id, "RAW": entrada["RAW"], "D112": d112, "JANELA": janelas, "REF": ref,
            "READY": {str(p["ITEM_ID"]): p for p in prontos},
-           "LINHA": {str(l["ITEM_ID"]): l for l in livro["LINEAGE"]}}
+           "LINHA": {str(l["ITEM_ID"]): l for l in livro["LINEAGE"] if "CLAIM_ID" not in l},
+           "AFIRMACAO": {str(l["CLAIM_ID"]): l for l in livro["LINEAGE"] if "CLAIM_ID" in l}}
     objetos = {"windows": [], "science": [], "future": []}
     nao_vao, todas_rel = [], []
     for j in win["CROP_WINDOWS"]:
@@ -818,6 +889,9 @@ def rodar(entrada: dict, hoje: date, source_head=None, referencia: dict | None =
         (objetos["future"].append(o) if o else
          nao_vao.append({"OBJETO_ID": str(f["ITEM_ID"]), "COMPARTIMENTO": "future",
                          "MOTIVO": "FUTURO_COM_OUTRA_FALTA", "DETALHE": motivo}))
+    if idx_af is not None:
+        objetos["archive"] = [_objeto_da_afirmacao(sg, ctx) for sg in livro["SINAIS_DAS_AFIRMACOES"]
+                              if _afirmacao_vira_objeto(sg)]
     fontes, sem_rend = _rendimentos(livro, ctx, objetos)
     objetos["sources"] = fontes
     nao_vao += sem_rend
@@ -873,7 +947,8 @@ def conferir_saida(saida: dict) -> list:
         if k not in saida or (_ign(saida[k]) and saida[k] != NAO_SEI):
             v.append("cabecalho esconde %s" % k)
     linhas = {(str(l.get("CORRIDA_UPSTREAM")), str(l.get("ITEM_ID"))): l
-              for l in saida.get("LINEAGE") or []}
+              for l in saida.get("LINEAGE") or [] if "CLAIM_ID" not in l}
+    afirmacoes = {str(l.get("CLAIM_ID")): l for l in saida.get("LINEAGE") or [] if "CLAIM_ID" in l}
     estudos = {i for i, t in (saida.get("TRIAGEM") or {}).items() if t.get("CAPACIDADE") == SCI.CAPACIDADE}
     texto = json.dumps(saida.get("ITENS_POR_FERRAMENTA"), ensure_ascii=False).upper()
     for p in SCI.LEITURAS_PROIBIDAS:
@@ -915,12 +990,22 @@ def conferir_saida(saida: dict) -> list:
                         v.append("%s/%s: prova esconde %s" % (comp, oid, k))
                 if p.get("PUBLISHED_AT") != p.get("PUBLICADO_EM"):
                     v.append("%s/%s: PUBLISHED_AT e PUBLICADO_EM divergem" % (comp, oid))
-                l = linhas.get((str(p.get("CORRIDA_UPSTREAM")), str(p.get("ITEM_ID"))))
-                if l is None:
-                    v.append("%s/%s: prova %s fora da LINEAGE" % (comp, oid, p.get("ITEM_ID")))
-                    continue
-                if not _admite(l, o.get("ESPECIE")):
-                    v.append("%s/%s: prova %s nao admitida em G0" % (comp, oid, p.get("ITEM_ID")))
+                if "CLAIM_ID" in p:
+                    # a prova de uma AFIRMACAO admite-se pelo G0 DELA, nunca pelo do item (diretiva §1.4)
+                    l = afirmacoes.get(str(p.get("CLAIM_ID")))
+                    if l is None or any(str(l.get(c)) != str(p.get(c))
+                                        for c in ("ITEM_ID", "CORRIDA_UPSTREAM", "SOURCE_ID", "RAW_OBSERVATION_ID")):
+                        v.append("%s/%s: prova da afirmacao %s fora da LINEAGE" % (comp, oid, p.get("CLAIM_ID")))
+                        continue
+                    if l.get("G0_DA_AFIRMACAO") != "PASSOU":
+                        v.append("%s/%s: afirmacao %s nao admitida no G0 dela" % (comp, oid, p.get("CLAIM_ID")))
+                else:
+                    l = linhas.get((str(p.get("CORRIDA_UPSTREAM")), str(p.get("ITEM_ID"))))
+                    if l is None:
+                        v.append("%s/%s: prova %s fora da LINEAGE" % (comp, oid, p.get("ITEM_ID")))
+                        continue
+                    if not _admite(l, o.get("ESPECIE")):
+                        v.append("%s/%s: prova %s nao admitida em G0" % (comp, oid, p.get("ITEM_ID")))
                 if str(p.get("FACT_TIME")) != str(_v(l.get("FACT_TIME"))):
                     v.append("%s/%s: FACT_TIME da prova nao e o da corrida (publicacao nao e facto)"
                              % (comp, oid))
