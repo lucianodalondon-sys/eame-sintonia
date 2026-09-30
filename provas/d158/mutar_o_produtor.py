@@ -193,11 +193,12 @@ MUTANTES = [
      '            if _RE_LIGA_UM_PERIODO.match(entre):', '            if False:'),
     # O HIFEN: sem a tolerancia, «Emilia Romagna» nao e contada e o bloqueador volta a 2
     # lugares. Foi a diferenca entre a guarda disparar e nao disparar — medido.
+    # ⚠️ O apostrofo desta classe de caracteres tem de chegar aqui INTEIRO. A 1.a versao
+    # escreveu-o num literal RAW (r'...\''), o backslash ficou no texto, o alvo apareceu 0
+    # vezes e o mutante saiu NAO_APLICADO — que nao e um mutante morto, e um ataque que
+    # nunca aconteceu. Por isso este entra em string NORMAL, com o backslash dobrado.
     ("BLK1_HIFEN_DEIXA_DE_SER_ESPACO", "leis/afirmacao_do_documento.py",
-     r'        _LUGARES_RX[nome] = re.compile(r"(?<![0-9a-z])%s(?![0-9a-z])"' + '\n'
-     + r'                                       % r"[-\s\']+".join(partes))',
-     r'        _LUGARES_RX[nome] = re.compile(r"(?<![0-9a-z])%s(?![0-9a-z])"' + '\n'
-     + r'                                       % r" ".join(partes))'),
+     "% r\"[-\\s']+\".join(partes))", '% r" ".join(partes))'),
     ("BLK1_A_AREA_SUPRANACIONAL_DEIXA_DE_CONTAR", "leis/afirmacao_do_documento.py",
      '    nomes = sorted({n for n, _p in TA.FL.GAZETTEER} | set(_AREAS_SUPRANACIONAIS),',
      '    nomes = sorted({n for n, _p in TA.FL.GAZETTEER},'),
