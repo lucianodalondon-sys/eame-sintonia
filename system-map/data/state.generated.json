@@ -3086,6 +3086,8 @@
       "provas/fechar_ground_truth_t3.py",
       "provas/feed_local.mjs",
       "provas/fluxo_no_seco.py",
+      "provas/g0-afirmacao/MUTANTES-DT-FATO-OBSERVADO.json",
+      "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
       "provas/gate_de_aceitacao_tematica.py",
       "provas/gpu_asr_smoke.py",
       "provas/hardware_local.py",
@@ -4839,9 +4841,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/c8-auto-v1",
-    "HEAD": "eecab57d3786c937be8f3c82b034700aad183c4b",
-    "GENERATED_AT": "2026-09-30T11:48:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9d2f19260f097aa19a7ed565866bef3a656267490b40d1e25fcd769239847aa1"
+    "HEAD": "9ef5a9dce18e1071e6b027907d421bc11dcd6abb",
+    "GENERATED_AT": "2026-09-30T15:25:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4aa9f75b2144fa64efed77c30f71d8b4a30ab35423de3733ff27c2bad5d5e952"
   },
   "FAMILIES": [
     {
@@ -50943,7 +50945,7 @@
           "admissao/gatilho_da_inteligencia.py:101",
           "admissao/gatilho_da_inteligencia.py:119",
           "pacote/acervo_na_intelligence.py:79",
-          "pacote/liberacao_por_criterio.py:281"
+          "pacote/liberacao_por_criterio.py:285"
         ],
         "PORQUE": "estas pecas importam-na — C-ACERVO-NA-INTELLIGENCE · C-L2-DISPARADOR-INTELLIGENCE · C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -52602,7 +52604,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "pacote/liberacao_por_criterio.py:282",
+          "pacote/liberacao_por_criterio.py:286",
           "provas/l2/ensaio_disparador.py:57",
           "provas/l2/mutantes.py:27",
           "tests/test_disparador_intelligence.py:34"
@@ -62871,6 +62873,7 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
         "provas/l2/ensaio_disparador.py",
         "provas/l2/funil_r9.py",
         "provas/l2/g0_afirmacao_r9.py",
@@ -62878,11 +62881,12 @@
         "provas/l2/mutantes_g0.py",
         "provas/l2/r9_auto_vs_manual.py"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [
+        "provas/g0-afirmacao/MUTANTES-DT-FATO-OBSERVADO.json",
         "provas/l2/FUNIL-R9.json",
         "provas/l2/G0-AFIRMACAO-R9.json",
         "provas/l2/MUTANTES-G0.json",
@@ -62910,9 +62914,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 159,
+        "palavras": 191,
         "por_lingua": {},
-        "sem_marca_de_lingua": 159,
+        "sem_marca_de_lingua": 191,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -62922,6 +62926,12 @@
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/g0-afirmacao/MUTANTES-DT-FATO-OBSERVADO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "provas/l2/FUNIL-R9.json",
@@ -62937,12 +62947,6 @@
         {
           "onde": "GIT",
           "file": "provas/l2/MUTANTES-G0.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "provas/l2/R9-AUTO-VS-MANUAL.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -62968,6 +62972,7 @@
         "motor/r7_export_da_copia.sql",
         "pacote/ponte_intelligence_casco.py",
         "pacote/pote_intelligence_casco.py",
+        "provas/g0-afirmacao/MUTANTES-DT-FATO-OBSERVADO.json",
         "provas/l2/ENSAIO-DISPARADOR.json",
         "provas/l2/FUNIL-R9.json",
         "provas/l2/G0-AFIRMACAO-R9.json",
@@ -115664,7 +115669,7 @@
       "evidence": [
         {
           "file": "pacote/liberacao_por_criterio.py",
-          "line": 281,
+          "line": 285,
           "snippet": "import motor_das_capacidades as M                   # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-POTE-INT-CASCO",
@@ -115915,8 +115920,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 alimenta As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 4 linhas de codigo.",
+      "reason": "Motor das capacidades — CAP-WIN + CAP-SCI numa corrida, com a D112 e a saida para o pote v2 alimenta As provas do L2-DISPARADOR — Postgres descartavel e mutacao. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+          "line": 24,
+          "snippet": "G0 = \"motor/g0_da_afirmacao.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-L2-DISPARADOR",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-PROVA-L2-DISPARADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+          "line": 25,
+          "snippet": "MOT = \"motor/motor_das_capacidades.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-PROVA-L2-DISPARADOR",
+            "FROM": "C-INT-MOTOR-CAPACIDADES",
+            "TO": "C-PROVA-L2-DISPARADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/l2/mutantes.py",
           "line": 31,
@@ -116203,7 +116240,7 @@
       "evidence": [
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 540,
+          "line": 559,
           "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -116219,7 +116256,7 @@
         },
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 540,
+          "line": 559,
           "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -125505,7 +125542,7 @@
       "evidence": [
         {
           "file": "pacote/liberacao_por_criterio.py",
-          "line": 282,
+          "line": 286,
           "snippet": "import gatilho_da_inteligencia as GI                # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--IMPORTS-->C-POTE-INT-CASCO",
@@ -125725,7 +125762,7 @@
         },
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 541,
+          "line": 560,
           "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--READS-->C-TESTES",
@@ -143937,7 +143974,7 @@
       "evidence": [
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 541,
+          "line": 560,
           "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-TESTES",
@@ -147146,7 +147183,7 @@
       "evidence": [
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 540,
+          "line": 559,
           "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -147162,7 +147199,7 @@
         },
         {
           "file": "tests/test_g0_da_afirmacao.py",
-          "line": 560,
+          "line": 579,
           "snippet": "NOME_DE_CAMPO_DO_CONTRATO = {\"TRECHO_DA_AFIRMACAO\": (\"pacote/liberacao_por_criterio.py\",)}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -176503,8 +176540,8 @@
     "edges_proven": 1874,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4245,
-    "files_covered": 1962,
+    "files_tracked": 4247,
+    "files_covered": 1964,
     "files_code_unclaimed": 0,
     "roles_proven": 209,
     "roles_declared_only": 11,

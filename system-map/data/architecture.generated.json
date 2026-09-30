@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/c8-auto-v1",
-    "HEAD": "eecab57d3786c937be8f3c82b034700aad183c4b",
-    "GENERATED_AT": "2026-09-30T11:48:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9d2f19260f097aa19a7ed565866bef3a656267490b40d1e25fcd769239847aa1"
+    "HEAD": "9ef5a9dce18e1071e6b027907d421bc11dcd6abb",
+    "GENERATED_AT": "2026-09-30T15:25:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4aa9f75b2144fa64efed77c30f71d8b4a30ab35423de3733ff27c2bad5d5e952"
   },
   "FILES": [
     {
@@ -19582,7 +19582,7 @@
     },
     {
       "path": "pacote/liberacao_por_criterio.py",
-      "sha": "22ae0187e00c3779953e9eacb9f83bf2c9f9cc4d",
+      "sha": "23e09f780a36854e3d0be8fbb73658896472c49c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21207,6 +21207,20 @@
     {
       "path": "provas/fluxo_no_seco.py",
       "sha": "a03d4f52a608121e08c3038675c36d258dc09647",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/g0-afirmacao/MUTANTES-DT-FATO-OBSERVADO.json",
+      "sha": "19f146a2ffb0a596f248b1627bcaf65d670f5d15",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+      "sha": "886a5ed98fa3d679ad5d5765568acaaf2bc151ed",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26484,7 +26498,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "9086b060e7b7af3a5c7b68b795371011a5fba75a",
+      "sha": "2ebe7198a1220242445e537092d7fbdf420f3594",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28451,7 +28465,7 @@
     },
     {
       "path": "tests/test_g0_da_afirmacao.py",
-      "sha": "ce856ab1b2923e18943decd3b0de83883cb8f06a",
+      "sha": "61a3d67cc98aff62619fb8745f1f2309dabcea87",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28612,7 +28626,7 @@
     },
     {
       "path": "tests/test_liberacao_por_criterio.py",
-      "sha": "da9374e4b61fcd760e78cb8d54ccf757efbe8ecb",
+      "sha": "2b3e52a64fcb2b38284ec56ed0d248f7aab2682f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -62523,7 +62537,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pacote/liberacao_por_criterio.py",
-        "line": 282,
+        "line": 286,
         "snippet": "import gatilho_da_inteligencia as GI                # noqa: PLC0415"
       }
     },
@@ -62534,7 +62548,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pacote/liberacao_por_criterio.py",
-        "line": 281,
+        "line": 285,
         "snippet": "import motor_das_capacidades as M                   # noqa: PLC0415"
       }
     },
@@ -72799,6 +72813,50 @@
         "file": "provas/fluxo_no_seco.py",
         "line": 36,
         "snippet": "import telemetria as t  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+      "to_file": "motor/g0_da_afirmacao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+        "line": 24,
+        "snippet": "G0 = \"motor/g0_da_afirmacao.py\""
+      }
+    },
+    {
+      "from_file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+        "line": 25,
+        "snippet": "MOT = \"motor/motor_das_capacidades.py\""
+      }
+    },
+    {
+      "from_file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+      "to_file": "provas/g0-afirmacao/MUTANTES-DT-FATO-OBSERVADO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+        "line": 22,
+        "snippet": "SAIDA = Path(__file__).resolve().parent / \"MUTANTES-DT-FATO-OBSERVADO.json\""
+      }
+    },
+    {
+      "from_file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+      "to_file": "provas/g0-afirmacao/MUTANTES-DT-FATO-OBSERVADO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/g0-afirmacao/mutantes_dt_fato_observado.py",
+        "line": 103,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
       }
     },
     {
@@ -101617,7 +101675,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 541,
+        "line": 560,
         "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")"
       }
     },
@@ -101639,7 +101697,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 540,
+        "line": 559,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -101661,7 +101719,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 540,
+        "line": 559,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -101672,7 +101730,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 560,
+        "line": 579,
         "snippet": "NOME_DE_CAMPO_DO_CONTRATO = {\"TRECHO_DA_AFIRMACAO\": (\"pacote/liberacao_por_criterio.py\",)}"
       }
     },
@@ -101683,7 +101741,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 541,
+        "line": 560,
         "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")"
       }
     },
@@ -101694,7 +101752,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 540,
+        "line": 559,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -113886,10 +113944,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4245,
-    "files_readable": 1785,
-    "files_code_dir": 2219,
-    "file_edges": 7591,
+    "files_tracked": 4247,
+    "files_readable": 1786,
+    "files_code_dir": 2221,
+    "file_edges": 7595,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },
