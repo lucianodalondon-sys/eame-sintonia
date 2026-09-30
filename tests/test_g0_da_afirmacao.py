@@ -367,6 +367,140 @@ class TestConcorrenciaAdversarialComProvaCompleta(_Caso):
         self.assertEqual([r for r in pote.get("RECUSADOS") or [] if r.get("COMPARTIMENTO") == "archive"], [])
 
 
+class TestObservacaoMedida5D(unittest.TestCase):
+    """§5-D (DT-FATO-OBSERVADO, 30/09): a classe OBSERVACAO_MEDIDA exige a MARCA DE MEDICAO escrita no trecho —
+    verbo de medicao + valor com unidade, cada um com posicao — e o lugar escrito, com posicao. A ancora do campo
+    nao e marca. Texto SINTETICO; o controle bom e de outro tipo de fonte que a R9 (rede de estacoes, nao boletim)."""
+    CAB = "Bollettino sintetico della rete di stazioni, settimana dal 01-06-2031 al 07-06-2031."
+    BOA = "Nella settimana le stazioni hanno registrato 41,2 mm a Modena."
+    CAPTURA = {"CAPTURED_AT": "2031-06-10T08:00:00Z"}
+
+    def texto(self, frase):
+        return self.CAB + "\n" + frase + "\n"
+
+    def af(self, frase=None, verbo="registrato", valor="41,2 mm", lugar="Modena", **mudar):
+        frase = frase or self.BOA
+        t = self.texto(frase)
+        a = t.index(frase)
+        pos = lambda s: {"INICIO": t.index(s, a), "FIM": t.index(s, a) + len(s), "TRECHO": s}
+        marca = {}
+        if verbo is not None:
+            marca["VERBO"] = pos(verbo)
+        if valor is not None:
+            marca["VALOR"] = pos(valor)
+        d0 = t.index("dal 01-06-2031")
+        af = {"CLAIM_ID": "AF-SINT-OBS", "CLAIM_KIND": {"VALOR": "OBSERVACAO_MEDIDA", "MARCAS": ["OBSERVACAO_MEDIDA"],
+                                                         "MARCA_DE_MEDICAO": marca},
+              "EVIDENCE_SPAN": {"INICIO": a, "FIM": a + len(frase), "TRECHO": frase},
+              "FACT_TIME": {"VALOR": "2031-06-01/2031-06-07",
+                            "FACT_TIME_BASIS": {"TRECHO": "dal 01-06-2031 al 07-06-2031", "INICIO": d0, "FIM": d0 + 28}},
+              "FACT_TIME_ROLE": {"PAPEL": "ACONTECIMENTO", "ORIGEM": "CABECALHO_D147"},
+              "FACT_LOCATION": ({"VALOR": lugar, "LOCATION_SOURCE": "TEXT", "ONDE": pos(lugar)} if lugar else
+                                {"VALOR": "NAO SEI"}),
+              "PUBLISHED_AT": {"VALOR": "2031-06-09"},
+              "TEMPOS_NO_TRECHO": 0, "LUGARES_NO_TRECHO": 1 if lugar else 0}
+        af.update(mudar)
+        return af, t
+
+    def g0(self, af_t):
+        af, t = af_t
+        return G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)
+
+    # ── o controle bom ────────────────────────────────────────────────────────
+    def test_controle_bom_fora_da_r9_passa(self):
+        self.assertEqual(self.g0(self.af()), (True, []))
+
+    def test_a_classe_esta_no_vocabulario_e_exige_fact_time(self):
+        self.assertIn("OBSERVACAO_MEDIDA", G0A.CLAIM_KINDS)
+        self.assertEqual(G0A.TEMPO_DA_CLASSE["OBSERVACAO_MEDIDA"], ("FACT_TIME",))
+
+    # ── os mutantes da DT ─────────────────────────────────────────────────────
+    def test_M1_retirar_a_marca_morre(self):
+        for kw, motivo in (({"verbo": None}, "MARCA_DE_MEDICAO:VERBO_SEM_POSICAO"),
+                           ({"valor": None}, "MARCA_DE_MEDICAO:VALOR_SEM_POSICAO")):
+            passou, falta = self.g0(self.af(**kw))
+            self.assertFalse(passou, kw)
+            self.assertIn(motivo, falta)
+        af, t = self.af()
+        del af["CLAIM_KIND"]["MARCA_DE_MEDICAO"]
+        self.assertIn("MARCA_DE_MEDICAO:AUSENTE", G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)[1])
+
+    def test_M1b_a_ancora_do_campo_nao_conta_como_marca(self):
+        # «vigneti» e o lugar sao ancora do campo, nao medicao: sem verbo nem valor escritos, morre
+        frase = "Nella settimana i vigneti di Modena hanno avuto piogge."
+        passou, falta = self.g0(self.af(frase, verbo="vigneti", valor="Modena"))
+        self.assertFalse(passou)
+        self.assertIn("MARCA_DE_MEDICAO:VERBO_FORA_DO_VOCABULARIO", falta)
+        self.assertIn("MARCA_DE_MEDICAO:VALOR_FORA_DO_VOCABULARIO", falta)
+
+    def test_M1c_marca_fora_do_trecho_ou_que_nao_bate_com_o_texto_morre(self):
+        af, t = self.af()
+        c = t.index("settimana dal")                     # uma palavra do CABECALHO, fora do trecho
+        af["CLAIM_KIND"]["MARCA_DE_MEDICAO"]["VERBO"] = {"INICIO": c, "FIM": c + 9, "TRECHO": "settimana"}
+        self.assertIn("MARCA_DE_MEDICAO:VERBO_FORA_DO_TRECHO", G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)[1])
+        af, t = self.af()
+        af["CLAIM_KIND"]["MARCA_DE_MEDICAO"]["VALOR"]["INICIO"] += 1
+        self.assertIn("MARCA_DE_MEDICAO:VALOR_NAO_ESTA_NO_TEXTO", G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)[1])
+
+    def test_M2_evento_futuro_morre(self):
+        frase = "Nella settimana saranno registrati 41,2 mm a Modena."
+        passou, falta = self.g0(self.af(frase, verbo="registrati"))
+        self.assertFalse(passou)
+        self.assertIn("MARCA_DE_MEDICAO:VERBO_NO_FUTURO", falta)
+
+    def test_M2b_ato_regulatorio_ou_congresso_no_trecho_morre(self):
+        for outra in ("REGULATORIO", "ALERTA_EVENTO"):
+            af, t = self.af()
+            af["CLAIM_KIND"]["MARCAS"] = ["OBSERVACAO_MEDIDA", outra]
+            passou, falta = G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)
+            self.assertFalse(passou, outra)
+            self.assertIn("OBSERVACAO_MEDIDA:MARCA_DE_OUTRA_CLASSE:%s" % outra, falta)
+
+    def test_M3_tempo_trocado_pela_data_de_publicacao_morre(self):
+        af, t = self.af()
+        af["FACT_TIME"] = {"VALOR": "2031-06-09",
+                           "FACT_TIME_BASIS": dict(af["FACT_TIME"]["FACT_TIME_BASIS"])}   # base fora do trecho
+        passou, falta = G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)
+        self.assertFalse(passou)
+        self.assertIn("FACT_TIME:E_A_PUBLICACAO_SEM_BASE_NO_TRECHO", falta)
+        af["FACT_TIME"] = {"VALOR": "NAO SEI"}                                             # ou sem tempo nenhum
+        self.assertIn("FACT_TIME", G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)[1])
+
+    def test_M4_lugar_trocado_pelo_lugar_da_fonte_morre(self):
+        af, t = self.af()
+        af["FACT_LOCATION"] = {"VALOR": "Emilia-Romagna", "LOCATION_SOURCE": "SECTION_HEADER"}
+        passou, falta = G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)
+        self.assertFalse(passou)
+        self.assertIn("FACT_LOCATION:ORIGEM_SECTION_HEADER_NAO_E_TEXT", falta)
+        af, t = self.af()                                   # o nome da fonte com rotulo TEXT, sem posicao no trecho
+        af["FACT_LOCATION"] = {"VALOR": "Emilia-Romagna", "LOCATION_SOURCE": "TEXT"}
+        self.assertIn("FACT_LOCATION:SEM_POSICAO", G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)[1])
+        af, t = self.af(lugar=None)
+        self.assertIn("FACT_LOCATION", G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)[1])
+
+    def test_M5_europa_2004_com_italia_2012_morre(self):
+        frase = "Rilevati 3 cm nel 2004 in Europa e nel 2012 in Italia, in Emilia Romagna."
+        af, t = self.af(frase, verbo="Rilevati", valor="3 cm", lugar="Italia",
+                        TEMPOS_NO_TRECHO=2, LUGARES_NO_TRECHO=3)
+        b = t.index("2004")
+        af["FACT_TIME"] = {"VALOR": "2004", "FACT_TIME_BASIS": {"TRECHO": "2004", "INICIO": b, "FIM": b + 4}}
+        af["FACT_TIME_ROLE"] = {"PAPEL": "ACONTECIMENTO", "ORIGEM": "LITERAL"}
+        passou, falta = G0A.portao_g0_da_afirmacao(af, self.CAPTURA, t)
+        self.assertFalse(passou)
+        self.assertIn("TEMPOS_CONCORRENTES:TEMPOS_NO_TRECHO=2", falta)
+        self.assertIn("LUGARES_CONCORRENTES:LUGARES_NO_TRECHO=3", falta)
+
+    def test_sem_texto_nao_ha_como_conferir(self):
+        af, _ = self.af()
+        self.assertIn("OBSERVACAO_MEDIDA:SEM_TEXTO_PARA_CONFERIR", G0A.portao_g0_da_afirmacao(af, self.CAPTURA)[1])
+
+    def test_o_motor_faz_objeto_so_de_observacao_medida_que_passou(self):
+        sg = {"CLAIM_KIND": "OBSERVACAO_MEDIDA", "FACT_TIME": "2031-06-01/2031-06-07", "FACT_LOCATION": "Modena",
+              "LOCATION_SOURCE": "TEXT"}
+        self.assertTrue(M._afirmacao_vira_objeto(sg))
+        self.assertFalse(M._afirmacao_vira_objeto(dict(sg, CLAIM_KIND="NAO SEI")))
+
+
 class TestAdmissaoNoPote(_Caso):
     def test_prova_de_afirmacao_nao_e_admitida_pelo_g0_do_item_nem_o_inverso(self):
         s = self.correr(self.af1)

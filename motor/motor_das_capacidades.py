@@ -713,8 +713,9 @@ def _objeto_do_futuro(f: dict, ctx: dict) -> tuple:
 
 
 def _afirmacao_vira_objeto(sg: dict) -> bool:
-    """Diretiva §1.5: afirmacao ALERTA_EVENTO com tempo E lugar -> SINAL. As outras ficam so no livro."""
-    return (sg.get("CLAIM_KIND") == "ALERTA_EVENTO" and not _ign(sg.get("FACT_TIME"))
+    """Diretiva §1.5: afirmacao ALERTA_EVENTO com tempo E lugar -> SINAL. As outras ficam so no livro.
+    §5-D (DT-FATO-OBSERVADO): OBSERVACAO_MEDIDA segue o mesmo caminho — so depois do G0 dela (marca + lugar)."""
+    return (sg.get("CLAIM_KIND") in ("ALERTA_EVENTO", "OBSERVACAO_MEDIDA") and not _ign(sg.get("FACT_TIME"))
             and not _ign(sg.get("FACT_LOCATION")) and sg.get("LOCATION_SOURCE") in LUGAR.LOCATION_SOURCES
             and sg.get("LOCATION_SOURCE") != LUGAR.UNRESOLVED)
 

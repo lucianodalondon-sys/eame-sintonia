@@ -38,6 +38,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from datetime import date
 from pathlib import Path
 
@@ -53,12 +54,27 @@ PAPEL_QUE_E_FACTO = "ACONTECIMENTO"
 LITERAL = "LITERAL"
 RELATIVO_D63 = "RELATIVO_D63"
 ORIGENS = (LITERAL, "CABECALHO_D147", "RELATIVA_ANCORADA_D149", RELATIVO_D63)
+#: §5-D (DT-FATO-OBSERVADO, 30/09) · a classe do facto OBSERVADO E MEDIDO. Nao e ALERTA_EVENTO (nao ha evento
+#: nomeado), nao e sinal nem oportunidade (e so a classe da afirmacao). Nome fechado pelo dono do contrato.
+OBSERVACAO_MEDIDA = "OBSERVACAO_MEDIDA"
 #: §1 · o vocabulario fechado da classe; NAO SEI e aceite como valor e BLOQUEIA (§2)
-CLAIM_KINDS = ("ALERTA_EVENTO", "CIENCIA_FICHA", "PRECO", "REGULATORIO", "RECOMENDACAO")
+CLAIM_KINDS = ("ALERTA_EVENTO", "CIENCIA_FICHA", "PRECO", "REGULATORIO", "RECOMENDACAO", OBSERVACAO_MEDIDA)
 #: §2 · o tempo que cada classe exige (o nome do campo da afirmacao; varios = basta um)
 TEMPO_DA_CLASSE = {"ALERTA_EVENTO": ("FACT_TIME",), "PRECO": ("MARKET_PERIOD",),
                    "REGULATORIO": ("VALIDITY", "ACT_TIME"), "RECOMENDACAO": ("VALIDITY",),
-                   "CIENCIA_FICHA": ()}
+                   "CIENCIA_FICHA": (), OBSERVACAO_MEDIDA: ("FACT_TIME",)}
+#: §5-D · A MARCA DE MEDICAO: DUAS partes, as duas ESCRITAS dentro do EVIDENCE_SPAN, cada uma com INICIO/FIM/TRECHO.
+#: O produtor declara-as em CLAIM_KIND.MARCA_DE_MEDICAO; a Intelligence confere a posicao, o literal e o vocabulario.
+#: A ancora do campo (cultura, lugar, «vigneti») NAO e marca: nenhuma das formas abaixo a aceita.
+#: Vocabulario fechado; crescer e decisao do dono do contrato, com mutante novo.
+MARCAS_DE_MEDICAO = {
+    # o verbo de medicao no particípio — quem mediu escreveu que mediu
+    "VERBO": re.compile(r"(?:registrat|rilevat|misurat)[aoie]", re.I),
+    # um numero com unidade fisica de medida (nao %, nao euro: preco e percentagem sao outras classes)
+    "VALOR": re.compile(r"[+\-−]?\s*\d+(?:[.,]\d+)?\s*(?:mm|millimetri|cm|°\s*C|hPa|km/h|m/s)", re.I),
+}
+#: §5-D · o verbo de medicao precedido de auxiliar de futuro («saranno/verranno registrati») nao e medicao feita
+_AUXILIAR_DE_FUTURO = re.compile(r"(?:sar|verr)(?:a|anno|à|ebbe|ebbero)\s+(?:\w+\s+)?$", re.I)
 #: §0 · o produtor nunca decide isto; trazer um destes = PRODUTOR_DECIDIU_LIBERACAO, e a afirmacao cai inteira
 CAMPOS_PROIBIDOS = ("LIBERADO", "LIBERACAO", "LIBERADO_POR", "LIBERADO_NA_CORRIDA", "CONFERENCIA_DE_LIBERACAO",
                     "NAO_PARA_CLIENTE", "ESPECIE", "USO")
@@ -186,8 +202,74 @@ def portao_g0_da_afirmacao(af: dict, item: dict, texto: str | None = None) -> tu
     outros = [c for c in exige if c != "FACT_TIME"]
     if outros and all(_ign(_valor(af.get(c))) for c in outros):
         falta.append("TEMPO_DA_CLASSE:%s" % "|".join(outros))                            # §2
+    falta += _nao_e_a_publicacao(af)                                                      # §1
+    if classe == OBSERVACAO_MEDIDA:
+        falta += _observacao_medida(af, texto)                                            # §5-D
     falta += _concorrentes(af)                                                            # §5-C · BLK-1
     return (not falta), sorted(falta)
+
+
+def _dentro(pos, span) -> bool:
+    return (isinstance(pos, dict) and isinstance(pos.get("INICIO"), int) and isinstance(pos.get("FIM"), int)
+            and isinstance(span.get("INICIO"), int) and isinstance(span.get("FIM"), int)
+            and span["INICIO"] <= pos["INICIO"] < pos["FIM"] <= span["FIM"])
+
+
+def _nao_e_a_publicacao(af: dict) -> list:
+    """§1 · FACT_TIME igual a PUBLISHED_AT so vale com a base DENTRO do trecho da afirmacao («oggi 23 settembre»).
+    Uma base fora do trecho que da o dia da publicacao e a publicacao a fazer de facto — mesmo que a linha exista."""
+    ft, pub = _valor(af.get("FACT_TIME")), _valor(af.get("PUBLISHED_AT"))
+    if _ign(ft) or _ign(pub) or str(ft) != str(pub):
+        return []
+    basis = (af.get("FACT_TIME") or {}).get("FACT_TIME_BASIS") if isinstance(af.get("FACT_TIME"), dict) else None
+    span = af.get("EVIDENCE_SPAN") if isinstance(af.get("EVIDENCE_SPAN"), dict) else {}
+    return [] if _dentro(basis, span) else ["FACT_TIME:E_A_PUBLICACAO_SEM_BASE_NO_TRECHO"]
+
+
+def _observacao_medida(af: dict, texto) -> list:
+    """§5-D · a classe OBSERVACAO_MEDIDA so passa com a MARCA escrita (verbo + valor com unidade) e o LUGAR com
+    posicao, os tres literais no texto e dentro do EVIDENCE_SPAN. Sem texto nao ha como conferir: recusa."""
+    if texto is None:
+        return ["OBSERVACAO_MEDIDA:SEM_TEXTO_PARA_CONFERIR"]
+    span = af.get("EVIDENCE_SPAN") if isinstance(af.get("EVIDENCE_SPAN"), dict) else {}
+    kind = af.get("CLAIM_KIND") if isinstance(af.get("CLAIM_KIND"), dict) else {}
+    marca = kind.get("MARCA_DE_MEDICAO")
+    falta = []
+    outras = [c for c in (kind.get("MARCAS") or []) if c != OBSERVACAO_MEDIDA]
+    if outras:
+        # §5-C · o produtor escreveu marca de OUTRA classe no trecho (evento, ato, preco...): escolher e inferir
+        falta.append("OBSERVACAO_MEDIDA:MARCA_DE_OUTRA_CLASSE:%s" % "|".join(sorted(map(str, outras))))
+    if not isinstance(marca, dict):
+        falta.append("MARCA_DE_MEDICAO:AUSENTE")
+    else:
+        for parte, forma in MARCAS_DE_MEDICAO.items():
+            m = marca.get(parte)
+            if not (isinstance(m, dict) and isinstance(m.get("INICIO"), int) and isinstance(m.get("FIM"), int)
+                    and isinstance(m.get("TRECHO"), str)):
+                falta.append("MARCA_DE_MEDICAO:%s_SEM_POSICAO" % parte)
+            elif str(texto)[m["INICIO"]:m["FIM"]] != m["TRECHO"]:
+                falta.append("MARCA_DE_MEDICAO:%s_NAO_ESTA_NO_TEXTO" % parte)
+            elif not _dentro(m, span):
+                falta.append("MARCA_DE_MEDICAO:%s_FORA_DO_TRECHO" % parte)
+            elif not forma.fullmatch(m["TRECHO"].strip()):
+                falta.append("MARCA_DE_MEDICAO:%s_FORA_DO_VOCABULARIO" % parte)
+            elif parte == "VERBO" and _AUXILIAR_DE_FUTURO.search(str(texto)[max(span["INICIO"], m["INICIO"] - 24):m["INICIO"]]):
+                # «saranno registrati» e uma medicao prometida, nao feita
+                falta.append("MARCA_DE_MEDICAO:VERBO_NO_FUTURO")
+    lugar = af.get("FACT_LOCATION") if isinstance(af.get("FACT_LOCATION"), dict) else {}
+    onde = lugar.get("ONDE")
+    if _ign(lugar.get("VALOR")):
+        falta.append("FACT_LOCATION")
+    elif lugar.get("LOCATION_SOURCE") != "TEXT":
+        # a observacao medida tem o lugar ESCRITO no trecho; cabecalho/fonte nao servem (COL-LAW-032)
+        falta.append("FACT_LOCATION:ORIGEM_%s_NAO_E_TEXT" % lugar.get("LOCATION_SOURCE"))
+    elif not (isinstance(onde, dict) and isinstance(onde.get("INICIO"), int) and isinstance(onde.get("FIM"), int)):
+        falta.append("FACT_LOCATION:SEM_POSICAO")
+    elif str(texto)[onde["INICIO"]:onde["FIM"]] != onde.get("TRECHO"):
+        falta.append("FACT_LOCATION:NAO_ESTA_NO_TEXTO")
+    elif not _dentro(onde, span):
+        falta.append("FACT_LOCATION:FORA_DO_TRECHO")
+    return falta
 
 
 def _concorrentes(af: dict) -> list:
