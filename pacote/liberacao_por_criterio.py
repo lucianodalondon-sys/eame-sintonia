@@ -57,6 +57,16 @@ CONFERENCIAS = ("C1_PROVA_DO_ARQUIVO", "C2_DATA_PROPRIA", "C3_LUGAR_PROPRIO", "C
 ORIGENS_DE_DATA_PROPRIA = ("LITERAL", "CABECALHO_D147", "RELATIVA_ANCORADA_D149")
 
 
+def _como_se_le(linha: str) -> str:
+    """Letras dobradas do negrito do PDF desfeitas pela regra do DONO (leis/tempo_da_afirmacao.como_se_le, ramo
+    produtor-afirmacoes-v1). Sem o dono disponivel, fica o literal — nunca uma segunda copia da regra."""
+    try:
+        import tempo_da_afirmacao as TA  # noqa: PLC0415
+    except ImportError:
+        return linha
+    return TA.como_se_le(linha)
+
+
 def _sabido(v) -> bool:
     return v not in (None, "", NS, "NAO_SEI", "UNKNOWN", "?")
 
@@ -178,6 +188,10 @@ def liberar(pote: dict, linhas: dict, armazem: Path | None, run_id: str) -> tupl
                               "TRECHO_DO_LUGAR": fonte["FACT_LOCATION_TRECHO"],
                               "SECAO": {"AFIRMACAO_EM": fonte["EVIDENCE_SPAN"]["INICIO"],
                                         "DATA_EM": fonte["FACT_TIME_BASIS"]["INICIO"]}})
+                    legivel = _como_se_le(p["TRECHO_DA_DATA"])
+                    if legivel != p["TRECHO_DA_DATA"]:
+                        # o literal fica (C1/C2 conferem-no no texto); ao lado, como um humano o le (regra do dono)
+                        p["TRECHO_DA_DATA_LEGIVEL"] = legivel
             conf[o["OBJETO_ID"]] = dict(c, COMPARTIMENTO=comp, ESPECIE=o.get("ESPECIE"), LIBERACAO=o["LIBERACAO"])
     return pote, conf
 
@@ -245,7 +259,10 @@ def main(argv=None) -> int:
     a.add_argument("--armazem", required=True)
     a.add_argument("--entrega", required=True)
     a.add_argument("--hoje", default=date.today().isoformat())
+    a.add_argument("--produtor", help="raiz do ramo produtor-afirmacoes (dono de leis/tempo_da_afirmacao.como_se_le)")
     x = a.parse_args(argv)
+    if x.produtor:
+        sys.path.append(str(Path(x.produtor) / "leis"))
     sys.path.insert(0, str(RAIZ / "admissao"))
     import motor_das_capacidades as M                   # noqa: PLC0415
     import gatilho_da_inteligencia as GI                # noqa: PLC0415
