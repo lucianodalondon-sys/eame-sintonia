@@ -695,6 +695,34 @@ def extrair_tempo(texto: str, alvo: dict) -> dict:
                       "LITERAL e nao RELATIVO_D63 — o valor nao foi calculado da publicacao"
                       % (porque, _escreve_este_dia(escritos, c["fact_time"])))
         origem = RELATIVO_D63 if calculada else LITERAL
+        # ── A CONTAGEM DE TEMPOS TEM DE INCLUIR O TEMPO EMITIDO, quando ele e LITERAL ──
+        # Achado pela bancada L2 no artefato publicado (derived:21): `FACT_TIME = «marzo»` com
+        # `ORIGEM = LITERAL` e `TEMPOS_NO_TRECHO = 0`. E o espelho exacto da PROD-3 do lado do
+        # lugar, e pela mesma razao: um mes SOZINHO nao casa nenhuma das cinco formas de data
+        # (`_RE_DIA_MES` quer o dia, `_RE_SO_MES` quer o ano), logo o contador nao o ve — mas o
+        # leitor vivo emitiu-o.
+        #
+        #     ZERO AO LADO DE UM VALOR PRESENTE E O MESMO ESTADO INCOERENTE,
+        #     SEJA DO LADO DO TEMPO OU DO LADO DO LUGAR.
+        #
+        # ⚠️ SO PARA `LITERAL`, e o limite e da L2: com `CABECALHO_D147`,
+        # `RELATIVA_ANCORADA_D149` ou `RELATIVO_D63` o valor NAO esta escrito no trecho — vem
+        # do cabecalho ou de uma conta — e ai a contagem de zero esta CERTA. Contar o valor
+        # nesses casos era inventar uma data escrita onde nao ha nenhuma.
+        # ⚠️ A CONDICAO E «NADA CONTADO», E NAO «o valor nao bate com nenhum».
+        # A 1.a versao perguntava `not _escreve_este_dia(escritos, valor)`, e isso QUEBROU um
+        # teste que ja existia: em «il 18 febbraio» (dia e mes sem ano) o `primeiro_dia` nao
+        # resolve dia nenhum, logo `_escreve_este_dia` nao podia casar, logo eu somava uma
+        # segunda expressao sobre a mesma data, a contagem ia a 2, e a guarda dos concorrentes
+        # matava um FACT_TIME que estava certo. Com `origem == LITERAL` o valor FOI lido no
+        # trecho: se ja se contou alguma coisa, ela e ele. So o ZERO e que e incoerente.
+        if origem == LITERAL and not escritos:
+            escritos = escritos + [{"INICIO": None, "FIM": None, "TRECHO": str(c["fact_time"]),
+                                    "DE_ONDE": "emitido pelo leitor vivo como LITERAL; a forma "
+                                               "escrita nao casa nenhuma das cinco formas de "
+                                               "data (ex.: o mes sozinho, «marzo»)"}]
+            base = dict(base, TEMPOS_NO_TRECHO=len(escritos),
+                        EXPRESSOES_DE_TEMPO=[x["TRECHO"] for x in escritos])
         trecho = c["fact_time_evidencia"] if calculada else _trecho_do_basis(c["fact_time_basis"])
         basis = _basis(texto, trecho, (ini, fim)) or _basis(texto, span, (ini, fim))
         # ── D149 · a relativa ancora-se no periodo IMPRESSO, quando ele existe ──

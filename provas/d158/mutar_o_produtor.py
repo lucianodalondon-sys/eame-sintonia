@@ -230,6 +230,18 @@ MUTANTES = [
     ("PROD3_A_CONTAGEM_IGNORA_O_LUGAR_EMITIDO", "leis/afirmacao_do_documento.py",
      '    if valor != UNRESOLVED and not any(x["PLACE"] == valor for x in escritos):',
      '    if False:'),
+    ("PROD3_A_CONTAGEM_IGNORA_O_TEMPO_EMITIDO", "leis/tempo_da_afirmacao.py",
+     "        if origem == LITERAL and not escritos:", "        if False:"),
+    # E os dois limites, um mutante cada:
+    #  · se contasse em QUALQUER origem, a relativa e o cabecalho declaravam uma data escrita
+    #    no trecho onde nao ha nenhuma;
+    #  · se somasse mesmo havendo expressoes contadas, «il 18 febbraio» ia a 2 e a guarda dos
+    #    concorrentes matava um FACT_TIME certo (foi o que aconteceu, e um teste apanhou-o).
+    ("PROD3_O_TEMPO_EMITIDO_CONTA_EM_QUALQUER_ORIGEM", "leis/tempo_da_afirmacao.py",
+     "        if origem == LITERAL and not escritos:", "        if not escritos:"),
+    ("PROD3_O_TEMPO_EMITIDO_SOMA_SE_MESMO_COM_EXPRESSOES", "leis/tempo_da_afirmacao.py",
+     "        if origem == LITERAL and not escritos:",
+     "        if origem == LITERAL and not _escreve_este_dia(escritos, c[\"fact_time\"]):"),
     # ── PROD-4 · o ato citado pelo numero ────────────────────────────────────
     # Uma alternativa por mutante: a lei da validade (D160 §2.2) mostrou que um mutante unico
     # sobrevive quando outra alternativa apanha o mesmo texto de prova.

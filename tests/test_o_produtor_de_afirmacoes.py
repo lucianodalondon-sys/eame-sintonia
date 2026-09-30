@@ -1102,6 +1102,60 @@ class OMesSozinhoNaoTemAno(unittest.TestCase):
         self.assertEqual(af['FACT_LOCATION']['VALOR'], NAO_SEI)
 
 
+class ATempoEmitidoTambemConta(unittest.TestCase):
+    """PROD-3, o espelho do lado do TEMPO — achado pela bancada L2 no artefato publicado.
+
+    Em `derived:21` saía `FACT_TIME = «marzo»` com `ORIGEM = LITERAL` e
+    `TEMPOS_NO_TRECHO = 0`. A mesma causa do lado do lugar: um mês SOZINHO não casa nenhuma
+    das cinco formas de data (`_RE_DIA_MES` quer o dia, `_RE_SO_MES` quer o ano), logo o
+    contador não o vê — e o leitor vivo emitiu-o.
+
+    O limite é da L2, e é o que impede o conserto de virar invenção: **só vale para LITERAL.**"""
+
+    def test_o_mes_sozinho_LITERAL_conta_um(self):
+        af = _produzir('La raccolta si e svolta a marzo in provincia di Ferrara.',
+                       published_at='2026-05-10')[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.LITERAL)
+        self.assertEqual(af['FACT_TIME_ROLE']['VALOR_LIDO'], 'marzo')
+        self.assertEqual(af['TEMPOS_NO_TRECHO'], 1)
+
+    def test_a_relativa_continua_a_contar_ZERO_e_esta_certa(self):
+        """Com `RELATIVO_D63` o valor foi CALCULADO: não há data escrita no trecho. Contar o
+        valor aqui seria inventar uma data escrita onde não há nenhuma."""
+        af = _produzir('La settimana scorsa la cimice ha colpito i frutteti.',
+                       published_at='2026-05-10')[0]
+        self.assertEqual(af['FACT_TIME_ROLE']['ORIGEM'], TA.RELATIVO_D63)
+        self.assertEqual(af['TEMPOS_NO_TRECHO'], 0)
+
+    def test_o_cabecalho_D147_conta_ZERO_e_esta_certo(self):
+        """O valor vem do cabeçalho da secção, fora do trecho."""
+        vistos = []
+        for af in _produzir(BOLETIM):
+            if af['FACT_TIME_ROLE']['ORIGEM'] in TA.ORIGENS_COM_BASIS_FORA_DO_TRECHO:
+                vistos.append(af['TEMPOS_NO_TRECHO'])
+        self.assertTrue(vistos, 'o boletim tem de produzir pelo menos uma origem de fora')
+        self.assertEqual(set(vistos), {0})
+
+    def test_a_coerencia_do_TEMPO_vale_em_toda_a_producao(self):
+        """A regra geral: origem LITERAL => contagem >= 1. Zero com valor literal é o estado
+        que não pode existir em nenhuma afirmação."""
+        for texto in ('La raccolta si e svolta a marzo in provincia di Ferrara.',
+                      'La cimice ha colpito i frutteti in provincia di Cuneo nel 2012.',
+                      'Il volo e stato osservato in marzo nel ferrarese.',
+                      BOLETIM):
+            for af in _produzir(texto):
+                if af['FACT_TIME_ROLE']['ORIGEM'] == TA.LITERAL:
+                    self.assertGreaterEqual(af['TEMPOS_NO_TRECHO'], 1,
+                                            '%s -> %r' % (af['TRECHO_LITERAL'][:45],
+                                                          af['FACT_TIME_ROLE']['VALOR_LIDO']))
+
+    def test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador(self):
+        af = _produzir('La cimice asiatica e stata rilevata in Europa per la prima volta nel '
+                       '2004 e in Italia nel 2012, in Emilia Romagna.')[0]
+        self.assertEqual(af['TEMPOS_NO_TRECHO'], 2)
+        self.assertEqual(af['FACT_TIME']['VALOR'], NAO_SEI)
+
+
 class OAtoCitadoPeloNumero(unittest.TestCase):
     """PROD-4 · um ATO classificado como acontecimento (MEDICAO-CONJUNTA-BLK1 §PROD-4).
 
