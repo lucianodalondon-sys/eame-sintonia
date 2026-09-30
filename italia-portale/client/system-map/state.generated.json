@@ -2787,6 +2787,7 @@
       "motor/corrida_da_inteligencia.py",
       "motor/cruzamentos_max.py",
       "motor/fila_bulas_a_ler.py",
+      "motor/g0_da_afirmacao.py",
       "motor/grafo_de_dependencia.py",
       "motor/matriz_recorte.py",
       "motor/motor_das_capacidades.py",
@@ -4827,9 +4828,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l3-radar-original-v1",
-    "HEAD": "0d726d501e0b995bc9dc5053cfefc21e0920227b",
-    "GENERATED_AT": "2026-09-30T04:50:01-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3441c0a2d37b7e8da482336389b7628eac08ce553110791ca5d143158caf7a7d"
+    "HEAD": "7f09b08f328803cc14100776eaf5a88d80fe5628",
+    "GENERATED_AT": "2026-09-30T11:45:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4d3ba34a137df95ab90b3e4a39bfa01b8cc2a09e21735cc09c920de3ba638298"
   },
   "FAMILIES": [
     {
@@ -6077,7 +6078,7 @@
       ],
       "file_count": 4,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-INT-CAP-WIN, C-INT-MOTOR-CAPACIDADES, C-LUGAR-COLETA.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-INT-CAP-WIN, C-INT-MOTOR-CAPACIDADES, C-LUGAR-COLETA, C-POTE-INT-CASCO.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -6085,6 +6086,7 @@
         "C-INT-CAP-WIN",
         "C-INT-MOTOR-CAPACIDADES",
         "C-LUGAR-COLETA",
+        "C-POTE-INT-CASCO",
         "C-PROVA-COLETA",
         "C-SALA-DE-ESPERA",
         "C-TESTES"
@@ -49553,7 +49555,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/motor_das_capacidades.py:78",
+          "motor/motor_das_capacidades.py:79",
           "provas/_mutantes_cap_sci.py:18",
           "provas/int_r7/mutantes.py:22",
           "provas/porta_unica_referencia/mutantes.py:81"
@@ -49655,7 +49657,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "motor/motor_das_capacidades.py:77",
+          "motor/motor_das_capacidades.py:78",
           "provas/cap_win/mutantes.py:18",
           "provas/chave_problema/ensaio_033_descartavel.py:59",
           "provas/chave_problema/mutacao_chave_problema.py:46"
@@ -50782,9 +50784,9 @@
           "COLUNAS_DO_RAW",
           "_CAMPO_DA_JANELA"
         ],
-        "palavras": 41,
+        "palavras": 51,
         "por_lingua": {},
-        "sem_marca_de_lingua": 41,
+        "sem_marca_de_lingua": 51,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -57454,7 +57456,7 @@
         "PROVA": [
           "motor/cruzamentos_max.py:61",
           "pacote/pote_cruzamentos_max.py:51",
-          "pacote/pote_intelligence_casco.py:68",
+          "pacote/pote_intelligence_casco.py:69",
           "provas/_mutantes_ponte_casco.py:23"
         ],
         "PORQUE": "estas pecas importam-na — C-CRUZAMENTOS-MAX · C-POTE-CRUZAMENTOS-MAX · C-POTE-INT-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -58345,6 +58347,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-AFIRMACAO-DA-FONTE",
         "C-INT-PORTA-REFERENCIA",
         "C-MAPA-TESTES",
         "C-PONTE-INT-CASCO"
@@ -58364,6 +58367,7 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_DA_PROVA_V2",
           "COMPARTIMENTOS",
           "DA_V1",
           "LER_NA_ENTRADA",
@@ -58371,9 +58375,9 @@
           "PALAVRAS",
           "_CHAVES_T4"
         ],
-        "palavras": 155,
+        "palavras": 165,
         "por_lingua": {},
-        "sem_marca_de_lingua": 155,
+        "sem_marca_de_lingua": 165,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -66281,7 +66285,8 @@
         "PROVA": [
           "provas/portal_publica_sozinho/ensaio.py:34",
           "provas/portal_publica_sozinho/mutantes.py:25",
-          "tests/test_prova_reversa_do_pote.py:26"
+          "tests/test_prova_reversa_do_pote.py:26",
+          "tests/test_publicar_preview_da_pasta.py:542"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -74196,6 +74201,9 @@
         "pacote/pote_intelligence_casco.py",
         "pacote/validar_pote_v2.py",
         "pedido/receitas.py",
+        "portoes/PUBLICACAO-AUTOMATICA.json",
+        "portoes/casco_preview.cmd",
+        "portoes/publicar_preview_da_pasta.py",
         "provas/_c108a_ultima_corrida.json",
         "provas/a_collection_preserva_o_fato.py",
         "provas/a_fase_10_entra_no_acervo.py",
@@ -80861,7 +80869,7 @@
       "evidence": [
         {
           "file": "motor/motor_das_capacidades.py",
-          "line": 87,
+          "line": 88,
           "snippet": "import afirmacao_da_fonte as AFIRMACAO           # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
@@ -80958,6 +80966,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AFIRMACAO-DA-FONTE",
+      "to": "C-POTE-INT-CASCO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A afirmacao da fonte — a lei que a Puglia ensinou, aplicada ao extrator dos boletins tem o seu codigo importado por O pote unico: uma corrida da Intelligence, um compartimento por ferramenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/pote_intelligence_casco.py",
+          "line": 77,
+          "snippet": "from afirmacao_da_fonte import ENTITY_SOURCES           # noqa: E402  (leis/: dono do vocabulario COL-LAW-221)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AFIRMACAO-DA-FONTE--IMPORTS-->C-POTE-INT-CASCO",
+            "FROM": "C-AFIRMACAO-DA-FONTE",
+            "TO": "C-POTE-INT-CASCO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -112652,7 +112695,7 @@
       "evidence": [
         {
           "file": "motor/motor_das_capacidades.py",
-          "line": 78,
+          "line": 79,
           "snippet": "import capacidade_cientifica as SCI              # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CAP-SCI--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
@@ -112910,7 +112953,7 @@
       "evidence": [
         {
           "file": "motor/motor_das_capacidades.py",
-          "line": 77,
+          "line": 78,
           "snippet": "import cap_win as WIN                            # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-CAP-WIN--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
@@ -115882,7 +115925,7 @@
       "evidence": [
         {
           "file": "motor/motor_das_capacidades.py",
-          "line": 79,
+          "line": 80,
           "snippet": "import porta_da_referencia as PORTA              # noqa: E402  (D116: uma edicao para as duas)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
@@ -115952,7 +115995,7 @@
       "evidence": [
         {
           "file": "pacote/pote_intelligence_casco.py",
-          "line": 75,
+          "line": 76,
           "snippet": "import porta_da_referencia as PORTA                    # noqa: E402  (motor/)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-POTE-INT-CASCO",
@@ -126298,7 +126341,7 @@
       "evidence": [
         {
           "file": "motor/motor_das_capacidades.py",
-          "line": 82,
+          "line": 83,
           "snippet": "import lugar_do_fato as LUGAR                    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
@@ -131212,7 +131255,7 @@
       "evidence": [
         {
           "file": "pacote/pote_intelligence_casco.py",
-          "line": 63,
+          "line": 64,
           "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
@@ -142513,7 +142556,7 @@
       "evidence": [
         {
           "file": "pacote/pote_intelligence_casco.py",
-          "line": 68,
+          "line": 69,
           "snippet": "import ponte_intelligence_casco as V1                  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PONTE-INT-CASCO--IMPORTS-->C-POTE-INT-CASCO",
@@ -146111,7 +146154,7 @@
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 333,
+          "line": 338,
           "snippet": "for termo in (\"POTE_INTELLIGENCE_CASCO/v2\", \"pacote/pote_intelligence_casco.py\", \"pacote/validar_pote_v2.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -146127,7 +146170,7 @@
         },
         {
           "file": "tests/test_pote_v2_unico.py",
-          "line": 333,
+          "line": 338,
           "snippet": "for termo in (\"POTE_INTELLIGENCE_CASCO/v2\", \"pacote/pote_intelligence_casco.py\", \"pacote/validar_pote_v2.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -152098,7 +152141,7 @@
         },
         {
           "file": "tests/test_publicar_preview_da_pasta.py",
-          "line": 413,
+          "line": 420,
           "snippet": "import publicar_portal_sozinho as P",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PUBLICA-SOZINHO--IMPORTS-->C-TESTES",
@@ -152109,6 +152152,73 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PUBLICA-SOZINHO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portal publica sozinho (D126) alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_publicar_preview_da_pasta.py",
+          "line": 542,
+          "snippet": "c = json.loads((RAIZ / \"portoes\" / \"PUBLICACAO-AUTOMATICA.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PUBLICA-SOZINHO--READS-->C-TESTES",
+            "FROM": "C-PUBLICA-SOZINHO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_publicar_preview_da_pasta.py",
+          "line": 559,
+          "snippet": "cmd = (RAIZ / \"portoes\" / \"casco_preview.cmd\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PUBLICA-SOZINHO--READS-->C-TESTES",
+            "FROM": "C-PUBLICA-SOZINHO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_publicar_preview_da_pasta.py",
+          "line": 560,
+          "snippet": "chamada = [l for l in cmd.splitlines() if \"publicar_preview_da_pasta.py\" in l and not l.lower().startswith(\"rem\")]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PUBLICA-SOZINHO--READS-->C-TESTES",
+            "FROM": "C-PUBLICA-SOZINHO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -175401,8 +175511,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2276,
+  "UNCLAIMED_CODE_FILES": [
+    "motor/g0_da_afirmacao.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 2277,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -175683,13 +175795,13 @@
     "components_pending": 273,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1933,
-    "edges_proven": 1864,
+    "edges": 1935,
+    "edges_proven": 1866,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4233,
+    "files_tracked": 4234,
     "files_covered": 1957,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 1,
     "roles_proven": 208,
     "roles_declared_only": 10,
     "roles_unknown": 96,
