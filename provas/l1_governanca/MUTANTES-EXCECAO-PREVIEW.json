@@ -1,9 +1,9 @@
 {
  "ALVO": "leis/fundacao_da_coleta.py",
- "SHA256_DO_ALVO": "438732d1a3c18d0bb72a41430691ccd303dd0c249f3cb31cfec1e6a5dc878385",
+ "SHA256_DO_ALVO": "0abd2ac58cca6d4c4b13a82982e8ae9146afc261aed2b5944ccc05d800019717",
  "SUITE": "tests.test_excecao_preview_e2e",
- "MUTANTES": 87,
- "MORTOS": 87,
+ "MUTANTES": 109,
+ "MORTOS": 109,
  "DESFEITO_E_CONFERIDO": true,
  "RESULTADOS": [
   {
@@ -440,8 +440,11 @@
    "PERGUNTA": "adendo-LAB",
    "ESTADO": "MORTO",
    "MORTO_POR": [
+    "test_CTRL_prova_real_deste_pote_passa",
+    "test_o_resultado_diz_autoria_provada_false",
+    "test_CTRL_os_legitimos_continuam_a_passar",
     "test_lab_fora_das_pastas_do_lab_recusa",
-    "test_na_trava_real_as_pastas_do_lab_nao_incluem_a_pasta_dos_testes"
+    "test_K3b_o_detalhe_e_texto_nao_verificado_e_nao_decide"
    ]
   },
   {
@@ -449,7 +452,11 @@
    "PERGUNTA": "adendo-LAB",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_lab_com_sha_fixado_errado_ou_sem_sha_recusa"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -457,8 +464,11 @@
    "PERGUNTA": "LB5",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_LB5_pote_do_produtor_em_subpasta_da_pasta_do_lab",
-    "test_lab_na_pasta_do_proprio_pote_recusa"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -468,9 +478,9 @@
    "MORTO_POR": [
     "test_LB1_prova_de_outro_pote_que_so_menciona_este",
     "test_LB2_indice_com_varios_potes_nao_e_uma_prova",
+    "test_LB2_uma_lista_nao_e_lida_pela_ultima_entrada",
     "test_LB3_este_pote_citado_como_rejeitado",
-    "test_LB4_corrida_com_sufixo",
-    "test_LB4_sha_do_pote_com_caixa_ou_pedaco_diferente_recusa"
+    "test_LB4_corrida_com_sufixo"
    ]
   },
   {
@@ -478,10 +488,11 @@
    "PERGUNTA": "LB2/VER-a",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_K3b_o_detalhe_e_texto_nao_verificado_e_nao_decide",
-    "test_um_FAIL_nao_precisa_de_elos_nem_de_detalhe_coerente_para_recusar",
-    "test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto",
-    "test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo"
+    "test_o_exemplo_real_FAIL_do_LAB_recusa_por_ser_FAIL",
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM"
    ]
   },
   {
@@ -489,7 +500,11 @@
    "PERGUNTA": "LB1",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_LB4_sha_do_pote_com_caixa_ou_pedaco_diferente_recusa"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -497,7 +512,11 @@
    "PERGUNTA": "LB4",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_lab_de_outra_corrida_recusa"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -505,7 +524,11 @@
    "PERGUNTA": "LB6",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_LB6_lab_origin_e_dado_e_tem_de_ser_sintonia_lab"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -513,7 +536,11 @@
    "PERGUNTA": "LB6",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_LB6_o_lab_nao_pode_ser_o_produtor_do_pote"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -521,7 +548,11 @@
    "PERGUNTA": "LB1",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -529,7 +560,11 @@
    "PERGUNTA": "LB2",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -537,8 +572,11 @@
    "PERGUNTA": "formato-real",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_K2_veredito_exato_so_PASS_ou_FAIL",
-    "test_redteam_lab_que_diz_fail_ou_nao_e_um_objeto"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -546,7 +584,11 @@
    "PERGUNTA": "LB6",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_LB6_o_lab_nao_pode_ser_o_produtor_do_pote"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -554,7 +596,11 @@
    "PERGUNTA": "formato-real",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_envelope_do_pote_tem_de_bater"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -562,7 +608,11 @@
    "PERGUNTA": "formato-real",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_envelope_do_pote_tem_de_bater"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -570,7 +620,11 @@
    "PERGUNTA": "formato-real",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_o_nome_da_prova_tem_de_ser_o_do_formato_real"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -578,11 +632,11 @@
    "PERGUNTA": "VER-b",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_V4_duas_copias_da_mesma_prova_sao_empate",
-    "test_V4a_copia_do_PASS_antigo_numa_pasta_irma",
-    "test_V4ctl_na_mesma_pasta_o_FAIL_recente_derruba_o_PASS",
-    "test_V3c_ctl_PASS_mais_antigo_que_o_FAIL_recusa",
-    "test_a_um_FAIL_mais_novo_em_menos_2_derruba_o_PASS_antigo_sem_sufixo"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -590,8 +644,11 @@
    "PERGUNTA": "VER-c",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_V4_duas_copias_da_mesma_prova_sao_empate",
-    "test_c_empate_de_data_e_FAIL"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -599,11 +656,11 @@
    "PERGUNTA": "VER-a",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_V4a_copia_do_PASS_antigo_numa_pasta_irma",
-    "test_V4b_PASS_no_pai_e_FAIL_recente_numa_subpasta",
-    "test_V4ctl_na_mesma_pasta_o_FAIL_recente_derruba_o_PASS",
-    "test_V3c_ctl_PASS_mais_antigo_que_o_FAIL_recusa",
-    "test_V4d_ctl_o_FAIL_recente_com_o_nome_certo_derruba"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -611,7 +668,11 @@
    "PERGUNTA": "VER",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_versao_irma_com_o_nome_deste_par_e_conteudo_de_outro_e_FAIL"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -619,7 +680,11 @@
    "PERGUNTA": "formato-real",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_o_nome_da_prova_tem_de_ser_o_do_formato_real"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -627,7 +692,11 @@
    "PERGUNTA": "formato-real",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_o_nome_da_prova_tem_de_ser_o_do_formato_real"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -635,7 +704,11 @@
    "PERGUNTA": "VER-data",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_data_ausente_ou_invalida_e_FAIL"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -643,7 +716,11 @@
    "PERGUNTA": "K2",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_K2_marca_de_rejeicao_em_qualquer_caixa_e_nivel"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -651,7 +728,11 @@
    "PERGUNTA": "K2",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_K2_marca_de_rejeicao_em_qualquer_caixa_e_nivel"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -659,7 +740,11 @@
    "PERGUNTA": "K1",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_K1_chave_desconhecida_na_prova"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -667,15 +752,23 @@
    "PERGUNTA": "K4",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_K4_PASS_exige_os_sete_elos_a_PASS_ou_OK"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
-   "MUTANTE": "M84_so_FALHOU_conta_como_elo_mau",
+   "MUTANTE": "M84_so_FALHA_conta_como_elo_mau",
    "PERGUNTA": "K4",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_K4_PASS_exige_os_sete_elos_a_PASS_ou_OK"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -683,11 +776,11 @@
    "PERGUNTA": "V4b",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_a_atravessar_nao_mexe_na_fundacao",
-    "test_c_conferencia_falhada_recusa",
-    "test_c_contagem_de_liberados_que_mente_recusa",
-    "test_c_liberado_por_outra_corrida_recusa",
-    "test_c_objeto_nao_para_cliente_recusa_o_pote_inteiro"
+    "test_o_exemplo_real_FAIL_do_LAB_recusa_por_ser_FAIL",
+    "test_o_exemplo_real_PASS_do_LAB_passa_na_conferencia",
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa"
    ]
   },
   {
@@ -695,7 +788,11 @@
    "PERGUNTA": "VER-data",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_data_ausente_ou_invalida_e_FAIL"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -703,11 +800,11 @@
    "PERGUNTA": "V3c",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_V3b_PASS_datado_no_futuro_nao_congela_o_par",
-    "test_V3b_o_futuro_tem_tolerancia_de_5_minutos",
-    "test_V3c_PASS_dentro_da_tolerancia_nao_vence_um_FAIL",
-    "test_V3c_a_tolerancia_so_salva_a_propria_prova_quando_e_a_unica",
-    "test_V3c_tolerancia_nao_deixa_PASS_futuro_vencer_FAIL_anterior"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -727,7 +824,11 @@
    "PERGUNTA": "V3c",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_V3c_tolerancia_nao_deixa_PASS_futuro_vencer_FAIL_anterior"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -735,7 +836,11 @@
    "PERGUNTA": "V3c",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_V3c_a_tolerancia_so_salva_a_propria_prova_quando_e_a_unica"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -743,9 +848,11 @@
    "PERGUNTA": "V4d",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_V4d_o_FAIL_recente_com_grafia_anomala_poe_o_par_em_FAIL",
-    "test_V4d_o_par_citado_pelo_nome_mesmo_sem_json_valido",
-    "test_V4d_o_par_citado_so_pelo_conteudo_num_nome_qualquer"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -753,7 +860,11 @@
    "PERGUNTA": "V4d",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_V4d_o_par_citado_pelo_nome_mesmo_sem_json_valido"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   },
   {
@@ -761,7 +872,271 @@
    "PERGUNTA": "V4d",
    "ESTADO": "MORTO",
    "MORTO_POR": [
-    "test_V4d_o_par_citado_so_pelo_conteudo_num_nome_qualquer"
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M93_arvore_nao_canonica_ignorada",
+   "PERGUNTA": "R6",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4d_o_par_citado_pelo_nome_mesmo_sem_json_valido",
+    "test_B1_ficheiro_vazio_com_o_nome_do_par_bak_bloqueia",
+    "test_H1_ficheiro_maior_que_o_teto_reprova_a_arvore",
+    "test_H2_BOM_reprova_a_arvore",
+    "test_H4_embrulhado_em_objeto_ou_lista_reprova_a_arvore"
+   ]
+  },
+  {
+   "MUTANTE": "M94_nao_canonico_nunca_marcado",
+   "PERGUNTA": "R6",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_V4d_o_par_citado_pelo_nome_mesmo_sem_json_valido",
+    "test_B1_ficheiro_vazio_com_o_nome_do_par_bak_bloqueia",
+    "test_H1_ficheiro_maior_que_o_teto_reprova_a_arvore",
+    "test_H2_BOM_reprova_a_arvore",
+    "test_H4_embrulhado_em_objeto_ou_lista_reprova_a_arvore"
+   ]
+  },
+  {
+   "MUTANTE": "M95_ficheiro_grande_demais_aceite",
+   "PERGUNTA": "H1",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M96_BOM_aceite",
+   "PERGUNTA": "H2",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M97_outra_codificacao_aceite",
+   "PERGUNTA": "H5",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M98_json_invalido_aceite",
+   "PERGUNTA": "R6",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M99_chave_repetida_aceite",
+   "PERGUNTA": "R6",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M100_nao_objeto_aceite",
+   "PERGUNTA": "H4",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M101_chaves_abertas_na_arvore",
+   "PERGUNTA": "H4",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_H4_embrulhado_em_objeto_ou_lista_reprova_a_arvore"
+   ]
+  },
+  {
+   "MUTANTE": "M102_par_noutro_tipo_aceite",
+   "PERGUNTA": "H8",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M104_schema_nao_conferido",
+   "PERGUNTA": "V3-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M105_script_v2_aceite_pelo_sha",
+   "PERGUNTA": "V3-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_v2_e_qualquer_outro_script_recusam",
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM"
+   ]
+  },
+  {
+   "MUTANTE": "M106_script_so_pelo_sha",
+   "PERGUNTA": "V3-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M113_script_versao_nao_conferida",
+   "PERGUNTA": "R7",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M114_sha_por_prefixo",
+   "PERGUNTA": "R7",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M107_juiz_nao_conferido",
+   "PERGUNTA": "V3-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M108_PASS_sem_objeto_provado",
+   "PERGUNTA": "V3-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M109_pre_condicoes_ignoradas",
+   "PERGUNTA": "V3-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M110_medicao_crua_nao_exigida",
+   "PERGUNTA": "V3-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M112_medicao_crua_em_texto_aceite",
+   "PERGUNTA": "V3-LAB",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M111_elo_ok_em_qualquer_caixa",
+   "PERGUNTA": "K4",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
+   ]
+  },
+  {
+   "MUTANTE": "M103_sha_so_em_minusculas",
+   "PERGUNTA": "H3",
+   "ESTADO": "MORTO",
+   "MORTO_POR": [
+    "test_c_pote_sem_objeto_nenhum_recusa",
+    "test_f_pedido_de_preview_completo_atravessa",
+    "test_f_preview_da_vercel_numa_branch_que_nao_e_de_promocao_atravessa",
+    "test_PREVIEW_PODE_RECEBER_SIM",
+    "test_PRODUCAO_PODE_RECEBER_NAO_mesmo_com_pote_liberado"
    ]
   }
  ]
