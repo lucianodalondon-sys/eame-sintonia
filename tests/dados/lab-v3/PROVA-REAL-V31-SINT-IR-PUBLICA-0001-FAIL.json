@@ -1,0 +1,132 @@
+{
+ "LAB_ORIGIN": "sintonia-lab",
+ "SCHEMA": "PROVA_REVERSA/v3",
+ "SCRIPT_VERSAO": "v3.1",
+ "DATA_UTC": "2026-09-30T07:37:44Z",
+ "POTE_SHA256": "a2b59283e9ca910f5af822ce9b3a636f4f253433d3aa828905d197e63b21bf35",
+ "POTE_SHA256_TIPO": "CANONICO: sha256(json.dumps(pote, ensure_ascii=False, sort_keys=True, separators=(\",\",\":\")))",
+ "RUN_ID": "SINT-IR-PUBLICA-0001",
+ "ENVELOPE_HASH": "NAO_EXISTE_NO_POTE_PUBLICADO",
+ "VEREDITO": "FAIL",
+ "VEREDITO_DETALHE": "VAZIO_LEGITIMO (F2): nenhum objeto LIBERADO_PARA_CLIENTE no pote publicado; o pote e o seu sha continuam provados abaixo",
+ "VEREDITO_DETALHE_STATUS": "TEXTO_NAO_VERIFICADO",
+ "JULGAMENTO_POR_ELO": {
+  "PRE_CONDICOES_FALHAS": [
+   "nenhum objeto provado (vazio/objeto inexistente)"
+  ],
+  "ELOS": {
+   "E1": {
+    "ESTADO": "OK",
+    "MOTIVOS": []
+   },
+   "E3": {
+    "ESTADO": "OK",
+    "MOTIVOS": []
+   },
+   "E2": {
+    "ESTADO": "FALHA",
+    "MOTIVOS": [
+     "elo não medido"
+    ]
+   },
+   "E4": {
+    "ESTADO": "FALHA",
+    "MOTIVOS": [
+     "elo não medido"
+    ]
+   },
+   "E5": {
+    "ESTADO": "FALHA",
+    "MOTIVOS": [
+     "elo não medido"
+    ]
+   },
+   "E6": {
+    "ESTADO": "FALHA",
+    "MOTIVOS": [
+     "elo não medido"
+    ]
+   },
+   "E7": {
+    "ESTADO": "FALHA",
+    "MOTIVOS": [
+     "elo não medido"
+    ]
+   }
+  },
+  "DETALHE_TEXTO_NAO_VERIFICADO": "VAZIO_LEGITIMO (F2): nenhum objeto LIBERADO_PARA_CLIENTE no pote publicado; o pote e o seu sha continuam provados abaixo"
+ },
+ "JUIZ": "veredito.py",
+ "JUIZ_SHA256": "6facf91bc221946cad865ccb187fc00f695054400b74667cb58b94d3a49dd6fb",
+ "PREVIEW": "https://sintonia-eame-preview-9wfbzk6ej-london-creative.vercel.app",
+ "OBJETOS_PROVADOS": [],
+ "ELOS": {
+  "E1": {
+   "GERAL": {
+    "E1_PREVIEW_POTE_JS_HTTP": 200,
+    "E1_PORTALE_HTTP": 200
+   },
+   "POR_OBJETO": {}
+  },
+  "E2": {
+   "GERAL": {},
+   "POR_OBJETO": {}
+  },
+  "E3": {
+   "GERAL": {
+    "E3_SHA_CANONICO_DO_POTE_NO_AR_CONFERE": true,
+    "E3_POTE_NA_PASTA": {
+     "POTE.json": {
+      "SHA_DO_ARQUIVO": "105abd8b3042b4539419b99ac137011626bcdd1668f4df0719379cf60c89c3bf",
+      "CONTEUDO_IGUAL_AO_NO_AR": true
+     }
+    },
+    "E3_ARQUIVO_DO_POTE_NO_SHA256SUMS": true
+   },
+   "POR_OBJETO": {}
+  },
+  "E4": {
+   "GERAL": {},
+   "POR_OBJETO": {}
+  },
+  "E5": {
+   "GERAL": {},
+   "POR_OBJETO": {}
+  },
+  "E6": {
+   "GERAL": {},
+   "POR_OBJETO": {}
+  },
+  "E7": {
+   "GERAL": {},
+   "POR_OBJETO": {}
+  }
+ },
+ "SCRIPT": "C:\\Users\\London1\\AppData\\Local\\hermes\\profiles\\sintonia-lab\\lab\\estudos\\2026-09-29-PROVA-REVERSA\\prova_reversa_v3.py",
+ "SCRIPT_SHA256": "ae1abce7a9e2efa8030f3f2b591e09e07b694269b6b92fbf4e9230be7a0a3d64",
+ "BRUTO": {
+  "PREVIEW": "https://sintonia-eame-preview-9wfbzk6ej-london-creative.vercel.app",
+  "ELOS_GERAIS": {
+   "E1_PREVIEW_POTE_JS_HTTP": 200,
+   "POTE_SHA256_NO_AR": "a2b59283e9ca910f5af822ce9b3a636f4f253433d3aa828905d197e63b21bf35",
+   "INTELLIGENCE_RUN_ID": "SINT-IR-PUBLICA-0001",
+   "MODO": "preview",
+   "ARVORE": "46392eafde77783e39c9129a2bf3870014268f3c",
+   "PUBLICADO_EM": "2026-09-30T07:02:00Z",
+   "E1_PORTALE_HTTP": 200,
+   "N_OBJETOS_NO_POTE_PUBLICADO": 7,
+   "N_OBJETOS_PROVADOS": 0,
+   "E3_SHA_CANONICO_DO_POTE_NO_AR_CONFERE": true,
+   "E3_POTE_NA_PASTA": {
+    "POTE.json": {
+     "SHA_DO_ARQUIVO": "105abd8b3042b4539419b99ac137011626bcdd1668f4df0719379cf60c89c3bf",
+     "CONTEUDO_IGUAL_AO_NO_AR": true
+    }
+   },
+   "E3_ARQUIVO_DO_POTE_NO_SHA256SUMS": true
+  },
+  "OBJETOS": {},
+  "VEREDITO": "VAZIO_LEGITIMO (F2): nenhum objeto LIBERADO_PARA_CLIENTE no pote publicado; o pote e o seu sha continuam provados abaixo"
+ },
+ "PASTA_DE_PROVAS_INTRUSOS_ANTES_DE_GRAVAR": []
+}

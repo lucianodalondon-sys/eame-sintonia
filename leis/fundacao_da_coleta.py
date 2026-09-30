@@ -222,7 +222,10 @@ ENVELOPE_INEXISTENTE = 'NAO_EXISTE_NO_POTE_PUBLICADO'
 CHAVES_DA_PROVA_DO_LAB = ('LAB_ORIGIN', 'DATA_UTC', 'POTE_SHA256', 'RUN_ID', 'ENVELOPE_HASH', 'VEREDITO',
                           'VEREDITO_DETALHE', 'ELOS', 'OBJETOS_PROVADOS', 'SCRIPT', 'SCRIPT_SHA256', 'BRUTO',
                           'SCHEMA', 'POTE_SHA256_TIPO', 'VEREDITO_DETALHE_STATUS', 'JULGAMENTO_POR_ELO',
-                          'JUIZ', 'JUIZ_SHA256', 'PREVIEW', 'SCRIPT_VERSAO')
+                          'JUIZ', 'JUIZ_SHA256', 'PREVIEW', 'SCRIPT_VERSAO',
+                          # v3.1: a lista de intrusos que o LAB viu na pasta antes de gravar
+                          # (medido na 1.a prova real v3.1, 30/09; a guarda confere a arvore ela mesma)
+                          'PASTA_DE_PROVAS_INTRUSOS_ANTES_DE_GRAVAR')
 ELOS_DA_PROVA = tuple('E%d' % k for k in range(1, 8))
 #: v3: o estado de cada elo sai do juiz em JULGAMENTO_POR_ELO.ELOS.En.ESTADO, e so 'OK' passa
 #: (o juiz escreve 'OK' ou 'FALHA'). ELOS passou a ser a MEDICAO crua, nao a decisao.

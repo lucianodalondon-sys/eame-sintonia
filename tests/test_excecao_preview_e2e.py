@@ -121,7 +121,9 @@ class Base(unittest.TestCase):
         self.trava = copy.deepcopy(self.trava_real)
         for e in self.trava["EXCECOES_CONTROLADAS"]:
             if e["ID"] == lei.EXCECAO_PREVIEW:
-                e["PASTAS_DO_LAB"] = list(e.get("PASTAS_DO_LAB") or []) + [self.pasta_lab]
+                # SO a arvore deste teste: a pasta REAL do LAB muda a qualquer hora (o LAB
+                # grava la) e, pela R6, um ficheiro dela reprovaria os testes (30/09: 46).
+                e["PASTAS_DO_LAB"] = [self.pasta_lab]
 
     def escrever(self, nome, texto):
         caminho = os.path.join(self.pasta, nome)
@@ -1518,6 +1520,19 @@ class V3_ContratoDoVeredictoDoLab(Base):
 
     def test_o_exemplo_real_PASS_do_LAB_passa_na_conferencia(self):
         self.assertIsNone(self._exemplo_do_lab("EXEMPLO-V3-COM-FONTE-VIVA-PASS.json"))
+
+    def test_R7_a_primeira_prova_REAL_v31_do_LAB_e_canonica(self):
+        """R7: a 1.a prova real da v3.1 (sintonia-lab-provas, 30/09 07:37Z, copiada byte a
+        byte) traz PASTA_DE_PROVAS_INTRUSOS_ANTES_DE_GRAVAR. Tem de ler-se como prova do
+        formato real — senao, pela R6, bloquearia TODOS os pares — e recusar so por ser FAIL."""
+        nome = "PROVA-REAL-V31-SINT-IR-PUBLICA-0001-FAIL.json"
+        caminho = os.path.join(self.EXEMPLOS, nome)
+        with open(caminho, "rb") as f:
+            self.assertEqual(hashlib.sha256(f.read()).hexdigest(), "9004420ffbef2d67e1ae5201509a133a702067f1a682ef34447730e3ca1e3480")
+        self.assertIsNone(lei._nao_canonico(caminho))
+        m = self._exemplo_do_lab(nome)
+        self.assertIn("VEREDITO='FAIL'", m)
+        self.assertNotIn(lei.ARVORE_NAO_CANONICA, m)
 
     def test_o_exemplo_real_FAIL_do_LAB_recusa_por_ser_FAIL(self):
         m = self._exemplo_do_lab("EXEMPLO-V3-SEM-FONTE-VIVA-FAIL.json")
