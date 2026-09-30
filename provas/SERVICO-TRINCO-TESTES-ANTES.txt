@@ -1,0 +1,278 @@
+test_dono_com_pid_impossivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_com_pid_impossivel_nao_se_toca)
+SERVICO-TRINCO (30/09): o DONO que o servico escreve tem sempre um PID inteiro > 0. PID 0, negativo, ... 
+  test_dono_com_pid_impossivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_com_pid_impossivel_nao_se_toca) (dono={'PID': 0})
+SERVICO-TRINCO (30/09): o DONO que o servico escreve tem sempre um PID inteiro > 0. PID 0, negativo, ... FAIL
+  test_dono_com_pid_impossivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_com_pid_impossivel_nao_se_toca) (dono={'PID': -1})
+SERVICO-TRINCO (30/09): o DONO que o servico escreve tem sempre um PID inteiro > 0. PID 0, negativo, ... FAIL
+  test_dono_com_pid_impossivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_com_pid_impossivel_nao_se_toca) (dono={'PID': True})
+SERVICO-TRINCO (30/09): o DONO que o servico escreve tem sempre um PID inteiro > 0. PID 0, negativo, ... FAIL
+test_dono_morto_e_sobra_e_o_servico_toma_o_trinco (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_morto_e_sobra_e_o_servico_toma_o_trinco) ... ok
+test_dono_vivo_continua_a_recusar (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_vivo_continua_a_recusar) ... ok
+test_dono_vivo_noutro_processo_continua_a_recusar (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_vivo_noutro_processo_continua_a_recusar) ... ok
+test_sem_dono_legivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_sem_dono_legivel_nao_se_toca) ... ok
+test_dono_morto_disputado_por_4_processos_tem_um_so_dono_em_cada_rodada (tests.test_coleta_continua.TrincoSobCorrida.test_dono_morto_disputado_por_4_processos_tem_um_so_dono_em_cada_rodada) ... FAIL
+test_acesso_negado_e_vivo (tests.test_coleta_continua.PidVivoNoWindows.test_acesso_negado_e_vivo) ... FAIL
+FAIL
+test_pid_que_ja_nao_existe_e_morto (tests.test_coleta_continua.PidVivoNoWindows.test_pid_que_ja_nao_existe_e_morto) ... ok
+test_trinco_de_dono_com_acesso_negado_e_recusado (tests.test_coleta_continua.PidVivoNoWindows.test_trinco_de_dono_com_acesso_negado_e_recusado) ... FAIL
+FAIL
+test_vivo_e_vivo (tests.test_coleta_continua.PidVivoNoWindows.test_vivo_e_vivo) ... ok
+test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) ... 
+  test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='') ... FAIL
+  test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='   ') ... ERROR
+  test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='C:/') ... FAIL
+  test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='C:\\') ... FAIL
+  test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='/') ... FAIL
+test_sobra_de_pg_e_limpa_antes_do_initdb_e_so_ela (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_sobra_de_pg_e_limpa_antes_do_initdb_e_so_ela) ... {"PG_DUMP_CODIGO": 0, "BYTES": 0, "INDICE_TEM_SALA_DE_ESPERA": true, "SALA_REAL_MUDOU_DURANTE_O_DUMP": false, "IGUAL_A_SALA_REAL": true, "PROVA_VALE": true}
+escrito: C:\Users\London1\AppData\Local\Temp\prova-backup-pg-jbibenqb\CICLO-0101\backup\PROVA-BACKUP-SALA.json
+ok
+test_tomada_do_trinco_e_limpeza_do_pg_nao_se_tocam (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_tomada_do_trinco_e_limpeza_do_pg_nao_se_tocam)
+A pergunta do Scrap (ENTREGA-SCRAP-TRINCO): mexer no trinco afeta a limpeza de pg/? Medido aqui no ... {"PG_DUMP_CODIGO": 0, "BYTES": 0, "INDICE_TEM_SALA_DE_ESPERA": true, "SALA_REAL_MUDOU_DURANTE_O_DUMP": false, "IGUAL_A_SALA_REAL": true, "PROVA_VALE": true}
+escrito: C:\Users\London1\AppData\Local\Temp\prova-backup-pg-oacxasdj\COLETA-CONTINUA\CICLO-0101\backup\PROVA-BACKUP-SALA.json
+ok
+
+======================================================================
+ERROR: test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='   ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] O sistema não pode encontrar o caminho especificado: '   '
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 971, in test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo
+    rc = self._correr(["--saida=" + s])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 932, in _correr
+    return self.P.main(argv)
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\scripts\micro_coleta\provar_backup_da_sala.py", line 45, in main
+    saida.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\London1\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1316, in mkdir
+    self.mkdir(mode, parents=False, exist_ok=exist_ok)
+  File "C:\Users\London1\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] O sistema não pode encontrar o caminho especificado: '   '
+
+======================================================================
+FAIL: test_dono_com_pid_impossivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_com_pid_impossivel_nao_se_toca) (dono={'PID': 0})
+SERVICO-TRINCO (30/09): o DONO que o servico escreve tem sempre um PID inteiro > 0. PID 0, negativo,
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 733, in test_dono_com_pid_impossivel_nao_se_toca
+    self.assertIsNone(C.trinco(self.base), "trinco com DONO corrompido foi tomado: %r" % (dono,))
+AssertionError: WindowsPath('C:/Users/London1/AppData/Local/Temp/coleta-trinco-1dkcam2t/COLETA-CONTINUA.trinco') is not None : trinco com DONO corrompido foi tomado: {'PID': 0}
+
+======================================================================
+FAIL: test_dono_com_pid_impossivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_com_pid_impossivel_nao_se_toca) (dono={'PID': -1})
+SERVICO-TRINCO (30/09): o DONO que o servico escreve tem sempre um PID inteiro > 0. PID 0, negativo,
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 733, in test_dono_com_pid_impossivel_nao_se_toca
+    self.assertIsNone(C.trinco(self.base), "trinco com DONO corrompido foi tomado: %r" % (dono,))
+AssertionError: WindowsPath('C:/Users/London1/AppData/Local/Temp/coleta-trinco-1dkcam2t/COLETA-CONTINUA.trinco') is not None : trinco com DONO corrompido foi tomado: {'PID': -1}
+
+======================================================================
+FAIL: test_dono_com_pid_impossivel_nao_se_toca (tests.test_coleta_continua.TrincoDeDonoMorto.test_dono_com_pid_impossivel_nao_se_toca) (dono={'PID': True})
+SERVICO-TRINCO (30/09): o DONO que o servico escreve tem sempre um PID inteiro > 0. PID 0, negativo,
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 733, in test_dono_com_pid_impossivel_nao_se_toca
+    self.assertIsNone(C.trinco(self.base), "trinco com DONO corrompido foi tomado: %r" % (dono,))
+AssertionError: WindowsPath('C:/Users/London1/AppData/Local/Temp/coleta-trinco-1dkcam2t/COLETA-CONTINUA.trinco') is not None : trinco com DONO corrompido foi tomado: {'PID': True}
+
+======================================================================
+FAIL: test_dono_morto_disputado_por_4_processos_tem_um_so_dono_em_cada_rodada (tests.test_coleta_continua.TrincoSobCorrida.test_dono_morto_disputado_por_4_processos_tem_um_so_dono_em_cada_rodada)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 817, in test_dono_morto_disputado_por_4_processos_tem_um_so_dono_em_cada_rodada
+    self.assertEqual({"DONOS_POR_RODADA": donos, "EXCECOES_DENTRO_DE_TRINCO": excecoes, "DONOS_QUE_PERDERAM": perdidos},
+AssertionError: {'DONOS_POR_RODADA': [4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,[629 chars]se}]} != {'DONOS_POR_RODADA': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,[73 chars]: []}
+- {'DONOS_POR_RODADA': [4,
+?                       ^
+
++ {'DONOS_POR_RODADA': [1,
+?                       ^
+
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1],
++  'DONOS_QUE_PERDERAM': [],
++  'EXCECOES_DENTRO_DE_TRINCO': []}
+-  'DONOS_QUE_PERDERAM': [{'AINDA_DONO': False,
+-                          'EXC': None,
+-                          'PID': 54912,
+-                          'TEM': True},
+-                         {'AINDA_DONO': False,
+-                          'EXC': None,
+-                          'PID': 52488,
+-                          'TEM': True},
+-                         {'AINDA_DONO': False,
+-                          'EXC': None,
+-                          'PID': 13572,
+-                          'TEM': True}],
+-  'EXCECOES_DENTRO_DE_TRINCO': ["FileNotFoundError(2, 'No such file or "
+-                                "directory')",
+-                                "FileNotFoundError(2, 'No such file or "
+-                                "directory')",
+-                                "FileNotFoundError(2, 'No such file or "
+-                                "directory')",
+-                                "FileNotFoundError(2, 'No such file or "
+-                                "directory')",
+-                                "FileNotFoundError(2, 'No such file or "
+-                                "directory')",
+-                                "FileNotFoundError(2, 'No such file or "
+-                                "directory')",
+-                                "FileNotFoundError(2, 'No such file or "
+-                                "directory')"]} : dono morto disputado: tem de haver sempre UM dono, nenhuma excecao, nenhum dono enganado | DONOS_POR_RODADA=[4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] | EXCECOES=7
+
+======================================================================
+FAIL: test_acesso_negado_e_vivo (tests.test_coleta_continua.PidVivoNoWindows.test_acesso_negado_e_vivo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 860, in test_acesso_negado_e_vivo
+    self.assertTrue(C._pid_vivo(self._acesso_negado()), "acesso negado contado como morto")
+AssertionError: False is not true : acesso negado contado como morto
+
+======================================================================
+FAIL: test_morto_com_handle_aberto_e_morto (tests.test_coleta_continua.PidVivoNoWindows.test_morto_com_handle_aberto_e_morto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 857, in test_morto_com_handle_aberto_e_morto
+    self.assertFalse(C._pid_vivo(self._morto_com_handle_aberto()), "processo que saiu contado como vivo")
+AssertionError: True is not false : processo que saiu contado como vivo
+
+======================================================================
+FAIL: test_trinco_de_dono_com_acesso_negado_e_recusado (tests.test_coleta_continua.PidVivoNoWindows.test_trinco_de_dono_com_acesso_negado_e_recusado)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 885, in test_trinco_de_dono_com_acesso_negado_e_recusado
+    self.assertIsNone(C.trinco(self.base), "dono protegido (acesso negado) foi dado como morto e TOMADO")
+AssertionError: WindowsPath('C:/Users/London1/AppData/Local/Temp/coleta-trinco-pid-xp_7fkev/COLETA-CONTINUA.trinco') is not None : dono protegido (acesso negado) foi dado como morto e TOMADO
+
+======================================================================
+FAIL: test_trinco_de_dono_morto_com_handle_aberto_e_tomado (tests.test_coleta_continua.PidVivoNoWindows.test_trinco_de_dono_morto_com_handle_aberto_e_tomado)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 880, in test_trinco_de_dono_morto_com_handle_aberto_e_tomado
+    self.assertIsNotNone(t, "dono morto com handle aberto parou o servico (o PARA original volta)")
+AssertionError: unexpectedly None : dono morto com handle aberto parou o servico (o PARA original volta)
+
+======================================================================
+FAIL: test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 971, in test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo
+    rc = self._correr(["--saida=" + s])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 932, in _correr
+    return self.P.main(argv)
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\scripts\micro_coleta\provar_backup_da_sala.py", line 46, in main
+    dsn_real = MC._dsn()
+               ^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 921, in dsn_falso
+    raise AssertionError("TOCOU_NA_SALA")
+AssertionError: TOCOU_NA_SALA
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 973, in test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo
+    self.fail("--saida=%r nao foi recusada: chegou a Sala (%s)" % (s, ex))
+AssertionError: --saida='' nao foi recusada: chegou a Sala (TOCOU_NA_SALA)
+
+======================================================================
+FAIL: test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='C:/')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 971, in test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo
+    rc = self._correr(["--saida=" + s])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 932, in _correr
+    return self.P.main(argv)
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\scripts\micro_coleta\provar_backup_da_sala.py", line 46, in main
+    dsn_real = MC._dsn()
+               ^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 921, in dsn_falso
+    raise AssertionError("TOCOU_NA_SALA")
+AssertionError: TOCOU_NA_SALA
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 973, in test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo
+    self.fail("--saida=%r nao foi recusada: chegou a Sala (%s)" % (s, ex))
+AssertionError: --saida='C:/' nao foi recusada: chegou a Sala (TOCOU_NA_SALA)
+
+======================================================================
+FAIL: test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='C:\\')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 971, in test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo
+    rc = self._correr(["--saida=" + s])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 932, in _correr
+    return self.P.main(argv)
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\scripts\micro_coleta\provar_backup_da_sala.py", line 46, in main
+    dsn_real = MC._dsn()
+               ^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 921, in dsn_falso
+    raise AssertionError("TOCOU_NA_SALA")
+AssertionError: TOCOU_NA_SALA
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 973, in test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo
+    self.fail("--saida=%r nao foi recusada: chegou a Sala (%s)" % (s, ex))
+AssertionError: --saida='C:\\' nao foi recusada: chegou a Sala (TOCOU_NA_SALA)
+
+======================================================================
+FAIL: test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo (tests.test_coleta_continua.LimpezaDoPgDaProvaDeBackup.test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo) (saida='/')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 971, in test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo
+    rc = self._correr(["--saida=" + s])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 932, in _correr
+    return self.P.main(argv)
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\scripts\micro_coleta\provar_backup_da_sala.py", line 46, in main
+    dsn_real = MC._dsn()
+               ^^^^^^^^^
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 921, in dsn_falso
+    raise AssertionError("TOCOU_NA_SALA")
+AssertionError: TOCOU_NA_SALA
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\London1\orca\workspaces\eame-sintonia\servico-trinco-v1\tests\test_coleta_continua.py", line 973, in test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo
+    self.fail("--saida=%r nao foi recusada: chegou a Sala (%s)" % (s, ex))
+AssertionError: --saida='/' nao foi recusada: chegou a Sala (TOCOU_NA_SALA)
+
+----------------------------------------------------------------------
+Ran 15 tests in 14.829s
+
+FAILED (failures=12, errors=1)

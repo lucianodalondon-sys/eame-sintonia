@@ -31,6 +31,7 @@ import subprocess
 import sys
 import tempfile
 import threading
+import time
 import unittest
 import urllib.request
 from datetime import datetime, timedelta, timezone
@@ -717,6 +718,288 @@ class TrincoDeDonoMorto(unittest.TestCase):
         self.assertIsNone(C.trinco(self.base), "trinco sem dono foi tomado as cegas")
         (self.base / C.TRINCO_F / "DONO.json").write_text("{isto nao e json", encoding="utf-8")
         self.assertIsNone(C.trinco(self.base), "trinco com dono ilegivel foi tomado as cegas")
+
+    def test_dono_com_pid_impossivel_nao_se_toca(self):
+        """SERVICO-TRINCO (30/09): o DONO que o servico escreve tem sempre um PID inteiro > 0. PID 0, negativo,
+        booleano, texto ou em falta e DONO corrompido — nao e prova de morte, e nao se toma (o auditor mediu
+        PID 0 e -1 a serem TOMADOS no c38610e0c)."""
+        for dono in ({"PID": 0}, {"PID": -1}, {"PID": True}, {"PID": "abc"}, {"PID": None}, {"PID": []},
+                     {"DESDE": "2026-09-30T08:15:31-03:00"}, [1234], "1234"):
+            with self.subTest(dono=dono):
+                t = self.base / C.TRINCO_F
+                shutil.rmtree(t, ignore_errors=True)
+                t.mkdir()
+                (t / "DONO.json").write_text(json.dumps(dono), encoding="utf-8")
+                self.assertIsNone(C.trinco(self.base), "trinco com DONO corrompido foi tomado: %r" % (dono,))
+                self.assertEqual(json.loads((t / "DONO.json").read_text(encoding="utf-8")), dono)
+
+    def test_dono_vivo_noutro_processo_continua_a_recusar(self):
+        p = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(120)"])
+        self.addCleanup(p.wait)
+        self.addCleanup(p.kill)
+        self._sobra(p.pid)
+        self.assertIsNone(C.trinco(self.base), "trinco de um servico VIVO foi tomado")
+
+
+# ── SERVICO-TRINCO (30/09): as regras que o auditor pediu (VERIF-SERVICO-c38610e0c = CORRIGIR) ──
+# O concorrente: um processo por arranque, vivo durante as rodadas todas. Em cada rodada espera a MESMA hora
+# de partida (espera ativa, para chegarem ao trinco no mesmo milissegundo), tenta o trinco, SEGURA-O ate ao
+# fim da rodada (ninguem solta: dois donos na mesma rodada sao dois servicos ao mesmo tempo) e diz o que teve.
+_CONCORRENTE = r'''
+import json, os, sys, time
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import coleta_continua as C
+print("PRONTO", flush=True)
+for linha in sys.stdin:
+    base, inicio, fim = linha.rstrip("\n").split("\t")
+    while time.time() < float(inicio):
+        pass
+    r = {"PID": os.getpid(), "TEM": False, "EXC": None, "AINDA_DONO": None}
+    t = None
+    try:
+        t = C.trinco(Path(base))
+        r["TEM"] = t is not None
+    except BaseException as ex:
+        r["EXC"] = repr(ex)
+    while time.time() < float(fim):
+        time.sleep(0.005)
+    if t is not None:
+        try:
+            r["AINDA_DONO"] = json.loads((t / "DONO.json").read_text(encoding="utf-8")).get("PID") == os.getpid()
+        except Exception as ex:
+            r["AINDA_DONO"] = repr(ex)
+    print(json.dumps(r), flush=True)
+'''
+
+
+class TrincoSobCorrida(unittest.TestCase):
+    """(a) dono MORTO + N arranques ao mesmo tempo: exatamente UM dono por rodada, e trinco() nunca lanca.
+
+    Medido pelo auditor no c38610e0c (4 processos x 20 rodadas): 2 ou 3 donos simultaneos em 12 de 20
+    rodadas e 10 FileNotFoundError dentro de trinco(). Um teste que corre uma vez nao ve isto: sao N
+    processos a partir no mesmo milissegundo, rodada apos rodada.
+    """
+    N, RODADAS = 8, 20
+    maxDiff = None
+
+    def test_dono_morto_disputado_por_4_processos_tem_um_so_dono_em_cada_rodada(self):
+        pasta = Path(tempfile.mkdtemp(prefix="coleta-trinco-corrida-"))
+        self.addCleanup(shutil.rmtree, pasta, True)
+        procs = [subprocess.Popen([sys.executable, "-c", _CONCORRENTE, str(RAIZ / "ferramentas" / "big_collection")],
+                                  stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+                                  text=True, encoding="utf-8") for _ in range(self.N)]
+        def fechar():
+            for p in procs:
+                p.kill()
+                p.wait()
+                p.stdin.close()
+                p.stdout.close()
+        self.addCleanup(fechar)
+        for p in procs:
+            self.assertEqual(p.stdout.readline().strip(), "PRONTO")
+        rodadas = []
+        for k in range(self.RODADAS):
+            base = pasta / ("R%02d" % k)
+            t = base / C.TRINCO_F
+            t.mkdir(parents=True)
+            (t / "DONO.json").write_text(json.dumps({"PID": TrincoDeDonoMorto._pid_morto(),
+                                                     "DESDE": "2026-09-30T08:15:31-03:00"}), encoding="utf-8")
+            inicio = time.time() + 0.2
+            for p in procs:
+                p.stdin.write("%s\t%r\t%r\n" % (base, inicio, inicio + 0.3))
+                p.stdin.flush()
+            rodadas.append([json.loads(p.stdout.readline()) for p in procs])
+        donos = [sum(1 for r in rod if r["TEM"]) for rod in rodadas]
+        excecoes = [r["EXC"] for rod in rodadas for r in rod if r["EXC"]]
+        perdidos = [r for rod in rodadas for r in rod if r["TEM"] and r["AINDA_DONO"] is not True]
+        # tudo numa so comparacao: a reprovacao mostra as tres medidas, nao so a primeira que falha
+        self.assertEqual({"DONOS_POR_RODADA": donos, "EXCECOES_DENTRO_DE_TRINCO": excecoes, "DONOS_QUE_PERDERAM": perdidos},
+                         {"DONOS_POR_RODADA": [1] * self.RODADAS, "EXCECOES_DENTRO_DE_TRINCO": [], "DONOS_QUE_PERDERAM": []},
+                         "dono morto disputado: tem de haver sempre UM dono, nenhuma excecao, nenhum dono enganado"
+                         " | DONOS_POR_RODADA=%s | EXCECOES=%d" % (donos, len(excecoes)))
+
+
+@unittest.skipUnless(os.name == "nt", "OpenProcess/GetExitCodeProcess sao do Windows")
+class PidVivoNoWindows(unittest.TestCase):
+    """(d) no Windows um processo que SAIU continua abrivel enquanto alguem segurar o handle dele (o auditor
+    mediu OpenProcess = ok, exit = 0). Morto so quando GetExitCodeProcess != 259 (STILL_ACTIVE). E ACESSO
+    NEGADO (erro 5) e um processo que existe e nao nos deixa olhar: VIVO, nunca morto."""
+
+    @staticmethod
+    def _abrir(pid):
+        import ctypes
+        k = ctypes.WinDLL("kernel32", use_last_error=True)
+        h = k.OpenProcess(0x1000, False, pid)
+        erro = ctypes.get_last_error()
+        if h:
+            k.CloseHandle(h)
+        return bool(h), erro
+
+    def setUp(self):
+        self.base = Path(tempfile.mkdtemp(prefix="coleta-trinco-pid-"))
+        self.addCleanup(shutil.rmtree, self.base, True)
+
+    def _morto_com_handle_aberto(self):
+        p = subprocess.Popen([sys.executable, "-c", "pass"])
+        p.wait()
+        self._segura = p                                             # o Popen segura o handle do morto
+        self.assertEqual(self._abrir(p.pid)[0], True, "premissa: o morto tem de continuar abrivel")
+        return p.pid
+
+    def _acesso_negado(self):
+        abre, erro = self._abrir(4)
+        if abre or erro != 5:
+            self.skipTest("premissa: o PID 4 (System) ja nao da acesso negado nesta maquina (%r, %r)" % (abre, erro))
+        return 4
+
+    def test_morto_com_handle_aberto_e_morto(self):
+        self.assertFalse(C._pid_vivo(self._morto_com_handle_aberto()), "processo que saiu contado como vivo")
+
+    def test_acesso_negado_e_vivo(self):
+        self.assertTrue(C._pid_vivo(self._acesso_negado()), "acesso negado contado como morto")
+
+    def test_vivo_e_vivo(self):
+        p = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(120)"])
+        self.addCleanup(p.wait)
+        self.addCleanup(p.kill)
+        self.assertTrue(C._pid_vivo(p.pid))
+        self.assertTrue(C._pid_vivo(os.getpid()))
+
+    def test_pid_que_ja_nao_existe_e_morto(self):
+        self.assertFalse(C._pid_vivo(TrincoDeDonoMorto._pid_morto()))
+
+    def _sobra(self, pid):
+        t = self.base / C.TRINCO_F
+        t.mkdir()
+        (t / "DONO.json").write_text(json.dumps({"PID": pid, "DESDE": "2026-09-30T08:15:31-03:00"}), encoding="utf-8")
+
+    def test_trinco_de_dono_morto_com_handle_aberto_e_tomado(self):
+        self._sobra(self._morto_com_handle_aberto())
+        t = C.trinco(self.base)
+        self.assertIsNotNone(t, "dono morto com handle aberto parou o servico (o PARA original volta)")
+        self.assertEqual(json.loads((t / "DONO.json").read_text(encoding="utf-8"))["PID"], os.getpid())
+
+    def test_trinco_de_dono_com_acesso_negado_e_recusado(self):
+        self._sobra(self._acesso_negado())
+        self.assertIsNone(C.trinco(self.base), "dono protegido (acesso negado) foi dado como morto e TOMADO")
+
+
+class LimpezaDoPgDaProvaDeBackup(unittest.TestCase):
+    """(e) provar_backup_da_sala limpa <saida>/pg — a sobra de uma prova morta a meio — e SO essa pasta.
+    --saida vazia ou a raiz de um disco e recusada ANTES de tocar em qualquer coisa (a Sala incluida).
+
+    Sem Postgres e sem Sala: o DSN, a fotografia e cada subprocesso sao falsos; o que se mede e o que o
+    programa apaga e quando."""
+
+    def setUp(self):
+        sys.path.insert(0, str(RAIZ / "scripts" / "micro_coleta"))
+        import provar_backup_da_sala as P
+        self.P = P
+        self.raiz = Path(tempfile.mkdtemp(prefix="prova-backup-pg-"))
+        self.addCleanup(shutil.rmtree, self.raiz, True)
+        self.chamadas = []
+        self.apagados = []
+
+    def _falsos(self, dsn=None):
+        from unittest import mock
+
+        def run(cmd, *a, **k):
+            nome = Path(str(cmd[0])).stem
+            pasta = Path(cmd[cmd.index("-D") + 1]) if "-D" in cmd else None
+            self.chamadas.append({"CMD": nome, "PASTA": pasta, "SOBRA_AINDA_LA": bool(pasta and (pasta / "SOBRA").exists())})
+            return subprocess.CompletedProcess(cmd, 0, stdout="sala_de_espera", stderr="")
+
+        rmtree_real = shutil.rmtree
+
+        def rmtree(p, *a, **k):
+            self.apagados.append(Path(p))
+            return rmtree_real(p, *a, **k)
+
+        def dsn_falso():
+            if dsn is None:
+                raise AssertionError("TOCOU_NA_SALA")
+            return dsn
+        return [mock.patch("subprocess.run", run), mock.patch.object(self.P.shutil, "rmtree", rmtree),
+                mock.patch.object(self.P.MC, "_dsn", dsn_falso),
+                mock.patch.object(self.P.E, "fotografia", lambda: {"sala_de_espera": [1, "md5-falso"]})]
+
+    def _correr(self, argv, dsn=None):
+        fs = self._falsos(dsn)
+        for f in fs:
+            f.start()
+        try:
+            return self.P.main(argv)
+        finally:
+            for f in reversed(fs):
+                f.stop()
+
+    def _sobra_de_pg(self, saida):
+        pg = saida / "pg"
+        (pg / "base" / "1").mkdir(parents=True)
+        (pg / "SOBRA").write_text("postmaster.pid de um ciclo morto", encoding="utf-8")
+        (pg / "base" / "1" / "16384").write_bytes(b"\0" * 64)
+        return pg
+
+    def test_sobra_de_pg_e_limpa_antes_do_initdb_e_so_ela(self):
+        saida = self.raiz / "CICLO-0101" / "backup"
+        pg = self._sobra_de_pg(saida)
+        (saida / "OUTRO.txt").write_text("nao e do pg", encoding="utf-8")
+        for vizinho in (self.raiz / "pg", self.raiz / "CICLO-0101" / "pg"):
+            vizinho.mkdir(parents=True)
+            (vizinho / "NAO-TOCAR").write_text("x", encoding="utf-8")
+        rc = self._correr(["--saida=%s" % saida], dsn="postgresql://falso@127.0.0.1:1/sala_italia")
+        self.assertEqual(rc, 0)
+        initdb = [c for c in self.chamadas if c["CMD"] == "initdb"]
+        self.assertEqual(len(initdb), 1)
+        self.assertEqual(initdb[0]["PASTA"], pg)
+        self.assertFalse(initdb[0]["SOBRA_AINDA_LA"], "o initdb correu por cima da sobra: a prova morria como no ciclo 101")
+        paragem = [i for i, c in enumerate(self.chamadas) if c["CMD"] == "pg_ctl" and c["PASTA"] == pg]
+        self.assertLess(paragem[0], self.chamadas.index(initdb[0]), "o Postgres da sobra nao foi descido antes")
+        self.assertEqual(self.apagados, [pg], "a limpeza apagou outra coisa alem de <saida>/pg")
+        self.assertTrue((saida / "OUTRO.txt").exists())
+        self.assertTrue((self.raiz / "pg" / "NAO-TOCAR").exists())
+        self.assertTrue((self.raiz / "CICLO-0101" / "pg" / "NAO-TOCAR").exists())
+        self.assertTrue(json.loads((saida / "PROVA-BACKUP-SALA.json").read_text(encoding="utf-8"))["PROVA_VALE"])
+
+    def test_saida_vazia_ou_raiz_de_disco_e_recusada_antes_de_tudo(self):
+        for s in ("", "   ", Path(RAIZ.anchor).as_posix(), str(Path(RAIZ.anchor)), "/"):
+            with self.subTest(saida=s):
+                self.chamadas.clear()
+                self.apagados.clear()
+                try:
+                    rc = self._correr(["--saida=" + s])
+                except AssertionError as ex:
+                    self.fail("--saida=%r nao foi recusada: chegou a Sala (%s)" % (s, ex))
+                self.assertEqual(rc, 2, "--saida=%r nao foi recusada" % s)
+                self.assertEqual(self.chamadas, [])
+                self.assertEqual(self.apagados, [])
+
+    def test_tomada_do_trinco_e_limpeza_do_pg_nao_se_tocam(self):
+        """A pergunta do Scrap (ENTREGA-SCRAP-TRINCO): mexer no trinco afeta a limpeza de pg/? Medido aqui no
+        caso real do ciclo 101: um ciclo morto deixa, na MESMA base, o trinco com dono morto E a sobra
+        CICLO-NNNN/backup/pg. O arranque seguinte toma o trinco (a sobra de pg fica intacta, byte a byte) e o
+        ciclo repetido limpa pg/ (o trinco novo fica intacto, com o DONO deste processo)."""
+        base = self.raiz / "COLETA-CONTINUA"
+        t = base / C.TRINCO_F
+        t.mkdir(parents=True)
+        (t / "DONO.json").write_text(json.dumps({"PID": TrincoDeDonoMorto._pid_morto(), "DESDE": "x"}), encoding="utf-8")
+        saida = base / "CICLO-0101" / "backup"
+        pg = self._sobra_de_pg(saida)
+
+        def foto(p):
+            return {str(f.relative_to(p)): f.read_bytes() for f in sorted(p.rglob("*")) if f.is_file()}
+        pg_antes = foto(pg)
+        dono = C.trinco(base)
+        self.assertIsNotNone(dono)
+        self.assertEqual(foto(pg), pg_antes, "tomar o trinco mexeu na sobra de pg/")
+        trinco_antes = foto(dono)
+        rc = self._correr(["--saida=%s" % saida], dsn="postgresql://falso@127.0.0.1:1/sala_italia")
+        self.assertEqual(rc, 0)
+        self.assertEqual(self.apagados, [pg])
+        self.assertEqual(foto(dono), trinco_antes, "limpar pg/ mexeu no trinco")
+        self.assertEqual(json.loads((dono / "DONO.json").read_text(encoding="utf-8"))["PID"], os.getpid())
+        C.soltar(dono)
 
 
 # ── 6. o plano real da 4.a onda (ensaio a seco, 0 rede) ──────────────────────
