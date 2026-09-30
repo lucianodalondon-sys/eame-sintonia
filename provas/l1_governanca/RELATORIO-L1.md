@@ -93,6 +93,23 @@ subpasta = recusa (caminho resolvido, prefixo de diretório).
   assumida: uma prova com `VEREDITO=PASS`, elos todos PASS e detalhe «reprovado» PASSA — os
   casos K3/K3b dos scripts do auditor que esperam recusa ficam em desacordo por decisão.
 
+### Rodada 6 (VERIF-L1-231c0a5b2 H1–H5 + regra final do coordenador, 30/09)
+
+- **Falha fechada na árvore do LAB:** saber se um ficheiro cita o par não pode depender de o
+  conseguir ler. QUALQUER ficheiro da árvore do LAB que a guarda não lê como prova do formato
+  real — ilegível, > 20 MiB, UTF-8 com BOM ou outra codificação, não JSON, não UM objeto,
+  chave repetida, chave fora da lista fechada, `POTE_SHA256`/`RUN_ID` fora de texto — reprova
+  **TODOS os pares**, cite ou não este pote:
+  `ARVORE_DO_LAB_COM_ARQUIVO_NAO_CANONICO: <caminho>`.
+- **H3:** `POTE_SHA256` em qualquer caixa (e `RUN_ID` em qualquer caixa) conta como citação.
+- Aceite: `ataque_r5.py` do auditor → TOTAL=18 VAZAMENTOS=0 (H0–H7 recusam; H8 recusa; B1–B3
+  bloqueiam; controlos no início e no fim passam). Testes: classe `R6_AuditorVerif231c0a5b2`.
+
+**BLOQUEIO_POR_TERCEIROS (na lei e na TRAVA):** qualquer agente local pode BLOQUEAR todos os
+pares pondo um ficheiro alheio ou não canónico na árvore do LAB (B1–B3). É o lado seguro:
+bloqueia o preview, nunca libera nada. Consequência operacional: a pasta do LAB só pode ter
+provas do formato real — um `LEIA-ME.txt` lá dentro trava tudo.
+
 **LIMITE_CONHECIDO:** `AUTORIA_DO_LAB = DECLARADA` (LAB_ORIGIN + pasta), **não**
 provada criptograficamente — neste PC todos os agentes correm como o mesmo
 utilizador Windows, e a pasta só impede reuso acidental e mistura. O que a guarda

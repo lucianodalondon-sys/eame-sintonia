@@ -1208,13 +1208,12 @@ class R5_AuditorVerif337dc53d4(Base):
     def test_V4d_o_par_citado_pelo_nome_mesmo_sem_json_valido(self):
         velho = self._pass_antigo_e_fail_recente(self.nome_deste_par()[:-5] + ".txt", conteudo="FAIL, em texto")
         m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=velho))
-        self.assertIn("nome fora do formato real", m)
+        self.assertIn(lei.ARVORE_NAO_CANONICA, m)  # R6: texto solto ja reprova a arvore inteira
 
     def test_V4d_ficheiros_de_outros_pares_na_arvore_nao_atrapalham(self):
         outro = copy.deepcopy(self.pote)
         outro["INTELLIGENCE_RUN_ID"] = "IR-outra-corrida"
         self.lab_para(outro)
-        self._gravar("notas soltas do LAB", self._pasta_nova(), "LEIA-ME.txt")
         pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
         self.assertTrue(pode, motivo)
 
@@ -1261,6 +1260,124 @@ class R5_AuditorVerif337dc53d4(Base):
         self.setUp()
         sem_fuso = self.lab_json(self.entrada(self.pote, DATA_UTC="2099-01-01T00:00:00"))
         self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=sem_fuso))
+
+
+class R6_AuditorVerif231c0a5b2(Base):
+    """AUDITOR (VERIF-L1-231c0a5b2, ataque_r5 H0-H5, B1-B3) + regra final do
+    coordenador (30/09): na arvore do LAB, QUALQUER ficheiro que a guarda nao le
+    como prova do formato real reprova TODOS os pares, cite ou nao este pote."""
+
+    def agora_mais(self, **delta):
+        from datetime import datetime, timedelta, timezone
+        return (datetime.now(timezone.utc) + timedelta(**delta)).isoformat()
+
+    def fail_recente(self, **extra):
+        return self.entrada(self.pote, "FAIL", DATA_UTC=self.agora_mais(hours=-1), **extra)
+
+    def escreve_bytes(self, nome, dados, pasta=None):
+        caminho = os.path.join(pasta or self._pasta_nova(), nome)
+        with open(caminho, "wb") as f:
+            f.write(dados)
+        return caminho
+
+    def pass_antigo_com(self, nome, dados):
+        velho = self.lab_json(self.entrada(self.pote, "PASS", DATA_UTC=self.agora_mais(hours=-2)))
+        self.escreve_bytes(nome, dados)
+        return self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=velho))
+
+    def test_H0_ctl_FAIL_com_nome_aleatorio_e_JSON_limpo(self):
+        m = self.pass_antigo_com("notas.txt", json.dumps(self.fail_recente()).encode("utf-8"))
+        self.assertIn("nome fora do formato real", m)
+
+    def test_H1_ficheiro_maior_que_o_teto_reprova_a_arvore(self):
+        dados = json.dumps(self.fail_recente()).encode("utf-8") + b" " * (lei._TAMANHO_MAXIMO_DA_PROVA + 16)
+        m = self.pass_antigo_com("notas.txt", dados)
+        self.assertIn(lei.ARVORE_NAO_CANONICA, m)
+        self.assertIn("grande demais", m)
+
+    def test_H2_BOM_reprova_a_arvore(self):
+        m = self.pass_antigo_com("notas.json", b"\xef\xbb\xbf" + json.dumps(self.fail_recente()).encode("utf-8"))
+        self.assertIn(lei.ARVORE_NAO_CANONICA, m)
+        self.assertIn("BOM", m)
+
+    def test_H3_POTE_SHA256_em_maiusculas_cita_o_par(self):
+        sha = lei.sha256_do_pote(self.pote)
+        m = self.pass_antigo_com("notas.json", json.dumps(self.fail_recente(POTE_SHA256=sha.upper())).encode("utf-8"))
+        self.assertIn("nome fora do formato real", m)
+
+    def test_H4_embrulhado_em_objeto_ou_lista_reprova_a_arvore(self):
+        for embrulho, porque in (({"PROVA": self.fail_recente()}, "chaves fora"),
+                                 ([self.fail_recente()], "nao e UM objeto")):
+            m = self.pass_antigo_com("notas.json", json.dumps(embrulho).encode("utf-8"))
+            self.assertIn(lei.ARVORE_NAO_CANONICA, m)
+            self.assertIn(porque, m)
+            self.setUp()
+
+    def test_H5_UTF16_reprova_a_arvore(self):
+        for cod in ("utf-16", "utf-16-le"):
+            m = self.pass_antigo_com("notas.json", json.dumps(self.fail_recente()).encode(cod))
+            self.assertIn(lei.ARVORE_NAO_CANONICA, m)
+            self.setUp()
+
+    def test_H8_par_escondido_noutro_tipo_reprova_a_arvore(self):
+        for extra in ({"RUN_ID": [self.pote["INTELLIGENCE_RUN_ID"]]},
+                      {"POTE_SHA256": {"V": lei.sha256_do_pote(self.pote)}}):
+            m = self.pass_antigo_com("notas.json", json.dumps(self.fail_recente(**extra)).encode("utf-8"))
+            self.assertIn(lei.ARVORE_NAO_CANONICA, m)
+            self.assertIn("fora de texto", m)
+            self.setUp()
+
+    def test_R6_chave_repetida_esconde_um_FAIL_e_reprova_a_arvore(self):
+        texto = json.dumps(self.fail_recente())[:-1] + ', "VEREDITO": "PASS"}'
+        m = self.pass_antigo_com("notas.json", texto.encode("utf-8"))
+        self.assertIn(lei.ARVORE_NAO_CANONICA, m)
+
+    def test_R6_ficheiro_alheio_que_nao_cita_o_pote_reprova_todos_os_pares(self):
+        for nome, dados in (("LEIA-ME.txt", b"notas soltas do LAB"), ("vazio", b""),
+                            ("outro.json", json.dumps({"QUALQUER": 1}).encode("utf-8"))):
+            v = self.lab_para(self.pote)
+            self.escreve_bytes(nome, dados)
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=v))
+            self.assertIn(lei.ARVORE_NAO_CANONICA + ": ", m)
+            self.assertIn(nome, m)
+            self.setUp()
+
+    def test_R6_prova_do_pedido_com_BOM_recusa(self):
+        corpo = b"\xef\xbb\xbf" + json.dumps(self.entrada(self.pote)).encode("utf-8")
+        caminho = self.escreve_bytes(self.nome_deste_par(), corpo)
+        lab = {"VEREDITO": "PASS", "ONDE": caminho, "SHA256": hashlib.sha256(corpo).hexdigest()}
+        self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=lab))
+
+    # -- B: bloqueio por terceiros: lado seguro, escrito no LIMITE_CONHECIDO --
+    def test_B1_ficheiro_vazio_com_o_nome_do_par_bak_bloqueia(self):
+        v = self.lab_para(self.pote)
+        self.escreve_bytes(self.nome_deste_par() + ".bak", b"")
+        self.assertIn(lei.ARVORE_NAO_CANONICA, self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=v)))
+
+    def test_B2_versao_2_datada_amanha_bloqueia(self):
+        v = self.lab_para(self.pote)
+        self.lab_json(self.entrada(self.pote, DATA_UTC=self.agora_mais(days=1)), versao=2)
+        self.assertIn("no futuro", self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=v)))
+
+    def test_B3_copia_da_propria_prova_com_nome_txt_bloqueia(self):
+        v = self.lab_para(self.pote)
+        with open(v["ONDE"], "rb") as f:
+            self.escreve_bytes("copia.txt", f.read())
+        self.assertIn("nome fora do formato real", self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=v)))
+
+    def test_B_o_bloqueio_por_terceiros_esta_escrito_na_lei_e_na_trava(self):
+        self.assertIn("BLOQUEAR", lei.LIMITE_CONHECIDO["BLOQUEIO_POR_TERCEIROS"])
+        self.assertIn("nunca libera", lei.LIMITE_CONHECIDO["BLOQUEIO_POR_TERCEIROS"])
+        e = lei.excecao_vigente(self.trava_real, self.diario_real)
+        self.assertIn("BLOQUEAR", e["LIMITE_CONHECIDO"]["BLOQUEIO_POR_TERCEIROS"])
+        self.assertIn("nunca libera", e["LIMITE_CONHECIDO"]["BLOQUEIO_POR_TERCEIROS"])
+
+    def test_R6_ctl_arvore_so_com_provas_canonicas_de_outros_pares_passa(self):
+        outro = copy.deepcopy(self.pote)
+        outro["INTELLIGENCE_RUN_ID"] = "IR-outra-corrida"
+        self.lab_para(outro)
+        pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_para(self.pote)))
+        self.assertTrue(pode, motivo)
 
 
 if __name__ == "__main__":

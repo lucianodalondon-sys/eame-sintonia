@@ -236,7 +236,13 @@ LIMITE_CONHECIDO = {
     'O_QUE_SE_PROVA': 'o vinculo (POTE_SHA256, RUN_ID) por igualdade de campo',
     'FORA_DO_ALCANCE': 'falsificacao deliberada por outro agente local (mesmo utilizador Windows); '
                        'coberta pela auditoria independente',
+    'BLOQUEIO_POR_TERCEIROS': 'qualquer agente local pode BLOQUEAR todos os pares pondo um ficheiro '
+                              'alheio ou nao canonico na arvore do LAB (R6; B1-B3 do auditor): e o lado '
+                              'seguro — bloqueia o preview, nunca libera nada',
 }
+#: R6 (VERIF-L1-231c0a5b2 H1-H5, regra final do coordenador 30/09): o motivo quando a
+#: arvore do LAB tem um ficheiro que a guarda nao consegue ler como prova do formato real.
+ARVORE_NAO_CANONICA = 'ARVORE_DO_LAB_COM_ARQUIVO_NAO_CANONICO'
 #: O ambito exato da D140, como o coordenador o pediu escrito. A guarda LE-o no
 #: contrato e exige-o literal: um valor diferente nao alarga — invalida.
 AMBITO_EXATO = {'DESTINO': 'SO_PREVIEW', 'SALA_LEITURA': 'SO_COPIA_READ_ONLY',
@@ -390,19 +396,72 @@ def _tem_marca_de_rejeicao(x):
     return False
 
 
+def _nao_canonico(caminho):
+    """-> None se o ficheiro se le como prova do FORMATO REAL; senao, porque nao.
+    Formato real: ate _TAMANHO_MAXIMO_DA_PROVA, UTF-8 estrito SEM BOM, UM objeto
+    JSON sem chaves repetidas, so chaves de CHAVES_DA_PROVA_DO_LAB, e POTE_SHA256 e
+    RUN_ID em texto (R6)."""
+    import json
+    try:
+        if os.path.getsize(caminho) > _TAMANHO_MAXIMO_DA_PROVA:
+            return 'grande demais'
+        with open(caminho, 'rb') as h:
+            bruto = h.read(_TAMANHO_MAXIMO_DA_PROVA + 1)
+    except OSError:
+        return 'ilegivel'
+    if len(bruto) > _TAMANHO_MAXIMO_DA_PROVA:
+        return 'grande demais'
+    if bruto.startswith(b'\xef\xbb\xbf'):
+        return 'UTF-8 com BOM'
+    try:
+        texto = bruto.decode('utf-8')
+    except UnicodeDecodeError:
+        return 'nao e UTF-8'
+
+    def sem_repetidas(pares):
+        chaves = [k for k, _v in pares]
+        if len(set(chaves)) != len(chaves):
+            raise ValueError('chave repetida')
+        return dict(pares)
+    try:
+        obj = json.loads(texto, object_pairs_hook=sem_repetidas)
+    except ValueError:
+        return 'nao e JSON (ou tem chave repetida)'
+    if not isinstance(obj, dict):
+        return 'nao e UM objeto JSON'
+    if any(k not in CHAVES_DA_PROVA_DO_LAB for k in obj):
+        return 'chaves fora da lista fechada'
+    # H8: o par escondido noutro tipo ({"RUN_ID": [..]}) tambem nao se le como prova.
+    if any(not isinstance(obj.get(k), str) or not obj.get(k).strip() for k in ('POTE_SHA256', 'RUN_ID')):
+        return 'POTE_SHA256/RUN_ID ausente ou fora de texto'
+    return None
+
+
+def _cita_o_par(v, sha_canonico, run_id):
+    """O conteudo cita o par: POTE_SHA256 igual em QUALQUER caixa (H3) e o mesmo RUN_ID."""
+    return (isinstance(v, dict)
+            and str(v.get('POTE_SHA256', '')).strip().casefold() == str(sha_canonico).casefold()
+            and str(v.get('RUN_ID', '')).strip().casefold() == str(run_id).strip().casefold())
+
+
 def _provas_do_par(pastas_do_lab, sha_canonico, run_id):
-    """-> (versoes, anomalias). TODOS os ficheiros de TODA a arvore das pastas do LAB
-    (recursivo), e nao so os que tem o nome certo.
+    """-> (versoes, anomalias, nao_canonicos). TODOS os ficheiros de TODA a arvore
+    das pastas do LAB (recursivo), e nao so os que tem o nome certo.
 
     V4a/V4b: a busca nao depende da pasta que o pedido escolheu. V4d (decisao do
     coordenador, 29/09): nem da grafia do nome. Um ficheiro com o nome do formato
     real deste par e uma versao (o conteudo confere-se a seguir). Qualquer OUTRO
     ficheiro que cite este par — pelo nome (qualquer caixa, .JSON, .json.bak…) ou
-    pelo conteudo (JSON com o mesmo POTE_SHA256 e RUN_ID) — e uma ANOMALIA, e uma
-    anomalia poe o par inteiro em FAIL: um FAIL escondido atras de uma grafia
-    diferente nao pode deixar passar um PASS antigo."""
+    pelo conteudo (mesmo POTE_SHA256 em qualquer caixa e RUN_ID) — e uma ANOMALIA,
+    e uma anomalia poe o par inteiro em FAIL.
+
+    R6 (regra final do coordenador, 30/09): saber se um ficheiro cita o par NAO pode
+    depender de o conseguir ler — num ficheiro grande demais, em UTF-16, com BOM ou
+    embrulhado a guarda nao sabe o que ele diz. Por isso QUALQUER ficheiro da arvore
+    que nao se le como prova do formato real (_nao_canonico) reprova TODOS os pares,
+    cite ou nao este pote. Falha fechada."""
     base = nome_da_prova_do_lab(sha_canonico, run_id)[:-len('.json')].casefold()
-    versoes, anomalias = {}, {}
+    versoes, anomalias, nao_canonicos = {}, {}, {}
     for raiz in pastas_do_lab or []:
         r = _caminho(raiz)
         if not r or not os.path.isdir(r):
@@ -411,17 +470,17 @@ def _provas_do_par(pastas_do_lab, sha_canonico, run_id):
             for nome in nomes:
                 caminho = os.path.realpath(os.path.join(pasta, nome))
                 chave = os.path.normcase(caminho)
+                porque = _nao_canonico(caminho)
+                if porque:
+                    nao_canonicos.setdefault(chave, (caminho, porque))
+                    continue
                 if _versao_do_nome(nome, sha_canonico, run_id) is not None:
                     versoes.setdefault(chave, caminho)
                     continue
-                cita = base in nome.casefold()
-                if not cita and os.path.getsize(caminho) <= _TAMANHO_MAXIMO_DA_PROVA:
-                    v = _ler_prova(caminho)
-                    cita = (isinstance(v, dict) and v.get('POTE_SHA256') == sha_canonico
-                            and v.get('RUN_ID') == str(run_id))
-                if cita:
+                if base in nome.casefold() or _cita_o_par(_ler_prova(caminho), sha_canonico, run_id):
                     anomalias.setdefault(chave, caminho)
-    return [versoes[k] for k in sorted(versoes)], [anomalias[k] for k in sorted(anomalias)]
+    return ([versoes[k] for k in sorted(versoes)], [anomalias[k] for k in sorted(anomalias)],
+            [nao_canonicos[k] for k in sorted(nao_canonicos)])
 
 
 def _ler_prova(f):
@@ -453,7 +512,8 @@ def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote
     entra na decisao (K3b). Com varias versoes do mesmo par, em TODA a arvore do
     LAB (V4), vale a MAIS RECENTE pelo DATA_UTC DE DENTRO do JSON — nunca pela ordem
     do nome ('-10' vem antes de '-2' no alfabeto). Ficheiro que cita o par com nome
-    anomalo = FAIL (V4d). Empate de DATA_UTC = FAIL; ausente ou invalida = FAIL;
+    anomalo = FAIL (V4d). Qualquer ficheiro da arvore do LAB que nao se le como prova
+    do formato real = TODOS os pares FAIL (R6). Empate de DATA_UTC = FAIL; ausente ou invalida = FAIL;
     qualquer versao depois de agora = FAIL (V3c; a tolerancia de 5 min so salva a
     propria prova quando e a unica). Um FAIL recente derruba um PASS antigo,
     esteja onde estiver.
@@ -509,7 +569,11 @@ def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote
         return 'o nome da prova nao e %s[-N]' % nome_da_prova_do_lab(sha_canonico, run_id)[:-len('.json')]
     # as versoes do MESMO par em TODA a arvore do LAB: vale a mais recente pelo DATA_UTC
     from datetime import datetime, timedelta, timezone
-    caminhos, anomalias = _provas_do_par(pastas_do_lab, sha_canonico, run_id)
+    caminhos, anomalias, nao_canonicos = _provas_do_par(pastas_do_lab, sha_canonico, run_id)
+    if nao_canonicos:
+        caminho, porque = nao_canonicos[0]
+        return '%s: %s (%s; %d ficheiro(s) nao canonico(s) na arvore do LAB): TODOS os pares FAIL' % (
+            ARVORE_NAO_CANONICA, caminho, porque, len(nao_canonicos))
     if anomalias:
         return ('%d ficheiro(s) do LAB citam este par com nome fora do formato real (%s): o par inteiro FAIL'
                 % (len(anomalias), ', '.join(os.path.basename(a) for a in anomalias[:3])))
