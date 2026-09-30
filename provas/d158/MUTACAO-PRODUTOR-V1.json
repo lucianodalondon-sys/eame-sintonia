@@ -1,10 +1,10 @@
 {
- "ARVORE": "07077bd89d540d0008c2f3b1a24fd55c8be196ec",
+ "ARVORE": "bfb9cd90727f7a99afd4d2a9bd5af129d1a5f4ca",
  "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
  "SEM_MUTACAO": {
   "CODIGO": 0,
   "VERDE": true,
-  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 171 tests in 1.792s\n\nOK"
+  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 190 tests in 1.830s\n\nOK"
  },
  "MUTANTES": [
   {
@@ -73,11 +73,11 @@
    "CODIGO": 1,
    "QUEM_O_MATOU": [
     "FAIL: test_so_acontecimento_vira_fact_time (__main__.AFronteiraDaCollection.test_so_acontecimento_vira_fact_time)",
+    "FAIL: test_a_forma_DEPOIS_da_captura_continua_a_ser_recusada (__main__.AsDuasFormasImpressasNaProsa.test_a_forma_DEPOIS_da_captura_continua_a_ser_recusada)",
     "FAIL: test_RT5_a_captura_chega_ao_leitor_pela_producao_inteira (__main__.AsGuardasQueNenhumTesteFixava.test_RT5_a_captura_chega_ao_leitor_pela_producao_inteira)",
     "FAIL: test_evento_futuro_com_data_por_extenso_nao_e_acontecimento (__main__.OQueAindaNaoAconteceu.test_evento_futuro_com_data_por_extenso_nao_e_acontecimento)",
     "FAIL: test_ato_e_mercado_tem_papel_proprio (__main__.TestesNegativos.test_ato_e_mercado_tem_papel_proprio)",
-    "FAIL: test_publicacao_nao_e_fato (__main__.TestesNegativos.test_publicacao_nao_e_fato)",
-    "FAIL: test_um_periodo_futuro_nunca_tem_o_papel_de_acontecimento (__main__.TestesNegativos.test_um_periodo_futuro_nunca_tem_o_papel_de_acontecimento)"
+    "FAIL: test_publicacao_nao_e_fato (__main__.TestesNegativos.test_publicacao_nao_e_fato)"
    ]
   },
   {
@@ -160,6 +160,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_a_forma_sozinha_com_publicacao_provada_da_o_periodo (__main__.AsDuasFormasImpressasNaProsa.test_a_forma_sozinha_com_publicacao_provada_da_o_periodo)",
     "FAIL: test_RT6_o_evento_do_PROPRIO_dia_da_coleta_e_acontecimento (__main__.AsGuardasQueNenhumTesteFixava.test_RT6_o_evento_do_PROPRIO_dia_da_coleta_e_acontecimento)",
     "FAIL: test_um_tempo_e_um_lugar_continuam_a_passar (__main__.DoisFactosNumaFraseSo.test_um_tempo_e_um_lugar_continuam_a_passar)",
     "FAIL: test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar (__main__.OContratoDeConsumoDaIntelligence.test_a_publicacao_viaja_ao_lado_e_nunca_no_lugar)",
@@ -518,6 +519,116 @@
    ]
   },
   {
+   "NOME": "F1_A_SEMANA_ISO_DEIXA_DE_SER_LIDA",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_SEM_publicacao_provada_a_forma_nao_diz_se_ja_passou (__main__.AsDuasFormasImpressasNaProsa.test_SEM_publicacao_provada_a_forma_nao_diz_se_ja_passou)",
+    "FAIL: test_a_forma_DEPOIS_da_captura_continua_a_ser_recusada (__main__.AsDuasFormasImpressasNaProsa.test_a_forma_DEPOIS_da_captura_continua_a_ser_recusada)",
+    "FAIL: test_a_forma_sozinha_com_publicacao_provada_da_o_periodo (__main__.AsDuasFormasImpressasNaProsa.test_a_forma_sozinha_com_publicacao_provada_da_o_periodo)",
+    "FAIL: test_a_semana_ISO_da_o_intervalo_de_segunda_a_domingo (__main__.AsDuasFormasImpressasNaProsa.test_a_semana_ISO_da_o_intervalo_de_segunda_a_domingo)"
+   ]
+  },
+  {
+   "NOME": "F1_O_INTERVALO_DE_DIAS_DEIXA_DE_SER_LIDO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_BASIS_da_forma_cai_DENTRO_do_trecho (__main__.AsDuasFormasImpressasNaProsa.test_o_BASIS_da_forma_cai_DENTRO_do_trecho)",
+    "FAIL: test_o_intervalo_de_dias_usa_o_ANO_DO_DOCUMENTO (__main__.AsDuasFormasImpressasNaProsa.test_o_intervalo_de_dias_usa_o_ANO_DO_DOCUMENTO)"
+   ]
+  },
+  {
+   "NOME": "F1_O_ANO_E_INVENTADO_QUANDO_O_DOCUMENTO_NAO_O_ESCREVE",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "ERROR: test_SEM_ano_no_documento_NAO_se_inventa_o_ano (__main__.AsDuasFormasImpressasNaProsa.test_SEM_ano_no_documento_NAO_se_inventa_o_ano)"
+   ]
+  },
+  {
+   "NOME": "F1_O_ANO_DO_DOCUMENTO_ESCOLHE_UM_DE_VARIOS",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_com_DOIS_anos_na_abertura_nao_ha_ano_do_documento (__main__.AsDuasFormasImpressasNaProsa.test_com_DOIS_anos_na_abertura_nao_ha_ano_do_documento)"
+   ]
+  },
+  {
+   "NOME": "F1_O_ANO_LE_SE_NO_DOCUMENTO_INTEIRO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_ano_le_se_so_na_ABERTURA_do_documento (__main__.AsDuasFormasImpressasNaProsa.test_o_ano_le_se_so_na_ABERTURA_do_documento)"
+   ]
+  },
+  {
+   "NOME": "F1_A_SEMANA_QUE_NAO_EXISTE_PASSA",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_semana_que_nao_existe_nao_da_data (__main__.AsDuasFormasImpressasNaProsa.test_a_semana_que_nao_existe_nao_da_data)"
+   ]
+  },
+  {
+   "NOME": "F1_O_BASIS_DA_FORMA_FICA_RELATIVO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "F1_A_GUARDA_DO_BLK1_NAO_VALE_NO_CAMINHO_NOVO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_guarda_do_BLK1_vale_TAMBEM_no_caminho_novo (__main__.AsDuasFormasImpressasNaProsa.test_a_guarda_do_BLK1_vale_TAMBEM_no_caminho_novo)"
+   ]
+  },
+  {
+   "NOME": "F1_DOIS_PERIODOS_IMPRESSOS_ESCOLHEM_UM",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "F1_O_CONTADOR_NAO_VE_AS_FORMAS_NOVAS",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_DOIS_periodos_impressos_no_mesmo_trecho_dao_NAO_SEI (__main__.AsDuasFormasImpressasNaProsa.test_DOIS_periodos_impressos_no_mesmo_trecho_dao_NAO_SEI)",
+    "FAIL: test_O_CONTADOR_VE_AS_FORMAS_NOVAS (__main__.AsDuasFormasImpressasNaProsa.test_O_CONTADOR_VE_AS_FORMAS_NOVAS)"
+   ]
+  },
+  {
+   "NOME": "F1_O_MENU_VOLTA_A_ENGOLIR_A_FRASE_SEGUINTE",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_prosa_depois_do_menu_volta_a_ser_corpo (__main__.OMenuQueEngoliaAFraseSeguinte.test_a_prosa_depois_do_menu_volta_a_ser_corpo)"
+   ]
+  },
+  {
+   "NOME": "F1_CORTA_EM_QUALQUER_LINHA_CURTA_ISOLADA",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_expressao_que_atravessa_uma_linha_nao_e_um_lugar (__main__.OLugarTemOffset.test_a_expressao_que_atravessa_uma_linha_nao_e_um_lugar)",
+    "FAIL: test_UMA_linha_curta_isolada_NAO_corta (__main__.OMenuQueEngoliaAFraseSeguinte.test_UMA_linha_curta_isolada_NAO_corta)"
+   ]
+  },
+  {
    "NOME": "DT_FO_1a_A_CLASSE_SEM_A_MARCA_ESCRITA",
    "FICHEIRO": "leis/afirmacao_do_documento.py",
    "ESTADO": "MORTO",
@@ -646,6 +757,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "ERROR: test_a_guarda_do_BLK1_vale_TAMBEM_no_caminho_novo (__main__.AsDuasFormasImpressasNaProsa.test_a_guarda_do_BLK1_vale_TAMBEM_no_caminho_novo)",
     "ERROR: test_TEMPOS_CONCORRENTES_e_um_campo (__main__.OMotivoViajaNumCampo.test_TEMPOS_CONCORRENTES_e_um_campo)",
     "ERROR: test_os_dois_lados_dizem_o_seu_motivo (__main__.OMotivoViajaNumCampo.test_os_dois_lados_dizem_o_seu_motivo)",
     "FAIL: test_o_campo_esta_presente_mesmo_sem_motivo (__main__.OMotivoViajaNumCampo.test_o_campo_esta_presente_mesmo_sem_motivo)"
@@ -688,7 +800,8 @@
    "CODIGO": 1,
    "QUEM_O_MATOU": [
     "FAIL: test_o_menu_nao_vira_afirmacao (__main__.OBlocoDeMenuNaoEUmaFrase.test_o_menu_nao_vira_afirmacao)",
-    "FAIL: test_um_bloco_de_linhas_curtas_nao_e_corpo (__main__.OBlocoDeMenuNaoEUmaFrase.test_um_bloco_de_linhas_curtas_nao_e_corpo)"
+    "FAIL: test_um_bloco_de_linhas_curtas_nao_e_corpo (__main__.OBlocoDeMenuNaoEUmaFrase.test_um_bloco_de_linhas_curtas_nao_e_corpo)",
+    "FAIL: test_LIMITE_JA_EXISTENTE_duas_curtas_em_tres_linhas_sao_julgadas_menu (__main__.OMenuQueEngoliaAFraseSeguinte.test_LIMITE_JA_EXISTENTE_duas_curtas_em_tres_linhas_sao_julgadas_menu)"
    ]
   },
   {
@@ -949,9 +1062,12 @@
    ]
   }
  ],
- "TOTAL": 89,
- "MORTOS": 89,
- "SOBREVIVENTES": [],
+ "TOTAL": 101,
+ "MORTOS": 99,
+ "SOBREVIVENTES": [
+  "F1_O_BASIS_DA_FORMA_FICA_RELATIVO",
+  "F1_DOIS_PERIODOS_IMPRESSOS_ESCOLHEM_UM"
+ ],
  "ALVOS_CONFERIDOS": true,
  "MUTANTES_PENDENTES": [],
  "PORQUE_HA_PENDENTES": "DT-FATO-OBSERVADO: o dono do contrato versiona o vocabulario (classe, marcas aceites, tempo exigido) e o produtor classifica DEPOIS. Sem o codigo da classe, estes seis sairiam NAO_APLICADO — que nao e um mutante morto, e um ataque que nunca aconteceu."

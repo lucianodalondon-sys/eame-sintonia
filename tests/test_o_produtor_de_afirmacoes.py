@@ -1919,6 +1919,45 @@ class AsDuasFormasImpressasNaProsa(unittest.TestCase):
         self.assertLessEqual(af['POSICAO']['INICIO'], b['INICIO'])
         self.assertLessEqual(b['FIM'], af['POSICAO']['FIM'])
 
+    def test_o_BASIS_da_SEMANA_tambem_e_ABSOLUTO_no_documento(self):
+        """⚠️ ESTE TESTE NASCEU DE UM MUTANTE SOBREVIVENTE, e a lição é sobre COBERTURA.
+
+        Eu tinha um teste do offset absoluto — mas só sobre a forma `(dd-dd.mm)`. O mutante que
+        torna relativo o offset da **semana** sobreviveu, porque nenhum teste tocava aquela
+        linha. Duas formas na mesma função são duas garantias, e cada uma precisa do seu caso.
+
+            UM TESTE SOBRE UMA DAS DUAS FORMAS COBRE UMA DAS DUAS FORMAS.
+        """
+        recheio = ('Testo di apertura che non misura nulla e serve solo a empurrar o offset '
+                   'piu avanti nel documento.\n')
+        t = recheio + 'La grandinata osservata nella settimana 38/2026 ha colpito Cuneo.'
+        p = TA.periodos_impressos_no_trecho(t, len(recheio), len(t))[0]
+        self.assertGreater(p['BASIS']['INICIO'], len(recheio) - 1,
+                           'o offset da semana nao pode ser relativo ao trecho')
+        self.assertEqual(t[p['BASIS']['INICIO']:p['BASIS']['FIM']], p['BASIS']['TRECHO'])
+        self.assertEqual(p['BASIS']['TRECHO'], 'settimana 38/2026')
+
+    def test_DOIS_periodos_impressos_recusam_MESMO_sem_ser_ACONTECIMENTO(self):
+        """⚠️ O SEGUNDO MUTANTE SOBREVIVENTE, e é a mesma lição de guardas que se cobrem.
+
+        A guarda dos dois períodos impressos estava tapada pela guarda geral do BLK-1: ambas
+        dão `NAO SEI` quando o papel é `ACONTECIMENTO`, logo desligar uma deixava a outra a
+        recusar. Só se separam quando o papel **não** é ACONTECIMENTO — porque aí a guarda geral
+        não morde (uma `VALIDADE` ou um `MARKET_PERIOD` não são o tempo do facto).
+
+        E ela tem de recusar mesmo aí: devolver um de dois períodos escolhido pela ordem é o
+        mesmo defeito do BLK-1, só com outro nome no campo."""
+        t = ('Il bollettino numero 20 dell anno 2026 e stato pubblicato dal servizio cantonale.\n'
+             'La rilevazione dei listini (18-24.05) e (25-31.05) e stata fatta a Cuneo.')
+        af = next((a for a in _produzir(t, published_at='2026-07-01')
+                   if '(18-24.05)' in a['TRECHO_LITERAL']), None)
+        self.assertIsNotNone(af)
+        self.assertEqual(af['FACT_TIME_ROLE']['PAPEL'], NAO_SEI)
+        self.assertEqual(af['FACT_TIME']['MOTIVO'], TA.TEMPOS_CONCORRENTES)
+        self.assertEqual(af['MARKET_PERIOD']['VALOR'], NAO_SEI,
+                         'nenhum dos dois periodos pode ser escolhido pela ordem')
+        self.assertIn('2 periodos impressos', af['FACT_TIME_ROLE']['PORQUE'])
+
     def test_O_CONTADOR_VE_AS_FORMAS_NOVAS(self):
         """⚠️ Sem isto voltava o estado incoerente que a PROD-3 fechou: um valor presente com
         `TEMPOS_NO_TRECHO = 0`, porque o contador não via a forma que o leitor leu.
