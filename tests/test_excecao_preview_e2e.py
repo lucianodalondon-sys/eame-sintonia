@@ -868,6 +868,13 @@ class LB_AProvaDoLabEstruturadaPorIgualdadeDeCampo(Base):
                        [self.outra(), self.entrada(self.pote)]):
             self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(indice, nome=self.nome_deste_par())))
 
+    def test_LB2_uma_lista_nao_e_lida_pela_ultima_entrada(self):
+        """M65 (VERIF-L1-df37793d1): uma prova-lista cuja ULTIMA entrada e um PASS valido
+        deste par cai pela regra do objeto, e nao so depois pela arvore (R6)."""
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
+            [self.outra(), self.entrada(self.pote)], nome=self.nome_deste_par())))
+        self.assertIn("nao e UM objeto de prova", m)
+
     def test_LB3_este_pote_citado_como_rejeitado(self):
         m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(
             self.entrada(self.pote, POTE_REJEITADO=self.sha))))
@@ -1352,6 +1359,18 @@ class R6_AuditorVerif231c0a5b2(Base):
             self.assertIn(lei.ARVORE_NAO_CANONICA, m)
             self.assertIn("fora de texto", m)
             self.setUp()
+
+    def test_V4d_nome_que_cita_o_par_com_prova_canonica_de_OUTRO_par(self):
+        """M91 (VERIF-L1-df37793d1): a regra do NOME vale sozinha. Um .bak com o nome
+        deste par e uma prova v3 canonica de outro par nao cita este par pelo
+        conteudo — so o nome o apanha."""
+        outro = copy.deepcopy(self.pote)
+        outro["INTELLIGENCE_RUN_ID"] = "IR-outra-corrida"
+        v = self.lab_para(self.pote)
+        self.escreve_bytes(self.nome_deste_par() + ".bak",
+                           json.dumps(self.entrada(outro)).encode("utf-8"))
+        m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=v))
+        self.assertIn("nome fora do formato real", m)
 
     def test_R6_chave_repetida_esconde_um_FAIL_e_reprova_a_arvore(self):
         texto = json.dumps(self.fail_recente())[:-1] + ', "VEREDITO": "PASS"}'
