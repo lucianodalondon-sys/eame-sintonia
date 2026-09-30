@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-30T16:10:36+00:00",
-  "HEAD": "46a1d46b7de5330a335af12e38c3afaa59cce04e",
+  "GENERATED_AT": "2026-09-30T22:48:26+00:00",
+  "HEAD": "f0648f404d2749818ff9bd6ebc5ff20538308b17",
   "BRANCH": "lucianodalondon-sys/servico-trinco-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "2dd8fa5ccfd7b027490676ab44c0c1d5a6711f632e00b54099ff1f536358574d",
-  "FICHEIROS_NA_IMPRESSAO": 4363,
+  "SOURCE_TREE_FINGERPRINT": "1a40495a4070b3e9ef26ad95c9dbc9c911e34d6cac9262e96d24affead82ee1a",
+  "FICHEIROS_NA_IMPRESSAO": 4368,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -965,7 +965,7 @@
    {
     "PATH": "ferramentas/big_collection/coleta_continua.py",
     "PAPEL": "FONTE",
-    "VERSAO": "69e14cee1dd01f85d2b0d2a803d3ffad459a8df7",
+    "VERSAO": "e2dac7e194e57dfb6a1802c83d0d137e5abe215f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3590,7 +3590,7 @@
    {
     "PATH": "provas/coleta_continua_mutacao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "62750058e6e55b00e56661fcc57a32f35bf36987",
+    "VERSAO": "5443de6f08f06eb69e26d0d80060cb86da65dff9",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -5284,7 +5284,7 @@
    {
     "PATH": "scripts/micro_coleta/provar_backup_da_sala.py",
     "PAPEL": "FONTE",
-    "VERSAO": "09d2c91829078aac641b062231ce8084c6f88946",
+    "VERSAO": "14a781e2f51a78fb8577238daaae2848afe19562",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5564,14 +5564,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "2dd8fa5ccfd7b027490676ab44c0c1d5a6711f632e00b54099ff1f536358574d",
+    "VERSAO": "1a40495a4070b3e9ef26ad95c9dbc9c911e34d6cac9262e96d24affead82ee1a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "2dd8fa5ccfd7b027490676ab44c0c1d5a6711f632e00b54099ff1f536358574d",
+    "VERSAO": "1a40495a4070b3e9ef26ad95c9dbc9c911e34d6cac9262e96d24affead82ee1a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6628,7 +6628,7 @@
    {
     "PATH": "tests/test_coleta_continua.py",
     "PAPEL": "FONTE",
-    "VERSAO": "b571eab63c6b2cd5fda4117ca2cf973d62b26c8a",
+    "VERSAO": "f7e4b0f0c90ca0b31df58000ca637ddd5fab2c41",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8251,7 +8251,7 @@
    }
   ],
   "INPUTS_COUNT": 1173,
-  "INPUTS_DIGEST": "29b2f55fde6bee5c54bad850ca69f4b74fce2bced7a0f6bc505264896a113dca",
+  "INPUTS_DIGEST": "32ea533ce4dc90da5022dfbdea085d2fefacb8b3812eaa82fb7afb0c5f3c8003",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8284,8 +8284,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "c4d2659cdbc1a26e20ba40a2000893ffd8d5b06bc313f48a54ed5a581069e8db",
-  "SEMANTIC_HASH": "2625a710a5abe81bf3aaed8975439ab7642b351ab1400afb42b5834030b50f68"
+  "MEASUREMENT_HASH": "7f7dfcee93890a3b6fcc13d2c321f1ca7bf1e552e0ce2b160e99eaf31d333269",
+  "SEMANTIC_HASH": "e8dd88dc36743916f624d059805c657811f84cd046565074467a085618d00599"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -16495,7 +16495,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 341,
+      "LINHA": 343,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-UNIFICACAO--READS-->C-ONDA-WEB",
@@ -20131,7 +20131,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 79,
+      "LINHA": 81,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CONTADOR-24H--IMPORTS-->C-ONDA-WEB",
@@ -21983,7 +21983,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 80,
+      "LINHA": 82,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CORTESIA-ADAPTATIVA--IMPORTS-->C-ONDA-WEB",
@@ -32018,7 +32018,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 98,
+      "LINHA": 100,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-ONDA-WEB",
@@ -35767,7 +35767,7 @@
      },
      {
       "FICHEIRO": "tests/test_coleta_continua.py",
-      "LINHA": 234,
+      "LINHA": 235,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
@@ -36408,7 +36408,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 100,
+      "LINHA": 102,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LINHA-BUSCA--READS-->C-ONDA-WEB",
@@ -42042,7 +42042,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 301,
+      "LINHA": 303,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-ONDA-WEB",
@@ -42097,6 +42097,14 @@
      {
       "FICHEIRO": "provas/chave_problema/ensaio_033_descartavel.py",
       "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/coleta_continua_mutacao.py",
+      "LINHA": 79,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-PROVA-COLETA",
@@ -43000,7 +43008,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_coleta_continua.py",
-      "LINHA": 725,
+      "LINHA": 1043,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ONDA-WEB--READS-->C-TESTES",
@@ -45861,7 +45869,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 102,
+      "LINHA": 104,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PESQUISADORES-T6--READS-->C-ONDA-WEB",
@@ -57754,7 +57762,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 104,
+      "LINHA": 106,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-ONDA-WEB",
@@ -58322,7 +58330,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "ferramentas/big_collection/coleta_continua.py",
-      "LINHA": 106,
+      "LINHA": 108,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SEGUIR-PESQUISADORES--READS-->C-ONDA-WEB",
@@ -70190,6 +70198,7 @@
     "provas/c6_repetido/mutacao_c6.py",
     "provas/c6_repetido/prova_sql_c6.py",
     "provas/chave_problema/ensaio_033_descartavel.py",
+    "provas/coleta_continua_mutacao.py",
     "provas/int_r7/export_numa_copia_descartavel.py",
     "provas/migracao_033_ensaio_copia.py",
     "provas/migracao_034_ensaio_copia.py",
@@ -70441,6 +70450,7 @@
     "collection_run",
     "collections",
     "concurrent",
+    "ctypes",
     "datetime",
     "pathlib",
     "pedido",
