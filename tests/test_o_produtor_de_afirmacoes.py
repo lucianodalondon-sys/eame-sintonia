@@ -1067,6 +1067,46 @@ class OMesSozinhoNaoTemAno(unittest.TestCase):
         for valor in ('2012', 'marzo 2012', '12 marzo 2012', '2026-09-07/2026-09-13'):
             self.assertFalse(TA.falta_o_ano(valor), valor)
 
+    def test_A_PRECISAO_DIZ_QUE_FALTA_O_ANO_NO_MES_SOZINHO(self):
+        """O caminho da PRECISAO, fixado pelo que ELE promete.
+
+        ⚠️ ESTE TESTE NASCEU DE UM MUTANTE SOBREVIVENTE. A PROD-3 pôs DUAS guardas sobre o
+        ano — a precisão passa a dizer `+SEM_ANO`, e a classe pergunta ao valor — e as duas
+        tapavam-se uma à outra: desligar qualquer uma sozinha deixava a outra a cobrir, e o
+        teste da classe continuava verde. Dois mutantes sobreviveram por isso.
+
+            DUAS GUARDAS QUE SE COBREM UMA À OUTRA SÃO DEFESA EM PROFUNDIDADE;
+            SEM UM TESTE PARA CADA UMA, SÃO DUAS GUARDAS QUE NINGUÉM ESTÁ A GUARDAR.
+
+        A precisão não é redundante com a classe: quem consome lê o campo `PRECISAO` para
+        saber o que o valor NÃO diz. Se ela parar de declarar que o ano falta, é enganado
+        mesmo que a classe esteja certa."""
+        af = _produzir('La raccolta si e svolta a marzo in provincia di Ferrara.',
+                       published_at='2026-05-10')[0]
+        fr = af['FACT_TIME_ROLE']
+        self.assertEqual(fr['VALOR_LIDO'], 'marzo')
+        self.assertTrue(fr['PRECISAO'].endswith('SEM_ANO'), fr['PRECISAO'])
+        self.assertEqual(fr['ANO'], NAO_SEI)
+
+    def test_A_CLASSE_PERGUNTA_AO_VALOR_MESMO_COM_A_PRECISAO_CALADA(self):
+        """O caminho da CLASSE, isolado da precisão — a outra metade do mutante sobrevivente.
+
+        Chama-se `classe_do_claim` com um tempo em que a PRECISAO **não** diz `SEM_ANO` e o
+        `ANO` **não** é `NAO SEI`: os dois sinais antigos calados. Só a pergunta ao VALOR pode
+        responder, e ela tem de responder."""
+        r = AD.classe_do_claim('La grandine osservata ha colpito i frutteti a marzo',
+                               {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'MONTH',
+                                'ANO': None, 'VALOR': 'marzo'})
+        self.assertEqual(r['VALOR'], NAO_SEI)
+        self.assertIn('nao escreve o ano', r['PORQUE'])
+
+    def test_a_classe_com_ano_escrito_continua_a_passar(self):
+        """O contrapeso: a pergunta ao valor não pode recusar quem tem o ano."""
+        r = AD.classe_do_claim('La grandine osservata ha colpito i frutteti nel 2012',
+                               {'PAPEL': TA.ACONTECIMENTO, 'PRECISAO': 'YEAR',
+                                'ANO': None, 'VALOR': '2012'})
+        self.assertEqual(r['VALOR'], 'ALERTA_EVENTO')
+
     def test_um_texto_sem_tempo_nenhum_nao_diz_que_falta_o_ano(self):
         """`falta_o_ano` nao pode virar «true por omissao»: sem mes e sem algarismo, nao ha
         ano a faltar — ha ausencia de data, que e outra coisa e tem outro nome."""

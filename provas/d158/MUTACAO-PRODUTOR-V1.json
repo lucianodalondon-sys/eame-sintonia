@@ -1,10 +1,10 @@
 {
- "ARVORE": "8fd985663062665af3462143faf6e3dc33d16a0b",
+ "ARVORE": "ced904e80ecb1108b044bef4e37013576f4d2b96",
  "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
  "SEM_MUTACAO": {
   "CODIGO": 0,
   "VERDE": true,
-  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 104 tests in 1.061s\n\nOK"
+  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 119 tests in 1.143s\n\nOK"
  },
  "MUTANTES": [
   {
@@ -174,6 +174,7 @@
     "FAIL: test_o_bloqueador_nao_devolve_mais_o_par_falso (__main__.DoisFactosNumaFraseSo.test_o_bloqueador_nao_devolve_mais_o_par_falso)",
     "FAIL: test_nenhum_municipio_e_inventado (__main__.OContratoDeConsumoDaIntelligence.test_nenhum_municipio_e_inventado)",
     "FAIL: test_a_expressao_que_atravessa_uma_linha_nao_e_um_lugar (__main__.OLugarTemOffset.test_a_expressao_que_atravessa_uma_linha_nao_e_um_lugar)",
+    "FAIL: test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes (__main__.OMesSozinhoNaoTemAno.test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes)",
     "FAIL: test_local_inexistente_fica_nao_sei (__main__.TestesNegativos.test_local_inexistente_fica_nao_sei)"
    ]
   },
@@ -226,6 +227,7 @@
    "QUEM_O_MATOU": [
     "FAIL: test_a_visita_a_pontos_de_venda_nao_e_ALERTA_EVENTO (__main__.ALojaEMercadoEmTodaACasa.test_a_visita_a_pontos_de_venda_nao_e_ALERTA_EVENTO)",
     "FAIL: test_as_outras_palavras_de_loja_dizem_o_mesmo (__main__.ALojaEMercadoEmTodaACasa.test_as_outras_palavras_de_loja_dizem_o_mesmo)",
+    "FAIL: test_o_ato_citado_pelo_numero_e_REGULATORIO (__main__.OAtoCitadoPeloNumero.test_o_ato_citado_pelo_numero_e_REGULATORIO)",
     "FAIL: test_a_classe_marcada_sai_no_vocabulario_fechado (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_marcada_sai_no_vocabulario_fechado)"
    ]
   },
@@ -253,6 +255,8 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_a_coerencia_do_TEMPO_vale_em_toda_a_producao (__main__.ATempoEmitidoTambemConta.test_a_coerencia_do_TEMPO_vale_em_toda_a_producao)",
+    "FAIL: test_o_cabecalho_D147_conta_ZERO_e_esta_certo (__main__.ATempoEmitidoTambemConta.test_o_cabecalho_D147_conta_ZERO_e_esta_certo)",
     "FAIL: test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho (__main__.OContratoDeConsumoDaIntelligence.test_a_conferencia_recusa_literal_com_o_basis_no_cabecalho)",
     "FAIL: test_literal_exige_o_basis_dentro_do_trecho (__main__.OContratoDeConsumoDaIntelligence.test_literal_exige_o_basis_dentro_do_trecho)",
     "FAIL: test_a_conferencia_aprova_o_que_o_produtor_produz (__main__.TrechoEProva.test_a_conferencia_aprova_o_que_o_produtor_produz)",
@@ -328,8 +332,7 @@
     "FAIL: test_a_data_escrita_com_oggi_ao_lado_e_LITERAL (__main__.AOrigemDaDataEscrita.test_a_data_escrita_com_oggi_ao_lado_e_LITERAL)",
     "FAIL: test_compara_se_pelo_DIA_e_nao_pelo_texto (__main__.AOrigemDaDataEscrita.test_compara_se_pelo_DIA_e_nao_pelo_texto)",
     "FAIL: test_a_data_depois_da_captura_nao_e_acontecimento (__main__.OQueAindaNaoAconteceu.test_a_data_depois_da_captura_nao_e_acontecimento)",
-    "FAIL: test_a_data_le_se_em_qualquer_forma_que_o_vivo_escreva (__main__.OQueAindaNaoAconteceu.test_a_data_le_se_em_qualquer_forma_que_o_vivo_escreva)",
-    "FAIL: test_a_precisao_diz_quando_o_ano_falta (__main__.OQueAindaNaoAconteceu.test_a_precisao_diz_quando_o_ano_falta)"
+    "FAIL: test_a_data_le_se_em_qualquer_forma_que_o_vivo_escreva (__main__.OQueAindaNaoAconteceu.test_a_data_le_se_em_qualquer_forma_que_o_vivo_escreva)"
    ]
   },
   {
@@ -444,9 +447,9 @@
     "ERROR: test_LITERAL_continua_a_ter_o_BASIS_DENTRO_do_trecho (__main__.AOrigemDaDataEscrita.test_LITERAL_continua_a_ter_o_BASIS_DENTRO_do_trecho)",
     "ERROR: test_a_data_escrita_com_oggi_ao_lado_e_LITERAL (__main__.AOrigemDaDataEscrita.test_a_data_escrita_com_oggi_ao_lado_e_LITERAL)",
     "ERROR: test_a_relativa_PURA_continua_RELATIVO_D63 (__main__.AOrigemDaDataEscrita.test_a_relativa_PURA_continua_RELATIVO_D63)",
-    "ERROR: test_A_AREA_SUPRANACIONAL_CONTA_MAS_NUNCA_RESOLVE (__main__.DoisFactosNumaFraseSo.test_A_AREA_SUPRANACIONAL_CONTA_MAS_NUNCA_RESOLVE)",
-    "ERROR: test_as_duas_contagens_viajam_na_afirmacao (__main__.DoisFactosNumaFraseSo.test_as_duas_contagens_viajam_na_afirmacao)",
-    "ERROR: test_o_bloqueador_nao_devolve_mais_o_par_falso (__main__.DoisFactosNumaFraseSo.test_o_bloqueador_nao_devolve_mais_o_par_falso)"
+    "ERROR: test_a_coerencia_do_TEMPO_vale_em_toda_a_producao (__main__.ATempoEmitidoTambemConta.test_a_coerencia_do_TEMPO_vale_em_toda_a_producao)",
+    "ERROR: test_a_relativa_continua_a_contar_ZERO_e_esta_certa (__main__.ATempoEmitidoTambemConta.test_a_relativa_continua_a_contar_ZERO_e_esta_certa)",
+    "ERROR: test_o_cabecalho_D147_conta_ZERO_e_esta_certo (__main__.ATempoEmitidoTambemConta.test_o_cabecalho_D147_conta_ZERO_e_esta_certo)"
    ]
   },
   {
@@ -456,6 +459,7 @@
    "CODIGO": 1,
    "QUEM_O_MATOU": [
     "ERROR: test_o_motivo_esta_escrito_nos_dois_lados (__main__.DoisFactosNumaFraseSo.test_o_motivo_esta_escrito_nos_dois_lados)",
+    "FAIL: test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador (__main__.ATempoEmitidoTambemConta.test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador)",
     "FAIL: test_o_bloqueador_nao_devolve_mais_o_par_falso (__main__.DoisFactosNumaFraseSo.test_o_bloqueador_nao_devolve_mais_o_par_falso)"
    ]
   },
@@ -466,7 +470,8 @@
    "CODIGO": 1,
    "QUEM_O_MATOU": [
     "FAIL: test_o_bloqueador_nao_devolve_mais_o_par_falso (__main__.DoisFactosNumaFraseSo.test_o_bloqueador_nao_devolve_mais_o_par_falso)",
-    "FAIL: test_o_motivo_esta_escrito_nos_dois_lados (__main__.DoisFactosNumaFraseSo.test_o_motivo_esta_escrito_nos_dois_lados)"
+    "FAIL: test_o_motivo_esta_escrito_nos_dois_lados (__main__.DoisFactosNumaFraseSo.test_o_motivo_esta_escrito_nos_dois_lados)",
+    "FAIL: test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes (__main__.OMesSozinhoNaoTemAno.test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes)"
    ]
   },
   {
@@ -475,9 +480,12 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
-    "ERROR: test_as_duas_contagens_viajam_na_afirmacao (__main__.DoisFactosNumaFraseSo.test_as_duas_contagens_viajam_na_afirmacao)",
-    "ERROR: test_um_tempo_e_um_lugar_continuam_a_passar (__main__.DoisFactosNumaFraseSo.test_um_tempo_e_um_lugar_continuam_a_passar)",
-    "FAIL: test_os_dois_campos_estao_em_TODAS_as_afirmacoes (__main__.DoisFactosNumaFraseSo.test_os_dois_campos_estao_em_TODAS_as_afirmacoes)"
+    "ERROR: test_a_coerencia_do_TEMPO_vale_em_toda_a_producao (__main__.ATempoEmitidoTambemConta.test_a_coerencia_do_TEMPO_vale_em_toda_a_producao)",
+    "ERROR: test_a_relativa_continua_a_contar_ZERO_e_esta_certa (__main__.ATempoEmitidoTambemConta.test_a_relativa_continua_a_contar_ZERO_e_esta_certa)",
+    "ERROR: test_o_cabecalho_D147_conta_ZERO_e_esta_certo (__main__.ATempoEmitidoTambemConta.test_o_cabecalho_D147_conta_ZERO_e_esta_certo)",
+    "ERROR: test_o_mes_sozinho_LITERAL_conta_um (__main__.ATempoEmitidoTambemConta.test_o_mes_sozinho_LITERAL_conta_um)",
+    "ERROR: test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador (__main__.ATempoEmitidoTambemConta.test_somar_o_emitido_nao_afrouxa_a_guarda_do_bloqueador)",
+    "ERROR: test_as_duas_contagens_viajam_na_afirmacao (__main__.DoisFactosNumaFraseSo.test_as_duas_contagens_viajam_na_afirmacao)"
    ]
   },
   {
@@ -488,6 +496,9 @@
    "QUEM_O_MATOU": [
     "ERROR: test_as_duas_contagens_viajam_na_afirmacao (__main__.DoisFactosNumaFraseSo.test_as_duas_contagens_viajam_na_afirmacao)",
     "ERROR: test_um_tempo_e_um_lugar_continuam_a_passar (__main__.DoisFactosNumaFraseSo.test_um_tempo_e_um_lugar_continuam_a_passar)",
+    "ERROR: test_A_CONTAGEM_NAO_PODE_SER_ZERO_COM_UM_LUGAR_PRESENTE (__main__.OMesSozinhoNaoTemAno.test_A_CONTAGEM_NAO_PODE_SER_ZERO_COM_UM_LUGAR_PRESENTE)",
+    "ERROR: test_a_coerencia_vale_em_TODA_a_producao (__main__.OMesSozinhoNaoTemAno.test_a_coerencia_vale_em_TODA_a_producao)",
+    "ERROR: test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes (__main__.OMesSozinhoNaoTemAno.test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes)",
     "FAIL: test_os_dois_campos_estao_em_TODAS_as_afirmacoes (__main__.DoisFactosNumaFraseSo.test_os_dois_campos_estao_em_TODAS_as_afirmacoes)"
    ]
   },
@@ -518,7 +529,8 @@
    "QUEM_O_MATOU": [
     "FAIL: test_A_AREA_SUPRANACIONAL_CONTA_MAS_NUNCA_RESOLVE (__main__.DoisFactosNumaFraseSo.test_A_AREA_SUPRANACIONAL_CONTA_MAS_NUNCA_RESOLVE)",
     "FAIL: test_as_duas_contagens_viajam_na_afirmacao (__main__.DoisFactosNumaFraseSo.test_as_duas_contagens_viajam_na_afirmacao)",
-    "FAIL: test_o_motivo_esta_escrito_nos_dois_lados (__main__.DoisFactosNumaFraseSo.test_o_motivo_esta_escrito_nos_dois_lados)"
+    "FAIL: test_o_motivo_esta_escrito_nos_dois_lados (__main__.DoisFactosNumaFraseSo.test_o_motivo_esta_escrito_nos_dois_lados)",
+    "FAIL: test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes (__main__.OMesSozinhoNaoTemAno.test_somar_o_emitido_nao_afrouxa_a_guarda_dos_concorrentes)"
    ]
   },
   {
@@ -551,9 +563,111 @@
     "FAIL: test_a_marca_vem_do_leitor_vivo_e_nao_de_uma_segunda_lista (__main__.ALojaEMercadoEmTodaACasa.test_a_marca_vem_do_leitor_vivo_e_nao_de_uma_segunda_lista)",
     "FAIL: test_a_visita_a_pontos_de_venda_nao_e_ALERTA_EVENTO (__main__.ALojaEMercadoEmTodaACasa.test_a_visita_a_pontos_de_venda_nao_e_ALERTA_EVENTO)"
    ]
+  },
+  {
+   "NOME": "PROD3_A_CLASSE_NAO_PERGUNTA_AO_VALOR",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "PROD3_A_PRECISAO_NAO_DIZ_QUE_FALTA_O_ANO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "SOBREVIVEU",
+   "CODIGO": 0,
+   "QUEM_O_MATOU": []
+  },
+  {
+   "NOME": "PROD3_FALTA_O_ANO_IGNORA_O_MES_ESCRITO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_falta_o_ano_responde_pelo_VALOR (__main__.OMesSozinhoNaoTemAno.test_falta_o_ano_responde_pelo_VALOR)"
+   ]
+  },
+  {
+   "NOME": "PROD3_FALTA_O_ANO_DIZ_SIM_A_QUALQUER_TEXTO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_classe_do_facto_observado_e_alerta_evento (__main__.OContratoDeConsumoDaIntelligence.test_a_classe_do_facto_observado_e_alerta_evento)",
+    "FAIL: test_falta_o_ano_responde_pelo_VALOR (__main__.OMesSozinhoNaoTemAno.test_falta_o_ano_responde_pelo_VALOR)"
+   ]
+  },
+  {
+   "NOME": "PROD3_A_CONTAGEM_IGNORA_O_LUGAR_EMITIDO",
+   "FICHEIRO": "leis/afirmacao_do_documento.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_A_CONTAGEM_NAO_PODE_SER_ZERO_COM_UM_LUGAR_PRESENTE (__main__.OMesSozinhoNaoTemAno.test_A_CONTAGEM_NAO_PODE_SER_ZERO_COM_UM_LUGAR_PRESENTE)",
+    "FAIL: test_a_coerencia_vale_em_TODA_a_producao (__main__.OMesSozinhoNaoTemAno.test_a_coerencia_vale_em_TODA_a_producao)"
+   ]
+  },
+  {
+   "NOME": "PROD3_A_CONTAGEM_IGNORA_O_TEMPO_EMITIDO",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_coerencia_do_TEMPO_vale_em_toda_a_producao (__main__.ATempoEmitidoTambemConta.test_a_coerencia_do_TEMPO_vale_em_toda_a_producao)",
+    "FAIL: test_o_mes_sozinho_LITERAL_conta_um (__main__.ATempoEmitidoTambemConta.test_o_mes_sozinho_LITERAL_conta_um)"
+   ]
+  },
+  {
+   "NOME": "PROD3_O_TEMPO_EMITIDO_CONTA_EM_QUALQUER_ORIGEM",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_relativa_continua_a_contar_ZERO_e_esta_certa (__main__.ATempoEmitidoTambemConta.test_a_relativa_continua_a_contar_ZERO_e_esta_certa)"
+   ]
+  },
+  {
+   "NOME": "PROD3_O_TEMPO_EMITIDO_SOMA_SE_MESMO_COM_EXPRESSOES",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_a_precisao_diz_quando_o_ano_falta (__main__.OQueAindaNaoAconteceu.test_a_precisao_diz_quando_o_ano_falta)"
+   ]
+  },
+  {
+   "NOME": "PROD4_A_MARCA_DE_ATO_SEM_RECANTE",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_cada_forma_de_citacao_sozinha (__main__.OAtoCitadoPeloNumero.test_cada_forma_de_citacao_sozinha)"
+   ]
+  },
+  {
+   "NOME": "PROD4_A_MARCA_DE_ATO_SEM_N_DEL",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_cada_forma_de_citacao_sozinha (__main__.OAtoCitadoPeloNumero.test_cada_forma_de_citacao_sozinha)"
+   ]
+  },
+  {
+   "NOME": "PROD4_A_MARCA_DE_ATO_SEM_LOTTA_OBBLIGATORIA",
+   "FICHEIRO": "leis/tempo_da_afirmacao.py",
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_cada_forma_de_citacao_sozinha (__main__.OAtoCitadoPeloNumero.test_cada_forma_de_citacao_sozinha)"
+   ]
   }
  ],
- "TOTAL": 54,
- "MORTOS": 54,
- "SOBREVIVENTES": []
+ "TOTAL": 65,
+ "MORTOS": 63,
+ "SOBREVIVENTES": [
+  "PROD3_A_CLASSE_NAO_PERGUNTA_AO_VALOR",
+  "PROD3_A_PRECISAO_NAO_DIZ_QUE_FALTA_O_ANO"
+ ],
+ "ALVOS_CONFERIDOS": true
 }
