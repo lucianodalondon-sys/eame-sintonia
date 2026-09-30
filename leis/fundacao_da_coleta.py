@@ -222,7 +222,7 @@ ENVELOPE_INEXISTENTE = 'NAO_EXISTE_NO_POTE_PUBLICADO'
 CHAVES_DA_PROVA_DO_LAB = ('LAB_ORIGIN', 'DATA_UTC', 'POTE_SHA256', 'RUN_ID', 'ENVELOPE_HASH', 'VEREDITO',
                           'VEREDITO_DETALHE', 'ELOS', 'OBJETOS_PROVADOS', 'SCRIPT', 'SCRIPT_SHA256', 'BRUTO',
                           'SCHEMA', 'POTE_SHA256_TIPO', 'VEREDITO_DETALHE_STATUS', 'JULGAMENTO_POR_ELO',
-                          'JUIZ', 'JUIZ_SHA256', 'PREVIEW')
+                          'JUIZ', 'JUIZ_SHA256', 'PREVIEW', 'SCRIPT_VERSAO')
 ELOS_DA_PROVA = tuple('E%d' % k for k in range(1, 8))
 #: v3: o estado de cada elo sai do juiz em JULGAMENTO_POR_ELO.ELOS.En.ESTADO, e so 'OK' passa
 #: (o juiz escreve 'OK' ou 'FALHA'). ELOS passou a ser a MEDICAO crua, nao a decisao.
@@ -234,6 +234,18 @@ ELO_QUE_PASSA = ('OK',)
 SCHEMA_DA_PROVA = 'PROVA_REVERSA/v3'
 SCRIPT_DO_LAB = 'prova_reversa_v3.py'
 SHA_DO_SCRIPT_DO_LAB = '8afd3bb351e26020951c63fb6285be3c0a4b62c792f5120e3e4c25ce8d02e99b'
+#: R7 (LAB, README-LAB 30/09): a v3.1 = v3.0 + conferencia de intrusos na pasta antes de
+#: gravar; juiz, SCHEMA e veredito iguais, e grava SCRIPT_VERSAO='v3.1'. sha256 conferido no
+#: ficheiro real sintonia-lab-docs/prova_reversa_v3.1.py. A oficial corre com o nome
+#: prova_reversa_v3.py (a copia de consulta chama-se prova_reversa_v3.1.py): quem decide e o
+#: sha, e o SCRIPT_VERSAO tem de ser o DESSE sha (v3.0 nao grava o campo).
+#: sha256 do script -> SCRIPT_VERSAO que ele grava (None = campo ausente).
+SCRIPTS_DO_LAB = {
+    SHA_DO_SCRIPT_DO_LAB: None,
+    'ae1abce7a9e2efa8030f3f2b591e09e07b694269b6b92fbf4e9230be7a0a3d64': 'v3.1',
+}
+NOMES_DO_SCRIPT_DO_LAB = (SCRIPT_DO_LAB, 'prova_reversa_v3.1.py')
+_AUSENTE = object()  # nenhum valor de JSON e igual a isto
 JUIZ_DO_LAB = 'veredito.py'
 SHA_DO_JUIZ_DO_LAB = '6facf91bc221946cad865ccb187fc00f695054400b74667cb58b94d3a49dd6fb'
 #: V3b: uma DATA_UTC mais de 5 min no futuro nao e data, e tentativa de congelar o par.
@@ -521,7 +533,7 @@ def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote
     ENVELOPE_HASH igual ao do pote quando o pote tem envelope (senao
     'NAO_EXISTE_NO_POTE_PUBLICADO'). So as chaves do formato real (K1); marca de
     rejeicao numa CHAVE, em qualquer caixa = recusa (K2). v3 (CONTRATO-VEREDITO do
-    LAB, 30/09): SCHEMA PROVA_REVERSA/v3, script prova_reversa_v3.py e juiz
+    LAB, 30/09): SCHEMA PROVA_REVERSA/v3, script prova_reversa_v3 (v3.0 ou v3.1) e juiz
     veredito.py pelos sha256 fixados (v2 = FAIL); PASS exige >=1 objeto provado,
     PRE_CONDICOES_FALHAS vazio e JULGAMENTO_POR_ELO com E1..E7 a 'OK' (K4). VEREDITO_DETALHE e texto nao verificado e NAO
     entra na decisao (K3b). Com varias versoes do mesmo par, em TODA a arvore do
@@ -570,9 +582,11 @@ def conferir_prova_do_lab(lab, sha_canonico, run_id=None, pastas_do_lab=(), pote
     if obj.get('SCHEMA') != SCHEMA_DA_PROVA:
         return 'a prova do LAB nao e %s (SCHEMA=%r)' % (SCHEMA_DA_PROVA, obj.get('SCHEMA'))
     script = str(obj.get('SCRIPT') or '').replace('\\', '/').rsplit('/', 1)[-1]
-    if script != SCRIPT_DO_LAB or obj.get('SCRIPT_SHA256') != SHA_DO_SCRIPT_DO_LAB:
-        return ('a prova do LAB nao saiu do script oficial %s com o sha256 fixado (SCRIPT=%r, SCRIPT_SHA256=%r): '
+    if script not in NOMES_DO_SCRIPT_DO_LAB or obj.get('SCRIPT_SHA256') not in SCRIPTS_DO_LAB:
+        return ('a prova do LAB nao saiu do script oficial %s com um sha256 fixado (SCRIPT=%r, SCRIPT_SHA256=%r): '
                 'v2 ou outro = FAIL' % (SCRIPT_DO_LAB, script, str(obj.get('SCRIPT_SHA256'))[:16]))
+    if obj.get('SCRIPT_VERSAO', _AUSENTE) != (SCRIPTS_DO_LAB[obj['SCRIPT_SHA256']] or _AUSENTE):
+        return 'SCRIPT_VERSAO=%r nao e a do script com sha %s' % (obj.get('SCRIPT_VERSAO'), obj['SCRIPT_SHA256'][:16])
     if obj.get('JUIZ') != JUIZ_DO_LAB or obj.get('JUIZ_SHA256') != SHA_DO_JUIZ_DO_LAB:
         return 'o veredito nao saiu do juiz oficial %s com o sha256 fixado (JUIZ=%r)' % (JUIZ_DO_LAB, obj.get('JUIZ'))
     # K3b (decisao do coordenador, 29/09): VEREDITO_DETALHE e TEXTO NAO VERIFICADO e

@@ -1447,6 +1447,29 @@ class V3_ContratoDoVeredictoDoLab(Base):
             self.assertTrue(pode, motivo)
             self.setUp()
 
+    SHA_V31 = "ae1abce7a9e2efa8030f3f2b591e09e07b694269b6b92fbf4e9230be7a0a3d64"
+
+    def test_R7_prova_v31_valida_passa_e_sha_desconhecido_recusa(self):
+        """R7: a v3.1 do LAB (sha conferido no ficheiro real) passa, com o nome oficial ou o
+        da copia; a v3.0 continua a passar; sha desconhecido, ou SCRIPT_VERSAO que nao e a
+        do sha, recusa."""
+        self.assertIn(self.SHA_V31, lei.SCRIPTS_DO_LAB)
+        self.assertIn(lei.SHA_DO_SCRIPT_DO_LAB, lei.SCRIPTS_DO_LAB)
+        for extra in ({"SCRIPT_SHA256": self.SHA_V31, "SCRIPT_VERSAO": "v3.1"},
+                      {"SCRIPT_SHA256": self.SHA_V31, "SCRIPT_VERSAO": "v3.1", "SCRIPT": "/lab/prova_reversa_v3.1.py"},
+                      {}):
+            pode, motivo = self.atravessa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(self.pote, **extra))))
+            self.assertTrue(pode, "%r: %s" % (extra, motivo))
+            self.setUp()
+        for extra in ({"SCRIPT_SHA256": "ae1abce7" + "0" * 56, "SCRIPT_VERSAO": "v3.1"},
+                      {"SCRIPT_SHA256": self.SHA_V31[:-1] + "5", "SCRIPT_VERSAO": "v3.1"}):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(self.pote, **extra))))
+            self.assertIn("script oficial", m)
+        for extra in ({"SCRIPT_SHA256": self.SHA_V31}, {"SCRIPT_SHA256": self.SHA_V31, "SCRIPT_VERSAO": "v3.0"},
+                      {"SCRIPT_VERSAO": "v3.1"}, {"SCRIPT_VERSAO": None}, {"SCRIPT_VERSAO": "AUSENTE"}):
+            m = self.recusa(self.pedido(PROVA_REVERSA_DO_LAB=self.lab_json(self.entrada(self.pote, **extra))))
+            self.assertIn("SCRIPT_VERSAO", m)
+
     def test_juiz_e_schema_sao_os_oficiais(self):
         for extra, texto in (({"JUIZ": "juiz_v2_reproduzido.py"}, "juiz oficial"),
                              ({"JUIZ_SHA256": "0" * 64}, "juiz oficial"),
