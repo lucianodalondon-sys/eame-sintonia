@@ -3914,6 +3914,8 @@
       "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json",
       "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
       "tests/dados/item-social-ispra-porta.json",
+      "tests/dados/lab-v3/EXEMPLO-V3-COM-FONTE-VIVA-PASS.json",
+      "tests/dados/lab-v3/EXEMPLO-V3-SEM-FONTE-VIVA-FAIL.json",
       "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
       "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
       "tests/dados/social-sala/YT-METADADOS-3CANAIS.json",
@@ -4814,9 +4816,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l1-governanca-preview-v1",
-    "HEAD": "9278dceff22860a4cccc39862524e106d56a2151",
-    "GENERATED_AT": "2026-09-30T00:39:33-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2b4e1893cb43d2d69989898cc6fa65cdfcc1945ee9237efc731540a1c3268aa0"
+    "HEAD": "08e5c2eb7a5f8cbb9eb47e4a07352c1afb45a14d",
+    "GENERATED_AT": "2026-09-30T04:59:43-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6ff9ade4d783f4eb68bfce74b3e5f4414d4c7937d0850d0d46f7209465bf6526"
   },
   "FAMILIES": [
     {
@@ -6553,8 +6555,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 907",
-        "desses, mostrados aqui: 40 (ficam de fora 867)"
+        "enderecos que o codigo realmente chama: 908",
+        "desses, mostrados aqui: 40 (ficam de fora 868)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -58385,7 +58387,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "leis/fundacao_da_coleta.py:730",
+          "leis/fundacao_da_coleta.py:844",
           "pacote/acervo_na_intelligence.py:84",
           "pacote/pote_cruzamentos_max.py:50",
           "provas/_mutantes_pote_casco.py:24"
@@ -65550,9 +65552,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 219,
+        "palavras": 266,
         "por_lingua": {},
-        "sem_marca_de_lingua": 219,
+        "sem_marca_de_lingua": 266,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -65562,7 +65564,7 @@
           "pasta": "leis",
           "prova": {
             "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-            "line": 330,
+            "line": 399,
             "snippet": "escreve em ALVO"
           }
         },
@@ -65594,7 +65596,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve na pasta leis (provas/l1_governanca/mutantes_excecao_preview.py:330): produz dado",
+      "ROLE_EVIDENCE": "escreve na pasta leis (provas/l1_governanca/mutantes_excecao_preview.py:399): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -69248,9 +69250,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 653,
+        "palavras": 662,
         "por_lingua": {},
-        "sem_marca_de_lingua": 653,
+        "sem_marca_de_lingua": 662,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -74139,6 +74141,8 @@
         "tests/dados/data-do-fato/CASOS-DATA-DO-FATO-V1.json",
         "tests/dados/int-r7/SINTETICO-R7-SALA-EXPORT.json",
         "tests/dados/item-social-ispra-porta.json",
+        "tests/dados/lab-v3/EXEMPLO-V3-COM-FONTE-VIVA-PASS.json",
+        "tests/dados/lab-v3/EXEMPLO-V3-SEM-FONTE-VIVA-FAIL.json",
         "tests/dados/leitor-data-yt/it-t7-015-raw201-itemprop.html",
         "tests/dados/lugar_v2/AMOSTRA-FORMATO-ISTAT.csv",
         "tests/dados/social-sala/YT-METADADOS-3CANAIS.json",
@@ -145349,7 +145353,7 @@
       "evidence": [
         {
           "file": "leis/fundacao_da_coleta.py",
-          "line": 730,
+          "line": 844,
           "snippet": "import validar_pote_v2  # noqa: PLC0415 — so quem pede para atravessar paga o import",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
@@ -151292,7 +151296,7 @@
       "evidence": [
         {
           "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-          "line": 330,
+          "line": 399,
           "snippet": "with open(ALVO, \"wb\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-TRAVA-MORDE--WRITES-->C-SCRAP-LEIS",
@@ -160586,7 +160590,7 @@
       "evidence": [
         {
           "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-          "line": 309,
+          "line": 378,
           "snippet": "with open(ALVO, \"rb\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-TRAVA-MORDE",
@@ -161378,7 +161382,7 @@
         },
         {
           "file": "tests/test_excecao_preview_e2e.py",
-          "line": 1140,
+          "line": 1152,
           "snippet": "with open(os.path.join(RAIZ, \"leis\", \"fundacao_da_coleta.py\"), encoding=\"utf-8\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -174561,7 +174565,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 2274,
+  "UNCLAIMED_FILES_COUNT": 2276,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -174837,7 +174841,7 @@
     "edges_proven": 1849,
     "edges_unknown": 69,
     "business_edges": 4,
-    "files_tracked": 4220,
+    "files_tracked": 4222,
     "files_covered": 1946,
     "files_code_unclaimed": 0,
     "roles_proven": 207,
