@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  4d789dbc50a3bb63ebcebf95d0824085a68d639c
+HEAD_DA_MEDICAO  9278dceff22860a4cccc39862524e106d56a2151
 BRANCH           claude/l1-governanca-preview-v1
-GERADO_EM        2026-09-29T11:50:21-03:00
+GERADO_EM        2026-09-30T00:39:33-03:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

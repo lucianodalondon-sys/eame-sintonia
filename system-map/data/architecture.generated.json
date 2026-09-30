@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l1-governanca-preview-v1",
-    "HEAD": "4d789dbc50a3bb63ebcebf95d0824085a68d639c",
-    "GENERATED_AT": "2026-09-29T11:50:21-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3670a4ffbfbe5044b12f44850289ad1b9dd68e1b2eed867df7ac9ebde2a7d176"
+    "HEAD": "9278dceff22860a4cccc39862524e106d56a2151",
+    "GENERATED_AT": "2026-09-30T00:39:33-03:00",
+    "SOURCE_TREE_FINGERPRINT": "2b4e1893cb43d2d69989898cc6fa65cdfcc1945ee9237efc731540a1c3268aa0"
   },
   "FILES": [
     {
@@ -18518,7 +18518,7 @@
     },
     {
       "path": "leis/fundacao_da_coleta.py",
-      "sha": "04b215e00b402a78d24b22cfea774b57255699a8",
+      "sha": "590886fca985738fbf8b8b88dd8167976305de4a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21871,21 +21871,21 @@
     },
     {
       "path": "provas/l1_governanca/MUTANTES-EXCECAO-PREVIEW.json",
-      "sha": "4e2cfe9f2e6985c8955630474c10cf243d5bf626",
+      "sha": "dd2bc4bf44bba22b78fbf007ee5f4cd5a37f774a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/l1_governanca/RELATORIO-L1.md",
-      "sha": "ba8f10522a69ec3ddeaf79f0b10dea56409c28ec",
+      "sha": "3f0522c9acfe7694167a94634d36e923d157936c",
       "ext": ".md",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "provas/l1_governanca/mutantes_excecao_preview.py",
-      "sha": "ed5bd12d50806b34a2c230dd601a5e8a9a11b02b",
+      "sha": "edb88bddc959f896debf4f9d48c0d634fd7f1edc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28150,7 +28150,7 @@
     },
     {
       "path": "tests/test_excecao_preview_e2e.py",
-      "sha": "e85d84c6e03e40f4ad6bf1e3832b8893aefe440b",
+      "sha": "a081e36726c5824b123ab77b478a005a0e0fb00c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -55924,7 +55924,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "leis/fundacao_da_coleta.py",
-        "line": 701,
+        "line": 730,
         "snippet": "import validar_pote_v2  # noqa: PLC0415 — so quem pede para atravessar paga o import"
       }
     },
@@ -73216,7 +73216,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-        "line": 300,
+        "line": 309,
         "snippet": "with open(ALVO, \"rb\") as f:"
       }
     },
@@ -73227,7 +73227,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-        "line": 321,
+        "line": 330,
         "snippet": "with open(ALVO, \"wb\") as f:"
       }
     },
@@ -99655,6 +99655,17 @@
     },
     {
       "from_file": "tests/test_excecao_preview_e2e.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_excecao_preview_e2e.py",
+        "line": 1140,
+        "snippet": "with open(os.path.join(RAIZ, \"leis\", \"fundacao_da_coleta.py\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_excecao_preview_e2e.py",
       "to_file": "pacote/pote_intelligence_casco.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -112654,7 +112665,7 @@
     "provas/l1_governanca/mutantes_excecao_preview.py": [
       {
         "pasta": "leis",
-        "line": 321,
+        "line": 330,
         "constante": "ALVO"
       }
     ],
@@ -112918,7 +112929,7 @@
     "files_tracked": 4220,
     "files_readable": 1773,
     "files_code_dir": 2195,
-    "file_edges": 7518,
+    "file_edges": 7519,
     "escritas_em_pasta": 97,
     "declared_missing_here": 0
   },

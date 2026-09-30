@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-29T14:55:35+00:00",
-  "HEAD": "4d789dbc50a3bb63ebcebf95d0824085a68d639c",
+  "GENERATED_AT": "2026-09-30T03:44:23+00:00",
+  "HEAD": "9278dceff22860a4cccc39862524e106d56a2151",
   "BRANCH": "claude/l1-governanca-preview-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "3670a4ffbfbe5044b12f44850289ad1b9dd68e1b2eed867df7ac9ebde2a7d176",
+  "SOURCE_TREE_FINGERPRINT": "2b4e1893cb43d2d69989898cc6fa65cdfcc1945ee9237efc731540a1c3268aa0",
   "FICHEIROS_NA_IMPRESSAO": 4368,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2302,7 +2302,7 @@
    {
     "PATH": "leis/fundacao_da_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "04b215e00b402a78d24b22cfea774b57255699a8",
+    "VERSAO": "590886fca985738fbf8b8b88dd8167976305de4a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5564,14 +5564,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3670a4ffbfbe5044b12f44850289ad1b9dd68e1b2eed867df7ac9ebde2a7d176",
+    "VERSAO": "2b4e1893cb43d2d69989898cc6fa65cdfcc1945ee9237efc731540a1c3268aa0",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3670a4ffbfbe5044b12f44850289ad1b9dd68e1b2eed867df7ac9ebde2a7d176",
+    "VERSAO": "2b4e1893cb43d2d69989898cc6fa65cdfcc1945ee9237efc731540a1c3268aa0",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -6873,7 +6873,7 @@
    {
     "PATH": "tests/test_excecao_preview_e2e.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e85d84c6e03e40f4ad6bf1e3832b8893aefe440b",
+    "VERSAO": "a081e36726c5824b123ab77b478a005a0e0fb00c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -8258,7 +8258,7 @@
    }
   ],
   "INPUTS_COUNT": 1174,
-  "INPUTS_DIGEST": "15b165070ee65d2fa2261339c10ec8952c6ca5b7a73505ae063ba0317456cc3c",
+  "INPUTS_DIGEST": "50af1c13f4c049686e1c34a7924bc581d85411a7487529818479e796d338dbd1",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8291,8 +8291,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "f556fd8f51f43925481bb7ffe525d59791484098481ee12af019b33f5b0412f9",
-  "SEMANTIC_HASH": "21457d79465f88a428447a9fb4a838a80ec3e7d5c55b02dc40648e2e60d4724f"
+  "MEASUREMENT_HASH": "e5deeb2a82e429ecd1d23de6a80f115a8b3309badf61f807c8079b352edff263",
+  "SEMANTIC_HASH": "f823d5e41db0de911beebd226db8423c0514d87779945fba133e3ab7f470ca2f"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -47338,7 +47338,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "leis/fundacao_da_coleta.py",
-      "LINHA": 701,
+      "LINHA": 730,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
@@ -50784,7 +50784,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/l1_governanca/mutantes_excecao_preview.py",
-      "LINHA": 321,
+      "LINHA": 330,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-TRAVA-MORDE--WRITES-->C-SCRAP-LEIS",
@@ -56545,7 +56545,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/l1_governanca/mutantes_excecao_preview.py",
-      "LINHA": 300,
+      "LINHA": 309,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-TRAVA-MORDE",
@@ -56652,6 +56652,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_excecao_preview_e2e.py",
+      "LINHA": 1140,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_execucao_standalone.py",
       "LINHA": 27,
       "SUPPORTS": "YES",
@@ -56686,14 +56694,6 @@
      {
       "FICHEIRO": "tests/test_trava_da_inteligencia.py",
       "LINHA": 298,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_yt_metadados_do_audio.py",
-      "LINHA": 146,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
@@ -75175,6 +75175,7 @@
     "tests/test_c10_6e_runtime_pago.py",
     "tests/test_d36_envelope_equivalente.py",
     "tests/test_d37_campos_de_politica.py",
+    "tests/test_excecao_preview_e2e.py",
     "tests/test_execucao_standalone.py",
     "tests/test_falhas.py",
     "tests/test_linkedin_op_01_operacional.py",

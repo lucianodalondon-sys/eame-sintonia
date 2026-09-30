@@ -4814,9 +4814,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/l1-governanca-preview-v1",
-    "HEAD": "4d789dbc50a3bb63ebcebf95d0824085a68d639c",
-    "GENERATED_AT": "2026-09-29T11:50:21-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3670a4ffbfbe5044b12f44850289ad1b9dd68e1b2eed867df7ac9ebde2a7d176"
+    "HEAD": "9278dceff22860a4cccc39862524e106d56a2151",
+    "GENERATED_AT": "2026-09-30T00:39:33-03:00",
+    "SOURCE_TREE_FINGERPRINT": "2b4e1893cb43d2d69989898cc6fa65cdfcc1945ee9237efc731540a1c3268aa0"
   },
   "FAMILIES": [
     {
@@ -58385,7 +58385,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "leis/fundacao_da_coleta.py:701",
+          "leis/fundacao_da_coleta.py:730",
           "pacote/acervo_na_intelligence.py:84",
           "pacote/pote_cruzamentos_max.py:50",
           "provas/_mutantes_pote_casco.py:24"
@@ -65550,9 +65550,9 @@
         "listas": [
           "MUTANTES"
         ],
-        "palavras": 205,
+        "palavras": 219,
         "por_lingua": {},
-        "sem_marca_de_lingua": 205,
+        "sem_marca_de_lingua": 219,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -65562,7 +65562,7 @@
           "pasta": "leis",
           "prova": {
             "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-            "line": 321,
+            "line": 330,
             "snippet": "escreve em ALVO"
           }
         },
@@ -65594,7 +65594,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve na pasta leis (provas/l1_governanca/mutantes_excecao_preview.py:321): produz dado",
+      "ROLE_EVIDENCE": "escreve na pasta leis (provas/l1_governanca/mutantes_excecao_preview.py:330): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -145349,7 +145349,7 @@
       "evidence": [
         {
           "file": "leis/fundacao_da_coleta.py",
-          "line": 701,
+          "line": 730,
           "snippet": "import validar_pote_v2  # noqa: PLC0415 — so quem pede para atravessar paga o import",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-POTE-INT-CASCO--IMPORTS-->C-SCRAP-LEIS",
@@ -151292,7 +151292,7 @@
       "evidence": [
         {
           "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-          "line": 321,
+          "line": 330,
           "snippet": "with open(ALVO, \"wb\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-TRAVA-MORDE--WRITES-->C-SCRAP-LEIS",
@@ -160586,7 +160586,7 @@
       "evidence": [
         {
           "file": "provas/l1_governanca/mutantes_excecao_preview.py",
-          "line": 300,
+          "line": 309,
           "snippet": "with open(ALVO, \"rb\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-TRAVA-MORDE",
@@ -161278,7 +161278,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/mutacao_do_scrap_portas.py",
@@ -161377,6 +161377,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_excecao_preview_e2e.py",
+          "line": 1140,
+          "snippet": "with open(os.path.join(RAIZ, \"leis\", \"fundacao_da_coleta.py\"), encoding=\"utf-8\") as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_execucao_standalone.py",
           "line": 27,
           "snippet": "'leis/falhas.py',",
@@ -161444,22 +161460,6 @@
           "file": "tests/test_trava_da_inteligencia.py",
           "line": 298,
           "snippet": "self.assertEqual(v[\"FUNDACAO_DONO\"], \"leis/fundacao_da_coleta.py\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
-            "FROM": "C-SCRAP-LEIS",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_yt_metadados_do_audio.py",
-          "line": 146,
-          "snippet": "self.assertEqual(self.objeto()['AUTORIZACAO_DE'], 'leis/social_matriz.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
             "FROM": "C-SCRAP-LEIS",
