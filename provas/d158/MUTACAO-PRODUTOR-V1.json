@@ -1,10 +1,10 @@
 {
- "ARVORE": "bfb9cd90727f7a99afd4d2a9bd5af129d1a5f4ca",
+ "ARVORE": "d464e0378199502e8ef0434ccc2c22cfca25aee2",
  "BATERIA": "tests/test_o_produtor_de_afirmacoes.py",
  "SEM_MUTACAO": {
   "CODIGO": 0,
   "VERDE": true,
-  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 190 tests in 1.830s\n\nOK"
+  "CAUDA": "_no_texto_onde_diz_estar) ... ok\ntest_o_trecho_com_o_facto_observado_traz_a_data_da_seccao (__main__.TrechoEProva.test_o_trecho_com_o_facto_observado_traz_a_data_da_seccao) ... ok\ntest_o_trecho_e_exactamente_texto_inicio_fim (__main__.TrechoEProva.test_o_trecho_e_exactamente_texto_inicio_fim) ... ok\n\n----------------------------------------------------------------------\nRan 192 tests in 1.874s\n\nOK"
  },
  "MUTANTES": [
   {
@@ -524,6 +524,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "ERROR: test_o_BASIS_da_SEMANA_tambem_e_ABSOLUTO_no_documento (__main__.AsDuasFormasImpressasNaProsa.test_o_BASIS_da_SEMANA_tambem_e_ABSOLUTO_no_documento)",
     "FAIL: test_SEM_publicacao_provada_a_forma_nao_diz_se_ja_passou (__main__.AsDuasFormasImpressasNaProsa.test_SEM_publicacao_provada_a_forma_nao_diz_se_ja_passou)",
     "FAIL: test_a_forma_DEPOIS_da_captura_continua_a_ser_recusada (__main__.AsDuasFormasImpressasNaProsa.test_a_forma_DEPOIS_da_captura_continua_a_ser_recusada)",
     "FAIL: test_a_forma_sozinha_com_publicacao_provada_da_o_periodo (__main__.AsDuasFormasImpressasNaProsa.test_a_forma_sozinha_com_publicacao_provada_da_o_periodo)",
@@ -536,6 +537,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "FAIL: test_DOIS_periodos_impressos_recusam_MESMO_sem_ser_ACONTECIMENTO (__main__.AsDuasFormasImpressasNaProsa.test_DOIS_periodos_impressos_recusam_MESMO_sem_ser_ACONTECIMENTO)",
     "FAIL: test_o_BASIS_da_forma_cai_DENTRO_do_trecho (__main__.AsDuasFormasImpressasNaProsa.test_o_BASIS_da_forma_cai_DENTRO_do_trecho)",
     "FAIL: test_o_intervalo_de_dias_usa_o_ANO_DO_DOCUMENTO (__main__.AsDuasFormasImpressasNaProsa.test_o_intervalo_de_dias_usa_o_ANO_DO_DOCUMENTO)"
    ]
@@ -579,9 +581,11 @@
   {
    "NOME": "F1_O_BASIS_DA_FORMA_FICA_RELATIVO",
    "FICHEIRO": "leis/tempo_da_afirmacao.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_o_BASIS_da_SEMANA_tambem_e_ABSOLUTO_no_documento (__main__.AsDuasFormasImpressasNaProsa.test_o_BASIS_da_SEMANA_tambem_e_ABSOLUTO_no_documento)"
+   ]
   },
   {
    "NOME": "F1_A_GUARDA_DO_BLK1_NAO_VALE_NO_CAMINHO_NOVO",
@@ -595,9 +599,11 @@
   {
    "NOME": "F1_DOIS_PERIODOS_IMPRESSOS_ESCOLHEM_UM",
    "FICHEIRO": "leis/tempo_da_afirmacao.py",
-   "ESTADO": "SOBREVIVEU",
-   "CODIGO": 0,
-   "QUEM_O_MATOU": []
+   "ESTADO": "MORTO",
+   "CODIGO": 1,
+   "QUEM_O_MATOU": [
+    "FAIL: test_DOIS_periodos_impressos_recusam_MESMO_sem_ser_ACONTECIMENTO (__main__.AsDuasFormasImpressasNaProsa.test_DOIS_periodos_impressos_recusam_MESMO_sem_ser_ACONTECIMENTO)"
+   ]
   },
   {
    "NOME": "F1_O_CONTADOR_NAO_VE_AS_FORMAS_NOVAS",
@@ -757,6 +763,7 @@
    "ESTADO": "MORTO",
    "CODIGO": 1,
    "QUEM_O_MATOU": [
+    "ERROR: test_DOIS_periodos_impressos_recusam_MESMO_sem_ser_ACONTECIMENTO (__main__.AsDuasFormasImpressasNaProsa.test_DOIS_periodos_impressos_recusam_MESMO_sem_ser_ACONTECIMENTO)",
     "ERROR: test_a_guarda_do_BLK1_vale_TAMBEM_no_caminho_novo (__main__.AsDuasFormasImpressasNaProsa.test_a_guarda_do_BLK1_vale_TAMBEM_no_caminho_novo)",
     "ERROR: test_TEMPOS_CONCORRENTES_e_um_campo (__main__.OMotivoViajaNumCampo.test_TEMPOS_CONCORRENTES_e_um_campo)",
     "ERROR: test_os_dois_lados_dizem_o_seu_motivo (__main__.OMotivoViajaNumCampo.test_os_dois_lados_dizem_o_seu_motivo)",
@@ -1063,11 +1070,8 @@
   }
  ],
  "TOTAL": 101,
- "MORTOS": 99,
- "SOBREVIVENTES": [
-  "F1_O_BASIS_DA_FORMA_FICA_RELATIVO",
-  "F1_DOIS_PERIODOS_IMPRESSOS_ESCOLHEM_UM"
- ],
+ "MORTOS": 101,
+ "SOBREVIVENTES": [],
  "ALVOS_CONFERIDOS": true,
  "MUTANTES_PENDENTES": [],
  "PORQUE_HA_PENDENTES": "DT-FATO-OBSERVADO: o dono do contrato versiona o vocabulario (classe, marcas aceites, tempo exigido) e o produtor classifica DEPOIS. Sem o codigo da classe, estes seis sairiam NAO_APLICADO — que nao e um mutante morto, e um ataque que nunca aconteceu."
