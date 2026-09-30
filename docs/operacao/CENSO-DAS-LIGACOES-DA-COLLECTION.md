@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  c38610e0c4c5a5d6c1bdc12c325496821cc39a9b
+HEAD_DA_MEDICAO  46a1d46b7de5330a335af12e38c3afaa59cce04e
 BRANCH           lucianodalondon-sys/servico-trinco-v1
-GERADO_EM        2026-09-30T09:46:01-03:00
+GERADO_EM        2026-09-30T12:46:48-03:00
 CARDS            128
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

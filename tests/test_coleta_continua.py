@@ -27,6 +27,7 @@ import json
 import os
 import secrets
 import shutil
+import subprocess
 import sys
 import tempfile
 import threading
@@ -659,6 +660,63 @@ class LivroDeCiclos(Base):
         self.assertIsNone(C.trinco(self.base))
         C.soltar(t)
         self.assertIsNotNone(C.trinco(self.base))
+
+
+class TrincoDeDonoMorto(unittest.TestCase):
+    """O trinco tem de separar CONFLITO de SOBRA — e antes nao separava.
+
+    Medido a 30/09: o ciclo 101 ficou com o trinco preso por um processo morto a
+    meio (PID 36520, 08:15) e a coleta so voltou quando alguem o removeu a mao.
+    Um dono que ja nao existe nao e «outro servico a correr»: e sobra, e o servico
+    tem de a tomar sozinho. Estas provas fixam as tres respostas — dono morto
+    TOMADO, dono vivo RECUSADO, dono ilegivel RECUSADO — para o conserto nao
+    voltar a depender de uma sonda manual que ninguem repete.
+    """
+
+    def setUp(self):
+        self.base = Path(tempfile.mkdtemp(prefix="coleta-trinco-"))
+        self.addCleanup(shutil.rmtree, self.base, True)
+
+    def _sobra(self, pid, dono=True):
+        t = self.base / C.TRINCO_F
+        t.mkdir()
+        if dono:
+            (t / "DONO.json").write_text(
+                json.dumps({"PID": pid, "DESDE": "2026-09-30T08:15:31-03:00"}), encoding="utf-8")
+        return t
+
+    @staticmethod
+    def _pid_morto():
+        """Um PID que existiu mesmo e ja acabou — nao um numero inventado.
+
+        O filho e criado e recolhido por um PROCESSO INTERMEDIARIO: se o proprio
+        teste o criasse, o handle no processo do teste mantem o PID a responder ao
+        OpenProcess, e a prova mediria o handle do teste em vez da morte do dono.
+        Medido a 30/09: no mesmo processo o PID recem-saido responde VIVO; pedido a
+        um processo que nunca o viu, responde MORTO — que e o caso real do trinco,
+        cujo dono vem sempre de uma corrida anterior.
+        """
+        codigo = ("import subprocess,sys;"
+                  "p=subprocess.Popen([sys.executable,'-c','pass']);"
+                  "p.wait();print(p.pid)")
+        r = subprocess.run([sys.executable, "-c", codigo], capture_output=True, text=True, timeout=60)
+        return int(r.stdout.strip())
+
+    def test_dono_morto_e_sobra_e_o_servico_toma_o_trinco(self):
+        self._sobra(self._pid_morto())
+        t = C.trinco(self.base)
+        self.assertIsNotNone(t, "trinco de dono morto parou o servico: a coleta ficaria presa para sempre")
+        self.assertEqual(json.loads((t / "DONO.json").read_text(encoding="utf-8"))["PID"], os.getpid())
+
+    def test_dono_vivo_continua_a_recusar(self):
+        self._sobra(os.getpid())
+        self.assertIsNone(C.trinco(self.base), "o trinco deixou de ser dois servicos de cada vez")
+
+    def test_sem_dono_legivel_nao_se_toca(self):
+        self._sobra(None, dono=False)
+        self.assertIsNone(C.trinco(self.base), "trinco sem dono foi tomado as cegas")
+        (self.base / C.TRINCO_F / "DONO.json").write_text("{isto nao e json", encoding="utf-8")
+        self.assertIsNone(C.trinco(self.base), "trinco com dono ilegivel foi tomado as cegas")
 
 
 # ── 6. o plano real da 4.a onda (ensaio a seco, 0 rede) ──────────────────────
