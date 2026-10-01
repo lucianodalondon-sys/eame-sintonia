@@ -1133,6 +1133,22 @@ class AdendoParada(Base):
         e = [x for x in r["ESPERAM"] if x["SOURCE_ID"] == "IT-T9-002"]
         self.assertEqual([(x["PORQUE"], x["ESTADO_LIDO"]) for x in e], [("FONTE_NAO_READY", "AUSENTE_DO_LIVRO")])
 
+    def test_linha_sem_candidatas_nao_pergunta_ao_portao(self):
+        # so no servico (eac885db3): `main` da [] as quatro linhas Python. Perguntar por elas lia o livro canonico
+        # a toa, e um livro ilegivel parava o servico por linhas que nao tinham nada a oferecer
+        perguntas = []
+
+        def portao(ids):
+            if not ids:
+                raise ValueError("perguntou ao portao sem fontes")
+            perguntas.append(list(ids))
+            return _admite_tudo(ids)
+        cands = dict(self.sites(["IT-T5-080"]), BUSCA=[], CIENCIA=[], SOCIAL=[], PESQUISADORES=[])
+        r = self.ciclo(cands, pecas=self.pecas(fonte=portao))
+        self.assertIsNone(r["PARA"], r)
+        self.assertEqual(perguntas, [["IT-T5-080"]])
+        self.assertEqual(r["LINHAS"]["SITES"]["CORRERAM"], ["IT-T5-080"])
+
     def test_o_agendador_pergunta_ao_mesmo_portao_que_a_onda(self):
         sys.path.insert(0, str(RAIZ / "curadoria"))
         import collection_gate as GATE  # noqa: PLC0415
