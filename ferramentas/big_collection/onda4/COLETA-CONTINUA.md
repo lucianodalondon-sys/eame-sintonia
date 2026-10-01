@@ -127,7 +127,7 @@ portão da onda recusou (`GATE:ESTADO_NAO_READY`); 0 corridas, 0 pedidos; a prov
    `collection_gate.avaliar`), no instante do ciclo. Fonte que ele não admite não vai à onda: fica em `ESPERAM` com
    `PORQUE=FONTE_NAO_READY`, `ESTADO_LIDO`, `MOTIVO_DO_PORTAO` e `PORQUE_DO_PORTAO`. A passagem da linha acaba com
    as admitidas (senão uma recusada prendia a linha em `NADA_ELEGIVEL` para sempre). Linha sem candidatas não
-   pergunta ao portão: não há nada a oferecer.
+   chega ao portão: o alimentador já a deu como `SEM_CATALOGO` (FEEDER-4-LINHAS).
 2. Ciclo **sem corrida e sem pedido** — estado de cada onda gravado, nenhuma fonte `CORREU`, nenhum `RUN_ID`, livro
    da onda ausente ou a 0 — dá `PROVA_TETO_CICLO=NADA_A_PROVAR` e **não** para. A prova de 24 h corre na mesma se
    houve corridas nas últimas 24 h. Uma corrida, um pedido, um livro ilegível ou um estado em falta = a prova corre
