@@ -37,6 +37,7 @@ sys.path.insert(0, str(RAIZ))
 import _gavetas  # noqa: E402,F401
 
 import publicar_portal_sozinho as P  # noqa: E402
+import pote_intelligence_casco as PIC  # noqa: E402 — o dono do contrato (K2: os eixos so ele os carimba)
 
 FIX = RAIZ / "tests" / "fixtures" / "pote"
 POTE_ENSAIO = json.loads((FIX / "POTE-SINTETICO-PUBLICA-SOZINHO.json").read_text(encoding="utf-8"))
@@ -87,6 +88,9 @@ def pote_liberado():
             lugar = f"raw/{pr['RAW_OBSERVATION_ID']}.html"
             bytes_.setdefault(lugar, f"<html>{pr['RAW_OBSERVATION_ID']}</html>".encode("utf-8"))
             pr[sha_c], pr[lugar_c] = P.hashlib.sha256(bytes_[lugar]).hexdigest(), lugar
+    # K2 · EIXOS/v1 (01/10): um objeto LIBERADO num pote sem eixos e a contradicao que o LAB reprovou (e97ce8b0) e o
+    # fiscal agora recusa. Os eixos sao carimbados pelo DONO (aplicar_eixos), que so copia a LIBERACAO dada acima.
+    p = PIC.aplicar_eixos(p)
     ver = {"POTE_SHA256": P.sha_do_pote(p), "VEREDITO": "APROVADO", "PREVIEW": "preview-de-prova",
            "CRITERIO": "21556c27b1ca8ba99f1f11a31e917a4b11a0e867962e9def952de384a13bb9f5", "QUANDO": "2026-09-28"}
     return p, ArmazemDeProva(bytes_), ver
@@ -172,6 +176,7 @@ class P0_OPote(unittest.TestCase):
         p, arm, ver = pote_liberado()
         o = next(o for _, o in P._objetos(p))
         o["LIBERACAO"] = "NAO_PARA_CLIENTE"
+        p = PIC.aplicar_eixos(p)                          # K2: o eixo 1 do objeto segue a LIBERACAO nova (o dono)
         ver["POTE_SHA256"] = P.sha_do_pote(p)
         self.assertEqual(ids(P.conferir_pote(p, CONTRATO, "producao", ver, arm)), ["C0_LIBERADO_PARA_CLIENTE"])
 

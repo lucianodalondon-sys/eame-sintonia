@@ -352,5 +352,44 @@ prova('P10 o pote v2 unico sintetico passa no leitor',
   prova('P12 o carregador le a ENTREGA do envelope publicado', !!sb.SINTONIA_POTE_ENTREGA && sb.SINTONIA_POTE_ENTREGA.ESTADO === 'RECUSADA');
 }
 
+/* ── P13 · K2 EIXOS/v1 (coordenador 01/10; contrato §5c, dono pacote/pote_intelligence_casco.py) ───────────────
+   EIXO 1 · ELEGIBILIDADE por objeto (LIBERACAO; MARCA, NAO_PARA_CLIENTE e ESTADO dizem o mesmo).
+   EIXO 2 · AMBIENTE por pote (AMBIENTE = PREVIEW_NAO_PRODUCAO, PRODUCAO = false, raiz e compartimentos).
+   POTE-SINTETICO-K2-EIXOS.json = POTE-SINTETICO-V2-UNICO.json com LIBERACAO carimbada (1.º objeto LIBERADO, o resto
+   NAO_PARA_CLIENTE) e passado por P.aplicar_eixos — o dono; nada escrito a mao. SINTETICO (ids SINT-). */
+const POTEK2 = JSON.parse(fs.readFileSync(path.join(RAIZ, 'tests/fixtures/pote/POTE-SINTETICO-K2-EIXOS.json'), 'utf8'));
+{
+  const recusa = (p) => { const Mx = montar(p); const r = ler(Mx, 'meeting'); return r.recusado === true && r.objetos.length === 0; };
+  const conf = (p) => montar(p).ctx.SINTONIA_POTE_CASCO.conferir(p);
+  prova('P13 o leitor aceita o pote K2 (os dois eixos, objeto liberado coerente)', conf(clone(POTEK2)).length === 0,
+    JSON.stringify(conf(clone(POTEK2)).slice(0, 3)));
+  prova('P13 pote K2: o Radar desenha os objetos do pote, na ordem do pote',
+    JSON.stringify(ler(montar(clone(POTEK2)), 'meeting').objetos.map((o) => o.id)) ===
+    JSON.stringify(POTEK2.COMPARTIMENTOS.meeting.OBJETOS.map((o) => o.OBJETO_ID)));
+  const e97 = clone(POTE2); e97.COMPARTIMENTOS.meeting.OBJETOS[0].LIBERACAO = 'LIBERADO_PARA_CLIENTE';
+  prova('P13 forma do e97ce8b0 (sem eixos, objeto LIBERADO e NAO_PARA_CLIENTE): recusado', recusa(e97));
+  for (const [nome, mexer] of [
+    ['PRODUCAO = true', (p) => { p.PRODUCAO = true; }],
+    ['sem PRODUCAO', (p) => { delete p.PRODUCAO; }],
+    ['AMBIENTE de producao', (p) => { p.AMBIENTE = 'PRODUCAO'; }],
+    ['sem AMBIENTE', (p) => { delete p.AMBIENTE; }],
+    ['sem a marca do ambiente na raiz', (p) => { p.MARCA = 'LIBERADO_PARA_CLIENTE'; }],
+    ['raiz que fala do cliente (NAO_PARA_CLIENTE na raiz)', (p) => { p.NAO_PARA_CLIENTE = false; }],
+    ['compartimento sem o ambiente', (p) => { delete p.COMPARTIMENTOS.windows.AMBIENTE; }],
+    ['compartimento que fala do cliente', (p) => { p.COMPARTIMENTOS.windows.NAO_PARA_CLIENTE = true; }],
+    ['objeto liberado que diz NAO_PARA_CLIENTE', (p) => { p.COMPARTIMENTOS.meeting.OBJETOS[0].NAO_PARA_CLIENTE = true; }],
+    ['objeto liberado com a marca experimental', (p) => { p.COMPARTIMENTOS.meeting.OBJETOS[0].MARCA = 'EXPERIMENTAL · NAO_PARA_CLIENTE'; }],
+    ['objeto liberado com ESTADO experimental', (p) => { p.COMPARTIMENTOS.meeting.OBJETOS[0].ESTADO = 'EXPERIMENTAL_CANDIDATE'; }],
+    ['objeto bloqueado que se diz cliente', (p) => { const o = p.COMPARTIMENTOS.windows.OBJETOS[0]; o.NAO_PARA_CLIENTE = false; }],
+    ['objeto sem LIBERACAO num pote com eixos', (p) => { delete p.COMPARTIMENTOS.windows.OBJETOS[0].LIBERACAO; }],
+    ['EIXOS de outra versao', (p) => { p.EIXOS = 'EIXOS/v2'; }],
+  ]) {
+    const p = clone(POTEK2); mexer(p);
+    prova(`P13 pote K2 com ${nome}: recusado, nada desenhado`, recusa(p));
+  }
+  prova('P13 o pote v2 de sempre (sem eixos, ninguem liberado) continua a ser lido — o dono ainda o aceita',
+    conf(clone(POTE2)).length === 0);
+}
+
 console.log(`\nPOTE NO CASCO: ${provas - falhas}/${provas} provas`);
 process.exit(falhas ? 1 : 0);
