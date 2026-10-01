@@ -95,9 +95,12 @@ TRINCO_F = "COLETA-CONTINUA.trinco"
 # D124-REBASE: a SITES tem SONDA — a ligacao mede-se pelo que o transporte FAZ (contra um servidor local,
 # sem rede), e nao pelo texto da chamada: a D124 mudou `reservar24h(host, 1)` para `reservar24h(host, 1, {...})`
 # e o texto deixava a linha em ESPERA_LIGACAO com o transporte ligado (verificador independente, 28/09).
+# FEEDER-4-LINHAS (01/10): "ONDA" = a linha tem onda no ciclo. So a SITES tem: `pecas["onda"]` e
+# `onda_web.py --correr`, que so aceita a coorte congelada. Linha sem ONDA nunca la vai (BLOQUEADA_CAPACIDADE).
 LINHAS = [
     {"LINHA": "SITES", "FAMILIA": "sites e boletins (T2/T3/T5/T7/T8/T9/T10/T12), pela coorte congelada",
-     "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs"},
+     "TRANSPORTE": "coleta/italy_pilot_collect.mjs", "SONDA": "ferramentas/big_collection/sonda_ligacao_sites.mjs",
+     "ONDA": "ferramentas/big_collection/onda_web.py --correr (so a coorte congelada)"},
     # LIGACAO-4-LINHAS (30/09): as quatro linhas Python deixaram de ser medidas por TEXTO. O texto mentia nos
     # dois sentidos: a BUSCA e a SOCIAL reservam no MESMO livro por outra porta (scrap_http -> teto_da_onda ->
     # cortesia_adaptativa) e ficavam ESPERA_LIGACAO; e o inverso (o texto la, a chamada morta) tambem passava.
@@ -191,6 +194,106 @@ def candidatas_do_plano(plano: dict, linha: str = "SITES") -> list:
                         "DOMINIOS": list(f.get("DOMINIOS") or [PT.dominio_registavel(f["DOMINIO"])]),
                         "RODADA_DO_PLANO": r["RODADA"], "CLASSE_PRIORIDADE": f.get("CLASSE_PRIORIDADE"),
                         "LINHA": linha})
+    return out
+
+
+# ── 1b. o alimentador por linha (FEEDER-4-LINHAS, 01/10) ─────────────────────
+# Medido nos ciclos 127-135: `main` dava [] as quatro linhas Python e elas saiam NADA_ELEGIVEL com FONTES=[] —
+# rota em falta a passar por zero real. Agora cada linha le o catalogo GOVERNADO que ja existe nesta arvore
+# (nada de fonte inventada nem catalogo novo) e, se nao pode correr, diz PORQUE com nome proprio.
+# NADA_ELEGIVEL fica so para "ha fontes e nenhuma cabe agora" (cadencia/teto). A ordem e a precedencia:
+# o primeiro motivo que se aplica da o ESTADO; os outros ficam em MOTIVOS.
+ESTADOS_DE_BLOQUEIO = ("SEM_CATALOGO", "BLOQUEADA_POLITICA", "BLOQUEADA_ROBOTS", "BLOQUEADA_PERMISSAO_SOCIAL",
+                       "BLOQUEADA_CAPACIDADE")
+SEM_ONDA = ("a coleta continua so tem a onda dos SITES (onda_web.py --correr), que so aceita a coorte congelada: "
+            "uma fonte desta linha la dentro e FONTE_FORA_DA_COORTE, a onda sai != 0 e o servico PARA")
+
+
+def _json(raiz: Path, rel: str):
+    return json.loads((raiz / rel).read_text(encoding="utf-8"))
+
+
+def _catalogo_busca(raiz: Path) -> dict:
+    rel = "data/derivados/LINHA-BUSCA/CONSULTAS.json"                  # o que `linha_busca.py --plano` gera (D93)
+    n = len(_json(raiz, rel))
+    return {"CATALOGO": rel, "UNIDADE": "consulta (assunto-primeiro, D93)", "UNIDADES_GOVERNADAS": n, "MOTIVOS": [],
+            "COMO_CORRE": "por CONSULTA (linha_busca.py --buscar/--colher --autorizado, o coordenador)"}
+
+
+def _catalogo_ciencia(raiz: Path) -> dict:
+    rel, contrato = "data/derivados/PESQUISADORES-T6/PLANO.json", "docs/fontes/CONTRATO-FONTE-T6-PESQUISADOR-V1.json"
+    n = len(_json(raiz, rel).get("CONSULTAS") or [])
+    estado = str(_json(raiz, contrato).get("ESTADO") or "")
+    m = [] if estado.upper().startswith("INSTALADO") else [
+        ("BLOQUEADA_POLITICA", "o contrato da fonte T6 nao esta instalado (%s: ESTADO=%r)" % (contrato, estado))]
+    return {"CATALOGO": rel, "UNIDADE": "par cultura x problema (consulta OpenAlex; pesquisadores_t6.py)",
+            "UNIDADES_GOVERNADAS": n, "MOTIVOS": m,
+            "COMO_CORRE": "por RODADA sobre o seu ESTADO.json (pesquisadores_t6.py --rede --rodada=N)"}
+
+
+def _catalogo_social(raiz: Path) -> dict:
+    rel, coorte = "curadoria/italy_contracts_curator.json", "ferramentas/big_collection/COORTE-BIG-COLLECTION-V1.json"
+    sys.path.insert(0, str(raiz / "curadoria"))
+    import plano_onda_social as POS                                    # noqa: PLC0415 — a regra da porta social
+    contratos = {c["SOURCE_ID"]: c for c in _json(raiz, rel)["FONTES"]}
+    sociais = POS.fontes_sociais(contratos)
+    fora = sorted({(c.get("ACQUISITION") or {}).get("STRATEGY") for c in contratos.values()} - {"SCRAP_FASE"},
+                  key=str)
+    ready = ((_json(raiz, coorte).get("PLANO") or {}).get("PAINEL_DO_GATE") or {}).get("READY_SOCIAL_TOTAL")
+    m = [] if sociais else [
+        ("SEM_CATALOGO", "0 fontes na porta social (plano_onda_social.fontes_sociais: contratos SCRAP_FASE) em %s; "
+                         "o maestro_social recusa o resto (FONTE_FORA_DO_PLANO_SOCIAL). Estrategias fora da porta "
+                         "social neste catalogo: %s" % (rel, ", ".join(map(str, fora))))]
+    return {"CATALOGO": rel, "UNIDADE": "fonte social (contrato SCRAP_FASE)", "UNIDADES_GOVERNADAS": len(sociais),
+            "MOTIVOS": m + [
+                ("BLOQUEADA_PERMISSAO_SOCIAL", "correr fontes sociais exige --autorizado-pelo-dono "
+                                               "(ferramentas/maestro_social/maestro_social.py); a coorte declara "
+                                               "READY_SOCIAL_TOTAL=%s (%s)" % (ready, coorte))],
+            "COMO_CORRE": "pelo maestro_social (--correr --autorizado-pelo-dono --fontes=)"}
+
+
+def _catalogo_pesquisadores(raiz: Path) -> dict:
+    rel = "data/derivados/LISTA-MESTRA/CRUZAMENTO-MUR-AGRI05.json"     # a identidade MUR que pessoas.py segue (D85)
+    lista = _json(raiz, rel).get("LISTA") or []
+    n = sum(1 for p in lista if isinstance(p.get("ORCID"), list) and len(p["ORCID"]) == 1)
+    return {"CATALOGO": rel, "UNIDADE": "pessoa MUR AGRI-05 com UM ORCID (seguir.py/orcid_lote.py)",
+            "UNIDADES_GOVERNADAS": n, "MOTIVOS": [
+                ("BLOQUEADA_ROBOTS", "robots.txt de pub.orcid.org = 'User-agent: * / Disallow: /' (lido a 26/09 "
+                                     "22:58Z; ferramentas/seguir_pesquisadores/SEGUIR-PESQUISADORES.md; o canario do "
+                                     "orcid_lote.py PARA por ROBOTS). Declarado, nao re-medido aqui (0 rede)")],
+            "COMO_CORRE": "por LOTE de pessoas (orcid_lote.py --autorizado; seguir.py --rodada SUBSTITUIDO, D90 3.4)"}
+
+
+CATALOGOS = {"BUSCA": _catalogo_busca, "CIENCIA": _catalogo_ciencia, "SOCIAL": _catalogo_social,
+             "PESQUISADORES": _catalogo_pesquisadores}
+
+
+def alimentar_linhas(plano: dict, raiz: Path = RAIZ) -> dict:
+    """{linha: {"CANDIDATAS": [...], "ESTADO": None | um de ESTADOS_DE_BLOQUEIO, "PORQUE", "CATALOGO",
+    "UNIDADE", "UNIDADES_GOVERNADAS", "MOTIVOS"}}. So leitura, 0 rede. So recebe CANDIDATAS a linha com ONDA no
+    ciclo (hoje a SITES, pelo plano); as outras dizem o que o catalogo delas tem e porque nao correm."""
+    out = {}
+    for l in LINHAS:
+        nome = l["LINHA"]
+        if nome == "SITES":
+            c = candidatas_do_plano(plano)
+            out[nome] = {"CANDIDATAS": c, "ESTADO": None, "PORQUE": None, "CATALOGO": "RODADAS-PLANO (--plano)",
+                         "UNIDADE": "fonte da coorte congelada", "UNIDADES_GOVERNADAS": len(c), "MOTIVOS": []}
+            continue
+        try:
+            f = CATALOGOS[nome](raiz) if nome in CATALOGOS else {"CATALOGO": None, "MOTIVOS": [
+                ("SEM_CATALOGO", "nenhum catalogo governado declarado para a linha %s" % nome)]}
+        except (OSError, ValueError, KeyError, TypeError, AttributeError, ImportError) as ex:
+            f = {"CATALOGO": None, "MOTIVOS": [("SEM_CATALOGO", "catalogo ilegivel: %s" % str(ex)[:200])]}
+        motivos = list(f["MOTIVOS"])
+        if not l.get("ONDA"):
+            motivos.append(("BLOQUEADA_CAPACIDADE", SEM_ONDA + ("; o transporte da linha corre " + f["COMO_CORRE"]
+                                                                if f.get("COMO_CORRE") else "")))
+        motivos = [{"ESTADO": e, "PORQUE": p} for e, p in sorted(motivos, key=lambda m: ESTADOS_DE_BLOQUEIO.index(m[0]))]
+        out[nome] = {"CANDIDATAS": [], "ESTADO": motivos[0]["ESTADO"] if motivos else None,
+                     "PORQUE": motivos[0]["PORQUE"] if motivos else None,
+                     "CATALOGO": f.get("CATALOGO"), "UNIDADE": f.get("UNIDADE"),
+                     "UNIDADES_GOVERNADAS": f.get("UNIDADES_GOVERNADAS", 0), "MOTIVOS": motivos}
     return out
 
 
@@ -449,8 +552,10 @@ def _juntar(a: dict | None, b: dict | None, f) -> dict | None:
 def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, historico: list | None = None,
           livros: Path | None = None, recibos: tuple = (), livro_24h: Path | None = None,
           agora_utc: datetime | None = None, max_fontes: int | None = None, paralelo: bool = False,
-          ligacao=medir_ligacao, a_seco: bool = False, janela_h: int | None = None) -> dict:
-    """Um ciclo inteiro. Devolve a linha do livro de ciclos. `PARA` != None = o servico para (fica PARADO)."""
+          ligacao=medir_ligacao, a_seco: bool = False, janela_h: int | None = None,
+          bloqueios: dict | None = None) -> dict:
+    """Um ciclo inteiro. Devolve a linha do livro de ciclos. `PARA` != None = o servico para (fica PARADO).
+    `bloqueios`: {linha: {"ESTADO": um de ESTADOS_DE_BLOQUEIO, "PORQUE": ...}} (o `alimentar_linhas`)."""
     base.mkdir(parents=True, exist_ok=True)
     estado = ler_estado(base)
     agora_u = agora_utc or datetime.now(timezone.utc)
@@ -490,9 +595,22 @@ def ciclo(base: Path, sha: str, candidatas_por_linha: dict, *, pecas: dict, hist
     orcamento: dict = {}
     escolha = {}
     for nome in ordem_das_linhas(list(candidatas_por_linha), reg["CICLO"]):
-        lig = ligacao(next((l for l in LINHAS if l["LINHA"] == nome), {"LINHA": nome, "TRANSPORTE": "?", "CHAMADA": "?"}))
-        feitas = ((estado.get("LINHAS") or {}).get(nome) or {}).get("FEITAS_NA_PASSAGEM") or []
+        decl = next((l for l in LINHAS if l["LINHA"] == nome), None)
         cands = candidatas_por_linha[nome]
+        # FEEDER-4-LINHAS: linha que nao pode correr tem nome proprio, e nunca NADA_ELEGIVEL (que e: ha fontes
+        # e nenhuma cabe). Decide-se antes da sonda: uma linha que nao corre nao precisa de prova de ligacao.
+        bl = (bloqueios or {}).get(nome)
+        if not bl and decl is not None and not decl.get("ONDA") and cands:
+            bl = {"ESTADO": "BLOQUEADA_CAPACIDADE", "PORQUE": SEM_ONDA}
+        if not bl and not cands:
+            bl = {"ESTADO": "SEM_CATALOGO", "PORQUE": "a linha nao recebeu nenhuma candidata: rota em falta, "
+                                                      "nao zero real"}
+        if bl:
+            reg["LINHAS"][nome] = dict({k: v for k, v in bl.items() if k != "CANDIDATAS"}, FONTES=[],
+                                       PEDIDOS_PREVISTOS=0, CANDIDATAS_RECEBIDAS=len(cands))
+            continue
+        lig = ligacao(decl or {"LINHA": nome, "TRANSPORTE": "?", "CHAMADA": "?"})
+        feitas = ((estado.get("LINHAS") or {}).get(nome) or {}).get("FEITAS_NA_PASSAGEM") or []
         if cands and all(c["SOURCE_ID"] in set(feitas) for c in cands) and not a_seco:
             feitas = []                                             # a coorte da linha acabou: nova passagem
             ln = estado.setdefault("LINHAS", {}).setdefault(nome, {})
@@ -817,10 +935,11 @@ def main(argv=None) -> int:
     recibos = tuple(Path(x) for x in arg.get("recibos", "").split(",") if x)
     livro_24h = Path(arg["teto-24h"]) if arg.get("teto-24h") else None
     max_f = int(arg["max-fontes"]) if arg.get("max-fontes") else None
-    cands = {l["LINHA"]: [] for l in LINHAS}
-    cands["SITES"] = candidatas_do_plano(plano)
+    alim = alimentar_linhas(plano)                                     # FEEDER-4-LINHAS: cada linha pelo seu catalogo
+    cands = {n: a["CANDIDATAS"] for n, a in alim.items()}
     kw = dict(historico=historico, livros=livros, recibos=recibos, livro_24h=livro_24h, max_fontes=max_f,
-              paralelo="--paralelo" in argv, janela_h=24 if "--janela-24h" in argv else None)
+              paralelo="--paralelo" in argv, janela_h=24 if "--janela-24h" in argv else None,
+              bloqueios={n: a for n, a in alim.items() if a["ESTADO"]})
     if "--ensaio-a-seco" in argv:
         # 0 rede, 0 Sala, 0 robo: so o agendador, com as feitas do disparador e os livros de hoje
         ag = datetime.fromisoformat(arg["agora"]).astimezone(timezone.utc) if arg.get("agora") else None
