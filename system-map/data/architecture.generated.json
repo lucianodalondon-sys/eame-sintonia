@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/c8-auto-v1",
-    "HEAD": "e95a43df16e0cb47522d6b7fa7afbc518b33e80d",
-    "GENERATED_AT": "2026-10-01T07:36:23-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2fd254d2a24955743d82e051630ba5d3269dc0726fce7a928ee01047b3feafbf"
+    "BRANCH": "claude/int-t5-regiao-v1",
+    "HEAD": "89b6e7645b11835d199cbd64ff961ecb36a3f122",
+    "GENERATED_AT": "2026-10-01T17:48:23-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0309aadecf914bc6f48b80439bd436c172cdf9741d55bad752daecbe52550fa3"
   },
   "FILES": [
     {
@@ -19239,7 +19239,7 @@
     },
     {
       "path": "motor/motor_das_capacidades.py",
-      "sha": "a24dc60b6b6894c22c8d594d41d3d557d0a3d2f6",
+      "sha": "0e8c15210784c7e1699001caa1080b31cc4f368d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19582,7 +19582,7 @@
     },
     {
       "path": "pacote/liberacao_por_criterio.py",
-      "sha": "007bcd928f7e65a8db7dc083143ca20c179bdb53",
+      "sha": "56a1eaf2827ab8aa5af2936063950ab493f566aa",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19694,7 +19694,7 @@
     },
     {
       "path": "pacote/rodada_viva/rodada_viva.sh",
-      "sha": "f5a65e20de9b92459b935f4d64bb6f15a9ad8751",
+      "sha": "19d8afd6bc40e924b281dbf7b866a0de9eacebe8",
       "ext": ".sh",
       "readable": true,
       "code_dir": true
@@ -23417,6 +23417,27 @@
       "code_dir": true
     },
     {
+      "path": "provas/t5-regiao/MUTACAO-T5.json",
+      "sha": "069f9cddc3f3d9174ecf8c28c2aa2aadb98c68b2",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t5-regiao/MUTACAO-T5.spec.json",
+      "sha": "938588f3f28cc631305b73170684bf64bd1a9163",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/t5-regiao/harness_mutacao.py",
+      "sha": "5176e6d8621ca341afac8efaa47ab304eac610fc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/tempo_e_lugar_acervo.py",
       "sha": "3c64ec8040c458e135efd1f1714ef43503054b23",
       "ext": ".py",
@@ -26512,7 +26533,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c4959360fca99904e10f982104dee266a5ed8c0e",
+      "sha": "fb4f9a77d313128744ac6283c4f6509347995be5",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -28486,7 +28507,7 @@
     },
     {
       "path": "tests/test_g0_da_afirmacao.py",
-      "sha": "61a3d67cc98aff62619fb8745f1f2309dabcea87",
+      "sha": "285512cc3b06fc25c2a8c2c1fb4588ab9cb3313a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29313,6 +29334,20 @@
     {
       "path": "tests/test_reel_transcricao_trava.py",
       "sha": "3cbb0e6f958047e03a2df3b6d3e6e35068ef8097",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_regiao_do_lugar.py",
+      "sha": "7807fca01784aacf35b1f2f3ef266aa2ca2075d6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_regua_por_natureza.py",
+      "sha": "d450d34b7a03cc71a006f17eaa9978af09bb04cf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -59259,6 +59294,17 @@
       }
     },
     {
+      "from_file": "motor/motor_das_capacidades.py",
+      "to_file": "motor/v21_normalizar.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "motor/motor_das_capacidades.py",
+        "line": 90,
+        "snippet": "import v21_normalizar as V21N                    # noqa: E402  (T5: dono da geografia — REGIOES, PROVINCIA_DE)"
+      }
+    },
+    {
       "from_file": "motor/normalize_agro.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -62565,7 +62611,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pacote/liberacao_por_criterio.py",
-        "line": 45,
+        "line": 46,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -62576,7 +62622,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pacote/liberacao_por_criterio.py",
-        "line": 289,
+        "line": 472,
         "snippet": "import gatilho_da_inteligencia as GI                # noqa: PLC0415"
       }
     },
@@ -62587,7 +62633,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pacote/liberacao_por_criterio.py",
-        "line": 288,
+        "line": 471,
         "snippet": "import motor_das_capacidades as M                   # noqa: PLC0415"
       }
     },
@@ -62598,7 +62644,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pacote/liberacao_por_criterio.py",
-        "line": 48,
+        "line": 49,
         "snippet": "import porta_da_referencia as PORTA      # noqa: E402"
       }
     },
@@ -62609,7 +62655,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pacote/liberacao_por_criterio.py",
-        "line": 46,
+        "line": 47,
         "snippet": "import pote_intelligence_casco as P      # noqa: E402 — gerador e fiscal do dono"
       }
     },
@@ -62620,7 +62666,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "pacote/liberacao_por_criterio.py",
-        "line": 47,
+        "line": 48,
         "snippet": "import validar_pote_v2 as VP             # noqa: E402"
       }
     },
@@ -101769,7 +101815,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 560,
+        "line": 566,
         "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")"
       }
     },
@@ -101791,7 +101837,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 559,
+        "line": 565,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -101813,7 +101859,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 559,
+        "line": 565,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -101824,7 +101870,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 579,
+        "line": 585,
         "snippet": "NOME_DE_CAMPO_DO_CONTRATO = {\"TRECHO_DA_AFIRMACAO\": (\"pacote/liberacao_por_criterio.py\",)}"
       }
     },
@@ -101835,7 +101881,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 560,
+        "line": 566,
         "snippet": "\"pacote/ponte_intelligence_casco.py\", \"admissao/gatilho_da_inteligencia.py\")"
       }
     },
@@ -101846,7 +101892,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_g0_da_afirmacao.py",
-        "line": 559,
+        "line": 565,
         "snippet": "DESTA_TAREFA = (\"motor/g0_da_afirmacao.py\", \"motor/motor_das_capacidades.py\", \"pacote/pote_intelligence_casco.py\","
       }
     },
@@ -109595,6 +109641,61 @@
       }
     },
     {
+      "from_file": "tests/test_regiao_do_lugar.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_regiao_do_lugar.py",
+        "line": 24,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_regiao_do_lugar.py",
+      "to_file": "admissao/gatilho_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_regiao_do_lugar.py",
+        "line": 27,
+        "snippet": "import gatilho_da_inteligencia as GI             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_regiao_do_lugar.py",
+      "to_file": "motor/motor_das_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_regiao_do_lugar.py",
+        "line": 26,
+        "snippet": "import motor_das_capacidades as M                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_regiao_do_lugar.py",
+      "to_file": "tests/test_g0_da_afirmacao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_regiao_do_lugar.py",
+        "line": 28,
+        "snippet": "from test_g0_da_afirmacao import _Caso, _afirmacao  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_regua_por_natureza.py",
+      "to_file": "pacote/liberacao_por_criterio.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_regua_por_natureza.py",
+        "line": 26,
+        "snippet": "import liberacao_por_criterio as L  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_regua_social_por_provas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -114104,10 +114205,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 4251,
-    "files_readable": 1789,
-    "files_code_dir": 2225,
-    "file_edges": 7607,
+    "files_tracked": 4256,
+    "files_readable": 1792,
+    "files_code_dir": 2230,
+    "file_edges": 7613,
     "escritas_em_pasta": 96,
     "declared_missing_here": 0
   },

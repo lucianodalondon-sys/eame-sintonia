@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-10-01T10:41:28+00:00",
-  "HEAD": "e95a43df16e0cb47522d6b7fa7afbc518b33e80d",
-  "BRANCH": "claude/c8-auto-v1",
+  "GENERATED_AT": "2026-10-01T20:54:37+00:00",
+  "HEAD": "89b6e7645b11835d199cbd64ff961ecb36a3f122",
+  "BRANCH": "claude/int-t5-regiao-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "2fd254d2a24955743d82e051630ba5d3269dc0726fce7a928ee01047b3feafbf",
-  "FICHEIROS_NA_IMPRESSAO": 4399,
+  "SOURCE_TREE_FINGERPRINT": "0309aadecf914bc6f48b80439bd436c172cdf9741d55bad752daecbe52550fa3",
+  "FICHEIROS_NA_IMPRESSAO": 4404,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2736,7 +2736,7 @@
    {
     "PATH": "motor/motor_das_capacidades.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a24dc60b6b6894c22c8d594d41d3d557d0a3d2f6",
+    "VERSAO": "0e8c15210784c7e1699001caa1080b31cc4f368d",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -2890,7 +2890,7 @@
    {
     "PATH": "pacote/liberacao_por_criterio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "007bcd928f7e65a8db7dc083143ca20c179bdb53",
+    "VERSAO": "56a1eaf2827ab8aa5af2936063950ab493f566aa",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4841,6 +4841,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/t5-regiao/harness_mutacao.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5176e6d8621ca341afac8efaa47ab304eac610fc",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/tempo_e_lugar_acervo.py",
     "PAPEL": "FONTE",
     "VERSAO": "3c64ec8040c458e135efd1f1714ef43503054b23",
@@ -5662,14 +5669,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "2fd254d2a24955743d82e051630ba5d3269dc0726fce7a928ee01047b3feafbf",
+    "VERSAO": "0309aadecf914bc6f48b80439bd436c172cdf9741d55bad752daecbe52550fa3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "2fd254d2a24955743d82e051630ba5d3269dc0726fce7a928ee01047b3feafbf",
+    "VERSAO": "0309aadecf914bc6f48b80439bd436c172cdf9741d55bad752daecbe52550fa3",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -7125,7 +7132,7 @@
    {
     "PATH": "tests/test_g0_da_afirmacao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "61a3d67cc98aff62619fb8745f1f2309dabcea87",
+    "VERSAO": "285512cc3b06fc25c2a8c2c1fb4588ab9cb3313a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -7949,6 +7956,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_regiao_do_lugar.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "7807fca01784aacf35b1f2f3ef266aa2ca2075d6",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_regua_por_natureza.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d450d34b7a03cc71a006f17eaa9978af09bb04cf",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_regua_social_por_provas.py",
     "PAPEL": "FONTE",
     "VERSAO": "fc0740c8c19262dab839cd140191129910712d4e",
@@ -8390,8 +8411,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 1193,
-  "INPUTS_DIGEST": "7fc645d3f9766dd60950e626cd06941d89c2bd82fbd3faacd474960062af43f2",
+  "INPUTS_COUNT": 1196,
+  "INPUTS_DIGEST": "374a83edbe2e864d754fb9080a394776d8bc171773924d7d7f167bfa0f0c9019",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -8424,8 +8445,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "83ef00c7d5b559b06810328b113a0acc125e1da036c49850daaa4c8d7f74e2c8",
-  "SEMANTIC_HASH": "b5533393446989d5992cc797688c3523ccde477482cb26962a59bfa540b1ad6b"
+  "MEASUREMENT_HASH": "089f83f2ac44a88f7d721582e01101daea2e82573e5469b401c5e98d605dad7d",
+  "SEMANTIC_HASH": "a7b19942e0b299a1700a488bbf55e80921882a8757e94ad8ea7f1e78ecb508e3"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -30600,7 +30621,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pacote/liberacao_por_criterio.py",
-      "LINHA": 288,
+      "LINHA": 471,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-POTE-INT-CASCO",
@@ -30747,6 +30768,14 @@
      {
       "FICHEIRO": "tests/test_porta_unica_referencia.py",
       "LINHA": 230,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_regiao_do_lugar.py",
+      "LINHA": 26,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--IMPORTS-->C-TESTES",
@@ -30956,7 +30985,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 559,
+      "LINHA": 565,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -30964,7 +30993,7 @@
      },
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 559,
+      "LINHA": 565,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-MOTOR-CAPACIDADES--READS-->C-TESTES",
@@ -31216,7 +31245,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pacote/liberacao_por_criterio.py",
-      "LINHA": 48,
+      "LINHA": 49,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INT-PORTA-REFERENCIA--IMPORTS-->C-POTE-INT-CASCO",
@@ -36532,7 +36561,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pacote/liberacao_por_criterio.py",
-      "LINHA": 289,
+      "LINHA": 472,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--IMPORTS-->C-POTE-INT-CASCO",
@@ -36629,6 +36658,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--IMPORTS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_regiao_do_lugar.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -36676,7 +36713,7 @@
      },
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 560,
+      "LINHA": 566,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-L2-DISPARADOR-INTELLIGENCE--READS-->C-TESTES",
@@ -40304,7 +40341,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pacote/liberacao_por_criterio.py",
-      "LINHA": 45,
+      "LINHA": 46,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--IMPORTS-->C-POTE-INT-CASCO",
@@ -47203,7 +47240,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 560,
+      "LINHA": 566,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PONTE-INT-CASCO--READS-->C-TESTES",
@@ -48611,7 +48648,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 559,
+      "LINHA": 565,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -48619,7 +48656,7 @@
      },
      {
       "FICHEIRO": "tests/test_g0_da_afirmacao.py",
-      "LINHA": 579,
+      "LINHA": 585,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-POTE-INT-CASCO--READS-->C-TESTES",
@@ -64247,6 +64284,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-V21-INGEST--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
+    "FROM": "C-V21-INGEST",
+    "TO": "C-INT-MOTOR-CAPACIDADES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "motor/motor_das_capacidades.py",
+      "LINHA": 90,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V21-INGEST--IMPORTS-->C-INT-MOTOR-CAPACIDADES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-V21-INGEST--IMPORTS-->C-INT-PORTA-REFERENCIA",
     "FROM": "C-V21-INGEST",
     "TO": "C-INT-PORTA-REFERENCIA",
@@ -65063,12 +65122,12 @@
     ]
    }
   ],
-  "COUNT": 1848
+  "COUNT": 1849
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 241,
   "CARTOES_AUDITADOS": 241,
-  "ARESTAS_RELACIONADAS": 1848,
+  "ARESTAS_RELACIONADAS": 1849,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -65581,7 +65640,7 @@
   },
   "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 340,
+   "CODE": 341,
    "CONTROL": 90,
    "DATA": 30,
    "PROOF": 655,
@@ -69931,7 +69990,7 @@
     "datetime",
     "pathlib"
    ],
-   "ENTRAM": 6,
+   "ENTRAM": 7,
    "SAEM": 13,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -70822,6 +70881,7 @@
     "provas/contador_24h_mutacao.py",
     "provas/onda_web_mutacao.py",
     "provas/rodadas_mutacao.py",
+    "provas/t5-regiao/harness_mutacao.py",
     "provas/teto_dominio_mutacao.py",
     "tests/test_teto_dominio.py"
    ],
@@ -72406,6 +72466,7 @@
     "provas/contador_24h_mutacao.py",
     "provas/onda_web_mutacao.py",
     "provas/rodadas_mutacao.py",
+    "provas/t5-regiao/harness_mutacao.py",
     "provas/teto_dominio_mutacao.py",
     "tests/test_teto_dominio.py"
    ],
@@ -72507,6 +72568,7 @@
     "italia-portale/client/support.js"
    ],
    "CHAMADORES_DE_RUNTIME": [
+    "motor/motor_das_capacidades.py",
     "motor/v21_completude_oportunidade.py"
    ],
    "SO_MEDEM_ESTE": [
@@ -72518,6 +72580,7 @@
     "tests/test_a_demanda_de_dados_da_italia.py",
     "tests/test_g0_da_afirmacao.py",
     "tests/test_pote_no_casco.mjs",
+    "tests/test_regiao_do_lugar.py",
     "tests/test_relevance_priority_sobrecarga.py",
     "tests/test_security_ratchet.py"
    ],
@@ -74246,7 +74309,8 @@
     "provas/l2/g0_afirmacao_r9.py",
     "provas/l2/mutantes.py",
     "provas/l2/mutantes_g0.py",
-    "provas/l2/r9_auto_vs_manual.py"
+    "provas/l2/r9_auto_vs_manual.py",
+    "provas/t5-regiao/harness_mutacao.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -77767,6 +77831,8 @@
     "tests/test_red_team_estrada.py",
     "tests/test_reel_transcricao.py",
     "tests/test_reel_transcricao_trava.py",
+    "tests/test_regiao_do_lugar.py",
+    "tests/test_regua_por_natureza.py",
     "tests/test_regua_social_por_provas.py",
     "tests/test_regua_t1.py",
     "tests/test_regua_t2.py",
@@ -77986,6 +78052,7 @@
     "regras",
     "sala_de_espera_atual",
     "sqlite_master",
+    "test_g",
     "test_importar_do_coletor",
     "test_italia_na_porta_canonica",
     "test_youtube_pelo_scrap",
@@ -78183,7 +78250,7 @@
     "v"
    ],
    "ENTRAM": 7,
-   "SAEM": 11,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
