@@ -190,7 +190,11 @@ def conferir_pote(pote: dict, contrato: dict, modo: str, veredito_lab=None, arma
 
     # 7 · a promocao de um pote EXPERIMENTAL
     prom = contrato["REGRA_DE_PROMOCAO"]
-    experimental = pote.get("MARCA") == MARCA_EXPERIMENTAL or pote.get("NAO_PARA_CLIENTE") is True
+    # K2 · EIXOS/v1 (01/10): o pote com eixos diz "EXPERIMENTAL · PREVIEW_NAO_PRODUCAO" e AMBIENTE na raiz, sem
+    # NAO_PARA_CLIENTE. Continua EXPERIMENTAL: a promocao nao pode passar a "pote sem marca" so por o nome mudar.
+    experimental = (pote.get("MARCA") == MARCA_EXPERIMENTAL or pote.get("NAO_PARA_CLIENTE") is True
+                    or "EXPERIMENTAL" in str(pote.get("MARCA") or "").upper()
+                    or pote.get("AMBIENTE") == "PREVIEW_NAO_PRODUCAO" or pote.get("PRODUCAO") is False)
     aprovada = (prom.get("ESTADO") == "APROVADA_PELO_DONO" and _sabido(prom.get("APROVADA_POR"))
                 and _sabido(prom.get("APROVADA_EM")))
     if not experimental:

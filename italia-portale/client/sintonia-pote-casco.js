@@ -52,6 +52,14 @@ window.SINTONIA_POTE_ENTREGA = window.SINTONIA_POTE_ENTREGA || null;
 window.SINTONIA_POTE_CASCO = (function () {
   var CONTRATO = 'POTE_INTELLIGENCE_CASCO/v2';
   var MARCA = 'EXPERIMENTAL · NAO_PARA_CLIENTE';
+  /* K2 · EIXOS/v1 (01/10) — copias de leitura das constantes do dono (pacote/pote_intelligence_casco.py). */
+  var EIXOS = 'EIXOS/v1 (K2 · 2026-10-01)';
+  var AMBIENTE = 'PREVIEW_NAO_PRODUCAO';
+  var MARCA_AMBIENTE = 'EXPERIMENTAL · PREVIEW_NAO_PRODUCAO';
+  var LIBERADO = 'LIBERADO_PARA_CLIENTE';
+  var NAO_LIBERADO = 'NAO_PARA_CLIENTE';
+  var MARCA_LIBERADO = 'LIBERADO_PARA_CLIENTE · C8-AUTO';
+  var ESTADO_EXP = 'EXPERIMENTAL_CANDIDATE';
   var NAO_SEI = 'NAO SEI';
   var DOZE = ['meeting', 'future', 'windows', 'market', 'voices', 'competitors', 'science',
     'portfolio', 'archive', 'sources', 'field', 'casa'];
@@ -137,18 +145,34 @@ window.SINTONIA_POTE_CASCO = (function () {
     var v = [];
     if (!p || typeof p !== 'object') return ['o pote nao e objeto'];
     if (p.SCHEMA !== CONTRATO) v.push('SCHEMA ' + txt(p.SCHEMA) + ' nao e ' + CONTRATO);
-    if (p.MARCA !== MARCA || p.NAO_PARA_CLIENTE !== true) v.push('pote sem a marca ' + MARCA);
+    /* K2 · EIXOS/v1 (contrato §5c): com EIXOS, a raiz diz o AMBIENTE e nada sobre o cliente; sem EIXOS, e o v2 de
+       sempre (a marca EXPERIMENTAL · NAO_PARA_CLIENTE em tudo). Copia de leitura de _marcas_dos_eixos. */
+    var eixos = p.EIXOS === EIXOS;
+    if (!eixos) {
+      if ('EIXOS' in p) v.push('EIXOS ' + txt(p.EIXOS) + ' nao e ' + EIXOS);
+      if (p.MARCA !== MARCA || p.NAO_PARA_CLIENTE !== true) v.push('pote sem a marca ' + MARCA);
+    } else {
+      if (p.AMBIENTE !== AMBIENTE || p.PRODUCAO !== false) v.push('EIXO 2: pote sem AMBIENTE = ' + AMBIENTE + ' e PRODUCAO = false');
+      if (p.MARCA !== MARCA_AMBIENTE) v.push('EIXO 2: a marca da raiz e a do ambiente (' + MARCA_AMBIENTE + ')');
+      if ('NAO_PARA_CLIENTE' in p) v.push('K2: a raiz diz NAO_PARA_CLIENTE — o cliente e eixo do objeto');
+    }
     if (!p.INTELLIGENCE_RUN_ID || ns(p.INTELLIGENCE_RUN_ID)) v.push('pote sem INTELLIGENCE_RUN_ID');
     var C = p.COMPARTIMENTOS;
     if (!C || typeof C !== 'object') return v.concat(['pote sem COMPARTIMENTOS']);
     DOZE.forEach(function (k) {
       var e = C[k];
       if (!e) { v.push('falta o compartimento ' + k); return; }
+      if (!eixos) {
+        if (e.MARCA !== MARCA || e.NAO_PARA_CLIENTE !== true) v.push(k + ': compartimento sem a marca');
+      } else {
+        if (e.MARCA !== MARCA_AMBIENTE || e.AMBIENTE !== AMBIENTE) v.push(k + ': EIXO 2: compartimento sem a marca do ambiente');
+        if ('NAO_PARA_CLIENTE' in e) v.push(k + ': K2: o compartimento diz NAO_PARA_CLIENTE');
+      }
       var objs = e.OBJETOS || [];
       if (!objs.length && (e.ESTADO !== 'VAZIO' || !e.PORQUE_VAZIO)) v.push(k + ': vazio sem o porque');
       objs.forEach(function (o) {
         var id = k + '/' + o.OBJETO_ID;
-        if (o.MARCA !== MARCA || o.NAO_PARA_CLIENTE !== true) v.push(id + ': sem a marca');
+        v.push.apply(v, marcaDoObjeto(o, id, eixos));
         if ((e.ESPECIES_ADMITIDAS || []).indexOf(o.ESPECIE) < 0) v.push(id + ': especie fora do compartimento');
         if (!o.PROVA || !o.PROVA.length) v.push(id + ': sem prova');
         (o.PROVA || []).forEach(function (p) {
@@ -170,6 +194,24 @@ window.SINTONIA_POTE_CASCO = (function () {
       });
     });
     return v;
+  }
+
+  /* K2 · EIXO 1: o objeto diz UMA coisa sobre o cliente — LIBERACAO, MARCA, NAO_PARA_CLIENTE e ESTADO concordam.
+     Copia de leitura de _marca_do_objeto (dono: pacote/pote_intelligence_casco.py). O casco nao libera nada:
+     so recusa o pote cujo objeto se contradiz. */
+  function marcaDoObjeto(o, id, eixos) {
+    var lib = o.LIBERACAO, v = [];
+    if (!eixos) {
+      if (o.MARCA !== MARCA || o.NAO_PARA_CLIENTE !== true) v.push(id + ': sem a marca');
+      if (o.ESTADO !== ESTADO_EXP) v.push(id + ': estado ' + txt(o.ESTADO) + ' nao e ' + ESTADO_EXP);
+      if (lib === LIBERADO) v.push(id + ': K2: LIBERADO_PARA_CLIENTE e NAO_PARA_CLIENTE ao mesmo tempo (pote sem os eixos)');
+      return v;
+    }
+    var ok;
+    if (lib === LIBERADO) ok = o.NAO_PARA_CLIENTE === false && o.MARCA === MARCA_LIBERADO && o.ESTADO === LIBERADO;
+    else if (lib === NAO_LIBERADO) ok = o.NAO_PARA_CLIENTE === true && o.MARCA === MARCA && o.ESTADO === ESTADO_EXP;
+    else return [id + ': EIXO 1: LIBERACAO ' + txt(lib) + ' nao e ' + LIBERADO + ' nem ' + NAO_LIBERADO];
+    return ok ? [] : [id + ': K2: LIBERACAO ' + lib + ' e MARCA/NAO_PARA_CLIENTE/ESTADO dizem outra coisa'];
   }
 
   /* P8 · >= 2 pontos, cada um com PERIOD/PRICE/UNIT, todos na mesma unidade, periodos distintos. */
